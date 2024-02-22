@@ -10,10 +10,10 @@ An agent's queue is configured using an [agent tag](/docs/agent/v3/cli-start#set
 
 Agents can only be configured to listen on a single queue within a cluster.
 
-In the following example, the `--tags` flag of the `buildkite-agent start` command is used to configure this agent to listen on the `my-example-queue` queue, which is part of the _My cluster_ cluster:
+In the following example, the `--tags` flag of the `buildkite-agent start` command is used to configure this agent to listen on the `linux-medium-x86` queue, which is part of the _Testing_ cluster:
 
 ```
-buildkite-agent start --token "MY-CLUSTERS-AGENT-TOKEN-VALUE" --tags "queue=my-example-queue"
+buildkite-agent start --token "TESTING-AGENT-TOKEN-VALUE" --tags "queue=linux-medium-x86"
 ```
 
 > 📘 Ensure you have already configured your cluster's agent tokens and queues
@@ -24,19 +24,17 @@ buildkite-agent start --token "MY-CLUSTERS-AGENT-TOKEN-VALUE" --tags "queue=my-e
 > 🚧 This section documents a deprecated Buildkite feature
 > Learn more about unclustered agents and their tokens in [Unclustered agent tokens](/docs/agent/v3/unclustered-tokens).
 
-For unclustered agents, queues are configured when starting a Buildkite agent. Unclustered agent  can listen on a single queue or on multiple queues. You can add as many extra `queue` tags as are required.
+For unclustered agents, queues are configured when starting a Buildkite agent. An unclustered agent can listen on a single queue or on multiple queues. For multiple queues, add as many extra `queue` tags as are required.
 
-In the below example using the `--tags` flag of the `buildkite-agent start` command, two queues are specified which will result in the agent listening on both the `building` and `testing` queues:
+In the following example, the `--tags` flag of the `buildkite-agent start` command is used to configure this unclustered agent to listen on both the `development` and `testing` queues:
 
 ```
-buildkite-agent start --tags "queue=building,queue=testing"
+buildkite-agent start --token "UNCLUSTERED-AGENT-TOKEN-VALUE" --tags "queue=development,queue=testing"
 ```
-
-<%= image "agent-queues.png", width: 1182/2, height: 160/2, alt: "Screenshot of an agent's tags showing both building and testing queues" %>
 
 ## The default queue
 
-If you don't configure a queue for your agent by [setting](/docs/agent/v3/cli-start#setting-tags) the [queue tag](/docs/agent/v3/cli-start#the-queue-tag) (for example, `queue=my-example-queue`), the agent will accept jobs from the default queue as if you had set (that is, `queue=default`).
+If you don't configure a queue for your agent by [setting](/docs/agent/v3/cli-start#setting-tags) the [queue tag](/docs/agent/v3/cli-start#the-queue-tag) (for example, `queue=linux-medium-x86`), the agent will accept jobs from the default queue as if you had set (that is, `queue=default`).
 
 > 📘 Clusters without a default queue configured
 > If you start your agent without explicitly specifying an [existing queue in your cluster](/docs/clusters/manage-queues#setting-up-queues) _and_ a default queue is not configured in your cluster, then your agent will fail to start.
@@ -46,7 +44,7 @@ If you don't configure a queue for your agent by [setting](/docs/agent/v3/cli-st
 
 Target specific queues using the `agents` attribute on your pipeline steps or at the root level for the entire pipeline.
 
-For example, the following pipeline would run on the `priority` queue as determined by the root level `agents` attribute (and ignores the agents running the `default` queue). The `tests.sh` build step matches only agents running on the `deploy` queue.
+For example, the following pipeline would run on the `priority` queue as determined by the root level `agents` attribute (and ignores the agents running the `default` queue). The `tests.sh` build step matches only agents running on the `linux-medium-x86` queue.
 
 ```yaml
 agents:
@@ -57,7 +55,7 @@ steps:
 
   - command: tests.sh
     agents:
-      queue: "deploy"
+      queue: "linux-medium-x86"
 ```
 
 ## Alternative methods
