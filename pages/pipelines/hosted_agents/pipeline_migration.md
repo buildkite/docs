@@ -6,7 +6,7 @@ To migrate an existing pipeline to use a hosted agents queue, you must first ens
 - Each step in the pipeline targets the required hosted agent queue.
 - Source control settings have been updated to allow code access.
 
-Different pipeline settings are required for public and private repositories, see below for the relevant instructions.
+An additional step is required for private private repositories, see below for the relevant instructions.
 
 ### Private repository
 
@@ -20,7 +20,7 @@ To set your pipeline to use the _GitHub (with code access)_ service:
 1. Select the repository.
 1. Select _Save Repository_.
 
-## Public repository
+## All repositories
 
 When accessing a public repository from a Buildkite hosted agent, you must ensure the services is using `HTTPS` for checkout.
 
