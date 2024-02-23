@@ -1,6 +1,6 @@
 # Buildkite hosted agents
 
-Buildkite hosted agents provides a fully-managed platform on which you can run your agents.
+Buildkite hosted agents provides a fully-managed platform on which you can run your agents, so that you don't have to manage agents in your own self-hosted environment.
 
 With hosted agents, Buildkite handles infrastructure management tasks, such as provisioning, scaling, and maintaining the servers that run your agents.
 
