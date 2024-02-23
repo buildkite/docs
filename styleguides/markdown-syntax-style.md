@@ -210,7 +210,7 @@ Currently, callouts in the Buildkite Docs are generated through a combination of
 A regular info callout ("purple"):
 
 ```
->📘 An info callout title
+> 📘 An info callout title
 > Callout content can have <code>code</code> or _emphasis_ and other inline elements in it, <a href="#">including links</a>.
 > Every line break after the first becomes a new paragraph inside the callout.
 ```
@@ -232,7 +232,7 @@ Callout headings avoid clashing with other content heading by being styled as pa
 For troubleshooting callouts ("orange"), use the 🚧 emoji:
 
 ```
->🚧 A troubleshooting callout title
+> 🚧 A troubleshooting callout title
 > Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a>.
 > Every line break after the first becomes a new paragraph inside the callout.
 ```
@@ -240,7 +240,7 @@ For troubleshooting callouts ("orange"), use the 🚧 emoji:
 While no longer used in the Buildkite Docs, Work-in-progress (WIP) or Experimental callouts ("orange"), use the 🛠 emoji:
 
 ```
->🛠 This marks it as WIP
+> 🛠 This marks it as WIP
 > Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a>.
 > Every line break after the first becomes a new paragraph inside the callout.
 ```
