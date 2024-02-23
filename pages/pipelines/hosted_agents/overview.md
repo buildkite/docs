@@ -1,4 +1,4 @@
-# What are hosted agents
+# Buildkite hosted agents
 
 Buildkite hosted agents provides a fully-managed platform on which you can run your agents.
 
