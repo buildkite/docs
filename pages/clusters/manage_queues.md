@@ -12,9 +12,9 @@ A cluster can be configured with multiple queues, each of which can be used to r
 - Size of agents (small, medium, large)
 - Type of machine (Mac, Linux, Windows, etc.)
 
-Therefore, some example queues might be `mac_medium_x86`, `mac_large_silicon`, etc.
+Some example queues might be `mac_medium_x86`, `mac_large_silicon`, etc.
 
-Having individual queues according to these breakdowns allows you to scale your agents that all look the same and Buildkite will report on these.
+Having individual queues according to these breakdowns allows you to scale a set of similar agents, which Buildkite can then report on.
 
 ## Create a new queue
 

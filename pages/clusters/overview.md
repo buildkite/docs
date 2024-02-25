@@ -17,10 +17,7 @@ Clusters encapsulate groups of agents and pipelines, enabling the following:
 - Individual users or teams can maintain their own clusters. Cluster maintainers can manage queues and agent tokens, and add and remove pipelines.
 - Pipelines can be assigned to a cluster, ensuring their builds run only on the agents connected to this cluster. These pipelines can also trigger builds only on other pipelines in the same cluster.
 
-## Clusters and Queues best practice
-
->📘 Clusters Pipelines
-> Pipelines defined in a cluster cannot trigger pipelines in another cluster
+## Clusters and queues best practices
 
 ### How should I structure my clusters
 
@@ -33,6 +30,9 @@ The most common patterns seen for cluster configurations are based on stage setu
 
 You can create as many clusters as your require for your setup.
 
+>📘 Pipeline triggering
+> Pipelines associated with one cluster cannot trigger pipelines associated with another cluster
+
 ### How should I structure my queues
 
 The most common queue attributes are based on infrastructure set-ups, such as:
@@ -43,7 +43,7 @@ The most common queue attributes are based on infrastructure set-ups, such as:
 
 Therefore, an example queue would be `small_mac_silicon`.
 
-Having individual queues according to these breakdowns allows you to scale your agents that all look the same and Buildkite will report on these.
+Having individual queues according to these breakdowns allows you to scale a set of similar agents, which Buildkite can then report on.
 
 ## Queue metrics
 
@@ -57,10 +57,10 @@ If you have multiple clusters, or unclustered pipelines and agents, selecting _A
 
 ### Accessing clustered and unclustered agents, and pipelines
 
-Any agents or pipelines not associated with a cluster are called _unclustered_.
+Any agents and pipelines which are not associated with a cluster are known as _unclustered agents_ and _pipelines_, respectively.
 
-To view and manage your all of your agents, their (unclustered) agent tokens, and pipelines, _Agents_ > _Cluster_ area of your Buildkite organization. From this area:
+To view and manage your all of your agents, their (unclustered) agent tokens, and pipelines, select _Agents_ from the global navigation of your Buildkite organization to open the _Clusters_ page. From this page:
 
-- To access a specific cluster's agents, their associated agent tokens, as well as the cluster's queues and pipelines, select the relevant cluster (or its _queue_ or _pipelines_ link) from this area.
+- To access a specific cluster's agents, their associated agent tokens, as well as the cluster's queues and pipelines, select the relevant cluster (or its _queue_ or _pipelines_ link) from this page.
 
-- To access your unclustered agents, their associated agent tokens, as well as their pipelines, select _Unclustered_ (or its _pipelines_ link) from this area.
+- To access your unclustered agents, their associated agent tokens, as well as their pipelines, select _Unclustered_ (or its _pipelines_ link) from this page.
