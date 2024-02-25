@@ -26,7 +26,7 @@ For example you may have two queues set up:
 * `mac_small_7gb`
 * `mac_large_32gb`
 
-Learn more about best practices for configuring queues in [How should I structure my queues](/docs/clusters/overview#clusters-and-queues-best-practice-how-should-i-structure-my-queues).
+Learn more about best practices for configuring queues in [How should I structure my queues](/docs/clusters/overview#clusters-and-queues-best-practices-how-should-i-structure-my-queues).
 
 To create a hosted agent queue:
 
