@@ -135,7 +135,7 @@ where:
           }
         }
         ```
-      
+
         **Note:** `organization-slug` can be obtained from the end of your Buildkite URL, obtained by accessing the _Pipelines_ in the global navigation of your organization in Buildkite.
 
 - `cluster-id` can be obtained:
