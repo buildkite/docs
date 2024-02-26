@@ -88,7 +88,7 @@ The new agent token appears on the cluster's _Agent Tokens_ page.
 
 ### Using the GraphQL API
 
-To [create an agent token](/docs/apis/graphql/cookbooks/clusters) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+To [create an agent token](/docs/apis/graphql/schemas/mutation/clusteragenttokencreate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
 
 ```graphql
 mutation {
@@ -164,9 +164,11 @@ where:
         }
         ```
 
+- `description` (optional) should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. To access this page, select _Agents_ (in the global navigation) > the specific cluster > _Agent Tokens_.
+
 The new agent token appears on the cluster's _Agent Tokens_ page.
 
-> 📘 Receiving an error when attempting to create a token?
+> 📘 Receiving a `jobTokensEnabled` error when attempting to create a new token?
 > If so, try removing the `jobTokensEnabled` field from this mutation.
 
 ## Revoke a token
@@ -232,11 +234,68 @@ where:
         curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens"
         ```
 
-- `description` (optional) should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. To access this page, select _Agents_ (in the global navigation) > the specific cluster > _Agent Tokens_.
-
 ### Using the GraphQL API
 
-To [create an agent token](/docs/apis/graphql/cookbooks/clusters) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+To [revoke an agent token](/docs/apis/graphql/schemas/mutation/clusteragenttokenrevoke) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+
+```graphql
+mutation {
+  clusterAgentTokenRevoke(
+    input: {
+      organizationId: "organization-id"
+      id: "cluster-id"
+    }
+  ) {
+    deletedClusterAgentTokenId {
+      
+    }
+  }
+}
+```
+
+where:
+
+- `organization-id` can be obtained:
+
+    * From the _GraphQL API Integration_ section of your _Organization Settings_ page, accessed by selecting _Settings_ in the global navigation of your organization in Buildkite.
+
+    * By running the [getOrgId](/docs/apis/graphql/schemas/query/organization) GraphQL API query to obtain this value from `id` in the response. For example:
+
+        ```graphql
+        query getOrgId {
+          organization(slug: "organization-slug") {
+            id
+          }
+        }
+        ```
+
+        **Note:** `organization-slug` can be obtained from the end of your Buildkite URL, obtained by accessing the _Pipelines_ in the global navigation of your organization in Buildkite.
+
+- `id` can be obtained:
+
+    * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
+        1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.
+        1. Once on the _Cluster Settings_ page, copy the `cluster` parameter value from the _GraphQL API Integration_ section, which is the `cluster.id` value.
+
+    * By running the [List clusters](/docs/apis/graphql/cookbooks/clusters#list-clusters) GraphQL API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
+
+        ```graphql
+        query getClusters {
+          organization(slug: "organization-slug") {
+            clusters(first: 10) {
+              edges {
+                node {
+                  id
+                  name
+                  uuid
+                  color
+                  description
+                }
+              }
+            }
+          }
+        }
+        ```
 
 ## Scope of access
 
