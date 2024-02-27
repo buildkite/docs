@@ -19,7 +19,7 @@ Tests that are assigned to a team will update to display a badge indicating as s
 
 ## Viewing assignments
 
-Users who belong to the assigned team can check their assignments by clicking "My Assignments" in the navbar.
+Users who belong to the assigned team can check their assignments by clicking "My Assignments" in the side bar.
 
-They can also view assigned tests that are no longer registering as flaky. As we only detect flakies that have occurred in the last 7 days, it is possible for an assignment to remain after a flake has resolved, or a pipeline has not run in more than 7 days. Users can remove the assignment if they suspect it has been resolved.
+They can also view assigned tests that are no longer registering as flaky. As we only detect flaky tests that have occurred in the last 7 days, it is possible for an assignment to remain after a flake has resolved, or a pipeline has not run in more than 7 days. Users can remove the assignment if they suspect it has been resolved.
 
