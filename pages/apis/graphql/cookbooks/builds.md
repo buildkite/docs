@@ -250,3 +250,41 @@ query GetTotalBuildRunTime{
   }
 }
 ```
+
+## Create a build on a pipeline
+
+Create a build programmatically.
+First, get the ID for the pipeline to create a build for:
+
+```
+query GetPipelineID {
+  organization(slug: "organization-slug") {
+    pipelines(first: 50, search: "part of slug") {
+      edges {
+        node {
+          slug
+          id
+        }
+      }
+    }
+  }
+}
+```
+
+Then, create the build:
+
+```
+  mutation createBuild {
+    buildCreate(
+      input: {
+        commit: "commit-hash"
+        branch: "branch-name"
+        pipelineID: "pipeline-id"
+      }
+    ) {
+      build {
+        number
+      }
+    }
+  }
+```
