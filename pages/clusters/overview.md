@@ -49,15 +49,11 @@ Having individual queues according to these breakdowns allows you to scale a set
 
 Clusters provides additional, easy to access queue metrics that are available only for queues within a cluster. Learn more in [Cluster queue metrics](/docs/pipelines/cluster-queue-metrics).
 
-## Accessing clusters and agents
-
-If you only have one Cluster with one Queue selecting _Agents_ in the global navigation will take you to your single queue.
-
-If you have multiple clusters, or unclustered pipelines and agents, selecting _Agents_ in the global navigation will take you to the _Clusters_ page. Once on this page, you can navigate to your agents by selecting the cluster the agents are part of, or _Unclustered_ for agents that were not created as part of a cluster.
-
-### Accessing clustered and unclustered agents, and pipelines
+## Accessing your agents and pipelines
 
 Any agents and pipelines which are not associated with a cluster are known as _unclustered agents_ and _pipelines_, respectively.
+
+If you have multiple clusters, or unclustered pipelines and agents, selecting _Agents_ in the global navigation takes you to the _Clusters_ page. Once on this page, you can navigate to your agents by selecting the cluster the agents are part of, or _Unclustered_ for agents that were not created as part of a cluster.
 
 To view and manage your all of your agents, their (unclustered) agent tokens, and pipelines, select _Agents_ from the global navigation of your Buildkite organization to open the _Clusters_ page. From this page:
 
