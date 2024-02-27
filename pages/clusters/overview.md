@@ -7,7 +7,7 @@ Clusters is a Buildkite feature used to manage and organize agents and queues, w
 - helps make agents and queues more discoverable across your organization, and
 - provides easily accessible queue metrics.
 
-The following diagram shows the architecture with cluster enabled.
+The following diagram shows the architecture of a Buildkite organization's clusters, along with their pipelines and queues.
 
 <%= image "clusters-architecture.png", alt: "Diagram showing existing architecture and architecture with clusters" %>
 
@@ -51,9 +51,7 @@ Clusters provides additional, easy to access queue metrics that are available on
 
 ## Accessing your agents and pipelines
 
-Any agents and pipelines which are not associated with a cluster are known as _unclustered agents_ and _pipelines_, respectively.
-
-If you have multiple clusters, or unclustered pipelines and agents, selecting _Agents_ in the global navigation takes you to the _Clusters_ page. Once on this page, you can navigate to your agents by selecting the cluster the agents are part of, or _Unclustered_ for agents that were not created as part of a cluster.
+Any agents and pipelines which are not yet associated with a cluster are known as _unclustered agents_ and _pipelines_, respectively.
 
 To view and manage your all of your agents, their (unclustered) agent tokens, and pipelines, select _Agents_ from the global navigation of your Buildkite organization to open the _Clusters_ page. From this page:
 
