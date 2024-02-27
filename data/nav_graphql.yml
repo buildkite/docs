@@ -835,6 +835,8 @@
   children:
   - name: APIAccessTokenScopes
     path: apis/graphql/schemas/enum/apiaccesstokenscopes
+  - name: AnnotationOrder
+    path: apis/graphql/schemas/enum/annotationorder
   - name: AnnotationStyle
     path: apis/graphql/schemas/enum/annotationstyle
   - name: AuditActorType
@@ -847,8 +849,6 @@
     path: apis/graphql/schemas/enum/authorizationtype
   - name: BuildBlockedStates
     path: apis/graphql/schemas/enum/buildblockedstates
-  - name: BuildRetentionPeriods
-    path: apis/graphql/schemas/enum/buildretentionperiods
   - name: BuildStates
     path: apis/graphql/schemas/enum/buildstates
   - name: ClusterOrder

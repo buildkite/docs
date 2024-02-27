@@ -171,7 +171,7 @@ mutation PipelineDelete {
 }
 ```
 
-### Update pipeline schedule with multiple environment variables
+## Update pipeline schedule with multiple environment variables
 
 You can set multiple environment variables on a pipeline schedule by using the new-line value `\n` as a delimiter.
 
