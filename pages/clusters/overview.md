@@ -30,6 +30,8 @@ The most common patterns seen for cluster configurations are based on stage setu
 
 You can create as many clusters as your require for your setup.
 
+Learn more about working with clusters in [Manage clusters](/docs/clusters/manage-clusters).
+
 >📘 Pipeline triggering
 > Pipelines associated with one cluster cannot trigger pipelines associated with another cluster
 
@@ -44,6 +46,8 @@ The most common queue attributes are based on infrastructure set-ups, such as:
 Therefore, an example queue would be `small_mac_silicon`.
 
 Having individual queues according to these breakdowns allows you to scale a set of similar agents, which Buildkite can then report on.
+
+Learn more about working with queues in [Manage queues](/docs/clusters/manage-queues).
 
 ## Queue metrics
 
