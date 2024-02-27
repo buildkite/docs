@@ -58,7 +58,7 @@ After completing the relevant 'Before you start' steps above:
    foreman start
    ```
 
-   **Note:** After stopping the non-containerized server, simply run `foreman start` to re-start the server again.
+   **Note:** After stopping the non-containerized server, simply run `foreman start` to re-start the server again. If, however, the `foreman start` command fails to run successfully, try re-running the `bin/setup` command again to update any dependencies before running `foreman start` again.
 
    For containerized development, run the following:
 

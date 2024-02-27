@@ -2,9 +2,6 @@
 
 The clusters API lets you create and manage clusters in your organization.
 
-> 📘 Enable clusters
-> You'll need to [enable clusters](/docs/clusters/overview#enable-clusters) for your organization to use this API.
-
 ## Clusters
 
 A [cluster](/docs/clusters/overview) is an isolated set of agents and pipelines within an organization.
@@ -248,11 +245,11 @@ Error responses:
 </tbody>
 </table>
 
-## Cluster queues
+## Queues
 
-[Cluster queues](/docs/clusters/manage-clusters#set-up-clusters-create-a-queue) are discrete groups of agents within a cluster. Pipelines in that cluster can target cluster queues to run jobs on agents assigned to those queues.
+[Queues](/docs/clusters/manage-queues#create-a-new-queue) are discrete groups of agents within a cluster. Pipelines in that cluster can target queues to run jobs on agents assigned to those queues.
 
-### Cluster queue data model
+### Queue data model
 
 <table class="responsive-table">
   <tbody>
@@ -480,7 +477,7 @@ Error responses:
 
 ### Pause a queue
 
-[Pause a queue](/docs/clusters/manage-clusters#pause-a-queue) to prevent jobs from being dispatched to agents associated with the queue.
+[Pause a queue](/docs/clusters/manage-queues#pause-and-resume-a-queue) to prevent jobs from being dispatched to agents associated with the queue.
 
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}/pause_dispatch" \
@@ -590,9 +587,9 @@ Error responses:
 </tbody>
 </table>
 
-## Cluster tokens
+## Agent tokens
 
-A [cluster token](/docs/clusters/manage-clusters#set-up-clusters-connect-agents-to-a-cluster) is used to connect agents to a cluster.
+An agent token is used to [connect agents to a cluster](/docs/clusters/manage-clusters#connect-agents-to-a-cluster).
 
 ### Token data model
 
@@ -611,7 +608,7 @@ A [cluster token](/docs/clusters/manage-clusters#set-up-clusters-connect-agents-
 
 ### List tokens
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of a cluster's tokens.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of a cluster's agent tokens.
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens"
@@ -773,7 +770,7 @@ Error responses:
 </tbody>
 </table>
 
-### Delete a token
+### Revoke a token
 
 ```bash
 curl -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}"
@@ -787,6 +784,6 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason the token couldn't be deleted" }</code></td></tr>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason the token couldn't be revoked" }</code></td></tr>
 </tbody>
 </table>

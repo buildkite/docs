@@ -18,6 +18,22 @@ Table of contents:
 
 This section covers the Markdown syntax associated with the [Style and formatting in the Writing style guide](writing-style.md#style-and-formatting).
 
+### Markdown
+
+The docs website uses the [Redcarpet](https://github.com/vmg/redcarpet) Ruby library for Markdown.
+Redcarpet does not conform with the CommonMark or GitHub Flavored Markdown specifications.
+Watch out for differences such as:
+
+- Inline HTML comments are escaped and will appear in the output, but block comments won't.
+
+  ```markdown
+  Hello world! <!-- this comment is visible to readers -->
+
+  <!-- This comment is hidden -->
+  ```
+
+- See below about [new paragraphs within a list item](#new-paragraphs-within-a-list-item).
+
 ### Headings
 
 Ensure headings are always nested incrementally within any Markdown page (that is, `# Heading (used as the page title)`, `## Heading`, `### Heading`, `#### Heading`, etc.) throughout the docs. Be aware that this incremental nesting rule can be broken on the way up. For example:
@@ -64,6 +80,24 @@ To create a new paragraph of text, add two line breaks at the end of the last ch
 > [!NOTE]
 > Do not attempt to create single line breaks within a paragraph of text. While this is possible using the `<br/>` HTML element in the Markdown syntax flavor used for the Buildkite Docs, doing this adds little value to the text and [may impact how text is displayed on different devices](https://developers.google.com/style/paragraph-structure).
 
+#### New paragraphs within a list item
+
+Four spaces are required to create a new paragraph within/as part of a list item. If you don't do this, the new paragraph will break out of and interrupt the list.
+
+**✅ Do this**
+```markdown
+1. First paragraph of this list item.
+
+    A happy second paragraph, indented four spaces.
+```
+
+**❌ Don't do this**
+```markdown
+1. First paragraph of this list item.
+
+   A sad, broken second paragraph, indented three spaces.
+```
+
 ### Spacing after the end of a sentence
 
 **Question:** Should you use one, two or more spaces after punctuation at the end of a sentence?
@@ -80,7 +114,25 @@ Refer to [Referring to UI elements in the Writing style guide](writing-style.md#
 
 ### Lists
 
-For a bulleted list item, use a single hyphen `-` at the start of a new line (that is, for a top-level list item), followed by a single space, followed by the text for that bullet point. For a nested bulleted list item, begin with a single asterisk `*` at the start of a new/indented text block.
+For a bulleted/unordered list item, use a single hyphen `-` at the start of a new line (that is, for a top-level list item), followed by a single space, followed by the text for that bullet point. For a nested bulleted list item, begin with an indented single asterisk `*` at the start of a new/indented text block. If a 3rd-level nested bullet list item needs to be created, begin it with a single `-` again.
+
+Nest bullet list items using exactly 4-space indent increments. For example:
+
+```markdown
+- Top-level bullet list item
+
+    * 2nd-level bullet list item
+    * Another 2nd-level item
+
+        - 3rd-level bullet list item
+        - Another 3rd-level item
+
+- Another top-level bullet list item
+- And yet another.
+...
+```
+
+Some existing bullet lists in the docs use only 2-space indent increments. This style is deprecated and over time, these will be changed to a 4-space indent increments.
 
 For a numbered list item, use the syntax `1.` at the start of a new line (or block), followed by a single space, followed by the text for that numbered list item.
 For subsequent items in a numbered list, start the new line/block with `1.` again, as the HTML will always render subsequent items sequentially. Avoid attempting to number each item sequentially (for example, `2.`, `3.`, etc.), regardless of the incremental interval (for example, `1.`, `10.`, `20.`, etc.). This makes it easier to insert items without having to renumber adjacent list numbered items.
@@ -158,7 +210,7 @@ Currently, callouts in the Buildkite Docs are generated through a combination of
 A regular info callout ("purple"):
 
 ```
->📘 An info callout title
+> 📘 An info callout title
 > Callout content can have <code>code</code> or _emphasis_ and other inline elements in it, <a href="#">including links</a>.
 > Every line break after the first becomes a new paragraph inside the callout.
 ```
@@ -180,7 +232,7 @@ Callout headings avoid clashing with other content heading by being styled as pa
 For troubleshooting callouts ("orange"), use the 🚧 emoji:
 
 ```
->🚧 A troubleshooting callout title
+> 🚧 A troubleshooting callout title
 > Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a>.
 > Every line break after the first becomes a new paragraph inside the callout.
 ```
@@ -188,7 +240,7 @@ For troubleshooting callouts ("orange"), use the 🚧 emoji:
 While no longer used in the Buildkite Docs, Work-in-progress (WIP) or Experimental callouts ("orange"), use the 🛠 emoji:
 
 ```
->🛠 This marks it as WIP
+> 🛠 This marks it as WIP
 > Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a>.
 > Every line break after the first becomes a new paragraph inside the callout.
 ```
@@ -349,7 +401,8 @@ If you need to provide an example code snippet that contains emoji code and you 
 
 Another example:
 
-```
+````
+```yml
 steps:
   - group: "\:lock_with_ink_pen\: Security Audits"
     key: "audits"
@@ -357,6 +410,7 @@ steps:
       - label: "\:brakeman\: Brakeman"
         command: ".buildkite/steps/brakeman"
 ```
+````
 
 Will be rendered as:
 
@@ -376,36 +430,6 @@ Use escaping to prevent this.
 ## Working with the docs site
 
 The Buildkite docs is a custom-built website. This section gives some guidance on working with the setup.
-
-### Markdown
-
-The docs website uses the [Redcarpet](https://github.com/vmg/redcarpet) Ruby library for Markdown.
-Redcarpet does not conform with the CommonMark or GitHub Flavored Markdown specifications.
-Watch out for differences such as:
-
-- Inline HTML comments are escaped and will appear in the output, but block comments won't.
-
-  ```markdown
-  ## Hello world! <!-- this comment is visible to readers -->
-
-  <!-- This comment is hidden -->
-  ```
-
-- Four spaces are required for list continuation paragraphs.
-
-  **✅ Do this**
-  ```markdown
-  1. First paragraph of this list item.
-
-      A happy second paragraph, indented four spaces.
-  ```
-
-  **❌ Don't do this**
-  ```markdown
-  2. First paragraph of this list item.
-
-     A sad, broken second paragraph, indented three spaces.
-  ```
 
 ### Adding and naming new documentation pages
 
