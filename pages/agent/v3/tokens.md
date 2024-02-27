@@ -16,7 +16,7 @@ It's recommended you use your platform's secret storage (such as the [AWS System
 
 ## Create a new token
 
-New agent tokens can be created using the [_Agent Tokens_ page of a cluster](#create-a-new-token-using-the-buildkite-interface), or the [REST API's create agent token](#create-a-new-token-using-the-rest-api) feature.
+New agent tokens can be created using the [_Agent Tokens_ page of a cluster](#create-a-new-token-using-the-buildkite-interface), as well as the [REST API's](#create-a-new-token-using-the-rest-api) or [GraphQL API's](#create-a-new-token-using-the-graphql-api) create agent token feature.
 
 > 📘 An agent token's value is only displayed once
 > As soon as the agent token's value is displayed, copy its value and save it in a secure location.
@@ -113,7 +113,6 @@ mutation {
         uuid
         email
       }
-      jobTokensEnabled
     }
     tokenValue
   }
@@ -126,17 +125,37 @@ where:
 
     * From the _GraphQL API Integration_ section of your _Organization Settings_ page, accessed by selecting _Settings_ in the global navigation of your organization in Buildkite.
 
-    * By running the [getOrgId](/docs/apis/graphql/schemas/query/organization) GraphQL API query to obtain this value from `id` in the response. For example:
+    * By running the `getCurrentUsersOrgs` GraphQL API query to obtain the organization slugs for the current user's accessible organizations, followed by the [getOrgId](/docs/apis/graphql/schemas/query/organization) query, to obtain the organization's `id` using the organization's slug. For example:
+
+        Step 1. Run `getCurrentUsersOrgs` to obtain the organization slug values in the response for the current user's accessible organizations:
+
+        ```graphql
+        query getCurrentUsersOrgs {
+          viewer {
+            organizations {
+              edges {
+                node {
+                  name
+                  slug
+                }
+              }
+            }
+          }
+        }
+        ```
+
+        Step 2. Run `getOrgId` with the appropriate slug value above to obtain this organization's `id` in the response:
 
         ```graphql
         query getOrgId {
           organization(slug: "organization-slug") {
+            slug
             id
           }
         }
         ```
 
-        **Note:** `organization-slug` can be obtained from the end of your Buildkite URL, obtained by accessing the _Pipelines_ in the global navigation of your organization in Buildkite.
+        **Note:** The `organization-slug` value can also be obtained from the end of your Buildkite URL, by selecting _Pipelines_ in the global navigation of your organization in Buildkite.
 
 - `cluster-id` can be obtained:
 
@@ -173,7 +192,7 @@ The new agent token appears on the cluster's _Agent Tokens_ page.
 
 ## Revoke a token
 
-Agent tokens can be revoked using the [_Agent Tokens_ page of a cluster](#revoke-a-token-using-the-buildkite-interface), or the [REST API's delete agent token](#revoke-a-token-using-the-rest-api) feature.
+Agent tokens can be revoked using the [_Agent Tokens_ page of a cluster](#revoke-a-token-using-the-buildkite-interface), as well as the [REST API's](#revoke-a-token-using-the-rest-api) or [GraphQL API's](#revoke-a-token-using-the-graphql-api) revoke agent token feature.
 
 Once a token is revoked, no new agents will be able to start with that token. Revoking a token does not affect any connected agents.
 
@@ -243,12 +262,10 @@ mutation {
   clusterAgentTokenRevoke(
     input: {
       organizationId: "organization-id"
-      id: "cluster-id"
+      id: "token-id"
     }
   ) {
-    deletedClusterAgentTokenId {
-      
-    }
+    deletedClusterAgentTokenId
   }
 }
 ```
@@ -259,43 +276,62 @@ where:
 
     * From the _GraphQL API Integration_ section of your _Organization Settings_ page, accessed by selecting _Settings_ in the global navigation of your organization in Buildkite.
 
-    * By running the [getOrgId](/docs/apis/graphql/schemas/query/organization) GraphQL API query to obtain this value from `id` in the response. For example:
+    * By running the `getCurrentUsersOrgs` GraphQL API query to obtain the organization slugs for the current user's accessible organizations, followed by the [getOrgId](/docs/apis/graphql/schemas/query/organization) query, to obtain the organization's `id` using the organization's slug. For example:
+
+        Step 1. Run `getCurrentUsersOrgs` to obtain the organization slug values in the response for the current user's accessible organizations:
 
         ```graphql
-        query getOrgId {
-          organization(slug: "organization-slug") {
-            id
-          }
-        }
-        ```
-
-        **Note:** `organization-slug` can be obtained from the end of your Buildkite URL, obtained by accessing the _Pipelines_ in the global navigation of your organization in Buildkite.
-
-- `id` can be obtained:
-
-    * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
-        1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.
-        1. Once on the _Cluster Settings_ page, copy the `cluster` parameter value from the _GraphQL API Integration_ section, which is the `cluster.id` value.
-
-    * By running the [List clusters](/docs/apis/graphql/cookbooks/clusters#list-clusters) GraphQL API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
-
-        ```graphql
-        query getClusters {
-          organization(slug: "organization-slug") {
-            clusters(first: 10) {
+        query getCurrentUsersOrgs {
+          viewer {
+            organizations {
               edges {
                 node {
-                  id
                   name
-                  uuid
-                  color
-                  description
+                  slug
                 }
               }
             }
           }
         }
         ```
+
+        Step 2. Run `getOrgId` with the appropriate slug value above to obtain this organization's `id` in the response:
+
+        ```graphql
+        query getOrgId {
+          organization(slug: "organization-slug") {
+            slug
+            id
+          }
+        }
+        ```
+
+        **Note:** The `organization-slug` value can also be obtained from the end of your Buildkite URL, by selecting _Pipelines_ in the global navigation of your organization in Buildkite.
+
+- `token-id` can only be obtained using the APIs, by running the [getClustersAgentTokenIds](/docs/apis/graphql/schemas/query/organization) query, to obtain the organization's clusters and each of their agent tokens' `id` values in the response. For example:
+
+      ```graphql
+      query getClustersAgentTokenIds {
+        organization(slug: "organization-slug") {
+          clusters(first: 10) {
+            edges {
+              node {
+                name
+                id
+                agentTokens(first: 10) {
+                  edges {
+                    node {
+                      description
+                      id
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      ```
 
 ## Scope of access
 
