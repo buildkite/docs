@@ -5,7 +5,7 @@
 > _Agent tokens_ are now associated with clusters, and connect to Buildkite through a specific cluster within an organization. Learn more about how to manage agent tokens for clusters in [Agent tokens](/docs/agent/v3/tokens) and how to [move your unclustered agents across to a cluster](/docs/clusters/manage-clusters#move-unclustered-agents-to-a-cluster).
 > It is not be possible to create and work with unclustered agents for any new Buildkite organizations created after the official release of clusters on February 26, 2024. Therefore, unclustered agent tokens are not relevant to these organizations.
 
-Any Buildkite organization created before February 26, 2024 has an _Unclustered_ area for managing _unclustered agents_ (accessible through _Agents_ > _Unclustered_ of the Buildkite interface), where an _unclustered agent_ refers to any agent that is not associated with a cluster.
+Any Buildkite organization created before February 26, 2024 has an _Unclustered_ area for managing _unclustered agents_, accessible through _Agents_ (from the global navigation) > _Unclustered_ of the Buildkite interface, where an _unclustered agent_ refers to any agent that is not associated with a cluster.
 
 A Buildkite agent requires a token to connect to Buildkite and register for work. If you need to connect an _unclustered agent_ to Buildkite, then you need to create an _unclustered agent token_ to do so.
 
@@ -13,7 +13,7 @@ A Buildkite agent requires a token to connect to Buildkite and register for work
 
 <!-- Is this section still valid? Should this instead be called the 'initial unclustered agent token'? -->
 
-Your Buildkite organization's unclustered agent tokens area (accessible through _Agents_ > _Unclustered_ > _Agent Tokens_) may have the _Default agent registration token_, which is the original default token when your organization was created. If you had previously saved this token's value in a safe place, this token can be used for testing and development. However, it's recommended that you [create new, specific tokens](#create-a-token) for each new environment.
+Your Buildkite organization's unclustered agent tokens page, accessible through _Agents_ (from the global navigation) > _Unclustered_ > _Agent Tokens_, may have the _Default agent registration token_, which is the original default token when your organization was created. If you had previously saved this token's value in a safe place, this token can be used for testing and development. However, it's recommended that you [create new, specific tokens](#create-a-token) for each new environment.
 
 ## Using and storing tokens
 
@@ -59,7 +59,7 @@ query GetOrgID {
 
 <!--alex ignore clearly-->
 
-The token description should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), and is listed on the _Agent tokens_ page of the _Agents_ > _Unclustered_ area. (This page is accessible through _Agents_ > _Unclustered_ > _Agent Tokens_.)
+The token description should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), and is listed on the _Agent tokens_ page of the _Agents_ (from the global navigation) > _Unclustered_ area.
 
 It is possible to create multiple unclustered agent tokens using the GraphQL API.
 
