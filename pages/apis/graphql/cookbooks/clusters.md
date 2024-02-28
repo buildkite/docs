@@ -133,3 +133,54 @@ query getClusterQueueJobsByJobState {
   }
 }
 ```
+
+
+## List agents in a cluster
+
+Get the first 10 agents within a cluster, use the `cluster` argument of the `agents` query, passing in the ID of the cluster:
+
+```graphql
+query getClusterAgent {
+   organization(slug:"organization-slug") {
+    agents(first: 3, cluster: "cluster-id") {
+      edges {
+        node {
+          name
+          hostname
+          version
+          clusterQueue{
+            uuid
+            id
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## List agents in a cluster queue
+
+Get the first 10 agents in a particular cluster queue, specifying the `clusterQueue` argument of the `agents` query, passing in the ID of the cluster queue:
+
+```graphql
+query getClusterQueueAgent {
+   organization(slug:"organization-slug") {
+    agents(first: 10, clusterQueue: "cluster-queue-id") {
+      edges {
+        node {
+          name
+          hostname
+          version
+          id
+          clusterQueue{
+            id
+            uuid
+          }
+        }
+      }
+    }
+  }
+}
+```
+
