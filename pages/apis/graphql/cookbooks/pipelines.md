@@ -171,6 +171,28 @@ mutation PipelineDelete {
 }
 ```
 
+### Delete multiple pipelines
+
+Get the IDs of the Pipelines, as above, and use the IDs to delete multiple pipelines:
+
+```graphql
+mutation PipelinesDelete {
+  pipeline1: pipelineDelete(input: {
+    id: "pipeline1-id"
+  })
+  {
+    deletedPipelineID
+  }
+
+  pipeline2: pipelineDelete(input: {
+    id: "pipeline2-id"
+  })
+  {
+    deletedPipelineID
+  }
+}
+```
+
 ## Update pipeline schedule with multiple environment variables
 
 You can set multiple environment variables on a pipeline schedule by using the new-line value `\n` as a delimiter.
