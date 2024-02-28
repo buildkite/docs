@@ -492,9 +492,9 @@ is referenced using this snippet render link:
 
 Use the snippet render link wherever you need to add the content of the snippet (multiple times if required) in other Markdown files throughout the Buildkite Docs.
 
-If a snippet is stored within a subdirectory, you need to specify the names of both folder and subfolder in the link to the snippet.
+If a snippet is stored within a subdirectory of `/pages`, you need to specify the subdirectory hierarchy in the link to the snippet.
 
-Therefore, a reference to the `_agent_events_table.md` file stored within the `webhooks` subdirectory in `apis` directory needs to look like this:
+Therefore, a reference to the `_agent_events_table.md` file stored within the `webhooks` subdirectory of the `apis` subdirectory would look like this:
 
 `<%= render_markdown partial: 'apis/webhooks/agent_events_table' %>`
 
