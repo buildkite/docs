@@ -414,6 +414,18 @@
           path: "test-analytics/importing-json"
         - name: "Writing your own collectors"
           path: "test-analytics/your-own-collectors"
+- name: "Packages"
+  pill: "beta"
+  path: "packages"
+  children:
+    - name: "Overview"
+      pill: "beta"
+      path: "packages"
+    - name: "Introduction"
+      start_expanded: true
+      children:
+        - name: "Getting started"
+          path: "packages/getting-started"
 - name: "APIs"
   path: "apis"
   children:
