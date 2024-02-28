@@ -16,11 +16,11 @@ Some example queues might be `mac_medium_x86`, `mac_large_silicon`, etc.
 
 Having individual queues according to these breakdowns allows you to scale a set of similar agents, which Buildkite can then report on.
 
-## Create a new queue
+## Create a queue
 
-New queues can be created using the [_Queues_ page of a cluster](#create-a-new-queue-using-the-buildkite-interface), or the [REST API's create a queue](#create-a-new-queue-using-the-rest-api) feature.
+New queues can be created using the [_Queues_ page of a cluster](#create-a-queue-using-the-buildkite-interface), or the [REST API's create a queue](#create-a-queue-using-the-rest-api) feature.
 
-When you [create a new cluster](/docs/clusters/manage-clusters#create-a-new-cluster) through the [Buildkite interface](/docs/clusters/manage-clusters#create-a-new-cluster-using-the-buildkite-interface), this cluster automatically has an initial _default_ queue.
+When you [create a new cluster](/docs/clusters/manage-clusters#create-a-cluster) through the [Buildkite interface](/docs/clusters/manage-clusters#create-a-cluster-using-the-buildkite-interface), this cluster automatically has an initial _default_ queue.
 
 ### Using the Buildkite interface
 

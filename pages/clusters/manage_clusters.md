@@ -8,20 +8,18 @@ Learn more about on how to set up queues within a cluster in [Manage queues](/do
 
 When you create a new Buildkite organization, a single default cluster (initially named _Default cluster_) is created.
 
-For smaller organizations, working on smaller projects, this default cluster may be sufficient. However, if you your organization develops projects that require different:
+For smaller organizations, working on smaller projects, this default cluster may be sufficient. However, it's usually more convenient for organizations to manage projects in separate clusters, when these projects require different:
 
-- Staged environments, for example, development, test, staging/pre-production and production,
-- Source code visibility, such as open-source versus closed-source code projects,
-- Target platforms, such as Linux, Android, macOS, Windows, etc, and
-- Multiple projects, for example, different product lines,
-
-Then it is more convenient to manage these in separate clusters.
+- Staged environments, for example, development, test, staging/pre-production and production
+- Source code visibility, such as open-source versus closed-source code projects
+- Target platforms, such as Linux, Android, macOS, Windows, etc.
+- Multiple projects, for example, different product lines
 
 Once your clusters are set up, you can set up one or more [queues](/docs/clusters/manage-queues) within each cluster.
 
-## Create a new cluster
+## Create a cluster
 
-New clusters can be created using the [_Clusters_ page](#create-a-new-cluster-using-the-buildkite-interface), or the [REST API's create a cluster](#create-a-new-cluster-using-the-rest-api) feature.
+New clusters can be created using the [_Clusters_ page](#create-a-cluster-using-the-buildkite-interface), or the [REST API's create a cluster](#create-a-cluster-using-the-rest-api) feature.
 
 ### Using the Buildkite interface
 
@@ -75,13 +73,13 @@ where:
 - `color` (optional) provides the background color for this emoji and uses hex code syntax (for example, `#FFE0F1`).
 
 > 📘 A default queue is not automatically created
-> Unlike creating a new cluster through the [Buildkite interface](#create-a-new-cluster-using-the-buildkite-interface), a default queue is not automatically created using this API call. To create a new/default queue for any new cluster created through an API call, you need to manually [create a new queue](/docs/clusters/manage-queues#create-a-new-queue).
+> Unlike creating a new cluster through the [Buildkite interface](#create-a-cluster-using-the-buildkite-interface), a default queue is not automatically created using this API call. To create a new/default queue for any new cluster created through an API call, you need to manually [create a new queue](/docs/clusters/manage-queues#create-a-queue).
 
 ## Connect agents to a cluster
 
 Agents are associated with a cluster through the cluster's agent tokens. Learn more about this in [Agent tokens](/docs/agent/v3/tokens).
 
-Once you have [created your required agent token/s](/docs/agent/v3/tokens#create-a-new-token), [use them](/docs/agent/v3/tokens#using-and-storing-tokens) with the relevant agents, along with an optional [tag representing the relevant queue in your cluster](/docs/agent/v3/queues#setting-an-agents-queue).
+Once you have [created your required agent token/s](/docs/agent/v3/tokens#create-a-token), [use them](/docs/agent/v3/tokens#using-and-storing-tokens) with the relevant agents, along with an optional [tag representing the relevant queue in your cluster](/docs/agent/v3/queues#setting-an-agents-queue).
 
 You can also create, edit, and revoke other agent tokens from the cluster’s _Agent tokens_.
 
@@ -102,7 +100,7 @@ To move an unclustered agent across to using a cluster:
     1. Select _Unclustered_.
     1. From the _Unclustered Agents_ page, select the agent to stop and on its page, select _Stop Agent_.
 
-1. [Create a new agent token](/docs/agent/v3/tokens#create-a-new-token) for the cluster the agent will be moved to.
+1. [Create a new agent token](/docs/agent/v3/tokens#create-a-token) for the cluster the agent will be moved to.
 
 1. [Start the Buildkite agent](/docs/agent/v3/cli-start) using the `--token` value is that of the agent token created in the previous step. Alternatively, configure this agent token's value in the [Buildkite agent's configuration file](/docs/agent/v3/configuration) before starting the agent.
 
@@ -112,7 +110,7 @@ If you migrate all your existing agents over to clusters, ensure that all of you
 
 As a security measure, each agent token has an optional _Allowed IP Addresses_ setting that can be used to lock down access to the token. When this option is set on an agent token, only agents with an IP address that matches one this agent token's setting can use this token to connect to your Buildkite organization (through your cluster).
 
-An agent token's _Allowed IP Addresses_ setting can be set [when the token is created](/docs/agent/v3/tokens#create-a-new-token), or this setting can be added to or modified on existing agent tokens, using the [_Agent Tokens_ page of a cluster](#restrict-an-agent-tokens-access-by-ip-address-using-the-buildkite-interface), or the [REST API's update agent token](#restrict-an-agent-tokens-access-by-ip-address-using-the-rest-api) feature.
+An agent token's _Allowed IP Addresses_ setting can be set [when the token is created](/docs/agent/v3/tokens#create-a-token), or this setting can be added to or modified on existing agent tokens, using the [_Agent Tokens_ page of a cluster](#restrict-an-agent-tokens-access-by-ip-address-using-the-buildkite-interface), or the [REST API's update agent token](#restrict-an-agent-tokens-access-by-ip-address-using-the-rest-api) feature.
 
 > 🚧 Changing the _Allowed IP Addresses_ setting
 > Modifying an agent token's _Allowed IP Addresses_ setting forcefully disconnects any existing agents (using this token) with an IP address that no longer matches one of the values of this updated setting. This will prevent the completion of any jobs in progress on those agents.

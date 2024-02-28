@@ -6,7 +6,7 @@ If you are managing agents in an unclustered environment, refer to [unclustered 
 
 ## The initial agent token
 
-When you create a new organization in Buildkite, an initial agent token is created (called _Initial agent token_ within the _Default cluster_). This token can be used for testing and development and is only revealed once during the organization setup process. It's recommended that you [create new, specific tokens](#create-a-new-token) for each new environment.
+When you create a new organization in Buildkite, an initial agent token is created (called _Initial agent token_ within the _Default cluster_). This token can be used for testing and development and is only revealed once during the organization setup process. It's recommended that you [create new, specific tokens](#create-a-token) for each new environment.
 
 ## Using and storing tokens
 
@@ -14,9 +14,9 @@ An agent token is used by the Buildkite Agent's [start](/docs/agent/v3/cli-start
 
 It's recommended you use your platform's secret storage (such as the [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html)) to allow for easier rollover and management of your agent tokens.
 
-## Create a new token
+## Create a token
 
-New agent tokens can be created using the [_Agent Tokens_ page of a cluster](#create-a-new-token-using-the-buildkite-interface), as well as the [REST API's](#create-a-new-token-using-the-rest-api) or [GraphQL API's](#create-a-new-token-using-the-graphql-api) create agent token feature.
+New agent tokens can be created using the [_Agent Tokens_ page of a cluster](#create-a-token-using-the-buildkite-interface), as well as the [REST API's](#create-a-token-using-the-rest-api) or [GraphQL API's](#create-a-token-using-the-graphql-api) create agent token feature.
 
 > 📘 An agent token's value is only displayed once
 > As soon as the agent token's value is displayed, copy its value and save it in a secure location.

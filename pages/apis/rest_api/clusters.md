@@ -247,7 +247,7 @@ Error responses:
 
 ## Queues
 
-[Queues](/docs/clusters/manage-queues#create-a-new-queue) are discrete groups of agents within a cluster. Pipelines in that cluster can target queues to run jobs on agents assigned to those queues.
+[Queues](/docs/clusters/manage-queues#create-a-queue) are discrete groups of agents within a cluster. Pipelines in that cluster can target queues to run jobs on agents assigned to those queues.
 
 ### Queue data model
 
