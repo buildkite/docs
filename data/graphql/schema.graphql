@@ -845,6 +845,9 @@ enum AuditEventType {
   SCM_SERVICE_CREATED
   SCM_SERVICE_DELETED
   SCM_SERVICE_UPDATED
+  SECRET_CREATED
+  SECRET_DELETED
+  SECRET_UPDATED
   SSO_PROVIDER_CREATED
   SSO_PROVIDER_DELETED
   SSO_PROVIDER_DISABLED
@@ -919,7 +922,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | Email | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | Email | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -944,6 +947,7 @@ enum AuditSubjectType {
   SCM_PIPELINE_SETTINGS
   SCM_REPOSITORY_HOST
   SCM_SERVICE
+  SECRET
   SSO_PROVIDER
   SUBSCRIPTION
   SUITE
@@ -3824,7 +3828,7 @@ type Mutation {
   ): AgentStopPayload
 
   """
-  Create a new unclustered agent token.
+  Create a new agent registration token.
   """
   agentTokenCreate(
     """
@@ -3834,7 +3838,7 @@ type Mutation {
   ): AgentTokenCreatePayload
 
   """
-  Revoke an unclustered agent token.
+  Revoke an agent registration token.
   """
   agentTokenRevoke(
     """
@@ -3895,7 +3899,7 @@ type Mutation {
   ): BuildRebuildPayload
 
   """
-  Create a new agent token for a cluster.
+  Create a new cluster agent token
   """
   clusterAgentTokenCreate(
     """
@@ -3905,7 +3909,7 @@ type Mutation {
   ): ClusterAgentTokenCreatePayload
 
   """
-  Revokes an agent token for a cluster.
+  Revokes a cluster agent token
   """
   clusterAgentTokenRevoke(
     """
@@ -3915,7 +3919,7 @@ type Mutation {
   ): ClusterAgentTokenRevokePayload
 
   """
-  Updates an agent token for a cluster.
+  Updates a cluster agent token
   """
   clusterAgentTokenUpdate(
     """
@@ -7736,6 +7740,16 @@ type Query {
   ): PipelineTemplate
 
   """
+  Find a secret via its uuid. This does not contain the value of the secret or encrypted material.
+  """
+  secret(
+    """
+    The UUID for the secret i.e. `0bd5ea7c-89b3-4f40-8ca3-ffac805771eb`
+    """
+    uuid: ID!
+  ): Secret
+
+  """
   Find an sso provider either using it's slug, or UUID
   """
   ssoProvider(
@@ -8917,6 +8931,52 @@ type SSOProviderUpdatePayload {
   """
   clientMutationId: String
   ssoProvider: SSOProvider!
+}
+
+"""
+A secret hosted by Buildkite. This does not contain the secret value or encrypted material.
+"""
+type Secret implements Node {
+  """
+  The cluster that the secret belongs to
+  """
+  cluster: Cluster
+
+  """
+  The time this secret was created
+  """
+  createdAt: DateTime
+
+  """
+  A description about what this secret is used for
+  """
+  description: String
+
+  """
+  The time this secret was destroyed
+  """
+  destroyedAt: DateTime
+  id: ID!
+
+  """
+  The key value used to name the secret
+  """
+  key: String!
+
+  """
+  The organization that the secret belongs to
+  """
+  organization: Organization!
+
+  """
+  The time this secret was updated
+  """
+  updatedAt: DateTime
+
+  """
+  The public UUID for the secret
+  """
+  uuid: ID!
 }
 
 interface Step {
