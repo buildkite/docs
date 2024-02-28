@@ -482,11 +482,11 @@ You can use snippets to reuse the same fragment in several documentation pages (
 
 Add snippet files to appropriate locations within the `/pages` directory, prefaced with an underscore in the file name. For example `_my_snippet.md`. **However**, when pulling the snippet into a file, remove the leading underscore.
 
-This way, this example snippet file located immediately within the `/pages` directory:
+This way, the following example snippet file located immediately within the `/pages` directory:
 
 `_step_2_3_github_custom_status.md`
 
-Is referenced using this snippet render link:
+is referenced using this snippet render link:
 
 `<%= render_markdown 'step_2_3_github_custom_status' %>`
 
