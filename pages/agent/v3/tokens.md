@@ -56,33 +56,15 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-- `$TOKEN` is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
 
-- `{org.slug}` can be obtained:
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
-    * From the end of your Buildkite URL, obtained by accessing the _Pipelines_ in the global navigation of your organization in Buildkite.
-
-    * By running the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
-
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
-        ```
-
-- `{cluster.id}` can be obtained:
-
-    * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
-        1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.
-        1. Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value.
-
-    * By running the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
-
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
-        ```
+<%= render_markdown partial: 'apis/descriptions/rest_cluster_id' %>
 
 <!--alex ignore clearly-->
 
-- `description` (optional) should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. To access this page, select _Agents_ (in the global navigation) > the specific cluster > _Agent Tokens_.
+<%= render_markdown partial: 'apis/descriptions/common_description' %>
 
 The new agent token appears on the cluster's _Agent Tokens_ page.
 
@@ -121,69 +103,11 @@ mutation {
 
 where:
 
-- `organization-id` can be obtained:
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
 
-    * From the _GraphQL API Integration_ section of your _Organization Settings_ page, accessed by selecting _Settings_ in the global navigation of your organization in Buildkite.
+<%= render_markdown partial: 'apis/descriptions/graphql_cluster_id' %>
 
-    * By running the `getCurrentUsersOrgs` GraphQL API query to obtain the organization slugs for the current user's accessible organizations, followed by the [getOrgId](/docs/apis/graphql/schemas/query/organization) query, to obtain the organization's `id` using the organization's slug. For example:
-
-        Step 1. Run `getCurrentUsersOrgs` to obtain the organization slug values in the response for the current user's accessible organizations:
-
-        ```graphql
-        query getCurrentUsersOrgs {
-          viewer {
-            organizations {
-              edges {
-                node {
-                  name
-                  slug
-                }
-              }
-            }
-          }
-        }
-        ```
-
-        Step 2. Run `getOrgId` with the appropriate slug value above to obtain this organization's `id` in the response:
-
-        ```graphql
-        query getOrgId {
-          organization(slug: "organization-slug") {
-            slug
-            id
-          }
-        }
-        ```
-
-        **Note:** The `organization-slug` value can also be obtained from the end of your Buildkite URL, by selecting _Pipelines_ in the global navigation of your organization in Buildkite.
-
-- `cluster-id` can be obtained:
-
-    * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
-        1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.
-        1. Once on the _Cluster Settings_ page, copy the `cluster` parameter value from the _GraphQL API Integration_ section, which is the `cluster.id` value.
-
-    * By running the [List clusters](/docs/apis/graphql/cookbooks/clusters#list-clusters) GraphQL API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
-
-        ```graphql
-        query getClusters {
-          organization(slug: "organization-slug") {
-            clusters(first: 10) {
-              edges {
-                node {
-                  id
-                  name
-                  uuid
-                  color
-                  description
-                }
-              }
-            }
-          }
-        }
-        ```
-
-- `description` (optional) should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. To access this page, select _Agents_ (in the global navigation) > the specific cluster > _Agent Tokens_.
+<%= render_markdown partial: 'apis/descriptions/common_description' %>
 
 The new agent token appears on the cluster's _Agent Tokens_ page.
 
@@ -216,29 +140,11 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-- `$TOKEN` is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
 
-- `{org.slug}` can be obtained:
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
-    * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite.
-
-    * By running the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
-
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
-        ```
-
-- `{cluster.id}` can be obtained:
-
-    * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
-        1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.
-        1. Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value.
-
-    * By running the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
-
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
-        ```
+<%= render_markdown partial: 'apis/descriptions/rest_cluster_id' %>
 
 - `{id}` is that of the agent token, whose value can be obtained:
 
