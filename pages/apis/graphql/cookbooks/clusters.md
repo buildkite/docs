@@ -142,7 +142,7 @@ Get the first 10 agents within a cluster, use the `cluster` argument of the `age
 ```graphql
 query getClusterAgent {
    organization(slug:"organization-slug") {
-    agents(first: 3, cluster: "cluster-id") {
+    agents(first: 10, cluster: "cluster-id") {
       edges {
         node {
           name
