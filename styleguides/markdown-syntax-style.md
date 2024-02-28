@@ -490,15 +490,16 @@ Is referenced using this snippet render link:
 
 `<%= render_markdown 'step_2_3_github_custom_status' %>`
 
-Put snippet render links where you need to add the content of the snippet.
-
-Do not use H2, H3-level headings in the first line of a snippet because this results in generation of incorrect anchor links for such headings. Instead, if you need to start a snippet with a heading, add the heading to the main document just before you add a snippet render link.
+Use the snippet render link wherever you need to add the content of the snippet (multiple times if required) in other Markdown files throughout the Buildkite Docs.
 
 If a snippet is stored within a subdirectory, you need to specify the names of both folder and subfolder in the link to the snippet.
 
 Therefore, a reference to the `_agent_events_table.md` file stored within the `webhooks` subdirectory in `apis` directory needs to look like this:
 
 `<%= render_markdown partial: 'apis/webhooks/agent_events_table' %>`
+
+> [!WARNING]
+> Do not use H2, H3-level headings in the first line of a snippet because this results in the generation of incorrect anchor links for such headings. Instead, if you need to start a snippet with a heading, add the heading to the main document just before you add a snippet render link.
 
 ### Custom elements
 
