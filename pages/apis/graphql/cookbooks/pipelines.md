@@ -79,7 +79,7 @@ query RecentPipelineSlugs {
 
 ## Get a pipeline's ID
 
-Get a pipeline's ID. The Pipeline ID is used in other queries.
+Get a pipeline's ID which can be used in other queries.
 
 ```graphql
 query {
