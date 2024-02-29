@@ -176,7 +176,7 @@ mutation PipelineDelete {
 
 ### Delete multiple pipelines
 
-First, [get the IDs of the pipeline](#get-a-pipelines-id) you want to delete.
+First, [get the IDs of the pipelines](#get-a-pipelines-id) you want to delete.
 Then, use the IDs to delete multiple pipelines:
 
 ```graphql
@@ -224,6 +224,35 @@ Then, use the ID to archive the pipeline:
 mutation PipelineArchive {
   pipelineArchive(input: {
     id: "pipeline-id"
+  })
+  {
+    pipeline {
+      id
+      name
+    }
+  }
+}
+```
+
+### Archive multiple pipelines
+
+First, [get the IDs of the pipelines](#get-a-pipelines-id) you want to archive.
+Then, use the IDs to archive the pipelines:
+
+```graphql
+mutation PipelinesArchive {
+  pipeline1: pipelineArchive(input: {
+    id: "pipeline1-id"
+  })
+  {
+    pipeline {
+      id
+      name
+    }
+  }
+
+  pipeline2: pipelineArchive(input: {
+  id: "pipeline2-id"
   })
   {
     pipeline {
