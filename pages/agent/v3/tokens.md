@@ -69,7 +69,7 @@ where:
 
 - <%= render_markdown partial: 'apis/descriptions/rest_agent_token_description' %>
 
-- <%= render_markdown partial: 'apis/descriptions/common_allowed_ip_addresses' %>
+- <%= render_markdown partial: 'apis/descriptions/rest_allowed_ip_addresses' %>
 
 The new agent token appears on the cluster's _Agent Tokens_ page.
 
@@ -118,7 +118,7 @@ where:
 
 - <%= render_markdown partial: 'apis/descriptions/graphql_agent_token_description' %>
 
-- <%= render_markdown partial: 'apis/descriptions/common_allowed_ip_addresses' %>
+- <%= render_markdown partial: 'apis/descriptions/graphql_allowed_ip_addresses' %>
 
 The new agent token appears on the cluster's _Agent Tokens_ page.
 
@@ -171,9 +171,9 @@ where:
 
 - <%= render_markdown partial: 'apis/descriptions/rest_agent_token_description' %>
 
-- <%= render_markdown partial: 'apis/descriptions/common_allowed_ip_addresses' %>
+- <%= render_markdown partial: 'apis/descriptions/rest_allowed_ip_addresses' %>
 
-    This field can be omitted (where the default value is `0.0.0.0/0`) if there is no need to restrict the use of this agent token by network address. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address).
+    This field can be omitted (where the default value is `0.0.0.0/0`) if there is no need to restrict the use of this agent token by network address, or change this field's current value. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address).
 
 ### Using the GraphQL API
 
@@ -220,11 +220,11 @@ where:
 
 - <%= render_markdown partial: 'apis/descriptions/graphql_agent_token_description' %>
 
-    If you do not need to change the existing `description` value, specify the existing field value in this request.
+    If you do not need to change the existing `description` value, specify the existing field value in the request.
 
-- <%= render_markdown partial: 'apis/descriptions/common_allowed_ip_addresses' %>
+- <%= render_markdown partial: 'apis/descriptions/graphql_allowed_ip_addresses' %>
 
-    This field can be omitted (where the default value is `0.0.0.0/0`) if there is no need to restrict the use of this agent token by network address. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address).
+    This field can be omitted (where the default value is `0.0.0.0/0`) if there is no need to restrict the use of this agent token by network address, or change this field's current value. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address).
 
 The agent token's updates will appear on the cluster's _Agent Tokens_ page.
 
