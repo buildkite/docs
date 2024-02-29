@@ -238,3 +238,31 @@ mutation PipelineArchive {
   }
 }
 ```
+
+## Unarchive a pipeline
+
+First, get the ID of the pipeline you want to unarchive:
+
+```graphql
+query {
+  pipeline(slug:"organization-slug/pipeline-slug") {
+    id
+  }
+}
+```
+
+Then, use the ID to unarchive the pipeline:
+
+```graphql
+mutation PipelineUnarchive {
+  pipelineUnarchive(input: {
+    id: "pipeline-id"
+  })
+  {
+    pipeline {
+      id
+      name
+    }
+  }
+}
+```
