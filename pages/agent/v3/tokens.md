@@ -128,6 +128,8 @@ Agent tokens can be updated using the [_Agent Tokens_ page of a cluster](#update
 
 Only the _Description_ and _Allowed IP Addresses_ of an existing agent token can be updated.
 
+For either type of API request, the _cluster ID_ value submitted as part of the request is the target cluster the token is associated with.
+
 ### Using the Buildkite interface
 
 To update a cluster's agent token using the Buildkite interface:
@@ -231,6 +233,8 @@ The agent token's updates will appear on the cluster's _Agent Tokens_ page.
 ## Revoke a token
 
 Agent tokens can be revoked using the [_Agent Tokens_ page of a cluster](#revoke-a-token-using-the-buildkite-interface), as well as the [REST API's](#revoke-a-token-using-the-rest-api) or [GraphQL API's](#revoke-a-token-using-the-graphql-api) revoke agent token feature.
+
+For either type of API request, the _cluster ID_ value submitted as part of the request is the target cluster the token is associated with.
 
 Once a token is revoked, no new agents will be able to start with that token. Revoking a token does not affect any connected agents.
 

@@ -138,7 +138,7 @@ If you migrate all your existing agents over to clusters, ensure that all of you
 
 As a security measure, each agent token has an optional _Allowed IP Addresses_ setting that can be used to lock down access to the token. When this option is set on an agent token, only agents with an IP address that matches one this agent token's setting can use this token to connect to your Buildkite organization (through your cluster).
 
-An agent token's _Allowed IP Addresses_ setting can be set [when the token is created](/docs/agent/v3/tokens#create-a-token), or this setting can be added to or modified on existing agent tokens, using the [_Agent Tokens_ page of a cluster](#restrict-an-agent-tokens-access-by-ip-address-using-the-buildkite-interface), or the [REST API's update agent token](#restrict-an-agent-tokens-access-by-ip-address-using-the-rest-api) feature.
+An agent token's _Allowed IP Addresses_ setting can be set [when the token is created](/docs/agent/v3/tokens#create-a-token), or this setting can be added to or modified on existing agent tokens, using the [_Agent Tokens_ page of a cluster](#restrict-an-agent-tokens-access-by-ip-address-using-the-buildkite-interface), as well as the [REST API's](#restrict-an-agent-tokens-access-by-ip-address-using-the-rest-api) or [GraphQL API's](#restrict-an-agent-tokens-access-by-ip-address-using-the-graphql-api) update agent token feature.
 
 > 🚧 Changing the _Allowed IP Addresses_ setting
 > Modifying an agent token's _Allowed IP Addresses_ setting forcefully disconnects any existing agents (using this token) with an IP address that no longer matches one of the values of this updated setting. This will prevent the completion of any jobs in progress on those agents.
@@ -185,6 +185,55 @@ where:
 
 - `allowed_ip_addresses` is/are the IP addresses which agents must be accessible through to access this agent token and be able to connect to Buildkite via your cluster. Use space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to enter IP addresses for this field value.
 
+### Using the GraphQL API
+
+To restrict an existing agent token's access by IP address using the GraphQL API, run the following example mutation to [update this agent token](/docs/apis/graphql/schemas/mutation/clusteragenttokenupdate):
+
+```graphql
+mutation {
+  clusterAgentTokenUpdate(
+    input: {
+      organizationId: "organization-id"
+      id: "token-id"
+      description: "A description"
+      allowedIpAddresses: "202.144.0.0/24 198.51.100.12"
+    }
+  ) {
+    clusterAgentToken {
+      id
+      uuid
+      description
+      allowedIpAddresses
+      cluster {
+        id
+        uuid
+        organization {
+          id
+          uuid
+        }
+      }
+      createdBy {
+        id
+        uuid
+        email
+      }
+    }
+  }
+}
+```
+
+where:
+
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
+
+<%= render_markdown partial: 'apis/descriptions/graphql_agent_token_id' %>
+
+- <%= render_markdown partial: 'apis/descriptions/common_agent_token_description_required' %>
+
+    If you do not need to change the existing `description` value, specify the existing field value in the request.
+
+- `allowedIpAddresses` is/are the IP addresses which agents must be accessible through to access this agent token and be able to connect to Buildkite via your cluster. Use space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to enter IP addresses for this field value.
+
 ## Manage maintainers on a cluster
 
 Buildkite administrators or users with the [_change organization_ permission](/docs/team-management/permissions) can create clusters.
@@ -217,7 +266,9 @@ Move a pipeline to a specific cluster to ensure the pipeline's builds run only o
 > 📘 Associating pipelines with cluster
 > A pipeline can only be associated with one cluster at a time. It is not possible to associate a pipeline with two or more clusters simultaneously.
 
-A pipeline can be moved to a cluster via the pipeline's [_General_ settings page](#move-a-pipeline-to-a-specific-cluster-using-the-buildkite-interface), or the [REST API's update a pipeline](#move-a-pipeline-to-a-specific-cluster-using-the-rest-api) feature.
+A pipeline can be moved to a cluster via the pipeline's [_General_ settings page](#move-a-pipeline-to-a-specific-cluster-using-the-buildkite-interface), as well as the [REST API's](#move-a-pipeline-to-a-specific-cluster-using-the-rest-api) or [GraphQL API's](#move-a-pipeline-to-a-specific-cluster-using-the-graphql-api) update a pipeline feature.
+
+For either type of API request, the _cluster ID_ value submitted in the request is that of the target cluster the pipeline is being moved to.
 
 ### Using the Buildkite interface
 
@@ -259,5 +310,80 @@ where:
         ```
 
 <%= render_markdown partial: 'apis/descriptions/rest_cluster_id_body' %>
+
+### Using the GraphQL API
+
+To [move a pipeline to a specific cluster](/docs/apis/graphql/schemas/mutation/pipelineupdate) using the [GraphQL API](/docs/apis/rest-api), run the following mutation:
+
+```curl
+mutation {
+  pipelineUpdate(
+    input: {
+      id: "pipeline-id"
+      clusterId: "cluster-id"
+    }
+  ) {
+    pipeline {
+      id
+      uuid
+      name
+      description
+      slug
+      createdAt
+      cluster {
+        id
+        uuid
+        name
+        description
+      }
+    }
+  }
+}
+```
+
+where:
+
+- `id` (required) is that of the pipeline to be moved, whose value can be obtained:
+
+    * From the pipeline's _General_ settings page, after accessing _Pipelines_ in the global navigation of your organization in Buildkite, accessing the specific pipeline to be moved to the cluster, then selecting _Settings_. The `id` value is that of the _ID_ shown in the _GraphQL API Integration_ section of this page.
+
+    * By running the `getCurrentUsersOrgs` GraphQL API query to obtain the organization slugs for the current user's accessible organizations, [getOrgPipelines](/docs/apis/graphql/schemas/query/organization) query to obtain the pipeline's `id` in the response. For example:
+
+        Step 1. Run `getCurrentUsersOrgs` to obtain the organization slug values in the response for the current user's accessible organizations:
+
+        ```graphql
+        query getCurrentUsersOrgs {
+          viewer {
+            organization {
+              edges {
+                node {
+                  name
+                  slug
+                }
+              }
+            }
+          }
+        }
+        ```
+
+        Step 2. Run `getOrgPipelines` with the appropriate slug value above to obtain this organization's `id` in the response:
+
+        ```graphql
+        query getOrgPipelines {
+          organization(slug: "organization-slug") {
+            pipelines(first: 100) {
+              edges {
+                node {
+                  id
+                  uuid
+                  name
+                }
+              } 
+            }
+          }
+        }
+        ```
+
+<%= render_markdown partial: 'apis/descriptions/graphql_cluster_id' %>
 
 <!-- ## Delete a cluster -->
