@@ -160,15 +160,7 @@ query AllPipelineMetrics {
 
 ## Delete a pipeline
 
-First, get the ID of the pipeline you want to delete:
-
-```graphql
-query {
-  pipeline(slug:"organization-slug/pipeline-slug") {
-    id
-  }
-}
-```
+First, [get the ID of the pipeline](#get-a-pipelines-id) you want to delete:
 
 Then, use the ID to delete the pipeline:
 
@@ -185,7 +177,7 @@ mutation PipelineDelete {
 
 ### Delete multiple pipelines
 
-Get the IDs of the Pipelines, as above, and use the IDs to delete multiple pipelines:
+Get [get the IDs of the pipeline](#get-a-pipelines-id) and use the IDs to delete multiple pipelines:
 
 ```graphql
 mutation PipelinesDelete {
@@ -225,15 +217,7 @@ mutation UpdateSchedule {
 
 ## Archive a pipeline
 
-First, get the ID of the pipeline you want to archive:
-
-```graphql
-query {
-  pipeline(slug:"organization-slug/pipeline-slug") {
-    id
-  }
-}
-```
+First, [get the ID of the pipeline](#get-a-pipelines-id) you want to archive:
 
 Then, use the ID to archive the pipeline:
 
@@ -253,15 +237,7 @@ mutation PipelineArchive {
 
 ## Unarchive a pipeline
 
-First, get the ID of the pipeline you want to unarchive:
-
-```graphql
-query {
-  pipeline(slug:"organization-slug/pipeline-slug") {
-    id
-  }
-}
-```
+First, [get the ID of the pipeline](#get-a-pipelines-id) you want to unarchive:
 
 Then, use the ID to unarchive the pipeline:
 
