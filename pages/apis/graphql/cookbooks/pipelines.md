@@ -77,6 +77,18 @@ query RecentPipelineSlugs {
 }
 ```
 
+## Get a pipeline's ID
+
+Get a pipeline's ID. The Pipeline ID is used in other queries.
+
+```graphql
+query {
+  pipeline(slug:"organization-slug/pipeline-slug") {
+    id
+  }
+}
+```
+
 ## Get a pipeline's UUID
 
 Get a pipeline's UUID by searching for it in the API. Search term can match a pipeline slug.
