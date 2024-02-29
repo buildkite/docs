@@ -18,6 +18,8 @@ It's recommended you use your platform's secret storage (such as the [AWS System
 
 New agent tokens can be created using the [_Agent Tokens_ page of a cluster](#create-a-token-using-the-buildkite-interface), as well as the [REST API's](#create-a-token-using-the-rest-api) or [GraphQL API's](#create-a-token-using-the-graphql-api) create agent token feature.
 
+For these API requests, the _cluster ID_ value submitted as part of the request is the target cluster the token is associated with.
+
 > 📘 An agent token's value is only displayed once
 > As soon as the agent token's value is displayed, copy its value and save it in a secure location.
 > If you forget to do this, you'll need to create a new token to obtain its value.
@@ -128,7 +130,7 @@ Agent tokens can be updated using the [_Agent Tokens_ page of a cluster](#update
 
 Only the _Description_ and _Allowed IP Addresses_ of an existing agent token can be updated.
 
-For either type of API request, the _cluster ID_ value submitted as part of the request is the target cluster the token is associated with.
+For these API requests, the _cluster ID_ value submitted as part of the request is the target cluster the token is associated with.
 
 ### Using the Buildkite interface
 
@@ -175,7 +177,7 @@ where:
 
 - <%= render_markdown partial: 'apis/descriptions/rest_allowed_ip_addresses' %>
 
-    This field can be omitted (where the default value is `0.0.0.0/0`) if there is no need to restrict the use of this agent token by network address, or change this field's current value. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address).
+    This field can be omitted (where the default value is `0.0.0.0/0`) if there is no need to restrict the use of this agent token by network address, or change the field's current value. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address).
 
 ### Using the GraphQL API
 
@@ -226,7 +228,7 @@ where:
 
 - <%= render_markdown partial: 'apis/descriptions/graphql_allowed_ip_addresses' %>
 
-    This field can be omitted (where the default value is `0.0.0.0/0`) if there is no need to restrict the use of this agent token by network address, or change this field's current value. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address).
+    This field can be omitted (where the default value is `0.0.0.0/0`) if there is no need to restrict the use of this agent token by network address, or change the field's current value. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address).
 
 The agent token's updates will appear on the cluster's _Agent Tokens_ page.
 
@@ -234,7 +236,7 @@ The agent token's updates will appear on the cluster's _Agent Tokens_ page.
 
 Agent tokens can be revoked using the [_Agent Tokens_ page of a cluster](#revoke-a-token-using-the-buildkite-interface), as well as the [REST API's](#revoke-a-token-using-the-rest-api) or [GraphQL API's](#revoke-a-token-using-the-graphql-api) revoke agent token feature.
 
-For either type of API request, the _cluster ID_ value submitted as part of the request is the target cluster the token is associated with.
+For these API requests, the _cluster ID_ value submitted as part of the request is the target cluster the token is associated with.
 
 Once a token is revoked, no new agents will be able to start with that token. Revoking a token does not affect any connected agents.
 

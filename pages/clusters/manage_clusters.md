@@ -268,7 +268,7 @@ Move a pipeline to a specific cluster to ensure the pipeline's builds run only o
 
 A pipeline can be moved to a cluster via the pipeline's [_General_ settings page](#move-a-pipeline-to-a-specific-cluster-using-the-buildkite-interface), as well as the [REST API's](#move-a-pipeline-to-a-specific-cluster-using-the-rest-api) or [GraphQL API's](#move-a-pipeline-to-a-specific-cluster-using-the-graphql-api) update a pipeline feature.
 
-For either type of API request, the _cluster ID_ value submitted in the request is that of the target cluster the pipeline is being moved to.
+For these API requests, the _cluster ID_ value submitted in the request is the target cluster the pipeline is being moved to.
 
 ### Using the Buildkite interface
 
