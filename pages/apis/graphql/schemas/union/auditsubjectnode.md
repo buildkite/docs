@@ -109,6 +109,9 @@ Kinds of subjects which can have audit events performed on them
 <a href="/docs/apis/graphql/schemas/object/ssoprovidersaml" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SSOProviderSAML">
   <code>SSOProviderSAML</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/secret" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Secret">
+  <code>Secret</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/subscription" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Subscription">
   <code>Subscription</code>
 </a>
