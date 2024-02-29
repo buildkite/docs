@@ -1,4 +1,4 @@
-- `cluster-id` can be obtained:
+- `cluster-id` (required) can be obtained:
 
     * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
         1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.

@@ -1,4 +1,4 @@
-- `organization-id` can be obtained:
+- `organization-id` (required) can be obtained:
 
     * From the _GraphQL API Integration_ section of your _Organization Settings_ page, accessed by selecting _Settings_ in the global navigation of your organization in Buildkite.
 

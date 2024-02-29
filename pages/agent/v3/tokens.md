@@ -67,7 +67,7 @@ where:
 
 <!--alex ignore clearly-->
 
-- <%= render_markdown partial: 'apis/descriptions/rest_agent_token_description' %>
+- <%= render_markdown partial: 'apis/descriptions/common_agent_token_description_required' %>
 
 - <%= render_markdown partial: 'apis/descriptions/rest_allowed_ip_addresses' %>
 
@@ -116,7 +116,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/graphql_cluster_id' %>
 
-- <%= render_markdown partial: 'apis/descriptions/graphql_agent_token_description' %>
+- <%= render_markdown partial: 'apis/descriptions/common_agent_token_description_required' %>
 
 - <%= render_markdown partial: 'apis/descriptions/graphql_allowed_ip_addresses' %>
 
@@ -169,7 +169,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/rest_agent_token_id' %>
 
-- <%= render_markdown partial: 'apis/descriptions/rest_agent_token_description' %>
+- <%= render_markdown partial: 'apis/descriptions/rest_agent_token_description_optional' %>
 
 - <%= render_markdown partial: 'apis/descriptions/rest_allowed_ip_addresses' %>
 
@@ -218,7 +218,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/graphql_agent_token_id' %>
 
-- <%= render_markdown partial: 'apis/descriptions/graphql_agent_token_description' %>
+- <%= render_markdown partial: 'apis/descriptions/common_agent_token_description_required' %>
 
     If you do not need to change the existing `description` value, specify the existing field value in the request.
 

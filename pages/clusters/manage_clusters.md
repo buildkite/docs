@@ -19,7 +19,7 @@ Once your clusters are set up, you can set up one or more [queues](/docs/cluster
 
 ## Create a cluster
 
-New clusters can be created using the [_Clusters_ page](#create-a-cluster-using-the-buildkite-interface), or the [REST API's create a cluster](#create-a-cluster-using-the-rest-api) feature.
+New clusters can be created using the [_Clusters_ page](#create-a-cluster-using-the-buildkite-interface), as well as the [REST API's](#create-a-cluster-using-the-rest-api) or [GraphQL API's](#create-a-cluster-using-the-graphql-api) create a cluster feature.
 
 ### Using the Buildkite interface
 
@@ -56,16 +56,52 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
-- `name` (required) is the name for the new cluster.
+<%= render_markdown partial: 'apis/descriptions/common_create_cluster_fields' %>
 
-- `description` (optional) is the description that appears under the name of cluster's tile on the _Clusters_ page.
+### Using the GraphQL API
 
-- `emoji` (optional) is the emoji that appears next to the cluster's name in the Buildkite interface and uses the example syntax above.
+To [create a new cluster](/docs/apis/graphql/schemas/mutation/clustercreate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
 
-- `color` (optional) provides the background color for this emoji and uses hex code syntax (for example, `#FFE0F1`).
+```graphql
+mutation {
+  clusterCreate(
+    input: {
+      organizationId: "organization-id"
+      name: "Open Source"
+      description: "A place for safely running our open source builds"
+      emoji: "\:technologist\:"
+      color: "#FFE0F1"
+    }
+  ) {
+    cluster {
+      id
+      uuid
+      name
+      description
+      emoji
+      color
+      defaultQueue {
+        id
+      }
+      createdBy {
+        id
+        uuid
+        name
+        email
+        avatar {
+          url
+        }
+      }
+    }
+  }
+}
+```
 
-> 📘 A default queue is not automatically created
-> Unlike creating a new cluster through the [Buildkite interface](#create-a-cluster-using-the-buildkite-interface), a default queue is not automatically created using this API call. To create a new/default queue for any new cluster created through an API call, you need to manually [create a new queue](/docs/clusters/manage-queues#create-a-queue).
+where:
+
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
+
+<%= render_markdown partial: 'apis/descriptions/common_create_cluster_fields' %>
 
 ## Connect agents to a cluster
 
