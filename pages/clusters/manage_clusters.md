@@ -187,7 +187,7 @@ where:
 
 ### Using the GraphQL API
 
-To restrict an existing agent token's access by IP address using the GraphQL API, run the following example mutation to [update this agent token](/docs/apis/graphql/schemas/mutation/clusteragenttokenupdate):
+To restrict an existing agent token's access by IP address using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation to [update this agent token](/docs/apis/graphql/schemas/mutation/clusteragenttokenupdate):
 
 ```graphql
 mutation {
@@ -313,7 +313,7 @@ where:
 
 ### Using the GraphQL API
 
-To [move a pipeline to a specific cluster](/docs/apis/graphql/schemas/mutation/pipelineupdate) using the [GraphQL API](/docs/apis/rest-api), run the following mutation:
+To [move a pipeline to a specific cluster](/docs/apis/graphql/schemas/mutation/pipelineupdate) using the [GraphQL API](/docs/apis/graphql-api), run the following mutation:
 
 ```curl
 mutation {
