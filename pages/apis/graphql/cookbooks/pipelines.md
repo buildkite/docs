@@ -210,3 +210,31 @@ mutation UpdateSchedule {
   }
 }
 ```
+
+## Archive a pipeline
+
+First, get the ID of the pipeline you want to archive:
+
+```graphql
+query {
+  pipeline(slug:"organization-slug/pipeline-slug") {
+    id
+  }
+}
+```
+
+Then, use the ID to archive the pipeline:
+
+```graphql
+mutation PipelineArchive {
+  pipelineArchive(input: {
+    id: "pipeline-id"
+  })
+  {
+    pipeline {
+      id
+      name
+    }
+  }
+}
+```
