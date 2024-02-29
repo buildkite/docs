@@ -51,7 +51,10 @@ To [create an agent token](/docs/apis/rest-api/clusters#agent-tokens-create-a-to
 curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens" \
   -H "Content-Type: application/json" \
-  -d '{ "description": "A description" }'
+  -d '{
+    "description": "A description",
+    "allowed_ip_addresses": "0.0.0.0/0"
+  }'
 ```
 
 where:
@@ -64,7 +67,9 @@ where:
 
 <!--alex ignore clearly-->
 
-<%= render_markdown partial: 'apis/descriptions/common_description' %>
+- <%= render_markdown partial: 'apis/descriptions/rest_agent_token_description' %>
+
+- <%= render_markdown partial: 'apis/descriptions/common_allowed_ip_addresses' %>
 
 The new agent token appears on the cluster's _Agent Tokens_ page.
 
@@ -79,24 +84,28 @@ mutation {
       organizationId: "organization-id"
       clusterId: "cluster-id"
       description: "A description"
+      allowedIpAddresses: "0.0.0.0/0"
     }
   ) {
     clusterAgentToken {
       id
       uuid
       description
+      allowedIpAddresses
       cluster {
+        id
         uuid
         organization {
+          id
           uuid
         }
       }
       createdBy {
+        id
         uuid
         email
       }
     }
-    tokenValue
   }
 }
 ```
@@ -107,12 +116,117 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/graphql_cluster_id' %>
 
-<%= render_markdown partial: 'apis/descriptions/common_description' %>
+- <%= render_markdown partial: 'apis/descriptions/graphql_agent_token_description' %>
+
+- <%= render_markdown partial: 'apis/descriptions/common_allowed_ip_addresses' %>
 
 The new agent token appears on the cluster's _Agent Tokens_ page.
 
-> 📘 Receiving a `jobTokensEnabled` error when attempting to create a new token?
-> If so, try removing the `jobTokensEnabled` field from this mutation.
+## Update a token
+
+Agent tokens can be updated using the [_Agent Tokens_ page of a cluster](#update-a-token-using-the-buildkite-interface), as well as the [REST API's](#update-a-token-using-the-rest-api) or [GraphQL API's](#update-a-token-using-the-graphql-api) revoke agent token feature.
+
+Only the _Description_ and _Allowed IP Addresses_ of an existing agent token can be updated.
+
+### Using the Buildkite interface
+
+To update a cluster's agent token using the Buildkite interface:
+
+1. Select _Agents_ in the global navigation to access the _Clusters_ page.
+1. Select the cluster containing the agent token to update.
+1. Select _Agent Tokens_ and on this page, expand the agent token to update.
+1. Select _Edit_ and update the following fields as required:
+    * _Description_ should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. This page can be accessed by selecting _Agents_ (in the global navigation) > the specific cluster > _Agent Tokens_.
+    * _Allowed IP Addresses_ is/are the IP addresses which agents must be accessible through to access this agent token and be able to connect to Buildkite via your cluster. Use space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to enter IP addresses for this field value.
+
+        Leave this field empty if there is no need to restrict the use of this agent token by network address. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address).
+
+1. Select _Save Token_ to save your changes.
+
+    The agent token's updates will appear on the cluster's _Agent Tokens_ page.
+
+### Using the REST API
+
+To [update an agent token](/docs/apis/rest-api/clusters#agent-tokens-update-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+
+```curl
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "description": "A description",
+    "allowed_ip_addresses": "202.144.0.0/24 198.51.100.12"
+  }'
+```
+
+where:
+
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_cluster_id' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_agent_token_id' %>
+
+- <%= render_markdown partial: 'apis/descriptions/rest_agent_token_description' %>
+
+- <%= render_markdown partial: 'apis/descriptions/common_allowed_ip_addresses' %>
+
+    This field can be omitted (where the default value is `0.0.0.0/0`) if there is no need to restrict the use of this agent token by network address. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address).
+
+### Using the GraphQL API
+
+To [update an agent token](/docs/apis/graphql/schemas/mutation/clusteragenttokenupdate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+
+```graphql
+mutation {
+  clusterAgentTokenUpdate(
+    input: {
+      organizationId: "organization-id"
+      id: "token-id"
+      description: "A description"
+      allowedIpAddresses: "202.144.0.0/24 198.51.100.12"
+    }
+  ) {
+    clusterAgentToken {
+      id
+      uuid
+      description
+      allowedIpAddresses
+      cluster {
+        id
+        uuid
+        organization {
+          id
+          uuid
+        }
+      }
+      createdBy {
+        id
+        uuid
+        email
+      }
+    }
+  }
+}
+```
+
+where:
+
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
+
+<%= render_markdown partial: 'apis/descriptions/graphql_agent_token_id' %>
+
+- <%= render_markdown partial: 'apis/descriptions/graphql_agent_token_description' %>
+
+    If you do not need to change the existing `description` value, specify the existing field value in this request.
+
+- <%= render_markdown partial: 'apis/descriptions/common_allowed_ip_addresses' %>
+
+    This field can be omitted (where the default value is `0.0.0.0/0`) if there is no need to restrict the use of this agent token by network address. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address).
+
+The agent token's updates will appear on the cluster's _Agent Tokens_ page.
 
 ## Revoke a token
 
