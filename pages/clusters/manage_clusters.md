@@ -8,7 +8,7 @@ Learn more about on how to set up queues within a cluster in [Manage queues](/do
 
 When you create a new Buildkite organization, a single default cluster (initially named _Default cluster_) is created.
 
-For smaller organizations, working on smaller projects, this default cluster may be sufficient. However, if you your organization develops projects that require different:
+For smaller organizations, working on smaller projects, this default cluster may be sufficient. However, if your organization develops projects that require different:
 
 - Staged environments, for example, development, test, staging/pre-production and production,
 - Source code visibility, such as open-source versus closed-source code projects,
