@@ -20,9 +20,9 @@ Having individual queues according to these breakdowns allows you to scale a set
 
 New queues can be created using the [_Queues_ page of a cluster](#create-a-queue-using-the-buildkite-interface), as well as the [REST API's](#create-a-queue-using-the-rest-api) or [GraphQL API's](#create-a-queue-using-the-graphql-api) create a queue feature.
 
-When you [create a new cluster](/docs/clusters/manage-clusters#create-a-cluster) through the [Buildkite interface](/docs/clusters/manage-clusters#create-a-cluster-using-the-buildkite-interface), this cluster automatically has an initial _default_ queue.
-
 For these API requests, the _cluster ID_ value submitted in the request is the target cluster the queue will be created in.
+
+When you [create a new cluster](/docs/clusters/manage-clusters#create-a-cluster) through the [Buildkite interface](/docs/clusters/manage-clusters#create-a-cluster-using-the-buildkite-interface), this cluster automatically has an initial _default_ queue.
 
 ### Using the Buildkite interface
 
@@ -59,13 +59,49 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/rest_cluster_id' %>
 
-- `key` (required) is displayed on the cluster's _Queues_ pages, and this value can only contain letters, numbers, hyphens, and underscores, as valid characters.
-
-- `description` (optional) is a longer description for the queue, which appears under the queue's key, when listed on the _Queues_ page, as well as when viewing the queue's details.
+<%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
 ### Using the GraphQL API
 
+To [create a new queue](/docs/apis/graphql/schemas/mutation/clusterqueuecreate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
 
+```graphql
+mutation {
+  clusterQueueCreate(
+    input: {
+      organizationId: "organization-id"
+      clusterId: "cluster-id"
+      key: "mac_large_silicon"
+      description: "The queue for powerful macOS agents running on Apple silicon architecture."
+    }
+  ) {
+    clusterQueue {
+      id
+      uuid
+      key
+      description
+      dispatchPaused
+      createdBy {
+        id
+        uuid
+        name
+        email
+        avatar {
+          url
+        }
+      }
+    }
+  }
+}
+```
+
+where:
+
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
+
+<%= render_markdown partial: 'apis/descriptions/graphql_cluster_id' %>
+
+<%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
 ## Pause and resume a queue
 
