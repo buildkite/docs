@@ -42,7 +42,7 @@ steps:
 
 Annotations are ordered by priority (highest to lowest) and then by most recently created. Priority can be set with the `--priority` option when creating the annotation with `buildkite-agent annotate`. Priority ranges from `1` to `10`, with `10` being the highest priority and `1` being the lowest. If priority is not set, the default priority is `3`. If two annotations have the same priority, the one created most recently will be displayed first.
 
-This is an example pipeline showcasing using priority to order annotations:
+This is an example pipeline that showcases how to use priority to order annotations:
 
 ```yaml
 steps:
