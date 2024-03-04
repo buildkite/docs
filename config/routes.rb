@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get "/docs/api",                                to: redirect("/docs/apis/rest-api")
   get "/docs/api/accounts",                       to: redirect("/docs/apis/rest-api/organizations/organizations")
   get "/docs/api/organizations",                  to: redirect("/docs/apis/rest-api/organizations/organizations")
-  get "/docs/apis/rest-api/teams",                to: redirect("/docs/apis/rest-api/organizations/teams")
+  get "/docs/apis/rest-api/teams",                to: redirect("/docs/apis/rest-api/teams/teams")
   get "/docs/api/projects",                       to: redirect("/docs/apis/rest-api/pipelines")
   get "/docs/api/*page",                          to: redirect("/docs/apis/rest-api/%{page}")
   get "/docs/apis/graphql-tutorial",              to: redirect("/docs/apis/graphql/graphql-tutorial")
