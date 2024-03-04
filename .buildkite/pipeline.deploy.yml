@@ -6,8 +6,10 @@ steps:
     if: |
       build.branch == "main"
     agents:
-      queue: deploy
+      queue: elastic-runners
     plugins:
+      - aws-assume-role-with-web-identity#v1.0.0:
+          role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs
       ecr#v2.7.0:
         login: true
         account-ids: ${ECR_ACCOUNT_ID}
@@ -15,9 +17,11 @@ steps:
   - name: ":ecr: ECR Vulnerabilities Scan"
     command: "true"
     agents:
-      queue: deploy
+      queue: elastic-runners
     depends_on: "ecr-push"
     plugins:
+      - aws-assume-role-with-web-identity#v1.0.0:
+          role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs
       - buildkite/ecr-scan-results#v1.2.0:
           image-name: "${ECR_REPO}:${BUILDKITE_BUILD_NUMBER}"
           ignore:
@@ -64,8 +68,11 @@ steps:
     concurrency: 1
     concurrency_group: docs-deploy
     agents:
-      queue: deploy
+      queue: elastic-runners
     command: scripts/deploy-ecs
+    plugins:
+      - aws-assume-role-with-web-identity#v1.0.0:
+          role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs
 
   - wait
 
