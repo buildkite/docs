@@ -39,6 +39,6 @@ All the possible types of actors in an Audit Event
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>USER</code></strong></p></td></tr>
+    <tr><td><p><strong><code>AGENT</code></strong></p></td></tr><tr><td><p><strong><code>USER</code></strong></p></td></tr>
   </tbody>
 </table>

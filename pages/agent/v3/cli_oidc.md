@@ -45,7 +45,7 @@ For specific endpoints for OpenID or JWKS, use:
         commit:BUILD_COMMIT:step:STEP_KEY</code>. </p>
       <p>If the build has a tag, <code>REF</code> is <code>refs/tags/TAG</code>.</p>
       <p>Otherwise, <code>REF</code> is <code>refs/heads/BRANCH</code>.</p>
-      <p><em>Example:</em><code>organization:acme-inc:pipeline:super-duper-app:             ref:refs/heads/main:commit:9f3182061f1e2cca4702c368cbc039b7dc9d4485:step:build</code></p>
+      <p><em>Example:</em><code>organization:acme-inc:pipeline:super-duper-app:ref:refs/heads/main:commit:9f3182061f1e2cca4702c368cbc039b7dc9d4485:step:build</code></p>
     </td>
   </tr>
    <tr>

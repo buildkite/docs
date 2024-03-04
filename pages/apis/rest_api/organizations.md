@@ -1,9 +1,8 @@
 # Organizations API
 
-
 ## List organizations
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of the user's organizations.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of organizations accessible by the user's access token.
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations"

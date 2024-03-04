@@ -1,4 +1,4 @@
-# Cluster token events
+# Agent token events
 
 ## Events
 
@@ -9,7 +9,7 @@
 <tbody>
   <tr>
     <th><code>cluster_token.registration_blocked</code></th>
-    <td>An attempted agent registration has been blocked because the request IP address is not included in the cluster token's <a href="/docs/clusters/manage-clusters#set-up-clusters-restrict-access-for-a-cluster-token-by-ip-address">allowed IP addresses</a></td>
+    <td>An attempted agent registration has been blocked because the request IP address is not included in the agent token's <a href="/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td>
   </tr>
 </tbody>
 </table>
@@ -28,8 +28,8 @@
     </tr>
     <tr>
       <td><code>cluster_token</code></td>
-      <td><a href="/docs/apis/rest-api/clusters#cluster-tokens">Cluster token</a></td>
-      <td>The cluster token used in the registration attempt</td>
+      <td><a href="/docs/apis/rest-api/clusters#agent-tokens">Agent token</a></td>
+      <td>The agent token used in the registration attempt</td>
     </tr>
     <tr>
       <td><code>sender</code></td>
