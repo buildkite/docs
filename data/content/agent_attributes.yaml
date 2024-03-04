@@ -16,7 +16,7 @@ attributes:
   default_value: ""
   required: false
   desc: |
-      A comma-separated list of regular expressions representing repositories the agent is allowed to clone (for example, "^git@github.com:buildkite/.\*" or "^https://github.com/buildkite/.*")
+      A comma-separated list of regular expressions representing repositories the agent is allowed to clone (for example, `^git@github.com:buildkite/.\*` or `^https://github.com/buildkite/.*`)
 - name: bootstrap-script
   env_var: BUILDKITE_BOOTSTRAP_SCRIPT_PATH
   default_value: "buildkite-agent bootstrap"
