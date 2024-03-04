@@ -480,25 +480,26 @@ The enabled Markdown linting rules are in [`.markdownlint.yaml`](https://github.
 
 You can use snippets to reuse the same fragment in several documentation pages (single sourcing). This way, you can update the snippet once, and the changes will be visible on all pages that use this snippet.
 
-Add snippet files to the directory where they'll be used, prefaced with an underscore in the file name. For example `_my_snippet.md`. **However**, when pulling the snippet into a file, remove the leading underscore.
+Add snippet files to appropriate locations within the `/pages` directory, prefaced with an underscore in the file name. For example `_my_snippet.md`. **However**, when pulling the snippet into a file, remove the leading underscore.
 
-This way, this:
+This way, the following example snippet file located immediately within the `/pages` directory:
 
-`/integrations/_step_2_3_github_custom_status.md`
+`_step_2_3_github_custom_status.md`
 
-Needs to become this in a snippet render link:
+is referenced using this snippet render link:
 
-`<%= render_markdown 'integrations/step_2_3_github_custom_status' %>`
+`<%= render_markdown 'step_2_3_github_custom_status' %>`
 
-Put the snippet render link where you need to add the content of the snippet.
+Use the snippet render link wherever you need to add the content of the snippet (multiple times if required) in other Markdown files throughout the Buildkite Docs.
 
-Do not use H2, H3-level headings in the first line of a snippet because this results in generation of incorrect anchor links for such headings. Instead, if you need to start a snippet with a heading, add the heading to the main document just before you add a snippet render link.
+If a snippet is stored within a subdirectory of `/pages`, you need to specify the subdirectory hierarchy in the link to the snippet.
 
-If a snippet is stored within a sub-solder, you need to specify the names of both folder and subfolder in the link to the snippet.
+Therefore, a reference to the `_agent_events_table.md` file stored within the `webhooks` subdirectory of the `apis` subdirectory would look like this:
 
-So a link to `_agent_events_table.md` stored within `webhooks` sub-folder in `apis` folder will need to look like this:
+`<%= render_markdown partial: 'apis/webhooks/agent_events_table' %>`
 
-`<%= render_markdown partial: 'integrations/step_2_3_github_custom_status' %>`
+> [!WARNING]
+> Do not use H2, H3-level headings in the first line of a snippet because this results in the generation of incorrect anchor links for such headings. Instead, if you need to start a snippet with a heading, add the heading to the main document just before you add a snippet render link.
 
 ### Custom elements
 
