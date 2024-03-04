@@ -8,9 +8,10 @@ You can create and manage schedules in the Schedules section of your Pipeline Se
 
 You can also create and manage schedules using the [Buildkite GraphQL API](/docs/apis/graphql-api).
 
-## Cron Job Permission Considuration
+## Cron job permission consideration
 
 When setting up a cron job in your parent pipeline, it is important to ensure that the same `Team` has been assigned to the corresponding child pipeline. Failure to match the `Teams` between parent and child pipelines may result an error with the following message:
+
 <div style="border: 1px solid #e74c3c; background-color: #f9ebec; padding: 10px; border-radius: 5px;">
     <p style="color: #c0392b; font-weight: bold;">Error:</p>
     <p><span style="color:red">_Could not find a matching team that includes both pipelines, each having a minimum "Build" access level._</span></p>
