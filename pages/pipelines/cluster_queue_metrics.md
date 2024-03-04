@@ -14,6 +14,9 @@ _Agents Connected_ is the number of agents connected to the queue. The circular 
 
 For agent utilization, agents are considered busy if they have a job ID assigned.
 
+>📘
+> The number of agents shown in the agent panel includes agents in a `stopping` state. This may cause a variation in the number shown in the agents panel and the graph displaying `connected` agents.
+
 ### Jobs panel
 
 _Jobs Running_ shows the number of jobs assigned to agents. These are any jobs in the queue in the following states:
@@ -46,11 +49,11 @@ The chart shows the past hour of activity with each data point representing a mi
 > Advanced Queue Metrics is complimentary while in beta however it will be a separate paid product once refined and no longer a beta feature.
 
 ### Enable Advanced Queue Metrics
+
 Any Buildkite administrator can enable Advanced Queue Metrics for an organization. Once you enable Advanced Queue Metrics, you can only disable them by contacting support.
 
 To enable Advanced Queue Metrics:
 
-1. _Clusters_ must be [enabled](/docs/clusters/overview#enable-clusters) first.
 1. Navigate to your [organization’s pipeline settings](https://buildkite.com/organizations/~/pipeline-settings).
 1. In _Advanced Queue Metrics_, select _Enable Advanced Queue Metrics_.
 1. Advanced Queue Metrics will now appear on your queue pages.

@@ -173,6 +173,9 @@ An object with an ID.
 <a href="/docs/apis/graphql/schemas/object/ssoprovidersaml" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SSOProviderSAML">
   <code>SSOProviderSAML</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/secret" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Secret">
+  <code>Secret</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/suite" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Suite">
   <code>Suite</code>
 </a>
