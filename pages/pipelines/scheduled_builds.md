@@ -14,7 +14,7 @@ When setting up a cron job in your parent pipeline, it is important to ensure th
 
 <div style="border: 1px solid #e74c3c; background-color: #f9ebec; padding: 10px; border-radius: 5px;">
     <p style="color: #c0392b; font-weight: bold;">Error:</p>
-    <p><span style="color:red">_Could not find a matching team that includes both pipelines, each having a minimum "Build" access level._</span></p>
+    <p><span style="color:red"><em>Could not find a matching team that includes both pipelines, each having a minimum "Build" access level.</em></span></p>
 </div>
 
  This error is indicative of a mismatch in `Team` assignments, and it highlights the importance of maintaining consistent team configurations across interconnected pipelines to avoid permission-related issues. 
