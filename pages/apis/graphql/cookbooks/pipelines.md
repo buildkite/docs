@@ -281,3 +281,9 @@ mutation PipelineUnarchive {
   }
 }
 ```
+
+### Unarchive multiple pipelines
+
+The process for unarchiving multiple pipelines is similar to that for [archiving multiple pipelines](#archive-a-pipeline-archive-multiple-pipelines).
+
+However, use the field `pipelineUnrchive` (in `pipeline1: pipelineUnarchive(input: { ... })`, etc.) instead of `pipelineArchive`.
