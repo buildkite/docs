@@ -252,7 +252,7 @@ mutation PipelinesArchive {
   }
 
   pipeline2: pipelineArchive(input: {
-  id: "pipeline2-id"
+    id: "pipeline2-id"
   })
   {
     pipeline {
