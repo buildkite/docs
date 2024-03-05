@@ -11,30 +11,29 @@
 #  replace the content in data/schema.graphql
 #  and run the generation script `./scripts/generate-graphql-api-content.sh`.
 
-title: AuditActorNode – Unions – GraphQL API
+title: secret – Queries – GraphQL API
 toc: false
 ---
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
-  AuditActorNode
-  <span class="pill pill--union pill--normal-case pill--large"><code>UNION</code></span>
+  secret
+  <a href="/docs/apis/graphql/schemas/object/secret" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Secret">
+  <code>Secret</code>
+</a>
+
 </h1>
 <!-- vale on -->
 
 
-Kinds of actors which can perform audit events
+Find a secret via its uuid. This does not contain the value of the secret or encrypted material.
 
-
-
-
-
-
-
-<h2 data-algolia-exclude>Possible types</h2>
-<div><a href="/docs/apis/graphql/schemas/object/agent" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Agent">
-  <code>Agent</code>
-</a>
-<a href="/docs/apis/graphql/schemas/object/user" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT User">
-  <code>User</code>
-</a>
-</div>
+<table class="responsive-table responsive-table--single-column-rows">
+  <thead>
+    <th>
+      <h2 data-algolia-exclude>Arguments</h2>
+    </th>
+  </thead>
+  <tbody>
+    <tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3><p>The UUID for the secret i.e. <code>0bd5ea7c-89b3-4f40-8ca3-ffac805771eb</code></p></td></tr>
+  </tbody>
+</table>
