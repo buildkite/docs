@@ -121,7 +121,9 @@ mutation AssignPipelineTemplate {
     pipeline {
       id
       name
-      pipelineTemplateId
+      pipelineTemplate {
+        id
+      }
     }
   }
 }
@@ -140,7 +142,9 @@ mutation UnassignPipelineTemplate {
     pipeline {
       id
       name
-      pipelineTemplateId
+      pipelineTemplate {
+        id
+      }
     }
   }
 }
