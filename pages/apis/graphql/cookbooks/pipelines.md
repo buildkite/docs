@@ -77,6 +77,18 @@ query RecentPipelineSlugs {
 }
 ```
 
+## Get a pipeline's ID
+
+Get a pipeline's ID which can be used in other queries.
+
+```graphql
+query {
+  pipeline(slug:"organization-slug/pipeline-slug") {
+    id
+  }
+}
+```
+
 ## Get a pipeline's UUID
 
 Get a pipeline's UUID by searching for it in the API. Search term can match a pipeline slug.
@@ -148,22 +160,36 @@ query AllPipelineMetrics {
 
 ## Delete a pipeline
 
-First, get the ID of the pipeline you want to delete:
-
-```graphql
-query {
-  pipeline(slug:"organization-slug/pipeline-slug") {
-    id
-  }
-}
-```
-
+First, [get the ID of the pipeline](#get-a-pipelines-id) you want to delete.
 Then, use the ID to delete the pipeline:
 
 ```graphql
 mutation PipelineDelete {
   pipelineDelete(input: {
     id: "pipeline-id"
+  })
+  {
+    deletedPipelineID
+  }
+}
+```
+
+### Delete multiple pipelines
+
+First, [get the IDs of the pipelines](#get-a-pipelines-id) you want to delete.
+Then, use the IDs to delete multiple pipelines:
+
+```graphql
+mutation PipelinesDelete {
+  pipeline1: pipelineDelete(input: {
+    id: "pipeline1-id"
+  })
+  {
+    deletedPipelineID
+  }
+
+  pipeline2: pipelineDelete(input: {
+    id: "pipeline2-id"
   })
   {
     deletedPipelineID
@@ -188,3 +214,76 @@ mutation UpdateSchedule {
   }
 }
 ```
+
+## Archive a pipeline
+
+First, [get the ID of the pipeline](#get-a-pipelines-id) you want to archive.
+Then, use the ID to archive the pipeline:
+
+```graphql
+mutation PipelineArchive {
+  pipelineArchive(input: {
+    id: "pipeline-id"
+  })
+  {
+    pipeline {
+      id
+      name
+    }
+  }
+}
+```
+
+### Archive multiple pipelines
+
+First, [get the IDs of the pipelines](#get-a-pipelines-id) you want to archive.
+Then, use the IDs to archive the pipelines:
+
+```graphql
+mutation PipelinesArchive {
+  pipeline1: pipelineArchive(input: {
+    id: "pipeline1-id"
+  })
+  {
+    pipeline {
+      id
+      name
+    }
+  }
+
+  pipeline2: pipelineArchive(input: {
+    id: "pipeline2-id"
+  })
+  {
+    pipeline {
+      id
+      name
+    }
+  }
+}
+```
+
+## Unarchive a pipeline
+
+First, [get the ID of the pipeline](#get-a-pipelines-id) you want to unarchive.
+Then, use the ID to unarchive the pipeline:
+
+```graphql
+mutation PipelineUnarchive {
+  pipelineUnarchive(input: {
+    id: "pipeline-id"
+  })
+  {
+    pipeline {
+      id
+      name
+    }
+  }
+}
+```
+
+### Unarchive multiple pipelines
+
+The process for unarchiving multiple pipelines is similar to that for [archiving multiple pipelines](#archive-a-pipeline-archive-multiple-pipelines).
+
+However, use the field `pipelineUnrchive` (in `pipeline1: pipelineUnarchive(input: { ... })`, etc.) instead of `pipelineArchive`.
