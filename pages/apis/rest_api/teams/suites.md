@@ -18,25 +18,24 @@ The team suites API allows users to review, create, update, and delete test suit
 Returns a list of a team's associated suites.
 
 ```bash
-curl --request GET \
-  --header 'Authorization: Bearer $TOKEN' \
-  --url https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/suites \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/suites"
 ```
 
 ```json
 [
-	{
-		"access_level": [ "read" ],
-		"created_at": "2024-01-11T04:24:21.352Z",
-		"suite_id": "19f3973d-1e0b-43f1-b490-22be52abd99a",
-		"suite_url": "https://api.buildkite.com/v2/analytics/organizations/acme-corp/suites/suite-dreams"
-	},
-	{
-		"access_level": [ "read", "edit" ],
-		"created_at": "2024-01-11T04:24:21.352Z",
-		"suite_id": "19f3973d-1e0b-43f1-b490-22besa5299a",
-		"suite_url": "https://api.buildkite.com/v2/analytics/organizations/acme-corp/suites/suite-and-sour"
-	}
+  {
+    "access_level": [ "read" ],
+    "created_at": "2024-01-11T04:24:21.352Z",
+    "suite_id": "19f3973d-1e0b-43f1-b490-22be52abd99a",
+    "suite_url": "https://api.buildkite.com/v2/analytics/organizations/acme-corp/suites/suite-dreams"
+  },
+  {
+    "access_level": [ "read", "edit" ],
+    "created_at": "2024-01-11T04:24:21.352Z",
+    "suite_id": "19f3973d-1e0b-43f1-b490-22besa5299a",
+    "suite_url": "https://api.buildkite.com/v2/analytics/organizations/acme-corp/suites/suite-and-sour"
+  }
 ]
 ```
 
@@ -47,9 +46,8 @@ Success response: `200 OK`
 ## Get a team suite
 
 ```bash
-curl --request GET \
-  --header 'Authorization: Bearer $TOKEN' \
-  --url https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/suites/{suite.uuid} \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/suites/{suite.uuid}"
 ```
 
 ```json
@@ -70,22 +68,21 @@ Success response: `200 OK`
 Creates an association between a team and a suite.
 
 ```bash
-curl --request POST \
-  --url https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/suite/ \
-  --header 'Authorization: Bearer $TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-	"suite_id": suite.uuid,
-	"access_level": ["read", "edit"]
-}'
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/suite/" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "suite_id": suite.uuid,
+    "access_level": ["read", "edit"]
+  }'
 ```
 
 ```json
 {
-	"access_level": [ "read", "edit" ],
-	"created_at": "2024-01-11T04:39:18.638Z",
-	"suite_id": "192k973d-1e0b-43f1-b490-22be52abd99a",
-	"suite_url": "https://api.buildkite.com/v2/analytics/organizations/acme-inc/suites/suiteheart"
+  "access_level": [ "read", "edit" ],
+  "created_at": "2024-01-11T04:39:18.638Z",
+  "suite_id": "192k973d-1e0b-43f1-b490-22be52abd99a",
+  "suite_url": "https://api.buildkite.com/v2/analytics/organizations/acme-inc/suites/suiteheart"
 }
 ```
 
@@ -118,21 +115,20 @@ Error responses:
 Updates an association between a team and a suite.
 
 ```bash
-curl --request PATCH \
-  --url https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/suites/{suite.uuid} \
-  --header 'Authorization: Bearer $TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-	"access_level": ["edit", "read"]"
-}'
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/suites/{suite.uuid}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "access_level": ["edit", "read"]"
+  }'
 ```
 
 ```json
 {
-	"access_level": [ "edit", "read" ],
-	"created_at": "2024-01-11T04:56:53.516Z",
-	"suite_id": "19f3973d-1e0b-43f1-b490-22be52abd99a",
-	"suite_url": "https://api.buildkite.com/v2/analytics/organizations/acme-inc/suites/suiteness"
+  "access_level": [ "edit", "read" ],
+  "created_at": "2024-01-11T04:56:53.516Z",
+  "suite_id": "19f3973d-1e0b-43f1-b490-22be52abd99a",
+  "suite_url": "https://api.buildkite.com/v2/analytics/organizations/acme-inc/suites/suiteness"
 }
 ```
 
@@ -164,10 +160,8 @@ Error responses:
 Remove the association between a team and a suite.
 
 ```bash
-curl --request DELETE \
-  --url https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/suites/{suite.uuid}/ \
-  --header 'Authorization: Bearer $TOKEN' \
-  --header 'Content-Type: application/json'
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/suites/{suite.uuid}/"
 ```
 
 Required scope: `write_teams`

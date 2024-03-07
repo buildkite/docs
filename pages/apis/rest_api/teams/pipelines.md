@@ -18,19 +18,18 @@ The team pipelines API allows users to review, create, update, and delete pipeli
 Returns a list of a team's associated pipelines.
 
 ```bash
-curl --request GET \
-  --header 'Authorization: Bearer $TOKEN' \
-  --url https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/pipelines \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/pipelines"
 ```
 
 ```json
 [
-	{
-		"access_level": "manage_build_and_read",
-		"created_at": "2023-12-12T21:57:40.306Z",
-		"pipeline_id": "018c5ad7-28f1-45d4-867e-b59fa04511b2",
-		"pipeline_url": "http://api.buildkite.com/v2/organizations/acme-inc/pipelines/e5eb97866561b24e088715332a2803dc64f02c61"
-	},
+  {
+    "access_level": "manage_build_and_read",
+    "created_at": "2023-12-12T21:57:40.306Z",
+    "pipeline_id": "018c5ad7-28f1-45d4-867e-b59fa04511b2",
+    "pipeline_url": "http://api.buildkite.com/v2/organizations/acme-inc/pipelines/e5eb97866561b24e088715332a2803dc64f02c61"
+  },
 ]
 ```
 
@@ -41,9 +40,8 @@ Success response: `200 OK`
 ## Get a team pipeline
 
 ```bash
-curl --request GET \
-  --header 'Authorization: Bearer $TOKEN' \
-  --url https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/pipelines/{pipeline.uuid} \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/pipelines/{pipeline.uuid}"
 ```
 
 ```json
@@ -64,14 +62,13 @@ Success response: `200 OK`
 Creates an association between a team and a pipeline.
 
 ```bash
-curl --request POST \
-  --url https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/pipelines/ \
-  --header 'Authorization: Bearer $TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-	"pipeline_id": "pipeline.uuid",
-	"access_level": "read_only"
-}'
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/pipelines/" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "pipeline_id": "pipeline.uuid",
+    "access_level": "read_only"
+  }'
 ```
 
 ```json
@@ -115,21 +112,20 @@ Error responses:
 Updates an association between a team and a pipeline.
 
 ```bash
-curl --request PATCH \
-  --url https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/pipelines/{pipeline.uuid} \
-  --header 'Authorization: Bearer $TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-	"access_level": "read_only"
-}'
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/pipelines/{pipeline.uuid}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "access_level": "read_only"
+  }'
 ```
 
 ```json
 {
-	"access_level": "read_only",
-	"created_at": "2023-12-12T21:57:40.306Z",
-	"pipeline_id": "018c5ad7-28f1-45d4-867e-b59fa04511b2",
-	"pipeline_url": "http://api.buildkite.com/v2/organizations/acme-inc/pipelines/e5eb97866561b24e088715332a2803dc64f02c61"
+  "access_level": "read_only",
+  "created_at": "2023-12-12T21:57:40.306Z",
+  "pipeline_id": "018c5ad7-28f1-45d4-867e-b59fa04511b2",
+  "pipeline_url": "http://api.buildkite.com/v2/organizations/acme-inc/pipelines/e5eb97866561b24e088715332a2803dc64f02c61"
 }
 ```
 
@@ -161,10 +157,8 @@ Error responses:
 Remove the association between a team and a pipeline.
 
 ```bash
-curl --request DELETE \
-  --url https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/pipelines/ \
-  --header 'Authorization: Bearer $TOKEN' \
-  --header 'Content-Type: application/json'
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/pipelines/"
 ```
 
 Required scope: `write_teams`

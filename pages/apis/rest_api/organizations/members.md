@@ -17,9 +17,8 @@ The organization members API allows users to view all members of an organization
 Returns a list of an organization's members.
 
 ```bash
-curl --request GET \
-  --header 'Authorization: Bearer $TOKEN' \
-  --url https://api.buildkite.com/v2/organizations/{org.slug}/members \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/members"
 ```
 
 ```json
@@ -44,9 +43,8 @@ Success response: `200 OK`
 ## Get an organization member
 
 ```bash
-curl --request GET \
-  --header 'Authorization: Bearer $TOKEN' \
-  --url https://api.buildkite.com/v2/organizations/{org.slug}/members/{user.uuid} \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/members/{user.uuid}"
 ```
 
 ```json

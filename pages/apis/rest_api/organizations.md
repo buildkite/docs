@@ -11,7 +11,8 @@ The organizations API:
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of organizations accessible by the user's access token.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations"
 ```
 
 ```json
@@ -38,7 +39,8 @@ Success response: `200 OK`
 ## Get an organization
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}"
 ```
 
 ```json

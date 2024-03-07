@@ -19,25 +19,24 @@ The team members API allows users to review, create, update, and delete members 
 Returns a list of a team's associated members.
 
 ```bash
-curl --request GET \
-  --header 'Authorization: Bearer $TOKEN' \
-  --url https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/members \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/members"
 ```
 
 ```json
 [
-	{
-		"role": "member",
-		"created_at": "2023-03-14T00:49:55.534Z",
-		"user_id": "978ce846-f6c0-4360-8133-389b03cus7a",
-		"user_name": "Severus Snape"
-	},
   {
-		"role": "member",
-		"created_at": "2023-03-14T00:49:55.534Z",
-		"user_id": "3878ce86-f6c0-4360-8133-389b0372",
-		"user_name": "Draco Malfoy"
-	},
+    "role": "member",
+    "created_at": "2023-03-14T00:49:55.534Z",
+    "user_id": "978ce846-f6c0-4360-8133-389b03cus7a",
+    "user_name": "Severus Snape"
+  },
+  {
+    "role": "member",
+    "created_at": "2023-03-14T00:49:55.534Z",
+    "user_id": "3878ce86-f6c0-4360-8133-389b0372",
+    "user_name": "Draco Malfoy"
+  },
 ]
 ```
 
@@ -48,17 +47,16 @@ Success response: `200 OK`
 ## Get a team member
 
 ```bash
-curl --request GET \
-  --header 'Authorization: Bearer $TOKEN' \
-  --url https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/members/{user.uuid} \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/members/{user.uuid}"
 ```
 
 ```json
 {
-	"role": "member",
-	"created_at": "2023-12-15T00:23:23.823Z",
-	"user_id": "018c6030-b459-45b2-a844-951f0fc8a4e7",
-	"user_name": "Dolores Umbridge"
+  "role": "member",
+  "created_at": "2023-12-15T00:23:23.823Z",
+  "user_id": "018c6030-b459-45b2-a844-951f0fc8a4e7",
+  "user_name": "Dolores Umbridge"
 }
 ```
 
@@ -71,22 +69,21 @@ Success response: `200 OK`
 Creates an association between a team and a user.
 
 ```bash
-curl --request POST \
-  --url https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/members/ \
-  --header 'Authorization: Bearer $TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-	"user_id": "6030-b459-45b2-a844-951f0fs727",
-	"role": "maintainer"
-}'
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/members/" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "user_id": "6030-b459-45b2-a844-951f0fs727",
+    "role": "maintainer"
+  }'
 ```
 
 ```json
 {
-	"role": "maintainer",
-	"created_at": "2023-12-14T00:43:04.675Z",
-	"user_id": "875ce846-f6c0-4360-8133-389b03c7c46a",
-	"user_name": "Professor Quirrel"
+  "role": "maintainer",
+  "created_at": "2023-12-14T00:43:04.675Z",
+  "user_id": "875ce846-f6c0-4360-8133-389b03c7c46a",
+  "user_name": "Professor Quirrel"
 }
 ```
 
@@ -122,21 +119,20 @@ Error responses:
 Updates an association between a team and a user.
 
 ```bash
-curl --request PATCH \
-  --url https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/members/{user.uuid} \
-  --header 'Authorization: Bearer $TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-	"role": "member"
-}'
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/members/{user.uuid}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "role": "member"
+  }'
 ```
 
 ```json
 {
-	"role": "member",
-	"created_at": "2023-12-15T00:23:23.823Z",
-	"user_id": "027c6030-b459-45b2-a844-951f0fc8a4e7",
-	"user_name": "Ron Weasley"
+  "role": "member",
+  "created_at": "2023-12-15T00:23:23.823Z",
+  "user_id": "027c6030-b459-45b2-a844-951f0fc8a4e7",
+  "user_name": "Ron Weasley"
 }
 ```
 
@@ -168,10 +164,8 @@ Error responses:
 Remove the association between a team and a user.
 
 ```bash
-curl --request DELETE \
-  --url https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/members/{user.uuid} \
-  --header 'Authorization: Bearer $TOKEN' \
-  --header 'Content-Type: application/json'
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/members/{user.uuid}"
 ```
 
 Required scope: `write_teams`

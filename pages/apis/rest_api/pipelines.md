@@ -15,7 +15,8 @@ This section of the REST API documentation also contains several other endpoints
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's pipelines.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
 ```
 
 ```json
@@ -93,7 +94,8 @@ Success response: `200 OK`
 ## Get a pipeline
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
 ```
 
 ```json
@@ -182,7 +184,8 @@ steps:
 make the following POST request, substituting your organization slug instead of `{org.slug}`. Make sure to escape the quotes (`"`) in your YAML, and  to replace line breaks with `\n`:
 
 ```bash
-curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
   -H "Content-Type: application/json" \
   -d '{
       "name": "My Pipeline X",
@@ -415,7 +418,8 @@ Error responses:
 YAML pipelines are the recommended way to [manage your pipelines](https://buildkite.com/docs/tutorials/pipeline-upgrade) but if you're still using visual steps you can add them by setting the `steps` key in your json request body to an array of steps:
 
 ```bash
-curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "My Pipeline",
@@ -707,7 +711,8 @@ To update a pipeline's YAML steps, make a PATCH request to the `pipelines` endpo
 
 
 ```bash
-curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}" \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}" \
   -H "Content-Type: application/json" \
   -d '{
     "repository": "git@github.com:acme-inc/new-repo.git",
@@ -715,7 +720,7 @@ curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{
   }'
 ```
 
->🚧
+> 🚧
 > Patch requests can only update attributes already present in the pipeline YAML.
 
 
@@ -857,7 +862,7 @@ Error responses:
 </tbody>
 </table>
 
->🚧
+> 🚧
 > To update a pipeline's teams, please use the <a href="/docs/apis/graphql-api">GraphQL API</a>.
 
 ## Archive a pipeline
@@ -865,7 +870,8 @@ Error responses:
 Archived pipelines are read-only, and are hidden from Pipeline pages by default. Builds, build logs, and artifacts are preserved.
 
 ```bash
-curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/archive"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/archive"
 ```
 
 ```json
@@ -947,7 +953,8 @@ Error responses:
 Unarchived pipelines are editable, and are shown on the Pipeline pages.
 
 ```bash
-curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/unarchive"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/unarchive"
 ```
 
 ```json
@@ -1027,7 +1034,8 @@ Error responses:
 ## Delete a pipeline
 
 ```bash
-curl -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
 ```
 
 Required scope: `write_pipelines`
@@ -1039,7 +1047,8 @@ Success response: `204 No Content`
 Create an GitHub webhook for an existing pipeline that is configured using our GitHub App. Pushes to the linked GitHub repository will trigger builds.
 
 ```bash
-curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/webhook"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/webhook"
 ```
 
 Required scope: `write_pipelines`

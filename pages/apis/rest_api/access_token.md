@@ -11,13 +11,14 @@ The Access token API allows you to inspect and revoke an API access token. This 
 Returns details about the API access token that was used to authenticate the request.
 
 ```bash
-curl "https://api.buildkite.com/v2/access-token"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/access-token"
 ```
 
 ```json
 {
-  "uuid": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-  "scopes": ["read_build"]
+  "scopes": ["read_build"],
+  "uuid": "b63254c0-3271-4a98-8270-7cfbd6c2f14e"
 }
 ```
 
@@ -30,7 +31,8 @@ Success response: `200 OK`
 Revokes the API access token that was used to authenticate the request. Once revoked, the token can no longer be used for further requests.
 
 ```bash
-curl -X DELETE "https://api.buildkite.com/v2/access-token"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/access-token"
 ```
 
 Required scope: none

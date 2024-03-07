@@ -25,16 +25,18 @@ curl https://api.buildkite.com
 
 Some API endpoints accept query string parameters which are added to the end of the URL. For example, the [builds listing APIs](/docs/api/builds#list-all-builds) can be filtered by `state` using the following `curl` command:
 
-```
-curl "https://api.buildkite.com/v2/organizations/my-org/pipelines/my-pipeline/builds?state=passed"
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/my-org/pipelines/my-pipeline/builds?state=passed"
 ```
 
 ## Request body properties
 
 Some API requests accept JSON request bodies for specifying data. For example, the [build create API](/docs/api/builds#create-a-build) can be passed the required properties using the following `curl` command:
 
-```
-curl -X POST "https://api.buildkite.com/v2/organizations/my-org/pipelines/my-pipeline/builds" \
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/my-org/pipelines/my-pipeline/builds" \
   -H "Content-Type: application/json" \
   -d '{
     "key": "value"
@@ -45,17 +47,18 @@ The data encoding is assumed to be `application/json`. Unless explicitly stated 
 
 ## Authentication
 
-You can authenticate with the Buildkite API using access tokens.
+You can authenticate with the Buildkite API using access tokens, represented by the value `$TOKEN` throughout this documentation.
 
 API access tokens allow to call the API without using your username and password. They can be created on your <a href="<%= url_helpers.user_access_tokens_url %>" rel="nofollow">API access tokens</a> page, limited to individual organizations and permissions, and revoked at any time from the web interface [or the REST API](/docs/apis/rest-api/access-token#revoke-the-current-token).
 
 To authenticate using a token, set the <code>Authorization</code> HTTP header to the word <code>Bearer</code>, followed by a space, followed by the access token. For example:
 
 ```bash
-curl -H "Authorization: Bearer $TOKEN" https://api.buildkite.com/v2/user
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/user"
 ```
 
->🚧 Basic authentication
+> 🚧 Basic authentication
 > Access using basic HTTP authentication is no longer available.
 
 ## Pagination
@@ -63,7 +66,8 @@ curl -H "Authorization: Bearer $TOKEN" https://api.buildkite.com/v2/user
 For endpoints which support pagination, the pagination information can be found in the `Link` HTTP response header containing zero or more of `next`, `prev`, `first` and `last`.
 
 ```bash
-curl -i "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds"
+curl -i -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds"
 ```
 
 ```

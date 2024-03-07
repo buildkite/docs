@@ -24,7 +24,8 @@ Returns a [paginated list](<%= paginated_resource_docs_url %>) of a build's anno
 > Note that you need the <a href="/docs/apis/rest-api/builds#build-number-vs-build-id">build number</a> to retrieve annotations, not the build ID.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations"
 ```
 
 ```json
@@ -60,7 +61,8 @@ Creates an annotation on a build.
 > Note that you need the <a href="/docs/apis/rest-api/builds#build-number-vs-build-id">build number</a> to create annotations, not the build ID.
 
 ```bash
-curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations" \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations" \
   -H "Content-Type: application/json" \
   -d '{
     "body": "Hello world!",
