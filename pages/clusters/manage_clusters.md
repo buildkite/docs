@@ -38,7 +38,7 @@ To create a new cluster using the Buildkite interface:
 
 To [create a new cluster](/docs/apis/rest-api/clusters#clusters-create-a-cluster) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
-```curl
+```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters" \
   -H "Content-Type: application/json" \
@@ -168,7 +168,7 @@ To restrict an existing agent token's access by IP address (via the token's _All
 
 To restrict an existing agent token's access by IP address using the REST API, run the following example `curl` command to [update this agent token](/docs/apis/rest-api/clusters#agent-tokens-update-a-token):
 
-```curl
+```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}" \
   -H "Content-Type: application/json" \
@@ -288,7 +288,7 @@ To move a pipeline to a specific cluster using the Buildkite interface:
 
 To [move a pipeline to a specific cluster](/docs/apis/rest-api/pipelines#update-a-pipeline) using the [REST API](/docs/apis/rest-api), run the following `curl` command:
 
-```curl
+```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}" \
   -H "Content-Type: application/json" \
@@ -307,8 +307,9 @@ where:
 
     * By running the [List pipelines](/docs/apis/rest-api/pipelines#list-pipelines) REST API query to obtain this value from `slug` in the response from the specific pipeline. For example:
 
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
+        ```bash
+        curl -H "Authorization: Bearer $TOKEN" \
+          - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
         ```
 
 <%= render_markdown partial: 'apis/descriptions/rest_cluster_id_body' %>
