@@ -6,7 +6,6 @@ The current version of the Buildkite API is v2.
 
 For the list of existing disparities between the REST API and the GraphQL API, see [API differences](/docs/apis/api-differences).
 
-
 ## Schema
 
 All API access is over HTTPS, and accessed from the `api.buildkite.com` domain. All data is sent as JSON.
@@ -58,8 +57,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/user"
 ```
 
-> 🚧 Basic authentication
-> Access using basic HTTP authentication is no longer available.
+Access using basic HTTP authentication is not supported.
 
 ## Pagination
 
