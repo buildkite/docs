@@ -16,7 +16,7 @@ When viewing your flaky tests, you should now see a list of teams with suite acc
 >🚧 Assignment permissions
 > All team members have the ability to create, update or remove an assignment, this feature is not restricted to admins.
 
-Tests that are assigned to a team will update to display a badge indicating as such. This badge is also visible on issues in the run page.
+Tests that are assigned to a team will be updated to display a badge indicating as such. This badge is also visible on issues in the run page.
 
 <%= image "flaky-test-teams.png", width: 1960/2, height: 630/2, alt: "Flaky test page showing team assignments" %>
 
