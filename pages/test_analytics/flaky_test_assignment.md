@@ -24,9 +24,9 @@ Tests that are assigned to a team will be updated to display a badge indicating 
 
 Users can check their test assignments by clicking _My Assignments_ in the side bar.
 
-<%= image "current-assignments.png", width: 1960/2, height: 630/2, alt: "Flaky test page showing team assignments" %>
+<%= image "recent-assignments.png", width: 1960/2, height: 630/2, alt: "Flaky test page showing team assignments" %>
 
-When an assigned test has not flaked in more than 7 days, it is moved to the "Stale assignment" section. An assignment could become stale due to a flaky test being fixed, or perhaps it belongs to a pipeline which has not had a build in the last 7 days. Should the flake reoccur, the assignment will be moved back to the "Current assignments" page.
+When an assigned test has not flaked in more than 7 days, it is moved to the _Outdated flaky tests_ section. An assignment could become out of date due to a flaky test being fixed, or perhaps it belongs to a pipeline which has not had a build in the last 7 days. Should the flake reoccur, the assignment will be moved back to the _Recent flaky tests_ page.
 
-<%= image "stale-assignments.png", width: 1960/2, height: 630/2, alt: "Flaky test page showing team assignments" %>
+<%= image "outdated-assignments.png", width: 1960/2, height: 630/2, alt: "Flaky test page showing team assignments" %>
 
