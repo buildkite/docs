@@ -14,7 +14,7 @@ To enable assignments, you must have at least one team that has access to your s
 When viewing your flaky tests, you should now see a list of teams with suite access permissions listed inside the assignment dropdown. From here you may assign, reassign or remove the assignment.
 
 >🚧 Assignment permissions
-> All team members have the ability to create, update or remove an assignment, this feature is not restricted to admins.
+> All team members have the ability to create, update or remove an assignment. This feature is not restricted to admins.
 
 Tests that are assigned to a team will be updated to display a badge indicating as such. This badge is also visible on issues in the run page.
 
