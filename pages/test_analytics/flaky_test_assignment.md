@@ -4,7 +4,7 @@ Customers on the [Pro and Enterprise plans](https://buildkite.com/pricing) can a
 
 ## Enabling flaky test assignments
 
-To enable assignments you must have at least one team that has access to your suite. You may need to ask your admin to enable the teams feature, and then create teams via the organization settings page.
+To enable assignments, you must have at least one team that has access to your suite. You may need to ask your admin to enable the teams feature, and then create teams via the organization settings page.
 
 <%= image "flaky-test-no-teams.png", width: 1960/2, height: 630/2, alt: "Flaky test page showing dropdown menu prompting user to create teams" %>
 <%= image "team-settings.png", width: 1960/2, height: 630/2, alt: "Team page for assigning test suites" %>
