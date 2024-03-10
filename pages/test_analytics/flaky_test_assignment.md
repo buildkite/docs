@@ -22,7 +22,7 @@ Tests that are assigned to a team will update to display a badge indicating as s
 
 ## Viewing assignments
 
-Users can check their test assignments by clicking "My Assignments" in the side bar.
+Users can check their test assignments by clicking _My Assignments_ in the side bar.
 
 <%= image "current-assignments.png", width: 1960/2, height: 630/2, alt: "Flaky test page showing team assignments" %>
 
