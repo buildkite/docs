@@ -169,3 +169,28 @@ mutation CancelJob {
   }
 }
 ```
+
+## Get retry information for a job
+
+To get information about how a job was retried (`retryType`), who retried the job (`retriedBy`) and which job was source of the retry (`uuid`).
+`retriedBy` will be `null` if the `retryType` is `AUTOMATIC`.
+
+```graphql
+query GetJobRetryInformation {
+  job(uuid: "job-uuid") {
+    ... on JobTypeCommand {
+      retrySource {
+        ... on JobInterface {
+          uuid
+          retried
+          retryType
+          retriedBy {
+            email
+            name
+          }
+        }
+      }
+    }
+  }
+}
+```
