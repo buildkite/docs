@@ -6,7 +6,7 @@ If you are managing agents in an unclustered environment, refer to [unclustered 
 
 ## The initial agent token
 
-When you create a new organization in Buildkite, an initial agent token is created (called _Initial agent token_ within the _Default cluster_). This token can be used for testing and development and is only revealed once during the organization setup process. It's recommended that you [create new, specific tokens](#create-a-new-token) for each new environment.
+When you create a new organization in Buildkite, an initial agent token is created (called _Initial agent token_ within the _Default cluster_). This token can be used for testing and development and is only revealed once during the organization setup process. It's recommended that you [create new, specific tokens](#create-a-token) for each new environment.
 
 ## Using and storing tokens
 
@@ -14,9 +14,11 @@ An agent token is used by the Buildkite Agent's [start](/docs/agent/v3/cli-start
 
 It's recommended you use your platform's secret storage (such as the [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html)) to allow for easier rollover and management of your agent tokens.
 
-## Create a new token
+## Create a token
 
-New agent tokens can be created using the [_Agent Tokens_ page of a cluster](#create-a-new-token-using-the-buildkite-interface), or the [REST API's create agent token](#create-a-new-token-using-the-rest-api) feature.
+New agent tokens can be created using the [_Agent Tokens_ page of a cluster](#create-a-token-using-the-buildkite-interface), as well as the [REST API's](#create-a-token-using-the-rest-api) or [GraphQL API's](#create-a-token-using-the-graphql-api) create agent token feature.
+
+For these API requests, the _cluster ID_ value submitted as part of the request is the target cluster the token is associated with.
 
 > 📘 An agent token's value is only displayed once
 > As soon as the agent token's value is displayed, copy its value and save it in a secure location.
@@ -47,48 +49,194 @@ To create an agent token for a cluster using the Buildkite interface:
 
 To [create an agent token](/docs/apis/rest-api/clusters#agent-tokens-create-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
-```curl
+```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens" \
   -H "Content-Type: application/json" \
-  -d '{ "description": "A description" }'
+  -d '{
+    "description": "A description",
+    "allowed_ip_addresses": "0.0.0.0/0"
+  }'
 ```
 
 where:
 
-- `$TOKEN` is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
 
-- `{org.slug}` can be obtained:
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
-    * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite.
-
-    * By running the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
-
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
-        ```
-
-- `{cluster.id}` can be obtained:
-
-    * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
-        1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.
-        1. Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value.
-
-    * By running the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
-
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
-        ```
+<%= render_markdown partial: 'apis/descriptions/rest_cluster_id' %>
 
 <!--alex ignore clearly-->
 
-- `description` (optional) should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. To access this page, select _Agents_ (in the global navigation) > the specific cluster > _Agent Tokens_.
+- <%= render_markdown partial: 'apis/descriptions/common_agent_token_description_required' %>
+
+- <%= render_markdown partial: 'apis/descriptions/rest_allowed_ip_addresses' %>
 
 The new agent token appears on the cluster's _Agent Tokens_ page.
 
+### Using the GraphQL API
+
+To [create an agent token](/docs/apis/graphql/schemas/mutation/clusteragenttokencreate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+
+```graphql
+mutation {
+  clusterAgentTokenCreate(
+    input: {
+      organizationId: "organization-id"
+      clusterId: "cluster-id"
+      description: "A description"
+      allowedIpAddresses: "0.0.0.0/0"
+    }
+  ) {
+    clusterAgentToken {
+      id
+      uuid
+      description
+      allowedIpAddresses
+      cluster {
+        id
+        uuid
+        organization {
+          id
+          uuid
+        }
+      }
+      createdBy {
+        id
+        uuid
+        email
+      }
+    }
+  }
+}
+```
+
+where:
+
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
+
+<%= render_markdown partial: 'apis/descriptions/graphql_cluster_id' %>
+
+- <%= render_markdown partial: 'apis/descriptions/common_agent_token_description_required' %>
+
+- <%= render_markdown partial: 'apis/descriptions/graphql_allowed_ip_addresses' %>
+
+The new agent token appears on the cluster's _Agent Tokens_ page.
+
+## Update a token
+
+Agent tokens can be updated using the [_Agent Tokens_ page of a cluster](#update-a-token-using-the-buildkite-interface), as well as the [REST API's](#update-a-token-using-the-rest-api) or [GraphQL API's](#update-a-token-using-the-graphql-api) revoke agent token feature.
+
+Only the _Description_ and _Allowed IP Addresses_ of an existing agent token can be updated.
+
+For these API requests, the _cluster ID_ value submitted as part of the request is the target cluster the token is associated with.
+
+### Using the Buildkite interface
+
+To update a cluster's agent token using the Buildkite interface:
+
+1. Select _Agents_ in the global navigation to access the _Clusters_ page.
+1. Select the cluster containing the agent token to update.
+1. Select _Agent Tokens_ and on this page, expand the agent token to update.
+1. Select _Edit_ and update the following fields as required:
+    * _Description_ should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. This page can be accessed by selecting _Agents_ (in the global navigation) > the specific cluster > _Agent Tokens_.
+    * _Allowed IP Addresses_ is/are the IP addresses which agents must be accessible through to access this agent token and be able to connect to Buildkite via your cluster. Use space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to enter IP addresses for this field value.
+
+        Leave this field empty if there is no need to restrict the use of this agent token by network address. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address).
+
+1. Select _Save Token_ to save your changes.
+
+    The agent token's updates will appear on the cluster's _Agent Tokens_ page.
+
+### Using the REST API
+
+To [update an agent token](/docs/apis/rest-api/clusters#agent-tokens-update-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "description": "A description",
+    "allowed_ip_addresses": "202.144.0.0/24 198.51.100.12"
+  }'
+```
+
+where:
+
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_cluster_id' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_agent_token_id' %>
+
+- <%= render_markdown partial: 'apis/descriptions/rest_agent_token_description_optional' %>
+
+- <%= render_markdown partial: 'apis/descriptions/rest_allowed_ip_addresses' %>
+
+    This field can be omitted (where the default value is `0.0.0.0/0`) if there is no need to restrict the use of this agent token by network address, or change the field's current value. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address).
+
+### Using the GraphQL API
+
+To [update an agent token](/docs/apis/graphql/schemas/mutation/clusteragenttokenupdate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+
+```graphql
+mutation {
+  clusterAgentTokenUpdate(
+    input: {
+      organizationId: "organization-id"
+      id: "token-id"
+      description: "A description"
+      allowedIpAddresses: "202.144.0.0/24 198.51.100.12"
+    }
+  ) {
+    clusterAgentToken {
+      id
+      uuid
+      description
+      allowedIpAddresses
+      cluster {
+        id
+        uuid
+        organization {
+          id
+          uuid
+        }
+      }
+      createdBy {
+        id
+        uuid
+        email
+      }
+    }
+  }
+}
+```
+
+where:
+
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
+
+<%= render_markdown partial: 'apis/descriptions/graphql_agent_token_id' %>
+
+- <%= render_markdown partial: 'apis/descriptions/common_agent_token_description_required' %>
+
+    If you do not need to change the existing `description` value, specify the existing field value in the request.
+
+- <%= render_markdown partial: 'apis/descriptions/graphql_allowed_ip_addresses' %>
+
+    This field can be omitted (where the default value is `0.0.0.0/0`) if there is no need to restrict the use of this agent token by network address, or change the field's current value. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address).
+
+The agent token's updates will appear on the cluster's _Agent Tokens_ page.
+
 ## Revoke a token
 
-Agent tokens can be revoked using the [_Agent Tokens_ page of a cluster](#revoke-a-token-using-the-buildkite-interface), or the [REST API's delete agent token](#revoke-a-token-using-the-rest-api) feature.
+Agent tokens can be revoked using the [_Agent Tokens_ page of a cluster](#revoke-a-token-using-the-buildkite-interface), as well as the [REST API's](#revoke-a-token-using-the-rest-api) or [GraphQL API's](#revoke-a-token-using-the-graphql-api) revoke agent token feature.
+
+For these API requests, the _cluster ID_ value submitted as part of the request is the target cluster the token is associated with.
 
 Once a token is revoked, no new agents will be able to start with that token. Revoking a token does not affect any connected agents.
 
@@ -105,49 +253,43 @@ To revoke a cluster's agent token using the Buildkite interface:
 
 To [revoke an agent token](/docs/apis/rest-api/clusters#agent-tokens-revoke-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
-```curl
+```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}"
 ```
 
 where:
 
-- `$TOKEN` is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
 
-- `{org.slug}` can be obtained:
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
-    * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite.
+<%= render_markdown partial: 'apis/descriptions/rest_cluster_id' %>
 
-    * By running the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
+<%= render_markdown partial: 'apis/descriptions/rest_agent_token_id' %>
 
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
-        ```
+### Using the GraphQL API
 
-- `{cluster.id}` can be obtained:
+To [revoke an agent token](/docs/apis/graphql/schemas/mutation/clusteragenttokenrevoke) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
 
-    * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
-        1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.
-        1. Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value.
+```graphql
+mutation {
+  clusterAgentTokenRevoke(
+    input: {
+      organizationId: "organization-id"
+      id: "token-id"
+    }
+  ) {
+    deletedClusterAgentTokenId
+  }
+}
+```
 
-    * By running the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
+where:
 
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
-        ```
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
 
-- `{id}` is that of the agent token, whose value can be obtained:
-
-    * From the Buildkite URL path when editing the agent token. To do this:
-
-        - Select _Agents_ (in the global navigation) > the specific cluster > _Agent Tokens_ > expand the agent token > _Edit_.
-        - Copy the ID value between `/tokens/` and `/edit` in the URL.
-
-    * By running the [List tokens](/docs/apis/rest-api/clusters#agent-tokens-list-tokens) REST API query and obtain this value from the `id` in the response associated with the description of your token (specified by the `description` value in the response). For example:
-
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens"
-        ```
+<%= render_markdown partial: 'apis/descriptions/graphql_agent_token_id' %>
 
 ## Scope of access
 

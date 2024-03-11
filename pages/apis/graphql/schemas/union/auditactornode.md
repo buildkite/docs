@@ -31,7 +31,10 @@ Kinds of actors which can perform audit events
 
 
 <h2 data-algolia-exclude>Possible types</h2>
-<div><a href="/docs/apis/graphql/schemas/object/user" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT User">
+<div><a href="/docs/apis/graphql/schemas/object/agent" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Agent">
+  <code>Agent</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/user" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT User">
   <code>User</code>
 </a>
 </div>

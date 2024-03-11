@@ -721,12 +721,13 @@ type AuditActor {
 """
 Kinds of actors which can perform audit events
 """
-union AuditActorNode = User
+union AuditActorNode = Agent | User
 
 """
 All the possible types of actors in an Audit Event
 """
 enum AuditActorType {
+  AGENT
   USER
 }
 
@@ -847,8 +848,8 @@ enum AuditEventType {
   SCM_SERVICE_UPDATED
   SECRET_CREATED
   SECRET_DELETED
+  SECRET_QUERIED
   SECRET_READ
-  SECRET_READ_REQUESTED
   SECRET_UPDATED
   SSO_PROVIDER_CREATED
   SSO_PROVIDER_DELETED

@@ -16,11 +16,13 @@ Some example queues might be `mac_medium_x86`, `mac_large_silicon`, etc.
 
 Having individual queues according to these breakdowns allows you to scale a set of similar agents, which Buildkite can then report on.
 
-## Create a new queue
+## Create a queue
 
-New queues can be created using the [_Queues_ page of a cluster](#create-a-new-queue-using-the-buildkite-interface), or the [REST API's create a queue](#create-a-new-queue-using-the-rest-api) feature.
+New queues can be created using the [_Queues_ page of a cluster](#create-a-queue-using-the-buildkite-interface), as well as the [REST API's](#create-a-queue-using-the-rest-api) or [GraphQL API's](#create-a-queue-using-the-graphql-api) create a queue feature.
 
-When you [create a new cluster](/docs/clusters/manage-clusters#create-a-new-cluster) through the [Buildkite interface](/docs/clusters/manage-clusters#create-a-new-cluster-using-the-buildkite-interface), this cluster automatically has an initial _default_ queue.
+For these API requests, the _cluster ID_ value submitted in the request is the target cluster the queue will be created in.
+
+When you [create a new cluster](/docs/clusters/manage-clusters#create-a-cluster) through the [Buildkite interface](/docs/clusters/manage-clusters#create-a-cluster-using-the-buildkite-interface), this cluster automatically has an initial _default_ queue.
 
 ### Using the Buildkite interface
 
@@ -51,33 +53,55 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-- `$TOKEN` is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
 
-- `{org.slug}` can be obtained:
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
-    * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite.
+<%= render_markdown partial: 'apis/descriptions/rest_cluster_id' %>
 
-    * By running the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
+<%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
-        ```
+### Using the GraphQL API
 
-- `{cluster.id}` can be obtained:
+To [create a new queue](/docs/apis/graphql/schemas/mutation/clusterqueuecreate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
 
-    * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
-        1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.
-        1. Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value.
+```graphql
+mutation {
+  clusterQueueCreate(
+    input: {
+      organizationId: "organization-id"
+      clusterId: "cluster-id"
+      key: "mac_large_silicon"
+      description: "The queue for powerful macOS agents running on Apple silicon architecture."
+    }
+  ) {
+    clusterQueue {
+      id
+      uuid
+      key
+      description
+      dispatchPaused
+      createdBy {
+        id
+        uuid
+        name
+        email
+        avatar {
+          url
+        }
+      }
+    }
+  }
+}
+```
 
-    * By running the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
+where:
 
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
-        ```
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
 
-- `key` (required) is displayed on the cluster's _Queues_ pages, and this value can only contain letters, numbers, hyphens, and underscores, as valid characters.
+<%= render_markdown partial: 'apis/descriptions/graphql_cluster_id' %>
 
-- `description` (optional) is a longer description for the queue, which appears under the queue's key, when listed on the _Queues_ page, as well as when viewing the queue's details.
+<%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
 ## Pause and resume a queue
 

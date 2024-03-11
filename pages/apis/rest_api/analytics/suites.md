@@ -5,7 +5,8 @@
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's suites.
 
 ```bash
-curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites"
 ```
 
 ```json
@@ -29,7 +30,8 @@ Success response: `200 OK`
 ## Get a suite
 
 ```bash
-curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}"
 ```
 
 ```json
@@ -51,8 +53,9 @@ Success response: `200 OK`
 ## Create a suite
 
 ```bash
-curl -X POST \
-  https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites" \
+  -H "Content-Type: application/json" \
   -d '{
     "name": "Jasmine",
     "default_branch": "main",
@@ -106,8 +109,9 @@ Success response: `201 Created`
 ## Update a suite
 
 ```bash
-curl -X PATCH \
-  https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug} \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PATCH "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}" \
+  -H "Content-Type: application/json" \
   -d '{
     "name": "Jasmine",
     "default_branch": "main"
@@ -143,8 +147,8 @@ Success response: `200 OK`
 ## Delete a suite
 
 ```bash
-curl -X DELETE \
-  https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}"
 ```
 
 Required scope: `write_suites`

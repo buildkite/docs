@@ -7,7 +7,17 @@ For more information on enabling Teams for your organization, please see the [Us
 
 ## Permissions with teams
 
-You can see the teams that you're a member of on the Teams page in your Buildkite settings. From this page, you can add new teams or edit existing ones. By clicking on a team, you can view the members, pipelines, suites, and team specific settings.
+You can see the teams that you're a member of from your user page from your Organization settings [User section](https://buildkite.com/organizations/~/users/).
+
+<%= image "user-section-teams-list.png", alt: "Screenshot of the User section, showing a list of Teams an User is a member of" %>
+
+In the [Team section](https://buildkite.com/organizations/~/teams), you can add new teams or edit existing ones.
+
+<%= image "team-section-list.png", alt: "Screenshot of the Team section, showing a list of Teams" %>
+
+By clicking on a team, you can view the members, pipelines, suites, and team specific settings.
+
+<%= image "team-section-test-suites-list.png", alt: "Screenshot of the Team section, showing a list of Test Suites the team has access to" %>
 
 ### Organization-level permissions
 

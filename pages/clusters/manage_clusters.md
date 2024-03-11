@@ -8,20 +8,18 @@ Learn more about on how to set up queues within a cluster in [Manage queues](/do
 
 When you create a new Buildkite organization, a single default cluster (initially named _Default cluster_) is created.
 
-For smaller organizations, working on smaller projects, this default cluster may be sufficient. However, if you your organization develops projects that require different:
+For smaller organizations, working on smaller projects, this default cluster may be sufficient. However, it's usually more convenient for organizations to manage projects in separate clusters, when these projects require different:
 
-- Staged environments, for example, development, test, staging/pre-production and production,
-- Source code visibility, such as open-source versus closed-source code projects,
-- Target platforms, such as Linux, Android, macOS, Windows, etc, and
-- Multiple projects, for example, different product lines,
-
-Then it is more convenient to manage these in separate clusters.
+- Staged environments, for example, development, test, staging/pre-production and production
+- Source code visibility, such as open-source versus closed-source code projects
+- Target platforms, such as Linux, Android, macOS, Windows, etc.
+- Multiple projects, for example, different product lines
 
 Once your clusters are set up, you can set up one or more [queues](/docs/clusters/manage-queues) within each cluster.
 
-## Create a new cluster
+## Create a cluster
 
-New clusters can be created using the [_Clusters_ page](#create-a-new-cluster-using-the-buildkite-interface), or the [REST API's create a cluster](#create-a-new-cluster-using-the-rest-api) feature.
+New clusters can be created using the [_Clusters_ page](#create-a-cluster-using-the-buildkite-interface), as well as the [REST API's](#create-a-cluster-using-the-rest-api) or [GraphQL API's](#create-a-cluster-using-the-graphql-api) create a cluster feature.
 
 ### Using the Buildkite interface
 
@@ -40,7 +38,7 @@ To create a new cluster using the Buildkite interface:
 
 To [create a new cluster](/docs/apis/rest-api/clusters#clusters-create-a-cluster) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
-```curl
+```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters" \
   -H "Content-Type: application/json" \
@@ -54,34 +52,62 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-- `$TOKEN` is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
 
-- `{org.slug}` can be obtained:
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
-    * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite.
+<%= render_markdown partial: 'apis/descriptions/common_create_cluster_fields' %>
 
-    * By running the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
+### Using the GraphQL API
 
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
-        ```
+To [create a new cluster](/docs/apis/graphql/schemas/mutation/clustercreate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
 
-- `name` (required) is the name for the new cluster.
+```graphql
+mutation {
+  clusterCreate(
+    input: {
+      organizationId: "organization-id"
+      name: "Open Source"
+      description: "A place for safely running our open source builds"
+      emoji: "\:technologist\:"
+      color: "#FFE0F1"
+    }
+  ) {
+    cluster {
+      id
+      uuid
+      name
+      description
+      emoji
+      color
+      defaultQueue {
+        id
+      }
+      createdBy {
+        id
+        uuid
+        name
+        email
+        avatar {
+          url
+        }
+      }
+    }
+  }
+}
+```
 
-- `description` (optional) is the description that appears under the name of cluster's tile on the _Clusters_ page.
+where:
 
-- `emoji` (optional) is the emoji that appears next to the cluster's name in the Buildkite interface and uses the example syntax above.
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
 
-- `color` (optional) provides the background color for this emoji and uses hex code syntax (for example, `#FFE0F1`).
-
-> 📘 A default queue is not automatically created
-> Unlike creating a new cluster through the [Buildkite interface](#create-a-new-cluster-using-the-buildkite-interface), a default queue is not automatically created using this API call. To create a new/default queue for any new cluster created through an API call, you need to manually [create a new queue](/docs/clusters/manage-queues#create-a-new-queue).
+<%= render_markdown partial: 'apis/descriptions/common_create_cluster_fields' %>
 
 ## Connect agents to a cluster
 
 Agents are associated with a cluster through the cluster's agent tokens. Learn more about this in [Agent tokens](/docs/agent/v3/tokens).
 
-Once you have [created your required agent token/s](/docs/agent/v3/tokens#create-a-new-token), [use them](/docs/agent/v3/tokens#using-and-storing-tokens) with the relevant agents, along with an optional [tag representing the relevant queue in your cluster](/docs/agent/v3/queues#setting-an-agents-queue).
+Once you have [created your required agent token/s](/docs/agent/v3/tokens#create-a-token), [use them](/docs/agent/v3/tokens#using-and-storing-tokens) with the relevant agents, along with an optional [tag representing the relevant queue in your cluster](/docs/agent/v3/queues#setting-an-agents-queue).
 
 You can also create, edit, and revoke other agent tokens from the cluster’s _Agent tokens_.
 
@@ -102,7 +128,7 @@ To move an unclustered agent across to using a cluster:
     1. Select _Unclustered_.
     1. From the _Unclustered Agents_ page, select the agent to stop and on its page, select _Stop Agent_.
 
-1. [Create a new agent token](/docs/agent/v3/tokens#create-a-new-token) for the cluster the agent will be moved to.
+1. [Create a new agent token](/docs/agent/v3/tokens#create-a-token) for the cluster the agent will be moved to.
 
 1. [Start the Buildkite agent](/docs/agent/v3/cli-start) using the `--token` value is that of the agent token created in the previous step. Alternatively, configure this agent token's value in the [Buildkite agent's configuration file](/docs/agent/v3/configuration) before starting the agent.
 
@@ -112,7 +138,9 @@ If you migrate all your existing agents over to clusters, ensure that all of you
 
 As a security measure, each agent token has an optional _Allowed IP Addresses_ setting that can be used to lock down access to the token. When this option is set on an agent token, only agents with an IP address that matches one this agent token's setting can use this token to connect to your Buildkite organization (through your cluster).
 
-An agent token's _Allowed IP Addresses_ setting can be set [when the token is created](/docs/agent/v3/tokens#create-a-new-token), or this setting can be added to or modified on existing agent tokens, using the [_Agent Tokens_ page of a cluster](#restrict-an-agent-tokens-access-by-ip-address-using-the-buildkite-interface), or the [REST API's update agent token](#restrict-an-agent-tokens-access-by-ip-address-using-the-rest-api) feature.
+An agent token's _Allowed IP Addresses_ setting can be set [when the token is created](/docs/agent/v3/tokens#create-a-token), or this setting can be added to or modified on existing agent tokens, using the [_Agent Tokens_ page of a cluster](#restrict-an-agent-tokens-access-by-ip-address-using-the-buildkite-interface), as well as the [REST API's](#restrict-an-agent-tokens-access-by-ip-address-using-the-rest-api) or [GraphQL API's](#restrict-an-agent-tokens-access-by-ip-address-using-the-graphql-api) update agent token feature.
+
+For these API requests, the _cluster ID_ value submitted in the request is the target cluster the token is associated with.
 
 > 🚧 Changing the _Allowed IP Addresses_ setting
 > Modifying an agent token's _Allowed IP Addresses_ setting forcefully disconnects any existing agents (using this token) with an IP address that no longer matches one of the values of this updated setting. This will prevent the completion of any jobs in progress on those agents.
@@ -140,7 +168,7 @@ To restrict an existing agent token's access by IP address (via the token's _All
 
 To restrict an existing agent token's access by IP address using the REST API, run the following example `curl` command to [update this agent token](/docs/apis/rest-api/clusters#agent-tokens-update-a-token):
 
-```curl
+```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}" \
   -H "Content-Type: application/json" \
@@ -149,44 +177,64 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-- `$TOKEN` is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
 
-- `{org.slug}` can be obtained:
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
-    * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite.
+<%= render_markdown partial: 'apis/descriptions/rest_cluster_id' %>
 
-    * By running the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
-
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
-        ```
-
-- `{cluster.id}` can be obtained:
-
-    * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
-        1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.
-        1. Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value.
-
-    * By running the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
-
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
-        ```
-
-- `{id}` is that of the agent token, whose value can be obtained:
-
-    * From the Buildkite URL path when editing the agent token. To do this:
-
-        - Select _Agents_ (in the global navigation) > the specific cluster > _Agent Tokens_ > expand the agent token > _Edit_.
-        - Copy the ID value between `/tokens/` and `/edit` in the URL.
-
-    * By running the [List tokens](/docs/apis/rest-api/clusters#agent-tokens-list-tokens) REST API query and obtain this value from the `id` in the response associated with the description of your token (specified by the `description` value in the response). For example:
-
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens"
-        ```
+<%= render_markdown partial: 'apis/descriptions/rest_agent_token_id' %>
 
 - `allowed_ip_addresses` is/are the IP addresses which agents must be accessible through to access this agent token and be able to connect to Buildkite via your cluster. Use space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to enter IP addresses for this field value.
+
+### Using the GraphQL API
+
+To restrict an existing agent token's access by IP address using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation to [update this agent token](/docs/apis/graphql/schemas/mutation/clusteragenttokenupdate):
+
+```graphql
+mutation {
+  clusterAgentTokenUpdate(
+    input: {
+      organizationId: "organization-id"
+      id: "token-id"
+      description: "A description"
+      allowedIpAddresses: "202.144.0.0/24 198.51.100.12"
+    }
+  ) {
+    clusterAgentToken {
+      id
+      uuid
+      description
+      allowedIpAddresses
+      cluster {
+        id
+        uuid
+        organization {
+          id
+          uuid
+        }
+      }
+      createdBy {
+        id
+        uuid
+        email
+      }
+    }
+  }
+}
+```
+
+where:
+
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
+
+<%= render_markdown partial: 'apis/descriptions/graphql_agent_token_id' %>
+
+- <%= render_markdown partial: 'apis/descriptions/common_agent_token_description_required' %>
+
+    If you do not need to change the existing `description` value, specify the existing field value in the request.
+
+- `allowedIpAddresses` is/are the IP addresses which agents must be accessible through to access this agent token and be able to connect to Buildkite via your cluster. Use space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to enter IP addresses for this field value.
 
 ## Manage maintainers on a cluster
 
@@ -220,7 +268,9 @@ Move a pipeline to a specific cluster to ensure the pipeline's builds run only o
 > 📘 Associating pipelines with cluster
 > A pipeline can only be associated with one cluster at a time. It is not possible to associate a pipeline with two or more clusters simultaneously.
 
-A pipeline can be moved to a cluster via the pipeline's [_General_ settings page](#move-a-pipeline-to-a-specific-cluster-using-the-buildkite-interface), or the [REST API's update a pipeline](#move-a-pipeline-to-a-specific-cluster-using-the-rest-api) feature.
+A pipeline can be moved to a cluster via the pipeline's [_General_ settings page](#move-a-pipeline-to-a-specific-cluster-using-the-buildkite-interface), as well as the [REST API's](#move-a-pipeline-to-a-specific-cluster-using-the-rest-api) or [GraphQL API's](#move-a-pipeline-to-a-specific-cluster-using-the-graphql-api) update a pipeline feature.
+
+For these API requests, the _cluster ID_ value submitted in the request is the target cluster the pipeline is being moved to.
 
 ### Using the Buildkite interface
 
@@ -238,7 +288,7 @@ To move a pipeline to a specific cluster using the Buildkite interface:
 
 To [move a pipeline to a specific cluster](/docs/apis/rest-api/pipelines#update-a-pipeline) using the [REST API](/docs/apis/rest-api), run the following `curl` command:
 
-```curl
+```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}" \
   -H "Content-Type: application/json" \
@@ -247,39 +297,96 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-- `$TOKEN` is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
 
-- `{org.slug}` can be obtained:
-
-    * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite.
-
-    * By running the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
-
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
-        ```
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
 - `{slug}` can be obtained:
 
-    * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite, then accessing the specific pipeline to be moved to the cluster.
+    * From the end of your Buildkite URL, after accessing _Pipelines_ in the global navigation of your organization in Buildkite, then accessing the specific pipeline to be moved to the cluster.
 
     * By running the [List pipelines](/docs/apis/rest-api/pipelines#list-pipelines) REST API query to obtain this value from `slug` in the response from the specific pipeline. For example:
 
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
+        ```bash
+        curl -H "Authorization: Bearer $TOKEN" \
+          - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
         ```
 
-- `cluster_id` can be obtained:
+<%= render_markdown partial: 'apis/descriptions/rest_cluster_id_body' %>
 
-    * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
-        1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.
-        1. Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `cluster_id` value.
+### Using the GraphQL API
 
-    * By running the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
+To [move a pipeline to a specific cluster](/docs/apis/graphql/schemas/mutation/pipelineupdate) using the [GraphQL API](/docs/apis/graphql-api), run the following mutation:
 
-        ```curl
-        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
+```curl
+mutation {
+  pipelineUpdate(
+    input: {
+      id: "pipeline-id"
+      clusterId: "cluster-id"
+    }
+  ) {
+    pipeline {
+      id
+      uuid
+      name
+      description
+      slug
+      createdAt
+      cluster {
+        id
+        uuid
+        name
+        description
+      }
+    }
+  }
+}
+```
+
+where:
+
+- `id` (required) is that of the pipeline to be moved, whose value can be obtained:
+
+    * From the pipeline's _General_ settings page, after accessing _Pipelines_ in the global navigation of your organization in Buildkite, accessing the specific pipeline to be moved to the cluster, then selecting _Settings_. The `id` value is that of the _ID_ shown in the _GraphQL API Integration_ section of this page.
+
+    * By running the `getCurrentUsersOrgs` GraphQL API query to obtain the organization slugs for the current user's accessible organizations, [getOrgPipelines](/docs/apis/graphql/schemas/query/organization) query to obtain the pipeline's `id` in the response. For example:
+
+        Step 1. Run `getCurrentUsersOrgs` to obtain the organization slug values in the response for the current user's accessible organizations:
+
+        ```graphql
+        query getCurrentUsersOrgs {
+          viewer {
+            organization {
+              edges {
+                node {
+                  name
+                  slug
+                }
+              }
+            }
+          }
+        }
         ```
+
+        Step 2. Run `getOrgPipelines` with the appropriate slug value above to obtain this organization's `id` in the response:
+
+        ```graphql
+        query getOrgPipelines {
+          organization(slug: "organization-slug") {
+            pipelines(first: 100) {
+              edges {
+                node {
+                  id
+                  uuid
+                  name
+                }
+              } 
+            }
+          }
+        }
+        ```
+
+<%= render_markdown partial: 'apis/descriptions/graphql_cluster_id' %>
 
 <!-- ## Delete a cluster -->
-

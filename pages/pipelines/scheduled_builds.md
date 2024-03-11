@@ -8,12 +8,21 @@ You can create and manage schedules in the Schedules section of your Pipeline Se
 
 You can also create and manage schedules using the [Buildkite GraphQL API](/docs/apis/graphql-api).
 
+## Cron job permission consideration
+
+When setting up a cron job in your parent pipeline, it's important to ensure that the same team has been assigned to the corresponding child pipeline. Failure to match the team between the parent and child pipelines may result in an error with the following message:
+
+**Error:**
+
+_Could not find a matching team that includes both pipelines, each having a minimum "Build" access level._
+
+This error is indicative of a mismatch in team assignments and highlights the importance of maintaining consistent team configurations across interconnected pipelines to avoid permission-related issues.
 
 ## Schedule intervals
 
 The interval defines when the schedule will create builds. Schedules run in UTC time by default, and can be defined using either predefined intervals or standard crontab time syntax.
 
->🚧 Interval granularity
+> 🚧 Interval granularity
 > Buildkite only guarantees that scheduled builds run within 10 minutes of the scheduled time, and therefore does not support intervals less than 10 minutes.
 
 ### Predefined intervals

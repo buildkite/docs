@@ -9,12 +9,12 @@ For example build number `27` of the `Test` pipeline might have a build ID of `f
 
 API requests that affect a single build accept the more human readable build number (and the organization and pipeline it belongs to), **not** the build ID:
 
-* [Get a build](#get-a-build)
-* [Cancel a build](#cancel-a-build)
-* [Rebuild a build](#rebuild-a-build)
-* [List artifacts for a build](/docs/apis/rest-api/artifacts#list-artifacts-for-a-build)
-* [List annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build)
-
+- [Get a build](#get-a-build)
+- [Create a build](#create-a-build)
+- [Cancel a build](#cancel-a-build)
+- [Rebuild a build](#rebuild-a-build)
+- [List artifacts for a build](/docs/apis/rest-api/artifacts#list-artifacts-for-a-build)
+- [List annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build)
 
 ## List all builds
 
@@ -23,7 +23,8 @@ If using token-based authentication the list of builds will be for the authorize
 Builds are listed in the order they were created (newest first).
 
 ```bash
-curl "https://api.buildkite.com/v2/builds"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/builds"
 ```
 
 Optional [query string parameters](/docs/api#query-string-parameters):
@@ -40,7 +41,8 @@ Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organizatio
 Builds are listed in the order they were created (newest first).
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/builds"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/builds"
 ```
 
 Optional [query string parameters](/docs/api#query-string-parameters):
@@ -57,7 +59,8 @@ Returns a [paginated list](<%= paginated_resource_docs_url %>) of a pipeline's b
 Builds are listed in the order they were created (newest first).
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds"
 ```
 
 ```json
@@ -201,7 +204,8 @@ Success response: `200 OK`
 ## Get a build
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}"
 ```
 
 ```json
@@ -354,7 +358,8 @@ Success response: `200 OK`
 ## Create a build
 
 ```bash
-curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds" \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds" \
   -H "Content-Type: application/json" \
   -d '{
     "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
@@ -542,7 +547,8 @@ Error responses:
 Cancels the build if its state is either `scheduled`, `running`, or `failing`.
 
 ```bash
-curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/cancel"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/cancel"
 ```
 
 ```json
@@ -689,7 +695,8 @@ Error responses:
 Returns the newly created build.
 
 ```bash
-curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/rebuild"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/rebuild"
 ```
 
 ```json
