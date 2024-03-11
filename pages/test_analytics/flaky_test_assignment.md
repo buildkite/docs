@@ -1,6 +1,6 @@
 # Flaky test assignment
 
-Customers on the [Pro and Enterprise plans](https://buildkite.com/pricing) can assign flaky tests to [Teams](/docs/team_management/permissions).
+Customers on the [Pro and Enterprise plans](https://buildkite.com/pricing) can assign flaky tests to [Teams](/docs/team-management/permissions).
 
 ## Enabling flaky test assignments
 
