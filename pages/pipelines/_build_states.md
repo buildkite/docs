@@ -4,4 +4,4 @@ You can query for `finished` builds to return builds in any of the following sta
 > 🚧
 > When a [triggered build](/docs/pipelines/trigger-step) fails, the step that triggered it will be stuck in the `running` state forever.
 > When all the steps in a build are skipped (either by using skip attribute or by using `if` condition), the build state will be marked as `not_run`.
-> By default, all steps depend on the step that uploads them, and they will not run until that one is finished. 
+> By default, all steps depend on the step that uploads them, and they will not run until that one is finished.
