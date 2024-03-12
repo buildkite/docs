@@ -65,6 +65,7 @@ dotenv
 enum
 env
 eval
+Eventbridge
 EventBridge
 Explainshell
 fastlane
