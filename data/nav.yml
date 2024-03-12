@@ -382,6 +382,8 @@
           path: "test-analytics/test-executions"
         - name: "Public test suites"
           path: "test-analytics/public-test-suites"
+        - name: "Flaky test assignment"
+          path: "test-analytics/flaky-test-assignment"
     - name: "Languages"
       start_expanded: true
       children:
