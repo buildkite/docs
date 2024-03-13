@@ -426,6 +426,17 @@
       children:
         - name: "Getting started"
           path: "packages/getting-started"
+    - name: "Package formats"
+      start_expanded: true
+      children:
+        - name: "Java"
+          path: "packages/java"
+        - name: "Debian"
+          path: "packages/debian"
+        - name: "Python"
+          path: "packages/python"
+        - name: "Terraform"
+          path: "packages/terraform"
 - name: "APIs"
   path: "apis"
   children:

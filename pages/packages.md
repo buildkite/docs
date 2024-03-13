@@ -1,6 +1,6 @@
 # Packages
 
-Buildkite Packages helps you manage artifacts built from your [Buildkite pipelines](/docs/pipelines).
+Buildkite Packages helps you manage artifacts and packages built from your [Buildkite pipelines](/docs/pipelines).
 
 ## An introduction to packages
 

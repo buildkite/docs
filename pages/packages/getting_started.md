@@ -1,3 +1,3 @@
 # Getting started
 
-Do things.
+This section should describe how to get set up with Buildkite Packages...
