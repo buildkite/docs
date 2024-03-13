@@ -196,14 +196,14 @@ Refer to [UI elements in the Markdown syntax style guide](markdown-syntax-style.
 
 ### Lists (bullet lists and numbered steps)
 
-Capitalize the first word—no full stops at the end if it's not a full sentence. If it's a full sentence, give it a full stop/period.
-
 In general:
 
 - Use bullet lists when presenting an unordered list of individual items.
 - Use numbered steps when presenting a sequence of instructions/steps that need to be followed.
 
-See also what [Google](https://developers.google.com/style/lists#capitalization-and-end-punctuation) and [Microsoft](https://learn.microsoft.com/en-us/style-guide/scannable-content/lists#punctuation) say about lists.
+See also what [Google](https://developers.google.com/style/lists) and [Microsoft](https://learn.microsoft.com/en-us/style-guide/scannable-content/lists) say about lists.
+
+Capitalize the first word—no full stops at the end if it's not a full sentence. If it's a full sentence, give it a full stop/period. See also what [Google](https://developers.google.com/style/lists#capitalization-and-end-punctuation) and [Microsoft](https://learn.microsoft.com/en-us/style-guide/scannable-content/lists#punctuation) say about punctuation in list items.
 
 Refer to [Lists in the Markdown syntax style guide](markdown-syntax-style.md#lists) for details on how to write and present lists in the Buildkite docs.
 
