@@ -52,6 +52,7 @@ cron
 crontab
 Crontab
 Datadog
+debuild
 deprioritize
 deprovisioning
 deregistration
@@ -77,6 +78,7 @@ fff
 ffxdq
 Firewalled
 Flexbox
+fpm
 Fugit
 gcloud
 gif
