@@ -27,8 +27,6 @@ See more configuration information in the [Test Collector plugin README](https:/
 
 Using the plugin is the recommended way as it allows for a better debugging process in case of an issue.
 
-An equivalent of Buildkite Test Collector plugin for GitHub Action and CircleCI Orb is in the works. Stay tuned!
-
 ### Without a plugin
 
 If for some reason you cannot or do not want to use the [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin), or if you are looking to implement your own integration, another approach is possible.
