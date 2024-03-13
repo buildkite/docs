@@ -426,11 +426,16 @@
       children:
         - name: "Getting started"
           path: "packages/getting-started"
-    - name: "Package formats"
+    - name: "Package ecosystems"
       start_expanded: true
       children:
         - name: "Java"
-          path: "packages/java"
+          start_expanded: true
+          children:
+          - name: "Maven"
+            path: "packages/maven"
+          - name: "Gradle"
+            path: "packages/gradle"
         - name: "Debian"
           path: "packages/debian"
         - name: "Python"
