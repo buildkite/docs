@@ -57,11 +57,13 @@ deprovisioning
 deregistration
 deprovision
 distro
+distutils
 Dockerfile
 Docker's
 Dockerfile
 dogstatsd
 dotenv
+DSCs
 enum
 env
 eval
@@ -69,6 +71,7 @@ Eventbridge
 EventBridge
 Explainshell
 fastlane
+fatjar
 favorited
 fff
 ffxdq
@@ -136,6 +139,7 @@ Okta
 onboarding
 Pagerduty
 parsable
+pbuilder
 Phabricator
 Phabricator's
 php
@@ -159,6 +163,7 @@ refetch
 refspec
 repo
 routable
+rpmbuild
 RSpec
 ruleset
 runtimes
