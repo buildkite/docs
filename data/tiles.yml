@@ -30,6 +30,8 @@ test_analytics_guides:
         url: "/docs/test-analytics/elixir-collectors"
       - text: "Rust"
         url: "/docs/test-analytics/rust-collectors"
+      - text: "Java"
+        url: "/docs/test-analytics/importing-junit-xml"
       - text: "Other languages"
         url: "/docs/test-analytics/other-collectors"
   - title: "References"
