@@ -171,6 +171,10 @@
               path: "agent/v3/cli-step"
             - name: "tool"
               path: "agent/v3/cli-tool"
+            - name: secret
+              path: "agent/v3/cli-secret"
+            - name: redactor
+              path: "agent/v3/cli-redactor"
         - name: "Agent v2"
           pill: "deprecated"
           children:
