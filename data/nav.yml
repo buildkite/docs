@@ -433,6 +433,8 @@
     - name: "Package ecosystems"
       start_expanded: true
       children:
+        - name: "Debian"
+          path: "packages/debian"
         - name: "Java"
           start_expanded: true
           children:
@@ -440,8 +442,6 @@
             path: "packages/maven"
           - name: "Gradle"
             path: "packages/gradle"
-        - name: "Debian"
-          path: "packages/debian"
         - name: "Python"
           path: "packages/python"
         - name: "Terraform"

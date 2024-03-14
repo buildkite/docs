@@ -21,6 +21,15 @@ To create a new package repository:
 
     The new package repository's details page is displayed. Selecting _Packages_ in the global navigation opens the _Repositories_ page, where your new package repository will be listed.
 
+### Manage packages in a repository
+
+Once a [package repository is created](#create-a-repository), packages can then be uploaded to it. Learn more about how to manage packages for your repository's relevant package ecosystem:
+
+- [deb (Debian and Ubuntu)](/docs/packages/debian)
+- Java ([Maven](/docs/packages/maven) or [Gradle leveraging Maven](/docs/packages/gradle))
+- [Python (PyPI)](/docs/packages/python)
+- [Terraform](/docs/packages/terraform)
+
 ## Update a repository
 
 Package repositories can be updated using the package _Repositories_ page of the Buildkite interface, which lists all [previously created repositories](#create-a-repository).
