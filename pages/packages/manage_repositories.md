@@ -55,7 +55,11 @@ To update a package repository:
 
 Package repositories can be deleted using the package _Repositories_ page of the Buildkite interface, which lists all [previously created repositories](#create-a-repository).
 
+Deleting a package repository permanently deletes all packages contained within it.
+
 To delete a package repository:
 
 1. Select _Packages_ in the global navigation to access the _Repositories_ page.
 1. Select the repository to delete on this page.
+1. Select _Edit_ > _Delete Repository_.
+1. In the confirmation dialog, enter the name of the package repository, exactly as it is presented, and select _Delete Repository_.
