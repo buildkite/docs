@@ -428,6 +428,8 @@
       children:
         - name: "Getting started"
           path: "packages/getting-started"
+        - name: "Manage repositories"
+          path: "packages/manage-repositories"
     - name: "Package ecosystems"
       start_expanded: true
       children:
