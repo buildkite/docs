@@ -72,7 +72,6 @@ Eventbridge
 EventBridge
 Explainshell
 fastlane
-fatjar
 favorited
 fff
 ffxdq

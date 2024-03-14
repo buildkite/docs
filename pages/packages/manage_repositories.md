@@ -59,4 +59,3 @@ To delete a package repository:
 
 1. Select _Packages_ in the global navigation to access the _Repositories_ page.
 1. Select the repository to delete on this page.
-1. 
