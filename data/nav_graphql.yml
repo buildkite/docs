@@ -263,6 +263,8 @@
     path: apis/graphql/schemas/object/auditapicontext
   - name: AuditActor
     path: apis/graphql/schemas/object/auditactor
+  - name: AuditAgentAPIContext
+    path: apis/graphql/schemas/object/auditagentapicontext
   - name: AuditEvent
     path: apis/graphql/schemas/object/auditevent
   - name: AuditSubject
