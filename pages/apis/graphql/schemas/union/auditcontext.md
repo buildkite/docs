@@ -34,6 +34,9 @@ Kinds of contexts in which an audit event can be performed
 <div><a href="/docs/apis/graphql/schemas/object/auditapicontext" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AuditAPIContext">
   <code>AuditAPIContext</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/auditagentapicontext" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AuditAgentAPIContext">
+  <code>AuditAgentAPIContext</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/auditwebcontext" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AuditWebContext">
   <code>AuditWebContext</code>
 </a>

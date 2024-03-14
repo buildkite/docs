@@ -732,9 +732,44 @@ enum AuditActorType {
 }
 
 """
+Context for an audit event created during an agent API request
+"""
+type AuditAgentAPIContext {
+  """
+  The agent UUID
+  """
+  agentUuid: String
+
+  """
+  The type of token that authenticated the agent
+  """
+  authenticationType: String
+
+  """
+  The connection state of the agent
+  """
+  connectionState: String
+
+  """
+  The organization UUID that the agent belongs to
+  """
+  organizationUuid: String
+
+  """
+  The remote IP which made the request
+  """
+  requestIpAddress: String
+
+  """
+  The IP of the agent session which made the request
+  """
+  sessionIpAddress: String
+}
+
+"""
 Kinds of contexts in which an audit event can be performed
 """
-union AuditContext = AuditAPIContext | AuditWebContext
+union AuditContext = AuditAPIContext | AuditAgentAPIContext | AuditWebContext
 
 """
 Audit record of an event which occurred in the system
