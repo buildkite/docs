@@ -25,7 +25,7 @@ toc: false
 <!-- vale on -->
 
 
-Revoke an agent registration token.
+Revoke an unclustered agent token.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

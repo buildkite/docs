@@ -438,8 +438,9 @@ type AgentTokenCreatePayload {
   organization: Organization!
 
   """
-  The token value used to register a new agent. Please ensure to securely copy
-  this value immediately upon generation as it will not be displayed again.
+  The token value used to register a new unclustered agent. Please ensure to
+  securely copy this value immediately upon generation as it will not be
+  displayed again.
   """
   tokenValue: String!
 }
@@ -470,7 +471,7 @@ input AgentTokenRevokeInput {
   id: ID!
 
   """
-  The reason why this agent token should be revoked
+  The reason why this unclustered agent token should be revoked
   """
   reason: String!
 }
@@ -1870,7 +1871,7 @@ type ClusterAgentTokenCreatePayload {
   clusterAgentToken: ClusterToken!
 
   """
-  The token value used to register a new agent to this tokens cluster. Please
+  The token value used to register a new agent token to this cluster. Please
   ensure to securely copy this value immediately upon generation as it will not
   be displayed again.
   """
@@ -3866,7 +3867,7 @@ type Mutation {
   ): AgentStopPayload
 
   """
-  Create a new agent registration token.
+  Create a new unclustered agent token.
   """
   agentTokenCreate(
     """
@@ -3876,7 +3877,7 @@ type Mutation {
   ): AgentTokenCreatePayload
 
   """
-  Revoke an agent registration token.
+  Revoke an unclustered agent token.
   """
   agentTokenRevoke(
     """
@@ -3937,7 +3938,7 @@ type Mutation {
   ): BuildRebuildPayload
 
   """
-  Create a new cluster agent token
+  Create an agent token for a cluster.
   """
   clusterAgentTokenCreate(
     """
@@ -3947,7 +3948,7 @@ type Mutation {
   ): ClusterAgentTokenCreatePayload
 
   """
-  Revokes a cluster agent token
+  Revokes an agent token for a cluster.
   """
   clusterAgentTokenRevoke(
     """
@@ -3957,7 +3958,7 @@ type Mutation {
   ): ClusterAgentTokenRevokePayload
 
   """
-  Updates a cluster agent token
+  Updates an agent token for a cluster.
   """
   clusterAgentTokenUpdate(
     """

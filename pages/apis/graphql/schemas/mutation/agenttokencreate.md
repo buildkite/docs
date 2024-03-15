@@ -25,7 +25,7 @@ toc: false
 <!-- vale on -->
 
 
-Create a new agent registration token.
+Create a new unclustered agent token.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
