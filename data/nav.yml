@@ -410,7 +410,7 @@
         - name: "Rust"
           path: "test-analytics/rust-collectors"
         - name: "Java"
-          path: "test-analytics/importing-junit-xml"
+          path: "test-analytics/java"
         - name: "Other languages"
           path: "test-analytics/other-collectors"
     - name: "References"
