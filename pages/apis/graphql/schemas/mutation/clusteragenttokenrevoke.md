@@ -25,7 +25,7 @@ toc: false
 <!-- vale on -->
 
 
-Revokes a cluster agent token
+Revokes an agent token for a cluster.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

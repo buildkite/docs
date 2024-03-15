@@ -25,7 +25,7 @@ toc: false
 <!-- vale on -->
 
 
-Updates a cluster agent token
+Updates an agent token for a cluster.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
