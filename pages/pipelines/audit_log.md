@@ -113,6 +113,7 @@ You can also set up [Amazon EventBridge](/docs/integrations/amazon-eventbridge) 
 
 
 Audit logs record information of transactions in which secrets are accessed or modified. The following events will be logged:
+
 * `SECRET_CREATED` This triggers an audit log when a user of an organization initiates the creation of a secret. Secrets can only be created by a user. Below are the fields captured in the audit log for this event.
 
   ```
@@ -141,6 +142,7 @@ Audit logs record information of transactions in which secrets are accessed or m
   ```
 
 * `SECRET_DELETED` This triggers an audit log when a secret is deleted by a user of an organization. This applies exclusively to the destruction of a secret; events related to the revocation or expiration of a secret will not trigger audit logs. Below are the fields captured in the audit log for this event.
+
 ```
 {
   "data" => {
@@ -194,6 +196,7 @@ Audit logs record information of transactions in which secrets are accessed or m
 ```
 
 * `SECRET_QUERIED` This triggers an audit event when a user belonging to an organization or system identity (such as an agent) when a query is performed to find a secret (or secrets). This event will be triggered even if a search for a secret yields no results or if the secret does not exist. Below are the fields captured in the audit log for this event.
+
 ```
 {
   "data" => {
@@ -220,6 +223,7 @@ Audit logs record information of transactions in which secrets are accessed or m
 ```
 
 * `SECRET_UPDATED` This triggers an audit event whenever a user within an organization updates the value or properties of a secret. Given that secrets can exist in multiple versions, the audit logs maintain records of these version identifiers and their corresponding updates. Below are the fields captured in the audit log for this event.
+
 ```
 {
   "data" => {
