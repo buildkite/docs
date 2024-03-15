@@ -184,3 +184,21 @@ query getClusterQueueAgent {
 }
 ```
 
+## Associate a Pipeline with a Cluster
+
+First, [get the Cluster ID](#get-a-pipelines-id) you want to associate the Pipeline with.
+Second, [get the Pipeline's ID](./pipelines#get-a-pipelines-id).
+Then, use the IDs to archive the pipelines:
+
+```graphql
+mutation AssociatePipelineWithCluster {
+  pipelineUpdate(input:{id: "pipeline-id" clusterId: "cluster-id"}) {
+    pipeline {
+      cluster {
+        name
+        id
+      }
+    }
+  }
+}
+```
