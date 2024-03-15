@@ -249,7 +249,7 @@ Any other emoji will render blockquotes as normal.
 
 #### Callouts within lists
 
-If you need to make a callout as part of a bulleted or numbered list item, the callout options above will not work. Therefore, add the callout as an indented block level text preceded with the type of callout in bold text, such as `**Note:**`. For example:
+If you need to make a callout as part of a bulleted or numbered list item, the callout options above will not work. Therefore, add the callout as an indented (by 4 spaces) block level text preceded with the type of callout in bold text, such as `**Note:**`. For example:
 
 ````
 1. Do this...

@@ -90,7 +90,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
   <tbody>
-    <tr><th><code>show_api_token</code></th><td>Return the suite's api token in the response. This is the only way to view the suite's api token via the REST api.<br><em>Default value:</em> <code>false</code>.</td></tr>
+    <tr><th><code>show_api_token</code></th><td>Return the suite's API token in the response. This is the only way to view the suite's API token via the REST API.<br><em>Default value:</em> <code>false</code>.</td></tr>
     <tr>
       <th><code>teams_ids</code></th>
       <td>

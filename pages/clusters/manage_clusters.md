@@ -28,7 +28,7 @@ To create a new cluster using the Buildkite interface:
 1. Select _Agents_ in the global navigation to access the _Clusters_ page.
 1. Select _Create a Cluster_.
 1. On the _New Cluster_ page, enter the mandatory _Name_ for the new cluster.
-1. Enter an optional _Description_ for the cluster. This description appears under the name of cluster's tile on the _Clusters_ page.
+1. Enter an optional _Description_ for the cluster. This description appears under the name of the cluster in its tile on the _Clusters_ page.
 1. Enter an optional _Emoji_ and _Color_ using the recommended syntax. This emoji appears next to the cluster's name and the color (in hex code syntax, for example, `#FFE0F1`) provides the background color for this emoji.
 1. Select _Create Cluster_.
 

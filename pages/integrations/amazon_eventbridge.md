@@ -130,7 +130,7 @@ exports.handler = (event, context, callback) => {
 
 ## Official AWS quick start examples
 
-AWS have published three example implementations of using Buildkite with Amazon Eventbridge:
+AWS have published three example implementations of using Buildkite with Amazon EventBridge:
 
 <a class="Docs__example-repo" href="https://aws.amazon.com/quickstart/eventbridge/buildkite-build-workflow/">
   <span class="icon">:aws:</span>

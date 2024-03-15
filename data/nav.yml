@@ -420,6 +420,36 @@
           path: "test-analytics/importing-json"
         - name: "Writing your own collectors"
           path: "test-analytics/your-own-collectors"
+- name: "Packages"
+  pill: "beta"
+  path: "packages"
+  children:
+    - name: "Overview"
+      pill: "beta"
+      path: "packages"
+    - name: "Introduction"
+      start_expanded: true
+      children:
+        - name: "Getting started"
+          path: "packages/getting-started"
+        - name: "Manage repositories"
+          path: "packages/manage-repositories"
+    - name: "Package ecosystems"
+      start_expanded: true
+      children:
+        - name: "Debian"
+          path: "packages/debian"
+        - name: "Java"
+          start_expanded: true
+          children:
+          - name: "Maven"
+            path: "packages/maven"
+          - name: "Gradle"
+            path: "packages/gradle"
+        - name: "Python"
+          path: "packages/python"
+        - name: "Terraform"
+          path: "packages/terraform"
 - name: "APIs"
   path: "apis"
   children:

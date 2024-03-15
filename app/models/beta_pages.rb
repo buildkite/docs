@@ -2,6 +2,7 @@ class BetaPages
   def self.all
     [
       'pipelines/cluster-queue-metrics',
+      'packages',
       'apis/rest-api/team-pipelines',
       'apis/rest-api/organizations/members',
       'apis/rest-api/teams',
