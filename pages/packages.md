@@ -1,4 +1,4 @@
-# Packages
+# Buildkite Packages
 
 Buildkite Packages manages artifacts and packages built from your [Buildkite pipelines](/docs/pipelines).
 
