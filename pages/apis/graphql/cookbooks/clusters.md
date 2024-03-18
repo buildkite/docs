@@ -187,7 +187,7 @@ query getClusterQueueAgent {
 ## Associate a pipeline with a cluster
 
 First, [get the Cluster ID](#list-clusters) you want to associate the Pipeline with.
-Second, [get the Pipeline's ID](./pipelines#get-a-pipelines-id).
+Second, [get the Pipeline's ID](/docs/apis/graphql/cookbooks/pipelines#get-a-pipelines-id).
 Then, use the IDs to archive the pipelines:
 
 ```graphql
