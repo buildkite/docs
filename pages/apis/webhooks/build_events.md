@@ -33,7 +33,7 @@
     </tr>
     <tr>
       <td><code>sender</code></td>
-      <td>String</td>
+      <td>Object</td>
       <td>The user who created the webhook</td>
     </tr>
   </tbody>
