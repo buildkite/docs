@@ -211,7 +211,7 @@ A regular info callout ("purple"):
 
 ```
 > 📘 An info callout title
-> Callout content can have <code>code</code> or _emphasis_ and other inline elements in it, <a href="#">including links</a>.
+> Callout content can have `code` or _emphasis_ and other inline elements in it, including [internal](/docs/) or <a href="#">external</a> links.
 > Every line break after the first becomes a new paragraph inside the callout.
 ```
 
@@ -220,7 +220,7 @@ This will be rendered as the following HTML in the site:
 ```
 <section class="callout callout--info">
   <p class="callout__title" id="a-callout-title"📘 An info callout title</p>
-  <p>Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a></p>
+  <p>Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, including <a href="/docs/">internal</a> or <a href="#">external</a> links.</p>
   <p>Every line break after the first becomes a new paragraph inside the callout.</p>
 </section>
 ```
@@ -233,7 +233,7 @@ For troubleshooting callouts ("orange"), use the 🚧 emoji:
 
 ```
 > 🚧 A troubleshooting callout title
-> Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a>.
+> Callout content can have `code` or _emphasis_ and other inline elements in it, including [internal](/docs/) or <a href="#">external</a> links.
 > Every line break after the first becomes a new paragraph inside the callout.
 ```
 
@@ -241,7 +241,7 @@ While no longer used in the Buildkite Docs, Work-in-progress (WIP) or Experiment
 
 ```
 > 🛠 This marks it as WIP
-> Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a>.
+> Callout content can have `code` or _emphasis_ and other inline elements in it, including [internal](/docs/) or <a href="#">external</a> links.
 > Every line break after the first becomes a new paragraph inside the callout.
 ```
 
