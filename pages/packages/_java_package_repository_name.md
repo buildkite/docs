@@ -1,0 +1,1 @@
+- `{java.package.repository.name}` is the name of your Java package repository.
