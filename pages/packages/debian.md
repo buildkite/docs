@@ -24,3 +24,14 @@ curl -X POST https://buildkitepackages.com/api/v1/repos/{org.slug}/{deb.package.
   -u "deb-package-repository-credentials" \
   -F "package[package_file]=@<path_to_file>"
 ```
+
+For example, to upload the file `jake_1.0-2_amd64.deb` from the current directory to the _My-Debian-Packages_ repository in the _My organization_ Buildkite organization, run the `curl` command:
+
+```bash
+curl -X POST https://buildkitepackages.com/api/v1/repos/my-organization/my-debian-packages/packages.json \
+  -u "replace-with-my-debian-packages-credentials" \
+  -F "package[package_file]=@jake_1.0-2_amd64.deb"
+```
+
+## Download a package
+
