@@ -110,7 +110,7 @@ The package code snippet is based on this format:
 <repositories>
   <repository>
     <id>org-slug-java-package-repository-name</id>
-    <url>https://buildkitepackages.com/priv/{some.kind.of.id}/{org.slug}/{java.package.repository.name}/maven2/</url>
+    <url>https://buildkitepackages.com/priv/{api.token}/{org.slug}/{java.package.repository.name}/maven2/</url>
     <releases>
       <enabled>true</enabled>
     </releases>
@@ -134,7 +134,7 @@ where:
 
 <%= render_markdown partial: 'packages/java_package_repository_id' %>
 
-- `{some.kind.of.id}` is what exactly? What happens if this repository is public and if so, what happens to the `priv` in the path before this value?
+- `{api.token}` (If this repository is public and if so, what happens to the `priv` in the path before this value? The current assumption is that both of these URL path components can be removed, with the `{api.token}` value passed in the header of the request.)
 
 - `{org.slug}` is the org slug.
 
