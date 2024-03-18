@@ -32,7 +32,7 @@ The following steps describe the process above:
     ```
 
     where:
-    - `java-package-repository-credentials` is the Buildkite Packages-generated credentials required to access/upload packages to your Java package repository.
+    * `java-package-repository-credentials` is the Buildkite Packages-generated credentials required to access/upload packages to your Java package repository.
 
     <%= render_markdown partial: 'packages/java_package_repository_id' %>
 
@@ -64,7 +64,7 @@ The following steps describe the process above:
     ```
 
     where:
-    - `org-slug-java-package-repository-name` is the ID of your Java package repository (above).
+    * `org-slug-java-package-repository-name` is the ID of your Java package repository (above).
 
     <%= render_markdown partial: 'packages/org_slug' %>
 
