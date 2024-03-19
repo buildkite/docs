@@ -223,6 +223,7 @@ util
 uuid
 UUIDs
 vendored
+virtualenv
 VMs
 VPC's
 VPCs
