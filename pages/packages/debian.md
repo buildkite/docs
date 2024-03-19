@@ -8,7 +8,7 @@ To view and copy this `curl` command:
 
 1. Select _Packages_ in the global navigation to access the _Repositories_ page.
 1. Select your deb package repository on this page.
-1. Expand _Publishing a package_ section and use the copy icon at the top-right of the code box to copy this curl command and submit it to publish a package to your deb package repository.
+1. Expand the _Publishing a package_ section and use the copy icon at the top-right of the code box to copy this curl command and submit it to publish a package to your deb package repository.
 
 This command provides:
 
@@ -35,11 +35,11 @@ where:
 
 <%= render_markdown partial: 'packages/path_to_file' %>
 
-For example, to upload the file `my-deb-package_1.0-2_amd64.deb` from the current directory to the _My-Debian-Packages_ repository in the _My organization_ Buildkite organization, run the `curl` command:
+For example, to upload the file `my-deb-package_1.0-2_amd64.deb` from the current directory to the _My-Debian-packages_ repository in the _My organization_ Buildkite organization, run the `curl` command:
 
 ```bash
 curl -X POST https://buildkitepackages.com/api/v1/repos/my-organization/my-debian-packages/packages.json \
-  -u "replace-with-my-debian-packages-credentials" \
+  -u "replace-with-my-deb-package-repository-credentials" \
   -F "package[package_file]=@my-deb-package_1.0-2_amd64.deb"
 ```
 

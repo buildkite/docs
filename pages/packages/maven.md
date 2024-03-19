@@ -8,7 +8,7 @@ To view and copy the required  `~/.m2/settings.xml` and `pom.xml` configurations
 
 1. Select _Packages_ in the global navigation to access the _Repositories_ page.
 1. Select your Java package repository on this page.
-1. Expand _Publishing a package_ section and in the _Using Maven_ section, use the copy icon at the top-right of each respective code box to copy the relevant XML snippets and paste them into their respective files.
+1. Expand the _Publishing a package_ section and in the _Using Maven_ section, use the copy icon at the top-right of each respective code box to copy the relevant XML snippets and paste them into their respective files.
 
 These file configurations contain the following:
 

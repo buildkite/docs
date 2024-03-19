@@ -8,7 +8,7 @@ To view and copy this `curl` command:
 
 1. Select _Packages_ in the global navigation to access the _Repositories_ page.
 1. Select your Python package repository on this page.
-1. Expand _Publishing a package_ section and use the copy icon at the top-right of the code box to copy this curl command and submit it to publish a package to your Python package repository.
+1. Expand the _Publishing a package_ section and use the copy icon at the top-right of the code box to copy this curl command and submit it to publish a package to your Python package repository.
 
 This command provides:
 
@@ -23,4 +23,22 @@ The following `curl` command (modified accordingly before submitting) describes 
 curl -X POST https://buildkitepackages.com/api/v1/repos/{org.slug}/{python.package.repository.name}/packages.json \
   -u "python-package-repository-credentials" \
   -F "package[package_file]=@<path_to_file>"
+```
+
+where:
+
+<%= render_markdown partial: 'packages/org_slug' %>
+
+<%= render_markdown partial: 'packages/python_package_repository_name' %>
+
+- `python-package-repository-credentials` is the Buildkite Packages-generated credentials required to access/upload packages to your Python package repository.
+
+<%= render_markdown partial: 'packages/path_to_file' %>
+
+For example, to upload the file `my-python-package-0.9.7b1.tar.gz` from the current directory to the _My-Python-packages_ repository in the _My organization_ Buildkite organization, run the `curl` command:
+
+```bash
+curl -X POST https://buildkitepackages.com/api/v1/repos/my-organization/my-python-packages/packages.json \
+  -u "replace-with-my-python-package-repository-credentials" \
+  -F "package[package_file]=@my-python-package-0.9.7b1.tar.gz"
 ```
