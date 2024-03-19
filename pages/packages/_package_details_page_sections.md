@@ -11,7 +11,7 @@ The package's details page provides the following information in the following s
     * the repository the package is located in
     * the package's visibility—whether the package is publicly accessible or is _Private_ and requires authentication to access
     * the distribution name / version
-    * any other optional metadata about the package, such as a homepage, licenses, etc.
+    * any additional optional metadata about the package, such as a homepage, licenses, etc.
 
 - _Last pushed_: the date when the last package was uploaded to the repository
 - _Total files_: the total number of files (and directories) within the package

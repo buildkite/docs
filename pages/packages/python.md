@@ -42,3 +42,47 @@ curl -X POST https://buildkitepackages.com/api/v1/repos/my-organization/my-pytho
   -u "replace-with-my-python-package-repository-credentials" \
   -F "package[package_file]=@my-python-package-0.9.7b1.tar.gz"
 ```
+
+## Access a package's details
+
+A Python package's details can be accessed from this repository using the _Packages_ section of your Python package repository page.
+
+To access your Python package's details page:
+
+1. Select _Packages_ in the global navigation to access the _Repositories_ page.
+1. Select your Python package repository on this page.
+1. Select the package within the _Packages_ section of the Python package repository page. The package's details page is displayed.
+
+<%= render_markdown partial: 'packages/package_details_page_sections' %>
+
+### Downloading a package
+
+A Python package can be downloaded from the package's details page.
+
+To download a package:
+
+1. [Access the package's details](#access-a-packages-details).
+1. Select _Download_.
+
+### Installing a package
+
+1. [Access the package's details](#access-a-packages-details).
+1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
+1. Copy the code snippet and paste this into the `pip.conf` file to install this Python package.
+
+The package code snippet is based on this format:
+
+```conf
+# Add this to the [global] section in your ~/.pip/pip.conf:
+[global]
+extra-index-url="https://buildkitepackages.com/{org.slug}/{python.package.repository.name}/pypi/simple"
+
+# Otherwise if installing on a virtualenv, add this to the bottom of your requirements.txt:
+--extra-index-url="https://buildkitepackages.com/{org.slug}/{python.package.repository.name}/pypi/simple"
+```
+
+where:
+
+<%= render_markdown partial: 'packages/org_slug' %>
+
+<%= render_markdown partial: 'packages/python_package_repository_name' %>
