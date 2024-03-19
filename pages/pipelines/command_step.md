@@ -291,7 +291,7 @@ _Optional Attributes_
   <tr>
     <td><code>exit_status</code></td>
     <td>
-      The exit status number that causes this job to retry ('*' does not include 0). Exit status codes can include -1 and any number between 1-255. <br>
+      The exit status value that causes this job to retry, and can include any value between 0-255. Other valid exit status values include <code>*</code> for any value between 1-255 (excluding <code>0</code>), as well as <code>-1</code> (the value returned when an agent is lost and Buildkite no longer receives contact from agent).<br>
       <p><em>Examples:</em></p>
       <ul>
         <li><code>"*"</code></li>
