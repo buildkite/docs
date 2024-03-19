@@ -37,5 +37,5 @@ By default, jobs are canceled when not picked up for 30 days. This will cause th
 
 You can override the default by setting a shorter value in your organization's [Pipeline Settings page](https://buildkite.com/organizations/~/pipeline-settings).
 
-Scheduled job limits should not be confused with [scheduled builds](/docs/pipelines/scheduled-builds), a scheduled build's jobs will still go through the [build states](/docs/pipelines/defining-steps#build-states) and the timeout will apply once its individual jobs are in scheduled state waiting for agents.
+Scheduled job limits should not be confused with [scheduled builds](/docs/pipelines/scheduled-builds). A scheduled build's jobs will still go through the [build states](/docs/pipelines/defining-steps#build-states), and the timeout will apply once its individual jobs are in the scheduled state waiting for agents.
 
