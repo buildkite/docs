@@ -298,6 +298,7 @@ _Optional Attributes_
         <li><code>2</code></li>
         <li><code>42</code></li>
         <li><code>143</code></li>
+        <li><code>-1</code></li>
       </ul>
     </td>
   </tr>
