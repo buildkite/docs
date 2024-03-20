@@ -35,6 +35,8 @@ The following steps describe the process above:
     * `package-repository-write-token` is the Buildkite Packages-generated credentials required to access/upload packages to your Java package repository.
 
     <%= render_markdown partial: 'packages/java_package_repository_id' %>
+    
+    **Note:** The Java package repository ID can actually be any value. However, this value must match the ID used in your `pom.xml`.
 
 1. Copy, paste and modify the following XML snippet in your `pom.xml` configuration file:
 
