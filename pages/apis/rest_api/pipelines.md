@@ -216,6 +216,7 @@ The response contains information about your new pipeline:
   "slug": "my-pipeline-x",
   "repository": "git@github.com:acme-inc/my-pipeline.git",
   "cluster_id": null,
+  "pipeline_template_uuid": null,
   "branch_configuration": null,
   "default_branch": "main",
   "skip_queued_branch_builds": false,
@@ -397,6 +398,10 @@ teams: {
   <tr>
     <th><code>cluster_id</code></th>
     <td>The ID of the <a href="/docs/clusters/overview">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
+  </tr>
+  <tr>
+    <th><code>pipeline_template_uuid</code></th>
+    <td>The UUID of the <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> the pipeline should run with. Set to <code>null</code> to remove the pipeline template from the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"018e5a22-d14c-7085-bb28-db0f83f43a1c"</code></p>
   </tr>
 </tbody>
 </table>
@@ -688,6 +693,10 @@ teams: {
     <th><code>cluster_id</code></th>
     <td>The ID of the <a href="/docs/clusters/overview">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
   </tr>
+  <tr>
+    <th><code>pipeline_template_uuid</code></th>
+    <td>The UUID of the <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> the pipeline should run with. Set to <code>null</code> to remove the pipeline template from the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"018e5a22-d14c-7085-bb28-db0f83f43a1c"</code></p>
+  </tr>
 </tbody>
 </table>
 
@@ -846,6 +855,10 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>cluster_id</code></th>
     <td>The ID of the <a href="/docs/clusters/overview">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
+  </tr>
+  <tr>
+    <th><code>pipeline_template_uuid</code></th>
+    <td>The UUID of the <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> the pipeline should run with. Set to <code>null</code> to remove the pipeline template from the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"018e5a22-d14c-7085-bb28-db0f83f43a1c"</code></p>
   </tr>
 </tbody>
 </table>
