@@ -92,6 +92,6 @@ To download a package:
 
 1. Run the Terraform command:
 
-```bash
-terraform init
-```
+    ```bash
+    terraform init
+    ```

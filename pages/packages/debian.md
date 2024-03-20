@@ -70,7 +70,7 @@ To download a package:
 1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
 1. Copy the code snippet and paste it into your terminal.
 
-The package code snippet is based on this format:
+This package code snippet is based on this format:
 
 ```bash
 apt update
