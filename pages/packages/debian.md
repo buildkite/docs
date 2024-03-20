@@ -68,7 +68,7 @@ To download a package:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
-1. Copy the code snippet and paste this into the relevant command line tool required to install this deb package.
+1. Copy the code snippet and paste it into your terminal.
 
 The package code snippet is based on this format:
 
