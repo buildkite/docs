@@ -20,26 +20,26 @@ This command provides:
 The following `curl` command (modified accordingly before submitting) describes the process above to publish a package to your Python package repository:
 
 ```bash
-curl -H "Authorization: Bearer $PYTHON_PACKAGE_REPOSITORY_WRITE_TOKEN" \
-  -X POST https://buildkitepackages.com/api/v1/repos/{org.slug}/{python.package.repository.name}/packages.json \
+curl -X POST https://buildkitepackages.com/api/v1/repos/{org.slug}/{repository.name}/packages.json \
+  -H "Authorization: Bearer $PACKAGE_REPOSITORY_WRITE_TOKEN" \
   -F "package[package_file]=@<path_to_file>"
 ```
 
 where:
 
-- `$PYTHON_PACKAGE_REPOSITORY_WRITE_TOKEN` is the Buildkite Packages-generated API token required to publish/upload packages to your Python package repository.
-
 <%= render_markdown partial: 'packages/org_slug' %>
 
 <%= render_markdown partial: 'packages/python_package_repository_name' %>
+
+- `$PACKAGE_REPOSITORY_WRITE_TOKEN` is the Buildkite Packages-generated API token required to publish/upload packages to your Python package repository.
 
 <%= render_markdown partial: 'packages/path_to_file' %>
 
 For example, to upload the file `my-python-package-0.9.7b1.tar.gz` from the current directory to the _My-Python-packages_ repository in the _My organization_ Buildkite organization, run the `curl` command:
 
 ```bash
-curl -H "Authorization: Bearer $REPLACE_WITH_MY_PYTHON_PACKAGE_REPOSITORY_WRITE_TOKEN" \
-  -X POST https://buildkitepackages.com/api/v1/repos/my-organization/my-python-packages/packages.json \
+curl -X POST https://buildkitepackages.com/api/v1/repos/my-organization/my-python-packages/packages.json \
+  -H "Authorization: Bearer $REPLACE_WITH_MY_PACKAGE_REPOSITORY_WRITE_TOKEN" \
   -F "package[package_file]=@my-python-package-0.9.7b1.tar.gz"
 ```
 
@@ -75,14 +75,14 @@ Add this to the `pip.conf` file:
 ```conf
 # Add this to the [global] section in your ~/.pip/pip.conf:
 [global]
-extra-index-url="https://buildkitepackages.com/{org.slug}/{python.package.repository.name}/pypi/simple"
+extra-index-url="https://buildkitepackages.com/{org.slug}/{repository.name}/pypi/simple"
 ```
 
 Alternatively, add this to the end of the `requirements.txt` file for virtualenv:
 
 ```ini
 # Otherwise if installing on a virtualenv, add this to the bottom of your requirements.txt:
---extra-index-url="https://buildkitepackages.com/{org.slug}/{python.package.repository.name}/pypi/simple"
+--extra-index-url="https://buildkitepackages.com/{org.slug}/{repository.name}/pypi/simple"
 ```
 
 where:

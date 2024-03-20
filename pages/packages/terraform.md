@@ -20,27 +20,27 @@ This command provides:
 The following `curl` command (modified accordingly before submitting) describes the process above to publish a package to your Terraform package repository:
 
 ```bash
-curl -H "Authorization: Bearer $TERRAFORM_PACKAGE_REPOSITORY_WRITE_TOKEN" \
-  -X POST https://buildkitepackages.com/api/v1/repos/{org.slug}/{terraform.package.repository.name}/packages.json \
+curl -X POST https://buildkitepackages.com/api/v1/repos/{org.slug}/{repository.name}/packages.json \
+  -H "Authorization: Bearer $PACKAGE_REPOSITORY_WRITE_TOKEN" \
   -F "package[package_file]=@<path_to_file>"
 ```
 
 where:
 
-- `$TERRAFORM_PACKAGE_REPOSITORY_WRITE_TOKEN` is the Buildkite Packages-generated API token required to publish/upload packages to your Terraform package repository.
-
 <%= render_markdown partial: 'packages/org_slug' %>
 
 <%= render_markdown partial: 'packages/terraform_package_repository_name' %>
 
+- `$PACKAGE_REPOSITORY_WRITE_TOKEN` is the Buildkite Packages-generated API token required to publish/upload packages to your Terraform package repository.
+
 <%= render_markdown partial: 'packages/path_to_file' %>
 
-For example, to upload the file `my-terraform-package-0.9.7b1.tar.gz` from the current directory to the _My-Python-packages_ repository in the _My organization_ Buildkite organization, run the `curl` command:
+For example, to upload the file `my-terraform-package-1.0.1.tgz` from the current directory to the _My-Terraform-packages_ repository in the _My organization_ Buildkite organization, run the `curl` command:
 
 ```bash
-curl -H "Authorization: Bearer $REPLACE_WITH_MY_PYTHON_PACKAGE_REPOSITORY_WRITE_TOKEN" \
-  -X POST https://buildkitepackages.com/api/v1/repos/my-organization/my-python-packages/packages.json \
-  -F "package[package_file]=@my-python-package-0.9.7b1.tar.gz"
+curl -X POST https://buildkitepackages.com/api/v1/repos/my-organization/my-terraform-packages/packages.json \
+  -H "Authorization: Bearer $REPLACE_WITH_MY_PACKAGE_REPOSITORY_WRITE_TOKEN" \
+  -F "package[package_file]=@my-terraform-package-1.0.1.tgz"
 ```
 
 ## Access a package's details
@@ -75,8 +75,8 @@ To download a package:
     ```terraform
     * Add this to your terraform file:
 
-    module "org_slug___terraform_package_repository_name_package_name" {
-      source = "buildkitepackages.com/org-slug---terraform-package-repository-name/ksh/all"
+    module "org_slug___repository_name_package_name" {
+      source = "buildkitepackages.com/org-slug---repository-name/ksh/all"
       version = "1.0.1"
     }
 
@@ -85,10 +85,10 @@ To download a package:
 
     where:
     - `org_slug` can be derived from the end of your Buildkite URL (in [snake_case](https://en.wikipedia.org/wiki/Letter_case#Snake_case)), after accessing _Pipelines_ in the global navigation of your organization in Buildkite.
-    - `terraform_package_repository_name` is the name of your Terraform package repository (in snake_case).
+    - `repository_name` is the name of your Terraform package repository (in snake_case).
     - `package_name` is the name of your Terraform package 
     - `org-slug` can be obtained from the end of your Buildkite URL (in [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case)), after accessing _Pipelines_ in the global navigation of your organization in Buildkite.
-    - `terraform-package-repository-name` is the name of your Terraform package repository (in kebab-case).
+    - `repository-name` is the name of your Terraform package repository (in kebab-case).
 
 1. Run the Terraform command:
 

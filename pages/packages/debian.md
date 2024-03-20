@@ -20,26 +20,26 @@ This command provides:
 The following `curl` command (modified accordingly before submitting) describes the process above to publish a package to your deb package repository:
 
 ```bash
-curl -H "Authorization: Bearer $DEB_PACKAGE_REPOSITORY_WRITE_TOKEN" \
-  -X POST https://buildkitepackages.com/api/v1/repos/{org.slug}/{deb.package.repository.name}/packages.json \
+curl -X POST https://buildkitepackages.com/api/v1/repos/{org.slug}/{repository.name}/packages.json \
+  -H "Authorization: Bearer $PACKAGE_REPOSITORY_WRITE_TOKEN" \
   -F "package[package_file]=@<path_to_file>"
 ```
 
 where:
 
-- `$DEB_PACKAGE_REPOSITORY_WRITE_TOKEN` is the Buildkite Packages-generated API token required to publish/upload packages to your deb package repository.
-
 <%= render_markdown partial: 'packages/org_slug' %>
 
 <%= render_markdown partial: 'packages/deb_package_repository_name' %>
+
+- `$PACKAGE_REPOSITORY_WRITE_TOKEN` is the Buildkite Packages-generated API token required to publish/upload packages to your deb package repository.
 
 <%= render_markdown partial: 'packages/path_to_file' %>
 
 For example, to upload the file `my-deb-package_1.0-2_amd64.deb` from the current directory to the _My-Debian-packages_ repository in the _My organization_ Buildkite organization, run the `curl` command:
 
 ```bash
-curl -H "Authorization: Bearer $REPLACE_WITH_MY_DEB_PACKAGE_REPOSITORY_WRITE_TOKEN" \
-  -X POST https://buildkitepackages.com/api/v1/repos/my-organization/my-debian-packages/packages.json \
+curl -X POST https://buildkitepackages.com/api/v1/repos/my-organization/my-debian-packages/packages.json \
+  -H "Authorization: Bearer $REPLACE_WITH_MY_PACKAGE_REPOSITORY_WRITE_TOKEN" \
   -F "package[package_file]=@my-deb-package_1.0-2_amd64.deb"
 ```
 
@@ -76,8 +76,8 @@ The package code snippet is based on this format:
 apt update
 type -p curl >/dev/null || apt install curl -y
 type -p gpg >/dev/null || apt install gpg -y
-curl -fsSL "https://buildkitepackages.com/{org.slug}/{deb.package.repository.name}/gpgkey" | gpg --dearmor -o /etc/apt/keyrings/{org.slug}_{deb.package.repository.name}-archive-keyring.gpg
-curl -sfSL "https://buildkitepackages.com/install/repositories/{org.slug}/{deb.package.repository.name}/config_file.list?source=buildkite&name=${HOSTNAME}" > /etc/apt/sources.list.d/buildkite-{org.slug}-{deb.package.repository.name}.list
+curl -fsSL "https://buildkitepackages.com/{org.slug}/{repository.name}/gpgkey" | gpg --dearmor -o /etc/apt/keyrings/{org.slug}_{repository.name}-archive-keyring.gpg
+curl -sfSL "https://buildkitepackages.com/install/repositories/{org.slug}/{repository.name}/config_file.list?source=buildkite&name=${HOSTNAME}" > /etc/apt/sources.list.d/buildkite-{org.slug}-{repository.name}.list
 apt update && apt install my-deb-package-name
 ```
 

@@ -1,1 +1,1 @@
-- `{python.package.repository.name}` is the name of your Python package repository.
+- `{repository.name}` is the name of your Python package repository.

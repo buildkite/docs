@@ -1,4 +1,4 @@
-A Java (Jar) package's details can be accessed from this repository using the _Packages_ section of your Java package repository page.
+A Java package's details can be accessed from this repository using the _Packages_ section of your Java package repository page.
 
 To access your Java package's details page:
 

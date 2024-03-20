@@ -25,14 +25,14 @@ The following steps describe the process above:
     // Add to '~/.m2/settings.xml' under 'settings' xml tag
     <servers>
       <server>
-        <id>org-slug-java-package-repository-name</id>
-        <password>java-package-repository-credentials</password>
+        <id>org-slug-repository-name</id>
+        <password>package-repository-write-token</password>
       </server>
     </servers>
     ```
 
     where:
-    * `java-package-repository-credentials` is the Buildkite Packages-generated credentials required to access/upload packages to your Java package repository.
+    * `package-repository-write-token` is the Buildkite Packages-generated credentials required to access/upload packages to your Java package repository.
 
     <%= render_markdown partial: 'packages/java_package_repository_id' %>
 
@@ -53,18 +53,18 @@ The following steps describe the process above:
     // distributionManagement: 'maven deploy' pushes to this repository
     <distributionManagement>
       <repository>
-        <id>org-slug-java-package-repository-name</id>
-        <url>https://buildkitepackages.com/{org.slug}/{java.package.repository.name}</url>
+        <id>org-slug-repository-name</id>
+        <url>https://buildkitepackages.com/{org.slug}/{repository.name}</url>
       </repository>
       <snapshotRepository>
-        <id>org-slug-java-package-repository-name</id>
-        <url>https://buildkitepackages.com/{org.slug}/{java.package.repository.name}</url>
+        <id>org-slug-repository-name</id>
+        <url>https://buildkitepackages.com/{org.slug}/{repository.name}</url>
       </snapshotRepository>
     </distributionManagement>
     ```
 
     where:
-    * `org-slug-java-package-repository-name` is the ID of your Java package repository (above).
+    * `org-slug-repository-name` is the ID of your Java package repository (above).
 
     <%= render_markdown partial: 'packages/org_slug' %>
 
@@ -103,8 +103,8 @@ The package code snippet is based on this format:
 // Add this to 'pom.xml' under 'project' xml tag
 <repositories>
   <repository>
-    <id>org-slug-java-package-repository-name</id>
-    <url>https://buildkitepackages.com/priv/{api.token}/{org.slug}/{java.package.repository.name}/maven2/</url>
+    <id>org-slug-repository-name</id>
+    <url>https://buildkitepackages.com/{org.slug}/{repository.name}/maven2/</url>
     <releases>
       <enabled>true</enabled>
     </releases>
@@ -127,8 +127,6 @@ The package code snippet is based on this format:
 where:
 
 <%= render_markdown partial: 'packages/java_package_repository_id' %>
-
-- `{api.token}` (If this repository is public and if so, what happens to the `priv` in the path before this value? The current assumption is that both of these URL path components can be removed, with the `{api.token}` value passed in the header of the request.)
 
 - `{org.slug}` is the org slug.
 

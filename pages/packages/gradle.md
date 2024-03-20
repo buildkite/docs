@@ -49,9 +49,9 @@ The following steps describe the process above:
       repositories {
         maven {
           // Define the Buildkite repository to publish to
-          url "https://buildkitepackages.com/{org.slug}/{java.package.repository.name}/java/maven2/"
+          url "https://buildkitepackages.com/{org.slug}/{repository.name}/java/maven2/"
           credentials {
-            username = "java-package-repository-credentials"
+            username = "package-repository-write-token"
             password = ""
           }
         }
@@ -80,7 +80,7 @@ The following steps describe the process above:
 
 ### Downloading a package
 
-A Java (Jar) package can be downloaded from the package's details page.
+A Java package can be downloaded from the package's details page.
 
 To download a package:
 
@@ -107,7 +107,7 @@ The package code snippet is based on this format:
 // maven type repository to download/install java packages from
 repositories {
   maven {
-    url "https://buildkitepackages.com/priv/{api.token}/{org.slug}/{java.package.repository.name}/maven2/"
+    url "https://buildkitepackages.com/{org.slug}/{repository.name}/maven2/"
   }
 }
 

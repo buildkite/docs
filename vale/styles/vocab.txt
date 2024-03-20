@@ -179,6 +179,7 @@ shasum
 shellcheck
 shellscripting
 Shipit
+snake_case
 sre
 sso
 statefully
