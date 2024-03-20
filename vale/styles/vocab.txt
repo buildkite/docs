@@ -57,6 +57,7 @@ deprioritize
 deprovisioning
 deregistration
 deprovision
+dialog's
 distro
 distutils
 Dockerfile
