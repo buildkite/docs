@@ -41,7 +41,7 @@ The following aspects of a package repository can be updated:
 - _Emoji_: to change the emoji of the package repository from its default provided when the repository was [created](#create-a-repository). The emoji appears next to the repository's name
 - _Color_: the background color for the emoji
 - _Private_: the privacy settings for the package repository—private or public
-- _OIDC Policy_: the policy defining how OpenID Connect tokens can be pushed to the package repository
+- _OIDC Policy_: the policy defining how OpenID Connect tokens can be used to push packages to the repository
 
 The package repository's ecosystem type cannot be changed once the repository is created.
 

@@ -1,0 +1,1 @@
+- `{org.slug}` can be obtained from the end of your Buildkite URL, after accessing _Pipelines_ in the global navigation of your organization in Buildkite.

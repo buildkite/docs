@@ -57,6 +57,7 @@ deprioritize
 deprovisioning
 deregistration
 deprovision
+dialog's
 distro
 distutils
 Dockerfile
@@ -179,6 +180,7 @@ shasum
 shellcheck
 shellscripting
 Shipit
+snake_case
 sre
 sso
 statefully
@@ -223,6 +225,7 @@ util
 uuid
 UUIDs
 vendored
+virtualenv
 VMs
 VPC's
 VPCs

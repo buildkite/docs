@@ -1,0 +1,1 @@
+- `org-slug-repository-name` is the ID of your Java package repository, based on the org slug and Java package repository names separated by a hyphen. The org slug can be obtained from the end of your Buildkite URL, after accessing _Pipelines_ in the global navigation of your organization in Buildkite.
