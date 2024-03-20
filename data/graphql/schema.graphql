@@ -3088,6 +3088,11 @@ enum JobEventType {
   LIMITED
 
   """
+  The job log exceeded the limit
+  """
+  LOG_SIZE_LIMIT_EXCEEDED
+
+  """
   The Job sent a notification
   """
   NOTIFICATION
