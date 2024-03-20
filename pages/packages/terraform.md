@@ -86,7 +86,7 @@ To download a package:
     where:
     * `org_slug` can be derived from the end of your Buildkite URL (in [snake_case](https://en.wikipedia.org/wiki/Letter_case#Snake_case)), after accessing _Pipelines_ in the global navigation of your organization in Buildkite.
     * `repository_name` is the name of your Terraform package repository (in snake_case).
-    * `package_name` is the name of your Terraform package 
+    * `package_name` is the name of your Terraform package.
     * `org-slug` can be obtained from the end of your Buildkite URL (in [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case)), after accessing _Pipelines_ in the global navigation of your organization in Buildkite.
     * `repository-name` is the name of your Terraform package repository (in kebab-case).
 
