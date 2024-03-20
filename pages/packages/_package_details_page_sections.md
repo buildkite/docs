@@ -1,12 +1,12 @@
 The package's details page provides the following information in the following sections:
 
 - _Installation_: [installation instructions](#access-a-packages-details-installing-a-package)
-- _Files_: a list of files contained within the package and their directory structure
+- _Contents_ (where available): a list of directories and files contained within the package
 - _Details_: a list of checksum values for this package—MD5, SHA1, SHA256, and SHA512
 - _About this version_: a brief (metadata) description about the package
 - _Details_: details about the:
 
-    * name of the package file
+    * name of the package (typically the file name excluding any version details and extension)
     * the package version
     * the repository the package is located in
     * the package's visibility—whether the package is publicly accessible or is _Private_ and requires authentication to access
