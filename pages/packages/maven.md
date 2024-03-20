@@ -84,7 +84,7 @@ The following steps describe the process above:
 
 ### Downloading a package
 
-A Java (Jar) package can be downloaded from the package's details page.
+A Java package can be downloaded from the package's details page.
 
 To download a package:
 
