@@ -1,6 +1,9 @@
 # Buildkite Packages
 
-Buildkite Packages manages artifacts and packages built from your [Buildkite pipelines](/docs/pipelines).
+Buildkite Packages manages artifacts and packages from [Buildkite Pipelines](/docs/pipelines), as well as other CI/CD applications that require artifact management.
+
+> 📘 Buildkite Packages is currently in private beta
+> Please visit the [Buildkite Packages](https://buildkite.com/packages) page on our website to join the wait list for this product.
 
 ## An introduction to packages
 
