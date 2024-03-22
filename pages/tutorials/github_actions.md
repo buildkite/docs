@@ -11,9 +11,9 @@ Find the Trigger Buildkite Pipeline on [GitHub Marketplace](https://github.com/m
 
 <%= image "trigger-buildkite-pipeline.png", width: 2630/2, height: 1692/2, alt: "Trigger Buildkite Pipeline GitHub Action on GitHub" %>
 
-## Prerequisites
+## Before you start
 
-This tutorial assumes some familiarity with GitHub and using GitHub Actions. You can find the official GitHub Actions documentation [here](https://docs.github.com/en/actions/learn-github-actions).
+This tutorial assumes some familiarity with GitHub and using GitHub Actions. Learn more about GitHub Actions in their [documentation](https://docs.github.com/en/actions/learn-github-actions).
 
 ## Creating the workflow for Buildkite GitHub Actions
 
