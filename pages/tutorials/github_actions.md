@@ -13,7 +13,7 @@ Find the Trigger Buildkite Pipeline on [GitHub Marketplace](https://github.com/m
 
 ## Before you start
 
-This tutorial assumes some familiarity with GitHub and using GitHub Actions. Learn more about GitHub Actions in their [documentation](https://docs.github.com/en/actions/learn-github-actions).
+This tutorial assumes some familiarity with GitHub and using GitHub Actions. Learn more about GitHub Actions from their [documentation](https://docs.github.com/en/actions/learn-github-actions).
 
 ## Creating the workflow for Buildkite GitHub Actions
 
