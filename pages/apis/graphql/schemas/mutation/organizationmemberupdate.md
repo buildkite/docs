@@ -15,12 +15,12 @@ title: organizationMemberUpdate – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   organizationMemberUpdate
-  <a href="/docs/apis/graphql/schemas/object/organizationmemberupdatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationMemberUpdatePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/organizationmemberupdatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationMemberUpdatePayload">
   <code>OrganizationMemberUpdatePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

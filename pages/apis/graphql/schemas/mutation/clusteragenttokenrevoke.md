@@ -15,12 +15,12 @@ title: clusterAgentTokenRevoke – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   clusterAgentTokenRevoke
-  <a href="/docs/apis/graphql/schemas/object/clusteragenttokenrevokepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterAgentTokenRevokePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/clusteragenttokenrevokepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterAgentTokenRevokePayload">
   <code>ClusterAgentTokenRevokePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 
