@@ -15,12 +15,12 @@ title: pipelineRotateWebhookURL – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   pipelineRotateWebhookURL
-  <a href="/docs/apis/graphql/schemas/object/pipelinerotatewebhookurlpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineRotateWebhookURLPayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/pipelinerotatewebhookurlpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineRotateWebhookURLPayload">
   <code>PipelineRotateWebhookURLPayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

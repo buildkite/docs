@@ -235,9 +235,9 @@ module RenderHelpers
       toc: false
       ---
       <!-- vale off -->
-      <h1 class="has-pills" data-algolia-exclude>
+      <h1 class="has-pills">
         #{name}
-        #{render_pill(schema_type_data, "large")}
+        <span data-algolia-exclude>#{render_pill(schema_type_data, "large")}</span>
       </h1>
       <!-- vale on -->
       #{valeOff ? "<!-- vale off -->" : nil}

@@ -15,12 +15,12 @@ title: pipelineTemplateUpdate – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   pipelineTemplateUpdate
-  <a href="/docs/apis/graphql/schemas/object/pipelinetemplateupdatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineTemplateUpdatePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/pipelinetemplateupdatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineTemplateUpdatePayload">
   <code>PipelineTemplateUpdatePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

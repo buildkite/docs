@@ -15,12 +15,12 @@ title: organizationEnforceTwoFactorAuthenticationForMembersUpdate – Mutations 
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   organizationEnforceTwoFactorAuthenticationForMembersUpdate
-  <a href="/docs/apis/graphql/schemas/object/organizationenforcetwofactorauthenticationformembersupdatemutationpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationEnforceTwoFactorAuthenticationForMembersUpdateMutationPayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/organizationenforcetwofactorauthenticationformembersupdatemutationpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationEnforceTwoFactorAuthenticationForMembersUpdateMutationPayload">
   <code>OrganizationEnforceTwoFactorAuthenticationForMembersUpdateMutationPayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

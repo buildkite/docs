@@ -15,12 +15,12 @@ title: buildRebuild – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   buildRebuild
-  <a href="/docs/apis/graphql/schemas/object/buildrebuildpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT BuildRebuildPayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/buildrebuildpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT BuildRebuildPayload">
   <code>BuildRebuildPayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

@@ -15,12 +15,12 @@ title: emailResendVerification – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   emailResendVerification
-  <a href="/docs/apis/graphql/schemas/object/emailresendverificationpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT EmailResendVerificationPayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/emailresendverificationpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT EmailResendVerificationPayload">
   <code>EmailResendVerificationPayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

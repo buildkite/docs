@@ -15,12 +15,12 @@ title: totpRecoveryCodesRegenerate – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   totpRecoveryCodesRegenerate
-  <a href="/docs/apis/graphql/schemas/object/totprecoverycodesregeneratepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TOTPRecoveryCodesRegeneratePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/totprecoverycodesregeneratepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TOTPRecoveryCodesRegeneratePayload">
   <code>TOTPRecoveryCodesRegeneratePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 
