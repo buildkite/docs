@@ -7,7 +7,7 @@ Buildkite Packages manages artifacts and packages from [Buildkite Pipelines](/do
 
 ## An introduction to packages
 
-A _package_ is a combination of _metadata_, _configuration_, and _software_ that is prepared in a way that a package management program can use to properly and reliably install software and related configuration data on a computer. For example:
+A _package_ is a combination of _metadata_, _configuration_, and _software_ that is prepared in a way that a package management tool can use to properly and reliably install software and related configuration data on a computer. Some examples of package management tools include:
 
 - [apt](https://help.ubuntu.com/community/Repositories/CommandLine) on Ubuntu
 - [yum](https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Deployment_Guide/c1-yum.html) on RedHat Enterprise Linux
@@ -39,4 +39,27 @@ Some advanced package creation tools include:
 - [fpm](https://github.com/jordansissel/fpm), a third-party tool that allows users to quickly and easily make a variety of packages (including RPM and DEB packages)
 - [PackPack](https://github.com/packpack/packpack), a simple tool to build RPM and Debian packages from git repositories.
 
-Learn more about Buildkite Packages in the [Getting started](/docs/packages/getting-started) guide.
+## Buildkite Packages
+
+Buildkite Packages provides a repository for your [packages](/docs/packages#an-introduction-to-packages) which, in addition to holding a collection of packages, also contains metadata describing a variety of attributes for these packages such as, package versions, supported operating system versions and processor architecture, dependencies, and so on.
+
+### Supported package ecosystems
+
+Currently, Buildkite Packages supports the following package ecosystems:
+
+- Alpine
+- deb (Debian and Ubuntu)
+- gem (RubyGems)
+- Java (Maven and Gradle)
+- Node.js (npm)
+- Python (PyPI)
+- rpm (Fedora and RHEL)
+- Terraform
+
+<!-- - Generic files, for example, `.asc` (signature files), `.zip`, and so on -->
+
+Learn more about:
+
+- Buildkite Packages through a step-by-step tutorial in the [Getting started](/docs/packages/getting-started) guide
+
+- How to work with Buildkite Packages in [Manage repositories](/docs/packages/manage-repositories).

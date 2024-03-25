@@ -450,6 +450,8 @@
             path: "packages/gradle"
         - name: "Python"
           path: "packages/python"
+        - name: "Ruby"
+          path: "packages/ruby"
         - name: "Terraform"
           path: "packages/terraform"
 - name: "APIs"
