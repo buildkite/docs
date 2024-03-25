@@ -7,11 +7,14 @@
       "selector": ".SiteHeader__nav .Nav__link.Nav__link--level1.Nav__link--current",
       "global": true
     },
-    "lvl1": ".Article h1",
-    "lvl2": ".Article h2",
-    "lvl3": ".Article h3",
-    "lvl4": ".Article h4, .Article th",
-    "lvl5": ".Article h5, .Article td:first-child",
+    "lvl1": {
+      "selector": ".SiteHeader__nav .Nav__link.Nav__link--level2.Nav__link--parent.Nav__toggle--on",
+      "global": true
+    },
+    "lvl2": ".Article h1",
+    "lvl3": ".Article h2",
+    "lvl4": ".Article h3",
+    "lvl5": ".Article h4, .Article th",
     "text": ".Article p, .Article li, .Article td"
   },
   "selectors_exclude": [
@@ -19,7 +22,8 @@
     ".Toc",
     ".Footer",
     ".Page__sidebar",
-    ".Nav__section--level2"
+    ".Nav__link--level2:not(.Nav__link--parent.Nav__toggle--on)",
+    ".Nav__section--level3"
   ],
   "custom_settings": {
     "synonyms": [["Pipeline.yml", "Pipeline.yaml", "config.yml", "config.yaml"]]
