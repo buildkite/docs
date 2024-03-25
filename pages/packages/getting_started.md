@@ -1,6 +1,6 @@
 # Getting started
 
-👋 Welcome to Buildkite Packages! You can use Packages to house your [packages](/docs/packages#package-creation-tools) built through [Buildkite Pipelines](/docs/pipelines) or another CI/CD application, and manage them through dedicated repositories. This tutorial takes you through creating package repository, building a simple package locally, and upload this package to your new repository. 
+👋 Welcome to Buildkite Packages! You can use Packages to house your [packages](/docs/packages#package-creation-tools) built through [Buildkite Pipelines](/docs/pipelines) or another CI/CD application, and manage them through dedicated repositories. This tutorial takes you through creating package repository, building a simple package locally, and upload this package to your new repository.
 
 ## Before you start
 
