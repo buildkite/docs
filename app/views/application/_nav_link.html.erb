@@ -23,7 +23,7 @@
     <%= name %>
 
     <% if pill %>
-      <span class="Nav__pill pill pill--<%= pill %> pill--small"><%= pill %></span>
+      <span class="Nav__pill pill pill--<%= pill %> pill--small" data-algolia-exclude><%= pill %></span>
     <% end %>
   </a>
 <% else %>
@@ -33,7 +33,7 @@
   >
     <%= name %>
     <% if pill %>
-      <span class="Nav__pill pill pill--<%= pill %> pill--small"><%= pill %></span>
+      <span class="Nav__pill pill pill--<%= pill %> pill--small" data-algolia-exclude><%= pill %></span>
     <% end %>
   </button>
 <% end %>
