@@ -28,6 +28,7 @@ Once a [package repository is created](#create-a-repository), packages can then 
 - [deb (Debian and Ubuntu)](/docs/packages/debian)
 - Java ([Maven](/docs/packages/maven) or [Gradle leveraging Maven](/docs/packages/gradle))
 - [Python (PyPI)](/docs/packages/python)
+- [Ruby](/docs/packages/ruby)
 - [Terraform](/docs/packages/terraform)
 
 ## Update a repository
