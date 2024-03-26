@@ -15,7 +15,7 @@ To create a new package repository:
 1. Select _New repository_.
 1. On the _New Repository_ page, enter the mandatory name for your repository. Since repository names cannot contain spaces, hyphens will automatically be specified when the space key is pressed.
 1. Enter an optional _Description_ for the repository. This description appears under the name of the repository item on the _Repositories_ page.
-1. Select the required _Repo Type_ based on the [package ecosystem](/docs/packages/getting-started#supported-package-ecosystems) for this new repository.
+1. Select the required _Repo Type_ based on the [package ecosystem](/docs/packages#buildkite-packages-supported-package-ecosystems) for this new repository.
 1. Select whether or not this repository should be _Private_. Leaving this checkbox clear will make the repository public.
 1. Select _Create Repository_.
 
