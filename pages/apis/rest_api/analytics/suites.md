@@ -106,7 +106,7 @@ Optional [request body properties](/docs/api#request-body-properties):
     </tr>
     <tr><th><code>application_name</code></th><td>Application name for the suite.<br><em>Example:</em> <code>"Buildkite"</code></td></tr>
     <tr><th><code>color</code></th><td>Color for the suite navatar.<br><em>Example:</em> <code>"#FFF700"</code></td></tr>
-    <tr><th><code>emoji</code></th><td>Emoji for the suite navatar.<br><em>Example:</em> <code>"🍋"</code>, <code>"\:lemon\:"</code></td></tr>
+    <tr><th><code>emoji</code></th><td>Emoji for the suite navatar. Check out our <a href="https://github.com/buildkite/emojis#emoji-reference">documentation for supported emoji</a>.<br><em>Example:</em> <code>"🍋"</code>, <code>"\:lemon\:"</code></td></tr>
   </tbody>
 </table>
 
@@ -146,7 +146,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr><th><code>default_branch</code></th><td>Your test suite will default to showing trends for this default branch, but collect data for all test runs.<br><em>Example:</em> <code>"main"</code> or <code>"master"</code>.</td></tr>
   <tr><th><code>application_name</code></th><td>Application name for the suite.<br><em>Example:</em> <code>"Buildkite"</code></td></tr>
   <tr><th><code>color</code></th><td>Color for the suite navatar.<br><em>Example:</em> <code>"#ffb7c5"</code></td></tr>
-  <tr><th><code>emoji</code></th><td>Emoji for the suite navatar.<br><em>Example:</em> <code>"🌸"</code>, <code>"\:cherry_blossom\:"</code></td></tr>
+  <tr><th><code>emoji</code></th><td>Emoji for the suite navatar. Check out our <a href="https://github.com/buildkite/emojis#emoji-reference">documentation for supported emoji.</a><br><em>Example:</em> <code>"🌸"</code>, <code>"\:cherry_blossom\:"</code></td></tr>
 </tbody>
 </table>
 
