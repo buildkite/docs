@@ -9254,6 +9254,16 @@ A suite
 """
 type Suite implements Node {
   """
+  The application name for the suite
+  """
+  applicationName: String
+
+  """
+  The hexcode for the suite navatar background color in the Test Suites page
+  """
+  color: String
+
+  """
   The time when the suite was created
   """
   createdAt: DateTime
@@ -9262,6 +9272,11 @@ type Suite implements Node {
   The default branch for this suite
   """
   defaultBranch: String
+
+  """
+  The emoji that will display as a suite navatar in the Test Suites page
+  """
+  emoji: String
   id: ID!
 
   """
