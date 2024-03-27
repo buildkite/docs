@@ -11,5 +11,10 @@ export default defineConfig(({ mode }) => {
       __ALGOLIA_APP_ID__: JSON.stringify(env.ALGOLIA_APP_ID),
       __ALGOLIA_INDEX_NAME__: JSON.stringify(env.ALGOLIA_INDEX_NAME),
     },
+    server: {
+      watch: {
+        ignored: ['/app/log/**']
+      }
+    },
   };
 });
