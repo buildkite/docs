@@ -135,9 +135,11 @@ Rails.application.routes.draw do
   get "/docs/agent/v2/agent-meta-data", to: redirect("/docs/agent/v2/cli-start#setting-metadata", status: 301)
   get "/docs/agent/v3/agent-meta-data", to: redirect("/docs/agent/v3/cli-start#setting-tags",     status: 301)
 
-
   # Pre GA test analytics
   get "/docs/test-analytics/integrations", to: redirect("/docs/test-analytics",            status: 301)
+
+  # Buildkite Packages
+  get "/docs/packages/manage-repositories", to: redirect("/docs/packages/manage-registries")
 
   # Quick Reference JSON
   get "/docs/quick-reference/pipelines", to: "quick_reference#pipelines", as: :pipelines_quick_reference

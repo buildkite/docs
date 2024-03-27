@@ -2,7 +2,7 @@
 
 Buildkite Packages provides repository support for Gradle-based packages for Java using the [Maven Publish Plugin](https://docs.gradle.org/current/userguide/publishing_maven.html).
 
-Once your Java package repository has been [created](/docs/packages/manage-repositories#create-a-repository), you can publish/upload packages (generated from your application's build) to this repository by configuring your `build.gradle` file with the Gradle snippet presented on your Java package repository's details page.
+Once your Java package repository has been [created](/docs/packages/manage-registries#create-a-repository), you can publish/upload packages (generated from your application's build) to this repository by configuring your `build.gradle` file with the Gradle snippet presented on your Java package repository's details page.
 
 To view and copy the required `build.gradle` configurations:
 

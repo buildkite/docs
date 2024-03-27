@@ -2,7 +2,7 @@
 
 Buildkite Packages provides repository support for Debian-based packages (deb) in Debian and Ubuntu variants.
 
-Once your deb (Debian and Ubuntu) package repository has been [created](/docs/packages/manage-repositories#create-a-repository), you can publish/upload packages (generated from your application's build) to this repository via the `curl` command presented on your deb package repository's details page.
+Once your deb (Debian and Ubuntu) package repository has been [created](/docs/packages/manage-registries#create-a-repository), you can publish/upload packages (generated from your application's build) to this repository via the `curl` command presented on your deb package repository's details page.
 
 To view and copy this `curl` command:
 

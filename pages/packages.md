@@ -62,4 +62,4 @@ Learn more about:
 
 - Buildkite Packages through a step-by-step tutorial in the [Getting started](/docs/packages/getting-started) guide
 
-- How to work with Buildkite Packages in [Manage repositories](/docs/packages/manage-repositories).
+- How to work with Buildkite Packages in [Manage repositories](/docs/packages/manage-registries).

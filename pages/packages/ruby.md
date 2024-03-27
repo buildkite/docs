@@ -2,7 +2,7 @@
 
 Buildkite Packages provides repository support for Ruby/Gem packages.
 
-Once your Gem package repository has been [created](/docs/packages/manage-repositories#create-a-repository), you can publish/upload packages (generated from your application's build) to this repository via a single command, or by configuring your `~/.gem/credentials` and `gemspec` files with the code snippets presented on your Gem package repository's details page.
+Once your Gem package repository has been [created](/docs/packages/manage-registries#create-a-repository), you can publish/upload packages (generated from your application's build) to this repository via a single command, or by configuring your `~/.gem/credentials` and `gemspec` files with the code snippets presented on your Gem package repository's details page.
 
 To view and copy the required command or  `~/.gem/credentials` and `gemspec` configurations:
 
