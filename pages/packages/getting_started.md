@@ -14,7 +14,7 @@ To complete this tutorial, you'll need:
 
 ## Create a package registry
 
-To create a new Node.js package registry:
+First, create a new Node.js package registry:
 
 1. Select _Packages_ in the global navigation to access the _Repositories_ page.
 1. Select _New repository_.
@@ -30,7 +30,7 @@ To create a new Node.js package registry:
 
 ## Clone the Node.js package example
 
-First, clone the Node.js package example:
+Then, clone the Node.js package example:
 
 1. Run the following command:
 
@@ -53,7 +53,7 @@ Next, configure your Node.js environment to publish Node.js packages to [the Nod
 1. Use the copy icon at the top-right of the first code box to copy the `npm` command and submit it to configure your npm config settings file (`.npmrc`) to publish to your Node.js package registry in Buildkite Packages. This command has the following format:
 
     ```bash
-    npm set "//buildkitepackages.com/{org.slug}/{registry.name}/npm/:_authToken" package-repository-write-token
+    npm set "//buildkitepackages.com/{org.slug}/{registry.name}/npm/:_authToken" package-registry-write-token
     ```
 
     where:
@@ -64,7 +64,7 @@ Next, configure your Node.js environment to publish Node.js packages to [the Nod
     * If your `.npmrc` file doesn't exist, this command will automatically create it for you.
     * This step only needs to be conducted once for the life of your Node.js package registry.
 
-1. Use either the copy icon at the top-right of the second code box to copy the `publishConfig` field and its value, and paste it to the end of your Node.js package's `package.json` file. Alternatively, select and copy the line of code beginning `"publishConfig": ...`. For example:
+1. Use the copy icon at the top-right of the second code box to copy the `publishConfig` field and its value, and paste it to the end of your Node.js package's `package.json` file. Alternatively, select and copy the line of code beginning `"publishConfig": ...`. For example:
 
     ```json
     {

@@ -41,7 +41,7 @@ Some advanced package creation tools include:
 
 ## Buildkite Packages
 
-Buildkite Packages provides a repository for your [packages](/docs/packages#an-introduction-to-packages) which, in addition to holding a collection of packages, also contains metadata describing a variety of attributes for these packages such as, package versions, supported operating system versions and processor architecture, dependencies, and so on.
+Buildkite Packages provides registries for your [packages](/docs/packages#an-introduction-to-packages). As well as holding a collection of packages, each registry may also contain metadata describing a variety of attributes for these packages such as, package versions, supported operating system versions and processor architecture, dependencies, and so on.
 
 ### Supported package ecosystems
 
@@ -62,4 +62,4 @@ Learn more about:
 
 - Buildkite Packages through a step-by-step tutorial in the [Getting started](/docs/packages/getting-started) guide
 
-- How to work with Buildkite Packages in [Manage repositories](/docs/packages/manage-registries).
+- How to work with Buildkite Packages in [Manage registries](/docs/packages/manage-registries).
