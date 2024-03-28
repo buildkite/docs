@@ -2,7 +2,7 @@
 
 Buildkite Packages provides repository support for Maven-based packages for Java.
 
-Once your Java package repository has been [created](/docs/packages/manage-registries#create-a-repository), you can publish/upload packages (generated from your application's build) to this repository by configuring your `~/.m2/settings.xml` and application's relevant `pom.xml` files with the Maven XML snippets presented on your Java package repository's details page.
+Once your Java package repository has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this repository by configuring your `~/.m2/settings.xml` and application's relevant `pom.xml` files with the Maven XML snippets presented on your Java package repository's details page.
 
 To view and copy the required  `~/.m2/settings.xml` and `pom.xml` configurations:
 

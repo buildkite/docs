@@ -2,7 +2,7 @@
 
 Buildkite Packages provides repository support for Python packages.
 
-Once your Python package repository has been [created](/docs/packages/manage-registries#create-a-repository), you can publish/upload packages (generated from your application's build) to this repository via the `curl` command presented on your Python package repository's details page.
+Once your Python package repository has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this repository via the `curl` command presented on your Python package repository's details page.
 
 To view and copy this `curl` command:
 
