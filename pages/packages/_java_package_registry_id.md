@@ -1,0 +1,1 @@
+- `org-slug-registry-name` is the ID of your Java package registry, based on the org slug and Java package registry names separated by a hyphen. The org slug can be obtained from the end of your Buildkite URL, after accessing _Pipelines_ in the global navigation of your organization in Buildkite.

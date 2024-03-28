@@ -21,7 +21,7 @@ The following `curl` command (modified accordingly before submitting) describes 
 
 ```bash
 curl -X POST https://buildkitepackages.com/api/v1/repos/{org.slug}/{repository.name}/packages.json \
-  -H "Authorization: Bearer $PACKAGE_REPOSITORY_WRITE_TOKEN" \
+  -H "Authorization: Bearer $PACKAGE_REGISTRY_WRITE_TOKEN" \
   -F "package[package_file]=@<path_to_file>"
 ```
 
@@ -29,9 +29,9 @@ where:
 
 <%= render_markdown partial: 'packages/org_slug' %>
 
-<%= render_markdown partial: 'packages/terraform_package_repository_name' %>
+<%= render_markdown partial: 'packages/terraform_package_registry_name' %>
 
-- `$PACKAGE_REPOSITORY_WRITE_TOKEN` is the Buildkite Packages-generated API token required to publish/upload packages to your Terraform package repository.
+- `$PACKAGE_REGISTRY_WRITE_TOKEN` is the Buildkite Packages-generated API token required to publish/upload packages to your Terraform package repository.
 
 <%= render_markdown partial: 'packages/path_to_file' %>
 
@@ -39,7 +39,7 @@ For example, to upload the file `my-terraform-package-1.0.1.tgz` from the curren
 
 ```bash
 curl -X POST https://buildkitepackages.com/api/v1/repos/my-organization/my-terraform-packages/packages.json \
-  -H "Authorization: Bearer $REPLACE_WITH_MY_PACKAGE_REPOSITORY_WRITE_TOKEN" \
+  -H "Authorization: Bearer $REPLACE_WITH_MY_PACKAGE_REGISTRY_WRITE_TOKEN" \
   -F "package[package_file]=@my-terraform-package-1.0.1.tgz"
 ```
 

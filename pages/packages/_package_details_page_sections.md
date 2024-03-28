@@ -9,11 +9,11 @@ The package's details page provides the following information in the following s
     * name of the package (typically the file name excluding any version details and extension)
     * the package version
     * the repository the package is located in
-    * the package's visibility—whether the package is publicly accessible or is _Private_ and requires authentication to access
+    * the package's visibility—whether the package is _Private_ and requires authentication to access, or is publicly accessible
     * the distribution name / version
     * any additional optional metadata about the package, such as a homepage, licenses, etc.
 
-- _Last pushed_: the date when the last package was uploaded to the repository
+- _Last pushed_: the date when the last package was uploaded to the registry
 - _Total files_: the total number of files (and directories) within the package
 - _Dependencies_: the number of dependency packages required by this package
 - _Package size_: the storage size (in bytes) of this package

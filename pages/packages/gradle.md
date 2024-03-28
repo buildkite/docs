@@ -68,7 +68,7 @@ The following steps describe the process above:
 
     <%= render_markdown partial: 'packages/org_slug' %>
 
-    <%= render_markdown partial: 'packages/java_package_repository_name' %>
+    <%= render_markdown partial: 'packages/java_package_registry_name' %>
 
 1. Publish your package:
 
@@ -127,6 +127,6 @@ where:
 
 - `{org.slug}` is the org slug.
 
-<%= render_markdown partial: 'packages/java_package_repository_name' %>
+<%= render_markdown partial: 'packages/java_package_registry_name' %>
 
 <%= render_markdown partial: 'packages/java_package_domain_name_version' %>

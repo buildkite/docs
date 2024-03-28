@@ -1,1 +1,0 @@
-- `{repository.name}` is the name of your Terraform package repository.
