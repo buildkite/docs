@@ -38,11 +38,14 @@ Then, clone the Node.js package example:
     git clone git@github.com:buildkite/nodejs-example-package.git
     ```
 
-1. `cd` into the `nodejs-example-package` directory, and optionally `npm run` the `main` field of the `package.json` file (that is, the `index.js` file), to test that it works successfully by displaying `Hello world!`:
+1. Change directory (`cd`) into the `nodejs-example-package` directory.
+1. Optionally, run the Node.js package (`npm run`) on the `main` field of the `package.json` file (that is, the `index.js` file), to test that it works successfully:
 
     ```bash
     npm run main
     ```
+
+    The command output should display `Hello world!`.
 
 ## Configure your Node.js environment and package to publish to your package registry
 
@@ -85,7 +88,7 @@ Next, configure your Node.js environment to publish Node.js packages to [the Nod
 
 ## Publish the Node.js package to your package registry
 
-Last, publish your Node.js package to your Node.js package registry by running the following `npm` command:
+Last, in the `nodejs-example-package` directory, publish your Node.js package to your Node.js package registry by running the `npm` command:
 
 ```bash
 npm publish
