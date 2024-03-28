@@ -2,7 +2,7 @@
 
 Buildkite Packages provides repository support for Maven-based packages for Java.
 
-Once your Java package repository has been [created](/docs/packages/manage-repositories#create-a-repository), you can publish/upload packages (generated from your application's build) to this repository by configuring your `~/.m2/settings.xml` and application's relevant `pom.xml` files with the Maven XML snippets presented on your Java package repository's details page.
+Once your Java package repository has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this repository by configuring your `~/.m2/settings.xml` and application's relevant `pom.xml` files with the Maven XML snippets presented on your Java package repository's details page.
 
 To view and copy the required  `~/.m2/settings.xml` and `pom.xml` configurations:
 
@@ -34,7 +34,7 @@ The following steps describe the process above:
     where:
     * `package-repository-write-token` is the Buildkite Packages-generated credentials required to access/upload packages to your Java package repository.
 
-    <%= render_markdown partial: 'packages/java_package_repository_id' %>
+    <%= render_markdown partial: 'packages/java_package_registry_id' %>
 
     **Note:** The Java package repository ID can actually be any value. However, this value must match the ID used in your `pom.xml`.
 
@@ -70,7 +70,7 @@ The following steps describe the process above:
 
     <%= render_markdown partial: 'packages/org_slug' %>
 
-    <%= render_markdown partial: 'packages/java_package_repository_name' %>
+    <%= render_markdown partial: 'packages/java_package_registry_name' %>
 
 1. Publish your package:
 
@@ -128,10 +128,10 @@ The package code snippet is based on this format:
 
 where:
 
-<%= render_markdown partial: 'packages/java_package_repository_id' %>
+<%= render_markdown partial: 'packages/java_package_registry_id' %>
 
 - `{org.slug}` is the org slug.
 
-<%= render_markdown partial: 'packages/java_package_repository_name' %>
+<%= render_markdown partial: 'packages/java_package_registry_name' %>
 
 <%= render_markdown partial: 'packages/java_package_domain_name_version' %>

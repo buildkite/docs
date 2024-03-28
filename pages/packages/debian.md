@@ -2,7 +2,7 @@
 
 Buildkite Packages provides repository support for Debian-based packages (deb) in Debian and Ubuntu variants.
 
-Once your deb (Debian and Ubuntu) package repository has been [created](/docs/packages/manage-repositories#create-a-repository), you can publish/upload packages (generated from your application's build) to this repository via the `curl` command presented on your deb package repository's details page.
+Once your deb (Debian and Ubuntu) package repository has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this repository via the `curl` command presented on your deb package repository's details page.
 
 To view and copy this `curl` command:
 
@@ -21,7 +21,7 @@ The following `curl` command (modified accordingly before submitting) describes 
 
 ```bash
 curl -X POST https://buildkitepackages.com/api/v1/repos/{org.slug}/{repository.name}/packages.json \
-  -H "Authorization: Bearer $PACKAGE_REPOSITORY_WRITE_TOKEN" \
+  -H "Authorization: Bearer $PACKAGE_REGISTRY_WRITE_TOKEN" \
   -F "package[package_file]=@<path_to_file>"
 ```
 
@@ -29,9 +29,9 @@ where:
 
 <%= render_markdown partial: 'packages/org_slug' %>
 
-<%= render_markdown partial: 'packages/deb_package_repository_name' %>
+<%= render_markdown partial: 'packages/deb_package_registry_name' %>
 
-- `$PACKAGE_REPOSITORY_WRITE_TOKEN` is the Buildkite Packages-generated API token required to publish/upload packages to your deb package repository.
+- `$PACKAGE_REGISTRY_WRITE_TOKEN` is the Buildkite Packages-generated API token required to publish/upload packages to your deb package repository.
 
 <%= render_markdown partial: 'packages/path_to_file' %>
 
@@ -39,7 +39,7 @@ For example, to upload the file `my-deb-package_1.0-2_amd64.deb` from the curren
 
 ```bash
 curl -X POST https://buildkitepackages.com/api/v1/repos/my-organization/my-debian-packages/packages.json \
-  -H "Authorization: Bearer $REPLACE_WITH_MY_PACKAGE_REPOSITORY_WRITE_TOKEN" \
+  -H "Authorization: Bearer $REPLACE_WITH_MY_PACKAGE_REGISTRY_WRITE_TOKEN" \
   -F "package[package_file]=@my-deb-package_1.0-2_amd64.deb"
 ```
 
@@ -85,4 +85,4 @@ where:
 
 <%= render_markdown partial: 'packages/org_slug' %>
 
-<%= render_markdown partial: 'packages/deb_package_repository_name' %>
+<%= render_markdown partial: 'packages/deb_package_registry_name' %>
