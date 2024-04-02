@@ -48,6 +48,7 @@ Buildkite Packages provides registries for your [packages](/docs/packages#an-int
 Currently, Buildkite Packages supports the following package ecosystems:
 
 - Alpine
+- Docker container images
 - deb (Debian and Ubuntu)
 - gem (RubyGems)
 - Java (Maven and Gradle)
@@ -56,10 +57,10 @@ Currently, Buildkite Packages supports the following package ecosystems:
 - rpm (Fedora and RHEL)
 - Terraform
 
-<!-- - Generic files, for example, `.asc` (signature files), `.zip`, and so on -->
+## Getting started tutorial
 
-Learn more about:
+Learn more about how:
 
-- Buildkite Packages through a step-by-step tutorial in the [Getting started](/docs/packages/getting-started) guide
+- The Buildkite Packages product works through this step-by-step [Getting started](/docs/packages/getting-started) tutorial.
 
-- How to work with Buildkite Packages in [Manage registries](/docs/packages/manage-registries).
+- To work with Buildkite Packages registries in [Manage registries](/docs/packages/manage-registries).
