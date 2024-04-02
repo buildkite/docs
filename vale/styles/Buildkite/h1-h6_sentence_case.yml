@@ -97,6 +97,7 @@ exceptions:
   - macOS
   - Markdown
   - minitest
+  - Node.js
   - Okta
   - OneLogin
   - OpenTelemetry
