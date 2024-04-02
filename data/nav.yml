@@ -441,6 +441,8 @@
       children:
         - name: "Debian"
           path: "packages/debian"
+        - name: "Ruby"
+          path: "packages/ruby"
         - name: "Java"
           start_expanded: true
           children:
@@ -448,10 +450,10 @@
             path: "packages/maven"
           - name: "Gradle"
             path: "packages/gradle"
+        - name: "Node.js"
+          path: "packages/nodejs"
         - name: "Python"
           path: "packages/python"
-        - name: "Ruby"
-          path: "packages/ruby"
         - name: "Terraform"
           path: "packages/terraform"
 - name: "APIs"
