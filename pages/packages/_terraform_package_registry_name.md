@@ -1,1 +1,1 @@
-- `{registry.name}` is the name of your Terraform package registry.
+- `{registry.name}` is the name of your Terraform registry.
