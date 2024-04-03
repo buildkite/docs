@@ -15,12 +15,12 @@ title: jobTypeCommandRetry – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   jobTypeCommandRetry
-  <a href="/docs/apis/graphql/schemas/object/jobtypecommandretrypayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobTypeCommandRetryPayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/jobtypecommandretrypayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobTypeCommandRetryPayload">
   <code>JobTypeCommandRetryPayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

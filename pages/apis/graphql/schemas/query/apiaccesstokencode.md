@@ -15,12 +15,12 @@ title: apiAccessTokenCode – Queries – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   apiAccessTokenCode
-  <a href="/docs/apis/graphql/schemas/object/apiaccesstokencode" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT APIAccessTokenCode">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/apiaccesstokencode" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT APIAccessTokenCode">
   <code>APIAccessTokenCode</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

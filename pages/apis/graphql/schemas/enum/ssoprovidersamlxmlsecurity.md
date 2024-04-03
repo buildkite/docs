@@ -15,9 +15,9 @@ title: SSOProviderSAMLXMLSecurity – Enums – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   SSOProviderSAMLXMLSecurity
-  <span class="pill pill--enum pill--normal-case pill--large"><code>ENUM</code></span>
+  <span data-algolia-exclude><span class="pill pill--enum pill--normal-case pill--large"><code>ENUM</code></span></span>
 </h1>
 <!-- vale on -->
 

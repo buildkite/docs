@@ -15,12 +15,12 @@ title: totpDelete – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   totpDelete
-  <a href="/docs/apis/graphql/schemas/object/totpdeletepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TOTPDeletePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/totpdeletepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TOTPDeletePayload">
   <code>TOTPDeletePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

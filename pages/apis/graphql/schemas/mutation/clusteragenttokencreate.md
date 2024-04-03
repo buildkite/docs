@@ -15,12 +15,12 @@ title: clusterAgentTokenCreate – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   clusterAgentTokenCreate
-  <a href="/docs/apis/graphql/schemas/object/clusteragenttokencreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterAgentTokenCreatePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/clusteragenttokencreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterAgentTokenCreatePayload">
   <code>ClusterAgentTokenCreatePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

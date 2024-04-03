@@ -15,12 +15,12 @@ title: agentTokenCreate – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   agentTokenCreate
-  <a href="/docs/apis/graphql/schemas/object/agenttokencreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AgentTokenCreatePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/agenttokencreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AgentTokenCreatePayload">
   <code>AgentTokenCreatePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

@@ -15,12 +15,12 @@ title: pipelineFavorite – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   pipelineFavorite
-  <a href="/docs/apis/graphql/schemas/object/pipelinefavoritepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineFavoritePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/pipelinefavoritepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineFavoritePayload">
   <code>PipelineFavoritePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 
