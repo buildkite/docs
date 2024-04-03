@@ -33,7 +33,7 @@ The following steps describe the process above:
     * If your `.npmrc` file doesn't exist, this command will automatically create it for you.
     * This step only needs to be conducted once for the life of your JavaScript registry.
 
-1. 
+1.
 
 ## Access a package's details
 
