@@ -55,7 +55,7 @@ Currently, Buildkite Packages supports the following package ecosystems:
 - Node.js (npm)
 - Python (PyPI)
 - rpm (Fedora and RHEL)
-- Terraform
+- Terraform (modules)
 
 ## Getting started tutorial
 
