@@ -45,10 +45,6 @@ _Optional attributes:_
   </tr>
 </table>
 
->🚧 <code>depends_on</code> and <code>wait</code>
-> Use explicit dependencies in a wait step  with care. A wait step with the <code>depends_on</code> attribute might break the intention of waiting when you have missing dependencies. Jobs following the wait step no longer waits for previous steps to complete to continue if their dependencies are missing.
-
-
 ## Conditional wait
 
 You can use a conditional to only wait when certain conditions are met:
