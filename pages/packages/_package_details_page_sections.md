@@ -9,7 +9,7 @@ The package's details page provides the following information in the following s
     * the name of the package (typically the file name excluding any version details and extension)
     * the package version
     * the registry the package is located in
-    * the package's visibility—whether the package is _Private_ and requires authentication to access, or is publicly accessible
+    * the package's visibility (based on its repository's visibility)—whether the package is _Private_ and requires authentication to access, or is publicly accessible
     * the distribution name / version
     * additional optional metadata contained within the package, such as a homepage, licenses, etc.
 

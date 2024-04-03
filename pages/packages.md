@@ -3,7 +3,7 @@
 Buildkite Packages manages artifacts and packages from [Buildkite Pipelines](/docs/pipelines), as well as other CI/CD applications that require artifact management.
 
 > 📘 Buildkite Packages is currently in private beta
-> Please visit the [Buildkite Packages](https://buildkite.com/packages) page on our website to join the waitlist for this product.
+> Please visit the [Buildkite Packages](https://buildkite.com/packages) page on our website to join the waitlist for this product and register for early access.
 
 ## An introduction to packages
 
@@ -41,7 +41,7 @@ Some advanced package creation tools include:
 
 ## Buildkite Packages
 
-Buildkite Packages provides registries for your [packages](/docs/packages#an-introduction-to-packages) and other package-like formats such as container images and Terraform modules. As well as holding a collection of packages, each registry may also contain metadata describing a variety of attributes for these packages such as, package versions, supported operating system versions and processor architecture, dependencies, and so on.
+Buildkite Packages provides registries for your [packages](/docs/packages#an-introduction-to-packages) and other package-like file formats such as container images and Terraform modules. As well as holding a collection of packages, each registry may also contain metadata describing a variety of attributes for these packages such as, package versions, supported operating system versions and processor architecture, dependencies, and so on.
 
 ### Supported package ecosystems
 

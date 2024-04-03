@@ -1,6 +1,6 @@
 # Python
 
-Buildkite Packages provides registry support for Python packages.
+Buildkite Packages provides registry support for Python (PyPI) packages.
 
 Once your Python registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry via the `curl` command presented on your Python registry's details page.
 
