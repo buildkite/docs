@@ -29,7 +29,7 @@ where:
 
 <%= render_markdown partial: 'packages/org_slug' %>
 
-<%= render_markdown partial: 'packages/terraform_package_registry_name' %>
+<%= render_markdown partial: 'packages/terraform_registry_name' %>
 
 - `$REGISTRY_WRITE_TOKEN` is the Buildkite Packages-generated API token required to publish/upload modules to your Terraform registry.
 
@@ -55,7 +55,7 @@ To access your Terraform module's details page:
 
 The module's details page provides the following information in the following sections:
 
-- _Installation_: [installation instructions](#access-a-packages-details-installing-a-module)
+- _Installation_: [installation instructions](#access-a-modules-details-installing-a-module)
 - _Contents_ (where available): a list of directories and files contained within the module
 - _Details_: a list of checksum values for this module—MD5, SHA1, SHA256, and SHA512
 - _About this version_: a brief (metadata) description about the module
@@ -66,7 +66,7 @@ The module's details page provides the following information in the following se
     * the registry the module is located in
     * the module's visibility—whether the module is _Private_ and requires authentication to access, or is publicly accessible
     * the distribution name / version
-    * any additional optional metadata about the module, such as a homepage, licenses, etc.
+    * additional optional metadata contained within the module, such as a homepage, licenses, etc.
 
 - _Last pushed_: the date when the last module was uploaded to the registry
 - _Total files_: the total number of files (and directories) within the module
