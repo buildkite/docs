@@ -100,12 +100,44 @@ To install a package:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
-1. Copy the code snippet, paste this into the `pom.xml` file (under the `project` XML tag), and run `mvn install` on this modified `pom.xml` to install this package.
+1. Copy each code snippet, and paste them into their respective `~/.m2/settings.xml` and `pom.xml` files (under the `project` XML tag), and run `mvn install` on this modified `pom.xml` to install this package.
 
-This code snippet is based on this format:
+The `~/.m2/settings.xml` code snippet is based on this format:
 
 ```xml
-// Add this to 'pom.xml' under 'project' xml tag
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+    http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <servers>
+    <server>
+      <id>org-slug-registry-name</id>
+      <configuration>
+        <httpHeaders>
+          <property>
+            <name>Authorization</name>
+            <value>Bearer registry-read-token</value>
+          </property>
+        </httpHeaders>
+      </configuration>
+    </server>
+  </servers>
+</settings>
+```
+
+where:
+
+- `registry-read-token` is the Buildkite Packages-generated API token required to download packages to your Java registry.
+
+<%= render_markdown partial: 'packages/java_registry_id' %>
+
+> 📘 This configuration:
+> Is _not_ required if your registry is publicly accessible.
+> Only needs to be conducted once for the life of your Java registry.
+
+The `pom.xml` code snippet is based on this format:
+
+```xml
 <repositories>
   <repository>
     <id>org-slug-registry-name</id>
@@ -119,7 +151,6 @@ This code snippet is based on this format:
   </repository>
 </repositories>
 
-// Add this to 'pom.xml' under 'project' xml tag
 <dependencies>
   <dependency>
     <groupId>com.name.domain.my</groupId>

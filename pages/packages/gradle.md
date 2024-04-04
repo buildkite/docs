@@ -30,7 +30,7 @@ The following steps describe the process above:
         apply plugin : it
     }
 
-    // Donwload standard plugins, e.g., maven-publish  from GradlePluginPortal
+    // Download standard plugins, e.g., maven-publish  from GradlePluginPortal
     repositories {
       gradlePluginPortal()
     }
@@ -54,9 +54,12 @@ The following steps describe the process above:
         maven {
           // Define the Buildkite repository to publish to
           url "https://buildkitepackages.com/{org.slug}/{registry.name}/maven2/"
-          credentials {
-            username = "registry-write-token"
-            password = ""
+          authentication {
+            header(HttpHeaderAuthentication)
+          }
+          credentials(HttpHeaderCredentials) {
+            name = "Authorization"
+            value = "Bearer registry-write-token"
           }
         }
       }
@@ -106,22 +109,19 @@ To install a package:
 This code snippet is based on this format:
 
 ```gradle
-// Add to 'build.gradle' file
-
-// You require these plugins
-// "java": To work with java libraries
-['java' ].each {
-  apply plugin : it
-}
-
-// maven type repository to download/install java packages from
 repositories {
   maven {
     url "https://buildkitepackages.com/{org.slug}/{registry.name}/maven2/"
+    authentication {
+      header(HttpHeaderAuthentication)
+    }
+    credentials(HttpHeaderCredentials) {
+      name = "Authorization"
+      value = "Bearer registry-read-token"
+    }
   }
 }
 
-// java package that you want to install
 dependencies {
   compile "com.name.domain.my:my-java-package-name:my-java-package-version"
 }
@@ -132,5 +132,7 @@ where:
 - `{org.slug}` is the org slug.
 
 <%= render_markdown partial: 'packages/java_registry_name' %>
+
+- `registry-read-token` is the Buildkite Packages-generated API token required to download packages to your Java registry. Both the `authentication` and `credentials` sections are not required for registries that are publicly accessible.
 
 <%= render_markdown partial: 'packages/java_package_domain_name_version' %>
