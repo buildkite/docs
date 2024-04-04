@@ -33,6 +33,7 @@ Buildbox
 Buildkite
 Buildkite's
 buildscript
+Bundler
 cancelation
 CCMenu
 ccnet
