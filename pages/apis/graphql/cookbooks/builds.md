@@ -288,3 +288,19 @@ Then, create the build:
     }
   }
 ```
+## Get the webhook payload of a build
+
+This query allows you to fetch the webhook payload of a specific build using its UUID. The payload is only available for 7 days
+
+```graphql
+query GetWebhookPayLoad {
+  build(uuid:"build-uuid") {
+    source{
+      ... on BuildSourceWebhook {
+        headers
+        payload
+      }
+    }
+  }
+}
+```
