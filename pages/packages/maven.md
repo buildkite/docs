@@ -1,12 +1,12 @@
 # Maven
 
-Buildkite Packages provides registry support for Maven-based packages for Java.
+Buildkite Packages provides registry support for Maven-based Java packages.
 
 Once your Java registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `~/.m2/settings.xml` and application's relevant `pom.xml` files with the Maven XML snippets presented on your Java registry's details page.
 
 To view and copy the required  `~/.m2/settings.xml` and `pom.xml` configurations:
 
-1. Select _Packages_ in the global navigation to access the _Repositories_ page.
+1. Select _Packages_ in the global navigation to access the _Registries_ page.
 1. Select your Java registry on this page.
 1. Select _Publish a Java Package_ and in the resulting dialog's _Using Maven_ section, use the copy icon at the top-right of each respective code box to copy the relevant XML snippet and paste it into its appropriate file.
 
@@ -94,9 +94,9 @@ To download a package:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
-1. Copy the code snippet and paste this into the `pom.xml` file (under the `project` XML tag) to install this package.
+1. Copy the code snippet and paste this into the `pom.xml` file (under the `project` XML tag), and run `mvn install` on this modified `pom.xml` to install this package.
 
-The package code snippet is based on this format:
+This code snippet is based on this format:
 
 ```xml
 // Add this to 'pom.xml' under 'project' xml tag

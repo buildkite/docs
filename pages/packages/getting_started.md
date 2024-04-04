@@ -18,17 +18,17 @@ To complete this tutorial, you'll need:
 
 First, create a new JavaScript registry:
 
-1. Select _Packages_ in the global navigation to access the _Repositories_ page.
-1. Select _New repository_.
-1. On the _New Repository_ page, enter the mandatory name for your registry. For example, _My JavaScript registry_.
+1. Select _Packages_ in the global navigation to access the _Registries_ page.
+1. Select _New registry_.
+1. On the _New Registry_ page, enter the mandatory name for your registry. For example, _My JavaScript registry_.
 
     **Note:** Since registry names cannot contain spaces or punctuation, hyphens will automatically be specified when the space key is pressed, and punctuation will not be entered.
 
-1. Enter an optional _Description_ for the registry, which will appear under the name of the registry item on the _Repositories_ page. For example, _This is an example of a JavaScript registry_.
+1. Enter an optional _Description_ for the registry, which will appear under the name of the registry item on the _Registries_ page. For example, _This is an example of a JavaScript registry_.
 1. Select the required _Repo Type_ of _NodeJS (npm)_.
-1. Select _Create Repository_.
+1. Select _Create Registry_.
 
-    The new JavaScript registry's details page is displayed. Selecting _Packages_ in the global navigation opens the _Repositories_ page, where your new registry will be listed.
+    The new JavaScript registry's details page is displayed. Selecting _Packages_ in the global navigation opens the _Registries_ page, where your new registry will be listed.
 
 ## Clone the Node.js package example
 
@@ -121,6 +121,8 @@ To return to the your JavaScript registry details page (listing all packages pub
 ### Publish a new version
 
 As an optional extra, try incrementing the version number in your `packages.json` file, [re-publishing the package to your JavaScript registry](#publish-the-package), and [checking the end result](#check-the-end-result).
+
+Your JavaScript registry's details page should show your new package with the incremented version number.
 
 ## Next steps
 

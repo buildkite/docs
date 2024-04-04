@@ -140,6 +140,7 @@ Rails.application.routes.draw do
 
   # Buildkite Packages
   get "/docs/packages/manage-repositories", to: redirect("/docs/packages/manage-registries")
+  get "/docs/packages/nodejs", to: redirect("/docs/packages/javascript")
 
   # Quick Reference JSON
   get "/docs/quick-reference/pipelines", to: "quick_reference#pipelines", as: :pipelines_quick_reference

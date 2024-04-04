@@ -6,7 +6,7 @@ Once your Terraform registry has been [created](/docs/packages/manage-registries
 
 To view and copy this `curl` command:
 
-1. Select _Packages_ in the global navigation to access the _Repositories_ page.
+1. Select _Packages_ in the global navigation to access the _Registries_ page.
 1. Select your Terraform registry on this page.
 1. Select _Publish a Terraform Package_ and in the resulting dialog, use the copy icon at the top-right of the code box to copy this curl command and submit it to publish a module to your Terraform registry.
 
@@ -49,9 +49,9 @@ A Terraform module's details can be accessed from this registry using the _Packa
 
 To access your Terraform module's details page:
 
-1. Select _Packages_ in the global navigation to access the _Repositories_ page.
+1. Select _Packages_ in the global navigation to access the _Registries_ page.
 1. Select your Terraform registry on this page.
-1. Select the module within the _Packages_ section of the Terraform registry page. The module's details page is displayed.
+1. On your Terraform registry page, select the module within the _Packages_ section. The module's details page is displayed.
 
 The module's details page provides the following information in the following sections:
 
@@ -87,9 +87,7 @@ To download a module:
 
 1. [Access the module's details](#access-a-modules-details).
 1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
-1. Copy the code snippet and paste this into the Terraform file to install this Terraform module.
-
-    Add this to the Terraform file:
+1. Copy the code snippet and paste this into the Terraform file before installing this Terraform module. This code snippet is based on this format:
 
     ```terraform
     * Add this to your terraform file:

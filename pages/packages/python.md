@@ -1,12 +1,12 @@
 # Python
 
-Buildkite Packages provides registry support for Python (PyPI) packages.
+Buildkite Packages provides registry support for Python-based (PyPI) packages.
 
 Once your Python registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry via the `curl` command presented on your Python registry's details page.
 
 To view and copy this `curl` command:
 
-1. Select _Packages_ in the global navigation to access the _Repositories_ page.
+1. Select _Packages_ in the global navigation to access the _Registries_ page.
 1. Select your Python registry on this page.
 1. Select _Publish a Python Package_ and in the resulting dialog, use the copy icon at the top-right of the code box to copy this curl command and submit it to publish a package to your Python registry.
 
@@ -49,9 +49,9 @@ A Python package's details can be accessed from this registry using the _Package
 
 To access your Python package's details page:
 
-1. Select _Packages_ in the global navigation to access the _Repositories_ page.
+1. Select _Packages_ in the global navigation to access the _Registries_ page.
 1. Select your Python registry on this page.
-1. Select the package within the _Packages_ section of the Python registry page. The package's details page is displayed.
+1. On your Python registry page, select the package within the _Packages_ section. The package's details page is displayed.
 
 <%= render_markdown partial: 'packages/package_details_page_sections' %>
 
@@ -68,9 +68,9 @@ To download a package:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
-1. Copy the code snippet and paste this into either the package installer for Python (pip) configuration (`pip.conf`) file or end of the virtualenv `requirements.txt` file to install this Python package.
+1. Copy the code snippet and paste this into either the package installer for Python (pip) configuration (`pip.conf`) file or end of the virtualenv `requirements.txt` file before installing this Python package.
 
-Add this code snippet to the `pip.conf` file:
+The `pip.conf` code snippet is based on this format:
 
 ```conf
 # Add this to the [global] section in your ~/.pip/pip.conf:
@@ -84,7 +84,7 @@ where:
 
 <%= render_markdown partial: 'packages/python_registry_name' %>
 
-Alternatively, add this code snippet to the end of the `requirements.txt` file for virtualenv:
+The alternative `requirements.txt` (for virtualenv) code snippet is based on this format:
 
 ```ini
 # Otherwise if installing on a virtualenv, add this to the bottom of your requirements.txt:

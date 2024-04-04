@@ -1,12 +1,12 @@
 # Debian
 
-Buildkite Packages provides registry support for Debian-based packages (deb) in Debian and Ubuntu variants.
+Buildkite Packages provides registry support for Debian-based (deb) packages for Debian and Ubuntu operating system variants.
 
 Once your Debian registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry via the `curl` command presented on your Debian registry's details page.
 
 To view and copy this `curl` command:
 
-1. Select _Packages_ in the global navigation to access the _Repositories_ page.
+1. Select _Packages_ in the global navigation to access the _Registries_ page.
 1. Select your Debian registry on this page.
 1. Select _Publish a Deb Package_ and in the resulting dialog, use the copy icon at the top-right of the code box to copy this curl command and submit it to publish a package to your Debian registry.
 
@@ -49,9 +49,9 @@ A Debian (deb) package's details can be accessed from this registry using the _P
 
 To access your deb package's details page:
 
-1. Select _Packages_ in the global navigation to access the _Repositories_ page.
+1. Select _Packages_ in the global navigation to access the _Registries_ page.
 1. Select your Debian registry on this page.
-1. Select the package within the _Packages_ section of the Debian registry page. The package's details page is displayed.
+1. On your Debian registry page, select the package within the _Packages_ section. The package's details page is displayed.
 
 <%= render_markdown partial: 'packages/package_details_page_sections' %>
 
@@ -70,7 +70,7 @@ To download a package:
 1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
 1. Copy the code snippet and paste it into your terminal.
 
-This package code snippet is based on this format:
+This code snippet is a series of commands based on this format:
 
 ```bash
 apt update

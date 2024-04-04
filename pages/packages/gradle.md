@@ -1,12 +1,12 @@
 # Gradle
 
-Buildkite Packages provides registry support for Gradle-based packages for Java using the [Maven Publish Plugin](https://docs.gradle.org/current/userguide/publishing_maven.html).
+Buildkite Packages provides registry support for Gradle-based Java packages (using the [Maven Publish Plugin](https://docs.gradle.org/current/userguide/publishing_maven.html)).
 
 Once your Java registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `build.gradle` file with the Gradle snippet presented on your Java registry's details page.
 
 To view and copy the required `build.gradle` configurations:
 
-1. Select _Packages_ in the global navigation to access the _Repositories_ page.
+1. Select _Packages_ in the global navigation to access the _Registries_ page.
 1. Select your Java registry on this page.
 1. Select _Publish a Java Package_ and in the resulting dialog's _Using Gradle with maven-publish plugin_ section, use the copy icon at the top-right of the code box to copy the Gradle code snippet and paste it into the appropriate area/s of your `build.gradle` file.
 
@@ -97,9 +97,9 @@ To download a package:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
-1. Copy the code snippet and paste this into the `build.gradle` Gradle file to install this package.
+1. Copy the code snippet and paste this into the `build.gradle` Gradle file, and execute this modified script file to install this package.
 
-The package code snippet is based on this format:
+This code snippet is based on this format:
 
 ```gradle
 // Add to 'build.gradle' file
