@@ -87,17 +87,26 @@ To download a module:
 
 1. [Access the module's details](#access-a-modules-details).
 1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
-1. Copy the code snippet and paste this into the Terraform file before installing this Terraform module. This code snippet is based on this format:
+1. If your Terraform registry is private, copy the top section of the code snippet, paste it into your `~/.terraformrc` configuration file. This code snippet is based on the format:
+
+    ```config
+    credentials "buildkitepackages.com" {
+      token = "registry-read-token"
+    }
+    ```
+
+    where:
+    * `registry-read-token` is the Buildkite Packages-generated API token required to download packages from your Debian registry.
+
+    **Note:** This step only needs to be conducted once for the life of your Terraform registry.
+
+1. Copy the lower section of the code snippet, paste it into your Terraform file. This code snippet is based on the format:
 
     ```terraform
-    * Add this to your terraform file:
-
     module "org_slug___registry_name_module_name" {
       source = "buildkitepackages.com/org-slug---registry-name/ksh/all"
-      version = "1.0.1"
+      version = "version.number"
     }
-
-    * Run 'terraform init'
     ```
 
     where:
@@ -106,6 +115,7 @@ To download a module:
     * `module_name` is the name of your Terraform module.
     * `org-slug` can be obtained from the end of your Buildkite URL (in [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case)), after accessing _Pipelines_ in the global navigation of your organization in Buildkite.
     * `registry-name` is the name of your Terraform registry (in kebab-case).
+    * `version.number` is the version of your Terraform module.
 
 1. Run the Terraform command:
 

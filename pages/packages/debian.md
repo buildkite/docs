@@ -68,20 +68,22 @@ To download a package:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
-1. Copy the code snippet and paste it into your terminal.
+1. Copy the set of commands in the code snippet, paste them into your terminal, and submit them.
 
-This code snippet is a series of commands based on this format:
+This code snippet is based on this format:
 
 ```bash
 apt update
 type -p curl >/dev/null || apt install curl -y
 type -p gpg >/dev/null || apt install gpg -y
-curl -fsSL "https://buildkitepackages.com/{org.slug}/{registry.name}/gpgkey" | gpg --dearmor -o /etc/apt/keyrings/{org.slug}_{registry.name}-archive-keyring.gpg
-curl -sfSL "https://buildkitepackages.com/install/repositories/{org.slug}/{registry.name}/config_file.list?source=buildkite&name=${HOSTNAME}" > /etc/apt/sources.list.d/buildkite-{org.slug}-{registry.name}.list
+curl -fsSL "https://{registry.read.token}@buildkitepackages.com/{org.slug}/{registry.name}/gpgkey" | gpg --dearmor -o /etc/apt/keyrings/{org.slug}_{registry.name}-archive-keyring.gpg
+curl -sfSL "https://{registry.read.token}@buildkitepackages.com/install/repositories/{org.slug}/{registry.name}/config_file.list?source=buildkite&name=${HOSTNAME}" > /etc/apt/sources.list.d/buildkite-{org.slug}-{registry.name}.list
 apt update && apt install my-deb-package-name
 ```
 
 where:
+
+- `{registry.read.token}` is the Buildkite Packages-generated API token required to download packages from your Debian registry. This URL component, along with the following `@` are not required for registries that are publicly accessible.
 
 <%= render_markdown partial: 'packages/org_slug' %>
 

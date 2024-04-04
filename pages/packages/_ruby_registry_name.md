@@ -1,0 +1,1 @@
+- `{registry.name}` is the name of your Ruby registry.

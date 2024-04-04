@@ -19,7 +19,7 @@ These file configurations contain the following:
 
 The following steps describe the process above:
 
-1. Copy the following XML snippet, and paste it to modify your `~/.m2/settings.xml` file accordingly:
+1. Copy the following XML snippet, paste it into modify your `~/.m2/settings.xml` file, and modify accordingly:
 
     ```xml
     <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
@@ -47,7 +47,9 @@ The following steps describe the process above:
 
     <%= render_markdown partial: 'packages/java_registry_id' %>
 
-1. Copy the following XML snippet, and paste it to modify your `pom.xml` configuration file accordingly:
+    **Note:** This step only needs to be conducted once for the life of your Java registry.
+
+1. Copy the following XML snippet, paste it into your `pom.xml` configuration file, and  modify accordingly:
 
     ```xml
     <distributionManagement>
@@ -94,7 +96,7 @@ To download a package:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
-1. Copy the code snippet and paste this into the `pom.xml` file (under the `project` XML tag), and run `mvn install` on this modified `pom.xml` to install this package.
+1. Copy the code snippet, paste this into the `pom.xml` file (under the `project` XML tag), and run `mvn install` on this modified `pom.xml` to install this package.
 
 This code snippet is based on this format:
 

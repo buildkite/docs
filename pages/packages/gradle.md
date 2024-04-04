@@ -20,7 +20,7 @@ These `build.gradle` file configurations contain the:
 
 The following steps describe the process above:
 
-1. Copy the following Gradle snippet, and paste it to modify your `gradle.build` file accordingly:
+1. Copy the following Gradle snippet, paste it into your `gradle.build` file, and modify accordingly:
 
     ```gradle
     // You require these plugins
@@ -97,7 +97,7 @@ To download a package:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
-1. Copy the code snippet and paste this into the `build.gradle` Gradle file, and execute this modified script file to install this package.
+1. Copy the code snippet, paste this into the `build.gradle` Gradle file, and execute this modified script file to install this package.
 
 This code snippet is based on this format:
 

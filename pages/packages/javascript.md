@@ -19,7 +19,7 @@ These file configurations contain the following:
 
 The following steps describe the process above:
 
-1. Copy the following `npm` command, paste it and modify as required before submitting to update your `~/.npmrc` file:
+1. Copy the following `npm` command, paste it into your terminal, and modify as required before submitting to update your `~/.npmrc` file:
 
     ```bash
     npm set "//buildkitepackages.com/{org.slug}/{registry.name}/npm/:_authToken" registry-write-token
@@ -33,7 +33,7 @@ The following steps describe the process above:
     * If your `.npmrc` file doesn't exist, this command automatically creates it for you.
     * This step only needs to be conducted once for the life of your JavaScript registry.
 
-1. Copy the following JSON code snippet (or the line of code beginning `"publishConfig": ...`) and paste it to modify your Node.js project's `package.json` file accordingly:
+1. Copy the following JSON code snippet (or the line of code beginning `"publishConfig": ...`), paste it into your Node.js project's `package.json` file, and modify as required:
 
     ```json
     {
@@ -75,7 +75,7 @@ To download a package:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
-1. Copy the code snippet and paste it into your terminal.
+1. Copy the command in the code snippet, paste it into your terminal, and submit it.
 
 This code snippet is based on this format:
 
@@ -86,7 +86,11 @@ npm install nodejs-package-name@version.number \
 
 where:
 
-- `{registry.read.token}` is the Buildkite Packages-generated API token required to download packages from your JavaScript registry.
+- `nodejs-package-name` is the name of your Node.js package (that is, the `name` field value from its `package.json` file).
+
+- `version.number` is the version of your Node.js package (that is, the `version` field value from its `package.json` file)
+
+- `{registry.read.token}` is the Buildkite Packages-generated API token required to download packages from your JavaScript registry. This URL component, along with the following `@` are not required for registries that are publicly accessible.
 
 <%= render_markdown partial: 'packages/org_slug' %>
 

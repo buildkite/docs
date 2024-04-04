@@ -17,6 +17,60 @@ These file configurations contain the following:
 
 ## Publish a package
 
+The following subsections describe the processes in the code boxes above.
+
+### Using a single command
+
+The following `gem` command (modified as required before submitting) describes the process for publishing a package to your Ruby registry:
+
+```bash
+GEM_HOST_API_KEY="registry-write-token" gem push --host="https://buildkitepackages.com/{org.slug}/{registry.name}" *.gem
+```
+
+where:
+<%= render_markdown partial: 'packages/ruby_registry_write_token' %>
+<%= render_markdown partial: 'packages/org_slug' %>
+<%= render_markdown partial: 'packages/ruby_registry_name' %>
+
+### Using file configurations
+
+1. Copy the following set of commands, paste them and modify as required before submitting to create your `~/.gem/credentials` file:
+
+    ```bash
+    mkdir ~/.gem
+    touch ~/.gem/credentials
+    chmod 600 ~/.gem/credentials
+    echo "https://buildkitepackages.com/{org.slug}/{registry.name}: registry-write-token" >> ~/.gem/credentials
+    ```
+
+    where:
+    <%= render_markdown partial: 'packages/org_slug' %>
+    <%= render_markdown partial: 'packages/ruby_registry_name' %>
+    <%= render_markdown partial: 'packages/ruby_registry_write_token' %>
+
+    **Note:** This step only needs to be conducted once for the life of your Ruby registry.
+
+1. Copy the following code snippet and paste it to modify the `allowed_push_host` line of your Ruby (gem) package's `.gemspec` file:
+
+    ```conf
+    spec.metadata["allowed_push_host"] = "https://buildkitepackages.com/{org.slug}/{registry.name}"
+    ```
+
+    **Note:** This configuration prevents your Ruby package accidentally being published to the main [RubyGems registry](https://rubygems.org/).
+
+1. Publish your Ruby (gem) package:
+
+    ```bash
+    gem build *.gemspec
+    gem push *.gem
+    ```
+
+    Alternatively, if you are using a [Ruby (gem) package created with Bundler](https://bundler.io/guides/creating_gem.html#releasing-the-gem), publish the package this way:
+
+    ```bash
+    rake release
+    ```
+
 ## Access a package's details
 
 ### Downloading a package
