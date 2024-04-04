@@ -44,6 +44,9 @@ For an example pipeline, see the [Input step example pipeline](https://github.c
 
 <a class="Docs__example-repo" href="https://github.com/buildkite/input-step-example"><span class="detail">:pipeline: Input Step Example Pipeline</span> <span class="repo">github.com/buildkite/input-step-example</span></a>
 
+>🚧 Don't store sensitive data in input steps
+> You shouldn't use input steps to store sensitive information like secrets because the data will be stored in build metadata.
+
 ## Input step attributes
 
 Input and block steps have the same attributes available for use.
@@ -275,3 +278,22 @@ steps:
             value: "stable"
 ```
 {: codeblock-file="pipeline.yml"}
+
+## Input validation
+
+To prevent users from entering invalid text values in input steps  (for example, to gather some deployment information), you can use input validation.
+
+If you associate a regular expression to a field, the field outline will turn red when an invalid value is entered.
+
+To do it, use the following sample syntax:
+
+```yml
+steps:
+  - input: "Click me!"
+    fields:
+      - text: Must be hexadecimal
+        key: hex
+        format: "[0-9a-f]+"
+```
+
+The `format` must be a regular expression implicitly anchored to the beginning and end of the input and is functionally equivalent to the [HTML5 pattern attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern).

@@ -1,5 +1,5 @@
 ---
-toc: true
+template: "landing_page"
 ---
 
 # Buildkite Test Analytics
@@ -22,8 +22,10 @@ Test Analytics helps you track and analyze the steps in that pipeline that invol
   <%= button ":rspec: RSpec", "/docs/test-analytics/ruby-collectors#rspec-collector" %>
   <%= button ":ruby: minitest", "/docs/test-analytics/ruby-collectors#minitest-collector" %>
   <%= button ":jest: Jest", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-jest" %>
-  <%= button ":mocha: Mocha", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-mocha-collector" %>
-  <%= button ":jasmine: Jasmine", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-jasmine-collector" %>
+  <%= button ":mocha: Mocha", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-mocha" %>
+  <%= button ":cypress: Cypress", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-cypress" %>
+  <%= button ":jasmine: Jasmine", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-jasmine" %>
+  <%= button ":playwright: Playwright", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-playwright" %>
   <%= button ":swift: Swift", "/docs/test-analytics/swift-collectors" %>
   <%= button ":android: Android", "/docs/test-analytics/android-collectors" %>
   <%= button ":pytest: pytest", "/docs/test-analytics/python-collectors" %>
@@ -37,6 +39,9 @@ Test Analytics helps you track and analyze the steps in that pipeline that invol
 <!-- vale on -->
 
 You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
+
+>📘 Data retention
+> The data uploaded to Test Analytics is stored in S3 and deleted after six months.
 
 ----
 

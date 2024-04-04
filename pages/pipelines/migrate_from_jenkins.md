@@ -5,7 +5,7 @@ If you are familiar with [Jenkins](https://www.jenkins.io) and want to migrate t
 While Jenkins and Buildkite have similar goals as CI/CD platforms, their approach differs. Buildkite uses a hybrid model consisting of the following:
 
 - A software-as-a-service (SaaS) platform for visualization and management of CI/CD pipelines.
-- Agents for executing jobs—hosted by you, either on-premise or in the cloud.
+- Agents for executing jobs—hosted by you, either on-premises or in the cloud.
 
 Buildkite addresses the pain points of Jenkins' users, namely its security issues (both in its [base code](https://www.cvedetails.com/vulnerability-list/vendor_id-15865/product_id-34004/Jenkins-Jenkins.html) and [plugins](https://securityaffairs.co/wordpress/132836/security/jenkins-plugins-zero-day-flaws.html)), time-consuming setup, and speed. This approach makes Buildkite more secure, scalable, and flexible.
 
@@ -30,17 +30,15 @@ At a high level, Buildkite follows a similar architecture to Jenkins:
 
 However, while you're responsible for scaling and operating both components in Jenkins, Buildkite manages the control panel as a SaaS offering (the Buildkite dashboard). This reduces the operational burden on your team, as Buildkite takes care of platform maintenance, updates, and availability. The Buildkite dashboard also handles monitoring tools like logs, user access, and notifications.
 
-The program that executes work is called an _agent_ in Buildkite. An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. It polls Buildkite for work, runs jobs, and reports results. You can install agents on local machines, cloud servers, or other remote machines.
-
-In Jenkins, you manage concurrency by having multiple executors within a single node. In Buildkite, you run multiple agents on a single machine or across multiple machines.
+The program that executes work is called an _agent_ in Buildkite. An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. It polls Buildkite for work, runs jobs, and reports results. You can install agents on local machines, cloud servers, or other remote machines. The agent code is open-source, and you can [view it on GitHub](https://github.com/buildkite/agent).
 
 The following diagram shows the split in Buildkite between the SaaS platform and the agents running on your infrastructure.
 
-<%= image "hybrid-saas-architecture.svg", alt: "Shows the hybrid architecture combining a SaaS platform with your infrastructure" %>
+<%= image "buildkite-hybrid-architecture.png", alt: "Shows the hybrid architecture combining a SaaS platform with your infrastructure" %>
 
-The diagram shows that Buildkite provides a web interface, handles integrations with third-party tools, and offers APIs and webhooks. By design, sensitive data, such as source code and secrets, remain within your environment and are not seen by Buildkite.
+The diagram shows that Buildkite provides a web interface, handles integrations with third-party tools, and offers APIs and webhooks. By design, sensitive data, such as source code and secrets, remain within your environment and are not seen by Buildkite. This decoupling provides flexibility, as you can scale the build agents independently while Buildkite manages the coordination, scheduling, and web interface.
 
-This decoupling provides flexibility, as you can scale the build agents independently while Buildkite manages the coordination, scheduling, and web interface.
+In Jenkins, you manage concurrency by having multiple executors within a single node. In Buildkite, you run multiple agents on a single machine or across multiple machines.
 
 ### Security
 
@@ -52,7 +50,7 @@ Securing a Jenkins instance requires:
 - Plugin management.
 - Regular updates to address security vulnerabilities.
 
-You must consider vulnerabilities in both the [base code](https://www.cvedetails.com/vulnerability-list/vendor_id-15865/product_id-34004/Jenkins-Jenkins.html) and [plugins](https://securityaffairs.co/wordpress/132836/security/jenkins-plugins-zero-day-flaws.html). Additionally, since Jenkins is a self-hosted solution, you are responsible for securing the underlying infrastructure, network, and storage. Some updates require you to take Jenkins offline to perform, leaving your team without access to CI/CD during that period.
+You must consider vulnerabilities in both the [base code](https://www.cvedetails.com/vulnerability-list/vendor_id-15865/product_id-34004/Jenkins-Jenkins.html) and [plugins](https://securityaffairs.co/wordpress/132836/security/jenkins-plugins-zero-day-flaws.html). Additionally, since Jenkins is a self-hosted solution, you are responsible for securing the underlying infrastructure, network, and storage. Some updates require you to take Jenkins offline to perform them, leaving your team without access to CI/CD during that period.
 
 Buildkite's hybrid architecture, which combines a centralized SaaS platform with self-hosted build agents, provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and the web interface. Build agents, which run on your infrastructure, allow you to maintain control over the environment, security, and resources. This separation reduces the operational burden and allows you to focus on securing the environments where your code is built and tested.
 
@@ -68,7 +66,7 @@ When migrating your CI/CD pipelines from Jenkins to Buildkite, it's important to
 
 Like Jenkins, Buildkite lets you create pipeline definitions in the web interface or a file checked into the repository. Most people use the latter to include their pipeline definitions next to the code, managed in source control. The equivalent of a `Jenkinsfile` is a `pipeline.yml`.
 
-Rather than the Groovy-based syntax in Jenkins, Buildkite uses a YAML-based syntax. The YAML definitions are simpler, more human-readable, and easier to understand. And you can even have code generate pipelines on the fly with the power and flexibility of [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines).
+Rather than the Groovy-based syntax in Jenkins, Buildkite uses a YAML-based syntax. The YAML definitions are simpler, more human-readable, and easier to understand. And you can even generate pipeline definitions at runtime with the power and flexibility of [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines).
 
 In Jenkins, the core description of work is a job. Jobs contain stages with steps and can trigger other jobs. You use a job to upload a `Jenkinsfile` from a repository. Installing the Pipeline plugin lets you describe a workflow of jobs as a pipeline. Buildkite uses similar terms in different ways. _Pipelines_ are the core description of work. Pipelines contain different types of [_steps_](/docs/pipelines/step-reference) for different tasks:
 
@@ -83,9 +81,9 @@ Triggering a pipeline creates a _build_, and any command steps are dispatched as
 
 ### Plugin system
 
-Plugins are an essential part of both Jenkins and Buildkite. They help you extend the products to customize your CI/CD workflows further.
+Plugins are an essential part of both Jenkins and Buildkite. They help you extend the products to further customize your CI/CD workflows.
 
-Rather than a web-based plugin management system like Jenkins, you manage Buildkite plugins directly in pipeline definitions. This makes Buildkite plugins more decentralized and allows for easier version control.
+Rather than a web-based plugin management system like Jenkins, you manage Buildkite plugins directly in pipeline definitions. That means teams can manage plugins on a pipeline level rather than a monolith approach.
 
 Jenkins plugins are typically developed in Java and are closely integrated with the Jenkins core, which may lead to compatibility issues when updating Jenkins or its plugins. Buildkite plugins are written in Bash and loosely coupled with Buildkite, making them more maintainable and less prone to compatibility issues.
 

@@ -32,7 +32,7 @@ Before you start, make sure RSpec runs with access to [CI environment variables]
     bundle
     ```
 
-3. Add the Test Analytics code to your application in `spec/spec_helper.rb`, and set the BUILDKITE_ANALYTICS_TOKEN [securely](/docs/pipelines/secrets) on your agent or agents.
+3. Add the Test Analytics code to your application in `spec/spec_helper.rb`, and set the BUILDKITE_ANALYTICS_TOKEN [securely](/docs/pipelines/secrets) on your agent or agents. Please ensure gems that patch `Net::HTTP`, like [httplog](https://github.com/trusche/httplog) and [sniffer](https://github.com/aderyabin/sniffer), are required before `buildkite/test_collector` to avoid conflicts.
 
     ```rb
     require "buildkite/test_collector"
@@ -61,7 +61,7 @@ Failure/Error: allow_any_instance_of(Object).to receive(:sleep)
        Using `any_instance` to stub a method (sleep) that has been defined on a prepended module (Buildkite::TestCollector::Object::CustomObjectSleep) is not supported.
 ```
 
-You can fix them by being more specific in your stubbing, which is [better practice](https://web.archive.org/web/20220810120550/https://relishapp.com/rspec/rspec-mocks/v/3-11/docs/working-with-legacy-code/any-instance), by replacing `allow_any_instance_of(Object).to receive(:sleep)` with `allow_any_instance_of(TheClassUnderTest).to receive(:sleep)`.
+You can fix them by being more specific in your stubbing by replacing `allow_any_instance_of(Object).to receive(:sleep)` with `allow_any_instance_of(TheClassUnderTest).to receive(:sleep)`.
 
 ## minitest collector
 
@@ -89,7 +89,7 @@ If you're already using minitest for your tests, add the `buildkite-test_collect
     bundle
     ```
 
-3. Add the Test Analytics code to your application in `test/test_helper.rb`, and set the BUILDKITE_ANALYTICS_TOKEN [securely](/docs/pipelines/secrets) on your agent or agents.
+3. Add the Test Analytics code to your application in `test/test_helper.rb`, and set the BUILDKITE_ANALYTICS_TOKEN [securely](/docs/pipelines/secrets) on your agent or agents. Please ensure gems that patch `Net::HTTP`, like [httplog](https://github.com/trusche/httplog) and [sniffer](https://github.com/aderyabin/sniffer), are required before `buildkite/test_collector` to avoid conflicts.
 
     ```rb
     require "buildkite/test_collector"

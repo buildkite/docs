@@ -10,7 +10,7 @@ stack using an IAM User or Role that has been granted limited permissions, or
 use an [AWS CloudFormation service role](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-servicerole.html).
 
 The Elastic CI Stack for AWS repository contains an experimental
-[service role template](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/templates/service-role.yml).
+[service role template](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/templates/service-role.yml).
 This template creates an IAM Role and set of IAM Policies with the IAM Actions
 necessary to create, update, and delete a CloudFormation Stack created with the
 Elastic CI Stack for AWS template.

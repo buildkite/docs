@@ -4,14 +4,23 @@ Buildkite Test Analytics collectors automatically detect common continuous integ
 If available, test collectors gather information about your test runs, such as branch names and build IDs.
 Test collectors gather information from the following CI environments:
 
-- Buildkite
-- CircleCI
-- GitHub Actions
+- [Buildkite](/docs/test-analytics/ci-environments#buildkite)
+- [CircleCI](/docs/test-analytics/ci-environments#circleci)
+- [GitHub Actions](/docs/test-analytics/ci-environments#github-actions)
 
-If you run test collectors inside containers or you're using another CI system, then you must set variables to report your CI details to Buildkite.
+If you run test collectors inside [containers](/docs/test-analytics/ci-environments#containers-and-test-collectors) or use another CI system, you must set variables to report your CI details to Buildkite.
 
 If you're not using a test collector, see [Importing JSON](/docs/test-analytics/importing-json) and [Importing JUnit XML](/docs/test-analytics/importing-junit-xml) to learn how to provide run environment data.
 
+## Recommended environment variables
+
+If you're manually providing environment variables, we strongly recommend setting the following variables:
+
+- `run_env[key]`: A required variable that sends the UUID for the build, letting you group batches of data by the key.
+- `run_env[branch]`: Sends the branch or reference for this build, enabling you to filter data by branch.
+- `run_env[url]`: Provides the URL for the build on your CI provider, giving you a handy link back to the CI build.
+- `run_env[commit_sha]`: Sends the commit hash for the head of the branch, enabling automatic flaky test detection in your builds.
+- `run_env[message]`: Forwards the commit message for the head of the branch, helping you identify different runs more easily.
 
 ## Containers and test collectors
 

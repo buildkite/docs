@@ -178,7 +178,7 @@ _Optional attributes:_
   <tr>
     <td><code>skip</code></td>
     <td>
-      Whether to skip this step or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
+      Whether to skip this step or not. Passing a string (with a 70-character limit) provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
       Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br>
       <em>Example:</em> <code>true</code><br>
       <em>Example:</em> <code>false</code><br>
@@ -198,31 +198,13 @@ _Optional attributes:_
   <tr id="timeout_in_minutes">
     <td><code>timeout_in_minutes</code></td>
     <td>
-      The maximum number of minutes a job created from this step is allowed to run. If the job exceeds this time limit, or if it finishes with a non-zero exit status, the job is automatically canceled and the build fails. Jobs that time out with an exit status of 0 are marked as "passed".<br> Note that command steps on the Buildkite <a href="https://buildkite.com/pricing">Developer Plan</a> have a maximum job timeout of 240 minutes.<br> You can also set <a href="/docs/pipelines/command-step#command-step-attributes-build-timeouts">default and maximum timeouts</a> in the Buildkite UI.
-      <em>Example:</em> <code>60</code>
+      <p>The maximum number of minutes a job created from this step is allowed to run. If the job exceeds this time limit, or if it finishes with a non-zero exit status, the job is automatically canceled and the build fails. Jobs that time out with an exit status of <code>0</code> are marked as <code>passed</code>.</p>
+      <p>Note that on the <a href="https://buildkite.com/pricing">Free Plan</a>, command steps have a maximum job timeout of 240 minutes.
+      <p>You can also set <a href="/docs/pipelines/build-timeouts">default and maximum timeouts</a> in the Buildkite UI.</p>
+      <p><em>Example:</em> <code>60</code><p>
     </td>
   </tr>
 </table>
-
-### Build timeouts
-
-Timeouts for jobs can be specified as [command steps attributes](/docs/pipelines/command-step#timeout_in_minutes), but it's possible to avoid having to set them manually every time.
-
-To prevent jobs from consuming too many job minutes or running forever, you can specify default as well as maximum timeouts from your organization's [Pipeline Settings page](https://buildkite.com/organizations/~/pipeline-settings), or on a pipeline's Builds settings page.
-
-<%= image "default-timeout.png", width: 1724/2, height: 736/2, alt: "Set default and maximum timeout period for your jobs" %>
-
-Specific timeouts take precedence over more general ones — a step level timeout takes precedence over a pipeline timeout, which in turn takes precedence over an organization default.
-
-Maximum timeouts are applied to command steps in the following situations:
-
-- No timeout attribute is set on the step.
-- No default timeout is set in the pipeline settings.
-- When the timeout set is greater than the maximum timeout.
-
-Maximums are always enforced, when supplied — the smallest value will be used.
-
-Timeouts apply to the whole job lifecycle, including hooks and artifact uploads. If a timeout is triggered while a command or hook is running, there's a 10 second grace period by default. You can change the grace period by setting the [`cancel-grace-period`](https://buildkite.com/docs/agent/v3/configuration#cancel-grace-period) flag.
 
 ## Retry attributes
 

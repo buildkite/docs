@@ -1,3 +1,7 @@
+---
+keywords: docs, pipelines, tutorials, upgrade to yaml
+---
+
 # Migrating to YAML steps
 
 This guide explains the differences between the web-based editor and the YAML Steps editor, and shows how to migrate your organization's pipelines to YAML Steps.

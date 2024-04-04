@@ -50,6 +50,8 @@ The following diagram shows the lifecycle of build data by plan.
   </tbody>
 </table>
 
+Retention periods are set according to an organization's plan, as shown in the previous table. Per-pipeline retention settings are not supported.
+
 ## Exporting build data
 
 > 📘 Enterprise feature

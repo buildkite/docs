@@ -68,7 +68,7 @@ If you configure `MinSize` < `MaxSize` in your AWS autoscaling configuration, th
 
 This means you can scale down to zero when idle, which means you can use larger instances for the same cost.
 
-Metrics are collected with a Lambda function, polling every 10 seconds based on the queue the stack is configured with. The autoscaler monitors only one queue, and the monitoring drives the scaling of the stack. This means that usually you need one Elastic CI Stack for AWS per queue.
+Metrics are collected with a Lambda function, polling every 10 seconds based on the queue the stack is configured with. The autoscaler monitors only one queue, and the monitoring drives the scaling of the stack. You should only use one Elastic CI Stack for AWS per queue to avoid scaling up redundant agents. If you target the same queue with multiple stacks, each stack will independently scale up additional agents as if it were the only stack running, leading to over-provisioning.
 
 ## Terminating the instance after the job is complete
 
@@ -86,15 +86,28 @@ or a specific release available from the [releases page](https://github.com/buil
 
 The latest stable release can be deployed to any of our supported AWS Regions.
 
-The most recent build of the CloudFormation stack is published to
-`https://s3.amazonaws.com/buildkite-aws-stack/master/aws-stack.yml`, along with
-a version for each commit at
-`https://s3.amazonaws.com/buildkite-aws-stack/master/${COMMIT}.aws-stack.yml`.
+The most recent build of the CloudFormation stack is published to:
+
+```text
+https://s3.amazonaws.com/buildkite-aws-stack/main/aws-stack.yml
+```
+
+With a version for each commit also published at:
+
+```text
+https://s3.amazonaws.com/buildkite-aws-stack/main/${COMMIT}.aws-stack.yml
+```
+
+>📘 Versions prior to v6.0.0
+> Per-commit builds for versions prior to v6.0.0, in particular for commits that are ancestors of [419f271](https://github.com/buildkite/elastic-ci-stack-for-aws/commit/419f271b54802c4c8301730bc35b34ed379074c4), were published to:
+>
+> ```text
+> https://s3.amazonaws.com/buildkite-aws-stack/master/${COMMIT}.aws-stack.yml
+> ```
 
 <!-- vale off -->
-<!-- alex ignore master -->
 
-A master branch release can also be deployed to any of our supported AWS
+A main branch release can also be deployed to any of our supported AWS
 Regions.
 
 <!-- vale on -->
@@ -136,7 +149,7 @@ You can view the stack's metrics under _Custom Namespaces_ > _Buildkite_ within 
 
 ## Reading instance and agent logs
 
-Each instance streams file system logs such as `/var/log/messages` and `/var/log/docker` into namespaced AWS log groups. A full list of files and log groups can be found in the relevant [Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/packer/linux/conf/cloudwatch-agent/config.json) CloudWatch agent `config.json` file.
+Each instance streams file system logs such as `/var/log/messages` and `/var/log/docker` into namespaced AWS log groups. A full list of files and log groups can be found in the relevant [Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/linux/conf/cloudwatch-agent/config.json) CloudWatch agent `config.json` file.
 
 Within each stream the logs are grouped by instance ID.
 
@@ -173,7 +186,7 @@ If the file is private, you also need to create an IAM policy to allow the insta
 }
 ```
 
-After creating the policy, you must specify the policy's ARN in the `ManagedPolicyARN` stack parameter.
+After creating the policy, you must specify the policy's ARN in the `ManagedPolicyARNs` stack parameter.
 
 ## Health monitoring
 

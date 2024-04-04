@@ -17,41 +17,45 @@ script.
 `buildkite-agent lock do [key]`
 
 ### Description
-Begins a do-once lock. Do-once can be used by multiple processes to 
+
+Begins a do-once lock. Do-once can be used by multiple processes to
 wait for completion of some shared work, where only one process should do
-the work. 
+the work.
 
-Note that this subcommand is only available when an agent has been started with
-the ′agent-api′ experiment enabled.
+Note that this subcommand is only available when an agent has been started
+with the `agent-api` experiment enabled.
 
-′lock do′ will do one of two things:
+`lock do` will do one of two things:
 
-- Print `do`. The calling process should proceed to do the work and then
-call ′lock done′.
-- Wait until the work is marked as done (with ′lock done′) and print `done`.
+- Print &#39;do&#39;. The calling process should proceed to do the work and then
+call `lock done`.
+- Wait until the work is marked as done (with `lock done`) and print &#39;done&#39;.
 
-If ′lock do′ prints `done` immediately, the work was already done.
+If `lock do` prints &#39;done&#39; immediately, the work was already done.
 
 ### Examples
 
 ```shell
 #!/bin/bash
-if [ $(buildkite-agent lock do llama) = 'do' ] ; then
-setup_code()
-buildkite-agent lock done llama
+if [[ $(buildkite-agent lock do llama) == 'do' ]]; then
+  # your critical section here...
+  buildkite-agent lock done llama
 fi
 ```
-
 
 ### Options
 
 <!-- vale off -->
 
 <table class="Docs__attribute__table">
-<tr id="config"><th><code>--config value</code> <a class="Docs__attribute__link" href="#config">#</a></th><td><p>Path to a configuration file<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_CONFIG</code></p></td></tr>
+<tr id="lock-wait-timeout"><th><code>--lock-wait-timeout value</code> <a class="Docs__attribute__link" href="#lock-wait-timeout">#</a></th><td><p>Sets a maximum duration to wait for a lock before giving up (default: 0s)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_LOCK_WAIT_TIMEOUT</code></p></td></tr>
 <tr id="lock-scope"><th><code>--lock-scope value</code> <a class="Docs__attribute__link" href="#lock-scope">#</a></th><td><p>The scope for locks used in this operation. Currently only 'machine' scope is supported (default: "machine")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_LOCK_SCOPE</code></p></td></tr>
 <tr id="sockets-path"><th><code>--sockets-path value</code> <a class="Docs__attribute__link" href="#sockets-path">#</a></th><td><p>Directory where the agent will place sockets (default: "$HOME/.buildkite-agent/sockets")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_SOCKETS_PATH</code></p></td></tr>
-<tr id="lock-wait-timeout"><th><code>--lock-wait-timeout value</code> <a class="Docs__attribute__link" href="#lock-wait-timeout">#</a></th><td><p>If specified, sets a maximum duration to wait for a lock before giving up (default: 0s)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_LOCK_WAIT_TIMEOUT</code></p></td></tr>
+<tr id="no-color"><th><code>--no-color </code> <a class="Docs__attribute__link" href="#no-color">#</a></th><td><p>Don't show colors in logging<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_NO_COLOR</code></p></td></tr>
+<tr id="debug"><th><code>--debug </code> <a class="Docs__attribute__link" href="#debug">#</a></th><td><p>Enable debug mode. Synonym for `--log-level debug`. Takes precedence over `--log-level`<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG</code></p></td></tr>
+<tr id="log-level"><th><code>--log-level value</code> <a class="Docs__attribute__link" href="#log-level">#</a></th><td><p>Set the log level for the agent, making logging more or less verbose. Defaults to notice. Allowed values are: debug, info, error, warn, fatal (default: "notice")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_LOG_LEVEL</code></p></td></tr>
+<tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_EXPERIMENT</code></p></td></tr>
+<tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_PROFILE</code></p></td></tr>
 </table>
 
 <!-- vale on -->

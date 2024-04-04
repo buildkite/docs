@@ -20,7 +20,7 @@ You can add concurrency limits to steps either through Buildkite, or your `pipel
 
 Concurrency groups are labels that group together Buildkite jobs when applying concurrency limits. When you add a group label to a step the label becomes available to all Pipelines in that organization. These group labels are checked at job runtime to determine which jobs are allowed to run in parallel. Although concurrency groups are created on individual steps, they represent concurrent access to shared resources and can be used by other pipelines.
 
-A concurrency group works like a queue; it returns jobs in the order they entered the queue (oldest to newest). The concurrency group only cares about jobs in "active" states. and the group becomes "locked" when the concurrency limit for jobs in these states is reached. Once a job moves from an active state to a terminal state (`finished` or `cancelled`) the job is removed from the queue, opening up a spot for another job to enter.
+A concurrency group works like a queue; it returns jobs in the order they entered the queue (oldest to newest). The concurrency group only cares about jobs in "active" states, and the group becomes "locked" when the concurrency limit for jobs in these states is reached. Once a job moves from an active state to a terminal state (`finished` or `canceled`), the job is removed from the queue, opening up a spot for another job to enter. If a job's state is `limited`, it is waiting for another job ahead of it in the same concurrency group to finish.
 
 The full list of "active" [job states](/docs/pipelines/defining-steps#job-states) is `limiting`, `limited`, `scheduled`, `waiting`, `assigned`, `accepted`, `running`, `cancelling`, `timing out`.
 

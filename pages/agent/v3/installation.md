@@ -1,7 +1,3 @@
----
-toc: false
----
-
 # How to install Buildkite Agent
 
 The Buildkite agent runs on your own machine, whether it's a VPS, server, desktop computer, embedded device. There are installers for:
@@ -32,3 +28,12 @@ buildkite-agent start --help
 ```
 
 If your architecture isn't on the releases page send an email to support and we'll help you out, or check out the [buildkite-agent's readme](https://github.com/buildkite/agent#readme) for instructions on how to compile it yourself.
+
+## Upgrade agents
+
+To update your agents, you can either:
+
+* Use the package manager for your operating system.
+* Re-run the installation script.
+
+As long as you're using Agent v3 or later, no configuration changes are necessary.

@@ -7,11 +7,14 @@ The Buildkite Agent is supported on Ubuntu versions 18.04 and above using our si
 
 First, add our signed apt repository. The default version of the agent is `stable`, but you can get the beta version by using `unstable` instead of `stable` in the following command, or the agent built from the `main` branch of the repository by using `experimental` instead of `stable`.
 
-Next, download the Buildkite PGP key to a directory that is only writable by `root` (create the directory before running the following command if it doesn't already exist):
+Start by downloading the Buildkite PGP key to a directory that is only writable by `root` (create the directory before running the following command if it doesn't already exist):
 
 ```shell
 curl -fsSL https://keys.openpgp.org/vks/v1/by-fingerprint/32A37959C2FA5C3C99EFBC32A79206696452D198 | sudo gpg --dearmor -o /usr/share/keyrings/buildkite-agent-archive-keyring.gpg
 ```
+
+>📘 Is [keys.openpgp.org](https://keys.openpgp.org) down?
+> If you get a 404 or other error from `curl` in the previous command, see the [Alternative keyservers](#alternative-keyservers) section.
 
 Then add the signed source to your list of apt sources:
 
@@ -69,26 +72,12 @@ See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details
 
 ## Running multiple agents
 
-You can run as many parallel agents on the one machine as you wish by duplicating the upstart service configuration file, for example:
-
-```shell
-# Disable the default unit
-sudo systemctl stop buildkite-agent && sudo systemctl disable buildkite-agent
-
-# Create a systemd template
-sudo cp /lib/systemd/system/buildkite-agent.service /etc/systemd/system/buildkite-agent@.service
-
-# Now, as many times as you like
-sudo systemctl enable --now buildkite-agent@1
-sudo systemctl enable --now buildkite-agent@2
-
-# Follow them all
-sudo journalctl -f -u "buildkite-agent@*"
-
-# Or one-by-one
-sudo journalctl -f -u buildkite-agent@2
-```
+<%= render_markdown partial: 'agent/v3/linux_multiple_agents' %>
 
 ## Upgrading
 
 <%= render_markdown partial: 'agent/v3/apt_upgrading' %>
+
+## Alternative keyservers
+
+<%= render_markdown partial: 'agent/v3/alternative_keyservers' %>

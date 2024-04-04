@@ -50,8 +50,6 @@ You can disable plugins with the command line flag: `--no-plugins` or the [`no-p
 
 If you still want to use plugins, you can check out a tool for [signing pipelines](/docs/agent/v3/securing#signing-pipelines).
 
-
-
 ## Disabling local hooks
 
 Local hooks are hooks defined in pipeline's repository.
@@ -104,9 +102,25 @@ do
 done
 ```
 
+You can see from the previous example that `$BUILDKITE_ENV_FILE` is the location of file that contains the environment variables that the control plane passes to a job. You may use this to block jobs from executing if certain environment variables are set. For example, the following `pre-bootstrap` hook blocks a job from executing if the `ENVIRONMENT_VARIABLE_TO_DENY` environment variable is set.
+
+```bash
+#!/bin/bash
+
+set -euo pipefail
+
+if grep '^ENVIRONMENT_VARIABLE_TO_DENY=' "$BUILDKITE_ENV_FILE" > /dev/null
+then
+  echo "Rejecting job because the environment variable ENVIRONMENT_VARIABLE_TO_DENY has been set"
+  exit 1
+fi
+```
+
+But also remember that some [environment variables may be essential](/docs/pipelines/environment-variables) to the execution of jobs, so adding them to a blocklist in this manner is not advisable.
+
 ## Signing pipelines
 
-If using plugins is crucial to your workflow and you would still like to preserve strong security guarantees, take a look at the [buildkite-signed-pipeline](https://github.com/seek-oss/buildkite-signed-pipeline) tool. This tool allows uploaded steps to be signed with a secret shared by all agents, so that plugins can run without concerns of tampering by third parties.  
+You can sign the steps your pipeline runs for extra security. This allows the agent to verify that the steps it runs haven't been tampered with or smuggled from one pipeline to another. For more information, see [Signed pipelines](/docs/agent/v3/signed-pipelines).
 
 ## Allowing a list of plugins
 
@@ -149,7 +163,17 @@ exit 1
 
 ## Forcing clean checkouts
 
-By default Buildkite will reuse (after cleaning) a previous checkout. This may not be safe if building commits from untrusted sources (for example, 3rd party pull requests). To force a clean checkout every time, set `BUILDKITE_CLEAN_CHECKOUT=true` in the environment.
+By default, Buildkite will reuse (after cleaning) a previous checkout. This may be unsafe if building commits from untrusted sources (for example, third-party pull requests). To force a clean checkout every time, set `BUILDKITE_CLEAN_CHECKOUT=true` in the environment. The following example shows how to enforce a clean checkout at the step level:
+
+```yaml
+steps:
+- label: "Clean Checkout"
+  command: echo "clean checkout"
+  env:
+    BUILDKITE_CLEAN_CHECKOUT: true
+```
+
+In the logs for this step, you will find a log group called "Cleaning pipeline checkout."
 
 ## Running the Agent behind a proxy
 
@@ -185,3 +209,9 @@ To safeguard your organization's infrastructure in case of Buildkite infrastruct
 
 As a result, your Buildkite agent will refuse to run anything that's not a single argumentless invocation of a script that exists locally (after the `git clone` step of the setup) unless it's explicitly allowed by you.
 Since the [agent](https://github.com/buildkite/agent) is open-source, if necessary you can verify that assertion to whatever degree of certainty is required.
+
+## Restrict agent connection by IP address
+
+[Clusters](/docs/clusters/overview) provide a mechanism to restrict which IP addresses can connect using a given agent token. This protects against the misuse of agent tokens and the hijacking of agent sessions.
+
+To restrict agent connection by IP address, set the [_Allowed IP Addresses_ attribute](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address). This restricts agent registration to those IPs, and any existing agents outside the allowed IP ranges will be forcefully disconnected.

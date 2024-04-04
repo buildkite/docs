@@ -28,6 +28,9 @@ Download the Buildkite PGP key to a directory that is only writable by `root` (c
 curl -fsSL https://keys.openpgp.org/vks/v1/by-fingerprint/32A37959C2FA5C3C99EFBC32A79206696452D198 | sudo gpg --dearmor -o /usr/share/keyrings/buildkite-agent-archive-keyring.gpg
 ```
 
+>📘 Is [keys.openpgp.org](https://keys.openpgp.org) down?
+> If you get a 404 or other error from `curl` in the previous command, see the [Alternative keyservers](#alternative-keyservers) section.
+
 Then add the signed source to your apt sources list:
 
 ```shell
@@ -88,26 +91,12 @@ On Debian, the Buildkite agent runs as user `buildkite-agent`.
 
 ## Running multiple agents
 
-You can run as many parallel agents on the one machine as you wish by duplicating the systemd/upstart service configuration file, for example:
-
-```shell
-# Disable the default unit
-sudo systemctl stop buildkite-agent && sudo systemctl disable buildkite-agent
-
-# Create a systemd template
-sudo cp /lib/systemd/system/buildkite-agent.service /etc/systemd/system/buildkite-agent@.service
-
-# Now, as many times as you like
-sudo systemctl enable buildkite-agent@1 && sudo systemctl start buildkite-agent@1
-sudo systemctl enable buildkite-agent@2 && sudo systemctl start buildkite-agent@2
-
-# Follow them all
-sudo journalctl -f -u "buildkite-agent@*"
-
-# Or one-by-one
-sudo journalctl -f -u buildkite-agent@2
-```
+<%= render_markdown partial: 'agent/v3/linux_multiple_agents' %>
 
 ## Upgrading
 
 <%= render_markdown partial: 'agent/v3/apt_upgrading' %>
+
+## Alternative keyservers
+
+<%= render_markdown partial: 'agent/v3/alternative_keyservers' %>

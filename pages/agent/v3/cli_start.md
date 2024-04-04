@@ -11,7 +11,7 @@ The Buildkite Agent's `start` command is used to manually start an agent and reg
 
 Each agent has tags (in 2.x we called this metadata) which can be used to group and target the agents in your build pipelines. This way you're free to dynamically scale your agents and target them based on their capabilities rather than maintaining a static list.
 
-To set an agent's tags you can set it in the configuration file:
+To set an agent's tags you can set it in the configuration file (`buildkite-agent.cfg`):
 
 ```
 tags="docker=true,ruby2=true"
@@ -62,9 +62,19 @@ If you specify multiple tags, your build will only run on agents that have **all
 
 ## The queue tag
 
-The `queue` tag works differently from other tags, and can be used for isolating jobs and agents. See the [agent queues documentation](queues) for more information about using queues.
+The `queue` tag works differently from other tags, and can be used for isolating jobs and agents. See the [agent queues documentation](/docs/agent/v3/queues) for more information about using queues.
 
 If you specify a `queue` and [agent `tags`](#agent-targeting), your build will only run on agents that match **all** of the specified criteria.
+
+For example, if a job has the following agent targeting rules, an agent with both `queue=test` and `postgres=1.9.4` should be present. Otherwise, the job will not dispatch to an agent.
+
+```yaml
+steps:
+  - command: "script.sh"
+    agents:
+      postgres: '1.9.4'
+      queue: test
+```
 
 ## Sourcing tags from Amazon Web Services
 

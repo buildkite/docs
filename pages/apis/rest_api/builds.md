@@ -9,12 +9,12 @@ For example build number `27` of the `Test` pipeline might have a build ID of `f
 
 API requests that affect a single build accept the more human readable build number (and the organization and pipeline it belongs to), **not** the build ID:
 
-* [Get a build](#get-a-build)
-* [Cancel a build](#cancel-a-build)
-* [Rebuild a build](#rebuild-a-build)
-* [List artifacts for a build](/docs/apis/rest-api/artifacts#list-artifacts-for-a-build)
-* [List annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build)
-
+- [Get a build](#get-a-build)
+- [Create a build](#create-a-build)
+- [Cancel a build](#cancel-a-build)
+- [Rebuild a build](#rebuild-a-build)
+- [List artifacts for a build](/docs/apis/rest-api/artifacts#list-artifacts-for-a-build)
+- [List annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build)
 
 ## List all builds
 
@@ -23,7 +23,8 @@ If using token-based authentication the list of builds will be for the authorize
 Builds are listed in the order they were created (newest first).
 
 ```bash
-curl "https://api.buildkite.com/v2/builds"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/builds"
 ```
 
 Optional [query string parameters](/docs/api#query-string-parameters):
@@ -40,7 +41,8 @@ Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organizatio
 Builds are listed in the order they were created (newest first).
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/builds"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/builds"
 ```
 
 Optional [query string parameters](/docs/api#query-string-parameters):
@@ -57,7 +59,8 @@ Returns a [paginated list](<%= paginated_resource_docs_url %>) of a pipeline's b
 Builds are listed in the order they were created (newest first).
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds"
 ```
 
 ```json
@@ -69,6 +72,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
     "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
     "number": 1,
     "state": "passed",
+    "cancel_reason": "reason for a canceled build",
     "blocked": false,
     "message": "Bumping to version 0.2-beta.6",
     "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
@@ -89,6 +93,20 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
         "type": "script",
         "name": ":package:",
         "step_key": "package",
+        "step": {
+          "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+          "signature": {
+            "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+            "algorithm": "EdDSA",
+            "signed_fields": [
+              "command",
+              "env",
+              "matrix",
+              "plugins",
+              "repository_url"
+            ]
+          }
+        },
         "agent_query_rules": ["*"],
         "state": "passed",
         "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
@@ -109,9 +127,16 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
         "started_at": "2015-05-09T21:07:59.874Z",
         "finished_at": "2015-05-09T21:08:59.874Z",
         "retried": false,
-	"retried_in_job_id": null,
-	"retries_count": null,
-	"retry_type": null
+        "retried_in_job_id": null,
+        "retries_count": null,
+        "retry_type": null,
+        "parallel_group_index": null,
+        "parallel_group_total": null,
+        "matrix": null,
+        "cluster_id": null,
+        "cluster_url": null,
+        "cluster_queue_id": null,
+        "cluster_queue_url": null
       }
     ],
     "created_at": "2015-05-09T21:05:59.874Z",
@@ -120,6 +145,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
     "finished_at": "2015-05-09T21:05:59.874Z",
     "meta_data": { },
     "pull_request": { },
+    "rebuilt_from": null,
     "pipeline": {
       "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
       "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
@@ -164,6 +190,9 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 ]
 ```
 
+> 📘 Webhook URL
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+
 Optional [query string parameters](/docs/api#query-string-parameters):
 
 <%= render_markdown partial: 'apis/rest_api/builds_list_query_strings' %>
@@ -175,17 +204,19 @@ Success response: `200 OK`
 ## Get a build
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}"
 ```
 
 ```json
 {
   "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
   "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
-  "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
-  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
-  "number": 1,
+  "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/2",
+  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/2",
+  "number": 2,
   "state": "passed",
+  "cancel_reason": "reason for a canceled build",
   "blocked": false,
   "message": "Bumping to version 0.2-beta.6",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
@@ -206,11 +237,25 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
       "type": "script",
       "name": ":package:",
       "step_key": "package",
+      "step": {
+        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+        "signature": {
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+          "algorithm": "EdDSA",
+          "signed_fields": [
+            "command",
+            "env",
+            "matrix",
+            "plugins",
+            "repository_url"
+          ]
+        }
+      },
       "agent_query_rules": ["*"],
       "state": "scheduled",
-      "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-      "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
-      "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+      "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/2#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+      "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/2/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+      "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/2/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
       "command": "scripts/build.sh",
       "soft_failed": false,
       "exit_status": 0,
@@ -219,7 +264,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
         "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
         "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
         "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-        "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+        "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
         "name": "my-agent",
         "connection_state": "connected",
         "hostname": "localhost",
@@ -242,7 +287,14 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
       "retried": false,
       "retried_in_job_id": null,
       "retries_count": null,
-      "retry_type": null
+      "retry_type": null,
+      "parallel_group_index": null,
+      "parallel_group_total": null,
+      "matrix": null,
+      "cluster_id": null,
+      "cluster_url": null,
+      "cluster_queue_id": null,
+      "cluster_queue_url": null
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",
@@ -251,6 +303,11 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
   "pull_request": { },
+  "rebuilt_from": {
+    "id": "812135b3-eee7-408c-9f63-760538b96bd5",
+    "number": 1,
+    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1"
+  },
   "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
     "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
@@ -278,6 +335,9 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 }
 ```
 
+> 📘 Webhook URL
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+
 Optional [query string parameters](/docs/api#query-string-parameters):
 
 <table>
@@ -298,7 +358,8 @@ Success response: `200 OK`
 ## Create a build
 
 ```bash
-curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds" \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds" \
   -H "Content-Type: application/json" \
   -d '{
     "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
@@ -326,6 +387,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
   "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
   "number": 1,
   "state": "scheduled",
+  "cancel_reason": "reason for a canceled build",
   "blocked": false,
   "message": "Testing all the things \:rocket\:",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
@@ -345,6 +407,20 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
       "type": "script",
       "name": ":package:",
       "step_key": "package",
+      "step": {
+        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+        "signature": {
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+          "algorithm": "EdDSA",
+          "signed_fields": [
+            "command",
+            "env",
+            "matrix",
+            "plugins",
+            "repository_url"
+          ]
+        }
+      },
       "agent_query_rules": ["*"],
       "state": "scheduled",
       "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
@@ -358,7 +434,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
         "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
         "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
         "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-        "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+        "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
         "name": "my-agent",
         "connection_state": "connected",
         "hostname": "localhost",
@@ -382,7 +458,14 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
       "retried": false,
       "retried_in_job_id": null,
       "retries_count": null,
-      "retry_type": null
+      "retry_type": null,
+      "parallel_group_index": null,
+      "parallel_group_total": null,
+      "matrix": null,
+      "cluster_id": null,
+      "cluster_url": null,
+      "cluster_queue_id": null,
+      "cluster_queue_url": null
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",
@@ -417,6 +500,8 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
   }
 }
 ```
+> 📘 Webhook URL
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
 
 Required [request body properties](/docs/api#request-body-properties):
 
@@ -462,7 +547,8 @@ Error responses:
 Cancels the build if its state is either `scheduled`, `running`, or `failing`.
 
 ```bash
-curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/cancel"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/cancel"
 ```
 
 ```json
@@ -473,6 +559,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
   "number": 1,
   "state": "canceled",
+  "cancel_reason": "reason for a canceled build",
   "blocked": false,
   "message": "Bumping to version 0.2-beta.6",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
@@ -494,6 +581,20 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "type": "script",
       "name": ":package:",
       "step_key": "package",
+      "step": {
+        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+        "signature": {
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+          "algorithm": "EdDSA",
+          "signed_fields": [
+            "command",
+            "env",
+            "matrix",
+            "plugins",
+            "repository_url"
+          ]
+        }
+      },
       "agent_query_rules": ["*"],
       "state": "scheduled",
       "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
@@ -507,7 +608,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
         "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
         "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
         "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-        "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+        "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
         "name": "my-agent",
         "connection_state": "connected",
         "hostname": "localhost",
@@ -531,7 +632,14 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "retried": false,
       "retried_in_job_id": null,
       "retries_count": null,
-      "retry_type": null
+      "retry_type": null,
+      "parallel_group_index": null,
+      "parallel_group_total": null,
+      "matrix": null,
+      "cluster_id": null,
+      "cluster_url": null,
+      "cluster_queue_id": null,
+      "cluster_queue_url": null
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",
@@ -567,6 +675,9 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
 }
 ```
 
+> 📘 Webhook URL
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+
 Required scope: `write_builds`
 
 Success response: `200 OK`
@@ -584,7 +695,8 @@ Error responses:
 Returns the newly created build.
 
 ```bash
-curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/rebuild"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/rebuild"
 ```
 
 ```json
@@ -595,6 +707,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
   "number": 2,
   "state": "scheduled",
+  "cancel_reason": "reason for a canceled build",
   "blocked": false,
   "message": "Bumping to version 0.2-beta.6",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
@@ -616,6 +729,20 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "type": "script",
       "name": ":package:",
       "step_key": "package",
+      "step": {
+        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+        "signature": {
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+          "algorithm": "EdDSA",
+          "signed_fields": [
+            "command",
+            "env",
+            "matrix",
+            "plugins",
+            "repository_url"
+          ]
+        }
+      },
       "agent_query_rules": ["*"],
       "state": "scheduled",
       "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
@@ -629,7 +756,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
         "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
         "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
         "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-        "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+        "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
         "name": "my-agent",
         "connection_state": "connected",
         "hostname": "localhost",
@@ -653,7 +780,14 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "retried": false,
       "retried_in_job_id": null,
       "retries_count": null,
-      "retry_type": null
+      "retry_type": null,
+      "parallel_group_index": null,
+      "parallel_group_total": null,
+      "matrix": null,
+      "cluster_id": null,
+      "cluster_url": null,
+      "cluster_queue_id": null,
+      "cluster_queue_url": null
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",
@@ -688,6 +822,9 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   }
 }
 ```
+
+> 📘 Webhook URL
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
 
 Required scope: `write_builds`
 

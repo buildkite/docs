@@ -1,0 +1,49 @@
+/*
+* Legal Disclaimer
+*
+* These Fonts are licensed only for use on these domains and their subdomains:
+* www.buildkite.com
+*
+* It is illegal to download or use them on other websites.
+*
+* While the @font-face statements below may be modified by the client, this
+* disclaimer may not be removed.
+*
+* Lineto.com, 2017
+*/
+
+@font-face {
+  font-family: Aeonik;
+  src: url("https://buildkite.com/_site/fonts/aeonik/Aeonik-Medium.woff2")
+    format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Aeonik;
+  src: url("https://buildkite.com/_site/fonts/aeonik/Aeonik-MediumItalic.woff2")
+    format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Aeonik;
+  src: url("https://buildkite.com/_site/fonts/aeonik/Aeonik-Bold.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Aeonik;
+  src: url("https://buildkite.com/_site/fonts/aeonik/Aeonik-BoldItalic.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}

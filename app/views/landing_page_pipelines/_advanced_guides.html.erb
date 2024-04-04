@@ -1,0 +1,115 @@
+<section>
+  <%= render partial: "application/heading_group", locals: {
+    title: "Advanced guides",
+    content: "Explore the building blocks you can use to optimize your CI/CD workflows for your use case."
+  } %>
+  <%= render partial: "application/cards_grid", locals: {
+    items: [
+      {
+        title: "Connect source control",
+        to: "/docs/integrations/source-control",
+        icon: "pipelines/icon_pipelines_source_control.svg",
+        links: [
+          {
+            text: "GitHub",
+            to: "/docs/integrations/github"
+          },
+          {
+            text: "GitHub Enterprise",
+            to: "/docs/integrations/github-enterprise"
+          },
+          {
+            text: "GitLab",
+            to: "/docs/integrations/gitlab"
+          },
+          {
+            text: "Bitbucket",
+            to: "/docs/integrations/bitbucket"
+          },
+          {
+            text: "Bitbucket Server",
+            to: "/docs/integrations/bitbucket-server"
+          },
+          {
+            text: "View all",
+            to: "/docs/integrations/source-control"
+          }
+        ]
+      },
+      {
+        title: "Migration guides",
+        to: "/docs/pipelines/migration-overview",
+        icon: "pipelines/icon_pipelines_migration.svg",
+        links: [
+          {
+            text: "Overview",
+            to: "/docs/pipelines/migration-overview"
+          },
+          {
+            text: "From Jenkins",
+            to: "/docs/pipelines/migrate-from-jenkins"
+          },
+          {
+            text: "From Bamboo",
+            to: "/docs/tutorials/migrating-from-bamboo"
+          }
+        ]
+      },
+      {
+        title: "Tutorials",
+        to: "/docs/tutorials/docker-containerized-builds",
+        icon: "pipelines/icon_pipelines_tutorials.svg",
+        links: [
+          {
+            text: "Docker-based builds",
+            to: "/docs/tutorials/docker-containerized-builds"
+          },
+          {
+            text: "Parallelizing builds",
+            to: "/docs/tutorials/parallel-builds"
+          },
+          {
+            text: "Using Bazel on Buildkite",
+            to: "/docs/tutorials/bazel"
+          },
+          {
+            text: "Migrating to YAML steps",
+            to: "/docs/tutorials/pipeline-upgrade"
+          },
+          {
+            text: "Two-factor authentication (2FA)",
+            to: "/docs/tutorials/2fa"
+          },
+          {
+            text: "Using GitHub merge queues",
+            to: "/docs/tutorials/github-merge-queue"
+          }
+        ]
+      },
+      {
+        title: "API & references",
+        to: "/docs/apis",
+        icon: "pipelines/icon_pipelines_apis.svg",
+        links: [
+          {
+            text: "REST",
+            to: "/docs/apis/rest-api"
+          },
+          {
+            text: "GraphQL",
+            to: "/docs/apis/graphql-api"
+          },
+          {
+            text: "Webhooks",
+            to: "/docs/apis/webhooks"
+          },
+          {
+            text: "Glossary",
+            to: "/docs/pipelines/glossary"
+          }
+        ]
+      }
+    ],
+    heading_level: 3
+  }%>
+</section>

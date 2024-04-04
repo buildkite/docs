@@ -52,7 +52,7 @@ Metrics-server is running at https://34.71.166.83/api/v1/namespaces/kube-system/
 To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 ```
 
-Create a [secret](https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables) with your [agent registration token](/docs/agent/v3/tokens#main):
+Create a [secret](https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables) with your [agent registration token](/docs/agent/v3/tokens):
 
 ```shell
 $ kubectl create secret generic buildkite-agent --from-literal=token=INSERT-YOUR-AGENT-TOKEN-HERE

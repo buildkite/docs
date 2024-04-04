@@ -1,0 +1,58 @@
+.Dropdown {
+  background-color: $base-0;
+  border-radius: $rounded;
+  cursor: default;
+  font-size: map-get($font-size-aliases, "template");
+  position: relative;
+}
+
+.Dropdown__menu {
+  background-color: $base-0;
+  border: 1px solid map-get($color-aliases, "border");
+  border-radius: $rounded;
+  box-shadow: $box-shadow-depth-800;
+  left: -9999em;
+  padding: 8px;
+  position: absolute;
+  top: 44px;
+  width: 180px;
+
+  .Dropdown:hover & {
+    left: 0;
+  }
+
+  &::before {
+    border-left: 10px transparent solid;
+    border-right: 10px transparent solid;
+    border-bottom: 10px map-get($color-aliases, "border") solid;
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 18px;
+  }
+
+  &::after {
+    border-left: 8px transparent solid;
+    border-right: 8px transparent solid;
+    border-bottom: 8px $base-0 solid;
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 20px;
+  }
+}
+
+.Dropdown__menu-link {
+  border-radius: $rounded;
+  color: map-get($color-aliases, "text-base");
+  display: block;
+  font-weight: bold;
+  padding: 0.5rem;
+  text-decoration: none;
+
+  &:hover {
+    background-color: map-get($color-aliases, "selected-bg");
+    color: map-get($color-aliases, "selected");
+    font-weight: bold;
+  }
+}

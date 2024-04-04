@@ -113,7 +113,7 @@ You can set notifications:
 * On build status events in the Buildkite UI, by using your Slack Notification Service's 'Build State Filtering' settings.
 * On step status and other non-build events, by extending the Slack Notification Service using the `notify` attribute in your `pipeline.yml`.
 
-Before adding a `notify` attribute to your `pipeline.yml`, ensure an organization admin has set up a [Slack integration](/docs/integrations/slack) for the channel or user that you want to post to. Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan can also check the ['Manage Notifications Services'](https://buildkite.com/organizations/~/member-permissions) checkbox to create, edit, or delete notification services. For detailed information about setting up a Notification Service, see the [Slack integration page](/docs/integrations/slack).
+Before adding a `notify` attribute to your `pipeline.yml`, ensure an organization admin has set up a [Slack integration](/docs/integrations/slack) for the channel or user that you want to post to. Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan can also check the ['Manage Notifications Services'](https://buildkite.com/organizations/~/security/pipelines) checkbox to create, edit, or delete notification services. For detailed information about setting up a Notification Service, see the [Slack integration page](/docs/integrations/slack).
 
 Once a Slack channel has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` YAML block. Remember that if you rename or modify the Slack channel for which the integration was set up, for example if you change it from public to private, you need to set up a new integration.
 
@@ -264,6 +264,7 @@ steps:
           channels:
             - "buildkite-community#sre"
           message: "SRE related information here..."
+      - slack:
           channels:
             - "buildkite-community#announcements"
           message: "General announcement for the team here..."
@@ -272,7 +273,7 @@ steps:
 
 ### Custom messages with user mentions
 
-To mention a specific user in a custom message within a notification, use the `<@user>` annotation, substituting `user` with the username of the person to mention.
+To mention a specific user in a custom message within a notification, use the `<@user-id>` annotation, substituting `userid` with the Slack user ID of the person to mention. See the [Slack documentation on mentioning users](https://api.slack.com/reference/surfaces/formatting#mentioning-users) for more details, including how to find a particular user's user ID. You can even mention user groups using the `<!subteam^$subteam-id>` annotation (where the first `subteam` is literal text)! See the [Slack documentation on mentioning user groups](https://api.slack.com/reference/surfaces/formatting#mentioning-groups) for more information.
 
 Build-level notifications:
 
@@ -281,7 +282,7 @@ notify:
   - slack:
       channels:
         - "#general"
-      message: "This message will ping <@user>!"
+      message: "This message will ping the user with ID U024BE7LH <@U024BE7LH>!"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -295,9 +296,12 @@ steps:
       - slack:
           channels:
             - "#general"
-          message: "This message will ping <@user>!"
+          message: "This message will ping the group with ID SAZ94GDB8 <!subteam^SAZ94GDB8>!"
 ```
 {: codeblock-file="pipeline.yml"}
+
+>🚧  Build creator environment variable
+> You cannot substitute `user` with the build creator environment variable value.
 
 ### Conditional Slack notifications
 

@@ -53,7 +53,7 @@ You can download artifacts by [running the `buildkite-agent artifact download` c
 ## Upload artifacts with a command step
 
 Set the `artifact_paths` attribute of [a command step](/docs/pipelines/command-step) to upload artifacts after the command step has finished its work.
-The `artifacts_path` attribute can contain an array of file paths or [glob patterns](/docs/agent/v3/cli-artifact#uploading-artifacts-artifact-upload-glob-syntax) to upload.
+The `artifact_paths` attribute can contain an array of file paths or [glob patterns](/docs/agent/v3/cli-artifact#uploading-artifacts-artifact-upload-glob-syntax) to upload.
 
 The following example shows a command step configured to upload all of the files in the `logs` and `coverage` directories and their subdirectories:
 
@@ -147,13 +147,18 @@ Alternatively, you can use a self-managed storage provider. Read these guides fo
 
 - [Amazon S3](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket)
 - [Google Cloud Storage](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket)
+- [Azure Blob Storage](/docs/agent/v3/cli-artifact#using-your-private-azure-blob-container)
 - [Artifactory](/docs/agent/v3/cli-artifact#using-your-artifactory-instance)
 
 If you manage your own artifact storage, then you are responsible for encryption and retention planning.
 
 To track the actions of users with access to your artifacts, use the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit).
 
-## Troubleshooting a `Multiple artifacts were found for query` error
+## Troubleshooting artifacts
+
+The following suggestions resolve common issues with using artifacts.
+
+### Multiple artifacts were found for query
 
 The `buildkite-agent artifact download` command can fail with the following error message:
 
@@ -171,3 +176,7 @@ For an example, read [download an artifact from a specific step](#download-artif
 
 Alternatively, download the most recent matching file by using a glob pattern.
 For an example, read [download many artifacts](#download-artifacts-with-the-buildkite-agent-example-download-many-artifacts).
+
+### Artifacts are missing from retried jobs
+
+Artifacts from retried jobs are excluded by default, so the `buildkite-agent artifact download` command won't find them. To include artifacts from retried jobs in your search results, use `--include-retried-jobs` in the command.

@@ -21,6 +21,7 @@ class Page::Renderer
     doc = add_callout(doc)
     doc = decorate_external_links(doc)
     doc = init_responsive_tables(doc)
+    doc = wrap_sections(doc)
     doc.to_html.html_safe
   end
 
@@ -53,10 +54,28 @@ class Page::Renderer
     end
   end
 
+  def wrap_sections(doc)
+    headers = doc.css('h2,h3')
+    headers.each do |header|
+      next_element = header.next_element
+      header.wrap("<section id=\"#{header['id']}\"></section>")
+
+      while !next_element.nil? && !next_element.name.match?(/h2|h3/)  do
+        current_element = next_element
+        next_element = next_element.next_element
+
+        header.parent.add_child(current_element)
+      end
+    end
+
+    doc
+  end
+
   def add_automatic_ids_to_headings(doc)
     h2_ids = []
     h3s_with_manual_ids = []
 
+    # h2 headers
     doc.search('./h2').each do |h2|
       if (id = h2['id']).blank?
         id = h2['id'] = h2.text.to_url

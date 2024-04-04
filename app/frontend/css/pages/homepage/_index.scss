@@ -1,0 +1,16 @@
+@import "hero_banner";
+@import "products";
+@import "popular_guides";
+@import "references";
+
+.HomePage__container {
+  @include container;
+
+  @media (min-width: $screen-md) {
+    margin-top: map-get($header-height, "two-rows");
+  }
+
+  @media (min-width: $screen-lg) {
+    margin-top: 96px;
+  }
+}

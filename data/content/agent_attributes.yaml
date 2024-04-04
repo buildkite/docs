@@ -4,19 +4,25 @@ attributes:
   default_value: None
   required: true
   desc: |
-      The agent registration token from your organization’s _Agents_ page, used only to register new agents. To get your token, log in to Buildkite, navigate to _Agents_, then select _Reveal Agent Token_.
-- name: bootstrap-script
-  env_var: BUILDKITE_BOOTSTRAP_SCRIPT_PATH
-  default_value: "buildkite-agent bootstrap"
-  required: false
-  desc: |
-      Command to invoke the bootstrap process.
+      The agent registration token from your organization's _Agents_ page, used only to register new agents. To get your token, log in to Buildkite, navigate to _Agents_, then select _Reveal Agent Token_.
 - name: build-path
   env_var: BUILDKITE_BUILD_PATH
   default_value: "(depends on platform)"
   required: true
   desc: |
       Path to where the builds will run from.
+- name: allowed-repositories
+  env_var: BUILDKITE_ALLOWED_REPOSITORIES
+  default_value: ""
+  required: false
+  desc: |
+      A comma-separated list of regular expressions representing repositories the agent is allowed to clone (for example, `^git@github.com:buildkite/.\*` or `^https://github.com/buildkite/.*`)
+- name: bootstrap-script
+  env_var: BUILDKITE_BOOTSTRAP_SCRIPT_PATH
+  default_value: "buildkite-agent bootstrap"
+  required: false
+  desc: |
+      Command to invoke the bootstrap process.
 - name: cancel-grace-period
   env_var: BUILDKITE_CANCEL_GRACE_PERIOD
   default_value: "10"
@@ -88,11 +94,10 @@ attributes:
 - name: git-clone-mirror-flags
   env_var: BUILDKITE_GIT_CLONE_MIRROR_FLAGS
   default_value: "none"
-  experimental: true
+  experimental: false
   required: false
   desc: |
-      Flags to pass to the `git clone` command when used for mirroring. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#experimental-features-git-mirrors) for more information on this feature.
-      This is an experimental feature. To use it, set `experiment="git-mirrors"` in your agent configuration. Learn more about [Experimental features](https://buildkite.com/docs/agent/v3#experimental-features).
+      Flags to pass to the `git clone` command when used for mirroring. Refer to [Git mirrors](/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature. Introduced in [v3.47.0](https://github.com/buildkite/agent/releases/tag/v3.47.0).
       _Example:_ `-v --mirror`.
 - name: git-fetch-flags
   env_var: BUILDKITE_GIT_FETCH_FLAGS
@@ -105,19 +110,24 @@ attributes:
   env_var: BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT
   default_value: "300"
   required: false
-  experimental: true
+  experimental: false
   desc: |
-      Seconds to lock a git mirror during clone. Should exceed your longest checkout. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#experimental-features-git-mirrors) for more information on this feature.
-      This is an experimental feature. To use it, set `experiment="git-mirrors"` in your agent configuration. Learn more about [Experimental features](https://buildkite.com/docs/agent/v3#experimental-features).
+      Seconds to lock a git mirror during clone. Should exceed your longest checkout. Refer to [Git mirrors](/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature. Introduced in [v3.47.0](https://github.com/buildkite/agent/releases/tag/v3.47.0).
 - name: git-mirrors-path
   env_var: BUILDKITE_GIT_MIRRORS_PATH
   default_value: "none"
   required: false
-  experimental: true
+  experimental: false
   desc: |
-      Path to where mirrors of git repositories are stored. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#experimental-features-git-mirrors) for more information on this feature.
-      This is an experimental feature. To use it, set `experiment="git-mirrors"` in your agent configuration. Learn more about [Experimental features](https://buildkite.com/docs/agent/v3#experimental-features).
+      Path to where mirrors of git repositories are stored. Refer to [Git mirrors](/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature. Introduced in [v3.47.0](https://github.com/buildkite/agent/releases/tag/v3.47.0).
       _Example:_ `/tmp/buildkite-git-mirrors`
+- name: git-mirrors-skip-update
+  env_var: BUILDKITE_GIT_MIRRORS_SKIP_UPDATE
+  default_value: "false"
+  required: false
+  experimental: false
+  desc: |
+       Skips updating the git mirror before cloning. Refer to [Git mirrors](/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature. Introduced in [v3.47.0](https://github.com/buildkite/agent/releases/tag/v3.47.0).
 - name: health-check-addr
   env_var: BUILDKITE_AGENT_HEALTH_CHECK_ADDR
   default_value: "disabled"
@@ -130,6 +140,12 @@ attributes:
   required: false
   desc: |
       The directory to use for agent hooks. See [Hook locations](https://buildkite.com/docs/agent/v3/hooks#hook-locations) for details.
+- name: job-log-path
+  env_var: BUILDKITE_JOB_LOG_PATH
+  default_value: "platform's TempDir; e.g. '/tmp'"
+  required: false
+  desc: |
+      The directory of the temporary job log file created by the `enable-job-log-tmpfile` [agent configuration option](/docs/agent/v3/configuration#enable-job-log-tmpfile). Introduced in [v3.50.0](https://github.com/buildkite/agent/releases/tag/v3.50.0).
 - name: log-format
   env_var: BUILDKITE_LOG_FORMAT
   default_value: "text"
@@ -181,6 +197,12 @@ attributes:
   required: false
   desc: |
       Do not show colors in logging.
+- name: no-ansi-timestamps
+  env_var: BUILDKITE_NO_ANSI_TIMESTAMPS
+  default_value: "false"
+  required: false
+  desc: |
+    Do not insert ANSI timestamp codes at the start of each line of job output.
 - name: no-command-eval
   env_var: BUILDKITE_NO_COMMAND_EVAL
   default_value: "false"
@@ -188,7 +210,7 @@ attributes:
   desc: |
       Do not allow this agent to run arbitrary console commands.
 - name: no-git-submodules
-  env_var: BUILDKITE_NO_GIT_SUBMODULES, BUILDKIT_DISABLE_GIT_SUBMODULES
+  env_var: BUILDKITE_NO_GIT_SUBMODULES, BUILDKITE_DISABLE_GIT_SUBMODULES
   default_value: "false"
   required: false
   desc: |
@@ -297,7 +319,7 @@ attributes:
   desc: |
       Include the host's Google Cloud instance labels as tags.
 - name: tags-from-host
-  env_var: BUILDKITE_AGENTS_TAGS_FROM_HOST
+  env_var: BUILDKITE_AGENT_TAGS_FROM_HOST
   default_value: "false"
   required: false
   desc: |
@@ -307,7 +329,7 @@ attributes:
   default_value: "false"
   required: false
   desc: |
-      Prepend timestamps on each line of output.
+      Prepend timestamps on each line of output. Has no effect unless --no-ansi-timestamps is also used.
 - name: tracing-backend
   env_var: BUILDKITE_TRACING_BACKEND
   default_value: "none"

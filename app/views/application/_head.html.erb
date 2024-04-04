@@ -1,24 +1,27 @@
 <meta charset='utf-8'>
 <%= tag :link, rel: "dns-prefetch", href: ENV["ASSET_HOST"] if ENV["ASSET_HOST"] %>
 <link rel="dns-prefetch" href="//www2.buildkiteassets.com" />
-<link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/aeonik/Aeonik-Bold-78fff47500f27f2f0d8d777c9d431a87036e566af7577a58ccc0776b4eb4b994.woff2" crossorigin="anonymous" />
-<link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/maison-neue/MaisonNeueWEB-Book-e597278911055949a05fe1001e37bd61905409344995f03a0fa8a13f442be31b.woff2" crossorigin="anonymous" />
-<link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/maison-neue/MaisonNeueWEB-Medium-9884c2338b4896f2fd56d7a93ee2150c2855644550ee60a9a9ff2137b6d3b507.woff2" crossorigin="anonymous" />
+<link rel="preload" as="font" type="font/woff2" href="https://buildkite.com/_site/fonts/aeonik/Aeonik-Medium.woff2" crossorigin="anonymous" />
+<link rel="preload" as="font" type="font/woff2" href="https://buildkite.com/_site/fonts/aeonik/Aeonik-MediumItalic.woff2" crossorigin="anonymous" />
+<link rel="preload" as="font" type="font/woff2" href="https://buildkite.com/_site/fonts/aeonik/Aeonik-Bold.woff2" crossorigin="anonymous" />
+<link rel="preload" as="font" type="font/woff2" href="https://buildkite.com/_site/fonts/aeonik/Aeonik-BoldItalic.woff2" crossorigin="anonymous" />
 
 <title><%= [content_for(:page_title), "Buildkite Documentation"].compact.join(" | ") %></title>
+<% if description = content_for(:page_description) %>
+<meta name="description" content="<%= description %>" />
+<% end %>
+
+<%= tag :link, rel: "canonical", href: seo_canonical_url %>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<%= stylesheet_link_tag "docsearch", "application", media: "all" %>
-
-<%= javascript_include_tag "docsearch", nonce: true %>
 
 <%= csp_meta_tag %>
 
 <meta name="referrer" content="origin-when-cross-origin" />
 
-<%= tag :link, rel: "shortcut icon", href: image_path("favicon.png"), type: "image/x-icon" %>
-<%= tag :link, rel: "apple-touch-icon", href: image_path("appicon.png") %>
-<%= tag :link, rel: "mask-icon", href: image_path("logo-pinned.svg"), color: "#14CC80" %>
+<%= tag :link, rel: "shortcut icon", href: vite_asset_path("images/favicon.png"), type: "image/x-icon" %>
+<%= tag :link, rel: "apple-touch-icon", href: vite_asset_path("images/appicon.png") %>
+<%= tag :link, rel: "mask-icon", href: vite_asset_path("images/logo-pinned.svg"), color: "#14CC80" %>
 
 <!-- Twitter Cards Metadata -->
 <%= tag :meta, property: "twitter:card", content: content_for(:page_twitter_card) || "summary_large_image" %>
@@ -37,11 +40,40 @@
 
 <%= render 'analytics', application: 'docs', title: "Docs / #{content_for(:page_title)}", logged_in: probably_authenticated? %>
 
-<% if ENV.fetch("ROBOTS_NO_INDEX") { "false" } == "true" %>
+<% if ENV.fetch("ROBOTS_NO_INDEX") { "false" } == "true" || [ "https://badge.buildkite.com", "https://badge.buildbox.io"].include?(request.base_url) %>
   <meta name="robots" content="noindex, nofollow">
 <% end %>
 
 <%= vite_client_tag %>
 <%= vite_javascript_tag 'application' %>
+<%= vite_stylesheet_tag 'application.scss' %>
 
 <%= render 'helpscout' %>
+
+<% if ENV.fetch("DD_RUM_ENABLED", false) %>
+<script>
+  (function(h,o,u,n,d) {
+    h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
+    d=o.createElement(u);d.async=1;d.src=n
+    n=o.getElementsByTagName(u)[0];n.parentNode.insertBefore(d,n)
+  })(window,document,'script','https://www.datadoghq-browser-agent.com/us1/v4/datadog-rum.js','DD_RUM')
+  window.DD_RUM.onReady(function() {
+    window.DD_RUM.init({
+      clientToken: 'pubc9a743f98fb0ff68a47484d3672088cf',
+      applicationId: 'd8c88382-4a5b-43ec-9069-ba06aac75e7a',
+      site: 'datadoghq.com',
+      service: 'buildkite-docs',
+      env: '<%= ENV.fetch("DD_RUM_ENV", "unknown") %>',
+      version: '<%= ENV.fetch("DD_RUM_VERSION", "unknown") %>',
+      sessionSampleRate: 100,
+      sessionReplaySampleRate: 0,
+      trackUserInteractions: false,
+      trackResources: true,
+      trackLongTasks: true,
+      defaultPrivacyLevel: 'mask',
+    });
+
+    window.DD_RUM.startSessionReplayRecording();
+  })
+</script>
+<% end %>

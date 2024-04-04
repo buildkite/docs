@@ -1,0 +1,122 @@
+@mixin callout($foreground, $background, $icon) {
+  color: map-get($color-aliases, "text-lightest");
+  background-color: $background;
+  font-size: #{(16/18)}rem;
+  margin: 2rem 0;
+  padding: 1rem 1.25rem 1rem 3.25rem;
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px #{$foreground}20, 0 1px 3px #{$foreground}33;
+
+  &:before {
+    width: 24px;
+    height: 24px;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: url("~/images/icons/callouts/#{$icon}.svg") no-repeat 0 0;
+  }
+
+  .callout__title {
+    color: $foreground;
+    font-family: $font-family-display;
+
+    font-size: 1rem;
+    font-weight: 500;
+
+    position: relative;
+
+    .callout__anchor {
+      text-decoration: none;
+      position: relative;
+
+      &:link,
+      &:visited,
+      &:hover,
+      &:active,
+      &:focus {
+        color: $foreground;
+      }
+
+      &:before,
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        transition: opacity 0.2s ease;
+      }
+
+      &:before {
+        color: $navy-600;
+        width: 24px;
+        height: 24px;
+        top: -3px;
+        opacity: 0;
+        right: -32px;
+        z-index: 3;
+        border-radius: 8px;
+        background-color: #fff;
+        background-image: url("~/images/icons/anchor.svg");
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.03),
+          0px 6px 12px 0px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.1);
+      }
+
+      &:after {
+        width: 32px;
+        top: 0;
+        bottom: 0;
+        right: -32px;
+      }
+
+      &:hover:before {
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.03),
+          0px 6px 12px 0px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.2);
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: map-get($color-aliases, "text-display");
+      }
+
+      &:hover {
+        &:before {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  p {
+    margin: 0;
+    color: #{$foreground}db;
+
+    code {
+      background-color: #{$foreground}0f !important;
+    }
+  }
+
+  p:not(:empty) + p {
+    margin: 0.5rem 0 0 0;
+  }
+}
+
+.callout {
+  @include callout($navy-800, #fdfbff, default);
+  position: relative;
+}
+
+.callout--troubleshooting {
+  @include callout(#523a00, #fffbf0, troubleshooting);
+}
+
+.callout--wip {
+  @include callout(#523a00, #fffbf0, default);
+}
+
+.Docs__attribute__table .callout {
+  margin: 0;
+}

@@ -1,3 +1,7 @@
+---
+keywords: docs, pipelines, tutorials, parallel builds
+---
+
 # Parallel builds
 
 Running a build's steps in parallel is a way to decrease your build's total running time. This guide will show you how to use multiple agents and job parallelism to increase the speed of your builds.
@@ -33,6 +37,30 @@ buildkite-agent start --tags queue=test
 
 # In another window, or tab
 buildkite-agent start --tags queue=deploy
+```
+
+#### Coordinating multiple agents
+
+>🛠️ Experimental feature
+> To use it, set <code>experiment="agent-api"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.
+> This requires Agent v3.47.0 or later.
+
+Multiple agents on a single host can sometimes interfere with one another. For example, a pipeline might contain commands like `docker prune` or `apt upgrade`, but these commands fail if another job runs the same command at the same time.
+
+To coordinate access to shared resources on the same host, you can use agent locks. Locking is advisory (nothing prevents a buggy command from ignoring a lock), but it can help avoid multiple agents interfering with each other.
+
+Here's how you could use locks in a script to make sure a command is run by only one agent at a time:
+
+```bash
+# Acquire the lock called "docker prune", and store the token.
+token=$(buildkite-agent lock acquire "docker prune")
+
+# Once the lock is acquired, proceed to run the command - in this example, docker prune
+docker prune
+
+# Release the lock afterwards.
+# To make this example more robust, consider using an EXIT trap, so that the lock is released whether the command succeeded or not.
+buildkite-agent lock release "docker prune" "${token}"
 ```
 
 ### Multiple agents on many machines

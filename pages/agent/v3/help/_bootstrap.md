@@ -34,9 +34,13 @@ See https://buildkite.com/docs/agent/v3/hooks for more details.
 
 ### Example
 
-    $ eval $(curl -s -H "Authorization: Bearer xxx" \
-        "https://api.buildkite.com/v2/organizations/[org]/pipelines/[proj]/builds/[build]/jobs/[job]/env.txt" | sed 's/^/export /')
-    $ buildkite-agent bootstrap --build-path builds
+```shell
+$ eval $(curl -s -H "Authorization: Bearer xxx" \
+   "https://api.buildkite.com/v2/organizations/[org]/pipelines/[proj]/builds/[build]/jobs/[job]/env.txt" | \
+   sed 's/^/export /' \
+ )
+$ buildkite-agent bootstrap --build-path builds
+```
 
 ### Options
 
@@ -85,13 +89,17 @@ See https://buildkite.com/docs/agent/v3/hooks for more details.
 <tr id="shell"><th><code>--shell value</code> <a class="Docs__attribute__link" href="#shell">#</a></th><td><p>The shell to use to interpret build commands (default: "/bin/bash -e -c")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_SHELL</code></p></td></tr>
 <tr id="phases"><th><code>--phases value</code> <a class="Docs__attribute__link" href="#phases">#</a></th><td><p>The specific phases to execute. The order they're defined is irrelevant.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_BOOTSTRAP_PHASES</code></p></td></tr>
 <tr id="cancel-signal"><th><code>--cancel-signal value</code> <a class="Docs__attribute__link" href="#cancel-signal">#</a></th><td><p>The signal to use for cancellation (default: "SIGTERM")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_CANCEL_SIGNAL</code></p></td></tr>
+<tr id="signal-grace-period-seconds"><th><code>--signal-grace-period-seconds value</code> <a class="Docs__attribute__link" href="#signal-grace-period-seconds">#</a></th><td><p>The number of seconds given to a subprocess to handle being sent `cancel-signal`. After this period has elapsed, SIGKILL will be sent. (default: 0)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_SIGNAL_GRACE_PERIOD_SECONDS</code></p></td></tr>
 <tr id="redacted-vars"><th><code>--redacted-vars value</code> <a class="Docs__attribute__link" href="#redacted-vars">#</a></th><td><p>Pattern of environment variable names containing sensitive values<br /><strong>Environment variable</strong>: <code>$BUILDKITE_REDACTED_VARS</code></p></td></tr>
 <tr id="tracing-backend"><th><code>--tracing-backend value</code> <a class="Docs__attribute__link" href="#tracing-backend">#</a></th><td><p>The name of the tracing backend to use.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_TRACING_BACKEND</code></p></td></tr>
 <tr id="tracing-service-name"><th><code>--tracing-service-name value</code> <a class="Docs__attribute__link" href="#tracing-service-name">#</a></th><td><p>Service name to use when reporting traces. (default: "buildkite-agent")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_TRACING_SERVICE_NAME</code></p></td></tr>
+<tr id="no-job-api"><th><code>--no-job-api </code> <a class="Docs__attribute__link" href="#no-job-api">#</a></th><td><p>Disables the Job API, which gives commands in jobs some abilities to introspect and mutate the state of the job.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_NO_JOB_API</code></p></td></tr>
+<tr id="disable-warnings-for"><th><code>--disable-warnings-for value</code> <a class="Docs__attribute__link" href="#disable-warnings-for">#</a></th><td><p>A list of warning IDs to disable<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DISABLE_WARNINGS_FOR</code></p></td></tr>
 <tr id="debug"><th><code>--debug </code> <a class="Docs__attribute__link" href="#debug">#</a></th><td><p>Enable debug mode. Synonym for `--log-level debug`. Takes precedence over `--log-level`<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG</code></p></td></tr>
 <tr id="log-level"><th><code>--log-level value</code> <a class="Docs__attribute__link" href="#log-level">#</a></th><td><p>Set the log level for the agent, making logging more or less verbose. Defaults to notice. Allowed values are: debug, info, error, warn, fatal (default: "notice")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_LOG_LEVEL</code></p></td></tr>
 <tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_EXPERIMENT</code></p></td></tr>
 <tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_PROFILE</code></p></td></tr>
+<tr id="strict-single-hooks"><th><code>--strict-single-hooks </code> <a class="Docs__attribute__link" href="#strict-single-hooks">#</a></th><td><p>Enforces that only one checkout hook, and only one command hook, can be run<br /><strong>Environment variable</strong>: <code>$BUILDKITE_STRICT_SINGLE_HOOKS</code></p></td></tr>
 </table>
 
 <!-- vale on -->

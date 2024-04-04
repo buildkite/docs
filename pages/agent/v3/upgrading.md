@@ -1,9 +1,0 @@
----
-toc: false
----
-
-# Upgrading your Buildkite Agents
-
-Upgrade your Agents using your operating system package manager, or by re-running the installation script.
-As long as you're using Agent v3 or later, no configuration changes are necessary.
-

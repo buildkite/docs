@@ -18,3 +18,7 @@
     <th><code>agent.stopped</code></th>
     <td>An agent has stopped. This happens when an agent is instructed to stop from the API. It can be graceful or forceful</td>
   </tr>
+  <tr>
+    <th><code>agent.blocked</code></th>
+    <td>An agent has been blocked. This happens when an agent's IP address is no longer included in the agent token's <a href="/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td>
+  </tr>

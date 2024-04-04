@@ -12,7 +12,7 @@ To install the agent using Homebrew:
 1. On the command line, install the agent by running:
 
     ```shell
-    brew tap buildkite/buildkite && brew install buildkite-agent
+    brew tap buildkite/buildkite && brew install buildkite/buildkite/buildkite-agent
     ```
 
 1. Add your [agent token](/docs/agent/v3/tokens) to authenticate the agent by replacing `INSERT-YOUR-AGENT-TOKEN-HERE` with your agent token and running:
@@ -20,6 +20,7 @@ To install the agent using Homebrew:
     ```shell
     sed -i '' "s/xxx/INSERT-YOUR-AGENT-TOKEN-HERE/g" "$(brew --prefix)"/etc/buildkite-agent/buildkite-agent.cfg
     ```
+    **Note:** To verify that your agent token has been added to the `buildkite-agent.cfg` file, run `cat $(brew --prefix)/etc/buildkite-agent/buildkite-agent.cfg`, and check that the output contains your agent token.
 
 1. Start the agent by running:
 

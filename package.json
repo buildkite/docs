@@ -5,7 +5,8 @@
     "husky": "^8.0.0",
     "netlify-cli": "^15.2.0",
     "prettier": "2.8.4",
-    "vite": "^4.3.9",
+    "sass": "^1.66.1",
+    "vite": "^4.5.3",
     "vite-plugin-ruby": "^3.2.0"
   },
   "scripts": {
@@ -14,10 +15,11 @@
     "lint": "npx alex@10 -q --diff \"pages/**/*.erb\" \"pages/**/*.txt\"",
     "mdlint": "npx markdownlint-cli2@0.3 pages \"#pages/agent/v3/help/*\"",
     "prepare": "husky install",
-    "prettier-check": "prettier -c \"app/assets/**/*.{js,scss}\"",
-    "prettier-fix": "prettier -w \"app/assets/**/*.{js,scss}\""
+    "prettier-check": "prettier -c \"app/frontend/**/*.{js,scss}\"",
+    "prettier-fix": "prettier -w \"app/frontend/**/*.{js,scss}\""
   },
   "dependencies": {
+    "@docsearch/js": "3",
     "@hotwired/turbo-rails": "^7.3.0"
   }
 }

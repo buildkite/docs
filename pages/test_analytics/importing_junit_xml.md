@@ -10,7 +10,8 @@ The following attributes are mandatory for the `<testcase>` element:
 * `classname`: full class name for the class the test method is in.
 * `name`: name of the test method.
 
-To learn more about the JUnit XML file format, see [JUnit XML reporting file format](https://llg.cubic.org/docs/junit/) from Linux Lighting Group.
+To learn more about the JUnit XML file format, see [Common JUnit XML format & examples
+](https://github.com/testmoapp/junitxml).
 
 ## How to import JUnit XML in Buildkite
 
@@ -34,8 +35,6 @@ steps:
 See more configuration information in the [Test Collector plugin README](https://github.com/buildkite-plugins/test-collector-buildkite-plugin).
 
 Using the plugin is the recommended way as it allows for a better debugging process in case of an issue.
-
-An equivalent of Buildkite Test Collector plugin for GitHub Actions and CircleCI Orb is in the works. Stay tuned!
 
 ### Not using a plugin
 

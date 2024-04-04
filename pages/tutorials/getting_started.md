@@ -1,3 +1,7 @@
+---
+keywords: docs, pipelines, tutorials, getting started
+---
+
 # Getting started
 
 👋 Welcome to Buildkite Pipelines! You can use Pipelines to build your dream CI/CD workflows on a secure, scalable, and flexible platform. This tutorial takes you through creating a basic pipeline from an example.
@@ -12,25 +16,21 @@ To complete this tutorial, you'll need:
 
 - To enable the YAML steps editor in Buildkite:
 
-  * Open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration) by selecting _Settings_ > _YAML Migration_.
+  * Select _Settings_ > _YAML Migration_ to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
   * Select _Use YAML Steps for New Pipelines_, then confirm the action in the modal.
 
 - [Git](https://git-scm.com/downloads). This tutorial uses GitHub, but Buildkite can work with any version control system.
 
 ## Understand the architecture
 
-Before creating a pipeline, take a moment to understand Buildkite's architecture and the advantages it provides.
+Before creating a pipeline, take a moment to understand Buildkite's architecture and the advantages it provides. Buildkite uses a hybrid architecture to separate:
 
-Buildkite uses a hybrid model consisting of the following:
+- The control panel
+- The build environment
 
-- **Buildkite dashboard:** A software-as-a-service (SaaS) control panel for visualizing and managing CI/CD pipelines. This coordinates work and displays results.
-- **Agents:** Small, reliable, and cross-platform build runners. These are hosted by you, either on-premise or in the cloud. They execute the work they receive from the Buildkite dashboard.
+Buildkite runs the control panel as a SaaS product, and you run the build environment on your own infrastructure. In other words, Buildkite handles the orchestration, and you bring the compute. That means you can fine-tune and secure the build environment to suit your particular use case and workflow.
 
-The following diagram shows the split in Buildkite between the SaaS platform and the agents running on your infrastructure.
-
-<%= image "hybrid-saas-architecture.svg", alt: "Shows the hybrid architecture combining a SaaS platform with your infrastructure" %>
-
-The diagram shows that Buildkite provides a web interface, handles integrations with third-party tools, and offers APIs and webhooks. By design, sensitive data, such as source code and secrets, remain within your environment and are not seen by Buildkite. This decoupling provides flexibility and security as you maintain control over the build environment and agent scaling while Buildkite manages the coordination, scheduling, and web interface.
+The hybrid architecture reduces the maintenance burden on your team compared to self-hosted solutions and gives you the security and control missing from fully SaaS build tools. See [Hybrid architecture](/docs/pipelines/architecture) to learn more.
 
 ## Install and run an agent
 
@@ -82,11 +82,10 @@ To create a pipeline:
 
     <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 
-1. Accept the pre-filled defaults by selecting *Create Pipeline*. This associates the example repository with your new pipeline.
-1. Accept the pre-filled defaults by selecting _Save and Build_. This adds a step to upload the full pipeline definition from the repository.
-1. In the modal that opens, create a build using the pre-filled details.
+1. On the _New Pipeline_ page, leave all fields with their pre-filled default values and select _Create Pipeline_. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
+1. On the next page showing your pipeline name, click _New Build_. In the modal that opens, create a build using the pre-filled details.
 
-   1. Enter a message for the build. For example, _My first build_.
+   1. In the _Message_ field, enter a short description for the build. For example, _My first build_.
    1. Select _Create Build_.
 
 The page for the build then opens and begins running:
@@ -105,7 +104,7 @@ In the output, you'll see:
 
 - A pre-command hook ran and printed some text in the logs.
 - The agent checked out the repository.
-- The agent can access different environment variables shown in the job environment.
+- The agent accessed different environment variables shown in the job environment.
 - The script ran and printed text to the logs and uploaded an image as an artifact of the build.
 
 Beyond the log, select one of the other tabs to see the artifacts, a timeline breakdown, and the environment variables.
@@ -114,5 +113,5 @@ Beyond the log, select one of the other tabs to see the artifacts, a timeline br
 
 That's it! You've installed an agent, run a build, and checked the output. 🎉
 
-We recommend you continue by [creating your own pipeline](/docs/pipelines/create-your-own).
+Now try [creating your own pipeline](/docs/pipelines/create-your-own).
 

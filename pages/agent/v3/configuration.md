@@ -29,7 +29,7 @@ You can find the location of your configuration file in your platform's installa
       <% if attr['required'] %>
         <tr id="<%= attr['name'] %>">
           <th>
-            <code><%= attr['name'] %> <a class="Docs__attribute__link" href="#<%= attr['name'] %>">#</a></code>
+            <code><%= attr['name'] %><a class="Docs__attribute__link" href="#<%= attr['name'] %>">#</a></code>
             <span class="Docs__attribute__importance"><%= attr['required'] ? "Required" : "Optional" -%></span>
             <p class="Docs__attribute__env-var">
               <strong>Environment variable: </strong>
@@ -52,7 +52,7 @@ You can find the location of your configuration file in your platform's installa
       <% if !attr['required'] %>
         <tr id="<%= attr['name'] %>">
           <th>
-            <code><%= attr['name'] %> <a class="Docs__attribute__link" href="#<%= attr['name'] %>">#</a></code>
+            <code><%= attr['name'] %><a class="Docs__attribute__link" href="#<%= attr['name'] %>">#</a></code>
             <span class="Docs__attribute__importance"><%= attr['required'] ? "<strong>Required</strong>" : "Optional" -%></span>
             <p class="Docs__attribute__env-var">
               <strong>Environment variable: </strong>
@@ -85,7 +85,8 @@ You can find the location of your configuration file in your platform's installa
     <tr id="disconnect-after-job-timeout">
       <th><code>disconnect-after-job-timeout</code></th>
       <td>
-        When <code>disconnect-after-job</code> is specified, the number of seconds to wait for a job before shutting down.<br> Not to be confused with <a href="/docs/pipelines/command-step#command-step-attributes-build-timeouts">default and maximum build timeouts</a><br>
+        <p>When <code>disconnect-after-job</code> is specified, the number of seconds to wait for a job before shutting down.</p>
+        <p>Not to be confused with <a href="/docs/pipelines/build-timeouts#command-timeouts">default and maximum build timeouts</a>.</p>
         <p class="Docs__api-param-eg"><em>Default:</em> <code>120</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DISCONNECT_AFTER_JOB_TIMEOUT</code></p>
       </td>

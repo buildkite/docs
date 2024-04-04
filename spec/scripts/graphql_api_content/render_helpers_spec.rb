@@ -6,6 +6,7 @@ RSpec.describe RenderHelpers do
     it "converts markdown to html" do
       markdown = "This _is a **sentence**_."
       html = render_html(markdown)
+
       expect(html).to eq(
         "<p>This <em>is a <strong>sentence</strong></em>.</p>\n"
       )
@@ -13,23 +14,24 @@ RSpec.describe RenderHelpers do
   end
 
   describe "#render_of_type" do
-    context "when of_type is not nested" do
-      it "renders a link" do
-        of_type = {
-          "kind" => "OBJECT",
-          "name" => "Agent",
-          "ofType" => nil
-        }
-        expect(render_of_type(of_type)).to eq(
-          <<~HTML
-            <a href="/docs/apis/graphql/schemas/object/agent" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Agent"><code>Agent!</code></a>
-          HTML
-        )
-      end
+    it "renders correctly" do
+      of_type = {
+        "kind" => "OBJECT",
+        "name" => "Agent",
+        "ofType" => nil
+      }
+
+      expect(render_of_type(of_type)).to eq(
+        <<~HTML
+          <a href="/docs/apis/graphql/schemas/object/agent" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Agent">
+            <code>Agent</code>
+          </a>
+        HTML
+      )
     end
 
-    context "when of_type is a nested hash" do
-      it "renders a link from the deepest hash" do
+    context "when type is non-nullable" do
+      it "renders correctly" do
         of_type = {
           "kind" => "NON_NULL",
           "name" => nil,
@@ -39,22 +41,62 @@ RSpec.describe RenderHelpers do
             "ofType" => nil
           }
         }
+
         expect(render_of_type(of_type)).to eq(
           <<~HTML
-            <a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a>
+            <a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID">
+              <code>ID!</code>
+            </a>
           HTML
         )
       end
     end
 
-    context "when of_type['name'] is not available" do
-      it "renders the of_type['kind'] instead" do
+    context "when type is a list" do
+      it "renders correctly" do
         of_type = {
-          "kind" => "NON_NULL",
+          "kind" => "LIST",
           "name" => nil,
-          "ofType" => nil
+          "ofType" => {
+            "kind" => "SCALAR",
+            "name" => "ID",
+            "ofType" => nil
+          }
         }
-        expect(render_of_type(of_type)).to eq("NON_NULL")
+
+        expect(render_of_type(of_type)).to eq(
+          <<~HTML
+            <a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID">
+              <code>[ID]</code>
+            </a>
+          HTML
+        )
+      end
+
+      context "and non-nullable" do
+        it "renders correctly" do
+          of_type = {
+            "kind" => "LIST",
+            "name" => nil,
+            "ofType" => {
+              "kind" => "NON_NULL",
+              "name" => "nil",
+              "ofType" => {
+                "kind" => "SCALAR",
+                "name" => "ID",
+                "ofType" => nil
+              }
+            }
+          }
+
+          expect(render_of_type(of_type)).to eq(
+            <<~HTML
+              <a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID">
+                <code>[ID!]</code>
+              </a>
+            HTML
+          )
+        end
       end
     end
   end
@@ -139,7 +181,7 @@ RSpec.describe RenderHelpers do
               <tbody>
                 <tr>
                   <td>
-                    <h3 class="is-small has-pills"><code>agent</code><a href="/docs/apis/graphql/schemas/object/agent" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Agent"><code>Agent!</code></a></h3>
+                    <h3 class="is-small has-pills"><code>agent</code><a href="/docs/apis/graphql/schemas/object/agent" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Agent"><code>Agent</code></a></h3>
                     <p>Find an agent by its slug</p>
                     <div>
                       <details>
@@ -148,7 +190,7 @@ RSpec.describe RenderHelpers do
                           <tbody>
                             <tr>
                               <td>
-                                <h4 class="is-small has-pills no-margin"><code>slug</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h4>
+                                <h4 class="is-small has-pills no-margin"><code>slug</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h4>
                                 <p>The UUID for the agent, prefixed by its organization's slug i.e. <code>acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb</code></p>
                                 <p class="no-margin">Default value: <code>Default</code></p>
                               </td>
@@ -161,7 +203,7 @@ RSpec.describe RenderHelpers do
                 </tr>
                 <tr>
                   <td>
-                    <h3 class="is-small has-pills"><code>agentToken</code><a href="/docs/apis/graphql/schemas/object/agenttoken" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT AgentToken"><code>AgentToken!</code></a><span class="pill pill--deprecated"><code>deprecated</code></span></h3>
+                    <h3 class="is-small has-pills"><code>agentToken</code><a href="/docs/apis/graphql/schemas/object/agenttoken" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT AgentToken"><code>AgentToken</code></a><span class="pill pill--deprecated"><code>deprecated</code></span></h3>
                     <p><em>Deprecated: Deprecated because of reasons</em></p>
                     <div>
                       <details>
@@ -170,7 +212,7 @@ RSpec.describe RenderHelpers do
                           <tbody>
                             <tr>
                               <td>
-                                <h4 class="is-small has-pills no-margin"><code>slug</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h4>
+                                <h4 class="is-small has-pills no-margin"><code>slug</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h4>
                                 <p>The UUID for the agent token, prefixed by its organization's slug i.e. <code>acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb</code></p>
                                 <p class="no-margin">Default value: <code>test default</code></p>
                               </td>
@@ -241,13 +283,13 @@ RSpec.describe RenderHelpers do
                     <tbody>
                       <tr>
                         <td>
-                          <h4 class="is-small has-pills no-margin"><code>slug</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h4>
+                          <h4 class="is-small has-pills no-margin"><code>slug</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h4>
                           <p>The slug for the sso provider, prefixed by its organization's slug i.e. <code>acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb</code></p>
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          <h4 class="is-small has-pills no-margin"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h4>
+                          <h4 class="is-small has-pills no-margin"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h4>
                           <p>The UUID of the sso provider</p>
                         </td>
                       </tr>
@@ -299,12 +341,14 @@ RSpec.describe RenderHelpers do
         expect(possible_types_string).to eq(
           <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
             <h2 data-algolia-exclude>Possible types</h2>
-            <a href="/docs/apis/graphql/schemas/object/apiaccesstoken" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT APIAccessToken">
-              <code>APIAccessToken</code>
-            </a>
-            <a href="/docs/apis/graphql/schemas/object/apiaccesstokencode" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT APIAccessTokenCode">
-              <code>APIAccessTokenCode</code>
-            </a>
+            <div>
+              <a href="/docs/apis/graphql/schemas/object/apiaccesstoken" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT APIAccessToken">
+                <code>APIAccessToken</code>
+              </a>
+              <a href="/docs/apis/graphql/schemas/object/apiaccesstokencode" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT APIAccessTokenCode">
+                <code>APIAccessTokenCode</code>
+              </a>
+            </div>
           HTML
         )
       end
@@ -368,7 +412,7 @@ RSpec.describe RenderHelpers do
                   <td>
                     <p>
                       <strong><code>twoFactorEnabled</code></strong>
-                      <a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean!</code></a>
+                      <a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean</code></a>
                     </p>
                   </td>
                 </tr>
@@ -376,7 +420,7 @@ RSpec.describe RenderHelpers do
                   <td>
                     <p>
                       <strong><code>passwordProtected</code></strong>
-                      <a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean!</code></a>
+                      <a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean</code></a>
                     </p>
                     <p>Test description</p>
                     <p>Default value: Test default</p>
@@ -427,12 +471,14 @@ RSpec.describe RenderHelpers do
         expect(interfaces_string).to eq(
           <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
             <h2 data-algolia-exclude>Interfaces</h2>
-            <a href="/docs/apis/graphql/schemas/interface/authorization" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE Authorization">
-              <code>Authorization</code>
-            </a>
-            <a href="/docs/apis/graphql/schemas/interface/node" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE Node">
-              <code>Node</code>
-            </a>
+            <div>
+              <a href="/docs/apis/graphql/schemas/interface/authorization" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE Authorization">
+                <code>Authorization</code>
+              </a>
+              <a href="/docs/apis/graphql/schemas/interface/node" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE Node">
+                <code>Node</code>
+              </a>
+            </div>
           HTML
         )
       end
@@ -606,30 +652,32 @@ RSpec.describe RenderHelpers do
         "possibleTypes" => nil
       }
 
-      page_string = render_page(schema_type_data).gsub(/^[\s\t]*|[\s\t]*\n/, '')
+      page_string = render_page(schema_type_data, 'Object').gsub(/^[\s\t]*|[\s\t]*\n/, '')
 
       expect(page_string).to eq(
         <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
           ---
+          #  _____   ____    _   _  ____ _______   ______ _____ _____ _______
+          #  |  __ \ / __ \  | \ | |/ __ \__   __| |  ____|  __ \_   _|__   __|
+          #  | |  | | |  | | |  \| | |  | | | |    | |__  | |  | || |    | |
+          #  | |  | | |  | | | . ` | |  | | | |    |  __| | |  | || |    | |
+          #  | |__| | |__| | | |\  | |__| | | |    | |____| |__| || |_   | |
+          #  |_____/ \____/  |_| \_|\____/  |_|    |______|_____/_____|  |_|
+          #  This file is auto-generated by script/generate_graphql_api_content.sh,
+          #  please build the schema.graphql by running `rails graphql:update_reference_schema`
+          #  with https://github.com/buildkite/buildkite/,
+          #  replace the content in data/schema.graphql
+          #  and run the generation script `./scripts/generate-graphql-api-content.sh`.
+
+          title: JobTypeTrigger – Object – GraphQL API
           toc: false
           ---
-          <!--
-            _____   ____    _   _  ____ _______   ______ _____ _____ _______
-            |  __ \ / __ \  | \ | |/ __ \__   __| |  ____|  __ \_   _|__   __|
-            | |  | | |  | | |  \| | |  | | | |    | |__  | |  | || |    | |
-            | |  | | |  | | | . ` | |  | | | |    |  __| | |  | || |    | |
-            | |__| | |__| | | |\  | |__| | | |    | |____| |__| || |_   | |
-            |_____/ \____/  |_| \_|\____/  |_|    |______|_____/_____|  |_|
-            This file is auto-generated by script/generate_graphql_api_content.sh,
-            please build the schema.json by running `rails api:graph:export`
-            with https://github.com/buildkite/buildkite/,
-            replace the content in data/graphql_data_schema.json
-            and run the generation script `./scripts/generate-graphql-api-content.sh`.
-          -->
           <!-- vale off -->
-          <h1 class="has-pills" data-algolia-exclude>JobTypeTrigger<span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></h1>
+          <h1 class="has-pills">JobTypeTrigger<span data-algolia-exclude><span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></span></h1>
           <!-- vale on -->
-          <p>A type of job that triggers another build on a pipeline</p>
+
+          A type of job that triggers another build on a pipeline
+
           <table class="responsive-table responsive-table--single-column-rows">
             <thead>
               <th>
@@ -639,13 +687,13 @@ RSpec.describe RenderHelpers do
             <tbody>
               <tr>
                 <td>
-                  <h3 class="is-small has-pills"><code>build</code><a href="/docs/apis/graphql/schemas/object/build" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Build"><code>Build!</code></a></h3>
+                  <h3 class="is-small has-pills"><code>build</code><a href="/docs/apis/graphql/schemas/object/build" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Build"><code>Build</code></a></h3>
                   <p>The build that this job is a part of</p>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3>
+                  <h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3>
                   <div>
                     <details>
                       <summary>Arguments</summary>
@@ -653,13 +701,13 @@ RSpec.describe RenderHelpers do
                         <tbody>
                           <tr>
                             <td>
-                              <h4 class="is-small has-pills no-margin"><code>first</code><a href="/docs/apis/graphql/schemas/scalar/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int!</code></a></h4>
+                              <h4 class="is-small has-pills no-margin"><code>first</code><a href="/docs/apis/graphql/schemas/scalar/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int</code></a></h4>
                               <p>Returns the first <em>n</em> elements from the list.</p>
                             </td>
                           </tr>
                           <tr>
                             <td>
-                              <h4 class="is-small has-pills no-margin"><code>after</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h4>
+                              <h4 class="is-small has-pills no-margin"><code>after</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h4>
                               <p>Returns the elements in the list that come after the specified cursor.</p>
                             </td>
                           </tr>
@@ -672,7 +720,7 @@ RSpec.describe RenderHelpers do
             </tbody>
           </table>
           <h2 data-algolia-exclude>Interfaces</h2>
-          <a href="/docs/apis/graphql/schemas/interface/node" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE Node"><code>Node</code></a>
+          <div><a href="/docs/apis/graphql/schemas/interface/node" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE Node"><code>Node</code></a></div>
 
         HTML
       )
@@ -684,27 +732,27 @@ RSpec.describe RenderHelpers do
           "kind" => "OBJECT",
           "name" => "__DirectiveLocation"
         }
-        page_string = render_page(schema_type_data).gsub(/^[\s\t]*|[\s\t]*\n/, '')
+        page_string = render_page(schema_type_data, 'Object').gsub(/^[\s\t]*|[\s\t]*\n/, '')
         expect(page_string).to eq(
           <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
             ---
+            #  _____   ____    _   _  ____ _______   ______ _____ _____ _______
+            #  |  __ \ / __ \  | \ | |/ __ \__   __| |  ____|  __ \_   _|__   __|
+            #  | |  | | |  | | |  \| | |  | | | |    | |__  | |  | || |    | |
+            #  | |  | | |  | | | . ` | |  | | | |    |  __| | |  | || |    | |
+            #  | |__| | |__| | | |\  | |__| | | |    | |____| |__| || |_   | |
+            #  |_____/ \____/  |_| \_|\____/  |_|    |______|_____/_____|  |_|
+            #  This file is auto-generated by script/generate_graphql_api_content.sh,
+            #  please build the schema.graphql by running `rails graphql:update_reference_schema`
+            #  with https://github.com/buildkite/buildkite/,
+            #  replace the content in data/schema.graphql
+            #  and run the generation script `./scripts/generate-graphql-api-content.sh`.
+
+            title: __DirectiveLocation – Object – GraphQL API
             toc: false
             ---
-            <!--
-              _____   ____    _   _  ____ _______   ______ _____ _____ _______
-              |  __ \ / __ \  | \ | |/ __ \__   __| |  ____|  __ \_   _|__   __|
-              | |  | | |  | | |  \| | |  | | | |    | |__  | |  | || |    | |
-              | |  | | |  | | | . ` | |  | | | |    |  __| | |  | || |    | |
-              | |__| | |__| | | |\  | |__| | | |    | |____| |__| || |_   | |
-              |_____/ \____/  |_| \_|\____/  |_|    |______|_____/_____|  |_|
-              This file is auto-generated by script/generate_graphql_api_content.sh,
-              please build the schema.json by running `rails api:graph:export`
-              with https://github.com/buildkite/buildkite/,
-              replace the content in data/graphql_data_schema.json
-              and run the generation script `./scripts/generate-graphql-api-content.sh`.
-            -->
             <!-- vale off -->
-            <h1 class="has-pills" data-algolia-exclude>__DirectiveLocation<span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></h1>
+            <h1 class="has-pills">__DirectiveLocation<span data-algolia-exclude><span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></span></h1>
             <!-- vale on -->
             <!-- vale off -->
             <!-- vale on -->

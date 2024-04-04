@@ -32,10 +32,12 @@ meaning you will have to handle all commit statuses through the pipeline.yml
 
 ### Example
 
-    $ buildkite-agent step update "label" "New Label"
-    $ buildkite-agent step update "label" " (add to end of label)" --append
-    $ buildkite-agent step update "label" < ./tmp/some-new-label
-    $ ./script/label-generator | buildkite-agent step update "label"
+```shell
+$ buildkite-agent step update "label" "New Label"
+$ buildkite-agent step update "label" " (add to end of label)" --append
+$ buildkite-agent step update "label" < ./tmp/some-new-label
+$ ./script/label-generator | buildkite-agent step update "label"
+```
 
 ### Options
 

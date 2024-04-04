@@ -93,6 +93,8 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
+Note that conditional expressions on the build state are only available at the pipeline level. You can't use them at the step level.
+
 ## Conditionals and the broken state
 
 Jobs become `broken` when their configuration prevents them from running. This might be because their [branch configuration](/docs/pipelines/branch-configuration) doesn't match the build's branch, or because a conditional returned `false`. This is distinct from `skipped` jobs, which might happen if a newer build is started and build skipping is enabled. A rough explanation is that jobs break because of something _inside_ the build and are skipped by something _outside_ the build.

@@ -14,16 +14,17 @@ You can subscribe to one or more of the following events:
   <tr><th>Event</th><th>Description</th></tr>
 </thead>
 <tbody>
-  <tr><th>ping</th><td>Webhook notification settings have changed</td></tr>
-  <tr><th>build.scheduled</th><td>A build has been scheduled</td></tr>
-  <tr><th>build.running</th><td>A build has started running</td></tr>
-  <tr><th>build.failing</th><td>A build is failing</td></tr>
-  <tr><th>build.finished</th><td>A build has finished</td></tr>
-  <tr><th>job.scheduled</th><td>A job has been scheduled</td></tr>
-  <tr><th>job.started</th><td>A command step job has started running on an agent</td></tr>
-  <tr><th>job.finished</th><td>A job has finished</td></tr>
-  <tr><th>job.activated</th><td>A block step job has been unblocked using the web or API</td></tr>
+  <tr><th><code>ping</code></th><td>Webhook notification settings have changed</td></tr>
+  <tr><th><code>build.scheduled</code></th><td>A build has been scheduled</td></tr>
+  <tr><th><code>build.running</code></th><td>A build has started running</td></tr>
+  <tr><th><code>build.failing</code></th><td>A build is failing</td></tr>
+  <tr><th><code>build.finished</code></th><td>A build has finished</td></tr>
+  <tr><th><code>job.scheduled</code></th><td>A job has been scheduled</td></tr>
+  <tr><th><code>job.started</code></th><td>A command step job has started running on an agent</td></tr>
+  <tr><th><code>job.finished</code></th><td>A job has finished</td></tr>
+  <tr><th><code>job.activated</code></th><td>A block step job has been unblocked using the web or API</td></tr>
   <%= render_markdown partial: 'apis/webhooks/agent_events_table' %>
+  <tr><th><code>cluster_token.registration_blocked</code></th><td>An attempted agent registration has been blocked because the request IP address is not included in the agent token's <a href="/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td></tr>
 </tbody>
 </table>
 
@@ -65,7 +66,7 @@ Each event's data is sent JSON encoded in the request body. See each event's doc
 ```
 
 >🚧 Fast transitions and webhooks
-> Note that if a builds transitions between states very quickly, for example from blocked (<code>finished</code>) to unblocked (<code>running</code>), the webhook may be in a different state from the actual build. This is a known limitation of webhooks, in that they may represent a later version of the object than the one that triggered the event.
+> Note that if a build transitions between states very quickly, for example from blocked (<code>finished</code>) to unblocked (<code>running</code>), the webhook may be in a different state from the actual build. This is a known limitation of webhooks, in that they may represent a later version of the object than the one that triggered the event.
 
 ## Webhook token
 
@@ -171,4 +172,4 @@ The following example repositories show how to receive a webhook event and trigg
 
 ## Request logs
 
-The last 50 webhook request and responses are saved, so you can debug and inspect your webhook. Each webhook's request logs are available on the bottom of their settings page.
+The last 20 webhook request and responses are saved, so you can debug and inspect your webhook. Each webhook's request logs are available on the bottom of their settings page.

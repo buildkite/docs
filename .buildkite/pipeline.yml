@@ -11,19 +11,25 @@ steps:
           run: app
           dependencies: false
           env:
+            - BUILDKITE_ANALYTICS_TOKEN
+            - BUILDKITE_BRANCH
+            - BUILDKITE_BUILD_ID
+            - BUILDKITE_BUILD_NUMBER
+            - BUILDKITE_BUILD_URL
+            - BUILDKITE_COMMIT
             - BUILDKITE_JOB_ID
+            - BUILDKITE_MESSAGE
             - CI
             - RAILS_ENV
-            - BUILDKITE_ANALYTICS_TOKEN
 
-  - label: ":lipstick: Compile assets"
+  - label: ":docker: Build image"
     depends_on: "linting"
-    command: bundle exec rake assets:precompile
     key: "assets"
+    env:
+      RAILS_ENV: production
     plugins:
       - docker-compose#v3.9.0:
-          run: app
-          config: docker-compose.production.yml
+          build: app
 
   - label: ":spider: muffet"
     # We need to wait until rails has started before running muffet as otherwise it will error out
@@ -37,17 +43,20 @@ steps:
         sleep 0.5;
       done &&
       echo 💎🛤️🚆 Rails has started running &&
-      /muffet http://app:3000/docs --include=/docs/ --exclude=https://github.com/buildkite/docs/ --max-connections=10 --color=always
+      /muffet http://app:3000/docs \
+        --include="/docs/" \
+        --exclude="https://github.com/buildkite/docs/" \
+        --exclude="buildkite.com/docs" \
+        --max-connections=10 \
+        --color=always
     env:
-      RAILS_ENV: test
+      RAILS_ENV: production
     plugins:
       - docker-compose#v3.9.0:
           run: muffet
           shell: false
           upload-container-logs: always
           env:
-            - BUILDKITE_JOB_ID
-            - CI
             - RAILS_ENV
 
   - label: ":junit: Test Summary"
@@ -72,7 +81,7 @@ steps:
           - npm run prettier-check
         plugins:
           - docker#v3.7.0:
-              image: "node:lts-alpine3.14"
+              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
 
       - label: ":lint-roller: Linting text and markdown"
         plugins:
@@ -89,7 +98,7 @@ steps:
           - docker#v3.7.0:
               # Alpine 3.14 - EOS 01 May 2023
               # lts = Node 1415.1 - 2023-04-30
-              image: "node:lts-alpine3.14"
+              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
 
       - label: "Validate YAML"
         command:
@@ -97,16 +106,16 @@ steps:
           - npm run -y validate-environment-variables-yaml
         plugins:
           - docker#v3.7.0:
-              image: "node:lts-alpine3.14"
+              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
 
       - label: ":lint-roller: :markdown: Linting the Markdown"
         command: npm run -y mdlint
         plugins:
           - docker#v3.7.0:
-              image: "node:lts-alpine3.14"
+              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
 
       - label: ":snake: Linting markdown files for snake case"
-        command: npx -y @ls-lint/ls-lint
+        command: npx -y @ls-lint/ls-lint@2.1.0
         plugins:
           - docker#v3.7.0:
-              image: "node:lts-alpine3.14"
+              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"

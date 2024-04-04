@@ -1,3 +1,7 @@
+---
+keywords: docs, pipelines, deployments
+---
+
 # Deployments with Buildkite
 
 There are many ways to set up both manual and continuous deployment workflows using Buildkite. This covers various ways of architecting deployment pipelines, common workflows, and how to integrate with external deployment systems.

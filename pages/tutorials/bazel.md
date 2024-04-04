@@ -1,3 +1,7 @@
+---
+keywords: docs, pipelines, tutorials, bazel
+---
+
 # Using Bazel on Buildkite
 
 [Bazel](https://www.bazel.build/) is an open-source build and test tool similar to Make, Maven, and Gradle.

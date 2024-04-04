@@ -25,8 +25,10 @@ If you leave context blank, it will use the default context.
 
 ### Example
 
-    $ buildkite-agent annotation remove
-    $ buildkite-agent annotation remove --context "remove-me"
+```shell
+$ buildkite-agent annotation remove
+$ buildkite-agent annotation remove --context "remove-me"
+```
 
 ### Options
 

@@ -9,7 +9,6 @@ The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for
 This guide leads you through getting started with the stack for Linux and Windows.
 
 <!-- vale off -->
-<!-- alex ignore master -->
 
 > 📘 Get hands-on
 > Read on for detailed instructions, or jump straight in:
@@ -22,18 +21,18 @@ This guide leads you through getting started with the stack for Linux and Window
 Most Elastic CI Stack for AWS features are supported on both Linux and Windows.
 The following AMIs are available in all the supported regions:
 
-- Amazon Linux 2 (64-bit x86)
-- Amazon Linux 2 (64-bit ARM, Graviton)
+- Amazon Linux 2023 (64-bit x86)
+- Amazon Linux 2023 (64-bit ARM, Graviton)
 - Windows Server 2019 (64-bit x86)
 
-If you want to use the [AWS CLI](https://aws.amazon.com/cli/) instead, download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/config.json.example), rename it to `config.json`, add your Buildkite Agent token (and any other config values), and then run the below command:
+If you want to use the [AWS CLI](https://aws.amazon.com/cli/) instead, download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/config.json.example), rename it to `config.json`, add your Buildkite Agent token (and any other config values), and then run the below command:
 
 ```bash
 aws cloudformation create-stack \
   --output text \
   --stack-name buildkite \
   --template-url "https://s3.amazonaws.com/buildkite-aws-stack/latest/aws-stack.yml" \
-  --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
+  --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND \
   --parameters "$(cat config.json)"
 ```
 
@@ -42,7 +41,7 @@ aws cloudformation create-stack \
 The Elastic CI Stack for AWS does not require familiarity with the underlying AWS services to deploy it. However, to run builds, some familiarity with the following AWS services is required:
 
 - [AWS CloudFormation](https://aws.amazon.com/cloudformation/)
-- [Amazon EC2](https://aws.amazon.com/ec2/) (to select an EC2 `InstanceType` stack parameter appropriate for your workload)
+- [Amazon EC2](https://aws.amazon.com/ec2/) (to select an EC2 `InstanceTypes` stack parameter appropriate for your workload)
 - [Amazon S3](https://aws.amazon.com/s3/) (to copy your git clone secret for cloning and building private repositories)
 
 Elastic CI Stack for AWS provides defaults and pre-configurations suited for most use cases without the need for additional customization. Still, you'll benefit from familiarity with VPCs, availability zones, subnets, and security groups for custom instance networking.
@@ -71,13 +70,15 @@ Buildkite services are billed according to your [plan](https://buildkite.com/pri
 
 <!-- vale off -->
 
-- [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/)
-- [Buildkite Agent v3.44.0](https://buildkite.com/docs/agent)
-- [Git v2.39.1](https://git-scm.com/) and [Git LFS v3.3.0](https://git-lfs.com/)
-- [Docker](https://www.docker.com) - v20.10.23 (Linux) and v20.10.9 (Windows)
-- [Docker Compose](https://docs.docker.com/compose/) - v1.29.2 and v2.16.0 (Linux) and v1.29.2 (Windows)
+- [Amazon Linux 2023](https://aws.amazon.com/amazon-linux-2/)
+- [Buildkite Agent v3.50.2](https://buildkite.com/docs/agent)
+- [Git](https://git-scm.com/) and [Git LFS](https://git-lfs.com/)
+- [Docker](https://www.docker.com)
+- [Docker Compose](https://docs.docker.com/compose/)
 - [AWS CLI](https://aws.amazon.com/cli/) - useful for performing any ops-related tasks
 - [jq](https://stedolan.github.io/jq/) - useful for manipulating JSON responses from CLI tools such as AWS CLI or the Buildkite API
+
+For more details on what versions are installed on a given Elastic CI Stack, see the corresponding [release announcement](https://github.com/buildkite/elastic-ci-stack-for-aws/releases).
 
 <!-- vale on -->
 
@@ -113,7 +114,18 @@ If you don't know your agent token, there is a _Reveal Agent Token_ button avail
 
 <%= image "buildkite-agent-token.png", size: "#{752/2}x#{424/2}", alt: "Reveal Agent Token" %>
 
-By default the stack uses a job queue of `default`, but you can specify any other queue name you like. See the [Buildkite Agent job queue docs](/docs/agent/v3/queues) for more info.
+By default the stack uses a job queue of `default`, but you can specify any other queue name you like.
+
+A common example of setting a queue for a dedicated Windows agent can be achieved with the following in your `pipeline.yml` after you've set up your Windows stack:
+
+```yaml
+steps:
+  - command: echo "hello from windows"
+    agents:
+      queue: "windows"
+```
+
+For more information, see [Buildkite Agent job queues](/docs/agent/v3/queues), specifically [Targeting a queue](/docs/agent/v3/queues#targeting-a-queue).
 
 Review the parameters, see [Elastic CI Stack for AWS parameters](/docs/agent/v3/elastic_ci_aws/parameters) for more details.
 

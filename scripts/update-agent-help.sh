@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 set -euo pipefail
 
 commands=(
@@ -24,17 +25,21 @@ commands=(
   "meta-data set"
   "oidc request-token"
   "pipeline upload"
+  "redactor add"
+  "secret get"
   "start"
   "step get"
   "step update"
+  "tool keygen"
+  "tool sign"
 )
 
-scripts_dir="$(dirname "${BASH_SOURCE[0]}")"
-base_dir=$( cd "${scripts_dir}/.." ; pwd -P )
+scripts_dir=$(dirname "${BASH_SOURCE[0]}")
+base_dir=$(git rev-parse --show-toplevel)
 
-for command in "${commands[@]}" ; do
+for command in "${commands[@]}"; do
   file="${base_dir}/pages/agent/v3/help/_${command//[- ]/_}.md"
-  if [[ ! -f "$file" ]] ; then
+  if [[ ! -f "$file" ]]; then
     echo "File $file doesn't exist"
     exit 1
   fi
@@ -58,5 +63,7 @@ script.
 
 EOF
 
-  buildkite-agent $command --help | ruby "${scripts_dir}/cli2md.rb" >>"$file"
+  # shellcheck disable=SC2086
+  buildkite-agent $command --help | \
+    ruby "${scripts_dir}/cli2md.rb" >>"$file"
 done

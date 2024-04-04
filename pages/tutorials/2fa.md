@@ -1,3 +1,7 @@
+---
+keywords: docs, pipelines, tutorials, 2fa
+---
+
 # Two-factor authentication
 
 Two-factor authentication (2FA) can be added to your Buildkite account to provide an additional layer of security and to make sure your builds are safe even if your login credentials are compromised (exposed or stolen).  
@@ -50,12 +54,8 @@ You need to ask the administrator of your Buildkite organization to remove your 
 
 ## Enforcing two-factor authentication for the whole organization
 
-Currently, it's not possible to enforce 2FA in Buildkite for members of an organization. However, you can check the current 2FA status using the [User Settings](https://buildkite.com/user/settings) page for your organization. You'll see a 2FA badge next to the users who have it enabled.
-
-<%= image "2fa-8.png", width: 866, height: 222, alt: "Checking Two-Factor Authentication Status of a User" %>
-
-If conducting a regular audit is not enough, many SSO providers can enforce 2FA. In turn, Buildkite can enforce SSO for members of an organization. If you're already using an SSO provider this may be a solution. Read more about [using SSO with Buildkite](/docs/integrations/sso).
-
+Organization administrators who would like to enforce two-factor authentication
+across their entire organization can do so following the [Enforce 2FA](/docs/team-management/enforce-2fa) guide.
 
 [1Password]: <https://support.1password.com/one-time-passwords/>
 [OTP Auth]: <https://cooperrs.de/otpauth.html>

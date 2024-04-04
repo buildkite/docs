@@ -1,39 +1,27 @@
 {
   "index_name": "prod_docs",
-  "start_urls": [
-    "https://buildkite.com/docs"
-  ],
-  "stop_urls": [
-    "agent/v2"
-  ],
+  "start_urls": ["https://buildkite.com/docs"],
+  "stop_urls": ["agent/v2"],
   "selectors": {
     "lvl0": {
-      "selector": ".Docs__nav__section-container.current > .Docs__nav__section-heading",
-      "global": true,
-      "default_value": "Documentation"
+      "selector": ".SiteHeader__nav .Nav__link.Nav__link--level1.Nav__link--current",
+      "global": true
     },
-    "lvl1": ".Page h1",
-    "lvl2": ".Page h2",
-    "lvl3": ".Page h3",
-    "lvl4": ".Page h4, .Page th",
-    "lvl5": ".Page h5, .Page td:first-child",
-    "lvl6": ".Page h6",
-    "text": ".Page p, .Page li, .Page td"
+    "lvl1": ".Article h1",
+    "lvl2": ".Article h2",
+    "lvl3": ".Article h3",
+    "lvl4": ".Article h4, .Article th",
+    "lvl5": ".Article h5, .Article td:first-child",
+    "text": ".Article p, .Article li, .Article td"
   },
   "selectors_exclude": [
     "[data-algolia-exclude]",
-    ".Docs__toc",
-    ".HomepageCategory"
+    ".Toc",
+    ".Footer",
+    ".Page__sidebar",
+    ".Nav__section--level2"
   ],
   "custom_settings": {
-    "synonyms": [
-      [
-        "Pipeline.yml",
-        "Pipeline.yaml",
-        "config.yml",
-        "config.yaml"
-      ]
-
-    ]
+    "synonyms": [["Pipeline.yml", "Pipeline.yaml", "config.yml", "config.yaml"]]
   }
 }

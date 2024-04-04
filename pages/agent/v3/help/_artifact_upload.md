@@ -32,42 +32,56 @@ Buildkite-managed Amazon S3 bucket, where they’re retained for six months.
 
 ### Example
 
-    $ buildkite-agent artifact upload "log/**/*.log"
+```shell
+$ buildkite-agent artifact upload "log/**/*.log"
+```
 
 You can also upload directly to Amazon S3 if you&#39;d like to host your own artifacts:
 
-    $ export BUILDKITE_S3_ACCESS_KEY_ID=xxx
-    $ export BUILDKITE_S3_SECRET_ACCESS_KEY=yyy
-    $ export BUILDKITE_S3_DEFAULT_REGION=eu-central-1 # default is us-east-1
-    $ export BUILDKITE_S3_ACL=private # default is public-read
-    $ buildkite-agent artifact upload "log/**/*.log" s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID
+```shell
+$ export BUILDKITE_S3_ACCESS_KEY_ID=xxx
+$ export BUILDKITE_S3_SECRET_ACCESS_KEY=yyy
+$ export BUILDKITE_S3_DEFAULT_REGION=eu-central-1 # default is us-east-1
+$ export BUILDKITE_S3_ACL=private # default is public-read
+$ buildkite-agent artifact upload "log/**/*.log" s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID
+```
 
 You can use Amazon IAM assumed roles by specifying the session token:
 
-    $ export BUILDKITE_S3_SESSION_TOKEN=zzz
+```shell
+$ export BUILDKITE_S3_SESSION_TOKEN=zzz
+```
 
 Or upload directly to Google Cloud Storage:
 
-    $ export BUILDKITE_GS_ACL=private
-    $ buildkite-agent artifact upload "log/**/*.log" gs://name-of-your-gs-bucket/$BUILDKITE_JOB_ID
+```shell
+$ export BUILDKITE_GS_ACL=private
+$ buildkite-agent artifact upload "log/**/*.log" gs://name-of-your-gs-bucket/$BUILDKITE_JOB_ID
+```
 
 Or upload directly to Artifactory:
 
-    $ export BUILDKITE_ARTIFACTORY_URL=http://my-artifactory-instance.com/artifactory
-    $ export BUILDKITE_ARTIFACTORY_USER=carol-danvers
-    $ export BUILDKITE_ARTIFACTORY_PASSWORD=xxx
-    $ buildkite-agent artifact upload "log/**/*.log" rt://name-of-your-artifactory-repo/$BUILDKITE_JOB_ID
+```shell
+$ export BUILDKITE_ARTIFACTORY_URL=http://my-artifactory-instance.com/artifactory
+$ export BUILDKITE_ARTIFACTORY_USER=carol-danvers
+$ export BUILDKITE_ARTIFACTORY_PASSWORD=xxx
+$ buildkite-agent artifact upload "log/**/*.log" rt://name-of-your-artifactory-repo/$BUILDKITE_JOB_ID
+```
 
-By default, symlinks to directories will not be explored when resolving the glob, but symlinks to files will be uploaded as the linked files.
-To ignore symlinks to files use:
+By default, symlinks to directories will not be explored when resolving the glob, but symlinks to
+files will be uploaded as the linked files. To ignore symlinks to files use:
 
-    $ buildkite-agent artifact upload --upload-skip-symlinks "log/**/*.log"
+```shell
+$ buildkite-agent artifact upload --upload-skip-symlinks "log/**/*.log"
+```
 
 Note: uploading symlinks to files without following them is not supported.
 If you need to preserve them in a directory, we recommend creating a tar archive:
 
-    $ tar -cvf log.tar log/**/*
-    $ buildkite-agent upload log.tar
+```shell
+$ tar -cvf log.tar log/**/*
+$ buildkite-agent upload log.tar
+```
 
 ### Options
 

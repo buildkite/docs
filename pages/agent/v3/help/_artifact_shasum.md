@@ -32,7 +32,9 @@ which will break the download.
 
 ### Example
 
-    $ buildkite-agent artifact shasum "pkg/release.tar.gz" --build xxx
+```shell
+$ buildkite-agent artifact shasum "pkg/release.tar.gz" --build xxx
+```
 
 This will search for all files in the build with path &quot;pkg/release.tar.gz&quot;,
 and if exactly one match is found, the SHA-1 hash generated during upload
@@ -41,11 +43,13 @@ is printed.
 If you would like to target artifacts from a specific build step, you can do
 so by using the --step argument.
 
-    $ buildkite-agent artifact shasum "pkg/release.tar.gz" --step "release" --build xxx
+```shell
+$ buildkite-agent artifact shasum "pkg/release.tar.gz" --step "release" --build xxx
+```
 
 You can also use the step&#39;s job ID (provided by the environment variable $BUILDKITE_JOB_ID)
 
-The --sha256 argument requests SHA-256 instead of SHA-1; this is only
+The `--sha256` argument requests SHA-256 instead of SHA-1; this is only
 available for artifacts uploaded since SHA-256 support was added to the
 agent.
 
