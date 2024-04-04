@@ -15,12 +15,12 @@ title: job – Queries – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   job
-  <a href="/docs/apis/graphql/schemas/union/job" class="pill pill--union pill--normal-case pill--large" title="Go to UNION Job">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/union/job" class="pill pill--union pill--normal-case pill--large" title="Go to UNION Job">
   <code>Job</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

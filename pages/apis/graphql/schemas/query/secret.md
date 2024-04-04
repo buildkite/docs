@@ -15,12 +15,12 @@ title: secret – Queries – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   secret
-  <a href="/docs/apis/graphql/schemas/object/secret" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Secret">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/secret" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Secret">
   <code>Secret</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

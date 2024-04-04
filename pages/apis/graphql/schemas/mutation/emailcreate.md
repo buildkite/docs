@@ -15,12 +15,12 @@ title: emailCreate – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   emailCreate
-  <a href="/docs/apis/graphql/schemas/object/emailcreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT EmailCreatePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/emailcreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT EmailCreatePayload">
   <code>EmailCreatePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

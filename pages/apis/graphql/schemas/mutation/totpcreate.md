@@ -15,12 +15,12 @@ title: totpCreate – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   totpCreate
-  <a href="/docs/apis/graphql/schemas/object/totpcreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TOTPCreatePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/totpcreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TOTPCreatePayload">
   <code>TOTPCreatePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 
