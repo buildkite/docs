@@ -75,6 +75,50 @@ This option allows you to use simpler `gem` commands to publish your Ruby (gem) 
 
 ## Access a package's details
 
+A Ruby package's details can be accessed from this registry using the _Packages_ section of your Ruby registry page.
+
+To access your Ruby package's details page:
+
+1. Select _Packages_ in the global navigation to access the _Registries_ page.
+1. Select your Ruby registry on this page.
+1. On your Ruby registry page, select the package within the _Packages_ section. The package's details page is displayed.
+
+<%= render_markdown partial: 'packages/package_details_page_sections' %>
+
 ### Downloading a package
 
+A Ruby package can be downloaded from the package's details page.
+
+To download a package:
+
+1. [Access the package's details](#access-a-packages-details).
+1. Select _Download_.
+
 ### Installing a package
+
+A Ruby package can be installed using code snippet details provided on the package's details page.
+
+To install a package:
+
+1. [Access the package's details](#access-a-packages-details).
+1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
+1. Copy the command in the code snippet, paste it into your terminal, and submit it.
+
+This code snippet is based on this format:
+
+```bash
+gem install gem-package-name -v version.number \
+  --clear-sources --source https://{registry.read.token}@buildkitepackages.com/{org.slug}/{registry.name}
+```
+
+where:
+
+- `gem-package-name` is the name of your RubyGems gem package.
+
+- `version.number` is the version of your RubyGems gem package
+
+- `{registry.read.token}` is the Buildkite Packages-generated API token required to download packages from your Ruby registry. This URL component, along with the following `@` are not required for registries that are publicly accessible.
+
+<%= render_markdown partial: 'packages/org_slug' %>
+
+- `{registry.name}` is the name of your Ruby registry.

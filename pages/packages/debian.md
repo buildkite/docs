@@ -66,6 +66,10 @@ To download a package:
 
 ### Installing a package
 
+A Debian package can be installed using code snippet details provided on the package's details page.
+
+To install a package:
+
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
 1. Copy the set of commands in the code snippet, paste them into your terminal, and submit them.

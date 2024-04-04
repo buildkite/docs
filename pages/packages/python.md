@@ -66,6 +66,10 @@ To download a package:
 
 ### Installing a package
 
+A Python package can be installed using code snippet details provided on the package's details page.
+
+To install a package:
+
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
 1. Copy the code snippet and paste this into either the package installer for Python (pip) configuration (`pip.conf`) file or end of the virtualenv `requirements.txt` file before installing this Python package.

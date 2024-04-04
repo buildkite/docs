@@ -95,6 +95,10 @@ To download a package:
 
 ### Installing a package
 
+A Java package can be installed using code snippet details provided on the package's details page.
+
+To install a package:
+
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
 1. Copy the code snippet, paste this into the `build.gradle` Gradle file, and execute this modified script file to install this package.
