@@ -111,7 +111,7 @@ To confirm that your Node.js package was successfully published to your Buildkit
         - the name of the package, obtained from the `name` field value
         - the package version, obtained from the `version` field value
         - the registry the package is located in
-        - the package's visibility (_Private_ by default), based on its repository's visibility
+        - the package's visibility (_Private_ by default), based on its registry's visibility
         - the distribution name/version (just _node.js_ in this case)
         - the package's license, obtained from the `licence` field value
     * _Download_: select this to download the package locally.

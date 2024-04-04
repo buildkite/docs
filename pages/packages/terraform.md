@@ -87,7 +87,7 @@ To download a module:
 
 1. [Access the module's details](#access-a-modules-details).
 1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
-1. If your Terraform registry is private, copy the top section of the code snippet, paste it into your `~/.terraformrc` configuration file. This code snippet is based on the format:
+1. If your Terraform registry is private, copy the top section of the code snippet, and paste it into your `~/.terraformrc` configuration file. This code snippet is based on the format:
 
     ```config
     credentials "buildkitepackages.com" {
@@ -100,7 +100,7 @@ To download a module:
 
     **Note:** This step only needs to be conducted once for the life of your Terraform registry.
 
-1. Copy the lower section of the code snippet, paste it into your Terraform file. This code snippet is based on the format:
+1. Copy the lower section of the code snippet, and paste it into your Terraform file. This code snippet is based on the format:
 
     ```terraform
     module "org_slug___registry_name_module_name" {

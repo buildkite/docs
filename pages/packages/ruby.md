@@ -32,7 +32,9 @@ where:
 <%= render_markdown partial: 'packages/org_slug' %>
 <%= render_markdown partial: 'packages/ruby_registry_name' %>
 
-### Using file configurations
+### Using configuration files
+
+This option allows you to use simpler `gem` commands to publish your Ruby (gem) packages after implementing the required configuration file changes:
 
 1. Copy the following set of commands, paste them and modify as required before submitting to create your `~/.gem/credentials` file:
 
