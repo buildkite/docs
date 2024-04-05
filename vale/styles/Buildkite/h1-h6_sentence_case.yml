@@ -17,11 +17,13 @@ exceptions:
   - ADFS
   - Advanced Queue Metrics
   - API
+  - APM
   - AWS
   - AWS Elastic Container Registry
   - Amazon
   - Amazon EventBridge
   - Amazon Web Services
+  - AMI
   - ANSI
   - API(s)
   - Artifactory
@@ -57,6 +59,7 @@ exceptions:
   - CloudFormation
   - CloudWatch
   - CloudWatch Logs
+  - CORS
   - CSS
   - Datadog
   - Debian
@@ -64,8 +67,10 @@ exceptions:
   - Docker
   - Docker Compose
   - Docker Hub
+  - EC2
   - Elastic
   - Elastic CI Stack
+  - Everyone
   - ExUnit
   - FAQs
   - FreeBSD
@@ -92,6 +97,10 @@ exceptions:
   - Google Workspace
   - GraphQL
   - Heroku
+  - HMAC
+  - HTTP
+  - IAM
+  - ID
   - IdP # TODO: unabbreviate this in headings
   - IDs
   - IronWorker
@@ -106,6 +115,7 @@ exceptions:
   - macOS
   - Markdown
   - minitest
+  - \.NET
   - OIDC
   - Okta
   - OneLogin
@@ -130,6 +140,7 @@ exceptions:
   - Ubuntu
   - URL
   - URL(s)
+  - UUID
   - VPC
   - VPN
   - Windows

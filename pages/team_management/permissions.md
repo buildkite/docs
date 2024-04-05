@@ -2,7 +2,6 @@
 
 Customers on the Buildkite [Business and Enterprise](https://buildkite.com/pricing) plans can manage permissions using [Teams](#permissions-with-teams). Enterprise customers can set fine-grained user permissions for their organization with the [member Permissions](#member-permissions) page.
 
-
 ## Permissions with teams
 
 Enabling Teams for your organizations gives you control over each pipeline's permissions in one place. Teams can be enabled from your Organization Settings in the Teams section.
@@ -83,14 +82,14 @@ When you enable Teams we'll create a default team called “Everyone”, contain
 #### How does Teams work with SSO?
 When a user joins the organization using SSO, they'll be automatically added to any teams that have the “Automatically add new users to this team” setting enabled.
 
-#### Can I delete the “Everyone” team?
-Yes, you can delete or edit the “Everyone” team. To ensure uninterrupted access to pipelines we recommend creating new teams before deleting the “Everyone” team.
+#### Can I delete the "Everyone" team?
+Yes, you can delete or edit the "Everyone" team. To ensure uninterrupted access to pipelines we recommend creating new teams before deleting the "Everyone" team.
 
 #### Can I set separate permissions specifically on rebuilds?
 No, rebuilds are in the same category with builds. Therefore, all team members with permissions to run builds on a certain pipeline are also able to perform rebuilds.
 
-#### Once enabled, can I disable Teams?
-Yes, you can disable teams by deleting all your teams, and then selecting “Disable Teams”.
+#### Once enabled, can I disable teams?
+Yes, you can disable teams by deleting all your teams, and then selecting "Disable Teams".
 
 #### Can I automate the removal of users from Buildkite?
 Yes, you can automatically remove users using the GraphQL API. You'll need a [GraphQL API token](https://buildkite.com/user/api-access-tokens) to do it.
