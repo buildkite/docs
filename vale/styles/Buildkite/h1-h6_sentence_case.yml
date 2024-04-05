@@ -10,31 +10,19 @@ scope:
   - heading.h6
 match: $sentence
 exceptions:
-  - YAML
-  - 2FA
-  - SSO
-  - REST
-  - QA
-  - API
-  - C\+\+
-  - SCIM
-  - URL
-  - JSON
-  - Xcode
-  - SSH
-  - CI
-  - VPN
-  - AWS
-  - CLI
   - '^(\d+\.) [A-Z]\w+' # Allow numbered headings. Example: "1. Install the thing"
   - '^(Agent|Build|Job) ([A-Z]\w+(ed|ing)|Lost)$' # Exceptions for /pages/integrations/amazon_eventbridge.md
   - '^(Step|Method) \d: [A-Z]\w+' # Allow caps after colon. Examples: "Step 3: Do the thing", "Method 2: Deploy keys"
+  - 2FA
   - ADFS
   - Advanced Queue Metrics
+  - API
+  - AWS
   - AWS Elastic Container Registry
   - Amazon
   - Amazon EventBridge
   - Amazon Web Services
+  - ANSI
   - API(s)
   - Artifactory
   - Audit Event Logged
@@ -59,13 +47,17 @@ exceptions:
   - Buildkite Packages
   - BuildNotify
   - BuildReactor
+  - C\+\+
   - CCMenu
   - CCTray
   - CentOS
+  - CI
   - CircleCI
+  - CLI
   - CloudFormation
   - CloudWatch
   - CloudWatch Logs
+  - CSS
   - Datadog
   - Debian
   - Free Plan
@@ -105,6 +97,7 @@ exceptions:
   - IronWorker
   - JavaScript
   - Jenkins
+  - JSON
   - JUnit
   - Kubernetes
   - Linux
@@ -113,6 +106,7 @@ exceptions:
   - macOS
   - Markdown
   - minitest
+  - OIDC
   - Okta
   - OneLogin
   - OpenTelemetry
@@ -121,16 +115,26 @@ exceptions:
   - Phabricator
   - PowerShell
   - pytest
+  - QA
   - Red Hat
   - Red Hat Enterprise Linux
+  - REST
   - RSpec
   - SAML
+  - SCIM
   - Slack
+  - S3
+  - SSH
+  - SSO
   - Test Analytics
   - Ubuntu
+  - URL
   - URL(s)
+  - VPC
+  - VPN
   - Windows
   - Windows Subsystem for Linux 2
   - Xcode
   - XCTest
   - XML
+  - YAML
