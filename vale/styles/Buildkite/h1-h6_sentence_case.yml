@@ -116,7 +116,7 @@ exceptions:
   - macOS
   - Markdown
   - minitest
-  - .NET
+  - NET
   - OIDC
   - Okta
   - OneLogin
