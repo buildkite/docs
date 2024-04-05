@@ -43,6 +43,7 @@ exceptions:
   - Basecamp Campfire
   - Bitbucket
   - Bitbucket Server
+  - BUILD_AND_READ
   - Buildkite
   - Buildkite Agent
   - Buildkite Agents
@@ -115,7 +116,7 @@ exceptions:
   - macOS
   - Markdown
   - minitest
-  - \.NET
+  - .NET
   - OIDC
   - Okta
   - OneLogin
@@ -126,6 +127,7 @@ exceptions:
   - PowerShell
   - pytest
   - QA
+  - READ_ONLY
   - Red Hat
   - Red Hat Enterprise Linux
   - REST
