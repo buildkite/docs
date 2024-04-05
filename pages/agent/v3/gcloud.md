@@ -21,13 +21,13 @@ Follow the [setup instructions for Ubuntu](/docs/agent/v3/ubuntu).
 
 [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine) can run the agent as a [Docker](https://www.docker.com) container using [Kubernetes](https://kubernetes.io). To [run Docker–based builds](/docs/tutorials/docker-containerized-builds), ensure the container is started with a [privileged security context](https://kubernetes.io/docs/concepts/workloads/pods/#privileged-mode-for-containers) and mount the Docker socket as a volume.
 
-In the [Google Cloud Console](https://console.cloud.google.com/kubernetes/add), create a _Standard_ Google Kubernetes Engine cluster:
+In the [Google Cloud Console](https://console.cloud.google.com/kubernetes/add), create a **Standard** Google Kubernetes Engine cluster:
 
 <%= image "create-a-k8s-cluster.png", width: 863, height: 917, alt: "Screenshot of creating a Google Kubernetes Engine cluster using the Google Cloud Console" %>
 
 Open [Google Cloud Shell](https://cloud.google.com/shell/), or your own console with [gcloud](https://cloud.google.com/sdk/gcloud/) installed and authenticated.j
 
-Then, after a minute, configure kubectl to talk to your new cluster. The console includes a _Connect_ button which shows the exact command to run:
+Then, after a minute, configure kubectl to talk to your new cluster. The console includes a **Connect** button which shows the exact command to run:
 
 <%= image "connect-to-k8s-cluster.png", width: 1044, height: 511, alt: "Screenshot of cluster connection settings in the Google Cloud Console" %>
 

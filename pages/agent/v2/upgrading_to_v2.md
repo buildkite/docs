@@ -52,12 +52,12 @@ To make installation easier we've created packages for each of the major operati
 
 ## Upgrading a 1.0 beta agent
 
-To upgrade a _Ubuntu / Debian_ 1.0 beta agent:
+To upgrade a **Ubuntu / Debian** 1.0 beta agent:
 
 * Edit `/etc/apt/sources.list.d/buildkite-agent.list` and replace the word `unstable` (or `experimental`) with `stable`
 * Run `sudo apt-get update && sudo apt-get upgrade -y buildkite-agent`
 
-To upgrade a _Red Hat / CentOS_ 1.0 beta agent:
+To upgrade a **Red Hat / CentOS** 1.0 beta agent:
 
 * Edit `/etc/yum.repos.d/buildkite-agent.repo` and replace the word `unstable` (or `experimental`) with `stable`
 * Run `sudo yum clean expire-cache && sudo yum update buildkite-agent`
