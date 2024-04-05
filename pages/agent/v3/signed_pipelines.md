@@ -143,7 +143,7 @@ Regularly rotating signing and verification keys is good security practice, as i
 
 To rotate your keys:
 
-1. [Generate a new key pair](#enabling-signed-pipelines-on-your-agents-1-generate-a-key-pair).
+1. [Generate a new key pair](#enabling-signed-pipelines-on-your-agents-step-1-generate-a-key-pair).
 1. Add the new keys to your existing key sets. Be careful not to mix public and private keys.
 1. Update the `signing-key-id` on your signing agents to use the new key ID.
 
