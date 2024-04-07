@@ -29,9 +29,7 @@ On this page, we've collected the known limitation where some API features are o
 * <%= pill "JOBS", "jobs" %> list job events.
 * <%= pill "JOBS", "jobs" %> [Cancel a job](/docs/apis/graphql/schemas/mutation/jobtypecommandcancel).
 * <%= pill "ORGANIZATIONS", "organizations" %> [Remove users from an organization](/docs/apis/graphql/cookbooks/organizations#delete-an-organization-member).
-* <%= pill "ORGANIZATIONS", "organizations" %> Manage teams - [add](/docs/apis/graphql/cookbooks/teams#add-an-existing-organization-user-to-a-team) or [remove](/docs/apis/graphql/cookbooks/teams#remove-a-team-member) a team member. Most of the team management features are only available for GraphQL. The REST API can only list teams and can create pipelines in teams.
 * <%= pill "ORGANIZATIONS", "organizations" %> [Set up SSO](/docs/integrations/sso/sso-setup-with-graphql).
-* <%= pill "ORGANIZATIONS", "organizations" %> [Remove pipeline edit access from existing teams](/docs/apis/graphql/cookbooks/teams#set-teams-pipeline-edit-access-to-read-only-or-build-and-read).
 * <%= pill "PIPELINES", "pipelines" %> [Get all the pipeline metrics from the dashboard from the API](/docs/apis/graphql/cookbooks/pipelines#get-pipeline-metrics).
 * <%= pill "PIPELINES", "pipelines" %> [Get the last build's creation date within every pipeline](/docs/apis/graphql/cookbooks/builds#get-the-creation-date-of-the-most-recent-build-in-every-pipeline).
 * <%= pill "PIPELINES", "pipelines" %> [Count the number of builds on a branch](/docs/apis/graphql/cookbooks/builds#count-the-number-of-builds-on-a-branch).
@@ -46,4 +44,3 @@ These are known requested features that are currently missing from both REST and
 
 * <%= pill "NOTIFICATION SERVICES", "notification-services" %> There is no API for managing notification services.
 * <%= pill "USERS", "users" %> Display secondary user emails.
-
