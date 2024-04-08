@@ -16,7 +16,7 @@ Auto Scaling group to attempt to scale out again and see if the error persists.
 * Your launch template's AMI may not have been associated with a Customer
 Managed License in AWS License Manager. Ensure you [associate your AMI](/docs/agent/v3/elastic-ci-stack-for-ec2-mac/autoscaling-mac-metal#step-3-associate-your-ami-with-a-self-managed-license-in-aws-license-manager)
 and any new AMIs with a Customer managed license. Ensure the License
-configuration has a *License type* of `Cores`.
+configuration has a **License type** of `Cores`.
 
 ## My instances don't start the `buildkite-agent`
 
