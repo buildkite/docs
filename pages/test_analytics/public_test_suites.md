@@ -21,11 +21,11 @@ Before making a suite public, you should verify that runs do not expose sensitiv
 
 ## Make a test suite public using the UI
 
-You make a test suite public from the suite's _Settings_:
+You make a test suite public from the suite's **Settings**:
 
 <%= image "settings.png", width: 1960/2, height: 630/2, alt: "Public test suite settings" %>
 
-Only organization admins have permission to make a test suite public by default. Admins can extend this permission to all organization members from the _Security_ tab in the organization settings.
+Only organization admins have permission to make a test suite public by default. Admins can extend this permission to all organization members from the **Security** tab in the organization settings.
 
 <%= image "security.png", width: 1960/2, height: 630/2, alt: "Public test suite settings" %>
 

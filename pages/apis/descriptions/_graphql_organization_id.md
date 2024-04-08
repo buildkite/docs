@@ -1,6 +1,6 @@
 - `organizationId` (required) can be obtained:
 
-    * From the _GraphQL API Integration_ section of your _Organization Settings_ page, accessed by selecting _Settings_ in the global navigation of your organization in Buildkite.
+    * From the **GraphQL API Integration** section of your **Organization Settings** page, accessed by selecting **Settings** in the global navigation of your organization in Buildkite.
 
     * By running a `getCurrentUsersOrgs` GraphQL API query to obtain the organization slugs for the current user's accessible organizations, followed by a [getOrgId](/docs/apis/graphql/schemas/query/organization) query, to obtain the organization's `id` using the organization's slug. For example:
 
@@ -33,4 +33,4 @@
         }
         ```
 
-        **Note:** The `organization-slug` value can also be obtained from the end of your Buildkite URL, by selecting _Pipelines_ in the global navigation of your organization in Buildkite.
+        **Note:** The `organization-slug` value can also be obtained from the end of your Buildkite URL, by selecting **Pipelines** in the global navigation of your organization in Buildkite.
