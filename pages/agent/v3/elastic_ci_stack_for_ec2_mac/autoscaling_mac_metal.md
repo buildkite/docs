@@ -90,9 +90,9 @@ Using the AWS Console, open the *AWS License Manager* and navigate to
 descriptive name and select a **License type** of `Cores`.
 
 Once your self-managed license has been saved, open the detail view for your
-license. Open the *Associated AMIs* tab and choose *Associate AMI*. From the
-list of *Available AMIs*, select your macOS template AMI and then click
-*Associate*.
+license. Open the **Associated AMIs** tab and choose **Associate AMI**. From the
+list of **Available AMIs**, select your macOS template AMI and then click
+**Associate**.
 
 ## Step 4: Deploy the CloudFormation template
 
