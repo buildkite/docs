@@ -50,7 +50,7 @@ If you have switched off all of your SSO providers, users will be required to lo
 If you are the administrator of an organization within Buildkite with an existing SSO provider set up, and you want to switch to a different SSO provider, these are the steps you need to take:
 
 1. [Add](/docs/integrations/sso#adding-sso) a new SSO provider, verify it, and allow login from both SSO providers. The users in your organization can continue to sign in and use the same user accounts within Buildkite as long as the emails stay the same.
-2. [Disable and remove](/docs/integrations/sso#disabling-and-removing-sso) the SSO provider you no longer need. If the user credentials (email) stay the same, this is all you need to migrate from one SSO provider to another.
+1. [Disable and remove](/docs/integrations/sso#disabling-and-removing-sso) the SSO provider you no longer need. If the user credentials (email) stay the same, this is all you need to migrate from one SSO provider to another.
 
 >📘
 > If you are also changing the email provider, make sure that Buildkite users in your organization sign in to their existing accounts when performing single sign-on through the new provider to prevent your organization being billed twice for the same users.

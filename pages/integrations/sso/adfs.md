@@ -10,7 +10,7 @@ ADFS SSO is available to customers on the Buildkite customers on the [Enterprise
 
 ## Step 1. Create a Buildkite SSO provider
 
-Click the Buildkite organization settings' **Single Sign On** menu item, then choose the ADFS provider from the available options:
+Click the [Buildkite organization **Settings**](https://buildkite.com/organizations/~/settings)' **Single Sign On** menu item, then choose the ADFS provider from the available options:
 
 <%= image "sso-settings.png", width: 1716/2, height: 884/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
@@ -65,35 +65,35 @@ From this point, add three rules, where each one begins with using the **Add Rul
 Rule 1
 
 1. **Choose rule type**: **Send LDAP Attributes as claims**
-2. **Configure claim rule**:
-	* **Claim Rule Name**: Get Attributes
-	* **Attribute Store**: Active Directory
-	* **Mapping of LDAP Attributes to outgoing claim types**:
-		- **LDAP Attribute**: Email Addresses, Outgoing claim type: Email address
-		- **LDAP Attribute**: Display-Name, Outgoing claim type: Name
-3. Click **Finish** to add the rule.
+1. **Configure claim rule**:
+    * **Claim Rule Name**: Get Attributes
+    * **Attribute Store**: Active Directory
+    * **Mapping of LDAP Attributes to outgoing claim types**:
+        - **LDAP Attribute**: Email Addresses, Outgoing claim type: Email address
+        - **LDAP Attribute**: Display-Name, Outgoing claim type: Name
+1. Click **Finish** to add the rule.
 
 Rule 2
 
 1. **Choose rule type**: **Transform an incoming claim**
-2. **Configure claim rule**:
-	* **Claim Rule Name**: Name ID Transform
-	* **Incoming Claim Type**: Email address
-	* **Outgoing Claim Type**: Name ID
-	* **Outgoing Name ID Format**: Email
-	* Select **Pass through all claim values**
-3. Click **Finish** to add the rule.
+1. **Configure claim rule**:
+    * **Claim Rule Name**: Name ID Transform
+    * **Incoming Claim Type**: Email address
+    * **Outgoing Claim Type**: Name ID
+    * **Outgoing Name ID Format**: Email
+    * Select **Pass through all claim values**
+1. Click **Finish** to add the rule.
 
 Rule 3
 
 1. **Choose rule type**: **Send claims using a custom rule**
-2. **Configure claim rule**:
-	* **Claim Rule Name**: Attribute Name Transform
-	* **Custom Rule**:
-		<pre><code>c:[Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
-		=> issue(Type = "Name", Issuer = c.Issuer, OriginalIssuer = c.OriginalIssuer, Value = c.Value, ValueType = c.ValueType);</code></pre>
-3. Click **Finish** to add the rule.
-4. Click **OK** to save and exit the **Claim Issuance Policy** dialog.
+1. **Configure claim rule**:
+    * **Claim Rule Name**: Attribute Name Transform
+    * **Custom Rule**:
+		  <pre><code>c:[Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
+		  => issue(Type = "Name", Issuer = c.Issuer, OriginalIssuer = c.OriginalIssuer, Value = c.Value, ValueType = c.ValueType);</code></pre>
+1. Click **Finish** to add the rule.
+1. Click **OK** to save and exit the **Claim Issuance Policy** dialog.
 
 For more information on what other attributes Buildkite accepts, see the [SAML user attributes](#saml-user-attributes) table.
 
@@ -115,8 +115,8 @@ From the **Service** section of the **ADFS** console tree, select the **Certific
 From the **Service** section of the **ADFS** console tree, select the **Authentication Methods** subsection.
 
 1. Under the **Primary Authentication Methods** header, click the **Edit** link.
-2. In the **Intranet** section, ensure that the **Forms Authentication** box is checked.
-3. Click **OK** to exit the dialog.
+1. In the **Intranet** section, ensure that the **Forms Authentication** box is checked.
+1. Click **OK** to exit the dialog.
 
 ## Step 3. Update your Buildkite SSO provider
 

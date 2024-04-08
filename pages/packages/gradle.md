@@ -6,9 +6,9 @@ Once your Java registry has been [created](/docs/packages/manage-registries#crea
 
 To view and copy the required `build.gradle` configurations:
 
-1. Select _Packages_ in the global navigation to access the _Registries_ page.
+1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Java registry on this page.
-1. Select _Publish a Java Package_ and in the resulting dialog's _Using Gradle with maven-publish plugin_ section, use the copy icon at the top-right of the code box to copy the Gradle code snippet and paste it into the appropriate area/s of your `build.gradle` file.
+1. Select **Publish a Java Package** and in the resulting dialog's `Using Gradle with maven-publish plugin` section, use the copy icon at the top-right of the code box to copy the Gradle code snippet and paste it into the appropriate area/s of your `build.gradle` file.
 
 These `build.gradle` file configurations contain the:
 
@@ -94,7 +94,7 @@ A Java package can be downloaded from the package's details page.
 To download a package:
 
 1. [Access the package's details](#access-a-packages-details).
-1. Select _Download_.
+1. Select **Download**.
 
 ### Installing a package
 
@@ -103,7 +103,7 @@ A Java package can be installed using code snippet details provided on the packa
 To install a package:
 
 1. [Access the package's details](#access-a-packages-details).
-1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
+1. Ensure the **Installation** > **Installation instructions** section is displayed.
 1. Copy the code snippet, paste this into the `build.gradle` Gradle file, and execute this modified script file to install this package.
 
 This code snippet is based on this format:
