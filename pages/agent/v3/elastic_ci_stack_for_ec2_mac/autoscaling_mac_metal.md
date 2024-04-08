@@ -69,9 +69,9 @@ can access the instance.
 	- Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
 1. Using a VNC session (run SSH port forwarding `ssh -L 5900:localhost:5900 ec2-user@<ip-address>` if direct access is not available):
 	1. Sign in as the `ec2-user`
-	1. Set *Automatically log in as* to `ec2-user` in *System Preferences* > *Users & Groups*
-	1. Set an empty password in *System Preferences* > *Login Password*
-	1. Set *Start Screen Saver when inactive* to `Never` in *System Preferences* > *Lock Screen*
+	1. Set **Automatically log in as** to `ec2-user` in **System Preferences** > **Users & Groups**
+	1. Set an empty password in **System Preferences** > **Login Password**
+	1. Set **Start Screen Saver when inactive** to `Never` in **System Preferences** > **Lock Screen**
 1. Install your required version of Xcode, and ensure you launch Xcode at least
 once so you are presented with the EULA prompt.
 1. Using the AWS EC2 Console, create an AMI from your instance.
@@ -83,11 +83,11 @@ You do not need to install the `buildkite-agent` in your template AMI, the
 ## Step 3: Associate your AMI with a self-managed license in AWS License Manager
 
 To launch an instance using a host resource group, the instance AMI must be
-associated with a *Self-managed license* in *AWS License Manager*.
+associated with a **Self-managed license** in **AWS License Manager**.
 
 Using the AWS Console, open the *AWS License Manager* and navigate to
-*Self-managed licenses*. Create a new *Self-managed license*, enter a
-descriptive name and select a *License type* of `Cores`.
+**Self-managed licenses**. Create a new **Self-managed license**, enter a
+descriptive name and select a **License type** of `Cores`.
 
 Once your self-managed license has been saved, open the detail view for your
 license. Open the *Associated AMIs* tab and choose *Associate AMI*. From the
