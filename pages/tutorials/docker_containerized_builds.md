@@ -96,6 +96,11 @@ There are many configuration options available for the Docker plugin. For the co
 >📘 Pinning plugin versions
 > Specifying the version of your plugin using the <code>plugin-name#vx.x.x</code> format is recommended, to ensure that no changes are introduced without your knowledge.
 
+## Pipeline templates using Docker
+
+To see more examples of how Docker is used in Buildkite pipelines, browse the [Docker templates](https://buildkite.com/pipelines/templates?platform=docker).
+
+
 ## Creating your own Docker infrastructure
 
 If your team has significant Docker experience you might find it worthwhile invoking your own runner scripts rather than using the simpler built-in Docker support.
