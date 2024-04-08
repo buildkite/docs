@@ -180,8 +180,8 @@ for help using the AWS CLI.
 ## Step 5: Starting your Buildkite agents
 
 Once you have successfully deployed the template, use the deployed stack's
-*Resources* tab to find the `AutoScaleGroup` and open the *Physical ID* link.
-*Edit* the selected Auto Scaling group, and set the *Desired capacity* to the
+**Resources** tab to find the `AutoScaleGroup` and open the **Physical ID** link.
+**Edit** the selected Auto Scaling group, and set the **Desired capacity** to the
 number of instances you require.
 
 The Auto Scaling group will automatically provision Dedicated Hosts using the
@@ -190,5 +190,5 @@ script will resize the root disk, then install, configure, and start the
 Buildkite Agent.
 
 EC2 Mac instances are slower to boot and terminate than Linux instances. If want
-to match your *Desired capacity* to your workload, consider configuring
+to match your **Desired capacity** to your workload, consider configuring
 [scheduled scaling for your Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/schedule_time.html)
