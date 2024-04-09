@@ -14,8 +14,8 @@ You'll also need the following:
 - A task you want to perform with the code. For example, run some tests or a script.
 - To enable the YAML steps editor in Buildkite. If you haven't already:
 
-  * Select _Settings_ > _YAML Migration_ to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
-  * Select _Use YAML Steps for New Pipelines_, then confirm the action in the modal.
+  * Select **Settings** > **YAML Migration** to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
+  * Select **Use YAML Steps for New Pipelines**, then confirm the action in the modal.
 
 ## Continue running an agent
 
@@ -61,15 +61,15 @@ You'll create a new pipeline that uploads the pipeline definition from your repo
 
 To create a new pipeline:
 
-1. Select _Pipelines_ to navigate to the [Buildkite dashboard](https://buildkite.com/).
-1. Select _New pipeline_.
+1. Select **Pipelines** to navigate to the [Buildkite dashboard](https://buildkite.com/).
+1. Select **New pipeline**.
 
-    **Note:** On the _New Pipeline_ page, if you're prompted to connect your Git repositories from an existing account (for example, GitHub, Bitbucket or GitLab), it is recommended you do that first. You can always connect your account later from your pipeline's settings.
+    **Note:** On the **New Pipeline** page, if you're prompted to connect your Git repositories from an existing account (for example, GitHub, Bitbucket or GitLab), it is recommended you do that first. You can always connect your account later from your pipeline's settings.
     After connecting your account, you can select its repositories from the dropdown during pipeline creation and enable automatic webhook creation.
 
-1. If you connected your account, select the appropriate repository from the list of existing ones in your account. Otherwise, select _Any account_ from the dropdown and type the URL of the repository to be built.
-1. Enter your pipeline's details in the respective _Name_ and _Description_ fields. You can always change these details later from your pipeline's settings.
-1. In the _Steps_ editor, ensure there's a step to upload the definition from your repository:
+1. If you connected your account, select the appropriate repository from the list of existing ones in your account. Otherwise, select **Any account** from the dropdown and type the URL of the repository to be built.
+1. Enter your pipeline's details in the respective **Name** and **Description** fields. You can always change these details later from your pipeline's settings.
+1. In the **Steps** editor, ensure there's a step to upload the definition from your repository:
 
     ```yaml
     steps:
@@ -77,17 +77,17 @@ To create a new pipeline:
         command: buildkite-agent pipeline upload
     ```
 
-1. Select _Create Pipeline_.
-1. On the next page showing your pipeline name, click _New Build_. In the modal that opens, create a build using the pre-filled details.
+1. Select **Create Pipeline**.
+1. On the next page showing your pipeline name, click **New Build**. In the modal that opens, create a build using the pre-filled details.
 
-   1. In the _Message_ field, enter a short description for the build. For example, _My first build_.
-   1. Select _Create Build_.
+   1. In the **Message** field, enter a short description for the build. For example, **My first build**.
+   1. Select **Create Build**.
 
     The page for the build then opens and begins running.
 
 Run the pipeline whenever you make changes you want to verify. If you want to add more functionality, go back to editing your steps and repeat.
 
-If you've configured webhooks, your pipeline will trigger when you push updates to the repository. Otherwise, select _New Build_ in the Buildkite dashboard to trigger the pipeline.
+If you've configured webhooks, your pipeline will trigger when you push updates to the repository. Otherwise, select **New Build** in the Buildkite dashboard to trigger the pipeline.
 
 If you have trouble getting your pipeline to work, don't hesitate to reach out to [support](https://buildkite.com/support) for help.
 
@@ -103,7 +103,7 @@ That's it! You've successfully created your own pipeline! 🎉
 
 We recommend you continue by:
 
-- Inviting your team to see your build and try Buildkite themselves. Invite users from your [organization's user settings](https://buildkite.com/organizations/-/users/new) by pasting their email addresses into the form. Please note that to be able to start inviting other users to your Buildkite organization, your email needs to be verified. To verify your email, go to your [personal email settings](https://buildkite.com/user/emails) and select _Resend Verification_.
+- Inviting your team to see your build and try Buildkite themselves. Invite users from your [organization's user settings](https://buildkite.com/organizations/-/users/new) by pasting their email addresses into the form. Please note that to be able to start inviting other users to your Buildkite organization, your email needs to be verified. To verify your email, go to your [personal email settings](https://buildkite.com/user/emails) and select **Resend Verification**.
 - Learning to [create more complex pipelines](/docs/pipelines/defining-steps) with dynamic definitions, conditionals, and concurrency.
 - Customizing your [agent configuration](/docs/agent/v3/configuration) and learning to use [lifecycle hooks](/docs/agent/v3/hooks).
 - Understanding how to tailor Buildkite to fit your bespoke workflows with [plugins](/docs/plugins) and the [API](/docs/apis).

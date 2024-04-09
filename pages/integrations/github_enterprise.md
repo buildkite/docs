@@ -36,7 +36,7 @@ Make a note of your Client ID and Client Secret, you will need those to connect 
 ## Step 2: Update your Buildkite organization settings
 
 1. Open your Buildkite organization's Settings and choose [**Repository Providers**](https://buildkite.com/organizations/~/repository-providers).
-1. Select **GitHub Enterprise Server**
+1. Select **GitHub Enterprise Server**.
 1. Enter your settings:
     - The URL and public proxy URL of your GitHub Enterprise Server
     - The  Client ID and Client Secret from the GitHub OAuth App you created in Step 1

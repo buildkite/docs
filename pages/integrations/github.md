@@ -42,9 +42,7 @@ When you connect your GitHub organization, Buildkite needs the following permiss
 
 ## Set up a new pipeline for a GitHub repository
 
-1. Select **Pipelines** > **New Pipeline** <svg viewBox="0 0 22 22" width="22px" height="22px" style="fill: currentcolor; vertical-align: middle;border-radius:50%;"><title>New Pipeline</title><rect x="4" y="10" width="14" height="2"></rect>
-<rect x="10" y="4" width="2" height="14"></rect>
-</svg>
+1. Select **Pipelines** > **New pipeline**.
 1. Enter your pipeline details, including your GitHub repository URL in the form `git@github.com:your/repo`.
 
     <%= image "new-pipeline.png", width: 1550/2, height: 846/2, alt: "Screenshot of adding a new pipeline " %>

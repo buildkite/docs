@@ -6,9 +6,9 @@ Once your Terraform registry has been [created](/docs/packages/manage-registries
 
 To view and copy this `curl` command:
 
-1. Select _Packages_ in the global navigation to access the _Registries_ page.
+1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Terraform registry on this page.
-1. Select _Publish a Terraform Package_ and in the resulting dialog, use the copy icon at the top-right of the code box to copy this curl command and submit it to publish a module to your Terraform registry.
+1. Select **Publish a Terraform Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this curl command and submit it to publish a module to your Terraform registry.
 
 This command provides:
 
@@ -35,7 +35,7 @@ where:
 
 - `<path_to_file>` is the full path required to the module file. If the file is located in the same directory that this command is running from, then no path is required.
 
-For example, to upload the file `my-terraform-module-1.0.1.tgz` from the current directory to the _My-Terraform-modules_ registry in the _My organization_ Buildkite organization, run the `curl` command:
+For example, to upload the file `my-terraform-module-1.0.1.tgz` from the current directory to the **My-Terraform-modules** registry in the **My organization** Buildkite organization, run the `curl` command:
 
 ```bash
 curl -X POST https://buildkitepackages.com/api/v1/repos/my-organization/my-terraform-modules/packages.json \
@@ -45,34 +45,34 @@ curl -X POST https://buildkitepackages.com/api/v1/repos/my-organization/my-terra
 
 ## Access a module's details
 
-A Terraform module's details can be accessed from this registry using the _Packages_ section of your Terraform registry page.
+A Terraform module's details can be accessed from this registry using the **Packages** section of your Terraform registry page.
 
 To access your Terraform module's details page:
 
-1. Select _Packages_ in the global navigation to access the _Registries_ page.
+1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Terraform registry on this page.
-1. On your Terraform registry page, select the module within the _Packages_ section. The module's details page is displayed.
+1. On your Terraform registry page, select the module within the **Packages** section. The module's details page is displayed.
 
 The module's details page provides the following information in the following sections:
 
-- _Installation_: [installation instructions](#access-a-modules-details-installing-a-module)
-- _Contents_ (where available): a list of directories and files contained within the module
-- _Details_: a list of checksum values for this module—MD5, SHA1, SHA256, and SHA512
-- _About this version_: a brief (metadata) description about the module
-- _Details_: details about:
+- **Installation**: [installation instructions](#access-a-modules-details-installing-a-module)
+- **Contents** (where available): a list of directories and files contained within the module
+- **Details**: a list of checksum values for this module—MD5, SHA1, SHA256, and SHA512
+- **About this version**: a brief (metadata) description about the module
+- **Details**: details about:
 
     * the name of the module (typically the file name excluding any version details and extension)
     * the module version
     * the registry the module is located in
-    * the module's visibility—whether the module is _Private_ and requires authentication to access, or is publicly accessible
+    * the module's visibility—whether the module is **Private** and requires authentication to access, or is publicly accessible
     * the distribution name / version
     * additional optional metadata contained within the module, such as a homepage, licenses, etc.
 
-- _Last pushed_: the date when the last module was uploaded to the registry
-- _Total files_: the total number of files (and directories) within the module
-- _Dependencies_: the number of dependency modules required by this module
-- _Package size_: the storage size (in bytes) of this module
-- _Downloads_: the number of times this module has been downloaded
+- **Last pushed**: the date when the last module was uploaded to the registry
+- **Total files**: the total number of files (and directories) within the module
+- **Dependencies**: the number of dependency modules required by this module
+- **Package size**: the storage size (in bytes) of this module
+- **Downloads**: the number of times this module has been downloaded
 
 ### Downloading a module
 
@@ -81,7 +81,7 @@ A Terraform module can be downloaded from the module's details page.
 To download a module:
 
 1. [Access the module's details](#access-a-modules-details).
-1. Select _Download_.
+1. Select **Download**.
 
 ### Installing a module
 
@@ -90,7 +90,7 @@ A Terraform module can be installed using code snippet details provided on the p
 To install a module:
 
 1. [Access the module's details](#access-a-modules-details).
-1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
+1. Ensure the **Installation** > **Installation instructions** section is displayed.
 1. If your Terraform registry is private, copy the top section of the code snippet, and paste it into your `~/.terraformrc` configuration file. This code snippet is based on the format:
 
     ```config
@@ -114,10 +114,10 @@ To install a module:
     ```
 
     where:
-    * `org_slug` can be derived from the end of your Buildkite URL (in [snake_case](https://en.wikipedia.org/wiki/Letter_case#Snake_case)), after accessing _Pipelines_ in the global navigation of your organization in Buildkite.
+    * `org_slug` can be derived from the end of your Buildkite URL (in [snake_case](https://en.wikipedia.org/wiki/Letter_case#Snake_case)), after accessing **Pipelines** in the global navigation of your organization in Buildkite.
     * `registry_name` is the name of your Terraform registry (in snake_case).
     * `module_name` is the name of your Terraform module.
-    * `org-slug` can be obtained from the end of your Buildkite URL (in [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case)), after accessing _Pipelines_ in the global navigation of your organization in Buildkite.
+    * `org-slug` can be obtained from the end of your Buildkite URL (in [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case)), after accessing **Pipelines** in the global navigation of your organization in Buildkite.
     * `registry-name` is the name of your Terraform registry (in kebab-case).
     * `version.number` is the version of your Terraform module.
 

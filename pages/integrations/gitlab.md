@@ -12,7 +12,7 @@ If you host your repositories on [gitlab.com](https://gitlab.com/) enter your gi
 >📘
 > The earliest supported version of GitLab is <a href=https://about.gitlab.com/2014/10/22/gitlab-7-4-released/>7.4</a>.
 
-1. Open your Buildkite organization's **Settings** and choose [**Repository Providers**](https://buildkite.com/organizations/-/repository-providers)
+1. Open your Buildkite organization's **Settings** and choose [**Repository Providers**](https://buildkite.com/organizations/-/repository-providers).
 1. Select **GitLab Community/Enterprise Edition**.
 1. Select the **GitLab Edition Type** (**Community Edition** or **Enterprise Edition**) you want to connect to your Buildkite organization.
 1. Enter the URL to your GitLab installation (for example, `https://git.example.org`).
