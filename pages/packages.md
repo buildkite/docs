@@ -6,7 +6,7 @@ Buildkite Packages:
 
 - provides registries for your [packages](/docs/packages#an-introduction-to-packages) and other package-like file formats such as container images and Terraform modules.
 
-As well as holding a collection of packages, each registry may also contain metadata describing a variety of attributes for these packages such as, package versions, supported operating system versions and processor architecture, dependencies, and so on.
+As well as holding a collection of packages, a registry can also surface metadata or attributes associated with a package, such as a description of the package, along with the package's version, (file) contents, checksum details, distribution type, dependencies, and so on.
 
 > 📘 Buildkite Packages is currently in private beta
 > Please visit the [Buildkite Packages](https://buildkite.com/packages) page on our website to join the waitlist for this product and register for early access.
