@@ -7,13 +7,18 @@ keywords: docs, pipelines, tutorials, bazel
 [Bazel](https://www.bazel.build/) is an open-source build and test tool similar to Make, Maven, and Gradle.
 Bazel supports large codebases across multiple repositories, and large numbers of users.
 
-
 ## Using Bazel on Buildkite
 
 1. [Install Bazel](https://docs.bazel.build/install.html) on one or more Buildkite Agents.
 2. Add an empty [`WORKSPACE` file](https://docs.bazel.build/tutorial/cpp.html#set-up-the-workspace) to your project to mark it as a Bazel workspace.
 3. Add a [`BUILD` file](https://docs.bazel.build/tutorial/cpp.html#understand-the-build-file) to your project to tell Bazel how to build it.
 4. Add the Bazel build target(s) to your Buildkite [Pipeline](/docs/pipelines/defining-steps).
+
+## Buildkite Bazel example
+
+The [Building with Bazel](https://buildkite.com/pipelines/templates/ci/bazel-ci?queryID=2e432af39a35aeac99901b275534243c) example pipeline template demonstrates how a continuous integration pipeline might run on a Bazel project. The visualization below shows the steps in its example pipeline.
+
+<p><iframe src="https://buildkite.com/pipelines/playground/embed?tid=bazel-ci" allow="fullscreen" crossorigin="anonymous" width="100%" height="300px"></iframe></p>
 
 ## Buildkite C++ Bazel example
 
@@ -32,5 +37,5 @@ Make sure you're signed into your [Buildkite account](https://buildkite.com) and
 
 ## Further reading
 
-* The [Bazel C++ tutorial](https://docs.bazel.build/tutorial/cpp.html#refine-your-bazel-build) goes into more detail about how to configure more complex Bazel builds, covering multiple build targets and multiple packages.
-* The Bazel [external dependencies docs](https://docs.bazel.build/external.html) show you how to build other local and remote repositories.
+- The [Bazel C++ tutorial](https://docs.bazel.build/tutorial/cpp.html#refine-your-bazel-build) goes into more detail about how to configure more complex Bazel builds, covering multiple build targets and multiple packages.
+- The Bazel [external dependencies docs](https://docs.bazel.build/external.html) show you how to build other local and remote repositories.
