@@ -30,7 +30,7 @@ Next, define the steps you want in your pipeline. These steps could be anything 
 To define the steps:
 
 1. Decide the goal of the pipeline.
-1. Look for an [example pipeline](/docs/pipelines/example-pipelines) closest to that goal or [pipeline template](https://buildkite.com/pipelines/templates) relevant your technology stack and use case. You can copy parts of the pipeline definition as a starting point.
+1. Look for an [example pipeline](/docs/pipelines/example-pipelines) closest to that goal or a [pipeline template](https://buildkite.com/pipelines/templates) relevant to your technology stack and use case. (You can copy parts of the pipeline definition as a starting point.)
 1. In the root of your repository, create a file named `pipeline.yml` in a `.buildkite` directory.
 1. In `pipeline.yml`, define your pipeline steps. Here's an example:
 
