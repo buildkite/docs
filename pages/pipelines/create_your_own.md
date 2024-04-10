@@ -105,7 +105,7 @@ We recommend you continue by:
 
 - Inviting your team to see your build and try Buildkite themselves. Invite users from your [organization's user settings](https://buildkite.com/organizations/-/users/new) by pasting their email addresses into the form. Please note that to be able to start inviting other users to your Buildkite organization, your email needs to be verified. To verify your email, go to your [personal email settings](https://buildkite.com/user/emails) and select _Resend Verification_.
 - Learning to [create more complex pipelines](/docs/pipelines/defining-steps) with dynamic definitions, conditionals, and concurrency.
-- Browse [pipeline template](https://buildkite.com/pipelines/templates) to see how Buildkite is used across different technology and use cases.
+- Browse the [pipeline templates](https://buildkite.com/pipelines/templates) to see how Buildkite is used across different technology stacks and use cases.
 - Customizing your [agent configuration](/docs/agent/v3/configuration) and learning to use [lifecycle hooks](/docs/agent/v3/hooks).
 - Understanding how to tailor Buildkite to fit your bespoke workflows with [plugins](/docs/plugins) and the [API](/docs/apis).
 
