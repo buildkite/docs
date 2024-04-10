@@ -102,6 +102,12 @@ To install a package:
 1. Ensure the **Installation** > **Installation instructions** section is displayed.
 1. Copy each code snippet, and paste them into their respective `~/.m2/settings.xml` and `pom.xml` files (under the `project` XML tag), and run `mvn install` on this modified `pom.xml` to install this package.
 
+    **Note:** The `~/.m2/settings.xml` configuration:
+    * Is _not_ required if your registry is publicly accessible.
+    * Only needs to be conducted once for the life of your Java registry.
+
+<!-- Might likely need to re-write this if this section goes with public registries. -->
+
 The `~/.m2/settings.xml` code snippet is based on this format:
 
 ```xml
@@ -130,10 +136,6 @@ where:
 - `registry-read-token` is the Buildkite Packages-generated API token required to download packages to your Java registry.
 
 <%= render_markdown partial: 'packages/java_registry_id' %>
-
-> 📘 This configuration:
-> Is _not_ required if your registry is publicly accessible.
-> Only needs to be conducted once for the life of your Java registry.
 
 The `pom.xml` code snippet is based on this format:
 

@@ -15,7 +15,7 @@ To create a new registry:
 1. Select **New registry**.
 1. On the **New Registry** page, enter the mandatory name for your registry. Since registry names cannot contain spaces, hyphens will automatically be specified when the space key is pressed.
 1. Enter an optional **Description** for the registry. This description appears under the name of the registry item on the **Registries** page.
-1. Select the required registry **Type** based on the [package ecosystem](/docs/packages#buildkite-packages-supported-package-ecosystems) for this new registry.
+1. Select the required registry **Type** based on the [package ecosystem](/docs/packages#supported-package-ecosystems) for this new registry.
 1. Select **Create Registry**.
 
     The new registry's details page is displayed. Selecting **Packages** in the global navigation opens the **Registries** page, where your new registry will be listed.

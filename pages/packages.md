@@ -1,6 +1,12 @@
 # Buildkite Packages
 
-Buildkite Packages manages artifacts and packages from [Buildkite Pipelines](/docs/pipelines), as well as other CI/CD applications that require artifact management.
+Buildkite Packages is a product that:
+
+- Manages artifacts and packages from [Buildkite Pipelines](/docs/pipelines), as well as other CI/CD applications that require artifact management.
+
+- Provides registries to store your [packages](/docs/packages#an-introduction-to-packages) and other package-like file formats such as container images and Terraform modules.
+
+As well as storing a collection of packages, a registry also surfaces metadata or attributes associated with a package, such as the package's description, version, contents (files and directories), checksum details, distribution type, dependencies, and so on.
 
 > 📘 Buildkite Packages is currently in private beta
 > Please visit the [Buildkite Packages](https://buildkite.com/packages) page on our website to join the waitlist for this product and register for early access.
@@ -39,11 +45,7 @@ Some advanced package creation tools include:
 - [fpm](https://github.com/jordansissel/fpm), a third-party tool that allows users to quickly and easily make a variety of packages (including RPM and deb packages)
 - [PackPack](https://github.com/packpack/packpack), a simple tool to build RPM and Debian packages from git repositories.
 
-## Buildkite Packages
-
-Buildkite Packages provides registries for your [packages](/docs/packages#an-introduction-to-packages) and other package-like file formats such as container images and Terraform modules. As well as holding a collection of packages, each registry may also contain metadata describing a variety of attributes for these packages such as, package versions, supported operating system versions and processor architecture, dependencies, and so on.
-
-### Supported package ecosystems
+## Supported package ecosystems
 
 Currently, Buildkite Packages supports the following package ecosystems:
 
