@@ -117,6 +117,7 @@ exceptions:
   - Markdown
   - minitest
   - NET
+  - Node.js
   - OIDC
   - Okta
   - OneLogin

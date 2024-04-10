@@ -33,6 +33,7 @@ Buildbox
 Buildkite
 Buildkite's
 buildscript
+Bundler
 cancelation
 CCMenu
 ccnet
@@ -131,6 +132,7 @@ namespaces
 navatar
 negator
 NGINX
+Nodejs
 Noreply
 npm
 ns
@@ -143,6 +145,7 @@ onboarding
 Pagerduty
 parsable
 pbuilder
+pbuilder's
 Phabricator
 Phabricator's
 php
