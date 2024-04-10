@@ -1,6 +1,6 @@
 # Example pipelines
 
-Example [pipelines](/docs/pipelines) can be found in our [pipeline template gallery](https://buildkite.com/pipelines/templates) covering a wide range of technologies (such as [JavaScript](https://buildkite.com/pipelines/templates?language=javascript)) and use cases (such as [infrastructure as code](https://buildkite.com/pipelines/templates?useCase=iac)).
+Example [pipelines](/docs/pipelines) can be found in Buildkite's [pipeline template gallery](https://buildkite.com/pipelines/templates), covering a wide range of technologies (for example, [JavaScript](https://buildkite.com/pipelines/templates?language=javascript)), and use cases (for example, [infrastructure as code](https://buildkite.com/pipelines/templates?useCase=iac)).
 
 Further example pipelines with their own repository are below.
 
