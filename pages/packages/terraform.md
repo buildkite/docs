@@ -55,24 +55,24 @@ To access your Terraform module's details page:
 
 The module's details page provides the following information in the following sections:
 
-- _Installation_: [installation instructions](#access-a-modules-details-installing-a-module)
-- _Contents_ (where available): a list of directories and files contained within the module
-- _Details_: a list of checksum values for this module—MD5, SHA1, SHA256, and SHA512
-- _About this version_: a brief (metadata) description about the module
+- _Installation_: the [installation instructions](#access-a-modules-details-installing-a-module).
+- _Contents_ (where available): a list of directories and files contained within the module.
+- _Details_: a list of checksum values for this module—MD5, SHA1, SHA256, and SHA512.
+- _About this version_: a brief (metadata) description about the module.
 - _Details_: details about:
 
-    * the name of the module (typically the file name excluding any version details and extension)
-    * the module version
-    * the registry the module is located in
-    * the module's visibility—whether the module is _Private_ and requires authentication to access, or is publicly accessible
-    * the distribution name / version
+    * the name of the module (typically the file name excluding any version details and extension).
+    * the module version.
+    * the registry the module is located in.
+    * the module's visibility—whether the module is _Private_ and requires authentication to access, or is publicly accessible.
+    * the distribution name / version.
     * additional optional metadata contained within the module, such as a homepage, licenses, etc.
 
-- _Last pushed_: the date when the last module was uploaded to the registry
-- _Total files_: the total number of files (and directories) within the module
-- _Dependencies_: the number of dependency modules required by this module
-- _Package size_: the storage size (in bytes) of this module
-- _Downloads_: the number of times this module has been downloaded
+- _Last pushed_: the date when the last module was uploaded to the registry.
+- _Total files_: the total number of files (and directories) within the module.
+- _Dependencies_: the number of dependency modules required by this module.
+- _Package size_: the storage size (in bytes) of this module.
+- _Downloads_: the number of times this module has been downloaded.
 
 ### Downloading a module
 
