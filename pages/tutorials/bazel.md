@@ -16,7 +16,7 @@ Bazel supports large codebases across multiple repositories, and large numbers o
 
 ## Buildkite Bazel example
 
-The [Building with Bazel](https://buildkite.com/pipelines/templates/ci/bazel-ci?queryID=2e432af39a35aeac99901b275534243c) example pipeline template demonstrates how a continuous integration pipeline might run on a Bazel project. The visualization below shows the steps in [this pipeline](https://buildkite.com/pipelines/templates/ci/bazel-ci?queryID=2e432af39a35aeac99901b275534243c).
+The [Building with Bazel](https://buildkite.com/pipelines/templates/ci/bazel-ci?queryID=2e432af39a35aeac99901b275534243c) example pipeline template demonstrates how a continuous integration pipeline might run on a Bazel project. The visualization below shows the steps in its example pipeline.
 
 <p><iframe src="https://buildkite.com/pipelines/playground/embed?tid=bazel-ci" allow="fullscreen" crossorigin="anonymous" width="100%" height="300px"></iframe></p>
 
