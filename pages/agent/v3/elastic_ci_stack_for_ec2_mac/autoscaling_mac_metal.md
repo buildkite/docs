@@ -4,13 +4,12 @@ You can run your builds on AWS EC2 Mac using Buildkite's [CloudFormation templat
 Buildkite agent. Using Buildkite agents, you can run pipelines and build
 Xcode-based software projects for macOS, iOS, iPadOS, tvOS, and watchOS.
 
->🚧
-> As you must prepare and supply your own AMI (Amazon Machine Image) for this template, macOS support has <b>not</b> been incorporated into the Elastic CI Stack for AWS.
+> 🚧
+> As you must prepare and supply your own AMI (Amazon Machine Image) for this template, macOS support has **not** been incorporated into the Elastic CI Stack for AWS.
 
 Using an Auto Scaling group for your instances ensures booting your macOS
 Buildkite Agents is repeatable, and enables automatic instance replacement when
 hardware failures occur.
-
 
 ## Before you start
 
@@ -25,11 +24,10 @@ You must also choose an AWS Region with EC2 Mac instances available. See
 [Amazon EC2 Dedicated Hosts pricing](https://aws.amazon.com/ec2/dedicated-hosts/pricing/)
 for details on which regions have EC2 Mac Dedicated Hosts.
 
->🚧 Minimum allocation
+> 🚧 Minimum allocation
 >Dedicated macOS <strong>hosts</strong> on AWS have a <a href="https://aws.amazon.com/ec2/dedicated-hosts/pricing/#on-demand">minimum billing period</a> of 24 hours. However you can scale instances running on the host at will.
 
-See also the [Amazon EC2 Mac instances user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html)
-for more details on AWS EC2 Mac instances.
+See also the [Amazon EC2 Mac instances user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html) for more details on AWS EC2 Mac instances.
 
 ## Step 1: Choose a VPC layout
 
@@ -45,7 +43,7 @@ for a ready-made CloudFormation template.
 
 EC2 Mac Dedicated Hosts are not available in every Availability Zone in the
 supported regions. You need to provision a VPC subnet in all of your region's Availability
-Zones to maximise the size of your instance pool.
+Zones to maximize the size of your instance pool.
 
 You also need to configure or define the VPC security groups your instance
 network interfaces will belong to. At a minimum, inbound SSH access is
@@ -68,10 +66,10 @@ can access the instance.
 	- Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
 	- Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
 1. Using a VNC session (run SSH port forwarding `ssh -L 5900:localhost:5900 ec2-user@<ip-address>` if direct access is not available):
-	1. Sign in as the `ec2-user`
-	1. Set **Automatically log in as** to `ec2-user` in **System Preferences** > **Users & Groups**
-	1. Set an empty password in **System Preferences** > **Login Password**
-	1. Set **Start Screen Saver when inactive** to `Never` in **System Preferences** > **Lock Screen**
+	1. Sign in as the `ec2-user`.
+	1. Set **Automatically log in as** to `ec2-user` in **System Preferences** > **Users & Groups**.
+	1. Set an empty password in **System Preferences** > **Login Password**.
+	1. Set **Start Screen Saver when inactive** to `Never` in **System Preferences** > **Lock Screen**.
 1. Install your required version of Xcode, and ensure you launch Xcode at least
 once so you are presented with the EULA prompt.
 1. Using the AWS EC2 Console, create an AMI from your instance.
@@ -85,7 +83,7 @@ You do not need to install the `buildkite-agent` in your template AMI, the
 To launch an instance using a host resource group, the instance AMI must be
 associated with a **Self-managed license** in **AWS License Manager**.
 
-Using the AWS Console, open the *AWS License Manager* and navigate to
+Using the AWS Console, open the **AWS License Manager** and navigate to
 **Self-managed licenses**. Create a new **Self-managed license**, enter a
 descriptive name and select a **License type** of `Cores`.
 

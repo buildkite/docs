@@ -7,7 +7,6 @@ steps no matter the machine or network.
 See the [Using build artifacts](/docs/builds/artifacts) guide for a step-by-step
 example.
 
-
 ## Uploading artifacts
 
 You can use this command in your build scripts to store artifacts. Artifacts are
@@ -363,5 +362,5 @@ as well as use a shared key for the credential:
 export BUILDKITE_AZURE_BLOB_SAS_TOKEN_DURATION=1h
 
 # Generating SAS tokens requires an account key.
-export BUILDKITE_AZURE_BLOB_ACCOUNT_KEY='...'  
+export BUILDKITE_AZURE_BLOB_ACCOUNT_KEY='...'
 ```

@@ -4,7 +4,6 @@ The Buildkite Agent's `meta-data` command provides your build pipeline with a po
 
 See the [Using build meta-data](/docs/pipelines/build-meta-data) guide for a step-by-step example.
 
-
 ## Setting data
 
 Use this command in your build scripts to save string data in the Buildkite meta-data store.

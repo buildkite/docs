@@ -2,7 +2,6 @@
 
 The Buildkite Agent can be run on [Google Cloud Platform](https://cloud.google.com). For fine control over long–lived agents, you might like to run the agent using individual VM instances on Google Compute Engine. Or run Docker–based builds using a scalable cluster of agents on the Google Kubernetes Engine using Kubernetes.
 
-
 ## Running the agent on Google Compute Engine
 
 To run the agent on your own [Google Compute Engine](https://cloud.google.com/compute) instance use whichever installer matches your instance type. For example:
@@ -228,7 +227,7 @@ volumes:
     defaultMode: 0400
 ...
 ```
-_You'll need to add an environment hook to set the git `credential.helper` to actually use your newly added git-credentials file. See [here](/docs/agent/v3/docker#authenticating-private-git-repositories) for an example._
+_You'll need to add an environment hook to set the git `credential.helper` to actually use your newly added git-credentials file. See the [Docker instructions for authenticating private git repositories](/docs/agent/v3/docker#authenticating-private-git-repositories) for an example._
 
 ### Further configuration
 

@@ -11,7 +11,7 @@ Firstly, ensure your list of packages is up to date:
 sudo apt-get update
 ```
 
->📘
+> 📘
 > Debian doesn't always have <code>sudo</code> available, so you can run these commands as root and omit the <code>sudo</code>, or install the sudo package as root first.
 
 Next, ensure you have the `apt-transport-https` package installed for the HTTPS package repository, and the `dirmngr` package installed for adding the signing key:
@@ -28,7 +28,7 @@ Download the Buildkite PGP key to a directory that is only writable by `root` (c
 curl -fsSL https://keys.openpgp.org/vks/v1/by-fingerprint/32A37959C2FA5C3C99EFBC32A79206696452D198 | sudo gpg --dearmor -o /usr/share/keyrings/buildkite-agent-archive-keyring.gpg
 ```
 
->📘 Is [keys.openpgp.org](https://keys.openpgp.org) down?
+> 📘 Is [keys.openpgp.org](https://keys.openpgp.org) down?
 > If you get a 404 or other error from `curl` in the previous command, see the [Alternative keyservers](#alternative-keyservers) section.
 
 Then add the signed source to your apt sources list:
