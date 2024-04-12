@@ -119,8 +119,8 @@ exceptions:
   - minitest
   - NET
   - Node.js
-  - OIDC
   - oidc
+  - OIDC
   - Okta
   - OneLogin
   - OpenTelemetry
