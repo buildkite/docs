@@ -185,14 +185,25 @@ Only use Title Case (initial capital letters) for the name of the product (produ
 
 ### UI elements
 
-UI elements should be formatted in italics. For example:
+UI elements should be formatted in bold. For example:
 
-To get your agent token, navigate to _Agents_, then select _Reveal Agent Token_.
+To view your cluster's agent tokens, navigate to **Agents**, select your cluster, then select the **Agent Tokens** option.
 
 > [!NOTE]
 > Match the capitalization used in the Buildkite interface, even if title (or any other) case has been used for product features.
 
 Refer to [UI elements in the Markdown syntax style guide](markdown-syntax-style.md#ui-elements) for details on how to write and present UI elements in the Buildkite docs.
+
+### Key terms
+
+Key terms should be formatted in italics. For example:
+
+A Buildkite agent requires an _agent token_ to connect to Buildkite and register for work.
+
+> [!NOTE]
+> Use italicization for key terms sparingly—either near the top of a section of documentation, or the top of a page. In general, a key term only needs to be pointed out once in such a section of documentation and not every time it's used on a page.
+
+Refer to [Key terms in the Markdown syntax style guide](markdown-syntax-style.md#key-terms) for details on how to write and present key terms in the Buildkite docs.
 
 ### Lists (bullet lists and numbered steps)
 

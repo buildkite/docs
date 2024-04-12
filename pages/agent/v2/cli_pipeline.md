@@ -62,7 +62,7 @@ eval "echo \"$(cat pipeline.yml)\"" | tee /dev/stderr | buildkite-agent pipeline
 
 Omit the `tee` command if you have no need to see the resulting YAML.
 
-### Escaping the `$` character
+### Escaping the $ character
 
 If you need to prevent substitution, you can escape the `$` character by using `$$` or `\$`.
 
