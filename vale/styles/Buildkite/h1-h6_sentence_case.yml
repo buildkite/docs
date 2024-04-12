@@ -48,6 +48,7 @@ exceptions:
   - Buildkite Agent
   - Buildkite Agents
   - Buildkite Packages
+  - buildkite-agent
   - BuildNotify
   - BuildReactor
   - C\+\+
