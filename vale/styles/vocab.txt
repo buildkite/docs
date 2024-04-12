@@ -140,6 +140,7 @@ nsc
 nssm
 NVMe
 OAuth
+oidc
 Okta
 onboarding
 Pagerduty

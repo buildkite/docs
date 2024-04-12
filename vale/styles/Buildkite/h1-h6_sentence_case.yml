@@ -49,7 +49,6 @@ exceptions:
   - Buildkite Agents
   - Buildkite Packages
   - buildkite-agent
-  - buildkite-agent oidc
   - BuildNotify
   - BuildReactor
   - C\+\+
