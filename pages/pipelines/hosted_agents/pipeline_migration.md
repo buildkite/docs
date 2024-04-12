@@ -14,7 +14,7 @@ To set your pipeline to use the _GitHub (with code access)_ service:
 
 1. Ensure you have followed the instructions in [Private repositories](/docs/pipelines/hosted-agents/code-access#private-repositories) (on the [Hosted agents code access](/docs/pipelines/hosted-agents/code-access) page) for your pipeline's GitHub repository.
 1. Navigate to your pipeline settings.
-1. Select GitHub from the left menu.  
+1. Select GitHub from the left menu.
 1. Remove the existing repository, or select the _Choose another repository or URL_ link
 1. Select the GitHub account including ...(with code access).
 1. Select the repository.
@@ -25,5 +25,5 @@ To set your pipeline to use the _GitHub (with code access)_ service:
 When accessing any repository (public or private) from a Buildkite hosted agent, you must also ensure the repository is checked out using `HTTPS`.
 
 1. Navigate to your pipeline settings.
-1. Select _GitHub_ from the left menu.  
+1. Select _GitHub_ from the left menu.
 1. Change the _Checkout using_ to `HTTPS`.
