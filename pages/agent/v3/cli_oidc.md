@@ -1,4 +1,4 @@
-# `buildkite-agent oidc`
+# buildkite-agent oidc
 
 The Buildkite Agent's `oidc` command allows you to request an OIDC token representing the current job. These tokens can be exchanged with federated systems like AWS.
 

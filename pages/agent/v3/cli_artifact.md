@@ -1,4 +1,4 @@
-# `buildkite-agent artifact`
+# buildkite-agent artifact
 
 The Buildkite Agent's `artifact` command provides support for uploading and
 downloading of build artifacts, allowing you to share binary data between build

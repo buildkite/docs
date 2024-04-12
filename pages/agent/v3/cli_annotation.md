@@ -1,4 +1,4 @@
-# `buildkite-agent annotation`
+# buildkite-agent annotation
 
 The Buildkite Agent's `annotation` command allows manipulating existing build annotations.
 

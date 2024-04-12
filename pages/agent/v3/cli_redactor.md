@@ -1,4 +1,4 @@
-# `buildkite-agent redactor`
+# buildkite-agent redactor
 
 The Buildkite Agent automatically redacts some sensitive information from logs, such as secrets fetched with the [`secret get`](/docs/agent/v3/cli-secret) command, and any environment variables that match the value given in the [`--redacted-vars` flag](/docs/agent/v3/cli-start#redacted-vars).
 

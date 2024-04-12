@@ -1,4 +1,4 @@
-# `buildkite-agent meta-data`
+# buildkite-agent meta-data
 
 The Buildkite Agent's `meta-data` command provides your build pipeline with a powerful key/value data-store that works across build steps and build agents, no matter the machine or network.
 
