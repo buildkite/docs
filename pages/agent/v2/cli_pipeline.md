@@ -1,12 +1,11 @@
-# `buildkite-agent pipeline`
+# buildkite-agent pipeline
 
->🚧 This page references the out-of-date Buildkite Agent v2.
+> 🚧 This page references the out-of-date Buildkite Agent v2.
 > For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/cli_pipeline">see the latest version of this document</a>.
 
 The Buildkite Agent's `pipeline` command allows you to add and replace build steps in the running build. The steps are defined using YAML or JSON and can be read from a file or streamed from the output of a script.
 
 See the [Defining your pipeline steps](/docs/pipelines/uploading-pipelines) guide for a step-by-step example and list of step types.
-
 
 ## Uploading pipelines
 

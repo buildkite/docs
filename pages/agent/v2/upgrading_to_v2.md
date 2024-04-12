@@ -1,10 +1,9 @@
 # Upgrading to Buildkite Agent v2
 
->🚧 This page references the out-of-date Buildkite Agent v2.
+> 🚧 This page references the out-of-date Buildkite Agent v2.
 > For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/upgrading">see the latest version of this document</a>.
 
 The Buildkite Agent has changed a lot in v2 but upgrade process is straight forward. We'll cover what's changed and how to upgrade to new agents.
-
 
 ## What's changed
 

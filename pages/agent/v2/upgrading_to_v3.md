@@ -2,7 +2,6 @@
 
 Upgrade your Agents using your operating system package manager, or by re-running the installation script.
 
-
 ## Upgrading from 3.0-beta to a stable 3.0 agent
 
 To upgrade a **Ubuntu / Debian** 3.0 beta agent:
@@ -106,6 +105,6 @@ Previously we didn't support environment variable interpolation, such as `${MY_V
 
 See the [environment variable substitution](/docs/agent/v3/cli-pipeline#environment-variable-substitution) for more details.
 
-### Checkout clean no longer ignores files in `.gitignore`
+### Checkout clean no longer ignores files in .gitignore
 
 Older agents didn't remove files from your working directory that were ignored by git. The new default values for git clean are `-fxdq`. If you've previously overridden your `git-clean-flags` in your config, it might be a good chance to comment them out and use the standard behavior.
