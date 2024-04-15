@@ -4,13 +4,13 @@ attributes:
   default_value: None
   required: true
   desc: |
-      The agent token associated with a cluster (and configurable through the cluster accessible from your organization's **Agents** page).
+      The agent token associated with a cluster. The agent token is configurable through the cluster that's accessible from your organization's **Agents** page.
 - name: build-path
   env_var: BUILDKITE_BUILD_PATH
   default_value: "(depends on platform)"
   required: true
   desc: |
-      The path from where the builds will be run.
+      The path to the directory where the builds will run.
 - name: allowed-repositories
   env_var: BUILDKITE_ALLOWED_REPOSITORIES
   default_value: ""

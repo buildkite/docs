@@ -1,6 +1,6 @@
 # Configuring test suites
 
-In Test Analytics, a test _suite_ is a collection of tests. A run to a suite is what a build to a pipeline is.
+In Test Analytics, a test _suite_ is a collection of tests. A suite has a _run_, which is the execution of tests in a suite. A suite's run is analogous to a pipeline's build.
 
 Many organizations set up one suite per test framework, for example one suite for RSpec, and another suite for Jest. Others use a common standard, such as JUnit XML, to combine tests from multiple frameworks to set up custom backend and frontend suites.
 
