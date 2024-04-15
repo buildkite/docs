@@ -68,7 +68,7 @@ First select the SSO Provider you would like to configure.
 
 <%= image "session_duration/select_provider.png", width: 1201/2, height: 786/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
-Then click *Update Session Duration* from the *Session Duration* section of the
+Then click **Update Session Duration** from the **Session Duration** section of the
 SSO Provider settings page.
 
 <%= image "session_duration/update_session_duration.png", width: 1201/2, height: 1043/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>

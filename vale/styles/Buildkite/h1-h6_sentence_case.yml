@@ -16,7 +16,6 @@ exceptions:
   - 2FA
   - ADFS
   - Advanced Queue Metrics
-  - allow_any_instance_of
   - API
   - APM
   - AWS
