@@ -7,8 +7,8 @@ While most test frameworks have a built-in JUnit XML export feature, these JUnit
 
 The following attributes are mandatory for the `<testcase>` element:
 
-* `classname`: full class name for the class the test method is in.
-* `name`: name of the test method.
+- `classname`: full class name for the class the test method is in.
+- `name`: name of the test method.
 
 To learn more about the JUnit XML file format, see [Common JUnit XML format & examples
 ](https://github.com/testmoapp/junitxml).
@@ -45,7 +45,7 @@ For example, to import the contents of a `junit.xml` file in a Buildkite pipelin
 
 1. Securely [set the Test Analytics token environment variable](/docs/pipelines/secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
 
-2. Run the following `curl` command:
+1. Run the following `curl` command:
 
     ```sh
     curl \
@@ -79,7 +79,7 @@ For example, to import the contents of a `junit.xml` file in a CircleCI pipeline
 
 1. Securely [set the Test Analytics token environment variable](/docs/pipelines/secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
 
-2. Run the following `curl` command:
+1. Run the following `curl` command:
 
     ```sh
     curl \
@@ -111,7 +111,7 @@ For example, to import the contents of a `junit.xml` file in a GitHub Actions pi
 
 1. Securely [set the Test Analytics token environment variable](/docs/pipelines/secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
 
-2. Run the following `curl` command:
+1. Run the following `curl` command:
 
     ```sh
     curl \

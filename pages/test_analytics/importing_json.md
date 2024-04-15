@@ -120,10 +120,10 @@ A single file can have a maximum of 5000 test results, and if that limit is exce
 
 ## JSON test results data reference
 
-JSON test results data is made up of an array of one or more _test result_ objects.
+JSON test results data is made up of an array of one or more "test result" objects.
 A test result object contains an overall result and metadata.
-It also contains a _history_ object, which is a summary of the duration of the test run.
-Within the history object, detailed _span_ objects record the highest resolution details of the test run.
+It also contains a `history` object, which is a summary of the duration of the test run.
+Within the history object, detailed `span` objects record the highest resolution details of the test run.
 
 Schematically, the JSON test results data is like this:
 
