@@ -78,7 +78,7 @@ The Herald application acts as a "trigger" inside Phabricator. You can create a 
 Open Herald, and click **Create Herald Rule**. Select **Commits** on the next
 screen, then select **Object** on the screen after that. This allows you to connect a rule to a specific repository which you'll configure on the next screen.
 
-Fill in  the repository name. It should start with `r`, so this example is using `rDEMO`.
+Fill in the repository name. It should start with `r`, so this example is using `rDEMO`.
 
 <%= image "phabricator_create_rule.png", width: 1884/2, height: 756/2, alt: "Create a Herald Rule" %>
 
