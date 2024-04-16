@@ -4,7 +4,6 @@ Buildkite can connect to a GitHub repository in your GitHub account or GitHub or
 
 To complete this integration, you need admin privileges for your GitHub repository.
 
-
 ## Connecting Buildkite and GitHub
 
 You can use the [Buildkite app for GitHub](#connect-your-buildkite-account-to-github-using-the-github-app) to connect a Buildkite organization to a GitHub organization.
@@ -34,11 +33,11 @@ You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
 When you connect your GitHub organization, Buildkite needs the following permissions:
 
-* Read access to metadata: this is a default permission for all GitHub apps. From the [GitHub documentation](https://docs.github.com/en/rest/reference/permissions-required-for-github-apps#metadata-permissions):
+- Read access to metadata: this is a default permission for all GitHub apps. From the [GitHub documentation](https://docs.github.com/en/rest/reference/permissions-required-for-github-apps#metadata-permissions):
 
     > GitHub Apps have the Read-only metadata permission by default. The metadata permission provides access to a collection of read-only endpoints with metadata for various resources. These endpoints do not leak sensitive private repository information.
 
-* Read and write access to checks, commit statuses, deployments, pull requests, and repository hooks: this is needed for Buildkite to perform tasks such as running a build on pull requests and reporting that build status directly on the PR on GitHub.
+- Read and write access to checks, commit statuses, deployments, pull requests, and repository hooks: this is needed for Buildkite to perform tasks such as running a build on pull requests and reporting that build status directly on the PR on GitHub.
 
 ## Set up a new pipeline for a GitHub repository
 
@@ -73,10 +72,10 @@ To run builds for GitHub pull requests, edit the GitHub settings for your Buildk
 
 Optionally, select one or more of the following:
 
-* **Limit pull request branches**
-* **Skip pull request builds for existing commits**
-* **Rebuild pull requests when they become ready for review**
-* **Build pull requests from third-party forked repositories**. Make sure to check the [managing secrets](/docs/pipelines/secrets) guide if you choose to do this.
+- **Limit pull request branches**
+- **Skip pull request builds for existing commits**
+- **Rebuild pull requests when they become ready for review**
+- **Build pull requests from third-party forked repositories**. Make sure to check the [managing secrets](/docs/pipelines/secrets) guide if you choose to do this.
 
 If you want to control which third-party forks can trigger builds in GitHub, you can prefix the branches from third-party forks with the contributor's username. For example, the `main` branch from `some-user` becomes `some-user:main`. You can then detect these using a pre-command hook or something similar before running a build. To enable prefixing the branch names, go to the GitHub settings for the pipeline and select **Prefix third-party fork branch names**.
 
@@ -118,8 +117,8 @@ You can customize the commit statuses, for example to reuse the same pipeline fo
         - github_commit_status:
             context: "my-custom-status"
     ```
-2. In **Pipeline** > your specific pipeline > **Settings** > **GitHub**, make sure **Update commit statuses** is not selected. Note that this prevents Buildkite from automatically creating and sending statuses for this pipeline, meaning you will have to handle all commit statuses through the `pipeline.yml`.
-3. When you make a new commit or pull request, you should see **my-custom-status** as the commit status:
+1. In **Pipeline** > your specific pipeline > **Settings** > **GitHub**, make sure **Update commit statuses** is not selected. Note that this prevents Buildkite from automatically creating and sending statuses for this pipeline, meaning you will have to handle all commit statuses through the `pipeline.yml`.
+1. When you make a new commit or pull request, you should see **my-custom-status** as the commit status:
     <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
 
 In a setup for a repository containing one codebase and one `pipeline.yml`, this customizes the commit status for the pipeline. However, if you have multiple `pipeline.yml` files in one repo, feeding in to the same Buildkite pipeline, this allows you to have different statuses when building different sections of the repo.
@@ -138,10 +137,10 @@ For example, if you have a monorepo containing three applications, you could use
           - github_commit_status:
               context: "my-custom-status"
     ```
-2. In **Pipeline** > your specific pipeline > **Settings** > **GitHub**, you can choose to either:
+1. In **Pipeline** > your specific pipeline > **Settings** > **GitHub**, you can choose to either:
     - Make sure **Update commit statuses** is not selected. Note that this prevents Buildkite from automatically creating and sending statuses for this pipeline, meaning you will have to handle all commit statuses through the `pipeline.yml`.
     - Enable both **Update commit statuses** and **Create a status for each job**. Buildkite sends its default statuses as well as your custom status.
-3. When you make a new commit or pull request, you should see **my-custom-status** as the commit status:
+1. When you make a new commit or pull request, you should see **my-custom-status** as the commit status:
     <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
 
 You can also define the commit status in a group step:
