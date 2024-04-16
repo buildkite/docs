@@ -63,6 +63,14 @@ Failure/Error: allow_any_instance_of(Object).to receive(:sleep)
 
 You can fix them by being more specific in your stubbing by replacing `allow_any_instance_of(Object).to receive(:sleep)` with `allow_any_instance_of(TheClassUnderTest).to receive(:sleep)`.
 
+### Troubleshooting test grouping issues
+
+In RSpec anonymous test cases are supported, tests are automatically named based on the subject and/or inputs to the expectations within the test. However, this can lead to unstable test names across different test runs, incorporating elements such as object IDs, database IDs, timestamps, and more.
+
+As a consequence, each test is assigned a new identity per run within Test Analytics. This poses a challenge for utilising the Test Analytics product effectively, as historical data across tests becomes difficult to track and analyze.
+
+To mitigate this issue and ensure the reliability of Test Analytics, it's advisable to provide explicit and stable descriptions for each test case within your RSpec test suite. By doing so, you can maintain consistency in test identification across multiple runs, enabling better tracking and analysis of test performance over time.
+
 ## minitest collector
 
 [minitest](https://github.com/minitest/minitest) provides a complete suite of testing facilities supporting TDD, BDD, mocking, and benchmarking.
