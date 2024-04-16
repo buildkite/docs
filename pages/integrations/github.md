@@ -138,8 +138,8 @@ For example, if you have a monorepo containing three applications, you could use
               context: "my-custom-status"
     ```
 1. In **Pipeline** > your specific pipeline > **Settings** > **GitHub**, you can choose to either:
-    - Make sure **Update commit statuses** is not selected. Note that this prevents Buildkite from automatically creating and sending statuses for this pipeline, meaning you will have to handle all commit statuses through the `pipeline.yml`.
-    - Enable both **Update commit statuses** and **Create a status for each job**. Buildkite sends its default statuses as well as your custom status.
+    + Make sure **Update commit statuses** is not selected. Note that this prevents Buildkite from automatically creating and sending statuses for this pipeline, meaning you will have to handle all commit statuses through the `pipeline.yml`.
+    + Enable both **Update commit statuses** and **Create a status for each job**. Buildkite sends its default statuses as well as your custom status.
 1. When you make a new commit or pull request, you should see **my-custom-status** as the commit status:
     <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
 
