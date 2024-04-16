@@ -121,7 +121,7 @@ Make sure to set the `-o pipefail` option in your buildscript as above, otherwis
 
 Buildkite has zero access to your source code in the pipelines and only receives and stores the log output of the builds and build artifacts in encrypted form.
 
-Logs are AES-encrypted, and the build artifacts are encrypted in transit and at rest using AWS encryption (KMS or S3 SSE). As a result, the keys cannot be extracted on the Buildkite's side, and the AWS solutions provide mitigation against zero-day attacks and other security issues. Beyond this, the control over security measures within your infrastructure is up to you.
+Logs are AES-encrypted, and the build artifacts are encrypted in transit and at rest using AWS encryption (KMS or S3 SSE). As a result, the keys cannot be extracted on the Buildkite's side, and the AWS solutions mitigate against zero-day attacks and other security issues. Beyond this, the control over security measures within your infrastructure is up to you.
 
 If you choose to [host your build artifacts](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket) yourself, they end up in your private AWS bucket.
 
