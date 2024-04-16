@@ -8,7 +8,7 @@ On the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit
 
 When you create a token, select the organizations it grants access to, and for REST APIS the scope of the access. GraphQL tokens cannot be limited by scope.
 
->📘 Note for contributors to public and open-source projects
+> 📘 Note for contributors to public and open-source projects
 > You need to be a member of the Buildkite organization to be able to generate and use an API token for it.
 
 REST API scopes are very granular, you can select some or all of the following:

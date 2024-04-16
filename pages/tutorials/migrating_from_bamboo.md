@@ -36,7 +36,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Instead of the `wait` step above, you could use a `block` step to stop the build and require a user to manually _unblock_ the pipeline by clicking the _Continue_ button in the Buildkite dashboard, or use the [Unblock Job](/docs/api/jobs#unblock-a-job) REST API endpoint. This is the equivalent of a *Manual Stage* in Bamboo.
+Instead of the `wait` step above, you could use a `block` step to stop the build and require a user to manually _unblock_ the pipeline by clicking the **Continue** button in the Buildkite dashboard, or use the [Unblock Job](/docs/api/jobs#unblock-a-job) REST API endpoint. This is the equivalent of a *Manual Stage* in Bamboo.
 
 ```yaml
 steps:
@@ -125,9 +125,9 @@ To trigger builds in other pipelines, you can use `trigger` steps. This way, you
 
 The [Buildkite agent](/docs/agent/v3) replaces your Bamboo *Remote Agents*. You can install agents onto any server to run your builds.
 
-In Bamboo, you can target specific agents for your jobs using their *Capabilities*, and in Buildkite, you target them using [meta-data](/docs/agent/v3/cli-meta-data).
+In Bamboo, you can target specific agents for your jobs using their _Capabilities_, and in Buildkite, you target them using [meta-data](/docs/agent/v3/cli-meta-data).
 
-Like *Elastic Bamboo*, Buildkite can also manage a fleet of agents for you on AWS using the [Elastic CI Stack for AWS](/docs/agent/v3/elastic-ci-aws/elastic-ci-stack-overview). Buildkite doesn't limit the number of agents you can run at any one time, so by using the AWS Stack, you can auto-scale your build infrastructure, going from 0 to 1000s of agents within moments.
+Like _Elastic Bamboo_, Buildkite can also manage a fleet of agents for you on AWS using the [Elastic CI Stack for AWS](/docs/agent/v3/elastic-ci-aws/elastic-ci-stack-overview). Buildkite doesn't limit the number of agents you can run at any one time, so by using the AWS Stack, you can auto-scale your build infrastructure, going from 0 to 1000s of agents within moments.
 
 ## Authentication and permissions
 

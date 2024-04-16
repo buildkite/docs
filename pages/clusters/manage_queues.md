@@ -4,7 +4,7 @@ This page provides details on how to manage queues within a [cluster](/docs/clus
 
 ## Setting up queues
 
-When a new Buildkite organization is created, along with the automatically created [default cluster](/docs/clusters/manage-clusters#setting-up-clusters) (named _Default cluster_), a default queue (named _default-queue_) within this cluster is also created.
+When a new Buildkite organization is created, along with the automatically created [default cluster](/docs/clusters/manage-clusters#setting-up-clusters) (named **Default cluster**), a default queue (named **default-queue**) within this cluster is also created.
 
 A cluster can be configured with multiple queues, each of which can be used to represent a specific combination of your build infrastructure, based on:
 
@@ -18,24 +18,24 @@ Having individual queues according to these breakdowns allows you to scale a set
 
 ## Create a queue
 
-New queues can be created using the [_Queues_ page of a cluster](#create-a-queue-using-the-buildkite-interface), as well as the [REST API's](#create-a-queue-using-the-rest-api) or [GraphQL API's](#create-a-queue-using-the-graphql-api) create a queue feature.
+New queues can be created using the [**Queues** page of a cluster](#create-a-queue-using-the-buildkite-interface), as well as the [REST API's](#create-a-queue-using-the-rest-api) or [GraphQL API's](#create-a-queue-using-the-graphql-api) create a queue feature.
 
 For these API requests, the _cluster ID_ value submitted in the request is the target cluster the queue will be created in.
 
-When you [create a new cluster](/docs/clusters/manage-clusters#create-a-cluster) through the [Buildkite interface](/docs/clusters/manage-clusters#create-a-cluster-using-the-buildkite-interface), this cluster automatically has an initial _default_ queue.
+When you [create a new cluster](/docs/clusters/manage-clusters#create-a-cluster) through the [Buildkite interface](/docs/clusters/manage-clusters#create-a-cluster-using-the-buildkite-interface), this cluster automatically has an initial **default** queue.
 
 ### Using the Buildkite interface
 
 To create a new queue using the Buildkite interface:
 
-1. Select _Agents_ in the global navigation to access the _Clusters_ page.
+1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster in which to create the new queue.
-1. On the _Queues_ page, select _New Queue_.
-1. Enter a _key_ for the queue, which can only contain letters, numbers, hyphens, and underscores, as valid characters.
-1. Select the _Add description_ checkbox to enter an optional longer description for the queue. This description appears under the queue's key, which is listed on the _Queues_ page, as well as when viewing the queue's details.
-1. Select _Create Queue_.
+1. On the **Queues** page, select **New Queue**.
+1. Enter a **key** for the queue, which can only contain letters, numbers, hyphens, and underscores, as valid characters.
+1. Select the **Add description** checkbox to enter an optional longer description for the queue. This description appears under the queue's key, which is listed on the **Queues** page, as well as when viewing the queue's details.
+1. Select **Create Queue**.
 
-    The new queue's details are displayed, indicating the queue's key and its description (if configured) underneath this key. Select _Queues_ on the interface again to list all configured queues in your cluster.
+    The new queue's details are displayed, indicating the queue's key and its description (if configured) underneath this key. Select **Queues** on the interface again to list all configured queues in your cluster.
 
 ### Using the REST API
 
@@ -112,11 +112,11 @@ You can pause a queue to prevent any jobs of the cluster's pipelines from being 
 
 To pause a queue:
 
-1. Select _Agents_ in the global navigation to access the _Clusters_ page.
+1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster with the queue to pause.
-1. On the _Queues_ page, select the queue to pause.
-1. On the queue's details page, select _Pause Queue_.
-1. Enter an optional note in the confirmation dialog, and select _Pause Queue_ to pause the queue.
+1. On the **Queues** page, select the queue to pause.
+1. On the queue's details page, select **Pause Queue**.
+1. Enter an optional note in the confirmation dialog, and select **Pause Queue** to pause the queue.
 
     **Note:** Use this note to explain why you're pausing the queue. The note will be displayed on the queue's details page and on any affected builds.
 
@@ -129,9 +129,9 @@ Since [trigger steps](/docs/pipelines/trigger-step) do not rely on agents, these
 
 To resume a queue:
 
-1. Select _Agents_ in the global navigation to access the _Clusters_ page.
+1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster with the queue to resume.
-1. On the _Queues_ page, select the queue to resume.
-1. On the queue's details page, select _Resume Queue_.
+1. On the **Queues** page, select the queue to resume.
+1. On the queue's details page, select **Resume Queue**.
 
     Jobs will resume being dispatched to the resumed queue as usual, including any jobs waiting to run.

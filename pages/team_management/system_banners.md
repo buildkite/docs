@@ -13,10 +13,10 @@ which you may have.
 
 ## Steps to creating a banner
 
-- You must be logged in as an Administrator
-- Visit the Organization's [settings page]
-- Add a message to the **System banners** panel
-- Click **Save Banner**
+1. Ensure you are logged in as an Administrator.
+1. Visit your organization's [**Settings**](https://buildkite.com/organizations/~/settings) page.
+1. Add a message to the **System banners** panel.
+1. Select **Save Banner**.
 
 [settings page]: <https://buildkite.com/organizations/~/settings>
 

@@ -10,7 +10,7 @@ An agent's queue is configured using an [agent tag](/docs/agent/v3/cli-start#set
 
 Agents can only be configured to listen on a single queue within a cluster.
 
-In the following example, the `--tags` flag of the `buildkite-agent start` command is used to configure this agent to listen on the `linux-medium-x86` queue, which is part of the _Testing_ cluster:
+In the following example, the `--tags` flag of the `buildkite-agent start` command is used to configure this agent to listen on the `linux-medium-x86` queue, which is part of the **Testing** cluster:
 
 ```
 buildkite-agent start --token "TESTING-AGENT-TOKEN-VALUE" --tags "queue=linux-medium-x86"

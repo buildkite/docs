@@ -13,7 +13,7 @@ To enable assignments, you must have at least one team that has access to your s
 
 When viewing your flaky tests, you should now see a list of teams with suite access permissions listed inside the assignment dropdown. From here you may assign, reassign or remove the assignment.
 
->🚧 Assignment permissions
+> 🚧 Assignment permissions
 > All team members have the ability to create, update or remove an assignment. This feature is not restricted to admins.
 
 Tests that are assigned to a team will be updated to display a badge indicating as such. This badge is also visible on issues in the run page.
@@ -22,11 +22,11 @@ Tests that are assigned to a team will be updated to display a badge indicating 
 
 ## Viewing assignments
 
-Users can check their test assignments by clicking _My Assignments_ in the side bar.
+Users can check their test assignments by clicking **My Assignments** in the side bar.
 
 <%= image "recent-assignments.png", width: 1960/2, height: 630/2, alt: "Flaky test page showing team assignments" %>
 
-When an assigned test has not flaked in more than 7 days, it is moved to the _Outdated flaky tests_ section. An assignment could become out of date due to a flaky test being fixed, or perhaps it belongs to a pipeline which has not had a build in the last 7 days. Should the flake reoccur, the assignment will be moved back to the _Recent flaky tests_ page.
+When an assigned test has not flaked in more than 7 days, it is moved to the **Outdated flaky tests** section. An assignment could become out of date due to a flaky test being fixed, or perhaps it belongs to a pipeline which has not had a build in the last 7 days. Should the flake reoccur, the assignment will be moved back to the **Recent flaky tests** page.
 
 <%= image "outdated-assignments.png", width: 1960/2, height: 630/2, alt: "Flaky test page showing team assignments" %>
 

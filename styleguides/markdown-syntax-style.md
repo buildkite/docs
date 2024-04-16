@@ -66,9 +66,9 @@ Even more text.
 
 > [!NOTE]
 > To improve the readability of the Markdown source content, ensure there is an empty line inserted both above and below the heading.
-> 
-> To avoid over-complicating the structure of a page, do not descend any further than a heading level 4. Be aware that only heading level 3s are rendered in the right _On this page_ sections of pages in the Buildkite Docs.
-> 
+>
+> To avoid over-complicating the structure of a page, do not descend any further than a heading level 4. Be aware that only heading level 3s are rendered in the right **On this page** sections of pages in the Buildkite Docs.
+>
 > Do not use any bold text or other fancy formatting for headings.
 
 Refer to [Headings in the Writing style guide](writing-style.md#headings) for details on how to write and present headings in the Buildkite docs.
@@ -108,9 +108,15 @@ Here is some [historical background](https://www.onlinegrammar.com.au/the-gramma
 
 ### UI elements
 
-UI element references are formatted using italics in the Buildkite docs. Markdown supports two characters as its markup for italicizing text—either an underscore `_` or a single asterisk `*`. For consistency, use single underscores `_` immediately surrounding the text you want to italicize. For example, `_Italicize this text_`
+UI element references are formatted using bold in the Buildkite docs. Markdown supports two consecutive asterisks `**` as its markup for bold text. For example, `**Bold this text**`.
 
 Refer to [Referring to UI elements in the Writing style guide](writing-style.md#ui-elements) for details on how to write and present UI elements in the docs.
+
+### Key terms and emphasis
+
+Key terms and emphasized words are formatted using italics in the Buildkite docs. Markdown supports two characters as its markup for italicizing text—either an underscore `_` or a single asterisk `*`. For consistency, use single underscores `_` immediately surrounding the text you want to italicize. For example, `_Italicize this text_`.
+
+Refer to [Referring to Key terms in the Writing style guide](writing-style.md#key-terms) for details on how to write and present key terms in the docs.
 
 ### Lists
 
@@ -211,7 +217,7 @@ A regular info callout ("purple"):
 
 ```
 > 📘 An info callout title
-> Callout content can have <code>code</code> or _emphasis_ and other inline elements in it, <a href="#">including links</a>.
+> Callout content can have `code` or _emphasis_ and other inline elements in it, [including links](#).
 > Every line break after the first becomes a new paragraph inside the callout.
 ```
 
@@ -233,7 +239,7 @@ For troubleshooting callouts ("orange"), use the 🚧 emoji:
 
 ```
 > 🚧 A troubleshooting callout title
-> Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a>.
+> Callout content can have `code` or _emphasis_ and other inline elements in it, [including links](#).
 > Every line break after the first becomes a new paragraph inside the callout.
 ```
 

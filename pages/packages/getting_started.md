@@ -18,17 +18,17 @@ To complete this tutorial, you'll need:
 
 First, create a new JavaScript registry:
 
-1. Select _Packages_ in the global navigation to access the _Registries_ page.
-1. Select _New registry_.
-1. On the _New Registry_ page, enter the mandatory name for your registry. For example, _My JavaScript registry_.
+1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **New registry**.
+1. On the **New Registry** page, enter the mandatory name for your registry. For example, `My JavaScript registry`.
 
     **Note:** Since registry names cannot contain spaces or punctuation, hyphens will automatically be specified when the space key is pressed, and punctuation will not be entered.
 
-1. Enter an optional _Description_ for the registry, which will appear under the name of the registry item on the _Registries_ page. For example, _This is an example of a JavaScript registry_.
-1. Select the required _Repo Type_ of _NodeJS (npm)_.
-1. Select _Create Registry_.
+1. Enter an optional **Description** for the registry, which will appear under the name of the registry item on the **Registries** page. For example, `This is an example of a JavaScript registry`.
+1. Select the required registry **Type** of **Node JS**.
+1. Select **Create Registry**.
 
-    The new JavaScript registry's details page is displayed. Selecting _Packages_ in the global navigation opens the _Registries_ page, where your new registry will be listed.
+    The new JavaScript registry's details page is displayed. Selecting **Packages** in the global navigation opens the **Registries** page, where your new registry will be listed.
 
 ## Clone the Node.js package example
 
@@ -53,8 +53,8 @@ Then, clone the Node.js package example:
 
 Next, configure your Node.js environment to publish Node.js packages to [the JavaScript registry you created above](#create-a-registry):
 
-1. Access your JavaScript registry's details page. To do this, select _Packages_ in the global navigation > your npm package from the list.
-1. Select _Publish a Nodejs Package_ to open the dialog with code boxes.
+1. Access your JavaScript registry's details page. To do this, select **Packages** in the global navigation > your npm package from the list.
+1. Select **Publish a Nodejs Package** to open the dialog with code boxes.
 1. Copy the `npm` command in the first code box and run it to configure your npm config settings file (`.npmrc`). This configuration allows you to publish packages to your JavaScript registry. The `npm` command has the following format:
 
     ```bash
@@ -102,22 +102,22 @@ Your Node.js package is published to your Buildkite JavaScript registry in `.tgz
 
 To confirm that your Node.js package was successfully published to your Buildkite JavaScript registry:
 
-1. View your JavaScript registry's details page, refreshing the page if necessary. To access this page, select _Packages_ in the global navigation > your Node.js package from the list.
+1. View your JavaScript registry's details page, refreshing the page if necessary. To access this page, select **Packages** in the global navigation > your Node.js package from the list.
 
-    The package name (for example, _nodejs.example-package-1.0.1.tgz_) should appear under _Packages_.
+    The package name (for example, **nodejs.example-package-1.0.1.tgz**) should appear under **Packages**.
 
-1. Select the package name to access its details, and note the following:
-    * _Installation instructions_: this section of the _Installation_ tab provides command line instructions for installing the package you just published
-    * _Details_ tab: provides various checksum values for this published package
-    * _About this version_: obtained from the `description` field value of the `package.json` file
-    * _Details_, which lists the following (where any field values are also obtained from the `package.json` file):
+1. Click the package name to access its details, and note the following:
+    * **Installation instructions**: this section of the **Installation** tab provides command line instructions for installing the package you just published.
+    * **Details** tab: provides various checksum values for this published package.
+    * **About this version**: obtained from the `description` field value of the `package.json` file.
+    * **Details**, which lists the following (where any field values are also obtained from the `package.json` file):
         - The name of the package, obtained from the `name` field value.
         - The package version, obtained from the `version` field value.
         - The registry the package is located in.
-        - The package's visibility (_Private_ by default), based on its registry's visibility.
-        - The distribution name/version (just _node.js_ in this case).
-        - The package's license, obtained from the `licence` field value.
-    * _Download_: select this to download the package locally.
+        - The package's visibility (**Private** by default), based on its registry's visibility.
+        - The distribution name/version (just **node.js** in this case).
+        - The package's license, obtained from the `license` field value.
+    * **Download**: select this to download the package locally.
 
 To return to the your JavaScript registry details page (listing all packages published to this registry), select the registry's name at the top of the page.
 

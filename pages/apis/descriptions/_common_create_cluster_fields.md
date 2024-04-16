@@ -1,6 +1,6 @@
 - `name` (required) is the name for the new cluster.
 
-- `description` (optional) is the description that appears under the name of cluster in its tile on the _Clusters_ page.
+- `description` (optional) is the description that appears under the name of cluster in its tile on the **Clusters** page.
 
 - `emoji` (optional) is the emoji that appears next to the cluster's name in the Buildkite interface and uses the example syntax above.
 

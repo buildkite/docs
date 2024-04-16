@@ -1,4 +1,4 @@
-# `buildkite-agent secret`
+# buildkite-agent secret
 
 > 📘 The `secrets` command, as well as its associated server-side features, are currently in feature preview.
 > If you're interested in trialing Buildkite Secrets, [contact support](mailto:support@buildkite.com).

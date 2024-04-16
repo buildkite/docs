@@ -4,7 +4,6 @@ Customers on the Buildkite [Business and Enterprise](https://buildkite.com/prici
 
 For more information on enabling Teams for your organization, please see the [Users and Teams section of Pipelines documentation](/docs/team-management/permissions).
 
-
 ## Permissions with teams
 
 You can see the teams that you're a member of from your user page from your Organization settings [User section](https://buildkite.com/organizations/~/users/).

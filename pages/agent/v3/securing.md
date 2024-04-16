@@ -214,4 +214,4 @@ Since the [agent](https://github.com/buildkite/agent) is open-source, if necessa
 
 [Clusters](/docs/clusters/overview) provide a mechanism to restrict which IP addresses can connect using a given agent token. This protects against the misuse of agent tokens and the hijacking of agent sessions.
 
-To restrict agent connection by IP address, set the [_Allowed IP Addresses_ attribute](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address). This restricts agent registration to those IPs, and any existing agents outside the allowed IP ranges will be forcefully disconnected.
+To restrict agent connection by IP address, set the [**Allowed IP Addresses** attribute](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address). This restricts agent registration to those IPs, and any existing agents outside the allowed IP ranges will be forcefully disconnected.

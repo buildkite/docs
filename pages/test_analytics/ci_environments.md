@@ -76,7 +76,7 @@ During CircleCI workflow runs, test collectors upload information from the follo
 For CircleCI runs:
 
 ```
-run_env[key]=$CIRCLE_WORKFLOW_ID-$CIRCLE_BUILD_NUM"
+run_env[key]=$CIRCLE_WORKFLOW_ID-$CIRCLE_BUILD_NUM
 ```
 
 ## GitHub Actions
@@ -97,7 +97,7 @@ During GitHub Actions workflow runs,test collectors upload information from the 
 For GitHub Action runs:
 
 ```
-run_env[key]=$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT"`
+run_env[key]=$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT
 ```
 
 ## Other CI providers
