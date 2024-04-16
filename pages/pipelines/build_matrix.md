@@ -12,7 +12,7 @@ The following [command step](/docs/pipelines/command-step) attributes can contai
 
 You can't use matrix values in other attributes, including step keys and [concurrency groups](/docs/pipelines/controlling-concurrency#concurrency-groups).
 
-For example, instead of writing three separate jobs for builds on macOS, Linux and Windows, like the following build configuration (which does not use a build matrix):
+For example, instead of writing three separate jobs for builds on macOS, Linux, and Windows, like the following build configuration (which does not use a build matrix):
 
 ```yaml
 steps:
