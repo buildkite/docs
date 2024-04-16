@@ -361,6 +361,12 @@
           path: "deployments/deploying-to-heroku"
         - name: "Deploying to Kubernetes"
           path: "deployments/deploying-to-kubernetes"
+        - name: "OIDC"
+          children: 
+            - name: "Overview"
+              path: "deployments/oidc"
+            - name: "OICD with AWS"
+              path: "deployments/oidc/oidc-with-aws"
     - name: "Insights"
       children:
         - name: "Waterfall view"
