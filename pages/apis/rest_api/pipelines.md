@@ -418,6 +418,17 @@ Error responses:
 </tbody>
 </table>
 
+### On slug creation conventions
+
+Pipeline slugs are generated based on the pipeline name you provide during the pipeline creation.
+The maximum allowed character length for a pipeline slug is `100`.
+The supported character format for slug generation is:
+`/\A[a-zA-Z0-9]+[a-zA-Z0-9\-]*\z/`.
+
+All the whitespace characters that appear in the pipeline name consecutively will be converted to a single `-` character (so `"Hello[space]there"` and `"Hello[space, space, space, etc.]there"` will be equally converted to a `hello-there` slug), and uppercase will be converted to lowercase.
+
+An attempt at creating a new pipeline with a name that matches an existing pipeline name will throw an error.
+
 ## Create a visual step pipeline
 
 YAML pipelines are the recommended way to [manage your pipelines](https://buildkite.com/docs/tutorials/pipeline-upgrade) but if you're still using visual steps you can add them by setting the `steps` key in your json request body to an array of steps:

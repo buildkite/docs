@@ -59,6 +59,17 @@ When setting pipeline steps using the API, you must pass in a string that Buildk
 steps: { yaml: "steps:\n - command: \"buildkite-agent pipeline upload\"" }
 </code>
 
+### Slug creation conventions
+
+Pipeline slugs are generated based on the pipeline name you provide during the pipeline creation.
+The maximum allowed character length for a pipeline slug is `100`.
+The supported character format for slug generation is:
+`/\A[a-zA-Z0-9]+[a-zA-Z0-9\-]*\z/`.
+
+All the whitespace characters that appear in the pipeline name consecutively will be converted to a single `-` character (so `"Hello[space]there"` and `"Hello[space, space, space, etc.]there"` will be equally converted to a `hello-there` slug), and uppercase will be converted to lowercase.
+
+An attempt at creating a new pipeline with a name that matches an existing pipeline name will throw an error.
+
 ## Get a list of recently created pipelines
 
 Get a list of the 500 most recently created pipelines.
