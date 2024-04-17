@@ -91,6 +91,17 @@ If you've configured webhooks, your pipeline will trigger when you push updates 
 
 If you have trouble getting your pipeline to work, don't hesitate to reach out to [support](https://buildkite.com/support) for help.
 
+### On Slug Creation Conventions
+
+Pipeline slugs are generated based on the pipeline name you provide during the pipeline creation.
+The maximum allowed character length for a pipeline slug is `100`.
+The supported character format for slug generation is:
+`/\A[a-zA-Z0-9]+[a-zA-Z0-9\-]*\z/`.
+
+All the whitespace characters that appear in the pipelane name consecutively will be converted to a single `-` character (so `"Hello there"` and `"Hello   there"` will be equally converted to a `hello-there` slug), and uppercase will be converted to lowercase.
+
+An attempt at creating a new pipeline with a name that matches an existing pipeline name will throw an error.
+
 ### Using private repositories
 
 When you create a new pipeline with a private repository URL, you'll see instructions for configuring your source control's webhooks. Once you've followed those instructions, ensure your [agent's SSH keys](/docs/agent/v3/ssh-keys) are configured so your agent can check out the repository.
