@@ -69,7 +69,7 @@ Even more text.
 >
 > To avoid over-complicating the structure of a page, do not descend any further than a heading level 4. Be aware that only heading level 3s are rendered in the right **On this page** sections of pages in the Buildkite Docs.
 >
-> Do not use any bold text or other fancy formatting for headings.
+> In line with [Google's developer docs guidelines on heading/title formatting](https://developers.google.com/style/headings#heading-and-title-format), avoid using `code` formatting in headings, as well as any other fancy formatting such as **bold** or _italicised_ text.
 
 Refer to [Headings in the Writing style guide](writing-style.md#headings) for details on how to write and present headings in the Buildkite docs.
 
