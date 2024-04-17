@@ -169,7 +169,7 @@ The standard case used in English prose. That is, only the first word is capital
 
 Do not create multi-sentence headings, or add full stops/periods or other punctuation at the end of a heading.
 
-Also, in line with [Google's developer docs guidelines on heading/title formatting](https://developers.google.com/style/headings#heading-and-title-format), avoid using `code` items in headings, but if you do need to reference code items in a heading, do so without code formatting and [without grammatically inflecting the code item](https://developers.google.com/style/code-in-text#grammatical-treatment-of-code-elements).
+Also, in line with [Google's developer docs guidelines on heading/title formatting](https://developers.google.com/style/headings#heading-and-title-format), avoid using `code` items in headings, but if you do need to reference code items in a heading, do so without code formatting and [without grammatically inflecting the code items](https://developers.google.com/style/code-in-text#grammatical-treatment-of-code-elements).
 
 Refer to [Headings in the Markdown syntax style guide](markdown-syntax-style.md#headings) for details on how to implement headings in Markdown.
 
