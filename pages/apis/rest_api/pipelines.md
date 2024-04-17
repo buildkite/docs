@@ -2,7 +2,7 @@
 
 The pipelines API consists of several endpoints that allow you to manage:
 
-- pipelines, along with their [builds](/docs/apis/rest-api/builds)
+- pipelines, along with their [builds](/docs/apis/rest-api/builds) and `tags` (that are a part of the JSON body, with the `tags` key accepting an array of strings, including emojis using the `:emoji:` syntax).
 - a build's [annotations](/docs/apis/rest-api/annotations), [artifacts](/docs/apis/rest-api/artifacts), and [jobs](/docs/apis/rest-api/jobs)
 
 This section of the REST API documentation also contains several other endpoints that allow you to manage other aspects of Buildkite functionality associated with your pipelines, such as:
