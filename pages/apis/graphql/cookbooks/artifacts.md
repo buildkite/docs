@@ -17,6 +17,7 @@ query GetDownloadURLsForArtifactsFromBuild {
             artifacts {
               edges {
                 node {
+                  path
                   downloadURL
                 }
               }
