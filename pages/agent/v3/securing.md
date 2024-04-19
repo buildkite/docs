@@ -1,6 +1,6 @@
 # Securing your Buildkite Agent
 
-In cases where a Buildkite Agent is being deployed into a sensitive environment there are a few default settings and techniques which may be adjusted.
+In cases where a Buildkite Agent is being deployed into a sensitive environment there are a few default settings which may be adjusted and techniques which may be used.
 
 ## Securely storing secrets
 
