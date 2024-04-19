@@ -770,7 +770,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 <h3 id="audit-event-logged">Audit Event Logged</h3>
 
-[Audit log](/docs/pipelines/audit-log) is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan
+[Audit log](/docs/pipelines/audit-log) is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
 
 ```json
 {

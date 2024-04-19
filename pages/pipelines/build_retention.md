@@ -23,7 +23,6 @@ The following diagram shows the lifecycle of build data by plan.
       <td>-</td>
     </tr>
     <tr>
-    <tr>
       <td>Open source plan</td>
       <td>1 year</td>
       <td>-</td>
@@ -33,12 +32,8 @@ The following diagram shows the lifecycle of build data by plan.
       <td>1 year</td>
       <td>-</td>
     </tr>
-      <td>Team plan</td>
-      <td>1 year</td>
-      <td>-</td>
-    </tr>
     <tr>
-      <td>Business plan</td>
+      <td>Pro plan</td>
       <td>1 year</td>
       <td>-</td>
     </tr>
