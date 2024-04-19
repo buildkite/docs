@@ -1,3 +1,3 @@
-You can edit the version control provider settings for each pipeline from the pipeline's settings page. Go to _Pipelines_ > _Pipeline Menu_ > _Pipeline Settings_ > _`<Provider>`_.
+You can edit the version control provider settings for each pipeline from the pipeline's settings page. Go to **Pipelines** > your specific pipeline > **Settings** > your Git service provider.
 
 If you need more control over your pipeline configuration, add a [pipeline.yml](/docs/pipelines/defining-steps#adding-steps) to your repository. Then you can use [conditionals](/docs/pipelines/conditionals) and [branch filtering](/docs/pipelines/branch-configuration) to configure your pipeline.

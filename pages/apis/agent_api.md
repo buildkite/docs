@@ -8,7 +8,6 @@ All other endpoints in the Agent API are intended only for use by the Buildkite 
 
 The current version of the Agent API is v3.
 
-
 ## Schema
 
 All API access is over HTTPS, and accessed from the `agent.buildkite.com` domain. All data is sent as JSON.

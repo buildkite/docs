@@ -1,7 +1,6 @@
-# `buildkite-agent step`
+# buildkite-agent step
 
 The Buildkite agent's `step` command provides the ability to retrieve and update the attributes of steps in your `pipeline.yml` files.
-
 
 ## Updating a step
 

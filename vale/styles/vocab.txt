@@ -1,5 +1,6 @@
 ACLs
 addr
+allow_any_instance_of
 Allowlist
 allowlist
 AMI's
@@ -33,6 +34,7 @@ Buildbox
 Buildkite
 Buildkite's
 buildscript
+Bundler
 cancelation
 CCMenu
 ccnet
@@ -131,6 +133,7 @@ namespaces
 navatar
 negator
 NGINX
+Nodejs
 Noreply
 npm
 ns
@@ -138,11 +141,13 @@ nsc
 nssm
 NVMe
 OAuth
+oidc
 Okta
 onboarding
 Pagerduty
 parsable
 pbuilder
+pbuilder's
 Phabricator
 Phabricator's
 php

@@ -38,9 +38,9 @@ The following HTTP headers are present in every webhook request, which allow you
 </tbody>
 </table>
 
-One of either the [Token](/docs/apis/webhooks#webhook-token) or [Signature](/docs/apis/webhooks#webhook-signature) headers will be present in every webhook request. The token value and header setting can be found under _Token_ in your _Webhook Notification service_.
+One of either the [Token](/docs/apis/webhooks#webhook-token) or [Signature](/docs/apis/webhooks#webhook-signature) headers will be present in every webhook request. The token value and header setting can be found under **Token** in your **Webhook Notification** service.
 
-Your selection in the _Webhook Notification service_ will determine which is sent:
+Your selection in the **Webhook Notification** service will determine which is sent:
 
 <table class="fixed-width">
 <tbody>
@@ -65,14 +65,14 @@ Each event's data is sent JSON encoded in the request body. See each event's doc
 }
 ```
 
->🚧 Fast transitions and webhooks
+> 🚧 Fast transitions and webhooks
 > Note that if a build transitions between states very quickly, for example from blocked (<code>finished</code>) to unblocked (<code>running</code>), the webhook may be in a different state from the actual build. This is a known limitation of webhooks, in that they may represent a later version of the object than the one that triggered the event.
 
 ## Webhook token
 
 By default, Buildkite will send a token with each webhook in the `X-Buildkite-Token` header.
 
-The token value and header setting can be found under _Token_ in your _Webhook Notification service_.
+The token value and header setting can be found under **Token** in your **Webhook Notification** service.
 
 The token is passed in clear text.
 
@@ -84,7 +84,7 @@ The `X-Buildkite-Signature` header contains a timestamp and an HMAC signature. T
 
 Buildkite generates the signature using HMAC-SHA256; a hash-based message authentication code [HMAC](https://en.wikipedia.org/wiki/HMAC) used with the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) hash function and a secret key. The webhook token value is used as the secret key. The timestamp is an integer representation of a UTC timestamp. The raw request body is the signed message.
 
-The token value and header setting can be found under _Token_ in your _Webhook Notification service_.
+The token value and header setting can be found under **Token** in your **Webhook Notification** service.
 
 ### Verifying HMAC signatures
 
@@ -128,7 +128,7 @@ Buildkite sends a timestamp in the `X-Buildkite-Signature` header. The timestamp
 To help protect against a replay attack, upon receipt of a webhook:
 
 1. Verify the signature
-2. Check the timestamp against the current time
+1. Check the timestamp against the current time
 
 If the webhook's timestamp is within your chosen window of the current time, it can reasonably be assumed to be the original webhook.
 

@@ -15,11 +15,11 @@ If your IdP requires information from Buildkite as part of the setup process, ge
 
 ### Get your ACS URL and configure your IdP
 
-Click the Buildkite Organization Settings' _Single Sign On_ menu item, then choose the Custom SAML provider from the available options:
+Click the [Buildkite organization **Settings**](https://buildkite.com/organizations/~/settings)' **Single Sign On** menu item, then choose the Custom SAML provider from the available options:
 
 <%= image "sso-settings.png", width: 1716/2, height: 884/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
-Choose the _Provide IdP Metadata Later_ option when configuring your Custom SAML Provider. On the following screen you'll find the ACS URL in the _Service Provider_ section:
+Choose the **Provide IdP Metadata Later** option when configuring your Custom SAML Provider. On the following screen you'll find the ACS URL in the **Service Provider** section:
 
 <%= image "service-provider-urls.png", width: 1768/2, height: 412/2, alt: "Screenshot of the Service Provider section in the Custom SAML SSO Provider details page" %>
 
@@ -27,9 +27,9 @@ If you IdP supports meta-data URL setup, you can find your unique Buildkite orga
 
 ### Update your Buildkite SAML provider
 
-In your Buildkite _Single Sign On_ menu, select your custom SAML provider from the list of _Configured SSO Providers_.
+In your Buildkite **Single Sign On** menu, select your custom SAML provider from the list of **Configured SSO Providers**.
 
-Click the _Edit Settings_ button, and choose an option for entering your IdP's information: a meta-data URL from your IdP, an XML file from your IdP, or by entering the data manually.
+Click the **Edit Settings** button, and choose an option for entering your IdP's information: a meta-data URL from your IdP, an XML file from your IdP, or by entering the data manually.
 
 Manual data entry requires the following three fields:
 
@@ -94,7 +94,7 @@ If your custom provider needs further information, please email [support@buildki
 
 ### Create a Buildkite SAML provider
 
-Click the Buildkite Organization Settings' _Single Sign On_ menu item, then choose the custom SAML provider from the available options:
+Click the [Buildkite organization **Settings**](https://buildkite.com/organizations/~/settings)' **Single Sign On** menu item, then choose the custom SAML provider from the available options:
 
 <%= image "sso-settings.png", width: 1716/2, height: 884/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 

@@ -55,14 +55,14 @@ Clusters provides additional, easy to access queue metrics that are available on
 
 ## Accessing your agents and pipelines
 
-If you only have one cluster with one queue, selecting _Agents_ in the global navigation takes you directly to your single queue in this cluster. This is typically the case with newly created organizations.
+If you only have one cluster with one queue, selecting **Agents** in the global navigation takes you directly to your single queue in this cluster. This is typically the case with newly created organizations.
 
-If you have multiple clusters, selecting _Agents_ in the global navigation takes you to the _Clusters_ page, where you can access your individual clusters and within each one, the details and configurations of the cluster's individual queues, agents tokens, pipelines and other settings.
+If you have multiple clusters, selecting **Agents** in the global navigation takes you to the **Clusters** page, where you can access your individual clusters and within each one, the details and configurations of the cluster's individual queues, agents tokens, pipelines and other settings.
 
-Any agents and pipelines which are not yet associated with a cluster are known as _unclustered agents_ and _pipelines_, respectively.
+Any agents and pipelines which are not yet associated with a cluster are known as _unclustered agents_ and _unclustered pipelines_, respectively.
 
-From the _Clusters_ page:
+From the **Clusters** page:
 
-- To access a specific cluster's agents, their associated agent tokens, as well as the cluster's queues and pipelines, select the relevant cluster (or its _queue_ or _pipelines_ link) from this page.
+- To access a specific cluster's agents, their associated agent tokens, as well as the cluster's queues and pipelines, select the relevant cluster (or its **queue** or **pipelines** link) from this page.
 
-- To access your unclustered agents, their associated agent tokens, as well as their pipelines, select _Unclustered_ (or its _pipelines_ link) from this page.
+- To access your unclustered agents, their associated agent tokens, as well as their pipelines, select **Unclustered** (or its **pipelines** link) from this page.

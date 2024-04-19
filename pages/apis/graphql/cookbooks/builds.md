@@ -2,7 +2,7 @@
 
 A collection of common tasks with builds using the GraphQL API.
 
-You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the _Docs_ panel.
+You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the **Docs** panel.
 
 ## Get build info by ID
 
@@ -287,4 +287,20 @@ Then, create the build:
       }
     }
   }
+```
+## Get the webhook payload of a build
+
+This query allows you to fetch the webhook payload of a specific build using its UUID. The payload is only available for 7 days.
+
+```graphql
+query GetWebhookPayLoad {
+  build(uuid:"build-uuid") {
+    source{
+      ... on BuildSourceWebhook {
+        headers
+        payload
+      }
+    }
+  }
+}
 ```

@@ -193,7 +193,7 @@ After completing these steps, you'll see the analytics of test executions on all
 
 If you don't see branch names, build numbers, or commit hashes in the Test Analytics dashboard, see [CI environments](/docs/test-analytics/ci-environments) to learn more about exporting your environment.
 
-## Troubleshooting missing test executions and `--forceExit`
+## Troubleshooting missing test executions and --forceExit
 
 Using the [`--forceExit`](https://jestjs.io/docs/cli#--forceexit) option when running Jest could result in missing test executions from Test Analytics.
 
