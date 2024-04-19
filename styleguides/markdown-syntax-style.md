@@ -69,7 +69,7 @@ Even more text.
 >
 > To avoid over-complicating the structure of a page, do not descend any further than a heading level 4. Be aware that only heading level 3s are rendered in the right **On this page** sections of pages in the Buildkite Docs.
 >
-> In line with [Google's developer docs guidelines on heading/title formatting](https://developers.google.com/style/headings#heading-and-title-format), avoid using `code` formatting in headings, as well as any other fancy formatting such as **bold** or _italicised_ text.
+> In line with [Google's developer docs guidelines on heading/title formatting](https://developers.google.com/style/headings#heading-and-title-format), avoid using `code` items in headings. However, if you do wish or need to do so, don't use code formatting in the heading text. Also avoid other fancy formatting such as **bold** or _italics_ in heading text.
 
 Refer to [Headings in the Writing style guide](writing-style.md#headings) for details on how to write and present headings in the Buildkite docs.
 
@@ -108,7 +108,7 @@ Here is some [historical background](https://www.onlinegrammar.com.au/the-gramma
 
 ### UI elements
 
-UI element references are formatted using bold in the Buildkite docs. Markdown supports two consecutive asterisks `**` as its markup for bold text. For example, `**Bold this text**`.
+UI element references are formatted using bold in the Buildkite docs. Markdown supports two consecutive asterisks `**` or underscores `__` as its markup for bold text. For consistency, use sets of two consecutive asterisks `**` immediately surrounding the text you want to bold. For example, `**Bold this text**`.
 
 Refer to [Referring to UI elements in the Writing style guide](writing-style.md#ui-elements) for details on how to write and present UI elements in the docs.
 
