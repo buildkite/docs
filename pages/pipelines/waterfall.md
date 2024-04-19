@@ -1,7 +1,7 @@
 # Waterfall view
 
-> 📘 Business/Enterprise feature
-> Waterfall is only available on [Business or Enterprise](https://buildkite.com/pricing) plans.
+> 📘 Pro/Enterprise feature
+> Waterfall is only available on [Pro or Enterprise](https://buildkite.com/pricing) plans.
 
 ## Overview
 

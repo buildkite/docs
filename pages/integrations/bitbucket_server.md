@@ -2,7 +2,7 @@
 
 Buildkite integrates with Bitbucket Server to provide automated builds based on your source control. You can run a build every time you push code to Bitbucket Server, using a webhook that you create in your Bitbucket Server.
 
-Bitbucket Enterprise Server is available to customers on the Buildkite [Business and Enterprise](https://buildkite.com/pricing) plans.
+Bitbucket Enterprise Server is available to customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans.
 
 > 📘
 > This guide shows you how to set up your Bitbucket Server builds with Buildkite. It was written using Bitbucket Server version 7.11.1

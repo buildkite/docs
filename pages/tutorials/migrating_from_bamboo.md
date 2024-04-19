@@ -10,7 +10,7 @@ Migrating continuous integration tools can be challenging, so we've put together
 
 <!--alex ignore easy-->
 
-You can easily map most Bamboo workflows to Buildkite. *Projects and Plans* in Bamboo are called [pipelines](/docs/pipelines) in Buildkite (and *Pipelines* in the Buildkite dashboard). Bamboo deployments also become Buildkite pipelines.
+You can easily map most Bamboo workflows to Buildkite. _Projects and Plans_ in Bamboo are called [pipelines](/docs/pipelines) in Buildkite (and **Pipelines** in the Buildkite dashboard). Bamboo deployments also become Buildkite pipelines.
 
 Buildkite pipelines consist of different types of [_steps_](/docs/pipelines/step-reference) for different tasks:
 
@@ -36,7 +36,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Instead of the `wait` step above, you could use a `block` step to stop the build and require a user to manually _unblock_ the pipeline by clicking the **Continue** button in the Buildkite dashboard, or use the [Unblock Job](/docs/api/jobs#unblock-a-job) REST API endpoint. This is the equivalent of a *Manual Stage* in Bamboo.
+Instead of the `wait` step above, you could use a `block` step to stop the build and require a user to manually _unblock_ the pipeline by clicking the **Continue** button in the Buildkite dashboard, or use the [Unblock Job](/docs/api/jobs#unblock-a-job) REST API endpoint. This is the equivalent of a _Manual Stage_ in Bamboo.
 
 ```yaml
 steps:
@@ -97,7 +97,7 @@ If you have many pipelines to migrate or manage at once, you can use the [Update
 
 ## Steps and tasks
 
-`command` steps are Buildkite's version of the *Command Task* in Bamboo. They can run any commands you like on your build server, whether it's `rake test` or `make`. Buildkite doesn't have the concept of *Tasks* in general. It's up to you to write scripts that perform the same tasks that your Bamboo Jobs have.
+`command` steps are Buildkite's version of the _Command Task_ in Bamboo. They can run any commands you like on your build server, whether it's `rake test` or `make`. Buildkite doesn't have the concept of _Tasks_ in general. It's up to you to write scripts that perform the same tasks that your Bamboo Jobs have.
 
 For example, you had the following set of Bamboo Tasks:
 
@@ -123,7 +123,7 @@ To trigger builds in other pipelines, you can use `trigger` steps. This way, you
 
 ## Remote and Elastic agents
 
-The [Buildkite agent](/docs/agent/v3) replaces your Bamboo *Remote Agents*. You can install agents onto any server to run your builds.
+The [Buildkite agent](/docs/agent/v3) replaces your Bamboo _Remote Agents_. You can install agents onto any server to run your builds.
 
 In Bamboo, you can target specific agents for your jobs using their _Capabilities_, and in Buildkite, you target them using [meta-data](/docs/agent/v3/cli-meta-data).
 
