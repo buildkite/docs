@@ -331,6 +331,10 @@ Optional [request body properties](/docs/api#request-body-properties):
     </td>
   </tr>
   <tr>
+    <th><code>cluster_id</code></th>
+    <td>The ID of the <a href="/docs/clusters/overview">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
+  </tr>
+  <tr>
     <th><code>default_branch</code></th>
     <td>
       <p>The name of the branch to prefill when new builds are created or triggered in Buildkite. It is also used to filter the builds and metrics shown on the Pipelines page.</p>
@@ -341,8 +345,12 @@ Optional [request body properties](/docs/api#request-body-properties):
     <th><code>description</code></th>
     <td>
       <p>The pipeline description.</p>
-      <p><em>Example:</em> <code>":package: A testing pipeline"</code></p>
+      <p><em>Example:</em> <code>"\:package\: A testing pipeline"</code></p>
     </td>
+  </tr>
+  <tr>
+    <th><code>pipeline_template_uuid</code></th>
+    <td>The UUID of the <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> the pipeline should run with. Set to <code>null</code> to remove the pipeline template from the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"018e5a22-d14c-7085-bb28-db0f83f43a1c"</code></p>
   </tr>
   <tr>
     <th><code>provider_settings</code></th>
@@ -363,6 +371,13 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>
       <p>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to.</p>
       <p><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>tags</code></th>
+    <td>
+      <p>An array of strings representing <a href="/docs/pipelines/tags">tags</a> to add to this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
+      <p><em>Example:</em><code>["\:terraform\:", "testing"]</code></p>
     </td>
   </tr>
   <tr>
@@ -391,14 +406,6 @@ teams: {
     <td>
       <p>Whether the pipeline is visible to everyone, including users outside this organization. <p class="Docs__api-param-eg"><em>Example:</em> <code>"public"</code><br><em>Default:</em> <code>"private"</code></p>
     </td>
-  </tr>
-  <tr>
-    <th><code>cluster_id</code></th>
-    <td>The ID of the <a href="/docs/clusters/overview">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
-  </tr>
-  <tr>
-    <th><code>pipeline_template_uuid</code></th>
-    <td>The UUID of the <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> the pipeline should run with. Set to <code>null</code> to remove the pipeline template from the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"018e5a22-d14c-7085-bb28-db0f83f43a1c"</code></p>
   </tr>
 </tbody>
 </table>
@@ -625,6 +632,10 @@ Optional [request body properties](/docs/api#request-body-properties):
     </td>
   </tr>
   <tr>
+    <th><code>cluster_id</code></th>
+    <td>The ID of the <a href="/docs/clusters/overview">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
+  </tr>
+  <tr>
     <th><code>default_branch</code></th>
     <td>
       <p>The name of the branch to prefill when new builds are created or triggered in Buildkite. It is also used to filter the builds and metrics shown on the Pipelines page.</p>
@@ -644,6 +655,10 @@ Optional [request body properties](/docs/api#request-body-properties):
       <p>The pipeline environment variables.</p>
       <p><em>Example:</em> <code>{"KEY":"value"}</code></p>
     </td>
+  </tr>
+  <tr>
+    <th><code>pipeline_template_uuid</code></th>
+    <td>The UUID of the <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> the pipeline should run with. Set to <code>null</code> to remove the pipeline template from the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"018e5a22-d14c-7085-bb28-db0f83f43a1c"</code></p>
   </tr>
   <tr>
     <th><code>provider_settings</code></th>
@@ -667,6 +682,13 @@ Optional [request body properties](/docs/api#request-body-properties):
     </td>
   </tr>
   <tr>
+    <th><code>tags</code></th>
+    <td>
+      <p>An array of strings representing <a href="/docs/pipelines/tags">tags</a> to add to this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
+      <p><em>Example:</em><code>["\:terraform\:", "testing"]</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>teams</code></th>
     <td>
       <p>An array of team UUIDs to add this pipeline to. Allows you to specify the access level for the pipeline in a team. The available access level options are:
@@ -685,14 +707,6 @@ teams: {
 }
 ```} %>
     </td>
-  </tr>
-  <tr>
-    <th><code>cluster_id</code></th>
-    <td>The ID of the <a href="/docs/clusters/overview">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
-  </tr>
-  <tr>
-    <th><code>pipeline_template_uuid</code></th>
-    <td>The UUID of the <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> the pipeline should run with. Set to <code>null</code> to remove the pipeline template from the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"018e5a22-d14c-7085-bb28-db0f83f43a1c"</code></p>
   </tr>
 </tbody>
 </table>
@@ -722,7 +736,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "repository": "git@github.com:acme-inc/new-repo.git",
-    "configuration": "steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\""
+    "configuration": "steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\"",
+    "tags": ["\:terraform\:", "testing"]
   }'
 ```
 
@@ -808,6 +823,14 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build cancelling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
+    <th><code>cluster_id</code></th>
+    <td>The ID of the <a href="/docs/clusters/overview">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
+  </tr>
+  <tr>
+    <th><code>configuration</code></th>
+    <td>The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\""</code></p></td>
+  </tr>
+  <tr>
     <th><code>default_branch</code></th>
     <td>The name of the branch to prefill when new builds are created or triggered in Buildkite.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>"main"</code></p>
@@ -815,7 +838,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>description</code></th>
-    <td>The pipeline description. <p class="Docs__api-param-eg"><em>Example:</em> <code>":package: A testing pipeline"</code></p></td>
+    <td>The pipeline description. <p class="Docs__api-param-eg"><em>Example:</em> <code>"\:package\: A testing pipeline"</code></p></td>
   </tr>
     <tr>
     <th><code>env</code></th>
@@ -826,16 +849,16 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
   </tr>
   <tr>
+    <th><code>pipeline_template_uuid</code></th>
+    <td>The UUID of the <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> the pipeline should run with. Set to <code>null</code> to remove the pipeline template from the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"018e5a22-d14c-7085-bb28-db0f83f43a1c"</code></p>
+  </tr>
+  <tr>
     <th><code>provider_settings</code></th>
     <td>The source provider settings. See the <a href="#provider-settings-properties">Provider Settings</a> section for accepted properties. <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p></td>
   </tr>
   <tr>
     <th><code>repository</code></th>
     <td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com/org/repo.git"</code></p></td>
-  </tr>
-  <tr>
-    <th><code>configuration</code></th>
-    <td>The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\""</code></p></td>
   </tr>
   <tr>
     <th><code>skip_queued_branch_builds</code></th>
@@ -846,16 +869,15 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
+    <th><code>tags</code></th>
+    <td>
+      <p>An array of strings representing <a href="/docs/pipelines/tags">tags</a> to modify on this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
+      <p><em>Example:</em><code>["\:terraform\:", "testing"]</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>visibility</code></th>
     <td>Whether the pipeline is visible to everyone, including users outside this organization. <p class="Docs__api-param-eg"><em>Example:</em> <code>"public"</code><br><em>Default:</em> <code>"private"</code></p></td>
-  </tr>
-  <tr>
-    <th><code>cluster_id</code></th>
-    <td>The ID of the <a href="/docs/clusters/overview">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
-  </tr>
-  <tr>
-    <th><code>pipeline_template_uuid</code></th>
-    <td>The UUID of the <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> the pipeline should run with. Set to <code>null</code> to remove the pipeline template from the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"018e5a22-d14c-7085-bb28-db0f83f43a1c"</code></p>
   </tr>
 </tbody>
 </table>
