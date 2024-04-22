@@ -21,11 +21,12 @@ MD005: true
 MD006: true
 
 # MD007/ul-indent - Unordered list indentation
-MD007:
+# (This setting is temporarily disabled. The intention is to make its value 4, as doing this would allow the nesting of 3 bullet points and improved code block handling)
+# MD007:
   # Spaces for indent
-  indent: 2
+  # indent: 2
   # Whether to indent the first level of the list
-  start_indented: false
+  # start_indented: false
 
 # MD009/no-trailing-spaces - Trailing spaces
 MD009:

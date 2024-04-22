@@ -4,12 +4,11 @@ Pipeline steps are defined in YAML and are either stored in Buildkite or in your
 
 Defining your pipeline steps in a `pipeline.yml` file gives you access to more configuration options and environment variables than the web interface, and allows you to version, audit and review your build pipelines alongside your source code.
 
-
 ## Getting started
 
-On the _Pipelines_ page, select _New pipeline_ to begin creating a new pipeline.
+On the **Pipelines** page, select **New pipeline** to begin creating a new pipeline.
 
-Required fields are _Name_ and _Repository_.
+The required fields are **Name** and **Git Repository**.
 
 <%= image "new-pipeline-setup.png", width: 1768/2, height: 928/2, alt: "Screenshot of the 'New Pipeline' setup form" %>
 
@@ -32,22 +31,22 @@ If you're using [YAML steps](/docs/tutorials/pipeline-upgrade), you can set defa
 * `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
 * `env` - A map of <a href="/docs/pipelines/environment-variables">environment variables</a> to apply to all steps
 
->📘 Environment variable precedence
+> 📘 Environment variable precedence
 > Because you can set environment variables in many different places, check [environment variable precedence](/docs/pipelines/environment_variables#environment-variable-precedence) to ensure your environment variables work as expected.
 
-For example, to set steps `blah.sh` and `blahblah.sh` to use the `something` queue and the step `yada.sh` to use the `other` queue:
+For example, to set steps `do-something.sh` and `do-something-else.sh` to use the `something` queue and the step `do-another-thing.sh` to use the `another` queue:
 
 ```yml
 agents:
   queue: "something"
 
 steps:
-  - command: "blah.sh"
-  - command: "blahblah.sh"
-  - label: "Yada"
-    command: "yada.sh"
+  - command: "do-something.sh"
+  - command: "do-something-else.sh"
+  - label: "Another"
+    command: "do-another-thing.sh"
     agents:
-      queue: "other"
+      queue: "another"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -58,7 +57,7 @@ To add steps using the YAML editor, click the 'Edit Pipeline' button on the Pipe
 
 Starting your YAML with the `steps` object, you can add as many steps as you require of each different type. Quick reference documentation and examples for each step type can be found in the sidebar on the right.
 
-### `pipeline.yml` file
+### pipeline.yml file
 
 Before getting started with a `pipeline.yml` file, you'll need to tell Buildkite where it will be able to find your steps.
 
@@ -72,10 +71,10 @@ steps:
 
 When you eventually run a build from this pipeline, this step will look for a directory called `.buildkite` containing a file named `pipeline.yml`. Any steps it finds inside that file will be uploaded to Buildkite and will appear during the build.
 
->📘
-> When using WSL2 or PowerShell Core, you cannot add a <code>buildkite-agent pipeline upload</code> command step directly in the YAML steps editor. To work around this, there are two options:
+> 📘
+> When using WSL2 or PowerShell Core, you cannot add a `buildkite-agent pipeline upload` command step directly in the YAML steps editor. To work around this, there are two options:
 * Use the YAML steps editor alone
-* Place the <code>buildkite-agent pipeline upload</code> command in a script file. In the YAML steps editor, add a command to run that script file. It will upload your pipeline.
+* Place the `buildkite-agent pipeline upload` command in a script file. In the YAML steps editor, add a command to run that script file. It will upload your pipeline.
 
 Create your `pipeline.yml` file in a `.buildkite` directory in your repo.
 

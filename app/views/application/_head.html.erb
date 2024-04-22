@@ -19,6 +19,9 @@
 
 <meta name="referrer" content="origin-when-cross-origin" />
 
+<%# Links to pages on the same origin, but outside /docs site shouldn't use Turbo %>
+<meta name="turbo-root" content="/docs">
+
 <%= tag :link, rel: "shortcut icon", href: vite_asset_path("images/favicon.png"), type: "image/x-icon" %>
 <%= tag :link, rel: "apple-touch-icon", href: vite_asset_path("images/appicon.png") %>
 <%= tag :link, rel: "mask-icon", href: vite_asset_path("images/logo-pinned.svg"), color: "#14CC80" %>

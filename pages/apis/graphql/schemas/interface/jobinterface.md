@@ -15,9 +15,9 @@ title: JobInterface – Interfaces – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   JobInterface
-  <span class="pill pill--interface pill--normal-case pill--large"><code>INTERFACE</code></span>
+  <span data-algolia-exclude><span class="pill pill--interface pill--normal-case pill--large"><code>INTERFACE</code></span></span>
 </h1>
 <!-- vale on -->
 

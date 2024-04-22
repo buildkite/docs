@@ -5,7 +5,8 @@
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's suites.
 
 ```bash
-curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites"
 ```
 
 ```json
@@ -29,7 +30,8 @@ Success response: `200 OK`
 ## Get a suite
 
 ```bash
-curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}"
 ```
 
 ```json
@@ -51,11 +53,15 @@ Success response: `200 OK`
 ## Create a suite
 
 ```bash
-curl -X POST \
-  https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites" \
+  -H "Content-Type: application/json" \
   -d '{
     "name": "Jasmine",
     "default_branch": "main",
+    "application_name": "Buildkite",
+    "color": "#FFF700",
+    "emoji": "🍋",
     "show_api_token": true,
     "team_ids": ["3f4aa5ee-671b-41b0-9b44-b94831db6cc8"]
   }'
@@ -70,6 +76,9 @@ curl -X POST \
   "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/jasmine",
   "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/jasmine",
   "default_branch": "main",
+  "application_name": "Buildkite",
+  "color": "#FFF700",
+  "emoji": "🍋",
   "api_token": "AAAAAAAAAAAAAAAAAAAAAAAA"
 }
 ```
@@ -87,7 +96,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
   <tbody>
-    <tr><th><code>show_api_token</code></th><td>Return the suite's api token in the response. This is the only way to view the suite's api token via the REST api.<br><em>Default value:</em> <code>false</code>.</td></tr>
+    <tr><th><code>show_api_token</code></th><td>Return the suite's API token in the response. This is the only way to view the suite's API token via the REST API.<br><em>Default value:</em> <code>false</code>.</td></tr>
     <tr>
       <th><code>teams_ids</code></th>
       <td>
@@ -95,7 +104,9 @@ Optional [request body properties](/docs/api#request-body-properties):
         <em>Example:</em> <code>"team_ids": ["3f4aa5ee-671b-41b0-9b44-b94831db6cc8"]</code></td></tr>
       </td>
     </tr>
-    <tr>
+    <tr><th><code>application_name</code></th><td>Application name for the suite.<br><em>Example:</em> <code>"Buildkite"</code></td></tr>
+    <tr><th><code>color</code></th><td>Color for the suite navatar.<br><em>Example:</em> <code>"#FFF700"</code></td></tr>
+    <tr><th><code>emoji</code></th><td>Emoji for the suite navatar. Check out our <a href="https://github.com/buildkite/emojis#emoji-reference">documentation for supported emoji</a>.<br><em>Example:</em> <code>"🍋"</code>, <code>"\:lemon\:"</code></td></tr>
   </tbody>
 </table>
 
@@ -106,8 +117,9 @@ Success response: `201 Created`
 ## Update a suite
 
 ```bash
-curl -X PATCH \
-  https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug} \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PATCH "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}" \
+  -H "Content-Type: application/json" \
   -d '{
     "name": "Jasmine",
     "default_branch": "main"
@@ -132,6 +144,9 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr><th><code>name</code></th><td>Name of the suite.<br><em>Example:</em> <code>"Jasmine"</code>.</td></tr>
   <tr><th><code>default_branch</code></th><td>Your test suite will default to showing trends for this default branch, but collect data for all test runs.<br><em>Example:</em> <code>"main"</code> or <code>"master"</code>.</td></tr>
+  <tr><th><code>application_name</code></th><td>Application name for the suite.<br><em>Example:</em> <code>"Buildkite"</code></td></tr>
+  <tr><th><code>color</code></th><td>Color for the suite navatar.<br><em>Example:</em> <code>"#ffb7c5"</code></td></tr>
+  <tr><th><code>emoji</code></th><td>Emoji for the suite navatar. Check out our <a href="https://github.com/buildkite/emojis#emoji-reference">documentation for supported emoji.</a><br><em>Example:</em> <code>"🌸"</code>, <code>"\:cherry_blossom\:"</code></td></tr>
 </tbody>
 </table>
 
@@ -143,8 +158,8 @@ Success response: `200 OK`
 ## Delete a suite
 
 ```bash
-curl -X DELETE \
-  https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}"
 ```
 
 Required scope: `write_suites`

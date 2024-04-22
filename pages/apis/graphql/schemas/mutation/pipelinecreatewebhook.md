@@ -15,12 +15,12 @@ title: pipelineCreateWebhook – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   pipelineCreateWebhook
-  <a href="/docs/apis/graphql/schemas/object/pipelinecreatewebhookpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineCreateWebhookPayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/pipelinecreatewebhookpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineCreateWebhookPayload">
   <code>PipelineCreateWebhookPayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

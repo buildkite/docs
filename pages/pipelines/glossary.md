@@ -18,6 +18,10 @@ To learn more, see [Build artifacts](/docs/pipelines/artifacts).
 
 A build is a single run of a pipeline. You can trigger a build in various ways, including through the dashboard, API, as the result of a webhook, on a schedule, or even from another pipeline using a trigger step.
 
+## Cluster
+
+A cluster groups queues of agents along with pipelines. They allow teams to self-manage their agent pools, let admins create isolated sets of agents and pipelines within the one Buildkite organization, and help to make agents and queues more discoverable across your organization.
+
 ## Dynamic pipeline
 
 Dynamic pipelines define their steps at runtime using scripts, giving you the flexibility to only run the steps relevant to particular code changes and workflows.

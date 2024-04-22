@@ -59,6 +59,8 @@
     path: apis/graphql/schemas/query/pipelineschedule
   - name: pipelineTemplate
     path: apis/graphql/schemas/query/pipelinetemplate
+  - name: secret
+    path: apis/graphql/schemas/query/secret
   - name: ssoProvider
     path: apis/graphql/schemas/query/ssoprovider
   - name: team
@@ -261,6 +263,8 @@
     path: apis/graphql/schemas/object/auditapicontext
   - name: AuditActor
     path: apis/graphql/schemas/object/auditactor
+  - name: AuditAgentAPIContext
+    path: apis/graphql/schemas/object/auditagentapicontext
   - name: AuditEvent
     path: apis/graphql/schemas/object/auditevent
   - name: AuditSubject
@@ -671,6 +675,8 @@
     path: apis/graphql/schemas/object/ssoprovidersamlsptype
   - name: SSOProviderUpdatePayload
     path: apis/graphql/schemas/object/ssoproviderupdatepayload
+  - name: Secret
+    path: apis/graphql/schemas/object/secret
   - name: StepCommand
     path: apis/graphql/schemas/object/stepcommand
   - name: StepInput
@@ -835,6 +841,8 @@
   children:
   - name: APIAccessTokenScopes
     path: apis/graphql/schemas/enum/apiaccesstokenscopes
+  - name: AnnotationOrder
+    path: apis/graphql/schemas/enum/annotationorder
   - name: AnnotationStyle
     path: apis/graphql/schemas/enum/annotationstyle
   - name: AuditActorType
@@ -847,8 +855,6 @@
     path: apis/graphql/schemas/enum/authorizationtype
   - name: BuildBlockedStates
     path: apis/graphql/schemas/enum/buildblockedstates
-  - name: BuildRetentionPeriods
-    path: apis/graphql/schemas/enum/buildretentionperiods
   - name: BuildStates
     path: apis/graphql/schemas/enum/buildstates
   - name: ClusterOrder

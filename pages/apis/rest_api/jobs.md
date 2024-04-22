@@ -6,7 +6,8 @@
 Retries a `failed` or `timed_out` job. You can only retry each `job.id` once. To retry a "second time" use the new `job.id` returned in the first retry query.
 
 ```bash
-curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/retry"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/retry"
 ```
 
 ```json
@@ -59,7 +60,8 @@ Error responses:
 Unblocks a build's "Block pipeline" job. The job's `unblockable` property indicates whether it is able to be unblocked, and the `unblock_url` property points to this endpoint.
 
 ```bash
-curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/unblock"  \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/unblock"  \
   -H "Content-Type: application/json" \
   -d '{
     "fields": {
@@ -119,7 +121,8 @@ Error responses:
 ## Get a job's log output
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
 ```
 
 ```json
@@ -147,7 +150,8 @@ Alternative formats (using `Accept` header or file extension):
 ## Delete a job's log output
 
 ```bash
-curl -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
 ```
 
 Required scope: `write_build_logs`
@@ -157,7 +161,8 @@ Success response: `204 No Content`
 ## Get a job's environment variables
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/env"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/env"
 ```
 
 ```json

@@ -15,12 +15,12 @@ title: agentStop – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   agentStop
-  <a href="/docs/apis/graphql/schemas/object/agentstoppayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AgentStopPayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/agentstoppayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AgentStopPayload">
   <code>AgentStopPayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

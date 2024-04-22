@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v6.13.0"
+Description: "Buildkite stack v6.14.0"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
 # autoscaling Buildkite Agent cluster. Use it to parallelize
@@ -374,6 +374,11 @@ Parameters:
     Type: String
     Default: "gp3"
 
+  RootVolumeThroughput:
+    Description: If the `RootVolumeType` is gp3, the throughput to provision for the root volume
+    Type: Number
+    Default: 125
+
   RootVolumeIops:
     Description: If the `RootVolumeType` is io1 or io2, the number of IOPS to provision for the root volume
     Type: Number
@@ -723,10 +728,14 @@ Conditions:
     UseStackNameForInstanceName:
       !Equals [ !Ref InstanceName, "" ]
 
-    IsRootVolumeIsIo1OrIo2:
+    IsRootVolumeIsGp3:
+      !Equals [ !Ref RootVolumeType, "gp3" ]
+
+    IsRootVolumeIsIo1OrIo2OrGp3:
       !Or
         - !Equals [ !Ref RootVolumeType, "io1" ]
         - !Equals [ !Ref RootVolumeType, "io2" ]
+        - !Equals [ !Ref RootVolumeType, "gp3" ]
 
 Mappings:
   ECRManagedPolicy:
@@ -737,26 +746,26 @@ Mappings:
 
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-0b041b3c056a97072, linuxarm64: ami-0f69f37da734be841, windows: ami-0887d14cbefc8ae3d }
-    us-east-2 : { linuxamd64: ami-0c85526fdf26d2f50, linuxarm64: ami-07fdb42176f9b1cfd, windows: ami-02ba15e99d27ca000 }
-    us-west-1 : { linuxamd64: ami-0220f9913bd3c17bd, linuxarm64: ami-0e6f6504c52fc25d4, windows: ami-0a9b366104af31cc0 }
-    us-west-2 : { linuxamd64: ami-06b7ebe36fdad75ab, linuxarm64: ami-0b686b662793ee2db, windows: ami-0775fb288dad08443 }
-    af-south-1 : { linuxamd64: ami-0d1fa6f4f46acba71, linuxarm64: ami-021b4bad7542be8a4, windows: ami-0ba6351f965ab7582 }
-    ap-east-1 : { linuxamd64: ami-092653eb58d1cde3e, linuxarm64: ami-0d5e59735378e6658, windows: ami-0014710cd10b1c7b8 }
-    ap-south-1 : { linuxamd64: ami-001fca322cc8826c3, linuxarm64: ami-0a82de6b874539d6d, windows: ami-0ec13ab3cfec4d3bd }
-    ap-northeast-2 : { linuxamd64: ami-088d715fc52cb951d, linuxarm64: ami-06c79e078f23bc847, windows: ami-005db70b945338a7b }
-    ap-northeast-1 : { linuxamd64: ami-0897f06b85c92b1ed, linuxarm64: ami-03fefb82a9e6c089a, windows: ami-0a59ccd360d1933b6 }
-    ap-southeast-2 : { linuxamd64: ami-0da744a831b28c34a, linuxarm64: ami-08a6f811e3439c088, windows: ami-061d0dc2b71d80892 }
-    ap-southeast-1 : { linuxamd64: ami-03ab04ff646d404a1, linuxarm64: ami-0553b0453ec77bae7, windows: ami-0ed5a72b88b1ae4f6 }
-    ca-central-1 : { linuxamd64: ami-08c60b2e75db3bc58, linuxarm64: ami-0483b6e83a0037670, windows: ami-02a6b0acc37d09573 }
-    eu-central-1 : { linuxamd64: ami-04126221556689d26, linuxarm64: ami-0b0e9fa0fc82b1ad7, windows: ami-0ee24e0cdb87c817d }
-    eu-west-1 : { linuxamd64: ami-005e01f2c55ad5002, linuxarm64: ami-06776870b3e1b7b3c, windows: ami-08003214543144c8e }
-    eu-west-2 : { linuxamd64: ami-071f8216867549d95, linuxarm64: ami-026343f34d1a1b211, windows: ami-0bebd1b08fda47cf8 }
-    eu-south-1 : { linuxamd64: ami-0e418861ca75ac5b5, linuxarm64: ami-0ff7c03f697211e91, windows: ami-060ada994f7ccb1e7 }
-    eu-west-3 : { linuxamd64: ami-09509965a18ac4f6e, linuxarm64: ami-076a3e14af7dbaf7b, windows: ami-0fb683594f9353720 }
-    eu-north-1 : { linuxamd64: ami-0202a628ae5f0c10b, linuxarm64: ami-0b0d7fd4008274c23, windows: ami-0d10037afa7ac0ede }
-    me-south-1 : { linuxamd64: ami-015bfd7d87cbe51f9, linuxarm64: ami-085a36d1fd738b5e3, windows: ami-0b1498b077956b296 }
-    sa-east-1 : { linuxamd64: ami-05d90eb9275e9a02c, linuxarm64: ami-005f28295cd493c6a, windows: ami-0780e128d890a8676 }
+    us-east-1 : { linuxamd64: ami-0183caef313aa57a8, linuxarm64: ami-005b1246b7c312d75, windows: ami-0887d14cbefc8ae3d }
+    us-east-2 : { linuxamd64: ami-00de9036a36f73520, linuxarm64: ami-0db9ecf56f4a9313e, windows: ami-0e310d0db6452f793 }
+    us-west-1 : { linuxamd64: ami-0defbc65ceaa32dd1, linuxarm64: ami-0820aec2c904d15e1, windows: ami-0cdc69b863dbc63ed }
+    us-west-2 : { linuxamd64: ami-0b30ab2eea949e93e, linuxarm64: ami-0a0810ea0d35dfa04, windows: ami-07069601abe24b0c6 }
+    af-south-1 : { linuxamd64: ami-09a95859b666c385c, linuxarm64: ami-023856db3ff9ffebf, windows: ami-0aaf725c9d56214a5 }
+    ap-east-1 : { linuxamd64: ami-033d34c189faaa3ea, linuxarm64: ami-0e7a59eb736084415, windows: ami-0b853d3ff4837fb8d }
+    ap-south-1 : { linuxamd64: ami-0c1e25e1e786bf5ab, linuxarm64: ami-0f37afba54066bd60, windows: ami-019ca0ce695b202d5 }
+    ap-northeast-2 : { linuxamd64: ami-06d8f125ea12c73a4, linuxarm64: ami-01d26356d8601112a, windows: ami-08149bf6171985f3f }
+    ap-northeast-1 : { linuxamd64: ami-0337fff9cddb16928, linuxarm64: ami-06bd64a2473145d48, windows: ami-06f7d221ae9077f91 }
+    ap-southeast-2 : { linuxamd64: ami-0b27fff20c46df4a0, linuxarm64: ami-0495bb42e2c5ad16b, windows: ami-0c46183f41186a75f }
+    ap-southeast-1 : { linuxamd64: ami-052adc4e5f2b331d3, linuxarm64: ami-0eeb8dfc3642c4ff9, windows: ami-031add0bdca9cea1a }
+    ca-central-1 : { linuxamd64: ami-0ec8ad5aa316be9c6, linuxarm64: ami-0fd3c285174fd4aa6, windows: ami-03624e0a25b90a666 }
+    eu-central-1 : { linuxamd64: ami-0ea202151b77cd132, linuxarm64: ami-0d87234a4153da86d, windows: ami-08b686742f62d0c52 }
+    eu-west-1 : { linuxamd64: ami-07ee5053aa22fcc0e, linuxarm64: ami-01a6b461c70f92a37, windows: ami-0125a5a3c5a5e09bb }
+    eu-west-2 : { linuxamd64: ami-0cea94b9f4862f155, linuxarm64: ami-00963a2bbcdc29e6c, windows: ami-00cf533b2d4fff822 }
+    eu-south-1 : { linuxamd64: ami-0fa3808b03f7467c2, linuxarm64: ami-0fae08dd40e29217d, windows: ami-0e2abc82c9ba72992 }
+    eu-west-3 : { linuxamd64: ami-02b949b8b4659ff01, linuxarm64: ami-009c57fae557b81c3, windows: ami-0a82cb3a3e802818e }
+    eu-north-1 : { linuxamd64: ami-05a2dbe3cca823d1b, linuxarm64: ami-03c222dd8c1c9d76c, windows: ami-060242282b5e2b9b7 }
+    me-south-1 : { linuxamd64: ami-0e909c7019ac9d74a, linuxarm64: ami-061aa8c89e3e2dcee, windows: ami-0408bcd45277ac97d }
+    sa-east-1 : { linuxamd64: ami-071f30371b0aeaed3, linuxarm64: ami-0332cfe794d7db30b, windows: ami-0704755918feea0c8 }
 
 Resources:
   Vpc:
@@ -1176,7 +1185,8 @@ Resources:
                 VolumeSize: !Ref RootVolumeSize
                 VolumeType: !Ref RootVolumeType
                 Encrypted: !Ref RootVolumeEncrypted
-                Iops: !If [ IsRootVolumeIsIo1OrIo2, !Ref RootVolumeIops, !Ref "AWS::NoValue" ]
+                Throughput: !If [ IsRootVolumeIsGp3, !Ref RootVolumeThroughput, !Ref "AWS::NoValue" ]
+                Iops: !If [ IsRootVolumeIsIo1OrIo2OrGp3, !Ref RootVolumeIops, !Ref "AWS::NoValue" ]
           TagSpecifications:
             - ResourceType: instance
               Tags:
@@ -1212,7 +1222,7 @@ Resources:
                   powershell -file C:\buildkite-agent\bin\bk-configure-docker.ps1 >> C:\buildkite-agent\elastic-stack.log
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v6.13.0"
+                  $Env:BUILDKITE_STACK_VERSION="v6.14.0"
                   $Env:BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}"
                   $Env:BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}"
                   $Env:BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}"
@@ -1270,7 +1280,7 @@ Resources:
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v6.13.0" \
+                  BUILDKITE_STACK_VERSION="v6.14.0" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
                   BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}" \

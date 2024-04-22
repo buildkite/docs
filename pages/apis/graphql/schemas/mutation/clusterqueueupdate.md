@@ -15,12 +15,12 @@ title: clusterQueueUpdate – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   clusterQueueUpdate
-  <a href="/docs/apis/graphql/schemas/object/clusterqueueupdatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterQueueUpdatePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/clusterqueueupdatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterQueueUpdatePayload">
   <code>ClusterQueueUpdatePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

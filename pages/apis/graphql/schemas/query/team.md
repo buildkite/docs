@@ -15,12 +15,12 @@ title: team – Queries – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   team
-  <a href="/docs/apis/graphql/schemas/object/team" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Team">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/team" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Team">
   <code>Team</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

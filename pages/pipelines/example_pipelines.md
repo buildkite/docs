@@ -1,7 +1,8 @@
 # Example pipelines
 
-A list of repositories containing example [pipelines](/docs/pipelines).
+Example [pipelines](/docs/pipelines) can be found in Buildkite's [pipeline template gallery](https://buildkite.com/pipelines/templates), covering a wide range of technologies (for example, [JavaScript](https://buildkite.com/pipelines/templates?language=javascript)), and use cases (for example, [infrastructure as code](https://buildkite.com/pipelines/templates?useCase=iac)).
 
+Further example pipelines with their own repository are below.
 
 <!-- vale off -->
 <!-- this turns it off for the whole file because I can't ignore the emoji in the html :( -->
@@ -234,7 +235,6 @@ A list of repositories containing example [pipelines](/docs/pipelines).
     <span class="repo">gist.github.com/toolmantim/1337952c8b5b1e5b0b5ea10c40e9efe4</span>
   </span>
 </a>
-
 
 ## Third-party tools
 

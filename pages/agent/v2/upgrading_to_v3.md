@@ -2,15 +2,14 @@
 
 Upgrade your Agents using your operating system package manager, or by re-running the installation script.
 
-
 ## Upgrading from 3.0-beta to a stable 3.0 agent
 
-To upgrade a _Ubuntu / Debian_ 3.0 beta agent:
+To upgrade a **Ubuntu / Debian** 3.0 beta agent:
 
 * Edit `/etc/apt/sources.list.d/buildkite-agent.list` and replace the word `unstable` (or `experimental`) with `stable`
 * Run `sudo apt-get update && sudo apt-get upgrade -y buildkite-agent`
 
-To upgrade a _Red Hat / CentOS_ 3.0 beta agent:
+To upgrade a **Red Hat / CentOS** 3.0 beta agent:
 
 * Edit `/etc/yum.repos.d/buildkite-agent.repo` and replace the word `unstable` (or `experimental`) with `stable`
 * Run `sudo yum clean expire-cache && sudo yum update buildkite-agent`
@@ -106,6 +105,6 @@ Previously we didn't support environment variable interpolation, such as `${MY_V
 
 See the [environment variable substitution](/docs/agent/v3/cli-pipeline#environment-variable-substitution) for more details.
 
-### Checkout clean no longer ignores files in `.gitignore`
+### Checkout clean no longer ignores files in .gitignore
 
 Older agents didn't remove files from your working directory that were ignored by git. The new default values for git clean are `-fxdq`. If you've previously overridden your `git-clean-flags` in your config, it might be a good chance to comment them out and use the standard behavior.

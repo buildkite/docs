@@ -1,9 +1,14 @@
 class BetaPages
   def self.all
     [
-      'agent/clusters',
-      'apis/rest-api/clusters',
-      'apis/rest-api/pipeline-templates'
+      'pipelines/cluster-queue-metrics',
+      'packages',
+      'apis/rest-api/team-pipelines',
+      'apis/rest-api/organizations/members',
+      'apis/rest-api/teams',
+      'apis/rest-api/teams/members',
+      'apis/rest-api/teams/pipelines',
+      'apis/rest-api/teams/suites'
     ]
   end
 end

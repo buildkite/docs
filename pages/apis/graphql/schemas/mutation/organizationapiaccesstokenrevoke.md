@@ -15,12 +15,12 @@ title: organizationApiAccessTokenRevoke – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   organizationApiAccessTokenRevoke
-  <a href="/docs/apis/graphql/schemas/object/organizationapiaccesstokenrevokemutationpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationAPIAccessTokenRevokeMutationPayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/organizationapiaccesstokenrevokemutationpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationAPIAccessTokenRevokeMutationPayload">
   <code>OrganizationAPIAccessTokenRevokeMutationPayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

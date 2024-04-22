@@ -3,7 +3,6 @@
 This tutorial demonstrates deploying to Kubernetes using Buildkite best
 practices.
 
-
 The tutorial uses one pipeline for tests and another for deploys.
 The test pipeline runs tests and push a Docker image to a registry. The deploy
 pipelines uses the `DOCKER_IMAGE` environment variable to create a [Kubernetes
@@ -54,7 +53,7 @@ Let's start with manifest file. This sample file creates a Deployment with
 three replicas (horizontal scale in Kubernetes lingo) each listening port
 `3000`. Change the `containerPort` to fit your application.
 
->📘
+> 📘
 > The <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">official deployment documentation</a> covers much more than what fits in this tutorial. Refer back to these docs for information on setting CPU and memory, controlling networking, deployment update strategies, and how to expose your application to the internet.
 
 Let's call this file `k8s/deployment.yml`.
@@ -96,8 +95,8 @@ The resulting output may be piped directly into `kubectl`.
 The full script has three parts:
 
 1. Check `$DOCKER_IMAGE` is set
-2. Generate a complete manifest with `envsubst` and apply with `kubectl`
-3. Wait for Kubernetes to complete the deploy.
+1. Generate a complete manifest with `envsubst` and apply with `kubectl`
+1. Wait for Kubernetes to complete the deploy.
 
 This fits neatly into a Bash script. Here's the complete `script/buildkite/deploy`:
 
@@ -207,17 +206,17 @@ for common scenarios.
 If you're on GCP using agents on GCE and a GKE cluster:
 
 1. Grant GCE agents GKE access with a [service account](https://cloud.google.com/compute/docs/access/service-accounts)
-2. Install `gcloud` agent instances
-3. Use `gcloud container clusters get-credentials` to get `kubectl` access
+1. Install `gcloud` agent instances
+1. Use `gcloud container clusters get-credentials` to get `kubectl` access
 
 If you're on AWS using agents on EC2 and an EKS cluster:
 
 1. Grant agent access to EKS API calls with an instance profile
-2. [Register the Buildkite agent IAM role with EKS](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html)
-3. [Install kubectl](https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html) on agents
-4. [Install IAM authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html) on agents
-5. Install the AWS CLI
-6. Use `aws update-kubeconfig` to get [kubectl access](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html)
+1. [Register the Buildkite agent IAM role with EKS](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html)
+1. [Install kubectl](https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html) on agents
+1. [Install IAM authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html) on agents
+1. Install the AWS CLI
+1. Use `aws update-kubeconfig` to get [kubectl access](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html)
 
 [pipelines]: https://buildkite.com/docs/pipelines
 [k8s_deployment]: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/

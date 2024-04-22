@@ -15,9 +15,9 @@ title: UserSelector – Scalars – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   UserSelector
-  <span class="pill pill--scalar pill--normal-case pill--large"><code>SCALAR</code></span>
+  <span data-algolia-exclude><span class="pill pill--scalar pill--normal-case pill--large"><code>SCALAR</code></span></span>
 </h1>
 <!-- vale on -->
 

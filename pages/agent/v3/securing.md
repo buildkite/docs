@@ -2,7 +2,6 @@
 
 In cases where a Buildkite Agent is being deployed into a sensitive environment there are a few default settings and techniques which may be adjusted.
 
-
 ## Securely storing secrets
 
 For best practices and recommendations about secret storage in the Agent, see the [Managing secrets](/docs/pipelines/secrets) guide.
@@ -67,7 +66,7 @@ If local hooks are disabled and one is in the checkout, the job will fail.
 >🚧 Building untrusted commits
 >If you build untrusted commits, be careful to contain the build scripts and anything else that may be influenced by the repository contents within chroots, containers, VMs, etc as is appropriate for your needs.
 
-## Strict checks using a `pre-bootstrap` hook
+## Strict checks using a pre-bootstrap hook
 
 You can use a [`pre-bootstrap` hook](hooks#agent-lifecycle-hooks) to add strict
 checks for which repositories, commands, and plugins are allowed to run on your
@@ -214,4 +213,4 @@ Since the [agent](https://github.com/buildkite/agent) is open-source, if necessa
 
 [Clusters](/docs/clusters/overview) provide a mechanism to restrict which IP addresses can connect using a given agent token. This protects against the misuse of agent tokens and the hijacking of agent sessions.
 
-To restrict agent connection by IP address, set the [_Allowed IP Addresses_ attribute](/docs/clusters/manage-clusters#set-up-clusters-restrict-access-for-a-cluster-token-by-ip-address). This restricts agent registration to those IPs, and any existing agents outside the allowed IP ranges will be forcefully disconnected.
+To restrict agent connection by IP address, set the [**Allowed IP Addresses** attribute](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address). This restricts agent registration to those IPs, and any existing agents outside the allowed IP ranges will be forcefully disconnected.

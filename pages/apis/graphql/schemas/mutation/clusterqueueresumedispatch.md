@@ -15,12 +15,12 @@ title: clusterQueueResumeDispatch – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   clusterQueueResumeDispatch
-  <a href="/docs/apis/graphql/schemas/object/clusterqueueresumedispatchpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterQueueResumeDispatchPayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/clusterqueueresumedispatchpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterQueueResumeDispatchPayload">
   <code>ClusterQueueResumeDispatchPayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 
