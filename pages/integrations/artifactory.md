@@ -9,7 +9,7 @@ The Buildkite Agent can upload and download artifacts directly from Artifactory.
 
 See the [Managing pipeline secrets](/docs/pipelines/secrets) documentation for how to securely set up these environment variables.
 
-_Required environment vars:_
+Required environment vars:
 
 <table>
   <tr>

@@ -1,7 +1,6 @@
-# `buildkite-agent start`
+# buildkite-agent start
 
 The Buildkite Agent's `start` command is used to manually start an agent and register it with Buildkite.
-
 
 ## Starting an agent
 
@@ -55,7 +54,7 @@ steps:
 
 Partial wildcard matching (for example, `postgres=1.9*` or `postgres=*1.9`) is not yet supported.
 
->📘 Setting agent defaults
+> 📘 Setting agent defaults
 > Use a top-level <code>agents</code> block to <a href="/docs/pipelines/defining-steps#step-defaults">set defaults</a> for all steps in a pipeline.
 
 If you specify multiple tags, your build will only run on agents that have **all** the specified tags.
@@ -88,7 +87,7 @@ You can load an Agent's tags from the underlying Google Cloud metadata using `--
 
 You can configure your agent and your pipeline steps so that the steps run on the same agent that performed `pipeline upload`. This is sometimes referred to as "node affinity", but note that what we describe here does not involve Kubernetes (where the term is more widely used).
 
->📘 Normally, we recommend against doing this. The usual practice is to allow jobs to run on whichever agent is available, or to target according to specific criteria (for example, you might want certain jobs to run on a particular operating system). Targeting a specific agent can cause reliability issues (the job can't run if the agent is offline), and can result in work being unevenly distributed between agents (which is inefficient).
+> 📘 Normally, we recommend against doing this. The usual practice is to allow jobs to run on whichever agent is available, or to target according to specific criteria (for example, you might want certain jobs to run on a particular operating system). Targeting a specific agent can cause reliability issues (the job can't run if the agent is offline), and can result in work being unevenly distributed between agents (which is inefficient).
 
 First, set the agent hostname tag.
 

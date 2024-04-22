@@ -31,7 +31,7 @@ Learn more about best practices for configuring queues in [How should I structur
 To create a hosted agent queue:
 
 1. Navigate to the cluster where you want your hosted agent queue to reside.
-1. Select _New Queue_ and select the _Hosted_ option.
+1. Select **New Queue** and select the **Hosted** option.
 1. Follow the prompts to configure your hosted agent services.
 
 ## Using GitHub repositories in your hosted agent pipelines

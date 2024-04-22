@@ -47,21 +47,21 @@ In your Buildkite [Organization's Notification Settings](https://buildkite.com/o
 
 <%= image "buildkite-add-eventbridge.png", width: 1458/2, height: 208/2, alt: "Screenshot of Add Buildkite Amazon EventBridge Button" %>
 
-Once you've entered your AWS region and AWS Account ID, a Partner Event Source will be created in your AWS account matching the "Partner Event Source Name" shown on the settings page:
+Once you've entered your AWS region and AWS Account ID, a Partner Event Source will be created in your AWS account matching the **Partner Event Source Name** shown on the settings page:
 
 <%= image "buildkite-amazon-eventbridge-settings.png", width: 1458/2, height: 1254/2, alt: "Screenshot of Buildkite Amazon EventBridge Notification Settings" %>
 
-You can then start consuming the events in your AWS account. The links to "Partner Event Sources Console" and "Event Rules" take you to the relevant pages in your AWS Console.
+You can then start consuming the events in your AWS account. The links to **Partner Event Sources Console** and **Event Rules** take you to the relevant pages in your AWS Console.
 
 ## Filtering
 
-When creating your EventBridge rule you can specify an "Event Pattern" filter to limit which events will be processed. You can use this to respond only to certain events based on the type, or any attribute from within the event payload.
+When creating your EventBridge rule you can specify an **Event pattern** filter to limit which events will be processed. You can use this to respond only to certain events based on the type, or any attribute from within the event payload.
 
 For example, to only process [Build Finished](#events-build-finished) events you'd configure your rule with the following event pattern:
 
 <%= image "cloudwatch-event-pattern.png", width: 1636/2, height: 786/2, alt: "Screenshot of configuring an EventBridge Event Pattern filter" %>
 
-You can use any event property in your custom event pattern. For example, the following event pattern allows only “Build Started" and "Build Finished" events containing a particular pipeline slug:
+You can use any event property in your custom event pattern. For example, the following event pattern allows only "Build Started" and "Build Finished" events containing a particular pipeline slug:
 
 ```json
 {
@@ -770,7 +770,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 <h3 id="audit-event-logged">Audit Event Logged</h3>
 
-[Audit log](/docs/pipelines/audit-log) is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan
+[Audit log](/docs/pipelines/audit-log) is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
 
 ```json
 {

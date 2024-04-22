@@ -1,11 +1,10 @@
 # Group step
 
-A *group* step can contain various sub-steps, and display them in a single logical group on the Build page.
+A group step can contain various sub-steps, and display them in a single logical group on the Build page.
 
 For example, you can group all of your linting steps or all of your UI test steps to keep the Build page less messy. Sub-groups and nested groups are not supported.
 
 The group step also helps manage dependencies between a collection of steps, for example, "step X" [`depends_on`](/docs/pipelines/group-step#group-step-attributes) everything in "group Y".
-
 
 A group step can be defined in your pipeline settings or your [pipeline.yml](/docs/pipelines/defining-steps) file.
 
@@ -36,7 +35,7 @@ Only the first 50 jobs within a build header can ever be displayed in the UI, so
 
 ## Group step attributes
 
-_Required attributes:_
+Required attributes:
 
 <table data-attributes>
 <tr>
@@ -55,7 +54,7 @@ _Required attributes:_
   </tr>
 </table>
 
-_Optional attributes:_
+Optional attributes:
 
 <table data-attributes>
   <tr>
@@ -171,7 +170,6 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-
 ## Group merging
 
 If you upload a pipeline that has a `group` or `label` that matches the group of the step that uploaded it, those groups will be merged together in the Buildkite UI.
@@ -180,7 +178,7 @@ This merging behavior only applies if the group step with the matching `group` o
 
 Note that inside a single pipeline, groups with the same `group` or `label` will not be merged in the Buildkite UI.
 
->📘 You can't define the same key twice
+> 📘 You can't define the same key twice
 > Trying to create different groups with the same `key` attribute will result in an error.
 
 For example, you have a YAML file:

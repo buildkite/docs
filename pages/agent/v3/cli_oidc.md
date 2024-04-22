@@ -1,4 +1,4 @@
-# `buildkite-agent oidc`
+# buildkite-agent oidc
 
 The Buildkite Agent's `oidc` command allows you to request an OIDC token representing the current job. These tokens can be exchanged with federated systems like AWS.
 
@@ -185,7 +185,7 @@ Generate these additional claims by adding `--claims` to the `buildkite-agent oi
 
 ### Example token contents
 
-OIDC tokens are JSON Web Tokens — [JWTs](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-json-web-token) — and the following is a complete example:
+OIDC tokens are JSON Web Tokens — [JWTs](https://datatracker.ietf.org/doc/html/rfc7519) — and the following is a complete example:
 
 ```json
 {

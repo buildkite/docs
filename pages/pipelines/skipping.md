@@ -2,17 +2,16 @@
 
 Build skipping allows you to avoid unnecessary rebuilds, conserving resources and freeing up agents.
 
-
 ## Skip queued intermediate builds
 
 Sometimes you may push several commits in quick succession, leading to Buildkite building each commit in turn. You can configure your pipeline to always skip these intermediate builds, and only build the latest commit.
 
 To skip pending builds on the same branch:
 
-1. Navigate to your *Pipeline Settings*.
-2. Select *Builds*.
-3. Select *Skip Intermediate Builds*.
-4. **Optional**: limit which branches build skipping applies to by adding branch names in the text box below *Skip Intermediate Builds*. For example, "branch-one" means Buildkite only skips intermediate builds on branch-one. You can also use not-equals: "!main" skips intermediate builds on all branches except main.
+1. Navigate to your pipeline's **Settings**.
+1. Select **Builds**.
+1. Select **Skip Intermediate Builds**.
+1. (Optional) Limit which branches build skipping applies to by adding branch names in the text box below **Skip Intermediate Builds**. For example, "branch-one" means Buildkite only skips intermediate builds on branch-one. You can also use not-equals: "!main" skips intermediate builds on all branches except main.
 
 You can also configure these options using the [REST API](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline).
 
@@ -22,10 +21,10 @@ Sometimes you may push several commits in quick succession, leading to Buildkite
 
 To cancel running builds on the same branch:
 
-1. Navigate to your *Pipeline Settings*.
-2. Select *Builds*.
-3. Select *Cancel Intermediate Builds*.
-4. **Optional**: limit which branches build skipping applies to by adding branch names in the text box below *Cancel Intermediate Builds*. For example, "branch-one" means Buildkite only skips intermediate builds on branch-one. You can also use not-equals: "!main" skips intermediate builds on all branches except main.
+1. Navigate to your pipeline's **Settings**.
+1. Select **Builds**.
+1. Select **Cancel Intermediate Builds**.
+1. (Optional) Limit which branches build skipping applies to by adding branch names in the text box below **Cancel Intermediate Builds**. For example, "branch-one" means Buildkite only skips intermediate builds on branch-one. You can also use not-equals: "!main" skips intermediate builds on all branches except main.
 
 You can also configure these options using the [REST API](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline).
 
@@ -33,20 +32,20 @@ You can also configure these options using the [REST API](/docs/apis/rest-api/pi
 
 If your pipeline has multiple command steps, you can manually cancel a step, which causes the build to fail.
 
-If you do *not* want the build to fail when you cancel a specific step, you can set [`soft_fail`](/docs/pipelines/command-step#soft-fail-attributes).
+If you do _not_ want the build to fail when you cancel a specific step, you can set [`soft_fail`](/docs/pipelines/command-step#soft-fail-attributes).
 
 To manually cancel a job:
 
 1. From your Buildkite dashboard, select your pipeline.
 2. Select the running build.
 3. Select the job (step) you want to cancel.
-4. Select *Cancel*.
+4. Select **Cancel**.
 
 ## Ignore a commit
 
 Some code changes, such as editing a Readme, may not require a Buildkite build. If you want Buildkite to ignore a commit, add `[ci skip]`,`[skip ci]`, `[ci-skip]`, or `[skip-ci]` anywhere in the commit message.
 
->📘
+> 📘
 > When squashing commits in a merge, any commit message that contains `[skip ci]` will be included in the squashed commit message. This means that the merge will not trigger a build.
 > In order to avoid this and have the merge trigger a build, you should remove the commit containing `[skip ci]` from the squashed commit message.
 
@@ -69,7 +68,7 @@ Fix readme typos
 
 For more advanced build filtering and commit skipping, see the [Using conditionals](/docs/pipelines/conditionals) guide.
 
->🚧 Skipping commits with Bitbucket Server
+> 🚧 Skipping commits with Bitbucket Server
 > Not all webhooks from Bitbucket Server contain the commit message. When a commit message is not included in a webhook, the build will run.
 
 ## Ignore branches
@@ -87,5 +86,5 @@ Sometimes you don't want to trigger a new build for a commit that's already pass
 To skip a build with existing commits:
 
 1. From your Buildkite dashboard, select your pipeline.
-1. Select _Pipeline Settings_ > _GitHub_.
-1. In the _GitHub Settings_ section, select the _Skip builds with existing commits_ checkbox.
+1. Select **Settings** > **GitHub**.
+1. In the **GitHub Settings** section, select the **Skip builds with existing commits** checkbox.

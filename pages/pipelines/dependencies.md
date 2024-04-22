@@ -2,7 +2,6 @@
 
 All steps in pipelines have implicit dependencies, often managed with wait and block steps. To manually change the dependency structure of your steps, you can define explicit dependencies with the `depends_on` attribute.
 
-
 ## Implicit dependencies with wait and block
 
 [Wait](/docs/pipelines/wait-step) and [block](/docs/pipelines/block-step) steps provide an implicit dependency structure to your pipeline.
@@ -58,8 +57,8 @@ steps:
 
 In the above example, the second command step (build) will not run until the first command step (tests) has completed. Without the `depends_on` attribute, and given enough agents, these steps would run in parallel.
 
->🚧 <code>depends_on</code> and <code>block</code>/<code>wait</code>
-> Note that a step with an explicit dependency specified with the <code>depends_on</code> attribute will run immediately after the dependency step has completed, without waiting for <code>block</code> or <code>wait</code> steps unless those are also explicit dependencies.
+> 🚧 `depends_on` and `block` / `wait`
+> Note that a step with an explicit dependency specified with the `depends_on` attribute will run immediately after the dependency step has completed, without waiting for `block` or `wait` steps unless those are also explicit dependencies.
 
 Dependencies can also be added as a list of strings, or a list of steps. Both formats use the the step `key` to refer to the step.
 
@@ -81,7 +80,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
->🚧 Explicit dependencies in uploaded steps
+> 🚧 Explicit dependencies in uploaded steps
 > If a step depends on an upload step, then all steps uploaded by that step become dependencies of the original step. For example, if step B depends on step A, and step A uploads step C, then step B will also depend on step C.
 
 To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character (YAML) or `null` (JSON). This also ensures that the step will run immediately at the start of the build:

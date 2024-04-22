@@ -2,7 +2,6 @@
 
 A command step runs one or more shell commands on one or more agents.
 
-
 Each command step can run either a shell command like `npm test`, or an executable file or script like `build.sh`.
 
 A command step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file.
@@ -17,7 +16,7 @@ When running multiple commands, either defined in a single line (`npm install &&
 
 ## Command step attributes
 
-_Required attributes:_
+Required attributes:
 
 <table data-attributes data-attributes-required>
   <tr>
@@ -42,7 +41,7 @@ steps:
 >📘 Pipelines without command steps
 > Although the <code>command</code> attribute is required for a command step, some <a href="/docs/plugins/using#adding-a-plugin-to-your-pipeline">plugins</a> work without a command step, so it isn't strictly necessary for your pipeline to have an explicit command step.
 
-_Optional attributes:_
+Optional attributes:
 
 <table data-attributes>
   <tr id="agents">
@@ -208,7 +207,7 @@ _Optional attributes:_
 
 ## Retry attributes
 
-_At least one of the following attributes is required:_
+At least one of the following attributes is required:
 
 <table>
   <tr>
@@ -285,7 +284,7 @@ Conditions on retries can be specified. For example, it's possible to set steps 
 
 ### Automatic retry attributes
 
-_Optional Attributes_
+Optional attributes:
 
 <table>
   <tr>
@@ -333,8 +332,8 @@ _Optional Attributes_
   </tr>
 </table>
 
->📘 -1 exit status
-> A job will fail with an exit status of -1 if communication with the agent has been lost (for example, the agent has been forcefully terminated, or the agent machine was shut down without allowing the agent to disconnect). See the section on <a href="/docs/agent/v3#exit-codes">Exit Codes</a> for information on other exit codes.
+> 📘 -1 exit status
+> A job will fail with an exit status of -1 if communication with the agent has been lost (for example, the agent has been forcefully terminated, or the agent machine was shut down without allowing the agent to disconnect). See the section on [Exit Codes](/docs/agent/v3#exit-codes) for information on other exit codes.
 
 ```yml
 steps:
@@ -351,7 +350,7 @@ steps:
 
 ### Manual retry attributes
 
-_Optional Attributes_
+Optional attributes:
 
 <table>
   <tr>
@@ -399,7 +398,7 @@ steps:
 
 ## Soft fail attributes
 
-_Optional Attributes_
+Optional attributes:
 
 <table>
   <tr>
@@ -481,11 +480,9 @@ Next time a job in your build fails, those jobs will be automatically cancelled.
 TODO:
 To set `cancel_on_build_failing: true` for all jobs in a Build:
 
-
  -->
 
 ## Example
-
 
 ```yml
 steps:
