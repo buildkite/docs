@@ -4,7 +4,7 @@ toc: false
 
 # Buildkite Agent prioritization
 
->🚧 This page references the out-of-date Buildkite Agent v2.
+> 🚧 This page references the out-of-date Buildkite Agent v2.
 > For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/prioritization">see the latest version of this document</a>.
 
 By setting an agent's priority value you are able to designate which priority it gets for being assigned build jobs to run. Higher priority agents are assigned work first, with the last priority being given to agents with the default value of `null`.

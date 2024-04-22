@@ -30,7 +30,7 @@ Annotations are written in CommonMark-compliant Markdown, with &quot;GitHub
 Flavored Markdown&quot; extensions.
 
 The annotation body can be supplied as a command line argument, or by piping
-content into the command. Custom Buildkite [emojis](/docs/pipelines/emojis) are supported. The maximum size of each annotation body is 1MiB.
+content into the command. The maximum size of each annotation body is 1MiB.
 
 You can update an existing annotation&#39;s body by running the annotate command
 again and provide the same context as the one you want to update. Or if you
@@ -46,7 +46,6 @@ $ buildkite-agent annotate "All tests passed! :rocket:"
 $ cat annotation.md | buildkite-agent annotate --style "warning"
 $ buildkite-agent annotate --style "success" --context "junit"
 $ ./script/dynamic_annotation_generator | buildkite-agent annotate --style "success"
-$ buildkite-agent annotate ":one-does-not-simply: Green builds are coming." --style "success"
 ```
 
 ### Options
@@ -57,6 +56,7 @@ $ buildkite-agent annotate ":one-does-not-simply: Green builds are coming." --st
 <tr id="context"><th><code>--context value</code> <a class="Docs__attribute__link" href="#context">#</a></th><td><p>The context of the annotation used to differentiate this annotation from others<br /><strong>Environment variable</strong>: <code>$BUILDKITE_ANNOTATION_CONTEXT</code></p></td></tr>
 <tr id="style"><th><code>--style value</code> <a class="Docs__attribute__link" href="#style">#</a></th><td><p>The style of the annotation (`success`, `info`, `warning` or `error`)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_ANNOTATION_STYLE</code></p></td></tr>
 <tr id="append"><th><code>--append </code> <a class="Docs__attribute__link" href="#append">#</a></th><td><p>Append to the body of an existing annotation<br /><strong>Environment variable</strong>: <code>$BUILDKITE_ANNOTATION_APPEND</code></p></td></tr>
+<tr id="priority"><th><code>--priority value</code> <a class="Docs__attribute__link" href="#priority">#</a></th><td><p>Priority of the annotation (1 to 10). By default annotations have a priority of 3. Annotations with a priority of 10 will be shown first, and annotations with a priority of 1 will be shown last. (default: 0)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_ANNOTATION_PRIORITY</code></p></td></tr>
 <tr id="job"><th><code>--job value</code> <a class="Docs__attribute__link" href="#job">#</a></th><td><p>Which job should the annotation come from<br /><strong>Environment variable</strong>: <code>$BUILDKITE_JOB_ID</code></p></td></tr>
 <tr id="agent-access-token"><th><code>--agent-access-token value</code> <a class="Docs__attribute__link" href="#agent-access-token">#</a></th><td><p>The access token used to identify the agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></p></td></tr>
 <tr id="endpoint"><th><code>--endpoint value</code> <a class="Docs__attribute__link" href="#endpoint">#</a></th><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ENDPOINT</code></p></td></tr>

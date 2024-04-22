@@ -15,12 +15,12 @@ title: organizationBannerUpsert – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   organizationBannerUpsert
-  <a href="/docs/apis/graphql/schemas/object/organizationbannerupsertpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationBannerUpsertPayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/organizationbannerupsertpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationBannerUpsertPayload">
   <code>OrganizationBannerUpsertPayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

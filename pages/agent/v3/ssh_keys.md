@@ -17,7 +17,7 @@ GIT_SSH_COMMAND="ssh -vvv"
 
 ## Creating a single SSH key
 
-The following shows an example of creating a new “machine user” SSH key for an agent:
+The following shows an example of creating a new "machine user" SSH key for an agent:
 
 ```bash
 $ sudo su buildkite-agent # or whichever user your agent runs as

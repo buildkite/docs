@@ -6,7 +6,7 @@ toc_include_h3: false
 
 You can use a single sign-on (SSO) provider to protect access to your organization's data in Buildkite. Buildkite supports many different SSO providers, and you can configure multiple SSO providers for a single Buildkite organization.
 
-SSO is available to customers on the Buildkite [Team, Business, and Enterprise](https://buildkite.com/pricing) plans.
+SSO is available to customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans.
 
 
 ## Supported providers
@@ -50,7 +50,7 @@ If you have switched off all of your SSO providers, users will be required to lo
 If you are the administrator of an organization within Buildkite with an existing SSO provider set up, and you want to switch to a different SSO provider, these are the steps you need to take:
 
 1. [Add](/docs/integrations/sso#adding-sso) a new SSO provider, verify it, and allow login from both SSO providers. The users in your organization can continue to sign in and use the same user accounts within Buildkite as long as the emails stay the same.
-2. [Disable and remove](/docs/integrations/sso#disabling-and-removing-sso) the SSO provider you no longer need. If the user credentials (email) stay the same, this is all you need to migrate from one SSO provider to another.
+1. [Disable and remove](/docs/integrations/sso#disabling-and-removing-sso) the SSO provider you no longer need. If the user credentials (email) stay the same, this is all you need to migrate from one SSO provider to another.
 
 >📘
 > If you are also changing the email provider, make sure that Buildkite users in your organization sign in to their existing accounts when performing single sign-on through the new provider to prevent your organization being billed twice for the same users.
@@ -68,7 +68,7 @@ First select the SSO Provider you would like to configure.
 
 <%= image "session_duration/select_provider.png", width: 1201/2, height: 786/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
-Then click *Update Session Duration* from the *Session Duration* section of the
+Then click **Update Session Duration** from the **Session Duration** section of the
 SSO Provider settings page.
 
 <%= image "session_duration/update_session_duration.png", width: 1201/2, height: 1043/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
@@ -86,11 +86,11 @@ Session IP address pinning prompts users to re-authenticate when their IP addres
 
 To set up SSO session IP address pinning, use the [GraphQL API](/docs/apis/graphql/cookbooks/organizations#pin-sso-sessions-to-ip-addresses) or complete the following steps in the Buildkite dashboard:
 
-1. Navigate to the [organization's SSO settings](https://buildkite.com/organizations/~/sso).
-1. In the _Configured SSO Providers_ section, select the provider.
-1. In the _Session IP Address Pinning_ section, select _Update Session IP Address Pinning_.
-1. In the modal that appears, select the _Session IP Address Pinning_ checkbox.
-1. Select _Save Session IP Address Pinning_.
+1. Navigate to the [organization's **Single Sign On** settings](https://buildkite.com/organizations/~/sso).
+1. In the **Configured SSO Providers** section, select the provider.
+1. In the **Session IP Address Pinning** section, select **Update Session IP Address Pinning**.
+1. In the resulting dialog, select the **Session IP Address Pinning** checkbox.
+1. Select **Save Session IP Address Pinning**.
 
 ## Frequently asked questions
 

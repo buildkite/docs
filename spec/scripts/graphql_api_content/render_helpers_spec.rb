@@ -673,7 +673,7 @@ RSpec.describe RenderHelpers do
           toc: false
           ---
           <!-- vale off -->
-          <h1 class="has-pills" data-algolia-exclude>JobTypeTrigger<span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></h1>
+          <h1 class="has-pills">JobTypeTrigger<span data-algolia-exclude><span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></span></h1>
           <!-- vale on -->
 
           A type of job that triggers another build on a pipeline
@@ -752,7 +752,7 @@ RSpec.describe RenderHelpers do
             toc: false
             ---
             <!-- vale off -->
-            <h1 class="has-pills" data-algolia-exclude>__DirectiveLocation<span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></h1>
+            <h1 class="has-pills">__DirectiveLocation<span data-algolia-exclude><span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></span></h1>
             <!-- vale on -->
             <!-- vale off -->
             <!-- vale on -->

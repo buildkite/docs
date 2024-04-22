@@ -4,9 +4,11 @@
 To ensure stability and prevent excessive or abusive calls to the server, Buildkite imposes a limit on the number of REST API requests that can be made within a minute. These limits apply to the Pipelines REST API as well as the Analytics REST API.
 
 ## Rate limits
+
 Buildkite imposes a rate limit of 200 requests per minute for each organization. This is the cumulative limit of all API requests made by users in an organization.
 
 ## Checking rate limit details
+
 The rate limit status is available in the following response headers of each API call.
 
 - `RateLimit-Remaining` - The remaining requests that can be made within the current time window.
@@ -22,9 +24,11 @@ RateLimit-Reset: 42
 ```
 
 ## Exceeding the rate limit
+
 Once the rate limit is exceeded, subsequent API requests will return a 429 HTTP status code, and the `RateLimit-Remaining` header will be 0. You should not make any further requests until the `RateLimit-Reset` specifies a new availability window.
 
 ## Best practices to avoid rate limits
+
 To ensure the smooth functioning and efficient use of the API, we recommend you design your client application with the following best practices in mind:
 
 - Implement appropriate pagination techniques when querying data.

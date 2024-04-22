@@ -158,6 +158,11 @@ variables:
     values:
       - true
       - false
+  - name: BUILDKITE_CLUSTER_ID
+    desc: |
+      The UUID value of the cluster, but only if the build has an associated `cluster_queue`. Otherwise, this environment variable is not set.
+    modifiable: false
+    example: "4735ba57-80d0-46e2-8fa0-b28223a86586"
   - name: BUILDKITE_COMMAND
     desc: |
       The command that will be run for the job.

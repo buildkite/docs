@@ -18,6 +18,22 @@ Table of contents:
 
 This section covers the Markdown syntax associated with the [Style and formatting in the Writing style guide](writing-style.md#style-and-formatting).
 
+### Markdown
+
+The docs website uses the [Redcarpet](https://github.com/vmg/redcarpet) Ruby library for Markdown.
+Redcarpet does not conform with the CommonMark or GitHub Flavored Markdown specifications.
+Watch out for differences such as:
+
+- Inline HTML comments are escaped and will appear in the output, but block comments won't.
+
+  ```markdown
+  Hello world! <!-- this comment is visible to readers -->
+
+  <!-- This comment is hidden -->
+  ```
+
+- See below about [new paragraphs within a list item](#new-paragraphs-within-a-list-item).
+
 ### Headings
 
 Ensure headings are always nested incrementally within any Markdown page (that is, `# Heading (used as the page title)`, `## Heading`, `### Heading`, `#### Heading`, etc.) throughout the docs. Be aware that this incremental nesting rule can be broken on the way up. For example:
@@ -50,10 +66,10 @@ Even more text.
 
 > [!NOTE]
 > To improve the readability of the Markdown source content, ensure there is an empty line inserted both above and below the heading.
-> 
-> To avoid over-complicating the structure of a page, do not descend any further than a heading level 4. Be aware that only heading level 3s are rendered in the right _On this page_ sections of pages in the Buildkite Docs.
-> 
-> Do not use any bold text or other fancy formatting for headings.
+>
+> To avoid over-complicating the structure of a page, do not descend any further than a heading level 4. Be aware that only heading level 3s are rendered in the right **On this page** sections of pages in the Buildkite Docs.
+>
+> In line with [Google's developer docs guidelines on heading/title formatting](https://developers.google.com/style/headings#heading-and-title-format), avoid using `code` items in headings. However, if you do wish or need to do so, don't use code formatting in the heading text. Also avoid other fancy formatting such as **bold** or _italics_ in heading text.
 
 Refer to [Headings in the Writing style guide](writing-style.md#headings) for details on how to write and present headings in the Buildkite docs.
 
@@ -63,6 +79,24 @@ To create a new paragraph of text, add two line breaks at the end of the last ch
 
 > [!NOTE]
 > Do not attempt to create single line breaks within a paragraph of text. While this is possible using the `<br/>` HTML element in the Markdown syntax flavor used for the Buildkite Docs, doing this adds little value to the text and [may impact how text is displayed on different devices](https://developers.google.com/style/paragraph-structure).
+
+#### New paragraphs within a list item
+
+Four spaces are required to create a new paragraph within/as part of a list item. If you don't do this, the new paragraph will break out of and interrupt the list.
+
+**✅ Do this**
+```markdown
+1. First paragraph of this list item.
+
+    A happy second paragraph, indented four spaces.
+```
+
+**❌ Don't do this**
+```markdown
+1. First paragraph of this list item.
+
+   A sad, broken second paragraph, indented three spaces.
+```
 
 ### Spacing after the end of a sentence
 
@@ -74,9 +108,15 @@ Here is some [historical background](https://www.onlinegrammar.com.au/the-gramma
 
 ### UI elements
 
-UI element references are formatted using italics in the Buildkite docs. Markdown supports two characters as its markup for italicizing text—either an underscore `_` or a single asterisk `*`. For consistency, use single underscores `_` immediately surrounding the text you want to italicize. For example, `_Italicize this text_`
+UI element references are formatted using bold in the Buildkite docs. Markdown supports two consecutive asterisks `**` or underscores `__` as its markup for bold text. For consistency, use sets of two consecutive asterisks `**` immediately surrounding the text you want to bold. For example, `**Bold this text**`.
 
 Refer to [Referring to UI elements in the Writing style guide](writing-style.md#ui-elements) for details on how to write and present UI elements in the docs.
+
+### Key terms and emphasis
+
+Key terms and emphasized words are formatted using italics in the Buildkite docs. Markdown supports two characters as its markup for italicizing text—either an underscore `_` or a single asterisk `*`. For consistency, use single underscores `_` immediately surrounding the text you want to italicize. For example, `_Italicize this text_`.
+
+Refer to [Referring to Key terms in the Writing style guide](writing-style.md#key-terms) for details on how to write and present key terms in the docs.
 
 ### Lists
 
@@ -176,8 +216,8 @@ Currently, callouts in the Buildkite Docs are generated through a combination of
 A regular info callout ("purple"):
 
 ```
->📘 An info callout title
-> Callout content can have <code>code</code> or _emphasis_ and other inline elements in it, <a href="#">including links</a>.
+> 📘 An info callout title
+> Callout content can have `code` or _emphasis_ and other inline elements in it, [including links](#).
 > Every line break after the first becomes a new paragraph inside the callout.
 ```
 
@@ -198,15 +238,15 @@ Callout headings avoid clashing with other content heading by being styled as pa
 For troubleshooting callouts ("orange"), use the 🚧 emoji:
 
 ```
->🚧 A troubleshooting callout title
-> Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a>.
+> 🚧 A troubleshooting callout title
+> Callout content can have `code` or _emphasis_ and other inline elements in it, [including links](#).
 > Every line break after the first becomes a new paragraph inside the callout.
 ```
 
 While no longer used in the Buildkite Docs, Work-in-progress (WIP) or Experimental callouts ("orange"), use the 🛠 emoji:
 
 ```
->🛠 This marks it as WIP
+> 🛠 This marks it as WIP
 > Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a>.
 > Every line break after the first becomes a new paragraph inside the callout.
 ```
@@ -215,7 +255,7 @@ Any other emoji will render blockquotes as normal.
 
 #### Callouts within lists
 
-If you need to make a callout as part of a bulleted or numbered list item, the callout options above will not work. Therefore, add the callout as an indented block level text preceded with the type of callout in bold text, such as `**Note:**`. For example:
+If you need to make a callout as part of a bulleted or numbered list item, the callout options above will not work. Therefore, add the callout as an indented (by 4 spaces) block level text preceded with the type of callout in bold text, such as `**Note:**`. For example:
 
 ````
 1. Do this...
@@ -367,7 +407,8 @@ If you need to provide an example code snippet that contains emoji code and you 
 
 Another example:
 
-```
+````
+```yml
 steps:
   - group: "\:lock_with_ink_pen\: Security Audits"
     key: "audits"
@@ -375,6 +416,7 @@ steps:
       - label: "\:brakeman\: Brakeman"
         command: ".buildkite/steps/brakeman"
 ```
+````
 
 Will be rendered as:
 
@@ -394,36 +436,6 @@ Use escaping to prevent this.
 ## Working with the docs site
 
 The Buildkite docs is a custom-built website. This section gives some guidance on working with the setup.
-
-### Markdown
-
-The docs website uses the [Redcarpet](https://github.com/vmg/redcarpet) Ruby library for Markdown.
-Redcarpet does not conform with the CommonMark or GitHub Flavored Markdown specifications.
-Watch out for differences such as:
-
-- Inline HTML comments are escaped and will appear in the output, but block comments won't.
-
-  ```markdown
-  ## Hello world! <!-- this comment is visible to readers -->
-
-  <!-- This comment is hidden -->
-  ```
-
-- Four spaces are required for list continuation paragraphs.
-
-  **✅ Do this**
-  ```markdown
-  1. First paragraph of this list item.
-
-      A happy second paragraph, indented four spaces.
-  ```
-
-  **❌ Don't do this**
-  ```markdown
-  2. First paragraph of this list item.
-
-     A sad, broken second paragraph, indented three spaces.
-  ```
 
 ### Adding and naming new documentation pages
 
@@ -474,25 +486,26 @@ The enabled Markdown linting rules are in [`.markdownlint.yaml`](https://github.
 
 You can use snippets to reuse the same fragment in several documentation pages (single sourcing). This way, you can update the snippet once, and the changes will be visible on all pages that use this snippet.
 
-Add snippet files to the directory where they'll be used, prefaced with an underscore in the file name. For example `_my_snippet.md`. **However**, when pulling the snippet into a file, remove the leading underscore.
+Add snippet files to appropriate locations within the `/pages` directory, prefaced with an underscore in the file name. For example `_my_snippet.md`. **However**, when pulling the snippet into a file, remove the leading underscore.
 
-This way, this:
+This way, the following example snippet file located immediately within the `/pages` directory:
 
-`/integrations/_step_2_3_github_custom_status.md`
+`_step_2_3_github_custom_status.md`
 
-Needs to become this in a snippet render link:
+is referenced using this snippet render link:
 
-`<%= render_markdown 'integrations/step_2_3_github_custom_status' %>`
+`<%= render_markdown 'step_2_3_github_custom_status' %>`
 
-Put the snippet render link where you need to add the content of the snippet.
+Use the snippet render link wherever you need to add the content of the snippet (multiple times if required) in other Markdown files throughout the Buildkite Docs.
 
-Do not use H2, H3-level headings in the first line of a snippet because this results in generation of incorrect anchor links for such headings. Instead, if you need to start a snippet with a heading, add the heading to the main document just before you add a snippet render link.
+If a snippet is stored within a subdirectory of `/pages`, you need to specify the subdirectory hierarchy in the link to the snippet.
 
-If a snippet is stored within a sub-solder, you need to specify the names of both folder and subfolder in the link to the snippet.
+Therefore, a reference to the `_agent_events_table.md` file stored within the `webhooks` subdirectory of the `apis` subdirectory would look like this:
 
-So a link to `_agent_events_table.md` stored within `webhooks` sub-folder in `apis` folder will need to look like this:
+`<%= render_markdown partial: 'apis/webhooks/agent_events_table' %>`
 
-`<%= render_markdown partial: 'integrations/step_2_3_github_custom_status' %>`
+> [!WARNING]
+> Do not use H2, H3-level headings in the first line of a snippet because this results in the generation of incorrect anchor links for such headings. Instead, if you need to start a snippet with a heading, add the heading to the main document just before you add a snippet render link.
 
 ### Custom elements
 

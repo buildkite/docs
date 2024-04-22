@@ -15,9 +15,9 @@ title: AuditContext – Unions – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   AuditContext
-  <span class="pill pill--union pill--normal-case pill--large"><code>UNION</code></span>
+  <span data-algolia-exclude><span class="pill pill--union pill--normal-case pill--large"><code>UNION</code></span></span>
 </h1>
 <!-- vale on -->
 
@@ -33,6 +33,9 @@ Kinds of contexts in which an audit event can be performed
 <h2 data-algolia-exclude>Possible types</h2>
 <div><a href="/docs/apis/graphql/schemas/object/auditapicontext" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AuditAPIContext">
   <code>AuditAPIContext</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/auditagentapicontext" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AuditAgentAPIContext">
+  <code>AuditAgentAPIContext</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/auditwebcontext" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AuditWebContext">
   <code>AuditWebContext</code>

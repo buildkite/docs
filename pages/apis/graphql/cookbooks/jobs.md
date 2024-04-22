@@ -2,7 +2,7 @@
 
 A collection of common tasks with jobs using the GraphQL API.
 
-You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the _Docs_ panel.
+You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the **Docs** panel.
 
 ## Get all jobs in a given queue for a given timeframe
 
@@ -165,6 +165,31 @@ mutation CancelJob {
   jobTypeCommandCancel(input: { id: "job-id" }) {
     jobTypeCommand {
       id
+    }
+  }
+}
+```
+
+## Get retry information for a job
+
+Gets information about how a job was retried (`retryType`), who retried the job (`retriedBy`) and which job was source of the retry (`uuid`).
+`retriedBy` will be `null` if the `retryType` is `AUTOMATIC`.
+
+```graphql
+query GetJobRetryInformation {
+  job(uuid: "job-uuid") {
+    ... on JobTypeCommand {
+      retrySource {
+        ... on JobInterface {
+          uuid
+          retried
+          retryType
+          retriedBy {
+            email
+            name
+          }
+        }
+      }
     }
   }
 }

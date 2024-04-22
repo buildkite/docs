@@ -15,9 +15,9 @@ title: AuditActorType – Enums – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   AuditActorType
-  <span class="pill pill--enum pill--normal-case pill--large"><code>ENUM</code></span>
+  <span data-algolia-exclude><span class="pill pill--enum pill--normal-case pill--large"><code>ENUM</code></span></span>
 </h1>
 <!-- vale on -->
 
@@ -39,6 +39,6 @@ All the possible types of actors in an Audit Event
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>USER</code></strong></p></td></tr>
+    <tr><td><p><strong><code>AGENT</code></strong></p></td></tr><tr><td><p><strong><code>USER</code></strong></p></td></tr>
   </tbody>
 </table>

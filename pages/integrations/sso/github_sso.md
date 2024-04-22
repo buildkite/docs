@@ -7,14 +7,14 @@ You can use GitHub as an SSO provider for your Buildkite organization. To comple
 
 Set up the [Buildkite GitHub Application](https://github.com/apps/buildkite) for your GitHub organization. You need to install Buildkite for the GitHub organization that you want to connect to Buildkite as an SSO provider.
 
-In your Buildkite Organization Settings' _Repository Providers_ menu item, connect your GitHub user account to Buildkite. Grant Buildkite the permission to verify your GitHub identity.
+In your [Buildkite organization **Settings**](https://buildkite.com/organizations/~/settings)' **Repository Providers** menu item, connect your GitHub user account to Buildkite. Grant Buildkite the permission to verify your GitHub identity.
 
 ## Step 2. Create an SSO provider
 
-1. In your Buildkite Organization Settings' _Single Sign On_ menu item, choose the GitHub provider:
+1. In your [Buildkite organization **Settings**](https://buildkite.com/organizations/~/settings)' **Single Sign On** menu item, choose the GitHub provider:
 <%= image "sso-settings.png", width: 1716/2, height: 884/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 1. Enter the name of your GitHub organization.
-1. Click _Create Provider_.
+1. Click **Create Provider**.
 
 ## Step 3. Perform a test login
 

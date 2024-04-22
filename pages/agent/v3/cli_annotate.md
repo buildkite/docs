@@ -1,9 +1,8 @@
-# `buildkite-agent annotate`
+# buildkite-agent annotate
 
 The Buildkite Agent's `annotate` command allows you to add additional information to Buildkite build pages using CommonMark Markdown.
 
 <%= image "overview.png", alt: "Screenshot of annotations with test reports" %>
-
 
 ## Creating an annotation
 
@@ -149,7 +148,7 @@ Console output in annotations can be displayed with ANSI colors when wrapped in 
 <%= image "annotations-terminal-output.png", alt: "Screenshot of colored terminal output in an annotation" %>
 
 
->📘
+> 📘
 > Make sure you escape the backticks (<code>`</code>) that demarcate the code block if you're echoing to the terminal, so it doesn't get interpreted as a shell interpreted command.
 
 The following pipeline prints an escaped Markdown block, adds line breaks using `\n` and formats `test` using the red ANSI code `\033[0;31m` before resetting the remainder of the output with `\033[0m`. Passing `-e` to the echo commands ensures that the backslash escapes codes are interpreted (the default is not to interpret them).

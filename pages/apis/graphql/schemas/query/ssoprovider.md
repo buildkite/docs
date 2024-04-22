@@ -15,12 +15,12 @@ title: ssoProvider – Queries – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   ssoProvider
-  <a href="/docs/apis/graphql/schemas/interface/ssoprovider" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE SSOProvider">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/interface/ssoprovider" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE SSOProvider">
   <code>SSOProvider</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

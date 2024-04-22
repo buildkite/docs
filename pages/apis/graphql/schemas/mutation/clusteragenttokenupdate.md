@@ -15,17 +15,17 @@ title: clusterAgentTokenUpdate – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   clusterAgentTokenUpdate
-  <a href="/docs/apis/graphql/schemas/object/clusteragenttokenupdatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterAgentTokenUpdatePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/clusteragenttokenupdatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterAgentTokenUpdatePayload">
   <code>ClusterAgentTokenUpdatePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 
 
-Updates a cluster agent token
+Updates an agent token for a cluster.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

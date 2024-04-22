@@ -5,7 +5,8 @@
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of runs in a test suite.
 
 ```bash
-curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/runs"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/runs"
 ```
 
 ```json
@@ -34,7 +35,8 @@ Success response: `200 OK`
 ## Get a run
 
 ```bash
-curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/runs/{run.id}"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/runs/{run.id}"
 ```
 
 ```json

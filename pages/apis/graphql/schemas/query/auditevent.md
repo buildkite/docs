@@ -15,12 +15,12 @@ title: auditEvent – Queries – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   auditEvent
-  <a href="/docs/apis/graphql/schemas/object/auditevent" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AuditEvent">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/auditevent" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AuditEvent">
   <code>AuditEvent</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

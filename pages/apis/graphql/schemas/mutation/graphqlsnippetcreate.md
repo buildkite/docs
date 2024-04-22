@@ -15,12 +15,12 @@ title: graphQLSnippetCreate – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   graphQLSnippetCreate
-  <a href="/docs/apis/graphql/schemas/object/graphqlsnippetcreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT GraphQLSnippetCreatePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/graphqlsnippetcreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT GraphQLSnippetCreatePayload">
   <code>GraphQLSnippetCreatePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 
