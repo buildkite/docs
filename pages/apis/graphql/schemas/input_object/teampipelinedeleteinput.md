@@ -15,9 +15,9 @@ title: TeamPipelineDeleteInput – Input_objects – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   TeamPipelineDeleteInput
-  <span class="pill pill--input_object pill--normal-case pill--large"><code>INPUT_OBJECT</code></span>
+  <span data-algolia-exclude><span class="pill pill--input_object pill--normal-case pill--large"><code>INPUT_OBJECT</code></span></span>
 </h1>
 <!-- vale on -->
 

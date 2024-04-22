@@ -15,12 +15,12 @@ title: organizationInvitation – Queries – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   organizationInvitation
-  <a href="/docs/apis/graphql/schemas/object/organizationinvitation" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationInvitation">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/organizationinvitation" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationInvitation">
   <code>OrganizationInvitation</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

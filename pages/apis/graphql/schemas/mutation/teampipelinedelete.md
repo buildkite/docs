@@ -15,12 +15,12 @@ title: teamPipelineDelete – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   teamPipelineDelete
-  <a href="/docs/apis/graphql/schemas/object/teampipelinedeletepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamPipelineDeletePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/teampipelinedeletepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamPipelineDeletePayload">
   <code>TeamPipelineDeletePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

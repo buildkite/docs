@@ -15,12 +15,12 @@ title: teamCreate – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   teamCreate
-  <a href="/docs/apis/graphql/schemas/object/teamcreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamCreatePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/teamcreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamCreatePayload">
   <code>TeamCreatePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

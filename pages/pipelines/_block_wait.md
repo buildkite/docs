@@ -8,7 +8,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-But let's consider a different example. Now the wait step (with `continue_on_failure: true`) will be ignored, but the block step will **also not run**, because the 'previous' command step failed.
+But let's consider a different example. Now the wait step (with `continue_on_failure: true`) will be ignored, but the block step will _also not run_, because the 'previous' command step failed.
 
 
 ```yml

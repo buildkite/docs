@@ -38,14 +38,14 @@ Before you start, make sure ExUnit runs with access to [CI environment variables
       api_key: System.get_env("BUILDKITE_ANALYTICS_TOKEN")
     ```
 
-4. Add `BuildkiteTestCollectorFormatter` to your ExUnit configuration in `test/test_helper.exs`:
+1. Add `BuildkiteTestCollectorFormatter` to your ExUnit configuration in `test/test_helper.exs`:
 
     ```elixir
     ExUnit.configure formatters: [BuildkiteTestCollector.Formatter, ExUnit.CLIFormatter]
     ExUnit.start
     ```
 
-5. Run your tests like normal:
+1. Run your tests like normal:
 
     Note that we attempt to detect the presence of several common CI environments. However if this fails you can set the `CI` environment variable to any value and it will work.
 
@@ -60,4 +60,4 @@ Before you start, make sure ExUnit runs with access to [CI environment variables
     Randomized with seed 12345
     ```
 
-6. Verify that it works. If all is well, you should see the test run in the test analytics section of the Buildkite dashboard.
+1. Verify that it works. If all is well, you should see the test run in the test analytics section of the Buildkite dashboard.

@@ -5,11 +5,11 @@ Google Workspace (previously G Suite and Google Apps) can be used as an SSO prov
 
 ## Step 1. Create an SSO provider
 
-In your Buildkite Organization Settings' _Single Sign On_ menu item, choose the Google G Suite provider:
+In your [Buildkite organization **Settings**](https://buildkite.com/organizations/~/settings)' **Single Sign On** menu item, choose the Google G Suite provider:
 
 <%= image "sso-settings.png", width: 1716/2, height: 884/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
->📘 You can also set up SSO providers manually with GraphQL.
+> 📘 You can also set up SSO providers manually with GraphQL.
 > See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.
 
 ## Step 2. Perform a test login

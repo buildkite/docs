@@ -20,5 +20,5 @@
   </tr>
   <tr>
     <th><code>agent.blocked</code></th>
-    <td>An agent has been blocked. This happens when an agent's IP address is no longer included in the cluster token's <a href="/docs/clusters/manage-clusters#set-up-clusters-restrict-access-for-a-cluster-token-by-ip-address">allowed IP addresses</a></td>
+    <td>An agent has been blocked. This happens when an agent's IP address is no longer included in the agent token's <a href="/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td>
   </tr>

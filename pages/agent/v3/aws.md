@@ -61,11 +61,11 @@ can access the instance.
 	- Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
 	- Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
 1. Using a VNC session (run SSH port forwarding `ssh -L 5900:localhost:5900 ec2-user@<ip-address>` if direct access is not available):
-	1. Sign in as the `ec2-user`
-	1. Enable *Automatic login* for the `ec2-user` in *System Preferences* > *Users & Accounts* > *Login Options*
-	1. Disable *Require password* in *System Preferences* > *Security & Privacy* > *General*
-	1. Set system sleep in *System Preferences* > *Energy Saver* > *Turn display off after* to *Never*
-	1. Disable the screen saver in *System Preferences* > *Desktop & Screen Saver* > *Show screen saver after*
+	1. Sign in as the `ec2-user`.
+	1. Enable **Automatic login** for the `ec2-user` in **System Preferences** > **Users & Accounts** > **Login Options**.
+	1. Disable **Require password** in **System Preferences** > **Security & Privacy** > **General**.
+	1. Set system sleep in **System Preferences** > **Energy Saver** > **Turn display off after** to **Never**.
+	1. Disable the screen saver in **System Preferences** > **Desktop & Screen Saver** > **Show screen saver after**.
 1. Follow the [macOS installation guide](/docs/agent/v3/macos#installation)
 instructions to install the Buildkite agent using Homebrew and configure
 starting on login.

@@ -15,12 +15,12 @@ title: notificationService – Queries – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   notificationService
-  <a href="/docs/apis/graphql/schemas/interface/notificationservice" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE NotificationService">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/interface/notificationservice" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE NotificationService">
   <code>NotificationService</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

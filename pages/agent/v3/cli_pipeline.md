@@ -1,4 +1,4 @@
-# `buildkite-agent pipeline`
+# buildkite-agent pipeline
 
 The Buildkite Agent's `pipeline` command allows you to add and replace build steps in the running build. The steps are defined using YAML or JSON and can be read from a file or streamed from the output of a script.
 
@@ -48,7 +48,7 @@ If you want an environment variable to be evaluated at run-time (for example, us
     SERVER: "server-a"
 ```
 
-### Escaping the `$` character
+### Escaping the $ character
 
 If you need to prevent substitution, you can escape the `$` character by using `$$` or `\$`.
 

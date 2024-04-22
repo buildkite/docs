@@ -15,12 +15,12 @@ title: pipelineUnarchive – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   pipelineUnarchive
-  <a href="/docs/apis/graphql/schemas/object/pipelineunarchivepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineUnarchivePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/pipelineunarchivepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineUnarchivePayload">
   <code>PipelineUnarchivePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

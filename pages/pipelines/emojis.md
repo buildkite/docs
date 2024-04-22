@@ -6,7 +6,6 @@ To use an emoji, write the name of the emoji in between colons, like `\:buildkit
 
 A few common emojis are listed below, but you can see the [full list of available emoji](https://github.com/buildkite/emojis#emoji-reference) on GitHub.
 
-
 <table>
   <thead>
     <tr>
@@ -40,5 +39,5 @@ A few common emojis are listed below, but you can see the [full list of availabl
 
 Add your own emoji by opening a [pull request](https://github.com/buildkite/emojis#contributing-new-emoji) containing a 64x64 PNG image and a name to the emoji repository.
 
->🚧 Buildkite emojis in other tools
-> Buildkite loads custom emojis as <a href="https://github.com/buildkite/emojis">images</a>. Other tools, such as GitHub, might not display the images correctly, and will only show the <code>:text-form:</code>.
+> 🚧 Buildkite emojis in other tools
+> Buildkite loads custom emojis as <a href="https://github.com/buildkite/emojis">images</a>. Other tools, such as GitHub, might not display the images correctly, and will only show the `:text-form:`.

@@ -2,7 +2,7 @@
 
 A collection of common tasks with clusters using the GraphQL API.
 
-You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the _Docs_ panel.
+You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the **Docs** panel.
 
 ## List clusters
 
@@ -48,9 +48,9 @@ query getClusterQueues {
 }
 ```
 
-## List cluster tokens
+## List agent tokens
 
-Get the first 10 cluster tokens for a particular cluster, specifying the clusters' UUID as the `id` argument of the `cluster` query:
+Get the first 10 agent tokens for a particular cluster, specifying the clusters' UUID as the `id` argument of the `cluster` query:
 
 ```graphql
 query getClusterTokens {
@@ -128,6 +128,75 @@ query getClusterQueueJobsByJobState {
             }
           }
         }
+      }
+    }
+  }
+}
+```
+
+
+## List agents in a cluster
+
+Get the first 10 agents within a cluster, use the `cluster` argument of the `agents` query, passing in the ID of the cluster:
+
+```graphql
+query getClusterAgent {
+   organization(slug:"organization-slug") {
+    agents(first: 10, cluster: "cluster-id") {
+      edges {
+        node {
+          name
+          hostname
+          version
+          clusterQueue{
+            uuid
+            id
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## List agents in a cluster queue
+
+Get the first 10 agents in a particular cluster queue, specifying the `clusterQueue` argument of the `agents` query, passing in the ID of the cluster queue:
+
+```graphql
+query getClusterQueueAgent {
+   organization(slug:"organization-slug") {
+    agents(first: 10, clusterQueue: "cluster-queue-id") {
+      edges {
+        node {
+          name
+          hostname
+          version
+          id
+          clusterQueue{
+            id
+            uuid
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## Associate a pipeline with a cluster
+
+First, [get the Cluster ID](#list-clusters) you want to associate the Pipeline with.
+Second, [get the Pipeline's ID](/docs/apis/graphql/cookbooks/pipelines#get-a-pipelines-id).
+Then, use the IDs to archive the pipelines:
+
+```graphql
+mutation AssociatePipelineWithCluster {
+  pipelineUpdate(input:{id: "pipeline-id" clusterId: "cluster-id"}) {
+    pipeline {
+      cluster {
+        name
+        id
       }
     }
   }

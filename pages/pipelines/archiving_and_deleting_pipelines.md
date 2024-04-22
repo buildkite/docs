@@ -11,11 +11,11 @@ Archiving a pipeline preserves all builds, job logs, artifacts, and history for 
 To archive or unarchive a pipeline:
 
 1. Navigate to the pipeline.
-1. Select _Pipeline Settings_.
-1. Under _Pipeline Management_, select _Archive Pipeline_/_Unarchive Pipeline_.
+1. Select the pipeline's **Settings** > **General** page.
+1. In the **Pipeline Management** section, select **Archive Pipeline**/**Unarchive Pipeline**.
 1. Read the warnings.
 1. Type in the slug of the pipeline.
-1. Select _Archive Pipeline_/_Unarchive Pipeline_.
+1. Select **Archive Pipeline**/**Unarchive Pipeline**.
 
 You can view archived pipelines using the team selector on the Pipelines dashboard.
 
@@ -28,8 +28,8 @@ Deleting a pipeline deletes all associated builds, job logs, artifacts, and hist
 To delete a pipeline:
 
 1. Navigate to the pipeline.
-1. Select _Pipeline Settings_.
-1. Under _Pipeline Management_, select _Delete Pipeline_.
+1. Select the pipeline's **Settings** > **General** page.
+1. In the **Pipeline Management** section, select **Delete Pipeline**.
 1. Read the warnings.
 1. Type in the slug of the pipeline.
-1. Select _Delete Pipeline_.
+1. Select **Delete Pipeline**.

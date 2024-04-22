@@ -15,9 +15,9 @@ title: AuditSubjectNode – Unions – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   AuditSubjectNode
-  <span class="pill pill--union pill--normal-case pill--large"><code>UNION</code></span>
+  <span data-algolia-exclude><span class="pill pill--union pill--normal-case pill--large"><code>UNION</code></span></span>
 </h1>
 <!-- vale on -->
 
@@ -108,6 +108,9 @@ Kinds of subjects which can have audit events performed on them
 </a>
 <a href="/docs/apis/graphql/schemas/object/ssoprovidersaml" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SSOProviderSAML">
   <code>SSOProviderSAML</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/secret" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Secret">
+  <code>Secret</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/subscription" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Subscription">
   <code>Subscription</code>

@@ -25,6 +25,8 @@ commands=(
   "meta-data set"
   "oidc request-token"
   "pipeline upload"
+  "redactor add"
+  "secret get"
   "start"
   "step get"
   "step update"
