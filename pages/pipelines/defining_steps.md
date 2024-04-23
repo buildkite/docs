@@ -126,11 +126,11 @@ Job state             | Description
 ----------------------| -----------------------------------------
 `pending`             | The job has just been created and doesn't have a state yet.
 `waiting`             | The job is waiting on a wait step to finish.
-`waiting_failed`      | The job was in a WAITING state when the build failed.
+`waiting_failed`      | The job was in a `waiting` state when the build failed.
 `blocked`             | The job is waiting on a block step to finish.
-`blocked_failed`      | The job was in a BLOCKED state when the build failed.
+`blocked_failed`      | The job was in a `blocked` state when the build failed.
 `unblocked`           | This block job has been manually unblocked.
-`unblocked_failed`    | This block job was in an UNBLOCKED state when the build failed.
+`unblocked_failed`    | This block job was in an `unblocked` state when the build failed.
 `limiting`            | The job is waiting on a concurrency group check before becoming either `limited` or `scheduled`.
 `limited`             | The job is waiting for jobs with the same concurrency group to finish.
 `scheduled`           | The job is scheduled and waiting for an agent.
