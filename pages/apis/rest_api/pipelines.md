@@ -415,16 +415,11 @@ Error responses:
 </tbody>
 </table>
 
-### On slug creation conventions
+### Deriving a pipeline slug from the pipeline's name
 
-Pipeline slugs are generated based on the pipeline name you provide during the pipeline creation.
-The maximum allowed character length for a pipeline slug is `100`.
-The supported character format for slug generation is:
-`/\A[a-zA-Z0-9]+[a-zA-Z0-9\-]*\z/`.
+<%= render_markdown partial: 'platform/deriving_a_pipeline_slug_from_the_pipelines_name' %>
 
-All the whitespace characters that appear in the pipeline name consecutively will be converted to a single `-` character (so `"Hello[space]there"` and `"Hello[space, space, space, etc.]there"` will be equally converted to a `hello-there` slug), and uppercase will be converted to lowercase.
-
-An attempt at creating a new pipeline with a name that matches an existing pipeline name will throw an error.
+Any attempt to create a new pipeline with a name that matches an existing pipeline's name, results in an error.
 
 ## Create a visual step pipeline
 

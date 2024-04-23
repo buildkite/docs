@@ -59,7 +59,7 @@ When setting pipeline steps using the API, you must pass in a string that Buildk
 
 ### Deriving a pipeline slug from the pipeline's name
 
-<%= render_markdown partial: 'platform/deriving-a-pipeline-slug-from-the-pipelines-name' %>
+<%= render_markdown partial: 'platform/deriving_a_pipeline_slug_from_the_pipelines_name' %>
 
 Any attempt to create a new pipeline with a name that matches an existing pipeline's name, results in an error.
 
