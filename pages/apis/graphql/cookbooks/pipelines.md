@@ -52,19 +52,22 @@ mutation createPipeline {
 }
 ```
 
->📘
+> 📘
 When setting pipeline steps using the API, you must pass in a string that Buildkite parses as valid YAML, escaping quotes and line breaks.
 > To avoid writing an entire YAML file in a single string, you can place a <code>pipeline.yml</code> file in a <code>.buildkite</code> directory at the root of your repo, and use the <code>pipeline upload</code> command in your pipeline steps to tell Buildkite where to find it. This means you only need the following:
 > <code>steps: { yaml: "steps:\n - command: \"buildkite-agent pipeline upload\"" }</code>
 
 ### Deriving a pipeline slug from the pipeline's name
 
-Pipeline slugs are generated from the pipeline name you provide during the pipeline creation.
-The maximum allowed character length for a pipeline slug is `100`.
-The supported character format for slug generation is:
-`/\A[a-zA-Z0-9]+[a-zA-Z0-9\-]*\z/`.
+Pipeline slugs are derived from the pipeline name you provide when the pipeline is created.
 
-When a pipeline slug is derived from a pipeline's name, all space characters (including consecutive ones) in the pipeline's name are converted to single hyphen `-` characters, and all uppercase characters are converted to their lowercase counterparts. Therefore, pipeline names of either `Hello there friend` or `Hello    there friend` are converted to the slug `hello-there-friend`).
+This derivation process involves converting all space characters (including consecutive ones) in the pipeline's name to single hyphen `-` characters, and all uppercase characters to their lowercase counterparts. Therefore, pipeline names of either `Hello there friend` or `Hello    There Friend` are converted to the slug `hello-there-friend`).
+
+The maximum permitted length for a pipeline slug is 100 characters.
+
+> 📘
+> The following regular expression is used to derive and convert the pipeline name to its slug:
+> `/\A[a-zA-Z0-9]+[a-zA-Z0-9\-]*\z/`
 
 Any attempt to create a new pipeline with a name that matches an existing pipeline's name, results in an error.
 
