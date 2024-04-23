@@ -58,7 +58,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can only send email notifications on entire pipeline events, specifically upon [`build_failing`](/docs/apis/webhooks#events) and [`build_finished`](/docs/apis/webhooks#events).
+You can only send email notifications on entire pipeline [events](/docs/apis/webhooks#events), specifically upon `build.failing` and `build.finished`.
 
 Restrict notifications to finished builds by adding a [conditional](#conditional-notifications):
 
