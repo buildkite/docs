@@ -57,7 +57,7 @@ When setting pipeline steps using the API, you must pass in a string that Buildk
 > To avoid writing an entire YAML file in a single string, you can place a <code>pipeline.yml</code> file in a <code>.buildkite</code> directory at the root of your repo, and use the <code>pipeline upload</code> command in your pipeline steps to tell Buildkite where to find it. This means you only need the following:
 > <code>steps: { yaml: "steps:\n - command: \"buildkite-agent pipeline upload\"" }</code>
 
-### Slug creation conventions
+### Deriving a pipeline slug from the pipeline's name
 
 Pipeline slugs are generated from the pipeline name you provide during the pipeline creation.
 The maximum allowed character length for a pipeline slug is `100`.
