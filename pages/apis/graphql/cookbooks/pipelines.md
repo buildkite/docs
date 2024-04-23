@@ -66,7 +66,7 @@ The supported character format for slug generation is:
 
 When a pipeline slug is derived from a pipeline's name, all space characters (including consecutive ones) in the pipeline's name are converted to single hyphen `-` characters, and all uppercase characters are converted to their lowercase counterparts. Therefore, pipeline names of either `Hello there friend` or `Hello    there friend` are converted to the slug `hello-there-friend`).
 
-An attempt at creating a new pipeline with a name that matches an existing pipeline name will throw an error.
+Any attempt to create a new pipeline with a name that matches an existing pipeline's name, results in an error.
 
 ## Get a list of recently created pipelines
 
