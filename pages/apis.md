@@ -1,6 +1,5 @@
 # Buildkite APIs
 
-
 ## Authentication
 
 The Buildkite REST and GraphQL APIs expect an access token to be provided using the `Authorization` HTTP header:

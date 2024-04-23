@@ -135,7 +135,7 @@ steps:
           workdir: /app
 ```
 
-Non-Buildkite plugins hosted on GitHub require you to include the organization name as well as the plugin name, for example:
+Non-Buildkite plugins hosted on GitHub require you to include the GitHub user or organization name as well as the plugin name, for example:
 
 ```yml
 steps:

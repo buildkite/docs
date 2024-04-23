@@ -15,12 +15,12 @@ title: build – Queries – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   build
-  <a href="/docs/apis/graphql/schemas/object/build" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Build">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/build" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Build">
   <code>Build</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

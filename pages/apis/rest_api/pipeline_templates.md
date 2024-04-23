@@ -30,7 +30,8 @@ Non-admins can only read or assign pipeline templates marked as `available` by o
 Returns a list of an organization's pipeline templates.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-templates"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-templates"
 ```
 
 ```json
@@ -73,7 +74,8 @@ Success response: `200 OK`
 ## Get a pipeline template
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-templates/{uuid}"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-templates/{uuid}"
 ```
 
 ```json
@@ -114,7 +116,8 @@ Success response: `200 OK`
 ## Create a pipeline template
 
 ```bash
-curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-templates" \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-templates" \
   -H "Content-Type: application/json" \
   -d '{
     "name": ":hammer: Build",
@@ -200,7 +203,8 @@ Error responses:
 ## Update a pipeline template
 
 ```bash
-curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-templates/{uuid}" \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-templates/{uuid}" \
   -H "Content-Type: application/json" \
   -d '{ "available": true }'
 ```
@@ -277,7 +281,8 @@ Error responses:
 > A pipeline template can only be deleted when it is not assigned to any pipelines. Ensure you remove the pipeline template from all pipelines before trying to delete it.
 
 ```bash
-curl -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-templates/{uuid}"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-templates/{uuid}"
 ```
 
 Required scope: `write_pipeline_templates`

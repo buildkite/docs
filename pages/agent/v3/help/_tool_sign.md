@@ -14,7 +14,7 @@ script.
 
 ### Usage
 
-`buildkite-agent tool sign-pipeline [options...] [pipeline-file]`
+`buildkite-agent tool sign [options...] [pipeline-file]`
 
 ### Description
 

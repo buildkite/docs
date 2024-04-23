@@ -113,10 +113,10 @@ Your Buildkite Organization ID (UUID) can be found on the settings page describe
 To enable build exports:
 
 1. Navigate to your [organization's pipeline settings](https://buildkite.com/organizations/~/pipeline-settings).
-1. In the _Exporting historical build data_ section, select your build export strategy (S3 or GCS).
+1. In the **Exporting historical build data** section, select your build export strategy (S3 or GCS).
 1. Enter your bucket name.
-1. Select _Enable Export_.
+1. Select **Enable Export**.
 
-Once _Enable Export_ is selected, we perform validation to ensure we can connect to the bucket provided for export. If there are any issues with connectivity export will not get enabled and you will see an error in the UI.
+Once **Enable Export** is selected, we perform validation to ensure we can connect to the bucket provided for export. If there are any issues with connectivity export will not get enabled and you will see an error in the UI.
 
 Second part of validation is we upload a test file "deliverability-test.txt" to your build export bucket. Please note that this test file may not appear right away in your build export bucket as there is an internal process that needs to kick off for this to happen.

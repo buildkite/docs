@@ -10,7 +10,6 @@ For Buildkite customers using images hosted on Docker Hub, this results in inter
 
 How to prevent job failure caused by the Docker Hub rates limits depends on exactly how you are using Docker images, here are a few solutions for common scenarios.
 
-
 ## Elastic CI Stack for AWS, authenticating with a paid Docker Hub account
 
 If you're using the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws), you can authenticate with Docker Hub by [adding two
@@ -19,8 +18,8 @@ bucket and accessing them from your build.
 
 Add your Docker Hub credentials to one of the following two environment hooks, which are downloaded at the start of each job:
 
-* `/env` - An agent environment hook, run for every job the agent runs
-* `/{pipeline-slug}/env` - An agent environment hook, specific to a pipeline
+- `/env` - An agent environment hook, run for every job the agent runs
+- `/{pipeline-slug}/env` - An agent environment hook, specific to a pipeline
 
 Either one of these could be configured with Docker Hub credentials to ensure
 Docker Hub requests are authenticated:
@@ -74,7 +73,7 @@ Docker Hub images](https://cloud.google.com/container-registry/docs/migrate-exte
 This approach requires:
 
 1. A regular process (for example, nightly) that mirrors the Docker images you need
-2. Updating all pipelines to use the mirrored GCR image (for example, from `nginx:1.14.2`
+1. Updating all pipelines to use the mirrored GCR image (for example, from `nginx:1.14.2`
    to `gcr.io/<GCR_PROJECT>/nginx:1.14.2`)
 
 ## Mirroring Docker images into AWS Elastic Container Registry
@@ -84,7 +83,7 @@ Docker Hub rate limits](https://aws.amazon.com/blogs/containers/advice-for-custo
 Container Registry (ECR). A similar solution to the one proposed by Google Cloud Platform (GCP):
 
 1. A regular process (for example, nightly) that mirrors the Docker images you need
-2. Updating all pipelines to use the mirrored ECR image instead of the original one
+1. Updating all pipelines to use the mirrored ECR image instead of the original one
 
 ## Configuring the docker daemon to use the GCR mirror of popular Docker Hub images
 
@@ -105,8 +104,8 @@ There are two popular options for running a private caching Docker registry,
 where requests for missing images result in the image being fetched from an
 origin registry (like Docker Hub).
 
-* https://docs.docker.com/registry/recipes/mirror/
-* https://github.com/rpardini/docker-registry-proxy
+- https://docs.docker.com/registry/recipes/mirror/
+- https://github.com/rpardini/docker-registry-proxy
 
 Once the caching registry is operating, pipelines can be updated to use images
 from that registry (for example, from `nginx:1.14.2` to `example.com/nginx:1.14.2`) and

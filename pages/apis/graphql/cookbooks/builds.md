@@ -2,7 +2,7 @@
 
 A collection of common tasks with builds using the GraphQL API.
 
-You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the _Docs_ panel.
+You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the **Docs** panel.
 
 ## Get build info by ID
 
@@ -247,6 +247,60 @@ query GetTotalBuildRunTime{
     url
     startedAt
     finishedAt
+  }
+}
+```
+
+## Create a build on a pipeline
+
+Create a build programmatically.
+First, get the ID for the pipeline to create a build for:
+
+```
+query GetPipelineID {
+  organization(slug: "organization-slug") {
+    pipelines(first: 50, search: "part of slug") {
+      edges {
+        node {
+          slug
+          id
+        }
+      }
+    }
+  }
+}
+```
+
+Then, create the build:
+
+```
+  mutation createBuild {
+    buildCreate(
+      input: {
+        commit: "commit-hash"
+        branch: "branch-name"
+        pipelineID: "pipeline-id"
+      }
+    ) {
+      build {
+        number
+      }
+    }
+  }
+```
+## Get the webhook payload of a build
+
+This query allows you to fetch the webhook payload of a specific build using its UUID. The payload is only available for 7 days.
+
+```graphql
+query GetWebhookPayLoad {
+  build(uuid:"build-uuid") {
+    source{
+      ... on BuildSourceWebhook {
+        headers
+        payload
+      }
+    }
   }
 }
 ```

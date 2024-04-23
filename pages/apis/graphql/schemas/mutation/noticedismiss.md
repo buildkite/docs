@@ -15,12 +15,12 @@ title: noticeDismiss – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   noticeDismiss
-  <a href="/docs/apis/graphql/schemas/object/noticedismisspayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT NoticeDismissPayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/noticedismisspayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT NoticeDismissPayload">
   <code>NoticeDismissPayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

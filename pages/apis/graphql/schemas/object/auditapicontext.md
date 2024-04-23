@@ -15,9 +15,9 @@ title: AuditAPIContext – Objects – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   AuditAPIContext
-  <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
+  <span data-algolia-exclude><span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></span>
 </h1>
 <!-- vale on -->
 
@@ -31,6 +31,6 @@ Context for an audit event created during an REST/GraphQL API request
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>requestIpAddress</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The remote IP which made the request</p></td></tr><tr><td><h3 class="is-small has-pills"><code>requestUserAgent</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The client supplied user agent which made the request</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>requestApiAccessTokenUuid</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The API access token UUID used to authenticate the request</p></td></tr><tr><td><h3 class="is-small has-pills"><code>requestIpAddress</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The remote IP which made the request</p></td></tr><tr><td><h3 class="is-small has-pills"><code>requestUserAgent</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The client supplied user agent which made the request</p></td></tr>
   </tbody>
 </table>

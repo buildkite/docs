@@ -93,6 +93,7 @@ enum APIAccessTokenScopes {
   WRITE_PIPELINES
   WRITE_PIPELINE_TEMPLATES
   WRITE_SUITES
+  WRITE_TEAMS
 }
 
 """
@@ -437,8 +438,9 @@ type AgentTokenCreatePayload {
   organization: Organization!
 
   """
-  The token value used to register a new agent. Please ensure to securely copy
-  this value immediately upon generation as it will not be displayed again.
+  The token value used to register a new unclustered agent. Please ensure to
+  securely copy this value immediately upon generation as it will not be
+  displayed again.
   """
   tokenValue: String!
 }
@@ -469,7 +471,7 @@ input AgentTokenRevokeInput {
   id: ID!
 
   """
-  The reason why this agent token should be revoked
+  The reason why this unclustered agent token should be revoked
   """
   reason: String!
 }
@@ -505,6 +507,11 @@ type Annotation implements Node {
   """
   createdAt: DateTime!
   id: ID!
+
+  """
+  The priority of the annotation
+  """
+  priority: Int!
 
   """
   The visual style of the annotation
@@ -547,6 +554,21 @@ type AnnotationConnection implements Connection {
 type AnnotationEdge {
   cursor: String!
   node: Annotation
+}
+
+"""
+The different orders you can sort annotations by
+"""
+enum AnnotationOrder {
+  """
+  Order by priority, then by the most recently created annotations first
+  """
+  PRIORITY_RECENTLY_CREATED
+
+  """
+  Order by the most recently created annotations first
+  """
+  RECENTLY_CREATED
 }
 
 """
@@ -616,6 +638,11 @@ type Artifact implements Node {
   sha1sum: String!
 
   """
+  A SHA256SUM of the file
+  """
+  sha256sum: String
+
+  """
   The size of the file in bytes that was uploaded
   """
   size: Int!
@@ -646,6 +673,11 @@ type ArtifactEdge {
 Context for an audit event created during an REST/GraphQL API request
 """
 type AuditAPIContext {
+  """
+  The API access token UUID used to authenticate the request
+  """
+  requestApiAccessTokenUuid: String
+
   """
   The remote IP which made the request
   """
@@ -690,19 +722,55 @@ type AuditActor {
 """
 Kinds of actors which can perform audit events
 """
-union AuditActorNode = User
+union AuditActorNode = Agent | User
 
 """
 All the possible types of actors in an Audit Event
 """
 enum AuditActorType {
+  AGENT
   USER
+}
+
+"""
+Context for an audit event created during an agent API request
+"""
+type AuditAgentAPIContext {
+  """
+  The agent UUID
+  """
+  agentUuid: String
+
+  """
+  The type of token that authenticated the agent
+  """
+  authenticationType: String
+
+  """
+  The connection state of the agent
+  """
+  connectionState: String
+
+  """
+  The organization UUID that the agent belongs to
+  """
+  organizationUuid: String
+
+  """
+  The remote IP which made the request
+  """
+  requestIpAddress: String
+
+  """
+  The IP of the agent session which made the request
+  """
+  sessionIpAddress: String
 }
 
 """
 Kinds of contexts in which an audit event can be performed
 """
-union AuditContext = AuditAPIContext | AuditWebContext
+union AuditContext = AuditAPIContext | AuditAgentAPIContext | AuditWebContext
 
 """
 Audit record of an event which occurred in the system
@@ -814,6 +882,11 @@ enum AuditEventType {
   SCM_SERVICE_CREATED
   SCM_SERVICE_DELETED
   SCM_SERVICE_UPDATED
+  SECRET_CREATED
+  SECRET_DELETED
+  SECRET_QUERIED
+  SECRET_READ
+  SECRET_UPDATED
   SSO_PROVIDER_CREATED
   SSO_PROVIDER_DELETED
   SSO_PROVIDER_DISABLED
@@ -888,7 +961,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | Email | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | Email | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -913,6 +986,7 @@ enum AuditSubjectType {
   SCM_PIPELINE_SETTINGS
   SCM_REPOSITORY_HOST
   SCM_SERVICE
+  SECRET
   SSO_PROVIDER
   SUBSCRIPTION
   SUITE
@@ -1093,6 +1167,11 @@ type Build implements Node {
     Returns the last _n_ elements from the list.
     """
     last: Int
+
+    """
+    Order the annotations
+    """
+    order: AnnotationOrder = RECENTLY_CREATED
     style: [AnnotationStyle!]
   ): AnnotationConnection
 
@@ -1263,6 +1342,13 @@ input BuildAnnotateInput {
   A string label to differentiate this annotation from other annotations. The default is `default`
   """
   context: String = "default"
+
+  """
+  Priority of the annotation. By default annotations have a priority of 3.
+  Annotations with a priority of 10 will be shown first, and annotations with a
+  priority of 1 will be shown last.
+  """
+  priority: Int = 3
 
   """
   The style of the annotation. The default is `DEFAULT`
@@ -1471,46 +1557,6 @@ type BuildRebuildPayload {
   """
   clientMutationId: String
   rebuild: Build!
-}
-
-"""
-All the possible build retention periods, depending on your billing plan
-"""
-enum BuildRetentionPeriods {
-  """
-  30 days
-  """
-  DAYS_30
-
-  """
-  60 days
-  """
-  DAYS_60
-
-  """
-  90 days
-  """
-  DAYS_90
-
-  """
-  12 months
-  """
-  MONTHS_12
-
-  """
-  18 months
-  """
-  MONTHS_18
-
-  """
-  6 months
-  """
-  MONTHS_6
-
-  """
-  2 years
-  """
-  YEARS_2
 }
 
 interface BuildSource {
@@ -1811,12 +1857,6 @@ input ClusterAgentTokenCreateInput {
   clientMutationId: String
   clusterId: ID!
   description: String!
-
-  """
-  Agents registered with this token will use a unique token for each job. Please
-  note that this feature is not yet available to all organizations
-  """
-  jobTokensEnabled: Boolean
   organizationId: ID!
 }
 
@@ -1831,7 +1871,7 @@ type ClusterAgentTokenCreatePayload {
   clusterAgentToken: ClusterToken!
 
   """
-  The token value used to register a new agent to this tokens cluster. Please
+  The token value used to register a new agent token to this cluster. Please
   ensure to securely copy this value immediately upon generation as it will not
   be displayed again.
   """
@@ -1882,12 +1922,6 @@ input ClusterAgentTokenUpdateInput {
   clientMutationId: String
   description: String!
   id: ID!
-
-  """
-  Agents registered with this token will use a unique token for each job. Please
-  note that this feature is not yet available to all organizations
-  """
-  jobTokensEnabled: Boolean
   organizationId: ID!
 }
 
@@ -2208,12 +2242,6 @@ type ClusterQueueToken implements Node {
   id: ID!
 
   """
-  Agents registered with this token will use a unique token for each job. Please
-  note that this feature is not yet available to all organizations
-  """
-  jobTokensEnabled: Boolean
-
-  """
   The public UUID for this cluster queue token
   """
   uuid: ID!
@@ -2264,12 +2292,6 @@ type ClusterToken implements Node {
   """
   description: String
   id: ID!
-
-  """
-  Agents registered with this token will use a unique token for each job. Please
-  note that this feature is not yet available to all organizations
-  """
-  jobTokensEnabled: Boolean
 
   """
   The token value used to register a new agent to this tokens cluster. This will
@@ -3066,6 +3088,11 @@ enum JobEventType {
   LIMITED
 
   """
+  The job log exceeded the limit
+  """
+  LOG_SIZE_LIMIT_EXCEEDED
+
+  """
   The Job sent a notification
   """
   NOTIFICATION
@@ -3693,6 +3720,11 @@ A type of job that triggers another build on a pipeline
 """
 type JobTypeTrigger implements JobInterface & Node {
   """
+  Whether the triggered build runs asynchronously or not
+  """
+  async: Boolean!
+
+  """
   The build that this job is a part of
   """
   build: Build
@@ -3845,7 +3877,7 @@ type Mutation {
   ): AgentStopPayload
 
   """
-  Create a new agent registration token.
+  Create a new unclustered agent token.
   """
   agentTokenCreate(
     """
@@ -3855,7 +3887,7 @@ type Mutation {
   ): AgentTokenCreatePayload
 
   """
-  Revoke an agent registration token.
+  Revoke an unclustered agent token.
   """
   agentTokenRevoke(
     """
@@ -3916,7 +3948,7 @@ type Mutation {
   ): BuildRebuildPayload
 
   """
-  Create a new cluster agent token
+  Create an agent token for a cluster.
   """
   clusterAgentTokenCreate(
     """
@@ -3926,7 +3958,7 @@ type Mutation {
   ): ClusterAgentTokenCreatePayload
 
   """
-  Revokes a cluster agent token
+  Revokes an agent token for a cluster.
   """
   clusterAgentTokenRevoke(
     """
@@ -3936,7 +3968,7 @@ type Mutation {
   ): ClusterAgentTokenRevokePayload
 
   """
-  Updates a cluster agent token
+  Updates an agent token for a cluster.
   """
   clusterAgentTokenUpdate(
     """
@@ -6338,22 +6370,6 @@ type Pipeline implements Node {
   branchConfiguration: String
 
   """
-  Choose to keep builds or remove them after a set time period. Pipelines are
-  scanned once a day for builds that can be removed according to these settings.
-  """
-  buildRetentionEnabled: Boolean @deprecated(reason: "Build retention is now determined by your billing plan. This field is no longer used and always returns null.")
-
-  """
-  The minimum number of builds to keep in the pipeline regardless of how old the builds are.
-  """
-  buildRetentionNumber: Int @deprecated(reason: "Build retention is now determined by your billing plan. This field is no longer used and always returns null.")
-
-  """
-  How long is a build kept before it is automatically removed.
-  """
-  buildRetentionPeriod: BuildRetentionPeriods @deprecated(reason: "Build retention is now determined by your billing plan. This field is no longer used and always returns null.")
-
-  """
   Returns the builds for this pipeline
   """
   builds(
@@ -7773,6 +7789,16 @@ type Query {
   ): PipelineTemplate
 
   """
+  Find a secret via its uuid. This does not contain the value of the secret or encrypted material.
+  """
+  secret(
+    """
+    The UUID for the secret i.e. `0bd5ea7c-89b3-4f40-8ca3-ffac805771eb`
+    """
+    uuid: ID!
+  ): Secret
+
+  """
   Find an sso provider either using it's slug, or UUID
   """
   ssoProvider(
@@ -8956,6 +8982,52 @@ type SSOProviderUpdatePayload {
   ssoProvider: SSOProvider!
 }
 
+"""
+A secret hosted by Buildkite. This does not contain the secret value or encrypted material.
+"""
+type Secret implements Node {
+  """
+  The cluster that the secret belongs to
+  """
+  cluster: Cluster
+
+  """
+  The time this secret was created
+  """
+  createdAt: DateTime
+
+  """
+  A description about what this secret is used for
+  """
+  description: String
+
+  """
+  The time this secret was destroyed
+  """
+  destroyedAt: DateTime
+  id: ID!
+
+  """
+  The key value used to name the secret
+  """
+  key: String!
+
+  """
+  The organization that the secret belongs to
+  """
+  organization: Organization!
+
+  """
+  The time this secret was updated
+  """
+  updatedAt: DateTime
+
+  """
+  The public UUID for the secret
+  """
+  uuid: ID!
+}
+
 interface Step {
   """
   The conditional evaluated for this step
@@ -9187,6 +9259,16 @@ A suite
 """
 type Suite implements Node {
   """
+  The application name for the suite
+  """
+  applicationName: String
+
+  """
+  The hex code for the suite navatar background color in the Test Suites page
+  """
+  color: String
+
+  """
   The time when the suite was created
   """
   createdAt: DateTime
@@ -9195,6 +9277,11 @@ type Suite implements Node {
   The default branch for this suite
   """
   defaultBranch: String
+
+  """
+  The emoji that will display as a suite navatar in the Test Suites page
+  """
+  emoji: String
   id: ID!
 
   """

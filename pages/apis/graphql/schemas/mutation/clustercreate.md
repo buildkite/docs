@@ -15,12 +15,12 @@ title: clusterCreate – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   clusterCreate
-  <a href="/docs/apis/graphql/schemas/object/clustercreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterCreatePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/clustercreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterCreatePayload">
   <code>ClusterCreatePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

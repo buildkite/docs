@@ -1,10 +1,9 @@
 # Running Buildkite Agent on AWS
 
->🚧 This page references the out-of-date Buildkite Agent v2.
+> 🚧 This page references the out-of-date Buildkite Agent v2.
 > For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/aws">see the latest version of this document</a>.
 
 The Buildkite Agent can be run on AWS using our Elastic CI Stack for AWS.
-
 
 ## Install the agent on your own AWS instance
 

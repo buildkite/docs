@@ -4,12 +4,11 @@ Buildkite API access tokens are issued to individuals not organizations. You can
 
 On the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) page, organization admins can view all tokens that have been created with access to their organization data. As well as auditing user tokens and what access they have, you can also remove a token's access to your organization data if required.
 
-
 ## Token scopes
 
 When you create a token, select the organizations it grants access to, and for REST APIS the scope of the access. GraphQL tokens cannot be limited by scope.
 
->📘 Note for contributors to public and open-source projects
+> 📘 Note for contributors to public and open-source projects
 > You need to be a member of the Buildkite organization to be able to generate and use an API token for it.
 
 REST API scopes are very granular, you can select some or all of the following:
@@ -60,9 +59,9 @@ Click through the token you'd like to remove, then click the 'Remove Organizatio
 
 Removing access from a token sends a notification email to the token's owner, who cannot re-add your organization to the token's scope.
 
-## Limiting API Access by IP address
+## Limiting API access by IP address
 
-If you'd like to limit access to your organization by IP address, you can create an allowlist of IP addresses in the [organization's permission settings](https://buildkite.com/organizations/~/member-permissions).
+If you'd like to limit access to your organization by IP address, you can create an allowlist of IP addresses in the [organization's API security settings](https://buildkite.com/organizations/~/security/api).
 
 You can also manage the allowlist with the [`organizationApiIpAllowlistUpdate`](/docs/apis/graphql/schemas/mutation/organizationapiipallowlistupdate) mutation in the GraphQL API.
 

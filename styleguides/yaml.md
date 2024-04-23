@@ -1,6 +1,6 @@
 # Talking about YAML
 
-This document is a part of the larger [style guide](./STYLE.md) and it covers the usage of YAML in the Buildkite documentation. Further expansion of this guide is highly welcomed.
+This document is a part of the larger [Markdown syntax style guide](markdown-syntax-style.md) and it covers the usage of YAML in the Buildkite documentation. Further expansion of this guide is highly welcomed.
 
 ## General YAML guidelines
 

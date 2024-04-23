@@ -4,8 +4,9 @@ The Agent REST API is used for agent registration, agent deregistration, startin
 
 The only publicly available endpoint is `/metrics`. The [Buildkite metrics agent](https://github.com/buildkite/buildkite-agent-metrics) uses the data returned by the metrics endpoint for agent autoscaling.
 
-The current version of the Agent API is v3.
+All other endpoints in the Agent API are intended only for use by the Buildkite Agent, therefore stability and backwards compatibility are not guaranteed, and changes won't be announced.
 
+The current version of the Agent API is v3.
 
 ## Schema
 

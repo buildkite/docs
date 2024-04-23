@@ -12,7 +12,7 @@ A visual indication of your pipeline's current status. This icon is based on the
 
 ## Build history
 
-The build history visualizes the last 30 builds that have been run on your default branch. The height of each bar reflects the build's running time, and its status is represented by its colour and in the tooltip on hover.
+The build history visualizes the last 30 builds that have been run on your default branch. The height of each bar reflects the build's running time, and its status is represented by its color and in the tooltip on hover.
 
 <%= image "graphs.png", width: 2028/2, height: 880/2, alt: "Screenshot of the build history visualization" %>
 
@@ -46,7 +46,7 @@ You can filter pipelines using the search bar at the top of the page. This will 
 
 <%= image "filtering-pipelines.png", width: 2028/2, height: 880/2, alt: "Screenshot of the filtering text input field" %>
 
-You can add tags to your pipelines and use them to quickly filter pipelines using the search bar. You can manage a pipeline’s tags in the _Pipelines Settings_ section.
+You can add tags to your pipelines and use them to quickly filter pipelines using the search bar. You can manage a pipeline’s tags in the pipeline's **Settings** section.
 
 If your organization has Teams enabled, you can also filter this page by the teams that you're in. When you have more than one team attached to your Buildkite account, you'll see a dropdown list of teams at the top of the dashboard. This defaults to 'All Teams'. Selecting a specific team will filter the list of pipelines to display only those accessible by the selected team.
 
@@ -64,7 +64,7 @@ After you've clicked on a pipeline, the settings button is in the top right corn
 
 <%= image "settings.png", width: 2028/2, height: 880/2, alt: "Screenshot of the pipelines settings button" %>
 
-The display settings can be found in the _Pipeline Settings_ section. Adding a description, emoji, and color for your pipeline is optional, but name, repository, and default branch are all required.
+The display settings can be found in the pipeline's **Settings** section. Adding a description, emoji, and color for your pipeline is optional, but name, repository, and default branch are all required.
 
 The emoji and color will replace the icon on the dashboard. Descriptions also have full emoji support. 🙌
 
@@ -86,7 +86,7 @@ To see the steps for a build, click the Show steps button on the right of any bu
 
 Clicking through to a build page shows the full list of jobs and other steps in that build, the information about who triggered the build, and the controls for rebuilding or cancelling the build while it's in progress.
 
-To retry all failed jobs for a build, select the dropdown menu next to the _Rebuild_ button, and then select _Retry failed jobs_. This option will only appear in the dropdown menu when the build is finished, and there are eligible jobs to retry. Eligible jobs include command jobs in the failures tab, with the exception of those already waiting for automatic retries.
+To retry all failed jobs for a build, select the dropdown menu next to the **Rebuild** button, and then select **Retry failed jobs**. This option will only appear in the dropdown menu when the build is finished, and there are eligible jobs to retry. Eligible jobs include command jobs in the failures tab, with the exception of those already waiting for automatic retries.
 
 <%= image "inside-build-page.png", width: 2028/2, height: 880/2, alt: "Inside the build page" %>
 

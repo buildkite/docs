@@ -11,18 +11,18 @@
 #  replace the content in data/schema.graphql
 #  and run the generation script `./scripts/generate-graphql-api-content.sh`.
 
-title: BuildRetentionPeriods – Enums – GraphQL API
+title: AnnotationOrder – Enums – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
-  BuildRetentionPeriods
-  <span class="pill pill--enum pill--normal-case pill--large"><code>ENUM</code></span>
+<h1 class="has-pills">
+  AnnotationOrder
+  <span data-algolia-exclude><span class="pill pill--enum pill--normal-case pill--large"><code>ENUM</code></span></span>
 </h1>
 <!-- vale on -->
 
 
-All the possible build retention periods, depending on your billing plan
+The different orders you can sort annotations by
 
 
 
@@ -39,6 +39,6 @@ All the possible build retention periods, depending on your billing plan
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>DAYS_30</code></strong></p><p>30 days</p></td></tr><tr><td><p><strong><code>DAYS_60</code></strong></p><p>60 days</p></td></tr><tr><td><p><strong><code>DAYS_90</code></strong></p><p>90 days</p></td></tr><tr><td><p><strong><code>MONTHS_12</code></strong></p><p>12 months</p></td></tr><tr><td><p><strong><code>MONTHS_18</code></strong></p><p>18 months</p></td></tr><tr><td><p><strong><code>MONTHS_6</code></strong></p><p>6 months</p></td></tr><tr><td><p><strong><code>YEARS_2</code></strong></p><p>2 years</p></td></tr>
+    <tr><td><p><strong><code>PRIORITY_RECENTLY_CREATED</code></strong></p><p>Order by priority, then by the most recently created annotations first</p></td></tr><tr><td><p><strong><code>RECENTLY_CREATED</code></strong></p><p>Order by the most recently created annotations first</p></td></tr>
   </tbody>
 </table>

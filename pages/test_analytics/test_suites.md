@@ -1,13 +1,12 @@
 # Configuring test suites
 
-In Test Analytics, a test _Suite_ is a collection of tests. A run is to a suite what a build is to a Pipeline.
+In Test Analytics, a test _suite_ is a collection of tests. A suite has a _run_, which is the execution of tests in a suite. A suite's run is analogous to a pipeline's build.
 
 Many organizations set up one suite per test framework, for example one suite for RSpec, and another suite for Jest. Others use a common standard, such as JUnit XML, to combine tests from multiple frameworks to set up custom backend and frontend suites.
 
 Each suite inside Test Analytics has a unique API token that you can use to route test information to the correct suite. Pipelines and test suites do not need to have a one-to-one relationship.
 
 To delete a suite, or regenerate its API token, go to suite settings.
-
 
 ## Parallelized builds
 
@@ -37,12 +36,9 @@ Test Analytics reviews the test results to detect flaky tests after every test r
 
 ## Run issues
 
->🛠 Beta feature
-> The run issues feature is currently in public beta and subject to change.
-
 <%= image "run-issues.png", alt: "Screenshot of a run with issues displaying in a list, including flaky, slow and failures." %>
 
-Test Analytics will automatically detect issues per run. For each test, we currently detect three issues: flaky, slow and failure. And display total number of issues, along with the following, ordered by the most problematic to least problematic:
+Test Analytics will automatically detect issues per run. For each test, we currently detect three issues:
 
 - **Flaky:** [See section on detecting flaky tests](#detecting-flaky-tests).
 
@@ -50,10 +46,9 @@ Test Analytics will automatically detect issues per run. For each test, we curre
 
 - **Failure:** A failed test will impact the overall test performance and efficiency.
 
-These detected issues will also show on a test execution page:
+Tests with these issues will display in order of most problematic to least problematic. Issues are also shown on the test execution page:
 
 <%= image "execution-issues.png", alt: "Screenshot of an execution with issues with their descriptions, displaying a dropdown, including flaky, slow and failures." %>
-
 
 ## Tracking reliability
 
