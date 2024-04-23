@@ -1128,15 +1128,15 @@ Properties available for Bitbucket Server:
 <table class="responsive-table">
 <tbody>
   <tr>
-    <th><code>build_pull_requests</code></th>
+    <th><code>build_branches</code></th>
     <td>
-      Whether to create builds for commits that are part of a Pull Request.
+      Whether to create builds when branches are pushed.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
-    <th><code>build_branches</code></th>
+    <th><code>build_pull_requests</code></th>
     <td>
-      Whether to create builds when branches are pushed
+      Whether to create builds for commits that are part of a Pull Request.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
@@ -1153,11 +1153,42 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
 <table class="responsive-table">
 <tbody>
   <tr>
+    <th><code>build_branches</code></th>
+    <td>
+      Whether to create builds when branches are pushed.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>build_pull_requests</code></th>
     <td>
       Whether to create builds for commits that are part of a Pull Request.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
     </td>
+  </tr>
+  <tr>
+    <th><code>build_tags</code></th>
+    <td>
+      Whether to create builds when tags are pushed.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>cancel_deleted_branch_builds</code></th>
+    <td>
+      A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>publish_commit_status</code></th>
+    <td>
+      Whether to update the status of commits in Bitbucket or GitHub.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>publish_commit_status_per_step</code></th>
+    <td>
+      Whether to create a separate status for each job in a build, allowing you to see the status of each job directly in Bitbucket or GitHub.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>pull_request_branch_filter_enabled</code></th>
@@ -1184,24 +1215,6 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
       Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
-  <tr>
-    <th><code>build_tags</code></th>
-    <td>
-      Whether to create builds when tags are pushed.
-      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-  </tr>
-  <tr>
-    <th><code>publish_commit_status</code></th>
-    <td>
-      Whether to update the status of commits in Bitbucket or GitHub.
-      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-  </tr>
-  <tr>
-    <th><code>publish_commit_status_per_step</code></th>
-    <td>
-      Whether to create a separate status for each job in a build, allowing you to see the status of each job directly in Bitbucket or GitHub.
-      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-  </tr>
   </tbody>
 </table>
 
@@ -1209,6 +1222,42 @@ Additional properties available for GitHub:
 
 <table class="responsive-table">
   <tbody>
+    <tr>
+      <th><code>build_pull_request_forks</code></th>
+      <td>
+        Whether to create builds for pull requests from third-party forks.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_labels_changed</code></th>
+      <td>
+        Whether to create builds for pull requests when labels are added or removed.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_ready_for_review</code></th>
+      <td>
+        Whether to create builds for pull requests that are ready for review.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>prefix_pull_request_fork_branch_names</code></th>
+      <td>
+        Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the <code>main</code> branch from <code>some-user</code> will become <code>some-user:main</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>publish_blocked_as_pending</code></th>
+      <td>
+        The status to use for blocked builds. <code>Pending</code> can be used with <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> to prevent merging pull requests with blocked builds.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>separate_pull_request_statuses</code></th>
+      <td>
+        Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> in GitHub.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
     <tr>
       <th><code>trigger_mode</code></th>
       <td>
@@ -1220,30 +1269,6 @@ Additional properties available for GitHub:
           <li><code>none</code> will not create any builds based on GitHub activity.</li>
         </ul>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>code</code>, <code>deployment</code>, <code>fork</code>, <code>none</code></p></td>
-    </tr>
-    <tr>
-      <th><code>build_pull_request_forks</code></th>
-      <td>
-        Whether to create builds for pull requests from third-party forks.
-        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
-    <tr>
-      <th><code>prefix_pull_request_fork_branch_names</code></th>
-      <td>
-        Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the <code>main</code> branch from <code>some-user</code> will become <code>some-user:main</code>.
-        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
-    <tr>
-      <th><code>separate_pull_request_statuses</code></th>
-      <td>
-        Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> in GitHub.
-        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
-    <tr>
-      <th><code>publish_blocked_as_pending</code></th>
-      <td>
-        The status to use for blocked builds. <code>Pending</code> can be used with <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> to prevent merging pull requests with blocked builds.
-        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
     </tr>
   </tbody>
 </table>
