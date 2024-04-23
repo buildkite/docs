@@ -310,24 +310,28 @@ RSpec.describe NavData do
                 "path" => "apis/graphql/graphql-cookbook"
               },
               {
-                "name" => "Pipelines",
-                "path" => "apis/graphql/cookbooks/pipelines"
+                "name" => "Agents",
+                "path" => "apis/graphql/cookbooks/agents"
               },
               {
                 "name" => "Builds",
                 "path" => "apis/graphql/cookbooks/builds"
               },
               {
+                "name" => "Clusters",
+                "path" => "apis/graphql/cookbooks/clusters"
+              },
+              {
                 "name" => "Jobs",
                 "path" => "apis/graphql/cookbooks/jobs"
               },
               {
-                "name" => "Agents",
-                "path" => "apis/graphql/cookbooks/agents"
+                "name" => "Pipelines",
+                "path" => "apis/graphql/cookbooks/pipelines"
               },
               {
-                "name" => "Clusters",
-                "path" => "apis/graphql/cookbooks/clusters"
+                "name" => "Pipeline templates",
+                "path" => "apis/graphql/cookbooks/pipeline-templates"
               },
               {
                 "name" => "Organizations",

@@ -55,4 +55,8 @@ module ApplicationHelper
       name.titleize
     end
   end
+
+  def seo_canonical_url
+    "https://buildkite.com#{request.path}"
+  end
 end

@@ -92,7 +92,6 @@ export function initToc() {
   }
 
   const initCurrentLinkListener = () => {
-    drawPath();
     const content = document.querySelector(".Page");
 
     const observer = new IntersectionObserver(
@@ -101,6 +100,10 @@ export function initToc() {
           const id = entry.target.getAttribute("id");
 
           const link = document.querySelector(`.Toc__link[href="#${id}"]`);
+          if (!link) {
+            return;
+          }
+
           if (entry.intersectionRatio >= 0.25) {
             link.parentElement.classList.add(visibleClass);
           } else {

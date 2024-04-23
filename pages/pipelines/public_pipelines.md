@@ -13,7 +13,7 @@ Making a pipeline public provides read-only public/anonymous access to:
 
 ## Make a pipeline public using the UI
 
-Make a pipeline public in the _Pipeline Settings_ in the _General_ tab:
+Make a pipeline public in the pipeline's **Settings** > **General** page:
 
 <%= image "settings.png", width: 1960/2, height: 630/2, alt: "Public pipeline settings" %>
 

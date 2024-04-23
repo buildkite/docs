@@ -55,7 +55,7 @@ class Page
 
     def image_path(name)
       stripped_image_path = @image_path.sub(/\Adocs\//, "")
-      @view_helpers.image_path(File.join(stripped_image_path, name))
+      @view_helpers.vite_asset_path(File.join("images", stripped_image_path, name))
     end
 
     def paginated_resource_docs_url
@@ -71,7 +71,7 @@ class Page
     end
 
     def render(partial)
-      PagesController.render(partial: partial, formats: [:md])
+      PagesController.render(partial: partial, formats: [:md, :html])
     end
 
     def render_markdown(partial: nil, text: nil)
@@ -177,6 +177,13 @@ class Page
     front_matter.fetch(:template, "show")
   end
 
+  # Returns focus keywords to guide content writers with an overview of the page content
+  # Note: it's not for meta keywords, which is a deprecated SEO practice
+  def keywords
+    # Gracefully falls back to the page's path if no keywords are specified to help reduce technical writer workload
+    front_matter.fetch(:keywords, keywords_from_path)
+  end
+
   private
 
   def front_matter
@@ -216,5 +223,9 @@ class Page
     else
       title
     end
+  end
+
+  def keywords_from_path
+    @view.request.path.split("/").reject(&:empty?).map { |segment| segment.gsub("-", " ") }.join(", ")
   end
 end

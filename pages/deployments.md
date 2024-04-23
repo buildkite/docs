@@ -1,7 +1,10 @@
+---
+keywords: docs, pipelines, deployments
+---
+
 # Deployments with Buildkite
 
 There are many ways to set up both manual and continuous deployment workflows using Buildkite. This covers various ways of architecting deployment pipelines, common workflows, and how to integrate with external deployment systems.
-
 
 ## Single deployment steps
 
@@ -32,13 +35,13 @@ This pipeline uses a [conditional](/docs/pipelines/conditionals) to only run on 
 
 A dedicated deployment pipeline separates your deploy steps from any other testing and building steps. Creating deployment pipelines makes it easier to:
 
-* Separate deployment failures from test failures
-* Separate test and deployment pipeline.yml files
-* Re-run failed deployments
-* Simplify adding rollback steps
-* Group other deploy-related tasks with the deployment steps
-* Use teams for role based access control
-* Allowlist deploy pipelines in agent hooks
+- Separate deployment failures from test failures
+- Separate test and deployment pipeline.yml files
+- Re-run failed deployments
+- Simplify adding rollback steps
+- Group other deploy-related tasks with the deployment steps
+- Use teams for role based access control
+- Allowlist deploy pipelines in agent hooks
 
 A common pattern is to have two separate pipelines, each with its own `pipeline.yml` file in your project's repository:
 

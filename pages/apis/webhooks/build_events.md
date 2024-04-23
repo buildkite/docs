@@ -33,7 +33,7 @@
     </tr>
     <tr>
       <td><code>sender</code></td>
-      <td>String</td>
+      <td>Object</td>
       <td>The user who created the webhook</td>
     </tr>
   </tbody>
@@ -80,5 +80,5 @@ Example request body for blocked build:
 }
 ```
 
->📘 To determine if an Eventbridge notification is blocked
-> However, to determine if an Eventbridge notification is blocked, look for <code>"state": "blocked". </code>, like in this <a href="/docs/integrations/amazon-eventbridge#events-build-blocked">sample Eventbridge request</a>.
+> 📘 To determine if an EventBridge notification is blocked
+> However, to determine if an EventBridge notification is blocked, look for <code>"state": "blocked". </code>, like in this <a href="/docs/integrations/amazon-eventbridge#events-build-blocked">sample Eventbridge request</a>.

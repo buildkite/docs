@@ -11,17 +11,20 @@
 <meta name="description" content="<%= description %>" />
 <% end %>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<%= tag :link, rel: "canonical", href: seo_canonical_url %>
 
-<%= stylesheet_link_tag "application", media: "all" %>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <%= csp_meta_tag %>
 
 <meta name="referrer" content="origin-when-cross-origin" />
 
-<%= tag :link, rel: "shortcut icon", href: image_path("favicon.png"), type: "image/x-icon" %>
-<%= tag :link, rel: "apple-touch-icon", href: image_path("appicon.png") %>
-<%= tag :link, rel: "mask-icon", href: image_path("logo-pinned.svg"), color: "#14CC80" %>
+<%# Links to pages on the same origin, but outside /docs site shouldn't use Turbo %>
+<meta name="turbo-root" content="/docs">
+
+<%= tag :link, rel: "shortcut icon", href: vite_asset_path("images/favicon.png"), type: "image/x-icon" %>
+<%= tag :link, rel: "apple-touch-icon", href: vite_asset_path("images/appicon.png") %>
+<%= tag :link, rel: "mask-icon", href: vite_asset_path("images/logo-pinned.svg"), color: "#14CC80" %>
 
 <!-- Twitter Cards Metadata -->
 <%= tag :meta, property: "twitter:card", content: content_for(:page_twitter_card) || "summary_large_image" %>
@@ -40,11 +43,40 @@
 
 <%= render 'analytics', application: 'docs', title: "Docs / #{content_for(:page_title)}", logged_in: probably_authenticated? %>
 
-<% if ENV.fetch("ROBOTS_NO_INDEX") { "false" } == "true" %>
+<% if ENV.fetch("ROBOTS_NO_INDEX") { "false" } == "true" || [ "https://badge.buildkite.com", "https://badge.buildbox.io"].include?(request.base_url) %>
   <meta name="robots" content="noindex, nofollow">
 <% end %>
 
 <%= vite_client_tag %>
 <%= vite_javascript_tag 'application' %>
+<%= vite_stylesheet_tag 'application.scss' %>
 
 <%= render 'helpscout' %>
+
+<% if ENV.fetch("DD_RUM_ENABLED", false) %>
+<script>
+  (function(h,o,u,n,d) {
+    h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
+    d=o.createElement(u);d.async=1;d.src=n
+    n=o.getElementsByTagName(u)[0];n.parentNode.insertBefore(d,n)
+  })(window,document,'script','https://www.datadoghq-browser-agent.com/us1/v4/datadog-rum.js','DD_RUM')
+  window.DD_RUM.onReady(function() {
+    window.DD_RUM.init({
+      clientToken: 'pubc9a743f98fb0ff68a47484d3672088cf',
+      applicationId: 'd8c88382-4a5b-43ec-9069-ba06aac75e7a',
+      site: 'datadoghq.com',
+      service: 'buildkite-docs',
+      env: '<%= ENV.fetch("DD_RUM_ENV", "unknown") %>',
+      version: '<%= ENV.fetch("DD_RUM_VERSION", "unknown") %>',
+      sessionSampleRate: 100,
+      sessionReplaySampleRate: 0,
+      trackUserInteractions: false,
+      trackResources: true,
+      trackLongTasks: true,
+      defaultPrivacyLevel: 'mask',
+    });
+
+    window.DD_RUM.startSessionReplayRecording();
+  })
+</script>
+<% end %>

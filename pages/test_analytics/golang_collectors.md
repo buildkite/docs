@@ -12,13 +12,13 @@ To use Test Analytics with your [Go](https://go.dev/) language projects use [got
     go install gotest.tools/gotestsum@latest
     ```
 
-2. Use gotestsum to run your tests and output JUnit XML, by replacing `go test` with `go testsum`, for example:
+1. Use gotestsum to run your tests and output JUnit XML, by replacing `go test` with `gotestsum`, for example:
 
     ```sh
     gotestsum --junitfile junit.xml ./...
     ```
 
-3. Upload the JUnit.xml to Buildkite:
+1. Upload the JUnit.xml to Buildkite:
 
     ```sh
     curl \

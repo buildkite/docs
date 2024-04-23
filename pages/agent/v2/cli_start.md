@@ -1,10 +1,9 @@
-# `buildkite-agent start`
+# buildkite-agent start
 
->🚧 This page references the out-of-date Buildkite Agent v2.
+> 🚧 This page references the out-of-date Buildkite Agent v2.
 > For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/cli_start">see the latest version of this document</a>.
 
 The Buildkite Agent's `start` command is used to manually start an agent and register it with Buildkite.
-
 
 ## Starting an agent
 

@@ -16,7 +16,7 @@ fields:
   required: true
   type: number
   desc: |
-      How long the test took to run. This value is microseconds stored as a float.
+      How long the test took to run. This value is seconds stored as a float.
   examples:
 - name: children
   required: false

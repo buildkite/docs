@@ -1,3 +1,7 @@
+---
+keywords: docs, pipelines, tutorials, github merge queues
+---
+
 # Using GitHub merge queues
 
 >🚧 GitHub beta feature
@@ -17,13 +21,13 @@ The merge queue creates temporary branches with a special prefix to validate pul
 To enable a merge queue for a pipeline:
 
 1. From your Buildkite dashboard, select your pipeline.
-1. Select _Pipeline Settings_ > _GitHub_.
-1. In the _Branch Limiting_ section, add a filter for the following pattern:
+1. Select **Pipeline Settings** > **GitHub**.
+1. In the **Branch Limiting** section, add a filter for the following pattern:
 
     ```text
     gh-readonly-queue/{base_branch}/*
     ```
 
-1. In the _GitHub Settings_ section, select the _Skip builds with existing commits_ checkbox.
+1. In the **GitHub Settings** section, select the **Skip builds with existing commits** checkbox.
 
 That's it! Your pipeline supports merge queues in GitHub. 🎉

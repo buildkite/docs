@@ -96,25 +96,36 @@ By following these conventions you get a scalable, repeatable, and source-contro
 
 ## Launching the stack
 
-Go to the [Agents page](https://buildkite.com/organizations/-/agents) on Buildkite and select the _AWS_ tab:
+Go to the [Agents page](https://buildkite.com/organizations/-/agents) on Buildkite and select the **AWS** tab:
 
 <%= image "agents-tab.png", size: "#{1532/2}x#{296/2}", alt: "Buildkite AWS Agents" %>
 
-Click _Launch Stack_ :red_button:
+Click **Launch Stack** :red_button:
 
 <%= image "agents-tab-launch.png", size: "#{554/2}x#{316/2}", alt: 'Launch Buildkite Elastic CI Stack for AWS' %>
 
 <%= image "aws-select-template.png", size: "#{1037/2}x#{673/2}", alt: "AWS Select Template Screen" %>
 
-After clicking _Next_, configure the stack using your Buildkite agent token:
+After clicking **Next**, configure the stack using your Buildkite agent token:
 
 <%= image "aws-parameters.png", size: "#{2200/2}x#{1934/2}", alt: "AWS Parameters" %>
 
-If you don't know your agent token, there is a _Reveal Agent Token_ button available on the right-hand side of the [Agents page](https://buildkite.com/organizations/-/agents):
+If you don't know your agent token, there is a **Reveal Agent Token** button available on the right-hand side of the [Agents page](https://buildkite.com/organizations/-/agents):
 
 <%= image "buildkite-agent-token.png", size: "#{752/2}x#{424/2}", alt: "Reveal Agent Token" %>
 
-By default the stack uses a job queue of `default`, but you can specify any other queue name you like. See the [Buildkite Agent job queue docs](/docs/agent/v3/queues) for more info.
+By default the stack uses a job queue of `default`, but you can specify any other queue name you like.
+
+A common example of setting a queue for a dedicated Windows agent can be achieved with the following in your `pipeline.yml` after you've set up your Windows stack:
+
+```yaml
+steps:
+  - command: echo "hello from windows"
+    agents:
+      queue: "windows"
+```
+
+For more information, see [Buildkite Agent job queues](/docs/agent/v3/queues), specifically [Targeting a queue](/docs/agent/v3/queues#targeting-a-queue).
 
 Review the parameters, see [Elastic CI Stack for AWS parameters](/docs/agent/v3/elastic_ci_aws/parameters) for more details.
 
@@ -124,11 +135,11 @@ Once you're ready, check these three checkboxes:
 - I acknowledge that AWS CloudFormation might create IAM resources with custom names.
 - I acknowledge that AWS CloudFormation might require the following capability: `CAPABILITY_AUTO_EXPAND`
 
-Then click _Create stack_:
+Then click **Create stack**:
 
 <%= image "aws-create-stack.png", size: "#{2728/2}x#{1006/2}", alt: "AWS Create Stack Button" %>
 
-After creating the stack, Buildkite takes you to the [CloudFormation console](https://console.aws.amazon.com/cloudformation/home). Click the _Refresh_ icon in the top right hand corner of the screen until you see the stack status is `CREATE_COMPLETE`.
+After creating the stack, Buildkite takes you to the [CloudFormation console](https://console.aws.amazon.com/cloudformation/home). Click the **Refresh** icon in the top right hand corner of the screen until you see the stack status is `CREATE_COMPLETE`.
 
 <%= image "elastic-ci-stack.png", width: 2756/2, height: 1406/2, alt: "AWS Elastic CI Stack for AWS Create Complete" %>
 
@@ -136,17 +147,17 @@ You now have a working Elastic CI Stack for AWS ready to run builds! :tada:
 
 ## Running your first build
 
-We've created a sample [bash-parallel-example sample pipeline](https://github.com/buildkite/bash-parallel-example) for you to test with your new autoscaling stack. Click the _Add to Buildkite_ button below (or on the [GitHub README](https://github.com/buildkite/bash-parallel-example)):
+We've created a sample [bash-parallel-example sample pipeline](https://github.com/buildkite/bash-parallel-example) for you to test with your new autoscaling stack. Click the **Add to Buildkite** button below (or on the [GitHub README](https://github.com/buildkite/bash-parallel-example)):
 
 <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-parallel-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 
-Click _Create Pipeline_. Depending on your organization's settings, the next step will vary slightly:
+Click **Create Pipeline**. Depending on your organization's settings, the next step will vary slightly:
 
 - If your organization uses the web-based steps editor (default), your pipeline is now ready for its first build. You can skip to the next step.
-- If your organization has been upgraded to the [YAML steps editor](https://buildkite.com/docs/tutorials/pipeline-upgrade), you should see a _Choose a Starting Point_ wizard. Select _Pipeline Upload_ from the list:
+- If your organization has been upgraded to the [YAML steps editor](https://buildkite.com/docs/tutorials/pipeline-upgrade), you should see a **Choose a Starting Point** wizard. Select **Pipeline Upload** from the list:
   <%= image "buildkite-pipeline-upload.png", size: "#{782/2}x#{400/2}", alt: 'Upload Pipeline from Version Control' %>
 
-Click _New Build_ in the top right and choose a build message (perhaps a little party `\:partyparrot\:`?):
+Click **New Build** in the top right and choose a build message (perhaps a little party `\:partyparrot\:`?):
 
 <%= image "buildkite-new-build.png", size: "#{1140/2}x#{898/2}", alt: 'Triggering Buildkite Build' %>
 
@@ -156,7 +167,7 @@ Once your build is created, head back to [AWS EC2 Auto Scaling Groups](https://c
 
 <!-- vale off -->
 
-Select the _buildkite-AgentAutoScaleGroup-xxxxxxxxxxxx_ group and then the _Instances_ tab. You'll see instances starting up to run your new build and after a few minutes they'll transition from _Pending_ to _InService_:
+Select the **buildkite-AgentAutoScaleGroup-xxxxxxxxxxxx** group and then the **Instances** tab. You'll see instances starting up to run your new build and after a few minutes they'll transition from **Pending** to **InService**:
 
 <!-- vale on -->
 

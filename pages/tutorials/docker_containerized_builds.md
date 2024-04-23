@@ -1,3 +1,7 @@
+---
+keywords: docs, pipelines, tutorials, docker
+---
+
 # Containerized builds with Docker
 
 Buildkite has built-in support for running your builds in Docker containers. Running your builds with Docker allows each pipeline to define and document its testing environment, greatly simplifying your build servers, and provides build isolation when [parallelizing your build](parallel-builds).
@@ -91,6 +95,11 @@ There are many configuration options available for the Docker plugin. For the co
 
 >📘 Pinning plugin versions
 > Specifying the version of your plugin using the <code>plugin-name#vx.x.x</code> format is recommended, to ensure that no changes are introduced without your knowledge.
+
+## Pipeline templates using Docker
+
+To see more examples of how Docker is used in Buildkite pipelines, browse the [Docker templates](https://buildkite.com/pipelines/templates?platform=docker).
+
 
 ## Creating your own Docker infrastructure
 

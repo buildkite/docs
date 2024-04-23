@@ -1,0 +1,250 @@
+.Docs__api-param-eg {
+  margin: 0.25em 0 0 0;
+}
+
+.Docs__attribute__table {
+  table-layout: fixed;
+  width: 100%;
+
+  th {
+    word-wrap: break-word;
+
+    code {
+      white-space: normal;
+    }
+  }
+
+  td {
+    word-wrap: break-word;
+  }
+
+  tr.importance th {
+    border-top: none;
+    font-weight: bold;
+  }
+
+  tr.optional th {
+    padding-top: 2rem;
+  }
+
+  td p:first-child {
+    margin-top: 0;
+  }
+
+  .Docs__attribute__link {
+    color: $gray-600;
+    opacity: 0;
+    transition: all 0.2s;
+  }
+
+  &:hover {
+    .Docs__attribute__link {
+      opacity: 1;
+
+      &:hover {
+        color: $gray-700;
+      }
+    }
+  }
+
+  small {
+    display: block;
+    font-size: 0.875rem;
+    margin: 1rem 0;
+  }
+
+  .comma-separated {
+    margin: 1rem 0;
+
+    li {
+      display: inline;
+      margin: 0;
+
+      &:not(:last-child)::after {
+        content: ",";
+      }
+
+      &:first-child::after {
+        content: "";
+      }
+    }
+  }
+
+  .Docs__attribute__importance {
+    color: $olive-700;
+    margin: 5px 0;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 1px;
+  }
+
+  .Docs__attribute__env-var {
+    font-size: 0.875rem;
+  }
+
+  .Docs__attribute__default {
+    font-size: 0.875rem;
+  }
+}
+
+a.Docs__example-repo {
+  border: 1px solid #ccc;
+  color: map-get($color-aliases, "text-base");
+  display: flex;
+  padding: 15px;
+  text-decoration: none;
+
+  &:hover,
+  &:active,
+  &:focus {
+    border-color: map-get($color-aliases, "brand");
+    color: black;
+
+    .repo {
+      color: map-get($color-aliases, "brand");
+    }
+  }
+
+  .icon {
+    width: 22px;
+    margin-right: 10px;
+    flex: none;
+    transform: translateY(3px);
+  }
+
+  .detail {
+    flex: 1;
+  }
+
+  .description {
+    color: currentColor;
+    display: block;
+    font-size: #{(16/18)}rem;
+    font-weight: normal;
+  }
+
+  .repo {
+    color: map-get($color-aliases, "text-lightest");
+    display: block;
+    font-size: #{(14/18)}rem;
+    font-weight: normal;
+    margin-top: 0.2rem;
+    text-decoration: underline;
+  }
+}
+
+.Docs__time-estimate {
+  color: map-get($color-aliases, "brand");
+  font-size: 0.85em;
+  letter-spacing: 0.02em;
+  &:before {
+    content: " ";
+    background: url("~/images/clock_green.svg") no-repeat;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-size: 100%;
+    opacity: 0.8;
+    line-height: map-get($line-heights, "tighest");
+    vertical-align: middle;
+    margin-top: -3px;
+    margin-right: 4px;
+  }
+}
+
+.Docs__heading {
+  position: relative;
+
+  .Docs__heading__anchor {
+    color: map-get($color-aliases, "text-display");
+    display: block;
+    text-decoration: none;
+
+    &:before,
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      transition: opacity 0.2s ease;
+    }
+
+    &:before {
+      color: $navy-600;
+      width: 24px;
+      height: 24px;
+      top: 2;
+      left: 0;
+      opacity: 0;
+      margin-left: -32px;
+      z-index: 3;
+      border-radius: 8px;
+      background-color: #fff;
+      background-image: url("~/images/icons/anchor.svg");
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.03),
+        0px 6px 12px 0px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.1);
+    }
+
+    &:after {
+      width: 32px;
+      top: 0;
+      bottom: 0;
+      margin-left: -32px;
+    }
+
+    &:hover:before {
+      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.03),
+        0px 6px 12px 0px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.2);
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: map-get($color-aliases, "text-display");
+    }
+
+    &:hover {
+      &:before {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+h5.Docs__heading .Docs__heading__anchor:before,
+h5.Docs__heading .Docs__heading__anchor:after,
+h6.Docs__heading .Docs__heading__anchor:before,
+h6.Docs__heading .Docs__heading__anchor:after {
+  margin-top: -3px;
+}
+
+html {
+  scroll-padding-top: 15px;
+
+  @media (min-width: $screen-md) {
+    scroll-padding-top: map-get($header-height, "two-rows") + 15px;
+  }
+
+  @media (min-width: $screen-md) {
+    scroll-padding-top: map-get($header-height, "one-row") + 15px;
+  }
+}
+
+body.beta {
+  .Article {
+    > h1:first-of-type {
+      display: inline;
+      position: relative;
+
+      &:after {
+        @include pill;
+        @include pill-style(beta);
+        @include pill-small;
+        left: 1em;
+        position: relative;
+        top: -1em;
+      }
+    }
+  }
+}

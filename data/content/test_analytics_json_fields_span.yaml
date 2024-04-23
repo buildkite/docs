@@ -26,7 +26,7 @@ fields:
   required: true
   type: number
   desc: |
-      How long the span took to run. This value is microseconds stored as a float.
+      How long the span took to run. This value is seconds stored as a float.
   examples:
 - name: detail
   required : false

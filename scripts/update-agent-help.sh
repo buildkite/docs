@@ -25,9 +25,13 @@ commands=(
   "meta-data set"
   "oidc request-token"
   "pipeline upload"
+  "redactor add"
+  "secret get"
   "start"
   "step get"
   "step update"
+  "tool keygen"
+  "tool sign"
 )
 
 scripts_dir=$(dirname "${BASH_SOURCE[0]}")

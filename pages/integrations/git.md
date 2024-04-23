@@ -44,7 +44,7 @@ For example, in the pipeline settings URL `https://buildkite.com/example-org/git
 
 ## Step 2: Create a Git hook to react to pushes
 
-On your Git server, create a `post-receive` hook script in your repository's `hooks` directory that calls the Buildkite REST API's [_Create a build_](https://buildkite.com/docs/apis/rest-api/builds#create-a-build) endpoint.
+On your Git server, create a `post-receive` hook script in your repository's `hooks` directory that calls the Buildkite REST API's [Create a build](https://buildkite.com/docs/apis/rest-api/builds#create-a-build) endpoint.
 
 For example, in a bare repository, create a file named `hooks/post-receive` with the following contents:
 
@@ -98,4 +98,4 @@ If you've configured your hook successfully, a new build is scheduled for the sp
 
 - For more on how to control builds with the REST API, read [Builds API](/docs/apis/rest-api/builds).
 - For a complete list of Git hooks, read [githooks](https://git-scm.com/docs/githooks) in the [Git reference](https://git-scm.com/docs) (or run `man githooks`).
-- For an overview of Git hooks, read the [Customizing Git - Git Hooks](https://git-scm.com/book/en/Customizing-Git-Git-Hooks) chapter of [_Pro Git_](https://git-scm.com/book/en/).
+- For an overview of Git hooks, read the [Customizing Git - Git Hooks](https://git-scm.com/book/en/Customizing-Git-Git-Hooks) chapter of [Pro Git](https://git-scm.com/book/en/).

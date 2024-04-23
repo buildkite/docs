@@ -6,7 +6,8 @@
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's agents. The list only includes connected agents - agents in a disconnected state are not returned.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X "https://api.buildkite.com/v2/organizations/{org.slug}/agents"
 ```
 
 ```json
@@ -15,7 +16,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents"
     "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
     "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
     "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-    "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+    "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
     "name": "my-agent",
     "connection_state": "connected",
     "hostname": "some.server",
@@ -79,7 +80,8 @@ Success response: `200 OK`
 Returns the details for a single agent, looked up by unique ID. Any valid agents can be returned, including running and disconnected agents.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"
 ```
 
 ```json
@@ -87,7 +89,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"
   "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
   "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
   "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-  "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+  "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
   "name": "my-agent",
   "connection_state": "connected",
   "hostname": "some.server",
@@ -138,15 +140,16 @@ Success response: `200 OK`
 
 ## Stop an agent
 
->📘 Required permissions
+> 📘 Required permissions
 > To stop an agent you need either
 - An Admin user API token with `write_agents` <a href="/docs/apis/managing-api-tokens#token-scopes">scope</a>
-- Or, if you're using <a href="/docs/pipelines/permissions#member-permissions">Member Permissions</a>, a user token with the <em>Stop Agents</em> permission
+- Or, if you're using <a href="/docs/team-management/permissions#member-permissions">Member Permissions</a>, a user token with the <em>Stop Agents</em> permission
 
 Instruct an agent to stop accepting new build jobs and shut itself down.
 
 ```bash
-curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}/stop" \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}/stop" \
   -H "Content-Type: application/json" \
   -d '{
     "force": true
@@ -172,3 +175,7 @@ Error responses:
   <tr><th><code>400 Bad Request</code></th><td><code>{ "message": "Can only stop connected agents" }</code></td></tr>
 </tbody>
 </table>
+
+## Agent tokens
+
+Agent tokens are created through the [clusters REST API endpoint](/docs/apis/rest-api/clusters#agent-tokens).

@@ -10,16 +10,9 @@ gem "actionpack", "~> 6.1"
 gem "actionview", "~> 6.0"
 gem "activesupport", "~> 6.1"
 gem "railties", "~> 6.0"
-gem "sprockets-rails"
 
 # Use Puma as the app server
 gem "puma"
-
-# Use SCSS for stylesheets
-gem "sass-rails"
-
-# Use Uglifier as compressor for JavaScript assets
-gem "uglifier"
 
 # Helps with running the server locally
 gem "foreman"
@@ -68,7 +61,6 @@ end
 group :development do
   # Access an interactive console on exception pages or by calling `console` anywhere in the code.
   gem "web-console"
-  gem "listen"
   gem "pry"
   gem 'graphql-client'
 end

@@ -1,5 +1,4 @@
-<% content_for :page_title, @page.title %>
-<% content_for :page_description, @page.description %>
+<%= render partial: "meta_content" %>
 
 <article class="Article Article--prose">
   <%= @page.body %>

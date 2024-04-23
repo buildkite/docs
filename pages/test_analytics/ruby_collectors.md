@@ -32,7 +32,7 @@ Before you start, make sure RSpec runs with access to [CI environment variables]
     bundle
     ```
 
-3. Add the Test Analytics code to your application in `spec/spec_helper.rb`, and set the BUILDKITE_ANALYTICS_TOKEN [securely](/docs/pipelines/secrets) on your agent or agents.
+3. Add the Test Analytics code to your application in `spec/spec_helper.rb`, and set the BUILDKITE_ANALYTICS_TOKEN [securely](/docs/pipelines/secrets) on your agent or agents. Please ensure gems that patch `Net::HTTP`, like [httplog](https://github.com/trusche/httplog) and [sniffer](https://github.com/aderyabin/sniffer), are required before `buildkite/test_collector` to avoid conflicts.
 
     ```rb
     require "buildkite/test_collector"
@@ -52,7 +52,7 @@ Once you're done, in your Test Analytics dashboard, you'll see analytics of test
 
 If you don't see branch names, build numbers, or commit hashes in the Test Analytics UI, then see [CI environments](/docs/test-analytics/ci-environments) to learn more about exporting your environment to the collector.
 
-### Troubleshooting `allow_any_instance_of` errors
+### Troubleshooting allow_any_instance_of errors
 
 If you're using RSpec and seeing errors related to `allow_any_instance_of` that look like this:
 
@@ -89,7 +89,7 @@ If you're already using minitest for your tests, add the `buildkite-test_collect
     bundle
     ```
 
-3. Add the Test Analytics code to your application in `test/test_helper.rb`, and set the BUILDKITE_ANALYTICS_TOKEN [securely](/docs/pipelines/secrets) on your agent or agents.
+3. Add the Test Analytics code to your application in `test/test_helper.rb`, and set the BUILDKITE_ANALYTICS_TOKEN [securely](/docs/pipelines/secrets) on your agent or agents. Please ensure gems that patch `Net::HTTP`, like [httplog](https://github.com/trusche/httplog) and [sniffer](https://github.com/aderyabin/sniffer), are required before `buildkite/test_collector` to avoid conflicts.
 
     ```rb
     require "buildkite/test_collector"
@@ -121,7 +121,7 @@ This would appear like so:
 
 <%= image "annotation-span.png", width: 2048/2, height: 880/2, alt: "Screenshot of the span timeline including the 'Rendered OTP Screen' annotation." %>
 
-This is particularly useful for tests that generate a lot of span data such as system/feature tests. You can find all _annotations_ under _Span Timeline_ at the bottom of every test execution page.
+This is particularly useful for tests that generate a lot of span data such as system/feature tests. You can find all _annotations_ under **Span timeline** at the bottom of every test execution page.
 
 ## Tagging duplicate test executions with a prefix/suffix
 

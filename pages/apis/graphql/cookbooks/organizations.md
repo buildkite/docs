@@ -2,7 +2,7 @@
 
 A collection of common tasks with organizations using the GraphQL API.
 
-You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the _Docs_ panel.
+You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the **Docs** panel.
 
 ## List organization members
 
@@ -121,6 +121,27 @@ mutation UpdateSessionIPAddressPinning {
   ssoProviderUpdate(input: { id: "ID", pinSessionToIpAddress: true }) {
     ssoProvider {
       pinSessionToIpAddress
+    }
+  }
+}
+```
+
+## Enforce two-factor authentication (2FA) for your organization
+
+Require users to have two-factor authentication enabled before they can access your organization's Buildkite dashboard.
+
+```graphql
+mutation EnableEnforced2FA {
+  organizationEnforceTwoFactorAuthenticationForMembersUpdate(
+    input: {
+      organizationId: "organization-id",
+      membersRequireTwoFactorAuthentication: true
+    }
+  ) {
+    organization {
+      id
+      membersRequireTwoFactorAuthentication
+      uuid
     }
   }
 }
@@ -306,6 +327,86 @@ query getTimeScopedOrganizationAuditEvents{
         }
       }
     }
+  }
+}
+```
+
+## Get organization audit events of a specific user
+
+Query audit events from within an organization of a specific user. Audit events are only available to Enterprise customers.
+
+```graphql
+query getActorRefinedOrganizationAuditEvents{
+  organization(slug:"organization-slug"){
+    auditEvents(first: 500, actor: "user-id"){
+      edges{
+        node{
+          type
+          occurredAt
+          actor{
+            name
+          }
+          subject{
+            name
+            type
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+To find the actor's `user-id` for the query above, the following query can be run: replacing the `search` term with the name/email of the user:
+
+```graphql
+query getActorID{
+  organization(slug:"organization-slug"){
+    members(first:50, search: "search term"){
+      edges{
+        node{
+          user{
+            name
+            email
+            id
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## Create & delete system banners (enterprise only)
+
+Create & delete system banners via the `organizationBannerUpsert` & `organizationBannerDelete` mutations.
+
+To create a banner call `organizationBannerUpsert` with the organization's GraphQL id and message.
+
+```graphql
+mutation OrganizationBannerUpsert {
+  organizationBannerUpsert(input: {
+    organizationId: "organization-id",
+    message: "**Change to 2FA**: On October 1st ECommerce Inc will require 2FA to be set to access all Pipelines. \r\n\r\n---\r\n\r\nIf you have not set already setup 2FA please go to: [https://buildkite.com/user/two-factor](https://buildkite.com/user/two-factor) and setup 2FA now. ",
+  }) {
+    clientMutationId
+    banner {
+      id
+      message
+      uuid
+    }
+  }
+}
+```
+
+To remove the banner call `organizationBannerDelete` with the organization's GraphQL id.
+
+```graphql
+mutation OrganizationBannerDelete {
+  organizationBannerDelete(input: {
+    organizationId: "organization-id"
+  }) {
+    deletedBannerId
   }
 }
 ```

@@ -7,16 +7,18 @@
   children:
   - name: Overview
     path: apis/graphql/graphql-cookbook
-  - name: Pipelines
-    path: apis/graphql/cookbooks/pipelines
-  - name: Builds
-    path: apis/graphql/cookbooks/builds
-  - name: Jobs
-    path: apis/graphql/cookbooks/jobs
   - name: Agents
     path: apis/graphql/cookbooks/agents
+  - name: Builds
+    path: apis/graphql/cookbooks/builds
   - name: Clusters
     path: apis/graphql/cookbooks/clusters
+  - name: Jobs
+    path: apis/graphql/cookbooks/jobs
+  - name: Pipelines
+    path: apis/graphql/cookbooks/pipelines
+  - name: Pipeline templates
+    path: apis/graphql/cookbooks/pipeline-templates
   - name: Organizations
     path: apis/graphql/cookbooks/organizations
   - name: Teams
@@ -55,6 +57,10 @@
     path: apis/graphql/schemas/query/pipeline
   - name: pipelineSchedule
     path: apis/graphql/schemas/query/pipelineschedule
+  - name: pipelineTemplate
+    path: apis/graphql/schemas/query/pipelinetemplate
+  - name: secret
+    path: apis/graphql/schemas/query/secret
   - name: ssoProvider
     path: apis/graphql/schemas/query/ssoprovider
   - name: team
@@ -119,12 +125,12 @@
     path: apis/graphql/schemas/mutation/organizationapiaccesstokenrevoke
   - name: organizationApiIpAllowlistUpdate
     path: apis/graphql/schemas/mutation/organizationapiipallowlistupdate
-  - name: organizationBannerCreate
-    path: apis/graphql/schemas/mutation/organizationbannercreate
   - name: organizationBannerDelete
     path: apis/graphql/schemas/mutation/organizationbannerdelete
-  - name: organizationBannerUpdate
-    path: apis/graphql/schemas/mutation/organizationbannerupdate
+  - name: organizationBannerUpsert
+    path: apis/graphql/schemas/mutation/organizationbannerupsert
+  - name: organizationEnforceTwoFactorAuthenticationForMembersUpdate
+    path: apis/graphql/schemas/mutation/organizationenforcetwofactorauthenticationformembersupdate
   - name: organizationInvitationCreate
     path: apis/graphql/schemas/mutation/organizationinvitationcreate
   - name: organizationInvitationResend
@@ -155,6 +161,12 @@
     path: apis/graphql/schemas/mutation/pipelinescheduledelete
   - name: pipelineScheduleUpdate
     path: apis/graphql/schemas/mutation/pipelinescheduleupdate
+  - name: pipelineTemplateCreate
+    path: apis/graphql/schemas/mutation/pipelinetemplatecreate
+  - name: pipelineTemplateDelete
+    path: apis/graphql/schemas/mutation/pipelinetemplatedelete
+  - name: pipelineTemplateUpdate
+    path: apis/graphql/schemas/mutation/pipelinetemplateupdate
   - name: pipelineUnarchive
     path: apis/graphql/schemas/mutation/pipelineunarchive
   - name: pipelineUpdate
@@ -251,6 +263,8 @@
     path: apis/graphql/schemas/object/auditapicontext
   - name: AuditActor
     path: apis/graphql/schemas/object/auditactor
+  - name: AuditAgentAPIContext
+    path: apis/graphql/schemas/object/auditagentapicontext
   - name: AuditEvent
     path: apis/graphql/schemas/object/auditevent
   - name: AuditSubject
@@ -353,6 +367,8 @@
     path: apis/graphql/schemas/object/clusterqueuepausedispatchpayload
   - name: ClusterQueueResumeDispatchPayload
     path: apis/graphql/schemas/object/clusterqueueresumedispatchpayload
+  - name: ClusterQueueToken
+    path: apis/graphql/schemas/object/clusterqueuetoken
   - name: ClusterQueueUpdatePayload
     path: apis/graphql/schemas/object/clusterqueueupdatepayload
   - name: ClusterToken
@@ -461,18 +477,18 @@
     path: apis/graphql/schemas/object/organizationbanner
   - name: OrganizationBannerConnection
     path: apis/graphql/schemas/object/organizationbannerconnection
-  - name: OrganizationBannerCreatePayload
-    path: apis/graphql/schemas/object/organizationbannercreatepayload
   - name: OrganizationBannerDeletePayload
     path: apis/graphql/schemas/object/organizationbannerdeletepayload
   - name: OrganizationBannerEdge
     path: apis/graphql/schemas/object/organizationbanneredge
-  - name: OrganizationBannerUpdatePayload
-    path: apis/graphql/schemas/object/organizationbannerupdatepayload
+  - name: OrganizationBannerUpsertPayload
+    path: apis/graphql/schemas/object/organizationbannerupsertpayload
   - name: OrganizationConnection
     path: apis/graphql/schemas/object/organizationconnection
   - name: OrganizationEdge
     path: apis/graphql/schemas/object/organizationedge
+  - name: OrganizationEnforceTwoFactorAuthenticationForMembersUpdateMutationPayload
+    path: apis/graphql/schemas/object/organizationenforcetwofactorauthenticationformembersupdatemutationpayload
   - name: OrganizationInvitation
     path: apis/graphql/schemas/object/organizationinvitation
   - name: OrganizationInvitationConnection
@@ -575,6 +591,16 @@
     path: apis/graphql/schemas/object/pipelinetag
   - name: PipelineTemplate
     path: apis/graphql/schemas/object/pipelinetemplate
+  - name: PipelineTemplateConnection
+    path: apis/graphql/schemas/object/pipelinetemplateconnection
+  - name: PipelineTemplateCreatePayload
+    path: apis/graphql/schemas/object/pipelinetemplatecreatepayload
+  - name: PipelineTemplateDeletePayload
+    path: apis/graphql/schemas/object/pipelinetemplatedeletepayload
+  - name: PipelineTemplateEdge
+    path: apis/graphql/schemas/object/pipelinetemplateedge
+  - name: PipelineTemplateUpdatePayload
+    path: apis/graphql/schemas/object/pipelinetemplateupdatepayload
   - name: PipelineUnarchivePayload
     path: apis/graphql/schemas/object/pipelineunarchivepayload
   - name: PipelineUpdatePayload
@@ -649,6 +675,8 @@
     path: apis/graphql/schemas/object/ssoprovidersamlsptype
   - name: SSOProviderUpdatePayload
     path: apis/graphql/schemas/object/ssoproviderupdatepayload
+  - name: Secret
+    path: apis/graphql/schemas/object/secret
   - name: StepCommand
     path: apis/graphql/schemas/object/stepcommand
   - name: StepInput
@@ -813,6 +841,8 @@
   children:
   - name: APIAccessTokenScopes
     path: apis/graphql/schemas/enum/apiaccesstokenscopes
+  - name: AnnotationOrder
+    path: apis/graphql/schemas/enum/annotationorder
   - name: AnnotationStyle
     path: apis/graphql/schemas/enum/annotationstyle
   - name: AuditActorType
@@ -825,8 +855,6 @@
     path: apis/graphql/schemas/enum/authorizationtype
   - name: BuildBlockedStates
     path: apis/graphql/schemas/enum/buildblockedstates
-  - name: BuildRetentionPeriods
-    path: apis/graphql/schemas/enum/buildretentionperiods
   - name: BuildStates
     path: apis/graphql/schemas/enum/buildstates
   - name: ClusterOrder
@@ -865,6 +893,8 @@
     path: apis/graphql/schemas/enum/pipelineaccesslevels
   - name: PipelineOrders
     path: apis/graphql/schemas/enum/pipelineorders
+  - name: PipelineTemplateOrder
+    path: apis/graphql/schemas/enum/pipelinetemplateorder
   - name: PipelineVisibility
     path: apis/graphql/schemas/enum/pipelinevisibility
   - name: ResourceUsageType
@@ -969,12 +999,12 @@
     path: apis/graphql/schemas/input-object/organizationapiaccesstokenrevokemutationinput
   - name: OrganizationAPIIPAllowlistUpdateMutationInput
     path: apis/graphql/schemas/input-object/organizationapiipallowlistupdatemutationinput
-  - name: OrganizationBannerCreateInput
-    path: apis/graphql/schemas/input-object/organizationbannercreateinput
   - name: OrganizationBannerDeleteInput
     path: apis/graphql/schemas/input-object/organizationbannerdeleteinput
-  - name: OrganizationBannerUpdateInput
-    path: apis/graphql/schemas/input-object/organizationbannerupdateinput
+  - name: OrganizationBannerUpsertInput
+    path: apis/graphql/schemas/input-object/organizationbannerupsertinput
+  - name: OrganizationEnforceTwoFactorAuthenticationForMembersUpdateMutationInput
+    path: apis/graphql/schemas/input-object/organizationenforcetwofactorauthenticationformembersupdatemutationinput
   - name: OrganizationInvitationCreateInput
     path: apis/graphql/schemas/input-object/organizationinvitationcreateinput
   - name: OrganizationInvitationResendInput
@@ -1021,6 +1051,12 @@
     path: apis/graphql/schemas/input-object/pipelinetaginput
   - name: PipelineTeamAssignmentInput
     path: apis/graphql/schemas/input-object/pipelineteamassignmentinput
+  - name: PipelineTemplateCreateInput
+    path: apis/graphql/schemas/input-object/pipelinetemplatecreateinput
+  - name: PipelineTemplateDeleteInput
+    path: apis/graphql/schemas/input-object/pipelinetemplatedeleteinput
+  - name: PipelineTemplateUpdateInput
+    path: apis/graphql/schemas/input-object/pipelinetemplateupdateinput
   - name: PipelineUnarchiveInput
     path: apis/graphql/schemas/input-object/pipelineunarchiveinput
   - name: PipelineUpdateInput

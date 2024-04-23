@@ -2,7 +2,6 @@
 
 Buildkite uses our open-source [terminal-to-html](https://github.com/buildkite/terminal-to-html) tool to provide you with the best possible terminal rendering experience for your build logs, including ANSI terminal emulation to ensure spinners, progress bars, colors and emojis are rendered beautifully.
 
-
 ## Collapsing output
 
 You can group and collapse your build output by echoing `--- [group name]` in your build output.
@@ -122,7 +121,7 @@ Make sure to set the `-o pipefail` option in your buildscript as above, otherwis
 
 Buildkite has zero access to your source code in the pipelines and only receives and stores the log output of the builds and build artifacts in encrypted form.
 
-Logs are AES-encrypted, and the build artifacts are encrypted in transit and at rest using AWS encryption (KMS or S3 SSE). As a result, the keys cannot be extracted on the Buildkite's side, and the AWS solutions provide mitigations against zero-day attacks and other security issues. Beyond this, the control over security measures within your infrastructure is up to you.
+Logs are AES-encrypted, and the build artifacts are encrypted in transit and at rest using AWS encryption (KMS or S3 SSE). As a result, the keys cannot be extracted on the Buildkite's side, and the AWS solutions mitigate against zero-day attacks and other security issues. Beyond this, the control over security measures within your infrastructure is up to you.
 
 If you choose to [host your build artifacts](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket) yourself, they end up in your private AWS bucket.
 
@@ -158,13 +157,13 @@ redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_ACCESS_KEY, *_SECRET_KEY, *_CONN
 
 By default, build logs are stored in encrypted form in Buildkite's managed Amazon S3 buckets, but you can instead store the archived build logs in your private AWS S3 bucket. If you decide to store the logs in your S3 bucket, they're encrypted using SSE-S3. SSE-KMS encryption is not supported. After storing the logs in your S3 bucket, Buildkite does not retain a copy of the logs.
 
->📘 Enterprise feature
+> 📘 Enterprise feature
 > This feature is only available to customers on the <a href="https://buildkite.com/pricing">Enterprise plan</a> and is applied at the organization level. If you have multiple organizations, send support a list of the organizations where this feature should be enabled.
 
 The folder structure and file format are as follows and are not customizable:
 
 ```text
-{BUILDKITE_PIPELINE_ID}/{BUILDKITE_BUILD_ID}/{BUILDKITE_JOB_ID}.log
+{ORGANIZATION_UUID}/{BUILDKITE_PIPELINE_ID}/{BUILDKITE_BUILD_ID}/{BUILDKITE_JOB_ID}.log
 ```
 
 To set up a private build log archive storage:

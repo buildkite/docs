@@ -1,3 +1,7 @@
+---
+keywords: docs, pipelines, tutorials, upgrade to yaml
+---
+
 # Migrating to YAML steps
 
 This guide explains the differences between the web-based editor and the YAML Steps editor, and shows how to migrate your organization's pipelines to YAML Steps.
@@ -50,17 +54,17 @@ To use the YAML Steps editor for new pipelines created in your organization, you
 
 <%= image "new-pipelines.png", width: 1754/2, height: 442/2, alt: "Screenshot of the button to use YAML steps for new pipelines" %>
 
-Clicking the button to start using YAML pipelines won't change anything for any existing pipelines in your organization. Migration of existing pipelines will need to be completed either individually or using the bulk migration tool. See [Steps to migrate existing pipelines](#migrating-existing-pipelines) below for further information.  
+Clicking the button to start using YAML pipelines won't change anything for any existing pipelines in your organization. Migration of existing pipelines will need to be completed either individually or using the bulk migration tool. See [Steps to migrate existing pipelines](#migrating-existing-pipelines) below for further information.
 
 ## Migrating existing pipelines
 
-The migration page can be accessed by organization administrators from the Organization Settings page. On this page you can see which pipelines have already been migrated and which are yet to migrate.
+The migration page can be accessed by organization administrators from the organization **Settings** page. On this page you can see which pipelines have already been migrated and which are yet to migrate.
 
 ### Individual migration
 
 You can migrate each pipeline individually from the Pipeline Settings page. The new YAML steps version of your pipeline will be auto-saved during migration, and will replace the web-based steps.
 
- Under the web-based Steps editor is a button to Convert to YAML Steps:
+ Under the web-based Steps editor is a button to **Convert to YAML Steps**:
 
 <%= image "individual-migration.png", width: 1730/2, height: 1086/2, alt: "Screenshot of the YAML Steps conversion panel and button" %>
 
@@ -70,9 +74,9 @@ If you expect to have compatibility issues with your environment variables, indi
 
 ### Bulk migration
 
-You can migrate all of the pipelines in your organization at the same time using the "Replace web steps for all pipelines with YAML" button on the migration page. The new YAML steps version of your pipeline will be auto-saved during migration, and will replace the web-based steps.
+You can migrate all of the pipelines in your organization at the same time using the **Replace web steps for all pipelines with YAML** button on the migration page. The new YAML steps version of your pipeline will be auto-saved during migration, and will replace the web-based steps.
 
->📘
+> 📘
 > If you expect to have <a href="#what-is-the-yaml-steps-editor-compatibility-issues">compatibility issues</a> with your environment variables, migrate your pipelines <a href="#migrating-existing-pipelines-individual-migration">individually</a>.
 
 <%= image "bulk-migration.png", width: 1744/2, height: 446/2, alt: "Screenshot of the bulk pipeline migration panel and button" %>

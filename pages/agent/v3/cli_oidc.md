@@ -1,4 +1,4 @@
-# `buildkite-agent oidc`
+# buildkite-agent oidc
 
 The Buildkite Agent's `oidc` command allows you to request an OIDC token representing the current job. These tokens can be exchanged with federated systems like AWS.
 
@@ -45,7 +45,7 @@ For specific endpoints for OpenID or JWKS, use:
         commit:BUILD_COMMIT:step:STEP_KEY</code>. </p>
       <p>If the build has a tag, <code>REF</code> is <code>refs/tags/TAG</code>.</p>
       <p>Otherwise, <code>REF</code> is <code>refs/heads/BRANCH</code>.</p>
-      <p><em>Example:</em><code>organization:acme-inc:pipeline:super-duper-app:             ref:refs/heads/main:commit:9f3182061f1e2cca4702c368cbc039b7dc9d4485:step:build</code></p>
+      <p><em>Example:</em><code>organization:acme-inc:pipeline:super-duper-app:ref:refs/heads/main:commit:9f3182061f1e2cca4702c368cbc039b7dc9d4485:step:build</code></p>
     </td>
   </tr>
    <tr>
@@ -185,7 +185,7 @@ Generate these additional claims by adding `--claims` to the `buildkite-agent oi
 
 ### Example token contents
 
-OIDC tokens are JSON Web Tokens — [JWTs](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-json-web-token) — and the following is a complete example:
+OIDC tokens are JSON Web Tokens — [JWTs](https://datatracker.ietf.org/doc/html/rfc7519) — and the following is a complete example:
 
 ```json
 {
