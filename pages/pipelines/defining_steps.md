@@ -125,26 +125,26 @@ When you run a pipeline, a build is created. Each of the steps in the pipeline e
 Job state             | Description
 ----------------------| -----------------------------------------
 `pending`             | The job has just been created and doesn't have a state yet.
-WAITING               | The job is waiting on a wait step to finish
-WAITING_FAILED        | The job was in a WAITING state when the build failed
-BLOCKED               | The job is waiting on a block step to finish
-BLOCKED_FAILED        | The job was in a BLOCKED state when the build failed
-UNBLOCKED             | This block job has been manually unblocked
-UNBLOCKED_FAILED      | This block job was in an UNBLOCKED state when the build failed
-LIMITING              | The job is waiting on a concurrency group check before becoming either LIMITED or SCHEDULED
-LIMITED               | The job is waiting for jobs with the same concurrency group to finish
-SCHEDULED             | The job is scheduled and waiting for an agent
-ASSIGNED              | The job has been assigned to an agent, and it's waiting for it to accept
-ACCEPTED              | The job was accepted by the agent, and now it's waiting to start running
-RUNNING               | The job is running
-FINISHED              | The job has finished
-CANCELING             | The job is currently canceling
-CANCELED              | The job was canceled
-TIMING_OUT            | The job is timing out for taking too long
-TIMED_OUT             | The job timed out
-SKIPPED               | The job was skipped
-BROKEN                | The jobs configuration means that it can't be run
-EXPIRED               | The job expired before it was started on an agent
+`waiting`             | The job is waiting on a wait step to finish.
+`waiting_failed`      | The job was in a WAITING state when the build failed.
+`blocked`             | The job is waiting on a block step to finish.
+`blocked_failed`      | The job was in a BLOCKED state when the build failed.
+`unblocked`           | This block job has been manually unblocked.
+`unblocked_failed`    | This block job was in an UNBLOCKED state when the build failed.
+`limiting`            | The job is waiting on a concurrency group check before becoming either `limited` or `scheduled`.
+`limited`             | The job is waiting for jobs with the same concurrency group to finish.
+`scheduled`           | The job is scheduled and waiting for an agent.
+`assigned`            | The job has been assigned to an agent, and it's waiting for it to accept.
+`accepted`            | The job was accepted by the agent, and now it's waiting to start running.
+`running`             | The job is running.
+`finished`            | The job has finished.
+`canceling`           | The job is currently canceling.
+`canceled`            | The job was canceled.
+`timing_out`          | The job is timing out for taking too long.
+`timed_out`           | The job timed out.
+`skipped`             | The job was skipped.
+`broken`              | The jobs configuration means that it can't be run.
+`expired`             | The job expired before it was started on an agent.
 {: class="two-column"}
 
 As well as the states shown in the diagram, the following progressions can occur:
