@@ -59,7 +59,7 @@ When setting pipeline steps using the API, you must pass in a string that Buildk
 
 ### Slug creation conventions
 
-Pipeline slugs are generated based on the pipeline name you provide during the pipeline creation.
+Pipeline slugs are generated from the pipeline name you provide during the pipeline creation.
 The maximum allowed character length for a pipeline slug is `100`.
 The supported character format for slug generation is:
 `/\A[a-zA-Z0-9]+[a-zA-Z0-9\-]*\z/`.
