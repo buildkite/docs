@@ -463,6 +463,18 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
+### Signal reason in job finished events
+
+The `signal_reason` field of the job finished event will be populated with the reason a job was stopped, will only be present for exit statuses != 0. The `signal_reason` field will be populated with a reason why a job either was stopped, or why it never ran in the first place - the name is somewhat misleading in the latter case.
+
+| Signal Reason | Description |
+| --- | --- |
+| `agent_refused` | The agent refused to run the job, as it was not allowed by a [pre-bootstrap hook](/docs/agent/v3/securing#strict-checks-using-a-pre-bootstrap-hook) |
+| `agent_stop` | The agent was stopped while the job was running |
+| `cancel` | The job was cancelled by a user |
+| `signature_rejected` | The job was rejected due to a mismatch with the [step's signature](/docs/agent/v3/signed-pipelines) |
+| `process_run_error` | The job failed to start due to an error in the process run. This is usually a bug in the agent, contact support if this is happening regularly. |
+
 <h3 id="events-job-activated">Job Activated</h3>
 
 ```json
