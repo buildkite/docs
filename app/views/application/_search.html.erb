@@ -1,12 +1,1 @@
-<% size = size || 'default' %>
-
-<div class="Search">
-  <div class="Search__container">
-    <label class="Search__icon" for="search">
-      <span class="sr-only">Search</span>
-      <%= image_tag "icons/magnifying-glass.svg", alt: "Search icon" %>
-    </label>
-    <input id="search" class="Search__input<%= size == 'large' ? ' Search__input--large' : '' %>" placeholder="Search" />
-    <kbd class="Search__kbd" title="Press / to search">/</kbd>
-  </div>
-</div>
+<div id="search"></div>

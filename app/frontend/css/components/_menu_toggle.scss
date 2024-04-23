@@ -1,0 +1,50 @@
+.MenuToggleCheckbox {
+  position: absolute;
+  visibility: hidden;
+
+  ~ .SiteHeader__nav,
+  ~ .SiteHeader__global-links {
+    display: none;
+
+    @media (min-width: $screen-md) {
+      display: flex;
+    }
+  }
+
+  &:checked ~ .SiteHeader__nav,
+  &:checked ~ .SiteHeader__global-links {
+    display: flex;
+  }
+}
+
+.MenuToggleLabel {
+  background: transparent url("~/images/icons/menu.svg") 50% 50% no-repeat;
+  border-radius: 6px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  height: 40px;
+  margin: 0;
+  position: absolute;
+  right: $gutter / 2;
+  top: 10px;
+  width: 40px;
+
+  @media (min-width: $screen-md) {
+    display: none;
+  }
+
+  &:hover {
+    background-color: map-get($color-aliases, "panel-background");
+  }
+
+  .MenuToggleCheckbox:checked + & {
+    background-image: url("~/images/icons/remove.svg");
+  }
+
+  span {
+    left: -10rem;
+    position: absolute;
+    top: -10rem;
+  }
+}

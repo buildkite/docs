@@ -1,0 +1,14 @@
+fields:
+- name: expanded
+  required: true
+  type: array
+  enumerated_values:
+  desc: |
+      An array of strings describing the failure
+- name: backtrace
+  required: true
+  type: array
+  enumerated_values:
+  desc: |
+      An array of strings documenting the backtrace of the failed test
+

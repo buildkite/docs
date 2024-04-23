@@ -4,12 +4,11 @@ Buildkite API access tokens are issued to individuals not organizations. You can
 
 On the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) page, organization admins can view all tokens that have been created with access to their organization data. As well as auditing user tokens and what access they have, you can also remove a token's access to your organization data if required.
 
-
 ## Token scopes
 
 When you create a token, select the organizations it grants access to, and for REST APIS the scope of the access. GraphQL tokens cannot be limited by scope.
 
->📘 Note for contributors to public and open-source projects
+> 📘 Note for contributors to public and open-source projects
 > You need to be a member of the Buildkite organization to be able to generate and use an API token for it.
 
 REST API scopes are very granular, you can select some or all of the following:
@@ -28,6 +27,9 @@ REST API scopes are very granular, you can select some or all of the following:
 * Read Pipelines `read_pipelines` - Permission to list and retrieve details of pipelines
 * Write Pipelines `write_pipelines` - Permission to create, update and delete pipelines
 * Read User `read_user` - Permission to retrieve basic details of the user
+* Read Suites `read_suites` - Permission to list and retrieve details of test suites; including runs,
+  tests, executions, etc.
+* Write Suites `write_suites` - Permission to create, update and delete test suites
 
 When creating API access tokens, you can also restrict which network address are allowed to use them, using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
 
@@ -39,11 +41,11 @@ All tokens that currently have access to your organization's data will be listed
 
 Click through any token to see more detailed information about its scopes and the most recent request.
 
-<%= image "all-tokens-view.png", width: 1480/2, height: 1064/2, alt: "Screenshot of the API Access Audit page displaying a list of all tokens" %>
+<%= image "all-tokens-view.png", width: 1820/2, height: 1344/2, alt: "Screenshot of the API Access Audit page displaying a list of all tokens" %>
 
-The list of tokens can be filtered by username, token value, scopes, IP address, or whether the user has admin privileges.
+The list of tokens can be filtered by username, scopes, IP address, or whether the user has admin privileges.
 
- <%= image "filter-graphql-view.png", width: 1476/2, height: 898/2, alt: "Screenshot of the API Access Audit page displaying a filtered list of tokens that have the GraphQL scope" %>
+ <%= image "filter-graphql-view.png", width: 1792/2, height: 1202/2, alt: "Screenshot of the API Access Audit page displaying a filtered list of tokens that have the GraphQL scope" %>
 
 ## Removing an organization from a token
 
@@ -51,17 +53,28 @@ If you have old tokens that should no longer be used, or need to prevent a token
 
 From the API access audit page, find the token whose access you want to remove. You can search for tokens using usernames, token scopes, full IP addresses, admin privileges, or the value of the token itself.
 
-<%= image "token-view.png", width: 1492/2, height: 1470/2, alt: "Screenshot of the API access token page with the Revoke Access button at the bottom of the screen" %>
+<%= image "token-view.png", width: 1788/2, height: 2288/2, alt: "Screenshot of the API access token page with the Revoke Access button at the bottom of the screen" %>
 
 Click through the token you'd like to remove, then click the 'Remove Organization from Token' button.
 
 Removing access from a token sends a notification email to the token's owner, who cannot re-add your organization to the token's scope.
 
-## Limiting API Access by IP address
+## Limiting API access by IP address
 
-If you'd like to limit access to your organization by IP address, you can create an allowlist of IP addresses in the [organization's permission settings](https://buildkite.com/organizations/~/member-permissions).
+If you'd like to limit access to your organization by IP address, you can create an allowlist of IP addresses in the [organization's API security settings](https://buildkite.com/organizations/~/security/api).
 
 You can also manage the allowlist with the [`organizationApiIpAllowlistUpdate`](/docs/apis/graphql/schemas/mutation/organizationapiipallowlistupdate) mutation in the GraphQL API.
+
+## Inactive API tokens revocation
+
+> 📘 Enterprise feature
+> Revoking inactive API tokens automatically is only available on an [Enterprise](https://buildkite.com/pricing) plan.
+
+To enable the inactive API tokens revocation, navigate to your [organization's security settings](https://buildkite.com/organizations/~/security) and specify the maximum timeframe for inactive tokens to remain valid.
+
+Inactive API tokens refer to those that have not been used within the specified duration. When an API token surpasses the configured setting, Buildkite will automatically revoke the token's access to your organization.
+
+Upon token revocation, Buildkite will notify the owner of their change in access.
 
 ## Programmatically managing tokens
 

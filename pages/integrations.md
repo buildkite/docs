@@ -1,5 +1,5 @@
 ---
-toc: false
+template: "landing_page"
 ---
 
 # Integrations

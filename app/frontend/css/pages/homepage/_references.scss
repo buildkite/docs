@@ -1,0 +1,40 @@
+.References {
+  margin-bottom: 4rem;
+  margin-top: 3rem;
+}
+
+.References__grid {
+  display: grid;
+  gap: $gutter;
+
+  @media (min-width: $screen-sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: $screen-md) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.Reference__heading {
+  @include heading(map-get($font-size-aliases, "heading-4"), 1rem);
+}
+
+.Reference__item {
+  margin-bottom: 0.75rem;
+}
+
+.Reference__link {
+  @include style-text-link($underline: false, $color: $slate-800);
+
+  &:hover {
+    color: map-get($color-aliases, "text-link-hover");
+    text-decoration: underline;
+  }
+
+  &.external-link {
+    &:not(:hover)::after {
+      filter: grayscale(100%);
+    }
+  }
+}

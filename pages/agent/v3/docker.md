@@ -5,7 +5,6 @@ You can run the Buildkite Agent inside a Docker container using the [official im
 >📘 Running each build in its own container
 > These instructions cover how to run the agent using Docker. If you want to learn how to isolate each build using Docker and any of our standard Linux-based installers read the <a href="/docs/tutorials/docker-containerized-builds">Containerized builds with Docker</a> guide.
 
-
 ## Running using Docker
 
 Start an agent with the [official image](https://hub.docker.com/r/buildkite/agent/) based on Alpine Linux:
@@ -21,7 +20,7 @@ docker run -d -t --name buildkite-agent buildkite/agent:3-ubuntu start --token "
 ```
 
 >🚧 Caveats for builds that need Docker access.
-> If your build jobs require Docker access, and you're passing through the Docker socket, you must ensure the build path is consistent between the Docker host and the agent container. See <a href="#allowing-builds-to-use-docker">Allowing builds to use Docker</a> for more details.</a>.
+> If your build jobs require Docker access, and you're passing through the Docker socket, you must ensure the build path is consistent between the Docker host and the agent container. See <a href="#allowing-builds-to-use-docker">Allowing builds to use Docker</a> for more details.
 
 ## Version tagging
 

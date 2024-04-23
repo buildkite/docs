@@ -55,7 +55,7 @@ class Page
 
     def image_path(name)
       stripped_image_path = @image_path.sub(/\Adocs\//, "")
-      @view_helpers.image_path(File.join(stripped_image_path, name))
+      @view_helpers.vite_asset_path(File.join("images", stripped_image_path, name))
     end
 
     def paginated_resource_docs_url
@@ -71,7 +71,7 @@ class Page
     end
 
     def render(partial)
-      PagesController.render(partial: partial, formats: [:md])
+      PagesController.render(partial: partial, formats: [:md, :html])
     end
 
     def render_markdown(partial: nil, text: nil)
@@ -121,20 +121,12 @@ class Page
     filename.present?
   end
 
-  def title
-    agentize_title(contents.match(/^\#\s(.+)/).try(:[], 1) || "")
-  end
-
   def sections
     extracted_data.fetch("sections")
   end
 
-  def description
-    extracted_data.fetch("shortDescription")
-  end
-
   def markdown_body
-    erb_renderer = ERB.new(contents, trim_mode: '-')
+    erb_renderer = ERB.new(file.content, trim_mode: '-')
     template_binding = TemplateBinding.new(view_helpers: @view,
                                            image_path: File.join("docs", basename))
 
@@ -161,28 +153,59 @@ class Page
     @name.to_s.gsub(/[^0-9a-zA-Z\-\_\/]/, '').underscore
   end
 
-  def metadata
-    defaults = {
-      # Default to rendering table of contents
-      "toc": true,
-      # Default to H3s being included in the table of contents
-      "toc_include_h3": true
-    }
-    if file.front_matter
-      defaults.merge(file.front_matter.symbolize_keys)
-    else
-      defaults
-    end
+  # Page title, either from front matter or extracted from the markdown
+  def title
+    front_matter.fetch(:title, agentize_title(extracted_data.fetch("name")))
+  end
+
+  # Page description, either from front matter or extracted from the markdown
+  def description
+    front_matter.fetch(:description, extracted_data.fetch("shortDescription"))
+  end
+
+  # Should page render a table of contents?
+  def toc?
+    front_matter.fetch(:toc)
+  end
+
+  # Should pageinclude H3s in the table of contents?
+  def toc_include_h3?
+    front_matter.fetch(:toc_include_h3)
+  end
+
+  def template
+    front_matter.fetch(:template, "show")
+  end
+
+  # Returns focus keywords to guide content writers with an overview of the page content
+  # Note: it's not for meta keywords, which is a deprecated SEO practice
+  def keywords
+    # Gracefully falls back to the page's path if no keywords are specified to help reduce technical writer workload
+    front_matter.fetch(:keywords, keywords_from_path)
   end
 
   private
 
-  def file
-    @_file ||= ::FrontMatterParser::Parser.parse_file(filename)
+  def front_matter
+    @front_matter ||= begin
+      defaults = {
+        # Default to rendering table of contents
+        "toc": true,
+        # Default to H3s being included in the table of contents
+        "toc_include_h3": true,
+      }
+      if file.front_matter
+        defaults.merge(file.front_matter.symbolize_keys)
+      else
+        defaults
+      end
+    end
   end
 
-  def contents
-    file.content
+  def file
+    @_file ||= ::FrontMatterParser::Parser.parse_file(filename)
+  rescue
+    raise "Error parsing #{filename}"
   end
 
   def filename
@@ -200,5 +223,9 @@ class Page
     else
       title
     end
+  end
+
+  def keywords_from_path
+    @view.request.path.split("/").reject(&:empty?).map { |segment| segment.gsub("-", " ") }.join(", ")
   end
 end

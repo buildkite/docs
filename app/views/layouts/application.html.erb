@@ -3,30 +3,26 @@
   <head>
     <%= render "head" %>
   </head>
-  <body class="<%= beta? ? 'beta' : ''-%>">
+  <body class="<%= beta? ? 'beta' : ''-%>" data-keywords="<%= content_for :keywords %>">
     <%= render "site_header" %>
 
-    <main id="main" role="main">
+    <main id="__main" role="main">
       <div class="PageContainer">
         <div class="Page">
           <div class="Page__sidebar">
             <%= render 'sidebar' %>
           </div>
-
-          <div class="Page__toc">
-            <%= yield :toc %>
-          </div>
-
+          <% if content_for :toc %>
+            <div class="Page__toc">
+              <%= yield :toc %>
+            </div>
+          <% end %>
           <div class="Page__content">
-            <article class="Article">
-              <%= yield %>
-            </article>
+            <%= yield %>
             <%= render "footer" %>
           </div>
         </div>
       </div>
     </main>
-
-    <%= render "algolia" %>
   </body>
 </html>

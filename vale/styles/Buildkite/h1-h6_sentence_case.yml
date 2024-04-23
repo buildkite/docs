@@ -10,13 +10,21 @@ scope:
   - heading.h6
 match: $sentence
 exceptions:
+  - '^(\d+\.) [A-Z]\w+' # Allow numbered headings. Example: "1. Install the thing"
   - '^(Agent|Build|Job) ([A-Z]\w+(ed|ing)|Lost)$' # Exceptions for /pages/integrations/amazon_eventbridge.md
   - '^(Step|Method) \d: [A-Z]\w+' # Allow caps after colon. Examples: "Step 3: Do the thing", "Method 2: Deploy keys"
+  - 2FA
   - ADFS
+  - Advanced Queue Metrics
+  - API
+  - APM
+  - AWS
   - AWS Elastic Container Registry
   - Amazon
   - Amazon EventBridge
   - Amazon Web Services
+  - AMI
+  - ANSI
   - API(s)
   - Artifactory
   - Audit Event Logged
@@ -28,32 +36,43 @@ exceptions:
   - AWS Systems Manager Session Manager
   - Azure AD
   - Azure Active Directory
+  - Azure Blob
   - Bash
   - Bazel
   - Bamboo
   - Basecamp Campfire
   - Bitbucket
   - Bitbucket Server
+  - BUILD_AND_READ
   - Buildkite
   - Buildkite Agent
   - Buildkite Agents
+  - Buildkite Packages
+  - buildkite-agent
   - BuildNotify
   - BuildReactor
+  - C\+\+
   - CCMenu
   - CCTray
   - CentOS
+  - CI
   - CircleCI
+  - CLI
   - CloudFormation
   - CloudWatch
   - CloudWatch Logs
+  - CORS
+  - CSS
   - Datadog
   - Debian
-  - Developer Plan
+  - Free Plan
   - Docker
   - Docker Compose
   - Docker Hub
+  - EC2
   - Elastic
   - Elastic CI Stack
+  - Everyone
   - ExUnit
   - FAQs
   - FreeBSD
@@ -80,11 +99,16 @@ exceptions:
   - Google Workspace
   - GraphQL
   - Heroku
+  - HMAC
+  - HTTP
+  - IAM
+  - ID
   - IdP # TODO: unabbreviate this in headings
   - IDs
   - IronWorker
   - JavaScript
   - Jenkins
+  - JSON
   - JUnit
   - Kubernetes
   - Linux
@@ -93,24 +117,40 @@ exceptions:
   - macOS
   - Markdown
   - minitest
+  - NET
+  - Node.js
+  - OIDC
   - Okta
   - OneLogin
   - OpenTelemetry
   - OS X
   - PagerDuty
   - Phabricator
+  - pipeline.yml
   - PowerShell
   - pytest
+  - QA
+  - READ_ONLY
   - Red Hat
   - Red Hat Enterprise Linux
+  - REST
   - RSpec
   - SAML
+  - SCIM
   - Slack
+  - S3
+  - SSH
+  - SSO
   - Test Analytics
   - Ubuntu
+  - URL
   - URL(s)
+  - UUID
+  - VPC
+  - VPN
   - Windows
   - Windows Subsystem for Linux 2
   - Xcode
   - XCTest
   - XML
+  - YAML

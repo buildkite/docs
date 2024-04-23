@@ -1,20 +1,19 @@
 require 'rails_helper'
-include ButtonHelper
 
-RSpec.describe TilesHelper do
+RSpec.describe TilesHelper, type: 'helper' do
   describe "#tile" do
     context "has url" do
       it "links the title and appends a learn more link" do
-        tile_item_html = tile({
+        tile_item_html = helper.tile({
           "title" => "Title",
           "url" => "https://buildkite.com",
-          "image_path" => "/placeholder.jpg",
+          "image_path" => "images/logo.svg",
           "desc" => "Placeholder TileItem"
         })
 
         expect(tile_item_html).to eq(
           '<article class="TileItem">' +
-            '<img alt="Title" class="TileItem__image" src="/placeholder.jpg" />' +
+            '<img alt="Title" class="TileItem__image" src="/vite-test/assets/logo-af022722.svg" />' +
             '<h2 class="TileItem__title"><a class="TileItem__title-link" href="https://buildkite.com">Title</a></h2>' +
             '<p class="TileItem__desc">Placeholder TileItem</p>' +
             '<a class="TileItem__learn-more" href="https://buildkite.com">Learn more</a>' +
@@ -25,15 +24,15 @@ RSpec.describe TilesHelper do
 
     context "doesn't have url" do
       it "doesn't link the heading nor render learn more link" do
-        tile_item_html = tile({
+        tile_item_html = helper.tile({
           "title" => "Title",
-          "image_path" => "/placeholder.jpg",
+          "image_path" => "images/logo.svg",
           "desc" => "Placeholder TileItem"
         })
 
         expect(tile_item_html).to eq(
           '<article class="TileItem">' +
-            '<img alt="Title" class="TileItem__image" src="/placeholder.jpg" />' +
+            '<img alt="Title" class="TileItem__image" src="/vite-test/assets/logo-af022722.svg" />' +
             '<h2 class="TileItem__title">Title</h2>' +
             '<p class="TileItem__desc">Placeholder TileItem</p>' +
           '</article>'
@@ -43,7 +42,7 @@ RSpec.describe TilesHelper do
 
     context "has links" do
       it "renders an array of links" do
-        tile_item_html = tile({
+        tile_item_html = helper.tile({
           "title" => "Title",
           "links" => [
             {

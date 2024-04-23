@@ -6,7 +6,7 @@ toc_include_h3: false
 
 You can use a single sign-on (SSO) provider to protect access to your organization's data in Buildkite. Buildkite supports many different SSO providers, and you can configure multiple SSO providers for a single Buildkite organization.
 
-SSO is available to customers on the Buildkite [Team, Business, and Enterprise](https://buildkite.com/pricing) plans.
+SSO is available to customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans.
 
 
 ## Supported providers
@@ -50,7 +50,7 @@ If you have switched off all of your SSO providers, users will be required to lo
 If you are the administrator of an organization within Buildkite with an existing SSO provider set up, and you want to switch to a different SSO provider, these are the steps you need to take:
 
 1. [Add](/docs/integrations/sso#adding-sso) a new SSO provider, verify it, and allow login from both SSO providers. The users in your organization can continue to sign in and use the same user accounts within Buildkite as long as the emails stay the same.
-2. [Disable and remove](/docs/integrations/sso#disabling-and-removing-sso) the SSO provider you no longer need. If the user credentials (email) stay the same, this is all you need to migrate from one SSO provider to another.
+1. [Disable and remove](/docs/integrations/sso#disabling-and-removing-sso) the SSO provider you no longer need. If the user credentials (email) stay the same, this is all you need to migrate from one SSO provider to another.
 
 >📘
 > If you are also changing the email provider, make sure that Buildkite users in your organization sign in to their existing accounts when performing single sign-on through the new provider to prevent your organization being billed twice for the same users.
@@ -61,14 +61,14 @@ If you'd like to have some help with the migration, contact support@buildkite.co
 
 You can configure the SSO Session Duration to timeout after a predetermined time. When the specified duration elapses, the user will be signed out of the session.
 
-To set the Session Duration you can either use the [GraphQL API](/docs/apis/graphql/graphql-cookbook#organizations-update-the-default-sso-provider-session-duration) or complete
+To set the Session Duration you can either use the [GraphQL API](/docs/apis/graphql/cookbooks/organizations#update-the-default-sso-provider-session-duration) or complete
 the following steps via the settings interface.
 
 First select the SSO Provider you would like to configure.
 
 <%= image "session_duration/select_provider.png", width: 1201/2, height: 786/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
-Then click *Update Session Duration* from the *Session Duration* section of the
+Then click **Update Session Duration** from the **Session Duration** section of the
 SSO Provider settings page.
 
 <%= image "session_duration/update_session_duration.png", width: 1201/2, height: 1043/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
@@ -84,13 +84,13 @@ You can configure the session duration to any timeout between 6 hours and 8,760 
 
 Session IP address pinning prompts users to re-authenticate when their IP address changes. This prevents session hijacking by restricting authorized sessions to only originate from the IP address used to create the session. If any attempt is made to access Buildkite from a different IP address, the session is instantly revoked and the user must re-authenticate. Users must be required to use SSO in the [organization's user settings](https://buildkite.com/organizations/~/users) for SSO session IP address pinning to work for them.
 
-To set up SSO session IP address pinning, use the [GraphQL API](/docs/apis/graphql/graphql-cookbook#organizations-pin-sso-sessions-to-ip-addresses) or complete the following steps in the Buildkite dashboard:
+To set up SSO session IP address pinning, use the [GraphQL API](/docs/apis/graphql/cookbooks/organizations#pin-sso-sessions-to-ip-addresses) or complete the following steps in the Buildkite dashboard:
 
-1. Navigate to the [organization's SSO settings](https://buildkite.com/organizations/~/sso).
-1. In the _Configured SSO Providers_ section, select the provider.
-1. In the _Session IP Address Pinning_ section, select _Update Session IP Address Pinning_.
-1. In the modal that appears, select the _Session IP Address Pinning_ checkbox.
-1. Select _Save Session IP Address Pinning_.
+1. Navigate to the [organization's **Single Sign On** settings](https://buildkite.com/organizations/~/sso).
+1. In the **Configured SSO Providers** section, select the provider.
+1. In the **Session IP Address Pinning** section, select **Update Session IP Address Pinning**.
+1. In the resulting dialog, select the **Session IP Address Pinning** checkbox.
+1. Select **Save Session IP Address Pinning**.
 
 ## Frequently asked questions
 
@@ -141,3 +141,21 @@ Both authentication and authorization are necessary because SSO using one Buildk
 Some people choose to have multiple user accounts, one per Buildkite organization. It's fine to do this, but it can be slightly inconvenient as such an approach does not provide easy tools for switching between accounts. You will need to use different browsers or log in and out quite often.
 
 It's recommended to have a single Buildkite user account and join multiple organizations when required.
+
+### Why do I get the error "this email is already being used by another user" when logging in?
+
+There are two common reasons. The first is that you are using shared accounts, so the email is associated with another account. To resolve that, you need to remove the association from your Email Personal Settings.
+
+The second is that the account already exists in Buildkite. If you have access to the old account, delete it before continuing. You may also need to clean up any SSO authorization records on Buildkite for the old account. If that doesn't resolve the issue or you don't have access to the account, please reach out to support@buildkite.com for assistance.
+
+### Why do I get the error "we couldn't find an account with that email address" when logging in?
+
+This is likely caused by trying to log in from the wrong place. You need to log in from https://buildkite.com/sso and follow the link from the email you receive. If the issue persists, please reach out to support@buildkite.com for assistance.
+
+### Will setting the session duration affect all current sessions or only the new sessions?
+
+When you [update the session duration](/docs/apis/graphql/cookbooks/organizations#update-the-default-sso-provider-session-duration), it affects both new and old SSO sessions.
+
+### When is an SSO session considered to start?
+
+An SSO session starts for a user from the moment they sign in using SSO.

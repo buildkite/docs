@@ -1,15 +1,36 @@
-version: '3'
+version: "3"
 services:
   app:
     build:
       context: .
       args:
         RAILS_ENV: ${RAILS_ENV:-development}
-    volumes:
-      - '.:/app'
-      - /app/node_modules
+    depends_on:
+      - vite
+    environment:
+      VITE_RUBY_HOST: vite
     ports:
-      - '3000:3000'
+      - "3000:3000"
+    volumes:
+      - ".:/app"
+      - /app/node_modules
+      - /app/public/docs
+
+  vite:
+    build:
+      context: .
+      args:
+        RAILS_ENV: ${RAILS_ENV:-development}
+    entrypoint: bin/vite dev
+    environment:
+      DEBUG: "*vite*"
+      RAILS_ENV: development
+      VITE_RUBY_HOST: 0.0.0.0
+    ports:
+      - "3036:3036"
+    volumes:
+      - .:/app
+      - /app/node_modules
 
   muffet:
     depends_on:

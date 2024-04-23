@@ -1,9 +1,8 @@
 # Branch configuration
 
-You can use branch patterns to ensure pipelines are only triggered when necessary. This guide shows you how to set up branch patterns for whole pipelines and individual build steps.
+You can use branch patterns to ensure pipelines are only built when necessary. This guide shows you how to set up branch patterns for whole pipelines and individual build steps.
 
 In step-level and pipeline-level branch filtering, you can use `*` as a wildcard, and `!` for not, as shown in the [examples](#branch-pattern-examples). If you want a full range of regular expressions that operate on more than branch names, take a look at the [conditionals](/docs/pipelines/conditionals) page.
-
 
 ## Pipeline-level branch filtering
 
@@ -50,7 +49,7 @@ steps:
 
 The `branches` attribute cannot be used at the same time as the `if` attribute. See more in [Conditionals in steps](/docs/pipelines/conditionals#conditionals-in-steps).
 
->📘
+> 📘
 > Step-level branch filters will only affect the step that they are added to. Subsequent steps without branch filters will still be added to the pipeline.
 
 ## Branch pattern examples
@@ -68,3 +67,7 @@ The following are examples of patterns, and the branches that they will match:
 * `v* !v1.*` will match any branch that begins with a `v` unless it also begins with `v1.`, such as `v2.3`, but not `v1.1`
 
 For more advanced step filtering, see the [Using conditionals](/docs/pipelines/conditionals) guide.
+
+## Alternative methods
+
+[Queues](/docs/agent/v3/queues) are another way to control what work is done. You can use queues to determine which pipelines and steps run on particular agents.

@@ -27,14 +27,6 @@
       <img alt="Icon: paper dart" class="Button__icon Button__icon--16x16" src="<%= image_path('icons/email.svg') %>" />
       Email support
     </a>
-    <a class="Button Button--link" href="https://join.slack.com/t/buildkite-community/shared_invite/zt-1lm0xnwqu-r11BLIt7ZWr8JQ8fVyvMUw">
-      <img alt="Icon: Slack" class="Button__icon Button__icon--16x16" src="<%= image_path('icons/slack.svg') %>" />
-      <% unless "test-analytics".in? request.path %>
-        Ask our Slack community
-      <% else %>
-        Ask our #test-analytics Slack channel
-      <% end %>
-    </a>
     <a class="Button Button--link" href="https://forum.buildkite.community/">
       <img alt="Icon: Discourse" class="Button__icon Button__icon--16x16" src="<%= image_path('icons/discourse.svg') %>" />
       Post on our forum

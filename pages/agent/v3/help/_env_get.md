@@ -17,33 +17,39 @@ script.
 `buildkite-agent env get [variables]`
 
 ### Description
-Retrieves environment variables and their current values from the current job execution environment.
 
-Note that this subcommand is only available from within the job executor with the `job-api` experiment enabled.
+Retrieves environment variables and their current values from the current job
+execution environment.
 
-Changes to the job environment only apply to the environments of subsequent phases of the job. However, `env get` can be used to inspect the changes made with `env set` and `env unset`.
+Note that this subcommand is only available from within the job executor with
+the `job-api` experiment enabled.
+
+Changes to the job environment only apply to the environments of subsequent
+phases of the job. However, `env get` can be used to inspect the changes made
+with `env set` and `env unset`.
 
 ### Examples
 
 Getting all variables in key=value format:
 
-```
+```shell
 $ buildkite-agent env get
 ALPACA=Geronimo the Incredible
 BUILDKITE=true
 LLAMA=Kuzco
+...
 ```
 
 Getting the value of one variable:
 
-```
+```shell
 $ buildkite-agent env get LLAMA
 Kuzco
 ```
 
 Getting multiple specific variables:
 
-```
+```shell
 $ buildkite-agent env get LLAMA ALPACA
 ALPACA=Geronimo the Incredible
 LLAMA=Kuzco
@@ -51,16 +57,15 @@ LLAMA=Kuzco
 
 Getting variables as a JSON object:
 
-```
+```shell
 $ buildkite-agent env get --format=json-pretty
 {
-"ALPACA": "Geronimo the Incredible",
-"BUILDKITE": "true",
-"LLAMA": "Kuzco",
-...
+  "ALPACA": "Geronimo the Incredible",
+  "BUILDKITE": "true",
+  "LLAMA": "Kuzco",
+  ...
 }
 ```
-
 
 ### Options
 
@@ -68,6 +73,11 @@ $ buildkite-agent env get --format=json-pretty
 
 <table class="Docs__attribute__table">
 <tr id="format"><th><code>--format value</code> <a class="Docs__attribute__link" href="#format">#</a></th><td><p>Output format: plain, json, or json-pretty (default: "plain")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ENV_GET_FORMAT</code></p></td></tr>
+<tr id="no-color"><th><code>--no-color </code> <a class="Docs__attribute__link" href="#no-color">#</a></th><td><p>Don't show colors in logging<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_NO_COLOR</code></p></td></tr>
+<tr id="debug"><th><code>--debug </code> <a class="Docs__attribute__link" href="#debug">#</a></th><td><p>Enable debug mode. Synonym for `--log-level debug`. Takes precedence over `--log-level`<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG</code></p></td></tr>
+<tr id="log-level"><th><code>--log-level value</code> <a class="Docs__attribute__link" href="#log-level">#</a></th><td><p>Set the log level for the agent, making logging more or less verbose. Defaults to notice. Allowed values are: debug, info, error, warn, fatal (default: "notice")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_LOG_LEVEL</code></p></td></tr>
+<tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_EXPERIMENT</code></p></td></tr>
+<tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_PROFILE</code></p></td></tr>
 </table>
 
 <!-- vale on -->

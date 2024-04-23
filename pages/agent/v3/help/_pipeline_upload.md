@@ -39,9 +39,11 @@ must be split into multiple files and uploaded in separate steps.
 
 ### Example
 
-    $ buildkite-agent pipeline upload
-    $ buildkite-agent pipeline upload my-custom-pipeline.yml
-    $ ./script/dynamic_step_generator | buildkite-agent pipeline upload
+```shell
+$ buildkite-agent pipeline upload
+$ buildkite-agent pipeline upload my-custom-pipeline.yml
+$ ./script/dynamic_step_generator | buildkite-agent pipeline upload
+```
 
 ### Options
 
@@ -51,8 +53,11 @@ must be split into multiple files and uploaded in separate steps.
 <tr id="replace"><th><code>--replace </code> <a class="Docs__attribute__link" href="#replace">#</a></th><td><p>Replace the rest of the existing pipeline with the steps uploaded. Jobs that are already running are not removed.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_PIPELINE_REPLACE</code></p></td></tr>
 <tr id="job"><th><code>--job value</code> <a class="Docs__attribute__link" href="#job">#</a></th><td><p>The job that is making the changes to its build<br /><strong>Environment variable</strong>: <code>$BUILDKITE_JOB_ID</code></p></td></tr>
 <tr id="dry-run"><th><code>--dry-run </code> <a class="Docs__attribute__link" href="#dry-run">#</a></th><td><p>Rather than uploading the pipeline, it will be echoed to stdout<br /><strong>Environment variable</strong>: <code>$BUILDKITE_PIPELINE_UPLOAD_DRY_RUN</code></p></td></tr>
-<tr id="no-interpolation"><th><code>--no-interpolation </code> <a class="Docs__attribute__link" href="#no-interpolation">#</a></th><td><p>Skip variable interpolation the pipeline when uploaded<br /><strong>Environment variable</strong>: <code>$BUILDKITE_PIPELINE_NO_INTERPOLATION</code></p></td></tr>
+<tr id="format"><th><code>--format value</code> <a class="Docs__attribute__link" href="#format">#</a></th><td><p>In dry-run mode, specifies the form to output the pipeline in. Must be one of: json,yaml (default: "json")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_PIPELINE_UPLOAD_DRY_RUN_FORMAT</code></p></td></tr>
+<tr id="no-interpolation"><th><code>--no-interpolation </code> <a class="Docs__attribute__link" href="#no-interpolation">#</a></th><td><p>Skip variable interpolation into the pipeline prior to upload<br /><strong>Environment variable</strong>: <code>$BUILDKITE_PIPELINE_NO_INTERPOLATION</code></p></td></tr>
 <tr id="reject-secrets"><th><code>--reject-secrets </code> <a class="Docs__attribute__link" href="#reject-secrets">#</a></th><td><p>When true, fail the pipeline upload early if the pipeline contains secrets<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_PIPELINE_UPLOAD_REJECT_SECRETS</code></p></td></tr>
+<tr id="jwks-file"><th><code>--jwks-file value</code> <a class="Docs__attribute__link" href="#jwks-file">#</a></th><td><p>Path to a file containing a JWKS. Passing this flag enables pipeline signing<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_JWKS_FILE</code></p></td></tr>
+<tr id="jwks-key-id"><th><code>--jwks-key-id value</code> <a class="Docs__attribute__link" href="#jwks-key-id">#</a></th><td><p>The JWKS key ID to use when signing the pipeline. Required when using a JWKS<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_JWKS_KEY_ID</code></p></td></tr>
 <tr id="agent-access-token"><th><code>--agent-access-token value</code> <a class="Docs__attribute__link" href="#agent-access-token">#</a></th><td><p>The access token used to identify the agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></p></td></tr>
 <tr id="endpoint"><th><code>--endpoint value</code> <a class="Docs__attribute__link" href="#endpoint">#</a></th><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ENDPOINT</code></p></td></tr>
 <tr id="no-http2"><th><code>--no-http2 </code> <a class="Docs__attribute__link" href="#no-http2">#</a></th><td><p>Disable HTTP2 when communicating with the Agent API.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_NO_HTTP2</code></p></td></tr>
@@ -62,7 +67,7 @@ must be split into multiple files and uploaded in separate steps.
 <tr id="log-level"><th><code>--log-level value</code> <a class="Docs__attribute__link" href="#log-level">#</a></th><td><p>Set the log level for the agent, making logging more or less verbose. Defaults to notice. Allowed values are: debug, info, error, warn, fatal (default: "notice")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_LOG_LEVEL</code></p></td></tr>
 <tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_EXPERIMENT</code></p></td></tr>
 <tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_PROFILE</code></p></td></tr>
-<tr id="redacted-vars"><th><code>--redacted-vars value</code> <a class="Docs__attribute__link" href="#redacted-vars">#</a></th><td><p>Pattern of environment variable names containing sensitive values (default: "*_PASSWORD", "*_SECRET", "*_TOKEN", "*_PRIVATE_KEY", "*_ACCESS_KEY", "*_SECRET_KEY")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_REDACTED_VARS</code></p></td></tr>
+<tr id="redacted-vars"><th><code>--redacted-vars value</code> <a class="Docs__attribute__link" href="#redacted-vars">#</a></th><td><p>Pattern of environment variable names containing sensitive values (default: "*_PASSWORD", "*_SECRET", "*_TOKEN", "*_PRIVATE_KEY", "*_ACCESS_KEY", "*_SECRET_KEY", "*_CONNECTION_STRING")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_REDACTED_VARS</code></p></td></tr>
 </table>
 
 <!-- vale on -->

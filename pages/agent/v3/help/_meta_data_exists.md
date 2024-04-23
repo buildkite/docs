@@ -23,7 +23,9 @@ exit with a status of 100 if the key doesn&#39;t exist.
 
 ### Example
 
-    $ buildkite-agent meta-data exists "foo"
+```shell
+$ buildkite-agent meta-data exists "foo"
+```
 
 ### Options
 

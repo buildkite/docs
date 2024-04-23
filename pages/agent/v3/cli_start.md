@@ -1,7 +1,6 @@
-# `buildkite-agent start`
+# buildkite-agent start
 
 The Buildkite Agent's `start` command is used to manually start an agent and register it with Buildkite.
-
 
 ## Starting an agent
 
@@ -11,7 +10,7 @@ The Buildkite Agent's `start` command is used to manually start an agent and reg
 
 Each agent has tags (in 2.x we called this metadata) which can be used to group and target the agents in your build pipelines. This way you're free to dynamically scale your agents and target them based on their capabilities rather than maintaining a static list.
 
-To set an agent's tags you can set it in the configuration file:
+To set an agent's tags you can set it in the configuration file (`buildkite-agent.cfg`):
 
 ```
 tags="docker=true,ruby2=true"
@@ -55,16 +54,26 @@ steps:
 
 Partial wildcard matching (for example, `postgres=1.9*` or `postgres=*1.9`) is not yet supported.
 
->📘 Setting agent defaults
+> 📘 Setting agent defaults
 > Use a top-level <code>agents</code> block to <a href="/docs/pipelines/defining-steps#step-defaults">set defaults</a> for all steps in a pipeline.
 
 If you specify multiple tags, your build will only run on agents that have **all** the specified tags.
 
 ## The queue tag
 
-The `queue` tag works differently from other tags, and can be used for isolating jobs and agents. See the [agent queues documentation](queues) for more information about using queues.
+The `queue` tag works differently from other tags, and can be used for isolating jobs and agents. See the [agent queues documentation](/docs/agent/v3/queues) for more information about using queues.
 
 If you specify a `queue` and [agent `tags`](#agent-targeting), your build will only run on agents that match **all** of the specified criteria.
+
+For example, if a job has the following agent targeting rules, an agent with both `queue=test` and `postgres=1.9.4` should be present. Otherwise, the job will not dispatch to an agent.
+
+```yaml
+steps:
+  - command: "script.sh"
+    agents:
+      postgres: '1.9.4'
+      queue: test
+```
 
 ## Sourcing tags from Amazon Web Services
 
@@ -78,7 +87,7 @@ You can load an Agent's tags from the underlying Google Cloud metadata using `--
 
 You can configure your agent and your pipeline steps so that the steps run on the same agent that performed `pipeline upload`. This is sometimes referred to as "node affinity", but note that what we describe here does not involve Kubernetes (where the term is more widely used).
 
->📘 Normally, we recommend against doing this. The usual practice is to allow jobs to run on whichever agent is available, or to target according to specific criteria (for example, you might want certain jobs to run on a particular operating system). Targeting a specific agent can cause reliability issues (the job can't run if the agent is offline), and can result in work being unevenly distributed between agents (which is inefficient).
+> 📘 Normally, we recommend against doing this. The usual practice is to allow jobs to run on whichever agent is available, or to target according to specific criteria (for example, you might want certain jobs to run on a particular operating system). Targeting a specific agent can cause reliability issues (the job can't run if the agent is offline), and can result in work being unevenly distributed between agents (which is inefficient).
 
 First, set the agent hostname tag.
 

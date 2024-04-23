@@ -2,7 +2,6 @@
 
 When you need to use secret values in your pipelines, there are some best practices you should follow to ensure they stay safely within your infrastructure and are never stored in, or sent to, Buildkite.
 
-
 ## Using a secrets storage service
 
 A best practice for secret storage is to use your own secrets storage service, such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [Hashicorp Vault](https://www.vaultproject.io).
@@ -94,7 +93,7 @@ See the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack
 
 You should never store secrets on your Buildkite Pipeline Settings page. Not only does this expose the secret value to Buildkite, but pipeline settings are often returned in REST and GraphQL API payloads.
 
->📘Never store secret values in your Buildkite pipeline settings.
+> 📘 Never store secret values in your Buildkite pipeline settings.
 
 ## Anti-pattern: Storing secrets in your pipeline.yml
 
@@ -111,7 +110,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
->📘 Never store secrets in the <code>env</code> section of your pipeline.
+> 📘 Never store secrets in the <code>env</code> section of your pipeline.
 
 ## Anti-pattern: Referencing secrets in your pipeline YAML
 
@@ -143,7 +142,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
->📘
+> 📘
 > Use <a href="/docs/pipelines/writing-build-scripts">build scripts</a> instead of <code>command</code> blocks for steps that use secrets.
 
 If you must define your script in your steps, you can prevent interpolation by using the `$$` syntax:

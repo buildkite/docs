@@ -27,8 +27,6 @@ See more configuration information in the [Test Collector plugin README](https:/
 
 Using the plugin is the recommended way as it allows for a better debugging process in case of an issue.
 
-An equivalent of Buildkite Test Collector plugin for GitHub Action and CircleCI Orb is in the works. Stay tuned!
-
 ### Without a plugin
 
 If for some reason you cannot or do not want to use the [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin), or if you are looking to implement your own integration, another approach is possible.
@@ -122,10 +120,10 @@ A single file can have a maximum of 5000 test results, and if that limit is exce
 
 ## JSON test results data reference
 
-JSON test results data is made up of an array of one or more _test result_ objects.
+JSON test results data is made up of an array of one or more "test result" objects.
 A test result object contains an overall result and metadata.
-It also contains a _history_ object, which is a summary of the duration of the test run.
-Within the history object, detailed _span_ objects record the highest resolution details of the test run.
+It also contains a `history` object, which is a summary of the duration of the test run.
+Within the history object, detailed `span` objects record the highest resolution details of the test run.
 
 Schematically, the JSON test results data is like this:
 
@@ -215,29 +213,60 @@ end
   "result": "failed",
   "failure_reason": "Failure/Error: expect(true).to eq false",
   "failure_expanded": [
-  {
-      "expanded": [
-      "  expected: false",
-      "       got: true",
-      "",
-      "  (compared using ==)",
-      "",
-      "  Diff:",
-      "  @@ -1 +1 @@",
-      "  -false","  +true"
-      ],
-      "backtrace": [
-      "./spec/models/analytics/upload_spec.rb:25:in `block (3 levels) in \u003ctop (required)\u003e'","./spec/support/log.rb:17:in `run'",
-      "./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'",
-      "./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'",
-      "/Users/abc/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'",
-      "-e:1:in `\u003cmain\u003e'"
-      ]
-  }
+    /* failure_expanded object */
   ],
   "history": {
     /* history object */
   }
+}
+```
+
+### Failure expanded objects
+
+A failure expanded array contains extra details about the failed test.
+
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% TEST_ANALYTICS_JSON_FIELDS_FAILURE_EXPANDED['fields'].each do |field| -%>
+      <tr>
+        <td><code><%= field['name'] %></code> <%= '(required)' if field['required'] %></td>
+        <td><%= field['type'] %> <%= render_enumerated_values(field['enumerated_values']) %></td>
+        <td>
+          <%= render_markdown(text: field['desc']) %>
+        </td>
+      </tr>
+    <% end -%>
+  </tbody>
+</table>
+
+**Example:**
+
+```js
+{
+  "expanded": [
+    "  expected: false",
+    "       got: true",
+    "",
+    "  (compared using ==)",
+    "",
+    "  Diff:",
+    "  @@ -1 +1 @@",
+    "  -false","  +true"
+  ],
+  "backtrace": [
+    "./spec/models/analytics/upload_spec.rb:25:in `block (3 levels) in <top (required)>'","./spec/support/log.rb:17:in `run'",
+    "./spec/support/log.rb:66:in `block (2 levels) in <top (required)>'",
+    "./spec/support/database.rb:19:in `block (2 levels) in <top (required)>'",
+    "/Users/abc/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'",
+    "-e:1:in `<main>'"
+  ]
 }
 ```
 

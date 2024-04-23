@@ -1,29 +1,33 @@
-  <% if @page.metadata[:toc] %>
+  <% if @page.toc? %>
     <nav class="Toc">
       <button class="Toc__toggle">
         <h2 class="Toc__title">On this page</h2>
       </button>
+
       <ul class="Toc__list Toc__list--is-collapsed">
         <% @page.sections.each do |section| %>
           <li class="Toc__list-item">
-            <a class="Toc__link Toc__link--h2" href="#<%= section[:id] %>">
+            <a data-turbo="false" class="Toc__link Toc__link--h2" href="#<%= section[:id] %>">
               <%= section[:header] %>
             </a>
 
-            <% if section[:subsections].count && @page.metadata[:toc_include_h3] %>
+            <% if section[:subsections].count && @page.toc_include_h3? %>
               <ul class="Toc__list">
                 <% section[:subsections].each do |subsection| %>
                   <li class="Toc__list-item">
-                    <a class="Toc__link Toc__link--h3" href="#<%= "#{section[:id]}-#{subsection[:id]}" %>">
+                    <a data-turbo="false" class="Toc__link Toc__link--h3" href="#<%= "#{section[:id]}-#{subsection[:id]}" %>">
                       <%= subsection[:header] %>
                     </a>
                   </li>
                 <% end %>
               </ul>
             <% end %>
-
           </li>
         <% end %>
       </ul>
+
+      <svg xmlns="http://www.w3.org/2000/svg">
+        <path />
+      </svg>
     </nav>
   <% end %>

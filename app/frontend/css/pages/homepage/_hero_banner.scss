@@ -1,0 +1,28 @@
+.HeroBanner {
+  background-image: url("~/images/home/bg_hero_banner.svg");
+  background-position: center bottom;
+  background-size: cover;
+  border-radius: $rounded-lg;
+  margin-bottom: 3rem;
+  padding: 3rem ($gutter / 2) 3rem;
+
+  @media (min-width: $screen-md) {
+    padding-bottom: 72px;
+    padding-top: 60px;
+  }
+}
+
+.HeroBanner__title {
+  @include heading(map-get($font-size-aliases, "heading-jumbo"), 0, 0.75rem);
+  margin-block: 0.75rem;
+
+  @media (min-width: $screen-md) {
+    @include heading(2.25);
+    margin-block: 0.5rem;
+  }
+}
+
+.HeroBanner__summary {
+  margin-bottom: 1rem;
+  max-width: 36ch;
+}

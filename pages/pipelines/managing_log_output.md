@@ -2,7 +2,6 @@
 
 Buildkite uses our open-source [terminal-to-html](https://github.com/buildkite/terminal-to-html) tool to provide you with the best possible terminal rendering experience for your build logs, including ANSI terminal emulation to ensure spinners, progress bars, colors and emojis are rendered beautifully.
 
-
 ## Collapsing output
 
 You can group and collapse your build output by echoing `--- [group name]` in your build output.
@@ -122,7 +121,7 @@ Make sure to set the `-o pipefail` option in your buildscript as above, otherwis
 
 Buildkite has zero access to your source code in the pipelines and only receives and stores the log output of the builds and build artifacts in encrypted form.
 
-Logs are AES-encrypted, and the build artifacts are encrypted in transit and at rest using AWS encryption (KMS or S3 SSE). As a result, the keys cannot be extracted on the Buildkite's side, and the AWS solutions provide mitigations against zero-day attacks and other security issues. Beyond this, the control over security measures within your infrastructure is up to you.
+Logs are AES-encrypted, and the build artifacts are encrypted in transit and at rest using AWS encryption (KMS or S3 SSE). As a result, the keys cannot be extracted on the Buildkite's side, and the AWS solutions mitigate against zero-day attacks and other security issues. Beyond this, the control over security measures within your infrastructure is up to you.
 
 If you choose to [host your build artifacts](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket) yourself, they end up in your private AWS bucket.
 
@@ -132,26 +131,39 @@ To further tighten the security in a Buildkite organization, you can use the [AP
 
 ## Redacted environment variables
 
-The Buildkite agent can redact the values of environment variables whose names match common patterns for passwords, and other secure information, before the build log is uploaded to Buildkite.
+Agents can redact the values of environment variables whose names match common patterns for passwords and other secure information before the build log is uploaded to Buildkite.
 
-The default environment variable name patterns are `*_PASSWORD`, `*_SECRET`, `*_TOKEN`, `*_ACCESS_KEY`, and `*_SECRET_KEY`. You can replace the default patterns by [setting redacted-vars](/docs/agent/v3/configuration#redacted-vars) **on your agent**.
+The default environment variable name patterns are:
 
-For example, if you have environment variable `MY_SECRET="topsecret"`and you run a command that outputs `This is topsecret info`, the log output will actually be `This is [REDACTED] info`.
+- `*_PASSWORD`
+- `*_SECRET`
+- `*_TOKEN`
+- `*_ACCESS_KEY`
+- `*_SECRET_KEY`
+- `*_CONNECTION_STRING` (added in Agent v3.53.0)
+
+With these defaults, if you have an environment variable `MY_SECRET="topsecret"` and run a command that outputs `This is topsecret info`, the log output will be `This is [REDACTED] info`.
+
+You can append additional patterns or replace the default patterns entirely by [setting redacted-vars](/docs/agent/v3/configuration#redacted-vars) on your agent. For example, if you wanted to redact the value of `FOO` in your log output and keep the existing default patterns, the configuration setting should look like the following:
+
+```sh
+redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_ACCESS_KEY, *_SECRET_KEY, *_CONNECTION_STRING, *_SOME_VALUE, FOO"
+```
 
 >📘 Setting environment variables
 > Note that if you <emphasis>set</emphasis> or <emphasis>interpolate</emphasis> a secret environment variable in your <code>pipeline.yml</code> it is not redacted, but doing that is <a href="/docs/pipelines/secrets#anti-pattern-storing-secrets-in-your-pipeline-dot-yml">not recommended</a>.
 
 ## Private build log archive storage
 
-By default, build logs are stored in encrypted form in Buildkite's managed Amazon S3 buckets, but you can instead store the archived build logs in your private AWS S3 bucket. After storing the logs in your S3 bucket, Buildkite does not retain a copy of the logs.
+By default, build logs are stored in encrypted form in Buildkite's managed Amazon S3 buckets, but you can instead store the archived build logs in your private AWS S3 bucket. If you decide to store the logs in your S3 bucket, they're encrypted using SSE-S3. SSE-KMS encryption is not supported. After storing the logs in your S3 bucket, Buildkite does not retain a copy of the logs.
 
->📘 Enterprise feature
+> 📘 Enterprise feature
 > This feature is only available to customers on the <a href="https://buildkite.com/pricing">Enterprise plan</a> and is applied at the organization level. If you have multiple organizations, send support a list of the organizations where this feature should be enabled.
 
 The folder structure and file format are as follows and are not customizable:
 
 ```text
-{BUILDKITE_PIPELINE_ID}/{BUILDKITE_BUILD_ID}/{BUILDKITE_JOB_ID}.log
+{ORGANIZATION_UUID}/{BUILDKITE_PIPELINE_ID}/{BUILDKITE_BUILD_ID}/{BUILDKITE_JOB_ID}.log
 ```
 
 To set up a private build log archive storage:

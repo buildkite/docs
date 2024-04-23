@@ -1,0 +1,131 @@
+.responsive-table {
+  display: block;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+
+  @media (min-width: $screen-md) {
+    display: table;
+    width: 100%;
+  }
+
+  th {
+    overflow-wrap: anywhere;
+    padding: 4px;
+  }
+
+  td {
+    overflow-wrap: anywhere;
+    margin-bottom: 8px;
+    padding: 4px;
+
+    @media (min-width: $screen-sm) {
+      margin-bottom: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    p {
+      margin-bottom: 16px;
+      margin-top: 16px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  @media (min-width: $screen-md) {
+    th,
+    td {
+      padding: 16px;
+    }
+  }
+
+  thead {
+    @media (max-width: ($screen-md - 1)) {
+      border-width: 0;
+      clip: rect(0, 0, 0, 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
+
+    th {
+      @media (min-width: $screen-md) {
+        white-space: nowrap;
+      }
+    }
+  }
+
+  tbody {
+    display: block;
+
+    @media (min-width: $screen-md) {
+      display: table-row-group;
+    }
+
+    tr {
+      display: grid;
+      grid-template-columns: 1fr;
+      padding: 1rem;
+
+      @media (min-width: $screen-sm) and (max-width: ($screen-md - 1)) {
+        gap: 0;
+        grid-template-columns: 20ch 1fr;
+        padding: 0.5rem;
+      }
+
+      @media (min-width: $screen-md) {
+        display: table-row;
+      }
+
+      &:not(:first-child) {
+        border-top: 0;
+      }
+    }
+
+    th {
+      &:first-child {
+        @media (min-width: $screen-md) {
+          width: 33.33%;
+        }
+      }
+    }
+  }
+
+  &--single-column-rows {
+    tbody {
+      tr {
+        @media (min-width: $screen-sm) and (max-width: ($screen-md - 1)) {
+          grid-template-columns: 1fr;
+        }
+      }
+    }
+  }
+
+  tfoot {
+    display: block;
+
+    @media (min-width: $screen-md) {
+      display: initial;
+    }
+  }
+
+  .responsive-table__faux-th {
+    font-weight: 600;
+
+    @media (min-width: $screen-md) {
+      display: none;
+    }
+  }
+}

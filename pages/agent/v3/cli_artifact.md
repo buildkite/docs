@@ -1,4 +1,4 @@
-# `buildkite-agent artifact`
+# buildkite-agent artifact
 
 The Buildkite Agent's `artifact` command provides support for uploading and
 downloading of build artifacts, allowing you to share binary data between build
@@ -6,7 +6,6 @@ steps no matter the machine or network.
 
 See the [Using build artifacts](/docs/builds/artifacts) guide for a step-by-step
 example.
-
 
 ## Uploading artifacts
 
@@ -19,6 +18,7 @@ For documentation on configuring a custom storage location, see:
 
 - [Using your private AWS S3 bucket](#using-your-private-aws-s3-bucket)
 - [Using your private Google Cloud bucket](#using-your-private-google-cloud-bucket)
+- [Using your private Azure Blob container](#using-your-private-azure-blob-container)
 - [Using your Artifactory instance](#using-your-artifactory-instance)
 
 You can also configure the agent to automatically upload artifacts after your
@@ -289,3 +289,78 @@ up, see our [Google Cloud installation guide](/docs/agent/v3/gcloud#uploading-ar
 You can configure the `buildkite-agent artifact` command to store artifacts in
 Artifactory. For instructions for how to set this up, see our
 [Artifactory guide](/docs/integrations/artifactory).
+
+## Using your private Azure Blob container
+
+You can configure the `buildkite-agent artifact` command to store artifacts in
+your private [Azure Blob Storage container](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction).
+Support for uploading artifacts to Azure Blob Storage was added in
+[Agent v3.53.0](https://github.com/buildkite/agent/releases/tag/v3.53.0).
+
+### Preparation
+
+Firstly, make sure that each agent has access to Azure credentials.
+[By default](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azidentity#readme-defaultazurecredential),
+these can be provided using:
+
+- Azure environment variables such as `AZURE_CLIENT_ID`.
+- Loaded by a Kubernetes workload identity hook.
+- Loaded on a host with Azure Managed Identity enabled.
+- Loaded from a user logged in with the Azure CLI.
+
+You can also use an account key or connection string by setting one of these
+environment variables:
+
+```shell
+# To use an account key:
+export BUILDKITE_AZURE_BLOB_ACCESS_KEY='...'
+
+# To use a connection string:
+export BUILDKITE_AZURE_BLOB_CONNECTION_STRING='...'
+```
+
+Since these can contain access credentials, they are
+[redacted from job logs by default](/docs/pipelines/managing-log-output#redacted-environment-variables).
+
+Make sure you have a valid storage account name and container. These can be
+created with the Azure web console or Azure CLI.
+
+Make sure the Azure principal for the Azure credential has a role assignment
+that permits reading and writing to the container, for example,
+[Storage Blob Data Contributor](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#storage-blob-data-contributor).
+
+### Configuration
+
+Configure the agent to target your container by exporting the
+`BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` environment variable using an
+[environment agent hook](/docs/agent/v3/hooks) (this can not be set using the
+Buildkite web interface, API, or during pipeline upload). For example:
+
+```shell
+export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="https://mystorageaccountname.blob.core.windows.net/my-container/$BUILDKITE_PIPELINE_ID/$BUILDKITE_BUILD_ID/$BUILDKITE_JOB_ID"
+```
+
+Alternatively, when running `buildkite-agent artifact upload` or `buildkite-agent artifact
+download`, you can specify the full upload destination in the form:
+
+```
+https://[storageaccountname].blob.core.windows.net/[container]/[path]
+```
+
+### Usage
+
+If you have not [explicitly enabled anonymous public access](https://learn.microsoft.com/en-us/azure/storage/blobs/anonymous-read-access-configure?tabs=portal)
+to data in your container, you won't have automatic access to your artifacts
+through the links in the Buildkite web interface.
+
+To generate SAS (shared access signatures) as part of each artifact URL, which
+allow temporary access to your artifacts, you will need to set a token duration
+as well as use a shared key for the credential:
+
+```shell
+# Provide a token duration; SAS URLs will expire after this length of time.
+export BUILDKITE_AZURE_BLOB_SAS_TOKEN_DURATION=1h
+
+# Generating SAS tokens requires an account key.
+export BUILDKITE_AZURE_BLOB_ACCOUNT_KEY='...'
+```

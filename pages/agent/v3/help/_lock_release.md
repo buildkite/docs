@@ -14,30 +14,37 @@ script.
 
 ### Usage
 
-`buildkite-agent lock release [key]`
+`buildkite-agent lock release [key] [token]`
 
 ### Description
-Releases the lock for the given key. This should only be called by the
-process that acquired the lock.
 
-Note that this subcommand is only available when an agent has been started with
-the ′agent-api′ experiment enabled.
+Releases the lock for the given key. This should only be called by the
+process that acquired the lock. To help prevent different processes unlocking
+each other unintentionally, the output from `lock acquire` is required as the
+second argument, namely, the `token` in the Usage section above.
+
+Note that this subcommand is only available when an agent has been started
+with the `agent-api` experiment enabled.
 
 ### Examples
 
 ```shell
-$ buildkite-agent lock acquire llama
-$ critical_section()
-$ buildkite-agent lock release llama
+#!/bin/bash
+token=$(buildkite-agent lock acquire llama)
+# your critical section here...
+buildkite-agent lock release llama "${token}"
 ```
-
 
 ### Options
 
 <!-- vale off -->
 
 <table class="Docs__attribute__table">
-<tr id="config"><th><code>--config value</code> <a class="Docs__attribute__link" href="#config">#</a></th><td><p>Path to a configuration file<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_CONFIG</code></p></td></tr>
+<tr id="no-color"><th><code>--no-color </code> <a class="Docs__attribute__link" href="#no-color">#</a></th><td><p>Don't show colors in logging<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_NO_COLOR</code></p></td></tr>
+<tr id="debug"><th><code>--debug </code> <a class="Docs__attribute__link" href="#debug">#</a></th><td><p>Enable debug mode. Synonym for `--log-level debug`. Takes precedence over `--log-level`<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG</code></p></td></tr>
+<tr id="log-level"><th><code>--log-level value</code> <a class="Docs__attribute__link" href="#log-level">#</a></th><td><p>Set the log level for the agent, making logging more or less verbose. Defaults to notice. Allowed values are: debug, info, error, warn, fatal (default: "notice")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_LOG_LEVEL</code></p></td></tr>
+<tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_EXPERIMENT</code></p></td></tr>
+<tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_PROFILE</code></p></td></tr>
 <tr id="lock-scope"><th><code>--lock-scope value</code> <a class="Docs__attribute__link" href="#lock-scope">#</a></th><td><p>The scope for locks used in this operation. Currently only 'machine' scope is supported (default: "machine")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_LOCK_SCOPE</code></p></td></tr>
 <tr id="sockets-path"><th><code>--sockets-path value</code> <a class="Docs__attribute__link" href="#sockets-path">#</a></th><td><p>Directory where the agent will place sockets (default: "$HOME/.buildkite-agent/sockets")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_SOCKETS_PATH</code></p></td></tr>
 </table>

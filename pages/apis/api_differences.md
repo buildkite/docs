@@ -20,26 +20,23 @@ On this page, we've collected the known limitation where some API features are o
 
 ## Features only available in the GraphQL API
 
-* <%= pill "AGENTS", "agents" %> [Get a list of agent token IDs (agent tokens are currently only available via GraphQL)](/docs/apis/graphql/graphql-cookbook#agents-get-a-list-of-agent-token-ids).
-* <%= pill "BUILDS", "builds" %> [Get all environment variables set on a build](/docs/apis/graphql/graphql-cookbook#builds-get-all-environment-variables-set-on-a-build).
-* <%= pill "BUILDS", "builds" %> [Increase the next build number](/docs/apis/graphql/graphql-cookbook#builds-increase-the-next-build-number).
-* <%= pill "BUILDS", "builds" %> [Get build info by ID] (/docs/apis/graphql/graphql-cookbook#builds-get-build-info-by-id).
-* <%= pill "JOBS", "jobs" %> [Get all jobs in a given queue for a given timeframe](/docs/apis/graphql/graphql-cookbook#jobs-get-all-jobs-in-a-given-queue-for-a-given-timeframe).
-* <%= pill "JOBS", "jobs" %> [Get all jobs in a particular concurrency group](/docs/apis/graphql/graphql-cookbook#jobs-get-all-jobs-in-a-particular-concurrency-group).
+* <%= pill "AGENTS", "agents" %> [Get a list of agent token IDs (agent tokens are currently only available via GraphQL)](/docs/apis/graphql/cookbooks/agents#get-a-list-of-unclustered-agent-token-ids).
+* <%= pill "BUILDS", "builds" %> [Get all environment variables set on a build](/docs/apis/graphql/cookbooks/builds#get-all-environment-variables-set-on-a-build).
+* <%= pill "BUILDS", "builds" %> [Increase the next build number](/docs/apis/graphql/cookbooks/builds#increase-the-next-build-number).
+* <%= pill "BUILDS", "builds" %> [Get build info by ID](/docs/apis/graphql/cookbooks/builds#get-build-info-by-id).
+* <%= pill "JOBS", "jobs" %> [Get all jobs in a given queue for a given timeframe](/docs/apis/graphql/cookbooks/jobs#get-all-jobs-in-a-given-queue-for-a-given-timeframe).
+* <%= pill "JOBS", "jobs" %> [Get all jobs in a particular concurrency group](/docs/apis/graphql/cookbooks/jobs#get-all-jobs-in-a-particular-concurrency-group).
 * <%= pill "JOBS", "jobs" %> list job events.
 * <%= pill "JOBS", "jobs" %> [Cancel a job](/docs/apis/graphql/schemas/mutation/jobtypecommandcancel).
-* <%= pill "ORGANIZATIONS", "organizations" %> [Remove users from an organization](/docs/apis/graphql/graphql-cookbook#organizations-delete-an-organization-member).
-* <%= pill "ORGANIZATIONS", "organizations" %> Manage teams - [add](/docs/apis/graphql/graphql-cookbook#teams-add-an-existing-organization-user-to-a-team) or [remove](/docs/apis/graphql/graphql-cookbook#teams-remove-a-team-member) a team member. Most of the team management features are only available for GraphQL. The REST API can only list teams and can create pipelines in teams.
+* <%= pill "ORGANIZATIONS", "organizations" %> [Remove users from an organization](/docs/apis/graphql/cookbooks/organizations#delete-an-organization-member).
 * <%= pill "ORGANIZATIONS", "organizations" %> [Set up SSO](/docs/integrations/sso/sso-setup-with-graphql).
-* <%= pill "ORGANIZATIONS", "organizations" %> [Remove pipeline edit access from existing teams](/docs/apis/graphql/graphql-cookbook#teams-set-teams-pipeline-edit-access-to-read-only-or-build-and-read).
-* <%= pill "PIPELINES", "pipelines" %> [Get all the pipeline metrics from the dashboard from the API](/docs/apis/graphql/graphql-cookbook#pipelines-get-pipeline-metrics).
-* <%= pill "PIPELINES", "pipelines" %> [Get the last build's creation date within every pipeline](/docs/apis/graphql/graphql-cookbook#builds-get-the-creation-date-of-the-most-recent-build-in-every-pipeline).
-* <%= pill "PIPELINES", "pipelines" %> [Count the number of builds on a branch](/docs/apis/graphql/graphql-cookbook#builds-count-the-number-of-builds-on-a-branch).
-* <%= pill "PIPELINES", "pipelines" %> [Get the creation date of the most recent build in every pipeline](/docs/apis/graphql/graphql-cookbook#builds-get-the-creation-date-of-the-most-recent-build-in-every-pipeline).
+* <%= pill "PIPELINES", "pipelines" %> [Get all the pipeline metrics from the dashboard from the API](/docs/apis/graphql/cookbooks/pipelines#get-pipeline-metrics).
+* <%= pill "PIPELINES", "pipelines" %> [Get the last build's creation date within every pipeline](/docs/apis/graphql/cookbooks/builds#get-the-creation-date-of-the-most-recent-build-in-every-pipeline).
+* <%= pill "PIPELINES", "pipelines" %> [Count the number of builds on a branch](/docs/apis/graphql/cookbooks/builds#count-the-number-of-builds-on-a-branch).
+* <%= pill "PIPELINES", "pipelines" %> [Get the creation date of the most recent build in every pipeline](/docs/apis/graphql/cookbooks/builds#get-the-creation-date-of-the-most-recent-build-in-every-pipeline).
 * <%= pill "PIPELINES", "pipelines" %> Filter results from pipeline listings.
 * <%= pill "PIPELINES", "pipelines" %> Create and manage pipeline schedules.
-* <%= pill "USERS", "users" %> [Create and revoke](/docs/apis/rest-api/access-token) user API tokens (while REST can only revoke user API tokens).
-* <%= pill "USERS", "users" %> [Invite a user into a specific team with a specific role and permissions set](/docs/apis/graphql/graphql-cookbook#organizations-create-a-user-add-them-to-a-team-and-set-user-permissions).
+* <%= pill "USERS", "users" %> [Invite a user into a specific team with a specific role and permissions set](/docs/apis/graphql/cookbooks/organizations#create-a-user-add-them-to-a-team-and-set-user-permissions).
 
 ## Known missing API features
 
@@ -47,4 +44,3 @@ These are known requested features that are currently missing from both REST and
 
 * <%= pill "NOTIFICATION SERVICES", "notification-services" %> There is no API for managing notification services.
 * <%= pill "USERS", "users" %> Display secondary user emails.
-

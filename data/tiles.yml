@@ -2,16 +2,13 @@
 test_analytics_features:
   - title: "Deep performance analysis"
     url: "/docs/test-analytics/test-suites#trends-and-analysis"
-    image_path: "test_analytics/icon-performance-analysis.svg"
     desc: "Automatic tracing across your test suite, deeply integrated with your programming language and test framework."
   - title: "Find and fix flaky tests"
     url: "/docs/test-analytics/test-suites#detecting-flaky-tests"
-    image_path: "test_analytics/icon-find-flaky-tests.svg"
     desc: "Quickly identify which tests are the most disruptive for your team, and get a head-start on fixing them."
-  - title: "Speed and reliability monitoring"
-    url: "/docs/test-analytics/monitors"
-    image_path: "test_analytics/icon-monitoring.svg"
-    desc: "Configure speed and reliability monitors to identify problems as soon as they occur."
+  - title: "See urgent issues in your run"
+    url: "/docs/test-analytics/test-suites#run-issues"
+    desc: "Find and resolve issues with problematic tests in every run."
 test_analytics_guides:
   - title: "Languages"
     links:
@@ -33,6 +30,8 @@ test_analytics_guides:
         url: "/docs/test-analytics/elixir-collectors"
       - text: "Rust"
         url: "/docs/test-analytics/rust-collectors"
+      - text: "Java"
+        url: "/docs/test-analytics/java"
       - text: "Other languages"
         url: "/docs/test-analytics/other-collectors"
   - title: "References"

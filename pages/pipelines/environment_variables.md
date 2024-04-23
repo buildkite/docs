@@ -5,12 +5,11 @@ When the agent invokes your build scripts it passes in a set of standard Buildki
 
 For best practices and recommendations about using secrets in your environment variables, see the [Managing secrets](/docs/pipelines/secrets) guide.
 
-
 ## Buildkite environment variables
 
 The following environment variables may be visible in your commands, plugins, and hooks.
 
->🚧 Unverified commits
+> 🚧 Unverified commits
 > Note that GitHub accepts <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification">unsigned commits</a>, including information about the commit author and passes them along to webhooks, so you should not rely on these for authentication unless you are confident that all of your commits are trusted.
 
 <table class="Docs__attribute__table">
@@ -48,12 +47,12 @@ The following environment variables may be visible in your commands, plugins, an
       <td>
         <%= render_markdown(text: env['desc']) -%>
 
-      <% if env['example'] %>
-        <p class="Docs__attribute__example">
-          <strong>Example: </strong>
-          <code><%= render_markdown(text: env['example']) -%></code>
-        </p>
-      <% end -%>
+        <% if env['example'] %>
+          <p>
+            <strong class="h5">Example:</strong>
+            <code><%= env['example'] -%></code>
+          </p>
+        <% end -%>
       </td>
     </tr>
   <% end -%>
@@ -113,8 +112,8 @@ You can define environment variables in your jobs in a few ways, depending on th
 * [Build pipeline configuration](/docs/pipelines/command-step) — for values that are *not secret*.
 * An `environment` or `pre-command` [agent hook](/docs/agent/v3/hooks) — for values that are secret or agent-specific.
 
->🚧 Secrets in environment variables
-> Do not print or export secrets in your pipelines. See the <a href="/docs/pipelines/secrets">Secrets</a> documentation for further information and best practices.
+> 🚧 Secrets in environment variables
+> Do not print or export secrets in your pipelines. See the [Secrets](/docs/pipelines/secrets) documentation for further information and best practices.
 
 ## Variable interpolation
 
@@ -161,9 +160,9 @@ There are many different levels at which environment variables are merged togeth
 
 When a job runs on an agent, the first combination of environment variables happens in the job environment itself. This is the environment you can see in a job's Environment tab in the Buildkite dashboard, and the one returned by the REST and GraphQL APIs.
 
->📘
+> 📘
 > If you are not using YAML Steps, the precedence of environment variables is different from the list below.
-> Please <a href="/docs/tutorials/pipeline-upgrade">migrate your pipelines</a> to use YAML steps.
+> Please [migrate your pipelines](/docs/tutorials/pipeline-upgrade) to use YAML steps.
 
 The job environment is made by merging the following sets of values, where values in each successive set take precedence:
 
@@ -218,8 +217,8 @@ There are two places in a pipeline.yml file that you can set environment variabl
 
 Defining an environment variable at the top of your yaml file will set that variable on each of the command steps in the pipeline, and is equivalent to setting the `env` attribute on every step. This includes further pipeline uploads through `buildkite-agent pipeline upload`.
 
->📘
-> Top level pipeline environment variables will override what is set in the <code>env</code> attribute of an individual step.
+> 📘
+> Top level pipeline environment variables will override what is set in the `env` attribute of an individual step.
 
 #### Setting variables in a Trigger step
 
@@ -239,8 +238,8 @@ For a list of variables and configuration flags, you can set on your agent, see 
 
 Once the job is accepted by an agent, more environment merging happens. Starting with the environment that we put together in the [Job Environment section](#environment-variable-precedence-job-environment), we merge in some of the variables from the agent environment.
 
->📘
-> Not all variables from the agent are available in the job runtime. For example, we remove the agent's registration token and replace it with a build session token that has limited permissions. This new session token is used when you run the <code>artifact</code>, <code>meta-data</code> and <code>pipeline</code> commands inside the job.
+> 📘
+> Not all variables from the agent are available in the job runtime. For example, we remove the agent's registration token and replace it with a build session token that has limited permissions. This new session token is used when you run the `artifact`, `meta-data` and `pipeline` commands inside the job.
 
 After the agent variables have been merged, the bootstrap script is run.
 
@@ -249,7 +248,7 @@ The bootstrap runs any hooks that have been defined by your
 Variables that are set in these hooks will be merged into the runtime
 environment, and will override any previous values that are set.
 
->🚧 Take care with environment variables in hooks
+> 🚧 Take care with environment variables in hooks
 > Variables that are defined in hooks can override anything that exists in the environment.
 
 This is the environment your command runs in 🎉

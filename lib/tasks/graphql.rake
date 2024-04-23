@@ -14,6 +14,11 @@ namespace :graphql do
       end
     end
 
-    puts GraphQL::Client.load_schema(HTTP).to_json
+    puts GraphQL::Client.load_schema(HTTP).to_definition
+  end
+
+  desc "Generate GraphQL docs and navigation from GraphQL schema"
+  task :generate do
+    ruby "scripts/generate_graphql_api_content.rb"
   end
 end

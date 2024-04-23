@@ -1,13 +1,14 @@
 class BetaPages
   def self.all
     [
-      'test-analytics/rust-collectors',
-      'test-analytics/swift-collectors',
-      'test-analytics/android-collectors',
-      'test-analytics/dotnet-collectors',
-      'apis/rest-api/analytics/flaky-tests',
-      'agent/clusters',
-      'apis/rest-api/clusters'
+      'pipelines/cluster-queue-metrics',
+      'packages',
+      'apis/rest-api/team-pipelines',
+      'apis/rest-api/organizations/members',
+      'apis/rest-api/teams',
+      'apis/rest-api/teams/members',
+      'apis/rest-api/teams/pipelines',
+      'apis/rest-api/teams/suites'
     ]
   end
 end

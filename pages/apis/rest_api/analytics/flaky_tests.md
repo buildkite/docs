@@ -7,7 +7,8 @@ The Flaky test API endpoint provides information about tests detected as flaky i
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of the flaky tests detected in a test suite.
 
 ```bash
-curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/flaky-tests"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/flaky-tests"
 ```
 
 ```json
@@ -25,6 +26,10 @@ curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{su
 ]
 ```
 
-Required scope: `read_flaky_tests`
+Optional [query string parameters](/docs/api#query-string-parameters):
+
+<%= render_markdown partial: 'apis/rest_api/analytics/flaky_tests_query_strings' %>
+
+Required scope: `read_suites`
 
 Success response: `200 OK`

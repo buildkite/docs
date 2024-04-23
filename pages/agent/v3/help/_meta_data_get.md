@@ -18,11 +18,13 @@ script.
 
 ### Description
 
-Get data from a builds key/value store.
+Get data from a build&#39;s key/value store.
 
 ### Example
 
-    $ buildkite-agent meta-data get "foo"
+```shell
+$ buildkite-agent meta-data get "foo"
+```
 
 ### Options
 

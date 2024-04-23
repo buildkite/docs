@@ -1,0 +1,16 @@
+.CardsGrid {
+  display: grid;
+  gap: $gutter / 2;
+
+  @media (min-width: $screen-xs) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (min-width: $screen-lg) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+.CardsGrid__card {
+  height: 100%;
+}

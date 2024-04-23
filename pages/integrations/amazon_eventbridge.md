@@ -25,6 +25,14 @@ Once you've configured an Amazon EventBridge notification service in Buildkite, 
   <tr><th><a href="#events-agent-stopping">Agent Stopping</a></th><td>An agent is stopping. This happens when an agent is instructed to stop from the API. It first transitions to stopping and finishes any current jobs</td></tr>
   <tr><th><a href="#events-agent-stopped">Agent Stopped</a></th><td>An agent has stopped. This happens when an agent is instructed to stop from the API. It can be graceful or forceful</td></tr>
   <tr>
+    <th><a href="#events-agent-blocked">Agent Blocked</a></th>
+    <td>An agent has been blocked. This happens when an agent's IP address is no longer included in the agent token's <a href="/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td>
+  </tr>
+  <tr>
+    <th><a href="#events-cluster-token-registration-blocked">Cluster Token Registration Blocked</a></th>
+    <td>An attempted agent registration is blocked because the request IP address is not included in the agent token's <a href="/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td>
+  </tr>
+  <tr>
     <th><a href="#audit-event-logged">Audit Event Logged</a></th>
     <td>An audit event has been logged for the organization</td>
   </tr>
@@ -39,21 +47,21 @@ In your Buildkite [Organization's Notification Settings](https://buildkite.com/o
 
 <%= image "buildkite-add-eventbridge.png", width: 1458/2, height: 208/2, alt: "Screenshot of Add Buildkite Amazon EventBridge Button" %>
 
-Once you've entered your AWS region and AWS Account ID, a Partner Event Source will be created in your AWS account matching the "Partner Event Source Name" shown on the settings page:
+Once you've entered your AWS region and AWS Account ID, a Partner Event Source will be created in your AWS account matching the **Partner Event Source Name** shown on the settings page:
 
 <%= image "buildkite-amazon-eventbridge-settings.png", width: 1458/2, height: 1254/2, alt: "Screenshot of Buildkite Amazon EventBridge Notification Settings" %>
 
-You can then start consuming the events in your AWS account. The links to "Partner Event Sources Console" and "Event Rules" take you to the relevant pages in your AWS Console.
+You can then start consuming the events in your AWS account. The links to **Partner Event Sources Console** and **Event Rules** take you to the relevant pages in your AWS Console.
 
 ## Filtering
 
-When creating your EventBridge rule you can specify an "Event Pattern" filter to limit which events will be processed. You can use this to respond only to certain events based on the type, or any attribute from within the event payload.
+When creating your EventBridge rule you can specify an **Event pattern** filter to limit which events will be processed. You can use this to respond only to certain events based on the type, or any attribute from within the event payload.
 
 For example, to only process [Build Finished](#events-build-finished) events you'd configure your rule with the following event pattern:
 
 <%= image "cloudwatch-event-pattern.png", width: 1636/2, height: 786/2, alt: "Screenshot of configuring an EventBridge Event Pattern filter" %>
 
-You can use any event property in your custom event pattern. For example, the following event pattern allows only “Build Started" and "Build Finished" events containing a particular pipeline slug:
+You can use any event property in your custom event pattern. For example, the following event pattern allows only "Build Started" and "Build Finished" events containing a particular pipeline slug:
 
 ```json
 {
@@ -122,7 +130,7 @@ exports.handler = (event, context, callback) => {
 
 ## Official AWS quick start examples
 
-AWS have published three example implementations of using Buildkite with Amazon Eventbridge:
+AWS have published three example implementations of using Buildkite with Amazon EventBridge:
 
 <a class="Docs__example-repo" href="https://aws.amazon.com/quickstart/eventbridge/buildkite-build-workflow/">
   <span class="icon">:aws:</span>
@@ -697,9 +705,72 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
+<h3 id="events-agent-blocked">Agent Blocked</h3>
+
+```json
+{
+    "detail-type": "Agent Blocked",
+    "detail": {
+        "version": 1,
+        "blocked_ip": "204.124.80.36",
+        "cluster_token": {
+            "uuid": "c1164b28-bace-436-ac44-4133e1d18ca5",
+            "description": "Default agent token",
+            "allowed_ip_addresses": "202.144.160.0/24",
+        },
+        "agent": {
+            "uuid": "0188f51c-7bc8-4b14-a702-002c485ae2dc",
+            "graphql_id": "QWdlbnQtLSOMTg4ZjUxYy03YmM4LTRiMTQtYTcwMi@ MDJjNDg1YWUyZGM=",
+            "connection_state": "disconnected",
+            "name": "rogue-agent-1",
+            "version": "3.40.0",
+            "token": null,
+            "ip_address": "127.0.0.1",
+            "hostname": "rogue-agent",
+            "pid": "26089",
+            "priority": 0,
+            "meta_data": ["queues=default"],
+            "connected_at": "2023-06-26 00:31:04 UTC",
+            "disconnected_at": "2023-06-26 00:31:18 UTC",
+            "Lost_at": null,
+        },
+        "organization": {
+            "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+            "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+            "slug": "my-org"
+        }
+    }
+}
+```
+<!-- vale off -->
+
+<h3 id="events-cluster-token-registration-blocked">Cluster Token Registration Blocked</h3>
+
+<!-- vale on -->
+
+```json
+{
+    "detail-type": "Cluster Token Registration Blocked",
+    "detail": {
+        "version": 1,
+        "blocked_ip": "204.124.80.36",
+        "cluster_token": {
+            "uuid": "c1164b28-bace-436-ac44-4133e1d18ca5",
+            "description": "Default agent token",
+            "allowed_ip_addresses": "202.144.160.0/24",
+        },
+        "organization": {
+            "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+            "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+            "slug": "my-org"
+        }
+    }
+}
+```
+
 <h3 id="audit-event-logged">Audit Event Logged</h3>
 
-[Audit log](/docs/pipelines/audit-log) is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan
+[Audit log](/docs/pipelines/audit-log) is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
 
 ```json
 {

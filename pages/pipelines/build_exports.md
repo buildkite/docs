@@ -48,7 +48,7 @@ To configure build exports for your organization, you'll need to prepare an Amaz
 * Your bucket should use modern S3 security features and configurations, for example (but not limited to):
   - [Block public access](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html) to prevent accidental misconfiguration leading to data exposure.
   - [ACLs disabled with bucket owner enforced](https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html) to ensure your AWS account owns the objects written by Buildkite.
-  - [Server-side data encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html) (`SSE-S3` is enabled by default but you may want to consider `SSE-KMS`).
+  - [Server-side data encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html) (`SSE-S3` is enabled by default, we do not currently support `SSE-KMS` but let us know if you need it).
   - [S3 Versioning](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html) to help recover objects from accidental deletion or overwrite.
 * You may want to use [Amazon S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) to manage storage class and object expiry.
 
@@ -86,9 +86,20 @@ Your Buildkite Organization ID (UUID) can be found on the settings page describe
 ### Prepare your Google Cloud Storage bucket
 
 * Read and understand [Google Cloud Storage security best practices](https://cloud.google.com/security/best-practices) and [Best practices for Cloud Storage](https://cloud.google.com/storage/docs/).
-* Your bucket must have a policy allowing our Buildkite service-account access as described here and demonstrated in the example below¹.
+* Your bucket must have a policy allowing our Buildkite service-account access as described here.
   - Assign Buildkite's service-account `buildkite-production-aws@buildkite-pipelines.iam.gserviceaccount.com` the `"Storage Object Creator"`.
-  - Scope the `"Storage Object Creator"` role using IAM Conditions to limit access to objects matching the prefix `buildkite/build-exports/org=YOUR-BUILDKITE-ORGANIZATION-UUID/*`¹.
+  - Scope the `"Storage Object Creator"` role using IAM Conditions to limit access to objects matching the prefix `buildkite/build-exports/org=YOUR-BUILDKITE-ORGANIZATION-UUID/*`.
+  - Your IAM Conditions should look like this, with `YOUR-BUCKET-NAME-HERE` and `YOUR-BUILDKITE-ORGANIZATION-UUID` substituted with your details:
+
+    ```json
+    {
+      "expression": "resource.name.startsWith('projects/_/buckets/YOUR-BUCKET-NAME-HERE/objects/buildkite/build-exports/org=YOUR-BUILDKITE-ORGANIZATION-UUID/')",
+      "title": "Scope build exports prefix",
+      "description": "Allow Buildkite's service-account to create objects only within the build exports prefix",
+    }
+    ```
+
+    Your Buildkite Organization ID (UUID) can be found on the [organization's pipeline settings](https://buildkite.com/organizations/~/pipeline-settings).
 * Your bucket must grant our Buildkite service-account (`buildkite-production-aws@buildkite-pipelines.iam.gserviceaccount.com`) `storage.objects.create` permission.
 * Your bucket should use modern Google Cloud Storage security features and configurations, for example (but not limited to):
   - [Public access prevention](https://cloud.google.com/storage/docs/public-access-prevention) to prevent accidental misconfiguration leading to data exposure.
@@ -97,23 +108,15 @@ Your Buildkite Organization ID (UUID) can be found on the settings page describe
   - [Object versioning](https://cloud.google.com/storage/docs/object-versioning) to help recover objects from accidental deletion or overwrite.
 * You may want to use [GCS Object Lifecycle Management](https://cloud.google.com/storage/docs/lifecycle) to manage storage class and object expiry.
 
-¹ Your IAM Conditions should look like this, with `YOUR-BUCKET-NAME-HERE` and `YOUR-BUILDKITE-ORGANIZATION-UUID` substituted with your details:
-
-```json
-{
-    "expression": "resource.name.startsWith('projects/_/buckets/YOUR-BUCKET-NAME-HERE/objects/buildkite/build-exports/org=YOUR-BUILDKITE-ORGANIZATION-UUID')",
-    "title": "Scope build exports prefix",
-    "description": "Allow Buildkite's service-account to create objects only within the build exports prefix",
-}
-```
-
-Your Buildkite Organization ID (UUID) can be found on the settings page described in the next section.
-
 ### Enable build exports
 
 To enable build exports:
 
 1. Navigate to your [organization's pipeline settings](https://buildkite.com/organizations/~/pipeline-settings).
-1. In the _Exporting historical build data_ section, select your build export strategy (S3 or GCS).
+1. In the **Exporting historical build data** section, select your build export strategy (S3 or GCS).
 1. Enter your bucket name.
-1. Select _Enable Export_.
+1. Select **Enable Export**.
+
+Once **Enable Export** is selected, we perform validation to ensure we can connect to the bucket provided for export. If there are any issues with connectivity export will not get enabled and you will see an error in the UI.
+
+Second part of validation is we upload a test file "deliverability-test.txt" to your build export bucket. Please note that this test file may not appear right away in your build export bucket as there is an internal process that needs to kick off for this to happen.

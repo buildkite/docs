@@ -1,0 +1,13 @@
+.HeadingGroup {
+  margin-bottom: 1.5rem;
+  max-width: map-get($max-w, "prose");
+
+  &__title {
+    margin-bottom: 0.25rem;
+  }
+
+  &__content {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+}

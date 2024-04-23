@@ -23,7 +23,9 @@ and terminated with a trailing newline.
 
 ### Example
 
-    $ buildkite-agent meta-data keys
+```shell
+$ buildkite-agent meta-data keys
+```
 
 ### Options
 

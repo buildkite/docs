@@ -28,7 +28,7 @@ the [GitHub repository](https://github.com/buildkite/elastic-ci-stack-for-aws).
 To run the agent on your own AWS instances, use the installer that matches your
 instance operating system:
 
-* For Amazon Linux 2 use the [Red Hat/CentOS installer](/docs/agent/v3/redhat)
+* For Amazon Linux 2 or later, use the [Red Hat/CentOS installer](/docs/agent/v3/redhat)
 * For macOS, use [installing the agent on your own AWS EC2 Mac instances](#installing-the-agent-on-your-own-aws-ec2-mac-instances)
 
 ## Using the experimental Elastic CI Stack for AWS for EC2 Mac CloudFormation template
@@ -61,11 +61,11 @@ can access the instance.
 	- Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
 	- Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
 1. Using a VNC session (run SSH port forwarding `ssh -L 5900:localhost:5900 ec2-user@<ip-address>` if direct access is not available):
-	1. Sign in as the `ec2-user`
-	1. Enable *Automatic login* for the `ec2-user` in *System Preferences* > *Users & Accounts* > *Login Options*
-	1. Disable *Require password* in *System Preferences* > *Security & Privacy* > *General*
-	1. Set system sleep in *System Preferences* > *Energy Saver* > *Turn display off after* to *Never*
-	1. Disable the screen saver in *System Preferences* > *Desktop & Screen Saver* > *Show screen saver after*
+	1. Sign in as the `ec2-user`.
+	1. Enable **Automatic login** for the `ec2-user` in **System Preferences** > **Users & Accounts** > **Login Options**.
+	1. Disable **Require password** in **System Preferences** > **Security & Privacy** > **General**.
+	1. Set system sleep in **System Preferences** > **Energy Saver** > **Turn display off after** to **Never**.
+	1. Disable the screen saver in **System Preferences** > **Desktop & Screen Saver** > **Show screen saver after**.
 1. Follow the [macOS installation guide](/docs/agent/v3/macos#installation)
 instructions to install the Buildkite agent using Homebrew and configure
 starting on login.
@@ -105,7 +105,7 @@ To avoid this, you need to prevent the builds from accessing your EC2 metadata o
 * Compartmentalizing your Buildkite agents
 * Downgrading an instance profile role
 
-If you run all the build steps in Docker containers, take a look at [compartmentalizing your agents](#preventing-builds-from-accessing-amazon-ec2-metadata-restricting-permissions-using-compartmentalization-of-agents). If you are using Kubernetes for your Buildkite CI, use the [same approach](#preventing-builds-from-accessing-amazon-ec2-metadata-restricting-permissions-using-compartmentalization-of-agents) and also check out [this article](https://github.com/blakestoddard/scaledkite) for more information and inspiration.  
+If you run all the build steps in Docker containers, take a look at [compartmentalizing your agents](#preventing-builds-from-accessing-amazon-ec2-metadata-restricting-permissions-using-compartmentalization-of-agents). If you are using Kubernetes for your Buildkite CI, use the [same approach](#preventing-builds-from-accessing-amazon-ec2-metadata-restricting-permissions-using-compartmentalization-of-agents) and also check out [this article](https://github.com/blakestoddard/scaledkite) for more information and inspiration.
 
 ### Restricting permissions using compartmentalization of agents
 
@@ -146,4 +146,4 @@ There is no exact recommended quantity of agents in a pool. An optimal pool size
 
 You can start with one or two extra instances that are always available for running lightweight jobs (for example, pipeline uploads), and you can increase the number of agents per machine so that they can run in parallel.
 
-For organizations where at any given moment there are engineers working (for example, for shift-based 24/7 schedules or in globally distributed teams), having a large pool of build agents always available makes sense. Otherwise, idly running agents overnight might be a waste of resources.  
+For organizations where at any given moment there are engineers working (for example, for shift-based 24/7 schedules or in globally distributed teams), having a large pool of build agents always available makes sense. Otherwise, idly running agents overnight might be a waste of resources.
