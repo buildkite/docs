@@ -64,7 +64,7 @@ The maximum allowed character length for a pipeline slug is `100`.
 The supported character format for slug generation is:
 `/\A[a-zA-Z0-9]+[a-zA-Z0-9\-]*\z/`.
 
-All the whitespace characters that appear in the pipeline name consecutively will be converted to a single `-` character (so `"Hello[space]there"` and `"Hello[space, space, space, etc.]there"` will be equally converted to a `hello-there` slug), and uppercase will be converted to lowercase.
+When a pipeline slug is derived from a pipeline's name, all space characters (including consecutive ones) in the pipeline's name are converted to single hyphen `-` characters, and all uppercase characters are converted to their lowercase counterparts. Therefore, pipeline names of either `Hello there friend` or `Hello    there friend` are converted to the slug `hello-there-friend`).
 
 An attempt at creating a new pipeline with a name that matches an existing pipeline name will throw an error.
 
