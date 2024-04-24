@@ -494,7 +494,7 @@ This way, the following example snippet file located immediately within the `/pa
 
 is referenced using this snippet render link:
 
-`<%= render_markdown 'step_2_3_github_custom_status' %>`
+`<%= render_markdown partial: 'step_2_3_github_custom_status' %>`
 
 Use the snippet render link wherever you need to add the content of the snippet (multiple times if required) in other Markdown files throughout the Buildkite Docs.
 
