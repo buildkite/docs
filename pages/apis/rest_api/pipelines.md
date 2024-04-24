@@ -422,6 +422,12 @@ Error responses:
 </tbody>
 </table>
 
+### Deriving a pipeline slug from the pipeline's name
+
+<%= render_markdown partial: 'platform/deriving_a_pipeline_slug_from_the_pipelines_name' %>
+
+Any attempt to create a new pipeline with a name that matches an existing pipeline's name, results in an error.
+
 ## Create a visual step pipeline
 
 YAML pipelines are the recommended way to [manage your pipelines](https://buildkite.com/docs/tutorials/pipeline-upgrade) but if you're still using visual steps you can add them by setting the `steps` key in your json request body to an array of steps:
