@@ -50,7 +50,7 @@ address of any outbound connections to its own public IP address. NAT devices
 statefully limit response traffic to known outbound network connections,
 similar to a security group.
 
-To diagnose agent instance performance and behaviours, it is common
+To diagnose agent instance performance and behaviors, it is common
 to remotely access an interactive prompt. There are a number of options
 available for remote access to instances in a private subnet, described in the following sections.
 
@@ -103,6 +103,6 @@ The AWS VPC Quick Start creates and configures a gateway VPC endpoint for AWS
 S3. The private subnet route tables are configured forward the endpoint's
 IP-prefix list to the endpoint, instead of the NAT gateway. In-region S3 access
 from the private subnets will routed directly over the VPC endpoint, and bypass
-the NAT gateway. By default, the VPC endpoint has a permissive “Full Access”
+the NAT gateway. By default, the VPC endpoint has a permissive "Full Access"
 policy. Should you wish to customize this, or the security group that the
 endpoint belongs to, create a fork of the CloudFormation template.

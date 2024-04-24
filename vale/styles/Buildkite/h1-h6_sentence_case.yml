@@ -48,6 +48,7 @@ exceptions:
   - Buildkite Agent
   - Buildkite Agents
   - Buildkite Packages
+  - buildkite-agent
   - BuildNotify
   - BuildReactor
   - C\+\+
@@ -125,6 +126,7 @@ exceptions:
   - OS X
   - PagerDuty
   - Phabricator
+  - pipeline.yml
   - PowerShell
   - pytest
   - QA

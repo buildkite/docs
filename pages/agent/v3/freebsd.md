@@ -2,7 +2,6 @@
 
 You can install Buildkite Agent on most FreeBSD systems.
 
-
 ## Installation
 
 You first need to ensure that both `git` and `bash` are installed on your server:

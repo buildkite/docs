@@ -6,9 +6,9 @@ Once your Ruby registry has been [created](/docs/packages/manage-registries#crea
 
 To view and copy the required command or  `~/.gem/credentials` and `gemspec` configurations:
 
-1. Select _Packages_ in the global navigation to access the _Registries_ page.
+1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Ruby registry on this page.
-1. Select _Publish a Gem Package_ and in the resulting dialog, use the copy icon at the top-right of the relevant code box to copy its snippet and paste it into your command line tool or the appropriate file.
+1. Select **Publish a Gem Package** and in the resulting dialog, use the copy icon at the top-right of the relevant code box to copy its snippet and paste it into your command line tool or the appropriate file.
 
 These file configurations contain the following:
 
@@ -75,15 +75,17 @@ This option allows you to use simpler `gem` commands to publish your Ruby (gem) 
 
 ## Access a package's details
 
-A Ruby package's details can be accessed from this registry using the _Packages_ section of your Ruby registry page.
+A Ruby package's details can be accessed from this registry using the **Packages** section of your Ruby registry page.
 
 To access your Ruby package's details page:
 
-1. Select _Packages_ in the global navigation to access the _Registries_ page.
+1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Ruby registry on this page.
-1. On your Ruby registry page, select the package within the _Packages_ section. The package's details page is displayed.
+1. On your Ruby registry page, select the package within the **Packages** section. The package's details page is displayed.
 
 <%= render_markdown partial: 'packages/package_details_page_sections' %>
+
+A Ruby registry's package also has a **Dependencies** tab, which lists other RubyGems gem packages that your currently viewed Ruby gem package has dependencies on.
 
 ### Downloading a package
 
@@ -92,7 +94,7 @@ A Ruby package can be downloaded from the package's details page.
 To download a package:
 
 1. [Access the package's details](#access-a-packages-details).
-1. Select _Download_.
+1. Select **Download**.
 
 ### Installing a package
 
@@ -101,7 +103,7 @@ A Ruby package can be installed using code snippet details provided on the packa
 To install a package:
 
 1. [Access the package's details](#access-a-packages-details).
-1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
+1. Ensure the **Installation** > **Installation instructions** section is displayed.
 1. Copy the command in the code snippet, paste it into your terminal, and submit it.
 
 This code snippet is based on this format:

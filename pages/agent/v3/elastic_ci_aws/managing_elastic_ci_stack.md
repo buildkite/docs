@@ -145,7 +145,7 @@ Metrics are calculated every minute from the Buildkite API using a Lambda functi
 
 <%= image "cloudwatch-metrics.png", alt: 'CloudWatch metrics' %>
 
-You can view the stack's metrics under _Custom Namespaces_ > _Buildkite_ within CloudWatch.
+You can view the stack's metrics under **Custom Namespaces** > **Buildkite** within CloudWatch.
 
 ## Reading instance and agent logs
 
@@ -156,7 +156,7 @@ Within each stream the logs are grouped by instance ID.
 To debug an agent:
 
 1. Find the instance ID from the agent in Buildkite
-2. Go to your _CloudWatch Logs Dashboard_
+2. Go to your **CloudWatch Logs Dashboard**
 3. Choose the desired log group
 4. Search for the instance ID in the list of log streams
 

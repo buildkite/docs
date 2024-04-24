@@ -7,20 +7,20 @@ You can use OneLogin as an SSO provider for your Buildkite organization. To comp
 
 Log into your OneLogin account, and follow these steps:
 
-1. In the _Apps_ tab of your OneLogin organization's _Admin_ area, select the _Add App_ button to search the OneLogin directory.
+1. In the **Apps** tab of your OneLogin organization's **Admin** area, select the **Add App** button to search the OneLogin directory.
 1. Search for 'Buildkite'.
 1. Add the Buildkite app to your OneLogin account.
-1. Click on the _Configuration_ tab of your new Buildkite application.
+1. Click on the **Configuration** tab of your new Buildkite application.
 1. Enter your Buildkite organization slug.
-1. Click the _Save_ button in the top right to save your configuration.
+1. Click the **Save** button in the top right to save your configuration.
 
 ## Step 2. Create an SSO provider
 
-In your Buildkite Organization Settings' _Single Sign On_ menu item, choose the OneLogin provider:
+In your [Buildkite organization **Settings**](https://buildkite.com/organizations/~/settings)' **Single Sign On** menu item, choose the OneLogin provider:
 
 <%= image "sso-settings.png", width: 1716/2, height: 884/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
-On the following screen in the setup form, enter your IdP data. The following three required fields can be found in the _SSO_ tab on the Buildkite app page in OneLogin:
+On the following screen in the setup form, enter your IdP data. The following three required fields can be found in the **SSO** tab on the Buildkite app page in OneLogin:
 
 <table>
     <tr>

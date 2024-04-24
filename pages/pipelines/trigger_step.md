@@ -1,6 +1,6 @@
 # Trigger step
 
-A *trigger* step creates a build on another pipeline.
+A _trigger_ step creates a build on another pipeline.
 
 You can use trigger steps to separate your test and deploy pipelines, or to create build dependencies between pipelines.
 
@@ -31,7 +31,7 @@ If your triggering pipelines are started by an API call or a webhook, it might n
 
 ## Trigger step attributes
 
-_Required attributes:_
+Required attributes:
 
 <table data-attributes data-attributes-required id="trigger">
   <tr>
@@ -43,8 +43,7 @@ _Required attributes:_
   </tr>
 </table>
 
-
-_Optional attributes:_
+Optional attributes:
 
 <table data-attributes>
   <tr>
@@ -116,7 +115,7 @@ _Optional attributes:_
   </tr>
 </table>
 
-_Optional_ `build` _attributes:_
+Optional `build` attributes:
 
 <table>
   <tr>
@@ -214,7 +213,6 @@ To set environment variables on the build created by the trigger step, use the `
 ## Triggering specific steps in a pipeline
 
 While you cannot trigger only a specific step in a pipeline, you can use [conditionals](/docs/pipelines/conditionals) or [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines) to achieve a similar effect.
-
 
 An example using conditionals might look like this:
 

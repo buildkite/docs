@@ -1,10 +1,9 @@
 # Installing Buildkite Agent on Debian
 
->🚧 This page references the out-of-date Buildkite Agent v2.
+> 🚧 This page references the out-of-date Buildkite Agent v2.
 > For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/debian">see the latest version of this document</a>.
 
 The Buildkite Agent can be installed on Debian versions 7.x and 8.x using our signed apt repository.
-
 
 ## Installation
 
@@ -14,7 +13,7 @@ Firstly, ensure your list of packages is up to date:
 sudo apt-get update
 ```
 
->📘
+> 📘
 > Debian doesn't always have <code>sudo</code> available, so you can run these commands as root and omit the <code>sudo</code>, or install the sudo package as root first.
 
 Next, ensure you have the `apt-transport-https` package installed for the HTTPS package repository, and the `dirmngr` package installed for adding the signing key:

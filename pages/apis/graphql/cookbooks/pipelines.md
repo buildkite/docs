@@ -2,7 +2,7 @@
 
 A collection of common tasks with pipelines using the GraphQL API.
 
-You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the _Docs_ panel.
+You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the **Docs** panel.
 
 ## Create a pipeline
 
@@ -55,9 +55,7 @@ mutation createPipeline {
 >📘
 When setting pipeline steps using the API, you must pass in a string that Buildkite parses as valid YAML, escaping quotes and line breaks.
 > To avoid writing an entire YAML file in a single string, you can place a <code>pipeline.yml</code> file in a <code>.buildkite</code> directory at the root of your repo, and use the <code>pipeline upload</code> command in your pipeline steps to tell Buildkite where to find it. This means you only need the following:
-> <code>
-steps: { yaml: "steps:\n - command: \"buildkite-agent pipeline upload\"" }
-</code>
+> <code>steps: { yaml: "steps:\n - command: \"buildkite-agent pipeline upload\"" }</code>
 
 ## Get a list of recently created pipelines
 
@@ -93,7 +91,7 @@ query {
 
 Get a pipeline's UUID by searching for it in the API. Search term can match a pipeline slug.
 
-_Note: Pipeline slugs are modifiable and can change_
+**Note:** Pipeline slugs are modifiable and can change
 
 ```graphql
 query GetPipelineUUID {
@@ -133,7 +131,7 @@ query GetPipelineInfo {
 
 ## Get pipeline metrics
 
-The _Pipelines_ page in Buildkite shows speed, reliability, and builds per week, for each pipeline. You can also access this information through the API.
+The **Pipelines** page in Buildkite shows speed, reliability, and builds per week, for each pipeline. You can also access this information through the API.
 
 ```graphql
 query AllPipelineMetrics {

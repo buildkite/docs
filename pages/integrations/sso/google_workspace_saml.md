@@ -7,16 +7,16 @@ To complete this tutorial, you need admin privileges for both Google Workspace a
 >📘 You can also set up SSO providers manually with GraphQL.
 > See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
 
-After following these steps, your Google Workspace users can sign in to Buildkite using their Google account.  
+After following these steps, your Google Workspace users can sign in to Buildkite using their Google account.
 
 
 ## Step 1. Create a Buildkite SSO provider
 
-Click the Buildkite Organization Settings' _Single Sign On_ menu item, then choose the custom SAML provider from the available options:
+Click the [Buildkite organization **Settings**](https://buildkite.com/organizations/~/settings)' **Single Sign On** menu item, then choose the custom SAML provider from the available options:
 
 <%= image "sso-settings.png", width: 1716/2, height: 884/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
-Choose the _Provide IdP Metadata Later_ option when configuring your Custom SAML provider.
+Choose the **Provide IdP Metadata Later** option when configuring your Custom SAML provider.
 
 On the following page, copy the ACS URL for use in Step 2.
 
@@ -24,20 +24,20 @@ On the following page, copy the ACS URL for use in Step 2.
 
 Log into your [Google Admin Console](https://admin.google.com), and follow these instructions:
 
-1. In the _Apps_ area of the console, select the _Web and mobile apps_ submenu.
-2. Click the _Add App_ menu at the top of the table and choose _Search for apps_.
-3. Search for _Buildkite_, and select _Buildkite Web (SAML)_.
+1. In the **Apps** area of the console, select the **Web and mobile apps** submenu.
+2. Click the **Add App** menu at the top of the table and choose **Search for apps**.
+3. Search for **Buildkite**, and select **Buildkite Web (SAML)**.
 4. Copy the SSO URL and Entity ID, and download the Certificate. You'll need these in Step 3.
 5. Enter the following service provider details:
     * ACS URL: the URL you copied in Step 1. Replace any existing value suggested by Google.
     * Entity ID: https://buildkite.com
-6. You can add attribute mapping after the initial setup and testing. Click _Finish_ to complete the setup.
+6. You can add attribute mapping after the initial setup and testing. Click **Finish** to complete the setup.
 
 ## Step 3. Update your Buildkite SSO provider
 
-On your Buildkite Organization Settings' _Single Sign On_ page, select your Custom SAML provider from the list of _Configured SSO Providers_.
+On your [Buildkite organization **Settings**](https://buildkite.com/organizations/~/settings)' **Single Sign On** page, select your Custom SAML provider from the list of **Configured SSO Providers**.
 
-Click the _Edit Settings_ button, choose the Manual data option, and enter the IdP data you saved in Step 2:
+Click the **Edit Settings** button, choose the Manual data option, and enter the IdP data you saved in Step 2:
 
 <table>
     <tr>
@@ -66,12 +66,12 @@ Save your settings. Your provider page opens.
 
 Follow the instructions on the provider page to perform a test login. Performing a test login verifies that SSO is working correctly before you activate it for your organization members.
 
->🚧
+> 🚧
 > According to Google, "Changes may take up to 24 hours to propagate to all user". Some changes may take at least several hours, so if the test login fails, it is worth waiting and trying again.
 
 ## Step 4. Enable the new SSO provider
 
-Once you've performed a test login, you can enable your provider using the _Enable_ button. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through Google Workspace before organization data can be accessed.  
+Once you've performed a test login, you can enable your provider using the **Enable** button. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through Google Workspace before organization data can be accessed.
 
 The users will need to sign into Buildkite by clicking the Buildkite icon in the Google Apps menu. You can find this menu by clicking the 9-dot "waffle" icon.
 

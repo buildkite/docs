@@ -6,9 +6,9 @@ Once your Debian registry has been [created](/docs/packages/manage-registries#cr
 
 To view and copy this `curl` command:
 
-1. Select _Packages_ in the global navigation to access the _Registries_ page.
+1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Debian registry on this page.
-1. Select _Publish a Deb Package_ and in the resulting dialog, use the copy icon at the top-right of the code box to copy this curl command and submit it to publish a package to your Debian registry.
+1. Select **Publish a Deb Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this curl command and submit it to publish a package to your Debian registry.
 
 This command provides:
 
@@ -35,7 +35,7 @@ where:
 
 <%= render_markdown partial: 'packages/path_to_file' %>
 
-For example, to upload the file `my-deb-package_1.0-2_amd64.deb` from the current directory to the _My-Debian-packages_ registry in the _My organization_ Buildkite organization, run the `curl` command:
+For example, to upload the file `my-deb-package_1.0-2_amd64.deb` from the current directory to the **My-Debian-packages** registry in the **My organization** Buildkite organization, run the `curl` command:
 
 ```bash
 curl -X POST https://buildkitepackages.com/api/v1/repos/my-organization/my-debian-packages/packages.json \
@@ -45,13 +45,13 @@ curl -X POST https://buildkitepackages.com/api/v1/repos/my-organization/my-debia
 
 ## Access a package's details
 
-A Debian (deb) package's details can be accessed from this registry using the _Packages_ section of your Debian registry page.
+A Debian (deb) package's details can be accessed from this registry using the **Packages** section of your Debian registry page.
 
 To access your deb package's details page:
 
-1. Select _Packages_ in the global navigation to access the _Registries_ page.
+1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Debian registry on this page.
-1. On your Debian registry page, select the package within the _Packages_ section. The package's details page is displayed.
+1. On your Debian registry page, select the package within the **Packages** section. The package's details page is displayed.
 
 <%= render_markdown partial: 'packages/package_details_page_sections' %>
 
@@ -62,7 +62,7 @@ A Debian (deb) package can be downloaded from the package's details page.
 To download a package:
 
 1. [Access the package's details](#access-a-packages-details).
-1. Select _Download_.
+1. Select **Download**.
 
 ### Installing a package
 
@@ -71,7 +71,7 @@ A Debian package can be installed using code snippet details provided on the pac
 To install a package:
 
 1. [Access the package's details](#access-a-packages-details).
-1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
+1. Ensure the **Installation** > **Installation instructions** section is displayed.
 1. Copy the set of commands in the code snippet, paste them into your terminal, and submit them.
 
 This code snippet is based on this format:

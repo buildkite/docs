@@ -5,8 +5,8 @@ The following are solutions to problems some users face when using the [Elastic 
 ## My Auto Scaling group doesn't launch any instances
 
 * If your Auto Scaling group does not launch any instances, open the EC2 Console
-dashboard and *Auto Scaling Groups* from the side bar. Find your Auto Scaling
-group and open the *Activity* tab. The *Activity history* table will list the
+dashboard and **Auto Scaling Groups** from the side bar. Find your Auto Scaling
+group and open the **Activity** tab. The **Activity history** table will list the
 scaling actions that have occurred and any errors that resulted.
 
 * There may be a shortage of `mac1.metal` instances in the region, or Availability

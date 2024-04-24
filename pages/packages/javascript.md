@@ -6,9 +6,9 @@ Once your JavaScript registry has been [created](/docs/packages/manage-registrie
 
 To view and copy the required command/code snippet for your `~/.npmrc` and `package.json` configurations:
 
-1. Select _Packages_ in the global navigation to access the _Registries_ page.
+1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your JavaScript registry on this page.
-1. Select _Publish a Nodejs Package_ and in the resulting dialog, use the copy icon at the top-right of the relevant code box to copy its snippet and paste it into your command line tool or the appropriate file.
+1. Select **Publish a Nodejs Package** and in the resulting dialog, use the copy icon at the top-right of the relevant code box to copy its snippet and paste it into your command line tool or the appropriate file.
 
 These file configurations contain the following:
 
@@ -52,13 +52,13 @@ The following steps describe the process above:
 
 ## Access a package's details
 
-A JavaScript package's details can be accessed from this registry using the _Packages_ section of your JavaScript registry page.
+A JavaScript package's details can be accessed from this registry using the **Packages** section of your JavaScript registry page.
 
 To access your JavaScript package's details page:
 
-1. Select _Packages_ in the global navigation to access the _Registries_ page.
+1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your JavaScript registry on this page.
-1. On your JavaScript registry page, select the package within the _Packages_ section. The package's details page is displayed.
+1. On your JavaScript registry page, select the package within the **Packages** section. The package's details page is displayed.
 
 <%= render_markdown partial: 'packages/package_details_page_sections' %>
 
@@ -69,7 +69,7 @@ A JavaScript package can be downloaded from the package's details page.
 To download a package:
 
 1. [Access the package's details](#access-a-packages-details).
-1. Select _Download_.
+1. Select **Download**.
 
 ### Installing a package
 
@@ -78,7 +78,7 @@ A JavaScript package can be installed using code snippet details provided on the
 To install a package:
 
 1. [Access the package's details](#access-a-packages-details).
-1. Ensure the _Installation_ > _Installation instructions_ section is displayed.
+1. Ensure the **Installation** > **Installation instructions** section is displayed.
 1. Copy the command in the code snippet, paste it into your terminal, and submit it.
 
 This code snippet is based on this format:
