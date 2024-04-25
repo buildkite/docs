@@ -57,7 +57,7 @@ Partial wildcard matching (for example, `postgres=1.9*` or `postgres=*1.9`) is n
 > 📘 Setting agent defaults
 > Use a top-level <code>agents</code> block to <a href="/docs/pipelines/defining-steps#step-defaults">set defaults</a> for all steps in a pipeline.
 
-If you specify multiple tags, your build will only run on agents that have **all** the specified tags.
+Your build will only run on agents that have **all** the specified tags.
 
 ## The queue tag
 
