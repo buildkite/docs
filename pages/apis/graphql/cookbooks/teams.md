@@ -167,7 +167,7 @@ If you have more than 100 teams or more than 100 pipelines per team, use the pag
 
 ## Get members from a specific team
 
-This query will display members of a team with their roles. 
+This query will display members of a team with their roles.
 
 ```graphql
 query GetTeamMember {
