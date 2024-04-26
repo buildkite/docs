@@ -116,7 +116,7 @@ Refer to [Referring to UI elements in the Writing style guide](writing-style.md#
 
 Key terms and emphasized words are formatted using italics in the Buildkite docs. Markdown supports two characters as its markup for italicizing text—either an underscore `_` or a single asterisk `*`. For consistency, use single underscores `_` immediately surrounding the text you want to italicize. For example, `_Italicize this text_`.
 
-Refer to [Referring to Key terms in the Writing style guide](writing-style.md#key-terms) for details on how to write and present key terms in the docs.
+Refer to [Referring to Key terms in the Writing style guide](writing-style.md#key-terms-and-emphasis) for details on how to write and present key terms in the docs.
 
 ### Lists
 
