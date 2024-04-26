@@ -1100,7 +1100,7 @@ Error responses:
   <tr><th><code>403 Forbidden</code></th><td><code>{ "message": "Forbidden" }</code></td></tr>
   <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Auto-creating webhooks is not supported for your repository." }</code></td></tr>
   <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Webhooks could not be created for your repository." }</code>
-  If you encounter this error it might be because a webhook has already been created for this pipeline, and the additional webhook could not be created as it is outside the intended scope of this feature. </td></tr>
+  This error might be returned because an existing webhook has already been created for this pipeline, and the additional webhook could not be created as it is outside the intended scope of this feature.</td></tr>
 </tbody>
 </table>
 
