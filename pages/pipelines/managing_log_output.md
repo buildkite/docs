@@ -133,6 +133,8 @@ To further tighten the security in a Buildkite organization, you can use the [AP
 
 Agents can redact the values of environment variables whose names match common patterns for passwords and other secure information before the build log is uploaded to Buildkite.
 
+If the environment variable's value is shorter than the minimum length of 6 bytes, then this value will not be redacted.
+
 The default environment variable name patterns are:
 
 - `*_PASSWORD`
