@@ -14,7 +14,7 @@ When you create a token, select the organizations it grants access to, and for R
 REST API scopes are very granular, you can select some or all of the following:
 
 * Read Agents `read_agents` - Permission to list and retrieve details of agents
-* Modify Agents `write_agents` - Permission to create, update and delete agents
+* Modify Agents `write_agents` - Permission to stop agents. To register agents, use an [Agent token] instead
 * Read Teams `read_teams` - Permission to list teams
 * Read Artifacts `read_artifacts` - Permission to retrieve build artifacts
 * Write Artifacts `write_artifacts` - Permission to delete build artifacts
@@ -107,3 +107,5 @@ API access tokens are issued for users within a Buildkite organization. They are
 Access tokens are associated with a specific user and can only be revoked by that user. Admins of a Buildkite organization can remove a user from an organization, which prevents the user from accessing any organization resources and pipelines, and prevents access using any API access token associated with that user.
 
 Access tokens have no built-in expiration date. The best practices regarding regular credential rotation recommended by [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-lifetimes-and-rotation) suggest rotating the tokens at least once a year. In case of a security compromise or breach, it is strongly recommended that the old tokens are [invalidated](/docs/apis/managing-api-tokens#removing-an-organization-from-a-token), and new tokens are issued.
+
+[Agent token]: /docs/agent/v3/tokens
