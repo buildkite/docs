@@ -94,11 +94,11 @@ Update the following sections:
 
 - In the Condition on the subject, replace:
 
-    + `ORGANIZATION_SLUG` with your Buildkite Organization
-    + `PIPELINE_SLUG` with your Pipeline
-    + `REF` - this is commonly replaced with `refs/heads/main` to enforce only the main branch using the IAM role  or `refs/tags/*` for only tagged releases able to deploy, or a wildcard if we want all branches to use it.
-    + `BUILD_COMMIT` - this is commonly replaced with a wildcard `*`
-    + `STEP_KEY` - this is commonly replaced with a wildcard `*`
+    * `ORGANIZATION_SLUG` with your Buildkite Organization
+    * `PIPELINE_SLUG` with your Pipeline
+    * `REF` - this is commonly replaced with `refs/heads/main` to enforce only the main branch using the IAM role  or `refs/tags/*` for only tagged releases able to deploy, or a wildcard if we want all branches to use it.
+    * `BUILD_COMMIT` - this is commonly replaced with a wildcard `*`
+    * `STEP_KEY` - this is commonly replaced with a wildcard `*`
 
 - In the condition on the IP Address, replace `AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO` with a list of your Agent IP addresses.
 
