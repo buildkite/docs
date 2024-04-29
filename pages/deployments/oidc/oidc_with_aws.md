@@ -39,7 +39,7 @@ As part of this process:
 
 1. Choose the **Custom trust policy** role type.
 
-1. Copy the following example trust policy in the following JSON code block and paste it into an code editor:
+1. Copy the following example trust policy in the following JSON code block and paste it into a code editor:
 
     ```json
     {
