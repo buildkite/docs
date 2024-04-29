@@ -179,7 +179,7 @@ steps:
       AWS_DEFAULT_REGION: us-east-1
       AWS_REGION: us-east-1
     plugins:
-      - aws-assume-role-with-web-identity:
+      - aws-assume-role-with-web-identity#v1.0.0:
           role-arn: arn\:aws\:iam::012345678910:role/compute-ssm-oidc-example
       - aws-ssm#v1.0.0:
           parameters:
