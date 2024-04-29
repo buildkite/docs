@@ -139,7 +139,7 @@ Expanded example Trust Policy:
 
 ## Step 3: Configure your IAM role with AWS actions
 
-Add inline or managed IAM policies to the role to allow whatever IAM permissions your pipeline needs. Common examples are permissions to read secrets from SSM and push images to ECR, but there are no limitations here.
+Add an inline or managed IAM policy to the role to allow the IAM role to perform any actions your pipeline needs. Common examples are permissions to read secrets from SSM and push images to ECR, but this entirely depends on the purpose of your Pipeline.
 
 In this example we’ll allow access to read an SSM Parameter Store key named `/pipelines-compute/oidc/example-deploy-key` by attaching the following inline policy.
 
