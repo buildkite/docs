@@ -4,28 +4,80 @@ keywords: oidc, authentication, IAM, roles, AWS
 
 # OIDC with AWS
 
-The [Buildkite Agent's oidc command](/docs/agent/v3/cli-oidc) allows you to request an OIDC token representing the current job. These tokens can be exchanged on federated systems like AWS for an Identity and Access Management (IAM) role with AWS-scoped permissions.
+The [Buildkite Agent's oidc command](/docs/agent/v3/cli-oidc) allows you to request an OpenID Connect (OIDC) token representing the current job. These tokens can be exchanged on federated systems like AWS for an Identity and Access Management (IAM) role with AWS-scoped permissions.
 
-See the [OpenID Connect Core documentation](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) for more information about how OIDC tokens are constructed and how to extract and use claims.
+This process uses the following Buildkite plugins to implement OIDC with AWS and Buildkite pipelines:
 
-See the [AWS OpenID Connect identity provider in IAM documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html) for more information on their implementation of the federated system.
+- [AWS assume-role-with-web-identity](https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin)
+- [AWS SSM Buildkite Plugin](https://github.com/buildkite-plugins/aws-ssm-buildkite-plugin)
 
-We will be using two Buildkite Plugins to utilise OIDC with AWS and our Pipelines.
+Learn more about:
 
-- Buildkite Plugin [aws-assume-role-with-web-identity-buildkite-plugin](https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin)
-- Buildkite Plugin [aws-ssm-buildkite-plugin](https://github.com/buildkite-plugins/aws-ssm-buildkite-plugin)
+- How OIDC tokens are constructed and how to extract and use claims in the [OpenID Connect Core documentation](https://openid.net/specs/openid-connect-core-1_0.html#IDToken).
 
-## Step 1: Setup OIDC provider in AWS account
+- Amazon's implementation of OIDC with their federated system in the [AWS OpenID Connect identity provider in IAM documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html).
 
-First we'll set up an AWS IAM OpenID Connect (OIDC) provider using the following configuration.
+## Step 1: Set up an OIDC provider in your AWS account
 
-  URL: `https://agent.buildkite.com`
+First, you'll need to set up an IAM OIDC provider in your AWS account.
 
-  Audience: `sts.amazonaws.com`
+Learn more about how to do this in the [Create an OpenID Connect (OIDC) identity provider in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html) page of the AWS documentation.
 
-## Step 2: Create a new (or update an existing) IAM role to use with your pipeline(s)
+On this page, as part of the [Creating and managing an OIDC provider (console)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html#manage-oidc-provider-console) process, specify the following values for the:
 
-In this example the IAM role is named: `compute-ssm-oidc-example`. When creating the role you must `Select Custom Trust Policy`.
+- **Provider URL**: `https://agent.buildkite.com`
+
+- **Audience**: `sts.amazonaws.com`
+
+## Step 2: Create a new (or update an existing) IAM role to use with your pipelines
+
+Creating new or updating existing IAM roles is conducted through your AWS account.
+
+Learn more about how to do this in the [Creating a role using custom trust policies (console)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-custom.html) page of the AWS documentation.
+
+As part of this process:
+
+1. Choose the **Custom trust policy** role type.
+
+1. Copy the following example trust policy in the following JSON code block and paste it into an code editor:
+
+    ```json
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Principal": {
+                    "Federated": "arn\:aws\:iam:\:AWS_ACCOUNT_ID\:oidc-provider/agent.buildkite.com"
+                },
+                "Action": "sts:AssumeRoleWithWebIdentity",
+                "Condition": {
+                    "StringEquals": {
+                        "agent.buildkite.com:aud": "sts.amazonaws.com"
+                    },
+                    "StringLike": {
+                        "agent.buildkite.com:sub": "organization\:ORGANIZATION_SLUG\:pipeline:PIPELINE_SLUG\:ref\:REF\:commit\:BUILD_COMMIT\:step\:STEP_KEY"
+                    },
+                    "IpAddress": {
+                        "aws:SourceIp": [
+                            "AGENT_PUBLIC_IP_ONE",
+                            "AGENT_PUBLIC_IP_TWO"
+                        ]
+                    }
+
+                }
+            }
+        ]
+    }
+    ```
+
+1. Modify the following sections of the pasted code snippet accordingly:
+    - `AWS_ACCOUNT_ID` (in `Principal`) is your AWS account ID.
+    - ddd
+
+1. In the **Custom trust policy** section, 
+
+1. Specify an appropriate **Role name**, for example, `compute-ssm-oidc-example`.
 
 Set the Principal to be federated via the IAM OIDC provider we just created, and add some conditions against using this IAM role for additional security using the format of the OIDC token subject provided by Buildkite.
 
@@ -38,41 +90,8 @@ You can also add multiple token subjects as a list if you want to use the same I
 
 If you have a public IP address associated with your Buildkite Agent's, you can also set a condition on the source IP address and further restrict access to your IAM role.
 
-Example Trust Policy:
-
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Federated": "arn\:aws\:iam:\:AWS_ACCOUNT_ID\:oidc-provider/agent.buildkite.com"
-            },
-            "Action": "sts:AssumeRoleWithWebIdentity",
-            "Condition": {
-                "StringEquals": {
-                    "agent.buildkite.com:aud": "sts.amazonaws.com"
-                },
-                "StringLike": {
-                    "agent.buildkite.com:sub": "organization\:ORGANIZATION_SLUG\:pipeline:PIPELINE_SLUG\:ref\:REF\:commit\:BUILD_COMMIT\:step\:STEP_KEY"
-                },
-                "IpAddress": {
-                    "aws:SourceIp": [
-                        "AGENT_PUBLIC_IP_ONE",
-                        "AGENT_PUBLIC_IP_TWO"
-                    ]
-                }
-
-            }
-        }
-    ]
-}
-```
-
 Update the following sections:
 
-- In the Principal, replace `AWS_ACCOUNT_ID`  with your account ID.
 - In the Condition on the subject, replace:
 
     * `ORGANIZATION_SLUG` with your Buildkite Organization
