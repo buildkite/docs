@@ -115,6 +115,24 @@ steps:
 
 ```
 
+You can override an anchor by using `<<:` before the _alias_. This allows overriding parts of the anchor without needing to repeat the all plugin configuration or creating multiple anchors.
+
+The following example uses a YAML anchor (`docker-step`) and overrides the command run whilst using the same plugin version and container image:
+
+```yml
+common:
+  - docker-step: &docker-step
+      command: "uname -a"
+      plugins: 
+        docker#v5.11.0:
+          image: alpine
+
+steps:
+  - *docker-step 
+  - <<: *docker-step
+    command: "date"
+```
+
 ## Plugin sources
 
 There are three main sources of plugins:
