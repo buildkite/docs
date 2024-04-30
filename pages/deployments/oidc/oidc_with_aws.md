@@ -108,7 +108,7 @@ As part of this process:
 
     For example, to allow the IAM role to be used for any pipeline in the Buildkite organization `example-org`, when building on any branch or tag, specify a single _subject_ field value of `organization:example-org:*`.
 
-1. Modify the `Condition` section's `IpAddress` values (`AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO`) with a list of your agent's IP addresses.
+1. Modify the `Condition` section's `IpAddress` values (`AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO`) with a list of your agent's IP addresses or CIDRs.
 
     Only OIDC token exchange requests (for IAM roles) from Buildkite Agents with these IP addresses will be permitted.
 
