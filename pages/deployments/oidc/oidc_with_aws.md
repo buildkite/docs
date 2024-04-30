@@ -71,71 +71,88 @@ As part of this process:
     }
     ```
 
-1. Modify the following sections of the pasted code snippet accordingly:
-    * `AWS_ACCOUNT_ID` (in `Principal`) is your AWS account ID.
-    * next item
+1. Modify the `Principal` section of the pasted code snippet accordingly:
+    1. Ensure that this is set to `Federated`, and that the `oidc-provider` setting references the **Provider URL** you [configured above](#step-1-set-up-an-oidc-provider-in-your-aws-account) (that is, `agent.buildkite.com`).
+    1. Change `AWS_ACCOUNT_ID` to your actual AWS account ID.
 
-1. In the **Custom trust policy** section,
+1. Modify the `Condition` section of the code snippet accordingly:
+    1. Ensure the `StringEquals` subsection's _audience_ field name (your provider URL appended by `:aud`—`agent.buildkite.com:aud`) has a value that matches the **Audience** you [configured above](#step-1-set-up-an-oidc-provider-in-your-aws-account) (that is, `sts.amazonaws.com`).
+    1. Ensure the `StringLike` subsection's _subject_ field name (your provider URL appended by `:sub`—`agent.buildkite.com:sub`) has at least one value that matches the format: `organization:ORGANIZATION_SLUG:pipeline:PIPELINE_SLUG:ref:REF:commit:BUILD_COMMIT:step:STEP_KEY`, where the constituent fields of this line determine the conditions (that is, when the values specified in these constituent fields have been met) under which the IAM role is granted in exchange for the OIDC token. The following constituent field's value:
+        * `ORGANIZATION_SLUG` can be obtained:
 
-1. Specify an appropriate **Role name**, for example, `compute-ssm-oidc-example`.
+            * From the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite.
 
-Set the Principal to be federated via the IAM OIDC provider we just created, and add some conditions against using this IAM role for additional security using the format of the OIDC token subject provided by Buildkite.
+            * By running the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
 
-This allows us to limit use of this IAM role to named Organizations, Pipelines, and optionally branches, commits and steps. Format is
- `organization:ORGANIZATION_SLUG:pipeline:PIPELINE_SLUG:ref:REF:commit:BUILD_COMMIT:step:STEP_KEY`
+                ```bash
+                curl - X GET "https://api.buildkite.com/v2/organizations" \
+                  -H "Authorization: Bearer $TOKEN"
+                ```
+        * `PIPELINE_SLUG` can be obtained:
 
-You can use a wildcard `*` to replace any subjects you don’t want to set limits on.
+            * From the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite, then accessing the specific pipeline to be specified in the custom trust policy.
 
-You can also add multiple token subjects as a list if you want to use the same IAM role for multiple pipelines, or if you want a variety of branches, commits and steps enabled.
+            * By running the [List pipelines](/docs/apis/rest-api/pipelines#list-pipelines) REST API query to obtain this value from `slug` in the response from the specific pipeline. For example:
 
-If you have a public IP address associated with your Buildkite Agent's, you can also set a condition on the source IP address and further restrict access to your IAM role.
+                ```bash
+                curl - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
+                  -H "Authorization: Bearer $TOKEN"
+                ```
+        * `REF` is usually replaced with `refs/heads/main` to enforce the IAM role's access and use to only the `main` branch, `refs/tags/*` to ensure only tagged releases are able to be deployed, or a wildcard `*` if the IAM role can access and use all branches.
+        * `BUILD_COMMIT` (optional) can be omitted and if so, is usually replaced with a single wildcard `*` at the end of the line.
+        * `STEP_KEY` (optional) can be omitted and if so, is usually replaced with a single wildcard `*` at the end of the line.
 
-Update the following sections:
+    **Note:** When formulating your _subject_ field's value, you can replace any of the constituent field values above with a wildcard `*` to not set limits on those constituent fields.
 
-- In the Condition on the subject, replace:
+    You can also allow this IAM role to be used with other pipelines, branches, commits and steps by specifying multiple comma-separated values for the `agent.buildkite.com:sub` _subject_ field.
 
-    * `ORGANIZATION_SLUG` with your Buildkite Organization
-    * `PIPELINE_SLUG` with your Pipeline
-    * `REF` - this is commonly replaced with `refs/heads/main` to enforce only the main branch using the IAM role  or `refs/tags/*` for only tagged releases able to deploy, or a wildcard if we want all branches to use it.
-    * `BUILD_COMMIT` - this is commonly replaced with a wildcard `*`
-    * `STEP_KEY` - this is commonly replaced with a wildcard `*`
+    For example, to allow the IAM role to be used for any pipeline in the Buildkite organization `example-org`, when building on any branch or tag, specify a single _subject_ field value of `organization:example-org:pipeline:*:ref:refs:*`.
 
-- In the condition on the IP Address, replace `AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO` with a list of your Agent IP addresses.
+1. Modify the `Condition` section's `IpAddress` values (`AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO`) with a list of your agent's IP addresses.
 
-Expanded example Trust Policy:
+    Only OIDC token exchange requests (for IAM roles) from Buildkite Agents with these IP addresses will be permitted.
 
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Federated": "arn\:aws\:iam:\:AWS_ACCOUNT_ID\:oidc-provider/agent.buildkite.com"
-            },
-            "Action": "sts:AssumeRoleWithWebIdentity",
-            "Condition": {
-                "StringEquals": {
-                    "agent.buildkite.com:aud": "sts.amazonaws.com"
+1. Verify that your custom trust policy is complete. The following example trust policy (noting that `AWS_ACCOUNT_ID` has not been specified) will only allow the exchange of an agent's OIDC tokens with IAM roles when:
+    * the Buildkite organization is `example-org`
+    * building on both the `main` branch and tagged releases
+    * on Buildkite Agents whose IP addresses are either `192.0.2.0` or `198.51.100.0`
+
+    ```json
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Principal": {
+                    "Federated": "arn\:aws\:iam:\:AWS_ACCOUNT_ID\:oidc-provider/agent.buildkite.com"
                 },
-                "StringLike": {
-                    "agent.buildkite.com:sub": [
-                        "organization\:example-org\:pipeline\:example-pipeline\:ref\:refs/heads/main\:*",
-                        "organization\:example-org\:pipeline\:example-pipeline\:ref\:refs/tags/*:*"
-                    ]
-                },
-                "IpAddress": {
-                    "aws:SourceIp": [
-                        "192.0.2.0",
-                        "198.51.100.0"
-                    ]
+                "Action": "sts:AssumeRoleWithWebIdentity",
+                "Condition": {
+                    "StringEquals": {
+                        "agent.buildkite.com:aud": "sts.amazonaws.com"
+                    },
+                    "StringLike": {
+                        "agent.buildkite.com:sub": [
+                            "organization\:example-org\:pipeline\:example-pipeline\:ref:refs/heads/main:*",
+                            "organization\:example-org\:pipeline\:example-pipeline\:ref:refs/tags/*:*"
+                        ]
+                    },
+                    "IpAddress": {
+                        "aws:SourceIp": [
+                            "192.0.2.0",
+                            "198.51.100.0"
+                        ]
+                    }
+
                 }
-
             }
-        }
-    ]
-}
-```
+        ]
+    }
+    ```
+
+1. In the **Custom trust policy** section, copy your modified custom trust policy, paste it into your IAM role, and complete the next few steps up to specifying the **Role name**.
+
+1. Specify an appropriate **Role name**, for example, `compute-ssm-oidc-example`, and complete the remaining steps.
 
 ## Step 3: Configure your IAM role with AWS actions
 
@@ -145,16 +162,16 @@ In this example we’ll allow access to read an SSM Parameter Store key named `/
 
 ```json
 {
-  "Version": "2012-10-17",
-  "Statement": [
-     {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
             "Effect": "Allow",
             "Action": [
                 "ssm:GetParameters"
             ],
             "Resource": "arn\:aws\:ssm\:us-east-1\:012345678910\:parameter/pipelines-compute/oidc/example-deploy-key"
         }
-  ]
+    ]
 }
 ```
 
