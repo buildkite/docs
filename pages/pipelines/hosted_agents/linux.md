@@ -30,33 +30,82 @@ To configure your Linux instance you can use the [Docker Compose](https://github
 
 Cache Volumes are external volumes attached to hosted agent instances. Cache Volumes are attached on a best-effort basis depending on their locality, expiration and current usage (so they should not be relied upon as durable data storage).
 
-Cache volumes are disabled by default and can be enabled by providing a list of paths to cache at the pipeline level or the step level. Cache volumes are scoped to a pipeline and are shared between all steps in a pipeline by default.
+Cache Volumes are disabled by default and can be enabled by providing a list of paths to cache at the pipeline level or the step level. Cache Volumes are scoped to a pipeline and are shared between all steps in a pipeline by default.
 
-Cache volumes act as regular disks with the following properties:
+Cache Volumes act as regular disks with the following properties:
 
 - They're backed by local NVMe storage. You can expect high performance.
-- A Cache Volume is formatted as a regular Linux filesystem (e.g., ext4), so you can expect them to support any use-case you have that Linux supports.
+- A Cache Volume is formatted as a regular Linux filesystem (e.g. ext4), so you can expect them to support any use-case you have that Linux supports.
 
-### Cache paths
+### Cache configuration
 
-Cache volumes are mounted into user-specified paths. Cache paths will be mounted relative to the builds working directory. Absolute references can be provided in the cache paths configuration relative to the root of the instance (for example `/etc/cache`).
+Cache paths can be defined in your [pipeline.yml](/docs/pipelines/defining-steps) file. Defining cache paths for a step will implicitly create a Cache Volume for the pipeline.
+
+Defining cache paths enables mounting of the Cache Volume under `/cache` in the agent instance. The agent links subdirectories of the Cache Volume into the paths specified in the configuration. For example, defining `cache: "node_modules"` the agent will link `./node_modules` to `/cache/bkcache/node_modules`.
+
+Custom caches can be created by specifying a name for the cache. This allows for multiple Cache Volumes to be used in a single pipeline.
+
+When requesting a Cache Volume, you can specify a size. The provided Cache Volume will have a minimum available storage equal to the specified size. In the case of a cache hit (most of the time), the actual volume size is: last used volume size + the specified size.
+
+Defining a top-level cache configuration will set the defaults for all steps in the pipeline. Steps can override the top-level configuration by defining their own cache configuration.
 
 ```yaml
-# Mount the node_modules directory on all steps in the pipeline. This will use the default cache volume for the pipeline.
 cache:
   paths:
     - "node_modules"
+  size: "100g"
 
 steps:
-  - command: "npm install"
+  - command: "yarn run build"
+    cache: ".build"
 
-  - command: "bundle install"
-    # Mount the vendor/bundle directory to the cache volume.
-    # This will use the default cache volume for the pipeline.
+  - command: "yarn run test"
+    cache:
+      - ".build"
+
+  - command: "rspec"
     cache:
       paths:
         - "vendor/bundle"
+      size: 20g
+      name: "bundle-cache"
 ```
+{: codeblock-file="pipeline.yml"}
+
+Required attributes:
+
+<table data-attributes data-attributes-required>
+  <tr>
+    <td><code>paths</code></td>
+    <td>
+      A list of paths to cache. Paths are relative to the working directory of the step.<br>
+      Absolute references can be provided in the cache paths configuration relative to the root of the instance.<br>
+      <em>Example:</em><br>
+      <code>- ".cache"</code><br>
+      <code>- "/tmp/cache"</code><br>
+    </td>
+  </tr>
+</table>
+
+Optional attributes:
+
+<table data-attributes data-attributes-required>
+  <tr>
+    <td><code>name</code></td>
+    <td>
+      A name for the cache. This allows for multiple Cache Volumes to be used in a single pipeline.<br>
+      <em>Example:</em> <code>"node-modules-cache"</code><br>
+    </td>
+  </tr>
+
+  <tr>
+    <td><code>size</code></td>
+    <td>
+      The size of the cache volume. The default size is 20 gigabytes. Units are in gigabytes, specified as <code>Ng</code>, where <code>N</code> is the size in gigabytes.<br>
+      <em>Example:</em> <code>"20g"</code><br>
+    </td>
+  </tr>
+</table>
 
 ### Lifecycle
 
@@ -68,50 +117,14 @@ When requesting a Cache Volume, a "fork" of the previous cache volume version is
 
 Each job gets its own private copy of the Cache Volume, as it existed at the time of the last cache commit.
 
-Version commits follow a "last write" model: whenever a job terminates successfully (e.g. exits with exit code 0), Cache Volumes attached to that job have a new parent committed: the final flushed volume of the exiting agent instance.
+Version commits follow a "last write" model: whenever a job terminates successfully (i.e. exits with exit code 0), Cache Volumes attached to that job have a new parent committed: the final flushed volume of the exiting agent instance.
 
 Whenever a job fails, the Cache Volume versions attached to the agent instance are abandoned.
-
-### Custom caches
-
-Custom caches can be created by specifying a name for the cache. This allows for multiple cache volumes to be used in a single pipeline.
-
-```yaml
-# Mount the node_modules directory on all steps. This will use the default cache volume for the pipeline.
-cache:
-  paths:
-    - "node_modules"
-
-steps:
-  - command: "npm install"
-
-  - command: "bundle install"
-    # Mount the vendor/bundle directory to a dedicated bundle cache volume. One bundle cache volume will be created for the pipeline.
-    cache:
-      name: "bundle-cache"
-      paths:
-        - "vendor/bundle"
-```
-
-### Sizing
-
-When requesting a Cache Volume you can specify a size. When requesting x GB, a volume will be provided that has at least x GB free. In the case of a cache hit (most of the time), the actual volume size is: last used volume size + x.
-
-The default size for the dependency cache is 20 gigabytes. This can be customized with the `size` option. Units are in gigabytes specified as a `Ng`, where N is the size in gigabytes.
-
-```yaml
-cache:
-  size: "30g"
-  paths:
-    - "node_modules"
-steps:
-  - command: "npm install"
-```
 
 ### Git mirror cache
 
 The Git mirror cache is a special type of Cache Volume that is used to speed up Git operations by caching the Git repository between builds. This is useful for large repositories that are slow to clone.
 
-Git mirror caching can be enabled on the Cluster's Cache Volumes settings page. Once enabled, the Git mirror cache will be used for all hosted jobs in that cluster. A separate cache volume will be created for each repository.
+Git mirror caching can be enabled on the cluster's Cache Volumes settings page. Once enabled, the Git mirror cache will be used for all hosted jobs in that cluster. A separate Cache Volume will be created for each repository.
 
 <%= image "hosted-agents-cache-settings.png", width: 1760, height: 436, alt: "Job groups displayed in the Buildkite UI" %>
