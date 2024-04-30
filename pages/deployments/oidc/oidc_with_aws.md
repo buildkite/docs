@@ -72,7 +72,7 @@ As part of this process:
     ```
 
 1. Modify the `Principal` section of the pasted code snippet accordingly:
-    1. Ensure that this is set to `Federated`, and that the `oidc-provider` setting references the **Provider URL** you [configured above](#step-1-set-up-an-oidc-provider-in-your-aws-account) (that is, `agent.buildkite.com`).
+    1. Ensure that this is set to `Federated`, and points to the `oidc-provider` Amazon Resource Name (ARN) from the **Provider URL** you [configured above](#step-1-set-up-an-oidc-provider-in-your-aws-account) (that is, `agent.buildkite.com`).
     1. Change `AWS_ACCOUNT_ID` to your actual AWS account ID.
 
 1. Modify the `Condition` section of the code snippet accordingly:
