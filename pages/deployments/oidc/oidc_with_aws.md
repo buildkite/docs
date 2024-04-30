@@ -114,6 +114,7 @@ As part of this process:
 
 1. Verify that your custom trust policy is complete. The following example trust policy (noting that `AWS_ACCOUNT_ID` has not been specified) will only allow the exchange of an agent's OIDC tokens with IAM roles when:
     * the Buildkite organization is `example-org`
+    * the Buildkite pipeline is `example-pipeline`
     * building on both the `main` branch and tagged releases
     * on Buildkite Agents whose IP addresses are either `192.0.2.0` or `198.51.100.0`
 
