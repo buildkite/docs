@@ -28,7 +28,7 @@ To configure your Linux instance you can use the [Docker Compose](https://github
 
 ## Cache volumes
 
-Cache Volumes are external volumes attached to hosted agent instances. Cache volumes are attached on best-effort basis depending on their locality, expiration and current usage (so they should not be relied upon as durable data storage).
+Cache Volumes are external volumes attached to hosted agent instances. Cache Volumes are attached on a best-effort basis depending on their locality, expiration and current usage (so they should not be relied upon as durable data storage).
 
 Cache volumes are disabled by default and can be enabled by providing a list of paths to cache at the pipeline level or the step level. Cache volumes are scoped to a pipeline and are shared between all steps in a pipeline by default.
 
