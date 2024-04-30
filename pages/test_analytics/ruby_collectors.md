@@ -65,7 +65,7 @@ You can fix them by being more specific in your stubbing by replacing `allow_any
 
 ### Troubleshooting test grouping issues
 
-In RSpec anonymous test cases are supported, tests are automatically named based on the subject and/or inputs to the expectations within the test. However, this can lead to unstable test names across different test runs, incorporating elements such as object IDs, database IDs, timestamps, and more.
+RSpec supports anonymous test cases—tests which are automatically named based on the subject and/or inputs to the expectations within the test. However, this can lead to unstable test names across different test runs, incorporating elements such as object IDs, database IDs, timestamps, and more.
 
 As a consequence, each test is assigned a new identity per run within Test Analytics. This poses a challenge for utilising the Test Analytics product effectively, as historical data across tests becomes difficult to track and analyze.
 
