@@ -106,7 +106,7 @@ As part of this process:
 
     You can also allow this IAM role to be used with other pipelines, branches, commits and steps by specifying multiple comma-separated values for the `agent.buildkite.com:sub` _subject_ field.
 
-    For example, to allow the IAM role to be used for any pipeline in the Buildkite organization `example-org`, when building on any branch or tag, specify a single _subject_ field value of `organization:example-org:pipeline:*:ref:refs:*`.
+    For example, to allow the IAM role to be used for any pipeline in the Buildkite organization `example-org`, when building on any branch or tag, specify a single _subject_ field value of `organization:example-org:*`.
 
 1. Modify the `Condition` section's `IpAddress` values (`AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO`) with a list of your agent's IP addresses.
 
