@@ -78,7 +78,7 @@ As part of this process:
 1. Modify the `Condition` section of the code snippet accordingly:
     1. Ensure the `StringEquals` subsection's _audience_ field name (your provider URL appended by `:aud`—`agent.buildkite.com:aud`) has a value that matches the **Audience** you [configured above](#step-1-set-up-an-oidc-provider-in-your-aws-account) (that is, `sts.amazonaws.com`).
     1. Ensure the `StringLike` subsection's _subject_ field name (your provider URL appended by `:sub`—`agent.buildkite.com:sub`) has at least one value that matches the format: `organization:ORGANIZATION_SLUG:pipeline:PIPELINE_SLUG:ref:REF:commit:BUILD_COMMIT:step:STEP_KEY`, where the constituent fields of this line determine the conditions (that is, when the values specified in these constituent fields have been met) under which the IAM role is granted in exchange for the OIDC token. The following constituent field's value:
-        * `ORGANIZATION_SLUG` can be obtained:
+        - `ORGANIZATION_SLUG` can be obtained:
 
             * From the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite.
 
@@ -88,7 +88,7 @@ As part of this process:
                 curl - X GET "https://api.buildkite.com/v2/organizations" \
                   -H "Authorization: Bearer $TOKEN"
                 ```
-        * `PIPELINE_SLUG` can be obtained:
+        - `PIPELINE_SLUG` can be obtained:
 
             * From the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite, then accessing the specific pipeline to be specified in the custom trust policy.
 
@@ -98,9 +98,9 @@ As part of this process:
                 curl - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
                   -H "Authorization: Bearer $TOKEN"
                 ```
-        * `REF` is usually replaced with `refs/heads/main` to enforce the IAM role's access and use to only the `main` branch, `refs/tags/*` to ensure only tagged releases are able to be deployed, or a wildcard `*` if the IAM role can access and use all branches.
-        * `BUILD_COMMIT` (optional) can be omitted and if so, is usually replaced with a single wildcard `*` at the end of the line.
-        * `STEP_KEY` (optional) can be omitted and if so, is usually replaced with a single wildcard `*` at the end of the line.
+        - `REF` is usually replaced with `refs/heads/main` to enforce the IAM role's access and use to only the `main` branch, `refs/tags/*` to ensure only tagged releases are able to be deployed, or a wildcard `*` if the IAM role can access and use all branches.
+        - `BUILD_COMMIT` (optional) can be omitted and if so, is usually replaced with a single wildcard `*` at the end of the line.
+        - `STEP_KEY` (optional) can be omitted and if so, is usually replaced with a single wildcard `*` at the end of the line.
 
     **Note:** When formulating your _subject_ field's value, you can replace any of the constituent field values above with a wildcard `*` to not set limits on those constituent fields.
 
@@ -113,9 +113,9 @@ As part of this process:
     Only OIDC token exchange requests (for IAM roles) from Buildkite Agents with these IP addresses will be permitted.
 
 1. Verify that your custom trust policy is complete. The following example trust policy (noting that `AWS_ACCOUNT_ID` has not been specified) will only allow the exchange of an agent's OIDC tokens with IAM roles when:
-    * the Buildkite organization is `example-org`
-    * building on both the `main` branch and tagged releases
-    * on Buildkite Agents whose IP addresses are either `192.0.2.0` or `198.51.100.0`
+    - the Buildkite organization is `example-org`
+    - building on both the `main` branch and tagged releases
+    - on Buildkite Agents whose IP addresses are either `192.0.2.0` or `198.51.100.0`
 
     ```json
     {
