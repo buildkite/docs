@@ -100,7 +100,7 @@ As part of this process:
                 curl - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
                   -H "Authorization: Bearer $TOKEN"
                 ```
-        - `REF` (optional) is usually replaced with `refs/heads/main` to enforce the IAM role's access and use to only the `main` branch, `refs/tags/*` to ensure only tagged releases are able to be deployed, or a wildcard `*` if the IAM role can be accessed and used by all branches.
+        - `REF` (optional) is usually replaced with `refs/heads/main` to restrict the IAM role's access to the `main` branch only, `refs/tags/*` to restrict the IAM role's access to tagged releases, or a wildcard `*` if the IAM role can be accessed and used by all branches.
         - `BUILD_COMMIT` (optional) can be omitted and if so, is usually replaced with a single wildcard `*` at the end of the line.
         - `STEP_KEY` (optional) can be omitted and if so, is usually replaced with a single wildcard `*` at the end of the line.
 
