@@ -339,7 +339,7 @@
           children: 
             - name: "Overview"
               path: "pipelines/security/oidc"
-            - name: "OICD with AWS"
+            - name: "OIDC with AWS"
               path: "pipelines/security/oidc/aws"
     - name: "Team management"
       children:
