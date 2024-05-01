@@ -9,6 +9,8 @@
     path: apis/graphql/graphql-cookbook
   - name: Agents
     path: apis/graphql/cookbooks/agents
+  - name: Artifacts
+    path: apis/graphql/cookbooks/artifacts
   - name: Builds
     path: apis/graphql/cookbooks/builds
   - name: Clusters
