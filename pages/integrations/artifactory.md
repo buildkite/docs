@@ -7,7 +7,7 @@ There are many ways to use [Artifactory](https://jfrog.com/artifactory/) with Bu
 
 The Buildkite Agent can upload and download artifacts directly from Artifactory. Export the following environment variables in your [Agent environment hook](/docs/agent/v3/hooks) to configure the Agent's Artifactory support.
 
-See the [Managing pipeline secrets](/docs/pipelines/secrets) documentation for how to securely set up these environment variables.
+See the [Managing pipeline secrets](/docs/pipelines/security/managing-secrets) documentation for how to securely set up these environment variables.
 
 Required environment vars:
 
