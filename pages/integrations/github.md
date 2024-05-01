@@ -75,7 +75,7 @@ Optionally, select one or more of the following:
 - **Limit pull request branches**
 - **Skip pull request builds for existing commits**
 - **Rebuild pull requests when they become ready for review**
-- **Build pull requests from third-party forked repositories**. Make sure to check the [managing secrets](/docs/pipelines/secrets) guide if you choose to do this.
+- **Build pull requests from third-party forked repositories**. Make sure to check the [managing secrets](/docs/pipelines/security/managing-secrets) guide if you choose to do this.
 
 If you want to control which third-party forks can trigger builds in GitHub, you can prefix the branches from third-party forks with the contributor's username. For example, the `main` branch from `some-user` becomes `some-user:main`. You can then detect these using a pre-command hook or something similar before running a build. To enable prefixing the branch names, go to the GitHub settings for the pipeline and select **Prefix third-party fork branch names**.
 
