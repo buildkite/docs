@@ -77,7 +77,7 @@ As part of this process:
 
 1. Modify the `Condition` section of the code snippet accordingly:
     1. Ensure the `StringEquals` subsection's _audience_ field name (your provider URL appended by `:aud`—`agent.buildkite.com:aud`) has a value that matches the **Audience** you [configured above](#step-1-set-up-an-oidc-provider-in-your-aws-account) (that is, `sts.amazonaws.com`).
-    1. Ensure the `StringLike` subsection's _subject_ field name (your provider URL appended by `:sub`—`agent.buildkite.com:sub`) has at least one value that matches the format: `organization:ORGANIZATION_SLUG:pipeline:PIPELINE_SLUG:ref:REF:commit:BUILD_COMMIT:step:STEP_KEY`, where the constituent fields of this line determine the conditions (that is, when the values specified in these constituent fields have been met) under which the IAM role is granted in exchange for the OIDC token. The following constituent field's value:
+    1. Ensure the `StringLike` subsection's _subject_ field name (your provider URL appended by `:sub`—`agent.buildkite.com:sub`) has at least one value that matches the format: `organization:ORGANIZATION_SLUG:pipeline:PIPELINE_SLUG:ref:REF:commit:BUILD_COMMIT:step:STEP_KEY`, where the constituent fields of this line determine the conditions (that is, when the values specified in these constituent fields have been met) under which the IAM role is granted in exchange for the OIDC token. This value format is equivalent to the subject (`sub`) claim when [requesting for an OIDC token for the current job](/docs/agent/v3/cli-oidc#claims). However, the _subject_ field values in your custom trust policy can be more restrictive. When formulating such a value, the following constituent field's value:
         - `ORGANIZATION_SLUG` can be obtained:
 
             * From the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite.
@@ -104,9 +104,9 @@ As part of this process:
 
     **Note:** When formulating your _subject_ field's value, you can replace any of the constituent field values above with a wildcard `*` to not set limits on those constituent fields.
 
-    You can also allow this IAM role to be used with other pipelines, branches, commits and steps by specifying multiple comma-separated values for the `agent.buildkite.com:sub` _subject_ field.
-
     For example, to allow the IAM role to be used for any pipeline in the Buildkite organization `example-org`, when building on any branch or tag, specify a single _subject_ field value of `organization:example-org:pipeline:*:ref:refs:*`.
+
+    You can also allow this IAM role to be used with other pipelines, branches, commits and steps by specifying multiple comma-separated values for the `agent.buildkite.com:sub` _subject_ field.
 
 1. Modify the `Condition` section's `IpAddress` values (`AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO`) with a list of your agent's IP addresses.
 
