@@ -201,5 +201,5 @@ steps:
           role-arn: arn\:aws\:iam::012345678910:role/compute-ssm-oidc-example
       - aws-ssm#v1.0.0:
           parameters:
-            EXAMPLE_DEPLOY_KEY: /pipelines-compute/oidc/example-deploy-key
+            EXAMPLE_DEPLOY_KEY: /pipelines/example-pipeline/oidc-for-ssm/example-deploy-key
 ```
