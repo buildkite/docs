@@ -76,8 +76,8 @@ As part of this process:
     1. Change `AWS_ACCOUNT_ID` to your actual AWS account ID.
 
 1. Modify the `Condition` section of the code snippet accordingly:
-    1. Ensure the `StringEquals` subsection's _audience_ field name (your provider URL appended by `:aud`—`agent.buildkite.com:aud`) has a value that matches the **Audience** you [configured above](#step-1-set-up-an-oidc-provider-in-your-aws-account) (that is, `sts.amazonaws.com`).
-    1. Ensure the `StringLike` subsection's _subject_ field name (your provider URL appended by `:sub`—`agent.buildkite.com:sub`) has at least one value that matches the format: `organization:ORGANIZATION_SLUG:pipeline:PIPELINE_SLUG:ref:REF:commit:BUILD_COMMIT:step:STEP_KEY`, where the constituent fields of this line determine the conditions (that is, when the values specified in these constituent fields have been met) under which the IAM role is granted in exchange for the OIDC token. This value format is equivalent to the subject (`sub`) claim when [requesting for an OIDC token for the current job](/docs/agent/v3/cli-oidc#claims). However, the _subject_ field values in your custom trust policy can be more restrictive. When formulating such a value, the following constituent field's value:
+    1. Ensure the `StringEquals` subsection's _audience_ field name has a value that matches the **Audience** you [configured above](#step-1-set-up-an-oidc-provider-in-your-aws-account) (that is, `sts.amazonaws.com`). The _audience_ field name is your provider URL appended by `:aud`—`agent.buildkite.com:aud`.
+    1. Ensure the `StringLike` subsection's _subject_ field name has at least one value that matches the format: `organization:ORGANIZATION_SLUG:pipeline:PIPELINE_SLUG:ref:REF:commit:BUILD_COMMIT:step:STEP_KEY`, where the constituent fields of this line determine the conditions under which the IAM role is granted in exchange for the OIDC token. The _subject_ field name is your provider URL appended by `:sub`—`agent.buildkite.com:sub`. This value format is equivalent to the subject (`sub`) claim when [requesting for an OIDC token for the current job](/docs/agent/v3/cli-oidc#claims), and the IAM role is granted when the values specified in these constituent fields have been met. The _subject_ field values in your custom trust policy can be different to those specified by your OIDC token's subject claim value, making your trust policy either more restrictive or permissive. When formulating such a value, the following constituent field's value:
         - `ORGANIZATION_SLUG` can be obtained:
 
             * From the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite.
@@ -88,7 +88,7 @@ As part of this process:
                 curl - X GET "https://api.buildkite.com/v2/organizations" \
                   -H "Authorization: Bearer $TOKEN"
                 ```
-        - `PIPELINE_SLUG` can be obtained:
+        - `PIPELINE_SLUG` (optional) can be obtained:
 
             * From the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite, then accessing the specific pipeline to be specified in the custom trust policy.
 
@@ -98,7 +98,7 @@ As part of this process:
                 curl - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
                   -H "Authorization: Bearer $TOKEN"
                 ```
-        - `REF` is usually replaced with `refs/heads/main` to enforce the IAM role's access and use to only the `main` branch, `refs/tags/*` to ensure only tagged releases are able to be deployed, or a wildcard `*` if the IAM role can be accessed and used by all branches.
+        - `REF` (optional) is usually replaced with `refs/heads/main` to enforce the IAM role's access and use to only the `main` branch, `refs/tags/*` to ensure only tagged releases are able to be deployed, or a wildcard `*` if the IAM role can be accessed and used by all branches.
         - `BUILD_COMMIT` (optional) can be omitted and if so, is usually replaced with a single wildcard `*` at the end of the line.
         - `STEP_KEY` (optional) can be omitted and if so, is usually replaced with a single wildcard `*` at the end of the line.
 
@@ -108,7 +108,7 @@ As part of this process:
 
     You can also allow this IAM role to be used with other pipelines, branches, commits and steps by specifying multiple comma-separated values for the `agent.buildkite.com:sub` _subject_ field.
 
-1. Modify the `Condition` section's `IpAddress` values (`AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO`) with a list of your agent's IP addresses or CIDRs.
+1. Modify the `Condition` section's `IpAddress` values (`AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO`) with a list of your agent's IP addresses or [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) range or block.
 
     Only OIDC token exchange requests (for IAM roles) from Buildkite Agents with these IP addresses will be permitted.
 
