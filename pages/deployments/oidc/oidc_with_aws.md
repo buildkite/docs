@@ -153,7 +153,7 @@ As part of this process:
 
 1. In the **Custom trust policy** section, copy your modified custom trust policy, paste it into your IAM role, and complete the next few steps up to specifying the **Role name**.
 
-1. Specify an appropriate **Role name**, for example, `compute-ssm-oidc-example`, and complete the remaining steps.
+1. Specify an appropriate **Role name**, for example, `example-pipeline-oidc-for-ssm`, and complete the remaining steps.
 
 ## Step 3: Configure your IAM role with AWS actions
 
