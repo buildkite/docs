@@ -1,6 +1,6 @@
 # Securing your Buildkite Agent
 
-In cases where a Buildkite Agent is being deployed into a sensitive environment there are a few default settings and techniques which may be adjusted.
+In cases where a Buildkite Agent is being deployed into a sensitive environment, there are a few default settings which may be adjusted and techniques that may be used.
 
 ## Securely storing secrets
 
@@ -38,8 +38,10 @@ Command line evaluation can be disabled by setting [`no-command-eval`](/docs/age
 * Command line flag: `--no-command-eval`
 * Configuration setting: `no-command-eval=true`
 
->🚧 Custom hooks
-> If you have a custom <code>command</code> hook, using <code>no-command-eval</code> will have no effect on your command execution. See <a href="#allowing-a-list-of-plugins">Allowing a list of plugins</a> and <a href="#customizing-the-bootstrap">Custom bootstrap scripts</a> for examples of how to completely lock down your agent from arbitrary code execution.
+> 🚧 Custom hooks and environment variables
+> If you have a custom `command` hook, using `no-command-eval` will have no effect on your command execution. See [Allowing a list of plugins](#allowing-a-list-of-plugins) and [Custom bootstrap scripts](#customizing-the-bootstrap) for examples of how to completely lock down your agent from arbitrary code execution.
+>
+> Using `no-command-eval` only prevents command evaluation by the agent itself. Other programs such as build or test tools that run during the job could be influenced into executing arbitrary commands via environment variables (for example, `BASH_ENV` or `GIT_SSH_COMMAND`). See [Strict checks using a pre-bootstrap hook](#strict-checks-using-a-pre-bootstrap-hook) and [`enable-environment-variable-allowlist`](/docs/agent/v3/cli-start#enable-environment-variable-allowlist) for possible approaches to filtering environment variables.
 
 ## Disabling plugins
 
