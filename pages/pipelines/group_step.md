@@ -179,7 +179,7 @@ This merging behavior only applies if the group step with the matching `group` o
 Note that inside a single pipeline, groups with the same `group` or `label` will not be merged in the Buildkite UI.
 
 > 📘 You can't define the same key twice
-> Trying to create different groups with the same `key` attribute will result in an error.
+> Trying to create different groups or steps with the same `key` attribute will result in an error.
 
 For example, you have a YAML file:
 
