@@ -170,7 +170,7 @@ In this example we’ll allow access to read an SSM Parameter Store key named `/
             "Action": [
                 "ssm:GetParameters"
             ],
-            "Resource": "arn\:aws\:ssm\:us-east-1\:012345678910\:parameter/pipelines-compute/oidc/example-deploy-key"
+            "Resource": "arn\:aws\:ssm\:us-east-1\:012345678910\:parameter/pipelines/example-pipeline/oidc-for-ssm/example-deploy-key"
         }
     ]
 }
