@@ -15,13 +15,13 @@ Learn more about:
 
 - How OIDC tokens are constructed and how to extract and use claims in the [OpenID Connect Core documentation](https://openid.net/specs/openid-connect-core-1_0.html#IDToken).
 
-- Amazon's implementation of OIDC with their federated system in the [AWS OpenID Connect identity provider in IAM documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html).
+- Amazon's implementation of OIDC with their federated system in [Create an OpenID Connect (OIDC) identity provider in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html) of the AWS IAM User Guide.
 
 ## Step 1: Set up an OIDC provider in your AWS account
 
 First, you'll need to set up an IAM OIDC provider in your AWS account.
 
-Learn more about how to do this in the [Create an OpenID Connect (OIDC) identity provider in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html) page of the AWS documentation.
+Learn more about how to do this in the [Create an OpenID Connect (OIDC) identity provider in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html) page of the AWS IAM User Guide.
 
 On this page, as part of the [Creating and managing an OIDC provider (console)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html#manage-oidc-provider-console) process, specify the following values for the:
 
@@ -33,7 +33,7 @@ On this page, as part of the [Creating and managing an OIDC provider (console)](
 
 Creating new or updating existing IAM roles is conducted through your AWS account.
 
-Learn more about how to do this in the [Creating a role using custom trust policies (console)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-custom.html) page of the AWS documentation.
+Learn more about how to do this in the [Creating a role using custom trust policies (console)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-custom.html) page of the AWS IAM User Guide.
 
 As part of this process:
 
@@ -70,6 +70,8 @@ As part of this process:
         ]
     }
     ```
+
+    Learn more about creating custom trust policies in [Creating IAM policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create-console.html#access_policies_create-start) of the AWS IAM User Guide.
 
 1. Modify the `Principal` section of the pasted code snippet accordingly:
     1. Ensure that this is set to `Federated`, and points to the `oidc-provider` Amazon Resource Name (ARN) from the **Provider URL** you [configured above](#step-1-set-up-an-oidc-provider-in-your-aws-account) (that is, `agent.buildkite.com`).
@@ -108,7 +110,7 @@ As part of this process:
 
     You can also allow this IAM role to be used with other pipelines, branches, commits and steps by specifying multiple comma-separated values for the `agent.buildkite.com:sub` _subject_ field.
 
-1. Modify the `Condition` section's `IpAddress` values (`AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO`) with a list of your agent's IP addresses or [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) range or block.
+1. If you have dedicated/static public IP addresses and wish to implement defense in depth against an attacker stealing an OIDC token to access your cloud environment, retain the `Condition` section's `IpAddress` subsection, and modify its values (`AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO`) with a list of your agent's IP addresses or [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) range or block.
 
     Only OIDC token exchange requests (for IAM roles) from Buildkite Agents with these IP addresses will be permitted.
 
@@ -157,9 +159,11 @@ As part of this process:
 
 ## Step 3: Configure your IAM role with AWS actions
 
-Add an inline or managed IAM policy to the role to allow the IAM role to perform any actions your pipeline needs. Common examples are permissions to read secrets from SSM and push images to ECR, but this entirely depends on the purpose of your Pipeline.
+Add an inline or managed IAM policy (separate to the custom trust policy [configured above](#step-2-create-a-new-or-update-an-existing-iam-role-to-use-with-your-pipelines)) to allow the IAM role to perform any actions your pipeline needs. Learn more about how to do this in [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html) of the AWS IAM User Guide.
 
-In this example we’ll allow access to read an SSM Parameter Store key named `/pipelines/example-pipeline/oidc-for-ssm/example-deploy-key` by attaching the following inline policy.
+Common examples are permissions to read secrets from SSM and push images to ECR, although this would depend on the purpose of your pipeline.
+
+In the following example, we'll allow access to read an SSM Parameter Store key named `/pipelines/example-pipeline/oidc-for-ssm/example-deploy-key` by attaching the following inline policy:
 
 ```json
 {
@@ -170,7 +174,7 @@ In this example we’ll allow access to read an SSM Parameter Store key named `/
             "Action": [
                 "ssm:GetParameters"
             ],
-            "Resource": "arn\:aws\:ssm\:us-east-1\:012345678910\:parameter/pipelines/example-pipeline/oidc-for-ssm/example-deploy-key"
+            "Resource": "arn\:aws\:ssm\:us-east-1\:012345678910:parameter/pipelines/example-pipeline/oidc-for-ssm/example-deploy-key"
         }
     ]
 }
@@ -178,12 +182,12 @@ In this example we’ll allow access to read an SSM Parameter Store key named `/
 
 ## Step 4: Configure your pipeline to assume the role
 
-We’ll use two Buildkite Plugins to use the IAM role and to pull in the SSM parameter
+Finally, use the two Buildkite plugins to use the IAM role and to pull in the SSM parameter (added above):
 
-- [aws-assume-role-with-web-identity-buildkite-plugin](https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin)
-- [aws-ssm-buildkite-plugin](https://github.com/buildkite-plugins/aws-ssm-buildkite-plugin)
+- [AWS assume-role-with-web-identity](https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin)
+- [AWS SSM Buildkite Plugin](https://github.com/buildkite-plugins/aws-ssm-buildkite-plugin)
 
-This can be added to your Pipeline as follows
+Incorporate the following into your pipeline (modifying as required):
 
 ```yaml
 agents:
