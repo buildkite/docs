@@ -4,7 +4,7 @@ keywords: oidc, authentication, IAM, roles, AWS
 
 # OIDC with AWS
 
-The [Buildkite Agent's oidc command](/docs/agent/v3/cli-oidc) allows you to request an OpenID Connect (OIDC) token representing the current job. These tokens can be exchanged on federated systems like AWS for an Identity and Access Management (IAM) role with AWS-scoped permissions.
+The [Buildkite Agent's oidc command](/docs/agent/v3/cli-oidc) allows you to request an OpenID Connect (OIDC) token representing the current job. These tokens can be exchanged with AWS for an Identity and Access Management (IAM) role with AWS-scoped permissions.
 
 This process uses the following Buildkite plugins to implement OIDC with AWS and Buildkite pipelines:
 
@@ -72,7 +72,7 @@ As part of this process:
     ```
 
 1. Modify the `Principal` section of the pasted code snippet accordingly:
-    1. Ensure that this is set to `Federated`, and that the `oidc-provider` setting references the **Provider URL** you [configured above](#step-1-set-up-an-oidc-provider-in-your-aws-account) (that is, `agent.buildkite.com`).
+    1. Ensure that this is set to `Federated`, and points to the `oidc-provider` Amazon Resource Name (ARN) from the **Provider URL** you [configured above](#step-1-set-up-an-oidc-provider-in-your-aws-account) (that is, `agent.buildkite.com`).
     1. Change `AWS_ACCOUNT_ID` to your actual AWS account ID.
 
 1. Modify the `Condition` section of the code snippet accordingly:
@@ -98,22 +98,23 @@ As part of this process:
                 curl - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
                   -H "Authorization: Bearer $TOKEN"
                 ```
-        - `REF` is usually replaced with `refs/heads/main` to enforce the IAM role's access and use to only the `main` branch, `refs/tags/*` to ensure only tagged releases are able to be deployed, or a wildcard `*` if the IAM role can access and use all branches.
+        - `REF` is usually replaced with `refs/heads/main` to enforce the IAM role's access and use to only the `main` branch, `refs/tags/*` to ensure only tagged releases are able to be deployed, or a wildcard `*` if the IAM role can be accessed and used by all branches.
         - `BUILD_COMMIT` (optional) can be omitted and if so, is usually replaced with a single wildcard `*` at the end of the line.
         - `STEP_KEY` (optional) can be omitted and if so, is usually replaced with a single wildcard `*` at the end of the line.
 
     **Note:** When formulating your _subject_ field's value, you can replace any of the constituent field values above with a wildcard `*` to not set limits on those constituent fields.
 
-    For example, to allow the IAM role to be used for any pipeline in the Buildkite organization `example-org`, when building on any branch or tag, specify a single _subject_ field value of `organization:example-org:pipeline:*:ref:refs:*`.
+    For example, to allow the IAM role to be used for any pipeline in the Buildkite organization `example-org`, when building on any branch or tag, specify a single _subject_ field value of `organization:example-org:*`.
 
     You can also allow this IAM role to be used with other pipelines, branches, commits and steps by specifying multiple comma-separated values for the `agent.buildkite.com:sub` _subject_ field.
 
-1. Modify the `Condition` section's `IpAddress` values (`AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO`) with a list of your agent's IP addresses.
+1. Modify the `Condition` section's `IpAddress` values (`AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO`) with a list of your agent's IP addresses or CIDRs.
 
     Only OIDC token exchange requests (for IAM roles) from Buildkite Agents with these IP addresses will be permitted.
 
 1. Verify that your custom trust policy is complete. The following example trust policy (noting that `AWS_ACCOUNT_ID` has not been specified) will only allow the exchange of an agent's OIDC tokens with IAM roles when:
     * the Buildkite organization is `example-org`
+    * the Buildkite pipeline is `example-pipeline`
     * building on both the `main` branch and tagged releases
     * on Buildkite Agents whose IP addresses are either `192.0.2.0` or `198.51.100.0`
 
@@ -152,13 +153,13 @@ As part of this process:
 
 1. In the **Custom trust policy** section, copy your modified custom trust policy, paste it into your IAM role, and complete the next few steps up to specifying the **Role name**.
 
-1. Specify an appropriate **Role name**, for example, `compute-ssm-oidc-example`, and complete the remaining steps.
+1. Specify an appropriate **Role name**, for example, `example-pipeline-oidc-for-ssm`, and complete the remaining steps.
 
 ## Step 3: Configure your IAM role with AWS actions
 
 Add an inline or managed IAM policy to the role to allow the IAM role to perform any actions your pipeline needs. Common examples are permissions to read secrets from SSM and push images to ECR, but this entirely depends on the purpose of your Pipeline.
 
-In this example we’ll allow access to read an SSM Parameter Store key named `/pipelines-compute/oidc/example-deploy-key` by attaching the following inline policy.
+In this example we’ll allow access to read an SSM Parameter Store key named `/pipelines/example-pipeline/oidc-for-ssm/example-deploy-key` by attaching the following inline policy.
 
 ```json
 {
@@ -169,7 +170,7 @@ In this example we’ll allow access to read an SSM Parameter Store key named `/
             "Action": [
                 "ssm:GetParameters"
             ],
-            "Resource": "arn\:aws\:ssm\:us-east-1\:012345678910\:parameter/pipelines-compute/oidc/example-deploy-key"
+            "Resource": "arn\:aws\:ssm\:us-east-1\:012345678910\:parameter/pipelines/example-pipeline/oidc-for-ssm/example-deploy-key"
         }
     ]
 }
@@ -197,8 +198,8 @@ steps:
       AWS_REGION: us-east-1
     plugins:
       - aws-assume-role-with-web-identity#v1.0.0:
-          role-arn: arn\:aws\:iam::012345678910:role/compute-ssm-oidc-example
+          role-arn: arn\:aws\:iam::012345678910:role/example-pipeline-oidc-for-ssm
       - aws-ssm#v1.0.0:
           parameters:
-            EXAMPLE_DEPLOY_KEY: /pipelines-compute/oidc/example-deploy-key
+            EXAMPLE_DEPLOY_KEY: /pipelines/example-pipeline/oidc-for-ssm/example-deploy-key
 ```
