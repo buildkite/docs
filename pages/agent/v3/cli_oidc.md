@@ -7,7 +7,7 @@ Refer to the following documentation for more information:
 - The [What is OpenID Connect](https://openid.net/developers/how-connect-works/) overview on the OpenID web site for more details about how OIDC works.
 - The [OpenID Connect Core documentation](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) for more information about how OIDC tokens are constructed and how to extract and use claims.
 
-Learn more about how to restrict your Buildkite Agents' access to deployment environments like AWS, in [OIDC with Buildkite](/docs/deployments/oidc).
+Learn more about how to restrict your Buildkite Agents' access to deployment environments like AWS, in OIDC with [Buildkite](/docs/pipelines/security/oidc) and [AWS](/docs/pipelines/security/oidc/aws).
 
 ## Request OIDC token
 

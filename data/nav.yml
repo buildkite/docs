@@ -335,6 +335,12 @@
           path: "pipelines/security/incoming-webhooks"
         - name: "Audit log"
           path: "pipelines/security/audit-log"
+        - name: "OIDC"
+          children: 
+            - name: "Overview"
+              path: "pipelines/security/oidc"
+            - name: "OICD with AWS"
+              path: "pipelines/security/oidc/aws"
     - name: "Team management"
       children:
         - name: "Overview"
@@ -361,12 +367,6 @@
           path: "deployments/deploying-to-heroku"
         - name: "Deploying to Kubernetes"
           path: "deployments/deploying-to-kubernetes"
-        - name: "OIDC"
-          children: 
-            - name: "Overview"
-              path: "deployments/oidc"
-            - name: "OICD with AWS"
-              path: "deployments/oidc/oidc-with-aws"
     - name: "Insights"
       children:
         - name: "Waterfall view"
