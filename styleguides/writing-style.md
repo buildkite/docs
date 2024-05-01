@@ -206,7 +206,7 @@ Key terms or any words you want to emphasize should be formatted in italics. For
 > [!NOTE]
 > Use italicization for key terms sparingly—either near the top of a section of documentation, or the top of a page. In general, a key term only needs to be pointed out once in such a section of documentation and not every time it's used on a page.
 
-Refer to [Key terms in the Markdown syntax style guide](markdown-syntax-style.md#key-terms) for details on how to write and present key terms in the Buildkite docs.
+Refer to [Key terms in the Markdown syntax style guide](markdown-syntax-style.md#key-terms-and-emphasis) for details on how to write and present key terms in the Buildkite docs.
 
 ### Lists (bullet lists and numbered steps)
 
