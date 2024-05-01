@@ -198,7 +198,7 @@ steps:
       AWS_REGION: us-east-1
     plugins:
       - aws-assume-role-with-web-identity#v1.0.0:
-          role-arn: arn\:aws\:iam::012345678910:role/compute-ssm-oidc-example
+          role-arn: arn\:aws\:iam::012345678910:role/example-pipeline-oidc-for-ssm
       - aws-ssm#v1.0.0:
           parameters:
             EXAMPLE_DEPLOY_KEY: /pipelines/example-pipeline/oidc-for-ssm/example-deploy-key
