@@ -165,7 +165,9 @@ Each AWS Quick Start example has a corresponding GitHub repository with full exa
 
 AWS EventBridge has strict limits on the size of the payload as documented in [Amazon EventBridge quotas](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-quota.html). As such, the information included in payloads is restricted to basic information about the event. If you need more information, you can query from the Buildkite [APIs](/docs/apis) using the data in the event.
 
-<h3 id="events-build-created">Build Created</h3>
+<a id="events-build-created"></a>
+
+### Build Created
 
 ```json
 {
@@ -199,7 +201,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-build-started">Build Started</h3>
+<a id="events-build-started">Build Started</a>
 
 ```json
 {
@@ -233,7 +235,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-build-finished">Build Finished</h3>
+<a id="events-build-finished"></a>
+
+### Build Finished
 
 ```json
 {
@@ -267,7 +271,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-build-blocked">Build Blocked</h3>
+<a id="events-build-blocked"></a>
+
+### Build Blocked
 
 ```json
 {
@@ -309,7 +315,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-job-scheduled">Job Scheduled</h3>
+<a id="events-job-scheduled"></a>
+
+### Job Scheduled
 
 ```json
 {
@@ -360,7 +368,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-job-started">Job Started</h3>
+<a id="events-job-started"></a>
+
+### Job Started
 
 ```json
 {
@@ -411,7 +421,11 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-job-finished">Job Finished</h3>
+<a id="events-job-finished"></a>
+
+### Job Finished
+
+These types of events [may contain a `signal_reason` field value](#signal-reason).
 
 ```json
 {
@@ -429,6 +443,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
         "queue=default"
       ],
       "exit_status": 0,
+      "signal_reason": "see-reason-below",
       "passed": true,
       "soft_failed": false,
       "state": "finished",
@@ -462,7 +477,23 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-job-activated">Job Activated</h3>
+<a id="signal-reason"></a>
+
+#### Signal reason in job finished events
+
+The `signal_reason` field of a [job finished](#example-event-payloads-job-finished) event is only be present when the `exit_status` field value in the same event is not `0`. The `signal_reason` field's value indicates the reason why a job was either stopped, or why the job never ran.
+
+| Signal Reason | Description |
+| --- | --- |
+| `agent_refused` | The agent refused to run the job, as it was not allowed by a [pre-bootstrap hook](/docs/agent/v3/securing#strict-checks-using-a-pre-bootstrap-hook) |
+| `agent_stop` | The agent was stopped while the job was running |
+| `cancel` | The job was cancelled by a user |
+| `signature_rejected` | The job was rejected due to a mismatch with the [step's signature](/docs/agent/v3/signed-pipelines) |
+| `process_run_error` | The job failed to start due to an error in the process run. This is usually a bug in the agent, contact support if this is happening regularly. |
+
+<a id="events-job-activated"></a>
+
+### Job Activated
 
 ```json
 {
@@ -515,7 +546,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-agent-connected">Agent Connected</h3>
+<a id="events-agent-connected"></a>
+
+### Agent Connected
 
 ```json
 {
@@ -553,7 +586,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-agent-disconnected">Agent Disconnected</h3>
+<a id="events-agent-disconnected"></a>
+
+### Agent Disconnected
 
 ```json
 {
@@ -591,7 +626,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-agent-lost">Agent Lost</h3>
+<a id="events-agent-lost"></a>
+
+### Agent Lost
 
 ```json
 {
@@ -629,7 +666,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-agent-stopping">Agent Stopping</h3>
+<a id="events-agent-stopping"></a>
+
+### Agent Stopping
 
 ```json
 {
@@ -667,7 +706,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-agent-stopped">Agent Stopped</h3>
+<a id="events-agent-stopped"></a>
+
+### Agent Stopped
 
 ```json
 {
@@ -705,7 +746,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-agent-blocked">Agent Blocked</h3>
+<a id="events-agent-blocked"></a>
+
+### Agent Blocked
 
 ```json
 {
@@ -744,7 +787,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 ```
 <!-- vale off -->
 
-<h3 id="events-cluster-token-registration-blocked">Cluster Token Registration Blocked</h3>
+<a id="events-cluster-token-registration-blocked"></a>
+
+### Cluster Token Registration Blocked
 
 <!-- vale on -->
 
@@ -768,9 +813,11 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="audit-event-logged">Audit Event Logged</h3>
+<a id="audit-event-logged"></a>
 
-[Audit log](/docs/pipelines/audit-log) is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan
+### Audit Event Logged
+
+[Audit log](/docs/pipelines/security/audit-log) is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
 
 ```json
 {

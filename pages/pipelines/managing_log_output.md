@@ -133,6 +133,8 @@ To further tighten the security in a Buildkite organization, you can use the [AP
 
 Agents can redact the values of environment variables whose names match common patterns for passwords and other secure information before the build log is uploaded to Buildkite.
 
+If the environment variable's value is shorter than the minimum length of 6 bytes, then this value will not be redacted.
+
 The default environment variable name patterns are:
 
 - `*_PASSWORD`
@@ -151,7 +153,7 @@ redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_ACCESS_KEY, *_SECRET_KEY, *_CONN
 ```
 
 >📘 Setting environment variables
-> Note that if you <emphasis>set</emphasis> or <emphasis>interpolate</emphasis> a secret environment variable in your <code>pipeline.yml</code> it is not redacted, but doing that is <a href="/docs/pipelines/secrets#anti-pattern-storing-secrets-in-your-pipeline-dot-yml">not recommended</a>.
+> Note that if you <emphasis>set</emphasis> or <emphasis>interpolate</emphasis> a secret environment variable in your <code>pipeline.yml</code> it is not redacted, but doing that is <a href="/docs/pipelines/security/managing-secrets#anti-pattern-storing-secrets-in-your-pipeline-dot-yml">not recommended</a>.
 
 ## Private build log archive storage
 

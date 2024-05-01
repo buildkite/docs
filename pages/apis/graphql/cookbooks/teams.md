@@ -165,6 +165,34 @@ query getPipelinesByTeam {
 
 If you have more than 100 teams or more than 100 pipelines per team, use the pagination information in `pageInfo` to get the next results page.
 
+## Get members from a specific team
+
+This query will display members of a team with their roles.
+
+```graphql
+query GetTeamMember {
+  organization(slug:"organization-slug") {
+    teams(first:1, search:"team-slug") {
+      edges {
+        node {
+          members(first:200) {
+            edges {
+              node {
+                role
+                user {
+                  name
+                  email
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ## Set teams' pipeline edit access to READ_ONLY or BUILD_AND_READ
 
 Remove edit access from existing teams. This is helpful when you want to centralize pipeline edit permissions to a single system user, controlled by an organization admin.
