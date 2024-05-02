@@ -72,6 +72,15 @@ steps:
             type: details
           context: test-summary
 
+  - label: ":graphql: Check generated code is up to date"
+    command: bundle exec rake graphql:generate
+    plugins:
+      - docker-compose#v3.9.0:
+          run: app
+          dependencies: false
+      - .buildkite/plugins/check-for-changes:
+          fail_message: "Generated code is out of date. Run `bundle exec rake graphql:generate` and commit the changes."
+
   - group: "Lint all the things"
     key: linting
     steps:

@@ -36,6 +36,10 @@ module NavData
             "path" => "apis/graphql/cookbooks/agents"
           },
           {
+            "name" => "Artifacts",
+            "path" => "apis/graphql/cookbooks/artifacts"
+          },
+          {
             "name" => "Builds",
             "path" => "apis/graphql/cookbooks/builds"
           },
