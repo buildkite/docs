@@ -2938,6 +2938,42 @@ type JobEventRetried implements JobEvent & Node {
 }
 
 """
+An event created when job fails to retry
+"""
+type JobEventRetryFailed implements JobEvent & Node {
+  """
+  The actor that caused this event to occur
+  """
+  actor: JobEventActor!
+  id: ID!
+
+  """
+  The job that this event belongs to
+  """
+  job: JobTypeCommand!
+
+  """
+  The reason why the job was unable to be retried
+  """
+  retryFailedReason: String!
+
+  """
+  The time when the event occurred
+  """
+  timestamp: DateTime!
+
+  """
+  The type of event
+  """
+  type: JobEventType!
+
+  """
+  The public UUID for this job event
+  """
+  uuid: ID!
+}
+
+"""
 The reason why a signal was sent to the job's process, or why the process did not start
 """
 enum JobEventSignalReason {
@@ -3102,6 +3138,11 @@ enum JobEventType {
   The Job was retried either automatically or by a user
   """
   RETRIED
+
+  """
+  The Job was unable to be retried
+  """
+  RETRY_FAILED
 
   """
   The Job was scheduled

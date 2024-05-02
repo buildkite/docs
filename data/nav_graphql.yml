@@ -424,6 +424,8 @@
     path: apis/graphql/schemas/object/jobeventgeneric
   - name: JobEventRetried
     path: apis/graphql/schemas/object/jobeventretried
+  - name: JobEventRetryFailed
+    path: apis/graphql/schemas/object/jobeventretryfailed
   - name: JobEventTimedOut
     path: apis/graphql/schemas/object/jobeventtimedout
   - name: JobMinutesUsage
