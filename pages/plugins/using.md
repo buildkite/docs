@@ -115,7 +115,7 @@ steps:
 
 ```
 
-You can override an anchor by using `<<:` before the _alias_. This allows overriding parts of the anchor without needing to repeat the all plugin configuration or creating multiple anchors.
+You can override an anchor by using `<<:` before the _alias_. This allows overriding parts of the anchor as required, reducing the need to create multiple anchors with similar configurations.
 
 The following example uses a YAML anchor (`docker-step`) and overrides the command run whilst using the same plugin version and container image:
 
