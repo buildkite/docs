@@ -28,26 +28,29 @@ To configure your Linux instance you can use the [Docker Compose](https://github
 
 ## Cache volumes
 
-Cache Volumes are external volumes attached to hosted agent instances. Cache Volumes are attached on a best-effort basis depending on their locality, expiration and current usage (so they should not be relied upon as durable data storage).
+_Cache volumes_ are external volumes attached to hosted agent instances. These volumes are attached on a best-effort basis depending on their locality, expiration and current usage, and therefore, should not be relied upon as durable data storage.
 
-Cache Volumes are disabled by default and can be enabled by providing a list of paths to cache at the pipeline level or the step level. Cache Volumes are scoped to a pipeline and are shared between all steps in a pipeline by default.
+By default, cache volumes:
 
-Cache Volumes act as regular disks with the following properties:
+- Are disabled, although you can enable them by providing a list of paths to cache at the pipeline- or step-level.
+- Are scoped to a pipeline and are shared between all steps in the pipeline.
 
-- They're backed by local NVMe storage. You can expect high performance.
-- A Cache Volume is formatted as a regular Linux filesystem (e.g. ext4), so you can expect them to support any use-case you have that Linux supports.
+Cache volumes act as regular disks with the following properties:
+
+- The volumes backed by local NVMe storage, delivering high performance.
+- The volumes are formatted as a regular Linux filesystem (e.g. ext4)—therefore, these volumes support any Linux use-cases.
 
 ### Cache configuration
 
-Cache paths can be defined in your [pipeline.yml](/docs/pipelines/defining-steps) file. Defining cache paths for a step will implicitly create a Cache Volume for the pipeline.
+Cache paths can be [defined in your `pipeline.yml`](/docs/pipelines/defining-steps) file. Defining cache paths for a step will implicitly create a cache volume for the pipeline.
 
-Defining cache paths enables mounting of the Cache Volume under `/cache` in the agent instance. The agent links subdirectories of the Cache Volume into the paths specified in the configuration. For example, defining `cache: "node_modules"` the agent will link `./node_modules` to `/cache/bkcache/node_modules`.
+When cache paths are defined, the cache volume is mounted under `/cache` in the agent instance. The agent links subdirectories of the cache volume into the paths specified in the configuration. For example, defining `cache: "node_modules"` in your `pipeline.yml` file will link `./node_modules` to `/cache/bkcache/node_modules` in your agent instance.
 
-Custom caches can be created by specifying a name for the cache. This allows for multiple Cache Volumes to be used in a single pipeline.
+Custom caches can be created by specifying a name for the cache, which allows you to use multiple cache volumes in a single pipeline.
 
-When requesting a Cache Volume, you can specify a size. The provided Cache Volume will have a minimum available storage equal to the specified size. In the case of a cache hit (most of the time), the actual volume size is: last used volume size + the specified size.
+When requesting a cache volume, you can specify a size. The cache volume provided will have a minimum available storage equal to the specified size. In the case of a cache hit (most of the time), the actual volume size is: last used volume size + the specified size.
 
-Defining a top-level cache configuration will set the defaults for all steps in the pipeline. Steps can override the top-level configuration by defining their own cache configuration.
+Defining a top-level cache configuration (as opposed to one within a step) sets the defaults cache volume for all steps in the pipeline. Steps can override the top-level configuration by defining their own cache configuration.
 
 ```yaml
 cache:
@@ -93,7 +96,7 @@ Optional attributes:
   <tr>
     <td><code>name</code></td>
     <td>
-      A name for the cache. This allows for multiple Cache Volumes to be used in a single pipeline.<br>
+      A name for the cache. This allows for multiple cache volumes to be used in a single pipeline.<br>
       <em>Example:</em> <code>"node-modules-cache"</code><br>
     </td>
   </tr>
@@ -101,7 +104,7 @@ Optional attributes:
   <tr>
     <td><code>size</code></td>
     <td>
-      The size of the cache volume. The default size is 20 gigabytes. Units are in gigabytes, specified as <code>Ng</code>, where <code>N</code> is the size in gigabytes.<br>
+      The size of the cache volume. The default size is 20 gigabytes. Units are in gigabytes, specified as <code>Ng</code>, where <code>N</code> is the size in gigabytes, and <code>g</code> indicates gigabytes.<br>
       <em>Example:</em> <code>"20g"</code><br>
     </td>
   </tr>
@@ -109,22 +112,22 @@ Optional attributes:
 
 ### Lifecycle
 
-At any point in time, multiple versions of a Cache Volume may be used by different jobs.
+At any point in time, multiple versions of a cache volume may be used by different jobs.
 
-The first request creates the first version of the Cache Volume, which is used as the parent of subsequent forks until a new parent version is committed.
+The first request creates the first version of the cache volume, which is used as the parent of subsequent forks until a new parent version is committed.
 
-When requesting a Cache Volume, a "fork" of the previous cache volume version is attached to the agent instance (all but the first one, which starts empty).
+When requesting a cache volume, a "fork" of the previous cache volume version is attached to the agent instance (all but the first one, which starts empty).
 
-Each job gets its own private copy of the Cache Volume, as it existed at the time of the last cache commit.
+Each job gets its own private copy of the cache volume, as it existed at the time of the last cache commit.
 
-Version commits follow a "last write" model: whenever a job terminates successfully (i.e. exits with exit code 0), Cache Volumes attached to that job have a new parent committed: the final flushed volume of the exiting agent instance.
+Version commits follow a "last write" model: whenever a job terminates successfully (that is, exits with exit code `0`), cache volumes attached to that job have a new parent committed: the final flushed volume of the exiting agent instance.
 
-Whenever a job fails, the Cache Volume versions attached to the agent instance are abandoned.
+Whenever a job fails, the cache volume versions attached to the agent instance are abandoned.
 
 ### Git mirror cache
 
-The Git mirror cache is a special type of Cache Volume that is used to speed up Git operations by caching the Git repository between builds. This is useful for large repositories that are slow to clone.
+The Git mirror cache is a special type of cache volume that is used to speed up Git operations by caching the Git repository between builds. This is useful for large repositories that are slow to clone.
 
-Git mirror caching can be enabled on the cluster's Cache Volumes settings page. Once enabled, the Git mirror cache will be used for all hosted jobs in that cluster. A separate Cache Volume will be created for each repository.
+Git mirror caching can be enabled on the cluster's cache volumes settings page. Once enabled, the Git mirror cache will be used for all hosted jobs in that cluster. A separate cache volume will be created for each repository.
 
 <%= image "hosted-agents-cache-settings.png", width: 1760, height: 436, alt: "Job groups displayed in the Buildkite UI" %>
