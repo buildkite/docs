@@ -1,0 +1,7 @@
+description: Plugin for detecting changes in the working directory after a command is run.
+configuration:
+  properties:
+    fail_message:
+      type: string
+      default: "Changes detected in the working directory"
+  additionalProperties: false
