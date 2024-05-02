@@ -59,6 +59,9 @@ steps:
 
 <%= image "artifactory-go-local-repository.png", width: 1484/2, height: 674/2, alt: "Screenshot of an artifact in the go-local repository in Artifactory" %>
 
+> 📘 Retiving Artifacts with Buildkite Agent 
+> The Buildkite Agent uses the Buildkite API to fetch the correct download URLs in order to download artifacts from Artifactory. The default behaviour of the agent is to look for the <code>BUILDKITE_BUILD_ID</code> from the job environment causing it look for an artifact uploaded in the same Build, resulting in an error if the artifact was uploaded in another build. To do this using <code>buildkite-agent artifact download</code> or [artifacts-buildkite-plugin] (https://github.com/buildkite-plugins/artifacts-buildkite-plugin), it needs the <code>BUILDKITE_BUILD_ID</code> of the job through which the artifact was uploaded, passed as an additional information to the <code>--build</code> argument. 
+
 ## Using Artifactory for package management
 
 To help cache and secure your build dependencies, you can use [Artifactory's package management](https://www.jfrog.com/confluence/display/RTF/Package+Management) features in your Buildkite pipelines. Each package management platform is configured differently.
