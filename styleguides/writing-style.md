@@ -175,14 +175,12 @@ Refer to [Headings in the Markdown syntax style guide](markdown-syntax-style.md#
 
 ### Product Names (and product features)
 
-Only use Title Case (initial capital letters) for the name of the product (product names), and match capital letter usage in product names as an organization would use them in these products. For example:
+Only use Title Case (initial capital letters) for the name of the product (_product names_), and match the capital letter usage in product names as the organization who produces them would use them in their product names. Avoid using Title Case for _product features_, that is, when mentioning or describing them in documentation. Product features are treated as _common nouns_, not _Proper Nouns_. For example:
 
-- 'Docker Compose overview' and not 'Docker Compose Overview' 
-- 'GitHub organization' and not 'GitHub Organization'
+- 'Docker Compose overview' and not 'Docker Compose Overview' (where 'Docker Compose' is a product name)
+- 'GitHub organization' and not 'GitHub Organization' (where 'organization' is a product feature)
 
 > [!NOTE]
-> Avoid using Title Case for product features, that is, when mentioning or describing them in documentation.
->
 > Ensure brand capitalization is adhered to, for example, refer to GitHub as "GitHub", and not "Github" or "GITHUB".
 
 ### UI elements
