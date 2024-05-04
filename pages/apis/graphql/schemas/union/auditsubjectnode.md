@@ -91,6 +91,9 @@ Kinds of subjects which can have audit events performed on them
 <a href="/docs/apis/graphql/schemas/object/pipelinetemplate" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineTemplate">
   <code>PipelineTemplate</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/registry" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Registry">
+  <code>Registry</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/scmpipelinesettings" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SCMPipelineSettings">
   <code>SCMPipelineSettings</code>
 </a>
@@ -129,6 +132,9 @@ Kinds of subjects which can have audit events performed on them
 </a>
 <a href="/docs/apis/graphql/schemas/object/teampipeline" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamPipeline">
   <code>TeamPipeline</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/teamregistry" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamRegistry">
+  <code>TeamRegistry</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/teamsuite" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamSuite">
   <code>TeamSuite</code>
