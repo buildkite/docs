@@ -313,7 +313,6 @@
         - name: "Queue metrics"
           path: "clusters/queue-metrics"
     - name: "Hosted agents"
-      pill: "private trials"
       children:
         - name: "Overview"
           path: "pipelines/hosted-agents/overview"
@@ -325,6 +324,10 @@
           path: "pipelines/hosted-agents/code-access"
         - name: "Pipeline migration"
           path: "pipelines/hosted-agents/pipeline-migration"
+        - name: "Terminal access"
+          path: "pipelines/hosted-agents/terminal-access"
+        - name: "Secrets"
+          path: "pipelines/hosted-agents/secrets"
     - name: "Security"
       children:
         - name: "Overview"
