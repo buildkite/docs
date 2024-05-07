@@ -17,7 +17,7 @@ Buildkite offers a selection of instance sizes, allowing you to tailor your host
     </thead>
     <tbody>
         <tr><td>Small</td><td>2</td><td>4 GB</td></tr>
-        <tr><td>Medium</td><td>4</td><td>8 GB</td></tr>
+        <tr><td>Medium</td><td>4</td><td>16 GB</td></tr>
         <tr><td>Large</td><td>8</td><td>32 GB</td></tr>
     </tbody>
 </table>
@@ -37,7 +37,7 @@ By default, cache volumes:
 
 Cache volumes act as regular disks with the following properties:
 
-- The volumes backed by local NVMe storage, delivering high performance.
+- The volumes use NVMe storage, delivering high performance.
 - The volumes are formatted as a regular Linux filesystem (e.g. ext4)—therefore, these volumes support any Linux use-cases.
 
 ### Cache configuration
@@ -114,9 +114,9 @@ Optional attributes:
 
 At any point in time, multiple versions of a cache volume may be used by different jobs.
 
-The first request creates the first version of the cache volume, which is used as the parent of subsequent forks until a new parent version is committed.
+The first request creates the first version of the cache volume, which is used as the parent of subsequent _forks_ until a new parent version is committed. A _fork_ in this context is a "moment", or a readable/writable "snapshot", version of the cache volume in time.
 
-When requesting a cache volume, a "fork" of the previous cache volume version is attached to the agent instance (all but the first one, which starts empty).
+When requesting a cache volume, a fork of the previous cache volume version is attached to the agent instance. This is the case for all cache volumes, except for the first request, which starts empty, with no cache volumes attached.
 
 Each job gets its own private copy of the cache volume, as it existed at the time of the last cache commit.
 
