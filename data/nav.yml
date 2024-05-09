@@ -326,8 +326,8 @@
           path: "pipelines/hosted-agents/pipeline-migration"
         - name: "Terminal access"
           path: "pipelines/hosted-agents/terminal-access"
-        - name: "Secrets"
-          path: "pipelines/hosted-agents/secrets"
+        - name: "Buildkite secrets"
+          path: "pipelines/buildkite-secrets"
     - name: "Security"
       children:
         - name: "Overview"
