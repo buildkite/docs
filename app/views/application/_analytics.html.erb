@@ -1,5 +1,16 @@
 
 <%= javascript_tag nonce: true do %>
+var readCookie = function(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
 var getFirstSource = function() {
   const firstSourceCookie = '_first_lead_source',
         firstReferrerCookie = '_first_referrer',
@@ -9,17 +20,6 @@ var getFirstSource = function() {
         currentPageCookie = '_current_page',
         domainName = window.location.hostname,
         cookieDuration = 90;
-
-      function readCookie(name) {
-          var nameEQ = name + "=";
-          var ca = document.cookie.split(';');
-          for(var i=0;i < ca.length;i++) {
-              var c = ca[i];
-              while (c.charAt(0)==' ') c = c.substring(1,c.length);
-              if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-          }
-          return null;
-      }
 
       function setCookie(days, cName, cValue) {
         var d = new Date();
@@ -77,12 +77,29 @@ var getFirstSource = function() {
 
 
 <%= javascript_tag nonce: true do %>
-   !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._loadOptions=e};analytics._writeKey="<%= ENV['SEGMENT_TRACKING_ID'] %>";;analytics.SNIPPET_VERSION="4.15.3";
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._loadOptions=e};analytics._writeKey="<%= ENV['SEGMENT_TRACKING_ID'] %>";;analytics.SNIPPET_VERSION="4.15.3";
+    var utmCookie = readCookie('__utmzz') || "";
+    var cookieParts = utmCookie.split('|');
+
+    var utmValues = {};
+    for (var i = 0; i < cookieParts.length; i++) {
+      var parts = cookieParts[i].split('=');
+      utmValues[parts[0]] = parts[1];
+    }
+
+    var utmMiddleware = function ({ payload, next, integrations }) {
+      payload.obj.properties.utm_campaign = utmValues['utmccn'];
+      payload.obj.properties.utm_medium = utmValues['utmcmd'];
+      payload.obj.properties.utm_source = utmValues['utmcsr'];
+      next(payload);
+    };
+    analytics.addSourceMiddleware(utmMiddleware);
+
     analytics.load("<%= ENV['SEGMENT_TRACKING_ID'] %>");
     analytics.page({
       firstSource: getFirstSource()
     });
-   }}();
+  }}();
  <% end %>
 
  <%= javascript_include_tag  "https://buildkite.com/_site/scripts/utm.js", async: true %>
