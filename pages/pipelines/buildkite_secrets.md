@@ -58,7 +58,7 @@ steps:
 
 If any Pipeline, script or your own tool (accidentally) prints out the value of any Buildkite secret to standard out, this value is automatically redacted from the build logs.
 
-If for any reason you detect an unredacted secret value, please rotate your secrets and contact security@buildkite.com.
+If for any reason you detect an secret value that isn't redacted, please rotate your secrets and contact security@buildkite.com.
 
 ## Security
 
