@@ -77,7 +77,7 @@ If there's a failure followed by a regular wait step, nothing after the wait ste
 ```yml
 steps:
   - command: "exit -1"
-  - wait
+  - wait:
   - command: "echo SECOND command"
   - wait: ~
     continue_on_failure: true
