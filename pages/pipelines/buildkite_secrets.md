@@ -74,8 +74,7 @@ Buildkite secrets are designed, with the following controls in place:
 
 ## Best practices
 
-- Do not store long lived secrets or secrets with no expiry in Buildkite secrets.
-- Only store short lived secrets in Buildkite secrets.
+- Only store short-lived secrets in Buildkite secrets. Do not store long-lived secrets or secrets with no expiry in Buildkite secrets.
 - Track the secrets stored in Buildkite secrets within your own asset management processes.
 - Enable logging for services that are accessed using the secrets stored in Buildkite secrets.
 - Should you detect a compromise or are concerned about the security of your secrets, please contact security@buildkite.com immediately.
