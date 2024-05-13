@@ -10,7 +10,7 @@ This can be useful when migrating your pipelines across to [queues](/docs/cluste
 
 ## Use terminal access on hosted agents
 
-Assuming that [terminal access is activated across your Buildkite organization](#deactivate-and-reactivate-terminal-access-on-hosted-agents), you can access this terminal access feature from a currently building pipeline, when the job of the relevant step is being built.
+Assuming that [terminal access is active across your Buildkite organization](#deactivate-and-reactivate-terminal-access-on-hosted-agents), you can access this terminal access feature from a currently building pipeline, when the job of the relevant step is being built.
 
 The terminal access feature is available to users who:
 

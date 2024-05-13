@@ -38,7 +38,7 @@ Once you've [created a secret](#create-a-secret), the [`buildkite-agent secret g
 
 - Redirecting the value of a Buildkite secret with the key `secret_name` into a file called `secret.txt`:
 
-    `buildkite-agent secret get secret_name >> secret.txt`
+    `buildkite-agent secret get secret_name > secret.txt`
 
 - Passing the output of your Buildkite secret (via the `buildkite-agent secret get` command) to your own tool named `cli-tool` that accepts a secret via its `-token` option:
 
