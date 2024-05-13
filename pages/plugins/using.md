@@ -135,7 +135,7 @@ steps:
 
 You can override a [YAML anchor](#using-yaml-anchors-with-plugins) with the `<<:` syntax before its _alias_. This allows you to override parts of the anchor item's contents, while retaining others, therefore reducing the need to create multiple anchors with similar configurations.
 
-The following example uses a YAML anchor (`docker-step`) and overrides the `command` run whilst using the same plugin version and container image:
+The following example uses a YAML anchor (`docker-step`) and overrides the `command` run in one of its aliases whilst using the same plugin version and container image:
 
 ```yml
 common:
