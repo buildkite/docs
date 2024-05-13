@@ -6,7 +6,7 @@ A wait step can be defined in your pipeline settings, or in your [pipeline.yml](
 
 ```yml
 - command: "command.sh"
-- wait:
+- wait: ~
 - command: "echo The command passed"
 ```
 {: codeblock-file="pipeline.yml"}
@@ -68,7 +68,7 @@ steps:
   - wait: ~
     continue_on_failure: true
   - command: "echo This runs regardless of the success or failure"
-  - wait:
+  - wait: ~
   - command: "echo The command passed"
 ```
 
@@ -77,7 +77,7 @@ If there's a failure followed by a regular wait step, nothing after the wait ste
 ```yml
 steps:
   - command: "exit -1"
-  - wait:
+  - wait: ~
   - command: "echo SECOND command"
   - wait: ~
     continue_on_failure: true
