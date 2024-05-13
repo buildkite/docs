@@ -81,4 +81,4 @@ Buildkite secrets are designed, with the following controls in place:
 
 ## Alternative secret management methods
 
-If Buildkite secrets is not suitable for your requirements, Buildkite recommends that you manage your own secrets in your own infrastructure, and then implement [OIDC](/docs/pipelines/security/oidc) with your cloud storage/service provider to grant hosted agents access to these secrets. You can follow the [OIDC with AWS](/docs/pipelines/security/oidc/aws) process to work with secrets in AWS managed by the AWS Systems Manager (SSM). These secrets can then be accessed in your Buildkite Pipelines using hosted agents.
+If Buildkite secrets is not suitable for your requirements, Buildkite recommends that you manage your own secrets in your own infrastructure, and then implement [OIDC](/docs/pipelines/security/oidc) with your cloud storage/service provider to grant hosted agents access to these secrets. You can follow the [OIDC with AWS](/docs/pipelines/security/oidc/aws) process to work with secrets in AWS managed by the AWS Systems Manager (SSM). These secrets can then be accessed in your Buildkite Pipelines using both hosted and self-hosted agents.
