@@ -2,8 +2,8 @@
 
 Linux instances for Buildkite hosted agents are offered with two architectures:
 
-- ARM
 - AMD64 (x64_86)
+- ARM64 (AArch64)
 
 To accommodate different workloads, instances are capable of running up to 8 hours. If you require longer running agents please contact support.
 
@@ -123,6 +123,12 @@ Each job gets its own private copy of the cache volume, as it existed at the tim
 Version commits follow a "last write" model: whenever a job terminates successfully (that is, exits with exit code `0`), cache volumes attached to that job have a new parent committed: the final flushed volume of the exiting agent instance.
 
 Whenever a job fails, the cache volume versions attached to the agent instance are abandoned.
+
+### Billing model
+
+Cache volumes are charged at an initial fixed cost _per pipeline build_ when a cache path (for example, `cache: "node_modules"`) is defined at least once in the pipeline's `pipeline.yml` file. This fixed cost is the same, regardless of the number of times a cache path is defined/used in the `pipeline.yml` file.
+
+An additional (smaller) charge is made per gigabyte of _active cache_, where active cache is defined as any cache volume used in the last 24 hours.
 
 ### Git mirror cache
 
