@@ -18,9 +18,9 @@ The terminal access feature is available to users who have/are any of the follow
 - a [maintainer of the cluster](/docs/clusters/manage-clusters#manage-maintainers-on-a-cluster) containing this pipeline
 - a Buildkite organization administrator of this cluster
 
-As a pipeline is being built, expand the relevant step and as its job is being built, select its **SSH** button. A new browser window will open with terminal you can use to execute commands to investigate your hosted agent's environment, test script behavior and debug other issues.
+As a pipeline is being built, expand the relevant step and as its job is being built, select its **Open Terminal** button. A new browser window will open with terminal you can use to execute commands to investigate your hosted agent's environment, test script behavior and debug other issues.
 
-<%= image "ssh-button-on-job.png", alt: "Accessing the SSH button through the Buildkite UI" %>
+<%= image "terminal-button-on-job.png", alt: "Accessing the SSH button through the Buildkite UI" %>
 
 ## Deactivate and reactivate terminal access on hosted agents
 
@@ -41,4 +41,4 @@ Terminal access will now be either removed or made available to all Buildkite ho
 When this feature is active, be aware that users require either:
 
 - Build permissions on relevant pipelines to use this feature on these pipelines' jobs.
-- Cluster maintainer permissions on the cluster the pipeline belongs to, or organization administrator permissions.
+- Cluster maintainer permissions on the cluster the pipeline belongs to, or Buildkite organization administrator permissions.
