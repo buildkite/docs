@@ -53,7 +53,7 @@ Secret management provides an encrypted key-value store, where secrets are avail
 
 Secrets will initially be scoped per-cluster. Therefore, if an agent is not associated with a cluster that has a configured secret, the agent will not be able to access this secret. Buildkite has additional work on the roadmap to allow secrets to be scoped per-pipeline.
 
-Until secret management is available, if you would like to continue [using your third party secrets provider like AWS SSM, GC Secrets or Hashicorp Vault](/docs/pipelines/secrets), Buildkite provides plugins that allow you to access these services. If a plugin for the service you use is not listed below please contact support.
+Until secret management is available, if you would like to continue [using your third party secrets provider like AWS SSM, GC Secrets or Hashicorp Vault](/docs/pipelines/security/managing-secrets), Buildkite provides plugins that allow you to access these services. If a plugin for the service you use is not listed below please contact support.
 
 <table>
     <thead>

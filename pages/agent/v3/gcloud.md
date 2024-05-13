@@ -18,7 +18,7 @@ Follow the [setup instructions for Ubuntu](/docs/agent/v3/ubuntu).
 
 ## Running the agent on Google Kubernetes Engine
 
-[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine) can run the agent as a [Docker](https://www.docker.com) container using [Kubernetes](https://kubernetes.io). To [run Docker–based builds](/docs/tutorials/docker-containerized-builds), ensure the container is started with a [privileged security context](https://kubernetes.io/docs/concepts/workloads/pods/#privileged-mode-for-containers) and mount the Docker socket as a volume.
+[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine) can run the agent as a [Docker](https://www.docker.com) container using [Kubernetes](https://kubernetes.io). To [run Docker–based builds](/docs/tutorials/docker-containerized-builds), ensure the container is started with a [privileged security context](https://kubernetes.io/docs/concepts/workloads/pods/#pod-security) and mount the Docker socket as a volume.
 
 In the [Google Cloud Console](https://console.cloud.google.com/kubernetes/add), create a **Standard** Google Kubernetes Engine cluster:
 
@@ -249,7 +249,7 @@ export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="gs://my-bucket/$BUILDKITE_PIPELINE
 
 Make sure the agent has permission to create new objects. If the agent is running on Google Compute Engine or Google Kubernetes Engine you can grant Storage Write permission to the instance or cluster, or restrict access more specifically using [a service account](https://cloud.google.com/compute/docs/access/service-accounts).
 
-You can also set the application credentials with the environment variable `BUILDKITE_GS_APPLICATION_CREDENTIALS`. From Agent v3.15.2 and above you can also use raw JSON with the `BUILDKITE_GS_APPLICATION_CREDENTIALS_JSON` variable. See the [Managing Pipeline Secrets](/docs/pipelines/secrets) documentation for how to securely set up environment variables.
+You can also set the application credentials with the environment variable `BUILDKITE_GS_APPLICATION_CREDENTIALS`. From Agent v3.15.2 and above you can also use raw JSON with the `BUILDKITE_GS_APPLICATION_CREDENTIALS_JSON` variable. See the [Managing Pipeline Secrets](/docs/pipelines/security/managing-secrets) documentation for how to securely set up environment variables.
 
 If you are using any of the non-public [predefined Access Control Lists (ACLs)](https://cloud.google.com/storage/docs/access-control/lists#predefined-acl) to control permissions on your bucket, you won't have automatic access to your artifacts through the links in the Buildkite web interface. Artifacts will inherit the permissions of the bucket into which they're uploaded. You can set a specific ACL on an artifact:
 

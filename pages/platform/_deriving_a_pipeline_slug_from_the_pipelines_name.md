@@ -1,6 +1,6 @@
 Pipeline slugs are derived from the pipeline name you provide when the pipeline is created.
 
-This derivation process involves converting all space characters (including consecutive ones) in the pipeline's name to single hyphen `-` characters, and all uppercase characters to their lowercase counterparts. Therefore, pipeline names of either `Hello there friend` or `Hello    There Friend` are converted to the slug `hello-there-friend`).
+This derivation process involves converting all space characters (including consecutive ones) in the pipeline's name to single hyphen `-` characters, and all uppercase characters to their lowercase counterparts. Therefore, pipeline names of either `Hello there friend` or `Hello    There Friend` are converted to the slug `hello-there-friend`.
 
 The maximum permitted length for a pipeline slug is 100 characters.
 

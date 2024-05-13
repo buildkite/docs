@@ -16,7 +16,7 @@ A wait step, as in the example below, is dependent on all previous steps complet
 steps:
   - command: "one.sh"
   - command: "two.sh"
-  - wait
+  - wait: ~
   - command: "three.sh"
   - command: "four.sh"
 ```
@@ -88,7 +88,7 @@ To ensure that a step is not dependent on any other step, add an explicit empty 
 ```yml
 steps:
   - command: "tests.sh"
-  - wait
+  - wait: ~
   - command: "lint.sh"
     depends_on: ~
 ```

@@ -79,8 +79,10 @@ enum APIAccessTokenScopes {
   READ_JOB_ENV
   READ_NOTIFICATION_SERVICES
   READ_ORGANIZATIONS
+  READ_PACKAGES
   READ_PIPELINES
   READ_PIPELINE_TEMPLATES
+  READ_REGISTRIES
   READ_SUITES
   READ_TEAMS
   READ_USER
@@ -90,8 +92,10 @@ enum APIAccessTokenScopes {
   WRITE_BUILD_LOGS
   WRITE_CLUSTERS
   WRITE_NOTIFICATION_SERVICES
+  WRITE_PACKAGES
   WRITE_PIPELINES
   WRITE_PIPELINE_TEMPLATES
+  WRITE_REGISTRIES
   WRITE_SUITES
   WRITE_TEAMS
 }
@@ -840,6 +844,7 @@ enum AuditEventType {
   CLUSTER_TOKEN_DELETED
   CLUSTER_TOKEN_UPDATED
   CLUSTER_UPDATED
+  JOB_TERMINAL_SESSION_STARTED
   NOTIFICATION_SERVICE_BROKEN
   NOTIFICATION_SERVICE_CREATED
   NOTIFICATION_SERVICE_DELETED
@@ -873,6 +878,9 @@ enum AuditEventType {
   PIPELINE_UPDATED
   PIPELINE_VISIBILITY_CHANGED
   PIPELINE_WEBHOOK_URL_ROTATED
+  REGISTRY_CREATED
+  REGISTRY_DELETED
+  REGISTRY_UPDATED
   SCM_PIPELINE_SETTINGS_CREATED
   SCM_PIPELINE_SETTINGS_DELETED
   SCM_PIPELINE_SETTINGS_UPDATED
@@ -911,6 +919,9 @@ enum AuditEventType {
   TEAM_PIPELINE_CREATED
   TEAM_PIPELINE_DELETED
   TEAM_PIPELINE_UPDATED
+  TEAM_REGISTRY_CREATED
+  TEAM_REGISTRY_DELETED
+  TEAM_REGISTRY_UPDATED
   TEAM_SUITE_CREATED
   TEAM_SUITE_DELETED
   TEAM_SUITE_UPDATED
@@ -962,7 +973,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | Email | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | Registry | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -976,6 +987,7 @@ enum AuditSubjectType {
   CLUSTER_QUEUE
   CLUSTER_QUEUE_TOKEN
   CLUSTER_TOKEN
+  JOB
   NOTIFICATION_SERVICE
   ORGANIZATION
   ORGANIZATION_BANNER
@@ -984,6 +996,7 @@ enum AuditSubjectType {
   PIPELINE
   PIPELINE_SCHEDULE
   PIPELINE_TEMPLATE
+  REGISTRY
   SCM_PIPELINE_SETTINGS
   SCM_REPOSITORY_HOST
   SCM_SERVICE
@@ -995,6 +1008,7 @@ enum AuditSubjectType {
   TEAM
   TEAM_MEMBER
   TEAM_PIPELINE
+  TEAM_REGISTRY
   TEAM_SUITE
   USER
   USER_EMAIL
@@ -2938,6 +2952,42 @@ type JobEventRetried implements JobEvent & Node {
 }
 
 """
+An event created when job fails to retry
+"""
+type JobEventRetryFailed implements JobEvent & Node {
+  """
+  The actor that caused this event to occur
+  """
+  actor: JobEventActor!
+  id: ID!
+
+  """
+  The job that this event belongs to
+  """
+  job: JobTypeCommand!
+
+  """
+  The reason why the job was unable to be retried
+  """
+  retryFailedReason: String!
+
+  """
+  The time when the event occurred
+  """
+  timestamp: DateTime!
+
+  """
+  The type of event
+  """
+  type: JobEventType!
+
+  """
+  The public UUID for this job event
+  """
+  uuid: ID!
+}
+
+"""
 The reason why a signal was sent to the job's process, or why the process did not start
 """
 enum JobEventSignalReason {
@@ -3102,6 +3152,11 @@ enum JobEventType {
   The Job was retried either automatically or by a user
   """
   RETRIED
+
+  """
+  The Job was unable to be retried
+  """
+  RETRY_FAILED
 
   """
   The Job was scheduled
@@ -4520,6 +4575,36 @@ type Mutation {
   ): TeamPipelineUpdatePayload
 
   """
+  Add a registry to a team.
+  """
+  teamRegistryCreate(
+    """
+    Parameters for TeamRegistryCreate
+    """
+    input: TeamRegistryCreateInput!
+  ): TeamRegistryCreatePayload
+
+  """
+  Remove a registry from a team.
+  """
+  teamRegistryDelete(
+    """
+    Parameters for TeamRegistryDelete
+    """
+    input: TeamRegistryDeleteInput!
+  ): TeamRegistryDeletePayload
+
+  """
+  Update a registry's access level within a team.
+  """
+  teamRegistryUpdate(
+    """
+    Parameters for TeamRegistryUpdate
+    """
+    input: TeamRegistryUpdateInput!
+  ): TeamRegistryUpdatePayload
+
+  """
   Add a suite to a team.
   """
   teamSuiteCreate(
@@ -5148,6 +5233,33 @@ type Organization implements Node {
   Whether this organization is visible to everyone, including people outside it
   """
   public: Boolean!
+
+  """
+  Return all the registries the current user has access to for this organization
+  """
+  registries(
+    after: String
+    before: String
+    createdAtFrom: DateTime
+    createdAtTo: DateTime
+    first: Int
+    last: Int
+
+    """
+    Order the registries
+    """
+    order: RegistryOrders = RECENTLY_CREATED
+
+    """
+    Search registries named like the given query case insensitively
+    """
+    search: String
+
+    """
+    Filter the registries by team
+    """
+    team: TeamSelector
+  ): RegistryConnection
 
   """
   API tokens with access to this organization will be automatically revoked
@@ -7868,6 +7980,140 @@ type RecoveryCodeBatch {
 }
 
 """
+A package registry
+"""
+type Registry implements Node {
+  """
+  The hex code for the registry navatar background color in the Package Registries page
+  """
+  color: String
+
+  """
+  The time when the registry was created
+  """
+  createdAt: DateTime
+
+  """
+  The description of the registry
+  """
+  description: String
+
+  """
+  The emoji that will display as a registry navatar in the Package Registries page
+  """
+  emoji: String
+  id: ID!
+
+  """
+  The name of the registry
+  """
+  name: String!
+  organization: Organization!
+
+  """
+  The slug of the registry
+  """
+  slug: String!
+
+  """
+  Teams associated with this registry
+  """
+  teams(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+
+    """
+    Order the registries returned
+    """
+    order: TeamRegistryOrder = RECENTLY_CREATED
+
+    """
+    Search for teams associated that this registry is assigned to
+    """
+    search: String
+  ): TeamRegistryConnection
+
+  """
+  The time when the registry was updated
+  """
+  updatedAt: DateTime
+
+  """
+  The URL for the registry
+  """
+  url: String!
+  uuid: String!
+}
+
+"""
+The access levels that can be assigned to a registry
+"""
+enum RegistryAccessLevels {
+  """
+  Allow read and push
+  """
+  READ_AND_WRITE
+
+  """
+  Read only
+  """
+  READ_ONLY
+
+  """
+  Allow read, push, and management
+  """
+  READ_WRITE_AND_ADMIN
+}
+
+type RegistryConnection implements Connection {
+  count: Int!
+  edges: [RegistryEdge]
+  pageInfo: PageInfo
+}
+
+type RegistryEdge {
+  cursor: String!
+  node: Registry
+}
+
+"""
+The different orders you can sort registries by
+"""
+enum RegistryOrders {
+  """
+  Order by name alphabetically
+  """
+  NAME
+
+  """
+  Order by the most recently created registries first
+  """
+  RECENTLY_CREATED
+
+  """
+  Order by relevance when searching for registries
+  """
+  RELEVANCE
+}
+
+"""
 A repository associated with a pipeline
 """
 type Repository {
@@ -9606,6 +9852,21 @@ type Team implements Node {
   privacy: TeamPrivacy!
 
   """
+  Registries associated with this team
+  """
+  registries(
+    after: String
+    before: String
+    first: Int
+    last: Int
+
+    """
+    Order the registries returned
+    """
+    order: TeamRegistryOrder = RECENTLY_CREATED
+  ): TeamRegistryConnection
+
+  """
   The slug of the team
   """
   slug: String!
@@ -9938,6 +10199,11 @@ type TeamPermissions {
   teamPipelineCreate: Permission
 
   """
+  Whether the user can add registries from other teams to this one
+  """
+  teamRegistryCreate: Permission
+
+  """
   Whether the user can add suites from other teams to this one
   """
   teamSuiteCreate: Permission
@@ -10123,6 +10389,178 @@ enum TeamPrivacy {
   Visible to all members of the organization
   """
   VISIBLE
+}
+
+"""
+A registry that's been assigned to a team
+"""
+type TeamRegistry implements Node {
+  """
+  The access level users have to this registry
+  """
+  accessLevel: RegistryAccessLevels!
+
+  """
+  The time when the registry was added
+  """
+  createdAt: DateTime!
+
+  """
+  The user that added this registry to the team
+  """
+  createdBy: User
+  id: ID!
+  permissions: TeamRegistryPermissions!
+
+  """
+  The registry associated with this team member
+  """
+  registry: Registry
+
+  """
+  The team associated with this team member
+  """
+  team: Team
+
+  """
+  The time when the assignment was last updated
+  """
+  updatedAt: DateTime!
+
+  """
+  The user that last updated this assignment
+  """
+  updatedBy: User
+
+  """
+  The public UUID for this team registry
+  """
+  uuid: String!
+}
+
+"""
+A collection of TeamRegistry records
+"""
+type TeamRegistryConnection implements Connection {
+  count: Int!
+  edges: [TeamRegistryEdge]
+  pageInfo: PageInfo
+}
+
+"""
+Autogenerated input type of TeamRegistryCreate
+"""
+input TeamRegistryCreateInput {
+  accessLevel: RegistryAccessLevels = READ_ONLY
+
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+  registryID: ID!
+  teamID: ID!
+}
+
+"""
+Autogenerated return type of TeamRegistryCreate.
+"""
+type TeamRegistryCreatePayload {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+  registry: Registry
+  team: Team
+  teamRegistry: TeamRegistry
+  teamRegistryEdge: TeamRegistryEdge
+}
+
+"""
+Autogenerated input type of TeamRegistryDelete
+"""
+input TeamRegistryDeleteInput {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+  force: Boolean
+  id: ID!
+}
+
+"""
+Autogenerated return type of TeamRegistryDelete.
+"""
+type TeamRegistryDeletePayload {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+  deletedTeamRegistryID: ID!
+  team: Team
+}
+
+type TeamRegistryEdge {
+  cursor: String!
+  node: TeamRegistry
+}
+
+"""
+The different orders you can sort team registries by
+"""
+enum TeamRegistryOrder {
+  """
+  Order by name alphabetically
+  """
+  NAME
+
+  """
+  Order by the most recently added registries first
+  """
+  RECENTLY_CREATED
+
+  """
+  Order by most relevant results when doing a search
+  """
+  RELEVANCE
+}
+
+"""
+Permission information about what actions the current user can do against the team registries
+"""
+type TeamRegistryPermissions {
+  """
+  Whether the user can delete the registry from the team
+  """
+  teamRegistryDelete: Permission
+
+  """
+  Whether the user can update the registry connection to the team
+  """
+  teamRegistryUpdate: Permission
+}
+
+"""
+Autogenerated input type of TeamRegistryUpdate
+"""
+input TeamRegistryUpdateInput {
+  accessLevel: RegistryAccessLevels!
+
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+  id: ID!
+}
+
+"""
+Autogenerated return type of TeamRegistryUpdate.
+"""
+type TeamRegistryUpdatePayload {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+  teamRegistry: TeamRegistry!
 }
 
 """

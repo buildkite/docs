@@ -175,14 +175,12 @@ Refer to [Headings in the Markdown syntax style guide](markdown-syntax-style.md#
 
 ### Product Names (and product features)
 
-Only use Title Case (initial capital letters) for the name of the product (product names), and match capital letter usage in product names as an organization would use them in these products. For example:
+Only use Title Case (initial capital letters) for the name of the product (_product names_), and match the capital letter usage in product names as the organization who produces them would use them in their product names. Avoid using Title Case for _product features_, that is, when mentioning or describing them in documentation. Product features are treated as _common nouns_, not _Proper Nouns_. For example:
 
-- 'Docker Compose overview' and not 'Docker Compose Overview' 
-- 'GitHub organization' and not 'GitHub Organization'
+- 'Docker Compose overview' and not 'Docker Compose Overview' (where 'Docker Compose' is a product name)
+- 'GitHub organization' and not 'GitHub Organization' (where 'organization' is a product feature)
 
 > [!NOTE]
-> Avoid using Title Case for product features, that is, when mentioning or describing them in documentation.
->
 > Ensure brand capitalization is adhered to, for example, refer to GitHub as "GitHub", and not "Github" or "GITHUB".
 
 ### UI elements
@@ -206,7 +204,7 @@ Key terms or any words you want to emphasize should be formatted in italics. For
 > [!NOTE]
 > Use italicization for key terms sparingly—either near the top of a section of documentation, or the top of a page. In general, a key term only needs to be pointed out once in such a section of documentation and not every time it's used on a page.
 
-Refer to [Key terms in the Markdown syntax style guide](markdown-syntax-style.md#key-terms) for details on how to write and present key terms in the Buildkite docs.
+Refer to [Key terms in the Markdown syntax style guide](markdown-syntax-style.md#key-terms-and-emphasis) for details on how to write and present key terms in the Buildkite docs.
 
 ### Lists (bullet lists and numbered steps)
 
