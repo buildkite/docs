@@ -92,7 +92,7 @@ See each plugin's readme for a list of which options are available.
 
 ## Using YAML anchors with plugins
 
-YAML allows you to define an item as an anchor with the ampersand `&` character, also known as an _alias_. You can then reference the anchor with the asterisk `*` character, which includes the content of the anchor at the point it is referenced.
+YAML allows you to define an item as an anchor with the ampersand `&` character. You can then reference the anchor with the asterisk `*` character, also known as an _alias_, which includes the content of the anchor at the point it is referenced.
 
 The following example uses a YAML anchor (`docker`) to remove the need to repeat the same plugin configuration on each step:
 
@@ -133,7 +133,7 @@ steps:
 
 ### Overriding YAML anchors
 
-You can override a [YAML anchor](#using-yaml-anchors-with-plugins) with the `<<:` syntax before the _alias_. This allows you to override parts of the anchor item, while retaining others, therefore reducing the need to create multiple anchors with similar configurations.
+You can override a [YAML anchor](#using-yaml-anchors-with-plugins) with the `<<:` syntax before its _alias_. This allows you to override parts of the anchor item's contents, while retaining others, therefore reducing the need to create multiple anchors with similar configurations.
 
 The following example uses a YAML anchor (`docker-step`) and overrides the `command` run whilst using the same plugin version and container image:
 
