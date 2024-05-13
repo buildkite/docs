@@ -2,8 +2,8 @@
 
 Linux instances for Buildkite hosted agents are offered with two architectures:
 
-- ARM
 - AMD64 (x64_86)
+- ARM64 (AArch64)
 
 To accommodate different workloads, instances are capable of running up to 8 hours. If you require longer running agents please contact support.
 

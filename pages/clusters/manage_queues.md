@@ -37,8 +37,13 @@ To create a new queue using the Buildkite interface:
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster in which to create the new queue.
 1. On the **Queues** page, select **New Queue**.
-1. Enter a **key** for the queue, which can only contain letters, numbers, hyphens, and underscores, as valid characters.
+1. In the **Create a key** field, enter a unique _key_ for the queue, which can only contain letters, numbers, hyphens, and underscores, as valid characters.
 1. Select the **Add description** checkbox to enter an optional longer description for the queue. This description appears under the queue's key, which is listed on the **Queues** page, as well as when viewing the queue's details.
+1. In the **Select your compute** section, select between [**Hosted**](/docs/pipelines/hosted-agents/overview) or **Self hosted** for your agent infrastructure.
+1. If you chose **Hosted**, complete the remaining sub-steps:
+    1. In the new **Configure your hosted compute** section, select your **Machine type** ([**Linux**](/docs/pipelines/hosted-agents/linux) or [**macOS**](/docs/pipelines/hosted-agents/mac)).
+    1. If you selected **Linux**, within **Architecture**, you can choose between **AMD64** (the default and recommended) or **ARM64** architectures for the Linux machines running as hosted agents. To switch to **ARM64**, select **Change**, followed by **ARM64 (AArch64)**.
+    1. Select the appropriate **Capacity** for your hosted agent machine type (**Small**, **Medium** or **Large**). Take note of the additional information provided in the new **Hosted agents trial** section, which changes based on your selected **Capacity**.
 1. Select **Create Queue**.
 
     The new queue's details are displayed, indicating the queue's key and its description (if configured) underneath this key. Select **Queues** on the interface again to list all configured queues in your cluster.

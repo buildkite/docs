@@ -316,10 +316,10 @@
       children:
         - name: "Overview"
           path: "pipelines/hosted-agents/overview"
-        - name: "Mac hosted agents"
-          path: "pipelines/hosted-agents/mac"
         - name: "Linux hosted agents"
           path: "pipelines/hosted-agents/linux"
+        - name: "Mac hosted agents"
+          path: "pipelines/hosted-agents/mac"
         - name: "Code access"
           path: "pipelines/hosted-agents/code-access"
         - name: "Pipeline migration"
