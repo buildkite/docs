@@ -12,11 +12,11 @@ This can be useful when migrating your pipelines across to [queues](/docs/cluste
 
 Assuming that [terminal access is active across your Buildkite organization](#deactivate-and-reactivate-terminal-access-on-hosted-agents), you can access this terminal access feature from a currently building pipeline, when the job of the relevant step is being built.
 
-The terminal access feature is available to users who:
+The terminal access feature is available to users who have/are any of the following:
 
-- have build permissions on the pipeline that created the job
-- are a [maintainer of the cluster](/docs/clusters/manage-clusters#manage-maintainers-on-a-cluster) containing this pipeline
-- are a Buildkite organization administrator of this cluster
+- build permissions on the pipeline that created the job
+- a [maintainer of the cluster](/docs/clusters/manage-clusters#manage-maintainers-on-a-cluster) containing this pipeline
+- a Buildkite organization administrator of this cluster
 
 As a pipeline is being built, expand the relevant step and as its job is being built, select its **SSH** button. A new browser window will open with terminal you can use to execute commands to investigate your hosted agent's environment, test script behavior and debug other issues.
 
