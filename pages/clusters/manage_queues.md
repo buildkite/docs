@@ -22,6 +22,9 @@ As part of setting up a queue, you can choose between setting up your agents usi
 
 Buildkite provides a hosted infrastructure for your [Buildkite Agents](/docs/agent/v3), as well as support for self-hosted infrastructure, where you provide the infrastructure that hosts Buildkite Agents.
 
+> 📘
+> Creating [Buildkite hosted agent](/docs/pipelines/hosted-agents/overview) queues is currently only supported through the [Buildkite interface](#create-a-queue-using-the-buildkite-interface). It is not possible to create hosted agent queues using the [REST](#create-a-queue-using-the-rest-api) or [GraphQL](#create-a-queue-using-the-graphql-api) APIs.
+
 ## Create a queue
 
 New queues can be created using the [**Queues** page of a cluster](#create-a-queue-using-the-buildkite-interface), as well as the [REST API's](#create-a-queue-using-the-rest-api) or [GraphQL API's](#create-a-queue-using-the-graphql-api) create a queue feature.
@@ -50,7 +53,7 @@ To create a new queue using the Buildkite interface:
 
 ### Using the REST API
 
-To [create a new queue](/docs/apis/rest-api/clusters#queues-create-a-queue) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+To [create a new self-hosted agent queue](/docs/apis/rest-api/clusters#queues-create-a-queue) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```curl
 curl -H "Authorization: Bearer $TOKEN" \
@@ -74,7 +77,7 @@ where:
 
 ### Using the GraphQL API
 
-To [create a new queue](/docs/apis/graphql/schemas/mutation/clusterqueuecreate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+To [create a new self-hosted agent queue](/docs/apis/graphql/schemas/mutation/clusterqueuecreate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
 
 ```graphql
 mutation {
