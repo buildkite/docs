@@ -41,4 +41,4 @@ Terminal access will now be either removed or made available to all Buildkite ho
 When this feature is active, be aware that users require either:
 
 - Build permissions on relevant pipelines to use this feature on these pipelines' jobs.
-- Cluster maintainer permissions on these pipelines.
+- Cluster maintainer permissions on the cluster the pipeline belongs to, or organization administrator permissions.
