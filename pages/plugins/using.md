@@ -92,7 +92,7 @@ See each plugin's readme for a list of which options are available.
 
 ## Using YAML anchors with plugins
 
-YAML anchors enable you to identify an item with an anchor, also known as an _alias_. You can then reference the anchor when referring to that item.
+YAML allows you to define an item as an anchor with the ampersand `&` character, also known as an _alias_. You can then reference the anchor with the asterisk `*` character, which includes the content of the anchor at the point it is referenced.
 
 The following example uses a YAML anchor (`docker`) to remove the need to repeat the same plugin configuration on each step:
 
@@ -113,9 +113,29 @@ steps:
       - *docker
 ```
 
-You can override an anchor by using `<<:` before the _alias_. This allows overriding parts of the anchor as required, reducing the need to create multiple anchors with similar configurations.
+This would result in the `steps` section being expanded to:
 
-The following example uses a YAML anchor (`docker-step`) and overrides the command run whilst using the same plugin version and container image:
+```yml
+...
+
+steps:
+  - label: "Read in isolation"
+    command: echo "I'm reading..."
+    plugins:
+      docker#v3.3.0:
+        image: something-quiet
+  - label: "Read something else"
+    command: echo "On to a new book"
+    plugins:
+      docker#v3.3.0:
+        image: something-quiet
+```
+
+### Overriding YAML anchors
+
+You can override a [YAML anchor](#using-yaml-anchors-with-plugins) with the `<<:` syntax before the _alias_. This allows you to override parts of the anchor item, while retaining others, therefore reducing the need to create multiple anchors with similar configurations.
+
+The following example uses a YAML anchor (`docker-step`) and overrides the `command` run whilst using the same plugin version and container image:
 
 ```yml
 common:
@@ -129,6 +149,23 @@ steps:
   - *docker-step
   - <<: *docker-step
     command: "date"
+```
+
+This would result in the `steps` section being expanded to:
+
+```yml
+...
+
+steps:
+  - command: "uname -a"
+    plugins:
+      docker#v5.11.0:
+        image: alpine
+  - command: "date"
+    plugins:
+      docker#v5.11.0:
+        image: alpine
+
 ```
 
 ## Plugin sources
