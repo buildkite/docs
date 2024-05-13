@@ -2,7 +2,6 @@
 
 Plugins can be used in pipeline [command steps](/docs/pipelines/command-step) to access a library of commands or perform actions.
 
-
 ## Adding a plugin to your pipeline
 
 To add a plugin to a [command step](/docs/pipelines/command-step), use the `plugins` attribute.  The `plugins` attribute accepts an array, so you can add multiple plugins to the same step.
@@ -20,7 +19,7 @@ steps:
           workdir: /app
 ```
 
->📘
+> 📘
 > Always specify a tag or commit (for example, <code>v1.2.3</code>) to prevent the plugin changing unexpectedly, and to prevent stale checkouts of plugins on your agent machines.
 
 Not all plugins require a `command` attribute, for example:
@@ -111,8 +110,7 @@ steps:
   - label: "Read something else"
     command: echo "On to a new book"
     plugins:
-      - *docker 
-
+      - *docker
 ```
 
 You can override an anchor by using `<<:` before the _alias_. This allows overriding parts of the anchor as required, reducing the need to create multiple anchors with similar configurations.
@@ -123,12 +121,12 @@ The following example uses a YAML anchor (`docker-step`) and overrides the comma
 common:
   - docker-step: &docker-step
       command: "uname -a"
-      plugins: 
+      plugins:
         docker#v5.11.0:
           image: alpine
 
 steps:
-  - *docker-step 
+  - *docker-step
   - <<: *docker-step
     command: "date"
 ```
