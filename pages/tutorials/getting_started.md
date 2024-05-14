@@ -28,7 +28,7 @@ Before creating a pipeline, take a moment to understand Buildkite's architecture
 - The control plane
 - The build environment
 
-In this hybrid architecture, Buildkite runs the control plane (the main product interface) as a SaaS product, and you run the build environment on your own infrastructure. In other words, Buildkite handles the _orchestration_, and you bring the _compute_. That means you can fine-tune and secure the build environment to suit your particular use case and workflow.
+In this type of hybrid architecture, Buildkite runs the control plane (the main product interface) as a SaaS product, and you run the build environment on your own infrastructure. In other words, Buildkite handles the _orchestration_, and you bring the _compute_. That means you can fine-tune and secure the build environment to suit your particular use case and workflow.
 
 Compared to _fully self-hosted_ solutions, where you run both the control plane and build environment on your own infrastructure, a _hybrid architecture_ reduces the maintenance burden on your team. Unlike _managed_ solutions, a hybrid architecture gives you full control over security within your build environment. See [Hybrid architecture](/docs/pipelines/architecture) to learn more.
 
