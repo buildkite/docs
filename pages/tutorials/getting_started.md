@@ -32,7 +32,7 @@ In this type of hybrid architecture, Buildkite runs the control plane (the main 
 
 Compared to _fully self-hosted_ solutions, where you run both the control plane and build environment on your own infrastructure, a _hybrid architecture_ reduces the maintenance burden on your team. Unlike _managed_ solutions, a hybrid architecture gives you full control over security within your build environment. See [Hybrid architecture](/docs/pipelines/architecture) to learn more.
 
-Buildkite also provides a _managed_ solution, provided by [Buildkite hosted agents](/docs/pipelines/hosted-agents/overview), where both the control plane and build environment are provided and handled by Buildkite. This solution is useful when you need to get a build environment up and running quickly and/or you have limited resources to implement a hybrid architecture.
+Buildkite also provides a _managed_ solution, offered by the [Buildkite hosted agents](/docs/pipelines/hosted-agents/overview) feature, where both the control plane and build environment are provided and handled by Buildkite. This solution is useful when you need to get a build environment up and running quickly and/or you have limited resources to implement a hybrid architecture.
 
 ## Set up an agent
 
@@ -61,13 +61,13 @@ To create a hosted agent:
     * In the **Select your compute** section, choose **Hosted**.
     * Follow the relevant sub-steps for configuring your hosted agent.
 
-1. Ensure that this hosted agent is used as the default agent, which should be indicated by **(default)** after the queue's key on the cluster's **Queues** page. If this is not the case (and another queue is marked **(default)**):
+1. Make your pipelines use this hosted agent by default, by ensuring its queue is the _default queue_. This should be indicated by **(default)** after the queue's key on the cluster's **Queues** page. If this is not the case (and another queue is marked **(default)**):
 
     1. On the cluster's **Queues** page, select the queue with the hosted agent you just created.
-    1. On the queue's **Overview** page, select the **Settings** tab.
+    1. On the queue's **Overview** page, select the **Settings** tab to open this page.
     1. In the **Queue Management** section, select **Set as Default Queue**.
 
-Your Buildkite hosted agent is now ready to use.
+Your Buildkite hosted agent, as the new default queue, is now ready to use.
 
 > 📘
 > Since hosted agents are managed by Buildkite, there is no need to create an [agent token](/docs/agent/v3/tokens) for these agents.
