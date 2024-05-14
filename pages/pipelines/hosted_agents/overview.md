@@ -6,9 +6,7 @@ With hosted agents, Buildkite handles infrastructure management tasks, such as p
 
 ## Hosted agent types
 
-During the private trial phase, Buildkite is offering both Mac and Linux hosted agents. Buildkite plans to add support for Windows hosted agents by late 2024, as part of extending these services.
-
-For detailed information about available agent sizes and configuration, refer to [Mac hosted agents](/docs/pipelines/hosted-agents/mac), and [Linux hosted agents](/docs/pipelines/hosted-agents/linux).
+Buildkite offers both [Mac](/docs/pipelines/hosted-agents/mac) and [Linux](/docs/pipelines/hosted-agents/linux) hosted agents. Refer to these respective pages for detailed information about available the sizes and configurations for these agents.
 
 Usage of all instance types is billed on a per-minute basis.
 
