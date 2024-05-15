@@ -136,4 +136,13 @@ The Git mirror cache is a special type of cache volume that is used to speed up 
 
 Git mirror caching can be enabled on the cluster's cache volumes settings page. Once enabled, the Git mirror cache will be used for all hosted jobs in that cluster. A separate cache volume will be created for each repository.
 
-<%= image "hosted-agents-cache-settings.png", width: 1760, height: 436, alt: "Job groups displayed in the Buildkite UI" %>
+<%= image "hosted-agents-git-mirror.png", width: 1760, height: 436, alt: "Hosted agents git mirror setting displayed in the Buildkite UI" %>
+
+### Container cache
+
+The container cache can be used to cache Docker images between builds.
+
+Container caching can be enabled on the cluster's cache volumes settings page. Once enabled, a container cache will be used for all hosted jobs in that cluster. A separate cache volume will be created for each pipeline.
+
+<%= image "hosted-agents-container-cache.png", width: 1760, height: 436, alt: "Hosted agents container cache setting displayed in the Buildkite UI" %>
+
