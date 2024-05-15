@@ -149,7 +149,7 @@ This list summarizes word usage (or words and punctuation to avoid) in line with
 
 Avoid this construct as it can be confusing to the reader. Often, "and" implies "or", and therefore you don't need to write both words as "and/or". For example, "You can view and edit your pipeline steps" also implies "or" for the "and".
 
-If you feel that "and/or" between two items is required, use "or" between the items, followed by ", or both". For example, "This solution is useful when you need to get a build environment up and running quickly or you have limited resources to implement a hybrid architecture, or both."
+If you feel that "and/or" between two items is required, use "or" between the items, followed by ", or both" after the 2nd item. For example, "This solution is useful when you need to get a build environment up and running quickly or you have limited resources to implement a hybrid architecture, or both."
 
 ### Common trip-ups
 
