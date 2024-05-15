@@ -38,7 +38,7 @@ Buildkite also provides a _managed_ solution, offered by the [Buildkite hosted a
 
 The program that executes work is called an _agent_ in Buildkite. An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. The agent polls Buildkite for work, runs jobs, and reports results. You can install agents on local machines, cloud servers, or other remote machines, as well as part of [Buildkite hosted agents](/docs/pipelines/hosted-agents/overview).
 
-Buildkite agents connect to Buildkite through a [cluster](/docs/clusters/overview). Clusters provide a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within _queues_) in the same cluster.
+Buildkite agents connect to Buildkite through a [_cluster_](/docs/pipelines/glossary#cluster). Clusters provide a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within [_queues_](/docs/pipelines/glossary#queue)) in the same cluster.
 
 By default, Buildkite organizations have one cluster, named **Default cluster** with a single queue, named **default-queue**, noting that a cluster maintainer or Buildkite organization administrator can customize these default names.
 
