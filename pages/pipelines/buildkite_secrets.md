@@ -60,7 +60,7 @@ If any Pipeline, script or your own tool (accidentally) prints out the value of 
 
 If for any reason you detect a secret value that isn't redacted, please rotate your secrets and contact security@buildkite.com.
 
-## Security
+## Security controls
 
 Buildkite secrets are designed, with the following controls in place:
 
@@ -69,10 +69,9 @@ Buildkite secrets are designed, with the following controls in place:
 - All access to the secrets are logged.
 - Employee access to secrets is strictly limited and audited.
 
-> 📘 Buildkite secrets is not a zero-knowledge system
-> Buildkite owns, stores and manages the keys used for encrypting the secrets stored in the service at rest and in transit. Buildkite recommend customers implement additional controls to manage the lifecycle of secrets stored within Buildkite secrets, in addition to any monitoring capability you may require in line with your risk appetite.
-
 ## Best practices
+
+Buildkite secrets is not a zero-knowledge system, whereby Buildkite owns, stores, and manages the keys used for encrypting the secrets stored in the service at rest and in transit. You should implement additional controls to manage the lifecycle of secrets stored within Buildkite secrets, in addition to any monitoring capability you may require in line with your risk appetite. For example:
 
 - Only store short-lived secrets in Buildkite secrets. Do not store long-lived secrets or secrets with no expiry in Buildkite secrets.
 - Track the secrets stored in Buildkite secrets within your own asset management processes.

@@ -6,8 +6,18 @@ When you need to use secret values in your pipelines, there are some best practi
 
 A best practice for secret storage is to use your own secrets storage service, such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [Hashicorp Vault](https://www.vaultproject.io).
 
-There are also various [Buildkite plugins](/docs/plugins) that integrate reading
-and exposing secrets to your build steps using secrets storage services.
+Buildkite provides various [plugins](/docs/plugins) that integrate reading and exposing secrets to your build steps using secrets storage services, such as the following. If a plugin for the service you use is not listed below or in [Buildkite's plugins directory](/docs/plugins/directory), please contact support.
+
+<table>
+    <thead>
+        <tr><th>Service</th><th>Plugin</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>AWS SSM</td><td><a href="https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin">aws-assume-role-with-web-identity-buildkite-plugin</a></td></tr>
+        <tr><td>GC Secrets</td><td><a href="https://github.com/buildkite-plugins/gcp-workload-identity-federation-buildkite-plugin">gcp-workload-identity-federation-buildkite-plugin</a></td></tr>
+        <tr><td>Hashicorp Vault</td><td><a href="https://github.com/buildkite-plugins/vault-secrets-buildkite-plugin">vault-secrets-buildkite-plugin</a></td></tr>
+    </tbody>
+</table>
 
 ## Exporting secrets with environment hooks
 
