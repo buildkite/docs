@@ -143,6 +143,14 @@ This list summarizes word usage (or words and punctuation to avoid) in line with
 | Single sign-on            | In short form SSO                       |
 | Premises                  | When using this word to refer to a specific location in the singular, use "premises" (for example, "on-premises") and not "premise"/"on-premise". A "premise" is a different English word synonymous with the word "condition". There are other unusual English nouns, where the singular form is the same as its plural form, such as "series". |
 
+### Specific word/term usage
+
+#### And/or
+
+Avoid this construct as it can be confusing to the reader. Often, "and" implies "or", and therefore you don't need to write both words as "and/or". For example, "You can view and edit your pipeline steps" also implies "or" for the "and".
+
+If you feel that "and/or" between two items is required, use "or" between the items, followed by ", or both". For example, "This solution is useful when you need to get a build environment up and running quickly or you have limited resources to implement a hybrid architecture, or both."
+
 ### Common trip-ups
 
 Linters cannot do all of the work for you, so please pay attention to the following cases:
