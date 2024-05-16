@@ -1,0 +1,1 @@
+`description` (required) should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the **Agent tokens** page of your specific cluster the agent connects to. To access this page, select **Agents** (in the global navigation) > the specific cluster > **Agent Tokens**.

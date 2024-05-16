@@ -5,6 +5,7 @@ To use Test Analytics with your JavaScript (npm) projects, use the :github: [`te
 - [Jest](https://jestjs.io/)
 - [Jasmine](https://jasmine.github.io/)
 - [Mocha](https://mochajs.org/)
+- [Cypress](https://www.cypress.io)
 - [Playwright](https://playwright.dev)
 
 You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
@@ -17,7 +18,7 @@ Whichever test framework you use, you first need to add and authenticate the [`b
 To add the test collector package:
 
 1. In your CI environment, set the `BUILDKITE_ANALYTICS_TOKEN` environment variable to your Test Analytics API token.
-   To learn how to set environment variables securely in Pipelines, see [Managing pipeline secrets](/docs/pipelines/secrets).
+   To learn how to set environment variables securely in Pipelines, see [Managing pipeline secrets](/docs/pipelines/security/managing-secrets).
 
 1. On the command line, create a new branch by running:
 
@@ -121,6 +122,30 @@ To configure Mocha:
     }
     ```
 
+### Cypress
+To configure Cypress:
+
+1. Make sure Cypress runs with access to [CI environment variables](/docs/test-analytics/ci-environments).
+1. Update your [Cypress configuration](https://docs.cypress.io/guides/references/configuration).
+
+    ```js
+    // cypress.config.js
+
+    // Send results to Test Analytics
+    reporter: "buildkite-test-collector/cypress/reporter",
+    ```
+
+    **Note:** To pass in the API token using a custom environment variable, add the `reporterOptions` option to your Cypress configuration:
+
+    ```js
+    // cypress.config.js
+
+    // Send results to Test Analytics
+    reporterOptions: {
+      token_name: "CUSTOM_ENV_VAR_NAME"
+    }
+    ```
+
 ### Playwright
 
 If you're already using Playwright, you can add `buildkite-test-collector/playright/reporter` to the list of reporters to collect test results into your Test Analytics dashboard.
@@ -168,7 +193,7 @@ After completing these steps, you'll see the analytics of test executions on all
 
 If you don't see branch names, build numbers, or commit hashes in the Test Analytics dashboard, see [CI environments](/docs/test-analytics/ci-environments) to learn more about exporting your environment.
 
-## Troubleshooting missing test executions and `--forceExit`
+## Troubleshooting missing test executions and --forceExit
 
 Using the [`--forceExit`](https://jestjs.io/docs/cli#--forceexit) option when running Jest could result in missing test executions from Test Analytics.
 

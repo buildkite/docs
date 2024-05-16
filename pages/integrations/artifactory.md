@@ -7,9 +7,9 @@ There are many ways to use [Artifactory](https://jfrog.com/artifactory/) with Bu
 
 The Buildkite Agent can upload and download artifacts directly from Artifactory. Export the following environment variables in your [Agent environment hook](/docs/agent/v3/hooks) to configure the Agent's Artifactory support.
 
-See the [Managing pipeline secrets](/docs/pipelines/secrets) documentation for how to securely set up these environment variables.
+See the [Managing pipeline secrets](/docs/pipelines/security/managing-secrets) documentation for how to securely set up these environment variables.
 
-_Required environment vars:_
+Required environment vars:
 
 <table>
   <tr>
@@ -58,6 +58,9 @@ steps:
 <%= image "buildkite-artifact-step.png", width: 2320/2, height: 822/2, alt: "Screenshot of a Buildkite command step's output logging an artifact upload to Artifactory" %>
 
 <%= image "artifactory-go-local-repository.png", width: 1484/2, height: 674/2, alt: "Screenshot of an artifact in the go-local repository in Artifactory" %>
+
+> 📘 Retrieving artifacts using the Buildkite Agent  
+> The Buildkite Agent uses Buildkite's APIs to fetch the correct URLs to download artifacts from Artifactory. By default, the agent searches for artifacts uploaded within the same build. To download artifacts that were uploaded in different builds using [`buildkite-agent artifact download`](/docs/agent/v3/cli-artifact#downloading-artifacts) or [artifacts-buildkite-plugin](https://github.com/buildkite-plugins/artifacts-buildkite-plugin), pass the [`BUILDKITE_BUILD_ID`](/docs/agent/v3/cli-artifact#downloading-artifacts-options) of the job through which the artifact was uploaded, as additional information to the `--build` option's argument.
 
 ## Using Artifactory for package management
 

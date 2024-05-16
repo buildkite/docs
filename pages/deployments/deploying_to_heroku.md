@@ -2,10 +2,9 @@
 
 You can test and deploy [Heroku](https://heroku.com/) applications from your Buildkite pipelines.
 
-For GitHub-based pipelines you can use Heroku's [Automatic Deploys](https://devcenter.heroku.com/articles/github-integration) feature to have a branch deployed once Buildkite has marked the commit as 'passed'. To get started with automatic deploys: enable it in your Heroku dashboard, check “Wait for CI to pass before deploy”, and when Heroku sees the passing Buildkite commit status it will automatically perform a slug deploy. You can also auto-deploy pull requests using [Review Apps](https://devcenter.heroku.com/articles/github-integration-review-apps).
+For GitHub-based pipelines you can use Heroku's [Automatic Deploys](https://devcenter.heroku.com/articles/github-integration) feature to have a branch deployed once Buildkite has marked the commit as 'passed'. To get started with automatic deploys: enable it in your Heroku dashboard, check "Wait for CI to pass before deploy", and when Heroku sees the passing Buildkite commit status it will automatically perform a slug deploy. You can also auto-deploy pull requests using [Review Apps](https://devcenter.heroku.com/articles/github-integration-review-apps).
 
 If you don't use GitHub or need more control of deployments, this guide will run you through the steps required for performing a manual deployment using `git push`. You can also use these methods to create pipelines for `heroku` cli tasks you'd like to automate.
-
 
 ## Setting up the Heroku command-line interface (CLI)
 
@@ -27,9 +26,9 @@ $ heroku --version
 
 You should see version numbers for both the `heroku-toolbelt` and `heroku-cli` packages.
 
-The next step is to login using the CLI and your Heroku credentials. We recommend creating a new user in Heroku that you only use for this purpose (a “machine user”). To create a machine user in Heroku, sign up to Heroku as a new user and then add that user as a collaborator to your existing Heroku application.
+The next step is to login using the CLI and your Heroku credentials. We recommend creating a new user in Heroku that you only use for this purpose (a "machine user"). To create a machine user in Heroku, sign up to Heroku as a new user and then add that user as a collaborator to your existing Heroku application.
 
-If you're ready to login with the Heroku user credentials, make sure you're running as your buildkite-agent user (which for most packages is “buildkite-agent”) and then run the heroku login command:
+If you're ready to login with the Heroku user credentials, make sure you're running as your buildkite-agent user (which for most packages is "buildkite-agent") and then run the heroku login command:
 
 ```bash
 $ sudo su buildkite-agent

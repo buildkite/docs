@@ -2,7 +2,6 @@
 
 Plugins can be used in pipeline [command steps](/docs/pipelines/command-step) to access a library of commands or perform actions.
 
-
 ## Adding a plugin to your pipeline
 
 To add a plugin to a [command step](/docs/pipelines/command-step), use the `plugins` attribute.  The `plugins` attribute accepts an array, so you can add multiple plugins to the same step.
@@ -20,7 +19,7 @@ steps:
           workdir: /app
 ```
 
->📘
+> 📘
 > Always specify a tag or commit (for example, <code>v1.2.3</code>) to prevent the plugin changing unexpectedly, and to prevent stale checkouts of plugins on your agent machines.
 
 Not all plugins require a `command` attribute, for example:
@@ -93,7 +92,7 @@ See each plugin's readme for a list of which options are available.
 
 ## Using YAML anchors with plugins
 
-YAML anchors enable you to identify an item with an anchor, also known as an _alias_. You can then reference the anchor when referring to that item.
+YAML allows you to define an item as an anchor with the ampersand `&` character. You can then reference the anchor with the asterisk `*` character, also known as an _alias_, which includes the content of the anchor at the point it is referenced.
 
 The following example uses a YAML anchor (`docker`) to remove the need to repeat the same plugin configuration on each step:
 
@@ -111,7 +110,61 @@ steps:
   - label: "Read something else"
     command: echo "On to a new book"
     plugins:
-      - *docker 
+      - *docker
+```
+
+This would result in the `steps` section being expanded to:
+
+```yml
+...
+
+steps:
+  - label: "Read in isolation"
+    command: echo "I'm reading..."
+    plugins:
+      docker#v3.3.0:
+        image: something-quiet
+  - label: "Read something else"
+    command: echo "On to a new book"
+    plugins:
+      docker#v3.3.0:
+        image: something-quiet
+```
+
+### Overriding YAML anchors
+
+You can override a [YAML anchor](#using-yaml-anchors-with-plugins) with the `<<:` syntax before its _alias_. This allows you to override parts of the anchor item's contents, while retaining others, therefore reducing the need to create multiple anchors with similar configurations.
+
+The following example uses a YAML anchor (`docker-step`) and overrides the `command` run in one of its aliases whilst using the same plugin version and container image:
+
+```yml
+common:
+  - docker-step: &docker-step
+      command: "uname -a"
+      plugins:
+        docker#v5.11.0:
+          image: alpine
+
+steps:
+  - *docker-step
+  - <<: *docker-step
+    command: "date"
+```
+
+This would result in the `steps` section being expanded to:
+
+```yml
+...
+
+steps:
+  - command: "uname -a"
+    plugins:
+      docker#v5.11.0:
+        image: alpine
+  - command: "date"
+    plugins:
+      docker#v5.11.0:
+        image: alpine
 
 ```
 

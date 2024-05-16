@@ -2,7 +2,6 @@
 
 Build matrices help you simplify complex build configurations by expanding a step template and array of matrix elements into multiple jobs.
 
-
 The following [command step](/docs/pipelines/command-step) attributes can contain matrix values for interpolation:
 
 * [environment variables](/docs/pipelines/environment-variables)
@@ -13,7 +12,7 @@ The following [command step](/docs/pipelines/command-step) attributes can contai
 
 You can't use matrix values in other attributes, including step keys and [concurrency groups](/docs/pipelines/controlling-concurrency#concurrency-groups).
 
-For example, instead of writing three separate jobs for builds on **macOS**, **Linux** and **Windows**, like the following build configuration (which does not use a build matrix):
+For example, instead of writing three separate jobs for builds on macOS, Linux, and Windows, like the following build configuration (which does not use a build matrix):
 
 ```yaml
 steps:
@@ -42,10 +41,10 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 
-All jobs created by a build matrix are marked with the _Matrix_ badge in the Buildkite interface.
+All jobs created by a build matrix are marked with the **Matrix** badge in the Buildkite interface.
 
->📘 Matrix and Parallel steps
-> Matrix builds are not compatible with explicit <a href="/docs/tutorials/parallel-builds#parallel-jobs">parallelism in steps</a>. You can use a <code>matrix</code> and <code>parallelism</code> in the same build, as long as they are on separate steps.
+> 📘 Matrix and Parallel steps
+> Matrix builds are not compatible with explicit [parallelism in steps](/docs/tutorials/parallel-builds#parallel-jobs). You can use a `matrix` and `parallelism` in the same build, as long as they are on separate steps.
 
 For more complex builds, add multiple dimensions to `matrix.setup` instead of the `matrix` array:
 
@@ -137,7 +136,7 @@ To remove a combination from the matrix, add it to the `adjustments` key and set
 
 ## Matrix limits
 
-Each build matrix has a limit of 6 dimensions, 20 elements in each dimension and a total of 12 adjustments.
+Each build matrix has a limit of 6 dimensions, 20 elements in each dimension, and a total of 12 adjustments. The `matrix` configuration on a `command` has a limit of 50 jobs created.
 
 ## Grouping matrix elements
 

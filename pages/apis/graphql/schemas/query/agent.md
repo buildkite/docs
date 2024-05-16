@@ -15,12 +15,12 @@ title: agent – Queries – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   agent
-  <a href="/docs/apis/graphql/schemas/object/agent" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Agent">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/agent" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Agent">
   <code>Agent</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

@@ -1,0 +1,1 @@
+- `$TOKEN` is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant **Organization** and **REST API Scopes** that your agent needs access to in Buildkite.

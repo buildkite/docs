@@ -21,15 +21,16 @@ An artifact is a file uploaded by your agent during the execution of a build's j
 </tbody>
 </table>
 
->🚧 Deprecated fields
->Artifacts previously included <code>glob_path</code> and <code>original_path</code> but these were <a href="https://buildkite.com/changelog/71-artifacts-glob-path-and-original-path-fields-are-deprecated">deprecated</a> and now return <code>null</code>.
+> 🚧 Deprecated fields
+> Artifacts previously included <code>glob_path</code> and <code>original_path</code> but these were <a href="https://buildkite.com/changelog/71-artifacts-glob-path-and-original-path-fields-are-deprecated">deprecated</a> and now return <code>null</code>.
 
 ## List artifacts for a build
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of a build's artifacts across all of its jobs.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/artifacts"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/artifacts"
 ```
 
 ```json
@@ -76,7 +77,8 @@ Success response: `200 OK`
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of a job's artifacts.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts"
 ```
 
 ```json
@@ -106,7 +108,8 @@ Success response: `200 OK`
 ## Get an artifact
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts/{id}"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts/{id}"
 ```
 
 ```json
@@ -138,7 +141,8 @@ Returns a 302 response to a URL for downloading an artifact. The URL will be ret
 You should assume the URL returned will only be valid for 60 seconds, unless you've used your own S3 bucket where the URL will be the standard public S3 URL to the artifact object.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts/{id}/download"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts/{id}/download"
 ```
 
 ```json
@@ -158,7 +162,8 @@ The artifact record is marked as deleted in the Buildkite database, and the arti
 If the artifact was uploaded using the agent's custom [AWS S3](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket), [Google Cloud](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket), or [Artifactory](/docs/integrations/artifactory) storage support, the file will not be automatically deleted from that storage. You must delete the file from your private storage yourself.
 
 ```bash
-curl -X DELETE "http://api.buildkite.com/v2/organizations/{artifact.job.build.project.account.slug}/pipelines/{artifact.job.build.project.slug}/builds/{artifact.job.build.number}/jobs/{artifact.job.uuid}/artifacts/{artifact.uuid}?access_token={access_token.token}
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "http://api.buildkite.com/v2/organizations/{artifact.job.build.project.account.slug}/pipelines/{artifact.job.build.project.slug}/builds/{artifact.job.build.number}/jobs/{artifact.job.uuid}/artifacts/{artifact.uuid}?access_token={access_token.token}"
 ```
 
 Required scope: `write_artifacts`

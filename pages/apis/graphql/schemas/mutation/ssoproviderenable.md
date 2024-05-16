@@ -15,12 +15,12 @@ title: ssoProviderEnable – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   ssoProviderEnable
-  <a href="/docs/apis/graphql/schemas/object/ssoproviderenablepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SSOProviderEnablePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/ssoproviderenablepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SSOProviderEnablePayload">
   <code>SSOProviderEnablePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 

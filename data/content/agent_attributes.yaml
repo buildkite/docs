@@ -4,37 +4,43 @@ attributes:
   default_value: None
   required: true
   desc: |
-      The agent registration token from your organization’s _Agents_ page, used only to register new agents. To get your token, log in to Buildkite, navigate to _Agents_, then select _Reveal Agent Token_.
-- name: bootstrap-script
-  env_var: BUILDKITE_BOOTSTRAP_SCRIPT_PATH
-  default_value: "buildkite-agent bootstrap"
-  required: false
-  desc: |
-      Command to invoke the bootstrap process.
+      The agent token associated with a cluster. The agent token is configurable through the cluster that's accessible from your organization's **Agents** page.
 - name: build-path
   env_var: BUILDKITE_BUILD_PATH
   default_value: "(depends on platform)"
   required: true
   desc: |
-      Path to where the builds will run from.
+      The path to the directory where the builds will run.
+- name: allowed-repositories
+  env_var: BUILDKITE_ALLOWED_REPOSITORIES
+  default_value: ""
+  required: false
+  desc: |
+      A comma-separated list of regular expressions representing repositories the agent is allowed to clone (for example, `^git@github.com:buildkite/.\*` or `^https://github.com/buildkite/.*`)
+- name: bootstrap-script
+  env_var: BUILDKITE_BOOTSTRAP_SCRIPT_PATH
+  default_value: "buildkite-agent bootstrap"
+  required: false
+  desc: |
+      The command to invoke the bootstrap process.
 - name: cancel-grace-period
   env_var: BUILDKITE_CANCEL_GRACE_PERIOD
   default_value: "10"
   required: false
   desc: |
-      The number of seconds a canceled or timed out job is given to gracefully terminate and upload its artifacts.
+      The number of seconds a canceled or timed-out job is given to gracefully terminate and upload its artifacts.
 - name: cancel-signal
   env_var: BUILDKITE_CANCEL_SIGNAL
   default_value: "SIGTERM"
   required: false
   desc: |
-      The signal that the agent sends to the bootstrap to signal cancellation.
+      The signal the agent sends to the bootstrap to signal cancellation.
 - name: debug
   env_var: BUILDKITE_AGENT_DEBUG
   default_value: "false"
   required: false
   desc: |
-      Enable debug mode.
+      Enables debug mode.
 - name: debug-http
   env_var: BUILDKITE_AGENT_DEBUG_HTTP
   default_value: "false"
@@ -77,8 +83,8 @@ attributes:
   required: false
   desc: |
       Flags to pass to the `git clean` command.
-      Agents below v3.0.0 default to "-fdq".
-      Agents v3.0.0 to v3.7.0 default to "-fxdq".
+      Agents below v3.0.0 default to `-fdq`.
+      Agents v3.0.0 to v3.7.0 default to `-fxdq`.
 - name: git-clone-flags
   env_var: BUILDKITE_GIT_CLONE_FLAGS
   default_value: "-v"
@@ -204,7 +210,7 @@ attributes:
   desc: |
       Do not allow this agent to run arbitrary console commands.
 - name: no-git-submodules
-  env_var: BUILDKITE_NO_GIT_SUBMODULES, BUILDKIT_DISABLE_GIT_SUBMODULES
+  env_var: BUILDKITE_NO_GIT_SUBMODULES, BUILDKITE_DISABLE_GIT_SUBMODULES
   default_value: "false"
   required: false
   desc: |

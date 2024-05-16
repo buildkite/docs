@@ -7,13 +7,13 @@ You can set timeouts on your builds in two ways:
 - Command step timeouts for running jobs.
 - Scheduled job expiry for jobs yet to be picked up.
 
-Organization-level timeouts can be set in your [Pipeline Settings](https://buildkite.com/organizations/~/pipeline-settings):
+Organization-level timeouts can be set in your organization's [**Pipeline Settings**](https://buildkite.com/organizations/~/pipeline-settings):
 
 <%= image "pipeline_timeout_settings.png", width: 1724/2, height: 736/2, alt: "Set timeout period for your jobs" %>
 
 ## Command timeouts
 
-You can specify timeouts for jobs as [command steps attributes](/docs/pipelines/command-step#timeout_in_minutes), but it's possible to avoid setting them manually every time. To prevent jobs from consuming too many job minutes or running forever, specify default and maximum timeouts from your organization's [Pipeline Settings](https://buildkite.com/organizations/~/pipeline-settings), or on an individual pipeline's Settings.
+You can specify timeouts for jobs as [command steps attributes](/docs/pipelines/command-step#timeout_in_minutes), but it's possible to avoid setting them manually every time. To prevent jobs from consuming too many job minutes or running forever, specify default and maximum timeouts from your organization's [**Pipeline Settings**](https://buildkite.com/organizations/~/pipeline-settings), or on an individual pipeline's **Settings**.
 
 Specific timeouts take precedence over more general ones—a step-level timeout takes precedence over a pipeline timeout, which in turn takes precedence over an organization's default.
 
@@ -35,4 +35,6 @@ Scheduled job expiry helps you avoid having lingering jobs that are never assign
 
 By default, jobs are canceled when not picked up for 30 days. This will cause the corresponding build to fail.
 
-You can override the default by setting a shorter value in your organization's [Pipeline Settings page](https://buildkite.com/organizations/~/pipeline-settings).
+You can override the default by setting a shorter value in your organization's [**Pipeline Settings**](https://buildkite.com/organizations/~/pipeline-settings) page.
+
+Scheduled job limits should not be confused with [scheduled builds](/docs/pipelines/scheduled-builds). A scheduled build's jobs will still go through the [build states](/docs/pipelines/defining-steps#build-states), and the timeout will apply once its individual jobs are in the scheduled state waiting for agents.

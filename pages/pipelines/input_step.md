@@ -1,11 +1,10 @@
 # Input step
 
-An *input* step is used to collect information from a user.
+An _input_ step is used to collect information from a user.
 
 An input step is functionally identical to a [block step](/docs/pipelines/block-step), however an input step doesn't create any [dependencies](/docs/pipelines/dependencies) to the steps before and after it.
 
 Input steps block your build from completing, but do not automatically block other steps from running unless they specifically depend upon it.
-
 
 An input step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file.
 
@@ -39,19 +38,18 @@ NAME=$(buildkite-agent meta-data get name)
 ```
 {: codeblock-file="script.sh"}
 
-
 For an example pipeline, see the [Input step example pipeline](https://github.com/buildkite/input-step-example) on GitHub:
 
 <a class="Docs__example-repo" href="https://github.com/buildkite/input-step-example"><span class="detail">:pipeline: Input Step Example Pipeline</span> <span class="repo">github.com/buildkite/input-step-example</span></a>
 
->🚧 Don't store sensitive data in input steps
+> 🚧 Don't store sensitive data in input steps
 > You shouldn't use input steps to store sensitive information like secrets because the data will be stored in build metadata.
 
 ## Input step attributes
 
 Input and block steps have the same attributes available for use.
 
-_Optional attributes:_
+Optional attributes:
 
 <table data-attributes>
   <tr>
@@ -107,10 +105,10 @@ steps:
 
 ## Text input attributes
 
->📘 Line endings
+> 📘 Line endings
 > A text field normalizes line endings to Unix format (<code>\n</code>).
 
-_Required attributes:_
+Required attributes:
 
 <table>
   <tr>
@@ -132,7 +130,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-_Optional attributes:_
+Optional attributes:
 
 <table>
   <tr>
@@ -172,7 +170,7 @@ steps:
 
 ## Select input attributes
 
-_Required attributes:_
+Required attributes:
 
 <table>
   <tr>
@@ -193,7 +191,7 @@ _Required attributes:_
   </tr>
 </table>
 
-Each select option has the following _required attributes:_
+Each select option has the following _required_ attributes:
 
 <table>
   <tr>
@@ -226,7 +224,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-_Optional attributes:_
+Optional attributes:
 
 <table>
   <tr>

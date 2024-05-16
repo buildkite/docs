@@ -1,12 +1,22 @@
 # Pipelines API
 
+The pipelines API consists of several endpoints that allow you to manage:
+
+- pipelines, along with their [builds](/docs/apis/rest-api/builds)
+- a build's [annotations](/docs/apis/rest-api/annotations), [artifacts](/docs/apis/rest-api/artifacts), and [jobs](/docs/apis/rest-api/jobs)
+
+This section of the REST API documentation also contains several other endpoints that allow you to manage other aspects of Buildkite functionality associated with your pipelines, such as:
+
+- [clusters](/docs/apis/rest-api/clusters), including the management of [queues](/docs/apis/rest-api/clusters#queues) and [agent tokens](/docs/apis/rest-api/clusters#agent-tokens)
+- [agents](/docs/apis/rest-api/agents) themselves
 
 ## List pipelines
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's pipelines.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
 ```
 
 ```json
@@ -84,7 +94,8 @@ Success response: `200 OK`
 ## Get a pipeline
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
 ```
 
 ```json
@@ -173,7 +184,8 @@ steps:
 make the following POST request, substituting your organization slug instead of `{org.slug}`. Make sure to escape the quotes (`"`) in your YAML, and  to replace line breaks with `\n`:
 
 ```bash
-curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
   -H "Content-Type: application/json" \
   -d '{
       "name": "My Pipeline X",
@@ -182,13 +194,10 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
     }'
 ```
 
->📘
+> 📘
 > When setting pipeline configuration using the API, you must pass in a string that Buildkite parses as valid YAML, escaping quotes and line breaks.
 > To avoid writing an entire YAML file in a single string, you can place a <code>pipeline.yml</code> file in a <code>.buildkite</code> directory at the root of your repo, and use the <code>pipeline upload</code> command in your configuration to tell Buildkite where to find it. This means you only need the following:
->
-<code>
-"configuration": "steps:\n - command: \"buildkite-agent pipeline upload\""
-</code>
+> <code>"configuration": "steps:\n - command: \"buildkite-agent pipeline upload\""</code>
 
 
 The response contains information about your new pipeline:
@@ -204,6 +213,7 @@ The response contains information about your new pipeline:
   "slug": "my-pipeline-x",
   "repository": "git@github.com:acme-inc/my-pipeline.git",
   "cluster_id": null,
+  "pipeline_template_uuid": null,
   "branch_configuration": null,
   "default_branch": "main",
   "skip_queued_branch_builds": false,
@@ -321,6 +331,10 @@ Optional [request body properties](/docs/api#request-body-properties):
     </td>
   </tr>
   <tr>
+    <th><code>cluster_id</code></th>
+    <td>The ID of the <a href="/docs/clusters/overview">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
+  </tr>
+  <tr>
     <th><code>default_branch</code></th>
     <td>
       <p>The name of the branch to prefill when new builds are created or triggered in Buildkite. It is also used to filter the builds and metrics shown on the Pipelines page.</p>
@@ -331,8 +345,12 @@ Optional [request body properties](/docs/api#request-body-properties):
     <th><code>description</code></th>
     <td>
       <p>The pipeline description.</p>
-      <p><em>Example:</em> <code>":package: A testing pipeline"</code></p>
+      <p><em>Example:</em> <code>"\:package\: A testing pipeline"</code></p>
     </td>
+  </tr>
+  <tr>
+    <th><code>pipeline_template_uuid</code></th>
+    <td>The UUID of the <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> the pipeline should run with. Set to <code>null</code> to remove the pipeline template from the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"018e5a22-d14c-7085-bb28-db0f83f43a1c"</code></p>
   </tr>
   <tr>
     <th><code>provider_settings</code></th>
@@ -353,6 +371,13 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>
       <p>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to.</p>
       <p><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>tags</code></th>
+    <td>
+      <p>An array of strings representing <a href="/docs/pipelines/tags">tags</a> to add to this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
+      <p><em>Example:</em><code>["\:terraform\:", "testing"]</code></p>
     </td>
   </tr>
   <tr>
@@ -382,10 +407,6 @@ teams: {
       <p>Whether the pipeline is visible to everyone, including users outside this organization. <p class="Docs__api-param-eg"><em>Example:</em> <code>"public"</code><br><em>Default:</em> <code>"private"</code></p>
     </td>
   </tr>
-  <tr>
-    <th><code>cluster_id</code></th>
-    <td>The ID of the <a href="/docs/clusters/overview">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<br />You'll need to <a href="/docs/clusters/overview#enable-clusters">enable clusters</a> for your organization to use this feature. <p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
-  </tr>
 </tbody>
 </table>
 
@@ -401,12 +422,19 @@ Error responses:
 </tbody>
 </table>
 
+### Deriving a pipeline slug from the pipeline's name
+
+<%= render_markdown partial: 'platform/deriving_a_pipeline_slug_from_the_pipelines_name' %>
+
+Any attempt to create a new pipeline with a name that matches an existing pipeline's name, results in an error.
+
 ## Create a visual step pipeline
 
 YAML pipelines are the recommended way to [manage your pipelines](https://buildkite.com/docs/tutorials/pipeline-upgrade) but if you're still using visual steps you can add them by setting the `steps` key in your json request body to an array of steps:
 
 ```bash
-curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "My Pipeline",
@@ -610,6 +638,10 @@ Optional [request body properties](/docs/api#request-body-properties):
     </td>
   </tr>
   <tr>
+    <th><code>cluster_id</code></th>
+    <td>The ID of the <a href="/docs/clusters/overview">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
+  </tr>
+  <tr>
     <th><code>default_branch</code></th>
     <td>
       <p>The name of the branch to prefill when new builds are created or triggered in Buildkite. It is also used to filter the builds and metrics shown on the Pipelines page.</p>
@@ -629,6 +661,10 @@ Optional [request body properties](/docs/api#request-body-properties):
       <p>The pipeline environment variables.</p>
       <p><em>Example:</em> <code>{"KEY":"value"}</code></p>
     </td>
+  </tr>
+  <tr>
+    <th><code>pipeline_template_uuid</code></th>
+    <td>The UUID of the <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> the pipeline should run with. Set to <code>null</code> to remove the pipeline template from the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"018e5a22-d14c-7085-bb28-db0f83f43a1c"</code></p>
   </tr>
   <tr>
     <th><code>provider_settings</code></th>
@@ -652,6 +688,13 @@ Optional [request body properties](/docs/api#request-body-properties):
     </td>
   </tr>
   <tr>
+    <th><code>tags</code></th>
+    <td>
+      <p>An array of strings representing <a href="/docs/pipelines/tags">tags</a> to add to this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
+      <p><em>Example:</em><code>["\:terraform\:", "testing"]</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>teams</code></th>
     <td>
       <p>An array of team UUIDs to add this pipeline to. Allows you to specify the access level for the pipeline in a team. The available access level options are:
@@ -670,10 +713,6 @@ teams: {
 }
 ```} %>
     </td>
-  </tr>
-  <tr>
-    <th><code>cluster_id</code></th>
-    <td>The ID of the <a href="/docs/clusters/overview">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<br />You'll need to <a href="/docs/clusters/overview#enable-clusters">enable clusters</a> for your organization to use this feature. <p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
   </tr>
 </tbody>
 </table>
@@ -698,15 +737,17 @@ To update a pipeline's YAML steps, make a PATCH request to the `pipelines` endpo
 
 
 ```bash
-curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}" \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}" \
   -H "Content-Type: application/json" \
   -d '{
     "repository": "git@github.com:acme-inc/new-repo.git",
-    "configuration": "steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\""
+    "configuration": "steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\"",
+    "tags": ["\:terraform\:", "testing"]
   }'
 ```
 
->🚧
+> 🚧
 > Patch requests can only update attributes already present in the pipeline YAML.
 
 
@@ -788,6 +829,14 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
+    <th><code>cluster_id</code></th>
+    <td>The ID of the <a href="/docs/clusters/overview">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
+  </tr>
+  <tr>
+    <th><code>configuration</code></th>
+    <td>The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\""</code></p></td>
+  </tr>
+  <tr>
     <th><code>default_branch</code></th>
     <td>The name of the branch to prefill when new builds are created or triggered in Buildkite.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>"main"</code></p>
@@ -795,7 +844,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>description</code></th>
-    <td>The pipeline description. <p class="Docs__api-param-eg"><em>Example:</em> <code>":package: A testing pipeline"</code></p></td>
+    <td>The pipeline description. <p class="Docs__api-param-eg"><em>Example:</em> <code>"\:package\: A testing pipeline"</code></p></td>
   </tr>
     <tr>
     <th><code>env</code></th>
@@ -806,16 +855,16 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
   </tr>
   <tr>
+    <th><code>pipeline_template_uuid</code></th>
+    <td>The UUID of the <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> the pipeline should run with. Set to <code>null</code> to remove the pipeline template from the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"018e5a22-d14c-7085-bb28-db0f83f43a1c"</code></p>
+  </tr>
+  <tr>
     <th><code>provider_settings</code></th>
     <td>The source provider settings. See the <a href="#provider-settings-properties">Provider Settings</a> section for accepted properties. <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p></td>
   </tr>
   <tr>
     <th><code>repository</code></th>
     <td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com/org/repo.git"</code></p></td>
-  </tr>
-  <tr>
-    <th><code>configuration</code></th>
-    <td>The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\""</code></p></td>
   </tr>
   <tr>
     <th><code>skip_queued_branch_builds</code></th>
@@ -826,12 +875,15 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
-    <th><code>visibility</code></th>
-    <td>Whether the pipeline is visible to everyone, including users outside this organization. <p class="Docs__api-param-eg"><em>Example:</em> <code>"public"</code><br><em>Default:</em> <code>"private"</code></p></td>
+    <th><code>tags</code></th>
+    <td>
+      <p>An array of strings representing <a href="/docs/pipelines/tags">tags</a> to modify on this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
+      <p><em>Example:</em><code>["\:terraform\:", "testing"]</code></p>
+    </td>
   </tr>
   <tr>
-    <th><code>cluster_id</code></th>
-    <td>The ID of the <a href="/docs/clusters/overview">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<br />You'll need to <a href="/docs/clusters/overview#enable-clusters">enable clusters</a> for your organization to use this feature. <p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
+    <th><code>visibility</code></th>
+    <td>Whether the pipeline is visible to everyone, including users outside this organization. <p class="Docs__api-param-eg"><em>Example:</em> <code>"public"</code><br><em>Default:</em> <code>"private"</code></p></td>
   </tr>
 </tbody>
 </table>
@@ -848,7 +900,7 @@ Error responses:
 </tbody>
 </table>
 
->🚧
+> 🚧
 > To update a pipeline's teams, please use the <a href="/docs/apis/graphql-api">GraphQL API</a>.
 
 ## Archive a pipeline
@@ -856,7 +908,8 @@ Error responses:
 Archived pipelines are read-only, and are hidden from Pipeline pages by default. Builds, build logs, and artifacts are preserved.
 
 ```bash
-curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/archive"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/archive"
 ```
 
 ```json
@@ -938,7 +991,8 @@ Error responses:
 Unarchived pipelines are editable, and are shown on the Pipeline pages.
 
 ```bash
-curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/unarchive"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/unarchive"
 ```
 
 ```json
@@ -1018,7 +1072,8 @@ Error responses:
 ## Delete a pipeline
 
 ```bash
-curl -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
 ```
 
 Required scope: `write_pipelines`
@@ -1030,12 +1085,13 @@ Success response: `204 No Content`
 Create an GitHub webhook for an existing pipeline that is configured using our GitHub App. Pushes to the linked GitHub repository will trigger builds.
 
 ```bash
-curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/webhook"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/webhook"
 ```
 
 Required scope: `write_pipelines`
 
-Success response: `201 CREATED`
+Success response: `201 Created`
 
 Error responses:
 
@@ -1043,7 +1099,8 @@ Error responses:
 <tbody>
   <tr><th><code>403 Forbidden</code></th><td><code>{ "message": "Forbidden" }</code></td></tr>
   <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Auto-creating webhooks is not supported for your repository." }</code></td></tr>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Webhooks could not be created for your repository." }</code></td></tr>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Webhooks could not be created for your repository." }</code>
+  This error might be returned because an existing webhook has already been created for this pipeline, and the additional webhook could not be created as it is outside the intended scope of this feature.</td></tr>
 </tbody>
 </table>
 
@@ -1078,15 +1135,15 @@ Properties available for Bitbucket Server:
 <table class="responsive-table">
 <tbody>
   <tr>
-    <th><code>build_pull_requests</code></th>
+    <th><code>build_branches</code></th>
     <td>
-      Whether to create builds for commits that are part of a Pull Request.
+      Whether to create builds when branches are pushed.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
-    <th><code>build_branches</code></th>
+    <th><code>build_pull_requests</code></th>
     <td>
-      Whether to create builds when branches are pushed
+      Whether to create builds for commits that are part of a Pull Request.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
@@ -1103,11 +1160,42 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
 <table class="responsive-table">
 <tbody>
   <tr>
+    <th><code>build_branches</code></th>
+    <td>
+      Whether to create builds when branches are pushed.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>build_pull_requests</code></th>
     <td>
       Whether to create builds for commits that are part of a Pull Request.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
     </td>
+  </tr>
+  <tr>
+    <th><code>build_tags</code></th>
+    <td>
+      Whether to create builds when tags are pushed.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>cancel_deleted_branch_builds</code></th>
+    <td>
+      A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>publish_commit_status</code></th>
+    <td>
+      Whether to update the status of commits in Bitbucket or GitHub.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>publish_commit_status_per_step</code></th>
+    <td>
+      Whether to create a separate status for each job in a build, allowing you to see the status of each job directly in Bitbucket or GitHub.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>pull_request_branch_filter_enabled</code></th>
@@ -1134,24 +1222,6 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
       Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
-  <tr>
-    <th><code>build_tags</code></th>
-    <td>
-      Whether to create builds when tags are pushed.
-      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-  </tr>
-  <tr>
-    <th><code>publish_commit_status</code></th>
-    <td>
-      Whether to update the status of commits in Bitbucket or GitHub.
-      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-  </tr>
-  <tr>
-    <th><code>publish_commit_status_per_step</code></th>
-    <td>
-      Whether to create a separate status for each job in a build, allowing you to see the status of each job directly in Bitbucket or GitHub.
-      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-  </tr>
   </tbody>
 </table>
 
@@ -1159,6 +1229,42 @@ Additional properties available for GitHub:
 
 <table class="responsive-table">
   <tbody>
+    <tr>
+      <th><code>build_pull_request_forks</code></th>
+      <td>
+        Whether to create builds for pull requests from third-party forks.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_labels_changed</code></th>
+      <td>
+        Whether to create builds for pull requests when labels are added or removed.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_ready_for_review</code></th>
+      <td>
+        Whether to create builds for pull requests that are ready for review.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>prefix_pull_request_fork_branch_names</code></th>
+      <td>
+        Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the <code>main</code> branch from <code>some-user</code> will become <code>some-user:main</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>publish_blocked_as_pending</code></th>
+      <td>
+        The status to use for blocked builds. <code>Pending</code> can be used with <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> to prevent merging pull requests with blocked builds.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>separate_pull_request_statuses</code></th>
+      <td>
+        Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> in GitHub.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
     <tr>
       <th><code>trigger_mode</code></th>
       <td>
@@ -1170,30 +1276,6 @@ Additional properties available for GitHub:
           <li><code>none</code> will not create any builds based on GitHub activity.</li>
         </ul>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>code</code>, <code>deployment</code>, <code>fork</code>, <code>none</code></p></td>
-    </tr>
-    <tr>
-      <th><code>build_pull_request_forks</code></th>
-      <td>
-        Whether to create builds for pull requests from third-party forks.
-        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
-    <tr>
-      <th><code>prefix_pull_request_fork_branch_names</code></th>
-      <td>
-        Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the <code>main</code> branch from <code>some-user</code> will become <code>some-user:main</code>.
-        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
-    <tr>
-      <th><code>separate_pull_request_statuses</code></th>
-      <td>
-        Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> in GitHub.
-        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
-    <tr>
-      <th><code>publish_blocked_as_pending</code></th>
-      <td>
-        The status to use for blocked builds. <code>Pending</code> can be used with <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> to prevent merging pull requests with blocked builds.
-        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
     </tr>
   </tbody>
 </table>

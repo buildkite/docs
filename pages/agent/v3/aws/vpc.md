@@ -3,7 +3,6 @@
 Agent orchestration deployments on AWS require a virtual private cloud (VPC)
 network.
 
-
 Your VPC needs to provide routable access to the buildkite.com service
 so that `buildkite-agent` processes can connect, and retrieve the jobs assigned
 to them. The options are:
@@ -104,6 +103,6 @@ The AWS VPC Quick Start creates and configures a gateway VPC endpoint for AWS
 S3. The private subnet route tables are configured forward the endpoint's
 IP-prefix list to the endpoint, instead of the NAT gateway. In-region S3 access
 from the private subnets will routed directly over the VPC endpoint, and bypass
-the NAT gateway. By default, the VPC endpoint has a permissive “Full Access”
+the NAT gateway. By default, the VPC endpoint has a permissive "Full Access"
 policy. Should you wish to customize this, or the security group that the
 endpoint belongs to, create a fork of the CloudFormation template.

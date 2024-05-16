@@ -26,11 +26,11 @@ Once you've configured an Amazon EventBridge notification service in Buildkite, 
   <tr><th><a href="#events-agent-stopped">Agent Stopped</a></th><td>An agent has stopped. This happens when an agent is instructed to stop from the API. It can be graceful or forceful</td></tr>
   <tr>
     <th><a href="#events-agent-blocked">Agent Blocked</a></th>
-    <td>An agent has been blocked. This happens when an agent's IP address is no longer included in the cluster token's <a href="/docs/clusters/manage-clusters#set-up-clusters-restrict-access-for-a-cluster-token-by-ip-address">allowed IP addresses</a></td>
+    <td>An agent has been blocked. This happens when an agent's IP address is no longer included in the agent token's <a href="/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td>
   </tr>
   <tr>
     <th><a href="#events-cluster-token-registration-blocked">Cluster Token Registration Blocked</a></th>
-    <td>An attempted agent registration is blocked because the request IP address is not included in the cluster token's <a href="/docs/clusters/manage-clusters#set-up-clusters-restrict-access-for-a-cluster-token-by-ip-address">allowed IP addresses</a></td>
+    <td>An attempted agent registration is blocked because the request IP address is not included in the agent token's <a href="/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td>
   </tr>
   <tr>
     <th><a href="#audit-event-logged">Audit Event Logged</a></th>
@@ -47,21 +47,21 @@ In your Buildkite [Organization's Notification Settings](https://buildkite.com/o
 
 <%= image "buildkite-add-eventbridge.png", width: 1458/2, height: 208/2, alt: "Screenshot of Add Buildkite Amazon EventBridge Button" %>
 
-Once you've entered your AWS region and AWS Account ID, a Partner Event Source will be created in your AWS account matching the "Partner Event Source Name" shown on the settings page:
+Once you've entered your AWS region and AWS Account ID, a Partner Event Source will be created in your AWS account matching the **Partner Event Source Name** shown on the settings page:
 
 <%= image "buildkite-amazon-eventbridge-settings.png", width: 1458/2, height: 1254/2, alt: "Screenshot of Buildkite Amazon EventBridge Notification Settings" %>
 
-You can then start consuming the events in your AWS account. The links to "Partner Event Sources Console" and "Event Rules" take you to the relevant pages in your AWS Console.
+You can then start consuming the events in your AWS account. The links to **Partner Event Sources Console** and **Event Rules** take you to the relevant pages in your AWS Console.
 
 ## Filtering
 
-When creating your EventBridge rule you can specify an "Event Pattern" filter to limit which events will be processed. You can use this to respond only to certain events based on the type, or any attribute from within the event payload.
+When creating your EventBridge rule you can specify an **Event pattern** filter to limit which events will be processed. You can use this to respond only to certain events based on the type, or any attribute from within the event payload.
 
 For example, to only process [Build Finished](#events-build-finished) events you'd configure your rule with the following event pattern:
 
 <%= image "cloudwatch-event-pattern.png", width: 1636/2, height: 786/2, alt: "Screenshot of configuring an EventBridge Event Pattern filter" %>
 
-You can use any event property in your custom event pattern. For example, the following event pattern allows only “Build Started" and "Build Finished" events containing a particular pipeline slug:
+You can use any event property in your custom event pattern. For example, the following event pattern allows only "Build Started" and "Build Finished" events containing a particular pipeline slug:
 
 ```json
 {
@@ -130,7 +130,7 @@ exports.handler = (event, context, callback) => {
 
 ## Official AWS quick start examples
 
-AWS have published three example implementations of using Buildkite with Amazon Eventbridge:
+AWS have published three example implementations of using Buildkite with Amazon EventBridge:
 
 <a class="Docs__example-repo" href="https://aws.amazon.com/quickstart/eventbridge/buildkite-build-workflow/">
   <span class="icon">:aws:</span>
@@ -165,7 +165,9 @@ Each AWS Quick Start example has a corresponding GitHub repository with full exa
 
 AWS EventBridge has strict limits on the size of the payload as documented in [Amazon EventBridge quotas](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-quota.html). As such, the information included in payloads is restricted to basic information about the event. If you need more information, you can query from the Buildkite [APIs](/docs/apis) using the data in the event.
 
-<h3 id="events-build-created">Build Created</h3>
+<a id="events-build-created"></a>
+
+### Build Created
 
 ```json
 {
@@ -199,7 +201,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-build-started">Build Started</h3>
+<a id="events-build-started">Build Started</a>
 
 ```json
 {
@@ -233,7 +235,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-build-finished">Build Finished</h3>
+<a id="events-build-finished"></a>
+
+### Build Finished
 
 ```json
 {
@@ -267,7 +271,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-build-blocked">Build Blocked</h3>
+<a id="events-build-blocked"></a>
+
+### Build Blocked
 
 ```json
 {
@@ -309,7 +315,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-job-scheduled">Job Scheduled</h3>
+<a id="events-job-scheduled"></a>
+
+### Job Scheduled
 
 ```json
 {
@@ -360,7 +368,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-job-started">Job Started</h3>
+<a id="events-job-started"></a>
+
+### Job Started
 
 ```json
 {
@@ -411,7 +421,11 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-job-finished">Job Finished</h3>
+<a id="events-job-finished"></a>
+
+### Job Finished
+
+These types of events [may contain a `signal_reason` field value](#signal-reason).
 
 ```json
 {
@@ -429,6 +443,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
         "queue=default"
       ],
       "exit_status": 0,
+      "signal_reason": "see-reason-below",
       "passed": true,
       "soft_failed": false,
       "state": "finished",
@@ -462,7 +477,23 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-job-activated">Job Activated</h3>
+<a id="signal-reason"></a>
+
+#### Signal reason in job finished events
+
+The `signal_reason` field of a [job finished](#example-event-payloads-job-finished) event is only be present when the `exit_status` field value in the same event is not `0`. The `signal_reason` field's value indicates the reason why a job was either stopped, or why the job never ran.
+
+| Signal Reason | Description |
+| --- | --- |
+| `agent_refused` | The agent refused to run the job, as it was not allowed by a [pre-bootstrap hook](/docs/agent/v3/securing#strict-checks-using-a-pre-bootstrap-hook) |
+| `agent_stop` | The agent was stopped while the job was running |
+| `cancel` | The job was cancelled by a user |
+| `signature_rejected` | The job was rejected due to a mismatch with the [step's signature](/docs/agent/v3/signed-pipelines) |
+| `process_run_error` | The job failed to start due to an error in the process run. This is usually a bug in the agent, contact support if this is happening regularly. |
+
+<a id="events-job-activated"></a>
+
+### Job Activated
 
 ```json
 {
@@ -515,7 +546,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-agent-connected">Agent Connected</h3>
+<a id="events-agent-connected"></a>
+
+### Agent Connected
 
 ```json
 {
@@ -553,7 +586,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-agent-disconnected">Agent Disconnected</h3>
+<a id="events-agent-disconnected"></a>
+
+### Agent Disconnected
 
 ```json
 {
@@ -591,7 +626,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-agent-lost">Agent Lost</h3>
+<a id="events-agent-lost"></a>
+
+### Agent Lost
 
 ```json
 {
@@ -629,7 +666,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-agent-stopping">Agent Stopping</h3>
+<a id="events-agent-stopping"></a>
+
+### Agent Stopping
 
 ```json
 {
@@ -667,7 +706,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-agent-stopped">Agent Stopped</h3>
+<a id="events-agent-stopped"></a>
+
+### Agent Stopped
 
 ```json
 {
@@ -705,7 +746,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="events-agent-blocked">Agent Blocked</h3>
+<a id="events-agent-blocked"></a>
+
+### Agent Blocked
 
 ```json
 {
@@ -744,7 +787,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 ```
 <!-- vale off -->
 
-<h3 id="events-cluster-token-registration-blocked">Cluster Token Registration Blocked</h3>
+<a id="events-cluster-token-registration-blocked"></a>
+
+### Cluster Token Registration Blocked
 
 <!-- vale on -->
 
@@ -768,9 +813,11 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="audit-event-logged">Audit Event Logged</h3>
+<a id="audit-event-logged"></a>
 
-[Audit log](/docs/pipelines/audit-log) is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan
+### Audit Event Logged
+
+[Audit log](/docs/pipelines/security/audit-log) is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
 
 ```json
 {

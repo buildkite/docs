@@ -2,7 +2,7 @@
 
 Build status badges help to visually show the current build state for a pipeline in places such as readmes and dashboards.
 
-You can find your pipeline's status badge on the **Pipeline Settings** page.
+You can find your pipeline's status badge on the pipeline's **Settings** > **Build Badges** page.
 
 
 ## Scoping to a branch

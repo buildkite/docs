@@ -15,12 +15,12 @@ title: organizationInvitationCreate – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   organizationInvitationCreate
-  <a href="/docs/apis/graphql/schemas/object/organizationinvitationcreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationInvitationCreatePayload">
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/organizationinvitationcreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationInvitationCreatePayload">
   <code>OrganizationInvitationCreatePayload</code>
 </a>
-
+</span>
 </h1>
 <!-- vale on -->
 
