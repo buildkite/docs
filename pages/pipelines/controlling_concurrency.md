@@ -42,8 +42,10 @@ For example, if you have two pipelines that each deploy to a different target bu
 
 Concurrency groups guarantee that jobs will be run in the order that they were created in. Jobs inherit the creation time of their parent. Parents of jobs can be either a build or a pipeline upload job. As pipeline uploads add more jobs to the build after it has started, the jobs that they add will inherit the creation time of the pipeline upload rather than the build.
 
-> 🚧 `concurrency_group` and `block` / `input` steps
-> Note that both [block](/docs/pipelines/block-step) and [input](/docs/pipelines/input-step) steps cause the steps to be uploaded and scheduled at the same time, which breaks concurrency groups. These two steps block jobs being added to the concurrency group, but do not affect the jobs' ordering once unblocked. The concurrency group won't be added to the queue until the `block` or `input` step is unblocked, and once it is, the timestamp will be from the pipeline upload step.
+> 🚧 Troubleshooting and using `concurrency_group` with `block` / `input` steps
+> When a build is blocked by a concurrency group, you can check which jobs are in the queue and their state using the [`getConcurrency` GraphQL query](/docs/apis/graphql/cookbooks/jobs#get-all-jobs-in-a-particular-concurrency-group).
+> <p>
+> Be aware that both the [`block`](/docs/pipelines/block-step) and [`input`](/docs/pipelines/input-step) steps cause these steps to be uploaded and scheduled at the same time, which breaks concurrency groups. These two steps block jobs being added to the concurrency group, but do not affect the jobs' ordering once unblocked. The concurrency group won't be added to the queue until the `block` or `input` step is unblocked, and once it is, the timestamp will be from the pipeline upload step.
 
 ## Concurrency and parallelism
 
