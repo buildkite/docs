@@ -15,9 +15,9 @@ title: Node – Interfaces – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   Node
-  <span class="pill pill--interface pill--normal-case pill--large"><code>INTERFACE</code></span>
+  <span data-algolia-exclude><span class="pill pill--interface pill--normal-case pill--large"><code>INTERFACE</code></span></span>
 </h1>
 <!-- vale on -->
 
@@ -122,6 +122,9 @@ An object with an ID.
 <a href="/docs/apis/graphql/schemas/object/jobeventretried" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventRetried">
   <code>JobEventRetried</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/jobeventretryfailed" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventRetryFailed">
+  <code>JobEventRetryFailed</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/jobeventtimedout" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventTimedOut">
   <code>JobEventTimedOut</code>
 </a>
@@ -164,6 +167,9 @@ An object with an ID.
 <a href="/docs/apis/graphql/schemas/object/pipelinetemplate" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineTemplate">
   <code>PipelineTemplate</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/registry" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Registry">
+  <code>Registry</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/ssoprovidergithubapp" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SSOProviderGitHubApp">
   <code>SSOProviderGitHubApp</code>
 </a>
@@ -172,6 +178,9 @@ An object with an ID.
 </a>
 <a href="/docs/apis/graphql/schemas/object/ssoprovidersaml" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SSOProviderSAML">
   <code>SSOProviderSAML</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/secret" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Secret">
+  <code>Secret</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/suite" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Suite">
   <code>Suite</code>
@@ -184,6 +193,9 @@ An object with an ID.
 </a>
 <a href="/docs/apis/graphql/schemas/object/teampipeline" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamPipeline">
   <code>TeamPipeline</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/teamregistry" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamRegistry">
+  <code>TeamRegistry</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/teamsuite" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamSuite">
   <code>TeamSuite</code>

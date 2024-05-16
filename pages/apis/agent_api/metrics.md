@@ -10,8 +10,9 @@ The Metrics API endpoint provides information on idle and busy agents, jobs, and
 
 Get agent metrics
 
-```
-curl -H "Authorization: Token $BUILDKITE_AGENT_TOKEN" "https://agent.buildkite.com/v3/metrics"
+```bash
+curl -H "Authorization: Token $BUILDKITE_AGENT_TOKEN" \
+  -X GET "https://agent.buildkite.com/v3/metrics"
 ```
 
 ```json

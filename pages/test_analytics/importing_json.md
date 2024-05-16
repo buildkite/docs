@@ -27,8 +27,6 @@ See more configuration information in the [Test Collector plugin README](https:/
 
 Using the plugin is the recommended way as it allows for a better debugging process in case of an issue.
 
-An equivalent of Buildkite Test Collector plugin for GitHub Action and CircleCI Orb is in the works. Stay tuned!
-
 ### Without a plugin
 
 If for some reason you cannot or do not want to use the [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin), or if you are looking to implement your own integration, another approach is possible.
@@ -37,7 +35,7 @@ To import [JSON-formatted test results](#json-test-results-data-reference) in Bu
 
 For example, to import the contents of a [JSON-formatted test results](#json-test-results-data-reference) (`test-results.json`):
 
-1. Securely [set the Test Analytics token environment variable](/docs/pipelines/secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
+1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/managing-secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
 
 2. Run the following `curl` command:
 
@@ -68,7 +66,7 @@ To import [JSON-formatted test results](#json-test-results-data-reference), make
 
 For example, to import the contents of a `test-results.json` file in a CircleCI pipeline:
 
-1. Securely [set the Test Analytics token environment variable](/docs/pipelines/secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
+1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/managing-secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
 
 2. Run the following `curl` command:
 
@@ -97,7 +95,7 @@ To import [JSON-formatted test results](#json-test-results-data-reference), make
 
 For example, to import the contents of a `test-results.json` file in a GitHub Actions pipeline run:
 
-1. Securely [set the Test Analytics token environment variable](/docs/pipelines/secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
+1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/managing-secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
 
 2. Run the following `curl` command:
 
@@ -122,10 +120,10 @@ A single file can have a maximum of 5000 test results, and if that limit is exce
 
 ## JSON test results data reference
 
-JSON test results data is made up of an array of one or more _test result_ objects.
+JSON test results data is made up of an array of one or more "test result" objects.
 A test result object contains an overall result and metadata.
-It also contains a _history_ object, which is a summary of the duration of the test run.
-Within the history object, detailed _span_ objects record the highest resolution details of the test run.
+It also contains a `history` object, which is a summary of the duration of the test run.
+Within the history object, detailed `span` objects record the highest resolution details of the test run.
 
 Schematically, the JSON test results data is like this:
 

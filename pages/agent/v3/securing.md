@@ -1,11 +1,10 @@
 # Securing your Buildkite Agent
 
-In cases where a Buildkite Agent is being deployed into a sensitive environment there are a few default settings and techniques which may be adjusted.
-
+In cases where a Buildkite Agent is being deployed into a sensitive environment, there are a few default settings which may be adjusted and techniques that may be used.
 
 ## Securely storing secrets
 
-For best practices and recommendations about secret storage in the Agent, see the [Managing secrets](/docs/pipelines/secrets) guide.
+For best practices and recommendations about secret storage in the Agent, see the [Managing secrets](/docs/pipelines/security/managing-secrets) guide.
 
 ## Disabling automatic ssh-keyscan
 
@@ -39,8 +38,10 @@ Command line evaluation can be disabled by setting [`no-command-eval`](/docs/age
 * Command line flag: `--no-command-eval`
 * Configuration setting: `no-command-eval=true`
 
->🚧 Custom hooks
-> If you have a custom <code>command</code> hook, using <code>no-command-eval</code> will have no effect on your command execution. See <a href="#allowing-a-list-of-plugins">Allowing a list of plugins</a> and <a href="#customizing-the-bootstrap">Custom bootstrap scripts</a> for examples of how to completely lock down your agent from arbitrary code execution.
+> 🚧 Custom hooks and environment variables
+> If you have a custom `command` hook, using `no-command-eval` will have no effect on your command execution. See [Allowing a list of plugins](#allowing-a-list-of-plugins) and [Custom bootstrap scripts](#customizing-the-bootstrap) for examples of how to completely lock down your agent from arbitrary code execution.
+>
+> Using `no-command-eval` only prevents command evaluation by the agent itself. Other programs such as build or test tools that run during the job could be influenced into executing arbitrary commands via environment variables (for example, `BASH_ENV` or `GIT_SSH_COMMAND`). See [Strict checks using a pre-bootstrap hook](#strict-checks-using-a-pre-bootstrap-hook) and [`enable-environment-variable-allowlist`](/docs/agent/v3/cli-start#enable-environment-variable-allowlist) for possible approaches to filtering environment variables.
 
 ## Disabling plugins
 
@@ -67,7 +68,7 @@ If local hooks are disabled and one is in the checkout, the job will fail.
 >🚧 Building untrusted commits
 >If you build untrusted commits, be careful to contain the build scripts and anything else that may be influenced by the repository contents within chroots, containers, VMs, etc as is appropriate for your needs.
 
-## Strict checks using a `pre-bootstrap` hook
+## Strict checks using a pre-bootstrap hook
 
 You can use a [`pre-bootstrap` hook](hooks#agent-lifecycle-hooks) to add strict
 checks for which repositories, commands, and plugins are allowed to run on your
@@ -214,4 +215,4 @@ Since the [agent](https://github.com/buildkite/agent) is open-source, if necessa
 
 [Clusters](/docs/clusters/overview) provide a mechanism to restrict which IP addresses can connect using a given agent token. This protects against the misuse of agent tokens and the hijacking of agent sessions.
 
-To restrict agent connection by IP address, set the [_Allowed IP Addresses_ attribute](/docs/clusters/manage-clusters#set-up-clusters-restrict-access-for-a-cluster-token-by-ip-address). This restricts agent registration to those IPs, and any existing agents outside the allowed IP ranges will be forcefully disconnected.
+To restrict agent connection by IP address, set the [**Allowed IP Addresses** attribute](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address). This restricts agent registration to those IPs, and any existing agents outside the allowed IP ranges will be forcefully disconnected.

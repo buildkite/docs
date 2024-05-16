@@ -4,7 +4,6 @@ Each [Buildkite plan](https://buildkite.com/pricing) has job minute inclusions, 
 
 Job minutes are calculated as the total number of minutes run by all `command` jobs in a build. It is calculated per-second, starting from when the agent starts running the job, until the job has completed.
 
-
 You can find the total job run time for a build on the bottom of the [build page](/docs/pipelines/dashboard-walkthrough#build-page), and your organization's [total usage](#usage-page) in Settings.
 
 <%= image "minutes.png", width: 1530/2, height: 590/2, alt: "Total Job Run Time for a build" %>
@@ -23,13 +22,13 @@ The [Job minutes usage page](https://buildkite.com/organizations/~/usage/job_min
 
 Your organization's usage is also accessible in the [GraphQL API](/docs/apis/graphql/cookbooks/organizations#query-the-usage-api).
 
->📘 Calculating job minutes usage
+> 📘 Calculating job minutes usage
 > We store job usage data in seconds but charge by summing all the usage and rounding down to the nearest minute. Please keep in mind that when displaying usage data per pipeline in the chart and CSV download, there may be minor discrepancies due to the rounding of each individual pipeline's usage.
 
-## Limits for the Developer Plan
+## Limits for the Free Plan
 
-The Developer Plan has a limit of 5,000 job minutes per month. When this limit is reached, builds are not cancelled, but jobs will not be run. The limit is reset when your billing period rolls over, or your organization is upgraded to a different plan.
+The Free Plan has a limit of 5,000 job minutes per month. When this limit is reached, builds are not cancelled, but jobs will not be run. The limit is reset when your billing period rolls over, or your organization is upgraded to a different plan.
 
 ### Build timeouts
 
-The Developer Plan has a [command step maximum timeout](/docs/pipelines/command-step#timeout_in_minutes) of 240 minutes.
+The Free Plan has a [command step maximum timeout](/docs/pipelines/command-step#timeout_in_minutes) of 240 minutes.

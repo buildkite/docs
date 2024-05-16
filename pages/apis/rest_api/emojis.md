@@ -10,7 +10,8 @@ Emojis can be found in text using the pattern `/:([\w+-]+):/`
 Returns a list of all the emojis for a given organization, including custom emojis and aliases. This list is not paginated.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/emojis"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/emojis"
 ```
 
 ```json

@@ -35,11 +35,14 @@ The following fields are included in the signature for each step:
 - **Matrix configuration.** The matrix configuration is signed as a whole rather than each individual matrix job. This means the signature is the same for each job in the matrix. When signatures are verified for matrix jobs, the agent double-checks that the job it received is a valid construction of the matrix and that the signature matches the matrix configuration.
 - **The repository the commands are running in.** This prevents you from copying a signed step from one repository to another.
 
+> 📘 Compatibility with pipeline templates
+> [Pipeline templates](/docs/pipelines/templates) are designed to be used across multiple pipelines and therefore, repositories. Due to the inclusion of repositories in step signatures, signed steps cannot be used with pipeline templates.
+
 ## Enabling signed pipelines on your agents
 
 You'll need to configure your agents and update pipeline definitions to enable signed pipelines.
 
-### 1. Generate a key pair
+### Step 1: Generate a key pair
 
 Behind the scenes, signed pipelines use [JSON Web Signing (JWS)](https://datatracker.ietf.org/doc/html/rfc7797) to generate signatures. You'll need to generate a [JSON Web Key Set (JWKS)](https://datatracker.ietf.org/doc/html/rfc7517) to sign and verify your pipelines with, then configure your agents to use those keys.
 
@@ -87,7 +90,7 @@ When using signed pipelines, we recommend having multiple disjoint pools of agen
 
 Regarding your specific algorithm choice, any of the supported signing algorithms are fine and will be secure. If you're not sure which one to use, `EdDSA` is proven to be secure, has a modern design, wasn't designed by a Nation State Actor, and produces nice short signatures. It's also the default when running `buildkite-agent tool keygen`.
 
-### 2. Configure the agents
+### Step 2: Configure the agents
 
 Next, you need to configure your agents to use the keys you generated. On agents that upload pipelines, add the following to the agent's config file:
 
@@ -105,7 +108,7 @@ On instances that verify jobs, add:
 verification-jwks-file=<path to verification keys>
 ```
 
-### 3. Sign all steps
+### Step 3: Sign all steps
 
 So far, you've configured agents to sign and verify any steps they upload and run. However, you also define steps in a pipeline's settings through the Buildkite dashboard. For example, teams commonly use a single step in the Buildkite dashboard to upload a pipeline definition from [a YAML file in the repository](/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file). These steps should also be signed.
 
@@ -140,7 +143,7 @@ Regularly rotating signing and verification keys is good security practice, as i
 
 To rotate your keys:
 
-1. [Generate a new key pair](#enabling-signed-pipelines-on-your-agents-1-generate-a-key-pair).
+1. [Generate a new key pair](#enabling-signed-pipelines-on-your-agents-step-1-generate-a-key-pair).
 1. Add the new keys to your existing key sets. Be careful not to mix public and private keys.
 1. Update the `signing-key-id` on your signing agents to use the new key ID.
 

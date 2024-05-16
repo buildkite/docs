@@ -6,7 +6,6 @@ toc_include_h3: false
 
 The `notify` attribute allows you to trigger build notifications to different services. You can also choose to conditionally send notifications based on pipeline events like build state.
 
-
 Add notifications to your pipeline with the `notify` attribute. This sits at the same level as `steps` in your pipeline YAML.
 
 For example, to send a notification email every time a build is created:
@@ -46,11 +45,10 @@ notify:
 
 See [Supported variables](/docs/pipelines/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
->🚧
-> To trigger conditional notifications to a Slack channel, you will first need to configure <a href="/docs/integrations/slack#conditional-notifications">Conditional notifications for Slack</a>.
+> 🚧
+> To trigger conditional notifications to a Slack channel, you will first need to configure [Conditional notifications for Slack](/docs/integrations/slack#conditional-notifications).
 
 ## Email
-
 
 Add an email notification to your pipeline using the `email` attribute of the `notify` YAML block:
 
@@ -60,7 +58,17 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can only send email notifications on entire pipeline events, specifically upon [`build finished`](/docs/apis/webhooks#events).
+You can only send email notifications on entire pipeline [events](/docs/apis/webhooks#events), specifically upon `build.failing` and `build.finished`.
+
+Restrict notifications to finished builds by adding a [conditional](#conditional-notifications):
+
+```yaml
+notify:
+  - email: "dev@acmeinc.com"
+    if: build.state != "failing"
+```
+{: codeblock-file="pipeline.yml"}
+
 
 The `email` attribute accepts a single email address as a string. To send notifications to more than one address, add each address as a separate email notification attribute:
 
@@ -79,7 +87,7 @@ notify:
 
 To send notifications to a Basecamp Campfire, you'll need to set up a chatbot in Basecamp as well as adding the notification to your `pipeline.yml` file. Basecamp admin permission is required to setup your chatbot.
 
->🚧
+> 🚧
 > Campfire messages can only be sent using Basecamp 3.</p>
 
 1. Add a [chatbot](https://m.signalvnoise.com/new-in-basecamp-3-chatbots/) to the Basecamp project or team that you'll be sending notifications to.
@@ -117,8 +125,8 @@ Before adding a `notify` attribute to your `pipeline.yml`, ensure an organizatio
 
 Once a Slack channel has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` YAML block. Remember that if you rename or modify the Slack channel for which the integration was set up, for example if you change it from public to private, you need to set up a new integration.
 
->🚧
-> When using only a channel name, you must specify it in quotes, as otherwise the <code>#</code> will cause the channel name to be treated as a comment.</p>
+> 🚧
+> When using only a channel name, you must specify it in quotes, as otherwise the `#` will cause the channel name to be treated as a comment.
 
 ### Notify a channel in all workspaces
 
@@ -264,6 +272,7 @@ steps:
           channels:
             - "buildkite-community#sre"
           message: "SRE related information here..."
+      - slack:
           channels:
             - "buildkite-community#announcements"
           message: "General announcement for the team here..."
@@ -299,7 +308,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
->🚧  Build creator environment variable
+> 🚧 Build creator environment variable
 > You cannot substitute `user` with the build creator environment variable value.
 
 ### Conditional Slack notifications

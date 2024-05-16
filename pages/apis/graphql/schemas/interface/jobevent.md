@@ -15,9 +15,9 @@ title: JobEvent – Interfaces – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   JobEvent
-  <span class="pill pill--interface pill--normal-case pill--large"><code>INTERFACE</code></span>
+  <span data-algolia-exclude><span class="pill pill--interface pill--normal-case pill--large"><code>INTERFACE</code></span></span>
 </h1>
 <!-- vale on -->
 
@@ -58,6 +58,9 @@ toc: false
 </a>
 <a href="/docs/apis/graphql/schemas/object/jobeventretried" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventRetried">
   <code>JobEventRetried</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/jobeventretryfailed" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventRetryFailed">
+  <code>JobEventRetryFailed</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/jobeventtimedout" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventTimedOut">
   <code>JobEventTimedOut</code>

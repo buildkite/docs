@@ -1,13 +1,11 @@
 # Buildkite Agent hooks
 
->🚧 This page references the out-of-date Buildkite Agent v2.
+> 🚧 This page references the out-of-date Buildkite Agent v2.
 > For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/hooks">see the latest version of this document</a>.
 
 Every agent installer comes with a hooks directory which can be used to override and extend the built-in agent behavior. For example you could create a global `checkout` hook which speeds up a fresh `git clone` on a new build machine, a global `environment` hook which exports secret API keys as environment variables, or a pipeline-level `command` hook which runs the pipeline's steps inside a custom containerized environment.
 
-
-
->📘 Windows support
+> 📘 Windows support
 > Agent hooks aren't available in this version. They are introduced in <a href="/docs/agent/v3/hooks">Agent v3</a>
 
 ## Overview
@@ -18,7 +16,7 @@ There are two types of hooks: global hooks which exist on the agent's machine an
 
 Hooks are called in the following order:
 
-1. `environment` (global) - runs before all other commands, useful for [exporting secret keys](/docs/pipelines/secrets#exporting-secrets-with-environment-hooks) etc.
+1. `environment` (global) - runs before all other commands, useful for [exporting secret keys](/docs/pipelines/security/managing-secrets#exporting-secrets-with-environment-hooks) etc.
 1. `pre-checkout` (global) - runs before checkout
 1. `checkout` (global) - overrides the default `git checkout` behavior
 1. `post-checkout` (global) - runs after checkout

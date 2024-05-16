@@ -3,15 +3,24 @@
   "start_urls": ["https://buildkite.com/docs"],
   "stop_urls": ["agent/v2"],
   "selectors": {
-    "lvl0": ".Article h1",
-    "lvl1": ".Article h2",
-    "lvl2": ".Article h3",
-    "lvl3": ".Article h4, .Article th",
-    "lvl4": ".Article h5, .Article td:first-child",
-    "lvl5": ".Article h6",
+    "lvl0": {
+      "selector": ".SiteHeader__nav .Nav__link.Nav__link--level1.Nav__link--current",
+      "global": true
+    },
+    "lvl1": ".Article h1",
+    "lvl2": ".Article h2",
+    "lvl3": ".Article h3",
+    "lvl4": ".Article h4, .Article th",
+    "lvl5": ".Article h5, .Article td:first-child",
     "text": ".Article p, .Article li, .Article td"
   },
-  "selectors_exclude": ["[data-algolia-exclude]", ".Toc", ".Footer", ".Nav"],
+  "selectors_exclude": [
+    "[data-algolia-exclude]",
+    ".Toc",
+    ".Footer",
+    ".Page__sidebar",
+    ".Nav__section--level2"
+  ],
   "custom_settings": {
     "synonyms": [["Pipeline.yml", "Pipeline.yaml", "config.yml", "config.yaml"]]
   }

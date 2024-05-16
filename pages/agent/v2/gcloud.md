@@ -1,10 +1,9 @@
 # Running Buildkite Agent on Google Cloud Platform
 
->🚧 This page references the out-of-date Buildkite Agent v2.
+> 🚧 This page references the out-of-date Buildkite Agent v2.
 > For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/gcloud">see the latest version of this document</a>.
 
 The Buildkite Agent can be run on [Google Cloud Platform](https://cloud.google.com). For fine control over long–lived agents, you might like to run the agent using individual VM instances on Google Compute Engine. Or run Docker–based builds using a scalable cluster of agents on the Google Kubernetes Engine using Kubernetes.
-
 
 ## Running the agent on Google Compute Engine
 
@@ -22,7 +21,7 @@ Follow the [setup instructions for Ubuntu](/docs/agent/v2/ubuntu).
 
 ## Running the agent on Google Kubernetes Engine
 
-[Google Kubernetes Engine](https://cloud.google.com/container-engine) can run the agent as a [Docker](https://www.docker.com) container using [Kubernetes](https://kubernetes.io). To [run Docker–based builds](/docs/tutorials/docker-containerized-builds), ensure the container is started with a [privileged security context](https://kubernetes.io/docs/concepts/workloads/pods/#privileged-mode-for-containers) and mount the Docker socket and binary as volumes. For example:
+[Google Kubernetes Engine](https://cloud.google.com/container-engine) can run the agent as a [Docker](https://www.docker.com) container using [Kubernetes](https://kubernetes.io). To [run Docker–based builds](/docs/tutorials/docker-containerized-builds), ensure the container is started with a [privileged security context](https://kubernetes.io/docs/concepts/workloads/pods/#pod-security) and mount the Docker socket and binary as volumes. For example:
 
 Start a Google Kubernetes Engine cluster [through the console](https://console.cloud.google.com/kubernetes/add):
 

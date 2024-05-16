@@ -4,7 +4,6 @@ Some tasks need to be run with very strict concurrency rules to ensure they don'
 
 To help you control concurrency, Buildkite provides two primitives: concurrency limits and concurrency groups. While these two primitives are closely linked and interdependent, they operate at different levels.
 
-
 ## Concurrency limits
 
 Concurrency limits define the number of jobs that are allowed to run at any one time. These limits are set per-step and only apply to jobs that are based on that step.
@@ -13,7 +12,7 @@ Setting a concurrency limit of `1` on a step in your pipeline will ensure that n
 
 You can add concurrency limits to steps either through Buildkite, or your `pipeline.yml` file. When adding a concurrency limit, you'll also need the `concurrency_group` attribute so that steps in other pipelines can use it as well.
 
->🚧 I'm seeing an error about a missing `concurrency_group_id` when I run my pipeline upload
+> 🚧 I'm seeing an error about a missing `concurrency_group_id` when I run my pipeline upload
 > This error is caused by a missing `concurrency_group` attribute. Add this attribute to the same step where you defined the `concurrency` attribute.
 
 ## Concurrency groups
@@ -96,7 +95,7 @@ For example, if you have two steps:
 * Step `A` in concurrency group `X` with a concurrency of `1` at time 0
 * Step `B` with the same concurrency group `X` and also a concurrency of `1` at time 1
 
-Step A will always run before step B. This is the default behaviour (`ordered`), and most helpful for deployments.
+Step A will always run before step B. This is the default behavior (`ordered`), and most helpful for deployments.
 
 However, in some cases concurrency groups are used to restrict access to a limited resource, such as a SaaS service like Sauce Labs.
 In that case, the default ordering of the jobs can work against you, as one step waits for the next before taking up another concurrency slot.

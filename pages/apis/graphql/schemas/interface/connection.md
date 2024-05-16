@@ -15,9 +15,9 @@ title: Connection – Interfaces – GraphQL API
 toc: false
 ---
 <!-- vale off -->
-<h1 class="has-pills" data-algolia-exclude>
+<h1 class="has-pills">
   Connection
-  <span class="pill pill--interface pill--normal-case pill--large"><code>INTERFACE</code></span>
+  <span data-algolia-exclude><span class="pill pill--interface pill--normal-case pill--large"><code>INTERFACE</code></span></span>
 </h1>
 <!-- vale on -->
 
@@ -116,6 +116,9 @@ toc: false
 <a href="/docs/apis/graphql/schemas/object/pipelinetemplateconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineTemplateConnection">
   <code>PipelineTemplateConnection</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/registryconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RegistryConnection">
+  <code>RegistryConnection</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/ssoauthorizationconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SSOAuthorizationConnection">
   <code>SSOAuthorizationConnection</code>
 </a>
@@ -133,6 +136,9 @@ toc: false
 </a>
 <a href="/docs/apis/graphql/schemas/object/teampipelineconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamPipelineConnection">
   <code>TeamPipelineConnection</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/teamregistryconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamRegistryConnection">
+  <code>TeamRegistryConnection</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/teamsuiteconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamSuiteConnection">
   <code>TeamSuiteConnection</code>
