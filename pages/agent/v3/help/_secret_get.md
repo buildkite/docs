@@ -12,9 +12,27 @@ script.
 
 -->
 
-Get a secret by key from Buildkite Pipelines Secrets and print it to stdout.
+### Usage
 
-`Options:`
+`buildkite-agent secret get [key] [options...]`
+
+### Description
+
+Gets a secret from Buildkite secrets and prints it to stdout. The `key`
+specified in this command is the key&#39;s name defined for the secret in its
+cluster. The key&#39;s name is case insensitive in this command, and the
+key&#39;s value is automatically redacted in the build logs.
+
+### Examples
+
+The following examples reference the same Buildkite secret `key`:
+
+```shell
+$ buildkite-agent secret get deploy_key
+$ buildkite-agent secret get DEPLOY_KEY
+```
+
+### Options
 
 <!-- vale off -->
 
