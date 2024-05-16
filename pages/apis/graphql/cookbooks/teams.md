@@ -2,7 +2,7 @@
 
 A collection of common tasks with teams using the GraphQL API.
 
-You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the _Docs_ panel.
+You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the **Docs** panel.
 
 ## Create a team
 
@@ -164,6 +164,34 @@ query getPipelinesByTeam {
 ```
 
 If you have more than 100 teams or more than 100 pipelines per team, use the pagination information in `pageInfo` to get the next results page.
+
+## Get members from a specific team
+
+This query will display members of a team with their roles.
+
+```graphql
+query GetTeamMember {
+  organization(slug:"organization-slug") {
+    teams(first:1, search:"team-slug") {
+      edges {
+        node {
+          members(first:200) {
+            edges {
+              node {
+                role
+                user {
+                  name
+                  email
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
 
 ## Set teams' pipeline edit access to READ_ONLY or BUILD_AND_READ
 

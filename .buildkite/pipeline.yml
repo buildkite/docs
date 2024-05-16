@@ -6,24 +6,34 @@ steps:
     key: "rspec"
     env:
       RAILS_ENV: test
+    agents:
+      queue: hosted
     plugins:
       - docker-compose#v3.9.0:
           run: app
           dependencies: false
           env:
+            - BUILDKITE_ANALYTICS_TOKEN
+            - BUILDKITE_BRANCH
+            - BUILDKITE_BUILD_ID
+            - BUILDKITE_BUILD_NUMBER
+            - BUILDKITE_BUILD_URL
+            - BUILDKITE_COMMIT
             - BUILDKITE_JOB_ID
+            - BUILDKITE_MESSAGE
             - CI
             - RAILS_ENV
-            - BUILDKITE_ANALYTICS_TOKEN
 
-  - label: ":lipstick: Compile assets"
+  - label: ":docker: Build image"
     depends_on: "linting"
-    command: bundle exec rake assets:precompile
     key: "assets"
+    env:
+      RAILS_ENV: production
+    agents:
+      queue: hosted
     plugins:
       - docker-compose#v3.9.0:
-          run: app
-          config: docker-compose.production.yml
+          build: app
 
   - label: ":spider: muffet"
     # We need to wait until rails has started before running muffet as otherwise it will error out
@@ -45,6 +55,8 @@ steps:
         --color=always
     env:
       RAILS_ENV: production
+    agents:
+      queue: hosted
     plugins:
       - docker-compose#v3.9.0:
           run: muffet
@@ -56,6 +68,8 @@ steps:
   - label: ":junit: Test Summary"
     depends_on: "rspec"
     allow_dependency_failure: true
+    agents:
+      queue: hosted
     plugins:
       - bugcrowd/test-summary#v1.11.0:
           inputs:
@@ -66,6 +80,17 @@ steps:
             type: details
           context: test-summary
 
+  - label: ":graphql: Check generated code is up to date"
+    command: bundle exec rake graphql:generate
+    agents:
+      queue: hosted
+    plugins:
+      - docker-compose#v3.9.0:
+          run: app
+          dependencies: false
+      - .buildkite/plugins/check-for-changes:
+          fail_message: "Generated code is out of date. Run `bundle exec rake graphql:generate` and commit the changes."
+
   - group: "Lint all the things"
     key: linting
     steps:
@@ -73,11 +98,15 @@ steps:
         commands:
           - yarn
           - npm run prettier-check
+        agents:
+          queue: hosted
         plugins:
           - docker#v3.7.0:
               image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
 
       - label: ":lint-roller: Linting text and markdown"
+        agents:
+          queue: hosted
         plugins:
           - docker-compose#v3.9.0:
               run: vale
@@ -85,6 +114,8 @@ steps:
 
       - label: ":lint-roller: Linting for insensitive words"
         command: npm run lint -y
+        agents:
+          queue: hosted
         plugins:
           # Using the plain Node image, instead of the custom doc Dockerfile
           # version, is way faster because we don't have to wait for Ruby gems to
@@ -98,18 +129,24 @@ steps:
         command:
           - npm run -y validate-agent-attributes-yaml
           - npm run -y validate-environment-variables-yaml
+        agents:
+          queue: hosted
         plugins:
           - docker#v3.7.0:
               image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
 
       - label: ":lint-roller: :markdown: Linting the Markdown"
         command: npm run -y mdlint
+        agents:
+          queue: hosted
         plugins:
           - docker#v3.7.0:
               image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
 
       - label: ":snake: Linting markdown files for snake case"
-        command: npx -y @ls-lint/ls-lint
+        command: npx -y @ls-lint/ls-lint@2.1.0
+        agents:
+          queue: hosted
         plugins:
           - docker#v3.7.0:
               image: "public.ecr.aws/docker/library/node:lts-alpine3.14"

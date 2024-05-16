@@ -51,7 +51,7 @@ For a complete example pipeline, including dynamically generated input fields, s
 
 Input and block steps have the same attributes available for use.
 
-_Optional attributes:_
+Optional attributes:
 
 <table data-attributes>
   <tr>
@@ -127,7 +127,7 @@ steps:
 > 📘 Line endings
 > A text field normalizes line endings to Unix format (<code>\n</code>).
 
-_Required attributes:_
+Required attributes:
 
 <table>
   <tr>
@@ -150,7 +150,7 @@ steps:
 
 {: codeblock-file="pipeline.yml"}
 
-_Optional attributes:_
+Optional attributes:
 
 <table>
   <tr>
@@ -191,7 +191,7 @@ steps:
 
 ## Select input attributes
 
-_Required attributes:_
+Required attributes:
 
 <table>
   <tr>
@@ -212,7 +212,7 @@ _Required attributes:_
   </tr>
 </table>
 
-Each select option has the following _required attributes:_
+Each select option has the following _required_ attributes:
 
 <table>
   <tr>
@@ -246,7 +246,7 @@ steps:
 
 {: codeblock-file="pipeline.yml"}
 
-_Optional attributes:_
+Optional attributes:
 
 <table>
   <tr>
@@ -368,60 +368,54 @@ You can modify a trigger step to dynamically upload itself to a pipeline as foll
 
 1. Move your trigger step from your `pipeline.yml` file into a script. The below example script is stored in a file named `.buildkite/trigger-deploy.sh`:
 
-   ```bash
-   #!/bin/bash
+    ```bash
+    #!/bin/bash
 
-   set -euo pipefail
+    set -euo pipefail
 
-   # Set up a variable to hold the meta-data from your block step
-   RELEASE_NAME="$(buildkite-agent meta-data get "release-name")"
+    # Set up a variable to hold the meta-data from your block step
+    RELEASE_NAME="$(buildkite-agent meta-data get "release-name")"
 
-   # Create a pipeline with your trigger step
-   PIPELINE="steps:
-     - trigger: \"deploy-pipeline\"
-       label: \"Trigger deploy\"
-       build:
-         meta_data:
-           release-name: $RELEASE_NAME
-   "
+    # Create a pipeline with your trigger step
+    PIPELINE="steps:
+      - trigger: \"deploy-pipeline\"
+        label: \"Trigger deploy\"
+        build:
+          meta_data:
+            release-name: $RELEASE_NAME
+    "
 
-   # Upload the new pipeline and add it to the current build
-   echo "$PIPELINE" | buildkite-agent pipeline upload
-   ```
+    # Upload the new pipeline and add it to the current build
+    echo "$PIPELINE" | buildkite-agent pipeline upload
+    ```
 
 1. Replace the old trigger step in your `pipeline.yml` with a dynamic pipeline upload:
 
-#### Before
+    _Before_ the `pipeline.yml` file with the trigger step:
 
-The `pipeline.yml` file with the trigger step:
+    ```yaml
+    steps:
+      - block: "\:shipit\:"
+        fields:
+          - text: "Code Name"
+            key: "release-name"
+      - trigger: "deploy-pipeline"
+        label: "Trigger Deploy"
+    ```
+    <!-- {: codeblock-file="pipeline.yml"} -->
 
-```yaml
-steps:
-  - block: "\:shipit\:"
-    fields:
-      - text: "Code Name"
-        key: "release-name"
-  - trigger: "deploy-pipeline"
-    label: "Trigger Deploy"
-```
+    _After_ the `pipeline.yml` file dynamically uploading the trigger step:
 
-{: codeblock-file="pipeline.yml"}
-
-#### After
-
-The `pipeline.yml` file dynamically uploading the trigger step:
-
-```yaml
-steps:
-  - block: "\:shipit\:"
-    fields:
-      - text: "Code Name"
-        key: "release-name"
-  - command: ".buildkite/trigger-deploy.sh"
-    label: "Prepare Deploy Trigger"
-```
-
-{: codeblock-file="pipeline.yml"}
+    ```yaml
+    steps:
+      - block: "\:shipit\:"
+        fields:
+          - text: "Code Name"
+            key: "release-name"
+      - command: ".buildkite/trigger-deploy.sh"
+        label: "Prepare Deploy Trigger"
+    ```
+    <!-- {: codeblock-file="pipeline.yml"} -->
 
 The command step added in the above example will upload the trigger step and add it to the end of our pipeline at runtime.
 

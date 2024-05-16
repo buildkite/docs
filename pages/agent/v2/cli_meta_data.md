@@ -1,12 +1,11 @@
-# `buildkite-agent meta-data`
+# buildkite-agent meta-data
 
->🚧 This page references the out-of-date Buildkite Agent v2.
+> 🚧 This page references the out-of-date Buildkite Agent v2.
 > For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/cli_meta_data">see the latest version of this document</a>.
 
 The Buildkite Agent's `meta-data` command provides your build pipeline with a powerful key/value data-store that works across build steps and build agents, no matter the machine or network.
 
 See the [Using build meta-data](/docs/pipelines/build-meta-data) guide for a step-by-step example.
-
 
 ## Setting data
 

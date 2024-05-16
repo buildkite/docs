@@ -1,14 +1,13 @@
 # Securing your Buildkite Agent
 
->🚧 This page references the out-of-date Buildkite Agent v2.
+> 🚧 This page references the out-of-date Buildkite Agent v2.
 > For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/securing">see the latest version of this document</a>.
 
 In cases where a Buildkite Agent is being deployed into a sensitive environment there are a few default settings and techniques which may be adjusted.
 
-
 ## Securely storing secrets
 
-For best practices and recommendations about secret storage in the Agent, see the [Managing secrets](/docs/pipelines/secrets) guide.
+For best practices and recommendations about secret storage in the Agent, see the [Managing secrets](/docs/pipelines/security/managing-secrets) guide.
 
 ## Disabling automatic SSH fingerprint verification
 

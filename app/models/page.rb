@@ -71,7 +71,7 @@ class Page
     end
 
     def render(partial)
-      PagesController.render(partial: partial, formats: [:md])
+      PagesController.render(partial: partial, formats: [:md, :html])
     end
 
     def render_markdown(partial: nil, text: nil)

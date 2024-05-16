@@ -4,18 +4,17 @@ Using conditionals, you can run builds or steps only when specific conditions ar
 
 You can define conditionals at the step level in your `pipeline.yml` or at the pipeline level in your Buildkite version control provider settings.
 
-
 ## Conditionals in pipelines
 
-You can have complete control over when to trigger pipeline builds by using conditional expressions to filter incoming webhooks. You need to define conditionals in the _Pipeline Settings page_ for your repository provider to run builds only when expressions evaluate to `true`. For example, to run only when a pull request is targeting the main branch:
+You can have complete control over when to trigger pipeline builds by using conditional expressions to filter incoming webhooks. You need to define conditionals in the pipeline's **Settings** page for your repository provider to run builds only when expressions evaluate to `true`. For example, to run only when a pull request is targeting the main branch:
 
 <%= image "conditionals.png", width: 864, height: 298, alt: "Conditional Filtering settings" %>
 
 Pipeline-level build conditionals are evaluated before any other build trigger settings. If both a conditional and a branch filter are present, both filters must pass for a build to be created – first the pipeline-level limiting filter and then the conditional filter.
 
-Conditionals are supported in [Bitbucket](/docs/integrations/bitbucket), [Bitbucket Server](/docs/integrations/bitbucket-server), [GitHub](/docs/integrations/github), [GitHub Enterprise](/docs/integrations/github-enterprise), and [GitLab](/docs/integrations/gitlab) (including GitLab Community and GitLab Enterprise). You can add a conditional on your _Pipeline Settings page_ in the Buildkite UI or using the REST API.
+Conditionals are supported in [Bitbucket](/docs/integrations/bitbucket), [Bitbucket Server](/docs/integrations/bitbucket-server), [GitHub](/docs/integrations/github), [GitHub Enterprise](/docs/integrations/github-enterprise), and [GitLab](/docs/integrations/gitlab) (including GitLab Community and GitLab Enterprise). You can add a conditional on your pipeline's **Settings** page in the Buildkite interface or using the REST API.
 
->📘 Evaluating conditionals
+> 📘 Evaluating conditionals
 > Conditional expressions are evaluated at pipeline upload, not at step runtime.
 
 ## Conditionals in steps
@@ -152,14 +151,14 @@ The following expressions are supported by the `if` attribute.
  	</tbody>
  </table>
 
->🚧 Formatting regular expressions
-> When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the <code>$</code> anchor symbol must be escaped to avoid <a href="/docs/agent/v3/cli-pipeline#environment-variable-substitution">environment variable substitution</a>. For example, to match branches ending in <code>"/feature"</code> the conditional statement would be <code>build.branch =~ /\/feature$$/</code>.
+> 🚧 Formatting regular expressions
+> When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the `$` anchor symbol must be escaped to avoid [environment variable substitution](/docs/agent/v3/cli-pipeline#environment-variable-substitution). For example, to match branches ending in `"/feature"` the conditional statement would be `build.branch =~ /\/feature$$/`.
 
 ### Variables
 
 The following variables are supported by the `if` attribute. Note that you cannot use [Build Meta-data](/docs/pipelines/build-meta-data) in conditional expressions.
 
->🚧 Unverified commits
+> 🚧 Unverified commits
 > Note that GitHub accepts <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification">unsigned commits</a>, including information about the commit author and passes them along to webhooks, so you should not rely on these for authentication unless you are confident that all of your commits are trusted.
 
 <table>
@@ -363,9 +362,8 @@ The following variables are supported by the `if` attribute. Note that you canno
 </tbody>
 </table>
 
->🚧 Using <code>build.env()</code> with custom environment variables
-> To access custom environment variables with the <code>build.env()</code> function, ensure that the <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML pipeline steps editor</a> has been enabled in the Pipeline Settings menu.
-
+> 🚧 Using `build.env()` with custom environment variables
+> To access custom environment variables with the `build.env()` function, ensure that the <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML pipeline steps editor</a> has been enabled in the Pipeline Settings menu.
 
 ## Example expressions
 

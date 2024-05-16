@@ -2,12 +2,11 @@
 
 A collection of common tasks with jobs using the GraphQL API.
 
-You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the _Docs_ panel.
+You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the **Docs** panel.
 
 ## Get all jobs in a given queue for a given timeframe
 
 Get all jobs in a named queue, created on or after a given date. Note that if you want all jobs in the default queue, you do not need to set a queue name, so you can omit the `agentQueryRules` option.
-
 
 ```graphql
 query PipelineRecentBuildLastJobQueue {
@@ -129,6 +128,34 @@ query GetJobsUUID {
 }
 ```
 
+## Get info about a job by its UUID
+
+Get info about a job using the job's UUID only.
+
+```graphql
+query GetJob  {
+  job(uuid: "a00000a-xxxx-xxxx-xxxx-a000000000a") {
+    ... on JobTypeCommand {
+      id
+      uuid
+      createdAt
+      scheduledAt
+      finishedAt
+      pipeline{
+        name
+      }
+      build{
+        id
+        number
+        pipeline{
+          name
+        }
+      }
+    }
+  }
+}
+```
+
 ## Cancel a job
 
 If you need to cancel a job, you can use the following call with the job's ID:
@@ -138,6 +165,31 @@ mutation CancelJob {
   jobTypeCommandCancel(input: { id: "job-id" }) {
     jobTypeCommand {
       id
+    }
+  }
+}
+```
+
+## Get retry information for a job
+
+Gets information about how a job was retried (`retryType`), who retried the job (`retriedBy`) and which job was source of the retry (`uuid`).
+`retriedBy` will be `null` if the `retryType` is `AUTOMATIC`.
+
+```graphql
+query GetJobRetryInformation {
+  job(uuid: "job-uuid") {
+    ... on JobTypeCommand {
+      retrySource {
+        ... on JobInterface {
+          uuid
+          retried
+          retryType
+          retriedBy {
+            email
+            name
+          }
+        }
+      }
     }
   }
 }

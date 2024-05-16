@@ -1,4 +1,4 @@
-# `buildkite-agent artifact`
+# buildkite-agent artifact
 
 The Buildkite Agent's `artifact` command provides support for uploading and
 downloading of build artifacts, allowing you to share binary data between build
@@ -6,7 +6,6 @@ steps no matter the machine or network.
 
 See the [Using build artifacts](/docs/builds/artifacts) guide for a step-by-step
 example.
-
 
 ## Uploading artifacts
 
@@ -253,7 +252,7 @@ If your agents are running outside of AWS, or you're unable to use an instance
 profile, you can export
 [long lived credentials](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
 belonging to an IAM user using one of the environment variable groups listed
-above. See the [Managing pipeline secrets](/docs/pipelines/secrets)
+above. See the [Managing pipeline secrets](/docs/pipelines/security/managing-secrets)
 documentation for how to securely set up these environment variables.
 
 ### Access control
@@ -363,5 +362,5 @@ as well as use a shared key for the credential:
 export BUILDKITE_AZURE_BLOB_SAS_TOKEN_DURATION=1h
 
 # Generating SAS tokens requires an account key.
-export BUILDKITE_AZURE_BLOB_ACCOUNT_KEY='...'  
+export BUILDKITE_AZURE_BLOB_ACCOUNT_KEY='...'
 ```

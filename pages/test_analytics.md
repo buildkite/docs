@@ -22,8 +22,10 @@ Test Analytics helps you track and analyze the steps in that pipeline that invol
   <%= button ":rspec: RSpec", "/docs/test-analytics/ruby-collectors#rspec-collector" %>
   <%= button ":ruby: minitest", "/docs/test-analytics/ruby-collectors#minitest-collector" %>
   <%= button ":jest: Jest", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-jest" %>
-  <%= button ":mocha: Mocha", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-mocha-collector" %>
-  <%= button ":jasmine: Jasmine", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-jasmine-collector" %>
+  <%= button ":mocha: Mocha", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-mocha" %>
+  <%= button ":cypress: Cypress", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-cypress" %>
+  <%= button ":jasmine: Jasmine", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-jasmine" %>
+  <%= button ":playwright: Playwright", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-playwright" %>
   <%= button ":swift: Swift", "/docs/test-analytics/swift-collectors" %>
   <%= button ":android: Android", "/docs/test-analytics/android-collectors" %>
   <%= button ":pytest: pytest", "/docs/test-analytics/python-collectors" %>

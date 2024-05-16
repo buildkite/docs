@@ -10,13 +10,13 @@
 
   th {
     overflow-wrap: anywhere;
-    padding: 16px;
+    padding: 4px;
   }
 
   td {
     overflow-wrap: anywhere;
-    margin-bottom: 15px;
-    padding: 16px;
+    margin-bottom: 8px;
+    padding: 4px;
 
     @media (min-width: $screen-sm) {
       margin-bottom: 0;
@@ -37,6 +37,13 @@
       &:last-child {
         margin-bottom: 0;
       }
+    }
+  }
+
+  @media (min-width: $screen-md) {
+    th,
+    td {
+      padding: 16px;
     }
   }
 
@@ -70,14 +77,12 @@
     tr {
       display: grid;
       grid-template-columns: 1fr;
-      padding-bottom: 15px;
-      padding-top: 15px;
+      padding: 1rem;
 
       @media (min-width: $screen-sm) and (max-width: ($screen-md - 1)) {
-        gap: ($gutter / 2) $gutter;
+        gap: 0;
         grid-template-columns: 20ch 1fr;
-        padding-bottom: 1rem;
-        padding-top: 1rem;
+        padding: 0.5rem;
       }
 
       @media (min-width: $screen-md) {
@@ -121,15 +126,6 @@
 
     @media (min-width: $screen-md) {
       display: none;
-    }
-
-    &:first-child {
-      + th,
-      + td {
-        @media (min-width: $screen-md) {
-          padding-left: 0;
-        }
-      }
     }
   }
 }

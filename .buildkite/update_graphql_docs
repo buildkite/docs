@@ -4,7 +4,11 @@ set -euo pipefail
 . bin/utils.sh
 
 echo "+++ Fetch latest schema (via GraphQL introspection)"
-rake graphql:fetch_schema >| data/graphql/schema.graphql
+docker compose run \
+  --no-deps \
+  -e API_ACCESS_TOKEN \
+  app \
+  bash -c "rake graphql:fetch_schema >| data/graphql/schema.graphql"
 
 echo "+++ Check for schema changes"
 if git diff --exit-code --quiet data/graphql/schema.graphql; then
@@ -21,12 +25,12 @@ BRANCH=buildkite-docs-bot/graphql/$(git rev-parse --short :data/graphql/schema.g
 PULL_REQUEST_NUMBER=$(get_branch_pull_request_number $BRANCH)
 
 if [ -n "$PULL_REQUEST_NUMBER" ]; then
-  buildkite-agent annotate  "Nothing to change, pull request [#$PULL_REQUEST_NUMBER](https://github.com/buildkite/docs/pull/$PULL_REQUEST_NUMBER) awaiting approval." --style "info"
+  buildkite-agent annotate "Nothing to change, pull request [#$PULL_REQUEST_NUMBER](https://github.com/buildkite/docs/pull/$PULL_REQUEST_NUMBER) awaiting approval." --style "info"
   exit 0
 fi
 
 echo "+++ Generate GraphQL docs"
-./scripts/generate-graphql-api-content.sh
+docker compose run --no-deps app rake graphql:generate
 
 echo "--- Commit and push changes"
 git add .
@@ -37,10 +41,5 @@ git commit -m "Update GraphQL docs"
 git push -u origin $BRANCH
 
 echo "+++ Create pull request"
-gh pr create \
-  --title "Update GraphQL docs" \
-  --body "This is an automated PR based on the current GraphQL schema" \
-  | buildkite-agent annotate --style "success"
-
-# Auto-merge PR once checks have passed
-gh pr merge -m --auto
+create_pull_request "Update GraphQL docs" "This is an automated PR based on the current GraphQL schema" \
+  | jq ".url" | buildkite-agent annotate --style "success"

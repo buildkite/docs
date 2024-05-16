@@ -9,7 +9,7 @@ The [PagerDuty](http://pagerduty.com/) integration in Buildkite can send [change
 
 Before using the integration you'll need to generate a PagerDuty Integration API Key.
 
-In [PagerDuty](http://pagerduty.com/), go to the "Service Directory":
+In [PagerDuty](http://pagerduty.com/), go to the **Service Directory**:
 
 <%= image "menu.png", width: 854/2, height: 324/2, alt: "Screenshot of the Service Directory link in the menu" %>
 
@@ -17,17 +17,17 @@ Then choose the service you'd like Buildkite to send change events to:
 
 <%= image "service-item.png", width: 2842/2, height: 412/2, alt: "Screenshot of the chosen service in the Service Directory" %>
 
-Navigate to the "Integrations" tab and choose "Add a new integration"
+Navigate to the **Integrations** tab and choose **Add a new integration**:
 
 <%= image "add-integration.png", width: 2088/2, height: 686/2, alt: "Screenshot of the Add Integration button in PagerDuty" %>
 
-Under "Integration Name", choose a memorable name for this integration. A good example could be the name of the Buildkite pipeline you intend to add this integration to.
+Under **Integration Name**, choose a memorable name for this integration. A good example could be the name of the Buildkite pipeline you intend to add this integration to.
 
-For "Integration Type", choose "Buildkite".
+For **Integration Type**, choose **Buildkite**.
 
-Once you've filled out this form, select "Add Integration".
+Once you've filled out this form, select **Add Integration**.
 
-Copy the "Integration Key" from your Integrations list and  use it in [Sending change events from your pipeline](#sending-change-events-from-your-pipeline).
+Copy the **Integration Key** from your Integrations list and use it in [Sending change events from your pipeline](#sending-change-events-from-your-pipeline).
 
 <%= image "integration-with-key.png", width: 2262/2, height: 822/2, alt: "Screenshot of the Buildkite integration in PagerDuty" %>
 
@@ -37,7 +37,7 @@ By default, after you've added an Integration API Key, Buildkite will send Pager
 
 Add the PagerDuty [Integration API Key](#generating-a-pagerduty-integration-api-key) to the [`notify` attribute](/docs/pipelines/notifications) of your build configuration.
 
-Make sure that you're using a secure secrets management solution to handle the PagerDuty Integration key, and never commit it in plaintext to source control in a YAML file. See [Managing pipeline secrets](/docs/pipelines/secrets) for more information on safely handling secrets within your infrastructure.
+Make sure that you're using a secure secrets management solution to handle the PagerDuty Integration key, and never commit it in plaintext to source control in a YAML file. See [Managing pipeline secrets](/docs/pipelines/security/managing-secrets) for more information on safely handling secrets within your infrastructure.
 
 ```yaml
 steps:

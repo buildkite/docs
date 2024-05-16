@@ -1,13 +1,3 @@
 steps:
   - label: Update GraphQL docs
     command: .buildkite/update_graphql_docs
-    plugins:
-      - docker-compose#v4.9.0:
-          run: app
-          mount-ssh-agent: true
-          mount-buildkite-agent: true
-          env:
-            - API_ACCESS_TOKEN
-            - GIT_NAME
-            - GIT_EMAIL
-            - GH_TOKEN
