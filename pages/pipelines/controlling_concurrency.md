@@ -44,7 +44,7 @@ For example, if you have two pipelines that each deploy to a different target bu
 Concurrency groups guarantee that jobs will be run in the order that they were created in. Jobs inherit the creation time of their parent. Parents of jobs can be either a build or a pipeline upload job. As pipeline uploads add more jobs to the build after it has started, the jobs that they add will inherit the creation time of the pipeline upload rather than the build.
 
 >📘 Troubleshooting
-> When a build is blocked by a concurrency group, you can run this [GraphQL query](/docs/apis/graphql/cookbooks/jobs#get-all-jobs-in-a-particular-concurrency-group) that will list all the jobs that are in the queue for that particular concurrency group.
+> When a build is blocked by a concurrency group, you can check which jobs are in the queue and their state using this [GraphQL query](/docs/apis/graphql/cookbooks/jobs#get-all-jobs-in-a-particular-concurrency-group).
 
 ## Concurrency and parallelism
 
