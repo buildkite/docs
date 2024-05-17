@@ -73,3 +73,7 @@ To delete a registry:
 1. Select the registry to delete on this page.
 1. Select **Edit** > **Delete Registry**.
 1. In the confirmation dialog, enter the name of the registry, exactly as it is presented, and select **Delete Registry**.
+
+## Audit logging
+
+All events conducted through Buildkite Packages are logged through the Buildkite organization's [**Audit Log** feature](/docs/pipelines/security/audit-log).

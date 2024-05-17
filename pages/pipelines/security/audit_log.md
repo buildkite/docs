@@ -4,7 +4,11 @@ toc: false
 
 # Audit log
 
-Audit Log is an interactive track record of all organization activity. This feature is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan, and can be found in Organization Settings in the Audit section.
+The **Audit Log** is an interactive track record of all organization activity. This feature is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
+
+To access the **Audit Log** feature:
+
+1. Select **Settings** >  to and can be found in Organization Settings in the Audit section.
 
 <%= image "audit-log-in-organization-settings.png", width: 1732/2, height: 1431/2, alt: "Audit Log in Organization Settings" %>
 
