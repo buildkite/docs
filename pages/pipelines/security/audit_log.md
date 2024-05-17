@@ -8,7 +8,9 @@ The **Audit Log** is an interactive track record of all organization activity. T
 
 To access the **Audit Log** feature:
 
-1. Select **Settings** >  to and can be found in Organization Settings in the Audit section.
+1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+
+1. Select **Audit** > **Audit Log** to access your organization's [**Audit Log**](https://buildkite.com/organizations/~/audit-log) page.
 
 <%= image "audit-log-in-organization-settings.png", width: 1732/2, height: 1431/2, alt: "Audit Log in Organization Settings" %>
 
