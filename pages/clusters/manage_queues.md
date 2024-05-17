@@ -27,7 +27,7 @@ Buildkite provides a hosted infrastructure for your [Buildkite Agents](/docs/age
 
 ## Create a queue
 
-New queues can be created using the [**Queues** page of a cluster](#create-a-queue-using-the-buildkite-interface), as well as the [REST API's](#create-a-queue-using-the-rest-api) or [GraphQL API's](#create-a-queue-using-the-graphql-api) create a queue feature.
+New queues can be created by a [cluster maintainer](/docs/clusters/manage-clusters#manage-maintainers-on-a-cluster) using the [**Queues** page of a cluster](#create-a-queue-using-the-buildkite-interface), as well as the [REST API's](#create-a-queue-using-the-rest-api) or [GraphQL API's](#create-a-queue-using-the-graphql-api) create a queue feature.
 
 For these API requests, the _cluster ID_ value submitted in the request is the target cluster the queue will be created in.
 

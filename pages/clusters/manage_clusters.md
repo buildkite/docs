@@ -6,7 +6,7 @@ Learn more about on how to set up queues within a cluster in [Manage queues](/do
 
 ## Setting up clusters
 
-When you create a new Buildkite organization, a single default cluster (initially named **Default cluster**) is created.
+When a new Buildkite organization is created, a single default cluster (initially named **Default cluster**) is also created.
 
 For smaller organizations, working on smaller projects, this default cluster may be sufficient. However, it's usually more convenient for organizations to manage projects in separate clusters, when these projects require different:
 
@@ -19,7 +19,7 @@ Once your clusters are set up, you can set up one or more [queues](/docs/cluster
 
 ## Create a cluster
 
-New clusters can be created using the [**Clusters** page](#create-a-cluster-using-the-buildkite-interface), as well as the [REST API's](#create-a-cluster-using-the-rest-api) or [GraphQL API's](#create-a-cluster-using-the-graphql-api) create a cluster feature.
+New clusters can be created by a [cluster maintainer](#manage-maintainers-on-a-cluster) using the [**Clusters** page](#create-a-cluster-using-the-buildkite-interface), as well as the [REST API's](#create-a-cluster-using-the-rest-api) or [GraphQL API's](#create-a-cluster-using-the-graphql-api) create a cluster feature.
 
 ### Using the Buildkite interface
 
@@ -115,7 +115,7 @@ You can also create, edit, and revoke other agent tokens from the cluster’s **
 
 Unclustered agents are agents associated with the **Unclustered** area of the **Clusters** page in a Buildkite organization. Learn more about unclustered agents in [Unclustered agent tokens](/docs/agent/v3/unclustered-tokens).
 
-Moving unclustered agents to a cluster will allow those agents to use [agent tokens](/docs/agent/v3/tokens) that connect to Buildkite via a cluster.
+Moving unclustered agents to a cluster will allow those agents to use [agent tokens](/docs/agent/v3/tokens) that connect to Buildkite via a cluster, and requires at least [cluster maintainer](#manage-maintainers-on-a-cluster) privileges.
 
 > 📘 Organizations created after February 26, 2024
 > Buildkite organizations created after this date will not have an **Unclustered** area. Therefore, this process is not required for these newer organizations.
@@ -138,7 +138,7 @@ If you migrate all your existing agents over to clusters, ensure that all of you
 
 As a security measure, each agent token has an optional **Allowed IP Addresses** setting that can be used to lock down access to the token. When this option is set on an agent token, only agents with an IP address that matches one this agent token's setting can use this token to connect to your Buildkite organization (through your cluster).
 
-An agent token's **Allowed IP Addresses** setting can be set [when the token is created](/docs/agent/v3/tokens#create-a-token), or this setting can be added to or modified on existing agent tokens, using the [**Agent Tokens** page of a cluster](#restrict-an-agent-tokens-access-by-ip-address-using-the-buildkite-interface), as well as the [REST API's](#restrict-an-agent-tokens-access-by-ip-address-using-the-rest-api) or [GraphQL API's](#restrict-an-agent-tokens-access-by-ip-address-using-the-graphql-api) update agent token feature.
+An agent token's **Allowed IP Addresses** setting can be set [when the token is created](/docs/agent/v3/tokens#create-a-token), or this setting can be added to or modified on existing agent tokens by a [cluster maintainer](#manage-maintainers-on-a-cluster), using the [**Agent Tokens** page of a cluster](#restrict-an-agent-tokens-access-by-ip-address-using-the-buildkite-interface), as well as the [REST API's](#restrict-an-agent-tokens-access-by-ip-address-using-the-rest-api) or [GraphQL API's](#restrict-an-agent-tokens-access-by-ip-address-using-the-graphql-api) update agent token feature.
 
 For these API requests, the _cluster ID_ value submitted in the request is the target cluster the token is associated with.
 
@@ -250,7 +250,7 @@ As one of these types of users, you can add and manage other users or teams in y
 To add a maintainer to a cluster:
 
 1. Select **Agents** in the global navigation to access the **Clusters** page.
-1. Select the cluster to add a user or team to be a maintainer of the cluster.
+1. Select the cluster whose user or team is to be added as a maintainer of this cluster.
 1. Select **Maintainers** > **Add Maintainer**.
 1. Select if the maintainer will either be a specific **User** or **Team** of users.
 1. Select the specific user or team from the drop-down list.
@@ -268,7 +268,7 @@ Move a pipeline to a specific cluster to ensure the pipeline's builds run only o
 > 📘 Associating pipelines with cluster
 > A pipeline can only be associated with one cluster at a time. It is not possible to associate a pipeline with two or more clusters simultaneously.
 
-A pipeline can be moved to a cluster via the pipeline's [**General** settings page](#move-a-pipeline-to-a-specific-cluster-using-the-buildkite-interface), as well as the [REST API's](#move-a-pipeline-to-a-specific-cluster-using-the-rest-api) or [GraphQL API's](#move-a-pipeline-to-a-specific-cluster-using-the-graphql-api) update a pipeline feature.
+A pipeline can be moved to a cluster by a [cluster maintainer](#manage-maintainers-on-a-cluster) via the pipeline's [**General** settings page](#move-a-pipeline-to-a-specific-cluster-using-the-buildkite-interface), as well as the [REST API's](#move-a-pipeline-to-a-specific-cluster-using-the-rest-api) or [GraphQL API's](#move-a-pipeline-to-a-specific-cluster-using-the-graphql-api) update a pipeline feature.
 
 For these API requests, the _cluster ID_ value submitted in the request is the target cluster the pipeline is being moved to.
 
