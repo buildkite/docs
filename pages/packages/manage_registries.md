@@ -24,11 +24,11 @@ To create a new registry:
 
 Once a [registry is created](#create-a-registry), packages can then be uploaded to it. Learn more about how to manage packages for your registry's relevant package ecosystem:
 
-- [Debian (deb for Debian and Ubuntu)](/docs/packages/debian)
-- [Ruby (RubyGems gem)](/docs/packages/ruby)
+- [Debian (Ubuntu)](/docs/packages/debian)
 - Java ([Maven](/docs/packages/maven) or [Gradle leveraging the Maven Publish Plugin](/docs/packages/gradle))
-- [JavaScript (Node.js npm)](/docs/packages/javascript)
+- [JavaScript (NPM)](/docs/packages/javascript)
 - [Python (PyPI)](/docs/packages/python)
+- [Ruby (RubyGems)](/docs/packages/ruby)
 - [Terraform](/docs/packages/terraform) modules
 
 ## Update a registry

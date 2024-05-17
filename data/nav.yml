@@ -450,8 +450,6 @@
       children:
         - name: "Debian"
           path: "packages/debian"
-        - name: "Ruby"
-          path: "packages/ruby"
         - name: "Java"
           start_expanded: true
           children:
@@ -463,6 +461,8 @@
           path: "packages/javascript"
         - name: "Python"
           path: "packages/python"
+        - name: "Ruby"
+          path: "packages/ruby"
         - name: "Terraform"
           path: "packages/terraform"
 - name: "APIs"
