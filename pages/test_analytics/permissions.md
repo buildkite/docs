@@ -1,6 +1,6 @@
 # Access control for users and teams
 
-Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage permissions using [Teams](#manage-teams-and-permissions). Enterprise customers can set fine-grained user permissions for their organization with the [Member Permissions](#member-permissions) page.
+Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage permissions using [Teams](#permissions-with-teams). Enterprise customers can set fine-grained user permissions for their organization with the [Member Permissions](#member-permissions) page.
 
 For more information on enabling Teams for your organization, please see the [Users and Teams section of Pipelines documentation](/docs/team-management/permissions).
 
