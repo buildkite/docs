@@ -1,6 +1,6 @@
 # Audit log
 
-The **Audit Log** is an interactive track record of all organization activity. This feature is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
+The **Audit Log** is an interactive track record of all organization activity. This feature is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan, and can be accessed by Buildkite organization administrators.
 
 To access the **Audit Log** feature:
 
