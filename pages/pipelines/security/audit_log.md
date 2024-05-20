@@ -239,7 +239,7 @@ CLUSTER_PERMISSION_CREATED
 CLUSTER_PERMISSION_DELETED
 ```
 
-### Buildkite Packges
+### Buildkite Packages
 
 ```
 REGISTRY_CREATED
