@@ -206,7 +206,7 @@ SUITE_MONITOR_DELETED
 SUITE_MONITOR_UPDATED
 ```
 
-### Secret
+### Buildkite secrets
 
 ```
 SECRET_CREATED
