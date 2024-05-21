@@ -1,14 +1,18 @@
 # Access control for users and teams
 
-Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage permissions using [Teams](#permissions-with-teams). Enterprise customers can set fine-grained user permissions for their organization with the [Member Permissions](#member-permissions) page.
+Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage permissions using [**Teams**](#manage-teams-and-permissions). Enterprise customers can set fine-grained user permissions for their organization with the [Member Permissions](#member-permissions) page.
 
-For more information on enabling Teams for your organization, please see the [Users and Teams section of Pipelines documentation](/docs/team-management/permissions).
+## Manage teams and permissions
 
-## Permissions with teams
+To manage teams across the Buildkite Test Analytics application, a _Buildkite organization administrator_ first needs to enable this feature across their organization. Learn more about how to do this in the [Manage teams and permissions section of Pipelines documentation](/docs/team-management/permissions#manage-teams-and-permissions).
 
-You can see the teams that you're a member of from your user page from your Organization settings [User section](https://buildkite.com/organizations/~/users/).
+Once the **Teams** feature is enabled, you can see the teams that you're a member of from the **User** page, which:
 
-<%= image "user-section-teams-list.png", alt: "Screenshot of the User section, showing a list of Teams an User is a member of" %>
+- As a Buildkite organization administrator, you can access by selecting **Settings** in the global navigation > [**Users**](https://buildkite.com/organizations/~/users/).
+
+    <%= image "user-section-teams-list.png", alt: "Screenshot of the User section, showing a list of Teams an User is a member of" %>
+
+- As any other user, you can access by selecting **Teams** in the global navigation > [**Users**](https://buildkite.com/organizations/~/users/).
 
 In the [Team section](https://buildkite.com/organizations/~/teams), you can add new teams or edit existing ones.
 
@@ -20,25 +24,32 @@ By clicking on a team, you can view the members, pipelines, suites, and team spe
 
 ### Organization-level permissions
 
-Users who are organization admins can:
-
-* Enable and disable teams for their organization
-* Create new teams
+Learn more about what a _Buildkite organization administrator_ can do in the [Organization-level permissions section of the Pipelines documentation](/docs/team-management/permissions#manage-teams-and-permissions-organization-level-permissions).
 
 ### Team-level permissions
 
-Users who are team maintainers can perform the following actions for those teams:
+Learn more about what _team members_ are and what _team maintainers_ can do in the [Team-level permissions section of the Pipelines documentation](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
 
-* Add users to teams
-* Remove users from teams
-* Set read, write, and edit permissions on suites
+### Test suite-level permissions
 
-All users in a team have the same level of access to the suites in their team. If you need to have more fine grained control over the suites in a team, you can create more teams with different permissions.
+When the [teams feature is enabled](#manage-teams-and-permissions), any user can create a new test suite, as long as this user is a member of at least one team within the Buildkite organization.
 
-There are two levels of permissions for teams. They are:
+When you create a new test suite in Buildkite:
 
-* **Full Access** members can view test runs and edit suite settings
-* **Read Only** members can view test runs, but cannot edit suite settings
+- You are automatically granted the **Full Access** permission to this test suite.
+- Any members of teams you provide access to this test suite are also granted the **Full Access** permission.
+
+**Full Access** on a test suite allows you to:
+
+- View test runs.
+- Edit test suite settings, which includes the ability to delete the test suite.
+- Provide access to other users, by adding the test suite to other teams that you are a [team maintainer](#manage-teams-and-permissions-team-level-permissions) on.
+
+Any user with **Full Access** permissions to a test suite can change its permissions to **Read Only**, which allows you to view test runs only, but _not_ edit the test suite's settings.
+
+A user who is a member of at least one team with **Full Access** permissions to a test suite can change the permissions on this test suite. However, once this user loses this **Full Access** through their last team with access to this test suite, the user then loses the ability to change the test suite's permissions.
+
+Another user with **Full Access** to this test suite or a [Buildkite organization administrator](#manage-teams-and-permissions-organization-level-permissions) is required to change the test suite's permissions back to **Full Access** again.
 
 ## Member permissions
 
