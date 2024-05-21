@@ -26,6 +26,7 @@ Users who are team maintainers can:
 - Add users to existing teams, of which they are the maintainer
 - Remove users from their teams
 - Set read, write, and edit permissions for users on pipelines in their team
+- Create pipelines
 
 All users in a team have the same level of access to the pipelines in their team. If you need to have more fine grained control over the pipelines in a team, you can create more teams with different permissions.
 
