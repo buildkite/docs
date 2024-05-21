@@ -6,8 +6,8 @@
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's agents. The list only includes connected agents - agents in a disconnected state are not returned.
 
 ```bash
-curl -H "Authorization: Bearer $TOKEN" \
-  -X "https://api.buildkite.com/v2/organizations/{org.slug}/agents"
+curl -H "Authorization: Bearer $TOKEN" -X GET \
+  "https://api.buildkite.com/v2/organizations/{org.slug}/agents"
 ```
 
 ```json
@@ -80,8 +80,8 @@ Success response: `200 OK`
 Returns the details for a single agent, looked up by unique ID. Any valid agents can be returned, including running and disconnected agents.
 
 ```bash
-curl -H "Authorization: Bearer $TOKEN" \
-  -X "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"
+curl -H "Authorization: Bearer $TOKEN" -X GET \
+  "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"
 ```
 
 ```json
@@ -148,8 +148,8 @@ Success response: `200 OK`
 Instruct an agent to stop accepting new build jobs and shut itself down.
 
 ```bash
-curl -H "Authorization: Bearer $TOKEN" \
-  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}/stop" \
+curl -H "Authorization: Bearer $TOKEN" -X PUT \
+  "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}/stop" \
   -H "Content-Type: application/json" \
   -d '{
     "force": true
