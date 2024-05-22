@@ -239,3 +239,7 @@ steps:
 
 ```
 {: codeblock-file="pipeline.yml"}
+
+> 📘 A note on triggered pipeline dependencies and cancellation
+> When you have multiple pipelines that trigger a build with the same commit on an additional pipeline, while also having <code>Cancel Intermediate Builds</code> enabled, the newest build will be the only build that runs. 
+> So if you have <b>Pipeline A</b> trigger a build with a commit on <b>Pipeline B</b> and <b>Pipeline C</b> trigger a build with the <b>same</b> commit on <b>Pipeline B</b>, whichever pipeline triggered the <b>first</b> build will be <b>cancelled</b> in favour of the newest triggered build.
