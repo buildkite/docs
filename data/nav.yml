@@ -445,6 +445,8 @@
           path: "packages/getting-started"
         - name: "Manage registries"
           path: "packages/manage-registries"
+        - name: "Access control"
+          path: "packages/permissions"
     - name: "Package ecosystems"
       start_expanded: true
       children:
