@@ -10,17 +10,11 @@ Once the **Teams** feature is enabled, you can see the teams that you're a membe
 
 - As a Buildkite organization administrator, you can access by selecting **Settings** in the global navigation > [**Users**](https://buildkite.com/organizations/~/users/).
 
-    <!-- <%= image "user-section-teams-list.png", alt: "Screenshot of the User section, showing a list of Teams an User is a member of" %> -->
-
 - As any other user, you can access by selecting **Teams** in the global navigation > [**Users**](https://buildkite.com/organizations/~/users/).
 
 In the [Team section](https://buildkite.com/organizations/~/teams), you can add new teams or edit existing ones.
 
-<!-- <%= image "team-section-list.png", alt: "Screenshot of the Team section, showing a list of Teams" %> -->
-
 By clicking on a team, you can view the member-, pipeline-, test suite-, package registry- and team-specific settings.
-
-<!-- <%= image "team-section-test-suites-list.png", alt: "Screenshot of the Team section, showing a list of Test Suites the team has access to" %> -->
 
 ### Organization-level permissions
 
