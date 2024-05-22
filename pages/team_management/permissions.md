@@ -6,7 +6,7 @@ Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) p
 
 To manage teams across Buildkite's applications, a _Buildkite organization administrator_ first needs to enable this feature across their organization.
 
-Enabling teams for your organizations provides control over each pipeline's, test suite's or package registry's permissions in one place.
+Enabling teams for your organizations provides control over each pipeline's, test suite's or registry's permissions in one place.
 
 To access or enable **Teams** feature for your organization, or both:
 
@@ -31,7 +31,7 @@ A user who is a _Buildkite organization administrator_ can do the following thro
 - From the **Teams** page:
 
     * Create a new team, using the **New Team** button.
-    * Administer (with full control) the [team-](#manage-teams-and-permissions-team-level-permissions), [pipeline-](#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/test-analytics/permissions#manage-teams-and-permissions-test-suite-level-permissions) and [package registry-level](/docs/packages/permissions#manage-teams-and-permissions-package-registry-level-permissions) settings throughout their Buildkite organization.
+    * Administer (with full control) the [team-](#manage-teams-and-permissions-team-level-permissions), [pipeline-](#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/test-analytics/permissions#manage-teams-and-permissions-test-suite-level-permissions) and [registry-level](/docs/packages/permissions#manage-teams-and-permissions-registry-level-permissions) settings throughout their Buildkite organization.
     * Delete an existing team, by selecting the team > **Settings** tab > **Delete Team** button.
     * [Enable](#manage-teams-and-permissions) and disable the teams feature for their organization. This feature can only be disabled once all teams have been deleted from the organization (including the automatically-created **Everyone** team) using the **Disable Teams** button on the **Teams** page. Once the teams feature has been disabled, it can be [re-enabled](#manage-teams-and-permissions) at any time.
 
@@ -40,6 +40,8 @@ A user who is a _Buildkite organization administrator_ can do the following thro
 A user who is a _team maintainer_ on an existing team can:
 
 - Access the **Teams** feature and page, by selecting **Teams** in the global navigation > **Teams**.
+
+    **Note:** If a team maintainer is also a Buildkite organization administrator, **Teams** is not available in the global navigation and instead, accessing this feature is conducted as an [organization administrator](#manage-teams-and-permissions-organization-level-permissions).
 
 - From the **Teams** page:
 
@@ -50,56 +52,60 @@ A user who is a _team maintainer_ on an existing team can:
     * Change the permission for all users in this team on any:
         - [pipeline](#manage-teams-and-permissions-pipeline-level-permissions) in the team to **Full Access**, **Build & Read** or **Read Only**.
         - [test suite](/docs/test-analytics/permissions#manage-teams-and-permissions-test-suite-level-permissions) in the team to **Full Access** or **Read Only**.
-        - [package registry](/docs/packages/permissions#manage-teams-and-permissions-package-registry-level-permissions) in the team to **Full Access**, **Read & Write** or **Read Only**.
+        - [registry](/docs/packages/permissions#manage-teams-and-permissions-registry-level-permissions) in the team to **Full Access**, **Read & Write** or **Read Only**.
 
-        This can be done by selecting the appropriate tab (**Pipelines**, **Test Suites** or **Package Registries**) and then selecting the required permission for the item, although be aware of the [caveat below](#changing-full-access-permissions-on-pipelines-test-suites-and-package-registries).
+        To do this, select the appropriate tab (**Pipelines**, **Test Suites** or **Package Registries**) and then select the required permission for the item, although be aware of the [caveat below](#changing-full-access-permissions-on-pipelines-test-suites-and-registries).
 
     * Edit the team's details and other settings using the **Settings** tab, which includes the ability to:
 
         - Change the team's **Visibility**.
         - **Automatically add new users to this team**.
         - Set the **Default Member Role** (that is, team **Member** or **Maintainer**) for new users joining the team.
-        - Set the **Team Member Permissions**, which allows team members to create and add new pipelines, test suites or packages in this team.
+        - Set the **Team Member Permissions**, which allows team members to create and add new pipelines, test suites or registries in this team.
 
-            **Note:** If these permissions are removed from a team, all team maintainers in this team will still be able to create and add new pipelines, test suites and packages in this team.
+            **Note:** If these permissions are removed from a team, all team maintainers in this team will still be able to create and add new pipelines, test suites and registries in this team.
 
         - Delete the team, using the **Delete** button.
 
 As indicated in the Buildkite interface, a user who is in a team is known as a **Team Member**, and such users have fewer permissions within the team than a **Team Maintainer**.
 
-All team members in a team have the same level of access to the [pipelines](#manage-teams-and-permissions-pipeline-level-permissions), [test suites](/docs/test-analytics/permissions#manage-teams-and-permissions-test-suite-level-permissions), and [package registries](/docs/packages/permissions#manage-teams-and-permissions-package-registry-level-permissions) in the team. If you need to have more fine grained control over the pipelines, test suites or packages in a team, you can create more teams with different permissions.
+All team members in a team have the same level of access to the [pipelines](#manage-teams-and-permissions-pipeline-level-permissions), [test suites](/docs/test-analytics/permissions#manage-teams-and-permissions-test-suite-level-permissions), and [registries](/docs/packages/permissions#manage-teams-and-permissions-registry-level-permissions) in the team. If you need to have more fine grained control over the pipelines, test suites or registries in a team, you can create more teams with different permissions.
 
-> 🚧 Changing **Full Access** permissions on pipelines, test suites and package registries
+> 🚧 Changing **Full Access** permissions on pipelines, test suites and registries
 > As a team maintainer, once you change the permission on any of these items away from **Full Access**, you could lose the ability to change the permissions on that item again. This can happen if you are no longer a member of a team that provides **Full Access** to this item.
 > A [Buildkite organization administrator](#manage-teams-and-permissions-organization-level-permissions) is required to change any item's permissions back to **Full Access** again.
 
 ### Pipeline-level permissions
 
-When the [teams feature is enabled](#manage-teams-and-permissions), any user can create a new pipeline, as long as this user, is a member of at least one team within the Buildkite organization, and this team has the **Create pipelines** [team member permission](#manage-teams-and-permissions-team-level-permissions).
+When the [teams feature is enabled](#manage-teams-and-permissions), any user can create a new pipeline, as long as this user is a member of at least one team within the Buildkite organization, and this team has the **Create pipelines** [team member permission](#manage-teams-and-permissions-team-level-permissions).
 
 When you create a new pipeline in Buildkite:
 
 - You are automatically granted the **Full Access** (`MANAGE_BUILD_AND_READ`) permission to this pipeline.
-- Any members of teams you provide access to this pipeline are also granted the **Full Access** permission.
+- Any members of teams to which you provide access to this pipeline are also granted the **Full Access** permission.
 
 **Full Access** on a pipeline allows you to:
 
 - View and create builds or rebuilds.
-- Edit pipeline settings, which includes the ability to change the pipeline's visibility, archive the pipeline or delete the pipeline.
+- Edit pipeline settings, which includes the ability to change the pipeline's visibility.
+- Archive the pipeline or delete the pipeline.
 - Provide access to other users, by adding the pipeline to other teams that you are a [team maintainer](#manage-teams-and-permissions-team-level-permissions) on.
 
-Any user with **Full Access** permissions to a pipeline can change its permissions to either:
+Any user with the **Full Access** permission on a pipeline can change its permission to either:
 
-- **Build & Read** (`BUILD_AND_READ`), which allows you to:
-    * View and create builds or rebuilds, but _not_ edit the pipeline settings.
-- **Read Only** (`READ_ONLY`), which allows you to:
-    * View builds only, but:
-        - _Not_ create builds or issue rebuilds.
-        - _Not_ edit the pipeline settings.
+- **Build & Read** (`BUILD_AND_READ`), which allows you to view and create builds or rebuilds, but _not_:
+    * Edit the pipeline settings.
+    * Archive or delete the pipeline.
+    * Provide access to other users.
+- **Read Only** (`READ_ONLY`), which allows you to view builds only, but _not_:
+    * Create builds or issue rebuilds.
+    * Edit the pipeline settings.
+    * Archive or delete the pipeline.
+    * Provide access to other users.
 
-A user who is a member of at least one team with **Full Access** permissions to a pipeline can change the permissions on this pipeline. However, once this user loses this **Full Access** through their last team with access to this pipeline, the user then loses the ability to change the pipeline's permissions.
+A user who is a member of at least one team with **Full Access** permission to a pipeline can change the permission on this pipeline. However, once this user loses **Full Access** through their last team with this permission on this pipeline, the user then loses the ability to change the pipeline's permissions in any team they are a member of.
 
-Another user with **Full Access** to this pipeline or a [Buildkite organization administrator](#manage-teams-and-permissions-organization-level-permissions) is required to change the pipeline's permissions back to **Full Access** again.
+Another user with **Full Access** to this pipeline or a [Buildkite organization administrator](#manage-teams-and-permissions-organization-level-permissions) is required to change the pipeline's permission back to **Full Access** again.
 
 ### Programmatically managing teams
 

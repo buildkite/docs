@@ -12,48 +12,48 @@ Once the **Teams** feature is enabled, you can see the teams that you're a membe
 
 - As any other user, you can access by selecting **Teams** in the global navigation > [**Users**](https://buildkite.com/organizations/~/users/).
 
-In the [Team section](https://buildkite.com/organizations/~/teams), you can add new teams or edit existing ones.
-
-By clicking on a team, you can view the member-, pipeline-, test suite-, package registry- and team-specific settings.
-
 ### Organization-level permissions
 
 Learn more about what a _Buildkite organization administrator_ can do in the [Organization-level permissions section of the Pipelines documentation](/docs/team-management/permissions#manage-teams-and-permissions-organization-level-permissions).
+
+As an organization administrator, in the [**Team** section](https://buildkite.com/organizations/~/teams), you can add new teams or edit existing ones.
+
+After selecting a team, you can view the member-, pipeline-, test suite-, registry- and team-specific settings.
 
 ### Team-level permissions
 
 Learn more about what _team members_ are and what _team maintainers_ can do in the [Team-level permissions section of the Pipelines documentation](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
 
-### Package registry-level permissions
+### Registry-level permissions
 
-When the [teams feature is enabled](#manage-teams-and-permissions), any user can create a new package registry, as long as this user is a member of at least one team within the Buildkite organization.
+When the [teams feature is enabled](#manage-teams-and-permissions), any user can create a new registry, as long as this user is a member of at least one team within the Buildkite organization, and this team has the **Create package registries** [team member permission](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
 
-When you create a new test suite in Buildkite:
+When you create a new registry in Buildkite:
 
-- You are automatically granted the **Full Access** permission to this test suite.
-- Any members of teams you provide access to this test suite are also granted the **Full Access** permission.
+- You are automatically granted the **Read & Write** permission to this registry.
+- Any members of teams to which you provide access to registry are also granted the **Read & Write** permission.
 
-**Full Access** on a test suite allows you to:
+The **Full Access** permission on a registry allows you to:
 
-- View test runs.
-- Edit test suite settings, which includes the ability to delete the test suite.
-- Provide access to other users, by adding the test suite to other teams that you are a [team maintainer](#manage-teams-and-permissions-team-level-permissions) on.
+- View and download packages, images, or modules from the registry.
+- Publish packages, images, or modules to the registry.
+- Edit the registry's settings.
+- Delete the registry.
+- Provide access to other users, by adding the registry to other teams that you are a [team maintainer](#manage-teams-and-permissions-team-level-permissions) on.
 
-Any user with **Full Access** permissions to a test suite can change its permissions to **Read Only**, which allows you to view test runs only, but _not_ edit the test suite's settings.
+Any user with **Full Access** permissions to a registry can change its permission to either:
 
-A user who is a member of at least one team with **Full Access** permissions to a test suite can change the permissions on this test suite. However, once this user loses this **Full Access** through their last team with access to this test suite, the user then loses the ability to change the test suite's permissions.
+- **Read & Write**, which allows you to publish packages, images, or modules to the registry, as well as view and download these items from the registry, but _not_:
+    * Edit the registry's settings.
+    * Delete the registry.
+    * Provide access to other users.
+- **Read Only**, which allows you to view and download packages, images, or modules from the registry only, but _not_:
+    * Publish such items to the registry.
+    * Edit the registry's settings.
+    * Delete the registry.
+    * Provide access to other users.
 
-Another user with **Full Access** to this test suite or a [Buildkite organization administrator](#manage-teams-and-permissions-organization-level-permissions) is required to change the test suite's permissions back to **Full Access** again.
+A user who is a member of at least one team with **Full Access** permissions to a registry can change the permissions on this registry. However, once this user loses this **Full Access** through their last team with access to this registry, the user then loses the ability to change the registry's permissions.
 
-## Member permissions
+Another user with **Full Access** to this registry or a [Buildkite organization administrator](#manage-teams-and-permissions-organization-level-permissions) is required to change the registry's permissions back to **Full Access** again.
 
-Enterprise customers can control user permissions for selected suite actions. These permissions can be used both with or without Teams enabled.
-
-User-level permissions are managed by organization administrators, and can be found in the Organization Settings under Member Permissions.
-
-From the Member Permissions page, organization admins can toggle whether or not users can:
-
-- Create suites
-- Delete suites
-
-If your organization has teams enabled, the suite creation permissions are managed at a team level. Suite creation permission controls can be found on the Teams Settings page. Without teams enabled, the suite creation permission control can be found on the Member Permissions page.
