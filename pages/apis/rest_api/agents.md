@@ -143,7 +143,7 @@ Success response: `200 OK`
 > 📘 Required permissions
 > To stop an agent you need either
 - An Admin user API token with `write_agents` <a href="/docs/apis/managing-api-tokens#token-scopes">scope</a>
-- Or, if you're using <a href="/docs/team-management/permissions#member-permissions">Member Permissions</a>, a user token with the <em>Stop Agents</em> permission
+- Or, if you're using the Buildkite organization's <a href="/docs/team-management/permissions#manage-organization-security-for-pipelines">security for pipelines</a> feature, a user token with the <em>Stop Agents</em> permission.
 
 Instruct an agent to stop accepting new build jobs and shut itself down.
 

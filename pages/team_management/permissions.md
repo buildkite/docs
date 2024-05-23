@@ -1,6 +1,8 @@
 # User and team permissions
 
-Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage permissions using the [**Teams**](#manage-teams-and-permissions) feature. Enterprise customers can set fine-grained user permissions for their organization with the [member Permissions](#member-permissions) page.
+Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage permissions using the **Teams** feature. Learn more about this feature in [Manage teams and permissions](#manage-teams-and-permissions).
+
+Enterprise customers can configure pipeline permissions and security features for all users across their Buildkite organization through the **Security** page. Learn more about this feature in [Manage organization security for pipelines](#manage-organization-security-for-pipelines) page.
 
 ## Manage teams and permissions
 
@@ -190,13 +192,17 @@ mutation RemoveOrganizationMember {
 }
 ```
 
-## Member permissions
+## Manage organization security for pipelines
 
-Enterprise customers can control user permissions for selected pipeline actions. These permissions can be used both with or without Teams enabled.
+Enterprise customers can configure select permissions for pipeline actions and related security features for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
 
-User-level permissions are managed by organization administrators, and can be found in the Organization Settings under Member Permissions.
+These user-level permissions and security features are managed by _Buildkite organization administrators_. To access this feature:
 
-From the Member Permissions page, organization admins can toggle whether or not users can:
+1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+
+1. Select [**Security** > **Pipelines** tab](https://buildkite.com/organizations/~/security/pipelines) to access your organization's security for pipelines page.
+
+From this page, you can configure the following permissions for all users across your Buildkite organization:
 
 - Create new pipelines
 - Delete pipelines
