@@ -80,8 +80,8 @@ Success response: `200 OK`
 Returns the details for a single agent, looked up by unique ID. Any valid agents can be returned, including running and disconnected agents.
 
 ```bash
-curl -H "Authorization: Bearer $TOKEN" -X GET \
-  "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"
 ```
 
 ```json
