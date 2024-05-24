@@ -13,9 +13,10 @@ To create a new registry:
     **Note:** Any previously created registries are listed and can be accessed from this page.
 
 1. Select **New registry**.
-1. On the **New Registry** page, enter the mandatory name for your registry. Since registry names cannot contain spaces, hyphens will automatically be specified when the space key is pressed.
+1. On the **New Registry** page, enter the mandatory **Name** for your registry. Since registry names cannot contain spaces, hyphens will automatically be specified when the space key is pressed.
 1. Enter an optional **Description** for the registry. This description appears under the name of the registry item on the **Registries** page.
-1. Select the required registry **Type** based on the [package ecosystem](/docs/packages#supported-package-ecosystems) for this new registry.
+1. Select the required registry **Ecosystem** based on the [package ecosystem](/docs/packages#supported-package-ecosystems) for this new registry.
+1. If your Buildkite organization has the [teams feature](/docs/packages/permissions) enabled, select the relevant teams to be granted access to the new registry.
 1. Select **Create Registry**.
 
     The new registry's details page is displayed. Selecting **Packages** in the global navigation opens the **Registries** page, where your new registry will be listed.
@@ -24,6 +25,7 @@ To create a new registry:
 
 Once a [registry is created](#create-a-registry), packages can then be uploaded to it. Learn more about how to manage packages for your registry's relevant package ecosystem:
 
+- [Container (Docker)](/docs/packages/container)
 - [Debian (Ubuntu)](/docs/packages/debian)
 - Java ([Maven](/docs/packages/maven) or [Gradle leveraging the Maven Publish Plugin](/docs/packages/gradle))
 - [JavaScript (NPM)](/docs/packages/javascript)
