@@ -2,7 +2,7 @@
 
 Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage permissions using the _teams_ feature. Learn more about this feature in [Manage teams and permissions](#manage-teams-and-permissions).
 
-Enterprise customers can configure pipeline permissions and security features for all users across their Buildkite organization through the **Security** page. Learn more about this feature in [Manage organization security for pipelines](#manage-organization-security-for-pipelines) page.
+Enterprise customers can configure pipeline permissions and security features for all users across their Buildkite organization through the **Security** page. Learn more about this feature in [Manage organization security for pipelines](#manage-organization-security-for-pipelines).
 
 ## Manage teams and permissions
 
