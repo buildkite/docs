@@ -1,6 +1,6 @@
 # User and team permissions
 
-Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage permissions using the **Teams** feature. Learn more about this feature in [Manage teams and permissions](#manage-teams-and-permissions).
+Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage permissions using the _teams_ feature. Learn more about this feature in [Manage teams and permissions](#manage-teams-and-permissions).
 
 Enterprise customers can configure pipeline permissions and security features for all users across their Buildkite organization through the **Security** page. Learn more about this feature in [Manage organization security for pipelines](#manage-organization-security-for-pipelines) page.
 
@@ -8,9 +8,9 @@ Enterprise customers can configure pipeline permissions and security features fo
 
 To manage teams across Buildkite's applications, a _Buildkite organization administrator_ first needs to enable this feature across their organization.
 
-Enabling teams for your organizations provides control over each pipeline's, test suite's or registry's permissions in one place.
+Enabling _teams_ for your organizations provides control over each pipeline's, test suite's or registry's permissions in one place.
 
-To access or enable **Teams** feature for your organization, or both:
+To access or enable the teams feature for your organization, or both:
 
 1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
@@ -63,9 +63,13 @@ A user who is a _team maintainer_ on an existing team can:
         - Change the team's **Visibility**.
         - **Automatically add new users to this team**.
         - Set the **Default Member Role** (that is, team **Member** or **Maintainer**) for new users joining the team.
-        - Set the **Team Member Permissions**, which allows team members to create and add new pipelines, test suites or registries in this team.
+        - Set the **Team Member Permissions**, which allows team members to do any combination of the following in this team:
 
-            **Note:** If these permissions are removed from a team, all team maintainers in this team will still be able to create and add new pipelines, test suites and registries in this team.
+            * **Create pipelines**
+            * **Create test suites**
+            * **Create package registries**
+
+            **Note:** If these permissions are removed from a team, all team maintainers in this team will still be able to create and add new pipelines, test suites and registries within the team.
 
         - Delete the team, using the **Delete** button.
 
@@ -204,16 +208,22 @@ These user-level permissions and security features are managed by _Buildkite org
 
 From this page, you can configure the following permissions for all users across your Buildkite organization:
 
-- Create new pipelines
-- Delete pipelines
-- Make an existing private pipeline public
-- Create, edit, and delete notification services
-- Create, edit, and delete agent registration tokens
-- Stop (disconnect) agents
+- **Create Pipelines**—if the [teams feature](#manage-teams-and-permissions) is enabled, then this permission is controlled at a [team-level](#manage-teams-and-permissions-team-level-permissions) and therefore, this option will be unavailable on this page.
+- **Delete pipelines**
+- **Change Pipeline Visibility**—Make private pipelines publicly available.
+- **Change Notification Services**—Allows notification services to be created, edited, and deleted.
+- **Manage Agent Registration Tokens**—Allows [agent tokens](/docs/agent/v3/tokens) to be created, edited, and deleted.
+- **Stop Agents**—Allows users to disconnect agents from Buildkite.
 
-If your organization has teams enabled, the pipeline creation permissions are managed at a team level. Pipeline creation permission controls can be found on the Teams Settings page. Without teams enabled, the pipeline creation permission control can be found on the Member Permissions page.
+## Removing users during a security incident
 
-Organization admin can delete organization members. To delete organization members using GraphQL, the admin needs to:
+If you believe that a user account has been compromised, the recommended incident response is to remove such a user from your Buildkite organization immediately. This will entirely remove their ability to impact your organization and protect you from any further actions that the user could take.
+
+You can remove a user in your organization's **Settings** in the Buildkite interface.
+
+<%= image "remove-user.png", width: 1572/2, height: 1302/2, alt: "A button to remove a user from an organization" %>
+
+A Buildkite organization administrator can also delete organization members using GraphQL. To do this:
 
 1. Find the `id` for the user to be deleted (in this example `Jane Doe`):
 
@@ -250,14 +260,6 @@ Organization admin can delete organization members. To delete organization membe
       }
     }
     ```
-
-## Removing users during a security incident
-
-If you believe that a user account has been compromised, the recommended incident response is to remove such a user from your Buildkite organization immediately. This will entirely remove their ability to impact your organization and protect you from any further actions that the user could take.
-
-You can remove a user in your organization's **Settings** in the Buildkite interface.
-
-<%= image "remove-user.png", width: 1572/2, height: 1302/2, alt: "A button to remove a user from an organization" %>
 
 ### Security guarantees of removing a user
 

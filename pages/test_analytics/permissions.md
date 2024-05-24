@@ -1,18 +1,20 @@
 # Access control for users and teams
 
-Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage permissions using [**Teams**](#manage-teams-and-permissions). Enterprise customers can set fine-grained user permissions for their organization with the [Member Permissions](#member-permissions) page.
+Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage permissions using [_teams_ feature](#manage-teams-and-permissions).
+
+Enterprise customers can configure test suite permissions and security features for all users across their Buildkite organization through the **Security** page. Learn more about this feature in [Manage organization security for test suites](#manage-organization-security-for-test-suites) page.
 
 ## Manage teams and permissions
 
 To manage teams across the Buildkite Test Analytics application, a _Buildkite organization administrator_ first needs to enable this feature across their organization. Learn more about how to do this in the [Manage teams and permissions section of Pipelines documentation](/docs/team-management/permissions#manage-teams-and-permissions).
 
-Once the **Teams** feature is enabled, you can see the teams that you're a member of from the **User** page, which:
+Once the _teams_ feature is enabled, you can see the teams that you're a member of from the **User** page, which:
 
 - As a Buildkite organization administrator, you can access by selecting **Settings** in the global navigation > [**Users**](https://buildkite.com/organizations/~/users/).
 
     <%= image "user-section-teams-list.png", alt: "Screenshot of the User section, showing a list of Teams an User is a member of" %>
 
-- As any other user, you can access by selecting **Teams** in the global navigation > [**Users**](https://buildkite.com/organizations/~/users/).
+- As any other user, you can access this page by selecting **Teams** in the global navigation > [**Users**](https://buildkite.com/organizations/~/users/).
 
 ### Organization-level permissions
 
@@ -56,15 +58,18 @@ A user who is a member of at least one team with **Full Access** permission to a
 
 Another user with **Full Access** to this test suite or a [Buildkite organization administrator](#manage-teams-and-permissions-organization-level-permissions) is required to change the test suite's permission back to **Full Access** again.
 
-## Member permissions
+## Manage organization security for test suites
 
-Enterprise customers can control user permissions for selected suite actions. These permissions can be used both with or without Teams enabled.
+Enterprise customers can configure select permissions for test suite actions for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
 
-User-level permissions are managed by organization administrators, and can be found in the Organization Settings under Member Permissions.
+These user-level permissions and security features are managed by _Buildkite organization administrators_. To access this feature:
 
-From the Member Permissions page, organization admins can toggle whether or not users can:
+1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
-- Create suites
-- Delete suites
+1. Select [**Security** > **Test Analytics** tab](https://buildkite.com/organizations/~/security/test-analytics) to access your organization's security for Test Analytics page.
 
-If your organization has teams enabled, the suite creation permissions are managed at a team level. Suite creation permission controls can be found on the Teams Settings page. Without teams enabled, the suite creation permission control can be found on the Member Permissions page.
+From this page, you can configure the following permissions for all users across your Buildkite organization:
+
+- **Create test suites**—if the [teams feature](#manage-teams-and-permissions) is enabled, then this permission is controlled at a [team-level](#manage-teams-and-permissions-team-level-permissions) and therefore, this option will be unavailable on this page.
+- **Delete test suites**
+- **Change test suite visibility**—Make test suites publicly available.
