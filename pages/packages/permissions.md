@@ -73,3 +73,9 @@ From this page, you can configure the following permissions for all users across
 
 - **Create package registries**—if the [teams feature](#manage-teams-and-permissions) is enabled, then this permission is controlled at a [team-level](#manage-teams-and-permissions-team-level-permissions) and therefore, this option will be unavailable on this page.
 - **Delete package registries**
+
+## Manage an agent's access to registries
+
+To configure the rules by which a Buildkite Agent can access a registry, you'll need to configure the OpenID Connect (OIDC) policy within the registry by which the Buildkite Agent can request an OIDC token (using the [`buildkite-agent oidc request-token`](/docs/agent/v3/cli-oidc#request-oidc-token) command).
+
+Learn more about this process in [Configure a registry's OIDC policy](/docs/packages/manage-registries#configure-a-registrys-oidc-policy).

@@ -247,4 +247,6 @@ REGISTRY_UPDATED
 REGISTRY_DELETED
 ```
 
+### Other systems
+
 You can also set up [Amazon EventBridge](/docs/integrations/amazon-eventbridge) to stream Audit Log events.

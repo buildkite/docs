@@ -61,6 +61,10 @@ To update a registry:
 
     The registry's updates will appear on the **Registries** page, as well as the registry's details page.
 
+## Configure a registry's OIDC policy
+
+
+
 ## Delete a registry
 
 Package registries can be deleted using the package **Registries** page of the Buildkite interface, which lists all [previously created registries](#create-a-registry).
