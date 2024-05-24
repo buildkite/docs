@@ -198,7 +198,7 @@ mutation RemoveOrganizationMember {
 
 ## Manage organization security for pipelines
 
-Enterprise customers can configure select permissions for pipeline actions and related security features for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
+Enterprise customers can configure select pipeline action permissions and related security features for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
 
 These user-level permissions and security features are managed by _Buildkite organization administrators_. To access this feature:
 

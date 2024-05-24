@@ -1,14 +1,14 @@
 # Access control for users and teams
 
-Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage permissions using [**Teams**](#manage-teams-and-permissions).
+Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage registry permissions using the [_teams_ feature](#manage-teams-and-permissions).
 
-<!-- Enterprise customers can set fine-grained user permissions for their organization with the [Member Permissions](#member-permissions) page. -->
+Enterprise customers can configure registry permissions for all users across their Buildkite organization through the **Security** page. Learn more about this feature in [Manage organization security for test suites](#manage-organization-security-for-test-suites) page.
 
 ## Manage teams and permissions
 
 To manage teams across the Buildkite Packages application, a _Buildkite organization administrator_ first needs to enable this feature across their organization. Learn more about how to do this in the [Manage teams and permissions section of Pipelines documentation](/docs/team-management/permissions#manage-teams-and-permissions).
 
-Once the **Teams** feature is enabled, you can see the teams that you're a member of from the **User** page, which:
+Once the _teams_ feature is enabled, you can see the teams that you're a member of from the **User** page, which:
 
 - As a Buildkite organization administrator, you can access by selecting **Settings** in the global navigation > [**Users**](https://buildkite.com/organizations/~/users/).
 
@@ -59,3 +59,17 @@ A user who is a member of at least one team with **Full Access** permissions to 
 
 Another user with **Full Access** to this registry or a [Buildkite organization administrator](#manage-teams-and-permissions-organization-level-permissions) is required to change the registry's permissions back to **Full Access** again.
 
+## Manage organization security for registries
+
+Enterprise customers can configure select registry action permissions for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
+
+These user-level permissions and security features are managed by _Buildkite organization administrators_. To access this feature:
+
+1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+
+1. Select [**Security** > **Packages** tab](https://buildkite.com/organizations/~/security/packages) to access your organization's security for Packages page.
+
+From this page, you can configure the following permissions for all users across your Buildkite organization:
+
+- **Create package registries**—if the [teams feature](#manage-teams-and-permissions) is enabled, then this permission is controlled at a [team-level](#manage-teams-and-permissions-team-level-permissions) and therefore, this option will be unavailable on this page.
+- **Delete package registries**
