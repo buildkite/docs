@@ -5085,6 +5085,11 @@ type Organization implements Node {
     concurrency: JobConcurrencySearch
 
     """
+    Filter jobs by the time they finished, format yyyy-mm-dd
+    """
+    finishedAt: DateTime
+
+    """
     Returns the first _n_ elements from the list.
     """
     first: Int
@@ -6478,6 +6483,11 @@ type Pipeline implements Node {
   The user that archived this pipeline
   """
   archivedBy: User
+
+  """
+  The URL for build badge to the show the current build state for a pipeline.
+  """
+  badgeURL: String!
 
   """
   A branch filter pattern to limit which pushed branches trigger builds on this pipeline.
@@ -7982,11 +7992,11 @@ type RecoveryCodeBatch {
 }
 
 """
-A package registry
+A registry
 """
 type Registry implements Node {
   """
-  The hex code for the registry navatar background color in the Package Registries page
+  The hex code for the registry navatar background color in the Registries page
   """
   color: String
 
@@ -8001,7 +8011,7 @@ type Registry implements Node {
   description: String
 
   """
-  The emoji that will display as a registry navatar in the Package Registries page
+  The emoji that will display as a registry navatar in the Registries page
   """
   emoji: String
   id: ID!
@@ -8079,7 +8089,7 @@ enum RegistryAccessLevels {
   READ_ONLY
 
   """
-  Allow read, push, and management
+  Allow read, push, delete and management
   """
   READ_WRITE_AND_ADMIN
 }
@@ -8157,6 +8167,11 @@ type RepositoryProviderBeanstalk implements RepositoryProvider {
   name: String!
 
   """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderBeanstalkSettings
+
+  """
   This URL to the provider’s web interface
   """
   url: String
@@ -8168,6 +8183,21 @@ type RepositoryProviderBeanstalk implements RepositoryProvider {
 }
 
 """
+Settings for a Beanstalk repository.
+"""
+type RepositoryProviderBeanstalkSettings implements RepositoryProviderSettings {
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
+}
+
+"""
 A pipeline's repository is being provided by Bitbucket
 """
 type RepositoryProviderBitbucket implements RepositoryProvider {
@@ -8175,6 +8205,11 @@ type RepositoryProviderBitbucket implements RepositoryProvider {
   The name of the provider
   """
   name: String!
+
+  """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderBitbucketSettings
 
   """
   This URL to the provider’s web interface
@@ -8197,6 +8232,11 @@ type RepositoryProviderBitbucketServer implements RepositoryProvider {
   name: String!
 
   """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderBitbucketServerSettings
+
+  """
   This URL to the provider’s web interface
   """
   url: String
@@ -8205,6 +8245,102 @@ type RepositoryProviderBitbucketServer implements RepositoryProvider {
   The URL to use when setting up webhooks from the provider to trigger Buildkite builds
   """
   webhookUrl: String
+}
+
+"""
+Settings for Bitbucket Server repository
+"""
+type RepositoryProviderBitbucketServerSettings implements RepositoryProviderSettings {
+  """
+  Whether to create builds when branches are pushed.
+  """
+  buildBranches: Boolean!
+
+  """
+  Whether to create builds for commits that are part of a Pull Request.
+  """
+  buildPullRequests: Boolean!
+
+  """
+  Whether to create builds when tags are pushed.
+  """
+  buildTags: Boolean!
+
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
+}
+
+"""
+Settings for a Bitbucket repository.
+"""
+type RepositoryProviderBitbucketSettings implements RepositoryProviderSettings {
+  """
+  Whether to create builds when branches are pushed.
+  """
+  buildBranches: Boolean!
+
+  """
+  Whether to create builds for commits that are part of a Pull Request.
+  """
+  buildPullRequests: Boolean!
+
+  """
+  Whether to create builds when tags are pushed.
+  """
+  buildTags: Boolean!
+
+  """
+  A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
+  """
+  cancelDeletedBranchBuilds: Boolean
+
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
+
+  """
+  Whether to update the status of commits in Bitbucket.
+  """
+  publishCommitStatus: Boolean!
+
+  """
+  Whether to create a separate status for each job in a build, allowing you to
+  see the status of each job directly in Bitbucket.
+  """
+  publishCommitStatusPerStep: Boolean!
+
+  """
+  The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
+  """
+  pullRequestBranchFilterConfiguration: String
+
+  """
+  Whether to limit the creation of builds to specific branches or patterns.
+  """
+  pullRequestBranchFilterEnabled: Boolean!
+
+  """
+  Whether to skip creating a new build if a build for the commit and branch already exists.
+  """
+  skipBuildsForExistingCommits: Boolean
+
+  """
+  Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
+  """
+  skipPullRequestBuildsForExistingCommits: Boolean!
 }
 
 """
@@ -8217,6 +8353,11 @@ type RepositoryProviderCodebase implements RepositoryProvider {
   name: String!
 
   """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderCodebaseSettings
+
+  """
   This URL to the provider’s web interface
   """
   url: String
@@ -8228,6 +8369,192 @@ type RepositoryProviderCodebase implements RepositoryProvider {
 }
 
 """
+Settings for a Codebase repository.
+"""
+type RepositoryProviderCodebaseSettings implements RepositoryProviderSettings {
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
+}
+
+"""
+Settings for a GitHub Enterprise repository.
+"""
+type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSettings {
+  """
+  Whether to create builds when branches are pushed.
+  """
+  buildBranches: Boolean!
+
+  """
+  Whether to create builds for commits that are part of a Pull Request.
+  """
+  buildPullRequests: Boolean!
+
+  """
+  Whether to create builds when tags are pushed.
+  """
+  buildTags: Boolean!
+
+  """
+  A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
+  """
+  cancelDeletedBranchBuilds: Boolean!
+
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
+
+  """
+  Whether to update the status of commits in Bitbucket or GitHub.
+  """
+  publishCommitStatus: Boolean!
+
+  """
+  Whether to create a separate status for each job in a build, allowing you to
+  see the status of each job directly in GitHub.
+  """
+  publishCommitStatusPerStep: Boolean!
+
+  """
+  The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
+  """
+  pullRequestBranchFilterConfiguration: String
+
+  """
+  Whether to limit the creation of builds to specific branches or patterns.
+  """
+  pullRequestBranchFilterEnabled: Boolean!
+
+  """
+  Whether to skip creating a new build if a build for the commit and branch already exists.
+  """
+  skipBuildsForExistingCommits: Boolean!
+
+  """
+  Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
+  """
+  skipPullRequestBuildsForExistingCommits: Boolean!
+}
+
+"""
+Settings for a Github repository.
+"""
+type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
+  """
+  Whether to create builds when branches are pushed.
+  """
+  buildBranches: Boolean!
+
+  """
+  Whether to create builds for pull requests from third-party forks.
+  """
+  buildPullRequestForks: Boolean!
+
+  """
+  Whether to create builds for pull requests when labels are added or removed.
+  """
+  buildPullRequestLabelsChanged: Boolean!
+
+  """
+  Whether to create builds for pull requests that are ready for review.
+  """
+  buildPullRequestReadyForReview: Boolean!
+
+  """
+  Whether to create builds for commits that are part of a Pull Request.
+  """
+  buildPullRequests: Boolean!
+
+  """
+  Whether to create builds when tags are pushed.
+  """
+  buildTags: Boolean!
+
+  """
+  A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
+  """
+  cancelDeletedBranchBuilds: Boolean!
+
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
+
+  """
+  Prefix branch names for third-party fork builds to ensure they don't trigger
+  branch conditions. For example, the main branch from some-user will become
+  some-user:main.
+  """
+  prefixPullRequestForkBranchNames: Boolean!
+
+  """
+  The status to use for blocked builds. Pending can be used with required status
+  checks to prevent merging pull requests with blocked builds.
+  """
+  publishBlockedAsPending: Boolean!
+
+  """
+  Whether to update the status of commits in Bitbucket or GitHub.
+  """
+  publishCommitStatus: Boolean!
+
+  """
+  Whether to create a separate status for each job in a build, allowing you to
+  see the status of each job directly in GitHub.
+  """
+  publishCommitStatusPerStep: Boolean!
+
+  """
+  The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
+  """
+  pullRequestBranchFilterConfiguration: String
+
+  """
+  Whether to limit the creation of builds to specific branches or patterns.
+  """
+  pullRequestBranchFilterEnabled: Boolean!
+
+  """
+  Whether to create a separate status for pull request builds, allowing you to
+  require a passing pull request build in your required status checks in GitHub.
+  """
+  separatePullRequestStatuses: Boolean!
+
+  """
+  Whether to skip creating a new build if a build for the commit and branch already exists.
+  """
+  skipBuildsForExistingCommits: Boolean!
+
+  """
+  Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
+  """
+  skipPullRequestBuildsForExistingCommits: Boolean!
+
+  """
+  What type of event to trigger builds on.
+  """
+  triggerMode: String!
+}
+
+"""
 A pipeline's repository is being provided by GitHub
 """
 type RepositoryProviderGithub implements RepositoryProvider {
@@ -8235,6 +8562,11 @@ type RepositoryProviderGithub implements RepositoryProvider {
   The name of the provider
   """
   name: String!
+
+  """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderGitHubSettings
 
   """
   This URL to the provider’s web interface
@@ -8257,6 +8589,11 @@ type RepositoryProviderGithubEnterprise implements RepositoryProvider {
   name: String!
 
   """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderGitHubEnterpriseSettings
+
+  """
   This URL to the provider’s web interface
   """
   url: String
@@ -8275,6 +8612,11 @@ type RepositoryProviderGitlab implements RepositoryProvider {
   The name of the provider
   """
   name: String!
+
+  """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderGitlabSettings
 
   """
   This URL to the provider’s web interface
@@ -8297,6 +8639,11 @@ type RepositoryProviderGitlabCommunity implements RepositoryProvider {
   name: String!
 
   """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderGitlabSettings
+
+  """
   This URL to the provider’s web interface
   """
   url: String
@@ -8317,6 +8664,11 @@ type RepositoryProviderGitlabEnterprise implements RepositoryProvider {
   name: String!
 
   """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderGitlabSettings
+
+  """
   This URL to the provider’s web interface
   """
   url: String
@@ -8325,6 +8677,33 @@ type RepositoryProviderGitlabEnterprise implements RepositoryProvider {
   The URL to use when setting up webhooks from the provider to trigger Buildkite builds
   """
   webhookUrl: String
+}
+
+"""
+Settings for a Gitlab repository.
+"""
+type RepositoryProviderGitlabSettings implements RepositoryProviderSettings {
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
+}
+
+interface RepositoryProviderSettings {
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
 }
 
 """
@@ -8337,6 +8716,11 @@ type RepositoryProviderUnknown implements RepositoryProvider {
   name: String!
 
   """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderUnknownSettings
+
+  """
   This URL to the provider’s web interface
   """
   url: String
@@ -8345,6 +8729,21 @@ type RepositoryProviderUnknown implements RepositoryProvider {
   The URL to use when setting up webhooks from the provider to trigger Buildkite builds
   """
   webhookUrl: String
+}
+
+"""
+Settings for a repository provided by service unknown to Buildkite
+"""
+type RepositoryProviderUnknownSettings implements RepositoryProviderSettings {
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
 }
 
 """
