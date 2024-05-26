@@ -35,7 +35,7 @@ Once a [registry is created](#create-a-registry), packages can then be uploaded 
 
 ## Update a registry
 
-Package registries can be updated using the package **Registries** page of the Buildkite interface, which lists all [previously created registries](#create-a-registry).
+Registries can be updated using the package **Registries** page of the Buildkite interface, which lists all [previously created registries](#create-a-registry).
 
 The following aspects of a registry can be updated:
 
@@ -69,7 +69,7 @@ To update a registry:
 
 ## Delete a registry
 
-Package registries can be deleted using the package **Registries** page of the Buildkite interface, which lists all [previously created registries](#create-a-registry).
+Registries can be deleted using the package **Registries** page of the Buildkite interface, which lists all [previously created registries](#create-a-registry).
 
 Deleting a registry permanently deletes all packages contained within it.
 

@@ -28,7 +28,7 @@ Learn more about what _team members_ are and what _team maintainers_ can do in t
 
 ### Registry-level permissions
 
-When the [teams feature is enabled](#manage-teams-and-permissions), any user can create a new registry, as long as this user is a member of at least one team within the Buildkite organization, and this team has the **Create package registries** [team member permission](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
+When the [teams feature is enabled](#manage-teams-and-permissions), any user can create a new registry, as long as this user is a member of at least one team within the Buildkite organization, and this team has the **Create registries** [team member permission](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
 
 When you create a new registry in Buildkite:
 
@@ -71,8 +71,9 @@ These user-level permissions and security features are managed by _Buildkite org
 
 From this page, you can configure the following permissions for all users across your Buildkite organization:
 
-- **Create package registries**—if the [teams feature](#manage-teams-and-permissions) is enabled, then this permission is controlled at a [team-level](#manage-teams-and-permissions-team-level-permissions) and therefore, this option will be unavailable on this page.
-- **Delete package registries**
+- **Create registries**—if the [teams feature](#manage-teams-and-permissions) is enabled, then this permission is controlled at a [team-level](#manage-teams-and-permissions-team-level-permissions) and therefore, this option will be unavailable on this page.
+- **Delete registries**
+- **Delete packages**
 
 ## Manage an agent's access to registries
 

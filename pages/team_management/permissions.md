@@ -67,7 +67,9 @@ A user who is a _team maintainer_ on an existing team can:
 
             * **Create pipelines**
             * **Create test suites**
-            * **Create package registries**
+            * **Create registries**
+            * **Delete registries**
+            * **Delete packages**
 
             **Note:** If these permissions are removed from a team, all team maintainers in this team will still be able to create and add new pipelines, test suites and registries within the team.
 
