@@ -148,8 +148,8 @@ Success response: `200 OK`
 Instruct an agent to stop accepting new build jobs and shut itself down.
 
 ```bash
-curl -H "Authorization: Bearer $TOKEN" -X PUT \
-  "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}/stop" \
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}/stop" \
   -H "Content-Type: application/json" \
   -d '{
     "force": true
