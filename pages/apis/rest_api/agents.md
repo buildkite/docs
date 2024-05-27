@@ -7,7 +7,7 @@ Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organizatio
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X "https://api.buildkite.com/v2/organizations/{org.slug}/agents"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/agents"
 ```
 
 ```json
@@ -81,7 +81,7 @@ Returns the details for a single agent, looked up by unique ID. Any valid agents
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"
 ```
 
 ```json
