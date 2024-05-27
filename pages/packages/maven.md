@@ -43,7 +43,7 @@ The following steps describe the process above:
     ```
 
     where:
-    * `registry-write-token` is the Buildkite Packages-generated API token required to publish/upload packages to your Java registry.
+    * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Java registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
 
     <%= render_markdown partial: 'packages/java_registry_id' %>
 
@@ -55,11 +55,11 @@ The following steps describe the process above:
     <distributionManagement>
       <repository>
         <id>org-slug-registry-name</id>
-        <url>https://buildkitepackages.com/{org.slug}/{registry.name}/maven2/</url>
+        <url>https://packages.buildkite.com/organizations/{org.slug}/packages/registries/{registry.name}/maven2/</url>
       </repository>
       <snapshotRepository>
         <id>org-slug-registry-name</id>
-        <url>https://buildkitepackages.com/{org.slug}/{registry.name}/maven2/</url>
+        <url>https://packages.buildkite.com/organizations/{org.slug}/packages/registries/{registry.name}/maven2/</url>
       </snapshotRepository>
     </distributionManagement>
     ```

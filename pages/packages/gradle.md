@@ -20,7 +20,7 @@ These `build.gradle` file configurations contain the:
 
 The following steps describe the process above:
 
-1. Copy the following Gradle snippet, paste it into your `gradle.build` file, and modify accordingly:
+1. Copy the following Gradle snippet, paste it into your `build.gradle` file, and modify accordingly:
 
     ```gradle
     // You require these plugins
@@ -53,7 +53,7 @@ The following steps describe the process above:
       repositories {
         maven {
           // Define the Buildkite repository to publish to
-          url "https://buildkitepackages.com/{org.slug}/{registry.name}/maven2/"
+          url "https://packages.buildkite.com/organizations/{org.slug}/packages/registries/{registry.name}/maven2/"
           authentication {
             header(HttpHeaderAuthentication)
           }
@@ -67,7 +67,7 @@ The following steps describe the process above:
     ```
 
     where:
-    * `registry-write-token` is the Buildkite Packages-generated API token required to publish/upload packages to your Java registry.
+    * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Java registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
 
     <%= render_markdown partial: 'packages/java_package_domain_name_version' %>
 

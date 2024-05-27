@@ -59,7 +59,7 @@ Next, configure your Node.js environment to publish Node.js packages to [the Jav
 1. Copy the `npm` command in the first code box and run it to configure your npm config settings file (`.npmrc`). This configuration allows you to publish packages to your JavaScript registry. The `npm` command has the following format:
 
     ```bash
-    npm set "//buildkitepackages.com/{org.slug}/{registry.name}/npm/:_authToken" registry-write-token
+    npm set "//packages.buildkite.com/organizations/{org.slug}/packages/registries/{registry.name}/npm/:_authToken" registry-write-token
     ```
 
     where:
@@ -83,7 +83,7 @@ Next, configure your Node.js environment to publish Node.js packages to [the Jav
       },
       "author": "A Person",
       "license": "MIT",
-      "publishConfig": {"registry": "https://buildkitepackages.com/{org.slug}/{registry.name}/npm/"}
+      "publishConfig": {"registry": "https://packages.buildkite.com/organizations/{org.slug}/packages/registries/{registry.name}/npm/"}
     }
     ```
 

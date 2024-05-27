@@ -22,7 +22,7 @@ The following steps describe the process above:
 1. Copy the following `npm` command, paste it into your terminal, and modify as required before submitting to update your `~/.npmrc` file:
 
     ```bash
-    npm set "//buildkitepackages.com/{org.slug}/{registry.name}/npm/:_authToken" registry-write-token
+    npm set "//packages.buildkite.com/organizations/{org.slug}/packages/registries/{registry.name}/npm/:_authToken" registry-write-token
     ```
 
     where:
