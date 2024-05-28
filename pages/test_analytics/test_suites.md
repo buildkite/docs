@@ -55,7 +55,7 @@ For individual tests, views include trend information on reliability, test execu
 
 <%= image "test-stats.png", width: 1166, height: 327, alt: "Screenshot of test trend page showing test trend information over the last 28 days, including test reliability and test execution durations" %>
 
-Select any individual test execution to see more trend and deep-dive information, including any issues found within the execution.
+Select any individual test execution to see more trend and deep-dive information.
 
 <%= image "test-execution-stats.png", width: 1170, height: 578, alt: "Screenshot of individual test execution page showing test information related to that individual execution of the test" %>
 
