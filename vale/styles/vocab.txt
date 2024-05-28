@@ -85,7 +85,8 @@ Fugit
 gcloud
 gif
 githooks
-GitLab
+gitlab
+github
 globbing
 gotestsum
 Gradle
