@@ -339,7 +339,7 @@
         - name: "Audit log"
           path: "pipelines/security/audit-log"
         - name: "OIDC"
-          children: 
+          children:
             - name: "Overview"
               path: "pipelines/security/oidc"
             - name: "OIDC with AWS"
@@ -395,6 +395,9 @@
           path: "test-analytics/test-executions"
         - name: "Public test suites"
           path: "test-analytics/public-test-suites"
+        - name: "Test ownership"
+          pill: "beta"
+          path: "test-analytics/test-ownership"
         - name: "Flaky test assignment"
           path: "test-analytics/flaky-test-assignment"
     - name: "Languages"
