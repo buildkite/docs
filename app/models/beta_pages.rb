@@ -8,7 +8,8 @@ class BetaPages
       'apis/rest-api/teams',
       'apis/rest-api/teams/members',
       'apis/rest-api/teams/pipelines',
-      'apis/rest-api/teams/suites'
+      'apis/rest-api/teams/suites',
+      'test-analytics/test-ownership'
     ]
   end
 end
