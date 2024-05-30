@@ -70,6 +70,8 @@ type APIAccessTokenCodeAuthorizeMutationPayload {
 All possible scopes on a user's API Access Token
 """
 enum APIAccessTokenScopes {
+  DELETE_PACKAGES
+  DELETE_REGISTRIES
   GRAPHQL
   READ_AGENTS
   READ_ARTIFACTS
