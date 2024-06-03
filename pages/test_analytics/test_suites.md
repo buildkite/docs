@@ -34,22 +34,6 @@ Alternatively, you can create [scheduled builds](/docs/pipelines/scheduled-build
 
 Test Analytics reviews the test results to detect flaky tests after every test run.
 
-## Run issues
-
-<%= image "run-issues.png", alt: "Screenshot of a run with issues displaying in a list, including flaky, slow and failures." %>
-
-Test Analytics will automatically detect issues per run. For each test, we currently detect three issues:
-
-- **Flaky:** [See section on detecting flaky tests](#detecting-flaky-tests).
-
-- **Slow:** Slowness is measured by the comparative performance of tests within the current run. The system automatically flags slow tests when the slowest 1% of tests take more than 15% of the overall run time. This threshold can be manually amended within the suite settings.
-
-- **Failure:** A failed test will impact the overall test performance and efficiency.
-
-Tests with these issues will display in order of most problematic to least problematic. Issues are also shown on the test execution page:
-
-<%= image "execution-issues.png", alt: "Screenshot of an execution with issues with their descriptions, displaying a dropdown, including flaky, slow and failures." %>
-
 ## Tracking reliability
 
 Test Analytics calculates reliability of both your entire test suite and individual tests as a measure of flakiness over time.
@@ -71,7 +55,7 @@ For individual tests, views include trend information on reliability, test execu
 
 <%= image "test-stats.png", width: 1166, height: 327, alt: "Screenshot of test trend page showing test trend information over the last 28 days, including test reliability and test execution durations" %>
 
-Select any individual test execution to see more trend and deep-dive information, including any issues found within the execution.
+Select any individual test execution to see more trend and deep-dive information.
 
 <%= image "test-execution-stats.png", width: 1170, height: 578, alt: "Screenshot of individual test execution page showing test information related to that individual execution of the test" %>
 

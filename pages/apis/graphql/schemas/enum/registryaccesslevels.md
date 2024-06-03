@@ -39,6 +39,6 @@ The access levels that can be assigned to a registry
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>READ_AND_WRITE</code></strong></p><p>Allow read and push</p></td></tr><tr><td><p><strong><code>READ_ONLY</code></strong></p><p>Read only</p></td></tr><tr><td><p><strong><code>READ_WRITE_AND_ADMIN</code></strong></p><p>Allow read, push, and management</p></td></tr>
+    <tr><td><p><strong><code>READ_AND_WRITE</code></strong></p><p>Allow read and push</p></td></tr><tr><td><p><strong><code>READ_ONLY</code></strong></p><p>Read only</p></td></tr><tr><td><p><strong><code>READ_WRITE_AND_ADMIN</code></strong></p><p>Allow read, push, delete and management</p></td></tr>
   </tbody>
 </table>

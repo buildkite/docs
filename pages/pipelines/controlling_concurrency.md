@@ -10,7 +10,7 @@ Concurrency limits define the number of jobs that are allowed to run at any one 
 
 Setting a concurrency limit of `1` on a step in your pipeline will ensure that no two jobs created from that step will run at the same time, even if there are agents available.
 
-You can add concurrency limits to steps either through Buildkite, or your `pipeline.yml` file. When adding a concurrency limit, you'll also need the `concurrency_group` attribute so that steps in other pipelines can use it as well.
+You can add concurrency limits to steps either through Buildkite, or your `pipeline.yml` file by adding `concurrency` attributes with limit values to these steps. When adding a concurrency limit, you'll also need the `concurrency_group` attribute so that steps in other pipelines can use it as well.
 
 > 🚧 I'm seeing an error about a missing `concurrency_group_id` when I run my pipeline upload
 > This error is caused by a missing `concurrency_group` attribute. Add this attribute to the same step where you defined the `concurrency` attribute.
@@ -21,7 +21,7 @@ Concurrency groups are labels that group together Buildkite jobs when applying c
 
 A concurrency group works like a queue; it returns jobs in the order they entered the queue (oldest to newest). The concurrency group only cares about jobs in "active" states, and the group becomes "locked" when the concurrency limit for jobs in these states is reached. Once a job moves from an active state to a terminal state (`finished` or `canceled`), the job is removed from the queue, opening up a spot for another job to enter. If a job's state is `limited`, it is waiting for another job ahead of it in the same concurrency group to finish.
 
-The full list of "active" [job states](/docs/pipelines/defining-steps#job-states) is `limiting`, `limited`, `scheduled`, `waiting`, `assigned`, `accepted`, `running`, `cancelling`, `timing out`.
+The full list of "active" [job states](/docs/pipelines/defining-steps#job-states) is `limiting`, `limited`, `scheduled`, `waiting`, `assigned`, `accepted`, `running`, `canceling`, `timing out`.
 
 The following is an example [command step](/docs/pipelines/command-step) that ensures deployments run one at a time. If multiple builds are created with this step, each deployment job will be queued up and run one after the other in the order they were created.
 

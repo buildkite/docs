@@ -6,9 +6,6 @@ test_analytics_features:
   - title: "Find and fix flaky tests"
     url: "/docs/test-analytics/test-suites#detecting-flaky-tests"
     desc: "Quickly identify which tests are the most disruptive for your team, and get a head-start on fixing them."
-  - title: "See urgent issues in your run"
-    url: "/docs/test-analytics/test-suites#run-issues"
-    desc: "Find and resolve issues with problematic tests in every run."
 test_analytics_guides:
   - title: "Languages"
     links:

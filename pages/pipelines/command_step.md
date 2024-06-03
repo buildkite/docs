@@ -476,7 +476,7 @@ steps:
 
 To automatically cancel any remaining jobs as soon as the first job fails (except jobs that you've marked as `soft_fail`), add the `cancel_on_build_failing: true` attribute to your command steps.
 
-Next time a job in your build fails, those jobs will be automatically cancelled.
+Next time a job in your build fails, those jobs will be automatically canceled.
 
 <!--
 

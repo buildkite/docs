@@ -158,7 +158,7 @@ To configure Playwright:
     ```js
     // playwright.config.js
     {
-      "reporters": [
+      "reporter": [
         ["line"], 
         ["buildkite-test-collector/playwright/reporter"]
       ]
