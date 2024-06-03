@@ -47,7 +47,7 @@ The following steps describe the process above:
 
     <%= render_markdown partial: 'packages/java_registry_id' %>
 
-    **Note:** This step only needs to be conducted once for the life of your Java registry.
+    **Note:** This step only needs to be conducted once for the life of your Java registry, and API access token.
 
 1. Copy the following XML snippet, paste it into your `pom.xml` configuration file, and  modify accordingly:
 
@@ -55,11 +55,11 @@ The following steps describe the process above:
     <distributionManagement>
       <repository>
         <id>org-slug-registry-name</id>
-        <url>https://packages.buildkite.com/organizations/{org.slug}/packages/registries/{registry.name}/maven2/</url>
+        <url>https://packages.buildkite.com/{org.slug}/{registry.name}/maven2/</url>
       </repository>
       <snapshotRepository>
         <id>org-slug-registry-name</id>
-        <url>https://packages.buildkite.com/organizations/{org.slug}/packages/registries/{registry.name}/maven2/</url>
+        <url>https://packages.buildkite.com/{org.slug}/{registry.name}/maven2/</url>
       </snapshotRepository>
     </distributionManagement>
     ```
@@ -117,7 +117,7 @@ The `~/.m2/settings.xml` code snippet is based on this format:
     http://maven.apache.org/xsd/settings-1.0.0.xsd">
   <servers>
     <server>
-      <id>org-slug-registry-name</id>
+    <id>org-slug-registry-name</id>
       <configuration>
         <httpHeaders>
           <property>
@@ -143,7 +143,7 @@ The `pom.xml` code snippet is based on this format:
 <repositories>
   <repository>
     <id>org-slug-registry-name</id>
-    <url>https://buildkitepackages.com/{org.slug}/{registry.name}/maven2/</url>
+    <url>https://packages.buildkite.com/{org.slug}/{registry.name}/maven2/</url>
     <releases>
       <enabled>true</enabled>
     </releases>

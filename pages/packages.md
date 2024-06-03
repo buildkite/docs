@@ -51,9 +51,9 @@ Currently, Buildkite Packages supports the following package ecosystems:
 
 - Alpine (apk)
 - Container (Docker) images
-- Debian (and Ubuntu)
-- Java (Maven and Gradle)
-- JavaScript (NPM)
+- Debian/Ubuntu (deb)
+- Java (Maven/Gradle)
+- JavaScript (npm)
 - Python (PyPI)
 - RedHat (RPM)
 - Ruby (RubyGems)

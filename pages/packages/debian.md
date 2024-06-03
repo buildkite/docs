@@ -78,11 +78,9 @@ This code snippet is based on this format:
 
 ```bash
 apt update
-type -p curl >/dev/null || apt install curl -y
-type -p gpg >/dev/null || apt install gpg -y
-curl -fsSL "https://{registry.read.token}@buildkitepackages.com/{org.slug}/{registry.name}/gpgkey" | gpg --dearmor -o /etc/apt/keyrings/{org.slug}_{registry.name}-archive-keyring.gpg
-curl -sfSL "https://{registry.read.token}@buildkitepackages.com/install/repositories/{org.slug}/{registry.name}/config_file.list?source=buildkite&name=${HOSTNAME}" > /etc/apt/sources.list.d/buildkite-{org.slug}-{registry.name}.list
-apt update && apt install my-deb-package-name
+type -p ca-certificates >/dev/null || apt install ca-certificates -y
+echo -e "deb [trusted=yes] https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.name}/any/ any main\ndeb-src [trusted=yes] https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.name}/any/ any main" > /etc/apt/sources.list.d/buildkite-{org.slug}-{registry.name}.list
+apt update && apt install jake
 ```
 
 where:

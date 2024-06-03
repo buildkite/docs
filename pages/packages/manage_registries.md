@@ -25,10 +25,10 @@ To create a new registry:
 
 Once a [registry is created](#create-a-registry), packages can then be uploaded to it. Learn more about how to manage packages for your registry's relevant package ecosystem:
 
-- [Container (Docker)](/docs/packages/container)
-- [Debian (Ubuntu)](/docs/packages/debian)
+- [Container (Docker)](/docs/packages/container) images
+- [Debian/Ubuntu (deb)](/docs/packages/debian)
 - Java ([Maven](/docs/packages/maven) or [Gradle leveraging the Maven Publish Plugin](/docs/packages/gradle))
-- [JavaScript (NPM)](/docs/packages/javascript)
+- [JavaScript (npm)](/docs/packages/javascript)
 - [Python (PyPI)](/docs/packages/python)
 - [Ruby (RubyGems)](/docs/packages/ruby)
 - [Terraform](/docs/packages/terraform) modules
@@ -63,8 +63,9 @@ To update a registry:
 
     The registry's updates will appear on the **Registries** page, as well as the registry's details page.
 
+<!--
 ## Configure a registry's OIDC policy
-
+-->
 
 
 ## Delete a registry

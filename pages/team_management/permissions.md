@@ -47,9 +47,9 @@ A user who is a _team maintainer_ on an existing team can:
 
 - From the **Teams** page:
 
-    * Add another existing user to this team, using the **Add Member** from the **Members** tab.
+    * Add another existing user to this team, using the **Add Member** button from the **Members** tab.
 
-    * Remove a user from this team, using the user's **Remove** button.
+    * Remove a user from this team, by selecting the user's **Remove** button.
 
     * Change the permission for all users in this team on any:
         - [pipeline](#manage-teams-and-permissions-pipeline-level-permissions) in the team to **Full Access**, **Build & Read** or **Read Only**.

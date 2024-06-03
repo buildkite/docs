@@ -53,7 +53,7 @@ The following steps describe the process above:
       repositories {
         maven {
           // Define the Buildkite repository to publish to
-          url "https://packages.buildkite.com/organizations/{org.slug}/packages/registries/{registry.name}/maven2/"
+          url "https://packages.buildkite.com/{org.slug}/{registry.name}/maven2/"
           authentication {
             header(HttpHeaderAuthentication)
           }
@@ -111,7 +111,7 @@ This code snippet is based on this format:
 ```gradle
 repositories {
   maven {
-    url "https://buildkitepackages.com/{org.slug}/{registry.name}/maven2/"
+    url "https://packages.buildkite.com/{org.slug}/{registry.name}/maven2/"
     authentication {
       header(HttpHeaderAuthentication)
     }
