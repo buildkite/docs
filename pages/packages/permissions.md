@@ -61,7 +61,7 @@ Another user with **Full Access** to this registry or a [Buildkite organization 
 
 ## Manage organization security for registries
 
-Enterprise customers can configure select registry action permissions for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
+Enterprise customers can configure registry action permissions for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
 
 These user-level permissions and security features are managed by _Buildkite organization administrators_. To access this feature:
 
