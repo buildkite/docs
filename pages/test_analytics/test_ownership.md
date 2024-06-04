@@ -40,10 +40,10 @@ A TESTOWNER uses Buildkite team slugs instead of user names. Your team slug will
 ```
 It is important to [ensure these teams have permission to access the suite](/docs/test-analytics/permissions#manage-teams-and-permissions) the file is uploaded to, otherwise these ownership records will not be created. You can check these permissions in your organization's team settings.
 
-More than 1 team may own a test, and the order of teams in your TESTOWNER file is important. The first team listed will be the default owner, and they will be auto-assigned to the test if it flakes. Any team will access can override this auto-assignment.
+More than 1 team may own a test, and the order of teams in your TESTOWNER file is important. The first team listed will be the default owner, and they will be auto-assigned to the test if it flakes. Any team with suite access can override this auto-assignment.
 
 ### Suites
-A suite only has one active TESTOWNER file at a time. You may reuse the same TESTOWNER file across many suites.
+A suite only has one active TESTOWNER file at a time. A TESTOWNER must be uploaded per suite for it to be applied.
 
 ## Setting test ownership
 
