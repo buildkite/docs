@@ -25,7 +25,12 @@ Order your test paths from least specific to most specific to ensure ownership r
 We currently do not support
 
 ### Teams
-A TESTOWNER uses Buildkite team slugs instead of user names. Your team slug will be your team name in snake-case.
+A TESTOWNER uses Buildkite team slugs instead of user names. Your team slug will be your team name in snake-case. You can view your teams in your organization settings, or fetch them from our API:
+<ul>
+	<li>[List teams from REST API](/docs/apis/rest_api/teams)</li>
+	<li>[List teams from Graphql API](/docs/apis/graphql/schemas/object/team)</li>
+</ul>
+
 
 ```bash
 # TESTOWNERS
@@ -42,7 +47,7 @@ A suite only has one active TESTOWNER file at a time. You may reuse the same TES
 
 ## Setting test ownership
 
-You can upload a TESTOWNER file via the API
+You can upload a TESTOWNER file via this API endpoint
 
 ```bash
 curl --location 'https://analytics-api.buildkite.com/v1/test-ownerships' \
