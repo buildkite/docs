@@ -12,7 +12,7 @@ Enabling _teams_ for your organizations provides control over each pipeline's, t
 
 To access or enable the teams feature for your organization, or both:
 
-1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+1. Select **Settings** in the global navigation > **Teams** to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
 1. Select **Teams** to access your organization's [**Teams**](https://buildkite.com/organizations/~/teams) page.
 
@@ -200,7 +200,7 @@ mutation RemoveOrganizationMember {
 
 ## Manage organization security for pipelines
 
-Enterprise customers can configure select pipeline action permissions and related security features for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
+Enterprise customers can configure pipeline action permissions and related security features for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
 
 These user-level permissions and security features are managed by _Buildkite organization administrators_. To access this feature:
 
