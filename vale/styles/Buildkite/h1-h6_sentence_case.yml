@@ -134,6 +134,7 @@ exceptions:
   - READ_ONLY
   - Red Hat
   - Red Hat Enterprise Linux
+  - Registry Configuration
   - REST
   - RSpec
   - SAML

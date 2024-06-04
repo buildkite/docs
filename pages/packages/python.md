@@ -79,7 +79,7 @@ The `pip.conf` code snippet is based on this format:
 ```conf
 # Add this to the [global] section in your ~/.pip/pip.conf:
 [global]
-extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/organizations/{org.slug}/packages/registries/{registry.name}/pypi/simple"
+extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.name}/pypi/simple"
 ```
 
 where:
@@ -94,5 +94,5 @@ The alternative `requirements.txt` (for virtualenv) code snippet is based on thi
 
 ```ini
 # Otherwise if installing on a virtualenv, add this to the bottom of your requirements.txt:
---extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/organizations/{org.slug}/packages/registries/{registry.name}/pypi/simple"
+--extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.name}/pypi/simple"
 ```

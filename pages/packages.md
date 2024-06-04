@@ -8,8 +8,8 @@ Buildkite Packages is a product that:
 
 As well as storing a collection of packages, a registry also surfaces metadata or attributes associated with a package, such as the package's description, version, contents (files and directories), checksum details, distribution type, dependencies, and so on.
 
-> 📘 Buildkite Packages is currently in private beta
-> Please visit the [Buildkite Packages](https://buildkite.com/packages) page on our website to join the waitlist for this product and register for early access.
+> 📘 Buildkite Packages is currently in public beta
+> Please visit the [Buildkite Packages](https://buildkite.com/packages) page on our website to join the private trial for this product.
 
 ## An introduction to packages
 
