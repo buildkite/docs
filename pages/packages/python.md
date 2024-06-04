@@ -20,9 +20,9 @@ This command provides:
 The following `curl` command (modified as required before submitting) describes the process above to publish a package to your Python registry:
 
 ```bash
-curl -X POST https://buildkitepackages.com/api/v1/repos/{org.slug}/{registry.name}/packages.json \
+curl -X POST https://api.buildkite.com/api/v2/packages/organizations/{org.slug}/registries/{registry.name}/packages \
   -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
-  -F "package[package_file]=@<path_to_file>"
+  -F "file=@<path_to_file>"
 ```
 
 where:
@@ -31,16 +31,16 @@ where:
 
 <%= render_markdown partial: 'packages/python_registry_name' %>
 
-- `$REGISTRY_WRITE_TOKEN` is the Buildkite Packages-generated API token required to publish/upload packages to your Python registry.
+- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Python registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
 
 <%= render_markdown partial: 'packages/path_to_file' %>
 
 For example, to upload the file `my-python-package-0.9.7b1.tar.gz` from the current directory to the **My-Python-packages** registry in the **My organization** Buildkite organization, run the `curl` command:
 
 ```bash
-curl -X POST https://buildkitepackages.com/api/v1/repos/my-organization/my-python-packages/packages.json \
+curl -X POST https://api.buildkite.com/api/v2/packages/organizations/my-organization/registries/my-python-packages/packages \
   -H "Authorization: Bearer $REPLACE_WITH_MY_REGISTRY_WRITE_TOKEN" \
-  -F "package[package_file]=@my-python-package-0.9.7b1.tar.gz"
+  -F "file=@my-python-package-0.9.7b1.tar.gz"
 ```
 
 ## Access a package's details
@@ -79,12 +79,12 @@ The `pip.conf` code snippet is based on this format:
 ```conf
 # Add this to the [global] section in your ~/.pip/pip.conf:
 [global]
-extra-index-url="https://{registry.read.token}@buildkitepackages.com/{org.slug}/{registry.name}/pypi/simple"
+extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/organizations/{org.slug}/packages/registries/{registry.name}/pypi/simple"
 ```
 
 where:
 
-- `{registry.read.token}` is the Buildkite Packages-generated API token required to download packages from your Python registry. This URL component, along with the following `@` are not required for registries that are publicly accessible.
+- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) used to download packages from your Python registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
 
 <%= render_markdown partial: 'packages/org_slug' %>
 
@@ -94,5 +94,5 @@ The alternative `requirements.txt` (for virtualenv) code snippet is based on thi
 
 ```ini
 # Otherwise if installing on a virtualenv, add this to the bottom of your requirements.txt:
---extra-index-url="https://{registry.read.token}@buildkitepackages.com/{org.slug}/{registry.name}/pypi/simple"
+--extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/organizations/{org.slug}/packages/registries/{registry.name}/pypi/simple"
 ```

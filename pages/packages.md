@@ -49,14 +49,14 @@ Some advanced package creation tools include:
 
 Currently, Buildkite Packages supports the following package ecosystems:
 
-- Alpine
-- Docker container images
-- Debian (deb for Debian and Ubuntu)
-- Ruby (RubyGems gem)
-- Java (Maven and Gradle)
-- JavaScript (Node.js npm)
+- Alpine (apk)
+- Container (Docker) images
+- Debian/Ubuntu (deb)
+- Java (Maven/Gradle)
+- JavaScript (npm)
 - Python (PyPI)
-- RPM (Fedora and RHEL)
+- RedHat (RPM)
+- Ruby (RubyGems)
 - Terraform modules
 
 ## Getting started tutorial

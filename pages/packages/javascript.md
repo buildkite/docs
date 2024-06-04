@@ -22,7 +22,7 @@ The following steps describe the process above:
 1. Copy the following `npm` command, paste it into your terminal, and modify as required before submitting to update your `~/.npmrc` file:
 
     ```bash
-    npm set "//buildkitepackages.com/{org.slug}/{registry.name}/npm/:_authToken" registry-write-token
+    npm set //packages.buildkite.com/{org.slug}/{registry.name}/npm/:_authToken registry-write-token
     ```
 
     where:
@@ -38,15 +38,16 @@ The following steps describe the process above:
     ```json
     {
       ...,
-      "publishConfig": {"registry": "https://buildkitepackages.com/{org.slug}/{registry.name}/npm/"}
+      "publishConfig": {"registry": "https://packages.buildkite.com/{org.slug}/{registry.name}/npm/"}
     }
     ```
 
     **Note:** Don't forget to add the separating comma between `"publishConfig": ...` and the previous field.
 
-1. Publish your package:
+1. Build and publish your package:
 
     ```bash
+    npm pack
     npm publish
     ```
 
