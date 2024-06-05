@@ -443,9 +443,11 @@
       children:
         - name: "Getting started"
           path: "packages/getting-started"
-        - name: "Manage registries"
-          path: "packages/manage-registries"
+        - name: "Registries"
+          start_expanded: true
           children:
+            - name: "Manage registries"
+              path: "packages/manage-registries"
             - name: "Link private storage"
               path: "packages/link-private-storage"
         - name: "Access control"
