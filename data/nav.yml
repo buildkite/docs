@@ -448,8 +448,8 @@
           children:
             - name: "Manage registries"
               path: "packages/manage-registries"
-            - name: "Link private storage"
-              path: "packages/link-private-storage"
+            - name: "Private storage"
+              path: "packages/private-storage"
         - name: "Access control"
           path: "packages/permissions"
     - name: "Package ecosystems"
