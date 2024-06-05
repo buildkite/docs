@@ -1,8 +1,9 @@
 # Test ownership
+Test ownership is critical to adopting a healthy testing culture at your organization. By defining test owners, your teams will become accountable for maintaining a fast and reliable test suite, ensuring confidence when you deploy your code.
 
 Customers on the [Pro and Enterprise plans](https://buildkite.com/pricing) can assign test ownership to [Teams](/docs/team-management/permissions).
 
-Test ownership is assigned to the tests in a specific suite per instructions in your TESTOWNER file. The team that is the default owner of a test [will be auto-assigned to fix any flakes](/docs/test-analytics/flaky-test-assignment) that occur.
+Test ownership is managed via team assignments in a TESTOWNER file. The team that is the default owner of a test [will be automatically assigned flaky tests](/docs/test-analytics/flaky-test-assignment) to triage.
 
 > 🚧 Buildkite test ownership is currently in private beta
 > Please reach out to our support team to register for early access.
@@ -18,26 +19,7 @@ curl --location 'https://analytics-api.buildkite.com/v1/test-ownerships' \
 ```
 You might consider creating a new pipeline to automatically upload your TESTOWNER file when changes are detected.
 
-## Your TESTOWNER file
-
-A TESTOWNER file [follows the same rules as a `.gitignore` or `CODEOWNERS` file](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#example-of-a-codeowners-file), with one exception.
-
-We do not currently support the `.gitignore` rule that allows a file path to have no corresponding team.
-
-```bash
-# In a regular .gitignore or COEDOWNER file, the following
-# block would set test-analytics as the owner of any file in the `/specs`
-# directory in the root of your test directory except for the `/specs/features`
-# subdirectory, as its owners are left empty.
-
-# This functionality is not supported in Buildkite TESTOWNERS.
-# /spec/features would be owned by the test-analytics team.
-
-/specs/ test-analytics
-/specs/features
-```
-
-### Example TESTOWNER file
+## Example TESTOWNER file
 
 ```bash
 # This is a comment.
@@ -92,20 +74,44 @@ pipelines/ pipelines
 ```
 {: codeblock-file="TESTOWNERS"}
 
-### Teams
-A TESTOWNER uses Buildkite team slugs instead of user names. Your team slug will be your team name in snake-case. You can view your teams in your organization settings, or fetch them from our API:
+## FAQs
+
+### Can multiple suites use the same TESTOWNER file?
+Yes, there's nothing stopping you from uploading the same file to multiple suites. A suite only has one active TESTOWNER file at a time.
+
+### Can more than one team own a test?
+More than 1 team may own a test, and the order of teams in your TESTOWNER file is important. The first team listed will be the default owner, and they will be auto-assigned to the test if it flakes. Any team with suite access can override this auto-assignment.
+
+### Why aren't my teams being assigned ownership over my tests?
+A TESTOWNER file uses Buildkite team slugs instead of user names. Your team slug will be your team name in kebab-case. You can view your teams in your organization settings, or fetch them from our API:
 
 - [List teams from REST API](/docs/apis/rest_api/teams)</li>
 - [List teams from Graphql API](/docs/apis/graphql/schemas/object/team)</li>
 
-> 🚧 Team permissions
->It is important to [ensure these teams have permission to access the suite](/docs/test-analytics/permissions#manage-teams-and-permissions) the file is uploaded to, otherwise these ownership records will not be created. You can check these permissions in your organization's team settings.
+```bash
+# Example team name to slug
+Pipelines => pipelines
+Test Analytics => test-analytics
+📦 Packages => packages
+```
 
-More than 1 team may own a test, and the order of teams in your TESTOWNER file is important. The first team listed will be the default owner, and they will be auto-assigned to the test if it flakes. Any team with suite access can override this auto-assignment.
+Additionally, Teams listed in your TESTOWNERS file must have [permission to access the suite](/docs/test-analytics/permissions#manage-teams-and-permissions) before ownership records are created.
 
-### Suites
-A suite only has one active TESTOWNER file at a time. A TESTOWNER must be uploaded per suite for it to be applied.
+## Troubleshooting
 
+A TESTOWNER file [follows the same rules as a `.gitignore` or `CODEOWNERS` file](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#example-of-a-codeowners-file), with one exception
 
+We do not currently support the `.gitignore` rule that allows a file path to have no corresponding team.
 
+```bash
+# In a regular .gitignore or COEDOWNER file, the following
+# block would set test-analytics as the owner of any file in the `/specs`
+# directory in the root of your test directory except for the `/specs/features`
+# subdirectory, as its owners are left empty.
 
+# This functionality is not supported in Buildkite TESTOWNERS.
+# /spec/features would be owned by the test-analytics team.
+
+/specs/ test-analytics
+/specs/features
+```
