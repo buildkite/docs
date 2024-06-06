@@ -26,7 +26,7 @@ Without the **Teams** feature activated, all users are able to access all items 
 
 ### Organization-level permissions
 
-A user who is a _Buildkite organization administrator_ can do the following throughout their Buildkite organization:
+A user who is a _Buildkite organization administrator_ can access the [**Organization Settings** page](https://buildkite.com/organizations/~/settings) by selecting **Settings** in the global navigation, and do the following throughout their Buildkite organization:
 
 - Access the **Teams** feature and page, by selecting **Settings** in the global navigation > **Teams**.
 

@@ -18,11 +18,13 @@ Once the _teams_ feature is enabled, you can see the teams that you're a member 
 
 Learn more about what a _Buildkite organization administrator_ can do in the [Organization-level permissions section of the Pipelines documentation](/docs/team-management/permissions#manage-teams-and-permissions-organization-level-permissions).
 
-As an organization administrator, you can:
+As an organization administrator, you can access the [**Organization Settings** page](https://buildkite.com/organizations/~/settings) by selecting **Settings** in the global navigation, and do the following:
 
 - Add new teams or edit existing ones in the [**Team** section](https://buildkite.com/organizations/~/teams).
 
     * After selecting a team, you can view and administer the member-, [pipeline-](/docs/team-management/permissions#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/test-analytics/permissions#manage-teams-and-permissions-test-suite-level-permissions), [registry-](#manage-teams-and-permissions-registry-level-permissions) and [team-](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions)level settings for that team.
+
+- Enable Buildkite Packages for your Buildkite organization.
 
 - Configure [private storage](/docs/packages/private-storage) for your Buildkite Packages registries.
 
