@@ -38,3 +38,5 @@ To link your private AWS S3 storage to Buildkite Packages:
 1. Once the **Diagnostic Result** page indicates a **Pass** for each of these three tests, select **Create Private Storage Link** complete this linking process.
 
 1. On the **Private Storage Link** package, select **Change** to switch from using **Buildkite-hosted storage** to your private storage (beginning with **s3://...**).
+
+All subsequent packages published to any registries already configured in your Buildkite organization will be stored in your private storage.
