@@ -20,7 +20,7 @@ Once the _teams_ feature is enabled, you can see the teams that you're a member 
 
 Learn more about what a _Buildkite organization administrator_ can do in the [Organization-level permissions section of the Pipelines documentation](/docs/team-management/permissions#manage-teams-and-permissions-organization-level-permissions).
 
-As an organization administrator, you can access the [**Organization Settings** page](https://buildkite.com/organizations/~/settings) by selecting **Settings** in the global navigation, and do the following:
+As an organization administrator, you can access the [**Organization Settings** page](https://buildkite.com/organizations/~/settings) by selecting **Settings** in the global navigation, where you can do the following:
 
 - Add new teams or edit existing ones in the [**Team** section](https://buildkite.com/organizations/~/teams).
 

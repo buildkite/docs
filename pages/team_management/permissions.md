@@ -12,7 +12,7 @@ Enabling _teams_ for your organizations provides control over each pipeline's, t
 
 To access or enable the teams feature for your organization, or both:
 
-1. Select **Settings** in the global navigation > **Teams** to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
 1. Select **Teams** to access your organization's [**Teams**](https://buildkite.com/organizations/~/teams) page.
 
