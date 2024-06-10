@@ -103,7 +103,9 @@ http {
     listen 443 ssl;
 
     location / {
-      allow 54.165.103.71;
+      # Your own IPs
+      allow ...;
+      
       deny all;
     }
 
@@ -151,6 +153,9 @@ http {
       allow 100.24.182.113;
       allow 35.172.45.249;
       allow 54.85.125.32;
+
+      # Your own IPs
+      allow ...;
 
       deny all;
     }
