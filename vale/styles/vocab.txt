@@ -161,6 +161,7 @@ Postgres
 PowerShell
 preemptible
 prefill
+proxied
 pty
 pullrequest
 pybuildkite
