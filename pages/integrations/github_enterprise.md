@@ -109,7 +109,7 @@ http {
 
     location ~ ^/api/v3/repos/.*/.*/statuses {
       proxy_pass https://ghe.internal:443;
-      # Allow from Buildkite to update pull request statuses
+      # Allow for OAuth Buildkite App to update commit statuses
       # IPs Subject to change - https://buildkite.com/docs/apis/rest-api/meta#get-meta-information
       allow 100.24.182.113;
       allow 35.172.45.249;
@@ -119,7 +119,7 @@ http {
 
     location = /api/v3/user {
       proxy_pass https://ghe.internal:443;
-      # Allow from Buildkite
+      # Allow for OAuth Buildkite App
       # IPs Subject to change - https://buildkite.com/docs/apis/rest-api/meta#get-meta-information
       allow 100.24.182.113;
       allow 35.172.45.249;
@@ -129,7 +129,7 @@ http {
 
     location = /api/v3/user/emails {
     proxy_pass https://ghe.internal:443;
-    # Allow from Buildkite
+    # Allow for OAuth Buildkite App
     # IPs Subject to change - https://buildkite.com/docs/apis/rest-api/meta#get-meta-information
     allow 100.24.182.113;
     allow 35.172.45.249;
@@ -139,7 +139,7 @@ http {
 
     location /login/oauth {
       proxy_pass https://ghe.internal:443;
-      # Allow from Buildkite for OAuth authentications
+      # Allow for OAuth Buildkite App to authorize
       # IPs Subject to change - https://buildkite.com/docs/apis/rest-api/meta#get-meta-information
       allow 100.24.182.113;
       allow 35.172.45.249;
