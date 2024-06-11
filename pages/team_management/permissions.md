@@ -12,7 +12,7 @@ Enabling _teams_ for your organizations provides control over each pipeline's, t
 
 To access or enable the teams feature for your organization, or both:
 
-1. Select **Settings** in the global navigation > **Teams** to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
 1. Select **Teams** to access your organization's [**Teams**](https://buildkite.com/organizations/~/teams) page.
 
@@ -26,16 +26,20 @@ Without the **Teams** feature activated, all users are able to access all items 
 
 ### Organization-level permissions
 
-A user who is a _Buildkite organization administrator_ can do the following throughout their Buildkite organization:
+A user who is a _Buildkite organization administrator_ can access the [**Organization Settings** page](https://buildkite.com/organizations/~/settings) by selecting **Settings** in the global navigation, and do the following throughout their Buildkite organization:
 
 - Access the **Teams** feature and page, by selecting **Settings** in the global navigation > **Teams**.
 
 - From the **Teams** page:
 
     * Create a new team, using the **New Team** button.
-    * Administer (with full control) the [team-](#manage-teams-and-permissions-team-level-permissions), [pipeline-](#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/test-analytics/permissions#manage-teams-and-permissions-test-suite-level-permissions) and [registry-level](/docs/packages/permissions#manage-teams-and-permissions-registry-level-permissions) settings throughout their Buildkite organization.
+    * Administer (with full control) the [team-](#manage-teams-and-permissions-team-level-permissions), [pipeline-](#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/test-analytics/permissions#manage-teams-and-permissions-test-suite-level-permissions) and [registry-](/docs/packages/permissions#manage-teams-and-permissions-registry-level-permissions)level settings throughout their Buildkite organization.
     * Delete an existing team, by selecting the team > **Settings** tab > **Delete Team** button.
     * [Enable](#manage-teams-and-permissions) and disable the teams feature for their organization. This feature can only be disabled once all teams have been deleted from the organization (including the automatically-created **Everyone** team) using the **Disable Teams** button on the **Teams** page. Once the teams feature has been disabled, it can be [re-enabled](#manage-teams-and-permissions) at any time.
+
+- Configure other organization-level settings for Buildkite Pipelines and Packages, as well as various [integrations](/docs/integrations) with Buildkite.
+
+- Access and view Buildkite Pipelines and Packages usage reports and [audit logs](/docs/pipelines/security/audit-log).
 
 ### Team-level permissions
 

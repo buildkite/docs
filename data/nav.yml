@@ -443,8 +443,13 @@
       children:
         - name: "Getting started"
           path: "packages/getting-started"
-        - name: "Manage registries"
-          path: "packages/manage-registries"
+        - name: "Registries"
+          start_expanded: true
+          children:
+            - name: "Manage registries"
+              path: "packages/manage-registries"
+            - name: "Private storage"
+              path: "packages/private-storage"
         - name: "Access control"
           path: "packages/permissions"
     - name: "Package ecosystems"
@@ -457,10 +462,10 @@
         - name: "Java"
           start_expanded: true
           children:
-          - name: "Maven"
-            path: "packages/maven"
-          - name: "Gradle"
-            path: "packages/gradle"
+            - name: "Maven"
+              path: "packages/maven"
+            - name: "Gradle"
+              path: "packages/gradle"
         - name: "JavaScipt"
           path: "packages/javascript"
         - name: "Python"
