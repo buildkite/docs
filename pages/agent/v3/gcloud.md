@@ -2,6 +2,12 @@
 
 The Buildkite Agent can be run on [Google Cloud Platform](https://cloud.google.com). For fine control over long–lived agents, you might like to run the agent using individual VM instances on Google Compute Engine. Or run Docker–based builds using a scalable cluster of agents on the Google Kubernetes Engine using Kubernetes.
 
+## Using the Buildkite Agent Stack for Kubernetes on the Google Cloud Platform
+
+The Buildkite Agent's jobs can be run within a Kubernetes cluster on Google Cloud Platform.
+
+Learn more about how to set up the Buildkite Agent stack to run in Kubernetes in [Buildkite Agent Stack for Kubernetes](https://github.com/buildkite/agent-stack-k8s?tab=readme-ov-file#buildkite-agent-stack-for-kubernetes).
+
 ## Running the agent on Google Compute Engine
 
 To run the agent on your own [Google Compute Engine](https://cloud.google.com/compute) instance use whichever installer matches your instance type. For example:
