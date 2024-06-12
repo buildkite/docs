@@ -13,3 +13,5 @@ Buildkite integrates with several popular code repository management systems (RM
 * [Bitbucket Server](/docs/integrations/bitbucket-server)
 * [Phabricator](/docs/integrations/phabricator)
 * [Other Git servers](/docs/integrations/git)
+
+Note: Commit Status uses the latest built commit on a pipeline
