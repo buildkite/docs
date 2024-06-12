@@ -294,6 +294,10 @@ Required [request body properties](/docs/api#request-body-properties):
     <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
   </tr>
   <tr>
+    <th><code>cluster_id</code></th>
+    <td>The ID value of the cluster the pipeline will be associated with.<p class="Docs__api-param-eg"><em>Example:</em> <code>"Ab1Cd2Ef3Gh4Ij5Kl6Mn7Op8Qr9St0Uv10Wx11Yz12Ab1Cd2Ef3Gh4Ij5Kl6Mn=="</code></p></td>
+  </tr>
+  <tr>
     <th><code>repository</code></th>
     <td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p></td>
   </tr>
@@ -600,6 +604,10 @@ Required [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>name</code></th>
     <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>cluster_id</code></th>
+    <td>The ID value of the cluster the pipeline will be associated with.<p class="Docs__api-param-eg"><em>Example:</em> <code>"Ab1Cd2Ef3Gh4Ij5Kl6Mn7Op8Qr9St0Uv10Wx11Yz12Ab1Cd2Ef3Gh4Ij5Kl6Mn=="</code></p></td>
   </tr>
   <tr>
     <th><code>repository</code></th>
