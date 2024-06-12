@@ -32,9 +32,9 @@ To deactivate or reactivate the hosted agent terminal access feature:
 
 1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 1. Select **Pipelines** > **Settings** to access your organization's [**Pipeline Settings**](https://buildkite.com/organizations/~/pipeline-settings) page.
-1. Scroll down to the **Hosted Agents SSH** and to:
-    * _Deactivate this feature_, select the **Disable SSH** button, followed by **Disable Hosted Agents SSH** in the confirmation message.
-    * _Reactivate this feature_, select the **Enable SSH** button, followed by **Enable Hosted Agents SSH** in the confirmation message.
+1. Scroll down to the **Hosted Agents Terminal Access** and to:
+    * _Deactivate this feature_, select the **Disable Terminal Access** button, followed by **Disable Hosted Agents Terminal Access** in the confirmation message.
+    * _Reactivate this feature_, select the **Enable Terminal Access** button, followed by **Enable Hosted Agents Terminal Access** in the confirmation message.
 
 Terminal access will now be either removed or made available to all Buildkite hosted agents across all clusters within your Buildkite organization.
 
