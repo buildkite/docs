@@ -189,6 +189,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
       "name": "My Pipeline X",
+      "cluster_id": "xxx",
       "repository": "git@github.com:acme-inc/my-pipeline.git",
       "configuration": "env:\n \"FOO\": \"bar\"\nsteps:\n - command: \"script/release.sh\"\n   \"name\": \"Build :package:\""
     }'
@@ -438,6 +439,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "My Pipeline",
+    "cluster_id": "xxx",
     "repository": "git@github.com:acme-inc/my-pipeline.git",
     "steps": [
       {

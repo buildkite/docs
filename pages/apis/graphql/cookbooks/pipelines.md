@@ -8,7 +8,7 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 
 Create a pipeline programmatically.
 
-First, get the organization ID and team ID:
+First, get the organization ID, team ID, and cluster ID values:
 
 ```graphql
 query getOrganizationAndTeamId {
@@ -22,9 +22,21 @@ query getOrganizationAndTeamId {
         }
       }
     }
+    clusters(first: 10) {
+      edges {
+        node {
+          name
+          uuid
+          color
+          description
+        }
+      }
+    }
   }
 }
 ```
+
+The relevant cluster's `uuid` value is the `cluster-id` value used in the next step.
 
 Then, create the pipeline:
 
@@ -32,9 +44,10 @@ Then, create the pipeline:
 mutation createPipeline {
   pipelineCreate(input: {
     organizationId: "organization-id"
-    name: "pipeline-name",
-    repository: {url: "repo-url"},
-    steps: { yaml: "steps:\n - command: \"buildkite-agent pipeline upload\"" },
+    name: "pipeline-name"
+    repository: {url: "repo-url"}
+    clusterId: "cluster-id"
+    steps: { yaml: "steps:\n - command: \"buildkite-agent pipeline upload\"" }
     teams: { id: "team-id" }
   }) {
     pipeline {
