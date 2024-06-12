@@ -8,10 +8,10 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 
 Create a pipeline programmatically.
 
-First, get the organization ID, team ID, and cluster ID values:
+First, get the organization ID, team ID, and cluster ID (`uuid`) values:
 
 ```graphql
-query getOrganizationAndTeamId {
+query getOrganizationTeamAndClusterIds {
   organization(slug: "organization-slug") {
     id
     teams(first:500) {
@@ -67,8 +67,8 @@ mutation createPipeline {
 
 > 📘
 When setting pipeline steps using the API, you must pass in a string that Buildkite parses as valid YAML, escaping quotes and line breaks.
-> To avoid writing an entire YAML file in a single string, you can place a <code>pipeline.yml</code> file in a <code>.buildkite</code> directory at the root of your repo, and use the <code>pipeline upload</code> command in your pipeline steps to tell Buildkite where to find it. This means you only need the following:
-> <code>steps: { yaml: "steps:\n - command: \"buildkite-agent pipeline upload\"" }</code>
+> To avoid writing an entire YAML file in a single string, you can place a `pipeline.yml` file in a `.buildkite` directory at the root of your repo, and use the `pipeline upload` command in your pipeline steps to tell Buildkite where to find it. This means you only need the following:
+> `steps: { yaml: "steps:\n - command: \"buildkite-agent pipeline upload\"" }`
 
 ### Deriving a pipeline slug from the pipeline's name
 
