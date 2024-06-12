@@ -9,7 +9,7 @@ Buildkite Packages is a product that:
 As well as storing a collection of packages, a registry also surfaces metadata or attributes associated with a package, such as the package's description, version, contents (files and directories), checksum details, distribution type, dependencies, and so on.
 
 > 📘 Buildkite Packages is currently in public beta
-> You can enable [Buildkite Packages](https://buildkite.com/packages) through the [**Organization Settings** page](/docs/packages/permissions#manage-teams-and-permissions-organization-level-permissions).
+> You can enable [Buildkite Packages](https://buildkite.com/packages) through the [**Organization Settings** page](/docs/packages/permissions#enabling-buildkite-packages).
 
 ## An introduction to packages
 

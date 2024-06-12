@@ -24,11 +24,22 @@ As an organization administrator, you can access the [**Organization Settings** 
 
     * After selecting a team, you can view and administer the member-, [pipeline-](/docs/team-management/permissions#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/test-analytics/permissions#manage-teams-and-permissions-test-suite-level-permissions), [registry-](#manage-teams-and-permissions-registry-level-permissions) and [team-](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions)level settings for that team.
 
-- Enable Buildkite Packages for your Buildkite organization. To do this, in the **Packages** section, select **Enable** to open the **Enable Packages** page > **Enable Buildkite Packages (Beta)**.
-
-    **Note:** Once enabled the **Enable** changes to **Enabled** and Buildkite Packages can only be disabled by contacting [support](https://buildkite.com/support).
+- [Enable Buildkite Packages](#enabling-buildkite-packages) for your Buildkite organization.
 
 - Configure [private storage](/docs/packages/private-storage) for your Buildkite Packages registries.
+
+<h4 id="enabling-buildkite-packages">Enabling Buildkite Packages</h4>
+
+To do this:
+
+1. As an [Buildkite organization administrator](#manage-teams-and-permissions-organization-level-permissions), access the [**Organization Settings** page](https://buildkite.com/organizations/~/settings) by selecting **Settings** in the global navigation.
+
+1. In the **Packages** section, select **Enable** to open the **Enable Packages** page.
+
+1. Select the **Enable Buildkite Packages (Beta)** button, then **Enable Buildkite Packages** in the **Ready to enable Buildkite Packages** confirmation dialog.
+
+> 📘
+> Once Buildkite Packages is enabled, the **Enable** link on the **Organization Settings** page changes to **Enabled** and Buildkite Packages can only be disabled by contacting [support](https://buildkite.com/support).
 
 ### Team-level permissions
 

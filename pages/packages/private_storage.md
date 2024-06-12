@@ -16,9 +16,13 @@ Buildkite Packages uses [AWS CloudFormation](https://docs.aws.amazon.com/AWSClou
 
 ## Before you start
 
-Before you can start linking your private AWS S3 storage to Buildkite Packages, you will need to have set yourself up with this storage.
+Before you can start linking your private AWS S3 storage to Buildkite Packages, you will need to have created your own AWS S3 bucket.
 
-Learn more about this process from the main [Amazon S3](https://aws.amazon.com/s3/) page, as well as the [Amazon S3 documentation](https://docs.aws.amazon.com/s3/).
+Learn more about:
+
+- AWS S3 from the main [Amazon S3](https://aws.amazon.com/s3/) page, as well as the [Amazon S3 documentation](https://docs.aws.amazon.com/s3/).
+
+- How to create an S3 bucket from the [Amazon S3 documentation's Getting started](https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html) guide.
 
 ## Link your private storage to Buildkite Packages
 
