@@ -22,7 +22,7 @@ As a pipeline is being built, expand the relevant step and as its job is being b
 
 <%= image "terminal-button-on-job.png", alt: "Accessing the SSH button through the Buildkite UI" %>
 
-To extend the terminal session time, it is recommended to include a `sleep` [command](/docs/pipelines/command-step) within your job steps. This can help maintain an active terminal connection and prevent the session from timing out too quickly, allowing you to debug your job or investigate the environment the job is running in.
+To extend the terminal session time, it is recommended that you include a `sleep` [command](/docs/pipelines/command-step) within your job steps. This can help maintain an active terminal connection and prevent the session from timing out too quickly, allowing you to debug your job or investigate the environment the job is running in.
 
 In the example below, the job will pause for 10 minutes before continuing. Adjust the sleep duration according to your specific needs.
 
