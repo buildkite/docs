@@ -8,7 +8,7 @@ To view and copy this `curl` command:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Debian registry on this page.
-1. Select **Publish a Deb Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this curl command and submit it to publish a package to your Debian registry.
+1. Select **Publish a Debian Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this curl command and submit it to publish a package to your Debian registry.
 
 This command provides:
 
@@ -20,9 +20,9 @@ This command provides:
 The following `curl` command (modified as required before submitting) describes the process above to publish a package to your Debian registry:
 
 ```bash
-curl -X POST https://buildkitepackages.com/api/v1/repos/{org.slug}/{registry.name}/packages.json \
+curl -X POST https://api.buildkite.com/api/v2/packages/organizations/{org.slug}/registries/{registry.name}/packages \
   -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
-  -F "package[package_file]=@<path_to_file>"
+  -F "file=@<path_to_file>"
 ```
 
 where:
@@ -31,16 +31,16 @@ where:
 
 <%= render_markdown partial: 'packages/debian_registry_name' %>
 
-- `$REGISTRY_WRITE_TOKEN` is the Buildkite Packages-generated API token required to publish/upload packages to your Debian registry.
+- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Debian registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
 
 <%= render_markdown partial: 'packages/path_to_file' %>
 
 For example, to upload the file `my-deb-package_1.0-2_amd64.deb` from the current directory to the **My-Debian-packages** registry in the **My organization** Buildkite organization, run the `curl` command:
 
 ```bash
-curl -X POST https://buildkitepackages.com/api/v1/repos/my-organization/my-debian-packages/packages.json \
+curl -X POST https://api.buildkite.com/api/v2/packages/organizations/my-organization/registries/my-debian-packages/packages \
   -H "Authorization: Bearer $REPLACE_WITH_MY_REGISTRY_WRITE_TOKEN" \
-  -F "package[package_file]=@my-deb-package_1.0-2_amd64.deb"
+  -F "file=@my-deb-package_1.0-2_amd64.deb"
 ```
 
 ## Access a package's details
@@ -78,16 +78,14 @@ This code snippet is based on this format:
 
 ```bash
 apt update
-type -p curl >/dev/null || apt install curl -y
-type -p gpg >/dev/null || apt install gpg -y
-curl -fsSL "https://{registry.read.token}@buildkitepackages.com/{org.slug}/{registry.name}/gpgkey" | gpg --dearmor -o /etc/apt/keyrings/{org.slug}_{registry.name}-archive-keyring.gpg
-curl -sfSL "https://{registry.read.token}@buildkitepackages.com/install/repositories/{org.slug}/{registry.name}/config_file.list?source=buildkite&name=${HOSTNAME}" > /etc/apt/sources.list.d/buildkite-{org.slug}-{registry.name}.list
-apt update && apt install my-deb-package-name
+type -p ca-certificates >/dev/null || apt install ca-certificates -y
+echo -e "deb [trusted=yes] https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.name}/any/ any main\ndeb-src [trusted=yes] https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.name}/any/ any main" > /etc/apt/sources.list.d/buildkite-{org.slug}-{registry.name}.list
+apt update && apt install jake
 ```
 
 where:
 
-- `{registry.read.token}` is the Buildkite Packages-generated API token required to download packages from your Debian registry. This URL component, along with the following `@` are not required for registries that are publicly accessible.
+- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) used to download packages from your Debian registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
 
 <%= render_markdown partial: 'packages/org_slug' %>
 

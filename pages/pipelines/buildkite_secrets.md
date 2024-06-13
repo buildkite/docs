@@ -1,6 +1,6 @@
 # Buildkite secrets
 
-_Buildkite Secrets_ is a secrets management encrypted key-value store service offered by Buildkite for use by the Buildkite Agent. These secrets can be accessed using the [`buildkite-agent secret get` command](/docs/agent/v3/cli-secret). The secrets are encrypted both at rest and in transit, and are decrypted on Buildkite's application servers when accessed by the agent.
+_Buildkite secrets_ is a secrets management encrypted key-value store service offered by Buildkite for use by the Buildkite Agent. These secrets can be accessed using the [`buildkite-agent secret get` command](/docs/agent/v3/cli-secret). The secrets are encrypted both at rest and in transit, and are decrypted on Buildkite's application servers when accessed by the agent.
 
 Buildkite secrets:
 

@@ -8,8 +8,8 @@ Buildkite Packages is a product that:
 
 As well as storing a collection of packages, a registry also surfaces metadata or attributes associated with a package, such as the package's description, version, contents (files and directories), checksum details, distribution type, dependencies, and so on.
 
-> 📘 Buildkite Packages is currently in private beta
-> Please visit the [Buildkite Packages](https://buildkite.com/packages) page on our website to join the waitlist for this product and register for early access.
+> 📘 Buildkite Packages is currently in public beta
+> You can enable [Buildkite Packages](https://buildkite.com/packages) through the [**Organization Settings** page](/docs/packages/permissions#enabling-buildkite-packages).
 
 ## An introduction to packages
 
@@ -49,14 +49,14 @@ Some advanced package creation tools include:
 
 Currently, Buildkite Packages supports the following package ecosystems:
 
-- Alpine
-- Docker container images
-- Debian (deb for Debian and Ubuntu)
-- Ruby (RubyGems gem)
-- Java (Maven and Gradle)
-- JavaScript (Node.js npm)
+- Alpine (apk)
+- Container (Docker) images
+- Debian/Ubuntu (deb)
+- Java (Maven/Gradle)
+- JavaScript (npm)
 - Python (PyPI)
-- RPM (Fedora and RHEL)
+- RedHat (RPM)
+- Ruby (RubyGems)
 - Terraform modules
 
 ## Getting started tutorial

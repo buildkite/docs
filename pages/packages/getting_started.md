@@ -20,12 +20,13 @@ First, create a new JavaScript registry:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select **New registry**.
-1. On the **New Registry** page, enter the mandatory name for your registry. For example, `My JavaScript registry`.
+1. On the **New Registry** page, enter the mandatory **Name** for your registry. For example, `My JavaScript registry`.
 
     **Note:** Since registry names cannot contain spaces or punctuation, hyphens will automatically be specified when the space key is pressed, and punctuation will not be entered.
 
 1. Enter an optional **Description** for the registry, which will appear under the name of the registry item on the **Registries** page. For example, `This is an example of a JavaScript registry`.
-1. Select the required registry **Type** of **Node JS**.
+1. Select the required registry **Ecosystem** of **JavaScript (npm)**.
+1. If your Buildkite organization has the [teams feature](/docs/packages/permissions) enabled, select the relevant **Teams** to be granted access to the new JavaScript registry.
 1. Select **Create Registry**.
 
     The new JavaScript registry's details page is displayed. Selecting **Packages** in the global navigation opens the **Registries** page, where your new registry will be listed.
@@ -54,16 +55,17 @@ Then, clone the Node.js package example:
 Next, configure your Node.js environment to publish Node.js packages to [the JavaScript registry you created above](#create-a-registry):
 
 1. Access your JavaScript registry's details page. To do this, select **Packages** in the global navigation > your npm package from the list.
-1. Select **Publish a Nodejs Package** to open the dialog with code boxes.
+1. Select **Publish a JavaScript Package** to open the dialog with code boxes.
 1. Copy the `npm` command in the first code box and run it to configure your npm config settings file (`.npmrc`). This configuration allows you to publish packages to your JavaScript registry. The `npm` command has the following format:
 
     ```bash
-    npm set "//buildkitepackages.com/{org.slug}/{registry.name}/npm/:_authToken" registry-write-token
+    npm set "//packages.buildkite.com/organizations/{org.slug}/packages/registries/{registry.name}/npm/:_authToken" registry-write-token
     ```
 
     where:
     <%= render_markdown partial: 'packages/org_slug' %>
-    <%= render_markdown partial: 'packages/javascript_registry_name_and_token' %>
+    <%= render_markdown partial: 'packages/javascript_registry_name' %>
+    <%= render_markdown partial: 'packages/javascript_registry_write_token' %>
 
     **Note:**
     * If your `.npmrc` file doesn't exist, this command will automatically create it for you.
@@ -82,7 +84,7 @@ Next, configure your Node.js environment to publish Node.js packages to [the Jav
       },
       "author": "A Person",
       "license": "MIT",
-      "publishConfig": {"registry": "https://buildkitepackages.com/{org.slug}/{registry.name}/npm/"}
+      "publishConfig": {"registry": "https://packages.buildkite.com/organizations/{org.slug}/packages/registries/{registry.name}/npm/"}
     }
     ```
 

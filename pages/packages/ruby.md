@@ -19,30 +19,13 @@ These file configurations contain the following:
 
 The following subsections describe the processes in the code boxes above.
 
-### Using a single command
-
-The following `gem` command (modified as required before submitting) describes the process for publishing a package to your Ruby registry:
-
-```bash
-GEM_HOST_API_KEY="registry-write-token" gem push --host="https://buildkitepackages.com/{org.slug}/{registry.name}" *.gem
-```
-
-where:
-<%= render_markdown partial: 'packages/ruby_registry_write_token' %>
-<%= render_markdown partial: 'packages/org_slug' %>
-<%= render_markdown partial: 'packages/ruby_registry_name' %>
-
-### Using configuration files
-
-This option allows you to use simpler `gem` commands to publish your Ruby (gem) packages after implementing the required configuration file changes:
-
 1. Copy the following set of commands, paste them and modify as required before submitting to create your `~/.gem/credentials` file:
 
     ```bash
     mkdir ~/.gem
     touch ~/.gem/credentials
     chmod 600 ~/.gem/credentials
-    echo "https://buildkitepackages.com/{org.slug}/{registry.name}: registry-write-token" >> ~/.gem/credentials
+    echo "https://packages.buildkite.com/{org.slug}/{registry.name}: registry-write-token" >> ~/.gem/credentials
     ```
 
     where:
@@ -55,7 +38,7 @@ This option allows you to use simpler `gem` commands to publish your Ruby (gem) 
 1. Copy the following code snippet and paste it to modify the `allowed_push_host` line of your Ruby (gem) package's `.gemspec` file:
 
     ```conf
-    spec.metadata["allowed_push_host"] = "https://buildkitepackages.com/{org.slug}/{registry.name}"
+    spec.metadata["allowed_push_host"] = "https://packages.buildkite.com/{org.slug}/{registry.name}"
     ```
 
     **Note:** This configuration prevents your Ruby package accidentally being published to the main [RubyGems registry](https://rubygems.org/).
@@ -110,7 +93,7 @@ This code snippet is based on this format:
 
 ```bash
 gem install gem-package-name -v version.number \
-  --clear-sources --source https://{registry.read.token}@buildkitepackages.com/{org.slug}/{registry.name}
+  --clear-sources --source https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.name}
 ```
 
 where:
@@ -119,7 +102,7 @@ where:
 
 - `version.number` is the version of your RubyGems gem package
 
-- `{registry.read.token}` is the Buildkite Packages-generated API token required to download packages from your Ruby registry. This URL component, along with the following `@` are not required for registries that are publicly accessible.
+- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) used to download packages to your Ruby registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
 
 <%= render_markdown partial: 'packages/org_slug' %>
 
