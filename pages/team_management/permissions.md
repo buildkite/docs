@@ -34,6 +34,9 @@ A user who is a _Buildkite organization administrator_ can access the [**Organiz
 
     * Create a new team, using the **New Team** button.
     * Administer (with full control) the [team-](#manage-teams-and-permissions-team-level-permissions), [pipeline-](#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/test-analytics/permissions#manage-teams-and-permissions-test-suite-level-permissions) and [registry-](/docs/packages/permissions#manage-teams-and-permissions-registry-level-permissions)level settings throughout their Buildkite organization.
+
+        **Note:** Registry-level settings are only available once [Buildkite Packages has been enabled](/docs/packages/permissions#enabling-buildkite-packages).
+
     * Delete an existing team, by selecting the team > **Settings** tab > **Delete Team** button.
     * [Enable](#manage-teams-and-permissions) and disable the teams feature for their organization. This feature can only be disabled once all teams have been deleted from the organization (including the automatically-created **Everyone** team) using the **Disable Teams** button on the **Teams** page. Once the teams feature has been disabled, it can be [re-enabled](#manage-teams-and-permissions) at any time.
 
@@ -62,6 +65,8 @@ A user who is a _team maintainer_ on an existing team can:
 
         To do this, select the appropriate tab (**Pipelines**, **Test Suites** or **Package Registries**) and then select the required permission for the item, although be aware of the [caveat below](#changing-full-access-permissions-on-pipelines-test-suites-and-registries).
 
+        **Note:** Managing team permissions for registries is only available once [Buildkite Packages has been enabled](/docs/packages/permissions#enabling-buildkite-packages).
+
     * Edit the team's details and other settings using the **Settings** tab, which includes the ability to:
 
         - Change the team's **Visibility**.
@@ -79,7 +84,7 @@ A user who is a _team maintainer_ on an existing team can:
 
         - Delete the team, using the **Delete** button.
 
-As indicated in the Buildkite interface, a user who is in a team is known as a **Team Member**, and such users have fewer permissions within the team than a **Team Maintainer**.
+As indicated in the Buildkite interface, a user who is in a team is known as a **Team Member**, and such users have fewer permissions within the team (that is, no team management capabilities) than a **Team Maintainer**.
 
 All team members in a team have the same level of access to the [pipelines](#manage-teams-and-permissions-pipeline-level-permissions), [test suites](/docs/test-analytics/permissions#manage-teams-and-permissions-test-suite-level-permissions), and [registries](/docs/packages/permissions#manage-teams-and-permissions-registry-level-permissions) in the team. If you need to have more fine grained control over the pipelines, test suites or registries in a team, you can create more teams with different permissions.
 
