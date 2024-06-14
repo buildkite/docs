@@ -145,7 +145,6 @@ they are run as part of each job:
 | `pre-artifact`  | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-plugin">Plugin (vendored)</span> | Runs before artifacts are uploaded, if an artifact upload pattern was defined for the job. | :heavy_check_mark: |
 | `post-artifact` | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-plugin">Plugin (vendored)</span> | Runs after artifacts have been uploaded, if an artifact upload pattern was defined for the job. | :x: |
 | `pre-exit`      | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-plugin">Plugin (vendored)</span> | Runs before the job finishes. Useful for performing cleanup tasks. | :heavy_check_mark: |
-{: class="table table--no-wrap"}
 
 ### Hook exceptions
 
