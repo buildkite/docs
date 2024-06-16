@@ -23,6 +23,7 @@ You might consider creating a new pipeline to automatically upload your TESTOWNE
 
 ```bash
 # This is a comment.
+# Only Buildkite teams can be specified as test owners.
 # Each line is a file pattern followed by one or more team slugs.
 
 # These teams will be the owners for everything in
@@ -37,15 +38,13 @@ You might consider creating a new pipeline to automatically upload your TESTOWNE
 # to the test-analytics team and not team-slug-1.
 *_spec.rb test-analytics #This is an inline comment.
 
-# Only Buildkite teams can be specified as test owners. Teams should
-# be identified by their slug. Teams must have
-# explicit access to the suite the test belongs to. In this example,
-# the pipelines team owns all .rb files.
+# Teams must have explicit access to the suite the test belongs to.
+# In this example, the pipelines team owns all .rb files.
 *.rb pipelines
 
-# In this example, packages owns any files in the spec/packages/
-# directory at the root of the test directory and any of its
-# subdirectories.
+# In this example, the packages team owns any files in the
+# spec/packages/ directory at the root of the test directory and
+# any of its subdirectories.
 /spec/packages/ packages
 
 # The `spec/features/*` pattern will match files like
@@ -104,8 +103,8 @@ A TESTOWNER file [follows the same rules as a `.gitignore` or `CODEOWNERS` file]
 We do not currently support the `.gitignore` rule that allows a file path to have no corresponding team.
 
 ```bash
-# In a regular .gitignore or COEDOWNER file, the following
-# block would set test-analytics as the owner of any file in the `/specs`
+# In a regular .gitignore or COEDOWNER file, the following block would
+# set the test-analytics team as the owner of any file in the `/specs`
 # directory in the root of your test directory except for the `/specs/features`
 # subdirectory, as its owners are left empty.
 
