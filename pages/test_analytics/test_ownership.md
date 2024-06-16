@@ -85,8 +85,8 @@ More than 1 team may own a test, and the order of teams in your TESTOWNER file i
 ### Why aren't my teams being assigned ownership over my tests?
 A TESTOWNER file uses Buildkite team slugs instead of user names. Your team slug will be your team name in kebab-case. You can view your teams in your organization settings, or fetch them from our API:
 
-- [List teams from REST API](/docs/apis/rest_api/teams)</li>
-- [List teams from GraphQL API](/docs/apis/graphql/schemas/object/team)</li>
+- [List teams from REST API](/docs/apis/rest_api/teams)
+- [List teams from GraphQL API](/docs/apis/graphql/schemas/object/team)
 
 ```bash
 # Example team name to slug
