@@ -30,12 +30,12 @@ You might consider creating a new pipeline to automatically upload your TESTOWNE
 # become the default owner for tests in this directory. Unless
 # a later match takes precedence, team-slug-1 will have any
 # flaky tests assigned to them by default.
-*       team-slug-1 team-slug-2
+* team-slug-1 team-slug-2
 
 # Order is important; the last matching pattern takes the most
 # precedence. Any test file ending with _spec.rb will be assigned
 # to the test-analytics team and not team-slug-1.
-*_spec.rb    test-analytics #This is an inline comment.
+*_spec.rb test-analytics #This is an inline comment.
 
 # Only Buildkite teams can be specified as test owners. Teams should
 # be identified by their slug. Teams must have
@@ -51,7 +51,7 @@ You might consider creating a new pipeline to automatically upload your TESTOWNE
 # The `spec/features/*` pattern will match files like
 # `spec/features/application_spec.rb` but not further nested files like
 # `spec/features/pipelines/application_spec.rb`.
-spec/features/*  test-analytics
+spec/features/* test-analytics
 
 # In this example, pipelines owns any file in a pipelines directory
 # anywhere in your test directory.
