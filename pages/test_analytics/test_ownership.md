@@ -1,7 +1,7 @@
 # Test ownership
 Test ownership is critical to adopting a healthy testing culture at your organization. By defining test owners, your teams will become accountable for maintaining a fast and reliable test suite, ensuring confidence when you deploy your code.
 
-Customers on the [Pro and Enterprise plans](https://buildkite.com/pricing) can assign test ownership to [Teams](/docs/team-management/permissions).
+Customers on the [Pro and Enterprise plans](https://buildkite.com/pricing) can assign test ownership to [teams](/docs/test-analytics/permissions#manage-teams-and-permissions).
 
 Test ownership is managed via team assignments in a TESTOWNER file. The team that is the default owner of a test [will be automatically assigned flaky tests](/docs/test-analytics/flaky-test-assignment) to triage.
 
@@ -94,7 +94,7 @@ Test Analytics => test-analytics
 📦 Packages => packages
 ```
 
-Additionally, Teams listed in your TESTOWNERS file must have [permission to access the suite](/docs/test-analytics/permissions#manage-teams-and-permissions) before ownership records are created.
+Additionally, the teams listed in your TESTOWNERS file must have [permission to access the suite](/docs/test-analytics/permissions#manage-teams-and-permissions-test-suite-level-permissions) before ownership records are created.
 
 ## Troubleshooting
 
