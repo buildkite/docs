@@ -1,5 +1,6 @@
 # Test ownership
-Test ownership is critical to adopting a healthy testing culture at your organization. By defining test owners, your teams will become accountable for maintaining a fast and reliable test suite, ensuring confidence when you deploy your code.
+
+Test ownership is critical in adopting a healthy testing culture at your organization. Defining one or more teams as test owners allows these teams to become accountable for maintaining a fast and reliable test suite, ensuring confidence when you deploy your code.
 
 Customers on the [Pro and Enterprise plans](https://buildkite.com/pricing) can assign test ownership to [teams](/docs/test-analytics/permissions#manage-teams-and-permissions).
 
@@ -76,12 +77,15 @@ pipelines/ pipelines
 ## FAQs
 
 ### Can multiple suites use the same TESTOWNER file?
+
 Yes, there's nothing stopping you from uploading the same file to multiple suites. A suite only has one active TESTOWNER file at a time.
 
 ### Can more than one team own a test?
-More than 1 team may own a test, and the order of teams in your TESTOWNER file is important. The first team listed will be the default owner, and they will be auto-assigned to the test if it flakes. Any team with suite access can override this auto-assignment.
+
+More than one team may own a test, and the order of teams in your TESTOWNER file is important. The first team listed will be the default owner, and they will be auto-assigned to the test if it flakes. Any team with suite access can override this auto-assignment.
 
 ### Why aren't my teams being assigned ownership over my tests?
+
 A TESTOWNER file uses Buildkite team slugs instead of user names. Your team slug will be your team name in kebab-case. You can view your teams in your organization settings, or fetch them from our API:
 
 - [List teams from REST API](/docs/apis/rest_api/teams)
