@@ -332,8 +332,12 @@
       children:
         - name: "Overview"
           path: "pipelines/security/overview"
-        - name: "Managing secrets"
-          path: "pipelines/security/managing-secrets"
+        - name: "Secrets"
+          children:
+          - name: "Managing"
+            path: "pipelines/security/managing-secrets"
+          - name: "Management risks"
+            path: "pipelines/security/secret-management-risks"
         - name: "Incoming webhooks"
           path: "pipelines/security/incoming-webhooks"
         - name: "Audit log"
