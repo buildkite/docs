@@ -153,7 +153,7 @@ redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_ACCESS_KEY, *_SECRET_KEY, *_CONN
 ```
 
 >📘 Setting environment variables
-> Note that if you <emphasis>set</emphasis> or <emphasis>interpolate</emphasis> a secret environment variable in your <code>pipeline.yml</code> it is not redacted, but doing that is <a href="/docs/pipelines/security/managing-secrets#anti-pattern-storing-secrets-in-your-pipeline-dot-yml">not recommended</a>.
+> Note that if you <emphasis>set</emphasis> or <emphasis>interpolate</emphasis> a secret environment variable in your <code>pipeline.yml</code> it is not redacted, but doing that is <a href="/docs/pipelines/security/secret-management-risks#anti-pattern-storing-secrets-in-your-pipeline-dot-yml">not recommended</a>.
 
 ## Private build log archive storage
 
