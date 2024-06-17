@@ -11,7 +11,7 @@ To enable assignments, you must have at least one team that has access to your s
 
 ## Assigning a test
 
-When viewing your flaky tests, you should now see a list of teams with suite access permissions listed inside the manage flaky dropdown. From here you may assign, reassign or remove the assignment.
+When viewing your flaky tests, you should now see a list of teams with suite access permissions listed inside the flaky management dropdown. From here you may assign, reassign or remove the assignment.
 
 > 🚧 Assignment permissions
 > All team members have the ability to create, update or remove an assignment. This feature is not restricted to admins.
@@ -22,7 +22,7 @@ Tests that are assigned to a team will be updated to display a badge indicating 
 
 ## Resolving a flaky test
 
-From the manage flaky dropdown, you can resolve your flaky test. Resolving a flaky test removes its current assignment and assigns a 'Marked as resolved' badge within the flaky index. If the test flakes again, it will be considered a 'Reoccurring flaky' and will receive a corresponding badge in the index.
+From the flaky management dropdown, you can resolve your flaky test. Resolving a flaky test will remove the test from **My Assignments**. The flake will still appear on the flaky page, and display a **Marked as resolved** badge within the flaky index. If the test flakes again, it will be considered a **Reoccurring flaky** and will receive a corresponding badge in the index.
 
 <%= image "flaky-test-resolution.png", width: 1960/2, height: 630/2, alt: "Flaky test page showing resolved and reoccurring badges" %>
 
