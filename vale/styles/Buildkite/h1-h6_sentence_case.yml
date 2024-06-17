@@ -144,6 +144,7 @@ exceptions:
   - SSH
   - SSO
   - Test Analytics
+  - TESTOWNER
   - Ubuntu
   - URL
   - URL(s)
