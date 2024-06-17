@@ -47,9 +47,9 @@ You might consider creating a new pipeline to automatically upload your TESTOWNE
 # In this example, the `pipelines` team owns all `.rb` test files.
 *.rb                  pipelines
 
-# In this example, the `packages` team owns any test test files in
-# the `spec/packages/` directory at the root of the test location
-# and in any of its subdirectories.
+# In this example, the `packages` team owns any test files in the
+# `spec/packages/` directory at the root of the test location and
+# in any of its subdirectories.
 /spec/packages/       packages
 
 # In this example, the `spec/features/*` pattern matches test files
