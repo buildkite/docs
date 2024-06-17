@@ -114,7 +114,7 @@ To get UUIDs of the jobs in a build, you can use the following query.
 
 ```graphql
 query GetJobsUUID {
-  build(slug: "org-slug/build-slug/build-number") {
+  build(slug: "org-slug/pipeline-slug/build-number") {
     jobs(first: 1) {
       edges {
         node {
