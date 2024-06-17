@@ -22,7 +22,7 @@ Tests that are assigned to a team will be updated to display a badge indicating 
 
 ## Resolving a flaky test
 
-From the flaky management dropdown, you can resolve your flaky test. Resolving a flaky test will remove the test from **My Assignments** and display a **Marked as resolved** badge within the flaky index. If the test flakes again, it will be considered a **Reoccurring flaky** and will receive a corresponding badge in the index.
+From the flaky management dropdown, you can resolve your flaky test. Resolving a flaky test will remove the test from **My Assignments** and display a **Marked as resolved** badge within the flaky index. The test will stay in the flaky index until it has not flaked within 7 days. If the test flakes again, it will be considered a **Reoccurring flaky** and will receive a corresponding badge in the index.
 
 <%= image "flaky-test-resolution.png", width: 1960/2, height: 630/2, alt: "Flaky test page showing resolved and reoccurring badges" %>
 
