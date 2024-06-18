@@ -176,7 +176,7 @@ the latter of which would only work in your local Buildkite Docs development ser
 #### Internal anchor links
 
 From within the Buildkite Docs, when linking to headings on other pages within the Buildkite docs, when linking to an H2-level heading, append the section's name (in [kebab case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) following a `#`) to the main page link. For example:
-`/docs/pipelines/secrets` will contain `/docs/pipelines/secrets#using-a-secrets-storage-service`. These parts of URLs downstream of (and including) the `#` are known as URL fragments.
+`/docs/pipelines/secrets/managing` will contain `/docs/pipelines/secrets/managing#using-a-secrets-storage-service`. These parts of URLs downstream of (and including) the `#` are known as URL fragments.
 
 When linking to an H3-level heading, start with an H2-level anchor link. Such links are generated automatically from the section title, and are viewable in the `#` that appears when you hover your mouse pointer over the heading. Add a `-` to the H2-level anchor link, and append the full name of the H3-level title to it (again in kebab case). The result will be a longer link. For example:
 
