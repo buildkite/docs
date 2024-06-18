@@ -1,4 +1,4 @@
-# Secret management risks
+# Risk considerations
 
 This page covers some of the risks associated with managing secrets with Buildkite Pipelines, and _practices you should avoid_ to mitigate these risks.
 

@@ -37,7 +37,7 @@ By default, after you've added an Integration API Key, Buildkite will send Pager
 
 Add the PagerDuty [Integration API Key](#generating-a-pagerduty-integration-api-key) to the [`notify` attribute](/docs/pipelines/notifications) of your build configuration.
 
-Make sure that you're using a secure secrets management solution to handle the PagerDuty Integration key, and never commit it in plaintext to source control in a YAML file. See [Managing pipeline secrets](/docs/pipelines/security/managing-secrets) for more information on safely handling secrets within your infrastructure.
+Make sure that you're using a secure secrets management solution to handle the PagerDuty Integration key, and never commit it in plaintext to source control in a YAML file. See [Managing pipeline secrets](/docs/pipelines/security/secrets/managing) for more information on safely handling secrets within your infrastructure.
 
 ```yaml
 steps:

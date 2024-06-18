@@ -252,7 +252,7 @@ If your agents are running outside of AWS, or you're unable to use an instance
 profile, you can export
 [long lived credentials](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
 belonging to an IAM user using one of the environment variable groups listed
-above. See the [Managing pipeline secrets](/docs/pipelines/security/managing-secrets)
+above. See the [Managing pipeline secrets](/docs/pipelines/security/secrets/managing)
 documentation for how to securely set up these environment variables.
 
 ### Access control
