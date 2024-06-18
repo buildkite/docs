@@ -74,7 +74,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/uploading-pipelines",      to: redirect("/docs/pipelines/defining-steps")
   get "/docs/pipelines/security-overview",        to: redirect("/docs/pipelines/security/overview")
   get "/docs/pipelines/secrets",                  to: redirect("/docs/pipelines/security/secrets/managing")
-  get "/docs/pipelines/managing-secrets",         to: redirect("/docs/pipelines/security/secrets/managing")
+  get "/docs/pipelines/security/managing-secrets",to: redirect("/docs/pipelines/security/secrets/managing")
   get "/docs/pipelines/incoming-webhooks",        to: redirect("/docs/pipelines/security/incoming-webhooks")
   get "/docs/pipelines/audit-log",                to: redirect("/docs/pipelines/security/audit-log")
   get "/docs/projects",                           to: redirect("/docs/pipelines")
