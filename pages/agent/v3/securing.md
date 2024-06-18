@@ -31,7 +31,6 @@ Once disabled your build steps will need to be checked into your repository as s
 
 This option is intended to protect your infrastructure from a scenario where Buildkite itself gets compromised, and subsequently sends malicious commands to your agents. It is not designed, nor effective at protecting against malicious actors with commit access to your repositories.
 
-
 Command line evaluation can be disabled by setting [`no-command-eval`](/docs/agent/v3/configuration#no-command-eval):
 
 * Environment variable: `BUILDKITE_NO_COMMAND_EVAL=1`
@@ -50,6 +49,15 @@ As plugins execute in the same way as local hooks, they can pose a potential sec
 You can disable plugins with the command line flag: `--no-plugins` or the [`no-plugins`](/docs/agent/v3/configuration#no-plugins) setting.
 
 If you still want to use plugins, you can check out a tool for [signing pipelines](/docs/agent/v3/securing#signing-pipelines).
+
+## Allowing a list of plugins
+
+Defining an [environment hook](hooks#job-lifecycle-hooks) in the
+[agent `hooks-path`](hooks#hook-locations-agent-hooks), you can create a
+list of plugins that an agent is allowed to run by inspecting the
+`BUILDKITE_PLUGINS` [environment variable](https://buildkite.com/docs/pipelines/environment-variables).
+For an example of this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example)
+repository on GitHub.
 
 ## Disabling local hooks
 
@@ -122,15 +130,6 @@ But also remember that some [environment variables may be essential](/docs/pipel
 ## Signing pipelines
 
 You can sign the steps your pipeline runs for extra security. This allows the agent to verify that the steps it runs haven't been tampered with or smuggled from one pipeline to another. For more information, see [Signed pipelines](/docs/agent/v3/signed-pipelines).
-
-## Allowing a list of plugins
-
-Defining an [environment hook](hooks#job-lifecycle-hooks) in the
-[agent `hooks-path`](hooks#hook-locations-agent-hooks), you can create a
-list of plugins that an agent is allowed to run by inspecting the
-`BUILDKITE_PLUGINS` [environment variable](https://buildkite.com/docs/pipelines/environment-variables).
-For an example of this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example)
-repository on GitHub.
 
 ## Customizing the bootstrap
 
