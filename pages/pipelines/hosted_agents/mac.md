@@ -35,14 +35,13 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ### Xcode
 
-- Xcode 16.1 (Build 16A5171c)
-- Xcode 15.4 (Build 15F5021i)
-- Xcode 15.4 (Build 15F31d)
-- Xcode 15.3 (Build 15E204a)
-- Xcode 15.3 (Build 15E204a)
-- Xcode 15.2 (Build 15C500b)
-- Xcode 15.1 (Build 15C65)
-- Xcode 14.3.1 (Build 14E300c)
+- Xcode 16.1 (Beta 1 Build 16A5171c)
+- Xcode 15.4 (Release Build 15F31d)
+- Xcode 15.4 (Beta 1 Build 15F5021i)
+- Xcode 15.3 (Release Build 15E204a)
+- Xcode 15.2 (Release Build 15C500b)
+- Xcode 15.1 (Release Build 15C65)
+- Xcode 14.3.1 (Release Build 14E300c)
 
 ### Apple runtimes
 
