@@ -1,10 +1,10 @@
 # Managing pipeline secrets
 
-When you need to use secret values in your pipelines, there are some best practices you should follow to ensure they stay safely within your infrastructure and are never stored in, or sent to, Buildkite.
+This page provides guidance on best practices for managing your secrets in a [hybrid Buildkite architecture](/docs/tutorials/getting-started#understand-the-architecture) with self-hosted agents. These secrets may be required by your Buildkite pipelines to access 3rd party systems as part of your build or deployment processes. However, these best practice guidelines help ensure that your secrets stay safely within your infrastructure and are never stored in, or sent to Buildkite.
 
 ## Using a secrets storage service
 
-A best practice for secret storage is to use your own secrets storage service, such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [Hashicorp Vault](https://www.vaultproject.io).
+The best practice for managing secrets with Buildkite is to house your secrets within your own secrets storage service, such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [Hashicorp Vault](https://www.vaultproject.io).
 
 Buildkite provides various [plugins](/docs/plugins) that integrate reading and exposing secrets to your build steps using secrets storage services, such as the following. If a plugin for the service you use is not listed below or in [Buildkite's plugins directory](/docs/plugins/directory), please contact support.
 
@@ -19,9 +19,13 @@ Buildkite provides various [plugins](/docs/plugins) that integrate reading and e
     </tbody>
 </table>
 
-## Exporting secrets with environment hooks
+## Without a secrets storage service
 
-If you don't use a secrets storage service, then you can use the Buildkite agent's `environment` hook to export secrets to a job.
+While using a [secrets storage service](#using-a-secrets-storage-service) is the best practice for managing your secrets, if you don't or cannot use such a service, this section provides alternative approaches to managing your pipeline secrets with self-hosted agents.
+
+### Exporting secrets with environment hooks
+
+You can use the Buildkite agent's `environment` hook to export secrets to a job.
 
 The `environment` hook is a shell script that is sourced at the beginning of a job.
 It runs within the job's shell, so you can use it to conditionally run commands and export secrets within the job.
@@ -67,9 +71,9 @@ fi
 The script exports `SECRET_DEPLOYMENT_ACCESS_TOKEN` only for the named pipeline and step.
 Since this script runs for every job, you can extend it to selectively export all of the secrets used on that agent.
 
-## Storing secrets with the Elastic CI Stack for AWS
+### Storing secrets with the Elastic CI Stack for AWS
 
-To store secrets when using the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws), place them inside your stack's encrypted S3 bucket.
+When using the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) with your own AWS account and environment, you can store your secrets inside your stack's encrypted S3 bucket.
 Unlike hooks defined in [agent `hooks-path`](/docs/agent/v3/hooks#hook-locations-agent-hooks),
 the Elastic CI Stack for AWS's `env` hooks are defined per-pipeline.
 
