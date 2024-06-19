@@ -27,7 +27,7 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ### System software
 
-- macOS 14.1 (Build 23B74)
+- macOS 14.4.1 (Build 23E224)
 - Darwin Kernel 23.1.0
 - Rosetta 2
 - Bash 3.2.57
@@ -35,6 +35,7 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ### Xcode
 
+- Xcode 16.1 (Build 16A5171c)
 - Xcode 15.4 (Build 15F5021i)
 - Xcode 15.4 (Build 15F31d)
 - Xcode 15.3 (Build 15E204a)
