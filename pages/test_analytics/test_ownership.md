@@ -31,16 +31,17 @@ The following example TESTOWNERS file, which you can copy as a starting point, e
 # Teams must have explicit access to the suite the test belongs to.
 # Each line is a file pattern followed by one or more team slugs.
 
-# The following example team will be the test owner for all test
+# The following example teams will be the test owners for all test
 # location metadata (that is, test files) from your pipeline builds
-# in this repository. The team specified for this file pattern
-# becomes the default owner for all test files from your pipeline
-# builds. Any file pattern matches defined later in this file take
-# precedence and override any file patterns defined further up this
-# file. Therefore, unless a subsequent file pattern match takes
+# in this repository. While both these example teams own these
+# tests, the first team specified in this file pattern becomes the
+# default owner for all test files from your pipeline builds. Any
+# file pattern matches defined later in this file take precedence
+# and override any file patterns defined further up this file.
+# Therefore, unless a subsequent file pattern match takes
 # precedence, `team-slug-1` will have any flaky tests assigned to
 # them by default.
-*                     team-slug-1
+*                     team-slug-1 team-slug-2
 
 # In this example, any test file ending with `_spec.rb` will be
 # assigned to the `test-analytics` team and not `team-slug-1`.
