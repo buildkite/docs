@@ -35,8 +35,13 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ### Xcode
 
-- Xcode 14.3.1
-- Xcode 15.2
+- Xcode 15.4 (15F5021i)
+- Xcode 15.4 (15F31d)
+- Xcode 15.3 (15E204a)
+- Xcode 15.3 (15E204a)
+- Xcode 15.2 (15C500b)
+- Xcode 15.1 (15C65)
+- Xcode 14.3.1 (14E300c)
 
 ### Apple runtimes
 
