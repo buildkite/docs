@@ -9,8 +9,7 @@ example.
 
 ## Uploading artifacts
 
-You can use this command in your build scripts to store artifacts. Artifacts are
-accessible using the web interface and can be downloaded by future build steps.
+You can use this command in your build scripts to store artifacts. Artifacts are accessible using the web interface and can be downloaded by future build steps.
 Artifacts can be stored in the Buildkite-managed artifact store (a hard limit for artifact upload size is 5Gb for each upload), or your own storage location, depending on how you have configured your Buildkite Agent.
 
 For documentation on configuring a custom storage location, see:
