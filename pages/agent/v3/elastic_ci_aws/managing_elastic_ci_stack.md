@@ -197,3 +197,37 @@ You can assess and monitor health and proper function of the Elastic CI Stack fo
 * **CloudWatch Metrics** the Buildkite namespace contains `ScheduledJobsCount`, `RunningJobsCount`, and `WaitingJobsCount` measurements for the Buildkite Queue your Elastic CI Stack for AWS was configured to poll. These numbers are fed to the Auto Scaling group by the scaling Lambda.
 
 * **CloudWatch Logs** log streams for the Buildkite agent and EC2 Instance system console.
+
+## IPv6
+
+The elastic stack works with IPv4-only, IPv6-only and dual stack VPC configurations. For best compatibility in IPv6-only and dual stack configurations we recommend versions 6.22.0 or better.
+
+By default the stack will create an IPv4 only VPC. For IPv6 support, manually create a VPC with the required configuration and configure the elastic stack to use it via the following Cloud Formation parameters:
+
+* `VpcId` - the ID of the VPC
+* `Subnets` - a comma separated list of one or more subnets to create instances in. Must belong to the same VPC reference by `VpcId`
+* `DockerNetworkingProtocol` - if your builds use docker, choose `dualstack` so docker containers are created with IPv6 addresses
+
+Enabling IPv6 is a poplular way to reduce data transfer costs. CI environments often download significant data from the Internet, and IPv4 networks using a NAT Gateway incur per Gb charges that add up. Downloading data from the Internet over IPv6 is typically uncharged by AWS.
+
+### Dualstack
+
+The recommended dual IPv4/IPv6 configuration includes:
+
+* A VPC with private IPv4 CIDR of your choosing, and an IPv6 CIDR (usually assigned by AWS)
+* Public subnets, with one or more NAT gateways for transferring IPv4 traffic between the elastic stack instances and the Internet
+* Private subnets, with DNS64 disabled
+* An egress-only Internet Gateway in the public subnets
+* The elastic stack configured to run on one or more of the private subnets
+
+### IPv6 Only
+
+Most CI environemtns require access to some IPv4-only Internet resources. However it is possible to run the elastic stack instances on IPv6-only subnets in a dualstack VPC and use a NAT Gateway with DNS64 to translate traffic to the IPv4 Internet.
+
+The recommended IPv6 configuration includes:
+
+* A VPC with private IPv4 CIDR of your choosing, and an IPv6 CIDR (usually assigned by AWS)
+* Public subnets, with one or more NAT gateways for translating elastic stack instances IPV6 traffic to the IPv4 Internet
+* Private subnets, with DNS64 enabled
+* An egress-only Internet Gateway in the public subnets
+* The elastic stack configured to run on one or more of the private subnets
