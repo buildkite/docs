@@ -27,7 +27,8 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ### System software
 
-- macOS 14.4.1 (Build 23E224)
+- macOS 14.5
+- macOS 14.4.1
 - Darwin Kernel 23.1.0
 - Rosetta 2
 - Bash 3.2.57
@@ -35,9 +36,9 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ### Xcode
 
-- Xcode 16.1 (Beta 1 Build 16A5171c)
+- Xcode 16.0-Beta (Build 16A5171c)
 - Xcode 15.4 (Release Build 15F31d)
-- Xcode 15.4 (Beta 1 Build 15F5021i)
+- Xcode 15.4-Beta (Build 15F5021i)
 - Xcode 15.3 (Release Build 15E204a)
 - Xcode 15.2 (Release Build 15C500b)
 - Xcode 15.1 (Release Build 15C65)
@@ -45,13 +46,29 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ### Apple runtimes
 
+- iOS 15.5
 - iOS 16.4
 - iOS 17.2
+- iOS 17.4
+- iOS 17.5-beta2
+- iOS 17.5
+- iOS 18.0-beta2
 - watchOS 9.4
 - watchOS 10.2
+- watchOS 10.4
+- watchOS 10.5-beta2
+- watchOS 10.5
+- watchOS 11.0-beta
 - tvOS 16.4
 - tvOS 17.2
+- tvOS 17.4
+- tvOS 17.5-beta2
+- tvOS 17.5
+- tvOS 18.0-beta2
 - visionOS 1.0
+- visionOS 1.1
+- visionOS 1.2
+- visionOS 2.0-beta
 
 ### Other languages and compilers
 
