@@ -861,6 +861,7 @@ enum AuditEventType {
   ORGANIZATION_BUILD_EXPORT_UPDATED
   ORGANIZATION_CREATED
   ORGANIZATION_DELETED
+  ORGANIZATION_IMPERSONATION_REQUEST_APPROVED
   ORGANIZATION_INVITATION_ACCEPTED
   ORGANIZATION_INVITATION_CREATED
   ORGANIZATION_INVITATION_RESENT
@@ -978,7 +979,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | Registry | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | Registry | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -996,6 +997,7 @@ enum AuditSubjectType {
   NOTIFICATION_SERVICE
   ORGANIZATION
   ORGANIZATION_BANNER
+  ORGANIZATION_IMPERSONATION_REQUEST
   ORGANIZATION_INVITATION
   ORGANIZATION_MEMBER
   PIPELINE
@@ -5702,6 +5704,17 @@ type OrganizationEnforceTwoFactorAuthenticationForMembersUpdateMutationPayload {
   """
   clientMutationId: String
   organization: Organization!
+}
+
+"""
+A request made by Buildkite to impersonate a user in an organization
+"""
+type OrganizationImpersonationRequest {
+  approvedAt: DateTime
+  createdAt: DateTime
+  duration: String
+  reason: String
+  uuid: String!
 }
 
 """
