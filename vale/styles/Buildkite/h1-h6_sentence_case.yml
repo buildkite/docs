@@ -48,6 +48,7 @@ exceptions:
   - Buildkite Agent
   - Buildkite Agents
   - Buildkite Packages
+  - Buildkite Pipelines
   - buildkite-agent
   - BuildNotify
   - BuildReactor
@@ -133,6 +134,7 @@ exceptions:
   - READ_ONLY
   - Red Hat
   - Red Hat Enterprise Linux
+  - Registry Configuration
   - REST
   - RSpec
   - SAML
@@ -142,6 +144,7 @@ exceptions:
   - SSH
   - SSO
   - Test Analytics
+  - TESTOWNER
   - Ubuntu
   - URL
   - URL(s)

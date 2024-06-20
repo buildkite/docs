@@ -854,7 +854,7 @@ Each <em>build</em> is provided with the following timestamps:
   </tr>
   <tr>
     <th><code>finished_at</code></th>
-    <td>The time the build is marked as finished (passed, failed, paused, cancelled)</td>
+    <td>The time the build is marked as finished (passed, failed, paused, canceled)</td>
   </tr>
 </tbody>
 </table>
@@ -881,7 +881,7 @@ Each <em>job</em> is provided with the same timestamps, but their values differ 
   </tr>
   <tr>
     <th><code>finished_at</code></th>
-    <td>The time the job is marked as finished (passed, failed, paused, cancelled)</td>
+    <td>The time the job is marked as finished (passed, failed, paused, canceled)</td>
   </tr>
 </tbody>
 </table>

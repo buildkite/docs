@@ -88,6 +88,9 @@ Kinds of subjects which can have audit events performed on them
 <a href="/docs/apis/graphql/schemas/object/organizationbanner" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationBanner">
   <code>OrganizationBanner</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/organizationimpersonationrequest" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationImpersonationRequest">
+  <code>OrganizationImpersonationRequest</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/organizationinvitation" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationInvitation">
   <code>OrganizationInvitation</code>
 </a>

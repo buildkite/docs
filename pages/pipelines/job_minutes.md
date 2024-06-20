@@ -27,7 +27,7 @@ Your organization's usage is also accessible in the [GraphQL API](/docs/apis/gra
 
 ## Limits for the Free Plan
 
-The Free Plan has a limit of 5,000 job minutes per month. When this limit is reached, builds are not cancelled, but jobs will not be run. The limit is reset when your billing period rolls over, or your organization is upgraded to a different plan.
+The Free Plan has a limit of 5,000 job minutes per month. When this limit is reached, builds are not canceled, but jobs will not be run. The limit is reset when your billing period rolls over, or your organization is upgraded to a different plan.
 
 ### Build timeouts
 

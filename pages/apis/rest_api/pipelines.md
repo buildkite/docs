@@ -189,6 +189,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
       "name": "My Pipeline X",
+      "cluster_id": "xxx",
       "repository": "git@github.com:acme-inc/my-pipeline.git",
       "configuration": "env:\n \"FOO\": \"bar\"\nsteps:\n - command: \"script/release.sh\"\n   \"name\": \"Build :package:\""
     }'
@@ -293,6 +294,10 @@ Required [request body properties](/docs/api#request-body-properties):
     <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
   </tr>
   <tr>
+    <th><code>cluster_id</code></th>
+    <td>The ID value of the cluster the pipeline will be associated with.<p class="Docs__api-param-eg"><em>Example:</em> <code>"Ab1Cd2Ef3Gh4Ij5Kl6Mn7Op8Qr9St0Uv10Wx11Yz12Ab1Cd2Ef3Gh4Ij5Kl6Mn=="</code></p></td>
+  </tr>
+  <tr>
     <th><code>repository</code></th>
     <td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p></td>
   </tr>
@@ -326,7 +331,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>cancel_running_branch_builds_filter</code></th>
     <td>
-      <p>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build cancelling applies to.</p>
+      <p>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to.</p>
       <p><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p>
     </td>
   </tr>
@@ -438,6 +443,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "My Pipeline",
+    "cluster_id": "xxx",
     "repository": "git@github.com:acme-inc/my-pipeline.git",
     "steps": [
       {
@@ -600,6 +606,10 @@ Required [request body properties](/docs/api#request-body-properties):
     <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
   </tr>
   <tr>
+    <th><code>cluster_id</code></th>
+    <td>The ID value of the cluster the pipeline will be associated with.<p class="Docs__api-param-eg"><em>Example:</em> <code>"Ab1Cd2Ef3Gh4Ij5Kl6Mn7Op8Qr9St0Uv10Wx11Yz12Ab1Cd2Ef3Gh4Ij5Kl6Mn=="</code></p></td>
+  </tr>
+  <tr>
     <th><code>repository</code></th>
     <td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p></td>
   </tr>
@@ -633,7 +643,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>cancel_running_branch_builds_filter</code></th>
     <td>
-      <p>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build cancelling applies to.</p>
+      <p>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to.</p>
       <p><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p>
     </td>
   </tr>
@@ -826,7 +836,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>cancel_running_branch_builds_filter</code></th>
-    <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build cancelling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
+    <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
     <th><code>cluster_id</code></th>

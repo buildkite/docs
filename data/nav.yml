@@ -339,7 +339,7 @@
         - name: "Audit log"
           path: "pipelines/security/audit-log"
         - name: "OIDC"
-          children: 
+          children:
             - name: "Overview"
               path: "pipelines/security/oidc"
             - name: "OIDC with AWS"
@@ -395,6 +395,9 @@
           path: "test-analytics/test-executions"
         - name: "Public test suites"
           path: "test-analytics/public-test-suites"
+        - name: "Test ownership"
+          pill: "beta"
+          path: "test-analytics/test-ownership"
         - name: "Flaky test assignment"
           path: "test-analytics/flaky-test-assignment"
     - name: "Languages"
@@ -443,26 +446,35 @@
       children:
         - name: "Getting started"
           path: "packages/getting-started"
-        - name: "Manage registries"
-          path: "packages/manage-registries"
+        - name: "Registries"
+          start_expanded: true
+          children:
+            - name: "Manage registries"
+              path: "packages/manage-registries"
+            - name: "Private storage"
+              path: "packages/private-storage"
+        - name: "Access control"
+          path: "packages/permissions"
     - name: "Package ecosystems"
       start_expanded: true
       children:
+        - name: "Container"
+          path: "packages/container"
         - name: "Debian"
           path: "packages/debian"
-        - name: "Ruby"
-          path: "packages/ruby"
         - name: "Java"
           start_expanded: true
           children:
-          - name: "Maven"
-            path: "packages/maven"
-          - name: "Gradle"
-            path: "packages/gradle"
+            - name: "Maven"
+              path: "packages/maven"
+            - name: "Gradle"
+              path: "packages/gradle"
         - name: "JavaScipt"
           path: "packages/javascript"
         - name: "Python"
           path: "packages/python"
+        - name: "Ruby"
+          path: "packages/ruby"
         - name: "Terraform"
           path: "packages/terraform"
 - name: "APIs"

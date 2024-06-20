@@ -7,7 +7,7 @@ Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organizatio
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X "https://api.buildkite.com/v2/organizations/{org.slug}/agents"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/agents"
 ```
 
 ```json
@@ -16,7 +16,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
     "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
     "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-    "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+    "web_url": "https://buildkite.com/organizations/my-great-org/clusters/78088c9a-6e72-4896-848d-e6f479f50c24/queues/c109939f-3b71-4cd3-b175-8eb79d2eb38e/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
     "name": "my-agent",
     "connection_state": "connected",
     "hostname": "some.server",
@@ -81,7 +81,7 @@ Returns the details for a single agent, looked up by unique ID. Any valid agents
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"
 ```
 
 ```json
@@ -89,7 +89,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
   "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
   "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-  "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+  "web_url": "https://buildkite.com/organizations/my-great-org/clusters/78088c9a-6e72-4896-848d-e6f479f50c24/queues/c109939f-3b71-4cd3-b175-8eb79d2eb38e/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
   "name": "my-agent",
   "connection_state": "connected",
   "hostname": "some.server",
@@ -143,7 +143,7 @@ Success response: `200 OK`
 > 📘 Required permissions
 > To stop an agent you need either
 - An Admin user API token with `write_agents` <a href="/docs/apis/managing-api-tokens#token-scopes">scope</a>
-- Or, if you're using <a href="/docs/team-management/permissions#member-permissions">Member Permissions</a>, a user token with the <em>Stop Agents</em> permission
+- Or, if you're using the Buildkite organization's <a href="/docs/team-management/permissions#manage-organization-security-for-pipelines">security for pipelines</a> feature, a user token with the <em>Stop Agents</em> permission.
 
 Instruct an agent to stop accepting new build jobs and shut itself down.
 

@@ -13,9 +13,10 @@ To create a new registry:
     **Note:** Any previously created registries are listed and can be accessed from this page.
 
 1. Select **New registry**.
-1. On the **New Registry** page, enter the mandatory name for your registry. Since registry names cannot contain spaces, hyphens will automatically be specified when the space key is pressed.
+1. On the **New Registry** page, enter the mandatory **Name** for your registry. Since registry names cannot contain spaces, hyphens will automatically be specified when the space key is pressed.
 1. Enter an optional **Description** for the registry. This description appears under the name of the registry item on the **Registries** page.
-1. Select the required registry **Type** based on the [package ecosystem](/docs/packages#supported-package-ecosystems) for this new registry.
+1. Select the required registry **Ecosystem** based on the [package ecosystem](/docs/packages#supported-package-ecosystems) for this new registry.
+1. If your Buildkite organization has the [teams feature](/docs/packages/permissions) enabled, select the relevant **Teams** to be granted access to the new registry.
 1. Select **Create Registry**.
 
     The new registry's details page is displayed. Selecting **Packages** in the global navigation opens the **Registries** page, where your new registry will be listed.
@@ -24,16 +25,17 @@ To create a new registry:
 
 Once a [registry is created](#create-a-registry), packages can then be uploaded to it. Learn more about how to manage packages for your registry's relevant package ecosystem:
 
-- [Debian (deb for Debian and Ubuntu)](/docs/packages/debian)
-- [Ruby (RubyGems gem)](/docs/packages/ruby)
+- [Container (Docker)](/docs/packages/container) images
+- [Debian/Ubuntu (deb)](/docs/packages/debian)
 - Java ([Maven](/docs/packages/maven) or [Gradle leveraging the Maven Publish Plugin](/docs/packages/gradle))
-- [JavaScript (Node.js npm)](/docs/packages/javascript)
+- [JavaScript (npm)](/docs/packages/javascript)
 - [Python (PyPI)](/docs/packages/python)
+- [Ruby (RubyGems)](/docs/packages/ruby)
 - [Terraform](/docs/packages/terraform) modules
 
 ## Update a registry
 
-Package registries can be updated using the package **Registries** page of the Buildkite interface, which lists all [previously created registries](#create-a-registry).
+Registries can be updated using the package **Registries** page of the Buildkite interface, which lists all [previously created registries](#create-a-registry).
 
 The following aspects of a registry can be updated:
 
@@ -61,9 +63,14 @@ To update a registry:
 
     The registry's updates will appear on the **Registries** page, as well as the registry's details page.
 
+<!--
+## Configure a registry's OIDC policy
+-->
+
+
 ## Delete a registry
 
-Package registries can be deleted using the package **Registries** page of the Buildkite interface, which lists all [previously created registries](#create-a-registry).
+Registries can be deleted using the package **Registries** page of the Buildkite interface, which lists all [previously created registries](#create-a-registry).
 
 Deleting a registry permanently deletes all packages contained within it.
 
@@ -73,3 +80,7 @@ To delete a registry:
 1. Select the registry to delete on this page.
 1. Select **Edit** > **Delete Registry**.
 1. In the confirmation dialog, enter the name of the registry, exactly as it is presented, and select **Delete Registry**.
+
+## Audit logging
+
+All events conducted through Buildkite Packages are logged through the Buildkite organization's [**Audit Log** feature](/docs/pipelines/security/audit-log).
