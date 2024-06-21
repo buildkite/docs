@@ -106,7 +106,6 @@ steps:
           - ecr#v2.9.0:
               login: true
               account-ids: public.ecr.aws
-              region: us-east-1
           - docker#v3.7.0:
               image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
 
@@ -128,7 +127,6 @@ steps:
           - ecr#v2.9.0:
               login: true
               account-ids: public.ecr.aws
-              region: us-east-1
           # Using the plain Node image, instead of the custom doc Dockerfile
           # version, is way faster because we don't have to wait for Ruby gems to
           # install.
@@ -149,7 +147,6 @@ steps:
           - ecr#v2.9.0:
               login: true
               account-ids: public.ecr.aws
-              region: us-east-1
           - docker#v3.7.0:
               image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
 
@@ -163,7 +160,6 @@ steps:
           - ecr#v2.9.0:
               login: true
               account-ids: public.ecr.aws
-              region: us-east-1
           - docker#v3.7.0:
               image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
 
@@ -177,6 +173,5 @@ steps:
           - ecr#v2.9.0:
               login: true
               account-ids: public.ecr.aws
-              region: us-east-1
           - docker#v3.7.0:
               image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
