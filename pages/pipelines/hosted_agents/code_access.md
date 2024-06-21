@@ -4,7 +4,7 @@ Natively, Buildkite hosted agents can only be used with GitHub integrated reposi
 
 To learn more about changes that may need to be completed at an individual pipeline level, see [Pipeline migration](/docs/pipelines/hosted-agents/pipeline-migration).
 
-## GitHub Private repositories
+## GitHub private repositories
 
 To use a private GitHub repository with Buildkite hosted agents, you'll need to authorize Buildkite to access your repository.
 
@@ -17,7 +17,7 @@ To use a private GitHub repository with Buildkite hosted agents, you'll need to 
 
 Buildkite does not require any special permissions to access public repositories.
 
-## Other Private repositories
+## Other private repositories
 
 There are 2 key aspects to utilizing a private repository with Buildkite hosted agents.
 
