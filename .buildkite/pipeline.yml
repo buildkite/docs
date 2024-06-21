@@ -101,6 +101,12 @@ steps:
         agents:
           queue: hosted
         plugins:
+          - aws-assume-role-with-web-identity#v1.0.0:
+              role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
+          - ecr#v2.9.0:
+              login: true
+              account-ids: public.ecr.aws
+              region: us-east-1
           - docker#v3.7.0:
               image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
 
@@ -117,6 +123,12 @@ steps:
         agents:
           queue: hosted
         plugins:
+          - aws-assume-role-with-web-identity#v1.0.0:
+              role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
+          - ecr#v2.9.0:
+              login: true
+              account-ids: public.ecr.aws
+              region: us-east-1
           # Using the plain Node image, instead of the custom doc Dockerfile
           # version, is way faster because we don't have to wait for Ruby gems to
           # install.
@@ -132,6 +144,12 @@ steps:
         agents:
           queue: hosted
         plugins:
+          - aws-assume-role-with-web-identity#v1.0.0:
+              role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
+          - ecr#v2.9.0:
+              login: true
+              account-ids: public.ecr.aws
+              region: us-east-1
           - docker#v3.7.0:
               image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
 
@@ -140,6 +158,12 @@ steps:
         agents:
           queue: hosted
         plugins:
+          - aws-assume-role-with-web-identity#v1.0.0:
+              role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
+          - ecr#v2.9.0:
+              login: true
+              account-ids: public.ecr.aws
+              region: us-east-1
           - docker#v3.7.0:
               image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
 
@@ -148,5 +172,11 @@ steps:
         agents:
           queue: hosted
         plugins:
+          - aws-assume-role-with-web-identity#v1.0.0:
+              role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
+          - ecr#v2.9.0:
+              login: true
+              account-ids: public.ecr.aws
+              region: us-east-1
           - docker#v3.7.0:
               image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
