@@ -9,18 +9,21 @@ Test ownership is managed via team assignments in a TESTOWNERS file. The team th
 > 🚧 Buildkite test ownership is currently in private beta
 > Please reach out to our support team to register for early access.
 
-## Setting test ownership
+## TESTOWNERS file format
 
-You can upload a TESTOWNERS file via this API endpoint:
+A TESTOWNERS file uses Buildkite team slugs instead of user names. Your team slug will be your team name in [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case). You can view your teams in your organization settings, or fetch them from our API:
+
+- [List teams from REST API](/docs/apis/rest_api/teams#list-teams)
+- [List teams from GraphQL API](/docs/apis/graphql/schemas/object/team)
 
 ```bash
-curl --location 'https://analytics-api.buildkite.com/v1/test-ownerships' \
-     --header "Authorization: Bearer <your-suite-api-token>" \
-     -F 'file=@<your-TESTOWNERS-file-location>'
+# Example team name to slug
+Pipelines => pipelines
+Test Analytics => test-analytics
+📦 Packages => packages
 ```
-You might consider creating a new pipeline to automatically upload your TESTOWNERS file when changes are detected.
 
-## Example TESTOWNERS file
+The following example TESTOWNERS file, which you can copy as a starting point, explains the syntax of this file and how it works:
 
 ```bash
 # This is a comment.
@@ -31,18 +34,23 @@ You might consider creating a new pipeline to automatically upload your TESTOWNE
 # The following example teams will be the test owners for all test
 # location metadata (that is, test files) from your pipeline builds
 # in this repository. While both these example teams own these
-# tests, the first team specified in this file pattern becomes the
-# default owner for all test files from your pipeline builds. Any
-# file pattern matches defined later in this file take precedence
-# and override any file patterns defined further up this file.
-# Therefore, unless a subsequent file pattern match takes
-# precedence, `team-slug-1` will have any flaky tests assigned to
-# them by default.
+# tests, the first team specified in this file pattern is the
+# default owner for all test files from your pipeline builds and
+# will be notified about issues with their corresponding tests.
+# Other teams specified from the second position onwards will also
+# be identified as owners and appear in reports about the
+# reliability of these tests. However, unlike the default team
+# owner, these additional teams will not be notified about test
+# issues. Any file pattern matches defined later in this file take
+# precedence and override any file patterns defined further up
+# this file. Therefore, unless a subsequent file pattern match
+# takes precedence, `team-slug-1` will have any flaky tests
+# assigned to them and the team's users notified by default.
 *                     team-slug-1 team-slug-2
 
 # In this example, any test file ending with `_spec.rb` will be
 # assigned to the `test-analytics` team and not `team-slug-1`.
-*_spec.rb             test-analytics #This is an inline comment.
+*_spec.rb             test-analytics # This is an inline comment.
 
 # In this example, the `pipelines` team owns all `.rb` test files.
 *.rb                  pipelines
@@ -78,37 +86,28 @@ pipelines/            pipelines
 ```
 {: codeblock-file="TESTOWNERS"}
 
-## FAQs
+### Permission requirements
 
-### Can multiple suites use the same TESTOWNERS file?
+The teams listed in your TESTOWNERS file must have [permission to access the test suite](/docs/test-analytics/permissions#manage-teams-and-permissions-test-suite-level-permissions) _before_ ownership records are created.
 
-Yes, there's nothing stopping you from uploading the same file to multiple suites. A suite only has one active TESTOWNERS file at a time.
+## Setting test ownership
 
-### Can more than one team own a test?
-
-More than one team may own a test, and the order of teams in your TESTOWNERS file is important. The first team listed will be the default owner, and they will be auto-assigned to the test if it flakes. Any team with suite access can override this auto-assignment.
-
-### Why aren't my teams being assigned ownership over my tests?
-
-A TESTOWNERS file uses Buildkite team slugs instead of user names. Your team slug will be your team name in kebab-case. You can view your teams in your organization settings, or fetch them from our API:
-
-- [List teams from REST API](/docs/apis/rest_api/teams)
-- [List teams from GraphQL API](/docs/apis/graphql/schemas/object/team)
+You can upload a TESTOWNERS file via this API endpoint:
 
 ```bash
-# Example team name to slug
-Pipelines => pipelines
-Test Analytics => test-analytics
-📦 Packages => packages
+curl --location 'https://analytics-api.buildkite.com/v1/test-ownerships' \
+     --header "Authorization: Bearer <your-suite-api-token>" \
+     -F 'file=@<your-TESTOWNERS-file-location>'
 ```
 
-Additionally, the teams listed in your TESTOWNERS file must have [permission to access the suite](/docs/test-analytics/permissions#manage-teams-and-permissions-test-suite-level-permissions) before ownership records are created.
+You can upload the same TESTOWNERS file to multiple test suites. However, a test suite can only have one active TESTOWNERS file.
+
+> 📘
+> You can also create a new pipeline to automatically upload your TESTOWNERS file when changes are detected.
 
 ## Troubleshooting
 
-A TESTOWNER file [follows the same rules as a `.gitignore` or `CODEOWNERS` file](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#example-of-a-codeowners-file), with one exception
-
-We do not currently support the `.gitignore` rule that allows a file path to have no corresponding team.
+A TESTOWNERS file [follows the same rules as a `.gitignore` or `CODEOWNERS` file](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#example-of-a-codeowners-file), with the exception of the `.gitignore` rule that allows a file path to have no corresponding team.
 
 ```bash
 # In a regular `.gitignore` or `COEDOWNER` file, the following
