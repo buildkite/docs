@@ -500,6 +500,8 @@
     path: apis/graphql/schemas/object/organizationedge
   - name: OrganizationEnforceTwoFactorAuthenticationForMembersUpdateMutationPayload
     path: apis/graphql/schemas/object/organizationenforcetwofactorauthenticationformembersupdatemutationpayload
+  - name: OrganizationImpersonationRequest
+    path: apis/graphql/schemas/object/organizationimpersonationrequest
   - name: OrganizationInvitation
     path: apis/graphql/schemas/object/organizationinvitation
   - name: OrganizationInvitationConnection

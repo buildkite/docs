@@ -23,6 +23,8 @@ We offer a selection of instance sizes, allowing you to tailor your hosted agent
 
 The following software will be made available by default on all standard Mac instances during the trial. If you have specific requirements for software that is not listed here, please contact support.
 
+Updated Xcode versions will be available one week after Apple offers them for download. This includes Beta, Release Candidate (RC), and official release versions.
+
 ### System software
 
 - macOS 14.1 (Build 23B74)
