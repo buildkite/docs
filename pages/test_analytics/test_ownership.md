@@ -34,13 +34,18 @@ The following example TESTOWNERS file, which you can copy as a starting point, e
 # The following example teams will be the test owners for all test
 # location metadata (that is, test files) from your pipeline builds
 # in this repository. While both these example teams own these
-# tests, the first team specified in this file pattern becomes the
-# default owner for all test files from your pipeline builds. Any
-# file pattern matches defined later in this file take precedence
-# and override any file patterns defined further up this file.
-# Therefore, unless a subsequent file pattern match takes
-# precedence, `team-slug-1` will have any flaky tests assigned to
-# them by default.
+# tests, the first team specified in this file pattern is the
+# default owner for all test files from your pipeline builds and
+# will be notified about issues with their corresponding tests.
+# Other teams specified from the second position onwards will also
+# be identified as owners and appear in reports about the
+# reliability of these tests. However, unlike the default team
+# owner, these additional teams will not be notified about test
+# issues. Any file pattern matches defined later in this file take
+# precedence and override any file patterns defined further up
+# this file. Therefore, unless a subsequent file pattern match
+# takes precedence, `team-slug-1` will have any flaky tests
+# assigned to them and the team's users notified by default.
 *                     team-slug-1 team-slug-2
 
 # In this example, any test file ending with `_spec.rb` will be
