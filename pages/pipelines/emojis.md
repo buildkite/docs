@@ -41,3 +41,45 @@ Add your own emoji by opening a [pull request](https://github.com/buildkite/emoj
 
 > 🚧 Buildkite emojis in other tools
 > Buildkite loads custom emojis as <a href="https://github.com/buildkite/emojis">images</a>. Other tools, such as GitHub, might not display the images correctly, and will only show the `:text-form:`.
+// streams.mjs
+import { pipeline } from 'node:stream/promises';
+import { createReadStream, createWriteStream } from 'node:fs';
+import { createGzip } from 'node:zlib';
+
+// ensure you have a `package.json` file for this test!
+await pipeline
+(
+  createReadStream('package.json'),
+  createGzip(),
+  createWriteStream('package.json.gz')
+);
+
+// run with `node streams.mjs`
+// tests.mjs
+import assert from 'node:assert';
+import test from 'node:test';
+
+test('that 1 is equal 1', () => {
+  assert.strictEqual(1, 1);
+});
+
+test('that throws as 1 is not equal 2', () => {
+  // throws an exception because 1 != 2
+  assert.strictEqual(1, 2);
+});
+
+// run with `node tests.mjs`
+// crypto.mjs
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
+
+const hasher = createHash('sha1');
+
+hasher.setEncoding('hex');
+// ensure you have a `package.json` file for this test!
+hasher.write(await readFile('package.json'));
+hasher.end();
+
+const fileHash = hasher.read();
+
+// run with `node crypto.mjs`
