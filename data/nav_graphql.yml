@@ -632,6 +632,8 @@
     path: apis/graphql/schemas/object/registryconnection
   - name: RegistryEdge
     path: apis/graphql/schemas/object/registryedge
+  - name: RegistryToken
+    path: apis/graphql/schemas/object/registrytoken
   - name: Repository
     path: apis/graphql/schemas/object/repository
   - name: RepositoryProviderBeanstalk

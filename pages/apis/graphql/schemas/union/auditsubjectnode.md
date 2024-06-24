@@ -109,6 +109,9 @@ Kinds of subjects which can have audit events performed on them
 <a href="/docs/apis/graphql/schemas/object/registry" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Registry">
   <code>Registry</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/registrytoken" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RegistryToken">
+  <code>RegistryToken</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/scmpipelinesettings" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SCMPipelineSettings">
   <code>SCMPipelineSettings</code>
 </a>
