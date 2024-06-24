@@ -13,7 +13,9 @@ As well as storing a collection of packages, a registry also surfaces metadata o
 
 ## Get started
 
-Learn how to use registries for each of Buildkite Packages' supported package ecosystems:
+Learn more about how the Buildkite Packages product works through this step-by-step [Getting started](/docs/packages/getting-started) tutorial.
+
+If you're already familiar with the basics of Buildkite Packages, learn how to use registries for each of Buildkite Packages' supported package ecosystems:
 
 <!-- vale off -->
 
@@ -25,18 +27,18 @@ Learn how to use registries for each of Buildkite Packages' supported package ec
   <%= button ":gradle: Java (Gradle)", "/docs/packages/gradle" %>
   <%= button ":node: JavaScript (npm)", "/docs/packages/javascript" %>
   <%= button ":python: Python (PyPI)", "/docs/packages/python" %>
-  <%= button ":redhat: RedHat (RPM)", "/docs/packages/redhat" %>
+  <%= button ":redhat: Red Hat (RPM)", "/docs/packages/red-hat" %>
   <%= button ":ruby: Ruby (RubyGems)", "/docs/packages/ruby" %>
   <%= button ":terraform: Terraform (modules)", "/docs/packages/terraform" %>
 </div>
 
 <!-- vale on -->
 
-Learn more about how:
+Learn more about how to:
 
-- The Buildkite Packages product works through this step-by-step [Getting started](/docs/packages/getting-started) tutorial.
-
-- To work with Buildkite Packages registries in [Manage registries](/docs/packages/manage-registries).
+- Work with Buildkite Packages registries in [Manage registries](/docs/packages/manage-registries).
+- Manage access to your registries in [Access controls](/docs/packages/permissions).
+- Configure your own private storage for Buildkite Packages in [Private storage](/docs/packages/private-storage).
 
 ## An introduction to packages
 
