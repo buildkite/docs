@@ -13,19 +13,19 @@ As well as storing a collection of packages, a registry also surfaces metadata o
 
 ## Get started
 
-Learn how to use registries for each of Buildkite Package's supported package ecosystems:
+Learn how to use registries for each of Buildkite Packages' supported package ecosystems:
 
 <!-- vale off -->
 
 <div class="ButtonGroup">
-  <%= button ":alpine: Alpine (apk)", "/docs/packages/alpine" %>
+  <!-- <%= button ":alpine: Alpine (apk)", "/docs/packages/alpine" %> -->
   <%= button ":docker: Container (Docker)", "/docs/packages/container" %>
   <%= button ":debian: Debian/Ubuntu (deb)", "/docs/packages/debian" %>
   <%= button ":maven: Java (Maven)", "/docs/packages/maven" %>
   <%= button ":gradle: Java (Gradle)", "/docs/packages/gradle" %>
   <%= button ":node: JavaScript (npm)", "/docs/packages/javascript" %>
   <%= button ":python: Python (PyPI)", "/docs/packages/python" %>
-  <%= button ":redhat: RedHat (RPM)", "/docs/packages/redhat" %>
+  <!-- <%= button ":redhat: RedHat (RPM)", "/docs/packages/redhat" %> -->
   <%= button ":ruby: Ruby (RubyGems)", "/docs/packages/ruby" %>
   <%= button ":terraform: Terraform (modules)", "/docs/packages/terraform" %>
 </div>

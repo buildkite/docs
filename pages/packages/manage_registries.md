@@ -15,7 +15,7 @@ To create a new registry:
 1. Select **New registry**.
 1. On the **New Registry** page, enter the mandatory **Name** for your registry. Since registry names cannot contain spaces, hyphens will automatically be specified when the space key is pressed.
 1. Enter an optional **Description** for the registry. This description appears under the name of the registry item on the **Registries** page.
-1. Select the required registry **Ecosystem** based on the [package ecosystem](/docs/packages#supported-package-ecosystems) for this new registry.
+1. Select the required registry **Ecosystem** based on the [package ecosystem](/docs/packages#get-started) for this new registry.
 1. If your Buildkite organization has the [teams feature](/docs/packages/permissions) enabled, select the relevant **Teams** to be granted access to the new registry.
 1. Select **Create Registry**.
 
@@ -23,7 +23,7 @@ To create a new registry:
 
 ### Manage packages in a registry
 
-Once a [registry is created](#create-a-registry), packages can then be uploaded to it. Learn more about how to manage packages for your registry's relevant package ecosystem:
+Once a [registry is created](#create-a-registry), packages can then be uploaded to it. Learn more about how to manage packages for your registry's relevant language and package ecosystem:
 
 - [Container (Docker)](/docs/packages/container) images
 - [Debian/Ubuntu (deb)](/docs/packages/debian)
