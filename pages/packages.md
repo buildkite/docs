@@ -11,6 +11,33 @@ As well as storing a collection of packages, a registry also surfaces metadata o
 > 📘 Buildkite Packages is currently in public beta
 > You can enable [Buildkite Packages](https://buildkite.com/packages) through the [**Organization Settings** page](/docs/packages/permissions#enabling-buildkite-packages).
 
+## Get started
+
+Learn how to use registries for each of Buildkite Package's supported package ecosystems:
+
+<!-- vale off -->
+
+<div class="ButtonGroup">
+  <%= button ":alpine: Alpine (apk)", "/docs/packages/alpine" %>
+  <%= button ":docker: Container (Docker)", "/docs/packages/container" %>
+  <%= button ":debian: Debian/Ubuntu (deb)", "/docs/packages/debian" %>
+  <%= button ":maven: Java (Maven)", "/docs/packages/maven" %>
+  <%= button ":gradle: Java (Gradle)", "/docs/packages/gradle" %>
+  <%= button ":node: JavaScript (npm)", "/docs/packages/javascript" %>
+  <%= button ":python: Python (PyPI)", "/docs/packages/python" %>
+  <%= button ":redhat: RedHat (RPM)", "/docs/packages/redhat" %>
+  <%= button ":ruby: Ruby (RubyGems)", "/docs/packages/ruby" %>
+  <%= button ":terraform: Terraform (modules)", "/docs/packages/terraform" %>
+</div>
+
+<!-- vale on -->
+
+Learn more about how:
+
+- The Buildkite Packages product works through this step-by-step [Getting started](/docs/packages/getting-started) tutorial.
+
+- To work with Buildkite Packages registries in [Manage registries](/docs/packages/manage-registries).
+
 ## An introduction to packages
 
 A _package_ is a combination of _metadata_, _configuration_, and _software_ that is prepared in a way that a package management tool can use to properly and reliably install software and related configuration data on a computer. Some examples of package management tools include:
@@ -44,25 +71,3 @@ Some advanced package creation tools include:
 - [git-buildpackage](http://honk.sigxcpu.org/projects/git-buildpackage/manual-html/gbp.html), a set of scripts that can be used to build deb packages directly from git repositories
 - [fpm](https://github.com/jordansissel/fpm), a third-party tool that allows users to quickly and easily make a variety of packages (including RPM and deb packages)
 - [PackPack](https://github.com/packpack/packpack), a simple tool to build RPM and Debian packages from git repositories.
-
-## Supported package ecosystems
-
-Currently, Buildkite Packages supports the following package ecosystems:
-
-- Alpine (apk)
-- Container (Docker) images
-- Debian/Ubuntu (deb)
-- Java (Maven/Gradle)
-- JavaScript (npm)
-- Python (PyPI)
-- RedHat (RPM)
-- Ruby (RubyGems)
-- Terraform modules
-
-## Getting started tutorial
-
-Learn more about how:
-
-- The Buildkite Packages product works through this step-by-step [Getting started](/docs/packages/getting-started) tutorial.
-
-- To work with Buildkite Packages registries in [Manage registries](/docs/packages/manage-registries).
