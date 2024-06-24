@@ -242,4 +242,7 @@ steps:
 
 > 📘 A note on triggered pipeline dependencies and cancellation
 > When you have multiple pipelines that trigger a build with the same commit on an additional pipeline, while also having **Cancel Intermediate Builds** enabled, the newest build will be the only one that runs.
-> For example, if a commit that runs **Pipeline A** triggers a build on **Pipeline B**, and the same commit runs **Pipeline C**, which also triggers a build on **Pipeline B**, then the build of **Pipeline B**, run by whichever pipeline it was triggered by _first_, is _canceled_ and the newest triggered build would be allowed to run.
+> For example, assume a scenario with three pipelines—**Pipeline A**, **Pipeline B**, and **Pipeline C**. A commit that runs **Pipeline A** triggers a build on **Pipeline B**, and the same commit runs **Pipeline C**, which also triggers a build on **Pipeline B**.
+> With **Cancel Intermediate Builds** enabled, the build of **Pipeline B**, run by whichever pipeline it was triggered by _first_, is _canceled_ and the newest triggered **Pipeline B** build would be allowed to run.
+> With **Cancel Intermediate Builds** _not_ enabled, **Pipeline B** will run twice, as it will be triggered by both **Pipeline A** and **Pipeline C** without cancellation.
+> Regardless of whether or not **Cancel Intermediate Builds** is enabled, if either **Pipeline A** or **Pipeline C** _is manually canceled_ before their triggering steps have occurred, then the **Pipeline B** build triggered by its canceled pipeline will not run, and **Pipeline B** will only run once (triggered by the other, non-canceled pipeline).
