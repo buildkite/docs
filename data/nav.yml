@@ -458,6 +458,8 @@
     - name: "Package ecosystems"
       start_expanded: true
       children:
+        - name: "Alpine"
+          path: "packages/alpine"
         - name: "Container"
           path: "packages/container"
         - name: "Debian"
@@ -473,6 +475,8 @@
           path: "packages/javascript"
         - name: "Python"
           path: "packages/python"
+        - name: "RedHat"
+          path: "packages/redhat"
         - name: "Ruby"
           path: "packages/ruby"
         - name: "Terraform"
