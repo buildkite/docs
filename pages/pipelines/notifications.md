@@ -154,8 +154,8 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-> 📘Step-level vs build-level
-> A step-level notify step will ignore the requirements of a build-level notification. If a build-level notification condition is that it runs only on `main`, a step-level notification will run on all branches if no branch conditional is set.
+> 📘 Step-level vs build-level notifications
+> A step-level notify step will ignore the requirements of a build-level notification. If a build-level notification condition is that it runs only on `main`, a step-level notification without branch conditionals will run on all branches.
 
 ### Notify a user in all workspaces
 
