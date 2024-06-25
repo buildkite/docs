@@ -17,7 +17,7 @@ As well as storing a collection of packages, a registry also surfaces metadata o
 
 ## Get started
 
-Find out how Buildkite Packages works through this step-by-step [Getting started](/docs/packages/getting-started) tutorial.
+Run through the [Getting started](/docs/packages/getting-started) tutorial for a step-by-step guide on how to use Buildkite Packages.
 
 If you're familiar with the basics, explore how to use registries for each of Buildkite Packages' supported package ecosystems:
 
