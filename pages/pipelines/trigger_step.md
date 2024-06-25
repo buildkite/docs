@@ -248,8 +248,8 @@ For example, assume a scenario with three pipelines—**Pipeline A**, **Pipeline
 
 When **Cancel Intermediate Builds**:
 
-- _Is enabled_, the build of **Pipeline B**, run by whichever pipeline it was triggered by _first_, is _canceled_ and the newest triggered **Pipeline B** build would be allowed to run.
+* _Is enabled_, the build of **Pipeline B**, run by whichever pipeline it was triggered by _first_, is _canceled_ and the newest triggered **Pipeline B** build would be allowed to run.
 
-- _Is not enabled_, **Pipeline B** will run twice, as it will be triggered by both **Pipeline A** and **Pipeline C** without cancellation.
+* _Is not enabled_, **Pipeline B** will run twice, as it will be triggered by both **Pipeline A** and **Pipeline C** without cancellation.
 
 Regardless of whether or not **Cancel Intermediate Builds** is enabled, if either **Pipeline A** or **Pipeline C** _is manually canceled_ before their triggering steps have occurred, then the **Pipeline B** build triggered by its canceled pipeline will not run, and **Pipeline B** will only run once (triggered by the other, non-canceled pipeline).
