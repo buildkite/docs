@@ -39,13 +39,17 @@ If there are multiple distinct keys to be used throughout the cluster, make sure
 
 ### Adding a new pipeline
 
-With the secret available, a new pipeline can be added that will use it and allow for the Git repository to be used.
+With the secret now available, you can add a new pipeline to use it and access the Git repository.
 
-Create a new pipeline using the **Create a new pipeline without provider integration** link on the **New pipeline** page. Complete the form with the basic details about the new pipeline, including the Git URL. At this time, the **Steps** can also be updated to include the plugin usage.
+The availability of the secret allows the creation of a new pipeline to utilize it and access the Git repository.
+
+Once the secret is available, a new pipeline can be set up to use it and enable Git repository access.
+
+Create a new pipeline following the **Create a new pipeline without provider integration** link on the **New pipeline** page. Complete the form with the basic details about the new pipeline, including the Git URL. At this time, the **Steps** can also be updated to include the plugin usage.
 
 <%= image "pipeline-creation.png", width: 1752, height: 1060, alt: "Adding the details for creating a new pipeline" %>
 
-To illustrate an example, if we assume there now exists the secret named `GIT_SSH_CHECKOUT_PLUGIN_SSH_KEY` we can set our **Steps** value accordingly.
+To illustrate an example, if we assume a secret named `GIT_SSH_CHECKOUT_PLUGIN_SSH_KEY` now exists we can set our **Steps** value accordingly.
 
 ```yaml
 steps:
@@ -55,8 +59,8 @@ steps:
       - git-ssh-checkout#v0.3.2:
 ```
 
-This base step content uses the new plugin, with the default values, to complete the Git checkout.
+This base step content uses the new plugin with the default values to complete the Git checkout.
 
-Once created, a screen is presented about setting up Webhooks. If the Git provider being used supports the GitHub format of webhook communication, the details shown can be used to complete the integration. If not, the **Skip Webhook Setup** button can be used to skip this step. This will mean that builds will require manual triggering.
+Once created, a screen is presented about setting up Webhooks. If the Git provider being used supports the GitHub format of webhook communication, the details shown can be used to complete the integration. If not, you can use the **Skip Webhook Setup** button to skip this step. This will mean that builds will require manual triggering.
 
 At the completion of the pipeline creation process, a build can now be triggered that will use the SSH key from the secret to clone the Git repository.
