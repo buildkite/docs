@@ -32,7 +32,7 @@ Some advanced package creation tools include:
 - [fpm](https://github.com/jordansissel/fpm), a third-party tool that allows users to quickly and easily make a variety of packages (including RPM and deb packages)
 - [PackPack](https://github.com/packpack/packpack), a simple tool to build RPM and Debian packages from git repositories.
 
-## Learn more
+## Next steps
 
 Learn more about how:
 
