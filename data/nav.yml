@@ -444,6 +444,8 @@
     - name: "Introduction"
       start_expanded: true
       children:
+        - name: "Background"
+          path: "packages/background"
         - name: "Getting started"
           path: "packages/getting-started"
         - name: "Registries"
