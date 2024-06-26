@@ -455,6 +455,13 @@
               path: "packages/manage-registries"
             - name: "Private storage"
               path: "packages/private-storage"
+        - name: "Security"
+          start_expanded: true
+          children:
+            - name: "Overview"
+              path: "packages/security"
+            - name: "OIDC"
+              path: "packages/security/oidc"
         - name: "Access control"
           path: "packages/permissions"
     - name: "Package ecosystems"
