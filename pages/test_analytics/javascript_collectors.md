@@ -59,6 +59,7 @@ To configure Jest:
         "testLocationInResults": true,
     }
     ```
+    **Note:** The `"testLocationInResults": true` setting enables column and line capture for Test Analytics.
 
 ### Jasmine
 
@@ -70,7 +71,7 @@ To configure Jasmine:
     // SpecHelper.js
     var BuildkiteReporter = require("buildkite-test-collector/jasmine/reporter");
     var buildkiteReporter = new BuildkiteReporter();
-    
+
     jasmine.getEnv().addReporter(buildkiteReporter);
     ```
 
@@ -160,7 +161,7 @@ To configure Playwright:
     // playwright.config.js
     {
       "reporter": [
-        ["line"], 
+        ["line"],
         ["buildkite-test-collector/playwright/reporter"]
       ]
     }
@@ -201,4 +202,3 @@ Using the [`--forceExit`](https://jestjs.io/docs/cli#--forceexit) option when ru
 `--forceExit` could potentially terminate any ongoing processes that are attempting to send test executions to Buildkite.
 
 We recommend using [`--detectOpenHandles`](https://jestjs.io/docs/cli#--detectopenhandles) to track down open handles which are preventing Jest from exiting cleanly.
-
