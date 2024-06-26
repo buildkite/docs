@@ -55,7 +55,8 @@ To configure Jest:
 
     ```json
     {
-        "reporters": ["default", "buildkite-test-collector/jest/reporter"]
+        "reporters": ["default", "buildkite-test-collector/jest/reporter"],
+        "testLocationInResults": true,
     }
     ```
 
