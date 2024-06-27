@@ -1,4 +1,4 @@
-# Access control for users and teams
+# User, team, and registry permissions
 
 Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage registry permissions using the [_teams_ feature](#manage-teams-and-permissions).
 

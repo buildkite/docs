@@ -462,7 +462,7 @@
               path: "packages/security"
             - name: "OIDC"
               path: "packages/security/oidc"
-        - name: "Access control"
+        - name: "Permissions"
           path: "packages/permissions"
     - name: "Package ecosystems"
       start_expanded: true
