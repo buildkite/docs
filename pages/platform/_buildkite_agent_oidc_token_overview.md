@@ -1,1 +1,2 @@
-An [Open ID Connect (OIDC)](https://openid.net/developers/how-connect-works/) token is a signed [JSON Web Token (JWT)](https://jwt.io/) provided by the Buildkite Agent containing information about the pipeline and job, including the pipeline and organization slugs, as well as job-specific data, such as the branch, the commit SHA, the job ID, and the agent ID.
+A Buildkite [Open ID Connect (OIDC)](https://openid.net/developers/how-connect-works/) token is a signed [JSON Web Token (JWT)](https://jwt.io/) provided by the Buildkite Agent containing information about the pipeline and its job, including the pipeline and organization slugs, as well as job-specific data, such as the branch, the commit SHA, the job ID, and the agent ID.
+
