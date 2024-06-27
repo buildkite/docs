@@ -6,9 +6,9 @@ keywords: oidc, authentication, IAM, roles
 
 <%= render_markdown partial: 'platform/buildkite_agent_oidc_token_overview' %>
 
-Third-party products and services, such as [AWS](https://aws.amazon.com/), [GCP](https://cloud.google.com/), [Azure](https://azure.microsoft.com/) and many others, as well as Buildkite products, such as [Packages](/docs/packages/security/oidc), can be configured with OIDC-compatible policies that restrict agent interactions to specific permitted Buildkite organizations, pipelines, jobs, and agents.
+Third-party products and services, such as [AWS](https://aws.amazon.com/), [GCP](https://cloud.google.com/), [Azure](https://azure.microsoft.com/) and many others, as well as Buildkite products, such as [Packages](/docs/packages/security/oidc), can be configured with OIDC-compatible policies that only permit agent interactions from specific Buildkite organizations, pipelines, jobs, and agents associated with pipelines' jobs.
 
-A Buildkite OIDC token, representing an agent interaction from a pipeline's job, can be used by such third-party services and Buildkite Packages to allow these services to authenticate this interaction, based on the organization, pipeline, job details, and agent associated with this pipeline's job.
+A Buildkite OIDC token, representing an agent interaction containing this metadata from a pipeline's job, can be used by such third-party services and Buildkite Packages to allow these services to authenticate this Buildkite interaction. If one of these interactions does not match or comply with the service's policy, the interaction is rejected.
 
 The [Buildkite Agent's `oidc` command](/docs/agent/v3/cli-oidc) allows you to request an OIDC token for the pipeline's current job. These tokens are then exchanged on federated systems like AWS for authenticated role-based access with specific permissions to interact with your cloud environments.
 
