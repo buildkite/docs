@@ -45,8 +45,9 @@ The following aspects of a registry can be updated:
 - **Description**
 - **Emoji**: to change the emoji of the registry from the default provided when the registry was [created](#create-a-registry). The emoji appears next to the registry's name
 - **Color**: the background color for the emoji
-- **Private**: the privacy settings for the registry—private or public
+- **Registry Management**: the privacy settings for the registry—private or public
 - **OIDC Policy**: one or more policies defining which [OpenID Connect (OIDC) tokens](/docs/packages/security/oidc), from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another third-party system, can be used to publish/upload packages to the registry
+- **Storage**: 
 
 The registry's ecosystem type cannot be changed once the registry is created.
 
@@ -54,16 +55,22 @@ To update a registry:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select the registry to update on this page.
-1. Select **Edit** and update the following fields as required:
+1. Select **Settings** and on the **General (Settings)** page, update the following fields as required:
     * **Name**: being aware of the consequences described above
     * **Description**: appears under the name of the registry item on the **Registries** page, and on the registry's details page
     * **Emoji** and **Color**: the emoji appears next to the registry's name and the color (in hex code syntax, for example, `#FFE0F1`) provides the background color for this emoji
-    * **Private**: ensure this checkbox is selected to make or keep the registry private or cleared to make or keep the registry public
-    * **OIDC Policy**: modify to define the criteria for which [OIDC tokens](/docs/packages/security/oidc), from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another third-party system, will be accepted and authenticate a package publication/upload action from this system
+    * **Registry Management** > **Make registry public** or **Make registry private**: select either of these buttons to make the registry public or revert it back to its private (default) state—the existing wording on this button indicates the current state, and if the registry is public, the word **Public** is indicated explicitly next to the registry's name in the Buildkite interface
 
 1. Select **Update Registry** to save your changes.
 
     The registry's updates will appear on the **Registries** page, as well as the registry's details page.
+
+1. If the registry's _OIDC policy_ needs to be configured, select **OIDC Policy** from the registry's **Settings** page, to access the **OIDC Policy** page and configure this policy accordingly. Learn more about how to define the criteria for which OIDC tokens (from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another third-party system), will be accepted and authenticate a package publication/upload action from this system, on the [OIDC in Buildkite Packages](/docs/packages/security/oidc) page.
+1. If a long-lived _registry token_ needs to be created, edited (description only), or deleted, select **Tokens** from the registry's **Settings** page, to access the **Tokens** page and select **Create Registry Token** to create a new token. For an existing token on this page, select either its **Edit description** or **Delete token** button to perform this action.
+
+    **Note:** Unlike other tokens generated elsewhere in Buildkite, registry tokens can continue to be viewed and copied in their entirety on subsequent occasions after their creation.
+
+1. If _private storage_ needs to be configured for this registry, select **Storage** from the registry's **Settings** page, to access the **Storage** page. Learn more about how to configure private storage in [Link private storage](/docs/packages/private-storage).
 
 ## Delete a registry
 
