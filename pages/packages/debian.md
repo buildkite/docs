@@ -20,7 +20,7 @@ This command provides:
 The following `curl` command (modified as required before submitting) describes the process above to publish a package to your Debian registry:
 
 ```bash
-curl -X POST https://api.buildkite.com/api/v2/packages/organizations/{org.slug}/registries/{registry.name}/packages \
+curl -X POST https://api.buildkite.com/api/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
   -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
   -F "file=@<path_to_file>"
 ```
@@ -29,7 +29,7 @@ where:
 
 <%= render_markdown partial: 'packages/org_slug' %>
 
-<%= render_markdown partial: 'packages/debian_registry_name' %>
+<%= render_markdown partial: 'packages/debian_registry_slug' %>
 
 - `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Debian registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
 
@@ -79,7 +79,7 @@ This code snippet is based on this format:
 ```bash
 apt update
 type -p ca-certificates >/dev/null || apt install ca-certificates -y
-echo -e "deb [trusted=yes] https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.name}/any/ any main\ndeb-src [trusted=yes] https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.name}/any/ any main" > /etc/apt/sources.list.d/buildkite-{org.slug}-{registry.name}.list
+echo -e "deb [trusted=yes] https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/any/ any main\ndeb-src [trusted=yes] https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/any/ any main" > /etc/apt/sources.list.d/buildkite-{org.slug}-{registry.slug}.list
 apt update && apt install jake
 ```
 
@@ -89,4 +89,4 @@ where:
 
 <%= render_markdown partial: 'packages/org_slug' %>
 
-<%= render_markdown partial: 'packages/debian_registry_name' %>
+<%= render_markdown partial: 'packages/debian_registry_slug' %>

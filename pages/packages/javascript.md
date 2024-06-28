@@ -22,12 +22,12 @@ The following steps describe the process above:
 1. Copy the following `npm` command, paste it into your terminal, and modify as required before submitting to update your `~/.npmrc` file:
 
     ```bash
-    npm set //packages.buildkite.com/{org.slug}/{registry.name}/npm/:_authToken registry-write-token
+    npm set //packages.buildkite.com/{org.slug}/{registry.slug}/npm/:_authToken registry-write-token
     ```
 
     where:
     <%= render_markdown partial: 'packages/org_slug' %>
-    <%= render_markdown partial: 'packages/javascript_registry_name' %>
+    <%= render_markdown partial: 'packages/javascript_registry_slug' %>
     <%= render_markdown partial: 'packages/javascript_registry_write_token' %>
 
     **Note:**
@@ -39,7 +39,7 @@ The following steps describe the process above:
     ```json
     {
       ...,
-      "publishConfig": {"registry": "https://packages.buildkite.com/{org.slug}/{registry.name}/npm/"}
+      "publishConfig": {"registry": "https://packages.buildkite.com/{org.slug}/{registry.slug}/npm/"}
     }
     ```
 
@@ -89,12 +89,12 @@ To install a package:
 This code snippet is based on this format:
 
 ```bash
-npm set //packages.buildkite.com/{org.slug}/{registry.name}/npm/:_authToken registry-read-token
+npm set //packages.buildkite.com/{org.slug}/{registry.slug}/npm/:_authToken registry-read-token
 ```
 
 where:
 <%= render_markdown partial: 'packages/org_slug' %>
-<%= render_markdown partial: 'packages/javascript_registry_name' %>
+<%= render_markdown partial: 'packages/javascript_registry_slug' %>
 <%= render_markdown partial: 'packages/javascript_registry_read_token' %>
 
 > 📘
@@ -107,7 +107,7 @@ This code snippet is based on this format:
 
 ```bash
 npm install nodejs-package-name@version.number \
-  --registry https://packages.buildkite.com/{org.slug}/{registry.name}/npm/
+  --registry https://packages.buildkite.com/{org.slug}/{registry.slug}/npm/
 ```
 
 where:
@@ -118,4 +118,4 @@ where:
 
 <%= render_markdown partial: 'packages/org_slug' %>
 
-- `{registry.name}` is the name of your JavaScript registry.
+<%= render_markdown partial: 'packages/javascript_registry_slug' %>

@@ -20,7 +20,7 @@ This command provides:
 The following `curl` command (modified as required before submitting) describes the process above to publish a module to your Terraform registry:
 
 ```bash
-curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.name}/packages.json \
+curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages.json \
   -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
   -F "file=@<path_to_file>"
 ```
@@ -29,7 +29,7 @@ where:
 
 <%= render_markdown partial: 'packages/org_slug' %>
 
-<%= render_markdown partial: 'packages/terraform_registry_name' %>
+<%= render_markdown partial: 'packages/terraform_registry_slug' %>
 
 - `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Terraform registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
 
@@ -115,10 +115,10 @@ To install a module:
 
     where:
     * `org_slug` can be derived from the end of your Buildkite URL (in [snake_case](https://en.wikipedia.org/wiki/Letter_case#Snake_case)), after accessing **Pipelines** in the global navigation of your organization in Buildkite.
-    * `registry_name` is the name of your Terraform registry (in snake_case).
+    * `registry_slug` is the slug of your Terraform registry (derived from the registry name in snake_case).
     * `module_name` is the name of your Terraform module.
     * `org-slug` can be obtained from the end of your Buildkite URL (in [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case)), after accessing **Pipelines** in the global navigation of your organization in Buildkite.
-    * `registry-name` is the name of your Terraform registry (in kebab-case).
+    * `registry-slug` is the slug of your Terraform registry (derived from the registry name in kebab-case).
     * `version.number` is the version of your Terraform module.
 
 1. Run the Terraform command:

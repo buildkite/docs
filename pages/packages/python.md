@@ -20,7 +20,7 @@ This command provides:
 The following `curl` command (modified as required before submitting) describes the process above to publish a package to your Python registry:
 
 ```bash
-curl -X POST https://api.buildkite.com/api/v2/packages/organizations/{org.slug}/registries/{registry.name}/packages \
+curl -X POST https://api.buildkite.com/api/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
   -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
   -F "file=@<path_to_file>"
 ```
@@ -29,7 +29,7 @@ where:
 
 <%= render_markdown partial: 'packages/org_slug' %>
 
-<%= render_markdown partial: 'packages/python_registry_name' %>
+<%= render_markdown partial: 'packages/python_registry_slug' %>
 
 - `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Python registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
 
@@ -79,7 +79,7 @@ The `pip.conf` code snippet is based on this format:
 ```conf
 # Add this to the [global] section in your ~/.pip/pip.conf:
 [global]
-extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.name}/pypi/simple"
+extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple"
 ```
 
 where:
@@ -88,11 +88,11 @@ where:
 
 <%= render_markdown partial: 'packages/org_slug' %>
 
-<%= render_markdown partial: 'packages/python_registry_name' %>
+<%= render_markdown partial: 'packages/python_registry_slug' %>
 
 The alternative `requirements.txt` (for virtualenv) code snippet is based on this format:
 
 ```ini
 # Otherwise if installing on a virtualenv, add this to the bottom of your requirements.txt:
---extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.name}/pypi/simple"
+--extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple"
 ```
