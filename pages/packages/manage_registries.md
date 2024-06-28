@@ -45,9 +45,9 @@ The following aspects of a registry can be updated:
 - **Description**
 - **Emoji**: to change the emoji of the registry from the default provided when the registry was [created](#create-a-registry). The emoji appears next to the registry's name
 - **Color**: the background color for the emoji
-- **Registry Management**: the privacy settings for the registry—private or public
-- **OIDC Policy**: one or more policies defining which [OpenID Connect (OIDC) tokens](/docs/packages/security/oidc), from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another third-party system, can be used to publish/upload packages to the registry
-- **Storage**: 
+- **Registry Management**: the privacy settings for the registry—private (the initial default state for all newly created registries) or public
+- **OIDC Policy**: one or more [policies defining which OpenID Connect (OIDC) tokens](/docs/packages/security/oidc), from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another third-party system, can be used to publish/upload packages to the registry
+- **Storage**: select from **Buildkite-hosted storage** (the default storage for your packages) or [your own private AWS S3 bucket](/docs/packages/private-storage) to store packages for this registry.
 
 The registry's ecosystem type cannot be changed once the registry is created.
 
@@ -59,7 +59,7 @@ To update a registry:
     * **Name**: being aware of the consequences described above
     * **Description**: appears under the name of the registry item on the **Registries** page, and on the registry's details page
     * **Emoji** and **Color**: the emoji appears next to the registry's name and the color (in hex code syntax, for example, `#FFE0F1`) provides the background color for this emoji
-    * **Registry Management** > **Make registry public** or **Make registry private**: select either of these buttons to make the registry public or revert it back to its private (default) state—the existing wording on this button indicates the current state, and if the registry is public, the word **Public** is indicated explicitly next to the registry's name in the Buildkite interface
+    * **Registry Management** > **Make registry public** or **Make registry private**: select either of these buttons to make the registry public or revert it back to its private state—the existing wording on this button indicates the current state, and if the registry is public, the word **Public** is indicated explicitly next to the registry's name in the Buildkite interface
 
 1. Select **Update Registry** to save your changes.
 
@@ -82,7 +82,8 @@ To delete a registry:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select the registry to delete on this page.
-1. Select **Edit** > **Delete Registry**.
+1. Select **Settings** to open the **General (Settings)** page.
+1. Under **Registry Management**, select **Delete Registry**.
 1. In the confirmation dialog, enter the name of the registry, exactly as it is presented, and select **Delete Registry**.
 
 ## Audit logging
