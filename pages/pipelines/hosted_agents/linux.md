@@ -145,3 +145,50 @@ The container cache can be used to cache Docker images between builds.
 Container caching can be enabled on the cluster's cache volumes settings page. Once enabled, a container cache will be used for all hosted jobs in that cluster. A separate cache volume will be created for each pipeline.
 
 <%= image "hosted-agents-container-caching.png", width: 1760, height: 436, alt: "Hosted agents container cache setting displayed in the Buildkite UI" %>
+
+
+## Agent Images
+
+Buildkite provides a Linux agent image pre-configured with common tools and utilities to help you get started quickly. This image also provides tools required for running jobs on hosted agents.
+
+The image is based on Ubuntu 20.04 and includes the following tools:
+
+- docker
+- docker-compose
+- docker-buildx
+- git-lfs
+- node
+- aws-cli
+
+You can customise the image that your hosted agents use by creating an agent image. 
+
+### Creating an agent image
+
+To create an agent image, you need to create a Dockerfile that installs the tools and utilities you require. The Dockerfile should be based on the [Buildkite hosted agent base image](https://hub.docker.com/r/buildkite/hosted-agent-base/tags).
+
+Here is an example Dockerfile that installs the `aws-cli` and `kubectl`:
+
+```dockerfile
+RUN apt-get update && apt-get install -y awscli kubectl
+```
+
+You can create an agent image in the Buildkite UI by navigating to the `Agent Images` page in a `Cluster`. You must have created a Linux queue. Click on the `Create Image` button and provide the Dockerfile and a name for the agent image.
+
+<%= image "hosted-agents-create-image.png", width: 1760, height: 436, alt: "Hosted agents create image form displayed in the Buildkite UI" %>
+
+### Using an agent image
+
+Once you have created an Agent Image, you can set it as the default image for a queue. Hosted agents in that queue will use the agent image you have created in new jobs.
+
+From the Queues page within a Cluster, select a queue, navigate to the `Base Image` tab and select the agent image you want to use from the dropdown.
+
+<%= image "hosted-agents-queue-image.png", width: 1760, height: 436, alt: "Hosted agents queue image setting displayed in the Buildkite UI" %>
+
+# Deleting an agent image
+
+You can delete an agent image by navigating to the `Agent Images` page in a `Cluster`. Click on the `Delete` button next to the agent image you want to delete.
+
+<%= image "hosted-agents-delete-image.png", width: 1760, height: 436, alt: "Hosted agents delete image form displayed in the Buildkite UI" %>
+```
+
+Note that Agent Images cannot be deleted if they are in use by any queue. Please reset the queue to the default image before deleting the agent image.
