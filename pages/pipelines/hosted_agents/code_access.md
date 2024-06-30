@@ -1,18 +1,15 @@
 # Hosted agents code access
 
-Natively, Buildkite hosted agents can only be used with GitHub integrated repositories. To utilize a private repository from another provider, we have [made a plugin](https://github.com/buildkite-plugins/git-ssh-checkout-buildkite-plugin) available that is documented below.
+Buildkite hosted agents can access private repositories in GitHub natively, by authorizing Buildkite to access these GitHub repositories. To access private repositories from another provider, the [git-ssh-checkout-buildkite-plugin](https://github.com/buildkite-plugins/git-ssh-checkout-buildkite-plugin) plugin is available to provide this capability.
 
 To learn more about changes that may need to be completed at an individual pipeline level, see [Pipeline migration](/docs/pipelines/hosted-agents/pipeline-migration).
 
 ## GitHub private repositories
 
-To use a private GitHub repository with Buildkite hosted agents, you will need to authorize Buildkite to access your repository.
+To use a private GitHub repository with Buildkite hosted agents, you need to authorize Buildkite to access your repository. This process can only be conducted by [Buildkite organization administrators](/docs/team-management/permissions#manage-teams-and-permissions-organization-level-permissions)
 
-> 📘 Buildkite organization administrator permissions required
-> To modify the repository provider configuration for your Buildkite organization, you will need to have the **Administrator** role. Reach out to your organization administrator if you do not have the required access enabled.
-
-1. Navigate to your [Buildkite organization's settings page](https://buildkite.com/organizations/~/settings).
-1. On the left hand menu select **Repository Providers**.
+1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+1. In the **Integrations** section, select **Repository Providers**.
 1. Select the **GitHub (with code access)** option.
 1. Follow the prompts to authorize the services on your GitHub account. You can restrict access to specific repositories during setup.
 
@@ -20,14 +17,14 @@ To use a private GitHub repository with Buildkite hosted agents, you will need t
 
 Buildkite does not require any special permissions to access public repositories.
 
-## Other private repositories
+## Private repositories with other providers
 
-There are 2 key aspects to utilizing a private repository with Buildkite hosted agents.
+Using Buildkite hosted agents with a private repository on provider other than GitHub, has the following two requirements:
 
-1. Adding an SSH key as a Secret to the Buildkite hosted agent cluster.
-1. Adding the plugin to the initial pipeline steps, and any further steps within the pipeline that are loaded.
+1. Add an SSH key as a secret to the Buildkite hosted agent cluster.
+1. Add the plugin to the initial pipeline steps, and any further steps within the uploaded pipeline.
 
-### Adding the SSH key secret
+### Add the SSH key secret
 
 Navigate to **Agents** from the top menu, and open the **Cluster** for Buildkite hosted agents. In the left-hand side navigation, there will be a **Secrets** option to follow. Clicking the **New Secret** button will open a modal to capture the new secret.
 
@@ -37,7 +34,7 @@ This secret should contain the full private key (including the header and footer
 
 If there are multiple distinct keys to be used throughout the cluster, make sure to name them appropriately so they can each be used at their correct times.
 
-### Adding a new pipeline
+### Add a new pipeline
 
 With the secret now available, you can add a new pipeline to use it and access the Git repository.
 
