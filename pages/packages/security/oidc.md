@@ -58,7 +58,11 @@ Will only authenticate and accept OIDC tokens (and therefore, allow package publ
 
 ## Configure a Buildkite pipeline to authenticate to a registry
 
-When configuring a Buildkite pipeline [`command` step](/docs/pipelines/command-step) to request an OIDC token from Buildkite to interact with your Buildkite registry [configured with an OIDC policy](#define-oidc-policies-for-a-registry), use the following [`buildkite-agent oidc` command](/docs/agent/v3/cli-oidc):
+Configuring a Buildkite pipeline [`command` step](/docs/pipelines/command-step) to request an OIDC token from Buildkite to interact with your Buildkite registry [configured with an OIDC policy](#define-oidc-policies-for-a-registry), is a two-part process.
+
+### Part 1: Request an OIDC token from Buildkite
+
+To do this, use the following [`buildkite-agent oidc` command](/docs/agent/v3/cli-oidc):
 
 ```bash
 buildkite-agent oidc request-token --audience "https://packages.buildkite.com/{org.slug}/{registry.slug}" --lifetime 300
@@ -66,6 +70,60 @@ buildkite-agent oidc request-token --audience "https://packages.buildkite.com/{o
 
 where:
 
+- `--audience` is the target system that consumes this OIDC token. For Buildkite Packages, this value must be based on the URL `https://packages.buildkite.com/{org.slug}/{registry.slug}`.
+
 <%= render_markdown partial: 'packages/org_slug' %>
 
 - `{registry.slug}` is the slug of your registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of your registry name, and can be obtained after accessing **Packages** in the global navigation > your registry from the **Registries** page.
+
+- `--lifetime` is the time (in seconds) that the OIDC token is valid for. By default, this value must be less than `300`.
+
+### Part 2: Authenticate the Buildkite registry with the OIDC token
+
+To do this (using Docker as an example), authenticate the Buildkite registry with the OIDC token obtained in [part 1](#configure-a-buildkite-pipeline-to-authenticate-to-a-registry-part-1-request-an-oidc-token-from-buildkite) by piping the output through to the `docker login` command:
+
+```bash
+docker login packages.buildkite.com/{org.slug}/{registry.slug} --username buildkite --password-stdin
+```
+
+where:
+
+- `{org.slug}` and `{registry.slug}` are the same as the values used in the [`buildkite-agent oidc request-token` command](#configure-a-buildkite-pipeline-to-authenticate-to-a-registry-part-1-request-an-oidc-token-from-buildkite).
+
+- `--username` always has the value `buildkite`.
+
+Therefore, the full [`command` step](/docs/pipelines/command-step) would look like:
+
+```bash
+buildkite-agent oidc request-token --audience "https://packages.buildkite.com/{org.slug}/{registry.slug}" --lifetime 300 | docker login packages.buildkite.com/{org.slug}/{registry.slug} --username buildkite --password-stdin
+```
+
+Assuming a Buildkite organization with slug `my-organization` and a pipeline slug `my-pipeline`, this full command would look like:
+
+```bash
+buildkite-agent oidc request-token --audience "https://packages.buildkite.com/my-organization/my-pipeline" --lifetime 300 | docker login packages.buildkite.com/my-organization/my-pipeline --username buildkite --password-stdin
+```
+
+### Example pipeline
+
+The following example Buildkite pipeline YAML snippet demonstrates how to push Docker images to a Buildkite registry using OIDC token authentication:
+
+```yml
+steps:
+- key: "docker-build"
+  label: "\:docker\: Build"
+  command: docker build --tag packages.buildkite.com/my-organization/my-pipeline/my-image:latest .
+
+- key: "docker-login"
+  label: "\:docker\: Login"
+  command: buildkite-agent oidc request-token --audience "https://packages.buildkite.com/my-organization/my-pipeline" --lifetime 300 | docker login packages.buildkite.com/my-organization/my-pipeline --username buildkite --password-stdin
+  depends_on: "docker-build"
+
+- key: "docker-push"
+  label: "\:docker\: Push"
+  command: docker push packages.buildkite.com/my-organization/my-pipeline/my-pipeline/my-image:latest
+  depends_on: "docker-login"
+
+```
+{: codeblock-file="pipeline.yml"}
+
