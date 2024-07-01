@@ -34,3 +34,8 @@ When an assigned test has not flaked in more than 7 days, it is moved to the **O
 
 <%= image "outdated-assignments.png", width: 1960/2, height: 630/2, alt: "Flaky test page showing team assignments" %>
 
+## Weekly flaky test summary
+
+You're able to schedule a weekly summary of the flakiest tests assigned to your teams. Visit the **Suite settings** page to create new notifications, or manage existing ones. If you would like to set up auto assignment, check out our [Test ownership](/docs/test-analytics/test-ownership) feature.
+
+<%= image "flaky-test-summary-mailer.png", width: 1960/2, height: 630/2, alt: "Flaky test page showing team assignments" %>
