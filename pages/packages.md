@@ -41,5 +41,5 @@ If you're familiar with the basics, explore how to use registries for each of Bu
 Learn more about how to:
 
 - Work with Buildkite Packages registries in [Manage registries](/docs/packages/manage-registries).
-- Manage access to your registries in [Access controls](/docs/packages/permissions).
+- Manage access to your registries in [User, team, and registry permissions](/docs/packages/permissions).
 - Configure your own private storage for Buildkite Packages in [Private storage](/docs/packages/private-storage).
