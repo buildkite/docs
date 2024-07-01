@@ -32,7 +32,7 @@ As an organization administrator, you can access the [**Organization Settings** 
 
 To do this:
 
-1. As an [Buildkite organization administrator](#manage-teams-and-permissions-organization-level-permissions), access the [**Organization Settings** page](https://buildkite.com/organizations/~/settings) by selecting **Settings** in the global navigation.
+1. As a [Buildkite organization administrator](#manage-teams-and-permissions-organization-level-permissions), access the [**Organization Settings** page](https://buildkite.com/organizations/~/settings) by selecting **Settings** in the global navigation.
 
 1. In the **Packages** section, select **Enable** to open the **Enable Packages** page.
 

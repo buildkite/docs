@@ -3,7 +3,6 @@ class BetaPages
     [
       'pipelines/cluster-queue-metrics',
       'test-analytics/test-ownership',
-      'packages',
       'apis/rest-api/team-pipelines',
       'apis/rest-api/organizations/members',
       'apis/rest-api/teams',
