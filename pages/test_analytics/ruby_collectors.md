@@ -32,7 +32,7 @@ Before you start, make sure RSpec runs with access to [CI environment variables]
     bundle
     ```
 
-3. Add the Test Analytics code to your application in `spec/spec_helper.rb`, and set the BUILDKITE_ANALYTICS_TOKEN [securely](/docs/pipelines/security/managing-secrets) on your agent or agents. Please ensure gems that patch `Net::HTTP`, like [httplog](https://github.com/trusche/httplog) and [sniffer](https://github.com/aderyabin/sniffer), are required before `buildkite/test_collector` to avoid conflicts.
+3. Add the Test Analytics code to your application in `spec/spec_helper.rb`, and set the BUILDKITE_ANALYTICS_TOKEN [securely](/docs/pipelines/security/secrets/managing) on your agent or agents. Please ensure gems that patch `Net::HTTP`, like [httplog](https://github.com/trusche/httplog) and [sniffer](https://github.com/aderyabin/sniffer), are required before `buildkite/test_collector` to avoid conflicts.
 
     ```rb
     require "buildkite/test_collector"
@@ -97,7 +97,7 @@ If you're already using minitest for your tests, add the `buildkite-test_collect
     bundle
     ```
 
-3. Add the Test Analytics code to your application in `test/test_helper.rb`, and set the BUILDKITE_ANALYTICS_TOKEN [securely](/docs/pipelines/security/managing-secrets) on your agent or agents. Please ensure gems that patch `Net::HTTP`, like [httplog](https://github.com/trusche/httplog) and [sniffer](https://github.com/aderyabin/sniffer), are required before `buildkite/test_collector` to avoid conflicts.
+3. Add the Test Analytics code to your application in `test/test_helper.rb`, and set the BUILDKITE_ANALYTICS_TOKEN [securely](/docs/pipelines/security/secrets/managing) on your agent or agents. Please ensure gems that patch `Net::HTTP`, like [httplog](https://github.com/trusche/httplog) and [sniffer](https://github.com/aderyabin/sniffer), are required before `buildkite/test_collector` to avoid conflicts.
 
     ```rb
     require "buildkite/test_collector"

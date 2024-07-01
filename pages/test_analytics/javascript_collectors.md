@@ -18,7 +18,7 @@ Whichever test framework you use, you first need to add and authenticate the [`b
 To add the test collector package:
 
 1. In your CI environment, set the `BUILDKITE_ANALYTICS_TOKEN` environment variable to your Test Analytics API token.
-   To learn how to set environment variables securely in Pipelines, see [Managing pipeline secrets](/docs/pipelines/security/managing-secrets).
+   To learn how to set environment variables securely in Pipelines, see [Managing pipeline secrets](/docs/pipelines/security/secrets/managing).
 
 1. On the command line, create a new branch by running:
 

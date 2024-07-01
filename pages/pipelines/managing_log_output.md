@@ -153,14 +153,14 @@ redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_ACCESS_KEY, *_SECRET_KEY, *_CONN
 ```
 
 >📘 Setting environment variables
-> Note that if you <emphasis>set</emphasis> or <emphasis>interpolate</emphasis> a secret environment variable in your <code>pipeline.yml</code> it is not redacted, but doing that is <a href="/docs/pipelines/security/managing-secrets#anti-pattern-storing-secrets-in-your-pipeline-dot-yml">not recommended</a>.
+> Note that if you _set_ or _interpolate_ a secret environment variable in your `pipeline.yml` it is not redacted, but doing that is [not recommended](/docs/pipelines/security/secrets/risk-considerations#storing-secrets-in-your-pipeline-dot-yml).
 
 ## Private build log archive storage
 
 By default, build logs are stored in encrypted form in Buildkite's managed Amazon S3 buckets, but you can instead store the archived build logs in your private AWS S3 bucket. If you decide to store the logs in your S3 bucket, they're encrypted using SSE-S3. SSE-KMS encryption is not supported. After storing the logs in your S3 bucket, Buildkite does not retain a copy of the logs.
 
 > 📘 Enterprise feature
-> This feature is only available to customers on the <a href="https://buildkite.com/pricing">Enterprise plan</a> and is applied at the organization level. If you have multiple organizations, send support a list of the organizations where this feature should be enabled.
+> This feature is only available to customers on the [Enterprise plan](https://buildkite.com/pricing) and is applied at the organization level. If you have multiple organizations, send support a list of the organizations where this feature should be enabled.
 
 The folder structure and file format are as follows and are not customizable:
 

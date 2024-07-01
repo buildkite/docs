@@ -35,7 +35,7 @@ To import [JSON-formatted test results](#json-test-results-data-reference) in Bu
 
 For example, to import the contents of a [JSON-formatted test results](#json-test-results-data-reference) (`test-results.json`):
 
-1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/managing-secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
+1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/secrets/managing) (`BUILDKITE_ANALYTICS_TOKEN`).
 
 2. Run the following `curl` command:
 
@@ -66,7 +66,7 @@ To import [JSON-formatted test results](#json-test-results-data-reference), make
 
 For example, to import the contents of a `test-results.json` file in a CircleCI pipeline:
 
-1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/managing-secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
+1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/secrets/managing) (`BUILDKITE_ANALYTICS_TOKEN`).
 
 2. Run the following `curl` command:
 
@@ -95,7 +95,7 @@ To import [JSON-formatted test results](#json-test-results-data-reference), make
 
 For example, to import the contents of a `test-results.json` file in a GitHub Actions pipeline run:
 
-1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/managing-secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
+1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/secrets/managing) (`BUILDKITE_ANALYTICS_TOKEN`).
 
 2. Run the following `curl` command:
 

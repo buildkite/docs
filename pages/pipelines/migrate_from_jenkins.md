@@ -155,7 +155,7 @@ To translate a pipeline:
    * Targeting a specific agent or queue.
    * Replacing any Jenkins plugins and integrations with Buildkite features, existing Buildkite plugins, custom plugins, or custom scripts.
 1. Migrate any environment variables, secrets, or credentials used in the pipeline. Buildkite allows you to manage environment variables and secrets on different levels, such as organization, pipeline, and step levels. Securely store your sensitive data on your preferred secret management tool and integrate them into your agents and pipelines. See [Managing pipeline secrets
-](/docs/pipelines/security/managing-secrets) to learn more.
+](/docs/pipelines/security/secrets/managing) to learn more.
 1. Run the pipeline to verify it works as expected.
    * If it does, nice work! On to the next one.
    * If it doesn't, check the logs to resolve the issues. If you're having trouble, reach out to [support](https://buildkite.com/support).
