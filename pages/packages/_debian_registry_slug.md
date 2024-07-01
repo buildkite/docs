@@ -1,0 +1,1 @@
+- `{registry.slug}` is the slug of your Debian registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of your Debian registry name, and can be obtained after accessing **Packages** in the global navigation > your Debian registry from the **Registries** page.

@@ -1,0 +1,1 @@
+- `{registry.slug}` is the slug of your Python registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of your Python registry name, and can be obtained after accessing **Packages** in the global navigation > your Python registry from the **Registries** page.

@@ -28,7 +28,7 @@ The following steps describe the process above:
         http://maven.apache.org/xsd/settings-1.0.0.xsd">
       <servers>
         <server>
-          <id>org-slug-registry-name</id>
+          <id>org-slug-registry-slug</id>
           <configuration>
             <httpHeaders>
               <property>
@@ -54,22 +54,22 @@ The following steps describe the process above:
     ```xml
     <distributionManagement>
       <repository>
-        <id>org-slug-registry-name</id>
-        <url>https://packages.buildkite.com/{org.slug}/{registry.name}/maven2/</url>
+        <id>org-slug-registry-slug</id>
+        <url>https://packages.buildkite.com/{org.slug}/{registry.slug}/maven2/</url>
       </repository>
       <snapshotRepository>
-        <id>org-slug-registry-name</id>
-        <url>https://packages.buildkite.com/{org.slug}/{registry.name}/maven2/</url>
+        <id>org-slug-registry-slug</id>
+        <url>https://packages.buildkite.com/{org.slug}/{registry.slug}/maven2/</url>
       </snapshotRepository>
     </distributionManagement>
     ```
 
     where:
-    * `org-slug-registry-name` is the ID of your Java registry (above).
+    * `org-slug-registry-slug` is the ID of your Java registry (above).
 
     <%= render_markdown partial: 'packages/org_slug' %>
 
-    <%= render_markdown partial: 'packages/java_registry_name' %>
+    <%= render_markdown partial: 'packages/java_registry_slug' %>
 
 1. Publish your package:
 
@@ -85,18 +85,14 @@ The following steps describe the process above:
 
 ### Downloading a package
 
-A Java package can be downloaded from the package's details page.
-
-To download a package:
+A Java package can be downloaded from the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Select **Download**.
 
 ### Installing a package
 
-A Java package can be installed using code snippet details provided on the package's details page.
-
-To install a package:
+A Java package can be installed using code snippet details provided on the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** > **Installation instructions** section is displayed.
@@ -106,7 +102,7 @@ To install a package:
     * Is _not_ required if your registry is publicly accessible.
     * Only needs to be conducted once for the life of your Java registry.
 
-<!-- Might likely need to re-write this if this section goes with public registries. -->
+
 
 The `~/.m2/settings.xml` code snippet is based on this format:
 
@@ -117,7 +113,7 @@ The `~/.m2/settings.xml` code snippet is based on this format:
     http://maven.apache.org/xsd/settings-1.0.0.xsd">
   <servers>
     <server>
-    <id>org-slug-registry-name</id>
+    <id>org-slug-registry-slug</id>
       <configuration>
         <httpHeaders>
           <property>
@@ -142,8 +138,8 @@ The `pom.xml` code snippet is based on this format:
 ```xml
 <repositories>
   <repository>
-    <id>org-slug-registry-name</id>
-    <url>https://packages.buildkite.com/{org.slug}/{registry.name}/maven2/</url>
+    <id>org-slug-registry-slug</id>
+    <url>https://packages.buildkite.com/{org.slug}/{registry.slug}/maven2/</url>
     <releases>
       <enabled>true</enabled>
     </releases>
@@ -168,6 +164,6 @@ where:
 
 - `{org.slug}` is the org slug.
 
-<%= render_markdown partial: 'packages/java_registry_name' %>
+<%= render_markdown partial: 'packages/java_registry_slug' %>
 
 <%= render_markdown partial: 'packages/java_package_domain_name_version' %>

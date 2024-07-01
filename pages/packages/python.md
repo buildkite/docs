@@ -8,7 +8,7 @@ To view and copy this `curl` command:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Python registry on this page.
-1. Select **Publish a Python Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this curl command and submit it to publish a package to your Python registry.
+1. Select **Publish a Python Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and submit it to publish a package to your Python registry.
 
 This command provides:
 
@@ -20,7 +20,7 @@ This command provides:
 The following `curl` command (modified as required before submitting) describes the process above to publish a package to your Python registry:
 
 ```bash
-curl -X POST https://api.buildkite.com/api/v2/packages/organizations/{org.slug}/registries/{registry.name}/packages \
+curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
   -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
   -F "file=@<path_to_file>"
 ```
@@ -29,7 +29,7 @@ where:
 
 <%= render_markdown partial: 'packages/org_slug' %>
 
-<%= render_markdown partial: 'packages/python_registry_name' %>
+<%= render_markdown partial: 'packages/python_registry_slug' %>
 
 - `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Python registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
 
@@ -38,7 +38,7 @@ where:
 For example, to upload the file `my-python-package-0.9.7b1.tar.gz` from the current directory to the **My-Python-packages** registry in the **My organization** Buildkite organization, run the `curl` command:
 
 ```bash
-curl -X POST https://api.buildkite.com/api/v2/packages/organizations/my-organization/registries/my-python-packages/packages \
+curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-python-packages/packages \
   -H "Authorization: Bearer $REPLACE_WITH_MY_REGISTRY_WRITE_TOKEN" \
   -F "file=@my-python-package-0.9.7b1.tar.gz"
 ```
@@ -51,35 +51,34 @@ To access your Python package's details page:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Python registry on this page.
-1. On your Python registry page, select the package within the **Packages** section. The package's details page is displayed.
+1. On your Python registry page, select the package to display its details.
 
 <%= render_markdown partial: 'packages/package_details_page_sections' %>
 
 ### Downloading a package
 
-A Python package can be downloaded from the package's details page.
-
-To download a package:
+A Python package can be downloaded from the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Select **Download**.
 
 ### Installing a package
 
-A Python package can be installed using code snippet details provided on the package's details page.
-
-To install a package:
+A Python package can be installed using code snippet details provided on the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** > **Installation instructions** section is displayed.
-1. Copy the code snippet and paste this into either the package installer for Python (pip) configuration (`pip.conf`) file or end of the virtualenv `requirements.txt` file before installing this Python package.
+1. Copy the relevant code snippet from the [**Registry Configuration**](#registry-configuration) section and paste it into either the package installer for Python (pip) configuration (`pip.conf`) file or end of the virtualenv `requirements.txt` file.
+1. Run the installation command from the [**Package Installation**](#package-installation) section.
+
+<h4 id="registry-configuration">Registry Configuration</h4>
 
 The `pip.conf` code snippet is based on this format:
 
 ```conf
 # Add this to the [global] section in your ~/.pip/pip.conf:
 [global]
-extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.name}/pypi/simple"
+extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple"
 ```
 
 where:
@@ -88,11 +87,25 @@ where:
 
 <%= render_markdown partial: 'packages/org_slug' %>
 
-<%= render_markdown partial: 'packages/python_registry_name' %>
+<%= render_markdown partial: 'packages/python_registry_slug' %>
 
 The alternative `requirements.txt` (for virtualenv) code snippet is based on this format:
 
 ```ini
 # Otherwise if installing on a virtualenv, add this to the bottom of your requirements.txt:
---extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.name}/pypi/simple"
+--extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple"
 ```
+
+<h4 id="package-installation">Package Installation</h4>
+
+Use `pip` to install the package:
+
+```bash
+pip install package-name==version-number
+```
+
+where:
+
+- `package-name` is the name of your package.
+
+- `version-numnber` is the version number of this package.

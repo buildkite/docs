@@ -387,7 +387,7 @@
       children:
         - name: "Configuring test suites"
           path: "test-analytics/test-suites"
-        - name: "Access control"
+        - name: "Permissions"
           path: "test-analytics/permissions"
         - name: "CI environment variables"
           path: "test-analytics/ci-environments"
@@ -442,6 +442,8 @@
     - name: "Introduction"
       start_expanded: true
       children:
+        - name: "Background"
+          path: "packages/background"
         - name: "Getting started"
           path: "packages/getting-started"
         - name: "Registries"
@@ -451,11 +453,20 @@
               path: "packages/manage-registries"
             - name: "Private storage"
               path: "packages/private-storage"
-        - name: "Access control"
+        - name: "Security"
+          start_expanded: true
+          children:
+            - name: "Overview"
+              path: "packages/security"
+            - name: "OIDC"
+              path: "packages/security/oidc"
+        - name: "Permissions"
           path: "packages/permissions"
     - name: "Package ecosystems"
       start_expanded: true
       children:
+        - name: "Alpine"
+          path: "packages/alpine"
         - name: "Container"
           path: "packages/container"
         - name: "Debian"
@@ -471,6 +482,8 @@
           path: "packages/javascript"
         - name: "Python"
           path: "packages/python"
+        - name: "Red Hat"
+          path: "packages/red-hat"
         - name: "Ruby"
           path: "packages/ruby"
         - name: "Terraform"

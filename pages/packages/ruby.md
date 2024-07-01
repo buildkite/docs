@@ -25,12 +25,12 @@ The following subsections describe the processes in the code boxes above.
     mkdir ~/.gem
     touch ~/.gem/credentials
     chmod 600 ~/.gem/credentials
-    echo "https://packages.buildkite.com/{org.slug}/{registry.name}: registry-write-token" >> ~/.gem/credentials
+    echo "https://packages.buildkite.com/{org.slug}/{registry.slug}: registry-write-token" >> ~/.gem/credentials
     ```
 
     where:
     <%= render_markdown partial: 'packages/org_slug' %>
-    <%= render_markdown partial: 'packages/ruby_registry_name' %>
+    <%= render_markdown partial: 'packages/ruby_registry_slug' %>
     <%= render_markdown partial: 'packages/ruby_registry_write_token' %>
 
     **Note:** This step only needs to be conducted once for the life of your Ruby registry.
@@ -38,7 +38,7 @@ The following subsections describe the processes in the code boxes above.
 1. Copy the following code snippet and paste it to modify the `allowed_push_host` line of your Ruby (gem) package's `.gemspec` file:
 
     ```conf
-    spec.metadata["allowed_push_host"] = "https://packages.buildkite.com/{org.slug}/{registry.name}"
+    spec.metadata["allowed_push_host"] = "https://packages.buildkite.com/{org.slug}/{registry.slug}"
     ```
 
     **Note:** This configuration prevents your Ruby package accidentally being published to the main [RubyGems registry](https://rubygems.org/).
@@ -93,7 +93,7 @@ This code snippet is based on this format:
 
 ```bash
 gem install gem-package-name -v version.number \
-  --clear-sources --source https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.name}
+  --clear-sources --source https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}
 ```
 
 where:
@@ -106,4 +106,4 @@ where:
 
 <%= render_markdown partial: 'packages/org_slug' %>
 
-- `{registry.name}` is the name of your Ruby registry.
+- `{registry.slug}` is the name of your Ruby registry.

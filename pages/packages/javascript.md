@@ -22,12 +22,12 @@ The following steps describe the process above:
 1. Copy the following `npm` command, paste it into your terminal, and modify as required before submitting to update your `~/.npmrc` file:
 
     ```bash
-    npm set //packages.buildkite.com/{org.slug}/{registry.name}/npm/:_authToken registry-write-token
+    npm set //packages.buildkite.com/{org.slug}/{registry.slug}/npm/:_authToken registry-write-token
     ```
 
     where:
     <%= render_markdown partial: 'packages/org_slug' %>
-    <%= render_markdown partial: 'packages/javascript_registry_name' %>
+    <%= render_markdown partial: 'packages/javascript_registry_slug' %>
     <%= render_markdown partial: 'packages/javascript_registry_write_token' %>
 
     **Note:**
@@ -39,7 +39,7 @@ The following steps describe the process above:
     ```json
     {
       ...,
-      "publishConfig": {"registry": "https://packages.buildkite.com/{org.slug}/{registry.name}/npm/"}
+      "publishConfig": {"registry": "https://packages.buildkite.com/{org.slug}/{registry.slug}/npm/"}
     }
     ```
 
@@ -60,54 +60,50 @@ To access your JavaScript package's details page:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your JavaScript registry on this page.
-1. On your JavaScript registry page, select the package within the **Packages** section. The package's details page is displayed.
+1. On your JavaScript registry page, select the package to display its details page.
 
 <%= render_markdown partial: 'packages/package_details_page_sections' %>
 
 ### Downloading a package
 
-A JavaScript package can be downloaded from the package's details page.
-
-To download a package:
+A JavaScript package can be downloaded from the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Select **Download**.
 
 ### Installing a package
 
-A JavaScript package can be installed using code snippet details provided on the package's details page.
-
-To install a package:
+A JavaScript package can be installed using code snippet details provided on the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** > **Installation instructions** section is displayed.
 1. If your registry is private and you haven't already performed this `.npmrc` configuration step, copy the `npm` command from the [**Registry Configuration**](#registry-configuration) section, paste it into your terminal, and modify as required before submitting to update your `~/.npmrc` file.
-1. Copy the `npm` command from the [**Package installation**](#package-installation) section, paste it into your terminal, and modify as required before submitting it.
+1. Copy the `npm` command from the [**Package Installation**](#package-installation) section, paste it into your terminal, and modify as required before submitting it.
 
 <h4 id="registry-configuration">Registry Configuration</h4>
 
 This code snippet is based on this format:
 
 ```bash
-npm set //packages.buildkite.com/{org.slug}/{registry.name}/npm/:_authToken registry-read-token
+npm set //packages.buildkite.com/{org.slug}/{registry.slug}/npm/:_authToken registry-read-token
 ```
 
 where:
 <%= render_markdown partial: 'packages/org_slug' %>
-<%= render_markdown partial: 'packages/javascript_registry_name' %>
+<%= render_markdown partial: 'packages/javascript_registry_slug' %>
 <%= render_markdown partial: 'packages/javascript_registry_read_token' %>
 
 > 📘
 > If your `.npmrc` file doesn't exist, this command automatically creates it for you.
 > This step only needs to be conducted once for the life of your JavaScript registry, and it is not required for public JavaScript registries.
 
-<h4 id="package-installation">Package installation</h4>
+<h4 id="package-installation">Package Installation</h4>
 
 This code snippet is based on this format:
 
 ```bash
 npm install nodejs-package-name@version.number \
-  --registry https://packages.buildkite.com/{org.slug}/{registry.name}/npm/
+  --registry https://packages.buildkite.com/{org.slug}/{registry.slug}/npm/
 ```
 
 where:
@@ -118,4 +114,4 @@ where:
 
 <%= render_markdown partial: 'packages/org_slug' %>
 
-- `{registry.name}` is the name of your JavaScript registry.
+<%= render_markdown partial: 'packages/javascript_registry_slug' %>
