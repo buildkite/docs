@@ -107,6 +107,7 @@ exceptions:
   - IdP # TODO: unabbreviate this in headings
   - IDs
   - IronWorker
+  - Installation
   - JavaScript
   - Jenkins
   - JSON
