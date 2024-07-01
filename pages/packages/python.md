@@ -8,7 +8,7 @@ To view and copy this `curl` command:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Python registry on this page.
-1. Select **Publish a Python Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this curl command and submit it to publish a package to your Python registry.
+1. Select **Publish a Python Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and submit it to publish a package to your Python registry.
 
 This command provides:
 
@@ -69,7 +69,7 @@ A Python package can be installed using code snippet details provided on the pac
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** > **Installation instructions** section is displayed.
 1. Copy the relevant code snippet from the [**Registry Configuration**](#registry-configuration) section and paste it into either the package installer for Python (pip) configuration (`pip.conf`) file or end of the virtualenv `requirements.txt` file.
-1. Run the installation command from the [**Package installation**](#package-installation) section.
+1. Run the installation command from the [**Package Installation**](#package-installation) section.
 
 <h4 id="registry-configuration">Registry Configuration</h4>
 
@@ -96,4 +96,16 @@ The alternative `requirements.txt` (for virtualenv) code snippet is based on thi
 --extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple"
 ```
 
-<h4 id="package-installation">Package installation</h4>
+<h4 id="package-installation">Package Installation</h4>
+
+Use `pip` to install the package:
+
+```bash
+pip install package-name==version-number
+```
+
+where:
+
+- `package-name` is the name of your package.
+
+- `version-numnber` is the version number of this package.

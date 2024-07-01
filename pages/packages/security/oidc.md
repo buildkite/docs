@@ -48,7 +48,7 @@ The following example OIDC policies defined on a registry:
 
 Will only authenticate and accept OIDC tokens (and therefore, allow package publishing/uploads to this registry) from Buildkite Agents:
 
-- Configured with the organization `my-organization`.
+- Configured with the Buildkite organization `my-organization`.
 
 - Running pipeline builds of the `my-pipeline` or `my-second-pipeline` pipelines within this organization.
 
@@ -114,7 +114,7 @@ steps:
   label: "\:docker\: Build"
   command: docker build --tag packages.buildkite.com/my-organization/my-pipeline/my-image:latest .
 
-- key: "docker-login" # Authenticate the Buildkite Agent to Buildkite Packages registry using an OIDC token
+- key: "docker-login" # Authenticate the Buildkite Agent to the Buildkite Packages registry using an OIDC token
   label: "\:docker\: Login"
   command: buildkite-agent oidc request-token --audience "https://packages.buildkite.com/my-organization/my-pipeline" --lifetime 300 | docker login packages.buildkite.com/my-organization/my-pipeline --username buildkite --password-stdin
   depends_on: "docker-build"

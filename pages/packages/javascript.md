@@ -78,7 +78,7 @@ A JavaScript package can be installed using code snippet details provided on the
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** > **Installation instructions** section is displayed.
 1. If your registry is private and you haven't already performed this `.npmrc` configuration step, copy the `npm` command from the [**Registry Configuration**](#registry-configuration) section, paste it into your terminal, and modify as required before submitting to update your `~/.npmrc` file.
-1. Copy the `npm` command from the [**Package installation**](#package-installation) section, paste it into your terminal, and modify as required before submitting it.
+1. Copy the `npm` command from the [**Package Installation**](#package-installation) section, paste it into your terminal, and modify as required before submitting it.
 
 <h4 id="registry-configuration">Registry Configuration</h4>
 
@@ -97,7 +97,7 @@ where:
 > If your `.npmrc` file doesn't exist, this command automatically creates it for you.
 > This step only needs to be conducted once for the life of your JavaScript registry, and it is not required for public JavaScript registries.
 
-<h4 id="package-installation">Package installation</h4>
+<h4 id="package-installation">Package Installation</h4>
 
 This code snippet is based on this format:
 

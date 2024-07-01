@@ -8,7 +8,7 @@ To view and copy this `docker push` command:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your container registry on this page.
-1. Select **Publish a Container Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this Docker push command and submit it to publish an image to your container registry.
+1. Select **Publish a Container Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `docker push` command and submit it to publish an image to your container registry.
 
 This command provides:
 
