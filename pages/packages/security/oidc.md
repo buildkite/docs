@@ -4,7 +4,7 @@
 
 Third-party products and services, such as [GitHub Actions](https://github.com/features/actions), as well as Buildkite Packages itself, can be configured with OIDC-compatible policies that only permit agent interactions from specific Buildkite organizations, pipelines, jobs, and agents, associated with a pipeline's job.
 
-A Buildkite OIDC token, representing such an agent interaction containing this metadata, can be used by these third-party services and Buildkite Packages, to allow the service to authenticate the Buildkite interaction. If one of these interactions does not match or comply with the service's policy, the interaction is rejected.
+A Buildkite OIDC token, representing such an agent interaction containing this metadata, can be used by these third-party services and Buildkite Packages, to allow the service to authenticate the Buildkite interaction. If one of these interactions does not match or comply with the service's policy, the OIDC token and hence, subsequent interactions are rejected.
 
 The [Buildkite Agent's `oidc` command](/docs/agent/v3/cli-oidc) allows you to request an OIDC token from Buildkite representing the pipeline's current job. These tokens are can then used by a Buildkite Packages registry to determine if the organization, pipeline and any other metadata associated with the pipeline and its job are permitted to publish/upload packages to this registry.
 
@@ -110,16 +110,16 @@ The following example Buildkite pipeline YAML snippet demonstrates how to push D
 
 ```yml
 steps:
-- key: "docker-build"
+- key: "docker-build" # Build the Docker image
   label: "\:docker\: Build"
   command: docker build --tag packages.buildkite.com/my-organization/my-pipeline/my-image:latest .
 
-- key: "docker-login"
+- key: "docker-login" # Authenticate the Buildkite Agent to Buildkite Packages registry using an OIDC token
   label: "\:docker\: Login"
   command: buildkite-agent oidc request-token --audience "https://packages.buildkite.com/my-organization/my-pipeline" --lifetime 300 | docker login packages.buildkite.com/my-organization/my-pipeline --username buildkite --password-stdin
   depends_on: "docker-build"
 
-- key: "docker-push"
+- key: "docker-push" # Now authenticated, push the Docker image to the registry
   label: "\:docker\: Push"
   command: docker push packages.buildkite.com/my-organization/my-pipeline/my-pipeline/my-image:latest
   depends_on: "docker-login"

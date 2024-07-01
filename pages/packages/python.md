@@ -20,7 +20,7 @@ This command provides:
 The following `curl` command (modified as required before submitting) describes the process above to publish a package to your Python registry:
 
 ```bash
-curl -X POST https://api.buildkite.com/api/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
+curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
   -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
   -F "file=@<path_to_file>"
 ```
@@ -38,7 +38,7 @@ where:
 For example, to upload the file `my-python-package-0.9.7b1.tar.gz` from the current directory to the **My-Python-packages** registry in the **My organization** Buildkite organization, run the `curl` command:
 
 ```bash
-curl -X POST https://api.buildkite.com/api/v2/packages/organizations/my-organization/registries/my-python-packages/packages \
+curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-python-packages/packages \
   -H "Authorization: Bearer $REPLACE_WITH_MY_REGISTRY_WRITE_TOKEN" \
   -F "file=@my-python-package-0.9.7b1.tar.gz"
 ```
@@ -51,28 +51,27 @@ To access your Python package's details page:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Python registry on this page.
-1. On your Python registry page, select the package within the **Packages** section. The package's details page is displayed.
+1. On your Python registry page, select the package to display its details.
 
 <%= render_markdown partial: 'packages/package_details_page_sections' %>
 
 ### Downloading a package
 
-A Python package can be downloaded from the package's details page.
-
-To download a package:
+A Python package can be downloaded from the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Select **Download**.
 
 ### Installing a package
 
-A Python package can be installed using code snippet details provided on the package's details page.
-
-To install a package:
+A Python package can be installed using code snippet details provided on the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** > **Installation instructions** section is displayed.
-1. Copy the code snippet and paste this into either the package installer for Python (pip) configuration (`pip.conf`) file or end of the virtualenv `requirements.txt` file before installing this Python package.
+1. Copy the relevant code snippet from the [**Registry Configuration**](#registry-configuration) section and paste it into either the package installer for Python (pip) configuration (`pip.conf`) file or end of the virtualenv `requirements.txt` file.
+1. Run the installation command from the [**Package installation**](#package-installation) section.
+
+<h4 id="registry-configuration">Registry Configuration</h4>
 
 The `pip.conf` code snippet is based on this format:
 
@@ -96,3 +95,5 @@ The alternative `requirements.txt` (for virtualenv) code snippet is based on thi
 # Otherwise if installing on a virtualenv, add this to the bottom of your requirements.txt:
 --extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple"
 ```
+
+<h4 id="package-installation">Package installation</h4>

@@ -94,7 +94,7 @@ where:
 
 <%= render_markdown partial: 'packages/debian_registry_slug' %>
 
-Stash the private registry credentials into `apt`'s `auth.conf` file:
+If your registry is _private_ (that is, the default registry configuration), stash the private registry credentials into `apt`'s `auth.conf.d` directory:
 
 ```bash
 echo "machine https://packages.buildkite.com/{org.slug}/{registry.slug}/ login buildkite password ${registry.read.token}" > /etc/apt/auth.conf.d/{org.slug}_{registry.slug}.conf; chmod 600 /etc/apt/auth.conf.d/{org.slug}_{registry.slug}.conf

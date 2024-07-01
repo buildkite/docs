@@ -89,18 +89,14 @@ The following steps describe the process above:
 
 ### Downloading a package
 
-A Java package can be downloaded from the package's details page.
-
-To download a package:
+A Java package can be downloaded from the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Select **Download**.
 
 ### Installing a package
 
-A Java package can be installed using code snippet details provided on the package's details page.
-
-To install a package:
+A Java package can be installed using code snippet details provided on the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** > **Installation instructions** section is displayed.
@@ -133,6 +129,8 @@ where:
 
 <%= render_markdown partial: 'packages/java_registry_slug' %>
 
-- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to download packages from your Java registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. Both the `authentication` and `credentials` sections are not required for registries that are publicly accessible.
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to download packages from your Java registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+
+    **Note:** Both the `authentication` and `credentials` sections are not required for registries that are publicly accessible.
 
 <%= render_markdown partial: 'packages/java_package_domain_name_version' %>

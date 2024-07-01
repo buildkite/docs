@@ -60,24 +60,20 @@ To access your JavaScript package's details page:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your JavaScript registry on this page.
-1. On your JavaScript registry page, select the package within the **Packages** section. The package's details page is displayed.
+1. On your JavaScript registry page, select the package to display its details page.
 
 <%= render_markdown partial: 'packages/package_details_page_sections' %>
 
 ### Downloading a package
 
-A JavaScript package can be downloaded from the package's details page.
-
-To download a package:
+A JavaScript package can be downloaded from the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Select **Download**.
 
 ### Installing a package
 
-A JavaScript package can be installed using code snippet details provided on the package's details page.
-
-To install a package:
+A JavaScript package can be installed using code snippet details provided on the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** > **Installation instructions** section is displayed.

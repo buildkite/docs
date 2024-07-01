@@ -66,9 +66,9 @@ To update a registry:
     The registry's updates will appear on the **Registries** page, as well as the registry's details page.
 
 1. If the registry's _OIDC policy_ needs to be configured, select **OIDC Policy** from the registry's **Settings** page, to access the **OIDC Policy** page and configure this policy accordingly. Learn more about how to define the criteria for which OIDC tokens (from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another third-party system), will be accepted and authenticate a package publication/upload action from this system, on the [OIDC in Buildkite Packages](/docs/packages/security/oidc) page.
-1. If a long-lived _registry token_ needs to be created, edited (description only), or deleted, select **Tokens** from the registry's **Settings** page, to access the **Tokens** page and select **Create Registry Token** to create a new token. For an existing token on this page, select either its **Edit description** or **Delete token** button to perform this action.
+1. If the registry is _private_ and a long-lived _registry token_ needs to be created, edited (description only), or deleted, select **Tokens** from the registry's **Settings** page, to access the **Tokens** page and select **Create Registry Token** to create a new token. For an existing token on this page, select either its **Edit description** or **Delete token** button to perform this action.
 
-    **Note:** Unlike other tokens generated elsewhere in Buildkite, registry tokens can continue to be viewed and copied in their entirety on subsequent occasions after their creation.
+    **Note:** Unlike other tokens generated elsewhere in Buildkite, registry tokens can continue to be viewed and copied in their entirety on subsequent occasions after their creation. The **Tokens** feature is not available while a registry is public. However, any registry tokens that are created before a registry is made public, will still be available when the registry is made private again.
 
 1. If _private storage_ needs to be configured for this registry, select **Storage** from the registry's **Settings** page, to access the **Storage** page. Learn more about how to configure private storage in [Link private storage](/docs/packages/private-storage).
 

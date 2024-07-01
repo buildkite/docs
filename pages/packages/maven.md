@@ -85,18 +85,14 @@ The following steps describe the process above:
 
 ### Downloading a package
 
-A Java package can be downloaded from the package's details page.
-
-To download a package:
+A Java package can be downloaded from the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Select **Download**.
 
 ### Installing a package
 
-A Java package can be installed using code snippet details provided on the package's details page.
-
-To install a package:
+A Java package can be installed using code snippet details provided on the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** > **Installation instructions** section is displayed.
@@ -106,7 +102,7 @@ To install a package:
     * Is _not_ required if your registry is publicly accessible.
     * Only needs to be conducted once for the life of your Java registry.
 
-<!-- Might likely need to re-write this if this section goes with public registries. -->
+
 
 The `~/.m2/settings.xml` code snippet is based on this format:
 
