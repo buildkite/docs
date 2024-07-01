@@ -31,7 +31,8 @@ Once you have granted access to your Slack workspace, give it a description, cho
 
 With the configuration above, you'll receive notifications at the pipeline level but not on the outcomes of individual steps. The **fixed builds** option ensures you're notified when a failed build next passes.
 
-If you're using the [`notify` YAML attribute](/docs/pipelines/notifications) for more fine grained control over your Slack notifications, select the **Only Some Pipelines...** option. Once you're using a Slack `notify` attribute in your `pipeline.yml`, the branch and build filtering from the Slack Notification Service will be overridden by the YAML options you choose.
+> 🚧
+> To avoid duplicate notifications, if you're using the [`notify` YAML attribute](/docs/pipelines/notifications) for more fine grained control over your Slack notifications make sure you've selected the **Only Some Pipelines...** option and excluded that pipeline from receiving the default notifications.
 
 ## Changing channels
 
