@@ -20,7 +20,7 @@ This command provides:
 The following `curl` command (modified as required before submitting) describes the process above to publish a package to your Debian registry:
 
 ```bash
-curl -X POST https://api.buildkite.com/api/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
+curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
   -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
   -F "file=@<path_to_file>"
 ```
@@ -38,7 +38,7 @@ where:
 For example, to upload the file `my-deb-package_1.0-2_amd64.deb` from the current directory to the **My-Debian-packages** registry in the **My organization** Buildkite organization, run the `curl` command:
 
 ```bash
-curl -X POST https://api.buildkite.com/api/v2/packages/organizations/my-organization/registries/my-debian-packages/packages \
+curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-debian-packages/packages \
   -H "Authorization: Bearer $REPLACE_WITH_MY_REGISTRY_WRITE_TOKEN" \
   -F "file=@my-deb-package_1.0-2_amd64.deb"
 ```
@@ -51,36 +51,39 @@ To access your deb package's details page:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Debian registry on this page.
-1. On your Debian registry page, select the package within the **Packages** section. The package's details page is displayed.
+1. On your Debian registry page, select the package to display its details page.
 
 <%= render_markdown partial: 'packages/package_details_page_sections' %>
 
 ### Downloading a package
 
-A Debian (deb) package can be downloaded from the package's details page.
-
-To download a package:
+A Debian (deb) package can be downloaded from the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Select **Download**.
 
 ### Installing a package
 
-A Debian package can be installed using code snippet details provided on the package's details page.
-
-To install a package:
+A Debian package can be installed using code snippet details provided on the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** > **Installation instructions** section is displayed.
-1. Copy the set of commands in the code snippet, paste them into your terminal, and submit them.
+1. For each required set of commands in the relevant code snippets, copy it, paste it into your terminal, and submit it.
 
-This code snippet is based on this format:
+The following set of code snippets are descriptions of what each code snippet does and where applicable, its format:
+
+#### Registry configuration
+
+Update the `apt` database and ensure `curl` or `gpg`, or both, is installed:
 
 ```bash
-apt update
-type -p ca-certificates >/dev/null || apt install ca-certificates -y
-echo -e "deb [trusted=yes] https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/any/ any main\ndeb-src [trusted=yes] https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/any/ any main" > /etc/apt/sources.list.d/buildkite-{org.slug}-{registry.slug}.list
-apt update && apt install jake
+apt update && apt install curl gpg -y
+```
+
+Install the registry signing key:
+
+```bash
+curl -fsSL "https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/gpgkey" | gpg --dearmor -o /etc/apt/keyrings/{org.slug}_{registry.slug}-archive-keyring.gpg
 ```
 
 where:
@@ -90,3 +93,25 @@ where:
 <%= render_markdown partial: 'packages/org_slug' %>
 
 <%= render_markdown partial: 'packages/debian_registry_slug' %>
+
+Stash the private registry credentials into `apt`'s `auth.conf` file:
+
+```bash
+echo "machine https://packages.buildkite.com/{org.slug}/{registry.slug}/ login buildkite password ${registry.read.token}" > /etc/apt/auth.conf.d/{org.slug}_{registry.slug}.conf; chmod 600 /etc/apt/auth.conf.d/{org.slug}_{registry.slug}.conf
+```
+
+Configure the source using the installed registry signing key:
+
+```bash
+echo -e "deb [signed-by=/etc/apt/keyrings/{org.slug}_{registry.slug}-archive-keyring.gpg] https://packages.buildkite.com/{org.slug}/{registry.slug}/any/ any main\ndeb-src [signed-by=/etc/apt/keyrings/{org.slug}_{registry.slug}-archive-keyring.gpg] https://packages.buildkite.com/{org.slug}/{registry.slug}/any/ any main" > /etc/apt/sources.list.d/buildkite-{org.slug}-{registry.slug}.list
+```
+
+#### Package installation
+
+Update the `apt` database and install the package:
+
+```bash
+apt update && apt install package-name
+```
+
+where `package-name` is the name of your package.

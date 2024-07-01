@@ -13,7 +13,7 @@ The package's details page provides the following information in the following s
     * the distribution name / version.
     * additional optional metadata contained within the package, such as a homepage, licenses, etc.
 
-- **Last pushed**: the date when the last package was uploaded to the registry.
+- **Pushed**: the date when the last package was uploaded to the registry.
 - **Total files**: the total number of files (and directories) within the package.
 - **Dependencies**: the number of dependency packages required by this package.
 - **Package size**: the storage size (in bytes) of this package.
