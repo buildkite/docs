@@ -232,6 +232,14 @@
                   path: "agent/v2/cli-artifact"
                 - name: "pipeline"
                   path: "agent/v2/cli-pipeline"
+    - name: "CLI"
+      children:
+        - name: "Overview"
+          path: "cli/v3"
+        - name: "Installation"
+          path: "cli/v3/installation"
+        - name: "Configuration"
+          path: "cli/v3/configuration"
     - name: "Configure pipelines"
       children:
         - name: "Overview"
