@@ -52,7 +52,12 @@ brew install buildkite/buildkite/bk@3
 
 ## Windows
 
+1. Download the latest Windows release from [CLI releases page](https://github.com/buildkite/cli/releases).
+2. Extract the files to a folder of your choice.
+3. Run `bk.exe` from a command prompt.
 
+> 📘
+> Note, you can also install the CLI into WSL.
 
 ## Manual installation
 
