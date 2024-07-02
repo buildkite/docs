@@ -36,7 +36,7 @@ where:
 
 <%= render_markdown partial: 'packages/path_to_file' %>
 
-For example, to upload the file `my-python-package-0.9.7b1.tar.gz` from the current directory to the **My-Python-packages** registry in the **My organization** Buildkite organization, run the `curl` command:
+For example, to upload the file `my-python-package-0.9.7b1.tar.gz` from the current directory to the **My Python packages** registry in the **My organization** Buildkite organization, run the `curl` command:
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-python-packages/packages \

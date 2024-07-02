@@ -36,7 +36,7 @@ where:
 
 <%= render_markdown partial: 'packages/path_to_file' %>
 
-For example, to upload the file `my-deb-package_1.0-2_amd64.deb` from the current directory to the **My-Debian-packages** registry in the **My organization** Buildkite organization, run the `curl` command:
+For example, to upload the file `my-deb-package_1.0-2_amd64.deb` from the current directory to the **My Debian packages** registry in the **My organization** Buildkite organization, run the `curl` command:
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-debian-packages/packages \
