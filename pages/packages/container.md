@@ -33,22 +33,22 @@ The following steps describe the process above:
 1. Copy the following `docker tag` command, paste it into your terminal, and modify as required before submitting to tag your container image as required:
 
     ```bash
-    docker tag <tag> packages.buildkite.com/{org.slug}/{registry.slug}/<package name>(:<tag>)?
+    docker tag current-image-name-and-tag packages.buildkite.com/{org.slug}/{registry.slug}/package-name:tag
     ```
 
     where:
-    * `<tag>` is the existing `image-name:tag` combination of your container image name and its current tag to published to your container registry, where the `:tag` component is optional.
-    * `<package name>(:<tag>)?` is the image name and tag to provide to this image when it is published to your container registry, where the `(:<tag>)?` part of this command indicates that this is an optional component. This part of the command uses the same `image-name:tag` format.
+    * `current-image-name-and-tag` is the existing `image-name:tag` combination of your container image name and its current tag to published to your container registry. The `:tag` component can be optional.
+    * `image-name:tag` is the image name and tag to provide to this image when it is published to your container registry, where the `:tag` part of this command is optional.
 
 1. Copy the following `docker push` command, paste it into your terminal, and modify as required before submitting to push your container image as required:
 
     ```bash
-    docker push packages.buildkite.com/{org.slug}/{registry.slug}/<package name>(:<tag>)?
+    docker push packages.buildkite.com/{org.slug}/{registry.slug}/package-name:tag
     ```
 
-    where `<package name>(:<tag>)?` is the image name and tag combination you configured in the previous step.
+    where `package-name:tag` is the image name and tag combination you configured in the previous step.
 
-## Access a package's details
+## Access an image's details
 
 A container image's details can be accessed from this registry using the **Packages** section of your container registry page.
 
@@ -78,3 +78,57 @@ The image's details page provides the following information in the following sec
 - **Dependencies**: the number of dependency images required by this image.
 - **Package size**: the storage size (in bytes) of this image.
 - **Downloads**: the number of times this image has been downloaded.
+
+### Downloading an image
+
+A container image can be downloaded from the image's details page. To do this:
+
+1. [Access the package's details](#access-an-images-details).
+1. Select **Download**.
+
+### Installing an image
+
+A container image can be obtained using code snippet details provided on the image's details page. To do this:
+
+1. [Access the image's details](#access-an-images-details).
+1. Ensure the **Installation** > **Installation instructions** section is displayed.
+1. For each required command in the relevant code snippets, copy the relevant code snippet, paste it into your terminal, and submit it.
+
+The following set of code snippets are descriptions of what each code snippet does and where applicable, its format:
+
+#### Registry configuration
+
+If your registry is _private_ (that is, the default registry configuration), log in to the container registry containing the image to obtain with the following `docker login` command:
+
+```bash
+docker login packages.buildkite.com/{org.slug}/{registry.slug} -u buildkite -p registry-read-token
+```
+
+where:
+
+<%= render_markdown partial: 'packages/org_slug' %>
+
+<%= render_markdown partial: 'packages/container_registry_slug' %>
+
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to download packages from your container registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+
+> 📘
+> This step is not required for public container registries.
+
+#### Package installation
+
+Use the following `docker pull` command to obtain the image:
+
+```bash
+docker pull packages.buildkite.com/{org.slug}/{registry.slug}/image-name:tag
+```
+
+where:
+
+<%= render_markdown partial: 'packages/org_slug' %>
+
+<%= render_markdown partial: 'packages/container_registry_slug' %>
+
+- `image-name` is the name of your image.
+
+- `tag` is the tag associated with this image.
