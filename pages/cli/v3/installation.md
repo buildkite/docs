@@ -44,7 +44,7 @@ sudo dnf install -y bk
 
 ## macOS
 
-The CLI is packaged into the Buildkite homebrew tap. To install, run:
+The CLI is packaged into the Buildkite [Homebrew](http://brew.sh/) tap. To install, run:
 
 ```sh
 brew install buildkite/buildkite/bk@3
