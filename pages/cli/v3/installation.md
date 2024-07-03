@@ -1,4 +1,4 @@
-# Buildkite CLI Installation
+# Buildkite CLI installation
 
 The CLI can be installed on the following platforms:
 

@@ -1,4 +1,4 @@
-# Buildkite CLI Configuration
+# Buildkite CLI configuration
 
 To configure the CLI you can use `bk configure`. This will walk you through setting your organization and API token.
 
