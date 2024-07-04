@@ -83,7 +83,7 @@ echo "https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/
 
 where:
 
-- is your [API access token](https://buildkite.com/user/api-access-tokens) used to download packages from your Alpine registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
+- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) used to download packages from your Alpine registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
 
 <%= render_markdown partial: 'packages/org_slug' %>
 

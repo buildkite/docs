@@ -72,6 +72,10 @@ To update a registry:
 
 1. If _private storage_ needs to be configured for this registry, select **Storage** from the registry's **Settings** page, to access the **Storage** page. Learn more about how to configure private storage in [Link private storage](/docs/packages/private-storage).
 
+### Manage registry tokens
+
+Registry tokens are long-lived _read only_ tokens configured for a private registry, which allow you download and install packages from that registry as an alternative to (and without having to use) an [API access token](https://buildkite.com/user/api-access-tokens) with the **Read Packages** REST API scope.
+
 ## Delete a registry
 
 Registries can be deleted using the package **Registries** page of the Buildkite interface, which lists all [previously created registries](#create-a-registry).
