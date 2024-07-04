@@ -75,7 +75,7 @@ The following set of code snippets are descriptions of what each code snippet do
 
 #### Registry configuration
 
-Configure your Alpine registry as the source for your Alpine (apk) packages:
+**Step 1**: Configure your Alpine registry as the source for your Alpine (apk) packages:
 
 ```bash
 echo "https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/alpine_any/alpine_any/main" >> /etc/apk/repositories
@@ -89,7 +89,7 @@ where:
 
 <%= render_markdown partial: 'packages/debian_registry_slug' %>
 
-Install the registry signing key:
+**Step 2**: Install the registry signing key:
 
 ```bash
 wget -O /etc/apk/keys/{org.uuid}_{registry.uuid}.rsa.pub "https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/rsakey"
@@ -97,13 +97,58 @@ wget -O /etc/apk/keys/{org.uuid}_{registry.uuid}.rsa.pub "https://buildkite:{reg
 
 where:
 
-- `{org.uuid}` is the UUID of your Buildkite organization. This value can be obtained from this Alpine package **Installation instructions** page section.
+- `{org.uuid}` is the UUID of your Buildkite organization. This value can be obtained from this Alpine package **Installation instructions** page section. Alternatively, you can also obtain this value:
+    * From your organization's **Pipeline Settings** page. To do this:
+        1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+        1. Select **Pipelines** > **Settings** to access the [**Pipeline Settings**](https://buildkite.com/organizations/~/pipeline-settings) page.
+        1. At the end of the page, copy the value from the **Organization UUID** field.
 
-- `{registry.uuid}` is the UUID of your Alpine registry. Again, this value can be obtained from this Alpine package **Installation instructions** page section.
+    * By running the `getCurrentUsersOrgs` [GraphQL](/docs/apis/graphql-api) query to obtain the relevant organization UUID value in the response for the current user's accessible organizations:
 
-- `buildkite:{registry.read.token}@` while these values are the same as those above for configuring your ALpine registry source, this component is not required for registries that are publicly accessible.
+        ```graphql
+        query getCurrentUsersOrgs {
+          viewer {
+            organization {
+              edges {
+                node {
+                  name
+                  id
+                  uuid
+                }
+              }
+            }
+          }
+        }
+        ```
 
-Retrieve the latest apk indices:
+- `{registry.uuid}` is the UUID of your Alpine registry. Again, this value can be obtained from this Alpine package **Installation instructions** page section. Alternatively, you can also obtain this value:
+    * From your registry's **Settings** page. To do this:
+        1. Select **Packages** in the global navigation to access the [**Registries**](https://buildkite.com/organizations/~/packages) page.
+        1. Select your Alpine registry on this page.
+        1. Select **Settings** to open the registry's **Settings** page.
+        1. Copy the **UUID** shown in the **API Integration** section of this page, which is this `{registry.uuid}` value.
+
+    * By running the `getOrgRegistries` GraphQL query to obtain the registry UUID values of your `{org.slug}` in the response:
+
+        ```graphql
+        query getOrgRegistries {
+          organization(slug: "{org.slug}"){
+            registries(first: 20){
+              edges{
+                node{
+                  name
+                  id
+                  uuid
+                }
+              }
+            }
+          }
+        }
+        ```
+
+- `buildkite:{registry.read.token}@` while these values are the same as those in the previous step for configuring your Alpine registry source, this component is not required for registries that are publicly accessible.
+
+**Step 3**: Retrieve the latest apk indices:
 
 ```bash
 apk update
