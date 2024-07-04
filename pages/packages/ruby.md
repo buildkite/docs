@@ -1,6 +1,6 @@
 # Ruby
 
-Buildkite Packages provides registry support for Ruby-based (RubyGems gem) packages.
+Buildkite Packages provides registry support for Ruby-based (RubyGems) packages.
 
 Once your Ruby registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry via a single command, or by configuring your `~/.gem/credentials` and `gemspec` files with the code snippets presented on your Ruby registry's details page.
 
@@ -8,7 +8,7 @@ To view and copy the required command or  `~/.gem/credentials` and `gemspec` con
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Ruby registry on this page.
-1. Select **Publish a Gem Package** and in the resulting dialog, use the copy icon at the top-right of the relevant code box to copy its snippet and paste it into your command line tool or the appropriate file.
+1. Select **Publish a Ruby Package** and in the resulting dialog, use the copy icon at the top-right of the relevant code box to copy its snippet and paste it into your command line tool or the appropriate file.
 
 These file configurations contain the following:
 
@@ -17,7 +17,32 @@ These file configurations contain the following:
 
 ## Publish a package
 
-The following subsections describe the processes in the code boxes above.
+The following subsections describe the processes in the code boxes above, serving the following use cases:
+
+- [Single command](#publish-a-package-single-command)—for rapid RubyGems package publishing, using a temporary token.
+- [Ongoing publishing](#publish-a-package-ongoing-publishing)—implements configurations for a more permanent RubyGems package publishing solution.
+
+### Single command
+
+The first code box provides a quick mechanism for uploading RubyGems package to your Ruby registry.
+
+```bash
+GEM_HOST_API_KEY="temporary-write-token-that-expires-after-5-minutes" \
+  gem push --host="https://packages.buildkite.com/{org.slug}/{registry.slug}" *.gem
+```
+
+where:
+
+<%= render_markdown partial: 'packages/org_slug' %>
+
+<%= render_markdown partial: 'packages/ruby_registry_slug' %>
+
+
+Since the `temporary-write-token-that-expires-after-5-minutes` expires quickly, it is recommended that you just copy this command directly from the **Publish a Ruby Package** dialog.
+
+### Ongoing publishing
+
+The remaining code boxes on the **Publish a Ruby Package** dialog provide configurations for a more permanent solution for ongoing RubyGems uploads to your Ruby registry.
 
 1. Copy the following set of commands, paste them and modify as required before submitting to create your `~/.gem/credentials` file:
 
@@ -43,7 +68,7 @@ The following subsections describe the processes in the code boxes above.
 
     **Note:** This configuration prevents your Ruby package accidentally being published to the main [RubyGems registry](https://rubygems.org/).
 
-1. Publish your Ruby (gem) package:
+1. Publish your Ruby (RubyGems) package:
 
     ```bash
     gem build *.gemspec
