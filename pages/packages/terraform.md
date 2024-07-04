@@ -21,7 +21,7 @@ This command provides:
 The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a module to your Terraform registry:
 
 ```bash
-curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages.json \
+curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
   -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
   -F "file=@<path_to_file>"
 ```
@@ -32,14 +32,14 @@ where:
 
 <%= render_markdown partial: 'packages/terraform_registry_slug' %>
 
-- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Terraform registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
+- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload modules to your Terraform registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish modules and packages to any registry your user account has access to within your Buildkite organization.
 
 - `<path_to_file>` is the full path required to the module file. If the file is located in the same directory that this command is running from, then no path is required.
 
 For example, to upload the file `my-terraform-module-1.0.1.tgz` from the current directory to the **My Terraform modules** registry in the **My organization** Buildkite organization, run the `curl` command:
 
 ```bash
-curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-terraform-modules/packages.json \
+curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-terraform-modules/packages \
   -H "Authorization: Bearer $REPLACE_WITH_MY_REGISTRY_WRITE_TOKEN" \
   -F "file=@my-terraform-module-1.0.1.tgz"
 ```
@@ -86,7 +86,7 @@ To download a module:
 
 ### Installing a module
 
-A Terraform module can be installed using code snippet details provided on the package's details page.
+A Terraform module can be installed using code snippet details provided on the module's details page.
 
 To install a module:
 
@@ -101,7 +101,7 @@ To install a module:
     ```
 
     where:
-    * `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to download packages from your Debian registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+    * `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to download modules from your Terraform registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download modules and packages from any registry your user account has access to within your Buildkite organization.
 
     **Note:** This step only needs to be conducted once for the life of your Terraform registry.
 
