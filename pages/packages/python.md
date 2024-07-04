@@ -18,7 +18,7 @@ This command provides:
 
 ## Publish a package
 
-The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a package to your Python registry:
+The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a Python package to your Python registry:
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \

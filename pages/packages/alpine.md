@@ -18,7 +18,7 @@ This command provides:
 
 ## Publish a package
 
-The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a package to your Alpine registry:
+The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish an apk package to your Alpine registry:
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
@@ -43,3 +43,82 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
   -H "Authorization: Bearer $REPLACE_WITH_MY_REGISTRY_WRITE_TOKEN" \
   -F "file=@my-alpine-package_0.1.1_r0.apk"
 ```
+
+## Access a package's details
+
+An Alpine (apk) package's details can be accessed from this registry using the **Packages** section of your Alpine registry page.
+
+To access your apk package's details page:
+
+1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select your Alpine registry on this page.
+1. On your Alpine registry page, select the package to display its details page.
+
+<%= render_markdown partial: 'packages/package_details_page_sections' %>
+
+### Downloading a package
+
+An Alpine (apk) package can be downloaded from the package's details page. To do this:
+
+1. [Access the package's details](#access-a-packages-details).
+1. Select **Download**.
+
+### Installing a package
+
+An Alpine package can be installed using code snippet details provided on the package's details page. To do this:
+
+1. [Access the package's details](#access-a-packages-details).
+1. Ensure the **Installation** > **Installation instructions** section is displayed.
+1. For each required command in the relevant code snippets, copy the relevant code snippet, paste it into your terminal, and submit it.
+
+The following set of code snippets are descriptions of what each code snippet does and where applicable, its format:
+
+#### Registry configuration
+
+Configure your Alpine registry as the source for your Alpine (apk) packages:
+
+```bash
+echo "https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/alpine_any/alpine_any/main" >> /etc/apk/repositories
+```
+
+where:
+
+- is your [API access token](https://buildkite.com/user/api-access-tokens) used to download packages from your Alpine registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
+
+<%= render_markdown partial: 'packages/org_slug' %>
+
+<%= render_markdown partial: 'packages/debian_registry_slug' %>
+
+Install the registry signing key:
+
+```bash
+wget -O /etc/apk/keys/{org.uuid}_{registry.uuid}.rsa.pub "https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/rsakey"
+```
+
+where:
+
+- `{org.uuid}` is the UUID of your Buildkite organization. This value can be obtained from this Alpine package **Installation instructions** page section.
+
+- `{registry.uuid}` is the UUID of your Alpine registry. Again, this value can be obtained from this Alpine package **Installation instructions** page section.
+
+- `buildkite:{registry.read.token}@` while these values are the same as those above for configuring your ALpine registry source, this component is not required for registries that are publicly accessible.
+
+Retrieve the latest apk indices:
+
+```bash
+apk update
+```
+
+#### Package installation
+
+Use `apk` to install the package:
+
+```bash
+apk add package-name==version-number
+```
+
+where:
+
+- `package-name` is the name of your package.
+
+- `version-numnber` is the version number of this package.

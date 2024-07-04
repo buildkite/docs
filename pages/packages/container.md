@@ -27,17 +27,19 @@ The following steps describe the process above:
     ```
 
     where:
+    * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your container registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
+
     <%= render_markdown partial: 'packages/org_slug' %>
     <%= render_markdown partial: 'packages/container_registry_slug' %>
 
 1. Copy the following `docker tag` command, paste it into your terminal, and modify as required before submitting to tag your container image as required:
 
     ```bash
-    docker tag current-image-name-and-tag packages.buildkite.com/{org.slug}/{registry.slug}/package-name:tag
+    docker tag current-image-name:tag packages.buildkite.com/{org.slug}/{registry.slug}/package-name:tag
     ```
 
     where:
-    * `current-image-name-and-tag` is the existing `image-name:tag` combination of your container image name and its current tag to published to your container registry. The `:tag` component can be optional.
+    * `current-image-name:tag` is the existing `image-name:tag` combination of your container image name and its current tag to published to your container registry. The `:tag` component can be optional. This component of this command also supports the other tag syntax references mentioned in the [`docker tag` documentation](https://docs.docker.com/reference/cli/docker/image/tag/).
     * `image-name:tag` is the image name and tag to provide to this image when it is published to your container registry, where the `:tag` part of this command is optional.
 
 1. Copy the following `docker push` command, paste it into your terminal, and modify as required before submitting to push your container image as required:
