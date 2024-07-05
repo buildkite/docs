@@ -12,7 +12,7 @@ Use this command in your build scripts to update an attribute of a step. The fol
 
 ## Getting a step
 
-Use this command in your build scripts to get the value of a particular attribute from a step. The following attributes values can be retreived:
+Use this command in your build scripts to get the value of a particular attribute from a step. The following attributes values can be retrieved:
 
 * `agents`
 * `command`
