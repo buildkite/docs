@@ -8,11 +8,11 @@ To view and copy these `docker` commands:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your container registry on this page.
-1. Select **Publish a Container Package** and in the resulting dialog, for each required `docker` command set in the relevant code snippets, copy the relevant code snippet (using the icon at the top-right of its code box), paste it into your terminal, and submit it.
+1. Select **Publish a Container Package** and in the resulting dialog, for each required `docker` command set in the relevant code snippets, copy the relevant code snippet (using the icon at the top-right of its code box), paste it into your terminal, and run it.
 
 These Docker commands are used to:
 
-- Log in to your Buildkite container registry with the API write token.
+- Log in to your Buildkite container registry with the API access token.
 - Tag your container image to be published.
 - Publish the image to your container registry.
 
@@ -20,7 +20,7 @@ These Docker commands are used to:
 
 The following steps describe the process above:
 
-1. Copy the following `docker login` command, paste it into your terminal, and modify as required before submitting to log in to your container registry:
+1. Copy the following `docker login` command, paste it into your terminal, and modify as required before running to log in to your container registry:
 
     ```bash
     docker login packages.buildkite.com/{org.slug}/{registry.slug} -u buildkite -p registry-write-token
@@ -32,7 +32,7 @@ The following steps describe the process above:
     <%= render_markdown partial: 'packages/org_slug' %>
     <%= render_markdown partial: 'packages/container_registry_slug' %>
 
-1. Copy the following `docker tag` command, paste it into your terminal, and modify as required before submitting to tag your container image as required:
+1. Copy the following `docker tag` command, paste it into your terminal, and modify as required before running to tag your container image:
 
     ```bash
     docker tag current-image-name:tag packages.buildkite.com/{org.slug}/{registry.slug}/package-name:tag
@@ -42,7 +42,7 @@ The following steps describe the process above:
     * `current-image-name:tag` is the existing `image-name:tag` combination of your container image name and its current tag to published to your container registry. The `:tag` component can be optional. This component of this command also supports the other tag syntax references mentioned in the [`docker tag` documentation](https://docs.docker.com/reference/cli/docker/image/tag/).
     * `image-name:tag` is the image name and tag to provide to this image when it is published to your container registry, where the `:tag` part of this command is optional.
 
-1. Copy the following `docker push` command, paste it into your terminal, and modify as required before submitting to push your container image as required:
+1. Copy the following `docker push` command, paste it into your terminal, and modify as required before running to push your container image:
 
     ```bash
     docker push packages.buildkite.com/{org.slug}/{registry.slug}/package-name:tag
@@ -94,7 +94,7 @@ A container image can be obtained using code snippet details provided on the ima
 
 1. [Access the image's details](#access-an-images-details).
 1. Ensure the **Installation** > **Installation instructions** section is displayed.
-1. For each required command in the relevant code snippets, copy the relevant code snippet, paste it into your terminal, and submit it.
+1. For each required command in the relevant code snippets, copy the relevant code snippet, paste it into your terminal, and run it.
 
 The following set of code snippets are descriptions of what each code snippet does and where applicable, its format:
 

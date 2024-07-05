@@ -1,6 +1,6 @@
-# Private storage links
+# Private storage link
 
-This page provides details on how to link and configure your private Amazon Web Services (AWS) Simple Storage Service (S3) storage to Buildkite Packages within your Buildkite organization. These processes can only be conducted by [Buildkite organization administrators](/docs/packages/permissions#manage-teams-and-permissions-organization-level-permissions).
+This page provides details on how to link and configure your private Amazon Web Services (AWS) Simple Storage Service (S3) storage to Buildkite Packages within your Buildkite organization. These processes can only be performed by [Buildkite organization administrators](/docs/packages/permissions#manage-teams-and-permissions-organization-level-permissions).
 
 By default, Buildkite Packages provides its own storage to house any packages, container images and modules stored in registries. You can also link your own private AWS S3 bucket to Buildkite Packages, which allows you to:
 

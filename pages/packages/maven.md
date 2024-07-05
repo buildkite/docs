@@ -12,7 +12,7 @@ To view and copy the required  `~/.m2/settings.xml` and `pom.xml` configurations
 
 These file configurations contain the following:
 
-- `~/.m2/settings.xml`: the ID for your specific Java registry in Buildkite and the API write token required to publish the package to this registry.
+- `~/.m2/settings.xml`: the ID for your specific Java registry in Buildkite and the API access token required to publish the package to this registry.
 - `pom.xml`: the ID and URL for your specific Java registry in Buildkite.
 
 ## Publish a package
@@ -47,7 +47,7 @@ The following steps describe the process above:
 
     <%= render_markdown partial: 'packages/java_registry_id' %>
 
-    **Note:** This step only needs to be conducted once for the life of your Java registry, and API access token.
+    **Note:** This step only needs to be performed once for the life of your Java registry, and API access token.
 
 1. Copy the following XML snippet, paste it into your `pom.xml` configuration file, and modify accordingly:
 
@@ -100,7 +100,7 @@ A Java package can be installed using code snippet details provided on the packa
 
     **Note:** The `~/.m2/settings.xml` configuration:
     * Is _not_ required if your registry is publicly accessible.
-    * Only needs to be conducted once for the life of your Java registry.
+    * Only needs to be performed once for the life of your Java registry.
 
 The `~/.m2/settings.xml` code snippet is based on this format:
 

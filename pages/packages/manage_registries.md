@@ -125,4 +125,4 @@ To delete a registry:
 
 ## Audit logging
 
-All events conducted through Buildkite Packages are logged through the Buildkite organization's [**Audit Log** feature](/docs/pipelines/security/audit-log).
+All events performed through Buildkite Packages are logged through the Buildkite organization's [**Audit Log** feature](/docs/pipelines/security/audit-log).

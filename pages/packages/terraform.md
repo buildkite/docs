@@ -8,12 +8,12 @@ To view and copy this `curl` command:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Terraform registry on this page.
-1. Select **Publish a Terraform Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and submit it to publish a module to your Terraform registry.
+1. Select **Publish a Terraform Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a module to your Terraform registry.
 
 This command provides:
 
 - The specific URL to publish a module to your specific Terraform registry in Buildkite.
-- The API write token required to publish modules to your Terraform registry.
+- The API access token required to publish modules to your Terraform registry.
 - The Terraform module file to be published.
 
 ## Publish a module
@@ -102,7 +102,7 @@ To install a module:
 
     where `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/packages/manage-registries#update-a-registry-configure-registry-tokens) used to download modules from your Terraform registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download modules and packages from any registry your user account has access to within your Buildkite organization.
 
-    **Note:** This step only needs to be conducted once for the life of your Terraform registry.
+    **Note:** This step only needs to be performed once for the life of your Terraform registry.
 
 1. Copy the lower section of the code snippet, and paste it into your Terraform file. This code snippet is based on the format:
 

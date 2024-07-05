@@ -8,12 +8,12 @@ To view and copy this `curl` command:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Alpine registry on this page.
-1. Select **Publish an Alpine Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and submit it to publish a package to your Alpine registry.
+1. Select **Publish an Alpine Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a package to your Alpine registry.
 
 This command provides:
 
 - The specific URL to publish a package to your specific Alpine registry in Buildkite.
-- The API write token required to publish packages to your Alpine registry.
+- The API access token required to publish packages to your Alpine registry.
 - The Alpine package file to be published.
 
 ## Publish a package
@@ -40,7 +40,7 @@ For example, to upload the file `my-alpine-package_0.1.1_r0.apk` from the curren
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-alpine-packages/packages \
-  -H "Authorization: Bearer $REPLACE_WITH_MY_REGISTRY_WRITE_TOKEN" \
+  -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
   -F "file=@my-alpine-package_0.1.1_r0.apk"
 ```
 
@@ -69,7 +69,7 @@ An Alpine package can be installed using code snippet details provided on the pa
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** > **Installation instructions** section is displayed.
-1. For each required command in the relevant code snippets, copy the relevant code snippet, paste it into your terminal, and submit it.
+1. For each required command in the relevant code snippets, copy the relevant code snippet, paste it into your terminal, and run it.
 
 The following set of code snippets are descriptions of what each code snippet does and where applicable, its format:
 
@@ -132,10 +132,10 @@ where:
 
         ```graphql
         query getOrgRegistries {
-          organization(slug: "{org.slug}"){
-            registries(first: 20){
-              edges{
-                node{
+          organization(slug: "{org.slug}") {
+            registries(first: 20) {
+              edges {
+                node {
                   name
                   id
                   uuid
