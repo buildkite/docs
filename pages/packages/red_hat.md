@@ -40,7 +40,7 @@ For example, to upload the file `my-red-hat-package_1.0-2.x86_64.rpm` from the c
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-red-hat-packages/packages \
-  -H "Authorization: Bearer $REPLACE_WITH_MY_REGISTRY_WRITE_TOKEN" \
+  -H "Authorization: Bearer $REPLACE_WITH_YOUR_REGISTRY_WRITE_TOKEN" \
   -F "file=@my-red-hat-package_1.0-2.x86_64.rpm"
 ```
 

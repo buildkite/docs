@@ -40,7 +40,7 @@ For example, to upload the file `my-python-package-0.9.7b1.tar.gz` from the curr
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-python-packages/packages \
-  -H "Authorization: Bearer $REPLACE_WITH_MY_REGISTRY_WRITE_TOKEN" \
+  -H "Authorization: Bearer $REPLACE_WITH_YOUR_REGISTRY_WRITE_TOKEN" \
   -F "file=@my-python-package-0.9.7b1.tar.gz"
 ```
 

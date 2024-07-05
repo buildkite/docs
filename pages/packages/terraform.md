@@ -40,7 +40,7 @@ For example, to upload the file `my-terraform-module-1.0.1.tgz` from the current
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-terraform-modules/packages \
-  -H "Authorization: Bearer $REPLACE_WITH_MY_REGISTRY_WRITE_TOKEN" \
+  -H "Authorization: Bearer $REPLACE_WITH_YOUR_REGISTRY_WRITE_TOKEN" \
   -F "file=@my-terraform-module-1.0.1.tgz"
 ```
 

@@ -40,7 +40,7 @@ For example, to upload the file `my-alpine-package_0.1.1_r0.apk` from the curren
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-alpine-packages/packages \
-  -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
+  -H "Authorization: Bearer $REPLACE_WITH_YOUR_REGISTRY_WRITE_TOKEN" \
   -F "file=@my-alpine-package_0.1.1_r0.apk"
 ```
 

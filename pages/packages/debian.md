@@ -40,7 +40,7 @@ For example, to upload the file `my-deb-package_1.0-2_amd64.deb` from the curren
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-debian-packages/packages \
-  -H "Authorization: Bearer $REPLACE_WITH_MY_REGISTRY_WRITE_TOKEN" \
+  -H "Authorization: Bearer $REPLACE_WITH_YOUR_REGISTRY_WRITE_TOKEN" \
   -F "file=@my-deb-package_1.0-2_amd64.deb"
 ```
 
