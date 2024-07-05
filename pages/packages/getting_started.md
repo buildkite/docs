@@ -69,7 +69,7 @@ Next, configure your Node.js environment to publish Node.js packages to [the Jav
 
     **Note:**
     * If your `.npmrc` file doesn't exist, this command will automatically create it for you.
-    * This step only needs to be conducted once for the life of your JavaScript registry.
+    * This step only needs to be performed once for the life of your JavaScript registry.
 
 1. Copy the `publishConfig` field and its value in the second code box and paste it to the end of your Node.js package's `package.json` file. Alternatively, select and copy the line of code beginning `"publishConfig": ...`. For example:
 

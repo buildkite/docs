@@ -14,7 +14,7 @@ These `build.gradle` file configurations contain the:
 
 - Maven coordinates for your package (which you will need to manually configure yourself).
 - URL for your specific Java registry in Buildkite.
-- API write token required to publish the package to this registry.
+- API access token required to publish the package to this registry.
 
 ## Publish a package
 

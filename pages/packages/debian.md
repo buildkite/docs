@@ -8,12 +8,12 @@ To view and copy this `curl` command:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Debian registry on this page.
-1. Select **Publish a Debian Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and submit it to publish a package to your Debian registry.
+1. Select **Publish a Debian Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a package to your Debian registry.
 
 This command provides:
 
 - The specific URL to publish a package to your specific Debian registry in Buildkite.
-- The API write token required to publish packages to your Debian registry.
+- The API access token required to publish packages to your Debian registry.
 - The Debian package file to be published.
 
 ## Publish a package
@@ -69,7 +69,7 @@ A Debian package can be installed using code snippet details provided on the pac
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** > **Installation instructions** section is displayed.
-1. For each required command set in the relevant code snippets, copy the relevant code snippet, paste it into your terminal, and submit it.
+1. For each required command set in the relevant code snippets, copy the relevant code snippet, paste it into your terminal, and run it.
 
 The following set of code snippets are descriptions of what each code snippet does and where applicable, its format:
 

@@ -8,12 +8,12 @@ To view and copy this `curl` command:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Python registry on this page.
-1. Select **Publish a Python Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and submit it to publish a package to your Python registry.
+1. Select **Publish a Python Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a package to your Python registry.
 
 This command provides:
 
 - The specific URL to publish a package to your specific Python registry in Buildkite.
-- The API write token required to publish packages to your Python registry.
+- The API access token required to publish packages to your Python registry.
 - The Python package file to be published.
 
 ## Publish a package

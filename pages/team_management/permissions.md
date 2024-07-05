@@ -50,7 +50,7 @@ A user who is a _team maintainer_ on an existing team can:
 
 - Access the **Teams** feature and page, by selecting **Teams** in the global navigation > **Teams**.
 
-    **Note:** If a team maintainer is also a Buildkite organization administrator, **Teams** is not available in the global navigation and instead, accessing this feature is conducted as an [organization administrator](#manage-teams-and-permissions-organization-level-permissions).
+    **Note:** If a team maintainer is also a Buildkite organization administrator, **Teams** is not available in the global navigation and instead, accessing this feature is performed as an [organization administrator](#manage-teams-and-permissions-organization-level-permissions).
 
 - From the **Teams** page:
 

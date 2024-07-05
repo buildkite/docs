@@ -12,7 +12,7 @@ To view and copy the required command or  `~/.gem/credentials` and `gemspec` con
 
 These file configurations contain the following:
 
-- `~/.gem/credentials`: the URL for your specific Ruby registry in Buildkite and the API write token required to publish the package to this registry.
+- `~/.gem/credentials`: the URL for your specific Ruby registry in Buildkite and the API access token required to publish the package to this registry.
 - `gemspec`: the URL for your specific Ruby registry in Buildkite.
 
 ## Publish a package
@@ -44,7 +44,7 @@ Since the `temporary-write-token-that-expires-after-5-minutes` expires quickly, 
 
 The remaining code boxes on the **Publish a Ruby Package** dialog provide configurations for a more permanent solution for ongoing RubyGems uploads to your Ruby registry.
 
-1. Copy the following set of commands, paste them and modify as required before submitting to create your `~/.gem/credentials` file:
+1. Copy the following set of commands, paste them and modify as required before running to create your `~/.gem/credentials` file:
 
     ```bash
     mkdir ~/.gem
@@ -112,7 +112,7 @@ To install a package:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** > **Installation instructions** section is displayed.
-1. Copy the command in the code snippet, paste it into your terminal, and submit it.
+1. Copy the command in the code snippet, paste it into your terminal, and run it.
 
 This code snippet is based on this format:
 
