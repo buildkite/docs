@@ -1,6 +1,6 @@
-# Link private storage
+# Private storage links
 
-This page provides details on how to link your private Amazon Web Services (AWS) Simple Storage Service (S3) storage to Buildkite Packages within your Buildkite organization. This process can only be conducted by [Buildkite organization administrators](/docs/packages/permissions#manage-teams-and-permissions-organization-level-permissions).
+This page provides details on how to link and configure your private Amazon Web Services (AWS) Simple Storage Service (S3) storage to Buildkite Packages within your Buildkite organization. These processes can only be conducted by [Buildkite organization administrators](/docs/packages/permissions#manage-teams-and-permissions-organization-level-permissions).
 
 By default, Buildkite Packages provides its own storage to house any packages, container images and modules stored in registries. You can also link your own private AWS S3 bucket to Buildkite Packages, which allows you to:
 
@@ -16,7 +16,7 @@ Buildkite Packages uses [AWS CloudFormation](https://docs.aws.amazon.com/AWSClou
 
 ## Before you start
 
-Before you can start linking your private AWS S3 storage to Buildkite Packages, you will need to have created your own AWS S3 bucket.
+Before you can start linking your private AWS S3 storage to Buildkite Packages, you will need to have created your own empty AWS S3 bucket.
 
 Learn more about:
 
@@ -34,17 +34,19 @@ To link your private AWS S3 storage to Buildkite Packages:
 
 1. Select **Add private storage link** to begin configuring your private storage for Buildkite Packages.
 
-1. Read through the process summary and select **Let's go!**
+1. On the **Provide your storage's details** page, in **Step 2: Create or locate your AWS S3 bucket**, select **Open AWS** to open the list of S3 buckets in your AWS account, to either retrieve your existing empty S3 bucket, or create a new one if you [haven't already done so](#before-you-start).
 
-1. On the **Provide your bucket's details** page, specify the **Region** (for example, `us-east-1`) and **Bucket** name for your AWS S3 bucket, followed by selecting **Next**.
+    **Note:** If you are not already signed in to your AWS account, you may need to navigate to the area listing your S3 buckets.
 
-1. On the **Authorize Buildkite in AWS** page, select **Launch Stack** to open the **Quick create stack** page in the AWS CloudFormation interface.
+1. Back on the Buildkite interface, in **Step 3: Enter your AWS S3 bucket details**, specify the **Region** (for example, `us-east-1`) and **Bucket** name for your AWS S3 bucket, then select **Continue**.
+
+1. On the next **Authorize Buildkite in AWS** page, select **Launch Stack** to open the **Quick create stack** page in the AWS CloudFormation interface.
 
 1. Ensure the the following fields are populated with the correct information:
-    * **Template URL**—this value should be the same as the **Amazon S3 URL** specified on the **Authorize Buildkite in AWS** page.
+    * **Template URL**—should be based on:<br/>`https://packages-public-assets.s3.amazonaws.com/cf-templates/byo-storage-bucket-policy-yyyymmdd.yml`
     * **Stack name**—`buildkitePackagesProvisioning` by default, but can be changed if another CloudFormation stack of the same name exists in your AWS account.
-    * **YourBucketName**—the name of your AWS S3 bucket (specified on the previous **Provide your bucket's details** page in Buildkite).
-    * **YourBucketPath**—`/` by default.
+    * **BucketName**—the name of your AWS S3 bucket (specified on the previous **Provide your bucket's details** page in Buildkite).
+    * **KeyPrefix**—`{org.uuid}/`, where `{org.uuid}` is the UUID of your Buildkite organization.
     * **IAM role - optional**—specify any **IAM role** **name** or **ARN** to restrict the actions that can be performed on your CloudFormation stack in your S3 bucket.
 
 1. Select **Create stack** to begin creating the CloudFormation stack for your S3 bucket.
@@ -53,6 +55,24 @@ To link your private AWS S3 storage to Buildkite Packages:
 
 1. Once the **Diagnostic Result** page indicates a **Pass** for each of these three tests, select **Create Private Storage Link** complete this linking process.
 
-1. On the **Private Storage Link** package, select **Change** to switch from using **Buildkite-hosted storage** to your private storage (beginning with **s3://...**).
+You are returned to the **Private Storage Link** page, where you can:
 
-All subsequent packages published to any registries already configured in your Buildkite organization will be stored in your private storage.
+- [Set the default Buildkite Packages storage for your Buildkite organization](#set-the-default-buildkite-packages-storage).
+
+- [Set the storage independently for each of your Buildkite registries](/docs/packages/manage-registries#update-a-registry-configure-registry-storage).
+
+## Set the default Buildkite Packages storage
+
+By default, your Buildkite organization uses storage provided by Buildkite (known as **Buildkite-hosted storage**).
+
+The default storage is the storage used when a [new registry is created](/docs/packages/manage-registries#create-a-registry).
+
+Once you have [configured at least one other private storage link](#link-your-private-storage-to-buildkite-packages), you can change the default storage to one of these configured private storage configurations. To do this:
+
+1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+
+1. In the **Packages** section, select **Private Storage Link** to open its page.
+
+1. Select **Change** to switch from using **Buildkite-hosted storage** (or a previously configured private storage beginning with **s3://...**) to your new private storage link. If this setting is currently configured to use a previously configured private storage link, the default storage can also be reverted back to using **Buildkite-hosted storage**.
+
+All [newly created registries](/docs/packages/manage-registries#create-a-registry) will automatically use the default private storage location to house packages.

@@ -8,7 +8,7 @@ New registries can be created through the **Registries** page of the Buildkite i
 
 To create a new registry:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Packages** in the global navigation to access the [**Registries**](https://buildkite.com/organizations/~/packages) page.
 
     **Note:** Any previously created registries are listed and can be accessed from this page.
 
@@ -53,8 +53,10 @@ The registry's ecosystem type cannot be changed once the registry is created.
 
 To update a registry:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Packages** in the global navigation to access the [**Registries**](https://buildkite.com/organizations/~/packages) page.
+
 1. Select the registry to update on this page.
+
 1. Select **Settings** and on the **General (Settings)** page, update the following fields as required:
     * **Name**: being aware of the consequences described above
     * **Description**: appears under the name of the registry item on the **Registries** page, and on the registry's details page
@@ -65,30 +67,47 @@ To update a registry:
 
     The registry's updates will appear on the **Registries** page, as well as the registry's details page.
 
-1. If the registry's _OIDC policy_ needs to be configured, select **OIDC Policy** from the registry's **Settings** page, to access the **OIDC Policy** page and configure this policy accordingly. Learn more about how to define the criteria for which OIDC tokens (from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another third-party system), will be accepted and authenticate a package publication/upload action from this system, on the [OIDC in Buildkite Packages](/docs/packages/security/oidc) page.
+1. If the registry's _OIDC policy_ needs to be configured, learn more about this in [OIDC in Buildkite Packages](/docs/packages/security/oidc).
 
-1. If the registry is _private_ and a _registry token_ (an alternative to API access tokens) needs to be created, edited, or deleted, select **Tokens** from the registry's **Settings** page, to access the **Tokens** page, where you can [configure these registry tokens](#update-a-registry-configure-registry-tokens).
+1. If the registry is _private_ and _registry tokens_ (an alternative to API access tokens) need to be configured, learn more about this in [Configure registry tokens](#update-a-registry-configure-registry-tokens).
 
-1. If [_private storage_](/docs/packages/private-storage) has been configured and linked to your Buildkite organization, selecting **Storage** from the registry's **Settings** page, allows you to choose which storage location to house the packages for this registry. to access the **Storage** page. Learn more about how to configure private storage in [Configure registry storage](#update-a-registry-configure-registry-storage).
+1. If [_private storage_](/docs/packages/private-storage) has been configured and linked to your Buildkite organization, the storage location for the registry can be changed. Learn more about this in [Configure registry storage](#update-a-registry-configure-registry-storage).
 
 ### Configure registry tokens
 
-_Registry tokens_ are long-lived _read only_ tokens configurable for a private registry, which allow you download and install packages from that registry as an alternative to (and without having to use) an [API access token](https://buildkite.com/user/api-access-tokens) with the **Read Packages** REST API scope.
+_Registry tokens_ are long-lived _read only_ tokens configurable for a private registry, which allow you download and install packages from that registry as an alternative to (and without having to use) a user account-based [API access token](https://buildkite.com/user/api-access-tokens) with the **Read Packages** REST API scope.
 
-To configure registry tokens for a private registry, begin [updating the registry](#update-a-registry) to access the **Tokens** page, where you can:
+To configure registry tokens for a private registry:
 
-- Create a new registry token. To do this:
-    1. Select **Create Registry Token**.
-    1. Enter a **Description** for this new token.
-    1. Select **Create**.
+1. Select **Packages** in the global navigation to access the [**Registries**](https://buildkite.com/organizations/~/packages) page.
 
-- Select the copy, view, **Edit description** or **Delete token** button associated with any existing token on this page, to perform that action on the token.
+1. Select the private registry whose registry tokens require configuring.
+
+1. Select **Settings** > **Tokens** to access the registry's **Tokens** page, where you can:
+    * Create a new registry token. To do this:
+        1. Select **Create Registry Token**.
+        1. Enter a **Description** for this new token.
+        1. Select **Create**.
+    * Select the copy, view, **Edit description** or **Delete token** button associated with any existing token on this page, to perform that action on the token.
 
 Unlike other tokens generated elsewhere in Buildkite, registry tokens can continue to be viewed and copied in their entirety on multiple occasions after their creation. This registry tokens feature (the **Tokens** page) is not accessible while a registry is public. However, any registry tokens that were created before a registry is made public, will become accessible again when the registry is made private.
 
 ### Configure registry storage
 
+When a new registry is [created](#create-a-registry), it automatically uses the [default Buildkite Packages storage](/docs/packages/private-storage#set-the-default-buildkite-packages-storage) location. However, your new registry's default storage location can be overridden to use (another private) previously configured storage location. Learn more about configuring private storage in [Private storage links](/docs/packages/private-storage).
 
+To configure/change your registry's current storage:
+
+1. Select **Packages** in the global navigation to access the [**Registries**](https://buildkite.com/organizations/~/packages) page.
+
+1. Select the registry whose storage requires configuring.
+
+1. Select **Settings** > **Storage** to access the registry's **Storage** page.
+
+1. Select **Change** to switch from using **Buildkite-hosted storage** (or a previously configured private storage beginning with **s3://...**) to your new private storage link. If this setting is currently configured to use a previously configured private storage link, the storage location can also be reverted back to using **Buildkite-hosted storage**.
+
+> 📘
+> All subsequent packages published to this registry will be stored in your newly configured storage location. Bear in mind that all existing packages in this registry will remain in their original storage location.
 
 ## Delete a registry
 
