@@ -188,6 +188,7 @@ Environment Variable | Required | Default Value | Description
 `BUILDKITE_S3_ACL` | No | `public-read` | The S3 Object ACL to apply to uploads, one of `private`, `public-read`, `public-read-write`, `authenticated-read`, `bucket-owner-read`, `bucket-owner-full-control`.
 `BUILDKITE_S3_SSE_ENABLED` | No | `false` | If `true`, bucket uploads request AES256 server side encryption.
 `BUILDKITE_S3_ACCESS_URL` | No | `https://$bucket.s3.amazonaws.com` | If set, overrides the base URL used for the artifact's location stored with the Buildkite API.
+`BUILDKITE_S3_ENDPOINT` | No | N/A | URL of the self-hosted S3 compatible endpoint, for example, `https://instance_public_ip:port`. Note that setting this environment variable still requires setting the `BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` environment variable value. However, the `BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` value is ignored during the artifacts upload process, and artifacts will be uploaded to the respective S3 compatible endpoint.
 {: class="responsive-table"}
 
 You can set these environment variables from a variety of places. Exporting them
