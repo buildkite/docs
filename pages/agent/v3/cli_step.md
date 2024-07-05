@@ -12,7 +12,23 @@ Use this command in your build scripts to update an attribute of a step. The fol
 
 ## Getting a step
 
-Use this command in your build scripts to get the value of a particular attribute from a step.
+Use this command in your build scripts to get the value of a particular attribute from a step. The following attributes values can be retreived:
+
+* `agents`
+* `command`
+* `concurrency_key`
+* `concurrency_limit`
+* `depends_on`
+* `env`
+* `if`
+* `key`
+* `label`
+* `notify`
+* `outcome`
+* `parallelism`
+* `state`
+* `timeout`
+* `type`
 
 <%= render 'agent/v3/help/step_get' %>
 
