@@ -235,11 +235,11 @@
     - name: "CLI"
       children:
         - name: "Overview"
-          path: "cli/v3"
+          path: "cli"
         - name: "Installation"
-          path: "cli/v3/installation"
+          path: "cli/installation"
         - name: "Configuration"
-          path: "cli/v3/configuration"
+          path: "cli/configuration"
     - name: "Configure pipelines"
       children:
         - name: "Overview"
