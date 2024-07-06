@@ -4,7 +4,7 @@
 
 Buildkite Packages can be configured with OIDC-compatible policies that only permit Buildkite Agent interactions from specific Buildkite organizations, pipelines, jobs, and agents, associated with a pipeline's job. This is similar to how third-party products and services can be configured to consume Buildkite OIDC tokens from [Buildkite pipelines](/docs/pipelines/security/oidc), for deployment, or access management and security purposes.
 
-A Buildkite OIDC token, representing a Buildkite Agent interaction (containing such relevant pipeline job metadata), can be used by Buildkite Packages to allow a registry to authenticate this interaction. If the interaction does not match or comply with the registry's policy, the OIDC token and hence, subsequent interactions are rejected.
+A Buildkite OIDC token, representing a Buildkite Agent interaction (containing the relevant pipeline job metadata), can be used by Buildkite Packages to allow a registry to authenticate this interaction. If the interaction does not match or comply with the registry's policy, the OIDC token and hence, subsequent interactions are rejected.
 
 The [Buildkite Agent's `oidc` command](/docs/agent/v3/cli-oidc) allows you to request an OIDC token from Buildkite representing the pipeline's current job. These tokens are can then used by a Buildkite Packages registry to determine if the organization, pipeline and any other metadata associated with the pipeline and its job are permitted to publish/upload packages to this registry.
 
