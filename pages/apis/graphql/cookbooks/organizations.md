@@ -239,7 +239,7 @@ mutation CreateUser {
 }
 ```
 
-## Get an organization member's creation timestamp
+## Get the creation timestamp for an organization member
 
 Use this to find out when the user was added to the organization.
 
