@@ -10,15 +10,19 @@ For the list of existing disparities between the REST API and the GraphQL API, s
 
 All API access is over HTTPS, and accessed from the `api.buildkite.com` domain. All data is sent as JSON.
 
+The following `curl` command:
+
 ```bash
 curl https://api.buildkite.com
 ```
 
+Generates a response like:
+
 ```json
-{
-  "response": "Hello World"
-}
+{"message":"🛠","timestamp":1719276157}
 ```
+
+where the `timestamp` value is the current [Unix time](https://en.wikipedia.org/wiki/Unix_time) value.
 
 ## Query string parameters
 

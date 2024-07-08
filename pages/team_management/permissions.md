@@ -6,9 +6,9 @@ Enterprise customers can configure pipeline permissions and security features fo
 
 ## Manage teams and permissions
 
-To manage teams across Buildkite's applications, a _Buildkite organization administrator_ first needs to enable this feature across their organization.
+The _teams_ feature allows you to apply access permissions and functionality controls for one or more groups of users (that is, _teams_) on each pipeline, test suite, registry, or any combination of these, throughout your organization.
 
-Enabling _teams_ for your organizations provides control over each pipeline's, test suite's or registry's permissions in one place.
+To manage teams across Buildkite's applications, a _Buildkite organization administrator_ first needs to enable this feature across their organization.
 
 To access or enable the teams feature for your organization, or both:
 
@@ -50,7 +50,7 @@ A user who is a _team maintainer_ on an existing team can:
 
 - Access the **Teams** feature and page, by selecting **Teams** in the global navigation > **Teams**.
 
-    **Note:** If a team maintainer is also a Buildkite organization administrator, **Teams** is not available in the global navigation and instead, accessing this feature is conducted as an [organization administrator](#manage-teams-and-permissions-organization-level-permissions).
+    **Note:** If a team maintainer is also a Buildkite organization administrator, **Teams** is not available in the global navigation and instead, accessing this feature is performed as an [organization administrator](#manage-teams-and-permissions-organization-level-permissions).
 
 - From the **Teams** page:
 
