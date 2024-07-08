@@ -6,7 +6,7 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 
 ## List organization registries
 
-List the first 50 package registries in the organization.
+List the first 50 registries in the organization.
 
 ```graphql
 query getOrganizationRegistries {
