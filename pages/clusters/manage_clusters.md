@@ -348,7 +348,9 @@ where:
 
 - `id` (required) is that of the pipeline to be moved, whose value can be obtained:
 
-    * From the pipeline's **General** settings page, after accessing **Pipelines** in the global navigation of your organization in Buildkite, accessing the specific pipeline to be moved to the cluster, then selecting **Settings**. The `id` value is that of the **ID** shown in the **GraphQL API Integration** section of this page.
+    * From the pipeline's **General** settings page. To do this:
+        1. Select **Pipelines** in the global navigation > the specific pipeline to be moved to the cluster > **Settings**.
+        1. Copy the **ID** shown in the **GraphQL API Integration** section of this page, which is this `id` value.
 
     * By running the `getCurrentUsersOrgs` GraphQL API query to obtain the organization slugs for the current user's accessible organizations, [getOrgPipelines](/docs/apis/graphql/schemas/query/organization) query to obtain the pipeline's `id` in the response. For example:
 
