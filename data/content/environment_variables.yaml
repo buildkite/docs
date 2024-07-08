@@ -382,7 +382,7 @@ variables:
     example: "4735ba57-80d0-46e2-8fa0-b28223a86586"
   - name: BUILDKITE_REBUILT_FROM_BUILD_NUMBER
     desc: |
-      The UUID of the original build this was rebuilt from or `""` if not a rebuild.
+      The number of the original build this was rebuilt from or `""` if not a rebuild.
     modifiable: false
     example: "1514"
   - name: BUILDKITE_REFSPEC
