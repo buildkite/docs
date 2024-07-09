@@ -146,7 +146,7 @@ Container caching can be enabled on the cluster's cache volumes settings page. O
 
 <%= image "hosted-agents-container-caching.png", width: 1760, height: 436, alt: "Hosted agents container cache setting displayed in the Buildkite UI" %>
 
-## Agent Images
+## Agent images
 
 Buildkite provides a Linux agent image pre-configured with common tools and utilities to help you get started quickly. This image also provides tools required for running jobs on hosted agents.
 
@@ -159,7 +159,7 @@ The image is based on Ubuntu 20.04 and includes the following tools:
 - node
 - aws-cli
 
-You can customise the image that your hosted agents use by creating an agent image.
+You can customize the image that your hosted agents use by creating an agent image.
 
 ### Creating an agent image
 
