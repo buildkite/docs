@@ -189,7 +189,7 @@ You can create an agent image in the Buildkite UI by navigating to the `Agent Im
 
 Once you have created an Agent Image, you can set it as the default image for a queue. Hosted agents in that queue will use the agent image you have created in new jobs.
 
-From the Queues page within a Cluster, select a queue, navigate to the `Base Image` tab and select the agent image you want to use from the dropdown.
+From the Queues page within a Cluster, select a queue, navigate to the `Base Image` tab and select the agent image you want to use from the dropdown. Click on the `Save settings` button to update the queue image.
 
 <%= image "hosted-agents-queue-image.png", width: 1760, height: 436, alt: "Hosted agents queue image setting displayed in the Buildkite UI" %>
 
