@@ -13,7 +13,7 @@ To create a new registry:
     **Note:** Any previously created registries are listed and can be accessed from this page.
 
 1. Select **New registry**.
-1. On the **New Registry** page, enter the mandatory **Name** for your registry. Since registry names cannot contain spaces, hyphens will automatically be specified when the space key is pressed.
+1. On the **New Registry** page, enter the mandatory **Name** for your registry.
 1. Enter an optional **Description** for the registry. This description appears under the name of the registry item on the **Registries** page.
 1. Select the required registry **Ecosystem** based on the [package ecosystem](/docs/packages#get-started) for this new registry.
 1. If your Buildkite organization has the [teams feature](/docs/packages/permissions) enabled, select the relevant **Teams** to be granted access to the new registry.
@@ -41,13 +41,14 @@ Registries can be updated using the package **Registries** page of the Buildkite
 
 The following aspects of a registry can be updated:
 
-- **Name**: be aware that changing this value will also change the URL, which in turn will break any existing installations that use this registry
+- **Name**: be aware that changing this value will also change the URL, which in turn will break any existing installations that use this registry.
 - **Description**
-- **Emoji**: to change the emoji of the registry from the default provided when the registry was [created](#create-a-registry). The emoji appears next to the registry's name
+- **Emoji**: to change the emoji of the registry from the default provided when the registry was [created](#create-a-registry). The emoji appears next to the registry's name.
 - **Color**: the background color for the emoji
-- **Registry Management**: the privacy settings for the registry—private (the initial default state for all newly created registries) or public
-- **OIDC Policy**: one or more [policies defining which OpenID Connect (OIDC) tokens](/docs/packages/security/oidc), from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another third-party system, can be used to publish/upload packages to the registry
-- **Storage**: select from **Buildkite-hosted storage** (the default storage for your packages) or [your own private AWS S3 bucket](/docs/packages/private-storage) to store packages for this registry.
+- **Registry Management**: the privacy settings for the registry—private (the initial default state for all newly created registries) or public.
+- **OIDC Policy**: one or more [policies defining which OpenID Connect (OIDC) tokens](/docs/packages/security/oidc), from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another third-party system, can be used to publish/upload packages to the registry.
+- **Tokens** (private registries only): one or more [registry tokens](#update-a-registry-configure-registry-tokens), which are an alternative to API access tokens.
+- **Storage**: choose your [registry storage](#update-a-registry-configure-registry-storage), selecting from **Buildkite-hosted storage** (the initially default storage system) or [your own private AWS S3 bucket](/docs/packages/private-storage) to store packages for this registry.
 
 The registry's ecosystem type cannot be changed once the registry is created.
 
@@ -75,7 +76,7 @@ To update a registry:
 
 ### Configure registry tokens
 
-_Registry tokens_ are long-lived _read only_ tokens configurable for a private registry, which allow you download and install packages from that registry as an alternative to (and without having to use) a user account-based [API access token](https://buildkite.com/user/api-access-tokens) with the **Read Packages** REST API scope.
+_Registry tokens_ are long-lived _read only_ tokens configurable for a private registry, which allow you download and install packages from that registry, acting as an alternative to (and without having to use) a user account-based [API access token](https://buildkite.com/user/api-access-tokens) with the **Read Packages** REST API scope.
 
 To configure registry tokens for a private registry:
 
