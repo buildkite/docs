@@ -146,7 +146,6 @@ Container caching can be enabled on the cluster's cache volumes settings page. O
 
 <%= image "hosted-agents-container-caching.png", width: 1760, height: 436, alt: "Hosted agents container cache setting displayed in the Buildkite UI" %>
 
-
 ## Agent Images
 
 Buildkite provides a Linux agent image pre-configured with common tools and utilities to help you get started quickly. This image also provides tools required for running jobs on hosted agents.
@@ -160,13 +159,13 @@ The image is based on Ubuntu 20.04 and includes the following tools:
 - node
 - aws-cli
 
-You can customise the image that your hosted agents use by creating an agent image. 
+You can customise the image that your hosted agents use by creating an agent image.
 
 ### Creating an agent image
 
 To create an agent image, you need to create a Dockerfile that installs the tools and utilities you require. The Dockerfile should be based on the [Buildkite hosted agent base image](https://hub.docker.com/r/buildkite/hosted-agent-base/tags).
 
-Here is an example Dockerfile that installs the `aws-cli`:
+Here is an example Dockerfile that installs the `awscli` and `kubectl`:
 
 ```dockerfile
 # Set the environment variable to avoid interactive prompts during awscli installation
@@ -198,6 +197,5 @@ From the Queues page within a Cluster, select a queue, navigate to the `Base Ima
 You can delete an agent image by navigating to the `Agent Images` page in a `Cluster`. Select the agent image, then click on the `Delete` button.
 
 <%= image "hosted-agents-delete-image.png", width: 1760, height: 436, alt: "Hosted agents delete image form displayed in the Buildkite UI" %>
-```
 
 Note that Agent Images cannot be deleted if they are in use by any queue. Please reset the queue to the default image before deleting the agent image.
