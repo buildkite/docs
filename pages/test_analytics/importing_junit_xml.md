@@ -43,7 +43,7 @@ If for some reason you cannot or do not want to use the [Test Collector plugin](
 To import XML-formatted JUnit test results to Test Analytics, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data`.
 For example, to import the contents of a `junit.xml` file in a Buildkite pipeline:
 
-1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/managing-secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
+1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/secrets/managing) (`BUILDKITE_ANALYTICS_TOKEN`).
 
 1. Run the following `curl` command:
 
@@ -77,7 +77,7 @@ A single file can have a maximum of 5000 test results, and if that limit is exce
 To import XML-formatted JUnit test results, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data`.
 For example, to import the contents of a `junit.xml` file in a CircleCI pipeline:
 
-1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/managing-secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
+1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/secrets/managing) (`BUILDKITE_ANALYTICS_TOKEN`).
 
 1. Run the following `curl` command:
 
@@ -109,7 +109,7 @@ A single file can have a maximum of 5000 test results, and if that limit is exce
 To import XML-formatted JUnit test results, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data`.
 For example, to import the contents of a `junit.xml` file in a GitHub Actions pipeline:
 
-1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/managing-secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
+1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/secrets/managing) (`BUILDKITE_ANALYTICS_TOKEN`).
 
 1. Run the following `curl` command:
 

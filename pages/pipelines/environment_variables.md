@@ -3,7 +3,7 @@
 When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/defining-steps) and
 [job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks).
 
-For best practices and recommendations about using secrets in your environment variables, see the [Managing secrets](/docs/pipelines/security/managing-secrets) guide.
+For best practices and recommendations about using secrets in your environment variables, see the [Managing secrets](/docs/pipelines/security/secrets/managing) guide.
 
 ## Buildkite environment variables
 
@@ -113,7 +113,7 @@ You can define environment variables in your jobs in a few ways, depending on th
 * An `environment` or `pre-command` [agent hook](/docs/agent/v3/hooks) — for values that are secret or agent-specific.
 
 > 🚧 Secrets in environment variables
-> Do not print or export secrets in your pipelines. See the [Secrets](/docs/pipelines/security/managing-secrets) documentation for further information and best practices.
+> Do not print or export secrets in your pipelines. See the [Secrets](/docs/pipelines/security/secrets/managing) documentation for further information and best practices.
 
 ## Variable interpolation
 

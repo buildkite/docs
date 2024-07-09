@@ -42,4 +42,4 @@ When a Buildkite hosted agent machine is running (during a pipeline build) you c
 
 _Buildkite secrets_ is a Buildkite secrets management feature designed for Buildkite hosted agents, and is available for self-hosted agents too.
 
-This feature can be used to manage secrets such as API credentials or SSH keys for hosted agents. Learn more about this feature in [Buildkite secrets](/docs/pipelines/buildkite-secrets).
+This feature can be used to manage secrets such as API credentials or SSH keys for hosted agents. Learn more about this feature in [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets).
