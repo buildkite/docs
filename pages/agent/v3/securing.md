@@ -4,7 +4,9 @@ In cases where a Buildkite Agent is being deployed into a sensitive environment,
 
 ## Securely storing secrets
 
-For best practices and recommendations about secret storage in the Agent, see the [Managing secrets](/docs/pipelines/security/secrets/managing) guide.
+For best practices and recommendations about secret storage in the Agent, see [Managing pipeline secrets](/docs/pipelines/security/secrets/managing).
+
+Learn more about other secrets management approaches in Buildkite on the [Secrets overview](/docs/pipelines/security/secrets) page.
 
 ## Disabling automatic ssh-keyscan
 
