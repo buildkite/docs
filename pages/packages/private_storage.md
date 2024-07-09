@@ -65,7 +65,7 @@ You are returned to the **Private Storage Link** page, where you can:
 
 By default, your Buildkite organization uses storage provided by Buildkite (known as **Buildkite-hosted storage**).
 
-The default storage is the storage used when a [new registry is created](/docs/packages/manage-registries#create-a-registry).
+The _default storage_ is the storage used when a [new registry is created](/docs/packages/manage-registries#create-a-registry).
 
 Once you have [configured at least one other private storage link](#link-your-private-storage-to-buildkite-packages), you can change the default storage to one of these configured private storage configurations. To do this:
 
