@@ -50,7 +50,7 @@ Custom caches can be created by specifying a name for the cache, which allows yo
 
 When requesting a cache volume, you can specify a size. The cache volume provided will have a minimum available storage equal to the specified size. In the case of a cache hit (most of the time), the actual volume size is: last used volume size + the specified size.
 
-Defining a top-level cache configuration (as opposed to one within a step) sets the defaults cache volume for all steps in the pipeline. Steps can override the top-level configuration by defining their own cache configuration.
+Defining a top-level cache configuration (as opposed to one within a step) sets the default cache volume for all steps in the pipeline. Steps can override the top-level configuration by defining their own cache configuration.
 
 ```yaml
 cache:
@@ -166,10 +166,19 @@ You can customise the image that your hosted agents use by creating an agent ima
 
 To create an agent image, you need to create a Dockerfile that installs the tools and utilities you require. The Dockerfile should be based on the [Buildkite hosted agent base image](https://hub.docker.com/r/buildkite/hosted-agent-base/tags).
 
-Here is an example Dockerfile that installs the `aws-cli` and `kubectl`:
+Here is an example Dockerfile that installs the `aws-cli`:
 
 ```dockerfile
-RUN apt-get update && apt-get install -y awscli kubectl
+# Set the environment variable to avoid interactive prompts during awscli installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install AWS CLI
+RUN apt-get update && apt-get install -y awscli
+
+# Install kubectl using pkgs.k8s.io
+RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl \
+    && chmod +x kubectl \
+    && mv kubectl /usr/local/bin/
 ```
 
 You can create an agent image in the Buildkite UI by navigating to the `Agent Images` page in a `Cluster`. You must have created a Linux queue. Click on the `Create Image` button and provide the Dockerfile and a name for the agent image.
@@ -186,7 +195,7 @@ From the Queues page within a Cluster, select a queue, navigate to the `Base Ima
 
 # Deleting an agent image
 
-You can delete an agent image by navigating to the `Agent Images` page in a `Cluster`. Click on the `Delete` button next to the agent image you want to delete.
+You can delete an agent image by navigating to the `Agent Images` page in a `Cluster`. Select the agent image, then click on the `Delete` button.
 
 <%= image "hosted-agents-delete-image.png", width: 1760, height: 436, alt: "Hosted agents delete image form displayed in the Buildkite UI" %>
 ```
