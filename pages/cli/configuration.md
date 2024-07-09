@@ -16,10 +16,13 @@ To create a new API access token:
 
 1. Once you have selected the required **REST API Scopes** and **Enable GraphQL API access** for the token, retain a copy of your API access token's value in a secure location.
 
-> 📘
-> You can also use these **New API Access Token** links with pre-set fields to create these API access tokens:
-> [New API access token with description](https://buildkite.com/user/api-access-tokens/new?description=Buildkite%20CLI)—pre-sets the **Description** field with `Buildkite CLI`.
-> [New API access token with description](https://buildkite.com/user/api-access-tokens/new?description=Buildkite%20CLI&scopes%5B%5D=read_agents&scopes%5B%5D=write_agents&scopes%5B%5D=read_clusters&scopes%5B%5D=write_clusters&scopes%5B%5D=read_teams&scopes%5B%5D=write_teams&scopes%5B%5D=read_artifacts&scopes%5B%5D=write_artifacts&scopes%5B%5D=read_builds&scopes%5B%5D=write_builds&scopes%5B%5D=read_build_logs&scopes%5B%5D=read_organizations&scopes%5B%5D=read_pipelines&scopes%5B%5D=write_pipelines&scopes%5B%5D=read_user&scopes%5B%5D=read_suites&scopes%5B%5D=write_suites&scopes%5B%5D=read_registries&scopes%5B%5D=write_registries&scopes%5B%5D=delete_registries&scopes%5B%5D=read_packages&scopes%5B%5D=write_packages&scopes%5B%5D=delete_packages&scopes%5B%5D=graphql)—pre-sets the **Description** field with `Buildkite CLI`, along with all the required **REST API Scopes** and **Enable GraphQL API access** options already selected.
+**Note:** You can also use the following **New API Access Token** page links with pre-set fields to create these API access tokens:
+
+* [New API access token with description](https://buildkite.com/user/api-access-tokens/new?description=Buildkite%20CLI)—pre-sets the **Description** field with `Buildkite CLI`.
+
+* [New API access token with description and API scopes](https://buildkite.com/user/api-access-tokens/new?description=Buildkite%20CLI&scopes%5B%5D=read_agents&scopes%5B%5D=write_agents&scopes%5B%5D=read_clusters&scopes%5B%5D=write_clusters&scopes%5B%5D=read_teams&scopes%5B%5D=write_teams&scopes%5B%5D=read_artifacts&scopes%5B%5D=write_artifacts&scopes%5B%5D=read_builds&scopes%5B%5D=write_builds&scopes%5B%5D=read_build_logs&scopes%5B%5D=read_organizations&scopes%5B%5D=read_pipelines&scopes%5B%5D=write_pipelines&scopes%5B%5D=read_user&scopes%5B%5D=read_suites&scopes%5B%5D=write_suites&scopes%5B%5D=read_registries&scopes%5B%5D=write_registries&scopes%5B%5D=delete_registries&scopes%5B%5D=read_packages&scopes%5B%5D=write_packages&scopes%5B%5D=delete_packages&scopes%5B%5D=graphql)—pre-sets the **Description** field with `Buildkite CLI`, along with all the required **REST API Scopes** and **Enable GraphQL API access** options already selected.
+
+If you use one of these links, you must still specify the Buildkite organization (in **Organization Access**) for this API access token.
 
 ## Configure the Buildkite CLI with your API access token
 
