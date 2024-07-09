@@ -1,6 +1,6 @@
 # The Buildkite CLI
 
-The Buildkite command-line interface (CLI) is a CLI tool for interacting directly with Buildkite itself. This tool provides command line/terminal access to work with some aspects of Buildkite's features, as you normally would through Buildkite's web interface.
+The Buildkite CLI is a command-line interface (CLI) tool for interacting directly with Buildkite itself. This tool provides command line/terminal access to work with a subset of Buildkite's features, as you normally would through Buildkite's web interface.
 
 Using the Buildkite CLI, you can view builds, create and cancel builds, unblock jobs, stop agents, along with several other actions.
 
