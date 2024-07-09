@@ -193,7 +193,7 @@ From the Queues page within a Cluster, select a queue, navigate to the `Base Ima
 
 <%= image "hosted-agents-queue-image.png", width: 1760, height: 436, alt: "Hosted agents queue image setting displayed in the Buildkite UI" %>
 
-# Deleting an agent image
+### Deleting an agent image
 
 You can delete an agent image by navigating to the `Agent Images` page in a `Cluster`. Select the agent image, then click on the `Delete` button.
 
