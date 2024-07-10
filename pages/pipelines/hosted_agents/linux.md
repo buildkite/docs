@@ -182,7 +182,7 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
 
 You can create an agent image in the Buildkite UI by navigating to the `Agent Images` page in a `Cluster`. You must have created a Linux queue. Click on the `Create Image` button and provide the Dockerfile and a name for the agent image.
 
-<%= image "hosted-agents-create-image.png", width: 1760, height: 436, alt: "Hosted agents create image form displayed in the Buildkite UI" %>
+<%= image "hosted-agents-create-image.png", width: 1516, height: 478, alt: "Hosted agents create image form displayed in the Buildkite UI" %>
 
 ### Using an agent image
 
