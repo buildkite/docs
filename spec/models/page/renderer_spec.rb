@@ -84,13 +84,13 @@ RSpec.describe Page::Renderer do
   end
 
   describe "#decorate_external_links" do
-    it "adds `.external-link` class to external links" do
+    it "adds `.external-link` class and `_blank` target to external links" do
       md = <<~MD
         [Google](https://www.google.com)
       MD
 
       html = <<~HTML
-        <p><a href="https://www.google.com" class="external-link">Google</a></p>
+        <p><a href="https://www.google.com" class="external-link" target="_blank">Google</a></p>
       HTML
 
       expect(Page::Renderer.render(md).strip).to eql(html.strip)
