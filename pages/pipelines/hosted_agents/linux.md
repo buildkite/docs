@@ -161,11 +161,11 @@ The image is based on Ubuntu 20.04 and includes the following tools:
 
 You can customize the image that your hosted agents use by creating an agent image.
 
-### Creating an agent image
+### Create an agent image
 
-To create an agent image, you need to create a Dockerfile that installs the tools and utilities you require. The Dockerfile should be based on the [Buildkite hosted agent base image](https://hub.docker.com/r/buildkite/hosted-agent-base/tags).
+Creating an agent image requires you to define a Dockerfile that installs the tools and utilities you require. This Dockerfile should be based on the [Buildkite hosted agent base image](https://hub.docker.com/r/buildkite/hosted-agent-base/tags).
 
-Here is an example Dockerfile that installs the `awscli` and `kubectl`:
+An example Dockerfile that installs the `awscli` and `kubectl`:
 
 ```dockerfile
 # Set the environment variable to avoid interactive prompts during awscli installation
@@ -180,7 +180,20 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
     && mv kubectl /usr/local/bin/
 ```
 
-You can create an agent image in the Buildkite UI by navigating to the `Agent Images` page in a `Cluster`. You must have created a Linux queue. Click on the `Create Image` button and provide the Dockerfile and a name for the agent image.
+You can create an agent image:
+
+1. Select **Agents** in the global navigation to access the **Clusters** page.
+1. Select the cluster in which to create the new agent image.
+
+    **Note:** Before continuing, ensure you have created a hosted agent queue with Linux architecture within this cluster. Learn more about how to do this in [Create a queue](/docs/clusters/manage-queues#create-a-queue).
+
+1. On the **Agent Images** page, select **New Image** to open the **New Agent Image** dialog.
+1. Enter the **Name** for your agent image.
+1. In the **Dockerfile** field, enter the contents of your Dockerfile.
+
+    **Note:** The top of the Dockerfile contains the required `FROM` instruction, which cannot be changed. This instruction obtains the required Buildkite hosted agent base image.
+
+1. Select **Create Agent Image** to create your new agent image.
 
 <%= image "hosted-agents-create-image.png", width: 1516, height: 478, alt: "Hosted agents create image form displayed in the Buildkite UI" %>
 
