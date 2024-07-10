@@ -224,7 +224,7 @@ To delete an agent image:
 1. Select **Agent Images** to open the **Agent Images** page.
 1. Select the agent image to delete > **Delete**.
 
-    **Note:** If you are prompted that the agent image is currently in use, follow the link/s to each hosted agent queue on the **Delete Image** message to change its **Agent image** (from the **Base Image** tab) to another agent image.
+    **Note:** If you are prompted that the agent image is currently in use, follow the link/s to each hosted agent queue on the **Delete Image** message to change the queue's **Agent image** (from the **Base Image** tab) to another agent image.
 
 1. On the **Delete Image** message, select **Delete Image** and the agent image is deleted.
 
