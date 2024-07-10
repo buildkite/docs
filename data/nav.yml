@@ -350,6 +350,8 @@
               path: "pipelines/security/oidc"
             - name: "OIDC with AWS"
               path: "pipelines/security/oidc/aws"
+        - name: "Permissions"
+          path: "pipelines/security/permissions"
     - name: "Governance"
       children:
         - name: "Overview"
@@ -488,8 +490,8 @@
               path: "packages/security"
             - name: "OIDC"
               path: "packages/security/oidc"
-        - name: "Permissions"
-          path: "packages/permissions"
+            - name: "Permissions"
+              path: "packages/security/permissions"
     - name: "Package ecosystems"
       start_expanded: true
       children:
