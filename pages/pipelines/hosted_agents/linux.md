@@ -185,9 +185,10 @@ You can create an agent image:
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster in which to create the new agent image.
 
-    **Note:** Before continuing, ensure you have created a hosted agent queue with Linux architecture within this cluster. Learn more about how to do this in [Create a queue](/docs/clusters/manage-queues#create-a-queue).
+    **Note:** Before continuing, ensure you have created a hosted agent queue (based on Linux architecture) within this cluster. Learn more about how to do this in [Create a queue](/docs/clusters/manage-queues#create-a-queue).
 
-1. On the **Agent Images** page, select **New Image** to open the **New Agent Image** dialog.
+1. Select **Agent Images** to open the **Agent Images** page.
+1. Select **New Image** to open the **New Agent Image** dialog.
 1. Enter the **Name** for your agent image.
 1. In the **Dockerfile** field, enter the contents of your Dockerfile.
 
@@ -197,18 +198,34 @@ You can create an agent image:
 
 <%= image "hosted-agents-create-image.png", width: 1516, height: 478, alt: "Hosted agents create image form displayed in the Buildkite UI" %>
 
-### Using an agent image
+### Use an agent image
 
-Once you have created an Agent Image, you can set it as the default image for a queue. Hosted agents in that queue will use the agent image you have created in new jobs.
+Once you have [created an agent image](#agent-images-create-an-agent-image), you can set it as the default image for any hosted agent queues based on Linux architecture within this cluster. Once you do this for such a hosted agent queue, any agents in the queue will use this agent image in new jobs.
 
-From the Queues page within a Cluster, select a queue, navigate to the `Base Image` tab and select the agent image you want to use from the dropdown. Click on the `Save settings` button to update the queue image.
+To set a Linux-architecture hosted agent queue to use an agent image:
+
+1. Select **Agents** in the global navigation to access the **Clusters** page.
+1. Select the cluster in with the Linux-architecture hosted agent queue to configure with the agent image.
+1. On the **Queues** page, select the hosted agent queue based on Linux architecture.
+1. Select the **Base Image** tab to open its settings.
+1. In the **Agent image** dropdown, select your agent image.
+1. Select **Save settings** to save this update.
 
 <%= image "hosted-agents-queue-image.png", width: 1760, height: 436, alt: "Hosted agents queue image setting displayed in the Buildkite UI" %>
 
-### Deleting an agent image
+### Delete an agent image
 
-You can delete an agent image by navigating to the `Agent Images` page in a `Cluster`. Select the agent image, then click on the `Delete` button.
+To delete a [previously created agent image](#agent-images-create-an-agent-image), it must not be [used by any hosted agent queues](#agent-images-use-an-agent-image).
+
+To delete an agent image:
+
+1. Select **Agents** in the global navigation to access the **Clusters** page.
+1. Select the cluster in which to delete the agent image.
+1. Select **Agent Images** to open the **Agent Images** page.
+1. Select the agent image to delete > **Delete**.
+
+    **Note:** If you are prompted that the agent image is currently in use, follow the link/s to each hosted agent queue on the **Delete Image** message to change its **Agent image** (from the **Base Image** tab) to another agent image.
+
+1. On the **Delete Image** message, select **Delete Image** and the agent image is deleted.
 
 <%= image "hosted-agents-delete-image.png", width: 1760, height: 436, alt: "Hosted agents delete image form displayed in the Buildkite UI" %>
-
-Note that Agent Images cannot be deleted if they are in use by any queue. Please reset the queue to the default image before deleting the agent image.
