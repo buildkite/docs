@@ -164,7 +164,7 @@ http {
 }
 ```
 
-For further information on restricting access to your GitHub Enterprise Server, consult documentation from on firewall or proxy service for example: [NGINX - Restricting Access to Proxied TCP Resources](https://docs.nginx.com/nginx/admin-guide/security-controls/controlling-access-proxied-tcp/).
+Learn more about restricting access to your GitHub Enterprise Server on firewalled or proxy services in [Restricting Access to Proxied TCP Resources of the NGINX Docs](https://docs.nginx.com/nginx/admin-guide/security-controls/controlling-access-proxied-tcp/).
 
 ## Multiple GitHub Enterprise integrations
 
