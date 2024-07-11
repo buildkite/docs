@@ -1,6 +1,6 @@
-# Access control for users and teams
+# User, team, and test suite permissions
 
-Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage test suite permissions using the [_teams_ feature](#manage-teams-and-permissions).
+Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage test suite permissions using the [_teams_ feature](#manage-teams-and-permissions). This feature allows you to apply access permissions and functionality controls for one or more groups of users (that is, _teams_) on each test suite throughout your organization.
 
 Enterprise customers can configure test suite permissions and security features for all users across their Buildkite organization through the **Security** page. Learn more about this feature in [Manage organization security for test suites](#manage-organization-security-for-test-suites).
 
@@ -20,13 +20,17 @@ Once the _teams_ feature is enabled, you can see the teams that you're a member 
 
 Learn more about what a _Buildkite organization administrator_ can do in the [Organization-level permissions section of the Pipelines documentation](/docs/team-management/permissions#manage-teams-and-permissions-organization-level-permissions).
 
-As an organization administrator, in the [**Team** section](https://buildkite.com/organizations/~/teams), you can add new teams or edit existing ones.
+As an organization administrator, you can access the [**Organization Settings** page](https://buildkite.com/organizations/~/settings) by selecting **Settings** in the global navigation, where you can do the following:
 
-<%= image "team-section-list.png", alt: "Screenshot of the Team section, showing a list of Teams" %>
+- Add new teams or edit existing ones in the [**Team** section](https://buildkite.com/organizations/~/teams).
 
-After selecting a team, you can view the member-, pipeline-, test suite-, registry- and team-specific settings.
+    <%= image "team-section-list.png", alt: "Screenshot of the Team section, showing a list of Teams" %>
 
-<%= image "team-section-test-suites-list.png", alt: "Screenshot of the Team section, showing a list of Test Suites the team has access to" %>
+- After selecting a team, you can view and administer the member-, [pipeline-](/docs/team-management/permissions#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](#manage-teams-and-permissions-test-suite-level-permissions), [registry-](/docs/packages/permissions#manage-teams-and-permissions-registry-level-permissions) and [team-](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions)level settings for that team.
+
+    <%= image "team-section-test-suites-list.png", alt: "Screenshot of the Team section, showing a list of Test Suites the team has access to" %>
+
+    **Note:** Registry-level settings are only available once [Buildkite Packages has been enabled](/docs/packages/permissions#enabling-buildkite-packages).
 
 ### Team-level permissions
 

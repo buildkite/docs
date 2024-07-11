@@ -239,7 +239,30 @@ mutation CreateUser {
 }
 ```
 
+## Get the creation timestamp for an organization member
 
+Use this to find out when the user was added to the organization.
+
+```graphql
+query getOrganizationMemberCreation {
+  organization(slug: "organization-slug") {
+    id
+    members(search: "organization-member-name", first: 10) {
+      edges {
+        node {
+          id
+          createdAt
+          user {
+            id
+            name
+            email
+          }
+        }
+      }
+    }
+  }
+}
+```
 
 ## Delete an organization member
 
@@ -280,7 +303,6 @@ mutation deleteOrgMember {
   }
 }
 ```
-
 ## Get organization audit events
 
 Query your organization's audit events. Audit events are only available to Enterprise customers.

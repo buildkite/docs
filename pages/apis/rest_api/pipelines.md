@@ -189,6 +189,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
       "name": "My Pipeline X",
+      "cluster_id": "xxx",
       "repository": "git@github.com:acme-inc/my-pipeline.git",
       "configuration": "env:\n \"FOO\": \"bar\"\nsteps:\n - command: \"script/release.sh\"\n   \"name\": \"Build :package:\""
     }'
@@ -291,6 +292,10 @@ Required [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>name</code></th>
     <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>cluster_id</code></th>
+    <td>The ID value of the cluster the pipeline will be associated with.<p class="Docs__api-param-eg"><em>Example:</em> <code>"Ab1Cd2Ef3Gh4Ij5Kl6Mn7Op8Qr9St0Uv10Wx11Yz12Ab1Cd2Ef3Gh4Ij5Kl6Mn=="</code></p></td>
   </tr>
   <tr>
     <th><code>repository</code></th>
@@ -438,6 +443,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "My Pipeline",
+    "cluster_id": "xxx",
     "repository": "git@github.com:acme-inc/my-pipeline.git",
     "steps": [
       {
@@ -598,6 +604,10 @@ Required [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>name</code></th>
     <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>cluster_id</code></th>
+    <td>The ID value of the cluster the pipeline will be associated with.<p class="Docs__api-param-eg"><em>Example:</em> <code>"Ab1Cd2Ef3Gh4Ij5Kl6Mn7Op8Qr9St0Uv10Wx11Yz12Ab1Cd2Ef3Gh4Ij5Kl6Mn=="</code></p></td>
   </tr>
   <tr>
     <th><code>repository</code></th>

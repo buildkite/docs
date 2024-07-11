@@ -50,7 +50,7 @@ Custom caches can be created by specifying a name for the cache, which allows yo
 
 When requesting a cache volume, you can specify a size. The cache volume provided will have a minimum available storage equal to the specified size. In the case of a cache hit (most of the time), the actual volume size is: last used volume size + the specified size.
 
-Defining a top-level cache configuration (as opposed to one within a step) sets the defaults cache volume for all steps in the pipeline. Steps can override the top-level configuration by defining their own cache configuration.
+Defining a top-level cache configuration (as opposed to one within a step) sets the default cache volume for all steps in the pipeline. Steps can override the top-level configuration by defining their own cache configuration.
 
 ```yaml
 cache:
@@ -145,3 +145,87 @@ The container cache can be used to cache Docker images between builds.
 Container caching can be enabled on the cluster's cache volumes settings page. Once enabled, a container cache will be used for all hosted jobs in that cluster. A separate cache volume will be created for each pipeline.
 
 <%= image "hosted-agents-container-caching.png", width: 1760, height: 436, alt: "Hosted agents container cache setting displayed in the Buildkite UI" %>
+
+## Agent images
+
+Buildkite provides a Linux agent image pre-configured with common tools and utilities to help you get started quickly. This image also provides tools required for running jobs on hosted agents.
+
+The image is based on Ubuntu 20.04 and includes the following tools:
+
+- docker
+- docker-compose
+- docker-buildx
+- git-lfs
+- node
+- aws-cli
+
+You can customize the image that your hosted agents use by creating an agent image.
+
+### Create an agent image
+
+Creating an agent image requires you to define a Dockerfile that installs the tools and utilities you require. This Dockerfile should be based on the [Buildkite hosted agent base image](https://hub.docker.com/r/buildkite/hosted-agent-base/tags).
+
+An example Dockerfile that installs the `awscli` and `kubectl`:
+
+```dockerfile
+# Set the environment variable to avoid interactive prompts during awscli installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install AWS CLI
+RUN apt-get update && apt-get install -y awscli
+
+# Install kubectl using pkgs.k8s.io
+RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl \
+    && chmod +x kubectl \
+    && mv kubectl /usr/local/bin/
+```
+
+You can create an agent image:
+
+1. Select **Agents** in the global navigation to access the **Clusters** page.
+1. Select the cluster in which to create the new agent image.
+
+    **Note:** Before continuing, ensure you have created a hosted agent queue (based on Linux architecture) within this cluster. Learn more about how to do this in [Create a queue](/docs/clusters/manage-queues#create-a-queue).
+
+1. Select **Agent Images** to open the **Agent Images** page.
+1. Select **New Image** to open the **New Agent Image** dialog.
+1. Enter the **Name** for your agent image.
+1. In the **Dockerfile** field, enter the contents of your Dockerfile.
+
+    **Note:** The top of the Dockerfile contains the required `FROM` instruction, which cannot be changed. This instruction obtains the required Buildkite hosted agent base image.
+
+1. Select **Create Agent Image** to create your new agent image.
+
+<%= image "hosted-agents-create-image.png", width: 1516, height: 478, alt: "Hosted agents create image form displayed in the Buildkite UI" %>
+
+### Use an agent image
+
+Once you have [created an agent image](#agent-images-create-an-agent-image), you can set it as the default image for any hosted agent queues based on Linux architecture within this cluster. Once you do this for such a hosted agent queue, any agents in the queue will use this agent image in new jobs.
+
+To set a Linux-architecture hosted agent queue to use an agent image:
+
+1. Select **Agents** in the global navigation to access the **Clusters** page.
+1. Select the cluster in with the Linux-architecture hosted agent queue to configure with the agent image.
+1. On the **Queues** page, select the hosted agent queue based on Linux architecture.
+1. Select the **Base Image** tab to open its settings.
+1. In the **Agent image** dropdown, select your agent image.
+1. Select **Save settings** to save this update.
+
+<%= image "hosted-agents-queue-image.png", width: 1760, height: 436, alt: "Hosted agents queue image setting displayed in the Buildkite UI" %>
+
+### Delete an agent image
+
+To delete a [previously created agent image](#agent-images-create-an-agent-image), it must not be [used by any hosted agent queues](#agent-images-use-an-agent-image).
+
+To delete an agent image:
+
+1. Select **Agents** in the global navigation to access the **Clusters** page.
+1. Select the cluster in which to delete the agent image.
+1. Select **Agent Images** to open the **Agent Images** page.
+1. Select the agent image to delete > **Delete**.
+
+    **Note:** If you are prompted that the agent image is currently in use, follow the link/s to each hosted agent queue on the **Delete Image** message to change the queue's **Agent image** (from the **Base Image** tab) to another agent image.
+
+1. On the **Delete Image** message, select **Delete Image** and the agent image is deleted.
+
+<%= image "hosted-agents-delete-image.png", width: 1760, height: 436, alt: "Hosted agents delete image form displayed in the Buildkite UI" %>

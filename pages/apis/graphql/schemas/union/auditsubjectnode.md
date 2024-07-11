@@ -88,6 +88,9 @@ Kinds of subjects which can have audit events performed on them
 <a href="/docs/apis/graphql/schemas/object/organizationbanner" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationBanner">
   <code>OrganizationBanner</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/organizationimpersonationrequest" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationImpersonationRequest">
+  <code>OrganizationImpersonationRequest</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/organizationinvitation" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationInvitation">
   <code>OrganizationInvitation</code>
 </a>
@@ -105,6 +108,9 @@ Kinds of subjects which can have audit events performed on them
 </a>
 <a href="/docs/apis/graphql/schemas/object/registry" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Registry">
   <code>Registry</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/registrytoken" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RegistryToken">
+  <code>RegistryToken</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/scmpipelinesettings" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SCMPipelineSettings">
   <code>SCMPipelineSettings</code>

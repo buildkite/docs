@@ -22,6 +22,19 @@ As a pipeline is being built, expand the relevant step and as its job is being b
 
 <%= image "terminal-button-on-job.png", alt: "Accessing the SSH button through the Buildkite UI" %>
 
+To extend the terminal session time, it is recommended that you include a `sleep` [command](/docs/pipelines/command-step) within your job steps. This can help maintain an active terminal connection and prevent the session from timing out too quickly, allowing you to debug your job or investigate the environment the job is running in.
+
+In the example below, the job will pause for 10 minutes before continuing. Adjust the sleep duration according to your specific needs.
+
+```yml
+steps:
+  - label: "Extend Terminal Session"
+    command: |
+      echo "Starting job..."
+      sleep 600  # Sleep for 10 minutes
+      echo "Job complete."
+```
+
 ## Deactivate and reactivate terminal access on hosted agents
 
 By default, the terminal access feature for Buildkite hosted agents is active.
@@ -32,9 +45,9 @@ To deactivate or reactivate the hosted agent terminal access feature:
 
 1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 1. Select **Pipelines** > **Settings** to access your organization's [**Pipeline Settings**](https://buildkite.com/organizations/~/pipeline-settings) page.
-1. Scroll down to the **Hosted Agents SSH** and to:
-    * _Deactivate this feature_, select the **Disable SSH** button, followed by **Disable Hosted Agents SSH** in the confirmation message.
-    * _Reactivate this feature_, select the **Enable SSH** button, followed by **Enable Hosted Agents SSH** in the confirmation message.
+1. Scroll down to the **Hosted Agents Terminal Access** and to:
+    * _Deactivate this feature_, select the **Disable Terminal Access** button, followed by **Disable Hosted Agents Terminal Access** in the confirmation message.
+    * _Reactivate this feature_, select the **Enable Terminal Access** button, followed by **Enable Hosted Agents Terminal Access** in the confirmation message.
 
 Terminal access will now be either removed or made available to all Buildkite hosted agents across all clusters within your Buildkite organization.
 

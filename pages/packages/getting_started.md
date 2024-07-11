@@ -1,6 +1,6 @@
 # Getting started
 
-👋 Welcome to Buildkite Packages! You can use Packages to house your [packages](/docs/packages#package-creation-tools) built through [Buildkite Pipelines](/docs/pipelines) or another CI/CD application, and manage them through dedicated registries. This tutorial takes you through creating a JavaScript registry, cloning and running a simple Node.js package locally, and uploading this package to your new JavaScript registry.
+👋 Welcome to Buildkite Packages! You can use Packages to house your [packages](/docs/packages/background#package-creation-tools) built through [Buildkite Pipelines](/docs/pipelines) or another CI/CD application, and manage them through dedicated registries. This tutorial takes you through creating a JavaScript registry, cloning and running a simple Node.js package locally, and uploading this package to your new JavaScript registry.
 
 While this tutorial uses a Node.js package example, Buildkite Packages supports [other package ecosystems](/docs/packages/manage-registries#create-a-registry-manage-packages-in-a-registry) too.
 
@@ -21,9 +21,6 @@ First, create a new JavaScript registry:
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select **New registry**.
 1. On the **New Registry** page, enter the mandatory **Name** for your registry. For example, `My JavaScript registry`.
-
-    **Note:** Since registry names cannot contain spaces or punctuation, hyphens will automatically be specified when the space key is pressed, and punctuation will not be entered.
-
 1. Enter an optional **Description** for the registry, which will appear under the name of the registry item on the **Registries** page. For example, `This is an example of a JavaScript registry`.
 1. Select the required registry **Ecosystem** of **JavaScript (npm)**.
 1. If your Buildkite organization has the [teams feature](/docs/packages/permissions) enabled, select the relevant **Teams** to be granted access to the new JavaScript registry.
@@ -59,17 +56,17 @@ Next, configure your Node.js environment to publish Node.js packages to [the Jav
 1. Copy the `npm` command in the first code box and run it to configure your npm config settings file (`.npmrc`). This configuration allows you to publish packages to your JavaScript registry. The `npm` command has the following format:
 
     ```bash
-    npm set "//packages.buildkite.com/organizations/{org.slug}/packages/registries/{registry.name}/npm/:_authToken" registry-write-token
+    npm set "//packages.buildkite.com/{org.slug}/{registry.slug}/npm/:_authToken" registry-write-token
     ```
 
     where:
     <%= render_markdown partial: 'packages/org_slug' %>
-    <%= render_markdown partial: 'packages/javascript_registry_name' %>
+    <%= render_markdown partial: 'packages/javascript_registry_slug' %>
     <%= render_markdown partial: 'packages/javascript_registry_write_token' %>
 
     **Note:**
     * If your `.npmrc` file doesn't exist, this command will automatically create it for you.
-    * This step only needs to be conducted once for the life of your JavaScript registry.
+    * This step only needs to be performed once for the life of your JavaScript registry.
 
 1. Copy the `publishConfig` field and its value in the second code box and paste it to the end of your Node.js package's `package.json` file. Alternatively, select and copy the line of code beginning `"publishConfig": ...`. For example:
 
@@ -84,7 +81,7 @@ Next, configure your Node.js environment to publish Node.js packages to [the Jav
       },
       "author": "A Person",
       "license": "MIT",
-      "publishConfig": {"registry": "https://packages.buildkite.com/organizations/{org.slug}/packages/registries/{registry.name}/npm/"}
+      "publishConfig": {"registry": "https://packages.buildkite.com/{org.slug}/{registry.slug}/npm/"}
     }
     ```
 
@@ -92,9 +89,10 @@ Next, configure your Node.js environment to publish Node.js packages to [the Jav
 
 ## Publish the package
 
-Last, in the `nodejs-example-package` directory, publish your Node.js package to your JavaScript registry by running the `npm` command:
+Last, in the `nodejs-example-package` directory, publish your Node.js package to your JavaScript registry by running the following `npm` commands:
 
 ```bash
+npm pack
 npm publish
 ```
 

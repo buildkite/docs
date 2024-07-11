@@ -107,6 +107,7 @@ exceptions:
   - IdP # TODO: unabbreviate this in headings
   - IDs
   - IronWorker
+  - Installation
   - JavaScript
   - Jenkins
   - JSON
@@ -144,6 +145,7 @@ exceptions:
   - SSH
   - SSO
   - Test Analytics
+  - TESTOWNER
   - Ubuntu
   - URL
   - URL(s)

@@ -1,1 +1,0 @@
-- `{registry.name}` is the name of your Python registry.
