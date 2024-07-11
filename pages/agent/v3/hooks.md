@@ -148,9 +148,9 @@ they are run as part of each job:
 {: class="table table--no-wrap"}
 
 > 📘 Hook failure behavior
-> If any hooks fail with a non-zero exit code, the job will be aborted at that point.
-> The behavior for most `post-*` hooks above, however, is a little different. If a `command` is the core of a job, the `command` job would have already run and completed before the `post-*` hook is run. Therefore, a `post-*` hook's success or failure has no impact on stopping the core `command` job from running.
-> The exception to this is the `post-checkout` hook, which runs after checkout but before the core `command` job runs. In such circumstances, if the `post-checkout` hook fails, then the `command` job will not run.
+> In general, if a hook fails with a non-zero exit code, the job will be aborted at that point.
+> However, if a `post-*` hook (with the exception of `post-checkout`) fails with a non-zero exit code, the job will not be impacted.
+> For example, if a `command` is the core of a job, the `command` job would have already run and completed before the `post-*` hook is run. Therefore, a `post-*` hook's success or failure has no impact on stopping the core `command` job from running. On the other hand, since a `post-checkout` hook runs after checkout but before the core `command` job runs, then if the `post-checkout` hook fails, the `command` job, in turn, will not run.
 
 ### Hook exceptions
 
