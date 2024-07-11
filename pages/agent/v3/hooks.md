@@ -147,6 +147,11 @@ they are run as part of each job:
 | `pre-exit`      | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-plugin">Plugin (vendored)</span> | Runs before the job finishes. Useful for performing cleanup tasks. |
 {: class="table table--no-wrap"}
 
+> 📘 Hook failure behavior
+> If any hooks fail with a non-zero exit code, the job will be aborted at that point.
+> The behavior for most `post-*` hooks above, however, is a little different. If a `command` is the core of a job, the `command` job would have already run and completed before the `post-*` hook is run. Therefore, a `post-*` hook's success or failure has no impact on stopping the core `command` job from running.
+> The exception to this is the `post-checkout` hook, which runs after checkout but before the core `command` job runs. In such circumstances, if the `post-checkout` hook fails, then the `command` job will not run.
+
 ### Hook exceptions
 
 Typically, if there are multiple hooks of the same type, all of them will be run (in the order shown in the table).
