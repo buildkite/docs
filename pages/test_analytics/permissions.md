@@ -6,7 +6,7 @@ Enterprise customers can configure test suite permissions and security features 
 
 ## Manage teams and permissions
 
-To manage teams across the Buildkite Test Analytics application, a _Buildkite organization administrator_ first needs to enable this feature across their organization. Learn more about how to do this in the [Manage teams and permissions section of Pipelines documentation](/docs/team-management/permissions#manage-teams-and-permissions).
+To manage teams across the Buildkite Test Analytics application, a _Buildkite organization administrator_ first needs to enable this feature across their organization. Learn more about how to do this in the [Manage teams and permissions in the Platform documentation](/docs/team-management/permissions#manage-teams-and-permissions).
 
 Once the _teams_ feature is enabled, you can see the teams that you're a member of from the **User** page, which:
 
@@ -18,7 +18,7 @@ Once the _teams_ feature is enabled, you can see the teams that you're a member 
 
 ### Organization-level permissions
 
-Learn more about what a _Buildkite organization administrator_ can do in the [Organization-level permissions section of the Pipelines documentation](/docs/team-management/permissions#manage-teams-and-permissions-organization-level-permissions).
+Learn more about what a _Buildkite organization administrator_ can do in the [Organization-level permissions in the Platform documentation](/docs/team-management/permissions#manage-teams-and-permissions-organization-level-permissions).
 
 As an organization administrator, you can access the [**Organization Settings** page](https://buildkite.com/organizations/~/settings) by selecting **Settings** in the global navigation, where you can do the following:
 
@@ -34,7 +34,7 @@ As an organization administrator, you can access the [**Organization Settings** 
 
 ### Team-level permissions
 
-Learn more about what _team members_ are and what _team maintainers_ can do in the [Team-level permissions section of the Pipelines documentation](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
+Learn more about what _team members_ are and what _team maintainers_ can do in the [Team-level permissions in the Platform documentation](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
 
 ### Test suite-level permissions
 
