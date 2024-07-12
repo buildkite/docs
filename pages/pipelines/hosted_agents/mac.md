@@ -28,21 +28,20 @@ Updated Xcode versions will be available one week after Apple offers them for do
 ### System software
 
 - macOS 14.5
-- macOS 14.4.1
-- Darwin Kernel 23.1.0
+- Darwin Kernel 23.5.0
 - Rosetta 2
 - Bash 3.2.57
 - Homebrew
 
 ### Xcode
 
-- Xcode 16.0-Beta (Build 16A5171c)
-- Xcode 15.4 (Release Build 15F31d)
-- Xcode 15.4-Beta (Build 15F5021i)
-- Xcode 15.3 (Release Build 15E204a)
-- Xcode 15.2 (Release Build 15C500b)
-- Xcode 15.1 (Release Build 15C65)
-- Xcode 14.3.1 (Release Build 14E300c)
+- Xcode 16.0-Beta2 
+- Xcode 15.4
+- Xcode 15.4-Beta
+- Xcode 15.3
+- Xcode 15.2
+- Xcode 15.1
+- Xcode 14.3.1
 
 ### Apple runtimes
 
@@ -107,7 +106,7 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 - Apache HTTPD
 - NGINX
-- Postgres 14.10
+- Postgres 14.12
 
 ### Browser automation
 
@@ -142,7 +141,6 @@ Updated Xcode versions will be available one week after Apple offers them for do
 - Docker CLI
 - 1Password CLI
 - ns
-- nsc
 
 ### Libraries
 
