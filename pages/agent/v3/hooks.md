@@ -149,7 +149,7 @@ they are run as part of each job:
 
 Each `command` job defined in a pipeline's `pipeline.yml` file executes independently, and therefore, a given hook will run for every one of these `command` jobs.
 
-When defining multiple commands in a step using the `commands` attribute, such as the `pipeline.yml` example described in [Command step attributes](/docs/pipelines/command-step#command-step-attributes), then each sub-command is concatenated with `&&` and effectively runs as a single job. Therefore, a given hook will only run once for a given `commands` job, consisting of multiple sub-commands.
+When defining multiple commands in a step using the `commands` attribute, such as the `pipeline.yml` example described in [Command step attributes](/docs/pipelines/command-step#command-step-attributes), then each item in the `commands` list is concatenated together, and run as a single command. Therefore, a given hook will only run once for a given `commands` job, consisting of multiple sub-commands.
 
 > 📘 Hook failure behavior
 > In the table above, if any of the hooks above `command` (from `pre-bootstrap` to `pre-command`, inclusive) fails with a non-zero exit code, then the command job will not run.
