@@ -381,7 +381,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>slug</code></th>
     <td>
-      <p>A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If the value is <code>nil</code>, the pipeline name will be used to generate the slug.</p>
+      <p>A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If the value is <code>null</code>, the pipeline name will be used to generate the slug.</p>
       <p><em>Example:</em> <code>"slug": "my-custom-pipeline-slug"</code></p>
     </td>
   </tr>
@@ -707,8 +707,8 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>slug</code></th>
     <td>
-      <p>A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If the value is <code>nil</code>, the pipeline name will be used to generate the slug.</p>
-      <p><em>Example:</em> <code>"slug": "my-custom-pipeline-slug"</code></p>
+      <p>A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If the value is <code>null</code>, the pipeline name will be used to generate the slug.</p>
+      <p><em>Example:</em> <code>"my-custom-pipeline-slug"</code></p>
     </td>
   </tr>
   <tr>
