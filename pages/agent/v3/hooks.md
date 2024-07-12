@@ -147,10 +147,13 @@ they are run as part of each job:
 | `pre-exit`      | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-plugin">Plugin (vendored)</span> | Runs before the job finishes. Useful for performing cleanup tasks. |
 {: class="table table--no-wrap"}
 
+A given hook will run for every `command` job defined in a pipeline's `pipeline.yml` file, and since each job is independent, each `command` job in a given pipeline could execute concurrently.
+
+When defining multiple commands in a step using the `commands` attribute, such as the example described in [Command step attributes](/docs/pipelines/command-step#command-step-attributes), then each sub-command is effectively concatenated with `&&` and effectively runs as a single job. Therefore, a given hook will only run once for a given `commands` job, consisting of multiple sub-commands.
+
 > 📘 Hook failure behavior
-> In general, if a hook fails with a non-zero exit code, the job will be aborted at that point.
-> However, if a `post-*` hook (with the exception of `post-checkout`) fails with a non-zero exit code, the job will not be impacted.
-> For example, if a `command` is the core of a job, the `command` job would have already run and completed before the `post-*` hook is run. Therefore, a `post-*` hook's success or failure has no impact on stopping the core `command` job from running. On the other hand, since a `post-checkout` hook runs after checkout but before the core `command` job runs, then if the `post-checkout` hook fails, the `command` job, in turn, will not run.
+> In the table above, if any of the hooks above `command` (from `pre-bootstrap` to `pre-command`, inclusive) fails with a non-zero exit code, then the command job will not run.
+> Since all the hooks below `command` (from `post-command` to `pre-exit`, inclusive) run after the command job, then any non-zero exit code failure in these hooks has no impact on the running of the command job.
 
 ### Hook exceptions
 
