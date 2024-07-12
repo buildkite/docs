@@ -107,7 +107,7 @@ steps:
               login: true
               account-ids: public.ecr.aws
           - docker#v3.7.0:
-              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
+              image: "public.ecr.aws/docker/library/node:lts-alpine3.19"
 
       - label: ":lint-roller: Linting text and markdown"
         agents:
