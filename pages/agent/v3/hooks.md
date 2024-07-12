@@ -147,13 +147,14 @@ they are run as part of each job:
 | `pre-exit`      | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-plugin">Plugin (vendored)</span> | Runs before the job finishes. Useful for performing cleanup tasks. |
 {: class="table table--no-wrap"}
 
-Each `command` job defined in a pipeline's `pipeline.yml` file executes independently, and therefore, a given hook will run for every one of these `command` jobs.
+Each `command` job defined in a pipeline's `pipeline.yml` file runs independently of one another. Therefore, each defined hook will run for every one of these `command` jobs.
 
-When defining multiple commands in a step using the `commands` attribute, such as the `pipeline.yml` example described in [Command step attributes](/docs/pipelines/command-step#command-step-attributes), then each item in the `commands` list is concatenated together, and run as a single command. Therefore, a given hook will only run once for a given `commands` job, consisting of multiple sub-commands.
+When defining multiple command items in a step using the `commands` attribute, such as the `pipeline.yml` example in [Command step attributes](/docs/pipelines/command-step#command-step-attributes), then each item in the `commands` list is concatenated together and run as a single command. Therefore, a given hook will only run once for a given `commands` job consisting of multiple command items.
 
 > 📘 Hook failure behavior
-> In the table above, if any of the hooks above `command` (from `pre-bootstrap` to `pre-command`, inclusive) fails with a non-zero exit code, then the command job will not run.
-> Since all the hooks below `command` (from `post-command` to `pre-exit`, inclusive) run after the command job, then any non-zero exit code failure in these hooks has no impact on the running of the command job.
+> When a pipeline's job runs, the first point of failure causes the entire job to terminate.
+> In the table above, if any of the hooks above `command` (from `pre-bootstrap` to `pre-command`, inclusive) fails with a non-zero exit code, then the `command` phase of the pipeline job will not run.
+> Since all the hooks below `command` (from `post-command` to `pre-exit`, inclusive) run after the `command` phase of the pipeline job, then any non-zero exit code failure in these hooks has no impact on the running of its associated `command`.
 
 ### Hook exceptions
 
