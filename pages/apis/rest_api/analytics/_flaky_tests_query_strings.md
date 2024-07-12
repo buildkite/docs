@@ -9,5 +9,14 @@
       <p class="Docs__api-param-eg"><em>Example:</em> <code>?search="User#find_email"</code>, <code>?search="/billing_spec"</code></p>
     </td>
   </tr>
+  <tr>
+    <th>
+      <code>branch</code>
+    </th>
+    <td>
+      <span>Returns flaky tests for which a flake has been detected one or more times on <code>branch</code>.</span>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>?branch=main</code></p>
+    </td>
+  </tr>
 </tbody>
 </table>
