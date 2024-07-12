@@ -35,7 +35,7 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ### Xcode
 
-- Xcode 16.0-Beta2 
+- Xcode 16.0-Beta2
 - Xcode 15.4
 - Xcode 15.4-Beta
 - Xcode 15.3
