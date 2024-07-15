@@ -6665,7 +6665,7 @@ type Pipeline implements Node {
   name: String!
 
   """
-  The next build number in the sequence
+  The next monotonical build number
   """
   nextBuildNumber: Int!
   organization: Organization!
@@ -6886,7 +6886,7 @@ input PipelineCreateInput {
   name: String!
 
   """
-  The initial build number to use in the sequence
+  The initial build number to use
   """
   nextBuildNumber: Int
   organizationId: ID!
@@ -7691,7 +7691,7 @@ input PipelineUpdateInput {
   name: String
 
   """
-  The next build number to use in the sequence
+  The next build number
   """
   nextBuildNumber: Int
 
