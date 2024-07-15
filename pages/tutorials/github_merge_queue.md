@@ -28,6 +28,6 @@ To enable a merge queue for a pipeline:
    gh-readonly-queue/{base_branch}/*
    ```
 
-   Otherwise leave the branch filter textbox blank and builds will be triggered for github merge queue branches automatically.
+   Otherwise, leave the branch filter text box blank, and builds will be triggered for GitHub merge queue branches automatically.
 
 That's it! Your pipeline supports merge queues in GitHub. 🎉
