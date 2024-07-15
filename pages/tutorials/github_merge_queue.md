@@ -15,7 +15,7 @@ Familiarize yourself with [managing a merge queue in GitHub](https://docs.github
 
 ## Enable a merge queue for a pipeline
 
-The merge queue creates temporary branches with a special prefix to validate pull request changes. You need to update the pipeline configuration to match branches with the special prefix if you are already using [branch filters](/docs/pipelines/branch-configuration#pipeline-level-branch-filtering). To avoid these temporary branches triggering multiple builds on the same pipeline for the same commit, we recommend enabling the option to skip builds on existing commits.
+The merge queue creates temporary branches with a special prefix to validate pull request changes. You need to update the pipeline configuration to match branches with the special prefix if you are already using [branch filters](/docs/pipelines/branch-configuration#pipeline-level-branch-filtering). To avoid these temporary branches triggering multiple builds on the same pipeline for the same commit, it is recommended you enable the option to skip builds on existing commits.
 
 To enable a merge queue for a pipeline:
 
