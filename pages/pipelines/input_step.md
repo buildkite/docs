@@ -91,7 +91,7 @@ Optional attributes:
    <tr>
     <td><code>key</code></td>
     <td>
-	    <p>A unique string to identify the block step.</p>
+	    <p>A unique string to identify the input step.</p>
       <p><em>Example:</em> <code>"test-suite"</code></p>
     </td>
    </tr>
