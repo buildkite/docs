@@ -6665,7 +6665,7 @@ type Pipeline implements Node {
   name: String!
 
   """
-  The next monotonical build number
+  The next build number
   """
   nextBuildNumber: Int!
   organization: Organization!
@@ -7691,7 +7691,7 @@ input PipelineUpdateInput {
   name: String
 
   """
-  The next build number
+  The next build number to use
   """
   nextBuildNumber: Int
 
@@ -7934,6 +7934,21 @@ type Query {
     """
     uuid: ID!
   ): PipelineTemplate
+
+  """
+  Find a registry
+  """
+  registry(
+    """
+    The slug of the registry, prefixed with its organization. i.e. `acme-inc/my-registry`
+    """
+    slug: ID
+
+    """
+    The UUID of the registry
+    """
+    uuid: ID
+  ): Registry
 
   """
   Find a secret via its uuid. This does not contain the value of the secret or encrypted material.
