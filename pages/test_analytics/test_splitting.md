@@ -10,7 +10,7 @@ Test splitting relies on execution timing data captured by the Buildkite test co
 
 The latest version of test-splitter can be downloaded from [GitHub](https://github.com/buildkite/test-splitter/releases). Binaries are available for both Mac and Linux with 64-bit ARM and AMD architectures. Please download the executable and make it available in your testing environment.
 
-## Using the Test splitter
+## Using the test splitter
 
 Once you have downloaded the test-splitter binary and it can be executed in your Buildkite pipeline, you will need to configure some additional environment variables for the test-splitter to function. Then, you can update your pipeline step to call the test-splitter instead of calling RSpec to run your tests.
 
