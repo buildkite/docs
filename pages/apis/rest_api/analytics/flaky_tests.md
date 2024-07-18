@@ -21,7 +21,9 @@ curl -H "Authorization: Bearer $TOKEN" \
     "location": "./spec/models/user_spec.rb:42",
     "file_name": "./spec/models/user_spec.rb",
     "instances": 1,
-    "most_recent_instance_at": "2023-02-14T23:19:03.223Z"
+    "latest_occurrence_at": "2024-07-15T00:07:02.547Z",
+    "most_recent_instance_at": "2024-07-15T00:07:02.547Z",
+    "last_resolved_at": null
   }
 ]
 ```
