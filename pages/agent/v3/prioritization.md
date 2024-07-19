@@ -25,6 +25,9 @@ or with the `BUILDKITE_AGENT_PRIORITY` an environment variable:
 env BUILDKITE_AGENT_PRIORITY=9 buildkite-agent start
 ```
 
+> 📘
+> Using the `--priority` flag requires agent 3.65.0 or higher.
+
 ## Load balancing
 
 You can use the Agent priority value to load balance jobs across machines running multiple Agents.
