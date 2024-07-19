@@ -53,7 +53,7 @@ Updated Xcode versions will be available one week after Apple offers them for do
 - iOS 17.4
 - iOS 17.5-beta2
 - iOS 17.5
-- iOS 18.0-beta3 
+- iOS 18.0-beta3
 - watchOS 9.4
 - watchOS 10.2
 - watchOS 10.4
