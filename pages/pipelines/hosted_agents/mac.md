@@ -35,6 +35,7 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ### Xcode
 
+- Xcode 16.0-Beta3
 - Xcode 16.0-Beta2
 - Xcode 15.4
 - Xcode 15.4-Beta
@@ -46,28 +47,29 @@ Updated Xcode versions will be available one week after Apple offers them for do
 ### Apple runtimes
 
 - iOS 15.5
+- iOS 16.2
 - iOS 16.4
 - iOS 17.2
 - iOS 17.4
 - iOS 17.5-beta2
 - iOS 17.5
-- iOS 18.0-beta2
+- iOS 18.0-beta3
 - watchOS 9.4
 - watchOS 10.2
 - watchOS 10.4
 - watchOS 10.5-beta2
 - watchOS 10.5
-- watchOS 11.0-beta
+- watchOS 11.0-beta3
 - tvOS 16.4
 - tvOS 17.2
 - tvOS 17.4
 - tvOS 17.5-beta2
 - tvOS 17.5
-- tvOS 18.0-beta2
+- tvOS 18.0-beta3
 - visionOS 1.0
 - visionOS 1.1
 - visionOS 1.2
-- visionOS 2.0-beta
+- visionOS 2.0-beta3
 
 ### Other languages and compilers
 
