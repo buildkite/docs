@@ -22,10 +22,6 @@ Buildkite offers a selection of instance sizes, allowing you to tailor your host
     </tbody>
 </table>
 
-## Image configuration
-
-To configure your Linux instance you can use the [Docker Compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) plugin.
-
 ## Cache volumes
 
 _Cache volumes_ are external volumes attached to hosted agent instances. These volumes are attached on a best-effort basis depending on their locality, expiration and current usage, and therefore, should not be relied upon as durable data storage.
