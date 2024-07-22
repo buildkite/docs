@@ -64,6 +64,8 @@
     path: apis/graphql/schemas/query/pipelineschedule
   - name: pipelineTemplate
     path: apis/graphql/schemas/query/pipelinetemplate
+  - name: registry
+    path: apis/graphql/schemas/query/registry
   - name: secret
     path: apis/graphql/schemas/query/secret
   - name: ssoProvider

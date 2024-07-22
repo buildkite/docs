@@ -911,6 +911,8 @@ enum AuditEventType {
   SSO_PROVIDER_UPDATED
   STORAGE_CREATED
   SUBSCRIPTION_PLAN_ADDED
+  SUBSCRIPTION_PLAN_CANCELATION_SCHEDULED
+  SUBSCRIPTION_PLAN_CANCELED
   SUBSCRIPTION_PLAN_CHANGED
   SUBSCRIPTION_PLAN_CHANGE_SCHEDULED
   SUITE_API_TOKEN_REGENERATED
@@ -6665,7 +6667,7 @@ type Pipeline implements Node {
   name: String!
 
   """
-  The next build number in the sequence
+  The next build number
   """
   nextBuildNumber: Int!
   organization: Organization!
@@ -6886,7 +6888,7 @@ input PipelineCreateInput {
   name: String!
 
   """
-  The initial build number to use in the sequence
+  The initial build number to use
   """
   nextBuildNumber: Int
   organizationId: ID!
@@ -7691,7 +7693,7 @@ input PipelineUpdateInput {
   name: String
 
   """
-  The next build number to use in the sequence
+  The next build number to use
   """
   nextBuildNumber: Int
 
@@ -7934,6 +7936,21 @@ type Query {
     """
     uuid: ID!
   ): PipelineTemplate
+
+  """
+  Find a registry
+  """
+  registry(
+    """
+    The slug of the registry, prefixed with its organization. i.e. `acme-inc/my-registry`
+    """
+    slug: ID
+
+    """
+    The UUID of the registry
+    """
+    uuid: ID
+  ): Registry
 
   """
   Find a secret via its uuid. This does not contain the value of the secret or encrypted material.
