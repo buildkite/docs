@@ -26,7 +26,7 @@ env BUILDKITE_AGENT_PRIORITY=9 buildkite-agent start
 ```
 
 > 📘
-> Using the `--priority` flag requires agent 3.65.0 or higher.
+> Using the `--priority` flag requires agent v3.65.0 or later.
 
 ## Load balancing
 
