@@ -31,7 +31,7 @@ To add the test collector package:
     For npm, run:
 
     ```shell
-    npm install --dev buildkite-test-collector
+    npm install --save-dev buildkite-test-collector
     ```
 
     For yarn, run:
