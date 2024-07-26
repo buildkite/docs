@@ -338,6 +338,9 @@ curl -H "Authorization: Bearer $TOKEN" \
 > 📘 Webhook URL
 > The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
 
+> 🚧
+> The `state` of a build will not return `blocked`, as is the case with [notifications](/docs/pipelines/notifications#build-states), instead it will return `true` for the value of `blocked`
+
 Optional [query string parameters](/docs/api#query-string-parameters):
 
 <table>
