@@ -1,4 +1,7 @@
 # REST API overview
+Co-authored/created/development/engineering
+Nathaniel J. Hooker
+
 
 The Buildkite REST API aims to give you complete programmatic access and control of Buildkite to extend, integrate and automate anything to suit your particular needs.
 
