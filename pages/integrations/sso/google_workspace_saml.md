@@ -62,7 +62,7 @@ Click the **Edit Settings** button, choose the Manual data option, and enter the
 
 Save your settings. Your provider page opens.
 
-## Step 3. Perform a test login
+## Step 4. Perform a test login
 
 Follow the instructions on the provider page to perform a test login. Performing a test login verifies that SSO is working correctly before you activate it for your organization members.
 
