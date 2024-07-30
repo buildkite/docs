@@ -876,7 +876,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>name</code></th>
-    <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
+    <td>The name of the pipeline. If you provide a new name without a <code>slug</code> parameter, the slug will be automatically updated to match the new name.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
   </tr>
   <tr>
     <th><code>pipeline_template_uuid</code></th>
@@ -897,6 +897,12 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>skip_queued_branch_builds_filter</code></th>
     <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
+    <th><code>slug</code></th>
+    <td>A custom identifier for the pipeline. This slug will be used as the pipeline's URL path. If not provided when the pipeline name is updated, the slug will be automatically generated from the new pipeline name. If the pipeline name is not updated, the existing slug will remain unchanged.
+      <p><em>Example:</em> <code>"slug": "my-custom-pipeline-slug"</code></p>
+    </td>
   </tr>
   <tr>
     <th><code>tags</code></th>
