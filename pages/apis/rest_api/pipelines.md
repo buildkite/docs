@@ -876,7 +876,10 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>name</code></th>
-    <td>The name of the pipeline. If you provide a new name without a <code>slug</code> parameter, the slug will be automatically updated to match the new name.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
+    <td>
+      <p>The name of the pipeline. If you provide a new name without a <code>slug</code> parameter, the slug will be automatically updated to match the new name.</p>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p>
+    </td>
   </tr>
   <tr>
     <th><code>pipeline_template_uuid</code></th>
@@ -900,7 +903,9 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>slug</code></th>
-    <td>A custom identifier for the pipeline. This slug will be used as the pipeline's URL path. If not provided when the pipeline name is updated, the slug will be automatically generated from the new pipeline name. If the pipeline name is not updated, the existing slug will remain unchanged.
+    <td>
+      <p>A custom identifier for the pipeline. This slug will be used as the pipeline's URL path. If not provided when the pipeline name is updated, the slug will be automatically generated from the new pipeline name. If the pipeline name is not updated, the existing slug will remain unchanged.<br>
+      The slug may only contain alphanumeric characters or dashes, and cannot begin with a dash.</p>
       <p><em>Example:</em> <code>"my-custom-pipeline-slug"</code></p>
     </td>
   </tr>
