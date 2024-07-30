@@ -69,7 +69,7 @@ Follow the instructions on the provider page to perform a test login. Performing
 > 🚧
 > According to Google, "Changes may take up to 24 hours to propagate to all user". Some changes may take at least several hours, so if the test login fails, it is worth waiting and trying again.
 
-## Step 4. Enable the new SSO provider
+## Step 5. Enable the new SSO provider
 
 Once you've performed a test login, you can enable your provider using the **Enable** button. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through Google Workspace before organization data can be accessed.
 
