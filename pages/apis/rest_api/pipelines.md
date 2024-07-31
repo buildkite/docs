@@ -904,8 +904,8 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>slug</code></th>
     <td>
-      <p>A custom identifier for the pipeline. This slug will be used as the pipeline's URL path. If not provided when the pipeline name is updated, the slug will be automatically generated from the new pipeline name. If the pipeline name is not updated, the existing slug will remain unchanged.<br>
-      The slug may only contain alphanumeric characters or dashes, and cannot begin with a dash.</p>
+      <p>A custom identifier for the pipeline. This slug will be used as the pipeline's URL path. It can only contain alphanumeric characters or dashes and cannot begin with a dash.<br>
+      The slug updates whenever the pipeline name changes. If you don't provide a slug when you update the pipeline name, the slug will be automatically generated from the new pipeline name.</p>
       <p><em>Example:</em> <code>"my-custom-pipeline-slug"</code></p>
     </td>
   </tr>
