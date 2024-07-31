@@ -288,35 +288,35 @@ The response contains information about your new pipeline:
 Required [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
-<tbody>
-  <tr>
-    <th><code>name</code></th>
-    <td>
-      <p>The name of the pipeline.</p>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p>
-    </td>
-  </tr>
-  <tr>
-    <th><code>cluster_id</code></th>
-    <td>
-      <p>The ID value of the cluster the pipeline will be associated with.</p>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>"Ab1Cd2Ef3Gh4Ij5Kl6Mn7Op8Qr9St0Uv10Wx11Yz12Ab1Cd2Ef3Gh4Ij5Kl6Mn=="</code></p>
-    </td>
-  </tr>
-  <tr>
-    <th><code>repository</code></th>
-    <td>
-      <p>The repository URL.</p>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p>
-    </td>
-  </tr>
-  <tr>
-    <th><code>configuration</code></th>
-    <td>
-      <p>The YAML pipeline that consists of the build pipeline steps.</p>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n - command: \"script/release.sh\"\n"</code>
-    </td>
-  </tr>
+  <tbody>
+    <tr>
+      <th><code>name</code></th>
+      <td>
+        <p>The name of the pipeline.</p>
+        <p class="Docs__api-param-eg"><em>Example:</em> <code>&quot;New Pipeline&quot;</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>cluster_id</code></th>
+      <td>
+        <p>The ID value of the cluster the pipeline will be associated with.</p>
+        <p class="Docs__api-param-eg"><em>Example:</em> <code>&quot;Ab1Cd2Ef3Gh4Ij5Kl6Mn7Op8Qr9St0Uv10Wx11Yz12Ab1Cd2Ef3Gh4Ij5Kl6Mn==&quot;</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>repository</code></th>
+      <td>
+        <p>The repository URL.</p>
+        <p class="Docs__api-param-eg"><em>Example:</em> <code>&quot;git@github.com:acme-inc/my-pipeline.git&quot;</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>configuration</code></th>
+      <td>
+        <p>The YAML pipeline that consists of the build pipeline steps.</p>
+        <p class="Docs__api-param-eg"><em>Example:</em> <code>&quot;steps:\n - command: \&quot;script/release.sh\&quot;\n&quot;</code></p>
+      </td>
+    </tr>
   </tbody>
 </table>
 
