@@ -69,7 +69,7 @@ Rails.application.config.content_security_policy do |policy|
   )
 
   # Specify URI for violation reports
-  policy.report_uri "/_csp-violation-reports"
+  policy.report_uri "https://buildkite.report-uri.com/r/d/csp/reportOnly"
 end
 
 # We use nonce for inline scripts
