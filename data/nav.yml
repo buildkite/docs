@@ -485,6 +485,8 @@
           path: "packages/container"
         - name: "Debian"
           path: "packages/debian"
+        - name: "Files"
+          path: "packages/files"
         - name: "Java"
           start_expanded: true
           children:
