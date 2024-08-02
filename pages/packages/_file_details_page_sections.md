@@ -1,6 +1,6 @@
 The file details page provides the following information in the following sections:
 
-- **Installation** (tab): the [installation instructions](#access-a-files-details-installing-a-file).
+- **Installation** (tab): the [installation instructions](#access-a-files-details-downloading-a-file).
 - **Details** (tab): a list of checksum values for this file—MD5, SHA1, SHA256, and SHA512.
 - **About this version**: a brief (metadata) description about the file.
 - **Details**: details about:
