@@ -8,7 +8,7 @@ To view and copy this `curl` command:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Red Hat registry on this page.
-1. Select **Publish a RPM Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a package to your Red Hat registry.
+1. Select **Publish an RPM Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a package to your Red Hat registry.
 
 This command provides:
 
@@ -68,7 +68,7 @@ A Red Hat (RPM) package can be downloaded from the package's details page. To do
 A Red Hat package can be installed using code snippet details provided on the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
-1. Ensure the **Installation** > **Installation instructions** section is displayed.
+1. Ensure the **Installation** > **Instructions** section is displayed.
 1. For each required command in the relevant code snippets, copy the relevant code snippet, paste it into your terminal, and run it.
 
 The following set of code snippets are descriptions of what each code snippet does and where applicable, its format:

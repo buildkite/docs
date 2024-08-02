@@ -36,7 +36,7 @@ To do this:
 
 1. In the **Packages** section, select **Enable** to open the **Enable Packages** page.
 
-1. Select the **Enable Buildkite Packages (Beta)** button, then **Enable Buildkite Packages** in the **Ready to enable Buildkite Packages** confirmation dialog.
+1. Select the **Enable Buildkite Packages** button, then **Enable Buildkite Packages** in the **Ready to enable Buildkite Packages** confirmation dialog.
 
 > 📘
 > Once Buildkite Packages is enabled, the **Enable** link on the **Organization Settings** page changes to **Enabled** and Buildkite Packages can only be disabled by contacting [support](https://buildkite.com/support).
