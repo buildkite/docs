@@ -91,7 +91,7 @@ A Terraform module can be installed using code snippet details provided on the m
 To install a module:
 
 1. [Access the module's details](#access-a-modules-details).
-1. Ensure the **Installation** > **Installation instructions** section is displayed.
+1. Ensure the **Installation** > **Instructions** section is displayed.
 1. If your Terraform registry is private, copy the top section of the code snippet, and paste it into your `~/.terraformrc` configuration file. This code snippet is based on the format:
 
     ```config

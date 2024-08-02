@@ -93,7 +93,7 @@ A container image can be downloaded from the image's details page. To do this:
 A container image can be obtained using code snippet details provided on the image's details page. To do this:
 
 1. [Access the image's details](#access-an-images-details).
-1. Ensure the **Installation** > **Installation instructions** section is displayed.
+1. Ensure the **Installation** > **Instructions** section is displayed.
 1. For each required command in the relevant code snippets, copy the relevant code snippet, paste it into your terminal, and run it.
 
 The following set of code snippets are descriptions of what each code snippet does and where applicable, its format:

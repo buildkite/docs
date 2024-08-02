@@ -67,5 +67,5 @@ The file can be downloaded from the file details page. To do this:
 Or; a file can be installed via the command line using code snippet details provided on the file details page. To do this:
 
 1. [Access the file's details](#access-a-files-details).
-1. Ensure the **Installation** > **Installation instructions** section is displayed.
+1. Ensure the **Installation** > **Instructions** section is displayed.
 1. For each required command in the relevant code snippets, copy the relevant code snippet, paste it into your terminal, and run it.
