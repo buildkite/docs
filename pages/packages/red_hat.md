@@ -8,7 +8,7 @@ To view and copy this `curl` command:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Red Hat registry on this page.
-1. Select **Publish a RPM Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a package to your Red Hat registry.
+1. Select **Publish an RPM Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a package to your Red Hat registry.
 
 This command provides:
 

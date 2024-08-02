@@ -8,7 +8,7 @@ To view and copy the required command/code snippet for your `~/.npmrc` and `pack
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your JavaScript registry on this page.
-1. Select **Publish a Nodejs Package** and in the resulting dialog, use the copy icon at the top-right of the relevant code box to copy its snippet and paste it into your command line tool or the appropriate file.
+1. Select **Publish a JavaScript Package** and in the resulting dialog, use the copy icon at the top-right of the relevant code box to copy its snippet and paste it into your command line tool or the appropriate file.
 
 These file configurations contain the following:
 
