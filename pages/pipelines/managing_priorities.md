@@ -17,6 +17,28 @@ steps:
 
 Job priority is considered before jobs are dispatched to [agent queues](/docs/agent/v3/queues), so jobs with higher priority are assigned before jobs with lower priority, regardless of which has been longest in the queue. Priority only applies to command jobs, including plugin commands.
 
+## Prioritizing whole builds
+
+`priority` can be set as a top-level value, applying it to all steps in the pipeline which do not have their own `priority` set. This is useful when you may need an entire pipeline to be considered a higher priority than others:
+
+This may be
+
+```yml
+priority: 100
+steps:
+  - label: "emergency fix"
+    command: "run_this_now.sh"
+  - wait: ~
+  - label: "this can wait"
+    command: "tests.sh"
+    priority: 1
+```
+{: codeblock-file="pipeline.yml"}
+
+Our `emergency fix` step will run before *any* step in *any* of our pipelines, unless a step in another build has a priority greater than 100.
+
+This may come in handy where you scale down instances but want to ensure any builds created on a pipeline aren't left waiting for agents; these jobs will run before jobs across the organisation that haven't already started.
+
 ## Job dispatch precedence
 
 Jobs are dispatched in the following order:
