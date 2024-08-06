@@ -1,3 +1,7 @@
+---
+toc: false
+---
+
 # Secrets overview
 
 Buildkite supports a number of mechanisms by which you can manage secrets that your pipelines must use to interact with 3rd party systems during the build process or for deployment.

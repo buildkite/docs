@@ -34,6 +34,7 @@ If you're familiar with the basics, explore how to use registries for each of Bu
   <%= button ":redhat: Red Hat (RPM)", "/docs/packages/red-hat" %>
   <%= button ":ruby: Ruby (RubyGems)", "/docs/packages/ruby" %>
   <%= button ":terraform: Terraform (modules)", "/docs/packages/terraform" %>
+  <%= button ":package: Files (generic)", "/docs/packages/files" %>
 </div>
 
 <!-- vale on -->

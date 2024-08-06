@@ -68,7 +68,7 @@ A Debian (deb) package can be downloaded from the package's details page. To do 
 A Debian package can be installed using code snippet details provided on the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
-1. Ensure the **Installation** > **Installation instructions** section is displayed.
+1. Ensure the **Installation** > **Instructions** section is displayed.
 1. For each required command set in the relevant code snippets, copy the relevant code snippet, paste it into your terminal, and run it.
 
 The following set of code snippets are descriptions of what each code snippet does and where applicable, its format:

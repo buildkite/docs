@@ -42,4 +42,4 @@ git push -u origin $BRANCH
 
 echo "+++ Create pull request"
 create_pull_request "Update GraphQL docs" "This is an automated PR based on the current GraphQL schema" \
-  | jq ".url" | buildkite-agent annotate --style "success"
+  | jq ".html_url" | buildkite-agent annotate --style "success"

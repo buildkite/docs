@@ -379,6 +379,13 @@ Optional [request body properties](/docs/api#request-body-properties):
     </td>
   </tr>
   <tr>
+    <th><code>slug</code></th>
+    <td>
+      <p>A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If the value is <code>null</code>, the pipeline name will be used to generate the slug.</p>
+      <p><em>Example:</em> <code>"my-custom-pipeline-slug"</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>tags</code></th>
     <td>
       <p>An array of strings representing <a href="/docs/pipelines/tags">tags</a> to add to this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
@@ -698,6 +705,13 @@ Optional [request body properties](/docs/api#request-body-properties):
     </td>
   </tr>
   <tr>
+    <th><code>slug</code></th>
+    <td>
+      <p>A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If the value is <code>null</code>, the pipeline name will be used to generate the slug.</p>
+      <p><em>Example:</em> <code>"my-custom-pipeline-slug"</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>tags</code></th>
     <td>
       <p>An array of strings representing <a href="/docs/pipelines/tags">tags</a> to add to this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
@@ -862,7 +876,10 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>name</code></th>
-    <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
+    <td>
+      <p>The name of the pipeline. If you provide a new name without a <code>slug</code> parameter, the slug will be automatically updated to match the new name.</p>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p>
+    </td>
   </tr>
   <tr>
     <th><code>pipeline_template_uuid</code></th>
@@ -883,6 +900,14 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>skip_queued_branch_builds_filter</code></th>
     <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
+    <th><code>slug</code></th>
+    <td>
+      <p>A custom identifier for the pipeline. This slug will be used as the pipeline's URL path. It can only contain alphanumeric characters or dashes and cannot begin with a dash.<br>
+      The slug updates whenever the pipeline name changes. If you don't provide a slug when you update the pipeline name, the slug will be automatically generated from the new pipeline name.</p>
+      <p><em>Example:</em> <code>"my-custom-pipeline-slug"</code></p>
+    </td>
   </tr>
   <tr>
     <th><code>tags</code></th>

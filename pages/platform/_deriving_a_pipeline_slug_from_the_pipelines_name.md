@@ -1,4 +1,4 @@
-Pipeline slugs are derived from the pipeline name you provide when the pipeline is created.
+Pipeline slugs are derived from the pipeline name you provide when the pipeline is created (unless you use the optional `slug` parameter to specify a custom slug).
 
 This derivation process involves converting all space characters (including consecutive ones) in the pipeline's name to single hyphen `-` characters, and all uppercase characters to their lowercase counterparts. Therefore, pipeline names of either `Hello there friend` or `Hello    There Friend` are converted to the slug `hello-there-friend`.
 
