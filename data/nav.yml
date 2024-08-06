@@ -232,14 +232,6 @@
                   path: "agent/v2/cli-artifact"
                 - name: "pipeline"
                   path: "agent/v2/cli-pipeline"
-    - name: "CLI"
-      children:
-        - name: "Overview"
-          path: "cli"
-        - name: "Installation"
-          path: "cli/installation"
-        - name: "Configuration"
-          path: "cli/configuration"
     - name: "Configure pipelines"
       children:
         - name: "Overview"
@@ -358,6 +350,14 @@
               path: "pipelines/security/oidc"
             - name: "OIDC with AWS"
               path: "pipelines/security/oidc/aws"
+    - name: "CLI"
+      children:
+        - name: "Overview"
+          path: "cli"
+        - name: "Installation"
+          path: "cli/installation"
+        - name: "Configuration"
+          path: "cli/configuration"
     - name: "Team management"
       children:
         - name: "Overview"

@@ -42,6 +42,8 @@ To learn more, see [Hooks](/docs/agent/v3/hooks).
 
 A job is the execution of a command step during a build. Jobs run the commands, scripts, or plugins defined in the step.
 
+To learn more, see [Command step](/docs/pipelines/command-step).
+
 ## Pipeline
 
 A pipeline is a container for modeling and defining workflows. They contain a series of steps to achieve goals like building, testing, and deploying software.
