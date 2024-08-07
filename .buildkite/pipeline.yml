@@ -1,40 +1,4 @@
 steps:
-  - label: ":rspec: RSpec"
-    depends_on: linting
-    command: bundle exec rspec
-    artifact_paths: "log/rspec-*.xml"
-    key: "rspec"
-    env:
-      RAILS_ENV: test
-    agents:
-      queue: hosted
-    plugins:
-      - docker-compose#v3.9.0:
-          run: app
-          dependencies: false
-          env:
-            - BUILDKITE_ANALYTICS_TOKEN
-            - BUILDKITE_BRANCH
-            - BUILDKITE_BUILD_ID
-            - BUILDKITE_BUILD_NUMBER
-            - BUILDKITE_BUILD_URL
-            - BUILDKITE_COMMIT
-            - BUILDKITE_JOB_ID
-            - BUILDKITE_MESSAGE
-            - CI
-            - RAILS_ENV
-
-  - label: ":docker: Build image"
-    depends_on: "linting"
-    key: "assets"
-    env:
-      RAILS_ENV: production
-    agents:
-      queue: hosted
-    plugins:
-      - docker-compose#v3.9.0:
-          build: app
-
   - label: ":spider: muffet"
     # We need to wait until rails has started before running muffet as otherwise it will error out
     # and the test will appear to have failed without having run. The time to wait is hard to
@@ -64,21 +28,6 @@ steps:
           upload-container-logs: always
           env:
             - RAILS_ENV
-
-  - label: ":junit: Test Summary"
-    depends_on: "rspec"
-    allow_dependency_failure: true
-    agents:
-      queue: hosted
-    plugins:
-      - bugcrowd/test-summary#v1.11.0:
-          inputs:
-            - label: ":rspec: RSpec"
-              artifact_path: "log/rspec*"
-              type: junit
-          formatter:
-            type: details
-          context: test-summary
 
   - label: ":graphql: Check generated code is up to date"
     command: bundle exec rake graphql:generate
@@ -175,3 +124,54 @@ steps:
               account-ids: public.ecr.aws
           - docker#v3.7.0:
               image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
+
+  - label: ":rspec: RSpec"
+    depends_on: linting
+    command: bundle exec rspec
+    artifact_paths: "log/rspec-*.xml"
+    key: "rspec"
+    env:
+      RAILS_ENV: test
+    agents:
+      queue: hosted
+    plugins:
+      - docker-compose#v3.9.0:
+          run: app
+          dependencies: false
+          env:
+            - BUILDKITE_ANALYTICS_TOKEN
+            - BUILDKITE_BRANCH
+            - BUILDKITE_BUILD_ID
+            - BUILDKITE_BUILD_NUMBER
+            - BUILDKITE_BUILD_URL
+            - BUILDKITE_COMMIT
+            - BUILDKITE_JOB_ID
+            - BUILDKITE_MESSAGE
+            - CI
+            - RAILS_ENV
+
+  - label: ":docker: Build image"
+    depends_on: "linting"
+    key: "assets"
+    env:
+      RAILS_ENV: production
+    agents:
+      queue: hosted
+    plugins:
+      - docker-compose#v3.9.0:
+          build: app
+
+  - label: ":junit: Test Summary"
+    depends_on: "rspec"
+    allow_dependency_failure: true
+    agents:
+      queue: hosted
+    plugins:
+      - bugcrowd/test-summary#v1.11.0:
+          inputs:
+            - label: ":rspec: RSpec"
+              artifact_path: "log/rspec*"
+              type: junit
+          formatter:
+            type: details
+          context: test-summary

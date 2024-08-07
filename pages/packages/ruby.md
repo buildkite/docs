@@ -111,7 +111,7 @@ A Ruby package can be installed using code snippet details provided on the packa
 To install a package:
 
 1. [Access the package's details](#access-a-packages-details).
-1. Ensure the **Installation** > **Installation instructions** section is displayed.
+1. Ensure the **Installation** > **Instructions** section is displayed.
 1. Copy the command in the code snippet, paste it into your terminal, and run it.
 
 This code snippet is based on this format:

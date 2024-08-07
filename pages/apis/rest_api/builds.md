@@ -3,9 +3,7 @@
 
 ## Build number vs build ID
 
-All builds have both an ID which is unique within the whole of Buildkite (*build ID*), and a sequential number which is unique to the pipeline (*build number*).
-
-For example build number `27` of the `Test` pipeline might have a build ID of `f62a1b4d-10f9-4790-bc1c-e2c3a0c80983`.
+All builds have a *build ID* (e.g. `01908131-7d9f-495e-a17b-80ed31276810`), which is unique within the whole of Buildkite, and a *build number* (e.g. `27`), which is unique to the pipeline. The build number is monotonically increasing but may include gaps.
 
 API requests that affect a single build accept the more human readable build number (and the organization and pipeline it belongs to), **not** the build ID:
 

@@ -14,7 +14,11 @@ debug=true
 ```
 {: codeblock-file="/buildkite/buildkite-agent.cfg"}
 
-You can find the location of your configuration file in your platform's installation documentation. You can also set it using the `--config` command line argument or the `BUILDKITE_AGENT_CONFIG` environment variable.
+You can find the directory location of your configuration file in your platform's installation documentation. You can also set this folder using the `--config` command line argument or the `BUILDKITE_AGENT_CONFIG` environment variable.
+
+```sh
+BUILDKITE_AGENT_CONFIG="/etc/buildkite-agent/custom-config-files-dir" buildkite-agent start
+```
 
 ## Configuration settings
 <!-- vale off -->
