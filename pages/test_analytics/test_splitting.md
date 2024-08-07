@@ -1,6 +1,6 @@
 # Configuring test splitting
 
-Test splitting is the process of partitioning test suites to run in parallel across multiple Buildkite agents. Buildkite maintains the open source [test-splitter](https://github.com/buildkite/test-splitter) tool, which uses your Buildkite Test Analytics test suite data to intelligently orchestrate the partitioning of tests throughout your test suites into multiple sets, such that each set of tests runs in parallel across your agents. Currently, the test-splitter tool only supports RSpec.
+Test splitting is the process of partitioning test suites to run in parallel across multiple Buildkite agents. Buildkite maintains the open source [test-splitter](https://github.com/buildkite/test-splitter) tool. This tool uses your Buildkite Test Analytics test suite data to intelligently partition tests throughout your test suites into multiple sets, such that each set of tests runs in parallel across your agents. This process is known as _orchestration_. Currently, the test-splitter tool only supports RSpec.
 
 ## Dependencies
 
