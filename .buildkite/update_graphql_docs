@@ -8,7 +8,7 @@ docker compose run \
   --no-deps \
   -e API_ACCESS_TOKEN \
   app \
-  bash -c "rake graphql:fetch_schema >| data/graphql/schema.graphql"
+  bash -c "bundle exec rake graphql:fetch_schema >| data/graphql/schema.graphql"
 
 echo "+++ Check for schema changes"
 if git diff --exit-code --quiet data/graphql/schema.graphql; then
@@ -30,7 +30,7 @@ if [ -n "$PULL_REQUEST_NUMBER" ]; then
 fi
 
 echo "+++ Generate GraphQL docs"
-docker compose run --no-deps app rake graphql:generate
+docker compose run --no-deps app bundle exec rake graphql:generate
 
 echo "--- Commit and push changes"
 git add .
