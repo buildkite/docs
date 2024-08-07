@@ -27,6 +27,33 @@ Available notification types:
 * [Webhooks](#webhooks): Send a notification to the specified webhook URL.
 * [PagerDuty](#pagerduty-change-events)
 
+<table>
+<thead>
+  <tr><th>Step-level</th><th>Build-level</th></tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Slack</td>
+    <td>Slack</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Email</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Basecamp</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Webhook</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>PagerDuty</td>
+  </tr>
+</table>
+
 ## Conditional notifications
 
 To only trigger notifications under certain conditions, add the `if` attribute.
