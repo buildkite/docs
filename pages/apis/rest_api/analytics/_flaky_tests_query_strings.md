@@ -14,7 +14,7 @@
       <code>branch</code>
     </th>
     <td>
-      <span>Returns flaky tests for which a flake has been detected one or more times on <code>branch</code>.</span>
+      <span>Returns flaky tests for flakes detected one or more times on the branch whose name is specified by the <code>branch</code> value.</span>
       <p class="Docs__api-param-eg"><em>Example:</em> <code>?branch=main</code></p>
     </td>
   </tr>
