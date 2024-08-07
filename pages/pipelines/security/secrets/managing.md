@@ -98,7 +98,7 @@ following command:
 
 ```bash
 # Upload the env
-aws s3 cp --acl private --sse aws:kms env "s3://elastic-ci-stack-my-stack-secrets-bucket/my-app/env"
+aws s3 cp --acl private --sse aws:kms env "s3://elastic-ci-stack-my-stack-secrets-bucket/env"
 # Remove the original file
 rm env
 ```
