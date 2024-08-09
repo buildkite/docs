@@ -85,6 +85,7 @@ For additional security you can create a proxy that allows only the API endpoint
 
 * `/api/v3/repos/.*/.*/statuses`
 * `/api/v3/user`
+* `/api/v3/user/emails`
 * `/login/oauth`
 
 The following is an example [NGINX](https://www.nginx.com) server configuration that proxies the required URLs and can be used with the _Public API URL_ GitHub Enterprise setting in Buildkite:
@@ -102,25 +103,68 @@ http {
     listen 443 ssl;
 
     location / {
-      allow 54.165.103.71;
+      # Your own IPs
+      allow ...;
+      
       deny all;
     }
 
     location ~ ^/api/v3/repos/.*/.*/statuses {
       proxy_pass https://ghe.internal:443;
+
+      # Allow for OAuth Buildkite App to update commit statuses
+      # IPs Subject to change - https://buildkite.com/docs/apis/rest-api/meta#get-meta-information
+      allow 100.24.182.113;
+      allow 35.172.45.249;
+      allow 54.85.125.32;
+
+      deny all;
     }
 
-    location /api/v3/user {
+    location = /api/v3/user {
       proxy_pass https://ghe.internal:443;
+
+      # Allow for OAuth Buildkite App
+      # IPs Subject to change - https://buildkite.com/docs/apis/rest-api/meta#get-meta-information
+      allow 100.24.182.113;
+      allow 35.172.45.249;
+      allow 54.85.125.32;
+
+      deny all;
+    }
+
+    location = /api/v3/user/emails {
+    proxy_pass https://ghe.internal:443;
+
+    # Allow for OAuth Buildkite App
+    # IPs Subject to change - https://buildkite.com/docs/apis/rest-api/meta#get-meta-information
+    allow 100.24.182.113;
+    allow 35.172.45.249;
+    allow 54.85.125.32;
+
+    deny all;
     }
 
     location /login/oauth {
       proxy_pass https://ghe.internal:443;
+
+      # Allow for OAuth Buildkite App to authorize
+      # IPs Subject to change - https://buildkite.com/docs/apis/rest-api/meta#get-meta-information
+      allow 100.24.182.113;
+      allow 35.172.45.249;
+      allow 54.85.125.32;
+
+      # Your own IPs
+      allow ...;
+
+      deny all;
     }
 
   }
 }
 ```
+
+Learn more about restricting access to your GitHub Enterprise Server on firewalled or proxy services in [Restricting Access to Proxied TCP Resources of the NGINX Docs](https://docs.nginx.com/nginx/admin-guide/security-controls/controlling-access-proxied-tcp/).
 
 ## Multiple GitHub Enterprise integrations
 
