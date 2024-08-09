@@ -15,7 +15,7 @@ The team pipelines API allows users to review, create, update, and delete pipeli
 
 ## List team pipelines
 
-Returns a list of a team's associated pipelines.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of the team's associated pipelines.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -28,7 +28,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "access_level": "manage_build_and_read",
     "created_at": "2023-12-12T21:57:40.306Z",
     "pipeline_id": "018c5ad7-28f1-45d4-867e-b59fa04511b2",
-    "pipeline_url": "http://api.buildkite.com/v2/organizations/acme-inc/pipelines/e5eb97866561b24e088715332a2803dc64f02c61"
+    "pipeline_url": "http://api.buildkite.com/v2/organizations/acme-inc/pipelines/test-pipeline"
   },
 ]
 ```
