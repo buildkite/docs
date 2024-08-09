@@ -33,7 +33,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Our `emergency fix` step will run before *any* step in *any* of our pipelines, unless a step in another build has a priority greater than 100.
+The `emergency fix` step will run before _any_ step in _any_ of our pipelines, unless a step in another build has a priority greater than 100.
 
 This may come in handy where you scale down instances but want to ensure any builds created on a pipeline aren't left waiting for agents; these jobs will run before jobs across the organisation that haven't already started.
 
