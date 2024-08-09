@@ -17,7 +17,7 @@ sudo apt-get update
 Next, ensure you have the `apt-transport-https` package installed for the HTTPS package repository, and the `dirmngr` package installed for adding the signing key:
 
 ```shell
-sudo apt-get install -y apt-transport-https dirmngr
+sudo apt-get install -y apt-transport-https dirmngr curl gpg
 ```
 
 Now you can add our signed apt repository. The default version of the agent is `stable`, but you can get the beta version by using `unstable` instead of `stable` in the following command, or the agent built from the `main` branch of the repository by using `experimental` instead of `stable`.

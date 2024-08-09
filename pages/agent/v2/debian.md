@@ -19,7 +19,7 @@ sudo apt-get update
 Next, ensure you have the `apt-transport-https` package installed for the HTTPS package repository, and the `dirmngr` package installed for adding the signing key:
 
 ```shell
-sudo apt-get install -y apt-transport-https dirmngr curl gpg
+sudo apt-get install -y apt-transport-https dirmngr
 ```
 
 Download the Buildkite PGP key to a directory that is only writable by `root` (create the directory before running the following command if it doesn't already exist):
