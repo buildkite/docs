@@ -391,6 +391,8 @@
         - name: "Cluster queue metrics"
           path: "pipelines/cluster-queue-metrics"
           pill: "beta"
+    - name: "Service Quotas"
+      path: "pipelines/service-quotas"
 - name: "Test Analytics"
   path: "test-analytics"
   children:
