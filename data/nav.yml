@@ -401,6 +401,8 @@
       children:
         - name: "Configuring test suites"
           path: "test-analytics/test-suites"
+        - name: "Configuring test splitting"
+          path: "test-analytics/test-splitting"
         - name: "Permissions"
           path: "test-analytics/permissions"
         - name: "CI environment variables"

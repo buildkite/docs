@@ -258,6 +258,7 @@ yq
 yyy
 Zapier
 zstd
+zzglob
 zzz
 
 # GraphQL code words
