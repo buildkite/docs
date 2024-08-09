@@ -15,7 +15,7 @@ The team pipelines API allows users to review, create, update, and delete pipeli
 
 ## List team pipelines
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of the team's associated pipelines.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of a team's associated pipelines.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
