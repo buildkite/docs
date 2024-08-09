@@ -33,9 +33,9 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-The `emergency fix` step will run before _any_ step in _any_ existing running pipelines throughout the organization, unless a step in another build has a priority greater than 100.
+The `emergency fix` step runs before _any step of any other running pipeline_ within your organization, unless one of these other pipeline steps has a priority greater than 100. If all available agents are running jobs, an appropriate agent will run the `emergency fix` step _only_ after its current job completes running.
 
-This may come in handy when you need to reduce the number of agents (for example, to reduce costs over a weekend with fewer employees in the office) but want to ensure any builds created on a critical pipeline are not left waiting for agents to run their jobs.
+Prioritizing whole builds comes in handy when you need to reduce the number of agents (for example, to reduce costs over a weekend due to fewer available team members) but want to ensure any builds created on a critical pipeline are not left waiting for agents to run their jobs.
 
 ## Job dispatch precedence
 
