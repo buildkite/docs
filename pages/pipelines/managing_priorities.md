@@ -19,9 +19,7 @@ Job priority is considered before jobs are dispatched to [agent queues](/docs/ag
 
 ## Prioritizing whole builds
 
-`priority` can be set as a top-level value, applying it to all steps in the pipeline which do not have their own `priority` set. This is useful when you may need an entire pipeline to be considered a higher priority than others:
-
-This may be
+The `priority` key can be set as a top-level value, which applies it to all steps in the pipeline that do not have their own `priority` key set. This is useful when an entire pipeline requires a higher priority than others. For example:
 
 ```yml
 priority: 100
