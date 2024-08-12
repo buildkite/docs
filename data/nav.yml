@@ -488,7 +488,12 @@
         - name: "Files"
           path: "packages/files"
         - name: "Helm"
-          path: "packages/helm"
+          start_expanded: true
+          children:
+            - name: "OCI"
+              path: "packages/helm_oci"
+            - name: "CLI (native)"
+              path: "packages/helm"
         - name: "Java"
           start_expanded: true
           children:

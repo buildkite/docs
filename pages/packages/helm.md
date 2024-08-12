@@ -1,43 +1,46 @@
-# Helm
+# Helm 
 
-Buildkite Packages provides Helm OCI based registry support for distributing Helm charts. Note, this requires [Helm version 3.8.0](https://helm.sh/docs/topics/registries/) or newer.
+Buildkite Packages provides Helm, native CLI, egistry support for distributing Helm charts.
 
-Once your Helm OCI registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload charts (generated from your application's build) to this registry via relevant `helm` commands presented on your registry's details page.
+Once your Helm registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload charts (generated from `helm package` to create the package) to this registry via the relevant `curl` command presented on your Helm registry's details page.
 
-To view and copy these `helm` commands:
+To view and copy this `curl` command:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
-1. Select your Helm OCI registry on this page.
-1. Select **Publish a Helm Chart** and in the resulting dialog, for each required `helm` command set in the relevant code snippets, copy the relevant code snippet (using the icon at the top-right of its code box), paste it into your terminal, and run it.
+1. Select your Helm registry on this page.
+1. Select **Publish a Helm Chart** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish your chart to your Helm registry.
 
-These Helm commands are used to:
+This command provides:
 
-- Log in to your Buildkite Helm OCI registry with an API access token.
-- Publish a Helm chart to your registry.
+- The specific URL to publish a package to your specific Helm registry in Buildkite.
+- The API access token required to publish packages to your Helm registry (if private registry).
+- The Helm package (`.tgz`) to be published.
 
 ## Publishing a chart
 
-The following steps describe the process above:
+The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a Helm chart to your Helm registry:
 
-1. Copy the following `helm login` command, paste it into your terminal, and modify as required before running to log in to your registry:
+```bash
+curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
+  -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
+  -F "file=@<path_to_file>"
+```
 
-    ```bash
-    helm registry login packages.buildkite.com/{org.slug}/{registry.slug} -u buildkite -p registry-write-token
-    ```
+where:
 
-    where:
-    * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload charts to your Helm registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
+<%= render_markdown partial: 'packages/org_slug' %>
 
-    <%= render_markdown partial: 'packages/org_slug' %>
-    <%= render_markdown partial: 'packages/helm_registry_slug' %>
+<%= render_markdown partial: 'packages/helm_registry_slug' %>
 
-1. Copy the following `helm push` command, paste it into your terminal, and modify as required before running to push your Helm chart:
+<%= render_markdown partial: 'packages/path_to_file' %>
 
-    ```bash
-    helm push {chart-filename.tgz} packages.buildkite.com/{org.slug}/{registry.slug}
-    ```
+For example, to upload the file `my-helm-chart-0.1.2.tgz` from the current directory to the **My Helm Charts** registry in the **My organization** Buildkite organization, run the `curl` command:
 
-    where `{chart-filename.tgz}` is the filename of the chart you wish to push.
+```bash
+curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-helm-charts/packages \
+  -H "Authorization: Bearer $REPLACE_WITH_YOUR_REGISTRY_WRITE_TOKEN" \
+  -F "file=@my-helm-chart-0.1.2.tgz"
+```
 
 ## Access a chart's details
 
@@ -63,29 +66,21 @@ The chart's details page provides the following information in the following sec
 - **Package size**: the storage size (in bytes) of this chart.
 - **Downloads**: the number of times this chart has been downloaded.
 
-### Downloading a chart's manifest
-
-The charts OCI manifest can be downloaded from the details page. To do this:
-
-1. [Access the chart's details](#access-a-charts-details).
-1. Select **Download**.
-
 ### Downloading a chart
 
-A Helm chart can be obtained using code snippet details provided on the chart's details page. To do this:
+A Helm (tgz) package can be downloaded from the package's details page. To do this:
 
-1. [Access the chart's details](#access-a-charts-details).
-1. Ensure the **Installation** > **Instructions** section is displayed.
-1. For each required command in the relevant code snippets, copy the relevant code snippet, paste it into your terminal, and run it.
-
-The following set of code snippets are descriptions of what each code snippet does and where applicable, its format:
+1. [Access the package's details](#access-a-packages-details).
+1. Select **Download**.
 
 #### Registry configuration
 
-If your registry is _private_ (that is, the default registry configuration), log in to the Helm registry containing the chart to obtain with the following `helm login` command:
+If your registry is _private_ (that is, the default registry configuration), configure your Helm registry locally for repeated use:
 
 ```bash
-helm registry login packages.buildkite.com/{org.slug}/{registry.slug} -u buildkite -p registry-read-token
+helm repo add {registry.slug} https://packages.buildkite.com/{org.slug}/{registry.slug}/helm \
+    --username buildkite \
+    --password registry-read-token
 ```
 
 where:
@@ -99,19 +94,20 @@ where:
 > 📘
 > This step is not required for public Helm registries.
 
-#### Chart download
 
-Use the following `helm pull` command to download the chart:
+#### Chart installation
+
+Use the following `helm install` command to download the chart:
 
 ```bash
-helm pull oci://packages.buildkite.com/{org.slug}/{registry.slug}/chart-name --version {version}
+helm install "chart-release" "{registry.slug}/{chart-name}" --version {version}
 ```
 
 where:
 
-<%= render_markdown partial: 'packages/org_slug' %>
-
 <%= render_markdown partial: 'packages/helm_registry_slug' %>
+
+- `chart-release` is the unique release name for the Helm chart - must have no `.` in name. TODO: FIND LINK TO VALIDATION OF NAME
 
 - `chart-name` is the name of your chart.
 
