@@ -487,6 +487,8 @@
           path: "packages/debian"
         - name: "Files"
           path: "packages/files"
+        - name: "Helm"
+          path: "packages/helm"
         - name: "Java"
           start_expanded: true
           children:
