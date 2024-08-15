@@ -1,18 +1,18 @@
 # Configuring test splitting
 
-Test splitting is the process of partitioning test suites to run in parallel across multiple Buildkite agents. Buildkite maintains the open source [test-splitter](https://github.com/buildkite/test-splitter) tool. This tool uses your Buildkite Test Analytics test suite data to intelligently partition tests throughout your test suites into multiple sets, such that each set of tests runs in parallel across your agents. This process is known as _orchestration_. Currently, the test-splitter tool only supports RSpec.
+Test splitting is the process of partitioning a test suite to run in parallel across multiple Buildkite agents. Buildkite maintains the open source [test-splitter](https://github.com/buildkite/test-splitter) tool. This tool uses your Buildkite Test Analytics test suite data to intelligently partition tests throughout your test suite into multiple sets, such that each set of tests runs in parallel across your agents. This process is known as _orchestration_. Currently, the test-splitter tool only supports RSpec.
 
 ## Dependencies
 
-Test splitting relies on execution timing data captured by the Buildkite test collectors to partition your tests evenly, so you will need to configure the [Ruby test collector](./ruby-collectors) for your test suite.
+Test splitting relies on execution timing data captured by the Buildkite test collectors to partition your tests evenly across your agents. Therefore, you will need to configure the [Ruby test collector](./ruby-collectors) for your test suite.
 
 ## Installation
 
-The latest version of test-splitter can be downloaded from [GitHub](https://github.com/buildkite/test-splitter/releases). Binaries are available for both Mac and Linux with 64-bit ARM and AMD architectures. Please download the executable and make it available in your testing environment.
+The latest version of test-splitter can be downloaded from [GitHub](https://github.com/buildkite/test-splitter/releases). Binaries are available for both Mac and Linux with 64-bit ARM and AMD architectures. Download the executable and make it available in your testing environment.
 
 ## Using the test splitter
 
-Once you have downloaded the test-splitter binary and it can be executed in your Buildkite pipeline, you will need to configure some additional environment variables for the test-splitter to function. Then, you can update your pipeline step to call the test-splitter instead of calling RSpec to run your tests.
+Once you have downloaded the test-splitter binary and it can be executed in your Buildkite pipeline, you'll need to configure some additional environment variables for the test-splitter to function. You can then update your pipeline step to call the test-splitter instead of calling RSpec to run your tests.
 
 ### Configure environment variables
 
