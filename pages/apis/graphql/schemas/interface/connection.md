@@ -119,6 +119,9 @@ toc: false
 <a href="/docs/apis/graphql/schemas/object/registryconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RegistryConnection">
   <code>RegistryConnection</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/ruleconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RuleConnection">
+  <code>RuleConnection</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/ssoauthorizationconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SSOAuthorizationConnection">
   <code>SSOAuthorizationConnection</code>
 </a>

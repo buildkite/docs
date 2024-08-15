@@ -80,6 +80,7 @@ favorited
 fff
 ffxdq
 Firewalled
+firewalled
 Flexbox
 fpm
 Fugit
@@ -161,6 +162,7 @@ Postgres
 PowerShell
 preemptible
 prefill
+proxied
 pty
 pullrequest
 pybuildkite

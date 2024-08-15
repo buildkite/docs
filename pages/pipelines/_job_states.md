@@ -1,1 +1,3 @@
-Job state can be one of `pending`, `waiting`, `waiting_failed`, `blocked`, `blocked_failed`, `unblocked`, `unblocked_failed`, `limiting`, `limited`, `scheduled`, `assigned`, `accepted`, `running`, `finished`, `canceling`, `canceled`, `expired`, `timing_out`, `timed_out`, `skipped`, or `broken`.
+A job state can be one of the following values:
+
+`pending`, `waiting`, `waiting_failed`, `blocked`, `blocked_failed`, `unblocked`, `unblocked_failed`, `limiting`, `limited`, `scheduled`, `assigned`, `accepted`, `running`, `finished`, `canceling`, `canceled`, `expired`, `timing_out`, `timed_out`, `skipped`, or `broken`.

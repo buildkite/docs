@@ -68,7 +68,7 @@ An Alpine (apk) package can be downloaded from the package's details page. To do
 An Alpine package can be installed using code snippet details provided on the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
-1. Ensure the **Installation** > **Installation instructions** section is displayed.
+1. Ensure the **Installation** > **Instructions** section is displayed.
 1. For each required command in the relevant code snippets, copy the relevant code snippet, paste it into your terminal, and run it.
 
 The following set of code snippets are descriptions of what each code snippet does and where applicable, its format:
@@ -97,7 +97,7 @@ wget -O /etc/apk/keys/{org.uuid}_{registry.uuid}.rsa.pub "https://buildkite:{reg
 
 where:
 
-- `{org.uuid}` is the UUID of your Buildkite organization. This value can be obtained from this Alpine package **Installation instructions** page section. Alternatively, you can also obtain this value:
+- `{org.uuid}` is the UUID of your Buildkite organization. This value can be obtained from this Alpine package **Instructions** page section. Alternatively, you can also obtain this value:
     * From your organization's **Pipeline Settings** page. To do this:
         1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
         1. Select **Pipelines** > **Settings** to access the [**Pipeline Settings**](https://buildkite.com/organizations/~/pipeline-settings) page.
@@ -121,7 +121,7 @@ where:
         }
         ```
 
-- `{registry.uuid}` is the UUID of your Alpine registry. Again, this value can be obtained from this Alpine package **Installation instructions** page section. Alternatively, you can also obtain this value:
+- `{registry.uuid}` is the UUID of your Alpine registry. Again, this value can be obtained from this Alpine package **Instructions** page section. Alternatively, you can also obtain this value:
     * From your registry's **Settings** page. To do this:
         1. Select **Packages** in the global navigation to access the [**Registries**](https://buildkite.com/organizations/~/packages) page.
         1. Select your Alpine registry on this page.

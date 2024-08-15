@@ -105,6 +105,12 @@ You can upload the same TESTOWNERS file to multiple test suites. However, a test
 > 📘
 > You can also create a new pipeline to automatically upload your TESTOWNERS file when changes are detected.
 
+## Viewing test ownership
+
+You can view the current test ownership rules for a test suite in your **Test Suite** > **Test Ownership** page.
+
+<%= image "test-ownership.png", width: 1500/2, height: 1180/2, alt: "Suite settings page showing test ownership" %>
+
 ## Troubleshooting
 
 A TESTOWNERS file [follows the same rules as a `.gitignore` or `CODEOWNERS` file](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#example-of-a-codeowners-file), with the exception of the `.gitignore` rule that allows a file path to have no corresponding team.

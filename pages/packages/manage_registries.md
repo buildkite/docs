@@ -28,6 +28,7 @@ Once a [registry is created](#create-a-registry), packages can then be uploaded 
 - [Alpine (apk)](/docs/packages/alpine)
 - [Container (Docker)](/docs/packages/container) images
 - [Debian/Ubuntu (deb)](/docs/packages/debian)
+- [Files (generic)](/docs/packages/files)
 - Java ([Maven](/docs/packages/maven) or [Gradle leveraging the Maven Publish Plugin](/docs/packages/gradle))
 - [JavaScript (npm)](/docs/packages/javascript)
 - [Python (PyPI)](/docs/packages/python)

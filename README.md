@@ -96,10 +96,10 @@ If you need to fetch the latest schema you can either:
 
 ```sh
 # Fetch latest schema
-API_ACCESS_TOKEN=xxx rake graphql:fetch_schema >| data/graphql/schema.graphql
+API_ACCESS_TOKEN=xxx  bundle exec rake graphql:fetch_schema >| data/graphql/schema.graphql
 
 # Generate docs based on latest schema
-rake graphql:generate
+bundle exec rake graphql:generate
 ```
 
 ## Linting

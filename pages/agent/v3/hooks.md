@@ -102,7 +102,7 @@ Polyglot hook usage comes with the following caveats:
 * Interpreted hooks are not supported on Windows.
 * Hooks must not have a file extension–except on Windows, where binary hooks must have the `.exe` extension.
 * For interpreted hooks, the specified interpreter must already be installed on the agent machine. The agent won't install the interpreter or any package dependencies for you.
-* Unlike shell hooks, environment variable changes are not automatically captured from polyglot hooks. If you want to modify the job's environment, you'll have to use the [Job API](/docs/agent/v3#experimental-features-job-api).
+* Unlike shell hooks, environment variable changes are not automatically captured from polyglot hooks. If you want to modify the job's environment, you'll have to use the [Job API](/docs/agent/v3#promoted-experiments-job-api).
 
 ## Agent lifecycle hooks
 
@@ -133,7 +133,7 @@ they are run as part of each job:
 
 | Hook            | Location Order | Description |
 | --------------- | -------------- | ----------- |
-| `pre-bootstrap`  | <span class="add-icon-agent">Agent</span> | Executed before any job is started. Useful for [adding strict checks](/docs/agent/v3/securing#strict-checks-using-a-pre-bootstrap-hook) before jobs are permitted to run.<br /><br />The proposed job command and environment is written to a file and the path to this file provided in the `BUILDKITE_ENV_FILE` environment variable. Use the contents of this file to determine whether to permit the job to run on this agent.<br /><br />If the <code>pre-bootstrap</code> hook terminates with an exit code of `0`, the job is permitted to run. Any other exit code results in the job being rejected, and job failure being reported to the Buildkite API. |
+| `pre-bootstrap`  | <span class="add-icon-agent">Agent</span> | Executed before any job is started. Useful for [adding strict checks](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook) before jobs are permitted to run.<br /><br />The proposed job command and environment is written to a file and the path to this file provided in the `BUILDKITE_ENV_FILE` environment variable. Use the contents of this file to determine whether to permit the job to run on this agent.<br /><br />If the <code>pre-bootstrap</code> hook terminates with an exit code of `0`, the job is permitted to run. Any other exit code results in the job being rejected, and job failure being reported to the Buildkite API. |
 | `environment`   | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span>                                                                                                                    | Runs before all other hooks. Useful for [exporting secret keys](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks). |
 | `pre-checkout`  | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span>                                                                                                                    | Runs before checkout. |
 | `checkout`      | <span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-agent">Agent</span>                                                                                                                    | Overrides the default git checkout behavior. (See [Hook exceptions](#job-lifecycle-hooks-hook-exceptions).) |
@@ -146,6 +146,18 @@ they are run as part of each job:
 | `post-artifact` | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-plugin">Plugin (vendored)</span> | Runs after artifacts have been uploaded, if an artifact upload pattern was defined for the job. |
 | `pre-exit`      | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-plugin">Plugin (vendored)</span> | Runs before the job finishes. Useful for performing cleanup tasks. |
 {: class="table table--no-wrap"}
+
+Each `command` job defined in a pipeline's `pipeline.yml` file runs independently of one another. Therefore, each defined hook will run for every one of these `command` jobs.
+
+When defining multiple command items in a step using the `commands` attribute, such as the `pipeline.yml` example in [Command step attributes](/docs/pipelines/command-step#command-step-attributes), then each item in the `commands` list is concatenated together and run as a single command. Therefore, a given hook will only run once for a given `commands` job consisting of multiple command items.
+
+### Hook failure behavior
+
+When a pipeline's job runs, the first point of failure causes the entire job to fail and terminate.
+
+In the table above, if any of the hooks above `command` (from `pre-bootstrap` to `pre-command`, inclusive) fails with a non-zero exit code, then the `command` phase of the pipeline job will not run.
+
+Since all the hooks below `command` (from `post-command` to `pre-exit`, inclusive) run _after_ the `command` phase of the pipeline job, then any non-zero exit code failure in these hooks would still fail the entire job. Be aware, however, that any actions in the `command` phase of the pipeline job would have already run successfully.
 
 ### Hook exceptions
 
