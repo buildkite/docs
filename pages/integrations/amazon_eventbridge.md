@@ -205,6 +205,13 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
+  "version": "1",
+  "source": "aws.partner/buildkite.com/buildkite/0000-123c-12ab4cd",
+  "account": "354123020283",
+  "time": "2023-03-07T23:14:43Z",
+  "region": "us-east-1",
+  "resources": [],
+  "id": "01234567-0123-0123-0123-012345678901",
   "detail-type": "Build Started",
   "detail": {
     "version": 1,
