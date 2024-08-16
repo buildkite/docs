@@ -29,6 +29,7 @@ Once a [registry is created](#create-a-registry), packages can then be uploaded 
 - [Container (Docker)](/docs/packages/container) images
 - [Debian/Ubuntu (deb)](/docs/packages/debian)
 - [Files (generic)](/docs/packages/files)
+- Helm ([OCI](/docs/packages/helm-oci) or [CLI](/docs/packages/helm))
 - Java ([Maven](/docs/packages/maven) or [Gradle leveraging the Maven Publish Plugin](/docs/packages/gradle))
 - [JavaScript (npm)](/docs/packages/javascript)
 - [Python (PyPI)](/docs/packages/python)
