@@ -1,4 +1,4 @@
-# Helm 
+# Helm
 
 Buildkite Packages provides Helm, native CLI, egistry support for distributing Helm charts.
 
@@ -107,9 +107,8 @@ where:
 
 <%= render_markdown partial: 'packages/helm_registry_slug' %>
 
-- `chart-release` is the unique release name for the Helm chart - must have no `.` in name. TODO: FIND LINK TO VALIDATION OF NAME
+- `chart-release` is the unique release name for the Helm chart - must have no `.` in name and be in lowercase. [General conventions](https://helm.sh/docs/chart_best_practices/conventions/#chart-names).
 
 - `chart-name` is the name of your chart.
 
-- `version` (optional) the version you wish to download. Without this flag it will download the
-  latest version.
+- `version` (optional) the version you wish to download. Without this flag it will download the latest version.
