@@ -490,9 +490,9 @@
         - name: "Helm"
           start_expanded: true
           children:
-            - name: "OCI"
+            - name: "OCI-based"
               path: "packages/helm-oci"
-            - name: "CLI (native)"
+            - name: "Standard"
               path: "packages/helm"
         - name: "Java"
           start_expanded: true

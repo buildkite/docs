@@ -1,6 +1,8 @@
 # Helm
 
-Buildkite Packages provides Helm, native CLI, egistry support for distributing Helm charts.
+Buildkite Packages provides Helm registry support for distributing Helm charts.
+
+This page is for standard helm publishing instructions, alternatively you can also publish to an [OCI-based registry](/docs/packages/helm-oci).
 
 Once your Helm registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload charts (generated from `helm package` to create the package) to this registry via the relevant `curl` command presented on your Helm registry's details page.
 
@@ -70,7 +72,7 @@ The chart's details page provides the following information in the following sec
 
 A Helm (tgz) package can be downloaded from the package's details page. To do this:
 
-1. [Access the package's details](#access-a-packages-details).
+1. [Access the chart's details](#access-a-charts-details).
 1. Select **Download**.
 
 #### Registry configuration
