@@ -112,7 +112,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>priority</code></th>
     <td>
-      Priority of the annotation (1 to 10). By default annotations have a priority of 3. Annotations with a priority of 10 will be shown first, and annotations with a priority of 1 will be shown last.
+      The priority of the annotation (`1` to `10`). Annotations with a priority of `10` are shown first, while annotations with a priority of `1` are shown last. When this option is not specified, annotations have a default priority of `3`.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>5</code></p>
     </td>
   </tr>
