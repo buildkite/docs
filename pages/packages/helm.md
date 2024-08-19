@@ -15,7 +15,7 @@ To view and copy this `curl` command:
 This command provides:
 
 - The specific URL to publish a package to your specific Helm registry in Buildkite.
-- The API access token required to publish packages to your Helm registry (if private registry).
+- The API access token required to publish packages to your Helm registry.
 - The Helm package (`.tgz`) to be published.
 
 ## Publishing a chart
