@@ -2,7 +2,7 @@
 
 Buildkite Packages provides Helm registry support for distributing Helm charts.
 
-This page is for standard helm publishing instructions, alternatively you can also publish to an [OCI-based registry](/docs/packages/helm-oci).
+This page is for standard Helm publishing instructions, alternatively you can also publish to an [OCI-based registry](/docs/packages/helm-oci).
 
 Once your Helm registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload charts (generated from `helm package` to create the package) to this registry via the relevant `curl` command presented on your Helm registry's details page.
 
