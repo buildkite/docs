@@ -1,33 +1,32 @@
-# Controlling concurrency
+# Controlling Concurrency in Buildkite Pipelines
 
-Some tasks need to be run with very strict concurrency rules to ensure they don't collide with each other. Common examples for needing concurrency control are deployments, app releases and infrastructure tasks.
+## Introduction
+Controlling concurrency is crucial in Continuous Integration/Continuous Deployment (CI/CD) pipelines to prevent tasks from colliding and to manage the orderly execution of jobs. This document explores various mechanisms offered by Buildkite to control concurrency efficiently, ensuring seamless deployment, application releases, and infrastructure tasks. Readers will gain insights into concurrency limits, concurrency groups, advanced concurrency control techniques, and more.
 
-To help you control concurrency, Buildkite provides two primitives: concurrency limits and concurrency groups. While these two primitives are closely linked and interdependent, they operate at different levels.
+## Intended Audience
+This document is intended for users familiar with Buildkite and general CI/CD concepts. Readers should have a basic understanding of pipeline configuration. For those new to these concepts, introductory resources and a glossary of terms are recommended.
 
-## Concurrency limits
+## Basic Concurrency Control
 
-Concurrency limits define the number of jobs that are allowed to run at any one time. These limits are set per-step and only apply to jobs that are based on that step.
+### Concurrency Limits
+Concurrency limits specify the number of jobs that can run concurrently. These are set per step and apply only to jobs created from that specific step. Setting a concurrency limit of `1` ensures exclusivity, even in the presence of available agents.
 
-Setting a concurrency limit of `1` on a step in your pipeline will ensure that no two jobs created from that step will run at the same time, even if there are agents available.
+Concurrency limits can be set in your Buildkite `pipeline.yml` file by adding a `concurrency` attribute. When doing so, including a `concurrency_group` attribute is also necessary to extend its use across other pipelines.
 
-You can add concurrency limits to steps either through Buildkite, or your `pipeline.yml` file by adding `concurrency` attributes with limit values to these steps. When adding a concurrency limit, you'll also need the `concurrency_group` attribute so that steps in other pipelines can use it as well.
+> **Note:** If you receive an error about a missing `concurrency_group_id`, it indicates the absence of the `concurrency_group` attribute on the step with a `concurrency` attribute.
 
-> 🚧 I'm seeing an error about a missing `concurrency_group_id` when I run my pipeline upload
-> This error is caused by a missing `concurrency_group` attribute. Add this attribute to the same step where you defined the `concurrency` attribute.
+### Concurrency Groups
+Concurrency groups are labels that manage concurrency across multiple Buildkite jobs by applying concurrency limits. Group labels become available to all pipelines within an organization and control job execution flow.
 
-## Concurrency groups
+Concurrency groups function as queues, processing jobs in the order they enter. Once a job in an "active" state transitions to a "terminal" state (e.g., `finished` or `canceled`), it is removed, allowing the next job in the queue to proceed.
 
-Concurrency groups are labels that group together Buildkite jobs when applying concurrency limits. When you add a group label to a step the label becomes available to all Pipelines in that organization. These group labels are checked at job runtime to determine which jobs are allowed to run in parallel. Although concurrency groups are created on individual steps, they represent concurrent access to shared resources and can be used by other pipelines.
+"Active" job states include `limiting`, `limited`, `scheduled`, `waiting`, `assigned`, `accepted`, `running`, `canceling`, and `timing out`.
 
-A concurrency group works like a queue; it returns jobs in the order they entered the queue (oldest to newest). The concurrency group only cares about jobs in "active" states, and the group becomes "locked" when the concurrency limit for jobs in these states is reached. Once a job moves from an active state to a terminal state (`finished` or `canceled`), the job is removed from the queue, opening up a spot for another job to enter. If a job's state is `limited`, it is waiting for another job ahead of it in the same concurrency group to finish.
-
-The full list of "active" [job states](/docs/pipelines/defining-steps#job-states) is `limiting`, `limited`, `scheduled`, `waiting`, `assigned`, `accepted`, `running`, `canceling`, `timing out`.
-
-The following is an example [command step](/docs/pipelines/command-step) that ensures deployments run one at a time. If multiple builds are created with this step, each deployment job will be queued up and run one after the other in the order they were created.
+An example of a command step that controls deployments:
 
 ```yaml
 - command: 'deploy.sh'
-  label: '\:rocket\: Deploy production'
+  label: '🚀 Deploy production'
   branches: 'main'
   agents:
     deploy: true
@@ -36,23 +35,14 @@ The following is an example [command step](/docs/pipelines/command-step) that en
 ```
 {: codeblock-file="pipeline.yml"}
 
-Make sure your `concurrency_group` names are unique, unless they're accessing a shared resource like a deployment target.
+Ensure `concurrency_group` names are unique unless accessing shared resources. Unique names help maintain independent concurrency groups.
 
-For example, if you have two pipelines that each deploy to a different target but you give them both the `concurrency_group` label `deploy`, they will be part of the same concurrency group and will not be able to run at the same time, even though they're accessing separate deployment targets. Unique concurrency group names such as `our-payment-gateway/deployment`, `terraform/update-state`, or `my-mobile-app/app-store-release`, will ensure that each one is part of its own concurrency group.
+## Advanced Concurrency Control
 
-Concurrency groups guarantee that jobs will be run in the order that they were created in. Jobs inherit the creation time of their parent. Parents of jobs can be either a build or a pipeline upload job. As pipeline uploads add more jobs to the build after it has started, the jobs that they add will inherit the creation time of the pipeline upload rather than the build.
+### Concurrency and Parallelism
+In scenarios where strict concurrency is required alongside parallel execution of jobs, *concurrency gates* can be used. Concurrency gates regulate entry and ensure designated steps operate sequentially, while others run in parallel within specified limits.
 
-> 🚧 Troubleshooting and using `concurrency_group` with `block` / `input` steps
-> When a build is blocked by a concurrency group, you can check which jobs are in the queue and their state using the [`getConcurrency` GraphQL query](/docs/apis/graphql/cookbooks/jobs#get-all-jobs-in-a-particular-concurrency-group).
-> <p>
-> Be aware that both the [`block`](/docs/pipelines/block-step) and [`input`](/docs/pipelines/input-step) steps cause these steps to be uploaded and scheduled at the same time, which breaks concurrency groups. These two steps block jobs being added to the concurrency group, but do not affect the jobs' ordering once unblocked. The concurrency group won't be added to the queue until the `block` or `input` step is unblocked, and once it is, the timestamp will be from the pipeline upload step.
-
-## Concurrency and parallelism
-
-Sometimes you need strict concurrency while also having jobs that would benefit from parallelism.
-In these situations, you can use *concurrency gates* to control which jobs run in parallel and which jobs run one at a time. Concurrency gates come in pairs, so when you open a gate, you have to close it. You can't use input or block steps inside concurrency gates.
-
-In the following setup, only one build at a time can *enter the concurrency gate*, but within that gate up to three e2e tests can run in parallel, subject to Agent availability. Putting the `stage-deploy` section in the gate as well ensures that every time there is a deployment made to the staging environment, the e2e tests are carried out on that deployment:
+Example setup ensuring sequential deployment while allowing parallel test execution:
 
 ```yaml
 steps:
@@ -88,33 +78,22 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-### Controlling command order
+### Controlling Command Order
+Steps in the same concurrency group execute in the order they were added, known as the `ordered` method. This is advantageous for sequential deployments but may hinder scenarios involving limited resources.
 
-By default, steps that belong to the same concurrency group are run in the order that they are added to the pipeline.
-
-For example, if you have two steps:
-
-* Step `A` in concurrency group `X` with a concurrency of `1` at time 0
-* Step `B` with the same concurrency group `X` and also a concurrency of `1` at time 1
-
-Step A will always run before step B. This is the default behavior (`ordered`), and most helpful for deployments.
-
-However, in some cases concurrency groups are used to restrict access to a limited resource, such as a SaaS service like Sauce Labs.
-In that case, the default ordering of the jobs can work against you, as one step waits for the next before taking up another concurrency slot.
-
-If your resource usage time is very different, for example if tests in pipeline A take 1 minute to run and tests in pipeline B take 10 minutes to run, the default ordering is not helpful because it means that the limited resource you're controlling concurrency for is not fully utilized.
-
-In that case, setting the concurrency method to `eager`, removes the ordering condition for that resource.
+Setting the `concurrency_method` to `eager` relaxes this order, optimizing resource usage.
 
 ```yaml
 steps:
-  - command: echo "Using a limited resource, only 10 at a time, but we don't care about order"
+  - command: echo "Using a limited resource, only 10 at a time, no order preference"
     concurrency_group: saucelabs
     concurrency: 10
     concurrency_method: eager
 ```
 {: codeblock-file="pipeline.yml"}
 
-### Concurrency and prioritization
+### Concurrency and Prioritization
+When `eager` concurrency is applied along with [job prioritization](docs/pipelines/managing-priorities), higher priority jobs will occupy available concurrency slots before others.
 
-If you're using `eager` concurrency and [job prioritization](/docs/pipelines/managing-priorities), higher priority jobs will always take precedence when a concurrency slot becomes available.
+## Conclusion
+Controlling concurrency in Buildkite helps streamline job execution and resource management across CI/CD pipelines. By effectively utilizing concurrency limits, groups, gates, and respecting job priorities, users ensure that their pipelines run efficiently while avoiding resource contention.
