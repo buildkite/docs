@@ -203,6 +203,8 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 <a id="events-build-started">Build Started</a>
 
+### Build Started
+
 ```json
 {
   "version": "1",
