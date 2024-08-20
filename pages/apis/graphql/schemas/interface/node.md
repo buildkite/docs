@@ -173,6 +173,9 @@ An object with an ID.
 <a href="/docs/apis/graphql/schemas/object/registrytoken" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RegistryToken">
   <code>RegistryToken</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/rule" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Rule">
+  <code>Rule</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/ssoprovidergithubapp" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SSOProviderGitHubApp">
   <code>SSOProviderGitHubApp</code>
 </a>

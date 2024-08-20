@@ -178,6 +178,10 @@
     path: apis/graphql/schemas/mutation/pipelineunarchive
   - name: pipelineUpdate
     path: apis/graphql/schemas/mutation/pipelineupdate
+  - name: ruleCreate
+    path: apis/graphql/schemas/mutation/rulecreate
+  - name: ruleDelete
+    path: apis/graphql/schemas/mutation/ruledelete
   - name: ssoProviderCreate
     path: apis/graphql/schemas/mutation/ssoprovidercreate
   - name: ssoProviderDelete
@@ -676,6 +680,16 @@
     path: apis/graphql/schemas/object/repositoryproviderunknown
   - name: RepositoryProviderUnknownSettings
     path: apis/graphql/schemas/object/repositoryproviderunknownsettings
+  - name: Rule
+    path: apis/graphql/schemas/object/rule
+  - name: RuleConnection
+    path: apis/graphql/schemas/object/ruleconnection
+  - name: RuleCreatePayload
+    path: apis/graphql/schemas/object/rulecreatepayload
+  - name: RuleDeletePayload
+    path: apis/graphql/schemas/object/ruledeletepayload
+  - name: RuleEdge
+    path: apis/graphql/schemas/object/ruleedge
   - name: SCMPipelineSettings
     path: apis/graphql/schemas/object/scmpipelinesettings
   - name: SCMRepositoryHost
@@ -962,6 +976,16 @@
     path: apis/graphql/schemas/enum/resourceusagetype
   - name: RevokeInactiveTokenPeriod
     path: apis/graphql/schemas/enum/revokeinactivetokenperiod
+  - name: RuleAction
+    path: apis/graphql/schemas/enum/ruleaction
+  - name: RuleEffect
+    path: apis/graphql/schemas/enum/ruleeffect
+  - name: RuleOrder
+    path: apis/graphql/schemas/enum/ruleorder
+  - name: RuleSourceType
+    path: apis/graphql/schemas/enum/rulesourcetype
+  - name: RuleTargetType
+    path: apis/graphql/schemas/enum/ruletargettype
   - name: SSOAuthorizationState
     path: apis/graphql/schemas/enum/ssoauthorizationstate
   - name: SSOProviderSAMLRSAXMLSecurity
@@ -1124,6 +1148,10 @@
     path: apis/graphql/schemas/input-object/pipelineunarchiveinput
   - name: PipelineUpdateInput
     path: apis/graphql/schemas/input-object/pipelineupdateinput
+  - name: RuleCreateInput
+    path: apis/graphql/schemas/input-object/rulecreateinput
+  - name: RuleDeleteInput
+    path: apis/graphql/schemas/input-object/ruledeleteinput
   - name: SSOProviderCreateInput
     path: apis/graphql/schemas/input-object/ssoprovidercreateinput
   - name: SSOProviderDeleteInput
@@ -1192,5 +1220,9 @@
     path: apis/graphql/schemas/union/job
   - name: JobEventActorNodeUnion
     path: apis/graphql/schemas/union/jobeventactornodeunion
+  - name: RuleSource
+    path: apis/graphql/schemas/union/rulesource
+  - name: RuleTarget
+    path: apis/graphql/schemas/union/ruletarget
   - name: UsageUnion
     path: apis/graphql/schemas/union/usageunion
