@@ -27,9 +27,11 @@ Available notification types:
 * [Webhooks](#webhooks): Send a notification to the specified webhook URL.
 * [PagerDuty](#pagerduty-change-events)
 
+These types of notifications are available at the following levels.
+
 <table>
 <thead>
-  <tr><th>Step-level</th><th>Build-level</th></tr>
+  <tr><th>Build</th><th>Step</th></tr>
 </thead>
 <tbody>
   <tr>
@@ -37,20 +39,20 @@ Available notification types:
     <td>Slack</td>
   </tr>
   <tr>
-    <td></td>
     <td>Email</td>
+    <td></td>
   </tr>
   <tr>
-    <td></td>
     <td>Basecamp</td>
+    <td></td>
   </tr>
   <tr>
-    <td></td>
     <td>Webhook</td>
+    <td></td>
   </tr>
   <tr>
-    <td></td>
     <td>PagerDuty</td>
+    <td></td>
   </tr>
 </table>
 
