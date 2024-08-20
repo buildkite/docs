@@ -116,7 +116,7 @@ You can view the current test ownership rules for a test suite in your **Test Su
 A TESTOWNERS file [follows the same rules as a `.gitignore` or `CODEOWNERS` file](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#example-of-a-codeowners-file), with the exception of the `.gitignore` rule that allows a file path to have no corresponding team.
 
 ```bash
-# In a regular `.gitignore` or `COEDOWNER` file, the following
+# In a regular `.gitignore` or `CODEOWNER` file, the following
 # block would set the `test-analytics` team as the owner of any
 # file in the `/specs` directory at the root of your test location
 # except for the `/specs/features` subdirectory, as its owners are
