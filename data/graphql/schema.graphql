@@ -8991,7 +8991,12 @@ The action a rule enforces
 """
 enum RuleAction {
   """
-  Trigger a build in the target pipeline
+  Artifacts read
+  """
+  ARTIFACTS_READ
+
+  """
+  Trigger build
   """
   TRIGGER_BUILD
 }
