@@ -1,8 +1,13 @@
 # buildkite-agent oidc
 
-The Buildkite Agent's `oidc` command allows you to request an OIDC token representing the current job. These tokens can be exchanged with federated systems like AWS.
+The Buildkite Agent's `oidc` command allows you to request an OpenID Connect (OIDC) token from Buildkite, representing the current pipeline and its job. These tokens can be exchanged for specific roles on federated systems like [AWS](https://aws.amazon.com/), [GCP](https://cloud.google.com/), [Azure](https://azure.microsoft.com/) and many others.
 
-See the [OpenID Connect Core documentation](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) for more information about how OIDC tokens are constructed and how to extract and use claims.
+Refer to the following documentation for more information:
+
+- The [What is OpenID Connect](https://openid.net/developers/how-connect-works/) overview on the OpenID web site for more details about how OIDC works.
+- The [OpenID Connect Core documentation](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) for more information about how OIDC tokens are constructed and how to extract and use claims.
+
+Learn more about how to restrict your Buildkite Agents' access to deployment environments like AWS, from the OIDC in [Buildkite Pipelines](/docs/pipelines/security/oidc) and with [AWS](/docs/pipelines/security/oidc/aws) documentation pages, as well as the [Buildkite Packages](/docs/packages/security/oidc) documentation page.
 
 ## Request OIDC token
 

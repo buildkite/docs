@@ -189,6 +189,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
       "name": "My Pipeline X",
+      "cluster_id": "xxx",
       "repository": "git@github.com:acme-inc/my-pipeline.git",
       "configuration": "env:\n \"FOO\": \"bar\"\nsteps:\n - command: \"script/release.sh\"\n   \"name\": \"Build :package:\""
     }'
@@ -293,6 +294,10 @@ Required [request body properties](/docs/api#request-body-properties):
     <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
   </tr>
   <tr>
+    <th><code>cluster_id</code></th>
+    <td>The ID value of the cluster the pipeline will be associated with.<p class="Docs__api-param-eg"><em>Example:</em> <code>"Ab1Cd2Ef3Gh4Ij5Kl6Mn7Op8Qr9St0Uv10Wx11Yz12Ab1Cd2Ef3Gh4Ij5Kl6Mn=="</code></p></td>
+  </tr>
+  <tr>
     <th><code>repository</code></th>
     <td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p></td>
   </tr>
@@ -326,7 +331,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>cancel_running_branch_builds_filter</code></th>
     <td>
-      <p>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build cancelling applies to.</p>
+      <p>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to.</p>
       <p><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p>
     </td>
   </tr>
@@ -371,6 +376,13 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>
       <p>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to.</p>
       <p><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>slug</code></th>
+    <td>
+      <p>A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If the value is <code>null</code>, the pipeline name will be used to generate the slug.</p>
+      <p><em>Example:</em> <code>"my-custom-pipeline-slug"</code></p>
     </td>
   </tr>
   <tr>
@@ -422,6 +434,12 @@ Error responses:
 </tbody>
 </table>
 
+### Deriving a pipeline slug from the pipeline's name
+
+<%= render_markdown partial: 'platform/deriving_a_pipeline_slug_from_the_pipelines_name' %>
+
+Any attempt to create a new pipeline with a name that matches an existing pipeline's name, results in an error.
+
 ## Create a visual step pipeline
 
 YAML pipelines are the recommended way to [manage your pipelines](https://buildkite.com/docs/tutorials/pipeline-upgrade) but if you're still using visual steps you can add them by setting the `steps` key in your json request body to an array of steps:
@@ -432,6 +450,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "My Pipeline",
+    "cluster_id": "xxx",
     "repository": "git@github.com:acme-inc/my-pipeline.git",
     "steps": [
       {
@@ -594,6 +613,10 @@ Required [request body properties](/docs/api#request-body-properties):
     <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
   </tr>
   <tr>
+    <th><code>cluster_id</code></th>
+    <td>The ID value of the cluster the pipeline will be associated with.<p class="Docs__api-param-eg"><em>Example:</em> <code>"Ab1Cd2Ef3Gh4Ij5Kl6Mn7Op8Qr9St0Uv10Wx11Yz12Ab1Cd2Ef3Gh4Ij5Kl6Mn=="</code></p></td>
+  </tr>
+  <tr>
     <th><code>repository</code></th>
     <td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p></td>
   </tr>
@@ -627,7 +650,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>cancel_running_branch_builds_filter</code></th>
     <td>
-      <p>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build cancelling applies to.</p>
+      <p>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to.</p>
       <p><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p>
     </td>
   </tr>
@@ -679,6 +702,13 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>
       <p>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to.</p>
       <p><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>slug</code></th>
+    <td>
+      <p>A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If the value is <code>null</code>, the pipeline name will be used to generate the slug.</p>
+      <p><em>Example:</em> <code>"my-custom-pipeline-slug"</code></p>
     </td>
   </tr>
   <tr>
@@ -820,7 +850,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>cancel_running_branch_builds_filter</code></th>
-    <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build cancelling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
+    <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
     <th><code>cluster_id</code></th>
@@ -846,7 +876,10 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>name</code></th>
-    <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
+    <td>
+      <p>The name of the pipeline. If you provide a new name without a <code>slug</code> parameter, the slug will be automatically updated to match the new name.</p>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p>
+    </td>
   </tr>
   <tr>
     <th><code>pipeline_template_uuid</code></th>
@@ -867,6 +900,14 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>skip_queued_branch_builds_filter</code></th>
     <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
+    <th><code>slug</code></th>
+    <td>
+      <p>A custom identifier for the pipeline. This slug will be used as the pipeline's URL path. It can only contain alphanumeric characters or dashes and cannot begin with a dash.<br>
+      The slug updates whenever the pipeline name changes. If you don't provide a slug when you update the pipeline name, the slug will be automatically generated from the new pipeline name.</p>
+      <p><em>Example:</em> <code>"my-custom-pipeline-slug"</code></p>
+    </td>
   </tr>
   <tr>
     <th><code>tags</code></th>
@@ -1093,7 +1134,8 @@ Error responses:
 <tbody>
   <tr><th><code>403 Forbidden</code></th><td><code>{ "message": "Forbidden" }</code></td></tr>
   <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Auto-creating webhooks is not supported for your repository." }</code></td></tr>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Webhooks could not be created for your repository." }</code></td></tr>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Webhooks could not be created for your repository." }</code>
+  This error might be returned because an existing webhook has already been created for this pipeline, and the additional webhook could not be created as it is outside the intended scope of this feature.</td></tr>
 </tbody>
 </table>
 
@@ -1128,15 +1170,15 @@ Properties available for Bitbucket Server:
 <table class="responsive-table">
 <tbody>
   <tr>
-    <th><code>build_pull_requests</code></th>
+    <th><code>build_branches</code></th>
     <td>
-      Whether to create builds for commits that are part of a Pull Request.
+      Whether to create builds when branches are pushed.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
-    <th><code>build_branches</code></th>
+    <th><code>build_pull_requests</code></th>
     <td>
-      Whether to create builds when branches are pushed
+      Whether to create builds for commits that are part of a Pull Request.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
@@ -1153,11 +1195,42 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
 <table class="responsive-table">
 <tbody>
   <tr>
+    <th><code>build_branches</code></th>
+    <td>
+      Whether to create builds when branches are pushed.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>build_pull_requests</code></th>
     <td>
       Whether to create builds for commits that are part of a Pull Request.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
     </td>
+  </tr>
+  <tr>
+    <th><code>build_tags</code></th>
+    <td>
+      Whether to create builds when tags are pushed.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>cancel_deleted_branch_builds</code></th>
+    <td>
+      A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>publish_commit_status</code></th>
+    <td>
+      Whether to update the status of commits in Bitbucket or GitHub.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>publish_commit_status_per_step</code></th>
+    <td>
+      Whether to create a separate status for each job in a build, allowing you to see the status of each job directly in Bitbucket or GitHub.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>pull_request_branch_filter_enabled</code></th>
@@ -1184,24 +1257,6 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
       Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
-  <tr>
-    <th><code>build_tags</code></th>
-    <td>
-      Whether to create builds when tags are pushed.
-      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-  </tr>
-  <tr>
-    <th><code>publish_commit_status</code></th>
-    <td>
-      Whether to update the status of commits in Bitbucket or GitHub.
-      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-  </tr>
-  <tr>
-    <th><code>publish_commit_status_per_step</code></th>
-    <td>
-      Whether to create a separate status for each job in a build, allowing you to see the status of each job directly in Bitbucket or GitHub.
-      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-  </tr>
   </tbody>
 </table>
 
@@ -1209,6 +1264,42 @@ Additional properties available for GitHub:
 
 <table class="responsive-table">
   <tbody>
+    <tr>
+      <th><code>build_pull_request_forks</code></th>
+      <td>
+        Whether to create builds for pull requests from third-party forks.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_labels_changed</code></th>
+      <td>
+        Whether to create builds for pull requests when labels are added or removed.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_ready_for_review</code></th>
+      <td>
+        Whether to create builds for pull requests that are ready for review.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>prefix_pull_request_fork_branch_names</code></th>
+      <td>
+        Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the <code>main</code> branch from <code>some-user</code> will become <code>some-user:main</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>publish_blocked_as_pending</code></th>
+      <td>
+        The status to use for blocked builds. <code>Pending</code> can be used with <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> to prevent merging pull requests with blocked builds.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>separate_pull_request_statuses</code></th>
+      <td>
+        Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> in GitHub.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
     <tr>
       <th><code>trigger_mode</code></th>
       <td>
@@ -1220,30 +1311,6 @@ Additional properties available for GitHub:
           <li><code>none</code> will not create any builds based on GitHub activity.</li>
         </ul>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>code</code>, <code>deployment</code>, <code>fork</code>, <code>none</code></p></td>
-    </tr>
-    <tr>
-      <th><code>build_pull_request_forks</code></th>
-      <td>
-        Whether to create builds for pull requests from third-party forks.
-        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
-    <tr>
-      <th><code>prefix_pull_request_fork_branch_names</code></th>
-      <td>
-        Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the <code>main</code> branch from <code>some-user</code> will become <code>some-user:main</code>.
-        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
-    <tr>
-      <th><code>separate_pull_request_statuses</code></th>
-      <td>
-        Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> in GitHub.
-        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
-    <tr>
-      <th><code>publish_blocked_as_pending</code></th>
-      <td>
-        The status to use for blocked builds. <code>Pending</code> can be used with <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> to prevent merging pull requests with blocked builds.
-        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
     </tr>
   </tbody>
 </table>

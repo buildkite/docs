@@ -17,7 +17,7 @@ Before you start, make sure pytest runs with access to [CI environment variables
 
 To get started with `buildkite-test-collector`:
 
-1. In your CI environment, set the `BUILDKITE_ANALYTICS_TOKEN` environment variable [securely](/docs/pipelines/secrets) to your Buildkite Test Analytics API token.
+1. In your CI environment, set the `BUILDKITE_ANALYTICS_TOKEN` environment variable [securely](/docs/pipelines/security/secrets/managing) to your Buildkite Test Analytics API token.
 
 1. Add `buildkite-test-collector` to your list of dependencies. Some examples:
 

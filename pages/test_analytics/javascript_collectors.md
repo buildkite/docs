@@ -18,7 +18,7 @@ Whichever test framework you use, you first need to add and authenticate the [`b
 To add the test collector package:
 
 1. In your CI environment, set the `BUILDKITE_ANALYTICS_TOKEN` environment variable to your Test Analytics API token.
-   To learn how to set environment variables securely in Pipelines, see [Managing pipeline secrets](/docs/pipelines/secrets).
+   To learn how to set environment variables securely in Pipelines, see [Managing pipeline secrets](/docs/pipelines/security/secrets/managing).
 
 1. On the command line, create a new branch by running:
 
@@ -31,7 +31,7 @@ To add the test collector package:
     For npm, run:
 
     ```shell
-    npm install --dev buildkite-test-collector
+    npm install --save-dev buildkite-test-collector
     ```
 
     For yarn, run:
@@ -55,9 +55,11 @@ To configure Jest:
 
     ```json
     {
-        "reporters": ["default", "buildkite-test-collector/jest/reporter"]
+        "reporters": ["default", "buildkite-test-collector/jest/reporter"],
+        "testLocationInResults": true,
     }
     ```
+    **Note:** The `"testLocationInResults": true` setting enables column and line capture for Test Analytics.
 
 ### Jasmine
 
@@ -69,7 +71,7 @@ To configure Jasmine:
     // SpecHelper.js
     var BuildkiteReporter = require("buildkite-test-collector/jasmine/reporter");
     var buildkiteReporter = new BuildkiteReporter();
-    
+
     jasmine.getEnv().addReporter(buildkiteReporter);
     ```
 
@@ -158,8 +160,8 @@ To configure Playwright:
     ```js
     // playwright.config.js
     {
-      "reporters": [
-        ["line"], 
+      "reporter": [
+        ["line"],
         ["buildkite-test-collector/playwright/reporter"]
       ]
     }
@@ -200,4 +202,3 @@ Using the [`--forceExit`](https://jestjs.io/docs/cli#--forceexit) option when ru
 `--forceExit` could potentially terminate any ongoing processes that are attempting to send test executions to Buildkite.
 
 We recommend using [`--detectOpenHandles`](https://jestjs.io/docs/cli#--detectopenhandles) to track down open handles which are preventing Jest from exiting cleanly.
-

@@ -314,6 +314,10 @@ RSpec.describe NavData do
                 "path" => "apis/graphql/cookbooks/agents"
               },
               {
+                "name" => "Artifacts",
+                "path" => "apis/graphql/cookbooks/artifacts"
+              },
+              {
                 "name" => "Builds",
                 "path" => "apis/graphql/cookbooks/builds"
               },
@@ -324,6 +328,10 @@ RSpec.describe NavData do
               {
                 "name" => "Jobs",
                 "path" => "apis/graphql/cookbooks/jobs"
+              },
+              {
+                "name" => "Packages",
+                "path" => "apis/graphql/cookbooks/packages"
               },
               {
                 "name" => "Pipelines",

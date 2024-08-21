@@ -27,6 +27,8 @@ If you have [Teams](/docs/team-management/permissions) enabled in your organizat
 
 If neither condition is true, the build will fail, and builds on subsequent pipelines will not be triggered.
 
+If using bot users (unregistered users who are not part of any team) to trigger pipelines, make sure you have shared team which has the build permission on parent and child pipelines.
+
 If your triggering pipelines are started by an API call or a webhook, it might not be clear whether the triggering user has access to the triggered pipeline, which will cause your build to fail. To prevent that from happening, make sure that all of your GitHub user accounts that are triggering builds are [connected to Buildkite accounts](/docs/integrations/github#connecting-buildkite-and-github).
 
 ## Trigger step attributes
@@ -239,3 +241,17 @@ steps:
 
 ```
 {: codeblock-file="pipeline.yml"}
+
+### Cancel intermediate builds from multiple triggers
+
+When multiple pipeline builds (for instance, run from the same commit) trigger the build of another pipeline, you can enable the **Cancel Intermediate Builds** feature to allow only the newest build to run, thereby reducing unnecessary, duplicated pipeline builds.
+
+For example, assume a scenario with three pipelines—**Pipeline A**, **Pipeline B**, and **Pipeline C**. A commit that runs **Pipeline A** triggers a build on **Pipeline B**. The same commit runs **Pipeline C**, which also triggers a build on **Pipeline B**.
+
+When **Cancel Intermediate Builds**:
+
+* _Is enabled_, the build of **Pipeline B**, run by whichever pipeline it was triggered by _first_, is _canceled_ and the newest triggered **Pipeline B** build would be allowed to run.
+
+* _Is not enabled_, **Pipeline B** will run twice, as it will be triggered by both **Pipeline A** and **Pipeline C** without cancellation.
+
+Regardless of whether or not **Cancel Intermediate Builds** is enabled, if either **Pipeline A** or **Pipeline C** _is manually canceled_ before their triggering steps have occurred, then the **Pipeline B** build triggered by its canceled pipeline will not run, and **Pipeline B** will only run once (triggered by the other, non-canceled pipeline).

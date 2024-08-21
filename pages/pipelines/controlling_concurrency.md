@@ -10,7 +10,7 @@ Concurrency limits define the number of jobs that are allowed to run at any one 
 
 Setting a concurrency limit of `1` on a step in your pipeline will ensure that no two jobs created from that step will run at the same time, even if there are agents available.
 
-You can add concurrency limits to steps either through Buildkite, or your `pipeline.yml` file. When adding a concurrency limit, you'll also need the `concurrency_group` attribute so that steps in other pipelines can use it as well.
+You can add concurrency limits to steps either through Buildkite, or your `pipeline.yml` file by adding `concurrency` attributes with limit values to these steps. When adding a concurrency limit, you'll also need the `concurrency_group` attribute so that steps in other pipelines can use it as well.
 
 > 🚧 I'm seeing an error about a missing `concurrency_group_id` when I run my pipeline upload
 > This error is caused by a missing `concurrency_group` attribute. Add this attribute to the same step where you defined the `concurrency` attribute.
@@ -21,7 +21,7 @@ Concurrency groups are labels that group together Buildkite jobs when applying c
 
 A concurrency group works like a queue; it returns jobs in the order they entered the queue (oldest to newest). The concurrency group only cares about jobs in "active" states, and the group becomes "locked" when the concurrency limit for jobs in these states is reached. Once a job moves from an active state to a terminal state (`finished` or `canceled`), the job is removed from the queue, opening up a spot for another job to enter. If a job's state is `limited`, it is waiting for another job ahead of it in the same concurrency group to finish.
 
-The full list of "active" [job states](/docs/pipelines/defining-steps#job-states) is `limiting`, `limited`, `scheduled`, `waiting`, `assigned`, `accepted`, `running`, `cancelling`, `timing out`.
+The full list of "active" [job states](/docs/pipelines/defining-steps#job-states) is `limiting`, `limited`, `scheduled`, `waiting`, `assigned`, `accepted`, `running`, `canceling`, `timing out`.
 
 The following is an example [command step](/docs/pipelines/command-step) that ensures deployments run one at a time. If multiple builds are created with this step, each deployment job will be queued up and run one after the other in the order they were created.
 
@@ -41,6 +41,11 @@ Make sure your `concurrency_group` names are unique, unless they're accessing a 
 For example, if you have two pipelines that each deploy to a different target but you give them both the `concurrency_group` label `deploy`, they will be part of the same concurrency group and will not be able to run at the same time, even though they're accessing separate deployment targets. Unique concurrency group names such as `our-payment-gateway/deployment`, `terraform/update-state`, or `my-mobile-app/app-store-release`, will ensure that each one is part of its own concurrency group.
 
 Concurrency groups guarantee that jobs will be run in the order that they were created in. Jobs inherit the creation time of their parent. Parents of jobs can be either a build or a pipeline upload job. As pipeline uploads add more jobs to the build after it has started, the jobs that they add will inherit the creation time of the pipeline upload rather than the build.
+
+> 🚧 Troubleshooting and using `concurrency_group` with `block` / `input` steps
+> When a build is blocked by a concurrency group, you can check which jobs are in the queue and their state using the [`getConcurrency` GraphQL query](/docs/apis/graphql/cookbooks/jobs#get-all-jobs-in-a-particular-concurrency-group).
+> <p>
+> Be aware that both the [`block`](/docs/pipelines/block-step) and [`input`](/docs/pipelines/input-step) steps cause these steps to be uploaded and scheduled at the same time, which breaks concurrency groups. These two steps block jobs being added to the concurrency group, but do not affect the jobs' ordering once unblocked. The concurrency group won't be added to the queue until the `block` or `input` step is unblocked, and once it is, the timestamp will be from the pipeline upload step.
 
 ## Concurrency and parallelism
 

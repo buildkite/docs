@@ -48,7 +48,7 @@ Required attributes:
   <tr>
     <td><code>steps</code></td>
     <td>
-    A list of steps in the group; at least 1 step is required. Allowed step types: <a href="/docs/pipelines/wait-step"><code>wait</code></a>, <a href="/docs/pipelines/trigger-step"><code>trigger</code></a>, <a href="/docs/pipelines/command-step"><code>command</code>/<code>commands</code></a>.<br>
+    A list of steps in the group; at least 1 step is required. Allowed step types: <a href="/docs/pipelines/wait-step"><code>wait</code></a>, <a href="/docs/pipelines/trigger-step"><code>trigger</code></a>, <a href="/docs/pipelines/command-step"><code>command</code>/<code>commands</code></a>, <a href="/docs/pipelines/block-step"><code>block</code></a>, <a href="/docs/pipelines/input-step"><code>input</code></a>.<br>
       <em>Type:</em> <code>array</code>
     </td>
   </tr>
@@ -179,7 +179,7 @@ This merging behavior only applies if the group step with the matching `group` o
 Note that inside a single pipeline, groups with the same `group` or `label` will not be merged in the Buildkite UI.
 
 > 📘 You can't define the same key twice
-> Trying to create different groups with the same `key` attribute will result in an error.
+> Trying to create different groups or steps with the same `key` attribute will result in an error.
 
 For example, you have a YAML file:
 

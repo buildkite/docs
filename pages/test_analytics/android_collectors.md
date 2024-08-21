@@ -14,7 +14,7 @@ Before you start, make sure your tests run with access to [CI environment variab
 
 1. [Create a test suite](https://buildkite.com/docs/test-analytics) and copy the test suite API token.
 
-1. [Securely](/docs/pipelines/secrets) set the `BUILDKITE_ANALYTICS_TOKEN` secret on your CI to the API token from the previous step.
+1. [Securely](/docs/pipelines/security/secrets/managing) set the `BUILDKITE_ANALYTICS_TOKEN` secret on your CI to the API token from the previous step.
 
     This will need to be on your CI server, if running the BuildKite collector via CI, or otherwise on your local machine.
 

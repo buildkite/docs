@@ -27,6 +27,35 @@ Available notification types:
 * [Webhooks](#webhooks): Send a notification to the specified webhook URL.
 * [PagerDuty](#pagerduty-change-events)
 
+These types of notifications are available at the following levels.
+
+<table>
+<thead>
+  <tr><th>Build</th><th>Step</th></tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Slack</td>
+    <td>Slack</td>
+  </tr>
+  <tr>
+    <td>Email</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Basecamp</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Webhook</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>PagerDuty</td>
+    <td></td>
+  </tr>
+</table>
+
 ## Conditional notifications
 
 To only trigger notifications under certain conditions, add the `if` attribute.
@@ -58,7 +87,17 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can only send email notifications on entire pipeline events, specifically upon [`build finished`](/docs/apis/webhooks#events).
+You can only send email notifications on entire pipeline [events](/docs/apis/webhooks#events), specifically upon `build.failing` and `build.finished`.
+
+Restrict notifications to finished builds by adding a [conditional](#conditional-notifications):
+
+```yaml
+notify:
+  - email: "dev@acmeinc.com"
+    if: build.state != "failing"
+```
+{: codeblock-file="pipeline.yml"}
+
 
 The `email` attribute accepts a single email address as a string. To send notifications to more than one address, add each address as a separate email notification attribute:
 
@@ -143,6 +182,9 @@ steps:
       - slack: "#general"
 ```
 {: codeblock-file="pipeline.yml"}
+
+> 📘 Step-level vs build-level notifications
+> A step-level notify step will ignore the requirements of a build-level notification. If a build-level notification condition is that it runs only on `main`, a step-level notification without branch conditionals will run on all branches.
 
 ### Notify a user in all workspaces
 

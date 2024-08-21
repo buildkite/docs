@@ -19,7 +19,7 @@ You'll also need the following:
 
 ## Continue running an agent
 
-We recommend you continue treating this tutorial as a chance to play and iterate. That means you can continue using the agent you've already set up.
+We recommend you continue treating this tutorial as a chance to play and iterate. That means you can continue using the [agent you've already set up](/docs/tutorials/getting-started#set-up-an-agent).
 
 If you want to learn more about the agent and set up something more permanent, see [Agent overview](/docs/agent/v3).
 
@@ -96,6 +96,12 @@ If you have trouble getting your pipeline to work, don't hesitate to reach out t
 When you create a new pipeline with a private repository URL, you'll see instructions for configuring your source control's webhooks. Once you've followed those instructions, ensure your [agent's SSH keys](/docs/agent/v3/ssh-keys) are configured so your agent can check out the repository.
 
 For more advanced pipelines, using your development machine as the agent for your first few builds can be a good idea. That way, all the dependencies are ready, and you'll soon be able to share a link to a green build with the rest of your team.
+
+### Deriving a pipeline slug from the pipeline's name
+
+<%= render_markdown partial: 'platform/deriving_a_pipeline_slug_from_the_pipelines_name' %>
+
+Any attempt to create a new pipeline with a name that matches an existing pipeline's name, results in an error.
 
 ## Next steps
 

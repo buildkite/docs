@@ -4,13 +4,29 @@ The Buildkite agent's `step` command provides the ability to retrieve and update
 
 ## Updating a step
 
-Use this command in your build scripts to update an attribute of a step.
+Use this command in your build scripts to update the `label` attribute of a step.
 
 <%= render 'agent/v3/help/step_update' %>
 
 ## Getting a step
 
-Use this command in your build scripts to get the value of a particular attribute from a step.
+Use this command in your build scripts to get the value of a particular attribute from a step. The following attributes values can be retrieved:
+
+* `agents`
+* `command`
+* `concurrency_key`
+* `concurrency_limit`
+* `depends_on`
+* `env`
+* `if`
+* `key`
+* `label`
+* `notify`
+* `outcome`
+* `parallelism`
+* `state`
+* `timeout`
+* `type`
 
 <%= render 'agent/v3/help/step_get' %>
 

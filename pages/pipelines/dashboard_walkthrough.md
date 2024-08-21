@@ -84,7 +84,7 @@ To see the steps for a build, click the Show steps button on the right of any bu
 
 ## Build page
 
-Clicking through to a build page shows the full list of jobs and other steps in that build, the information about who triggered the build, and the controls for rebuilding or cancelling the build while it's in progress.
+Clicking through to a build page shows the full list of jobs and other steps in that build, the information about who triggered the build, and the controls for rebuilding or canceling the build while it's in progress.
 
 To retry all failed jobs for a build, select the dropdown menu next to the **Rebuild** button, and then select **Retry failed jobs**. This option will only appear in the dropdown menu when the build is finished, and there are eligible jobs to retry. Eligible jobs include command jobs in the failures tab, with the exception of those already waiting for automatic retries.
 
@@ -92,7 +92,7 @@ To retry all failed jobs for a build, select the dropdown menu next to the **Reb
 
 Each job in a build has a footer that displays the job exit status, which provides more visibility into the outcome of each job. It helps you to diagnose failed builds by finding issues with agents and pipelines.
 
-Job exit status may include the exit signal reason, which indicates whether the Buildkite agent stopped or the job was cancelled.
+Job exit status may include the exit signal reason, which indicates whether the Buildkite agent stopped or the job was canceled.
 
 <%= image "exit-status.png", width: 2048/2, height: 880/2, alt: "Exit status of a job" %>
 

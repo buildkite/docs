@@ -116,7 +116,7 @@ Refer to [Referring to UI elements in the Writing style guide](writing-style.md#
 
 Key terms and emphasized words are formatted using italics in the Buildkite docs. Markdown supports two characters as its markup for italicizing text—either an underscore `_` or a single asterisk `*`. For consistency, use single underscores `_` immediately surrounding the text you want to italicize. For example, `_Italicize this text_`.
 
-Refer to [Referring to Key terms in the Writing style guide](writing-style.md#key-terms) for details on how to write and present key terms in the docs.
+Refer to [Referring to Key terms in the Writing style guide](writing-style.md#key-terms-and-emphasis) for details on how to write and present key terms in the docs.
 
 ### Lists
 
@@ -176,7 +176,7 @@ the latter of which would only work in your local Buildkite Docs development ser
 #### Internal anchor links
 
 From within the Buildkite Docs, when linking to headings on other pages within the Buildkite docs, when linking to an H2-level heading, append the section's name (in [kebab case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) following a `#`) to the main page link. For example:
-`/docs/pipelines/secrets` will contain `/docs/pipelines/secrets#using-a-secrets-storage-service`. These parts of URLs downstream of (and including) the `#` are known as URL fragments.
+`/docs/pipelines/security/secrets/managing` will contain `/docs/pipelines/security/secrets/managing#using-a-secrets-storage-service`. These parts of URLs downstream of (and including) the `#` are known as URL fragments.
 
 When linking to an H3-level heading, start with an H2-level anchor link. Such links are generated automatically from the section title, and are viewable in the `#` that appears when you hover your mouse pointer over the heading. Add a `-` to the H2-level anchor link, and append the full name of the H3-level title to it (again in kebab case). The result will be a longer link. For example:
 
@@ -494,7 +494,7 @@ This way, the following example snippet file located immediately within the `/pa
 
 is referenced using this snippet render link:
 
-`<%= render_markdown 'step_2_3_github_custom_status' %>`
+`<%= render_markdown partial: 'step_2_3_github_custom_status' %>`
 
 Use the snippet render link wherever you need to add the content of the snippet (multiple times if required) in other Markdown files throughout the Buildkite Docs.
 

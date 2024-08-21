@@ -129,7 +129,7 @@ variables:
     example: "4735ba57-80d0-46e2-8fa0-b28223a86586"
   - name: BUILDKITE_BUILD_NUMBER
     desc: |
-      The build number. This number increases by 1 with every build, and is guaranteed to be unique within each pipeline.
+      The build number. This number increases with every build, and is guaranteed to be unique within each pipeline.
     modifiable: false
     example: "1514"
   - name: BUILDKITE_BUILD_PATH
@@ -382,7 +382,7 @@ variables:
     example: "4735ba57-80d0-46e2-8fa0-b28223a86586"
   - name: BUILDKITE_REBUILT_FROM_BUILD_NUMBER
     desc: |
-      The UUID of the original build this was rebuilt from or `""` if not a rebuild.
+      The number of the original build this was rebuilt from or `""` if not a rebuild.
     modifiable: false
     example: "1514"
   - name: BUILDKITE_REFSPEC

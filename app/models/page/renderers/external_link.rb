@@ -43,6 +43,7 @@ class Page::Renderers::ExternalLink
   def decorate_external_link_node
     unless node['class']
       node.set_attribute('class', 'external-link')
+      node.set_attribute('target', '_blank')
     end
   end
 

@@ -18,7 +18,7 @@ Managed License in AWS License Manager. Ensure you [associate your AMI](/docs/ag
 and any new AMIs with a Customer managed license. Ensure the License
 configuration has a **License type** of `Cores`.
 
-## My instances don't start the `buildkite-agent`
+## My instances don't start the buildkite-agent
 
 Ensure your AMI has been [configured to auto-login as the `ec2-user`](/docs/agent/v3/elastic-ci-stack-for-ec2-mac/autoscaling-mac-metal#step-2-build-an-ami)
 in the GUI.

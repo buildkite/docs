@@ -1,68 +1,48 @@
+---
+template: "landing_page"
+---
+
 # Buildkite Packages
 
 Buildkite Packages is a product that:
 
 - Manages artifacts and packages from [Buildkite Pipelines](/docs/pipelines), as well as other CI/CD applications that require artifact management.
 
-- Provides registries to store your [packages](/docs/packages#an-introduction-to-packages) and other package-like file formats such as container images and Terraform modules.
+- Provides registries to store your [packages and other package-like file formats](/docs/packages/background) such as container images and Terraform modules.
 
 As well as storing a collection of packages, a registry also surfaces metadata or attributes associated with a package, such as the package's description, version, contents (files and directories), checksum details, distribution type, dependencies, and so on.
 
-> 📘 Buildkite Packages is currently in private beta
-> Please visit the [Buildkite Packages](https://buildkite.com/packages) page on our website to join the waitlist for this product and register for early access.
+> 📘
+> You can enable [Buildkite Packages](https://buildkite.com/packages) through the [**Organization Settings** page](/docs/packages/permissions#enabling-buildkite-packages).
 
-## An introduction to packages
+## Get started
 
-A _package_ is a combination of _metadata_, _configuration_, and _software_ that is prepared in a way that a package management tool can use to properly and reliably install software and related configuration data on a computer. Some examples of package management tools include:
+Run through the [Getting started](/docs/packages/getting-started) tutorial for a step-by-step guide on how to use Buildkite Packages.
 
-- [apt](https://help.ubuntu.com/community/Repositories/CommandLine) on Ubuntu
-- [yum](https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Deployment_Guide/c1-yum.html) on RedHat Enterprise Linux (RHEL)
-- [pip](https://pip.pypa.io/) for Python packages
-- [gem](http://guides.rubygems.org/) for RubyGems
+If you're familiar with the basics, explore how to use registries for each of Buildkite Packages' supported package ecosystems:
 
-Packages are useful because their:
+<!-- vale off -->
 
-- Version information helps keep software up to date
-- Metadata offers visibility in what's installed to which locations and why
-- Software installations are reproducible in different environments.
+<div class="ButtonGroup">
+  <%= button ":alpine: Alpine (apk)", "/docs/packages/alpine" %>
+  <%= button ":docker: Container (Docker)", "/docs/packages/container" %>
+  <%= button ":debian: Debian/Ubuntu (deb)", "/docs/packages/debian" %>
+  <%= button ":helm: Helm (OCI)", "/docs/packages/helm-oci" %>
+  <%= button ":helm: Helm", "/docs/packages/helm" %>
+  <%= button ":maven: Java (Maven)", "/docs/packages/maven" %>
+  <%= button ":gradle: Java (Gradle)", "/docs/packages/gradle" %>
+  <%= button ":node: JavaScript (npm)", "/docs/packages/javascript" %>
+  <%= button ":python: Python (PyPI)", "/docs/packages/python" %>
+  <%= button ":redhat: Red Hat (RPM)", "/docs/packages/red-hat" %>
+  <%= button ":ruby: Ruby (RubyGems)", "/docs/packages/ruby" %>
+  <%= button ":terraform: Terraform (modules)", "/docs/packages/terraform" %>
+  <%= button ":package: Files (generic)", "/docs/packages/files" %>
+</div>
 
-## Package creation tools
+<!-- vale on -->
 
-There are many tools for creating packages. Some of these tools are provided directly by Linux distributions, while many other third-party packaging tools are also available.
+Learn more about how to:
 
-Some popular package creation tools include:
-
-- [rpmbuild](http://wiki.centos.org/HowTos/SetupRpmBuildEnvironment) (CentOS) for RPM packages. Also, refer to the [Packaging Tutorial: GNU Hello](https://docs.fedoraproject.org/en-US/package-maintainers/Packaging_Tutorial_GNU_Hello/) for Fedora
-- [debuild](https://wiki.debian.org/Packaging/Intro) for deb packages
-- [distutils](https://docs.python.org/2/distutils/builtdist.html) for Python packages
-- [gem](http://guides.rubygems.org/make-your-own-gem/) for RubyGems packages
-
-Some advanced package creation tools include:
-
-- [Mock](https://rpm-software-management.github.io/mock/), a chroot-based system for building RPM packages in a clean room environment
-- [pbuilder](https://wiki.ubuntu.com/PbuilderHowto), a chroot-based system for building deb packages in a clean room environment. Useful tips about pbuilder can also be found in pbuilder's [user manual](http://www.netfort.gr.jp/~dancer/software/pbuilder-doc/pbuilder-doc.html)
-- [git-buildpackage](http://honk.sigxcpu.org/projects/git-buildpackage/manual-html/gbp.html), a set of scripts that can be used to build deb packages directly from git repositories
-- [fpm](https://github.com/jordansissel/fpm), a third-party tool that allows users to quickly and easily make a variety of packages (including RPM and deb packages)
-- [PackPack](https://github.com/packpack/packpack), a simple tool to build RPM and Debian packages from git repositories.
-
-## Supported package ecosystems
-
-Currently, Buildkite Packages supports the following package ecosystems:
-
-- Alpine
-- Docker container images
-- Debian (deb for Debian and Ubuntu)
-- Ruby (RubyGems gem)
-- Java (Maven and Gradle)
-- JavaScript (Node.js npm)
-- Python (PyPI)
-- RPM (Fedora and RHEL)
-- Terraform modules
-
-## Getting started tutorial
-
-Learn more about how:
-
-- The Buildkite Packages product works through this step-by-step [Getting started](/docs/packages/getting-started) tutorial.
-
-- To work with Buildkite Packages registries in [Manage registries](/docs/packages/manage-registries).
+- Work with Buildkite Packages registries in [Manage registries](/docs/packages/manage-registries).
+- Manage access to your registries in [User, team, and registry permissions](/docs/packages/permissions).
+- Configure your own private storage for Buildkite Packages in [Private storage](/docs/packages/private-storage).

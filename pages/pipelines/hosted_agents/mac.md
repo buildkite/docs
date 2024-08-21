@@ -23,28 +23,54 @@ We offer a selection of instance sizes, allowing you to tailor your hosted agent
 
 The following software will be made available by default on all standard Mac instances during the trial. If you have specific requirements for software that is not listed here, please contact support.
 
+Updated Xcode versions will be available one week after Apple offers them for download. This includes Beta, Release Candidate (RC), and official release versions.
+
 ### System software
 
-- macOS 14.1 (Build 23B74)
-- Darwin Kernel 23.1.0
+- macOS 14.5
+- Darwin Kernel 23.5.0
 - Rosetta 2
 - Bash 3.2.57
 - Homebrew
 
 ### Xcode
 
-- Xcode 14.3.1
+- Xcode 16.0-Beta4
+- Xcode 16.0-Beta3
+- Xcode 16.0-Beta2
+- Xcode 15.4
+- Xcode 15.4-Beta
+- Xcode 15.3
 - Xcode 15.2
+- Xcode 15.1
+- Xcode 14.3.1
 
 ### Apple runtimes
 
+- iOS 15.5
+- iOS 16.2
 - iOS 16.4
 - iOS 17.2
+- iOS 17.4
+- iOS 17.5-beta2
+- iOS 17.5
+- iOS 18.0-beta4
 - watchOS 9.4
 - watchOS 10.2
+- watchOS 10.4
+- watchOS 10.5-beta2
+- watchOS 10.5
+- watchOS 11.0
 - tvOS 16.4
 - tvOS 17.2
+- tvOS 17.4
+- tvOS 17.5-beta2
+- tvOS 17.5
+- tvOS 18.0
 - visionOS 1.0
+- visionOS 1.1
+- visionOS 1.2
+- visionOS 2.0
 
 ### Other languages and compilers
 
@@ -83,7 +109,7 @@ The following software will be made available by default on all standard Mac ins
 
 - Apache HTTPD
 - NGINX
-- Postgres 14.10
+- Postgres 14.12
 
 ### Browser automation
 
@@ -118,7 +144,6 @@ The following software will be made available by default on all standard Mac ins
 - Docker CLI
 - 1Password CLI
 - ns
-- nsc
 
 ### Libraries
 

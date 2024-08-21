@@ -70,6 +70,8 @@ type APIAccessTokenCodeAuthorizeMutationPayload {
 All possible scopes on a user's API Access Token
 """
 enum APIAccessTokenScopes {
+  DELETE_PACKAGES
+  DELETE_REGISTRIES
   GRAPHQL
   READ_AGENTS
   READ_ARTIFACTS
@@ -79,10 +81,13 @@ enum APIAccessTokenScopes {
   READ_JOB_ENV
   READ_NOTIFICATION_SERVICES
   READ_ORGANIZATIONS
+  READ_PACKAGES
   READ_PIPELINES
   READ_PIPELINE_TEMPLATES
+  READ_REGISTRIES
   READ_SUITES
   READ_TEAMS
+  READ_TEST_PLAN
   READ_USER
   WRITE_AGENTS
   WRITE_ARTIFACTS
@@ -90,10 +95,13 @@ enum APIAccessTokenScopes {
   WRITE_BUILD_LOGS
   WRITE_CLUSTERS
   WRITE_NOTIFICATION_SERVICES
+  WRITE_PACKAGES
   WRITE_PIPELINES
   WRITE_PIPELINE_TEMPLATES
+  WRITE_REGISTRIES
   WRITE_SUITES
   WRITE_TEAMS
+  WRITE_TEST_PLAN
 }
 
 """
@@ -840,6 +848,7 @@ enum AuditEventType {
   CLUSTER_TOKEN_DELETED
   CLUSTER_TOKEN_UPDATED
   CLUSTER_UPDATED
+  JOB_TERMINAL_SESSION_STARTED
   NOTIFICATION_SERVICE_BROKEN
   NOTIFICATION_SERVICE_CREATED
   NOTIFICATION_SERVICE_DELETED
@@ -852,6 +861,8 @@ enum AuditEventType {
   ORGANIZATION_BUILD_EXPORT_UPDATED
   ORGANIZATION_CREATED
   ORGANIZATION_DELETED
+  ORGANIZATION_IMPERSONATION_REQUEST_APPROVED
+  ORGANIZATION_IMPERSONATION_REQUEST_REVOKED
   ORGANIZATION_INVITATION_ACCEPTED
   ORGANIZATION_INVITATION_CREATED
   ORGANIZATION_INVITATION_RESENT
@@ -873,6 +884,12 @@ enum AuditEventType {
   PIPELINE_UPDATED
   PIPELINE_VISIBILITY_CHANGED
   PIPELINE_WEBHOOK_URL_ROTATED
+  REGISTRY_CREATED
+  REGISTRY_DELETED
+  REGISTRY_TOKEN_CREATED
+  REGISTRY_TOKEN_DELETED
+  REGISTRY_TOKEN_UPDATED
+  REGISTRY_UPDATED
   SCM_PIPELINE_SETTINGS_CREATED
   SCM_PIPELINE_SETTINGS_DELETED
   SCM_PIPELINE_SETTINGS_UPDATED
@@ -892,8 +909,13 @@ enum AuditEventType {
   SSO_PROVIDER_DISABLED
   SSO_PROVIDER_ENABLED
   SSO_PROVIDER_UPDATED
+  STORAGE_CREATED
+  SUBSCRIPTION_PLAN_ADDED
+  SUBSCRIPTION_PLAN_CANCELATION_SCHEDULED
+  SUBSCRIPTION_PLAN_CANCELED
   SUBSCRIPTION_PLAN_CHANGED
   SUBSCRIPTION_PLAN_CHANGE_SCHEDULED
+  SUBSCRIPTION_SCHEDULED_PLAN_CHANGE_CANCELED
   SUITE_API_TOKEN_REGENERATED
   SUITE_CREATED
   SUITE_DELETED
@@ -910,6 +932,9 @@ enum AuditEventType {
   TEAM_PIPELINE_CREATED
   TEAM_PIPELINE_DELETED
   TEAM_PIPELINE_UPDATED
+  TEAM_REGISTRY_CREATED
+  TEAM_REGISTRY_DELETED
+  TEAM_REGISTRY_UPDATED
   TEAM_SUITE_CREATED
   TEAM_SUITE_DELETED
   TEAM_SUITE_UPDATED
@@ -920,6 +945,7 @@ enum AuditEventType {
   USER_EMAIL_DELETED
   USER_EMAIL_MARKED_PRIMARY
   USER_EMAIL_VERIFIED
+  USER_IMPERSONATED
   USER_PASSWORD_RESET
   USER_PASSWORD_RESET_REQUESTED
   USER_TOTP_ACTIVATED
@@ -961,7 +987,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | Email | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -975,14 +1001,18 @@ enum AuditSubjectType {
   CLUSTER_QUEUE
   CLUSTER_QUEUE_TOKEN
   CLUSTER_TOKEN
+  JOB
   NOTIFICATION_SERVICE
   ORGANIZATION
   ORGANIZATION_BANNER
+  ORGANIZATION_IMPERSONATION_REQUEST
   ORGANIZATION_INVITATION
   ORGANIZATION_MEMBER
   PIPELINE
   PIPELINE_SCHEDULE
   PIPELINE_TEMPLATE
+  REGISTRY
+  REGISTRY_TOKEN
   SCM_PIPELINE_SETTINGS
   SCM_REPOSITORY_HOST
   SCM_SERVICE
@@ -994,6 +1024,7 @@ enum AuditSubjectType {
   TEAM
   TEAM_MEMBER
   TEAM_PIPELINE
+  TEAM_REGISTRY
   TEAM_SUITE
   USER
   USER_EMAIL
@@ -2937,6 +2968,42 @@ type JobEventRetried implements JobEvent & Node {
 }
 
 """
+An event created when job fails to retry
+"""
+type JobEventRetryFailed implements JobEvent & Node {
+  """
+  The actor that caused this event to occur
+  """
+  actor: JobEventActor!
+  id: ID!
+
+  """
+  The job that this event belongs to
+  """
+  job: JobTypeCommand!
+
+  """
+  The reason why the job was unable to be retried
+  """
+  retryFailedReason: String!
+
+  """
+  The time when the event occurred
+  """
+  timestamp: DateTime!
+
+  """
+  The type of event
+  """
+  type: JobEventType!
+
+  """
+  The public UUID for this job event
+  """
+  uuid: ID!
+}
+
+"""
 The reason why a signal was sent to the job's process, or why the process did not start
 """
 enum JobEventSignalReason {
@@ -3101,6 +3168,11 @@ enum JobEventType {
   The Job was retried either automatically or by a user
   """
   RETRIED
+
+  """
+  The Job was unable to be retried
+  """
+  RETRY_FAILED
 
   """
   The Job was scheduled
@@ -4389,6 +4461,26 @@ type Mutation {
   ): PipelineUpdatePayload
 
   """
+  Create a rule.
+  """
+  ruleCreate(
+    """
+    Parameters for RuleCreate
+    """
+    input: RuleCreateInput!
+  ): RuleCreatePayload
+
+  """
+  Delete a rule.
+  """
+  ruleDelete(
+    """
+    Parameters for RuleDelete
+    """
+    input: RuleDeleteInput!
+  ): RuleDeletePayload
+
+  """
   Create a SSO provider.
   """
   ssoProviderCreate(
@@ -4517,6 +4609,36 @@ type Mutation {
     """
     input: TeamPipelineUpdateInput!
   ): TeamPipelineUpdatePayload
+
+  """
+  Add a registry to a team.
+  """
+  teamRegistryCreate(
+    """
+    Parameters for TeamRegistryCreate
+    """
+    input: TeamRegistryCreateInput!
+  ): TeamRegistryCreatePayload
+
+  """
+  Remove a registry from a team.
+  """
+  teamRegistryDelete(
+    """
+    Parameters for TeamRegistryDelete
+    """
+    input: TeamRegistryDeleteInput!
+  ): TeamRegistryDeletePayload
+
+  """
+  Update a registry's access level within a team.
+  """
+  teamRegistryUpdate(
+    """
+    Parameters for TeamRegistryUpdate
+    """
+    input: TeamRegistryUpdateInput!
+  ): TeamRegistryUpdatePayload
 
   """
   Add a suite to a team.
@@ -4997,6 +5119,11 @@ type Organization implements Node {
     concurrency: JobConcurrencySearch
 
     """
+    Filter jobs by the time they finished, format yyyy-mm-dd
+    """
+    finishedAt: DateTime
+
+    """
     Returns the first _n_ elements from the list.
     """
     first: Int
@@ -5149,11 +5276,83 @@ type Organization implements Node {
   public: Boolean!
 
   """
+  Return all the registries the current user has access to for this organization
+  """
+  registries(
+    after: String
+    before: String
+    createdAtFrom: DateTime
+    createdAtTo: DateTime
+    first: Int
+    last: Int
+
+    """
+    Order the registries
+    """
+    order: RegistryOrders = RECENTLY_CREATED
+
+    """
+    Search registries named like the given query case insensitively
+    """
+    search: String
+
+    """
+    Filter the registries by team
+    """
+    team: TeamSelector
+  ): RegistryConnection
+
+  """
   API tokens with access to this organization will be automatically revoked
   after this many seconds of inactivity. A `null` value indicates never revoke
   inactive tokens.
   """
   revokeInactiveTokensAfter: RevokeInactiveTokenPeriod
+
+  """
+  Returns rules for an Organization
+  """
+  rules(
+    """
+    Filter the rules by action
+    """
+    action: [RuleAction!]
+
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+
+    """
+    Order the rules
+    """
+    order: RuleOrder = RECENTLY_CREATED
+
+    """
+    Filter the rules by source type
+    """
+    sourceType: [RuleSourceType!]
+
+    """
+    Filter the rules by target type
+    """
+    targetType: [RuleTargetType!]
+  ): RuleConnection
 
   """
   The slug used to represent the organization in URLs
@@ -5579,6 +5778,17 @@ type OrganizationEnforceTwoFactorAuthenticationForMembersUpdateMutationPayload {
   """
   clientMutationId: String
   organization: Organization!
+}
+
+"""
+A request made by Buildkite to impersonate a user in an organization
+"""
+type OrganizationImpersonationRequest {
+  approvedAt: DateTime
+  createdAt: DateTime
+  duration: String
+  reason: String
+  uuid: String!
 }
 
 """
@@ -6365,6 +6575,11 @@ type Pipeline implements Node {
   archivedBy: User
 
   """
+  The URL for build badge to the show the current build state for a pipeline.
+  """
+  badgeURL: String!
+
+  """
   A branch filter pattern to limit which pushed branches trigger builds on this pipeline.
   """
   branchConfiguration: String
@@ -6518,7 +6733,7 @@ type Pipeline implements Node {
   name: String!
 
   """
-  The next build number in the sequence
+  The next build number
   """
   nextBuildNumber: Int!
   organization: Organization!
@@ -6739,7 +6954,7 @@ input PipelineCreateInput {
   name: String!
 
   """
-  The initial build number to use in the sequence
+  The initial build number to use
   """
   nextBuildNumber: Int
   organizationId: ID!
@@ -7544,7 +7759,7 @@ input PipelineUpdateInput {
   name: String
 
   """
-  The next build number to use in the sequence
+  The next build number to use
   """
   nextBuildNumber: Int
 
@@ -7789,6 +8004,21 @@ type Query {
   ): PipelineTemplate
 
   """
+  Find a registry
+  """
+  registry(
+    """
+    The slug of the registry, prefixed with its organization. i.e. `acme-inc/my-registry`
+    """
+    slug: ID
+
+    """
+    The UUID of the registry
+    """
+    uuid: ID
+  ): Registry
+
+  """
   Find a secret via its uuid. This does not contain the value of the secret or encrypted material.
   """
   secret(
@@ -7867,6 +8097,174 @@ type RecoveryCodeBatch {
 }
 
 """
+A registry
+"""
+type Registry implements Node {
+  """
+  The hex code for the registry navatar background color in the Registries page
+  """
+  color: String
+
+  """
+  The time when the registry was created
+  """
+  createdAt: DateTime
+
+  """
+  The description of the registry
+  """
+  description: String
+
+  """
+  The emoji that will display as a registry navatar in the Registries page
+  """
+  emoji: String
+  id: ID!
+
+  """
+  The name of the registry
+  """
+  name: String!
+  organization: Organization!
+
+  """
+  The slug of the registry
+  """
+  slug: String!
+
+  """
+  Teams associated with this registry
+  """
+  teams(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+
+    """
+    Order the registries returned
+    """
+    order: TeamRegistryOrder = RECENTLY_CREATED
+
+    """
+    Search for teams associated that this registry is assigned to
+    """
+    search: String
+  ): TeamRegistryConnection
+
+  """
+  The time when the registry was updated
+  """
+  updatedAt: DateTime
+
+  """
+  The URL for the registry
+  """
+  url: String!
+  uuid: String!
+}
+
+"""
+The access levels that can be assigned to a registry
+"""
+enum RegistryAccessLevels {
+  """
+  Allow read and push
+  """
+  READ_AND_WRITE
+
+  """
+  Read only
+  """
+  READ_ONLY
+
+  """
+  Allow read, push, delete and management
+  """
+  READ_WRITE_AND_ADMIN
+}
+
+type RegistryConnection implements Connection {
+  count: Int!
+  edges: [RegistryEdge]
+  pageInfo: PageInfo
+}
+
+type RegistryEdge {
+  cursor: String!
+  node: Registry
+}
+
+"""
+The different orders you can sort registries by
+"""
+enum RegistryOrders {
+  """
+  Order by name alphabetically
+  """
+  NAME
+
+  """
+  Order by the most recently created registries first
+  """
+  RECENTLY_CREATED
+
+  """
+  Order by relevance when searching for registries
+  """
+  RELEVANCE
+}
+
+"""
+A registry token
+"""
+type RegistryToken implements Node {
+  """
+  The time when this token was created
+  """
+  createdAt: DateTime
+
+  """
+  The user who created this token
+  """
+  createdBy: User
+
+  """
+  The description of the purpose for this registry token
+  """
+  description: String
+  id: ID!
+  organization: Organization!
+  registry: Registry!
+
+  """
+  The time when this token was last updated
+  """
+  updatedAt: DateTime
+
+  """
+  The user who last updated this token
+  """
+  updatedBy: User
+  uuid: String!
+}
+
+"""
 A repository associated with a pipeline
 """
 type Repository {
@@ -7908,6 +8306,11 @@ type RepositoryProviderBeanstalk implements RepositoryProvider {
   name: String!
 
   """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderBeanstalkSettings
+
+  """
   This URL to the provider’s web interface
   """
   url: String
@@ -7919,6 +8322,21 @@ type RepositoryProviderBeanstalk implements RepositoryProvider {
 }
 
 """
+Settings for a Beanstalk repository.
+"""
+type RepositoryProviderBeanstalkSettings implements RepositoryProviderSettings {
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
+}
+
+"""
 A pipeline's repository is being provided by Bitbucket
 """
 type RepositoryProviderBitbucket implements RepositoryProvider {
@@ -7926,6 +8344,11 @@ type RepositoryProviderBitbucket implements RepositoryProvider {
   The name of the provider
   """
   name: String!
+
+  """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderBitbucketSettings
 
   """
   This URL to the provider’s web interface
@@ -7948,6 +8371,11 @@ type RepositoryProviderBitbucketServer implements RepositoryProvider {
   name: String!
 
   """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderBitbucketServerSettings
+
+  """
   This URL to the provider’s web interface
   """
   url: String
@@ -7956,6 +8384,102 @@ type RepositoryProviderBitbucketServer implements RepositoryProvider {
   The URL to use when setting up webhooks from the provider to trigger Buildkite builds
   """
   webhookUrl: String
+}
+
+"""
+Settings for Bitbucket Server repository
+"""
+type RepositoryProviderBitbucketServerSettings implements RepositoryProviderSettings {
+  """
+  Whether to create builds when branches are pushed.
+  """
+  buildBranches: Boolean!
+
+  """
+  Whether to create builds for commits that are part of a Pull Request.
+  """
+  buildPullRequests: Boolean!
+
+  """
+  Whether to create builds when tags are pushed.
+  """
+  buildTags: Boolean!
+
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
+}
+
+"""
+Settings for a Bitbucket repository.
+"""
+type RepositoryProviderBitbucketSettings implements RepositoryProviderSettings {
+  """
+  Whether to create builds when branches are pushed.
+  """
+  buildBranches: Boolean!
+
+  """
+  Whether to create builds for commits that are part of a Pull Request.
+  """
+  buildPullRequests: Boolean!
+
+  """
+  Whether to create builds when tags are pushed.
+  """
+  buildTags: Boolean!
+
+  """
+  A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
+  """
+  cancelDeletedBranchBuilds: Boolean
+
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
+
+  """
+  Whether to update the status of commits in Bitbucket.
+  """
+  publishCommitStatus: Boolean!
+
+  """
+  Whether to create a separate status for each job in a build, allowing you to
+  see the status of each job directly in Bitbucket.
+  """
+  publishCommitStatusPerStep: Boolean!
+
+  """
+  The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
+  """
+  pullRequestBranchFilterConfiguration: String
+
+  """
+  Whether to limit the creation of builds to specific branches or patterns.
+  """
+  pullRequestBranchFilterEnabled: Boolean!
+
+  """
+  Whether to skip creating a new build if a build for the commit and branch already exists.
+  """
+  skipBuildsForExistingCommits: Boolean
+
+  """
+  Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
+  """
+  skipPullRequestBuildsForExistingCommits: Boolean!
 }
 
 """
@@ -7968,6 +8492,11 @@ type RepositoryProviderCodebase implements RepositoryProvider {
   name: String!
 
   """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderCodebaseSettings
+
+  """
   This URL to the provider’s web interface
   """
   url: String
@@ -7979,6 +8508,192 @@ type RepositoryProviderCodebase implements RepositoryProvider {
 }
 
 """
+Settings for a Codebase repository.
+"""
+type RepositoryProviderCodebaseSettings implements RepositoryProviderSettings {
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
+}
+
+"""
+Settings for a GitHub Enterprise repository.
+"""
+type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSettings {
+  """
+  Whether to create builds when branches are pushed.
+  """
+  buildBranches: Boolean!
+
+  """
+  Whether to create builds for commits that are part of a Pull Request.
+  """
+  buildPullRequests: Boolean!
+
+  """
+  Whether to create builds when tags are pushed.
+  """
+  buildTags: Boolean!
+
+  """
+  A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
+  """
+  cancelDeletedBranchBuilds: Boolean!
+
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
+
+  """
+  Whether to update the status of commits in Bitbucket or GitHub.
+  """
+  publishCommitStatus: Boolean!
+
+  """
+  Whether to create a separate status for each job in a build, allowing you to
+  see the status of each job directly in GitHub.
+  """
+  publishCommitStatusPerStep: Boolean!
+
+  """
+  The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
+  """
+  pullRequestBranchFilterConfiguration: String
+
+  """
+  Whether to limit the creation of builds to specific branches or patterns.
+  """
+  pullRequestBranchFilterEnabled: Boolean!
+
+  """
+  Whether to skip creating a new build if a build for the commit and branch already exists.
+  """
+  skipBuildsForExistingCommits: Boolean!
+
+  """
+  Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
+  """
+  skipPullRequestBuildsForExistingCommits: Boolean!
+}
+
+"""
+Settings for a GitHub repository.
+"""
+type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
+  """
+  Whether to create builds when branches are pushed.
+  """
+  buildBranches: Boolean!
+
+  """
+  Whether to create builds for pull requests from third-party forks.
+  """
+  buildPullRequestForks: Boolean!
+
+  """
+  Whether to create builds for pull requests when labels are added or removed.
+  """
+  buildPullRequestLabelsChanged: Boolean!
+
+  """
+  Whether to create builds for pull requests that are ready for review.
+  """
+  buildPullRequestReadyForReview: Boolean!
+
+  """
+  Whether to create builds for commits that are part of a Pull Request.
+  """
+  buildPullRequests: Boolean!
+
+  """
+  Whether to create builds when tags are pushed.
+  """
+  buildTags: Boolean!
+
+  """
+  A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
+  """
+  cancelDeletedBranchBuilds: Boolean!
+
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
+
+  """
+  Prefix branch names for third-party fork builds to ensure they don't trigger
+  branch conditions. For example, the main branch from some-user will become
+  some-user:main.
+  """
+  prefixPullRequestForkBranchNames: Boolean!
+
+  """
+  The status to use for blocked builds. Pending can be used with required status
+  checks to prevent merging pull requests with blocked builds.
+  """
+  publishBlockedAsPending: Boolean!
+
+  """
+  Whether to update the status of commits in Bitbucket or GitHub.
+  """
+  publishCommitStatus: Boolean!
+
+  """
+  Whether to create a separate status for each job in a build, allowing you to
+  see the status of each job directly in GitHub.
+  """
+  publishCommitStatusPerStep: Boolean!
+
+  """
+  The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
+  """
+  pullRequestBranchFilterConfiguration: String
+
+  """
+  Whether to limit the creation of builds to specific branches or patterns.
+  """
+  pullRequestBranchFilterEnabled: Boolean!
+
+  """
+  Whether to create a separate status for pull request builds, allowing you to
+  require a passing pull request build in your required status checks in GitHub.
+  """
+  separatePullRequestStatuses: Boolean!
+
+  """
+  Whether to skip creating a new build if a build for the commit and branch already exists.
+  """
+  skipBuildsForExistingCommits: Boolean!
+
+  """
+  Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
+  """
+  skipPullRequestBuildsForExistingCommits: Boolean!
+
+  """
+  What type of event to trigger builds on.
+  """
+  triggerMode: String!
+}
+
+"""
 A pipeline's repository is being provided by GitHub
 """
 type RepositoryProviderGithub implements RepositoryProvider {
@@ -7986,6 +8701,11 @@ type RepositoryProviderGithub implements RepositoryProvider {
   The name of the provider
   """
   name: String!
+
+  """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderGitHubSettings
 
   """
   This URL to the provider’s web interface
@@ -8008,6 +8728,11 @@ type RepositoryProviderGithubEnterprise implements RepositoryProvider {
   name: String!
 
   """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderGitHubEnterpriseSettings
+
+  """
   This URL to the provider’s web interface
   """
   url: String
@@ -8026,6 +8751,11 @@ type RepositoryProviderGitlab implements RepositoryProvider {
   The name of the provider
   """
   name: String!
+
+  """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderGitlabSettings
 
   """
   This URL to the provider’s web interface
@@ -8048,6 +8778,11 @@ type RepositoryProviderGitlabCommunity implements RepositoryProvider {
   name: String!
 
   """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderGitlabSettings
+
+  """
   This URL to the provider’s web interface
   """
   url: String
@@ -8068,6 +8803,11 @@ type RepositoryProviderGitlabEnterprise implements RepositoryProvider {
   name: String!
 
   """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderGitlabSettings
+
+  """
   This URL to the provider’s web interface
   """
   url: String
@@ -8076,6 +8816,33 @@ type RepositoryProviderGitlabEnterprise implements RepositoryProvider {
   The URL to use when setting up webhooks from the provider to trigger Buildkite builds
   """
   webhookUrl: String
+}
+
+"""
+Settings for a GitLab repository.
+"""
+type RepositoryProviderGitlabSettings implements RepositoryProviderSettings {
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
+}
+
+interface RepositoryProviderSettings {
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
 }
 
 """
@@ -8088,6 +8855,11 @@ type RepositoryProviderUnknown implements RepositoryProvider {
   name: String!
 
   """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderUnknownSettings
+
+  """
   This URL to the provider’s web interface
   """
   url: String
@@ -8096,6 +8868,21 @@ type RepositoryProviderUnknown implements RepositoryProvider {
   The URL to use when setting up webhooks from the provider to trigger Buildkite builds
   """
   webhookUrl: String
+}
+
+"""
+Settings for a repository provided by service unknown to Buildkite
+"""
+type RepositoryProviderUnknownSettings implements RepositoryProviderSettings {
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
 }
 
 """
@@ -8153,6 +8940,186 @@ enum RevokeInactiveTokenPeriod {
   Never revoke organization access from inactive API tokens
   """
   NEVER
+}
+
+type Rule implements Node {
+  """
+  Action for the rule
+  """
+  action: RuleAction
+
+  """
+  User who created the rule
+  """
+  createdBy: User
+
+  """
+  Effect for the rule
+  """
+  effect: RuleEffect
+  id: ID!
+
+  """
+  Name of the rule
+  """
+  name: String!
+  organization: Organization
+
+  """
+  The source for the rule
+  """
+  source: RuleSource
+
+  """
+  Source type for the rule
+  """
+  sourceType: RuleSourceType
+
+  """
+  The target for the rule
+  """
+  target: RuleTarget
+
+  """
+  Target type for the rule
+  """
+  targetType: RuleTargetType
+
+  """
+  The public UUID for the rule
+  """
+  uuid: ID!
+}
+
+"""
+The action a rule enforces
+"""
+enum RuleAction {
+  """
+  Artifacts read
+  """
+  ARTIFACTS_READ
+
+  """
+  Trigger build
+  """
+  TRIGGER_BUILD
+}
+
+type RuleConnection implements Connection {
+  count: Int!
+  edges: [RuleEdge]
+  pageInfo: PageInfo
+}
+
+"""
+Autogenerated input type of RuleCreate
+"""
+input RuleCreateInput {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+
+  """
+  Rule name
+  """
+  name: String!
+  organizationId: ID!
+
+  """
+  Serialised JSON of the attributes for this rule
+  """
+  value: JSON!
+}
+
+"""
+Autogenerated return type of RuleCreate.
+"""
+type RuleCreatePayload {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+  rule: Rule!
+}
+
+"""
+Autogenerated input type of RuleDelete
+"""
+input RuleDeleteInput {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+  id: ID!
+  organizationId: ID!
+}
+
+"""
+Autogenerated return type of RuleDelete.
+"""
+type RuleDeletePayload {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+  deletedRuleId: ID!
+}
+
+type RuleEdge {
+  cursor: String!
+  node: Rule
+}
+
+"""
+The effect a rule has
+"""
+enum RuleEffect {
+  """
+  Allow
+  """
+  ALLOW
+}
+
+"""
+The different orders you can sort rules by
+"""
+enum RuleOrder {
+  """
+  Order by the most recently created rules first
+  """
+  RECENTLY_CREATED
+}
+
+"""
+Kinds of sources for a rule
+"""
+union RuleSource = Pipeline
+
+"""
+The source type for a rule
+"""
+enum RuleSourceType {
+  """
+  Pipeline
+  """
+  PIPELINE
+}
+
+"""
+Kinds of targets for a rule
+"""
+union RuleTarget = Pipeline
+
+"""
+The target type for a rule
+"""
+enum RuleTargetType {
+  """
+  Pipeline
+  """
+  PIPELINE
 }
 
 type SCMPipelineSettings {
@@ -9605,6 +10572,21 @@ type Team implements Node {
   privacy: TeamPrivacy!
 
   """
+  Registries associated with this team
+  """
+  registries(
+    after: String
+    before: String
+    first: Int
+    last: Int
+
+    """
+    Order the registries returned
+    """
+    order: TeamRegistryOrder = RECENTLY_CREATED
+  ): TeamRegistryConnection
+
+  """
   The slug of the team
   """
   slug: String!
@@ -9937,6 +10919,11 @@ type TeamPermissions {
   teamPipelineCreate: Permission
 
   """
+  Whether the user can add registries from other teams to this one
+  """
+  teamRegistryCreate: Permission
+
+  """
   Whether the user can add suites from other teams to this one
   """
   teamSuiteCreate: Permission
@@ -10122,6 +11109,178 @@ enum TeamPrivacy {
   Visible to all members of the organization
   """
   VISIBLE
+}
+
+"""
+A registry that's been assigned to a team
+"""
+type TeamRegistry implements Node {
+  """
+  The access level users have to this registry
+  """
+  accessLevel: RegistryAccessLevels!
+
+  """
+  The time when the registry was added
+  """
+  createdAt: DateTime!
+
+  """
+  The user that added this registry to the team
+  """
+  createdBy: User
+  id: ID!
+  permissions: TeamRegistryPermissions!
+
+  """
+  The registry associated with this team member
+  """
+  registry: Registry
+
+  """
+  The team associated with this team member
+  """
+  team: Team
+
+  """
+  The time when the assignment was last updated
+  """
+  updatedAt: DateTime!
+
+  """
+  The user that last updated this assignment
+  """
+  updatedBy: User
+
+  """
+  The public UUID for this team registry
+  """
+  uuid: String!
+}
+
+"""
+A collection of TeamRegistry records
+"""
+type TeamRegistryConnection implements Connection {
+  count: Int!
+  edges: [TeamRegistryEdge]
+  pageInfo: PageInfo
+}
+
+"""
+Autogenerated input type of TeamRegistryCreate
+"""
+input TeamRegistryCreateInput {
+  accessLevel: RegistryAccessLevels = READ_ONLY
+
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+  registryID: ID!
+  teamID: ID!
+}
+
+"""
+Autogenerated return type of TeamRegistryCreate.
+"""
+type TeamRegistryCreatePayload {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+  registry: Registry
+  team: Team
+  teamRegistry: TeamRegistry
+  teamRegistryEdge: TeamRegistryEdge
+}
+
+"""
+Autogenerated input type of TeamRegistryDelete
+"""
+input TeamRegistryDeleteInput {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+  force: Boolean
+  id: ID!
+}
+
+"""
+Autogenerated return type of TeamRegistryDelete.
+"""
+type TeamRegistryDeletePayload {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+  deletedTeamRegistryID: ID!
+  team: Team
+}
+
+type TeamRegistryEdge {
+  cursor: String!
+  node: TeamRegistry
+}
+
+"""
+The different orders you can sort team registries by
+"""
+enum TeamRegistryOrder {
+  """
+  Order by name alphabetically
+  """
+  NAME
+
+  """
+  Order by the most recently added registries first
+  """
+  RECENTLY_CREATED
+
+  """
+  Order by most relevant results when doing a search
+  """
+  RELEVANCE
+}
+
+"""
+Permission information about what actions the current user can do against the team registries
+"""
+type TeamRegistryPermissions {
+  """
+  Whether the user can delete the registry from the team
+  """
+  teamRegistryDelete: Permission
+
+  """
+  Whether the user can update the registry connection to the team
+  """
+  teamRegistryUpdate: Permission
+}
+
+"""
+Autogenerated input type of TeamRegistryUpdate
+"""
+input TeamRegistryUpdateInput {
+  accessLevel: RegistryAccessLevels!
+
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+  id: ID!
+}
+
+"""
+Autogenerated return type of TeamRegistryUpdate.
+"""
+type TeamRegistryUpdatePayload {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+  teamRegistry: TeamRegistry!
 }
 
 """

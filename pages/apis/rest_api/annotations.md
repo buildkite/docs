@@ -69,7 +69,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -d '{
     "body": "Hello world!",
     "style": "info",
-    "priority" : 10,
+    "priority": 5,
     "context": "greeting"
   }'
 ```
@@ -79,7 +79,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "id": "018b8d10-6b5b-4df2-b0ff-dfa2af566050",
   "context": "greeting",
   "style": "info",
-  "priority" : 10,
+  "priority": 5,
   "body_html": "<p>Hello world!</p>\n",
   "created_at": "2023-11-01T22:45:45.435Z",
   "updated_at": "2023-11-01T22:45:45.435Z"
@@ -109,6 +109,13 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>
       The style of the annotation. Can be <code>success</code>, <code>info</code>, <code>warning</code> or <code>error</code>.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>"info"</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>priority</code></th>
+    <td>
+      The priority of the annotation (`1` to `10`). Annotations with a priority of `10` are shown first, while annotations with a priority of `1` are shown last. When this option is not specified, annotations have a default priority of `3`.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>5</code></p>
     </td>
   </tr>
   <tr>

@@ -1,4 +1,130 @@
 steps:
+  - label: ":spider: muffet"
+    # We need to wait until rails has started before running muffet as otherwise it will error out
+    # and the test will appear to have failed without having run. The time to wait is hard to
+    # predict, and furthermore, some paths take longer to be be ready than others. The path in this
+    # loop was chosen after some non-systematic observations. So it does not guarantee that the
+    # server will be ready. But it seems to work well in practice.
+    command: >-
+      while ! wget --spider -Sq http://app:3000/docs/agent/v3/hooks;
+        do echo 💎🛤️🦥 Rails is still starting;
+        sleep 0.5;
+      done &&
+      echo 💎🛤️🚆 Rails has started running &&
+      /muffet http://app:3000/docs \
+        --include="/docs/" \
+        --exclude="https://github.com/buildkite/docs/" \
+        --exclude="buildkite.com/docs" \
+        --max-connections=10 \
+        --color=always
+    env:
+      RAILS_ENV: production
+    agents:
+      queue: hosted
+    plugins:
+      - docker-compose#v3.9.0:
+          run: muffet
+          shell: false
+          upload-container-logs: always
+          env:
+            - RAILS_ENV
+
+  - label: ":graphql: Check generated code is up to date"
+    command: bundle exec rake graphql:generate
+    agents:
+      queue: hosted
+    plugins:
+      - docker-compose#v3.9.0:
+          run: app
+          dependencies: false
+      - .buildkite/plugins/check-for-changes:
+          fail_message: "Generated code is out of date. Run `bundle exec rake graphql:generate` and commit the changes."
+
+  - group: "Lint all the things"
+    key: linting
+    steps:
+      - label: ":prettier: Lint assets"
+        commands:
+          - yarn
+          - npm run prettier-check
+        agents:
+          queue: hosted
+        plugins:
+          - aws-assume-role-with-web-identity#v1.0.0:
+              role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
+          - ecr#v2.9.0:
+              login: true
+              account-ids: public.ecr.aws
+          - docker#v3.7.0:
+              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
+
+      - label: ":lint-roller: Linting text and markdown"
+        agents:
+          queue: hosted
+        plugins:
+          - docker-compose#v3.9.0:
+              run: vale
+              config: ./vale/docker-compose.yml
+
+      - label: ":lint-roller: Linting for insensitive words"
+        command: npm run lint -y
+        agents:
+          queue: hosted
+        plugins:
+          - aws-assume-role-with-web-identity#v1.0.0:
+              role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
+          - ecr#v2.9.0:
+              login: true
+              account-ids: public.ecr.aws
+          # Using the plain Node image, instead of the custom doc Dockerfile
+          # version, is way faster because we don't have to wait for Ruby gems to
+          # install.
+          - docker#v3.7.0:
+              # Alpine 3.14 - EOS 01 May 2023
+              # lts = Node 1415.1 - 2023-04-30
+              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
+
+      - label: "Validate YAML"
+        command:
+          - npm run -y validate-agent-attributes-yaml
+          - npm run -y validate-environment-variables-yaml
+        agents:
+          queue: hosted
+        plugins:
+          - aws-assume-role-with-web-identity#v1.0.0:
+              role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
+          - ecr#v2.9.0:
+              login: true
+              account-ids: public.ecr.aws
+          - docker#v3.7.0:
+              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
+
+      - label: ":lint-roller: :markdown: Linting the Markdown"
+        command: npm run -y mdlint
+        agents:
+          queue: hosted
+        plugins:
+          - aws-assume-role-with-web-identity#v1.0.0:
+              role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
+          - ecr#v2.9.0:
+              login: true
+              account-ids: public.ecr.aws
+          - docker#v3.7.0:
+              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
+
+      - label: ":snake: Linting markdown files for snake case"
+        command: npx -y @ls-lint/ls-lint@2.1.0
+        agents:
+          queue: hosted
+        plugins:
+          - aws-assume-role-with-web-identity#v1.0.0:
+              role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
+          - ecr#v2.9.0:
+              login: true
+              account-ids: public.ecr.aws
+          - docker#v3.7.0:
+              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
+
   - label: ":rspec: RSpec"
     depends_on: linting
     command: bundle exec rspec
@@ -6,6 +132,8 @@ steps:
     key: "rspec"
     env:
       RAILS_ENV: test
+    agents:
+      queue: hosted
     plugins:
       - docker-compose#v3.9.0:
           run: app
@@ -27,41 +155,17 @@ steps:
     key: "assets"
     env:
       RAILS_ENV: production
+    agents:
+      queue: hosted
     plugins:
       - docker-compose#v3.9.0:
           build: app
 
-  - label: ":spider: muffet"
-    # We need to wait until rails has started before running muffet as otherwise it will error out
-    # and the test will appear to have failed without having run. The time to wait is hard to
-    # predict, and furthermore, some paths take longer to be be ready than others. The path in this
-    # loop was chosen after some non-systematic observations. So it does not guarantee that the
-    # server will be ready. But it seems to work well in practice.
-    command: >-
-      while ! wget --spider -Sq http://app:3000/docs/agent/v3/hooks;
-        do echo 💎🛤️🦥 Rails is still starting;
-        sleep 0.5;
-      done &&
-      echo 💎🛤️🚆 Rails has started running &&
-      /muffet http://app:3000/docs \
-        --include="/docs/" \
-        --exclude="https://github.com/buildkite/docs/" \
-        --exclude="buildkite.com/docs" \
-        --max-connections=10 \
-        --color=always
-    env:
-      RAILS_ENV: production
-    plugins:
-      - docker-compose#v3.9.0:
-          run: muffet
-          shell: false
-          upload-container-logs: always
-          env:
-            - RAILS_ENV
-
   - label: ":junit: Test Summary"
     depends_on: "rspec"
     allow_dependency_failure: true
+    agents:
+      queue: hosted
     plugins:
       - bugcrowd/test-summary#v1.11.0:
           inputs:
@@ -71,51 +175,3 @@ steps:
           formatter:
             type: details
           context: test-summary
-
-  - group: "Lint all the things"
-    key: linting
-    steps:
-      - label: ":prettier: Lint assets"
-        commands:
-          - yarn
-          - npm run prettier-check
-        plugins:
-          - docker#v3.7.0:
-              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
-
-      - label: ":lint-roller: Linting text and markdown"
-        plugins:
-          - docker-compose#v3.9.0:
-              run: vale
-              config: ./vale/docker-compose.yml
-
-      - label: ":lint-roller: Linting for insensitive words"
-        command: npm run lint -y
-        plugins:
-          # Using the plain Node image, instead of the custom doc Dockerfile
-          # version, is way faster because we don't have to wait for Ruby gems to
-          # install.
-          - docker#v3.7.0:
-              # Alpine 3.14 - EOS 01 May 2023
-              # lts = Node 1415.1 - 2023-04-30
-              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
-
-      - label: "Validate YAML"
-        command:
-          - npm run -y validate-agent-attributes-yaml
-          - npm run -y validate-environment-variables-yaml
-        plugins:
-          - docker#v3.7.0:
-              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
-
-      - label: ":lint-roller: :markdown: Linting the Markdown"
-        command: npm run -y mdlint
-        plugins:
-          - docker#v3.7.0:
-              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
-
-      - label: ":snake: Linting markdown files for snake case"
-        command: npx -y @ls-lint/ls-lint@2.1.0
-        plugins:
-          - docker#v3.7.0:
-              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [ -n "$(git status --porcelain)" ]; then
+  echo $BUILDKITE_PLUGIN_CHECK_FOR_CHANGES_FAIL_MESSAGE
+  exit 1
+fi

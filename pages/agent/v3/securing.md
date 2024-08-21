@@ -1,12 +1,14 @@
 # Securing your Buildkite Agent
 
-In cases where a Buildkite Agent is being deployed into a sensitive environment there are a few default settings and techniques which may be adjusted.
+In cases where a Buildkite Agent is being deployed into a sensitive environment, there are a few default settings which may be adjusted and techniques that may be used.
 
 ## Securely storing secrets
 
-For best practices and recommendations about secret storage in the Agent, see the [Managing secrets](/docs/pipelines/secrets) guide.
+For best practices and recommendations about secret storage in the Agent, see [Managing pipeline secrets](/docs/pipelines/security/secrets/managing).
 
-## Disabling automatic ssh-keyscan
+Learn more about other secrets management approaches in Buildkite on the [Secrets overview](/docs/pipelines/security/secrets) page.
+
+## Disable automatic ssh-keyscan
 
 By default the agent will automatically accept the Git SSH host using the `ssh-keyscan` command when doing the first checkout on a new agent host. The agent runs a similar command to this:
 
@@ -18,11 +20,40 @@ If you choose to disable this functionality, you'll need to manually perform you
 
 Automatic ssh-keyscan can be disabled by setting [`no-ssh-keyscan`](/docs/agent/v3/configuration#no-ssh-keyscan):
 
-* Environment variable: `BUILDKITE_NO_SSH_KEYSCAN=true`
-* Command line flag: `--no-ssh-keyscan`
-* Configuration setting: `no-ssh-keyscan=true`
+- Environment variable: `BUILDKITE_NO_SSH_KEYSCAN=true`
+- Command line flag: `--no-ssh-keyscan`
+- Configuration setting: `no-ssh-keyscan=true`
 
-## Disabling command eval
+## Restrict access by the Buildkite agent controller
+
+To safeguard your organization's infrastructure in case of Buildkite infrastructure being compromised, you want to restrict what the agent can and cannot do. All of the information above about securing the Buildkite agent applies, specifically:
+
+- Disallow execution of arbitrary commands by [customizing the list of allowed plugins](#restrict-access-by-the-buildkite-agent-controller-allow-a-list-of-plugins) or [disabling plugins](#restrict-access-by-the-buildkite-agent-controller-disable-plugins) entirely
+- [Disable command evaluation](#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation)
+- [Disable local hooks](#restrict-access-by-the-buildkite-agent-controller-disable-local-hooks)
+- [Enable strict validation](#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook)
+
+As a result, your Buildkite agent will refuse to run anything that's not a single argumentless invocation of a script that exists locally (after the `git clone` step of the setup) unless it's explicitly allowed by you.
+Since the [agent](https://github.com/buildkite/agent) is open-source, if necessary you can verify that assertion to whatever degree of certainty is required.
+
+### Allow a list of plugins
+
+Defining an [environment hook](hooks#job-lifecycle-hooks) in the
+[agent `hooks-path`](hooks#hook-locations-agent-hooks), you can create a
+list of plugins that an agent is allowed to run by inspecting the
+`BUILDKITE_PLUGINS` [environment variable](https://buildkite.com/docs/pipelines/environment-variables).
+For an example of this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example)
+repository on GitHub.
+
+### Disable plugins
+
+As plugins execute in the same way as local hooks, they can pose a potential security risk. If you're using third party plugins, you'll be executing the third party's code on your agent.
+
+You can disable plugins with the command line flag: `--no-plugins` or the [`no-plugins`](/docs/agent/v3/configuration#no-plugins) setting.
+
+If you still want to use plugins, you can check out a tool for [signing pipelines](/docs/agent/v3/securing#sign-pipelines).
+
+### Disable command evaluation
 
 By default the agent allows you to run any command on the build server (for example, `make test`). You can disable command evaluation and allow only the execution of scripts (with no ability to pass command line flags). Disabling command evaluation will also disable plugin execution.
 
@@ -31,25 +62,18 @@ Once disabled your build steps will need to be checked into your repository as s
 
 This option is intended to protect your infrastructure from a scenario where Buildkite itself gets compromised, and subsequently sends malicious commands to your agents. It is not designed, nor effective at protecting against malicious actors with commit access to your repositories.
 
-
 Command line evaluation can be disabled by setting [`no-command-eval`](/docs/agent/v3/configuration#no-command-eval):
 
-* Environment variable: `BUILDKITE_NO_COMMAND_EVAL=1`
-* Command line flag: `--no-command-eval`
-* Configuration setting: `no-command-eval=true`
+- Environment variable: `BUILDKITE_NO_COMMAND_EVAL=1`
+- Command line flag: `--no-command-eval`
+- Configuration setting: `no-command-eval=true`
 
->🚧 Custom hooks
-> If you have a custom <code>command</code> hook, using <code>no-command-eval</code> will have no effect on your command execution. See <a href="#allowing-a-list-of-plugins">Allowing a list of plugins</a> and <a href="#customizing-the-bootstrap">Custom bootstrap scripts</a> for examples of how to completely lock down your agent from arbitrary code execution.
+> 🚧 Custom hooks and environment variables
+> If you have a custom `command` hook, using `no-command-eval` will have no effect on your command execution. See [Allowing a list of plugins](#restrict-access-by-the-buildkite-agent-controller-allow-a-list-of-plugins) and [Custom bootstrap scripts](#customize-the-bootstrap) for examples of how to completely lock down your agent from arbitrary code execution.
+> <p>
+> Using `no-command-eval` only prevents command evaluation by the agent itself. Other programs such as build or test tools that run during the job could be influenced into executing arbitrary commands via environment variables (for example, `BASH_ENV` or `GIT_SSH_COMMAND`). See [Strict checks using a pre-bootstrap hook](#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook) and [`enable-environment-variable-allowlist`](/docs/agent/v3/cli-start#enable-environment-variable-allowlist) for possible approaches to filtering environment variables.
 
-## Disabling plugins
-
-As plugins execute in the same way as local hooks, they can pose a potential security risk. If you're using third party plugins, you'll be executing the third party's code on your agent.
-
-You can disable plugins with the command line flag: `--no-plugins` or the [`no-plugins`](/docs/agent/v3/configuration#no-plugins) setting.
-
-If you still want to use plugins, you can check out a tool for [signing pipelines](/docs/agent/v3/securing#signing-pipelines).
-
-## Disabling local hooks
+### Disable local hooks
 
 Local hooks are hooks defined in pipeline's repository.
 
@@ -66,7 +90,7 @@ If local hooks are disabled and one is in the checkout, the job will fail.
 >🚧 Building untrusted commits
 >If you build untrusted commits, be careful to contain the build scripts and anything else that may be influenced by the repository contents within chroots, containers, VMs, etc as is appropriate for your needs.
 
-## Strict checks using a pre-bootstrap hook
+### Strict checks using a pre-bootstrap hook
 
 You can use a [`pre-bootstrap` hook](hooks#agent-lifecycle-hooks) to add strict
 checks for which repositories, commands, and plugins are allowed to run on your
@@ -117,20 +141,11 @@ fi
 
 But also remember that some [environment variables may be essential](/docs/pipelines/environment-variables) to the execution of jobs, so adding them to a blocklist in this manner is not advisable.
 
-## Signing pipelines
+## Sign pipelines
 
 You can sign the steps your pipeline runs for extra security. This allows the agent to verify that the steps it runs haven't been tampered with or smuggled from one pipeline to another. For more information, see [Signed pipelines](/docs/agent/v3/signed-pipelines).
 
-## Allowing a list of plugins
-
-Defining an [environment hook](hooks#job-lifecycle-hooks) in the
-[agent `hooks-path`](hooks#hook-locations-agent-hooks), you can create a
-list of plugins that an agent is allowed to run by inspecting the
-`BUILDKITE_PLUGINS` [environment variable](https://buildkite.com/docs/pipelines/environment-variables).
-For an example of this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example)
-repository on GitHub.
-
-## Customizing the bootstrap
+## Customize the bootstrap
 
 The Buildkite Agent comes with a default bootstrap handler, but can be
 [configured](/docs/agent/v3/configuration#bootstrap-script) to run your own
@@ -160,7 +175,7 @@ echo "Hello world"
 exit 1
 ```
 
-## Forcing clean checkouts
+## Force clean checkouts
 
 By default, Buildkite will reuse (after cleaning) a previous checkout. This may be unsafe if building commits from untrusted sources (for example, third-party pull requests). To force a clean checkout every time, set `BUILDKITE_CLEAN_CHECKOUT=true` in the environment. The following example shows how to enforce a clean checkout at the step level:
 
@@ -174,12 +189,12 @@ steps:
 
 In the logs for this step, you will find a log group called "Cleaning pipeline checkout."
 
-## Running the Agent behind a proxy
+## Run the agent behind a proxy
 
 To run the agent behind a proxy, you'll need to export the following proxy environment variables for your process manager:
 
-* `http_proxy`
-* `https_proxy`
+- `http_proxy`
+- `https_proxy`
 
 Both of these variables should be set to the URL for your proxy server.
 
@@ -196,18 +211,6 @@ Environment=https_proxy=http://username:password@proxyserver:8080/
 {: codeblock-file="proxy.conf"}
 
 After creating this file, systemd will require a reload and the `buildkite-agent` service will require a restart.
-
-## Restricting access by the Buildkite agent controller
-
-To safeguard your organization's infrastructure in case of Buildkite infrastructure being compromised, you want to restrict what the agent can and cannot do. All of the information above about securing the Buildkite agent applies, specifically:
-
-* Disallow execution of arbitrary commands by [customizing the list of allowed plugins](#allowing-a-list-of-plugins) or [disabling plugins](#disabling-plugins) entirely
-* [Disable command-eval](#disabling-command-eval)
-* [Disable local hooks](#disabling-local-hooks)
-* [Enable strict validation](#strict-checks-using-a-pre-bootstrap-hook)
-
-As a result, your Buildkite agent will refuse to run anything that's not a single argumentless invocation of a script that exists locally (after the `git clone` step of the setup) unless it's explicitly allowed by you.
-Since the [agent](https://github.com/buildkite/agent) is open-source, if necessary you can verify that assertion to whatever degree of certainty is required.
 
 ## Restrict agent connection by IP address
 

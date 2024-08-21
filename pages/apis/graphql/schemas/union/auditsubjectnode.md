@@ -64,6 +64,18 @@ Kinds of subjects which can have audit events performed on them
 <a href="/docs/apis/graphql/schemas/object/email" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Email">
   <code>Email</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/jobtypeblock" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobTypeBlock">
+  <code>JobTypeBlock</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/jobtypecommand" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobTypeCommand">
+  <code>JobTypeCommand</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/jobtypetrigger" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobTypeTrigger">
+  <code>JobTypeTrigger</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/jobtypewait" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobTypeWait">
+  <code>JobTypeWait</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/notificationserviceslack" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT NotificationServiceSlack">
   <code>NotificationServiceSlack</code>
 </a>
@@ -75,6 +87,9 @@ Kinds of subjects which can have audit events performed on them
 </a>
 <a href="/docs/apis/graphql/schemas/object/organizationbanner" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationBanner">
   <code>OrganizationBanner</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/organizationimpersonationrequest" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationImpersonationRequest">
+  <code>OrganizationImpersonationRequest</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/organizationinvitation" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationInvitation">
   <code>OrganizationInvitation</code>
@@ -90,6 +105,12 @@ Kinds of subjects which can have audit events performed on them
 </a>
 <a href="/docs/apis/graphql/schemas/object/pipelinetemplate" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineTemplate">
   <code>PipelineTemplate</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/registry" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Registry">
+  <code>Registry</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/registrytoken" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RegistryToken">
+  <code>RegistryToken</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/scmpipelinesettings" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SCMPipelineSettings">
   <code>SCMPipelineSettings</code>
@@ -129,6 +150,9 @@ Kinds of subjects which can have audit events performed on them
 </a>
 <a href="/docs/apis/graphql/schemas/object/teampipeline" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamPipeline">
   <code>TeamPipeline</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/teamregistry" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamRegistry">
+  <code>TeamRegistry</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/teamsuite" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamSuite">
   <code>TeamSuite</code>

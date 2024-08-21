@@ -8,8 +8,7 @@ The Buildkite Agent can be run on AWS using our Elastic CI Stack for AWS
 CloudFormation template, or by installing the agent on your self-managed
 instances.
 
-
-## Using our Elastic CI Stack for AWS CloudFormation template
+## Using the Elastic CI Stack for AWS CloudFormation template
 
 The [Elastic CI Stack for AWS](/docs/agent/v3/elastic-ci-aws/elastic-ci-stack-overview) is a
 CloudFormation template for an autoscaling Buildkite Agent cluster. The
@@ -22,6 +21,14 @@ integration tests, or perform any AWS ops related tasks.
 You can launch an instance of the Elastic CI Stack for AWS from your
 organization's [Agents page](http://buildkite.com/organizations/-/agents) or
 the [GitHub repository](https://github.com/buildkite/elastic-ci-stack-for-aws).
+
+## Using the Buildkite Agent Stack for Kubernetes on AWS
+
+The Buildkite Agent's jobs can be run within a Kubernetes cluster on AWS.
+
+Before you start, you will require your own Kubernetes cluster running on AWS. Learn more about this from [Kubernetes on AWS](https://aws.amazon.com/kubernetes/).
+
+Once your Kubernetes cluster is running on AWS, follow the [Buildkite Agent Stack for Kubernetes](https://github.com/buildkite/agent-stack-k8s?tab=readme-ov-file#buildkite-agent-stack-for-kubernetes) instructions to set up the Buildkite Agent stack to run in Kubernetes.
 
 ## Installing the agent on your own AWS instances
 

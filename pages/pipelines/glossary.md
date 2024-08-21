@@ -20,7 +20,9 @@ A build is a single run of a pipeline. You can trigger a build in various ways, 
 
 ## Cluster
 
-A cluster groups queues of agents along with pipelines. They allow teams to self-manage their agent pools, let admins create isolated sets of agents and pipelines within the one Buildkite organization, and help to make agents and queues more discoverable across your organization.
+A cluster groups [queues](#queue) of agents along with pipelines. Clusters allow teams to self-manage their agent pools, let admins create isolated sets of agents and pipelines within the one Buildkite organization, and help to make agents and queues more discoverable across your organization.
+
+To learn more, see the [Clusters overview](/docs/clusters/overview).
 
 ## Dynamic pipeline
 
@@ -40,6 +42,8 @@ To learn more, see [Hooks](/docs/agent/v3/hooks).
 
 A job is the execution of a command step during a build. Jobs run the commands, scripts, or plugins defined in the step.
 
+To learn more, see [Command step](/docs/pipelines/command-step).
+
 ## Pipeline
 
 A pipeline is a container for modeling and defining workflows. They contain a series of steps to achieve goals like building, testing, and deploying software.
@@ -56,9 +60,9 @@ To learn more, see [Plugins](/docs/plugins).
 
 ## Queue
 
-Queues contain jobs waiting to run on an agent. You can configure queues for particular groups of agents, isolating a set of jobs and agents. Typical uses for queues include separating deployment agents and pools of agents for specific pipelines or teams.
+A queue defines agents on which pipeline builds can run their jobs. You can configure queues within a [cluster](#cluster) for particular groups of agents, isolating a set of your pipeline's jobs and the agents they run on. Typical uses for queues include separating deployment agents and pools of agents for specific pipelines or teams.
 
-To learn more, see [Queues](/docs/agent/v3/queues).
+To learn more, see [Manage queues](/docs/clusters/manage-queues) and [Buildkite Agent job queues](/docs/agent/v3/queues).
 
 ## Step
 

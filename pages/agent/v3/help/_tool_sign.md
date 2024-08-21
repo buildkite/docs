@@ -26,6 +26,31 @@ If a token is provided using the `graphql-token` flag, the tool will attempt to 
 pipeline definition and repo using the Buildkite GraphQL API. If `update` is also set, it will
 update the pipeline definition with the signed version using the GraphQL API too.
 
+### Examples
+
+Retrieving the pipeline from the GraphQL API and signing it:
+
+```shell
+$ buildkite-agent tool sign \
+    --graphql-token <graphql token> \
+    --organization-slug <your org slug> \
+    --pipeline-slug <slug of the pipeline whose steps you want to sign \
+    --jwks-file /path/to/private/key.json \
+    --update
+```
+
+Signing a pipeline from a file:
+
+```shell
+$ buildkite-agent tool sign pipeline.yml \
+    --jwks-file /path/to/private/key.json \
+    --repo <repo url for your pipeline>
+# or
+$ cat pipeline.yml | buildkite-agent tool sign \
+    --jwks-file /path/to/private/key.json \
+    --repo <repo url for your pipeline>
+```
+
 ### Options
 
 <!-- vale off -->
@@ -36,8 +61,10 @@ update the pipeline definition with the signed version using the GraphQL API too
 <tr id="no-confirm"><th><code>--no-confirm </code> <a class="Docs__attribute__link" href="#no-confirm">#</a></th><td><p>Show confirmation prompts before updating the pipeline with the GraphQL API.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_TOOL_SIGN_NO_CONFIRM</code></p></td></tr>
 <tr id="jwks-file"><th><code>--jwks-file value</code> <a class="Docs__attribute__link" href="#jwks-file">#</a></th><td><p>Path to a file containing a JWKS.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_JWKS_FILE</code></p></td></tr>
 <tr id="jwks-key-id"><th><code>--jwks-key-id value</code> <a class="Docs__attribute__link" href="#jwks-key-id">#</a></th><td><p>The JWKS key ID to use when signing the pipeline. If none is provided and the JWKS file contains only one key, that key will be used.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_JWKS_KEY_ID</code></p></td></tr>
+<tr id="debug-signing"><th><code>--debug-signing </code> <a class="Docs__attribute__link" href="#debug-signing">#</a></th><td><p>Enable debug logging for pipeline signing. This can potentially leak secrets to the logs as it prints each step in full before signing. Requires debug logging to be enabled<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG_SIGNING</code></p></td></tr>
 <tr id="organization-slug"><th><code>--organization-slug value</code> <a class="Docs__attribute__link" href="#organization-slug">#</a></th><td><p>The organization slug. Required to connect to the GraphQL API.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_ORGANIZATION_SLUG</code></p></td></tr>
 <tr id="pipeline-slug"><th><code>--pipeline-slug value</code> <a class="Docs__attribute__link" href="#pipeline-slug">#</a></th><td><p>The pipeline slug. Required to connect to the GraphQL API.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_PIPELINE_SLUG</code></p></td></tr>
+<tr id="graphql-endpoint"><th><code>--graphql-endpoint value</code> <a class="Docs__attribute__link" href="#graphql-endpoint">#</a></th><td><p>The endpoint for the Buildkite GraphQL API. This is only needed if you are using the the graphql-token flag, and is mostly useful for development purposes (default: "https://graphql.buildkite.com/v1")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_GRAPHQL_ENDPOINT</code></p></td></tr>
 <tr id="repo"><th><code>--repo value</code> <a class="Docs__attribute__link" href="#repo">#</a></th><td><p>The URL of the pipeline's repository, which is used in the pipeline signature. If the GraphQL token is provided, this will be ignored.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_REPO</code></p></td></tr>
 <tr id="no-color"><th><code>--no-color </code> <a class="Docs__attribute__link" href="#no-color">#</a></th><td><p>Don't show colors in logging<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_NO_COLOR</code></p></td></tr>
 <tr id="debug"><th><code>--debug </code> <a class="Docs__attribute__link" href="#debug">#</a></th><td><p>Enable debug mode. Synonym for `--log-level debug`. Takes precedence over `--log-level`<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG</code></p></td></tr>
