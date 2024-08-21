@@ -2,37 +2,39 @@
 
 Pipeline rules is a Buildkite feature used to manage and organize permissions between pipelines and other resources.
 
-## Understanding pipeline rules
-
-Rules express that an action is allowed between two known resources, such as a pipeline. A source and a target are provided, and an action is inferred from the rule. Rules allow you to break out of the defaults.
-
-Pipeline rules encapsulate permissions between resources, enabling the following:
-
-- Rules allow one resource (source) to perform an action on another resource (target)
-- Rules override default permissions, such as team-based access or build creator permissions
-- Each rule defines a one-to-one relationship between resources
-- Define rules using a specific format: `target_type.action.source_type`
-- Only admins can create and access rules as part of the organization settings
+Rules express that an action is allowed between a source resource (eg. a pipeline) and a target resource (eg. another pipeline). Rules allow you to break out of the defaults provided by Buildkite such as cluster boundaries.
 
 ## Pipeline rules best practices
 
 ### How should I use rules?
 
-Use rules to manage explicit permissions between pipelines and other resources. Rules are typically used in tandem with [clusters](/docs/clusters/overview) to increase security and control, where clusters set hard boundaries and rules provide exceptions.
+Use rules to manage permissions between pipelines and other resources. Rules are typically used in tandem with [clusters](/docs/clusters/overview) to increase security and control, where clusters set hard boundaries and rules provide exceptions.
 
-The most common patterns for rule configurations are based on your organization's needs:
+### Available rules
 
-- Cross-cluster pipeline triggering
-- Allowing specific pipelines to access certain secrets (not yet available)
-- Granting test suites access to pipeline artifacts (not yet available)
+#### `pipeline.trigger_build.pipeline` 
 
-You can create as many rules as you require.
+Cross-cluster pipeline triggering (eg. allow a pipeline in one cluster to trigger a pipeline in another cluster).
+
+Value fields:
+
+- `triggering_pipeline_uuid` The UUID of the pipeline that is allowed to trigger another pipeline.
+- `triggered_pipeline_uuid` The UUID of the pipeline that is allowed to be triggered by the `triggering_pipeline_uuid` pipeline.
+
+### `pipeline.artifacts_read.pipeline` Allowing jobs in a pipeline to access artifacts from builds in other pipelines.
+
+Value fields:
+
+- `source_pipeline_uuid` The UUID of the pipeline that is allowed to access artifacts from another pipeline.
+- `target_pipeline_uuid` The UUID of the pipeline that is allowed to have its artifacts accessed by jobs in the `source_pipeline_uuid` pipeline.
 
 ### Example rule use
 
-Imagine you use two clusters to separate environments necessary for building your application and deploying your application. Ordinarily no pipelines in those clusters would be able to trigger each other due to the boundaries of clusters. Creating a rule would allow you to maintain separation of environments and still support separate pipelines for building, testing and deploying.
+Imagine you use two clusters to separate environments necessary for building your application (CI cluster) and deploying your application (CD cluster). Ordinarily pipelines in those clusters would not be able to trigger each other due to the isolation of clusters.
 
-Therefore, an example rule would be:
+Creating a `pipeline.trigger_build.pipeline` rule would allow triggering a pipeline in the CD cluster from a pipeline in the CD cluster. This would allow maintaining the separation of the CI and CD agents and still support triggering the deployment pipeline from the build pipeline.
+
+An example of a rule that allows a pipeline in the CI cluster to trigger a pipeline in the CD cluster:
 
 ```json
 {
@@ -65,12 +67,14 @@ To [create a new rule](/docs/apis/rest-api/clusters#clusters-create-a-cluster) u
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/rules" \
   -H "Content-Type: application/json" \
   -d '{
-    "name": "Open Source",
-    "source": "A place for safely running our open source builds",
-    "target": "\:technologist\:",
+    "rule": "pipeline.trigger_build.pipeline",
+    "value": {
+      "triggering_pipeline_uuid": "{uuid-of-build-pipeline}",
+      "triggered_pipeline_uuid": "{uuid-of-deploy-pipeline}"
+    }
   }'
 ```
 
@@ -80,15 +84,53 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
-- other fields here
+## Using a GraphQL API
 
-### Using the GraphQL API
+To [create a new rule](/docs/apis/graphql-api/rules#rules-create-a-rule) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+
+- organizationId: The organization GraphQL ID. You can find this in the URL of the organization settings page.
+
+- name (required): The name of the rule you want to create. For example, `pipeline.trigger_build.pipeline`.
+
+- value (required): The value of the rule you want to create. This must be a JSON encoded object with fields matching the format of the rule you are creating.
+
+
+```graphql
+mutation {
+  ruleCreate(input: {
+    organizationId: "organization-id",
+    name: "pipeline.trigger_build.pipeline",
+    value: "{\"triggering_pipeline_uuid\":\"{uuid-of-build-pipeline}\",\"triggered_pipeline_uuid\":\"{uuid-of-deploy-pipeline}\"}"
+  }) {
+     rule {
+      id
+      name
+      targetType
+      sourceType
+      source {
+          ... on Pipeline {
+            uuid
+          }
+        }
+      target {
+        ... on Pipeline {
+          uuid
+        }
+      }
+      effect
+      action
+      createdBy {
+        id
+        name
+      }
+    }
+  }
+}
+```
 
 <!-- PR FOR CREATING GRAPHQL RULES https://github.com/buildkite/buildkite/pull/18259 -->
 
 Rules can be filtered by sourceType, targetType, and action.
-
-Only users with `manage_organization_rules` permissions are allowed to list rules.
 
 Example query
 
