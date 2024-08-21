@@ -139,7 +139,7 @@ This information was aggregated by going over the existing screenshots in the do
 
 * **Format:** PNG
 * **Ratio:** arbitrary, but **strictly even number of pixels** for both height and width. Recommended size `width: 1024px, height: 880px` when you're taking a full-width screen
-* **Size:** the largest possible resolution that makes sense. It's preferable that you take the screenshots on a Mac laptop with a Retina screen using Safari. Images should be exported at double (`@2x`) the original screen. Recommended dimension is `width: 2048/2, height: 880/2` to get the best possible view across different screen sizes.
+* **Size:** the largest possible resolution that makes sense. It's preferable that you take the screenshots on a Mac laptop with a Retina or high-resolution display/screen. Recommended dimension is `width: 2048/2, height: 880/2` to get the best possible view across different screen sizes.
 * **No feature flag:** please remember to turn off all experimental features when taking screenshots
 * **Border:** no border
 * **Drop shadow:** no
