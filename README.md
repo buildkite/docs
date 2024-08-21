@@ -104,17 +104,21 @@ bundle exec rake graphql:generate
 
 ## Linting
 
-We spell-check the docs (US English) and run a few automated checks for repeated words, common errors, and markdown and filename inconsistencies.
+The docs (US English) are spell-checked and a few automated checks for repeated words, common errors, and markdown and filename inconsistencies are also run.
 
 You can run most of these checks with `./scripts/vale.sh`.
 
 If you've added a new valid word that showing up as a spelling error, add it to `./vale/styles/vocab.txt`.
 
-## Style guides
+## Contributing and style guides
 
-Our documentation is based on the principles of common sense, clarity, and brevity.
+The Buildkite Docs is based on the principles of common sense, clarity, and brevity.
 
-The [writing](/styleguides/writing-style.md) and [Markdown syntax](/styleguides/markdown-syntax-style.md) style guides should provide you a general idea and an insight into our language and writing style, as well as the Markdown syntax we use (including custom formatting elements).
+Refer to the:
+
+- [Contributing to the Buildkite Docs](CONTRIBUTING.md) guide for details on how to start making a contribution in a new pull request.
+
+- [writing](/styleguides/writing-style.md) and [Markdown syntax](/styleguides/markdown-syntax-style.md) style guides, which should provide a general idea and an insight into the language and writing style used throughout the Buildkite Docs, as well as the Markdown syntax used (including custom formatting elements).
 
 ## Search index
 
@@ -149,9 +153,9 @@ Otherwise, to update the general navigation:
 
 ## Content keywords
 
-We render content keywords in `data-content-keywords` in the `body` tag to highlight the focus keywords of each page with content authors.
+Content keywords are rendered in `data-content-keywords` in the `body` tag to highlight the focus keywords of each page with content authors.
 
-This helps the content team to quickly inspect to see the types of content we're providing across different channels.
+This helps the main documentation contribution team quickly inspect to see the types of content Buildkite provides across different channels.
 
 Keywords are added as [Frontmatter](https://rubygems.org/gems/front_matter_parser) meta data using the `keywords` key, e.g.:
 
