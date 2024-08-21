@@ -1,6 +1,6 @@
 # Contributing to the Buildkite Docs
 
-This guide provides details on how to work with the Buildkite Docs source code, which generates the [Buildkite Docs](https://buildkite.com/docs/) web site.
+This guide provides details on how to work with the Buildkite Docs source code, which generates the [Buildkite Docs](https://buildkite.com/docs/) web site, and make contributions to its content.
 
 Please also note the following style guides, which are relevant to adding content to pages within this site:
 
