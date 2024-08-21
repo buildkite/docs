@@ -1,3 +1,12 @@
+# Contributing to the Buildkite Docs
+
+This guide provides details on how to work with the Buildkite Docs source code, which generates the [Buildkite Docs](https://buildkite.com/docs/) web site.
+
+Please also note the following style guides, which are relevant to adding content to pages within this site:
+
+- [Writing style guide](./styleguides/writing-style.md)
+- [Markdown syntax style guide](./styleguides/markdown-syntax-style.md)
+
 ## Working with the docs site
 
 The Buildkite docs is a custom-built website. This section gives some guidance on working with the setup.
