@@ -8984,6 +8984,11 @@ type Rule implements Node {
   Target type for the rule
   """
   targetType: RuleTargetType
+
+  """
+  The public UUID for the rule
+  """
+  uuid: ID!
 }
 
 """
