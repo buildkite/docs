@@ -123,13 +123,13 @@ At the time of writing, there are only three icons available — agent, reposito
 > [!NOTE]
 > Unlike emojis, these icons are generic and contextual, and they are used as to help readers to better visually differentiate specific terms from the rest of the text.
 
-### Updating vendor\emojis
+### Updating vendor/emojis
 
-From time to time, you will start seeing an update to `vendor\emojis` submodule as a default initial file change in every new branch you create. This happens because these new branches will have an older version of the emoji submodule than the main branch.
+From time to time, you will start seeing an update to `vendor/emojis` submodule as a default initial file change in every new branch you create. This happens because these new branches will have an older version of the emoji submodule than the main branch.
 
-**Do not commit the `vendor\emojis` commit!** Instead, run `git submodule update`. This will take care of the emoji commit - until your local emoji submodule version falls behind again. Then you will need to run `git submodule update` for your local Docs repository again.
+**Do not commit the `vendor/emojis` commit!** Instead, run `git submodule update`. This will take care of the emoji commit - until your local emoji submodule version falls behind again. Then you will need to run `git submodule update` for your local Docs repository again.
 
-If you do accidentally commit the `vendor\emojis` update, use `git reset --soft HEAD~1` to undo your last commit, un-stage the erroneous submodule change, and commit again.
+If you do accidentally commit the `vendor/emojis` update, use `git reset --soft HEAD~1` to undo your last commit, un-stage the erroneous submodule change, and commit again.
 
 ## Screenshots
 
