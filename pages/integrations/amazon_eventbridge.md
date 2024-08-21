@@ -171,7 +171,14 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
+  "version": "0",
+  "id": "bb57638d-a095-48da-e507-dc07e4d9a7cf",
   "detail-type": "Build Created",
+  "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
+  "account": "123123123123",
+  "time": "2024-08-19T05:15:47Z",
+  "region": "us-east-1",
+  "resources": [],
   "detail": {
     "version": 1,
     "build": {
@@ -184,7 +191,10 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "state": "scheduled",
       "started_at": null,
       "finished_at": null,
-      "source": "webhook"
+      "source": "webhook",
+      "started_at": null,
+      "finished_at": null,
+      "meta_data": {}
     },
     "pipeline": {
       "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
@@ -205,7 +215,14 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
+  "version": "0",
+  "id": "a06fb840-7d19-708c-7f99-319f7abd480f",
   "detail-type": "Build Started",
+  "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
+  "account": "123123123123",
+  "time": "2024-08-19T05:15:58Z",
+  "region": "us-east-1",
+  "resources": [],
   "detail": {
     "version": 1,
     "build": {
@@ -216,6 +233,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "message": "Merge pull request #456 from my-org/chore/update-deps",
       "branch": "main",
       "state": "started",
+      "blocked_state": null,
       "started_at": "2019-08-11 06:01:16 UTC",
       "finished_at": null,
       "source": "webhook"
@@ -241,7 +259,14 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
+  "version": "0",
+  "id": "bd2f894c-6778-b65d-011a-8898a9df8ee6",
   "detail-type": "Build Finished",
+  "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
+  "account": "123123123123",
+  "time": "2024-08-19T07:08:54Z",
+  "region": "us-east-1",
+  "resources": [],
   "detail": {
     "version": 1,
     "build": {
@@ -252,9 +277,11 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "message": "Merge pull request #456 from my-org/chore/update-deps",
       "branch": "main",
       "state": "passed",
+      "blocked_state": null,
+      "source": "webhook",
       "started_at": "2019-08-11 06:01:16 UTC",
       "finished_at": "2019-08-11 06:01:35 UTC",
-      "source": "webhook"
+      "meta_data": {}
     },
     "pipeline": {
       "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
@@ -321,7 +348,14 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
+  "version": "0",
+  "id": "0d2a372b-df6b-97a9-8c2f-e561ef705bc5",
   "detail-type": "Job Scheduled",
+  "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
+  "account": "123123123123",
+  "time": "2024-08-19T07:08:47Z",
+  "region": "us-east-1",
+  "resources": [],
   "detail": {
     "version": 1,
     "job": {
@@ -335,13 +369,15 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
         "queue=default"
       ],
       "exit_status": null,
+      "signal_reason": null,
       "passed": false,
       "soft_failed": false,
       "state": "assigned",
       "runnable_at": "2019-08-11 06:01:14 UTC",
       "started_at": null,
       "finished_at": null,
-      "unblocked_by": null
+      "unblocked_by": null,
+      "retried_in_job_id": null
     },
     "build": {
       "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
@@ -351,7 +387,11 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "message": "Merge pull request #456 from my-org/chore/update-deps",
       "branch": "main",
       "state": "started",
-      "source": "webhook"
+      "blocked_state": null,
+      "source": "webhook",
+      "started_at": "2024-08-19 07:03:37 UTC",
+      "finished_at": null,
+      "meta_data": {}
     },
     "pipeline": {
       "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
@@ -374,7 +414,14 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
+  "version": "0",
+  "id": "d9ffc535-30c7-42d2-0ac2-7192d93bf332",
   "detail-type": "Job Started",
+  "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
+  "account": "123123123123",
+  "time": "2024-08-19T07:08:58Z",
+  "region": "us-east-1",
+  "resources": [],
   "detail": {
     "version": 1,
     "job": {
@@ -388,13 +435,15 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
         "queue=default"
       ],
       "exit_status": null,
+      "signal_reason": null,
       "passed": false,
       "soft_failed": false,
       "state": "started",
       "runnable_at": "2019-08-11 06:01:14 UTC",
       "started_at": "2019-08-11 06:01:16 UTC",
       "finished_at": null,
-      "unblocked_by": null
+      "unblocked_by": null,
+      "retried_in_job_id": null
     },
     "build": {
       "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
@@ -404,7 +453,11 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "message": "Merge pull request #456 from my-org/chore/update-deps",
       "branch": "main",
       "state": "started",
-      "source": "webhook"
+      "blocked_state": null,
+      "source": "webhook",
+      "started_at": "2024-08-19 07:07:44 UTC",
+      "finished_at": null,
+      "meta_data": {}
     },
     "pipeline": {
       "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
@@ -429,7 +482,14 @@ These types of events [may contain a `signal_reason` field value](#signal-reason
 
 ```json
 {
+  "version": "0",
+  "id": "e8e9fdf8-d21b-fa2d-04c4-09465919673e",
   "detail-type": "Job Finished",
+  "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
+  "account": "123123123123",
+  "time": "2024-08-19T07:10:05Z",
+  "region": "us-east-1",
+  "resources": [],
   "detail": {
     "version": 1,
     "job": {
@@ -450,7 +510,8 @@ These types of events [may contain a `signal_reason` field value](#signal-reason
       "runnable_at": "2019-08-11 06:01:14 UTC",
       "started_at": "2019-08-11 06:01:16 UTC",
       "finished_at": "2019-08-11 06:01:35 UTC",
-      "unblocked_by": null
+      "unblocked_by": null,
+      "retried_in_job_id": null
     },
     "build": {
       "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
@@ -460,7 +521,10 @@ These types of events [may contain a `signal_reason` field value](#signal-reason
       "message": "Merge pull request #456 from my-org/chore/update-deps",
       "branch": "main",
       "state": "started",
-      "source": "webhook"
+      "source": "webhook",
+      "started_at": "2024-08-19 07:00:14 UTC",
+      "finished_at": null,
+      "meta_data": {}
     },
     "pipeline": {
       "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
@@ -472,6 +536,9 @@ These types of events [may contain a `signal_reason` field value](#signal-reason
       "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
       "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
       "slug": "my-org"
+    },
+    "agent": {
+      "uuid": "0191695c-920d-4644-8be9-a674252ac"
     }
   }
 }
@@ -497,14 +564,21 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
 
 ```json
 {
+  "version": "0",
+  "id": "e8e9fdf8-d21b-fa2d-04c4-09465919673e",
   "detail-type": "Job Activated",
+  "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
+  "account": "123123123123",
+  "time": "2024-08-19T07:10:05Z",
+  "region": "us-east-1",
+  "resources": [],
   "detail": {
     "version": 1,
     "job": {
       "uuid": "9e6c3f19-4fdb-4e8e-b925-28cd7504e17f",
       "graphql_id": "Sm9iLS0tOWU2YzNmMTktNGZkYi00ZThlLWI5MjUtMjhjZDc1MDRlMTdm",
       "type": "manual",
-      "label": "\:rocket\: Deploy",
+      "label": ":rocket: Deploy",
       "step_key": "manual_deploy",
       "command": null,
       "agent_query_rules": [],
@@ -529,7 +603,9 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
       "message": "Merge pull request #456 from my-org/chore/update-deps",
       "branch": "main",
       "state": "started",
-      "source": "webhook"
+      "started_at": "2024-08-19 07:00:14 UTC",
+      "source": "webhook",
+      "meta_data": {}
     },
     "pipeline": {
       "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
@@ -552,7 +628,14 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
 
 ```json
 {
+  "version": "0",
+  "id": "2759e87f-4462-9335-4835-4d2a90c6997c",
   "detail-type": "Agent Connected",
+  "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
+  "account": "123123123123",
+  "time": "2024-08-19T05:18:17Z",
+  "region": "us-east-1",
+  "resources": [],
   "detail": {
     "version": 1,
     "agent": {
@@ -592,7 +675,14 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
 
 ```json
 {
+  "version": "0",
+  "id": "62042586-2760-088d-bc10-63f7ab9bbf8a",
   "detail-type": "Agent Disconnected",
+  "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
+  "account": "123123123123",
+  "time": "2024-08-19T05:18:08Z",
+  "region": "us-east-1",
+  "resources": [],
   "detail": {
     "version": 1,
     "agent": {
@@ -632,7 +722,14 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
 
 ```json
 {
+  "version": "0",
+  "id": "62042586-2760-088d-bc10-63f7ab9bbf8a",
   "detail-type": "Agent Lost",
+  "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
+  "account": "123123123123",
+  "time": "2024-08-19T05:18:08Z",
+  "region": "us-east-1",
+  "resources": [],
   "detail": {
     "version": 1,
     "agent": {
@@ -672,7 +769,14 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
 
 ```json
 {
+  "version": "0",
+  "id": "62042586-2760-088d-bc10-63f7ab9bbf8a",
   "detail-type": "Agent Stopping",
+  "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
+  "account": "123123123123",
+  "time": "2024-08-19T05:18:08Z",
+  "region": "us-east-1",
+  "resources": [],
   "detail": {
     "version": 1,
     "agent": {
@@ -712,7 +816,14 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
 
 ```json
 {
+  "version": "0",
+  "id": "62042586-2760-088d-bc10-63f7ab9bbf8a",
   "detail-type": "Agent Stopped",
+  "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
+  "account": "123123123123",
+  "time": "2024-08-19T05:18:08Z",
+  "region": "us-east-1",
+  "resources": [],
   "detail": {
     "version": 1,
     "agent": {
@@ -752,37 +863,44 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
 
 ```json
 {
-    "detail-type": "Agent Blocked",
-    "detail": {
-        "version": 1,
-        "blocked_ip": "204.124.80.36",
-        "cluster_token": {
-            "uuid": "c1164b28-bace-436-ac44-4133e1d18ca5",
-            "description": "Default agent token",
-            "allowed_ip_addresses": "202.144.160.0/24",
-        },
-        "agent": {
-            "uuid": "0188f51c-7bc8-4b14-a702-002c485ae2dc",
-            "graphql_id": "QWdlbnQtLSOMTg4ZjUxYy03YmM4LTRiMTQtYTcwMi@ MDJjNDg1YWUyZGM=",
-            "connection_state": "disconnected",
-            "name": "rogue-agent-1",
-            "version": "3.40.0",
-            "token": null,
-            "ip_address": "127.0.0.1",
-            "hostname": "rogue-agent",
-            "pid": "26089",
-            "priority": 0,
-            "meta_data": ["queues=default"],
-            "connected_at": "2023-06-26 00:31:04 UTC",
-            "disconnected_at": "2023-06-26 00:31:18 UTC",
-            "Lost_at": null,
-        },
-        "organization": {
-            "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
-            "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
-            "slug": "my-org"
-        }
+  "version": "0",
+  "id": "62042586-2760-088d-bc10-63f7ab9bbf8a",
+  "detail-type": "Agent Blocked",
+  "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
+  "account": "123123123123",
+  "time": "2024-08-19T05:18:08Z",
+  "region": "us-east-1",
+  "resources": [],
+  "detail": {
+    "version": 1,
+    "blocked_ip": "204.124.80.36",
+    "cluster_token": {
+      "uuid": "c1164b28-bace-436-ac44-4133e1d18ca5",
+        "description": "Default agent token",
+        "allowed_ip_addresses": "202.144.160.0/24",
+    },
+    "agent": {
+      "uuid": "0188f51c-7bc8-4b14-a702-002c485ae2dc",
+      "graphql_id": "QWdlbnQtLSOMTg4ZjUxYy03YmM4LTRiMTQtYTcwMi@ MDJjNDg1YWUyZGM=",
+      "connection_state": "disconnected",
+      "name": "rogue-agent-1",
+      "version": "3.40.0",
+      "token": null,
+      "ip_address": "127.0.0.1",
+      "hostname": "rogue-agent",
+      "pid": "26089",
+      "priority": 0,
+      "meta_data": ["queue=default"],
+      "connected_at": "2023-06-26 00:31:04 UTC",
+      "disconnected_at": "2023-06-26 00:31:18 UTC",
+      "lost_at": null,
+    },
+    "organization": {
+      "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+      "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+      "slug": "my-org"
     }
+  }
 }
 ```
 <!-- vale off -->
@@ -795,21 +913,28 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
 
 ```json
 {
-    "detail-type": "Cluster Token Registration Blocked",
-    "detail": {
-        "version": 1,
-        "blocked_ip": "204.124.80.36",
-        "cluster_token": {
-            "uuid": "c1164b28-bace-436-ac44-4133e1d18ca5",
-            "description": "Default agent token",
-            "allowed_ip_addresses": "202.144.160.0/24",
-        },
-        "organization": {
-            "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
-            "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
-            "slug": "my-org"
-        }
+  "version": "0",
+  "id": "62042586-2760-088d-bc10-63f7ab9bbf8a",
+  "detail-type": "Cluster Token Registration Blocked",
+  "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
+  "account": "123123123123",
+  "time": "2024-08-19T05:18:08Z",
+  "region": "us-east-1",
+  "resources": [],
+  "detail": {
+    "version": 1,
+    "blocked_ip": "204.124.80.36",
+    "cluster_token": {
+      "uuid": "c1164b28-bace-436-ac44-4133e1d18ca5",
+      "description": "Default agent token",
+      "allowed_ip_addresses": "202.144.160.0/24",
+    },
+    "organization": {
+      "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+      "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+      "slug": "my-org"
     }
+  }
 }
 ```
 
@@ -825,7 +950,7 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
     "id": "8212ed90-edcc-0936-187c-d466e46575b6",
     "detail-type": "Audit Event Logged",
     "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
-    "account": "354123020283",
+    "account": "123123123123",
     "time": "2023-03-07T23:14:43Z",
     "region": "us-east-1",
     "resources": [],
