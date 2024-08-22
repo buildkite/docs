@@ -1,6 +1,6 @@
 # Pipeline rules
 
-Pipeline rules is a Buildkite feature used to manage and organize permissions between pipelines and other resources.
+Rules is a Buildkite feature used to manage and organize permissions between Buildkite resources.
 
 Rules express that an action is allowed between a source resource (e.g. a pipeline) and a target resource (e.g. another pipeline). Rules allow you to break out of the defaults provided by Buildkite such as cluster boundaries.
 
