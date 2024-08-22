@@ -890,6 +890,8 @@ enum AuditEventType {
   REGISTRY_TOKEN_DELETED
   REGISTRY_TOKEN_UPDATED
   REGISTRY_UPDATED
+  RULE_CREATED
+  RULE_DELETED
   SCM_PIPELINE_SETTINGS_CREATED
   SCM_PIPELINE_SETTINGS_DELETED
   SCM_PIPELINE_SETTINGS_UPDATED
@@ -987,7 +989,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -1013,6 +1015,7 @@ enum AuditSubjectType {
   PIPELINE_TEMPLATE
   REGISTRY
   REGISTRY_TOKEN
+  RULE
   SCM_PIPELINE_SETTINGS
   SCM_REPOSITORY_HOST
   SCM_SERVICE
@@ -8984,6 +8987,11 @@ type Rule implements Node {
   Target type for the rule
   """
   targetType: RuleTargetType
+
+  """
+  The public UUID for the rule
+  """
+  uuid: ID!
 }
 
 """
@@ -8991,7 +8999,12 @@ The action a rule enforces
 """
 enum RuleAction {
   """
-  Trigger a build in the target pipeline
+  Artifacts read
+  """
+  ARTIFACTS_READ
+
+  """
+  Trigger build
   """
   TRIGGER_BUILD
 }

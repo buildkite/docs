@@ -207,6 +207,7 @@ svg
 swiftformat
 systemd
 templated
+tgz
 timeframe
 tmp
 tmux

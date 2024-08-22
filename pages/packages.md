@@ -27,6 +27,8 @@ If you're familiar with the basics, explore how to use registries for each of Bu
   <%= button ":alpine: Alpine (apk)", "/docs/packages/alpine" %>
   <%= button ":docker: Container (Docker)", "/docs/packages/container" %>
   <%= button ":debian: Debian/Ubuntu (deb)", "/docs/packages/debian" %>
+  <%= button ":helm: Helm (OCI)", "/docs/packages/helm-oci" %>
+  <%= button ":helm: Helm", "/docs/packages/helm" %>
   <%= button ":maven: Java (Maven)", "/docs/packages/maven" %>
   <%= button ":gradle: Java (Gradle)", "/docs/packages/gradle" %>
   <%= button ":node: JavaScript (npm)", "/docs/packages/javascript" %>

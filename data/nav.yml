@@ -489,6 +489,13 @@
           path: "packages/debian"
         - name: "Files"
           path: "packages/files"
+        - name: "Helm"
+          start_expanded: true
+          children:
+            - name: "OCI-based"
+              path: "packages/helm-oci"
+            - name: "Standard"
+              path: "packages/helm"
         - name: "Java"
           start_expanded: true
           children:
