@@ -55,7 +55,7 @@ Admins can create new rules on the **Rules** page in the **Organization settings
 To create a new cluster using the Buildkite interface:
 
 1. Select **Settings** in the global navigation to access the **Organization settings** page.
-2. Select the **Rules** page in the Pipelines section.
+2. Select **Rules** in the Pipelines section.
 3. Select **New rule**.
 4. Under **Rule name**, select the type of rule you want to create, such as `pipeline.trigger_build.pipeline`.
 5. Fill out the UUIDs of the pipelines you wish to create a target for. Access the UUIDs of your pipelines on their **Settings** page under the **GraphQL API integration** section.
