@@ -50,7 +50,7 @@ An example of a rule that allows a pipeline in the CI cluster to trigger a pipel
 
 Admins can create new rules on the **Rules** page in the **Organization settings**, as well as via the Buildkite REST API and GraphQL API.
 
-### Using the Buildkite interface
+### Using the Buildkite UI
 
 To create a new cluster using the Buildkite interface:
 
