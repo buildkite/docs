@@ -1,10 +1,10 @@
 # Configuring test splitting
 
-Test splitting is the process of partitioning a test suite to run in parallel across multiple Buildkite agents. Buildkite maintains its open source Test Splitter ([test-splitter](https://github.com/buildkite/test-splitter)) tool. This tool uses your Buildkite Test Analytics test suite data to intelligently partition tests throughout your test suite into multiple sets, such that each set of tests runs in parallel across your agents. This process is known as _orchestration_ and results in a _test plan_, where a test plan defines which tests are run on which agents. Currently, test-splitter only supports RSpec.
+Test splitting is the process of partitioning a test suite to run in parallel across multiple Buildkite agents. Buildkite maintains its open source Test Splitter ([test-splitter](https://github.com/buildkite/test-splitter)) tool. This tool uses your Buildkite Test Analytics test suite data to intelligently partition tests throughout your test suite into multiple sets, such that each set of tests runs in parallel across your agents. This process is known as _orchestration_ and results in a _test plan_, where a test plan defines which tests are run on which agents. Currently, the Test Splitter tool only supports RSpec.
 
 ## Dependencies
 
-Test splitting relies on execution timing data captured by the Buildkite test collectors to partition your tests evenly across your agents. Therefore, you will need to configure the [Ruby test collector](./ruby-collectors) for your test suite.
+The Test Splitter relies on execution timing data captured by the Buildkite test collectors from previous builds to partition your tests evenly across your agents. Therefore, you will need to configure the [Ruby test collector](./ruby-collectors) for your test suite.
 
 ## Installation
 
@@ -16,7 +16,13 @@ Once you have downloaded the test-splitter binary and it's executable in your Bu
 
 ### Configure environment variables
 
-The following Buildkite-provided environment variables are used by the test-splitter. By default, these are available to your testing environment and do not need any further configuration. If, however, you use Docker or some other type of containerization tool to run your tests, you may need to expose these environment variables to your containers.
+The Test Splitter tool uses a number of [predefined](#predefined-environment-variables), [mandatory](#mandatory-environment-variables), and [optional](#optional-environment-variables) environment variables.
+
+<a id="predefined-environment-variables"></a>
+
+#### Predefined environment variables
+
+By default, the following predefined environment variables are available to your testing environment and do not need any further configuration. If, however, you use Docker or some other type of containerization tool to run your tests, and you wish to use these predefined environment variables in these tests, you may need to expose these environment variables to your containers.
 
 | Environment Variable | Description|
 | -------------------- | ----------- |
@@ -27,18 +33,22 @@ The following Buildkite-provided environment variables are used by the test-spli
 | `BUILDKITE_PARALLEL_JOB_COUNT` | The total number of parallel jobs created from a parallel build step.<br/>Ensure you configure `parallelism` in your pipeline definition. Learn more about parallel build steps in [Concurrency and parallelism](https://buildkite.com/docs/pipelines/controlling-concurrency#concurrency-and-parallelism). |
 | `BUILDKITE_STEP_ID` | The UUID of the step group in the pipeline build. Test Splitter uses this UUID along with `BUILDKITE_BUILD_ID` to uniquely identify the test plan.
 
+<a id="mandatory-environment-variables"></a>
+
 #### Mandatory environment variables
 
-The following environment variables must be set.
+The following mandatory environment variables must be set.
 
 | Environment Variable | Description |
 | -------------------- | ----------- |
 | `BUILDKITE_SPLITTER_API_ACCESS_TOKEN ` | Buildkite API access token with `read_suites`, `read_test_plan`, and `write_test_plan` scopes. You can create an [API access token](https://buildkite.com/user/api-access-tokens) from **Personal Settings** > **API Access Tokens** in the Buildkite interface. |
 | `BUILDKITE_SPLITTER_SUITE_SLUG` | The slug of your Buildkite Test Analytics test suite. You can find the suite slug in the url for your test suite. For example, the slug for the url: `https://buildkite.com/organizations/my-organization/analytics/suites/my-suite` is `my-suite` |
 
+<a id="optional-environment-variables"></a>
+
 #### Optional environment variables
 
-The following environment variables can optionally be used to configure the Test Splitter.
+The following optional environment variables can also be used to configure the Test Splitter's behavior.
 
 | Environment Variable | Default Value | Description |
 | ---- | ---- | ----------- |
