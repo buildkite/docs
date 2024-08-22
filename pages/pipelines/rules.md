@@ -32,7 +32,7 @@ Value fields:
 
 Imagine you use two clusters to separate the environments necessary for building and deploying your application: a CI cluster and a CD cluster. Ordinarily, pipelines in these separate clusters are not able to trigger each other due to the isolation of clusters.
 
-Creating a `pipeline.trigger_build.pipeline` rule would allow triggering a pipeline in the CD cluster from a pipeline in the CD cluster. This would allow maintaining the separation of the CI and CD agents and still support triggering the deployment pipeline from the build pipeline.
+A `pipeline.trigger_build.pipeline` rule would allow a pipeline in the CI cluster to trigger a build for a pipeline in the CD cluster, while maintaining the separation of the CI and CD agents in their respective clusters.
 
 An example of a rule that allows a pipeline in the CI cluster to trigger a pipeline in the CD cluster:
 
