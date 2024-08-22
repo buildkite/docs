@@ -48,7 +48,7 @@ An example of a rule that allows a pipeline in the CI cluster to trigger a pipel
 
 ## Create a rule
 
-Admins can create new rules on the **Rules** page in the **Organization settings**, as well as through the REST API's or GraphQL API's create-a-rule feature.
+Admins can create new rules on the **Rules** page in the **Organization settings**, as well as via the Buildkite REST API and GraphQL API.
 
 ### Using the Buildkite interface
 
