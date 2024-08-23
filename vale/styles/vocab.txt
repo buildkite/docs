@@ -190,6 +190,7 @@ shellcheck
 shellscripting
 Shipit
 snake_case
+Splitter's
 sre
 sso
 statefully
@@ -207,7 +208,6 @@ svg
 swiftformat
 systemd
 templated
-Test Splitter's
 tgz
 timeframe
 tmp
