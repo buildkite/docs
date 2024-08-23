@@ -3,7 +3,7 @@
 
 Buildkite Packages provides registry support for generic files to cover some cases where native package management isn't required.
 
-Once your Files registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload files (of any type and extension) to this registry via the relevant `curl` command presented on your registry details page.
+Once your files registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload files (of any type and extension) to this registry via the relevant `curl` command presented on your registry details page.
 
 To view and copy this `curl` command:
 
