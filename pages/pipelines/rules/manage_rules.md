@@ -38,6 +38,8 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
+<%= render_markdown partial: 'apis/descriptions/rest_pipeline_uuid' %>
+
 ## Using the GraphQL API
 
 To [create a new rule](/docs/apis/graphql/schemas/mutation/rulecreate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
@@ -47,7 +49,7 @@ mutation {
   ruleCreate(input: {
     organizationId: "organization-id",
     name: "pipeline.trigger_build.pipeline",
-    value: "{\"triggering_pipeline_uuid\":\"{uuid-of-build-pipeline}\",\"triggered_pipeline_uuid\":\"{uuid-of-deploy-pipeline}\"}"
+    value: "{\"triggering_pipeline_uuid\":\"{uuid-of-source-pipeline}\",\"triggered_pipeline_uuid\":\"{uuid-of-target-pipeline}\"}"
   }) {
      rule {
       id
@@ -79,6 +81,8 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
 
+<%= render_markdown partial: 'apis/descriptions/rest_pipeline_uuid' %>
+
 ## Delete a rule
 
 Organization admins can delete rules using the [**Rules** page in **Organization settings**](#delete-a-rule-using-the-buildkite-ui), as well as via the Buildkite [REST API](#delete-a-rule-using-the-rest-api) and [GraphQL API](#delete-a-rule-using-the-graphql-api).
@@ -107,6 +111,8 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
+<%= render_markdown partial: 'apis/descriptions/rest_rule_uuid' %>
+
 ## Using the GraphQL API
 
 To [delete a rule](/docs/apis/graphql/schemas/mutation/ruledelete) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
@@ -125,4 +131,5 @@ mutation {
 where:
 
 <%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
-<!-- TODO: rule_id -->
+
+<%= render_markdown partial: 'apis/descriptions/graphql_rule_id' %>
