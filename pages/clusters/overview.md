@@ -33,7 +33,7 @@ You can create as many clusters as your require for your setup.
 Learn more about working with clusters in [Manage clusters](/docs/clusters/manage-clusters).
 
 > 📘 Pipeline triggering
-> Pipelines associated with one cluster cannot trigger pipelines associated with another cluster, unless a [rule](/docs/pipelines/rules) has been created to explicitly allow triggering between pipelines in different clusters.
+> Pipelines associated with one cluster cannot trigger pipelines associated with another cluster, unless a [rule](/docs/pipelines/rules/overview) has been created to explicitly allow triggering between pipelines in different clusters.
 
 ### How should I structure my queues
 

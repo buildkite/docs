@@ -4,7 +4,7 @@ The rules API lets you create and manage rules in your organization.
 
 ## Rules
 
-[Rules](/docs/pipelines/rules) allow you to manage permissions between Buildkite resources.
+[Rules](/docs/pipelines/rules/overview) allow you to manage permissions between Buildkite resources.
 
 A rule is used to specify that an action is allowed between a source resource (e.g. a pipeline) and a target resource (e.g. another pipeline). Rules allow you to break out of the defaults provided by Buildkite such as cluster boundaries.
 
@@ -130,7 +130,7 @@ Required [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>name</code></th>
-    <td>Name of the rule. Must match one of the [available rule types](/docs/pipelines/rules#available-rule-types)<br>
+    <td>Name of the rule. Must match one of the [available rule types](/docs/pipelines/rules/overview#available-rule-types)<br>
     <em>Example:</em> <code>"pipeline.trigger_build.pipeline"</code></td>
   </tr>
   <tr>
@@ -159,7 +159,7 @@ Delete a rule.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/rules/{id}"
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/rules/{uuid}"
 ```
 
 Required scope: `write_rules`
