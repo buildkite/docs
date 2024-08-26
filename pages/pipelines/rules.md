@@ -1,69 +1,80 @@
-# Pipeline rules
+# Rules
 
-Rules is a Buildkite feature used to manage and organize permissions between Buildkite resources.
+Rules allow you to manage permissions between Buildkite resources.
 
-Rules express that an action is allowed between a source resource (e.g. a pipeline) and a target resource (e.g. another pipeline). Rules allow you to break out of the defaults provided by Buildkite such as cluster boundaries.
+Rules express that an action is allowed between a source resource (e.g. a pipeline) and a target resource (e.g. another pipeline).
 
-## Pipeline rules best practices
+Rules are typically used in tandem with [clusters](/docs/clusters/overview) to increase security and control, where clusters set hard boundaries and rules provide exceptions.
 
-### How should I use rules?
+## Available rule types
 
-Use rules to manage permissions between pipelines and other resources. Rules are typically used in tandem with [clusters](/docs/clusters/overview) to increase security and control, where clusters set hard boundaries and rules provide exceptions.
+### `pipeline.trigger_build.pipeline`
 
-### Available rules
+Allows a pipeline in one cluster to trigger a pipeline in another cluster.
 
-#### `pipeline.trigger_build.pipeline` 
+Rule document:
 
-Cross-cluster pipeline triggering (eg. allow a pipeline in one cluster to trigger a pipeline in another cluster).
+```json
+{
+  "rule": "pipeline.trigger_build.pipeline",
+  "value": {
+    "triggering_pipeline_uuid": "{triggering-pipeline-uuid}",
+    "triggered_pipeline_uuid": "{triggered-pipeline-uuid}"
+  }
+}
+```
 
 Value fields:
 
 - `triggering_pipeline_uuid` The UUID of the pipeline that is allowed to trigger another pipeline.
 - `triggered_pipeline_uuid` The UUID of the pipeline that is allowed to be triggered by the `triggering_pipeline_uuid` pipeline.
 
-### `pipeline.artifacts_read.pipeline` Allowing jobs in a pipeline to access artifacts from builds in other pipelines.
-
-Value fields:
-
-- `source_pipeline_uuid` The UUID of the pipeline that is allowed to access artifacts from another pipeline.
-- `target_pipeline_uuid` The UUID of the pipeline that is allowed to have its artifacts accessed by jobs in the `source_pipeline_uuid` pipeline.
-
-### Example rule use
+#### Example use case
 
 Imagine you use two clusters to separate the environments necessary for building and deploying your application: a CI cluster and a CD cluster. Ordinarily, pipelines in these separate clusters are not able to trigger each other due to the isolation of clusters.
 
 A `pipeline.trigger_build.pipeline` rule would allow a pipeline in the CI cluster to trigger a build for a pipeline in the CD cluster, while maintaining the separation of the CI and CD agents in their respective clusters.
 
-An example of a rule that allows a pipeline in the CI cluster to trigger a pipeline in the CD cluster:
+### `pipeline.artifacts_read.pipeline`
+
+Allows a source pipeline in one cluster to read artifacts from a target pipeline in another cluster.
+
+Rule document:
 
 ```json
 {
   "rule": "pipeline.trigger_build.pipeline",
   "value": {
-    "triggering_pipeline_uuid": "{uuid-of-build-pipeline}",
-    "triggered_pipeline_uuid": "{uuid-of-deploy-pipeline}"
+    "source_pipeline_uuid": "{uuid-of-source-pipeline}",
+    "target_pipeline_uuid": "{uuid-of-target-pipeline}"
   }
 }
 ```
 
+Value fields:
+
+- `source_pipeline_uuid` The UUID of the pipeline that is allowed to read artifacts from another pipeline.
+- `target_pipeline_uuid` The UUID of the pipeline that is allowed to have its artifacts read by jobs in the `source_pipeline_uuid` pipeline.
+
+
 ## Create a rule
 
-Admins can create new rules on the **Rules** page in the **Organization settings**, as well as via the Buildkite REST API and GraphQL API.
+Organization admins can create new rules on the **Rules** page in **Organization settings**, as well as via the Buildkite REST API and GraphQL API.
 
 ### Using the Buildkite UI
 
-To create a new cluster using the Buildkite interface:
+To create a new rule using the Buildkite UI:
 
 1. Select **Settings** in the global navigation to access the **Organization settings** page.
 2. Select **Rules** in the Pipelines section.
-3. Select **New rule**.
-4. Under **Rule name**, select the type of rule you want to create, such as `pipeline.trigger_build.pipeline`.
-5. Fill out the UUIDs of the pipelines you wish to create a target for. Access the UUIDs of your pipelines on their **Settings** page under the **GraphQL API integration** section.
+3. Select **New Rule**.
+4. Under **Rule Name**, select the type of rule you want to create, such as `pipeline.trigger_build.pipeline`.
+5. Under **Rule Document**, populate the relevant data. For example, if you're creating a `pipeline.trigger_build.pipeline` rule, you'll need to provide a `triggering_pipeline_uuid` and a `triggered_pipeline_uuid`. You can find the UUIDs of your pipelines on their **Settings** page under the **GraphQL API integration** section.
 6. Select **Submit**.
 
 ### Using the REST API
 
-To [create a new rule](/docs/apis/rest-api/clusters#clusters-create-a-cluster) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+To [create a new rule](/docs/apis/rest-api/rules#rules-create-a-rule) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -72,8 +83,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   -d '{
     "rule": "pipeline.trigger_build.pipeline",
     "value": {
-      "triggering_pipeline_uuid": "{uuid-of-build-pipeline}",
-      "triggered_pipeline_uuid": "{uuid-of-deploy-pipeline}"
+      "triggering_pipeline_uuid": "{uuid-of-triggering-pipeline}",
+      "triggered_pipeline_uuid": "{uuid-of-triggered-pipeline}"
     }
   }'
 ```
@@ -84,16 +95,9 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
-## Using a GraphQL API
+## Using the GraphQL API
 
 To [create a new rule](/docs/apis/graphql-api/rules#rules-create-a-rule) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
-
-- organizationId: The organization GraphQL ID. You can find this in the URL of the organization settings page.
-
-- name (required): The name of the rule you want to create. For example, `pipeline.trigger_build.pipeline`.
-
-- value (required): The value of the rule you want to create. This must be a JSON encoded object with fields matching the format of the rule you are creating.
-
 
 ```graphql
 mutation {
@@ -128,42 +132,6 @@ mutation {
 }
 ```
 
-<!-- PR FOR CREATING GRAPHQL RULES https://github.com/buildkite/buildkite/pull/18259 -->
+where:
 
-Rules can be filtered by sourceType, targetType, and action.
-
-Example query
-
-```
-query RulesQuery {
-  organization(slug: "compute-local") {
-    name
-    rules(first: 3, targetType: PIPELINE) {
-      edges {
-        node {
-          id
-          name
-          targetType
-          sourceType
-          source {
-            ... on Pipeline {
-              uuid
-            }
-          }
-          target {
-            ... on Pipeline {
-              uuid
-            }
-          }
-          effect
-          action
-          createdBy {
-            id
-            name
-          }
-        }
-      }
-    }
-  }
-}
-```
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
