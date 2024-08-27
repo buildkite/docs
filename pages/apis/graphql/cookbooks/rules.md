@@ -6,7 +6,7 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 
 ## List rules
 
-Get the first 10 rules and their information for an organization:
+Get the first 10 rules and their information for an organization.
 
 ```graphql
   query getRules {
@@ -15,7 +15,7 @@ Get the first 10 rules and their information for an organization:
         edges {
           node {
             id
-            name
+            type
             targetType
             sourceType
             source {
@@ -37,22 +37,22 @@ Get the first 10 rules and their information for an organization:
       }
     }
   }
-  ```
+```
 
 ## Create a rule
 
-Create a rule:
+Create a rule. `value` must be a JSON encoded string.
 
 ```graphql
 mutation {
   ruleCreate(input: {
     organizationId: "organization-id",
-    name: "pipeline.trigger_build.pipeline",
-    value: "{\"triggering_pipeline_uuid\":\"{uuid-of-source-pipeline}\",\"triggered_pipeline_uuid\":\"{uuid-of-target-pipeline}\"}"
+    type: "pipeline.trigger_build.pipeline",
+    value: "{\"source_pipeline_uuid\":\"{uuid-of-source-pipeline}\",\"target_pipeline_uuid\":\"{uuid-of-target-pipeline}\"}"
   }) {
      rule {
       id
-      name
+      type
       targetType
       sourceType
       source {

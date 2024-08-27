@@ -2,7 +2,7 @@
 
 ## Create a rule
 
-Organization admins can create new rules using the [**Rules** page in **Organization settings**](#create-a-rule-using-the-buildkite-ui), as well as via the Buildkite [REST API](#create-a-rule-using-the-rest-api) and [GraphQL API](#create-a-rule-using-the-graphql-api).
+Organization admins can create new rules using the **Rules** page in **Organization settings**, as well as via the Buildkite [REST API](/docs/apis/rest-api) and [GraphQL API](/docs/apis/graphql-api).
 
 ### Using the Buildkite interface
 
@@ -11,8 +11,8 @@ To create a new rule using the Buildkite UI:
 1. Select **Settings** in the global navigation to access the **Organization settings** page.
 2. Select **Rules** in the Pipelines section.
 3. Select **New Rule**.
-4. Under **Rule Name**, select the type of rule you want to create, such as `pipeline.trigger_build.pipeline`.
-5. Under **Rule Document**, populate the relevant data. For example, if you're creating a `pipeline.trigger_build.pipeline` rule, you'll need to provide a `triggering_pipeline_uuid` and a `triggered_pipeline_uuid`. You can find the UUIDs of your pipelines on their **Settings** page under the **GraphQL API integration** section.
+4. Under **Rule Type**, select the type of rule you want to create, such as `pipeline.trigger_build.pipeline`.
+5. Under **Rule Document**, populate the relevant data. For example, if you're creating a `pipeline.trigger_build.pipeline` rule, you'll need to provide a `source_pipeline_uuid` and a `target_pipeline_uuid`. You can find the UUIDs of your pipelines on their **Settings** page under the **GraphQL API integration** section.
 6. Select **Submit**.
 
 ### Using the REST API
@@ -26,8 +26,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   -d '{
     "rule": "pipeline.trigger_build.pipeline",
     "value": {
-      "triggering_pipeline_uuid": "{uuid-of-triggering-pipeline}",
-      "triggered_pipeline_uuid": "{uuid-of-triggered-pipeline}"
+      "source_pipeline_uuid": "{uuid-of-triggering-pipeline}",
+      "target_pipeline_uuid": "{uuid-of-target-pipeline}"
     }
   }'
 ```
@@ -40,7 +40,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/rest_pipeline_uuid' %>
 
-## Using the GraphQL API
+### Using the GraphQL API
 
 To [create a new rule](/docs/apis/graphql/schemas/mutation/rulecreate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
 
@@ -48,12 +48,12 @@ To [create a new rule](/docs/apis/graphql/schemas/mutation/rulecreate) using the
 mutation {
   ruleCreate(input: {
     organizationId: "organization-id",
-    name: "pipeline.trigger_build.pipeline",
-    value: "{\"triggering_pipeline_uuid\":\"{uuid-of-source-pipeline}\",\"triggered_pipeline_uuid\":\"{uuid-of-target-pipeline}\"}"
+    type: "pipeline.trigger_build.pipeline",
+    value: "{\"source_pipeline_uuid\":\"{uuid-of-source-pipeline}\",\"target_pipeline_uuid\":\"{uuid-of-target-pipeline}\"}"
   }) {
      rule {
       id
-      name
+      type
       targetType
       sourceType
       source {
@@ -85,7 +85,7 @@ where:
 
 ## Delete a rule
 
-Organization admins can delete rules using the [**Rules** page in **Organization settings**](#delete-a-rule-using-the-buildkite-ui), as well as via the Buildkite [REST API](#delete-a-rule-using-the-rest-api) and [GraphQL API](#delete-a-rule-using-the-graphql-api).
+Organization admins can delete rules using the **Rules** page in **Organization settings**, as well as via the Buildkite [REST API](/docs/apis/rest-api) and [GraphQL API](/docs/apis/graphql-api).
 
 ### Using the Buildkite interface
 
@@ -113,7 +113,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/rest_rule_uuid' %>
 
-## Using the GraphQL API
+### Using the GraphQL API
 
 To [delete a rule](/docs/apis/graphql/schemas/mutation/ruledelete) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
 

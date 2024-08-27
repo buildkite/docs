@@ -4,7 +4,7 @@ Rules allow you to manage permissions between Buildkite resources.
 
 Rules express that an action is allowed between a source resource (e.g. a pipeline) and a target resource (e.g. another pipeline).
 
-Rules are typically used in tandem with [clusters](/docs/clusters/overview) to increase security and control, where clusters set hard boundaries and rules provide exceptions.
+Rules provide explicit access between resources, allowing granting or restricting access between resources that would normally be determined by the default permissions.
 
 ## Available rule types
 
@@ -18,16 +18,16 @@ Rule document:
 {
   "rule": "pipeline.trigger_build.pipeline",
   "value": {
-    "triggering_pipeline_uuid": "{triggering-pipeline-uuid}",
-    "triggered_pipeline_uuid": "{triggered-pipeline-uuid}"
+    "source_pipeline_uuid": "{triggering-pipeline-uuid}",
+    "target_pipeline_uuid": "{triggered-pipeline-uuid}"
   }
 }
 ```
 
 Value fields:
 
-- `triggering_pipeline_uuid` The UUID of the pipeline that is allowed to trigger another pipeline.
-- `triggered_pipeline_uuid` The UUID of the pipeline that is allowed to be triggered by the `triggering_pipeline_uuid` pipeline.
+- `source_pipeline_uuid` The UUID of the pipeline that is allowed to trigger another pipeline.
+- `target_pipeline_uuid` The UUID of the pipeline that is allowed to be triggered by the `source_pipeline_uuid` pipeline.
 
 #### Example use case
 
