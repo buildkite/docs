@@ -37,14 +37,26 @@ To add a new documentation (docs) page and a nav entry for it:
 > 
 > Since a new section entry in the nav is purely a toggle that cannot hold page content itself, then to introduce a page for this new section, create a top-level "Overview" page for this section instead.
 
-### Filenames and filename linting
+### Linting
 
-Use `snake_case` for `*.md` files in `pages`. The [`.ls-lint` linter](https://github.com/buildkite/docs/blob/main/.ls-lint.yml) checks if this rule is observed.
-See more about the [ls-lint filename linter](https://ls-lint.org/1.x/getting-started/introduction.html).
+This section describes the various linting features which are run as part of the Buildkite Docs build pipeline.
 
-### Escaping vale linting
+#### Markdown files
 
-If you absolutely need to add some word that triggers the linter, you can use escaping using the following syntax:
+Markdown files must be located within `pages`, and their names must be written in [`snake_case`](https://simple.wikipedia.org/wiki/Snake_case) and end with the `.md` extension.
+
+The [`.ls-lint` linter](https://github.com/buildkite/docs/blob/main/.ls-lint.yml) checks if this rule is observed.
+Learn more about the [ls-lint filename linter](https://ls-lint.org/1.x/getting-started/introduction.html).
+
+#### Markdown content
+
+A [Markdown linter](https://github.com/DavidAnson/markdownlint) also runs on the Buildkite documentation's Markdown file content.
+
+The rules enabled for this Markdown linting are defined in the [`.markdownlint.yaml`](https://github.com/buildkite/docs/blob/main/.markdownlint.yaml) file.
+
+#### Escaping vale linting
+
+If you absolutely need to add some word or syntax that would trigger the linter into failing the docs build pipeline, you can use escaping using the following syntax:
 
 ```
 <!-- vale off -->
@@ -55,12 +67,6 @@ This is some text that you do NOT want the linter to check
 ```
 
 Use the `vale off` syntax before a phrase that needs to be bypassed by the linter and don't forget to turn it on again with `vale on`.
-
-### Markdown linting
-
-A [Markdown linter](https://github.com/DavidAnson/markdownlint) is at work in Buildkite documentation.
-
-The enabled Markdown linting rules are in [`.markdownlint.yaml`](https://github.com/buildkite/docs/blob/main/.markdownlint.yaml) file.
 
 ### Content reuse (snippets)
 
