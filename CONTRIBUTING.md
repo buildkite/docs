@@ -33,9 +33,9 @@ To add a new documentation (docs) page and a nav entry for it:
 > [!NOTE]
 > The Buildkite Docs web site is kept running with Ruby, which interprets underscores in filenames as hyphens. Therefore, if a page is called `octopussy_cat.md`, then for its entry in the `nav.yml` file, you need to reference its `path` key value as `octopussy-cat`.
 > 
-> If you're creating a new section for the nav, then as described for the `path` key above, add the `name` entry, omit its `path` key, add a `children` key for this entry, and then nest/indent all new page entries within this section entry.
+> If you're creating a new section for the nav, then as described for the `path` key above, add the `name` key for this entry, omit its `path` key, and add a `children` key to create this new section. Then, nest/indent all new page entries within this section entry.
 > 
-> Since a new section entry in the nav cannot hold a page, then to introduce this page, create an "Overview" page for this section.
+> Since a new section entry in the nav is purely a toggle that cannot hold page content itself, then to introduce a page for this new section, create a top-level "Overview" page for this section instead.
 
 ### Filenames and filename linting
 
