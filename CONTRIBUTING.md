@@ -17,7 +17,7 @@ To add a new documentation (docs) page and a nav entry for it:
 
 1. Create the file as a new Markdown file (with the extension `.md`) within the appropriate `pages` directory. Ensure the file name is written in all lowercase letters, and separate words using underscores. (These underscores will be automatically converted to hyphens when the Buildkite Docs site is rebuilt.)
 
-1. Add a corresponding entry to this new page in the `data/nav.yml` file, which adds a new entry for this page in the page navigation sidebar (nav) of the [Buildkite Docs site](https://buildkite.com/docs). Note the existing page entries in `nav.yml` and use them as a guide to determine the location and hence, placement of the entry to your new Markdown file (in the nav and `nav.yml`). The following elements require considering for a new entry in `nav.yml`:
+1. Add a corresponding entry to this new page in the [`data/nav.yml`](./data/nav.yml) file, which adds a new entry for this page in the page navigation sidebar (nav) of the [Buildkite Docs site](https://buildkite.com/docs). Note the existing page entries in `nav.yml` and use them as a guide to determine the location and hence, placement of the entry to your new Markdown file (in the nav and `nav.yml`). The following elements require considering for a new entry in `nav.yml`:
 
 | Key           | Description | Data type |
 | ------------- | ----------- | --------- |
@@ -45,14 +45,22 @@ This section describes the various linting features which are run as part of the
 
 Markdown files must be located within `pages`, and their names must be written in [`snake_case`](https://simple.wikipedia.org/wiki/Snake_case) and end with the `.md` extension.
 
-The [`.ls-lint` linter](https://github.com/buildkite/docs/blob/main/.ls-lint.yml) checks if this rule is observed.
+The [`.ls-lint.yml`](.ls-lint.yml) linter file contains rules that the ls-lint filename linter checks are observed.
 Learn more about the [ls-lint filename linter](https://ls-lint.org/1.x/getting-started/introduction.html).
 
 #### Markdown content
 
 A [Markdown linter](https://github.com/DavidAnson/markdownlint) also runs on the Buildkite documentation's Markdown file content.
 
-The rules enabled for this Markdown linting are defined in the [`.markdownlint.yaml`](https://github.com/buildkite/docs/blob/main/.markdownlint.yaml) file.
+The rules enabled for this Markdown linting are defined in the [`.markdownlint.yaml`](.markdownlint.yaml) file.
+
+#### Fixing spelling errors
+
+The Buildkite Docs build pipeline uses [Vale](https://vale.sh/) to check for spelling errors, and builds will fail if a spelling error is encountered.
+
+If you need to add an exception to this (for example, you are referencing a new technology or tool that isn't in Vale's vocabulary), add this term verbatim to the [`/vale/styles/vocab.txt`](./vale/styles/vocab.txt) file, ensuring that the term is added in the correct alphabetical order within the file. Case is important but should be ignored with regard to alphabetical ordering within the file. This makes it easier to identify if an exception has already been added.
+
+If you encounter a spelling error within a heading, add this entry into the [`/vale/styles/Buildkite/h1-h6_sentence_case.yml`](./vale/styles/Buildkite/h1-h6_sentence_case.yml) file.
 
 #### Escaping vale linting
 
