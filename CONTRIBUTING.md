@@ -11,25 +11,31 @@ Please also note the following style guides, which are relevant to adding conten
 
 The Buildkite docs is a custom-built website. This section gives some guidance on working with the setup.
 
-### Adding and naming new documentation pages
+### Add a new docs page and nav entry
 
-To add a new documentation page, create it as a *.md file. Give it a lowercase name, separate words using underscores.
-To add the new page to the documentation sidebar on https://buildkite.com/docs, add the corresponding entry to
-`data/nav.yml` with the following data in the sitetree:
+To add a new documentation (docs) page and a nav entry for it:
+
+1. Create the file as a new Markdown file (with the extension `.md`) within the appropriate `pages` directory. Ensure the file name is written in all lowercase letters, and separate words using underscores. (These underscores will be automatically converted to hyphens when the Buildkite Docs site is rebuilt.)
+
+1. Add a corresponding entry to this new page in the `data/nav.yml` file, which adds a new entry for this page in the page navigation sidebar (nav) of the [Buildkite Docs site](https://buildkite.com/docs). Note the existing page entries in `nav.yml` and use them as a guide to determine the location and hence, placement of the entry to your new Markdown file (in the nav and `nav.yml`). The following elements require considering for a new entry in `nav.yml`:
 
 | Key           | Description | Data type |
 | ------------- | ----------- | --------- |
-| `name`        | Menu name | String, required |
-| `path`        | Enter a relative URL path for internal pages. You can also prepend with `https` for external pages, or `mailto:` for email links. If Path is empty then this will be rendered as a toggle. | String, optional |
-| `icon`        | Prepend with an icon | String, optional |
-| `theme`       | WIP: doesn't work yet. Apply a theme. You can use `green` or `purple` | String, optional |
-| `children`    | Children menu items | Array of objects, optional |
+| `name`        | Nav entry name (see note below). | String, required |
+| `path`        | Enter a relative URL path for internal pages. You can also prepend with `https` for external pages, or `mailto:` for email links, although this practice should be avoided or minimized. If the `path` is empty or omitted, then this will be rendered as a toggle that opens a new section of pages. | String, optional |
+| `icon`        | Prepend with an icon. | String, optional |
+| `theme`       | WIP: doesn't work yet. Apply a theme. You can use `green` or `purple`. | String, optional |
+| `children`    | Child nav entry items. | Array of objects, optional |
 | `pill`        | Append a pill. Currently you can use `beta`, `coming-soon`, `deprecated` or `new` | String, optional |
-| `new_window`  | Make this link open up a new window | Bool, optional |
+| `new_window`  | Make this link open up a new window, although this practice should be avoided or minimized. | Bool, optional |
 | `type` | Special nav link types. With `dropdown` the children nav items will be rendered as hover dropdown menus on laptop/desktop screen devices. `link` is a shortcut link that takes the user from one section to another (for example, you may link to SSO under the Integrations section from Pipeline's sidebar). It also renders an 'external link' icon as an affordance. Lastly, `divider` makes a divider line in the nav to help with visual delineation. | String, `dropdown|link|divider`, optional |
 
 > [!NOTE]
-> Ruby, which keeps the website running, interprets underscores in filenames as hyphens. So if a page is called `octopussy_cat.erb.md`, you need to add it as `octopussy-cat` to the `nav.yml` file.
+> The Buildkite Docs web site is kept running with Ruby, which interprets underscores in filenames as hyphens. Therefore, if a page is called `octopussy_cat.md`, then for its entry in the `nav.yml` file, you need to reference its `path` key value as `octopussy-cat`.
+> 
+> If you're creating a new section for the nav, then as described for the `path` key above, add the `name` entry, omit its `path` key, add a `children` key for this entry, and then nest/indent all new page entries within this section entry.
+> 
+> Since a new section entry in the nav cannot hold a page, then to introduce this page, create an "Overview" page for this section.
 
 ### Filenames and filename linting
 
