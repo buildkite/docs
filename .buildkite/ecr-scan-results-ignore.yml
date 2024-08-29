@@ -19,3 +19,5 @@ ignores:
   - id: CVE-2023-50387 # systemd 252.17-1~deb12u1
   - id: CVE-2024-0553 # gnutls28 3.7.9-2
   - id: CVE-2024-0567 # gnutls28 3.7.9-2+deb12u1
+  - id: CVE-2024-37371 # krb5 1.20.1-2+deb12u1
+  - id: CVE-2024-37370 # krb5 1.20.1-2+deb12u1
