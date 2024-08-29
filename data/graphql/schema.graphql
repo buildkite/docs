@@ -8963,11 +8963,6 @@ type Rule implements Node {
   """
   effect: RuleEffect
   id: ID!
-
-  """
-  Name of the rule
-  """
-  name: String!
   organization: Organization
 
   """
@@ -8989,6 +8984,11 @@ type Rule implements Node {
   Target type for the rule
   """
   targetType: RuleTargetType
+
+  """
+  The type of rule
+  """
+  type: String!
 
   """
   The public UUID for the rule
@@ -9025,12 +9025,12 @@ input RuleCreateInput {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
+  organizationId: ID!
 
   """
-  Rule name
+  Rule type
   """
-  name: String!
-  organizationId: ID!
+  type: String!
 
   """
   Serialised JSON of the attributes for this rule
