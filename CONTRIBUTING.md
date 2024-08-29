@@ -31,6 +31,8 @@ To add a new documentation (docs) page and a nav entry for it:
 | `type` | Special nav link types. With `dropdown` the children nav items will be rendered as hover dropdown menus on laptop/desktop screen devices. `link` is a shortcut link that takes the user from one section to another (for example, you may link to SSO under the Integrations section from Pipeline's sidebar). It also renders an 'external link' icon as an affordance. Lastly, `divider` makes a divider line in the nav to help with visual delineation. | String, `dropdown|link|divider`, optional |
 
 > [!NOTE]
+> Whenever you save changes to the `nav.yml` file, you'll need to stop and restart your local development environment in order to see these changes reflected in the nav.
+> 
 > The Buildkite Docs web site is kept running with Ruby, which interprets underscores in filenames as hyphens. Therefore, if a page is called `octopussy_cat.md`, then for its entry in the `nav.yml` file, you need to reference its `path` key value as `octopussy-cat`.
 > 
 > If you're creating a new section for the nav, then as described for the `path` key above, add the `name` key for this entry, omit its `path` key, and add a `children` key to create this new section. Then, nest/indent all new page entries within this section entry.
@@ -40,6 +42,10 @@ To add a new documentation (docs) page and a nav entry for it:
 ### Linting
 
 This section describes the various linting features which are run as part of the Buildkite Docs build pipeline.
+
+The docs (in US English) are spell-checked and a few automated checks for repeated words, common errors, and Markdown and filename inconsistencies are also run.
+
+You can run most of these checks locally with [`./scripts/vale.sh`](./scripts/vale.sh).
 
 #### Markdown files
 
@@ -54,7 +60,7 @@ A [Markdown linter](https://github.com/DavidAnson/markdownlint) also runs on the
 
 The rules enabled for this Markdown linting are defined in the [`.markdownlint.yaml`](.markdownlint.yaml) file.
 
-#### Fixing spelling errors
+#### Fix spelling errors
 
 The Buildkite Docs build pipeline uses [Vale](https://vale.sh/) to check for spelling errors, and builds will fail if a spelling error is encountered.
 
@@ -62,7 +68,7 @@ If you need to add an exception to this (for example, you are referencing a new 
 
 If you encounter a spelling error within a heading, add this entry into the [`/vale/styles/Buildkite/h1-h6_sentence_case.yml`](./vale/styles/Buildkite/h1-h6_sentence_case.yml) file.
 
-#### Escaping vale linting
+#### Escape vale linting
 
 If you absolutely need to add some word or syntax that would trigger the linter into failing the docs build pipeline, you can use escaping using the following syntax:
 
@@ -76,9 +82,9 @@ This is some text that you do NOT want the linter to check
 
 Use the `vale off` syntax before a phrase that needs to be bypassed by the linter and don't forget to turn it on again with `vale on`.
 
-### Content reuse (snippets)
+### Content reuse (snippets/partials)
 
-You can use snippets to reuse the same fragment in several documentation pages (single sourcing). This way, you can update the snippet once, and the changes will be visible on all pages that use this snippet.
+You can use snippets or partials to reuse the same fragment in several documentation pages (single sourcing). This way, you can update the snippet once, and the changes will be visible on all pages that use this snippet.
 
 Add snippet files to appropriate locations within the `/pages` directory, prefaced with an underscore in the file name. For example `_my_snippet.md`. **However**, when pulling the snippet into a file, remove the leading underscore.
 
@@ -124,7 +130,7 @@ Adding the class `has-pill-beta` to any element will append the beta pill. This 
 
 #### Table of contents
 
-Table of contents are automatically generated based on \##\-level headings.
+Table of contents are automatically generated based on `##`-level headings.
 
 You can omit a table of contents by adding some additional metadata to a Markdown template using the following YAML front matter:
 
@@ -134,7 +140,7 @@ toc: false
 ---
 ```
 
-#### Prepending icons
+#### Prepend icons
 
 You can prepend an icon to boost the visual emphasis for an inline text. To do this, wrap the text with `<span class="add-icon-#{ICON_NAME}">`.
 
@@ -143,13 +149,75 @@ At the time of writing, there are only three icons available — agent, reposito
 > [!NOTE]
 > Unlike emojis, these icons are generic and contextual, and they are used as to help readers to better visually differentiate specific terms from the rest of the text.
 
-### Updating vendor/emojis
+### Update Buildkite Agent CLI docs
+
+The [Buildkite Agent command-line interface (CLI) reference docs](https://buildkite.com/docs/agent/v3/cli-reference) consists of a series of pages where each page describes how each of the agent's `buildkite-agent` CLI commands works and is used.
+
+Each command's docs page should have a **Usage**, **Description**, **Example**, and **Options** section appearing somewhere on the page.
+
+These four sections are actually part of a [partial](#content-reuse-snippetspartials), whose content comes from its relevant Markdown file partial in the [docs source repo's `pages/agent/v3/help` folder](./pages/agent/v3/help). The files in this folder are automatically updated whenever a [new version of the Buildkite Agent is released](https://github.com/buildkite/agent/releases), containing updates to the documentation in any of its relevant [clicommand files](https://github.com/buildkite/agent/tree/main/clicommand). This is why the tops of these file partials indicate **DO NOT EDIT**.
+
+With the development dependencies installed you can update these CLI docs locally with the following:
+
+```bash
+# Set a custom PATH to select a locally built buildkite-agent
+PATH="$HOME/Projects/buildkite/agent:$PATH" ./scripts/update-agent-help.sh
+```
+
+### Update the GraphQL API docs
+
+The GraphQL API reference documentation (from the start of [Queries](https://buildkite.com/docs/apis/graphql/schemas/query/agent) through to end of [Unions](https://buildkite.com/docs/apis/graphql/schemas/union/usageunion)) is generated from a local version of the [Buildkite GraphQL API schema](./data/graphql/schema.graphql).
+
+This repository is kept up-to-date with production based on a daily scheduled build that generates a pull request. The build fetches the latest GraphQL schema from the Buildkite API, generates the documentation, and publishes a pull request for review.
+
+If you need to fetch the latest schema, you can run the following in your local environment:
+
+```sh
+# Fetch latest schema
+API_ACCESS_TOKEN=xxx  bundle exec rake graphql:fetch_schema >| data/graphql/schema.graphql
+
+# Generate docs based on latest schema
+bundle exec rake graphql:generate
+```
+
+### Update vendor/emojis
 
 From time to time, you will start seeing an update to `vendor/emojis` submodule as a default initial file change in every new branch you create. This happens because these new branches will have an older version of the emoji submodule than the main branch.
 
 **Do not commit the `vendor/emojis` commit!** Instead, run `git submodule update`. This will take care of the emoji commit - until your local emoji submodule version falls behind again. Then you will need to run `git submodule update` for your local Docs repository again.
 
 If you do accidentally commit the `vendor/emojis` update, use `git reset --soft HEAD~1` to undo your last commit, un-stage the erroneous submodule change, and commit again.
+
+### Search index
+
+**Note:** By default, search (through Algolia) references the production search index.
+
+The search index is updated once a day by a scheduled build using the config in `config/algolia.json`.
+
+To test changes to the indexing configuration:
+
+1. Make sure you have an API key in `.env` like:
+
+    ```env
+    APPLICATION_ID=APP_ID
+    API_KEY=YOUR_API_KEY
+    ```
+
+2. Run `bundle exec rake update_test_index`.
+
+### Content keywords
+
+Content keywords are rendered in `data-content-keywords` in the `body` tag to highlight the focus keywords of each page with content authors.
+
+This helps the main documentation contribution team quickly inspect to see the types of content Buildkite provides across different channels.
+
+Keywords are added as [Frontmatter](https://rubygems.org/gems/front_matter_parser) meta data using the `keywords` key, e.g.:
+
+```md
+keywords: docs, tutorial, pipelines, 2fa
+```
+
+If no keywords are provided it falls back to comma-separated URL path segments.
 
 ## Screenshots
 
