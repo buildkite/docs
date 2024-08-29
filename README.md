@@ -38,7 +38,7 @@ git submodule update --init
 
 ### Run the development server
 
-After completing the relevant 'Before you start' steps above:
+After completing all the relevant [Before you start](#before-you-start) steps above:
 
 1. Build and run your local Buildkite Docs development server environment.
 
@@ -84,7 +84,7 @@ Refer to the:
 
 - [Contributing to the Buildkite Docs](CONTRIBUTING.md) guide for details on how to start making a contribution in a new pull request.
 
-- [writing](/styleguides/writing-style.md) and [Markdown syntax](/styleguides/markdown-syntax-style.md) style guides, which should provide a general idea and an insight into the language and writing style used throughout the Buildkite Docs, as well as the Markdown syntax used (including custom formatting elements).
+- [Writing](/styleguides/writing-style.md) and [Markdown syntax](/styleguides/markdown-syntax-style.md) style guides, which should provide a general idea and an insight into the language and writing style used throughout the Buildkite Docs, as well as the Markdown syntax used (including custom formatting elements).
 
 ## License
 
