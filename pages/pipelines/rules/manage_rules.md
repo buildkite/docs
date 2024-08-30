@@ -9,11 +9,16 @@ Organization admins can create new rules using the **Rules** page in **Organizat
 To create a new rule using the Buildkite UI:
 
 1. Select **Settings** in the global navigation to access the **Organization settings** page.
-2. Select **Rules** in the Pipelines section.
-3. Select **New Rule**.
-4. Under **Rule Type**, select the type of rule you want to create, such as `pipeline.trigger_build.pipeline`.
-5. Under **Rule Document**, populate the relevant data. For example, if you're creating a `pipeline.trigger_build.pipeline` rule, you'll need to provide a `source_pipeline_uuid` and a `target_pipeline_uuid`. You can find the UUIDs of your pipelines on their **Settings** page under the **GraphQL API integration** section.
-6. Select **Submit**.
+
+1. Select **Rules** in the Pipelines section.
+
+1. Select **New Rule**.
+
+1. Under **Rule Type**, select the type of rule you want to create, such as `pipeline.trigger_build.pipeline`.
+
+1. Under **Rule Document**, populate the relevant data. For example, if you're creating a `pipeline.trigger_build.pipeline` rule, you'll need to provide a `source_pipeline_uuid` and a `target_pipeline_uuid`. You can find the UUIDs of your pipelines on their **Settings** page under the **GraphQL API integration** section.
+
+1. Select **Submit**.
 
 ### Using the REST API
 

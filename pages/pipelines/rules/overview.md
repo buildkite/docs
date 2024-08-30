@@ -2,17 +2,17 @@
 
 Rules allow you to customize permissions between Buildkite resources.
 
-Rules express that an action (e.g. triggering a build) is allowed between a source resource (e.g. a pipeline) and a target resource (e.g. another pipeline).
+Rules express that an action (for example, triggering a build) is allowed between a source resource (for example, a pipeline) and a target resource (for example, another pipeline).
 
 Rules are used to grant or restrict access between resources that would normally be determined by the default permissions.
 
 ## Available rule types
 
-### `pipeline.trigger_build.pipeline`
+### pipeline.trigger_build.pipeline
 
 Allows one pipeline to trigger another. This is useful where you want to allow a pipeline to trigger a build in another cluster, or if you want to allow a public pipeline to trigger a private one.
 
-Note that this rule type overrides the usual [trigger step permissions checks](docs/pipelines/trigger-step#permissions) on users and teams.
+Note that this rule type overrides the usual [trigger step permissions checks](/docs/pipelines/trigger-step#permissions) on users and teams.
 
 Rule document:
 
@@ -37,7 +37,7 @@ Clusters may be used to separate the environments necessary for building and dep
 
 A `pipeline.trigger_build.pipeline` rule would allow a trigger step in the CI pipeline in cluster A to target the CD pipeline in cluster B. This would allow deploys to be triggered upon a successful CI build, while still maintaining the separation of the CI and CD agents in their respective clusters.
 
-### `pipeline.artifacts_read.pipeline`
+### pipeline.artifacts_read.pipeline
 
 Allows a source pipeline in one cluster to read artifacts from a target pipeline in another cluster.
 
