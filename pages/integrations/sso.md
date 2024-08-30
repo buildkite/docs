@@ -24,7 +24,7 @@ Buildkite supports the following SSO providers:
 
 ## Adding SSO
 
-Many of the SSO providers can be configured by an organization admin using [Organisation Settings → SSO Settings](https://buildkite.com/organizations/-/sso):
+Many of the SSO providers can be configured by an organization admin using [Organization Settings → SSO Settings](https://buildkite.com/organizations/-/sso):
 
 <%= image "sso-settings.png", width: 1716/2, height: 884/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 

@@ -39,6 +39,6 @@ The action a rule enforces
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>TRIGGER_BUILD</code></strong></p><p>Trigger a build in the target pipeline</p></td></tr>
+    <tr><td><p><strong><code>ARTIFACTS_READ</code></strong></p><p>Artifacts read</p></td></tr><tr><td><p><strong><code>TRIGGER_BUILD</code></strong></p><p>Trigger build</p></td></tr>
   </tbody>
 </table>

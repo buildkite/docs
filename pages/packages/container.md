@@ -8,7 +8,7 @@ To view and copy these `docker` commands:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your container registry on this page.
-1. Select **Publish a Container Package** and in the resulting dialog, for each required `docker` command set in the relevant code snippets, copy the relevant code snippet (using the icon at the top-right of its code box), paste it into your terminal, and run it.
+1. Select **Publish a Container Image** and in the resulting dialog, for each required `docker` command set in the relevant code snippets, copy the relevant code snippet (using the icon at the top-right of its code box), paste it into your terminal, and run it.
 
 These Docker commands are used to:
 
@@ -27,7 +27,7 @@ The following steps describe the process above:
     ```
 
     where:
-    * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your container registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
+    * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your container registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
 
     <%= render_markdown partial: 'packages/org_slug' %>
     <%= render_markdown partial: 'packages/container_registry_slug' %>
