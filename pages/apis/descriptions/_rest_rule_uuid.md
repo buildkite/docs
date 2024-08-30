@@ -8,4 +8,3 @@
     curl -H "Authorization: Bearer $TOKEN" \
       - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/rules"
     ```
-

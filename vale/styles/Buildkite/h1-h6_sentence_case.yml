@@ -128,6 +128,8 @@ exceptions:
   - OS X
   - PagerDuty
   - Phabricator
+  - pipeline.artifacts_read.pipeline
+  - pipeline.trigger_build.pipeline
   - pipeline.yml
   - PowerShell
   - pytest
