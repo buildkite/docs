@@ -2,7 +2,7 @@
 
 To use Test Analytics with your [Ruby](https://www.ruby-lang.org/) projects use the :github: [`test-collectors-ruby`](https://github.com/buildkite/test-collector-ruby) gem with RSpec or minitest.
 
-You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
+You can also upload test results by importing [JSON](/docs/test-engine/importing-json) or [JUnit XML](/docs/test-engine/importing-junit-xml).
 
 
 ## RSpec collector
@@ -10,7 +10,7 @@ You can also upload test results by importing [JSON](/docs/test-analytics/import
 [RSpec](https://rspec.info/) is a behavior-driven development library for Ruby.
 If you're already using RSpec for your tests, add the `buildkite-test_collector` gem to your code to collect your test results into your Test Analytics dashboard.
 
-Before you start, make sure RSpec runs with access to [CI environment variables](/docs/test-analytics/ci-environments).
+Before you start, make sure RSpec runs with access to [CI environment variables](/docs/test-engine/ci-environments).
 
 1. Create a new branch:
 
@@ -50,7 +50,7 @@ Before you start, make sure RSpec runs with access to [CI environment variables]
 
 Once you're done, in your Test Analytics dashboard, you'll see analytics of test executions on all branches that include this code.
 
-If you don't see branch names, build numbers, or commit hashes in the Test Analytics UI, then see [CI environments](/docs/test-analytics/ci-environments) to learn more about exporting your environment to the collector.
+If you don't see branch names, build numbers, or commit hashes in the Test Analytics UI, then see [CI environments](/docs/test-engine/ci-environments) to learn more about exporting your environment to the collector.
 
 ### Troubleshooting allow_any_instance_of errors
 
@@ -115,7 +115,7 @@ If you're already using minitest for your tests, add the `buildkite-test_collect
 
 Once you're done, in your Test Analytics dashboard, you'll see analytics of test executions on all branches that include this code.
 
-If you don't see branch names, build numbers, or commit hashes in the Test Analytics UI, then see [CI environments](/docs/test-analytics/ci-environments) to learn more about exporting your environment to the minitest collector.
+If you don't see branch names, build numbers, or commit hashes in the Test Analytics UI, then see [CI environments](/docs/test-engine/ci-environments) to learn more about exporting your environment to the minitest collector.
 
 ## Adding annotation spans
 

@@ -12,7 +12,7 @@ To delete a suite, or regenerate its API token, go to suite settings.
 
 Test Analytics works even when your test runs are split across different agents by de-duplicating against the Test Analytics API token and unique build identifier.
 
-The information that serves as a unique build identifier differs between CI environments. For details, see `run_env[key]` environment variables on our [CI environments page](/docs/test-analytics/ci-environments).
+The information that serves as a unique build identifier differs between CI environments. For details, see `run_env[key]` environment variables on our [CI environments page](/docs/test-engine/ci-environments).
 
 ## Compare across branches
 

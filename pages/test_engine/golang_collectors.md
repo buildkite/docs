@@ -4,7 +4,7 @@ toc: false
 
 # Configuring Go with Test Analytics
 
-To use Test Analytics with your [Go](https://go.dev/) language projects use [gotestsum](https://github.com/gotestyourself/gotestsum) to generate JUnit XML files, then [upload the JUnit XML files](/docs/test-analytics/importing-junit-xml) to Test Analytics.
+To use Test Analytics with your [Go](https://go.dev/) language projects use [gotestsum](https://github.com/gotestyourself/gotestsum) to generate JUnit XML files, then [upload the JUnit XML files](/docs/test-engine/importing-junit-xml) to Test Analytics.
 
 1. Install [gotestsum](https://github.com/gotestyourself/gotestsum):
 

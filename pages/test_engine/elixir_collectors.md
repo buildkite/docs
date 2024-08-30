@@ -6,15 +6,15 @@ toc: false
 
 To use Test Analytics with your Elixir projects use :github: [`test_collector_elixir`](https://github.com/buildkite/test_collector_elixir) with ExUnit.
 
-You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
+You can also upload test results by importing [JSON](/docs/test-engine/importing-json) or [JUnit XML](/docs/test-engine/importing-junit-xml).
 
 ## ExUnit
 
 [ExUnit](https://hexdocs.pm/ex_unit/) is a Elixir unit test library.
 
-Before you start, make sure ExUnit runs with access to [CI environment variables](/docs/test-analytics/ci-environments).
+Before you start, make sure ExUnit runs with access to [CI environment variables](/docs/test-engine/ci-environments).
 
-1. Create a [test suite](/docs/test-analytics/test-suites) and copy the API token that it gives you.
+1. Create a [test suite](/docs/test-engine/test-suites) and copy the API token that it gives you.
 
 1. Add `buildkite_test_collector` to your list of dependencies in `mix.exs`:
 

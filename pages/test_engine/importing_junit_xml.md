@@ -1,6 +1,6 @@
 # Importing JUnit XML
 
-While most test frameworks have a built-in JUnit XML export feature, these JUnit reports do not provide detailed span information. Therefore, features in Test Analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, consider using the [JSON import](/docs/test-analytics/importing-json) API instead.
+While most test frameworks have a built-in JUnit XML export feature, these JUnit reports do not provide detailed span information. Therefore, features in Test Analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, consider using the [JSON import](/docs/test-engine/importing-json) API instead.
 
 
 ## Mandatory JUnit XML attributes
@@ -15,7 +15,7 @@ To learn more about the JUnit XML file format, see [Common JUnit XML format & ex
 
 ## How to import JUnit XML in Buildkite
 
-It's possible to import XML-formatted JUnit (or [JSON](/docs/test-analytics/importing-json#how-to-import-json-in-buildkite)) test results to Buildkite Test Analytics with or without the help of a plugin.
+It's possible to import XML-formatted JUnit (or [JSON](/docs/test-engine/importing-json#how-to-import-json-in-buildkite)) test results to Buildkite Test Analytics with or without the help of a plugin.
 
 ### Using a plugin
 
@@ -64,7 +64,7 @@ For example, to import the contents of a `junit.xml` file in a Buildkite pipelin
       https://analytics-api.buildkite.com/v1/uploads
     ```
 
-To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-analytics/ci-environments#buildkite).
+To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-engine/ci-environments#buildkite).
 
 Note that when a payload is processed, Buildkite validates and queues each test execution result in a loop. For that reason, it is possible for some to be queued and others to be skipped. Even when some or all test executions get skipped, REST API will respond with a `202 Accepted` because the upload and the run were created in the database, but the skipped test execution results were not ingested.
 
@@ -96,7 +96,7 @@ For example, to import the contents of a `junit.xml` file in a CircleCI pipeline
       https://analytics-api.buildkite.com/v1/uploads
     ```
 
-To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-analytics/ci-environments#circleci).
+To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-engine/ci-environments#circleci).
 
 Note that when a payload is processed, Buildkite validates and queues each test execution result in a loop. For that reason, it is possible for some to be queued and others to be skipped. Even when some or all test executions get skipped, REST API will respond with a `202 Accepted` because the upload and the run were created in the database, but the skipped test execution results were not ingested.
 
@@ -129,7 +129,7 @@ For example, to import the contents of a `junit.xml` file in a GitHub Actions pi
       https://analytics-api.buildkite.com/v1/uploads
     ```
 
-To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-analytics/ci-environments).
+To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-engine/ci-environments).
 
 Note that when a payload is processed, Buildkite validates and queues each test execution result in a loop. For that reason, it is possible for some to be queued and others to be skipped. Even when some or all test executions get skipped, REST API will respond with a `202 Accepted` because the upload and the run were created in the database, but the skipped test execution results were not ingested.
 

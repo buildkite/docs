@@ -6,11 +6,11 @@ toc: false
 
 To use Test Analytics with your .NET projects use the :github: [`test-collector-dotnet`](https://github.com/buildkite/test-collector-dotnet) package with xUnit.
 
-You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
+You can also upload test results by importing [JSON](/docs/test-engine/importing-json) or [JUnit XML](/docs/test-engine/importing-junit-xml).
 
-Before you start, make sure .NET runs with access to [CI environment variables](/docs/test-analytics/ci-environments).
+Before you start, make sure .NET runs with access to [CI environment variables](/docs/test-engine/ci-environments).
 
-1. Create a [test suite](/docs/test-analytics/test-suites) and copy the API token that it gives you.
+1. Create a [test suite](/docs/test-engine/test-suites) and copy the API token that it gives you.
 
 1. Add `Buildkite.TestAnalytics.Xunit` to your list of dependencies in your xUnit test project:
 
