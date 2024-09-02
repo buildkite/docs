@@ -289,6 +289,11 @@ variables:
       The message associated with the build, usually the commit message. The value is empty when a message is not set. For example, when a user triggers a build from the Buildkite dashboard without entering a message, the variable returns an empty value.
     modifiable: false
     example: "Added a great new feature"
+  - name: BUILDKITE_ORGANIZATION_ID
+    desc: |
+      The UUID of the organization.
+    modifiable: false
+    example: "6abcd532-f9b7-41e9-8717-40fb75a82b5d"
   - name: BUILDKITE_ORGANIZATION_SLUG
     desc: |
       The organization name on Buildkite as used in URLs.
@@ -307,6 +312,11 @@ variables:
       The default branch for this pipeline.
     modifiable: false
     example: "main"
+  - name: BUILDKITE_PIPELINE_ID
+    desc: |
+      The UUID of the pipeline.
+    modifiable: false
+    example: "d18439cc-df59-45b0-97cc-98d7fb69d983"
   - name: BUILDKITE_PIPELINE_NAME
     desc: |
       The displayed pipeline name on Buildkite.
