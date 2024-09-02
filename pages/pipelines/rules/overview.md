@@ -6,15 +6,18 @@ Rules express that an action (for example, triggering a build) is allowed betwee
 
 Rules are used to grant or restrict access between resources that would normally be determined by the default permissions.
 
-## Available rule types
+## Rule types
 
 ### pipeline.trigger_build.pipeline
 
-Allows one pipeline to trigger another. This is useful where you want to allow a pipeline to trigger a build in another cluster, or if you want to allow a public pipeline to trigger a private one.
+This rule type:
 
-Note that this rule type overrides the usual [trigger step permissions checks](/docs/pipelines/trigger-step#permissions) on users and teams.
+- Allows one pipeline to trigger another.
+- Is useful where you want to allow a pipeline to trigger a build in another cluster, or if you want to allow a public pipeline to trigger a private one.
 
-Rule document:
+**Note:** This rule type overrides the usual [trigger step permissions checks](/docs/pipelines/trigger-step#permissions) on users and teams.
+
+Rule format:
 
 ```json
 {
@@ -26,22 +29,24 @@ Rule document:
 }
 ```
 
-Value fields:
+where:
 
-- `source_pipeline_uuid` The UUID of the pipeline that is allowed to trigger another pipeline.
-- `target_pipeline_uuid` The UUID of the pipeline that is allowed to be triggered by the `source_pipeline_uuid` pipeline.
+- `source_pipeline_uuid` is the UUID of the pipeline that's allowed to trigger another pipeline.
+- `target_pipeline_uuid` is the UUID of the pipeline that can be triggered by the `source_pipeline_uuid` pipeline.
+
+Learn more about how to create rules in [Manage rules](/docs/pipelines/rules/manage).
 
 #### Example use case: cross-cluster pipeline triggering
 
-Clusters may be used to separate the environments necessary for building and deploying an application. For example, a CI pipeline in cluster A and a CD pipeline cluster B. Ordinarily, pipelines in separate clusters like this are not able to trigger builds for each other due to the strict isolation of clusters.
+Clusters may be used to separate the environments necessary for building and deploying an application. For example, a continuous integration (CI) pipeline has been set up in cluster A and likewise, a continuous deployment (CD) pipeline in cluster B. Ordinarily, pipelines in separate clusters are not able to trigger builds between each other due to the strict isolation of clusters.
 
-A `pipeline.trigger_build.pipeline` rule would allow a trigger step in the CI pipeline in cluster A to target the CD pipeline in cluster B. This would allow deploys to be triggered upon a successful CI build, while still maintaining the separation of the CI and CD agents in their respective clusters.
+However, a `pipeline.trigger_build.pipeline` rule would allow a trigger step in the CI pipeline of cluster A to target the CD pipeline in cluster B. Such rules would allow deployment to be triggered upon a successful CI build, while still maintaining the separation between the CI and CD agents in their respective clusters.
 
 ### pipeline.artifacts_read.pipeline
 
-Allows a source pipeline in one cluster to read artifacts from a target pipeline in another cluster.
+This rule type allows a source pipeline in one cluster to read artifacts from a target pipeline in another cluster.
 
-Rule document:
+Rule format:
 
 ```json
 {
@@ -53,11 +58,13 @@ Rule document:
 }
 ```
 
-Value fields:
+where:
 
-- `source_pipeline_uuid` The UUID of the pipeline that is allowed to read artifacts from another pipeline.
-- `target_pipeline_uuid` The UUID of the pipeline that is allowed to have its artifacts read by jobs in the `source_pipeline_uuid` pipeline.
+- `source_pipeline_uuid` is the UUID of the pipeline that's allowed to read artifacts from another pipeline.
+- `target_pipeline_uuid` is the UUID of the pipeline whose artifacts can be read by jobs in the `source_pipeline_uuid` pipeline.
 
 #### Example use case: sharing assets between clusters
 
-By default, artifacts cannot be accessed by pipelines in separate clusters. For example, a deploy pipeline in cluster B cannot ordinarily access artifacts uploaded by a CI pipeline in cluster A. A `pipeline.artifacts_read.pipeline` rule can be used to override this. For example, frontend assets uploaded as artifacts by the CI pipeline would now be accessible to the deploy pipeline via the `buildkite-agent artifact download --build xxx` command.
+Artifacts are not accessible between pipelines across different clusters. For example, a deployment pipeline in cluster B cannot ordinarily access artifacts uploaded by a CI pipeline in cluster A.
+
+However, a `pipeline.artifacts_read.pipeline` rule can be used to override this restriction. For example, frontend assets uploaded as artifacts by the CI pipeline would now be accessible to the deployment pipeline via the `buildkite-agent artifact download --build xxx` command.

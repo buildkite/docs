@@ -331,7 +331,7 @@
         - name: "Overview"
           path: "pipelines/rules/overview"
         - name: "Manage rules"
-          path: "pipelines/rules/manage-rules"
+          path: "pipelines/rules/manage"
     - name: "Security"
       children:
         - name: "Overview"
