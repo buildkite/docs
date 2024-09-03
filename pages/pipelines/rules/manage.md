@@ -188,7 +188,7 @@ where:
           - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/rules"
         ```
 
-        **Important:** For the rule identified by its `uuid` in the response, ensure the pipeline UUIDs of the source (`source_uuid`) and target (`target_uuid`), as well as the rule type (`type`) match those of this rule to be deleted. 
+        **Important:** For the rule identified by its `uuid` in the response, ensure the pipeline UUIDs of the source (`source_uuid`) and target (`target_uuid`), as well as the rule type (`type`) match those of this rule to be deleted.
 
 ### Using the GraphQL API
 
@@ -238,4 +238,4 @@ where:
         }
         ```
 
-        **Important:** For the rule identified by its `uuid` in the response, ensure the pipeline UUIDs of the source (`source_uuid`) and target (`target_uuid`), as well as the rule type (`type`) match those of this rule to be deleted. 
+        **Important:** For the rule identified by its `uuid` in the response, ensure the pipeline UUIDs of the source (`source_uuid`) and target (`target_uuid`), as well as the rule type (`type`) match those of this rule to be deleted.
