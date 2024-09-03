@@ -17,14 +17,14 @@ This rule type:
 
 **Note:** This rule type overrides the usual [trigger step permissions checks](/docs/pipelines/trigger-step#permissions) on users and teams.
 
-Rule format:
+**Rule Document** format:
 
 ```json
 {
   "rule": "pipeline.trigger_build.pipeline",
   "value": {
-    "source_pipeline_uuid": "{triggering-pipeline-uuid}",
-    "target_pipeline_uuid": "{triggered-pipeline-uuid}"
+    "source_pipeline_uuid": "pipeline-uuid",
+    "target_pipeline_uuid": "pipeline-uuid"
   }
 }
 ```
@@ -34,7 +34,7 @@ where:
 - `source_pipeline_uuid` is the UUID of the pipeline that's allowed to trigger another pipeline.
 - `target_pipeline_uuid` is the UUID of the pipeline that can be triggered by the `source_pipeline_uuid` pipeline.
 
-Learn more about how to create rules in [Manage rules](/docs/pipelines/rules/manage).
+Learn more about creating rules in [Manage rules](/docs/pipelines/rules/manage).
 
 #### Example use case: cross-cluster pipeline triggering
 
@@ -46,14 +46,14 @@ However, a `pipeline.trigger_build.pipeline` rule would allow a trigger step in 
 
 This rule type allows a source pipeline in one cluster to read artifacts from a target pipeline in another cluster.
 
-Rule format:
+**Rule Document** format:
 
 ```json
 {
-  "rule": "pipeline.trigger_build.pipeline",
+  "rule": "pipeline.artifacts_read.pipeline",
   "value": {
-    "source_pipeline_uuid": "{uuid-of-source-pipeline}",
-    "target_pipeline_uuid": "{uuid-of-target-pipeline}"
+    "source_pipeline_uuid": "pipeline-uuid",
+    "target_pipeline_uuid": "pipeline-uuid"
   }
 }
 ```
@@ -62,6 +62,8 @@ where:
 
 - `source_pipeline_uuid` is the UUID of the pipeline that's allowed to read artifacts from another pipeline.
 - `target_pipeline_uuid` is the UUID of the pipeline whose artifacts can be read by jobs in the `source_pipeline_uuid` pipeline.
+
+Learn more about creating rules in [Manage rules](/docs/pipelines/rules/manage).
 
 #### Example use case: sharing assets between clusters
 

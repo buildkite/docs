@@ -1,22 +1,22 @@
 # Manage rules
 
+This page provides details on how to manage [rules](/docs/pipelines/rules) within your Buildkite organization.
+
 ## Create a rule
 
-Organization admins can create new rules using the **Rules** page in **Organization settings**, as well as via the Buildkite [REST API](/docs/apis/rest-api) and [GraphQL API](/docs/apis/graphql-api).
+New rules can be created by [Buildkite organization administrators](/docs/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) using the [**Rules** page](#create-a-rule-using-the-buildkite-interface), as well as the [REST API's](#create-a-rule-using-the-rest-api) or [GraphQL API's](#create-a-rule-using-the-graphql-api) create a rule feature.
 
 ### Using the Buildkite interface
 
-To create a new rule using the Buildkite UI:
+To create a new rule using the Buildkite interface:
 
-1. Select **Settings** in the global navigation to access the **Organization settings** page.
+1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
-1. Select **Rules** in the Pipelines section.
+1. In the **Pipelines** section, select **Rules** > **New Rule** to open its page.
 
-1. Select **New Rule**.
+1. Under **Rule Template**, select the [type of rule](/docs/pipelines/rules#rule-types) to be created, that is, either **pipeline.trigger_build.pipeline** or **pipeline.artifacts_read.pipeline**.
 
-1. Under **Rule Type**, select the type of rule you want to create, such as `pipeline.trigger_build.pipeline`.
-
-1. Under **Rule Document**, populate the relevant data. For example, if you're creating a `pipeline.trigger_build.pipeline` rule, you'll need to provide a `source_pipeline_uuid` and a `target_pipeline_uuid`. You can find the UUIDs of your pipelines on their **Settings** page under the **GraphQL API integration** section.
+1. Under **Rule Document**, specify the relevant `pipeline-uuid` (UUID) values for both the `source_pipeline_uuid` and `target_pipeline_uuid` pipelines, of your [**pipeline.trigger_build.pipeline**](/docs/pipelines/rules#rule-types-pipeline-dot-trigger-build-dot-pipeline) or or [**pipeline.artifacts_read.pipeline**](/docs/pipelines/rules#rule-types-pipeline-dot-artifacts-read-dot-pipeline) rule. You can find the UUID values for these pipelines on the pipelines' respective **Settings** page under the **GraphQL API integration** section.
 
 1. Select **Submit**.
 
