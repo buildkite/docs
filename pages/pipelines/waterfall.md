@@ -30,3 +30,7 @@ You can hover over a bar to view these durations. Time is rounded to the nearest
 Group, matrix and parallel steps are shown with nested rows underneath a 'parent' row. A parent row displays a solid bar representing the total duration of its child rows. The bar is green if all child rows passed, and red if any of them failed.
 
 <%= image "waterfall-view-parent-row.png", alt: "Image showing an example of a parent row and its children in a waterfall chart" %>
+
+> 📘 Build time discrepency vs waterfall view
+> Although canceled jobs will show as a blank line in the waterfall view, they still contribute to the total build time. If a job ran for 20 minutes and was then canceled, that job will appear as a blank line in the waterfall view, but contribute 20 minutes to the total build time.
+
