@@ -4,7 +4,7 @@ The rules API lets you create and manage rules in your organization.
 
 ## Rules
 
-[Rules](/docs/pipelines/rules) do the following:
+[_Rules_](/docs/pipelines/rules) is a Buildkite feature that can do the following:
 
 <%= render_markdown partial: 'pipelines/rules_summary' %>
 

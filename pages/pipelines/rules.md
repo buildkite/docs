@@ -1,6 +1,6 @@
 # Rules overview
 
-Rules do the following:
+_Rules_ is a Buildkite feature that can do the following:
 
 <%= render_markdown partial: 'pipelines/rules_summary' %>
 

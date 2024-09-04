@@ -116,7 +116,7 @@ where:
         ```graphql
         query getCurrentUsersOrgs {
           viewer {
-            organization {
+            organizations {
               edges {
                 node {
                   name
