@@ -224,12 +224,14 @@ where:
                   id
                   type
                   source {
-                    ... on Pipeline
+                    ... on Pipeline {
                       slug
+                    }
                   }
                   target {
-                    ... on Pipeline
+                    ... on Pipeline {
                       slug
+                    }
                   }
                 }
               }

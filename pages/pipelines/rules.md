@@ -1,10 +1,8 @@
 # Rules overview
 
-Rules allow you to customize permissions between Buildkite resources.
+Rules do the following:
 
-Rules express that an action (for example, triggering a build) is allowed between a source resource (for example, a pipeline) and a target resource (for example, another pipeline).
-
-Rules are used to grant or restrict access between resources that would normally be determined by the default permissions.
+<%= render_markdown partial: 'pipelines/rules_summary' %>
 
 ## Rule types
 

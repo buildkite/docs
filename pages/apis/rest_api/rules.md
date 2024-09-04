@@ -4,9 +4,9 @@ The rules API lets you create and manage rules in your organization.
 
 ## Rules
 
-[Rules](/docs/pipelines/rules) allow you to manage permissions between Buildkite resources.
+[Rules](/docs/pipelines/rules) do the following:
 
-A rule is used to specify that an action is allowed between a source resource (e.g. a pipeline) and a target resource (e.g. another pipeline). Rules allow you to break out of the defaults provided by Buildkite such as the isolation between [clusters](/docs/clusters/overview).
+<%= render_markdown partial: 'pipelines/rules_summary' %>
 
 ### List rules
 
@@ -130,8 +130,12 @@ Required [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>type</code></th>
-    <td>The rule type. Must match one of the [available rule types](/docs/pipelines/rules#available-rule-types)<br>
-    <em>Example:</em> <code>"pipeline.trigger_build.pipeline"</code></td>
+    <td>The rule type. Must match one of the <a href="/docs/pipelines/rules#rule-types">available rule types</a>.<br>
+    <em>Example:</em>
+      <ul>
+        <li><code>"pipeline.trigger_build.pipeline"</code><br/>or</li>
+        <li><code>"pipeline.artifacts_read.pipeline"</code></li>
+    </td>
   </tr>
   <tr>
     <th><code>value</code></th>
