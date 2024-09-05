@@ -32,5 +32,5 @@ Group, matrix and parallel steps are shown with nested rows underneath a 'parent
 <%= image "waterfall-view-parent-row.png", alt: "Image showing an example of a parent row and its children in a waterfall chart" %>
 
 > 📘 Build time discrepancies in the waterfall view
-> Although canceled jobs will show as a blank line in the waterfall view, they still contribute to the total build time. If a job ran for 20 minutes and was then canceled, that job will appear as a blank line in the waterfall view, but contribute 20 minutes to the total build time.
+> Although canceled jobs appear as a blank line in the waterfall view, their duration still contributes to the total build time. For example, if a job ran for 20 minutes and was then canceled, that job will appear as a blank line in the waterfall view, but contributes 20 minutes to the total build time.
 
