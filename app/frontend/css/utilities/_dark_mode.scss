@@ -58,11 +58,15 @@ html.dark {
 
   .Nav__link,
   .Dropdown__menu-link {
-    color: $navy-400;
+    color: $navy-300;
     &:hover {
       background: #1F023E;
       color: $navy-200;
     }
+  }
+
+  .Toc__link {
+    color: $navy-300;
   }
 
   .Nav__link--parent {
