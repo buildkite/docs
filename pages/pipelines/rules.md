@@ -4,6 +4,9 @@ _Rules_ is a Buildkite feature that can do the following:
 
 <%= render_markdown partial: 'pipelines/rules_summary' %>
 
+> 📘
+> The _rules_ feature is currently in development and is enabled on an opt-in basis for early access. To enable rules your organization, please contact Buildkite's [Support team](https://buildkite.com/support).
+
 ## Rule types
 
 Buildkite Pipelines supports two types of rules that allow one pipeline build to:
