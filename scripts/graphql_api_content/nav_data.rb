@@ -64,6 +64,10 @@ module NavData
             "path" => "apis/graphql/cookbooks/pipeline-templates"
           },
           {
+            "name" => "Rules",
+            "path" => "apis/graphql/cookbooks/rules"
+          },
+          {
             "name" => "Organizations",
             "path" => "apis/graphql/cookbooks/organizations"
           },
