@@ -139,7 +139,7 @@ Required [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>value</code></th>
-    <td>A hash containing the value fields for the rule.<br>
+    <td>A JSON object containing the value fields for the rule.<br>
     <em>Example:</em> <code>{"source_pipeline_uuid": "16f3b56f-4934-4546-923c-287859851332", "target_pipeline_uuid": "d07d5d84-d1bd-479c-902c-ce8a01ce5aac"}</code></td>
   </tr>
 </tbody>
