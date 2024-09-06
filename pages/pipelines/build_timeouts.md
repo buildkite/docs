@@ -40,4 +40,4 @@ You can override the default by setting a shorter value in your organization's [
 Scheduled job limits should not be confused with [scheduled builds](/docs/pipelines/scheduled-builds). A scheduled build's jobs will still go through the [build states](/docs/pipelines/defining-steps#build-states), and the timeout will apply once its individual jobs are in the scheduled state waiting for agents.
 
 > 📘 Delays in expiring a job
-> A job's expiry process is run hourly at 5 minutes past. When the expiry process runs and the job's scheduled expiry was not over at that hour, it will only be expired until the next hour when the process is executed again. 
+> A job's expiry process is run hourly at 5 minutes past. When the expiry process runs and the job's scheduled expiry was not over at that hour, it will only be expired until the next hour when the process is executed again.
