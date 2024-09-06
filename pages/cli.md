@@ -24,6 +24,7 @@ $ bk build view
 
 Available Commands:
   agent       Manage agents
+  api         Interact with the Buildkite API
   build       Manage pipeline builds
   cluster     Manage organization clusters
   completion  Generate the autocompletion script for the specified shell
@@ -31,6 +32,7 @@ Available Commands:
   help        Help about any command
   init        Initialize a pipeline.yaml file
   job         Manage jobs within a build
+  package     Manage packages
   pipeline    Manage pipelines
   use         Select an organization
 

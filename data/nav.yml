@@ -326,6 +326,12 @@
           path: "pipelines/hosted-agents/pipeline-migration"
         - name: "Terminal access"
           path: "pipelines/hosted-agents/terminal-access"
+    - name: "Rules"
+      children:
+        - name: "Overview"
+          path: "pipelines/rules"
+        - name: "Manage rules"
+          path: "pipelines/rules/manage"
     - name: "Security"
       children:
         - name: "Overview"
@@ -575,6 +581,8 @@
               path: "apis/rest-api/meta"
             - name: "Pipeline templates"
               path: "apis/rest-api/pipeline-templates"
+            - name: "Rules"
+              path: "apis/rest-api/rules"
             - name: "User"
               path: "apis/rest-api/user"
         - name: "Teams"
