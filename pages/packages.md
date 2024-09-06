@@ -4,11 +4,13 @@ template: "landing_page"
 
 # Buildkite Packages
 
-Buildkite Packages is a product that:
+Scale out asset management across any ecosystem with Buildkite Packages. Avoid the bottleneck of poorly managed and insecure dependencies.
 
-- Manages artifacts and packages from [Buildkite Pipelines](/docs/pipelines), as well as other CI/CD applications that require artifact management.
+Buildkite Packages allows you to:
 
-- Provides registries to store your [packages and other package-like file formats](/docs/packages/background) such as container images and Terraform modules.
+- Manage artifacts and packages from [Buildkite Pipelines](/docs/pipelines), as well as other CI/CD applications that require artifact management.
+
+- Provide registries to store your [packages and other package-like file formats](/docs/packages/background) such as container images and Terraform modules.
 
 As well as storing a collection of packages, a registry also surfaces metadata or attributes associated with a package, such as the package's description, version, contents (files and directories), checksum details, distribution type, dependencies, and so on.
 
