@@ -2,19 +2,20 @@
 template: "landing_page"
 ---
 
-# Buildkite Test Analytics
+# Buildkite Test Engine
 
-Where Buildkite Pipelines help you automate your build pipelines,
-Test Analytics helps you track and analyze the steps in that pipeline that involve tests:
+Test Engine is a product that helps you track and analyze the steps in a CI/CD pipelines, which involves:
 
-- Ship code to production faster by optimizing test suites
-- Works with any continuous integration
-- Identify, fix, and monitor test suite performance
-- Track, improve, and monitor test suite reliability
+- Shipping code to production faster by optimizing test suites.
+- Working with [Buildkite Pipelines](/docs/pipelines), as well as any other CI/CD applications.
+- Identifying, fixing, and monitoring test suite performance.
+- Tracking, improving, and monitoring test suite reliability.
 
 <%= image "overview.png", width: 975, height: 205, alt: "Screenshot of test suite trend showing five metrics over 28 days" %>
 
 ## Get started
+
+Run through the **Getting started** section of the Test Engine docs, beginning with [Configuring test suites](/docs/test-analytics/test-suites) for an overview of Test Engine's concepts and functionality, followed by the appropriate test collector for project's langauge:
 
 <!-- vale off -->
 

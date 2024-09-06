@@ -692,7 +692,6 @@
               path: apis/graphql/cookbooks/teams
         - name: Limits
           path: apis/graphql/graphql-resource-limits
-
     - name: "Webhooks"
       children:
         - name: "Overview"
