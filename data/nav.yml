@@ -484,6 +484,14 @@
               path: "packages/security/oidc"
         - name: "Permissions"
           path: "packages/permissions"
+    - name: Migration
+      children:
+        - name: Overview
+          path: packages/migrate/overview
+        - name: From JFrog Artifactory
+          path: packages/migrate/from-jfrog-artifactory
+        - name: From Cloudsmith
+          path: packages/migrate/from-cloudsmith
     - name: "Package ecosystems"
       start_expanded: true
       children:
