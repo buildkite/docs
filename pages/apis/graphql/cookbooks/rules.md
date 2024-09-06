@@ -19,12 +19,14 @@ Get the first 10 rules and their information for an organization.
             targetType
             sourceType
             source {
-              ... on Pipeline
+              ... on Pipeline {
                 slug
+              }
             }
             target {
-              ... on Pipeline
+              ... on Pipeline {
                 slug
+              }
             }
             effect
             action
@@ -41,7 +43,7 @@ Get the first 10 rules and their information for an organization.
 
 ## Create a rule
 
-Create a rule. `value` must be a JSON encoded string.
+Create a rule. The value of the `value` field must be a JSON-encoded string.
 
 ```graphql
 mutation {
@@ -56,10 +58,10 @@ mutation {
       targetType
       sourceType
       source {
-          ... on Pipeline {
-            uuid
-          }
+        ... on Pipeline {
+          uuid
         }
+      }
       target {
         ... on Pipeline {
           uuid
