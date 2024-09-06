@@ -190,6 +190,7 @@ shellcheck
 shellscripting
 Shipit
 snake_case
+Splitter's
 sre
 sso
 statefully
@@ -259,6 +260,7 @@ yq
 yyy
 Zapier
 zstd
+zzglob
 zzz
 
 # GraphQL code words

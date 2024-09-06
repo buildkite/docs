@@ -517,12 +517,12 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>author</code></th><td>A hash with a <code>"name"</code> and <code>"email"</code> key to show who created this build.<br><em>Default value: the user making the API request</em>.</td></tr>
+  <tr><th><code>author</code></th><td>A JSON object with a <code>"name"</code> and <code>"email"</code> key to show who created this build.<br><em>Default value: the user making the API request</em>.</td></tr>
   <tr><th><code>clean_checkout</code></th><td>Force the agent to remove any existing build directory and perform a fresh checkout.<br><em>Default value:</em> <code>false</code>.</td></tr>
   <tr><th><code>env</code></th><td>Environment variables to be made available to the build.<br><em>Default value:</em> <code>{}</code>.</td></tr>
   <tr><th><code>ignore_pipeline_branch_filters</code></th><td>Run the build regardless of the pipeline's branch filtering rules. Step branch filtering rules will still apply.<br><em>Default value:</em> <code>false</code>.</td></tr>
   <tr><th><code>message</code></th><td>Message for the build.<br><em>Example:</em> <code>"Testing all the things \:rocket\:"</code></td></tr>
-  <tr><th><code>meta_data</code></th><td>A hash of meta-data to make available to the build.<br><em>Default value:</em> <code>{}</code>.</td></tr>
+  <tr><th><code>meta_data</code></th><td>A JSON object of meta-data to make available to the build.<br><em>Default value:</em> <code>{}</code>.</td></tr>
   <tr><th><code>pull_request_base_branch</code></th><td>For a pull request build, the base branch of the pull request.<br><em>Example:</em> <code>"main"</code></td></tr>
   <tr><th><code>pull_request_id</code></th><td>For a pull request build, the pull request number.<br><em>Example:</em> <code>42</code></td></tr>
   <tr><th><code>pull_request_repository</code></th><td>For a pull request build, the git repository of the pull request.<br><em>Example:</em> <code>"git://github.com/my-org/my-repo.git"</code></td></tr>

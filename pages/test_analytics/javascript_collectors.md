@@ -150,12 +150,12 @@ To configure Cypress:
 
 ### Playwright
 
-If you're already using Playwright, you can add `buildkite-test-collector/playright/reporter` to the list of reporters to collect test results into your Test Analytics dashboard.
+If you're already using Playwright, you can add `buildkite-test-collector/playwright/reporter` to the list of reporters to collect test results into your Test Analytics dashboard.
 
 To configure Playwright:
 
 1. Make sure Playwright runs with access to [CI environment variables](/docs/test-analytics/ci-environments).
-1. Add `"buildkite-test-collector/playwright/reporter"` to [Playwright's `reporters` configuration array](https://playwright.dev/docs/test-reporters#multiple-reporters) (typically found in `playwright.config.js`):
+1. Add `"buildkite-test-collector/playwright/reporter"` to [Playwright's `reporter` configuration array](https://playwright.dev/docs/test-reporters#multiple-reporters) (typically found in `playwright.config.js`):
 
     ```js
     // playwright.config.js

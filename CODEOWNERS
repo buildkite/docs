@@ -1,10 +1,7 @@
 @dannymidnight
 
-pages/ @mbelton-buildkite @gilesgas
-data/ @mbelton-buildkite @gilesgas
-images/ @mbelton-buildkite @gilesgas
-vale/ @mbelton-buildkite @gilesgas
-styleguide/ @mbelton-buildkite @gilesgas
-
-app/assets/ @buildkite/growth-activate
-app/views/ @buildkite/growth-activate
+pages/ @gilesgas
+data/ @gilesgas
+images/ @gilesgas
+vale/ @gilesgas
+styleguide/ @gilesgas

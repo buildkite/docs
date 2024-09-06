@@ -1,0 +1,243 @@
+# Manage rules
+
+This page provides details on how to manage [rules](/docs/pipelines/rules) within your Buildkite organization.
+
+## Create a rule
+
+New rules can be created by [Buildkite organization administrators](/docs/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) using the [**Rules** page](#create-a-rule-using-the-buildkite-interface), as well as the [REST API's](#create-a-rule-using-the-rest-api) or [GraphQL API's](#create-a-rule-using-the-graphql-api) create a rule feature.
+
+### Using the Buildkite interface
+
+To create a new rule using the Buildkite interface:
+
+1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+
+1. In the **Pipelines** section, select **Rules** > **New Rule** to open its page.
+
+1. Under **Rule Type**, select the [type of rule](/docs/pipelines/rules#rule-types) to be created, that is, either **pipeline.trigger_build.pipeline** or **pipeline.artifacts_read.pipeline**.
+
+1. Under **Rule Document**, specify the relevant `pipeline-uuid` (UUID) values for both the `source_pipeline_uuid` and `target_pipeline_uuid` pipelines, of your [**pipeline.trigger_build.pipeline**](/docs/pipelines/rules#rule-types-pipeline-dot-trigger-build-dot-pipeline) or [**pipeline.artifacts_read.pipeline**](/docs/pipelines/rules#rule-types-pipeline-dot-artifacts-read-dot-pipeline) rule. You can find the UUID values for these pipelines on the pipelines' respective **Settings** page under the **GraphQL API integration** section.
+
+1. Select **Submit**.
+
+    The rule is created and presented on the **Rules** page, with a description of the rule type and the relationship between both pipelines.
+
+### Using the REST API
+
+To [create a new rule](/docs/apis/rest-api/rules#rules-create-a-rule) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/rules" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "rule": "pipeline.trigger_build.pipeline",
+    "value": {
+      "source_pipeline_uuid": "{pipeline.uuid}",
+      "target_pipeline_uuid": "{pipeline.uuid}"
+    }
+  }'
+```
+
+where:
+
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
+
+- `rule` is the [type of rule](/docs/pipelines/rules#rule-types) to be created, that is, either `pipeline.trigger_build.pipeline` or `pipeline.artifacts_read.pipeline`.
+
+- `{pipeline.uuid}` value for `source_pipeline_uuid` and `target_pipeline_uuid` can be obtained:
+
+    * From the **Pipeline Settings** page of the appropriate pipeline. To do this:
+        1. Select **Pipelines** (in the global navigation) > the specific pipeline > **Settings**.
+        1. Once on the **Pipeline Settings** page, copy the `UUID` value from the **GraphQL API Integration** section, which is the `{pipeline.uuid}` value.
+
+    * By running the [List pipelines](/docs/apis/rest-api/pipelines#list-pipelines) REST API query to obtain this value from `id` in the response from the specific pipeline. For example:
+
+        ```bash
+        curl -H "Authorization: Bearer $TOKEN" \
+          - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
+        ```
+
+### Using the GraphQL API
+
+To [create a new rule](/docs/apis/graphql/cookbooks/rules#create-a-rule) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+
+```graphql
+mutation {
+  ruleCreate(input: {
+    organizationId: "organization-id",
+    type: "pipeline.trigger_build.pipeline",
+    value: "{\"source_pipeline_uuid\":\"pipeline-uuid\",\"target_pipeline_uuid\":\"pipeline-uuid\"}"
+  }) {
+     rule {
+      id
+      type
+      targetType
+      sourceType
+      source {
+          ... on Pipeline {
+            uuid
+          }
+        }
+      target {
+        ... on Pipeline {
+          uuid
+        }
+      }
+      effect
+      action
+      createdBy {
+        id
+        name
+      }
+    }
+  }
+}
+```
+
+where:
+
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
+
+- `type` is the [type of rule](/docs/pipelines/rules#rule-types) to be created, that is, either `pipeline.trigger_build.pipeline` or `pipeline.artifacts_read.pipeline`.
+
+- `pipeline-uuid` value for `source_pipeline_uuid` and `target_pipeline_uuid` can be obtained:
+
+    * From the **Pipeline Settings** page of the appropriate pipeline. To do this:
+        1. Select **Pipelines** (in the global navigation) > the specific pipeline > **Settings**.
+        1. Once on the **Pipeline Settings** page, copy the `UUID` value from the **GraphQL API Integration** section, which is the `pipeline-uuid` value.
+
+    * By running the `getCurrentUsersOrgs` GraphQL API query to obtain the organization slugs for the current user's accessible organizations, then [getOrgPipelines](/docs/apis/graphql/schemas/query/organization) query to obtain the pipeline's `uuid` in the response. For example:
+
+        Step 1. Run `getCurrentUsersOrgs` to obtain the organization slug values in the response for the current user's accessible organizations:
+
+        ```graphql
+        query getCurrentUsersOrgs {
+          viewer {
+            organizations {
+              edges {
+                node {
+                  name
+                  slug
+                }
+              }
+            }
+          }
+        }
+        ```
+
+        Step 2. Run `getOrgPipelines` with the appropriate slug value above to obtain this organization's `uuid` in the response:
+
+        ```graphql
+        query getOrgPipelines {
+          organization(slug: "organization-slug") {
+            pipelines(first: 100) {
+              edges {
+                node {
+                  id
+                  uuid
+                  name
+                }
+              } 
+            }
+          }
+        }
+        ```
+
+## Delete a rule
+
+Rules can be deleted by [Buildkite organization administrators](/docs/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) using the [**Rules** page](#delete-a-rule-using-the-buildkite-interface), as well as the [REST API's](#delete-a-rule-using-the-rest-api) or [GraphQL API's](#delete-a-rule-using-the-graphql-api) delete a rule feature.
+
+### Using the Buildkite interface
+
+To delete a rule using the Buildkite interface:
+
+1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+
+1. In the **Pipelines** section, select **Rules** to access its page.
+
+1. Expand the existing rule to be deleted.
+
+1. Select the **Delete** button to delete this rule.
+
+### Using the REST API
+
+To [delete a rule](/docs/apis/rest-api/rules#rules-delete-a-rule) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/rules/{rule.uuid}"
+```
+
+where:
+
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
+
+- `{rule.uuid}` can be obtained:
+
+    * From the **Rules** section of your **Organization Settings** page, accessed by selecting **Settings** in the global navigation of your organization in Buildkite.
+
+    * By running a [List rules](/docs/apis/rest-api/rules#rules-list-rules) REST API query to obtain the rule's `uuid` in the response. For example:
+
+        ```bash
+        curl -H "Authorization: Bearer $TOKEN" \
+          - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/rules"
+        ```
+
+        **Important:** For the rule identified by its `uuid` in the response, ensure the pipeline UUIDs of the source (`source_uuid`) and target (`target_uuid`), as well as the rule type (`type`) match those of this rule to be deleted.
+
+### Using the GraphQL API
+
+To [delete a rule](/docs/apis/graphql/cookbooks/rules#delete-a-rule) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+
+```graphql
+mutation {
+  ruleDelete(input: {
+    organizationId: "organization-id",
+    id: "rule-id"
+  }) {
+    deletedRuleId
+  }
+}
+```
+
+where:
+
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
+
+- `id` is the rule ID value, which can be obtained:
+
+    * From the **Rules** section of your **Organization Settings** page, accessed by selecting **Settings** in the global navigation of your organization in Buildkite.
+
+    * By running a [List rules](/docs/apis/graphql/cookbooks/rules#list-rules) GraphQL API query to obtain the rule's `id` in the response. For example:
+
+        ```graphql
+        query getRules {
+          organization(slug: "organization-slug") {
+            rules(first: 10) {
+              edges {
+                node {
+                  id
+                  type
+                  source {
+                    ... on Pipeline {
+                      slug
+                    }
+                  }
+                  target {
+                    ... on Pipeline {
+                      slug
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        ```
+
+        **Important:** For the rule identified by its `uuid` in the response, ensure the pipeline UUIDs of the source (`source_uuid`) and target (`target_uuid`), as well as the rule type (`type`) match those of this rule to be deleted.
