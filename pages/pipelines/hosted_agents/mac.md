@@ -155,7 +155,7 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ## Git mirror cache
 
-The Git mirror cache is a specialized type of cache volume designed to accelerate Git operation by caching the Git repository between builds. This is useful for large repositories that are slow to clone. These volumes are attached on a best-effort basis depending on their locality, expiration and current usage, and therefore, should not be relied upon as durable data storage. By default, Git mirror cache is scoped to a pipeline and is shared between all steps in the pipeline.
+The Git mirror cache is a specialized type of cache volume designed to accelerate Git operation by caching the Git repository between builds. This is useful for large repositories that are slow to clone. These volumes are attached on a best-effort basis depending on their locality, expiration and current usage, and therefore, should not be relied upon as durable data storage. By default, a Git mirror cache is created for each repository.
 
 ### Enabling Git mirror cache
 
