@@ -100,7 +100,7 @@ Optional attributes:
   <tr>
     <td><code>size</code></td>
     <td>
-      The size of the cache volume. The default size is 20 gigabytes. Units are in gigabytes, specified as <code>Ng</code>, where <code>N</code> is the size in gigabytes, and <code>g</code> indicates gigabytes.<br>
+      The size of the cache volume. The default size is 20 gigabytes. A minimum of 20 gigabytes of cache can be requested.<br> Units are in gigabytes, specified as <code>Ng</code>, where <code>N</code> is the size in gigabytes, and <code>g</code> indicates gigabytes.<br>
       <em>Example:</em> <code>"20g"</code><br>
     </td>
   </tr>
