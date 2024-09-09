@@ -183,4 +183,5 @@ To delete a git mirror cache:
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster in which to delete Git mirror cache.
 1. Select **Cache Storage**, then select the **Volumes** tab to view a list of all exiting cache volumes.
-1. Select **Delete** next to the Git mirror cache volume you wish to delete.
+1. Select **Delete** for the Git mirror cache volume you wish to remove.
+1. Confirm the deletion by selecting **Delete Cache Volume**.
