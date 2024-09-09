@@ -153,13 +153,9 @@ Updated Xcode versions will be available one week after Apple offers them for do
 - libpq
 - GMP
 
-## Cache volumes
+## Git mirror cache
 
-_Cache volumes_ are external volumes attached to hosted agent instances. These volumes are attached on a best-effort basis depending on their locality, expiration and current usage, and therefore, should not be relied upon as durable data storage. By default, cache volumes are scoped to a pipeline and are shared between all steps in the pipeline.
-
-### Git mirror cache
-
-The Git mirror cache is a special type of cache volume that is used to speed up Git operations by caching the Git repository between builds. This is useful for large repositories that are slow to clone.
+The Git mirror cache is a specialized type of cache volume designed to accelerate Git operation by caching the Git repository between builds. This is useful for large repositories that are slow to clone. These volumes are attached on a best-effort basis depending on their locality, expiration and current usage, and therefore, should not be relied upon as durable data storage. By default, Git mirror cache is scoped to a pipeline and is shared between all steps in the pipeline.
 
 ### Enabling Git mirror cache
 
