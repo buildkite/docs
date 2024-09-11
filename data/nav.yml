@@ -557,6 +557,10 @@
             - name: "Members"
               path: "apis/rest-api/organizations/members"
               pill: "beta"
+        - name: "Packages"
+          children:
+            - name: "Packages"
+              path: "apis/rest-api/packages/packages"
         - name: "Pipelines "
           children:
             - name: "Overview"
