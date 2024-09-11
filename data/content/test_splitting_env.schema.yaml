@@ -1,0 +1,53 @@
+type: object
+properties:
+  predefined:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        desc:
+          type: array
+          items:
+            type: string
+      required:
+        - name
+        - desc
+  mandatory:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        desc:
+          type: array
+          items:
+            type: string
+      required:
+        - name
+        - desc
+  optional:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        desc:
+          type: array
+          items:
+            type: string
+        default:
+          type:
+            - string
+            - integer
+            - boolean
+      required:
+        - name
+        - desc
+required:
+  - predefined
+  - mandatory
+  - optional
