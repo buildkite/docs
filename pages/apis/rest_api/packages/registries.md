@@ -10,7 +10,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "my registry",
-    "ecosystem": "ruby"
+    "ecosystem": "ruby",
+    "description": "registry containing ruby gems"
     }' 
 ```
 
@@ -23,7 +24,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "web_url": "https://buildkite.com/organizations/my-org/registries/my-registry",
   "name": "my registry",
   "ecosystem": "ruby",
-  "description": null,
+  "description": "registry containing ruby gems",
   "emoji": null,
   "color": null,
   "public": false,
@@ -71,7 +72,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "web_url": "https://buildkite.com/organizations/my-org/packages/registries/my-registry",
     "name": "my registry",
     "ecosystem": "ruby",
-    "description": null,
+    "description": "registry containing ruby gems",
     "emoji": null,
     "color": null,
     "public": false,
@@ -102,7 +103,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "web_url": "https://buildkite.com/organizations/my-org/registries/my-registry",
   "name": "my registry",
   "ecosystem": "ruby",
-  "description": null,
+  "description": "registry containing ruby gems",
   "emoji": null,
   "color": null,
   "public": false,
@@ -111,5 +112,47 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 Required scope: `read_registries`
+
+Success response: `200 OK`
+
+## Update a registry
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/packages/organizations/#{org.slug}/registries/#{registry.slug}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "my registry",
+    "description": "registry containing ruby gems"
+    }' 
+```
+
+```json
+{
+  "id": "0191df84-85e4-77aa-83ba-6579084728eb",
+  "graphql_id": "UmVnaXN0cnktLS0wMTkxZGY4NC04NWU0LTc3YWEtODNiYS02NTc5MDg0NzI4ZWI=",
+  "slug": "my-registry",
+  "url": "https://api.buildkite.com/v2/packages/organizations/my-org/registries/my-registry",
+  "web_url": "https://buildkite.com/organizations/my-org/registries/my-registry",
+  "name": "my registry",
+  "ecosystem": "ruby",
+  "description": "registry containing ruby gems",
+  "emoji": null,
+  "color": null,
+  "public": false,
+  "oidc_policy": null
+}
+```
+
+Optional [request body properties](/docs/api#request-body-properties):
+
+<table class="responsive-table">
+  <tbody>
+    <tr><th><code>name</code></th><td>Name of the registry.<br><em>Example:</em> <code>my registry</code>.</td></tr>
+    <tr><th><code>description</code></th><td>Description of the registry.<br><em>Example:</em> <code>registry containing ruby gems</code>.</td></tr>
+  </tbody>
+</table>
+
+Required scope: `write_registries`
 
 Success response: `200 OK`
