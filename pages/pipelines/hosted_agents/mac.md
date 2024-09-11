@@ -155,14 +155,16 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ## Git mirror cache
 
-The Git mirror cache is a specialized type of cache volume designed to accelerate Git operation by caching the Git repository between builds. This is useful for large repositories that are slow to clone. These volumes are attached on a best-effort basis depending on their locality, expiration and current usage, and therefore, should not be relied upon as durable data storage. By default, a Git mirror cache is created for each repository.
+The Git mirror cache is a specialized type of cache volume designed to accelerate Git operations by caching the Git repository between builds. This is useful for large repositories that are slow to clone.
+
+These volumes are attached on a best-effort basis depending on their locality, expiration and current usage, and therefore, should not be relied upon as durable data storage. By default, a Git mirror cache is created for each repository.
 
 ### Enabling Git mirror cache
 
 To enable Git mirror cache for your hosted agents:
 
 1. Select **Agents** in the global navigation to access the **Clusters** page.
-1. Select the cluster in which to enable Git mirror cache.
+1. Select the cluster in which to enable the Git mirror cache feature.
 1. Select **Cache Storage**, then select the **Settings** tab.
 1. Select **Enable Git mirror**, then select **Save cache settings** to enable Git mirrors for the selected hosted cluster.
 
@@ -177,7 +179,7 @@ Deleting a cache volume may affect the build time for the associated pipelines u
 To delete a git mirror cache:
 
 1. Select **Agents** in the global navigation to access the **Clusters** page.
-1. Select the cluster in which to delete Git mirror cache.
+1. Select the cluster whose Git mirror cache is to be deleted.
 1. Select **Cache Storage**, then select the **Volumes** tab to view a list of all exiting cache volumes.
 1. Select **Delete** for the Git mirror cache volume you wish to remove.
 1. Confirm the deletion by selecting **Delete Cache Volume**.

@@ -71,7 +71,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Required attributes:
+#### Required attributes
 
 <table data-attributes data-attributes-required>
   <tr>
@@ -86,7 +86,7 @@ Required attributes:
   </tr>
 </table>
 
-Optional attributes:
+#### Optional attributes
 
 <table data-attributes data-attributes-required>
   <tr>
@@ -100,7 +100,7 @@ Optional attributes:
   <tr>
     <td><code>size</code></td>
     <td>
-      The size of the cache volume. The default size is 20 gigabytes. A minimum of 20 gigabytes of cache can be requested.<br> Units are in gigabytes, specified as <code>Ng</code>, where <code>N</code> is the size in gigabytes, and <code>g</code> indicates gigabytes.<br>
+      The size of the cache volume. The default size is 20 gigabytes, which is also the minimum cache size that can be requested.<br/>Units are in gigabytes, specified as <code>Ng</code>, where <code>N</code> is the size in gigabytes, and <code>g</code> indicates gigabytes.<br>
       <em>Example:</em> <code>"20g"</code><br>
     </td>
   </tr>
@@ -128,7 +128,7 @@ An additional (smaller) charge is made per gigabyte of _active cache_, where act
 
 ### Git mirror cache
 
-The Git mirror cache is a special type of cache volume that is used to speed up Git operations by caching the Git repository between builds. This is useful for large repositories that are slow to clone.
+The Git mirror cache is a specialized type of cache volume designed to accelerate Git operations by caching the Git repository between builds. This is useful for large repositories that are slow to clone.
 
 Git mirror caching can be enabled on the cluster's cache volumes settings page. Once enabled, the Git mirror cache will be used for all hosted jobs in that cluster. A separate cache volume will be created for each repository.
 
