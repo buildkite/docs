@@ -29,6 +29,7 @@ If you're familiar with the basics, explore how to use registries for each of Bu
   <%= button ":alpine: Alpine (apk)", "/docs/packages/alpine" %>
   <%= button ":docker: Container (Docker)", "/docs/packages/container" %>
   <%= button ":debian: Debian/Ubuntu (deb)", "/docs/packages/debian" %>
+  <%= button ":package: Files (generic)", "/docs/packages/files" %>
   <%= button ":helm: Helm (OCI)", "/docs/packages/helm-oci" %>
   <%= button ":helm: Helm", "/docs/packages/helm" %>
   <%= button ":maven: Java (Maven)", "/docs/packages/maven" %>
@@ -38,7 +39,6 @@ If you're familiar with the basics, explore how to use registries for each of Bu
   <%= button ":redhat: Red Hat (RPM)", "/docs/packages/red-hat" %>
   <%= button ":ruby: Ruby (RubyGems)", "/docs/packages/ruby" %>
   <%= button ":terraform: Terraform (modules)", "/docs/packages/terraform" %>
-  <%= button ":package: Files (generic)", "/docs/packages/files" %>
 </div>
 
 <!-- vale on -->
