@@ -557,7 +557,11 @@
             - name: "Members"
               path: "apis/rest-api/organizations/members"
               pill: "beta"
-        - name: "Pipelines "
+        - name: "Packages"
+          children:
+            - name: "Registry Tokens"
+              path: "apis/rest-api/packages/registry-tokens"
+        - name: "Pipelines"
           children:
             - name: "Overview"
               path: "apis/rest-api/pipelines"
