@@ -6,4 +6,10 @@ template: "landing_page"
 
 The Buildkite Scale-Out Delivery Platform is an adaptable, composable, and scalable platform with everything platform teams need to build software delivery systems for their businesses—and rapidly deliver value to users.
 
-The Buildkite platform documentation contains docs for _platform_-level features of Buildkite that can apply to Buildkite [Pipelines](/docs/pipelines), [Test Engine](/docs/test-analytics), as well as [Packages](/docs/packages).
+The Buildkite platform documentation contains docs for _platform_-level features of Buildkite available across Buildkite [Pipelines](/docs/pipelines), [Test Engine](/docs/test-analytics), as well as [Packages](/docs/packages). This area of the docs covers the following topics:
+
+- [Team management](/docs/team-management), with guidelines on how to manage your users and teams across the Buildkite platform for Pipelines, Test Engine and Packages.
+
+- [Buildkite CLI](/docs/cli), provides command line/terminal access to work with features across the Buildkite platform.
+
+- [Single sign-on (SSO)](/docs/integrations/sso) provides guidelines on how to protect access to your Buildkite organization using a supported third-party SSO provider.
