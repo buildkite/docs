@@ -36,3 +36,14 @@ curl -H "Authorization: Bearer $TOKEN" \
 Required scope: `read_packages`
 
 Success response: `200 OK`
+
+## Delete a package
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/packages/organizations/#{org.slug}/registries/#{registry.slug}/packages/#{id}"
+```
+
+Required scope: `delete_packages`
+
+Success response: `200 OK`
