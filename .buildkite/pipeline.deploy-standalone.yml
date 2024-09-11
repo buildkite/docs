@@ -1,0 +1,61 @@
+steps:
+  - name: ":docker::ecr: Push to ECR"
+    command: ".buildkite/push-image.sh"
+    key: "ecr-push"
+    if: |
+      build.branch == "main"
+    agents:
+      queue: elastic-runners
+    plugins:
+      - aws-assume-role-with-web-identity#v1.0.0:
+          role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-main
+      - ecr#v2.7.0:
+          login: true
+          account-ids: ${ECR_ACCOUNT_ID}
+
+  - name: ":ecr: ECR Vulnerabilities Scan"
+    command: "true"
+    agents:
+      queue: elastic-runners
+    depends_on: "ecr-push"
+    plugins:
+      - aws-assume-role-with-web-identity#v1.0.0:
+          role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-main
+      - buildkite/ecr-scan-results#v2.0.0:
+          image-name: "${ECR_REPO}:${BUILDKITE_BUILD_NUMBER}"
+          fail-build-on-plugin-failure: true
+
+  # If the current user is part of the deploy team, then wait for everything to
+  # finish before deploying
+  - wait: ~
+    key: "deploy-check-wait"
+    depends_on: "ecr-push"
+    if: "(build.creator.teams includes 'deploy') && build.branch == 'main'"
+
+  # If the user *isn't* in the deploy team, require a block step for manual
+  # verification by someone who is in the team.
+  - block: ":rocket: Deploy"
+    key: "deploy-check-block"
+    depends_on: "ecr-push"
+    if: "!(build.creator.teams includes 'deploy') && build.branch == 'main'"
+
+  - label: ":docker::rocket:"
+    branches: main
+    depends_on:
+      - "deploy-check-wait"
+      - "deploy-check-block"
+    concurrency: 1
+    concurrency_group: docs-deploy
+    agents:
+      queue: elastic-runners
+    command: scripts/deploy-ecs
+    plugins:
+      - aws-assume-role-with-web-identity#v1.0.0:
+          role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-main
+
+  - wait
+
+  # Refresh the search index after a deployment
+  - label: "🔎🪄"
+    trigger: docs-algolia-crawler
+    async: true
