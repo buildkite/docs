@@ -72,7 +72,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "web_url": "https://buildkite.com/organizations/my-org/packages/registries/my-registry",
     "name": "my registry",
     "ecosystem": "ruby",
-    "description": "registry containing ruby gems",
+    "description": null,
     "emoji": null,
     "color": null,
     "public": false,
