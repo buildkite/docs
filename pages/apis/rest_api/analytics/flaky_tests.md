@@ -1,6 +1,6 @@
 # Flaky tests API
 
-The Flaky test API endpoint provides information about tests detected as flaky in a test suite.
+The flaky test API endpoint provides information about tests detected as flaky in a test suite.
 
 ## List all flaky tests
 
