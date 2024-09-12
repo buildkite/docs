@@ -1,6 +1,6 @@
-# Registry Tokens API
+# Registry tokens API
 
-The registry tokens API lets you create and manage credentials needed to install and use packages in a registry.
+The registry tokens API endpoint lets you create and manage credentials needed to install and use packages in a registry.
 
 ## List all registry tokens
 
