@@ -48,7 +48,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tbody>
 </table>
 
-Required scope: `create_registries`
+Required scope: `write_registries`
 
 Success response: `200 OK`
 
