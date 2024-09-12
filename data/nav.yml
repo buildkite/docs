@@ -563,7 +563,7 @@
           children:
             - name: "Registries"
               path: "apis/rest-api/packages/registries"
-            - name: "Registry Tokens"
+            - name: "Registry tokens"
               path: "apis/rest-api/packages/registry-tokens"
         - name: "Pipelines "
           # Keep space at end to prevent "Pipelines" in global nav bar being

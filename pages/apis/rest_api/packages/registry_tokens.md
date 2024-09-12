@@ -146,3 +146,15 @@ Required [request body properties](/docs/api#request-body-properties):
 Required scope: `write_registries`
 
 Success response: `200 OK`
+
+
+## Delete a registry token
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/packages/organizations/#{org.slug}/registries/#{registry.slug}/tokens/#{id}"
+```
+
+Required scope: `write_registries`
+
+Success response: `200 OK`
