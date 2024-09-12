@@ -1,6 +1,6 @@
 # Packages API
 
-The packages tokens API lets you create and manage packages in a registry.
+The packages API endpoint lets you create and manage packages in a registry.
 
 ## Publish a package
 
