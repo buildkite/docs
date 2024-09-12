@@ -1,6 +1,6 @@
 # Team pipelines API
 
-The team pipelines API allows users to review, create, update, and delete pipelines associated with a team in your organization.
+The team pipelines API endpoint allows users to review, create, update, and delete pipelines associated with a team in your organization.
 
 ## Team pipeline data model
 
