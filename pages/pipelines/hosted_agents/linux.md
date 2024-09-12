@@ -246,7 +246,7 @@ steps:
       export TAG="$(date +%s)"
       export IMAGE="$${REGISTRY}/base-image:$${TAG}"
       docker buildx build \
-        --platform linux/amd64,linux/arm64
+        --platform linux/amd64,linux/arm64 \
         --tag "$${IMAGE}" \
         --push \
         -f Dockerfile \
