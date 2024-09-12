@@ -3,7 +3,7 @@
 > 📘 Enterprise feature
 > [Pipeline templates](https://buildkite.com/docs/pipelines/templates) are only available on an [Enterprise](https://buildkite.com/pricing) plan.
 
-The pipeline templates API allows admins to create and manage pipeline templates for an organization.
+The pipeline templates API endpoint allows admins to create and manage pipeline templates for an organization.
 Non-admins can only read or assign pipeline templates marked as `available` by organization admins.
 
 ## Pipeline template data model

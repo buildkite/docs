@@ -1,6 +1,6 @@
 # Meta API
 
-The Meta API provides information about Buildkite, including a list of Buildkite's IP addresses.
+The meta API endpoint provides information about Buildkite, including a list of Buildkite's IP addresses.
 
 It does not require authentication.
 
