@@ -1,6 +1,6 @@
 # User API
 
-The User API endpoint allows you to inspect details about the user account that owns the API token that is currently being used.
+The user API endpoint allows you to inspect details about the user account that owns the API token that is currently being used.
 
 
 ## Get the current user

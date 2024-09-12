@@ -1,6 +1,6 @@
 # Team suites API
 
-The team suites API allows users to review, create, update, and delete test suites associated with a team in your organization.
+The team suites API endpoint allows users to review, create, update, and delete test suites associated with a team in your organization.
 
 ## Team suite data model
 
