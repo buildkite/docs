@@ -155,7 +155,7 @@ The image is based on Ubuntu 20.04 and includes the following tools:
 - node
 - aws-cli
 
-You can customize the image that your hosted agents use by creating an agent image.
+You can customize the image that your hosted agents use by creating an agent image or by providing your own URL of the image.
 
 ### Create an agent image
 
@@ -225,3 +225,34 @@ To delete an agent image:
 1. On the **Delete Image** message, select **Delete Image** and the agent image is deleted.
 
 <%= image "hosted-agents-delete-image.png", width: 1760, height: 436, alt: "Hosted agents delete image form displayed in the Buildkite UI" %>
+
+### Use an image URL
+
+A full URL for an image can be provided that will be used as the agent image to run jobs. This image can be hosted with any public registry, or by using the internal registry that's available to the cluster queue to create a private image.
+
+<%= image "enter-image-url.png", alt: "Specifying the URL of an agent base image" %>
+
+The default agent image URL is `docker.io/buildkite/hosted-agent-base:ubuntu-v1.0.1`.
+
+#### Create a private image
+
+An internal registry is managed for a Buildkite hosted agent cluster that you are able to push to from within a pipeline. Having a dedicated pipeline that can manage an image in this registry will allow other queues within the same cluster to utilize it. A pipeline to build and push to this registry could look like the following:
+
+```yaml
+steps:
+  - label: "\:docker\: Build and push image"
+    command: |
+      export REGISTRY="$(nsc workspace describe -o json -k registry_url)"
+      export TAG="$(date +%s)"
+      export IMAGE="$${REGISTRY}/base-image:$${TAG}"
+      docker buildx build \
+        --platform linux/amd64,linux/arm64
+        --tag "$${IMAGE}" \
+        --push \
+        .
+      buildkite-agent annotate \
+        --style "success" \
+        "\:rocket\: \:docker\: Image pushed to $${IMAGE} \:rocket\:"
+```
+
+When this pipeline runs it will build and push the image for the repository, adding an annotation to the build with the URL to be used.
