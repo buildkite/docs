@@ -1,6 +1,6 @@
 # Registries API
 
-The registries API lets you create and manage registries in your organization.
+The registries API endpoint lets you [create and manage registries](/docs/packages/manage-registries) in your organization.
 
 ## List all registries
 

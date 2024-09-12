@@ -1,6 +1,6 @@
 # Clusters API
 
-The clusters API lets you create and manage clusters in your organization.
+The clusters API endpoint lets you create and manage clusters in your organization.
 
 ## Clusters
 
