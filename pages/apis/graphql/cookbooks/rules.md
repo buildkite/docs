@@ -9,36 +9,36 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 Get the first 10 rules and their information for an organization.
 
 ```graphql
-  query getRules {
-    organization(slug: "organization-slug") {
-      rules(first: 10) {
-        edges {
-          node {
+query getRules {
+  organization(slug: "organization-slug") {
+    rules(first: 10) {
+      edges {
+        node {
+          id
+          type
+          targetType
+          sourceType
+          source {
+            ... on Pipeline {
+              slug
+            }
+          }
+          target {
+            ... on Pipeline {
+              slug
+            }
+          }
+          effect
+          action
+          createdBy {
             id
-            type
-            targetType
-            sourceType
-            source {
-              ... on Pipeline {
-                slug
-              }
-            }
-            target {
-              ... on Pipeline {
-                slug
-              }
-            }
-            effect
-            action
-            createdBy {
-              id
-              name
-            }
+            name
           }
         }
       }
     }
   }
+}
 ```
 
 ## Create a rule
