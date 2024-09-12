@@ -162,11 +162,11 @@ To rotate your keys:
 
 The verifying agents will automatically use the public key with the matching key ID, if it's present.
 
-## AWS KMS Managed Key Setup
+## AWS KMS managed key setup
 
-AWS Key Management Service (AWS KMS) is a web service that securely protects cryptographic keys, when using this service with signed pipelines the agent never has access to the private key used to sign pipelines, with calls going via the KMS API.
+AWS Key Management Service (AWS KMS) is a web service that securely protects cryptographic keys, when using this service with signed pipelines the agent never has access to the private key used to sign pipelines, with calls going with the KMS API.
 
-### Step 1: Create a KMS Key
+### Step 1: Create a KMS key
 
 AWS KMS has a myriad of options when creating keys, for pipeline signing we require that you use some specific settings.
 
@@ -226,7 +226,7 @@ Replacing the following:
 - `<org slug>` with the slug of the organization the pipeline is in.
 - `<pipeline slug>` with the slug of the pipeline you want to sign.
 
-### Step 4: Assign IAM Permissions to your Agents
+### Step 4: Assign IAM permissions to your agents
 
 There are two common roles for agents when using signed pipelines, these being those that sign and upload pipelines, and those that verify steps. To follow least privilege best practice you should access to the KMS key using IAM to specific actions as seen below.
 
