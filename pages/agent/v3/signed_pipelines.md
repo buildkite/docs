@@ -225,3 +225,18 @@ Replacing the following:
 - `<key id or alias>` with the AWS KMS key ID or alias created earlier.
 - `<org slug>` with the slug of the organization the pipeline is in.
 - `<pipeline slug>` with the slug of the pipeline you want to sign.
+
+### Step 4: Assign IAM Permissions to your Agents
+
+There are two common roles for agents when using signed pipelines, these being those that sign and upload pipelines, and those that verify steps. To follow least privilege best practice you should access to the KMS key using IAM to specific actions as seen below.
+
+For agents which will sign and verify pipelines the following IAM Actions are required.
+
+- kms:Sign
+- kms:Verify
+- kms:GetPublicKey
+
+For agents which only verify pipelines the following IAM Actions are required.
+
+- kms:Verify
+- kms:GetPublicKey
