@@ -44,8 +44,8 @@ You'll need to configure your agents and update pipeline definitions to enable s
 
 Behind the scenes, signed pipelines use [JSON Web Signing (JWS)](https://datatracker.ietf.org/doc/html/rfc7797) to generate signatures. There are two options for creation of keys used with JWS, these are:
 
-* Self managed key pairs 
-* AWS KMS managed keys
+- Self managed key pairs
+- AWS KMS managed keys
 
 ## Self Managed Key Creation
 
