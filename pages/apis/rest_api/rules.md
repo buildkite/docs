@@ -1,6 +1,6 @@
 # Rules API
 
-The rules API lets you create and manage rules in your organization.
+The rules API endpoint lets you create and manage rules in your organization.
 
 ## Rules
 

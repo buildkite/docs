@@ -1,6 +1,6 @@
 # Team members API
 
-The team members API allows users to review, create, update, and delete members associated with a team in your organization.
+The team members API endpoint allows users to review, create, update, and delete members associated with a team in your organization.
 
 ## Team member data model
 
