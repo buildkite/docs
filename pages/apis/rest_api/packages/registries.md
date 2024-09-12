@@ -72,7 +72,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "web_url": "https://buildkite.com/organizations/my-org/packages/registries/my-registry",
     "name": "my registry",
     "ecosystem": "ruby",
-    "description": null,
+    "description": "registry containing ruby gems",
     "emoji": null,
     "color": null,
     "public": false,
@@ -154,5 +154,16 @@ Optional [request body properties](/docs/api#request-body-properties):
 </table>
 
 Required scope: `write_registries`
+
+Success response: `200 OK`
+
+## Delete a registry
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/packages/organizations/#{org.slug}/registries/#{registry.slug}"
+```
+
+Required scope: `delete_registries`
 
 Success response: `200 OK`
