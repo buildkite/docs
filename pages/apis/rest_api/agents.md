@@ -1,6 +1,5 @@
 # Agents API
 
-
 ## List agents
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's agents. The list only includes connected agents - agents in a disconnected state are not returned.

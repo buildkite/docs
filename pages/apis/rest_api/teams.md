@@ -1,6 +1,6 @@
 # Teams API
 
-The teams API allows you to view and manage teams within an organization.
+The teams API endpoint allows you to view and manage teams within an organization.
 
 ## Team data model
 
