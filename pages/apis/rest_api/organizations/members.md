@@ -1,6 +1,6 @@
 # Organization members API
 
-The organization members API allows users to view all members of an organization.
+The organization members API endpoint allows users to view all members of an organization.
 
 ## Organization member data model
 

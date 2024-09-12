@@ -102,6 +102,12 @@ verification-jwks-file=<path to public key set>
 
 This ensures that whenever those agents upload steps to Buildkite, they'll generate signatures using the private key you generated earlier. It also ensures that those agents verify the signatures of any steps they run, using the public key.
 
+```ini
+verification-failure-behavior=<warn>
+```
+
+This setting determines the Buildkite agent's response when it receives a job without a proper signature, and also specifies how strictly the agent should enforce signature verification for incoming jobs. The agent will warn about missing or invalid signatures, but will still proceed to execute the job. If not explicitly specified, the default behavior is `block`, which prevents any job without a valid signature from running, ensuring a secure pipeline environment by default.
+
 On instances that verify jobs, add:
 
 ```ini

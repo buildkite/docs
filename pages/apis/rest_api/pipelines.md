@@ -1,6 +1,6 @@
 # Pipelines API
 
-The pipelines API consists of several endpoints that allow you to manage:
+The pipelines API endpoint consists of several endpoints that allow you to manage:
 
 - pipelines, along with their [builds](/docs/apis/rest-api/builds)
 - a build's [annotations](/docs/apis/rest-api/annotations), [artifacts](/docs/apis/rest-api/artifacts), and [jobs](/docs/apis/rest-api/jobs)
