@@ -2,7 +2,7 @@
 
 The packages tokens API lets you create and manage packages in a registry.
 
-## Upload a package
+## Publish a package
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
