@@ -155,7 +155,7 @@ The image is based on Ubuntu 20.04 and includes the following tools:
 - node
 - aws-cli
 
-You can customize the image that your hosted agents use by creating an agent image or by providing your own URL of the image.
+You can customize the image that your hosted agents use by creating an agent image or by providing a URL of an existing image.
 
 ### Create an agent image
 
@@ -228,7 +228,7 @@ To delete an agent image:
 
 ### Use an image URL
 
-A full URL for an image can be provided that will be used as the agent image to run jobs. This image can be hosted with any public registry, or by using the internal registry that's available to the cluster queue to create a private image.
+A full URL for an image can be provided that will be used as the agent image to run jobs. This image can be hosted with any public registry, or by using the internal registry that's accessible from within the hosted agent cluster.
 
 <%= image "enter-image-url.png", alt: "Specifying the URL of an agent base image" %>
 
@@ -249,10 +249,16 @@ steps:
         --platform linux/amd64,linux/arm64
         --tag "$${IMAGE}" \
         --push \
+        -f Dockerfile \
         .
       buildkite-agent annotate \
         --style "success" \
         "\:rocket\: \:docker\: Image pushed to $${IMAGE} \:rocket\:"
 ```
 
-When this pipeline runs it will build and push the image for the repository, adding an annotation to the build with the URL to be used.
+When this pipeline runs it will build and push the image for the repository, adding an annotation to the build with the URL to be used. There are a few points to specifically make note of within this code block:
+
+1. It is assumed that the repository the pipeline runs for will contain a file named `Dockerfile` at the root level. This can be modified by replacing the content of the `-f` flag in the command.
+1. The `TAG` value is the current timestamp, which may not matter specifically for this scenario, though can be changed as required.
+1. The platform architectures are specified as `linux/amd64,linux/arm64` to include support for both architectures. This can also be changed to support only 1 if both are not required.
+1. An annotation is used to surface the generated URL to make it easy, this is also not required.
