@@ -1,7 +1,7 @@
 attributes:
 - name: acquire-job
   env_var: BUILDKITE_AGENT_ACQUIRE_JOB
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     Start this agent and only run the specified job, disconnecting after it's finished
@@ -25,13 +25,13 @@ attributes:
     A comma-separated list of regular expressions representing repositories the agent is allowed to clone (for example, "^git@github.com:buildkite/.*" or "^https://github.com/buildkite/.*")
 - name: bootstrap-script
   env_var: BUILDKITE_BOOTSTRAP_SCRIPT_PATH
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     The command that is executed for bootstrapping a job, defaults to the bootstrap sub-command of this binary
 - name: build-path
   env_var: BUILDKITE_BUILD_PATH
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     Path to where the builds will run from
@@ -47,12 +47,6 @@ attributes:
   required: false
   desc: |
     The signal to use for cancellation
-- name: config
-  env_var: BUILDKITE_AGENT_CONFIG
-  default_value: "none"
-  required: false
-  desc: |
-    Path to a configuration file
 - name: debug
   env_var: BUILDKITE_AGENT_DEBUG
   default_value: false
@@ -73,13 +67,13 @@ attributes:
     Enable debug logging for pipeline signing. This can potentially leak secrets to the logs as it prints each step in full before signing. Requires debug logging to be enabled
 - name: disable-warnings-for
   env_var: BUILDKITE_AGENT_DISABLE_WARNINGS_FOR
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     A list of warning IDs to disable
 - name: disconnect-after-idle-timeout
   env_var: BUILDKITE_AGENT_DISCONNECT_AFTER_IDLE_TIMEOUT
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     The maximum idle time in seconds to wait for a job before disconnecting. The default of 0 means no timeout
@@ -89,12 +83,6 @@ attributes:
   required: false
   desc: |
     Disconnect the agent after running exactly one job. When used in conjunction with the ′--spawn′ flag, each worker booted will run exactly one job
-- name: disconnect-after-job-timeout
-  env_var: BUILDKITE_AGENT_DISCONNECT_AFTER_JOB_TIMEOUT
-  default_value: "none"
-  required: false
-  desc: |-
-    When --disconnect-after-job is specified, the number of seconds to wait for a job before shutting down
 - name: enable-environment-variable-allowlist
   env_var: BUILDKITE_ENABLE_ENVIRONMENT_VARIABLE_ALLOWLIST
   default_value: false
@@ -157,7 +145,7 @@ attributes:
     Seconds to lock a git mirror during clone, should exceed your longest checkout
 - name: git-mirrors-path
   env_var: BUILDKITE_GIT_MIRRORS_PATH
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     Path to where mirrors of git repositories are stored
@@ -169,19 +157,19 @@ attributes:
     Skip updating the Git mirror
 - name: health-check-addr
   env_var: BUILDKITE_AGENT_HEALTH_CHECK_ADDR
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     Start an HTTP server on this addr:port that returns whether the agent is healthy, disabled by default
 - name: hooks-path
   env_var: BUILDKITE_HOOKS_PATH
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     Directory where the hook scripts are found
 - name: job-log-path
   env_var: BUILDKITE_JOB_LOG_PATH
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     Location to store job logs created by configuring ′enable-job-log-tmpfile`, by default job log will be stored in TempDir
@@ -203,26 +191,6 @@ attributes:
   required: false
   desc: |
     Set the log level for the agent, making logging more or less verbose. Defaults to notice. Allowed values are: debug, info, error, warn, fatal
-- name: meta-data
-  env_var: BUILDKITE_AGENT_META_DATA
-  default_value: ""
-  required: false
-  desc: ""
-- name: meta-data-ec2
-  env_var: BUILDKITE_AGENT_META_DATA_EC2
-  default_value: false
-  required: false
-  desc: ""
-- name: meta-data-ec2-tags
-  env_var: BUILDKITE_AGENT_TAGS_FROM_EC2_TAGS
-  default_value: false
-  required: false
-  desc: ""
-- name: meta-data-gcp
-  env_var: BUILDKITE_AGENT_META_DATA_GCP
-  default_value: false
-  required: false
-  desc: ""
 - name: metrics-datadog
   env_var: BUILDKITE_METRICS_DATADOG
   default_value: false
@@ -243,7 +211,7 @@ attributes:
     The dogstatsd instance to send metrics to using udp
 - name: name
   env_var: BUILDKITE_AGENT_NAME
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     The name of the agent
@@ -253,11 +221,6 @@ attributes:
   required: false
   desc: |
     Do not insert ANSI timestamp codes at the start of each line of job output
-- name: no-automatic-ssh-fingerprint-verification
-  env_var: BUILDKITE_NO_AUTOMATIC_SSH_FINGERPRINT_VERIFICATION
-  default_value: false
-  required: false
-  desc: ""
 - name: no-color
   env_var: BUILDKITE_AGENT_NO_COLOR
   default_value: false
@@ -314,25 +277,25 @@ attributes:
     Don't automatically run ssh-keyscan before checkout
 - name: plugins-path
   env_var: BUILDKITE_PLUGINS_PATH
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     Directory where the plugins are saved to
 - name: priority
   env_var: BUILDKITE_AGENT_PRIORITY
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     The priority of the agent (higher priorities are assigned work first)
 - name: profile
   env_var: BUILDKITE_AGENT_PROFILE
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     Enable a profiling mode, either cpu, memory, mutex or block
 - name: queue
   env_var: BUILDKITE_AGENT_QUEUE
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     The queue the agent will listen to for jobs. If not set, the agent will use the default queue. Overwrites the queue tag in the agent's tags
@@ -356,19 +319,19 @@ attributes:
     The number of seconds given to a subprocess to handle being sent ′cancel-signal′. After this period has elapsed, SIGKILL will be sent. Negative values are taken relative to ′cancel-grace-period′. The default is ′cancel-grace-period′ - 1.
 - name: signing-aws-kms-key
   env_var: BUILDKITE_AGENT_SIGNING_AWS_KMS_KEY
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     The KMS KMS key ID, or key alias used when signing and verifying the pipeline.
 - name: signing-jwks-file
   env_var: BUILDKITE_AGENT_SIGNING_JWKS_FILE
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     Path to a file containing a signing key. Passing this flag enables pipeline signing for all pipelines uploaded by this agent. For hmac-sha256, the raw file content is used as the shared key
 - name: signing-jwks-key-id
   env_var: BUILDKITE_AGENT_SIGNING_JWKS_KEY_ID
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     The JWKS key ID to use when signing the pipeline. If omitted, and the signing JWKS contains only one key, that key will be used.
@@ -386,7 +349,7 @@ attributes:
     The number of agents to spawn in parallel (mutually exclusive with --spawn-per-cpu)
 - name: spawn-per-cpu
   env_var: BUILDKITE_AGENT_SPAWN_PER_CPU
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     The number of agents to spawn per cpu in parallel (mutually exclusive with --spawn)
@@ -442,7 +405,7 @@ attributes:
   env_var: BUILDKITE_AGENT_TAGS_FROM_GCP
   default_value: false
   required: false
-  desc: |
+  desc: |-
     Include the host's Google Cloud instance meta-data as tags (instance-id, machine-type, preemptible, project-id, region, and zone)
 - name: tags-from-gcp-labels
   env_var: BUILDKITE_AGENT_TAGS_FROM_GCP_LABELS
@@ -476,7 +439,7 @@ attributes:
     Prepend timestamps on each line of job output. Has no effect unless --no-ansi-timestamps is also used
 - name: token
   env_var: BUILDKITE_AGENT_TOKEN
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     Your account agent token
@@ -488,7 +451,7 @@ attributes:
     Sets the inner encoding for BUILDKITE_TRACE_CONTEXT. Must be either json or gob
 - name: tracing-backend
   env_var: BUILDKITE_TRACING_BACKEND
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     Enable tracing for build jobs by specifying a backend, "datadog" or "opentelemetry"
@@ -506,7 +469,7 @@ attributes:
     The behavior when a job is received without a valid verifiable signature (without a signature, with an invalid signature, or with a signature that fails verification). One of: [block warn]. Defaults to block
 - name: verification-jwks-file
   env_var: BUILDKITE_AGENT_VERIFICATION_JWKS_FILE
-  default_value: "none"
+  default_value: "None"
   required: false
   desc: |
     Path to a file containing a JSON Web Key Set (JWKS), used to verify job signatures.
