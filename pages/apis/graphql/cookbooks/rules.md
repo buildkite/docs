@@ -50,7 +50,7 @@ mutation {
   ruleCreate(input: {
     organizationId: "organization-id",
     type: "pipeline.trigger_build.pipeline",
-    value: "{\"source_pipeline_uuid\":\"{uuid-of-source-pipeline}\",\"target_pipeline_uuid\":\"{uuid-of-target-pipeline}\"}"
+    value: "{\"source_pipeline\":\"{uuid-of-source-pipeline}\",\"target_pipeline\":\"{uuid-of-target-pipeline}\"}"
   }) {
      rule {
       id

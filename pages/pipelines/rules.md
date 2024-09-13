@@ -29,16 +29,16 @@ This rule type allows one pipeline to trigger another, where:
 {
   "rule": "pipeline.trigger_build.pipeline",
   "value": {
-    "source_pipeline_uuid": "pipeline-uuid",
-    "target_pipeline_uuid": "pipeline-uuid"
+    "source_pipeline": "pipeline-uuid-or-slug",
+    "target_pipeline": "pipeline-uuid-or-slug"
   }
 }
 ```
 
 where:
 
-- `source_pipeline_uuid` is the UUID of the pipeline that's allowed to trigger another pipeline.
-- `target_pipeline_uuid` is the UUID of the pipeline that can be triggered by the `source_pipeline_uuid` pipeline.
+- `source_pipeline` is the UUID or slug of the pipeline that's allowed to trigger another pipeline.
+- `target_pipeline` is the UUID or slug of the pipeline that can be triggered by the `source_pipeline` pipeline.
 
 Learn more about creating rules in [Manage rules](/docs/pipelines/rules/manage).
 
@@ -61,16 +61,16 @@ This rule type allows one pipeline to access (that is, with read-only permission
 {
   "rule": "pipeline.artifacts_read.pipeline",
   "value": {
-    "source_pipeline_uuid": "pipeline-uuid",
-    "target_pipeline_uuid": "pipeline-uuid"
+    "source_pipeline": "pipeline-uuid-or-slug",
+    "target_pipeline": "pipeline-uuid-or-slug"
   }
 }
 ```
 
 where:
 
-- `source_pipeline_uuid` is the UUID of the pipeline that's allowed to access the artifacts from another pipeline.
-- `target_pipeline_uuid` is the UUID of the pipeline whose artifacts can be accessed by jobs in the `source_pipeline_uuid` pipeline.
+- `source_pipeline` is the UUID or slug of the pipeline that's allowed to access the artifacts from another pipeline.
+- `target_pipeline` is the UUID or slug of the pipeline whose artifacts can be accessed by jobs in the `source_pipeline` pipeline.
 
 Learn more about creating rules in [Manage rules](/docs/pipelines/rules/manage).
 

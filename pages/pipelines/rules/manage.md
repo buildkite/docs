@@ -16,7 +16,7 @@ To create a new rule using the Buildkite interface:
 
 1. Under **Rule Type**, select the [type of rule](/docs/pipelines/rules#rule-types) to be created, that is, either **pipeline.trigger_build.pipeline** or **pipeline.artifacts_read.pipeline**.
 
-1. Under **Rule Document**, specify the relevant `pipeline-uuid` (UUID) values for both the `source_pipeline_uuid` and `target_pipeline_uuid` pipelines, of your [**pipeline.trigger_build.pipeline**](/docs/pipelines/rules#rule-types-pipeline-dot-trigger-build-dot-pipeline) or [**pipeline.artifacts_read.pipeline**](/docs/pipelines/rules#rule-types-pipeline-dot-artifacts-read-dot-pipeline) rule. You can find the UUID values for these pipelines on the pipelines' respective **Settings** page under the **GraphQL API integration** section.
+1. Under **Rule Document**, specify the relevant values (either a pipeline UUID or a pipeline slug) for both the `source_pipeline` and `target_pipeline` pipelines, of your [**pipeline.trigger_build.pipeline**](/docs/pipelines/rules#rule-types-pipeline-dot-trigger-build-dot-pipeline) or [**pipeline.artifacts_read.pipeline**](/docs/pipelines/rules#rule-types-pipeline-dot-artifacts-read-dot-pipeline) rule. You can find the UUID values for these pipelines on the pipelines' respective **Settings** page under the **GraphQL API integration** section.
 
 1. Select **Submit**.
 
@@ -33,8 +33,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   -d '{
     "rule": "pipeline.trigger_build.pipeline",
     "value": {
-      "source_pipeline_uuid": "{pipeline.uuid}",
-      "target_pipeline_uuid": "{pipeline.uuid}"
+      "source_pipeline": "{pipeline-uuid-or-slug}",
+      "target_pipeline": "{pipeline-uuid-or-slug}"
     }
   }'
 ```
@@ -47,11 +47,13 @@ where:
 
 - `rule` is the [type of rule](/docs/pipelines/rules#rule-types) to be created, that is, either `pipeline.trigger_build.pipeline` or `pipeline.artifacts_read.pipeline`.
 
-- `{pipeline.uuid}` value for `source_pipeline_uuid` and `target_pipeline_uuid` can be obtained:
+- `source_pipeline` and `target_pipeline` accept either a pipeline slug or UUID.
+
+- Pipeline UUID values for `source_pipeline` and `target_pipeline` can be obtained:
 
     * From the **Pipeline Settings** page of the appropriate pipeline. To do this:
         1. Select **Pipelines** (in the global navigation) > the specific pipeline > **Settings**.
-        1. Once on the **Pipeline Settings** page, copy the `UUID` value from the **GraphQL API Integration** section, which is the `{pipeline.uuid}` value.
+        1. Once on the **Pipeline Settings** page, copy the `UUID` value from the **GraphQL API Integration** section
 
     * By running the [List pipelines](/docs/apis/rest-api/pipelines#list-pipelines) REST API query to obtain this value from `id` in the response from the specific pipeline. For example:
 
@@ -69,7 +71,7 @@ mutation {
   ruleCreate(input: {
     organizationId: "organization-id",
     type: "pipeline.trigger_build.pipeline",
-    value: "{\"source_pipeline_uuid\":\"pipeline-uuid\",\"target_pipeline_uuid\":\"pipeline-uuid\"}"
+    value: "{\"source_pipeline\":\"pipeline-uuid-or-slug\",\"target_pipeline\":\"pipeline-uuid-or-slug\"}"
   }) {
      rule {
       id
@@ -103,11 +105,13 @@ where:
 
 - `type` is the [type of rule](/docs/pipelines/rules#rule-types) to be created, that is, either `pipeline.trigger_build.pipeline` or `pipeline.artifacts_read.pipeline`.
 
-- `pipeline-uuid` value for `source_pipeline_uuid` and `target_pipeline_uuid` can be obtained:
+- `source_pipeline` and `target_pipeline` accept either a pipeline slug or UUID.
+
+- Pipeline UUID values for `source_pipeline` and `target_pipeline` can be obtained:
 
     * From the **Pipeline Settings** page of the appropriate pipeline. To do this:
         1. Select **Pipelines** (in the global navigation) > the specific pipeline > **Settings**.
-        1. Once on the **Pipeline Settings** page, copy the `UUID` value from the **GraphQL API Integration** section, which is the `pipeline-uuid` value.
+        1. Once on the **Pipeline Settings** page, copy the `UUID` value from the **GraphQL API Integration** section
 
     * By running the `getCurrentUsersOrgs` GraphQL API query to obtain the organization slugs for the current user's accessible organizations, then [getOrgPipelines](/docs/apis/graphql/schemas/query/organization) query to obtain the pipeline's `uuid` in the response. For example:
 
@@ -140,7 +144,7 @@ where:
                   uuid
                   name
                 }
-              } 
+              }
             }
           }
         }
