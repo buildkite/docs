@@ -47,7 +47,7 @@ Behind the scenes, signed pipelines use [JSON Web Signing (JWS)](https://datatra
 - Self managed key pairs
 - AWS KMS managed keys
 
-## Self Managed Key Creation
+## Self-managed key creation
 
 You'll need to generate a [JSON Web Key Set (JWKS)](https://datatracker.ietf.org/doc/html/rfc7517) to sign and verify your pipelines with, then configure your agents to use those keys.
 

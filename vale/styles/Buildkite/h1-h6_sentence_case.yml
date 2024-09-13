@@ -112,6 +112,7 @@ exceptions:
   - Jenkins
   - JSON
   - JUnit
+  - KMS
   - Kubernetes
   - Linux
   - M1
