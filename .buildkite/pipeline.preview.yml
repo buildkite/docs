@@ -14,6 +14,7 @@ steps:
           dependencies: false
           mount-buildkite-agent: true
           env:
+            - GH_REPO
             - GH_TOKEN
             - NETLIFY_AUTH_TOKEN
             - NETLIFY_SITE_ID
