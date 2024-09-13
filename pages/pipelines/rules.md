@@ -30,7 +30,11 @@ This rule type allows one pipeline to trigger another, where:
   "rule": "pipeline.trigger_build.pipeline",
   "value": {
     "source_pipeline": "pipeline-uuid-or-slug",
-    "target_pipeline": "pipeline-uuid-or-slug"
+    "target_pipeline": "pipeline-uuid-or-slug",
+    "conditions": [
+      "source.build.branch == 'main'",
+      "source.build.commit == target.trigger.commit"
+    ]
   }
 }
 ```
@@ -39,6 +43,24 @@ where:
 
 - `source_pipeline` is the UUID or slug of the pipeline that's allowed to trigger another pipeline.
 - `target_pipeline` is the UUID or slug of the pipeline that can be triggered by the `source_pipeline` pipeline.
+
+The optional `conditions` field allows you to specify an array of [conditionals](/docs/pipelines/conditionals) that must be met for the trigger to be allowed. In the example above, the rule would only apply if the source pipeline's build branch is `main` and the commit of the source pipeline's build  matches the target pipeline's trigger build commit. If no conditions are specified, the trigger is allowed in all cases between the source and target pipelines. If multiple conditions are specified, all conditions must be met for the trigger to be allowed.
+
+Conditions are optional for this rule and can be used to restrict when a trigger is allowed. The conditions are evaluated using the [Buildkite conditionals syntax](/docs/pipelines/conditionals). If the conditions are not met, the trigger is now allowed (even if the default permissions would have allowed it). If no conditions are specified, triggering is allowed between the source and target pipelines in all cases (on all branches and commits, all authors etc).
+
+In the `pipeline.trigger_build.pipeline` rule the available variables for conditions are:
+
+- `source.build` - the triggering build in the source pipeline (contains the trigger step). This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).
+  - `source.build.branch` - the branch of the source pipeline that the trigger step is targeting.
+  - `source.build.commit` - the commit of the source pipeline that the trigger step is targeting.
+  - `source.build.message` - the commit message of the source pipeline that the trigger step is targeting.
+  - `source.build.author` - the author of the commit of the source pipeline that the trigger step is targeting.
+  - `source.build.creator` - the creator of the build in the source pipeline.
+
+- `target.trigger.branch` - the branch of the target pipeline that the trigger step is targeting.
+- `target.trigger.commit` - the commit of the target pipeline that the trigger step is targeting.
+- `target.trigger.message` - the commit message of the target pipeline that the trigger step is targeting.
+
 
 Learn more about creating rules in [Manage rules](/docs/pipelines/rules/manage).
 
@@ -71,8 +93,6 @@ where:
 
 - `source_pipeline` is the UUID or slug of the pipeline that's allowed to access the artifacts from another pipeline.
 - `target_pipeline` is the UUID or slug of the pipeline whose artifacts can be accessed by jobs in the `source_pipeline` pipeline.
-
-Learn more about creating rules in [Manage rules](/docs/pipelines/rules/manage).
 
 #### Example use case: sharing assets between clusters
 
