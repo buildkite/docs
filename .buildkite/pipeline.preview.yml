@@ -1,9 +1,11 @@
 steps:
   - label: "Prepare preview"
     command: bin/prepare-preview
+    key: prepare-preview
 
   - label: "Deploy preview"
     command: bin/deploy-preview
+    depends_on: prepare-preview
     env:
       RAILS_ENV: "production"
     plugins:
