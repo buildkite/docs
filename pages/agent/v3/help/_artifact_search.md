@@ -87,4 +87,6 @@ Format specifiers:
 
 %S    SHA1 checksum of the artifact
 
+%T    SHA256 checksum of the artifact
+
 %u    Download URL for the artifact, though consider using &#39;buildkite-agent artifact download&#39; instead
