@@ -93,8 +93,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   -d '{
     "type": "pipeline.trigger_build.pipeline",
     "value": {
-      "source_pipeline_uuid": "16f3b56f-4934-4546-923c-287859851332",
-      "target_pipeline_uuid": "d07d5d84-d1bd-479c-902c-ce8a01ce5aac"
+      "source_pipeline": "16f3b56f-4934-4546-923c-287859851332",
+      "target_pipeline": "d07d5d84-d1bd-479c-902c-ce8a01ce5aac"
     }
   }'
 ```
@@ -139,8 +139,8 @@ Required [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>value</code></th>
-    <td>A JSON object containing the value fields for the rule.<br>
-    <em>Example:</em> <code>{"source_pipeline_uuid": "16f3b56f-4934-4546-923c-287859851332", "target_pipeline_uuid": "d07d5d84-d1bd-479c-902c-ce8a01ce5aac"}</code></td>
+    <td>A JSON object containing the value fields for the rule. <code>source_pipeline</code> and <code>target_pipeline</code> fields accept either a pipeline UUID or a pipeline slug.<br>
+    <em>Example:</em> <code>{"source_pipeline": "16f3b56f-4934-4546-923c-287859851332", "target_pipeline": "d07d5d84-d1bd-479c-902c-ce8a01ce5aac"}</code></td>
   </tr>
 </tbody>
 </table>
