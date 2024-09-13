@@ -9,7 +9,7 @@ steps:
       queue: elastic-runners
     plugins:
       - aws-assume-role-with-web-identity#v1.0.0:
-          role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-main
+          role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
       - ecr#v2.7.0:
           login: true
           account-ids: ${ECR_ACCOUNT_ID}
@@ -21,7 +21,7 @@ steps:
     depends_on: "ecr-push"
     plugins:
       - aws-assume-role-with-web-identity#v1.0.0:
-          role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-main
+          role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
       - buildkite/ecr-scan-results#v2.0.0:
           image-name: "${ECR_REPO}:${BUILDKITE_BUILD_NUMBER}"
           fail-build-on-plugin-failure: true
@@ -52,7 +52,7 @@ steps:
     command: scripts/deploy-ecs
     plugins:
       - aws-assume-role-with-web-identity#v1.0.0:
-          role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-main
+          role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
 
   - wait
 
