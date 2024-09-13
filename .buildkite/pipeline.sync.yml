@@ -6,4 +6,4 @@ steps:
     commands: |
       echo "+++ :git: Syncing to public mirror"
 
-      git push --force "${PUBLIC_REPO}" ${BUILDKITE_COMMIT}:main
+      git push "${PUBLIC_REPO}" ${BUILDKITE_COMMIT}:main
