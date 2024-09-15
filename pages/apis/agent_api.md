@@ -1,12 +1,12 @@
 # Agent REST API overview
 
-The Agent REST API is used for agent registration, agent deregistration, starting jobs on agents, finishing jobs on agents, and agent metrics.
+The agent REST API endpoint is used for agent registration, agent deregistration, starting jobs on agents, finishing jobs on agents, and agent metrics.
 
 The only publicly available endpoint is `/metrics`. The [Buildkite metrics agent](https://github.com/buildkite/buildkite-agent-metrics) uses the data returned by the metrics endpoint for agent autoscaling.
 
-All other endpoints in the Agent API are intended only for use by the Buildkite Agent, therefore stability and backwards compatibility are not guaranteed, and changes won't be announced.
+All other endpoints in the agent API are intended only for use by the Buildkite Agent, therefore stability and backwards compatibility are not guaranteed, and changes won't be announced.
 
-The current version of the Agent API is v3.
+The current version of the agent API is v3.
 
 ## Schema
 
@@ -24,9 +24,9 @@ curl https://agent.buildkite.com
 
 ## Authentication
 
-Unlike the [Buildkite REST API](/docs/apis/rest-api), which uses an [API access token](/docs/apis/rest-api#authentication), the Agent REST API uses an [Agent registration token](/docs/agent/v3/tokens) for authentication.
+Unlike the [Buildkite REST API](/docs/apis/rest-api), which uses an [API access token](/docs/apis/rest-api#authentication), the agent REST API uses an [agent token](/docs/agent/v3/tokens) for authentication.
 
-To authenticate using an Agent registration token, set the `Authorization` HTTP header to the word `Token`, followed by a space, followed by the access token. For example:
+To authenticate using an agent token, set the `Authorization` HTTP header to the word `Token`, followed by a space, followed by the agent token. For example:
 
 ```bash
 curl -H "Authorization: Token $TOKEN" https://agent.buildkite.com/v3/metrics
