@@ -8959,6 +8959,11 @@ type Rule implements Node {
   createdBy: User
 
   """
+  Description of the rule
+  """
+  description: String
+
+  """
   Effect for the rule
   """
   effect: RuleEffect
@@ -9025,6 +9030,11 @@ input RuleCreateInput {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
+
+  """
+  Description of the rule
+  """
+  description: String
   organizationId: ID!
 
   """

@@ -1,0 +1,9 @@
+env:
+  PUBLIC_REPO: git@github.com:buildkite/docs.git
+steps:
+  - label: Sync to public mirror
+    branches: main
+    commands: |
+      echo "+++ :git: Syncing to public mirror"
+
+      git push "${PUBLIC_REPO}" ${BUILDKITE_COMMIT}:main
