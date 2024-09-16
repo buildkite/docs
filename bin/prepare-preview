@@ -4,12 +4,18 @@ set -eu
 
 . bin/utils.sh
 
+echo "Using github repo: $GH_REPO"
+
+echo "--- :github: Fetching pull request number for branch $BUILDKITE_BRANCH"
+
 PULL_REQUEST_NUMBER=$(get_branch_pull_request_number $BUILDKITE_BRANCH)
 
 if [ -z "$PULL_REQUEST_NUMBER" ]; then
   echo "No pull request found for branch $BUILDKITE_BRANCH"
   exit 1
 fi
+
+echo "--- :netlify: Creating placeholder site for pull request $PULL_REQUEST_NUMBER"
 
 # Create placeholder site whilst we build the real thing.
 mkdir build
@@ -28,12 +34,14 @@ EOF
 
 zip -r build.zip build
 
+# Generate preview id
+PREVIEW_BRANCH_ID=$(netlify_preview_id "$BUILDKITE_BRANCH" "$NETLIFY_SALT")
+
 echo "--- :netlify: Deploying placeholder site Netlify"
 curl -H "Content-Type: application/zip" \
      -H "Authorization: Bearer $NETLIFY_AUTH_TOKEN" \
      --data-binary "@build.zip" \
-     https://api.netlify.com/api/v1/sites/$NETLIFY_SITE_ID/deploys\?deploy-preview\=true\&branch\=$PULL_REQUEST_NUMBER > netlify-deploy.json
-
+     https://api.netlify.com/api/v1/sites/$NETLIFY_SITE_ID/deploys\?deploy-preview\=true\&branch\=$PREVIEW_BRANCH_ID > netlify-deploy.json
 
 PREVIEW_URL=$(cat netlify-deploy.json | jq -r '.deploy_ssl_url')
 PREVIEW_MESSAGE="Preview URL: $PREVIEW_URL"
