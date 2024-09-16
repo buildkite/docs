@@ -1,3 +1,6 @@
+env:
+  BUILDKIT_PROGRESS: plain
+
 steps:
   - label: ":spider: muffet"
     # We need to wait until rails has started before running muffet as otherwise it will error out

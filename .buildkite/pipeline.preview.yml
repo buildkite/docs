@@ -1,9 +1,14 @@
+env:
+  BUILDKIT_PROGRESS: plain
+
 steps:
   - label: "Prepare preview"
     command: bin/prepare-preview
+    key: prepare-preview
 
   - label: "Deploy preview"
     command: bin/deploy-preview
+    depends_on: prepare-preview
     env:
       RAILS_ENV: "production"
     plugins:
@@ -12,7 +17,9 @@ steps:
           dependencies: false
           mount-buildkite-agent: true
           env:
+            - GH_REPO
             - GH_TOKEN
             - NETLIFY_AUTH_TOKEN
             - NETLIFY_SITE_ID
+            - NETLIFY_SALT
             - BUILDKITE_BRANCH
