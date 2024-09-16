@@ -540,16 +540,6 @@
               path: "apis/agent-api"
             - name: "Metrics"
               path: "apis/agent-api/metrics"
-        - name: "Analytics"
-          children:
-            - name: "Flaky tests"
-              path: "apis/rest-api/analytics/flaky-tests"
-            - name: "Runs"
-              path: "apis/rest-api/analytics/runs"
-            - name: "Suites"
-              path: "apis/rest-api/analytics/suites"
-            - name: "Tests"
-              path: "apis/rest-api/analytics/tests"
         - name: "Organizations"
           children:
             - name: "Overview"
@@ -608,6 +598,18 @@
               path: "apis/rest-api/teams/pipelines"
             - name: "Suites"
               path: "apis/rest-api/teams/suites"
+        - name: "Test Engine "
+          # Keep space at end to prevent "Test Engine" in global nav bar being
+          # highlighted when any child page of "API > REST > Pipelines" is selected.
+          children:
+            - name: "Flaky tests"
+              path: "apis/rest-api/test-engine/flaky-tests"
+            - name: "Runs"
+              path: "apis/rest-api/test-engine/runs"
+            - name: "Suites"
+              path: "apis/rest-api/test-engine/suites"
+            - name: "Tests"
+              path: "apis/rest-api/test-engine/tests"
     - name: "GraphQL"
       children:
         - name: Overview
