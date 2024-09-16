@@ -413,8 +413,8 @@
               path: "integrations/pagerduty"
             - name: "Slack"
               path: "integrations/slack"
-- name: "Test Analytics"
-  path: "test-analytics"
+- name: "Test Engine"
+  path: "test-engine"
   children:
     - name: "Overview"
       path: "test-engine"
