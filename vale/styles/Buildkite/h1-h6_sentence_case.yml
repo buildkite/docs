@@ -147,7 +147,7 @@ exceptions:
   - S3
   - SSH
   - SSO
-  - Test Analytics
+  - Test Engine
   - TESTOWNER
   - Ubuntu
   - URL
