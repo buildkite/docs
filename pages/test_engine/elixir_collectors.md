@@ -60,4 +60,4 @@ Before you start, make sure ExUnit runs with access to [CI environment variables
     Randomized with seed 12345
     ```
 
-1. Verify that it works. If all is well, you should see the test run in the analytics section of the Buildkite dashboard.
+1. Verify that it works. If all is well, you should see the test run analytics on the Buildkite Test Engine dashboard.

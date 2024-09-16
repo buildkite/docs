@@ -32,4 +32,4 @@ Before you start, make sure .NET runs with access to [CI environment variables](
 
 1. Verify that it works
 
-If all is well, you should see the test run in the analytics section of the Buildkite dashboard.
+If all is well, you should see the test run analytics on the Buildkite Test Engine dashboard.
