@@ -34,12 +34,14 @@ EOF
 
 zip -r build.zip build
 
+# Generate preview id
+PREVIEW_BRANCH_ID=$(netlify_preview_id "$BUILDKITE_BRANCH" "$NETLIFY_SALT")
+
 echo "--- :netlify: Deploying placeholder site Netlify"
 curl -H "Content-Type: application/zip" \
      -H "Authorization: Bearer $NETLIFY_AUTH_TOKEN" \
      --data-binary "@build.zip" \
-     https://api.netlify.com/api/v1/sites/$NETLIFY_SITE_ID/deploys\?deploy-preview\=true\&branch\=$PULL_REQUEST_NUMBER > netlify-deploy.json
-
+     https://api.netlify.com/api/v1/sites/$NETLIFY_SITE_ID/deploys\?deploy-preview\=true\&branch\=$PREVIEW_BRANCH_ID > netlify-deploy.json
 
 PREVIEW_URL=$(cat netlify-deploy.json | jq -r '.deploy_ssl_url')
 PREVIEW_MESSAGE="Preview URL: $PREVIEW_URL"

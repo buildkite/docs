@@ -18,4 +18,5 @@ steps:
             - GH_TOKEN
             - NETLIFY_AUTH_TOKEN
             - NETLIFY_SITE_ID
+            - NETLIFY_SALT
             - BUILDKITE_BRANCH

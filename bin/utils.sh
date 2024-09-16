@@ -49,3 +49,10 @@ function create_pull_request() {
     --data "{\"title\":\"$1\", \"body\":\"$2\", \"head\":\"$BRANCH\", \"base\":\"main\"}" \
     "https://api.github.com/repos/${GH_REPO}/pulls"
 }
+
+function netlify_preview_id() {
+    local branch=$1
+    local salt=$2
+
+    echo -n "${salt}${branch}" | sha1sum | awk '{print $1}'
+}
