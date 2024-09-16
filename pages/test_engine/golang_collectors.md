@@ -2,9 +2,9 @@
 toc: false
 ---
 
-# Configuring Go with Test Analytics
+# Configuring Go with Test Engine
 
-To use Test Analytics with your [Go](https://go.dev/) language projects use [gotestsum](https://github.com/gotestyourself/gotestsum) to generate JUnit XML files, then [upload the JUnit XML files](/docs/test-engine/importing-junit-xml) to Test Analytics.
+To use Test Engine with your [Go](https://go.dev/) language projects use [gotestsum](https://github.com/gotestyourself/gotestsum) to generate JUnit XML files, then [upload the JUnit XML files](/docs/test-engine/importing-junit-xml) to Test Engine.
 
 1. Install [gotestsum](https://github.com/gotestyourself/gotestsum):
 

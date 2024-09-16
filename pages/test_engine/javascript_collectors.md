@@ -1,6 +1,6 @@
 # JavaScript collectors
 
-To use Test Analytics with your JavaScript (npm) projects, use the :github: [`test-collector-javascript`](https://github.com/buildkite/test-collector-javascript) package with a supported test framework. Test Analytics supports the following test frameworks:
+To use Test Engine with your JavaScript (npm) projects, use the :github: [`test-collector-javascript`](https://github.com/buildkite/test-collector-javascript) package with a supported test framework. Test Engine supports the following test frameworks:
 
 - [Jest](https://jestjs.io/)
 - [Jasmine](https://jasmine.github.io/)
@@ -17,13 +17,13 @@ Whichever test framework you use, you first need to add and authenticate the [`b
 
 To add the test collector package:
 
-1. In your CI environment, set the `BUILDKITE_ANALYTICS_TOKEN` environment variable to your Test Analytics API token.
+1. In your CI environment, set the `BUILDKITE_ANALYTICS_TOKEN` environment variable to your Test Engine API token.
    To learn how to set environment variables securely in Pipelines, see [Managing pipeline secrets](/docs/pipelines/security/secrets/managing).
 
 1. On the command line, create a new branch by running:
 
     ```
-    git checkout -b install-buildkite-test-analytics
+    git checkout -b install-buildkite-test-engine
     ```
 
 1. Install [`buildkite-test-collector`](https://www.npmjs.com/package/buildkite-test-collector) using your package manager.
@@ -46,7 +46,7 @@ With the test collector installed, you need to configure it in the test framewor
 
 ### Jest
 
-If you're already using Jest, you can add `buildkite-test-collector/jest/reporter` to the list of reporters to collect test results into your Test Analytics dashboard.
+If you're already using Jest, you can add `buildkite-test-collector/jest/reporter` to the list of reporters to collect test results into your Test Engine dashboard.
 
 To configure Jest:
 
@@ -59,7 +59,7 @@ To configure Jest:
         "testLocationInResults": true,
     }
     ```
-    **Note:** The `"testLocationInResults": true` setting enables column and line capture for Test Analytics.
+    **Note:** The `"testLocationInResults": true` setting enables column and line capture for Test Engine.
 
 ### Jasmine
 
@@ -133,7 +133,7 @@ To configure Cypress:
     ```js
     // cypress.config.js
 
-    // Send results to Test Analytics
+    // Send results to Test Engine
     reporter: "buildkite-test-collector/cypress/reporter",
     ```
 
@@ -142,7 +142,7 @@ To configure Cypress:
     ```js
     // cypress.config.js
 
-    // Send results to Test Analytics
+    // Send results to Test Engine
     reporterOptions: {
       token_name: "CUSTOM_ENV_VAR_NAME"
     }
@@ -150,7 +150,7 @@ To configure Cypress:
 
 ### Playwright
 
-If you're already using Playwright, you can add `buildkite-test-collector/playwright/reporter` to the list of reporters to collect test results into your Test Analytics dashboard.
+If you're already using Playwright, you can add `buildkite-test-collector/playwright/reporter` to the list of reporters to collect test results into your Test Engine dashboard.
 
 To configure Playwright:
 
@@ -180,7 +180,7 @@ When your collector is installed, commit and push your changes:
 1. Commit the changes by running:
 
     ```shell
-    git commit -m "Install and set up Buildkite Test Analytics"
+    git commit -m "Install and set up Buildkite Test Engine"
     ```
 
 1. Push the changes by running:
@@ -191,13 +191,13 @@ When your collector is installed, commit and push your changes:
 
 ## View the results
 
-After completing these steps, you'll see the analytics of test executions on all branches that include this code in the Test Analytics dashboard.
+After completing these steps, you'll see the analytics of test executions on all branches that include this code in the Test Engine dashboard.
 
-If you don't see branch names, build numbers, or commit hashes in the Test Analytics dashboard, see [CI environments](/docs/test-engine/ci-environments) to learn more about exporting your environment.
+If you don't see branch names, build numbers, or commit hashes in the Test Engine dashboard, see [CI environments](/docs/test-engine/ci-environments) to learn more about exporting your environment.
 
 ## Troubleshooting missing test executions and --forceExit
 
-Using the [`--forceExit`](https://jestjs.io/docs/cli#--forceexit) option when running Jest could result in missing test executions from Test Analytics.
+Using the [`--forceExit`](https://jestjs.io/docs/cli#--forceexit) option when running Jest could result in missing test executions from Test Engine.
 
 `--forceExit` could potentially terminate any ongoing processes that are attempting to send test executions to Buildkite.
 

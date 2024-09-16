@@ -4,7 +4,7 @@ toc: false
 
 # Swift collectors
 
-To use Test Analytics with your Swift projects use the :github: [`test-collector-swift`](https://github.com/buildkite/test-collector-swift) package with XCTest.
+To use Test Engine with your Swift projects use the :github: [`test-collector-swift`](https://github.com/buildkite/test-collector-swift) package with XCTest.
 
 You can also upload test results by importing [JSON](/docs/test-engine/importing-json) or [JUnit XML](/docs/test-engine/importing-junit-xml).
 
@@ -49,14 +49,14 @@ Before you start, make sure XCTest runs with access to [CI environment variables
 1. Commit and push your changes:
 
     ```bash
-    git checkout -b add-buildkite-test-analytics
-    git commit -am "Add Buildkite Test Analytics"
-    git push origin add-buildkite-test-analytics
+    git checkout -b add-buildkite-test-engine
+    git commit -am "Add Buildkite Test Engine"
+    git push origin add-buildkite-test-engine
     ```
 
-Once you're done, in your Test Analytics dashboard, you'll see analytics of test executions on all branches that include this code.
+Once you're done, in your Test Engine dashboard, you'll see analytics of test executions on all branches that include this code.
 
-If you don't see branch names, build numbers, or commit hashes in Test Analytics, then read [CI environments](/docs/test-engine/ci-environments) to learn more about exporting your environment to the collector.
+If you don't see branch names, build numbers, or commit hashes in Test Engine, then read [CI environments](/docs/test-engine/ci-environments) to learn more about exporting your environment to the collector.
 
 ### Debugging
 

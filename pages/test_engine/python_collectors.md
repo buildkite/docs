@@ -4,20 +4,20 @@ toc: false
 
 # Python collectors
 
-To use Test Analytics with your Python projects use the [`buildkite-test-collector`](https://pypi.org/project/buildkite-test-collector/) package with pytest.
+To use Test Engine with your Python projects use the [`buildkite-test-collector`](https://pypi.org/project/buildkite-test-collector/) package with pytest.
 
 You can also upload test results by importing [JSON](/docs/test-engine/importing-json) or [JUnit XML](/docs/test-engine/importing-junit-xml).
 
 ## pytest collector
 
 pytest is a testing framework for Python.
-If you're already using pytest, then you can install `buildkite-test-collector` to collect test results into your Test Analytics dashboard.
+If you're already using pytest, then you can install `buildkite-test-collector` to collect test results into your Test Engine dashboard.
 
 Before you start, make sure pytest runs with access to [CI environment variables](/docs/test-engine/ci-environments).
 
 To get started with `buildkite-test-collector`:
 
-1. In your CI environment, set the `BUILDKITE_ANALYTICS_TOKEN` environment variable [securely](/docs/pipelines/security/secrets/managing) to your Buildkite Test Analytics API token.
+1. In your CI environment, set the `BUILDKITE_ANALYTICS_TOKEN` environment variable [securely](/docs/pipelines/security/secrets/managing) to your Buildkite Test Engine API token.
 
 1. Add `buildkite-test-collector` to your list of dependencies. Some examples:
 
@@ -48,10 +48,10 @@ To get started with `buildkite-test-collector`:
 
     ```shell
     $ git add .
-    $ git commit -m "Install and set up Buildkite Test Analytics"
+    $ git commit -m "Install and set up Buildkite Test Engine"
     $ git push
     ```
 
-Once you're done, in your Test Analytics dashboard, you'll see analytics of test executions on all branches that include this code.
+Once you're done, in your Test Engine dashboard, you'll see analytics of test executions on all branches that include this code.
 
-If you don't see branch names, build numbers, or commit hashes in Test Analytics, then read [CI environments](/docs/test-engine/ci-environments) to learn more about exporting your environment to the collector.
+If you don't see branch names, build numbers, or commit hashes in Test Engine, then read [CI environments](/docs/test-engine/ci-environments) to learn more about exporting your environment to the collector.

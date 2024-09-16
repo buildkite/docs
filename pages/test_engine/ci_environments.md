@@ -1,6 +1,6 @@
 # CI environments
 
-Buildkite Test Analytics collectors automatically detect common continuous integration (CI) environments.
+Buildkite Test Engine collectors automatically detect common continuous integration (CI) environments.
 If available, test collectors gather information about your test runs, such as branch names and build IDs.
 Test collectors gather information from the following CI environments:
 
@@ -103,7 +103,7 @@ run_env[key]=$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT
 ## Other CI providers
 
 If you're using other CI providers (or [containers](#containers-and-test-collectors)), then set environment variables for test collectors to gather information about your builds and tests.
-If you don't set these environment variables, then Test Analytics lacks the details needed to produce useful reports.
+If you don't set these environment variables, then Test Engine lacks the details needed to produce useful reports.
 
 Each environment variable corresponds to a `run_env` key in the payload `https://analytics-api.buildkite.com/v1/uploads`. Read [Importing JSON](/docs/test-engine/importing-json) to learn how these keys are used to make API calls.
 
@@ -116,7 +116,7 @@ Each environment variable corresponds to a `run_env` key in the payload `https:/
     </tr>
   </thead>
   <tbody>
-    <% TEST_ANALYTICS_RUN_ENV['keys'].each do |key| -%>
+    <% TEST_ENGINE_RUN_ENV['keys'].each do |key| -%>
       <tr>
         <td><code>run_env[<%= key['name'] %>]</code></td>
         <td><code><%= key['environment_variable'] %></code></td>

@@ -1,16 +1,15 @@
 # Importing JSON
 
-
-If a test collector is not available for your test framework, you can upload tests results directly to the Test Analytics API or [write your own test collector](/docs/test-engine/your-own-collectors).
+If a test collector is not available for your test framework, you can upload tests results directly to the Test Engine API or [write your own test collector](/docs/test-engine/your-own-collectors).
 You can upload JSON-formatted test results (described in this page) or [JUnit XML](/docs/test-engine/importing-junit-xml).
 
 ## How to import JSON in Buildkite
 
-It's possible to import JSON (or [JUnit](/docs/test-engine/importing-junit-xml#how-to-import-junit-xml-in-buildkite) files) to Buildkite Test Analytics with or without the help of a plugin.
+It's possible to import JSON (or [JUnit](/docs/test-engine/importing-junit-xml#how-to-import-junit-xml-in-buildkite) files) to Buildkite Test Engine with or without the help of a plugin.
 
 ### Using a plugin
 
-To import [JSON-formatted test results](#json-test-results-data-reference) to Test Analytics using [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin) from a build step:
+To import [JSON-formatted test results](#json-test-results-data-reference) to Test Engine using [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin) from a build step:
 
 ```yml
 steps:
@@ -35,7 +34,7 @@ To import [JSON-formatted test results](#json-test-results-data-reference) in Bu
 
 For example, to import the contents of a [JSON-formatted test results](#json-test-results-data-reference) (`test-results.json`):
 
-1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/secrets/managing) (`BUILDKITE_ANALYTICS_TOKEN`).
+1. Securely [set the Test Engine token environment variable](/docs/pipelines/security/secrets/managing) (`BUILDKITE_ANALYTICS_TOKEN`).
 
 2. Run the following `curl` command:
 
@@ -66,7 +65,7 @@ To import [JSON-formatted test results](#json-test-results-data-reference), make
 
 For example, to import the contents of a `test-results.json` file in a CircleCI pipeline:
 
-1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/secrets/managing) (`BUILDKITE_ANALYTICS_TOKEN`).
+1. Securely [set the Test Engine token environment variable](/docs/pipelines/security/secrets/managing) (`BUILDKITE_ANALYTICS_TOKEN`).
 
 2. Run the following `curl` command:
 
@@ -95,7 +94,7 @@ To import [JSON-formatted test results](#json-test-results-data-reference), make
 
 For example, to import the contents of a `test-results.json` file in a GitHub Actions pipeline run:
 
-1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/secrets/managing) (`BUILDKITE_ANALYTICS_TOKEN`).
+1. Securely [set the Test Engine token environment variable](/docs/pipelines/security/secrets/managing) (`BUILDKITE_ANALYTICS_TOKEN`).
 
 2. Run the following `curl` command:
 
@@ -186,7 +185,7 @@ end
     </tr>
   </thead>
   <tbody>
-    <% TEST_ANALYTICS_JSON_FIELDS_TEST_RESULT['fields'].each do |field| -%>
+    <% TEST_ENGINE_JSON_FIELDS_TEST_RESULT['fields'].each do |field| -%>
       <tr>
         <td><code><%= field['name'] %></code> <%= '(required)' if field['required'] %></td>
         <td><%= field['type'] %> <%= render_enumerated_values(field['enumerated_values']) %></td>
@@ -234,7 +233,7 @@ A failure expanded array contains extra details about the failed test.
     </tr>
   </thead>
   <tbody>
-    <% TEST_ANALYTICS_JSON_FIELDS_FAILURE_EXPANDED['fields'].each do |field| -%>
+    <% TEST_ENGINE_JSON_FIELDS_FAILURE_EXPANDED['fields'].each do |field| -%>
       <tr>
         <td><code><%= field['name'] %></code> <%= '(required)' if field['required'] %></td>
         <td><%= field['type'] %> <%= render_enumerated_values(field['enumerated_values']) %></td>
@@ -283,7 +282,7 @@ A history object represents the overall duration of the test run and contains de
     </tr>
   </thead>
   <tbody>
-    <% TEST_ANALYTICS_JSON_FIELDS_HISTORY['fields'].each do |field| -%>
+    <% TEST_ENGINE_JSON_FIELDS_HISTORY['fields'].each do |field| -%>
       <tr>
         <td><code><%= field['name'] %></code> <%= '(required)' if field['required'] %></td>
         <td><%= field['type'] %> <%= render_enumerated_values(field['enumerated_values']) %></td>
@@ -322,7 +321,7 @@ It represents, for example, the duration of an individual database query within 
     </tr>
   </thead>
   <tbody>
-    <% TEST_ANALYTICS_JSON_FIELDS_SPAN['fields'].each do |field| -%>
+    <% TEST_ENGINE_JSON_FIELDS_SPAN['fields'].each do |field| -%>
       <tr>
         <td><code><%= field['name'] %></code> <%= '(required)' if field['required'] %></td>
         <td><%= field['type'] %> <%= render_enumerated_values(field['enumerated_values']) %></td>
@@ -361,7 +360,7 @@ Detail objects contains additional information about the span.
     </tr>
   </thead>
   <tbody>
-    <% TEST_ANALYTICS_JSON_FIELDS_DETAIL['fields'].each do |field| -%>
+    <% TEST_ENGINE_JSON_FIELDS_DETAIL['fields'].each do |field| -%>
       <tr>
         <td><code><%= field['name'] %></code> <%= '(required)' if field['required'] %></td>
         <td><%= field['type'] %> <%= render_enumerated_values(field['enumerated_values']) %></td>

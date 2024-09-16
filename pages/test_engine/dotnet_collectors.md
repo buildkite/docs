@@ -4,7 +4,7 @@ toc: false
 
 # .NET collector
 
-To use Test Analytics with your .NET projects use the :github: [`test-collector-dotnet`](https://github.com/buildkite/test-collector-dotnet) package with xUnit.
+To use Test Engine with your .NET projects use the :github: [`test-collector-dotnet`](https://github.com/buildkite/test-collector-dotnet) package with xUnit.
 
 You can also upload test results by importing [JSON](/docs/test-engine/importing-json) or [JUnit XML](/docs/test-engine/importing-junit-xml).
 
@@ -32,4 +32,4 @@ Before you start, make sure .NET runs with access to [CI environment variables](
 
 1. Verify that it works
 
-If all is well, you should see the test run in the test analytics section of the Buildkite dashboard.
+If all is well, you should see the test run in the analytics section of the Buildkite dashboard.

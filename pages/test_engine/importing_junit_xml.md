@@ -1,6 +1,6 @@
 # Importing JUnit XML
 
-While most test frameworks have a built-in JUnit XML export feature, these JUnit reports do not provide detailed span information. Therefore, features in Test Analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, consider using the [JSON import](/docs/test-engine/importing-json) API instead.
+While most test frameworks have a built-in JUnit XML export feature, these JUnit reports do not provide detailed span information. Therefore, features in Test Engine that depend on span information aren't available when using JUnit as a data source. If you need span information, consider using the [JSON import](/docs/test-engine/importing-json) API instead.
 
 
 ## Mandatory JUnit XML attributes
@@ -15,11 +15,11 @@ To learn more about the JUnit XML file format, see [Common JUnit XML format & ex
 
 ## How to import JUnit XML in Buildkite
 
-It's possible to import XML-formatted JUnit (or [JSON](/docs/test-engine/importing-json#how-to-import-json-in-buildkite)) test results to Buildkite Test Analytics with or without the help of a plugin.
+It's possible to import XML-formatted JUnit (or [JSON](/docs/test-engine/importing-json#how-to-import-json-in-buildkite)) test results to Buildkite Test Engine with or without the help of a plugin.
 
 ### Using a plugin
 
-To import XML-formatted JUnit test results to Test Analytics using [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin) from a build step:
+To import XML-formatted JUnit test results to Test Engine using [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin) from a build step:
 
 ```yml
 steps:
@@ -40,10 +40,10 @@ Using the plugin is the recommended way as it allows for a better debugging proc
 
 If for some reason you cannot or do not want to use the [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin), or if you are looking to implement your own integration, another approach is possible.
 
-To import XML-formatted JUnit test results to Test Analytics, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data`.
+To import XML-formatted JUnit test results to Test Engine, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data`.
 For example, to import the contents of a `junit.xml` file in a Buildkite pipeline:
 
-1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/secrets/managing) (`BUILDKITE_ANALYTICS_TOKEN`).
+1. Securely [set the Test Engine token environment variable](/docs/pipelines/security/secrets/managing) (`BUILDKITE_ANALYTICS_TOKEN`).
 
 1. Run the following `curl` command:
 
@@ -77,7 +77,7 @@ A single file can have a maximum of 5000 test results, and if that limit is exce
 To import XML-formatted JUnit test results, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data`.
 For example, to import the contents of a `junit.xml` file in a CircleCI pipeline:
 
-1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/secrets/managing) (`BUILDKITE_ANALYTICS_TOKEN`).
+1. Securely [set the Test Engine token environment variable](/docs/pipelines/security/secrets/managing) (`BUILDKITE_ANALYTICS_TOKEN`).
 
 1. Run the following `curl` command:
 
@@ -109,7 +109,7 @@ A single file can have a maximum of 5000 test results, and if that limit is exce
 To import XML-formatted JUnit test results, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data`.
 For example, to import the contents of a `junit.xml` file in a GitHub Actions pipeline:
 
-1. Securely [set the Test Analytics token environment variable](/docs/pipelines/security/secrets/managing) (`BUILDKITE_ANALYTICS_TOKEN`).
+1. Securely [set the Test Engine token environment variable](/docs/pipelines/security/secrets/managing) (`BUILDKITE_ANALYTICS_TOKEN`).
 
 1. Run the following `curl` command:
 
