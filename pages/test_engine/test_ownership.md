@@ -2,9 +2,9 @@
 
 Test ownership is critical in adopting a healthy testing culture at your organization. Defining one or more teams as test owners allows these teams to become accountable for maintaining a fast and reliable test suite, ensuring confidence when you deploy your code.
 
-Customers on the [Pro and Enterprise plans](https://buildkite.com/pricing) can assign test ownership to [teams](/docs/test-analytics/permissions#manage-teams-and-permissions).
+Customers on the [Pro and Enterprise plans](https://buildkite.com/pricing) can assign test ownership to [teams](/docs/test-engine/permissions#manage-teams-and-permissions).
 
-Test ownership is managed via team assignments in a TESTOWNERS file. The team that is the default owner of a test [will be automatically assigned flaky tests](/docs/test-analytics/flaky-test-assignment) to triage.
+Test ownership is managed via team assignments in a TESTOWNERS file. The team that is the default owner of a test [will be automatically assigned flaky tests](/docs/test-engine/flaky-test-assignment) to triage.
 
 > 🚧 Buildkite test ownership is currently in private beta
 > Please reach out to our support team to register for early access.
@@ -19,7 +19,7 @@ A TESTOWNERS file uses Buildkite team slugs instead of user names. Your team slu
 ```bash
 # Example team name to slug
 Pipelines => pipelines
-Test Analytics => test-analytics
+Test Engine => test-engine
 📦 Packages => packages
 ```
 
@@ -49,8 +49,8 @@ The following example TESTOWNERS file, which you can copy as a starting point, e
 *                     team-slug-1 team-slug-2
 
 # In this example, any test file ending with `_spec.rb` will be
-# assigned to the `test-analytics` team and not `team-slug-1`.
-*_spec.rb             test-analytics # This is an inline comment.
+# assigned to the `test-engine` team and not `team-slug-1`.
+*_spec.rb             test-engine # This is an inline comment.
 
 # In this example, the `pipelines` team owns all `.rb` test files.
 *.rb                  pipelines
@@ -64,18 +64,18 @@ The following example TESTOWNERS file, which you can copy as a starting point, e
 # like `spec/features/application_spec.rb`, but not any test files
 # nested in any subdirectories of `spec/features`, such as
 # `spec/features/pipelines/application_spec.rb`.
-spec/features/*       test-analytics
+spec/features/*       test-engine
 
 # In this example, the `pipelines` team owns any test file in any
 # `pipelines` directory, anywhere within the test location.
 pipelines/            pipelines
 
-# In this example, the `test-analytics` team owns any test files
-# within an `/analytics` directory such as `/models/analytics`,
-# `/features/analytics`, and `/models/organizations/analytics`.
-# Any test files directly within the `/analytics` directory itself
-# will also belong to the `test-analytics` team.
-**/analytics          test-analytics
+# In this example, the `test-engine` team owns any test files
+# within an `/test-engine` directory such as `/models/test-engine`,
+# `/features/test-engine`, and `/models/organizations/test-engine`.
+# Any test files directly within the `/test-engine` directory itself
+# will also belong to the `test-engine` team.
+**/test-engine        test-engine
 
 # In this example, the `pipelines` team owns any test files in the
 # `/spec` directory at the root of the test location. However, the
@@ -88,7 +88,7 @@ pipelines/            pipelines
 
 ### Permission requirements
 
-The teams listed in your TESTOWNERS file must have [permission to access the test suite](/docs/test-analytics/permissions#manage-teams-and-permissions-test-suite-level-permissions) _before_ ownership records are created.
+The teams listed in your TESTOWNERS file must have [permission to access the test suite](/docs/test-engine/permissions#manage-teams-and-permissions-test-suite-level-permissions) _before_ ownership records are created.
 
 ## Setting test ownership
 
@@ -117,15 +117,15 @@ A TESTOWNERS file [follows the same rules as a `.gitignore` or `CODEOWNERS` file
 
 ```bash
 # In a regular `.gitignore` or `CODEOWNER` file, the following
-# block would set the `test-analytics` team as the owner of any
+# block would set the `test-engine` team as the owner of any
 # file in the `/specs` directory at the root of your test location
 # except for the `/specs/features` subdirectory, as its owners are
 # left empty.
 
 # This functionality is not supported in a Buildkite `TESTOWNERS`
 # file, where `/spec/features` would be also be owned by the
-# `test-analytics` team.
+# `test-engine` team.
 
-/specs/         test-analytics
+/specs/         test-engine
 /specs/features
 ```

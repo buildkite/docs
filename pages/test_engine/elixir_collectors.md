@@ -4,17 +4,17 @@ toc: false
 
 # Elixir collectors
 
-To use Test Analytics with your Elixir projects use :github: [`test_collector_elixir`](https://github.com/buildkite/test_collector_elixir) with ExUnit.
+To use Test Engine with your Elixir projects use :github: [`test_collector_elixir`](https://github.com/buildkite/test_collector_elixir) with ExUnit.
 
-You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
+You can also upload test results by importing [JSON](/docs/test-engine/importing-json) or [JUnit XML](/docs/test-engine/importing-junit-xml).
 
 ## ExUnit
 
 [ExUnit](https://hexdocs.pm/ex_unit/) is a Elixir unit test library.
 
-Before you start, make sure ExUnit runs with access to [CI environment variables](/docs/test-analytics/ci-environments).
+Before you start, make sure ExUnit runs with access to [CI environment variables](/docs/test-engine/ci-environments).
 
-1. Create a [test suite](/docs/test-analytics/test-suites) and copy the API token that it gives you.
+1. Create a [test suite](/docs/test-engine/test-suites) and copy the API token that it gives you.
 
 1. Add `buildkite_test_collector` to your list of dependencies in `mix.exs`:
 
@@ -28,7 +28,7 @@ Before you start, make sure ExUnit runs with access to [CI environment variables
 
 1. Set up your API token:
 
-    In your `config/test.exs` (or other environment configuration as appropriate) add the analytics API token. We suggest that you retrieve the token from the environment, and configure your CI environment accordingly (for example using secrets).
+    In your `config/test.exs` (or other environment configuration as appropriate) add the Buildkite Test Engine API token. We suggest that you retrieve the token from the environment, and configure your CI environment accordingly (for example using secrets).
 
     ```elixir
     import Config
@@ -60,4 +60,4 @@ Before you start, make sure ExUnit runs with access to [CI environment variables
     Randomized with seed 12345
     ```
 
-1. Verify that it works. If all is well, you should see the test run in the test analytics section of the Buildkite dashboard.
+1. Verify that it works. If all is well, you should see the test run analytics on the Buildkite Test Engine dashboard.

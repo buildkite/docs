@@ -82,7 +82,8 @@ Rails.application.routes.draw do
   get "/docs/quickstart/*page",                   to: redirect("/docs/tutorials/%{page}")
   get "/docs/rest-api",                           to: redirect("/docs/apis/rest-api")
   get "/docs/rest-api/*page",                     to: redirect("/docs/apis/rest-api/%{page}")
-  get "/docs/test-analytics/js-collectors",       to: redirect("/docs/test-analytics/javascript-collectors")
+  get "/docs/test-analytics/*page",               to: redirect("/docs/test-engine/%{page}")
+  get "/docs/test-analytics/js-collectors",       to: redirect("/docs/test-engine/javascript-collectors")
   get "/docs/tutorials/gitlab",                   to: redirect("/docs/integrations/gitlab")
   get "/docs/tutorials/github-enterprise",        to: redirect("/docs/integrations/github-enterprise")
   get "/docs/tutorials/bitbucket",                to: redirect("/docs/integrations/bitbucket")
@@ -134,7 +135,7 @@ Rails.application.routes.draw do
   get "/docs/agent/upgrading",           to: redirect("/docs/agent/v3/upgrading",                  status: 301)
   get "/docs/agent/upgrading-to-v3",     to: redirect("/docs/agent/v3/upgrading",                  status: 301)
   get "/docs/clusters/queue-metrics",    to: redirect("/docs/pipelines/cluster-queue-metrics",     status: 301)
-  get "/docs/test-analytics/java",       to: redirect("/docs/test-analytics/importing-junit-xml",  status: 301)
+  get "/docs/test-engine/java",          to: redirect("/docs/test-engine/importing-junit-xml",  status: 301)
 
   # Old docs routes that we changed around during the development of the v3 agent docs
   get "/docs/agent/upgrading-to-v2",    to: redirect("/docs/agent/v2/upgrading-to-v2",            status: 301)
@@ -144,7 +145,7 @@ Rails.application.routes.draw do
   get "/docs/agent/v3/agent-meta-data", to: redirect("/docs/agent/v3/cli-start#setting-tags",     status: 301)
 
   # Pre GA test analytics
-  get "/docs/test-analytics/integrations", to: redirect("/docs/test-analytics",            status: 301)
+  get "/docs/test-analytics/integrations", to: redirect("/docs/test-engine",            status: 301)
 
   # Quick Reference JSON
   get "/docs/quick-reference/pipelines", to: "quick_reference#pipelines", as: :pipelines_quick_reference

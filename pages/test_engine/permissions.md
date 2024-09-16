@@ -6,7 +6,7 @@ Enterprise customers can configure test suite permissions and security features 
 
 ## Manage teams and permissions
 
-To manage teams across the Buildkite Test Analytics application, a _Buildkite organization administrator_ first needs to enable this feature across their organization. Learn more about how to do this in the [Manage teams and permissions in the Platform documentation](/docs/team-management/permissions#manage-teams-and-permissions).
+To manage teams across the Buildkite Test Engine application, a _Buildkite organization administrator_ first needs to enable this feature across their organization. Learn more about how to do this in the [Manage teams and permissions section of Platform documentation](/docs/team-management/permissions#manage-teams-and-permissions).
 
 Once the _teams_ feature is enabled, you can see the teams that you're a member of from the **User** page, which:
 
@@ -70,7 +70,7 @@ These user-level permissions and security features are managed by _Buildkite org
 
 1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
-1. Select [**Security** > **Test Analytics** tab](https://buildkite.com/organizations/~/security/test-analytics) to access your organization's security for Test Analytics page.
+1. Select [**Security** > **Test Engine** tab](https://buildkite.com/organizations/~/security/test-analytics) to access your organization's security for Test Engine page.
 
 From this page, you can configure the following permissions for all users across your Buildkite organization:
 

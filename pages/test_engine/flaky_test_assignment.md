@@ -1,6 +1,6 @@
 # Flaky test assignment
 
-Customers on the [Pro and Enterprise plans](https://buildkite.com/pricing) can assign flaky tests to [teams](/docs/test-analytics/permissions#manage-teams-and-permissions).
+Customers on the [Pro and Enterprise plans](https://buildkite.com/pricing) can assign flaky tests to [teams](/docs/test-engine/permissions#manage-teams-and-permissions).
 
 ## Enabling flaky test assignments
 
@@ -36,6 +36,6 @@ When an assigned test has not flaked in more than 7 days, it is moved to the **O
 
 ## Weekly flaky test summary
 
-You're able to schedule a weekly summary of the flakiest tests assigned to your teams. Visit the **Suite settings** page to create new notifications, or manage existing ones. If you would like to set up auto assignment, check out our [Test ownership](/docs/test-analytics/test-ownership) feature.
+You're able to schedule a weekly summary of the flakiest tests assigned to your teams. Visit the **Suite settings** page to create new notifications, or manage existing ones. If you would like to set up auto assignment, check out our [Test ownership](/docs/test-engine/test-ownership) feature.
 
 <%= image "flaky-test-summary-mailer.png", width: 1960/2, height: 630/2, alt: "Flaky test page showing team assignments" %>

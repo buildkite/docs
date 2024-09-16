@@ -26,7 +26,7 @@ mandatory:
       - Buildkite API access token with `read_suites`, `read_test_plan`, and `write_test_plan` scopes. You can create an [API access token](https://buildkite.com/user/api-access-tokens) from **Personal Settings** > **API Access Tokens** in the Buildkite interface.
   - name: BUILDKITE_SPLITTER_SUITE_SLUG 
     desc:
-      - The slug of your Buildkite Test Analytics test suite. You can find the suite slug in the url for your test suite. 
+      - The slug of your Buildkite Test Engine test suite. You can find the suite slug in the url for your test suite. 
       - "For example, the slug for the url: `https://buildkite.com/organizations/my-organization/analytics/suites/my-suite` is `my-suite`."
 
 optional:

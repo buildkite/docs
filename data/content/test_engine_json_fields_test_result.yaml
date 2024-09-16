@@ -4,7 +4,7 @@ fields:
   type: UUIDv4 string
   enumerated_values:
   desc: |
-      A unique identifier for this test result. If a test execution with this UUID already exists in the Test Analytics database, this result is ignored.
+      A unique identifier for this test result. If a test execution with this UUID already exists in the Test Engine database, this result is ignored.
   examples:
       - 1b70486f-ca5f-4e6d-beb8-6347b2e49278
 - name: scope

@@ -10,8 +10,8 @@ RSpec.describe NavData do
           "path" => "pipelines"
         },
         {
-          "name" => "Test Analytics",
-          "path" => "test-analytics",
+          "name" => "Test Engine",
+          "path" => "test-engine",
         },
         {
           "name" => "APIs",
