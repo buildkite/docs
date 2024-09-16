@@ -2,19 +2,22 @@
 template: "landing_page"
 ---
 
-# Buildkite Test Analytics
+# Buildkite Test Engine
 
-Where Buildkite Pipelines help you automate your build pipelines,
-Test Analytics helps you track and analyze the steps in that pipeline that involve tests:
+Scale out your testing across any framework with Buildkite Test Engine. Get more out of fewer tests with performance insights to speed up builds and isolate unreliable tests
 
-- Ship code to production faster by optimizing test suites
-- Works with any continuous integration
-- Identify, fix, and monitor test suite performance
-- Track, improve, and monitor test suite reliability
+Where [Buildkite Pipelines](/docs/pipelines) helps you automate your CI/CD pipelines, Test Engine helps you track and analyze the steps in these pipelines, by:
+
+- Shipping code to production faster through test suite optimization.
+- Working directly with Buildkite Pipelines, as well as other CI/CD applications.
+- Identifying, fixing, and monitoring test suite performance.
+- Tracking, improving, and monitoring test suite reliability.
 
 <%= image "overview.png", width: 975, height: 205, alt: "Screenshot of test suite trend showing five metrics over 28 days" %>
 
 ## Get started
+
+Run through the 'Getting started' section of these Test Engine docs, beginning with [Configuring test suites](/docs/test-engine/test-suites) for an overview of Test Engine's concepts and functionality, followed by the appropriate test collector for project's language:
 
 <!-- vale off -->
 
@@ -40,13 +43,11 @@ Test Analytics helps you track and analyze the steps in that pipeline that invol
 
 You can also upload test results by importing [JSON](/docs/test-engine/importing-json) or [JUnit XML](/docs/test-engine/importing-junit-xml).
 
->📘 Data retention
-> The data uploaded to Test Analytics is stored in S3 and deleted after six months.
+<br/>
 
-----
+<%= tiles "test_engine_features" %>
 
-<%= tiles "test_analytics_features" %>
+> 📘 Data retention
+> The data uploaded to Test Engine is stored in S3 and deleted after six months.
 
-----
-
-<%= tiles "test_analytics_guides" %>
+<%= tiles "test_engine_guides" %>
