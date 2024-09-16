@@ -1,3 +1,6 @@
+env:
+  BUILDKIT_PROGRESS: plain
+
 steps:
   - label: "Prepare preview"
     command: bin/prepare-preview
