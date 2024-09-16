@@ -200,4 +200,4 @@ Remember that it may take some time to adapt to the new platform, and be prepare
 
 If you need further assistance or have any questions, please don't hesitate to reach out to [support](https://buildkite.com/support). We're here to help you use Buildkite to build your dream CI/CD workflows.
 
-After configuring Buildkite Pipelines for your team, you could get actionable insights from the tests running in pipelines using [Test Analytics](/docs/test-engine).
+After configuring Buildkite Pipelines for your team, you could get actionable insights from the tests running in pipelines using [Test Engine](/docs/test-engine).
