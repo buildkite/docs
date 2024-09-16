@@ -1,0 +1,9 @@
+steps:
+  - input: "Which PR needs to be synced?"
+    fields:
+      - key: pull_request_number
+        required: true
+        text: "Pull Request Number"
+        format: "^[0-9]+$"
+
+  - command: "bin/sync-public-pr"

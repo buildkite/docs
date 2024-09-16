@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+PR_NUMBER=$(buildkite-agent meta-data get "pull_request_number")
+
+echo "PR_NUMBER: $PR_NUMBER"
