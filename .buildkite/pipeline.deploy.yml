@@ -1,3 +1,6 @@
+env:
+  BUILDKIT_PROGRESS: plain
+
 steps:
   - name: ":docker::ecr: Push to ECR"
     command: ".buildkite/push-image.sh"
