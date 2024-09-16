@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+PR_NUMBER=$(buildkite-agent meta-data get "pull_request_number")
+TARGET_BRANCH="docs-public-pr-${PR_NUMBER}"
+SOURCE_REF="pull/${PR_NUMBER}/head"
+
+echo "+++ Syncing PR #${PR_NUMBER} to local branch ${TARGET_BRANCH}"
+
+set -x
+
+git fetch "git@github.com:${PUBLIC_GH_REPO}.git" "${SOURCE_REF}:${TARGET_BRANCH}"
+
+git push --force origin "${TARGET_BRANCH}"
+
+CREATE_PR_LINK="https://github.com/${PRIVATE_GH_REPO}/compare/${TARGET_BRANCH}?expand=1"
+
+ANNOTATION_CONTENT="Synced PR ${PUBLIC_GH_REPO}#${PR_NUMBER} to private repo branch \`${TARGET_BRANCH}\`.
+
+Open PR: ${CREATE_PR_LINK}
+"
+
+buildkite-agent annotate --context pr-link --style "info" "${ANNOTATION_CONTENT}"
