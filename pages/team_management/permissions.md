@@ -31,7 +31,7 @@ A user who is a _Buildkite organization administrator_ can access the [**Organiz
 - From the **Teams** page:
 
     * Create a new team, using the **New Team** button.
-    * Administer (with full control) the [team-](#manage-teams-and-permissions-team-level-permissions), [pipeline-](#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/test-engine/permissions#manage-teams-and-permissions-test-suite-level-permissions) and [registry-](/docs/packages/permissions#manage-teams-and-permissions-registry-level-permissions)level settings throughout their Buildkite organization.
+    * Administer (with full control) the [team-](#manage-teams-and-permissions-team-level-permissions), [pipeline-](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/test-engine/permissions#manage-teams-and-permissions-test-suite-level-permissions) and [registry-](/docs/packages/permissions#manage-teams-and-permissions-registry-level-permissions)level settings throughout their Buildkite organization.
 
         **Note:** Registry-level settings are only available once [Buildkite Packages has been enabled](/docs/packages/permissions#enabling-buildkite-packages).
 
@@ -57,7 +57,7 @@ A user who is a _team maintainer_ on an existing team can:
     * Remove a user from this team, by selecting the user's **Remove** button.
 
     * Change the permission for all users in this team on any:
-        - [pipeline](#manage-teams-and-permissions-pipeline-level-permissions) in the team to **Full Access**, **Build & Read** or **Read Only**.
+        - [pipeline](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions) in the team to **Full Access**, **Build & Read** or **Read Only**.
         - [test suite](/docs/test-engine/permissions#manage-teams-and-permissions-test-suite-level-permissions) in the team to **Full Access** or **Read Only**.
         - [registry](/docs/packages/permissions#manage-teams-and-permissions-registry-level-permissions) in the team to **Full Access**, **Read & Write** or **Read Only**.
 
@@ -84,7 +84,7 @@ A user who is a _team maintainer_ on an existing team can:
 
 As indicated in the Buildkite interface, a user who is in a team is known as a **Team Member**, and such users have fewer permissions within the team (that is, no team management capabilities) than a **Team Maintainer**.
 
-All team members in a team have the same level of access to the [pipelines](#manage-teams-and-permissions-pipeline-level-permissions), [test suites](/docs/test-engine/permissions#manage-teams-and-permissions-test-suite-level-permissions), and [registries](/docs/packages/permissions#manage-teams-and-permissions-registry-level-permissions) in the team. If you need to have more fine grained control over the pipelines, test suites or registries in a team, you can create more teams with different permissions.
+All team members in a team have the same level of access to the [pipelines](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions), [test suites](/docs/test-engine/permissions#manage-teams-and-permissions-test-suite-level-permissions), and [registries](/docs/packages/permissions#manage-teams-and-permissions-registry-level-permissions) in the team. If you need to have more fine grained control over the pipelines, test suites or registries in a team, you can create more teams with different permissions.
 
 > 🚧 Changing **Full Access** permissions on pipelines, test suites and registries
 > As a team maintainer, once you change the permission on any of these items away from **Full Access**, you could lose the ability to change the permissions on that item again. This can happen if you are no longer a member of a team that provides **Full Access** to this item.
