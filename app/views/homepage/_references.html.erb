@@ -1,7 +1,7 @@
 <%
   references = [
     {
-      title: "Pipeline",
+      title: "Pipelines",
       links: [
         {
           title: "Step types",
@@ -19,6 +19,45 @@
           title: "Emojis",
           link: "https://github.com/buildkite/emojis#emoji-reference",
           is_external: true
+        }
+      ]
+    },
+    {
+      title: "Test Engine",
+      links: [
+        {
+          title: "JSON test results",
+          link: "/docs/test-engine/importing-json"
+        },
+        {
+          title: "Environment variables",
+          link: "/docs/test-engine/ci-environments"
+        }
+      ]
+    },
+    {
+      title: "Packages",
+      links: [
+        {
+          title: "Package ecosystems",
+          link: "/docs/packages/alpine"
+        }
+      ]
+    },
+    {
+      title: "APIs",
+      links: [
+        {
+          title: "REST API",
+          link: "/docs/apis/rest-api"
+        },
+        {
+          title: "GraphQL API",
+          link: "/docs/apis/graphql-api"
+        },
+        {
+          title: "Webhooks",
+          link: "/docs/apis/webhooks"
         }
       ]
     },
@@ -42,43 +81,13 @@
           link: "/docs/agent/v3/elastic-ci-aws/parameters"
         }
       ]
-    },
-    {
-      title: "Test Engine",
-      links: [
-        {
-          title: "JSON test results",
-          link: "/docs/test-engine/importing-json"
-        },
-        {
-          title: "Environment variables",
-          link: "/docs/test-engine/ci-environments"
-        }
-      ]
-    },
-    {
-      title: "API",
-      links: [
-        {
-          title: "REST API",
-          link: "/docs/apis/rest-api"
-        },
-        {
-          title: "GraphQL API",
-          link: "/docs/apis/graphql-api"
-        },
-        {
-          title: "Webhooks",
-          link: "/docs/apis/webhooks"
-        }
-      ]
     }
   ]
 %>
 
 <section class="References">
   <div class="container container-narrow">
-    <h2 class="References__heading">APIs and references</h2>
+    <h2 class="References__heading">References and APIs</h2>
     <nav>
       <ul class="References__grid">
         <% references.each do |item| %>
