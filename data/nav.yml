@@ -441,8 +441,9 @@
       children:
         - name: "Overview"
           path: "test-engine/test-splitting"
+        - name: "Configuring"
+          path: "test-engine/test-splitting/configuring"
     - name: "Languages"
-      start_expanded: true
       children:
         - name: "Ruby"
           path: "test-engine/ruby-collectors"
@@ -467,7 +468,6 @@
         - name: "Other languages"
           path: "test-engine/other-collectors"
     - name: "References"
-      start_expanded: true
       children:
         - name: "Importing JUnit XML"
           path: "test-engine/importing-junit-xml"
