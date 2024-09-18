@@ -1,16 +1,15 @@
 steps:
   # NOTE: this input step is in the pipeline steps on Buildkite
-  # - input: "Which PR needs to be synced?"
-  #   key: collect_pr_number
+  # - block: "Which PR needs to be synced?"
   #   fields:
   #     - key: pull_request_number
   #       required: true
   #       text: "Pull Request Number"
   #       format: "^[0-9]+$"
+  #       hint: "Find the PR number on https://github.com/buildkite/docs/pulls"
 
   - label: ":git: Sync Public PR to Private Repo"
     command: "bin/sync-public-pr"
-    depends_on: collect_pr_number
     plugins:
       - docker#v5.11.0:
           image: "ruby:3.3-bookworm"
