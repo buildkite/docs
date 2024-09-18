@@ -185,6 +185,34 @@ Generate these additional claims by adding `--claims` to the `buildkite-agent oi
       <p><em>Example:</em> <code>0184990a-4782-42b5-afc1-16715b10b1l0</code></p>
     </td>
   </tr>
+  <tr>
+    <td><code>cluster_id</code></td>
+    <td>
+      <p>The cluster UUID if using clusters.</p>
+      <p><em>Example:</em> <code>0191f956-042f-7ec4-aa62-8e5eeae396d0</code></p>
+    </td>
+  </tr>
+  <tr>
+    <td><code>cluster_name</code></td>
+    <td>
+      <p>The cluster name if using clusters.</p>
+      <p><em>Example:</em> <code>default</code></p>
+    </td>
+  </tr>
+  <tr>
+    <td><code>queue_id</code></td>
+    <td>
+      <p>The cluster queue UUID if using clusters.</p>
+      <p><em>Example:</em> <code>0191f956-62da-7515-b79b-bdecb519aa32</code></p>
+    </td>
+  </tr>
+  <tr>
+    <td><code>queue_key</code></td>
+    <td>
+      <p>The cluster queue key if using clusters.</p>
+      <p><em>Example:</em> <code>runners</code></p>
+    </td>
+  </tr>
   </tbody>
 </table>
 

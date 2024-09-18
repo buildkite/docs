@@ -1,0 +1,22 @@
+steps:
+  - input: "Which PR needs to be synced?"
+    key: collect_pr_number
+    fields:
+      - key: pull_request_number
+        required: true
+        text: "Pull Request Number"
+        format: "^[0-9]+$"
+
+  - label: ":git: Sync Public PR to Private Repo"
+    command: "bin/sync-public-pr"
+    depends_on: collect_pr_number
+    plugins:
+      - docker#v5.11.0:
+          image: "ruby:3.3-bookworm"
+          propagate-environment: true
+          mount-buildkite-agent: true
+          mount-ssh-agent: true
+          environment:
+            - GH_TOKEN
+            - GH_PRIVATE_REPO
+            - GH_PUBLIC_REPO
