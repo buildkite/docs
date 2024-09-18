@@ -4,7 +4,7 @@ Buildkite maintains its open source Test Splitter ([test-splitter](https://githu
 
 ## Dependencies
 
-The Test Splitter relies on execution timing data captured by the Buildkite test collectors from previous builds to partition your tests evenly across your agents. Therefore, you will need to configure the [Ruby test collector](./ruby-collectors) for your test suite.
+The Test Splitter relies on execution timing data captured by the Buildkite test collectors from previous builds to partition your tests evenly across your agents. Therefore, you will need to configure the [Ruby test collector](/docs/test-engine/ruby-collectors) for your test suite.
 
 ## Installation
 
