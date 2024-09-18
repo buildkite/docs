@@ -423,8 +423,6 @@
       children:
         - name: "Configuring test suites"
           path: "test-engine/test-suites"
-        - name: "Configuring test splitting"
-          path: "test-engine/test-splitting"
         - name: "Permissions"
           path: "test-engine/permissions"
         - name: "CI environment variables"
@@ -438,6 +436,11 @@
           path: "test-engine/test-ownership"
         - name: "Flaky test assignment"
           path: "test-engine/flaky-test-assignment"
+    - name: "Test splitting"
+      start_expanded: true
+      children:
+        - name: "Overview"
+          path: "test-engine/test-splitting"
     - name: "Languages"
       start_expanded: true
       children:
