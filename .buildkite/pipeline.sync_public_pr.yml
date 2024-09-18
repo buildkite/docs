@@ -1,11 +1,12 @@
 steps:
-  - input: "Which PR needs to be synced?"
-    key: collect_pr_number
-    fields:
-      - key: pull_request_number
-        required: true
-        text: "Pull Request Number"
-        format: "^[0-9]+$"
+  # NOTE: this input step is in the pipeline steps on Buildkite
+  # - input: "Which PR needs to be synced?"
+  #   key: collect_pr_number
+  #   fields:
+  #     - key: pull_request_number
+  #       required: true
+  #       text: "Pull Request Number"
+  #       format: "^[0-9]+$"
 
   - label: ":git: Sync Public PR to Private Repo"
     command: "bin/sync-public-pr"
