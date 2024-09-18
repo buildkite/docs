@@ -8964,6 +8964,11 @@ type Rule implements Node {
   description: String
 
   """
+  A formatted JSON document of the Rule
+  """
+  document: String
+
+  """
   Effect for the rule
   """
   effect: RuleEffect
