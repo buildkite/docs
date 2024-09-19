@@ -1,6 +1,6 @@
 # Configuring test suites
 
-In Test Engine, a test _suite_ is a collection of tests. A suite has a _run_, which is the execution of tests in a suite. A suite's run is analogous to a pipeline's build.
+In Test Engine, a _test suite_ (or _suite_) is a collection of tests. A suite has a _run_, which is the execution of tests in a suite. A suite's run is analogous to a pipeline's build.
 
 Many organizations set up one suite per test framework, for example one suite for RSpec, and another suite for Jest. Others use a common standard, such as JUnit XML, to combine tests from multiple frameworks to set up custom backend and frontend suites.
 
@@ -10,11 +10,13 @@ To delete a suite, or regenerate its API token, go to suite settings.
 
 ## Parallelized builds
 
-Test Engine works even when your test runs are split across different agents by de-duplicating against the Test Engine API token and unique build identifier.
+When your [pipeline's builds are run in parallel across multiple agents](/docs/tutorials/parallel-builds), a test suite can also be run as parallel jobs across these agents, although Test Engine reports this entire build execution as part of the same test run.
+
+When a test run has been split across multiple agents, each test is de-duplicated by both the Test Engine API token and unique build identifier.
 
 The information that serves as a unique build identifier differs between CI environments. For details, see `run_env[key]` environment variables on our [CI environments page](/docs/test-engine/ci-environments).
 
-You can also speed up the duration of tests running in parallel across multiple agents by implementing [test splitting](/docs/test-engine/test-splitting).
+You can speed up the duration of parallelized test suite runs (across multiple agents) by implementing [test splitting](/docs/test-engine/test-splitting).
 
 ## Compare across branches
 
