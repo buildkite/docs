@@ -1,7 +1,7 @@
 predefined:
   - name: BUILDKITE_BUILD_ID
     desc:
-      - The UUID of the pipeline build. Test Splitter uses this UUID along with `BUILDKITE_STEP_ID` to uniquely identify the test plan.
+      - The UUID of the pipeline build. bktec uses this UUID along with `BUILDKITE_STEP_ID` to uniquely identify the test plan.
   - name: BUILDKITE_JOB_ID
     desc:
       - The UUID of the job in the pipeline's build.
@@ -18,7 +18,7 @@ predefined:
       - Ensure you configure `parallelism` in your pipeline definition. Learn more about parallel build steps in [Concurrency and parallelism](https://buildkite.com/docs/pipelines/controlling-concurrency#concurrency-and-parallelism).
   - name: BUILDKITE_STEP_ID
     desc:
-      - The UUID of the step group in the pipeline build. Test Splitter uses this UUID along with `BUILDKITE_BUILD_ID` to uniquely identify the test plan.
+      - The UUID of the step group in the pipeline build. bktec uses this UUID along with `BUILDKITE_BUILD_ID` to uniquely identify the test plan.
 
 mandatory:
   - name: BUILDKITE_TEST_ENGINE_API_ACCESS_TOKEN 
@@ -26,10 +26,10 @@ mandatory:
       - Buildkite API access token with `read_suites`, `read_test_plan`, and `write_test_plan` scopes. You can create an [API access token](https://buildkite.com/user/api-access-tokens) from **Personal Settings** > **API Access Tokens** in the Buildkite interface.
   - name: BUILDKITE_TEST_ENGINE_RESULT_PATH
     desc:
-      - The path to store the test result. Test Splitter uses this environment variable to tell the runner where to store the test result. Test Splitter reads the test result after each test run for retries and verification.
+      - The path to store the test result. bktec uses this environment variable to tell the runner where to store the test result. bktec reads the test result after each test run for retries and verification.
       - For RSpec, the result is generated using the `--format json` and `--out` CLI options, while for Jest, it is generated using the `--json` and `--outputFile` options. We have included these options in the default test command for RSpec and Jest. If you need to customize your test command, make sure to append the CLI options to save the result to a file. 
       - Please refer to the `BUILDKITE_TEST_ENGINE_TEST_CMD` environment variable for more details.
-      - "**Note:** Test Splitter will not delete the file after running the test, however it will be deleted by Buildkite Agent as part of build lifecycle."
+      - "**Note:** bktec will not delete the file after running the test, however it will be deleted by Buildkite Agent as part of build lifecycle."
   - name: BUILDKITE_TEST_ENGINE_RUNNER
     desc:
       - The test runner to use for running tests. Currently `rspec` and `jest` are supported.
@@ -46,15 +46,15 @@ optional:
   - name: BUILDKITE_TEST_ENGINE_RETRY_COUNT 
     default: 0
     desc:
-      - The number of retries permitted. Test Splitter runs the test command defined in `BUILDKITE_TEST_ENGINE_TEST_CMD`, and retries only the failing tests for a maximum of `BUILDKITE_TEST_ENGINE_RETRY_COUNT` times. For RSpec, the Test Splitter runs `BUILDKITE_TEST_ENGINE_TEST_CMD` with `--only-failures` as the retry command.
+      - The command to retry the failed tests. bktec will fill in the `{{testExamples}}` placeholder with the failed tests. If not set, bktec will use the same command defined in `BUILDKITE_SPLITTER_TEST_CMD`.
   - name: BUILDKITE_TEST_ENGINE_SPLIT_BY_EXAMPLE 
     default: false
     desc:
-      - A flag to enable split by example. When this option is `true`, the Test Splitter will split the execution of slow test files over multiple partitions.
+      - A flag to enable split by example. When this option is `true`, bktec will split the execution of slow test files over multiple partitions.
   - name: BUILDKITE_TEST_ENGINE_TEST_CMD 
     default: bundle exec rspec {{testExamples}}
     desc:
-      - The test command to run your tests. The Test Splitter will replace and populate the `{{testExamples}}` placeholder with the test plan.
+      - The test command to run your tests. bktec will replace and populate the `{{testExamples}}` placeholder with the test plan.
   - name: BUILDKITE_TEST_ENGINE_TEST_FILE_EXCLUDE_PATTERN 
     desc: 
       - The glob pattern to exclude certain test files or directories. The exclusion will be applied after discovering the test files using a pattern configured with `BUILDKITE_TEST_ENGINE_TEST_FILE_PATTERN`.

@@ -1,22 +1,22 @@
 # Configuring test splitting
 
-Buildkite maintains its open source Test Splitter ([test-splitter](https://github.com/buildkite/test-splitter)) tool. This tool uses your Buildkite Test Engine test suite data to intelligently partition tests throughout your test suite into multiple sets, such that each set of tests runs in parallel across your agents. This process is known as _orchestration_ and results in a _test plan_, where a test plan defines which tests are run on which agents. Currently, the Test Splitter tool only supports RSpec.
+Buildkite maintains its open source Buildkite Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) tool. This tool uses your Buildkite Test Engine test suite data to intelligently partition tests throughout your test suite into multiple sets, such that each set of tests runs in parallel across your agents. This process is known as _orchestration_ and results in a _test plan_, where a test plan defines which tests are run on which agents. Currently, bktec tool only supports RSpec and Jest.
 
 ## Dependencies
 
-The Test Splitter relies on execution timing data captured by the Buildkite test collectors from previous builds to partition your tests evenly across your agents. Therefore, you will need to configure the [Ruby test collector](/docs/test-engine/ruby-collectors) for your test suite.
+The bktec relies on execution timing data captured by the Buildkite test collectors from previous builds to partition your tests evenly across your agents. Therefore, you will need to configure the [Ruby test collector](/docs/test-engine/ruby-collectors) for your test suite if you are running Rspec, and [JavaScript test collector](/docs/test-engine/javascript-sollectors) if you are running Jest.
 
 ## Installation
 
-The [latest version of test-splitter](https://github.com/buildkite/test-splitter/releases) can be downloaded from GitHub for installation to your agent/s. Binaries are available for both Mac and Linux with 64-bit ARM and AMD architectures. Download the executable and make it available in your testing environment.
+The [latest version of bktec](https://github.com/buildkite/test-engine-client/releases) can be downloaded from GitHub for installation to your agent/s. Binaries are available for both Mac and Linux with 64-bit ARM and AMD architectures. Download the executable and make it available in your testing environment.
 
-## Using the test splitter
+## Using the bktec
 
-Once you have downloaded the test-splitter binary and it's executable in your Buildkite pipeline, you'll need to configure some additional environment variables for the test splitter to function. You can then update your pipeline step to call test-splitter instead of calling RSpec to run your tests.
+Once you have downloaded the bktec binary and it's executable in your Buildkite pipeline, you'll need to configure some additional environment variables for the bktec to function. You can then update your pipeline step to call bktec instead of calling RSpec to run your tests.
 
 ### Configure environment variables
 
-The Test Splitter tool uses a number of [predefined](#predefined-environment-variables), [mandatory](#mandatory-environment-variables), and [optional](#optional-environment-variables) environment variables.
+The bktec tool uses a number of [predefined](#predefined-environment-variables), [mandatory](#mandatory-environment-variables), and [optional](#optional-environment-variables) environment variables.
 
 <a id="predefined-environment-variables"></a>
 
@@ -68,7 +68,7 @@ The following mandatory environment variables must be set.
 
 #### Optional environment variables
 
-The following optional environment variables can also be used to configure the Test Splitter's behavior.
+The following optional environment variables can also be used to configure the bktec's behavior.
 
 <table class="Docs__attribute__table">
   <tbody>
@@ -94,15 +94,17 @@ The following optional environment variables can also be used to configure the T
 
 ### Update the pipeline step
 
-With the environment variables configured, you can now update your pipeline step to use test-splitter instead of running RSpec. The following example pipeline step demonstrates how to partition your test suite across 10 nodes.
+With the environment variables configured, you can now update your pipeline step to use bktec instead of running RSpec, or Jest directly. The following example pipeline step demonstrates how to partition your Rspec test suite across 10 nodes.
 
 ```
 steps:
   - name: "RSpec"
-    command: ./test-splitter
+    command: bktec
     parallelism: 10
     env:
-      BUILDKITE_SPLITTER_SUITE_SLUG: my-suite
-      BUILDKITE_SPLITTER_API_ACCESS_TOKEN: your-secret-token
+      BUILDKITE_TEST_ENGINE_API_ACCESS_TOKEN: your-secret-token
+      BUILDKITE_TEST_ENGINE_RESULT_PATH: tmp/rspec-result.json
+      BUILDKITE_TEST_ENGINE_SUITE_SLUG: my-suite
+      BUILDKITE_TEST_ENGINE_RUNNER: rspec
 ```
 {: codeblock-file="pipeline.yml"}
