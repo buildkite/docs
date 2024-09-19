@@ -7,8 +7,13 @@ Buildkite maintains its open source Buildkite Test Engine Client ([bktec](https:
 The bktec relies on execution timing data captured by the Buildkite test collectors from previous builds to partition your tests evenly across your agents. Therefore, you will need to configure the [Ruby test collector](/docs/test-engine/ruby-collectors) for your test suite if you are running Rspec, and [JavaScript test collector](/docs/test-engine/javascript-sollectors) if you are running Jest.
 
 ## Installation
+bktec is supported on both Linux and macOS with 64-bit ARM and AMD architectures. You can install it using the following installers:
 
-The [latest version of bktec](https://github.com/buildkite/test-engine-client/releases) can be downloaded from GitHub for installation to your agent/s. Binaries are available for both Mac and Linux with 64-bit ARM and AMD architectures. Download the executable and make it available in your testing environment.
+- [Debian](client-installation/debian)
+- [Red Hat](client-installation/red-hat)
+- [macOS](client-installation/macos)
+
+If you need to install the agent on a system not listed above you'll need to perform a manual installation using one of the binaries from [bktec's releases page](https://github.com/buildkite/test-engine-client/releases/latest). Once you have the binary, make it available in your testing environment.
 
 ## Using the bktec
 
