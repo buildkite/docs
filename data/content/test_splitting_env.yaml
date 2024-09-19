@@ -43,10 +43,13 @@ optional:
     default: false
     desc:
       - A flag to enable more verbose logging.
+  - name: BUILDKITE_TEST_ENGINE_RETRY_CMD
+    desc:
+      - The command to retry the failed tests. Test Splitter will fill in the `{{testExamples}}` placeholder with the failed tests. If not set, the Test Splitter will use the same command defined in `BUILDKITE_SPLITTER_TEST_CMD`. 
   - name: BUILDKITE_TEST_ENGINE_RETRY_COUNT 
     default: 0
     desc:
-      - The command to retry the failed tests. bktec will fill in the `{{testExamples}}` placeholder with the failed tests. If not set, bktec will use the same command defined in `BUILDKITE_SPLITTER_TEST_CMD`.
+      - The number of retries. Test Splitter runs the test command defined in `BUILDKITE_SPLITTER_TEST_CMD` and retries only the failed tests up to `BUILDKITE_SPLITTER_RETRY_COUNT` times, using the retry command defined in `BUILDKITE_SPLITTER_RETRY_CMD`.
   - name: BUILDKITE_TEST_ENGINE_SPLIT_BY_EXAMPLE 
     default: false
     desc:
