@@ -10,7 +10,7 @@ To delete a suite, or regenerate its API token, go to suite settings.
 
 ## Parallelized builds
 
-When your [pipeline's builds are run in parallel across multiple agents](/docs/tutorials/parallel-builds), a test suite can also be run as parallel jobs across these agents, although Test Engine reports this entire build execution as part of the same test run.
+When your [pipeline's builds are run in parallel across multiple agents](/docs/tutorials/parallel-builds), a test suite can also be run as parallel jobs across these agents, although Test Engine will report the entire build execution as part of the same test run.
 
 When a test run has been split across multiple agents, each test is de-duplicated by both the Test Engine API token and unique build identifier.
 
