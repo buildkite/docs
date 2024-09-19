@@ -14,7 +14,7 @@ Test Engine works even when your test runs are split across different agents by 
 
 The information that serves as a unique build identifier differs between CI environments. For details, see `run_env[key]` environment variables on our [CI environments page](/docs/test-engine/ci-environments).
 
-You can even speed up the duration of tests running in parallel across multiple agents by implementing [test splitting](/docs/test-engine/test-splitting).
+You can also speed up the duration of tests running in parallel across multiple agents by implementing [test splitting](/docs/test-engine/test-splitting).
 
 ## Compare across branches
 
