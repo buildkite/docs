@@ -21,37 +21,37 @@ predefined:
       - The UUID of the step group in the pipeline build. Test Splitter uses this UUID along with `BUILDKITE_BUILD_ID` to uniquely identify the test plan.
 
 mandatory:
-  - name: BUILDKITE_SPLITTER_API_ACCESS_TOKEN 
+  - name: BUILDKITE_TEST_ENGINE_API_ACCESS_TOKEN 
     desc:
       - Buildkite API access token with `read_suites`, `read_test_plan`, and `write_test_plan` scopes. You can create an [API access token](https://buildkite.com/user/api-access-tokens) from **Personal Settings** > **API Access Tokens** in the Buildkite interface.
-  - name: BUILDKITE_SPLITTER_SUITE_SLUG 
+  - name: BUILDKITE_TEST_ENGINE_SUITE_SLUG 
     desc:
       - The slug of your Buildkite Test Engine test suite. You can find the suite slug in the url for your test suite. 
       - "For example, the slug for the url: `https://buildkite.com/organizations/my-organization/analytics/suites/my-suite` is `my-suite`."
 
 optional:
-  - name: BUILDKITE_SPLITTER_DEBUG_ENABLED 
+  - name: BUILDKITE_TEST_ENGINE_DEBUG_ENABLED 
     default: false
     desc:
       - A flag to enable more verbose logging.
-  - name: BUILDKITE_SPLITTER_RETRY_COUNT 
+  - name: BUILDKITE_TEST_ENGINE_RETRY_COUNT 
     default: 0
     desc:
-      - The number of retries permitted. Test Splitter runs the test command defined in `BUILDKITE_SPLITTER_TEST_CMD`, and retries only the failing tests for a maximum of `BUILDKITE_SPLITTER_RETRY_COUNT` times. For RSpec, the Test Splitter runs `BUILDKITE_SPLITTER_TEST_CMD` with `--only-failures` as the retry command.
-  - name: BUILDKITE_SPLITTER_SPLIT_BY_EXAMPLE 
+      - The number of retries permitted. Test Splitter runs the test command defined in `BUILDKITE_TEST_ENGINE_TEST_CMD`, and retries only the failing tests for a maximum of `BUILDKITE_TEST_ENGINE_RETRY_COUNT` times. For RSpec, the Test Splitter runs `BUILDKITE_TEST_ENGINE_TEST_CMD` with `--only-failures` as the retry command.
+  - name: BUILDKITE_TEST_ENGINE_SPLIT_BY_EXAMPLE 
     default: false
     desc:
       - A flag to enable split by example. When this option is `true`, the Test Splitter will split the execution of slow test files over multiple partitions.
-  - name: BUILDKITE_SPLITTER_TEST_CMD 
+  - name: BUILDKITE_TEST_ENGINE_TEST_CMD 
     default: bundle exec rspec {{testExamples}}
     desc:
       - The test command to run your tests. The Test Splitter will replace and populate the `{{testExamples}}` placeholder with the test plan.
-  - name: BUILDKITE_SPLITTER_TEST_FILE_EXCLUDE_PATTERN 
+  - name: BUILDKITE_TEST_ENGINE_TEST_FILE_EXCLUDE_PATTERN 
     desc: 
-      - The glob pattern to exclude certain test files or directories. The exclusion will be applied after discovering the test files using a pattern configured with `BUILDKITE_SPLITTER_TEST_FILE_PATTERN`.
+      - The glob pattern to exclude certain test files or directories. The exclusion will be applied after discovering the test files using a pattern configured with `BUILDKITE_TEST_ENGINE_TEST_FILE_PATTERN`.
       - _This option accepts the pattern syntax supported by the [zzglob](https://github.com/DrJosh9000/zzglob?tab=readme-ov-file#pattern-syntax) library._
-  - name: BUILDKITE_SPLITTER_TEST_FILE_PATTERN 
+  - name: BUILDKITE_TEST_ENGINE_TEST_FILE_PATTERN 
     default: spec/**/*_spec.rb
     desc:
-      - The glob pattern to discover test files. You can exclude certain test files or directories from the discovered test files using a pattern that can be configured with `BUILDKITE_SPLITTER_TEST_FILE_EXCLUDE_PATTERN`.
+      - The glob pattern to discover test files. You can exclude certain test files or directories from the discovered test files using a pattern that can be configured with `BUILDKITE_TEST_ENGINE_TEST_FILE_EXCLUDE_PATTERN`.
       - _This option accepts the pattern syntax supported by the [zzglob](https://github.com/DrJosh9000/zzglob?tab=readme-ov-file#pattern-syntax) library._
