@@ -6,7 +6,7 @@ The packages API endpoint lets you create and manage packages in a registry.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X POST "https://api.buildkite.com/v2/packages/organizations/#{org.slug}/registries/#{registry.slug}/packages" \
+  -X POST "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages" \
   -H "Content-Type: application/json" \
   -F 'file=@path/to/ruby/gem/banana-1.0.0.gem'
 ```
@@ -51,7 +51,7 @@ Returns the details for a single package.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/packages/organizations/#{org.slug}/registries/#{registry.slug}/packages/#{id}"
+  -X GET "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages/{id}"
 ```
 
 ```json
@@ -86,7 +86,7 @@ Copies a package from a source registry to a destination registry.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X POST "https://api.buildkite.com/v2/packages/organizations/#{org.slug}/registries/#{source_registry.slug}/packages/#{package.id}/copy?to=#{destination_registry.slug}"
+  -X POST "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{source_registry.slug}/packages/{package.id}/copy?to={destination_registry.slug}"
   -H "Content-Type: application/json"
 ```
 
@@ -128,7 +128,7 @@ Success response: `200 OK`
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X DELETE "https://api.buildkite.com/v2/packages/organizations/#{org.slug}/registries/#{registry.slug}/packages/#{id}"
+  -X DELETE "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages/{id}"
 ```
 
 Required scope: `delete_packages`
