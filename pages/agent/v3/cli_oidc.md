@@ -213,6 +213,13 @@ Generate these additional claims by adding `--claims` to the `buildkite-agent oi
       <p><em>Example:</em> <code>runners</code></p>
     </td>
   </tr>
+  <tr>
+    <td><code>agent_tag:<var>NAME</var></code></td>
+    <td>
+      <p>An <a href="/docs/agent/v3/cli-start#setting-tags">agent tag</a></p>
+      <p><em>Example:</em> <code>agent_tag:queue</code></p>
+    </td>
+  </tr>
   </tbody>
 </table>
 
