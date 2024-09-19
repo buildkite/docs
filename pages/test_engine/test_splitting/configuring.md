@@ -4,7 +4,7 @@ Buildkite maintains its open source Buildkite Test Engine Client ([bktec](https:
 
 ## Dependencies
 
-The bktec relies on execution timing data captured by the Buildkite test collectors from previous builds to partition your tests evenly across your agents. Therefore, you will need to configure the [Ruby test collector](/docs/test-engine/ruby-collectors) for your test suite if you are running Rspec, and [JavaScript test collector](/docs/test-engine/javascript-sollectors) if you are running Jest.
+The bktec relies on execution timing data captured by the Buildkite test collectors from previous builds to partition your tests evenly across your agents. Therefore, you will need to configure the [Ruby test collector](/docs/test-engine/ruby-collectors) for your test suite if you are running RSpec, and [JavaScript test collector](/docs/test-engine/javascript-sollectors) if you are running Jest.
 
 ## Installation
 bktec is supported on both Linux and macOS with 64-bit ARM and AMD architectures. You can install it using the following installers:
@@ -99,7 +99,7 @@ The following optional environment variables can also be used to configure the b
 
 ### Update the pipeline step
 
-With the environment variables configured, you can now update your pipeline step to use bktec instead of running RSpec, or Jest directly. The following example pipeline step demonstrates how to partition your Rspec test suite across 10 nodes.
+With the environment variables configured, you can now update your pipeline step to use bktec instead of running RSpec, or Jest directly. The following example pipeline step demonstrates how to partition your RSpec test suite across 10 nodes.
 
 ```
 steps:
