@@ -1,6 +1,6 @@
 # JavaScript
 
-Buildkite Packages provides registry support for JavaScript-based (Node.js npm) packages.
+Buildkite Package Registries provides registry support for JavaScript-based (Node.js npm) packages.
 
 Once your JavaScript registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `~/.npmrc` and application's relevant `package.json` files with the command/code snippets presented on your JavaScript registry's details page.
 

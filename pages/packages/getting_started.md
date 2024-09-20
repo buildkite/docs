@@ -1,8 +1,8 @@
 # Getting started
 
-👋 Welcome to Buildkite Packages! You can use Packages to house your [packages](/docs/packages/background#package-creation-tools) built through [Buildkite Pipelines](/docs/pipelines) or another CI/CD application, and manage them through dedicated registries. This tutorial takes you through creating a JavaScript registry, cloning and running a simple Node.js package locally, and uploading this package to your new JavaScript registry.
+👋 Welcome to Buildkite Package Registries! You can use Package Registries to house your [packages](/docs/packages/background#package-creation-tools) built through [Buildkite Pipelines](/docs/pipelines) or another CI/CD application, and manage them through dedicated registries. This tutorial takes you through creating a JavaScript registry, cloning and running a simple Node.js package locally, and uploading this package to your new JavaScript registry.
 
-While this tutorial uses a Node.js package example, Buildkite Packages supports [other package ecosystems](/docs/packages/manage-registries#create-a-registry-manage-packages-in-a-registry) too.
+While this tutorial uses a Node.js package example, Buildkite Package Registries supports [other package ecosystems](/docs/packages/manage-registries#create-a-registry-manage-packages-in-a-registry) too.
 
 ## Before you start
 
@@ -74,7 +74,7 @@ Next, configure your Node.js environment to publish Node.js packages to [the Jav
     {
       "name": "nodejs-example-package",
       "version": "1.0.1",
-      "description": "An example Node.js package for Buildkite Packages",
+      "description": "An example Node.js package for Buildkite Package Registries",
       "main": "index.js",
       "scripts": {
         "main": "node index.js"
@@ -131,4 +131,4 @@ Your JavaScript registry's details page should show your new package with the in
 
 That's it! You've created a new Buildkite registry, configured your Node.js environment and project to publish to your new JavaScript registry, and published a Node.js package to this registry. 🎉
 
-Learn more about how to work with Buildkite Packages in [Manage registries](/docs/packages/manage-registries).
+Learn more about how to work with Buildkite Package Registries in [Manage registries](/docs/packages/manage-registries).

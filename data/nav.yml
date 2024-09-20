@@ -472,7 +472,7 @@
           path: "test-engine/importing-json"
         - name: "Writing your own collectors"
           path: "test-engine/your-own-collectors"
-- name: "Packages"
+- name: "Package Registries"
   path: "packages"
   children:
     - name: "Overview"

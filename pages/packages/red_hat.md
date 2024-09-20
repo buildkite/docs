@@ -1,6 +1,6 @@
 # Red Hat
 
-Buildkite Packages provides registry support for Red Hat-based (RPM) packages for Red Hat Linux operating systems.
+Buildkite Package Registries provides registry support for Red Hat-based (RPM) packages for Red Hat Linux operating systems.
 
 Once your Red Hat registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry via the relevant `curl` command presented on your Red Hat registry's details page.
 

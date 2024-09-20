@@ -36,7 +36,7 @@ Some advanced package creation tools include:
 
 Learn more about how:
 
-- Buildkite Packages works through this step-by-step [Getting started](/docs/packages/getting-started) tutorial.
-- To work with Buildkite Packages registries in [Manage registries](/docs/packages/manage-registries).
+- Buildkite Package Registries works through this step-by-step [Getting started](/docs/packages/getting-started) tutorial.
+- To work with registries in [Manage registries](/docs/packages/manage-registries).
 - To manage access to your registries in [Access controls](/docs/packages/permissions).
-- To configure your own private storage for Buildkite Packages in [Private storage](/docs/packages/private-storage).
+- To configure your own private storage for Buildkite Package Registries in [Private storage](/docs/packages/private-storage).

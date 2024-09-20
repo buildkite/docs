@@ -1,6 +1,6 @@
 # Helm
 
-Buildkite Packages provides Helm registry support for distributing Helm charts.
+Buildkite Package Registries provides Helm registry support for distributing Helm charts.
 
 This page is for standard Helm publishing instructions, alternatively you can also publish to an [OCI-based registry](/docs/packages/helm-oci).
 
