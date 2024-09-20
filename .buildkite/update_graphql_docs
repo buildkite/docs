@@ -38,8 +38,10 @@ git config user.email $GIT_EMAIL
 git config user.name $GIT_NAME
 git checkout -b $BRANCH
 git commit -m "Update GraphQL docs"
-git push -u origin $BRANCH
+
+TARGET_REPO="https://dummy-user:${GH_TOKEN}@github.com/${GH_REPO}"
+git push -f "${TARGET_REPO}" HEAD:${BRANCH}
 
 echo "+++ Create pull request"
-create_pull_request "Update GraphQL docs" "This is an automated PR based on the current GraphQL schema" \
+create_pull_request "Update GraphQL docs" "This is an automated PR based on the current GraphQL schema" "${BRANCH}" \
   | jq ".html_url" | buildkite-agent annotate --style "success"

@@ -6,13 +6,13 @@ The registries API endpoint lets you [create and manage registries](/docs/packag
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X POST "https://api.buildkite.com/v2/packages/organizations/#{org.slug}/registries" \
+  -X POST "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "my registry",
     "ecosystem": "ruby",
     "description": "registry containing ruby gems"
-    }' 
+    }'
 ```
 
 ```json
@@ -59,7 +59,7 @@ Returns a list of an organization's registries.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/packages/organizations/#{org.slug}/registries"
+  -X GET "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries"
 ```
 
 ```json
@@ -91,7 +91,7 @@ Returns the details for a single registry, looked up by its slug.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/packages/organizations/#{org.slug}/registries/#{registry.slug}"
+  -X GET "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}"
 ```
 
 ```json
@@ -119,7 +119,7 @@ Success response: `200 OK`
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X POST "https://api.buildkite.com/v2/packages/organizations/#{org.slug}/registries/#{registry.slug}" \
+  -X POST "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "my registry",
@@ -161,7 +161,7 @@ Success response: `200 OK`
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X DELETE "https://api.buildkite.com/v2/packages/organizations/#{org.slug}/registries/#{registry.slug}"
+  -X DELETE "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}"
 ```
 
 Required scope: `delete_registries`
