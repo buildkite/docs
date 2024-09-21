@@ -6,7 +6,7 @@ Enterprise customers can configure pipeline permissions for all users across the
 
 ## Manage teams and permissions
 
-To manage teams across the Buildkite Packages application, a _Buildkite organization administrator_ first needs to enable this feature across their organization. Learn more about how to do this in the [Manage teams and permissions in the Platform documentation](/docs/team-management/permissions#manage-teams-and-permissions).
+To manage teams across the Buildkite Pipelines application, a _Buildkite organization administrator_ first needs to enable this feature across their organization. Learn more about how to do this in the [Manage teams and permissions in the Platform documentation](/docs/team-management/permissions#manage-teams-and-permissions).
 
 Once the _teams_ feature is enabled, you can see the teams that you're a member of from the **Users** page, which:
 
@@ -24,7 +24,7 @@ As an organization administrator, you can access the [**Organization Settings** 
 
 - After selecting a team, you can view and administer the member-, [pipeline-](#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/test-analytics/permissions#manage-teams-and-permissions-test-suite-level-permissions), [registry-](/docs/packages/permissions#manage-teams-and-permissions-registry-level-permissions) and [team-](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions)level settings for that team.
 
-**Note:** Registry-level settings are only available once [Buildkite Packages has been enabled](/docs/packages/permissions#enabling-buildkite-packages).
+**Note:** Registry-level settings are only available once [Buildkite Package Registries has been enabled](/docs/packages/permissions#enabling-buildkite-packages).
 
 ### Team-level permissions
 

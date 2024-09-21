@@ -606,7 +606,7 @@
             - name: "Members"
               path: "apis/rest-api/organizations/members"
               pill: "beta"
-        - name: "Packages "
+        - name: "Package Registries "
           # Keep space at end to prevent "Packages" in global nav bar being
           # highlighted when any child page of "API > REST > Packages" is selected.
           children:
