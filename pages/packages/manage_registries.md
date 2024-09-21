@@ -97,7 +97,7 @@ Unlike other tokens generated elsewhere in Buildkite, registry tokens can contin
 
 ### Configure registry storage
 
-When a new registry is [created](#create-a-registry), it automatically uses the [default Buildkite Package Registries storage](/docs/packages/private-storage#set-the-default-buildkite-packages-storage) location. However, your new registry's default storage location can be overridden to use another configured storage location. Learn more about configuring private storage in [Private storage links](/docs/packages/private-storage).
+When a new registry is [created](#create-a-registry), it automatically uses the [default Buildkite Package Registries storage](/docs/packages/private-storage#set-the-default-buildkite-package-registries-storage) location. However, your new registry's default storage location can be overridden to use another configured storage location. Learn more about configuring private storage in [Private storage links](/docs/packages/private-storage).
 
 To configure/change your registry's current storage:
 

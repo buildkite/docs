@@ -57,7 +57,7 @@ To link your private AWS S3 storage to Buildkite Package Registries:
 
 You are returned to the **Private Storage Link** page, where you can:
 
-- [Set the default Buildkite Package Registries storage for your Buildkite organization](#set-the-default-buildkite-packages-storage).
+- [Set the default Buildkite Package Registries storage for your Buildkite organization](#set-the-default-buildkite-package-registries-storage).
 
 - [Set the storage independently for each of your Buildkite registries](/docs/packages/manage-registries#update-a-registry-configure-registry-storage).
 
@@ -67,7 +67,7 @@ By default, your Buildkite organization uses storage provided by Buildkite (know
 
 The _default storage_ is the storage used when a [new registry is created](/docs/packages/manage-registries#create-a-registry).
 
-Once you have [configured at least one other private storage link](#link-your-private-storage-to-buildkite-packages), you can change the default storage to one of these configured private storage configurations. To do this:
+Once you have [configured at least one other private storage link](#link-your-private-storage-to-buildkite-package-registries), you can change the default storage to one of these configured private storage configurations. To do this:
 
 1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
