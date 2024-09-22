@@ -9,9 +9,9 @@ The bktec relies on execution timing data captured by the Buildkite test collect
 ## Installation
 bktec is supported on both Linux and macOS with 64-bit ARM and AMD architectures. You can install it using the following installers:
 
-- [Debian](client-installation/debian)
-- [Red Hat](client-installation/red-hat)
-- [macOS](client-installation/macos)
+- [Debian](client-installation#debian)
+- [Red Hat](client-installation#redhat)
+- [macOS](client-installation#macos)
 
 If you need to install the agent on a system not listed above you'll need to perform a manual installation using one of the binaries from [bktec's releases page](https://github.com/buildkite/test-engine-client/releases/latest). Once you have the binary, make it available in your testing environment.
 

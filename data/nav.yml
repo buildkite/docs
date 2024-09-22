@@ -443,16 +443,8 @@
           path: "test-engine/test-splitting"
         - name: "Configuring"
           path: "test-engine/test-splitting/configuring"
-        - name: "Test Engine Client Installation"
-          children:
-            - name: "Debian"
-              path: "test-engine/test-splitting/client-installation/debian"
-            - name: "Red Hat"
-              path: "test-engine/test-splitting/client-installation/red-hat"
-            - name: "macOS"
-              path: "test-engine/test-splitting/client-installation/macos"
-            - name: "Docker"
-              path: "test-engine/test-splitting/client-installation/docker"
+        - name: "Test Engine Client installation"
+          path: "test-engine/test-splitting/client-installation"
 
     - name: "Languages"
       children:
