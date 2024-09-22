@@ -12,6 +12,7 @@ The Test Engine Client is supported on both Linux and macOS with 64-bit ARM and 
 - [Debian](client-installation#debian)
 - [Red Hat](client-installation#redhat)
 - [macOS](client-installation#macos)
+- [Docker](client-installation#docker)
 
 If you need to install the client on a system not listed above you'll need to perform a manual installation using one of the binaries from [Test Engine Client's releases page](https://github.com/buildkite/test-engine-client/releases/latest). Once you have the binary, make it executable in your pipeline.
 

@@ -1,3 +1,6 @@
+# Installing the Test Engine Client
+
+
 ## Debian
 
 1. Ensure you have curl and gpg installed first:
@@ -44,4 +47,20 @@ The Test Engine Client can be installed using [Homebrew](https://brew.sh) with [
 
 ```shell
 brew tap buildkite/buildkite && brew install buildkite/buildkite/bktec
+```
+
+## Docker
+
+You can run the Test Engine Client inside a Docker container using the official image in [Dockerhub](https://hub.docker.com/r/buildkite/test-engine-client/tags).
+
+To run the client using Docker:
+
+```shell
+docker run buildkite/test-engine-client
+```
+
+Or, to add the Test Engine Client binary to your Docker image, include the following in your Dockerfile:
+
+```dockerfile
+COPY --from=buildkite/test-engine-client /usr/local/bin/bktec /usr/local/bin/bktec
 ```
