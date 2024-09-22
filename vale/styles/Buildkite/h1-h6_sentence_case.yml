@@ -148,6 +148,7 @@ exceptions:
   - SSH
   - SSO
   - Test Engine
+  - Test Engine Client
   - TESTOWNER
   - Ubuntu
   - URL

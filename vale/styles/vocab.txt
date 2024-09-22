@@ -91,6 +91,7 @@ githooks
 GitLab
 globbing
 gotestsum
+gpg
 Gradle
 Graviton
 gz
