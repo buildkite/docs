@@ -150,7 +150,7 @@ TEAM_PIPELINE_DELETED
 TEAM_PIPELINE_UPDATED
 ```
 
-#### For Buildkite Packages
+#### For Buildkite Package Registries
 
 ```
 TEAM_REGISTRY_CREATED
@@ -239,7 +239,7 @@ CLUSTER_PERMISSION_CREATED
 CLUSTER_PERMISSION_DELETED
 ```
 
-### Buildkite Packages
+### Buildkite Package Registries
 
 ```
 REGISTRY_CREATED

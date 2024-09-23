@@ -33,14 +33,14 @@ A user who is a _Buildkite organization administrator_ can access the [**Organiz
     * Create a new team, using the **New Team** button.
     * Administer (with full control) the [team-](#manage-teams-and-permissions-team-level-permissions), [pipeline-](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/test-engine/permissions#manage-teams-and-permissions-test-suite-level-permissions) and [registry-](/docs/packages/permissions#manage-teams-and-permissions-registry-level-permissions)level settings throughout their Buildkite organization.
 
-        **Note:** Registry-level settings are only available once [Buildkite Packages has been enabled](/docs/packages/permissions#enabling-buildkite-packages).
+        **Note:** Registry-level settings are only available once [Buildkite Package Registries has been enabled](/docs/packages/permissions#enabling-buildkite-packages).
 
     * Delete an existing team, by selecting the team > **Settings** tab > **Delete Team** button.
     * [Enable](#manage-teams-and-permissions) and disable the teams feature for their organization. This feature can only be disabled once all teams have been deleted from the organization (including the automatically-created **Everyone** team) using the **Disable Teams** button on the **Teams** page. Once the teams feature has been disabled, it can be [re-enabled](#manage-teams-and-permissions) at any time.
 
-- Configure other organization-level settings for Buildkite Pipelines and Packages, as well as various [integrations](/docs/integrations) with Buildkite.
+- Configure other organization-level settings for Buildkite Pipelines and Package Registries, as well as various [integrations](/docs/integrations) with Buildkite.
 
-- Access and view Buildkite Pipelines and Packages usage reports and [audit logs](/docs/pipelines/security/audit-log).
+- Access and view Buildkite Pipelines and Package Registries usage reports and [audit logs](/docs/pipelines/security/audit-log).
 
 ### Team-level permissions
 
@@ -63,7 +63,7 @@ A user who is a _team maintainer_ on an existing team can:
 
         To do this, select the appropriate tab (**Pipelines**, **Test Suites** or **Package Registries**) and then select the required permission for the item, although be aware of the [caveat below](#changing-full-access-permissions-on-pipelines-test-suites-and-registries).
 
-        **Note:** Managing team permissions for registries is only available once [Buildkite Packages has been enabled](/docs/packages/permissions#enabling-buildkite-packages).
+        **Note:** Managing team permissions for registries is only available once [Buildkite Package Registries has been enabled](/docs/packages/permissions#enabling-buildkite-packages).
 
     * Edit the team's details and other settings using the **Settings** tab, which includes the ability to:
 

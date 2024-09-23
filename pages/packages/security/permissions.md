@@ -6,7 +6,7 @@ Enterprise customers can configure registry permissions for all users across the
 
 ## Manage teams and permissions
 
-To manage teams across the Buildkite Packages application, a _Buildkite organization administrator_ first needs to enable this feature across their organization. Learn more about how to do this in the [Manage teams and permissions in the Platform documentation](/docs/team-management/permissions#manage-teams-and-permissions).
+To manage teams across the Buildkite Package Registries application, a _Buildkite organization administrator_ first needs to enable this feature across their organization. Learn more about how to do this in the [Manage teams and permissions in the Platform documentation](/docs/team-management/permissions#manage-teams-and-permissions).
 
 Once the _teams_ feature is enabled, you can see the teams that you're a member of from the **Users** page, which:
 
@@ -24,11 +24,11 @@ As an organization administrator, you can access the [**Organization Settings** 
 
     * After selecting a team, you can view and administer the member-, [pipeline-](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/test-engine/permissions#manage-teams-and-permissions-test-suite-level-permissions), [registry-](#manage-teams-and-permissions-registry-level-permissions) and [team-](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions)level settings for that team.
 
-- [Enable Buildkite Packages](#enabling-buildkite-packages) for your Buildkite organization.
+- [Enable Buildkite Package Registries](#enabling-buildkite-packages) for your Buildkite organization.
 
-- Configure [private storage](/docs/packages/private-storage) for your Buildkite Packages registries.
+- Configure [private storage](/docs/packages/private-storage) for your registries in Buildkite Package Registries.
 
-<h4 id="enabling-buildkite-packages">Enabling Buildkite Packages</h4>
+<h4 id="enabling-buildkite-packages">Enabling Buildkite Package Registries</h4>
 
 To do this:
 
@@ -39,7 +39,7 @@ To do this:
 1. Select the **Enable Buildkite Packages** button, then **Enable Buildkite Packages** in the **Ready to enable Buildkite Packages** confirmation dialog.
 
 > 📘
-> Once Buildkite Packages is enabled, the **Enable** link on the **Organization Settings** page changes to **Enabled** and Buildkite Packages can only be disabled by contacting [support](https://buildkite.com/support).
+> Once Buildkite Package Registries is enabled, the **Enable** link on the **Organization Settings** page changes to **Enabled** and Buildkite Package Registries can only be disabled by contacting [support](https://buildkite.com/support).
 
 ### Team-level permissions
 
@@ -86,7 +86,7 @@ These user-level permissions and security features are managed by _Buildkite org
 
 1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
-1. Select [**Security** > **Packages** tab](https://buildkite.com/organizations/~/security/packages) to access your organization's security for Packages page.
+1. Select [**Security** > **Packages** tab](https://buildkite.com/organizations/~/security/packages) to access your organization's security for **Packages** page.
 
 From this page, you can configure the following permissions for all users across your Buildkite organization:
 

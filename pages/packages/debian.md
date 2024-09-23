@@ -1,6 +1,6 @@
 # Debian
 
-Buildkite Packages provides registry support for Debian-based (deb) packages for Debian and Ubuntu operating system variants.
+Buildkite Package Registries provides registry support for Debian-based (deb) packages for Debian and Ubuntu operating system variants.
 
 Once your Debian registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry via the `curl` command presented on your Debian registry's details page.
 

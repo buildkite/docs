@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "/docs/api/organizations",                  to: redirect("/docs/apis/rest-api/organizations")
   get "/docs/api/projects",                       to: redirect("/docs/apis/rest-api/pipelines")
   get "/docs/api/*page",                          to: redirect("/docs/apis/rest-api/%{page}")
+  get "/docs/apis/graphql/cookbooks/packages",    to: redirect("/docs/apis/graphql/cookbooks/registries")
   get "/docs/apis/graphql-tutorial",              to: redirect("/docs/apis/graphql/graphql-tutorial")
   get "/docs/apis/graphql",                       to: redirect("/docs/apis/graphql-api")
   get "/docs/apis/graphql/schemas",               to: redirect("/docs/apis/graphql-api")

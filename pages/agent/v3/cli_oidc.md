@@ -7,7 +7,7 @@ Refer to the following documentation for more information:
 - The [What is OpenID Connect](https://openid.net/developers/how-connect-works/) overview on the OpenID web site for more details about how OIDC works.
 - The [OpenID Connect Core documentation](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) for more information about how OIDC tokens are constructed and how to extract and use claims.
 
-Learn more about how to restrict your Buildkite Agents' access to deployment environments like AWS, from the OIDC in [Buildkite Pipelines](/docs/pipelines/security/oidc) and with [AWS](/docs/pipelines/security/oidc/aws) documentation pages, as well as the [Buildkite Packages](/docs/packages/security/oidc) documentation page.
+Learn more about how to restrict your Buildkite Agents' access to deployment environments like AWS, from the OIDC in [Buildkite Pipelines](/docs/pipelines/security/oidc) and with [AWS](/docs/pipelines/security/oidc/aws) documentation pages, as well as the [Buildkite Package Registries](/docs/packages/security/oidc) documentation page.
 
 ## Request OIDC token
 
@@ -211,6 +211,13 @@ Generate these additional claims by adding `--claims` to the `buildkite-agent oi
     <td>
       <p>The cluster queue key if using clusters.</p>
       <p><em>Example:</em> <code>runners</code></p>
+    </td>
+  </tr>
+  <tr>
+    <td><code>agent_tag:<var>NAME</var></code></td>
+    <td>
+      <p>An <a href="/docs/agent/v3/cli-start#setting-tags">agent tag</a></p>
+      <p><em>Example:</em> <code>agent_tag:queue</code></p>
     </td>
   </tr>
   </tbody>

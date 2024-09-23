@@ -1,6 +1,6 @@
 # Terraform
 
-Buildkite Packages provides registry support for Terraform modules.
+Buildkite Package Registries provides registry support for Terraform modules.
 
 Once your Terraform registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload modules (generated from your application's build) to this registry via the `curl` command presented on your Terraform registry's details page.
 

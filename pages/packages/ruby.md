@@ -1,6 +1,6 @@
 # Ruby
 
-Buildkite Packages provides registry support for Ruby-based (RubyGems) packages.
+Buildkite Package Registries provides registry support for Ruby-based (RubyGems) packages.
 
 Once your Ruby registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry via a single command, or by configuring your `~/.gem/credentials` and `gemspec` files with the code snippets presented on your Ruby registry's details page.
 

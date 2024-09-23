@@ -1,6 +1,6 @@
 # Gradle
 
-Buildkite Packages provides registry support for Gradle-based Java packages (using the [Maven Publish Plugin](https://docs.gradle.org/current/userguide/publishing_maven.html)).
+Buildkite Package Registries provides registry support for Gradle-based Java packages (using the [Maven Publish Plugin](https://docs.gradle.org/current/userguide/publishing_maven.html)).
 
 Once your Java registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `build.gradle` file with the Gradle snippet presented on your Java registry's details page.
 

@@ -1,6 +1,6 @@
 # Helm OCI
 
-Buildkite Packages provides Helm OCI based registry support for distributing Helm charts. Note, this requires [Helm version 3.8.0](https://helm.sh/docs/topics/registries/) or newer.
+Buildkite Package Registries provides Helm OCI based registry support for distributing Helm charts. Note, this requires [Helm version 3.8.0](https://helm.sh/docs/topics/registries/) or newer.
 
 Once your Helm OCI registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload charts (generated from your application's build) to this registry via relevant `helm` commands presented on your registry's details page.
 

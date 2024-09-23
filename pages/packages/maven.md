@@ -1,6 +1,6 @@
 # Maven
 
-Buildkite Packages provides registry support for Maven-based Java packages.
+Buildkite Package Registries provides registry support for Maven-based Java packages.
 
 Once your Java registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `~/.m2/settings.xml` and application's relevant `pom.xml` files with the Maven XML snippets presented on your Java registry's details page.
 

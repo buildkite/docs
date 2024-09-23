@@ -6,7 +6,7 @@ The registry tokens API endpoint lets you create and manage credentials needed t
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X POST "https://api.buildkite.com/v2/packages/organizations/#{org.slug}/registries/#{registry.slug}/tokens"  \
+  -X POST "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/tokens"  \
   -H "Content-Type: application/json" \
   -d '{
     "description": "Usher"
@@ -62,7 +62,7 @@ Returns a list of a registry's tokens.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/packages/organizations/#{org.slug}/registries/#{registry.slug}/tokens" \
+  -X GET "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/tokens" \
   -H "Content-Type: application/json"
 ```
 
@@ -109,7 +109,7 @@ Returns the details for a single registry token.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/packages/organizations/#{org.slug}/registries/#{registry.slug}/tokens/#{id}"
+  -X GET "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/tokens/{id}"
 ```
 
 ```json
@@ -151,7 +151,7 @@ Success response: `200 OK`
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X POST "https://api.buildkite.com/v2/packages/organizations/#{org.slug}/registries/#{registry.slug}/tokens/#{id}" \
+  -X POST "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/tokens/{id}" \
   -H "Content-Type: application/json" \
   -d '{
     "description": "Usher"
@@ -206,7 +206,7 @@ Success response: `200 OK`
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X DELETE "https://api.buildkite.com/v2/packages/organizations/#{org.slug}/registries/#{registry.slug}/tokens/#{id}"
+  -X DELETE "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/tokens/{id}"
 ```
 
 Required scope: `write_registries`
