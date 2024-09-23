@@ -1,7 +1,8 @@
 class BetaPages
   def self.all
     [
-      'pipelines/cluster-queue-metrics'
+      'path/page-name',
+      'path/last-page-name-in-list-without-trailing-comma'
     ]
   end
 end

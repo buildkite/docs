@@ -380,7 +380,6 @@
           path: "pipelines/waterfall"
         - name: "Cluster queue metrics"
           path: "pipelines/cluster-queue-metrics"
-          pill: "beta"
     - name: "Integrations"
       children:
         - name: "Overview"
