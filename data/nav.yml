@@ -432,7 +432,6 @@
         - name: "Public test suites"
           path: "test-engine/public-test-suites"
         - name: "Test ownership"
-          pill: "beta"
           path: "test-engine/test-ownership"
         - name: "Flaky test assignment"
           path: "test-engine/flaky-test-assignment"
