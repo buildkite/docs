@@ -285,6 +285,17 @@ html.dark {
     color: $navy-50;
   }
 
+  a.Docs__example-repo {
+    border-color: $navy-700;
+    color: $navy-300;
+    .repo {
+      color: $navy-400;
+      &:hover {
+        color: $purple1-500;
+      }
+    }
+  }
+
   .callout {
     @include callout($navy-200, #0f172a, default_dark);
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
