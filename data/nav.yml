@@ -428,8 +428,6 @@
           path: "test-engine/permissions"
         - name: "CI environment variables"
           path: "test-engine/ci-environments"
-        - name: "Test executions"
-          path: "test-engine/test-executions"
         - name: "Public test suites"
           path: "test-engine/public-test-suites"
         - name: "Test ownership"
@@ -437,6 +435,8 @@
           path: "test-engine/test-ownership"
         - name: "Flaky test assignment"
           path: "test-engine/flaky-test-assignment"
+        - name: "Usage & Billing"
+          path: "test-engine/usage-and-billing"
     - name: "Languages"
       start_expanded: true
       children:
