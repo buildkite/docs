@@ -4,7 +4,7 @@ template: "landing_page"
 
 # Buildkite Package Registries
 
-Scale out asset management across any ecosystem with Buildkite Package Registries. Avoid the bottleneck of poorly managed and insecure dependencies.
+Scale out asset management across any ecosystem with _Buildkite Package Registries_. Avoid the bottleneck of poorly managed and insecure dependencies.
 
 Buildkite Package Registries allows you to:
 
