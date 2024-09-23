@@ -15,6 +15,8 @@ Where [Buildkite Pipelines](/docs/pipelines) helps you automate your CI/CD pipel
 
 <%= image "overview.png", width: 975, height: 205, alt: "Screenshot of test suite trend showing five metrics over 28 days" %>
 
+_Buildkite Test Engine_ was previously called _Buildkite Test Analytics_.
+
 ## Get started
 
 Run through the 'Getting started' section of these Test Engine docs, beginning with [Configuring test suites](/docs/test-engine/test-suites) for an overview of Test Engine's concepts and functionality, followed by the appropriate test collector for project's language:
