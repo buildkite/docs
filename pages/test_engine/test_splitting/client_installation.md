@@ -27,7 +27,7 @@
     apt update && apt install bktec
     ```
 
-## RedHat
+## Red Hat
 
 1. Configure the registry:
 
@@ -51,7 +51,7 @@ brew tap buildkite/buildkite && brew install buildkite/buildkite/bktec
 
 ## Docker
 
-You can run the Test Engine Client inside a Docker container using the official image in [Dockerhub](https://hub.docker.com/r/buildkite/test-engine-client/tags).
+You can run the Test Engine Client inside a Docker container using the official image in [Docker hub](https://hub.docker.com/r/buildkite/test-engine-client/tags).
 
 To run the client using Docker:
 

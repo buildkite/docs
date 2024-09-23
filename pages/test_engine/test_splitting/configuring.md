@@ -10,7 +10,7 @@ The Test Engine Client relies on execution timing data captured by the test coll
 The Test Engine Client is supported on both Linux and macOS with 64-bit ARM and AMD architectures. You can install the client using the following installers:
 
 - [Debian](client-installation#debian)
-- [Red Hat](client-installation#redhat)
+- [Red Hat](client-installation#red-hat)
 - [macOS](client-installation#macos)
 - [Docker](client-installation#docker)
 
