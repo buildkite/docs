@@ -110,6 +110,7 @@ exceptions:
   - Installation
   - JavaScript
   - Jenkins
+  - Jest
   - JSON
   - JUnit
   - KMS
