@@ -165,4 +165,5 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 ## API rate limits
-There is a limit on the number of API requests that the Test Engine Client can make to the server. The limit is 10,000 requests per minute for each organization. When the rate limit is reached, the Test Engine Client will pause and wait until the rate limit is reset before retrying the request, ensuring that your build doesn't fail due to excessive API calls. This rate limit is separate from your REST API rate limit, meaning it specifically applies to the Test Engine Client's interactions with the server.
+
+There is a limit on the number of API requests that the Test Engine Client can make to the server. This limit is 10,000 requests per minute per Buildkite organization. When this limit is reached, the Test Engine Client will pause and wait until the next minute is reached before retrying the request. This rate limit is independent of your [REST API rate limit](/apis/rest-api/limits), and only applies to the Test Engine Client's interactions with the Test Splitting API.
