@@ -23,7 +23,7 @@ Once you have downloaded the Test Engine Client (bktec) binary and it is executa
 
 ### Configure environment variables
 
-The Test Engine Client tool uses a number of [predefined](#predefined-environment-variables), [mandatory](#mandatory-environment-variables), and [optional](#optional-environment-variables) environment variables.
+The Test Engine Client tool uses a number of [predefined](#predefined-environment-variables) and [mandatory](#mandatory-environment-variables) environment variables, as well as several optional ones for either [RSpec](#optional-rspec-environment-variables) or [Jest](#optional-jest-environment-variables).
 
 <a id="predefined-environment-variables"></a>
 
@@ -79,13 +79,11 @@ The following mandatory environment variables must be set.
   </tbody>
 </table>
 
-<a id="optional-environment-variables"></a>
+<a id="optional-rspec-environment-variables"></a>
 
-#### Optional environment variables
+#### Optional RSpec environment variables
 
-The following optional environment variables can also be used to configure the Test Engine Client's behavior.
-
-**RSpec**
+The following optional RSpec environment variables can also be used to configure the Test Engine Client's behavior.
 
 <table class="Docs__attribute__table">
   <tbody>
@@ -116,7 +114,11 @@ The following optional environment variables can also be used to configure the T
   </tbody>
 </table>
 
-**Jest**
+<a id="optional-jest-environment-variables"></a>
+
+#### Optional Jest environment variables
+
+The following optional Jest environment variables can also be used to configure the Test Engine Client's behavior.
 
 <table class="Docs__attribute__table">
   <tbody>
