@@ -10,16 +10,16 @@ The Test Engine Client relies on execution timing data captured by the test coll
 
 The Test Engine Client is supported on both Linux and macOS with 64-bit ARM and AMD architectures. You can install the client using the following installers:
 
-- [Debian](client-installation#debian)
-- [Red Hat](client-installation#red-hat)
-- [macOS](client-installation#macos)
-- [Docker](client-installation#docker)
+- [Debian](/docs/test-engine/test-splitting/client-installation#debian)
+- [Red Hat](/docs/test-engine/test-splitting/client-installation#red-hat)
+- [macOS](/docs/test-engine/test-splitting/client-installation#macos)
+- [Docker](/docs/test-engine/test-splitting/client-installation#docker)
 
 If you need to install the client on a system not listed above you'll need to perform a manual installation using one of the binaries from [Test Engine Client's releases page](https://github.com/buildkite/test-engine-client/releases/latest). Once you have the binary, make it executable in your pipeline.
 
 ## Using the Test Engine Client
 
-Once you have downloaded the Test Engine Client (bktec) binary and it is executable in your pipeline, you'll need to configure some additional environment variables for the Test Engine Client to function. You can then update your pipeline step to call `bktec` instead of calling RSpec to run your tests.
+Once you have downloaded the Test Engine Client (bktec) binary and it is executable in your pipeline, you'll need to configure some additional environment variables for the Test Engine Client to function. You can then update your pipeline step to call `bktec` instead of calling RSpec to run your tests. Learn more about how to do this in [Update the pipeline step](#using-the-test-engine-client-update-the-pipeline-step).
 
 ### Configure environment variables
 
@@ -167,4 +167,4 @@ steps:
 
 ## API rate limits
 
-There is a limit on the number of API requests that the Test Engine Client can make to the server. This limit is 10,000 requests per minute per Buildkite organization. When this limit is reached, the Test Engine Client will pause and wait until the next minute is reached before retrying the request. This rate limit is independent of your [REST API rate limit](/apis/rest-api/limits), and only applies to the Test Engine Client's interactions with the Test Splitting API.
+There is a limit on the number of API requests that the Test Engine Client can make to the server. This limit is 10,000 requests per minute per Buildkite organization. When this limit is reached, the Test Engine Client will pause and wait until the next minute is reached before retrying the request. This rate limit is independent of the [REST API rate limits](/docs/apis/rest-api/limits), and only applies to the Test Engine Client's interactions with the Test Splitting API.

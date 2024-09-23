@@ -6,9 +6,9 @@ test_engine_features:
   - title: "Find and fix flaky tests"
     url: "/docs/test-engine/test-suites#detecting-flaky-tests"
     desc: "Quickly identify which tests are the most disruptive for your team, and get a head-start on fixing them."
-  - title: "Split tests evenly across agents"
+  - title: "Reduce build times with test splitting"
     url: "/docs/test-engine/test-splitting"
-    desc: "Reduce your overall pipeline build times, especially for pipelines with highly complex and computationally intensive test suites."
+    desc: "Split tests evenly across agents to reduce overall pipeline build times, especially for highly complex test suites."
 test_engine_guides:
   - title: "Languages"
     links:
