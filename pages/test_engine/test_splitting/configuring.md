@@ -64,6 +64,14 @@ The following mandatory environment variables must be set.
           <% var['desc'].each do |d| %>
             <%= render_markdown(text: d) %>
           <% end %>
+
+          <% if var['note'].present? %>
+            <section class="callout callout--info">
+              <% var['note'].each do |d| %>
+                <%= render_markdown(text: d) %>
+              <% end %>
+            </section>
+          <% end %>
         </td>
       </tr>
     <% end %>
@@ -76,20 +84,61 @@ The following mandatory environment variables must be set.
 
 The following optional environment variables can also be used to configure the Test Engine Client's behavior.
 
+**RSpec**
+
 <table class="Docs__attribute__table">
   <tbody>
-    <% TEST_SPLITTING_ENV['optional'].each do |var| %>
+    <% TEST_SPLITTING_ENV['optional']['rspec'].each do |var| %>
       <tr id="<%= var['name'] %>">
         <th>
           <code><%= var['name'] %> <a class="Docs__attribute__link" href="#<%= var['name'] %>">#</a></code>
           <p class="Docs__attribute__env-var">
-            <strong>Default</strong>:
-            <code><%= var['default'] %></code>
+            <strong>Default</strong>:<br>
+            <code><%= var['default'] || "-" %></code>
           </p>
         </th>
         <td>
           <% var['desc'].each do |d| %>
             <%= render_markdown(text: d) %>
+          <% end %>
+
+          <% if var['note'].present? %>
+            <section class="callout callout--info">
+              <% var['note'].each do |d| %>
+                <%= render_markdown(text: d) %>
+              <% end %>
+            </section>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+**Jest**
+
+<table class="Docs__attribute__table">
+  <tbody>
+    <% TEST_SPLITTING_ENV['optional']['jest'].each do |var| %>
+      <tr id="<%= var['name'] %>">
+        <th>
+          <code><%= var['name'] %> <a class="Docs__attribute__link" href="#<%= var['name'] %>">#</a></code>
+          <p class="Docs__attribute__env-var">
+            <strong>Default</strong>:<br>
+            <code><%= var['default'] || "-" %></code>
+          </p>
+        </th>
+        <td>
+          <% var['desc'].each do |d| %>
+            <%= render_markdown(text: d) %>
+          <% end %>
+
+          <% if var['note'].present? %>
+            <section class="callout callout--info">
+              <% var['note'].each do |d| %>
+                <%= render_markdown(text: d) %>
+              <% end %>
+            </section>
           <% end %>
         </td>
       </tr>
