@@ -17,6 +17,8 @@ As well as storing a collection of packages, a registry also surfaces metadata o
 > 📘
 > You can enable [Buildkite Package Registries](https://buildkite.com/packages) through the [**Organization Settings** page](/docs/packages/permissions#enabling-buildkite-packages).
 
+_Buildkite Packages Registries_ was previously called _Buildkite Packages_.
+
 ## Get started
 
 Run through the [Getting started](/docs/packages/getting-started) tutorial for a step-by-step guide on how to use Buildkite Package Registries.
