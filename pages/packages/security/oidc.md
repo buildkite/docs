@@ -1,15 +1,15 @@
-# OIDC in Buildkite Packages
+# OIDC in Buildkite Package Registries
 
 <%= render_markdown partial: 'platform/oidc_introduction' %>
 
-You can configure Buildkite Packages registries with OIDC policies that only permit Buildkite Agent interactions from specific Buildkite organizations, pipelines, jobs, and agents, associated with a pipeline's job. This is similar to how [third-party products and services can be configured with OIDC policies](/docs/pipelines/security/oidc) to consume Buildkite OIDC tokens from Buildkite pipelines, for deployment, or access management and security purposes.
+You can configure your registries in Buildkite Package Registries with OIDC policies that only permit Buildkite Agent interactions from specific Buildkite organizations, pipelines, jobs, and agents, associated with a pipeline's job. This is similar to how [third-party products and services can be configured with OIDC policies](/docs/pipelines/security/oidc) to consume Buildkite OIDC tokens from Buildkite pipelines, for deployment, or access management and security purposes.
 
-A Buildkite OIDC token is a signed [JSON Web Token (JWT)](https://jwt.io/) provided by a Buildkite Agent, containing metadata claims about a pipeline and its job, including the pipeline and organization slugs, as well as job-specific data, such as the branch, the commit SHA, the job ID, and the agent ID. Such a token is associated with a Buildkite Agent interaction to perform one or more actions on a Buildkite Packages registry. If the token's claims do not match or comply with the registry's OIDC policy, the OIDC token and subsequent pipeline jobs' actions are rejected.
+A Buildkite OIDC token is a signed [JSON Web Token (JWT)](https://jwt.io/) provided by a Buildkite Agent, containing metadata claims about a pipeline and its job, including the pipeline and organization slugs, as well as job-specific data, such as the branch, the commit SHA, the job ID, and the agent ID. Such a token is associated with a Buildkite Agent interaction to perform one or more actions on a Buildkite Package Registries registry. If the token's claims do not match or comply with the registry's OIDC policy, the OIDC token and subsequent pipeline jobs' actions are rejected.
 
-The [Buildkite Agent's `oidc` command](/docs/agent/v3/cli-oidc) allows you to request an OIDC token from Buildkite containing claims about the pipeline's current job. These tokens are then used by a Buildkite Packages registry to determine (through its OIDC policy) if the organization, pipeline and any other metadata associated with the pipeline and its job are permitted to publish/upload packages to this registry.
+The [Buildkite Agent's `oidc` command](/docs/agent/v3/cli-oidc) allows you to request an OIDC token from Buildkite containing claims about the pipeline's current job. These tokens are then used by a Buildkite Package Registries registry to determine (through its OIDC policy) if the organization, pipeline and any other metadata associated with the pipeline and its job are permitted to publish/upload packages to this registry.
 
 > 📘
-> Buildkite Packages registries also support OIDC policies that can consume OIDC tokens configured on third-party products and services, such as [GitHub Actions](https://github.com/features/actions), to authenticate interactions from these services.
+> Registries in Buildkite Package Registries also support OIDC policies that can consume OIDC tokens configured on third-party products and services, such as [GitHub Actions](https://github.com/features/actions), to authenticate interactions from these services.
 
 ## Define an OIDC policy for a registry
 
@@ -80,7 +80,7 @@ buildkite-agent oidc request-token --audience "https://packages.buildkite.com/{o
 
 where:
 
-- `--audience` is the target system that consumes this OIDC token. For Buildkite Packages, this value must be based on the URL `https://packages.buildkite.com/{org.slug}/{registry.slug}`.
+- `--audience` is the target system that consumes this OIDC token. For Buildkite Package Registries, this value must be based on the URL `https://packages.buildkite.com/{org.slug}/{registry.slug}`.
 
 <%= render_markdown partial: 'packages/org_slug' %>
 
@@ -124,7 +124,7 @@ steps:
   label: "\:docker\: Build"
   command: docker build --tag packages.buildkite.com/my-organization/my-pipeline/my-image:latest .
 
-- key: "docker-login" # Authenticate the Buildkite Agent to the Buildkite Packages registry using an OIDC token
+- key: "docker-login" # Authenticate the Buildkite Agent to the Buildkite Package Registries registry using an OIDC token
   label: "\:docker\: Login"
   command: buildkite-agent oidc request-token --audience "https://packages.buildkite.com/my-organization/my-pipeline" --lifetime 300 | docker login packages.buildkite.com/my-organization/my-pipeline --username buildkite --password-stdin
   depends_on: "docker-build"

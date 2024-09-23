@@ -70,7 +70,7 @@ To update a registry:
 
     The registry's updates will appear on the **Registries** page, as well as the registry's details page.
 
-1. If the registry's _OIDC policy_ needs to be configured, learn more about this in [OIDC in Buildkite Packages](/docs/packages/security/oidc).
+1. If the registry's _OIDC policy_ needs to be configured, learn more about this in [OIDC in Buildkite Package Registries](/docs/packages/security/oidc).
 
 1. If the registry is _private_ and _registry tokens_ (an alternative to API access tokens) need to be configured, learn more about this in [Configure registry tokens](#update-a-registry-configure-registry-tokens).
 
@@ -97,7 +97,7 @@ Unlike other tokens generated elsewhere in Buildkite, registry tokens can contin
 
 ### Configure registry storage
 
-When a new registry is [created](#create-a-registry), it automatically uses the [default Buildkite Packages storage](/docs/packages/private-storage#set-the-default-buildkite-packages-storage) location. However, your new registry's default storage location can be overridden to use another configured storage location. Learn more about configuring private storage in [Private storage links](/docs/packages/private-storage).
+When a new registry is [created](#create-a-registry), it automatically uses the [default Buildkite Package Registries storage](/docs/packages/private-storage#set-the-default-buildkite-package-registries-storage) location. However, your new registry's default storage location can be overridden to use another configured storage location. Learn more about configuring private storage in [Private storage links](/docs/packages/private-storage).
 
 To configure/change your registry's current storage:
 
@@ -128,4 +128,4 @@ To delete a registry:
 
 ## Audit logging
 
-All events performed through Buildkite Packages are logged through the Buildkite organization's [**Audit Log** feature](/docs/pipelines/security/audit-log).
+All events performed through Buildkite Package Registries are logged through the Buildkite organization's [**Audit Log** feature](/docs/pipelines/security/audit-log).

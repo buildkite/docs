@@ -20,7 +20,7 @@ A TESTOWNERS file uses Buildkite team slugs instead of user names. Your team slu
 # Example team name to slug
 Pipelines => pipelines
 Test Engine => test-engine
-📦 Packages => packages
+📦 Package Registries => package-registries
 ```
 
 The following example TESTOWNERS file, which you can copy as a starting point, explains the syntax of this file and how it works:

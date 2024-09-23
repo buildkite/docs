@@ -1,6 +1,6 @@
 # Alpine
 
-Buildkite Packages provides registry support for Alpine-based (apk) packages for Alpine Linux operating systems.
+Buildkite Package Registries provides registry support for Alpine-based (apk) packages for Alpine Linux operating systems.
 
 Once your Alpine registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry via the relevant `curl` command presented on your Alpine registry's details page.
 

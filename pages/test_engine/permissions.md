@@ -30,7 +30,7 @@ As an organization administrator, you can access the [**Organization Settings** 
 
     <%= image "team-section-test-suites-list.png", alt: "Screenshot of the Team section, showing a list of Test Suites the team has access to" %>
 
-    **Note:** Registry-level settings are only available once [Buildkite Packages has been enabled](/docs/packages/permissions#enabling-buildkite-packages).
+    **Note:** Registry-level settings are only available once [Buildkite Package Registries has been enabled](/docs/packages/permissions#enabling-buildkite-packages).
 
 ### Team-level permissions
 

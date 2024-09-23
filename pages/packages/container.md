@@ -1,6 +1,6 @@
 # Container
 
-Buildkite Packages provides registry support for container-based (Docker) images.
+Buildkite Package Registries provides registry support for container-based (Docker) images.
 
 Once your container registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload images (generated from your application's build) to this registry via relevant `docker` commands presented on your container registry's details page.
 

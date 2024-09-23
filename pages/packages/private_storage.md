@@ -1,22 +1,22 @@
 # Private storage link
 
-This page provides details on how to link and configure your private Amazon Web Services (AWS) Simple Storage Service (S3) storage to Buildkite Packages within your Buildkite organization. These processes can only be performed by [Buildkite organization administrators](/docs/packages/permissions#manage-teams-and-permissions-organization-level-permissions).
+This page provides details on how to link and configure your private Amazon Web Services (AWS) Simple Storage Service (S3) storage to Buildkite Package Registries within your Buildkite organization. These processes can only be performed by [Buildkite organization administrators](/docs/packages/permissions#manage-teams-and-permissions-organization-level-permissions).
 
-By default, Buildkite Packages provides its own storage to house any packages, container images and modules stored in registries. You can also link your own private AWS S3 bucket to Buildkite Packages, which allows you to:
+By default, Buildkite Package Registries provides its own storage to house any packages, container images and modules stored in registries. You can also link your own private AWS S3 bucket to Buildkite Package Registries, which allows you to:
 
 - Manage Buildkite registry packages, container images and modules stored within your private AWS S3 bucket (that is, your _private storage_). Private storage:
     * Located closer to your geographical location may provide faster registry access.
     * Mitigates network transmission costs.
 
-- Use Buildkite Packages' management and metadata-handling features to manage these files in registries within your private storage.
+- Use Buildkite Package Registries' management and metadata-handling features to manage these files in registries within your private storage.
 
-- Maintain control, ownership and sovereignty over the packages, container images and modules stored within your Buildkite Packages registries.
+- Maintain control, ownership and sovereignty over the packages, container images and modules stored within your registries managed by Buildkite Package Registries.
 
-Buildkite Packages uses [AWS CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html) to provision its services within your private AWS S3 storage.
+Buildkite Package Registries uses [AWS CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html) to provision its services within your private AWS S3 storage.
 
 ## Before you start
 
-Before you can start linking your private AWS S3 storage to Buildkite Packages, you will need to have created your own empty AWS S3 bucket.
+Before you can start linking your private AWS S3 storage to Buildkite Package Registries, you will need to have created your own empty AWS S3 bucket.
 
 Learn more about:
 
@@ -24,15 +24,15 @@ Learn more about:
 
 - How to create an S3 bucket from the [Amazon S3 documentation's Getting started](https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html) guide.
 
-## Link your private storage to Buildkite Packages
+## Link your private storage to Buildkite Package Registries
 
-To link your private AWS S3 storage to Buildkite Packages:
+To link your private AWS S3 storage to Buildkite Package Registries:
 
 1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
 1. In the **Packages** section, select **Private Storage Link** to open its page.
 
-1. Select **Add private storage link** to begin configuring your private storage for Buildkite Packages.
+1. Select **Add private storage link** to begin configuring your private storage for Buildkite Package Registries.
 
 1. On the **Provide your storage's details** page, in **Step 2: Create or locate your AWS S3 bucket**, select **Open AWS** to open the list of S3 buckets in your AWS account, to either retrieve your existing empty S3 bucket, or create a new one if you [haven't already done so](#before-you-start).
 
@@ -51,23 +51,23 @@ To link your private AWS S3 storage to Buildkite Packages:
 
 1. Select **Create stack** to begin creating the CloudFormation stack for your S3 bucket.
 
-1. Once the stack is created, return to the Buildkite interface and select **Run diagnostic** to verify that Buildkite Packages can publish (`PUT`), download (`GET`) and delete (`DELETE`) packages to and from your S3 private storage.
+1. Once the stack is created, return to the Buildkite interface and select **Run diagnostic** to verify that Buildkite Package Registries can publish (`PUT`), download (`GET`) and delete (`DELETE`) packages to and from your S3 private storage.
 
 1. Once the **Diagnostic Result** page indicates a **Pass** for each of these three tests, select **Create Private Storage Link** complete this linking process.
 
 You are returned to the **Private Storage Link** page, where you can:
 
-- [Set the default Buildkite Packages storage for your Buildkite organization](#set-the-default-buildkite-packages-storage).
+- [Set the default Buildkite Package Registries storage for your Buildkite organization](#set-the-default-buildkite-package-registries-storage).
 
 - [Set the storage independently for each of your Buildkite registries](/docs/packages/manage-registries#update-a-registry-configure-registry-storage).
 
-## Set the default Buildkite Packages storage
+## Set the default Buildkite Package Registries storage
 
 By default, your Buildkite organization uses storage provided by Buildkite (known as **Buildkite-hosted storage**).
 
 The _default storage_ is the storage used when a [new registry is created](/docs/packages/manage-registries#create-a-registry).
 
-Once you have [configured at least one other private storage link](#link-your-private-storage-to-buildkite-packages), you can change the default storage to one of these configured private storage configurations. To do this:
+Once you have [configured at least one other private storage link](#link-your-private-storage-to-buildkite-package-registries), you can change the default storage to one of these configured private storage configurations. To do this:
 
 1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 

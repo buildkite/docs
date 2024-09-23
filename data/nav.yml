@@ -478,7 +478,7 @@
           path: "test-engine/importing-json"
         - name: "Writing your own collectors"
           path: "test-engine/your-own-collectors"
-- name: "Packages"
+- name: "Package Registries"
   path: "packages"
   children:
     - name: "Overview"
@@ -612,7 +612,7 @@
             - name: "Members"
               path: "apis/rest-api/organizations/members"
               pill: "beta"
-        - name: "Packages "
+        - name: "Package Registries "
           # Keep space at end to prevent "Packages" in global nav bar being
           # highlighted when any child page of "API > REST > Packages" is selected.
           children:
@@ -695,12 +695,12 @@
               path: apis/graphql/cookbooks/clusters
             - name: Jobs
               path: apis/graphql/cookbooks/jobs
-            - name: Packages
-              path: apis/graphql/cookbooks/packages
             - name: Pipelines
               path: apis/graphql/cookbooks/pipelines
             - name: Pipeline templates
               path: apis/graphql/cookbooks/pipeline-templates
+            - name: Registries
+              path: apis/graphql/cookbooks/registries
             - name: Rules
               path: apis/graphql/cookbooks/rules
             - name: Organizations

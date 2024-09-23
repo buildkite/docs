@@ -10,13 +10,13 @@ To delete a suite, or regenerate its API token, go to suite settings.
 
 ## Parallelized builds
 
-When your [pipeline's builds are run in parallel across multiple agents](/docs/tutorials/parallel-builds), a test suite can also be run as parallel jobs across these agents, although Test Engine will report the entire build execution as part of the same test run.
+Since a [pipeline's builds can be run as parallel jobs across multiple agents](/docs/tutorials/parallel-builds), the pipeline's test suites are also run as parallel jobs across these agents, although Test Engine will report the entire build execution as part of the same test run.
 
-When a test run has been split across multiple agents, each test is de-duplicated by both the Test Engine API token and unique build identifier.
+When test runs are split across multiple agents, each test is de-duplicated by both the Test Engine API token and unique build identifier.
 
 The information that serves as a unique build identifier differs between CI environments. For details, see `run_env[key]` environment variables on our [CI environments page](/docs/test-engine/ci-environments).
 
-You can speed up the duration of parallelized test suite runs (across multiple agents) by implementing [test splitting](/docs/test-engine/test-splitting).
+You can speed up the duration of parallelized test suite runs by implementing [test splitting](/docs/test-engine/test-splitting).
 
 ## Compare across branches
 
