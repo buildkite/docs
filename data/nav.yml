@@ -435,7 +435,7 @@
           path: "test-engine/test-ownership"
         - name: "Flaky test assignment"
           path: "test-engine/flaky-test-assignment"
-        - name: "Usage & Billing"
+        - name: "Usage and billing"
           path: "test-engine/usage-and-billing"
     - name: "Languages"
       start_expanded: true

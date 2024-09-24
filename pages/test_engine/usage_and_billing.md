@@ -1,19 +1,19 @@
-# Usage & Billing
+# Usage and billing
 
-Test Engine is designed to optimise your test suite through the management of your tests.
+Test Engine is designed to optimize your test suite through the management of your tests.
 
-## Managed Tests
+## Managed tests
 
-A **managed test** is a uniquely identifiable test by scope and name.
+A _managed test_ is a uniquely identifiable test by scope and name.
 
 Test Engine will track the history of each test, calculate flakiness, automatically
-quarnatine & attribute ownership based on this uniquely identified managed test.
+quarantine and attribute ownership based on this uniquely identified managed test.
 
 Buildkite calculates your usage by determining the number of managed tests each day
 and then bill based on the 90th percentile of usage for the month. This method ensures
 occasional spikes in usage, such as those caused by refactoring, don't result in excessive charges.
 
-## Test Executions (legacy)
+## Test executions (legacy)
 
 Some legacy Buildkite plans meter on the number of times a test was executed (run).
 
