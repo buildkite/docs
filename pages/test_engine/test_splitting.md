@@ -1,3 +1,7 @@
+---
+toc: false
+---
+
 # Test splitting
 
 Test splitting is a feature that:
