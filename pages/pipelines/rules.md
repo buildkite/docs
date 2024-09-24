@@ -50,13 +50,11 @@ Conditions are optional for this rule and can be used to restrict when a trigger
 
 In the `pipeline.trigger_build.pipeline` rule the available variables for conditions are:
 
-- `source.build` - the triggering build in the source pipeline (contains the trigger step). This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).
-  - `source.build.branch` - the branch of the source pipeline that the trigger step is targeting.
-  - `source.build.commit` - the commit of the source pipeline that the trigger step is targeting.
-  - `source.build.message` - the commit message of the source pipeline that the trigger step is targeting.
-  - `source.build.author` - the author of the commit of the source pipeline that the trigger step is targeting.
-  - `source.build.creator` - the creator of the build in the source pipeline.
-
+  - `source.build.*` - the triggering build in the source pipeline (contains the trigger step). This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).
+    Example variables include:
+      - `source.build.branch` - the branch of the source pipeline that the trigger step is targeting.
+      - `source.build.commit` - the commit of the source pipeline that the trigger step is targeting.
+      - `source.build.message` - the commit message of the source pipeline that the trigger step is targeting.
 - `target.trigger.branch` - the branch of the target pipeline that the trigger step is targeting.
 - `target.trigger.commit` - the commit of the target pipeline that the trigger step is targeting.
 - `target.trigger.message` - the commit message of the target pipeline that the trigger step is targeting.
