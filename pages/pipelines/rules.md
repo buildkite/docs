@@ -60,6 +60,7 @@ In the `pipeline.trigger_build.pipeline` rule the available variables for condit
 - `target.trigger.commit` - the commit of the target pipeline that the trigger step is targeting.
 - `target.trigger.message` - the commit message of the target pipeline that the trigger step is targeting.
 
+Note: Conditions are shown in error messages when access is denied.
 
 Learn more about creating rules in [Manage rules](/docs/pipelines/rules/manage).
 
@@ -105,6 +106,8 @@ In the `pipeline.read_artifacts.pipeline` rule the available variables for condi
 - `source.build.*` - the build in the source pipeline that is accessing the artifacts. This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).
 - `target.build.*` - the build in the target pipeline that the artifacts are being accessed from. This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).
 - `source.request.query` - the query used to search for artifacts in the target build. See [Searching artifacts](https://buildkite.com/docs/agent/v3/cli-artifact#searching-artifacts) for more information on the query syntax.
+
+Note: Conditions are shown in error messages when access is denied.
 
 #### Example use case: sharing assets between clusters
 
