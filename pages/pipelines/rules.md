@@ -51,14 +51,38 @@ The optional `conditions` field allows you to specify an array of [conditionals]
 
 In the `pipeline.trigger_build.pipeline` rule the available variables for conditions are:
 
-- `source.build.*` - the triggering build in the source pipeline (contains the trigger step). This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).
-  Example variables include:
-    + `source.build.branch` - the branch of the source pipeline that the trigger step is targeting.
-    + `source.build.commit` - the commit of the source pipeline that the trigger step is targeting.
-    + `source.build.message` - the commit message of the source pipeline that the trigger step is targeting.
-- `target.trigger.branch` - the branch of the target pipeline that the trigger step is targeting.
-- `target.trigger.commit` - the commit of the target pipeline that the trigger step is targeting.
-- `target.trigger.message` - the commit message of the target pipeline that the trigger step is targeting.
+<table>
+<tbody>
+	<tr>
+		<td><code>source.build.*</code></td>
+		<td><code>Build</code></td>
+		<td>
+      <p>The triggering build in the source pipeline (contains the trigger step). This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).</p>
+      <p>Example variables available:</p>
+      <ul>
+				<li><code>source.build.branch</code> - the branch of the source pipeline that the trigger step is targeting.</li>
+        <li><code>source.build.commit</code> - the commit of the source pipeline that the trigger step is targeting.</li>
+        <li><code>source.build.message</code> - the commit message of the source pipeline that the trigger step is targeting.</li>
+			</ul>
+    </td>
+	</tr>
+  <tr>
+    <td><code>source.target.branch</code></td>
+    <td><code>String</code></td>
+    <td>The branch of the target pipeline that the trigger step is targeting.</td>
+  </tr>
+  <tr>
+    <td><code>source.target.commit</code></td>
+    <td><code>String</code></td>
+    <td>The commit of the target pipeline that the trigger step is targeting.</td>
+  </tr>
+  <tr>
+    <td><code>source.target.message</code></td>
+    <td><code>String</code></td>
+    <td>The commit message of the target pipeline that the trigger step is targeting.</td>
+  </tr>
+</tbody>
+</table>
 
 Note: Conditions are shown in error messages when access is denied.
 
@@ -104,9 +128,42 @@ The optional `conditions` field allows you to specify an array of [conditionals]
 
 In the `pipeline.read_artifacts.pipeline` rule the available variables for conditions are:
 
-- `source.build.*` - the build in the source pipeline that is accessing the artifacts. This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).
-- `target.build.*` - the build in the target pipeline that the artifacts are being accessed from. This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).
-- `source.request.query` - the query used to search for artifacts in the target build. See [Searching artifacts](https://buildkite.com/docs/agent/v3/cli-artifact#searching-artifacts) for more information on the query syntax.
+
+<table>
+<tbody>
+  <tr>
+    <td><code>source.build.*</code></td>
+    <td><code>Build</code></td>
+    <td>
+      <p>The build in the source pipeline that is accessing the artifacts. This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).</p>
+      <p>Example variables available:</p>
+      <ul>
+        <li><code>source.build.branch</code> - the branch of the source pipeline that is accessing the artifacts.</li>
+        <li><code>source.build.commit</code> - the commit of the source pipeline that is accessing the artifacts.</li>
+        <li><code>source.build.message</code> - the commit message of the source pipeline that is accessing the artifacts.</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td><code>target.build.*</code></td>
+    <td><code>Build</code></td>
+    <td>
+      <p>The build in the target pipeline that the artifacts are being accessed from. This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).</p>
+      <p>Example variables available:</p>
+      <ul>
+        <li><code>target.build.branch</code> - the branch of the target pipeline that the artifacts are being accessed from.</li>
+        <li><code>target.build.commit</code> - the commit of the target pipeline that the artifacts are being accessed from.</li>
+        <li><code>target.build.message</code> - the commit message of the target pipeline that the artifacts are being accessed from.</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td><code>source.request.query</code></td>
+    <td><code>String</code></td>
+    <td>The query used to search for artifacts in the target build. See [Searching artifacts](https://buildkite.com/docs/agent/v3/cli-artifact#searching-artifacts) for more information on the query syntax.</td>
+  </tr>
+</tbody>
+</table>
 
 Note: Conditions are shown in error messages when access is denied.
 
