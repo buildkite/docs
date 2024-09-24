@@ -43,18 +43,19 @@ where:
 
 - `source_pipeline` is the UUID or slug of the pipeline that's allowed to trigger another pipeline.
 - `target_pipeline` is the UUID or slug of the pipeline that can be triggered by the `source_pipeline` pipeline.
+- `conditions` is an optional array of [conditionals](/docs/pipelines/conditionals) that must be met for the trigger to be allowed.
 
-The optional `conditions` field allows you to specify an array of [conditionals](/docs/pipelines/conditionals) that must be met for the trigger to be allowed. In the example above, the rule would only apply if the source pipeline's build branch is `main` and the commit of the source pipeline's build  matches the target pipeline's trigger build commit. If no conditions are specified, the trigger is allowed in all cases between the source and target pipelines. If multiple conditions are specified, all conditions must be met for the trigger to be allowed.
+#### Conditions
 
-Conditions are optional for this rule and can be used to restrict when a trigger is allowed. The conditions are evaluated using the [Buildkite conditionals syntax](/docs/pipelines/conditionals). If the conditions are not met, the trigger is now allowed (even if the default permissions would have allowed it). If no conditions are specified, triggering is allowed between the source and target pipelines in all cases (on all branches and commits, all authors etc).
+The optional `conditions` field allows you to specify an array of [conditionals](/docs/pipelines/conditionals) that must be met for the trigger to be allowed. In the example above, the rule would only apply if the source pipeline's build branch is `main` and the commit of the source pipeline's build matches the target pipeline's trigger build commit. If no conditions are specified, the trigger is allowed in all cases between the source and target pipelines.  If the conditions are not met, the trigger is not allowed (even if the default permissions would have allowed it). If multiple conditions are specified, all conditions must be met for the trigger to be allowed. The conditions are evaluated using the [Buildkite conditionals syntax](/docs/pipelines/conditionals).
 
 In the `pipeline.trigger_build.pipeline` rule the available variables for conditions are:
 
-  - `source.build.*` - the triggering build in the source pipeline (contains the trigger step). This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).
-    Example variables include:
-      - `source.build.branch` - the branch of the source pipeline that the trigger step is targeting.
-      - `source.build.commit` - the commit of the source pipeline that the trigger step is targeting.
-      - `source.build.message` - the commit message of the source pipeline that the trigger step is targeting.
+- `source.build.*` - the triggering build in the source pipeline (contains the trigger step). This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).
+  Example variables include:
+    + `source.build.branch` - the branch of the source pipeline that the trigger step is targeting.
+    + `source.build.commit` - the commit of the source pipeline that the trigger step is targeting.
+    + `source.build.message` - the commit message of the source pipeline that the trigger step is targeting.
 - `target.trigger.branch` - the branch of the target pipeline that the trigger step is targeting.
 - `target.trigger.commit` - the commit of the target pipeline that the trigger step is targeting.
 - `target.trigger.message` - the commit message of the target pipeline that the trigger step is targeting.
@@ -82,7 +83,10 @@ This rule type allows one pipeline to access (that is, with read-only permission
   "rule": "pipeline.artifacts_read.pipeline",
   "value": {
     "source_pipeline": "pipeline-uuid-or-slug",
-    "target_pipeline": "pipeline-uuid-or-slug"
+    "target_pipeline": "pipeline-uuid-or-slug",
+    "conditions": [
+      "source.build.branch == target.build.branch",
+    ]
   }
 }
 ```
@@ -91,6 +95,16 @@ where:
 
 - `source_pipeline` is the UUID or slug of the pipeline that's allowed to access the artifacts from another pipeline.
 - `target_pipeline` is the UUID or slug of the pipeline whose artifacts can be accessed by jobs in the `source_pipeline` pipeline.
+- `conditions` is an optional array of [conditionals](/docs/pipelines/conditionals) that must be met for the access to be allowed.
+
+#### Conditions
+
+The optional `conditions` field allows you to specify an array of [conditionals](/docs/pipelines/conditionals) that must be met for artifact access to be allowed. In the example above, the rule would only apply if the source pipeline's build branch matches the target pipeline's build branch. If no conditions are specified, the access is allowed in all cases between the source and target pipelines. If the conditions are not met, the access is not allowed (even if the default permissions would have allowed it). If multiple conditions are specified, all conditions must be met for the access to be allowed. The conditions are evaluated using the [Buildkite conditionals syntax](/docs/pipelines/conditionals).
+
+In the `pipeline.read_artifacts.pipeline` rule the available variables for conditions are:
+- `source.build.*` - the build in the source pipeline that is accessing the artifacts. This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).
+- `target.build.*` - the build in the target pipeline that the artifacts are being accessed from. This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).
+- `source.request.query` - the query for artifacts. See [Searching artifacts](https://buildkite.com/docs/agent/v3/cli-artifact#searching-artifacts) for more information on the query syntax.
 
 #### Example use case: sharing assets between clusters
 
