@@ -422,8 +422,6 @@
       children:
         - name: "Configuring test suites"
           path: "test-engine/test-suites"
-        - name: "Configuring test splitting"
-          path: "test-engine/test-splitting"
         - name: "Permissions"
           path: "test-engine/permissions"
         - name: "CI environment variables"
@@ -431,14 +429,21 @@
         - name: "Public test suites"
           path: "test-engine/public-test-suites"
         - name: "Test ownership"
-          pill: "beta"
           path: "test-engine/test-ownership"
         - name: "Flaky test assignment"
           path: "test-engine/flaky-test-assignment"
         - name: "Usage and billing"
           path: "test-engine/usage-and-billing"
-    - name: "Languages"
+    - name: "Test splitting"
       start_expanded: true
+      children:
+        - name: "Overview"
+          path: "test-engine/test-splitting"
+        - name: "Configuring"
+          path: "test-engine/test-splitting/configuring"
+        - name: "Test Engine Client installation"
+          path: "test-engine/test-splitting/client-installation"
+    - name: "Languages"
       children:
         - name: "Ruby"
           path: "test-engine/ruby-collectors"
@@ -463,7 +468,6 @@
         - name: "Other languages"
           path: "test-engine/other-collectors"
     - name: "References"
-      start_expanded: true
       children:
         - name: "Importing JUnit XML"
           path: "test-engine/importing-junit-xml"
