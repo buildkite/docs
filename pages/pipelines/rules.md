@@ -104,7 +104,7 @@ The optional `conditions` field allows you to specify an array of [conditionals]
 In the `pipeline.read_artifacts.pipeline` rule the available variables for conditions are:
 - `source.build.*` - the build in the source pipeline that is accessing the artifacts. This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).
 - `target.build.*` - the build in the target pipeline that the artifacts are being accessed from. This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).
-- `source.request.query` - the query for artifacts. See [Searching artifacts](https://buildkite.com/docs/agent/v3/cli-artifact#searching-artifacts) for more information on the query syntax.
+- `source.request.query` - the query used to search for artifacts in the target build. See [Searching artifacts](https://buildkite.com/docs/agent/v3/cli-artifact#searching-artifacts) for more information on the query syntax.
 
 #### Example use case: sharing assets between clusters
 
