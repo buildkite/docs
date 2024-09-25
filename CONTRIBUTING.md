@@ -247,7 +247,7 @@ This information was aggregated by going over the existing screenshots in the do
 
 Steps for adding add an image to a documentation page:
 1. Name the image file (lowercase, separate words using hyphens; add a number to the filename, for example, 'installation-1' if you are adding several images to the same page).
-1. Save the file into its corresponding `images` folder (that is, a sub-folder within `images` whose path and name respectively matches that of the Markdown page's path within `pages` and the name it is referenced by on this page). Create this sub-folder hierarchy if it doesn't yet exist within `images`.
+1. Save the file into its corresponding `images` folder (that is, a sub-folder within `images` whose path and name respectively matches that of the Markdown page's path within `pages` and the name this image file is referenced by on this page). Create this sub-folder hierarchy if it doesn't yet exist within `images`.
 1. Compose relevant alt text for the image file using sentence case.
 1. Add your image file to the documentation page using the following code example `<%= image "your-image.png", width: 1110, height: 1110, alt: "Screenshot of Important Feature" %>`.
 For large images/screenshots taken on a retina screen, use `<%= image "your-image.png", width: 1110/2, height: 1110/2, alt: "Screenshot of Important Feature" %>`.
