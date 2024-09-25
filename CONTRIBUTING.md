@@ -32,14 +32,14 @@ To add a new documentation (docs) page and a nav entry for it:
     | `new_window`  | Make this link open up a new window, although this practice should be avoided or minimized. | Bool, optional |
     | `type` | Special nav link types. With `dropdown` the children nav items will be rendered as hover dropdown menus on laptop/desktop screen devices. `link` is a shortcut link that takes the user from one section to another (for example, you may link to SSO under the Integrations section from Pipeline's sidebar). It also renders an 'external link' icon as an affordance. Lastly, `divider` makes a divider line in the nav to help with visual delineation. | String, `dropdown|link|divider`, optional |
 
-    > [!NOTE]
-    > Whenever you save changes to the `nav.yml` file, you'll need to stop and restart your local development environment in order to see these changes reflected in the nav.
-    > 
-    > The Buildkite Docs web site is kept running with Ruby, which interprets underscores in filenames as hyphens. Therefore, if a page is called `octopussy_cat.md`, then for its entry in the `nav.yml` file, you need to reference its `path` key value as `octopussy-cat`.
-    > 
-    > If you're creating a new section for the nav, then as described for the `path` key above, add the `name` key for this entry, omit its `path` key, and add a `children` key to create this new section. Then, nest/indent all new page entries within this section entry.
-    > 
-    > Since a new section entry in the nav is purely a toggle that cannot hold page content itself, then to introduce a page for this new section, create a top-level "Overview" page for this section instead.
+> [!NOTE]
+> Whenever you save changes to the `nav.yml` file, you'll need to stop and restart your local development environment in order to see these changes reflected in the nav.
+>
+> The Buildkite Docs web site is kept running with Ruby, which interprets underscores in filenames as hyphens. Therefore, if a page is called `octopussy_cat.md`, then for its entry in the `nav.yml` file, you need to reference its `path` key value as `octopussy-cat`.
+>
+> If you're creating a new section for the nav, then as described for the `path` key above, add the `name` key for this entry, omit its `path` key, and add a `children` key to create this new section. Then, nest/indent all new page entries within this section entry.
+>
+> Since a new section entry in the nav is purely a toggle that cannot hold page content itself, then to introduce a page for this new section, create a top-level "Overview" page for this section instead.
 
 ### Linting
 
