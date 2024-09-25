@@ -23,7 +23,7 @@ First, create a new JavaScript registry:
 1. On the **New Registry** page, enter the mandatory **Name** for your registry. For example, `My JavaScript registry`.
 1. Enter an optional **Description** for the registry, which will appear under the name of the registry item on the **Registries** page. For example, `This is an example of a JavaScript registry`.
 1. Select the required registry **Ecosystem** of **JavaScript (npm)**.
-1. If your Buildkite organization has the [teams feature](/docs/package-registries/permissions) enabled, select the relevant **Teams** to be granted access to the new JavaScript registry.
+1. If your Buildkite organization has the [teams feature](/docs/package-registries/security/permissions) enabled, select the relevant **Teams** to be granted access to the new JavaScript registry.
 1. Select **Create Registry**.
 
     The new JavaScript registry's details page is displayed. Selecting **Packages** in the global navigation opens the **Registries** page, where your new registry will be listed.

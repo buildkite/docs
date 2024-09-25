@@ -38,5 +38,5 @@ Learn more about how:
 
 - Buildkite Package Registries works through this step-by-step [Getting started](/docs/package-registries/getting-started) tutorial.
 - To work with registries in [Manage registries](/docs/package-registries/manage-registries).
-- To manage access to your registries in [Access controls](/docs/package-registries/permissions).
+- To manage access to your registries in [Access controls](/docs/package-registries/security/permissions).
 - To configure your own private storage for Buildkite Package Registries in [Private storage](/docs/package-registries/private-storage).
