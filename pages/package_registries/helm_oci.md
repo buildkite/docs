@@ -28,8 +28,8 @@ The following steps describe the process above:
     where:
     * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload charts to your Helm registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
 
-    <%= render_markdown partial: 'package-registries/org_slug' %>
-    <%= render_markdown partial: 'package-registries/helm_registry_slug' %>
+    <%= render_markdown partial: 'package_registries/org_slug' %>
+    <%= render_markdown partial: 'package_registries/helm_registry_slug' %>
 
 1. Copy the following `helm push` command, paste it into your terminal, and modify as required before running to push your Helm chart:
 
@@ -90,9 +90,9 @@ helm registry login packages.buildkite.com/{org.slug}/{registry.slug} -u buildki
 
 where:
 
-<%= render_markdown partial: 'package-registries/org_slug' %>
+<%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package-registries/helm_registry_slug' %>
+<%= render_markdown partial: 'package_registries/helm_registry_slug' %>
 
 - `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#update-a-registry-configure-registry-tokens) used to download charts from your Helm registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
@@ -109,9 +109,9 @@ helm pull oci://packages.buildkite.com/{org.slug}/{registry.slug}/chart-name --v
 
 where:
 
-<%= render_markdown partial: 'package-registries/org_slug' %>
+<%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package-registries/helm_registry_slug' %>
+<%= render_markdown partial: 'package_registries/helm_registry_slug' %>
 
 - `chart-name` is the name of your chart.
 

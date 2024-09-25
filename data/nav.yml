@@ -475,7 +475,7 @@
   path: "package-registries"
   children:
     - name: "Overview"
-      path: "packages"
+      path: "package-registries"
     - name: "Introduction"
       start_expanded: true
       children:

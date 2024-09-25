@@ -33,9 +33,9 @@ GEM_HOST_API_KEY="temporary-write-token-that-expires-after-5-minutes" \
 
 where:
 
-<%= render_markdown partial: 'package-registries/org_slug' %>
+<%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package-registries/ruby_registry_slug' %>
+<%= render_markdown partial: 'package_registries/ruby_registry_slug' %>
 
 
 Since the `temporary-write-token-that-expires-after-5-minutes` expires quickly, it is recommended that you just copy this command directly from the **Publish a Ruby Package** dialog.
@@ -54,9 +54,9 @@ The remaining code boxes on the **Publish a Ruby Package** dialog provide config
     ```
 
     where:
-    <%= render_markdown partial: 'package-registries/org_slug' %>
-    <%= render_markdown partial: 'package-registries/ruby_registry_slug' %>
-    <%= render_markdown partial: 'package-registries/ruby_registry_write_token' %>
+    <%= render_markdown partial: 'package_registries/org_slug' %>
+    <%= render_markdown partial: 'package_registries/ruby_registry_slug' %>
+    <%= render_markdown partial: 'package_registries/ruby_registry_write_token' %>
 
     **Note:** This step only needs to be conducted once for the life of your Ruby registry.
 
@@ -91,7 +91,7 @@ To access your Ruby package's details page:
 1. Select your Ruby registry on this page.
 1. On your Ruby registry page, select the package within the **Packages** section. The package's details page is displayed.
 
-<%= render_markdown partial: 'package-registries/package_details_page_sections' %>
+<%= render_markdown partial: 'package_registries/package_details_page_sections' %>
 
 A Ruby registry's package also has a **Dependencies** tab, which lists other RubyGems gem packages that your currently viewed Ruby gem package has dependencies on.
 
@@ -129,6 +129,6 @@ where:
 
 - `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#update-a-registry-configure-registry-tokens) used to download packages to your Ruby registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
 
-<%= render_markdown partial: 'package-registries/org_slug' %>
+<%= render_markdown partial: 'package_registries/org_slug' %>
 
 - `{registry.slug}` is the name of your Ruby registry.

@@ -69,11 +69,11 @@ The following steps describe the process above:
     where:
     * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Java registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
 
-    <%= render_markdown partial: 'package-registries/java_package_domain_name_version' %>
+    <%= render_markdown partial: 'package_registries/java_package_domain_name_version' %>
 
-    <%= render_markdown partial: 'package-registries/org_slug' %>
+    <%= render_markdown partial: 'package_registries/org_slug' %>
 
-    <%= render_markdown partial: 'package-registries/java_registry_slug' %>
+    <%= render_markdown partial: 'package_registries/java_registry_slug' %>
 
 1. Publish your package:
 
@@ -83,9 +83,9 @@ The following steps describe the process above:
 
 ## Access a package's details
 
-<%= render_markdown partial: 'package-registries/access_java_package_details_page' %>
+<%= render_markdown partial: 'package_registries/access_java_package_details_page' %>
 
-<%= render_markdown partial: 'package-registries/package_details_page_sections' %>
+<%= render_markdown partial: 'package_registries/package_details_page_sections' %>
 
 ### Downloading a package
 
@@ -127,10 +127,10 @@ where:
 
 - `{org.slug}` is the org slug.
 
-<%= render_markdown partial: 'package-registries/java_registry_slug' %>
+<%= render_markdown partial: 'package_registries/java_registry_slug' %>
 
 - `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#update-a-registry-configure-registry-tokens) used to download packages from your Java registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
     **Note:** Both the `authentication` and `credentials` sections are not required for registries that are publicly accessible.
 
-<%= render_markdown partial: 'package-registries/java_package_domain_name_version' %>
+<%= render_markdown partial: 'package_registries/java_package_domain_name_version' %>

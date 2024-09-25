@@ -60,9 +60,9 @@ Next, configure your Node.js environment to publish Node.js packages to [the Jav
     ```
 
     where:
-    <%= render_markdown partial: 'package-registries/org_slug' %>
-    <%= render_markdown partial: 'package-registries/javascript_registry_slug' %>
-    <%= render_markdown partial: 'package-registries/javascript_registry_write_token' %>
+    <%= render_markdown partial: 'package_registries/org_slug' %>
+    <%= render_markdown partial: 'package_registries/javascript_registry_slug' %>
+    <%= render_markdown partial: 'package_registries/javascript_registry_write_token' %>
 
     **Note:**
     * If your `.npmrc` file doesn't exist, this command will automatically create it for you.

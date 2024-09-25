@@ -30,11 +30,11 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/regi
 
 where:
 
-<%= render_markdown partial: 'package-registries/org_slug' %>
+<%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package-registries/helm_registry_slug' %>
+<%= render_markdown partial: 'package_registries/helm_registry_slug' %>
 
-<%= render_markdown partial: 'package-registries/path_to_file' %>
+<%= render_markdown partial: 'package_registries/path_to_file' %>
 
 For example, to upload the file `my-helm-chart-0.1.2.tgz` from the current directory to the **My Helm Charts** registry in the **My organization** Buildkite organization, run the `curl` command:
 
@@ -87,9 +87,9 @@ helm repo add {registry.slug} https://packages.buildkite.com/{org.slug}/{registr
 
 where:
 
-<%= render_markdown partial: 'package-registries/org_slug' %>
+<%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package-registries/helm_registry_slug' %>
+<%= render_markdown partial: 'package_registries/helm_registry_slug' %>
 
 - `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#update-a-registry-configure-registry-tokens) used to download charts from your Helm registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
@@ -107,7 +107,7 @@ helm install "chart-release" "{registry.slug}/{chart-name}" --version {version}
 
 where:
 
-<%= render_markdown partial: 'package-registries/helm_registry_slug' %>
+<%= render_markdown partial: 'package_registries/helm_registry_slug' %>
 
 - `chart-release` is the unique release name for the Helm chart - must have no `.` in name and be in lowercase. [General conventions](https://helm.sh/docs/chart_best_practices/conventions/#chart-names).
 

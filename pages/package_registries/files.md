@@ -29,13 +29,13 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/regi
 
 where:
 
-<%= render_markdown partial: 'package-registries/org_slug' %>
+<%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package-registries/registry_slug' %>
+<%= render_markdown partial: 'package_registries/registry_slug' %>
 
 - `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload files to your registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish files to any registry your user account has access to within your Buildkite organization.
 
-<%= render_markdown partial: 'package-registries/path_to_file' %>
+<%= render_markdown partial: 'package_registries/path_to_file' %>
 
 For example, to upload the file `my-custom-app.ipa` from the current directory to the **My files** registry in the **My organization** Buildkite organization, run the `curl` command:
 
@@ -55,7 +55,7 @@ To access your file details page:
 1. Select your registry on this page.
 1. On your registry page, select the file to display its details page.
 
-<%= render_markdown partial: 'package-registries/file_details_page_sections' %>
+<%= render_markdown partial: 'package_registries/file_details_page_sections' %>
 
 ### Downloading a file
 
