@@ -16,7 +16,7 @@ To create a new registry:
 1. On the **New Registry** page, enter the mandatory **Name** for your registry.
 1. Enter an optional **Description** for the registry. This description appears under the name of the registry item on the **Registries** page.
 1. Select the required registry **Ecosystem** based on the [package ecosystem](/docs/packages#get-started) for this new registry.
-1. If your Buildkite organization has the [teams feature](/docs/packages/permissions) enabled, select the relevant **Teams** to be granted access to the new registry.
+1. If your Buildkite organization has the [teams feature](/docs/package-registries/permissions) enabled, select the relevant **Teams** to be granted access to the new registry.
 1. Select **Create Registry**.
 
     The new registry's details page is displayed. Selecting **Packages** in the global navigation opens the **Registries** page, where your new registry will be listed.
@@ -25,17 +25,17 @@ To create a new registry:
 
 Once a [registry is created](#create-a-registry), packages can then be uploaded to it. Learn more about how to manage packages for your registry's relevant language and package ecosystem:
 
-- [Alpine (apk)](/docs/packages/alpine)
-- [Container (Docker)](/docs/packages/container) images
-- [Debian/Ubuntu (deb)](/docs/packages/debian)
-- [Files (generic)](/docs/packages/files)
-- Helm ([OCI](/docs/packages/helm-oci) or [Standard](/docs/packages/helm))
-- Java ([Maven](/docs/packages/maven) or [Gradle leveraging the Maven Publish Plugin](/docs/packages/gradle))
-- [JavaScript (npm)](/docs/packages/javascript)
-- [Python (PyPI)](/docs/packages/python)
-- [Red Hat (RPM)](/docs/packages/red-hat)
-- [Ruby (RubyGems)](/docs/packages/ruby)
-- [Terraform](/docs/packages/terraform) modules
+- [Alpine (apk)](/docs/package-registries/alpine)
+- [Container (Docker)](/docs/package-registries/container) images
+- [Debian/Ubuntu (deb)](/docs/package-registries/debian)
+- [Files (generic)](/docs/package-registries/files)
+- Helm ([OCI](/docs/package-registries/helm-oci) or [Standard](/docs/package-registries/helm))
+- Java ([Maven](/docs/package-registries/maven) or [Gradle leveraging the Maven Publish Plugin](/docs/package-registries/gradle))
+- [JavaScript (npm)](/docs/package-registries/javascript)
+- [Python (PyPI)](/docs/package-registries/python)
+- [Red Hat (RPM)](/docs/package-registries/red-hat)
+- [Ruby (RubyGems)](/docs/package-registries/ruby)
+- [Terraform](/docs/package-registries/terraform) modules
 
 ## Update a registry
 
@@ -48,9 +48,9 @@ The following aspects of a registry can be updated:
 - **Emoji**: to change the emoji of the registry from the default provided when the registry was [created](#create-a-registry). The emoji appears next to the registry's name.
 - **Color**: the background color for the emoji
 - **Registry Management**: the privacy settings for the registry—private (the initial default state for all newly created registries) or public.
-- **OIDC Policy**: one or more [policies defining which OpenID Connect (OIDC) tokens](/docs/packages/security/oidc), from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another third-party system, can be used to publish/upload packages to the registry.
+- **OIDC Policy**: one or more [policies defining which OpenID Connect (OIDC) tokens](/docs/package-registries/security/oidc), from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another third-party system, can be used to publish/upload packages to the registry.
 - **Tokens** (private registries only): one or more [registry tokens](#update-a-registry-configure-registry-tokens), which are an alternative to API access tokens.
-- **Storage**: choose your [registry storage](#update-a-registry-configure-registry-storage), selecting from **Buildkite-hosted storage** (the initially default storage system) or [your own private AWS S3 bucket](/docs/packages/private-storage) to store packages for this registry.
+- **Storage**: choose your [registry storage](#update-a-registry-configure-registry-storage), selecting from **Buildkite-hosted storage** (the initially default storage system) or [your own private AWS S3 bucket](/docs/package-registries/private-storage) to store packages for this registry.
 
 The registry's ecosystem type cannot be changed once the registry is created.
 
@@ -70,11 +70,11 @@ To update a registry:
 
     The registry's updates will appear on the **Registries** page, as well as the registry's details page.
 
-1. If the registry's _OIDC policy_ needs to be configured, learn more about this in [OIDC in Buildkite Package Registries](/docs/packages/security/oidc).
+1. If the registry's _OIDC policy_ needs to be configured, learn more about this in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
 1. If the registry is _private_ and _registry tokens_ (an alternative to API access tokens) need to be configured, learn more about this in [Configure registry tokens](#update-a-registry-configure-registry-tokens).
 
-1. If [_private storage_](/docs/packages/private-storage) has been configured and linked to your Buildkite organization, the storage location for the registry can be changed. Learn more about this in [Configure registry storage](#update-a-registry-configure-registry-storage).
+1. If [_private storage_](/docs/package-registries/private-storage) has been configured and linked to your Buildkite organization, the storage location for the registry can be changed. Learn more about this in [Configure registry storage](#update-a-registry-configure-registry-storage).
 
 ### Configure registry tokens
 
@@ -97,7 +97,7 @@ Unlike other tokens generated elsewhere in Buildkite, registry tokens can contin
 
 ### Configure registry storage
 
-When a new registry is [created](#create-a-registry), it automatically uses the [default Buildkite Package Registries storage](/docs/packages/private-storage#set-the-default-buildkite-package-registries-storage) location. However, your new registry's default storage location can be overridden to use another configured storage location. Learn more about configuring private storage in [Private storage links](/docs/packages/private-storage).
+When a new registry is [created](#create-a-registry), it automatically uses the [default Buildkite Package Registries storage](/docs/package-registries/private-storage#set-the-default-buildkite-package-registries-storage) location. However, your new registry's default storage location can be overridden to use another configured storage location. Learn more about configuring private storage in [Private storage links](/docs/package-registries/private-storage).
 
 To configure/change your registry's current storage:
 

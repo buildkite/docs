@@ -2,7 +2,7 @@
 
 Buildkite Package Registries provides registry support for Maven-based Java packages.
 
-Once your Java registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `~/.m2/settings.xml` and application's relevant `pom.xml` files with the Maven XML snippets presented on your Java registry's details page.
+Once your Java registry has been [created](/docs/package-registries/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `~/.m2/settings.xml` and application's relevant `pom.xml` files with the Maven XML snippets presented on your Java registry's details page.
 
 To view and copy the required  `~/.m2/settings.xml` and `pom.xml` configurations:
 
@@ -45,7 +45,7 @@ The following steps describe the process above:
     where:
     * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Java registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
 
-    <%= render_markdown partial: 'packages/java_registry_id' %>
+    <%= render_markdown partial: 'package-registries/java_registry_id' %>
 
     **Note:** This step only needs to be performed once for the life of your Java registry, and API access token.
 
@@ -67,9 +67,9 @@ The following steps describe the process above:
     where:
     * `org-slug-registry-slug` is the ID of your Java registry (above).
 
-    <%= render_markdown partial: 'packages/org_slug' %>
+    <%= render_markdown partial: 'package-registries/org_slug' %>
 
-    <%= render_markdown partial: 'packages/java_registry_slug' %>
+    <%= render_markdown partial: 'package-registries/java_registry_slug' %>
 
 1. Publish your package:
 
@@ -79,9 +79,9 @@ The following steps describe the process above:
 
 ## Access a package's details
 
-<%= render_markdown partial: 'packages/access_java_package_details_page' %>
+<%= render_markdown partial: 'package-registries/access_java_package_details_page' %>
 
-<%= render_markdown partial: 'packages/package_details_page_sections' %>
+<%= render_markdown partial: 'package-registries/package_details_page_sections' %>
 
 ### Downloading a package
 
@@ -127,9 +127,9 @@ The `~/.m2/settings.xml` code snippet is based on this format:
 
 where:
 
-- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/packages/manage-registries#update-a-registry-configure-registry-tokens) used to download packages from your Java registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#update-a-registry-configure-registry-tokens) used to download packages from your Java registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
-<%= render_markdown partial: 'packages/java_registry_id' %>
+<%= render_markdown partial: 'package-registries/java_registry_id' %>
 
 The `pom.xml` code snippet is based on this format:
 
@@ -158,10 +158,10 @@ The `pom.xml` code snippet is based on this format:
 
 where:
 
-<%= render_markdown partial: 'packages/java_registry_id' %>
+<%= render_markdown partial: 'package-registries/java_registry_id' %>
 
 - `{org.slug}` is the org slug.
 
-<%= render_markdown partial: 'packages/java_registry_slug' %>
+<%= render_markdown partial: 'package-registries/java_registry_slug' %>
 
-<%= render_markdown partial: 'packages/java_package_domain_name_version' %>
+<%= render_markdown partial: 'package-registries/java_package_domain_name_version' %>

@@ -2,7 +2,7 @@
 
 Buildkite Package Registries provides registry support for Python-based (PyPI) packages.
 
-Once your Python registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry via the `curl` command presented on your Python registry's details page.
+Once your Python registry has been [created](/docs/package-registries/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry via the `curl` command presented on your Python registry's details page.
 
 To view and copy this `curl` command:
 
@@ -28,13 +28,13 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/regi
 
 where:
 
-<%= render_markdown partial: 'packages/org_slug' %>
+<%= render_markdown partial: 'package-registries/org_slug' %>
 
-<%= render_markdown partial: 'packages/python_registry_slug' %>
+<%= render_markdown partial: 'package-registries/python_registry_slug' %>
 
 - `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Python registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
 
-<%= render_markdown partial: 'packages/path_to_file' %>
+<%= render_markdown partial: 'package-registries/path_to_file' %>
 
 For example, to upload the file `my-python-package-0.9.7b1.tar.gz` from the current directory to the **My Python packages** registry in the **My organization** Buildkite organization, run the `curl` command:
 
@@ -54,7 +54,7 @@ To access your Python package's details page:
 1. Select your Python registry on this page.
 1. On your Python registry page, select the package to display its details.
 
-<%= render_markdown partial: 'packages/package_details_page_sections' %>
+<%= render_markdown partial: 'package-registries/package_details_page_sections' %>
 
 ### Downloading a package
 
@@ -84,11 +84,11 @@ extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/
 
 where:
 
-- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/packages/manage-registries#update-a-registry-configure-registry-tokens) used to download packages from your Python registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
+- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#update-a-registry-configure-registry-tokens) used to download packages from your Python registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
 
-<%= render_markdown partial: 'packages/org_slug' %>
+<%= render_markdown partial: 'package-registries/org_slug' %>
 
-<%= render_markdown partial: 'packages/python_registry_slug' %>
+<%= render_markdown partial: 'package-registries/python_registry_slug' %>
 
 The alternative `requirements.txt` (for virtualenv) code snippet is based on this format:
 

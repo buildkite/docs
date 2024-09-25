@@ -22,9 +22,9 @@ As an organization administrator, you can access the [**Organization Settings** 
 
 - Add new teams or edit existing ones in the [**Team** section](https://buildkite.com/organizations/~/teams).
 
-- After selecting a team, you can view and administer the member-, [pipeline-](#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/test-analytics/permissions#manage-teams-and-permissions-test-suite-level-permissions), [registry-](/docs/packages/permissions#manage-teams-and-permissions-registry-level-permissions) and [team-](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions)level settings for that team.
+- After selecting a team, you can view and administer the member-, [pipeline-](#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/test-analytics/permissions#manage-teams-and-permissions-test-suite-level-permissions), [registry-](/docs/package-registries/permissions#manage-teams-and-permissions-registry-level-permissions) and [team-](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions)level settings for that team.
 
-**Note:** Registry-level settings are only available once [Buildkite Package Registries has been enabled](/docs/packages/permissions#enabling-buildkite-packages).
+**Note:** Registry-level settings are only available once [Buildkite Package Registries has been enabled](/docs/package-registries/permissions#enabling-buildkite-packages).
 
 ### Team-level permissions
 

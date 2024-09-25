@@ -2,7 +2,7 @@
 
 Buildkite Package Registries provides Helm OCI based registry support for distributing Helm charts. Note, this requires [Helm version 3.8.0](https://helm.sh/docs/topics/registries/) or newer.
 
-Once your Helm OCI registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload charts (generated from your application's build) to this registry via relevant `helm` commands presented on your registry's details page.
+Once your Helm OCI registry has been [created](/docs/package-registries/manage-registries#create-a-registry), you can publish/upload charts (generated from your application's build) to this registry via relevant `helm` commands presented on your registry's details page.
 
 To view and copy these `helm` commands:
 
@@ -28,8 +28,8 @@ The following steps describe the process above:
     where:
     * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload charts to your Helm registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
 
-    <%= render_markdown partial: 'packages/org_slug' %>
-    <%= render_markdown partial: 'packages/helm_registry_slug' %>
+    <%= render_markdown partial: 'package-registries/org_slug' %>
+    <%= render_markdown partial: 'package-registries/helm_registry_slug' %>
 
 1. Copy the following `helm push` command, paste it into your terminal, and modify as required before running to push your Helm chart:
 
@@ -90,11 +90,11 @@ helm registry login packages.buildkite.com/{org.slug}/{registry.slug} -u buildki
 
 where:
 
-<%= render_markdown partial: 'packages/org_slug' %>
+<%= render_markdown partial: 'package-registries/org_slug' %>
 
-<%= render_markdown partial: 'packages/helm_registry_slug' %>
+<%= render_markdown partial: 'package-registries/helm_registry_slug' %>
 
-- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/packages/manage-registries#update-a-registry-configure-registry-tokens) used to download charts from your Helm registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#update-a-registry-configure-registry-tokens) used to download charts from your Helm registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
 > 📘
 > This step is not required for public Helm registries.
@@ -109,9 +109,9 @@ helm pull oci://packages.buildkite.com/{org.slug}/{registry.slug}/chart-name --v
 
 where:
 
-<%= render_markdown partial: 'packages/org_slug' %>
+<%= render_markdown partial: 'package-registries/org_slug' %>
 
-<%= render_markdown partial: 'packages/helm_registry_slug' %>
+<%= render_markdown partial: 'package-registries/helm_registry_slug' %>
 
 - `chart-name` is the name of your chart.
 

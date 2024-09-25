@@ -1,8 +1,8 @@
 # Getting started
 
-👋 Welcome to Buildkite Package Registries! You can use Package Registries to house your [packages](/docs/packages/background#package-creation-tools) built through [Buildkite Pipelines](/docs/pipelines) or another CI/CD application, and manage them through dedicated registries. This tutorial takes you through creating a JavaScript registry, cloning and running a simple Node.js package locally, and uploading this package to your new JavaScript registry.
+👋 Welcome to Buildkite Package Registries! You can use Package Registries to house your [packages](/docs/package-registries/background#package-creation-tools) built through [Buildkite Pipelines](/docs/pipelines) or another CI/CD application, and manage them through dedicated registries. This tutorial takes you through creating a JavaScript registry, cloning and running a simple Node.js package locally, and uploading this package to your new JavaScript registry.
 
-While this tutorial uses a Node.js package example, Buildkite Package Registries supports [other package ecosystems](/docs/packages/manage-registries#create-a-registry-manage-packages-in-a-registry) too.
+While this tutorial uses a Node.js package example, Buildkite Package Registries supports [other package ecosystems](/docs/package-registries/manage-registries#create-a-registry-manage-packages-in-a-registry) too.
 
 ## Before you start
 
@@ -23,7 +23,7 @@ First, create a new JavaScript registry:
 1. On the **New Registry** page, enter the mandatory **Name** for your registry. For example, `My JavaScript registry`.
 1. Enter an optional **Description** for the registry, which will appear under the name of the registry item on the **Registries** page. For example, `This is an example of a JavaScript registry`.
 1. Select the required registry **Ecosystem** of **JavaScript (npm)**.
-1. If your Buildkite organization has the [teams feature](/docs/packages/permissions) enabled, select the relevant **Teams** to be granted access to the new JavaScript registry.
+1. If your Buildkite organization has the [teams feature](/docs/package-registries/permissions) enabled, select the relevant **Teams** to be granted access to the new JavaScript registry.
 1. Select **Create Registry**.
 
     The new JavaScript registry's details page is displayed. Selecting **Packages** in the global navigation opens the **Registries** page, where your new registry will be listed.
@@ -60,9 +60,9 @@ Next, configure your Node.js environment to publish Node.js packages to [the Jav
     ```
 
     where:
-    <%= render_markdown partial: 'packages/org_slug' %>
-    <%= render_markdown partial: 'packages/javascript_registry_slug' %>
-    <%= render_markdown partial: 'packages/javascript_registry_write_token' %>
+    <%= render_markdown partial: 'package-registries/org_slug' %>
+    <%= render_markdown partial: 'package-registries/javascript_registry_slug' %>
+    <%= render_markdown partial: 'package-registries/javascript_registry_write_token' %>
 
     **Note:**
     * If your `.npmrc` file doesn't exist, this command will automatically create it for you.
@@ -131,4 +131,4 @@ Your JavaScript registry's details page should show your new package with the in
 
 That's it! You've created a new Buildkite registry, configured your Node.js environment and project to publish to your new JavaScript registry, and published a Node.js package to this registry. 🎉
 
-Learn more about how to work with Buildkite Package Registries in [Manage registries](/docs/packages/manage-registries).
+Learn more about how to work with Buildkite Package Registries in [Manage registries](/docs/package-registries/manage-registries).

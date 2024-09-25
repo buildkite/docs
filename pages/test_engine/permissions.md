@@ -26,11 +26,11 @@ As an organization administrator, you can access the [**Organization Settings** 
 
     <%= image "team-section-list.png", alt: "Screenshot of the Team section, showing a list of Teams" %>
 
-- After selecting a team, you can view and administer the member-, [pipeline-](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](#manage-teams-and-permissions-test-suite-level-permissions), [registry-](/docs/packages/permissions#manage-teams-and-permissions-registry-level-permissions) and [team-](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions)level settings for that team.
+- After selecting a team, you can view and administer the member-, [pipeline-](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](#manage-teams-and-permissions-test-suite-level-permissions), [registry-](/docs/package-registries/permissions#manage-teams-and-permissions-registry-level-permissions) and [team-](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions)level settings for that team.
 
     <%= image "team-section-test-suites-list.png", alt: "Screenshot of the Team section, showing a list of Test Suites the team has access to" %>
 
-    **Note:** Registry-level settings are only available once [Buildkite Package Registries has been enabled](/docs/packages/permissions#enabling-buildkite-packages).
+    **Note:** Registry-level settings are only available once [Buildkite Package Registries has been enabled](/docs/package-registries/permissions#enabling-buildkite-packages).
 
 ### Team-level permissions
 
