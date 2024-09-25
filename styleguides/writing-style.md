@@ -49,7 +49,7 @@ Therefore, use serial commas to distinguish individual items in a list from thos
 
 ### Plain English
 
-Aim to adopt and implement [_plain English language_](https://clickhelp.com/clickhelp-technical-writing-blog/basics-of-plain-language-in-technical-documentation/) in your writing. Avoid complex jargon that readers find off-putting and distracting, and instead, use more conventional terms that most readers will understand upon reading what you write for the first time. This doesn't mean you cannot use technical terms—just as long as they are terms that most of your target audience will understand.
+Aim to adopt and implement [_plain English language_](https://clickhelp.com/clickhelp-technical-writing-blog/basics-of-plain-language-in-technical-documentation/) in your writing. Avoid complex jargon that readers find off-putting and distracting, and instead, use more conventional terms that most readers will understand upon reading your writing for the first time. This doesn't mean you cannot use technical terms—just as long as they are terms that most of your target audience will understand.
 
 ### Active/passive voice
 
@@ -151,7 +151,7 @@ This list summarizes word usage (or words and punctuation to avoid) in line with
 
 #### Use "and" and not "&"
 
-Avoid using ampersands ("&") for the word "and". Doing so sets a bad stylistic precedent, since in the Buildkite Docs, "and" is spelled verbatim as "and". Inconsistencies in docs impairs overall readability.
+Avoid using ampersands ("&") for the word "and". Doing so sets a poor stylistic precedent. In the Buildkite Docs, "and" is spelled verbatim as "and", and inconsistencies in the way "and" is referred to in the docs impairs its overall readability.
 
 #### And/or
 
