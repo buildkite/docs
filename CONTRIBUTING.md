@@ -11,7 +11,7 @@ Please also note the following style guides, which are relevant to adding conten
 
 The Buildkite docs is a custom-built website. This section gives some guidance on working with the setup.
 
-As a public contributor to the Buildkite Docs, you should work with a fork of [this repository](https://github.com/buildkite/docs) in your own GitHub account.
+As a public contributor to the Buildkite Docs, you should work with a fork of [this upstream repository](https://github.com/buildkite/docs) in your own GitHub account, and then create pull requests to this upstream.
 
 ### Add a new docs page and nav entry
 
