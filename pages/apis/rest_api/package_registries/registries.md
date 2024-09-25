@@ -37,7 +37,7 @@ Required [request body properties](/docs/api#request-body-properties):
 <table class="responsive-table">
 <tbody>
   <tr><th><code>name</code></th><td>Name of the new registry.<br><em>Example:</em> <code>"my registry"</code>.</td></tr>
-  <tr><th><code>ecosystem</code></th><td>Registry ecosystem based on the <a href="/docs/packages#get-started">package ecosystem</a> for the new registry.<br><em>Example:</em> <code>"ruby"</code>.</td></tr>
+  <tr><th><code>ecosystem</code></th><td>Registry ecosystem based on the <a href="/docs/package-registries#get-started">package ecosystem</a> for the new registry.<br><em>Example:</em> <code>"ruby"</code>.</td></tr>
 </tbody>
 </table>
 
