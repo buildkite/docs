@@ -47,6 +47,10 @@ How many people are being referred to in each of these sentences?
 
 Therefore, use serial commas to distinguish individual items in a list from those which are not.
 
+### Plain English
+
+Aim to adopt and implement [_plain English language_](https://clickhelp.com/clickhelp-technical-writing-blog/basics-of-plain-language-in-technical-documentation/) in your writing. Avoid complex jargon that readers find off-putting and distracting, and instead, use more conventional terms that most readers will understand upon reading what you write for the first time. This doesn't mean you cannot use technical terms—just as long as they are terms that most of your target audience will understand.
+
 ### Active/passive voice
 
 Whenever possible, use active voice, which is generally clearer and simpler.
@@ -144,6 +148,10 @@ This list summarizes word usage (or words and punctuation to avoid) in line with
 | Premises                  | When using this word to refer to a specific location in the singular, use "premises" (for example, "on-premises") and not "premise"/"on-premise". A "premise" is a different English word synonymous with the word "condition". There are other unusual English nouns, where the singular form is the same as its plural form, such as "series". |
 
 ### Specific word/term usage
+
+#### Use "and" and not "&"
+
+Avoid using ampersands ("&") for the word "and". Doing so sets a bad stylistic precedent, since in the Buildkite Docs, "and" is spelled verbatim as "and". Inconsistencies in docs impairs overall readability.
 
 #### And/or
 
