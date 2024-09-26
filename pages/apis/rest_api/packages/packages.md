@@ -7,7 +7,7 @@ The packages API endpoint lets you create and manage packages in a registry.
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages" \
-  -F 'file=@path/to/ruby/gem/banana-1.0.0.gem'
+  -F 'file=@path/to/debian/package/banana_1.1-2_amd64.deb
 ```
 
 ```json
