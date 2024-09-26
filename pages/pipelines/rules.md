@@ -51,7 +51,7 @@ The optional `conditions` field allows you to specify an array of [conditionals]
 
 In the `pipeline.trigger_build.pipeline` rule the available variables for conditions are:
 
-<table>
+<table class="Docs__attribute__table">
 <tbody>
 	<tr>
 		<td><code>source.build.*</code></td>
