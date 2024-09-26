@@ -122,6 +122,7 @@ LFS
 libpq
 linux
 macOS
+matchers
 Memcache
 minitest
 misconfiguration
