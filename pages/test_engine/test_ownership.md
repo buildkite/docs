@@ -1,6 +1,6 @@
 # Test ownership
 
-Test ownership is critical in adopting a healthy testing culture at your organization. Defining one or more teams as test owners allows these teams to become accountable for maintaining a fast and reliable test suite, ensuring confidence when you deploy your code.
+Test ownership is critical in adopting a healthy testing culture at your organization. Defining one or more teams as test owners allows these teams to become accountable for maintaining tests within your test suite, ensuring it is fast and reliable, and providing confidence when you deploy your code.
 
 Customers on the [Pro and Enterprise plans](https://buildkite.com/pricing) can assign test ownership to [teams](/docs/test-engine/permissions#manage-teams-and-permissions).
 
