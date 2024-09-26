@@ -122,8 +122,8 @@ For example:
 ```
 [
   'pipelines/some-new-beta-feature',
-  'test-analytics/some-new-beta-feature',
-  'packages/some-new-beta-feature'
+  'test-engine/some-new-beta-feature',
+  'package-registries/some-new-beta-feature'
 ]
 ```
 
