@@ -57,7 +57,7 @@ In the `pipeline.trigger_build.pipeline` rule the available variables for condit
 		<td><code>source.build.*</code></td>
 		<td><code>Build</code></td>
 		<td>
-      <p>The triggering build in the source pipeline (contains the trigger step). This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).</p>
+      <p>The triggering build in the source pipeline (contains the trigger step). This includes all the variables available for a <a href="/docs/pipelines/conditionals#variable-and-syntax-reference-variables">build</a></p>
       <p>Example variables available:</p>
       <ul>
 				<li><code>source.build.branch</code> - the branch of the source pipeline that the trigger step is targeting.</li>
@@ -129,13 +129,13 @@ The optional `conditions` field allows you to specify an array of [conditionals]
 In the `pipeline.read_artifacts.pipeline` rule the available variables for conditions are:
 
 
-<table>
+<table class="Docs__attribute__table">
 <tbody>
   <tr>
     <td><code>source.build.*</code></td>
     <td><code>Build</code></td>
     <td>
-      <p>The build in the source pipeline that is accessing the artifacts. This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).</p>
+      <p>The build in the source pipeline that is accessing the artifacts. This includes all the variables available for a <a href="/docs/pipelines/conditionals#variable-and-syntax-reference-variables">build</a>.</p>
       <p>Example variables available:</p>
       <ul>
         <li><code>source.build.branch</code> - the branch of the source pipeline that is accessing the artifacts.</li>
@@ -148,7 +148,7 @@ In the `pipeline.read_artifacts.pipeline` rule the available variables for condi
     <td><code>target.build.*</code></td>
     <td><code>Build</code></td>
     <td>
-      <p>The build in the target pipeline that the artifacts are being accessed from. This includes all the variables available for a [build](/docs/pipelines/conditionals#variable-and-syntax-reference-variables).</p>
+      <p>The build in the target pipeline that the artifacts are being accessed from. This includes all the variables available for a <a href="/docs/pipelines/conditionals#variable-and-syntax-reference-variables">build</a>.</p>
       <p>Example variables available:</p>
       <ul>
         <li><code>target.build.branch</code> - the branch of the target pipeline that the artifacts are being accessed from.</li>
