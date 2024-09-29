@@ -25,17 +25,7 @@ To create a new registry:
 
 Once a [registry is created](#create-a-registry), packages can then be uploaded to it. Learn more about how to manage packages for your registry's relevant language and package ecosystem:
 
-- [Alpine (apk)](/docs/packages/alpine)
-- [Container (Docker)](/docs/packages/container) images
-- [Debian/Ubuntu (deb)](/docs/packages/debian)
-- [Files (generic)](/docs/packages/files)
-- Helm ([OCI](/docs/packages/helm-oci) or [Standard](/docs/packages/helm))
-- Java ([Maven](/docs/packages/maven) or [Gradle leveraging the Maven Publish Plugin](/docs/packages/gradle))
-- [JavaScript (npm)](/docs/packages/javascript)
-- [Python (PyPI)](/docs/packages/python)
-- [Red Hat (RPM)](/docs/packages/red-hat)
-- [Ruby (RubyGems)](/docs/packages/ruby)
-- [Terraform](/docs/packages/terraform) modules
+<%= render_markdown partial: 'packages/supported_package_ecosystems' %>
 
 ## Update a registry
 
