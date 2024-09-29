@@ -30,6 +30,14 @@ REST API scopes are very granular, you can select some or all of the following:
 * Read Suites `read_suites` - Permission to list and retrieve details of test suites; including runs,
   tests, executions, etc.
 * Write Suites `write_suites` - Permission to create, update and delete test suites
+* Read Test Plan `read_test_plan` - Permission to retrieve test plan information
+* Write Test Plan `write_test_plan` - Permission to create test plan
+* Read Registries `read_registries` - Permission to list and retrieve details of registries
+* Write Registries `write_registries` - Permission to create and update registries
+* Delete Registries `delete_registries` - Permission to delete registries
+* Read Packages `read_packages` - Permission to list and retrieve details of packages
+* Write Packages `write_packages` - Permission to create packages
+* Delete Packages `delete_packages` - Permission to delete packages
 
 When creating API access tokens, you can also restrict which network address are allowed to use them, using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
 

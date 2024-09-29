@@ -26,7 +26,7 @@ On some platforms (for example, Linux-based ones), you may need to prefix `docke
 
 #### Get the Buildkite Docs source
 
-Clone the Buildkite Docs source locally. To do so, run these commands:
+As a public contributor to the Buildkite Docs, clone its source repository locally. To do so, run these commands:
 
 ```bash
 git clone git@github.com:buildkite/docs.git
