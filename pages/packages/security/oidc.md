@@ -11,6 +11,7 @@ The [Buildkite Agent's `oidc` command](/docs/agent/v3/cli-oidc) allows you to re
 ## Checks always applied to OIDC tokens
 
 Before applying the OIDC policy on a given package registry, the following checks are always applied to the OIDC token:
+
 - The `iat` claim must be present, and a UNIX timestamp in the past
 - The `nbf` claim, if present, must be a UNIX timestamp in the past
 - The `exp` claim must be present, and a UNIX timestamp in the future
@@ -50,6 +51,7 @@ When using YAML to define a policy, only "simple" YAML is accepted - YAML contai
 Each statement in the policy must contain contain an `iss` field, which is the issuer of the token. This is used to match the token to the statement. Multiple statements can be used to allow access from multiple issuers, and multiple statements covering the same issuer can be used for more complex policies.
 
 Currently, only tokens from a specific set of issuers are supported. The supported issuers are:
+
 | Issuer name    | `iss` value                                   | Link to documentation |
 | -------------- | --------------------------------------------- | --------------------- |
 | Buildkite      | `https://agent.buildkite.com`                 | [Buildkite Agent OIDC Tokens](/docs/agent/v3/cli-oidc) |
