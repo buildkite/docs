@@ -4,7 +4,7 @@ The packages API endpoint lets you create and manage packages in a registry.
 
 ## Publish a package
 
-The following type of `curl` syntax will work across [all package ecosystems supported by Buildkite Packages](/docs/packages/ecosystems) (with the `file` form-field modified accordingly).
+The following type of `curl` syntax for publishing to registries will work across [all package ecosystems supported by Buildkite Packages](/docs/packages/ecosystems), with the `file` form-field modified accordingly.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -12,17 +12,17 @@ curl -H "Authorization: Bearer $TOKEN" \
   -F 'file=@path/to/debian/package/banana_1.1-2_amd64.deb
 ```
 
-This type of REST API call, however, is recommended for:
+However, this type of REST API call is just recommended for:
 
-- [Alpine (apk)](/docs/packages/alpine) packages
-- [Debian/Ubuntu (deb)](/docs/packages/debian) packages
-- [Files (generic)](/docs/packages/files)
+- [Alpine (apk)](/docs/packages/alpine#publish-a-package) packages
+- [Debian/Ubuntu (deb)](/docs/packages/debian#publish-a-package) packages
+- [Files (generic)](/docs/packages/files#publish-a-file)
 - [Helm (Standard)](/docs/packages/helm#publish-a-chart) charts
-- [Python (PyPI)](/docs/packages/python) packages
-- [Red Hat (RPM)](/docs/packages/red-hat) packages
+- [Python (PyPI)](/docs/packages/python#publish-a-package) packages
+- [Red Hat (RPM)](/docs/packages/red-hat#publish-a-package) packages
 - [Terraform](/docs/packages/terraform#publish-a-module) modules
 
-For other supported package ecosystems, it is recommended that you use these ecosystems' native tools to publish to registries in your Buildkite Packages organization. These ecosystems are:
+For other supported package ecosystems, it is recommended that you use their native tools to publish to registries in your Buildkite Packages organization. These ecosystems' native tools are for:
 
 - [Container (Docker)](/docs/packages/container#publish-an-image) images
 - [Helm (OCI)](/docs/packages/helm-oci#publish-a-chart) charts
