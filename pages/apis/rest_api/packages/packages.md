@@ -6,15 +6,31 @@ The packages API endpoint lets you create and manage packages in a registry.
 
 The following type of `curl` syntax will work across all package ecosystems supported by Buildkite Packages (with the `file` form-field modified accordingly).
 
-This type of REST API call, however, is recommended for [Alpine (apk)](/docs/packages/alpine), [Debian/Ubuntu (deb)](/docs/packages/debian), [files (generic)](/docs/packages/files), [Python (PyPI)](/docs/packages/python), and [Red Hat (RPM)](/docs/packages/red-hat) packages, as well as [standard Helm](/docs/packages/helm#publish-a-chart) charts and [Terraform](/docs/packages/terraform#publish-a-module) modules.
-
-For other supported package ecosystems: Java ([Maven](/docs/packages/maven#publish-a-package) or [Gradle leveraging the Maven Publish Plugin](/docs/packages/gradle#publish-a-package)), [JavaScript (npm)](/docs/packages/javascript#publish-a-package), and [Ruby (RubyGems)](/docs/packages/ruby#publish-a-package) packages, as well as [Container (Docker)](/docs/packages/container#publish-an-image) images and [Helm OCI](/docs/packages/helm-oci#publish-a-chart) charts, it is recommended that you use these ecosystems' native tools to publish their packages, images, and charts to registries in your Buildkite Packages organization.
-
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages" \
   -F 'file=@path/to/debian/package/banana_1.1-2_amd64.deb
 ```
+
+This type of REST API call, however, is recommended for:
+
+- [Alpine (apk)](/docs/packages/alpine) packages
+- [Debian/Ubuntu (deb)](/docs/packages/debian) packages
+- [Files (generic)](/docs/packages/files)
+- [Helm (Standard)](/docs/packages/helm#publish-a-chart) charts
+- [Python (PyPI)](/docs/packages/python) packages
+- [Red Hat (RPM)](/docs/packages/red-hat) packages
+- [Terraform](/docs/packages/terraform#publish-a-module) modules
+
+For other supported package ecosystems, it is recommended that you use these ecosystems' native tools to publish to registries in your Buildkite Packages organization. These ecosystems are:
+
+- [Container (Docker)](/docs/packages/container#publish-an-image) images
+- [Helm (OCI)](/docs/packages/helm-oci#publish-a-chart) charts
+- Java ([Maven](/docs/packages/maven#publish-a-package) or [Gradle leveraging the Maven Publish Plugin](/docs/packages/gradle#publish-a-package)) packages
+- [JavaScript (npm)](/docs/packages/javascript#publish-a-package) packages
+- [Ruby (RubyGems)](/docs/packages/ruby#publish-a-package) packages
+
+The following type of response is returned by Buildkite upon a successful `curl` publishing event.
 
 ```json
 {
