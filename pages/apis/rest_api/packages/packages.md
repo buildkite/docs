@@ -4,7 +4,7 @@ The packages API endpoint lets you create and manage packages in a registry.
 
 ## Publish a package
 
-The following type of `curl` syntax will work across all package ecosystems supported by Buildkite Packages (with the `file` form-field modified accordingly).
+The following type of `curl` syntax will work across [all package ecosystems supported by Buildkite Packages](/docs/packages/ecosystems) (with the `file` form-field modified accordingly).
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
