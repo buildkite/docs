@@ -6,17 +6,18 @@ You can configure registries in Buildkite Packages with OIDC policies that allow
 
 A Buildkite Agent's OIDC tokens assert claims about the slugs of the pipeline it is building and organization that contains this pipeline, the ID of the job that created the token, as well as other claims, such as the name of the branch used in the build, the SHA of the commit that triggered the build, and the agent ID. If the token's claims do not comply with the registry's OIDC policy, the OIDC token is rejected, and any actions attempted with that token will fail. If the claims do comply, however, the OIDC token will have read and write access to packages in the registry.
 
-The [Buildkite Agent's `oidc` command](/docs/agent/v3/cli-oidc) allows you to request an OIDC token from Buildkite containing claims about the pipeline's current job. These tokens can then be used by a Buildkite Package Registry to determine (through its OIDC policy) if the organization, pipeline and any other metadata associated with the pipeline and its job are permitted to publish/upload packages to this registry.
+The [Buildkite Agent's `oidc` command](/docs/agent/v3/cli-oidc) allows you to request an OIDC token from Buildkite containing claims about the pipeline's current job. These tokens can then be used by a registry in Buildkite Packages to determine (through its OIDC policy) if the organization, pipeline and any other metadata associated with the pipeline and its job are permitted to publish/upload packages to this registry.
 
-## Checks always applied to OIDC tokens
+## Mandatory OIDC token requirements
 
-Before applying the OIDC policy on a given package registry, the following checks are always applied to the OIDC token:
+All registries in Buildkite Packages defined with an OIDC policy, require the following claims from an OIDC token, regardless of the OIDC identity provider that issued the token:
 
-- The `iat` claim must be present, and a UNIX timestamp in the past
-- The `nbf` claim, if present, must be a UNIX timestamp in the past
-- The `exp` claim must be present, and a UNIX timestamp in the future
-- The token's total lifetime - that is, `exp` minus `iat` - cannot be greater than 5 minutes
-- The `aud` claim must be equal to the registry's canonical URL, which is of the form `https://packages.buildkite.com/<organization slug>/<registry slug>`.
+- The [`iat` (issued at)](/docs/agent/v3/cli-oidc#iat) claim, along with a UNIX timestamp in the past.
+- The [`nbf` (not before)](/docs/agent/v3/cli-oidc#nbf) claim, along with a UNIX timestamp in the past.
+- The [`exp` (expiration time)](/docs/agent/v3/cli-oidc#exp), along with a UNIX timestamp in the future. The OIDC token's lifespan—that is, the `exp` minus the `iat` timestamp values—cannot be greater than 5 minutes.
+- The [`aud` (audience)](/docs/agent/v3/cli-oidc#aud) claim must be equal to the registry's canonical URL, which has the format `https://packages.buildkite.com/{org.slug}/{registry.slug}`.
+
+
 
 ## OIDC policy format
 

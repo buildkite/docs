@@ -12,4 +12,4 @@ A Buildkite OIDC token can be issued by a Buildkite Agent, asserting claims abou
 
 The [Buildkite Agent's `oidc` command](/docs/agent/v3/cli-oidc) allows you to request an OIDC token from Buildkite containing claims about the pipeline's current job. These tokens can then be consumed by federated systems like AWS, and exchanged for authenticated role-based access with specific permissions to interact with your cloud environments.
 
-This section of the Buildkite Docs covers Buildkite's OIDC implementation with other OIDC identity providers and federated systems, such as [AWS](/docs/pipelines/security/oidc/aws).
+This section of the Buildkite Docs covers Buildkite's OIDC implementation with other federated systems, such as [AWS](/docs/pipelines/security/oidc/aws).

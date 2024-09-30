@@ -53,7 +53,7 @@ For specific endpoints for OpenID or JWKS, use:
       <p><em>Example:</em><code>organization:acme-inc:pipeline:super-duper-app:ref:refs/heads/main:commit:9f3182061f1e2cca4702c368cbc039b7dc9d4485:step:build</code></p>
     </td>
   </tr>
-   <tr>
+   <tr id="aud">
     <td><code>aud</code></td>
     <td>
       <p>Audience</p>
@@ -63,7 +63,7 @@ For specific endpoints for OpenID or JWKS, use:
         --audience</code> flag</p>
     </td>
   </tr>
-   <tr>
+   <tr id="exp">
     <td><code>exp</code></td>
     <td>
       <p>Expiration time</p>
@@ -73,7 +73,7 @@ For specific endpoints for OpenID or JWKS, use:
       <p><em>Example:</em> <code>1669015898</code></p>
     </td>
   </tr>
-   <tr>
+   <tr id="nbf">
     <td><code>nbf</code></td>
     <td>
       <p>Not before</p>
@@ -82,7 +82,7 @@ For specific endpoints for OpenID or JWKS, use:
       <p><em>Example:</em> <code>1669014898</code></p>
     </td>
   </tr>
-   <tr>
+   <tr id="iat">
     <td><code>iat</code></td>
     <td>
       <p>Issued at</p>
