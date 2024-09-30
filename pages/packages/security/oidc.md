@@ -2,7 +2,7 @@
 
 <%= render_markdown partial: 'platform/oidc_introduction' %>
 
-You can configure Buildkite Packages registries with OIDC policies that allow access using OIDC tokens from OIDC identity providers. These policies can permit access to the registry based on the source and contents of the token. This is similar to how [third-party products and services can be configured with OIDC policies](/docs/pipelines/security/oidc) to consume Buildkite OIDC tokens from Buildkite pipelines, for deployment, or access management and security purposes.
+You can configure Buildkite Packages registries with OIDC policies that allow access using OIDC tokens from OIDC identity providers. This is similar to how [third-party products and services can be configured with OIDC policies](/docs/pipelines/security/oidc) to consume Buildkite OIDC tokens from Buildkite pipelines, for deployment, or access management and security purposes.
 
 OIDC tokens issued by a Buildkite Agent assert claims about the slugs of the pipeline it is building and organization that contains this pipeline, the ID of the job that created the token, as well as other claims, such as the name of the branch used in the build, the SHA of the commit that triggered the build, and the agent ID. If the token's claims do not comply with the registry's OIDC policy, the OIDC token is rejected, and any actions attempted with that token will fail. If the claims do comply, however, the OIDC token will have read and write access to packages in the registry.
 
