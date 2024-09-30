@@ -12,7 +12,18 @@ curl -H "Authorization: Bearer $TOKEN" \
     "name": "my registry",
     "ecosystem": "ruby",
     "description": "registry containing ruby gems"
-    }'
+    "oidc_policy": [
+      {
+        "iss": "https://agent.buildkite.com",
+        "claims": {
+          "organization_slug": "my-org",
+          "pipeline_slug": {
+            "in": ["my-pipeline", "my-other-pipeline"]
+          }
+        }
+      }
+    ]
+  }'
 ```
 
 ```json
@@ -46,6 +57,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 <table class="responsive-table">
   <tbody>
     <tr><th><code>description</code></th><td>Description of the registry.<br><em>Default value:</em> <code>null</code>.</td></tr>
+    <tr><th><code>oidc_policy</code></th><td>A policy matching the <a href="/docs/packages/security/oidc#oidc-policy-format">Package Registry OIDC Policy format</a>. Can be either stringified YAML, or a JSON array of policy statements.<br><em>Default value:</em> <code>null</code>.</td></tr>
   </tbody>
 </table>
 
@@ -124,7 +136,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -d '{
     "name": "my registry",
     "description": "registry containing ruby gems"
-    }' 
+    }'
 ```
 
 ```json
