@@ -4,12 +4,33 @@ The packages API endpoint lets you create and manage packages in a registry.
 
 ## Publish a package
 
+The following type of `curl` syntax for publishing to registries will work across [all package ecosystems supported by Buildkite Packages](/docs/packages/ecosystems), with the `file` form-field modified accordingly.
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages" \
-  -H "Content-Type: application/json" \
-  -F 'file=@path/to/ruby/gem/banana-1.0.0.gem'
+  -F 'file=@path/to/debian/package/banana_1.1-2_amd64.deb
 ```
+
+However, this type of REST API call is just recommended for:
+
+- [Alpine (apk)](/docs/packages/alpine#publish-a-package) packages
+- [Debian/Ubuntu (deb)](/docs/packages/debian#publish-a-package) packages
+- [Files (generic)](/docs/packages/files#publish-a-file)
+- [Helm (Standard)](/docs/packages/helm#publish-a-chart) charts
+- [Python (PyPI)](/docs/packages/python#publish-a-package) packages
+- [Red Hat (RPM)](/docs/packages/red-hat#publish-a-package) packages
+- [Terraform](/docs/packages/terraform#publish-a-module) modules
+
+For other supported package ecosystems, it is recommended that you use their native tools to publish to registries in your Buildkite Packages organization. These ecosystems' native tools are for:
+
+- [Container (Docker)](/docs/packages/container#publish-an-image) images
+- [Helm (OCI)](/docs/packages/helm-oci#publish-a-chart) charts
+- Java ([Maven](/docs/packages/maven#publish-a-package) or [Gradle leveraging the Maven Publish Plugin](/docs/packages/gradle#publish-a-package)) packages
+- [JavaScript (npm)](/docs/packages/javascript#publish-a-package) packages
+- [Ruby (RubyGems)](/docs/packages/ruby#publish-a-package) packages
+
+The following type of response is returned by Buildkite upon a successful `curl` publishing event.
 
 ```json
 {
@@ -37,7 +58,7 @@ Required request form-field content:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>file</code></th><td>Path to the package.<br><em>Example:</em> <code>"file=@path/to/ruby/gem/banana-1.0.0.gem"</code>.</td></tr>
+  <tr><th><code>file</code></th><td>Path to the package.<br><em>Example:</em> <code>"file=@path/to/debian/package/banana_1.1-2_amd64.deb"</code>.</td></tr>
 </tbody>
 </table>
 

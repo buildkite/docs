@@ -487,6 +487,8 @@
     - name: "Package ecosystems"
       start_expanded: true
       children:
+        - name: "Overview"
+          path: "packages/ecosystems"
         - name: "Alpine"
           path: "packages/alpine"
         - name: "Container"
