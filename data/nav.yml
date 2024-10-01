@@ -499,6 +499,8 @@
           path: "package-registries/security/permissions"
     - name: "Package ecosystems"
       children:
+        - name: "Overview"
+          path: "packages/ecosystems"
         - name: "Alpine"
           path: "package-registries/alpine"
         - name: "Container"

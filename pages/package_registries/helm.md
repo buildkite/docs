@@ -18,7 +18,7 @@ This command provides:
 - The API access token required to publish packages to your Helm registry.
 - The Helm package (`.tgz`) to be published.
 
-## Publishing a chart
+## Publish a chart
 
 The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a Helm chart to your Helm registry:
 

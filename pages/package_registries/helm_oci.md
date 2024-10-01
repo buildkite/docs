@@ -15,7 +15,7 @@ These Helm commands are used to:
 - Log in to your Buildkite Helm OCI registry with an API access token.
 - Publish a Helm chart to your registry.
 
-## Publishing a chart
+## Publish a chart
 
 The following steps describe the process above:
 
