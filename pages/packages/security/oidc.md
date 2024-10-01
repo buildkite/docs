@@ -8,26 +8,77 @@ A Buildkite Agent's OIDC tokens assert claims about the slugs of the pipeline it
 
 The [Buildkite Agent's `oidc` command](/docs/agent/v3/cli-oidc) allows you to request an OIDC token from Buildkite containing claims about the pipeline's current job. These tokens can then be used by a registry in Buildkite Packages to determine (through its OIDC policy) if the organization, pipeline and any other metadata associated with the pipeline and its job are permitted to publish/upload packages to this registry.
 
-## Mandatory OIDC token requirements
+## OIDC token requirements
 
-All registries in Buildkite Packages defined with an OIDC policy, require the following claims from an OIDC token, regardless of the OIDC identity provider that issued the token:
+All registries in Buildkite Packages defined with an OIDC policy, requires the following claims from an OIDC token (unless indicated as optional), regardless of the OIDC identity provider that issued the token.
 
-- The [`iat` (issued at)](/docs/agent/v3/cli-oidc#iat) claim, along with a UNIX timestamp in the past.
-- The [`nbf` (not before)](/docs/agent/v3/cli-oidc#nbf) claim, along with a UNIX timestamp in the past.
-- The [`exp` (expiration time)](/docs/agent/v3/cli-oidc#exp), along with a UNIX timestamp in the future. The OIDC token's lifespan—that is, the `exp` minus the `iat` timestamp values—cannot be greater than 5 minutes.
-- The [`aud` (audience)](/docs/agent/v3/cli-oidc#aud) claim must be equal to the registry's canonical URL, which has the format `https://packages.buildkite.com/{org.slug}/{registry.slug}`.
+| Claim | Value |
+| ----- | ----- |
+| [`iat` (issued at)](/docs/agent/v3/cli-oidc#iat) | Must be a UNIX timestamp in the past. |
+| [`nbf` (not before)](/docs/agent/v3/cli-oidc#nbf) (Optional) | If present, must be a UNIX timestamp in the past. |
+| [`exp` (expiration time)](/docs/agent/v3/cli-oidc#exp) | Must be a UNIX timestamp in the future. The OIDC token's lifespan—that is, the `exp` minus the `iat` timestamp values—cannot be greater than 5 minutes. |
+| [`aud` (audience)](/docs/agent/v3/cli-oidc#aud) | Must be equal to the registry's canonical URL, which has the format `https://packages.buildkite.com/{org.slug}/{registry.slug}`. |
 
+When generating an OIDC token from:
 
+- A [Buildkite Agent](/docs/agent/v3/cli-oidc), the [`--audience` option](/docs/agent/v3/cli-oidc#audience) must explicitly be specified with the required value, whereas `iat`, `nbf` and `exp` claims will automatically be included in the token.
 
-## OIDC policy format
+- Another OIDC identity provider, ensure that its OIDC tokens contain these required claims. This should be the case by default, but if not, consult the relevant documentation for your OIDC identity provider on how to include these claims in the OIDC tokens it issues.
 
-### Example policy:
+## Define an OIDC policy for a registry
+
+You can specify an OIDC policy for your Buildkite registry, which defines the criteria for which OIDC tokens, from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another OIDC identity provider, will be accepted by your registry and authenticate a package publication/upload action from that system.
+
+To define an OIDC policy for one or more Buildkite pipeline jobs in a registry:
+
+1. Select **Packages** in the global navigation to access the [**Registries**](https://buildkite.com/organizations/~/packages) page.
+
+1. Select the registry whose OIDC policy needs defining.
+
+1. Select **Settings** > **OIDC Policy** to access the registry's **OIDC Policy** page.
+
+1. In the **Policy** field, specify this using the following basic [OIDC policy format](#define-an-oidc-policy-for-a-registry-oidc-policy-format), or one based on a [more complex example](#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example).
+
+Learn more about how an OIDC policy for a registry is constructed in [Policy structure](#define-an-oidc-policy-for-a-registry-policy-structure).
+
+### OIDC policy format
+
+The basic format for an OIDC policy for OIDC tokens issued by a Buildkite Agent is:
+
 ```yaml
 - iss: https://agent.buildkite.com
   claims:
-    organization_slug: your-org
-    pipeline_slug: your-pipeline
+    organization_slug: organization-slug
+    pipeline_slug: pipeline-slug
     build_branch: main
+```
+
+where:
+
+- `iss` (the issuer) must be `https://agent.buildkite.com`, representing the Buildkite Agent.
+- `organization-slug` can be obtained from the end of your Buildkite URL, after accessing **Packages** or **Pipelines** in the global navigation of your organization in Buildkite.
+- `pipeline-slug` can be obtained from the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite.
+- `main` or whichever branch of the repository you want to restrict package publication/uploads from pipeline builds.
+
+However, [more complex OIDC policies](#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example) can be created.
+
+### Complex OIDC policy example
+
+The following OIDC policy for a registry in Buildkite Packages contains two [_statements_](#statements)—one for a registry in Buildkite Packages and another for GitHub Actions.
+
+```yaml
+- iss: https://agent.buildkite.com
+  claims:
+    organization_slug:
+      equals: your-org
+    pipeline_slug:
+      in:
+        - one-pipeline
+        - another-pipeline
+    build_branch:
+      matches:
+        - main
+        - feature/*
 
 - iss: https://token.actions.githubusercontent.com
   claims:
@@ -39,35 +90,55 @@ All registries in Buildkite Packages defined with an OIDC policy, require the fo
         - revert-bot
 ```
 
-In this example, the policy has two statements. The first statement allows tokens representing a Buildkite Agent, but only if the token claims match the organization slug `your-org`, **and** the pipeline slug is `your-pipeline`, **and** the build branch is `main`. The second statement allows tokens from GitHub Actions, but only if the token claims are from a repository matching `your-org/*`, and the actor is either `deploy-bot` or `revert-bot`.
+The first statement allows OIDC tokens representing a pipeline's job being built by a Buildkite Agent, but only when all of the following is true for the tokens' claims:
+
+- The [organization slug](/docs/agent/v3/cli-oidc#organization-slug) is `your-org`
+- The [pipeline slug](/docs/agent/v3/cli-oidc#pipeline-slug) is either `one-pipeline` or `another-pipeline`
+- The [build branch](/docs/agent/v3/cli-oidc#build-branch) is either `main` or matches a `feature/*` branch
+
+The second statement allows OIDC tokens representing a GitHub Actions workflow, but only when all of the following is true for the tokens' claims:
+
+- The repositories match `your-org/*`
+- The actor is either `deploy-bot` or `revert-bot`
 
 ### Policy structure
 
-Package Registry OIDC Policies in Buildkite are defined as a YAML or JSON list of statements, each of which covers a token issuer, and is comprised of a map of claim rules, which must _all_ match the token for the statement to match. If any statement in the policy matches, the token is accepted. If no statements match, the token is rejected.
+OIDC policy [_statements_](#statements) in Buildkite Packages are defined as a YAML- or JSON-formatted list, each of which includes a _token issuer_ from an OIDC identity provider, and also comprises of a map of [_claim rules_](#claim-rules).
 
-When using YAML to define a policy, only "simple" YAML is accepted - YAML containing only scalar values, maps, and lists. This means that complex YAML features like anchors, aliases, tagged values are not supported, and will be rejected.
+If an OIDC token's claims match both the token issuer and _all_ claim rules defined by any statement within a registry's OIDC policy, then the token is accepted and the OIDC identity provider that issued the token is granted access to the registry. If no statements of the OIDC policy match, the token is rejected, and no registry access is granted.
+
+When using YAML to define an OIDC policy, only _simple_ YAML syntax is accepted—that is, YAML containing only scalar values, maps, and lists. Complex YAML syntax and features, such as anchors, aliases, and tagged values are not supported.
+
+<a id="statements"></a>
 
 #### Statements
 
-Each statement in the policy must contain contain an `iss` field, which is the issuer of the token. This is used to match the token to the statement. Multiple statements can be used to allow access from multiple issuers, and multiple statements covering the same issuer can be used for more complex policies.
+A _statement_ defines a list of [_claim rules_](#claim-rules) for a particular _token issuer_ within an OIDC policy, where a token issuer is typically determined by an OIDC identity provider.
 
-Currently, only tokens from a specific set of issuers are supported. The supported issuers are:
+Each statement in the policy must contain contain a token issuer (`iss`) field, whose value is determined by the OIDC identity provider, and permits OIDC tokens from that token issuer. While multiple statements are typically used to allow access from multiple token issuers, more than one statement can also be defined for a single OIDC identity provider to handle more complex claim rule scenarios.
 
-| Issuer name    | `iss` value                                   | Link to documentation |
-| -------------- | --------------------------------------------- | --------------------- |
-| Buildkite      | `https://agent.buildkite.com`                 | [Buildkite Agent OIDC Tokens](/docs/agent/v3/cli-oidc) |
+A statement must also contain a `claims` field, which is a map of [claim rules](#claim-rules), where its key is the name of the claim being verified, and its value is a rule used to verify this claim. Each rule is a map of matchers, which are used to match the claim value in the token.
+
+Currently, only OIDC tokens from the following token issuers are supported:
+
+| Token issuer name | The token issuer (`iss`) value | Relevant documentation link |
+| ----------------- | ------------------------------ | --------------------------- |
+| Buildkite | `https://agent.buildkite.com` | [Buildkite Agent `oidc` command](/docs/agent/v3/cli-oidc) |
 | GitHub Actions | `https://token.actions.githubusercontent.com` | [GitHub Actions OIDC Tokens](https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/about-security-hardening-with-openid-connect) |
-| CircleCI       | `https://oidc.circleci.com/org/$ORG` where `$ORG` is your organization name | [CircleCI OIDC Tokens](https://circleci.com/docs/openid-connect-tokens/) |
+| CircleCI | `https://oidc.circleci.com/org/$ORG` where `$ORG` is your organization name | [CircleCI OIDC Tokens](https://circleci.com/docs/openid-connect-tokens) |
 
-If you'd like to use OIDC tokens from a different issuer in Buildkite Package Registries, please [contact support](mailto:support@buildkite.com) - we'd love to hear from you!
+If you'd like to use OIDC tokens from a different token issuer or OIDC identity provide in Buildkite Packages, please contact [support](https://buildkite.com/support).
 
-The statement must also contain a `claims` field, which is a map of claim rules where the key is the name of the claim being verified, and the value is a rule used to verify it. Each rule is a map of matchers, which are used to match the claim value in the token.
+<a id="claim-rules"></a>
 
 #### Claim rules
+
+A statement must also contain a `claims` field, which is a map of [claim rules](#claim-rules), where its key is the name of the claim being verified, and its value is a rule used to verify this claim. Each rule is a map of matchers, which are used to match the claim value in the token.
 
 For a statement to match a token, all claim rules in that statement must match the token's claims. If a claim is not present in the token, it is considered to not match the rule. Where a claim rule contains multiple matchers - such as the `build_branch` claim rule above - **all** of the matchers must match for the claim to match the rule. In the `build_branch` example above, this means that the token must have a `build_branch` claim that is either `main` or starts with `feature/`, but is not `feature/not-this-one`.
 
 Note that this means that some combinations of matchers can never match a token. For example, the following policy can never match a token, as the claim `build_branch` cannot be both equal to `main` and not equal to `main` at the same time:
+
 ```yaml
 - iss: "https://agent.buildkite.com"
   claims:
@@ -75,6 +146,7 @@ Note that this means that some combinations of matchers can never match a token.
       equals: "main"
       not_equals: "main"
 ```
+
 ##### Claim rule matchers
 
 Available matchers for claim rules are:
@@ -97,20 +169,6 @@ organization_slug: "your-org"
 organization_slug:
   equals: "your-org"
 ```
-
-## Define an OIDC policy for a registry
-
-You can specify an OIDC policy for your Buildkite registry, which defines the criteria for which OIDC tokens, from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another third-party system, will be accepted by your registry and authenticate a package publication/upload action from that system.
-
-To define an OIDC policy for one or more Buildkite pipeline jobs in a registry:
-
-1. Select **Packages** in the global navigation to access the [**Registries**](https://buildkite.com/organizations/~/packages) page.
-
-1. Select the registry whose OIDC policy needs defining.
-
-1. Select **Settings** > **OIDC Policy** to access the registry's **OIDC Policy** page.
-
-1. In the **Policy** field, specify this using the above format
 
 ## Configure a Buildkite pipeline to authenticate to a registry
 
