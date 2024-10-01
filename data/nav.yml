@@ -500,7 +500,7 @@
     - name: "Package ecosystems"
       children:
         - name: "Overview"
-          path: "packages/ecosystems"
+          path: "package-registries/ecosystems"
         - name: "Alpine"
           path: "package-registries/alpine"
         - name: "Container"
