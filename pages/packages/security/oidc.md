@@ -37,9 +37,9 @@ To define an OIDC policy for one or more Buildkite pipeline jobs in a registry:
 
 1. Select **Settings** > **OIDC Policy** to access the registry's **OIDC Policy** page.
 
-1. In the **Policy** field, specify this using the following basic [OIDC policy format](#define-an-oidc-policy-for-a-registry-oidc-policy-format), or one based on a [more complex example](#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example).
+1. In the **Policy** field, specify this using the following basic [OIDC policy format](#define-an-oidc-policy-for-a-registry-oidc-policy-format), or one based on a more [complex example](#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example).
 
-Learn more about how an OIDC policy for a registry is constructed in [Policy structure](#define-an-oidc-policy-for-a-registry-policy-structure).
+Learn more about how an OIDC policy for a registry is constructed in [Policy structure and behavior](#define-an-oidc-policy-for-a-registry-policy-structure-and-behavior).
 
 ### OIDC policy format
 
@@ -101,9 +101,9 @@ The second statement allows OIDC tokens representing a GitHub Actions workflow, 
 - The repositories match `your-org/*`
 - The actor is either `deploy-bot` or `revert-bot`
 
-### Policy structure
+### Policy structure and behavior
 
-OIDC policy [_statements_](#statements) in Buildkite Packages are defined as a YAML- or JSON-formatted list, each of which includes a _token issuer_ from an OIDC identity provider, and also comprises of a map of [_claim rules_](#claim-rules).
+OIDC policy [_statements_](#statements) in Buildkite Packages are defined as a YAML- or JSON-formatted list, each of which includes a _token issuer_ from an OIDC identity provider, along with a map of [_claim rules_](#claim-rules).
 
 If an OIDC token's claims match both the token issuer and _all_ claim rules defined by any statement within a registry's OIDC policy, then the token is accepted and the OIDC identity provider that issued the token is granted access to the registry. If no statements of the OIDC policy match, the token is rejected, and no registry access is granted.
 
@@ -115,7 +115,7 @@ When using YAML to define an OIDC policy, only _simple_ YAML syntax is acceptedâ
 
 A _statement_ defines a list of [_claim rules_](#claim-rules) for a particular _token issuer_ within an OIDC policy, where a token issuer is typically determined by an OIDC identity provider.
 
-Each statement in the policy must contain contain a token issuer (`iss`) field, whose value is determined by the OIDC identity provider, and permits OIDC tokens from that token issuer. While multiple statements are typically used to allow access from multiple token issuers, more than one statement can also be defined for a single OIDC identity provider to handle more complex claim rule scenarios.
+Each statement in the policy must contain contain a token issuer (`iss`) field, whose value is determined by the OIDC identity provider, and permits OIDC tokens from that token issuer. While multiple statements are typically used to allow access from multiple token issuers (that is, one statement per issuer), more than one statement can also be defined for a single issuer or OIDC identity provider to handle more complex claim rule scenarios.
 
 A statement must also contain a `claims` field, which is a map of [claim rules](#claim-rules), where its key is the name of the claim being verified, and its value is a rule used to verify this claim. Each rule is a map of matchers, which are used to match the claim value in the token.
 
@@ -127,7 +127,7 @@ Currently, only OIDC tokens from the following token issuers are supported:
 | GitHub Actions | `https://token.actions.githubusercontent.com` | [GitHub Actions OIDC Tokens](https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/about-security-hardening-with-openid-connect) |
 | CircleCI | `https://oidc.circleci.com/org/$ORG` where `$ORG` is your organization name | [CircleCI OIDC Tokens](https://circleci.com/docs/openid-connect-tokens) |
 
-If you'd like to use OIDC tokens from a different token issuer or OIDC identity provide in Buildkite Packages, please contact [support](https://buildkite.com/support).
+If you'd like to use OIDC tokens from a different token issuer or OIDC identity provider in Buildkite Packages, please contact [support](https://buildkite.com/support).
 
 <a id="claim-rules"></a>
 
