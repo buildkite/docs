@@ -25,7 +25,7 @@ To create a new registry:
 
 Once a [registry is created](#create-a-registry), packages can then be uploaded to it. Learn more about how to manage packages for your registry's relevant language and package ecosystem:
 
-<%= render_markdown partial: 'packages/supported_package_ecosystems' %>
+<%= render_markdown partial: 'package_registries/supported_package_ecosystems' %>
 
 ## Update a registry
 
