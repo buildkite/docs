@@ -10,7 +10,7 @@ The [Buildkite Agent's `oidc` command](/docs/agent/v3/cli-oidc) allows you to re
 
 ## OIDC token requirements
 
-All registries in Buildkite Packages defined with an OIDC policy, requires the following claims from an OIDC token (unless indicated as optional), regardless of the OIDC identity provider that issued the token.
+All registries in Buildkite Packages defined with an OIDC policy, require the following claims from an OIDC token (unless indicated as optional), regardless of the OIDC identity provider that issued the token.
 
 | Claim | Value |
 | ----- | ----- |
