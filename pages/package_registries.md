@@ -4,9 +4,9 @@ template: "landing_page"
 
 # Buildkite Package Registries
 
-Scale out asset management across any ecosystem with _Buildkite Package Registries_. Avoid the bottleneck of poorly managed and insecure dependencies.
+_Buildkite Package Registries_ secures your supply chain and eliminates bottlenecks with co-located packages for faster builds and deployments across any ecosystem.
 
-Buildkite Package Registries allows you to:
+Package Registries allows you to:
 
 - Manage artifacts and packages from [Buildkite Pipelines](/docs/pipelines), as well as other CI/CD applications that require artifact management.
 
@@ -15,7 +15,7 @@ Buildkite Package Registries allows you to:
 As well as storing a collection of packages, a registry also surfaces metadata or attributes associated with a package, such as the package's description, version, contents (files and directories), checksum details, distribution type, dependencies, and so on.
 
 > 📘
-> You can enable [Buildkite Package Registries](https://buildkite.com/packages) through the [**Organization Settings** page](/docs/package-registries/security/permissions#enabling-buildkite-packages).
+> You can enable [Package Registries](https://buildkite.com/packages) through the [**Organization Settings** page](/docs/package-registries/security/permissions#enabling-buildkite-packages).
 
 _Buildkite Packages Registries_ was previously called _Buildkite Packages_.
 
