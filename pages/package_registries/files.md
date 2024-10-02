@@ -3,7 +3,7 @@
 
 Buildkite Package Registries provides registry support for generic files to cover some cases where native package management isn't required.
 
-Once your Files registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload files (of any type and extension) to this registry via the relevant `curl` command presented on your registry details page.
+Once your Files registry has been [created](/docs/package-registries/manage-registries#create-a-registry), you can publish/upload files (of any type and extension) to this registry via the relevant `curl` command presented on your registry details page.
 
 To view and copy this `curl` command:
 
@@ -29,13 +29,13 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/regi
 
 where:
 
-<%= render_markdown partial: 'packages/org_slug' %>
+<%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'packages/registry_slug' %>
+<%= render_markdown partial: 'package_registries/registry_slug' %>
 
 - `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload files to your registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish files to any registry your user account has access to within your Buildkite organization.
 
-<%= render_markdown partial: 'packages/path_to_file' %>
+<%= render_markdown partial: 'package_registries/path_to_file' %>
 
 For example, to upload the file `my-custom-app.ipa` from the current directory to the **My files** registry in the **My organization** Buildkite organization, run the `curl` command:
 
@@ -55,7 +55,7 @@ To access your file details page:
 1. Select your registry on this page.
 1. On your registry page, select the file to display its details page.
 
-<%= render_markdown partial: 'packages/file_details_page_sections' %>
+<%= render_markdown partial: 'package_registries/file_details_page_sections' %>
 
 ### Downloading a file
 

@@ -82,7 +82,7 @@ where:
 
 - `--audience` is the target system that consumes this OIDC token. For Buildkite Package Registries, this value must be based on the URL `https://packages.buildkite.com/{org.slug}/{registry.slug}`.
 
-<%= render_markdown partial: 'packages/org_slug' %>
+<%= render_markdown partial: 'package_registries/org_slug' %>
 
 - `{registry.slug}` is the slug of your registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of your registry name, and can be obtained after accessing **Packages** in the global navigation > your registry from the **Registries** page.
 

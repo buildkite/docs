@@ -2,7 +2,7 @@
 
 Buildkite Package Registries provides registry support for JavaScript-based (Node.js npm) packages.
 
-Once your JavaScript registry has been [created](/docs/packages/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `~/.npmrc` and application's relevant `package.json` files with the command/code snippets presented on your JavaScript registry's details page.
+Once your JavaScript registry has been [created](/docs/package-registries/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `~/.npmrc` and application's relevant `package.json` files with the command/code snippets presented on your JavaScript registry's details page.
 
 To view and copy the required command/code snippet for your `~/.npmrc` and `package.json` configurations:
 
@@ -26,9 +26,9 @@ The following steps describe the process above:
     ```
 
     where:
-    <%= render_markdown partial: 'packages/org_slug' %>
-    <%= render_markdown partial: 'packages/javascript_registry_slug' %>
-    <%= render_markdown partial: 'packages/javascript_registry_write_token' %>
+    <%= render_markdown partial: 'package_registries/org_slug' %>
+    <%= render_markdown partial: 'package_registries/javascript_registry_slug' %>
+    <%= render_markdown partial: 'package_registries/javascript_registry_write_token' %>
 
     **Note:**
     * If your `.npmrc` file doesn't exist, this command automatically creates it for you.
@@ -62,7 +62,7 @@ To access your JavaScript package's details page:
 1. Select your JavaScript registry on this page.
 1. On your JavaScript registry page, select the package to display its details page.
 
-<%= render_markdown partial: 'packages/package_details_page_sections' %>
+<%= render_markdown partial: 'package_registries/package_details_page_sections' %>
 
 ### Downloading a package
 
@@ -90,11 +90,11 @@ npm set //packages.buildkite.com/{org.slug}/{registry.slug}/npm/:_authToken regi
 
 where:
 
-<%= render_markdown partial: 'packages/org_slug' %>
+<%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'packages/javascript_registry_slug' %>
+<%= render_markdown partial: 'package_registries/javascript_registry_slug' %>
 
-- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/packages/manage-registries#update-a-registry-configure-registry-tokens) used to download packages to your JavaScript registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#update-a-registry-configure-registry-tokens) used to download packages to your JavaScript registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
 > 📘
 > If your `.npmrc` file doesn't exist, this command automatically creates it for you.
@@ -115,6 +115,6 @@ where:
 
 - `version.number` is the version of your Node.js package (that is, the `version` field value from its `package.json` file).
 
-<%= render_markdown partial: 'packages/org_slug' %>
+<%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'packages/javascript_registry_slug' %>
+<%= render_markdown partial: 'package_registries/javascript_registry_slug' %>
