@@ -37,11 +37,11 @@ To define an OIDC policy for one or more Buildkite pipeline jobs in a registry:
 
 1. Select **Settings** > **OIDC Policy** to access the registry's **OIDC Policy** page.
 
-1. In the **Policy** field, specify this using the following basic [OIDC policy format](#define-an-oidc-policy-for-a-registry-oidc-policy-format), or one based on a more [complex example](#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example).
+1. In the **Policy** field, specify this using the following [Basic OIDC policy format](#define-an-oidc-policy-for-a-registry-basic-oidc-policy-format), or one based on a more [complex example](#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example).
 
 Learn more about how an OIDC policy for a registry is constructed in [Policy structure and behavior](#define-an-oidc-policy-for-a-registry-policy-structure-and-behavior).
 
-### OIDC policy format
+### Basic OIDC policy format
 
 The basic format for an OIDC policy for OIDC tokens issued by a Buildkite Agent is:
 
@@ -60,7 +60,7 @@ where:
 - `pipeline-slug` can be obtained from the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite.
 - `main` or whichever branch of the repository you want to restrict package publication/uploads from pipeline builds.
 
-However, [more complex OIDC policies](#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example) can be created.
+However, more [complex OIDC policies](#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example) can be created.
 
 ### Complex OIDC policy example
 
@@ -119,7 +119,7 @@ Each statement in the policy must contain contain a token issuer (`iss`) field, 
 
 A statement must also contain a `claims` field, which is a map of [claim rules](#claim-rules), where its key is the name of the claim being verified, and its value is a rule used to verify this claim. Each rule is a map of matchers, which are used to match the claim value in the token.
 
-Currently, only OIDC tokens from the following token issuers are supported:
+Currently, only OIDC tokens from the following token issuers are supported.
 
 | Token issuer name | The token issuer (`iss`) value | Relevant documentation link |
 | ----------------- | ------------------------------ | --------------------------- |
