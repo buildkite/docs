@@ -10,14 +10,13 @@ To delete a suite, or regenerate its API token, go to suite settings.
 
 ## Parallelized builds
 
-When a [pipeline's jobs are configured to run in parallel across multiple agents](/docs/tutorials/parallel-builds) (to speed up build times), the jobs of a pipeline's test suite are also run in parallel, although Test Engine will report the entire build execution as part of the same test run.
+In CI/CD, tests can be made to run in parallel (known as _parallelized builds_) using features of your own CI/CD pipeline or workflow tool. Parallelized pipeline/workflow builds typical run and complete faster than builds which are not parallelized.
 
-When test runs are split across multiple agents, each test is de-duplicated by both the Test Engine API token and unique build identifier.
-
-The information that serves as a unique build identifier differs between CI environments. For details, see `run_env[key]` environment variables on our [CI environments page](/docs/test-engine/ci-environments).
+In Buildkite Pipelines, tests can be made to run in parallel when they are run as [parallel jobs](https://buildkite.com/docs/tutorials/parallel-builds#parallel-jobs).
 
 > 📘
-> You can further speed up the duration of parallelized test suite runs by implementing [test splitting](/docs/test-engine/test-splitting).
+> When tests are run in parallel across multiple agents, they can be grouped into the same run by defining the same `run_env[key]` environment variable. Learn more about this environment variable and others in [CI environments](/docs/test-engine/ci-environments).
+> You can further speed up the duration of parallelized builds by implementing [test splitting](/docs/test-engine/test-splitting).
 
 ## Compare across branches
 
