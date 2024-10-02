@@ -4,7 +4,7 @@ template: "landing_page"
 
 # Buildkite Package Registries
 
-_Buildkite Package Registries_ secures your supply chain and eliminates bottlenecks with co-located packages for faster builds and deployments across any ecosystem.
+Scale out asset management for faster builds and deployments across any ecosystem with _Buildkite Package Registries_. Secure your supply chain and avoid the bottlenecks of poorly managed and insecure dependencies with co-located packages.
 
 Package Registries allows you to:
 
