@@ -117,7 +117,7 @@ A _statement_ defines a list of [_claim rules_](#claim-rules) for a particular _
 
 Each statement in the policy must contain contain a token issuer (`iss`) field, whose value is determined by the OIDC identity provider, and permits OIDC tokens from that token issuer. While multiple statements are typically used to allow access from multiple token issuers (that is, one statement per issuer), more than one statement can also be defined for a single issuer or OIDC identity provider to handle more complex claim rule scenarios.
 
-A statement must also contain a `claims` field, which is a map of [claim rules](#claim-rules), where its key is the name of the claim being verified, and its value is a rule used to verify this claim. Each rule is a map of matchers, which are used to match the claim value in the token.
+A statement must also contain a `claims` field, which is a map of [claim rules](#claim-rules).
 
 Currently, only OIDC tokens from the following token issuers are supported.
 
@@ -133,7 +133,7 @@ If you'd like to use OIDC tokens from a different token issuer or OIDC identity 
 
 #### Claim rules
 
-A statement must also contain a `claims` field, which is a map of [claim rules](#claim-rules), where its key is the name of the claim being verified, and its value is a rule used to verify this claim. Each rule is a map of matchers, which are used to match the claim value in the token.
+A [_statement_](#statements) contains a `claims` field, which in turn contains a map of _claim rules_, where the rule's key is the name of the claim being verified, and the rule's value is the actual rule used to verify this claim. Each rule is a map of matchers, which are used to match the claim value in the token.
 
 For a statement to match a token, all claim rules in that statement must match the token's claims. If a claim is not present in the token, it is considered to not match the rule. Where a claim rule contains multiple matchers - such as the `build_branch` claim rule above - **all** of the matchers must match for the claim to match the rule. In the `build_branch` example above, this means that the token must have a `build_branch` claim that is either `main` or starts with `feature/`, but is not `feature/not-this-one`.
 
