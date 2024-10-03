@@ -482,6 +482,8 @@
               path: "packages/security"
             - name: "OIDC"
               path: "packages/security/oidc"
+            - name: "SLSA Provenance"
+              path: "packages/security/slsa-provenance"
         - name: "Permissions"
           path: "packages/permissions"
     - name: "Package ecosystems"
