@@ -133,11 +133,11 @@ If you'd like to use OIDC tokens from a different token issuer or OIDC identity 
 
 #### Claim rules
 
-A [_statement_](#statements) contains a `claims` field, which in turn contains a map of _claim rules_, where the rule's key is the name of the claim being verified, and the rule's value is the actual rule used to verify this claim. Each rule is a [map](https://www.educative.io/answers/how-to-represent-maps-in-yaml) of _matchers_, which are used to match the claim value in the token.
+A [_statement_](#statements) contains a `claims` field, which in turn contains a map of _claim rules_, where the rule's key is the name of the claim being verified, and the rule's value is the actual rule used to verify this claim. Each rule is a [map](https://www.educative.io/answers/how-to-represent-maps-in-yaml) of [_matchers_](#claim-rule-matchers), which are used to match a claim value in an OIDC token.
 
 If at least one claim rule defined within an OIDC policy's statement is missing from an OIDC token and no other statements in that policy have complete matches with the token's claims, then the token is rejected. When a claim rule contains multiple matchers—such as the `build_branch` claim rule in the [complex example](#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example) above—_all_ of the matchers must match for the claim to match the rule. In the `build_branch` example above, this means that the token must have a `build_branch` claim that is either `main` or starts with `feature/`, but is not `feature/not-this-one`.
 
-Note that this means that some combinations of matchers can never match a token. For example, the following policy can never match a token, as the claim `build_branch` cannot be both equal to `main` and not equal to `main` at the same time:
+Be aware that this means some combinations of matchers used in a claim rule may never match a token. For example, the following OIDC policy statement will always reject an OIDC token, since the token's `build_branch` claim cannot be both equal to `main` and not equal to `main` at the same time:
 
 ```yaml
 - iss: "https://agent.buildkite.com"
@@ -147,11 +147,13 @@ Note that this means that some combinations of matchers can never match a token.
       not_equals: "main"
 ```
 
+<a id="claim-rule-matchers"></a>
+
 #### Claim rule matchers
 
-Available matchers for claim rules are:
+The following _matchers_ can be used within a [_claim rule_](#claim-rules).
 
-| Matcher      | Argument Type                                | Description                                                   |
+| Matcher      | Argument type                                | Description                                                   |
 | ------------ | -------------------------------------------- | ------------------------------------------------------------- |
 | `equals`     | Scalar                                       | The claim value must be exactly equal to the argument         |
 | `not_equals` | Scalar                                       | The claim value must not be exactly equal to the argument     |
@@ -159,7 +161,11 @@ Available matchers for claim rules are:
 | `not_in`     | List of scalars                              | The claim value must not be in the list of arguments          |
 | `matches`    | List of glob strings OR a single glob string | The claim value must match at least one of the globs provided. Note that this matcher is only applied when the claim value is a string, and is ignored otherwise |
 
-In the above table, a scalar is a single value, which must be a String, Number (float or integer), Boolean, or Null. A glob string is a string that may contain wildcards, such as `*` or `?`, which match zero or more characters, or a single character respectively. Glob strings are _not_ regular expressions, and do not support the full range of features that regular expressions do.
+Argument type details:
+
+- A scalar is a single value, which must be a String, Number (float or integer), Boolean, or Null.
+
+- A glob string is a string that may contain wildcards, such as `*` or `?`, which match zero or more characters, or a single character respectively. Glob strings are _not_ regular expressions, and do not support the full range of features that regular expressions do.
 
 As a special case, if a claim rule in its entirety is a scalar, it is treated as if it were a rule with the `equals` matcher. This means that the following two claim rules are equivalent:
 
