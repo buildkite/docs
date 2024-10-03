@@ -3,7 +3,7 @@
 class Page::Renderers::ExternalLink
 
   INTERNAL_LINK_PREFIXES = [
-    'buildkite.com/docs/',
+    '/docs/',
     '#',
     'mailto:',
     'tel:',
