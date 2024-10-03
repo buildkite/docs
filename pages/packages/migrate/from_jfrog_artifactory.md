@@ -9,8 +9,10 @@ To migrate from JFrog Artifactory, you have to download all your packages from A
 ## Downloading packages via Artifactory UI
 
 You can download packages via a specific version or a complete folder of packages.
-   * To download packages from a specific package version, follow the Artifactory documentation on [Downloading Package Versions](https://jfrog.com/help/r/jfrog-artifactory-documentation/downloading-package-versions)
-   * To download a complete folder of packages from an Artifactory repository, follow their documentation on [Downloading Packages by Folder](https://jfrog.com/help/r/jfrog-artifactory-documentation/download-a-folder). You might need to configure folder download from the administrator settings.
+
+* To download packages from a specific package version, follow the Artifactory documentation on [Downloading Package Versions](https://jfrog.com/help/r/jfrog-artifactory-documentation/downloading-package-versions).
+
+* To download a complete folder of packages from an Artifactory repository, follow their documentation on [Downloading Packages by Folder](https://jfrog.com/help/r/jfrog-artifactory-documentation/download-a-folder). You might need to configure folder download from the administrator settings.
 
 ## Downloading packages via the CLI
 
