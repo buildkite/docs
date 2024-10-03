@@ -118,7 +118,7 @@ A _statement_ defines a list of [_claim rules_](#claim-rules) for a particular _
 
 Each statement in the policy must contain contain a token issuer (`iss`) field, whose value is determined by the OIDC identity provider, and permits OIDC tokens from that token issuer. While multiple statements are typically used to allow access from multiple token issuers (that is, one statement per issuer), more than one statement can also be defined for a single issuer or OIDC identity provider to handle more complex claim rule scenarios.
 
-A statement must also contain a `claims` field, which is a [map](https://www.educative.io/answers/how-to-represent-maps-in-yaml) of [claim rules](#claim-rules).
+A statement must also contain a `claims` field, which is a map of [claim rules](#claim-rules).
 
 Currently, only OIDC tokens from the following token issuers are supported.
 
@@ -134,7 +134,7 @@ If you'd like to use OIDC tokens from a different token issuer or OIDC identity 
 
 #### Claim rules
 
-A [_statement_](#statements) contains a `claims` field, which in turn contains a map of _claim rules_, where the rule's key is the name of the claim being verified, and the rule's value is the actual rule used to verify this claim. Each rule is a [map](https://www.educative.io/answers/how-to-represent-maps-in-yaml) of [_matchers_](#claim-rule-matchers), which are used to match a claim value in an OIDC token.
+A [_statement_](#statements) contains a `claims` field, which in turn contains a map of _claim rules_, where the rule's key is the name of the claim being verified, and the rule's value is the actual rule used to verify this claim. Each rule is a map of [_matchers_](#claim-rule-matchers), which are used to match a claim value in an OIDC token.
 
 If at least one claim rule defined within an OIDC policy's statement is missing from an OIDC token and no other statements in that policy have complete matches with the token's claims, then the token is rejected. When a claim rule contains multiple matchers—such as the `build_branch` claim rule in the [complex example](#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example) above—_all_ of the rule's matchers must match a claim in the token for it to be granted registry access. In the `build_branch` example above, this means that the token must have a `build_branch` claim whose value is either `main` or begins with `feature/`, but whose value is not `feature/not-this-one`.
 

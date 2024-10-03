@@ -11,7 +11,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -d '{
     "name": "my registry",
     "ecosystem": "ruby",
-    "description": "registry containing ruby gems"
+    "description": "registry containing ruby gems",
     "oidc_policy": [
       {
         "iss": "https://agent.buildkite.com",
@@ -57,7 +57,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 <table class="responsive-table">
   <tbody>
     <tr><th><code>description</code></th><td>Description of the registry.<br><em>Default value:</em> <code>null</code>.</td></tr>
-    <tr><th><code>oidc_policy</code></th><td>A policy matching a <a href="/docs/packages/security/oidc#define-an-oidc-policy-for-a-registry-basic-oidc-policy-format">basic</a> or <a href="/docs/packages/security/oidc#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example">more complex</a> OIDC Policy format. Can be either stringified YAML, or a JSON array of policy statements.<br><em>Default value:</em> <code>null</code>.</td></tr>
+    <tr><th><code>oidc_policy</code></th><td>A policy matching a <a href="/docs/packages/security/oidc#define-an-oidc-policy-for-a-registry-basic-oidc-policy-format">basic</a> or <a href="/docs/packages/security/oidc#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example">more complex</a> OIDC policy format. Can be either stringified YAML, or a JSON array of policy statements.<br><em>Default value:</em> <code>null</code>.</td></tr>
   </tbody>
 </table>
 
@@ -135,8 +135,19 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "my registry",
-    "description": "registry containing ruby gems"
-    }'
+    "description": "registry containing ruby gems",
+    "oidc_policy": [
+      {
+        "iss": "https://agent.buildkite.com",
+        "claims": {
+          "organization_slug": "my-org",
+          "pipeline_slug": {
+            "in": ["my-pipeline"]
+          }
+        }
+      }
+    ]
+  }'
 ```
 
 ```json
@@ -162,6 +173,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tbody>
     <tr><th><code>name</code></th><td>Name of the registry.<br><em>Example:</em> <code>my registry</code>.</td></tr>
     <tr><th><code>description</code></th><td>Description of the registry.<br><em>Example:</em> <code>registry containing ruby gems</code>.</td></tr>
+    <tr><th><code>oidc_policy</code></th><td>A policy matching a <a href="/docs/packages/security/oidc#define-an-oidc-policy-for-a-registry-basic-oidc-policy-format">basic</a> or <a href="/docs/packages/security/oidc#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example">more complex</a> OIDC policy format. Can be either stringified YAML, or a JSON array of policy statements. Be aware that if you are modifying an existing OIDC policy, the entire revised OIDC policy needs to be re-posted in this update request.<br><em>Default value:</em> <code>null</code>.</td></tr>
   </tbody>
 </table>
 
