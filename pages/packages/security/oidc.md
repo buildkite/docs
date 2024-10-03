@@ -79,6 +79,7 @@ The following OIDC policy for a registry in Buildkite Packages contains two [_st
       matches:
         - main
         - feature/*
+      not_equals: feature/not-this-one
 
 - iss: https://token.actions.githubusercontent.com
   claims:
@@ -135,16 +136,16 @@ If you'd like to use OIDC tokens from a different token issuer or OIDC identity 
 
 A [_statement_](#statements) contains a `claims` field, which in turn contains a map of _claim rules_, where the rule's key is the name of the claim being verified, and the rule's value is the actual rule used to verify this claim. Each rule is a [map](https://www.educative.io/answers/how-to-represent-maps-in-yaml) of [_matchers_](#claim-rule-matchers), which are used to match a claim value in an OIDC token.
 
-If at least one claim rule defined within an OIDC policy's statement is missing from an OIDC token and no other statements in that policy have complete matches with the token's claims, then the token is rejected. When a claim rule contains multiple matchers—such as the `build_branch` claim rule in the [complex example](#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example) above—_all_ of the matchers must match for the claim to match the rule. In the `build_branch` example above, this means that the token must have a `build_branch` claim that is either `main` or starts with `feature/`, but is not `feature/not-this-one`.
+If at least one claim rule defined within an OIDC policy's statement is missing from an OIDC token and no other statements in that policy have complete matches with the token's claims, then the token is rejected. When a claim rule contains multiple matchers—such as the `build_branch` claim rule in the [complex example](#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example) above—_all_ of the rule's matchers must match a claim in the token for it to be granted registry access. In the `build_branch` example above, this means that the token must have a `build_branch` claim whose value is either `main` or begins with `feature/`, but whose value is not `feature/not-this-one`.
 
-Be aware that this means some combinations of matchers used in a claim rule may never match a token. For example, the following OIDC policy statement will always reject an OIDC token, since the token's `build_branch` claim cannot be both equal to `main` and not equal to `main` at the same time:
+Be aware that this means some combinations of matchers used in a claim rule may never match an OIDC token's claims. For example, the following OIDC policy statement will always reject a token, since the token's `build_branch` claim cannot be both equal to `main` and not equal to `main` at the same time:
 
 ```yaml
-- iss: "https://agent.buildkite.com"
+- iss: https://agent.buildkite.com
   claims:
     build_branch:
-      equals: "main"
-      not_equals: "main"
+      equals: main
+      not_equals: main
 ```
 
 <a id="claim-rule-matchers"></a>
@@ -153,13 +154,13 @@ Be aware that this means some combinations of matchers used in a claim rule may 
 
 The following _matchers_ can be used within a [_claim rule_](#claim-rules).
 
-| Matcher      | Argument type                                | Description                                                   |
-| ------------ | -------------------------------------------- | ------------------------------------------------------------- |
-| `equals`     | Scalar                                       | The claim value must be exactly equal to the argument         |
-| `not_equals` | Scalar                                       | The claim value must not be exactly equal to the argument     |
-| `in`         | List of scalars                              | The claim value must be in the list of arguments              |
-| `not_in`     | List of scalars                              | The claim value must not be in the list of arguments          |
-| `matches`    | List of glob strings OR a single glob string | The claim value must match at least one of the globs provided. Note that this matcher is only applied when the claim value is a string, and is ignored otherwise |
+| Matcher | Argument type | Description |
+| ------- | ------------- | ----------- |
+| `equals` | Scalar  | The claim value must be exactly equal to the argument. |
+| `not_equals` | Scalar | The claim value must not be exactly equal to the argument. |
+| `in` | List of scalars | The claim value must be in the list of arguments. |
+| `not_in` | List of scalars | The claim value must not be in the list of arguments. |
+| `matches` | List of glob strings OR a single glob string | The claim value must match at least one of the globs provided. Note that this matcher is only applied when the claim value is a string, and is ignored otherwise. |
 
 Argument type details:
 
@@ -170,10 +171,10 @@ Argument type details:
 As a special case, if a claim rule in its entirety is a scalar, it is treated as if it were a rule with the `equals` matcher. This means that the following two claim rules are equivalent:
 
 ```yaml
-organization_slug: "your-org"
+organization_slug: your-org
 # is equivalent to
 organization_slug:
-  equals: "your-org"
+  equals: your-org
 ```
 
 ## Configure a Buildkite pipeline to authenticate to a registry
