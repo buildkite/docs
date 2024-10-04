@@ -4,7 +4,7 @@ The packages API endpoint lets you create and manage packages in a registry.
 
 ## Publish a package
 
-The following type of `curl` syntax for publishing to registries will work across [all package ecosystems supported by Buildkite Packages](/docs/packages/ecosystems), with the `file` form-field modified accordingly.
+The following type of `curl` syntax for publishing to registries will work across [all package ecosystems supported by Buildkite Package Registries](/docs/package-registries/ecosystems), with the `file` form-field modified accordingly.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -14,21 +14,21 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 However, this type of REST API call is just recommended for:
 
-- [Alpine (apk)](/docs/packages/alpine#publish-a-package) packages
-- [Debian/Ubuntu (deb)](/docs/packages/debian#publish-a-package) packages
-- [Files (generic)](/docs/packages/files#publish-a-file)
-- [Helm (Standard)](/docs/packages/helm#publish-a-chart) charts
-- [Python (PyPI)](/docs/packages/python#publish-a-package) packages
-- [Red Hat (RPM)](/docs/packages/red-hat#publish-a-package) packages
-- [Terraform](/docs/packages/terraform#publish-a-module) modules
+- [Alpine (apk)](/docs/package-registries/alpine#publish-a-package) packages
+- [Debian/Ubuntu (deb)](/docs/package-registries/debian#publish-a-package) packages
+- [Files (generic)](/docs/package-registries/files#publish-a-file)
+- [Helm (Standard)](/docs/package-registries/helm#publish-a-chart) charts
+- [Python (PyPI)](/docs/package-registries/python#publish-a-package) packages
+- [Red Hat (RPM)](/docs/package-registries/red-hat#publish-a-package) packages
+- [Terraform](/docs/package-registries/terraform#publish-a-module) modules
 
-For other supported package ecosystems, it is recommended that you use their native tools to publish to registries in your Buildkite Packages organization. These ecosystems' native tools are for:
+For other supported package ecosystems, it is recommended that you use their native tools to publish to registries in your Buildkite Package Registries organization. These ecosystems' native tools are for:
 
-- [Container (Docker)](/docs/packages/container#publish-an-image) images
-- [Helm (OCI)](/docs/packages/helm-oci#publish-a-chart) charts
-- Java ([Maven](/docs/packages/maven#publish-a-package) or [Gradle leveraging the Maven Publish Plugin](/docs/packages/gradle#publish-a-package)) packages
-- [JavaScript (npm)](/docs/packages/javascript#publish-a-package) packages
-- [Ruby (RubyGems)](/docs/packages/ruby#publish-a-package) packages
+- [Container (Docker)](/docs/package-registries/container#publish-an-image) images
+- [Helm (OCI)](/docs/package-registries/helm-oci#publish-a-chart) charts
+- Java ([Maven](/docs/package-registries/maven#publish-a-package) or [Gradle leveraging the Maven Publish Plugin](/docs/package-registries/gradle#publish-a-package)) packages
+- [JavaScript (npm)](/docs/package-registries/javascript#publish-a-package) packages
+- [Ruby (RubyGems)](/docs/package-registries/ruby#publish-a-package) packages
 
 The following type of response is returned by Buildkite upon a successful `curl` publishing event.
 
