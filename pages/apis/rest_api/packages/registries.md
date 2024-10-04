@@ -57,6 +57,8 @@ Optional [request body properties](/docs/api#request-body-properties):
 <table class="responsive-table">
   <tbody>
     <tr><th><code>description</code></th><td>Description of the registry.<br><em>Default value:</em> <code>null</code>.</td></tr>
+    <tr><th><code>emoji</code></th><td>Emoji for the registry using the <a href="/docs/apis/rest-api/emojis">emoji syntax</a>.<br><em>Example:</em> <code>"\:sunflower\:"</code>.</td></tr>
+    <tr><th><code>color</code></th><td>Color hex code for the registry.<br><em>Example:</em> <code>"#f0ccff"</code>.</td></tr>
     <tr><th><code>oidc_policy</code></th><td>A policy matching a <a href="/docs/packages/security/oidc#define-an-oidc-policy-for-a-registry-basic-oidc-policy-format">basic</a> or <a href="/docs/packages/security/oidc#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example">more complex</a> OIDC policy format. Can be either stringified YAML, or a JSON array of policy statements.<br><em>Default value:</em> <code>null</code>.</td></tr>
   </tbody>
 </table>
