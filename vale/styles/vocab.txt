@@ -122,6 +122,7 @@ LFS
 libpq
 linux
 macOS
+matchers
 Memcache
 minitest
 misconfiguration
@@ -195,6 +196,7 @@ sre
 sso
 statefully
 stdout
+stringified
 subcommand
 subcommands
 subfolders
