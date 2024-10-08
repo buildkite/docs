@@ -151,13 +151,27 @@ Success response: `200 OK`
 
 ## Copy a package
 
-Copies a package from a source registry to a destination registry.
+For some supported [package ecosystems](/docs/packages/ecosystems), copies a package from a source registry to a destination registry.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{source_registry.slug}/packages/{package.id}/copy?to={destination_registry.slug}"
   -H "Content-Type: application/json"
 ```
+
+Currently, this REST API call only supports package types belonging to the following package ecosystems:
+
+- [Alpine (apk)](/docs/packages/alpine)
+- [Debian/Ubuntu (deb)](/docs/packages/debian)
+- [Files (generic)](/docs/packages/files)
+- [JavaScript (npm)](/docs/packages/javascript)
+- [Python (PyPI)](/docs/packages/python)
+- [Red Hat (RPM)](/docs/packages/red-hat)
+- [Ruby (RubyGems)](/docs/packages/ruby)
+
+If you wish this feature to be available for package types belonging to other package ecosystems, please contact [support](https://buildkite.com/support).
+
+The following type of response is returned by Buildkite upon a successful `curl` copying event.
 
 ```json
 {
