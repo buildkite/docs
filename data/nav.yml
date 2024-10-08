@@ -487,11 +487,11 @@
     - name: Migration
       children:
         - name: Overview
-          path: packages/migrate/overview
+          path: packages/migration/overview
         - name: From JFrog Artifactory
-          path: packages/migrate/from-jfrog-artifactory
+          path: packages/migration/from-jfrog-artifactory
         - name: From Cloudsmith
-          path: packages/migrate/from-cloudsmith
+          path: packages/migration/from-cloudsmith
     - name: "Package ecosystems"
       start_expanded: true
       children:
