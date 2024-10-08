@@ -15,7 +15,7 @@ Package Registries allows you to:
 As well as storing a collection of packages, a registry also surfaces metadata or attributes associated with a package, such as the package's description, version, contents (files and directories), checksum details, distribution type, dependencies, and so on.
 
 > 📘
-> For customers on legacy Buildkite plans, you can enable [Package Registries](https://buildkite.com/platform/package-registries) through the [**Organization Settings** page](/docs/package-registries/security/permissions#enabling-buildkite-packages).
+> Customers on legacy Buildkite plans can enable [Package Registries](https://buildkite.com/platform/package-registries) through the [**Organization Settings** page](/docs/package-registries/security/permissions#enabling-buildkite-packages).
 
 _Buildkite Packages Registries_ was previously called _Buildkite Packages_.
 
