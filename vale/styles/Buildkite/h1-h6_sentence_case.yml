@@ -60,6 +60,7 @@ exceptions:
   - CircleCI
   - CLI
   - CloudFormation
+  - Cloudsmith
   - CloudWatch
   - CloudWatch Logs
   - CORS
@@ -127,6 +128,7 @@ exceptions:
   - OneLogin
   - OpenTelemetry
   - OS X
+  - Package Registries
   - PagerDuty
   - Phabricator
   - pipeline.artifacts_read.pipeline

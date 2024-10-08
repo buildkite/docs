@@ -46,6 +46,7 @@ chroots
 CI
 classpath
 cli
+Cloudsmith
 CloudWatch
 CMake
 composable
@@ -106,6 +107,7 @@ IPs
 iTerm
 iTerm's
 Jenkins
+JFrog
 jpegs
 jq
 json
