@@ -52,7 +52,7 @@ To configure build exports for your organization, you'll need to prepare an Amaz
   - [S3 Versioning](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html) to help recover objects from accidental deletion or overwrite.
 * You may want to use [Amazon S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) to manage storage class and object expiry.
 * You may want to set up additional safety mechanisms for large data dumps:
-  - We recommend setting up logging and alerts (e.g., using [AWS CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)) to monitor usage and set thresholds for data upload limits.
+  - We recommend setting up logging and alerts (e.g. using [AWS CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)) to monitor usage and set thresholds for data upload limits.
   - Use cost monitoring with [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) or [AWS CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html) to track large or unexpected uploads that may lead to high costs. Setting budget alerts can help you detect unexpected increases in usage early.
 
 ¹ Your S3 bucket policy should look like this, with `YOUR-BUCKET-NAME-HERE` and
