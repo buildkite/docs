@@ -123,6 +123,8 @@ Currently, this REST API call only supports package types belonging to the follo
 
 If you wish this feature to be available for package types belonging to other package ecosystems, please contact [support](https://buildkite.com/support).
 
+The following type of response is returned by Buildkite upon a successful `curl` copying event.
+
 ```json
 {
   "id": "0191e23a-4bc8-7683-bfa4-5f73bc9b7c44",
