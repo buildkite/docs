@@ -125,6 +125,7 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 - AWS CLI
 - Azure CLI
+- gcloud CLI
 - CodeQL
 - Bicep CLI
 - fastlane
