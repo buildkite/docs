@@ -103,7 +103,7 @@ Success response: `200 OK`
 
 ## Copy a package
 
-Copies a package from a source registry to a destination registry.
+Copies a package from a source registry to a destination registry. Note, this API is not available for all package types. Currently it supports Alpine, Deb, Gem, NodeJS, Python, RPM, and generic files. If you wish to copy an unsupported package type please contact support.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
