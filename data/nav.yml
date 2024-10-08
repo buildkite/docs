@@ -495,6 +495,8 @@
     - name: "Package ecosystems"
       start_expanded: true
       children:
+        - name: "Overview"
+          path: "packages/ecosystems"
         - name: "Alpine"
           path: "packages/alpine"
         - name: "Container"
@@ -565,7 +567,19 @@
             - name: "Members"
               path: "apis/rest-api/organizations/members"
               pill: "beta"
+        - name: "Packages "
+          # Keep space at end to prevent "Packages" in global nav bar being
+          # highlighted when any child page of "API > REST > Packages" is selected.
+          children:
+            - name: "Registries"
+              path: "apis/rest-api/packages/registries"
+            - name: "Registry tokens"
+              path: "apis/rest-api/packages/registry-tokens"
+            - name: "Packages"
+              path: "apis/rest-api/packages/packages"
         - name: "Pipelines "
+          # Keep space at end to prevent "Pipelines" in global nav bar being
+          # highlighted when any child page of "API > REST > Pipelines" is selected.
           children:
             - name: "Overview"
               path: "apis/rest-api/pipelines"

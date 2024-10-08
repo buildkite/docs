@@ -6,7 +6,7 @@ toc: false
 
 Buildkite Pipelines uses a hybrid architecture consisting of the following:
 
-- **Buildkite dashboard:** A software-as-a-service (SaaS) control panel for visualizing and managing CI/CD pipelines. This coordinates work and displays results.
+- **Buildkite dashboard:** A software-as-a-service (SaaS) control plane for visualizing and managing CI/CD pipelines. This coordinates work and displays results.
 - **Agents:** Small, reliable, and cross-platform build runners. These are hosted by you, either on-premises or in the cloud. They execute the work they receive from the Buildkite dashboard.
 
 The following diagram shows the split in Buildkite between the SaaS platform and the agents running on your infrastructure.

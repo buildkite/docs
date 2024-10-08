@@ -31,9 +31,8 @@ On this page, we've collected the known limitation where some API features are o
 * <%= pill "ORGANIZATIONS", "organizations" %> [Remove users from an organization](/docs/apis/graphql/cookbooks/organizations#delete-an-organization-member).
 * <%= pill "ORGANIZATIONS", "organizations" %> [Set up SSO](/docs/integrations/sso/sso-setup-with-graphql).
 * <%= pill "PIPELINES", "pipelines" %> [Get all the pipeline metrics from the dashboard from the API](/docs/apis/graphql/cookbooks/pipelines#get-pipeline-metrics).
-* <%= pill "PIPELINES", "pipelines" %> [Get the last build's creation date within every pipeline](/docs/apis/graphql/cookbooks/builds#get-the-creation-date-of-the-most-recent-build-in-every-pipeline).
-* <%= pill "PIPELINES", "pipelines" %> [Count the number of builds on a branch](/docs/apis/graphql/cookbooks/builds#count-the-number-of-builds-on-a-branch).
 * <%= pill "PIPELINES", "pipelines" %> [Get the creation date of the most recent build in every pipeline](/docs/apis/graphql/cookbooks/builds#get-the-creation-date-of-the-most-recent-build-in-every-pipeline).
+* <%= pill "PIPELINES", "pipelines" %> [Count the number of builds on a branch](/docs/apis/graphql/cookbooks/builds#count-the-number-of-builds-on-a-branch).
 * <%= pill "PIPELINES", "pipelines" %> Filter results from pipeline listings.
 * <%= pill "PIPELINES", "pipelines" %> Create and manage pipeline schedules.
 * <%= pill "USERS", "users" %> [Invite a user into a specific team with a specific role and permissions set](/docs/apis/graphql/cookbooks/organizations#create-a-user-add-them-to-a-team-and-set-user-permissions).

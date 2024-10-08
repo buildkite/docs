@@ -1,6 +1,6 @@
 # Organizations API
 
-The organizations API:
+The organizations API endpoint:
 
 - allows you to list organizations and retrieve information about an organization
 

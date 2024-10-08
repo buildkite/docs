@@ -892,6 +892,7 @@ enum AuditEventType {
   REGISTRY_TOKEN_DELETED
   REGISTRY_TOKEN_UPDATED
   REGISTRY_UPDATED
+  REGISTRY_VISIBILITY_CHANGED
   RULE_CREATED
   RULE_DELETED
   SCM_PIPELINE_SETTINGS_CREATED
@@ -8959,6 +8960,16 @@ type Rule implements Node {
   createdBy: User
 
   """
+  Description of the rule
+  """
+  description: String
+
+  """
+  A formatted JSON document of the Rule
+  """
+  document: String
+
+  """
   Effect for the rule
   """
   effect: RuleEffect
@@ -9025,6 +9036,11 @@ input RuleCreateInput {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
+
+  """
+  Description of the rule
+  """
+  description: String
   organizationId: ID!
 
   """
