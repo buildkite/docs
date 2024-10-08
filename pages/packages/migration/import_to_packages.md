@@ -22,7 +22,7 @@ bk package push registry-name {path/to/file | --stdin-file-name filename -} [fla
 bk package push my-registry my-package.tar.gz
 ```
 
-### Example to bulk import files from a folder 
+### Example to bulk import files from a folder
 
 The following script will import all files to a specified registry and file type found in the folder where the script is executed. This script will expect a registry name and a file type when executed.
 

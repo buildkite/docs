@@ -8,7 +8,7 @@ Migrating from another package repository provider to Buildkite Packages should 
 
 ## Prerequisites
 
-The following are prerequisites in migrating from another package repository: 
+The following are prerequisites in migrating from another package repository:
 
 1. Packages from your old repository should have been downloaded locally.
 1. Ensure Buildkite Packages is enabled in your organization.
