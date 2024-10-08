@@ -1,7 +1,3 @@
----
-toc: false
----
-
 # Migrating to Buildkite Packages
 
 Migrating from another package repository provider to Buildkite Packages should be a simple process. This section provides a comprehensive guide to help you export your packages from an old repository provider and import them to Buildkite Packages.
@@ -18,6 +14,5 @@ The following are prerequisites in migrating from another package repository:
 To get started, choose the guide that corresponds to the repository provider you are migrating from:
 
 - [Migrate from JFrog Artifactory](/docs/packages/migration/from_jfrog_artifactory)
-- [Migrate from Cloudsmith](/docs/packages/migration/from_cloudsmith)
 
 If you need further assistance or have any questions, please don’t hesitate to reach out to our [support](https://buildkite.com/support). We’re here to help you in this transition.

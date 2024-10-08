@@ -1,20 +1,12 @@
----
-toc: false
----
+# Import exported packages to Package Registries
 
-# Importing files to Package Registries
-
-After exporting your packages from your old repository, you are now ready to import them to Buildkite Packages!
+After exporting your packages from your old repository, you are now ready to import them to your Buildkite Package Registry!
 
 ## Importing via CLI
 
 Ensure that you have installed the [bk cli](https://github.com/buildkite/cli?tab=readme-ov-file#bk---the-buildkite-cli) tool and configured your organization name and token (using the `bk configure` command).
 
-To push a package to your registry, simply run the command `bk package push`. Ensure that the packages to be imported belong to the supported package ecosystems that are listed [here](/docs/packages#get-started). Below is the `bk package push` command usage:
-
-```bash
-bk package push registry-name {path/to/file | --stdin-file-name filename -} [flags]
-```
+To push a package to your registry, simply run the command `bk package push`. Ensure that the packages to be imported belong to the supported package ecosystems that are listed [here](/docs/packages#get-started). Refer to the bk cli [usage](https://github.com/buildkite/cli?tab=readme-ov-file#usage) for the command options or run `bk package push --help`.
 
 ### Example to import a single package
 

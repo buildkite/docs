@@ -1,7 +1,3 @@
----
-toc: false
----
-
 # Export from JFrog Artifactory
 
 To migrate from JFrog Artifactory, you have to download all your packages from Artifactory locally before importing them to Buildkite Packages. There is currently no direct process to export an Artifactory repository directly to Buildkite Packages.

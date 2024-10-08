@@ -488,10 +488,10 @@
       children:
         - name: Overview
           path: packages/migration/overview
-        - name: From JFrog Artifactory
+        - name: Export From JFrog
           path: packages/migration/from-jfrog-artifactory
-        - name: From Cloudsmith
-          path: packages/migration/from-cloudsmith
+        - name: Import Exported Packages
+          path: packages/migration/import-to-packages 
     - name: "Package ecosystems"
       start_expanded: true
       children:
