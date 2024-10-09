@@ -1,3 +1,4 @@
+#docs-private-to-public-sync
 notify:
   - slack: "$SLACK_CHANNEL"
     if: build.state != "passed"
