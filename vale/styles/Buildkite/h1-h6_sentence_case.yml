@@ -110,6 +110,7 @@ exceptions:
   - Installation
   - JavaScript
   - Jenkins
+  - Jest
   - JSON
   - JUnit
   - KMS
@@ -148,6 +149,7 @@ exceptions:
   - SSH
   - SSO
   - Test Engine
+  - Test Engine Client
   - TESTOWNER
   - Ubuntu
   - URL

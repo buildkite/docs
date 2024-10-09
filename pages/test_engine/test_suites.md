@@ -1,18 +1,24 @@
 # Configuring test suites
 
-In Test Engine, a test _suite_ is a collection of tests. A suite has a _run_, which is the execution of tests in a suite. A suite's run is analogous to a pipeline's build.
+In Test Engine, a _test suite_ (or _suite_) is a collection of tests. A suite has a _run_, which is the execution of tests in a suite. A pipeline's build may create one or more of these runs.
 
 Many organizations set up one suite per test framework, for example one suite for RSpec, and another suite for Jest. Others use a common standard, such as JUnit XML, to combine tests from multiple frameworks to set up custom backend and frontend suites.
 
 Each suite inside Test Engine has a unique API token that you can use to route test information to the correct suite. Pipelines and test suites do not need to have a one-to-one relationship.
 
+To start configuring your test suite, you first need to have configured the appropriate _test collectors_ for your development project. Learn more about how to do this from the [Get started](/docs/test-engine#get-started) section of these docs.
+
 To delete a suite, or regenerate its API token, go to suite settings.
 
 ## Parallelized builds
 
-Test Engine works even when your test runs are split across different agents by de-duplicating against the Test Engine API token and unique build identifier.
+In CI/CD, a build's tests can be made to run in parallel using features of your own CI/CD pipeline or workflow tool. Parallelized pipeline/workflow builds typically run and complete faster than builds which are not parallelized.
 
-The information that serves as a unique build identifier differs between CI environments. For details, see `run_env[key]` environment variables on our [CI environments page](/docs/test-engine/ci-environments).
+In Buildkite Pipelines, you can run tests in parallel when they are configured as [parallel jobs](https://buildkite.com/docs/tutorials/parallel-builds#parallel-jobs).
+
+> 📘
+> When tests are run in parallel across multiple agents, they can be grouped into the same run by defining the same `run_env[key]` environment variable. Learn more about this environment variable and others in [CI environments](/docs/test-engine/ci-environments).
+> You can further speed up the duration of parallelized builds across multiple agents by implementing [test splitting](/docs/test-engine/test-splitting).
 
 ## Compare across branches
 
