@@ -2,6 +2,7 @@ import * as Turbo from "@hotwired/turbo";
 import { bindToggles } from "../components/nav";
 import { initToc } from "../components/toc";
 import { attachCopyToClipboardButton } from "../components/copyToClipboardButton";
+import { themeToggle } from "../components/themeToggle";
 import docsearch from "@docsearch/js";
 
 Turbo.start();
@@ -25,6 +26,7 @@ function render() {
   bindToggles();
   initToc();
   attachCopyToClipboardButton("pre.highlight");
+  themeToggle();
 }
 
 window.addEventListener("DOMContentLoaded", () => {
