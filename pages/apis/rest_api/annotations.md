@@ -139,9 +139,9 @@ Success response: `201 Created`
 
 ## Delete an annotation on a build
 
- Deletes an annotation on a build 
+Deletes an annotation on a build.
 
- ```bash
+```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations/{annotation.uuid}" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations/{annotation.uuid}"
 ```
