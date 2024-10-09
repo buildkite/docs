@@ -1,3 +1,10 @@
 steps:
   - label: Update GraphQL docs
     command: .buildkite/update_graphql_docs
+    plugins:
+      - aws-assume-role-with-web-identity#v1.0.0:
+          role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs-private
+      - aws-ssm#v1.0.0:
+          parameters:
+            GH_TOKEN: /pipelines/buildkite/docs-private/gh-token
+            API_ACCESS_TOKEN: /pipelines/buildkite/docs-private/api-access-token
