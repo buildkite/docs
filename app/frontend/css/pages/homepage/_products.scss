@@ -58,3 +58,26 @@
     height: 50px;
   }
 }
+
+.ProductBadge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+    0px 0px 0px 1px rgba(0, 0, 0, 0.15), 0px 1px 0px 0px rgba(0, 0, 0, 0.09),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.04), 0px 3px 3px 0px rgba(0, 0, 0, 0.02),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.01);
+  padding-right: 12px;
+  background: #fff;
+  font-size: 15px;
+  color: #28243f;
+  font-weight: 600;
+  margin-bottom: 16px;
+  svg {
+    width: 24px;
+    height: 24px;
+    padding: 8px;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    margin-right: 12px;
+  }
+}

@@ -344,4 +344,13 @@ html.dark {
       background-color: #eee;
     }
   }
+
+  .ProductBadge {
+    background: #1e293b;
+    color: #fff;
+    svg {
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+      margin-right: 8px;
+    }
+  }
 }
