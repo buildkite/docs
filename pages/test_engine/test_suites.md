@@ -12,7 +12,7 @@ To delete a suite, or regenerate its API token, go to suite settings.
 
 ## Parallelized builds
 
-In CI/CD, a build's tests can be made to run in parallel using features of your own CI/CD pipeline or workflow tool. Parallelized pipeline/workflow builds typical run and complete faster than builds which are not parallelized.
+In CI/CD, a build's tests can be made to run in parallel using features of your own CI/CD pipeline or workflow tool. Parallelized pipeline/workflow builds typically run and complete faster than builds which are not parallelized.
 
 In Buildkite Pipelines, you can run tests in parallel when they are configured as [parallel jobs](https://buildkite.com/docs/tutorials/parallel-builds#parallel-jobs).
 
