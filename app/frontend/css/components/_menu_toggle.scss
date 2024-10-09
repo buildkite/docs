@@ -14,6 +14,9 @@
   &:checked ~ .SiteHeader__nav,
   &:checked ~ .SiteHeader__global-links {
     display: flex;
+    @media (max-width: 959px) {
+      width: 100%;
+    }
   }
 }
 

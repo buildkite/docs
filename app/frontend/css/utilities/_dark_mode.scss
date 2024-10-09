@@ -1,0 +1,347 @@
+html.dark {
+  background: #020617;
+
+  --docsearch-text-color: rgb(245, 246, 247);
+  --docsearch-container-background: rgba(9, 10, 17, 0.8);
+  --docsearch-modal-background: rgb(21, 23, 42);
+  --docsearch-modal-shadow: inset 1px 1px 0 0 rgb(44, 46, 64),
+    0 3px 8px 0 rgb(0, 3, 9);
+  --docsearch-searchbox-background: rgb(9, 10, 17);
+  --docsearch-searchbox-focus-background: #000;
+  --docsearch-hit-color: rgb(190, 195, 201);
+  --docsearch-hit-shadow: none;
+  --docsearch-hit-background: rgb(9, 10, 17);
+  --docsearch-key-gradient: linear-gradient(
+    -26.5deg,
+    rgb(86, 88, 114) 0%,
+    rgb(49, 53, 91) 100%
+  );
+  --docsearch-key-shadow: inset 0 -2px 0 0 rgb(40, 45, 85),
+    inset 0 0 1px 1px rgb(81, 87, 125), 0 2px 2px 0 rgba(3, 4, 9, 0.3);
+  --docsearch-footer-background: rgb(30, 33, 54);
+  --docsearch-footer-shadow: inset 0 1px 0 0 rgba(73, 76, 106, 0.5),
+    0 -4px 8px 0 rgba(0, 0, 0, 0.2);
+  --docsearch-muted-color: rgb(127, 132, 151);
+  --docsearch-logo-color: rgb(255, 255, 255);
+
+  .SiteHeader,
+  .Page__sidebar,
+  .SiteHeader__nav,
+  .divider,
+  .Article tbody tr,
+  hr {
+    border-color: $navy-800;
+  }
+
+  .Article thead {
+    border-color: $navy-700;
+  }
+
+  .Wordmark__Brand {
+    color: #ffffff;
+  }
+
+  .Wordmark__SubBrand {
+    color: $navy-400;
+  }
+
+  .SiteHeader,
+  .Nav--sidebar .Nav__section--level2 {
+    background: #020617;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .TileItem .TileItem__title-link,
+  .Docs__heading .Docs__heading__anchor,
+  .Footer__heading,
+  .Card__title-link {
+    color: $navy-50;
+  }
+
+  .Nav__link,
+  .Dropdown__menu-link {
+    color: $navy-300;
+    &:hover {
+      background: #1f023e;
+      color: $navy-200;
+    }
+  }
+
+  .Toc__link {
+    color: $navy-300;
+  }
+
+  .Nav__link--parent {
+    color: #e5e1ff !important;
+  }
+
+  .Nav__link--current {
+    background: #340469 !important;
+    color: #e5e1ff !important;
+  }
+
+  .Article,
+  .Footer,
+  .HeroBanner__summary,
+  .ProductCard__summary,
+  .Card__list-item-link,
+  .Reference__link,
+  p {
+    color: $navy-300;
+    a {
+      color: #9f83fe;
+      text-decoration-color: #340469;
+      &:hover {
+        text-decoration-color: #9f83fe;
+      }
+    }
+  }
+
+  .Article pre {
+    border-color: #1e293b;
+    background-color: #0f172a;
+  }
+
+  .Article .highlight-figure figcaption {
+    border-color: #1e293b;
+    color: $navy-500;
+    background-color: #0f172a;
+  }
+
+  .highlight {
+    color: $navy-300;
+  }
+
+  .CopyToClipboardButton {
+    background: $navy-600 !important;
+    svg {
+      color: $navy-200 !important;
+    }
+  }
+
+  .highlight .s,
+  .highlight .sb,
+  .highlight .sc,
+  .highlight .s2,
+  .highlight .se,
+  .highlight .sh,
+  .highlight .si,
+  .highlight .sx,
+  .highlight .sr,
+  .highlight .s1,
+  .highlight .ss {
+    color: #00e285;
+  }
+
+  .highlight .na,
+  .highlight .nc,
+  .highlight .nd,
+  .highlight .ni,
+  .highlight .ne,
+  .highlight .nf,
+  .highlight .nl,
+  .highlight .nn,
+  .highlight .nx,
+  .highlight .py,
+  .highlight .nv,
+  .highlight .vc,
+  .highlight .vg,
+  .highlight .vi {
+    color: #9f83fe;
+  }
+
+  .highlight .k,
+  .highlight .kc,
+  .highlight .kd,
+  .highlight .kn,
+  .highlight .kp,
+  .highlight .kr,
+  .highlight .kt,
+  .highlight .nb,
+  .highlight .bp,
+  .highlight .nt,
+  .highlight .no,
+  .highlight .o,
+  .highlight .ow,
+  .highlight .mf,
+  .highlight .mh,
+  .highlight .mi,
+  .highlight .il,
+  .highlight .mo,
+  .highlight .ld,
+  .highlight .m {
+    color: #f2545b;
+  }
+
+  .callout {
+    background: #0f172a;
+    color: $navy-300;
+    p {
+      color: inherit;
+    }
+  }
+
+  .Button--default,
+  .Article details {
+    background-color: #0f172a;
+    color: $navy-50 !important;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.01),
+      0px 3px 3px 0px rgba(0, 0, 0, 0.02), 0px 2px 2px 0px rgba(0, 0, 0, 0.04),
+      0px 1px 0px 0px rgba(0, 0, 0, 0.09), 0px 0px 0px 1px rgba(0, 0, 0, 0.09);
+  }
+
+  .Button--default:hover,
+  .PopularGuide:hover {
+    background-color: #1e293b;
+  }
+
+  .Article h1:not([class]) > code,
+  .Article h2:not([class]) > code,
+  .Article h3:not([class]) > code,
+  .Article h4:not([class]) > code,
+  .Article h5:not([class]) > code,
+  .Article h6:not([class]) > code,
+  .Article p:not([class]) > code,
+  .Article a:not([class]) > code,
+  .Article li > code,
+  .Article dt > code,
+  .Article td > code,
+  .Article th > code {
+    background-color: #0f172a;
+  }
+
+  .callout p code {
+    background-color: #ffffff0f !important;
+  }
+
+  .theme-ui {
+    border-color: #1e293b;
+    svg {
+      color: $navy-400;
+    }
+  }
+
+  #theme-select {
+    color: $navy-300;
+  }
+
+  .ProductCard,
+  .Card {
+    background: #0f172a;
+  }
+
+  .Card__title-link:hover,
+  .Card__icon-link:hover + .Card__title .Card__title-link {
+    color: #e5e1ff;
+  }
+
+  .Toc .Toc__list-item.active > .Toc__link,
+  .Toc .Toc__link:hover {
+    color: #9f83fe;
+  }
+
+  .Toc path {
+    stroke: #9f83fe;
+  }
+
+  .DocSearch-Button {
+    color: #fff;
+    background: #020617;
+  }
+
+  .Toc {
+    background: #020617;
+    border: 1px solid $navy-800;
+    @media (min-width: 1280px) {
+      border: 0 none;
+      background: transparent;
+    }
+  }
+
+  .Dropdown,
+  .Dropdown__menu {
+    background: #020617;
+    color: #fff;
+  }
+
+  .Dropdown__menu {
+    border: 1px solid $navy-800;
+  }
+
+  .Dropdown__menu::before {
+    border-bottom-color: $navy-800;
+  }
+
+  .Dropdown__menu::after {
+    border-bottom-color: #020617;
+  }
+
+  .Button {
+    color: $navy-50;
+  }
+
+  a.Docs__example-repo {
+    border-color: $navy-700;
+    color: $navy-300;
+    .repo {
+      color: $navy-400;
+      &:hover {
+        color: $purple1-500;
+      }
+    }
+  }
+
+  .callout {
+    @include callout($navy-200, #0f172a, default_dark);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+    .callout__anchor {
+      &:hover,
+      &:active,
+      &:focus {
+        color: $navy-50 !important;
+      }
+    }
+  }
+
+  .callout--troubleshooting {
+    @include callout(#fed7aa, #431407, troubleshooting_dark);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+    .callout__anchor {
+      &:hover,
+      &:active,
+      &:focus {
+        color: $navy-50 !important;
+      }
+    }
+  }
+
+  .callout--wip {
+    @include callout(#d6d3d1, #1c1917, wip_dark);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+    .callout__anchor {
+      &:hover,
+      &:active,
+      &:focus {
+        color: $navy-50 !important;
+      }
+    }
+  }
+
+  .pill,
+  .Button__icon--16x16,
+  .MenuToggleLabel {
+    filter: invert(92%) hue-rotate(180deg);
+  }
+
+  .MenuToggleLabel {
+    background-color: #fff;
+    &:hover {
+      background-color: #eee;
+    }
+  }
+}
