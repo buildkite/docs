@@ -99,11 +99,11 @@ RSpec.describe Page::Renderer do
     context "non-external links" do
       it "does not affect /docs/ links" do
         md = <<~MD
-          [Test Analytics](/docs/test-analytics)
+          [Test Engine](/docs/test-engine)
         MD
   
         html = <<~HTML
-          <p><a href="/docs/test-analytics">Test Analytics</a></p>
+          <p><a href="/docs/test-engine">Test Engine</a></p>
         HTML
 
         expect(Page::Renderer.render(md).strip).to eql(html.strip)
@@ -111,7 +111,7 @@ RSpec.describe Page::Renderer do
 
       it "does not affect links to Buildkite domains" do
         md = <<~MD
-          [Test Analytics](https://buildkite.com/test-analytics)
+          [Test Engine](https://buildkite.com/test-engine)
 
           [GraphQL Explorer](https://graphql.buildkite.com/explorer)
 
@@ -119,7 +119,7 @@ RSpec.describe Page::Renderer do
         MD
 
         html = <<~HTML
-          <p><a href="https://buildkite.com/test-analytics">Test Analytics</a></p>
+          <p><a href="https://buildkite.com/test-engine">Test Engine</a></p>
 
           <p><a href="https://graphql.buildkite.com/explorer">GraphQL Explorer</a></p>
 

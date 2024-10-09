@@ -1,0 +1,44 @@
+.theme-ui {
+  border-radius: 6px;
+  border: 1px solid $navy-200;
+  display: block;
+  position: relative;
+  svg {
+    color: $navy-600;
+  }
+}
+
+.theme-chevron {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  right: 6px;
+  top: 10px;
+  pointer-events: none;
+}
+
+.theme-icon {
+  width: 20px;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  pointer-events: none;
+}
+
+.theme-inactive {
+  display: none;
+}
+
+#theme-select {
+  appearance: none;
+  font-size: 14px;
+  margin-left: 12px;
+  line-height: 16px;
+  border: 0 none;
+  background: transparent;
+  padding: 10px 24px 10px 20px;
+  color: currentColor;
+  &:focus {
+    outline: none;
+  }
+}
