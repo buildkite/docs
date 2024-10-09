@@ -36,7 +36,7 @@ By default, the `environment` hook file is stored in the agent's `hooks` directo
 The path to this directory varies by platform; read the [installation instructions](/docs/agent/v3/installation) for the path on your platform.
 The path can also be overridden by the [`hooks-path`](/docs/agent/v3/hooks#hook-locations-agent-hooks) setting.
 
-For example, to expose a Test Analytics API token to a specific pipeline, create an `environment` script in your agent's `hooks` directory that checks for the pipeline slug before exporting the secret:
+For example, to expose a Test Engine API token to a specific pipeline, create an `environment` script in your agent's `hooks` directory that checks for the pipeline slug before exporting the secret:
 
 ```bash
 #!/bin/bash

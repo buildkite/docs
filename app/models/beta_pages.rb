@@ -1,14 +1,8 @@
 class BetaPages
   def self.all
     [
-      'pipelines/cluster-queue-metrics',
-      'test-analytics/test-ownership',
-      'apis/rest-api/team-pipelines',
-      'apis/rest-api/organizations/members',
-      'apis/rest-api/teams',
-      'apis/rest-api/teams/members',
-      'apis/rest-api/teams/pipelines',
-      'apis/rest-api/teams/suites'
+      'path/page-name',
+      'path/last-page-name-in-list-without-trailing-comma'
     ]
   end
 end

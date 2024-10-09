@@ -1,0 +1,70 @@
+fields:
+- name: id
+  required: true
+  type: UUIDv4 string
+  enumerated_values:
+  desc: |
+      A unique identifier for this test result. If a test execution with this UUID already exists in the Test Engine database, this result is ignored.
+  examples:
+      - 1b70486f-ca5f-4e6d-beb8-6347b2e49278
+- name: scope
+  required: false
+  type: string
+  enumerated_values:
+  desc: |
+      A group or topic for the test
+  examples:
+      - Student.isEnrolled()
+- name: name
+  required: true
+  type: string
+  desc: |
+      A name or description for the test
+  examples:
+      - Manager.isEnrolled() returns_boolean
+- name: location
+  required: false
+  type: string
+  enumerated_values:
+  desc: |
+      The file and line number where the test originates, separated by a colon (`:`)
+  examples:
+      - ./tests/Manager/isEnrolled.js:32
+- name: file_name
+  required: false
+  type: string
+  desc: |
+      The file where the test originates
+  examples:
+      - ./tests/Manager/isEnrolled.js
+- name: result
+  required: false
+  type: string
+  enumerated_values:
+      - passed
+      - failed
+      - skipped
+      - unknown
+  desc: |
+      The outcome of the test
+  examples:
+      - failed
+- name: failure_reason
+  required: false
+  type: string
+  desc: |
+       If applicable, a short summary of why the test failed
+  examples:
+      - Expected Boolean, got Object
+- name: failure_expanded
+  required: false
+  type: array of hashes
+  desc: |
+       A more detailed explanation of why the test failed
+  examples:
+
+- name: history
+  required: true
+  type: history object
+  desc: |
+      Read [History objects](/docs/test-analytics/importing-json#json-test-results-data-reference-history-objects)
