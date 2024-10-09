@@ -64,6 +64,28 @@ query getConcurrency {
   }
 }
 ```
+
+## Handling 504 Error 
+
+If you encounter a 504 response status, it may be helpful to add additional filters per pipeline after the slug.
+
+```
+query getConcurrency {
+  organization(slug: "{org/pipeline-slug}") {
+    jobs(first:100,concurrency:{group:"name"}, type:[COMMAND], state:[LIMITED,WAITING,ASSIGNED]) {
+      edges {
+        node {
+          ... on JobTypeCommand {
+            url
+            createdAt
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ## Get the last job of an agent
 
 To get the last job of an agent or `null`. You will need to know the UUID of the agent.
