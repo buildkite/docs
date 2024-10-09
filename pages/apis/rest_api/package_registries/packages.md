@@ -66,6 +66,54 @@ Required scope: `write_packages`
 
 Success response: `200 OK`
 
+## List all packages
+
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of all packages in a registry.
+Packages are listed in the order they were created (newest first).
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages"
+```
+
+```json
+{
+  "items": [
+    {
+      "id": "0191e23a-4bc8-7683-bfa4-5f73bc9b7c44",
+      "url": "https://api.buildkite.com/v2/packages/organizations/my_great_org/registries/my-registry/packages/0191e23a-4bc8-7683-bfa4-5f73bc9b7c44",
+      "web_url": "https://buildkite.com/organizations/my_great_org/packages/registries/my-registry/packages/0191e23a-4bc8-7683-bfa4-5f73bc9b7c44",
+      "name": "banana",
+      "created_at": "2024-08-22T06:24:53Z",
+      "version": "1.0"
+    },
+    {
+      "id": "019178c2-6b08-7d66-a1db-b79b8ba83151",
+      "url": "https://api.buildkite.com/v2/packages/organizations/my_great_org/registries/my-registry/packages/019178c2-6b08-7d66-a1db-b79b8ba83151",
+      "web_url": "https://buildkite.com/organizations/my_great_org/packages/registries/my-registry/packages/019178c2-6b08-7d66-a1db-b79b8ba83151",
+      "name": "grapes",
+      "created_at": "2024-08-21T06:24:53Z",
+      "version": "2.8.3"
+    }
+  ],
+  "links": {
+    "self": "https://api.buildkite.localhost/v2/packages/organizations/my_great_org/registries/my-registry/packages",
+  }
+}
+```
+
+Optional [query string parameters](/docs/api#query-string-parameters):
+
+<table class="responsive-table">
+  <tbody>
+    <tr><th><code>name</code></th><td>Filters the results by the package name.<br><em>Example:</em> <code>?name=banana</code>.</td></tr>
+  </tbody>
+</table>
+
+Required scope: `read_packages`
+
+Success response: `200 OK`
+
 ## Get a package
 
 Returns the details for a single package.
@@ -103,13 +151,27 @@ Success response: `200 OK`
 
 ## Copy a package
 
-Copies a package from a source registry to a destination registry.
+For some supported [package ecosystems](/docs/packages/ecosystems), copies a package from a source registry to a destination registry.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{source_registry.slug}/packages/{package.id}/copy?to={destination_registry.slug}"
   -H "Content-Type: application/json"
 ```
+
+Currently, this REST API call only supports package types belonging to the following package ecosystems:
+
+- [Alpine (apk)](/docs/packages/alpine)
+- [Debian/Ubuntu (deb)](/docs/packages/debian)
+- [Files (generic)](/docs/packages/files)
+- [JavaScript (npm)](/docs/packages/javascript)
+- [Python (PyPI)](/docs/packages/python)
+- [Red Hat (RPM)](/docs/packages/red-hat)
+- [Ruby (RubyGems)](/docs/packages/ruby)
+
+If you wish this feature to be available for package types belonging to other package ecosystems, please contact [support](https://buildkite.com/support).
+
+The following type of response is returned by Buildkite upon a successful `curl` copying event.
 
 ```json
 {

@@ -4,7 +4,7 @@ template: "landing_page"
 
 # Buildkite Test Engine
 
-Scale out your testing across any framework with _Buildkite Test Engine_. Get more out of fewer tests with performance insights to speed up builds and isolate unreliable tests.
+Scale out your testing across any framework with _Buildkite Test Engine_. Speed up builds with real-time flaky test management and intelligent test splitting. Drive accountability and get more out of your existing CI compute with performance insights and analytics.
 
 Where [Buildkite Pipelines](/docs/pipelines) helps you automate your CI/CD pipelines, Test Engine helps you track and analyze the steps in these pipelines, by:
 
