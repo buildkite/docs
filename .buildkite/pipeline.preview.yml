@@ -5,6 +5,15 @@ steps:
   - label: "Prepare preview"
     command: bin/prepare-preview
     key: prepare-preview
+    plugins:
+      - aws-assume-role-with-web-identity#v1.0.0:
+          role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs-private
+      - aws-ssm#v1.0.0:
+          parameters:
+            GH_TOKEN: /pipelines/buildkite/docs-private/gh-token
+            BUILDKITE_ANALYTICS_TOKEN: /pipelines/buildkite/docs-private/buildkite-analytics-token
+            NETLIFY_AUTH_TOKEN: /pipelines/buildkite/docs-private/netlify-auth-token
+            NETLIFY_SITE_ID: /pipelines/buildkite/docs-private/netlify-site-id
 
   - label: "Deploy preview"
     command: bin/deploy-preview
