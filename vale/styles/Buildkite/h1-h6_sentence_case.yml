@@ -47,7 +47,7 @@ exceptions:
   - Buildkite
   - Buildkite Agent
   - Buildkite Agents
-  - Buildkite Packages
+  - Buildkite Package Registries
   - Buildkite Pipelines
   - buildkite-agent
   - BuildNotify
@@ -112,6 +112,7 @@ exceptions:
   - JavaScript
   - Jenkins
   - JFrog
+  - Jest
   - JSON
   - JUnit
   - KMS
@@ -150,7 +151,8 @@ exceptions:
   - S3
   - SSH
   - SSO
-  - Test Analytics
+  - Test Engine
+  - Test Engine Client
   - TESTOWNER
   - Ubuntu
   - URL

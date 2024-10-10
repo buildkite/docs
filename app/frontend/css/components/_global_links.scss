@@ -1,10 +1,12 @@
 .GlobalLinks {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
+  align-items: center;
+  justify-content: center;
 
-  @media (min-width: $screen-sm) {
-    flex-direction: row;
+  @media (min-width: $screen-md) {
+    justify-content: end;
   }
 }
 

@@ -4,7 +4,7 @@ toc: false
 
 # Team management
 
-Managing users and teams in CI/CD is fundamental to collaboration, streamlined processes, and ensuring adequate access controls. Buildkite provides features to manage team access:
+Managing users and teams across your CI/CD platform is fundamental to collaboration, streamlined processes, and ensuring adequate access controls. Buildkite provides features to manage team access:
 
 - [User and team permissions](/docs/team-management/permissions)
 - [Enforce 2FA](/docs/team-management/enforce-2fa)

@@ -29,6 +29,7 @@ Basecamp
 Basscss
 Bazel
 Bitium
+bktec
 boolean
 Boomper
 Buildbox
@@ -91,6 +92,7 @@ githooks
 GitLab
 globbing
 gotestsum
+gpg
 Gradle
 Graviton
 gz

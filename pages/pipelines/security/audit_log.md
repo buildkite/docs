@@ -150,7 +150,7 @@ TEAM_PIPELINE_DELETED
 TEAM_PIPELINE_UPDATED
 ```
 
-#### For Buildkite Packages
+#### For Buildkite Package Registries
 
 ```
 TEAM_REGISTRY_CREATED
@@ -158,7 +158,7 @@ TEAM_REGISTRY_UPDATED
 TEAM_REGISTRY_DELETED
 ```
 
-#### For Buildkite Test Analytics
+#### For Buildkite Test Engine
 
 ```
 TEAM_SUITE_CREATED
@@ -192,7 +192,7 @@ SCM_PIPELINE_SETTINGS_DELETED
 SCM_PIPELINE_SETTINGS_UPDATED
 ```
 
-### Test Analytics
+### Test Engine
 
 ```
 SUITE_API_TOKEN_REGENERATED_EVENT
@@ -239,7 +239,7 @@ CLUSTER_PERMISSION_CREATED
 CLUSTER_PERMISSION_DELETED
 ```
 
-### Buildkite Packages
+### Buildkite Package Registries
 
 ```
 REGISTRY_CREATED
