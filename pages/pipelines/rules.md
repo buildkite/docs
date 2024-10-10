@@ -44,7 +44,9 @@ where:
 
 - `source_pipeline` is the UUID or slug of the pipeline that's allowed to trigger another pipeline.
 - `target_pipeline` is the UUID or slug of the pipeline that can be triggered by the `source_pipeline`'s pipeline.
-- `conditions` is an optional array of [conditionals](/docs/pipelines/conditionals) that must be met to allow the `source_pipeline`'s pipeline to trigger the `target_pipeline`'s pipeline.
+- `conditions` is an optional array of [conditionals](/docs/pipelines/conditionals) that must be met to allow the `source_pipeline`'s pipeline to trigger the `target_pipeline`'s pipeline. Learn more about this in the following [Conditions](#conditions-trigger) section.
+
+<a id="conditions-trigger"></a>
 
 #### Conditions
 
@@ -129,7 +131,9 @@ where:
 
 - `source_pipeline` is the UUID or slug of the pipeline that's allowed to access the artifacts from another pipeline.
 - `target_pipeline` is the UUID or slug of the pipeline whose artifacts can be accessed by jobs in the `source_pipeline` pipeline.
-- `conditions` is an optional array of [conditionals](/docs/pipelines/conditionals) that must be met to allow the jobs of the `source_pipeline`'s pipeline to access the artifacts of the `target_pipeline`'s pipeline.
+- `conditions` is an optional array of [conditionals](/docs/pipelines/conditionals) that must be met to allow the jobs of the `source_pipeline`'s pipeline to access the artifacts of the `target_pipeline`'s pipeline. Learn more about this in the following [Conditions](#conditions-artifacts) section.
+
+<a id="conditions-artifacts"></a>
 
 #### Conditions
 
