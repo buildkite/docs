@@ -263,7 +263,7 @@ If you are using any of the non-public [predefined Access Control Lists (ACLs)](
 export BUILDKITE_GS_ACL="publicRead"
 ```
 
-If you need to be authenticated to view the objects in your bucket, you can use Google Cloud Storage's [cookie-based authentication](https://cloud.google.com/storage/docs/access-control/cookie-based-authentication):
+If you need to be authenticated to view the objects in your bucket, you can use Google Cloud Storage's [cookie-based authentication](https://cloud.google.com/storage/docs/request-endpoints#cookieauth):
 
 ```shell
 export BUILDKITE_GCS_ACCESS_HOST="storage.cloud.google.com"
