@@ -28,4 +28,4 @@ done
 
 ## Importing via the Rest API
 
-To import a package via Rest API, use the endpoint to publish a package as specified in our API docs [here](/docs/apis/rest-api/packages/packages#publish-a-package). Examples of the usage of these APIs can also be found on the different package ecosystems like [publishing an alpine package](/docs/packages/alpine#publish-a-package).
+To import a package via Rest API, use the endpoint to publish a package as specified in our API docs [here](/docs/apis/rest-api/package-registries/packages#publish-a-package). Examples of the usage of these APIs can also be found on the different package ecosystems like [publishing an alpine package](/docs/package-registries/alpine#publish-a-package).
