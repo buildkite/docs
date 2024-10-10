@@ -21,7 +21,8 @@ This rule type allows one pipeline to trigger another, where:
 - Both pipelines are in the same or different [clusters](/docs/clusters/overview).
 - One pipeline is public and another is private.
 
-**Note:** This rule type overrides the usual [trigger step permissions checks](/docs/pipelines/trigger-step#permissions) on users and teams.
+> 📘
+> This rule type overrides the usual [trigger step permissions checks](/docs/pipelines/trigger-step#permissions) on users and teams.
 
 **Rule Document** format:
 
@@ -42,12 +43,12 @@ This rule type allows one pipeline to trigger another, where:
 where:
 
 - `source_pipeline` is the UUID or slug of the pipeline that's allowed to trigger another pipeline.
-- `target_pipeline` is the UUID or slug of the pipeline that can be triggered by the `source_pipeline` pipeline.
-- `conditions` is an optional array of [conditionals](/docs/pipelines/conditionals) that must be met for the trigger to be allowed.
+- `target_pipeline` is the UUID or slug of the pipeline that can be triggered by the `source_pipeline`'s pipeline.
+- `conditions` is an optional array of [conditionals](/docs/pipelines/conditionals) that must be met to allow the `source_pipeline`'s pipeline to trigger the `target_pipeline`'s pipeline.
 
 #### Conditions
 
-The optional `conditions` field allows you to specify an array of [conditionals](/docs/pipelines/conditionals) that must be met for the trigger to be allowed. In the example above, the rule would only apply if the source pipeline's build branch is `main` and the commit of the source pipeline's build matches the target pipeline's trigger build commit. If no conditions are specified, the trigger is allowed in all cases between the source and target pipelines.  If the conditions are not met, the trigger is not allowed (even if the default permissions would have allowed it). If multiple conditions are specified, all conditions must be met for the trigger to be allowed. The conditions are evaluated using the [Buildkite conditionals syntax](/docs/pipelines/conditionals).
+The optional `conditions` field allows you to specify an array of [conditionals](/docs/pipelines/conditionals) that must be met for the source pipeline (`source_pipeline`) to trigger the target pipeline (`target_pipeline`). In the example above, the rule would only allow triggering if the source pipeline's build branch is `main` and the commit of the source pipeline's build matches that of the target pipeline's trigger build. If no conditions are specified, triggering is allowed in all cases between the source and target pipelines. If _any_ of the conditions _are not_ met, triggering is not allowed, even if the default permissions would have allowed triggering. The conditions are evaluated using the [Buildkite conditionals syntax](/docs/pipelines/conditionals#variable-and-syntax-reference).
 
 In the `pipeline.trigger_build.pipeline` rule the available variables for conditions are:
 
@@ -57,7 +58,7 @@ In the `pipeline.trigger_build.pipeline` rule the available variables for condit
     <td><code>source.build.*</code></td>
     <td><code>Build</code></td>
     <td>
-      <p>The triggering build in the source pipeline (contains the trigger step). This includes all the variables available for a <a href="/docs/pipelines/conditionals#variable-and-syntax-reference-variables">build</a></p>
+      <p>The triggering build in the source pipeline (contains the trigger step). This includes all the variables available for a <a href="/docs/pipelines/conditionals#variable-and-syntax-reference-variables">build</a>.</p>
       <p>Example variables available:</p>
       <ul>
         <li><code>source.build.branch</code> - the branch of the source pipeline that the trigger step is targeting.</li>
@@ -84,7 +85,8 @@ In the `pipeline.trigger_build.pipeline` rule the available variables for condit
 </tbody>
 </table>
 
-Note: Conditions are shown in error messages when access is denied.
+> 📘
+> Conditions are shown in error messages when access is denied.
 
 Learn more about creating rules in [Manage rules](/docs/pipelines/rules/manage).
 
@@ -120,16 +122,22 @@ where:
 
 - `source_pipeline` is the UUID or slug of the pipeline that's allowed to access the artifacts from another pipeline.
 - `target_pipeline` is the UUID or slug of the pipeline whose artifacts can be accessed by jobs in the `source_pipeline` pipeline.
-- `conditions` is an optional array of [conditionals](/docs/pipelines/conditionals) that must be met for the access to be allowed.
+- `conditions` is an optional array of [conditionals](/docs/pipelines/conditionals) that must be met to allow the jobs of the `source_pipeline`'s pipeline to access the artifacts of the `target_pipeline`'s pipeline.
 
 #### Conditions
 
-The optional `conditions` field allows you to specify an array of [conditionals](/docs/pipelines/conditionals) that must be met for artifact access to be allowed. In the example above, the rule would only apply if the source pipeline's build branch matches the target pipeline's build branch. If no conditions are specified, the access is allowed in all cases between the source and target pipelines. If the conditions are not met, the access is not allowed (even if the default permissions would have allowed it). If multiple conditions are specified, all conditions must be met for the access to be allowed. The conditions are evaluated using the [Buildkite conditionals syntax](/docs/pipelines/conditionals).
+The optional `conditions` field allows you to specify an array of [conditionals](/docs/pipelines/conditionals) that must be met for jobs of the source pipeline (`source_pipeline`) to access artifacts built by the target pipeline (`target_pipeline`). In the example above, the rule would only allow artifact access if the source pipeline's build branch matches the target pipeline's build branch. If no conditions are specified, artifact access is allowed in all cases between the source and target pipelines. If _any_ of the conditions _are not_ met, artifact access is not allowed, even if the default permissions would have allowed triggering. The conditions are evaluated using the [Buildkite conditionals syntax](/docs/pipelines/conditionals#variable-and-syntax-reference).
 
 In the `pipeline.read_artifacts.pipeline` rule the available variables for conditions are:
 
-
-<table class="Docs__attribute__table">
+<table>
+<thead>
+  <tr>
+    <th style="width:25%">Variable</th>
+    <th style="width:15%">Type</th>
+    <th style="width:60%">Description</th>
+  </tr>
+</thead>
 <tbody>
   <tr>
     <td><code>source.build.*</code></td>
@@ -160,12 +168,15 @@ In the `pipeline.read_artifacts.pipeline` rule the available variables for condi
   <tr>
     <td><code>source.request.query</code></td>
     <td><code>String</code></td>
-    <td>The query used to search for artifacts in the target build. See [Searching artifacts](https://buildkite.com/docs/agent/v3/cli-artifact#searching-artifacts) for more information on the query syntax.</td>
+    <td>The query used to search for artifacts in the target build. See <a href="/docs/agent/v3/cli-artifact#searching-artifacts">Searching artifacts</a> for more information on the query syntax.</td>
   </tr>
 </tbody>
 </table>
 
-Note: Conditions are shown in error messages when access is denied.
+> 📘
+> Conditions are shown in error messages when access is denied.
+
+Learn more about creating rules in [Manage rules](/docs/pipelines/rules/manage).
 
 #### Example use case: sharing assets between clusters
 
