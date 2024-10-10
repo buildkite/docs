@@ -1,7 +1,7 @@
 predefined:
   - name: BUILDKITE_BUILD_ID
     desc:
-      - The UUID of the pipeline build. Test Splitter uses this UUID along with `BUILDKITE_STEP_ID` to uniquely identify the test plan.
+      - The UUID of the pipeline build. The Test Engine Client uses this UUID along with `BUILDKITE_STEP_ID` to uniquely identify the test plan.
   - name: BUILDKITE_JOB_ID
     desc:
       - The UUID of the job in the pipeline's build.
@@ -18,40 +18,90 @@ predefined:
       - Ensure you configure `parallelism` in your pipeline definition. Learn more about parallel build steps in [Concurrency and parallelism](https://buildkite.com/docs/pipelines/controlling-concurrency#concurrency-and-parallelism).
   - name: BUILDKITE_STEP_ID
     desc:
-      - The UUID of the step group in the pipeline build. Test Splitter uses this UUID along with `BUILDKITE_BUILD_ID` to uniquely identify the test plan.
+      - The UUID of the step group in the pipeline build. The Test Engine Client uses this UUID along with `BUILDKITE_BUILD_ID` to uniquely identify the test plan.
 
 mandatory:
-  - name: BUILDKITE_SPLITTER_API_ACCESS_TOKEN 
+  - name: BUILDKITE_TEST_ENGINE_API_ACCESS_TOKEN 
     desc:
-      - Buildkite API access token with `read_suites`, `read_test_plan`, and `write_test_plan` scopes. You can create an [API access token](https://buildkite.com/user/api-access-tokens) from **Personal Settings** > **API Access Tokens** in the Buildkite interface.
-  - name: BUILDKITE_SPLITTER_SUITE_SLUG 
+      - Buildkite API access token with `read_suites`, `read_test_plan`, and `write_test_plan` scopes. You can create an [API access token](https://buildkite.com/user/api-access-tokens) from **Personal Settings** > **API Access Tokens** in the Buildkite interface. To avoid this token being tied to any one employee or person, ideally, this token should be created for a bot user account within your Buildkite organization.
+  - name: BUILDKITE_TEST_ENGINE_RESULT_PATH
     desc:
-      - The slug of your Buildkite Test Analytics test suite. You can find the suite slug in the url for your test suite. 
+      - The path to store the test result. The Test Engine Client uses this environment variable to tell the runner where to store the test result. The Test Engine Client reads the test result after each test run for retries and verification.
+      - For RSpec, the result is generated using the `--format json` and `--out` CLI options, while for Jest, it is generated using the `--json` and `--outputFile` options. We have included these options in the default test command for RSpec and Jest. If you need to customize your test command, make sure to append the CLI options to save the result to a file. 
+      - Please refer to the `BUILDKITE_TEST_ENGINE_TEST_CMD` environment variable for more details.
+    note:
+      - The Test Engine Client will not delete the file after running the test, however it will be deleted by Buildkite Agent as part of the build lifecycle.
+  - name: BUILDKITE_TEST_ENGINE_RUNNER
+    desc:
+      - The test runner to use for running tests. Currently `rspec` and `jest` are supported.
+  - name: BUILDKITE_TEST_ENGINE_SUITE_SLUG 
+    desc:
+      - The slug of your Test Engine test suite. You can find the suite slug in the url for your test suite. 
       - "For example, the slug for the url: `https://buildkite.com/organizations/my-organization/analytics/suites/my-suite` is `my-suite`."
 
 optional:
-  - name: BUILDKITE_SPLITTER_DEBUG_ENABLED 
-    default: false
-    desc:
-      - A flag to enable more verbose logging.
-  - name: BUILDKITE_SPLITTER_RETRY_COUNT 
-    default: 0
-    desc:
-      - The number of retries permitted. Test Splitter runs the test command defined in `BUILDKITE_SPLITTER_TEST_CMD`, and retries only the failing tests for a maximum of `BUILDKITE_SPLITTER_RETRY_COUNT` times. For RSpec, the Test Splitter runs `BUILDKITE_SPLITTER_TEST_CMD` with `--only-failures` as the retry command.
-  - name: BUILDKITE_SPLITTER_SPLIT_BY_EXAMPLE 
-    default: false
-    desc:
-      - A flag to enable split by example. When this option is `true`, the Test Splitter will split the execution of slow test files over multiple partitions.
-  - name: BUILDKITE_SPLITTER_TEST_CMD 
-    default: bundle exec rspec {{testExamples}}
-    desc:
-      - The test command to run your tests. The Test Splitter will replace and populate the `{{testExamples}}` placeholder with the test plan.
-  - name: BUILDKITE_SPLITTER_TEST_FILE_EXCLUDE_PATTERN 
-    desc: 
-      - The glob pattern to exclude certain test files or directories. The exclusion will be applied after discovering the test files using a pattern configured with `BUILDKITE_SPLITTER_TEST_FILE_PATTERN`.
-      - _This option accepts the pattern syntax supported by the [zzglob](https://github.com/DrJosh9000/zzglob?tab=readme-ov-file#pattern-syntax) library._
-  - name: BUILDKITE_SPLITTER_TEST_FILE_PATTERN 
-    default: spec/**/*_spec.rb
-    desc:
-      - The glob pattern to discover test files. You can exclude certain test files or directories from the discovered test files using a pattern that can be configured with `BUILDKITE_SPLITTER_TEST_FILE_EXCLUDE_PATTERN`.
-      - _This option accepts the pattern syntax supported by the [zzglob](https://github.com/DrJosh9000/zzglob?tab=readme-ov-file#pattern-syntax) library._
+  rspec:
+    - name: BUILDKITE_TEST_ENGINE_DEBUG_ENABLED 
+      default: false
+      desc:
+        - A flag to enable more verbose logging.
+    - name: BUILDKITE_TEST_ENGINE_RETRY_CMD
+      desc:
+        - The command to retry the failed tests. The Test Engine Client will replace the `{{testExamples}}` placeholder with the failed tests. If not set, the client will use the same command defined in `BUILDKITE_TEST_ENGINE_TEST_CMD`. 
+    - name: BUILDKITE_TEST_ENGINE_RETRY_COUNT 
+      default: 0
+      desc:
+        - The number of retries. The Test Engine Client runs the test command defined in `BUILDKITE_TEST_ENGINE_TEST_CMD` and retries only the failed tests up to `BUILDKITE_TEST_ENGINE_RETRY_COUNT` times, using the retry command defined in `BUILDKITE_TEST_ENGINE_RETRY_CMD`.
+    - name: BUILDKITE_TEST_ENGINE_SPLIT_BY_EXAMPLE 
+      default: false
+      desc:
+        - A flag to enable split by example. When this option is `true`, the Test Engine Client will split the execution of slow test files over multiple partitions.
+    - name: BUILDKITE_TEST_ENGINE_TEST_CMD 
+      default: bundle exec rspec --format progress --format json --out {{resultPath}} {{testExamples}}
+      desc:
+        - The test command to run your tests. The Test Engine Client will replace the `{{testExamples}}` placeholder with the test plan.
+      note:
+        - It is necessary to include `--format json --out {{resultPath}}` in the test command, because the Test Engine Client needs to read the result after each test run.
+        - Please refer to the `BUILDKITE_TEST_ENGINE_RESULT_PATH` environment variable for more details.
+    - name: BUILDKITE_TEST_ENGINE_TEST_FILE_EXCLUDE_PATTERN 
+      desc: 
+        - The glob pattern to exclude certain test files or directories. The exclusion will be applied after discovering the test files using a pattern configured with `BUILDKITE_TEST_ENGINE_TEST_FILE_PATTERN`.
+        - _This option accepts the pattern syntax supported by the [zzglob](https://github.com/DrJosh9000/zzglob?tab=readme-ov-file#pattern-syntax) library._
+    - name: BUILDKITE_TEST_ENGINE_TEST_FILE_PATTERN 
+      default: spec/**/*_spec.rb
+      desc:
+        - The glob pattern to discover test files. You can exclude certain test files or directories from the discovered test files using a pattern that can be configured with `BUILDKITE_TEST_ENGINE_TEST_FILE_EXCLUDE_PATTERN`.
+        - _This option accepts the pattern syntax supported by the [zzglob](https://github.com/DrJosh9000/zzglob?tab=readme-ov-file#pattern-syntax) library._
+  jest:
+    - name: BUILDKITE_TEST_ENGINE_DEBUG_ENABLED 
+      default: false
+      desc:
+        - A flag to enable more verbose logging.
+    - name: BUILDKITE_TEST_ENGINE_RETRY_CMD
+      default: yarn test --testNamePattern '{{testNamePattern}}' --json --testLocationInResults --outputFile {{resultPath}}
+      desc:
+        - The command to retry the failed tests. The Test Engine Client will replace the `{{testNamePattern}}` placeholder with the failed tests.
+      note:
+        - It is necessary to include `--json --testLocationInResults --outputFile {{resultPath}}` in the command, because the Test Engine Client needs to read the result after each test run.
+        - Please refer to the `BUILDKITE_TEST_ENGINE_RESULT_PATH` environment variable for more details.
+    - name: BUILDKITE_TEST_ENGINE_RETRY_COUNT 
+      default: 0
+      desc:
+        - The number of retries. The Test Engine Client runs the test command defined in `BUILDKITE_TEST_ENGINE_TEST_CMD` and retries only the failed tests up to `BUILDKITE_TEST_ENGINE_RETRY_COUNT` times, using the retry command defined in `BUILDKITE_TEST_ENGINE_RETRY_CMD`.
+    - name: BUILDKITE_TEST_ENGINE_TEST_CMD 
+      default: yarn test {{testExamples}} --json --testLocationInResults --outputFile {{resultPath}}
+      desc:
+        - The test command to run your tests. The Test Engine Client will replace and populate the `{{testExamples}}` placeholder with the test plan.
+      note:
+        - It is necessary to include `--json --testLocationInResults --outputFile {{resultPath}}` in the command, because the Test Engine Client needs to read the result after each test run.
+        - Please refer to the `BUILDKITE_TEST_ENGINE_RESULT_PATH` environment variable for more details.
+    - name: BUILDKITE_TEST_ENGINE_TEST_FILE_EXCLUDE_PATTERN
+      default: "node_modules"
+      desc: 
+        - The glob pattern to exclude certain test files or directories. The exclusion will be applied after discovering the test files using a pattern configured with `BUILDKITE_TEST_ENGINE_TEST_FILE_PATTERN`.
+        - _This option accepts the pattern syntax supported by the [zzglob](https://github.com/DrJosh9000/zzglob?tab=readme-ov-file#pattern-syntax) library._
+    - name: BUILDKITE_TEST_ENGINE_TEST_FILE_PATTERN 
+      default: "**/{__tests__/**/*,*.spec,*.test}.{ts,js,tsx,jsx}"
+      desc:
+        - The glob pattern to discover test files. You can exclude certain test files or directories from the discovered test files using a pattern that can be configured with `BUILDKITE_TEST_ENGINE_TEST_FILE_EXCLUDE_PATTERN`.
+        - _This option accepts the pattern syntax supported by the [zzglob](https://github.com/DrJosh9000/zzglob?tab=readme-ov-file#pattern-syntax) library._

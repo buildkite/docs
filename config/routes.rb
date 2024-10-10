@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "/docs/api/organizations",                  to: redirect("/docs/apis/rest-api/organizations")
   get "/docs/api/projects",                       to: redirect("/docs/apis/rest-api/pipelines")
   get "/docs/api/*page",                          to: redirect("/docs/apis/rest-api/%{page}")
+  get "/docs/apis/graphql/cookbooks/packages",    to: redirect("/docs/apis/graphql/cookbooks/registries")
   get "/docs/apis/graphql-tutorial",              to: redirect("/docs/apis/graphql/graphql-tutorial")
   get "/docs/apis/graphql",                       to: redirect("/docs/apis/graphql-api")
   get "/docs/apis/graphql/schemas",               to: redirect("/docs/apis/graphql-api")
@@ -62,14 +63,17 @@ Rails.application.routes.draw do
   get "/docs/integrations/sso/g-suite",           to: redirect("/docs/integrations/sso/google-workspace")
   get "/docs/integrations/sso/cloud-identity",    to: redirect("/docs/integrations/sso/g-cloud-identity")
   get "/docs/integrations/sso/g-cloud-identity",  to: redirect("/docs/integrations/sso/google-workspace-saml")
-  get "/docs/packages/manage-repositories",       to: redirect("/docs/packages/manage-registries")
-  get "/docs/packages/nodejs",                    to: redirect("/docs/packages/javascript")
+  get "/docs/packages",                           to: redirect("/docs/package-registries")
+  get "/docs/packages/*page",                     to: redirect("/docs/package-registries/%{page}")
+  get "/docs/packages/manage-repositories",       to: redirect("/docs/package-registries/manage-registries")
+  get "/docs/packages/nodejs",                    to: redirect("/docs/package-registries/javascript")
+  get "/docs/packages/permissions",               to: redirect("/docs/package-registries/security/permissions")
   get "/docs/pipelines/emoji",                    to: redirect("/docs/pipelines/emojis")
   get "/docs/pipelines/images-in-log-output",     to: redirect("/docs/pipelines/links-and-images-in-log-output")
   get "/docs/pipelines/pipelines",                to: redirect("/docs/pipelines")
   get "/docs/pipelines/ignoring-a-commit",        to: redirect("/docs/pipelines/skipping#ignore-a-commit")
   get "/docs/pipelines/parallel-builds",          to: redirect("/docs/tutorials/parallel-builds")
-  get "/docs/pipelines/permissions",              to: redirect("/docs/team-management/permissions")
+  get "/docs/pipelines/permissions",              to: redirect("/docs/pipelines/security/permissions")
   get "/docs/pipelines/plugins",                  to: redirect("/docs/plugins")
   get "/docs/pipelines/uploading-pipelines",      to: redirect("/docs/pipelines/defining-steps")
   get "/docs/pipelines/security-overview",        to: redirect("/docs/pipelines/security/overview")
@@ -81,7 +85,9 @@ Rails.application.routes.draw do
   get "/docs/quickstart/*page",                   to: redirect("/docs/tutorials/%{page}")
   get "/docs/rest-api",                           to: redirect("/docs/apis/rest-api")
   get "/docs/rest-api/*page",                     to: redirect("/docs/apis/rest-api/%{page}")
-  get "/docs/test-analytics/js-collectors",       to: redirect("/docs/test-analytics/javascript-collectors")
+  get "/docs/test-analytics",                     to: redirect("/docs/test-engine")
+  get "/docs/test-analytics/*page",               to: redirect("/docs/test-engine/%{page}")
+  get "/docs/test-analytics/js-collectors",       to: redirect("/docs/test-engine/javascript-collectors")
   get "/docs/tutorials/gitlab",                   to: redirect("/docs/integrations/gitlab")
   get "/docs/tutorials/github-enterprise",        to: redirect("/docs/integrations/github-enterprise")
   get "/docs/tutorials/bitbucket",                to: redirect("/docs/integrations/bitbucket")
@@ -133,7 +139,7 @@ Rails.application.routes.draw do
   get "/docs/agent/upgrading",           to: redirect("/docs/agent/v3/upgrading",                  status: 301)
   get "/docs/agent/upgrading-to-v3",     to: redirect("/docs/agent/v3/upgrading",                  status: 301)
   get "/docs/clusters/queue-metrics",    to: redirect("/docs/pipelines/cluster-queue-metrics",     status: 301)
-  get "/docs/test-analytics/java",       to: redirect("/docs/test-analytics/importing-junit-xml",  status: 301)
+  get "/docs/test-engine/java",          to: redirect("/docs/test-engine/importing-junit-xml",  status: 301)
 
   # Old docs routes that we changed around during the development of the v3 agent docs
   get "/docs/agent/upgrading-to-v2",    to: redirect("/docs/agent/v2/upgrading-to-v2",            status: 301)
@@ -143,7 +149,7 @@ Rails.application.routes.draw do
   get "/docs/agent/v3/agent-meta-data", to: redirect("/docs/agent/v3/cli-start#setting-tags",     status: 301)
 
   # Pre GA test analytics
-  get "/docs/test-analytics/integrations", to: redirect("/docs/test-analytics",            status: 301)
+  get "/docs/test-analytics/integrations", to: redirect("/docs/test-engine",            status: 301)
 
   # Quick Reference JSON
   get "/docs/quick-reference/pipelines", to: "quick_reference#pipelines", as: :pipelines_quick_reference
