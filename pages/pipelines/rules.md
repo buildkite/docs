@@ -53,19 +53,19 @@ In the `pipeline.trigger_build.pipeline` rule the available variables for condit
 
 <table class="Docs__attribute__table">
 <tbody>
-	<tr>
-		<td><code>source.build.*</code></td>
-		<td><code>Build</code></td>
-		<td>
+  <tr>
+	  <td><code>source.build.*</code></td>
+	  <td><code>Build</code></td>
+	  <td>
       <p>The triggering build in the source pipeline (contains the trigger step). This includes all the variables available for a <a href="/docs/pipelines/conditionals#variable-and-syntax-reference-variables">build</a></p>
       <p>Example variables available:</p>
       <ul>
-				<li><code>source.build.branch</code> - the branch of the source pipeline that the trigger step is targeting.</li>
+			  <li><code>source.build.branch</code> - the branch of the source pipeline that the trigger step is targeting.</li>
         <li><code>source.build.commit</code> - the commit of the source pipeline that the trigger step is targeting.</li>
         <li><code>source.build.message</code> - the commit message of the source pipeline that the trigger step is targeting.</li>
-			</ul>
+		  </ul>
     </td>
-	</tr>
+  </tr>
   <tr>
     <td><code>source.target.branch</code></td>
     <td><code>String</code></td>
