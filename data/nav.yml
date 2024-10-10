@@ -502,7 +502,7 @@
         - name: "Permissions"
           path: "package-registries/security/permissions"
         - name: "SLSA Provenance"
-          path: "packages/security/slsa-provenance"
+          path: "package-registries/security/slsa-provenance"
     - name: "Package ecosystems"
       children:
         - name: "Overview"
