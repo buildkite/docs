@@ -15,4 +15,4 @@ To get started, choose the guide that corresponds to the repository provider you
 
 - [Migrate from JFrog Artifactory](/docs/packages/migration/from_jfrog_artifactory)
 
-If you need further assistance or have any questions, please don’t hesitate to reach out to our [support](https://buildkite.com/support). We’re here to help you in this transition.
+If you need further assistance or have any questions, please don’t hesitate to reach out to our [support](https://buildkite.com/about/contact/). We’re here to help you in this transition.

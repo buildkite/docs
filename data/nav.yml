@@ -496,7 +496,7 @@
     - name: Migration
       children:
         - name: Overview
-          path: package-registries/migration/overview
+          path: package-registries/migration
         - name: Export From JFrog
           path: package-registries/migration/from-jfrog-artifactory
         - name: Import Exported Packages
