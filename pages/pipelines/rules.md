@@ -5,7 +5,7 @@ _Rules_ is a Buildkite feature that can do the following:
 <%= render_markdown partial: 'pipelines/rules_summary' %>
 
 > 📘
-> The _rules_ feature is currently in development, and is enabled on an opt-in basis for early access. To enable rules for your organization, please contact Buildkite's [Support team](https://buildkite.com/support).
+> The _rules_ feature is currently in development, and is enabled on an opt-in basis for early access. To enable rules for your organization, please contact Buildkite's [Support team](https://buildkite.com/about/contact/).
 
 ## Rule types
 

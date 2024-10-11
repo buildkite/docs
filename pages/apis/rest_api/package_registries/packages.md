@@ -169,7 +169,7 @@ Currently, this REST API call only supports package types belonging to the follo
 - [Red Hat (RPM)](/docs/packages/red-hat)
 - [Ruby (RubyGems)](/docs/packages/ruby)
 
-If you wish this feature to be available for package types belonging to other package ecosystems, please contact [support](https://buildkite.com/support).
+If you wish this feature to be available for package types belonging to other package ecosystems, please contact [support](https://buildkite.com/about/contact/).
 
 The following type of response is returned by Buildkite upon a successful `curl` copying event.
 

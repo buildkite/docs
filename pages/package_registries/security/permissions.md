@@ -41,7 +41,7 @@ To do this:
 1. Select the **Enable Buildkite Packages** button, then **Enable Buildkite Packages** in the **Ready to enable Buildkite Packages** confirmation dialog.
 
 > 📘
-> Once Buildkite Package Registries is enabled, the **Enable** link on the **Organization Settings** page changes to **Enabled** and Buildkite Package Registries can only be disabled by contacting [support](https://buildkite.com/support).
+> Once Buildkite Package Registries is enabled, the **Enable** link on the **Organization Settings** page changes to **Enabled** and Buildkite Package Registries can only be disabled by contacting [support](https://buildkite.com/about/contact/).
 
 ### Team-level permissions
 
