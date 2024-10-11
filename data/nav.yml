@@ -501,7 +501,7 @@
           path: "package-registries/security/oidc"
         - name: "Permissions"
           path: "package-registries/security/permissions"
-        - name: "SLSA Provenance"
+        - name: "SLSA provenance"
           path: "package-registries/security/slsa-provenance"
     - name: "Package ecosystems"
       children:

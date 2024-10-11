@@ -146,7 +146,7 @@ exceptions:
   - SAML
   - SCIM
   - Slack
-  - SLSA Provenance
+  - SLSA
   - S3
   - SSH
   - SSO
