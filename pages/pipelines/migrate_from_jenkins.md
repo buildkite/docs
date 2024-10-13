@@ -93,7 +93,7 @@ With a basic understanding of the differences between Buildkite and Jenkins, the
 
 We recommend following the [Getting started](/docs/tutorials/getting-started/) guide to:
 
-1. Sign up for a free account.
+1. Sign up for a 30-day free trial account.
 1. Set up an agent to execute the pipeline steps.
 1. Create a pipeline using an example repository.
 1. Run a build and view the output in the Buildkite dashboard.

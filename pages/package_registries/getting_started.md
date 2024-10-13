@@ -8,7 +8,7 @@ While this tutorial uses a Node.js package example, Buildkite Package Registries
 
 To complete this tutorial, you'll need:
 
-- A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a free account</a>.
+- A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a 30-day free trial account</a>.
 
 - [Git](https://git-scm.com/downloads), to clone the Node.js package example.
 
