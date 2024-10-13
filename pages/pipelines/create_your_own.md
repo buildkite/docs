@@ -89,7 +89,7 @@ Run the pipeline whenever you make changes you want to verify. If you want to ad
 
 If you've configured webhooks, your pipeline will trigger when you push updates to the repository. Otherwise, select **New Build** in the Buildkite dashboard to trigger the pipeline.
 
-If you have trouble getting your pipeline to work, don't hesitate to reach out to [support](https://buildkite.com/about/contact/) for help.
+If you have trouble getting your pipeline to work, don't hesitate to reach out to support at support@buildkite.com for help.
 
 ### Using private repositories
 
