@@ -18,21 +18,6 @@ The following diagram shows the lifecycle of build data by plan.
   </thead>
   <tbody>
     <tr>
-      <td>Developer/Free plan</td>
-      <td>90 days</td>
-      <td>-</td>
-    </tr>
-    <tr>
-      <td>Open source plan</td>
-      <td>1 year</td>
-      <td>-</td>
-    </tr>
-    <tr>
-      <td>Non-profits & charities plan</td>
-      <td>1 year</td>
-      <td>-</td>
-    </tr>
-    <tr>
       <td>Pro plan</td>
       <td>1 year</td>
       <td>-</td>
