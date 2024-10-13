@@ -2547,6 +2547,31 @@ type EmailResendVerificationPayload {
 }
 
 """
+GitHub App Installation Rate Limit (limits set by GitHub)
+"""
+type GitHubRateLimit {
+  """
+  The maximum number of requests that Buildkite is permitted to make per hour, as set by GitHub.
+  """
+  limit: Int!
+
+  """
+  The number of requests remaining in the current rate limit window.
+  """
+  remaining: Int!
+
+  """
+  The time at which the current rate limit window resets
+  """
+  resetAt: DateTime!
+
+  """
+  The number of requests remaining in the current rate limit window.
+  """
+  used: Int!
+}
+
+"""
 A shared GraphQL query
 """
 type GraphQLSnippet {
@@ -5309,6 +5334,11 @@ type Organization implements Node {
   ): RegistryConnection
 
   """
+  Returns the repository providers for this organization
+  """
+  repositoryProviders: [OrganizationRepositoryProvider]
+
+  """
   API tokens with access to this organization will be automatically revoked
   after this many seconds of inactivity. A `null` value indicates never revoke
   inactive tokens.
@@ -6475,6 +6505,65 @@ type OrganizationPermissions {
   Whether the user can see teams in the organization
   """
   teamView: Permission
+}
+
+interface OrganizationRepositoryProvider {
+  """
+  The name of the OrganizationRepositoryProvider
+  """
+  name: String!
+}
+
+"""
+GitHub installation associated with this organization
+"""
+type OrganizationRepositoryProviderGitHub implements Node & OrganizationRepositoryProvider {
+  """
+  The ID of the provider
+  """
+  id: ID!
+
+  """
+  The name of the OrganizationRepositoryProvider
+  """
+  name: String!
+
+  """
+  Rate limit for this GitHub Installation
+  """
+  rateLimit: OrganizationRepositoryProviderGitHubRateLimit
+}
+
+"""
+GitHub Enterprise Server associated with this organization
+"""
+type OrganizationRepositoryProviderGitHubEnterpriseServer implements Node & OrganizationRepositoryProvider {
+  """
+  The ID of the provider
+  """
+  id: ID!
+
+  """
+  The name of the OrganizationRepositoryProvider
+  """
+  name: String!
+
+  """
+  Rate limit for GitHub Installation (GitHub App only)
+  """
+  rateLimit: OrganizationRepositoryProviderGitHubRateLimit
+
+  """
+  URL of the GitHub Enterprise Server
+  """
+  url: String
+}
+
+type OrganizationRepositoryProviderGitHubRateLimit {
+  """
+  The most recent rate limit data from GitHub
+  """
+  mostRecent: GitHubRateLimit
 }
 
 """
