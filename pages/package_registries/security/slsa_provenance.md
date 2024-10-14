@@ -76,7 +76,7 @@ The Publish to Packages plugin, authenticates with Package Registries using an [
     pipeline_slug: "ruby-logger-gem"
 ```
 
-{: codeblock-file="OIDC Policy for nova-corp/ruby-gems registry"}
+{: codeblock-file="OIDC policy for nova-corp/ruby-gems registry"}
 
 In the example above, the policy allows the Buildkite pipeline with slug `ruby-logger-gem`, configured in the Nova Corp Buildkite organization (with slug `nova-corp`) to publish packages to the Ruby registry named **ruby-gems**.
 
