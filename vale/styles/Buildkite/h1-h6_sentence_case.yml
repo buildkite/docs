@@ -147,6 +147,7 @@ exceptions:
   - SAML
   - SCIM
   - Slack
+  - SLSA
   - S3
   - SSH
   - SSO
