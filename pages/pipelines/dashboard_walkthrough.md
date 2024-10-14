@@ -113,4 +113,4 @@ Browsers not listed as supported or in beta or developer builds may not work as 
 
 All versions of Internet Explorer are not supported, and we recommend you migrate to a modern browser.
 
-If you encounter any issues with Buildkite Pipelines on a supported browser, please [contact us](https://buildkite.com/support) so we can improve its support.
+If you encounter any issues with Buildkite Pipelines on a supported browser, please [contact us](https://buildkite.com/about/contact/) so we can improve its support.

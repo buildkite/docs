@@ -30,7 +30,7 @@ As an organization administrator, you can access the [**Organization Settings** 
 
 <h4 id="enabling-buildkite-packages">Enabling Buildkite Package Registries</h4>
 
-Customers on legacy Buildkite plans may need to enable Package Registries to enable this product.
+Customers on legacy Buildkite plans may need to enable Package Registries to gain access to this product.
 
 To do this:
 
@@ -41,7 +41,7 @@ To do this:
 1. Select the **Enable Buildkite Packages** button, then **Enable Buildkite Packages** in the **Ready to enable Buildkite Packages** confirmation dialog.
 
 > 📘
-> Once Buildkite Package Registries is enabled, the **Enable** link on the **Organization Settings** page changes to **Enabled** and Buildkite Package Registries can only be disabled by contacting [support](https://buildkite.com/support).
+> Once Buildkite Package Registries is enabled, the **Enable** link on the **Organization Settings** page changes to **Enabled** and Buildkite Package Registries can only be disabled by contacting support at support@buildkite.com.
 
 ### Team-level permissions
 

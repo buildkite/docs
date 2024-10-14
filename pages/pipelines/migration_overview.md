@@ -20,4 +20,4 @@ To get started, choose the guide that corresponds to the CI/CD tool you are migr
 - [Migrate from Jenkins](/docs/pipelines/migrate-from-jenkins)
 - [Migrate from Bamboo](/docs/tutorials/migrating-from-bamboo)
 
-If you need further assistance or have any questions, please don't hesitate to reach out to [support](https://buildkite.com/support). We're here to help you make a smooth transition to Buildkite.
+If you need further assistance or have any questions, please don't hesitate to reach out to support at support@buildkite.com. We're here to help you make a smooth transition to Buildkite.
