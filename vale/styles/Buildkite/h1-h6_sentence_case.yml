@@ -124,7 +124,6 @@ exceptions:
   - NET
   - Node.js
   - OIDC
-  - OIDC Policy
   - Okta
   - OneLogin
   - OpenTelemetry
