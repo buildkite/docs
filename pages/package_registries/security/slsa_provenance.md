@@ -121,4 +121,4 @@ The SLSA provenance will then be visible under the **Attestations** tab of a pac
 
 - SLSA Provenance can be generated and stored in Buildkite with the help of [Generate Provenance Attestation](https://github.com/buildkite-plugins/generate-provenance-attestation-buildkite-plugin) and [Publish to Packages](https://github.com/buildkite-plugins/publish-to-packages-buildkite-plugin/) plugins.
 
-- Artifacts that are built and published in this way satisfy [SLSA Build Level 1](https://slsa.dev/spec/v1.0/levels#build-l1) requirements. _(SLSA Build Level 2 coming soon!)_
+- Artifacts that are built and published in this way satisfy [SLSA Build Level 1](https://slsa.dev/spec/v1.0/levels#build-l1) requirements.
