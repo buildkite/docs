@@ -46,7 +46,7 @@ In the example above, a SLSA provenance attestation will be generated for artifa
 
 Once this step is complete, `gem-attestation.json` will be available to subsequent steps in the pipeline.
 
-See [an example of a SLSA provenance statement](https://github.com/buildkite-plugins/generate-provenance-attestation-buildkite-plugin/blob/d9f2ff4d6b745f17cc55b6b91778a0e1a7d45824/examples/statement.json) that the plugin generates, which is then serialized and uploaded as [a DSSE Envelope](https://github.com/buildkite-plugins/generate-provenance-attestation-buildkite-plugin/blob/d9f2ff4d6b745f17cc55b6b91778a0e1a7d45824/examples/envelope.json) (this is what `gem-attestation.json` looks like).
+See [an example of a SLSA provenance statement](https://github.com/buildkite-plugins/generate-provenance-attestation-buildkite-plugin/blob/d9f2ff4d6b745f17cc55b6b91778a0e1a7d45824/examples/statement.json) that this plugin generates. This SLSA provenance statement is then serialized and uploaded as [a dead simple signing envelope (DSSE)](https://github.com/buildkite-plugins/generate-provenance-attestation-buildkite-plugin/blob/d9f2ff4d6b745f17cc55b6b91778a0e1a7d45824/examples/envelope.json). This `envelope.json` DSSE file shows an example of the `gem-attestation.json` file format. Learn more about DSSE in [DSSE Envelope](https://github.com/secure-systems-lab/dsse/blob/master/envelope.md).
 
 ## Step 2: Configure steps to publish a package with SLSA provenance
 
