@@ -1,22 +1,24 @@
 # Export from JFrog Artifactory
 
-To migrate from JFrog Artifactory, you have to download all your packages from Artifactory locally before importing them to Buildkite Packages. There is currently no direct process to export an Artifactory repository directly to Buildkite Packages.
+There is currently no direct process to migrate your packages from JFrog Artifactory to Buildkite Package Registries.
 
-## Downloading packages via Artifactory UI
+Instead, you'll need to export/download packages from a JFrog Artifactory repository before importing them to your Buildkite registry.
 
-You can download packages via a specific version or a complete folder of packages.
+## Downloading packages via JFrog Artifactory interface
 
-* To download packages from a specific package version, follow the Artifactory documentation on [Downloading Package Versions](https://jfrog.com/help/r/jfrog-artifactory-documentation/downloading-package-versions).
+You can download a complete folder of packages or a specific version:
 
-* To download a complete folder of packages from an Artifactory repository, follow their documentation on [Downloading Packages by Folder](https://jfrog.com/help/r/jfrog-artifactory-documentation/download-a-folder). You might need to configure folder download from the administrator settings.
+- To download a complete folder of packages from a JFrog Artifactory repository, follow JFrog's [Download a Folder](https://jfrog.com/help/r/jfrog-artifactory-documentation/download-a-folder) guide. You might need to configure folder download from the administrator settings.
 
-## Downloading packages via the CLI
+- To download specific versions of packages, follow JFrog's [Downloading Package Versions](https://jfrog.com/help/r/jfrog-artifactory-documentation/downloading-package-versions) guidance.
 
-The JFrog CLI allows more options on downloading packages.
+## Downloading packages via the JFrog CLI
 
-### Setup the jfrog-cli
+The [JFrog CLI](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli) allows more options on [downloading packages from JFrog Artifactory repositories](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/cli-for-jfrog-artifactory/generic-files#downloading-files).
 
-1. Start with installing the cli. You can choose multiple platforms and pick your [download preference](https://jfrog.com/getcli/).
+### Setting up the jfrog-cli
+
+1. First, [download and install the JFrog CLI](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/install). You can install the latest version of the JFrog CLI from JFrog's [Install the Latest Version of JFrog CLI](https://jfrog.com/getcli/) page on their website.
 1. Authenticate your login credentials once using the `jf c add` command. Refer to the cli [guide](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/cli-for-jfrog-artifactory/authentication) on the different means of authentication available.
 1. Download the files from Artifactory using the `jfrog rt dl` command.
 
