@@ -7,7 +7,7 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 ## List GitHub repository providers rate limits
 
 Get all repository providers and their GitHub rate limits if applicable. These are the rate limits GitHub imposes on
-the [Buildkite app for GitHub](/docs/integrations/github#connect-your-buildkite-account-to-github-using-the-github-app) as [documented](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28)
+the [Buildkite app for GitHub](/docs/integrations/github#connect-your-buildkite-account-to-github-using-the-github-app), based on [GitHub's rate limits for their REST API](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28).
 
 ```graphql
 query getLimits {
@@ -33,8 +33,7 @@ query getLimits {
 
 ## Show single repository providers rate limits
 
-Using the [OrganizationRepositoryProviderGitHub](/docs/apis/graphql/schemas/object/organizationrepositoryprovidergithub) [GraphQL ID](/docs/apis/graphql-api#graphql-ids) from the above `getLimits` query it is possible to
-query a single repository providers GitHub rate limit.
+It is possible to query a single repository provider's GitHub rate limit, using the [OrganizationRepositoryProviderGitHub](/docs/apis/graphql/schemas/object/organizationrepositoryprovidergithub) [GraphQL ID](/docs/apis/graphql-api#graphql-ids) from the `getLimits` query [above](#list-github-repository-providers-rate-limits).
 
 ```graphql
 query getLimit {
