@@ -33,7 +33,7 @@ query getLimits {
 
 ## Show single repository providers rate limits
 
-It is possible to query a single repository provider's GitHub rate limit, using the [OrganizationRepositoryProviderGitHub](/docs/apis/graphql/schemas/object/organizationrepositoryprovidergithub) [GraphQL ID](/docs/apis/graphql-api#graphql-ids) from the `getLimits` query [above](#list-github-repository-providers-rate-limits).
+You can query a single repository provider's GitHub rate limit using the [OrganizationRepositoryProviderGitHub](/docs/apis/graphql/schemas/object/organizationrepositoryprovidergithub) [GraphQL ID](/docs/apis/graphql-api#graphql-ids) from the `getLimits` query [above](#list-github-repository-providers-rate-limits).
 
 ```graphql
 query getLimit {
