@@ -11,7 +11,7 @@ There are recipes for a range of different topics, including:
 - [Agents](/docs/apis/graphql/cookbooks/agents)
 - [Builds](/docs/apis/graphql/cookbooks/builds)
 - [Clusters](/docs/apis/graphql/cookbooks/clusters)
-- [GitHub Rate Limits](/docs/apis/graphql/cookbooks/rate-limits)
+- [GitHub rate limits](/docs/apis/graphql/cookbooks/github-rate-limits)
 - [Jobs](/docs/apis/graphql/cookbooks/jobs)
 - [Pipelines](/docs/apis/graphql/cookbooks/pipelines)
 - [Pipeline templates](/docs/apis/graphql/cookbooks/pipeline-templates)
