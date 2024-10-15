@@ -692,7 +692,7 @@
               path: apis/graphql/cookbooks/builds
             - name: Clusters
               path: apis/graphql/cookbooks/clusters
-            - name: GitHub Rate Limits
+            - name: GitHub rate limits
               path: apis/graphql/cookbooks/github-rate-limits
             - name: Jobs
               path: apis/graphql/cookbooks/jobs
