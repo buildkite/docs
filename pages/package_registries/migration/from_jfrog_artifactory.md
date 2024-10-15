@@ -16,30 +16,25 @@ You can download a complete folder of packages or a specific version:
 
 The [JFrog CLI](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli) allows more options on [downloading packages from JFrog Artifactory repositories](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/cli-for-jfrog-artifactory/generic-files#downloading-files).
 
-### Setting up the jfrog-cli
+### Setting up the JFrog CLI
 
 1. First, [download and install the JFrog CLI](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/install). You can install the latest version of the JFrog CLI from JFrog's [Install the Latest Version of JFrog CLI](https://jfrog.com/getcli/) page on their website.
-1. Authenticate your login credentials once using the `jf c add` command. Refer to the cli [guide](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/cli-for-jfrog-artifactory/authentication) on the different means of authentication available.
-1. Download the files from Artifactory using the `jfrog rt dl` command.
 
-Here is the usage to the download command:
+1. Use the `jf c add` command to authenticate your JFrog Artifactory login credentials to access the repository whose package/s need to be downloaded. Learn more about how to do this from the [Authentication page of the JFrog CLI](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/cli-for-jfrog-artifactory/authentication) documentation.
 
-```bash
-jf rt dl [command options] <Source path> [Target path]
-jf rt dl --spec=<File Spec path> [command options]
-```
+1. Use the `jfrog rt dl` command to [download the required packages](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/cli-for-jfrog-artifactory/generic-files#downloading-files) from your JFrog Artifactory repository.
 
-Refer to the JFrog application guide for the command to [download](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/cli-for-jfrog-artifactory/generic-files#usage-1) the files.
+### Example JFrog CLI download commands
 
-Here are examples that can be useful to get started:
+The following JFrog CLI download command examples can be used to get you started.
 
-To download all packages from a particular repo. The `--flat` option dumps all the packages into the same folder.
+To download all packages from a particular JFrog Artifactory repository, use the `--flat` option download all of these packages into the same folder.
 
 ```bash
 jfrog rt dl {repo-name} --flat
 ```
 
-To download a particular package type from all repositories into the same folder, specify the package type extension using .deb as an example.
+Following on from this, to download a particular package type from all JFrog Artifactory repositories that your API access token provides access to, specify a wildcard package name with a file type extension, such as the following example for `.deb` files.
 
 ```bash
 jfrog rt dl "*/*.deb" --flat

@@ -110,6 +110,7 @@ iTerm
 iTerm's
 Jenkins
 JFrog
+JFrog's
 jpegs
 jq
 json
