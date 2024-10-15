@@ -1,18 +1,21 @@
+---
+toc: false
+---
+
 # Migrating to Buildkite Package Registries
 
-Migrating from another package repository provider to Buildkite Packages should be a simple process. This section provides a comprehensive guide to help you export your packages from an old repository provider and import them to Buildkite Packages.
+This section of the documentation provides a comprehensive guidance to help you export your packages, images and other files from an existing registry or repository provider, and import them to Buildkite Package Registries.
 
-## Prerequisites
+## Before you start
 
-The following are prerequisites in migrating from another package repository:
+Ensure the following are ready or have been done before commencing the migration process:
 
-1. Packages from your old repository should have been downloaded locally.
-1. Ensure Buildkite Packages is enabled in your organization.
-1. [Create the package registry](/docs/package-registries/manage-registries#create-a-registry) that matches the old repository ecosystem.
-1. Create an API [access token](https://buildkite.com/user/api-access-tokens)  with the right [scopes](/docs/apis/managing-api-tokens#token-scopes) to manage your packages.
+- The packages, images or other relevant files from your existing registry or repository provider are ready to be exported and downloaded locally.
+- A new Buildkite registry whose package ecosystem matches your existing registry or repository provider. Learn more about this process in [Create a registry](/docs/package-registries/manage-registries#create-a-registry).
+- An [API access token](https://buildkite.com/user/api-access-tokens) with the appropriate [package and registry scopes](/docs/apis/managing-api-tokens#token-scopes) to manage your packages.
 
-To get started, choose the guide that corresponds to the repository provider you are migrating from:
+To get started, choose the guide that corresponds to the registry or repository provider you are migrating from:
 
 - [Migrate from JFrog Artifactory](/docs/package-registries/migration/from_jfrog_artifactory)
 
-If you need further assistance or have any questions, please don’t hesitate to reach out to our [support](https://buildkite.com/about/contact/). We’re here to help you in this transition.
+If you need further assistance or have any questions, please don't hesitate to reach out to support at support@buildkite.com for help.
