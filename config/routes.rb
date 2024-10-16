@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   get "/docs/apis/graphql/schemas/enum",          to: redirect("/docs/apis/graphql-api")
   get "/docs/apis/graphql/schemas/input-object",  to: redirect("/docs/apis/graphql-api")
   get "/docs/apis/graphql/schemas/union",         to: redirect("/docs/apis/graphql-api")
+  get "/docs/apis/rest-api/analytics/*page",      to: redirect("/docs/apis/rest-api/test-engine/%{page}")
+  get "/docs/apis/rest-api/packages/*page",       to: redirect("/docs/apis/rest-api/package-registries/%{page}")
   get "/docs/basics/pipelines",                   to: redirect("/docs/pipelines")
   get "/docs/builds",                             to: redirect("/docs/tutorials")
   get "/docs/builds/parallelizing-builds",        to: redirect("/docs/tutorials/parallel-builds")
@@ -139,7 +141,7 @@ Rails.application.routes.draw do
   get "/docs/agent/upgrading",           to: redirect("/docs/agent/v3/upgrading",                  status: 301)
   get "/docs/agent/upgrading-to-v3",     to: redirect("/docs/agent/v3/upgrading",                  status: 301)
   get "/docs/clusters/queue-metrics",    to: redirect("/docs/pipelines/cluster-queue-metrics",     status: 301)
-  get "/docs/test-engine/java",          to: redirect("/docs/test-engine/importing-junit-xml",  status: 301)
+  get "/docs/test-engine/java",          to: redirect("/docs/test-engine/importing-junit-xml",     status: 301)
 
   # Old docs routes that we changed around during the development of the v3 agent docs
   get "/docs/agent/upgrading-to-v2",    to: redirect("/docs/agent/v2/upgrading-to-v2",            status: 301)
