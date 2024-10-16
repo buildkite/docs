@@ -1,10 +1,8 @@
 # Export from JFrog Artifactory
 
-There is currently no direct process to migrate your packages from JFrog Artifactory to Buildkite Package Registries.
+To migrate your packages from JFrog Artifactory to Buildkite Package Registries, you'll need to export/download packages from a JFrog Artifactory repository before importing them to your Buildkite registry.
 
-Instead, you'll need to export/download packages from a JFrog Artifactory repository before importing them to your Buildkite registry.
-
-## Downloading packages via JFrog Artifactory interface
+## Download packages via JFrog Artifactory interface
 
 You can download a complete folder of packages or a specific version:
 
@@ -12,7 +10,7 @@ You can download a complete folder of packages or a specific version:
 
 - To download specific versions of packages, follow JFrog's [Downloading Package Versions](https://jfrog.com/help/r/jfrog-artifactory-documentation/downloading-package-versions) guidance.
 
-## Downloading packages via the JFrog CLI
+## Download packages via the JFrog CLI
 
 The [JFrog CLI](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli) allows more options on [downloading packages from JFrog Artifactory repositories](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/cli-for-jfrog-artifactory/generic-files#downloading-files).
 

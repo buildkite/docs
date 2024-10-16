@@ -1,22 +1,30 @@
 # Import exported packages to Package Registries
 
-After exporting your packages from your old repository, you are now ready to import them to your Buildkite Package Registry!
+After exporting and downloading your packages, images, and other files from your existing registry or repository provider, you can then import them to your Buildkite registry!
 
-## Importing via CLI
+## Use via the Buildkite CLI
 
-Ensure that you have installed the [bk cli](https://github.com/buildkite/cli?tab=readme-ov-file#bk---the-buildkite-cli) tool and configured your organization name and token (using the `bk configure` command).
+The easiest method for importing packages, images, and other files from your existing registry or repository provider is to use the [Buildkite CLI](/docs/cli) tool.
 
-To push a package to your registry, simply run the command `bk package push`. Ensure that the packages to be imported belong to the supported package ecosystems that are listed [here](/docs/packages#get-started). Refer to the bk cli [usage](https://github.com/buildkite/cli?tab=readme-ov-file#usage) for the command options or run `bk package push --help`.
+Ensure that:
 
-### Example to import a single package
+- You have [installed the Buildkite CLI tool](/docs/cli/installation), and have configured your organization name and token (using the `bk configure` command).
+
+- You have set up a registry whose [supported package ecosystem](/docs/package-registries/ecosystems) matches the package, images, or other files. You downloaded from your existing registry or repository provider.
+
+To push a package to your registry using the Buildkite CLI, run the command `bk package push`. Learn more about how to [use this command](/docs/cli#usage) by running the command option `bk package push --help`.
+
+### Example of importing a single package
+
+The following command is an example of using the Buildkite CLI to import a single Debian package to a Buildkite (Debian) registry named `my-registry`.
 
 ```bash
-bk package push my-registry my-package.tar.gz
+bk package push my-registry my-package.deb
 ```
 
-### Example to bulk import files from a folder
+### Example of bulk-importing files from a folder
 
-The following script will import all files to a specified registry and file type found in the folder where the script is executed. This script will expect a registry name and a file type when executed.
+Once made executable, the following shell script imports all files to a specified registry and file type found in the folder where the script is executed.
 
 ```bash
 #!/bin/bash
@@ -25,7 +33,16 @@ for FILE in $(ls *.$2); do
   bk package push $1 $FILE
 done
 ```
+{: codeblock-file="bulk-import.sh"}
 
-## Importing via the Rest API
+This script expects a registry name and a file type when executed. For example, this command will bulk import Debian packages to a Buildkite (Debian) registry named `my-registry`.
 
-To import a package via Rest API, use the endpoint to publish a package as specified in our API docs [here](/docs/apis/rest-api/package-registries/packages#publish-a-package). Examples of the usage of these APIs can also be found on the different package ecosystems like [publishing an alpine package](/docs/package-registries/alpine#publish-a-package).
+```bash
+bulk-import.sh my-registry deb
+```
+
+## Importing via the REST API and other methods
+
+To import a package via REST API, use the [publish a package](/docs/apis/rest-api/package-registries/packages#publish-a-package) endpoint.
+
+You can also find other methods for publishing packages to Buildkite registries on the specific package ecosystem pages linked from [Package ecosystems overview](/docs/package-registries/ecosystems).
