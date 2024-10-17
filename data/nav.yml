@@ -412,6 +412,10 @@
               path: "integrations/pagerduty"
             - name: "Slack"
               path: "integrations/slack"
+    - name: "Announcements"
+      children:
+        - name: "Database migration"
+          path: "announcements/database-migration"
 - name: "Test Engine"
   path: "test-engine"
   children:
