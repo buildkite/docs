@@ -33,6 +33,8 @@
   gap: $gutter / 2;
   padding: $gutter / 2;
   transition: box-shadow $transition-speed;
+  width: 260px;
+  height: 130px;
 
   @media (min-width: $screen-xs) {
     flex-direction: row;
