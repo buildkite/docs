@@ -19,7 +19,7 @@ _Buildkite Test Engine_ was previously called _Buildkite Test Analytics_.
 
 ## Get started
 
-To get started with Test Engine, and to begin setting up your _test suites_, configure the relevant supported _test collectors_ for your development project.
+To get started with Test Engine, and to begin setting up your _test suites_, configure the relevant supported [_test collectors_](/docs/test-engine/test-collectors) for your development projects.
 
 <!-- vale off -->
 
@@ -43,9 +43,9 @@ To get started with Test Engine, and to begin setting up your _test suites_, con
 
 <!-- vale on -->
 
-You can also upload test results by importing [JSON](/docs/test-engine/importing-json) or [JUnit XML](/docs/test-engine/importing-junit-xml).
+You can also upload test results by importing them in [JUnit XML](/docs/test-engine/importing-junit-xml) or [JSON](/docs/test-engine/importing-json) formats.
 
-Once your test collectors have been set up, you can begin configuring your test suites by running through the relevant 'Getting started' sections, beginning with [Configuring test suites](/docs/test-engine/test-suites) for an overview of Test Engine's concepts and functionality.
+Once your test collectors have been set up, you can begin configuring your test suites. Learn more about this from the [Configuring test suites overview](/docs/test-engine/test-suites), which covers Test Engine's concepts and functionality.
 
 <br/>
 
