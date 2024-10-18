@@ -14,7 +14,7 @@ Ensure that:
 
 To push a package to your registry using the Buildkite CLI, run the command `bk package push`. Learn more about how to [use this command](/docs/cli#usage) by running the command option `bk package push --help`.
 
-### Example of importing a single package
+### Example of importing a single file
 
 The following command is an example of using the Buildkite CLI to import a single Debian package to a Buildkite (Debian) registry named `my-registry`.
 
@@ -24,7 +24,7 @@ bk package push my-registry my-package.deb
 
 ### Example of bulk-importing files from a folder
 
-Once made executable, the following shell script imports all files of a specified type found in a specified local folder path to a specified registry.
+The following shell script can be used to bulk-import files from a folder. Once made executable, this shell script imports all files of a specified type found in a specified local folder path to a specified registry.
 
 ```bash
 #!/bin/bash
@@ -35,7 +35,7 @@ done
 ```
 {: codeblock-file="bulk-import.sh"}
 
-The following example demonstrates running this script from its current location, to bulk import Debian packages from the local folder `/path/to/my/downloaded/deb/files` to the Buildkite (Debian) registry named `my-registry`.
+This example command demonstrates running this script from its current location to bulk import Debian packages from the local folder `/path/to/my/downloaded/deb/files` to the Buildkite (Debian) registry named `my-registry`.
 
 ```bash
 ./bulk-import.sh my-registry /path/to/my/downloaded/deb/files deb
