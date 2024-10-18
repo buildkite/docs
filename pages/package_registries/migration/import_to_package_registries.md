@@ -24,21 +24,21 @@ bk package push my-registry my-package.deb
 
 ### Example of bulk-importing files from a folder
 
-Once made executable, the following shell script imports all files to a specified registry and file type found in the folder where the script is executed.
+Once made executable, the following shell script imports all files of a specified type found in a specified local folder path to a specified registry.
 
 ```bash
 #!/bin/bash
 
-for FILE in $(ls *.$2); do
+for FILE in $(ls $2/*.$3); do
   bk package push $1 $FILE
 done
 ```
 {: codeblock-file="bulk-import.sh"}
 
-This script expects a registry name and a file type when executed. For example, this command will bulk import Debian packages to a Buildkite (Debian) registry named `my-registry`.
+The following example demonstrates running this script from its current location, to bulk import Debian packages from the local folder `/path/to/my/downloaded/deb/files` to the Buildkite (Debian) registry named `my-registry`.
 
 ```bash
-bulk-import.sh my-registry deb
+./bulk-import.sh my-registry /path/to/my/downloaded/deb/files deb
 ```
 
 ## Importing via the REST API and other methods
