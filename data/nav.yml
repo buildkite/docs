@@ -493,6 +493,14 @@
           path: "package-registries/manage-registries"
         - name: "Private storage"
           path: "package-registries/private-storage"
+    - name: "Migration"
+      children:
+        - name: "Overview"
+          path: "package-registries/migration"
+        - name: "Export from JFrog"
+          path: "package-registries/migration/from-jfrog-artifactory"
+        - name: "Import exported packages"
+          path: "package-registries/migration/import-to-package-registries"
     - name: "Security"
       children:
         - name: "Overview"

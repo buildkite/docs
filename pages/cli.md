@@ -35,6 +35,7 @@ Available Commands:
   package     Manage packages
   pipeline    Manage pipelines
   use         Select an organization
+  user        Invite users to the organization
 
 Flags:
   -h, --help   help for bk
