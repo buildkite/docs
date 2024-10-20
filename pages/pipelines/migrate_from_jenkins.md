@@ -93,7 +93,7 @@ With a basic understanding of the differences between Buildkite and Jenkins, the
 
 We recommend following the [Getting started](/docs/tutorials/getting-started/) guide to:
 
-1. Sign up for a free account.
+1. Sign up for a 30-day free trial account.
 1. Set up an agent to execute the pipeline steps.
 1. Create a pipeline using an example repository.
 1. Run a build and view the output in the Buildkite dashboard.
@@ -158,7 +158,7 @@ To translate a pipeline:
 ](/docs/pipelines/security/secrets/managing) to learn more.
 1. Run the pipeline to verify it works as expected.
    * If it does, nice work! On to the next one.
-   * If it doesn't, check the logs to resolve the issues. If you're having trouble, reach out to [support](https://buildkite.com/support).
+   * If it doesn't, check the logs to resolve the issues. If you're having trouble, reach out to support at support@buildkite.com.
 
 Many teams continue running pipelines on their existing infrastructure to verify the results match before removing the pipeline from Jenkins.
 
@@ -198,6 +198,6 @@ Migrating from Jenkins to Buildkite provides a more flexible, scalable, and secu
 
 Remember that it may take some time to adapt to the new platform, and be prepared to address any issues or challenges that arise during the migration process. We recommend you gather feedback from your team members on their experiences with Buildkite, so you can continually optimize your setup.
 
-If you need further assistance or have any questions, please don't hesitate to reach out to [support](https://buildkite.com/support). We're here to help you use Buildkite to build your dream CI/CD workflows.
+If you need further assistance or have any questions, please don't hesitate to reach out to support at support@buildkite.com. We're here to help you use Buildkite to build your dream CI/CD workflows.
 
-After configuring Buildkite Pipelines for your team, you could get actionable insights from the tests running in pipelines using [Test Analytics](/docs/test-analytics).
+After configuring Buildkite Pipelines for your team, you could get actionable insights from the tests running in pipelines using [Test Engine](/docs/test-engine).

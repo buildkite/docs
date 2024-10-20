@@ -29,6 +29,7 @@ Basecamp
 Basscss
 Bazel
 Bitium
+bktec
 boolean
 Boomper
 Buildbox
@@ -46,6 +47,7 @@ chroots
 CI
 classpath
 cli
+Cloudsmith
 CloudWatch
 CMake
 composable
@@ -90,6 +92,7 @@ githooks
 GitLab
 globbing
 gotestsum
+gpg
 Gradle
 Graviton
 gz
@@ -106,6 +109,8 @@ IPs
 iTerm
 iTerm's
 Jenkins
+JFrog
+JFrog's
 jpegs
 jq
 json
@@ -122,6 +127,7 @@ LFS
 libpq
 linux
 macOS
+matchers
 Memcache
 minitest
 misconfiguration
@@ -195,6 +201,7 @@ sre
 sso
 statefully
 stdout
+stringified
 subcommand
 subcommands
 subfolders

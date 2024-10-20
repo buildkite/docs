@@ -1,6 +1,5 @@
 # Agents API
 
-
 ## List agents
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's agents. The list only includes connected agents - agents in a disconnected state are not returned.
@@ -142,8 +141,8 @@ Success response: `200 OK`
 
 > 📘 Required permissions
 > To stop an agent you need either
-- An Admin user API token with `write_agents` <a href="/docs/apis/managing-api-tokens#token-scopes">scope</a>
-- Or, if you're using the Buildkite organization's <a href="/docs/team-management/permissions#manage-organization-security-for-pipelines">security for pipelines</a> feature, a user token with the <em>Stop Agents</em> permission.
+- An Admin user API token with `write_agents` [scope](/docs/apis/managing-api-tokens#token-scopes)
+- Or, if you're using the Buildkite organization's [security for pipelines](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) feature, a user token with the <em>Stop Agents</em> permission.
 
 Instruct an agent to stop accepting new build jobs and shut itself down.
 

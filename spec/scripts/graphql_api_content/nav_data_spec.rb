@@ -10,8 +10,8 @@ RSpec.describe NavData do
           "path" => "pipelines"
         },
         {
-          "name" => "Test Analytics",
-          "path" => "test-analytics",
+          "name" => "Test Engine",
+          "path" => "test-engine",
         },
         {
           "name" => "APIs",
@@ -294,67 +294,6 @@ RSpec.describe NavData do
     it "generates nav data correctly" do
       expect(generate_graphql_nav_data(type_sets)).to eq(
        [
-        {
-            "name" => "Overview",
-            "path" => "apis/graphql-api"
-          },
-          {
-            "name" => "Console and CLI tutorial",
-            "path" => "apis/graphql/graphql-tutorial"
-          },
-          {
-            "name" => "Cookbook",
-            "children" => [
-              {
-                "name" => "Overview",
-                "path" => "apis/graphql/graphql-cookbook"
-              },
-              {
-                "name" => "Agents",
-                "path" => "apis/graphql/cookbooks/agents"
-              },
-              {
-                "name" => "Artifacts",
-                "path" => "apis/graphql/cookbooks/artifacts"
-              },
-              {
-                "name" => "Builds",
-                "path" => "apis/graphql/cookbooks/builds"
-              },
-              {
-                "name" => "Clusters",
-                "path" => "apis/graphql/cookbooks/clusters"
-              },
-              {
-                "name" => "Jobs",
-                "path" => "apis/graphql/cookbooks/jobs"
-              },
-              {
-                "name" => "Packages",
-                "path" => "apis/graphql/cookbooks/packages"
-              },
-              {
-                "name" => "Pipelines",
-                "path" => "apis/graphql/cookbooks/pipelines"
-              },
-              {
-                "name" => "Pipeline templates",
-                "path" => "apis/graphql/cookbooks/pipeline-templates"
-              },
-              {
-                "name" => "Organizations",
-                "path" => "apis/graphql/cookbooks/organizations"
-              },
-              {
-                "name" => "Teams",
-                "path" => "apis/graphql/cookbooks/teams"
-              }
-            ]
-          },
-          {
-            "name" => "Limits",
-            "path" => "apis/graphql/graphql-resource-limits"
-          },
           {
             "name" => "Queries",
             "children" => [

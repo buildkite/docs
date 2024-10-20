@@ -5,7 +5,7 @@ Rails.application.configure do
     .find { |item| item["name"] == "APIs" }["children"]
     .find { |item| item["name"] == "GraphQL" }
 
-  graphql_nav_item["children"] = YAML.load_file(File.join(Rails.root, 'data', 'nav_graphql.yml'))
+  graphql_nav_item["children"].concat(YAML.load_file(File.join(Rails.root, 'data', 'nav_graphql.yml')))
 
   config.default_nav = Nav.new(nav_data)
 end

@@ -24,11 +24,3 @@ Your organization's usage is also accessible in the [GraphQL API](/docs/apis/gra
 
 > 📘 Calculating job minutes usage
 > We store job usage data in seconds but charge by summing all the usage and rounding down to the nearest minute. Please keep in mind that when displaying usage data per pipeline in the chart and CSV download, there may be minor discrepancies due to the rounding of each individual pipeline's usage.
-
-## Limits for the Free Plan
-
-The Free Plan has a limit of 5,000 job minutes per month. When this limit is reached, builds are not canceled, but jobs will not be run. The limit is reset when your billing period rolls over, or your organization is upgraded to a different plan.
-
-### Build timeouts
-
-The Free Plan has a [command step maximum timeout](/docs/pipelines/command-step#timeout_in_minutes) of 240 minutes.

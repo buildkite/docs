@@ -47,7 +47,7 @@ exceptions:
   - Buildkite
   - Buildkite Agent
   - Buildkite Agents
-  - Buildkite Packages
+  - Buildkite Package Registries
   - Buildkite Pipelines
   - buildkite-agent
   - BuildNotify
@@ -60,13 +60,13 @@ exceptions:
   - CircleCI
   - CLI
   - CloudFormation
+  - Cloudsmith
   - CloudWatch
   - CloudWatch Logs
   - CORS
   - CSS
   - Datadog
   - Debian
-  - Free Plan
   - Docker
   - Docker Compose
   - Docker Hub
@@ -110,8 +110,11 @@ exceptions:
   - Installation
   - JavaScript
   - Jenkins
+  - JFrog
+  - Jest
   - JSON
   - JUnit
+  - KMS
   - Kubernetes
   - Linux
   - M1
@@ -126,8 +129,11 @@ exceptions:
   - OneLogin
   - OpenTelemetry
   - OS X
+  - Package Registries
   - PagerDuty
   - Phabricator
+  - pipeline.artifacts_read.pipeline
+  - pipeline.trigger_build.pipeline
   - pipeline.yml
   - PowerShell
   - pytest
@@ -141,10 +147,12 @@ exceptions:
   - SAML
   - SCIM
   - Slack
+  - SLSA
   - S3
   - SSH
   - SSO
-  - Test Analytics
+  - Test Engine
+  - Test Engine Client
   - TESTOWNER
   - Ubuntu
   - URL

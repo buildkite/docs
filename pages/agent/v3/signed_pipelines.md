@@ -42,9 +42,16 @@ The following fields are included in the signature for each step:
 
 You'll need to configure your agents and update pipeline definitions to enable signed pipelines.
 
-### Step 1: Generate a key pair
+Behind the scenes, signed pipelines use [JSON Web Signing (JWS)](https://datatracker.ietf.org/doc/html/rfc7797) to generate signatures. There are two options for creation of keys used with JWS, these are:
 
-Behind the scenes, signed pipelines use [JSON Web Signing (JWS)](https://datatracker.ietf.org/doc/html/rfc7797) to generate signatures. You'll need to generate a [JSON Web Key Set (JWKS)](https://datatracker.ietf.org/doc/html/rfc7517) to sign and verify your pipelines with, then configure your agents to use those keys.
+- Self managed key pairs
+- AWS KMS managed keys
+
+## Self-managed key creation
+
+You'll need to generate a [JSON Web Key Set (JWKS)](https://datatracker.ietf.org/doc/html/rfc7517) to sign and verify your pipelines with, then configure your agents to use those keys.
+
+### Step 1: Generate a key pair
 
 Luckily, the agent has you covered! A JWKS generation tool is built into the agent, which you can use to generate a key pair. To use it, you'll need to [install the agent on your machine](/docs/agent/v3/installation), and then run:
 
@@ -102,6 +109,12 @@ verification-jwks-file=<path to public key set>
 
 This ensures that whenever those agents upload steps to Buildkite, they'll generate signatures using the private key you generated earlier. It also ensures that those agents verify the signatures of any steps they run, using the public key.
 
+```ini
+verification-failure-behavior=<warn>
+```
+
+This setting determines the Buildkite agent's response when it receives a job without a proper signature, and also specifies how strictly the agent should enforce signature verification for incoming jobs. The agent will warn about missing or invalid signatures, but will still proceed to execute the job. If not explicitly specified, the default behavior is `block`, which prevents any job without a valid signature from running, ensuring a secure pipeline environment by default.
+
 On instances that verify jobs, add:
 
 ```ini
@@ -137,14 +150,93 @@ Replacing the following:
 
 This will download the pipeline definition using the Buildkite GraphQL API, sign all steps, and upload the signed pipeline definition back to Buildkite.
 
-## Rotating signing keys
+### Rotating signing keys
 
 Regularly rotating signing and verification keys is good security practice, as it reduces the impact of a compromised key. Because signed pipelines use JWKS as their key format, rotating keys is easy.
 
 To rotate your keys:
 
-1. [Generate a new key pair](#enabling-signed-pipelines-on-your-agents-step-1-generate-a-key-pair).
+1. [Generate a new key pair](#self-managed-key-creation-step-1-generate-a-key-pair).
 1. Add the new keys to your existing key sets. Be careful not to mix public and private keys.
 1. Update the `signing-key-id` on your signing agents to use the new key ID.
 
 The verifying agents will automatically use the public key with the matching key ID, if it's present.
+
+## AWS KMS managed key setup
+
+AWS Key Management Service (AWS KMS) is a web service that securely protects cryptographic keys, when using this service with signed pipelines the agent never has access to the private key used to sign pipelines, with calls going with the KMS API.
+
+### Step 1: Create a KMS key
+
+AWS KMS has a myriad of options when creating keys, for pipeline signing we require that you use some specific settings.
+
+1. The key type must be Asymmetric and have a usage type of `SIGN_VERIFY`.
+2. The key spec must be `ECC_NIST_P256`.
+
+If your using the AWS CLI the key can be created as follows:
+
+```bash
+aws kms create-key --key-spec ECC_NIST_P256 --key-usage SIGN_VERIFY
+```
+
+Once created you can retrieve the key identifier, this will be a UUID, for example `1234abcd-12ab-34cd-56ef-1234567890ab`.
+
+Optionally you can create a key alias, or friendly name for the key as follows:
+
+```bash
+aws kms create-alias \
+  --alias-name alias/example-alias \
+  --target-key-id 1234abcd-12ab-34cd-56ef-1234567890ab
+```
+
+### Step 2: Configure the agents
+
+Next, you need to configure your agents to use the KMS key you created. On agents that upload pipelines, add the following to the agent's config file:
+
+```ini
+signing-aws-kms-key=<key id or alias>
+```
+
+This ensures that whenever those agents upload steps to Buildkite, they'll generate signatures using the private key you generated earlier. It also ensures that those agents verify the signatures of any steps they run, using the public key.
+
+```ini
+verification-failure-behavior=<warn>
+```
+
+This setting determines the Buildkite agent's response when it receives a job without a proper signature, and also specifies how strictly the agent should enforce signature verification for incoming jobs. The agent will warn about missing or invalid signatures, but will still proceed to execute the job. If not explicitly specified, the default behavior is `block`, which prevents any job without a valid signature from running, ensuring a secure pipeline environment by default.
+
+### Step 3: Sign all steps
+
+To sign steps configured in the Buildkite dashboard, you need to add static signatures to the YAML. To do this, run:
+
+```sh
+buildkite-agent tool sign \
+  --graphql-token <token> \
+  --signing-aws-kms-key <key id or alias> \
+  --organization-slug <org slug> \
+  --pipeline-slug <pipeline slug> \
+  --update
+```
+
+Replacing the following:
+
+- `<token>` with a Buildkite GraphQL token that has the `write_pipelines` scope.
+- `<path to signing jwks>` with the path to the private key set you generated earlier.
+- `<key id or alias>` with the AWS KMS key ID or alias created earlier.
+- `<org slug>` with the slug of the organization the pipeline is in.
+- `<pipeline slug>` with the slug of the pipeline you want to sign.
+
+### Step 4: Assign IAM permissions to your agents
+
+There are two common roles for agents when using signed pipelines, these being those that sign and upload pipelines, and those that verify steps. To follow least privilege best practice you should access to the KMS key using IAM to specific actions as seen below.
+
+For agents which will sign and verify pipelines the following IAM Actions are required.
+
+- kms:Sign
+- kms:Verify
+- kms:GetPublicKey
+
+For agents which only verify pipelines the following IAM Actions are required.
+
+- kms:Verify
+- kms:GetPublicKey

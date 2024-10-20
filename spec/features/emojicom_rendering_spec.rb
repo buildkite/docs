@@ -11,7 +11,7 @@ RSpec.feature "Emojicom rendering" do
 
   context "landing page" do
     scenario "does display emojicom widget" do
-      visit "/docs/test-analytics"
+      visit "/docs/test-engine"
 
       expect(page).to have_css "#emojicom-widget-inline"
     end

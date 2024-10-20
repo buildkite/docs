@@ -36,15 +36,15 @@ RSpec.describe ApplicationHelper do
 
     context "when the path contains dashes" do
       it "replaces dashes with spaces" do
-        path = "test-analytics/importing-junit-xml"
+        path = "test-engine/importing-junit-xml"
 
-        expect(top_level_nav_item_name(path)).to eq("Test Analytics")
+        expect(top_level_nav_item_name(path)).to eq("Test Engine")
       end
 
       it "titleizes" do
-        path = "test-analytics/importing-junit-xml"
+        path = "test-engine/importing-junit-xml"
 
-        expect(top_level_nav_item_name(path)).to eq("Test Analytics")
+        expect(top_level_nav_item_name(path)).to eq("Test Engine")
       end
     end
   end
