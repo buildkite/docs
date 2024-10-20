@@ -6,12 +6,14 @@
 .Products__row {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
   margin-left: $gutter / -2;
   margin-right: $gutter / -2;
 
   @media (min-width: $screen-sm) {
     flex-direction: row;
+    align-items: stretch;
+    gap: 24px;
   }
 
   @media (min-width: $screen-md) {
@@ -22,9 +24,11 @@
 
 .Products__link {
   text-decoration: none;
+  flex: 1;
 }
 
 .ProductCard {
+  box-sizing: border-box;
   background-color: $base-0;
   border-radius: $rounded;
   box-shadow: $box-shadow-depth-100;
@@ -33,6 +37,7 @@
   gap: $gutter / 2;
   padding: $gutter / 2;
   transition: box-shadow $transition-speed;
+  height: 100%;
 
   @media (min-width: $screen-xs) {
     flex-direction: row;
