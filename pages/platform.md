@@ -14,4 +14,4 @@ The Buildkite platform documentation contains docs for _platform_-level features
 
 - [Single sign-on (SSO)](/docs/integrations/sso), with guidelines on how to protect access to your Buildkite organization using a supported third-party SSO provider.
 
-- [Service quotas](/docs/platform/service-quotas), 
+- [Service quotas](/docs/platform/service-quotas), lists Buildkite's default service quota values and how you can alter these if required.

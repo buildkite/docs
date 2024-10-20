@@ -4,10 +4,9 @@ toc: false
 
 # Service quotas
 
-> 📘 Need a limit increased?
-> You can request a limit increase by [contacting support](mailto:support@buildkite.com), and providing details about your use case.
+Service quotas are put in place to ensure that Buildkite can provide a reliable service to all customers. These quotas are scoped to your organization, and can be increased by emailing Support at [support@buildkite.com](mailto:support@buildkite.com) and providing details about your use case.
 
-Service quotas are put in place to ensure that Buildkite can provide a reliable service to all customers. These quotas are scoped to your organization, and can be increased by contacting support and providing details about your use case.
+The following table lists Buildkite's default service quota values.
 
 <table>
   <tbody>
