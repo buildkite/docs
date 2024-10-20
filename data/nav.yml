@@ -594,7 +594,7 @@
         - name: "Set up with GraphQL"
           path: "integrations/sso/sso-setup-with-graphql"
     - name: "Service Quotas"
-      path: "pipelines/service-quotas"
+      path: "platform/service-quotas"
 - name: "APIs"
   path: "apis"
   children:
