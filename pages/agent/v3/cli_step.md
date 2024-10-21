@@ -8,6 +8,7 @@ Use this command in your build scripts to update the `label` attribute of a step
 
 <%= render 'agent/v3/help/step_update' %>
 
+label update works on a step level and not on the job level, it would not be possible to update each job in a step 
 ## Getting a step
 
 Use this command in your build scripts to get the value of a particular attribute from a step. The following attributes values can be retrieved:
