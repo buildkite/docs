@@ -1,4 +1,4 @@
-# Configuring test suites overview
+# Test suites overview
 
 In Test Engine, a _test suite_ (or _suite_) is a collection of tests. A suite has a _run_, which is the execution of tests in a suite. A pipeline's build may create one or more of these runs.
 
