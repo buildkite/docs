@@ -537,7 +537,7 @@
               path: "package-registries/maven"
             - name: "Gradle"
               path: "package-registries/gradle"
-        - name: "JavaScipt"
+        - name: "JavaScript"
           path: "package-registries/javascript"
         - name: "Python"
           path: "package-registries/python"
