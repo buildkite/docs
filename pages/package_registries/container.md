@@ -1,6 +1,6 @@
 # Container
 
-Buildkite Package Registries provides registry support for container-based (Docker) images.
+Buildkite Package Registries provides registry support for Docker images. These registries follow the [OCI Distribution 1.1 specification](https://github.com/opencontainers/distribution-spec).
 
 Once your container registry has been [created](/docs/package-registries/manage-registries#create-a-registry), you can publish/upload images (generated from your application's build) to this registry via relevant `docker` commands presented on your container registry's details page.
 
