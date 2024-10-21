@@ -2,7 +2,7 @@
 toc: false
 ---
 
-# Migrate to Buildkite overview
+# Migrate to Buildkite Pipelines overview
 
 Migrating to Buildkite is a smooth process with the right context and planning. The pages in this section provide comprehensive guides to help you seamlessly transition from your existing CI/CD tool to Buildkite Pipelines.
 
