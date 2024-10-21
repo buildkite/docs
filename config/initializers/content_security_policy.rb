@@ -78,8 +78,11 @@ Rails.application.config.content_security_policy do |policy|
    "https://beacon-v2.helpscout.net"
   )
 
-  # Specify URI for violation reports
-  policy.report_uri "https://buildkite.uriports.com/reports/report"
+  # Specify URI for violation reports. We only include this in the header in some environments, mostly
+  # so CSP in dev+test is still in play but it doesn't send useless reports to anywhere
+  if ENV.key?("CSP_REPORT_URI")
+    policy.report_uri ENV.fetch("CSP_REPORT_URI", nil)
+  end
 end
 
 # We use nonce for inline scripts
