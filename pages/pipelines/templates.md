@@ -1,11 +1,11 @@
-# Pipeline templates
+# Organization pipeline templates
 
 > 📘 Enterprise feature
-> Pipeline templates are only available on an [Enterprise](https://buildkite.com/pricing) plan.
+> Organization pipeline templates are only available on an [Enterprise](https://buildkite.com/pricing) plan.
 
 ## Overview
 
-Pipeline templates allow you to define standard pipeline step configurations to use across all the pipelines in your organization.
+Organization pipeline templates allow you to define standard pipeline step configurations to use across all the pipelines in your organization.
 
 When a pipeline has a template assigned, the pipeline inherits its step configuration from the template.
 
