@@ -1,7 +1,5 @@
 # Generate and store SLSA provenance
 
-## Introduction
-
 Supply-chain levels for software artifacts ([SLSA](https://slsa.dev/spec/) and pronounced like "salsa") is an industry-consensus specification for describing and gradually improving artifact supply chain security.
 
 When using Buildkite [Pipelines](/docs/pipelines) with [Package Registries](/docs/package-registries), you can publish software packages and artifacts to registries with [SLSA provenance](https://slsa.dev/provenance) in only four steps.

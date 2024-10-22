@@ -596,6 +596,8 @@
           path: "integrations/sso/custom-saml"
         - name: "Set up with GraphQL"
           path: "integrations/sso/sso-setup-with-graphql"
+    - name: "Service quotas"
+      path: "platform/service-quotas"
 - name: "APIs"
   path: "apis"
   children:
