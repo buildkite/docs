@@ -49,56 +49,184 @@ Review the following sections for the environment variables expected by test col
 
 During Buildkite pipeline runs, test collectors upload information from the following environment variables, and test importers use the following field names:
 
-| Field name             | Environment variable     | Description                                   |
-|------------------------|--------------------------|-----------------------------------------------|
-| `run_env[branch]`      | `BUILDKITE_BRANCH`       | the branch or reference for this build        |
-| `run_env[key]`         | `BUILDKITE_BUILD_ID`     | the UUID for the build                        |
-| `run_env[number]`      | `BUILDKITE_BUILD_NUMBER` | the build number                              |
-| `run_env[url]`         | `BUILDKITE_BUILD_URL`    | the URL for the build on Buildkite            |
-| `run_env[commit_sha]`  | `BUILDKITE_COMMIT`       | the commit hash for the head of the branch    |
-| `run_env[job_id]`      | `BUILDKITE_JOB_ID`       | the job UUID                                  |
-| `run_env[message]`     | `BUILDKITE_MESSAGE`      | the commit message for the head of the branch |
-{: class="responsive-table"}
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th style="width:25%">Field name</th>
+      <th style="width:30%">Environment variable</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        field_name: "run_env[branch]",
+        env_variable: "BUILDKITE_BRANCH",
+        description: "The branch or reference for this build."
+      },
+      {
+        field_name: "run_env[key]",
+        env_variable: "BUILDKITE_BUILD_ID",
+        description: "The UUID for the build."
+      },
+      {
+        field_name: "run_env[number]",
+        env_variable: "BUILDKITE_BUILD_NUMBER",
+        description: "The build number."
+      },
+      {
+        field_name: "run_env[url]",
+        env_variable: "BUILDKITE_BUILD_URL",
+        description: "The URL for the build on Buildkite."
+      },
+      {
+        field_name: "run_env[commit_sha]",
+        env_variable: "BUILDKITE_COMMIT",
+        description: "The commit hash for the head of the branch."
+      },
+      {
+        field_name: "run_env[job_id]",
+        env_variable: "BUILDKITE_JOB_ID",
+        description: "The UUID of the job."
+      },
+      {
+        field_name: "run_env[message]",
+        env_variable: "BUILDKITE_MESSAGE",
+        description: "The commit message for the head of the branch."
+      }
+    ].each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:field_name] %></code>
+        </td>
+        <td>
+          <code><%= field[:env_variable] %></code>
+        </td>
+        <td>
+          <%= field[:description] %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 ## CircleCI
 
 During CircleCI workflow runs, test collectors upload information from the following environment variables, and test importers use the following field names:
 
-| Field name            | Environment variable | Description                                |
-|-----------------------|----------------------|--------------------------------------------|
-| `run_env[branch]`     | `CIRCLE_BRANCH`      | the branch or reference being built        |
-| See note below        | `CIRCLE_BUILD_NUM`   | the number for the job                     |
-| `run_env[url]`        | `CIRCLE_BUILD_URL`   | the URL for the job on CircleCI            |
-| `run_env[commit_sha]` | `CIRCLE_SHA1`        | the commit hash for the head of the branch |
-| See note below        | `CIRCLE_WORKFLOW_ID` | the unique identifier for the workflow run |
-{: class="responsive-table"}
-
-For CircleCI runs:
-
-```
-run_env[key]=$CIRCLE_WORKFLOW_ID-$CIRCLE_BUILD_NUM
-```
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th style="width:25%">Field name</th>
+      <th>Environment variable</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        field_name: "run_env[branch]",
+        env_variable: "CIRCLE_BRANCH",
+        description: "The branch or reference being built."
+      },
+      {
+        field_name: "run_env[key]",
+        env_variable: "CIRCLE_WORKFLOW_ID",
+        env_variable_2: "CIRCLE_BUILD_NUM",
+        description: "The unique identifier for the workflow run, and the number for the job, each separated by a hyphen. That is, <code>$CIRCLE_WORKFLOW_ID-$CIRCLE_BUILD_NUM</code>."
+      },
+      {
+        field_name: "run_env[url]",
+        env_variable: "CIRCLE_BUILD_URL",
+        description: "The URL for the job on CircleCI."
+      },
+      {
+        field_name: "run_env[commit_sha]",
+        env_variable: "CIRCLE_SHA1",
+        description: "The commit hash for the head of the branch."
+      }
+    ].each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:field_name] %></code>
+        </td>
+        <td>
+          <code><%= field[:env_variable] %></code>
+          <% if field[:env_variable_2] %>
+            <br/>
+            <code><%= field[:env_variable_2] %></code>
+          <% end %>
+        </td>
+        <td>
+          <%= field[:description] %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 ## GitHub Actions
 
 During GitHub Actions workflow runs,test collectors upload information from the following environment variables, and test importers use the following field names:
 
-| Field name            | Environment variable | Description                                             |
-|-----------------------|----------------------|---------------------------------------------------------|
-| See note below        | `GITHUB_ACTION`      | the name of the action running or its step ID           |
-| `run_env[branch]`     | `GITHUB_REF_NAME`    | the ref (branch or tag) that triggered the workflow run |
-| `run_env[url]`        | `GITHUB_REPOSITORY`  | the repository owner and repository name                |
-| See note below        | `GITHUB_RUN_ATTEMPT` | the numbered attempt of the workflow run                |
-| `run_env[commit_sha]` | `GITHUB_SHA`         | the commit hash for the head of the branch              |
-| See note below        | `GITHUB_RUN_ID`      | the unique number for the workflow run                  |
-| `run_env[number]`     | `GITHUB_RUN_NUMBER`  | the cumulative number of runs for the workflow          |
-{: class="responsive-table"}
-
-For GitHub Action runs:
-
-```
-run_env[key]=$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT
-```
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th style="width:25%">Field name</th>
+      <th>Environment variable(s)</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        field_name: "run_env[key]",
+        env_variable: "GITHUB_ACTION",
+        env_variable_2: "GITHUB_RUN_ID",
+        env_variable_3: "GITHUB_RUN_ATTEMPT",
+        description: "The name of the action running or its step ID, the unique number for the workflow run, and the numbered attempt of the workflow run, each separated by a hyphen. That is, <code>$GITHUB_ACTION-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT</code>."
+      },
+      {
+        field_name: "run_env[branch]",
+        env_variable: "GITHUB_REF_NAME",
+        description: "The ref (branch or tag) that triggered the workflow run."
+      },
+      {
+        field_name: "run_env[url]",
+        env_variable: "GITHUB_REPOSITORY",
+        description: "The repository owner and repository name."
+      },
+      {
+        field_name: "run_env[commit_sha]",
+        env_variable: "GITHUB_SHA",
+        description: "The commit hash for the head of the branch."
+      },
+      {
+        field_name: "run_env[number]",
+        env_variable: "GITHUB_RUN_NUMBER",
+        description: "The cumulative number of runs for the workflow."
+      }
+    ].each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:field_name] %></code>
+        </td>
+        <td>
+          <code><%= field[:env_variable] %></code>
+          <% if field[:env_variable_2] && field[:env_variable_3] %>
+            <br/>
+            <code><%= field[:env_variable_2] %></code>
+            <br/>
+            <code><%= field[:env_variable_3] %></code>
+          <% end %>
+        </td>
+        <td>
+          <%= field[:description] %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 ## Other CI providers
 
