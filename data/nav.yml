@@ -448,14 +448,14 @@
           children:
             - name: "Overview"
               path: "test-engine/other-collectors"
-            - name: "CI environment variables"
-              path: "test-engine/ci-environments"
             - name: "Importing JUnit XML"
               path: "test-engine/importing-junit-xml"
             - name: "Importing JSON"
               path: "test-engine/importing-json"
             - name: "Writing your own collectors"
               path: "test-engine/your-own-collectors"
+        - name: "CI environment variables"
+          path: "test-engine/ci-environments"
     - name: "Test suites"
       children:
         - name: "Overview"

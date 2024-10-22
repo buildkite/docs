@@ -182,9 +182,9 @@ During GitHub Actions workflow runs,test collectors upload information from the 
       {
         field_name: "run_env[key]",
         env_variable: "GITHUB_ACTION",
-        env_variable_2: "GITHUB_RUN_ID",
+        env_variable_2: "GITHUB_RUN_NUMBER",
         env_variable_3: "GITHUB_RUN_ATTEMPT",
-        description: "The name of the action running or its step ID, the unique number for the workflow run, and the numbered attempt of the workflow run, each separated by a hyphen. That is, <code>$GITHUB_ACTION-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT</code>."
+        description: "The name of the action running or its step ID, the cumulative number of runs for the workflow, and the numbered attempt of the workflow run, each separated by a hyphen. That is, <code>$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT</code>."
       },
       {
         field_name: "run_env[branch]",
@@ -203,8 +203,8 @@ During GitHub Actions workflow runs,test collectors upload information from the 
       },
       {
         field_name: "run_env[number]",
-        env_variable: "GITHUB_RUN_NUMBER",
-        description: "The cumulative number of runs for the workflow."
+        env_variable: "GITHUB_RUN_ID",
+        description: "The unique number for the workflow run."
       }
     ].each do |field| %>
       <tr>
