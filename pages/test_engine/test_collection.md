@@ -22,4 +22,4 @@ Test collectors are available for development projects in the following language
 - [Java (via JUnit XML import)](/docs/test-engine/importing-junit-xml)
 - [Other languages](/docs/test-engine/other-collectors)
 
-Once you have configure the appropriate test collector for your project, you can proceed to [configure its test suite](/docs/test-engine/test-suites).
+Once you have configure the appropriate test collector for your project, you can proceed to run your tests and analyze the data through its [test suite](/docs/test-engine/test-suites).

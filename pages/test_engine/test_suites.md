@@ -6,7 +6,7 @@ Many organizations set up one suite per test framework, for example one suite fo
 
 Each suite inside Test Engine has a unique API token that you can use to route test information to the correct suite. Pipelines and test suites do not need to have a one-to-one relationship.
 
-To start configuring your test suite, you first need to have configured the appropriate _test collectors_ for your development project. Learn more about how to do this from the [Test collectors](/docs/test-engine/test-collectors) section of these docs.
+To start configuring your test suite, you first need to have configured the appropriate _test collectors_ for your development project. Learn more about how to do this from the [Test collection](/docs/test-engine/test-collection) section of these docs.
 
 To delete a suite, or regenerate its API token, go to suite settings.
 
