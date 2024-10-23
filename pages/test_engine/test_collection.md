@@ -2,11 +2,13 @@
 toc: false
 ---
 
-# Test collectors overview
+# Test collection overview
 
-Before configuring your [test suite](/docs/test-engine/test-suites), you need to configure a _test collector_ for it in your development project. A test collector gathers the required test data information from your development project at build time, and reports this information back to Buildkite for Test Engine to interpret.
+Before configuring your [test suite](/docs/test-engine/test-suites), you need to configure a Buildkite _test collector_ for it in your development project, or some other mechanism for collecting data from your development project to send to Test Engine.
 
-Test collectors are available for development projects in the following language and language ecosystems:
+A test collector is a library or code addition that gathers the required test data information from your development project at build time, and sends this information back to Buildkite for Test Engine to interpret and report on.
+
+Test collectors are available for development projects in the following language frameworks:
 
 - [Ruby](/docs/test-engine/ruby-collectors)
 - [JavaScript](/docs/test-engine/javascript-collectors)

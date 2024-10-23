@@ -118,7 +118,7 @@ During CircleCI workflow runs, test collectors upload information from the follo
   <thead>
     <tr>
       <th style="width:25%">Field name</th>
-      <th>Environment variable</th>
+      <th>Environment variable(s)</th>
       <th>Description</th>
     </tr>
   </thead>
