@@ -2,7 +2,7 @@
 
 👋 Welcome to Buildkite Package Registries! You can use Package Registries to house your [packages](/docs/package-registries/background#package-creation-tools) built through [Buildkite Pipelines](/docs/pipelines) or another CI/CD application, and manage them through dedicated registries. This tutorial takes you through creating a JavaScript registry, cloning and running a simple Node.js package locally, and uploading this package to your new JavaScript registry.
 
-While this tutorial uses a Node.js package example, Buildkite Package Registries supports [other package ecosystems](/docs/package-registries/manage-registries#create-a-registry-manage-packages-in-a-registry) too.
+While this tutorial uses a Node.js package example, Buildkite Package Registries supports [other package ecosystems](/docs/package-registries/ecosystems) too.
 
 ## Before you start
 
@@ -28,9 +28,9 @@ First, create a new JavaScript registry:
 
     The new JavaScript registry's details page is displayed. Selecting **Packages** in the global navigation opens the **Registries** page, where your new registry will be listed.
 
-## Clone the Node.js package example
+## Clone the Node.js example package project
 
-Then, clone the Node.js package example:
+Then, clone the Node.js example package project:
 
 1. Run the following command:
 
