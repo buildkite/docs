@@ -8,17 +8,17 @@ Before configuring a [test suite](/docs/test-engine/test-suites), you need to co
 
 A test collector is a library or plugin that runs inside your test runner to gather the required test data information to send back to Buildkite for Test Engine to interpret, analyze and report on.
 
-Test collectors are available for development projects in the following language frameworks:
+Test collectors are available for the following test runners:
 
-- [Ruby](/docs/test-engine/ruby-collectors)
-- [JavaScript](/docs/test-engine/javascript-collectors)
-- [Swift](/docs/test-engine/swift-collectors)
+- [Ruby (RSpec, minitest)](/docs/test-engine/ruby-collectors)
+- [JavaScript (Jest, Cypress, Playwright, Mocha, Jasmine)](/docs/test-engine/javascript-collectors)
+- [Swift (CXTest)](/docs/test-engine/swift-collectors)
 - [Android](/docs/test-engine/android-collectors)
-- [Python](/docs/test-engine/python-collectors)
-- [Go](/docs/test-engine/golang-collectors)
-- [.NET](/docs/test-engine/dotnet-collectors)
-- [Elixir](/docs/test-engine/elixir-collectors)
-- [Rust](/docs/test-engine/rust-collectors)
+- [Python (pytest)](/docs/test-engine/python-collectors)
+- [Go (gotestsum)](/docs/test-engine/golang-collectors)
+- [.NET (xUnit)](/docs/test-engine/dotnet-collectors)
+- [Elixir (ExUnit)](/docs/test-engine/elixir-collectors)
+- [Rust (Cargo test)](/docs/test-engine/rust-collectors)
 - [Java (via JUnit XML import)](/docs/test-engine/importing-junit-xml)
 - [Other languages](/docs/test-engine/other-collectors)
 
