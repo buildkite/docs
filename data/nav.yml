@@ -444,7 +444,7 @@
           path: "test-engine/elixir-collectors"
         - name: "Rust"
           path: "test-engine/rust-collectors"
-        - name: "Other languages"
+        - name: "Other test collectors"
           children:
             - name: "Overview"
               path: "test-engine/other-collectors"

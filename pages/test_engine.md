@@ -45,7 +45,7 @@ If you're familiar with the basics, begin configuring [test collection](/docs/te
 
 <!-- vale on -->
 
-If a Buildkite test collector is not available for one of these language frameworks, you can use [other test collection](/docs/test-engine/other-collectors) mechanisms instead.
+If a Buildkite test collector is not available for one of these test runners, you can use [other test collection](/docs/test-engine/other-collectors) mechanisms instead.
 
 Once test collection has been set up in your development project, you can proceed to run your tests, and analyze and report on them through its test suites. Learn more about this from the [Test suites overview](/docs/test-engine/test-suites) page, which covers Test Engine's concepts and functionality.
 
