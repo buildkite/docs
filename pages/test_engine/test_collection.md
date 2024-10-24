@@ -4,9 +4,9 @@ toc: false
 
 # Test collection overview
 
-Before configuring a [test suite](/docs/test-engine/test-suites), you need to configure a Buildkite _test collector_ for it in your development project, or some other mechanism for collecting data from your development project to send to Test Engine.
+Before configuring a [test suite](/docs/test-engine/test-suites), you need to configure a Buildkite _test collector_ for your development project's test runners (for example, RSpec or minitest for Ruby, or Jest or Cypress for JavaScript), or some other mechanism for collecting data from your project's test runners to send to Test Engine.
 
-A test collector is a library or code addition to your development project that gathers the required test data information from this project at build time, and sends this information back to Buildkite for Test Engine to interpret, analyze and report on.
+A test collector is a library or plugin that runs inside your test runner to gather the required test data information, and sends this information back to Buildkite for Test Engine to interpret, analyze and report on.
 
 Test collectors are available for development projects in the following language frameworks:
 
