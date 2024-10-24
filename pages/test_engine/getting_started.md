@@ -74,4 +74,4 @@ Next, configure your Ruby project's RSpec test runner with its test collector:
     Buildkite::TestCollector.configure(hook: :rspec)
     ```
 
-## Run Rspec to (again) to send your test data to Test Engine
+## Run RSpec (again) to send your test data to Test Engine
