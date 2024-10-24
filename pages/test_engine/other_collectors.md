@@ -4,7 +4,7 @@ toc: false
 
 # Collecting test data from other language frameworks
 
-If a native Buildkite test collector is not available for your language framework, you can instead use any of the following mechanisms to integrate your particular language framework with Test Engine:
+If a native Buildkite test collector is not available for your test runner, you can instead use any of the following mechanisms to integrate your particular test runner with Test Engine:
 
 - Importing your test run data from:
 
