@@ -32,7 +32,7 @@ First, create a new JavaScript registry:
 
 Then, clone the Node.js example package project:
 
-1. Run the following command:
+1. Open a terminal or command prompt, and run the following command:
 
     ```bash
     git clone git@github.com:buildkite/nodejs-example-package.git
