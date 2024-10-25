@@ -22,6 +22,6 @@ Test collectors are available for the following languages and their test runners
 - [Java (via JUnit XML import)](/docs/test-engine/importing-junit-xml)
 - [Other languages or test runners](/docs/test-engine/other-collectors)
 
-If your test runner executions are automated through CI/CD, learn more about the [CI environment variables](/docs/test-engine/ci-environments) that test collectors and other test collection mechanisms provide to your test suites, for reporting in test runs.
+If your test runner executions are automated through CI/CD, learn more about the [CI environment variables](/docs/test-engine/ci-environments) that test collectors (and other test collection mechanisms) provide to your Buildkite test suites, for reporting in test runs.
 
-Once you have configure the appropriate test collectors for your projects, you can proceed to run your tests, and analyze and report on their data through their [test suites](/docs/test-engine/test-suites).
+Once you have configured the appropriate test collectors for your projects, you can proceed to run your tests, and analyze and report on their data through their [test suites](/docs/test-engine/test-suites).

@@ -105,7 +105,9 @@ Next, configure your Ruby project's RSpec test runner with its test collector:
     BUILDKITE_ANALYTICS_TOKEN=<api-token-value> BUILDKITE_ANALYTICS_MESSAGE="My first test run" rspec
     ```
 
-    where `<api-token-value>` is the value of the **Test Suite API token** value you copied in the previous step. This value can typically be pasted without any quotation marks.
+    where:
+    * `<api-token-value>` is the value of the **Test Suite API token** value you copied in the previous step. This value can typically be pasted without any quotation marks.
+    * `BUILDKITE_ANALYTICS_MESSAGE` is an environment variable, whose value is a description of the test run (or build), which can be presented in a run of your Buildkite test suite. Learn more about these types of environment variables, which are available to [other CI/CD providers](/docs/test-engine/ci-environments#other-ci-providers) (that is, those other than Buildkite Pipelines, CircleCI or GitHub Actions), containers, as well as manually run builds.
 
     The command output should display something similar to:
 
@@ -128,5 +130,5 @@ That's it! You've successfully created a test suite, configured your Ruby projec
 Learn more about:
 
 - How to configure [test collection](/docs/test-engine/test-collection) for other test runners.
-- [CI environment variables](/docs/test-engine/ci-environments) that test collectors and other test collection mechanisms provide to your Test Engine test suites, when your test runs are automated through CD/CD.
-- How to work with Buildkite Test Engine in [Test suites](/docs/test-engine/test-suites).
+- [CI environment variables](/docs/test-engine/ci-environments) that test collectors (and other test collection mechanisms) provide to your Buildkite test suites, when your test runs are automated through CI/CD.
+- How to work with [test suites](/docs/test-engine/test-suites) in Buildkite Test Engine.
