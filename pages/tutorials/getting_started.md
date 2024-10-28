@@ -6,7 +6,7 @@ keywords: docs, pipelines, tutorials, getting started
 
 👋 Welcome to Buildkite Pipelines! You can use Pipelines to build your dream CI/CD workflows on a secure, scalable, and flexible platform.
 
-This tutorial helps you understand Pipelines' fundamentals, by taking you through the creation of a basic pipeline from an example.
+This tutorial helps you understand Pipelines' fundamentals, by guiding you through the creation of a basic pipeline from an example.
 
 ## Before you start
 
