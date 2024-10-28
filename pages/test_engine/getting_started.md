@@ -1,8 +1,8 @@
 # Getting started
 
-👋 Welcome to Buildkite Test Engine! You can use Test Engine to help you track and analyze the test steps automated through CI/CD using either [Buildkite Pipelines](/docs/pipelines) or another CI/CD application, by shipping code to production faster through test optimization, as well as improving the performance and reliability of your tests.
+👋 Welcome to Buildkite Test Engine! You can use Test Engine to help you track and analyze the test steps automated through CI/CD using either [Buildkite Pipelines](/docs/pipelines) or another CI/CD application.
 
-While this tutorial uses a simple Ruby project example, Buildkite Test Engine supports [other languages and test runners](/docs/test-engine/test-collection) too.
+This tutorial helps you understand Buildkite Test Engine's fundamentals, by guiding you through the creation of a new Test Engine test suite, and then cloning and running a simple example Ruby project to generate test results that are collected and reported through this test suite. Note that Buildkite Test Engine supports [other languages and test runners](/docs/test-engine/test-collection) too.
 
 ## Before you start
 
@@ -60,7 +60,7 @@ Then, clone the Ruby example test suite project:
 
 ## Configure your Ruby project with its test collector
 
-Next, configure your Ruby project's RSpec test runner with its test collector:
+Next, configure your Ruby project's RSpec test runner with its Buildkite test collector:
 
 1. Install the [`buildkite-test_collector`](https://rubygems.org/gems/buildkite-test_collector) gem by running the following `gem` command:
 
@@ -107,7 +107,7 @@ Next, configure your Ruby project's RSpec test runner with its test collector:
 
     where:
     * `<api-token-value>` is the value of the **Test Suite API token** value you copied in the previous step. This value can typically be pasted without any quotation marks.
-    * `BUILDKITE_ANALYTICS_MESSAGE` is an environment variable, whose value is a description of the test run (or build), which can be presented in a run of your Buildkite test suite. Learn more about these types of environment variables, which are available to [other CI/CD providers](/docs/test-engine/ci-environments#other-ci-providers) (that is, those other than Buildkite Pipelines, CircleCI or GitHub Actions), containers, as well as manually run builds.
+    * `BUILDKITE_ANALYTICS_MESSAGE` is an environment variable, which is usually used for a source control (Git) commit message, and is presented in a run of your Buildkite test suite. However, in this scenario, this environment variable and its value are being used to describe the test run (or build). Learn more about [these types of environment variables](/docs/test-engine/ci-environments#other-ci-providers), which are available to _other CI/CD providers_ (that is, those other than [Buildkite Pipelines](/docs/test-engine/ci-environments#buildkite), [CircleCI](/docs/test-engine/ci-environments#circleci) or [GitHub Actions](/docs/test-engine/ci-environments#github-actions)), as well as [containers](/docs/test-engine/ci-environments#containers-and-test-collectors), and manually run builds such as this `rspec` execution command above.
 
     The command output should display something similar to:
 
@@ -119,7 +119,7 @@ Next, configure your Ruby project's RSpec test runner with its test collector:
     22 examples, 0 failures
     ```
 
-1. Back in Test Engine, your test suite should now be displayed, showing its **Runs** tab, with a summary of details from the last execution of the RSpec test runner in the previous step. The final result should indicate a status of **PASSED**.
+1. Back in Test Engine, your test suite should now be displayed, showing its **Runs** tab, with a summary of details from the last execution of the RSpec test runner in the previous step. The final result should indicate **My first test run** (obtained from the value of `BUILDKITE_ANALYTICS_MESSAGE` in the previous step) with a status of **PASSED**.
 
     If this page indicates **Still processing data** after a while, refresh your browser page to display the results. If the status indicates **PENDING**, wait a little longer until the final result appears.
 
