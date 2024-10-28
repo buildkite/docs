@@ -1,8 +1,8 @@
 # Getting started
 
-👋 Welcome to Buildkite Package Registries! You can use Package Registries to house your [packages](/docs/package-registries/background#package-creation-tools) built through [Buildkite Pipelines](/docs/pipelines) or another CI/CD application, and manage them through dedicated registries. This tutorial takes you through creating a JavaScript registry, cloning and running a simple Node.js package locally, and uploading this package to your new JavaScript registry.
+👋 Welcome to Buildkite Package Registries! You can use Package Registries to house your [packages](/docs/package-registries/background#package-creation-tools) built through [Buildkite Pipelines](/docs/pipelines) or another CI/CD application, and manage them through dedicated registries.
 
-While this tutorial uses a Node.js package example, Buildkite Package Registries supports [other package ecosystems](/docs/package-registries/ecosystems) too.
+This tutorial helps you understand Package Registries' fundamentals, by taking you through the creation of a new JavaScript registry, cloning and running a simple Node.js package locally, and uploading this package to this new registry. Note that Buildkite Package Registries supports [other package ecosystems](/docs/package-registries/ecosystems) too.
 
 ## Before you start
 
