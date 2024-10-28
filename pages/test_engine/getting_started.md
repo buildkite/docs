@@ -107,7 +107,7 @@ Next, configure your Ruby project's RSpec test runner with its Buildkite test co
 
     where:
     * `<api-token-value>` is the value of the **Test Suite API token** value you copied in the previous step. This value can typically be pasted without any quotation marks.
-    * `BUILDKITE_ANALYTICS_MESSAGE` is an environment variable, whose value is a description of the test run (or build), which can be presented in a run of your Buildkite test suite. Learn more about [these types of environment variables](/docs/test-engine/ci-environments#other-ci-providers), which are available to _other CI/CD providers_ (that is, those other than [Buildkite Pipelines](/docs/test-engine/ci-environments#buildkite), [CircleCI](/docs/test-engine/ci-environments#circleci) or [GitHub Actions](/docs/test-engine/ci-environments#github-actions)), as well as [containers](/docs/test-engine/ci-environments#containers-and-test-collectors), and manually run builds such as this `rspec` execution command above.
+    * `BUILDKITE_ANALYTICS_MESSAGE` is an environment variable, which is usually used for a source control (Git) commit message, and is presented in a run of your Buildkite test suite. However, in this scenario, this environment variable and its value are being used to describe the test run (or build). Learn more about [these types of environment variables](/docs/test-engine/ci-environments#other-ci-providers), which are available to _other CI/CD providers_ (that is, those other than [Buildkite Pipelines](/docs/test-engine/ci-environments#buildkite), [CircleCI](/docs/test-engine/ci-environments#circleci) or [GitHub Actions](/docs/test-engine/ci-environments#github-actions)), as well as [containers](/docs/test-engine/ci-environments#containers-and-test-collectors), and manually run builds such as this `rspec` execution command above.
 
     The command output should display something similar to:
 
@@ -119,7 +119,7 @@ Next, configure your Ruby project's RSpec test runner with its Buildkite test co
     22 examples, 0 failures
     ```
 
-1. Back in Test Engine, your test suite should now be displayed, showing its **Runs** tab, with a summary of details from the last execution of the RSpec test runner in the previous step. The final result should indicate a status of **PASSED**.
+1. Back in Test Engine, your test suite should now be displayed, showing its **Runs** tab, with a summary of details from the last execution of the RSpec test runner in the previous step. The final result should indicate **My first test run** (obtained from the value of `BUILDKITE_ANALYTICS_MESSAGE` in the previous step) with a status of **PASSED**.
 
     If this page indicates **Still processing data** after a while, refresh your browser page to display the results. If the status indicates **PENDING**, wait a little longer until the final result appears.
 
