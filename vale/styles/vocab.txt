@@ -126,6 +126,7 @@ launchd
 LFS
 libpq
 linux
+llamasecret
 macOS
 matchers
 Memcache
