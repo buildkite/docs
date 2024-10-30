@@ -14,43 +14,17 @@ script.
 
 ### Usage
 
-`buildkite-agent redactor add [options...] [file-with-content-to-redact]`
+`buildkite-agent build cancel [options...]`
 
 ### Description
 
-This command may be used to parse a file for values to redact from a
-running job&#39;s log output. If you dynamically fetch secrets during a job,
-it is recommended that you use this command to ensure they will be
-redacted from subsequent logs. Secrets fetched with the builtin
-`secret get` command do not require the use of this command, they will
-be redacted automatically.
+Cancel a running build.
 
 ### Example
 
-To redact the verbatim contents of the file &#39;id_ed25519&#39; from future logs:
-
 ```shell
-$ buildkite-agent redactor add id_ed25519
-```
-
-To redact the string &#39;llamasecret&#39; from future logs:
-
-```shell
-$ echo llamasecret | buildkite-agent redactor add
-```
-
-To redact multiple secrets from future logs in one command, create a flat
-JSON object file (for example, &#39;my-secrets.json&#39;), with multiple &quot;key&quot; values,
-one for each secret:
-
-```shell
-$ echo '{"key":"secret1","key":"secret2"}' | buildkite-agent redactor add --format json
-```
-
-Or
-
-```shell
-$ buildkite-agent redactor add --format json my-secrets.json
+# Cancels the current build
+$ buildkite-agent build cancel
 ```
 
 ### Options
@@ -58,7 +32,7 @@ $ buildkite-agent redactor add --format json my-secrets.json
 <!-- vale off -->
 
 <table class="Docs__attribute__table">
-<tr id="format"><th><code>--format value</code> <a class="Docs__attribute__link" href="#format">#</a></th><td><p>The format for the input, whose value is either `json` or `none`. `none` adds the entire input's content to the redactor, with the exception of leading and trailing space. `json` parses the input's content as a JSON object, where each value of each key is added to the redactor. (default: "none")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_REDACT_ADD_FORMAT</code></p></td></tr>
+<tr id="build"><th><code>--build value</code> <a class="Docs__attribute__link" href="#build">#</a></th><td><p>The build UUID to cancel<br /><strong>Environment variable</strong>: <code>$BUILDKITE_BUILD_ID</code></p></td></tr>
 <tr id="agent-access-token"><th><code>--agent-access-token value</code> <a class="Docs__attribute__link" href="#agent-access-token">#</a></th><td><p>The access token used to identify the agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></p></td></tr>
 <tr id="endpoint"><th><code>--endpoint value</code> <a class="Docs__attribute__link" href="#endpoint">#</a></th><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ENDPOINT</code></p></td></tr>
 <tr id="no-http2"><th><code>--no-http2 </code> <a class="Docs__attribute__link" href="#no-http2">#</a></th><td><p>Disable HTTP2 when communicating with the Agent API.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_NO_HTTP2</code></p></td></tr>

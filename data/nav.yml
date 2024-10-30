@@ -157,6 +157,8 @@
               path: "agent/v3/cli-artifact"
             - name: "bootstrap"
               path: "agent/v3/cli-bootstrap"
+            - name: "build"
+              path: "agent/v3/cli-build"
             - name: "env"
               path: "agent/v3/cli-env"
             - name: "lock"
