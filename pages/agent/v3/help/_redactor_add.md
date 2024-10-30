@@ -12,9 +12,48 @@ script.
 
 -->
 
-This may be used to parse a file for values to redact from a running job&#39;s log output. If you dynamically fetch secrets during a job, it is recommended that you use this command to ensure they will be redacted from subsequent logs. Secrets fetched with the builtin `secret get` command do not require the use of this command, they will be redacted automatically.
+### Usage
 
-`Options:`
+`buildkite-agent redactor add [options...] [file-with-content-to-redact]`
+
+### Description
+
+This command may be used to parse a file for values to redact from a
+running job&#39;s log output. If you dynamically fetch secrets during a job,
+it is recommended that you use this command to ensure they will be
+redacted from subsequent logs. Secrets fetched with the builtin
+`secret get` command do not require the use of this command, they will
+be redacted automatically.
+
+### Example
+
+To redact the verbatim contents of the file &#39;id_ed25519&#39; from future logs:
+
+```shell
+$ buildkite-agent redactor add id_ed25519
+```
+
+To redact the string &#39;llamasecret&#39; from future logs:
+
+```shell
+$ echo llamasecret | buildkite-agent redactor add
+```
+
+To redact multiple secrets from future logs in one command, create a flat
+JSON object file (for example, &#39;my-secrets.json&#39;), with multiple &quot;key&quot; values,
+one for each secret:
+
+```shell
+$ echo '{"key":"secret1","key":"secret2"}' | buildkite-agent redactor add --format=json
+```
+
+Or
+
+```shell
+$ buildkite-agent redactor add --format=json my-secrets.json
+```
+
+### Options
 
 <!-- vale off -->
 
