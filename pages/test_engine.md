@@ -21,7 +21,7 @@ _Buildkite Test Engine_ was previously called _Buildkite Test Analytics_.
 
 Run through the [Getting started](/docs/test-engine/getting-started) tutorial for a step-by-step guide on how to use Buildkite Test Engine.
 
-If you're familiar with the basics, begin configuring [test collection](/docs/test-engine/test-collection) for your development project. Do this by setting it up with the required Buildkite _test collectors_ for your project's test runners (or testing frameworks), which sends the required test data information to Test Engine:
+If you're familiar with the basics, begin configuring [test collection](/docs/test-engine/test-collection) for your development project. Do this by setting it up with the required Buildkite _test collectors_ for your project's testing frameworks (also known as _test runners_), which sends the required test data information to Test Engine:
 
 <!-- vale off -->
 
