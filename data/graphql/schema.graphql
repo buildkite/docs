@@ -850,6 +850,8 @@ enum AuditEventType {
   CLUSTER_TOKEN_DELETED
   CLUSTER_TOKEN_UPDATED
   CLUSTER_UPDATED
+  COMPOSITE_REGISTRY_UPSTREAM_ADDED
+  COMPOSITE_REGISTRY_UPSTREAM_REMOVED
   JOB_TERMINAL_SESSION_STARTED
   NOTIFICATION_SERVICE_BROKEN
   NOTIFICATION_SERVICE_CREATED
@@ -992,7 +994,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -1006,6 +1008,7 @@ enum AuditSubjectType {
   CLUSTER_QUEUE
   CLUSTER_QUEUE_TOKEN
   CLUSTER_TOKEN
+  COMPOSITE_REGISTRY_UPSTREAM
   JOB
   NOTIFICATION_SERVICE
   ORGANIZATION
@@ -2388,6 +2391,27 @@ type ClusterUpdatePayload {
   """
   clientMutationId: String
   cluster: Cluster!
+}
+
+"""
+A composite registry's upstream
+"""
+type CompositeRegistryUpstream implements Node {
+  compositeRegistry: Registry!
+
+  """
+  The time when the upstream was created
+  """
+  createdAt: DateTime
+  id: ID!
+  organization: Organization!
+  registry: Registry!
+
+  """
+  The time when the upstream was updated
+  """
+  updatedAt: DateTime
+  uuid: String!
 }
 
 interface Connection {

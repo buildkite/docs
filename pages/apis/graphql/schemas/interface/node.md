@@ -101,6 +101,9 @@ An object with an ID.
 <a href="/docs/apis/graphql/schemas/object/clustertoken" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterToken">
   <code>ClusterToken</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/compositeregistryupstream" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT CompositeRegistryUpstream">
+  <code>CompositeRegistryUpstream</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/email" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Email">
   <code>Email</code>
 </a>
