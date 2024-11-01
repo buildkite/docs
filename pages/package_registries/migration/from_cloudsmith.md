@@ -2,7 +2,7 @@
 
 To migrate your packages from Cloudsmith to Buildkite Package Registries, you will need to export/download packages from Cloudsmith repository before importing them to your Buildkite registry.
 
-## Download packages via the Website UI
+## Download packages via the website UI
 
 Cloudsmith offers two options to download packages via UI:
 - To download packages using Native Package Manager(such as `npm`  or `gem` packages), follow the guide on [downloading via Native Package Manager](https://help.cloudsmith.io/docs/download-a-package#download-via-native-package-manager).
