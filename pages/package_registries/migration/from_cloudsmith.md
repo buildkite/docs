@@ -2,56 +2,100 @@
 
 To migrate your packages from Cloudsmith to Buildkite Package Registries, you'll need to export/download packages from a Cloudsmith repository before importing them to your Buildkite registry.
 
-## Download packages via the Cloudsmith interface
+## Download packages using the Cloudsmith interface
 
-Cloudsmith offers two options to download packages through its interface, which may also include some interaction through a command line interface (CLI):
+Cloudsmith offers two options to download specific packages from a Cloudsmith repository through its interface, one of which also involves command execution through a command line interface (CLI):
+
+- To download individual packages, follow Cloudsmith's [Download via Website UI](https://help.cloudsmith.io/docs/download-a-package#download-via-website-ui) guide for either [public](https://help.cloudsmith.io/docs/download-a-package#public-repositories) or [private](https://help.cloudsmith.io/docs/download-a-package#private-repositories) repositories.
 
 - To download packages using native package management tools (for example, `npm`  or `gem`), follow Cloudsmith's [Downloading via Native Package Manager](https://help.cloudsmith.io/docs/download-a-package#download-via-native-package-manager) guide. This guide provides details on how to use the Cloudsmith interface to access specific instructions for each native package management tool. These specific instructions then provide guidance on using the relevant native package management's own CLI tools to download packages from Cloudsmith.
 
-- To download packages via their website's UI, follow the guide for [downloading public repositories](https://help.cloudsmith.io/docs/download-a-package#public-repositories) and [downloading private repositories](https://help.cloudsmith.io/docs/download-a-package#private-repositories).
+> 📘
+> Cloudsmith does not provide a mechanism to download packages in bulk from a repository through its interface. However, scripting-based methods (using the [Cloudsmith CLI](https://help.cloudsmith.io/docs/cli) tool) are available to [download packages in bulk](#downloading-packages-in-bulk).
 
-## Downloading packages via the API
+## Download packages using the Cloudsmith REST API or CLI tool
 
-Cloudsmith does not support downloading a package directly via the API or its [CLI tool](https://help.cloudsmith.io/docs/cli). However, a URL can be obtained via the API or CLI that can be used to download a package. When downloading via the CLI, please ensure that the API Key has been setup correctly. Refer to the [CLI documentation](https://help.cloudsmith.io/docs/cli) for full details.
+Cloudsmith does not support downloading packages directly via its [REST API](https://help.cloudsmith.io/reference/introduction) or [CLI](https://help.cloudsmith.io/docs/cli) tool.
 
-To retrieve the download URL of the packages in a repository via the API:
+However, download URLs can be obtained via the Cloudsmith REST API or its command line interface (CLI), which in turn can then be used to download packages from a Cloudsmith repository.
+
+> 📘
+> If you are using the Cloudsmith CLI to download packages, ensure that your [Cloudsmith API key](https://help.cloudsmith.io/docs/cli#getting-your-api-key) has been set up correctly.
+
+### Retrieving download URLs using the REST API
+
+To retrieve the download URL/s for one or more packages in a Cloudsmith repository [using the Cloudsmith API](https://help.cloudsmith.io/reference/packages_list):
 
 ```bash
-curl -H "X-Api-Key: $CLOUDSMITH_API_KEY" -H 'accept: application/json' -X GET "https://api.cloudsmith.io/v1/packages/{account}/{repository}/"  | jq '.[].cdn_url'
+curl -X GET "https://api.cloudsmith.io/v1/packages/{owner}/{repository}/" \
+  -H "X-Api-Key: $CLOUDSMITH_API_KEY" \
+  -H 'accept: application/json' | jq '.[].cdn_url'
 ```
 
-To retrieve the download URL of the packages in a repository via the CLI:
+where:
+
+- `{owner}` is your Cloudsmith account or organization name.
+- `{repository}` is your Cloudsmith repository name/slug.
+- `$CLOUDSMITH_API_KEY` is your [Cloudsmith API key](https://help.cloudsmith.io/docs/api-key).
+
+The `jq '.[].cdn_url` command transforms the JSON response from this Cloudsmith REST API query to list the URLs for individual packages, which can then be used to download them from this repository.
+
+### Retrieving download URLs using the CLI
+
+To retrieve the download URL/s for one or more packages in a Cloudsmith repository [using the Cloudsmith CLI](https://help.cloudsmith.io/docs/search-packages#searching-packages-via-the-cloudsmith-cli):
 
 ```bash
-cloudsmith ls pkgs {account}/{repository} -F json | jq -r '.data[].cdn_url'
+cloudsmith list packages {owner}/{repository} -F json | jq -r '.data[].cdn_url'
 ```
 
-The `{account}` refers to your Cloudsmith account name and the `{repository}` refers to your Cloudsmith repository.
+where:
 
-### Downloading a single package
+- `{owner}` is your Cloudsmith account or organization name.
+- `{repository}` is your Cloudsmith repository name/slug.
 
-You can download using the `wget` command.
+The `jq -r '.data[].cdn_url` command transforms the JSON-formatted response from this Cloudsmith CLI command to list the URLs for individual packages, which can then be used to download them from this repository.
 
-To download a package from a public repository:
+> 📘
+> The command `cloudsmith list packages` can also be contracted to `cloudsmith ls pkgs`.
+> Note that the [Cloudsmith CLI](https://help.cloudsmith.io/docs/cli) tool can also be used to [download packages in bulk](#downloading-packages-in-bulk).
+
+### Download a package
+
+Once you have obtained the relevant download URLs (using the [REST API](#download-packages-using-the-cloudsmith-rest-api-or-cli-tool-retrieving-download-urls-using-the-rest-api) or [CLI](#download-packages-using-the-cloudsmith-rest-api-or-cli-tool-retrieving-download-urls-using-the-cli)) for packages from your Cloudsmith registry, you can download using the `wget` command to download them.
+
+To download a package from a _public_ repository:
 
 ```bash
 wget {cdn_url}
 ```
 
-To download a package from a private repository:
+where `{cdn_url}` is the URL of your package to be downloaded.
+
+To download a package from a _private_ repository:
 
 ```bash
 wget -d --header="X-Api-Key: $CLOUDSMITH_API_KEY" {cdn_url} 
 ```
 
-or
+where `$CLOUDSMITH_API_KEY` is your [Cloudsmith API key](https://help.cloudsmith.io/docs/api-key).
+
+Or:
 
 ```bash
-wget  --http-user=$account --http-password=$token {cdn_url}
+wget --http-user=$account --http-password=$token {cdn_url}
 ```
 
-The `{cdn_url}` is the download url returned from the API or CLI command.
+where:
 
-### Downloading packages in bulk
+- `$account` is your Cloudsmith account or organization name.
+- `$token` is an appropriate [Cloudsmith entitlement token](https://help.cloudsmith.io/docs/entitlements).
 
-Cloudsmith documentation has provided examples on how to download packages in bulk. Follow their [Bulk Package Download](https://help.cloudsmith.io/docs/download-a-package#bulk-package-download) guide with example scripts for Linux and Windows.
+## Downloading packages in bulk
+
+Packages can be downloaded in bulk from a Cloudsmith repository using the [Cloudsmith CLI](https://help.cloudsmith.io/docs/cli) tool, along with some scripting.
+
+Learn more about how to do this from the [Bulk Package Download](https://help.cloudsmith.io/docs/download-a-package#bulk-package-download) section of Cloudsmith's documentation, which provides scripting examples for Linux (bash) and Windows (Powershell).
+
+## Next step
+
+Once you have downloaded your packages from your Cloudsmith repositories, learn how to [import them into your Buildkite registry](/docs/package-registries/migration/import-to-package-registries).
