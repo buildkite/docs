@@ -94,7 +94,7 @@ where:
 
 Packages can be downloaded in bulk from a Cloudsmith repository using the [Cloudsmith CLI](https://help.cloudsmith.io/docs/cli) tool, along with some scripting.
 
-Learn more about how to do this from the [Bulk Package Download](https://help.cloudsmith.io/docs/download-a-package#bulk-package-download) section of Cloudsmith's documentation, which provides scripting examples for Linux (bash) and Windows (Powershell).
+Learn more about how to do this from the [Bulk Package Download](https://help.cloudsmith.io/docs/download-a-package#bulk-package-download) section of Cloudsmith's documentation, which provides scripting examples for Linux (bash) and Windows (PowerShell).
 
 ## Next step
 
