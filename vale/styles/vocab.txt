@@ -48,6 +48,7 @@ CI
 classpath
 cli
 Cloudsmith
+Cloudsmith's
 CloudWatch
 CMake
 composable

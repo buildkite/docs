@@ -167,7 +167,7 @@ During CircleCI workflow runs, test collectors upload information from the follo
 
 ## GitHub Actions
 
-During GitHub Actions workflow runs,test collectors upload information from the following environment variables, and test importers use the following field names:
+During GitHub Actions workflow runs, test collectors upload information from the following environment variables, and test importers use the following field names:
 
 <table class="responsive-table">
   <thead>

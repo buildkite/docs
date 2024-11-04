@@ -506,6 +506,8 @@
           path: "package-registries/migration"
         - name: "Export from JFrog"
           path: "package-registries/migration/from-jfrog-artifactory"
+        - name: "Export from Cloudsmith"
+          path: "package-registries/migration/from-cloudsmith"          
         - name: "Import exported packages"
           path: "package-registries/migration/import-to-package-registries"
     - name: "Security"

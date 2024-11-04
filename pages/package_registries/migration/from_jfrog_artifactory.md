@@ -2,17 +2,17 @@
 
 To migrate your packages from JFrog Artifactory to Buildkite Package Registries, you'll need to export/download packages from a JFrog Artifactory repository before importing them to your Buildkite registry.
 
-## Download packages via JFrog Artifactory interface
+## Download packages using the JFrog Artifactory interface
 
-You can download a complete folder of packages or a specific version:
+You can download a complete folder of packages or a specific package version from a JFrog Artifactory repository through its interface:
 
-- To download a complete folder of packages from a JFrog Artifactory repository, follow JFrog's [Download a Folder](https://jfrog.com/help/r/jfrog-artifactory-documentation/download-a-folder) guide. You might need to configure folder download from the administrator settings.
+- To download a complete folder of packages, follow JFrog's [Download a Folder](https://jfrog.com/help/r/jfrog-artifactory-documentation/download-a-folder) guide. You might need to configure folder download from the administrator settings.
 
-- To download specific versions of packages, follow JFrog's [Downloading Package Versions](https://jfrog.com/help/r/jfrog-artifactory-documentation/downloading-package-versions) guidance.
+- To download a specific version of a package, follow JFrog's [Downloading Package Versions](https://jfrog.com/help/r/jfrog-artifactory-documentation/downloading-package-versions) guidance.
 
-## Download packages via the JFrog CLI
+## Download packages using the JFrog CLI
 
-The [JFrog CLI](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli) allows more options on [downloading packages from JFrog Artifactory repositories](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/cli-for-jfrog-artifactory/generic-files#downloading-files).
+The [JFrog CLI](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli) provides a command line interface (CLI) that allows more options on [downloading packages from JFrog Artifactory repositories](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/cli-for-jfrog-artifactory/generic-files#downloading-files) than what is typically available through the JFrog Artifactory interface.
 
 ### Setting up the JFrog CLI
 
@@ -37,3 +37,7 @@ Following on from this, to download a particular package type from all JFrog Art
 ```bash
 jfrog rt dl "*/*.deb" --flat
 ```
+
+## Next step
+
+Once you have downloaded your packages from your JFrog Artifactory repositories, learn how to [import them into your Buildkite registry](/docs/package-registries/migration/import-to-package-registries).
