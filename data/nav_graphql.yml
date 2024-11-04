@@ -362,6 +362,8 @@
     path: apis/graphql/schemas/object/clustertoken
   - name: ClusterUpdatePayload
     path: apis/graphql/schemas/object/clusterupdatepayload
+  - name: CompositeRegistryUpstream
+    path: apis/graphql/schemas/object/compositeregistryupstream
   - name: Dependency
     path: apis/graphql/schemas/object/dependency
   - name: DependencyConnection
@@ -380,6 +382,8 @@
     path: apis/graphql/schemas/object/emailedge
   - name: EmailResendVerificationPayload
     path: apis/graphql/schemas/object/emailresendverificationpayload
+  - name: GitHubRateLimit
+    path: apis/graphql/schemas/object/githubratelimit
   - name: GraphQLSnippet
     path: apis/graphql/schemas/object/graphqlsnippet
   - name: GraphQLSnippetCreatePayload
@@ -526,6 +530,12 @@
     path: apis/graphql/schemas/object/organizationmemberupdatepayload
   - name: OrganizationPermissions
     path: apis/graphql/schemas/object/organizationpermissions
+  - name: OrganizationRepositoryProviderGitHub
+    path: apis/graphql/schemas/object/organizationrepositoryprovidergithub
+  - name: OrganizationRepositoryProviderGitHubEnterpriseServer
+    path: apis/graphql/schemas/object/organizationrepositoryprovidergithubenterpriseserver
+  - name: OrganizationRepositoryProviderGitHubRateLimit
+    path: apis/graphql/schemas/object/organizationrepositoryprovidergithubratelimit
   - name: OrganizationRevokeInactiveTokensAfterUpdateMutationPayload
     path: apis/graphql/schemas/object/organizationrevokeinactivetokensafterupdatemutationpayload
   - name: OrganizationSSO
@@ -868,6 +878,8 @@
     path: apis/graphql/schemas/interface/node
   - name: NotificationService
     path: apis/graphql/schemas/interface/notificationservice
+  - name: OrganizationRepositoryProvider
+    path: apis/graphql/schemas/interface/organizationrepositoryprovider
   - name: RepositoryProvider
     path: apis/graphql/schemas/interface/repositoryprovider
   - name: RepositoryProviderSettings

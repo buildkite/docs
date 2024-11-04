@@ -23,6 +23,10 @@
         {
           "name": "BADGE_DOMAIN",
           "value": "https://badge.buildkite.com"
+        },
+        {
+          "name": "CSP_REPORT_URI",
+          "value": "https://buildkite.uriports.com/reports/report"
         }
       ],
       "secrets": [

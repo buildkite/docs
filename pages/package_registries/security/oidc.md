@@ -56,9 +56,11 @@ The basic format for a Buildkite registry's OIDC policy, to handle OIDC tokens i
 where:
 
 - `iss` (the issuer) must be `https://agent.buildkite.com`, representing the Buildkite Agent.
-- `organization-slug` can be obtained from the end of your Buildkite URL, after accessing **Packages** or **Pipelines** in the global navigation of your organization in Buildkite.
-- `pipeline-slug` can be obtained from the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite.
-- `main` or whichever branch of the repository you want to restrict package publication/uploads from pipeline builds.
+- the `claims:` field contains:
+
+    * `organization-slug`, which can be obtained from the end of your Buildkite URL, after accessing **Packages** or **Pipelines** in the global navigation of your organization in Buildkite.
+    * `pipeline-slug`, which can be obtained from the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite.
+    * `main` or whichever branch of the repository you want to restrict package publication/uploads from pipeline builds.
 
 However, more [complex OIDC policies](#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example) can be created.
 
@@ -128,7 +130,7 @@ Currently, only OIDC tokens from the following token issuers are supported.
 | GitHub Actions | `https://token.actions.githubusercontent.com` | [GitHub Actions OIDC Tokens](https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/about-security-hardening-with-openid-connect) |
 | CircleCI | `https://oidc.circleci.com/org/$ORG` where `$ORG` is your organization name | [CircleCI OIDC Tokens](https://circleci.com/docs/openid-connect-tokens) |
 
-If you'd like to use OIDC tokens from a different token issuer or OIDC identity provider with Buildkite Package Registries, please contact [support](https://buildkite.com/support).
+If you'd like to use OIDC tokens from a different token issuer or OIDC identity provider with Buildkite Package Registries, please contact [support](https://buildkite.com/about/contact/).
 
 <a id="claim-rules"></a>
 

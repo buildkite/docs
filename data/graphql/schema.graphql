@@ -850,6 +850,8 @@ enum AuditEventType {
   CLUSTER_TOKEN_DELETED
   CLUSTER_TOKEN_UPDATED
   CLUSTER_UPDATED
+  COMPOSITE_REGISTRY_UPSTREAM_ADDED
+  COMPOSITE_REGISTRY_UPSTREAM_REMOVED
   JOB_TERMINAL_SESSION_STARTED
   NOTIFICATION_SERVICE_BROKEN
   NOTIFICATION_SERVICE_CREATED
@@ -992,7 +994,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -1006,6 +1008,7 @@ enum AuditSubjectType {
   CLUSTER_QUEUE
   CLUSTER_QUEUE_TOKEN
   CLUSTER_TOKEN
+  COMPOSITE_REGISTRY_UPSTREAM
   JOB
   NOTIFICATION_SERVICE
   ORGANIZATION
@@ -2390,6 +2393,27 @@ type ClusterUpdatePayload {
   cluster: Cluster!
 }
 
+"""
+A composite registry's upstream
+"""
+type CompositeRegistryUpstream implements Node {
+  compositeRegistry: Registry!
+
+  """
+  The time when the upstream was created
+  """
+  createdAt: DateTime
+  id: ID!
+  organization: Organization!
+  registry: Registry!
+
+  """
+  The time when the upstream was updated
+  """
+  updatedAt: DateTime
+  uuid: String!
+}
+
 interface Connection {
   count: Int!
   pageInfo: PageInfo
@@ -2544,6 +2568,31 @@ type EmailResendVerificationPayload {
   """
   clientMutationId: String
   email: Email!
+}
+
+"""
+GitHub App Installation Rate Limit (limits set by GitHub)
+"""
+type GitHubRateLimit {
+  """
+  The maximum number of requests that Buildkite is permitted to make per hour, as set by GitHub.
+  """
+  limit: Int!
+
+  """
+  The number of requests remaining in the current rate limit window.
+  """
+  remaining: Int!
+
+  """
+  The time at which the current rate limit window resets
+  """
+  resetAt: DateTime!
+
+  """
+  The number of requests remaining in the current rate limit window.
+  """
+  used: Int!
 }
 
 """
@@ -5309,6 +5358,11 @@ type Organization implements Node {
   ): RegistryConnection
 
   """
+  Returns the repository providers for this organization
+  """
+  repositoryProviders: [OrganizationRepositoryProvider]
+
+  """
   API tokens with access to this organization will be automatically revoked
   after this many seconds of inactivity. A `null` value indicates never revoke
   inactive tokens.
@@ -6475,6 +6529,65 @@ type OrganizationPermissions {
   Whether the user can see teams in the organization
   """
   teamView: Permission
+}
+
+interface OrganizationRepositoryProvider {
+  """
+  The name of the OrganizationRepositoryProvider
+  """
+  name: String!
+}
+
+"""
+GitHub installation associated with this organization
+"""
+type OrganizationRepositoryProviderGitHub implements Node & OrganizationRepositoryProvider {
+  """
+  The ID of the provider
+  """
+  id: ID!
+
+  """
+  The name of the OrganizationRepositoryProvider
+  """
+  name: String!
+
+  """
+  Rate limit for this GitHub Installation
+  """
+  rateLimit: OrganizationRepositoryProviderGitHubRateLimit
+}
+
+"""
+GitHub Enterprise Server associated with this organization
+"""
+type OrganizationRepositoryProviderGitHubEnterpriseServer implements Node & OrganizationRepositoryProvider {
+  """
+  The ID of the provider
+  """
+  id: ID!
+
+  """
+  The name of the OrganizationRepositoryProvider
+  """
+  name: String!
+
+  """
+  Rate limit for GitHub Installation (GitHub App only)
+  """
+  rateLimit: OrganizationRepositoryProviderGitHubRateLimit
+
+  """
+  URL of the GitHub Enterprise Server
+  """
+  url: String
+}
+
+type OrganizationRepositoryProviderGitHubRateLimit {
+  """
+  The most recent rate limit data from GitHub
+  """
+  mostRecent: GitHubRateLimit
 }
 
 """

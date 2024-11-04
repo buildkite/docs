@@ -4,13 +4,15 @@ keywords: docs, pipelines, tutorials, getting started
 
 # Getting started
 
-👋 Welcome to Buildkite Pipelines! You can use Pipelines to build your dream CI/CD workflows on a secure, scalable, and flexible platform. This tutorial takes you through creating a basic pipeline from an example.
+👋 Welcome to Buildkite Pipelines! You can use Pipelines to build your dream CI/CD workflows on a secure, scalable, and flexible platform.
+
+This tutorial helps you understand Pipelines' fundamentals, by guiding you through the creation of a basic pipeline from an example.
 
 ## Before you start
 
 To complete this tutorial, you'll need:
 
-- A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a free account</a>.
+- A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a 30-day free trial account</a>.
 
     When you create a new organization as part of sign-up, you'll be guided through a flow to create and run a starter pipeline. Complete that before continuing, and keep your agent running to continue using it in this tutorial.
 

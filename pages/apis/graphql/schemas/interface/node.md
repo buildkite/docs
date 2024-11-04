@@ -101,6 +101,9 @@ An object with an ID.
 <a href="/docs/apis/graphql/schemas/object/clustertoken" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterToken">
   <code>ClusterToken</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/compositeregistryupstream" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT CompositeRegistryUpstream">
+  <code>CompositeRegistryUpstream</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/email" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Email">
   <code>Email</code>
 </a>
@@ -154,6 +157,12 @@ An object with an ID.
 </a>
 <a href="/docs/apis/graphql/schemas/object/organizationmember" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationMember">
   <code>OrganizationMember</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/organizationrepositoryprovidergithub" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationRepositoryProviderGitHub">
+  <code>OrganizationRepositoryProviderGitHub</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/organizationrepositoryprovidergithubenterpriseserver" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationRepositoryProviderGitHubEnterpriseServer">
+  <code>OrganizationRepositoryProviderGitHubEnterpriseServer</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/pipeline" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Pipeline">
   <code>Pipeline</code>

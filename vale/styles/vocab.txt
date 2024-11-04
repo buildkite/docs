@@ -47,6 +47,8 @@ chroots
 CI
 classpath
 cli
+Cloudsmith
+Cloudsmith's
 CloudWatch
 CMake
 composable
@@ -108,6 +110,8 @@ IPs
 iTerm
 iTerm's
 Jenkins
+JFrog
+JFrog's
 jpegs
 jq
 json
@@ -123,6 +127,7 @@ launchd
 LFS
 libpq
 linux
+llamasecret
 macOS
 matchers
 Memcache

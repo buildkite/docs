@@ -8,10 +8,10 @@ Scale out your testing across any framework with _Buildkite Test Engine_. Speed 
 
 Where [Buildkite Pipelines](/docs/pipelines) helps you automate your CI/CD pipelines, Test Engine helps you track and analyze the steps in these pipelines, by:
 
-- Shipping code to production faster through test suite optimization.
+- Shipping code to production faster through test optimization.
 - Working directly with Buildkite Pipelines, as well as other CI/CD applications.
-- Identifying, fixing, and monitoring test suite performance.
-- Tracking, improving, and monitoring test suite reliability.
+- Identifying, fixing, and monitoring test performance.
+- Tracking, improving, and monitoring test reliability.
 
 <%= image "overview.png", width: 975, height: 205, alt: "Screenshot of test suite trend showing five metrics over 28 days" %>
 
@@ -19,7 +19,9 @@ _Buildkite Test Engine_ was previously called _Buildkite Test Analytics_.
 
 ## Get started
 
-To get started with Test Engine, and to begin setting up your _test suites_, configure the relevant supported _test collectors_ for your development project.
+Run through the [Getting started](/docs/test-engine/getting-started) tutorial for a step-by-step guide on how to use Buildkite Test Engine.
+
+If you're familiar with the basics, begin configuring [test collection](/docs/test-engine/test-collection) for your development project. Do this by setting it up with the required Buildkite _test collectors_ for your project's testing frameworks (also known as _test runners_), which sends the required test data information to Test Engine:
 
 <!-- vale off -->
 
@@ -43,15 +45,13 @@ To get started with Test Engine, and to begin setting up your _test suites_, con
 
 <!-- vale on -->
 
-You can also upload test results by importing [JSON](/docs/test-engine/importing-json) or [JUnit XML](/docs/test-engine/importing-junit-xml).
+If a Buildkite test collector is not available for one of these test runners, you can use [other test collection](/docs/test-engine/other-collectors) mechanisms instead.
 
-Once your test collectors have been set up, you can begin configuring your test suites by running through the relevant 'Getting started' sections, beginning with [Configuring test suites](/docs/test-engine/test-suites) for an overview of Test Engine's concepts and functionality.
+Once test collection has been set up in your development project, you can proceed to run your tests, and analyze and report on them through its test suites. Learn more about this from the [Test suites overview](/docs/test-engine/test-suites) page, which covers Test Engine's concepts and functionality.
 
-<br/>
+## Core features
 
 <%= tiles "test_engine_features" %>
 
 > 📘 Data retention
 > The data uploaded to Test Engine is stored in S3 and deleted after six months.
-
-<%= tiles "test_engine_guides" %>

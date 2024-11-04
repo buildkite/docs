@@ -60,13 +60,13 @@ exceptions:
   - CircleCI
   - CLI
   - CloudFormation
+  - Cloudsmith
   - CloudWatch
   - CloudWatch Logs
   - CORS
   - CSS
   - Datadog
   - Debian
-  - Free Plan
   - Docker
   - Docker Compose
   - Docker Hub
@@ -110,6 +110,7 @@ exceptions:
   - Installation
   - JavaScript
   - Jenkins
+  - JFrog
   - Jest
   - JSON
   - JUnit
@@ -129,6 +130,7 @@ exceptions:
   - OneLogin
   - OpenTelemetry
   - OS X
+  - Package Registries
   - PagerDuty
   - Phabricator
   - pipeline.artifacts_read.pipeline
@@ -146,6 +148,7 @@ exceptions:
   - SAML
   - SCIM
   - Slack
+  - SLSA
   - S3
   - SSH
   - SSO
