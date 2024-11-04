@@ -11,13 +11,13 @@ Cloudsmith offers two options to download specific packages from a Cloudsmith re
 - To download packages using native package management tools (for example, `npm`  or `gem`), follow Cloudsmith's [Downloading via Native Package Manager](https://help.cloudsmith.io/docs/download-a-package#download-via-native-package-manager) guide. This guide provides details on how to use the Cloudsmith interface to access specific instructions for each native package management tool. These specific instructions then provide guidance on using the relevant native package management's own CLI tools to download packages from Cloudsmith.
 
 > 📘
-> Cloudsmith does not provide a mechanism to download packages in bulk from a repository through its interface. However, scripting-based methods (using the [Cloudsmith CLI](https://help.cloudsmith.io/docs/cli) tool) are available to [download packages in bulk](#downloading-packages-in-bulk).
+> Cloudsmith does not provide a mechanism to download packages in bulk from a repository through its interface. However, scripting-based methods (using the [Cloudsmith CLI](https://help.cloudsmith.io/docs/cli) tool) are available to [download packages in bulk](#download-packages-in-bulk).
 
 ## Download packages using the Cloudsmith REST API or CLI tool
 
-Cloudsmith does not support downloading packages directly via its [REST API](https://help.cloudsmith.io/reference/introduction) or [CLI](https://help.cloudsmith.io/docs/cli) tool.
+Cloudsmith does not support downloading packages directly using its [REST API](https://help.cloudsmith.io/reference/introduction) or [CLI](https://help.cloudsmith.io/docs/cli) tool.
 
-However, download URLs can be obtained via the Cloudsmith REST API or its command line interface (CLI), which in turn can then be used to download packages from a Cloudsmith repository.
+However, download URLs can be obtained using the Cloudsmith REST API or its command line interface (CLI), which in turn can then be used to download packages from a Cloudsmith repository.
 
 > 📘
 > If you are using the Cloudsmith CLI to download packages, ensure that your [Cloudsmith API key](https://help.cloudsmith.io/docs/cli#getting-your-api-key) has been set up correctly.
@@ -57,7 +57,7 @@ The `jq -r '.data[].cdn_url` command transforms the JSON-formatted response from
 
 > 📘
 > The command `cloudsmith list packages` can also be contracted to `cloudsmith ls pkgs`.
-> Note that the [Cloudsmith CLI](https://help.cloudsmith.io/docs/cli) tool can also be used to [download packages in bulk](#downloading-packages-in-bulk).
+> Note that the [Cloudsmith CLI](https://help.cloudsmith.io/docs/cli) tool can also be used to [download packages in bulk](#download-packages-in-bulk).
 
 ### Download a package
 
@@ -90,7 +90,7 @@ where:
 - `$account` is your Cloudsmith account or organization name.
 - `$token` is an appropriate [Cloudsmith entitlement token](https://help.cloudsmith.io/docs/entitlements).
 
-## Downloading packages in bulk
+## Download packages in bulk
 
 Packages can be downloaded in bulk from a Cloudsmith repository using the [Cloudsmith CLI](https://help.cloudsmith.io/docs/cli) tool, along with some scripting.
 
