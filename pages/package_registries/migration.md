@@ -17,6 +17,7 @@ Ensure the following are ready or have been done before commencing the migration
 To get started, choose the guide that corresponds to the registry or repository provider you are migrating from:
 
 - [Export from JFrog Artifactory](/docs/package-registries/migration/from_jfrog_artifactory)
+- [Export from Cloudsmith](/docs/package-registries/migration/from-cloudsmith)
 
 Once you have downloaded your exported packages, you can then [import them into Buildkite Package Registries](/docs/package-registries/migration/import-to-package-registries).
 
