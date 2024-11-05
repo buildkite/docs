@@ -40,7 +40,7 @@ A user who is a _Buildkite organization administrator_ can access the [**Organiz
 
 - Configure other organization-level settings for Buildkite Pipelines and Package Registries, as well as various [integrations](/docs/integrations) with Buildkite.
 
-- Access and view Buildkite Pipelines and Package Registries usage reports and [audit logs](/docs/pipelines/security/audit-log).
+- Access and view Buildkite Pipelines and Package Registries usage reports and [audit logs](/docs/platform/audit-log).
 
 ### Team-level permissions
 
