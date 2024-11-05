@@ -944,7 +944,7 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
 
 ### Audit Event Logged
 
-[Audit log](/docs/pipelines/security/audit-log) is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
+[Audit log](/docs/platform/audit-log) is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
 
 ```json
 {

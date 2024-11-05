@@ -350,8 +350,6 @@
               path: "pipelines/security/secrets/buildkite-secrets"
         - name: "Incoming webhooks"
           path: "pipelines/security/incoming-webhooks"
-        - name: "Audit log"
-          path: "pipelines/security/audit-log"
         - name: "OIDC"
           children:
             - name: "Overview"
@@ -572,6 +570,8 @@
           path: "team-management/enforce-2fa"
         - name: "System banners"
           path: "team-management/system-banners"
+    - name: "Audit log"
+      path: "platform/audit-log"
     - name: "CLI"
       children:
         - name: "Overview"
