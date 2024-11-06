@@ -15,6 +15,8 @@ Once you've configured an Amazon EventBridge notification service in Buildkite, 
   <tr><th><a href="#events-build-created">Build Created</a></th><td>A build has been created</td></tr>
   <tr><th><a href="#events-build-started">Build Started</a></th><td>A build has started</td></tr>
   <tr><th><a href="#events-build-finished">Build Finished</a></th><td>A build has finished</td></tr>
+  <tr><th><a href="#events-build-failing">Build Failing</a></th><td>A build is failing</td></tr>
+  <tr><th><a href="#events-build-blocked">Build Blocked</a></th><td>A build has been blocked</td></tr>
   <tr><th><a href="#events-job-scheduled">Job Scheduled</a></th><td>A job has been scheduled</td></tr>
   <tr><th><a href="#events-job-started">Job Started</a></th><td>A command step job has started running on an agent</td></tr>
   <tr><th><a href="#events-job-finished">Job Finished</a></th><td>A job has finished. To check a job's result, use the <code>passed</code> field. The value is <code>true</code> when the job passed, and <code>false</code> otherwise.</td></tr>
@@ -295,6 +297,49 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
       "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
       "slug": "my-org"
+    }
+  }
+}
+```
+<a id="events-build-failing"></a>
+
+### Build Failing
+
+```json
+{
+  "version": "0",
+  "id": "...",
+  "detail-type": "Build Failing",
+  "source": "aws.partner/buildkite.com/...",
+  "account": "...",
+  "time": "2024-09-12T10:20:54Z",
+  "region": "...",
+  "resources": [],
+  "detail": {
+    "version": 1,
+    "build": {
+      "uuid": "...",
+      "graphql_id": "...",
+      "number": 1299,
+      "commit": "...",
+      "message": "...",
+      "branch": "...",
+      "state": "failing",
+      "blocked_state": null,
+      "source": "ui",
+      "started_at": "2024-09-12 10:19:49 UTC",
+      "finished_at": null
+    },
+    "pipeline": {
+      "uuid": "...",
+      "graphql_id": "...",
+      "slug": "...",
+      "repo": "..."
+    },
+    "organization": {
+      "uuid": "...",
+      "graphql_id": "...",
+      "slug": "..."
     }
   }
 }
