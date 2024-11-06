@@ -1,6 +1,6 @@
 # Single sign-on with Google Workspace (SAML)
 
-As an alternative to [Google Workspace SSO using OpenID](/docs/platform/sso/g-suite), you can use Google Workspace as an SSO provider for your Buildkite organization using SAML.
+As an alternative to [Google Workspace SSO using OpenID](/docs/platform/sso/google-workspace), you can use Google Workspace as an SSO provider for your Buildkite organization using SAML.
 
 To complete this tutorial, you need admin privileges for both Google Workspace and Buildkite.
 
@@ -8,7 +8,6 @@ To complete this tutorial, you need admin privileges for both Google Workspace a
 > See the <a href="/docs/platform/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
 
 After following these steps, your Google Workspace users can sign in to Buildkite using their Google account.
-
 
 ## Step 1. Create a Buildkite SSO provider
 
