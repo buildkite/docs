@@ -13,14 +13,14 @@ SSO is available to customers on the Buildkite [Pro and Enterprise](https://buil
 
 Buildkite supports the following SSO providers:
 
-* [Okta](/docs/integrations/sso/okta)
-* [ADFS](/docs/integrations/sso/adfs)
-* [GitHub](/docs/integrations/sso/github-sso)
-* [Google Workspace](/docs/integrations/sso/google-workspace)
-* [Google Workspace (SAML)](/docs/integrations/sso/google-workspace-saml)
-* [Azure Active Directory](/docs/integrations/sso/azure-ad)
-* [OneLogin](/docs/integrations/sso/onelogin)
-* [Custom SAML](/docs/integrations/sso/custom-saml)
+* [Okta](/docs/platform/sso/okta)
+* [ADFS](/docs/platform/sso/adfs)
+* [GitHub](/docs/platform/sso/github-sso)
+* [Google Workspace](/docs/platform/sso/google-workspace)
+* [Google Workspace (SAML)](/docs/platform/sso/google-workspace-saml)
+* [Azure Active Directory](/docs/platform/sso/azure-ad)
+* [OneLogin](/docs/platform/sso/onelogin)
+* [Custom SAML](/docs/platform/sso/custom-saml)
 
 ## Adding SSO
 
@@ -28,7 +28,7 @@ Many of the SSO providers can be configured by an organization admin using [Orga
 
 <%= image "sso-settings.png", width: 1716/2, height: 884/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
-You can also [configure SSO manually using the GraphQL API](/docs/integrations/sso/sso-setup-with-graphql).
+You can also [configure SSO manually using the GraphQL API](/docs/platform/sso/sso-setup-with-graphql).
 
 Once configured, all access to organization data requires signing into your SSO provider:
 
@@ -41,7 +41,7 @@ If you need to edit your SSO settings, temporarily stop logins using SSO, or wan
 There are two ways to disable a provider:
 
 1. Using the 'Disable' button in your SSO provider Settings, or
-1. Using the [GraphQL API](/docs/integrations/sso/sso-setup-with-graphql#disabling-an-sso-provider)
+1. Using the [GraphQL API](/docs/platform/sso/sso-setup-with-graphql#disabling-an-sso-provider)
 
 If you have switched off all of your SSO providers, users will be required to log in using a username and password. If users don't have a password, and need access while SSO is switched off, they can perform a 'Forgotten Password' reset.
 
@@ -49,8 +49,8 @@ If you have switched off all of your SSO providers, users will be required to lo
 
 If you are the administrator of an organization within Buildkite with an existing SSO provider set up, and you want to switch to a different SSO provider, these are the steps you need to take:
 
-1. [Add](/docs/integrations/sso#adding-sso) a new SSO provider, verify it, and allow login from both SSO providers. The users in your organization can continue to sign in and use the same user accounts within Buildkite as long as the emails stay the same.
-1. [Disable and remove](/docs/integrations/sso#disabling-and-removing-sso) the SSO provider you no longer need. If the user credentials (email) stay the same, this is all you need to migrate from one SSO provider to another.
+1. [Add](/docs/platform/sso#adding-sso) a new SSO provider, verify it, and allow login from both SSO providers. The users in your organization can continue to sign in and use the same user accounts within Buildkite as long as the emails stay the same.
+1. [Disable and remove](/docs/platform/sso#disabling-and-removing-sso) the SSO provider you no longer need. If the user credentials (email) stay the same, this is all you need to migrate from one SSO provider to another.
 
 >📘
 > If you are also changing the email provider, make sure that Buildkite users in your organization sign in to their existing accounts when performing single sign-on through the new provider to prevent your organization being billed twice for the same users.
@@ -104,7 +104,7 @@ Yes, we do. Just-in-time user provisioning (JIT provisioning) creates accounts o
 You will need to manually remove them from your Buildkite organization. This will not affect access to the user's personal account or any other organizations they are a member of.
 
 ### Can I use different SSO providers for my Buildkite organization at the same time?
-Yes, as an admin you need to [add and verify](/docs/integrations/sso#adding-sso) a new SSO provider. Next, you need to allow login from both SSO providers in the [Organization settings](https://buildkite.com/organizations/-/sso). As long as the sign-in emails stay the same, the users in your organization can continue to sign in and use the same user accounts within Buildkite.
+Yes, as an admin you need to [add and verify](/docs/platform/sso#adding-sso) a new SSO provider. Next, you need to allow login from both SSO providers in the [Organization settings](https://buildkite.com/organizations/-/sso). As long as the sign-in emails stay the same, the users in your organization can continue to sign in and use the same user accounts within Buildkite.
 
 ### Can we enable SSO on multiple domains for one organization?
 Yes, by adding multiple SSO providers. You can enable as many different identity providers for your organization as you need.
@@ -122,7 +122,7 @@ No, all of your builds, agents, and pipelines will continue to run as normal.
 No, enabling SSO will not affect how much you are billed. However, whenever a new user signs in to Buildkite using SSO, they will be added to your organization as if you had invited them.
 
 ### Can I sync my identity provider's groups with my Buildkite teams?
-Yes, if you are able to associate your provider's groups with your Buildkite team UUIDs, you can adjust the SAML assertion to send 'teams' as an additional [SAML User Attribute](/docs/integrations/sso/custom-saml#saml-user-attributes).
+Yes, if you are able to associate your provider's groups with your Buildkite team UUIDs, you can adjust the SAML assertion to send 'teams' as an additional [SAML User Attribute](/docs/platform/sso/custom-saml#saml-user-attributes).
 
 ### I want to rename my Buildkite organization. Will it affect my SSO provider(s)?
 No, SSO providers are setup using a unique identifier and are unaffected when a Buildkite organization is renamed.

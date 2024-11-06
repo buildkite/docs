@@ -56,7 +56,7 @@ You need to ask the administrator of your Buildkite organization to remove your 
 ## Enforcing two-factor authentication for the whole organization
 
 Organization administrators who would like to enforce two-factor authentication
-across their entire organization can do so following the [Enforce 2FA](/docs/team-management/enforce-2fa) guide.
+across their entire organization can do so following the [Enforce 2FA](/docs/platform/team-management/enforce-2fa) guide.
 
 [1Password]: <https://support.1password.com/one-time-passwords/>
 [OTP Auth]: <https://cooperrs.de/otpauth.html>

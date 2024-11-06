@@ -238,7 +238,7 @@ where:
 
 ## Manage maintainers on a cluster
 
-Buildkite administrators or users with the [_change organization_ permission](/docs/team-management/permissions) can create clusters.
+Buildkite administrators or users with the [_change organization_ permission](/docs/platform/team-management/permissions) can create clusters.
 
 As one of these types of users, you can add and manage other users or teams in your Buildkite organization as _maintainers_ of a cluster in the organization. A cluster maintainer can:
 

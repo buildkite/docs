@@ -21,8 +21,8 @@ Test Engine conducts the following on each managed test:
 
 For billing purposes, Buildkite measures usage by calculating the number of managed tests that have executed (run) at least once each day, and then bills based on the 90th percentile of this usage for the month. This billing method ensures that occasional spikes in usage, such as those caused by refactoring, don't result in excessive charges.
 
-> 📘
-> Be aware that if a specific managed test has run multiple times on a specific day, then this only counts once towards the usage measurement for that day.
+> 📘 Executed managed tests are only charged once per day
+> If a specific managed test has run multiple times on a specific day, then this only counts once towards the usage measurement for that day.
 
 ## Test executions
 
