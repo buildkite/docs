@@ -24,7 +24,7 @@ Follow the instructions on the provider page to perform a test login. Performing
 
 Once you've performed a test login you can enable your provider. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through GitHub before organization data can be accessed.
 
-If you need to edit or update your GitHub provider settings at any time, you will need to [disable the SSO provider](/docs/integrations/sso#disabling-and-removing-sso) first.
+If you need to edit or update your GitHub provider settings at any time, you will need to [disable the SSO provider](/docs/platform/sso#disabling-and-removing-sso) first.
 
 After you've enabled GitHub as the SSO provider for your Buildkite organization, new and expired users will need to log in through GitHub by visiting `buildkite.com/sso/your-organization-name`. They will be asked to provide their email address, and a sign-in link will be emailed to them.
 
@@ -32,5 +32,5 @@ Sending the sign-in link by email is an additional security and privacy measure,
 
 ## SAML user attributes
 
-<%= render_markdown partial: 'integrations/sso/saml_user_attributes' %>
+<%= render_markdown partial: 'platform/sso/saml_user_attributes' %>
 

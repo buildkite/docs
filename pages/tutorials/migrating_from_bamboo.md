@@ -131,6 +131,6 @@ Like _Elastic Bamboo_, Buildkite can also manage a fleet of agents for you on AW
 
 ## Authentication and permissions
 
-Buildkite supports SSO with a variety of different providers, as well as custom SAML setups. See the [SSO support guide](/docs/integrations/sso) for detailed information.
+Buildkite supports SSO with a variety of different providers, as well as custom SAML setups. See the [SSO support guide](/docs/platform/sso) for detailed information.
 
 For larger teams, it can be useful to control what users have access to which pipelines. Organization admins can enable Teams in the [organization's team settings](https://buildkite.com/organizations/~/teams).
