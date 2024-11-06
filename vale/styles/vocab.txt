@@ -168,6 +168,7 @@ png
 pngs
 Postgres
 PowerShell
+PR's
 preemptible
 prefill
 proxied
