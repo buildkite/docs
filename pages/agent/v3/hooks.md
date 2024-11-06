@@ -44,7 +44,7 @@ Job lifecycle hooks are _sourced_ (see "A note on sourcing" for specifics) by th
 You can define hooks in the following locations:
 
 * **Agent hooks:** These exist on the agent file system in a directory created by your agent installer and configured by the [`hooks-path`](configuration#hooks-path) setting. You can define both agent lifecycle and job lifecycle hooks in the agent hooks location. Job lifecycle hooks defined here will run for every job the agent receives from any pipeline.
-* **Repository hooks:** These exist in your pipeline repository's `.buildkite/hooks` directory and can define job lifecycle hooks. Job lifecycle hooks defined here will run for every pipeline that uses the repository.
+* **Repository hooks:** These exist in your pipeline repository's `.buildkite/hooks` directory and can define job lifecycle hooks. Job lifecycle hooks defined here will run for every pipeline that uses the repository. In scenarios where the current working directory is modified as part of the command or post-command hook, it will cause hooks to fail as it cannot find `.buildkite/hooks` directory in the new working directory. Ensure that working directory is not modified to avoid these issues. 
 * **Plugin hooks:** These are provided by [plugins](/docs/plugins) you've included in your pipeline steps and can define job lifecycle hooks. Job lifecycle hooks defined by a plugin will only run for the step that includes them. Plugins can be *vendored* (if they are already present in the repository and included using a relative path) or *non-vendored* (when they are included from elsewhere), which affects the order they are run in.
 
 ### Agent hooks
