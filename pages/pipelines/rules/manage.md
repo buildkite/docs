@@ -4,7 +4,7 @@ This page provides details on how to manage [rules](/docs/pipelines/rules) withi
 
 ## Create a rule
 
-New rules can be created by [Buildkite organization administrators](/docs/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) using the [**Rules** page](#create-a-rule-using-the-buildkite-interface), as well as the [REST API's](#create-a-rule-using-the-rest-api) or [GraphQL API's](#create-a-rule-using-the-graphql-api) create a rule feature.
+New rules can be created by [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) using the [**Rules** page](#create-a-rule-using-the-buildkite-interface), as well as the [REST API's](#create-a-rule-using-the-rest-api) or [GraphQL API's](#create-a-rule-using-the-graphql-api) create a rule feature.
 
 ### Using the Buildkite interface
 
@@ -152,7 +152,7 @@ where:
 
 ## Delete a rule
 
-Rules can be deleted by [Buildkite organization administrators](/docs/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) using the [**Rules** page](#delete-a-rule-using-the-buildkite-interface), as well as the [REST API's](#delete-a-rule-using-the-rest-api) or [GraphQL API's](#delete-a-rule-using-the-graphql-api) delete a rule feature.
+Rules can be deleted by [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) using the [**Rules** page](#delete-a-rule-using-the-buildkite-interface), as well as the [REST API's](#delete-a-rule-using-the-rest-api) or [GraphQL API's](#delete-a-rule-using-the-graphql-api) delete a rule feature.
 
 ### Using the Buildkite interface
 

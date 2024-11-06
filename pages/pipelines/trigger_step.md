@@ -20,7 +20,7 @@ All builds created by a trigger step will have the same author as the parent bui
 * be a member of your organization
 * have a verified email address
 
-If you have [Teams](/docs/team-management/permissions) enabled in your organization, *one* of the following conditions must be met:
+If you have [Teams](/docs/platform/team-management/permissions) enabled in your organization, *one* of the following conditions must be met:
 
 * The authoring user must have 'Build' permission on *every* pipeline that will be triggered
 * The triggering build has no creator and no unblocker, *and* the source pipeline and the target pipeline share a team that can 'Build'
