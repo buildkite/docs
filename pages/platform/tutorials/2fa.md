@@ -1,5 +1,5 @@
 ---
-keywords: docs, pipelines, tutorials, 2fa
+keywords: docs, pipelines, test suites, registries, tutorials, 2fa
 ---
 
 # Two-factor authentication
