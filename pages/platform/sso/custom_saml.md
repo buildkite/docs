@@ -7,7 +7,7 @@ SAML customization is available to customers on the Buildkite [Enterprise](https
 
 There are two workflows for setting up a new SAML provider, depending on your IdP's setup process: if you require an ACS URL from Buildkite to complete your IdP's setup, or if you can complete the setup without anything from Buildkite.
 
->📘 You can also set up SSO providers manually with GraphQL. See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
+>📘 You can also set up SSO providers manually with GraphQL. See the <a href="/docs/platform/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
 
 ## Set up with an ACS URL
 
@@ -135,8 +135,8 @@ Follow the instructions on the provider page to perform a test login. Performing
 
 Once you've performed a test login you can enable your provider. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through your provider before organization data can be accessed.
 
-If you need to edit or update your provider settings at any time, you will need to disable the provider first. For more information on disabling a provider, see the [disabling SSO](/docs/integrations/sso#disabling-and-removing-sso) section of the SSO overview.
+If you need to edit or update your provider settings at any time, you will need to disable the provider first. For more information on disabling a provider, see the [disabling SSO](/docs/platform/sso#disabling-and-removing-sso) section of the SSO overview.
 
 ## SAML user attributes
 
-<%= render_markdown partial: 'integrations/sso/saml_user_attributes' %>
+<%= render_markdown partial: 'platform/sso/saml_user_attributes' %>

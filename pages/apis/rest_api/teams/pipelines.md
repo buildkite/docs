@@ -158,7 +158,7 @@ Remove the association between a team and a pipeline.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/pipelines/"
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/pipelines/{pipeline.uuid}"
 ```
 
 Required scope: `write_teams`

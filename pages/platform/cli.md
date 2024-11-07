@@ -6,7 +6,7 @@ Using the Buildkite CLI, you can view builds, create and cancel builds, unblock 
 
 ## Installation
 
-The Buildkite CLI can be installed on all major platforms. Learn more about how to install the tool on your platform in [Buildkite CLI installation](/docs/cli/installation).
+The Buildkite CLI can be installed on all major platforms. Learn more about how to install the tool on your platform in [Buildkite CLI installation](/docs/platform/cli/installation).
 
 ## Usage
 
@@ -47,4 +47,4 @@ Use "bk [command] --help" for more information about a command.
 
 ## Configuration
 
-The Buildkite CLI requires an API access token to interact with Buildkite and your Buildkite organizations. Learn more about how to configure these API access tokens in [Buildkite CLI configuration](/docs/cli/configuration).
+The Buildkite CLI requires an API access token to interact with Buildkite and your Buildkite organizations. Learn more about how to configure these API access tokens in [Buildkite CLI configuration](/docs/platform/cli/configuration).

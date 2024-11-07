@@ -29,7 +29,7 @@ On this page, we've collected the known limitation where some API features are o
 * <%= pill "JOBS", "jobs" %> list job events.
 * <%= pill "JOBS", "jobs" %> [Cancel a job](/docs/apis/graphql/schemas/mutation/jobtypecommandcancel).
 * <%= pill "ORGANIZATIONS", "organizations" %> [Remove users from an organization](/docs/apis/graphql/cookbooks/organizations#delete-an-organization-member).
-* <%= pill "ORGANIZATIONS", "organizations" %> [Set up SSO](/docs/integrations/sso/sso-setup-with-graphql).
+* <%= pill "ORGANIZATIONS", "organizations" %> [Set up SSO](/docs/platform/sso/sso-setup-with-graphql).
 * <%= pill "PIPELINES", "pipelines" %> [Get all the pipeline metrics from the dashboard from the API](/docs/apis/graphql/cookbooks/pipelines#get-pipeline-metrics).
 * <%= pill "PIPELINES", "pipelines" %> [Get the creation date of the most recent build in every pipeline](/docs/apis/graphql/cookbooks/builds#get-the-creation-date-of-the-most-recent-build-in-every-pipeline).
 * <%= pill "PIPELINES", "pipelines" %> [Count the number of builds on a branch](/docs/apis/graphql/cookbooks/builds#count-the-number-of-builds-on-a-branch).

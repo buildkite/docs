@@ -3,7 +3,7 @@
 
 ## Retry a job
 
-Retries a `failed` or `timed_out` job. You can only retry each `job.id` once. To retry a "second time" use the new `job.id` returned in the first retry query.
+Retries a `failed` OR `timed_out` OR a job whose step has the [manual retry after passing attribute set to true](/docs/pipelines/command-step#retry-attributes-manual-retry-attributes) (that is, `permit_on_passed: true`). You can only retry each `job.id` once. To retry a "second time" use the new `job.id` returned in the first retry query.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
