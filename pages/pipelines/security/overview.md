@@ -42,7 +42,7 @@ Buildkite keeps up to date with software dependencies and has automated tools sc
 
 ## Code review and testing process
 
-All pull requests are reviewed by senior engineers with security best practice training before being deployed to production systems. [Two-factor authentication (2FA)](/docs/tutorials/2fa) is enabled across GitHub and Buildkite organizations for added security.
+All pull requests are reviewed by senior engineers with security best practice training before being deployed to production systems. [Two-factor authentication (2FA)](/docs/platform/tutorials/2fa) is enabled across GitHub and Buildkite organizations for added security.
 
 An extensive set of automated testing procedures is run for every code change.
 
