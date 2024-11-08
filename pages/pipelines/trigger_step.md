@@ -227,7 +227,7 @@ In the target pipeline, to run the command step only if the build was triggered 
 ```yml
 steps:
     - command: ./scripts/tests.sh
-      if: build.source == 'trigger_job' && build.env('BUILDKITE_TRIGGERED_FROM_BUILD_ID') == 'the_trigering_pipeline'
+      if: build.source == 'trigger_job' && build.env('BUILDKITE_TRIGGERED_FROM_BUILD_ID') == 'the_triggering_pipeline'
 
 ```
 {: codeblock-file="pipeline.yml"}
