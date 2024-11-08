@@ -20,7 +20,9 @@ steps:
           image: "ruby:3.3-bookworm"
           propagate-environment: true
           mount-buildkite-agent: true
-          mount-ssh-agent: true
+          volumes:
+            - /etc/buildkite-agent/git-credential-ssm:/etc/buildkite-agent/git-credential-ssm
+            - ~/.gitconfig:/root/.gitconfig
           environment:
             - GH_TOKEN
             - GH_PRIVATE_REPO
