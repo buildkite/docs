@@ -12,6 +12,8 @@ The Buildkite platform documentation contains docs for _platform_-level features
 
 - [Audit log](/docs/platform/audit-log), which provides details on how to access this feature within Buildkite, and all the events that are logged by this feature.
 
+- [Emojis](/docs/platform/emojis), which can be used in your pipelines, test suites, and platform, to help you distinguish them.
+
 - [Buildkite CLI](/docs/platform/cli), which provides command line/terminal access to work with features across the Buildkite platform.
 
 - [Single sign-on (SSO)](/docs/platform/sso), with guidelines on how to protect access to your Buildkite organization using a supported third-party SSO provider.
