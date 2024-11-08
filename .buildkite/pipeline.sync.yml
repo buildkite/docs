@@ -3,7 +3,7 @@ notify:
   - slack: "$SLACK_CHANNEL"
     if: build.state != "passed"
 env:
-  PUBLIC_REPO: git@github.com:buildkite/docs.git
+  PUBLIC_REPO: https://github.com/buildkite/docs.git
 steps:
   - label: Sync to public mirror
     branches: main
