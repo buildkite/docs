@@ -14,7 +14,7 @@ From November 2024 to February 2025, Buildkite will be performing database migra
 
 Within your organization’s **two hour migration window, you can expect roughly 30 minutes of downtime**.
 
-<%= image "stages.png", size: "#{2110/2}x#{1308/2}", alt: "Diagram showing the stages of the migration process" %>
+<%= image "stages.png", size: "#{2110/2}x#{1308/2}", class: "invertible", alt: "Diagram showing the stages of the migration process" %>
 
 ## Notifications and other communications
 
