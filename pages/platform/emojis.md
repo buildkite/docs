@@ -1,6 +1,6 @@
 # Emojis
 
-Buildkite supports over 300 custom emojis that you can use in your Buildkite [pipelines](/docs/pipelines/configuration-overview) (including when configuring them), in the terminal output of builds, as well as in [test suites](/docs/test-engine/test-suites) and [registries](/docs/package-registries/manage-registries).
+Buildkite supports over 300 custom emojis that you can use in your Buildkite [pipelines](/docs/pipelines/configuration-overview), including the terminal output of builds, as well as in [test suites](/docs/test-engine/test-suites) and [registries](/docs/package-registries/manage-registries).
 
 To use an emoji, write the name of the emoji in between colons, like `\:buildkite\:` which shows up as :buildkite:.
 
