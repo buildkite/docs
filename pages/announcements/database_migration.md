@@ -22,7 +22,7 @@ Buildkite will send email updates before, during, and after the migration proces
 
 In addition to automated updates, we will use these same email addresses for any further manual communications.
 
-## Frequently Asked Questions
+## Frequently asked questions
 
 ### Who can I contact if I have questions?
 Reach out to support@buildkite.com, or your organization contact.
