@@ -12,9 +12,7 @@ To view and copy the required `build.gradle` configurations:
 
 These `build.gradle` file configurations contain the:
 
-- Maven coordinates for your package (which you will need to manually configure yourself).
-- URL for your specific Java registry in Buildkite.
-- API access token required to publish the package to this registry.
+<%= render_markdown partial: 'package_registries/gradle_file_configurations' %>
 
 ## Publish a package
 
