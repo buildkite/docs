@@ -22,7 +22,7 @@ steps:
           mount-buildkite-agent: true
           volumes:
             - /etc/buildkite-agent/git-credential-ssm:/etc/buildkite-agent/git-credential-ssm
-            - /var/lib/buildite-agent/.gitconfig:/root/.gitconfig
+            - /var/lib/buildkite-agent/.gitconfig:/root/.gitconfig
           environment:
             - GH_TOKEN
             - GH_PRIVATE_REPO
