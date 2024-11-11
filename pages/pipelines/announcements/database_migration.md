@@ -46,8 +46,8 @@ You can provide a list of email addresses for notifications related to this migr
 
 ### How does this database migration process benefit Buildkite?
 
-Migrating customers from one large database to a series for smaller shards provides bulk-heading of load, mitigating the impact of noisy neighbors on the performance of our platform. While it is not a silver bullet for reliability, your Buildkite organization will be better protected from such incidents.
+Migrating customers from one large database to a series for smaller database shards provides bulk-heading of load, mitigating the impact of noisy neighbors on the performance of our platform. While it is not a silver bullet for reliability, your Buildkite organization will be better protected from such incidents.
 
 ### How can Buildkite guarantee the integrity of your data during and after migration?
 
-These migrations will utilize the same mechanisms that Buildkite used to migrate its largest customers smoothly over to shards at the start of the year. The process validates the migrated data at multiple stages, and is able to safely unwind the migration if any discrepancies in your data are detected.
+These migrations will use the same mechanisms that Buildkite utilized when migrating its largest customers over to smaller multiple database shards in early 2024. The process validates the migrated data at multiple stages, and is able to safely unwind the migration if any discrepancies in your data are detected.

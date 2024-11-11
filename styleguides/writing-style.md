@@ -49,7 +49,7 @@ Therefore, use serial commas to distinguish individual items in a list from thos
 
 ### Plain English
 
-Aim to adopt and implement [_plain English language_](https://clickhelp.com/clickhelp-technical-writing-blog/basics-of-plain-language-in-technical-documentation/) in your writing. Avoid complex jargon that readers find off-putting and distracting, and instead, use more conventional terms that most readers will understand upon reading your writing for the first time. This doesn't mean you cannot use technical terms—just as long as they are terms that most of your target audience will understand.
+Aim to adopt and implement [_plain English language_](https://clickhelp.com/clickhelp-technical-writing-blog/basics-of-plain-language-in-technical-documentation/) in your writing. Avoid complex, niche or obscure jargon that many readers would find off-putting and distracting, because such jargon is unclear. Instead, use more conventional terms that most readers will understand upon reading your writing for the first time. This doesn't mean you cannot use technical terms—just as long as they are terms that most of your target audience will understand.
 
 ### Active/passive voice
 
