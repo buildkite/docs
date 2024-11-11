@@ -6,9 +6,9 @@ toc: false
 
 ## Introduction
 
-Earlier in 2024, Buildkite completed the first phase of work to migrate Buildkite Pipelines from using a single, very large PostgreSQL database over to smaller multiple database shards. This work saw us smoothly migrate customers accounting for roughly half of the load on our systems, greatly increasing the headroom available on the original database.
+In early 2024, Buildkite successfully completed an initial phase of work to migrate Buildkite Pipelines from using a single, very large PostgreSQL database over to smaller multiple database shards. This work involved migrating customers accounting for approximately half of the load on this original single database, which greatly improved the overall performance of Buildkite Pipelines.
 
-From November 2024 to February 2025, Buildkite will be performing database migrations to move all customers who remain on the original database to new database shards. There will be migration windows from 07:00 – 09:00 UTC each Sunday during this period.
+From November 2024 to February 2025, Buildkite will migrate all remaining customers on this original single database over to smaller database shards. There will be migration windows from 07:00 – 09:00 UTC each Sunday during this period.
 
 ## The migration process
 
@@ -18,7 +18,9 @@ Within your organization's two hour migration window, _you can expect approximat
 
 ## Notifications and other communications
 
-Buildkite will send email updates before, during, and after the migration process to all Buildkite organization administrators. Once it is available, you may also use the migration settings page to nominate additional email addresses to include as recipients of these notifications. For example, you may choose to specify the email address for a [Slack](https://slack.com/intl/en-au/help/articles/206819278-Send-emails-to-Slack) or [Teams](https://support.microsoft.com/en-au/office/send-an-email-to-a-channel-in-microsoft-teams-d91db004-d9d7-4a47-82e6-fb1b16dfd51e) channel, to surface automatic notifications to your organization.
+To prepare for this process, Buildkite Pipelines customers will receive advance notice about this database migration process for their Buildkite organization.
+
+Buildkite will also send out email updates before, during, and after the migration process to all Buildkite organization administrators. Once the database migration settings page is available, you may use this page to nominate additional email addresses as recipients of these notifications. For example, you may choose to specify the email address for a [Slack](https://slack.com/intl/en-au/help/articles/206819278-Send-emails-to-Slack) or [Teams](https://support.microsoft.com/en-au/office/send-an-email-to-a-channel-in-microsoft-teams-d91db004-d9d7-4a47-82e6-fb1b16dfd51e) channel, to surface automatic notifications to your organization.
 
 In addition to automated updates, Buildkite will use these same email addresses for any further manual communications.
 
@@ -42,7 +44,7 @@ Buildkite will have dedicated staff on call during and after each migration wind
 
 ### How can people in my Buildkite organization be updated on the status of the migration?
 
-You can provide a list of email addresses for notifications related to this migration process on the settings page once this page is available. These addresses, along with all Buildkite organization administrators, will receive emails before the migration, once the downtime begins, once it ends, and once the backfill is completed.
+You can provide a list of email addresses for notifications related to this migration process on the settings page once this page is available. These addresses, along with all Buildkite organization administrators, will receive emails before the migration, once the downtime begins, once it ends, and restoration of the remaining build history is completed.
 
 ### How does this database migration process benefit Buildkite?
 
