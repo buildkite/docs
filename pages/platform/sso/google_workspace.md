@@ -10,7 +10,7 @@ In your [Buildkite organization **Settings**](https://buildkite.com/organization
 <%= image "sso-settings.png", width: 1716/2, height: 884/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
 > 📘 You can also set up SSO providers manually with GraphQL.
-> See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.
+> See the <a href="/docs/platform/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.
 
 ## Step 2. Perform a test login
 
@@ -20,8 +20,8 @@ Follow the instructions to perform a test login. Performing a test login will ve
 
 Once you've performed a test login you can enable your provider. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through G Suite before organization data can be accessed.
 
-If you need to edit or update your G Suite provider settings at any time, you will need to disable the provider first. For more information on disabling a provider, see the [disabling SSO](/docs/integrations/sso#disabling-and-removing-sso) section of the SSO overview.
+If you need to edit or update your G Suite provider settings at any time, you will need to disable the provider first. For more information on disabling a provider, see the [disabling SSO](/docs/platform/sso#disabling-and-removing-sso) section of the SSO overview.
 
 ## SAML user attributes
 
-<%= render_markdown partial: 'integrations/sso/saml_user_attributes' %>
+<%= render_markdown partial: 'platform/sso/saml_user_attributes' %>

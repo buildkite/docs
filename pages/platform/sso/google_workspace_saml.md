@@ -1,14 +1,13 @@
 # Single sign-on with Google Workspace (SAML)
 
-As an alternative to [Google Workspace SSO using OpenID](/docs/integrations/sso/g-suite), you can use Google Workspace as an SSO provider for your Buildkite organization using SAML.
+As an alternative to [Google Workspace SSO using OpenID](/docs/platform/sso/google-workspace), you can use Google Workspace as an SSO provider for your Buildkite organization using SAML.
 
 To complete this tutorial, you need admin privileges for both Google Workspace and Buildkite.
 
 >📘 You can also set up SSO providers manually with GraphQL.
-> See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
+> See the <a href="/docs/platform/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
 
 After following these steps, your Google Workspace users can sign in to Buildkite using their Google account.
-
 
 ## Step 1. Create a Buildkite SSO provider
 
@@ -77,8 +76,8 @@ The users will need to sign into Buildkite by clicking the Buildkite icon in the
 
 <%= image "google-apps-sso.png", width: 724/2, height: 1124/2, alt: "Buildkite in Google Apps menu" %>
 
-If you need to edit or update your Google Workspace (SAML) provider settings at any time, you will need to disable the provider first. For more information on disabling a provider, see the [disabling SSO](/docs/integrations/sso#disabling-and-removing-sso) section of the SSO overview.
+If you need to edit or update your Google Workspace (SAML) provider settings at any time, you will need to disable the provider first. For more information on disabling a provider, see the [disabling SSO](/docs/platform/sso#disabling-and-removing-sso) section of the SSO overview.
 
 ## SAML user attributes
 
-<%= render_markdown partial: 'integrations/sso/saml_user_attributes' %>
+<%= render_markdown partial: 'platform/sso/saml_user_attributes' %>

@@ -83,10 +83,12 @@ If you want to run builds only on pull requests, set the **Branch Filter Pattern
 
 When you create a pull request, two builds are triggered: one for the pull request and one for the most recent commit. However, any commit made after the pull request is created only triggers one build.
 
+> 📘 Webhook events from GitHub pull requests that trigger Buildkite pipeline builds
+> A Buildkite pipeline's build can be triggered by pull request-related events, such as when a pull request (PR) is opened, a PR's stage is changed from **Draft** to **Open** (via **Ready for review**), and when a PR's labels are changed (if this setting is enabled in your pipeline's settings).
+
 ## Running builds on git tags
 
 Builds are only run for tags when a [`push` event is triggered](https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads#push). To enable builds for `push` events for git tags, edit the **GitHub settings** for your Buildkite pipeline, and choose the **Build Tags** checkbox.
-
 
 Before triggering builds for git tags from the [API](/docs/apis/rest-api/builds#create-a-build) or a [scheduled build](/docs/pipelines/scheduled-builds), make sure your agent is configured to fetch git tags: `BUILDKITE_GIT_FETCH_FLAGS="-v --prune --tags"`.
 

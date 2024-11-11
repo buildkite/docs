@@ -15,6 +15,8 @@ Once you've configured an Amazon EventBridge notification service in Buildkite, 
   <tr><th><a href="#events-build-created">Build Created</a></th><td>A build has been created</td></tr>
   <tr><th><a href="#events-build-started">Build Started</a></th><td>A build has started</td></tr>
   <tr><th><a href="#events-build-finished">Build Finished</a></th><td>A build has finished</td></tr>
+  <tr><th><a href="#events-build-failing">Build Failing</a></th><td>A build is failing</td></tr>
+  <tr><th><a href="#events-build-blocked">Build Blocked</a></th><td>A build has been blocked</td></tr>
   <tr><th><a href="#events-job-scheduled">Job Scheduled</a></th><td>A job has been scheduled</td></tr>
   <tr><th><a href="#events-job-started">Job Started</a></th><td>A command step job has started running on an agent</td></tr>
   <tr><th><a href="#events-job-finished">Job Finished</a></th><td>A job has finished. To check a job's result, use the <code>passed</code> field. The value is <code>true</code> when the job passed, and <code>false</code> otherwise.</td></tr>
@@ -299,6 +301,49 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
   }
 }
 ```
+<a id="events-build-failing"></a>
+
+### Build Failing
+
+```json
+{
+  "version": "0",
+  "id": "...",
+  "detail-type": "Build Failing",
+  "source": "aws.partner/buildkite.com/...",
+  "account": "...",
+  "time": "2024-09-12T10:20:54Z",
+  "region": "...",
+  "resources": [],
+  "detail": {
+    "version": 1,
+    "build": {
+      "uuid": "...",
+      "graphql_id": "...",
+      "number": 1299,
+      "commit": "...",
+      "message": "...",
+      "branch": "...",
+      "state": "failing",
+      "blocked_state": null,
+      "source": "ui",
+      "started_at": "2024-09-12 10:19:49 UTC",
+      "finished_at": null
+    },
+    "pipeline": {
+      "uuid": "...",
+      "graphql_id": "...",
+      "slug": "...",
+      "repo": "..."
+    },
+    "organization": {
+      "uuid": "...",
+      "graphql_id": "...",
+      "slug": "..."
+    }
+  }
+}
+```
 
 <a id="events-build-blocked"></a>
 
@@ -306,41 +351,41 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
-    "version": "0",
-    "id": "...",
-    "detail-type": "Build Finished",
-    "source": "...",
-    "account": "...",
-    "time": "2022-01-30T04:32:06Z",
-    "region": "us-east-1",
-    "resources": [],
-    "detail": {
-        "version": 1,
-        "build": {
-            "uuid": "...",
-            "graphql_id": "...",
-            "number": 23,
-            "commit": "...",
-            "message": "Update index.html",
-            "branch": "main",
-            "state": "blocked",
-            "blocked_state": null,
-            "source": "ui",
-            "started_at": "2022-01-30 04:31:59 UTC",
-            "finished_at": "2022-01-30 04:32:06 UTC"
-        },
-        "pipeline": {
-            "uuid": "...",
-            "graphql_id": "...",
-            "slug": "webhook-test",
-            "repo": "git@github.com:nithyaasworld/add-contact-chip.git"
-        },
-        "organization": {
-            "uuid": "...",
-            "graphql_id": "...",
-            "slug": "nithya-bk"
-        }
+  "version": "0",
+  "id": "...",
+  "detail-type": "Build Finished",
+  "source": "...",
+  "account": "...",
+  "time": "2022-01-30T04:32:06Z",
+  "region": "us-east-1",
+  "resources": [],
+  "detail": {
+    "version": 1,
+    "build": {
+      "uuid": "...",
+      "graphql_id": "...",
+      "number": 23,
+      "commit": "...",
+      "message": "Update index.html",
+      "branch": "main",
+      "state": "blocked",
+      "blocked_state": null,
+      "source": "ui",
+      "started_at": "2022-01-30 04:31:59 UTC",
+      "finished_at": "2022-01-30 04:32:06 UTC"
+    },
+    "pipeline": {
+      "uuid": "...",
+      "graphql_id": "...",
+      "slug": "webhook-test",
+      "repo": "git@github.com:nithyaasworld/add-contact-chip.git"
+    },
+    "organization": {
+      "uuid": "...",
+      "graphql_id": "...",
+      "slug": "nithya-bk"
     }
+  }
 }
 ```
 
@@ -944,42 +989,42 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
 
 ### Audit Event Logged
 
-[Audit log](/docs/pipelines/security/audit-log) is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
+[Audit log](/docs/platform/audit-log) is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
 
 ```json
 {
-    "version": "0",
-    "id": "8212ed90-edcc-0936-187c-d466e46575b6",
-    "detail-type": "Audit Event Logged",
-    "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
-    "account": "123123123123",
-    "time": "2023-03-07T23:14:43Z",
-    "region": "us-east-1",
-    "resources": [],
-    "detail": {
-        "version": 1,
-        "organization": {
-            "uuid": "ae85860c-94f9-4275-91cb-3986590f45b5",
-            "graphql_id": "T3JnYWMDE4NjDAtNzk1YS00YWMwLWE112jUtM12jEGMzYTNkZDQx",
-            "slug": "buildkite"
-        },
-        "event": {
-            "uuid": "da55860c-94f9-4275-91cb-3986590f45b5",
-            "occurred_at": "2023-03-25 23:14:43 UTC",
-            "type": "ORGANIZATION_UPDATED",
-            "data": {
-                "name": "Buildkite"
-            },
-            "subject_type": "Organization",
-            "subject_uuid": "af7e863c-94f9-4275-91sb-3986590f45b5",
-            "subject_name": "Buildkite",
-            "context": "{\"request_id\":\"pemF0aW9uLStMDE4NjDAtNzk1YS00YW\",\"request_ip\":\"127.0.0.0\",\"session_key\":\"pemF0aW9uLStMDE4NjDAtNzk1YS00YW\",\"session_user_uuid\":\"da55860c-94f9-4275-91cb-3986590f45b5\",\"request_user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36\",\"session_created_at\":\"2023-03-25T23:30:54.559Z\"}"
-        },
-        "actor": {
-            "name": "Buildkite member",
-            "type": null,
-            "uuid": "df75860c-94f9-4275-91cb-3986590f45b5"
-        }
+  "version": "0",
+  "id": "8212ed90-edcc-0936-187c-d466e46575b6",
+  "detail-type": "Audit Event Logged",
+  "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
+  "account": "123123123123",
+  "time": "2023-03-07T23:14:43Z",
+  "region": "us-east-1",
+  "resources": [],
+  "detail": {
+    "version": 1,
+    "organization": {
+      "uuid": "ae85860c-94f9-4275-91cb-3986590f45b5",
+      "graphql_id": "T3JnYWMDE4NjDAtNzk1YS00YWMwLWE112jUtM12jEGMzYTNkZDQx",
+      "slug": "buildkite"
+    },
+    "event": {
+      "uuid": "da55860c-94f9-4275-91cb-3986590f45b5",
+      "occurred_at": "2023-03-25 23:14:43 UTC",
+      "type": "ORGANIZATION_UPDATED",
+      "data": {
+        "name": "Buildkite"
+      },
+      "subject_type": "Organization",
+      "subject_uuid": "af7e863c-94f9-4275-91sb-3986590f45b5",
+      "subject_name": "Buildkite",
+      "context": "{\"request_id\":\"pemF0aW9uLStMDE4NjDAtNzk1YS00YW\",\"request_ip\":\"127.0.0.0\",\"session_key\":\"pemF0aW9uLStMDE4NjDAtNzk1YS00YW\",\"session_user_uuid\":\"da55860c-94f9-4275-91cb-3986590f45b5\",\"request_user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36\",\"session_created_at\":\"2023-03-25T23:30:54.559Z\"}"
+    },
+    "actor": {
+      "name": "Buildkite member",
+      "type": null,
+      "uuid": "df75860c-94f9-4275-91cb-3986590f45b5"
     }
+  }
 }
 ```

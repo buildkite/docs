@@ -6,7 +6,7 @@ To learn more about changes that may need to be completed at an individual pipel
 
 ## GitHub private repositories
 
-To use a private GitHub repository with Buildkite hosted agents, you need to authorize Buildkite to access your repository. This process can only be performed by [Buildkite organization administrators](/docs/team-management/permissions#manage-teams-and-permissions-organization-level-permissions).
+To use a private GitHub repository with Buildkite hosted agents, you need to authorize Buildkite to access your repository. This process can only be performed by [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions).
 
 1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 1. In the **Integrations** section, select **Repository Providers**.

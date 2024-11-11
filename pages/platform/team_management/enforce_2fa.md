@@ -30,4 +30,4 @@ Please review the GraphQL [cookbook] for instructions on how to enable
 enforced 2FA via the GraphQL API.
 
 [cookbook]: </docs/apis/graphql/cookbooks/organizations#enforce-two-factor-authentication-2fa-for-your-organization>
-[2FA tutorial]: </docs/tutorials/2fa>
+[2FA tutorial]: </docs/platform/tutorials/2fa>

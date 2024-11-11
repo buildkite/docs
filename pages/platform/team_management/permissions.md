@@ -40,7 +40,7 @@ A user who is a _Buildkite organization administrator_ can access the [**Organiz
 
 - Configure other organization-level settings for Buildkite Pipelines and Package Registries, as well as various [integrations](/docs/integrations) with Buildkite.
 
-- Access and view Buildkite Pipelines and Package Registries usage reports and [audit logs](/docs/pipelines/security/audit-log).
+- Access and view Buildkite Pipelines and Package Registries usage reports and [audit logs](/docs/platform/audit-log).
 
 ### Team-level permissions
 
@@ -251,6 +251,6 @@ The other control you have is the organization membership's SSO mode. If the mem
 
 Admins of your Buildkite organization can disable and then re-enable the SSO, which will force all users in your organization to re-authorize with SSO. When you disable an SSO provider, it rescinds all active SSO authorizations for all users _including the admin who disables the SSO_! The admin will need to log back into the organization by using a non-SSO method.
 
-You can [disable](/docs/integrations/sso/sso-setup-with-graphql#disabling-an-sso-provider) and [re-enable](/docs/integrations/sso/sso-setup-with-graphql#setting-up-saml-google-cloud-identity-okta-onelogin-adfs-and-others-step-4) the SSO using GraphQL or the Buildkite UI.
+You can [disable](/docs/platform/sso/sso-setup-with-graphql#disabling-an-sso-provider) and [re-enable](/docs/platform/sso/sso-setup-with-graphql#setting-up-saml-google-cloud-identity-okta-onelogin-adfs-and-others-step-4) the SSO using GraphQL or the Buildkite UI.
 
 Remember that if an attacker had a fully authenticated session, they've potentially configured API tokens, which will not be subject to SSO requirements. Therefore, the only truly safe response is still to remove the compromised user from your Buildkite organization.

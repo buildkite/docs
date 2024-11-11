@@ -2,12 +2,17 @@
 notify:
   - slack: "$SLACK_CHANNEL"
     if: build.state != "passed"
-env:
-  PUBLIC_REPO: git@github.com:buildkite/docs.git
+
 steps:
   - label: Sync to public mirror
     branches: main
     commands: |
       echo "+++ :git: Syncing to public mirror"
 
-      git push "${PUBLIC_REPO}" ${BUILDKITE_COMMIT}:main
+      git push "https://dummy-user:$${GH_TOKEN}@github.com/buildkite/docs.git" ${BUILDKITE_COMMIT}:main
+    plugins:
+      - aws-assume-role-with-web-identity#v1.0.0:
+          role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs-private
+      - aws-ssm#v1.0.0:
+          parameters:
+            GH_TOKEN: /pipelines/buildkite/docs-private/gh-token

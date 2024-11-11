@@ -362,6 +362,8 @@
     path: apis/graphql/schemas/object/clustertoken
   - name: ClusterUpdatePayload
     path: apis/graphql/schemas/object/clusterupdatepayload
+  - name: CompositeRegistryUpstream
+    path: apis/graphql/schemas/object/compositeregistryupstream
   - name: Dependency
     path: apis/graphql/schemas/object/dependency
   - name: DependencyConnection

@@ -3,7 +3,7 @@
 You can use [Azure Active Directory](https://azure.microsoft.com/en-us/services/active-directory/#overview) as an SSO provider for your Buildkite organization. To complete this tutorial, you need admin privileges for both Azure and Buildkite.
 
 > 📘 You can also set up SSO providers manually with GraphQL.
-> See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
+> See the <a href="/docs/platform/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
 
 
 ## Step 1. Create a Buildkite SSO provider
@@ -54,7 +54,7 @@ Then, on your [Buildkite organization **Settings**](https://buildkite.com/organi
 Once you've [performed a test login](#step-4-perform-a-test-login) you can enable your SSO provider using the **Enable** button. Enabling the SSO provider will not force a log out of any signed in users, but will cause all new or expired sessions to authorize through Azure AD before accessing any organization data.
 
 > 🚧
->If you need to edit or update your Azure Active Directory provider settings, you will need to <a href="/docs/integrations/sso#disabling-and-removing-sso">disable the SSO provider</a> first.
+>If you need to edit or update your Azure Active Directory provider settings, you will need to <a href="/docs/platform/sso#disabling-and-removing-sso">disable the SSO provider</a> first.
 
 ## Using SCIM to provision and manage users
 
@@ -73,7 +73,7 @@ Enterprise customers can automatically add and remove user accounts from their B
 Adding and removing users accounts in Azure AD is called provisioning. You need an enabled Azure AD SSO Provider for your Buildkite Organization before you can set up SCIM provisioning.
 
 > 📘
-> User deprovisioning is an Enterprise only feature and automatically enabled. If you are using a [custom provider](/docs/integrations/sso/custom-saml) as an Enterprise customer, please contact support@buildite.com to have this feature enabled.
+> User deprovisioning is an Enterprise only feature and automatically enabled. If you are using a [custom provider](/docs/platform/sso/custom-saml) as an Enterprise customer, please contact support@buildite.com to have this feature enabled.
 
 After enabling your Azure AD SSO provider in Buildkite, get the **Base URL** and **API Token** from your Azure AD SSO provider settings:
 
@@ -103,4 +103,4 @@ Then go to your [Azure Admin Console](https://portal.azure.com/) and select the 
 
 ## SAML user attributes
 
-<%= render_markdown partial: 'integrations/sso/saml_user_attributes' %>
+<%= render_markdown partial: 'platform/sso/saml_user_attributes' %>

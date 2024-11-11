@@ -45,9 +45,9 @@ RSpec.describe Page do
 
     context "when page has keywords defined in frontmatter" do
       it "returns the keywords" do
-        page = Page.new(view_double, "tutorials/2fa")
+        page = Page.new(view_double, "platform/tutorials/2fa")
 
-        expect(page.keywords).to eql("docs, pipelines, tutorials, 2fa")
+        expect(page.keywords).to eql("docs, pipelines, test suites, registries, tutorials, 2fa")
       end
     end
 

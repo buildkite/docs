@@ -10,6 +10,7 @@ commands=(
   "artifact upload"
   "artifact search"
   "bootstrap"
+  "build cancel"
   "env dump"
   "env set"
   "env get"
