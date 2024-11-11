@@ -415,7 +415,7 @@
     - name: "Announcements"
       children:
         - name: "Database migration"
-          path: "announcements/database-migration"
+          path: "pipelines/announcements/database-migration"
 - name: "Test Engine"
   path: "test-engine"
   children:
