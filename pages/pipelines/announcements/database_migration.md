@@ -18,7 +18,7 @@ Within your organization's two hour migration window, _you can expect approximat
 
 ## Notifications and other communications
 
-To prepare for this process, Buildkite Pipelines customers will receive advance notice about this database migration process for their Buildkite organization.
+To prepare for this process, Buildkite Pipelines customers will receive advance notice by email about this database migration process for their Buildkite organization.
 
 Buildkite will also send out email updates before, during, and after the migration process to all Buildkite organization administrators. Once the database migration settings page is available, you may use this page to nominate additional email addresses as recipients of these notifications. For example, you may choose to specify the email address for a [Slack](https://slack.com/intl/en-au/help/articles/206819278-Send-emails-to-Slack) or [Teams](https://support.microsoft.com/en-au/office/send-an-email-to-a-channel-in-microsoft-teams-d91db004-d9d7-4a47-82e6-fb1b16dfd51e) channel, to surface automatic notifications to your organization.
 
