@@ -8,7 +8,8 @@ To view and copy the required `build.gradle` configurations:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Java registry on this page.
-1. Select **Publish a Java Package** and in the resulting dialog's `Using Gradle with maven-publish plugin` section, use the copy icon at the top-right of the code box to copy the Gradle code snippet and paste it into the appropriate area/s of your `build.gradle` file.
+1. Select **Publish a Java Package** and in the resulting dialog's **Using Gradle with `maven-publish` plugin** section, select **Gradle (Groovy)** to expand this section.
+1. Use the copy icon at the top-right of the code box to copy the Gradle code snippet and paste it into the appropriate area/s of your `build.gradle` file.
 
 These `build.gradle` file configurations contain the:
 

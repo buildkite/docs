@@ -8,7 +8,8 @@ To view and copy the required  `~/.m2/settings.xml` and `pom.xml` configurations
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Java registry on this page.
-1. Select **Publish a Java Package** and in the resulting dialog's **Using Maven** section, use the copy icon at the top-right of each respective code box to copy the relevant XML snippet and paste it into its appropriate file.
+1. Select **Publish a Java Package** and in the resulting dialog's **Using Maven** section, select **Maven** to expand this section.
+1. Use the copy icon at the top-right of each respective code box to copy the relevant XML snippet and paste it into its appropriate file.
 
 These file configurations contain the following:
 
