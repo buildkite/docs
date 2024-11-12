@@ -28,7 +28,7 @@ In addition to automated updates, Buildkite will use these same email addresses 
 
 ## Frequently asked questions
 
-### Will you need to restart your agents after the downtime period?
+### Will I need to restart my agents after the downtime period?
 
 No, your agents will automatically reconnect once the downtime is lifted for your Buildkite organization.
 
@@ -40,7 +40,7 @@ Any running builds will be canceled immediately before your organization's downt
 
 You can provide a list of email addresses for notifications related to this migration process on the database migration settings page, once it becomes available. These addresses, along with all Buildkite organization administrators, will receive email status updates about the migration process before it begins, once the downtime period begins, once this process ends, and when restoration of the remaining build history (referred to as "backfill" in the diagram above) is completed.
 
-### How can Buildkite guarantee the integrity of your data during and after migration?
+### How can Buildkite guarantee the integrity of my data during and after migration?
 
 These migrations will use the same mechanisms that Buildkite utilized when migrating its largest customers over to smaller multiple database shards in early 2024. The process validates the migrated data at multiple stages, and is able to safely unwind the migration if any discrepancies in your data are detected.
 
