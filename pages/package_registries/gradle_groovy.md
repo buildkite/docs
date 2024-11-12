@@ -19,7 +19,7 @@ These `build.gradle` file configurations contain the:
 
 The following steps describe the process above:
 
-1. Copy the following Gradle snippet, paste it into your `build.gradle` file, and modify accordingly:
+1. Copy the following Gradle (Groovy) snippet, paste it into your `build.gradle` file, and modify accordingly:
 
     ```gradle
     plugins {
