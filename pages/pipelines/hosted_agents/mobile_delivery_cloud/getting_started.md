@@ -41,10 +41,19 @@ To create your Mac hosted agent:
     * In the **Select your agent infrastructure** section, choose **Hosted**.
     * Follow the relevant sub-steps for configuring your hosted agent.
 
-1. Make your pipelines use this hosted agent by default, by ensuring its queue is the _default queue_. This should be indicated by **(default)** after the queue's key on the cluster's **Queues** page. If this is not the case and another queue is marked **(default)**:
+1. Make your pipelines use your new Mac hosted agent by default, by ensuring its queue is the _default queue_. This should be indicated by **(default)** after the queue's key on the cluster's **Queues** page. If this is not the case and another queue is marked **(default)**:
 
     1. On the cluster's **Queues** page, select the queue with the hosted agent you just created.
     1. On the queue's **Overview** page, select the **Settings** tab to open this page.
     1. In the **Queue Management** section, select **Set as Default Queue**.
 
-Your Buildkite hosted agent, as the new default queue, is now ready to use.
+Your Buildkite Mac hosted agent, as the new default queue, is now ready to use.
+
+## Create a pipeline
+
+_Pipelines_ are how Buildkite represents a CI/CD workflow. You define each pipeline with a series of _steps_ to run. When you trigger a pipeline, you create a _build_, and steps are dispatched as _jobs_ to run on agents, such as the [Mac agent you just created](#set-up-your-hosted-agent-create-a-buildkite-hosted-agent-for-mac). Jobs are independent of each other and can run on different Mac agents.
+
+Next, you'll create a new pipeline to build the example [FlappyKite Swift application](https://github.com/buildkite/FlappyKite). To do this:
+
+1. [Add the FlappyKite Swift application](https://buildkite.com/new?template=https://github.com/buildkite/FlappyKite) to your Buildkite organization.
+
