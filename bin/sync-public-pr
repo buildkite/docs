@@ -70,7 +70,7 @@ source_ref = "pull/#{PR_NUMBER}/head"
 # https://git-scm.com/docs/git-fetch see docs on refspec format
 refspec = "#{source_ref}:#{TARGET_BRANCH}"
 
-`git fetch --force "git@github.com:#{PUBLIC_GH_REPO}.git" "#{refspec}"`
+`git fetch --force "https://github.com/#{PUBLIC_GH_REPO}.git" "#{refspec}"`
 
 
 puts "+++ :git: Pushing branch #{TARGET_BRANCH} to #{PRIVATE_GH_REPO}"
