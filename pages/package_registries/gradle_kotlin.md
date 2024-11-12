@@ -19,7 +19,7 @@ These `build.gradle.kts` file configurations contain the:
 
 The following steps describe the process above:
 
-1. Copy the following Gradle snippet, paste it into your `build.gradle.kts` file, and modify accordingly:
+1. Copy the following Gradle (Kotlin) snippet, paste it into your `build.gradle.kts` file, and modify accordingly:
 
     ```kotlin
     plugins {
