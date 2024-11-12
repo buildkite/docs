@@ -63,7 +63,7 @@ The following steps describe the process above:
     ```
 
     where:
-    * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Java registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
+    <%= render_markdown partial: 'package_registries/java_registry_write_token' %>
 
     <%= render_markdown partial: 'package_registries/java_package_domain_name_version' %>
 
@@ -95,7 +95,7 @@ A Java package can be downloaded from the package's details page. To do this:
 A Java package can be installed using code snippet details provided on the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
-1. Ensure the **Installation** > **Instructions** section is displayed.
+1. Ensure the **Installation** tab is displayed and select the **Gradle (Groovy)** section to expand it.
 1. Copy the code snippet, paste this into the `build.gradle` Gradle file, and run `gradle install` on this modified script file to install this package.
 
 This code snippet is based on this format:
@@ -121,7 +121,7 @@ dependencies {
 
 where:
 
-- `{org.slug}` is the org slug.
+<%= render_markdown partial: 'package_registries/org_slug' %>
 
 <%= render_markdown partial: 'package_registries/java_registry_slug' %>
 
