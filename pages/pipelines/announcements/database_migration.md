@@ -28,7 +28,7 @@ In addition to automated updates, Buildkite will use these same email addresses 
 
 ## Frequently asked questions
 
-### Will you need to restart your agents after the downtime?
+### Will you need to restart your agents after the downtime period?
 
 No, your agents will automatically reconnect once the downtime is lifted for your Buildkite organization.
 
