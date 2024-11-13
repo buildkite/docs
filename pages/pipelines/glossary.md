@@ -30,7 +30,7 @@ Dynamic pipelines define their steps at runtime using scripts, giving you the fl
 
 Dynamic pipelines are helpful when you have a complex build process that requires different steps to execute based on runtime conditions, such as the branch, the environment, or the results of previous steps.
 
-To learn more, see [Dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines).
+To learn more, see [Dynamic pipelines](/docs/pipelines/dynamic-pipelines).
 
 ## Hook
 

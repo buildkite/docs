@@ -66,7 +66,7 @@ When migrating your CI/CD pipelines from Jenkins to Buildkite, it's important to
 
 Like Jenkins, Buildkite lets you create pipeline definitions in the web interface or a file checked into the repository. Most people use the latter to include their pipeline definitions next to the code, managed in source control. The equivalent of a `Jenkinsfile` is a `pipeline.yml`.
 
-Rather than the Groovy-based syntax in Jenkins, Buildkite uses a YAML-based syntax. The YAML definitions are simpler, more human-readable, and easier to understand. And you can even generate pipeline definitions at runtime with the power and flexibility of [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines).
+Rather than the Groovy-based syntax in Jenkins, Buildkite uses a YAML-based syntax. The YAML definitions are simpler, more human-readable, and easier to understand. And you can even generate pipeline definitions at runtime with the power and flexibility of [dynamic pipelines](/docs/pipelines/dynamic-pipelines).
 
 In Jenkins, the core description of work is a job. Jobs contain stages with steps and can trigger other jobs. You use a job to upload a `Jenkinsfile` from a repository. Installing the Pipeline plugin lets you describe a workflow of jobs as a pipeline. Buildkite uses similar terms in different ways. _Pipelines_ are the core description of work. Pipelines contain different types of [_steps_](/docs/pipelines/step-reference) for different tasks:
 
@@ -127,7 +127,7 @@ Before you start moving pipelines, we recommend taking inventory of your existin
 
 Since the configuration files are quite different, creating an automated tool to translate between them is difficult. Instead, we recommend assessing the goal of a pipeline and investing the time to see how to achieve the same thing the Buildkite way. This results in clearer pipelines with better performance.
 
-Some Buildkite features you might want to use include [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines), [lifecycle hooks](/docs/agent/v3/hooks), [conditionals](/docs/pipelines/conditionals), [artifacts](/docs/pipelines/artifacts), [build matrices](/docs/pipelines/build-matrix), and [annotations](/docs/agent/v3/cli-annotate).
+Some Buildkite features you might want to use include [dynamic pipelines](/docs/pipelines/dynamic-pipelines), [lifecycle hooks](/docs/agent/v3/hooks), [conditionals](/docs/pipelines/conditionals), [artifacts](/docs/pipelines/artifacts), [build matrices](/docs/pipelines/build-matrix), and [annotations](/docs/agent/v3/cli-annotate).
 
 A simple pipeline in Buildkite might look like the following:
 
