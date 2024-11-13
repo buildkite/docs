@@ -69,3 +69,6 @@ Once you've found the matching Buildkite service and Slack app, confirm where an
 ### Create a new Slack notification service which posts
 
 Using the instructions above, [add a new Buildkite notification service](/docs/integrations/slack#adding-a-notification-service) with the same settings as the legacy integration.
+
+#### Slack Privacy Policy
+For more details, please checkout the [Slack Marketplace Privacy Policy](https://api.slack.com/slack-marketplace/guidelines#privacy)
