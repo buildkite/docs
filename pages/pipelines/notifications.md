@@ -282,6 +282,16 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+### Notify in private channels
+
+You can notify individuals in private channels by inviting the Buildkite Builds Slack App into the channel with `/add Buildkite Builds`. You must be using the [Slack Workspace integration](./integrations/slack.md)
+
+```yaml
+notify:
+  # Notify private channel
+  - slack: "buildkite-community#private-channel"
+```
+
 ### Custom messages
 
 You can define a custom message to send in the notification using the `message` attribute.
