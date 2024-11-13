@@ -238,6 +238,8 @@
           path: "pipelines/configuration-overview"
         - name: "Defining steps"
           path: "pipelines/defining-steps"
+        - name: "Dynamic pipelines"
+          path: "pipelines/dynamic-pipelines"
         - name: "Step types"
           children:
             - name: "Overview"
