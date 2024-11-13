@@ -56,4 +56,9 @@ _Pipelines_ are how Buildkite represents a CI/CD workflow. You define each pipel
 Next, you'll create a new pipeline to build the example [FlappyKite Swift application](https://github.com/buildkite/FlappyKite). To do this:
 
 1. [Add the FlappyKite Swift application](https://buildkite.com/new?template=https://github.com/buildkite/FlappyKite) to your Buildkite organization.
+1. On the **New Pipeline** page, select the cluster you [created the hosted agent for Mac](#set-up-your-hosted-agent-create-a-buildkite-hosted-agent-for-mac) in (for example, **Default cluster**).
+1. Leave all other fields with their pre-filled default values and select **Create Pipeline**. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
+1. On the next page showing your pipeline name, click **New Build**. In the modal that opens, create a build using the pre-filled details.
 
+   1. In the **Message** field, enter a short description for the build. For example, **My first build**.
+   1. Select **Create Build**.
