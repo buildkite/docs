@@ -1,0 +1,3 @@
+- Maven coordinates for your package (which you will need to manually configure yourself).
+- URL for your specific Java registry in Buildkite.
+- API access token required to publish the package to this registry.

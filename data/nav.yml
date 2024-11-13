@@ -538,8 +538,10 @@
           children:
             - name: "Maven"
               path: "package-registries/maven"
-            - name: "Gradle"
-              path: "package-registries/gradle"
+            - name: "Gradle (Kotlin)"
+              path: "package-registries/gradle-kotlin"
+            - name: "Gradle (Groovy)"
+              path: "package-registries/gradle-groovy"
         - name: "JavaScript"
           path: "package-registries/javascript"
         - name: "Python"
