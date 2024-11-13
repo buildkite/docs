@@ -7,7 +7,21 @@ Configuring a Slack notification service will authorize access for your desired 
 
 Setting up a Notification Service requires Buildkite organization admin access.
 
-## Adding a notification service
+## Adding notification services
+There are two ways to add notification services: workspace-wide and channel-specific. We reccomend using a workspace. Using a workspace only requires a single authorization for the entire workspace, allowing you to connect channels via YAML rather than multiple notifications services. The migration to a Workspace will not impact current integration implementation.
+
+### Adding workspace notification services
+In your [Organization's Notification Settings](https://buildkite.com/organizations/-/services), add a Slack Workspace notification service:
+
+<%= image "buildkite-add-slack-workspace.png", width: 1458/2, height: 142/2, alt: "Screenshot of the 'Add' button for adding a Slack workspace service to Buildkite" %>
+
+Click the **Add to Slack** button:
+
+<%= image "buildkite-add-to-slack-workspace.png", width: 1458/2, height: 358/2, alt: "Screenshot of 'Add Slack workspace service' screen on Buildkite. It shows an 'Add to Slack workspace' button" %>
+
+This will take you to Slack. Log in, and grant Buildkite the ability to post across your workspace. Once you have granted access, you can then edit the YAML of your pipelines to [configure notifications](/docs/pipelines/notifications).
+
+### Adding a channel-specific notification service
 
 In your [Organization's Notification Settings](https://buildkite.com/organizations/-/services), add a Slack notification service:
 
@@ -36,7 +50,7 @@ With the configuration above, you'll receive notifications at the pipeline level
 
 ## Changing channels
 
-Once created, the Slack channel and workspace cannot be changed. To post to a different channel or workspace, create a new notification service.
+Once created, the Slack channel and workspace cannot be changed. To post to a different channel or workspace, create a new notification service. Alternatively, use a Slack Workspace to avoid the need to configure multiple notification services. Follow the process above to do so.
 
 ## Conditional notifications
 
