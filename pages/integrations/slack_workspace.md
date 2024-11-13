@@ -1,4 +1,4 @@
-# Slack Workspace
+# Slack workspace
 
 The [Slack Workspace](https://slack.com/) Notification Service in Buildkite lets you receive notifications about your builds and jobs in your Slack workspace.
 
@@ -30,5 +30,5 @@ Use the `notify` YAML attribute in your `pipeline.yml` file to configure conditi
 
 See the [Slack channel message](/docs/pipelines/notifications) section of the Notifications guide for the configuration information.
 
-#### Slack Privacy Policy
+#### Slack privacy policy
 For more details, please checkout the [Slack Marketplace Privacy Policy](https://api.slack.com/slack-marketplace/guidelines#privacy)
