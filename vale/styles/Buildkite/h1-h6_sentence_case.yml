@@ -99,6 +99,7 @@ exceptions:
   - Google Kubernetes Engine
   - Google Workspace
   - GraphQL
+  - Groovy
   - Heroku
   - HMAC
   - HTTP
@@ -115,6 +116,7 @@ exceptions:
   - JSON
   - JUnit
   - KMS
+  - Kotlin
   - Kubernetes
   - Linux
   - M1
