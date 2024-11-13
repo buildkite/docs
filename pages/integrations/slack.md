@@ -26,7 +26,7 @@ Once you have granted access to your Slack workspace, give it a description, cho
 <%= image "buildkite-slack-connected.png", width: 1458/2, height: 1540/2, alt: "Screenshot of Buildkite Slack Notification Settings, requesting a description, your choice of text or emoji message themes, which pipelines and branches to include, and which build states should trigger a notification" %>
 
 > 🚧
-> The default quota limit for the number of Slack notification services that can be added to an organization is 50. If you are an Enterprise customer and need higher quota limit, please reach out to support@buildkite.com.
+> The default quota limit for the number of Slack notification services that can be added to an organization is 50. If you are an Enterprise customer and need higher quota limit, please reach out to support@buildkite.com. Alternatively, you can use a [Slack Workspace](/integrations/slack_workspace) to configure notifications, which only requires a single authorization, rather than many.
 
 
 With the configuration above, you'll receive notifications at the pipeline level but not on the outcomes of individual steps. The **fixed builds** option ensures you're notified when a failed build next passes.
@@ -36,7 +36,7 @@ With the configuration above, you'll receive notifications at the pipeline level
 
 ## Changing channels
 
-Once created, the Slack channel and workspace cannot be changed. To post to a different channel or workspace, create a new notification service.
+Once created, the Slack channel and workspace cannot be changed. To post to a different channel or workspace, create a new notification service. Alternatively, you can use a [Slack Workspace](/integrations/slack_workspace) to configure notifications in YAML.
 
 ## Conditional notifications
 
