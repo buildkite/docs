@@ -20,11 +20,11 @@
     - name: Migration
       children:
         - name: Overview
-          path: pipelines/migration-overview
+          path: pipelines/migration
         - name: From Jenkins
-          path: pipelines/migrate-from-jenkins
+          path: pipelines/migration/from-jenkins
         - name: From Bamboo
-          path: tutorials/migrating-from-bamboo
+          path: pipelines/migration/from-bamboo
     # If you're adding a source control provider you probably want to update
     # /docs/pages/integrations/source_control.md.erb
     # as well

@@ -17,7 +17,7 @@ The guides walk through the entire process step by step, covering the key aspect
 
 To get started, choose the guide that corresponds to the CI/CD tool you are migrating from:
 
-- [Migrate from Jenkins](/docs/pipelines/migrate-from-jenkins)
-- [Migrate from Bamboo](/docs/tutorials/migrating-from-bamboo)
+- [Migrate from Jenkins](/docs/pipelines/migration/from-jenkins)
+- [Migrate from Bamboo](/docs/pipelines/migration/from-bamboo)
 
 If you need further assistance or have any questions, please don't hesitate to reach out to support at support@buildkite.com. We're here to help you make a smooth transition to Buildkite.
