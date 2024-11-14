@@ -6,7 +6,7 @@ While the specifics may vary based on your code and goal, this tutorial provides
 
 ## Before you start
 
-This tutorial assumes you've created a starter pipeline, completed the [Getting started](/docs/tutorials/getting-started) guide, or both.
+This tutorial assumes you've created a starter pipeline, completed the [Getting started](/docs/pipelines/getting-started) guide, or both.
 
 You'll also need the following:
 
@@ -19,7 +19,7 @@ You'll also need the following:
 
 ## Continue running an agent
 
-We recommend you continue treating this tutorial as a chance to play and iterate. That means you can continue using the [agent you've already set up](/docs/tutorials/getting-started#set-up-an-agent).
+We recommend you continue treating this tutorial as a chance to play and iterate. That means you can continue using the [agent you've already set up](/docs/pipelines/getting-started#set-up-an-agent).
 
 If you want to learn more about the agent and set up something more permanent, see [Agent overview](/docs/agent/v3).
 

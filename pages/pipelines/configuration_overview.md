@@ -12,7 +12,7 @@ Not at all! You can do all kinds of exciting things with pipelines, like generat
 
 ## Where's the best place to start?
 
-If you've completed [Getting started](/docs/tutorials/getting-started) and are looking to learn more about pipelines, we recommend you start with the following:
+If you've completed [Getting started](/docs/pipelines/getting-started) and are looking to learn more about pipelines, we recommend you start with the following:
 
 - [Defining steps](/docs/pipelines/defining-steps): Learn how to write pipeline definitions.
 - [Step types](/docs/pipelines/step-reference): See the actions you can take in a pipeline.

@@ -99,6 +99,7 @@ Rails.application.routes.draw do
   get "/docs/test-analytics/*page",               to: redirect("/docs/test-engine/%{page}")
   get "/docs/test-analytics/js-collectors",       to: redirect("/docs/test-engine/javascript-collectors")
   get "/docs/tutorials/2fa",                      to: redirect("/docs/platform/tutorials/2fa")
+  get "/docs/tutorials/getting-started",          to: redirect("/docs/pipelines/getting-started")
   get "/docs/tutorials/gitlab",                   to: redirect("/docs/integrations/gitlab")
   get "/docs/tutorials/github-enterprise",        to: redirect("/docs/integrations/github-enterprise")
   get "/docs/tutorials/bitbucket",                to: redirect("/docs/integrations/bitbucket")

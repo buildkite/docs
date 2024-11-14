@@ -8,7 +8,7 @@
       start_expanded: true
       children:
         - name: "Getting started"
-          path: "tutorials/getting-started"
+          path: "pipelines/getting-started"
         - name: "Create your own pipeline"
           path: "pipelines/create-your-own"
         - name: "Hybrid architecture"

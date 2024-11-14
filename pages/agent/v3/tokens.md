@@ -1,6 +1,6 @@
 # Agent tokens
 
-A Buildkite agent running in a [self-hosted architecture](/docs/tutorials/getting-started#understand-the-architecture) requires an _agent token_ to connect to Buildkite and register for work. Agent tokens connect to Buildkite via a [cluster](/docs/clusters/overview), and can be accessed from the cluster's **Agent Tokens** page.
+A Buildkite agent running in a [self-hosted architecture](/docs/pipelines/getting-started#understand-the-architecture) requires an _agent token_ to connect to Buildkite and register for work. Agent tokens connect to Buildkite via a [cluster](/docs/clusters/overview), and can be accessed from the cluster's **Agent Tokens** page.
 
 If you are managing agents in an unclustered environment, refer to [unclustered tokens](/docs/agent/v3/unclustered-tokens) instead.
 
