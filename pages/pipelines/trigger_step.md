@@ -29,7 +29,7 @@ If neither condition is true, the build will fail, and builds on subsequent pipe
 
 If using bot users (unregistered users who are not part of any team) to trigger pipelines, make sure you have shared team which has the build permission on parent and child pipelines.
 
-If your triggering pipelines are started by an API call or a webhook, it might not be clear whether the triggering user has access to the triggered pipeline, which will cause your build to fail. To prevent that from happening, make sure that all of your GitHub user accounts that are triggering builds are [connected to Buildkite accounts](/docs/integrations/github#connecting-buildkite-and-github).
+If your triggering pipelines are started by an API call or a webhook, it might not be clear whether the triggering user has access to the triggered pipeline, which will cause your build to fail. To prevent that from happening, make sure that all of your GitHub user accounts that are triggering builds are [connected to Buildkite accounts](/docs/pipelines/source-control/github#connecting-buildkite-and-github).
 
 ## Trigger step attributes
 

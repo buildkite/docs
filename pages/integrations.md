@@ -6,4 +6,4 @@ template: "landing_page"
 
 <%= tiles "integrations" %>
 
-Learn more about source control integrations in [Connect source control](/docs/integrations/source-control).
+Learn more about source control integrations in [Connect source control](/docs/pipelines/source-control).

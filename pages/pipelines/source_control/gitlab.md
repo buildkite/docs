@@ -2,7 +2,6 @@
 
 You can use Buildkite to run builds on [GitLab](https://about.gitlab.com/) commits.
 
-
 ## GitLab repositories
 
 If you host your repositories on [gitlab.com](https://gitlab.com/) enter your gitlab.com repository URL when you create your pipeline in Buildkite (for example, `git@gitlab.com:your/repo.git`) and follow the instructions provided on that page to set up webhooks.
