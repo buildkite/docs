@@ -12,7 +12,7 @@ You can have complete control over when to trigger pipeline builds by using cond
 
 Pipeline-level build conditionals are evaluated before any other build trigger settings. If both a conditional and a branch filter are present, both filters must pass for a build to be created – first the pipeline-level limiting filter and then the conditional filter.
 
-Conditionals are supported in [Bitbucket](/docs/integrations/bitbucket), [Bitbucket Server](/docs/integrations/bitbucket-server), [GitHub](/docs/pipelines/source-control/github), [GitHub Enterprise](/docs/pipelines/source-control/github-enterprise), and [GitLab](/docs/pipelines/source-control/gitlab) (including GitLab Community and GitLab Enterprise). You can add a conditional on your pipeline's **Settings** page in the Buildkite interface or using the REST API.
+Conditionals are supported in [Bitbucket](/docs/pipelines/source-control/bitbucket), [Bitbucket Server](/docs/pipelines/source-control/bitbucket-server), [GitHub](/docs/pipelines/source-control/github), [GitHub Enterprise](/docs/pipelines/source-control/github-enterprise), and [GitLab](/docs/pipelines/source-control/gitlab) (including GitLab Community and GitLab Enterprise). You can add a conditional on your pipeline's **Settings** page in the Buildkite interface or using the REST API.
 
 > 📘 Evaluating conditionals
 > Conditional expressions are evaluated at pipeline upload, not at step runtime.

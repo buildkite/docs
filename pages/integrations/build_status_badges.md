@@ -4,7 +4,6 @@ Build status badges help to visually show the current build state for a pipeline
 
 You can find your pipeline's status badge on the pipeline's **Settings** > **Build Badges** page.
 
-
 ## Scoping to a branch
 
 By default the build status badge will show the last build's status. You can scope it to a specific branch by adding a `?branch` parameter to the URL. For example, to scope your badge to the `main` branch you would add: `?branch=main` to the URL.

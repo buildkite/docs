@@ -2,7 +2,6 @@
 
 The [Amazon EventBridge](https://aws.amazon.com/eventbridge/) notification service in Buildkite lets you stream events in real-time from your Buildkite account to your AWS account.
 
-
 ## Events
 
 Once you've configured an Amazon EventBridge notification service in Buildkite, the following events are published to the partner event bus:

@@ -4,7 +4,6 @@ Buildkite can connect to your GitHub Enterprise Server and use the [GitHub Statu
 
 GitHub Enterprise Server is available to Buildkite customers on Pro and Enterprise plans.
 
-
 > 📘 This guide was written using GitHub Enterprise version 2.16.3.
 > Earlier or later versions may have different menus and headings for the OAuth app registration. All of the Buildkite settings will remain the same.
 > This guide describes the setup for self-hosted GitHub Enterprise Server. GitHub Enterprise Cloud users should refer to <a href="https://buildkite.com/docs/pipelines/source-control/github" rel="nofollow">GitHub</a>.

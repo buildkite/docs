@@ -1,6 +1,6 @@
 # Incoming webhooks
 
-Incoming webhooks are sent to Buildkite by source control providers ([GitHub](/docs/pipelines/source-control/github), [GitLab](/docs/pipelines/source-control/gitlab), [Bitbucket](/docs/integrations/bitbucket), etc.) to trigger builds. This page answers the most frequent questions about the security of incoming webhooks in Buildkite.
+Incoming webhooks are sent to Buildkite by source control providers ([GitHub](/docs/pipelines/source-control/github), [GitLab](/docs/pipelines/source-control/gitlab), [Bitbucket](/docs/pipelines/source-control/bitbucket), etc.) to trigger builds. This page answers the most frequent questions about the security of incoming webhooks in Buildkite.
 
 ## What kind of information on incoming webhooks is logged by Buildkite?
 
