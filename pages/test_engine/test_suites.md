@@ -14,7 +14,7 @@ To delete a suite, or regenerate its API token, go to suite settings.
 
 In CI/CD, a build's tests can be made to run in parallel using features of your own CI/CD pipeline or workflow tool. Parallelized pipeline/workflow builds typically run and complete faster than builds which are not parallelized.
 
-In Buildkite Pipelines, you can run tests in parallel when they are configured as [parallel jobs](https://buildkite.com/docs/tutorials/parallel-builds#parallel-jobs).
+In Buildkite Pipelines, you can run tests in parallel when they are configured as [parallel jobs](/docs/pipelines/tutorials/parallel-builds#parallel-jobs).
 
 > 📘
 > When tests are run in parallel across multiple agents, they can be grouped into the same run by defining the same `run_env[key]` environment variable. Learn more about this environment variable and others in [CI environments](/docs/test-engine/ci-environments).

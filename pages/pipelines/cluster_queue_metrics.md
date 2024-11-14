@@ -40,7 +40,7 @@ For agent utilization, agents are considered busy if they have a job ID assigned
 
 <%= image "advanced-queue-metrics.png", alt: "Screenshot of the queue chart showing connected agents, waiting jobs, and running jobs" %>
 
-Advanced Queue Metrics show a queue’s activity from the past hour, identifying patterns in how your agents adapt to job numbers and evaluating the efficiency of your [scaling rules](/docs/tutorials/parallel-builds#auto-scaling-your-build-agents).
+Advanced Queue Metrics show a queue’s activity from the past hour, identifying patterns in how your agents adapt to job numbers and evaluating the efficiency of your [scaling rules](/docs/pipelines/tutorials/parallel-builds#auto-scaling-your-build-agents).
 
 - `Connected Agents` shows the number of agents that were connected to this queue
 - `Waiting Jobs` shows the number of jobs that were waiting to be assigned an agent

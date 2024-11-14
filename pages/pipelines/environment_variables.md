@@ -162,7 +162,7 @@ When a job runs on an agent, the first combination of environment variables happ
 
 > 📘
 > If you are not using YAML Steps, the precedence of environment variables is different from the list below.
-> Please [migrate your pipelines](/docs/tutorials/pipeline-upgrade) to use YAML steps.
+> Please [migrate your pipelines](/docs/pipelines/tutorials/pipeline-upgrade) to use YAML steps.
 
 The job environment is made by merging the following sets of values, where values in each successive set take precedence:
 

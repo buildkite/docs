@@ -40,7 +40,7 @@ Changed:
 
 Deprecated:
 
-* Built-in [Docker and Docker Compose support](/docs/tutorials/docker-containerized-builds) has been deprecated. The same functionality is available from the dedicated plugins: [docker-compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) and [docker](https://github.com/buildkite-plugins/docker-buildkite-plugin).
+* Built-in [Docker and Docker Compose support](/docs/pipelines/tutorials/docker-containerized-builds) has been deprecated. The same functionality is available from the dedicated plugins: [docker-compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) and [docker](https://github.com/buildkite-plugins/docker-buildkite-plugin).
 
 ### Bootstrap customizations
 

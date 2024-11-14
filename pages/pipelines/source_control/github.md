@@ -64,7 +64,7 @@ You can edit your pipeline configuration at any time in your pipeline's **Settin
 
 ## Branch configuration and settings
 
-<%= render_markdown partial: 'integrations/branch_config_settings' %>
+<%= render_markdown partial: 'pipelines/source_control/branch_config_settings' %>
 
 ## Running builds on pull requests
 
@@ -170,13 +170,13 @@ When you set a custom commit status on a group step, GitHub only displays one st
 
 ## Using one repository in multiple pipelines and organizations
 
-<%= render_markdown partial: 'integrations/one_repo_multi_org' %>
+<%= render_markdown partial: 'pipelines/source_control/one_repo_multi_org' %>
 
-<%= render_markdown partial: 'integrations/one_repo_multi_org_github' %>
+<%= render_markdown partial: 'pipelines/source_control/one_repo_multi_org_github' %>
 
 ## Build skipping
 
-<%= render_markdown partial: 'integrations/build_skipping' %>
+<%= render_markdown partial: 'pipelines/source_control/build_skipping' %>
 
 ## Connect your Buildkite account to GitHub using OAuth
 

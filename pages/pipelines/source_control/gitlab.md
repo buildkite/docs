@@ -24,15 +24,15 @@ If you host your repositories on [gitlab.com](https://gitlab.com/) enter your gi
 
 ## Branch configuration and settings
 
-<%= render_markdown partial: 'integrations/branch_config_settings' %>
+<%= render_markdown partial: 'pipelines/source_control/branch_config_settings' %>
 
 ## Using one repository in multiple pipelines and organizations
 
-<%= render_markdown partial: 'integrations/one_repo_multi_org' %>
+<%= render_markdown partial: 'pipelines/source_control/one_repo_multi_org' %>
 
 ## Build skipping
 
-<%= render_markdown partial: 'integrations/build_skipping' %>
+<%= render_markdown partial: 'pipelines/source_control/build_skipping' %>
 
 ## Commit statuses
 

@@ -72,7 +72,7 @@ To correctly transfer the OAuth ownership over your GitHub Enterprise Organizati
 
 ## Branch configuration and settings
 
-<%= render_markdown partial: 'integrations/branch_config_settings' %>
+<%= render_markdown partial: 'pipelines/source_control/branch_config_settings' %>
 
 ## Firewalled installs
 
@@ -171,10 +171,10 @@ You can set up multiple GitHub Enterprise integrations with your Buildkite organ
 
 ## Using one repository in multiple pipelines and organizations
 
-<%= render_markdown partial: 'integrations/one_repo_multi_org' %>
+<%= render_markdown partial: 'pipelines/source_control/one_repo_multi_org' %>
 
-<%= render_markdown partial: 'integrations/one_repo_multi_org_github' %>
+<%= render_markdown partial: 'pipelines/source_control/one_repo_multi_org_github' %>
 
 ## Build skipping
 
-<%= render_markdown partial: 'integrations/build_skipping' %>
+<%= render_markdown partial: 'pipelines/source_control/build_skipping' %>

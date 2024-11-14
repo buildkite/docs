@@ -146,7 +146,7 @@ Optional attributes:
   <tr>
     <td><code>parallelism</code></td>
     <td>
-      The number of <a href="/docs/tutorials/parallel-builds#parallel-jobs">parallel jobs</a> that will be created based on this step. <br>
+      The number of <a href="/docs/pipelines/tutorials/parallel-builds#parallel-jobs">parallel jobs</a> that will be created based on this step. <br>
       <em>Example:</em> <code>3</code>
     </td>
   </tr>

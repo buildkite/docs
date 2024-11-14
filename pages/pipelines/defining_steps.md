@@ -20,13 +20,13 @@ Both the REST API and GraphQL API can be used to create a pipeline programmatica
 
 There are two ways to define steps in your pipeline: using the YAML step editor in Buildkite or with a `pipeline.yml` file. The web steps visual editor is still available if you haven't migrated to [YAML steps](https://buildkite.com/changelog/99-introducing-the-yaml-steps-editor) but will be deprecated in the future.
 
-If you have not yet migrated to YAML Steps, you can do so on your pipeline's settings page. See the [Migrating to YAML steps guide](/docs/tutorials/pipeline-upgrade) for more information about the changes and the migration process.
+If you have not yet migrated to YAML Steps, you can do so on your pipeline's settings page. See the [Migrating to YAML steps guide](/docs/pipelines/tutorials/pipeline-upgrade) for more information about the changes and the migration process.
 
 However you add steps to your pipeline, keep in mind that steps may run on different agents. It is good practice to install your dependencies in the same step that you run them.
 
 ## Step defaults
 
-If you're using [YAML steps](/docs/tutorials/pipeline-upgrade), you can set defaults which will be applied to every command step in a pipeline unless they are overridden by the step itself. You can set default agent properties and default environment variables:
+If you're using [YAML steps](/docs/pipelines/tutorials/pipeline-upgrade), you can set defaults which will be applied to every command step in a pipeline unless they are overridden by the step itself. You can set default agent properties and default environment variables:
 
 * `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
 * `env` - A map of <a href="/docs/pipelines/environment-variables">environment variables</a> to apply to all steps

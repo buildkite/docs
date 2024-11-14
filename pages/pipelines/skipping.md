@@ -81,7 +81,7 @@ You can use conditionals to skip builds at both the pipeline and step level. Ref
 
 ## Skip builds with existing commits
 
-Sometimes you don't want to trigger a new build for a commit that's already passed validation, regardless of the branch. For example, when [using merge queues in GitHub](/docs/tutorials/github-merge-queue).
+Sometimes you don't want to trigger a new build for a commit that's already passed validation, regardless of the branch. For example, when [using merge queues in GitHub](/docs/pipelines/tutorials/github-merge-queue).
 
 To skip a build with existing commits:
 
