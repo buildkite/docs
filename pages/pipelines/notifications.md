@@ -294,6 +294,18 @@ notify:
   - slack: "buildkite-community#private-channel"
 ```
 
+### Notify only on first failure
+
+You can filter build notifications to only trigger on the first failure using `started_failing`.
+
+Build-level notifications:
+
+```yaml
+notify:
+  - slack: "#builds"
+    if: build.branch == "main" && pipeline.started_failing
+```
+
 ### Custom messages
 
 You can define a custom message to send in the notification using the `message` attribute.
