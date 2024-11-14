@@ -201,13 +201,6 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-When using a Slack Workspace, provide the Slack user ID, which you can access via User > More options > Copy member ID.
-
-```
-notify:
-  - slack: "U123ABC456"
-```
-
 Step-level notifications to user `@someuser` in all configured workspaces:
 
 ```yaml
@@ -283,16 +276,6 @@ steps:
             - "#general"
 ```
 {: codeblock-file="pipeline.yml"}
-
-### Notify in private channels
-
-You can notify individuals in private channels by inviting the Buildkite Builds Slack App into the channel with `/add Buildkite Builds`. You must be using the [Slack Workspace integration](/docs/integrations/slack-workspace)
-
-```yaml
-notify:
-  # Notify private channel
-  - slack: "buildkite-community#private-channel"
-```
 
 ### Notify only on first failure
 
