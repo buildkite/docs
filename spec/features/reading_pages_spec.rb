@@ -51,10 +51,10 @@ RSpec.feature "reading pages" do
 
   describe "valid, but non-canonical versions of URLs" do
     it "permanently redirect to the canonical version" do
-      visit "/docs/tutorials/gettingStarted"
+      visit "/docs/pipelines/gettingStarted"
       expect(page.current_path).to eql("/docs/pipelines/getting-started"), "expected gettingStarted to redirect to getting-started"
 
-      visit "/docs/tutorials/getting_started"
+      visit "/docs/pipelines/getting_started"
       expect(page.current_path).to eql("/docs/pipelines/getting-started"), "expected getting_started to redirect to getting-started"
     end
   end
