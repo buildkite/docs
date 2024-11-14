@@ -35,9 +35,11 @@ To update an existing Buildkite secret's value using the Buildkite interface:
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster where the secret you wish to update is located.
 1. Select **Secrets** to access the **Secrets** page, then select **Edit** in the row of the secret you wish to update.
-1. Enter a new value for your secret, and select **Update Secret**.
+1. Enter a new **Value** for your secret. This value can be any number of valid UTF-8 characters up to a maximum of 8 kilobytes. Be aware that once the secret's value is updated, it will no longer be visible through the Buildkite interface and will be redacted when output in build logs.
+1. Select **Update Secret** to update the secret's value.
 
-Note that while the secret value may be updated, secret keys cannot be changed.
+> 📘
+> While a secret's **Value** can be modified, the **Key** value cannot be changed.
 
 ## Use a Buildkite secret in a job
 
