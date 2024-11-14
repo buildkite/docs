@@ -28,7 +28,7 @@ notify:
 
 Use the `notify` YAML attribute in your `pipeline.yml` file to configure conditional notifications.
 
-See the [Slack channel message](/docs/pipelines/notifications) section of the Notifications guide for the configuration information.
+See the [Slack channel message](/docs/pipelines/notifications#slack-channel-and-direct-messages) section of the Notifications guide for the configuration information.
 
 #### Slack privacy policy
 For more details, please checkout the [Slack Marketplace Privacy Policy](https://api.slack.com/slack-marketplace/guidelines#privacy)

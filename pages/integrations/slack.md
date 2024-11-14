@@ -42,7 +42,7 @@ Once created, the Slack channel and workspace cannot be changed. To post to a di
 
 By default, notifications are sent to all configured Slack channels. For more control over when each channel receives notifications, use the `notify` YAML attribute in your `pipeline.yml` file.
 
-See the [Slack channel message](/docs/pipelines/notifications) section of the Notifications guide for the configuration information.
+See the [Slack channel message](/docs/pipelines/notifications#slack-channel-and-direct-messages) section of the Notifications guide for the configuration information.
 
 ## Upgrading a legacy Slack service
 
