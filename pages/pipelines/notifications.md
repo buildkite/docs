@@ -150,7 +150,7 @@ You can set notifications:
 * On build status events in the Buildkite UI, by using your Slack Notification Service's 'Build State Filtering' settings.
 * On step status and other non-build events, by extending the Slack Notification Service using the `notify` attribute in your `pipeline.yml`.
 
-Before adding a `notify` attribute to your `pipeline.yml`, ensure an organization admin has set up either a [Slack Workspace](/docs/integrations/slack-workspace) for a single authorization, or individual [notification services](/docs/integrations/slack) for the channel or user that you want to post to. Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan can also check the ['Manage Notifications Services'](https://buildkite.com/organizations/~/security/pipelines) checkbox to create, edit, or delete notification services. For detailed information about setting up a Workspace, see the [Slack Workspace Integration page](/docs/integrations/slack-workspace) and [Slack integration page](/docs/integrations/slack) for configuring individual notification services.
+Before adding a `notify` attribute to your `pipeline.yml`, ensure an organization admin has set up either a [Slack Workspace](/docs/integrations/slack-workspace) for a single authorization, or individual [notification services](/docs/integrations/slack) for the channel or user that you want to post to. Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan and using individual notification services can also check the ['Manage Notifications Services'](https://buildkite.com/organizations/~/security/pipelines) checkbox to create, edit, or delete notification services. For detailed information about setting up a Workspace, see the [Slack Workspace Integration page](/docs/integrations/slack-workspace) and [Slack integration page](/docs/integrations/slack) for configuring individual notification services.
 
 Once a Slack channel or workspace has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` YAML block.
 
@@ -286,7 +286,7 @@ steps:
 
 ### Notify in private channels
 
-You can notify individuals in private channels by inviting the Buildkite Builds Slack App into the channel with `/add Buildkite Builds`. You must be using the [Slack Workspace integration](./integrations/slack.md)
+You can notify individuals in private channels by inviting the Buildkite Builds Slack App into the channel with `/add Buildkite Builds`. You must be using the [Slack Workspace integration](/docs/integrations/slack-workspace)
 
 ```yaml
 notify:
