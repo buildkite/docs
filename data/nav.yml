@@ -408,6 +408,8 @@
               path: "integrations/pagerduty"
             - name: "Slack"
               path: "integrations/slack"
+            - name: "Slack Workspace"
+              path: "integrations/slack-workspace"
 - name: "Test Engine"
   path: "test-engine"
   children:
