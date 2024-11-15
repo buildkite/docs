@@ -1,8 +1,8 @@
 # Slack workspace
 
-The Slack Workspace Notification Service in Buildkite lets you receive notifications about your builds in your [Slack](https://slack.com/) workspace.
+The Slack Workspace notification service in Buildkite lets you receive notifications about your builds in your [Slack](https://slack.com/) workspace.
 
-[Adding a Slack Workspace notification service](https://buildkite.com/organizations/-/services/slack_workspace/new) will authorize access for your entire Slack app. You only need to setup this integration once for the workspace. You can then configure notifications using YAML to be sent to any Slack channels.
+[Adding a Slack workspace notification service](https://buildkite.com/organizations/-/services/slack_workspace/new) will authorize access for your entire Slack app. You only need to setup this integration once for the workspace. You can then configure notifications using YAML to be sent to any Slack channels.
 
 Setting up a Workspace requires Buildkite organization admin access.
 
@@ -57,4 +57,5 @@ Use the `notify` YAML attribute in your `pipeline.yml` file to configure conditi
 See the [Slack channel message](/docs/pipelines/notifications#slack-channel-and-direct-messages) section of the Notifications guide for the configuration information.
 
 #### Slack privacy policy
-For more details, please checkout the [Slack Marketplace Privacy Policy](https://api.slack.com/slack-marketplace/guidelines#privacy)
+
+For more details, please checkout the [Slack Marketplace privacy policy](https://api.slack.com/slack-marketplace/guidelines#privacy).
