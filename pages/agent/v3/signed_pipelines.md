@@ -126,7 +126,7 @@ verification-jwks-file=<path to verification keys>
 So far, you've configured agents to sign and verify any steps they upload and run. However, you also define steps in a pipeline's settings through the Buildkite dashboard. For example, teams commonly use a single step in the Buildkite dashboard to upload a pipeline definition from [a YAML file in the repository](/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file). These steps should also be signed.
 
 > 🚧 Non-YAML steps
-> You must use YAML to sign steps configured in the Buildkite dashboard. If you don't use YAML, you'll need to [migrate to YAML steps](/docs/tutorials/pipeline_upgrade) before continuing.
+> You must use YAML to sign steps configured in the Buildkite dashboard. If you don't use YAML, you'll need to [migrate to YAML steps](/docs/pipelines/tutorials/pipeline-upgrade) before continuing.
 
 To sign steps configured in the Buildkite dashboard, you need to add static signatures to the YAML. To do this, run:
 
