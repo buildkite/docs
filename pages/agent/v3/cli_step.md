@@ -60,3 +60,11 @@ steps:
         buildkite-agent annotate 'this build failed' --style 'error'
       fi
 ```
+
+## Canceling a step
+
+Use this command to programmatically cancel all jobs for a step. It is possible to issue graceful and forced cancel commands.
+
+Force canceling a step can be used to cancel lost or hung jobs before their agents would otherwise be marked as lost.
+
+<%= render 'agent/v3/help/step_cancel' %>

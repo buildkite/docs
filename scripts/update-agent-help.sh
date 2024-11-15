@@ -31,6 +31,7 @@ commands=(
   "start"
   "step get"
   "step update"
+  "step cancel"
   "tool keygen"
   "tool sign"
 )
