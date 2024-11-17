@@ -96,11 +96,12 @@ source_ref = "pull/#{PR_NUMBER}/head"
 refspec = "#{source_ref}:#{TARGET_BRANCH}"
 
 `git fetch --force "https://github.com/#{PUBLIC_GH_REPO}.git" "#{refspec}"`
-
+$?.success? or raise "Failed to fetch PR branch"
 
 puts "+++ :git: Pushing branch #{TARGET_BRANCH} to #{PRIVATE_GH_REPO}"
 
 `git push --force origin "#{TARGET_BRANCH}"`
+$?.success? or raise "Failed to push PR branch to private repo"
 
 puts "+++ :github: Fetching original PR #{PUBLIC_GH_REPO} ##{PR_NUMBER}"
 
