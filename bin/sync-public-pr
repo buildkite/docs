@@ -12,6 +12,15 @@ PRIVATE_GH_REPO = ENV.fetch("PRIVATE_GH_REPO")
 PR_NUMBER       = `buildkite-agent meta-data get "pull_request_number"`.strip.to_i
 TARGET_BRANCH   = "docs-public-pr-#{PR_NUMBER}"
 
+# ANSI Colour codes
+CYAN = "\e[0;36m"
+GREEN_BOLD = "\e[1;32m"
+YELLOW = "\e[0;33m"
+YELLOW_BOLD = "\e[1;33m"
+RED_BOLD = "\e[1;31m"
+PURPLE = "\e[0;35m"
+RESET = "\e[0m"
+
 class GithubClient
   def initialize
     @client = Net::HTTP.new("api.github.com", 443)
@@ -20,32 +29,48 @@ class GithubClient
 
   def public_pr(pr_number)
     # https://docs.github.com/en/rest/pulls/pulls?apiVersion=2022-11-28#get-a-pull-request
-    response = @client.get("/repos/#{PUBLIC_GH_REPO}/pulls/#{pr_number}", headers)
-    puts response
-    JSON.parse(response.body)
+    get("/repos/#{PUBLIC_GH_REPO}/pulls/#{pr_number}")
   end
 
   def private_pr_for_branch(branch_name)
     # https://docs.github.com/en/rest/pulls/pulls?apiVersion=2022-11-28#list-pull-requests
     # note this ignores closed/merged PRs
-    response = @client.get("/repos/#{PRIVATE_GH_REPO}/pulls?head=buildkite:#{branch_name}", headers)
-    puts response
-    JSON.parse(response.body).first
+    get("/repos/#{PRIVATE_GH_REPO}/pulls?head=buildkite:#{branch_name}").first
   end
 
   def open_pr(title:, body:, branch:)
     # https://docs.github.com/en/rest/pulls/pulls?apiVersion=2022-11-28#create-a-pull-request
-    response = @client.post("/repos/#{PRIVATE_GH_REPO}/pulls", {
+    post("/repos/#{PRIVATE_GH_REPO}/pulls", {
       title: title,
       body: body,
       head: branch,
       base: "main"
-    }.to_json, headers)
-    puts response
-    JSON.parse(response.body)
+    })
   end
 
   private
+
+  def get(url)
+    puts "#{CYAN}HTTP GET #{url}#{RESET}"
+    response = @client.get(url, headers)
+    colour = response.code.to_i < 400 ? GREEN_BOLD : RED_BOLD
+    puts "#{colour}#{response.code} #{response.message}#{RESET}"
+
+    response.value
+    JSON.parse(response.body)
+  end
+
+  def post(url, payload)
+    puts "#{CYAN}HTTP POST #{url}#{RESET}"
+    response = @client.post(url, payload.to_json, headers)
+
+    colour = response.code.to_i < 400 ? GREEN_BOLD : RED_BOLD
+    puts "#{colour}#{response.code} #{response.message}#{RESET}"
+    puts response.body
+
+    response.value
+    JSON.parse(response.body)
+  end
 
   def headers
     {
@@ -71,11 +96,12 @@ source_ref = "pull/#{PR_NUMBER}/head"
 refspec = "#{source_ref}:#{TARGET_BRANCH}"
 
 `git fetch --force "https://github.com/#{PUBLIC_GH_REPO}.git" "#{refspec}"`
-
+$?.success? or raise "Failed to fetch PR branch"
 
 puts "+++ :git: Pushing branch #{TARGET_BRANCH} to #{PRIVATE_GH_REPO}"
 
 `git push --force origin "#{TARGET_BRANCH}"`
+$?.success? or raise "Failed to push PR branch to private repo"
 
 puts "+++ :github: Fetching original PR #{PUBLIC_GH_REPO} ##{PR_NUMBER}"
 
