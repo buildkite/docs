@@ -322,7 +322,7 @@ The following variables are supported by the `if` attribute. Note that you canno
 	<tr>
 		<td><code>build.state</code></td>
 		<td><code>String</code></td>
-		<td>The state the current build is in<br><em>Available states:</em>, <code>started</code>, <code>scheduled</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>failing</code>, <code>blocked</code>, <code>canceling</code>, <code>canceled</code>, <code>skipped</code>, <code>not_run</code></td>
+		<td>The state the current build is in<br><em>Available states:</em>, <code>started</code>, <code>scheduled</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>failing</code>, <code>started_failing</code>, <code>blocked</code>, <code>canceling</code>, <code>canceled</code>, <code>skipped</code>, <code>not_run</code></td>
 	</tr>
 	<tr>
 		<td><code>build.tag</code></td>

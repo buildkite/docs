@@ -1,14 +1,14 @@
 # Slack
 
-The [Slack](https://slack.com/) Notification Service in Buildkite lets you receive notifications about your builds and jobs in your Slack workspace.
+The [Slack](https://slack.com/) notification service in Buildkite lets you receive notifications about your builds and jobs in your Slack workspace.
 
 Configuring a Slack notification service will authorize access for your desired channel. By default, notifications will be sent to all configured Slack channels.
 
-Setting up a Notification Service requires Buildkite organization admin access.
+Setting up a notification service requires Buildkite organization admin access.
 
 ## Adding a notification service
 
-In your [Organization's Notification Settings](https://buildkite.com/organizations/-/services), add a Slack notification service:
+In your [Buildkite organization's **Notification Services** settings](https://buildkite.com/organizations/-/services), add a Slack notification service:
 
 <%= image "buildkite-add-slack.png", width: 1458/2, height: 142/2, alt: "Screenshot of the 'Add' button for adding a Slack service to Buildkite" %>
 
@@ -25,7 +25,7 @@ Once you have granted access to your Slack workspace, give it a description, cho
 <%= image "buildkite-slack-connected.png", width: 1458/2, height: 1540/2, alt: "Screenshot of Buildkite Slack Notification Settings, requesting a description, your choice of text or emoji message themes, which pipelines and branches to include, and which build states should trigger a notification" %>
 
 > 🚧
-> The default quota limit for the number of Slack notification services that can be added to an organization is 50. If you are an Enterprise customer and need higher quota limit, please reach out to support@buildkite.com.
+> The default quota limit for the number of Slack notification services that can be added to an organization is 50. If you are an Enterprise customer and need higher quota limit, please reach out to support@buildkite.com. Alternatively, you can use a [Slack workspace](/docs/integrations/slack-workspace) to configure notifications, which only requires a single authorization, rather than many.
 
 
 With the configuration above, you'll receive notifications at the pipeline level but not on the outcomes of individual steps. The **fixed builds** option ensures you're notified when a failed build next passes.
@@ -35,19 +35,19 @@ With the configuration above, you'll receive notifications at the pipeline level
 
 ## Changing channels
 
-Once created, the Slack channel and workspace cannot be changed. To post to a different channel or workspace, create a new notification service.
+Once created, the Slack channel and workspace cannot be changed. To post to a different channel or workspace, create a new notification service. Alternatively, you can use a [Slack workspace](/docs/integrations/slack-workspace) to configure notifications in YAML.
 
 ## Conditional notifications
 
 By default, notifications are sent to all configured Slack channels. For more control over when each channel receives notifications, use the `notify` YAML attribute in your `pipeline.yml` file.
 
-See the [Slack channel message](/docs/pipelines/notifications) section of the Notifications guide for the configuration information.
+See the [Slack channel message](/docs/pipelines/notifications#slack-channel-and-direct-messages) section of the Notifications guide for the configuration information.
 
 ## Upgrading a legacy Slack service
 
 Slack stopped accepting notifications from legacy Buildkite services on January 10th, 2020.
 
-If you have Slack set up with a legacy service or are no longer receiving notifications, add a new Slack notification service in your [Buildkite organization's Notification Settings](https://buildkite.com/organizations/-/services).
+If you have Slack set up with a legacy service or are no longer receiving notifications, add a new Slack notification service in your [Buildkite organization's **Notification Services** settings](https://buildkite.com/organizations/-/services).
 
 ### Identify where your existing services post notifications
 
@@ -68,3 +68,7 @@ Once you've found the matching Buildkite service and Slack app, confirm where an
 ### Create a new Slack notification service which posts
 
 Using the instructions above, [add a new Buildkite notification service](/docs/integrations/slack#adding-a-notification-service) with the same settings as the legacy integration.
+
+#### Slack privacy policy
+
+For more details, please checkout the [Slack Marketplace privacy policy](https://api.slack.com/slack-marketplace/guidelines#privacy).
