@@ -1,6 +1,6 @@
-# Gradle
+# Gradle (Groovy)
 
-Buildkite Package Registries provides registry support for Gradle-based Java packages (using the [Maven Publish Plugin](https://docs.gradle.org/current/userguide/publishing_maven.html)).
+Buildkite Package Registries provides registry support for Gradle-based Java packages (using the [Maven Publish Plugin](https://docs.gradle.org/current/userguide/publishing_maven.html)), using the Gradle Groovy DSL. If you're using Kotlin, refer to the [Gradle (Kotlin)](/docs/package-registries/gradle-kotlin) page.
 
 Once your Java registry has been [created](/docs/package-registries/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `build.gradle` file with the Gradle snippet presented on your Java registry's details page.
 
@@ -8,26 +8,23 @@ To view and copy the required `build.gradle` configurations:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Java registry on this page.
-1. Select **Publish a Java Package** and in the resulting dialog's `Using Gradle with maven-publish plugin` section, use the copy icon at the top-right of the code box to copy the Gradle code snippet and paste it into the appropriate area/s of your `build.gradle` file.
+1. Select **Publish a Java Package** and in the resulting dialog's **Using Gradle with `maven-publish` plugin** section, select **Gradle (Groovy)** to expand this section.
+1. Use the copy icon at the top-right of the code box to copy the Gradle code snippet and paste it into the appropriate area/s of your `build.gradle` file.
 
 These `build.gradle` file configurations contain the:
 
-- Maven coordinates for your package (which you will need to manually configure yourself).
-- URL for your specific Java registry in Buildkite.
-- API access token required to publish the package to this registry.
+<%= render_markdown partial: 'package_registries/gradle_file_configurations' %>
 
 ## Publish a package
 
 The following steps describe the process above:
 
-1. Copy the following Gradle snippet, paste it into your `build.gradle` file, and modify accordingly:
+1. Copy the following Gradle (Groovy) snippet, paste it into your `build.gradle` file, and modify accordingly:
 
     ```gradle
-    // You require these plugins
-    // "java": To publish java libraries
-    // "maven-publish": To publish to Maven repositories
-    ["java", "maven-publish"].each {
-        apply plugin : it
+    plugins {
+        id 'java'          // To publish java libraries
+        id 'maven-publish' // To publish to Maven repositories
     }
 
     // Download standard plugins, e.g., maven-publish  from GradlePluginPortal
@@ -67,7 +64,7 @@ The following steps describe the process above:
     ```
 
     where:
-    * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Java registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
+    <%= render_markdown partial: 'package_registries/java_registry_write_token' %>
 
     <%= render_markdown partial: 'package_registries/java_package_domain_name_version' %>
 
@@ -99,7 +96,7 @@ A Java package can be downloaded from the package's details page. To do this:
 A Java package can be installed using code snippet details provided on the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
-1. Ensure the **Installation** > **Instructions** section is displayed.
+1. Ensure the **Installation** tab is displayed and select the **Gradle (Groovy)** section to expand it.
 1. Copy the code snippet, paste this into the `build.gradle` Gradle file, and run `gradle install` on this modified script file to install this package.
 
 This code snippet is based on this format:
@@ -119,13 +116,13 @@ repositories {
 }
 
 dependencies {
-  compile "com.name.domain.my:my-java-package-name:my-java-package-version"
+  implementation "com.name.domain.my:my-java-package-name:my-java-package-version"
 }
 ```
 
 where:
 
-- `{org.slug}` is the org slug.
+<%= render_markdown partial: 'package_registries/org_slug' %>
 
 <%= render_markdown partial: 'package_registries/java_registry_slug' %>
 
