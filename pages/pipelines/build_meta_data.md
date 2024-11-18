@@ -37,11 +37,15 @@ Assuming that the "release-version" key was set with the value from the Setting 
 
 ## Using meta-data on the dashboard
 
-Meta-data is not widely exposed in the Buildkite dashboard, but it can be added to most builds URLs to filter down the list of builds shown to only those with certain meta-data.
+You can add `meta_data[…]=…` query parameters to most builds URLs to filter down the list of builds shown to only those with certain meta-data.
 
-To list builds in a pipeline which have a "release-version" of "1.1" you could use:
+For example, to list builds in a pipeline which have a "release-version" of "1.1" you can use:
 
-https://buildkite.com/my-organization/my-pipeline/builds?meta_data[release-version]=1.1
+https://buildkite.com/{my-organization}/{my-pipeline}/builds?meta_data[release-version]=1.1
+
+You can also append `/meta-data` to the URL of a build to access a page that lists all the meta-data associated with that build:
+
+https://buildkite.com/{my-organization}/{my-pipeline}/builds/{build-number}/meta-data
 
 ## Using meta-data in the REST API
 
