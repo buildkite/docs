@@ -21,6 +21,42 @@ RED_BOLD = "\e[1;31m"
 PURPLE = "\e[0;35m"
 RESET = "\e[0m"
 
+class Git
+  attr_reader :token
+
+  def initialize(token)
+    @token = token
+  end
+
+  def setup_credential_helper!
+    `git config credential.helper '!f() { echo "username=buildkite-systems"; echo "password=#{token}"; }; f'`
+    $?.success? or raise "Failed to setup git credential helper"
+  end
+
+  # pull the magic PR ref from the public repo into local docs-public-pr-<PR_NUMBER> branch
+  def sync_branch_locally(pr_number, target_ref)
+    source_ref = "pull/#{pr_number}/head"
+
+    # https://git-scm.com/docs/git-fetch see docs on refspec format
+    refspec = "#{source_ref}:#{TARGET_BRANCH}"
+
+    `git fetch --force "https://github.com/#{PUBLIC_GH_REPO}.git" "#{refspec}"`
+    $?.success? or raise "Failed to fetch PR branch"
+  end
+
+  def push_private_branch
+    `git push --force origin "#{TARGET_BRANCH}"`
+    $?.success? or raise "Failed to push PR branch to private repo"
+  end
+
+  private
+
+  def public_repo
+    "https://github.com/#{PUBLIC_GH_REPO}.git"
+  end
+
+end
+
 class GithubClient
   def initialize
     @client = Net::HTTP.new("api.github.com", 443)
@@ -86,22 +122,17 @@ def write_annotation(content, style: "info")
 end
 
 client = GithubClient.new
+git = Git.new(GH_TOKEN)
+
+puts "--- :git: Setting up credential helper"
+git.setup_credential_helper!
 
 puts "+++ :git: Syncing #{PUBLIC_GH_REPO} PR ##{PR_NUMBER} to local branch #{TARGET_BRANCH}"
 
-# pull the magic PR ref from the public repo into local docs-public-pr-<PR_NUMBER> branch
-source_ref = "pull/#{PR_NUMBER}/head"
-
-# https://git-scm.com/docs/git-fetch see docs on refspec format
-refspec = "#{source_ref}:#{TARGET_BRANCH}"
-
-`git fetch --force "https://github.com/#{PUBLIC_GH_REPO}.git" "#{refspec}"`
-$?.success? or raise "Failed to fetch PR branch"
+git.sync_branch_locally(PR_NUMBER, TARGET_BRANCH)
 
 puts "+++ :git: Pushing branch #{TARGET_BRANCH} to #{PRIVATE_GH_REPO}"
-
-`git push --force origin "#{TARGET_BRANCH}"`
-$?.success? or raise "Failed to push PR branch to private repo"
+git.push_private_branch
 
 puts "+++ :github: Fetching original PR #{PUBLIC_GH_REPO} ##{PR_NUMBER}"
 
