@@ -251,6 +251,17 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+To use a private repository or a plugin hosted on another git host, you can use an absolute URL in the `<protocol>://<user>@<host>/<repo>` format. If you are using SSH, your build agent should have the SSH keys set up correctly for the authentication to work.
+
+```yml
+steps:
+  - command: ls
+    plugins:
+      - ssh://git@github.com/a-github-user/file-counter:
+          pattern: '*.md'
+```
+{: codeblock-file="pipeline.yml"}
+
 ## Publish to the Buildkite plugins directory
 
 To add your plugin to the [Buildkite plugins directory](https://buildkite.com/plugins), publish your repository to a public GitHub repository and add the `buildkite-plugin` [repository topic tag](https://github.com/topics/buildkite-plugin). For full instructions, see the [plugins directory documentation](/docs/plugins/directory).
