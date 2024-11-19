@@ -36,7 +36,7 @@ The following fields are included in the signature for each step:
 - **The repository the commands are running in.** This prevents you from copying a signed step from one repository to another.
 
 > 📘 Compatibility with pipeline templates
-> [Pipeline templates](/docs/pipelines/templates) are designed to be used across multiple pipelines and therefore, repositories. Due to the inclusion of repositories in step signatures, signed steps cannot be used with pipeline templates.
+> [Pipeline templates](/docs/pipelines/governance/templates) are designed to be used across multiple pipelines and therefore, repositories. Due to the inclusion of repositories in step signatures, signed steps cannot be used with pipeline templates.
 
 ## Enabling signed pipelines on your agents
 

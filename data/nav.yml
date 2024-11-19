@@ -359,9 +359,9 @@
         - name: "Overview"
           path: "pipelines/governance"
         - name: "Pipeline templates"
-          path: "pipelines/templates"
+          path: "pipelines/governance/templates"
         - name: "Build exports"
-          path: "pipelines/build-exports"
+          path: "pipelines/governance/build-exports"
     - name: "Deployments"
       children:
         - name: "Overview"
