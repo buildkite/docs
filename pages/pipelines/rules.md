@@ -18,7 +18,7 @@ Buildkite Pipelines supports two types of rules that allow one pipeline build to
 
 This rule type allows one pipeline to trigger another, where:
 
-- Both pipelines are in the same or different [clusters](/docs/clusters/overview).
+- Both pipelines are in the same or different [clusters](/docs/pipelines/clusters).
 - One pipeline is public and another is private.
 
 > 📘
@@ -109,7 +109,7 @@ However, a `pipeline.trigger_build.pipeline` rule would allow a trigger step in 
 
 This rule type allows one pipeline to access (that is, with read-only permissions) the artifacts built by another, where:
 
-- Both pipelines are in the same or different [clusters](/docs/clusters/overview).
+- Both pipelines are in the same or different [clusters](/docs/pipelines/clusters).
 - One pipeline is public and another is private.
 
 **Rule Document** format:

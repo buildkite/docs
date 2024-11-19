@@ -4,7 +4,7 @@ _Buildkite secrets_ is an encrypted key-value store secrets management service o
 
 Buildkite secrets:
 
-- Are scoped within a given [cluster](/docs/clusters/overview), and are accessible to all agents within that cluster only, since each cluster has its own unique secrets encryption key. The secrets are decrypted by the Buildkite control plane and then sent to the agent.
+- Are scoped within a given [cluster](/docs/pipelines/clusters), and are accessible to all agents within that cluster only, since each cluster has its own unique secrets encryption key. The secrets are decrypted by the Buildkite control plane and then sent to the agent.
 
 - Are available to both [Buildkite hosted](/docs/pipelines/hosted-agents/overview) as well as self-hosted agents.
 

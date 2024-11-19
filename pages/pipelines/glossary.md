@@ -22,7 +22,7 @@ A build is a single run of a pipeline. You can trigger a build in various ways, 
 
 A cluster groups [queues](#queue) of agents along with pipelines. Clusters allow teams to self-manage their agent pools, let admins create isolated sets of agents and pipelines within the one Buildkite organization, and help to make agents and queues more discoverable across your organization.
 
-To learn more, see the [Clusters overview](/docs/clusters/overview).
+To learn more, see the [Clusters overview](/docs/pipelines/clusters).
 
 ## Dynamic pipeline
 
@@ -62,7 +62,7 @@ To learn more, see [Plugins](/docs/plugins).
 
 A queue defines agents on which pipeline builds can run their jobs. You can configure queues within a [cluster](#cluster) for particular groups of agents, isolating a set of your pipeline's jobs and the agents they run on. Typical uses for queues include separating deployment agents and pools of agents for specific pipelines or teams.
 
-To learn more, see [Manage queues](/docs/clusters/manage-queues) and [Buildkite Agent job queues](/docs/agent/v3/queues).
+To learn more, see [Manage queues](/docs/pipelines/clusters/manage-queues) and [Buildkite Agent job queues](/docs/agent/v3/queues).
 
 ## Step
 

@@ -235,7 +235,7 @@
     - name: "Configure pipelines"
       children:
         - name: "Overview"
-          path: "pipelines/configuration-overview"
+          path: "pipelines/configuration"
         - name: "Defining steps"
           path: "pipelines/defining-steps"
         - name: "Step types"
@@ -303,13 +303,13 @@
     - name: "Clusters"
       children:
         - name: "Overview"
-          path: "clusters/overview"
+          path: "pipelines/clusters"
         - name: "Manage clusters"
-          path: "clusters/manage-clusters"
+          path: "pipelines/clusters/manage-clusters"
         - name: "Manage queues"
-          path: "clusters/manage-queues"
+          path: "pipelines/clusters/manage-queues"
         - name: "Queue metrics"
-          path: "clusters/queue-metrics"
+          path: "pipelines/clusters/queue-metrics"
     - name: "Hosted agents"
       children:
         - name: "Overview"

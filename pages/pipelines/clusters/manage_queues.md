@@ -1,10 +1,10 @@
 # Manage queues
 
-This page provides details on how to manage queues within a [cluster](/docs/clusters/manage-clusters) of your Buildkite organization.
+This page provides details on how to manage queues within a [cluster](/docs/pipelines/clusters/manage-clusters) of your Buildkite organization.
 
 ## Setting up queues
 
-When a new Buildkite organization is created, along with the automatically created [default cluster](/docs/clusters/manage-clusters#setting-up-clusters) (named **Default cluster**), a default queue (named **default-queue**) within this cluster is also created.
+When a new Buildkite organization is created, along with the automatically created [default cluster](/docs/pipelines/clusters/manage-clusters#setting-up-clusters) (named **Default cluster**), a default queue (named **default-queue**) within this cluster is also created.
 
 A cluster can be configured with multiple queues, each of which can be used to represent a specific combination of your build/agent infrastructure, based on:
 
@@ -27,11 +27,11 @@ Buildkite provides a hosted infrastructure for your [Buildkite Agents](/docs/age
 
 ## Create a queue
 
-New queues can be created by a [cluster maintainer](/docs/clusters/manage-clusters#manage-maintainers-on-a-cluster) using the [**Queues** page of a cluster](#create-a-queue-using-the-buildkite-interface), as well as the [REST API's](#create-a-queue-using-the-rest-api) or [GraphQL API's](#create-a-queue-using-the-graphql-api) create a queue feature.
+New queues can be created by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) using the [**Queues** page of a cluster](#create-a-queue-using-the-buildkite-interface), as well as the [REST API's](#create-a-queue-using-the-rest-api) or [GraphQL API's](#create-a-queue-using-the-graphql-api) create a queue feature.
 
 For these API requests, the _cluster ID_ value submitted in the request is the target cluster the queue will be created in.
 
-When you [create a new cluster](/docs/clusters/manage-clusters#create-a-cluster) through the [Buildkite interface](/docs/clusters/manage-clusters#create-a-cluster-using-the-buildkite-interface), this cluster automatically has an initial **default** queue.
+When you [create a new cluster](/docs/pipelines/clusters/manage-clusters#create-a-cluster) through the [Buildkite interface](/docs/pipelines/clusters/manage-clusters#create-a-cluster-using-the-buildkite-interface), this cluster automatically has an initial **default** queue.
 
 ### Using the Buildkite interface
 

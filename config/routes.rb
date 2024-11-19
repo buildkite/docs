@@ -33,6 +33,9 @@ Rails.application.routes.draw do
   get "/docs/builds/*page",                         to: redirect("/docs/pipelines/%{page}")
   get "/docs/cli",                                  to: redirect("/docs/platform/cli")
   get "/docs/cli/*page",                            to: redirect("/docs/platform/cli/%{page}")
+  get "/docs/clusters/overview",                    to: redirect("/docs/pipelines/clusters")
+  get "/docs/clusters/manage-clusters",             to: redirect("/docs/pipelines/clusters/manage-clusters")
+  get "/docs/clusters/manage-queues",               to: redirect("/docs/pipelines/clusters/manage-queues")
   get "/docs/guides/artifacts",                     to: redirect("/docs/pipelines/artifacts")
   get "/docs/guides/branch-configuration",          to: redirect("/docs/pipelines/branch-configuration")
   get "/docs/guides/build-meta-data",               to: redirect("/docs/pipelines/build-meta-data")
@@ -82,6 +85,8 @@ Rails.application.routes.draw do
   get "/docs/packages/manage-repositories",         to: redirect("/docs/package-registries/manage-registries")
   get "/docs/packages/nodejs",                      to: redirect("/docs/package-registries/javascript")
   get "/docs/packages/permissions",                 to: redirect("/docs/package-registries/security/permissions")
+  get "/docs/pipelines/cluster-queue-metrics",      to: redirect("/docs/pipelines/clusters/queue-metrics")
+  get "/docs/pipelines/configuration-overview",     to: redirect("/docs/pipelines/configuration")
   get "/docs/pipelines/emoji",                      to: redirect("/docs/platform/emojis")
   get "/docs/pipelines/emojis",                     to: redirect("/docs/platform/emojis")
   get "/docs/pipelines/images-in-log-output",       to: redirect("/docs/pipelines/links-and-images-in-log-output")
@@ -167,7 +172,7 @@ Rails.application.routes.draw do
   get "/docs/agent/uploading-pipelines", to: redirect("/docs/agent/v3/cli-pipeline",               status: 301)
   get "/docs/agent/upgrading",           to: redirect("/docs/agent/v3/upgrading",                  status: 301)
   get "/docs/agent/upgrading-to-v3",     to: redirect("/docs/agent/v3/upgrading",                  status: 301)
-  get "/docs/clusters/queue-metrics",    to: redirect("/docs/pipelines/cluster-queue-metrics",     status: 301)
+  get "/docs/clusters/queue-metrics",    to: redirect("/docs/pipelines/clusters/queue-metrics",    status: 301)
   get "/docs/test-engine/java",          to: redirect("/docs/test-engine/importing-junit-xml",     status: 301)
 
   # Old docs routes that we changed around during the development of the v3 agent docs

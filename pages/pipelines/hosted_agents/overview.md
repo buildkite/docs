@@ -23,8 +23,8 @@ For example you may have two queues set up:
 
 Learn more about:
 
-- Best practices for configuring queues in [How should I structure my queues](/docs/clusters/overview#clusters-and-queues-best-practices-how-should-i-structure-my-queues).
-- How to set up and create a Buildkite hosted agent queue in [Manage queues](/docs/clusters/manage-queues).
+- Best practices for configuring queues in [How should I structure my queues](/docs/pipelines/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues).
+- How to set up and create a Buildkite hosted agent queue in [Manage queues](/docs/pipelines/clusters/manage-queues).
 
 ## Using GitHub repositories in your hosted agent pipelines
 

@@ -6,7 +6,7 @@ The Buildkite hosted agents feature provides you with _terminal/console access_ 
 - Test the behavior of different scripts (because they may not be well-documented).
 - Debug issues that are not reproducible in your local environment.
 
-This can be useful when migrating your pipelines across to [queues](/docs/clusters/manage-queues) on Buildkite hosted agents.
+This can be useful when migrating your pipelines across to [queues](/docs/pipelines/clusters/manage-queues) on Buildkite hosted agents.
 
 ## Use terminal access on hosted agents
 
@@ -15,7 +15,7 @@ Assuming that [terminal access is active across your Buildkite organization](#de
 The terminal access feature is available to users who have/are any of the following:
 
 - build permissions on the pipeline that created the job
-- a [maintainer of the cluster](/docs/clusters/manage-clusters#manage-maintainers-on-a-cluster) containing this pipeline
+- a [maintainer of the cluster](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) containing this pipeline
 - a Buildkite organization administrator of this cluster
 
 As a pipeline is being built, expand the relevant step and as its job is being built, select its **Open Terminal** button. A new browser window will open with terminal you can use to execute commands to investigate your hosted agent's environment, test script behavior and debug other issues.

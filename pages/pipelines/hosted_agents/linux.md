@@ -181,7 +181,7 @@ You can create an agent image:
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster in which to create the new agent image.
 
-    **Note:** Before continuing, ensure you have created a hosted agent queue (based on Linux architecture) within this cluster. Learn more about how to do this in [Create a queue](/docs/clusters/manage-queues#create-a-queue).
+    **Note:** Before continuing, ensure you have created a hosted agent queue (based on Linux architecture) within this cluster. Learn more about how to do this in [Create a queue](/docs/pipelines/clusters/manage-queues#create-a-queue).
 
 1. Select **Agent Images** to open the **Agent Images** page.
 1. Select **New Image** to open the **New Agent Image** dialog.

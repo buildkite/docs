@@ -2,7 +2,7 @@
 
 This page provides details on how to manage clusters within your Buildkite organization.
 
-Learn more about on how to set up queues within a cluster in [Manage queues](/docs/clusters/manage-queues).
+Learn more about on how to set up queues within a cluster in [Manage queues](/docs/pipelines/clusters/manage-queues).
 
 ## Setting up clusters
 
@@ -15,7 +15,7 @@ For smaller organizations, working on smaller projects, this default cluster may
 - Target platforms, such as Linux, Android, macOS, Windows, etc.
 - Multiple projects, for example, different product lines
 
-Once your clusters are set up, you can set up one or more [queues](/docs/clusters/manage-queues) within each cluster.
+Once your clusters are set up, you can set up one or more [queues](/docs/pipelines/clusters/manage-queues) within each cluster.
 
 ## Create a cluster
 
@@ -32,7 +32,7 @@ To create a new cluster using the Buildkite interface:
 1. Enter an optional **Emoji** and **Color** using the recommended syntax. This emoji appears next to the cluster's name and the color (in hex code syntax, for example, `#FFE0F1`) provides the background color for this emoji.
 1. Select **Create Cluster**.
 
-    The new cluster's page is displayed on its **Queues** page, indicating the cluster's name and its default queue, named **queue**. From this page, you can set up one or more additional [queues](/docs/clusters/manage-queues) within this cluster.
+    The new cluster's page is displayed on its **Queues** page, indicating the cluster's name and its default queue, named **queue**. From this page, you can set up one or more additional [queues](/docs/pipelines/clusters/manage-queues) within this cluster.
 
 ### Using the REST API
 
@@ -244,7 +244,7 @@ As one of these types of users, you can add and manage other users or teams in y
 
 - Update or delete the cluster.
 - Manage [agent tokens](/docs/agent/v3/tokens) associated with the cluster.
-- Manage [queues](/docs/clusters/manage-queues) within the cluster.
+- Manage [queues](/docs/pipelines/clusters/manage-queues) within the cluster.
 - Add pipelines to or remove them from the cluster.
 
 To add a maintainer to a cluster:
