@@ -365,17 +365,17 @@
     - name: "Deployments"
       children:
         - name: "Overview"
-          path: "deployments"
+          path: "pipelines/deployments"
         - name: "Deploying to Heroku"
-          path: "deployments/deploying-to-heroku"
+          path: "pipelines/deployments/to-heroku"
         - name: "Deploying to Kubernetes"
-          path: "deployments/deploying-to-kubernetes"
+          path: "pipelines/deployments/to-kubernetes"
     - name: "Insights"
       children:
         - name: "Waterfall view"
           path: "pipelines/waterfall"
-        - name: "Cluster queue metrics"
-          path: "pipelines/cluster-queue-metrics"
+        - name: "Queue metrics"
+          path: "pipelines/clusters/queue-metrics"
     - name: "Integrations"
       children:
         - name: "Overview"

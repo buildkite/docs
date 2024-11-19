@@ -151,7 +151,7 @@ You can find the latest deployment plugins in the [plugins directory](https://bu
 
 ## External deployment systems
 
-You can deploy applications to services like Kubernetes, Heroku, or ECS from a script in a Buildkite [command step](/docs/pipelines/command-step), similar to how you'd do it on a command line. See the [Deploying to Heroku](/docs/deployments/deploying-to-heroku) and [Deploying to Kubernetes](/docs/deployments/deploying-to-kubernetes) for walk-throughs with detailed examples.
+You can deploy applications to services like Kubernetes, Heroku, or ECS from a script in a Buildkite [command step](/docs/pipelines/command-step), similar to how you'd do it on a command line. See the [Deploying to Heroku](/docs/pipelines/deployments/to-heroku) and [Deploying to Kubernetes](/docs/pipelines/deployments/to-kubernetes) for walk-throughs with detailed examples.
 
 In more complex environments you can use external deployment/delivery systems such as [Spinnaker](https://www.spinnaker.io), [Shipit](https://github.com/Shopify/shipit-engine), [Samson](https://github.com/zendesk/samson), or [Octopus](https://octopus.com). You can call the deployment system's CLI tool or API from a script in a Buildkite [command step](/docs/pipelines/command-step), similar to how you'd do it on a command line.
 
