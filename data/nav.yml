@@ -373,9 +373,9 @@
     - name: "Insights"
       children:
         - name: "Waterfall view"
-          path: "pipelines/waterfall"
+          path: "pipelines/insights/waterfall"
         - name: "Queue metrics"
-          path: "pipelines/clusters/queue-metrics"
+          path: "pipelines/insights/queue-metrics"
     - name: "Integrations"
       children:
         - name: "Overview"
