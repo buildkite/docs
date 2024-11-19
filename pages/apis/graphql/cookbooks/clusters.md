@@ -72,7 +72,7 @@ query getClusterTokens {
 ```
 
 >🚧 Cluster `token` field deprecation
-> The `token` field of the [ClusterToken](https://buildkite.com/docs/apis/graphql/schemas/object/clustertoken) object has been deprecated to improve security. Please use the `tokenValue` field from the [ClusterAgentTokenCreatePayload](https://buildkite.com/docs/apis/graphql/schemas/object/clusteragenttokencreatepayload) object instead after creating a token.
+> The `token` field of the [ClusterToken](/docs/apis/graphql/schemas/object/clustertoken) object has been deprecated to improve security. Please use the `tokenValue` field from the [ClusterAgentTokenCreatePayload](/docs/apis/graphql/schemas/object/clusteragenttokencreatepayload) object instead after creating a token.
 
 ## List jobs in a particular cluster queue
 
@@ -103,7 +103,7 @@ query getClusterQueueJobs {
 }
 ```
 
-To obtain jobs in a particular state within a cluster queue, specify the cluster queues' ID with the `clusterQueue` argument and one or more [JobStates](https://buildkite.com/docs/apis/graphql/schemas/enum/jobstates) with the `state` argument in the `jobs` query:
+To obtain jobs in a particular state within a cluster queue, specify the cluster queues' ID with the `clusterQueue` argument and one or more [JobStates](/docs/apis/graphql/schemas/enum/jobstates) with the `state` argument in the `jobs` query:
 
 ```graphql
 query getClusterQueueJobsByJobState {

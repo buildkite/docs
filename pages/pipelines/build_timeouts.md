@@ -17,7 +17,7 @@ You can specify timeouts for jobs as [command steps attributes](/docs/pipelines/
 
 Specific timeouts take precedence over more general ones—a step-level timeout takes precedence over a pipeline timeout, which in turn takes precedence over an organization's default.
 
-Timeouts apply to the whole job lifecycle, including hooks and artifact uploads. If a timeout is triggered while a command or hook is running, there's a 10-second grace period by default. You can change the grace period by setting the [`cancel-grace-period`](https://buildkite.com/docs/agent/v3/configuration#cancel-grace-period) flag.
+Timeouts apply to the whole job lifecycle, including hooks and artifact uploads. If a timeout is triggered while a command or hook is running, there's a 10-second grace period by default. You can change the grace period by setting the [`cancel-grace-period`](/docs/agent/v3/configuration#cancel-grace-period) flag.
 
 Maximum timeouts are applied to command steps in the following situations:
 

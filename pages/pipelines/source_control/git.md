@@ -35,7 +35,7 @@ The post-recieve hook is a convenient place to trigger builds using the Buildkit
 
 ## Step 1: Create a pipeline
 
-If you haven't already, create [a pipeline to run](https://buildkite.com/docs/pipelines/defining-steps) for the repository.
+If you haven't already, create [a pipeline to run](/docs/pipelines/defining-steps) for the repository.
 
 After you've created the pipeline, make a note of the organization slug and pipeline slug in the pipeline URL.
 You need both for the next step.
@@ -43,7 +43,7 @@ For example, in the pipeline settings URL `https://buildkite.com/example-org/git
 
 ## Step 2: Create a Git hook to react to pushes
 
-On your Git server, create a `post-receive` hook script in your repository's `hooks` directory that calls the Buildkite REST API's [Create a build](https://buildkite.com/docs/apis/rest-api/builds#create-a-build) endpoint.
+On your Git server, create a `post-receive` hook script in your repository's `hooks` directory that calls the Buildkite REST API's [Create a build](/docs/apis/rest-api/builds#create-a-build) endpoint.
 
 For example, in a bare repository, create a file named `hooks/post-receive` with the following contents:
 

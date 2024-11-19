@@ -28,10 +28,10 @@ buildkite/build-exports/org={UUID}/date={YYYY-MM-DD}/pipeline={UUID}/build={UUID
 
 The files are stored in the following formats:
 
-* [Annotations](https://buildkite.com/docs/apis/rest-api/annotations#list-annotations-for-a-build)
-* [Artifacts](https://buildkite.com/docs/apis/rest-api/artifacts#list-artifacts-for-a-build) (as meta-data)
-* [Builds](https://buildkite.com/docs/apis/rest-api/builds#get-a-build) (but without `jobs`, as they are stored in separate files)
-* Jobs (as would be embedded in a [Build via the REST API](https://buildkite.com/docs/apis/rest-api/builds#get-a-build))
+* [Annotations](/docs/apis/rest-api/annotations#list-annotations-for-a-build)
+* [Artifacts](/docs/apis/rest-api/artifacts#list-artifacts-for-a-build) (as meta-data)
+* [Builds](/docs/apis/rest-api/builds#get-a-build) (but without `jobs`, as they are stored in separate files)
+* Jobs (as would be embedded in a [Build via the REST API](/docs/apis/rest-api/builds#get-a-build))
 
 ## Configure build exports
 

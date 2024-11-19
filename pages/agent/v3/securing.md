@@ -41,7 +41,7 @@ Since the [agent](https://github.com/buildkite/agent) is open-source, if necessa
 Defining an [environment hook](hooks#job-lifecycle-hooks) in the
 [agent `hooks-path`](hooks#hook-locations-agent-hooks), you can create a
 list of plugins that an agent is allowed to run by inspecting the
-`BUILDKITE_PLUGINS` [environment variable](https://buildkite.com/docs/pipelines/environment-variables).
+`BUILDKITE_PLUGINS` [environment variable](/docs/pipelines/environment-variables).
 For an example of this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example)
 repository on GitHub.
 
