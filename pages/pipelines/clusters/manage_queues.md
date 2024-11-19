@@ -18,12 +18,12 @@ Having individual queues according to these breakdowns allows you to scale a set
 
 ### Agent infrastructure
 
-As part of setting up a queue, you can choose between setting up your agents using either [hosted](/docs/pipelines/hosted-agents/overview) or self-hosted infrastructure.
+As part of setting up a queue, you can choose between setting up your agents using either [hosted](/docs/pipelines/hosted-agents) or self-hosted infrastructure.
 
 Buildkite provides a hosted infrastructure for your [Buildkite Agents](/docs/agent/v3), as well as support for self-hosted infrastructure, where you provide the infrastructure that hosts Buildkite Agents.
 
 > 📘
-> Creating [Buildkite hosted agent](/docs/pipelines/hosted-agents/overview) queues is currently only supported through the [Buildkite interface](#create-a-queue-using-the-buildkite-interface). It is not possible to create hosted agent queues using the [REST](#create-a-queue-using-the-rest-api) or [GraphQL](#create-a-queue-using-the-graphql-api) APIs.
+> Creating [Buildkite hosted agent](/docs/pipelines/hosted-agents) queues is currently only supported through the [Buildkite interface](#create-a-queue-using-the-buildkite-interface). It is not possible to create hosted agent queues using the [REST](#create-a-queue-using-the-rest-api) or [GraphQL](#create-a-queue-using-the-graphql-api) APIs.
 
 ## Create a queue
 
@@ -42,7 +42,7 @@ To create a new queue using the Buildkite interface:
 1. On the **Queues** page, select **New Queue** to open the **Create a new Queue** page.
 1. In the **Create a key** field, enter a unique _key_ for the queue, which can only contain letters, numbers, hyphens, and underscores, as valid characters.
 1. Select the **Add description** checkbox to enter an optional longer description for the queue. This description appears under the queue's key, which is listed on the **Queues** page, as well as when viewing the queue's details.
-1. In the **Select your agent infrastructure** section, select between [**Hosted**](/docs/pipelines/hosted-agents/overview) or **Self hosted** for your agent infrastructure.
+1. In the **Select your agent infrastructure** section, select between [**Hosted**](/docs/pipelines/hosted-agents) or **Self hosted** for your agent infrastructure.
 1. If you chose **Hosted**, complete the remaining sub-steps:
     1. In the new **Configure your hosted agent infrastructure** section, select your **Machine type** ([**Linux**](/docs/pipelines/hosted-agents/linux) or [**macOS**](/docs/pipelines/hosted-agents/mac)).
     1. If you selected **Linux**, within **Architecture**, you can choose between **AMD64** (the default and recommended) or **ARM64** architectures for the Linux machines running as hosted agents. To switch to **ARM64**, select **Change**, followed by **ARM64 (AArch64)**.

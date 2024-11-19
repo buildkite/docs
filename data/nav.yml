@@ -313,7 +313,7 @@
     - name: "Hosted agents"
       children:
         - name: "Overview"
-          path: "pipelines/hosted-agents/overview"
+          path: "pipelines/hosted-agents"
         - name: "Linux hosted agents"
           path: "pipelines/hosted-agents/linux"
         - name: "Mac hosted agents"

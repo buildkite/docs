@@ -90,6 +90,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/emoji",                      to: redirect("/docs/platform/emojis")
   get "/docs/pipelines/emojis",                     to: redirect("/docs/platform/emojis")
   get "/docs/pipelines/images-in-log-output",       to: redirect("/docs/pipelines/links-and-images-in-log-output")
+  get "/docs/pipelines/hosted-agents/overview",     to: redirect("/docs/pipelines/hosted-agents")
   get "/docs/pipelines/migration-overview",         to: redirect("/docs/pipelines/migration")
   get "/docs/pipelines/migrate-from-jenkins",       to: redirect("/docs/pipelines/migration/from-jenkins")
   get "/docs/pipelines/pipelines",                  to: redirect("/docs/pipelines")
