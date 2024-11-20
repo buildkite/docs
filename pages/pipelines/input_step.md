@@ -141,6 +141,13 @@ Optional attributes:
 
 <table>
   <tr>
+    <td><code>text</code></td>
+    <td>
+      The text input name.<br>
+      <em>Example:</em> <code>"Release Name"</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>hint</code></td>
     <td>
       The explanatory text that is shown after the label.<br>
