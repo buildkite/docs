@@ -45,11 +45,11 @@ https://buildkite.com/my-organization/my-pipeline/builds?meta_data[release-versi
 
 ## Using meta-data in the REST API
 
-You can use meta-data to identify builds when searching for builds in the REST API: https://buildkite.com/docs/apis/rest-api/builds
+You can use meta-data to identify builds when searching for builds in the REST API.
 
 <!-- vale off -->
 
-For more information, see the [Buildkite REST Builds API documentation](/docs/apis/rest-api/builds).
+For more information, see the [Builds API in the Buildkite REST API documentation](/docs/apis/rest-api/builds).
 
 <!-- vale on -->
 

@@ -218,5 +218,5 @@ If you're on AWS using agents on EC2 and an EKS cluster:
 1. Install the AWS CLI
 1. Use `aws update-kubeconfig` to get [kubectl access](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html)
 
-[pipelines]: https://buildkite.com/docs/pipelines
+[pipelines]: /docs/pipelines
 [k8s_deployment]: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/

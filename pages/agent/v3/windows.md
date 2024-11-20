@@ -58,7 +58,7 @@ There are two options to be aware of for this initial setup:
     ```
 
 > 📘
-> Using PowerShell Core (PowerShell 6 or 7) causes unusual behavior around pipeline upload. Refer to <a href="https://buildkite.com/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for details.
+> Using PowerShell Core (PowerShell 6 or 7) causes unusual behavior around pipeline upload. Refer to <a href="/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for details.
 
 ## Upgrading
 
@@ -69,7 +69,7 @@ Rerun the install script.
 While the agent will work without Git installed, you will require [Git for Windows](https://gitforwindows.org/) to interact with Git. You will need Git Bash to use SSH on Windows 7 or below.
 
 > 📘
-> Buildkite does not currently support using Git Bash to run Bash scripts as part of your pipeline. We recommend using CMD (default) or PowerShell 5.x. You can also use PowerShell Core, but be aware of the odd behavior around pipeline upload steps. Refer to <a href="https://buildkite.com/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a>for more information.
+> Buildkite does not currently support using Git Bash to run Bash scripts as part of your pipeline. We recommend using CMD (default) or PowerShell 5.x. You can also use PowerShell Core, but be aware of the odd behavior around pipeline upload steps. Refer to <a href="/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for more information.
 
 ## Running as a service
 
@@ -113,7 +113,7 @@ You can use Buildkite on Windows through WSL2, but it has limitations. At presen
 To install the agent on WSL2, follow the [generic Linux installation guide](/docs/agent/v3/linux). Do not use the guides for Ubuntu, Debian, and so on, even if that is the Linux distro you are using with WSL2.
 
 > 📘
-> Using WSL2 causes unusual behavior during pipeline upload. Refer to <a href="https://buildkite.com/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for details.
+> Using WSL2 causes unusual behavior during pipeline upload. Refer to <a href="/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for details.
 
 ## Security considerations
 
