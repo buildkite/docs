@@ -86,6 +86,8 @@ For an up-to-date list of supported algorithms, run:
 buildkite-agent tool keygen --help
 ```
 
+Also note that the `PS512` and `ES512` algorithms are nondeterministic, which means that they will generate different signatures each time they are used. This feature can be desirable for dynamically generated pipelines, but may make it difficult to detect drift when the signed result is persisted—for example, when using the [Terraform provider](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/data-sources/signed_pipeline_steps).
+
 <details>
   <summary>Why doesn't the agent support RSASSA-PKCS1 v1.5 signatures?</summary>
   <p>In short, RSASSA-PKCS1 v1.5 signatures are less secure than the newer RSA-PSS signatures. While RSASSA-PKCS1 v1.5 signatures are still relatively secure, we want to encourage our users to use the most secure algorithms possible, so when using RSA keys, we only support RSA-PSS signatures. We also recommend looking into ECDSA and EdDSA signatures, which are more secure than RSA signatures.</p>
