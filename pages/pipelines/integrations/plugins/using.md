@@ -46,7 +46,7 @@ location.
 
 ## Configuring plugins
 
-Plugins are configured using attributes on steps in your pipeline YAML definition. While you can't define plugins at a pipeline level, you can use [YAML anchors](/docs/plugins/using#using-yaml-anchors-with-plugins) to avoid repeating the plugin code over multiple steps. The simplest plugin is one that accepts no configuration, such as the [Library Example plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin):
+Plugins are configured using attributes on steps in your pipeline YAML definition. While you can't define plugins at a pipeline level, you can use [YAML anchors](/docs/pipelines/integrations/plugins/using#using-yaml-anchors-with-plugins) to avoid repeating the plugin code over multiple steps. The simplest plugin is one that accepts no configuration, such as the [Library Example plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin):
 
 ```yml
 steps:

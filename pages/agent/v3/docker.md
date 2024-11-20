@@ -143,7 +143,7 @@ docker run \
 
 ## Docker Hub rate limits
 
-If you're using Docker with Docker images hosted on Docker Hub, note that as of 2nd November 2020 there are [strict rate limits](/docs/integrations/docker-hub) for image downloads.
+If you're using Docker with Docker images hosted on Docker Hub, note that as of 2nd November 2020 there are [strict rate limits](/docs/pipelines/integrations/other/docker-hub) for image downloads.
 
 ## Authenticating private git repositories
 

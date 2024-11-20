@@ -56,7 +56,7 @@ Plugins are small, self-contained pieces of extra functionality that help you cu
 
 Plugins can be open source and available for anyone to use or private for just your organization.
 
-To learn more, see [Plugins](/docs/plugins).
+To learn more, see [Plugins](/docs/pipelines/integrations/plugins).
 
 ## Queue
 

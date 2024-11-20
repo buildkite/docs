@@ -38,7 +38,7 @@ A user who is a _Buildkite organization administrator_ can access the [**Organiz
     * Delete an existing team, by selecting the team > **Settings** tab > **Delete Team** button.
     * [Enable](#manage-teams-and-permissions) and disable the teams feature for their organization. This feature can only be disabled once all teams have been deleted from the organization (including the automatically-created **Everyone** team) using the **Disable Teams** button on the **Teams** page. Once the teams feature has been disabled, it can be [re-enabled](#manage-teams-and-permissions) at any time.
 
-- Configure other organization-level settings for Buildkite Pipelines and Package Registries, as well as various [integrations](/docs/integrations) with Buildkite.
+- Configure other organization-level settings for Buildkite Pipelines and Package Registries, as well as various [integrations](/docs/pipelines/integrations/other) with Buildkite.
 
 - Access and view Buildkite Pipelines and Package Registries usage reports and [audit logs](/docs/platform/audit-log).
 

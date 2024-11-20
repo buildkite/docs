@@ -39,7 +39,7 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 >📘 Pipelines without command steps
-> Although the <code>command</code> attribute is required for a command step, some <a href="/docs/plugins/using#adding-a-plugin-to-your-pipeline">plugins</a> work without a command step, so it isn't strictly necessary for your pipeline to have an explicit command step.
+> Although the <code>command</code> attribute is required for a command step, some <a href="/docs/pipelines/integrations/plugins/using#adding-a-plugin-to-your-pipeline">plugins</a> work without a command step, so it isn't strictly necessary for your pipeline to have an explicit command step.
 
 Optional attributes:
 
@@ -153,7 +153,7 @@ Optional attributes:
   <tr id="plugins">
     <td><code>plugins</code></td>
     <td>
-      An array of <a href="/docs/plugins">plugins</a> for this step.<br>
+      An array of <a href="/docs/pipelines/integrations/plugins">plugins</a> for this step.<br>
       <em>Example:</em><br>
       <code>- docker-compose#v1.0.0:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;run: app</code>

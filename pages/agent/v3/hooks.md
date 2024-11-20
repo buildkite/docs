@@ -15,7 +15,7 @@ You can define hooks in the following locations:
 
 * In the filesystem of the agent machine (called _agent hooks_, or more rarely _global hooks_).
 * In your pipeline's repository (called _repository hooks_, or more rarely _local hooks_).
-* In [plugins](/docs/plugins) applied to steps.
+* In [plugins](/docs/pipelines/integrations/plugins) applied to steps.
 
 For example, you could define an agent-wide `checkout` hook that spins up a fresh `git clone` on a new build machine, a repository `pre-command` hook that sets up repository-specific environment variables, or a plugin `environment` hook that fetches API keys from a secrets storage service.
 
@@ -45,7 +45,7 @@ You can define hooks in the following locations:
 
 * **Agent hooks:** These exist on the agent file system in a directory created by your agent installer and configured by the [`hooks-path`](configuration#hooks-path) setting. You can define both agent lifecycle and job lifecycle hooks in the agent hooks location. Job lifecycle hooks defined here will run for every job the agent receives from any pipeline.
 * **Repository hooks:** These exist in your pipeline repository's `.buildkite/hooks` directory and can define job lifecycle hooks. Job lifecycle hooks defined here will run for every pipeline that uses the repository. In scenarios where the current working directory is modified as part of the command or a post-command hook, this modification will cause these hooks to fail as the `.buildkite/hooks` directory can no longer be found in its new directory path. Ensure that the working directory is not modified to avoid these issues.
-* **Plugin hooks:** These are provided by [plugins](/docs/plugins) you've included in your pipeline steps and can define job lifecycle hooks. Job lifecycle hooks defined by a plugin will only run for the step that includes them. Plugins can be *vendored* (if they are already present in the repository and included using a relative path) or *non-vendored* (when they are included from elsewhere), which affects the order they are run in.
+* **Plugin hooks:** These are provided by [plugins](/docs/pipelines/integrations/plugins) you've included in your pipeline steps and can define job lifecycle hooks. Job lifecycle hooks defined by a plugin will only run for the step that includes them. Plugins can be *vendored* (if they are already present in the repository and included using a relative path) or *non-vendored* (when they are included from elsewhere), which affects the order they are run in.
 
 ### Agent hooks
 
@@ -68,7 +68,7 @@ You can define any of the [job lifecycle hooks](#job-lifecycle-hooks) whose `Ord
 
 Plugin hooks allow plugins you've defined in your Pipeline Steps to override the default behavior.
 
-See the [plugin documentation](/docs/plugins) for how to implement plugin hooks and [job lifecycle hooks](#job-lifecycle-hooks) for the list of hook types that a plugin can define.
+See the [plugin documentation](/docs/pipelines/integrations/plugins) for how to implement plugin hooks and [job lifecycle hooks](#job-lifecycle-hooks) for the list of hook types that a plugin can define.
 
 ## Polyglot hooks
 

@@ -12,7 +12,7 @@ The following diagram shows how a plugin might hook into the job lifecycle:
 
 <%= image "plugins-job-lifecycle-example.png", alt: "A plugin interacts with the job lifecycle using environment, post-command, and pre-exit hooks", class: "no-decoration" %>
 
-Plugins can be *open source* and available for anyone to use, or *private* and kept in private repositories that only your organization and agents can access. Plugins can be hosted and referenced using [a number of sources](/docs/plugins/using#plugin-sources).
+Plugins can be *open source* and available for anyone to use, or *private* and kept in private repositories that only your organization and agents can access. Plugins can be hosted and referenced using [a number of sources](/docs/pipelines/integrations/plugins/using#plugin-sources).
 
 Plugins can be also be *vendored* (if they are already present in the repository, and included using a relative path) or *non-vendored* (when they are included from elsewhere), which affects the [order](/docs/agent/v3/hooks#job-lifecycle-hooks) they are run in.
 
@@ -26,12 +26,12 @@ Reference plugins in your pipeline configuration, and when the step containing t
 
 Some plugins allow configuration. This is usually defined in your `pipeline.yml` file and is read by the agent before the plugin hooks are run. See plugins' readme files for detailed configuration and usage instructions.
 
-See [Using plugins](/docs/plugins/using) for more information about adding plugins to your pipeline definition.
+See [Using plugins](/docs/pipelines/integrations/plugins/using) for more information about adding plugins to your pipeline definition.
 
 ## Finding plugins
 
-In the [Buildkite plugins directory](/docs/plugins/directory) you can find all the plugins maintained by Buildkite, as well as plugins from third-party developers.
+In the [Buildkite plugins directory](/docs/pipelines/integrations/plugins/directory) you can find all the plugins maintained by Buildkite, as well as plugins from third-party developers.
 
 ## Creating a plugin
 
-See the [Writing plugins](/docs/plugins/writing) documentation for step-by-step instructions on how to create a plugin.
+See the [Writing plugins](/docs/pipelines/integrations/plugins/writing) documentation for step-by-step instructions on how to create a plugin.

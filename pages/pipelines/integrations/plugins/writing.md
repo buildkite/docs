@@ -36,7 +36,7 @@ git init
 
 ## Step 2: Add a plugin.yml
 
-Next, create `plugin.yml` to describe how the plugin appears in the [Buildkite plugins directory](/docs/plugins/directory), what it requires, and what configuration options it accepts.
+Next, create `plugin.yml` to describe how the plugin appears in the [Buildkite plugins directory](/docs/pipelines/integrations/plugins/directory), what it requires, and what configuration options it accepts.
 
 ```yaml
 name: File Counter
@@ -56,7 +56,7 @@ The `configuration` property defines the validation rules for the plugin configu
 Configuration properties are available to the hook script as environment variables with the naming pattern `BUILDKITE_PLUGIN_<PLUGIN_NAME>_<CONFIGURATION_PROPERTY>` where `<PLUGIN_NAME>` is not the name defined in `plugin.yml` but the repository or folder name compatible with Bash environment variables (in uppercase and only letters, numbers, and underscores). In this case, the configured value of `pattern` will be available as `BUILDKITE_PLUGIN_FILE_COUNTER_PATTERN`.
 
 > 📘 Accessing properties on plugins referenced with Git URLs
-> Note that if you <a href="/docs/plugins/using#plugin-sources">reference a plugin</a> with a full URL ending in <code>.git</code> and that plugin's name does not end with `-buildkite-plugin`, variable names will include `_GIT` as part of the plugin name. For example, the value of the configuration <code>pattern</code> in <code>https://github.com/my-org/my-plugin.git#v1.0.0</code> will be available as <code>BUILDKITE_PLUGIN_MY_PLUGIN_GIT_PATTERN</code>.
+> Note that if you <a href="/docs/pipelines/integrations/plugins/using#plugin-sources">reference a plugin</a> with a full URL ending in <code>.git</code> and that plugin's name does not end with `-buildkite-plugin`, variable names will include `_GIT` as part of the plugin name. For example, the value of the configuration <code>pattern</code> in <code>https://github.com/my-org/my-plugin.git#v1.0.0</code> will be available as <code>BUILDKITE_PLUGIN_MY_PLUGIN_GIT_PATTERN</code>.
 
 ### Valid plugin.yml properties
 
@@ -253,7 +253,7 @@ steps:
 
 ## Publish to the Buildkite plugins directory
 
-To add your plugin to the [Buildkite plugins directory](https://buildkite.com/plugins), publish your repository to a public GitHub repository and add the `buildkite-plugin` [repository topic tag](https://github.com/topics/buildkite-plugin). For full instructions, see the [plugins directory documentation](/docs/plugins/directory).
+To add your plugin to the [Buildkite plugins directory](https://buildkite.com/plugins), publish your repository to a public GitHub repository and add the `buildkite-plugin` [repository topic tag](https://github.com/topics/buildkite-plugin). For full instructions, see the [plugins directory documentation](/docs/pipelines/integrations/plugins/directory).
 
 ## Designing plugins: single-command plugins versus library plugins
 

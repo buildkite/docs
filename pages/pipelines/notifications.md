@@ -75,7 +75,7 @@ notify:
 See [Supported variables](/docs/pipelines/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
 > 🚧
-> To trigger conditional notifications to a Slack channel, you will first need to configure [Conditional notifications for Slack](/docs/integrations/slack#conditional-notifications).
+> To trigger conditional notifications to a Slack channel, you will first need to configure [Conditional notifications for Slack](/docs/pipelines/integrations/other/slack#conditional-notifications).
 
 ## Email
 
@@ -150,7 +150,7 @@ You can set notifications:
 * On build status events in the Buildkite UI, by using your Slack Notification Service's 'Build State Filtering' settings.
 * On step status and other non-build events, by extending the Slack Notification Service using the `notify` attribute in your `pipeline.yml`.
 
-Before adding a `notify` attribute to your `pipeline.yml`, ensure an organization admin has set up either a [Slack Workspace](/docs/integrations/slack-workspace) for a single authorization, or individual [notification services](/docs/integrations/slack) for the channel or user that you want to post to. Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan and using individual notification services can also check the ['Manage Notifications Services'](https://buildkite.com/organizations/~/security/pipelines) checkbox to create, edit, or delete notification services. For detailed information about setting up a Workspace, see the [Slack Workspace Integration page](/docs/integrations/slack-workspace) and [Slack integration page](/docs/integrations/slack) for configuring individual notification services.
+Before adding a `notify` attribute to your `pipeline.yml`, ensure an organization admin has set up either a [Slack Workspace](/docs/pipelines/integrations/other/slack-workspace) for a single authorization, or individual [notification services](/docs/pipelines/integrations/other/slack) for the channel or user that you want to post to. Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan and using individual notification services can also check the ['Manage Notifications Services'](https://buildkite.com/organizations/~/security/pipelines) checkbox to create, edit, or delete notification services. For detailed information about setting up a Workspace, see the [Slack Workspace Integration page](/docs/pipelines/integrations/other/slack-workspace) and [Slack integration page](/docs/pipelines/integrations/other/slack) for configuring individual notification services.
 
 Once a Slack channel or workspace has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` YAML block.
 
@@ -434,7 +434,7 @@ Webhook notifications happen at the following [events](/docs/apis/webhooks#event
 
 ## PagerDuty change events
 
-If you've set up a [PagerDuty integration](/docs/integrations/pagerduty) you can send change events from your pipeline using the `pagerduty_change_event` attribute of the `notify` YAML block:
+If you've set up a [PagerDuty integration](/docs/pipelines/integrations/other/pagerduty) you can send change events from your pipeline using the `pagerduty_change_event` attribute of the `notify` YAML block:
 
 ```yaml
 steps:

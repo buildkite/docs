@@ -9,7 +9,7 @@ Buildkite has built-in support for running your builds in Docker containers. Run
 
 ## Overview
 
-To run your steps using Docker, there are two official [Buildkite plugins](/docs/plugins): the [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), and the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin).
+To run your steps using Docker, there are two official [Buildkite plugins](/docs/pipelines/integrations/plugins): the [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), and the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin).
 
 The [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) supports repositories with `docker-compose.yml` files, projects that use multiple containers or have dependent services, and building docker images inside pipeline steps.
 
@@ -17,7 +17,7 @@ The [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin
 
 ## Docker Hub rate limits
 
-If you're using Docker with Docker images hosted on Docker Hub, note that as of 2nd November 2020 there are [strict rate limits](/docs/integrations/docker-hub) for image downloads.
+If you're using Docker with Docker images hosted on Docker Hub, note that as of 2nd November 2020 there are [strict rate limits](/docs/pipelines/integrations/other/docker-hub) for image downloads.
 
 
 ## Creating a Docker Compose configuration file

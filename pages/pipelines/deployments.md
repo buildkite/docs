@@ -124,7 +124,7 @@ Until the block step is manually unblocked either in Buildkite or using an API c
 
 ## Deployment plugins
 
-There are [Buildkite plugins](/docs/plugins) available for various systems and tools. For example, the [ECS Deploy plugin](https://github.com/buildkite-plugins/ecs-deploy-buildkite-plugin) and the [AWS Lambda Deploy plugin](https://github.com/envato/lambda-deploy-buildkite-plugin).
+There are [Buildkite plugins](/docs/pipelines/integrations/plugins) available for various systems and tools. For example, the [ECS Deploy plugin](https://github.com/buildkite-plugins/ecs-deploy-buildkite-plugin) and the [AWS Lambda Deploy plugin](https://github.com/envato/lambda-deploy-buildkite-plugin).
 
 The following example shows how to use the ECS Deploy plugin to automatically deploy an pre-built Docker image to an [AWS ECS](https://aws.amazon.com/ecs/) service:
 
@@ -147,7 +147,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can find the latest deployment plugins in the [plugins directory](https://buildkite.com/plugins). If there's no plugin for your deployment service of choice, see the [Writing plugins](/docs/plugins/writing) documentation for information on how to write your own.
+You can find the latest deployment plugins in the [plugins directory](https://buildkite.com/plugins). If there's no plugin for your deployment service of choice, see the [Writing plugins](/docs/pipelines/integrations/plugins/writing) documentation for information on how to write your own.
 
 ## External deployment systems
 
