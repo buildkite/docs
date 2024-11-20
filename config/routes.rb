@@ -167,7 +167,7 @@ Rails.application.routes.draw do
   get "/docs/agent/hooks",               to: redirect("/docs/agent/v3/hooks",                      status: 301)
   get "/docs/agent/queues",              to: redirect("/docs/agent/v3/queues",                     status: 301)
   get "/docs/agent/prioritization",      to: redirect("/docs/agent/v3/prioritization",             status: 301)
-  get "/docs/agent/plugins",             to: redirect("/docs/pipelines/integrations/plugins",                    status: 301)
+  get "/docs/agent/plugins",             to: redirect("/docs/pipelines/integrations/plugins",      status: 301)
   get "/docs/agent/securing",            to: redirect("/docs/agent/v3/securing",                   status: 301)
   get "/docs/agent/cli-start",           to: redirect("/docs/agent/v3/cli-start",                  status: 301)
   get "/docs/agent/cli-meta-data",       to: redirect("/docs/agent/v3/cli-meta-data",              status: 301)
@@ -187,7 +187,7 @@ Rails.application.routes.draw do
   # Old docs routes that we changed around during the development of the v3 agent docs
   get "/docs/agent/upgrading-to-v2",    to: redirect("/docs/agent/v2/upgrading-to-v2",            status: 301)
   get "/docs/agent/v3/upgrading-to-v3", to: redirect("/docs/agent/v3/upgrading",                  status: 301)
-  get "/docs/agent/v2/plugins",         to: redirect("/docs/pipelines/integrations/plugins",                    status: 301)
+  get "/docs/agent/v2/plugins",         to: redirect("/docs/pipelines/integrations/plugins",      status: 301)
   get "/docs/agent/v2/agent-meta-data", to: redirect("/docs/agent/v2/cli-start#setting-metadata", status: 301)
   get "/docs/agent/v3/agent-meta-data", to: redirect("/docs/agent/v3/cli-start#setting-tags",     status: 301)
 
