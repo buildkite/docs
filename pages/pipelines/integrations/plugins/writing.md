@@ -232,7 +232,7 @@ docker-compose run --rm tests
 
 Next, add a `README.md` file to introduce the plugin to the world:
 
-<%= render 'plugins/tutorial_readme' %>
+<%= render 'pipelines/integrations/plugins/tutorial_readme' %>
 
 ## Developing a plugin with a feature branch
 
