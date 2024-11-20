@@ -525,6 +525,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr><th><code>meta_data</code></th><td>A JSON object of meta-data to make available to the build.<br><em>Default value:</em> <code>{}</code>.</td></tr>
   <tr><th><code>pull_request_base_branch</code></th><td>For a pull request build, the base branch of the pull request.<br><em>Example:</em> <code>"main"</code></td></tr>
   <tr><th><code>pull_request_id</code></th><td>For a pull request build, the pull request number.<br><em>Example:</em> <code>42</code></td></tr>
+  <tr><th><code>pull_request_labels</code></th><td>For a pull request build, a JSON array of labels assigned to the pull request.<br><em>Example:</em> <code>["bug", "ui"]</code></td></tr>
   <tr><th><code>pull_request_repository</code></th><td>For a pull request build, the git repository of the pull request.<br><em>Example:</em> <code>"git://github.com/my-org/my-repo.git"</code></td></tr>
   </tbody>
 </table>
