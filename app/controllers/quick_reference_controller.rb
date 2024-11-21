@@ -4,12 +4,12 @@ class QuickReferenceController < ApplicationController
   before_action :add_cors_headers
 
   PIPELINE_PAGES = [
-    'pipelines/command_step',
-    'pipelines/wait_step',
-    'pipelines/block_step',
-    'pipelines/input_step',
-    'pipelines/trigger_step',
-    'pipelines/group_step'
+    'pipelines/configure/step-types/command_step',
+    'pipelines/configure/step-types/wait_step',
+    'pipelines/configure/step-types/block_step',
+    'pipelines/configure/step-types/input_step',
+    'pipelines/configure/step-types/trigger_step',
+    'pipelines/configure/step-types/group_step'
   ].freeze
 
   NOTIFICATION_PAGES = [
