@@ -32,7 +32,7 @@ If you're using [YAML steps](/docs/pipelines/tutorials/pipeline-upgrade), you ca
 * `env` - A map of <a href="/docs/pipelines/configure/environment-variables">environment variables</a> to apply to all steps
 
 > 📘 Environment variable precedence
-> Because you can set environment variables in many different places, check [environment variable precedence](/docs/pipelines/environment_variables#environment-variable-precedence) to ensure your environment variables work as expected.
+> Because you can set environment variables in many different places, check [environment variable precedence](/docs/pipelines/configure/environment-variables#environment-variable-precedence) to ensure your environment variables work as expected.
 
 For example, to set steps `do-something.sh` and `do-something-else.sh` to use the `something` queue and the step `do-another-thing.sh` to use the `another` queue:
 

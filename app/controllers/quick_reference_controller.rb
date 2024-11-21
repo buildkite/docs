@@ -13,7 +13,7 @@ class QuickReferenceController < ApplicationController
   ].freeze
 
   NOTIFICATION_PAGES = [
-    'pipelines/notifications'
+    'pipelines/configure/notifications'
   ].freeze
 
   def pipelines
