@@ -463,12 +463,12 @@ notify:
 
 ## Build states
 
-<%= render_markdown partial: 'pipelines/build_states' %>
+<%= render_markdown partial: 'pipelines/configure/build_states' %>
 
 See the full [build states diagram](/docs/pipelines/configure/defining-steps#build-states) for more information on how builds transition between states.
 
 ## Job states
 
-<%= render_markdown partial: 'pipelines/job_states' %>
+<%= render_markdown partial: 'pipelines/configure/job_states' %>
 
 See the full [job states diagram](/docs/pipelines/configure/defining-steps#job-states) for more information on how jobs transition between states.
