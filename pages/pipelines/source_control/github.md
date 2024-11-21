@@ -46,7 +46,7 @@ When you connect your GitHub organization, Buildkite needs the following permiss
 
     <%= image "new-pipeline.png", width: 1550/2, height: 846/2, alt: "Screenshot of adding a new pipeline " %>
 
-1. If you are still using the web steps visual editor, add at least one step to your pipeline. Refer to [Defining Steps - Adding steps](/docs/pipelines/defining_steps#adding-steps) for more information.
+1. If you are still using the web steps visual editor, add at least one step to your pipeline. Refer to [Defining Steps - Adding steps](/docs/pipelines/configure/defining-steps#adding-steps) for more information.
 1. Select **Create Pipeline**.
 1. Follow the onscreen instructions to set up a webhook:
 
@@ -56,7 +56,7 @@ When you connect your GitHub organization, Buildkite needs the following permiss
 
     The repository webhook is required so that the Buildkite GitHub app does not need read access to your repository.
 
-1. If using the YAML steps editor, add at least one step to your pipeline, then select **Save and Build**. Refer to [Defining Steps - Adding steps](/docs/pipelines/defining_steps#adding-steps) for more information.
+1. If using the YAML steps editor, add at least one step to your pipeline, then select **Save and Build**. Refer to [Defining Steps - Adding steps](/docs/pipelines/configure/defining-steps#adding-steps) for more information.
 
 If you need to set up the webhook again, you can find the instructions linked at the bottom of the pipeline GitHub settings page.
 
