@@ -31,7 +31,7 @@ Once you have granted access to your Slack workspace, give it a description, cho
 With the configuration above, you'll receive notifications at the pipeline level but not on the outcomes of individual steps. The **fixed builds** option ensures you're notified when a failed build next passes.
 
 > 🚧
-> To avoid duplicate notifications, if you're using the [`notify` YAML attribute](/docs/pipelines/notifications) for more fine grained control over your Slack notifications, ensure you've selected the **Only Some Pipelines...** option and have excluded that pipeline from receiving the default notifications.
+> To avoid duplicate notifications, if you're using the [`notify` YAML attribute](/docs/pipelines/configure/notifications) for more fine grained control over your Slack notifications, ensure you've selected the **Only Some Pipelines...** option and have excluded that pipeline from receiving the default notifications.
 
 ## Changing channels
 
@@ -41,7 +41,7 @@ Once created, the Slack channel and workspace cannot be changed. To post to a di
 
 By default, notifications are sent to all configured Slack channels. For more control over when each channel receives notifications, use the `notify` YAML attribute in your `pipeline.yml` file.
 
-See the [Slack channel message](/docs/pipelines/notifications#slack-channel-and-direct-messages) section of the Notifications guide for the configuration information.
+See the [Slack channel message](/docs/pipelines/configure/notifications#slack-channel-and-direct-messages) section of the Notifications guide for the configuration information.
 
 ## Upgrading a legacy Slack service
 

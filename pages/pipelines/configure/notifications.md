@@ -72,7 +72,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-See [Supported variables](/docs/pipelines/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
+See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
 > 🚧
 > To trigger conditional notifications to a Slack channel, you will first need to configure [Conditional notifications for Slack](/docs/pipelines/integrations/other/slack#conditional-notifications).
@@ -135,7 +135,7 @@ notify:
 
 The `basecamp_campfire` attribute accepts a single URL as a string.
 
-Basecamp notifications happen at the following [events](/docs/apis/webhooks#events), unless you restrict them using [conditionals](/docs/pipelines/notifications#conditional-notifications):
+Basecamp notifications happen at the following [events](/docs/apis/webhooks#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
 
 * `build created`
 * `build started`
@@ -360,7 +360,7 @@ steps:
 
 ### Conditional Slack notifications
 
-You can also add [conditionals](/docs/pipelines/notifications#conditional-notifications) to restrict the events on which notifications are sent:
+You can also add [conditionals](/docs/pipelines/configure/notifications#conditional-notifications) to restrict the events on which notifications are sent:
 
 ```yaml
 notify:
@@ -369,7 +369,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-See [Supported variables](/docs/pipelines/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
+See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
 Slack notifications happen at the following [event](/docs/apis/webhooks#events):
 
@@ -425,7 +425,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Webhook notifications happen at the following [events](/docs/apis/webhooks#events), unless you restrict them using [conditionals](/docs/pipelines/notifications#conditional-notifications):
+Webhook notifications happen at the following [events](/docs/apis/webhooks#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
 
 * `build created`
 * `build started`

@@ -4,13 +4,13 @@ Build matrices help you simplify complex build configurations by expanding a ste
 
 The following [command step](/docs/pipelines/configure/step-types/command-step) attributes can contain matrix values for interpolation:
 
-* [environment variables](/docs/pipelines/environment-variables)
+* [environment variables](/docs/pipelines/configure/environment-variables)
 * [labels](/docs/pipelines/configure/step-types/command-step#label)
 * [commands](/docs/pipelines/configure/step-types/command-step#command-step-attributes)
 * [plugins](/docs/pipelines/configure/step-types/command-step#plugins)
 * [agents](/docs/pipelines/configure/step-types/command-step#agents)
 
-You can't use matrix values in other attributes, including step keys and [concurrency groups](/docs/pipelines/controlling-concurrency#concurrency-groups).
+You can't use matrix values in other attributes, including step keys and [concurrency groups](/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-groups).
 
 For example, instead of writing three separate jobs for builds on macOS, Linux, and Windows, like the following build configuration (which does not use a build matrix):
 

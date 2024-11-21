@@ -171,7 +171,7 @@ However, for legacy compatibility, there is an exception with *plugins*. All `ch
 
 Job lifecycle hooks are sourced for every job an agent accepts. Use job lifecycle hooks to prepare for jobs, override the default behavior, or clean up after jobs that have finished. For example, use the `environment` hook to set a job's environment variables or the `pre-exit` hook to delete temporary files and remove containers. If your hook is related to the startup or shutdown of the agent, consider [agent lifecycle hooks](#agent-lifecycle-hooks) for those tasks instead.
 
-Job lifecycle hooks have access to all the standard [Buildkite environment variables](/docs/pipelines/environment-variables).
+Job lifecycle hooks have access to all the standard [Buildkite environment variables](/docs/pipelines/configure/environment-variables).
 
 Job lifecycle hooks are copied to `$TMPDIR` directory and *sourced* by the agent's default shell. This has a few implications:
 

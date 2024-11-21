@@ -27,7 +27,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-This pipeline uses a [conditional](/docs/pipelines/conditionals) to only run on commits to the main branch, and sets a [concurrency limit](/docs/pipelines/controlling-concurrency) of 1 to ensure that only one deployment happens at a time.
+This pipeline uses a [conditional](/docs/pipelines/configure/conditionals) to only run on commits to the main branch, and sets a [concurrency limit](/docs/pipelines/configure/workflows/controlling-concurrency) of 1 to ensure that only one deployment happens at a time.
 
 <%= image "deploy-step.png", width: 1482/2, height: 730/2, alt: "Screenshot of a deploy step output" %>
 
@@ -90,7 +90,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-This pipeline runs the deployment script, and sets a [concurrency limit](/docs/pipelines/controlling-concurrency) of 1 to ensure that only one deployment happens at a time.
+This pipeline runs the deployment script, and sets a [concurrency limit](/docs/pipelines/configure/workflows/controlling-concurrency) of 1 to ensure that only one deployment happens at a time.
 
 You can add any of the [pipeline step types](/docs/pipelines/configure/defining-steps) to add additional capabilities to your deployment pipelines, such as manual approval steps, teams permission checks, or additional API calls.
 
@@ -165,7 +165,7 @@ To enable builds to be created from GitHub deployment events, create a pipeline 
 
 <%= image "github-settings-trigger-builds-on-deployments.png", width: 1458/2, height: 744/2, alt: "Buildkite's GitHub Settings with 'Trigger builds on deployment' checkbox selected" %>
 
-To customize the deployment's environment name and URL in GitHub, you can set the following two [build meta-data](/docs/pipelines/build-meta-data) values in the pipeline that performs the deployment:
+To customize the deployment's environment name and URL in GitHub, you can set the following two [build meta-data](/docs/pipelines/configure/build-meta-data) values in the pipeline that performs the deployment:
 
 ```shell
 buildkite-agent meta-data set "github_deployment_status:environment" "staging"

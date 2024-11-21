@@ -2,7 +2,7 @@
 
 A _block_ step is used to pause the execution of a build and wait on a team member to unblock it using the web or the [API](/docs/apis/rest-api/jobs#unblock-a-job).
 
-A block step is functionally identical to an [input step](/docs/pipelines/configure/step-types/input-step), however a block step creates [implicit dependencies](/docs/pipelines/dependencies) to the steps before and after it. Note that explicit dependencies specified by `depends_on` take precedence over implicit dependencies; subsequent steps will run when the step they depend on passes, without waiting for `block` or `wait` steps, unless those are also explicit dependencies.
+A block step is functionally identical to an [input step](/docs/pipelines/configure/step-types/input-step), however a block step creates [implicit dependencies](/docs/pipelines/configure/dependencies) to the steps before and after it. Note that explicit dependencies specified by `depends_on` take precedence over implicit dependencies; subsequent steps will run when the step they depend on passes, without waiting for `block` or `wait` steps, unless those are also explicit dependencies.
 
 A block step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/configure/defining-steps) file.
 
@@ -21,7 +21,7 @@ steps:
 
 You can add form `fields` to block steps by adding a fields attribute. Block steps with input fields can only be defined using a `pipeline.yml`. There are two field types available: text or select. The select input type displays differently depending on how you configure the options. If you allow people to select multiple options, they display as checkboxes. If you are required to select only one option from six or fewer, they display as radio buttons. Otherwise, the options display in a dropdown menu.
 
-The data you collect from these fields is then available to subsequent steps in the pipeline in the [build meta-data](/docs/pipelines/build-meta-data).
+The data you collect from these fields is then available to subsequent steps in the pipeline in the [build meta-data](/docs/pipelines/configure/build-meta-data).
 
 In this example, the `pipeline.yml` defines an input step with the key `release-name`. The Bash script then accesses the value of the step using the [meta-data](/docs/agent/v3/cli-meta-data) command.
 
@@ -81,21 +81,21 @@ Optional attributes:
   <tr>
     <td><code>branches</code></td>
     <td>
-      <p>The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this block step in their builds.</p>
+      <p>The <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this block step in their builds.</p>
       <p><em>Example:</em> <code>"main stable/*"</code></p>
     </td>
   </tr>
   <tr>
     <td><code>if</code></td>
     <td>
-      <p>A boolean expression that omits the step when false. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.</p>
+      <p>A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.</p>
       <p><em>Example:</em> <code>build.message != "skip me"</code></p>
     </td>
   </tr>
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      <p>A list of step keys that this step depends on. This step will only proceed after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.</p>
+      <p>A list of step keys that this step depends on. This step will only proceed after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.</p>
       <p><em>Example:</em> <code>"test-suite"</code></p>
     </td>
    </tr>

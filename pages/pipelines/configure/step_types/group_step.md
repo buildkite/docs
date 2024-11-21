@@ -67,14 +67,14 @@ Optional attributes:
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step or group keys that this step depends on. This step or group will only run after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
+      A list of step or group keys that this step depends on. This step or group will only run after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
   </tr>
   <tr>
     <td><code>if</code></td>
     <td>
-      A boolean expression that omits the step when false. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
+      A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.<br>
       <em>Example:</em> <code>build.message != "skip me"</code>
     </td>
   </tr>
@@ -95,7 +95,7 @@ Optional attributes:
   <tr>
     <td><code>notify</code></td>
     <td>
-      Allows you to <a href="/docs/pipelines/notifications">trigger</a> build notifications to different services. You can also choose to conditionally send notifications based on pipeline events.<br>
+      Allows you to <a href="/docs/pipelines/configure/notifications">trigger</a> build notifications to different services. You can also choose to conditionally send notifications based on pipeline events.<br>
       <em>Example:</em> <code>"github_commit_status:"</code><br>
     </td>
   </tr>

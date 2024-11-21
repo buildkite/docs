@@ -16,4 +16,4 @@ If you've completed [Getting started](/docs/pipelines/getting-started) and are l
 
 - [Defining steps](/docs/pipelines/configure/defining-steps): Learn how to write pipeline definitions.
 - [Step types](/docs/pipelines/configure/step-types): See the actions you can take in a pipeline.
-- [Environment variables](/docs/pipelines/environment-variables): All the variables you can access in the build environment.
+- [Environment variables](/docs/pipelines/configure/environment-variables): All the variables you can access in the build environment.

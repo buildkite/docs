@@ -14,7 +14,7 @@ See the [Defining your pipeline steps](/docs/pipelines/configure/defining-steps)
 The pipeline can be written as YAML or JSON, but YAML is more common for its readability. There are three top level properties you can specify:
 
 * `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
-* `env` - A map of <a href="/docs/pipelines/environment-variables">environment variables</a> to apply to all steps
+* `env` - A map of <a href="/docs/pipelines/configure/environment-variables">environment variables</a> to apply to all steps
 * `steps` - A list of [build pipeline steps](/docs/pipelines/configure/defining-steps)
 
 
@@ -27,7 +27,7 @@ Steps are inserted immediately following the job performing the pipeline upload.
 
 The `pipeline upload` command supports environment variable substitution using the syntax `$VAR` and `${VAR}`.
 
-For example, the following pipeline substitutes a number of [Buildkite's default environment variables](/docs/pipelines/environment-variables) into a [trigger step](/docs/pipelines/configure/step-types/trigger-step):
+For example, the following pipeline substitutes a number of [Buildkite's default environment variables](/docs/pipelines/configure/environment-variables) into a [trigger step](/docs/pipelines/configure/step-types/trigger-step):
 
 ```yml
 - trigger: "app-deploy"

@@ -317,7 +317,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>branch_configuration</code></th>
     <td>
-      <p>A <a href="/docs/pipelines/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.</p>
+      <p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.</p>
       <p><em>Example:</em> <code>"main feature/*"</code><br><em>Default:</em> <code>null</code></p>
     </td>
   </tr>
@@ -331,7 +331,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>cancel_running_branch_builds_filter</code></th>
     <td>
-      <p>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to.</p>
+      <p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to.</p>
       <p><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p>
     </td>
   </tr>
@@ -374,7 +374,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>skip_queued_branch_builds_filter</code></th>
     <td>
-      <p>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to.</p>
+      <p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to.</p>
       <p><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p>
     </td>
   </tr>
@@ -388,7 +388,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>tags</code></th>
     <td>
-      <p>An array of strings representing <a href="/docs/pipelines/tags">tags</a> to add to this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
+      <p>An array of strings representing <a href="/docs/pipelines/configure/tags">tags</a> to add to this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
       <p><em>Example:</em><code>["\:terraform\:", "testing"]</code></p>
     </td>
   </tr>
@@ -636,7 +636,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>branch_configuration</code></th>
     <td>
-      <p>A <a href="/docs/pipelines/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.</p>
+      <p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.</p>
       <p><em>Example:</em> <code>"main feature/*"</code><br><em>Default:</em> <code>null</code></p>
     </td>
   </tr>
@@ -650,7 +650,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>cancel_running_branch_builds_filter</code></th>
     <td>
-      <p>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to.</p>
+      <p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to.</p>
       <p><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p>
     </td>
   </tr>
@@ -700,7 +700,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>skip_queued_branch_builds_filter</code></th>
     <td>
-      <p>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to.</p>
+      <p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to.</p>
       <p><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p>
     </td>
   </tr>
@@ -714,7 +714,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>tags</code></th>
     <td>
-      <p>An array of strings representing <a href="/docs/pipelines/tags">tags</a> to add to this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
+      <p>An array of strings representing <a href="/docs/pipelines/configure/tags">tags</a> to add to this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
       <p><em>Example:</em><code>["\:terraform\:", "testing"]</code></p>
     </td>
   </tr>
@@ -842,7 +842,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>branch_configuration</code></th>
-    <td>A <a href="/docs/pipelines/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"main feature/*"</code><br><em>Default:</em> <code>null</code></p></td>
+    <td>A <a href="/docs/pipelines/configure/workflows/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"main feature/*"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
     <th><code>cancel_running_branch_builds</code></th>
@@ -850,7 +850,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>cancel_running_branch_builds_filter</code></th>
-    <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
+    <td>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
     <th><code>cluster_id</code></th>
@@ -899,7 +899,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>skip_queued_branch_builds_filter</code></th>
-    <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p></td>
+    <td>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
     <th><code>slug</code></th>
@@ -912,7 +912,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>tags</code></th>
     <td>
-      <p>An array of strings representing <a href="/docs/pipelines/tags">tags</a> to modify on this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
+      <p>An array of strings representing <a href="/docs/pipelines/configure/tags">tags</a> to modify on this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
       <p><em>Example:</em><code>["\:terraform\:", "testing"]</code></p>
     </td>
   </tr>
@@ -1156,7 +1156,7 @@ Properties available for all providers:
   <tr>
     <th><code>filter_condition</code></th>
     <td>
-      The conditions under which this pipeline will trigger a build. See the <a href="/docs/pipelines/conditionals">Using conditionals</a> guide for more information.
+      The conditions under which this pipeline will trigger a build. See the <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> guide for more information.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>"build.pull_request.base_branch =~ /main/"</code></p>
     </td>
   </tr>

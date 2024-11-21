@@ -29,7 +29,7 @@ However you add steps to your pipeline, keep in mind that steps may run on diffe
 If you're using [YAML steps](/docs/pipelines/tutorials/pipeline-upgrade), you can set defaults which will be applied to every command step in a pipeline unless they are overridden by the step itself. You can set default agent properties and default environment variables:
 
 * `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
-* `env` - A map of <a href="/docs/pipelines/environment-variables">environment variables</a> to apply to all steps
+* `env` - A map of <a href="/docs/pipelines/configure/environment-variables">environment variables</a> to apply to all steps
 
 > 📘 Environment variable precedence
 > Because you can set environment variables in many different places, check [environment variable precedence](/docs/pipelines/environment_variables#environment-variable-precedence) to ensure your environment variables work as expected.
@@ -104,9 +104,9 @@ For more example steps and detailed configuration options, see the example `pipe
 If your pipeline has more than one step and you have multiple agents available to run them, they will automatically run at the same time. If your steps rely on running in sequence, you can separate them with [wait steps](/docs/pipelines/configure/step-types/wait-step). This will ensure that any steps before the 'wait' are completed before steps after the 'wait' are run.
 
 >🚧 Explicit dependencies in uploaded steps
-> If a step <a href="/docs/pipelines/dependencies">depends</a> on an upload step, then all steps uploaded by that step become dependencies of the original step. For example, if step B depends on step A, and step A uploads step C, then step B will also depend on step C.
+> If a step <a href="/docs/pipelines/configure/dependencies">depends</a> on an upload step, then all steps uploaded by that step become dependencies of the original step. For example, if step B depends on step A, and step A uploads step C, then step B will also depend on step C.
 
-When a step is run by an agent, it will be run with a clean checkout of the pipeline's repository. If your commands or scripts rely on the output from previous steps, you will need to either combine them into a single script or use [artifacts](/docs/pipelines/artifacts) to pass data between steps. This enables any step to be picked up by any agent and run steps in parallel to speed up your build.
+When a step is run by an agent, it will be run with a clean checkout of the pipeline's repository. If your commands or scripts rely on the output from previous steps, you will need to either combine them into a single script or use [artifacts](/docs/pipelines/configure/artifacts) to pass data between steps. This enables any step to be picked up by any agent and run steps in parallel to speed up your build.
 
 ## Build states
 
@@ -171,7 +171,7 @@ Differentiating between `timing_out`, `timed_out`, and `expired` states:
 * Jobs become `timing_out`, `timed_out` when a job starts running on an agent but doesn't complete within the timeout period.
 * Jobs become `expired` when they reach the scheduled job expiry timeout before being picked up by an agent.
 
-See [Build timeouts](/docs/pipelines/build-timeouts) for information about setting timeout values.
+See [Build timeouts](/docs/pipelines/configure/build-timeouts) for information about setting timeout values.
 
 >📘
 > The <a href="/docs/apis/rest-api/builds">REST API</a> does not return <code>finished</code>, but returns <code>passed</code> or <code>failed</code> according to the exit status of the job. It also lists <code>limiting</code> and <code>limited</code> as <code>scheduled</code> for legacy compatibility.

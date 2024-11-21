@@ -127,7 +127,7 @@ Before you start moving pipelines, we recommend taking inventory of your existin
 
 Since the configuration files are quite different, creating an automated tool to translate between them is difficult. Instead, we recommend assessing the goal of a pipeline and investing the time to see how to achieve the same thing the Buildkite way. This results in clearer pipelines with better performance.
 
-Some Buildkite features you might want to use include [dynamic pipelines](/docs/pipelines/configure/defining-steps#dynamic-pipelines), [lifecycle hooks](/docs/agent/v3/hooks), [conditionals](/docs/pipelines/conditionals), [artifacts](/docs/pipelines/artifacts), [build matrices](/docs/pipelines/build-matrix), and [annotations](/docs/agent/v3/cli-annotate).
+Some Buildkite features you might want to use include [dynamic pipelines](/docs/pipelines/configure/defining-steps#dynamic-pipelines), [lifecycle hooks](/docs/agent/v3/hooks), [conditionals](/docs/pipelines/configure/conditionals), [artifacts](/docs/pipelines/configure/artifacts), [build matrices](/docs/pipelines/configure/workflows/build-matrix), and [annotations](/docs/agent/v3/cli-annotate).
 
 A simple pipeline in Buildkite might look like the following:
 
@@ -150,7 +150,7 @@ steps:
 To translate a pipeline:
 
 1. Identify the goal of the pipeline.
-1. Look for an [example pipeline](/docs/pipelines/example-pipelines) closest to that goal.
+1. Look for an [example pipeline](/docs/pipelines/configure/example-pipelines) closest to that goal.
 1. Follow [Defining steps](/docs/pipelines/configure/defining-steps) and surrounding documentation to learn how to customize the pipeline definition to meet your needs, including:
    * Targeting a specific agent or queue.
    * Replacing any Jenkins plugins and integrations with Buildkite features, existing Buildkite plugins, custom plugins, or custom scripts.
@@ -175,7 +175,7 @@ To set up your integrations:
    * **Third-party services:** Some third-party services provide direct integrations with Buildkite. Check your tools to see if they can help you achieve the desired integrations without writing custom scripts.
    * **Webhooks and APIs:** If you need a custom integration, consider using [webhooks](/docs/apis/webhooks) or [APIs](/docs/apis). Buildkite supports outgoing webhooks for various pipeline events, and many workflow tools provide APIs to interact with their services. Use custom scripts or tools in your pipeline steps to send notifications and interact with your workflow tools.
 1. **Set up notification channels:** Create dedicated notification channels in your chat applications to receive CI/CD updates. This approach helps keep your team informed without cluttering general communication channels.
-1. **Configure notification triggers:** Configure your integrations to send notifications based on specific pipeline events, such as build failures, deployments, or critical alerts. Avoid excessive notifications by focusing on essential events that require your team's attention. See [Triggering notifications](/docs/pipelines/notifications) for more information.
+1. **Configure notification triggers:** Configure your integrations to send notifications based on specific pipeline events, such as build failures, deployments, or critical alerts. Avoid excessive notifications by focusing on essential events that require your team's attention. See [Triggering notifications](/docs/pipelines/configure/notifications) for more information.
 1. **Customize notification content:** Tailor the content of your notifications to include relevant information, such as build status, commit details, and links to artifacts or logs. Customize your notifications to be as informative and actionable as possible, so your team can quickly identify and address issues.
 
 Continue adjusting the settings as you gather feedback from your team on the effectiveness and usefulness of your integrations and notifications.

@@ -125,7 +125,7 @@ If the step you're dependent on doesn't exist, the build will fail without runni
 
 However, if the step you're dependent on is excluded from the build due to an `if` condition, the dependency will be ignored and the step that depends on it will run once any other dependencies are satisfied.
 
-Steps that are in a `concurrency_group` run in the order they are created in and can be delayed in running by the `concurrency` attribute. If your step has a dependency on a step that is in a `concurrency_group`, there is an implicit dependency on the rest of the steps in the group. For more information about concurrency groups, see the [Controlling concurrency guide](/docs/pipelines/controlling-concurrency#concurrency-groups).
+Steps that are in a `concurrency_group` run in the order they are created in and can be delayed in running by the `concurrency` attribute. If your step has a dependency on a step that is in a `concurrency_group`, there is an implicit dependency on the rest of the steps in the group. For more information about concurrency groups, see the [Controlling concurrency guide](/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-groups).
 
 ## Allowing dependency failures
 
@@ -159,7 +159,7 @@ This pattern is often used to run steps like code coverage or annotations to the
 
 ## Allowed failure and soft fail
 
-Setting [`soft_fail`](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes) on a step will also allow steps that depend upon it to run, even when [`allow_dependency_failure: false`](/docs/pipelines/dependencies#allowing-dependency-failures) is set on the subsequent step.
+Setting [`soft_fail`](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes) on a step will also allow steps that depend upon it to run, even when [`allow_dependency_failure: false`](/docs/pipelines/configure/dependencies#allowing-dependency-failures) is set on the subsequent step.
 
 In the following example, `step-b` will run because `step-a` is soft failing. If `step-a` were to to fail with a different exit code, `step-b` would not run.
 

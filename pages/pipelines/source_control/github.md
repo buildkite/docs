@@ -90,7 +90,7 @@ When you create a pull request, two builds are triggered: one for the pull reque
 
 Builds are only run for tags when a [`push` event is triggered](https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads#push). To enable builds for `push` events for git tags, edit the **GitHub settings** for your Buildkite pipeline, and choose the **Build Tags** checkbox.
 
-Before triggering builds for git tags from the [API](/docs/apis/rest-api/builds#create-a-build) or a [scheduled build](/docs/pipelines/scheduled-builds), make sure your agent is configured to fetch git tags: `BUILDKITE_GIT_FETCH_FLAGS="-v --prune --tags"`.
+Before triggering builds for git tags from the [API](/docs/apis/rest-api/builds#create-a-build) or a [scheduled build](/docs/pipelines/configure/workflows/scheduled-builds), make sure your agent is configured to fetch git tags: `BUILDKITE_GIT_FETCH_FLAGS="-v --prune --tags"`.
 
 ## Noreply email handling
 
@@ -108,7 +108,7 @@ Your checks will appear on your pull request as **buildkite/your-pipeline-name**
 
 <%= image "github-default-status.png", alt: "Screenshot of the resulting GitHub pull request statuses" %>
 
-You can customize the commit statuses, for example to reuse the same pipeline for multiple components in a monorepo, at both the build and step level, using the [`notify`](/docs/pipelines/notifications) attribute in your `pipeline.yml`.
+You can customize the commit statuses, for example to reuse the same pipeline for multiple components in a monorepo, at both the build and step level, using the [`notify`](/docs/pipelines/configure/notifications) attribute in your `pipeline.yml`.
 
 ### Build level
 

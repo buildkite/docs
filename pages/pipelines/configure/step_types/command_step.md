@@ -69,7 +69,7 @@ Optional attributes:
   <tr>
     <td><code>branches</code></td>
     <td>
-      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this step in their builds.<br>
+      The <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this step in their builds.<br>
       <em>Example:</em> <code>"main stable/*"</code>
     </td>
   </tr>
@@ -83,7 +83,7 @@ Optional attributes:
   <tr>
     <td><code>concurrency</code></td>
     <td>
-      The <a href="/docs/pipelines/controlling-concurrency#concurrency-limits">maximum number of jobs</a> created from this step that are allowed to run at the same time. If you use this attribute, you must also define a label for it with the <code>concurrency_group</code> attribute.<br>
+      The <a href="/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-limits">maximum number of jobs</a> created from this step that are allowed to run at the same time. If you use this attribute, you must also define a label for it with the <code>concurrency_group</code> attribute.<br>
       <em>Example:</em> <code>3</code>
     </td>
   </tr>
@@ -97,28 +97,28 @@ Optional attributes:
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
+      A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
   </tr>
   <tr>
     <td><code>env</code></td>
     <td>
-      A map of <a href="/docs/pipelines/environment-variables">environment variables</a> for this step.<br>
+      A map of <a href="/docs/pipelines/configure/environment-variables">environment variables</a> for this step.<br>
       <em>Example:</em> <code>RAILS_ENV: "test"</code>
     </td>
   </tr>
   <tr>
     <td><code>if</code></td>
     <td>
-      A boolean expression that omits the step when false. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
+      A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.<br>
       <em>Example:</em> <code>build.message != "skip me"</code>
     </td>
   </tr>
   <tr>
     <td><code>key</code></td>
     <td>
-      A unique string to identify the step. The value is available in the <code>BUILDKITE_STEP_KEY</code> <a href="/docs/pipelines/environment-variables">environment variable</a>.<br>
+      A unique string to identify the step. The value is available in the <code>BUILDKITE_STEP_KEY</code> <a href="/docs/pipelines/configure/environment-variables">environment variable</a>.<br>
       Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br>
       <em>Example:</em> <code>"linter"</code>
       <em>Alias:</em> <code>identifier</code>
@@ -162,7 +162,7 @@ Optional attributes:
   <tr>
     <td><code>priority</code></td>
     <td>
-      Adjust the <a href="/docs/pipelines/managing-priorities">priority</a> for a specific job, as a positive or negative integer.<br>
+      Adjust the <a href="/docs/pipelines/configure/workflows/managing-priorities">priority</a> for a specific job, as a positive or negative integer.<br>
       <em>Example:</em><br>
       <code>- command: "will-run-first.sh"<br>&nbsp;&nbsp;priority: 1</code>
     </td>
@@ -198,7 +198,7 @@ Optional attributes:
     <td><code>timeout_in_minutes</code></td>
     <td>
       <p>The maximum number of minutes a job created from this step is allowed to run. If the job exceeds this time limit, or if it finishes with a non-zero exit status, the job is automatically canceled and the build fails. Jobs that time out with an exit status of <code>0</code> are marked as <code>passed</code>.</p>
-      <p>You can also set <a href="/docs/pipelines/build-timeouts">default and maximum timeouts</a> in the Buildkite UI.</p>
+      <p>You can also set <a href="/docs/pipelines/configure/build-timeouts">default and maximum timeouts</a> in the Buildkite UI.</p>
       <p><em>Example:</em> <code>60</code></p>
     </td>
   </tr>

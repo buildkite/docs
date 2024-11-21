@@ -82,7 +82,7 @@ In the example above, the policy allows the Buildkite pipeline with slug `ruby-l
 
 ## Step 4: Complete the pipeline
 
-All the steps above come together in a simple pipeline that builds and publishes a Ruby Gem with SLSA Provenance. A [step dependency](/docs/pipelines/dependencies#defining-explicit-dependencies) ensures that the **Publish Gem** step does not start until the **Build Gem** step has finished successfully.
+All the steps above come together in a simple pipeline that builds and publishes a Ruby Gem with SLSA Provenance. A [step dependency](/docs/pipelines/configure/dependencies#defining-explicit-dependencies) ensures that the **Publish Gem** step does not start until the **Build Gem** step has finished successfully.
 
 ```yaml
 steps:

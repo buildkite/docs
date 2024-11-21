@@ -73,21 +73,21 @@ Optional attributes:
   <tr>
     <td><code>branches</code></td>
     <td>
-      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this step in their builds.<br>
+      The <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this step in their builds.<br>
       <em>Example:</em> <code>"main stable/*"</code>
     </td>
   </tr>
   <tr>
     <td><code>if</code></td>
     <td>
-      A boolean expression that omits the step when false. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
+      A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.<br>
       <em>Example:</em> <code>build.message != "skip me"</code>
     </td>
   </tr>
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
+      A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
    </tr>
@@ -147,14 +147,14 @@ Optional `build` attributes:
   <tr>
     <td><code>meta_data</code></td>
     <td>
-      A map of <a href="/docs/pipelines/build-meta-data">meta-data</a> for the build.<br>
+      A map of <a href="/docs/pipelines/configure/build-meta-data">meta-data</a> for the build.<br>
       <em>Example:</em> <code>release-version: "1.1"</code>
     </td>
   </tr>
   <tr>
     <td><code>env</code></td>
     <td>
-      A map of <a href="/docs/pipelines/environment-variables">environment variables</a> for the build.<br>
+      A map of <a href="/docs/pipelines/configure/environment-variables">environment variables</a> for the build.<br>
       <em>Example:</em> <code>RAILS_ENV: "test"</code>
     </td>
   </tr>
@@ -214,12 +214,12 @@ To set environment variables on the build created by the trigger step, use the `
 
 ## Triggering specific steps in a pipeline
 
-While you cannot trigger only a specific step in a pipeline, you can use [conditionals](/docs/pipelines/conditionals) or [dynamic pipelines](/docs/pipelines/configure/defining-steps#dynamic-pipelines) to achieve a similar effect.
+While you cannot trigger only a specific step in a pipeline, you can use [conditionals](/docs/pipelines/configure/conditionals) or [dynamic pipelines](/docs/pipelines/configure/defining-steps#dynamic-pipelines) to achieve a similar effect.
 
 An example using conditionals might look like this:
 
-* Testing for [BUILDKITE_SOURCE](/docs/pipelines/environment-variables) `=='trigger_job'` to find out if the build was triggered by a trigger step
-* Testing for [BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG](/docs/pipelines/environment-variables#BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG) to find out which pipeline triggered the build
+* Testing for [BUILDKITE_SOURCE](/docs/pipelines/configure/environment-variables) `=='trigger_job'` to find out if the build was triggered by a trigger step
+* Testing for [BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG](/docs/pipelines/configure/environment-variables#BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG) to find out which pipeline triggered the build
 * Custom [environment variables](#environment-variables) passed to the triggered build
 
 In the target pipeline, to run the command step only if the build was triggered by a specific pipeline, you might use something like this:

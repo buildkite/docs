@@ -66,18 +66,18 @@ Fix readme typos
 [skip ci]
 ```
 
-For more advanced build filtering and commit skipping, see the [Using conditionals](/docs/pipelines/conditionals) guide.
+For more advanced build filtering and commit skipping, see the [Using conditionals](/docs/pipelines/configure/conditionals) guide.
 
 > 🚧 Skipping commits with Bitbucket Server
 > Not all webhooks from Bitbucket Server contain the commit message. When a commit message is not included in a webhook, the build will run.
 
 ## Ignore branches
 
-You can choose to always ignore certain branches. Refer to [Branch configuration](/docs/pipelines/branch-configuration) for more information.
+You can choose to always ignore certain branches. Refer to [Branch configuration](/docs/pipelines/configure/workflows/branch-configuration) for more information.
 
 ## Skip builds using conditionals
 
-You can use conditionals to skip builds at both the pipeline and step level. Refer to [Conditionals](/docs/pipelines/conditionals) for more information.
+You can use conditionals to skip builds at both the pipeline and step level. Refer to [Conditionals](/docs/pipelines/configure/conditionals) for more information.
 
 ## Skip builds with existing commits
 

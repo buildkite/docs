@@ -20,7 +20,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-If you need to run a block step after a failed step, set [`soft_fail`](/docs/pipelines/dependencies#allowed-failure-and-soft-fail) on the failing step:
+If you need to run a block step after a failed step, set [`soft_fail`](/docs/pipelines/configure/dependencies#allowed-failure-and-soft-fail) on the failing step:
 
 ```yml
 steps:

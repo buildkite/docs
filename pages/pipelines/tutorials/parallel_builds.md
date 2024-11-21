@@ -8,7 +8,7 @@ Running a build's steps in parallel is a way to decrease your build's total runn
 
 [Command steps](/docs/pipelines/configure/step-types/command-step) run in parallel by default. If you define multiple steps, and [run multiple agents](#running-multiple-agents), the steps will run at the same time across your agents.
 
-If you don't want your steps to run at the same time, you can add [wait steps](/docs/pipelines/configure/step-types/wait-step) or use [dependencies](/docs/pipelines/dependencies). For example, you could have a test step and a deploy step, with a wait step in between.
+If you don't want your steps to run at the same time, you can add [wait steps](/docs/pipelines/configure/step-types/wait-step) or use [dependencies](/docs/pipelines/configure/dependencies). For example, you could have a test step and a deploy step, with a wait step in between.
 
 A single command step can also be broken up into many [parallel jobs](#parallel-jobs). For example, a long-running test suite can be split into many parallel pieces across multiple agents, reducing the total run time of your build.
 

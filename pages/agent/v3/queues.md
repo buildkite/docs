@@ -60,4 +60,4 @@ steps:
 
 ## Alternative methods
 
-[Branch patterns](/docs/pipelines/branch-configuration) are another way to control what work is done. You can use branch patterns to determine which pipelines and steps run based on the branch name.
+[Branch patterns](/docs/pipelines/configure/workflows/branch-configuration) are another way to control what work is done. You can use branch patterns to determine which pipelines and steps run based on the branch name.

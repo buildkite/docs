@@ -2,7 +2,7 @@
 
 An _input_ step is used to collect information from a user.
 
-An input step is functionally identical to a [block step](/docs/pipelines/configure/step-types/block-step), however an input step doesn't create any [dependencies](/docs/pipelines/dependencies) to the steps before and after it.
+An input step is functionally identical to a [block step](/docs/pipelines/configure/step-types/block-step), however an input step doesn't create any [dependencies](/docs/pipelines/configure/dependencies) to the steps before and after it.
 
 Input steps block your build from completing, but do not automatically block other steps from running unless they specifically depend upon it.
 
@@ -19,7 +19,7 @@ steps:
 
 You can add form `fields` to block steps by adding a fields attribute. Block steps with input fields can only be defined using a `pipeline.yml`. There are two field types available: text or select. The select input type displays differently depending on how you configure the options. If you allow people to select multiple options, they display as checkboxes. If you are required to select only one option from six or fewer, they display as radio buttons. Otherwise, the options display in a dropdown menu.
 
-The data you collect from these fields is available to subsequent steps through the [build meta-data](/docs/pipelines/build-meta-data) command.
+The data you collect from these fields is available to subsequent steps through the [build meta-data](/docs/pipelines/configure/build-meta-data) command.
 
 In this example, the `pipeline.yml` defines an input step with the key `name`. The Bash script then accesses the value of the step using the [meta-data](/docs/agent/v3/cli-meta-data) command.
 
@@ -70,21 +70,21 @@ Optional attributes:
   <tr>
     <td><code>branches</code></td>
     <td>
-      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this input step in their builds.<br>
+      The <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this input step in their builds.<br>
       <em>Example:</em> <code>"main stable/*"</code>
     </td>
   </tr>
   <tr>
     <td><code>if</code></td>
     <td>
-      A boolean expression to restrict the running of the step. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
+      A boolean expression to restrict the running of the step. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.<br>
       <em>Example:</em> <code>build.message != "skip me"</code>
     </td>
    </tr>
    <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step keys that this step depends on. This step will only proceed after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
+      A list of step keys that this step depends on. This step will only proceed after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
    </tr>

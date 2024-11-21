@@ -2,7 +2,7 @@
 
 In this guide, we'll walk through using the Buildkite agent's [meta-data command](/docs/agent/v3/cli-meta-data) to store and retrieve data between different steps in a build pipeline.
 
-Meta-data is intended to store data 1 kilobyte or less in size, to be used across steps. For example, you can tag a build with the software version it deploys so that you can later identify which build deployed a particular version. For anything over 1 kb use an [artifact](/docs/pipelines/artifacts) instead.
+Meta-data is intended to store data 1 kilobyte or less in size, to be used across steps. For example, you can tag a build with the software version it deploys so that you can later identify which build deployed a particular version. For anything over 1 kb use an [artifact](/docs/pipelines/configure/artifacts) instead.
 
 ## Setting data
 

@@ -81,7 +81,7 @@ steps:
 
 ## Conditional notifications
 
-To trigger [Build notifications](/docs/pipelines/notifications#conditional-notifications) only under certain conditions, use  the same `if` syntax as in your [Steps](/docs/pipelines/conditionals#conditionals-in-steps).
+To trigger [Build notifications](/docs/pipelines/configure/notifications#conditional-notifications) only under certain conditions, use  the same `if` syntax as in your [Steps](/docs/pipelines/configure/conditionals#conditionals-in-steps).
 
 For example, the following email notification will only be triggered if the build passes:
 
@@ -96,7 +96,7 @@ Note that conditional expressions on the build state are only available at the p
 
 ## Conditionals and the broken state
 
-Jobs become `broken` when their configuration prevents them from running. This might be because their [branch configuration](/docs/pipelines/branch-configuration) doesn't match the build's branch, or because a conditional returned `false`. This is distinct from `skipped` jobs, which might happen if a newer build is started and build skipping is enabled. A rough explanation is that jobs break because of something _inside_ the build and are skipped by something _outside_ the build.
+Jobs become `broken` when their configuration prevents them from running. This might be because their [branch configuration](/docs/pipelines/configure/workflows/branch-configuration) doesn't match the build's branch, or because a conditional returned `false`. This is distinct from `skipped` jobs, which might happen if a newer build is started and build skipping is enabled. A rough explanation is that jobs break because of something _inside_ the build and are skipped by something _outside_ the build.
 
 ## Variable and syntax reference
 
@@ -156,7 +156,7 @@ The following expressions are supported by the `if` attribute.
 
 ### Variables
 
-The following variables are supported by the `if` attribute. Note that you cannot use [Build Meta-data](/docs/pipelines/build-meta-data) in conditional expressions.
+The following variables are supported by the `if` attribute. Note that you cannot use [Build Meta-data](/docs/pipelines/configure/build-meta-data) in conditional expressions.
 
 > 🚧 Unverified commits
 > Note that GitHub accepts <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification">unsigned commits</a>, including information about the commit author and passes them along to webhooks, so you should not rely on these for authentication unless you are confident that all of your commits are trusted.

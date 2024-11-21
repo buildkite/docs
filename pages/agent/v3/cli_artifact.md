@@ -321,7 +321,7 @@ export BUILDKITE_AZURE_BLOB_CONNECTION_STRING='...'
 ```
 
 Since these can contain access credentials, they are
-[redacted from job logs by default](/docs/pipelines/managing-log-output#redacted-environment-variables).
+[redacted from job logs by default](/docs/pipelines/configure/managing-log-output#redacted-environment-variables).
 
 Make sure you have a valid storage account name and container. These can be
 created with the Azure web console or Azure CLI.

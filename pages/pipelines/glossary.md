@@ -12,7 +12,7 @@ To learn more, see the [Agent overview](/docs/agent/v3).
 
 An artifact is a file generated during a build. You can keep artifacts in a Buildkite-managed storage service or a third-party cloud storage service like Amazon S3, Google Cloud Storage, or Artifactory. Common uses include storing assets like logs and reports, or passing files between steps.
 
-To learn more, see [Build artifacts](/docs/pipelines/artifacts).
+To learn more, see [Build artifacts](/docs/pipelines/configure/artifacts).
 
 ## Build
 

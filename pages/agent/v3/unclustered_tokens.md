@@ -17,7 +17,7 @@ Your Buildkite organization's unclustered agent tokens page, accessible through 
 
 ## Using and storing tokens
 
-An unclustered agent token is used by the Buildkite agent's [start](/docs/agent/v3/cli-start#starting-an-agent) command, and can be provided on the command line, set in the [configuration file](/docs/agent/v3/configuration), or provided using the [environment variable](/docs/pipelines/environment-variables) `BUILDKITE_AGENT_TOKEN`.
+An unclustered agent token is used by the Buildkite agent's [start](/docs/agent/v3/cli-start#starting-an-agent) command, and can be provided on the command line, set in the [configuration file](/docs/agent/v3/configuration), or provided using the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_TOKEN`.
 
 It's recommended you use your platform's secret storage (such as the [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html)) to allow for easier rollover and management of your agent tokens.
 
@@ -112,9 +112,9 @@ Unclustered agent tokens are specific to each Buildkite organization (created be
 
 ## Session and job tokens
 
-During registration, the unclustered agent exchanges its unclustered agent token for a session token. The session token lasts for the lifetime of the agent and is used to request and start new jobs. When each job is started, the unclustered agent gets a job token specific to that job. The job token is exposed to the job as the [environment variable](/docs/pipelines/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN`, and is used by various CLI commands (including the [annotate](/docs/agent/v3/cli-annotate), [artifact](/docs/agent/v3/cli-artifact), [meta-data](/docs/agent/v3/cli-meta-data), and [pipeline](/docs/agent/v3/cli-pipeline) commands).
+During registration, the unclustered agent exchanges its unclustered agent token for a session token. The session token lasts for the lifetime of the agent and is used to request and start new jobs. When each job is started, the unclustered agent gets a job token specific to that job. The job token is exposed to the job as the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN`, and is used by various CLI commands (including the [annotate](/docs/agent/v3/cli-annotate), [artifact](/docs/agent/v3/cli-artifact), [meta-data](/docs/agent/v3/cli-meta-data), and [pipeline](/docs/agent/v3/cli-pipeline) commands).
 
-Job tokens are valid until the job finishes. To ensure job tokens have a limited lifetime, you can set a default or maximum [command timeout](/docs/pipelines/build-timeouts#command-timeouts).
+Job tokens are valid until the job finishes. To ensure job tokens have a limited lifetime, you can set a default or maximum [command timeout](/docs/pipelines/configure/build-timeouts#command-timeouts).
 
 <table>
   <tr>

@@ -66,7 +66,7 @@ steps:
           workdir: /app
 ```
 
-More advanced plugins, such as [Docker Compose plugin](\https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), are designed to be used multiple times in a pipeline, using the build's [meta-data store](/docs/pipelines/build-meta-data) to share information from one step to the next. This means that you can build a Docker image in the first step of a pipeline and refer to that image in subsequent steps.
+More advanced plugins, such as [Docker Compose plugin](\https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), are designed to be used multiple times in a pipeline, using the build's [meta-data store](/docs/pipelines/configure/build-meta-data) to share information from one step to the next. This means that you can build a Docker image in the first step of a pipeline and refer to that image in subsequent steps.
 
 ```yml
 steps:
