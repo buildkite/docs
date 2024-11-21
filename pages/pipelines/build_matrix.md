@@ -2,13 +2,13 @@
 
 Build matrices help you simplify complex build configurations by expanding a step template and array of matrix elements into multiple jobs.
 
-The following [command step](/docs/pipelines/command-step) attributes can contain matrix values for interpolation:
+The following [command step](/docs/pipelines/configure/step-types/command-step) attributes can contain matrix values for interpolation:
 
 * [environment variables](/docs/pipelines/environment-variables)
-* [labels](/docs/pipelines/command-step#label)
-* [commands](/docs/pipelines/command-step#command-step-attributes)
-* [plugins](/docs/pipelines/command-step#plugins)
-* [agents](/docs/pipelines/command-step#agents)
+* [labels](/docs/pipelines/configure/step-types/command-step#label)
+* [commands](/docs/pipelines/configure/step-types/command-step#command-step-attributes)
+* [plugins](/docs/pipelines/configure/step-types/command-step#plugins)
+* [agents](/docs/pipelines/configure/step-types/command-step#agents)
 
 You can't use matrix values in other attributes, including step keys and [concurrency groups](/docs/pipelines/controlling-concurrency#concurrency-groups).
 
@@ -140,11 +140,11 @@ Each build matrix has a limit of 6 dimensions, 20 elements in each dimension, an
 
 ## Grouping matrix elements
 
-When you're creating many jobs with a matrix, you might want to [group](/docs/pipelines/group-step) them together, for a tidier view.
+When you're creating many jobs with a matrix, you might want to [group](/docs/pipelines/configure/step-types/group-step) them together, for a tidier view.
 
 <%= image "grouped.jpg", width: 497/2, height: 331/2, alt: "Screenshot of an eight job matrix inside a group step" %>
 
-To do that, indent the matrix steps inside a [group step](/docs/pipelines/group-step):
+To do that, indent the matrix steps inside a [group step](/docs/pipelines/configure/step-types/group-step):
 
 ```yaml
 steps:

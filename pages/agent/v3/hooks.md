@@ -149,7 +149,7 @@ they are run as part of each job:
 
 Each `command` job defined in a pipeline's `pipeline.yml` file runs independently of one another. Therefore, each defined hook will run for every one of these `command` jobs.
 
-When defining multiple command items in a step using the `commands` attribute, such as the `pipeline.yml` example in [Command step attributes](/docs/pipelines/command-step#command-step-attributes), then each item in the `commands` list is concatenated together and run as a single command. Therefore, a given hook will only run once for a given `commands` job consisting of multiple command items.
+When defining multiple command items in a step using the `commands` attribute, such as the `pipeline.yml` example in [Command step attributes](/docs/pipelines/configure/step-types/command-step#command-step-attributes), then each item in the `commands` list is concatenated together and run as a single command. Therefore, a given hook will only run once for a given `commands` job consisting of multiple command items.
 
 ### Hook failure behavior
 

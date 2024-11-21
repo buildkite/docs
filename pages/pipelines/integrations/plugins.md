@@ -1,6 +1,6 @@
 # Buildkite plugins
 
-Plugins are small self-contained pieces of extra functionality that help you customize Buildkite to your specific workflow. Plugins modify your build [command steps](/docs/pipelines/command-step) at one or more of the ten [job lifecycle hooks](/docs/agent/v3/hooks). Each hook modifies a different part of the job lifecycle, for example:
+Plugins are small self-contained pieces of extra functionality that help you customize Buildkite to your specific workflow. Plugins modify your build [command steps](/docs/pipelines/configure/step-types/command-step) at one or more of the ten [job lifecycle hooks](/docs/agent/v3/hooks). Each hook modifies a different part of the job lifecycle, for example:
 
 - Setting up the environment.
 - Checking out the code.
@@ -18,7 +18,7 @@ Plugins can be also be *vendored* (if they are already present in the repository
 
 ## How to use plugins
 
-Add plugins to [command steps](/docs/pipelines/command-step) in your YAML pipeline to add functionality to Buildkite. Plugins can do things like execute steps in Docker containers, read values from a credential store, or add test summary annotations to builds.
+Add plugins to [command steps](/docs/pipelines/configure/step-types/command-step) in your YAML pipeline to add functionality to Buildkite. Plugins can do things like execute steps in Docker containers, read values from a credential store, or add test summary annotations to builds.
 
 <%= image "plugins-overview.png", width: 537, height: 209, alt: "Screenshot of a pipeline step with a plugin, and the plugin from the directory", class: "no-decoration" %>
 

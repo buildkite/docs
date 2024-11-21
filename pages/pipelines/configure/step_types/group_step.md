@@ -4,9 +4,9 @@ A group step can contain various sub-steps, and display them in a single logical
 
 For example, you can group all of your linting steps or all of your UI test steps to keep the Build page less messy. Sub-groups and nested groups are not supported.
 
-The group step also helps manage dependencies between a collection of steps, for example, "step X" [`depends_on`](/docs/pipelines/group-step#group-step-attributes) everything in "group Y".
+The group step also helps manage dependencies between a collection of steps, for example, "step X" [`depends_on`](/docs/pipelines/configure/step-types/group-step#group-step-attributes) everything in "group Y".
 
-A group step can be defined in your pipeline settings or your [pipeline.yml](/docs/pipelines/defining-steps) file.
+A group step can be defined in your pipeline settings or your [pipeline.yml](/docs/pipelines/configure/defining-steps) file.
 
 Here is an example of using the group step:
 
@@ -48,7 +48,7 @@ Required attributes:
   <tr>
     <td><code>steps</code></td>
     <td>
-    A list of steps in the group; at least 1 step is required. Allowed step types: <a href="/docs/pipelines/wait-step"><code>wait</code></a>, <a href="/docs/pipelines/trigger-step"><code>trigger</code></a>, <a href="/docs/pipelines/command-step"><code>command</code>/<code>commands</code></a>, <a href="/docs/pipelines/block-step"><code>block</code></a>, <a href="/docs/pipelines/input-step"><code>input</code></a>.<br>
+    A list of steps in the group; at least 1 step is required. Allowed step types: <a href="/docs/pipelines/configure/step-types/wait-step"><code>wait</code></a>, <a href="/docs/pipelines/configure/step-types/trigger-step"><code>trigger</code></a>, <a href="/docs/pipelines/configure/step-types/command-step"><code>command</code>/<code>commands</code></a>, <a href="/docs/pipelines/configure/step-types/block-step"><code>block</code></a>, <a href="/docs/pipelines/configure/step-types/input-step"><code>input</code></a>.<br>
       <em>Type:</em> <code>array</code>
     </td>
   </tr>
@@ -146,7 +146,7 @@ Running jobs in parallel has some limitations:
 
 ## Using wait steps in job groups
 
-You can have [wait steps](/docs/pipelines/wait-step) in a group. Such steps operate independently of other groups. For example, both groups will operate independently here, meaning `d.sh` won't wait on `a.sh` to finish. Note also that wait steps are counted in the group step total, so both `Group01` and `Group02` contain 3 steps.
+You can have [wait steps](/docs/pipelines/configure/step-types/wait-step) in a group. Such steps operate independently of other groups. For example, both groups will operate independently here, meaning `d.sh` won't wait on `a.sh` to finish. Note also that wait steps are counted in the group step total, so both `Group01` and `Group02` contain 3 steps.
 
 ```yml
 steps:

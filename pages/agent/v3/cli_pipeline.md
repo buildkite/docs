@@ -2,7 +2,7 @@
 
 The Buildkite Agent's `pipeline` command allows you to add and replace build steps in the running build. The steps are defined using YAML or JSON and can be read from a file or streamed from the output of a script.
 
-See the [Defining your pipeline steps](/docs/pipelines/defining-steps) guide for a step-by-step example and list of step types.
+See the [Defining your pipeline steps](/docs/pipelines/configure/defining-steps) guide for a step-by-step example and list of step types.
 
 
 ## Uploading pipelines
@@ -15,7 +15,7 @@ The pipeline can be written as YAML or JSON, but YAML is more common for its rea
 
 * `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
 * `env` - A map of <a href="/docs/pipelines/environment-variables">environment variables</a> to apply to all steps
-* `steps` - A list of [build pipeline steps](/docs/pipelines/defining-steps)
+* `steps` - A list of [build pipeline steps](/docs/pipelines/configure/defining-steps)
 
 
 ## Insertion order
@@ -27,7 +27,7 @@ Steps are inserted immediately following the job performing the pipeline upload.
 
 The `pipeline upload` command supports environment variable substitution using the syntax `$VAR` and `${VAR}`.
 
-For example, the following pipeline substitutes a number of [Buildkite's default environment variables](/docs/pipelines/environment-variables) into a [trigger step](/docs/pipelines/trigger-step):
+For example, the following pipeline substitutes a number of [Buildkite's default environment variables](/docs/pipelines/environment-variables) into a [trigger step](/docs/pipelines/configure/step-types/trigger-step):
 
 ```yml
 - trigger: "app-deploy"

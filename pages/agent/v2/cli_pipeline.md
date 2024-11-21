@@ -48,7 +48,7 @@ Options:
 The pipeline can be written as YAML or JSON, but YAML is more common for its readability. There are two top level properties you can specify:
 
 * `env` - A map of <a href="/docs/pipelines/environment-variables">environment variables</a> to apply to all steps
-* `steps` - A list of [build pipeline steps](/docs/pipelines/defining-steps)
+* `steps` - A list of [build pipeline steps](/docs/pipelines/configure/defining-steps)
 
 ## Environment variable substitution
 

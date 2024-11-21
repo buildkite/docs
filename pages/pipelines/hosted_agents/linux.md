@@ -38,7 +38,7 @@ Cache volumes act as regular disks with the following properties:
 
 ### Cache configuration
 
-Cache paths can be [defined in your `pipeline.yml`](/docs/pipelines/defining-steps) file. Defining cache paths for a step will implicitly create a cache volume for the pipeline.
+Cache paths can be [defined in your `pipeline.yml`](/docs/pipelines/configure/defining-steps) file. Defining cache paths for a step will implicitly create a cache volume for the pipeline.
 
 When cache paths are defined, the cache volume is mounted under `/cache` in the agent instance. The agent links subdirectories of the cache volume into the paths specified in the configuration. For example, defining `cache: "node_modules"` in your `pipeline.yml` file will link `./node_modules` to `/cache/bkcache/node_modules` in your agent instance.
 

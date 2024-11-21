@@ -51,7 +51,7 @@ You can download artifacts by [running the `buildkite-agent artifact download` c
 
 ## Upload artifacts with a command step
 
-Set the `artifact_paths` attribute of [a command step](/docs/pipelines/command-step) to upload artifacts after the command step has finished its work.
+Set the `artifact_paths` attribute of [a command step](/docs/pipelines/configure/step-types/command-step) to upload artifacts after the command step has finished its work.
 The `artifact_paths` attribute can contain an array of file paths or [glob patterns](/docs/agent/v3/cli-artifact#uploading-artifacts-artifact-upload-glob-syntax) to upload.
 
 The following example shows a command step configured to upload all of the files in the `logs` and `coverage` directories and their subdirectories:
@@ -124,7 +124,7 @@ buildkite-agent artifact download build.zip tmp/ --step build
 
 ### Example: download an artifact from a triggering build
 
-To download artifacts from the build that [triggered](/docs/pipelines/trigger-step) the current build, pass the `$BUILDKITE_TRIGGERED_FROM_BUILD_ID` [environment variable](/docs/pipelines/environment-variables) to the download command:
+To download artifacts from the build that [triggered](/docs/pipelines/configure/step-types/trigger-step) the current build, pass the `$BUILDKITE_TRIGGERED_FROM_BUILD_ID` [environment variable](/docs/pipelines/environment-variables) to the download command:
 
 ```shell
 buildkite-agent artifact download "*.jpg" images/ --build $BUILDKITE_TRIGGERED_FROM_BUILD_ID

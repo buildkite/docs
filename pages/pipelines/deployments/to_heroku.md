@@ -66,7 +66,7 @@ Once you've saved the pipeline settings the final step is to push a commit to th
 
 ## Post-deploy scripts
 
-If you want to run tasks after the deploy, such as running database migrations, you can add a [wait step](/docs/pipelines/wait-step) and additional command step that uses `heroku run`, for example:
+If you want to run tasks after the deploy, such as running database migrations, you can add a [wait step](/docs/pipelines/configure/step-types/wait-step) and additional command step that uses `heroku run`, for example:
 
 ```yaml
 steps:

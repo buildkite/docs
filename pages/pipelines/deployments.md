@@ -92,15 +92,15 @@ steps:
 
 This pipeline runs the deployment script, and sets a [concurrency limit](/docs/pipelines/controlling-concurrency) of 1 to ensure that only one deployment happens at a time.
 
-You can add any of the [pipeline step types](/docs/pipelines/defining-steps) to add additional capabilities to your deployment pipelines, such as manual approval steps, teams permission checks, or additional API calls.
+You can add any of the [pipeline step types](/docs/pipelines/configure/defining-steps) to add additional capabilities to your deployment pipelines, such as manual approval steps, teams permission checks, or additional API calls.
 
 ## Manual approval steps
 
 Adding a manual approval to your pipeline before your deployment ensures that a deploy never goes out without explicit approval.
 
-You can use [block steps](/docs/pipelines/block-step) to add manual approvals before any deploy scripts or triggers.
+You can use [block steps](/docs/pipelines/configure/step-types/block-step) to add manual approvals before any deploy scripts or triggers.
 
-The below example uses the same pipeline as the [Single deployment step](/docs/deployments#single-deployment-steps) section, but adds a block step before the step that performs the deploy:
+The below example uses the same pipeline as the [Single deployment step](#single-deployment-steps) section, but adds a block step before the step that performs the deploy:
 
 ```yml
 steps:
@@ -151,9 +151,9 @@ You can find the latest deployment plugins in the [plugins directory](https://bu
 
 ## External deployment systems
 
-You can deploy applications to services like Kubernetes, Heroku, or ECS from a script in a Buildkite [command step](/docs/pipelines/command-step), similar to how you'd do it on a command line. See the [Deploying to Heroku](/docs/pipelines/deployments/to-heroku) and [Deploying to Kubernetes](/docs/pipelines/deployments/to-kubernetes) for walk-throughs with detailed examples.
+You can deploy applications to services like Kubernetes, Heroku, or ECS from a script in a Buildkite [command step](/docs/pipelines/configure/step-types/command-step), similar to how you'd do it on a command line. See the [Deploying to Heroku](/docs/pipelines/deployments/to-heroku) and [Deploying to Kubernetes](/docs/pipelines/deployments/to-kubernetes) for walk-throughs with detailed examples.
 
-In more complex environments you can use external deployment/delivery systems such as [Spinnaker](https://www.spinnaker.io), [Shipit](https://github.com/Shopify/shipit-engine), [Samson](https://github.com/zendesk/samson), or [Octopus](https://octopus.com). You can call the deployment system's CLI tool or API from a script in a Buildkite [command step](/docs/pipelines/command-step), similar to how you'd do it on a command line.
+In more complex environments you can use external deployment/delivery systems such as [Spinnaker](https://www.spinnaker.io), [Shipit](https://github.com/Shopify/shipit-engine), [Samson](https://github.com/zendesk/samson), or [Octopus](https://octopus.com). You can call the deployment system's CLI tool or API from a script in a Buildkite [command step](/docs/pipelines/configure/step-types/command-step), similar to how you'd do it on a command line.
 
 <%= image "deploy-step.png", width: 1482/2, height: 730/2, alt: "Screenshot of a deploy step output" %>
 

@@ -20,7 +20,7 @@ up.
 
 This section covers creating a new Buildkite pipeline that loads steps from
 `.buildkite/pipeline.deploy.yml`. We'll use a [trigger
-steps](/docs/pipelines/trigger-step) later on to connect
+steps](/docs/pipelines/configure/step-types/trigger-step) later on to connect
 the test and deploy pipelines.
 
 The first step will be a pipeline upload using our new deploy pipeline YAML
@@ -137,7 +137,7 @@ Assuming your agents have the required access to run `kubectl` against your clus
 
 ## Continuous deployment
 
-We'll use a [trigger steps](/docs/pipelines/trigger-step)
+We'll use a [trigger steps](/docs/pipelines/configure/step-types/trigger-step)
 to connect the test and deploy pipelines. This effectively creates a continuous
 deployment pipeline.
 
@@ -190,7 +190,7 @@ cluster, then check the kubectl access section for setup advice.
 Congratulations! :tada: You've setup a continuous deployment pipeline to
 Kubernetes. Practically speaking there are some things to do next.
 
-- Try a [block step](/docs/pipelines/block-step) before the
+- Try a [block step](/docs/pipelines/configure/step-types/block-step) before the
   trigger to enforce manual deploys.
 - Use [GitHub's Deployment API](https://buildkite.com/blog/github-deployments)
   to trigger deployments from external tooling (for example, ChatOps)

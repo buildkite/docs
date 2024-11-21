@@ -21,9 +21,9 @@ Concurrency groups are labels that group together Buildkite jobs when applying c
 
 A concurrency group works like a queue; it returns jobs in the order they entered the queue (oldest to newest). The concurrency group only cares about jobs in "active" states, and the group becomes "locked" when the concurrency limit for jobs in these states is reached. Once a job moves from an active state to a terminal state (`finished` or `canceled`), the job is removed from the queue, opening up a spot for another job to enter. If a job's state is `limited`, it is waiting for another job ahead of it in the same concurrency group to finish.
 
-The full list of "active" [job states](/docs/pipelines/defining-steps#job-states) is `limiting`, `limited`, `scheduled`, `waiting`, `assigned`, `accepted`, `running`, `canceling`, `timing out`.
+The full list of "active" [job states](/docs/pipelines/configure/defining-steps#job-states) is `limiting`, `limited`, `scheduled`, `waiting`, `assigned`, `accepted`, `running`, `canceling`, `timing out`.
 
-The following is an example [command step](/docs/pipelines/command-step) that ensures deployments run one at a time. If multiple builds are created with this step, each deployment job will be queued up and run one after the other in the order they were created.
+The following is an example [command step](/docs/pipelines/configure/step-types/command-step) that ensures deployments run one at a time. If multiple builds are created with this step, each deployment job will be queued up and run one after the other in the order they were created.
 
 ```yaml
 - command: 'deploy.sh'
@@ -45,7 +45,7 @@ Concurrency groups guarantee that jobs will be run in the order that they were c
 > 🚧 Troubleshooting and using `concurrency_group` with `block` / `input` steps
 > When a build is blocked by a concurrency group, you can check which jobs are in the queue and their state using the [`getConcurrency` GraphQL query](/docs/apis/graphql/cookbooks/jobs#get-all-jobs-in-a-particular-concurrency-group).
 > <p>
-> Be aware that both the [`block`](/docs/pipelines/block-step) and [`input`](/docs/pipelines/input-step) steps cause these steps to be uploaded and scheduled at the same time, which breaks concurrency groups. These two steps block jobs being added to the concurrency group, but do not affect the jobs' ordering once unblocked. The concurrency group won't be added to the queue until the `block` or `input` step is unblocked, and once it is, the timestamp will be from the pipeline upload step.
+> Be aware that both the [`block`](/docs/pipelines/configure/step-types/block-step) and [`input`](/docs/pipelines/configure/step-types/input-step) steps cause these steps to be uploaded and scheduled at the same time, which breaks concurrency groups. These two steps block jobs being added to the concurrency group, but do not affect the jobs' ordering once unblocked. The concurrency group won't be added to the queue until the `block` or `input` step is unblocked, and once it is, the timestamp will be from the pipeline upload step.
 
 ## Concurrency and parallelism
 

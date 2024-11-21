@@ -136,7 +136,7 @@ To pause a queue:
 
 Jobs _already_ dispatched to agents in the queue before pausing will continue to run. New jobs that target the paused queue will wait until the queue is resumed.
 
-Since [trigger steps](/docs/pipelines/trigger-step) do not rely on agents, these steps will run, unless they have dependencies waiting on the paused queue. The behavior of the triggered jobs depends on their configuration:
+Since [trigger steps](/docs/pipelines/configure/step-types/trigger-step) do not rely on agents, these steps will run, unless they have dependencies waiting on the paused queue. The behavior of the triggered jobs depends on their configuration:
 
 - If a triggered job targets a paused queue, the job will wait until the queue is resumed.
 - If a triggered job does not target the paused queue, the job will run as usual.

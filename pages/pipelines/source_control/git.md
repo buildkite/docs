@@ -35,7 +35,7 @@ The post-recieve hook is a convenient place to trigger builds using the Buildkit
 
 ## Step 1: Create a pipeline
 
-If you haven't already, create [a pipeline to run](/docs/pipelines/defining-steps) for the repository.
+If you haven't already, create [a pipeline to run](/docs/pipelines/configure/defining-steps) for the repository.
 
 After you've created the pipeline, make a note of the organization slug and pipeline slug in the pipeline URL.
 You need both for the next step.

@@ -6,9 +6,9 @@ keywords: docs, pipelines, tutorials, parallel builds
 
 Running a build's steps in parallel is a way to decrease your build's total running time. This guide will show you how to use multiple agents and job parallelism to increase the speed of your builds.
 
-[Command steps](/docs/pipelines/command-step) run in parallel by default. If you define multiple steps, and [run multiple agents](#running-multiple-agents), the steps will run at the same time across your agents.
+[Command steps](/docs/pipelines/configure/step-types/command-step) run in parallel by default. If you define multiple steps, and [run multiple agents](#running-multiple-agents), the steps will run at the same time across your agents.
 
-If you don't want your steps to run at the same time, you can add [wait steps](/docs/pipelines/wait-step) or use [dependencies](/docs/pipelines/dependencies). For example, you could have a test step and a deploy step, with a wait step in between.
+If you don't want your steps to run at the same time, you can add [wait steps](/docs/pipelines/configure/step-types/wait-step) or use [dependencies](/docs/pipelines/dependencies). For example, you could have a test step and a deploy step, with a wait step in between.
 
 A single command step can also be broken up into many [parallel jobs](#parallel-jobs). For example, a long-running test suite can be split into many parallel pieces across multiple agents, reducing the total run time of your build.
 
@@ -75,7 +75,7 @@ The [Elastic CI Stack for AWS](/docs/quickstart/elastic-ci-stack-aws) provides a
 
 ## Parallel jobs
 
-`parallelism` is an attribute on a single [command step](/docs/pipelines/command-step) which causes it to be split into many jobs. Those jobs will be the same except for having a parallel index and count. They share the same dependencies and agent tags.
+`parallelism` is an attribute on a single [command step](/docs/pipelines/configure/step-types/command-step) which causes it to be split into many jobs. Those jobs will be the same except for having a parallel index and count. They share the same dependencies and agent tags.
 
 To run the same step in parallel over all 5 of the agents, we can set the `parallelism` field for a single build step:
 

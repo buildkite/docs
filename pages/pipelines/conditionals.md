@@ -59,7 +59,7 @@ steps:
 
 Since `if` conditions are evaluated at the time of the pipeline upload, it's not possible to use the `if` attribute to conditionally run a step based on the result of another step.
 
-To run a step based on the result of another step, upload a new pipeline based on the `if` condition set up in the [command step](/docs/pipelines/command-step) like in the example below:
+To run a step based on the result of another step, upload a new pipeline based on the `if` condition set up in the [command step](/docs/pipelines/configure/step-types/command-step) like in the example below:
 
 ```yml
 steps:

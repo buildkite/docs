@@ -66,9 +66,9 @@ When migrating your CI/CD pipelines from Jenkins to Buildkite, it's important to
 
 Like Jenkins, Buildkite lets you create pipeline definitions in the web interface or a file checked into the repository. Most people use the latter to include their pipeline definitions next to the code, managed in source control. The equivalent of a `Jenkinsfile` is a `pipeline.yml`.
 
-Rather than the Groovy-based syntax in Jenkins, Buildkite uses a YAML-based syntax. The YAML definitions are simpler, more human-readable, and easier to understand. And you can even generate pipeline definitions at runtime with the power and flexibility of [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines).
+Rather than the Groovy-based syntax in Jenkins, Buildkite uses a YAML-based syntax. The YAML definitions are simpler, more human-readable, and easier to understand. And you can even generate pipeline definitions at runtime with the power and flexibility of [dynamic pipelines](/docs/pipelines/configure/defining-steps#dynamic-pipelines).
 
-In Jenkins, the core description of work is a job. Jobs contain stages with steps and can trigger other jobs. You use a job to upload a `Jenkinsfile` from a repository. Installing the Pipeline plugin lets you describe a workflow of jobs as a pipeline. Buildkite uses similar terms in different ways. _Pipelines_ are the core description of work. Pipelines contain different types of [_steps_](/docs/pipelines/step-reference) for different tasks:
+In Jenkins, the core description of work is a job. Jobs contain stages with steps and can trigger other jobs. You use a job to upload a `Jenkinsfile` from a repository. Installing the Pipeline plugin lets you describe a workflow of jobs as a pipeline. Buildkite uses similar terms in different ways. _Pipelines_ are the core description of work. Pipelines contain different types of [_steps_](/docs/pipelines/configure/step-types) for different tasks:
 
 - **Command step:** Runs one or more shell commands on one or more agents.
 - **Wait step:** Pauses a build until all previous jobs have completed.
@@ -127,7 +127,7 @@ Before you start moving pipelines, we recommend taking inventory of your existin
 
 Since the configuration files are quite different, creating an automated tool to translate between them is difficult. Instead, we recommend assessing the goal of a pipeline and investing the time to see how to achieve the same thing the Buildkite way. This results in clearer pipelines with better performance.
 
-Some Buildkite features you might want to use include [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines), [lifecycle hooks](/docs/agent/v3/hooks), [conditionals](/docs/pipelines/conditionals), [artifacts](/docs/pipelines/artifacts), [build matrices](/docs/pipelines/build-matrix), and [annotations](/docs/agent/v3/cli-annotate).
+Some Buildkite features you might want to use include [dynamic pipelines](/docs/pipelines/configure/defining-steps#dynamic-pipelines), [lifecycle hooks](/docs/agent/v3/hooks), [conditionals](/docs/pipelines/conditionals), [artifacts](/docs/pipelines/artifacts), [build matrices](/docs/pipelines/build-matrix), and [annotations](/docs/agent/v3/cli-annotate).
 
 A simple pipeline in Buildkite might look like the following:
 
@@ -151,7 +151,7 @@ To translate a pipeline:
 
 1. Identify the goal of the pipeline.
 1. Look for an [example pipeline](/docs/pipelines/example-pipelines) closest to that goal.
-1. Follow [Defining steps](/docs/pipelines/defining-steps) and surrounding documentation to learn how to customize the pipeline definition to meet your needs, including:
+1. Follow [Defining steps](/docs/pipelines/configure/defining-steps) and surrounding documentation to learn how to customize the pipeline definition to meet your needs, including:
    * Targeting a specific agent or queue.
    * Replacing any Jenkins plugins and integrations with Buildkite features, existing Buildkite plugins, custom plugins, or custom scripts.
 1. Migrate any environment variables, secrets, or credentials used in the pipeline. Buildkite allows you to manage environment variables and secrets on different levels, such as organization, pipeline, and step levels. Securely store your sensitive data on your preferred secret management tool and integrate them into your agents and pipelines. See [Managing pipeline secrets

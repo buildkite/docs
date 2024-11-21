@@ -22,7 +22,7 @@ Once meta-data is set for a build, it cannot be deleted. It can only be updated 
 
 You can retrieve data from the meta-data store either using the command line or in a script. The same as when setting data, both of these methods use the `buildkite-agent` cli with the `meta-data` command.
 
-Values can only be retrieved from the store after it has been set - ensure that any steps that are getting data are guaranteed to run after the completion of the step that sets the data. One way to ensure workflows in this way is to use a [wait step](/docs/pipelines/wait-step).
+Values can only be retrieved from the store after it has been set - ensure that any steps that are getting data are guaranteed to run after the completion of the step that sets the data. One way to ensure workflows in this way is to use a [wait step](/docs/pipelines/configure/step-types/wait-step).
 
 To retrieve meta-data, use the `get` command with the previously set key:
 

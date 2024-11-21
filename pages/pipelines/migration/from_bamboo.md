@@ -12,7 +12,7 @@ Migrating continuous integration tools can be challenging, so we've put together
 
 You can easily map most Bamboo workflows to Buildkite. _Projects and Plans_ in Bamboo are called [pipelines](/docs/pipelines) in Buildkite (and **Pipelines** in the Buildkite dashboard). Bamboo deployments also become Buildkite pipelines.
 
-Buildkite pipelines consist of different types of [_steps_](/docs/pipelines/step-reference) for different tasks:
+Buildkite pipelines consist of different types of [_steps_](/docs/pipelines/configure/step-types) for different tasks:
 
 - **Command step:** Runs one or more shell commands on one or more agents.
 - **Wait step:** Pauses a build until all previous jobs have completed.
@@ -119,7 +119,7 @@ rake cucumber
 
 If you'd like to learn more about how to write build scripts, see [Writing build scripts](/docs/builds/writing-build-scripts).
 
-To trigger builds in other pipelines, you can use `trigger` steps. This way, you can create dependent pipelines. See the [trigger steps docs](/docs/pipelines/trigger-step) for more information.
+To trigger builds in other pipelines, you can use `trigger` steps. This way, you can create dependent pipelines. See the [trigger steps docs](/docs/pipelines/configure/step-types/trigger-step) for more information.
 
 ## Remote and Elastic agents
 

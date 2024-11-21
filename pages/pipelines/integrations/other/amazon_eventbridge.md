@@ -40,7 +40,7 @@ Once you've configured an Amazon EventBridge notification service in Buildkite, 
 </tbody>
 </table>
 
-See [build states](/docs/pipelines/defining-steps#build-states) and [job states](/docs/pipelines/defining-steps#job-states) to learn more about the sequence of these events.
+See [build states](/docs/pipelines/configure/defining-steps#build-states) and [job states](/docs/pipelines/configure/defining-steps#job-states) to learn more about the sequence of these events.
 
 ## Configuring
 

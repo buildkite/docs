@@ -2,11 +2,11 @@
 
 An _input_ step is used to collect information from a user.
 
-An input step is functionally identical to a [block step](/docs/pipelines/block-step), however an input step doesn't create any [dependencies](/docs/pipelines/dependencies) to the steps before and after it.
+An input step is functionally identical to a [block step](/docs/pipelines/configure/step-types/block-step), however an input step doesn't create any [dependencies](/docs/pipelines/dependencies) to the steps before and after it.
 
 Input steps block your build from completing, but do not automatically block other steps from running unless they specifically depend upon it.
 
-An input step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file.
+An input step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/configure/defining-steps) file.
 
 ```yml
 steps:

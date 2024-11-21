@@ -22,7 +22,7 @@ This rule type allows one pipeline to trigger another, where:
 - One pipeline is public and another is private.
 
 > 📘
-> This rule type overrides the usual [trigger step permissions checks](/docs/pipelines/trigger-step#permissions) on users and teams.
+> This rule type overrides the usual [trigger step permissions checks](/docs/pipelines/configure/step-types/trigger-step#permissions) on users and teams.
 
 **Rule Document** format:
 

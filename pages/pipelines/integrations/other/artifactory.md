@@ -41,7 +41,7 @@ Required environment vars:
   </tr>
 </table>
 
-Once the above environment variables are configured, all artifact uploads and downloads will use Artifactory. For example, the following [command step](/docs/pipelines/command-step) will build a binary and upload it to Artifactory using the `artifact_paths` attribute:
+Once the above environment variables are configured, all artifact uploads and downloads will use Artifactory. For example, the following [command step](/docs/pipelines/configure/step-types/command-step) will build a binary and upload it to Artifactory using the `artifact_paths` attribute:
 
 ```yml
 steps:

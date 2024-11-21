@@ -5,7 +5,7 @@ A _trigger_ step creates a build on another pipeline.
 You can use trigger steps to separate your test and deploy pipelines, or to create build dependencies between pipelines.
 
 
-A trigger step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file, by setting the `trigger` attribute to the the [slug of the pipeline you want to trigger](#trigger).
+A trigger step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/configure/defining-steps) file, by setting the `trigger` attribute to the the [slug of the pipeline you want to trigger](#trigger).
 
 ```yml
 steps:
@@ -214,7 +214,7 @@ To set environment variables on the build created by the trigger step, use the `
 
 ## Triggering specific steps in a pipeline
 
-While you cannot trigger only a specific step in a pipeline, you can use [conditionals](/docs/pipelines/conditionals) or [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines) to achieve a similar effect.
+While you cannot trigger only a specific step in a pipeline, you can use [conditionals](/docs/pipelines/conditionals) or [dynamic pipelines](/docs/pipelines/configure/defining-steps#dynamic-pipelines) to achieve a similar effect.
 
 An example using conditionals might look like this:
 

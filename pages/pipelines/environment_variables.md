@@ -1,6 +1,6 @@
 # Environment variables
 
-When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/defining-steps) and
+When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/configure/defining-steps) and
 [job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks).
 
 For best practices and recommendations about using secrets in your environment variables, see the [Managing secrets](/docs/pipelines/security/secrets/managing) guide.
@@ -109,7 +109,7 @@ The following environment variables have been deprecated.
 You can define environment variables in your jobs in a few ways, depending on the nature of the value being set:
 
 * Pipeline settings — for values that are *not secret*.
-* [Build pipeline configuration](/docs/pipelines/command-step) — for values that are *not secret*.
+* [Build pipeline configuration](/docs/pipelines/configure/step-types/command-step) — for values that are *not secret*.
 * An `environment` or `pre-command` [agent hook](/docs/agent/v3/hooks) — for values that are secret or agent-specific.
 
 > 🚧 Secrets in environment variables
@@ -137,7 +137,7 @@ If you're using the YAML Steps editor to define your pipeline, only the followin
 
 Some variables, for example `BUILDKITE_BUILD_NUMBER`, cannot be supported in the YAML Step editor as the interpolation happens before the build is created. In those cases, interpolate them at the [runtime](/docs/pipelines/environment-variables#runtime-variable-interpolation).
 
-Alternatively, You can also access the rest of the Buildkite [environment variables](/docs/pipelines/environment-variables#buildkite-environment-variables) by using a `pipeline.yml` file. Either define your entire pipeline in the YAML file, or you do a [pipeline upload](/docs/agent/v3/cli-pipeline) part way through your build that adds only the steps that use environment variables. See the [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines) docs for more information about adding steps with pipeline uploads.
+Alternatively, You can also access the rest of the Buildkite [environment variables](/docs/pipelines/environment-variables#buildkite-environment-variables) by using a `pipeline.yml` file. Either define your entire pipeline in the YAML file, or you do a [pipeline upload](/docs/agent/v3/cli-pipeline) part way through your build that adds only the steps that use environment variables. See the [dynamic pipelines](/docs/pipelines/configure/defining-steps#dynamic-pipelines) docs for more information about adding steps with pipeline uploads.
 
 ## Runtime variable interpolation
 
@@ -222,7 +222,7 @@ Defining an environment variable at the top of your yaml file will set that vari
 
 #### Setting variables in a Trigger step
 
-Environment variables are not automatically passed through to builds created with [trigger steps](/docs/pipelines/trigger-step). To set build-level environment variables on triggered builds, set the trigger step's `env` attribute.
+Environment variables are not automatically passed through to builds created with [trigger steps](/docs/pipelines/configure/step-types/trigger-step). To set build-level environment variables on triggered builds, set the trigger step's `env` attribute.
 
 ### Agent environment
 

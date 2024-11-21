@@ -32,7 +32,7 @@ You can also configure these options using the [REST API](/docs/apis/rest-api/pi
 
 If your pipeline has multiple command steps, you can manually cancel a step, which causes the build to fail.
 
-If you do _not_ want the build to fail when you cancel a specific step, you can set [`soft_fail`](/docs/pipelines/command-step#soft-fail-attributes).
+If you do _not_ want the build to fail when you cancel a specific step, you can set [`soft_fail`](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes).
 
 To manually cancel a job:
 

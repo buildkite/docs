@@ -12,7 +12,7 @@ Bazel supports large codebases across multiple repositories, and large numbers o
 1. [Install Bazel](https://docs.bazel.build/install.html) on one or more Buildkite Agents.
 2. Add an empty [`WORKSPACE` file](https://docs.bazel.build/tutorial/cpp.html#set-up-the-workspace) to your project to mark it as a Bazel workspace.
 3. Add a [`BUILD` file](https://docs.bazel.build/tutorial/cpp.html#understand-the-build-file) to your project to tell Bazel how to build it.
-4. Add the Bazel build target(s) to your Buildkite [Pipeline](/docs/pipelines/defining-steps).
+4. Add the Bazel build target(s) to your Buildkite [Pipeline](/docs/pipelines/configure/defining-steps).
 
 ## Buildkite Bazel example
 

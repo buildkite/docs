@@ -4,7 +4,7 @@ All steps in pipelines have implicit dependencies, often managed with wait and b
 
 ## Implicit dependencies with wait and block
 
-[Wait](/docs/pipelines/wait-step) and [block](/docs/pipelines/block-step) steps provide an implicit dependency structure to your pipeline.
+[Wait](/docs/pipelines/configure/step-types/wait-step) and [block](/docs/pipelines/configure/step-types/block-step) steps provide an implicit dependency structure to your pipeline.
 
 By adding these steps to your pipeline, the Buildkite scheduler will automatically know which steps need to be run in serial and which can be run in parallel.
 
@@ -22,11 +22,11 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-[Block steps](/docs/pipelines/block-step) perform the same function, but also require unblocking either manually or using an API call before the rest of the steps can be run.
+[Block steps](/docs/pipelines/configure/step-types/block-step) perform the same function, but also require unblocking either manually or using an API call before the rest of the steps can be run.
 
 <%= image "block-step.png", width: 944/2, height: 364/2, alt: "Screenshot of a basic block step" %>
 
-If you are collecting information with your block steps using the `prompt` or `fields` attributes but don't want it to implicitly depend on the steps around it, you can use an [input step](/docs/pipelines/input-step).
+If you are collecting information with your block steps using the `prompt` or `fields` attributes but don't want it to implicitly depend on the steps around it, you can use an [input step](/docs/pipelines/configure/step-types/input-step).
 
 ```yml
 steps:
@@ -159,7 +159,7 @@ This pattern is often used to run steps like code coverage or annotations to the
 
 ## Allowed failure and soft fail
 
-Setting [`soft_fail`](/docs/pipelines/command-step#soft-fail-attributes) on a step will also allow steps that depend upon it to run, even when [`allow_dependency_failure: false`](/docs/pipelines/dependencies#allowing-dependency-failures) is set on the subsequent step.
+Setting [`soft_fail`](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes) on a step will also allow steps that depend upon it to run, even when [`allow_dependency_failure: false`](/docs/pipelines/dependencies#allowing-dependency-failures) is set on the subsequent step.
 
 In the following example, `step-b` will run because `step-a` is soft failing. If `step-a` were to to fail with a different exit code, `step-b` would not run.
 

@@ -95,13 +95,13 @@ With the above example code in a `pipeline.yml` file, commit and push the file u
 
 For more example steps and detailed configuration options, see the example `pipeline.yml` below, or the step type specific documentation:
 
-* [command steps](/docs/pipelines/command-step)
-* [wait steps](/docs/pipelines/wait-step)
-* [block steps](/docs/pipelines/block-step)
-* [input steps](/docs/pipelines/input-step)
-* [trigger steps](/docs/pipelines/trigger-step)
+* [command steps](/docs/pipelines/configure/step-types/command-step)
+* [wait steps](/docs/pipelines/configure/step-types/wait-step)
+* [block steps](/docs/pipelines/configure/step-types/block-step)
+* [input steps](/docs/pipelines/configure/step-types/input-step)
+* [trigger steps](/docs/pipelines/configure/step-types/trigger-step)
 
-If your pipeline has more than one step and you have multiple agents available to run them, they will automatically run at the same time. If your steps rely on running in sequence, you can separate them with [wait steps](/docs/pipelines/wait-step). This will ensure that any steps before the 'wait' are completed before steps after the 'wait' are run.
+If your pipeline has more than one step and you have multiple agents available to run them, they will automatically run at the same time. If your steps rely on running in sequence, you can separate them with [wait steps](/docs/pipelines/configure/step-types/wait-step). This will ensure that any steps before the 'wait' are completed before steps after the 'wait' are run.
 
 >🚧 Explicit dependencies in uploaded steps
 > If a step <a href="/docs/pipelines/dependencies">depends</a> on an upload step, then all steps uploaded by that step become dependencies of the original step. For example, if step B depends on step A, and step A uploads step C, then step B will also depend on step C.
@@ -234,12 +234,12 @@ steps:
 
 Buildkite pipelines are made up of the following step types:
 
-* [Command step](/docs/pipelines/command-step)
-* [Wait step](/docs/pipelines/wait-step)
-* [Block step](/docs/pipelines/block-step)
-* [Input step](/docs/pipelines/input-step)
-* [Trigger step](/docs/pipelines/trigger-step)
-* [Group step](/docs/pipelines/group-step)
+* [Command step](/docs/pipelines/configure/step-types/command-step)
+* [Wait step](/docs/pipelines/configure/step-types/wait-step)
+* [Block step](/docs/pipelines/configure/step-types/block-step)
+* [Input step](/docs/pipelines/configure/step-types/input-step)
+* [Trigger step](/docs/pipelines/configure/step-types/trigger-step)
+* [Group step](/docs/pipelines/configure/step-types/group-step)
 
 ## Customizing the pipeline upload path
 
@@ -331,7 +331,7 @@ See how [Hasura.io](https://hasura.io) used [dynamic templates and pipelines](ht
 
 ## Targeting specific agents
 
-To run [command steps](/docs/pipelines/command-step) only on specific agents:
+To run [command steps](/docs/pipelines/configure/step-types/command-step) only on specific agents:
 
 1. In the agent configuration file, [tag the agent](/docs/agent/v3/cli-start#setting-tags)
 2. In the pipeline command step, [set the agent property](/docs/agent/v3/cli-start#agent-targeting) in the command step

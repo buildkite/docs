@@ -8,9 +8,9 @@ A step describes a single, self-contained task as part of a pipeline. There are 
 
 The following pages describe the different step types:
 
-- [Command step](/docs/pipelines/command-step)
-- [Wait step](/docs/pipelines/wait-step)
-- [Block step](/docs/pipelines/block-step)
-- [Input step](/docs/pipelines/input-step)
-- [Trigger step](/docs/pipelines/trigger-step)
-- [Group step](/docs/pipelines/group-step)
+- [Command step](/docs/pipelines/configure/step-types/command-step)
+- [Wait step](/docs/pipelines/configure/step-types/wait-step)
+- [Block step](/docs/pipelines/configure/step-types/block-step)
+- [Input step](/docs/pipelines/configure/step-types/input-step)
+- [Trigger step](/docs/pipelines/configure/step-types/trigger-step)
+- [Group step](/docs/pipelines/configure/step-types/group-step)

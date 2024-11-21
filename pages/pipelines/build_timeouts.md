@@ -13,7 +13,7 @@ Organization-level timeouts can be set in your organization's [**Pipeline Settin
 
 ## Command timeouts
 
-You can specify timeouts for jobs as [command steps attributes](/docs/pipelines/command-step#timeout_in_minutes), but it's possible to avoid setting them manually every time. To prevent jobs from consuming too many job minutes or running forever, specify default and maximum timeouts from your organization's [**Pipeline Settings**](https://buildkite.com/organizations/~/pipeline-settings), or on an individual pipeline's **Settings**.
+You can specify timeouts for jobs as [command steps attributes](/docs/pipelines/configure/step-types/command-step#timeout_in_minutes), but it's possible to avoid setting them manually every time. To prevent jobs from consuming too many job minutes or running forever, specify default and maximum timeouts from your organization's [**Pipeline Settings**](https://buildkite.com/organizations/~/pipeline-settings), or on an individual pipeline's **Settings**.
 
 Specific timeouts take precedence over more general ones—a step-level timeout takes precedence over a pipeline timeout, which in turn takes precedence over an organization's default.
 
@@ -37,7 +37,7 @@ By default, jobs are canceled when not picked up for 30 days. This will cause th
 
 You can override the default by setting a shorter value in your organization's [**Pipeline Settings**](https://buildkite.com/organizations/~/pipeline-settings) page.
 
-Scheduled job limits should not be confused with [scheduled builds](/docs/pipelines/scheduled-builds). A scheduled build's jobs will still go through the [build states](/docs/pipelines/defining-steps#build-states), and the timeout will apply once its individual jobs are in the scheduled state waiting for agents.
+Scheduled job limits should not be confused with [scheduled builds](/docs/pipelines/scheduled-builds). A scheduled build's jobs will still go through the [build states](/docs/pipelines/configure/defining-steps#build-states), and the timeout will apply once its individual jobs are in the scheduled state waiting for agents.
 
 > 📘 Delays in job expiration
 > A job's expiration process is run hourly at 5 minutes past. When the expiration process runs and the job's scheduled expiration was not over at that hour, it will only be expired until the next hour when the process is executed again.

@@ -4,7 +4,7 @@ A command step runs one or more shell commands on one or more agents.
 
 Each command step can run either a shell command like `npm test`, or an executable file or script like `build.sh`.
 
-A command step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file.
+A command step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/configure/defining-steps) file.
 
 ```yml
 steps:
@@ -76,7 +76,7 @@ Optional attributes:
   <tr>
     <td><code>cancel_on_build_failing</code></td>
     <td>
-      Setting this attribute to <code>true</code> cancels the job as soon as the build is marked as <a href="/docs/pipelines/defining-steps#build-states">failing</a>.<br>
+      Setting this attribute to <code>true</code> cancels the job as soon as the build is marked as <a href="/docs/pipelines/configure/defining-steps#build-states">failing</a>.<br>
       <em>Default:</em> <code>"false"</code>
     </td>
   </tr>
@@ -210,7 +210,7 @@ At least one of the following attributes is required:
 
 <table>
   <tr>
-    <td><code><a href="/docs/pipelines/command-step#retry-attributes-automatic-retry-attributes">automatic</a></code></td>
+    <td><code><a href="/docs/pipelines/configure/step-types/command-step#retry-attributes-automatic-retry-attributes">automatic</a></code></td>
     <td>
       Whether to allow a job to retry automatically. This field accepts a boolean value, individual retry conditions, or a list of multiple different retry conditions.<br> If set to <code>true</code>, the retry conditions are set to the default value.<br>
       <em>Default value:</em><br>
@@ -222,7 +222,7 @@ At least one of the following attributes is required:
     </td>
   </tr>
   <tr>
-    <td><code><a href="/docs/pipelines/command-step#retry-attributes-manual-retry-attributes">manual</a></code></td>
+    <td><code><a href="/docs/pipelines/configure/step-types/command-step#retry-attributes-manual-retry-attributes">manual</a></code></td>
     <td>
       Whether to allow a job to be retried manually. This field accepts a boolean value, or a single retry condition.<br>
       <em>Default value:</em> <code>true</code><br>
@@ -247,7 +247,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-If you retry a job, the information about the failed job(s) remains, and a new job is created. The history of retried jobs is preserved and immutable. The number of possible retries is available as an [environment variable `limit`](/docs/pipelines/command-step#retry-attributes-automatic-retry-attributes) on the job. When a limit is not specified on automatic retry, the default limit is three.
+If you retry a job, the information about the failed job(s) remains, and a new job is created. The history of retried jobs is preserved and immutable. The number of possible retries is available as an [environment variable `limit`](/docs/pipelines/configure/step-types/command-step#retry-attributes-automatic-retry-attributes) on the job. When a limit is not specified on automatic retry, the default limit is three.
 
 <%= image "retry-time-date.png", width: 2456/2, height: 1076/2, alt: "You can view how and when a job was retried" %>
 

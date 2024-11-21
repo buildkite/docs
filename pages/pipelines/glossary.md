@@ -30,7 +30,7 @@ Dynamic pipelines define their steps at runtime using scripts, giving you the fl
 
 Dynamic pipelines are helpful when you have a complex build process that requires different steps to execute based on runtime conditions, such as the branch, the environment, or the results of previous steps.
 
-To learn more, see [Dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines).
+To learn more, see [Dynamic pipelines](/docs/pipelines/configure/defining-steps#dynamic-pipelines).
 
 ## Hook
 
@@ -42,7 +42,7 @@ To learn more, see [Hooks](/docs/agent/v3/hooks).
 
 A job is the execution of a command step during a build. Jobs run the commands, scripts, or plugins defined in the step.
 
-To learn more, see [Command step](/docs/pipelines/command-step).
+To learn more, see [Command step](/docs/pipelines/configure/step-types/command-step).
 
 ## Pipeline
 
@@ -75,4 +75,4 @@ A step describes a single, self-contained task as part of a pipeline. You define
 - **Trigger step:** Creates a build on another pipeline.
 - **Group step:** Displays a group of sub-steps as one parent step.
 
-To learn more, see [Defining steps](/docs/pipelines/defining-steps).
+To learn more, see [Defining steps](/docs/pipelines/configure/defining-steps).
