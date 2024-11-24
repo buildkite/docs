@@ -81,8 +81,9 @@ Optional attributes:
   <tr>
     <td><code>key</code></td>
     <td>
-    A unique string to identify the step, block, or group. Alias: `identifier` or `id`.<br>
-      <em>Example:</em> <code>"test-suite"</code>
+      A unique string to identify the step, block, or group.<br>
+      <em>Example:</em> <code>"test-suite"</code><br>
+      <em>Alias:</em> <code>identifier</code>
     </td>
   </tr>
   <tr>
