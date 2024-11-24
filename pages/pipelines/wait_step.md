@@ -36,6 +36,14 @@ Optional attributes:
     </td>
    </tr>
    <tr>
+    <td><code>key</code></td>
+    <td>
+      A unique string to identify the wait step.<br>
+      <em>Example:</em> <code>"confirmation"</code><br>
+      <em>Alias:</em> <code>identifier</code>
+    </td>
+   </tr>
+   <tr>
     <td><code>allow_dependency_failure</code></td>
     <td>
       Whether to continue to proceed past this step if any of the steps named in the <code>depends_on</code> attribute fail.<br>
