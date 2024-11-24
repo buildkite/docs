@@ -91,7 +91,7 @@ Optional attributes:
    <tr>
     <td><code>key</code></td>
     <td>
-      A unique string to identify the input step.<br>
+      A unique string to identify the input step.<br>Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br>
       <em>Example:</em> <code>"test-suite"</code><br>
       <em>Alias:</em> <code>identifier</code>
     </td>
