@@ -91,8 +91,9 @@ Optional attributes:
    <tr>
     <td><code>key</code></td>
     <td>
-	    <p>A unique string to identify the input step.</p>
-      <p><em>Example:</em> <code>"test-suite"</code></p>
+      A unique string to identify the input step.<br>
+      <em>Example:</em> <code>"test-suite"</code><br>
+      <em>Alias:</em> <code>identifier</code>
     </td>
    </tr>
    <tr>
