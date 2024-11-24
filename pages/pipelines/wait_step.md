@@ -38,7 +38,7 @@ Optional attributes:
    <tr>
     <td><code>key</code></td>
     <td>
-      A unique string to identify the wait step.<br>
+      A unique string to identify the wait step.<br>Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br>
       <em>Example:</em> <code>"confirmation"</code><br>
       <em>Alias:</em> <code>identifier</code>
     </td>
