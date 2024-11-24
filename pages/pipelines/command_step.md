@@ -22,9 +22,10 @@ Required attributes:
   <tr>
     <td><code>command</code></td>
     <td>
-      The shell command/s to run during this step. This can be a single line of commands, or a list of commands that must all pass. Also available as the alias <code>commands</code>.<br>
+      The shell command/s to run during this step. This can be a single line of commands, or a list of commands that must all pass.<br>
       <em>Example:</em> <code>"build.sh"</code><br>
-      <em>Example:</em><br><code>- "npm install"</code><br><code>- "tests.sh"</code>
+      <em>Example:</em><br><code>- "npm install"</code><br><code>- "tests.sh"</code><br>
+      <em>Alias:</em>em> <code>commands</code>
     </td>
   </tr>
 </table>
@@ -120,7 +121,7 @@ Optional attributes:
     <td>
       A unique string to identify the step. The value is available in the <code>BUILDKITE_STEP_KEY</code> <a href="/docs/pipelines/environment-variables">environment variable</a>.<br>
       Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br>
-      <em>Example:</em> <code>"linter"</code>
+      <em>Example:</em> <code>"linter"</code><br>
       <em>Alias:</em> <code>identifier</code>
     </td>
   </tr>
