@@ -22,10 +22,12 @@ Required attributes:
   <tr>
     <td><code>command</code></td>
     <td>
-      The shell command/s to run during this step. This can be a single line of commands, or a list of commands that must all pass.<br>
-      <em>Example:</em> <code>"build.sh"</code><br>
-      <em>Example:</em><br><code>- "npm install"</code><br><code>- "tests.sh"</code><br>
-      <em>Alias:</em>em> <code>commands</code>
+      The shell command/s to run during this step. This can be a single line of commands, or a list of commands that must all pass.<br/>
+      <em>Example:</em> <code>"build.sh"</code><br/>
+      <em>Example:</em><br/>
+      <code>- "npm install"</code><br/>
+      <code>- "tests.sh"</code><br/>
+      <em>Alias:</em> <code>commands</code>
     </td>
   </tr>
 </table>
@@ -48,130 +50,133 @@ Optional attributes:
   <tr id="agents">
     <td><code>agents</code></td>
     <td>
-      A map of <a href="/docs/agent/v3/cli-start#setting-tags">agent tag</a> keys to values to <a href="/docs/agent/v3/cli-start#agent-targeting">target specific agents</a> for this step. <br>
+      A map of <a href="/docs/agent/v3/cli-start#setting-tags">agent tag</a> keys to values to <a href="/docs/agent/v3/cli-start#agent-targeting">target specific agents</a> for this step.<br/>
       <em>Example:</em> <code>npm: "true"</code>
     </td>
   </tr>
   <tr>
     <td><code>allow_dependency_failure</code></td>
     <td>
-      Whether to continue to run this step if any of the steps named in the <code>depends_on</code> attribute fail.<br>
+      Whether to continue to run this step if any of the steps named in the <code>depends_on</code> attribute fail.<br/>
       <em>Default:</em> <code>false</code>
     </td>
   </tr>
   <tr>
     <td><code>artifact_paths</code></td>
     <td>
-      The <a href="/docs/agent/v3/cli-artifact#uploading-artifacts">glob path</a> or paths of <a href="/docs/agent/v3/cli-artifact">artifacts</a> to upload from this step. This can be a single line of paths separated by semicolons, or a list.<br>
-      <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code><br>
-      <em>Example:</em><br><code>- "logs/**/*"</code><br><code>- "coverage/**/*"</code>
+      The <a href="/docs/agent/v3/cli-artifact#uploading-artifacts">glob path</a> or paths of <a href="/docs/agent/v3/cli-artifact">artifacts</a> to upload from this step. This can be a single line of paths separated by semicolons, or a list.<br/>
+      <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code><br/>
+      <em>Example:</em><br/>
+      <code>- "logs/**/*"</code><br/>
+      <code>- "coverage/**/*"</code>
     </td>
   </tr>
   <tr>
     <td><code>branches</code></td>
     <td>
-      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this step in their builds.<br>
+      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this step in their builds.<br/>
       <em>Example:</em> <code>"main stable/*"</code>
     </td>
   </tr>
   <tr>
     <td><code>cancel_on_build_failing</code></td>
     <td>
-      Setting this attribute to <code>true</code> cancels the job as soon as the build is marked as <a href="/docs/pipelines/defining-steps#build-states">failing</a>.<br>
+      Setting this attribute to <code>true</code> cancels the job as soon as the build is marked as <a href="/docs/pipelines/defining-steps#build-states">failing</a>.<br/>
       <em>Default:</em> <code>"false"</code>
     </td>
   </tr>
   <tr>
     <td><code>concurrency</code></td>
     <td>
-      The <a href="/docs/pipelines/controlling-concurrency#concurrency-limits">maximum number of jobs</a> created from this step that are allowed to run at the same time. If you use this attribute, you must also define a label for it with the <code>concurrency_group</code> attribute.<br>
+      The <a href="/docs/pipelines/controlling-concurrency#concurrency-limits">maximum number of jobs</a> created from this step that are allowed to run at the same time. If you use this attribute, you must also define a label for it with the <code>concurrency_group</code> attribute.<br/>
       <em>Example:</em> <code>3</code>
     </td>
   </tr>
   <tr>
     <td><code>concurrency_group</code></td>
     <td>
-      A unique name for the concurrency group that you are creating. If you use this attribute, you must also define the <code>concurrency</code> attribute.<br>
+      A unique name for the concurrency group that you are creating. If you use this attribute, you must also define the <code>concurrency</code> attribute.<br/>
       <em>Example:</em> <code>"my-app/deploy"</code>
     </td>
   </tr>
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
+      A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br/>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
   </tr>
   <tr>
     <td><code>env</code></td>
     <td>
-      A map of <a href="/docs/pipelines/environment-variables">environment variables</a> for this step.<br>
+      A map of <a href="/docs/pipelines/environment-variables">environment variables</a> for this step.<br/>
       <em>Example:</em> <code>RAILS_ENV: "test"</code>
     </td>
   </tr>
   <tr>
     <td><code>if</code></td>
     <td>
-      A boolean expression that omits the step when false. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
+      A boolean expression that omits the step when false. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br/>
       <em>Example:</em> <code>build.message != "skip me"</code>
     </td>
   </tr>
   <tr>
     <td><code>key</code></td>
     <td>
-      A unique string to identify the command step. The value is available in the <code>BUILDKITE_STEP_KEY</code> <a href="/docs/pipelines/environment-variables">environment variable</a>.<br>
-      Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br>
-      <em>Example:</em> <code>"linter"</code><br>
+      A unique string to identify the command step. The value is available in the <code>BUILDKITE_STEP_KEY</code> <a href="/docs/pipelines/environment-variables">environment variable</a>.<br/>
+      Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br/>
+      <em>Example:</em> <code>"linter"</code><br/>
       <em>Alias:</em> <code>identifier</code>
     </td>
   </tr>
   <tr id="label">
     <td><code>label</code></td>
     <td>
-      The label that will be displayed in the pipeline visualisation in Buildkite. Supports emoji.<br>
-      <em>Example:</em> <code>"\:hammer\: Tests" will be rendered as "🔨 Tests"</code><br></code><br>
+      The label that will be displayed in the pipeline visualization in Buildkite. Supports emoji.<br/>
+      <em>Example:</em> <code>"\:hammer\: Tests" will be rendered as ":hammer: Tests"</code><br/>
     </td>
   </tr>
   <tr>
     <td><code>matrix</code></td>
     <td>
-      Either an array of values to be used in the matrix expansion, or a single <code>setup</code> key, and an optional <code>adjustments</code> key.<br>
-      <code>steps:<br>
-- label: "{{matrix}} build"<br>
-&nbsp;&nbsp;command: "echo '.buildkite/steps/build-binary.sh {{matrix}}'"<br>
-&nbsp;&nbsp;&nbsp;&nbsp;matrix:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;- "macOS"<br>
+      Either an array of values to be used in the matrix expansion, or a single <code>setup</code> key, and an optional <code>adjustments</code> key.<br/>
+      <code>steps:<br/>
+- label: "{{matrix}} build"<br/>
+&nbsp;&nbsp;command: "echo '.buildkite/steps/build-binary.sh {{matrix}}'"<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;matrix:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- "macOS"<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;- "Linux"<code>
     </td>
   </tr>
   <tr>
     <td><code>parallelism</code></td>
     <td>
-      The number of <a href="/docs/tutorials/parallel-builds#parallel-jobs">parallel jobs</a> that will be created based on this step. <br>
+      The number of <a href="/docs/tutorials/parallel-builds#parallel-jobs">parallel jobs</a> that will be created based on this step.<br/>
       <em>Example:</em> <code>3</code>
     </td>
   </tr>
   <tr id="plugins">
     <td><code>plugins</code></td>
     <td>
-      An array of <a href="/docs/plugins">plugins</a> for this step.<br>
-      <em>Example:</em><br>
-      <code>- docker-compose#v1.0.0:<br>
+      An array of <a href="/docs/plugins">plugins</a> for this step.<br/>
+      <em>Example:</em><br/>
+      <code>- docker-compose#v1.0.0:<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;run: app</code>
     </td>
   </tr>
   <tr>
     <td><code>priority</code></td>
     <td>
-      Adjust the <a href="/docs/pipelines/managing-priorities">priority</a> for a specific job, as a positive or negative integer.<br>
-      <em>Example:</em><br>
-      <code>- command: "will-run-first.sh"<br>&nbsp;&nbsp;priority: 1</code>
+      Adjust the <a href="/docs/pipelines/managing-priorities">priority</a> for a specific job, as a positive or negative integer.<br/>
+      <em>Example:</em><br/>
+      <code>- command: "will-run-first.sh"<br/>
+      &nbsp;&nbsp;priority: 1</code>
     </td>
   </tr>
   <tr>
     <td><code>retry</code></td>
     <td>
-      The conditions for retrying this step.<br>
+      The conditions for retrying this step.<br/>
       Available types: <code>automatic</code>, <code>manual</code>
     </td>
   </tr>
@@ -179,9 +184,9 @@ Optional attributes:
     <td><code>skip</code></td>
     <td>
       Whether to skip this step or not. Passing a string (with a 70-character limit) provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
-      Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br>
-      <em>Example:</em> <code>true</code><br>
-      <em>Example:</em> <code>false</code><br>
+      Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br/>
+      <em>Example:</em> <code>true</code><br/>
+      <em>Example:</em> <code>false</code><br/>
       <em>Example:</em> <code>"My reason"</code>
     </td>
   </tr>
@@ -189,10 +194,10 @@ Optional attributes:
     <td><code>soft_fail</code></td>
     <td>
       Allow specified non-zero exit statuses not to fail the build.
-      Can be either an array of allowed soft failure exit statuses or <code>true</code> to make all exit statuses soft-fail.<br>
-      <em>Example:</em> <code>true</code><br>
-      <em>Example:</em><br>
-      <code>- exit_status: 1</code><br>
+      Can be either an array of allowed soft failure exit statuses or <code>true</code> to make all exit statuses soft-fail.<br/>
+      <em>Example:</em> <code>true</code><br/>
+      <em>Example:</em><br/>
+      <code>- exit_status: 1</code><br/>
     </td>
   </tr>
   <tr id="timeout_in_minutes">
@@ -213,20 +218,20 @@ At least one of the following attributes is required:
   <tr>
     <td><code><a href="/docs/pipelines/command-step#retry-attributes-automatic-retry-attributes">automatic</a></code></td>
     <td>
-      Whether to allow a job to retry automatically. This field accepts a boolean value, individual retry conditions, or a list of multiple different retry conditions.<br> If set to <code>true</code>, the retry conditions are set to the default value.<br>
-      <em>Default value:</em><br>
-      <code>exit_status: "*"</code><br>
-      <code>signal: "*"</code><br>
-      <code>signal_reason: "*"</code><br>
-      <code>limit: 2</code><br>
+      Whether to allow a job to retry automatically. This field accepts a boolean value, individual retry conditions, or a list of multiple different retry conditions.<br/> If set to <code>true</code>, the retry conditions are set to the default value.<br/>
+      <em>Default value:</em><br/>
+      <code>exit_status: "*"</code><br/>
+      <code>signal: "*"</code><br/>
+      <code>signal_reason: "*"</code><br/>
+      <code>limit: 2</code><br/>
       <em>Example:</em> <code>true</code>
     </td>
   </tr>
   <tr>
     <td><code><a href="/docs/pipelines/command-step#retry-attributes-manual-retry-attributes">manual</a></code></td>
     <td>
-      Whether to allow a job to be retried manually. This field accepts a boolean value, or a single retry condition.<br>
-      <em>Default value:</em> <code>true</code><br>
+      Whether to allow a job to be retried manually. This field accepts a boolean value, or a single retry condition.<br/>
+      <em>Default value:</em> <code>true</code><br/>
       <em>Example:</em> <code>false</code>
     </td>
   </tr>
@@ -276,7 +281,7 @@ Conditions on retries can be specified. For example, it's possible to set steps 
     command: "deploy.sh"
     branches: "main"
     retry:
-      manual: 
+      manual:
         allowed: false
         reason: "Deploys shouldn't be retried"
 ```
@@ -290,7 +295,7 @@ Optional attributes:
   <tr>
     <td><code>exit_status</code></td>
     <td>
-      The exit status value that causes this job to retry, and can include any value between 0-255. Other valid exit status values include <code>*</code> for any value between 1-255 (excluding <code>0</code>), as well as <code>-1</code> (the value returned when an agent is lost and Buildkite no longer receives contact from agent).<br>
+      The exit status value that causes this job to retry, and can include any value between 0-255. Other valid exit status values include <code>*</code> for any value between 1-255 (excluding <code>0</code>), as well as <code>-1</code> (the value returned when an agent is lost and Buildkite no longer receives contact from agent).<br/>
       <p><em>Examples:</em></p>
       <ul>
         <li><code>"*"</code></li>
@@ -316,7 +321,7 @@ Optional attributes:
   <tr>
     <td><code>signal_reason</code></td>
     <td>
-      The reason a process was signaled.<br>
+      The reason a process was signaled.<br/>
       <p><em>Examples:</em></p>
       <ul>
         <li><code>"*"</code></li>
@@ -329,7 +334,7 @@ Optional attributes:
   <tr>
     <td><code>limit</code></td>
     <td>
-      The number of times this job can be retried. The maximum value this can be set to is 10.<br>
+      The number of times this job can be retried. The maximum value this can be set to is 10.<br/>
       <em>Example:</em> <code>3</code>
     </td>
   </tr>
@@ -359,22 +364,22 @@ Optional attributes:
   <tr>
     <td><code>allowed</code></td>
     <td>
-      A boolean value that defines whether or not this job can be retried manually.<br>
-      <em>Default value:</em> <code>true</code><br>
+      A boolean value that defines whether or not this job can be retried manually.<br/>
+      <em>Default value:</em> <code>true</code><br/>
       <em>Example:</em> <code>false</code>
     </td>
   </tr>
   <tr>
     <td><code>permit_on_passed</code></td>
     <td>
-      A boolean value that defines whether or not this job can be retried after it has passed.<br>
+      A boolean value that defines whether or not this job can be retried after it has passed.<br/>
       <em>Example:</em> <code>false</code>
     </td>
   </tr>
   <tr>
     <td><code>reason</code></td>
     <td>
-      A string that will be displayed in a tooltip on the Retry button in Buildkite. This will only be displayed if the <code>allowed</code> attribute is set to false.<br>
+      A string that will be displayed in a tooltip on the Retry button in Buildkite. This will only be displayed if the <code>allowed</code> attribute is set to false.<br/>
       <em>Example:</em> <code>"No retries allowed on deploy steps"</code>
     </td>
   </tr>
@@ -408,8 +413,8 @@ Optional attributes:
     <td><code>exit_status</code></td>
     <td>
       Allow specified non-zero exit statuses not to fail the build.
-      <br>
-      <em>Example:</em> <code>"*"</code><br>
+      <br/>
+      <em>Example:</em> <code>"*"</code><br/>
       <em>Example:</em> <code>1</code>
     </td>
   </tr>
@@ -437,7 +442,7 @@ steps:
   <tr>
     <td><code>adjustments</code></td>
     <td>
-      A array of <code>with</code> keys, each mapping an element to each dimension listed in the `array.setup`, as well as the attribute to modify for that combination.<br>
+      A array of <code>with</code> keys, each mapping an element to each dimension listed in the <code>array.setup</code>, as well as the attribute to modify for that combination.<br/>
       Currently, only <code>soft_fail</code> and <code>skip</code> can be modified.
     </td>
   </tr>

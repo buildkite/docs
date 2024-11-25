@@ -102,7 +102,8 @@ Optional attributes:
   <tr>
     <td><code>key</code></td>
     <td>
-      A unique string to identify the block step.<br>Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).
+      A unique string to identify the block step.<br/>
+      Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).
       <em>Example:</em> <code>"test-suite"</code>
       <em>Alias:</em> <code>identifier</code>
     </td>
@@ -134,7 +135,7 @@ Required attributes:
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br/>
       The key may only contain alphanumeric characters, slashes, dashes, or underscores.
       <em>Example:</em> <code>"release-name"</code>
     </td>
@@ -198,7 +199,7 @@ Required attributes:
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br/>
       The key may only contain alphanumeric characters, slashes, dashes, or underscores.
       <em>Example:</em> <code>"release-stream"</code>
     </td>
@@ -206,8 +207,8 @@ Required attributes:
   <tr>
     <td><code>options</code></td>
     <td>
-      The list of select field options.<br>
-      For 6 or less options they'll be displayed as radio buttons, otherwise they'll be displayed in a dropdown box.<br>
+      The list of select field options.<br/>
+      For 6 or less options they'll be displayed as radio buttons, otherwise they'll be displayed in a dropdown box.<br/>
       If selecting multiple options is permitted the options will be displayed as checkboxes.
     </td>
   </tr>
@@ -219,14 +220,14 @@ Each select option has the following _required_ attributes:
   <tr>
     <td><code>label</code></td>
     <td>
-      The text displayed for the option.<br>
+      The text displayed for the option.<br/>
       <em>Example:</em> <code>"Stable"</code>
     </td>
   </tr>
   <tr>
     <td><code>value</code></td>
     <td>
-      The value to be stored as meta-data (to be later retrieved using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      The value to be stored as meta-data (to be later retrieved using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br/>
       <em>Example:</em> <code>"stable"</code>
     </td>
   </tr>
@@ -253,31 +254,31 @@ Optional attributes:
   <tr>
     <td><code>hint</code></td>
     <td>
-      The text displayed directly under the select field's label.<br>
+      The text displayed directly under the select field's label.<br/>
       <em>Example:</em> <code>"Which release stream does this belong in? \:fork\:"</code>
     </td>
   </tr>
   <tr>
     <td><code>required</code></td>
     <td>
-      A boolean value that defines whether the field is required for form submission.<br>
-      When this value is set to <code>false</code> and users can only select one option, the options display in a dropdown menu, regardless of how many options there are.<br>
+      A boolean value that defines whether the field is required for form submission.<br/>
+      When this value is set to <code>false</code> and users can only select one option, the options display in a dropdown menu, regardless of how many options there are.<br/>
       <em>Default:</em> <code>true</code>
     </td>
   </tr>
   <tr>
     <td><code>multiple</code></td>
     <td>
-      A boolean value that defines whether multiple options may be selected.<br>
-      When multiple options are selected, they are delimited in the meta-data field by a line break (<code>\n</code>)<br>
+      A boolean value that defines whether multiple options may be selected.<br/>
+      When multiple options are selected, they are delimited in the meta-data field by a line break (<code>\n</code>)<br/>
       <em>Default:</em> <code>false</code>
     </td>
   </tr>
   <tr>
     <td><code>default</code></td>
     <td>
-      The value of the option or options that will be pre-selected.<br>
-      When <code>multiple</code> is enabled, this can be an array of values to select by default.<br>
+      The value of the option or options that will be pre-selected.<br/>
+      When <code>multiple</code> is enabled, this can be an array of values to select by default.<br/>
       <em>Example:</em> <code>"beta"</code>
     </td>
   </tr>
