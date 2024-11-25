@@ -25,7 +25,7 @@ Required attributes:
       The shell command/s to run during this step. This can be a single line of commands, or a list of commands that must all pass.<br>
       <em>Example:</em> <code>"build.sh"</code><br>
       <em>Example:</em><br><code>- "npm install"</code><br><code>- "tests.sh"</code><br>
-      <em>Alias:</em>em> <code>commands</code>
+      <em>Alias:</em> <code>commands</code>
     </td>
   </tr>
 </table>
