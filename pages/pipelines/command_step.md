@@ -41,7 +41,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
->📘 Pipelines without command steps
+> 📘 Pipelines without command steps
 > Although the <code>command</code> attribute is required for a command step, some <a href="/docs/plugins/using#adding-a-plugin-to-your-pipeline">plugins</a> work without a command step, so it isn't strictly necessary for your pipeline to have an explicit command step.
 
 Optional attributes:
