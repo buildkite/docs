@@ -103,7 +103,7 @@
                   path: "agent/v3/elastic-ci-aws"
                 - name: "Using AWS Secrets Manager"
                   path: "agent/v3/aws/secrets-manager"
-                - name: "Build Secrets"
+                - name: "Build secrets"
                   path: "agent/v3/elastic-ci-aws/build-secrets"
                 - name: "Managing the stack"
                   path: "agent/v3/elastic-ci-aws/managing-elastic-ci-stack"
