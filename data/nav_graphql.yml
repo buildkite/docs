@@ -388,6 +388,8 @@
     path: apis/graphql/schemas/object/graphqlsnippet
   - name: GraphQLSnippetCreatePayload
     path: apis/graphql/schemas/object/graphqlsnippetcreatepayload
+  - name: HostedConfigurationType
+    path: apis/graphql/schemas/object/hostedconfigurationtype
   - name: JobConcurrency
     path: apis/graphql/schemas/object/jobconcurrency
   - name: JobConnection
@@ -914,6 +916,12 @@
     path: apis/graphql/schemas/enum/clusterorder
   - name: ClusterQueueOrder
     path: apis/graphql/schemas/enum/clusterqueueorder
+  - name: HostedAgentArchitecture
+    path: apis/graphql/schemas/enum/hostedagentarchitecture
+  - name: HostedAgentMachineType
+    path: apis/graphql/schemas/enum/hostedagentmachinetype
+  - name: HostedAgentSize
+    path: apis/graphql/schemas/enum/hostedagentsize
   - name: JobEventActorType
     path: apis/graphql/schemas/enum/jobeventactortype
   - name: JobEventSignalReason
