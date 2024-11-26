@@ -181,7 +181,7 @@ organization_slug:
 
 ## Configure a Buildkite pipeline to authenticate to a registry
 
-Configuring a Buildkite pipeline [`command` step](/docs/pipelines/command-step) to request an OIDC token from Buildkite to interact with your Buildkite registry [configured with an OIDC policy](#define-an-oidc-policy-for-a-registry), is a two-part process.
+Configuring a Buildkite pipeline [`command` step](/docs/pipelines/configure/step-types/command-step) to request an OIDC token from Buildkite to interact with your Buildkite registry [configured with an OIDC policy](#define-an-oidc-policy-for-a-registry), is a two-part process.
 
 ### Part 1: Request an OIDC token from Buildkite
 
@@ -215,7 +215,7 @@ where:
 
 - `--username` always has the value `buildkite`.
 
-Therefore, the full [`command` step](/docs/pipelines/command-step) would look like:
+Therefore, the full [`command` step](/docs/pipelines/configure/step-types/command-step) would look like:
 
 ```bash
 buildkite-agent oidc request-token --audience "https://packages.buildkite.com/{org.slug}/{registry.slug}" --lifetime 300 | docker login packages.buildkite.com/{org.slug}/{registry.slug} --username buildkite --password-stdin

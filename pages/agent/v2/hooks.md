@@ -35,7 +35,7 @@ Hooks are called in the following order:
 
 ## Creating hook scripts
 
-Hooks are bash scripts you can use to execute commands and export environment variables. All the standard [Buildkite environment variables](/docs/pipelines/environment-variables) are available to be used inside your hook scripts.
+Hooks are bash scripts you can use to execute commands and export environment variables. All the standard [Buildkite environment variables](/docs/pipelines/configure/environment-variables) are available to be used inside your hook scripts.
 
 The following is an example of a custom `environment` hook which exports a GitHub API key for the pipeline's release build step:
 

@@ -336,7 +336,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 > 📘 Webhook URL
 > The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
 
-Unlike [build states](/docs/pipelines/notifications#build-states) for notifications, when a build is blocked, the `state` of a build does not return the value `blocked`. Instead, the build `state` retains its last value (for example, `passed`) and the `blocked` field value will be `true`.
+Unlike [build states](/docs/pipelines/configure/notifications#build-states) for notifications, when a build is blocked, the `state` of a build does not return the value `blocked`. Instead, the build `state` retains its last value (for example, `passed`) and the `blocked` field value will be `true`.
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
@@ -507,7 +507,7 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>commit</code></th><td>Ref, SHA or tag to be built.<br><em>Example:</em> <code>"HEAD"</code><br><em>Note:</em>Before running builds on tags, make sure your agent is <a href="/docs/integrations/github#running-builds-on-git-tags">fetching git tags</a> .
+  <tr><th><code>commit</code></th><td>Ref, SHA or tag to be built.<br><em>Example:</em> <code>"HEAD"</code><br><em>Note:</em>Before running builds on tags, make sure your agent is <a href="/docs/pipelines/source-control/github#running-builds-on-git-tags">fetching git tags</a> .
 </td></tr>
   <tr><th><code>branch</code></th><td>Branch the commit belongs to. This allows you to take advantage of your pipeline and step-level branch filtering rules.<br><em>Example:</em> <code>"main"</code></td></tr>
 </tbody>

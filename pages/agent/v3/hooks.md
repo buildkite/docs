@@ -15,7 +15,7 @@ You can define hooks in the following locations:
 
 * In the filesystem of the agent machine (called _agent hooks_, or more rarely _global hooks_).
 * In your pipeline's repository (called _repository hooks_, or more rarely _local hooks_).
-* In [plugins](/docs/plugins) applied to steps.
+* In [plugins](/docs/pipelines/integrations/plugins) applied to steps.
 
 For example, you could define an agent-wide `checkout` hook that spins up a fresh `git clone` on a new build machine, a repository `pre-command` hook that sets up repository-specific environment variables, or a plugin `environment` hook that fetches API keys from a secrets storage service.
 
@@ -45,7 +45,7 @@ You can define hooks in the following locations:
 
 * **Agent hooks:** These exist on the agent file system in a directory created by your agent installer and configured by the [`hooks-path`](configuration#hooks-path) setting. You can define both agent lifecycle and job lifecycle hooks in the agent hooks location. Job lifecycle hooks defined here will run for every job the agent receives from any pipeline.
 * **Repository hooks:** These exist in your pipeline repository's `.buildkite/hooks` directory and can define job lifecycle hooks. Job lifecycle hooks defined here will run for every pipeline that uses the repository. In scenarios where the current working directory is modified as part of the command or a post-command hook, this modification will cause these hooks to fail as the `.buildkite/hooks` directory can no longer be found in its new directory path. Ensure that the working directory is not modified to avoid these issues.
-* **Plugin hooks:** These are provided by [plugins](/docs/plugins) you've included in your pipeline steps and can define job lifecycle hooks. Job lifecycle hooks defined by a plugin will only run for the step that includes them. Plugins can be *vendored* (if they are already present in the repository and included using a relative path) or *non-vendored* (when they are included from elsewhere), which affects the order they are run in.
+* **Plugin hooks:** These are provided by [plugins](/docs/pipelines/integrations/plugins) you've included in your pipeline steps and can define job lifecycle hooks. Job lifecycle hooks defined by a plugin will only run for the step that includes them. Plugins can be *vendored* (if they are already present in the repository and included using a relative path) or *non-vendored* (when they are included from elsewhere), which affects the order they are run in.
 
 ### Agent hooks
 
@@ -68,7 +68,7 @@ You can define any of the [job lifecycle hooks](#job-lifecycle-hooks) whose `Ord
 
 Plugin hooks allow plugins you've defined in your Pipeline Steps to override the default behavior.
 
-See the [plugin documentation](/docs/plugins) for how to implement plugin hooks and [job lifecycle hooks](#job-lifecycle-hooks) for the list of hook types that a plugin can define.
+See the [plugin documentation](/docs/pipelines/integrations/plugins) for how to implement plugin hooks and [job lifecycle hooks](#job-lifecycle-hooks) for the list of hook types that a plugin can define.
 
 ## Polyglot hooks
 
@@ -149,7 +149,7 @@ they are run as part of each job:
 
 Each `command` job defined in a pipeline's `pipeline.yml` file runs independently of one another. Therefore, each defined hook will run for every one of these `command` jobs.
 
-When defining multiple command items in a step using the `commands` attribute, such as the `pipeline.yml` example in [Command step attributes](/docs/pipelines/command-step#command-step-attributes), then each item in the `commands` list is concatenated together and run as a single command. Therefore, a given hook will only run once for a given `commands` job consisting of multiple command items.
+When defining multiple command items in a step using the `commands` attribute, such as the `pipeline.yml` example in [Command step attributes](/docs/pipelines/configure/step-types/command-step#command-step-attributes), then each item in the `commands` list is concatenated together and run as a single command. Therefore, a given hook will only run once for a given `commands` job consisting of multiple command items.
 
 ### Hook failure behavior
 
@@ -171,7 +171,7 @@ However, for legacy compatibility, there is an exception with *plugins*. All `ch
 
 Job lifecycle hooks are sourced for every job an agent accepts. Use job lifecycle hooks to prepare for jobs, override the default behavior, or clean up after jobs that have finished. For example, use the `environment` hook to set a job's environment variables or the `pre-exit` hook to delete temporary files and remove containers. If your hook is related to the startup or shutdown of the agent, consider [agent lifecycle hooks](#agent-lifecycle-hooks) for those tasks instead.
 
-Job lifecycle hooks have access to all the standard [Buildkite environment variables](/docs/pipelines/environment-variables).
+Job lifecycle hooks have access to all the standard [Buildkite environment variables](/docs/pipelines/configure/environment-variables).
 
 Job lifecycle hooks are copied to `$TMPDIR` directory and *sourced* by the agent's default shell. This has a few implications:
 

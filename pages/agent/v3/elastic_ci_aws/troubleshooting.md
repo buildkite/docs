@@ -53,7 +53,7 @@ To identify if your agent instance was terminated, you can inspect the `/buildki
 
 If all your existing instances are Spot Instances, switch some of them to On-Demand Instances by setting the `OnDemandPercentage` parameter to a value above zero.
 
-For better resilience, you can use step retries to automatically retry a job that has failed due to spot instance reclamation. See [Automatic retry attributes](/docs/pipelines/command-step#retry-attributes-automatic-retry-attributes) for more information.
+For better resilience, you can use step retries to automatically retry a job that has failed due to spot instance reclamation. See [Automatic retry attributes](/docs/pipelines/configure/step-types/command-step#retry-attributes-automatic-retry-attributes) for more information.
 
 ## Stacks over-provision agents
 

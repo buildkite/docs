@@ -90,7 +90,7 @@ BUILDKITE_AGENT_CONFIG="/etc/buildkite-agent/custom-config-files-dir" buildkite-
       <th><code>disconnect-after-job-timeout</code></th>
       <td>
         <p>When <code>disconnect-after-job</code> is specified, the number of seconds to wait for a job before shutting down.</p>
-        <p>Not to be confused with <a href="/docs/pipelines/build-timeouts#command-timeouts">default and maximum build timeouts</a>.</p>
+        <p>Not to be confused with <a href="/docs/pipelines/configure/build-timeouts#command-timeouts">default and maximum build timeouts</a>.</p>
         <p class="Docs__api-param-eg"><em>Default:</em> <code>120</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DISCONNECT_AFTER_JOB_TIMEOUT</code></p>
       </td>
