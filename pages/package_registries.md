@@ -35,7 +35,7 @@ If you're familiar with the basics, explore how to use registries for each of Bu
   <%= button ":helm: Helm (OCI)", "/docs/package-registries/helm-oci" %>
   <%= button ":helm: Helm", "/docs/package-registries/helm" %>
   <%= button ":maven: Java (Maven)", "/docs/package-registries/maven" %>
-  <%= button ":gradle: Java (Gradle)", "/docs/package-registries/gradle" %>
+  <%= button ":gradle: Java (Gradle)", "/docs/package-registries/gradle-kotlin" %>
   <%= button ":node: JavaScript (npm)", "/docs/package-registries/javascript" %>
   <%= button ":python: Python (PyPI)", "/docs/package-registries/python" %>
   <%= button ":redhat: Red Hat (RPM)", "/docs/package-registries/red-hat" %>

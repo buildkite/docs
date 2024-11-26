@@ -4,7 +4,7 @@ The clusters API endpoint lets you create and manage clusters in your organizati
 
 ## Clusters
 
-A [cluster](/docs/clusters/overview) is an isolated set of agents and pipelines within an organization.
+A [cluster](/docs/pipelines/clusters) is an isolated set of agents and pipelines within an organization.
 
 ### Cluster data model
 
@@ -252,7 +252,7 @@ Error responses:
 
 ## Queues
 
-[Queues](/docs/clusters/manage-queues) are discrete groups of agents within a cluster. Pipelines in that cluster can target queues to run jobs on agents assigned to those queues.
+[Queues](/docs/pipelines/clusters/manage-queues) are discrete groups of agents within a cluster. Pipelines in that cluster can target queues to run jobs on agents assigned to those queues.
 
 ### Queue data model
 
@@ -487,7 +487,7 @@ Error responses:
 
 ### Pause a queue
 
-[Pause a queue](/docs/clusters/manage-queues#pause-and-resume-a-queue) to prevent jobs from being dispatched to agents associated with the queue.
+[Pause a queue](/docs/pipelines/clusters/manage-queues#pause-and-resume-a-queue) to prevent jobs from being dispatched to agents associated with the queue.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -601,7 +601,7 @@ Error responses:
 
 ## Agent tokens
 
-An agent token is used to [connect agents to a cluster](/docs/clusters/manage-clusters#connect-agents-to-a-cluster).
+An agent token is used to [connect agents to a cluster](/docs/pipelines/clusters/manage-clusters#connect-agents-to-a-cluster).
 
 ### Token data model
 

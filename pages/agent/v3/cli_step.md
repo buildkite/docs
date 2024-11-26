@@ -36,7 +36,7 @@ If you're only interested in whether a step passed or failed, perhaps to use con
 
 For example, the following pipeline has one step that fails (`one`), and another that passes (`two`). After the `wait`, the next two steps print the `outcome` attribute of steps `one` and `two`, and the last step [annotates the build](/docs/agent/v3/cli-annotate#creating-an-annotation) if step `one` fails. Note that `step get` needs the `key` of the step to identify it, not the `label`.
 
-The `outcome` is `passed`, `hard_failed` or `soft_failed`. A [soft fail](/docs/pipelines/command-step#soft-fail-attributes) is a non-zero exit status that does not fail the build.
+The `outcome` is `passed`, `hard_failed` or `soft_failed`. A [soft fail](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes) is a non-zero exit status that does not fail the build.
 
 ```yaml
 steps:
@@ -60,3 +60,11 @@ steps:
         buildkite-agent annotate 'this build failed' --style 'error'
       fi
 ```
+
+## Canceling a step
+
+Use this command to programmatically cancel all jobs for a step. It is possible to issue graceful and forced cancel commands.
+
+Force canceling a step can be used to cancel lost or hung jobs before their agents would otherwise be marked as lost.
+
+<%= render 'agent/v3/help/step_cancel' %>

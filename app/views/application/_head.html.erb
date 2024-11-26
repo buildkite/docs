@@ -1,10 +1,8 @@
 <meta charset='utf-8'>
 <%= tag :link, rel: "dns-prefetch", href: ENV["ASSET_HOST"] if ENV["ASSET_HOST"] %>
 <link rel="dns-prefetch" href="//www2.buildkiteassets.com" />
-<link rel="preload" as="font" type="font/woff2" href="https://buildkite.com/_site/fonts/aeonik/Aeonik-Medium.woff2" crossorigin="anonymous" />
-<link rel="preload" as="font" type="font/woff2" href="https://buildkite.com/_site/fonts/aeonik/Aeonik-MediumItalic.woff2" crossorigin="anonymous" />
-<link rel="preload" as="font" type="font/woff2" href="https://buildkite.com/_site/fonts/aeonik/Aeonik-Bold.woff2" crossorigin="anonymous" />
-<link rel="preload" as="font" type="font/woff2" href="https://buildkite.com/_site/fonts/aeonik/Aeonik-BoldItalic.woff2" crossorigin="anonymous" />
+<link rel="preload" as="font" type="font/woff2" href="https://buildkite.com/_site/assets/fonts/Aeonik-Medium.woff2" crossorigin="anonymous" />
+<link rel="preload" as="font" type="font/woff2" href="https://buildkite.com/_site/assets/fonts/Aeonik-Bold.woff2" crossorigin="anonymous" />
 
 <title><%= [content_for(:page_title), "Buildkite Documentation"].compact.join(" | ") %></title>
 <% if description = content_for(:page_description) %>

@@ -289,7 +289,7 @@ up, see our [Google Cloud installation guide](/docs/agent/v3/gcloud#uploading-ar
 
 You can configure the `buildkite-agent artifact` command to store artifacts in
 Artifactory. For instructions for how to set this up, see our
-[Artifactory guide](/docs/integrations/artifactory).
+[Artifactory guide](/docs/pipelines/integrations/other/artifactory).
 
 ## Using your private Azure Blob container
 
@@ -321,7 +321,7 @@ export BUILDKITE_AZURE_BLOB_CONNECTION_STRING='...'
 ```
 
 Since these can contain access credentials, they are
-[redacted from job logs by default](/docs/pipelines/managing-log-output#redacted-environment-variables).
+[redacted from job logs by default](/docs/pipelines/configure/managing-log-output#redacted-environment-variables).
 
 Make sure you have a valid storage account name and container. These can be
 created with the Azure web console or Azure CLI.

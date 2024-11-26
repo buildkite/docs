@@ -95,6 +95,7 @@ globbing
 gotestsum
 gpg
 Gradle
+Gradle's
 Graviton
 gz
 gzipped

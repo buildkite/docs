@@ -12,7 +12,7 @@ To learn more, see the [Agent overview](/docs/agent/v3).
 
 An artifact is a file generated during a build. You can keep artifacts in a Buildkite-managed storage service or a third-party cloud storage service like Amazon S3, Google Cloud Storage, or Artifactory. Common uses include storing assets like logs and reports, or passing files between steps.
 
-To learn more, see [Build artifacts](/docs/pipelines/artifacts).
+To learn more, see [Build artifacts](/docs/pipelines/configure/artifacts).
 
 ## Build
 
@@ -22,7 +22,7 @@ A build is a single run of a pipeline. You can trigger a build in various ways, 
 
 A cluster groups [queues](#queue) of agents along with pipelines. Clusters allow teams to self-manage their agent pools, let admins create isolated sets of agents and pipelines within the one Buildkite organization, and help to make agents and queues more discoverable across your organization.
 
-To learn more, see the [Clusters overview](/docs/clusters/overview).
+To learn more, see the [Clusters overview](/docs/pipelines/clusters).
 
 ## Dynamic pipeline
 
@@ -30,7 +30,7 @@ Dynamic pipelines define their steps at runtime using scripts, giving you the fl
 
 Dynamic pipelines are helpful when you have a complex build process that requires different steps to execute based on runtime conditions, such as the branch, the environment, or the results of previous steps.
 
-To learn more, see [Dynamic pipelines](/docs/pipelines/dynamic-pipelines).
+To learn more, see [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
 ## Hook
 
@@ -42,7 +42,7 @@ To learn more, see [Hooks](/docs/agent/v3/hooks).
 
 A job is the execution of a command step during a build. Jobs run the commands, scripts, or plugins defined in the step.
 
-To learn more, see [Command step](/docs/pipelines/command-step).
+To learn more, see [Command step](/docs/pipelines/configure/step-types/command-step).
 
 ## Pipeline
 
@@ -56,13 +56,13 @@ Plugins are small, self-contained pieces of extra functionality that help you cu
 
 Plugins can be open source and available for anyone to use or private for just your organization.
 
-To learn more, see [Plugins](/docs/plugins).
+To learn more, see [Plugins](/docs/pipelines/integrations/plugins).
 
 ## Queue
 
 A queue defines agents on which pipeline builds can run their jobs. You can configure queues within a [cluster](#cluster) for particular groups of agents, isolating a set of your pipeline's jobs and the agents they run on. Typical uses for queues include separating deployment agents and pools of agents for specific pipelines or teams.
 
-To learn more, see [Manage queues](/docs/clusters/manage-queues) and [Buildkite Agent job queues](/docs/agent/v3/queues).
+To learn more, see [Manage queues](/docs/pipelines/clusters/manage-queues) and [Buildkite Agent job queues](/docs/agent/v3/queues).
 
 ## Step
 
@@ -75,4 +75,4 @@ A step describes a single, self-contained task as part of a pipeline. You define
 - **Trigger step:** Creates a build on another pipeline.
 - **Group step:** Displays a group of sub-steps as one parent step.
 
-To learn more, see [Defining steps](/docs/pipelines/defining-steps).
+To learn more, see [Defining steps](/docs/pipelines/configure/defining-steps).

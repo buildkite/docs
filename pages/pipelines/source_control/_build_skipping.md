@@ -1,0 +1,1 @@
+You may not always want to rebuild on every commit, or branch. You can configure Buildkite to ignore [individual commits](/docs/pipelines/configure/skipping#ignore-a-commit) or [branches](/docs/pipelines/configure/workflows/branch-configuration), or to [skip builds](/docs/pipelines/configure/skipping) under certain conditions.

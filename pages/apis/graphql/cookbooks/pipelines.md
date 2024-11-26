@@ -129,7 +129,7 @@ query GetPipelineUUID {
 
 ## Get a pipeline's information
 
-You can get specific pipeline information for each of your pipeline. You can retrieve information for each build, jobs, and any other information listed on [this](https://buildkite.com/docs/apis/graphql/schemas/object/pipeline) page.
+You can get specific pipeline information for each of your pipeline. You can retrieve information for each build, jobs, and any other information listed on [this](/docs/apis/graphql/schemas/object/pipeline) page.
 
 ```graphql
 query GetPipelineInfo {
