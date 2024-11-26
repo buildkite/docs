@@ -394,3 +394,62 @@ Detail objects contains additional information about the span.
 }
 ```
 
+### Example test results
+
+```json
+[
+  {
+    "id": "95f7e024-9e0a-450f-bc64-9edb62d43fa10",
+    "scope": "Analytics::Upload associations",
+    "name": "fails",
+    "location": "./spec/models/analytics/upload_spec.rb:24",
+    "file_name": "./spec/models/analytics/upload_spec.rb",
+    "result": "failed",
+    "failure_reason": "Failure/Error: expect(true).to eq false",
+    "failure_expanded": [],
+    "history": {
+      "start_at": 347611.724809,
+      "end_at": 347612.451041,
+      "duration": 0.726232000044547,
+      "children": [
+        {
+          "section": "http",
+          "start_at": 347611.734956,
+          "end_at": 347611.735647,
+          "duration": 0.0006910000229254365,
+          "detail": {
+            "method": "POST",
+            "url": "https://example.com",
+            "lib": "curl"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "56f6e013-8e9a-340f-bc53-8edb51d32fa09",
+    "scope": "Analytics::Upload associations",
+    "name": "passes",
+    "location": "./spec/models/analytics/upload_spec.rb:56",
+    "file_name": "./spec/models/analytics/upload_spec.rb",
+    "result": "passed",
+    "history": {
+      "start_at": 347611.724809,
+      "end_at": 347612.451041,
+      "duration": 0.726232000044547,
+      "children": [
+        {
+          "section": "http",
+          "start_at": 347611.734956,
+          "end_at": 347611.735647,
+          "duration": 0.0006910000229254365,
+          "detail": {
+            "method": "GET",
+            "url": "https://example.com",
+            "lib": "curl"
+          }
+        }
+      ]
+    }
+]
+```
