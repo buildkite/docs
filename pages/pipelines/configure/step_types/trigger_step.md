@@ -223,7 +223,7 @@ To set environment variables on the build created by the trigger step, use the `
 
 ## Triggering specific steps in a pipeline
 
-While you cannot trigger only a specific step in a pipeline, you can use [conditionals](/docs/pipelines/configure/conditionals) or [dynamic pipelines](/docs/pipelines/configure/defining-steps#dynamic-pipelines) to achieve a similar effect.
+While you cannot trigger only a specific step in a pipeline, you can use [conditionals](/docs/pipelines/configure/conditionals) or [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) to achieve a similar effect.
 
 An example using conditionals might look like this:
 
