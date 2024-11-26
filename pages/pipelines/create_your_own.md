@@ -6,7 +6,7 @@ While the specifics may vary based on your code and goal, this tutorial provides
 
 ## Before you start
 
-This tutorial assumes you've created a starter pipeline, completed the [Getting started](/docs/tutorials/getting-started) guide, or both.
+This tutorial assumes you've created a starter pipeline, completed the [Getting started](/docs/pipelines/getting-started) guide, or both.
 
 You'll also need the following:
 
@@ -19,7 +19,7 @@ You'll also need the following:
 
 ## Continue running an agent
 
-We recommend you continue treating this tutorial as a chance to play and iterate. That means you can continue using the [agent you've already set up](/docs/tutorials/getting-started#set-up-an-agent).
+We recommend you continue treating this tutorial as a chance to play and iterate. That means you can continue using the [agent you've already set up](/docs/pipelines/getting-started#set-up-an-agent).
 
 If you want to learn more about the agent and set up something more permanent, see [Agent overview](/docs/agent/v3).
 
@@ -30,7 +30,7 @@ Next, define the steps you want in your pipeline. These steps could be anything 
 To define the steps:
 
 1. Decide the goal of the pipeline.
-1. Look for an [example pipeline](/docs/pipelines/example-pipelines) closest to that goal or a [pipeline template](https://buildkite.com/pipelines/templates) relevant to your technology stack and use case. (You can copy parts of the pipeline definition as a starting point.)
+1. Look for an [example pipeline](/docs/pipelines/configure/example-pipelines) closest to that goal or a [pipeline template](https://buildkite.com/pipelines/templates) relevant to your technology stack and use case. (You can copy parts of the pipeline definition as a starting point.)
 1. In the root of your repository, create a file named `pipeline.yml` in a `.buildkite` directory.
 1. In `pipeline.yml`, define your pipeline steps. Here's an example:
 
@@ -51,7 +51,7 @@ To define the steps:
         depends_on: test
       ```
 
-    Follow [Defining steps](/docs/pipelines/defining-steps) and surrounding documentation to learn how to customize the pipeline definition to meet your needs.
+    Follow [Defining steps](/docs/pipelines/configure/defining-steps) and surrounding documentation to learn how to customize the pipeline definition to meet your needs.
 
 1. Commit and push this file to your repository.
 
@@ -110,9 +110,9 @@ That's it! You've successfully created your own pipeline! 🎉
 We recommend you continue by:
 
 - Inviting your team to see your build and try Buildkite themselves. Invite users from your [organization's user settings](https://buildkite.com/organizations/-/users/new) by pasting their email addresses into the form. Please note that to be able to start inviting other users to your Buildkite organization, your email needs to be verified. To verify your email, go to your [personal email settings](https://buildkite.com/user/emails) and select **Resend Verification**.
-- Learning to [create more complex pipelines](/docs/pipelines/defining-steps) with dynamic definitions, conditionals, and concurrency.
+- Learning to [create more complex pipelines](/docs/pipelines/configure/defining-steps) with dynamic definitions, conditionals, and concurrency.
 - Browse the [pipeline templates](https://buildkite.com/pipelines/templates) to see how Buildkite is used across different technology stacks and use cases.
 - Customizing your [agent configuration](/docs/agent/v3/configuration) and learning to use [lifecycle hooks](/docs/agent/v3/hooks).
-- Understanding how to tailor Buildkite to fit your bespoke workflows with [plugins](/docs/plugins) and the [API](/docs/apis).
+- Understanding how to tailor Buildkite to fit your bespoke workflows with [plugins](/docs/pipelines/integrations/plugins) and the [API](/docs/apis).
 
 Remember, this is just the start of your journey with Buildkite. Take time to explore, learn, and experiment to make the most out of your pipelines. Happy building!

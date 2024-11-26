@@ -17,7 +17,7 @@ These signatures mean that if a threat actor could modify a job in flight, the a
   <ul>
     <li>It had to be installed on every agent instance, leading to more configuration.</li>
     <li>It only supported symmetric signatures (using HMAC-SHA256), meaning that every verifier could also sign uploads.</li>
-    <li>It couldn't sign <a href="/docs/pipelines/build-matrix">matrix steps</a>.</li>
+    <li>It couldn't sign <a href="/docs/pipelines/configure/workflows/build-matrix">matrix steps</a>.</li>
   </ul>
   <p>This newer version of pipeline signing is built right into the agent and addresses all of these limitations. Being built into the agent, it's also easier to configure and use.</p>
   <p>Many thanks to <a href="https://www.seek.com.au/">SEEK</a>, who we collaborated with on the older version of the tool, and whose prior art has been instrumental in the development of this newer version.</p>
@@ -36,7 +36,7 @@ The following fields are included in the signature for each step:
 - **The repository the commands are running in.** This prevents you from copying a signed step from one repository to another.
 
 > 📘 Compatibility with pipeline templates
-> [Pipeline templates](/docs/pipelines/templates) are designed to be used across multiple pipelines and therefore, repositories. Due to the inclusion of repositories in step signatures, signed steps cannot be used with pipeline templates.
+> [Pipeline templates](/docs/pipelines/governance/templates) are designed to be used across multiple pipelines and therefore, repositories. Due to the inclusion of repositories in step signatures, signed steps cannot be used with pipeline templates.
 
 ## Enabling signed pipelines on your agents
 
@@ -125,10 +125,10 @@ verification-jwks-file=<path to verification keys>
 
 ### Step 3: Sign all steps
 
-So far, you've configured agents to sign and verify any steps they upload and run. However, you also define steps in a pipeline's settings through the Buildkite dashboard. For example, teams commonly use a single step in the Buildkite dashboard to upload a pipeline definition from [a YAML file in the repository](/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file). These steps should also be signed.
+So far, you've configured agents to sign and verify any steps they upload and run. However, you also define steps in a pipeline's settings through the Buildkite dashboard. For example, teams commonly use a single step in the Buildkite dashboard to upload a pipeline definition from [a YAML file in the repository](/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file). These steps should also be signed.
 
 > 🚧 Non-YAML steps
-> You must use YAML to sign steps configured in the Buildkite dashboard. If you don't use YAML, you'll need to [migrate to YAML steps](/docs/tutorials/pipeline_upgrade) before continuing.
+> You must use YAML to sign steps configured in the Buildkite dashboard. If you don't use YAML, you'll need to [migrate to YAML steps](/docs/pipelines/tutorials/pipeline-upgrade) before continuing.
 
 To sign steps configured in the Buildkite dashboard, you need to add static signatures to the YAML. To do this, run:
 

@@ -3,7 +3,7 @@
 You can run the Buildkite Agent inside a Docker container using the [official image on Docker Hub](https://hub.docker.com/r/buildkite/agent).
 
 >📘 Running each build in its own container
-> These instructions cover how to run the agent using Docker. If you want to learn how to isolate each build using Docker and any of our standard Linux-based installers read the <a href="/docs/tutorials/docker-containerized-builds">Containerized builds with Docker</a> guide.
+> These instructions cover how to run the agent using Docker. If you want to learn how to isolate each build using Docker and any of our standard Linux-based installers read the <a href="/docs/pipelines/tutorials/docker-containerized-builds">Containerized builds with Docker</a> guide.
 
 ## Running using Docker
 
@@ -143,7 +143,7 @@ docker run \
 
 ## Docker Hub rate limits
 
-If you're using Docker with Docker images hosted on Docker Hub, note that as of 2nd November 2020 there are [strict rate limits](/docs/integrations/docker-hub) for image downloads.
+If you're using Docker with Docker images hosted on Docker Hub, note that as of 2nd November 2020 there are [strict rate limits](/docs/pipelines/integrations/other/docker-hub) for image downloads.
 
 ## Authenticating private git repositories
 

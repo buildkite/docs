@@ -11,7 +11,7 @@ The Buildkite Agent has changed a lot in v2 but upgrade process is straight forw
 * Agents can be configured with [a config file](configuration).
 * Agents register themselves with a organization-wide token, you no longer need to create them using the web.
 * Agents now have [hooks support](hooks) and there should be no reason to customize the `bootstrap.sh` file.
-* There is built-in support for containerizing builds with [Docker and Docker Compose](/docs/tutorials/docker-containerized-builds).
+* There is built-in support for containerizing builds with [Docker and Docker Compose](/docs/pipelines/tutorials/docker-containerized-builds).
 * There are [installer packages](installation) available for most systems.
 * Agents now have [meta-data](agent-meta-data).
 * Agent meta-data can be imported from EC2 tags with `--meta-data-ec2-tags`
