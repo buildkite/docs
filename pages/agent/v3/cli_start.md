@@ -113,6 +113,7 @@ steps:
 Finally, in your `pipeline.yml`, set `hostname: "$BUILDKITE_AGENT_META_DATA_HOSTNAME"` on any commands that you want to stick to the agent that uploaded the `pipeline.yml`. For example:
 
 ```yaml:
+steps:
   - command: echo "I will stick!"
     agents:
       hostname: "$BUILDKITE_AGENT_META_DATA_HOSTNAME"
@@ -122,6 +123,7 @@ Finally, in your `pipeline.yml`, set `hostname: "$BUILDKITE_AGENT_META_DATA_HOST
 When Buildkite uploads the pipeline, `$BUILDKITE_AGENT_META_DATA_HOSTNAME` is replaced with the agent's hostname tag value. In effect, the previous example becomes:
 
 ```yaml
+steps:
   - command: echo "I will stick!"
     agents:
       hostname: "agents-computer-hostname"
