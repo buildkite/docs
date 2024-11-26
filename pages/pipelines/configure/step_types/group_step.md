@@ -41,14 +41,14 @@ Required attributes:
 <tr>
     <td><code>group</code></td>
     <td>
-    Name of the group in the UI. In YAML, if you don't want a label, pass a `~`. Can also be provided in the `label` attribute if `null` is provided to the `group` attribute.<br>
+      Name of the group in the UI. In YAML, if you don't want a label, pass a `~`. Can also be provided in the `label` attribute if `null` is provided to the `group` attribute.<br/>
       <em>Type:</em> <code>string</code> or <code>null</code>
     </td>
   </tr>
   <tr>
     <td><code>steps</code></td>
     <td>
-    A list of steps in the group; at least 1 step is required. Allowed step types: <a href="/docs/pipelines/configure/step-types/wait-step"><code>wait</code></a>, <a href="/docs/pipelines/configure/step-types/trigger-step"><code>trigger</code></a>, <a href="/docs/pipelines/configure/step-types/command-step"><code>command</code>/<code>commands</code></a>, <a href="/docs/pipelines/configure/step-types/block-step"><code>block</code></a>, <a href="/docs/pipelines/configure/step-types/input-step"><code>input</code></a>.<br>
+      A list of steps in the group; at least 1 step is required. Allowed step types: <a href="/docs/pipelines/configure/step-types/wait-step"><code>wait</code></a>, <a href="/docs/pipelines/configure/step-types/trigger-step"><code>trigger</code></a>, <a href="/docs/pipelines/configure/step-types/command-step"><code>command</code>/<code>commands</code></a>, <a href="/docs/pipelines/configure/step-types/block-step"><code>block</code></a>, <a href="/docs/pipelines/configure/step-types/input-step"><code>input</code></a>.<br/>
       <em>Type:</em> <code>array</code>
     </td>
   </tr>
@@ -60,52 +60,54 @@ Optional attributes:
   <tr>
     <td><code>allow_dependency_failure</code></td>
     <td>
-      Whether to continue to run this step if any of the steps named in the <code>depends_on</code> attribute fail.<br>
+      Whether to continue to run this step if any of the steps named in the <code>depends_on</code> attribute fail.<br/>
       <em>Default:</em> <code>false</code>
     </td>
   </tr>
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step or group keys that this step depends on. This step or group will only run after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br>
+      A list of step or group keys that this step depends on. This step or group will only run after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br/>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
   </tr>
   <tr>
     <td><code>if</code></td>
     <td>
-      A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.<br>
+      A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.<br/>
       <em>Example:</em> <code>build.message != "skip me"</code>
     </td>
   </tr>
   <tr>
     <td><code>key</code></td>
     <td>
-    A unique string to identify the step, block, or group. Alias: `identifier` or `id`.<br>
-      <em>Example:</em> <code>"test-suite"</code>
+      A unique string to identify the step, block, or group.<br/>
+      Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br/>
+      <em>Example:</em> <code>"test-suite"</code><br/>
+      <em>Alias:</em> <code>identifier</code>
     </td>
   </tr>
   <tr>
     <td><code>label</code></td>
     <td>
-      The label that will be displayed in the pipeline visualisation in Buildkite (name of the group in the UI). Supports emoji.<br>
-      <em>Example:</em> <code>"\:hammer\: Tests" will be rendered as "🔨 Tests"</code><br>
+      The label that will be displayed in the pipeline visualisation in Buildkite (name of the group in the UI). Supports emoji.<br/>
+      <em>Example:</em> <code>"\:hammer\: Tests" will be rendered as ":hammer: Tests"</code><br/>
     </td>
   </tr>
   <tr>
     <td><code>notify</code></td>
     <td>
-      Allows you to <a href="/docs/pipelines/configure/notifications">trigger</a> build notifications to different services. You can also choose to conditionally send notifications based on pipeline events.<br>
-      <em>Example:</em> <code>"github_commit_status:"</code><br>
+      Allows you to <a href="/docs/pipelines/configure/notifications">trigger</a> build notifications to different services. You can also choose to conditionally send notifications based on pipeline events.<br/>
+      <em>Example:</em> <code>"github_commit_status:"</code><br/>
     </td>
   </tr>
   <tr>
     <td><code>skip</code></td>
     <td>
       Whether to skip this step or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
-      Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br>
-      <em>Example:</em> <code>true</code><br>
-      <em>Example:</em> <code>false</code><br>
+      Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br/>
+      <em>Example:</em> <code>true</code><br/>
+      <em>Example:</em> <code>false</code><br/>
       <em>Example:</em> <code>"My reason"</code>
     </td>
   </tr>

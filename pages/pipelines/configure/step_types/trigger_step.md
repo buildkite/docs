@@ -39,7 +39,7 @@ Required attributes:
   <tr>
     <td><code>trigger</code></td>
     <td>
-      The slug of the pipeline to create a build. You can find it in the URL of your pipeline, and it corresponds to the name of the pipeline, converted to <a href="https://en.wikipedia.org/wiki/Letter_case#Kebab_case">kebab-case</a>.<br>
+      The slug of the pipeline to create a build. You can find it in the URL of your pipeline, and it corresponds to the name of the pipeline, converted to <a href="https://en.wikipedia.org/wiki/Letter_case#Kebab_case">kebab-case</a>.<br/>
       <em>Example:</em> <code>"another-pipeline"</code>
     </td>
   </tr>
@@ -58,43 +58,52 @@ Optional attributes:
   <tr>
     <td><code>label</code></td>
     <td>
-      The label that will be displayed in the pipeline visualisation in Buildkite. Supports emoji.<br>
-      <em>Example:</em> <code>"\:rocket\: Deploy"</code><br>
+      The label that will be displayed in the pipeline visualisation in Buildkite. Supports emoji.<br/>
+      <em>Example:</em> <code>"\:rocket\: Deploy"</code><br/>
     </td>
   </tr>
   <tr>
     <td><code>async</code></td>
     <td>
-      If set to <code>true</code> the step will immediately continue, regardless of the success of the triggered build. If set to <code>false</code> the step will wait for the triggered build to complete and continue only if the triggered build passed.<br>
-      <p>Note that when <code>async</code> is set to <code>true</code>, as long as the triggered build starts, the original pipeline will show that as successful. The original pipeline does not get updated after subsequent steps or after the triggered build completes.<br>
+      If set to <code>true</code> the step will immediately continue, regardless of the success of the triggered build. If set to <code>false</code> the step will wait for the triggered build to complete and continue only if the triggered build passed.<br/>
+      <p>Note that when <code>async</code> is set to <code>true</code>, as long as the triggered build starts, the original pipeline will show that as successful. The original pipeline does not get updated after subsequent steps or after the triggered build completes.<br/>
       <em>Default:</em> <code>false</code>
     </td>
   </tr>
   <tr>
     <td><code>branches</code></td>
     <td>
-      The <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this step in their builds.<br>
+      The <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this step in their builds.<br/>
       <em>Example:</em> <code>"main stable/*"</code>
     </td>
   </tr>
   <tr>
     <td><code>if</code></td>
     <td>
-      A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.<br>
+      A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.<br/>
       <em>Example:</em> <code>build.message != "skip me"</code>
     </td>
   </tr>
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br>
+      A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br/>
       <em>Example:</em> <code>"test-suite"</code>
+    </td>
+   </tr>
+   <tr>
+    <td><code>key</code></td>
+    <td>
+      A unique string to identify the trigger step.<br/>
+      Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br/>
+      <em>Example:</em> <code>"trigger-deploy"</code><br/>
+      <em>Alias:</em> <code>identifier</code>
     </td>
    </tr>
    <tr>
     <td><code>allow_dependency_failure</code></td>
     <td>
-      Whether to continue to run this step if any of the steps named in the <code>depends_on</code> attribute fail.<br>
+      Whether to continue to run this step if any of the steps named in the <code>depends_on</code> attribute fail.<br/>
       <em>Default:</em> <code>false</code>
     </td>
   </tr>
@@ -102,17 +111,17 @@ Optional attributes:
     <td><code>skip</code></td>
     <td>
       Whether to skip this step or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
-      Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br>
-      <em>Example:</em> <code>true</code><br>
-      <em>Example:</em> <code>false</code><br>
+      Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br/>
+      <em>Example:</em> <code>true</code><br/>
+      <em>Example:</em> <code>false</code><br/>
       <em>Example:</em> <code>"My reason"</code>
     </td>
   </tr>
   <tr>
     <td><code>soft_fail</code></td>
     <td>
-      When <code>true</code>, failure of the triggered build will not cause the triggering build to fail.<br>
-      <em>Default:</em> <code>false</code><br>
+      When <code>true</code>, failure of the triggered build will not cause the triggering build to fail.<br/>
+      <em>Default:</em> <code>false</code><br/>
     </td>
   </tr>
 </table>
@@ -123,38 +132,38 @@ Optional `build` attributes:
   <tr>
     <td><code>message</code></td>
     <td>
-      The message for the build. Supports emoji.<br>
-      <em>Default:</em> the label of the trigger step.<br>
-      <em>Example:</em> <code>"Triggered build"</code><br>
+      The message for the build. Supports emoji.<br/>
+      <em>Default:</em> the label of the trigger step.<br/>
+      <em>Example:</em> <code>"Triggered build"</code><br/>
     </td>
   </tr>
   <tr>
     <td><code>commit</code></td>
     <td>
-      The commit hash for the build.<br>
-      <em>Default:</em> <code>"HEAD"</code><br>
-      <em>Example:</em> <code>"ca82a6d"</code><br>
+      The commit hash for the build.<br/>
+      <em>Default:</em> <code>"HEAD"</code><br/>
+      <em>Example:</em> <code>"ca82a6d"</code><br/>
     </td>
   </tr>
   <tr>
     <td><code>branch</code></td>
     <td>
-      The branch for the build.<br>
-      <em>Default:</em> The triggered pipeline's default branch.<br>
-      <em>Example:</em> <code>"production"</code><br>
+      The branch for the build.<br/>
+      <em>Default:</em> The triggered pipeline's default branch.<br/>
+      <em>Example:</em> <code>"production"</code><br/>
     </td>
   </tr>
   <tr>
     <td><code>meta_data</code></td>
     <td>
-      A map of <a href="/docs/pipelines/configure/build-meta-data">meta-data</a> for the build.<br>
+      A map of <a href="/docs/pipelines/configure/build-meta-data">meta-data</a> for the build.<br/>
       <em>Example:</em> <code>release-version: "1.1"</code>
     </td>
   </tr>
   <tr>
     <td><code>env</code></td>
     <td>
-      A map of <a href="/docs/pipelines/configure/environment-variables">environment variables</a> for the build.<br>
+      A map of <a href="/docs/pipelines/configure/environment-variables">environment variables</a> for the build.<br/>
       <em>Example:</em> <code>RAILS_ENV: "test"</code>
     </td>
   </tr>

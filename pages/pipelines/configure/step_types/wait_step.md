@@ -17,28 +17,37 @@ Optional attributes:
   <tr>
     <td><code>continue_on_failure</code></td>
     <td>
-      Run the next step, even if the previous step has failed.<br>
+      Run the next step, even if the previous step has failed.<br/>
       <em>Example:</em> <code>true</code>
     </td>
   </tr>
   <tr>
     <td><code>if</code></td>
     <td>
-      A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.<br>
+      A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.<br/>
       <em>Example:</em> <code>build.message != "skip me"</code>
     </td>
   </tr>
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step keys that this step depends on. This step will only proceed after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br>
+      A list of step keys that this step depends on. This step will only proceed after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br/>
       <em>Example:</em> <code>"test-suite"</code>
+    </td>
+   </tr>
+   <tr>
+    <td><code>key</code></td>
+    <td>
+      A unique string to identify the wait step.<br/>
+      Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br/>
+      <em>Example:</em> <code>"confirmation"</code><br/>
+      <em>Alias:</em> <code>identifier</code>
     </td>
    </tr>
    <tr>
     <td><code>allow_dependency_failure</code></td>
     <td>
-      Whether to continue to proceed past this step if any of the steps named in the <code>depends_on</code> attribute fail.<br>
+      Whether to continue to proceed past this step if any of the steps named in the <code>depends_on</code> attribute fail.<br/>
       <em>Default:</em> <code>false</code>
     </td>
   </tr>
