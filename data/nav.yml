@@ -333,7 +333,7 @@
     - name: "Security"
       children:
         - name: "Overview"
-          path: "pipelines/security/overview"
+          path: "pipelines/security"
         - name: "Secrets"
           children:
             - name: "Overview"
