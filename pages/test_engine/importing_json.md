@@ -451,5 +451,6 @@ Detail objects contains additional information about the span.
         }
       ]
     }
+  }
 ]
 ```
