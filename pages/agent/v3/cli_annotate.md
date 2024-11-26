@@ -8,7 +8,7 @@ The Buildkite Agent's `annotate` command allows you to add additional informatio
 
 The `buildkite-agent annotate` command creates an annotation associated with the current build.
 
-There is no limit to the amount of annotations you can create, but the maximum body size of each annotation is 1MiB. The size is measured in bytes, accounting for the underlying data encoding (note: the specific encoding used can affect the size calculation). All annotations can be retrieved using the [GraphQL API](/docs/apis/graphql-api).
+There is no limit to the amount of annotations you can create, but the maximum body size of each annotation is 1MiB. The size is measured in bytes, accounting for the underlying data encoding, where the specific encoding used can affect the size calculation. For example, if UTF-8 encoding is implemented, some characters may be encoded using up to 4 bytes each. All annotations can be retrieved using the [GraphQL API](/docs/apis/graphql-api).
 
 Options for the `annotate` command can be found in the `buildkite-agent` cli help:
 
