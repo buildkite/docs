@@ -31,3 +31,10 @@ enforced 2FA via the GraphQL API.
 
 [cookbook]: </docs/apis/graphql/cookbooks/organizations#enforce-two-factor-authentication-2fa-for-your-organization>
 [2FA tutorial]: </docs/platform/tutorials/2fa>
+
+## API access tokens
+
+Enforcing 2FA does not invalidate existing [API access tokens][access-tokens]. Existing tokens will
+continue to work, but users must enable 2FA before they can update existing tokens or create new ones.
+
+[access-tokens]: </docs/apis/managing-api-tokens>
