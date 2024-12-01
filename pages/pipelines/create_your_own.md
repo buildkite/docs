@@ -109,7 +109,7 @@ That's it! You've successfully created your own pipeline! 🎉
 
 We recommend you continue by:
 
-- Inviting your team to see your build and try Buildkite themselves. Invite users from your [organization's user settings](https://buildkite.com/organizations/-/users/new) by pasting their email addresses into the form. An email invitation's lifespan is 7 days. After this period, a user's invitation will expire, they'll need to be sent another invitation, after which they'll need to accept within 7 days.
+- Inviting your team to see your build and try Buildkite themselves. Invite users from your [organization's user settings](https://buildkite.com/organizations/-/users/new) by pasting their email addresses into the form. Each of your invited users will receive an email invitation, whose lifespan is 7 days. After this period, the users' invitations will expire. Those users who have not accepted the invitation will need to be sent another, after which they'll need to accept within 7 days.
 
     **Note:** To start inviting other users to your Buildkite organization, your email needs to be verified. To verify your email, go to your [personal email settings](https://buildkite.com/user/emails) and select **Resend Verification**. The lifetime of an email invite is 7 days. After 7 days, the invite will expire and you'll need to send it again for the user to accept it.
 
