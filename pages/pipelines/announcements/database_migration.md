@@ -10,7 +10,7 @@ In early 2024, Buildkite successfully completed an initial phase of work to begi
 
 This initial phase of work involved migrating some of Buildkite's largest customers (accounting for approximately half of the load on this original single database) over to smaller multiple shards, which greatly improved overall Buildkite Pipelines performance.
 
-From November 2024 to February 2025, Buildkite will migrate all remaining customers on this original single database over to smaller database shards. There will be migration windows from 07:00 – 09:00 UTC each Sunday during this period.
+From December 2024 to February 2025, Buildkite will migrate all remaining customers on this original single database over to smaller database shards. There will be migration windows from 07:00 – 09:00 UTC each Sunday during this period.
 
 ## The migration process
 
