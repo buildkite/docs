@@ -241,6 +241,7 @@ unsetting
 untrusted
 unxip
 uploaders
+upstreams
 url
 urls
 util
