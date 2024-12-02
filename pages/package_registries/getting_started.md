@@ -14,12 +14,12 @@ To complete this tutorial, you'll need:
 
 - [Node.js](https://nodejs.org/en/download)—macOS users can also install Node.js with [Homebrew](https://formulae.brew.sh/formula/node).
 
-## Create a registry
+## Create a source registry
 
-First, create a new JavaScript registry:
+First, create a new JavaScript source registry:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
-1. Select **New registry**.
+1. Select **New registry** > **Source Registry**.
 1. On the **New Registry** page, enter the mandatory **Name** for your registry. For example, `My JavaScript registry`.
 1. Enter an optional **Description** for the registry, which will appear under the name of the registry item on the **Registries** page. For example, `This is an example of a JavaScript registry`.
 1. Select the required registry **Ecosystem** of **JavaScript (npm)**.

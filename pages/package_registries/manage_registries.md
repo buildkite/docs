@@ -16,7 +16,7 @@ To create a new registry:
 
     **Note:** Any previously created registries are listed and can be accessed from this page.
 
-1. Select **New registry** > **Source registry**.
+1. Select **New registry** > **Source Registry**.
 1. On the **New Registry** page, enter the mandatory **Name** for your registry.
 1. Enter an optional **Description** for the registry. This description appears under the name of the registry item on the **Registries** page.
 1. Select the required registry **Ecosystem** based on the [package ecosystem](#create-a-source-registry-manage-packages-in-a-registry) for this new registry.
