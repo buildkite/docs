@@ -4,7 +4,7 @@ Buildkite Package Registries provides Helm registry support for distributing Hel
 
 This page is for standard Helm publishing instructions, alternatively you can also publish to an [OCI-based registry](/docs/package-registries/helm-oci).
 
-Once your Helm registry has been [created](/docs/package-registries/manage-registries#create-a-registry), you can publish/upload charts (generated from `helm package` to create the package) to this registry via the relevant `curl` command presented on your Helm registry's details page.
+Once your Helm registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload charts (generated from `helm package` to create the package) to this registry via the relevant `curl` command presented on your Helm registry's details page.
 
 To view and copy this `curl` command:
 
@@ -91,7 +91,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/helm_registry_slug' %>
 
-- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#update-a-registry-configure-registry-tokens) used to download charts from your Helm registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#update-a-source-registry-configure-registry-tokens) used to download charts from your Helm registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
 > 📘
 > This step is not required for public Helm registries.

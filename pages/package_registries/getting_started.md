@@ -49,7 +49,7 @@ Then, clone the Node.js example package project:
 
 ## Configure your Node.js environment and project
 
-Next, configure your Node.js environment to publish Node.js packages to [the JavaScript registry you created above](#create-a-registry):
+Next, configure your Node.js environment to publish Node.js packages to [the JavaScript registry you created above](#create-a-source-registry):
 
 1. Access your JavaScript registry's details page. To do this, select **Packages** in the global navigation > your npm package from the list.
 1. Select **Publish a JavaScript Package** to open the dialog with code boxes.
