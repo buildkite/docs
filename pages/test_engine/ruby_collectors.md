@@ -52,6 +52,9 @@ Once you're done, in your Test Engine dashboard, you'll see analytics of test ex
 
 If you don't see branch names, build numbers, or commit hashes in the Test Engine UI, then see [CI environments](/docs/test-engine/ci-environments) to learn more about exporting your environment to the collector.
 
+> 🚧
+> Test Engine identifies tests using their descriptions and example group descriptions. To avoid conflicts, ensure all test descriptions are unique. You can enforce uniqueness by using the RuboCop cops [RSpec/RepeatedDescription](https://docs.rubocop.org/rubocop-rspec/cops_rspec.html#rspecrepeateddescription) and [RSpec/RepeatedExampleGroupDescription](https://docs.rubocop.org/rubocop-rspec/cops_rspec.html#rspecrepeatedexamplegroupdescription).
+
 ### Troubleshooting allow_any_instance_of errors
 
 If you're using RSpec and seeing errors related to `allow_any_instance_of` that look like this:
