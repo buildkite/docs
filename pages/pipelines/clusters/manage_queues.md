@@ -22,12 +22,9 @@ As part of setting up a queue, you can choose between setting up your agents usi
 
 Buildkite provides a hosted infrastructure for your [Buildkite Agents](/docs/agent/v3), as well as support for self-hosted infrastructure, where you provide the infrastructure that hosts Buildkite Agents.
 
-> 📘
-> Creating [Buildkite hosted agent](/docs/pipelines/hosted-agents) queues is currently only supported through the [Buildkite interface](#create-a-queue-using-the-buildkite-interface). It is not possible to create hosted agent queues using the [REST](#create-a-queue-using-the-rest-api) or [GraphQL](#create-a-queue-using-the-graphql-api) APIs.
+## Create a self-hosted queue
 
-## Create a queue
-
-New queues can be created by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) using the [**Queues** page of a cluster](#create-a-queue-using-the-buildkite-interface), as well as the [REST API's](#create-a-queue-using-the-rest-api) or [GraphQL API's](#create-a-queue-using-the-graphql-api) create a queue feature.
+Self-hosted queues use your own infrastructure to run your builds. New queues can be created by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) using the [**Queues** page of a cluster](#create-a-self-hosted-queue-using-the-buildkite-interface), as well as the [REST API's](#create-a-self-hosted-queue-using-the-rest-api) or [GraphQL API's](#create-a-self-hosted-queue-using-the-graphql-api) create a queue feature.
 
 For these API requests, the _cluster ID_ value submitted in the request is the target cluster the queue will be created in.
 
@@ -42,18 +39,14 @@ To create a new queue using the Buildkite interface:
 1. On the **Queues** page, select **New Queue** to open the **Create a new Queue** page.
 1. In the **Create a key** field, enter a unique _key_ for the queue, which can only contain letters, numbers, hyphens, and underscores, as valid characters.
 1. Select the **Add description** checkbox to enter an optional longer description for the queue. This description appears under the queue's key, which is listed on the **Queues** page, as well as when viewing the queue's details.
-1. In the **Select your agent infrastructure** section, select between [**Hosted**](/docs/pipelines/hosted-agents) or **Self hosted** for your agent infrastructure.
-1. If you chose **Hosted**, complete the remaining sub-steps:
-    1. In the new **Configure your hosted agent infrastructure** section, select your **Machine type** ([**Linux**](/docs/pipelines/hosted-agents/linux) or [**macOS**](/docs/pipelines/hosted-agents/mac)).
-    1. If you selected **Linux**, within **Architecture**, you can choose between **AMD64** (the default and recommended) or **ARM64** architectures for the Linux machines running as hosted agents. To switch to **ARM64**, select **Change**, followed by **ARM64 (AArch64)**.
-    1. Select the appropriate **Capacity** for your hosted agent machine type (**Small**, **Medium** or **Large**). Take note of the additional information provided in the new **Hosted agents trial** section, which changes based on your selected **Capacity**.
+1. In the **Select your agent infrastructure** section, select **Self hosted** for your agent infrastructure.
 1. Select **Create Queue**.
 
     The new queue's details are displayed, indicating the queue's key and its description (if configured) underneath this key. Select **Queues** on the interface again to list all configured queues in your cluster.
 
 ### Using the REST API
 
-To [create a new self-hosted agent queue](/docs/apis/rest-api/clusters#queues-create-a-queue) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+To [create a new self-hosted agent queue](/docs/apis/rest-api/clusters#queues-create-a-self-hosted-queue) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```curl
 curl -H "Authorization: Bearer $TOKEN" \
@@ -116,6 +109,146 @@ where:
 <%= render_markdown partial: 'apis/descriptions/graphql_cluster_id' %>
 
 <%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
+
+## Create a hosted queue
+
+Hosted cluster queues use Buildkite's hosted agent infrastructure to run your builds. You can create a hosted queue using the [Buildkite interface](#create-a-hosted-queue-using-the-buildkite-interface), the [REST API](#create-a-hosted-queue-using-the-rest-api), or the [GraphQL API](#create-a-hosted-queue-using-the-graphql-api).
+
+When you create a hosted queue, you can choose the machine type (Linux or macOS) and the capacity (small, medium, or large) of the hosted agents that will run your builds.
+
+### Using the Buildkite interface
+
+To create a new hosted queue using the Buildkite interface:
+
+1. Select **Agents** in the global navigation to access the **Clusters** page.
+1. Select the cluster in which to create the new queue.
+1. On the **Queues** page, select **New Queue** to open the **Create a new Queue** page.
+1. In the **Create a key** field, enter a unique _key_ for the queue, which can only contain letters, numbers, hyphens, and underscores, as valid characters.
+1. Select the **Add description** checkbox to enter an optional longer description for the queue. This description appears under the queue's key, which is listed on the **Queues** page, as well as when viewing the queue's details.
+1. In the **Select your agent infrastructure** section, select [**Hosted**](/docs/pipelines/hosted-agents) for your agent infrastructure.
+1. In the new **Configure your hosted agent infrastructure** section, select your **Machine type** ([**Linux**](/docs/pipelines/hosted-agents/linux) or [**macOS**](/docs/pipelines/hosted-agents/mac)).
+1. If you selected **Linux**, within **Architecture**, you can choose between **AMD64** (the default and recommended) or **ARM64** architectures for the Linux machines running as hosted agents. To switch to **ARM64**, select **Change**, followed by **ARM64 (AArch64)**.
+1. Select the appropriate **Capacity** for your hosted agent machine type (**Small**, **Medium** or **Large**). Take note of the additional information provided in the new **Hosted agents trial** section, which changes based on your selected **Capacity**.
+1. Select **Create Queue**.
+
+    The new queue's details are displayed, indicating the queue's key and its description (if configured) underneath this key. Select **Queues** on the interface again to list all configured queues in your cluster.
+
+### Using the REST API
+
+To [create a new hosted agent queue](/docs/apis/rest-api/clusters#queues-create-a-hosted-queue) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+
+```curl
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/queues" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "key": "hosted_linux_small",
+    "description": "Small AMD64 Linux agents hosted by Buildkite.",
+    "hosted": true,
+    "hostedAgents": {
+      "instanceShape": "LINUX_AMD64_2X4"
+    }
+  }'
+```
+
+where:
+
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_cluster_id' %>
+
+<%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
+
+- `hostedAgents` - The hosted agents configuration for this queue, setting this field will make this queue a hosted queue.
+  + `instanceShape` - The instance shape describes the machine type, architecture, CPU, and RAM to provision for hosted agent instances running jobs in this queue.
+
+<p>Instance shapes for Linux hosted agents:</p>
+<%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_linux' %>
+
+<p>Instance shapes for macOS hosted agents:</p>
+<%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_mac' %>
+
+  Example:
+    ```json
+    "hostedAgents": {
+      "instanceShape": "LINUX_AMD64_2X4"
+    }
+    ```
+
+
+### Using the GraphQL API
+
+To [create a new hosted agent queue](/docs/apis/graphql/schemas/mutation/clusterqueuecreate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+
+```graphql
+mutation {
+  clusterQueueCreate(
+    input: {
+      organizationId: "organization-id"
+      clusterId: "cluster-id"
+      key: "hosted_linux_small"
+      description: "Small AMD64 Linux agents hosted by Buildkite."
+      hostedAgents: {
+        instanceShape: LINUX_AMD64_2X4
+      }
+    }
+  ) {
+    clusterQueue {
+      id
+      uuid
+      key
+      description
+      dispatchPaused
+      hosted
+      hostedAgents {
+        instanceShape {
+          name
+          size
+          vcpu
+          memory
+        }
+      }
+      createdBy {
+        id
+        uuid
+        name
+        email
+        avatar {
+          url
+        }
+      }
+    }
+  }
+}
+```
+
+where:
+
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
+
+<%= render_markdown partial: 'apis/descriptions/graphql_cluster_id' %>
+
+<%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
+
+- `hosted` - Setting this field to `true` will make this queue a hosted queue. Setting this field to `false` will make this queue a self-hosted queue. Providing `hostedAgents` configuration is only valid for hosted queues and will implicitly set `hosted` to `true`.
+
+- `hostedAgents` - The hosted agents configuration for this queue, setting this field will make this queue a hosted queue.
+    `instanceShape` - The instance shape describes the machine type, architecture, CPU and RAM to provision for hosted agent instances running jobs in this queue.
+
+    Example:
+
+    ```graphql
+    hostedAgents: {
+      instanceShape: LINUX_AMD64_2X4
+    }
+    ```
+<p>Instance shapes for Linux hosted agents:</p>
+<%= render partial: 'apis/descriptions/hosted_agents_instance_shape_table_linux' %>
+
+<p>Instance shapes for Mac hosted agents:</p>
+<%= render partial: 'apis/descriptions/hosted_agents_instance_shape_table_mac' %>
 
 ## Pause and resume a queue
 

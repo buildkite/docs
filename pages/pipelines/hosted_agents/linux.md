@@ -7,20 +7,11 @@ Linux instances for Buildkite hosted agents are offered with two architectures:
 
 To accommodate different workloads, instances are capable of running up to 8 hours. If you require longer running agents please contact support.
 
-## Size
+## Sizes
 
-Buildkite offers a selection of instance sizes, allowing you to tailor your hosted agents' resources to the demands of your jobs. Below is a breakdown of the available sizes.
+Buildkite offers a selection of instance sizes, allowing you to tailor your hosted agents' resources to the demands of your jobs. Below is a breakdown of the available shapes.
 
-<table>
-    <thead>
-        <tr><th>Size</th><th>vCPU</th><th>RAM</th></tr>
-    </thead>
-    <tbody>
-        <tr><td>Small</td><td>2</td><td>4 GB</td></tr>
-        <tr><td>Medium</td><td>4</td><td>16 GB</td></tr>
-        <tr><td>Large</td><td>8</td><td>32 GB</td></tr>
-    </tbody>
-</table>
+<%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_linux' %>
 
 ## Cache volumes
 
@@ -181,7 +172,7 @@ You can create an agent image:
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster in which to create the new agent image.
 
-    **Note:** Before continuing, ensure you have created a hosted agent queue (based on Linux architecture) within this cluster. Learn more about how to do this in [Create a queue](/docs/pipelines/clusters/manage-queues#create-a-queue).
+    **Note:** Before continuing, ensure you have created a hosted agent queue (based on Linux architecture) within this cluster. Learn more about how to do this in [Create a queue](/docs/pipelines/clusters/manage-queues#create-a-hosted-queue).
 
 1. Select **Agent Images** to open the **Agent Images** page.
 1. Select **New Image** to open the **New Agent Image** dialog.

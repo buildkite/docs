@@ -6,13 +6,21 @@ With hosted agents, Buildkite handles infrastructure management tasks, such as p
 
 ## Hosted agent types
 
-Buildkite offers both [Mac](/docs/pipelines/hosted-agents/mac) and [Linux](/docs/pipelines/hosted-agents/linux) hosted agents. Refer to these respective pages for detailed information about available the sizes and configurations for these agents.
+Buildkite offers both [Mac](/docs/pipelines/hosted-agents/mac) and [Linux](/docs/pipelines/hosted-agents/linux) hosted agents.
+
+<h2>Linux hosted agents</h2>
+<%= render partial: 'apis/descriptions/hosted_agents_instance_shape_table_linux' %>
+
+<h2>Mac hosted agents</h2>
+<%= render partial: 'apis/descriptions/hosted_agents_instance_shape_table_mac' %>
 
 Usage of all instance types is billed on a per-minute basis.
 
 Every Buildkite hosted agent within a cluster benefits from hypervisor-level isolation, ensuring robust separation between each instance.
 
 ## Creating a hosted agent queue
+
+You can create a hosted queue using the [Buildkite interface](#create-a-hosted-queue-using-the-buildkite-interface), the [REST API](#create-a-hosted-queue-using-the-rest-api), or the [GraphQL API](#create-a-hosted-queue-using-the-graphql-api). Learn more about configuring hosted queues in [Manage queues](/docs/pipelines/clusters/manage-queues).
 
 You can set up distinct hosted agent queues, each configured with specific types and sizes to efficiently manage jobs with varying requirements.
 
@@ -24,7 +32,6 @@ For example you may have two queues set up:
 Learn more about:
 
 - Best practices for configuring queues in [How should I structure my queues](/docs/pipelines/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues).
-- How to set up and create a Buildkite hosted agent queue in [Manage queues](/docs/pipelines/clusters/manage-queues).
 
 ## Using GitHub repositories in your hosted agent pipelines
 

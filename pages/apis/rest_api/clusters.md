@@ -350,7 +350,7 @@ Required scope: `read_clusters`
 
 Success response: `200 OK`
 
-### Create a queue
+### Create a self-hosted queue
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -392,11 +392,108 @@ Required [request body properties](/docs/api#request-body-properties):
 </tbody>
 </table>
 
+Required scope: `write_clusters`
+
+Success response: `201 Created`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
+</tbody>
+</table>
+
+### Create a hosted queue
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/queues" \
+  -H "Content-Type: application/json" \
+  -d '{ "key": "default", "description": "Queue of hosted Buildkite agents", "hosted": true, "hostedAgents": { "instanceShape": "LINUX_AMD64_2X4" } }'
+```
+
+```json
+{
+  "id": "01885682-55a7-44f5-84f3-0402fb452e66",
+  "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+  "key": "default",
+  "description": "Queue of hosted Buildkite agents",
+  "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+  "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+  "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+  "dispatch_paused": false,
+  "dispatch_paused_by": null,
+  "dispatch_paused_at": null,
+  "dispatch_paused_note": null,
+  "created_at": "2023-05-03T04:17:55.867Z",
+  "created_by": {
+    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
+    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
+    "name": "Sam Kim",
+    "email": "sam@example.com",
+    "avatar_url": "https://www.gravatar.com/avatar/example",
+    "created_at": "2023-05-03T04:17:43.118Z"
+  },
+  "hosted": true,
+  "hosted_agents": {
+    "instance_shape": {
+      "machine_type": "linux",
+      "architecture": "amd64",
+      "cpu": 2,
+      "memory": 4,
+      "name": "LINUX_AMD64_2X4"
+    },
+    "platform_settings": {
+      "linux": {
+        "agent_image_ref": null
+      }
+    }
+  }
+}
+```
+
+Required [request body properties](/docs/api#request-body-properties):
+
+<table class="responsive-table">
+<tbody>
+  <tr><th><code>key</code></th><td>Key for the queue.<br><em>Example:</em> <code>"default"</code>
+</tbody>
+</table>
+
 Optional [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>
   <tr><th><code>description</code></th><td>Description for the queue.<br><em>Example:</em> <code>"The default queue for this cluster"</code>
+  <tr>
+    <th>
+      <code>hosted</code></th>
+      <td>Configure the queue to use [Hosted Agents](/docs/pipelines/hosted-agents).<br><em>Example:</em> <code>true</code>
+    </td>
+  </tr>
+  <tr>
+    <th><code>hostedAgents</code></th>
+    <td>
+      Configuration for hosted agents on this queue.
+      <br>
+      <em>Example:</em> <br/>
+      <code>
+        { "instanceShape": "LINUX_AMD64_2X4" }
+      </code>
+
+      <code>instanceShape</code> (required): The instance shape to provision hosted agent machines on this queue.
+      <br/>
+
+      <p>Instance shapes for Linux hosted agents:</p>
+
+      <%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_linux' %>
+
+      <p>Instance shapes for Mac hosted agents:</p>
+
+      <%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_mac' %>
+  </td>
+  </tr>
 </tbody>
 </table>
 
@@ -451,6 +548,27 @@ curl -H "Authorization: Bearer $TOKEN" \
 <table class="responsive-table">
 <tbody>
   <tr><th><code>description</code></th><td>Description for the queue.<br><em>Example:</em> <code>"The default queue for this cluster"</code>
+  <tr>
+    <th><code>hostedAgents</code></th>
+    <td>
+      Configuration for hosted agents on this queue.
+      <br>
+      <em>Example:</em> <br/>
+      <code>
+        { "instanceShape": "LINUX_AMD64_2X4" }
+      </code>
+
+      <code>instanceShape</code> (required): The instance shape describes the machine type, architecture, CPU, and RAM to provision for hosted agent instances running jobs in this queue.
+
+      The architecture (AMD64, ARM64) and machine type (MACOS, LINUX) of the instance shape must match the existing hosted agents on the queue.
+
+      <br/>
+
+      <%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_linux' %>
+
+      <%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_mac' %>
+  </td>
+  </tr>
 </tbody>
 </table>
 
