@@ -2,7 +2,7 @@
 
 This page provides details on how to link and configure your private Amazon Web Services (AWS) Simple Storage Service (S3) storage to Buildkite Package Registries within your Buildkite organization. These processes can only be performed by [Buildkite organization administrators](/docs/package-registries/security/permissions#manage-teams-and-permissions-organization-level-permissions).
 
-By default, Buildkite Package Registries provides its own storage to house any packages, container images and modules stored in registries. You can also link your own private AWS S3 bucket to Buildkite Package Registries, which allows you to:
+By default, Buildkite Package Registries provides its own storage to house any packages, container images and modules stored in source registries. You can also link your own private AWS S3 bucket to Buildkite Package Registries, which allows you to:
 
 - Manage Buildkite registry packages, container images and modules stored within your private AWS S3 bucket (that is, your _private storage_). Private storage:
     * Located closer to your geographical location may provide faster registry access.
@@ -10,7 +10,7 @@ By default, Buildkite Package Registries provides its own storage to house any p
 
 - Use Buildkite Package Registries' management and metadata-handling features to manage these files in registries within your private storage.
 
-- Maintain control, ownership and sovereignty over the packages, container images and modules stored within your registries managed by Buildkite Package Registries.
+- Maintain control, ownership and sovereignty over the packages, container images and modules stored within your source registries managed by Buildkite Package Registries.
 
 Buildkite Package Registries uses [AWS CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html) to provision its services within your private AWS S3 storage.
 
