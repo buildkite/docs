@@ -100,7 +100,7 @@ To install a module:
     }
     ```
 
-    where `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#update-a-source-registry-configure-registry-tokens) used to download modules from your Terraform registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download modules and packages from any registry your user account has access to within your Buildkite organization.
+    where `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download modules from your Terraform registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download modules and packages from any registry your user account has access to within your Buildkite organization.
 
     **Note:** This step only needs to be performed once for the life of your Terraform registry.
 
