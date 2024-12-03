@@ -2,7 +2,7 @@
 
 This page provides details on how to manage registries within your Buildkite organization.
 
-Package Registries allows you to create two types of registries: [source](#create-a-source-registry) and [composite](#create-a-composite-registry).
+Package Registries allows you to create two types of registries: [source](#create-a-source-registry) and [composite](#composite-registries).
 
 ## Create a source registry
 
