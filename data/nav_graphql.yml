@@ -918,6 +918,8 @@
     path: apis/graphql/schemas/enum/clusterqueueorder
   - name: HostedAgentArchitecture
     path: apis/graphql/schemas/enum/hostedagentarchitecture
+  - name: HostedAgentInstanceShapeName
+    path: apis/graphql/schemas/enum/hostedagentinstanceshapename
   - name: HostedAgentMachineType
     path: apis/graphql/schemas/enum/hostedagentmachinetype
   - name: HostedAgentSize
