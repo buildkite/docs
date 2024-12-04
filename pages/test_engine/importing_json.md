@@ -394,7 +394,9 @@ Detail objects contains additional information about the span.
 }
 ```
 
-### Example test results
+### Test result format
+
+The following JSON code block shows an example of how your JSON test results should be formatted, so that these results can be successfully uploaded to Test Engine.
 
 ```json
 [
