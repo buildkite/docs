@@ -208,4 +208,4 @@ SET GITHUB_RELEASE_ACCESS_KEY='xxx'
 ```
 ### Hooks on hosted agents
 
-Currently, hooks located on the agent are not available on hosted agents. Instead we recommend using plugin or repository based hooks.
+Currently, hooks located on the agent are not available on hosted agents. Instead, we recommend using plugin or repository based hooks.
