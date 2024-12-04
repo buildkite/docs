@@ -104,6 +104,7 @@ exceptions:
   - Heroku
   - HMAC
   - HTTP
+  - I
   - IAM
   - ID
   - IdP # TODO: unabbreviate this in headings
