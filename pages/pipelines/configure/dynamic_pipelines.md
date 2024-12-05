@@ -1,6 +1,6 @@
-## Dynamic pipelines
+# Dynamic pipelines
 
-Because the pipeline upload step runs on your agent machine, you can generate pipelines dynamically using scripts from your source code. This provides you with the flexibility to structure your pipelines however you require.
+Because the [pipeline upload step](/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file) runs on your agent machine, you can generate pipelines dynamically using scripts from your source code. This provides you with the flexibility to structure your pipelines however you require.
 
 The following example generates a list of parallel test steps based upon the `test/*` directory within your repository:
 

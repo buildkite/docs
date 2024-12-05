@@ -69,7 +69,7 @@ steps:
     command: buildkite-agent pipeline upload
 ```
 
-When you eventually run a build from this pipeline, this step will look for a directory called `.buildkite` containing a file named `pipeline.yml`. Any steps it finds inside that file will be uploaded to Buildkite and will appear during the build.
+When you eventually run a build from this pipeline, this step will look for a directory called `.buildkite` containing a file named `pipeline.yml`. Any steps it finds inside that file will be [uploaded to Buildkite](/docs/agent/v3/cli-pipeline#uploading-pipelines) and will appear during the build.
 
 > 📘
 > When using WSL2 or PowerShell Core, you cannot add a `buildkite-agent pipeline upload` command step directly in the YAML steps editor. To work around this, there are two options:
