@@ -94,9 +94,12 @@ Therefore, your projects only need to be configured with a single composite regi
 
 A composite registry is a private, and its configured source registries, known as _upstreams_ or _upstream registries_, can either be private or publicly accessible. Furthermore, some private source registries may not be accessible to certain users within your Buildkite organization, due to [team](/docs/package-registries/security/permissions#manage-teams-and-permissions-team-level-permissions)- or [registry](/docs/package-registries/security/permissions#manage-teams-and-permissions-registry-level-permissions)-level permissions applied to these registries, or both. Regardless of these permissions, if such private source registries and those with user-restricted access are configured as _upstreams_ of a composite registry, then these source registries' packages can still be downloaded and installed by _any_ user with access to this composite registry, through the composite registry's URL.
 
+> 📘
+> Currently, the composite registries feature only supports the Java, JavaScript and Python [package ecosystem](/docs/package-registries/ecosystems).
+
 ### Create a composite registry
 
-New composite registries can be created through the **Registries** page of the Package Registries interface.
+New composite registries can be created through the **Registries** page of the Buildkite / Package Registries interface.
 
 To create a new composite registry:
 
@@ -107,7 +110,7 @@ To create a new composite registry:
 1. Select **New registry** > **Composite Registry**.
 1. On the **New Composite Registry** page, enter the mandatory **Name** for your registry.
 1. Enter an optional **Description** for the registry. This description appears under the name of the registry item on the **Registries** page.
-1. Select the required registry **Ecosystem** based on the [package ecosystem](#create-a-source-registry-manage-packages-in-a-registry) for this new registry. Currently, only Java, JavaScript and Python package ecosystems are supported.
+1. Select the required registry **Ecosystem** based on the [package ecosystem](#create-a-source-registry-manage-packages-in-a-registry) for this new registry.
 1. To allow your composite registry to download packages from your chosen package ecosystem's official public registry, select **Add official registry?** Doing this allows packages from one of the following official registries to be downloaded and installed through your composite registry's URL, based on your composite registry's package ecosystem:
     * Java (https://repo.maven.apache.org/maven2/)
     * JavaScript (`https://registry.npmjs.org/`)
