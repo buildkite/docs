@@ -130,7 +130,7 @@ When a [composite registry is created](#composite-registries-create-a-composite-
 - JavaScript (`https://registry.npmjs.org/`)
 - Python (`https://pypi.org/simple/`)
 
-Depending on your composite registry's package ecosystem, Package Registries allows you to add one or more of _all_ of your currently configured source registries matching your composite registry's package ecosystem. Such source registries are referred to as _upstreams_ or _upstream registries_. When viewing a composite registry, you can edit these upstreams by [adding them to or removing them from your composite registry](#add-or-remove-upstreams), as well as [enabling or disabling the official public registry](#enable-or-disable-the-official-registry) for your composite registry's package ecosystem.
+Depending on your composite registry's package ecosystem, Package Registries allows you to configure one or more of _all_ of your Buildkite organization's currently available source registries matching your composite registry's package ecosystem. Such source registries are referred to as _upstreams_ or _upstream registries_. When viewing a composite registry, you can edit these upstreams by [adding them to or removing them from your composite registry](#add-or-remove-upstreams), as well as [enabling or disabling the official public registry](#enable-or-disable-the-official-registry) for your composite registry's package ecosystem.
 
 <a id="add-or-remove-upstreams"></a>
 
@@ -140,11 +140,11 @@ To add upstreams to or remove them from your composite registry:
 
 1. Select **Packages** in the global navigation to access the [**Registries**](https://buildkite.com/organizations/~/packages) page.
 
-1. Select the composite registry in which to add or remove upstreams.
+1. Select the composite registry whose upstreams are to be added or removed.
 
 1. Ensure the **Upstreams** tab is selected and select the **Edit upstreams** button.
 
-    A list of all [source registries](#create-a-source-registry) available in your Buildkite organization that match your composite registry's package ecosystem, appears in a side panel. Any source repositories already configured as upstreams in the composite registry are associated with a **Remove** button.
+    A list of all [source registries](#create-a-source-registry) available in your Buildkite organization matching your composite registry's [package ecosystem](#create-a-source-registry-manage-packages-in-a-registry), appears in a side panel. Any source repositories already configured as upstreams in the composite registry are associated with a **Remove** button.
 
     **Note:** If your composite registry has no upstreams, the main section of this page indicates **No upstreams yet** and the **Edit upstreams** button appears immediately below this label.
 
@@ -158,13 +158,13 @@ To add upstreams to or remove them from your composite registry:
 
 #### Enable or disable the official registry
 
-To enable or disable the official public registry on your composite registry:
+To enable or disable access to the official public registry through your composite registry:
 
 1. Select **Packages** in the global navigation to access the [**Registries**](https://buildkite.com/organizations/~/packages) page.
 
-1. Select the composite registry in which to enable or disable its official public registry.
+1. Select the composite registry whose official public registry is to be enabled or disabled.
 
-1. Ensure the **Upstreams** tab is selected...
+1. Ensure the **Upstreams** tab is selected, and in the **Official registries** section, select **Enable** to enable access to the official public registry for the composite registry's [package ecosystem](#create-a-source-registry-manage-packages-in-a-registry), or **Disable** to disable access to this official public registry.
 
 ### Update a composite registry
 
