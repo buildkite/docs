@@ -38,7 +38,7 @@ Cache volumes act as regular disks with the following properties:
 
 ### Cache configuration
 
-Cache paths can be [defined in your `pipeline.yml`](/docs/pipelines/defining-steps) file. Defining cache paths for a step will implicitly create a cache volume for the pipeline.
+Cache paths can be [defined in your `pipeline.yml`](/docs/pipelines/configure/defining-steps) file. Defining cache paths for a step will implicitly create a cache volume for the pipeline.
 
 When cache paths are defined, the cache volume is mounted under `/cache` in the agent instance. The agent links subdirectories of the cache volume into the paths specified in the configuration. For example, defining `cache: "node_modules"` in your `pipeline.yml` file will link `./node_modules` to `/cache/bkcache/node_modules` in your agent instance.
 
@@ -181,7 +181,7 @@ You can create an agent image:
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster in which to create the new agent image.
 
-    **Note:** Before continuing, ensure you have created a hosted agent queue (based on Linux architecture) within this cluster. Learn more about how to do this in [Create a queue](/docs/clusters/manage-queues#create-a-queue).
+    **Note:** Before continuing, ensure you have created a hosted agent queue (based on Linux architecture) within this cluster. Learn more about how to do this in [Create a queue](/docs/pipelines/clusters/manage-queues#create-a-queue).
 
 1. Select **Agent Images** to open the **Agent Images** page.
 1. Select **New Image** to open the **New Agent Image** dialog.

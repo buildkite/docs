@@ -55,7 +55,7 @@ steps:
 Partial wildcard matching (for example, `postgres=1.9*` or `postgres=*1.9`) is not yet supported.
 
 > 📘 Setting agent defaults
-> Use a top-level <code>agents</code> block to <a href="/docs/pipelines/defining-steps#step-defaults">set defaults</a> for all steps in a pipeline.
+> Use a top-level <code>agents</code> block to <a href="/docs/pipelines/configure/defining-steps#step-defaults">set defaults</a> for all steps in a pipeline.
 
 If you specify multiple tags, your build will only run on agents that have **all** the specified tags.
 
@@ -112,20 +112,22 @@ steps:
 
 Finally, in your `pipeline.yml`, set `hostname: "$BUILDKITE_AGENT_META_DATA_HOSTNAME"` on any commands that you want to stick to the agent that uploaded the `pipeline.yml`. For example:
 
-```yamlsteps:
-  - command: "I will stick!"
+```yaml:
+steps:
+  - command: echo "I will stick!"
     agents:
       hostname: "$BUILDKITE_AGENT_META_DATA_HOSTNAME"
-  - command: "I might not"
+  - command: echo "I might not"
 ```
 
 When Buildkite uploads the pipeline, `$BUILDKITE_AGENT_META_DATA_HOSTNAME` is replaced with the agent's hostname tag value. In effect, the previous example becomes:
 
 ```yaml
-  - command: "I will stick!"
+steps:
+  - command: echo "I will stick!"
     agents:
       hostname: "agents-computer-hostname"
-  - command: "I might not"
+  - command: echo "I might not"
 ```
 
 This means the first step in the example can only run on an agent with the hostname "agents-computer-hostname". This is the hostname of the agent that uploaded the job. The second step may run on the same agent, or a different one.

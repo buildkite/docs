@@ -17,7 +17,7 @@ buildkite-agent start --token "TESTING-AGENT-TOKEN-VALUE" --tags "queue=linux-me
 ```
 
 > 📘 Ensure you have already configured your cluster's agent tokens and queues
-> Your [clusters](/docs/clusters/manage-clusters) and [queues](/docs/clusters/manage-queues) should already be configured before starting your agents to target these queues.
+> Your [clusters](/docs/pipelines/clusters/manage-clusters) and [queues](/docs/pipelines/clusters/manage-queues) should already be configured before starting your agents to target these queues.
 
 ### Setting up queues for unclustered agents
 
@@ -37,8 +37,8 @@ buildkite-agent start --token "UNCLUSTERED-AGENT-TOKEN-VALUE" --tags "queue=deve
 If you don't configure a queue for your agent by [setting](/docs/agent/v3/cli-start#setting-tags) the [queue tag](/docs/agent/v3/cli-start#the-queue-tag) (for example, `queue=linux-medium-x86`), the agent will accept jobs from the default queue as if you had set (that is, `queue=default`).
 
 > 📘 Clusters without a default queue configured
-> If you start your agent without explicitly specifying an [existing queue in your cluster](/docs/clusters/manage-queues#setting-up-queues) _and_ a default queue is not configured in this cluster, then your agent will fail to start.
-> You must either explicitly specify an existing queue within in your [cluster](/docs/clusters/manage-clusters) when starting the agent, or have a default queue already configured in this cluster for the agent to start successfully.
+> If you start your agent without explicitly specifying an [existing queue in your cluster](/docs/pipelines/clusters/manage-queues#setting-up-queues) _and_ a default queue is not configured in this cluster, then your agent will fail to start.
+> You must either explicitly specify an existing queue within in your [cluster](/docs/pipelines/clusters/manage-clusters) when starting the agent, or have a default queue already configured in this cluster for the agent to start successfully.
 
 ## Targeting a queue
 
@@ -60,4 +60,4 @@ steps:
 
 ## Alternative methods
 
-[Branch patterns](/docs/pipelines/branch-configuration) are another way to control what work is done. You can use branch patterns to determine which pipelines and steps run based on the branch name.
+[Branch patterns](/docs/pipelines/configure/workflows/branch-configuration) are another way to control what work is done. You can use branch patterns to determine which pipelines and steps run based on the branch name.

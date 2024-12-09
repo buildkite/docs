@@ -71,7 +71,7 @@ Buildkite services are billed according to your [plan](https://buildkite.com/pri
 <!-- vale off -->
 
 - [Amazon Linux 2023](https://aws.amazon.com/amazon-linux-2/)
-- [Buildkite Agent v3.77.0](https://buildkite.com/docs/agent)
+- [Buildkite Agent v3.77.0](/docs/agent)
 - [Git](https://git-scm.com/) and [Git LFS](https://git-lfs.com/)
 - [Docker](https://www.docker.com)
 - [Docker Compose](https://docs.docker.com/compose/)
@@ -154,7 +154,7 @@ We've created a sample [bash-parallel-example sample pipeline](https://github.co
 Click **Create Pipeline**. Depending on your organization's settings, the next step will vary slightly:
 
 - If your organization uses the web-based steps editor (default), your pipeline is now ready for its first build. You can skip to the next step.
-- If your organization has been upgraded to the [YAML steps editor](https://buildkite.com/docs/tutorials/pipeline-upgrade), you should see a **Choose a Starting Point** wizard. Select **Pipeline Upload** from the list:
+- If your organization has been upgraded to the [YAML steps editor](/docs/pipelines/tutorials/pipeline-upgrade), you should see a **Choose a Starting Point** wizard. Select **Pipeline Upload** from the list:
   <%= image "buildkite-pipeline-upload.png", size: "#{782/2}x#{400/2}", alt: 'Upload Pipeline from Version Control' %>
 
 Click **New Build** in the top right and choose a build message (perhaps a little party `\:partyparrot\:`?):

@@ -14,7 +14,7 @@ To delete a suite, or regenerate its API token, go to suite settings.
 
 In CI/CD, a build's tests can be made to run in parallel using features of your own CI/CD pipeline or workflow tool. Parallelized pipeline/workflow builds typically run and complete faster than builds which are not parallelized.
 
-In Buildkite Pipelines, you can run tests in parallel when they are configured as [parallel jobs](https://buildkite.com/docs/tutorials/parallel-builds#parallel-jobs).
+In Buildkite Pipelines, you can run tests in parallel when they are configured as [parallel jobs](/docs/pipelines/tutorials/parallel-builds#parallel-jobs).
 
 > 📘
 > When tests are run in parallel across multiple agents, they can be grouped into the same run by defining the same `run_env[key]` environment variable. Learn more about this environment variable and others in [CI environments](/docs/test-engine/ci-environments).
@@ -36,7 +36,7 @@ Test Engine detects flaky tests by surfacing when the same test is run multiple 
 
 If your test suite supports it, we recommend enabling the option to retry failed tests automatically. Automatic retries are typically run more often and provide more data to detect flaky tests. If you can't use automatic retries, Test Engine also detects flaky tests from manual retries.
 
-Alternatively, you can create [scheduled builds](/docs/pipelines/scheduled-builds) to run your test suite on the default branch. You can schedule them outside your typical development time to run the test suite multiple times against the same commit SHA. You can still enable test retries in this setup, but they're less important. The more builds you run, the more likely you'll detect flaky tests that fail infrequently.
+Alternatively, you can create [scheduled builds](/docs/pipelines/configure/workflows/scheduled-builds) to run your test suite on the default branch. You can schedule them outside your typical development time to run the test suite multiple times against the same commit SHA. You can still enable test retries in this setup, but they're less important. The more builds you run, the more likely you'll detect flaky tests that fail infrequently.
 
 Test Engine reviews the test results to detect flaky tests after every test run.
 

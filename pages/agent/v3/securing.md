@@ -41,7 +41,7 @@ Since the [agent](https://github.com/buildkite/agent) is open-source, if necessa
 Defining an [environment hook](hooks#job-lifecycle-hooks) in the
 [agent `hooks-path`](hooks#hook-locations-agent-hooks), you can create a
 list of plugins that an agent is allowed to run by inspecting the
-`BUILDKITE_PLUGINS` [environment variable](https://buildkite.com/docs/pipelines/environment-variables).
+`BUILDKITE_PLUGINS` [environment variable](/docs/pipelines/configure/environment-variables).
 For an example of this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example)
 repository on GitHub.
 
@@ -139,7 +139,7 @@ then
 fi
 ```
 
-But also remember that some [environment variables may be essential](/docs/pipelines/environment-variables) to the execution of jobs, so adding them to a blocklist in this manner is not advisable.
+But also remember that some [environment variables may be essential](/docs/pipelines/configure/environment-variables) to the execution of jobs, so adding them to a blocklist in this manner is not advisable.
 
 ## Sign pipelines
 
@@ -214,6 +214,6 @@ After creating this file, systemd will require a reload and the `buildkite-agent
 
 ## Restrict agent connection by IP address
 
-[Clusters](/docs/clusters/overview) provide a mechanism to restrict which IP addresses can connect using a given agent token. This protects against the misuse of agent tokens and the hijacking of agent sessions.
+[Clusters](/docs/pipelines/clusters) provide a mechanism to restrict which IP addresses can connect using a given agent token. This protects against the misuse of agent tokens and the hijacking of agent sessions.
 
-To restrict agent connection by IP address, set the [**Allowed IP Addresses** attribute](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address). This restricts agent registration to those IPs, and any existing agents outside the allowed IP ranges will be forcefully disconnected.
+To restrict agent connection by IP address, set the [**Allowed IP Addresses** attribute](/docs/pipelines/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address). This restricts agent registration to those IPs, and any existing agents outside the allowed IP ranges will be forcefully disconnected.

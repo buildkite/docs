@@ -353,4 +353,8 @@ html.dark {
       margin-right: 8px;
     }
   }
+
+  .invertible {
+    filter: invert(92%) hue-rotate(180deg);
+  }
 }
