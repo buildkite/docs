@@ -46,13 +46,11 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 
 ## Access a package's details
 
-An Alpine (apk) package's details can be accessed from this source registry using the **Packages** section of your Alpine registry page.
-
-To access your apk package's details page:
+An Alpine (apk) package's details can be accessed from its source registry using the **Packages** section of your Alpine source registry page. To do this:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
 1. Select your Alpine source registry on this page.
-1. On your Alpine registry page, select the package to display its details page.
+1. On your Alpine source registry page, select the package to display its details page.
 
 <%= render_markdown partial: 'package_registries/package_details_page_sections' %>
 
@@ -87,7 +85,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/debian_registry_slug' %>
+<%= render_markdown partial: 'package_registries/registry_slug' %>
 
 **Step 2**: Install the registry signing key:
 
@@ -146,7 +144,7 @@ where:
         }
         ```
 
-- `buildkite:{registry.read.token}@` while these values are the same as those in the previous step for configuring your Alpine registry source, this component is not required for registries that are publicly accessible.
+- `buildkite:{registry.read.token}@` while these values are the same as those in the previous step for configuring your source Alpine registry, this component is not required for registries that are publicly accessible.
 
 **Step 3**: Retrieve the latest apk indices:
 
