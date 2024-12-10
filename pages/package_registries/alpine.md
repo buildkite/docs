@@ -36,7 +36,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/path_to_file' %>
 
-For example, to upload the file `my-alpine-package_0.1.1_r0.apk` from the current directory to the **My Alpine packages** registry in the **My organization** Buildkite organization, run the `curl` command:
+For example, to upload the file `my-alpine-package_0.1.1_r0.apk` from the current directory to the **My Alpine packages** source registry in the **My organization** Buildkite organization, run the `curl` command:
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-alpine-packages/packages \

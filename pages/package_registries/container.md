@@ -2,32 +2,32 @@
 
 Buildkite Package Registries provides registry support for Docker and other Open Container Initiative (OCI) images. Buildkite registries follow the [OCI Distribution Specification](https://github.com/opencontainers/distribution-spec) version 1.1.
 
-Once your container registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload images (generated from your application's build) to this registry via relevant `docker` commands presented on your container registry's details page.
+Once your container source registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload images (generated from your application's build) to this registry via relevant `docker` commands presented on your container registry's details page.
 
 To view and copy these `docker` commands:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
-1. Select your container registry on this page.
+1. Select your container source registry on this page.
 1. Select **Publish a Container Image** and in the resulting dialog, for each required `docker` command set in the relevant code snippets, copy the relevant code snippet (using the icon at the top-right of its code box), paste it into your terminal, and run it.
 
 These Docker commands are used to:
 
-- Log in to your Buildkite container registry with the API access token.
+- Log in to your Buildkite container source registry with the API access token.
 - Tag your container image to be published.
-- Publish the image to your container registry.
+- Publish the image to your container source registry.
 
 ## Publish an image
 
 The following steps describe the process above:
 
-1. Copy the following `docker login` command, paste it into your terminal, and modify as required before running to log in to your container registry:
+1. Copy the following `docker login` command, paste it into your terminal, and modify as required before running to log in to your container source registry:
 
     ```bash
     docker login packages.buildkite.com/{org.slug}/{registry.slug} -u buildkite -p registry-write-token
     ```
 
     where:
-    * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your container registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
+    * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your container source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization.
 
     <%= render_markdown partial: 'package_registries/org_slug' %>
     <%= render_markdown partial: 'package_registries/container_registry_slug' %>
@@ -39,8 +39,8 @@ The following steps describe the process above:
     ```
 
     where:
-    * `current-image-name:tag` is the existing `image-name:tag` combination of your container image name and its current tag to published to your container registry. The `:tag` component can be optional. This component of this command also supports the other tag syntax references mentioned in the [`docker tag` documentation](https://docs.docker.com/reference/cli/docker/image/tag/).
-    * `image-name:tag` is the image name and tag to provide to this image when it is published to your container registry, where the `:tag` part of this command is optional.
+    * `current-image-name:tag` is the existing `image-name:tag` combination of your container image name and its current tag to published to your container source registry. The `:tag` component can be optional. This component of this command also supports the other tag syntax references mentioned in the [`docker tag` documentation](https://docs.docker.com/reference/cli/docker/image/tag/).
+    * `image-name:tag` is the image name and tag to provide to this image when it is published to your source container registry, where the `:tag` part of this command is optional.
 
 1. Copy the following `docker push` command, paste it into your terminal, and modify as required before running to push your container image:
 
@@ -52,13 +52,11 @@ The following steps describe the process above:
 
 ## Access an image's details
 
-A container image's details can be accessed from this registry using the **Packages** section of your container registry page.
-
-To access your container image's details page:
+A container image's details can be accessed from its source registry using the **Packages** section of your container source registry page. To do this:
 
 1. Select **Packages** in the global navigation to access the **Registries** page.
-1. Select your container registry on this page.
-1. On your container registry page, select the image to display its details page.
+1. Select your container source registry on this page.
+1. On your container source registry page, select the image to display its details page.
 
 The image's details page provides the following information in the following sections:
 
@@ -70,12 +68,12 @@ The image's details page provides the following information in the following sec
 
     * the name of the image (typically the file name excluding any version details and extension).
     * the image version.
-    * the registry the image is located in.
+    * the source registry the image is located in.
     * the image's visibility (based on its registry's visibility)—whether the image is **Private** and requires authentication to access, or is publicly accessible.
     * the distribution name / version.
     * additional optional metadata contained within the image, such as a homepage, licenses, etc.
 
-- **Pushed**: the date when the last image was uploaded to the registry.
+- **Pushed**: the date when the last image was uploaded to the source registry.
 - **Total files**: the total number of files (and directories) within the image.
 - **Dependencies**: the number of dependency images required by this image.
 - **Package size**: the storage size (in bytes) of this image.
@@ -110,9 +108,9 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/container_registry_slug' %>
+<%= render_markdown partial: 'package_registries/registry_slug' %>
 
-- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your container registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download images from your container registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download images from any registry your user account has access to within your Buildkite organization.
 
 > 📘
 > This step is not required for public container registries.
@@ -129,7 +127,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/container_registry_slug' %>
+<%= render_markdown partial: 'package_registries/registry_slug' %>
 
 - `image-name` is the name of your image.
 
