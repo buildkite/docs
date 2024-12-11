@@ -75,7 +75,7 @@ The file can be downloaded from the file's details page. To do this:
 1. [Access the file's details](#access-a-files-details).
 1. Select **Download**.
 
-Alternatively, a file can be installed via the command line using code snippet details provided on the file details page. To do this:
+Alternatively, a file can be downloaded via the command line using code snippet details provided on the file details page. To do this:
 
 1. [Access the file's details](#access-a-files-details).
 1. Ensure the **Installation** > **Instructions** section is displayed.
