@@ -1,2 +1,2 @@
 - **OIDC Policy**: one or more [policies defining which OpenID Connect (OIDC) tokens](/docs/package-registries/security/oidc), from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another third-party system, can be used (depending on the registry type) to either publish/upload packages to the registry, or download/install packages from the registry.
-- **Tokens** (private and composite registries only): one or more [registry tokens](#configure-registry-tokens), which are an alternative to API access tokens.
+- **Tokens** (private registries only): one or more [registry tokens](#configure-registry-tokens), which are an alternative to API access tokens.
