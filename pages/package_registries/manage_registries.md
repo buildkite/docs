@@ -6,7 +6,7 @@ Buildkite Package Registries allows you to create two types of registries: [_sou
 
 ## Create a source registry
 
-A _source_ registry is a registry that's associated with storage and houses package files itself.
+A _source_ registry is a basic registry used for publishing and installing packages. A source registry stores package files; either hosted by Buildkite or via a private storage link.
 
 New source registries can be created through the **Registries** page of the Buildkite / Package Registries interface.
 
