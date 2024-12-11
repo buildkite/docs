@@ -37,7 +37,6 @@ where:
 
 <%= render_markdown partial: 'package_registries/ruby_registry_slug' %>
 
-
 Since the `temporary-write-token-that-expires-after-5-minutes` expires quickly, it is recommended that you just copy this command directly from the **Publish a Ruby Package** dialog.
 
 ### Ongoing publishing

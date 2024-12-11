@@ -33,7 +33,7 @@ where:
 
 - `{registry.slug}` is the slug of your file source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Packages** in the global navigation > your file source registry from the **Registries** page.
 
-- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload files to your file source registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish files to any source registry your user account has access to within your Buildkite organization.
+- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload files to your file source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish files to any source registry your user account has access to within your Buildkite organization.
 
 - `<path_to_file>` is the full path required to the file. If the file is located in the same directory that this command is running from, then no path is required.
 

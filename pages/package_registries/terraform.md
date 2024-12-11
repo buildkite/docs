@@ -32,7 +32,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/terraform_registry_slug' %>
 
-- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload modules to your Terraform registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish modules and packages to any registry your user account has access to within your Buildkite organization.
+- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload modules to your Terraform registry. Ensure this  access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish modules and packages to any registry your user account has access to within your Buildkite organization.
 
 - `<path_to_file>` is the full path required to the module file. If the file is located in the same directory that this command is running from, then no path is required.
 
