@@ -95,7 +95,7 @@ Therefore, your projects only need to be configured with a single composite regi
 A composite registry is a private, and its configured source registries, known as _upstreams_ or _upstream registries_, can either be private or publicly accessible. Furthermore, some private source registries may not be accessible to certain users within your Buildkite organization, due to [team](/docs/package-registries/security/permissions#manage-teams-and-permissions-team-level-permissions)- or [registry](/docs/package-registries/security/permissions#manage-teams-and-permissions-registry-level-permissions)-level permissions applied to these registries, or both. Regardless of these permissions, if such private source registries and those with user-restricted access are configured as _upstreams_ of a composite registry, then these source registries' packages can still be downloaded and installed by _any_ user with access to this composite registry, through the composite registry's URL.
 
 > 📘
-> Currently, the composite registries feature only supports the Java, JavaScript and Python [package ecosystem](/docs/package-registries/ecosystems).
+> Currently, the composite registries feature only supports the Java, JavaScript and Python [package ecosystems](/docs/package-registries/ecosystems).
 
 ### Create a composite registry
 
