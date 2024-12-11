@@ -4,9 +4,6 @@
 
 This tutorial helps you understand Package Registries' fundamentals, by guiding you through the creation of a new JavaScript _source_ registry, cloning, running and packaging a simple example Node.js project locally, and uploading the package to this new registry. Note that Buildkite Package Registries supports [other package ecosystems](/docs/package-registries/ecosystems) too.
 
-> 📘
-> Unlike a [_composite_ registry](/docs/package-registries/manage-registries#composite-registries), a _source_ registry in Buildkite is a fundamental registry type that houses package files itself.
-
 ## Before you start
 
 To complete this tutorial, you'll need:
@@ -134,4 +131,4 @@ Your JavaScript registry's details page should show your new package with the in
 
 That's it! You've created a new Buildkite registry, configured your Node.js environment and project to publish to your new JavaScript registry, and published a Node.js package to this registry. 🎉
 
-Learn more about how to work with Buildkite Package Registries in [Manage registries](/docs/package-registries/manage-registries).
+Learn more about how to work with Buildkite Package Registries in [Manage registries](/docs/package-registries/manage-registries), and the difference between [_source_](/docs/package-registries/manage-registries#create-a-source-registry) and [_composite_](/docs/package-registries/manage-registries#composite-registries) registries.
