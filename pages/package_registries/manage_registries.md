@@ -6,7 +6,7 @@ Buildkite Package Registries allows you to create two types of registries: [_sou
 
 ## Create a source registry
 
-A _source_ registry is a basic registry used for publishing and installing packages. A source registry stores package files; either hosted by Buildkite or via a private storage link.
+A _source_ registry is a basic type of registry used for publishing and installing packages. A source registry stores package files, which are either hosted by Buildkite or in your own [private storage](#update-a-source-registry-configure-registry-storage).
 
 New source registries can be created through the **Registries** page of the Buildkite / Package Registries interface.
 
@@ -88,11 +88,11 @@ To configure/change your source registry's current storage:
 
 ## Composite registries
 
-A _composite_ registry is Buildkite registry type that consists of one or more [source registries](#create-a-source-registry) belonging to a specific [package ecosystem](/docs/package-registries/ecosystems), and can include the ecosystem's official (public) registry. Composite registries allow you to centrally manage packages so that they can be downloaded and installed from a single configurable URL using an [API access token](https://buildkite.com/user/api-access-tokens) (with the **Read Packages** REST API scope), [registry token](#configure-registry-tokens), or temporary token available through the composite registry's **Setup & Usage** page.
+A _composite_ registry is a Buildkite registry type that consists of one or more [source registries](#create-a-source-registry) (belonging to a specific [package ecosystem](/docs/package-registries/ecosystems)), can include the ecosystem's official (public) registry, and combines these all into a single virtual registry. Composite registries allow you to centrally manage packages so that they can be downloaded and installed from a single configurable URL using an [API access token](https://buildkite.com/user/api-access-tokens) (with the **Read Packages** REST API scope), [registry token](#configure-registry-tokens), or temporary token available through the composite registry's **Setup & Usage** page.
 
-Therefore, your projects only need to be configured with a single composite registry URL (one for each package ecosystem), to download and install all the packages they need. The actual Buildkite source registries providing these packages, including those from the ecosystem's official public registry, can each be configured separately as an _upstream_ through the composite registry itself.
+Therefore, your projects only need to be configured with a single composite registry URL (one for each package ecosystem), to download and install all the packages they need. The actual Buildkite source registries providing these packages can each be configured separately as an _upstream_ through the composite registry itself.
 
-A composite registry is a private, and its configured source registries, known as _upstreams_ or _upstream registries_, can either be private or publicly accessible. Furthermore, some private source registries may not be accessible to certain users within your Buildkite organization, due to [team](/docs/package-registries/security/permissions#manage-teams-and-permissions-team-level-permissions)- or [registry](/docs/package-registries/security/permissions#manage-teams-and-permissions-registry-level-permissions)-level permissions applied to these registries, or both. Regardless of these permissions, if such private source registries and those with user-restricted access are configured as _upstreams_ of a composite registry, then these source registries' packages can still be downloaded and installed by _any_ user with access to this composite registry, through the composite registry's URL.
+A composite registries is always private. However, its source registries, known as _upstreams_ or _upstream registries_, can either be private or publicly accessible. Furthermore, some private source registries may not be accessible to certain users within your Buildkite organization, due to [team](/docs/package-registries/security/permissions#manage-teams-and-permissions-team-level-permissions)- or [registry](/docs/package-registries/security/permissions#manage-teams-and-permissions-registry-level-permissions)-level permissions applied to these registries, or both. Regardless of these permissions, if such private source registries and those with user-restricted access are configured as _upstreams_ of a composite registry, then these source registries' packages can still be downloaded and installed by _any_ user with access to this composite registry, through the composite registry's URL. Be aware of the security implications of this when configuring a composite registry's upstreams.
 
 > 📘
 > Currently, the composite registries feature only supports the Java, JavaScript and Python [package ecosystem](/docs/package-registries/ecosystems).
@@ -143,7 +143,7 @@ To add upstreams to or remove them from your composite registry:
 
 1. Ensure the **Upstreams** tab is selected and select the **Edit upstreams** button.
 
-    A list of all [source registries](#create-a-source-registry) available in your Buildkite organization matching your composite registry's [package ecosystem](#create-a-source-registry-manage-packages-in-a-registry), appears in a side panel. Any source repositories already configured as upstreams in the composite registry are associated with a **Remove** button.
+    A list of all [source registries](#create-a-source-registry) available in your Buildkite organization matching your composite registry's [package ecosystem](#create-a-source-registry-manage-packages-in-a-registry), appears in a side panel. Any source registries already configured as upstreams in the composite registry are associated with a **Remove** button.
 
     **Note:** If your composite registry has no upstreams, the main section of this page indicates **No upstreams yet** and the **Edit upstreams** button appears immediately below this label.
 
