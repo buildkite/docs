@@ -53,7 +53,7 @@ A Python package's details can be accessed from this registry using the **Packag
 1. On your Python source registry page, select the package to display its details.
 
 > 📘
-> If your Python source registry is part of a [composite registry](/docs/package-registries/manage-registries#composite-registries), you can also access a Python package's details from its composite registry listed on the **Registries** page by selecting the relevant Python composite registry > from the **Upstreams** tab, select the relevant Python source registry, then its relevant package.
+> If your Python source registry is part of a [composite registry](/docs/package-registries/manage-registries#composite-registries), you can also access a Python package's details from this composite registry (listed on the **Registries** page) by selecting the relevant Python composite registry > from the **Upstreams** tab, select the relevant Python source registry, then its relevant package.
 
 <%= render_markdown partial: 'package_registries/package_details_page_sections' %>
 
