@@ -247,6 +247,7 @@ urls
 util
 uuid
 UUIDs
+uv
 vendored
 virtualenv
 VMs
