@@ -2,12 +2,12 @@
 
 Buildkite Package Registries provides registry support for Gradle-based Java packages (using the [Maven Publish Plugin](https://docs.gradle.org/current/userguide/publishing_maven.html)), using the Gradle Kotlin DSL. If you're using Gradle's Groovy DSL, refer to the [Gradle (Groovy)](/docs/package-registries/gradle-groovy) page.
 
-Once your Java registry has been [created](/docs/package-registries/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `build.gradle.kts` file with the Gradle snippet presented on your Java registry's details page.
+Once your Java source registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `build.gradle.kts` file with the Gradle snippet presented on your Java registry's details page.
 
 To view and copy the required `build.gradle.kts` configurations:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
-1. Select your Java registry on this page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
+1. Select your Java source registry on this page.
 1. Select **Publish a Java Package** and in the resulting dialog's **Using Gradle with `maven-publish` plugin** section, select **Gradle (Kotlin)** to expand this section.
 1. Use the copy icon at the top-right of the code box to copy the Gradle code snippet and paste it into the appropriate area/s of your `build.gradle.kts` file.
 
@@ -117,9 +117,9 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/java_registry_slug' %>
+<%= render_markdown partial: 'package_registries/registry_slug' %>
 
-- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#update-a-registry-configure-registry-tokens) used to download packages from your Java registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Java registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
     **Note:** Both the `authentication` and `credentials` sections are not required for registries that are publicly accessible.
 
