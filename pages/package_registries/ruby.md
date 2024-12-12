@@ -6,7 +6,7 @@ Once your Ruby registry has been [created](/docs/package-registries/manage-regis
 
 To view and copy the required command or  `~/.gem/credentials` and `gemspec` configurations:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Ruby registry on this page.
 1. Select **Publish a Ruby Package** and in the resulting dialog, use the copy icon at the top-right of the relevant code box to copy its snippet and paste it into your command line tool or the appropriate file.
 
@@ -82,13 +82,13 @@ The remaining code boxes on the **Publish a Ruby Package** dialog provide config
 
 ## Access a package's details
 
-A Ruby package's details can be accessed from this registry using the **Packages** section of your Ruby registry page.
+A Ruby package's details can be accessed from this registry through the **Releases** (tab) section of your Ruby registry page.
 
 To access your Ruby package's details page:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Ruby registry on this page.
-1. On your Ruby registry page, select the package within the **Packages** section. The package's details page is displayed.
+1. On your Ruby registry page, select the package within the **Releases** (tab) section. The package's details page is displayed.
 
 <%= render_markdown partial: 'package_registries/package_details_page_sections' %>
 

@@ -6,7 +6,7 @@ Once your Helm OCI source registry has been [created](/docs/package-registries/m
 
 To view and copy these `helm` commands:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Helm OCI source registry on this page.
 1. Select **Publish a Helm Chart** and in the resulting dialog, for each required `helm` command set in the relevant code snippets, copy the relevant code snippet (using the icon at the top-right of its code box), paste it into your terminal, and run it.
 
@@ -41,9 +41,9 @@ The following steps describe the process above:
 
 ## Access a chart's details
 
-A Helm chart's details can be accessed from its source registry using the **Packages** section of your Helm registry page. To do this:
+A Helm chart's details can be accessed from its source registry through the **Releases** (tab) section of your Helm registry page. To do this:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Helm OCI source registry on this page.
 1. On your Helm OCI source registry page, select the chart to display its details page.
 

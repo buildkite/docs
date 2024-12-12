@@ -6,7 +6,7 @@ Once your Python source registry has been [created](/docs/package-registries/man
 
 To view and copy this `curl` command:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Python source registry on this page.
 1. Select **Publish a Python Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a package to your Python registry.
 
@@ -46,9 +46,9 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 
 ## Access a package's details
 
-A Python package's details can be accessed from this registry using the **Packages** section of your Python source registry page. To do this:
+A Python package's details can be accessed from this registry through the **Releases** (tab) section of your Python source registry page. To do this:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Python source registry on this page.
 1. On your Python source registry page, select the package to display its details.
 

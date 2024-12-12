@@ -6,7 +6,7 @@ Once your Terraform registry has been [created](/docs/package-registries/manage-
 
 To view and copy this `curl` command:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Terraform registry on this page.
 1. Select **Publish a Terraform Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a module to your Terraform registry.
 
@@ -46,13 +46,13 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 
 ## Access a module's details
 
-A Terraform module's details can be accessed from this registry using the **Packages** section of your Terraform registry page.
+A Terraform module's details can be accessed from this registry through the **Releases** (tab) section of your Terraform registry page.
 
 To access your Terraform module's details page:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Terraform registry on this page.
-1. On your Terraform registry page, select the module within the **Packages** section. The module's details page is displayed.
+1. On your Terraform registry page, select the module within the **Releases** (tab) section. The module's details page is displayed.
 
 The module's details page provides the following information in the following sections:
 

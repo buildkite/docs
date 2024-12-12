@@ -6,7 +6,7 @@ Once your Debian source registry has been [created](/docs/package-registries/man
 
 To view and copy this `curl` command:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Debian source registry on this page.
 1. Select **Publish a Debian Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a package to your Debian registry.
 
@@ -46,11 +46,11 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 
 ## Access a package's details
 
-A Debian (deb) package's details can be accessed from this registry using the **Packages** section of your Debian source registry page.
+A Debian (deb) package's details can be accessed from this registry through the **Releases** (tab) section of your Debian source registry page.
 
 To access your deb package's details page:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Debian source registry on this page.
 1. On your Debian source registry page, select the package to display its details page.
 

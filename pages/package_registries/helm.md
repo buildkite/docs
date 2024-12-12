@@ -6,7 +6,7 @@ Once your Helm registry has been [created](/docs/package-registries/manage-regis
 
 To view and copy this `curl` command:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Helm registry on this page.
 1. Select **Publish a Helm Chart** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish your chart to your Helm registry.
 
@@ -46,9 +46,9 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 
 ## Access a chart's details
 
-A Helm chart's details can be accessed from its source registry using the **Packages** section of your Helm registry page. To do this:
+A Helm chart's details can be accessed from its source registry through the **Releases** (tab) section of your Helm registry page. To do this:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Helm source registry on this page.
 1. On your Helm source registry page, select the chart to display its details page.
 

@@ -6,7 +6,7 @@ Once your Alpine source registry has been [created](/docs/package-registries/man
 
 To view and copy this `curl` command:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Alpine source registry on this page.
 1. Select **Publish an Alpine Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a package to your Alpine registry.
 
@@ -46,9 +46,9 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 
 ## Access a package's details
 
-An Alpine (apk) package's details can be accessed from its source registry using the **Packages** section of your Alpine source registry page. To do this:
+An Alpine (apk) package's details can be accessed from its source registry through the **Releases** (tab) section of your Alpine source registry page. To do this:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Alpine source registry on this page.
 1. On your Alpine source registry page, select the package to display its details page.
 
@@ -121,7 +121,7 @@ where:
 
 - `{registry.uuid}` is the UUID of your Alpine registry. Again, this value can be obtained from this Alpine package **Instructions** page section. Alternatively, you can also obtain this value:
     * From your registry's **Settings** page. To do this:
-        1. Select **Packages** in the global navigation to access the [**Registries**](https://buildkite.com/organizations/~/packages) page.
+        1. Select **Package Registries** in the global navigation to access the [**Registries**](https://buildkite.com/organizations/~/packages) page.
         1. Select your Alpine registry on this page.
         1. Select **Settings** to open the registry's **Settings** page.
         1. Copy the **UUID** shown in the **API Integration** section of this page, which is this `{registry.uuid}` value.

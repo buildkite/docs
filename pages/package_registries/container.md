@@ -6,7 +6,7 @@ Once your container source registry has been [created](/docs/package-registries/
 
 To view and copy these `docker` commands:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your container source registry on this page.
 1. Select **Publish a Container Image** and in the resulting dialog, for each required `docker` command set in the relevant code snippets, copy the relevant code snippet (using the icon at the top-right of its code box), paste it into your terminal, and run it.
 
@@ -52,9 +52,9 @@ The following steps describe the process above:
 
 ## Access an image's details
 
-A container image's details can be accessed from its source registry using the **Packages** section of your container source registry page. To do this:
+A container image's details can be accessed from its source registry through the **Releases** (tab) section of your container source registry page. To do this:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your container source registry on this page.
 1. On your container source registry page, select the image to display its details page.
 

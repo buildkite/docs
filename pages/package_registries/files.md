@@ -7,7 +7,7 @@ Once your **Files** source registry has been [created](/docs/package-registries/
 
 To view and copy this `curl` command:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your file source registry on this page.
 1. Select **Publish a File** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a file to this registry.
 
@@ -31,7 +31,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-- `{registry.slug}` is the slug of your file source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Packages** in the global navigation > your file source registry from the **Registries** page.
+- `{registry.slug}` is the slug of your file source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your file source registry from the **Registries** page.
 
 - `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload files to your file source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish files to any source registry your user account has access to within your Buildkite organization.
 
@@ -47,9 +47,9 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 
 ## Access a file's details
 
-The file's details can be accessed from its source registry using the **Packages** section of your file source registry page. To do this:
+The file's details can be accessed from its source registry through the **Releases** (tab) section of your file source registry page. To do this:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your file source registry on this page.
 1. On your file source registry page, select the file to display its details page.
 
