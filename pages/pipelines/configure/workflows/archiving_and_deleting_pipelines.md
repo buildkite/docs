@@ -36,4 +36,4 @@ To delete a pipeline:
 
 > 🚧 Builds from deleted pipelines are not exported
 > When a pipeline is deleted, all of its associated builds are also deleted and will _not_ be exported as part of the [build export](/docs/pipelines/governance/build-exports) process.
-> If you need to retain data from the builds in a pipeline, consider archiving it instead (archived pipelines participate in the normal build retention process).
+> If you need to [retain builds](/docs/pipelines/configure/build-retention) to preserve their data and be able to export them, [archive the pipeline](/docs/pipelines/configure/workflows/archiving-and-deleting-pipelines#archiving-pipelines) instead.
