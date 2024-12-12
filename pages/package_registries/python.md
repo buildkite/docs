@@ -64,6 +64,8 @@ A Python package can be downloaded from the package's details page. To do this:
 1. [Access the package's details](#access-a-packages-details).
 1. Select **Download**.
 
+<h3 id="access-a-packages-details-installing-a-package"></h3>
+
 ### Installing a package from a source registry
 
 A Python package can be installed using code snippet details provided on the package's details page. To do this:
