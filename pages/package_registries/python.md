@@ -53,7 +53,7 @@ A Python package's details can be accessed from this registry through the **Rele
 1. On your Python source registry page, select the package to display its details.
 
 > 📘
-> If your Python source registry is part of a [composite registry](/docs/package-registries/manage-registries#composite-registries), you can also access a Python package's details from this composite registry (listed on the **Registries** page) by selecting the relevant Python composite registry > from the **Upstreams** tab, select the relevant Python source registry, then its relevant package.
+> If your Python source registry is an upstream of a [composite registry](/docs/package-registries/manage-registries#composite-registries), you can also access a Python package's details from this composite registry (listed on the **Registries** page) by selecting the relevant Python composite registry > from the **Upstreams** tab, select the relevant Python source registry, then its relevant package.
 
 <%= render_markdown partial: 'package_registries/package_details_page_sections' %>
 
@@ -64,16 +64,16 @@ A Python package can be downloaded from the package's details page. To do this:
 1. [Access the package's details](#access-a-packages-details).
 1. Select **Download**.
 
-### Installing a package
+### Installing a package from a source registry
 
 A Python package can be installed using code snippet details provided on the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** > **Instructions** section is displayed.
-1. Copy the relevant code snippet from the [**Registry Configuration**](#registry-configuration) section and paste it into either the package installer for Python (pip) configuration (`pip.conf`) file or end of the virtualenv `requirements.txt` file.
-1. Run the installation command from the [**Package Installation**](#package-installation) section.
+1. Copy the relevant code snippet from the [**Registry Configuration**](#registry-configuration-source-registry) section and paste it into either the package installer for Python (pip) configuration (`pip.conf`) file or end of the virtualenv `requirements.txt` file.
+1. Run the installation command from the [**Package Installation**](#package-installation-source-registry) section.
 
-<h4 id="registry-configuration">Registry Configuration</h4>
+<h4 id="registry-configuration-source-registry">Registry Configuration</h4>
 
 The `pip.conf` code snippet is based on this format:
 
@@ -85,7 +85,7 @@ extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/
 
 where:
 
-- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Python registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
+- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Python source registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
@@ -98,7 +98,7 @@ The alternative `requirements.txt` (for virtualenv) code snippet is based on thi
 --extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple"
 ```
 
-<h4 id="package-installation">Package Installation</h4>
+<h4 id="package-installation-source-registry">Package Installation</h4>
 
 Use `pip` to install the package:
 
@@ -110,4 +110,83 @@ where:
 
 - `package-name` is the name of your package.
 
-- `version-numnber` is the version number of this package.
+- `version-number` is the version number of this package.
+
+### Installing a package from a composite registry
+
+If your Python source registry is an upstream of a [composite registry](/docs/package-registries/manage-registries#composite-registries), you can install one of its packages using the code snippet details provided on the composite registry's **Setup & Usage** page. To do this:
+
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
+1. Select your Python composite registry on this page.
+1. Select the **Setup & Usage** tab to reveal the **Usage Instructions** page.
+1. Select either the **pip** or **uv** tab, based on your Python package management tool.
+1. Run the relevant installation command from either of the first two code snippets. Learn more about this in [Package installation from a composite registry](#package-installation-from-a-composite-registry), below.
+1. Copy the relevant code snippet/s from the third (or later) code snippets and for:
+    * The package installer for Python (pip), paste this code snippet into either the `pip.conf` configuration file or the end of the virtualenv `requirements.txt` file.
+    * The uv Python package management tool, paste this code snippet into the `pyproject.toml` configuration file.
+
+    Learn more about this in [Composite registry configuration](#composite-registry-configuration), below.
+
+<h4 id="package-installation-from-a-composite-registry">Package installation from a composite registry</h4>
+
+For pip, use one of these `pip` commands (with either the [`--index-url`](https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-i) or [`--extra-index-url`](https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-extra-index-url) options) to install the package:
+
+```bash
+pip install --index-url=https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple ...
+```
+
+or
+
+```bash
+pip install --extra-index-url=https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple ...
+```
+
+where:
+
+- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Python composite registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+
+<%= render_markdown partial: 'package_registries/org_slug' %>
+
+<%= render_markdown partial: 'package_registries/registry_slug' %>
+
+Likewise, for uv, use one of these `uv` commands (with either the [`--index-url`](https://docs.astral.sh/uv/reference/settings/#index-url) or [`--extra-index-url`](https://docs.astral.sh/uv/reference/settings/#extra-index-url) options) to install the package:
+
+```bash
+uv sync --index-url=https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple
+```
+
+or
+
+```bash
+uv sync --extra-index-url=https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple
+```
+
+<h4 id="composite-registry-configuration">Composite registry configuration</h4>
+
+For pip, modify the following code snippet and add it to the `pip.conf` file:
+
+```conf
+[global]
+index-url = https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple
+```
+
+where:
+
+- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Python composite registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+
+<%= render_markdown partial: 'package_registries/org_slug' %>
+
+<%= render_markdown partial: 'package_registries/registry_slug' %>
+
+As an alternative virtualenv for pip, modify the following code snippet and add it to the `requirements.txt` file:
+
+```ini
+--index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple"
+```
+
+For uv, modify the following code snippet and add it to the `pyproject.toml` file:
+
+```toml
+[tool.uv]
+index-url = "https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple"
+```

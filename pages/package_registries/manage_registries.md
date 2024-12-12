@@ -19,13 +19,13 @@ To create a new source registry:
 1. Select **New registry** > **Source Registry**.
 1. On the **New Registry** page, enter the mandatory **Name** for your registry.
 1. Enter an optional **Description** for the registry. This description appears under the name of the registry item on the **Registries** page.
-1. Select the required registry **Ecosystem** based on the [package ecosystem](#manage-packages-in-a-registry) for this new registry.
+1. Select the required registry **Ecosystem** based on the [package ecosystem](#manage-packages-in-a-source-registry) for this new registry.
 1. If your Buildkite organization has the [teams feature](/docs/package-registries/security/permissions) enabled, select the relevant **Teams** to be granted access to the new registry.
 1. Select **Create Registry**.
 
     The new registry's details page is displayed. Selecting **Package Registries** in the global navigation opens the **Registries** page, where your new registry will be listed.
 
-## Manage packages in a registry
+## Manage packages in a source registry
 
 Once a [source registry has been created](#create-a-source-registry), packages can then be uploaded to it. Learn more about how to manage packages for your registry's relevant language and package ecosystem:
 
@@ -40,6 +40,7 @@ The following aspects of a source registry can be updated:
 <%= render_markdown partial: 'package_registries/updatable_registry_components_1' %>
 
 - **Registry Management**: the privacy settings for the registry—private (the initial default state for all newly created registries) or public.
+- **OIDC Policy**: one or more [policies defining which OpenID Connect (OIDC) tokens](/docs/package-registries/security/oidc), from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another third-party system, can be used to either publish/upload packages to the registry, or download/install packages from the registry.
 
 <%= render_markdown partial: 'package_registries/updatable_registry_components_2' %>
 
@@ -110,7 +111,7 @@ To create a new composite registry:
 1. Select **New registry** > **Composite Registry**.
 1. On the **New Composite Registry** page, enter the mandatory **Name** for your registry.
 1. Enter an optional **Description** for the registry. This description appears under the name of the registry item on the **Registries** page.
-1. Select the required registry **Ecosystem** based on the [package ecosystem](#manage-packages-in-a-registry) for this new registry.
+1. Select the required registry **Ecosystem** based on the [package ecosystem](#manage-packages-in-a-source-registry) for this new registry.
 1. To allow your composite registry to download packages from your chosen package ecosystem's official public registry, select **Add official registry?** Doing this allows packages from one of the following official registries to be downloaded and installed through your composite registry's URL, based on your composite registry's package ecosystem:
     * Java (https://repo.maven.apache.org/maven2/)
     * JavaScript (`https://registry.npmjs.org/`)
@@ -123,7 +124,7 @@ To create a new composite registry:
 
 ### Edit a composite registry's upstreams and official registry
 
-When a [composite registry is created](#composite-registries-create-a-composite-registry), it has no configured [source registries](#create-a-source-registry) as upstreams. The only registry that may be configured is one of the official public registries, based on your composite registry's [package ecosystem](#manage-packages-in-a-registry):
+When a [composite registry is created](#composite-registries-create-a-composite-registry), it has no configured [source registries](#create-a-source-registry) as upstreams. The only registry that may be configured is one of the official public registries, based on your composite registry's [package ecosystem](#manage-packages-in-a-source-registry):
 
 - Java (https://repo.maven.apache.org/maven2/)
 - JavaScript (`https://registry.npmjs.org/`)
@@ -143,7 +144,7 @@ To add upstreams to or remove them from your composite registry:
 
 1. Ensure the **Upstreams** tab is selected and select the **Edit upstreams** button.
 
-    A list of all [source registries](#create-a-source-registry) available in your Buildkite organization matching your composite registry's [package ecosystem](#manage-packages-in-a-registry), appears in a side panel. Any source registries already configured as upstreams in the composite registry are associated with a **Remove** button.
+    A list of all [source registries](#create-a-source-registry) available in your Buildkite organization matching your composite registry's [package ecosystem](#manage-packages-in-a-source-registry), appears in a side panel. Any source registries already configured as upstreams in the composite registry are associated with a **Remove** button.
 
 1. To add one or more upstreams, select their **Add** button in the side panel.
 
@@ -161,7 +162,7 @@ To enable or disable access to the official public registry through your composi
 
 1. Select the composite registry whose official public registry is to be enabled or disabled.
 
-1. Ensure the **Upstreams** tab is selected, and in the **Official registries** section, select **Enable** to enable access to the official public registry for the composite registry's [package ecosystem](#manage-packages-in-a-registry), or **Disable** to disable access to this official public registry.
+1. Ensure the **Upstreams** tab is selected, and in the **Official registries** section, select **Enable** to enable access to the official public registry for the composite registry's [package ecosystem](#manage-packages-in-a-source-registry), or **Disable** to disable access to this official public registry.
 
 ### Update a composite registry
 
@@ -170,6 +171,8 @@ Composite registries can be updated using the **Registries** page of the Buildki
 The following aspects of a composite registry can be updated:
 
 <%= render_markdown partial: 'package_registries/updatable_registry_components_1' %>
+
+- **OIDC Policy**: one or more [policies defining which OpenID Connect (OIDC) tokens](/docs/package-registries/security/oidc), from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another third-party system, can be used to download/install packages from the registry.
 
 <%= render_markdown partial: 'package_registries/updatable_registry_components_2' %>
 

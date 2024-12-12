@@ -61,7 +61,7 @@ A JavaScript package's details can be accessed from this registry through the **
 1. On your JavaScript source registry page, select the package to display its details page.
 
 > 📘
-> If your JavaScript source registry is part of a [composite registry](/docs/package-registries/manage-registries#composite-registries), you can also access a JavaScript package's details from this composite registry (listed on the **Registries** page) by selecting the relevant JavaScript composite registry > from the **Upstreams** tab, select the relevant JavaScript source registry, then its relevant package.
+> If your JavaScript source registry is an upstream of a [composite registry](/docs/package-registries/manage-registries#composite-registries), you can also access a JavaScript package's details from this composite registry (listed on the **Registries** page) by selecting the relevant JavaScript composite registry > from the **Upstreams** tab, select the relevant JavaScript source registry, then its relevant package.
 
 <%= render_markdown partial: 'package_registries/package_details_page_sections' %>
 
