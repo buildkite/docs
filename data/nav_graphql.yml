@@ -1068,6 +1068,10 @@
     path: apis/graphql/schemas/input-object/emailresendverificationinput
   - name: GraphQLSnippetCreateInput
     path: apis/graphql/schemas/input-object/graphqlsnippetcreateinput
+  - name: HostedAgentsQueueSettingsCreateInput
+    path: apis/graphql/schemas/input-object/hostedagentsqueuesettingscreateinput
+  - name: HostedAgentsQueueSettingsUpdateInput
+    path: apis/graphql/schemas/input-object/hostedagentsqueuesettingsupdateinput
   - name: JobConcurrencySearch
     path: apis/graphql/schemas/input-object/jobconcurrencysearch
   - name: JobPrioritySearch
