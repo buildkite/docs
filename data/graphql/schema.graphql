@@ -2761,16 +2761,6 @@ enum HostedAgentInstanceShapeName {
   LINUX_AMD64_4X16
 
   """
-  Linux 4 vCPU x 8 GB Memory (Deprecated)
-  """
-  LINUX_AMD64_4X8
-
-  """
-  Linux 8 vCPU x 16 GB Memory (Deprecated)
-  """
-  LINUX_AMD64_8X16
-
-  """
   Linux 8 vCPU x 32 GB Memory
   """
   LINUX_AMD64_8X32
@@ -2789,16 +2779,6 @@ enum HostedAgentInstanceShapeName {
   Linux 4 vCPU x 16 GB Memory
   """
   LINUX_ARM64_4X16
-
-  """
-  Linux 4 vCPU x 8 GB Memory (Deprecated)
-  """
-  LINUX_ARM64_4X8
-
-  """
-  Linux 8 vCPU x 16 GB Memory (Deprecated)
-  """
-  LINUX_ARM64_8X16
 
   """
   Linux 8 vCPU x 32 GB Memory
