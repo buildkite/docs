@@ -65,16 +65,17 @@ Then add the plugin to pipeline YAML steps that need it:
               password-env: DOCKER_HUB_PASSWORD
 ```
 
-## Mirroring Docker images into Google Container Registry
+## Mirroring Docker images into Google Artifact Registry
 
 If you're using Google Cloud, Google has some documentation on [mirroring
-Docker Hub images](https://cloud.google.com/container-registry/docs/migrate-external-containers) to a private Google Container Registry (GCR).
+Docker Hub images](https://cloud.google.com/artifact-registry/docs/docker/migrate-external-containers) to a private Google Artifact Registry (GAR).
 
 This approach requires:
 
-1. A regular process (for example, nightly) that mirrors the Docker images you need
-1. Updating all pipelines to use the mirrored GCR image (for example, from `nginx:1.14.2`
-   to `gcr.io/<GCR_PROJECT>/nginx:1.14.2`)
+1. A regular process (for example, nightly) that mirrors the Docker images you need.
+1. Updating all pipelines to use the mirrored GAR image (for example, from `nginx:1.14.2` to `gcr.io/<GCR_PROJECT>/nginx:1.14.2`).
+
+Learn more about migrating from Google's deprecated Container Registry to GAR in [Transition from Container Registry](https://cloud.google.com/artifact-registry/docs/transition/transition-from-gcr).
 
 ## Mirroring Docker images into AWS Elastic Container Registry
 

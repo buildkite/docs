@@ -241,11 +241,13 @@ unsetting
 untrusted
 unxip
 uploaders
+upstreams
 url
 urls
 util
 uuid
 UUIDs
+uv
 vendored
 virtualenv
 VMs

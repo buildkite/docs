@@ -2,11 +2,11 @@
 
 Buildkite Package Registries provides registry support for Terraform modules.
 
-Once your Terraform registry has been [created](/docs/package-registries/manage-registries#create-a-registry), you can publish/upload modules (generated from your application's build) to this registry via the `curl` command presented on your Terraform registry's details page.
+Once your Terraform registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload modules (generated from your application's build) to this registry via the `curl` command presented on your Terraform registry's details page.
 
 To view and copy this `curl` command:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Terraform registry on this page.
 1. Select **Publish a Terraform Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a module to your Terraform registry.
 
@@ -32,7 +32,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/terraform_registry_slug' %>
 
-- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload modules to your Terraform registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish modules and packages to any registry your user account has access to within your Buildkite organization.
+- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload modules to your Terraform registry. Ensure this  access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish modules and packages to any registry your user account has access to within your Buildkite organization.
 
 - `<path_to_file>` is the full path required to the module file. If the file is located in the same directory that this command is running from, then no path is required.
 
@@ -46,13 +46,13 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 
 ## Access a module's details
 
-A Terraform module's details can be accessed from this registry using the **Packages** section of your Terraform registry page.
+A Terraform module's details can be accessed from this registry through the **Releases** (tab) section of your Terraform registry page.
 
 To access your Terraform module's details page:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Terraform registry on this page.
-1. On your Terraform registry page, select the module within the **Packages** section. The module's details page is displayed.
+1. On your Terraform registry page, select the module within the **Releases** (tab) section. The module's details page is displayed.
 
 The module's details page provides the following information in the following sections:
 
@@ -100,7 +100,7 @@ To install a module:
     }
     ```
 
-    where `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#update-a-registry-configure-registry-tokens) used to download modules from your Terraform registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download modules and packages from any registry your user account has access to within your Buildkite organization.
+    where `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download modules from your Terraform registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download modules and packages from any registry your user account has access to within your Buildkite organization.
 
     **Note:** This step only needs to be performed once for the life of your Terraform registry.
 
