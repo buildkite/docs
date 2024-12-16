@@ -6,7 +6,7 @@
     <th>vCPU</th>
     <th>Memory</th>
   </thead>
-  <body>
+  <tbody>
     <tr>
       <td>LINUX_AMD64_2X4</td><td>Small</td><td>AMD64</td><td>2</td><td>4 GB</td>
     </tr>
@@ -31,5 +31,5 @@
     <tr>
       <td>LINUX_ARM64_16X64</td><td>Extra Large</td><td>ARM64</td><td>16</td><td>64 GB</td>
     </tr>
-  </body>
+  </tbody>
 </table>

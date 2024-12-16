@@ -469,7 +469,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th>
       <code>hosted</code></th>
-      <td>Configure the queue to use [Hosted Agents](/docs/pipelines/hosted-agents).<br><em>Example:</em> <code>true</code>
+      <td>Configure the queue to use <a href="/docs/pipelines/hosted-agents">Hosted agents</a>.<br><em>Example:</em> <code>true</code>
     </td>
   </tr>
   <tr>
@@ -477,21 +477,14 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>
       Configuration for hosted agents on this queue.
       <br>
-      <em>Example:</em> <br/>
+      <em>Example:</em>
+      <br/>
       <code>
         { "instanceShape": "LINUX_AMD64_2X4" }
       </code>
-
       <code>instanceShape</code> (required): The instance shape to provision hosted agent machines on this queue.
       <br/>
-
-      <p>Instance shapes for Linux hosted agents:</p>
-
-      <%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_linux' %>
-
-      <p>Instance shapes for Mac hosted agents:</p>
-
-      <%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_mac' %>
+      Learn more about the instance shapes available for <a href="#instance-shapes-for-linux-hosted-agents">Linux</a> and <a href="#instance-shapes-for-mac-hosted-agents">Mac</a> hosted agents.
   </td>
   </tr>
 </tbody>
@@ -508,6 +501,14 @@ Error responses:
   <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
 </tbody>
 </table>
+
+<h4 id="instance-shapes-for-linux-hosted-agents">Instance shapes for Linux hosted agents</h4>
+
+<%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_linux' %>
+
+<h4 id="instance-shapes-for-mac-hosted-agents">Instance shapes for Mac hosted agents</h4>
+
+<%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_mac' %>
 
 ### Update a queue
 
@@ -553,20 +554,16 @@ curl -H "Authorization: Bearer $TOKEN" \
     <td>
       Configuration for hosted agents on this queue.
       <br>
-      <em>Example:</em> <br/>
+      <em>Example:</em>
+      <br/>
       <code>
         { "instanceShape": "LINUX_AMD64_2X4" }
       </code>
-
-      <code>instanceShape</code> (required): The instance shape describes the machine type, architecture, CPU, and RAM to provision for hosted agent instances running jobs in this queue.
-
-      The architecture (AMD64, ARM64) and machine type (MACOS, LINUX) of the instance shape must match the existing hosted agents on the queue.
-
       <br/>
-
-      <%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_linux' %>
-
-      <%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_mac' %>
+      <code>instanceShape</code> (required): The instance shape describes the machine type, architecture, CPU, and RAM to provision for hosted agent instances running jobs in this queue.
+      <br/>
+      The architecture (AMD64, ARM64) and machine type (MACOS, LINUX) of the instance shape must match the existing hosted agents on the queue.<br/>
+      Learn more about the instance shapes available for <a href="#instance-shapes-for-linux-hosted-agents-2">Linux</a> and <a href="#instance-shapes-for-mac-hosted-agents-2">Mac</a> hosted agents.
   </td>
   </tr>
 </tbody>
@@ -583,6 +580,14 @@ Error responses:
   <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
 </tbody>
 </table>
+
+<h4 id="instance-shapes-for-linux-hosted-agents-2">Instance shapes for Linux hosted agents</h4>
+
+<%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_linux' %>
+
+<h4 id="instance-shapes-for-mac-hosted-agents-2">Instance shapes for Mac hosted agents</h4>
+
+<%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_mac' %>
 
 ### Delete a queue
 

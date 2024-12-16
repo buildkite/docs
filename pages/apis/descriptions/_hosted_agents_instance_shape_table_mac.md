@@ -5,7 +5,7 @@
     <th>vCPU</th>
     <th>Memory</th>
   </thead>
-  <body>
+  <tbody>
     <tr>
       <td>MACOS_M2_4X7</td><td>Small</td><td>4</td><td>7 GB</td>
     </tr>
@@ -18,5 +18,5 @@
     <tr>
       <td>MACOS_M4_12x56</td><td>Extra Large</td><td>12</td><td>56 GB</td>
     </tr>
-  </body>
+  </tbody>
 </table>
