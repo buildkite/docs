@@ -33,3 +33,7 @@ To delete a pipeline:
 1. Read the warnings.
 1. Type in the slug of the pipeline.
 1. Select **Delete Pipeline**.
+
+> 🚧 Builds from deleted pipelines are not exported
+> When a pipeline is deleted, all of its associated builds are also deleted and will _not_ be exported as part of the [build export](/docs/pipelines/governance/build-exports) process.
+> If you need to [retain builds](/docs/pipelines/configure/build-retention) to preserve their data and be able to export them, [archive the pipeline](/docs/pipelines/configure/workflows/archiving-and-deleting-pipelines#archiving-pipelines) instead.

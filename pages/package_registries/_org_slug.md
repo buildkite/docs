@@ -1,1 +1,1 @@
-- `{org.slug}` can be obtained from the end of your Buildkite URL, after accessing **Packages** or **Pipelines** in the global navigation of your organization in Buildkite.
+- `{org.slug}` can be obtained from the end of your Buildkite URL, after accessing **Package Registries** or **Pipelines** in the global navigation of your organization in Buildkite.

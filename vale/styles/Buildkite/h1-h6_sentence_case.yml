@@ -89,6 +89,7 @@ exceptions:
   - GitLab Community
   - GitLab Enterprise
   - Go
+  - Google Artifact Registry
   - Google Chrome
   - Google Cloud
   - Google Cloud Functions
@@ -96,7 +97,6 @@ exceptions:
   - Google Cloud Platform
   - Google Cloud Storage
   - Google Compute Engine
-  - Google Container Registry
   - Google Kubernetes Engine
   - Google Workspace
   - GraphQL

@@ -31,7 +31,7 @@ You can specify an OIDC policy for your Buildkite registry, which defines the cr
 
 To define an OIDC policy for one or more Buildkite pipeline jobs in a registry:
 
-1. Select **Packages** in the global navigation to access the [**Registries**](https://buildkite.com/organizations/~/packages) page.
+1. Select **Package Registries** in the global navigation to access the [**Registries**](https://buildkite.com/organizations/~/packages) page.
 
 1. Select the registry whose OIDC policy needs defining.
 
@@ -58,7 +58,7 @@ where:
 - `iss` (the issuer) must be `https://agent.buildkite.com`, representing the Buildkite Agent.
 - the `claims:` field contains:
 
-    * `organization-slug`, which can be obtained from the end of your Buildkite URL, after accessing **Packages** or **Pipelines** in the global navigation of your organization in Buildkite.
+    * `organization-slug`, which can be obtained from the end of your Buildkite URL, after accessing **Package Registries** or **Pipelines** in the global navigation of your organization in Buildkite.
     * `pipeline-slug`, which can be obtained from the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite.
     * `main` or whichever branch of the repository you want to restrict package publication/uploads from pipeline builds.
 
@@ -197,7 +197,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-- `{registry.slug}` is the slug of your registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of your registry name, and can be obtained after accessing **Packages** in the global navigation > your registry from the **Registries** page.
+- `{registry.slug}` is the slug of your registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of your registry name, and can be obtained after accessing **Package Registries** in the global navigation > your registry from the **Registries** page.
 
 - `--lifetime` is the time (in seconds) that the OIDC token is valid for. By default, this value must be less than `300`.
 

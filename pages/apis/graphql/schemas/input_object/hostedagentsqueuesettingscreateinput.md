@@ -11,26 +11,28 @@
 #  replace the content in data/schema.graphql
 #  and run the generation script `./scripts/generate-graphql-api-content.sh`.
 
-title: HostedAgentLinuxSettings – Objects – GraphQL API
+title: HostedAgentsQueueSettingsCreateInput – Input_objects – GraphQL API
 toc: false
 ---
 <!-- vale off -->
 <h1 class="has-pills">
-  HostedAgentLinuxSettings
-  <span data-algolia-exclude><span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></span>
+  HostedAgentsQueueSettingsCreateInput
+  <span data-algolia-exclude><span class="pill pill--input_object pill--normal-case pill--large"><code>INPUT_OBJECT</code></span></span>
 </h1>
 <!-- vale on -->
 
 
-Configuration options specific to Linux hosted agent instances.
+Settings for hosted agents on this queue
+
+
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
     <th>
-      <h2 data-algolia-exclude>Fields</h2>
+      <h2 data-algolia-exclude>Input Fields</h2>
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>agentImageRef</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The image reference of a custom agent base image used by the hosted agent instances in this cluster queue. Note: this must be a public image, or image stored within the hosted agents internal registry.</p></td></tr>
+    <tr><td><p><strong><code>instanceShape</code></strong><a href="/docs/apis/graphql/schemas/enum/hostedagentinstanceshapename" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM HostedAgentInstanceShapeName"><code>HostedAgentInstanceShapeName!</code></a></p><p>Hosted agent instance shape</p></td></tr>
   </tbody>
 </table>

@@ -7,6 +7,10 @@ If you need to retain build data beyond the [retention period](/docs/pipelines/c
 
 If you don't configure a bucket, Buildkite stores the build data for 18 months in case you need it. You cannot access this build data through the API or Buildkite dashboard, but you can request the data by contacting support.
 
+> 🚧 Builds from deleted pipelines are not exported
+> When [a pipeline is deleted](/docs/pipelines/configure/workflows/archiving-and-deleting-pipelines#deleting-pipelines), all of its associated builds are also deleted and will _not_ be exported.
+> If you need to [retain builds](/docs/pipelines/configure/build-retention) to preserve their data and be able to export them, [archive the pipeline](/docs/pipelines/configure/workflows/archiving-and-deleting-pipelines#archiving-pipelines) instead.
+
 ## How it works
 
 Builds older than the build retention limit are automatically exported as JSON using the build export strategy (S3 or GCS) you have configured. If you haven't configured a bucket for build exports, Buildkite stores that build data as JSON in our own Amazon S3 bucket for a further 18 months in case you need it. The following diagram outlines this process.
