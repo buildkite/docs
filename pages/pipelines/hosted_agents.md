@@ -8,11 +8,13 @@ With hosted agents, Buildkite handles infrastructure management tasks, such as p
 
 Buildkite offers both [Mac](/docs/pipelines/hosted-agents/mac) and [Linux](/docs/pipelines/hosted-agents/linux) hosted agents.
 
-<h2>Linux hosted agents</h2>
-<%= render partial: 'apis/descriptions/hosted_agents_instance_shape_table_linux' %>
+### Instance shapes for Linux hosted agents
 
-<h2>Mac hosted agents</h2>
-<%= render partial: 'apis/descriptions/hosted_agents_instance_shape_table_mac' %>
+<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
+
+### Instance shapes for Mac hosted agents
+
+<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
 
 Usage of all instance types is billed on a per-minute basis.
 

@@ -8,7 +8,7 @@ To accommodate different workloads, instances are capable of running up to 4 hou
 
 We offer a selection of instance sizes, allowing you to tailor your hosted agent resources to the demands of your jobs. Below is a breakdown of the available shapes.
 
-<%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_mac' %>
+<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
 
 ## Mac instances software support
 

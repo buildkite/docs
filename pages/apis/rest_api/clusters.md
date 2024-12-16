@@ -504,11 +504,11 @@ Error responses:
 
 <h4 id="instance-shapes-for-linux-hosted-agents">Instance shapes for Linux hosted agents</h4>
 
-<%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_linux' %>
+<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
 
 <h4 id="instance-shapes-for-mac-hosted-agents">Instance shapes for Mac hosted agents</h4>
 
-<%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_mac' %>
+<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
 
 ### Update a queue
 
@@ -583,11 +583,11 @@ Error responses:
 
 <h4 id="instance-shapes-for-linux-hosted-agents-2">Instance shapes for Linux hosted agents</h4>
 
-<%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_linux' %>
+<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
 
 <h4 id="instance-shapes-for-mac-hosted-agents-2">Instance shapes for Mac hosted agents</h4>
 
-<%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_mac' %>
+<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
 
 ### Delete a queue
 

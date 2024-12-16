@@ -11,7 +11,7 @@ To accommodate different workloads, instances are capable of running up to 8 hou
 
 Buildkite offers a selection of instance sizes, allowing you to tailor your hosted agents' resources to the demands of your jobs. Below is a breakdown of the available shapes.
 
-<%= render_markdown partial: 'apis/descriptions/hosted_agents_instance_shape_table_linux' %>
+<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
 
 ## Cache volumes
 
