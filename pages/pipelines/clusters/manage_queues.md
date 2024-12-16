@@ -164,14 +164,6 @@ where:
 - `hostedAgents` - The hosted agents configuration for this queue, setting this field will make this queue a hosted queue.
   + `instanceShape` - The instance shape describes the machine type, architecture, CPU, and RAM to provision for hosted agent instances running jobs in this queue.
 
-### Instance shapes for Linux hosted agents
-
-<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
-
-### Instance shapes for Mac hosted agents
-
-<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
-
   Example:
     ```json
     "hostedAgents": {
@@ -247,11 +239,11 @@ where:
     }
     ```
 
-### Instance shapes for Linux hosted agents
+### Instance shape values for Linux
 
 <%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
 
-### Instance shapes for Mac hosted agents
+### Instance shape values for Mac
 
 <%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
 

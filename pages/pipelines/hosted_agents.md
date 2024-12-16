@@ -22,8 +22,6 @@ Every Buildkite hosted agent within a cluster benefits from hypervisor-level iso
 
 ## Creating a hosted agent queue
 
-You can create a hosted queue using the [Buildkite interface](#create-a-hosted-queue-using-the-buildkite-interface), the [REST API](#create-a-hosted-queue-using-the-rest-api), or the [GraphQL API](#create-a-hosted-queue-using-the-graphql-api). Learn more about configuring hosted queues in [Manage queues](/docs/pipelines/clusters/manage-queues).
-
 You can set up distinct hosted agent queues, each configured with specific types and sizes to efficiently manage jobs with varying requirements.
 
 For example you may have two queues set up:
@@ -33,7 +31,11 @@ For example you may have two queues set up:
 
 Learn more about:
 
-- Best practices for configuring queues in [How should I structure my queues](/docs/pipelines/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues).
+- Creating hosted queues in [Create a hosted queue](/docs/pipelines/clusters/manage-queues#create-a-hosted-queue).
+
+- Best practices for configuring queues in [How should I structure my queues](/docs/pipelines/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues) of the [Clusters overview](/docs/pipelines/clusters).
+
+- Configuring queues in general, in [Manage queues](/docs/pipelines/clusters/manage-queues).
 
 ## Using GitHub repositories in your hosted agent pipelines
 
