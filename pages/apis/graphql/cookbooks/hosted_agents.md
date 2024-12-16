@@ -47,7 +47,7 @@ mutation {
 }
 ```
 
-Create a small AMD64 Linux hosted agent cluster queue, which is hosted by Buildkite. The `instanceShape` value is referenced from the [InstanceShape](/docs/apis/graphql/schemas/enum/instanceshape) enum, and represents the combination of machine type, architecture, CPU and Memory available to each job running on a hosted queue. The `LINUX_AMD64_2X4` value is a 2 vCPU and 4 GB memory.
+Create a small AMD64 Linux hosted agent cluster queue, which is hosted by Buildkite. The `instanceShape` value is referenced from the [InstanceShape](/docs/apis/graphql/schemas/enum/hostedagentinstanceshapename) enum, and represents the combination of machine type, architecture, CPU and Memory available to each job running on a hosted queue. The `LINUX_AMD64_2X4` value is a 2 vCPU and 4 GB memory.
 
 ## Changing the instance shape of a hosted agent cluster queue
 
