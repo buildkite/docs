@@ -244,11 +244,14 @@ where:
       instanceShape: LINUX_AMD64_2X4
     }
     ```
-<p>Instance shapes for Linux hosted agents:</p>
-<%= render partial: 'apis/descriptions/hosted_agents_instance_shape_table_linux' %>
 
-<p>Instance shapes for Mac hosted agents:</p>
-<%= render partial: 'apis/descriptions/hosted_agents_instance_shape_table_mac' %>
+### Instance shapes for Linux hosted agents
+
+<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
+
+### Instance shapes for Mac hosted agents
+
+<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
 
 ## Pause and resume a queue
 
