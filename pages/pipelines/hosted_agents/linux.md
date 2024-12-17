@@ -5,11 +5,11 @@ Linux instances for Buildkite hosted agents are offered with two architectures:
 - AMD64 (x64_86)
 - ARM64 (AArch64)
 
-To accommodate different workloads, instances are capable of running up to 8 hours. If you require longer running agents please contact support.
+To accommodate different workloads, instances are capable of running up to 8 hours. If you require longer running agents, please contact support at support@buildkite.com.
 
 ## Sizes
 
-Buildkite offers a selection of instance sizes, allowing you to tailor your hosted agents' resources to the demands of your jobs. Below is a breakdown of the available shapes.
+Buildkite offers a selection of Linux instance types (each based on a different combination of size and architecture, known as an _instance shape_), allowing you to tailor your hosted agent resources to the demands of your jobs.
 
 <%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
 
@@ -172,7 +172,7 @@ You can create an agent image:
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster in which to create the new agent image.
 
-    **Note:** Before continuing, ensure you have created a hosted agent queue (based on Linux architecture) within this cluster. Learn more about how to do this in [Create a queue](/docs/pipelines/clusters/manage-queues#create-a-hosted-queue).
+    **Note:** Before continuing, ensure you have created a hosted agent queue (based on Linux architecture) within this cluster. Learn more about how to do this in [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
 
 1. Select **Agent Images** to open the **Agent Images** page.
 1. Select **New Image** to open the **New Agent Image** dialog.

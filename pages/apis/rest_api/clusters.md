@@ -404,7 +404,7 @@ Error responses:
 </tbody>
 </table>
 
-### Create a hosted queue
+### Create a Buildkite hosted queue
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -484,7 +484,7 @@ Optional [request body properties](/docs/api#request-body-properties):
       </code>
       <code>instanceShape</code> (required): The instance shape to provision hosted agent machines on this queue.
       <br/>
-      Learn more about the instance shapes available for <a href="#instance-shapes-for-linux-hosted-agents">Linux</a> and <a href="#instance-shapes-for-mac-hosted-agents">Mac</a> hosted agents.
+      Learn more about the instance shapes available for <a href="#queues-instance-shape-values-for-linux">Linux</a> and <a href="#queues-instance-shape-values-for-mac">Mac</a> hosted agents.
   </td>
   </tr>
 </tbody>
@@ -501,14 +501,6 @@ Error responses:
   <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
 </tbody>
 </table>
-
-<h4 id="instance-shapes-for-linux-hosted-agents">Instance shapes for Linux hosted agents</h4>
-
-<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
-
-<h4 id="instance-shapes-for-mac-hosted-agents">Instance shapes for Mac hosted agents</h4>
-
-<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
 
 ### Update a queue
 
@@ -562,8 +554,8 @@ curl -H "Authorization: Bearer $TOKEN" \
       <br/>
       <code>instanceShape</code> (required): The instance shape describes the machine type, architecture, CPU, and RAM to provision for hosted agent instances running jobs in this queue.
       <br/>
-      The architecture (AMD64, ARM64) and machine type (MACOS, LINUX) of the instance shape must match the existing hosted agents on the queue.<br/>
-      Learn more about the instance shapes available for <a href="#instance-shapes-for-linux-hosted-agents-2">Linux</a> and <a href="#instance-shapes-for-mac-hosted-agents-2">Mac</a> hosted agents.
+      The architecture (AMD64, ARM64) and machine type (macOS, Linux) of the instance shape must match the existing hosted agents on the queue.<br/>
+      Learn more about the instance shapes available for <a href="#queues-instance-shape-values-for-linux">Linux</a> and <a href="#queues-instance-shape-values-for-mac">Mac</a> Buildkite hosted agents.
   </td>
   </tr>
 </tbody>
@@ -580,14 +572,6 @@ Error responses:
   <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
 </tbody>
 </table>
-
-<h4 id="instance-shapes-for-linux-hosted-agents-2">Instance shapes for Linux hosted agents</h4>
-
-<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
-
-<h4 id="instance-shapes-for-mac-hosted-agents-2">Instance shapes for Mac hosted agents</h4>
-
-<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
 
 ### Delete a queue
 
@@ -721,6 +705,18 @@ Error responses:
   <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Cluster queue is not paused" }</code></td></tr>
 </tbody>
 </table>
+
+### Instance shape values for Linux
+
+Specify the appropriate **Instance shape** for the `instanceShape` value in your REST API call.
+
+<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
+
+### Instance shape values for Mac
+
+Specify the appropriate **Instance shape** for the `instanceShape` value in your REST API call.
+
+<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
 
 ## Agent tokens
 

@@ -1,6 +1,6 @@
 <table class="responsive-table">
   <thead>
-    <th>Instance shape value</th>
+    <th>Instance shape</th>
     <th>Size</th>
     <th>Architecture</th>
     <th>vCPU</th>
