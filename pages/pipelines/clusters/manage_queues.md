@@ -18,9 +18,9 @@ Having individual queues according to these breakdowns allows you to scale a set
 
 ## Agent infrastructure
 
-Buildkite provides a [hosted infrastructure](/docs/pipelines/hosted-agents) for your [Buildkite Agents](/docs/agent/v3), as well as support for Buildkite Agents in your own self-hosted infrastructure.
+Buildkite provides support for managing [Buildkite Agents](/docs/agent/v3) in your own self-hosted infrastructure, as well as a [Buildkite hosted infrastructure](/docs/pipelines/hosted-agents) for managing these agents.
 
-As part of setting up a queue, you can choose between configuring your queue with agents running in either of these types of infrastructure.
+When setting up a queue, you can choose between configuring it with Buidlkite Agents running in either of these types of infrastructure.
 
 Learn more about how to set up and create a queue using either self-hosted agents (known as a [self-hosted queue](#create-a-self-hosted-queue)) or Buildkite hosted agents (known as a [Buildkite hosted queue](#create-a-buildkite-hosted-queue)).
 
@@ -28,7 +28,7 @@ Be aware that it is not possible to create a queue that uses a mix of self-hoste
 
 ## Create a self-hosted queue
 
-Self-hosted queues use your own infrastructure to run your pipeline builds. New self-hosted queues can be created by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) using the [Buildkite interface](#create-a-self-hosted-queue-using-the-buildkite-interface), as well as the [REST API's](#create-a-self-hosted-queue-using-the-rest-api) or [GraphQL API's](#create-a-self-hosted-queue-using-the-graphql-api) create a queue feature.
+Self-hosted queues use [Buildkite Agents installed in your own infrastructure](/docs/agent/v3/installation) to run your pipeline builds. New self-hosted queues can be created by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) using the [Buildkite interface](#create-a-self-hosted-queue-using-the-buildkite-interface), as well as the [REST API's](#create-a-self-hosted-queue-using-the-rest-api) or [GraphQL API's](#create-a-self-hosted-queue-using-the-graphql-api) create a queue feature.
 
 For these API requests, the _cluster ID_ value submitted in the request is the target cluster the queue will be created in.
 
