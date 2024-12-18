@@ -26,6 +26,8 @@ Learn more about how to set up and create a queue using either self-hosted agent
 
 Be aware that it is not possible to create a queue that uses a mix of self-hosted and Buildkite hosted agents. If you do need to use a combination of these different agent types for your pipeline builds, create separate self-hosted and Buildkite hosted queues for these agents and use [agent or queue tags](/docs/agent/v3/queues#setting-an-agents-queue), or a combination of both, to target the appropriate queues.
 
+Furthermore, once a queue has been created, it is not possible to change its type from a self-hosted to a Buildkite hosted queue, or vice versa. If you do need to change your type of agent infrastructure, use a queue with the appropriate hosted queue type, or create a new queue to suit your new agent infrastructure.
+
 ## Create a self-hosted queue
 
 Self-hosted queues use [Buildkite Agents installed in your own infrastructure](/docs/agent/v3/installation) to run your pipeline builds. New self-hosted queues can be created by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) using the [Buildkite interface](#create-a-self-hosted-queue-using-the-buildkite-interface), as well as the [REST API's](#create-a-self-hosted-queue-using-the-rest-api) or [GraphQL API's](#create-a-self-hosted-queue-using-the-graphql-api) create a queue feature.
