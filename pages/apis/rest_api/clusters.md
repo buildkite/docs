@@ -467,22 +467,17 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr><th><code>description</code></th><td>Description for the queue.<br><em>Example:</em> <code>"The default queue for this cluster"</code>
   <tr>
-    <th>
-      <code>hosted</code></th>
-      <td>Configure the queue to use <a href="/docs/pipelines/hosted-agents">Hosted agents</a>.<br><em>Example:</em> <code>true</code>
-    </td>
-  </tr>
-  <tr>
     <th><code>hostedAgents</code></th>
     <td>
-      Configuration for hosted agents on this queue.
+      Configures this queue to use <a href="/docs/pipelines/hosted-agents">Buildkite hosted agents</a>, along with its <em>instance shape</em>. This makes the queue a <a href="/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>.
       <br>
       <em>Example:</em>
       <br/>
       <code>
         { "instanceShape": "LINUX_AMD64_2X4" }
       </code>
-      <code>instanceShape</code> (required): The instance shape to provision hosted agent machines on this queue.
+      <br/>
+      <code>instanceShape</code> (required when <code>hostedAgents</code> is specified): Describes the machine type, architecture, CPU, and RAM to provision for Buildkite hosted agent instances running jobs in this queue.
       <br/>
       Learn more about the instance shapes available for <a href="#queues-instance-shape-values-for-linux">Linux</a> and <a href="#queues-instance-shape-values-for-mac">Mac</a> hosted agents.
   </td>
@@ -544,7 +539,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   <tr>
     <th><code>hostedAgents</code></th>
     <td>
-      Configuration for hosted agents on this queue.
+      Configures this queue to use <a href="/docs/pipelines/hosted-agents">Buildkite hosted agents</a>, along with its <em>instance shape</em>. This makes the queue a <a href="/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>.
       <br>
       <em>Example:</em>
       <br/>
@@ -552,7 +547,7 @@ curl -H "Authorization: Bearer $TOKEN" \
         { "instanceShape": "LINUX_AMD64_2X4" }
       </code>
       <br/>
-      <code>instanceShape</code> (required): The instance shape describes the machine type, architecture, CPU, and RAM to provision for hosted agent instances running jobs in this queue.
+      <code>instanceShape</code> (required when <code>hostedAgents</code> is specified): Describes the machine type, architecture, CPU, and RAM to provision for Buildkite hosted agent instances running jobs in this queue.
       <br/>
       The architecture (AMD64, ARM64) and machine type (macOS, Linux) of the instance shape must match the existing hosted agents on the queue.<br/>
       Learn more about the instance shapes available for <a href="#queues-instance-shape-values-for-linux">Linux</a> and <a href="#queues-instance-shape-values-for-mac">Mac</a> Buildkite hosted agents.
