@@ -549,7 +549,7 @@ curl -H "Authorization: Bearer $TOKEN" \
       <br/>
       <code>instanceShape</code> (required when <code>hostedAgents</code> is specified): Describes the machine type, architecture, CPU, and RAM to provision for Buildkite hosted agent instances running jobs in this queue.
       <br/>
-      The architecture (AMD64, ARM64) and machine type (macOS, Linux) of the instance shape must match the existing hosted agents on the queue.<br/>
+      It is only possible to change the <em>size</em> of the current instance shape assigned to this queue. It is not possible to change the current instance shape's machine type (from macOS to Linux, or vice versa), or for a Linux machine, its architecture (from AMD64 to ARM64, or vice versa).<br/>
       Learn more about the instance shapes available for <a href="#queues-instance-shape-values-for-linux">Linux</a> and <a href="#queues-instance-shape-values-for-mac">Mac</a> Buildkite hosted agents.
   </td>
   </tr>

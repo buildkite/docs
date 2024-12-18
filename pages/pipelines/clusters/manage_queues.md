@@ -64,7 +64,6 @@ curl -H "Authorization: Bearer $TOKEN" \
   -d '{
     "key": "linux_small_amd",
     "description": "A small self-hosted AMD64 Linux agent.",
-    "hosted": false
   }'
 ```
 
@@ -78,8 +77,6 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
-- `hosted` (optional) is explicitly set to `false` to ensure that this queue is a self-hosted one that only supports self-hosted agents. If this property is omitted, its value assumed to be `false`.
-
 ### Using the GraphQL API
 
 To [create a new self-hosted agent queue](/docs/apis/graphql/schemas/mutation/clusterqueuecreate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
@@ -92,7 +89,6 @@ mutation {
       clusterId: "cluster-id"
       key: "linux_small_amd"
       description: "A small self-hosted AMD64 Linux agent."
-      hosted: false
     }
   ) {
     clusterQueue {
@@ -101,6 +97,7 @@ mutation {
       key
       description
       dispatchPaused
+      hosted
       createdBy {
         id
         uuid
@@ -122,8 +119,6 @@ where:
 <%= render_markdown partial: 'apis/descriptions/graphql_cluster_id' %>
 
 <%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
-
-- `hosted` (optional) is explicitly set to `false` to ensure that this queue is a self-hosted one that only supports self-hosted agents. If this property is omitted, its value assumed to be `false`.
 
 ## Create a Buildkite hosted queue
 
@@ -161,7 +156,6 @@ curl -H "Authorization: Bearer $TOKEN" \
   -d '{
     "key": "mac_xlarge_silicon",
     "description": "Powerful macOS agents running on Apple silicon architecture.",
-    "hosted": true,
     "hostedAgents": {
       "instanceShape": "MACOS_M4_12x56"
     }
@@ -178,9 +172,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
-- `hosted` (optional) is explicitly set to `true` to ensure that this queue is a Buildkite hosted one that only supports Buildkite hosted agents. This property can be omitted when the `hostedAgents` property is specified.
-
-- `hostedAgents` (required) defines the instance shape (within its `instanceShape` object) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [Mac-](#create-a-buildkite-hosted-queue-instance-shape-values-for-mac)based Buildkite hosted agent. Specifying `hostedAgents` automatically sets the `hosted` property on this request to `true`, which is why this property can be omitted. For example:
+- `hostedAgents` (required) configures this queue to use [Buildkite hosted agents](/docs/pipelines/hosted-agents), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` object) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [Mac-](#create-a-buildkite-hosted-queue-instance-shape-values-for-mac)based Buildkite hosted agent. For example:
 
     ```json
     "hostedAgents": {
@@ -200,7 +192,6 @@ mutation {
       clusterId: "cluster-id"
       key: "mac_xlarge_silicon"
       description: "Powerful macOS agents running on Apple silicon architecture."
-      hosted: true
       hostedAgents: {
         instanceShape: MACOS_M4_12x56
       }
@@ -243,9 +234,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
-- `hosted` (optional) is explicitly set to `true` to ensure that this queue is a Buildkite hosted one that only supports Buildkite hosted agents. This property can be omitted when the `hostedAgents` property is specified.
-
-- `hostedAgents` (required) defines the instance shape (within its `instanceShape` object) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [Mac-](#create-a-buildkite-hosted-queue-instance-shape-values-for-mac)based Buildkite hosted agent. Specifying `hostedAgents` automatically sets the `hosted` property on this request to `true`, which is why this property can be omitted. For example:
+- `hostedAgents` (required) configures this queue to use [Buildkite hosted agents](/docs/pipelines/hosted-agents), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` object) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [Mac-](#create-a-buildkite-hosted-queue-instance-shape-values-for-mac)based Buildkite hosted agent. For example:
 
     ```graphql
     hostedAgents: {
