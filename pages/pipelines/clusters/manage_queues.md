@@ -20,7 +20,7 @@ Having individual queues according to these breakdowns allows you to scale a set
 
 Buildkite provides support for managing [Buildkite Agents](/docs/agent/v3) in your own self-hosted infrastructure, as well as a [Buildkite hosted infrastructure](/docs/pipelines/hosted-agents) for managing these agents.
 
-When setting up a queue, you can choose between configuring it with Buidlkite Agents running in either of these types of infrastructure.
+When setting up a queue, you can choose between configuring it with Buildkite Agents running in either of these types of infrastructure.
 
 Learn more about how to set up and create a queue using either self-hosted agents (known as a [self-hosted queue](#create-a-self-hosted-queue)) or Buildkite hosted agents (known as a [Buildkite hosted queue](#create-a-buildkite-hosted-queue)).
 
