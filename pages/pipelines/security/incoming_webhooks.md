@@ -1,6 +1,6 @@
 # Incoming webhooks
 
-Incoming webhooks are sent to Buildkite by source control providers ([GitHub](/docs/integrations/github), [GitLab](/docs/integrations/gitlab), [Bitbucket](/docs/integrations/bitbucket), etc.) to trigger builds. This page answers the most frequent questions about the security of incoming webhooks in Buildkite.
+Incoming webhooks are sent to Buildkite by source control providers ([GitHub](/docs/pipelines/source-control/github), [GitLab](/docs/pipelines/source-control/gitlab), [Bitbucket](/docs/pipelines/source-control/bitbucket), etc.) to trigger builds. This page answers the most frequent questions about the security of incoming webhooks in Buildkite.
 
 ## What kind of information on incoming webhooks is logged by Buildkite?
 
@@ -12,7 +12,7 @@ Buildkite stores the information on recent incoming webhooks received per pipeli
 
 ## What security information is stored in the secret in a Buildkite URL?
 
-Secrets are pipeline-specific. A secret can't prove that it hasn't been acquired by somebody else and added as a webhook inside their own GitHub repository (which is equally true of any other secret). However, all incoming webhooks from GitHub-hosted repositories are IP-filtered to provide an additional layer of security. As a Buildkite user, you can [set up a pipeline and request a URL](/docs/integrations/github#set-up-a-new-pipeline-for-a-github-repository) to add it to your GitHub organization as a webhook, proving it comes from your GitHub organization.
+Secrets are pipeline-specific. A secret can't prove that it hasn't been acquired by somebody else and added as a webhook inside their own GitHub repository (which is equally true of any other secret). However, all incoming webhooks from GitHub-hosted repositories are IP-filtered to provide an additional layer of security. As a Buildkite user, you can [set up a pipeline and request a URL](/docs/pipelines/source-control/github#set-up-a-new-pipeline-for-a-github-repository) to add it to your GitHub organization as a webhook, proving it comes from your GitHub organization.
 
 IP filtering is available for:
 

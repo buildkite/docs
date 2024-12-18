@@ -49,6 +49,7 @@ exceptions:
   - Buildkite Agents
   - Buildkite Package Registries
   - Buildkite Pipelines
+  - Buildkite Platform
   - buildkite-agent
   - BuildNotify
   - BuildReactor
@@ -88,6 +89,7 @@ exceptions:
   - GitLab Community
   - GitLab Enterprise
   - Go
+  - Google Artifact Registry
   - Google Chrome
   - Google Cloud
   - Google Cloud Functions
@@ -95,7 +97,6 @@ exceptions:
   - Google Cloud Platform
   - Google Cloud Storage
   - Google Compute Engine
-  - Google Container Registry
   - Google Kubernetes Engine
   - Google Workspace
   - GraphQL
@@ -103,6 +104,7 @@ exceptions:
   - Heroku
   - HMAC
   - HTTP
+  - I
   - IAM
   - ID
   - IdP # TODO: unabbreviate this in headings

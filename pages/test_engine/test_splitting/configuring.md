@@ -163,7 +163,7 @@ steps:
       BUILDKITE_TEST_ENGINE_API_ACCESS_TOKEN: your-secret-token
       BUILDKITE_TEST_ENGINE_RESULT_PATH: tmp/rspec-result.json
       BUILDKITE_TEST_ENGINE_SUITE_SLUG: my-suite
-      BUILDKITE_TEST_ENGINE_RUNNER: rspec
+      BUILDKITE_TEST_ENGINE_TEST_RUNNER: rspec
 ```
 {: codeblock-file="pipeline.yml"}
 

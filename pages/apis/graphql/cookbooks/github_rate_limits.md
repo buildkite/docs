@@ -7,7 +7,7 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 ## List GitHub repository providers rate limits
 
 Get all repository providers and their GitHub rate limits if applicable. These are the rate limits GitHub imposes on
-the [Buildkite app for GitHub](/docs/integrations/github#connect-your-buildkite-account-to-github-using-the-github-app), based on [GitHub's rate limits for their REST API](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28).
+the [Buildkite app for GitHub](/docs/pipelines/source-control/github#connect-your-buildkite-account-to-github-using-the-github-app), based on [GitHub's rate limits for their REST API](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28).
 
 ```graphql
 query getLimits {

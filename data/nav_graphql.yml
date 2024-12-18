@@ -388,6 +388,16 @@
     path: apis/graphql/schemas/object/graphqlsnippet
   - name: GraphQLSnippetCreatePayload
     path: apis/graphql/schemas/object/graphqlsnippetcreatepayload
+  - name: HostedAgentInstanceShape
+    path: apis/graphql/schemas/object/hostedagentinstanceshape
+  - name: HostedAgentLinuxSettings
+    path: apis/graphql/schemas/object/hostedagentlinuxsettings
+  - name: HostedAgentMacOSSettingsType
+    path: apis/graphql/schemas/object/hostedagentmacossettingstype
+  - name: HostedAgentPlatformSettings
+    path: apis/graphql/schemas/object/hostedagentplatformsettings
+  - name: HostedAgentQueueSettings
+    path: apis/graphql/schemas/object/hostedagentqueuesettings
   - name: JobConcurrency
     path: apis/graphql/schemas/object/jobconcurrency
   - name: JobConnection
@@ -914,6 +924,14 @@
     path: apis/graphql/schemas/enum/clusterorder
   - name: ClusterQueueOrder
     path: apis/graphql/schemas/enum/clusterqueueorder
+  - name: HostedAgentArchitecture
+    path: apis/graphql/schemas/enum/hostedagentarchitecture
+  - name: HostedAgentInstanceShapeName
+    path: apis/graphql/schemas/enum/hostedagentinstanceshapename
+  - name: HostedAgentMachineType
+    path: apis/graphql/schemas/enum/hostedagentmachinetype
+  - name: HostedAgentSize
+    path: apis/graphql/schemas/enum/hostedagentsize
   - name: JobEventActorType
     path: apis/graphql/schemas/enum/jobeventactortype
   - name: JobEventSignalReason
@@ -1050,6 +1068,10 @@
     path: apis/graphql/schemas/input-object/emailresendverificationinput
   - name: GraphQLSnippetCreateInput
     path: apis/graphql/schemas/input-object/graphqlsnippetcreateinput
+  - name: HostedAgentsQueueSettingsCreateInput
+    path: apis/graphql/schemas/input-object/hostedagentsqueuesettingscreateinput
+  - name: HostedAgentsQueueSettingsUpdateInput
+    path: apis/graphql/schemas/input-object/hostedagentsqueuesettingsupdateinput
   - name: JobConcurrencySearch
     path: apis/graphql/schemas/input-object/jobconcurrencysearch
   - name: JobPrioritySearch

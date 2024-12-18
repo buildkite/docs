@@ -2,23 +2,23 @@
 
 Buildkite Package Registries provides registry support for Alpine-based (apk) packages for Alpine Linux operating systems.
 
-Once your Alpine registry has been [created](/docs/package-registries/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry via the relevant `curl` command presented on your Alpine registry's details page.
+Once your Alpine source registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry via the relevant `curl` command presented on your Alpine registry's details page.
 
 To view and copy this `curl` command:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
-1. Select your Alpine registry on this page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
+1. Select your Alpine source registry on this page.
 1. Select **Publish an Alpine Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a package to your Alpine registry.
 
 This command provides:
 
-- The specific URL to publish a package to your specific Alpine registry in Buildkite.
-- The API access token required to publish packages to your Alpine registry.
+- The specific URL to publish a package to your specific Alpine source registry in Buildkite.
+- The API access token required to publish packages to your Alpine source registry.
 - The Alpine package file to be published.
 
 ## Publish a package
 
-The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish an apk package to your Alpine registry:
+The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish an apk package to your Alpine source registry:
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
@@ -32,11 +32,11 @@ where:
 
 <%= render_markdown partial: 'package_registries/alpine_registry_slug' %>
 
-- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Alpine registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
+- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Alpine source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization.
 
 <%= render_markdown partial: 'package_registries/path_to_file' %>
 
-For example, to upload the file `my-alpine-package_0.1.1_r0.apk` from the current directory to the **My Alpine packages** registry in the **My organization** Buildkite organization, run the `curl` command:
+For example, to upload the file `my-alpine-package_0.1.1_r0.apk` from the current directory to the **My Alpine packages** source registry in the **My organization** Buildkite organization, run the `curl` command:
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-alpine-packages/packages \
@@ -46,13 +46,11 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 
 ## Access a package's details
 
-An Alpine (apk) package's details can be accessed from this registry using the **Packages** section of your Alpine registry page.
+An Alpine (apk) package's details can be accessed from its source registry through the **Releases** (tab) section of your Alpine source registry page. To do this:
 
-To access your apk package's details page:
-
-1. Select **Packages** in the global navigation to access the **Registries** page.
-1. Select your Alpine registry on this page.
-1. On your Alpine registry page, select the package to display its details page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
+1. Select your Alpine source registry on this page.
+1. On your Alpine source registry page, select the package to display its details page.
 
 <%= render_markdown partial: 'package_registries/package_details_page_sections' %>
 
@@ -83,11 +81,11 @@ echo "https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/
 
 where:
 
-- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#update-a-registry-configure-registry-tokens) used to download packages from your Alpine registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
+- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Alpine registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/debian_registry_slug' %>
+<%= render_markdown partial: 'package_registries/registry_slug' %>
 
 **Step 2**: Install the registry signing key:
 
@@ -123,7 +121,7 @@ where:
 
 - `{registry.uuid}` is the UUID of your Alpine registry. Again, this value can be obtained from this Alpine package **Instructions** page section. Alternatively, you can also obtain this value:
     * From your registry's **Settings** page. To do this:
-        1. Select **Packages** in the global navigation to access the [**Registries**](https://buildkite.com/organizations/~/packages) page.
+        1. Select **Package Registries** in the global navigation to access the [**Registries**](https://buildkite.com/organizations/~/packages) page.
         1. Select your Alpine registry on this page.
         1. Select **Settings** to open the registry's **Settings** page.
         1. Copy the **UUID** shown in the **API Integration** section of this page, which is this `{registry.uuid}` value.
@@ -146,7 +144,7 @@ where:
         }
         ```
 
-- `buildkite:{registry.read.token}@` while these values are the same as those in the previous step for configuring your Alpine registry source, this component is not required for registries that are publicly accessible.
+- `buildkite:{registry.read.token}@` while these values are the same as those in the previous step for configuring your source Alpine registry, this component is not required for registries that are publicly accessible.
 
 **Step 3**: Retrieve the latest apk indices:
 

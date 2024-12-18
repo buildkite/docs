@@ -188,6 +188,11 @@ type Agent implements Node {
     Returns the elements in the list that come after the specified cursor.
     """
     after: String
+
+    """
+    Filter jobs based on matching agent query rules (for example, a single tag
+    match "queue=test", or an array of matches ["queue=test", "tag=value"])
+    """
     agentQueryRules: [String!]
 
     """
@@ -921,6 +926,7 @@ enum AuditEventType {
   SSO_PROVIDER_UPDATED
   STORAGE_CREATED
   SUBSCRIPTION_ACTIVATED
+  SUBSCRIPTION_CANCELED
   SUBSCRIPTION_PLAN_ADDED
   SUBSCRIPTION_PLAN_CANCELATION_SCHEDULED
   SUBSCRIPTION_PLAN_CANCELED
@@ -1267,6 +1273,11 @@ type Build implements Node {
     Returns the elements in the list that come after the specified cursor.
     """
     after: String
+
+    """
+    Filter jobs based on matching agent query rules (for example, a single tag
+    match "queue=test", or an array of matches ["queue=test", "tag=value"])
+    """
     agentQueryRules: [String!]
 
     """
@@ -2127,6 +2138,16 @@ type ClusterQueue implements Node {
   Note describing why job dispatch was paused for this cluster queue
   """
   dispatchPausedNote: String
+
+  """
+  Whether this queue powers by hosted or self-hosted agents
+  """
+  hosted: Boolean!
+
+  """
+  Settings for hosted agents used for jobs in this queue
+  """
+  hostedAgents: HostedAgentQueueSettings
   id: ID!
   key: String!
 
@@ -2156,6 +2177,16 @@ input ClusterQueueCreateInput {
   Description for the queue
   """
   description: String
+
+  """
+  Hosted or self-hosted for the queue
+  """
+  hosted: Boolean
+
+  """
+  Settings for hosted agents on this queue
+  """
+  hostedAgents: HostedAgentsQueueSettingsCreateInput
 
   """
   The queue tag used to connect an agent to the queue, this can't be updated later
@@ -2305,6 +2336,11 @@ input ClusterQueueUpdateInput {
   Description for the queue
   """
   description: String
+
+  """
+  Settings for hosted agents on this queue
+  """
+  hostedAgents: HostedAgentsQueueSettingsUpdateInput
   id: ID!
   organizationId: ID!
 }
@@ -2652,6 +2688,239 @@ type GraphQLSnippetCreatePayload {
   """
   clientMutationId: String
   graphQLSnippet: GraphQLSnippet!
+}
+
+"""
+Possible machine architectures for the hosted agent instance
+"""
+enum HostedAgentArchitecture {
+  """
+  AMD64
+  """
+  AMD64
+
+  """
+  ARM64
+  """
+  ARM64
+}
+
+"""
+The hosted agent instance configuration for this cluster queue
+"""
+type HostedAgentInstanceShape {
+  """
+  Specifies the architecture of the hosted agent instance, such as AMD64
+  (x86_64) or ARM64 (AArch64), used in this cluster queue.
+  """
+  architecture: HostedAgentArchitecture
+
+  """
+  Specifies the type of machine used for the hosted agent instance in this cluster queue (e.g., Linux or MacOS).
+  """
+  machineType: HostedAgentMachineType
+
+  """
+  The amount of memory (in GB) available on each hosted agent instance in this cluster queue.
+  """
+  memory: Int
+
+  """
+  Name of the instance shape
+  """
+  name: HostedAgentInstanceShapeName
+
+  """
+  The overall size classification of the hosted agent instance, combining vCPU and memory, used in this cluster queue.
+  """
+  size: HostedAgentSize
+
+  """
+  The number of CPU cores allocated to the hosted agent instance in this cluster queue.
+  """
+  vcpu: Int
+}
+
+"""
+Possible instance shapes for the hosted agent instance
+"""
+enum HostedAgentInstanceShapeName {
+  """
+  Linux 16 vCPU x 64 GB Memory
+  """
+  LINUX_AMD64_16X64
+
+  """
+  Linux 2 vCPU x 4 GB Memory
+  """
+  LINUX_AMD64_2X4
+
+  """
+  Linux 4 vCPU x 16 GB Memory
+  """
+  LINUX_AMD64_4X16
+
+  """
+  Linux 8 vCPU x 32 GB Memory
+  """
+  LINUX_AMD64_8X32
+
+  """
+  Linux 16 vCPU x 64 GB Memory
+  """
+  LINUX_ARM64_16X64
+
+  """
+  Linux 2 vCPU x 4 GB Memory
+  """
+  LINUX_ARM64_2X4
+
+  """
+  Linux 4 vCPU x 16 GB Memory
+  """
+  LINUX_ARM64_4X16
+
+  """
+  Linux 8 vCPU x 32 GB Memory
+  """
+  LINUX_ARM64_8X32
+
+  """
+  macOS 12 vCPU x 28 GB Memory
+  """
+  MACOS_M2_12X28
+
+  """
+  macOS 4 vCPU x 7 GB Memory
+  """
+  MACOS_M2_4X7
+
+  """
+  macOS 6 vCPU x 14 GB Memory
+  """
+  MACOS_M2_6X14
+
+  """
+  macOS 12 vCPU x 56 GB Memory
+  """
+  MACOS_M4_12X56
+}
+
+"""
+Configuration options specific to Linux hosted agent instances.
+"""
+type HostedAgentLinuxSettings {
+  """
+  The image reference of a custom agent base image used by the hosted agent
+  instances in this cluster queue. Note: this must be a public image, or image
+  stored within the hosted agents internal registry.
+  """
+  agentImageRef: String
+}
+
+"""
+Configuration options for the base image of hosted agent instances on macOS platforms.
+"""
+type HostedAgentMacOSSettingsType {
+  """
+  The Xcode version to pre-select (via xcode-select) on macOS hosted agent instances for this cluster queue.
+  """
+  baseImageXcodeVersion: String
+}
+
+"""
+Possible machine types for the hosted agent instance
+"""
+enum HostedAgentMachineType {
+  """
+  Linux
+  """
+  LINUX
+
+  """
+  macOS
+  """
+  MACOS
+}
+
+"""
+Platform-specific configuration for hosted agent instances.
+"""
+type HostedAgentPlatformSettings {
+  """
+  Configuration options specific to Linux hosted agent instances.
+  """
+  linux: HostedAgentLinuxSettings
+
+  """
+  Configuration options specific to macOS hosted agent instances.
+  """
+  macos: HostedAgentMacOSSettingsType
+}
+
+"""
+Platform-specific configuration for hosted agent instances.
+"""
+type HostedAgentQueueSettings {
+  """
+  The hardware specifications of the hosted agent instance, such as CPU and memory
+  """
+  instanceShape: HostedAgentInstanceShape
+
+  """
+  Platform-specific configuration for Linux and macOS hosted agents.
+  """
+  platformSettings: HostedAgentPlatformSettings
+}
+
+"""
+Possible sizes for the hosted agent instance, specifying vCPU and memory allocations.
+"""
+enum HostedAgentSize {
+  """
+  Extra large capacity size: 12 vCPU, 28GB RAM (Linux); Not applicable for macOS.
+  """
+  EXTRA_LARGE
+
+  """
+  Large capacity size: 8 vCPU, 32GB RAM (Linux); 12 vCPU, 28GB RAM (macOS).
+  """
+  LARGE
+
+  """
+  Medium capacity size: 4 vCPU, 16GB RAM (Linux); 6 vCPU, 14GB RAM (macOS).
+  """
+  MEDIUM
+
+  """
+  Small capacity size: 2 vCPU, 4GB RAM (Linux); 4 vCPU, 7GB RAM (macOS).
+  """
+  SMALL
+}
+
+"""
+Settings for hosted agents on this queue
+"""
+input HostedAgentsQueueSettingsCreateInput {
+  """
+  Hosted agent instance shape
+  """
+  instanceShape: HostedAgentInstanceShapeName!
+}
+
+"""
+Settings for hosted agents on this queue
+"""
+input HostedAgentsQueueSettingsUpdateInput {
+  """
+  Hosted Agents: The url to a custom agent image the hosted agent instance utilises for this cluster queue
+  """
+  agentImageRef: String
+
+  """
+  Hosted agent instance shape
+  """
+  instanceShape: HostedAgentInstanceShapeName
 }
 
 """
@@ -5155,6 +5424,11 @@ type Organization implements Node {
     Returns the elements in the list that come after the specified cursor.
     """
     after: String
+
+    """
+    Filter jobs based on matching agent query rules (for example, a single tag
+    match "queue=test", or an array of matches ["queue=test", "tag=value"])
+    """
     agentQueryRules: [String!]
 
     """
@@ -6806,6 +7080,11 @@ type Pipeline implements Node {
     Returns the elements in the list that come after the specified cursor.
     """
     after: String
+
+    """
+    Filter jobs based on matching agent query rules (for example, a single tag
+    match "queue=test", or an array of matches ["queue=test", "tag=value"])
+    """
     agentQueryRules: [String!]
 
     """
@@ -11817,6 +12096,11 @@ type Viewer implements Node {
   id: ID!
   jobs(
     after: String
+
+    """
+    Filter jobs based on matching agent query rules (for example, a single tag
+    match "queue=test", or an array of matches ["queue=test", "tag=value"])
+    """
     agentQueryRules: [String!]
     before: String
     first: Int
