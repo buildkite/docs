@@ -75,4 +75,6 @@ To create the new Buildkite pipeline for this app:
 
 1. After a few minutes, and when the pipeline has completed its build, expand the **screenshots** job.
 1. Select the **Artifacts** tab to reveal the two screenshots taken (one from each iOS emulator) after the UI tests 'tap' the **+** button three times.
-1. Select each screenshot to view the results.
+1. Select each screenshot to view the results, such as the following from the main screen of the app run by the pipeline in an iPhone 16 Pro emulator.
+
+<%= image "iphone16pro-01mainscreen.png", width: 610, height: 610, alt: "Screenshot from the main screen of an iPhone 16 Pro" %>
