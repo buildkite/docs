@@ -40,7 +40,7 @@ To create your Mac hosted agent:
 1. Follow the [Create a queue](/docs/clusters/manage-queues#create-a-queue) > [Using the Buildkite interface](/docs/clusters/manage-queues#create-a-queue-using-the-buildkite-interface) instructions to begin creating your hosted agent within its own queue.
 
     As part of this process:
-    * Give this queue an intuitive **key** and **description**, for example, **buildkite-Mac-hosted-queue** and **Buildkite Mac hosted queue**, respectively.
+    * Give this queue an intuitive **key** and **description**, for example, <!-- vale off --> **buildkite-mac-hosted-queue** <!-- vale on --> and **Buildkite Mac hosted queue**, respectively.
     * In the **Select your agent infrastructure** section, select **Hosted**.
     * Select **macOS** as the **Machine type** and **Large** for the **Capacity**. Larger capacity machines allow your pipelines to run faster, since these pipelines typically execute device emulators, which can be computationally intensive, as part of the build process.
 
