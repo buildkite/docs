@@ -156,10 +156,10 @@ curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/queues" \
   -H "Content-Type: application/json" \
   -d '{
-    "key": "mac_xlarge_silicon",
-    "description": "Powerful macOS agents running on Apple silicon architecture.",
+    "key": "mac_small_silicon",
+    "description": "macOS agents running on Apple silicon architecture.",
     "hostedAgents": {
-      "instanceShape": "MACOS_M4_12x56"
+      "instanceShape": "MACOS_M2_4X7"
     }
   }'
 ```
@@ -192,10 +192,10 @@ mutation {
     input: {
       organizationId: "organization-id"
       clusterId: "cluster-id"
-      key: "mac_xlarge_silicon"
-      description: "Powerful macOS agents running on Apple silicon architecture."
+      key: "mac_small_silicon"
+      description: "macOS agents running on Apple silicon architecture."
       hostedAgents: {
-        instanceShape: MACOS_M4_12x56
+        instanceShape: MACOS_M2_4X7
       }
     }
   ) {
@@ -236,7 +236,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
-- `hostedAgents` (required) configures this queue to use [Buildkite hosted agents](/docs/pipelines/hosted-agents), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` object) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [Mac-](#create-a-buildkite-hosted-queue-instance-shape-values-for-mac)based Buildkite hosted agent. For example:
+- `hostedAgents` (required) configures this queue to use [Buildkite hosted agents](/docs/pipelines/hosted-agents), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` object) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [Mac-](#create-a-buildkite-hosted-queue-instance-shape-values-for-mac) based Buildkite hosted agent. For example:
 
     ```graphql
     hostedAgents: {
