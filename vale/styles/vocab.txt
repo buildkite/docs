@@ -35,6 +35,7 @@ Boomper
 Buildbox
 Buildkite
 Buildkite's
+buildkite-mac-hosted-queue
 buildscript
 Bundler
 cancelation
@@ -129,7 +130,6 @@ LFS
 libpq
 linux
 llamasecret
-mac
 macOS
 matchers
 Memcache
