@@ -40,7 +40,7 @@ swap:
   (?i:GraphQL): GraphQL
   (?i:IronWorker): IronWorker
   (?i:iTerm): iTerm
-  (?i:Mac): Mac
+  (?i:(?<!/)Mac): Mac
   (?i:Markdown): Markdown
   (?i:NVMe): NVMe
   (?i:PagerDuty): PagerDuty

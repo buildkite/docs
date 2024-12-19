@@ -53,11 +53,13 @@ You need at least one agent configured within its own queue and cluster to run b
 
 You can create the first [Buildkite hosted agent](/docs/pipelines/hosted-agents) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
 
+Before creating your Buildkite hosted agent, ensure you have a [cluster](/docs/pipelines/clusters/manage-clusters) (for example, **Default cluster**) you can connect this agent to.
+
 To create a hosted agent:
 
 1. Navigate to the [cluster](/docs/pipelines/clusters/manage-clusters) you want to run your pipeline in. To do this, select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster (for example, **Default cluster**) to which the hosted agent will be added.
-1. Follow the [Create a queue](/docs/pipelines/clusters/manage-queues#create-a-queue) > [Using the Buildkite interface](/docs/pipelines/clusters/manage-queues#create-a-queue-using-the-buildkite-interface) instructions to begin creating your hosted agent within its own queue.
+1. Follow the [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue) > [Using the Buildkite interface](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue-using-the-buildkite-interface) instructions to begin creating your hosted agent within its own queue.
 
     As part of this process:
     * In the **Select your agent infrastructure** section, choose **Hosted**.
