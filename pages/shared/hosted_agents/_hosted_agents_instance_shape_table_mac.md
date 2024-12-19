@@ -32,7 +32,7 @@
     </tr>
     <tr>
       <td>
-        <code>MACOS_M4_12x56</code>
+        <code>MACOS_M4_12X56</code>
       </td>
       <td>Extra Large</td>
       <td>12</td>

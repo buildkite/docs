@@ -10,6 +10,8 @@ Buildkite offers a selection of Mac instance types (each based on a different si
 
 <%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
 
+Extra large instances are available on request. Please contact support@buildkite.com to have them enabled for your account.
+
 ## Mac instances software support
 
 The following software will be made available by default on all standard Mac instances during the trial. If you have specific requirements for software that is not listed here, please contact support.

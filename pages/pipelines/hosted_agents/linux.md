@@ -13,6 +13,8 @@ Buildkite offers a selection of Linux instance types (each based on a different 
 
 <%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
 
+Extra large instances are available on request. Please contact support@buildkite.com to have them enabled for your account.
+
 ## Cache volumes
 
 _Cache volumes_ are external volumes attached to hosted agent instances. These volumes are attached on a best-effort basis depending on their locality, expiration and current usage, and therefore, should not be relied upon as durable data storage.
