@@ -27,7 +27,7 @@ Mobile Delivery Cloud uses [Buildkite hosted agents](/docs/pipelines/hosted-agen
 
 By default, Buildkite organizations have one cluster, named **Default cluster** with a single queue, named **default-queue**, noting that a cluster maintainer or Buildkite organization administrator can customize these default names.
 
-You need at least one agent configured within its own queue and cluster to run builds.
+You need at least one Buildkite hosted agent queue configured to run a build.
 
 ### Create a Buildkite hosted agent for Mac
 
