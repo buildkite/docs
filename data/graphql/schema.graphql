@@ -2179,11 +2179,6 @@ input ClusterQueueCreateInput {
   description: String
 
   """
-  Hosted or self-hosted for the queue
-  """
-  hosted: Boolean
-
-  """
   Settings for hosted agents on this queue
   """
   hostedAgents: HostedAgentsQueueSettingsCreateInput
@@ -2825,7 +2820,7 @@ type HostedAgentMacOSSettingsType {
   """
   The Xcode version to pre-select (via xcode-select) on macOS hosted agent instances for this cluster queue.
   """
-  baseImageXcodeVersion: String
+  xcodeVersion: String
 }
 
 """
@@ -2899,6 +2894,34 @@ enum HostedAgentSize {
 }
 
 """
+Settings for Linux hosted agents on this queue
+"""
+input HostedAgentsLinuxPlatformSettingsInput {
+  """
+  Hosted Agents: The url to a custom agent image the hosted agent instance utilises for this cluster queue
+  """
+  agentImageRef: String
+}
+
+"""
+Settings for Mac hosted agents on this queue
+"""
+input HostedAgentsMacosPlatformSettingsInput {
+  """
+  The Xcode version to pre-select (via xcode-select) on macOS hosted agent instances for this cluster queue
+  """
+  xcodeVersion: String
+}
+
+"""
+Settings for hosted agents on this queue
+"""
+input HostedAgentsPlatformSettingsInput {
+  linux: HostedAgentsLinuxPlatformSettingsInput
+  macos: HostedAgentsMacosPlatformSettingsInput
+}
+
+"""
 Settings for hosted agents on this queue
 """
 input HostedAgentsQueueSettingsCreateInput {
@@ -2906,6 +2929,11 @@ input HostedAgentsQueueSettingsCreateInput {
   Hosted agent instance shape
   """
   instanceShape: HostedAgentInstanceShapeName!
+
+  """
+  Per-platform settings for hosted agents on this queue
+  """
+  platformSettings: HostedAgentsPlatformSettingsInput
 }
 
 """
@@ -2913,7 +2941,7 @@ Settings for hosted agents on this queue
 """
 input HostedAgentsQueueSettingsUpdateInput {
   """
-  Hosted Agents: The url to a custom agent image the hosted agent instance utilises for this cluster queue
+  Deprecated: Use `platformSetting.linux.agentImageRef instead`
   """
   agentImageRef: String
 
@@ -2921,6 +2949,11 @@ input HostedAgentsQueueSettingsUpdateInput {
   Hosted agent instance shape
   """
   instanceShape: HostedAgentInstanceShapeName
+
+  """
+  Per-platform settings for hosted agents on this queue
+  """
+  platformSettings: HostedAgentsPlatformSettingsInput
 }
 
 """

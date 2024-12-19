@@ -11,18 +11,18 @@
 #  replace the content in data/schema.graphql
 #  and run the generation script `./scripts/generate-graphql-api-content.sh`.
 
-title: HostedAgentsQueueSettingsCreateInput – Input_objects – GraphQL API
+title: HostedAgentsMacosPlatformSettingsInput – Input_objects – GraphQL API
 toc: false
 ---
 <!-- vale off -->
 <h1 class="has-pills">
-  HostedAgentsQueueSettingsCreateInput
+  HostedAgentsMacosPlatformSettingsInput
   <span data-algolia-exclude><span class="pill pill--input_object pill--normal-case pill--large"><code>INPUT_OBJECT</code></span></span>
 </h1>
 <!-- vale on -->
 
 
-Settings for hosted agents on this queue
+Settings for Mac hosted agents on this queue
 
 
 
@@ -33,6 +33,6 @@ Settings for hosted agents on this queue
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>instanceShape</code></strong><a href="/docs/apis/graphql/schemas/enum/hostedagentinstanceshapename" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM HostedAgentInstanceShapeName"><code>HostedAgentInstanceShapeName!</code></a></p><p>Hosted agent instance shape</p></td></tr><tr><td><p><strong><code>platformSettings</code></strong><a href="/docs/apis/graphql/schemas/input_object/hostedagentsplatformsettingsinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT HostedAgentsPlatformSettingsInput"><code>HostedAgentsPlatformSettingsInput</code></a></p><p>Per-platform settings for hosted agents on this queue</p></td></tr>
+    <tr><td><p><strong><code>xcodeVersion</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></p><p>The Xcode version to pre-select (via xcode-select) on macOS hosted agent instances for this cluster queue</p></td></tr>
   </tbody>
 </table>

@@ -1068,6 +1068,12 @@
     path: apis/graphql/schemas/input-object/emailresendverificationinput
   - name: GraphQLSnippetCreateInput
     path: apis/graphql/schemas/input-object/graphqlsnippetcreateinput
+  - name: HostedAgentsLinuxPlatformSettingsInput
+    path: apis/graphql/schemas/input-object/hostedagentslinuxplatformsettingsinput
+  - name: HostedAgentsMacosPlatformSettingsInput
+    path: apis/graphql/schemas/input-object/hostedagentsmacosplatformsettingsinput
+  - name: HostedAgentsPlatformSettingsInput
+    path: apis/graphql/schemas/input-object/hostedagentsplatformsettingsinput
   - name: HostedAgentsQueueSettingsCreateInput
     path: apis/graphql/schemas/input-object/hostedagentsqueuesettingscreateinput
   - name: HostedAgentsQueueSettingsUpdateInput
