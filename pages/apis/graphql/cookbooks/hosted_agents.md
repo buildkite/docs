@@ -59,7 +59,7 @@ mutation {
       organizationId: "organization-id"
       id: "cluster-queue-id"
       hostedAgents: {
-        instanceShape: LINUX_AMD64_4X8
+        instanceShape: LINUX_AMD64_4X16
       }
     }
   ) {
