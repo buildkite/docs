@@ -443,11 +443,6 @@ curl -H "Authorization: Bearer $TOKEN" \
       "cpu": 2,
       "memory": 4,
       "name": "LINUX_AMD64_2X4"
-    },
-    "platform_settings": {
-      "linux": {
-        "agent_image_ref": null
-      }
     }
   }
 }
