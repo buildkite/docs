@@ -2,6 +2,8 @@
 
 👋 Welcome to Buildkite Mobile Delivery Cloud! You can use Mobile Delivery Cloud to help you run CI/CD pipelines to build your mobile apps, and track and analyze automated tests, as well as house your built mobile app artifacts within appropriate registries, all within a matter of steps.
 
+This getting started page is a tutorial that helps you understand Mobile Delivery Cloud's fundamentals, by guiding you through the process of setting up Buildkite Mac hosted agents to run a Buildkite pipeline that creates a basic iOS app for deployment.
+
 ## Before you start
 
 To complete this tutorial, you'll need:
@@ -38,8 +40,9 @@ To create your Mac hosted agent:
 1. Follow the [Create a queue](/docs/clusters/manage-queues#create-a-queue) > [Using the Buildkite interface](/docs/clusters/manage-queues#create-a-queue-using-the-buildkite-interface) instructions to begin creating your hosted agent within its own queue.
 
     As part of this process:
-    * In the **Select your agent infrastructure** section, choose **Hosted**.
-    * Follow the relevant sub-steps for configuring your hosted agent.
+    * Give this queue an intuitive **key** and **description**, for example, **buildkite-mac-hosted-queue** and **Buildkite Mac hosted queue**, respectively.
+    * In the **Select your agent infrastructure** section, select **Hosted**.
+    * Select **macOS** as the **Machine type** and **Large** for the **Capacity**. Larger capacity machines allow your pipelines to run faster, since these pipelines typically execute device emulators, which can be computationally intensive, as part of the build process.
 
 1. Make your pipelines use your new Mac hosted agent by default, by ensuring its queue is the _default queue_. This should be indicated by **(default)** after the queue's key on the cluster's **Queues** page. If this is not the case and another queue is marked **(default)**:
 
@@ -53,12 +56,23 @@ Your Buildkite Mac hosted agent, as the new default queue, is now ready to use.
 
 _Pipelines_ are how Buildkite represents a CI/CD workflow. You define each pipeline with a series of _steps_ to run. When you trigger a pipeline, you create a _build_, and steps are dispatched as _jobs_ to run on agents, such as the [Mac agent you just created](#set-up-your-hosted-agent-create-a-buildkite-hosted-agent-for-mac). Jobs are independent of each other and can run on different Mac agents.
 
-Next, you'll create a new pipeline to build the example [FlappyKite Swift application](https://github.com/buildkite/FlappyKite). To do this:
+Next, you'll create a new pipeline to build the example [FlappyKite Swift application](https://github.com/buildkite/FlappyKite) (app). This simple example of a mobile app starts with an initial blank screen, and a plus (**+**) button at its top. Each time you tap this button, a new timestamp is generated successively down the screen.
+
+The source code for this app contains the Buildkite pipeline in its `.buildkite` folder. This pipeline:
+
+- Runs two iOS emulators (one each for the iPhone 16 and 16 Pro models) to test the app, which in turn, takes screenshots of the app after the **+** button is tapped a few times as part of a UI test.
+- Leverages [fastlane](https://fastlane.tools/) to automate deployments and releases. Learn more about fastlane from the [fastlane documentation](https://docs.fastlane.tools/).
+
+To create the new Buildkite pipeline for this app:
 
 1. [Add the FlappyKite Swift application](https://buildkite.com/new?template=https://github.com/buildkite/FlappyKite) to your Buildkite organization.
-1. On the **New Pipeline** page, select the cluster you [created the hosted agent for Mac](#set-up-your-hosted-agent-create-a-buildkite-hosted-agent-for-mac) in (for example, **Default cluster**).
+1. On the **New Pipeline** page, select the cluster you [created the hosted agent for Mac](#set-up-your-hosted-agent-create-a-buildkite-hosted-agent-for-mac) in.
 1. Leave all other fields with their pre-filled default values and select **Create Pipeline**. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
 1. On the next page showing your pipeline name, click **New Build**. In the modal that opens, create a build using the pre-filled details.
 
-   1. In the **Message** field, enter a short description for the build. For example, **My first build**.
-   1. Select **Create Build**.
+    1. In the **Message** field, enter a short description for the build. For example, **My first build**.
+    1. Select **Create Build**.
+
+1. After a few minutes, and when the pipeline has completed its build, expand the **screenshots** job.
+1. Select the **Artifacts** tab to reveal the two screenshots taken (one from each iOS emulator) after the UI tests 'tap' the **+** button three times.
+1. Select each screenshot to view the results.
