@@ -129,6 +129,7 @@ LFS
 libpq
 linux
 llamasecret
+mac
 macOS
 matchers
 Memcache
