@@ -11,12 +11,12 @@
 #  replace the content in data/schema.graphql
 #  and run the generation script `./scripts/generate-graphql-api-content.sh`.
 
-title: HostedAgentsQueueSettingsCreateInput – Input_objects – GraphQL API
+title: HostedAgentsPlatformSettingsInput – Input_objects – GraphQL API
 toc: false
 ---
 <!-- vale off -->
 <h1 class="has-pills">
-  HostedAgentsQueueSettingsCreateInput
+  HostedAgentsPlatformSettingsInput
   <span data-algolia-exclude><span class="pill pill--input_object pill--normal-case pill--large"><code>INPUT_OBJECT</code></span></span>
 </h1>
 <!-- vale on -->
@@ -33,6 +33,6 @@ Settings for hosted agents on this queue
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>instanceShape</code></strong><a href="/docs/apis/graphql/schemas/enum/hostedagentinstanceshapename" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM HostedAgentInstanceShapeName"><code>HostedAgentInstanceShapeName!</code></a></p><p>Hosted agent instance shape</p></td></tr><tr><td><p><strong><code>platformSettings</code></strong><a href="/docs/apis/graphql/schemas/input_object/hostedagentsplatformsettingsinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT HostedAgentsPlatformSettingsInput"><code>HostedAgentsPlatformSettingsInput</code></a></p><p>Per-platform settings for hosted agents on this queue</p></td></tr>
+    <tr><td><p><strong><code>linux</code></strong><a href="/docs/apis/graphql/schemas/input_object/hostedagentslinuxplatformsettingsinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT HostedAgentsLinuxPlatformSettingsInput"><code>HostedAgentsLinuxPlatformSettingsInput</code></a></p></td></tr><tr><td><p><strong><code>macos</code></strong><a href="/docs/apis/graphql/schemas/input_object/hostedagentsmacosplatformsettingsinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT HostedAgentsMacosPlatformSettingsInput"><code>HostedAgentsMacosPlatformSettingsInput</code></a></p></td></tr>
   </tbody>
 </table>
