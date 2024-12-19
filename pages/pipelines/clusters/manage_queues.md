@@ -65,7 +65,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "key": "linux_small_amd",
-    "description": "A small self-hosted AMD64 Linux agent.",
+    "description": "A small self-hosted AMD64 Linux agent."
   }'
 ```
 
