@@ -65,7 +65,7 @@ The source code for this app contains the Buildkite pipeline in its `.buildkite`
 
 To create the new Buildkite pipeline for this app:
 
-1. [Add the FlappyKite Swift application](https://buildkite.com/new?template=https://github.com/buildkite/FlappyKite) to your Buildkite organization.
+1. [Add a new pipeline](https://buildkite.com/new) in your Buildkite organization, using `https://github.com/buildkite/FlappyKite.git` as the Git Repository value.
 1. On the **New Pipeline** page, select the cluster you [created the hosted agent for Mac](#set-up-your-hosted-agent-create-a-buildkite-hosted-agent-for-mac) in.
 1. Leave all other fields with their pre-filled default values and select **Create Pipeline**. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
 1. On the next page showing your pipeline name, click **New Build**. In the modal that opens, create a build using the pre-filled details.
