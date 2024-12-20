@@ -37,7 +37,7 @@ To create your Mac hosted agent:
 
 1. Navigate to the [cluster](/docs/clusters/manage-clusters) you want to run your pipeline in. To do this, select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster (for example, **Default cluster**) to which the hosted agent will be added.
-1. Follow the [Create a queue](/docs/clusters/manage-queues#create-a-queue) > [Using the Buildkite interface](/docs/clusters/manage-queues#create-a-queue-using-the-buildkite-interface) instructions to begin creating your hosted agent within its own queue.
+1. Follow the [Create a queue](/docs/clusters/manage-queues#create-a-buildkite-hosted-queue) > [Using the Buildkite interface](/docs/clusters/manage-queues#create-a-buildkite-hosted-queue-using-the-buildkite-interface) instructions to begin creating your hosted agent within its own queue.
 
     As part of this process:
     * Give this queue an intuitive **key** and **description**, for example, **buildkite-macos-hosted-queue** and **Buildkite macOS hosted queue**, respectively.
