@@ -765,3 +765,7 @@
           path: "apis/webhooks/ping-events"
         - name: "Integrations"
           path: "apis/webhooks/integrations"
+    - name: "Portals (Customer preview)"
+      children:
+        - name: "Overview"
+          path: "apis/portals"
