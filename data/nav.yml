@@ -326,6 +326,12 @@
           path: "pipelines/hosted-agents/pipeline-migration"
         - name: "Terminal access"
           path: "pipelines/hosted-agents/terminal-access"
+        - name: "Mobile Delivery Cloud"
+          children:
+          - name: "Overview"
+            path: "pipelines/hosted-agents/mobile-delivery-cloud"
+          - name: "Getting started"
+            path: "pipelines/hosted-agents/mobile-delivery-cloud/getting-started"
     - name: "Rules"
       children:
         - name: "Overview"
