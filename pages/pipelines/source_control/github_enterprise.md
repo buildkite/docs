@@ -82,7 +82,7 @@ All Buildkite network traffic to your GitHub Enterprise Server will come from a 
 
 For additional security you can create a proxy that allows only the API endpoints we require:
 
-* `/api/v3/repos/.*/.*/statuses`
+* `/api/v3/repos/.*/.*/statuses/.*`
 * `/api/v3/user`
 * `/api/v3/user/emails`
 * `/login/oauth`
