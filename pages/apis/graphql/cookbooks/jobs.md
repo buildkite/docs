@@ -50,7 +50,7 @@ To see which jobs are waiting for a concurrency group in case the secret URL fai
 
 ```
 query getConcurrency {
-  organization(slug: "{org}") {
+  organization(slug: "organization-slug") {
     jobs(first:100,concurrency:{group:"name"}, type:[COMMAND], state:[LIMITED,WAITING,ASSIGNED]) {
       edges {
         node {
@@ -65,13 +65,13 @@ query getConcurrency {
 }
 ```
 
-## Handling 504 Error 
+## Handling 504 errors
 
 If you encounter a 504 response status, it may be helpful to add additional filters per pipeline after the slug.
 
 ```
 query getConcurrency {
-  organization(slug: "{org/pipeline-slug}") {
+  organization(slug: "organization-slug/pipeline-slug") {
     jobs(first:100,concurrency:{group:"name"}, type:[COMMAND], state:[LIMITED,WAITING,ASSIGNED]) {
       edges {
         node {
