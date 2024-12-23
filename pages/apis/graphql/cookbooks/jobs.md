@@ -6,7 +6,7 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 
 ## Get all jobs in a given queue for a given timeframe
 
-Get all jobs in a named queue, created on or after a given date. Note that if you want all jobs in the default queue, you do not need to set a queue name, so you can omit the `agentQueryRules` option.
+Get all jobs in a named queue, created on or after a given date. Note that if you want all jobs across the organization, you do not need to set a queue name, so you can omit the `agentQueryRules` option.
 
 ```graphql
 query PipelineRecentBuildLastJobQueue {
