@@ -6,7 +6,7 @@ Enterprise customers can configure registry permissions for all users across the
 
 ## Manage teams and permissions
 
-To manage teams across the Buildkite Package Registries application, a _Buildkite organization administrator_ first needs to enable this feature across their organization. Learn more about how to do this in the [Manage teams and permissions in the Platform documentation](/docs/team-management/permissions#manage-teams-and-permissions).
+To manage teams across the Buildkite Package Registries application, a _Buildkite organization administrator_ first needs to enable this feature across their organization. Learn more about how to do this in the [Manage teams and permissions in the Platform documentation](/docs/platform/team-management/permissions#manage-teams-and-permissions).
 
 Once the _teams_ feature is enabled, you can see the teams that you're a member of from the **Users** page, which:
 
@@ -16,13 +16,13 @@ Once the _teams_ feature is enabled, you can see the teams that you're a member 
 
 ### Organization-level permissions
 
-Learn more about what a _Buildkite organization administrator_ can do in the [Organization-level permissions in the Platform documentation](/docs/team-management/permissions#manage-teams-and-permissions-organization-level-permissions).
+Learn more about what a _Buildkite organization administrator_ can do in the [Organization-level permissions in the Platform documentation](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions).
 
 As an organization administrator, you can access the [**Organization Settings** page](https://buildkite.com/organizations/~/settings) by selecting **Settings** in the global navigation, where you can do the following:
 
 - Add new teams or edit existing ones in the [**Team** section](https://buildkite.com/organizations/~/teams).
 
-    * After selecting a team, you can view and administer the member-, [pipeline-](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/test-engine/permissions#manage-teams-and-permissions-test-suite-level-permissions), [registry-](#manage-teams-and-permissions-registry-level-permissions) and [team-](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions)level settings for that team.
+    * After selecting a team, you can view and administer the member-, [pipeline-](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/test-engine/permissions#manage-teams-and-permissions-test-suite-level-permissions), [registry-](#manage-teams-and-permissions-registry-level-permissions) and [team-](/docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions)level settings for that team.
 
 - [Enable Buildkite Package Registries](#enabling-buildkite-packages) for your Buildkite organization.
 
@@ -30,7 +30,7 @@ As an organization administrator, you can access the [**Organization Settings** 
 
 <h4 id="enabling-buildkite-packages">Enabling Buildkite Package Registries</h4>
 
-Customers on legacy Buildkite plans may need to enable Package Registries to enable this product.
+Customers on legacy Buildkite plans may need to enable Package Registries to gain access to this product.
 
 To do this:
 
@@ -41,15 +41,15 @@ To do this:
 1. Select the **Enable Buildkite Packages** button, then **Enable Buildkite Packages** in the **Ready to enable Buildkite Packages** confirmation dialog.
 
 > 📘
-> Once Buildkite Package Registries is enabled, the **Enable** link on the **Organization Settings** page changes to **Enabled** and Buildkite Package Registries can only be disabled by contacting [support](https://buildkite.com/support).
+> Once Buildkite Package Registries is enabled, the **Enable** link on the **Organization Settings** page changes to **Enabled** and Buildkite Package Registries can only be disabled by contacting support at support@buildkite.com.
 
 ### Team-level permissions
 
-Learn more about what _team members_ are and what _team maintainers_ can do in the [Team-level permissions in the Platform documentation](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
+Learn more about what _team members_ are and what _team maintainers_ can do in the [Team-level permissions in the Platform documentation](/docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
 
 ### Registry-level permissions
 
-When the [teams feature is enabled](#manage-teams-and-permissions), any user can create a new registry, as long as this user is a member of at least one team within the Buildkite organization, and this team has the **Create registries** [team member permission](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
+When the [teams feature is enabled](#manage-teams-and-permissions), any user can create a new registry, as long as this user is a member of at least one team within the Buildkite organization, and this team has the **Create registries** [team member permission](/docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
 
 When you create a new registry in Buildkite:
 

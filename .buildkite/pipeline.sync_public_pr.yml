@@ -20,7 +20,6 @@ steps:
           image: "ruby:3.3-bookworm"
           propagate-environment: true
           mount-buildkite-agent: true
-          mount-ssh-agent: true
           environment:
             - GH_TOKEN
             - GH_PRIVATE_REPO

@@ -49,6 +49,7 @@ exceptions:
   - Buildkite Agents
   - Buildkite Package Registries
   - Buildkite Pipelines
+  - Buildkite Platform
   - buildkite-agent
   - BuildNotify
   - BuildReactor
@@ -60,13 +61,13 @@ exceptions:
   - CircleCI
   - CLI
   - CloudFormation
+  - Cloudsmith
   - CloudWatch
   - CloudWatch Logs
   - CORS
   - CSS
   - Datadog
   - Debian
-  - Free Plan
   - Docker
   - Docker Compose
   - Docker Hub
@@ -88,6 +89,7 @@ exceptions:
   - GitLab Community
   - GitLab Enterprise
   - Go
+  - Google Artifact Registry
   - Google Chrome
   - Google Cloud
   - Google Cloud Functions
@@ -95,13 +97,14 @@ exceptions:
   - Google Cloud Platform
   - Google Cloud Storage
   - Google Compute Engine
-  - Google Container Registry
   - Google Kubernetes Engine
   - Google Workspace
   - GraphQL
+  - Groovy
   - Heroku
   - HMAC
   - HTTP
+  - I
   - IAM
   - ID
   - IdP # TODO: unabbreviate this in headings
@@ -110,10 +113,12 @@ exceptions:
   - Installation
   - JavaScript
   - Jenkins
+  - JFrog
   - Jest
   - JSON
   - JUnit
   - KMS
+  - Kotlin
   - Kubernetes
   - Linux
   - M1
@@ -121,6 +126,7 @@ exceptions:
   - macOS
   - Markdown
   - minitest
+  - Mobile Delivery Cloud
   - NET
   - Node.js
   - OIDC
@@ -128,6 +134,7 @@ exceptions:
   - OneLogin
   - OpenTelemetry
   - OS X
+  - Package Registries
   - PagerDuty
   - Phabricator
   - pipeline.artifacts_read.pipeline
@@ -145,6 +152,7 @@ exceptions:
   - SAML
   - SCIM
   - Slack
+  - SLSA
   - S3
   - SSH
   - SSO

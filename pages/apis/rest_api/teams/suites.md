@@ -69,7 +69,7 @@ Creates an association between a team and a suite.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/suite/" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/suites/" \
   -H "Content-Type: application/json" \
   -d '{
     "suite_id": suite.uuid,

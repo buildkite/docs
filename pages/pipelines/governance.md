@@ -10,7 +10,7 @@ These standards assess the security, availability, processing integrity, confide
 
 Buildkite understands the importance of meeting compliance and auditing requirements. The following features are tailored to meet your governance needs:
 
-- [Pipeline templates](/docs/pipelines/templates)
-- [Build exports](/docs/pipelines/build-exports)
+- [Pipeline templates](/docs/pipelines/governance/templates)
+- [Build exports](/docs/pipelines/governance/build-exports)
 
 With these features, you can maintain your compliance and build software with confidence.

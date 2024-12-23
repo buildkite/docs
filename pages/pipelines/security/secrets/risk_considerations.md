@@ -47,7 +47,7 @@ steps:
 
 Referencing secrets in your steps risks them being interpolated, uploaded to Buildkite, and shown in plain text in the "Uploaded Pipelines" list in the job's Timeline tab.
 
-The Buildkite agent does [redact strings](/docs/pipelines/managing-log-output#redacted-environment-variables) that match the values off of environment variables whose names match common password patterns such as `*_PASSWORD`, `*_SECRET`, `*_TOKEN`, `*_ACCESS_KEY`, and `*_SECRET_KEY`.
+The Buildkite agent does [redact strings](/docs/pipelines/configure/managing-log-output#redacted-environment-variables) that match the values off of environment variables whose names match common password patterns such as `*_PASSWORD`, `*_SECRET`, `*_TOKEN`, `*_ACCESS_KEY`, and `*_SECRET_KEY`.
 
 To prevent the risk of interpolation, it is recommended that you replace the command block with a script in your repository, for example:
 
@@ -58,7 +58,7 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 > 📘
-> Use [build scripts](/docs/pipelines/writing-build-scripts) instead of `command` blocks for steps that use secrets.
+> Use [build scripts](/docs/pipelines/configure/writing-build-scripts) instead of `command` blocks for steps that use secrets.
 
 If you must define your script in your steps, you can prevent interpolation by using the `$$` syntax:
 

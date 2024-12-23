@@ -2,7 +2,7 @@
 
 The Buildkite Agent's `meta-data` command provides your build pipeline with a powerful key/value data-store that works across build steps and build agents, no matter the machine or network.
 
-See the [Using build meta-data](/docs/pipelines/build-meta-data) guide for a step-by-step example.
+See the [Using build meta-data](/docs/pipelines/configure/build-meta-data) guide for a step-by-step example.
 
 ## Setting data
 
@@ -10,7 +10,7 @@ Use this command in your build scripts to save string data in the Buildkite meta
 
 <%= render 'agent/v3/help/meta_data_set' %>
 
-Meta-data values are restricted to a maximum of 100 kilobytes. Keys and values larger than 1 kilobyte are discouraged. Please use [artifacts](https://buildkite.com/docs/agent/v3/cli-artifact) for large data which needs to uploaded and downloaded.
+Meta-data values are restricted to a maximum of 100 kilobytes. Keys and values larger than 1 kilobyte are discouraged. Please use [artifacts](/docs/agent/v3/cli-artifact) for large data which needs to uploaded and downloaded.
 
 ## Getting data
 

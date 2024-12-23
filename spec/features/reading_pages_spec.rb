@@ -27,8 +27,8 @@ RSpec.feature "reading pages" do
     end
 
     it "links to the GitHub source files" do
-      visit "/docs/tutorials/getting-started"
-      expect(page).to have_css("a[href='https://github.com/buildkite/docs/edit/main/pages/tutorials/getting_started.md']", text: 'Contribute an update')
+      visit "/docs/pipelines/getting-started"
+      expect(page).to have_css("a[href='https://github.com/buildkite/docs/edit/main/pages/pipelines/getting_started.md']", text: 'Contribute an update')
     end
   end
 
@@ -51,11 +51,11 @@ RSpec.feature "reading pages" do
 
   describe "valid, but non-canonical versions of URLs" do
     it "permanently redirect to the canonical version" do
-      visit "/docs/tutorials/gettingStarted"
-      expect(page.current_path).to eql("/docs/tutorials/getting-started"), "expected gettingStarted to redirect to getting-started"
+      visit "/docs/pipelines/gettingStarted"
+      expect(page.current_path).to eql("/docs/pipelines/getting-started"), "expected gettingStarted to redirect to getting-started"
 
-      visit "/docs/tutorials/getting_started"
-      expect(page.current_path).to eql("/docs/tutorials/getting-started"), "expected getting_started to redirect to getting-started"
+      visit "/docs/pipelines/getting_started"
+      expect(page.current_path).to eql("/docs/pipelines/getting-started"), "expected getting_started to redirect to getting-started"
     end
   end
 

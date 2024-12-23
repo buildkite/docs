@@ -6,7 +6,7 @@ Enterprise customers can configure test suite permissions and security features 
 
 ## Manage teams and permissions
 
-To manage teams across the Buildkite Test Engine application, a _Buildkite organization administrator_ first needs to enable this feature across their organization. Learn more about how to do this in the [Manage teams and permissions section of Platform documentation](/docs/team-management/permissions#manage-teams-and-permissions).
+To manage teams across the Buildkite Test Engine application, a _Buildkite organization administrator_ first needs to enable this feature across their organization. Learn more about how to do this in the [Manage teams and permissions section of Platform documentation](/docs/platform/team-management/permissions#manage-teams-and-permissions).
 
 Once the _teams_ feature is enabled, you can see the teams that you're a member of from the **User** page, which:
 
@@ -18,7 +18,7 @@ Once the _teams_ feature is enabled, you can see the teams that you're a member 
 
 ### Organization-level permissions
 
-Learn more about what a _Buildkite organization administrator_ can do in the [Organization-level permissions in the Platform documentation](/docs/team-management/permissions#manage-teams-and-permissions-organization-level-permissions).
+Learn more about what a _Buildkite organization administrator_ can do in the [Organization-level permissions in the Platform documentation](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions).
 
 As an organization administrator, you can access the [**Organization Settings** page](https://buildkite.com/organizations/~/settings) by selecting **Settings** in the global navigation, where you can do the following:
 
@@ -26,7 +26,7 @@ As an organization administrator, you can access the [**Organization Settings** 
 
     <%= image "team-section-list.png", alt: "Screenshot of the Team section, showing a list of Teams" %>
 
-- After selecting a team, you can view and administer the member-, [pipeline-](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](#manage-teams-and-permissions-test-suite-level-permissions), [registry-](/docs/package-registries/security/permissions#manage-teams-and-permissions-registry-level-permissions) and [team-](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions)level settings for that team.
+- After selecting a team, you can view and administer the member-, [pipeline-](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](#manage-teams-and-permissions-test-suite-level-permissions), [registry-](/docs/package-registries/security/permissions#manage-teams-and-permissions-registry-level-permissions) and [team-](/docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions)level settings for that team.
 
     <%= image "team-section-test-suites-list.png", alt: "Screenshot of the Team section, showing a list of Test Suites the team has access to" %>
 
@@ -34,11 +34,11 @@ As an organization administrator, you can access the [**Organization Settings** 
 
 ### Team-level permissions
 
-Learn more about what _team members_ are and what _team maintainers_ can do in the [Team-level permissions in the Platform documentation](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
+Learn more about what _team members_ are and what _team maintainers_ can do in the [Team-level permissions in the Platform documentation](/docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
 
 ### Test suite-level permissions
 
-When the [teams feature is enabled](#manage-teams-and-permissions), any user can create a new test suite, as long as this user is a member of at least one team within the Buildkite organization, and this team has the **Create test suites** [team member permission](/docs/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
+When the [teams feature is enabled](#manage-teams-and-permissions), any user can create a new test suite, as long as this user is a member of at least one team within the Buildkite organization, and this team has the **Create test suites** [team member permission](/docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
 
 When you create a new test suite in Buildkite:
 

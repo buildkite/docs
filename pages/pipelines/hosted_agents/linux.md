@@ -5,22 +5,15 @@ Linux instances for Buildkite hosted agents are offered with two architectures:
 - AMD64 (x64_86)
 - ARM64 (AArch64)
 
-To accommodate different workloads, instances are capable of running up to 8 hours. If you require longer running agents please contact support.
+To accommodate different workloads, instances are capable of running up to 8 hours. If you require longer running agents, please contact support at support@buildkite.com.
 
-## Size
+## Sizes
 
-Buildkite offers a selection of instance sizes, allowing you to tailor your hosted agents' resources to the demands of your jobs. Below is a breakdown of the available sizes.
+Buildkite offers a selection of Linux instance types (each based on a different combination of size and architecture, known as an _instance shape_), allowing you to tailor your hosted agent resources to the demands of your jobs.
 
-<table>
-    <thead>
-        <tr><th>Size</th><th>vCPU</th><th>RAM</th></tr>
-    </thead>
-    <tbody>
-        <tr><td>Small</td><td>2</td><td>4 GB</td></tr>
-        <tr><td>Medium</td><td>4</td><td>16 GB</td></tr>
-        <tr><td>Large</td><td>8</td><td>32 GB</td></tr>
-    </tbody>
-</table>
+<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
+
+Extra large instances are available on request. Please contact support@buildkite.com to have them enabled for your account.
 
 ## Cache volumes
 
@@ -38,7 +31,7 @@ Cache volumes act as regular disks with the following properties:
 
 ### Cache configuration
 
-Cache paths can be [defined in your `pipeline.yml`](/docs/pipelines/defining-steps) file. Defining cache paths for a step will implicitly create a cache volume for the pipeline.
+Cache paths can be [defined in your `pipeline.yml`](/docs/pipelines/configure/defining-steps) file. Defining cache paths for a step will implicitly create a cache volume for the pipeline.
 
 When cache paths are defined, the cache volume is mounted under `/cache` in the agent instance. The agent links subdirectories of the cache volume into the paths specified in the configuration. For example, defining `cache: "node_modules"` in your `pipeline.yml` file will link `./node_modules` to `/cache/bkcache/node_modules` in your agent instance.
 
@@ -181,7 +174,7 @@ You can create an agent image:
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster in which to create the new agent image.
 
-    **Note:** Before continuing, ensure you have created a hosted agent queue (based on Linux architecture) within this cluster. Learn more about how to do this in [Create a queue](/docs/clusters/manage-queues#create-a-queue).
+    **Note:** Before continuing, ensure you have created a hosted agent queue (based on Linux architecture) within this cluster. Learn more about how to do this in [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
 
 1. Select **Agent Images** to open the **Agent Images** page.
 1. Select **New Image** to open the **New Agent Image** dialog.

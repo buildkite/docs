@@ -3,7 +3,7 @@
 
 ## Retry a job
 
-Retries a `failed` or `timed_out` job. You can only retry each `job.id` once. To retry a "second time" use the new `job.id` returned in the first retry query.
+Retries a `failed` OR `timed_out` OR a job whose step has the [manual retry after passing attribute set to true](/docs/pipelines/configure/step-types/command-step#retry-attributes-manual-retry-attributes) (that is, `permit_on_passed: true`). You can only retry each `job.id` once. To retry a "second time" use the new `job.id` returned in the first retry query.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -99,7 +99,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr><th><code>unblocker</code></th><td>The user id of the person activating the job.<br><em>Default value: the user making the API request</em>.</td></tr>
   <tr><th>
-    <code>fields</code></th><td>The values for the <a href="/docs/pipelines/block-step#block-step-attributes">block step's fields</a>.<br>
+    <code>fields</code></th><td>The values for the <a href="/docs/pipelines/configure/step-types/block-step#block-step-attributes">block step's fields</a>.<br>
     <p class="Docs__api-param-eg"><em>Example:</em> <code>{"release-name": "Flying Dolpin"}</code></p>
   </td></tr>
 </tbody>

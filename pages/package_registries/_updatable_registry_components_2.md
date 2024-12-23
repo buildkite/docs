@@ -1,0 +1,1 @@
+- **Tokens** (private registries only): one or more [registry tokens](#configure-registry-tokens), which are an alternative to API access tokens.

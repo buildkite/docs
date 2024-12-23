@@ -10,7 +10,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row");
 
 .Page {
   display: grid;
-  grid-template-rows: auto;
+  grid-template-rows: minmax(0, auto);
   grid-template-columns: 1fr;
   grid-template-areas:
     "sidebar"

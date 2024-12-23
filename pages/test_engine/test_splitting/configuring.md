@@ -1,6 +1,6 @@
 # Configuring test splitting
 
-Buildkite maintains its open source Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) tool. This tool uses your Test Engine test suite data to intelligently partition tests throughout your test suite into multiple sets, such that each set of tests runs in parallel across your agents. This results in a _test plan_, where a test plan defines which tests are run on which agents. Currently, the Test Engine Client tool only supports RSpec and Jest.
+Buildkite maintains its open source Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) tool. This tool uses your Test Engine test suite data to intelligently partition tests throughout your test suite into multiple sets, such that each set of tests runs in parallel across your agents. This results in a _test plan_, where a test plan defines which tests are run on which agents. Currently, the Test Engine Client tool supports [RSpec](/docs/test-engine/ruby-collectors#rspec-collector), [Jest](/docs/test-engine/javascript-collectors#configure-the-test-framework-jest), [Cypress](/docs/test-engine/javascript-collectors#configure-the-test-framework-cypress), and [PlayWright](/docs/test-engine/javascript-collectors#configure-the-test-framework-playwright) testing frameworks.
 
 ## Dependencies
 
@@ -163,7 +163,7 @@ steps:
       BUILDKITE_TEST_ENGINE_API_ACCESS_TOKEN: your-secret-token
       BUILDKITE_TEST_ENGINE_RESULT_PATH: tmp/rspec-result.json
       BUILDKITE_TEST_ENGINE_SUITE_SLUG: my-suite
-      BUILDKITE_TEST_ENGINE_RUNNER: rspec
+      BUILDKITE_TEST_ENGINE_TEST_RUNNER: rspec
 ```
 {: codeblock-file="pipeline.yml"}
 

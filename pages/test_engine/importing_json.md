@@ -55,7 +55,7 @@ For example, to import the contents of a [JSON-formatted test results](#json-tes
       https://analytics-api.buildkite.com/v1/uploads
     ```
 
-To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-engine/ci-environments#buildkite).
+To learn more about passing through environment variables to `run_env`-prefixed fields, see the [Buildkite](/docs/test-engine/ci-environments#buildkite) or [Other CI providers](/docs/test-engine/ci-environments#other-ci-providers) (including manually) on the [CI environments](/docs/test-engine/ci-environments) page.
 
 A single file can have a maximum of 5000 test results, and if that limit is exceeded then the upload request will fail. To upload more than 5000 test results for a single run upload multiple smaller files with the same `run_env[key]`.
 
@@ -84,7 +84,7 @@ For example, to import the contents of a `test-results.json` file in a CircleCI 
     https://analytics-api.buildkite.com/v1/uploads
     ```
 
-To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-engine/ci-environments#circleci).
+To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments > CircleCI](/docs/test-engine/ci-environments#circleci) page section.
 
 A single file can have a maximum of 5000 test results, and if that limit is exceeded then the upload request will fail. To upload more than 5000 test results for a single run upload multiple smaller files with the same `run_env[key]`.
 
@@ -113,7 +113,7 @@ For example, to import the contents of a `test-results.json` file in a GitHub Ac
     https://analytics-api.buildkite.com/v1/uploads
     ```
 
-To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-engine/ci-environments#github-actions).
+To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments > GitHub Actions](/docs/test-engine/ci-environments#github-actions) page section.
 
 A single file can have a maximum of 5000 test results, and if that limit is exceeded then the upload request will fail. To upload more than 5000 test results for a single run upload multiple smaller files with the same `run_env[key]`.
 
@@ -394,3 +394,65 @@ Detail objects contains additional information about the span.
 }
 ```
 
+### Test result format
+
+The following JSON code block shows an example of how your JSON test results should be formatted, so that these results can be successfully uploaded to Test Engine.
+
+```json
+[
+  {
+    "id": "95f7e024-9e0a-450f-bc64-9edb62d43fa10",
+    "scope": "Analytics::Upload associations",
+    "name": "fails",
+    "location": "./spec/models/analytics/upload_spec.rb:24",
+    "file_name": "./spec/models/analytics/upload_spec.rb",
+    "result": "failed",
+    "failure_reason": "Failure/Error: expect(true).to eq false",
+    "failure_expanded": [],
+    "history": {
+      "start_at": 347611.724809,
+      "end_at": 347612.451041,
+      "duration": 0.726232000044547,
+      "children": [
+        {
+          "section": "http",
+          "start_at": 347611.734956,
+          "end_at": 347611.735647,
+          "duration": 0.0006910000229254365,
+          "detail": {
+            "method": "POST",
+            "url": "https://example.com",
+            "lib": "curl"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "56f6e013-8e9a-340f-bc53-8edb51d32fa09",
+    "scope": "Analytics::Upload associations",
+    "name": "passes",
+    "location": "./spec/models/analytics/upload_spec.rb:56",
+    "file_name": "./spec/models/analytics/upload_spec.rb",
+    "result": "passed",
+    "history": {
+      "start_at": 347611.724809,
+      "end_at": 347612.451041,
+      "duration": 0.726232000044547,
+      "children": [
+        {
+          "section": "http",
+          "start_at": 347611.734956,
+          "end_at": 347611.735647,
+          "duration": 0.0006910000229254365,
+          "detail": {
+            "method": "GET",
+            "url": "https://example.com",
+            "lib": "curl"
+          }
+        }
+      ]
+    }
+  }
+]
+```

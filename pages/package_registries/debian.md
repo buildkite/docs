@@ -2,23 +2,23 @@
 
 Buildkite Package Registries provides registry support for Debian-based (deb) packages for Debian and Ubuntu operating system variants.
 
-Once your Debian registry has been [created](/docs/package-registries/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry via the `curl` command presented on your Debian registry's details page.
+Once your Debian source registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry via the `curl` command presented on your Debian registry's details page.
 
 To view and copy this `curl` command:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
-1. Select your Debian registry on this page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
+1. Select your Debian source registry on this page.
 1. Select **Publish a Debian Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a package to your Debian registry.
 
 This command provides:
 
-- The specific URL to publish a package to your specific Debian registry in Buildkite.
-- The API access token required to publish packages to your Debian registry.
+- The specific URL to publish a package to your specific Debian source registry in Buildkite.
+- The API access token required to publish packages to your Debian source registry.
 - The Debian package file to be published.
 
 ## Publish a package
 
-The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a deb package to your Debian registry:
+The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a deb package to your Debian source registry:
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
@@ -32,11 +32,11 @@ where:
 
 <%= render_markdown partial: 'package_registries/debian_registry_slug' %>
 
-- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Debian registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
+- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Debian source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization.
 
 <%= render_markdown partial: 'package_registries/path_to_file' %>
 
-For example, to upload the file `my-deb-package_1.0-2_amd64.deb` from the current directory to the **My Debian packages** registry in the **My organization** Buildkite organization, run the `curl` command:
+For example, to upload the file `my-deb-package_1.0-2_amd64.deb` from the current directory to the **My Debian packages** source registry in the **My organization** Buildkite organization, run the `curl` command:
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-debian-packages/packages \
@@ -46,13 +46,13 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 
 ## Access a package's details
 
-A Debian (deb) package's details can be accessed from this registry using the **Packages** section of your Debian registry page.
+A Debian (deb) package's details can be accessed from this registry through the **Releases** (tab) section of your Debian source registry page.
 
 To access your deb package's details page:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
-1. Select your Debian registry on this page.
-1. On your Debian registry page, select the package to display its details page.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
+1. Select your Debian source registry on this page.
+1. On your Debian source registry page, select the package to display its details page.
 
 <%= render_markdown partial: 'package_registries/package_details_page_sections' %>
 
@@ -89,11 +89,11 @@ curl -fsSL "https://buildkite:{registry.read.token}@packages.buildkite.com/{org.
 
 where:
 
-- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#update-a-registry-configure-registry-tokens) used to download packages from your Debian registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
+- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Debian registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/debian_registry_slug' %>
+<%= render_markdown partial: 'package_registries/registry_slug' %>
 
 If your registry is _private_ (that is, the default registry configuration), stash the private registry credentials into `apt`'s `auth.conf.d` directory:
 

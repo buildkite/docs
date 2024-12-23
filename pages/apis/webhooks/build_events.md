@@ -81,4 +81,4 @@ Example request body for blocked build:
 ```
 
 > 📘 To determine if an EventBridge notification is blocked
-> However, to determine if an EventBridge notification is blocked, look for <code>"state": "blocked". </code>, like in this <a href="/docs/integrations/amazon-eventbridge#events-build-blocked">sample Eventbridge request</a>.
+> However, to determine if an EventBridge notification is blocked, look for <code>"state": "blocked". </code>, like in this <a href="/docs/pipelines/integrations/other/amazon-eventbridge#events-build-blocked">sample Eventbridge request</a>.

@@ -31,7 +31,7 @@ You can specify an OIDC policy for your Buildkite registry, which defines the cr
 
 To define an OIDC policy for one or more Buildkite pipeline jobs in a registry:
 
-1. Select **Packages** in the global navigation to access the [**Registries**](https://buildkite.com/organizations/~/packages) page.
+1. Select **Package Registries** in the global navigation to access the [**Registries**](https://buildkite.com/organizations/~/packages) page.
 
 1. Select the registry whose OIDC policy needs defining.
 
@@ -56,9 +56,11 @@ The basic format for a Buildkite registry's OIDC policy, to handle OIDC tokens i
 where:
 
 - `iss` (the issuer) must be `https://agent.buildkite.com`, representing the Buildkite Agent.
-- `organization-slug` can be obtained from the end of your Buildkite URL, after accessing **Packages** or **Pipelines** in the global navigation of your organization in Buildkite.
-- `pipeline-slug` can be obtained from the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite.
-- `main` or whichever branch of the repository you want to restrict package publication/uploads from pipeline builds.
+- the `claims:` field contains:
+
+    * `organization-slug`, which can be obtained from the end of your Buildkite URL, after accessing **Package Registries** or **Pipelines** in the global navigation of your organization in Buildkite.
+    * `pipeline-slug`, which can be obtained from the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite.
+    * `main` or whichever branch of the repository you want to restrict package publication/uploads from pipeline builds.
 
 However, more [complex OIDC policies](#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example) can be created.
 
@@ -128,7 +130,7 @@ Currently, only OIDC tokens from the following token issuers are supported.
 | GitHub Actions | `https://token.actions.githubusercontent.com` | [GitHub Actions OIDC Tokens](https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/about-security-hardening-with-openid-connect) |
 | CircleCI | `https://oidc.circleci.com/org/$ORG` where `$ORG` is your organization name | [CircleCI OIDC Tokens](https://circleci.com/docs/openid-connect-tokens) |
 
-If you'd like to use OIDC tokens from a different token issuer or OIDC identity provider with Buildkite Package Registries, please contact [support](https://buildkite.com/support).
+If you'd like to use OIDC tokens from a different token issuer or OIDC identity provider with Buildkite Package Registries, please contact [support](https://buildkite.com/about/contact/).
 
 <a id="claim-rules"></a>
 
@@ -179,7 +181,7 @@ organization_slug:
 
 ## Configure a Buildkite pipeline to authenticate to a registry
 
-Configuring a Buildkite pipeline [`command` step](/docs/pipelines/command-step) to request an OIDC token from Buildkite to interact with your Buildkite registry [configured with an OIDC policy](#define-an-oidc-policy-for-a-registry), is a two-part process.
+Configuring a Buildkite pipeline [`command` step](/docs/pipelines/configure/step-types/command-step) to request an OIDC token from Buildkite to interact with your Buildkite registry [configured with an OIDC policy](#define-an-oidc-policy-for-a-registry), is a two-part process.
 
 ### Part 1: Request an OIDC token from Buildkite
 
@@ -195,7 +197,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-- `{registry.slug}` is the slug of your registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of your registry name, and can be obtained after accessing **Packages** in the global navigation > your registry from the **Registries** page.
+- `{registry.slug}` is the slug of your registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of your registry name, and can be obtained after accessing **Package Registries** in the global navigation > your registry from the **Registries** page.
 
 - `--lifetime` is the time (in seconds) that the OIDC token is valid for. By default, this value must be less than `300`.
 
@@ -213,7 +215,7 @@ where:
 
 - `--username` always has the value `buildkite`.
 
-Therefore, the full [`command` step](/docs/pipelines/command-step) would look like:
+Therefore, the full [`command` step](/docs/pipelines/configure/step-types/command-step) would look like:
 
 ```bash
 buildkite-agent oidc request-token --audience "https://packages.buildkite.com/{org.slug}/{registry.slug}" --lifetime 300 | docker login packages.buildkite.com/{org.slug}/{registry.slug} --username buildkite --password-stdin

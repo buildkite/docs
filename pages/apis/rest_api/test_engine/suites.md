@@ -23,6 +23,10 @@ curl -H "Authorization: Bearer $TOKEN" \
 ]
 ```
 
+Optional [query string parameters](/docs/api#query-string-parameters):
+
+<%= render_markdown partial: 'apis/rest_api/test_engine/suites_query_strings' %>
+
 Required scope: `read_suites`
 
 Success response: `200 OK`
@@ -45,6 +49,10 @@ curl -H "Authorization: Bearer $TOKEN" \
   "default_branch":"main"
 }
 ```
+
+Optional [query string parameters](/docs/api#query-string-parameters):
+
+<%= render_markdown partial: 'apis/rest_api/test_engine/suites_query_strings' %>
 
 Required scope: `read_suites`
 
@@ -96,7 +104,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
   <tbody>
-    <tr><th><code>show_api_token</code></th><td>Return the suite's API token in the response. This is the only way to view the suite's API token via the REST API.<br><em>Default value:</em> <code>false</code>.</td></tr>
+    <tr><th><code>show_api_token</code></th><td>Return the suite's API token in the response.<br><em>Default value:</em> <code>false</code>.</td></tr>
     <tr>
       <th><code>teams_ids</code></th>
       <td>
@@ -147,6 +155,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr><th><code>application_name</code></th><td>Application name for the suite.<br><em>Example:</em> <code>"Buildkite"</code></td></tr>
   <tr><th><code>color</code></th><td>Color for the suite navatar.<br><em>Example:</em> <code>"#ffb7c5"</code></td></tr>
   <tr><th><code>emoji</code></th><td>Emoji for the suite navatar. Check out our <a href="https://github.com/buildkite/emojis#emoji-reference">documentation for supported emoji.</a><br><em>Example:</em> <code>"🌸"</code>, <code>"\:cherry_blossom\:"</code></td></tr>
+  <tr><th><code>show_api_token</code></th><td>Return the suite's API token in the response.<br><em>Default value:</em> <code>false</code>.</td></tr>
 </tbody>
 </table>
 

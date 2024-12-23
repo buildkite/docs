@@ -47,6 +47,8 @@ chroots
 CI
 classpath
 cli
+Cloudsmith
+Cloudsmith's
 CloudWatch
 CMake
 composable
@@ -93,6 +95,7 @@ globbing
 gotestsum
 gpg
 Gradle
+Gradle's
 Graviton
 gz
 gzipped
@@ -108,6 +111,8 @@ IPs
 iTerm
 iTerm's
 Jenkins
+JFrog
+JFrog's
 jpegs
 jq
 json
@@ -123,6 +128,7 @@ launchd
 LFS
 libpq
 linux
+llamasecret
 macOS
 matchers
 Memcache
@@ -163,6 +169,7 @@ png
 pngs
 Postgres
 PowerShell
+PR's
 preemptible
 prefill
 proxied
@@ -234,11 +241,13 @@ unsetting
 untrusted
 unxip
 uploaders
+upstreams
 url
 urls
 util
 uuid
 UUIDs
+uv
 vendored
 virtualenv
 VMs

@@ -10,6 +10,7 @@ commands=(
   "artifact upload"
   "artifact search"
   "bootstrap"
+  "build cancel"
   "env dump"
   "env set"
   "env get"
@@ -30,6 +31,7 @@ commands=(
   "start"
   "step get"
   "step update"
+  "step cancel"
   "tool keygen"
   "tool sign"
 )

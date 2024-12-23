@@ -2,18 +2,19 @@
 
 Buildkite Package Registries provides registry support for Maven-based Java packages.
 
-Once your Java registry has been [created](/docs/package-registries/manage-registries#create-a-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `~/.m2/settings.xml` and application's relevant `pom.xml` files with the Maven XML snippets presented on your Java registry's details page.
+Once your Java source registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `~/.m2/settings.xml` and application's relevant `pom.xml` files with the Maven XML snippets presented on your Java registry's details page.
 
 To view and copy the required  `~/.m2/settings.xml` and `pom.xml` configurations:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
-1. Select your Java registry on this page.
-1. Select **Publish a Java Package** and in the resulting dialog's **Using Maven** section, use the copy icon at the top-right of each respective code box to copy the relevant XML snippet and paste it into its appropriate file.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
+1. Select your Java source registry on this page.
+1. Select **Publish a Java Package** and in the resulting dialog's **Using Maven** section, select **Maven** to expand this section.
+1. Use the copy icon at the top-right of each respective code box to copy the relevant XML snippet and paste it into its appropriate file.
 
 These file configurations contain the following:
 
-- `~/.m2/settings.xml`: the ID for your specific Java registry in Buildkite and the API access token required to publish the package to this registry.
-- `pom.xml`: the ID and URL for your specific Java registry in Buildkite.
+- `~/.m2/settings.xml`: the ID for your specific Java source registry in Buildkite and the API access token required to publish the package to this registry.
+- `pom.xml`: the ID and URL for your specific Java source registry in Buildkite.
 
 ## Publish a package
 
@@ -43,11 +44,11 @@ The following steps describe the process above:
     ```
 
     where:
-    * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Java registry. Ensure this access token has the **Write Packages** REST API scope, which allows this token to publish packages to any registry your user account has access to within your Buildkite organization.
+    <%= render_markdown partial: 'package_registries/java_registry_write_token' %>
 
     <%= render_markdown partial: 'package_registries/java_registry_id' %>
 
-    **Note:** This step only needs to be performed once for the life of your Java registry, and API access token.
+    **Note:** This step only needs to be performed once for the life of your Java source registry, and API access token.
 
 1. Copy the following XML snippet, paste it into your `pom.xml` configuration file, and modify accordingly:
 
@@ -65,7 +66,7 @@ The following steps describe the process above:
     ```
 
     where:
-    * `org-slug-registry-slug` is the ID of your Java registry (above).
+    * `org-slug-registry-slug` is the ID of your Java source registry (above).
 
     <%= render_markdown partial: 'package_registries/org_slug' %>
 
@@ -95,7 +96,7 @@ A Java package can be downloaded from the package's details page. To do this:
 A Java package can be installed using code snippet details provided on the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
-1. Ensure the **Installation** > **Instructions** section is displayed.
+1. Ensure the **Installation** tab is displayed and select the **Maven** section to expand it.
 1. Copy each code snippet, and paste them into their respective `~/.m2/settings.xml` and `pom.xml` files (under the `project` XML tag), and run `mvn install` on this modified `pom.xml` to install this package.
 
     **Note:** The `~/.m2/settings.xml` configuration:
@@ -127,7 +128,7 @@ The `~/.m2/settings.xml` code snippet is based on this format:
 
 where:
 
-- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#update-a-registry-configure-registry-tokens) used to download packages from your Java registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Java registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
 <%= render_markdown partial: 'package_registries/java_registry_id' %>
 
@@ -160,8 +161,8 @@ where:
 
 <%= render_markdown partial: 'package_registries/java_registry_id' %>
 
-- `{org.slug}` is the org slug.
+- `{org.slug}` is the org slug, which can be obtained as described above.
 
-<%= render_markdown partial: 'package_registries/java_registry_slug' %>
+<%= render_markdown partial: 'package_registries/registry_slug' %>
 
 <%= render_markdown partial: 'package_registries/java_package_domain_name_version' %>

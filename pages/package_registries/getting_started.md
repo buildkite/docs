@@ -1,38 +1,38 @@
 # Getting started
 
-👋 Welcome to Buildkite Package Registries! You can use Package Registries to house your [packages](/docs/package-registries/background#package-creation-tools) built through [Buildkite Pipelines](/docs/pipelines) or another CI/CD application, and manage them through dedicated registries. This tutorial takes you through creating a JavaScript registry, cloning and running a simple Node.js package locally, and uploading this package to your new JavaScript registry.
+👋 Welcome to Buildkite Package Registries! You can use Package Registries to house your [packages](/docs/package-registries/background#package-creation-tools) built through [Buildkite Pipelines](/docs/pipelines) or another CI/CD application, and manage them through dedicated registries.
 
-While this tutorial uses a Node.js package example, Buildkite Package Registries supports [other package ecosystems](/docs/package-registries/manage-registries#create-a-registry-manage-packages-in-a-registry) too.
+This getting started page is a tutorial that helps you understand Package Registries' fundamentals, by guiding you through the creation of a new JavaScript _source_ registry, cloning, running and packaging a simple example Node.js project locally, and uploading the package to this new registry. Note that Buildkite Package Registries supports [other package ecosystems](/docs/package-registries/ecosystems) too.
 
 ## Before you start
 
 To complete this tutorial, you'll need:
 
-- A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a free account</a>.
+- A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a 30-day free trial account</a>.
 
 - [Git](https://git-scm.com/downloads), to clone the Node.js package example.
 
 - [Node.js](https://nodejs.org/en/download)—macOS users can also install Node.js with [Homebrew](https://formulae.brew.sh/formula/node).
 
-## Create a registry
+## Create a source registry
 
-First, create a new JavaScript registry:
+First, create a new JavaScript source registry:
 
-1. Select **Packages** in the global navigation to access the **Registries** page.
-1. Select **New registry**.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
+1. Select **New registry** > **Source Registry**.
 1. On the **New Registry** page, enter the mandatory **Name** for your registry. For example, `My JavaScript registry`.
 1. Enter an optional **Description** for the registry, which will appear under the name of the registry item on the **Registries** page. For example, `This is an example of a JavaScript registry`.
 1. Select the required registry **Ecosystem** of **JavaScript (npm)**.
 1. If your Buildkite organization has the [teams feature](/docs/package-registries/security/permissions) enabled, select the relevant **Teams** to be granted access to the new JavaScript registry.
 1. Select **Create Registry**.
 
-    The new JavaScript registry's details page is displayed. Selecting **Packages** in the global navigation opens the **Registries** page, where your new registry will be listed.
+    The new JavaScript registry's details page is displayed. Selecting **Package Registries** in the global navigation opens the **Registries** page, where your new registry will be listed.
 
-## Clone the Node.js package example
+## Clone the Node.js example package project
 
-Then, clone the Node.js package example:
+Then, clone the Node.js example package project:
 
-1. Run the following command:
+1. Open a terminal or command prompt, and run the following command:
 
     ```bash
     git clone git@github.com:buildkite/nodejs-example-package.git
@@ -49,9 +49,9 @@ Then, clone the Node.js package example:
 
 ## Configure your Node.js environment and project
 
-Next, configure your Node.js environment to publish Node.js packages to [the JavaScript registry you created above](#create-a-registry):
+Next, configure your Node.js environment to publish Node.js packages to [the JavaScript registry you created above](#create-a-source-registry):
 
-1. Access your JavaScript registry's details page. To do this, select **Packages** in the global navigation > your npm package from the list.
+1. Access your JavaScript registry's details page. To do this, select **Package Registries** in the global navigation > your npm package from the list.
 1. Select **Publish a JavaScript Package** to open the dialog with code boxes.
 1. Copy the `npm` command in the first code box and run it to configure your npm config settings file (`.npmrc`). This configuration allows you to publish packages to your JavaScript registry. The `npm` command has the following format:
 
@@ -102,7 +102,7 @@ Your Node.js package is published to your Buildkite JavaScript registry in `.tgz
 
 To confirm that your Node.js package was successfully published to your Buildkite JavaScript registry:
 
-1. View your JavaScript registry's details page, refreshing the page if necessary. To access this page, select **Packages** in the global navigation > your Node.js package from the list.
+1. View your JavaScript registry's details page, refreshing the page if necessary. To access this page, select **Package Registries** in the global navigation > your Node.js package from the list.
 
     The package name (for example, **nodejs.example-package-1.0.1.tgz**) should appear under **Packages**.
 
@@ -131,4 +131,4 @@ Your JavaScript registry's details page should show your new package with the in
 
 That's it! You've created a new Buildkite registry, configured your Node.js environment and project to publish to your new JavaScript registry, and published a Node.js package to this registry. 🎉
 
-Learn more about how to work with Buildkite Package Registries in [Manage registries](/docs/package-registries/manage-registries).
+Learn more about how to work with Buildkite Package Registries in [Manage registries](/docs/package-registries/manage-registries), and the difference between [_source_](/docs/package-registries/manage-registries#create-a-source-registry) and [_composite_](/docs/package-registries/manage-registries#composite-registries) registries.

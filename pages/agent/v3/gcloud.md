@@ -24,7 +24,7 @@ Follow the [setup instructions for Ubuntu](/docs/agent/v3/ubuntu).
 
 ## Running the agent on Google Kubernetes Engine
 
-[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine) can run the agent as a [Docker](https://www.docker.com) container using [Kubernetes](https://kubernetes.io). To [run Docker–based builds](/docs/tutorials/docker-containerized-builds), ensure the container is started with a [privileged security context](https://kubernetes.io/docs/concepts/workloads/pods/#pod-security) and mount the Docker socket as a volume.
+[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine) can run the agent as a [Docker](https://www.docker.com) container using [Kubernetes](https://kubernetes.io). To [run Docker–based builds](/docs/pipelines/tutorials/docker-containerized-builds), ensure the container is started with a [privileged security context](https://kubernetes.io/docs/concepts/workloads/pods/#pod-security) and mount the Docker socket as a volume.
 
 In the [Google Cloud Console](https://console.cloud.google.com/kubernetes/add), create a **Standard** Google Kubernetes Engine cluster:
 
@@ -263,7 +263,7 @@ If you are using any of the non-public [predefined Access Control Lists (ACLs)](
 export BUILDKITE_GS_ACL="publicRead"
 ```
 
-If you need to be authenticated to view the objects in your bucket, you can use Google Cloud Storage's [cookie-based authentication](https://cloud.google.com/storage/docs/access-control/cookie-based-authentication):
+If you need to be authenticated to view the objects in your bucket, you can use Google Cloud Storage's [cookie-based authentication](https://cloud.google.com/storage/docs/request-endpoints#cookieauth):
 
 ```shell
 export BUILDKITE_GCS_ACCESS_HOST="storage.cloud.google.com"

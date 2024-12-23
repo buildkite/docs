@@ -26,7 +26,7 @@ For other supported package ecosystems, it is recommended that you use their nat
 
 - [Container (Docker)](/docs/package-registries/container#publish-an-image) images
 - [Helm (OCI)](/docs/package-registries/helm-oci#publish-a-chart) charts
-- Java ([Maven](/docs/package-registries/maven#publish-a-package) or [Gradle leveraging the Maven Publish Plugin](/docs/package-registries/gradle#publish-a-package)) packages
+- Java ([Maven](/docs/package-registries/maven#publish-a-package) or [Gradle](/docs/package-registries/gradle-kotlin#publish-a-package)) packages
 - [JavaScript (npm)](/docs/package-registries/javascript#publish-a-package) packages
 - [Ruby (RubyGems)](/docs/package-registries/ruby#publish-a-package) packages
 
@@ -169,7 +169,7 @@ Currently, this REST API call only supports package types belonging to the follo
 - [Red Hat (RPM)](/docs/packages/red-hat)
 - [Ruby (RubyGems)](/docs/packages/ruby)
 
-If you wish this feature to be available for package types belonging to other package ecosystems, please contact [support](https://buildkite.com/support).
+If you wish this feature to be available for package types belonging to other package ecosystems, please contact [support](https://buildkite.com/about/contact/).
 
 The following type of response is returned by Buildkite upon a successful `curl` copying event.
 
