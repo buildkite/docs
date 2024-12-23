@@ -152,6 +152,8 @@
     path: apis/graphql/schemas/mutation/rulecreate
   - name: ruleDelete
     path: apis/graphql/schemas/mutation/ruledelete
+  - name: ruleUpdate
+    path: apis/graphql/schemas/mutation/ruleupdate
   - name: ssoProviderCreate
     path: apis/graphql/schemas/mutation/ssoprovidercreate
   - name: ssoProviderDelete
@@ -680,6 +682,8 @@
     path: apis/graphql/schemas/object/ruledeletepayload
   - name: RuleEdge
     path: apis/graphql/schemas/object/ruleedge
+  - name: RuleUpdatePayload
+    path: apis/graphql/schemas/object/ruleupdatepayload
   - name: SCMPipelineSettings
     path: apis/graphql/schemas/object/scmpipelinesettings
   - name: SCMRepositoryHost
@@ -1068,6 +1072,12 @@
     path: apis/graphql/schemas/input-object/emailresendverificationinput
   - name: GraphQLSnippetCreateInput
     path: apis/graphql/schemas/input-object/graphqlsnippetcreateinput
+  - name: HostedAgentsLinuxPlatformSettingsInput
+    path: apis/graphql/schemas/input-object/hostedagentslinuxplatformsettingsinput
+  - name: HostedAgentsMacosPlatformSettingsInput
+    path: apis/graphql/schemas/input-object/hostedagentsmacosplatformsettingsinput
+  - name: HostedAgentsPlatformSettingsInput
+    path: apis/graphql/schemas/input-object/hostedagentsplatformsettingsinput
   - name: HostedAgentsQueueSettingsCreateInput
     path: apis/graphql/schemas/input-object/hostedagentsqueuesettingscreateinput
   - name: HostedAgentsQueueSettingsUpdateInput
@@ -1156,6 +1166,8 @@
     path: apis/graphql/schemas/input-object/rulecreateinput
   - name: RuleDeleteInput
     path: apis/graphql/schemas/input-object/ruledeleteinput
+  - name: RuleUpdateInput
+    path: apis/graphql/schemas/input-object/ruleupdateinput
   - name: SSOProviderCreateInput
     path: apis/graphql/schemas/input-object/ssoprovidercreateinput
   - name: SSOProviderDeleteInput

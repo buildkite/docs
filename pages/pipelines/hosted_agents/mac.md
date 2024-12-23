@@ -2,22 +2,15 @@
 
 Mac instances for Buildkite hosted agents are only offered with [Apple silicon](https://en.wikipedia.org/wiki/Apple_silicon) architecture. Please contact support if you have specific needs for Intel machines.
 
-To accommodate different workloads, instances are capable of running up to 4 hours. If you require longer running agents please contact support.
+To accommodate different workloads, instances are capable of running up to 4 hours. If you require longer running agents, please contact support at support@buildkite.com.
 
-## Size
+## Sizes
 
-We offer a selection of instance sizes, allowing you to tailor your hosted agent resources to the demands of your jobs. Below is a breakdown of the available sizes.
+Buildkite offers a selection of Mac instance types (each based on a different size combination of virtual CPU power and memory capacity, known as an _instance shape_), allowing you to tailor your hosted agents' resources to the demands of your jobs.
 
-<table>
-    <thead>
-        <tr><th>Size</th><th>vCPU</th><th>RAM</th></tr>
-    </thead>
-    <tbody>
-        <tr><td>Small</td><td>4</td><td>7 GB</td></tr>
-        <tr><td>Medium</td><td>6</td><td>14 GB</td></tr>
-        <tr><td>Large</td><td>12</td><td>28 GB</td></tr>
-    </tbody>
-</table>
+<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
+
+Extra large instances are available on request. Please contact support@buildkite.com to have them enabled for your account.
 
 ## Mac instances software support
 

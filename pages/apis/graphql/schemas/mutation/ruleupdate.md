@@ -11,26 +11,29 @@
 #  replace the content in data/schema.graphql
 #  and run the generation script `./scripts/generate-graphql-api-content.sh`.
 
-title: HostedAgentMacOSSettingsType – Objects – GraphQL API
+title: ruleUpdate – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
 <h1 class="has-pills">
-  HostedAgentMacOSSettingsType
-  <span data-algolia-exclude><span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></span>
+  ruleUpdate
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/ruleupdatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RuleUpdatePayload">
+  <code>RuleUpdatePayload</code>
+</a>
+</span>
 </h1>
 <!-- vale on -->
 
 
-Configuration options for the base image of hosted agent instances on macOS platforms.
+Update a rule.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
     <th>
-      <h2 data-algolia-exclude>Fields</h2>
+      <h2 data-algolia-exclude>Arguments</h2>
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>xcodeVersion</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The Xcode version to pre-select (via xcode-select) on macOS hosted agent instances for this cluster queue.</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/ruleupdateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT RuleUpdateInput"><code>RuleUpdateInput!</code></a></h3><p>Parameters for RuleUpdate</p></td></tr>
   </tbody>
 </table>

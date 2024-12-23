@@ -40,7 +40,7 @@ Learn more about working with clusters in [Manage clusters](/docs/pipelines/clus
 The most common queue attributes are based on infrastructure set-ups, such as:
 
 - Architecture (x86, arm64, Apple silicon, etc.)
-- Size of agents (small, medium, large)
+- Size of agents (small, medium, large, extra large)
 - Type of machine (macOS, Linux, Windows, GPU, etc.)
 
 Therefore, an example queue would be `small_mac_silicon`.

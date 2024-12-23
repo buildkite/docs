@@ -6,7 +6,7 @@ keywords: docs, pipelines, tutorials, getting started
 
 👋 Welcome to Buildkite Pipelines! You can use Pipelines to build your dream CI/CD workflows on a secure, scalable, and flexible platform.
 
-This tutorial helps you understand Pipelines' fundamentals, by guiding you through the creation of a basic pipeline from an example.
+This getting started page is a tutorial that helps you understand Pipelines' fundamentals, by guiding you through the creation of a basic pipeline from an example.
 
 ## Before you start
 
@@ -53,14 +53,16 @@ You need at least one agent configured within its own queue and cluster to run b
 
 You can create the first [Buildkite hosted agent](/docs/pipelines/hosted-agents) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
 
+Before creating your Buildkite hosted agent, ensure you have a [cluster](/docs/pipelines/clusters/manage-clusters) (for example, **Default cluster**) you can connect this agent to.
+
 To create a hosted agent:
 
 1. Navigate to the [cluster](/docs/pipelines/clusters/manage-clusters) you want to run your pipeline in. To do this, select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster (for example, **Default cluster**) to which the hosted agent will be added.
-1. Follow the [Create a queue](/docs/pipelines/clusters/manage-queues#create-a-queue) > [Using the Buildkite interface](/docs/pipelines/clusters/manage-queues#create-a-queue-using-the-buildkite-interface) instructions to begin creating your hosted agent within its own queue.
+1. Follow the [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue) > [Using the Buildkite interface](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue-using-the-buildkite-interface) instructions to begin creating your hosted agent within its own queue.
 
     As part of this process:
-    * In the **Select your agent infrastructure** section, choose **Hosted**.
+    * In the **Select your agent infrastructure** section, select **Hosted**.
     * Follow the relevant sub-steps for configuring your hosted agent.
 
 1. Make your pipelines use this hosted agent by default, by ensuring its queue is the _default queue_. This should be indicated by **(default)** after the queue's key on the cluster's **Queues** page. If this is not the case and another queue is marked **(default)**:
