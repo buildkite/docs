@@ -50,7 +50,7 @@ To see which jobs are waiting for a concurrency group in case the secret URL fai
 
 ```
 query getConcurrency {
-  organization(slug: "{org}") {
+  organization(slug: "organization-slug") {
     jobs(first:100,concurrency:{group:"name"}, type:[COMMAND], state:[LIMITED,WAITING,ASSIGNED]) {
       edges {
         node {
@@ -64,6 +64,28 @@ query getConcurrency {
   }
 }
 ```
+
+### Handling 504 errors
+
+When attempting to get all jobs in a particular concurrency group throughout your Buildkite organization, you might receive a 504 error in the response, which could result from your specific query being too resource-intensive for the Buildkite GraphQL API to resolve. In such circumstances, restrict the query by a specific pipeline, using its slug.
+
+```
+query getConcurrency {
+  organization(slug: "organization-slug/pipeline-slug") {
+    jobs(first:100,concurrency:{group:"name"}, type:[COMMAND], state:[LIMITED,WAITING,ASSIGNED]) {
+      edges {
+        node {
+          ... on JobTypeCommand {
+            url
+            createdAt
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ## Get the last job of an agent
 
 To get the last job of an agent or `null`. You will need to know the UUID of the agent.
