@@ -65,9 +65,9 @@ query getConcurrency {
 }
 ```
 
-## Handling 504 errors
+### Handling 504 errors
 
-If you encounter a 504 response status, it may be helpful to add additional filters per pipeline after the slug.
+When attempting to get all jobs in a particular concurrency group throughout your Buildkite organization, you might receive a 504 error in the response, which could result from your specific query being too resource-intensive for the Buildkite GraphQL API to resolve. In such circumstances, restrict the query by a specific pipeline, using its slug.
 
 ```
 query getConcurrency {
