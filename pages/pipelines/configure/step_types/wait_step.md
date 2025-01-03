@@ -22,6 +22,13 @@ Optional attributes:
     </td>
   </tr>
   <tr>
+    <td><code>branches</code></td>
+    <td>
+      The <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this wait step in their builds.
+      <em>Example:</em> <code>"main stable/*"</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>if</code></td>
     <td>
       A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.<br/>
