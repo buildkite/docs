@@ -129,6 +129,11 @@ exports.handler = (event, context, callback) => {
 };
 ```
 
+## Amazon EventBridge guidance
+
+Amazon EventBridge's [CI/CD with Buildkite](https://aws.amazon.com/eventbridge/integrations/buildkite/) page on the AWS web site provides guidelines on how to integrate Amazon EventBridge with Buildkite to build workflows that evaluates build start events from Buildkite, to visualize build events from Buildkite, and to interpret build alerts from Buildkite.
+
+These examples make use of [AWS Step Functions](https://aws.amazon.com/step-functions/), [Amazon QuickSight](https://aws.amazon.com/quicksight/), as well as [Amazon SNS](https://aws.amazon.com/sns/) and [AWS Lambda](https://aws.amazon.com/lambda/).
 ## Example event payloads
 
 AWS EventBridge has strict limits on the size of the payload as documented in [Amazon EventBridge quotas](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-quota.html). As such, the information included in payloads is restricted to basic information about the event. If you need more information, you can query from the Buildkite [APIs](/docs/apis) using the data in the event.
