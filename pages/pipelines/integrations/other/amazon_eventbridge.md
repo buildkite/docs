@@ -129,39 +129,11 @@ exports.handler = (event, context, callback) => {
 };
 ```
 
-## Official AWS quick start examples
+## Amazon EventBridge guidance
 
-AWS have published three example implementations of using Buildkite with Amazon EventBridge:
+Amazon EventBridge's [CI/CD with Buildkite](https://aws.amazon.com/eventbridge/integrations/buildkite/) page on the AWS web site provides guidelines on how to integrate Amazon EventBridge with Buildkite to build workflows that evaluates build start events from Buildkite, to visualize build events from Buildkite, and to interpret build alerts from Buildkite.
 
-<a class="Docs__example-repo" href="https://aws.amazon.com/quickstart/eventbridge/buildkite-build-workflow/">
-  <span class="icon">:aws:</span>
-  <span class="detail">
-    <strong>Build Workflows with Amazon SNS</strong>
-    <span class="description">Combine EventBridge with a workflow to evaluate, store, and publish build events.</span>
-    <span class="repo">aws.amazon.com/quickstart/eventbridge/buildkite-build-workflow/</span>
-  </span>
-</a>
-
-<a class="Docs__example-repo" href="https://aws.amazon.com/quickstart/eventbridge/buildkite-visualization/">
-  <span class="icon">:aws:</span>
-  <span class="detail">
-    <strong>Build Event Visualization with Amazon QuickSight</strong>
-    <span class="description">Store and visualize build events from continuous-integration pipelines.</span>
-    <span class="repo">aws.amazon.com/quickstart/eventbridge/buildkite-visualization/</span>
-  </span>
-</a>
-
-<a class="Docs__example-repo" href="https://aws.amazon.com/quickstart/eventbridge/buildkite-pipeline-alerts/">
-  <span class="icon">:aws:</span>
-  <span class="detail">
-    <strong>Build Alerts with Amazon SNS and Webhooks</strong>
-    <span class="description">Send customized notifications when builds complete.</span>
-    <span class="repo">aws.amazon.com/quickstart/eventbridge/buildkite-pipeline-alerts/</span>
-  </span>
-</a>
-
-Each AWS Quick Start example has a corresponding GitHub repository with full example code.
-
+These examples make use of [AWS Step Functions](https://aws.amazon.com/step-functions/), [Amazon QuickSight](https://aws.amazon.com/quicksight/), as well as [Amazon SNS](https://aws.amazon.com/sns/) and [AWS Lambda](https://aws.amazon.com/lambda/).
 ## Example event payloads
 
 AWS EventBridge has strict limits on the size of the payload as documented in [Amazon EventBridge quotas](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-quota.html). As such, the information included in payloads is restricted to basic information about the event. If you need more information, you can query from the Buildkite [APIs](/docs/apis) using the data in the event.
