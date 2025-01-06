@@ -1,24 +1,24 @@
 # Helm
 
-Buildkite Package Registries provides Helm registry support for distributing Helm charts. This page is for standard Helm publishing instructions, alternatively you can also publish to an [OCI-based registry](/docs/package-registries/helm-oci).
+Buildkite Package Registries provides Helm registry support for distributing Helm charts. While this page is for standard Helm source registry publishing instructions, you can alternatively publish to an [Helm OCI-based source registry](/docs/package-registries/helm-oci).
 
-Once your Helm registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload charts (generated from `helm package` to create the package) to this registry via the relevant `curl` command presented on your Helm registry's details page.
+Once your Helm source registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload charts (generated from `helm package` to create the package) to this registry via the relevant `curl` command presented on your Helm registry's details page.
 
 To view and copy this `curl` command:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
-1. Select your Helm registry on this page.
+1. Select your Helm source registry on this page.
 1. Select **Publish a Helm Chart** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish your chart to your Helm registry.
 
 This command provides:
 
-- The specific URL to publish a package to your specific Helm registry in Buildkite.
-- The API access token required to publish packages to your Helm registry.
-- The Helm package (`.tgz`) to be published.
+- The specific URL to publish a chart to your specific Helm source registry in Buildkite.
+- The API access token required to publish charts to your Helm registry.
+- The Helm chart (`.tgz`) to be published.
 
 ## Publish a chart
 
-The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a Helm chart to your Helm source registry:
+The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a chart to your Helm source registry:
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
@@ -32,7 +32,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/helm_registry_slug' %>
 
-<%= render_markdown partial: 'package_registries/path_to_file' %>
+- `<path_to_file>` is the full path required to the chart file. If the file is located in the same directory that this command is running from, then no path is required.
 
 - `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload charts to your Helm source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization.
 
