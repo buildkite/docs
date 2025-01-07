@@ -218,3 +218,25 @@ To delete an agent image:
 1. On the **Delete Image** message, select **Delete Image** and the agent image is deleted.
 
 <%= image "hosted-agents-delete-image.png", width: 1760, height: 436, alt: "Hosted agents delete image form displayed in the Buildkite UI" %>
+
+### Using agent hooks
+
+You can use a [custom agent image](#agent-images-create-an-agent-image) to embed [agent hooks](/docs/agent/v3/hooks#hook-locations-agent-hooks).
+
+To embed hooks:
+
+1. Add the `BUILDKITE_ADDITIONAL_HOOKS_PATHS` environment variable with the path of where the hooks will be located.
+1. Add any specific hooks to the path in the above variable.
+
+An example excerpt from a `Dockerfile` that would include your own hooks:
+
+```Dockerfile
+ENV BUILDKITE_ADDITIONAL_HOOKS_PATHS=/custom/hooks
+COPY ./hooks/*.sh /custom/hooks/
+```
+{: codeblock-file="Dockerfile"}
+
+Using this when creating the image will have a directory at `/custom/hooks` that will include any `.sh` files located at `./hooks/` from where the image is created.
+
+> 📘
+> Buildkite hosted agents are running with `BUILDKITE_HOOKS_PATH=/buildkite/agent/hooks`, this path will be overridden in all jobs.
