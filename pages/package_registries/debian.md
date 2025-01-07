@@ -46,9 +46,7 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 
 ## Access a package's details
 
-A Debian (deb) package's details can be accessed from this registry through the **Releases** (tab) section of your Debian source registry page.
-
-To access your deb package's details page:
+A Debian (deb) package's details can be accessed from this registry through the **Releases** (tab) section of your Debian source registry page. To do this:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Debian source registry on this page.

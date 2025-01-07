@@ -46,9 +46,7 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 
 ## Access a module's details
 
-A Terraform module's details can be accessed from this registry through the **Releases** (tab) section of your Terraform registry page.
-
-To access your Terraform module's details page:
+A Terraform module's details can be accessed from this registry through the **Releases** (tab) section of your Terraform registry page. To do this:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Terraform registry on this page.
