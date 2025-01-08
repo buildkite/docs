@@ -1,4 +1,4 @@
-# Getting started
+# Getting started with Package Registries
 
 👋 Welcome to Buildkite Package Registries! You can use Package Registries to house your [packages](/docs/package-registries/background#package-creation-tools) built through [Buildkite Pipelines](/docs/pipelines) or another CI/CD application, and manage them through dedicated registries.
 
