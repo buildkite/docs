@@ -336,10 +336,6 @@ Optional [request body properties](/docs/api#request-body-properties):
     </td>
   </tr>
   <tr>
-    <th><code>cluster_id</code></th>
-    <td>The ID of the <a href="/docs/pipelines/clusters">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
-  </tr>
-  <tr>
     <th><code>default_branch</code></th>
     <td>
       <p>The name of the branch to prefill when new builds are created or triggered in Buildkite. It is also used to filter the builds and metrics shown on the Pipelines page.</p>
