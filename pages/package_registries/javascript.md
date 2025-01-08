@@ -97,7 +97,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/registry_slug' %>
 
-- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages to your JavaScript registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages to your JavaScript source registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
 > 📘
 > If your `.npmrc` file doesn't exist, this command automatically creates it for you.
@@ -121,3 +121,11 @@ where:
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
 <%= render_markdown partial: 'package_registries/registry_slug' %>
+
+### Installing a package from a composite registry
+
+If your JavaScript source registry is an upstream of a [composite registry](/docs/package-registries/manage-registries#composite-registries), you can install one of its packages using the code snippet details provided on the composite registry's **Setup & Usage** page. To do this:
+
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
+1. Select your Python composite registry on this page.
+1. Select the **Setup & Usage** tab to reveal the **Usage Instructions** page.
