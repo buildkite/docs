@@ -2,7 +2,7 @@
 keywords: docs, pipelines, tutorials, getting started
 ---
 
-# Getting started
+# Getting started with Pipelines
 
 👋 Welcome to Buildkite Pipelines! You can use Pipelines to build your dream CI/CD workflows on a secure, scalable, and flexible platform.
 

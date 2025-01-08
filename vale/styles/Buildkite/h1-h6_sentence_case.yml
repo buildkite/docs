@@ -137,6 +137,7 @@ exceptions:
   - Package Registries
   - PagerDuty
   - Phabricator
+  - Pipelines
   - pipeline.artifacts_read.pipeline
   - pipeline.trigger_build.pipeline
   - pipeline.yml
