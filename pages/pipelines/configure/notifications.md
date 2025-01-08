@@ -277,18 +277,6 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-### Notify only on first failure
-
-You can filter build notifications to only trigger on the first failure using `started_failing`.
-
-Build-level notifications:
-
-```yaml
-notify:
-  - slack: "#builds"
-    if: build.branch == "main" && pipeline.started_failing
-```
-
 ### Custom messages
 
 You can define a custom message to send in the notification using the `message` attribute.
@@ -371,6 +359,8 @@ notify:
 
 See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
+You are able to use `pipeline.started_passing` and `pipeline.started_failing` in your if statements if you are using the [Slack Workspace](pipelines/integrations/other/slack-workspace) integration. 
+
 Slack notifications happen at the following [event](/docs/apis/webhooks#events):
 
 * `build finished`
@@ -398,6 +388,46 @@ steps:
       fi
 ```
 {: codeblock-file="pipeline.yml"}
+
+### Notify only on first failure
+
+You can filter build notifications to only trigger on the first failure using `started_failing`.
+
+Build-level notifications:
+
+```yaml
+notify:
+  - slack: "#builds"
+    if: build.branch == "main" && pipeline.started_failing
+```
+
+### Notify only on first pass
+
+You can filter build notifications to only trigger on the first pass after a previous failed build using `started_passing`. `pipeline.started_passing` is the successor to `build.fixed` which is depreciated, but remains for backwards-compatibility.
+
+Build-level notifications:
+
+```yaml
+notify:
+  - slack: "#builds"
+    if: build.branch == "main" && pipeline.started_passing
+```
+
+### Notify on all failures and first successful pass
+
+You can filter build notifications to only trigger on:
+
+1. When a pipeline starts failing
+2. When a pipeline continues to fail
+3. When a pipeline starts passing after a failure
+
+Build-level notifications:
+
+```yaml
+notify:
+  - slack: "#builds"
+    if: build.state == failed || pipeline.started_passing
+```
 
 ## Webhooks
 
