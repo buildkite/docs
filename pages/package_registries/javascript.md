@@ -129,3 +129,15 @@ If your JavaScript source registry is an upstream of a [composite registry](/doc
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Python composite registry on this page.
 1. Select the **Setup & Usage** tab to reveal the **Usage Instructions** page.
+1. Open your `.npmrc` file and add the following lines to it:
+
+    ```npmrc
+    # Set _authToken. `npm/` suffix must be omitted.
+    //packages.buildkite.com/{org.slug}/{registry.slug}/:_authToken=$TOKEN
+
+    # Set registry for all packages
+    registry=https://packages.buildkite.com/{org.slug}/{registry.slug}/npm/
+    ```
+
+    where:
+    <%= render_markdown partial: 'package_registries/org_slug' %>
