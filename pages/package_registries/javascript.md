@@ -128,16 +128,27 @@ If your JavaScript source registry is an upstream of a [composite registry](/doc
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Python composite registry on this page.
-1. Select the **Setup & Usage** tab to reveal the **Usage Instructions** page.
-1. Open your `.npmrc` file and add the following lines to it:
+1. Select the **Setup & Usage** tab to display the **Usage Instructions** page.
+1. Configure the composite registry's URL in the `.npmrc` file. Learn more about this is [Composite registry configuration](#composite-registry-configuration), below.
 
-    ```npmrc
-    # Set _authToken. `npm/` suffix must be omitted.
-    //packages.buildkite.com/{org.slug}/{registry.slug}/:_authToken=$TOKEN
+<h4 id="composite-registry-configuration">Composite registry configuration</h4>
 
-    # Set registry for all packages
-    registry=https://packages.buildkite.com/{org.slug}/{registry.slug}/npm/
-    ```
+Open your `.npmrc` file and add the following lines to it:
 
-    where:
-    <%= render_markdown partial: 'package_registries/org_slug' %>
+```npmrc
+# Set _authToken. `npm/` suffix must be omitted.
+//packages.buildkite.com/{org.slug}/{registry.slug}/:_authToken=$TOKEN
+
+# Set registry for all packages
+registry=https://packages.buildkite.com/{org.slug}/{registry.slug}/npm/
+```
+
+where:
+
+<%= render_markdown partial: 'package_registries/org_slug' %>
+
+<%= render_markdown partial: 'package_registries/registry_slug' %>
+
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages to your JavaScript composite registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+
+You can now install JavaScript packages from your composite registry using the abbreviated command `npm install package-name`.

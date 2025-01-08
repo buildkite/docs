@@ -85,6 +85,13 @@ The `pip.conf` code snippet is based on this format:
 extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple"
 ```
 
+or the alternative `requirements.txt` (for virtualenv) code snippet is based on this format:
+
+```ini
+# Otherwise if installing on a virtualenv, add this to the bottom of your requirements.txt:
+--extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple"
+```
+
 where:
 
 - `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Python source registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
@@ -92,13 +99,6 @@ where:
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
 <%= render_markdown partial: 'package_registries/registry_slug' %>
-
-The alternative `requirements.txt` (for virtualenv) code snippet is based on this format:
-
-```ini
-# Otherwise if installing on a virtualenv, add this to the bottom of your requirements.txt:
---extra-index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple"
-```
 
 <h4 id="package-installation-source-registry">Package Installation</h4>
 
@@ -120,18 +120,15 @@ If your Python source registry is an upstream of a [composite registry](/docs/pa
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Python composite registry on this page.
-1. Select the **Setup & Usage** tab to reveal the **Usage Instructions** page.
+1. Select the **Setup & Usage** tab to display the **Usage Instructions** page.
 1. Select either the **pip** or **uv** tab, based on your Python package management tool.
 1. Run the relevant installation command from either of the first two code snippets. Learn more about this in [Package installation from a composite registry](#package-installation-from-a-composite-registry), below.
-1. Copy the relevant code snippet/s from the third (or later) code snippets and for:
-    * The package installer for Python (pip), paste this code snippet into either the `pip.conf` configuration file or the end of the virtualenv `requirements.txt` file.
-    * The uv Python package management tool, paste this code snippet into the `pyproject.toml` configuration file.
 
-    Learn more about this in [Composite registry configuration](#composite-registry-configuration), below.
+    Alternatively, to run abbreviated installation commands by configuring the composite registry's URL in the relevant package tool config files or environment variables, copy the appropriate code snippet/s from the third (or later) code snippets. Learn more about this in [Composite registry configuration](#composite-registry-configuration), below.
 
 <h4 id="package-installation-from-a-composite-registry">Package installation from a composite registry</h4>
 
-For pip, use one of these `pip` commands (with either the [`--index-url`](https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-i) or [`--extra-index-url`](https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-extra-index-url) options) to install the package:
+**For pip**, use one of these `pip` commands (with either the [`--index-url`](https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-i) or [`--extra-index-url`](https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-extra-index-url) options) to install the package:
 
 ```bash
 pip install --index-url=https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple ...
@@ -151,7 +148,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/registry_slug' %>
 
-Likewise, for uv, use one of these `uv` commands (with either the [`--index-url`](https://docs.astral.sh/uv/reference/settings/#index-url) or [`--extra-index-url`](https://docs.astral.sh/uv/reference/settings/#extra-index-url) options) to install the package:
+**For uv**, use one of these `uv` commands (with either the [`--index-url`](https://docs.astral.sh/uv/reference/settings/#index-url) or [`--extra-index-url`](https://docs.astral.sh/uv/reference/settings/#extra-index-url) options) to install the package:
 
 ```bash
 uv sync --index-url=https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple
@@ -165,11 +162,17 @@ uv sync --extra-index-url=https://buildkite:{registry.read.token}@packages.build
 
 <h4 id="composite-registry-configuration">Composite registry configuration</h4>
 
-For pip, modify the following code snippet and add it to the `pip.conf` file:
+**For pip**, modify the following code snippet and add it to the `pip.conf` file:
 
 ```conf
 [global]
 index-url = https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple
+```
+
+or for the alternative virtualenv for pip, modify the following code snippet and add it to the `requirements.txt` file:
+
+```ini
+--index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple"
 ```
 
 where:
@@ -180,15 +183,13 @@ where:
 
 <%= render_markdown partial: 'package_registries/registry_slug' %>
 
-As an alternative virtualenv for pip, modify the following code snippet and add it to the `requirements.txt` file:
+You can now install Python packages from your composite registry using the abbreviated command `pip install package-name`.
 
-```ini
---index-url="https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple"
-```
-
-For uv, modify the following code snippet and add it to the `pyproject.toml` file:
+**For uv**, modify the following code snippet and add it to the `pyproject.toml` file:
 
 ```toml
 [tool.uv]
 index-url = "https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple"
 ```
+
+You can now install Python packages from your composite registry using the abbreviated command `uv sync package-name`.
