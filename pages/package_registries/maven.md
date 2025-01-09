@@ -99,7 +99,7 @@ A Java package can be installed using code snippet details provided on the packa
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** tab is displayed and select the **Maven** section to expand it.
-1. Copy each code snippet, and paste them into their respective `~/.m2/settings.xml` and `pom.xml` files (under the `project` XML tag), modifying their values as required.
+1. Copy each code snippet, and paste them into their respective `~/.m2/settings.xml` and `pom.xml` files (under the `project` XML tag), modifying the required values accordingly.
 
     **Note:** The `~/.m2/settings.xml` configuration:
     * Is _not_ required if your registry is publicly accessible.

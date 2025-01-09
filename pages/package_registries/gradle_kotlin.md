@@ -83,7 +83,9 @@ A Java package can be downloaded from the package's details page. To do this:
 1. [Access the package's details](#access-a-packages-details).
 1. Select **Download**.
 
-### Installing a package
+<h3 id="access-a-packages-details-installing-a-package"></h3>
+
+### Installing a package from a source registry
 
 A Java package can be installed using code snippet details provided on the package's details page. To do this:
 
@@ -124,3 +126,5 @@ where:
     **Note:** Both the `authentication` and `credentials` sections are not required for registries that are publicly accessible.
 
 <%= render_markdown partial: 'package_registries/java_package_domain_name_version' %>
+
+### Installing a package from a composite registry
