@@ -1,33 +1,33 @@
-# How to install Buildkite Agent
+# Comment installer Buildkite Agent
 
-The Buildkite agent runs on your own machine, whether it's a VPS, server, desktop computer, embedded device. There are installers for:
+L'agent Buildkite s'exécute sur votre propre machine, qu'il s'agisse d'un VPS, d'un serveur, d'un ordinateur de bureau, d'un périphérique intégré. Il existe des installateurs pour :
 
-<% AGENT_INSTALLERS.each do |installer| %>
-* [<%= installer[:title] %>](<%= docs_page_path installer[:url] %>)<% end %>
+<% AGENT_INSTALLERS.each do |installer|%>
+*   [<%= installer [:title.] %>] (<%= docs_page_path installer.[:url.] %>) <% end%>
 
-Alternatively you can install it manually using the instructions below.
+Vous pouvez également l'installer manuellement en utilisant les instructions ci-dessous.
 
-## Manual installation
+## Installation manuelle.
 
-If you need to install the agent on a system not listed above you'll need to perform a manual installation using one of the binaries from [buildkite-agent's releases page](https://github.com/buildkite/agent/releases).
-
-
-Once you have a binary, create `bin` and `builds` directories in `~/.buildkite-agent` and copy the binary and `bootstrap.sh` file into place:
+Si vous devez installer l'agent sur un système non répertorié ci-dessus, vous devrez effectuer une installation manuelle à l'aide de l'un des binaires de...  [Page de sortie de Buildkite-Agent.](https://github.com/buildkite/agent/releases).
 
 
-```bash
+   Une fois que vous avez un binaire, créez. 'bin' et 'builds' directories in   ' and copy the binary and   
+
+
+" 'bash.
 mkdir ~/.buildkite-agent ~/.buildkite-agent/bin ~/.buildkite-agent/builds
 cp buildkite-agent ~/.buildkite-agent/bin
 cp bootstrap.sh ~/.buildkite-agent/bootstrap.sh
-```
+"'
 
 You should now be able to start the agent:
 
-```bash
+"'bash.
 buildkite-agent start --help
-```
+"'
 
-If your architecture isn't on the releases page send an email to support and we'll help you out, or check out the [buildkite-agent's readme](https://github.com/buildkite/agent#readme) for instructions on how to compile it yourself.
+Si votre architecture n'est pas sur la page des versions, envoyez un e-mail à l'assistance et nous vous aiderons, ou consultez le... [Buildkite-agent's Readme.](https://github.com/buildkite/agent#readme) pour des instructions sur la façon de le compiler vous-même.
 
 ## Upgrade agents
 
