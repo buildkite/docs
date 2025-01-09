@@ -80,12 +80,12 @@ A JavaScript package can be installed using code snippet details provided on the
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** > **Instructions** section is displayed.
-1. If your registry is _private_ and you haven't already performed this `.npmrc` configuration step, copy the `npm set` command from the [**Registry Configuration**](#registry-configuration) section, paste it into your terminal, and modify as required before running to update your `~/.npmrc` file.
+1. If your JavaScript source registry is _private_  (the default configuration for source registries) and you haven't already performed this `.npmrc` configuration step, copy the `npm set` command from the [**Registry Configuration**](#registry-configuration) section, paste it into your terminal, and modify as required before running to update your `~/.npmrc` file.
 1. Copy the `npm install` command from the [**Package Installation**](#package-installation) section, paste it into your terminal, and modify as required before running it.
 
 <h4 id="registry-configuration">Registry Configuration</h4>
 
-If your registry is _private_ (that is, the default registry configuration), set your JavaScript registry's authentication details in the `.npmrc` file by running the `npm set` command:
+If your JavaScript source registry is _private_, set its authentication details in the `.npmrc` file by running the `npm set` command:
 
 ```bash
 npm set //packages.buildkite.com/{org.slug}/{registry.slug}/npm/:_authToken registry-read-token
