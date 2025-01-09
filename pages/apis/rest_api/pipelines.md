@@ -610,7 +610,7 @@ Required [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>cluster_id</code></th>
-    <td>The ID value of the cluster the pipeline will be associated with.<p class="Docs__api-param-eg"><em>Example:</em> <code>"Ab1Cd2Ef3Gh4Ij5Kl6Mn7Op8Qr9St0Uv10Wx11Yz12Ab1Cd2Ef3Gh4Ij5Kl6Mn=="</code></p></td>
+    <td>The ID value of the cluster the pipeline will be associated with.<p class="Docs__api-param-eg"><em>Example:</em> <code>"018e5a22-d14c-7085-bb28-db0f83f43a1c"</code></p></td>
   </tr>
   <tr>
     <th><code>repository</code></th>
@@ -649,10 +649,6 @@ Optional [request body properties](/docs/api#request-body-properties):
       <p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to.</p>
       <p><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p>
     </td>
-  </tr>
-  <tr>
-    <th><code>cluster_id</code></th>
-    <td>The ID of the <a href="/docs/pipelines/clusters">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
   </tr>
   <tr>
     <th><code>default_branch</code></th>
