@@ -55,6 +55,9 @@ Remember that such keys are not intended to be public, and you must not grant pu
 
 See also [Storing your Buildkite Agent token in AWS Secrets Manager](/docs/agent/v3/aws/secrets-manager).
 
+## Build secrets
+
+Learn more about build secrets in the [S3 secrets bucket](/docs/agent/v3/elastic-ci-aws/secrets-bucket) page.
 ## Sensitive data
 
 The following types of sensitive data are present in Elastic CI Stack for AWS:
