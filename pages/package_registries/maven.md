@@ -99,11 +99,13 @@ A Java package can be installed using code snippet details provided on the packa
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** tab is displayed and select the **Maven** section to expand it.
-1. Copy each code snippet, and paste them into their respective `~/.m2/settings.xml` and `pom.xml` files (under the `project` XML tag), and run `mvn install` on this modified `pom.xml` to install this package.
+1. Copy each code snippet, and paste them into their respective `~/.m2/settings.xml` and `pom.xml` files (under the `project` XML tag), modifying their values as required.
 
     **Note:** The `~/.m2/settings.xml` configuration:
     * Is _not_ required if your registry is publicly accessible.
     * Only needs to be performed once for the life of your Java registry.
+
+    You can then run `mvn install` on this modified `pom.xml` to install this package.
 
 The `~/.m2/settings.xml` code snippet is based on this format:
 
@@ -130,7 +132,7 @@ The `~/.m2/settings.xml` code snippet is based on this format:
 
 where:
 
-- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Java registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Java source registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
 <%= render_markdown partial: 'package_registries/java_registry_id' %>
 
@@ -177,7 +179,94 @@ If your Java source registry is an upstream of a [composite registry](/docs/pack
 1. Select your Java composite registry on this page.
 1. Select the **Setup & Usage** tab to display the **Usage Instructions** page.
 1. Select the **Maven** tab.
-1. Configure the composite registry's URL and other details into their respective `~/.m2/settings.xml` and `pom.xml` files (under the `project` XML tag). Learn more about this is [Composite registry configuration](#composite-registry-configuration), below.
+1. Copy each code snippet, and paste them into their respective `~/.m2/settings.xml` and `pom.xml` files, modifying their values as required. Learn more about this is [Configuring the `settings.xml`](#configuring-the-settings-dot-xml) and [Configuring the `pom.xml`](#configuring-the-pom-dot-xml), below.
 
-<h4 id="composite-registry-configuration">Composite registry configuration</h4>
+    You can then run `mvn install:package-name` (where `package-name` is a package available through this composite registry) on these modified files to install `package-name`.
+
+<h4 id="configuring-the-settings-dot-xml">Configuring the settings.xml</h4>
+
+The `~/.m2/settings.xml` code snippet is based on this format:
+
+```xml
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" ... >
+  ...
+  <servers>
+    <server>
+    <id>org-slug-registry-slug</id>
+      <configuration>
+        <httpHeaders>
+          <property>
+            <name>Authorization</name>
+            <value>Bearer registry-read-token</value>
+          </property>
+        </httpHeaders>
+      </configuration>
+    </server>
+  </servers>
+</settings>
+```
+
+where:
+
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Java composite registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+
+    To avoid having to store the actual token value in this file, you can reference it using an environment variable. For example, if you set this token value in the environment variable `REGISTRY_READ_TOKEN`, like:
+
+    ```bash
+    export REGISTRY_READ_TOKEN="YOUR-ACTUAL-TOKEN-VALUE"
+    ```
+
+    you can reference this in the `<value/>` element above as:
+
+    ```xml
+    <value>Bearer ${env.REGISTRY_READ_TOKEN}</value>
+    ```
+
+<%= render_markdown partial: 'package_registries/java_registry_id' %>
+
+If you have added the official public registry to this Java composite registry, add the following `<mirrors/>` element to you `settings.xml` file too:
+
+```xml
+  ...
+  <mirrors>
+    <mirror>
+      <id>org-slug-registry-slug</id>
+      <name>The name of your Java composite registry</name>
+      <url>https://packages.buildkite.com/{org.slug}/{registry.slug}/maven2/</url>
+      <mirrorOf>central</mirrorOf>
+    </mirror>
+  </mirrors>
+  ...
+```
+
+<h4 id="configuring-the-pom-dot-xml">Configuring the pom.xml</h4>
+
+The `pom.xml` code snippet is based on this format:
+
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" ...>
+  ...
+  <repositories>
+    <repository>
+      <id>org-slug-registry-slug</id>
+      <name>The name of your Java composite registry</name>
+      <url>https://packages.buildkite.com/{org.slug}/{registry.slug}/maven2/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+</project>
+```
+
+where:
+
+<%= render_markdown partial: 'package_registries/java_registry_id' %>
+
+- `{org.slug}` is the org slug, which can be obtained as described above.
+
+<%= render_markdown partial: 'package_registries/registry_slug' %>
 
