@@ -1,3 +1,7 @@
+---
+toc: false
+---
+
 # S3 secrets bucket
 
 The stack creates an S3 bucket for you (or uses the one you provide as the `SecretsBucket` parameter). This is where the agent fetches your SSH private keys for source control, and environment hooks to provide other secrets to your builds.
