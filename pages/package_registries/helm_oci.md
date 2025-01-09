@@ -80,7 +80,7 @@ The following set of code snippets are descriptions of what each code snippet do
 
 #### Registry configuration
 
-If your registry is _private_ (that is, the default registry configuration), log in to the Helm registry containing the chart to obtain with the following `helm login` command:
+If your Helm OCI source registry is _private_ (the default configuration for source registries), log in to the Helm registry containing the chart to obtain with the following `helm login` command:
 
 ```bash
 helm registry login packages.buildkite.com/{org.slug}/{registry.slug} -u buildkite -p registry-read-token

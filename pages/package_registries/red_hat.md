@@ -32,7 +32,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/red_hat_registry_slug' %>
 
-- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Red Hat source registry. Ensure this access token has the**Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization.
+- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Red Hat source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization.
 
 <%= render_markdown partial: 'package_registries/path_to_file' %>
 

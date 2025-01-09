@@ -75,7 +75,7 @@ A Helm (tgz) chart can be downloaded from the chart's details page. To do this:
 
 #### Registry configuration
 
-If your registry is _private_ (that is, the default registry configuration), configure your Helm registry locally for repeated use:
+If your Helm source registry is _private_ (the default configuration for source registries), configure your Helm registry locally for repeated use:
 
 ```bash
 helm repo add {registry.slug} https://packages.buildkite.com/{org.slug}/{registry.slug}/helm \
