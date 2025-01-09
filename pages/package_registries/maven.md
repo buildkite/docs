@@ -91,7 +91,9 @@ A Java package can be downloaded from the package's details page. To do this:
 1. [Access the package's details](#access-a-packages-details).
 1. Select **Download**.
 
-### Installing a package
+<h3 id="access-a-packages-details-installing-a-package"></h3>
+
+### Installing a package from a source registry
 
 A Java package can be installed using code snippet details provided on the package's details page. To do this:
 
@@ -166,3 +168,16 @@ where:
 <%= render_markdown partial: 'package_registries/registry_slug' %>
 
 <%= render_markdown partial: 'package_registries/java_package_domain_name_version' %>
+
+### Installing a package from a composite registry
+
+If your Java source registry is an upstream of a [composite registry](/docs/package-registries/manage-registries#composite-registries), you can install one of its packages using the code snippet details provided on the composite registry's **Setup & Usage** page. To do this:
+
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
+1. Select your Java composite registry on this page.
+1. Select the **Setup & Usage** tab to display the **Usage Instructions** page.
+1. Select the **Maven** tab.
+1. Configure the composite registry's URL and other details into their respective `~/.m2/settings.xml` and `pom.xml` files (under the `project` XML tag). Learn more about this is [Composite registry configuration](#composite-registry-configuration), below.
+
+<h4 id="composite-registry-configuration">Composite registry configuration</h4>
+
