@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v6.27.0"
+Description: "Buildkite stack v6.33.0"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
 # autoscaling Buildkite Agent cluster. Use it to parallelize
@@ -33,6 +33,7 @@ Metadata:
         - BuildkiteAgentTokenParameterStorePath
         - BuildkiteAgentTokenParameterStoreKMSKey
         - BuildkiteQueue
+        - AgentEndpoint
 
       - Label:
           default: Signed Pipelines Configuration
@@ -167,6 +168,11 @@ Parameters:
     Description: AWS KMS key ID used to encrypt the SSM parameter (if encrypted)
     Type: String
     Default: ""
+
+  AgentEndpoint:
+    Description: Override API endpoint the Buildkite Agent connects to.
+    Type: String
+    Default: "https://agent.buildkite.com/v3"
 
   BuildkiteAgentTags:
     Description: Additional tags separated by commas to provide to the agent. E.g os=linux,llamas=always
@@ -625,7 +631,7 @@ Rules:
           !Or
             - !Equals
               - !Ref PipelineSigningKMSKeyId
-              - ""            
+              - ""
             - !Equals
               - !Ref PipelineSigningKMSKeySpec
               - "none"
@@ -713,13 +719,31 @@ Conditions:
       !Equals [ !Ref RootVolumeName, "" ]
 
     UseInstanceType2:
-      !Not [ !Equals [ !Select [ "1", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "" ] ] ] ], ""] ]
+      !Not [ !Equals [ !Select [ "1", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ], ""] ]
 
     UseInstanceType3:
-      !Not [ !Equals [ !Select [ "2", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "" ] ] ] ], ""] ]
+      !Not [ !Equals [ !Select [ "2", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ], ""] ]
 
     UseInstanceType4:
-      !Not [ !Equals [ !Select [ "3", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "" ] ] ] ], ""] ]
+      !Not [ !Equals [ !Select [ "3", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ], ""] ]
+
+    UseInstanceType5:
+      !Not [ !Equals [ !Select [ "4", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ], ""] ]
+
+    UseInstanceType6:
+      !Not [ !Equals [ !Select [ "5", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ], ""] ]
+
+    UseInstanceType7:
+      !Not [ !Equals [ !Select [ "6", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ], ""] ]
+
+    UseInstanceType8:
+      !Not [ !Equals [ !Select [ "7", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ], ""] ]
+
+    UseInstanceType9:
+      !Not [ !Equals [ !Select [ "8", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ], ""] ]
+
+    UseInstanceType10:
+      !Not [ !Equals [ !Select [ "9", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ], ""] ]
 
     UseManagedPolicyARN:
       !Not [ !Equals [ !Join [ "", !Ref ManagedPolicyARNs ], "" ] ]
@@ -739,7 +763,7 @@ Conditions:
 
     UseCostAllocationTags:
       !Equals [ !Ref EnableCostAllocationTags, "true" ]
-    
+
     UsePipelineSigningKMSKey:
       !Not [ !Equals [ !Ref PipelineSigningKMSKeyId, "" ] ]
 
@@ -789,6 +813,7 @@ Conditions:
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c7g" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c7gd" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c7gn" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c8g" ]
         - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "g5g" ]
         - !Or
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "i4g" ]
@@ -799,11 +824,13 @@ Conditions:
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m6gd" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m7g" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m7gd" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m8g" ]
         - !Or
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r6g" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r6gd" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r7g" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r7gd" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r8g" ]
         - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "t4g" ]
         - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "x2gd" ]
 
@@ -828,26 +855,26 @@ Mappings:
 
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-0d870d6249c932e3f, linuxarm64: ami-0a3d7a30823a79bed, windows: ami-0cc1cf707c9bde297 }
-    us-east-2 : { linuxamd64: ami-0f3019cc4ae209e8d, linuxarm64: ami-06fbf388ceadee136, windows: ami-0cf377d071681be17 }
-    us-west-1 : { linuxamd64: ami-0bc45e1a1e3b81024, linuxarm64: ami-03ccc79e335ddfeb2, windows: ami-0bf3b5f6168efcd16 }
-    us-west-2 : { linuxamd64: ami-0fb582405657e5e7d, linuxarm64: ami-019482f9dad0e6c6c, windows: ami-01a7cfec21679fdc6 }
-    af-south-1 : { linuxamd64: ami-0472a3974f5fc2b3e, linuxarm64: ami-031d70266097ac913, windows: ami-0c9d2380139ca74ae }
-    ap-east-1 : { linuxamd64: ami-0d01d071f6cb4531f, linuxarm64: ami-076b30b50dd891795, windows: ami-0047ed2d7146a7bfd }
-    ap-south-1 : { linuxamd64: ami-03dcda51307fc8cb5, linuxarm64: ami-012d6489d7405cac9, windows: ami-075d2d36dfbf32867 }
-    ap-northeast-2 : { linuxamd64: ami-0f2d7daa735810eee, linuxarm64: ami-0a2cc2b93142ea24a, windows: ami-08cb758a9ddc43059 }
-    ap-northeast-1 : { linuxamd64: ami-04051311bdfde36f3, linuxarm64: ami-09e4f9370ec79c3ba, windows: ami-05b6ec0208eb2a58a }
-    ap-southeast-2 : { linuxamd64: ami-0dca9e865ae37c7ed, linuxarm64: ami-05d80d286a7bade59, windows: ami-0667ba4d9ff4dc9d7 }
-    ap-southeast-1 : { linuxamd64: ami-041a2f49842dfedd1, linuxarm64: ami-04b58654a0075cf44, windows: ami-012d7bd61f9b1d6b7 }
-    ca-central-1 : { linuxamd64: ami-00e53b8bc82f9c9db, linuxarm64: ami-0f16c32fb617d5a48, windows: ami-088bf9470ff92506c }
-    eu-central-1 : { linuxamd64: ami-05c5209917612c4ef, linuxarm64: ami-08bb74ee0e90d2670, windows: ami-06826a0d3b4c7e1ab }
-    eu-west-1 : { linuxamd64: ami-06274dc3861664987, linuxarm64: ami-07ccdfbf8eaa3c951, windows: ami-036f1d5605b9dbf1e }
-    eu-west-2 : { linuxamd64: ami-086942d9992b4e6d3, linuxarm64: ami-0008aaf782bc53012, windows: ami-0825cacfdb3a8dcd6 }
-    eu-south-1 : { linuxamd64: ami-0e482f53f6f51d3e3, linuxarm64: ami-08c23003032d5ca62, windows: ami-0cb004f172e2b7007 }
-    eu-west-3 : { linuxamd64: ami-087631959c2b65a0b, linuxarm64: ami-08216f2c9c2778a91, windows: ami-03f5013af4a1e133b }
-    eu-north-1 : { linuxamd64: ami-0d769ff12cca6d68d, linuxarm64: ami-06ad99587f4894bbd, windows: ami-0406a7b8f45352245 }
-    me-south-1 : { linuxamd64: ami-0b82f151c4fed9e4a, linuxarm64: ami-00b941cafd5b87c70, windows: ami-0bf6572cc349f9447 }
-    sa-east-1 : { linuxamd64: ami-09db409e3b9399d3b, linuxarm64: ami-002802cb7c79d6fd8, windows: ami-0d9f87a270ecf8c21 }
+    us-east-1 : { linuxamd64: ami-02b4239733b833a19, linuxarm64: ami-0ff8386350dd728f6, windows: ami-058f8b4545c2ef36a }
+    us-east-2 : { linuxamd64: ami-0c2bd99f692883a9c, linuxarm64: ami-0b912137f586867c4, windows: ami-02eb8311ae60efeee }
+    us-west-1 : { linuxamd64: ami-0eeab54825e8f8cd4, linuxarm64: ami-07204a84b9e9d3a67, windows: ami-047494d37dbdd0d27 }
+    us-west-2 : { linuxamd64: ami-069698a33eecf67ec, linuxarm64: ami-01ed863ebd99adf6c, windows: ami-0ae417186963d4695 }
+    af-south-1 : { linuxamd64: ami-0f119f19e5182bacd, linuxarm64: ami-043a9e33d8b7b71c5, windows: ami-0e58a86d47d29b5f1 }
+    ap-east-1 : { linuxamd64: ami-082d1b89d82128b75, linuxarm64: ami-01faf613cbbad8ae8, windows: ami-07ff620c44a04758a }
+    ap-south-1 : { linuxamd64: ami-075ef011169ea4103, linuxarm64: ami-06d63d50f6b68169a, windows: ami-0be4a665f1459ea49 }
+    ap-northeast-2 : { linuxamd64: ami-03696efb6a9c614d3, linuxarm64: ami-055bbbc7ed01dfaae, windows: ami-0048d49db83491b75 }
+    ap-northeast-1 : { linuxamd64: ami-083530dcc7775918e, linuxarm64: ami-02ef7f66ad87d107c, windows: ami-006e64576a3a097a2 }
+    ap-southeast-2 : { linuxamd64: ami-0a00fedfea4a487ea, linuxarm64: ami-0ee536401602d9001, windows: ami-0f991761ea172bdf3 }
+    ap-southeast-1 : { linuxamd64: ami-0cf4a52f8796baa13, linuxarm64: ami-0c11c037524eaa99c, windows: ami-0ff72c8e1250eee4d }
+    ca-central-1 : { linuxamd64: ami-0c880778197fc5a34, linuxarm64: ami-0d33e73ec19e8e301, windows: ami-067ad490b42d85c33 }
+    eu-central-1 : { linuxamd64: ami-0e3104ba540445c01, linuxarm64: ami-07054c18b272e4cb1, windows: ami-008eeb8abe9cbae75 }
+    eu-west-1 : { linuxamd64: ami-04639baef4f5f00aa, linuxarm64: ami-06c002385f79a7586, windows: ami-0146c3fc7a786a47b }
+    eu-west-2 : { linuxamd64: ami-0f9ad39f8679b8f7b, linuxarm64: ami-029e6c2f16ef7ad59, windows: ami-0b51f1592d25f1c42 }
+    eu-south-1 : { linuxamd64: ami-0d6a5d08c7b771ab5, linuxarm64: ami-0b3fa65d330c9e08f, windows: ami-072bf69514101fc6c }
+    eu-west-3 : { linuxamd64: ami-09bbacdb43f2443cc, linuxarm64: ami-05a7c0e90b21c5e65, windows: ami-0f240f81dc6acae99 }
+    eu-north-1 : { linuxamd64: ami-0f5ec44df229152a8, linuxarm64: ami-0db33b6ab1aab80a2, windows: ami-0aea4d22123d0cc1d }
+    me-south-1 : { linuxamd64: ami-005d94dc338a633d3, linuxarm64: ami-059694e2ff8366cb8, windows: ami-0d37748b98eaf82e2 }
+    sa-east-1 : { linuxamd64: ami-0843d62b620d5cc35, linuxarm64: ami-0f805c96a5338212c, windows: ami-0ab481d46c174f14a }
 
 Resources:
   Vpc:
@@ -959,7 +986,7 @@ Resources:
       Name: !Sub "/${AWS::StackName}/buildkite/agent-token"
       Type: String
       Value: !Ref BuildkiteAgentToken
-  
+
   PipelineSigningKMSKey:
     Type: AWS::KMS::Key
     Condition: CreatePipelineSigningKMSKey
@@ -1263,7 +1290,7 @@ Resources:
           KeyName: !If [ "HasKeyName", !Ref KeyName, !Ref 'AWS::NoValue' ]
           IamInstanceProfile:
             Arn: !GetAtt "IAMInstanceProfile.Arn"
-          InstanceType: !Select [ "0", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "" ] ] ] ]
+          InstanceType: !Select [ "0", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", ""] ] ] ]
           MetadataOptions:
             HttpTokens: !Ref IMDSv2Tokens
             # Allow containers using a Docker network on the host to receive IDMSv2 responses
@@ -1337,12 +1364,13 @@ Resources:
                   powershell -file C:\buildkite-agent\bin\bk-configure-docker.ps1 >> C:\buildkite-agent\elastic-stack.log
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v6.27.0"
+                  $Env:BUILDKITE_STACK_VERSION="v6.33.0"
                   $Env:BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}"
                   $Env:BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}"
                   $Env:BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}"
                   $Env:BUILDKITE_AGENT_TOKEN_PATH="${AgentTokenPath}"
                   $Env:BUILDKITE_AGENTS_PER_INSTANCE="${AgentsPerInstance}"
+                  $Env:BUILDKITE_AGENT_ENDPOINT="${AgentEndpoint}"
                   $Env:BUILDKITE_AGENT_TAGS="${BuildkiteAgentTags}"
                   $Env:BUILDKITE_AGENT_TIMESTAMP_LINES="${BuildkiteAgentTimestampLines}"
                   $Env:BUILDKITE_AGENT_EXPERIMENTS="${BuildkiteAgentExperiments}"
@@ -1399,12 +1427,13 @@ Resources:
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v6.27.0" \
+                  BUILDKITE_STACK_VERSION="v6.33.0" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
                   BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}" \
                   BUILDKITE_AGENT_TOKEN_PATH="${AgentTokenPath}" \
                   BUILDKITE_AGENTS_PER_INSTANCE="${AgentsPerInstance}" \
+                  BUILDKITE_AGENT_ENDPOINT="${AgentEndpoint}" \
                   BUILDKITE_AGENT_TAGS="${BuildkiteAgentTags}" \
                   BUILDKITE_AGENT_TIMESTAMP_LINES="${BuildkiteAgentTimestampLines}" \
                   BUILDKITE_AGENT_EXPERIMENTS="${BuildkiteAgentExperiments}" \
@@ -1454,19 +1483,44 @@ Resources:
             LaunchTemplateId: !Ref AgentLaunchTemplate
             Version: !GetAtt "AgentLaunchTemplate.LatestVersionNumber"
           Overrides:
-          - InstanceType: !Select [ "0", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "" ] ] ] ]
+          - InstanceType: !Select [ "0", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ]
           - !If
             - UseInstanceType2
-            - InstanceType: !Select [ "1", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "" ] ] ] ]
+            - InstanceType: !Select [ "1", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ]
             - !Ref "AWS::NoValue"
           - !If
             - UseInstanceType3
-            - InstanceType: !Select [ "2", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "" ] ] ] ]
+            - InstanceType: !Select [ "2", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ]
             - !Ref "AWS::NoValue"
           - !If
             - UseInstanceType4
-            - InstanceType: !Select [ "3", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "" ] ] ] ]
+            - InstanceType: !Select [ "3", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ]
             - !Ref "AWS::NoValue"
+          - !If
+            - UseInstanceType5
+            - InstanceType: !Select [ "4", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ]
+            - !Ref "AWS::NoValue"
+          - !If
+            - UseInstanceType6
+            - InstanceType: !Select [ "5", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ]
+            - !Ref "AWS::NoValue"
+          - !If
+            - UseInstanceType7
+            - InstanceType: !Select [ "6", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ]
+            - !Ref "AWS::NoValue"
+          - !If
+            - UseInstanceType8
+            - InstanceType: !Select [ "7", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ]
+            - !Ref "AWS::NoValue"
+          - !If
+            - UseInstanceType9
+            - InstanceType: !Select [ "8", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ]
+            - !Ref "AWS::NoValue"
+          - !If
+            - UseInstanceType10
+            - InstanceType: !Select [ "9", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "" ] ] ] ]
+            - !Ref "AWS::NoValue"
+
       MinSize: !Ref MinSize
       MaxSize: !Ref MaxSize
       Cooldown: 60
