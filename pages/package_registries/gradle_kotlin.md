@@ -31,9 +31,9 @@ The following steps describe the process above:
       publications {
           create<MavenPublication>("maven") {
               // MODIFY: Define your Maven coordinates of your package
-              groupId = "com.your_domain_name"
-              artifactId = "your_package_name"
-              version = "your_package_version"
+              groupId = "com.name.domain.my"
+              artifactId = "my-java-package-name"
+              version = "my-java-package-version"
 
               from(components["java"])
           }
@@ -48,7 +48,7 @@ The following steps describe the process above:
 
           credentials(HttpHeaderCredentials::class) {
             name = "Authorization"
-            value = "Bearer $TOKEN"
+            value = "Bearer registry-write-token"
           }
         }
       }
@@ -56,13 +56,13 @@ The following steps describe the process above:
     ```
 
     where:
-    <%= render_markdown partial: 'package_registries/java_registry_write_token' %>
-
     <%= render_markdown partial: 'package_registries/java_package_domain_name_version' %>
 
     <%= render_markdown partial: 'package_registries/org_slug' %>
 
     <%= render_markdown partial: 'package_registries/java_registry_slug' %>
+
+    <%= render_markdown partial: 'package_registries/java_registry_write_token' %>
 
 1. Publish your package:
 
@@ -91,7 +91,9 @@ A Java package can be installed using code snippet details provided on the packa
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** (tab) > **Gradle (Kotlin)**  section is displayed.
-1. Copy the code snippet, paste this into the `build.gradle.kts` Gradle file, and run `gradle install` on this modified script file to install this package.
+1. Copy the code snippet, paste this into the `build.gradle.kts` Gradle file, and modify the required values accordingly.
+
+    You can then run `gradle install` on this modified script file to install this package.
 
 This code snippet is based on this format:
 
@@ -105,7 +107,7 @@ repositories {
 
     credentials(HttpHeaderCredentials::class) {
       name = "Authorization"
-      value = "Bearer $TOKEN"
+      value = "Bearer registry-read-token"
     }
   }
 }
@@ -121,10 +123,62 @@ where:
 
 <%= render_markdown partial: 'package_registries/registry_slug' %>
 
-- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Java registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Java source registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
     **Note:** Both the `authentication` and `credentials` sections are not required for registries that are publicly accessible.
 
 <%= render_markdown partial: 'package_registries/java_package_domain_name_version' %>
 
 ### Installing a package from a composite registry
+
+If your Java source registry is an upstream of a [composite registry](/docs/package-registries/manage-registries#composite-registries), you can install one of its packages using the code snippet details provided on the composite registry's **Setup & Usage** page. To do this:
+
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
+1. Select your Java composite registry on this page.
+1. Select the **Setup & Usage** tab to display the **Usage Instructions** page.
+1. Select the **Gradle (Kotlin)** tab.
+1. Copy the relevant code snippets, and paste them into the `build.gradle.kts` Gradle file, modifying their values as required. Learn more about this is [Configuring the `build.gradle.kts` Gradle file](#configuring-the-build-dot-gradle-dot-kts-gradle-file), below.
+
+    You can then run `gradle install package-name` (where `package-name` is a package available through this composite registry) on these modified files to install `package-name`.
+
+<h4 id="configuring-the-build-dot-gradle-dot-kts-gradle-file">Configuring the build.gradle.kts Gradle file</h4>
+
+The `build.gradle.kts` code snippet is based on this format:
+
+```kotlin
+repositories {
+  // ...
+  maven {
+    url = uri("https://packages.buildkite.com/{org.slug}/{registry.slug}/maven2/")
+    authentication {
+      create<HttpHeaderAuthentication>("header")
+    }
+    credentials(HttpHeaderCredentials::class) {
+      name = "Authorization"
+      value = "Bearer registry-read-token"
+    }
+  }
+}
+```
+
+where:
+
+<%= render_markdown partial: 'package_registries/org_slug' %>
+
+<%= render_markdown partial: 'package_registries/registry_slug' %>
+
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Java composite registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+
+    To avoid having to store the actual token value in this file (and mitigate its exposure to continuous integration environments), you can reference it using an environment variable. For example, if you set this token value in the environment variable `REGISTRY_READ_TOKEN`, like:
+
+    ```bash
+    export REGISTRY_READ_TOKEN="YOUR-ACTUAL-TOKEN-VALUE"
+    ```
+
+    you can reference this in the `value` field above as:
+
+    ```kotlin
+    value = "Bearer ${System.getenv('REGISTRY_READ_TOKEN')}"
+    ```
+
+If you have added the official public registry to this Java composite registry, ensure that any references to the default `mavenCentral()` repository (in your `build.gradle.kts` or other relevant `.gradle.kts` files) have been removed, since Buildkite Package Registries itself handles the connection to the Maven Central repository through your Java composite registry.

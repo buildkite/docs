@@ -44,9 +44,9 @@ The following steps describe the process above:
     ```
 
     where:
-    <%= render_markdown partial: 'package_registries/java_registry_write_token' %>
-
     <%= render_markdown partial: 'package_registries/java_registry_id' %>
+
+    <%= render_markdown partial: 'package_registries/java_registry_write_token' %>
 
     **Note:** This step only needs to be performed once for the life of your Java source registry, and API access token.
 
@@ -132,9 +132,9 @@ The `~/.m2/settings.xml` code snippet is based on this format:
 
 where:
 
-- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Java source registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
-
 <%= render_markdown partial: 'package_registries/java_registry_id' %>
+
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Java source registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
 The `pom.xml` code snippet is based on this format:
 
@@ -208,9 +208,11 @@ The `~/.m2/settings.xml` code snippet is based on this format:
 
 where:
 
+<%= render_markdown partial: 'package_registries/java_registry_id' %>
+
 - `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Java composite registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
-    To avoid having to store the actual token value in this file, you can reference it using an environment variable. For example, if you set this token value in the environment variable `REGISTRY_READ_TOKEN`, like:
+    To avoid having to store the actual token value in this file (and mitigate its exposure to continuous integration environments), you can reference it using an environment variable. For example, if you set this token value in the environment variable `REGISTRY_READ_TOKEN`, like:
 
     ```bash
     export REGISTRY_READ_TOKEN="YOUR-ACTUAL-TOKEN-VALUE"
@@ -221,8 +223,6 @@ where:
     ```xml
     <value>Bearer ${env.REGISTRY_READ_TOKEN}</value>
     ```
-
-<%= render_markdown partial: 'package_registries/java_registry_id' %>
 
 If you have added the official public registry to this Java composite registry, add the following `<mirrors/>` element to you `settings.xml` file too:
 
@@ -269,4 +269,3 @@ where:
 - `{org.slug}` is the org slug, which can be obtained as described above.
 
 <%= render_markdown partial: 'package_registries/registry_slug' %>
-
