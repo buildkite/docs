@@ -264,23 +264,70 @@ query getOrganizationMemberCreation {
 }
 ```
 
+## Update an organization member role
+
+This updates an organization member role to either `USER` or `ADMIN`. 
+
+First, find the member's ID:
+
+Look up organization members using their email address.
+
+```graphql
+query getOrgMemberID{
+  organization(slug: "organization-slug") {
+    members(first: 1, search: "user-email") {
+      edges {
+        node {
+          role
+          user {
+            name
+            email
+            id
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Then, use the ID to update the organization member role.
+
+```graphql
+mutation UpdateOrgMemberRole {
+  organizationMemberUpdate (input:
+    {id:"org-member-id", role:ADMIN}) {
+    organizationMember {
+      id
+      role
+      user {
+        name
+      }
+    }
+  }
+}
+```
+
 ## Delete an organization member
 
 This deletes a member from an organization. It does not delete their Buildkite user account.
 
 First, find the member's ID:
 
+Look up organization members using their email address.
+
 ```graphql
-query getOrganizationMemberIds {
+query getOrgMemberID{
   organization(slug: "organization-slug") {
-    members(search: "organization-member-name", first: 10) {
+    members(first: 1, search: "user-email") {
       edges {
         node {
           role
           user {
             name
+            email
+            id
           }
-          id
         }
       }
     }
