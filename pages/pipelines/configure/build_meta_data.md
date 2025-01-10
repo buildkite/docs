@@ -4,7 +4,7 @@ In this guide, we'll walk through using the Buildkite agent's [meta-data command
 
 Meta-data is intended to store data to be used across steps. For example, you can tag a build with the software version it deploys so that you can later identify which build deployed a particular version.
 
-Meta-data values are restricted to a maximum of 100 kilobytes. However, meta-data values larger than 1 kilobyte are discouraged. For anything over 1 kb use an [artifact](/docs/pipelines/configure/artifacts) instead.
+Meta-data values are each restricted to a maximum of 100 kilobytes (kb). However, meta-data values larger than 1 kb are discouraged. For any such values over 1 kb, use an [artifact](/docs/pipelines/configure/artifacts) instead.
 
 ## Setting data
 
