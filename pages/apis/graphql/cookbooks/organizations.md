@@ -266,7 +266,7 @@ query getOrganizationMemberCreation {
 
 ## Update an organization member role
 
-This updates an organization member role to either `USER` or `ADMIN`. 
+This updates an organization member role to either `USER` or `ADMIN`.
 
 First, find the member's ID:
 
