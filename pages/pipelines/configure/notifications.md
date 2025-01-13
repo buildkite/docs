@@ -399,7 +399,7 @@ notify:
 
 ### Notify only on first pass
 
-You can filter build notifications to only trigger on the first pass after a previous failed build using `started_passing`. `pipeline.started_passing` is the successor to `build.fixed` which is depreciated, but remains for backwards-compatibility.
+You can filter build notifications to only trigger on the first pass after a previous failed build using `started_passing`. `pipeline.started_passing` is the successor to `build.fixed`, which is deprecated, but remains available to use for backwards compatibility.
 
 Build-level notifications:
 
