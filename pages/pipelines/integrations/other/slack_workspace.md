@@ -56,6 +56,12 @@ Use the `notify` YAML attribute in your `pipeline.yml` file to configure conditi
 
 See the [Slack channel message](/docs/pipelines/configure/notifications#slack-channel-and-direct-messages) section of the Notifications guide for the configuration information.
 
+### Conditional notifications with pipeline states
+
+You can control conditional notifications using `pipeline.started_passing` and `pipeline.started_failing` in the `if` attribute of the `notify` key of your `pipeline.yml`. With the previous Slack integration this was done in the UI.
+
+See [Conditional Slack notifications](/docs/pipelines/configure/notifications#slack-channel-and-direct-messages-conditional-slack-notifications) for more examples.
+
 #### Slack privacy policy
 
 For more details, please checkout the [Slack Marketplace privacy policy](https://api.slack.com/slack-marketplace/guidelines#privacy).
