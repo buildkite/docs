@@ -1,7 +1,3 @@
----
-toc_include_h3: false
----
-
 # Triggering notifications
 
 The `notify` attribute allows you to trigger build notifications to different services. You can also choose to conditionally send notifications based on pipeline events like build state.
@@ -415,11 +411,11 @@ notify:
 
 ### Notify on all failures and first successful pass
 
-You can filter build notifications to only trigger on:
+You can filter build notifications to only trigger when a pipeline:
 
-1. When a pipeline starts failing
-2. When a pipeline continues to fail
-3. When a pipeline starts passing after a failure
+- Starts failing
+- Continues to fail
+- Starts passing after a failure
 
 Build-level notifications:
 
