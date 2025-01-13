@@ -413,9 +413,9 @@ notify:
 
 You can filter build notifications to only trigger when a pipeline:
 
-- Starts failing
-- Continues to fail
-- Starts passing after a failure
+* Starts failing
+* Continues to fail
+* Starts passing after a failure
 
 Build-level notifications:
 
