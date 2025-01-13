@@ -60,7 +60,7 @@ See the [Slack channel message](/docs/pipelines/configure/notifications#slack-ch
 
 You can control conditional notifications using `pipeline.started_passing` and `pipeline.started_failing` in the `if` attribute of the `notify` key of your `pipeline.yml`. With the previous Slack integration this was done in the UI.
 
-See [conditional Slack messsages](/docs/pipelines/configure/notifications#slack-channel-and-direct-messages-conditional-slack-notifications) for more examples.
+See [conditional Slack messages](/docs/pipelines/configure/notifications#slack-channel-and-direct-messages-conditional-slack-notifications) for more examples.
 
 #### Slack privacy policy
 

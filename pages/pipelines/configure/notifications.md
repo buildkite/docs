@@ -359,7 +359,7 @@ notify:
 
 See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
-You are able to use `pipeline.started_passing` and `pipeline.started_failing` in your if statements if you are using the [Slack Workspace](pipelines/integrations/other/slack-workspace) integration. 
+You are able to use `pipeline.started_passing` and `pipeline.started_failing` in your if statements if you are using the [Slack Workspace](/docs/pipelines/integrations/other/slack-workspace) integration.
 
 Slack notifications happen at the following [event](/docs/apis/webhooks#events):
 
