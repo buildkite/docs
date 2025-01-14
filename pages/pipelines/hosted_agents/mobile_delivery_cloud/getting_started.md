@@ -42,7 +42,7 @@ To create your Mac hosted agent:
     As part of this process:
     * Give this queue an intuitive **key** and **description**, for example, **buildkite-macos-hosted-queue** and **Buildkite macOS hosted queue**, respectively.
     * In the **Select your agent infrastructure** section, select **Hosted**.
-    * Select **macOS** as the **Machine type** and **Small** for the **Capacity**. Larger capacity machines allow your pipelines to run faster, since these pipelines typically execute device emulators, which can be computationally intensive, as part of the build process.
+    * Select **macOS** as the **Machine type** and **Small** for the **Capacity**. While small capacity machines are only available on the trial, larger capacity machines allow your pipelines to run faster, since these pipelines typically execute device emulators, which can be computationally intensive, as part of the build process.
 
 1. Make your pipelines use your new Mac hosted agent by default, by ensuring its queue is the _default queue_. This should be indicated by **(default)** after the queue's key on the cluster's **Queues** page. If this is not the case and another queue is marked **(default)**:
 
@@ -78,3 +78,12 @@ To create the new Buildkite pipeline for this app:
 1. Select each screenshot to view the results, such as the following from the main screen of the app run by the pipeline in an iPhone 16 Pro emulator.
 
 <%= image "iphone16pro-01mainscreen.png", width: 610, height: 610, alt: "Screenshot from the main screen of an iPhone 16 Pro" %>
+
+## Next steps
+
+That's it! You've successfully configured a Buildkite hosted Mac agent, built an iOS app, and checked its functionality using emulators run by the build. 🎉
+
+Learn more about how to deploy apps like FlappyKite to the iOS App Store, which you can integrate into your pipeline builds, from the following resources:
+
+- The [fastlane documentation on iOS App Store deployment](https://docs.fastlane.tools/getting-started/ios/appstore-deployment/), as well as [fastlane's Code Signing Guide Guide](https://docs.fastlane.tools/codesigning/getting-started/).
+- The [Submit your iOS apps to the App Store](https://developer.apple.com/ios/submit/) page of the Apple Developer site.
