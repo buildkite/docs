@@ -43,7 +43,7 @@ Multiple self-hosted agents can connect to your self-hosted queue by ensuring th
 
 ### Using the Buildkite interface
 
-To create a new queue using the Buildkite interface:
+To create a new self-hosted agent queue using the Buildkite interface:
 
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster in which to create the new queue.
