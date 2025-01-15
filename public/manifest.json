@@ -1,0 +1,19 @@
+{
+  "name": "Buildkite Documentation",
+  "short_name": "Buildkite Docs",
+  "start_url": "/docs",
+  "display": "standalone",
+  "description": "Automate your team’s software development processes, from testing through to delivery, no matter the language, environment or toolchain.",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
