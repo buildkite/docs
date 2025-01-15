@@ -2,7 +2,6 @@
 
 The Buildkite Agent is supported on macOS 10.12 or newer using Homebrew or our installer script, and supports pre-release versions of both macOS and Xcode.
 
-
 ## Installation
 
 We recommend installing the agent using [Homebrew](http://brew.sh/) so you can use the [Buildkite formula repository](https://github.com/buildkite/homebrew-buildkite). If you don't use Homebrew you should follow the [Linux](/docs/agent/v3/linux) install instructions.

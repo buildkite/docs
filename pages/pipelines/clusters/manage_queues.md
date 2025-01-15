@@ -10,7 +10,7 @@ A cluster can be configured with multiple queues, each of which can be used to r
 
 - Architecture (x86-64, arm64, Apple silicon, etc.)
 - Size of agents (small, medium, large, extra large)
-- Type of machine (Mac, Linux, Windows, etc.)
+- Type of machine (macOS, Linux, Windows, etc.)
 
 Some example queues might be `linux_medium_x86`, `mac_large_silicon`, etc.
 
@@ -140,7 +140,7 @@ To create a new Buildkite hosted queue using the Buildkite interface:
 1. In the **Create a key** field, enter a unique _key_ for the queue, which can only contain letters, numbers, hyphens, and underscores, as valid characters.
 1. Select the **Add description** checkbox to enter an optional longer description for the queue. This description appears under the queue's key, which is listed on the **Queues** page, as well as when viewing the queue's details.
 1. In the **Select your agent infrastructure** section, select **Hosted** for your agent infrastructure.
-1. In the new **Configure your hosted agent infrastructure** section, select your **Machine type** ([**Linux**](/docs/pipelines/hosted-agents/linux) or [**macOS**](/docs/pipelines/hosted-agents/mac)).
+1. In the new **Configure your hosted agent infrastructure** section, select your **Machine type** ([**Linux**](/docs/pipelines/hosted-agents/linux) or [**macOS**](/docs/pipelines/hosted-agents/macos)).
 1. If you selected **Linux**, within **Architecture**, you can choose between **AMD64** (the default and recommended) or **ARM64** architectures for the Linux machines running as hosted agents. To switch to **ARM64**, select **Change**, followed by **ARM64 (AArch64)**.
 1. Select the appropriate **Capacity** for your hosted agent machine type (**Small**, **Medium** or **Large**). Take note of the additional information provided in the new **Hosted agents trial** section, which changes based on your selected **Capacity**.
 1. Select **Create Queue**.
@@ -174,7 +174,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
-- `hostedAgents` (required) configures this queue to use [Buildkite hosted agents](/docs/pipelines/hosted-agents), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` object) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [Mac-](#create-a-buildkite-hosted-queue-instance-shape-values-for-mac)based Buildkite hosted agent. For example:
+- `hostedAgents` (required) configures this queue to use [Buildkite hosted agents](/docs/pipelines/hosted-agents), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` object) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [macOS-](#create-a-buildkite-hosted-queue-instance-shape-values-for-macos)based Buildkite hosted agent. For example:
 
     ```json
     "hostedAgents": {
@@ -236,7 +236,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
-- `hostedAgents` (required) configures this queue to use [Buildkite hosted agents](/docs/pipelines/hosted-agents), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` object) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [Mac-](#create-a-buildkite-hosted-queue-instance-shape-values-for-mac) based Buildkite hosted agent. For example:
+- `hostedAgents` (required) configures this queue to use [Buildkite hosted agents](/docs/pipelines/hosted-agents), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` object) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [macOS-](#create-a-buildkite-hosted-queue-instance-shape-values-for-macos) based Buildkite hosted agent. For example:
 
     ```graphql
     hostedAgents: {
@@ -250,7 +250,7 @@ Specify the appropriate **Instance shape** for the `instanceShape` value in your
 
 <%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
 
-### Instance shape values for Mac
+### Instance shape values for macOS
 
 Specify the appropriate **Instance shape** for the `instanceShape` value in your API call.
 

@@ -23,7 +23,7 @@ To complete this tutorial, you'll need:
 
 An agent is a small, reliable, and cross-platform program that runs pipeline builds. The agent polls Buildkite for work, runs jobs, and reports results.
 
-Mobile Delivery Cloud uses [Buildkite hosted agents](/docs/pipelines/hosted-agents/overview) running [macOS on Mac machines](/docs/pipelines/hosted-agents/mac), which are configured through a [_cluster_](/docs/pipelines/glossary#cluster). Clusters provide a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within [_queues_](/docs/pipelines/glossary#queue)) in the same cluster.
+Mobile Delivery Cloud uses [Buildkite hosted agents](/docs/pipelines/hosted-agents/overview) running [macOS on Mac machines](/docs/pipelines/hosted-agents/macos), which are configured through a [_cluster_](/docs/pipelines/glossary#cluster). Clusters provide a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within [_queues_](/docs/pipelines/glossary#queue)) in the same cluster.
 
 By default, Buildkite organizations have one cluster, named **Default cluster** with a single self-hosted queue, named **default-queue**, noting that a cluster maintainer or Buildkite organization administrator can customize these default names.
 
@@ -31,7 +31,7 @@ You need at least one Buildkite hosted agent queue configured to run a build.
 
 ### Create a Buildkite hosted agent for Mac
 
-You can create the first [Buildkite hosted agent](/docs/pipelines/hosted-agents/overview) for [Mac](/docs/pipelines/hosted-agents/mac) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
+You can create the first [Buildkite hosted agent](/docs/pipelines/hosted-agents/overview) for [Mac](/docs/pipelines/hosted-agents/macos) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
 
 To create your Mac hosted agent:
 

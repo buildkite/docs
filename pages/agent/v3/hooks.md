@@ -211,4 +211,4 @@ SET GITHUB_RELEASE_ACCESS_KEY='xxx'
 
 Agent hooks are supported on [Buildkite hosted agents for Linux](/docs/pipelines/hosted-agents/linux#agent-images-using-agent-hooks).
 
-Currently, [Buildkite hosted agents for macOS](/docs/pipelines/hosted-agents/mac) do not support [agent hooks](#hook-locations-agent-hooks). Instead, use either [repository](#hook-locations-repository-hooks)- or [plugin](#hook-locations-plugin-hooks)-based hooks with these types of agents.
+Currently, [Buildkite hosted agents for macOS](/docs/pipelines/hosted-agents/macos) do not support [agent hooks](#hook-locations-agent-hooks). Instead, use either [repository](#hook-locations-repository-hooks)- or [plugin](#hook-locations-plugin-hooks)-based hooks with these types of agents.
