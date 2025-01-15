@@ -4,7 +4,7 @@ This page provides details on how to manage queues within a [cluster](/docs/pipe
 
 ## Setting up queues
 
-When a new Buildkite organization is created, along with the automatically created [default cluster](/docs/pipelines/clusters/manage-clusters#setting-up-clusters) (named **Default cluster**), a default queue (named **default-queue**) within this cluster is also created.
+A [_queue_](/docs/pipelines/glossary#queue) defines and manages [Buildkite Agents](/docs/agent/v3) within a cluster. When a new Buildkite organization is created, along with the automatically created [default cluster](/docs/pipelines/clusters/manage-clusters#setting-up-clusters) (named **Default cluster**), a default queue (named **default-queue**) within this cluster is also created.
 
 A cluster can be configured with multiple queues, each of which can be used to represent a specific combination of your [build/agent infrastructure](#agent-infrastructure), based on:
 
@@ -18,7 +18,7 @@ Having individual queues according to these breakdowns allows you to scale a set
 
 ## Agent infrastructure
 
-Buildkite provides support for managing [Buildkite Agents](/docs/agent/v3) in your own self-hosted infrastructure, as well as a [Buildkite hosted infrastructure](/docs/pipelines/hosted-agents) for managing these agents.
+Buildkite provides support for managing [Buildkite Agents](/docs/agent/v3) either in your own self-hosted infrastructure, or [Buildkite's own hosted infrastructure](/docs/pipelines/hosted-agents).
 
 When setting up a queue, you can choose between configuring it with Buildkite Agents running in either of these types of infrastructure.
 

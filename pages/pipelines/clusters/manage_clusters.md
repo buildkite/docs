@@ -1,6 +1,6 @@
 # Manage clusters
 
-This page provides details on how to manage clusters within your Buildkite organization.
+This page provides details on how to manage [clusters](/docs/pipelines/glossary#cluster) within your Buildkite organization.
 
 Learn more about on how to set up queues within a cluster in [Manage queues](/docs/pipelines/clusters/manage-queues).
 
