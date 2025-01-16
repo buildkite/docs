@@ -264,9 +264,9 @@ query getOrganizationMemberCreation {
 }
 ```
 
-## Update an organization member role
+## Update an organization member's role
 
-This updates an organization member role to either `USER` or `ADMIN`.
+This updates an organization member's role to either `USER` or `ADMIN`.
 
 First, find the member's ID:
 
@@ -310,7 +310,7 @@ mutation UpdateOrgMemberRole {
 
 ## Delete an organization member
 
-This deletes a member from an organization. It does not delete their Buildkite user account.
+This deletes a member from an organization. This action does not delete their Buildkite user account.
 
 First, find the member's ID:
 
