@@ -331,7 +331,7 @@ query getOrgMemberID{
 }
 ```
 
-Then, use this `user-id` value to delete the user:
+Then, use this `user-id` value to delete the user from the organization (`name`):
 
 ```graphql
 mutation deleteOrgMember {
@@ -346,6 +346,7 @@ mutation deleteOrgMember {
   }
 }
 ```
+
 ## Get organization audit events
 
 Query your organization's audit events. Audit events are only available to Enterprise customers.
