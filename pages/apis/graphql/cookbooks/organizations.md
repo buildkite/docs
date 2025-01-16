@@ -291,7 +291,7 @@ query getOrgMemberID{
 }
 ```
 
-Then, use the ID to update the organization member role.
+Then, use this ID to update the organization member role.
 
 ```graphql
 mutation UpdateOrgMemberRole {
@@ -335,11 +335,11 @@ query getOrgMemberID{
 }
 ```
 
-Then, use the ID to delete the user:
+Then, use this ID to delete the user:
 
 ```graphql
 mutation deleteOrgMember {
-  organizationMemberDelete(input: { id: "organization-member-id" }){
+  organizationMemberDelete(input: { id: "user-id" }){
     organization{
       name
     }
