@@ -312,9 +312,7 @@ mutation UpdateOrgMemberRole {
 
 This deletes a member from an organization. This action does not delete their Buildkite user account.
 
-First, find the member's ID:
-
-Look up organization members using their email address.
+First, find the organization member's ID (`user-id`) using their email address.
 
 ```graphql
 query getOrgMemberID{
