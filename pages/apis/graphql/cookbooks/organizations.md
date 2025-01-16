@@ -268,9 +268,7 @@ query getOrganizationMemberCreation {
 
 This updates an organization member's role to either `USER` or `ADMIN`.
 
-First, find the member's ID:
-
-Look up organization members using their email address.
+First, find the organization member's ID (`user-id`) using their email address.
 
 ```graphql
 query getOrgMemberID{
