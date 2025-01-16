@@ -206,6 +206,9 @@ An example of a Windows `environment.bat` hook:
 ECHO "--- \:house_with_garden\: Setting up the environment"
 SET GITHUB_RELEASE_ACCESS_KEY='xxx'
 ```
+
 ## Hooks on Buildkite hosted agents
 
-Currently, [Buildkite hosted agents](/docs/pipelines/hosted-agents) do not support [agent hooks](#hook-locations-agent-hooks). Instead, use either [repository](#hook-locations-repository-hooks)- or [plugin](#hook-locations-plugin-hooks)-based hooks with these types of agents.
+Agent hooks are supported on [Buildkite hosted agents for Linux](/docs/pipelines/hosted-agents/linux#agent-images-using-agent-hooks).
+
+Currently, [Buildkite hosted agents for macOS](/docs/pipelines/hosted-agents/macos) do not support [agent hooks](#hook-locations-agent-hooks). Instead, use either [repository](#hook-locations-repository-hooks)- or [plugin](#hook-locations-plugin-hooks)-based hooks with these types of agents.

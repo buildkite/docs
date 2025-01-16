@@ -6,7 +6,7 @@ With hosted agents, Buildkite handles infrastructure management tasks, such as p
 
 ## Hosted agent types
 
-Buildkite offers both [Mac](/docs/pipelines/hosted-agents/mac) and [Linux](/docs/pipelines/hosted-agents/linux) hosted agents.
+Buildkite offers both [macOS](/docs/pipelines/hosted-agents/macos) and [Linux](/docs/pipelines/hosted-agents/linux) hosted agents.
 
 Usage of all instance types is billed on a per-minute basis.
 
