@@ -296,7 +296,7 @@ Then, use this ID to update the organization member role.
 ```graphql
 mutation UpdateOrgMemberRole {
   organizationMemberUpdate (input:
-    {id:"org-member-id", role:ADMIN}) {
+    {id:"user-id", role:ADMIN}) {
     organizationMember {
       id
       role
