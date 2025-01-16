@@ -174,14 +174,16 @@ You can create an agent image:
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster in which to create the new agent image.
 
-    **Note:** Before continuing, ensure you have created a hosted agent queue (based on Linux architecture) within this cluster. Learn more about how to do this in [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
+    **Note:** Before continuing, ensure you have created a Buildkite hosted queue (based on Linux architecture) within this cluster. Learn more about how to do this in [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
 
 1. Select **Agent Images** to open the **Agent Images** page.
 1. Select **New Image** to open the **New Agent Image** dialog.
 1. Enter the **Name** for your agent image.
 1. In the **Dockerfile** field, enter the contents of your Dockerfile.
 
-    **Note:** The top of the Dockerfile contains the required `FROM` instruction, which cannot be changed. This instruction obtains the required Buildkite hosted agent base image.
+    **Notes:**
+    - The top of the Dockerfile contains the required `FROM` instruction, which cannot be changed. This instruction obtains the required Buildkite hosted agent base image.
+    - Ensure any modifications you make to the existing Dockerfile content are correct before creating the agent image, since mistakes cannot be edited or corrected once the agent image is created.
 
 1. Select **Create Agent Image** to create your new agent image.
 
@@ -189,13 +191,13 @@ You can create an agent image:
 
 ### Use an agent image
 
-Once you have [created an agent image](#agent-images-create-an-agent-image), you can set it as the default image for any hosted agent queues based on Linux architecture within this cluster. Once you do this for such a hosted agent queue, any agents in the queue will use this agent image in new jobs.
+Once you have [created an agent image](#agent-images-create-an-agent-image), you can set it as the default image for any Buildkite hosted queues based on Linux architecture within this cluster. Once you do this for such a Buildkite hosted queue, any agents in the queue will use this agent image in new jobs.
 
-To set a Linux-architecture hosted agent queue to use an agent image:
+To set a Buildkite hosted queue to use a custom Linux agent image:
 
 1. Select **Agents** in the global navigation to access the **Clusters** page.
-1. Select the cluster in with the Linux-architecture hosted agent queue to configure with the agent image.
-1. On the **Queues** page, select the hosted agent queue based on Linux architecture.
+1. Select the cluster with the Linux architecture-based Buildkite hosted queue whose agent image requires configuring.
+1. On the **Queues** page, select the Buildkite hosted queue based on Linux architecture.
 1. Select the **Base Image** tab to open its settings.
 1. In the **Agent image** dropdown, select your agent image.
 1. Select **Save settings** to save this update.
@@ -204,7 +206,7 @@ To set a Linux-architecture hosted agent queue to use an agent image:
 
 ### Delete an agent image
 
-To delete a [previously created agent image](#agent-images-create-an-agent-image), it must not be [used by any hosted agent queues](#agent-images-use-an-agent-image).
+To delete a [previously created agent image](#agent-images-create-an-agent-image), it must not be [used by any Buildkite hosted queues](#agent-images-use-an-agent-image).
 
 To delete an agent image:
 
@@ -213,7 +215,7 @@ To delete an agent image:
 1. Select **Agent Images** to open the **Agent Images** page.
 1. Select the agent image to delete > **Delete**.
 
-    **Note:** If you are prompted that the agent image is currently in use, follow the link/s to each hosted agent queue on the **Delete Image** message to change the queue's **Agent image** (from the **Base Image** tab) to another agent image.
+    **Note:** If you are prompted that the agent image is currently in use, follow the link/s to each Buildkite hosted queue on the **Delete Image** message to change the queue's **Agent image** (from the **Base Image** tab) to another agent image.
 
 1. On the **Delete Image** message, select **Delete Image** and the agent image is deleted.
 
@@ -221,22 +223,26 @@ To delete an agent image:
 
 ### Using agent hooks
 
-You can use a [custom agent image](#agent-images-create-an-agent-image) to embed [agent hooks](/docs/agent/v3/hooks#hook-locations-agent-hooks).
+You can [create a custom agent image](#agent-images-create-an-agent-image) and modify its Dockerfile to embed [agent hooks](/docs/agent/v3/hooks#hook-locations-agent-hooks).
 
-To embed hooks:
+To embed hooks in your agent image's Dockerfile:
 
-1. Add the `BUILDKITE_ADDITIONAL_HOOKS_PATHS` environment variable with the path of where the hooks will be located.
-1. Add any specific hooks to the path in the above variable.
+1. Follow the [Create an agent image](#agent-images-create-an-agent-image) instructions to begin creating your hosted agent within its Linux architecture-based Buildkite hosted queue.
 
-An example excerpt from a `Dockerfile` that would include your own hooks:
+    As part of this process:
+    1. Add the `BUILDKITE_ADDITIONAL_HOOKS_PATHS` environment variable to the Dockerfile with the path of where the hooks will be located.
+    1. Add any specific hooks to the path defined by this variable.
 
-```Dockerfile
-ENV BUILDKITE_ADDITIONAL_HOOKS_PATHS=/custom/hooks
-COPY ./hooks/*.sh /custom/hooks/
-```
-{: codeblock-file="Dockerfile"}
+    An example excerpt from a `Dockerfile` that would include your own hooks:
 
-Using this when creating the image will have a directory at `/custom/hooks` that will include any `.sh` files located at `./hooks/` from where the image is created.
+    ```Dockerfile
+    ENV BUILDKITE_ADDITIONAL_HOOKS_PATHS=/custom/hooks
+    COPY ./hooks/*.sh /custom/hooks/
+    ```
+
+    This results in an agent image with the directory `/custom/hooks` that includes any `.sh` files located at `./hooks/` from where the image is created.
+
+1. Follow the [Use an agent image](#agent-images-use-an-agent-image) to apply this new agent image to your Buildkite hosted queue.
 
 > 📘
 > Buildkite hosted agents are running with `BUILDKITE_HOOKS_PATH=/buildkite/agent/hooks`, this path will be overridden in all jobs.
