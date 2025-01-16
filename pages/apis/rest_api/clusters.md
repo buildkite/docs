@@ -474,7 +474,7 @@ Optional [request body properties](/docs/api#request-body-properties):
       <br/>
       <code>instanceShape</code> (required when <code>hostedAgents</code> is specified): Describes the machine type, architecture, CPU, and RAM to provision for Buildkite hosted agent instances running jobs in this queue.
       <br/>
-      Learn more about the instance shapes available for <a href="#queues-instance-shape-values-for-linux">Linux</a> and <a href="#queues-instance-shape-values-for-mac">Mac</a> hosted agents.
+      Learn more about the instance shapes available for <a href="#queues-instance-shape-values-for-linux">Linux</a> and <a href="#queues-instance-shape-values-for-macos">macOS</a> hosted agents.
   </td>
   </tr>
 </tbody>
@@ -545,7 +545,7 @@ curl -H "Authorization: Bearer $TOKEN" \
       <code>instanceShape</code> (required when <code>hostedAgents</code> is specified): Describes the machine type, architecture, CPU, and RAM to provision for Buildkite hosted agent instances running jobs in this queue.
       <br/>
       It is only possible to change the <em>size</em> of the current instance shape assigned to this queue. It is not possible to change the current instance shape's machine type (from macOS to Linux, or vice versa), or for a Linux machine, its architecture (from AMD64 to ARM64, or vice versa).<br/>
-      Learn more about the instance shapes available for <a href="#queues-instance-shape-values-for-linux">Linux</a> and <a href="#queues-instance-shape-values-for-mac">Mac</a> Buildkite hosted agents.
+      Learn more about the instance shapes available for <a href="#queues-instance-shape-values-for-linux">Linux</a> and <a href="#queues-instance-shape-values-for-macos">macOS</a> Buildkite hosted agents.
   </td>
   </tr>
 </tbody>
@@ -702,7 +702,7 @@ Specify the appropriate **Instance shape** for the `instanceShape` value in your
 
 <%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
 
-### Instance shape values for Mac
+### Instance shape values for macOS
 
 Specify the appropriate **Instance shape** for the `instanceShape` value in your REST API call.
 

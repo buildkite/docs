@@ -1,20 +1,20 @@
-# Mac hosted agents
+# macOS hosted agents
 
-Mac instances for Buildkite hosted agents are only offered with [Apple silicon](https://en.wikipedia.org/wiki/Apple_silicon) architecture. Please contact support if you have specific needs for Intel machines.
+macOS instances for Buildkite hosted agents are only offered with [Apple silicon](https://en.wikipedia.org/wiki/Apple_silicon) architecture. Please contact support if you have specific needs for Intel machines.
 
 To accommodate different workloads, instances are capable of running up to 4 hours. If you require longer running agents, please contact support at support@buildkite.com.
 
 ## Sizes
 
-Buildkite offers a selection of Mac instance types (each based on a different size combination of virtual CPU power and memory capacity, known as an _instance shape_), allowing you to tailor your hosted agents' resources to the demands of your jobs.
+Buildkite offers a selection of macOS instance types (each based on a different size combination of virtual CPU power and memory capacity, known as an _instance shape_), allowing you to tailor your hosted agents' resources to the demands of your jobs.
 
 <%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
 
 Extra large instances are available on request. Please contact support@buildkite.com to have them enabled for your account.
 
-## Mac instances software support
+## macOS instance software support
 
-The following software will be made available by default on all standard Mac instances during the trial. If you have specific requirements for software that is not listed here, please contact support.
+The following software will be made available by default on all standard macOS instances during the trial. If you have specific requirements for software that is not listed here, please contact support.
 
 Updated Xcode versions will be available one week after Apple offers them for download. This includes Beta, Release Candidate (RC), and official release versions.
 

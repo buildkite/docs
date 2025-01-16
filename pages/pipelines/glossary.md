@@ -60,7 +60,7 @@ To learn more, see [Plugins](/docs/pipelines/integrations/plugins).
 
 ## Queue
 
-A queue defines agents on which pipeline builds can run their jobs. You can configure queues within a [cluster](#cluster) for particular groups of agents, isolating a set of your pipeline's jobs and the agents they run on. Typical uses for queues include separating deployment agents and pools of agents for specific pipelines or teams.
+A queue defines agents on which pipeline builds can run their jobs. Queues are configured within a [cluster](#cluster), where each queue defines a particular group of agents, isolating a set of your pipeline's jobs and the agents they run on. Typical uses for queues include separating deployment agents and pools of agents for specific pipelines or teams.
 
 To learn more, see [Manage queues](/docs/pipelines/clusters/manage-queues) and [Buildkite Agent job queues](/docs/agent/v3/queues).
 
