@@ -229,8 +229,8 @@ To embed hooks in your agent image's Dockerfile:
 
 1. Follow the [Create an agent image](#agent-images-create-an-agent-image) instructions to begin creating your hosted agent within its Linux architecture-based Buildkite hosted queue.
 
-    As part of this process:
-    1. Add the `BUILDKITE_ADDITIONAL_HOOKS_PATHS` environment variable to the Dockerfile with the path of where the hooks will be located.
+    As part of this process, modify the agent image's Dockerfile to:
+    1. Add the `BUILDKITE_ADDITIONAL_HOOKS_PATHS` environment variable whose value is the path to where the hooks will be located.
     1. Add any specific hooks to the path defined by this variable.
 
     An example excerpt from a `Dockerfile` that would include your own hooks:
@@ -245,4 +245,4 @@ To embed hooks in your agent image's Dockerfile:
 1. Follow the [Use an agent image](#agent-images-use-an-agent-image) to apply this new agent image to your Buildkite hosted queue.
 
 > 📘
-> Buildkite hosted agents are running with `BUILDKITE_HOOKS_PATH=/buildkite/agent/hooks`, this path will be overridden in all jobs.
+> Buildkite hosted agents run with the `BUILDKITE_HOOKS_PATH` value of `/buildkite/agent/hooks`, which is the global agent hooks location. This path is fixed and is read-only when a job starts. Therefore, avoid setting the value of `BUILDKITE_ADDITIONAL_HOOKS_PATHS` to this path in your agent image's Dockerfile, as any files you copy across to this location will be overwritten when the job commences.
