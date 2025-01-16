@@ -182,8 +182,8 @@ You can create an agent image:
 1. In the **Dockerfile** field, enter the contents of your Dockerfile.
 
     **Notes:**
-    - The top of the Dockerfile contains the required `FROM` instruction, which cannot be changed. This instruction obtains the required Buildkite hosted agent base image.
-    - Ensure any modifications you make to the existing Dockerfile content are correct before creating the agent image, since mistakes cannot be edited or corrected once the agent image is created.
+    * The top of the Dockerfile contains the required `FROM` instruction, which cannot be changed. This instruction obtains the required Buildkite hosted agent base image.
+    * Ensure any modifications you make to the existing Dockerfile content are correct before creating the agent image, since mistakes cannot be edited or corrected once the agent image is created.
 
 1. Select **Create Agent Image** to create your new agent image.
 
