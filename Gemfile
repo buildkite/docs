@@ -79,3 +79,5 @@ end
 group :test do
   gem "buildkite-test_collector"
 end
+
+gem "parslet"
