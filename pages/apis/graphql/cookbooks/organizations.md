@@ -264,23 +264,24 @@ query getOrganizationMemberCreation {
 }
 ```
 
-## Delete an organization member
+## Update an organization member's role
 
-This deletes a member from an organization. It does not delete their Buildkite user account.
+This updates an organization member's role to either `USER` or `ADMIN`.
 
-First, find the member's ID:
+First, find the organization member's ID (`organization-member-id`) using their email address, noting that this ID value is not the same as the user's ID (`user-id`).
 
 ```graphql
-query getOrganizationMemberIds {
+query getOrgMemberID{
   organization(slug: "organization-slug") {
-    members(search: "organization-member-name", first: 10) {
+    members(first: 1, search: "user-email") {
       edges {
         node {
           role
           user {
             name
+            email
+            id
           }
-          id
         }
       }
     }
@@ -288,7 +289,49 @@ query getOrganizationMemberIds {
 }
 ```
 
-Then, use the ID to delete the user:
+Then, use this `organization-member-id` value (retrieved from the query above) to update the organization member's role.
+
+```graphql
+mutation UpdateOrgMemberRole {
+  organizationMemberUpdate (input:
+    {id:"organization-member-id", role:ADMIN}) {
+    organizationMember {
+      id
+      role
+      user {
+        name
+      }
+    }
+  }
+}
+```
+
+## Delete an organization member
+
+This deletes a member from an organization. This action does not delete their Buildkite user account.
+
+First, find the organization member's ID (`organization-member-id`) using their email address, noting that this ID value is not the same as the user's ID (`user-id`).
+
+```graphql
+query getOrgMemberID{
+  organization(slug: "organization-slug") {
+    members(first: 1, search: "user-email") {
+      edges {
+        node {
+          role
+          user {
+            name
+            email
+            id
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Then, use this `organization-member-id` value (retrieved from the query above) to delete the user from the organization.
 
 ```graphql
 mutation deleteOrgMember {
@@ -298,11 +341,12 @@ mutation deleteOrgMember {
     }
     deletedOrganizationMemberID
     user{
-        name
+      name
     }
   }
 }
 ```
+
 ## Get organization audit events
 
 Query your organization's audit events. Audit events are only available to Enterprise customers.
