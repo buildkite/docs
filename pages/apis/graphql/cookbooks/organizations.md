@@ -268,7 +268,7 @@ query getOrganizationMemberCreation {
 
 This updates an organization member's role to either `USER` or `ADMIN`.
 
-First, find the organization member's ID (`user-id`) using their email address.
+First, find the organization member's ID (`organization-member-id`) using their email address, noting that this ID value is not the same as the user's ID (`user-id`).
 
 ```graphql
 query getOrgMemberID{
@@ -289,12 +289,12 @@ query getOrgMemberID{
 }
 ```
 
-Then, use this `user-id` value to update the organization member's role.
+Then, use this `organization-member-id` value (retrieved from the query above) to update the organization member's role.
 
 ```graphql
 mutation UpdateOrgMemberRole {
   organizationMemberUpdate (input:
-    {id:"user-id", role:ADMIN}) {
+    {id:"organization-member-id", role:ADMIN}) {
     organizationMember {
       id
       role
@@ -310,7 +310,7 @@ mutation UpdateOrgMemberRole {
 
 This deletes a member from an organization. This action does not delete their Buildkite user account.
 
-First, find the organization member's ID (`user-id`) using their email address.
+First, find the organization member's ID (`organization-member-id`) using their email address, noting that this ID value is not the same as the user's ID (`user-id`).
 
 ```graphql
 query getOrgMemberID{
@@ -331,17 +331,17 @@ query getOrgMemberID{
 }
 ```
 
-Then, use this `user-id` value to delete the user from the organization (`name`):
+Then, use this `organization-member-id` value (retrieved from the query above) to delete the user from the organization.
 
 ```graphql
 mutation deleteOrgMember {
-  organizationMemberDelete(input: { id: "user-id" }){
+  organizationMemberDelete(input: { id: "organization-member-id" }){
     organization{
       name
     }
     deletedOrganizationMemberID
     user{
-        name
+      name
     }
   }
 }
