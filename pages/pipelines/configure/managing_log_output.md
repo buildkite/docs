@@ -45,9 +45,9 @@ echo -e "--- Running \033[33mspecs\033[0m \:cow\:\:bell\:"
 
 ## Log output limits
 
-If your build output exceeds 1MB then we'll only show the last 1MB of it in the rendered terminal output on your build page. In addition, your log file must not exceed 100MB else it may fail to upload.
+If your build output exceeds 2MB then we'll only show the last 2MB of it in the rendered terminal output on your build page. In addition, your log file must not exceed 100MB else it may fail to upload.
 
-If your log exceeds 1MB then we highly recommend reconfiguring your build tools to filter out unnecessary lines. Sometimes this isn't always possible, so you can use the below techniques to store and filter your log.
+If your log exceeds 2MB then we highly recommend reconfiguring your build tools to filter out unnecessary lines. Sometimes this isn't always possible, so you can use the below techniques to store and filter your log.
 
 ## Storing the original log
 

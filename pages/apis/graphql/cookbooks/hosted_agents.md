@@ -48,7 +48,7 @@ mutation {
 
 Creates a small Buildkite hosted queue using AMD64-based Linux Buildkite hosted agents. The `instanceShape` value is referenced from the [InstanceShape](/docs/apis/graphql/schemas/enum/hostedagentinstanceshapename) enum, and represents the combination of machine type, architecture, CPU and Memory available to each job running on a hosted queue. The `LINUX_AMD64_2X4` value is a Linux AMD64 2 vCPU and 4 GB memory instance.
 
-Learn more about the instance shapes available for [Linux](#instance-shape-values-for-linux) and [Mac](#instance-shape-values-for-mac) Buildkite hosted agents.
+Learn more about the instance shapes available for [Linux](#instance-shape-values-for-linux) and [macOS](#instance-shape-values-for-macos) Buildkite hosted agents.
 
 ## Change the instance shape of a Buildkite hosted queue's agents
 
@@ -80,7 +80,7 @@ mutation {
 
 To increase the size of the AMD64-based Linux agent instances for a Buildkite hosted queue, update the `instanceShape` value to a one of a greater size, such as `LINUX_AMD64_4X8`, which is a 4 vCPU and 8 GB memory. This allows you to scale the resources available to each job running on this Buildkite hosted queue.
 
-Learn more about the instance shapes available for [Linux](#instance-shape-values-for-linux) and [Mac](#instance-shape-values-for-mac) Buildkite hosted agents.
+Learn more about the instance shapes available for [Linux](#instance-shape-values-for-linux) and [macOS](#instance-shape-values-for-macos) Buildkite hosted agents.
 
 > 📘
 > It is only possible to change the _size_ of the current instance shape assigned to this queue. It is not possible to change the current instance shape's machine type (from macOS to Linux, or vice versa), or for a Linux machine, its architecture (from AMD64 to ARM64, or vice versa).
@@ -91,7 +91,7 @@ Specify the appropriate **Instance shape** for the `instanceShape` value in your
 
 <%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
 
-## Instance shape values for Mac
+## Instance shape values for macOS
 
 Specify the appropriate **Instance shape** for the `instanceShape` value in your GraphQL API mutation.
 
