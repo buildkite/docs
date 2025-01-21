@@ -81,7 +81,7 @@ A JavaScript package can be installed using code snippet details provided on the
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** > **Instructions** section is displayed.
 1. If your JavaScript source registry is _private_  (the default configuration for source registries) and you haven't already performed this `.npmrc` configuration step, copy the `npm set` command from the [**Registry Configuration**](#registry-configuration) section, paste it into your terminal, and modify as required before running to update your `~/.npmrc` file.
-1. Copy the `npm install` command from the [**Package Installation**](#package-installation) section, paste it into your terminal, and modify as required before running it.
+1. Copy the `npm install ...` command from the [**Package Installation**](#package-installation) section, paste it into your terminal, and modify as required before running it.
 
 <h4 id="registry-configuration">Registry Configuration</h4>
 
@@ -151,4 +151,4 @@ where:
 
 - `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages to your JavaScript composite registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
-You can now install JavaScript packages from your composite registry using the abbreviated command `npm install package-name`.
+You can now install JavaScript packages from your composite registry using the abbreviated command `npm install package-name@version.number`.
