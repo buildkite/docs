@@ -103,6 +103,10 @@
     }
   }
 
+  code {
+    overflow-wrap: normal;
+  }
+
   &--single-column-rows {
     tbody {
       tr {
