@@ -116,7 +116,7 @@ The `~/.m2/settings.xml` code snippet is based on this format:
     http://maven.apache.org/xsd/settings-1.0.0.xsd">
   <servers>
     <server>
-    <id>org-slug-registry-slug</id>
+      <id>org-slug-registry-slug</id>
       <configuration>
         <httpHeaders>
           <property>
@@ -181,8 +181,6 @@ If your Java source registry is an upstream of a [composite registry](/docs/pack
 1. Select the **Maven** tab.
 1. Copy each code snippet, and paste them into their respective `~/.m2/settings.xml` and `pom.xml` files, modifying their values as required. Learn more about this is [Configuring the `settings.xml`](#configuring-the-settings-dot-xml) and [Configuring the `pom.xml`](#configuring-the-pom-dot-xml), below.
 
-    You can then run `mvn install:package-name` (where `package-name` is a package available through this composite registry, including its configured upstreams or the official public Maven registry, or both) on these modified files to install `package-name`.
-
     To install packages from any upstreams or the official public Maven registry, or both, through this composite registry, define each of these packages in their own `<dependency/>` subsection within `<dependencies/>` of your `pom.xml` file, as you would when [installing packages from a source registry](#access-a-packages-details-installing-a-package-from-a-source-registry), and run `mvn install` on this modified `pom.xml`.
 
 <h4 id="configuring-the-settings-dot-xml">Configuring the settings.xml</h4>
@@ -194,7 +192,7 @@ The `~/.m2/settings.xml` code snippet is based on this format:
   ...
   <servers>
     <server>
-    <id>org-slug-registry-slug</id>
+      <id>org-slug-registry-slug</id>
       <configuration>
         <httpHeaders>
           <property>
