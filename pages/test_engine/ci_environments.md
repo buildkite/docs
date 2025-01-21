@@ -12,15 +12,21 @@ If you run test collectors inside [containers](/docs/test-engine/ci-environments
 
 If you're not using a test collector, see [Importing JSON](/docs/test-engine/importing-json) and [Importing JUnit XML](/docs/test-engine/importing-junit-xml) to learn how to provide run environment data.
 
-## Recommended environment variables
+
+## Run environment
+
+### Required
+
+- `run_env[key]`: The identifier of a run, which may be the same across multiple uploads; often the build ID.
+
+### Recommended
 
 If you're manually providing environment variables, we strongly recommend setting the following variables:
 
-- `run_env[key]`: A required variable that sends the UUID for the build, letting you group batches of data by the key.
 - `run_env[branch]`: Sends the branch or reference for this build, enabling you to filter data by branch.
-- `run_env[url]`: Provides the URL for the build on your CI provider, giving you a handy link back to the CI build.
 - `run_env[commit_sha]`: Sends the commit hash for the head of the branch, enabling automatic flaky test detection in your builds.
 - `run_env[message]`: Forwards the commit message for the head of the branch, helping you identify different runs more easily.
+- `run_env[url]`: Provides the URL for the build on your CI provider, giving you a handy link back to the CI build.
 
 ## Containers and test collectors
 
@@ -65,21 +71,6 @@ During Buildkite pipeline runs, test collectors upload information from the foll
         description: "The branch or reference for this build."
       },
       {
-        field_name: "run_env[key]",
-        env_variable: "BUILDKITE_BUILD_ID",
-        description: "The UUID for the build."
-      },
-      {
-        field_name: "run_env[number]",
-        env_variable: "BUILDKITE_BUILD_NUMBER",
-        description: "The build number."
-      },
-      {
-        field_name: "run_env[url]",
-        env_variable: "BUILDKITE_BUILD_URL",
-        description: "The URL for the build on Buildkite."
-      },
-      {
         field_name: "run_env[commit_sha]",
         env_variable: "BUILDKITE_COMMIT",
         description: "The commit hash for the head of the branch."
@@ -90,9 +81,24 @@ During Buildkite pipeline runs, test collectors upload information from the foll
         description: "The UUID of the job."
       },
       {
+        field_name: "run_env[key]",
+        env_variable: "BUILDKITE_BUILD_ID",
+        description: "The UUID for the build."
+      },
+      {
         field_name: "run_env[message]",
         env_variable: "BUILDKITE_MESSAGE",
         description: "The commit message for the head of the branch."
+      },
+      {
+        field_name: "run_env[number]",
+        env_variable: "BUILDKITE_BUILD_NUMBER",
+        description: "The build number."
+      },
+      {
+        field_name: "run_env[url]",
+        env_variable: "BUILDKITE_BUILD_URL",
+        description: "The URL for the build on Buildkite."
       }
     ].each do |field| %>
       <tr>
@@ -130,6 +136,11 @@ During CircleCI workflow runs, test collectors upload information from the follo
         description: "The branch or reference being built."
       },
       {
+        field_name: "run_env[commit_sha]",
+        env_variable: "CIRCLE_SHA1",
+        description: "The commit hash for the head of the branch."
+      },
+      {
         field_name: "run_env[key]",
         env_variable: "CIRCLE_WORKFLOW_ID",
         env_variable_2: "CIRCLE_BUILD_NUM",
@@ -139,11 +150,6 @@ During CircleCI workflow runs, test collectors upload information from the follo
         field_name: "run_env[url]",
         env_variable: "CIRCLE_BUILD_URL",
         description: "The URL for the job on CircleCI."
-      },
-      {
-        field_name: "run_env[commit_sha]",
-        env_variable: "CIRCLE_SHA1",
-        description: "The commit hash for the head of the branch."
       }
     ].each do |field| %>
       <tr>
@@ -180,21 +186,9 @@ During GitHub Actions workflow runs, test collectors upload information from the
   <tbody>
     <% [
       {
-        field_name: "run_env[key]",
-        env_variable: "GITHUB_ACTION",
-        env_variable_2: "GITHUB_RUN_NUMBER",
-        env_variable_3: "GITHUB_RUN_ATTEMPT",
-        description: "The name of the action running or its step ID, the cumulative number of runs for the workflow, and the numbered attempt of the workflow run, each separated by a hyphen. That is, <code>$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT</code>."
-      },
-      {
         field_name: "run_env[branch]",
         env_variable: "GITHUB_REF_NAME",
         description: "The ref (branch or tag) that triggered the workflow run."
-      },
-      {
-        field_name: "run_env[url]",
-        env_variable: "GITHUB_REPOSITORY",
-        description: "The repository owner and repository name."
       },
       {
         field_name: "run_env[commit_sha]",
@@ -202,9 +196,21 @@ During GitHub Actions workflow runs, test collectors upload information from the
         description: "The commit hash for the head of the branch."
       },
       {
+        field_name: "run_env[key]",
+        env_variable: "GITHUB_ACTION",
+        env_variable_2: "GITHUB_RUN_NUMBER",
+        env_variable_3: "GITHUB_RUN_ATTEMPT",
+        description: "The name of the action running or its step ID, the cumulative number of runs for the workflow, and the numbered attempt of the workflow run, each separated by a hyphen. That is, <code>$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT</code>."
+      },
+      {
         field_name: "run_env[number]",
         env_variable: "GITHUB_RUN_ID",
         description: "The unique number for the workflow run."
+      },
+      {
+        field_name: "run_env[url]",
+        env_variable: "GITHUB_REPOSITORY",
+        description: "The repository owner and repository name."
       }
     ].each do |field| %>
       <tr>
