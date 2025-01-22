@@ -192,4 +192,4 @@ You can now install Python packages from your composite registry using the abbre
 index-url = "https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple"
 ```
 
-You can now install Python packages from your composite registry using the abbreviated command `uv sync package-name`.
+You can now synchronize your Python packages from your composite registry using the abbreviated command `uv sync`.
