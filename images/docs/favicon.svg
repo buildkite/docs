@@ -1,9 +1,1 @@
-<svg fill="none" height="64" viewBox="0 0 64 64" width="64" xmlns="http://www.w3.org/2000/svg">
-<style>
-  :root {
-    --dark-green-color: #14CC80;
-    --dark-green-color: oklch(74.55% 0.1728 157.51);
-    --light-green-color: #30F2A2;
-    --light-green-color: oklch(85.19% 0.1849 159.35);
-  }
-</style><path d="m32.0006 21.8889v30.7297l29.3708-14.5041v-30.72973z" fill="var(--dark-green-color)"/><path d="m2.62952 7.38477v30.72973l29.37078 14.5041v-30.7297z" fill="var(--light-green-color)"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="none" viewBox="0 0 64 64"><style>:root{--dark-green-color:#14CC80;--dark-green-color:oklch(74.55% 0.1728 157.51);--light-green-color:#30F2A2;--light-green-color:oklch(85.19% 0.1849 159.35)}</style><path fill="var(--dark-green-color)" d="m32.0006 21.8889v30.7297l29.3708-14.5041v-30.72973z"/><path fill="var(--light-green-color)" d="m2.62952 7.38477v30.72973l29.37078 14.5041v-30.7297z"/></svg>
