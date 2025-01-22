@@ -72,18 +72,20 @@ A JavaScript package can be downloaded from the package's details page. To do th
 1. [Access the package's details](#access-a-packages-details).
 1. Select **Download**.
 
-### Installing a package
+<h3 id="access-a-packages-details-installing-a-package"></h3>
+
+### Installing a package from a source registry
 
 A JavaScript package can be installed using code snippet details provided on the package's details page. To do this:
 
 1. [Access the package's details](#access-a-packages-details).
 1. Ensure the **Installation** > **Instructions** section is displayed.
-1. If your registry is _private_ and you haven't already performed this `.npmrc` configuration step, copy the `npm set` command from the [**Registry Configuration**](#registry-configuration) section, paste it into your terminal, and modify as required before running to update your `~/.npmrc` file.
-1. Copy the `npm install` command from the [**Package Installation**](#package-installation) section, paste it into your terminal, and modify as required before running it.
+1. If your JavaScript source registry is _private_  (the default configuration for source registries) and you haven't already performed this `.npmrc` configuration step, copy the `npm set` command from the [**Registry Configuration**](#registry-configuration) section, paste it into your terminal, and modify as required before running to update your `~/.npmrc` file.
+1. Copy the `npm install ...` command from the [**Package Installation**](#package-installation) section, paste it into your terminal, and modify as required before running it.
 
 <h4 id="registry-configuration">Registry Configuration</h4>
 
-If your registry is _private_ (that is, the default registry configuration), set your JavaScript registry's authentication details in the `.npmrc` file by running the `npm set` command:
+If your JavaScript source registry is _private_, set its authentication details in the `.npmrc` file by running the `npm set` command:
 
 ```bash
 npm set //packages.buildkite.com/{org.slug}/{registry.slug}/npm/:_authToken registry-read-token
@@ -95,7 +97,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/registry_slug' %>
 
-- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages to your JavaScript registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages to your JavaScript source registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
 > 📘
 > If your `.npmrc` file doesn't exist, this command automatically creates it for you.
@@ -119,3 +121,34 @@ where:
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
 <%= render_markdown partial: 'package_registries/registry_slug' %>
+
+### Installing a package from a composite registry
+
+If your JavaScript source registry is an upstream of a [composite registry](/docs/package-registries/manage-registries#composite-registries), you can install one of its packages using the code snippet details provided on the composite registry's **Setup & Usage** page. To do this:
+
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
+1. Select your Python composite registry on this page.
+1. Select the **Setup & Usage** tab to display the **Usage Instructions** page.
+1. Configure the composite registry's URL in the `.npmrc` file. Learn more about this is [Composite registry configuration](#composite-registry-configuration), below.
+
+<h4 id="composite-registry-configuration">Composite registry configuration</h4>
+
+Open your `.npmrc` file and add the following lines to it:
+
+```npmrc
+# Set _authToken. `npm/` suffix must be omitted.
+//packages.buildkite.com/{org.slug}/{registry.slug}/:_authToken=$TOKEN
+
+# Set registry for all packages
+registry=https://packages.buildkite.com/{org.slug}/{registry.slug}/npm/
+```
+
+where:
+
+<%= render_markdown partial: 'package_registries/org_slug' %>
+
+<%= render_markdown partial: 'package_registries/registry_slug' %>
+
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages to your JavaScript composite registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+
+You can now install JavaScript packages from your composite registry using the abbreviated command `npm install package-name@version.number`.

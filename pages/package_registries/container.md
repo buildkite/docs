@@ -98,7 +98,7 @@ The following set of code snippets are descriptions of what each code snippet do
 
 #### Registry configuration
 
-If your registry is _private_ (that is, the default registry configuration), log in to the container registry containing the image to obtain with the following `docker login` command:
+If your container source registry is _private_ (the default configuration for source registries), log in to the container registry containing the image to obtain with the following `docker login` command:
 
 ```bash
 docker login packages.buildkite.com/{org.slug}/{registry.slug} -u buildkite -p registry-read-token

@@ -1,6 +1,6 @@
 # Helm OCI
 
-Buildkite Package Registries provides Helm Open Container Initiative (OCI)-based registry support for distributing Helm charts. [Helm version 3.8.0](https://helm.sh/docs/topics/registries/) or newer is required as these versions provide support for OCI.
+Buildkite Package Registries provides Helm Open Container Initiative (OCI)-based registry support for distributing Helm charts. [Helm version 3.8.0](https://helm.sh/docs/topics/registries/) or newer is required as these versions provide support for OCI. While this page is for OCI-based Helm source registry publishing instructions, you can alternatively publish to a [standard Helm source registry](/docs/package-registries/helm).
 
 Once your Helm OCI source registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload charts (generated from your application's build) to this registry via relevant `helm` commands presented on your Helm OCI registry's details page.
 
@@ -80,7 +80,7 @@ The following set of code snippets are descriptions of what each code snippet do
 
 #### Registry configuration
 
-If your registry is _private_ (that is, the default registry configuration), log in to the Helm registry containing the chart to obtain with the following `helm login` command:
+If your Helm OCI source registry is _private_ (the default configuration for source registries), log in to the Helm registry containing the chart to obtain with the following `helm login` command:
 
 ```bash
 helm registry login packages.buildkite.com/{org.slug}/{registry.slug} -u buildkite -p registry-read-token

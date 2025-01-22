@@ -46,9 +46,7 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 
 ## Access a package's details
 
-A Debian (deb) package's details can be accessed from this registry through the **Releases** (tab) section of your Debian source registry page.
-
-To access your deb package's details page:
+A Debian (deb) package's details can be accessed from this registry through the **Releases** (tab) section of your Debian source registry page. To do this:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Debian source registry on this page.
@@ -95,7 +93,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/registry_slug' %>
 
-If your registry is _private_ (that is, the default registry configuration), stash the private registry credentials into `apt`'s `auth.conf.d` directory:
+If your Debian source registry is _private_ (the default configuration for source registries), stash the private registry credentials into `apt`'s `auth.conf.d` directory:
 
 ```bash
 echo "machine https://packages.buildkite.com/{org.slug}/{registry.slug}/ login buildkite password ${registry.read.token}" > /etc/apt/auth.conf.d/{org.slug}_{registry.slug}.conf; chmod 600 /etc/apt/auth.conf.d/{org.slug}_{registry.slug}.conf

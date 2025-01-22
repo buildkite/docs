@@ -2,18 +2,18 @@
 
 Buildkite Package Registries provides registry support for Ruby-based (RubyGems) packages.
 
-Once your Ruby registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry via a single command, or by configuring your `~/.gem/credentials` and `gemspec` files with the code snippets presented on your Ruby registry's details page.
+Once your Ruby source registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry via a single command, or by configuring your `~/.gem/credentials` and `gemspec` files with the code snippets presented on your Ruby registry's details page.
 
 To view and copy the required command or  `~/.gem/credentials` and `gemspec` configurations:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
-1. Select your Ruby registry on this page.
+1. Select your Ruby source registry on this page.
 1. Select **Publish a Ruby Package** and in the resulting dialog, use the copy icon at the top-right of the relevant code box to copy its snippet and paste it into your command line tool or the appropriate file.
 
 These file configurations contain the following:
 
-- `~/.gem/credentials`: the URL for your specific Ruby registry in Buildkite and the API access token required to publish the package to this registry.
-- `gemspec`: the URL for your specific Ruby registry in Buildkite.
+- `~/.gem/credentials`: the URL for your specific Ruby source registry in Buildkite and the API access token required to publish the package to this registry.
+- `gemspec`: the URL for your specific Ruby source registry in Buildkite.
 
 ## Publish a package
 
@@ -57,7 +57,7 @@ The remaining code boxes on the **Publish a Ruby Package** dialog provide config
     <%= render_markdown partial: 'package_registries/ruby_registry_slug' %>
     <%= render_markdown partial: 'package_registries/ruby_registry_write_token' %>
 
-    **Note:** This step only needs to be conducted once for the life of your Ruby registry.
+    **Note:** This step only needs to be conducted once for the life of your Ruby source registry.
 
 1. Copy the following code snippet and paste it to modify the `allowed_push_host` line of your Ruby (gem) package's `.gemspec` file:
 
@@ -82,13 +82,11 @@ The remaining code boxes on the **Publish a Ruby Package** dialog provide config
 
 ## Access a package's details
 
-A Ruby package's details can be accessed from this registry through the **Releases** (tab) section of your Ruby registry page.
-
-To access your Ruby package's details page:
+A Ruby package's details can be accessed from this registry through the **Releases** (tab) section of your Ruby source registry page. To do this:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
-1. Select your Ruby registry on this page.
-1. On your Ruby registry page, select the package within the **Releases** (tab) section. The package's details page is displayed.
+1. Select your Ruby source registry on this page.
+1. On your Ruby source registry page, select the package within the **Releases** (tab) section. The package's details page is displayed.
 
 <%= render_markdown partial: 'package_registries/package_details_page_sections' %>
 

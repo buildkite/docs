@@ -2,23 +2,23 @@
 
 Buildkite Package Registries provides registry support for Terraform modules.
 
-Once your Terraform registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload modules (generated from your application's build) to this registry via the `curl` command presented on your Terraform registry's details page.
+Once your Terraform source registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload modules (generated from your application's build) to this registry via the `curl` command presented on your Terraform registry's details page.
 
 To view and copy this `curl` command:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
-1. Select your Terraform registry on this page.
+1. Select your Terraform source registry on this page.
 1. Select **Publish a Terraform Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a module to your Terraform registry.
 
 This command provides:
 
-- The specific URL to publish a module to your specific Terraform registry in Buildkite.
-- The API access token required to publish modules to your Terraform registry.
+- The specific URL to publish a module to your specific Terraform source registry in Buildkite.
+- The API access token required to publish modules to your Terraform source registry.
 - The Terraform module file to be published.
 
 ## Publish a module
 
-The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a module to your Terraform registry:
+The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a module to your Terraform source registry:
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
@@ -32,11 +32,11 @@ where:
 
 <%= render_markdown partial: 'package_registries/terraform_registry_slug' %>
 
-- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload modules to your Terraform registry. Ensure this  access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish modules and packages to any registry your user account has access to within your Buildkite organization.
+- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload modules to your Terraform source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish modules and packages to any source registry your user account has access to within your Buildkite organization.
 
 - `<path_to_file>` is the full path required to the module file. If the file is located in the same directory that this command is running from, then no path is required.
 
-For example, to upload the file `my-terraform-module-1.0.1.tgz` from the current directory to the **My Terraform modules** registry in the **My organization** Buildkite organization, run the `curl` command:
+For example, to upload the file `my-terraform-module-1.0.1.tgz` from the current directory to the **My Terraform modules** source registry in the **My organization** Buildkite organization, run the `curl` command:
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-terraform-modules/packages \
@@ -46,13 +46,11 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 
 ## Access a module's details
 
-A Terraform module's details can be accessed from this registry through the **Releases** (tab) section of your Terraform registry page.
-
-To access your Terraform module's details page:
+A Terraform module's details can be accessed from this registry through the **Releases** (tab) section of your Terraform source registry page. To do this:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
-1. Select your Terraform registry on this page.
-1. On your Terraform registry page, select the module within the **Releases** (tab) section. The module's details page is displayed.
+1. Select your Terraform source registry on this page.
+1. On your Terraform source registry page, select the module within the **Releases** (tab) section. The module's details page is displayed.
 
 The module's details page provides the following information in the following sections:
 
@@ -64,12 +62,12 @@ The module's details page provides the following information in the following se
 
     * the name of the module (typically the file name excluding any version details and extension).
     * the module version.
-    * the registry the module is located in.
+    * the source registry the module is located in.
     * the module's visibility (based on its registry's visibility)—whether the module is **Private** and requires authentication to access, or is publicly accessible.
     * the distribution name / version.
     * additional optional metadata contained within the module, such as a homepage, licenses, etc.
 
-- **Pushed**: the date when the last module was uploaded to the registry.
+- **Pushed**: the date when the last module was uploaded to the source registry.
 - **Total files**: the total number of files (and directories) within the module.
 - **Dependencies**: the number of dependency modules required by this module.
 - **Package size**: the storage size (in bytes) of this module.
@@ -92,7 +90,7 @@ To install a module:
 
 1. [Access the module's details](#access-a-modules-details).
 1. Ensure the **Installation** > **Instructions** section is displayed.
-1. If your Terraform registry is private, copy the top section of the code snippet, and paste it into your `~/.terraformrc` configuration file. This code snippet is based on the format:
+1. If your Terraform source registry is private (the default configuration for source registries), copy the top section of the code snippet, and paste it into your `~/.terraformrc` configuration file. This code snippet is based on the format:
 
     ```config
     credentials "packages.buildkite.com" {
