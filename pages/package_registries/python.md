@@ -148,7 +148,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/registry_slug' %>
 
-**For uv**, use one of these `uv` commands (with either the [`--index-url`](https://docs.astral.sh/uv/reference/settings/#index-url) or [`--extra-index-url`](https://docs.astral.sh/uv/reference/settings/#extra-index-url) options) to install the package:
+**For uv**, use one of these `uv` commands (with either the [`--index-url`](https://docs.astral.sh/uv/reference/settings/#index-url) or [`--extra-index-url`](https://docs.astral.sh/uv/reference/settings/#extra-index-url) options) to synchronize your Python project's environment:
 
 ```bash
 uv sync --index-url=https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple
