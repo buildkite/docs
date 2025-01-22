@@ -124,7 +124,7 @@ If your Python source registry is an upstream of a [composite registry](/docs/pa
 1. Select either the **pip** or **uv** tab, based on your Python package management tool.
 1. Run the relevant installation command from either of the first two code snippets. Learn more about this in [Package installation from a composite registry](#package-installation-from-a-composite-registry), below.
 
-    Alternatively, to run abbreviated installation commands by configuring the composite registry's URL in the relevant package tool config files or environment variables, copy the appropriate code snippet/s from the third (or later) code snippets. Learn more about this in [Composite registry configuration](#composite-registry-configuration), below.
+    Alternatively, to run abbreviated installation commands by configuring the composite registry's URL in the relevant package tool config files or environment variables, copy the appropriate code snippet/s from the third (or later) code snippets on the Buildkite interface. Learn more about this in [Composite registry configuration](#composite-registry-configuration), below.
 
 <h4 id="package-installation-from-a-composite-registry">Package installation from a composite registry</h4>
 
@@ -183,7 +183,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/registry_slug' %>
 
-You can now install Python packages from your composite registry using the abbreviated command `pip install package-name`.
+You can now install Python packages from your composite registry using the abbreviated command `pip install package-name==version.number`.
 
 **For uv**, modify the following code snippet and add it to the `pyproject.toml` file:
 
