@@ -310,7 +310,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Be aware that unlike [notifying a specific user in all workspaces](#slack-channel-and-direct-messages-notify-a-user-in-all-workspaces) of a pipeline run, at either the build or step level, it is not possible to directly send a specific user a custom message. However, [mentioning a user within custom messages](#slack-channel-and-direct-messages-custom-messages-with-user-mentions) is supported.
+Be aware that unlike [sending a specific user a notification in all workspaces](#slack-channel-and-direct-messages-notify-a-user-in-all-workspaces) about a pipeline run, at either the build or step level, it is not possible to directly send a user custom messages. However, [mentioning a user within custom messages](#slack-channel-and-direct-messages-custom-messages-with-user-mentions) is supported.
 
 ### Custom messages with user mentions
 
