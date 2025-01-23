@@ -1,16 +1,4 @@
 keys:
-- name: key
-  environment_variable: BUILDKITE_ANALYTICS_KEY
-  required: true
-  description: |
-    A unique key for the build that initiated the CI run
-  examples: ["c5636a53-b2d7-4224-92ee-1677b3e76910"]
-- name: url
-  environment_variable: BUILDKITE_ANALYTICS_URL
-  required: true
-  description: |
-    A URL that links to the build in your CI system
-  examples: ["https://ci.example.com/project1/runs/a086005a/attempts/4"]
 - name: branch
   environment_variable: BUILDKITE_ANALYTICS_BRANCH
   required: true
@@ -23,6 +11,24 @@ keys:
   description: |
     A unique identifier for the version control revision for this run
   examples: ["26a5144c", "49239:a94f28be2e6e", "26916"]
+- name: job_id
+  environment_variable: BUILDKITE_ANALYTICS_JOB_ID
+  required: true
+  description: |
+    An identifier for a job within a build
+  examples: ["build_stage_1", "smoke-test", "publish"]
+- name: key
+  environment_variable: BUILDKITE_ANALYTICS_KEY
+  required: true
+  description: |
+    A unique key for this run of the test suite. This key may be re-used across uploads to group them into a single run.
+  examples: ["c5636a53-b2d7-4224-92ee-1677b3e76910"]
+- name: message
+  environment_variable: BUILDKITE_ANALYTICS_MESSAGE
+  required: true
+  description: |
+    The commit message or other description of the build
+  examples: ["Fix off by one error"]
 - name: number
   environment_variable: BUILDKITE_ANALYTICS_NUMBER
   required: true
@@ -31,15 +37,9 @@ keys:
     
     This number must be unique for each build key, but not necessarily globally unique.
   examples: [0, 1, 4]
-- name: job_id
-  environment_variable: BUILDKITE_ANALYTICS_JOB_ID
+- name: url
+  environment_variable: BUILDKITE_ANALYTICS_URL
   required: true
   description: |
-    An identifier for a job within a build
-  examples: ["build_stage_1", "smoke-test", "publish"]
-- name: message
-  environment_variable: BUILDKITE_ANALYTICS_MESSAGE
-  required: true
-  description: |
-    The commit message or other description of the build
-  examples: ["Fix off by one error"]
+    A URL that links to the build in your CI system
+  examples: ["https://ci.example.com/project1/runs/a086005a/attempts/4"]
