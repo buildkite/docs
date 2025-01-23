@@ -14,7 +14,7 @@ Extra large instances are available on request. Please contact support@buildkite
 
 ## macOS instance software support
 
-The following software will be made available by default on all standard macOS instances during the trial. If you have specific requirements for software that is not listed here, please contact support.
+All standard macOS [Sequoia](#macos-sequoia) and [Sonoma](#macos-sonoma) instances have their own respective Xcode and runtime software available by default (listed below). For each of these macOS versions, the [Homebrew packages](#homebrew-packages) and their versions (listed further down) are also available. If you have specific requirements for software that is not listed here, please contact support.
 
 Updated Xcode versions will be available one week after Apple offers them for download. This includes Beta, Release Candidate (RC), and official release versions.
 
@@ -214,14 +214,7 @@ Updated Xcode versions will be available one week after Apple offers them for do
   <li>zstd 1.5.6</li>
 </ul>
 
-### System software
-
-- macOS 14.5
-- Darwin Kernel 23.5.0
-- Rosetta 2
-- Bash 3.2.57
-- Homebrew
-
+<!--
 ### Other languages and compilers
 
 - GCC 13
@@ -301,6 +294,7 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 - libpq
 - GMP
+-->
 
 ## Git mirror cache
 
