@@ -21,7 +21,7 @@ keys:
   environment_variable: BUILDKITE_ANALYTICS_KEY
   required: true
   description: |
-    A unique key for this run of the test suite; may be repeated across uploads to group them into a single run
+    A unique key for this run of the test suite. This key may be re-used across uploads to group them into a single run.
   examples: ["c5636a53-b2d7-4224-92ee-1677b3e76910"]
 - name: message
   environment_variable: BUILDKITE_ANALYTICS_MESSAGE
