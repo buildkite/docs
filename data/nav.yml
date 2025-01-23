@@ -322,6 +322,8 @@
           path: "pipelines/hosted-agents/linux"
         - name: "macOS hosted agents"
           path: "pipelines/hosted-agents/macos"
+        - name: "Cache volumes"
+          path: "pipelines/hosted-agents/cache-volumes"
         - name: "Code access"
           path: "pipelines/hosted-agents/code-access"
         - name: "Pipeline migration"
