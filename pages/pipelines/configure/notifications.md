@@ -310,6 +310,8 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+Be aware that unlike [notifying a specific user in all workspaces](#slack-channel-and-direct-messages-notify-a-user-in-all-workspaces) of a pipeline run, at either the build or step level, it is not possible to directly send a specific user a custom message. However, [mentioning a user within custom messages](#slack-channel-and-direct-messages-custom-messages-with-user-mentions) is supported.
+
 ### Custom messages with user mentions
 
 To mention a specific user in a custom message within a notification, use the `<@user-id>` annotation, substituting `userid` with the Slack user ID of the person to mention. See the [Slack documentation on mentioning users](https://api.slack.com/reference/surfaces/formatting#mentioning-users) for more details, including how to find a particular user's user ID. You can even mention user groups using the `<!subteam^$subteam-id>` annotation (where the first `subteam` is literal text)! See the [Slack documentation on mentioning user groups](https://api.slack.com/reference/surfaces/formatting#mentioning-groups) for more information.
