@@ -18,6 +18,202 @@ The following software will be made available by default on all standard macOS i
 
 Updated Xcode versions will be available one week after Apple offers them for download. This includes Beta, Release Candidate (RC), and official release versions.
 
+## macOS Sequoia
+
+<ul>
+  <li>Version: 15.1</li>
+</ul>
+
+### Xcode
+
+<ul>
+  <li>16.2-RC</li>
+  <li>16.2</li>
+  <li>16.1</li>
+  <li>16.0</li>
+  <li>15.4</li>
+</ul>
+
+### Runtimes
+
+<ul>
+  <li>
+    iOS
+    <ul>
+      <li>18.2 RC</li>
+      <li>18.1</li>
+      <li>18.0</li>
+      <li>17.5</li>
+      <li>16.4</li>
+      <li>15.5</li>
+    </ul>
+  </li>
+  <li>
+    tvOS
+    <ul>
+      <li>18.2 RC</li>
+      <li>18.1</li>
+      <li>18.0</li>
+      <li>17.5</li>
+      <li>16.4</li>
+    </ul>
+  </li>
+  <li>
+    visionOS
+    <ul>
+      <li>2.2 RC</li>
+      <li>2.1</li>
+      <li>2.0</li>
+      <li>1.2</li>
+      <li>1.1</li>
+      <li>1.0</li>
+    </ul>
+  </li>
+  <li>
+    watchOS
+    <ul>
+      <li>9.4</li>
+      <li>11.2 RC</li>
+      <li>11.1</li>
+      <li>11.0</li>
+      <li>10.5</li>
+    </ul>
+  </li>
+</ul>
+
+## macOS Sonoma
+
+<ul>
+  <li>Version: 14.6.1</li>
+</ul>
+
+### Xcode
+
+<ul>
+  <li>16.2-RC</li>
+  <li>16.2</li>
+  <li>16.1</li>
+  <li>16.0</li>
+  <li>15.4</li>
+  <li>15.3</li>
+  <li>15.2</li>
+  <li>15.1</li>
+  <li>14.3.1</li>
+</ul>
+
+### Runtimes
+
+<ul>
+  <li>
+    iOS
+    <ul>
+      <li>18.2 RC</li>
+      <li>18.1</li>
+      <li>18.0</li>
+      <li>17.5</li>
+      <li>17.4</li>
+      <li>17.2</li>
+      <li>16.4</li>
+      <li>16.2</li>
+      <li>15.5</li>
+    </ul>
+  </li>
+  <li>
+    tvOS
+    <ul>
+      <li>18.2 RC</li>
+      <li>18.1</li>
+      <li>18.0</li>
+      <li>17.5</li>
+      <li>17.4</li>
+      <li>17.2</li>
+      <li>16.4</li>
+    </ul>
+  </li>
+  <li>
+    visionOS
+    <ul>
+      <li>2.2 RC</li>
+      <li>2.1</li>
+      <li>2.0</li>
+      <li>1.2</li>
+      <li>1.1</li>
+      <li>1.0</li>
+    </ul>
+  </li>
+  <li>
+    watchOS
+    <ul>
+      <li>9.4</li>
+      <li>11.2 RC</li>
+      <li>11.1</li>
+      <li>11.0</li>
+      <li>10.5</li>
+      <li>10.4</li>
+      <li>10.2</li>
+    </ul>
+  </li>
+</ul>
+
+## Homebrew packages
+
+<ul>
+  <li>ant 1.10.15</li>
+  <li>applesimutils 0.9.10</li>
+  <li>aria2 1.37.0</li>
+  <li>awscli 2.22.17</li>
+  <li>azcopy 10.27.1</li>
+  <li>azure-cli 2.67.0_1</li>
+  <li>bazelisk 1.25.0</li>
+  <li>bicep 0.32.4</li>
+  <li>carthage 0.40.0</li>
+  <li>cmake 3.31.2</li>
+  <li>cocoapods 1.16.2</li>
+  <li>curl 8.11.1</li>
+  <li>deno 2.1.4</li>
+  <li>docker 27.4.0</li>
+  <li>fastlane 2.226.0</li>
+  <li>gcc@13 13.3.0</li>
+  <li>gh 2.63.2</li>
+  <li>git 2.47.1</li>
+  <li>git-lfs 3.6.0</li>
+  <li>gmp 6.3.0</li>
+  <li>gnu-tar 1.35</li>
+  <li>gnupg 2.4.6</li>
+  <li>go 1.23.4</li>
+  <li>gradle 8.11.1</li>
+  <li>httpd 2.4.62</li>
+  <li>jq 1.7.1</li>
+  <li>kotlin 2.1.0</li>
+  <li>libpq 17.2</li>
+  <li>llvm@15 15.0.7</li>
+  <li>maven 3.9.9</li>
+  <li>mint 0.17.5_1</li>
+  <li>nginx 1.27.3</li>
+  <li>node 23.4.0</li>
+  <li>openssl@3 3.4.0</li>
+  <li>p7zip 17.05</li>
+  <li>packer 1.11.2</li>
+  <li>perl 5.40.0</li>
+  <li>php 8.4.1_1</li>
+  <li>pkgconf 2.3.0_1</li>
+  <li>postgresql@14 14.15</li>
+  <li>r 4.4.2_2</li>
+  <li>rbenv 1.3.0</li>
+  <li>rbenv-bundler 1.0.1</li>
+  <li>ruby 3.3.6</li>
+  <li>rust 1.83.0</li>
+  <li>rustup 1.27.1_1</li>
+  <li>selenium-server 4.27.0</li>
+  <li>swiftformat 0.55.3</li>
+  <li>tmux 3.5a</li>
+  <li>unxip 3.1</li>
+  <li>wget 1.25.0</li>
+  <li>xcbeautify 2.16.0</li>
+  <li>yq 4.44.6</li>
+  <li>zstd 1.5.6</li>
+</ul>
+
 ### System software
 
 - macOS 14.5
@@ -25,47 +221,6 @@ Updated Xcode versions will be available one week after Apple offers them for do
 - Rosetta 2
 - Bash 3.2.57
 - Homebrew
-
-### Xcode
-
-- Xcode 16.1-Beta
-- Xcode 16.0-Beta6
-- Xcode 16.0-Beta5
-- Xcode 16.0-Beta4
-- Xcode 16.0-Beta3
-- Xcode 16.0-Beta2
-- Xcode 15.4
-- Xcode 15.4-Beta
-- Xcode 15.3
-- Xcode 15.2
-- Xcode 15.1
-- Xcode 14.3.1
-
-### Apple runtimes
-
-- iOS 15.5
-- iOS 16.2
-- iOS 16.4
-- iOS 17.2
-- iOS 17.4
-- iOS 17.5-beta2
-- iOS 17.5
-- iOS 18.0-beta4
-- iOS 18.1-beta
-- watchOS 9.4
-- watchOS 10.2
-- watchOS 10.4
-- watchOS 10.5
-- watchOS 11.0-beta7
-- tvOS 16.4
-- tvOS 17.2
-- tvOS 17.4
-- tvOS 17.5
-- tvOS 18.0-beta7
-- visionOS 1.0
-- visionOS 1.1
-- visionOS 1.2
-- visionOS 2.0-beta7
 
 ### Other languages and compilers
 
