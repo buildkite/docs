@@ -114,6 +114,9 @@ Git mirror caching can be enabled on the cluster's cache volumes settings page. 
 
 The container cache can be used to cache Docker images between builds.
 
+> 📘
+> This feature is only available to [Linux hosted agents](/docs/pipelines/hosted-agents/linux).
+
 Container caching can be enabled on the cluster's cache volumes settings page. Once enabled, a container cache will be used for all hosted jobs in that cluster. A separate cache volume will be created for each pipeline.
 
 <%= image "hosted-agents-container-caching.png", width: 1760, height: 436, alt: "Hosted agents container cache setting displayed in the Buildkite UI" %>

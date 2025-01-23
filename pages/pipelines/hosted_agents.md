@@ -29,7 +29,7 @@ Learn more about:
 
 ## Using cache volumes
 
-
+Buildkite's [macOS](/docs/pipelines/hosted-agents/macos) and [Linux](/docs/pipelines/hosted-agents/linux) hosted agents both provide support for _cache volumes_. Learn more about this feature in [Cache volumes](/docs/pipelines/hosted-agents/cache-volumes), noting that the [container cache](/docs/pipelines/hosted-agents/cache-volumes#container-cache) feature component is only supported by Linux hosted agents.
 
 ## Using GitHub repositories in your hosted agent pipelines
 
