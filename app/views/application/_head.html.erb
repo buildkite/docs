@@ -36,7 +36,7 @@
 <%= tag :meta, property: "og:type", content: content_for(:page_og_type) || "website" %>
 <%= tag :meta, property: "og:title", content: content_for(:page_og_title) || content_for(:page_title) || "Buildkite"%>
 <%= tag :meta, property: "og:description", content: content_for(:page_og_description) || content_for(:page_description) || "Automate your team’s software development processes, from testing through to delivery, no matter the language, environment or toolchain." %>
-<%= tag :meta, property: "og:image", content: content_for(:page_image) || image_path("opengraph_default.png").gsub(/^\/\//, 'https://') %>
+<%= tag :meta, property: "og:image", content: content_for(:page_image) || "https://buildkite.com#{image_path("opengraph_default.png")}" %>
 <% if page_image_alt = content_for(:page_image_alt) %>
   <%= tag :meta, property: "og:image:alt", content: page_image_alt  %>
 <% end %>
