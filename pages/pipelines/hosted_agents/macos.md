@@ -20,281 +20,335 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ## macOS Sequoia
 
-<ul>
-  <li>Version: 15.1</li>
-</ul>
+- 15.1
 
 ### Xcode
 
-<ul>
-  <li>16.2-RC</li>
-  <li>16.2</li>
-  <li>16.1</li>
-  <li>16.0</li>
-  <li>15.4</li>
-</ul>
+- 16.2-RC
+- 16.2
+- 16.1
+- 16.0
+- 15.4
 
 ### Runtimes
 
-<ul>
-  <li>
-    iOS
-    <ul>
-      <li>18.2 RC</li>
-      <li>18.1</li>
-      <li>18.0</li>
-      <li>17.5</li>
-      <li>16.4</li>
-      <li>15.5</li>
-    </ul>
-  </li>
-  <li>
-    tvOS
-    <ul>
-      <li>18.2 RC</li>
-      <li>18.1</li>
-      <li>18.0</li>
-      <li>17.5</li>
-      <li>16.4</li>
-    </ul>
-  </li>
-  <li>
-    visionOS
-    <ul>
-      <li>2.2 RC</li>
-      <li>2.1</li>
-      <li>2.0</li>
-      <li>1.2</li>
-      <li>1.1</li>
-      <li>1.0</li>
-    </ul>
-  </li>
-  <li>
-    watchOS
-    <ul>
-      <li>9.4</li>
-      <li>11.2 RC</li>
-      <li>11.1</li>
-      <li>11.0</li>
-      <li>10.5</li>
-    </ul>
-  </li>
-</ul>
+#### iOS
+
+- 18.2 RC
+- 18.1
+- 18.0
+- 17.5
+- 16.4
+- 15.5
+
+#### tvOS
+
+- 18.2 RC
+- 18.1
+- 18.0
+- 17.5
+- 16.4
+
+#### visionOS
+
+- 2.2 RC
+- 2.1
+- 2.0
+- 1.2
+- 1.1
+- 1.0
+
+#### watchOS
+
+- 9.4
+- 11.2 RC
+- 11.1
+- 11.0
+- 10.5
 
 ## macOS Sonoma
 
-<ul>
-  <li>Version: 14.6.1</li>
-</ul>
+- 14.6.1
 
 ### Xcode
 
-<ul>
-  <li>16.2-RC</li>
-  <li>16.2</li>
-  <li>16.1</li>
-  <li>16.0</li>
-  <li>15.4</li>
-  <li>15.3</li>
-  <li>15.2</li>
-  <li>15.1</li>
-  <li>14.3.1</li>
-</ul>
+- 16.2-RC
+- 16.2
+- 16.1
+- 16.0
+- 15.4
+- 15.3
+- 15.2
+- 15.1
+- 14.3.1
 
 ### Runtimes
 
-<ul>
-  <li>
-    iOS
-    <ul>
-      <li>18.2 RC</li>
-      <li>18.1</li>
-      <li>18.0</li>
-      <li>17.5</li>
-      <li>17.4</li>
-      <li>17.2</li>
-      <li>16.4</li>
-      <li>16.2</li>
-      <li>15.5</li>
-    </ul>
-  </li>
-  <li>
-    tvOS
-    <ul>
-      <li>18.2 RC</li>
-      <li>18.1</li>
-      <li>18.0</li>
-      <li>17.5</li>
-      <li>17.4</li>
-      <li>17.2</li>
-      <li>16.4</li>
-    </ul>
-  </li>
-  <li>
-    visionOS
-    <ul>
-      <li>2.2 RC</li>
-      <li>2.1</li>
-      <li>2.0</li>
-      <li>1.2</li>
-      <li>1.1</li>
-      <li>1.0</li>
-    </ul>
-  </li>
-  <li>
-    watchOS
-    <ul>
-      <li>9.4</li>
-      <li>11.2 RC</li>
-      <li>11.1</li>
-      <li>11.0</li>
-      <li>10.5</li>
-      <li>10.4</li>
-      <li>10.2</li>
-    </ul>
-  </li>
-</ul>
+#### iOS
+
+- 18.2 RC
+- 18.1
+- 18.0
+- 17.5
+- 17.4
+- 17.2
+- 16.4
+- 16.2
+- 15.5
+
+#### tvOS
+
+- 18.2 RC
+- 18.1
+- 18.0
+- 17.5
+- 17.4
+- 17.2
+- 16.4
+
+#### visionOS
+
+- 2.2 RC
+- 2.1
+- 2.0
+- 1.2
+- 1.1
+- 1.0
+
+#### watchOS
+
+- 9.4
+- 11.2 RC
+- 11.1
+- 11.0
+- 10.5
+- 10.4
+- 10.2
 
 ## Homebrew packages
 
-<ul>
-  <li>ant 1.10.15</li>
-  <li>applesimutils 0.9.10</li>
-  <li>aria2 1.37.0</li>
-  <li>awscli 2.22.17</li>
-  <li>azcopy 10.27.1</li>
-  <li>azure-cli 2.67.0_1</li>
-  <li>bazelisk 1.25.0</li>
-  <li>bicep 0.32.4</li>
-  <li>carthage 0.40.0</li>
-  <li>cmake 3.31.2</li>
-  <li>cocoapods 1.16.2</li>
-  <li>curl 8.11.1</li>
-  <li>deno 2.1.4</li>
-  <li>docker 27.4.0</li>
-  <li>fastlane 2.226.0</li>
-  <li>gcc@13 13.3.0</li>
-  <li>gh 2.63.2</li>
-  <li>git 2.47.1</li>
-  <li>git-lfs 3.6.0</li>
-  <li>gmp 6.3.0</li>
-  <li>gnu-tar 1.35</li>
-  <li>gnupg 2.4.6</li>
-  <li>go 1.23.4</li>
-  <li>gradle 8.11.1</li>
-  <li>httpd 2.4.62</li>
-  <li>jq 1.7.1</li>
-  <li>kotlin 2.1.0</li>
-  <li>libpq 17.2</li>
-  <li>llvm@15 15.0.7</li>
-  <li>maven 3.9.9</li>
-  <li>mint 0.17.5_1</li>
-  <li>nginx 1.27.3</li>
-  <li>node 23.4.0</li>
-  <li>openssl@3 3.4.0</li>
-  <li>p7zip 17.05</li>
-  <li>packer 1.11.2</li>
-  <li>perl 5.40.0</li>
-  <li>php 8.4.1_1</li>
-  <li>pkgconf 2.3.0_1</li>
-  <li>postgresql@14 14.15</li>
-  <li>r 4.4.2_2</li>
-  <li>rbenv 1.3.0</li>
-  <li>rbenv-bundler 1.0.1</li>
-  <li>ruby 3.3.6</li>
-  <li>rust 1.83.0</li>
-  <li>rustup 1.27.1_1</li>
-  <li>selenium-server 4.27.0</li>
-  <li>swiftformat 0.55.3</li>
-  <li>tmux 3.5a</li>
-  <li>unxip 3.1</li>
-  <li>wget 1.25.0</li>
-  <li>xcbeautify 2.16.0</li>
-  <li>yq 4.44.6</li>
-  <li>zstd 1.5.6</li>
-</ul>
-
-<!--
-### Other languages and compilers
-
-- GCC 13
-- Clang/LLVM 15
-- .NET Core SDK 8
-- Node 21
-- Kotlin 1.9
-- OpenJDK 21
-- Go 1.21
-- Perl 5.38
-- PHP 8.3
-- Python 3
-- Ruby 3.3 & rbenv
-- R 4.3
-- Rust 1.75
-
-### Development tools
-
-- Git
-- Git LFS
-- CocoaPods
-- Ant
-- Maven
-- Mint
-- Gradle
-- Carthage
-- CMake
-- Yarn
-- PNPM
-- Bazel
-- pkg-config
-- xcbeautify
-- swiftformat
-
-### Servers
-
-- Apache HTTPD
-- NGINX
-- Postgres 14.12
-
-### Browser automation
-
-- Safari 17.1
-- Chrome 121
-- ChromeDriver
-- Selenium Server
-
-### Assorted tools
-
-- AWS CLI
-- Azure CLI
-- gcloud CLI
-- CodeQL
-- Bicep CLI
-- fastlane
-- GitHub CLI
-- 7-zip
-- Aria2
-- azcopy
-- wget
-- GnuPG
-- GNU Tar
-- jq
-- yq
-- OpenSSL
-- Packer
-- zstd
-- nsc
-- unxip
-- PowerShell
-- tmux
-- Docker CLI
-- 1Password CLI
-- ns
-
-### Libraries
-
-- libpq
-- GMP
--->
+<table>
+  <tr>
+    <th>Package</th>
+    <th>Version</th>
+  </tr>
+  <tr>
+    <td>ant</td>
+    <td>1.10.15</td>
+  </tr>
+  <tr>
+    <td>applesimutils</td>
+    <td>0.9.10</td>
+  </tr>
+  <tr>
+    <td>aria2</td>
+    <td>1.37.0</td>
+  </tr>
+  <tr>
+    <td>awscli</td>
+    <td>2.22.17</td>
+  </tr>
+  <tr>
+    <td>azcopy</td>
+    <td>10.27.1</td>
+  </tr>
+  <tr>
+    <td>azure-cli</td>
+    <td>2.67.0_1</td>
+  </tr>
+  <tr>
+    <td>bazelisk</td>
+    <td>1.25.0</td>
+  </tr>
+  <tr>
+    <td>bicep</td>
+    <td>0.32.4</td>
+  </tr>
+  <tr>
+    <td>carthage</td>
+    <td>0.40.0</td>
+  </tr>
+  <tr>
+    <td>cmake</td>
+    <td>3.31.2</td>
+  </tr>
+  <tr>
+    <td>cocoapods</td>
+    <td>1.16.2</td>
+  </tr>
+  <tr>
+    <td>curl</td>
+    <td>8.11.1</td>
+  </tr>
+  <tr>
+    <td>deno</td>
+    <td>2.1.4</td>
+  </tr>
+  <tr>
+    <td>docker</td>
+    <td>27.4.0</td>
+  </tr>
+  <tr>
+    <td>fastlane</td>
+    <td>2.226.0</td>
+  </tr>
+  <tr>
+    <td>gcc@13</td>
+    <td>13.3.0</td>
+  </tr>
+  <tr>
+    <td>gh</td>
+    <td>2.63.2</td>
+  </tr>
+  <tr>
+    <td>git</td>
+    <td>2.47.1</td>
+  </tr>
+  <tr>
+    <td>git-lfs</td>
+    <td>3.6.0</td>
+  </tr>
+  <tr>
+    <td>gmp</td>
+    <td>6.3.0</td>
+  </tr>
+  <tr>
+    <td>gnu-tar</td>
+    <td>1.35</td>
+  </tr>
+  <tr>
+    <td>gnupg</td>
+    <td>2.4.6</td>
+  </tr>
+  <tr>
+    <td>go</td>
+    <td>1.23.4</td>
+  </tr>
+  <tr>
+    <td>gradle</td>
+    <td>8.11.1</td>
+  </tr>
+  <tr>
+    <td>httpd</td>
+    <td>2.4.62</td>
+  </tr>
+  <tr>
+    <td>jq</td>
+    <td>1.7.1</td>
+  </tr>
+  <tr>
+    <td>kotlin</td>
+    <td>2.1.0</td>
+  </tr>
+  <tr>
+    <td>libpq</td>
+    <td>17.2</td>
+  </tr>
+  <tr>
+    <td>llvm@15</td>
+    <td>15.0.7</td>
+  </tr>
+  <tr>
+    <td>maven</td>
+    <td>3.9.9</td>
+  </tr>
+  <tr>
+    <td>mint</td>
+    <td>0.17.5_1</td>
+  </tr>
+  <tr>
+    <td>nginx</td>
+    <td>1.27.3</td>
+  </tr>
+  <tr>
+    <td>node</td>
+    <td>23.4.0</td>
+  </tr>
+  <tr>
+    <td>openssl@3</td>
+    <td>3.4.0</td>
+  </tr>
+  <tr>
+    <td>p7zip</td>
+    <td>17.05</td>
+  </tr>
+  <tr>
+    <td>packer</td>
+    <td>1.11.2</td>
+  </tr>
+  <tr>
+    <td>perl</td>
+    <td>5.40.0</td>
+  </tr>
+  <tr>
+    <td>php</td>
+    <td>8.4.1_1</td>
+  </tr>
+  <tr>
+    <td>pkgconf</td>
+    <td>2.3.0_1</td>
+  </tr>
+  <tr>
+    <td>postgresql@14</td>
+    <td>14.15</td>
+  </tr>
+  <tr>
+    <td>r</td>
+    <td>4.4.2_2</td>
+  </tr>
+  <tr>
+    <td>rbenv</td>
+    <td>1.3.0</td>
+  </tr>
+  <tr>
+    <td>rbenv-bundler</td>
+    <td>1.0.1</td>
+  </tr>
+  <tr>
+    <td>ruby</td>
+    <td>3.3.6</td>
+  </tr>
+  <tr>
+    <td>rust</td>
+    <td>1.83.0</td>
+  </tr>
+  <tr>
+    <td>rustup</td>
+    <td>1.27.1_1</td>
+  </tr>
+  <tr>
+    <td>selenium-server</td>
+    <td>4.27.0</td>
+  </tr>
+  <tr>
+    <td>swiftformat</td>
+    <td>0.55.3</td>
+  </tr>
+  <tr>
+    <td>tmux</td>
+    <td>3.5a</td>
+  </tr>
+  <tr>
+    <td>unxip</td>
+    <td>3.1</td>
+  </tr>
+  <tr>
+    <td>wget</td>
+    <td>1.25.0</td>
+  </tr>
+  <tr>
+    <td>xcbeautify</td>
+    <td>2.16.0</td>
+  </tr>
+  <tr>
+    <td>yq</td>
+    <td>4.44.6</td>
+  </tr>
+  <tr>
+    <td>zstd</td>
+    <td>1.5.6</td>
+  </tr>
+</table>
 
 ## Git mirror cache
 
