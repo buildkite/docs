@@ -109,6 +109,7 @@ exceptions:
   - ID
   - IdP # TODO: unabbreviate this in headings
   - IDs
+  - iOS
   - IronWorker
   - Installation
   - JavaScript
@@ -162,12 +163,15 @@ exceptions:
   - Test Engine
   - Test Engine Client
   - TESTOWNER
+  - tvOS
   - Ubuntu
   - URL
   - URL(s)
   - UUID
+  - visionOS
   - VPC
   - VPN
+  - watchOS
   - Windows
   - Windows Subsystem for Linux 2
   - Xcode
