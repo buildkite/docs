@@ -9,6 +9,7 @@ API
 API's
 APIs
 apk
+applesimutils
 architecting
 argumentless
 Artifactory
@@ -24,10 +25,12 @@ autoscaler
 Autoscaling
 autoscaling
 aws
+awscli
 azcopy
 Basecamp
 Basscss
 Bazel
+bazelisk
 Bitium
 bktec
 boolean
@@ -38,6 +41,7 @@ Buildkite's
 buildscript
 Bundler
 cancelation
+carthage
 CCMenu
 ccnet
 CCTray
@@ -51,6 +55,8 @@ Cloudsmith
 Cloudsmith's
 CloudWatch
 CMake
+cmake
+cocoapods
 composable
 config
 cpu
@@ -59,6 +65,7 @@ crontab
 Crontab
 Datadog
 debuild
+deno
 deprioritize
 deprovisioning
 deregistration
@@ -89,13 +96,17 @@ Flexbox
 fpm
 Fugit
 gcloud
+gh
 gif
 githooks
 GitLab
 globbing
+gmp
+gnupg
 gotestsum
 gpg
 Gradle
+gradle
 Gradle's
 Graviton
 gz
@@ -104,6 +115,7 @@ Hashicorp
 heroku
 hostname
 http
+httpd
 httplog
 https
 IdP's
@@ -122,6 +134,7 @@ JWT
 JWTs
 keyserver
 keyservers
+kotlin
 kubectl
 kustomize
 Kuzco
@@ -145,6 +158,7 @@ namespaces
 navatar
 negator
 NGINX
+nginx
 Nodejs
 Noreply
 npm
@@ -160,10 +174,12 @@ Pagerduty
 parsable
 pbuilder
 pbuilder's
+perl
 Phabricator
 Phabricator's
 php
 Pipenv
+pkgconf
 plaintext
 plist
 png
@@ -189,6 +205,7 @@ rpmbuild
 RSpec
 ruleset
 runtimes
+rustup
 rvm
 sandboxed
 sed
@@ -201,6 +218,7 @@ shellcheck
 shellscripting
 Shipit
 snake_case
+Sonoma
 Splitter's
 sre
 sso

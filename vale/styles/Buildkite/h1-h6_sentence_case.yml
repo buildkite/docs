@@ -150,11 +150,13 @@ exceptions:
   - Registry Configuration
   - REST
   - RSpec
+  - S3
   - SAML
   - SCIM
+  - Sequoia
   - Slack
   - SLSA
-  - S3
+  - Sonoma
   - SSH
   - SSO
   - Test Engine
