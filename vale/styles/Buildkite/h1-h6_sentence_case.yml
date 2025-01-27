@@ -109,6 +109,7 @@ exceptions:
   - ID
   - IdP # TODO: unabbreviate this in headings
   - IDs
+  - iOS
   - IronWorker
   - Installation
   - JavaScript
@@ -150,22 +151,27 @@ exceptions:
   - Registry Configuration
   - REST
   - RSpec
+  - S3
   - SAML
   - SCIM
+  - Sequoia
   - Slack
   - SLSA
-  - S3
+  - Sonoma
   - SSH
   - SSO
   - Test Engine
   - Test Engine Client
   - TESTOWNER
+  - tvOS
   - Ubuntu
   - URL
   - URL(s)
   - UUID
+  - visionOS
   - VPC
   - VPN
+  - watchOS
   - Windows
   - Windows Subsystem for Linux 2
   - Xcode

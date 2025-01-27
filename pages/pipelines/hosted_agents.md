@@ -27,6 +27,10 @@ Learn more about:
 
 - Configuring queues in general, in [Manage queues](/docs/pipelines/clusters/manage-queues).
 
+## Using cache volumes
+
+Buildkite's [macOS](/docs/pipelines/hosted-agents/macos) and [Linux](/docs/pipelines/hosted-agents/linux) hosted agents both provide support for _cache volumes_. Learn more about this feature in [Cache volumes](/docs/pipelines/hosted-agents/cache-volumes), noting that the [container cache](/docs/pipelines/hosted-agents/cache-volumes#container-cache) feature component is only supported by Linux hosted agents.
+
 ## Using GitHub repositories in your hosted agent pipelines
 
 Buildkite hosted agent services support both public and private repositories. Learn more about setting up code access in [Hosted agent code access](/docs/pipelines/hosted-agents/code-access).

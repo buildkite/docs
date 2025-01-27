@@ -14,138 +14,341 @@ Extra large instances are available on request. Please contact support@buildkite
 
 ## macOS instance software support
 
-The following software will be made available by default on all standard macOS instances during the trial. If you have specific requirements for software that is not listed here, please contact support.
+All standard macOS [Sequoia](#macos-sequoia) and [Sonoma](#macos-sonoma) instances have their own respective Xcode and runtime software available by default (listed below). For each of these macOS versions, the [Homebrew packages](#homebrew-packages) and their versions (listed further down) are also available. If you have specific requirements for software that is not listed here, please contact support.
 
 Updated Xcode versions will be available one week after Apple offers them for download. This includes Beta, Release Candidate (RC), and official release versions.
 
-### System software
+## macOS Sequoia
 
-- macOS 14.5
-- Darwin Kernel 23.5.0
-- Rosetta 2
-- Bash 3.2.57
-- Homebrew
+- 15.1
 
 ### Xcode
 
-- Xcode 16.1-Beta
-- Xcode 16.0-Beta6
-- Xcode 16.0-Beta5
-- Xcode 16.0-Beta4
-- Xcode 16.0-Beta3
-- Xcode 16.0-Beta2
-- Xcode 15.4
-- Xcode 15.4-Beta
-- Xcode 15.3
-- Xcode 15.2
-- Xcode 15.1
-- Xcode 14.3.1
+- 16.2-RC
+- 16.2
+- 16.1
+- 16.0
+- 15.4
 
-### Apple runtimes
+### Runtimes
 
-- iOS 15.5
-- iOS 16.2
-- iOS 16.4
-- iOS 17.2
-- iOS 17.4
-- iOS 17.5-beta2
-- iOS 17.5
-- iOS 18.0-beta4
-- iOS 18.1-beta
-- watchOS 9.4
-- watchOS 10.2
-- watchOS 10.4
-- watchOS 10.5
-- watchOS 11.0-beta7
-- tvOS 16.4
-- tvOS 17.2
-- tvOS 17.4
-- tvOS 17.5
-- tvOS 18.0-beta7
-- visionOS 1.0
-- visionOS 1.1
-- visionOS 1.2
-- visionOS 2.0-beta7
+#### iOS
 
-### Other languages and compilers
+- 18.2 RC
+- 18.1
+- 18.0
+- 17.5
+- 16.4
+- 15.5
 
-- GCC 13
-- Clang/LLVM 15
-- .NET Core SDK 8
-- Node 21
-- Kotlin 1.9
-- OpenJDK 21
-- Go 1.21
-- Perl 5.38
-- PHP 8.3
-- Python 3
-- Ruby 3.3 & rbenv
-- R 4.3
-- Rust 1.75
+#### tvOS
 
-### Development tools
+- 18.2 RC
+- 18.1
+- 18.0
+- 17.5
+- 16.4
 
-- Git
-- Git LFS
-- CocoaPods
-- Ant
-- Maven
-- Mint
-- Gradle
-- Carthage
-- CMake
-- Yarn
-- PNPM
-- Bazel
-- pkg-config
-- xcbeautify
-- swiftformat
+#### visionOS
 
-### Servers
+- 2.2 RC
+- 2.1
+- 2.0
+- 1.2
+- 1.1
+- 1.0
 
-- Apache HTTPD
-- NGINX
-- Postgres 14.12
+#### watchOS
 
-### Browser automation
+- 9.4
+- 11.2 RC
+- 11.1
+- 11.0
+- 10.5
 
-- Safari 17.1
-- Chrome 121
-- ChromeDriver
-- Selenium Server
+## macOS Sonoma
 
-### Assorted tools
+- 14.6.1
 
-- AWS CLI
-- Azure CLI
-- gcloud CLI
-- CodeQL
-- Bicep CLI
-- fastlane
-- GitHub CLI
-- 7-zip
-- Aria2
-- azcopy
-- wget
-- GnuPG
-- GNU Tar
-- jq
-- yq
-- OpenSSL
-- Packer
-- zstd
-- nsc
-- unxip
-- PowerShell
-- tmux
-- Docker CLI
-- 1Password CLI
-- ns
+### Xcode
 
-### Libraries
+- 16.2-RC
+- 16.2
+- 16.1
+- 16.0
+- 15.4
+- 15.3
+- 15.2
+- 15.1
+- 14.3.1
 
-- libpq
-- GMP
+### Runtimes
+
+#### iOS
+
+- 18.2 RC
+- 18.1
+- 18.0
+- 17.5
+- 17.4
+- 17.2
+- 16.4
+- 16.2
+- 15.5
+
+#### tvOS
+
+- 18.2 RC
+- 18.1
+- 18.0
+- 17.5
+- 17.4
+- 17.2
+- 16.4
+
+#### visionOS
+
+- 2.2 RC
+- 2.1
+- 2.0
+- 1.2
+- 1.1
+- 1.0
+
+#### watchOS
+
+- 9.4
+- 11.2 RC
+- 11.1
+- 11.0
+- 10.5
+- 10.4
+- 10.2
+
+## Homebrew packages
+
+<table>
+  <tr>
+    <th>Package</th>
+    <th>Version</th>
+  </tr>
+  <tr>
+    <td>ant</td>
+    <td>1.10.15</td>
+  </tr>
+  <tr>
+    <td>applesimutils</td>
+    <td>0.9.10</td>
+  </tr>
+  <tr>
+    <td>aria2</td>
+    <td>1.37.0</td>
+  </tr>
+  <tr>
+    <td>awscli</td>
+    <td>2.22.17</td>
+  </tr>
+  <tr>
+    <td>azcopy</td>
+    <td>10.27.1</td>
+  </tr>
+  <tr>
+    <td>azure-cli</td>
+    <td>2.67.0_1</td>
+  </tr>
+  <tr>
+    <td>bazelisk</td>
+    <td>1.25.0</td>
+  </tr>
+  <tr>
+    <td>bicep</td>
+    <td>0.32.4</td>
+  </tr>
+  <tr>
+    <td>carthage</td>
+    <td>0.40.0</td>
+  </tr>
+  <tr>
+    <td>cmake</td>
+    <td>3.31.2</td>
+  </tr>
+  <tr>
+    <td>cocoapods</td>
+    <td>1.16.2</td>
+  </tr>
+  <tr>
+    <td>curl</td>
+    <td>8.11.1</td>
+  </tr>
+  <tr>
+    <td>deno</td>
+    <td>2.1.4</td>
+  </tr>
+  <tr>
+    <td>docker</td>
+    <td>27.4.0</td>
+  </tr>
+  <tr>
+    <td>fastlane</td>
+    <td>2.226.0</td>
+  </tr>
+  <tr>
+    <td>gcc@13</td>
+    <td>13.3.0</td>
+  </tr>
+  <tr>
+    <td>gh</td>
+    <td>2.63.2</td>
+  </tr>
+  <tr>
+    <td>git</td>
+    <td>2.47.1</td>
+  </tr>
+  <tr>
+    <td>git-lfs</td>
+    <td>3.6.0</td>
+  </tr>
+  <tr>
+    <td>gmp</td>
+    <td>6.3.0</td>
+  </tr>
+  <tr>
+    <td>gnu-tar</td>
+    <td>1.35</td>
+  </tr>
+  <tr>
+    <td>gnupg</td>
+    <td>2.4.6</td>
+  </tr>
+  <tr>
+    <td>go</td>
+    <td>1.23.4</td>
+  </tr>
+  <tr>
+    <td>gradle</td>
+    <td>8.11.1</td>
+  </tr>
+  <tr>
+    <td>httpd</td>
+    <td>2.4.62</td>
+  </tr>
+  <tr>
+    <td>jq</td>
+    <td>1.7.1</td>
+  </tr>
+  <tr>
+    <td>kotlin</td>
+    <td>2.1.0</td>
+  </tr>
+  <tr>
+    <td>libpq</td>
+    <td>17.2</td>
+  </tr>
+  <tr>
+    <td>llvm@15</td>
+    <td>15.0.7</td>
+  </tr>
+  <tr>
+    <td>maven</td>
+    <td>3.9.9</td>
+  </tr>
+  <tr>
+    <td>mint</td>
+    <td>0.17.5_1</td>
+  </tr>
+  <tr>
+    <td>nginx</td>
+    <td>1.27.3</td>
+  </tr>
+  <tr>
+    <td>node</td>
+    <td>23.4.0</td>
+  </tr>
+  <tr>
+    <td>openssl@3</td>
+    <td>3.4.0</td>
+  </tr>
+  <tr>
+    <td>p7zip</td>
+    <td>17.05</td>
+  </tr>
+  <tr>
+    <td>packer</td>
+    <td>1.11.2</td>
+  </tr>
+  <tr>
+    <td>perl</td>
+    <td>5.40.0</td>
+  </tr>
+  <tr>
+    <td>php</td>
+    <td>8.4.1_1</td>
+  </tr>
+  <tr>
+    <td>pkgconf</td>
+    <td>2.3.0_1</td>
+  </tr>
+  <tr>
+    <td>postgresql@14</td>
+    <td>14.15</td>
+  </tr>
+  <tr>
+    <td>r</td>
+    <td>4.4.2_2</td>
+  </tr>
+  <tr>
+    <td>rbenv</td>
+    <td>1.3.0</td>
+  </tr>
+  <tr>
+    <td>rbenv-bundler</td>
+    <td>1.0.1</td>
+  </tr>
+  <tr>
+    <td>ruby</td>
+    <td>3.3.6</td>
+  </tr>
+  <tr>
+    <td>rust</td>
+    <td>1.83.0</td>
+  </tr>
+  <tr>
+    <td>rustup</td>
+    <td>1.27.1_1</td>
+  </tr>
+  <tr>
+    <td>selenium-server</td>
+    <td>4.27.0</td>
+  </tr>
+  <tr>
+    <td>swiftformat</td>
+    <td>0.55.3</td>
+  </tr>
+  <tr>
+    <td>tmux</td>
+    <td>3.5a</td>
+  </tr>
+  <tr>
+    <td>unxip</td>
+    <td>3.1</td>
+  </tr>
+  <tr>
+    <td>wget</td>
+    <td>1.25.0</td>
+  </tr>
+  <tr>
+    <td>xcbeautify</td>
+    <td>2.16.0</td>
+  </tr>
+  <tr>
+    <td>yq</td>
+    <td>4.44.6</td>
+  </tr>
+  <tr>
+    <td>zstd</td>
+    <td>1.5.6</td>
+  </tr>
+</table>
 
 ## Git mirror cache
 
