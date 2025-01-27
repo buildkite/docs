@@ -14,7 +14,7 @@ Extra large instances are available on request. Please contact support@buildkite
 
 ## macOS instance software support
 
-All standard macOS [Sequoia](#macos-sequoia) and [Sonoma](#macos-sonoma) instances have their own respective Xcode and runtime software available by default (listed below). For each of these macOS versions, the [Homebrew packages](#homebrew-packages) and their versions (listed further down) are also available. If you have specific requirements for software that is not listed here, please contact support.
+All standard macOS [Sequoia](#macos-sequoia) and [Sonoma](#macos-sonoma) version instances have their own respective Xcode and runtime software versions available by default (listed below). For both of these macOS versions, the [Homebrew packages](#homebrew-packages) and their versions (listed further down) are also available. If you have specific requirements for software that is not listed here, please contact support.
 
 Updated Xcode versions will be available one week after Apple offers them for download. This includes Beta, Release Candidate (RC), and official release versions.
 
