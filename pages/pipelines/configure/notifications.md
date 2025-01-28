@@ -143,10 +143,14 @@ Basecamp notifications happen at the following [events](/docs/apis/webhooks#even
 
 You can set notifications:
 
-* On build status events in the Buildkite UI, by using your Slack Notification Service's 'Build State Filtering' settings.
-* On step status and other non-build events, by extending the Slack Notification Service using the `notify` attribute in your `pipeline.yml`.
+* On build status events in the Buildkite interface, by using your Slack notification service's **Build State Filtering** settings.
+* On step status and other non-build events, by extending your Slack or Slack Workspace notification service with the `notify` attribute in your `pipeline.yml`.
 
-Before adding a `notify` attribute to your `pipeline.yml`, ensure an organization admin has set up either a [Slack Workspace](/docs/pipelines/integrations/other/slack-workspace) for a single authorization, or individual [notification services](/docs/pipelines/integrations/other/slack) for the channel or user that you want to post to. Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan and using individual notification services can also check the ['Manage Notifications Services'](https://buildkite.com/organizations/~/security/pipelines) checkbox to create, edit, or delete notification services. For detailed information about setting up a Workspace, see the [Slack Workspace Integration page](/docs/pipelines/integrations/other/slack-workspace) and [Slack integration page](/docs/pipelines/integrations/other/slack) for configuring individual notification services.
+Before adding a `notify` attribute to your `pipeline.yml`, ensure a Buildkite organization admin has set up either the [Slack Workspace](/docs/pipelines/integrations/other/slack-workspace) notification service (a once-off configuration for each workspace), or the required [Slack](/docs/pipelines/integrations/other/slack) notification services, to send notifications to a channel or a user. Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan and using individual notification services can also select the [**Manage Notifications Services**](https://buildkite.com/organizations/~/security/pipelines) checkbox to create, edit, or delete notification services.
+
+The _Slack Workspace_ notification service requires a once-off configuration (one for each workspace) in Buildkite, and then allows you to notify specific Slack channels or users, or both, directly within relevant pipeline steps. The _Slack_ notification service requires you to configure the channels, users, pipelines, branches and build states, as one or more notification services in Buildkite first, before you can notify these channels or users, or both, within relevant pipeline steps.
+
+Learn more about these different [Slack Workspace](/docs/pipelines/integrations/other/slack-workspace) and [Slack](/docs/pipelines/integrations/other/slack) notification services within [Other integrations](/docs/pipelines/integrations).
 
 Once a Slack channel or workspace has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` YAML block.
 
