@@ -148,7 +148,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/registry_slug' %>
 
-**For uv**, use one of these `uv` commands (with either the [`--index-url`](https://docs.astral.sh/uv/reference/settings/#index-url) or [`--extra-index-url`](https://docs.astral.sh/uv/reference/settings/#extra-index-url) options) to synchronize your Python project's environment:
+**For uv**, use one of these `uv` commands (with either the [`--index-url`](https://docs.astral.sh/uv/reference/settings/#index-url) or [`--extra-index-url`](https://docs.astral.sh/uv/reference/settings/#extra-index-url) options) to ensure your Python project's environment has been updated, along with all of its dependencies:
 
 ```bash
 uv sync --index-url=https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple
@@ -192,4 +192,4 @@ You can now install Python packages from your composite registry using the abbre
 index-url = "https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/pypi/simple"
 ```
 
-You can now synchronize your Python project's environment using the abbreviated command `uv sync`.
+You can now ensure your Python project's environment has been updated, along with all its dependencies, using the abbreviated command `uv sync`.

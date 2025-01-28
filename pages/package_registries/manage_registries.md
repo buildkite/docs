@@ -89,6 +89,9 @@ To configure/change your source registry's current storage:
 
 ## Composite registries
 
+> 📘
+> The _composite registries_ feature is currently in _customer preview_. To enquire about accessing this feature for your Buildkite organization, please contact support@buildkite.com.
+
 A _composite_ registry is a Buildkite registry type that consists of one or more [source registries](#create-a-source-registry) (referred to as _upstreams_ or _upstream registries_) that belong to a specific [package ecosystem](/docs/package-registries/ecosystems), can include the ecosystem's official (public) registry, and combines them all into a single virtual registry. Composite registries allow you to centrally manage packages so that they can be downloaded and installed from a single configurable URL using an [API access token](https://buildkite.com/user/api-access-tokens) (with the **Read Packages** REST API scope), [registry token](#configure-registry-tokens), or temporary token available through the composite registry's **Setup & Usage** page.
 
 This means that your projects only need to be configured with a single composite registry URL (one for each [package ecosystem](/docs/package-registries/ecosystems)), to download and install the packages they need. Each upstream providing these packages can be configured separately through the composite registry itself.
