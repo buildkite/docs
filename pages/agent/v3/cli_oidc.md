@@ -161,7 +161,7 @@ All of the following claims (with the exception of the [`aud` claim](#aud), whic
   <tr>
     <td><code>runner_environment</code></td>
     <td>
-      <p>Is the current job executing on Buildkite hosted agents or customer self-hosted agents.</p>
+      <p>Indicates whether the current job is being run on Buildkite hosted agents or the customer's own self-hosted agents.</p>
       <p><em>Valid values:</em> <code>buildkite-hosted</code>, <code>self-hosted</code></p>
     </td>
   </tr>
