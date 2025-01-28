@@ -165,7 +165,7 @@ variables:
     example: "4735ba57-80d0-46e2-8fa0-b28223a86586"
   - name: BUILDKITE_CLUSTER_NAME
     desc: |
-      The name of the cluster in which the Buildkite job is running.
+      The name of the cluster in which the job is running.
     modifiable: false
     example: "production"
   - name: BUILDKITE_COMMAND
