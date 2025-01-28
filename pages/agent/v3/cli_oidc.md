@@ -158,6 +158,20 @@ All of the following claims (with the exception of the [`aud` claim](#aud), whic
       <p><em>Example:</em> <code>0184990a-4782-42b5-afc1-16715b10b8ff</code></p>
     </td>
   </tr>
+  <tr>
+    <td><code>runner_environment</code></td>
+    <td>
+      <p>Indicates whether the current job is being run on Buildkite hosted agents or the customer's own self-hosted agents.</p>
+      <p><em>Valid values:</em> <code>buildkite-hosted</code>, <code>self-hosted</code></p>
+    </td>
+  </tr>
+  <tr>
+    <td><code>build_source</code></td>
+    <td>
+      <p>The source of the event that created the build.</p>
+      <p><em>Valid values:</em> <code>ui</code>, <code>api</code>, <code>webhook</code>, <code>trigger_job</code>, <code>schedule</code></p>
+    </td>
+  </tr>
   </tbody>
 </table>
 
@@ -255,9 +269,12 @@ OIDC tokens are JSON Web Tokens — [JWTs](https://datatracker.ietf.org/doc/html
   "pipeline_slug": "super-duper-app",
   "build_number": 1,
   "build_branch": "main",
+  "build_tag": "v1.0.0",
   "build_commit": "9f3182061f1e2cca4702c368cbc039b7dc9d4485",
   "step_key": "build",
   "job_id": "0184990a-477b-4fa8-9968-496074483cee",
-  "agent_id": "0184990a-4782-42b5-afc1-16715b10b8ff"
+  "agent_id": "0184990a-4782-42b5-afc1-16715b10b8ff",
+  "build_source": "ui",
+  "runner_environment": "buildkite-hosted"
 }
 ```
