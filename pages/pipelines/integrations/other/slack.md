@@ -7,7 +7,7 @@ Configuring a Slack notification service will authorize access for a required ch
 Setting up a notification service requires Buildkite organization admin access.
 
 > 📘
-> You can use the [Slack workspace](/docs/pipelines/integrations/other/slack-workspace) notification service to set up Slack notifications as a once-off process for each workspace, after which, you can then configure notifications within your YAML pipelines to be sent to any Slack channels or users.
+> You can use the [Slack Workspace](/docs/pipelines/integrations/other/slack-workspace) notification service to set up Slack notifications as a once-off process for each workspace, after which, you can then configure notifications within your YAML pipelines to be sent to any Slack channels or users.
 
 ## Adding a notification service
 
@@ -41,9 +41,9 @@ With the configuration above, you'll receive notifications at the pipeline level
 > 🚧
 > To avoid duplicate notifications, if you're using the [`notify` YAML attribute](/docs/pipelines/configure/notifications) for more fine grained control over your Slack notifications, ensure you've selected the **Only Some Pipelines...** option and have excluded that pipeline from receiving the default notifications.
 
-## Changing channels
+## Changing channels and users
 
-Once a Slack notification service has been [added](#adding-a-notification-service), its Slack channel, user and workspace cannot be changed. To post to a different channel, user or workspace, you'll need to add a new Slack notification service. Alternatively, you can use the [Slack workspace](/docs/pipelines/integrations/other/slack-workspace) notification service to set up Slack notifications as a once-off process for each workspace, after which, you can then configure notifications within your YAML pipelines to be sent to any Slack channels or users.
+Once a Slack notification service has been [added](#adding-a-notification-service), its Slack channel, user and workspace cannot be changed. To post to a different channel, user or workspace, you'll need to add a new Slack notification service. Alternatively, you can use the [Slack Workspace](/docs/pipelines/integrations/other/slack-workspace) notification service to set up Slack notifications as a once-off process for each workspace, after which, you can then configure notifications within your YAML pipelines to be sent to any Slack channels or users.
 
 ## Conditional notifications
 
