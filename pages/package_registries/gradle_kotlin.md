@@ -139,7 +139,7 @@ If your Java source registry is an upstream of a [composite registry](/docs/pack
 1. Ensure the **Gradle (Kotlin)** tab is displayed.
 1. Copy the relevant code snippets, and paste them into the `build.gradle.kts` Gradle file, modifying their values as required. Learn more about this is [Configuring the `build.gradle.kts` Gradle file](#configuring-the-build-dot-gradle-dot-kts-gradle-file), below.
 
-    To install packages from any upstreams or the official public Maven registry, or both, through this composite registry, define each of these packages in their own `implementation()` line within `dependencies { }` of your `build.gradle.kts` Gradle file, as you would when [installing packages from a source registry](#access-a-packages-details-installing-a-package-from-a-source-registry), and run `gradle install` on this modified script file.
+    To install packages from any of this composite registry's configured upstreams, define each of these packages in their own `implementation()` line within `dependencies { }` of your `build.gradle.kts` Gradle file, as you would when [installing packages from a source registry](#access-a-packages-details-installing-a-package-from-a-source-registry), and run `gradle install` on this modified script file.
 
 <h4 id="configuring-the-build-dot-gradle-dot-kts-gradle-file">Configuring the build.gradle.kts Gradle file</h4>
 
