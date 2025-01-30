@@ -181,7 +181,7 @@ If your Java source registry is an upstream of a [composite registry](/docs/pack
 1. Select the **Maven** tab.
 1. Copy each code snippet, and paste them into their respective `~/.m2/settings.xml` and `pom.xml` files, modifying their values as required. Learn more about this is [Configuring the `settings.xml`](#configuring-the-settings-dot-xml) and [Configuring the `pom.xml`](#configuring-the-pom-dot-xml), below.
 
-    To install packages from any upstreams or the official public Maven registry, or both, through this composite registry, define each of these packages in their own `<dependency/>` subsection within `<dependencies/>` of your `pom.xml` file, as you would when [installing packages from a source registry](#access-a-packages-details-installing-a-package-from-a-source-registry), and run `mvn install` on this modified `pom.xml`.
+    To install packages from any of this composite registry's configured upstreams, define each of these packages in their own `<dependency/>` subsection within `<dependencies/>` of your `pom.xml` file, as you would when [installing packages from a source registry](#access-a-packages-details-installing-a-package-from-a-source-registry), and run `mvn install` on this modified `pom.xml`.
 
 <h4 id="configuring-the-settings-dot-xml">Configuring the settings.xml</h4>
 
