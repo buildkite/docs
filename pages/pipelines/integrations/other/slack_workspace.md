@@ -14,7 +14,7 @@ Click the **Add to Slack** button:
 
 <%= image "buildkite-add-to-slack-workspace.png", width: 1458/2, height: 358/2, alt: "Screenshot of 'Add Slack workspace service' screen on Buildkite. It shows an 'Add to Slack workspace' button" %>
 
-This will take you to Slack. Log in, and grant Buildkite the ability to post across your workspace. Once you have granted access, you can then use the `notify` attribute to edit the YAML of your pipelines and [configure notifications](/docs/pipelines/configure/notifications).
+This will take you to Slack. Log in, and grant Buildkite the ability to post across your workspace. Once you have granted access, you can then use the `notify` attribute in the YAML syntax of your pipelines to [configure specific notifications](/docs/pipelines/configure/notifications#slack-channel-and-direct-messages).
 
 ```yaml
 notify:
