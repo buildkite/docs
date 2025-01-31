@@ -193,17 +193,24 @@ steps:
 
 ### Notify a user in all workspaces
 
-You can notify a user in all workspaces by providing their username in the `pipeline.yml`.
+You can notify a user in all workspaces configured through your Slack or Slack Workspace notification services by providing their username or user ID, respectively, in the `pipeline.yml`.
 
-Build-level notifications to user `@someuser` in all configured workspaces:
+Build-level notifications to user `@someuser` in all workspaces configured through your [Slack notification services](/docs/pipelines/integrations/other/slack):
 
-```
+```yaml
 notify:
   - slack: "@someuser"
 ```
 {: codeblock-file="pipeline.yml"}
 
-Step-level notifications to user `@someuser` in all configured workspaces:
+When using the [Slack Workspace notification service](/docs/pipelines/integrations/other/slack-workspace), specify their user ID instead of the `@someuser` syntax. For example:
+
+```yaml
+notify:
+  - slack: "U12AB3C456D"
+```
+
+Step-level notifications to user `@someuser` in all workspaces through configured your Slack notification services:
 
 ```yaml
 steps:
@@ -213,6 +220,8 @@ steps:
       - slack: "@someuser"
 ```
 {: codeblock-file="pipeline.yml"}
+
+When using the Slack Workspace notification service, specify their user ID (for example, `U12AB3C456D`) instead of the `@someuser` syntax.
 
 ### Notify a channel in one workspace
 
