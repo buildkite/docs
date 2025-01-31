@@ -105,7 +105,7 @@ To delete an agent image:
 
 You can [create a custom agent image](#agent-images-create-an-agent-image) and modify its Dockerfile to embed [agent hooks](/docs/agent/v3/hooks#hook-locations-agent-hooks).
 
-The following [job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks) are available to be embedded: `environment`, `pre-checkout`, `checkout`, `post-checkout`, `pre-command`, `command`, `post-command`, `pre-artifact`, `post-artifact`, and `pre-exit`. [Agent lifecycle hooks](/docs/agent/v3/hooks#agent-lifecycle-hooks) and the `pre-bootstrap` hook happen outside the Job execution itself, so are not able to be used within a Buildkite hosted agent context.
+The following [job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks) are available to be embedded: `environment`, `pre-checkout`, `checkout`, `post-checkout`, `pre-command`, `command`, `post-command`, `pre-artifact`, `post-artifact`, and `pre-exit`. [Agent lifecycle hooks](/docs/agent/v3/hooks#agent-lifecycle-hooks) and the `pre-bootstrap` hook happen outside the Job execution itself, so are not supported within a Buildkite hosted agent context.
 
 To embed hooks in your agent image's Dockerfile:
 
