@@ -2,10 +2,9 @@
 
 The Buildkite Agent is supported on Windows 8, Windows Server 2012, and newer. There are two installation methods: automated using PowerShell, and manual installation.
 
-
 ## Security considerations
 
-The agent runs scripts from the agent hooks directory, and checks-out and runs scripts from code repositories. Please consider the filesystem permissions for these directories carefully, especially when operating in a multi-user environment.
+The agent runs scripts from the agent's hooks directory, and checks-out and runs scripts from code repositories. Please consider the filesystem permissions for these directories carefully, especially when operating in a multi-user environment.
 
 ## Automated install with PowerShell
 
@@ -128,7 +127,3 @@ To install the agent on WSL2, follow the [generic Linux installation guide](/doc
 
 > 📘
 > Using WSL2 causes unusual behavior during pipeline upload. Refer to <a href="/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for details.
-
-## Security considerations
-
-The agent will run scripts from the hooks directory, and will checkout and run scripts from code repositories. Please consider the filesystem permissions for these directories carefully, especially when operating in a multi-user environment.
