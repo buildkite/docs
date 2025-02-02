@@ -74,13 +74,12 @@ While the agent will work without Git installed, you will require [Git for Windo
 ## Running as a service
 
 The simplest way to run buildkite-agent as a service is to use a third-party tool like [nssm](https://nssm.cc/). Once nssm has been installed, you can either run the GUI and configure manually:
+
 ```
 nssm install buildkite-agent
 ```
-Or create the service using the nssm command-line:
 
-> 📘
-> Ensure that Command Prompt/PowerShell is invoked as an Administrative user for the following commands.
+Alternatively, create the service using the following set of nssm commands, ensuring that the command prompt or PowerShell you are running these commands in has administrator privileges:
 
 ```
 # These commands assume you installed the agent using PowerShell 
@@ -100,14 +99,14 @@ nssm status buildkite-agent
 # Expected output: SERVICE_RUNNING
 ```
 
-If you'd like to change the user the buildkite-agent service runs as, you can use the same third-party tool [nssm](https://nssm.cc/) using the command-line:
-
-> 📘
-> Ensure that this new user is a local admin on the system or has been granted all the necessary permissions to run the buildkite-agent service via nssm.
+If you'd like to change the user the buildkite-agent service runs as, you can use the same third-party tool [nssm](https://nssm.cc/) using the command line:
 
 ```
 nssm set buildkite-agent ObjectName "COMPUTER_NAME\ACCOUNT_NAME" "PASSWORD"
 ```
+
+> 📘
+> Ensure that this new user is a local admin on the system or has been granted all the necessary permissions to run the buildkite-agent service via nssm.
 
 Replace the following:
 
