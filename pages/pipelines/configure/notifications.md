@@ -259,7 +259,7 @@ steps:
 When using the Slack Workspace notification service, specify their user ID (for example, `U12AB3C456D`) instead of the `@someuser` syntax.
 
 > 📘
-> Unlike Slack notification service notifications, which are sent directly to the user's Slack account, the Slack Workspace notification service sends notifications to the user's "Workspace name Builds" app in Slack, where "Workspace name" is the name of the configured Slack workspace for the notification service.
+> Unlike Slack notification service notifications, which are sent directly to the user's Slack account, the Slack Workspace notification service sends notifications to the user's "Workspace name Builds" app in Slack, where "Workspace name" is the name of the Slack workspace configured for the notification service.
 
 ### Notify a channel in one workspace
 
