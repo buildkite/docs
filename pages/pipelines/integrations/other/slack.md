@@ -36,7 +36,9 @@ Once you have granted access to your chosen channel or user in your Slack worksp
 > 🚧
 > There is a default maximum number of 50 Slack notification services that can be added to your Buildkite organization. If you are an Enterprise customer and need more Slack notification services than this limit, please contact support@buildkite.com. Alternatively, you can use a [Slack Workspace](/docs/pipelines/integrations/other/slack-workspace) notification service, which only requires you to configure a single service for your Slack workspace.
 
-Once your Slack notification services have been configured, notifications will automatically be sent at the pipeline level, but not on the outcomes of individual steps. The **fixed builds** option ensures you're notified when a failed build next passes.
+Once your Slack notification services have been configured, notifications will automatically be sent at the pipeline level, but not on the outcomes of individual steps.
+
+The **Choose notifications to send > When a build passes > After a failure ("Fixed")** option ensures you're notified when a build next passes after the selected **When a build is** states.
 
 > 🚧
 > If you're also using the [`notify` YAML attribute](/docs/pipelines/configure/notifications#slack-channel-and-direct-messages) in your pipelines for more fine grained control over your Slack notifications, ensure you've selected the **Only Some Pipelines...** option, and have excluded these pipelines from receiving the automatic notifications (that is, leave these pipelines' checkboxes clear).
