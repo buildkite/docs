@@ -143,8 +143,8 @@ Basecamp notifications happen at the following [events](/docs/apis/webhooks#even
 
 You can set notifications:
 
-* On build status events in the Buildkite interface, by using your Slack notification service's **Build State Filtering** settings.
 * On step status and other non-build events, by extending your Slack or Slack Workspace notification service with the `notify` attribute in your `pipeline.yml`.
+* On build status events in the Buildkite interface, by using your Slack notification service's **Build state filtering** settings.
 
 Before adding a `notify` attribute to your `pipeline.yml`, ensure a Buildkite organization admin has set up either the [Slack Workspace](/docs/pipelines/integrations/other/slack-workspace) notification service (a once-off configuration for each workspace), or the required [Slack](/docs/pipelines/integrations/other/slack) notification services, to send notifications to a channel or a user. Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan can also select the [**Manage Notifications Services**](https://buildkite.com/organizations/~/security/pipelines) checkbox to allow their users to create, edit, or delete notification services.
 
@@ -157,10 +157,8 @@ Learn more about these different [Slack Workspace](/docs/pipelines/integrations/
 Once a Slack channel or workspace has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` YAML block.
 
 > 🚧
+> When using only a channel name, you must specify it in quotes. Otherwise, the `#` will cause the channel name to be treated as a comment.
 > When using an individual notification service, rather than a workspace, if you rename or modify the Slack channel for which the integration was set up, for example if you change it from public to private, you need to set up a new integration.
-
-> 🚧
-> When using only a channel name, you must specify it in quotes, as otherwise the `#` will cause the channel name to be treated as a comment.
 
 ### Notify a channel in all workspaces
 
