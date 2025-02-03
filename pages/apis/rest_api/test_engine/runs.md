@@ -92,6 +92,4 @@ Required scope: `read_suites`
 
 Success response: `200 OK`
 
-Failed execution data is limited to 100 results.
-
-
+While the example response above only shows the data from one failed execution result, this endpoint's response is limited to 100 results.
