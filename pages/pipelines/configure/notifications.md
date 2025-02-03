@@ -195,7 +195,7 @@ steps:
 
 You can notify a user in all workspaces configured through your Slack or Slack Workspace notification services by providing their username or user ID, respectively, in the `pipeline.yml`.
 
-Build-level notifications to user `@someuser` in all workspaces configured through your [Slack notification services](/docs/pipelines/integrations/other/slack):
+Build-level notifications to user `@someuser` in all workspaces configured through your [Slack notification services](/docs/pipelines/integrations/other/slack). For example:
 
 ```yaml
 notify:
@@ -203,11 +203,46 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
+or:
+
+```yaml
+notify:
+  - slack:
+      channels: ["@someuser"]
+```
+
+or:
+
+```yaml
+notify:
+  - slack:
+      channels:
+        - "@someuser"
+```
+
 When using the [Slack Workspace notification service](/docs/pipelines/integrations/other/slack-workspace), specify their user ID instead of the `@someuser` syntax. For example:
 
 ```yaml
 notify:
   - slack: "U12AB3C456D"
+```
+{: codeblock-file="pipeline.yml"}
+
+or:
+
+```yaml
+notify:
+  - slack:
+      channels: ["U12AB3C456D"]
+```
+
+or:
+
+```yaml
+notify:
+  - slack:
+      channels:
+        - "U12AB3C456D"
 ```
 
 Step-level notifications to user `@someuser` in all workspaces through configured your Slack notification services:
@@ -236,7 +271,7 @@ steps:
 notify:
   # Notify channel
   - slack: "buildkite-community#general"
-  # Notify user
+  # Notify user - this no longer appears to work
   - slack: "buildkite-community@someuser"
 ```
 {: codeblock-file="pipeline.yml"}
@@ -250,7 +285,7 @@ steps:
     notify:
       # Notify channel
       - slack: "buildkite-community#general"
-      # Notify user
+      # Notify user - this no longer appears to work
       - slack: "buildkite-community@someuser"
 ```
 {: codeblock-file="pipeline.yml"}
