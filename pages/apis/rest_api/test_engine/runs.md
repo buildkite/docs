@@ -81,9 +81,9 @@ curl -H "Authorization: Bearer $TOKEN" \
     "duration": 3.79073,
     "location": "./spec/models/user.rb:23",
     "test_name": "Deploy should be available",
-    "run_url": "/organizations/buildkite/analytics/suites/my-test-suite/runs/075bbcd9-662c-86f5-9d40-adfa6549eff1",
-    "test_url": "/organizations/buildkite/analytics/suites/my-test-suite/tests/f6cb6c43-df94-8b60-81ed-14f9db7bbfd8",
-    "test_execution_url": "/organizations/buildkite/analytics/suites/my-test-suite/tests/f6cb6c43-df94-8b60-81ed-14f9db7bbfd8?execution_id=60f0e64c-ae4b-870e-b41f-5431205caf06",
+    "run_url": "https:://buildkite.com/organizations/buildkite/analytics/suites/my-test-suite/runs/075bbcd9-662c-86f5-9d40-adfa6549eff1",
+    "test_url": "https:://buildkite.com/organizations/buildkite/analytics/suites/my-test-suite/tests/f6cb6c43-df94-8b60-81ed-14f9db7bbfd8",
+    "test_execution_url": "https:://buildkite.com/organizations/buildkite/analytics/suites/my-test-suite/tests/f6cb6c43-df94-8b60-81ed-14f9db7bbfd8?execution_id=60f0e64c-ae4b-870e-b41f-5431205caf06",
   }
 ]
 ```
@@ -92,6 +92,6 @@ Required scope: `read_suites`
 
 Success response: `200 OK`
 
-_Note_: Failed execution data is limited to 100 results.
+Failed execution data is limited to 100 results.
 
 
