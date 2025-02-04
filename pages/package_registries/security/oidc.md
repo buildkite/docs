@@ -6,6 +6,8 @@ You can configure Buildkite registries with OIDC policies that allow access usin
 
 A Buildkite Agent's OIDC tokens assert claims about the slugs of the pipeline it is building and organization that contains this pipeline, the ID of the job that created the token, as well as other claims, such as the name of the branch used in the build, the SHA of the commit that triggered the build, and the agent ID. If the token's claims do not comply with the registry's OIDC policy, the OIDC token is rejected, and any actions attempted with that token will fail. If the claims do comply, however, the OIDC token will have read and write access to packages in the registry.
 
+Such tokens are also short-lived to further mitigate the risk of compromising the security of your Buildkite registries, should the token accidentally be leaked.
+
 The [Buildkite Agent's `oidc` command](/docs/agent/v3/cli-oidc) allows you to request an OIDC token from Buildkite containing claims about the pipeline's current job. These tokens can then be used by a Buildkite registry to determine (through its OIDC policy) if the organization, pipeline and any other metadata associated with the pipeline and its job are permitted to publish/upload packages to this registry.
 
 ## OIDC token requirements
