@@ -152,6 +152,12 @@ where:
 
 ## Edit a rule
 
+Rules can be edited by [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) using the [**Rules** page](#edit-a-rule-using-the-buildkite-interface), as well as the [GraphQL API's](#edit-a-rule-using-the-graphql-api) edit a rule feature.
+
+### Using the Buildkite interface
+
+
+### Using the GraphQL API
 
 
 ## Delete a rule
