@@ -150,6 +150,10 @@ where:
         }
         ```
 
+## Edit a rule
+
+
+
 ## Delete a rule
 
 Rules can be deleted by [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) using the [**Rules** page](#delete-a-rule-using-the-buildkite-interface), as well as the [REST API's](#delete-a-rule-using-the-rest-api) or [GraphQL API's](#delete-a-rule-using-the-graphql-api) delete a rule feature.
