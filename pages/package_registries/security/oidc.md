@@ -237,16 +237,16 @@ The following example Buildkite pipeline YAML snippet demonstrates how to push D
 steps:
 - key: "docker-build" # Build the Docker image
   label: "\:docker\: Build"
-  command: docker build --tag packages.buildkite.com/my-organization/my-pipeline/my-image:latest .
+  command: docker build --tag packages.buildkite.com/my-organization/my-registry/my-image:latest .
 
 - key: "docker-login" # Authenticate the Buildkite Agent to the Buildkite registry using an OIDC token
   label: "\:docker\: Login"
-  command: buildkite-agent oidc request-token --audience "https://packages.buildkite.com/my-organization/my-pipeline" --lifetime 300 | docker login packages.buildkite.com/my-organization/my-pipeline --username buildkite --password-stdin
+  command: buildkite-agent oidc request-token --audience "https://packages.buildkite.com/my-organization/my-pipeline" --lifetime 300 | docker login packages.buildkite.com/my-organization/my-registry --username buildkite --password-stdin
   depends_on: "docker-build"
 
 - key: "docker-push" # Now authenticated, push the Docker image to the registry
   label: "\:docker\: Push"
-  command: docker push packages.buildkite.com/my-organization/my-pipeline/my-pipeline/my-image:latest
+  command: docker push packages.buildkite.com/my-organization/my-registry/my-image:latest
   depends_on: "docker-login"
 
 ```
