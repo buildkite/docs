@@ -157,8 +157,8 @@ Learn more about these different [Slack Workspace](/docs/pipelines/integrations/
 Once a Slack channel or workspace has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` YAML block.
 
 > 🚧
-> When using only a channel name, you must specify it in quotes. Otherwise, the `#` will cause the channel name to be treated as a comment.
-> When using an individual notification service, rather than a workspace, if you rename or modify the Slack channel for which the integration was set up, for example if you change it from public to private, you need to set up a new integration.
+> When using only a channel name, you must specify this name in quotes. Otherwise, the `#` will cause the channel name to be treated as a comment.
+> If you have a Slack notification service configured for a given Slack channel and you either rename this channel, or change the channel's visibility from public to private, then you will need to set up a new Slack notification service to accommodate this modification. This issue does not affect the Slack Workspace notification service, since only one service needs to be configured for a given Slack workspace.
 
 ### Notify a channel in all workspaces
 
