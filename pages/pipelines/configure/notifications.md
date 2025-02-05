@@ -193,7 +193,12 @@ steps:
 
 You can notify a user in all workspaces configured through your Slack or Slack Workspace notification services by providing their username or user ID, respectively, in the `pipeline.yml`.
 
-Build-level notifications to user `@someuser` in all workspaces configured through your [Slack notification services](/docs/pipelines/integrations/other/slack). For example:
+> 📘
+> Unlike Slack notification service notifications, which are sent directly to the user's Slack account, the Slack Workspace notification service sends notifications to the user's **Buildkite Builds** app in Slack.
+
+#### Build-level notifications
+
+When using the [Slack notification services](/docs/pipelines/integrations/other/slack), specify the user's user handle (for example, `@someuser`) to notify this user about a build in all Slack workspaces configured with this service type. For example:
 
 ```yaml
 notify:
@@ -218,7 +223,7 @@ notify:
         - "@someuser"
 ```
 
-When using the [Slack Workspace notification service](/docs/pipelines/integrations/other/slack-workspace), specify their user ID instead of the `@someuser` syntax. For example:
+When using the [Slack Workspace notification service](/docs/pipelines/integrations/other/slack-workspace), specify the user's user ID (for example, `U12AB3C456D`) instead of their user handle (`@someuser`), to notify this user about a build. For example:
 
 ```yaml
 notify:
@@ -243,7 +248,9 @@ notify:
         - "U12AB3C456D"
 ```
 
-Step-level notifications to user `@someuser` in all workspaces through configured your Slack notification services:
+#### Step-level notifications
+
+When using the [Slack notification services](/docs/pipelines/integrations/other/slack), specify the user's user handle (for example, `@someuser`) to notify this user about this step's job in all Slack workspaces configured with this service type. For example:
 
 ```yaml
 steps:
@@ -254,10 +261,16 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-When using the Slack Workspace notification service, specify their user ID (for example, `U12AB3C456D`) instead of the `@someuser` syntax.
+When using the [Slack Workspace notification service](/docs/pipelines/integrations/other/slack-workspace), specify the user's user ID (for example, `U12AB3C456D`) instead of their user handle (`@someuser`), to notify this user about this step's job. For example:
 
-> 📘
-> Unlike Slack notification service notifications, which are sent directly to the user's Slack account, the Slack Workspace notification service sends notifications to the user's "Workspace name Builds" app in Slack, where "Workspace name" is the name of the Slack workspace configured for the notification service.
+```yaml
+steps:
+  - label: "Example Test - pass"
+    command: echo "Hello!"
+    notify:
+      - slack: "U12AB3C456D"
+```
+{: codeblock-file="pipeline.yml"}
 
 ### Notify a channel in one workspace
 
@@ -272,8 +285,6 @@ steps:
 notify:
   # Notify channel
   - slack: "buildkite-community#general"
-  # Notify user - this no longer appears to work
-  - slack: "buildkite-community@someuser"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -286,8 +297,6 @@ steps:
     notify:
       # Notify channel
       - slack: "buildkite-community#general"
-      # Notify user - this no longer appears to work
-      - slack: "buildkite-community@someuser"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -361,7 +370,8 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Be aware that unlike [sending a specific user a notification in all workspaces](#slack-channel-and-direct-messages-notify-a-user-in-all-workspaces) about a pipeline run, at either the build or step level, it is not possible to directly send a user custom messages. However, [mentioning a user within custom messages](#slack-channel-and-direct-messages-custom-messages-with-user-mentions) is supported.
+> 📘
+> You can also send notifications with custom messages to specific users with the [user notification syntax for all workspaces](#slack-channel-and-direct-messages-notify-a-user-in-all-workspaces). Employ the appropriate user notification syntax based on your configured the Slack or Slack Workspace notification service/s.
 
 ### Custom messages with user mentions
 
