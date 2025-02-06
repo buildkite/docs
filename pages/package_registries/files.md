@@ -19,6 +19,10 @@ This command provides:
 
 ## Publish a file
 
+You can use two approaches to publish a file to your file source registry—[`curl`](#publish-a-file-using-curl) or the [Buildkite CLI](#publish-a-file-using-the-buildkite-cli).
+
+### Using curl
+
 The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a file to your file source registry:
 
 ```bash
@@ -44,6 +48,10 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
   -H "Authorization: Bearer $REPLACE_WITH_YOUR_REGISTRY_WRITE_TOKEN" \
   -F "file=@my-custom-app.ipa"
 ```
+
+### Using the Buildkite CLI
+
+
 
 ## Access a file's details
 
