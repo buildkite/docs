@@ -198,7 +198,7 @@ You can notify a user in all workspaces configured through your Slack or Slack W
 
 #### Build-level notifications
 
-When using the [Slack notification services](/docs/pipelines/integrations/other/slack), specify the user's user handle (for example, `@someuser`) to notify this user about a build in all Slack workspaces configured with this service type. For example:
+When using [Slack notification services](/docs/pipelines/integrations/other/slack), specify the user's handle (for example, `@someuser`) to notify this user about a build, in all Slack workspaces for which this user has been configured with this service type. For example:
 
 ```yaml
 notify:
@@ -223,7 +223,7 @@ notify:
         - "@someuser"
 ```
 
-When using the [Slack Workspace notification service](/docs/pipelines/integrations/other/slack-workspace), specify the user's user ID (for example, `U12AB3C456D`) instead of their user handle (`@someuser`), to notify this user about a build. For example:
+When using the [Slack Workspace notification service](/docs/pipelines/integrations/other/slack-workspace), specify the user's user ID (for example, `U12AB3C456D`) instead of their user handle (`@someuser`), to notify this user about a build in the configured Slack workspace. For example:
 
 ```yaml
 notify:
@@ -250,7 +250,7 @@ notify:
 
 #### Step-level notifications
 
-When using the [Slack notification services](/docs/pipelines/integrations/other/slack), specify the user's user handle (for example, `@someuser`) to notify this user about this step's job in all Slack workspaces configured with this service type. For example:
+When using the [Slack notification services](/docs/pipelines/integrations/other/slack), specify the user's handle (for example, `@someuser`) to notify this user about this step's job, in all Slack workspaces for which this user has been configured with this service type. For example:
 
 ```yaml
 steps:
@@ -261,7 +261,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-When using the [Slack Workspace notification service](/docs/pipelines/integrations/other/slack-workspace), specify the user's user ID (for example, `U12AB3C456D`) instead of their user handle (`@someuser`), to notify this user about this step's job. For example:
+When using the [Slack Workspace notification service](/docs/pipelines/integrations/other/slack-workspace), specify the user's user ID (for example, `U12AB3C456D`) instead of their user handle (`@someuser`), to notify this user about this step's job in the configured Slack workspace. For example:
 
 ```yaml
 steps:
@@ -371,7 +371,7 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 > 📘
-> You can also send notifications with custom messages to specific users with the [user notification syntax for all workspaces](#slack-channel-and-direct-messages-notify-a-user-in-all-workspaces). Employ the appropriate user notification syntax based on your configured the Slack or Slack Workspace notification service/s.
+> You can also send notifications with custom messages to specific users with the relevant syntaxes mentioned in [Notify a user in all workspaces](#slack-channel-and-direct-messages-notify-a-user-in-all-workspaces). Employ the appropriate user notification syntax based on your configured the Slack or Slack Workspace notification service/s.
 
 ### Custom messages with user mentions
 
