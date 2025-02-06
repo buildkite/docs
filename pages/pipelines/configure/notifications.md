@@ -371,7 +371,7 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 > 📘
-> You can also send notifications with custom messages to specific users with the relevant syntaxes mentioned in [Notify a user in all workspaces](#slack-channel-and-direct-messages-notify-a-user-in-all-workspaces). Employ the appropriate user notification syntax based on your configured the Slack or Slack Workspace notification service/s.
+> You can also send notifications with custom messages to specific users with the relevant syntax mentioned in [Notify a user in all workspaces](#slack-channel-and-direct-messages-notify-a-user-in-all-workspaces). Employ the appropriate user notification syntax based on your configured the Slack or Slack Workspace notification service/s.
 
 ### Custom messages with user mentions
 
