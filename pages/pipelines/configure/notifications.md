@@ -198,7 +198,7 @@ You can notify a user in all workspaces configured through your Slack or Slack W
 
 #### Build-level notifications
 
-When using [Slack notification services](/docs/pipelines/integrations/other/slack), specify the user's handle (for example, `@someuser`) to notify this user about a build, in all Slack workspaces for which this user has been configured with this service type. For example:
+When using [Slack notification services](/docs/pipelines/integrations/other/slack), specify the user's handle (for example, `@someuser`) to notify this user about a build. The user will receive a notification in all Slack workspaces they have been configured for with this service type. For example:
 
 ```yaml
 notify:
@@ -250,7 +250,7 @@ notify:
 
 #### Step-level notifications
 
-When using the [Slack notification services](/docs/pipelines/integrations/other/slack), specify the user's handle (for example, `@someuser`) to notify this user about this step's job, in all Slack workspaces for which this user has been configured with this service type. For example:
+When using the [Slack notification services](/docs/pipelines/integrations/other/slack), specify the user's handle (for example, `@someuser`) to notify this user about this step's job. The user will receive a notification in all Slack workspaces they have been configured for with this service type. For example:
 
 ```yaml
 steps:
