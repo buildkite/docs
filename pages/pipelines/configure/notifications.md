@@ -274,7 +274,7 @@ steps:
 
 ### Notify a channel in one workspace
 
-You can notify one particular workspace and channel or workspace and user by specifying the workspace name.
+You can notify one particular workspace and channel by specifying the workspace name.
 
 Build-level notifications:
 
