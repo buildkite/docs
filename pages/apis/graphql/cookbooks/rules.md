@@ -78,6 +78,12 @@ mutation {
 }
 ```
 
+## Edit a rule
+
+Edit a rule. The value of the `value` field must be a JSON-encoded string.
+
+
+
 ## Delete a rule
 
 Delete a rule:
