@@ -14,13 +14,17 @@ To create a new rule using the Buildkite interface:
 
 1. In the **Pipelines** section, select **Rules** > **New Rule** to open its page.
 
-1. Under **Rule Type**, select the [type of rule](/docs/pipelines/rules#rule-types) to be created, that is, either **pipeline.trigger_build.pipeline** or **pipeline.artifacts_read.pipeline**.
+1. For **Rule Type**, select the [type of rule](/docs/pipelines/rules#rule-types) to be created, that is, either **pipeline.trigger_build.pipeline** or **pipeline.artifacts_read.pipeline**.
 
-1. Under **Rule Document**, specify the relevant values (either a pipeline UUID or a pipeline slug) for both the `source_pipeline` and `target_pipeline` pipelines, of your [**pipeline.trigger_build.pipeline**](/docs/pipelines/rules#rule-types-pipeline-dot-trigger-build-dot-pipeline) or [**pipeline.artifacts_read.pipeline**](/docs/pipelines/rules#rule-types-pipeline-dot-artifacts-read-dot-pipeline) rule. You can find the UUID values for these pipelines on the pipelines' respective **Settings** page under the **GraphQL API integration** section.
+1. Specify a short **Description** for the rule.
 
-1. Select **Submit**.
+1. In the **Rule Document** field:
+    * Specify the relevant values (either a pipeline UUID or a pipeline slug) for both the `source_pipeline` and `target_pipeline` pipelines, of your [**pipeline.trigger_build.pipeline**](/docs/pipelines/rules#rule-types-pipeline-dot-trigger-build-dot-pipeline) or [**pipeline.artifacts_read.pipeline**](/docs/pipelines/rules#rule-types-pipeline-dot-artifacts-read-dot-pipeline) rule. You can find the UUID values for these pipelines on the pipelines' respective **Settings** page under the **GraphQL API integration** section.
+    * Specify any optional conditions that must be met for the source pipeline to [trigger](/docs/pipelines/rules#conditions-trigger) or [access artifacts built by](/docs/pipelines/rules#conditions-artifacts) its target pipeline.
 
-    The rule is created and presented on the **Rules** page, with a description of the rule type and the relationship between both pipelines.
+1. Select **Create Rule**.
+
+    The rule is created and presented on the **Rules** page, with a brief description of the rule type and the relationship between both pipelines.
 
 ### Using the REST API
 
@@ -154,8 +158,29 @@ where:
 
 Rules can be edited by [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) using the [**Rules** page](#edit-a-rule-using-the-buildkite-interface), as well as the [GraphQL API's](#edit-a-rule-using-the-graphql-api) edit a rule feature.
 
+When editing a rule, you can modify its **Description** and **Rule Document** details, although a rule's type is fixed once it is [created](#create-a-rule) and it is not possible to modify this value.
+
 ### Using the Buildkite interface
 
+To create a new rule using the Buildkite interface:
+
+1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+
+1. In the **Pipelines** section, select **Rules** to access its page.
+
+1. Expand the existing rule to be edited.
+
+1. Select the **Edit** button to open the rule's **Edit Rule** page.
+
+1. If required, modify the rule's short **Description**.
+
+1. In the **Rule Document** field:
+    * Modify the relevant values (either a pipeline UUID or a pipeline slug) for both the `source_pipeline` and `target_pipeline` pipelines, of your [**pipeline.trigger_build.pipeline**](/docs/pipelines/rules#rule-types-pipeline-dot-trigger-build-dot-pipeline) or [**pipeline.artifacts_read.pipeline**](/docs/pipelines/rules#rule-types-pipeline-dot-artifacts-read-dot-pipeline) rule. You can find the UUID values for these pipelines on the pipelines' respective **Settings** page under the **GraphQL API integration** section.
+    * Modify any optional conditions that must be met for the source pipeline to [trigger](/docs/pipelines/rules#conditions-trigger) or [access artifacts built by](/docs/pipelines/rules#conditions-artifacts) its target pipeline.
+
+1. Select **Save Rule**.
+
+    The rule is updated and you are returned to the **Rules** page. The rule's **Description** and other details can be accessed when the rule is expanded.
 
 ### Using the GraphQL API
 
@@ -175,6 +200,8 @@ To delete a rule using the Buildkite interface:
 1. Expand the existing rule to be deleted.
 
 1. Select the **Delete** button to delete this rule.
+
+    **Note:** Exercise caution at this point as this action happens immediately without any warning message appearing after selecting this button.
 
 ### Using the REST API
 

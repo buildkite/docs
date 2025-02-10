@@ -254,7 +254,7 @@ To add a maintainer to a cluster:
 1. Select **Maintainers** > **Add Maintainer**.
 1. Select if the maintainer will either be a specific **User** or **Team** of users.
 1. Select the specific user or team from the drop-down list.
-1. Click **Add Maintainer** and the user or team is listed on the **Maintainers** page.
+1. Select **Add Maintainer** and the user or team is listed on the **Maintainers** page.
 
 To remove a maintainer from a cluster:
 
