@@ -77,7 +77,7 @@ where:
 
 ### Using the GraphQL API
 
-To [create a new rule](/docs/apis/graphql/cookbooks/rules#create-a-rule) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+To [create a new rule](/docs/apis/graphql/cookbooks/rules#create-a-rule) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation, where the contents of the `value` field must be a JSON-encoded string:
 
 ```graphql
 mutation {
@@ -94,10 +94,10 @@ mutation {
       targetType
       sourceType
       source {
-          ... on Pipeline {
-            uuid
-          }
+        ... on Pipeline {
+          uuid
         }
+      }
       target {
         ... on Pipeline {
           uuid
@@ -202,7 +202,7 @@ To edit an existing rule using the Buildkite interface:
 
 ### Using the GraphQL API
 
-To [edit an existing rule](/docs/apis/graphql/cookbooks/rules#edit-a-rule) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+To [edit an existing rule](/docs/apis/graphql/cookbooks/rules#edit-a-rule) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation, where the contents of the `value` field must be a JSON-encoded string:
 
 ```graphql
 mutation {
@@ -219,10 +219,10 @@ mutation {
       targetType
       sourceType
       source {
-          ... on Pipeline {
-            uuid
-          }
+        ... on Pipeline {
+          uuid
         }
+      }
       target {
         ... on Pipeline {
           uuid
