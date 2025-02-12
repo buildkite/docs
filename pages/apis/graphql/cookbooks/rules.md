@@ -93,7 +93,7 @@ mutation {
     description: "A optional, new short description for your rule",
     value: "{\"source_pipeline\":\"pipeline-uuid-or-slug\",\"target_pipeline\":\"pipeline-uuid-or-slug\",\"conditions\":[\"condition-1\",\"condition-2\"]}"
   }) {
-     rule {
+    rule {
       id
       type
       description
