@@ -376,7 +376,7 @@ where:
 
 ### Using the GraphQL API
 
-To [delete an existing rule](/docs/apis/graphql/cookbooks/rules#delete-a-rule) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+To [delete an existing rule](/docs/apis/graphql/cookbooks/rules#delete-a-rule) using the [GraphQL API](/docs/apis/graphql-api), use the `ruleDelete` mutation, based on the following example:
 
 ```graphql
 mutation {
