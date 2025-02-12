@@ -77,7 +77,7 @@ where:
 
 ### Using the GraphQL API
 
-To [create a new rule](/docs/apis/graphql/cookbooks/rules#create-a-rule) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation, where the contents of the `value` field must be a JSON-encoded string:
+To [create a new rule](/docs/apis/graphql/cookbooks/rules#create-a-rule) using the [GraphQL API](/docs/apis/graphql-api), use the `ruleCreate` mutation based on the following example, where the contents of the `value` field must be a JSON-encoded string:
 
 ```graphql
 mutation {
@@ -174,7 +174,7 @@ where:
 
 ## Edit a rule
 
-Rules can be edited by [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) using the [**Rules** page](#edit-a-rule-using-the-buildkite-interface), as well as the [GraphQL API's](#edit-a-rule-using-the-graphql-api) available `ruleUpdate` mutation.
+Rules can be edited by [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) using the [**Rules** page](#edit-a-rule-using-the-buildkite-interface), as well as the [GraphQL API's](#edit-a-rule-using-the-graphql-api) edit a rule feature.
 
 When editing a rule, you can modify its **Description** and **Rule Document** details, where the latter is contained within the `value` field of API requests, although a rule's type is fixed once it is [created](#create-a-rule) and its value cannot be modified.
 
@@ -202,7 +202,7 @@ To edit an existing rule using the Buildkite interface:
 
 ### Using the GraphQL API
 
-To [edit an existing rule](/docs/apis/graphql/cookbooks/rules#edit-a-rule) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation, where the contents of the `value` field must be a JSON-encoded string:
+To [edit an existing rule](/docs/apis/graphql/cookbooks/rules#edit-a-rule) using the [GraphQL API](/docs/apis/graphql-api), use the `ruleUpdate` mutation based on the following example, where the contents of the `value` field must be a JSON-encoded string:
 
 ```graphql
 mutation {
