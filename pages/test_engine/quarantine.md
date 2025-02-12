@@ -5,7 +5,7 @@ Customers on the [Enterprise plan](https://buildkite.com/pricing) have access to
 ## Configuring builds to use quarantine
 
 ### bktec
-The easiest way to respect test states in your builds is by using the [Buildkite Test Engine Client (bktec)](https://github.com/buildkite/test-engine-client). Bktec can automatically exclude quarantined tests from affecting test run results, preventing them from causing build failures. This leads to faster, more reliable builds with fewer retries.
+The easiest way to respect test states in your builds is by using the [Buildkite Test Engine Client (bktec)](https://github.com/buildkite/test-engine-client). bktec can automatically exclude quarantined tests from affecting test run results, preventing them from causing build failures. This leads to faster, more reliable builds with fewer retries.
 
 If you're using a supported test framework, bktec handles quarantined tests automatically—along with benefits like efficient test splitting and retry support.
 
