@@ -36,7 +36,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "rule": "pipeline.trigger_build.pipeline",
-    "description": "An short description for your rule",
+    "description": "A short description for your rule",
     "value": {
       "source_pipeline": "{pipeline-uuid-or-slug}",
       "target_pipeline": "{pipeline-uuid-or-slug}",
