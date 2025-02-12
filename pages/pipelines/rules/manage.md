@@ -174,7 +174,7 @@ where:
 
 ## Edit a rule
 
-Rules can be edited by [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) using the [**Rules** page](#edit-a-rule-using-the-buildkite-interface), as well as the [GraphQL API's](#edit-a-rule-using-the-graphql-api) edit a rule feature.
+Rules can be edited by [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) using the [**Rules** page](#edit-a-rule-using-the-buildkite-interface), as well as the [GraphQL API's](#edit-a-rule-using-the-graphql-api) available `ruleUpdate` mutation.
 
 When editing a rule, you can modify its **Description** and **Rule Document** details, where the latter is contained within the `value` field of API requests, although a rule's type is fixed once it is [created](#create-a-rule) and its value cannot be modified.
 
