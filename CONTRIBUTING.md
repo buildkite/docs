@@ -64,11 +64,11 @@ The rules enabled for this Markdown linting are defined in the [`.markdownlint.y
 
 #### Fix spelling errors
 
-The Buildkite Docs build pipeline uses [Vale](https://vale.sh/) to check for spelling errors, and builds will fail if a spelling error is encountered.
+The Buildkite Docs build pipeline uses [Vale](https://vale.sh/) to check for spelling errors, and builds will fail if a spelling error is encountered. Vale also checks for incorrect letter case handling, for example, Proper Nouns that should be treated as common nouns.
 
 If you need to add an exception to this (for example, you are referencing a new technology or tool that isn't in Vale's vocabulary), add this term verbatim to the [`./vale/styles/vocab.txt`](./vale/styles/vocab.txt) file, ensuring that the term is added in the correct alphabetical order within the file. Case is important but should be ignored with regard to alphabetical ordering within the file. This makes it easier to identify if an exception has already been added.
 
-If you encounter a spelling error within a heading, add this entry into the [`./vale/styles/Buildkite/h1-h6_sentence_case.yml`](./vale/styles/Buildkite/h1-h6_sentence_case.yml) file.
+If you encounter a spelling or letter case handling error within a heading, add this entry into the [`./vale/styles/Buildkite/h1-h6_sentence_case.yml`](./vale/styles/Buildkite/h1-h6_sentence_case.yml) file.
 
 #### Escape vale linting
 
