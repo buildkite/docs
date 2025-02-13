@@ -18,7 +18,7 @@ This command provides:
 
 ## Publish a package
 
-You can use two approaches to publish an apk package to your Alpine source registry——[`curl`](#publish-a-package-using-curl) or the [Buildkite CLI](#publish-a-package-using-the-buildkite-cli).
+You can use two approaches to publish an apk package to your Alpine source registry—[`curl`](#publish-a-package-using-curl) or the [Buildkite CLI](#publish-a-package-using-the-buildkite-cli).
 
 ### Using curl
 
