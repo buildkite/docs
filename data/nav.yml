@@ -519,7 +519,7 @@
         - name: "Export from JFrog"
           path: "package-registries/migration/from-jfrog-artifactory"
         - name: "Export from Cloudsmith"
-          path: "package-registries/migration/from-cloudsmith"          
+          path: "package-registries/migration/from-cloudsmith"
         - name: "Import exported packages"
           path: "package-registries/migration/import-to-package-registries"
     - name: "Security"
@@ -715,6 +715,8 @@
               path: "apis/rest-api/test-engine/suites"
             - name: "Tests"
               path: "apis/rest-api/test-engine/tests"
+            - name: "Quarantine"
+              path: "apis/rest-api/test-engine/quarantine"
     - name: "GraphQL"
       children:
         - name: Overview
