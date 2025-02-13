@@ -39,7 +39,7 @@ where:
 
 - `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload files to your file source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish files to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your file source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
-- `<path_to_file>` is the full path required to the file. If the file is located in the same directory that this command is running from, then no path is required.
+- `<path_to_file>` is the full path to the file, including the file's name. If the file is located in the same directory that this command is running from, then no path is required.
 
 For example, to upload the file `my-custom-app.ipa` from the current directory to the **My files** source registry in the **My organization** Buildkite organization, run the `curl` command:
 
@@ -51,7 +51,20 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 
 ### Using the Buildkite CLI
 
+The following [Buildkite CLI](/docs/platform/cli) command can also be used to publish a file to your file source registry from your local environment, once it has been [installed](/docs/platform/cli/installation) and [configured with an appropriate (registry write) token](/docs/platform/cli/configuration):
 
+```bash
+bk package push registry-slug path/to/file
+```
+
+where:
+
+- `registry-slug` is the slug of your file source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your file source registry from the **Registries** page.
+
+- `path/to/file` is the full path to the file, including the file's name. If the file is located in the same directory that this command is running from, then no path is required.
+
+> 📘
+> Ensure that the registry write token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish files to any source registry your user account has access to within your Buildkite organization.
 
 ## Access a file's details
 

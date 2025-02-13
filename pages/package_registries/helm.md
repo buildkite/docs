@@ -32,7 +32,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/helm_registry_slug' %>
 
-- `<path_to_file>` is the full path required to the chart file. If the file is located in the same directory that this command is running from, then no path is required.
+- `<path_to_file>` is the full path to the chart file, including the file's name. If the chart file is located in the same directory that this command is running from, then no path is required.
 
 - `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload charts to your Helm source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Helm source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 

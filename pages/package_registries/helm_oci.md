@@ -37,7 +37,7 @@ The following steps describe the process above:
     helm push {chart-filename.tgz} packages.buildkite.com/{org.slug}/{registry.slug}
     ```
 
-    where `{chart-filename.tgz}` is the filename of the chart to be published.
+    where `{chart-filename.tgz}` is the name of the chart file to be published.
 
 ## Access a chart's details
 

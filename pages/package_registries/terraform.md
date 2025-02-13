@@ -34,7 +34,7 @@ where:
 
 - `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload modules to your Terraform source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish modules and packages to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Terraform source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
-- `<path_to_file>` is the full path required to the module file. If the file is located in the same directory that this command is running from, then no path is required.
+- `<path_to_file>` is the full path to the module file, including the file's name. If the module file is located in the same directory that this command is running from, then no path is required.
 
 For example, to upload the file `my-terraform-module-1.0.1.tgz` from the current directory to the **My Terraform modules** source registry in the **My organization** Buildkite organization, run the `curl` command:
 
