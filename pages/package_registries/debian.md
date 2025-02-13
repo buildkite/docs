@@ -58,7 +58,7 @@ bk package push registry-slug path/to/deb/package.deb
 
 where:
 
-- `registry-slug` is the slug of your file source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your file source registry from the **Registries** page.
+- `registry-slug` is the slug of your Debian source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your file source registry from the **Registries** page.
 
 - `path/to/deb/package.deb` is the full path to the deb package, including the file's name. If the file is located in the same directory that this command is running from, then no path is required.
 
