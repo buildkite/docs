@@ -53,14 +53,14 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 The following [Buildkite CLI](/docs/platform/cli) command can also be used to publish a chart to your Helm source registry from your local environment, once it has been [installed](/docs/platform/cli/installation) and [configured with an appropriate (registry write) token](/docs/platform/cli/configuration):
 
 ```bash
-bk package push registry-slug path/to/deb/helm-chart.tgz
+bk package push registry-slug path/to/helm/chart.tgz
 ```
 
 where:
 
 - `registry-slug` is the slug of your Helm source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your file source registry from the **Registries** page.
 
-- `path/to/deb/helm-chart.tgz` is the full path to the chart, including the file's name. If the file is located in the same directory that this command is running from, then no path is required.
+- `path/to/helm/chart.tgz` is the full path to the chart, including the file's name. If the file is located in the same directory that this command is running from, then no path is required.
 
 > 📘
 > Ensure that the registry write token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization.

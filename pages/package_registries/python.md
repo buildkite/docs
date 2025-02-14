@@ -18,6 +18,10 @@ This command provides:
 
 ## Publish a package
 
+You can use two approaches to publish a Python package to your Python source registry—[`curl`](#publish-a-package-using-curl) or the [Buildkite CLI](#publish-a-package-using-the-buildkite-cli).
+
+### Using curl
+
 The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a Python package to your Python source registry:
 
 ```bash
@@ -43,6 +47,23 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
   -H "Authorization: Bearer $REPLACE_WITH_YOUR_REGISTRY_WRITE_TOKEN" \
   -F "file=@my-python-package-0.9.7b1.tar.gz"
 ```
+
+### Using the Buildkite CLI
+
+The following [Buildkite CLI](/docs/platform/cli) command can also be used to publish a Python package to your Python source registry from your local environment, once it has been [installed](/docs/platform/cli/installation) and [configured with an appropriate (registry write) token](/docs/platform/cli/configuration):
+
+```bash
+bk package push registry-slug path/to/python/package.tar.gz
+```
+
+where:
+
+- `registry-slug` is the slug of your Python source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your file source registry from the **Registries** page.
+
+- `path/to/python/package.tar.gz` is the full path to the Python package, including the file's name. If the file is located in the same directory that this command is running from, then no path is required.
+
+> 📘
+> Ensure that the registry write token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization.
 
 ## Access a package's details
 

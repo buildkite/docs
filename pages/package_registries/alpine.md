@@ -53,14 +53,14 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 The following [Buildkite CLI](/docs/platform/cli) command can also be used to publish an apk package to your Alpine source registry from your local environment, once it has been [installed](/docs/platform/cli/installation) and [configured with an appropriate (registry write) token](/docs/platform/cli/configuration):
 
 ```bash
-bk package push registry-slug path/to/apk/package.apk
+bk package push registry-slug path/to/alpine/package.apk
 ```
 
 where:
 
 - `registry-slug` is the slug of your Alpine source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your file source registry from the **Registries** page.
 
-- `path/to/apk/package.apk` is the full path to the apk package, including the file's name. If the file is located in the same directory that this command is running from, then no path is required.
+- `path/to/alpine/package.apk` is the full path to the apk package, including the file's name. If the file is located in the same directory that this command is running from, then no path is required.
 
 > 📘
 > Ensure that the registry write token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization.
