@@ -1,28 +1,42 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    actionpack (7.0.8.7)
-      actionview (= 7.0.8.7)
-      activesupport (= 7.0.8.7)
-      rack (~> 2.0, >= 2.2.4)
+    actionpack (7.1.5.1)
+      actionview (= 7.1.5.1)
+      activesupport (= 7.1.5.1)
+      nokogiri (>= 1.8.5)
+      racc
+      rack (>= 2.2.4)
+      rack-session (>= 1.0.1)
       rack-test (>= 0.6.3)
-      rails-dom-testing (~> 2.0)
-      rails-html-sanitizer (~> 1.0, >= 1.2.0)
-    actionview (7.0.8.7)
-      activesupport (= 7.0.8.7)
+      rails-dom-testing (~> 2.2)
+      rails-html-sanitizer (~> 1.6)
+    actionview (7.1.5.1)
+      activesupport (= 7.1.5.1)
       builder (~> 3.1)
-      erubi (~> 1.4)
-      rails-dom-testing (~> 2.0)
-      rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    activemodel (7.0.8.7)
-      activesupport (= 7.0.8.7)
-    activesupport (7.0.8.7)
+      erubi (~> 1.11)
+      rails-dom-testing (~> 2.2)
+      rails-html-sanitizer (~> 1.6)
+    activemodel (7.1.5.1)
+      activesupport (= 7.1.5.1)
+    activesupport (7.1.5.1)
+      base64
+      benchmark (>= 0.3)
+      bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
+      connection_pool (>= 2.2.5)
+      drb
       i18n (>= 1.6, < 2)
+      logger (>= 1.4.2)
       minitest (>= 5.1)
+      mutex_m
+      securerandom (>= 0.3)
       tzinfo (~> 2.0)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
+    base64 (0.2.0)
+    benchmark (0.4.0)
+    bigdecimal (3.1.9)
     bindex (0.8.1)
     bugsnag (6.21.0)
       concurrent-ruby (~> 1.0)
@@ -41,12 +55,15 @@ GEM
     coderay (1.1.3)
     commonmarker (0.23.10)
     concurrent-ruby (1.3.4)
+    connection_pool (2.5.0)
     crass (1.0.6)
+    date (3.4.1)
     diff-lcs (1.4.4)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
+    drb (2.2.1)
     dry-cli (1.0.0)
     erubi (1.13.1)
     escape_utils (1.2.1)
@@ -58,6 +75,12 @@ GEM
       graphql
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
+    io-console (0.8.0)
+    irb (1.15.1)
+      pp (>= 0.6.0)
+      rdoc (>= 4.0.0)
+      reline (>= 0.4.2)
+    logger (1.6.6)
     lograge (0.12.0)
       actionpack (>= 4)
       activesupport (>= 4)
@@ -71,13 +94,20 @@ GEM
     mini_mime (1.1.0)
     mini_portile2 (2.8.8)
     minitest (5.25.4)
+    mutex_m (0.3.0)
     nio4r (2.7.3)
     nokogiri (1.16.8)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
+    pp (0.6.2)
+      prettyprint
+    prettyprint (0.2.0)
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    psych (5.2.3)
+      date
+      stringio
     public_suffix (4.0.6)
     puma (5.6.9)
       nio4r (~> 2.0)
@@ -85,8 +115,13 @@ GEM
     rack (2.2.10)
     rack-proxy (0.7.6)
       rack
+    rack-session (1.0.2)
+      rack (< 3)
     rack-test (2.1.0)
       rack (>= 1.3)
+    rackup (1.0.1)
+      rack (< 3)
+      webrick
     rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
@@ -94,16 +129,21 @@ GEM
     rails-html-sanitizer (1.6.2)
       loofah (~> 2.21)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
-    railties (7.0.8.7)
-      actionpack (= 7.0.8.7)
-      activesupport (= 7.0.8.7)
-      method_source
+    railties (7.1.5.1)
+      actionpack (= 7.1.5.1)
+      activesupport (= 7.1.5.1)
+      irb
+      rackup (>= 1.0.0)
       rake (>= 12.2)
-      thor (~> 1.0)
-      zeitwerk (~> 2.5)
+      thor (~> 1.0, >= 1.2.2)
+      zeitwerk (~> 2.6)
     rake (13.2.1)
+    rdoc (6.12.0)
+      psych (>= 4.0.0)
     redcarpet (3.6.0)
     regexp_parser (2.1.1)
+    reline (0.6.0)
+      io-console (~> 0.5)
     request_store (1.5.0)
       rack (>= 1.4)
     rouge (3.30.0)
@@ -126,9 +166,11 @@ GEM
     rspec-support (3.10.2)
     rspec_junit_formatter (0.4.1)
       rspec-core (>= 2, < 4, != 2.12.0)
+    securerandom (0.4.1)
     sitemap_generator (6.3.0)
       builder (~> 3.0)
     stringex (2.8.5)
+    stringio (3.1.3)
     thor (1.3.2)
     turbo-rails (2.0.11)
       actionpack (>= 6.0.0)
@@ -147,6 +189,7 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webrick (1.9.1)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.7.1)
@@ -155,9 +198,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionpack (~> 7.0.8.7)
-  actionview (~> 7.0.8.7)
-  activesupport (~> 7.0.8.7)
+  actionpack (~> 7.1.5.1)
+  actionview (~> 7.1.5.1)
+  activesupport (~> 7.1.5.1)
   bugsnag
   buildkite-test_collector
   byebug
@@ -172,7 +215,7 @@ DEPENDENCIES
   matrix
   pry
   puma
-  railties (~> 7.0.8.7)
+  railties (~> 7.1.5.1)
   redcarpet
   rouge (= 3.30.0)
   rspec-rails
