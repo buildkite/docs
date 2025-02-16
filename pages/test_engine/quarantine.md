@@ -23,7 +23,7 @@ Suite admins can enable quarantine in suite settings, where they can manage avai
 <%= image "lifecycle-management.png", alt: "The UI for test state lifecycle management" %>
 
 ### Mute (recommended)
-Muted tests will still run in your pipeline builds but they are used as a "soft fail". This means that they do not affect the result of your build. Metadata about the the test will be collected in Test Engine.
+Muted tests will still run in your pipeline builds but they are used as a "soft fail". This means that they do not affect the result of your build. Metadata about the test will still be collected in Test Engine.
 
 ### Skip
 Skipped tests are not run during your pipeline builds. As these tests are not run, no data is recorded in Test Engine. So that metadata is still collected about these tests, we recommend only using `Skip` when you have a scheduled pipeline that is running skipped tests.
