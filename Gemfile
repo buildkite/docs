@@ -52,6 +52,9 @@ gem 'turbo-rails'
 # Sitemap
 gem 'sitemap_generator'
 
+# remove when we get to rails 8
+gem 'rack', '~> 2.0'
+
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
