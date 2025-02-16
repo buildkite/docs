@@ -11,7 +11,7 @@ RUN echo "--- :package: Installing system deps" \
     && echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache \
     # Install a few pre-reqs
     && apt-get update \
-    && apt-get install -y curl gnupg \
+    && apt-get install -y curl gnupg libyaml-dev \
     # Setup apt for GH cli
     && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
     && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
