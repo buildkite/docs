@@ -15,12 +15,7 @@ class Nav
 
   # Returns the current nav item
   def current_item(request)
-    return nil if request.path == "/docs"
-
-    item = route_map[request.path.sub("/docs/", "")]
-    raise ActionController::RoutingError.new("Missing navigation for #{request.path}") unless item
-
-    item
+    route_map[request.path.sub("/docs/", "")]
   end
 
   # Returns a hash of routes, indexed by path
