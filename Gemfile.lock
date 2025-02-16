@@ -1,26 +1,25 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    actionpack (7.2.2.1)
-      actionview (= 7.2.2.1)
-      activesupport (= 7.2.2.1)
+    actionpack (8.0.1)
+      actionview (= 8.0.1)
+      activesupport (= 8.0.1)
       nokogiri (>= 1.8.5)
-      racc
-      rack (>= 2.2.4, < 3.2)
+      rack (>= 2.2.4)
       rack-session (>= 1.0.1)
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
       useragent (~> 0.16)
-    actionview (7.2.2.1)
-      activesupport (= 7.2.2.1)
+    actionview (8.0.1)
+      activesupport (= 8.0.1)
       builder (~> 3.1)
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    activemodel (7.2.2.1)
-      activesupport (= 7.2.2.1)
-    activesupport (7.2.2.1)
+    activemodel (8.0.1)
+      activesupport (= 8.0.1)
+    activesupport (8.0.1)
       base64
       benchmark (>= 0.3)
       bigdecimal
@@ -32,6 +31,7 @@ GEM
       minitest (>= 5.1)
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
+      uri (>= 0.13.1)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     base64 (0.2.0)
@@ -128,9 +128,9 @@ GEM
     rails-html-sanitizer (1.6.2)
       loofah (~> 2.21)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
-    railties (7.2.2.1)
-      actionpack (= 7.2.2.1)
-      activesupport (= 7.2.2.1)
+    railties (8.0.1)
+      actionpack (= 8.0.1)
+      activesupport (= 8.0.1)
       irb (~> 1.13)
       rackup (>= 1.0.0)
       rake (>= 12.2)
@@ -176,9 +176,10 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    uri (1.0.2)
     useragent (0.16.11)
-    vite_rails (3.0.14)
-      railties (>= 5.1, < 8)
+    vite_rails (3.0.19)
+      railties (>= 5.1, < 9)
       vite_ruby (~> 3.0, >= 3.2.2)
     vite_ruby (3.3.0)
       dry-cli (>= 0.7, < 2)
@@ -198,9 +199,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionpack (~> 7.2.2.1)
-  actionview (~> 7.2.2.1)
-  activesupport (~> 7.2.2.1)
+  actionpack (~> 8.0.1)
+  actionview (~> 8.0.1)
+  activesupport (~> 8.0.1)
   bugsnag
   buildkite-test_collector
   byebug
@@ -215,7 +216,7 @@ DEPENDENCIES
   matrix
   pry
   puma
-  railties (~> 7.2.2.1)
+  railties (~> 8.0.1)
   redcarpet
   rouge (= 3.30.0)
   rspec-rails

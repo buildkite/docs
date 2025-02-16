@@ -6,10 +6,10 @@ ruby File.read(".ruby-version").strip
 source "https://rubygems.org"
 
 # Choo choo 🚝 (only include the Rails gems we need)
-gem "actionpack", "~> 7.2.2.1"
-gem "actionview", "~> 7.2.2.1"
-gem "activesupport", "~> 7.2.2.1"
-gem "railties", "~> 7.2.2.1"
+gem "actionpack", "~> 8.0.1"
+gem "actionview", "~> 8.0.1"
+gem "activesupport", "~> 8.0.1"
+gem "railties", "~> 8.0.1"
 
 # Use Puma as the app server
 gem "puma"
