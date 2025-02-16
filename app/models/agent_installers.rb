@@ -1,4 +1,4 @@
-AGENT_INSTALLERS = [
+AgentInstallers = [
   { title: "Ubuntu",
     url: "agent/v3/ubuntu" },
   { title: "Debian",
