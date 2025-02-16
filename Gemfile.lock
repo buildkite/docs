@@ -1,37 +1,37 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    actionpack (7.1.5.1)
-      actionview (= 7.1.5.1)
-      activesupport (= 7.1.5.1)
+    actionpack (7.2.2.1)
+      actionview (= 7.2.2.1)
+      activesupport (= 7.2.2.1)
       nokogiri (>= 1.8.5)
       racc
-      rack (>= 2.2.4)
+      rack (>= 2.2.4, < 3.2)
       rack-session (>= 1.0.1)
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    actionview (7.1.5.1)
-      activesupport (= 7.1.5.1)
+      useragent (~> 0.16)
+    actionview (7.2.2.1)
+      activesupport (= 7.2.2.1)
       builder (~> 3.1)
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    activemodel (7.1.5.1)
-      activesupport (= 7.1.5.1)
-    activesupport (7.1.5.1)
+    activemodel (7.2.2.1)
+      activesupport (= 7.2.2.1)
+    activesupport (7.2.2.1)
       base64
       benchmark (>= 0.3)
       bigdecimal
-      concurrent-ruby (~> 1.0, >= 1.0.2)
+      concurrent-ruby (~> 1.0, >= 1.3.1)
       connection_pool (>= 2.2.5)
       drb
       i18n (>= 1.6, < 2)
       logger (>= 1.4.2)
       minitest (>= 5.1)
-      mutex_m
       securerandom (>= 0.3)
-      tzinfo (~> 2.0)
+      tzinfo (~> 2.0, >= 2.0.5)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     base64 (0.2.0)
@@ -94,7 +94,6 @@ GEM
     mini_mime (1.1.0)
     mini_portile2 (2.8.8)
     minitest (5.25.4)
-    mutex_m (0.3.0)
     nio4r (2.7.3)
     nokogiri (1.16.8)
       mini_portile2 (~> 2.8.2)
@@ -129,10 +128,10 @@ GEM
     rails-html-sanitizer (1.6.2)
       loofah (~> 2.21)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
-    railties (7.1.5.1)
-      actionpack (= 7.1.5.1)
-      activesupport (= 7.1.5.1)
-      irb
+    railties (7.2.2.1)
+      actionpack (= 7.2.2.1)
+      activesupport (= 7.2.2.1)
+      irb (~> 1.13)
       rackup (>= 1.0.0)
       rake (>= 12.2)
       thor (~> 1.0, >= 1.2.2)
@@ -177,6 +176,7 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    useragent (0.16.11)
     vite_rails (3.0.14)
       railties (>= 5.1, < 8)
       vite_ruby (~> 3.0, >= 3.2.2)
@@ -198,9 +198,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionpack (~> 7.1.5.1)
-  actionview (~> 7.1.5.1)
-  activesupport (~> 7.1.5.1)
+  actionpack (~> 7.2.2.1)
+  actionview (~> 7.2.2.1)
+  activesupport (~> 7.2.2.1)
   bugsnag
   buildkite-test_collector
   byebug
@@ -215,7 +215,7 @@ DEPENDENCIES
   matrix
   pry
   puma
-  railties (~> 7.1.5.1)
+  railties (~> 7.2.2.1)
   redcarpet
   rouge (= 3.30.0)
   rspec-rails
