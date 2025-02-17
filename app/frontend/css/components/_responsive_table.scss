@@ -104,7 +104,10 @@
   }
 
   code {
-    overflow-wrap: normal;
+    overflow-wrap: break-word;
+    display: inline-block;
+    max-width: 30ch;
+    vertical-align: top;
   }
 
   &--single-column-rows {
