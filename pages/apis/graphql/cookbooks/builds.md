@@ -126,10 +126,16 @@ query {
 
 This query helps you understand how many job minutes you've used by looking at the number of builds. While not equivalent, there's a correlation between the number of builds and job minutes. So, looking at the number of builds in different periods gives you an idea of how the job minutes would compare in those periods.
 
+> 📘 Date format
+> In the below example, both `createdAtFrom` and `createdAtTo` fields of the `builds` sub-query contained within the `pipeline` parent query is required to be specified in <a href="/docs/apis/graphql/schemas/scalar/datetime">DateTime</a> format, which is an ISO-8601 encoded UTC date string.
+
 ```graphql
 query PipelineBuildCountForPeriod {
   pipeline(slug: "organization-slug") {
-    builds(createdAtFrom:"YYYY-MM-DD", createdAtTo:"YYYY-MM-DD") {
+    builds(
+      createdAtFrom:"YYYY-MM-DDTHH:mm:ss", 
+      createdAtTo:"YYYY-MM-DDTHH:mm:ss"
+    ) {
       count
       edges{
         node{
@@ -147,6 +153,9 @@ query PipelineBuildCountForPeriod {
 
 This query allows you to find all builds with the same state (for example, `running`) that were started within a certain time frame. For example, you could find all builds that started at a particular point and failed or are still running.
 
+> 📘 Date format
+> In the below example, both `createdAtFrom` and `createdAtTo` fields of the `builds` sub-query contained within the `organization` query is required to be specified in <a href="/docs/apis/graphql/schemas/scalar/datetime">DateTime</a> format, which is an ISO-8601 encoded UTC date string.
+
 ```graphql
 query {
   organization(slug: "organization-slug") {
@@ -157,8 +166,8 @@ query {
           slug
           builds(
             first: 10,
-            createdAtFrom: "YYYY-MM-DD",
-            createdAtTo: "YYYY-MM-DD",
+            createdAtFrom: "YYYY-MM-DDTHH:mm:ss",
+            createdAtTo: "YYYY-MM-DDTHH:mm:ss",
             state: RUNNING
           ) {
             edges {
@@ -192,12 +201,19 @@ query PipelineBuildCountForBranchQuery {
 }
 ```
 
-You can limit the results to a certain timeframe using `createdAtFrom` or `createdAtTo`.
+You can limit the results to a certain timeframe using `createdAtFrom` or `createdAtTo`:
+
+> 📘 Date format
+> In the below example, the `createdAtTo` field of the `build` sub-query contained within the `pipeline` query is required to be specified in <a href="/docs/apis/graphql/schemas/scalar/datetime">DateTime</a> format, which is an ISO-8601 encoded UTC date string.
+
 
 ```graphql
 query PipelineBuildCountForBranchQuery {
   pipeline(slug:"organization-slug/pipeline-slug") {
-    builds(branch:"branch-name", createdAtTo:"DateTime") {
+    builds(
+      branch:"branch-name", 
+      createdAtTo:"YYYY-MM-DDTHH:mm:ss"
+    ) {
       count
     }
   }
