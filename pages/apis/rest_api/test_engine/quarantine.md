@@ -1,7 +1,7 @@
 # Quarantine API
 Customers on the [Enterprise plan](https://buildkite.com/pricing) have access to the quarantine feature. [Contact our Sales department](mailto:sales@buildkite.com) to try it out.
 
-Before using the below APIs ensure that test state management is turned on for your suite, and the relevant states have been enabled for the quarantine lifecycle.
+Before using the below APIs ensure that test state management is turned on for your suite, and the relevant states have been enabled for the quarantine lifecycle. You can enable test state management from the "Test state" tab in the suite settings page.
 
 ## Update test state
 
