@@ -91,8 +91,8 @@ curl -H "Authorization: Bearer $TOKEN" \
     "id":"160988e4-836e-88ab-af45-22170a169e23",
     "url":"http://api.buildkite.com/v2/analytics/organizations/buildkite/suites/my-sample-suite/tests/160988e4-836e-88ab-af45-22170a169e23",
     "web_url":"http://buildkite.com/organizations/buildkite/analytics/suites/my-sample-suite/tests/160988e4-836e-88ab-af45-22170a169e23",
-    "scope":"",
-    "name":"flaky",
+    "scope":"Flaky test",
+    "name":"passes only on the second try on BK CI",
     "location":"flaky.spec.js:1",
     "file_name":"flaky.spec.js"
   }
@@ -116,8 +116,8 @@ curl -H "Authorization: Bearer $TOKEN" \
     "id":"160988e4-836e-88ab-af45-22170a169e23",
     "url":"http://api.buildkite.com/v2/analytics/organizations/buildkite/suites/my-sample-suite/tests/160988e4-836e-88ab-af45-22170a169e23",
     "web_url":"http://buildkite.com/organizations/buildkite/analytics/suites/my-sample-suite/tests/160988e4-836e-88ab-af45-22170a169e23",
-    "scope":"",
-    "name":"flaky",
+    "scope":"Flaky test",
+    "name":"passes only on the second try on BK CI",
     "location":"flaky.spec.js:1",
     "file_name":"flaky.spec.js"
   }
