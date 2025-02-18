@@ -283,7 +283,7 @@ OIDC tokens are JSON Web Tokens — [JWTs](https://datatracker.ietf.org/doc/html
 
 For Buildkite OIDC tokens used to integrate with Amazon Web Services (AWS), you can optionally include any of the supported claims in the [AWS session tag format required by the `AssumeRoleWithWebIdentity` operation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html#id_session-tags_adding-assume-role-idp).
 
-OIDC tokens to be used with AWS also typically have an audience of `sts.amazonaws.com`. For example, this command generates an AWS compatible OIDC token that includes the `organization_slug` and `organization_id`:
+These OIDC tokens also typically have an audience of `sts.amazonaws.com`. For example, this command generates an AWS compatible OIDC token that includes the `organization_slug` and `organization_id`:
 
 ```sh
 $ buildkite-agent oidc request-token --audience sts.amazonaws.com --aws-session-tag "organization_slug,organization_id"
