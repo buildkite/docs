@@ -2,7 +2,7 @@
 
 Customers on the [Enterprise plan](https://buildkite.com/pricing) can access Buildkite Test Engine's quarantine feature. Contact Buildkite sales at sales@buildkite.com to gain access to this feature and try it out.
 
-Before using the API calls on this page, ensure that test state management has been enabled for your suite (through your test suite's **Settings** > **Test state** page), and that the relevant **Lifecycle** states have been selected on this page.
+Before using the API calls on this page, ensure that test state management has been enabled for your suite (through your test suite's **Settings** > **Test state** page), and that the relevant **Lifecycle** states have been selected on this page. You can enable test state management from the "Test state" tab in the suite settings page.
 
 ## Update test state
 
@@ -91,8 +91,8 @@ curl -H "Authorization: Bearer $TOKEN" \
     "id":"160988e4-836e-88ab-af45-22170a169e23",
     "url":"http://api.buildkite.com/v2/analytics/organizations/buildkite/suites/my-sample-suite/tests/160988e4-836e-88ab-af45-22170a169e23",
     "web_url":"http://buildkite.com/organizations/buildkite/analytics/suites/my-sample-suite/tests/160988e4-836e-88ab-af45-22170a169e23",
-    "scope":"",
-    "name":"flaky",
+    "scope":"Flaky test",
+    "name":"passes only on the second try on BK CI",
     "location":"flaky.spec.js:1",
     "file_name":"flaky.spec.js"
   }
@@ -116,8 +116,8 @@ curl -H "Authorization: Bearer $TOKEN" \
     "id":"160988e4-836e-88ab-af45-22170a169e23",
     "url":"http://api.buildkite.com/v2/analytics/organizations/buildkite/suites/my-sample-suite/tests/160988e4-836e-88ab-af45-22170a169e23",
     "web_url":"http://buildkite.com/organizations/buildkite/analytics/suites/my-sample-suite/tests/160988e4-836e-88ab-af45-22170a169e23",
-    "scope":"",
-    "name":"flaky",
+    "scope":"Flaky test",
+    "name":"passes only on the second try on BK CI",
     "location":"flaky.spec.js:1",
     "file_name":"flaky.spec.js"
   }
