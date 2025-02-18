@@ -126,9 +126,6 @@ query {
 
 This query helps you understand how many job minutes you've used by looking at the number of builds. While not equivalent, there's a correlation between the number of builds and job minutes. So, looking at the number of builds in different periods gives you an idea of how the job minutes would compare in those periods.
 
-> 📘 Date format
-> In the below example, both `createdAtFrom` and `createdAtTo` fields of the `builds` sub-query contained within the `pipeline` parent query is required to be specified in <a href="/docs/apis/graphql/schemas/scalar/datetime">DateTime</a> format, which is an ISO-8601 encoded UTC date string.
-
 ```graphql
 query PipelineBuildCountForPeriod {
   pipeline(slug: "organization-slug") {
@@ -149,12 +146,12 @@ query PipelineBuildCountForPeriod {
 }
 ```
 
+> 📘 Date format
+> In this example, both the `createdAtFrom` and `createdAtTo` fields within the `builds` sub-query of the `pipeline` query must be specified in [DateTime](/docs/apis/graphql/schemas/scalar/datetime) format, which is an ISO-8601 encoded UTC date string.
+
 ## Get all builds with a certain state between two dates
 
 This query allows you to find all builds with the same state (for example, `running`) that were started within a certain time frame. For example, you could find all builds that started at a particular point and failed or are still running.
-
-> 📘 Date format
-> In the below example, both `createdAtFrom` and `createdAtTo` fields of the `builds` sub-query contained within the `organization` query is required to be specified in <a href="/docs/apis/graphql/schemas/scalar/datetime">DateTime</a> format, which is an ISO-8601 encoded UTC date string.
 
 ```graphql
 query {
@@ -187,6 +184,9 @@ query {
 }
 ```
 
+> 📘 Date format
+> In this example, both the `createdAtFrom` and `createdAtTo` fields within the `builds` sub-query of the `pipeline` query must be specified in [DateTime](/docs/apis/graphql/schemas/scalar/datetime) format, which is an ISO-8601 encoded UTC date string.
+
 ## Count the number of builds on a branch
 
 Count how many builds a pipeline has done for a given repository branch.
@@ -201,11 +201,7 @@ query PipelineBuildCountForBranchQuery {
 }
 ```
 
-You can limit the results to a certain timeframe using `createdAtFrom` or `createdAtTo`:
-
-> 📘 Date format
-> In the below example, the `createdAtTo` field of the `build` sub-query contained within the `pipeline` query is required to be specified in <a href="/docs/apis/graphql/schemas/scalar/datetime">DateTime</a> format, which is an ISO-8601 encoded UTC date string.
-
+You can limit the results to a certain timeframe using `createdAtFrom` or `createdAtTo`.
 
 ```graphql
 query PipelineBuildCountForBranchQuery {
@@ -219,6 +215,9 @@ query PipelineBuildCountForBranchQuery {
   }
 }
 ```
+
+> 📘 Date format
+> In this example, both the `createdAtTo` field within the `builds` sub-query of the `pipeline` query must be specified in [DateTime](/docs/apis/graphql/schemas/scalar/datetime) format, which is an ISO-8601 encoded UTC date string.
 
 ## Increase the next build number
 
