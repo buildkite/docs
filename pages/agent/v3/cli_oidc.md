@@ -289,7 +289,7 @@ OIDC tokens to be used with AWS also typically have an audience of `sts.amazonaw
 $ buildkite-agent oidc request-token --audience sts.amazonaws.com --aws-session-tag "organization_slug,organization_id"
 ```
 
-Additional information on using OIDC to integrate with AWS is available [here](/docs/pipelines/security/oidc/aws).
+Learn more about using Buildkite OIDC tokens with AWS in [OIDC with AWS](/docs/pipelines/security/oidc/aws).
 
 ### Example token contents
 
