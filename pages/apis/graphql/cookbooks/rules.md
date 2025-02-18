@@ -50,11 +50,53 @@ mutation {
   ruleCreate(input: {
     organizationId: "organization-id",
     type: "pipeline.trigger_build.pipeline",
-    value: "{\"source_pipeline\":\"{uuid-of-source-pipeline}\",\"target_pipeline\":\"{uuid-of-target-pipeline}\"}"
+    description: "An short description for your rule",
+    value: "{\"source_pipeline\":\"pipeline-uuid-or-slug\",\"target_pipeline\":\"pipeline-uuid-or-slug\",\"conditions\":[\"condition-1\",\"condition-2\"]}"
   }) {
-     rule {
+    rule {
       id
       type
+      description
+      targetType
+      sourceType
+      source {
+        ... on Pipeline {
+          uuid
+        }
+      }
+      target {
+        ... on Pipeline {
+          uuid
+        }
+      }
+      effect
+      action
+      createdBy {
+        id
+        name
+      }
+    }
+  }
+}
+
+```
+
+## Edit a rule
+
+Edit a rule. The value of the `value` field must be a JSON-encoded string.
+
+```graphql
+mutation {
+  ruleUpdate(input: {
+    organizationId: "organization-id",
+    id: "rule-id",
+    description: "An optional, new short description for your rule",
+    value: "{\"source_pipeline\":\"pipeline-uuid-or-slug\",\"target_pipeline\":\"pipeline-uuid-or-slug\",\"conditions\":[\"condition-1\",\"condition-2\"]}"
+  }) {
+    rule {
+      id
+      type
+      description
       targetType
       sourceType
       source {
