@@ -278,3 +278,51 @@ OIDC tokens are JSON Web Tokens — [JWTs](https://datatracker.ietf.org/doc/html
   "runner_environment": "buildkite-hosted"
 }
 ```
+
+## AWS session tags
+
+For OIDC tokens that will be used to integrate with Amazon Web Services (AWS), you can optionally include any of the supported claims in the [AWS Session Tag format](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html#id_session-tags_adding-assume-role-idp).
+
+OIDC tokens to be used with AWS also typically have an audience of `sts.amazonaws.com`. For example, this command generates an AWS compatible OIDC token that includes the `organization_slug` and `organization_id`:
+
+```sh
+$ buildkite-agent oidc request-token --audience sts.amazonaws.com --aws-session-tag "organization_slug,organization_id"
+```
+
+Additional information on using OIDC to integrate with AWS is available [here](/docs/pipelines/security/oidc/aws).
+
+### Example token contents
+
+When the `--aws-session-tag` flag has been used to generate an OIDC token, the contents includes a nested `https://aws.amazon.com/tags` claim:
+
+```json
+{
+  "iss": "https://agent.buildkite.com",
+  "sub": "organization:acme-inc:pipeline:super-duper-app:ref:refs/heads/main:commit:9f3182061f1e2cca4702c368cbc039b7dc9d4485:step:build",
+  "aud": "https://buildkite.com/acme-inc",
+  "iat": 1669014898,
+  "nbf": 1669014898,
+  "exp": 1669015198,
+  "organization_slug": "acme-inc",
+  "pipeline_slug": "super-duper-app",
+  "build_number": 1,
+  "build_branch": "main",
+  "build_tag": "v1.0.0",
+  "build_commit": "9f3182061f1e2cca4702c368cbc039b7dc9d4485",
+  "step_key": "build",
+  "job_id": "0184990a-477b-4fa8-9968-496074483cee",
+  "agent_id": "0184990a-4782-42b5-afc1-16715b10b8ff",
+  "build_source": "ui",
+  "runner_environment": "buildkite-hosted",
+  "https://aws.amazon.com/tags": {
+    "principal_tags": {
+      "organization_slug": [
+        "acme-inc"
+      ],
+      "organization_id": [
+        "f892efa9-103e-4d28-97a1-3b8616a0994d"
+      ]
+    }
+  }
+}
+```
