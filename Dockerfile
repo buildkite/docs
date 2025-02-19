@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:3.3.7-slim-bookworm@sha256:28be7382d3a1d6b86bd254aff1e08a5294aa82cc305a889781c4be49d36239ce
+ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:3.4.2-slim-bookworm@sha256:2864c6bfcf8fec6aecbdbf5bd7adcb8abe9342e28441a77704428decf59930fd
 ARG NODE_IMAGE=public.ecr.aws/docker/library/node:18-bookworm-slim@sha256:d2d8a6420c9fc6b7b403732d3a3c5395d016ebc4996f057aad1aded74202a476
 
 FROM $BASE_IMAGE AS builder
@@ -11,7 +11,7 @@ RUN echo "--- :package: Installing system deps" \
     && echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache \
     # Install a few pre-reqs
     && apt-get update \
-    && apt-get install -y curl gnupg \
+    && apt-get install -y curl gnupg libyaml-dev \
     # Setup apt for GH cli
     && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
     && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
