@@ -129,7 +129,7 @@ To create a new composite registry:
 
 When a [composite registry is created](#composite-registries-create-a-composite-registry), it has no configured [source registries](#create-a-source-registry) as upstreams. The only registry that may be configured is one of the official public registries, based on your composite registry's [package ecosystem](#manage-packages-in-a-source-registry):
 
-- Java (https://repo.maven.apache.org/maven2/)
+- Java (Maven) (`https://repo.maven.apache.org/maven2/`)
 - JavaScript (`https://registry.npmjs.org/`)
 - Python (`https://pypi.org/simple/`)
 
