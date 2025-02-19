@@ -64,6 +64,8 @@ where:
 
 <%= render_markdown partial: 'package_registries/buildkite_cli_additional_options' %>
 
+#### Token usage with the Buildkite CLI
+
 <%= render_markdown partial: 'package_registries/buildkite_cli_token_usage' %>
 
 ## Access a package's details
