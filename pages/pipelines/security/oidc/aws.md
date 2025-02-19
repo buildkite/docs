@@ -50,21 +50,24 @@ As part of this process:
                 "Principal": {
                     "Federated": "arn\:aws\:iam:\:AWS_ACCOUNT_ID\:oidc-provider/agent.buildkite.com"
                 },
-                "Action": "sts:AssumeRoleWithWebIdentity",
+                "Action": [
+                    "sts:TagSession",
+                    "sts:AssumeRoleWithWebIdentity"
+                ],
                 "Condition": {
                     "StringEquals": {
-                        "agent.buildkite.com:aud": "sts.amazonaws.com"
-                    },
-                    "StringLike": {
-                        "agent.buildkite.com:sub": "organization\:ORGANIZATION_SLUG\:pipeline:PIPELINE_SLUG\:ref\:REF\:commit\:BUILD_COMMIT\:step\:STEP_KEY"
-                    },
+                        "agent.buildkite.com:aud": "sts.amazonaws.com",
+                        "aws:RequestTag/organization_slug": "ORGANIZATION_SLUG",
+                        "aws:RequestTag/organization_id": "ORGANIZATION_ID",
+                        "aws:RequestTag/pipeline_slug": "PIPELINE_SLUG",
+                        "aws:RequestTag/build_branch": "BRANCH_NAME"
+                    }
                     "IpAddress": {
                         "aws:SourceIp": [
                             "AGENT_PUBLIC_IP_ONE",
                             "AGENT_PUBLIC_IP_TWO"
                         ]
                     }
-
                 }
             }
         ]
@@ -79,7 +82,7 @@ As part of this process:
 
 1. Modify the `Condition` section of the code snippet accordingly:
     1. Ensure the `StringEquals` subsection's _audience_ field name has a value that matches the **Audience** you [configured above](#step-1-set-up-an-oidc-provider-in-your-aws-account) (that is, `sts.amazonaws.com`). The _audience_ field name is your provider URL appended by `:aud`—`agent.buildkite.com:aud`.
-    1. Ensure the `StringLike` subsection's _subject_ field name has at least one value that matches the format: `organization:ORGANIZATION_SLUG:pipeline:PIPELINE_SLUG:ref:REF:commit:BUILD_COMMIT:step:STEP_KEY`, where the constituent fields of this line determine the conditions under which the IAM role is granted in exchange for the OIDC token. The _subject_ field name is your provider URL appended by `:sub`—`agent.buildkite.com:sub`. This value format is equivalent to the subject (`sub`) claim when [requesting for an OIDC token for the current job](/docs/agent/v3/cli-oidc#claims), and the IAM role is granted when the values specified in these constituent fields have been met. The _subject_ field values in your custom trust policy can be different to those specified by your OIDC token's subject claim value, making your trust policy either more restrictive or permissive. When formulating such a value, the following constituent field's value:
+    1. Ensure the `StringEquals` subsection's RequestTag fields have values match the Buildkite pipeline that will use this role: When formulating such values, the following constituent field's value:
         - `ORGANIZATION_SLUG` can be obtained:
 
             * From the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite.
@@ -90,6 +93,13 @@ As part of this process:
                 curl - X GET "https://api.buildkite.com/v2/organizations" \
                   -H "Authorization: Bearer $TOKEN"
                 ```
+
+            * From the `BUILDKITE_ORGANIZATION_SLUG` value displayed on the `Environment` tab of any job that ran in the organization
+        - `ORGANIZATION_ID` is a UUID and can be obtained:
+
+            * By running the same [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query used to obtain `ORGANIZATION_SLUG`
+
+            * From the `BUILDKITE_ORGANIZATION_ID` value displayed on the `Environment` tab of any job that ran in the organization
         - `PIPELINE_SLUG` (optional) can be obtained:
 
             * From the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite, then accessing the specific pipeline to be specified in the custom trust policy.
@@ -100,22 +110,14 @@ As part of this process:
                 curl - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
                   -H "Authorization: Bearer $TOKEN"
                 ```
-        - `REF` (optional) is usually replaced with `refs/heads/main` to restrict the IAM role's access to the `main` branch only, `refs/tags/*` to restrict the IAM role's access to tagged releases, or a wildcard `*` if the IAM role can be accessed and used by all branches.
-        - `BUILD_COMMIT` (optional) can be omitted and if so, is usually replaced with a single wildcard `*` at the end of the line.
-        - `STEP_KEY` (optional) can be omitted and if so, is usually replaced with a single wildcard `*` at the end of the line.
-
-    **Note:** When formulating your _subject_ field's value, you can replace any of the constituent field values above with a wildcard `*` to not set limits on those constituent fields.
-
-    For example, to allow the IAM role to be used for any pipeline in the Buildkite organization `example-org`, when building on any branch or tag, specify a single _subject_ field value of `organization:example-org:*`.
-
-    You can also allow this IAM role to be used with other pipelines, branches, commits and steps by specifying multiple comma-separated values for the `agent.buildkite.com:sub` _subject_ field.
+        - `BRANCH_NAME` (optional) is usually replaced with `main` to restrict the IAM role's access to the `main` branch only. If this RequestTag condition is omitted, the role can be assumed by a build on any branch
 
 1. If you have dedicated/static public IP addresses and wish to implement defense in depth against an attacker stealing an OIDC token to access your cloud environment, retain the `Condition` section's `IpAddress` subsection, and modify its values (`AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO`) with a list of your agent's IP addresses or [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) range or block.
 
     Only OIDC token exchange requests (for IAM roles) from Buildkite Agents with these IP addresses will be permitted.
 
 1. Verify that your custom trust policy is complete. The following example trust policy (noting that `AWS_ACCOUNT_ID` has not been specified) will only allow the exchange of an agent's OIDC tokens with IAM roles when:
-    * the Buildkite organization is `example-org`
+    * the Buildkite organization is `example-org`, with an ID of `ab3883b1-9596-4312-a09c-4527ae997ba7`
     * the Buildkite pipeline is `example-pipeline`
     * building on both the `main` branch and tagged releases
     * on Buildkite Agents whose IP addresses are either `192.0.2.0` or `198.51.100.0`
@@ -129,24 +131,24 @@ As part of this process:
                 "Principal": {
                     "Federated": "arn\:aws\:iam:\:AWS_ACCOUNT_ID\:oidc-provider/agent.buildkite.com"
                 },
-                "Action": "sts:AssumeRoleWithWebIdentity",
+                "Action": [
+                    "sts:TagSession",
+                    "sts:AssumeRoleWithWebIdentity"
+                ],
                 "Condition": {
                     "StringEquals": {
-                        "agent.buildkite.com:aud": "sts.amazonaws.com"
-                    },
-                    "StringLike": {
-                        "agent.buildkite.com:sub": [
-                            "organization\:example-org\:pipeline\:example-pipeline\:ref:refs/heads/main:*",
-                            "organization\:example-org\:pipeline\:example-pipeline\:ref:refs/tags/*:*"
-                        ]
-                    },
+                        "agent.buildkite.com:aud": "sts.amazonaws.com",
+                        "aws:RequestTag/organization_slug": "example-org",
+                        "aws:RequestTag/organization_id": "b3883b1-9596-4312-a09c-4527ae997ba7",
+                        "aws:RequestTag/pipeline_slug": "example-pipeline",
+                        "aws:RequestTag/build_branch": "main"
+                    }
                     "IpAddress": {
                         "aws:SourceIp": [
                             "192.0.2.0",
                             "198.51.100.0"
                         ]
                     }
-
                 }
             }
         ]
@@ -201,9 +203,49 @@ steps:
       AWS_DEFAULT_REGION: us-east-1
       AWS_REGION: us-east-1
     plugins:
-      - aws-assume-role-with-web-identity#v1.0.0:
+      - aws-assume-role-with-web-identity#v1.2.0:
           role-arn: arn\:aws\:iam::012345678910:role/example-pipeline-oidc-for-ssm
+          session-tags:
+            - organization_slug
+            - organization_id
+            - pipeline_slug
+            - build_branch
       - aws-ssm#v1.0.0:
           parameters:
             EXAMPLE_DEPLOY_KEY: /pipelines/example-pipeline/oidc-for-ssm/example-deploy-key
+```
+
+## CloudTrail
+
+A Buildkite job that successfully assumes an AWS IAM Role using this pattern will leave a record in AWS CloudTrail. That record will include details like the IP address of the agent that ran the job, plus the values for any of the `session-tags` that were listed in the `pipeline.yml`.
+
+Here is a fragment of a CloudTrail event with the relevant tags:
+
+```json
+{
+    "eventVersion": "1.08",
+    "userIdentity": {
+        "type": "WebIdentityUser",
+        "principalId": "arn\:aws\:iam::AWS_ACCOUNT_ID:oidc-provider/agent.buildkite.com\:sts.amazonaws.com\:organization\:example-org\:pipeline\:example-pipeline\:ref\:refs/heads/main\:commit\:1da177e4c3f41524e886b7f1b8a0c1fc7321cac2\:step\:",
+        "userName": "organization\:example-org\:pipeline\:example-pipeline\:ref\:refs/heads/main\:commit\:1da177e4c3f41524e886b7f1b8a0c1fc7321cac2\:step\:",
+        "identityProvider": "arn\:aws\:iam::AWS_ACCOUNT_ID:oidc-provider/agent.buildkite.com"
+    },
+    "eventTime": "2025-02-18T13:34:48Z",
+    "eventSource": "sts.amazonaws.com",
+    "eventName": "AssumeRoleWithWebIdentity",
+    "awsRegion": "us-east-1",
+    "sourceIPAddress": "192.0.2.0",
+    "userAgent": "aws-cli/2.13.0 Python/3.11.4 Linux/6.7.12 exe/x86_64.ubuntu.22 prompt/off command/sts.assume-role-with-web-identity",
+    "requestParameters": {
+        "principalTags": {
+            "pipeline_slug": "example-pipeline",
+            "organization_id": "ab3883b1-9596-4312-a09c-4527ae997ba7",
+            "organization_slug": "example-org",
+            "build_branch": "main"
+        },
+        "roleArn": "arn\:aws\:iam::AWS_ACCOUNT_ID:role/example-pipeline-oidc-for-ssm",
+        "roleSessionName": "buildkite-job-01951944-87df-428f-ad92-90709ee78a59"
+    },
+    ...
+}
 ```
