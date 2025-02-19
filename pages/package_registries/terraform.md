@@ -50,7 +50,7 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 
 ### Using the Buildkite CLI
 
-The following [Buildkite CLI](/docs/platform/cli) command can also be used to publish a module to your Terraform source registry from your local environment, once it has been [installed](/docs/platform/cli/installation) and [configured with an appropriate (registry write) token](/docs/platform/cli/configuration):
+The following [Buildkite CLI](/docs/platform/cli) command can also be used to publish a module to your Terraform source registry from your local environment, once it has been [installed](/docs/platform/cli/installation) and [configured with an appropriate token](#token-usage-with-the-buildkite-cli):
 
 ```bash
 bk package push registry-slug path/to/terraform/module.tgz
@@ -64,7 +64,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/buildkite_cli_additional_options' %>
 
-#### Token usage with the Buildkite CLI
+<h4 id="token-usage-with-the-buildkite-cli">Token usage with the Buildkite CLI</h4>
 
 <%= render_markdown partial: 'package_registries/buildkite_cli_token_usage' %>
 
