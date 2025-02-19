@@ -116,7 +116,7 @@ To create a new composite registry:
 1. Enter an optional **Description** for the registry. This description appears under the name of the registry item on the **Registries** page.
 1. Select the required registry **Ecosystem** based on the [package ecosystem](#manage-packages-in-a-source-registry) for this new registry.
 1. To allow your composite registry to download packages from your chosen package ecosystem's official public registry, select **Add official registry?** Doing this allows packages from one of the following official public registries to be downloaded and installed through your composite registry's URL, based on your composite registry's package ecosystem:
-    * Java (Maven) (https://repo.maven.apache.org/maven2/)
+    * Java (Maven) (`https://repo.maven.apache.org/maven2/`)
     * JavaScript (`https://registry.npmjs.org/`)
     * Python (`https://pypi.org/simple/`)
 
