@@ -486,6 +486,8 @@
               path: "test-engine/test-splitting/client-installation"
         - name: "Test ownership"
           path: "test-engine/test-ownership"
+        - name: "Quarantine"
+          path: "test-engine/quarantine"
         - name: "Flaky test assignment"
           path: "test-engine/flaky-test-assignment"
         - name: "Usage and billing"
