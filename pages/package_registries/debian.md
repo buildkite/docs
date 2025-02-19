@@ -27,18 +27,18 @@ The following `curl` command (which you'll need to modify as required before sub
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
   -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
-  -F "file=@<path_to_file>"
+  -F "file=@path/to/debian/package.deb"
 ```
 
 where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/debian_registry_slug' %>
+- `{registry.slug}` is the slug of your Debian source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your Debian source registry from the **Registries** page.
 
 - `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Debian source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Debian source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
-<%= render_markdown partial: 'package_registries/path_to_file' %>
+<%= render_markdown partial: 'package_registries/path_to_debian_package' %>
 
 For example, to upload the file `my-deb-package_1.0-2_amd64.deb` from the current directory to the **My Debian packages** source registry in the **My organization** Buildkite organization, run the `curl` command:
 
@@ -58,9 +58,9 @@ bk package push registry-slug path/to/debian/package.deb
 
 where:
 
-- `registry-slug` is the slug of your Debian source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your file source registry from the **Registries** page.
+- `registry-slug` is the slug of your Debian source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your Debian source registry from the **Registries** page.
 
-- `path/to/debian/package.deb` is the full path to the deb package, including the file's name. If the file is located in the same directory that this command is running from, then no path is required.
+<%= render_markdown partial: 'package_registries/path_to_debian_package' %>
 
 > 📘
 > Ensure that the registry write token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization.

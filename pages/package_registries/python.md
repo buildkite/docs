@@ -27,18 +27,18 @@ The following `curl` command (which you'll need to modify as required before sub
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
   -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
-  -F "file=@<path_to_file>"
+  -F "file=@path/to/python/package.tar.gz"
 ```
 
 where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/python_registry_slug' %>
+- `{registry.slug}` is the slug of your Python source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your Python source registry from the **Registries** page.
 
 - `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Python source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Python source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
-<%= render_markdown partial: 'package_registries/path_to_file' %>
+<%= render_markdown partial: 'package_registries/path_to_python_package' %>
 
 For example, to upload the file `my-python-package-0.9.7b1.tar.gz` from the current directory to the **My Python packages** source registry in the **My organization** Buildkite organization, run the `curl` command:
 
@@ -60,7 +60,7 @@ where:
 
 - `registry-slug` is the slug of your Python source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your file source registry from the **Registries** page.
 
-- `path/to/python/package.tar.gz` is the full path to the Python package, including the file's name. If the file is located in the same directory that this command is running from, then no path is required.
+<%= render_markdown partial: 'package_registries/path_to_python_package' %>
 
 > 📘
 > Ensure that the registry write token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization.

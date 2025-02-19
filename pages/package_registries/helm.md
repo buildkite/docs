@@ -27,7 +27,7 @@ The following `curl` command (which you'll need to modify as required before sub
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
   -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
-  -F "file=@<path_to_file>"
+  -F "file=@path/to/helm/chart.tgz"
 ```
 
 where:
@@ -36,9 +36,9 @@ where:
 
 <%= render_markdown partial: 'package_registries/helm_registry_slug' %>
 
-- `<path_to_file>` is the full path to the chart file, including the file's name. If the chart file is located in the same directory that this command is running from, then no path is required.
-
 - `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload charts to your Helm source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Helm source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
+
+<%= render_markdown partial: 'package_registries/path_to_helm_chart' %>
 
 For example, to upload the file `my-helm-chart-0.1.2.tgz` from the current directory to the **My Helm Charts** registry in the **My organization** Buildkite organization, run the `curl` command:
 
@@ -58,9 +58,9 @@ bk package push registry-slug path/to/helm/chart.tgz
 
 where:
 
-- `registry-slug` is the slug of your Helm source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your file source registry from the **Registries** page.
+- `registry-slug` is the slug of your Helm source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your Helm source registry from the **Registries** page.
 
-- `path/to/helm/chart.tgz` is the full path to the chart, including the file's name. If the file is located in the same directory that this command is running from, then no path is required.
+<%= render_markdown partial: 'package_registries/path_to_helm_chart' %>
 
 > 📘
 > Ensure that the registry write token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization.
