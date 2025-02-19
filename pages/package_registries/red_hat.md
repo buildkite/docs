@@ -62,8 +62,9 @@ where:
 
 <%= render_markdown partial: 'package_registries/path_to_red_hat_package' %>
 
-> 📘
-> Ensure that the registry write token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization.
+<%= render_markdown partial: 'package_registries/buildkite_cli_additional_options' %>
+
+<%= render_markdown partial: 'package_registries/buildkite_cli_token_usage' %>
 
 ## Access a package's details
 
