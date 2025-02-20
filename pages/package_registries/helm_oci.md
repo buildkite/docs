@@ -26,7 +26,7 @@ The following steps describe the process above:
     ```
 
     where:
-    * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload charts to your Helm OCI source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization.
+    * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload charts to your Helm OCI source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Helm OCI source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
     <%= render_markdown partial: 'package_registries/org_slug' %>
     <%= render_markdown partial: 'package_registries/helm_registry_slug' %>
@@ -37,7 +37,7 @@ The following steps describe the process above:
     helm push {chart-filename.tgz} packages.buildkite.com/{org.slug}/{registry.slug}
     ```
 
-    where `{chart-filename.tgz}` is the filename of the chart to be published.
+    where `{chart-filename.tgz}` is the name of the chart file to be published.
 
 ## Access a chart's details
 

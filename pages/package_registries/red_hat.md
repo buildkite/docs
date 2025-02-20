@@ -18,12 +18,16 @@ This command provides:
 
 ## Publish a package
 
+You can use two approaches to publish an RPM package to your Red Hat source registry—[`curl`](#publish-a-package-using-curl) or the [Buildkite CLI](#publish-a-package-using-the-buildkite-cli).
+
+### Using curl
+
 The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish an RPM package to your Red Hat source registry:
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
   -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
-  -F "file=@<path_to_file>"
+  -F "file=@path/to/red-hat/package.rpm"
 ```
 
 where:
@@ -32,9 +36,9 @@ where:
 
 <%= render_markdown partial: 'package_registries/red_hat_registry_slug' %>
 
-- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Red Hat source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization.
+- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Red Hat source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Red Hat source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
-<%= render_markdown partial: 'package_registries/path_to_file' %>
+<%= render_markdown partial: 'package_registries/path_to_red_hat_package' %>
 
 For example, to upload the file `my-red-hat-package_1.0-2.x86_64.rpm` from the current directory to the **My Red Hat packages** source registry in the **My organization** Buildkite organization, run the `curl` command:
 
@@ -43,6 +47,24 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
   -H "Authorization: Bearer $REPLACE_WITH_YOUR_REGISTRY_WRITE_TOKEN" \
   -F "file=@my-red-hat-package_1.0-2.x86_64.rpm"
 ```
+
+### Using the Buildkite CLI
+
+The following [Buildkite CLI](/docs/platform/cli) command can also be used to publish an RPM package to your Red Hat source registry from your local environment, once it has been [installed](/docs/platform/cli/installation) and [configured with an appropriate token](#token-usage-with-the-buildkite-cli):
+
+```bash
+bk package push registry-slug path/to/red-hat/package.rpm
+```
+
+where:
+
+- `registry-slug` is the slug of your Red Hat source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your file source registry from the **Registries** page.
+
+<%= render_markdown partial: 'package_registries/path_to_red_hat_package' %>
+
+<h4 id="token-usage-with-the-buildkite-cli">Token usage with the Buildkite CLI</h4>
+
+<%= render_markdown partial: 'package_registries/buildkite_cli_token_usage' %>
 
 ## Access a package's details
 

@@ -19,12 +19,16 @@ This command provides:
 
 ## Publish a file
 
+You can use two approaches to publish a file to your file source registry—[`curl`](#publish-a-file-using-curl) or the [Buildkite CLI](#publish-a-file-using-the-buildkite-cli).
+
+### Using curl
+
 The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a file to your file source registry:
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
   -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
-  -F "file=@<path_to_file>"
+  -F "file=@path/to/file"
 ```
 
 where:
@@ -33,9 +37,9 @@ where:
 
 - `{registry.slug}` is the slug of your file source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your file source registry from the **Registries** page.
 
-- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload files to your file source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish files to any source registry your user account has access to within your Buildkite organization.
+- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload files to your file source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your file source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
-- `<path_to_file>` is the full path required to the file. If the file is located in the same directory that this command is running from, then no path is required.
+<%= render_markdown partial: 'package_registries/path_to_file' %>
 
 For example, to upload the file `my-custom-app.ipa` from the current directory to the **My files** source registry in the **My organization** Buildkite organization, run the `curl` command:
 
@@ -44,6 +48,24 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
   -H "Authorization: Bearer $REPLACE_WITH_YOUR_REGISTRY_WRITE_TOKEN" \
   -F "file=@my-custom-app.ipa"
 ```
+
+### Using the Buildkite CLI
+
+The following [Buildkite CLI](/docs/platform/cli) command can also be used to publish a file to your file source registry from your local environment, once it has been [installed](/docs/platform/cli/installation) and [configured with an appropriate token](#token-usage-with-the-buildkite-cli):
+
+```bash
+bk package push registry-slug path/to/file
+```
+
+where:
+
+- `registry-slug` is the slug of your file source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your file source registry from the **Registries** page.
+
+<%= render_markdown partial: 'package_registries/path_to_file' %>
+
+<h4 id="token-usage-with-the-buildkite-cli">Token usage with the Buildkite CLI</h4>
+
+<%= render_markdown partial: 'package_registries/buildkite_cli_token_usage' %>
 
 ## Access a file's details
 
