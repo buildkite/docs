@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v6.33.0"
+Description: "Buildkite stack v6.34.0"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
 # autoscaling Buildkite Agent cluster. Use it to parallelize
@@ -200,7 +200,9 @@ Parameters:
   BuildkiteAgentScalerVersion:
     Description: Version of the buildkite-agent-scaler to use
     Type: String
-    Default: "1.8.0"
+    AllowedPattern: '^(?:(?:[2-9]|[1-9]\d+)\.\d+\.\d+|1\.(?:[1-9]\d+\.\d+|9\.[1-9]\d*))$'
+    ConstraintDescription: "The agent scaler release must be greater than 1.9.0 as a new parameter was introduced in 1.9.1"
+    Default: "1.9.1"
 
   LogRetentionDays:
     Type: Number
@@ -855,26 +857,26 @@ Mappings:
 
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-02b4239733b833a19, linuxarm64: ami-0ff8386350dd728f6, windows: ami-058f8b4545c2ef36a }
-    us-east-2 : { linuxamd64: ami-0c2bd99f692883a9c, linuxarm64: ami-0b912137f586867c4, windows: ami-02eb8311ae60efeee }
-    us-west-1 : { linuxamd64: ami-0eeab54825e8f8cd4, linuxarm64: ami-07204a84b9e9d3a67, windows: ami-047494d37dbdd0d27 }
-    us-west-2 : { linuxamd64: ami-069698a33eecf67ec, linuxarm64: ami-01ed863ebd99adf6c, windows: ami-0ae417186963d4695 }
-    af-south-1 : { linuxamd64: ami-0f119f19e5182bacd, linuxarm64: ami-043a9e33d8b7b71c5, windows: ami-0e58a86d47d29b5f1 }
-    ap-east-1 : { linuxamd64: ami-082d1b89d82128b75, linuxarm64: ami-01faf613cbbad8ae8, windows: ami-07ff620c44a04758a }
-    ap-south-1 : { linuxamd64: ami-075ef011169ea4103, linuxarm64: ami-06d63d50f6b68169a, windows: ami-0be4a665f1459ea49 }
-    ap-northeast-2 : { linuxamd64: ami-03696efb6a9c614d3, linuxarm64: ami-055bbbc7ed01dfaae, windows: ami-0048d49db83491b75 }
-    ap-northeast-1 : { linuxamd64: ami-083530dcc7775918e, linuxarm64: ami-02ef7f66ad87d107c, windows: ami-006e64576a3a097a2 }
-    ap-southeast-2 : { linuxamd64: ami-0a00fedfea4a487ea, linuxarm64: ami-0ee536401602d9001, windows: ami-0f991761ea172bdf3 }
-    ap-southeast-1 : { linuxamd64: ami-0cf4a52f8796baa13, linuxarm64: ami-0c11c037524eaa99c, windows: ami-0ff72c8e1250eee4d }
-    ca-central-1 : { linuxamd64: ami-0c880778197fc5a34, linuxarm64: ami-0d33e73ec19e8e301, windows: ami-067ad490b42d85c33 }
-    eu-central-1 : { linuxamd64: ami-0e3104ba540445c01, linuxarm64: ami-07054c18b272e4cb1, windows: ami-008eeb8abe9cbae75 }
-    eu-west-1 : { linuxamd64: ami-04639baef4f5f00aa, linuxarm64: ami-06c002385f79a7586, windows: ami-0146c3fc7a786a47b }
-    eu-west-2 : { linuxamd64: ami-0f9ad39f8679b8f7b, linuxarm64: ami-029e6c2f16ef7ad59, windows: ami-0b51f1592d25f1c42 }
-    eu-south-1 : { linuxamd64: ami-0d6a5d08c7b771ab5, linuxarm64: ami-0b3fa65d330c9e08f, windows: ami-072bf69514101fc6c }
-    eu-west-3 : { linuxamd64: ami-09bbacdb43f2443cc, linuxarm64: ami-05a7c0e90b21c5e65, windows: ami-0f240f81dc6acae99 }
-    eu-north-1 : { linuxamd64: ami-0f5ec44df229152a8, linuxarm64: ami-0db33b6ab1aab80a2, windows: ami-0aea4d22123d0cc1d }
-    me-south-1 : { linuxamd64: ami-005d94dc338a633d3, linuxarm64: ami-059694e2ff8366cb8, windows: ami-0d37748b98eaf82e2 }
-    sa-east-1 : { linuxamd64: ami-0843d62b620d5cc35, linuxarm64: ami-0f805c96a5338212c, windows: ami-0ab481d46c174f14a }
+    us-east-1 : { linuxamd64: ami-05183d4b158c34dce, linuxarm64: ami-0c8c1c769a58bb6d4, windows: ami-075ef5cab71200ff1 }
+    us-east-2 : { linuxamd64: ami-0165d9c8b1afa4cda, linuxarm64: ami-0428df4752e1633b8, windows: ami-0e7ede18c0d5cc983 }
+    us-west-1 : { linuxamd64: ami-00f02b357a5a6e36c, linuxarm64: ami-043325378fdfa1088, windows: ami-0c21245e0017b2656 }
+    us-west-2 : { linuxamd64: ami-027125f97c2a1d307, linuxarm64: ami-0993c143f98f0697b, windows: ami-08c141f30ab14f4b4 }
+    af-south-1 : { linuxamd64: ami-04fd9fcad835431d9, linuxarm64: ami-048579b6f4d681497, windows: ami-06430463c32711a27 }
+    ap-east-1 : { linuxamd64: ami-05cb938d385d5bda6, linuxarm64: ami-0f4c5ea02e451f144, windows: ami-0a41fd2fa313a8a6f }
+    ap-south-1 : { linuxamd64: ami-0d3cceb699934e3ef, linuxarm64: ami-048997b3a4cfa4479, windows: ami-01685077b14216221 }
+    ap-northeast-2 : { linuxamd64: ami-0e354070f8d059f9a, linuxarm64: ami-09624533736914f79, windows: ami-026ea3763c15ad793 }
+    ap-northeast-1 : { linuxamd64: ami-02baa58971f180429, linuxarm64: ami-00b97c38da4bc220f, windows: ami-068833cdbf5a76f84 }
+    ap-southeast-2 : { linuxamd64: ami-045786294af83ab0e, linuxarm64: ami-0d3cd19e4787f89d9, windows: ami-0b903d7c331dc746f }
+    ap-southeast-1 : { linuxamd64: ami-0452c4fcc5f3b7b57, linuxarm64: ami-04828d6b9aadf6bbe, windows: ami-002d7950c23f61d4f }
+    ca-central-1 : { linuxamd64: ami-00a8216f7e07f4cb7, linuxarm64: ami-01565cb007e52fa3e, windows: ami-0a8c3daca452f215e }
+    eu-central-1 : { linuxamd64: ami-0f43a64b62ae85457, linuxarm64: ami-0c068bca75ed3749d, windows: ami-030d84ebc1b3d4e8f }
+    eu-west-1 : { linuxamd64: ami-02fe7c0046141a0e2, linuxarm64: ami-012ed6a0c3cfdc8ea, windows: ami-09fb570628375f9fb }
+    eu-west-2 : { linuxamd64: ami-022a807fd47ddcd8c, linuxarm64: ami-0ff03613e8f79a68f, windows: ami-0657768007d61b4dc }
+    eu-south-1 : { linuxamd64: ami-0514405efa2c639d5, linuxarm64: ami-0f8f83e00f5cc2317, windows: ami-075c25b77e2257555 }
+    eu-west-3 : { linuxamd64: ami-0425d3ad3279c246b, linuxarm64: ami-06962d143f62d4d02, windows: ami-0b312514e6938314c }
+    eu-north-1 : { linuxamd64: ami-0171a289892a3e298, linuxarm64: ami-094a22f540c438ba7, windows: ami-0a4e09e04ca967b64 }
+    me-south-1 : { linuxamd64: ami-0d46210c0a8fe4e42, linuxarm64: ami-0a8c759b58fb2d886, windows: ami-062100aad8abded9c }
+    sa-east-1 : { linuxamd64: ami-0f7408d187088d556, linuxarm64: ami-049c4100cfe82e7fa, windows: ami-0f5087c54805d0c65 }
 
 Resources:
   Vpc:
@@ -1344,13 +1346,17 @@ Resources:
                   - Key: !Ref CostAllocationTagName
                     Value: !Ref CostAllocationTagValue
                   - !Ref "AWS::NoValue"
-            - !If
-              - UseCostAllocationTags
-              - ResourceType: volume
-                Tags:
+            - ResourceType: volume
+              Tags:
+                - Key: Name
+                  Value: !If [ UseStackNameForInstanceName, !Ref "AWS::StackName", !Ref InstanceName ]
+                - Key: BuildkiteQueue
+                  Value: !Ref BuildkiteQueue
+                - !If
+                  - UseCostAllocationTags
                   - Key: !Ref CostAllocationTagName
                     Value: !Ref CostAllocationTagValue
-              - !Ref "AWS::NoValue"
+                  - !Ref "AWS::NoValue"
 
           UserData:
             Fn::Base64: !If
@@ -1364,7 +1370,7 @@ Resources:
                   powershell -file C:\buildkite-agent\bin\bk-configure-docker.ps1 >> C:\buildkite-agent\elastic-stack.log
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v6.33.0"
+                  $Env:BUILDKITE_STACK_VERSION="v6.34.0"
                   $Env:BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}"
                   $Env:BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}"
                   $Env:BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}"
@@ -1427,7 +1433,7 @@ Resources:
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v6.33.0" \
+                  BUILDKITE_STACK_VERSION="v6.34.0" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
                   BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}" \
@@ -1632,6 +1638,7 @@ Resources:
         BuildkiteAgentTokenParameter: !If [ UseCustomerManagedParameterPath, !Ref BuildkiteAgentTokenParameterStorePath, !Ref BuildkiteAgentTokenParameter ]
         BuildkiteAgentTokenParameterStoreKMSKey: !If [ UseCustomerManagedKeyForParameterStore, !Ref BuildkiteAgentTokenParameterStoreKMSKey, "" ]
         RolePermissionsBoundaryARN: !If [ SetInstanceRolePermissionsBoundaryARN, !Ref InstanceRolePermissionsBoundaryARN, "" ]
+        AgentEndpoint: !Ref AgentEndpoint
         BuildkiteQueue: !Ref BuildkiteQueue
         AgentsPerInstance: !Ref AgentsPerInstance
         MinSize: !Ref MinSize

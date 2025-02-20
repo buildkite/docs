@@ -9,7 +9,9 @@ RSpec.feature "reading pages" do
       visit "/docs/agent/ubuntu"
       expect(page).to have_content("apt repository")
 
-      expect { visit "/docs/unknown" }.to raise_error(ActionController::RoutingError)
+      visit "/docs/unknown"
+      expect(page).to have_content("Routing Error")
+      expect(page).to have_content("The documentation page `unknown` does not exist")
     end
 
     it "has appropriate meta tags" do

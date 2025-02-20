@@ -16,6 +16,8 @@ If you're using a supported test framework, bktec handles quarantined tests auto
   env:
     BUILDKITE_TEST_ENGINE_TEST_RUNNER: rspec|jest|cypress|playwright
 ```
+### REST API
+If you are not using bktec, you can [query our API](/docs/apis/rest-api/test-engine/quarantine) to retrieve a list of tests that are currently skipped or muted and configure your build scripts accordingly.
 
 ## Lifecycle states
 

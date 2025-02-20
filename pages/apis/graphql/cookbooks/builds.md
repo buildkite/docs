@@ -129,7 +129,10 @@ This query helps you understand how many job minutes you've used by looking at t
 ```graphql
 query PipelineBuildCountForPeriod {
   pipeline(slug: "organization-slug") {
-    builds(createdAtFrom:"YYYY-MM-DD", createdAtTo:"YYYY-MM-DD") {
+    builds(
+      createdAtFrom:"YYYY-MM-DDTHH:mm:ss", 
+      createdAtTo:"YYYY-MM-DDTHH:mm:ss"
+    ) {
       count
       edges{
         node{
@@ -142,6 +145,9 @@ query PipelineBuildCountForPeriod {
   }
 }
 ```
+
+> 📘 Date format
+> In this example, both the `createdAtFrom` and `createdAtTo` fields within the `builds` sub-query of the `pipeline` query must be specified in [DateTime](/docs/apis/graphql/schemas/scalar/datetime) format, which is an ISO-8601 encoded UTC date string.
 
 ## Get all builds with a certain state between two dates
 
@@ -157,8 +163,8 @@ query {
           slug
           builds(
             first: 10,
-            createdAtFrom: "YYYY-MM-DD",
-            createdAtTo: "YYYY-MM-DD",
+            createdAtFrom: "YYYY-MM-DDTHH:mm:ss",
+            createdAtTo: "YYYY-MM-DDTHH:mm:ss",
             state: RUNNING
           ) {
             edges {
@@ -177,6 +183,9 @@ query {
   }
 }
 ```
+
+> 📘 Date format
+> In this example, both the `createdAtFrom` and `createdAtTo` fields within the `builds` sub-query of the `pipeline` query must be specified in [DateTime](/docs/apis/graphql/schemas/scalar/datetime) format, which is an ISO-8601 encoded UTC date string.
 
 ## Count the number of builds on a branch
 
@@ -197,12 +206,18 @@ You can limit the results to a certain timeframe using `createdAtFrom` or `creat
 ```graphql
 query PipelineBuildCountForBranchQuery {
   pipeline(slug:"organization-slug/pipeline-slug") {
-    builds(branch:"branch-name", createdAtTo:"DateTime") {
+    builds(
+      branch:"branch-name", 
+      createdAtTo:"YYYY-MM-DDTHH:mm:ss"
+    ) {
       count
     }
   }
 }
 ```
+
+> 📘 Date format
+> In this example, both the `createdAtTo` field within the `builds` sub-query of the `pipeline` query must be specified in [DateTime](/docs/apis/graphql/schemas/scalar/datetime) format, which is an ISO-8601 encoded UTC date string.
 
 ## Increase the next build number
 

@@ -711,6 +711,8 @@
           children:
             - name: "Flaky tests"
               path: "apis/rest-api/test-engine/flaky-tests"
+            - name: "Quarantine"
+              path: "apis/rest-api/test-engine/quarantine"
             - name: "Runs"
               path: "apis/rest-api/test-engine/runs"
             - name: "Suites"
