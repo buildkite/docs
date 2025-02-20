@@ -42,7 +42,7 @@ query getRules {
 ```
 
 > 📘 Rule access for organization members
-> Organization members are able to obtain rule data using the above `rules` query so long as both the source **and** target pipelines are associated to a [team](docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions) (or seperate teams) that the member is a part of. Both source and target pipelines will need to have, at minumum, the **Read Only** permission as part of the teams that the member is associated with.
+> Organization members are able to obtain rule data using the above `rules` query so long as both the source **and** target pipelines are associated to a [team](/docs/platform/team-management/permissions#manage-teams-and-permissions) (or seperate teams) that the member is a part of. Both source and target pipelines will need to have, at minumum, the **Read Only** permission as part of the teams that the member is associated with.
 
 
 ## Get a rule
@@ -80,7 +80,7 @@ query getRule {
 ```
 
 > 📘 Rule access for organization members
-> Organization members are able to obtain rule data using the above `node` query so long as both the source **and** target pipelines are associated to a [team](docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions) (or seperate teams) that the member is a part of. Both source and target pipelines will need to have, at minumum, the **Read Only** permission as part of the teams that the member is associated with.
+> Organization members are able to obtain rule data using the above `node` query so long as both the source **and** target pipelines are associated to a [team](/docs/platform/team-management/permissions#manage-teams-and-permissions) (or seperate teams) that the member is a part of. Both source and target pipelines will need to have, at minumum, the **Read Only** permission as part of the teams that the member is associated with.
 
 ## Create a rule
 
