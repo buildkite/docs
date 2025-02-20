@@ -42,12 +42,11 @@ query getRules {
 ```
 
 > 📘 Rule access for organization members
-> Organization members are able to obtain rule data using the above `rules` query so long as both the source **and** target pipelines are associated to a [team](/docs/platform/team-management/permissions#manage-teams-and-permissions) (or seperate teams) that the member is a part of. Both source and target pipelines will need to have, at minumum, the **Read Only** permission as part of the teams that the member is associated with.
-
+> A Buildkite organization's users are able to access rule data using the `rules` query above, as long as both the source _and_ target pipelines are associated to a [team](/docs/platform/team-management/permissions#manage-teams-and-permissions) (or separate teams) that these users are part of. Both the source and target pipelines must have, at a minimum, the **Read Only** permission as part of the teams that the member is associated with.
 
 ## Get a rule
 
-Get the details of a specific rule by using its `id` via a `node` query. The `id` of a rule can can be obtained:
+Get the details of a specific rule by using its `id` using a `node` query. The `id` of a rule can can be obtained:
 
 - From the **Rules** section of your **Organization Settings** page, accessed by selecting **Settings** in the global navigation of your organization in Buildkite. Then, expand the existing rule and copy its **GraphQL ID** value.
 - By running a [List rules GraphQL API query](/docs/apis/graphql/cookbooks/rules#list-rules) to obtain the rule's `id` in the response.
@@ -80,7 +79,7 @@ query getRule {
 ```
 
 > 📘 Rule access for organization members
-> Organization members are able to obtain rule data using the above `node` query so long as both the source **and** target pipelines are associated to a [team](/docs/platform/team-management/permissions#manage-teams-and-permissions) (or seperate teams) that the member is a part of. Both source and target pipelines will need to have, at minumum, the **Read Only** permission as part of the teams that the member is associated with.
+> A Buildkite organization's users are able to access rule data using the `node` query above, as long as both the source _and_ target pipelines are associated to a [team](/docs/platform/team-management/permissions#manage-teams-and-permissions) (or separate teams) that these users are part of. Both the source and target pipelines must have, at a minimum, the **Read Only** permission as part of the teams that the member is associated with.
 
 ## Create a rule
 
