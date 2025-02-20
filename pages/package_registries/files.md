@@ -63,8 +63,6 @@ where:
 
 <%= render_markdown partial: 'package_registries/path_to_file' %>
 
-<%= render_markdown partial: 'package_registries/buildkite_cli_additional_options' %>
-
 <h4 id="token-usage-with-the-buildkite-cli">Token usage with the Buildkite CLI</h4>
 
 <%= render_markdown partial: 'package_registries/buildkite_cli_token_usage' %>
