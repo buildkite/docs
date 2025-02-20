@@ -3,7 +3,7 @@ When [configuring the Buildkite CLI with an API access token](/docs/platform/cli
 You can also override this configured token by passing in a different token value using the `BUILDKITE_API_TOKEN` environment variable when running the `bk` command:
 
 ```bash
-BUILDKITE_API_TOKEN=$another_token_value bk packages push organization-slug/registry-slug --package-version 1.0.0 --package-path ./path/to/my/file.ext
+BUILDKITE_API_TOKEN=$another_token_value bk packages push organization-slug/registry-slug ./path/to/my/file.ext
 ```
 
 If you have [installed the Buildkite CLI](/docs/platform/cli/installation) to your [self-hosted agents](/docs/agent/v3/installation), you can also do the following:
