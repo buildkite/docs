@@ -42,7 +42,9 @@ query getRules {
 ```
 
 > 📘 Rule access for organization members
-> A Buildkite organization's users are able to access rule data using the `rules` query above, as long as both the source _and_ target pipelines are associated to a [team](/docs/platform/team-management/permissions#manage-teams-and-permissions) (or separate teams) that these users are part of. Both the source and target pipelines must have, at a minimum, the **Read Only** permission as part of the teams that the member is associated with.
+> Organization members are able to obtain rule data using the above `rules` query above, as long as the user has at least **Read Only** access to both the source _and_ target pipelines. Learn more about this in [Pipeline-level permissions](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions). 
+> A user typically gains **Read Only** permission to access pipelines if the user is associated with one or more [teams](/docs/platform/team-management/permissions#manage-teams-and-permissions) that the source and target pipelines (with at least the **Read Only** permission) are also associated with. 
+> Learn more about associating pipelines with teams in [Team-level permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
 
 ## Get a rule
 
@@ -79,7 +81,9 @@ query getRule {
 ```
 
 > 📘 Rule access for organization members
-> A Buildkite organization's users are able to access rule data using the `node` query above, as long as both the source _and_ target pipelines are associated to a [team](/docs/platform/team-management/permissions#manage-teams-and-permissions) (or separate teams) that these users are part of. Both the source and target pipelines must have, at a minimum, the **Read Only** permission as part of the teams that the member is associated with.
+> Organization members are able to obtain rule data using the above `node` query above, as long as the user has at least **Read Only** access to both the source _and_ target pipelines. Learn more about this in [Pipeline-level permissions](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions). 
+> A user typically gains **Read Only** permission to access pipelines if the user is associated with one or more [teams](/docs/platform/team-management/permissions#manage-teams-and-permissions) that the source and target pipelines (with at least the **Read Only** permission) are also associated with. 
+> Learn more about associating pipelines with teams in [Team-level permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
 
 ## Create a rule
 
