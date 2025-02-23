@@ -12,9 +12,9 @@ The new build page consists of three main components:
 - The main content area showing your selected view (Canvas, Table, or Waterfall)
 - A resizable detail panel for viewing logs and step information
 
-## Core Actions
+## Core actions
 
-### Navigating Your Build
+### Navigating your build
 
 The sidebar provides a hierarchical view of all steps in your build. Here's how to use it:
 
@@ -25,7 +25,7 @@ The sidebar provides a hierarchical view of all steps in your build. Here's how 
 
 (Screenshot: Sidebar with annotations showing these key interactions)
 
-### Viewing Step Details
+### Viewing step details
 
 When you select a step, its details appear in the resizable panel. You can:
 
@@ -35,7 +35,7 @@ When you select a step, its details appear in the resizable panel. You can:
 
 (Screenshot: Detail panel with tabs and resize handle highlighted)
 
-### Working with Triggered Builds
+### Working with triggered builds
 
 For steps that trigger other pipelines:
 
@@ -45,7 +45,7 @@ For steps that trigger other pipelines:
 
 (Screenshot: Expanded trigger step showing downstream build status)
 
-### Managing Retries
+### Managing retries
 
 When a step has been retried:
 
@@ -56,7 +56,7 @@ When a step has been retried:
 
 (Screenshot: Retry indicator and retry selection UI)
 
-## Keyboard Shortcuts
+## Keyboard shortcuts
 
 There is not yet a keyboard shortcut list on the page, but common shortcuts include:
 
@@ -66,7 +66,7 @@ There is not yet a keyboard shortcut list on the page, but common shortcuts incl
 - `esc`: Clear selection
 - `G`: toggle collapse groups
 
-## Tips for Large Builds
+## Tips for large builds
 
 For builds with many steps:
 
@@ -75,11 +75,11 @@ For builds with many steps:
 - Use search to quickly find specific steps
 - Group by state to organize large numbers of steps
 
-## Best Practices
+## Best practices
 
 - Keep the sidebar grouped by states and collapse lower priority states such as Waiting and Passed.
 - Use appropriate views for different tasks:
 
-    - Canvas: Understanding build structure and dependencies of specific steps. Not so useful when zoomed out on a large number of steps.
-    - Table: Detailed step information when you need to sort by duration or steps alphabetically
-    - Waterfall: Timing and performance analysis
+    * Canvas: Understanding build structure and dependencies of specific steps. Not so useful when zoomed out on a large number of steps.
+    * Table: Detailed step information when you need to sort by duration or steps alphabetically
+    * Waterfall: Timing and performance analysis
