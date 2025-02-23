@@ -107,7 +107,7 @@ You can upload the same TESTOWNERS file to multiple test suites. However, a test
 
 ## Viewing test ownership
 
-You can view the current test ownership rules for a test suite in your **Test Suite** > **Test Ownership** page.
+You can view the current test ownership rules for a test suite in your **Test Suite** > **Settings** > **Test ownership** page.
 
 <%= image "test-ownership.png", width: 1500/2, height: 1180/2, alt: "Suite settings page showing test ownership" %>
 
