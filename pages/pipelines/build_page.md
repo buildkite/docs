@@ -1,6 +1,6 @@
 # Build page
 
-Buildkite's new build page provides a more comprehensive and navigable experience for (enterprise-level?) customers with many, large and complex pipelines, making it easier for you to navigate to any aspect of a complex pipeline being built.
+Buildkite's new build page provides a more comprehensive and navigable experience for (enterprise-level?) customers with many, large and complex pipelines, making it easier for you to navigate to any specific aspect of a complex pipeline being built.
 
 ## Overview of the new build page with sidebar
 
