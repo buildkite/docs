@@ -288,3 +288,7 @@ To resume a queue:
 1. On the queue's details page, select **Resume Queue**.
 
     Jobs will resume being dispatched to the resumed queue as usual, including any jobs waiting to run.
+
+## Queue metrics
+
+Clusters provides additional, easy to access queue metrics that are available only for queues within a cluster. Learn more in [Queue metrics in clusters](/docs/pipelines/insights/queue-metrics).

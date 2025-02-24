@@ -312,10 +312,6 @@
           path: "pipelines/clusters/manage-clusters"
         - name: "Manage queues"
           path: "pipelines/clusters/manage-queues"
-        - name: "Queue metrics"
-          path: "pipelines/clusters/queue-metrics"
-        - name: "Cluster insights"
-          path: "pipelines/clusters/insights"
     - name: "Hosted agents"
       children:
         - name: "Overview"
@@ -388,6 +384,8 @@
       children:
         - name: "Waterfall view"
           path: "pipelines/insights/waterfall"
+        - name: "Cluster insights"
+          path: "pipelines/insights/clusters"
         - name: "Queue metrics"
           path: "pipelines/insights/queue-metrics"
     - name: "Integrations"
