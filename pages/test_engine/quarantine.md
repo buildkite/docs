@@ -8,7 +8,7 @@ Quarantining the flaky tests of a pipeline's builds allows the pipeline to be bu
 
 ## Lifecycle states
 
-Test suite administrators can enable quarantine in suite settings, where they can manage available lifecycle events.
+Test suite administrators can enable a test state in a test suite's **Settings**, by selecting the appropriate test states that quarantining can be based upon.
 
 <%= image "lifecycle-management.png", alt: "The UI for test state lifecycle management" %>
 
@@ -26,11 +26,15 @@ Users can enable automatic quarantine from the test suite settings, and define r
 
 <%= image "quarantine-instructions.png", alt: "The form with rules to apply or remove quarantine to failing tests." %>
 
+Automatic quarantining only mutes or skips flaky tests when the pipeline is built on the test suite's **Default branch**, as well as the merge queue branch.
+
 ## Manual quarantine
 
 Users can manually quarantine flaky tests via the dropdown menu in the Test show page or the test digest. This helps unblock builds affected by unreliable tests in real time.
 
 <%= image "manual-quarantine.png", alt: "Manually quarantine individual tests via the dropdown." %>
+
+Manually quarantining a test, mutes or skips that test when the pipeline is built on any branch.
 
 ## Configuring builds with quarantine
 
