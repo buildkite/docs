@@ -78,7 +78,7 @@ When your build is finished the agent will upload `build.log` as a build artifac
 <%= image("large_build_log.png", alt: "Screenshot of build log available in the Artifacts tab", size: '511x241') %>
 
 > 📘
-> The `tee` command almost always exits with a code of `0`, and so this command won't report on the preceding command. Capturing the status of the preceding command with `"${PIPESTATUS[0]}"` may help with error reporting.
+> The `tee` command almost always exits with a code of `0`, and so this command won't report on the preceding command. Capturing the status of the preceding command with `"${PIPESTATUS[0]}"` may help with error debugging.
 
 ## Filtering with grep
 
