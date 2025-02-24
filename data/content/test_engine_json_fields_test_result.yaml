@@ -68,3 +68,11 @@ fields:
   type: history object
   desc: |
       Read [History objects](/docs/test-analytics/importing-json#json-test-results-data-reference-history-objects)
+
+- name: tags
+  required: false
+  type: Key-value hash
+  desc: |
+      Read [Execution level custom tags](/docs/test-analytics/importing-json#json-test-results-data-reference-execution-level-custom-tags)
+  examples:
+      - "{ \"team\": \"foobar\", \"feature\": \"frontend\" }"
