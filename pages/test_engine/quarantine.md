@@ -26,7 +26,7 @@ Users can enable automatic quarantine from the test suite settings, and define r
 
 <%= image "quarantine-instructions.png", alt: "The form with rules to apply or remove quarantine to failing tests." %>
 
-Automatic quarantining only mutes or skips flaky tests when the pipeline is built on the test suite's **Default branch**, as well as the merge queue branch.
+Automatic quarantining only either mutes or skips flaky tests when the pipeline is built on the test suite's **Default branch**, as well as the merge queue branch.
 
 ## Manual quarantine
 
@@ -34,7 +34,7 @@ Users can manually quarantine flaky tests via the dropdown menu in the Test show
 
 <%= image "manual-quarantine.png", alt: "Manually quarantine individual tests via the dropdown." %>
 
-Manually quarantining a test, mutes or skips that test when the pipeline is built on any branch.
+Manually quarantining a test either mutes or skips that test when the pipeline is built on any branch.
 
 ## Configuring builds with quarantine
 
