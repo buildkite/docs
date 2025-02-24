@@ -200,6 +200,7 @@ readmes
 refetch
 refspec
 repo
+resizable
 routable
 rpmbuild
 RSpec
