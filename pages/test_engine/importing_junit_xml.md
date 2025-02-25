@@ -75,7 +75,7 @@ A single file can have a maximum of 5000 test results, and if that limit is exce
 #### Upload level custom tags
 
 You can configure custom tags on upload level, they will be applied server-side to all test executions in the upload.
-This is an efficient way to tag every execution with values that don't vary within one configuration, e.g. cloud environment details, language/framework versions.
+This is an efficient way to tag every execution with values that don't vary within one configuration—for example, cloud environment details, language/framework versions.
 
 ```sh
 curl \
