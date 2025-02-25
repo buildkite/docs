@@ -43,6 +43,7 @@ exceptions:
   - Basecamp Campfire
   - Bitbucket
   - Bitbucket Server
+  - bktec
   - BUILD_AND_READ
   - Buildkite
   - Buildkite Agent

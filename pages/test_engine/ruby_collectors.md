@@ -134,15 +134,38 @@ This would appear like so:
 
 This is particularly useful for tests that generate a lot of span data such as system/feature tests. You can find all _annotations_ under **Span timeline** at the bottom of every test execution page.
 
-## Tagging duplicate test executions with a prefix/suffix
+## Upload custom tags for test executions
 
-For builds that execute the same test multiple times it's possible to tag each test execution with a prefix/suffix describing the test environment. This is useful when running a test suite against multiple versions of Ruby or Rails. The prefix/suffix is set using these environment variables:
+You can group test executions using custom tags to compare metrics across different dimensions, such as:
 
+- Language versions
+- Cloud providers
+- Instance types
+- Team ownership
+- and more
+
+### Upload-level tags
+
+Tags configured on the collector will be included in each upload batch, and will be applied server-side to every execution therein. This is an efficient way to tag every execution with values that don't vary within one configuration, e.g. cloud environment details, language/framework versions. Upload-level tags may be overwritten by execution-level tags.
+
+```rb
+require "buildkite/test_collector"
+
+Buildkite::TestCollector.configure(
+  tags: {
+    "cloud.provider" => "aws",
+    "host.type" => "m5.4xlarge",
+    "language.version" => RUBY_VERSION,
+  }
+)
 ```
-BUILDKITE_ANALYTICS_EXECUTION_NAME_PREFIX
-BUILDKITE_ANALYTICS_EXECUTION_NAME_SUFFIX
-```
 
-When viewing a _test_ every _execution_ is displayed including its corresponding prefix/suffix. For example:
+### Execution-level tags
 
-<%= image "execution-prefix-suffix.png", width: 2048/2, height: 400/2, alt: "Screenshot of test executions including a prefix and suffix." %>
+For more granular control, you can programmatically add tags during individual test executions using the `.tag_execution` method. For example, with RSpec:
+
+```rb
+RSpec.configuration.before(:each) do |example|
+  Buildkite::TestCollector.tag_execution("team", example.metadata[:team])
+  Buildkite::TestCollector.tag_execution("feature", example.metadata[:feature])
+end

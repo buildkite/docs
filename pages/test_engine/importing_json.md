@@ -59,6 +59,23 @@ To learn more about passing through environment variables to `run_env`-prefixed 
 
 A single file can have a maximum of 5000 test results, and if that limit is exceeded then the upload request will fail. To upload more than 5000 test results for a single run upload multiple smaller files with the same `run_env[key]`.
 
+#### Upload level custom tags
+
+You can configure custom tags on upload level, they will be applied server-side to every execution therein.
+This is an efficient way to tag every execution with values that don't vary within one configuration, e.g. cloud environment details, language/framework versions.
+
+```sh
+curl \
+  -X POST \
+  ... \
+  -F "tags[team]=frontend" \
+  -F "tags[feature]=alchemy" \
+  https://analytics-api.buildkite.com/v1/uploads
+```
+
+Upload-level tags may be overwritten by execution-level tags, check [Execution level custom tags](/docs/test-analytics/importing-json#json-test-results-data-reference-execution-level-custom-tags).
+
+
 ## How to import JSON in CircleCI
 
 To import [JSON-formatted test results](#json-test-results-data-reference), make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data` body, including as many of the following fields as possible in the request body:
@@ -304,6 +321,19 @@ A history object represents the overall duration of the test run and contains de
   "children": [
     /* span objects */
   ]
+}
+```
+
+### Execution level custom tags
+
+You can add arbitrary tags to your test executions to enable custom grouping and filtering of test metrics.
+
+**Example:**
+
+```json
+{
+  "team": "frontend",
+  "feature": "a-great-feature"
 }
 ```
 

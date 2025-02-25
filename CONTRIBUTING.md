@@ -64,11 +64,11 @@ The rules enabled for this Markdown linting are defined in the [`.markdownlint.y
 
 #### Fix spelling errors
 
-The Buildkite Docs build pipeline uses [Vale](https://vale.sh/) to check for spelling errors, and builds will fail if a spelling error is encountered.
+The Buildkite Docs build pipeline uses [Vale](https://vale.sh/) to check for spelling errors, and builds will fail if a spelling error is encountered. Vale also checks for incorrect letter case handling, for example, Proper Nouns that should be treated as common nouns.
 
 If you need to add an exception to this (for example, you are referencing a new technology or tool that isn't in Vale's vocabulary), add this term verbatim to the [`./vale/styles/vocab.txt`](./vale/styles/vocab.txt) file, ensuring that the term is added in the correct alphabetical order within the file. Case is important but should be ignored with regard to alphabetical ordering within the file. This makes it easier to identify if an exception has already been added.
 
-If you encounter a spelling error within a heading, add this entry into the [`./vale/styles/Buildkite/h1-h6_sentence_case.yml`](./vale/styles/Buildkite/h1-h6_sentence_case.yml) file.
+If you encounter a spelling or letter case handling error within a heading, add this entry into the [`./vale/styles/Buildkite/h1-h6_sentence_case.yml`](./vale/styles/Buildkite/h1-h6_sentence_case.yml) file.
 
 #### Escape vale linting
 
@@ -247,7 +247,7 @@ This information was aggregated by going over the existing screenshots in the do
 
 Steps for adding add an image to a documentation page:
 1. Name the image file (lowercase, separate words using hyphens; add a number to the filename, for example, 'installation-1' if you are adding several images to the same page).
-1. Save the file into its corresponding `images` folder (that is, a sub-folder within `images` whose path matches that of the Markdown page's path within `pages` _including_ the file name of the Markdown page that this image file is referenced on). Create this sub-folder hierarchy if it doesn't yet exist within `images`.
+1. Save the file into its corresponding `images` folder. This folder is a sub-folder within `images` whose path matches that of the Markdown page's path within `pages`, _which includes_ the file name of Markdown page that this image file is referenced on, as the final subfolder. Create this sub-folder hierarchy if it doesn't yet exist within `images`.
 1. Compose relevant alt text for the image file using sentence case.
 1. Add your image file to the documentation page using the following code example `<%= image "your-image.png", width: 1110, height: 1110, alt: "Screenshot of Important Feature" %>`.
 For large images/screenshots taken on a retina screen, use `<%= image "your-image.png", width: 1110/2, height: 1110/2, alt: "Screenshot of Important Feature" %>`.
