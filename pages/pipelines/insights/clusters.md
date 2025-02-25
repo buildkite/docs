@@ -1,16 +1,43 @@
 # Cluster insights
 
-The **Cluster Insights** dashboard provides an overview on the overall "health" of the set-up of your clusters and their agents.
+The _cluster insights_ dashboard provides real-time visibility into your build infrastructure's performance, helping you monitor and optimize your CI/CD workflows. This guide explains how to use and interpret the dashboard's metrics to improve your build system's efficiency.
 
-To access the **Cluster Insights** dashboard:
+(Screenshot: full dashboard overview showing all metrics cards and graphs)
+
+## Before you start
+
+The dashboard is available to all users of your Buildkite organization, but requires your build infrastructure to be managed through [clusters](/docs/pipelines/clusters). If you're using [unclustered agents](/docs/agent/v3/unclustered-tokens) and want to access these insights, contact Buildkite support at support@buildkite.com to discuss migrating your workloads to clusters.
+
+## Access and using the cluster insights dashboard
+
+To access the cluster insights dashboard:
 
 1. Select **Agents** in the global navigation to access the **Clusters** page.
-1. Select the **View Cluster Insights** button to access the **Cluster Insights** dashboard.
+1. Select the **View Cluster Insights** button to access the cluster insights dashboard.
 
-From this dashboard, you can access the following tiles of information. Also be aware that for all tiles on the dashboard, you can optionally:
+## Dashboard overview
 
-- Filter the information by a specific cluster and a queue within this cluster, using the **All clusters** and **All cluster queues** filter drop-downs.
-- Restrict the historical data shown to 1 hour (the default), 24 hours, or 7 days.
+The cluster insights dashboard displays the following primary metrics that help you understand your CI system:
+
+- queue wait time
+- queued jobs waiting
+- agent utilization
+- job pass rate
+
+Each metric provides specific insights into your build infrastructure's health and efficiency.
+
+(Screenshot: top-level metrics cards showing the four main indicators)
+
+### View different cluster and queue scopes
+
+The cluster insights dashboard allows you to monitor your build infrastructure at different levels of detail.
+
+By default, the dashboard shows metrics across all clusters within your Buildkite organization. However, you can use the following drop-downs to filter these metrics:
+
+- **All clusters**—select a cluster to show only performance metrics associated with that cluster.
+- **All cluster queues**—if a specific cluster is selected, select a queue to show only the statistics and metrics associated with that cluster's queue.
+
+You can also select between **1h** (the default), **24h**, or **7d** to restrict the historical data shown to 1 hour, 24 hours, or 7 days, respectively.
 
 ## Queue wait time
 
