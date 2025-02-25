@@ -72,6 +72,22 @@ Currently, the errors returned contain no information on individual records that
 
 A single file can have a maximum of 5000 test results, and if that limit is exceeded then the upload request will fail. To upload more than 5000 test results for a single run upload multiple smaller files with the same `run_env[key]`.
 
+#### Upload level custom tags
+
+You can configure custom tags on upload level, they will be applied server-side to all test executions in the upload.
+This is an efficient way to tag every execution with values that don't vary within one configuration, e.g. cloud environment details, language/framework versions.
+
+```sh
+curl \
+  -X POST \
+  ... \
+  -F "tags[team]=frontend" \
+  -F "tags[feature]=alchemy" \
+  https://analytics-api.buildkite.com/v1/uploads
+```
+
+If you need to import per-execution level custom tags, consider using [JSON import](/docs/test-analytics/importing-json).
+
 ## How to import JUnit XML in CircleCI
 
 To import XML-formatted JUnit test results, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data`.
