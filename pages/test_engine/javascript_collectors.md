@@ -195,6 +195,50 @@ After completing these steps, you'll see the analytics of test executions on all
 
 If you don't see branch names, build numbers, or commit hashes in the Test Engine dashboard, see [CI environments](/docs/test-engine/ci-environments) to learn more about exporting your environment.
 
+## Upload custom tags for test executions
+
+You can group test executions using custom tags to compare metrics across different dimensions, such as:
+
+- Language versions
+- Cloud providers
+- Instance types
+- Team ownership
+- and more
+
+### Upload-level tags
+
+Tags configured on the collector will be included in each upload batch, and will be applied server-side to every execution therein. This is an efficient way to tag every execution with values that don't vary within one configuration, e.g. cloud environment details, language/framework versions. Upload-level tags may be overwritten by execution-level tags.
+
+```js
+// Jest -- jest.config.js
+reporters: [
+  'default',
+  'buildkite-test-collector/jest/reporter'
+  ['buildkite-test-collector/jest/reporter', {
+    tags: { hello: "jest" }
+  }]
+],
+
+// Cypress -- cypress.config.js
+reporterOptions: {
+  tags: { "hello": "cypress" },
+},
+
+// Mocha -- config.js
+"buildkiteTestCollectorMochaReporterReporterOptions": {
+  "tags": {
+    "hello": "mocha"
+  }
+}
+
+// Playwright -- playwright.config.js
+reporter: [
+  ['line'],
+  ['buildkite-test-collector/playwright/reporter', {
+    tags: { "hello": "playwright" }
+  }]
+],
+```
 ## Troubleshooting missing test executions and --forceExit
 
 Using the [`--forceExit`](https://jestjs.io/docs/cli#--forceexit) option when running Jest could result in missing test executions from Test Engine.
