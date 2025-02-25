@@ -60,7 +60,7 @@ The new build page works fully on all devices. You can use the **sidebar** to na
 
 The build page updates in real time when you follow a build. When you follow a build, you'll focus on active steps as they complete.
 
-Turn on follow mode by pressing `j` when the build is in progress on the canvas view. 
+Turn on follow mode by pressing `j` when the build is in progress on the canvas view.
 
 > **Tip:** Turn on the elevator music for some calming build vibes. Hear your build finish as the music stops.
 
