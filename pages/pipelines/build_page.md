@@ -68,7 +68,7 @@ Turn on follow mode by pressing `j` when the build is in progress on the canvas 
 
 ## Keyboard shortcuts
 
-We don't have a keyboard shortcut list on the page yet, but available common shortcuts include:
+We don't have a keyboard shortcut list on the page yet, but available shortcuts include:
 
 - `f`: Go to next failure.
 - `j`: Follow build (for in-progress builds, only on canvas view).
