@@ -1,85 +1,96 @@
 # Build page
 
-Buildkite's new build page provides a more comprehensive and navigable build experience for customers with many, large and complex pipelines. Using this page, you can easily navigate to any specific aspect of a complex pipeline being built.
+Buildkite's [new build page](https://buildkite.com/resources/changelog/266-introducing-the-new-build-page-engineered-for-scale-and-flexibility/) (2025) has been completely reimagined to support modern software delivery at any scale. The redesigned interface brings powerful navigation through a new sidebar and powerful table view, making it easier than ever to understand and navigate to any specific aspect of a large build.
 
 ## Overview of the new build page with sidebar
 
-(Screenshot here)
+<%= image "build_page_screenshot.png", alt: "Screenshot showing the parts of the build page" %>
 
 The new build page consists of three main components:
 
-- A sidebar listing all build steps
-- The main content area showing your selected view (Canvas, Table, or Waterfall)
-- A resizable detail panel for viewing logs and step information
+- A **sidebar** listing all build steps with **filters** at the top
+- The main **content area** showing your selected view (**Summary**, **Canvas**, **Table**, or **Waterfall**)
+- A resizable **step drawer** for viewing logs and step information
 
 ## Core actions
 
 ### Navigating your build
 
-The sidebar provides a hierarchical view of all steps in your build. Here's how to use it:
+The **sidebar** provides a hierarchical view of all steps in your build. Here's how to use it:
 
-- Expand/collapse groups by clicking the arrow icon
-- Filter steps by status using the status dropdown
-- Group steps by state to quickly find failed or cancelled steps
-- Click any step to view its details
+- Expand/collapse groups by clicking the arrow icon.
+- Filter steps by status using the status dropdown.
+- Group steps by state to see important steps (such as blocked or failed) at the top.
+- Click any step to view its details.
 
-(Screenshot: Sidebar with annotations showing these key interactions)
+<%= image "build_page_sidebar.png", alt: "Screenshot showing the sidebar" %>
 
 ### Viewing step details
 
 When you select a step, its details appear in the resizable panel. You can:
 
-1. Drag the panel edge to resize
-1. Switch between side and bottom panel positioning using the layout toggle
-1. View logs, artifacts, and environment variables in their respective tabs
+1. Drag the panel edge to resize.
+1. Switch between side and bottom panel positioning using the layout toggle.
+1. View logs, artifacts, and environment variables in their respective tabs.
 
-(Screenshot: Detail panel with tabs and resize handle highlighted)
-
-### Working with triggered builds
-
-For steps that trigger other pipelines:
-
-1. Click the trigger step to expand
-1. View the downstream build's progress directly in the panel
-1. Navigate to the full build by clicking "View Build"
-
-(Screenshot: Expanded trigger step showing downstream build status)
+<%= image "build_page_drawer.png", alt: "Screenshot showing the drawer and positioning buttons" %>
 
 ### Managing retries
 
-When a step has been retried:
+The **sidebar** now shows an indicator for steps with retries. You can access the retried jobs when you open the step details.
 
-1. Look for the retry indicator in the sidebar
-1. Click the step to view all retry attempts
-1. Use the retry selector to switch between attempts
-1. Compare logs between retries in the detail panel
+1. Look for the retry indicator in the sidebar.
+1. Click the step to view the latest attempt.
+1. Use the retry selector to switch between attempts.
 
-(Screenshot: Retry indicator and retry selection UI)
+### Using the table view
+
+The **Table** view provides a detailed list of all jobs in your build. It differs from the sidebar view by showing all jobs in the build, not just the steps. The table view displays all individual jobs in your build, while the sidebar collapses parallel jobs into single steps. This makes it ideal for viewing detailed job information.
+
+Here's how to use it:
+
+- Sort steps by clicking the column header (click three times to remove sorting).
+- Filter steps in the table via the sidebar filter.
+
+### Browsing your build on mobile
+
+The new build page works fully on all devices. You can use the **sidebar** to navigate to any step and view its details. We hide only the **Canvas**, **Table**, and **Waterfall** views on mobile.
+
+### Viewing builds in real time
+
+The build page updates in real time when you follow a build. When you follow a build, you'll focus on active steps as they complete.
+
+Turn on follow mode by pressing `j` when the build is in progress on the canvas view. 
+
+> **Tip:** Turn on the elevator music for some calming build vibes. Hear your build finish as the music stops.
+
+<%= image "build_page_follow.png", alt: "Screenshot showing the follow mode" %>
 
 ## Keyboard shortcuts
 
-There is not yet a keyboard shortcut list on the page, but common shortcuts include:
+We don't have a keyboard shortcut list on the page yet, but available common shortcuts include:
 
-- `j`/`k`: Navigate between steps
-- `f`: Go to failure
-- `j`: Follow build (for in progress builds)
-- `esc`: Clear selection
-- `G`: toggle collapse groups
+- `f`: Go to next failure.
+- `j`: Follow build (for in-progress builds, only on canvas view).
+- `esc`: Clear active step selection.
+- `g`: Toggle collapse groups (early experiment only).
 
 ## Tips for large builds
 
 For builds with many steps:
 
-- Use status filtering to focus on specific states
-- Collapse passed groups to reduce clutter
-- Use search to quickly find specific steps
-- Group by state to organize large numbers of steps
+- Use status filtering to focus on specific states.
+- Avoid the **Canvas** view on large builds unless you're debugging dependencies between steps.
+- Collapse passed and waiting groups to reduce clutter.
+- Use browser search to quickly find specific steps (search isn't built in yet).
+- Group by state to organize large numbers of steps.
 
 ## Best practices
 
 - Keep the sidebar grouped by states and collapse lower priority states such as Waiting and Passed.
+- If the build is in progress, use the `j` key to follow the build. Follow mode will automatically focus you on active steps. Plus, you can enable the music mode.
 - Use appropriate views for different tasks:
 
-    * Canvas: Understanding build structure and dependencies of specific steps. Not so useful when zoomed out on a large number of steps.
-    * Table: Detailed step information when you need to sort by duration or steps alphabetically
-    * Waterfall: Timing and performance analysis
+    * **Canvas**: Understanding build structure and dependencies of specific steps. Not so useful when zoomed out on a large number of steps.
+    * **Table**: Detailed step information when you need to sort by duration or steps alphabetically.
+    * **Waterfall**: Timing and performance analysis.
