@@ -1,4 +1,4 @@
-# CCMenu & CCTray
+# CCMenu and CCTray
 
 Buildkite has support for the `cctray.xml` format, allowing you to feed your build status updates into desktop tools such as CCMenu, or to create build dashboards to show the status of your builds and branches.
 
