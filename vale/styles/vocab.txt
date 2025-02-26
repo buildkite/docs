@@ -199,7 +199,9 @@ readme
 readmes
 refetch
 refspec
+reimagined
 repo
+resizable
 routable
 rpmbuild
 RSpec
