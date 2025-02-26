@@ -8,9 +8,9 @@ Buildkite's new build page has been completely reimagined to support modern soft
 
 The new build page consists of three main components:
 
-- A **sidebar** listing all build steps with **filters** at the top
-- The main **content area** showing your selected view (**Summary**, **Canvas**, **Table**, or **Waterfall**)
-- A resizable **step drawer** for viewing logs and step information
+- A _sidebar_ listing all build steps with **Filter**s at the top.
+- The main _content area_ showing your selected view (**Summary**, **Canvas**, **Table**, or **Waterfall**).
+- A resizable _step drawer_ for viewing logs and step information.
 
 ## Core actions
 
