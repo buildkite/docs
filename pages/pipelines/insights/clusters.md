@@ -133,7 +133,7 @@ To optimize your setup:
 - Review auto-scaling configurations.
 - Consider workload distribution changes.
 
-## Getting Help
+## Getting help
 
 The cluster insights dashboard helps identify potential issues, but sometimes you may need additional support. Buildkite offers several resources to help you optimize your build infrastructure:
 
