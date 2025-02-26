@@ -40,7 +40,7 @@ When you select a step, its details appear in the resizable panel. You can:
 The **sidebar** now shows an indicator for steps with retries. You can access the retried jobs when you open the step details.
 
 1. Look for the retry indicator in the sidebar.
-1. Click the step to view the latest attempt.
+1. Select the step to view the latest attempt.
 1. Use the retry selector to switch between attempts.
 
 ### Using the table view
