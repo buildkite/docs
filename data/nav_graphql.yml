@@ -36,6 +36,8 @@
     path: apis/graphql/schemas/query/pipelinetemplate
   - name: registry
     path: apis/graphql/schemas/query/registry
+  - name: rule
+    path: apis/graphql/schemas/query/rule
   - name: secret
     path: apis/graphql/schemas/query/secret
   - name: ssoProvider
@@ -46,6 +48,10 @@
     path: apis/graphql/schemas/query/viewer
 - name: Mutations
   children:
+  - name: agentPause
+    path: apis/graphql/schemas/mutation/agentpause
+  - name: agentResume
+    path: apis/graphql/schemas/mutation/agentresume
   - name: agentStop
     path: apis/graphql/schemas/mutation/agentstop
   - name: agentTokenCreate
@@ -218,8 +224,12 @@
     path: apis/graphql/schemas/object/agentconnection
   - name: AgentEdge
     path: apis/graphql/schemas/object/agentedge
+  - name: AgentPausePayload
+    path: apis/graphql/schemas/object/agentpausepayload
   - name: AgentPermissions
     path: apis/graphql/schemas/object/agentpermissions
+  - name: AgentResumePayload
+    path: apis/graphql/schemas/object/agentresumepayload
   - name: AgentStopPayload
     path: apis/graphql/schemas/object/agentstoppayload
   - name: AgentToken
@@ -1026,6 +1036,10 @@
   children:
   - name: APIAccessTokenCodeAuthorizeMutationInput
     path: apis/graphql/schemas/input-object/apiaccesstokencodeauthorizemutationinput
+  - name: AgentPauseInput
+    path: apis/graphql/schemas/input-object/agentpauseinput
+  - name: AgentResumeInput
+    path: apis/graphql/schemas/input-object/agentresumeinput
   - name: AgentStopInput
     path: apis/graphql/schemas/input-object/agentstopinput
   - name: AgentTokenCreateInput

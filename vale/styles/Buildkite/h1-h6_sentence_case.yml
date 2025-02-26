@@ -180,3 +180,4 @@ exceptions:
   - XCTest
   - XML
   - YAML
+  - VCR

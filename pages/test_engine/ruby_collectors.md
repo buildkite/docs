@@ -169,3 +169,13 @@ RSpec.configuration.before(:each) do |example|
   Buildkite::TestCollector.tag_execution("team", example.metadata[:team])
   Buildkite::TestCollector.tag_execution("feature", example.metadata[:feature])
 end
+```
+
+## VCR
+If your test suites use [VCR](https://github.com/vcr/vcr) to stub network requests, you'll need to modify the config to allow actual network requests to Test Engine.
+
+```ruby
+VCR.configure do |c|
+  c.ignore_hosts "analytics-api.buildkite.com"
+end
+```
