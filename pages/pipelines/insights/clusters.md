@@ -37,7 +37,11 @@ By default, the dashboard shows metrics across all clusters within your Buildkit
 - **All clusters**—select a cluster to show only performance metrics associated with that cluster.
 - **All cluster queues**—if a specific cluster is selected, select its queue to show only the statistics and metrics associated with that cluster's queue.
 
-You can also select between **1h** (the default), **24h**, or **7d** to restrict the historical data shown to 1 hour, 24 hours, or 7 days, respectively.
+### Time range analysis
+
+The dashboard offers three time ranges for metric analysis. You can select between **1h** (the default), **24h**, or **7d** to restrict the historical data shown to one hour, 24 hours, or seven days, respectively.
+
+The one-hour default view helps with immediate issue investigation, while the 24-hour and seven-day views enable analysis of daily patterns and longer-term trends.
 
 ## Understanding key metrics
 
@@ -106,3 +110,33 @@ When dealing with sustained lower pass rates:
 - Analyze patterns by cluster.
 - Review agent configurations.
 - Check for infrastructure issues.
+
+## Common scenarios and solutions
+
+### High queue times with normal utilization
+
+High queue times combined with normal utilization often point to inefficiencies in your build infrastructure. This pattern typically indicates agent capacity issues, job scheduling problems, or agent configuration mismatches.
+
+To address these issues:
+
+- Review agent scaling settings.
+- Check job queue distribution.
+- Analyze job resource requirements.
+
+### Spiky utilization patterns
+
+Spiky utilization patterns usually stem from scheduled job bunching or insufficient auto-scaling response. These patterns can impact build performance and resource efficiency.
+
+To optimize your setup:
+
+- Adjust job scheduling.
+- Review auto-scaling configurations.
+- Consider workload distribution changes.
+
+## Getting Help
+
+The cluster insights dashboard helps identify potential issues, but sometimes you may need additional support. Buildkite offers several resources to help you optimize your build infrastructure:
+
+- Review the [Buildkite Agents documentation](/docs/agent/v3).
+- Contact Buildkite support at support@buildkite.com for personalized guidance.
+- Join the [Buildkite community forum](https://forum.buildkite.community/) to discuss configurations with other users.
