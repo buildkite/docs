@@ -18,7 +18,7 @@ The new build page consists of three main components:
 
 The **sidebar** provides a hierarchical view of all steps in your build. Here's how to use it:
 
-- Expand/collapse groups by clicking the arrow icon.
+- Expand/collapse groups by selecting the arrow icon.
 - Filter steps by status using the status dropdown.
 - Group steps by state to see important steps (such as blocked or failed) at the top.
 - Click any step to view its details.
