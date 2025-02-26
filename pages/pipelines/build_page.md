@@ -37,7 +37,7 @@ When you select a step, its details appear in the resizable panel. You can:
 
 ### Managing retries
 
-The **sidebar** now shows an indicator for steps with retries. You can access the retried jobs when you open the step details.
+The sidebar now shows an indicator for steps with retries. You can access the retried jobs when you open the step details.
 
 1. Look for the retry indicator in the sidebar.
 1. Select the step to view the latest attempt.
@@ -45,16 +45,16 @@ The **sidebar** now shows an indicator for steps with retries. You can access th
 
 ### Using the table view
 
-The **Table** view provides a detailed list of all jobs in your build. It differs from the sidebar view by showing all jobs in the build, not just the steps. The table view displays all individual jobs in your build, while the sidebar collapses parallel jobs into single steps. This makes it ideal for viewing detailed job information.
+The **Table** view provides a detailed list of all jobs in your build. This view differs from the sidebar view by showing all jobs in the build, not just the steps. The table view displays all individual jobs in your build, while the sidebar collapses parallel jobs into single steps. This makes it ideal for viewing detailed job information.
 
 Here's how to use it:
 
-- Sort steps by clicking the column header (click three times to remove sorting).
+- Sort steps by selecting the column header (select three times to remove sorting).
 - Filter steps in the table via the sidebar filter.
 
 ### Browsing your build on mobile
 
-The new build page works fully on all devices. You can use the **sidebar** to navigate to any step and view its details. We hide only the **Canvas**, **Table**, and **Waterfall** views on mobile.
+The new build page works fully on all devices. You can use the sidebar to navigate to any step and view its details. On mobile devices, only the **Canvas**, **Table**, and **Waterfall** views are hidden.
 
 ### Viewing builds in real time
 
@@ -62,13 +62,14 @@ The build page updates in real time when you follow a build. When you follow a b
 
 Turn on follow mode by pressing `j` when the build is in progress on the canvas view.
 
-> **Tip:** Turn on the elevator music for some calming build vibes. Hear your build finish as the music stops.
+> 📘
+> Turn on the elevator music for some calming build vibes. Hear your build finish as the music stops.
 
 <%= image "build_page_follow.png", alt: "Screenshot showing the follow mode" %>
 
 ## Keyboard shortcuts
 
-We don't have a keyboard shortcut list on the page yet, but available shortcuts include:
+The following keyboard shortcuts are currently available:
 
 - `f`: Go to next failure.
 - `j`: Follow build (for in-progress builds, only on canvas view).
@@ -87,10 +88,10 @@ For builds with many steps:
 
 ## Best practices
 
-- Keep the sidebar grouped by states and collapse lower priority states such as Waiting and Passed.
-- If the build is in progress, use the `j` key to follow the build. Follow mode will automatically focus you on active steps. Plus, you can enable the music mode.
+- Keep the sidebar grouped by states and collapse lower priority states such as **Waiting** and **Passed**.
+- If the build is in progress, use the `j` key to follow the build. Follow mode will automatically focus you on active steps. You can also enable the music mode.
 - Use appropriate views for different tasks:
 
-    * **Canvas**: Understanding build structure and dependencies of specific steps. Not so useful when zoomed out on a large number of steps.
+    * **Canvas**: Understanding build structure and dependencies of specific steps. Be aware that this view is not as useful when zoomed out on a large number of steps.
     * **Table**: Detailed step information when you need to sort by duration or steps alphabetically.
     * **Waterfall**: Timing and performance analysis.
