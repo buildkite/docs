@@ -1,6 +1,6 @@
 # Build page
 
-Buildkite's [new build page](https://buildkite.com/resources/changelog/266-introducing-the-new-build-page-engineered-for-scale-and-flexibility/) (2025) has been completely reimagined to support modern software delivery at any scale. The redesigned interface brings powerful navigation through a new sidebar and powerful table view, making it easier than ever to understand and navigate to any specific aspect of a large build.
+Buildkite's new build page has been completely reimagined to support modern software delivery at any scale. The redesigned interface brings powerful navigation through a new sidebar and a detailed table view, making it easier than ever to understand and navigate to any specific aspect of a large build.
 
 ## Overview of the new build page with sidebar
 
