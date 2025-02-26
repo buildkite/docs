@@ -30,7 +30,7 @@ Automatic quarantining tests only either mutes or skips [flaky tests](/docs/test
 
 ## Manual quarantine
 
-Users can manually quarantine flaky tests via the drop-down menu within the test's page itself or the test digest. This helps unblock builds affected by unreliable tests in real time.
+Users can manually quarantine flaky tests via the dropdown menu within the test's page itself or the test digest. This helps unblock builds affected by unreliable tests in real time.
 
 <%= image "manual-quarantine.png", alt: "Manually quarantine individual tests via the dropdown." %>
 

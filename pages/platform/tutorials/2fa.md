@@ -10,7 +10,7 @@ Once 2FA is enabled on your Buildkite account, the only way to log in to your ac
 
 ## Setting up two-factor authentication
 
-You can set up two-factor authentication in the Buildkite dashboard. To do it, select **Personal Settings** in the drop-down menu under your profile picture.
+You can set up two-factor authentication in the Buildkite dashboard. To do it, select **Personal Settings** in the dropdown menu under your profile picture.
 
 <%= image "2fa-1.png", width: 710, height: 262, alt: "Screenshot of Personal Settings Button" %>
 
