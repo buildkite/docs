@@ -6,9 +6,6 @@ Customers on the [Pro and Enterprise plans](https://buildkite.com/pricing) can a
 
 Test ownership is managed via team assignments in a TESTOWNERS file. The team that is the default owner of a test [will be automatically assigned flaky tests](/docs/test-engine/flaky-test-assignment) to triage.
 
-> 🚧 Buildkite test ownership is currently in private beta
-> Please reach out to our support team to register for early access.
-
 ## TESTOWNERS file format
 
 A TESTOWNERS file uses Buildkite team slugs instead of user names. Your team slug will be your team name in [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case). You can view your teams in your organization settings, or fetch them from our API:
