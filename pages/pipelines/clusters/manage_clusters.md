@@ -392,3 +392,7 @@ where:
 <%= render_markdown partial: 'apis/descriptions/graphql_cluster_id' %>
 
 <!-- ## Delete a cluster -->
+
+## Cluster insights
+
+The cluster insights page provides an overview on the overall health of your cluster and agent set-up. Learn more in [Cluster insights](/docs/pipelines/insights/clusters).
