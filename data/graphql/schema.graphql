@@ -383,6 +383,16 @@ Permissions information about what actions the current user can do against this 
 """
 type AgentPermissions {
   """
+  Whether the user can pause job dispatch to the agent
+  """
+  agentPause: Permission
+
+  """
+  Whether the user can resume job dispatch to the agent
+  """
+  agentResume: Permission
+
+  """
   Whether the user can stop the agent remotely
   """
   agentStop: Permission
