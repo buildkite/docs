@@ -99,7 +99,7 @@ query RecentPipelineSlugs {
 Get a list of the first 100 most recently created pipelines along with the URLs of the repositories set each pipeline.
 
 ```
-query {
+query GetPipelinesRepositories{
   organization(slug: "organization-slug") {
     pipelines(first: 100) {
       edges {
