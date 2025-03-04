@@ -39,8 +39,8 @@ The cluster insights dashboard allows you to monitor your build infrastructure a
 
 By default, the dashboard shows metrics across all clusters within your Buildkite organization. However, you can use the following drop-downs to filter these metrics:
 
-- All clusters — select a cluster to show only performance metrics associated with that cluster.
-- All cluster queues — if a specific cluster is selected, select its queue to show only the statistics and metrics associated with that cluster's queue.
+- **All clusters** — select a cluster to show only performance metrics associated with that cluster.
+- **All cluster queues** — if a specific cluster is selected, select its queue to show only the statistics and metrics associated with that cluster's queue.
 
 ### Time range analysis
 
