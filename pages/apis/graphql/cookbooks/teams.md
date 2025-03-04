@@ -72,7 +72,7 @@ Then, add a team member. You can get the `user-id` using the example in [Search 
 
 
 ```graphql
-mutation addTeamMember{
+mutation addTeamMember {
   teamMemberCreate(input: {teamID: "team-id", userID: "user-id"}) {
     clientMutationId
   }

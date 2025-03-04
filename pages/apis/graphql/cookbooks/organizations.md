@@ -9,7 +9,7 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 List the first 100 members in the organization.
 
 ```graphql
-query getOrgMembers{
+query getOrgMembers {
   organization(slug: "organization-slug") {
     members(first: 100) {
       edges {
@@ -32,7 +32,7 @@ query getOrgMembers{
 Look up organization members using their email address.
 
 ```graphql
-query getOrgMember{
+query getOrgMember {
   organization(slug: "organization-slug") {
     members(first: 1, search: "user-email") {
       edges {
@@ -352,7 +352,7 @@ mutation deleteOrgMember {
 Query your organization's audit events. Audit events are only available to Enterprise customers.
 
 ```graphql
-query getOrganizationAuditEvents{
+query getOrganizationAuditEvents {
   organization(slug:"organization-slug"){
     auditEvents(first: 500){
       edges{
@@ -376,7 +376,7 @@ query getOrganizationAuditEvents{
 To get all audit events in a given period, use the `occurredAtFrom` and `occurredAtTo` filters like in the following query:
 
 ```graphql
-query getTimeScopedOrganizationAuditEvents{
+query getTimeScopedOrganizationAuditEvents {
   organization(slug:"organization-slug"){
     auditEvents(first: 500, occurredAtFrom: "2023-01-01T12:00:00.000", occurredAtTo: "2023-01-01T13:00:00.000"){
       edges{
@@ -402,7 +402,7 @@ query getTimeScopedOrganizationAuditEvents{
 Query audit events from within an organization of a specific user. Audit events are only available to Enterprise customers.
 
 ```graphql
-query getActorRefinedOrganizationAuditEvents{
+query getActorRefinedOrganizationAuditEvents {
   organization(slug:"organization-slug"){
     auditEvents(first: 500, actor: "user-id"){
       edges{
@@ -426,7 +426,7 @@ query getActorRefinedOrganizationAuditEvents{
 To find the actor's `user-id` for the query above, the following query can be run: replacing the `search` term with the name/email of the user:
 
 ```graphql
-query getActorID{
+query getActorID {
   organization(slug:"organization-slug"){
     members(first:50, search: "search term"){
       edges{
