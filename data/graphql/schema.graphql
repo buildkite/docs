@@ -5408,6 +5408,11 @@ type Organization implements Node {
     metaData: [String!]
 
     """
+    Filter agents by whether they are paused or not
+    """
+    paused: Boolean
+
+    """
     Search agents for the given query terms case insensitively across name and meta data
     """
     search: String
