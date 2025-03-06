@@ -272,6 +272,11 @@ variables:
       The internal UUID Buildkite uses for this job.
     modifiable: false
     example: "e44f9784-e20e-4b93-a21d-f41fd5869db9"
+  - name: BUILDKITE_JOB_CANCELLED
+    desc: |
+      Is initially undefined, but gets defined with the value `true` by the agent when the job has been canceled. This value can be used by subsequent hooks to opt out of executing.
+    modifiable: false
+    example: "true"
   - name: BUILDKITE_JOB_LOG_TMPFILE
     desc: |
       The path to a temporary file containing the logs for this job. Requires enabling the `enable-job-log-tmpfile` [agent configuration option](/docs/agent/v3/configuration).
