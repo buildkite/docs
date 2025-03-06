@@ -274,7 +274,7 @@ variables:
     example: "e44f9784-e20e-4b93-a21d-f41fd5869db9"
   - name: BUILDKITE_JOB_CANCELLED
     desc: |
-      Has a default value of `false`, but gets set to `true` by the agent when the job has been canceled. This value can be used by subsequent hooks to opt out of executing.
+      Is initially undefined, but gets defined with the value `true` by the agent when the job has been canceled. This value can be used by subsequent hooks to opt out of executing.
     modifiable: false
     example: "true"
   - name: BUILDKITE_JOB_LOG_TMPFILE
