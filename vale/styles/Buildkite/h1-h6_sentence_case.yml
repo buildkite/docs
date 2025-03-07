@@ -62,6 +62,7 @@ exceptions:
   - CLI
   - CloudFormation
   - Cloudsmith
+  - CloudTrail
   - CloudWatch
   - CloudWatch Logs
   - CORS
