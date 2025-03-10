@@ -8,7 +8,7 @@ By default, Buildkite Package Registries provides its own storage (known as _Bui
     * Located closer to your geographical location may provide faster registry access.
     * Mitigates network transmission costs.
 
-- Use Buildkite Package Registries' management and metadata-handling features to manage these files in registries within your private storage.
+- Use Buildkite Package Registries' management and metadata-handling features to manage these files in registries within your private storage. While packages are stored in your own private storage, Buildkite still handles the indexing of these packages.
 
 - Maintain control, ownership and sovereignty over the packages, container images and modules stored within your source registries managed by Buildkite Package Registries.
 
