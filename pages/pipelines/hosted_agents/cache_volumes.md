@@ -96,12 +96,6 @@ Version commits follow a "last write" model: whenever a job terminates successfu
 
 Whenever a job fails, the cache volume versions attached to the agent instance are abandoned.
 
-## Billing model
-
-Cache volumes are charged at an initial fixed cost _per pipeline build_ when a cache path (for example, `cache: "node_modules"`) is defined at least once in the pipeline's `pipeline.yml` file. This fixed cost is the same, regardless of the number of times a cache path is defined/used in the `pipeline.yml` file.
-
-An additional (smaller) charge is made per gigabyte of _active cache_, where active cache is defined as any cache volume used in the last 24 hours.
-
 ## Git mirror cache
 
 The Git mirror cache is a specialized type of cache volume designed to accelerate Git operations by caching the Git repository between builds. This is useful for large repositories that are slow to clone.
