@@ -7,10 +7,12 @@ By default, cache volumes:
 - Are disabled, although you can enable them by providing a list of paths to cache at the pipeline- or step-level.
 - Are scoped to a pipeline and are shared between all steps in the pipeline.
 
-Cache volumes act as regular disks with the following properties:
+Cache volumes act as regular disks with the following properties on Linux:
 
 - The volumes use NVMe storage, delivering high performance.
 - The volumes are formatted as a regular Linux filesystem (e.g. ext4)—therefore, these volumes support any Linux use-cases.
+
+Cache volumes on macOS are a little different, with [sparse bundle disk images](https://en.wikipedia.org/wiki/Sparse_image#Sparse_bundle_disk_images) utilized rather than bind mount volumes. These volumes are managed in the same way as they are for Linux.
 
 ## Cache configuration
 
