@@ -7,10 +7,12 @@ By default, cache volumes:
 - Are disabled, although you can enable them by providing a list of paths to cache at the pipeline- or step-level.
 - Are scoped to a pipeline and are shared between all steps in the pipeline.
 
-Cache volumes act as regular disks with the following properties:
+Cache volumes act as regular disks with the following properties on Linux:
 
 - The volumes use NVMe storage, delivering high performance.
 - The volumes are formatted as a regular Linux filesystem (e.g. ext4)—therefore, these volumes support any Linux use-cases.
+
+Cache volumes on macOS are a little different, with [sparse bundle disk images](https://en.wikipedia.org/wiki/Sparse_image#Sparse_bundle_disk_images) utilized rather than bind mount volumes. These volumes are managed in the same way as they are for Linux.
 
 ## Cache configuration
 
@@ -95,12 +97,6 @@ Each job gets its own private copy of the cache volume, as it existed at the tim
 Version commits follow a "last write" model: whenever a job terminates successfully (that is, exits with exit code `0`), cache volumes attached to that job have a new parent committed: the final flushed volume of the exiting agent instance.
 
 Whenever a job fails, the cache volume versions attached to the agent instance are abandoned.
-
-## Billing model
-
-Cache volumes are charged at an initial fixed cost _per pipeline build_ when a cache path (for example, `cache: "node_modules"`) is defined at least once in the pipeline's `pipeline.yml` file. This fixed cost is the same, regardless of the number of times a cache path is defined/used in the `pipeline.yml` file.
-
-An additional (smaller) charge is made per gigabyte of _active cache_, where active cache is defined as any cache volume used in the last 24 hours.
 
 ## Git mirror cache
 
