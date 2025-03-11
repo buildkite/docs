@@ -9,7 +9,7 @@ To view and copy this `curl` command:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your file source registry on this page.
-1. Select **Publish a File** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a file to this registry.
+1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of the relevant code box to copy this `curl` command and run it (with the appropriate values, where necessary) to publish a file to this registry.
 
 This command provides:
 

@@ -8,7 +8,7 @@ To view and copy these `docker` commands:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your container source registry on this page.
-1. Select **Publish a Container Image** and in the resulting dialog, for each required `docker` command set in the relevant code snippets, copy the relevant code snippet (using the icon at the top-right of its code box), paste it into your terminal, and run it.
+1. Select the **Publish Instructions** tab and on the resulting page, for each required `docker` command in code snippets provided, copy the relevant code snippet (using the icon at the top-right of its code box), paste it into your terminal, and run it with the appropriate values, where necessary.
 
 These Docker commands are used to:
 
