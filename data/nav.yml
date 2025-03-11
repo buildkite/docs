@@ -575,6 +575,8 @@
           path: "package-registries/ruby"
         - name: "Terraform"
           path: "package-registries/terraform"
+        - name: "Hugging Face"
+          path: "package-registries/hugging-face"
 - name: "Platform"
   path: "platform"
   children:
