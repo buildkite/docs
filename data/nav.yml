@@ -556,6 +556,8 @@
               path: "package-registries/helm-oci"
             - name: "Standard"
               path: "package-registries/helm"
+        - name: "Hugging Face"
+          path: "package-registries/hugging-face"
         - name: "Java"
           start_expanded: true
           children:
@@ -575,8 +577,6 @@
           path: "package-registries/ruby"
         - name: "Terraform"
           path: "package-registries/terraform"
-        - name: "Hugging Face"
-          path: "package-registries/hugging-face"
 - name: "Platform"
   path: "platform"
   children:
