@@ -143,6 +143,7 @@ exceptions:
   - pipeline.artifacts_read.pipeline
   - pipeline.trigger_build.pipeline
   - pipeline.yml
+  - Portal
   - PowerShell
   - pytest
   - QA

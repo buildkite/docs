@@ -782,3 +782,5 @@
           path: "apis/portals"
         - name: "Limits"
           path: "apis/portals/limits"
+        - name: "User invoked portals"
+          path: "apis/portals/user-invoked-portals"

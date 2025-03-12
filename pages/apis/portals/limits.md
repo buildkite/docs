@@ -1,4 +1,3 @@
-
 # Portal API rate limits
 
 To ensure stability and prevent excessive or abusive calls to the server, Buildkite imposes a limit on the number of Portals API requests that can be made within a minute. These limits apply to all portals API endpoints within an organization.
