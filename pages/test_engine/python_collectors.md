@@ -32,7 +32,7 @@ To get started with `buildkite-test-collector`:
           <code>buildkite-test-collector</code> to the
           <code>extras_require</code> argument, like this:
           </p>
-          <pre><code>extras_require={&quot;dev&quot;: [&quot;pytest&quot;, &quot;  buildkite-test-collector&quot;]}</code></pre>
+          <pre><code>extras_require={&quot;dev&quot;: [&quot;pytest&quot;, &quot;buildkite-test-collector&quot;]}</code></pre>
       </li>
       <li>
           <p>If you're using Pipenv, run
