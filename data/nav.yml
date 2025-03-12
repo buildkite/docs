@@ -780,3 +780,5 @@
       children:
         - name: "Overview"
           path: "apis/portals"
+        - name: "Limits"
+          path: "apis/portals/limits"
