@@ -8,12 +8,12 @@ To view and copy these `helm` commands:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Helm OCI source registry on this page.
-1. Select **Publish a Helm Chart** and in the resulting dialog, for each required `helm` command set in the relevant code snippets, copy the relevant code snippet (using the icon at the top-right of its code box), paste it into your terminal, and run it.
+1. Select the **Publish Instructions** tab and on the resulting page, for each required `helm` command in code snippets provided, copy the relevant code snippet (using the icon at the top-right of its code box), paste it into your terminal, and run it with the appropriate values to publish the chart to this source registry.
 
 These Helm commands are used to:
 
 - Log in to your Buildkite Helm OCI source registry with an API access token.
-- Publish a Helm chart to your source registry.
+- Publish a Helm chart to this source registry.
 
 ## Publish a chart
 
