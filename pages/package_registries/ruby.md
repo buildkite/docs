@@ -8,12 +8,13 @@ To view and copy the required command or  `~/.gem/credentials` and `gemspec` con
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Ruby source registry on this page.
-1. Select **Publish a Ruby Package** and in the resulting dialog, use the copy icon at the top-right of the relevant code box to copy its snippet and paste it into your command line tool or the appropriate file.
+1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of each respective code box to copy the its snippet and paste it into your command line tool or the appropriate file.
 
-These file configurations contain the following:
+    These file configurations contain the following:
+    * `~/.gem/credentials`: the URL for your specific Ruby source registry in Buildkite and the API access token required to publish the package to this registry.
+    * `gemspec`: the URL for this source registry.
 
-- `~/.gem/credentials`: the URL for your specific Ruby source registry in Buildkite and the API access token required to publish the package to this registry.
-- `gemspec`: the URL for your specific Ruby source registry in Buildkite.
+1. You can then run the `gem build *.gemspec` and `gem push *.gem`, or `rake release` commands to publish the packages to this source registry.
 
 ## Publish a package
 
@@ -37,11 +38,11 @@ where:
 
 <%= render_markdown partial: 'package_registries/ruby_registry_slug' %>
 
-Since the `temporary-write-token-that-expires-after-5-minutes` expires quickly, it is recommended that you just copy this command directly from the **Publish a Ruby Package** dialog.
+Since the `temporary-write-token-that-expires-after-5-minutes` expires quickly, it is recommended that you just copy this command directly from the **Publish Instructions** page.
 
 ### Ongoing publishing
 
-The remaining code boxes on the **Publish a Ruby Package** dialog provide configurations for a more permanent solution for ongoing RubyGems uploads to your Ruby registry.
+The remaining code boxes on the **Publish Instructions** page provide configurations for a more permanent solution for ongoing RubyGems uploads to your Ruby registry.
 
 1. Copy the following set of commands, paste them and modify as required before running to create your `~/.gem/credentials` file:
 

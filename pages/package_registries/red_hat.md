@@ -8,12 +8,12 @@ To view and copy this `curl` command:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Red Hat source registry on this page.
-1. Select **Publish an RPM Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a package to your Red Hat registry.
+1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of the relevant code box to copy this `curl` command and run it (with the appropriate values) to publish the package to this source registry.
 
 This command provides:
 
 - The specific URL to publish a package to your specific Red Hat source registry in Buildkite.
-- The API access token required to publish packages to your Red Hat source registry.
+- The API access token required to publish packages to this source registry.
 - The Red Hat (RPM) package file to be published.
 
 ## Publish a package

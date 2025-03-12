@@ -8,7 +8,7 @@ To view and copy this `curl` command:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Alpine source registry on this page.
-1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of the relevant code box to copy this `curl` command and run it (with the appropriate values, where necessary) to publish a package to this source registry.
+1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of the relevant code box to copy this `curl` command and run it (with the appropriate values) to publish the package to this source registry.
 
 This command provides:
 
