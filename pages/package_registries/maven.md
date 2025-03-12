@@ -8,13 +8,14 @@ To view and copy the required  `~/.m2/settings.xml` and `pom.xml` configurations
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Java source registry on this page.
-1. Select **Publish a Java Package** and in the resulting dialog's **Using Maven** section, select **Maven** to expand this section.
-1. Use the copy icon at the top-right of each respective code box to copy the relevant XML snippet and paste it into its appropriate file.
+1. Select the **Publish Instructions** tab and on the resulting page, in the **Using Maven** section, select **Maven** to expand this section.
+1. Use the copy icon at the top-right of each respective code box to copy the relevant XML snippets and paste it into its appropriate file.
 
-These file configurations contain the following:
+    These file configurations contain the following:
+    - `~/.m2/settings.xml`: the ID for your specific Java source registry in Buildkite and the API access token required to publish the package to this registry.
+    - `pom.xml`: the ID and URL for this source registry in Buildkite.
 
-- `~/.m2/settings.xml`: the ID for your specific Java source registry in Buildkite and the API access token required to publish the package to this registry.
-- `pom.xml`: the ID and URL for your specific Java source registry in Buildkite.
+1. You can then run the `mvn deploy` command to publish the package to this source registry.
 
 ## Publish a package
 

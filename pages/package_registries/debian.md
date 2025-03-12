@@ -8,12 +8,12 @@ To view and copy this `curl` command:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Debian source registry on this page.
-1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of the relevant code box to copy this `curl` command and run it (with the appropriate values, where necessary) to publish a package to your Debian registry.
+1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of the relevant code box to copy this `curl` command and run it (with the appropriate values, where necessary) to publish a package to this source registry.
 
 This command provides:
 
 - The specific URL to publish a package to your specific Debian source registry in Buildkite.
-- The API access token required to publish packages to your Debian source registry.
+- The API access token required to publish packages to this source registry.
 - The Debian package file to be published.
 
 ## Publish a package

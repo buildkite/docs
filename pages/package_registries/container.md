@@ -8,13 +8,13 @@ To view and copy these `docker` commands:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your container source registry on this page.
-1. Select the **Publish Instructions** tab and on the resulting page, for each required `docker` command in code snippets provided, copy the relevant code snippet (using the icon at the top-right of its code box), paste it into your terminal, and run it with the appropriate values, where necessary.
+1. Select the **Publish Instructions** tab and on the resulting page, for each required `docker` command in code snippets provided, copy the relevant code snippet (using the icon at the top-right of its code box), paste it into your terminal, and run it with the appropriate values to publish the image to this source registry.
 
 These Docker commands are used to:
 
 - Log in to your Buildkite container source registry with the API access token.
 - Tag your container image to be published.
-- Publish the image to your container source registry.
+- Publish the image to this source registry.
 
 ## Publish an image
 
