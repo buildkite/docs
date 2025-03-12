@@ -21,4 +21,5 @@ The following pages describe how to use the agent CLI, organized by command:
 - [`redactor`](/docs/agent/v3/cli-redactor)
 - [`secret`](/docs/agent/v3/cli-secret)
 - [`step`](/docs/agent/v3/cli-step)
+- [`stop`](/docs/agent/v3/cli-stop)
 - [`tool`](/docs/agent/v3/cli-tool)
