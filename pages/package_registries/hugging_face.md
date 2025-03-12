@@ -20,3 +20,13 @@ These Hugging Face commands are used to:
 
 ## Publish a model snapshot
 
+The following steps describe the process above:
+
+1. To ensure your Hugging Face model has been cached locally, run the following `huggingface-cli` command:
+
+    ```bash
+    HF_TOKEN=<huggingface_token> \
+    HF_ENDPOINT=https://huggingface.co \
+    huggingface-cli download <huggingface_namespace>/<huggingface_repo_name>
+    ```
+
