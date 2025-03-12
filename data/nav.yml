@@ -178,6 +178,8 @@
               path: "agent/v3/cli-secret"
             - name: "step"
               path: "agent/v3/cli-step"
+            - name: "stop"
+              path: "agent/v3/cli-stop"
             - name: "tool"
               path: "agent/v3/cli-tool"
         - name: "Agent v2"
