@@ -8,12 +8,12 @@ To view and copy this `curl` command:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Helm source registry on this page.
-1. Select **Publish a Helm Chart** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish your chart to your Helm registry.
+1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of the relevant code box to copy this `curl` command and run it (with the appropriate values) to publish the chart to this source registry.
 
 This command provides:
 
 - The specific URL to publish a chart to your specific Helm source registry in Buildkite.
-- The API access token required to publish charts to your Helm registry.
+- The API access token required to publish charts to this source registry.
 - The Helm chart (`.tgz`) to be published.
 
 ## Publish a chart

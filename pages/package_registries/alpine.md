@@ -8,12 +8,12 @@ To view and copy this `curl` command:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Alpine source registry on this page.
-1. Select **Publish an Alpine Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a package to your Alpine registry.
+1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of the relevant code box to copy this `curl` command and run it (with the appropriate values) to publish the package to this source registry.
 
 This command provides:
 
 - The specific URL to publish a package to your specific Alpine source registry in Buildkite.
-- The API access token required to publish packages to your Alpine source registry.
+- The API access token required to publish packages to this source registry.
 - The Alpine package file to be published.
 
 ## Publish a package
