@@ -20,13 +20,42 @@ These Hugging Face commands are used to:
 
 ## Publish a model snapshot
 
-The following steps describe the process above:
+The following steps describe the process above.
 
-1. To ensure your Hugging Face model has been cached locally, run the following `huggingface-cli` command:
+### Step 1: Ensure the Hugging Face model is cached locally
 
-    ```bash
-    HF_TOKEN=<huggingface_token> \
-    HF_ENDPOINT=https://huggingface.co \
-    huggingface-cli download <huggingface_namespace>/<huggingface_repo_name>
-    ```
+If you haven't already done so, run the following `huggingface-cli` command to ensure the Hugging Face model has been cached locally:
 
+```bash
+HF_TOKEN=huggingface-token \
+HF_ENDPOINT=https://huggingface.co \
+huggingface-cli download {huggingface.namespace}/{huggingface.repo.name}
+```
+
+where:
+
+- `huggingface-token` is your [Hugging Face user access token](https://huggingface.co/docs/hub/security-tokens) required to access the Hugging Face model from the [Hugging Face Hub](https://huggingface.co/docs/hub/index).
+
+<%= render_markdown partial: 'package_registries/hugging_face_namespace_and_repo' %>
+
+### Step 2: Publish your model snapshot
+
+Use the following `huggingface-cli` command to publish the Hugging Face model snapshot to your Hugging Face source registry:
+
+```bash
+HF_TOKEN=registry-write-token \
+HF_ENDPOINT=https://packages.buildkite.com/{org.slug}/{registry.slug}/huggingface \
+huggingface-cli upload {huggingface.namespace}/{huggingface.repo.name} local-folder
+```
+
+where:
+
+- `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Hugging Face source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Alpine source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
+
+<%= render_markdown partial: 'package_registries/org_slug' %>
+
+- `{registry.slug}` is the slug of your Hugging Face source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your Debian source registry from the **Registries** page.
+
+<%= render_markdown partial: 'package_registries/hugging_face_namespace_and_repo' %>
+
+- `local-folder` is the location of the locally cached Hugging Face model snapshot. This can be found in the following path: `~/.cache/huggingface/hub/models--{huggingface.namespace}--{huggingface.repo.name}/snapshots/{commit.sha}/`, where `{commit.sha}` represents the Git commit SHA of the latest changes to this repository.

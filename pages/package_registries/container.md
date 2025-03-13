@@ -108,7 +108,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/registry_slug' %>
+<%= render_markdown partial: 'package_registries/container_registry_slug' %>
 
 - `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download images from your container registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download images from any registry your user account has access to within your Buildkite organization.
 
@@ -127,7 +127,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/registry_slug' %>
+<%= render_markdown partial: 'package_registries/container_registry_slug' %>
 
 - `image-name` is the name of your image.
 
