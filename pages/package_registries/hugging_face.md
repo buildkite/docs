@@ -59,3 +59,44 @@ where:
 <%= render_markdown partial: 'package_registries/hugging_face_namespace_and_repo' %>
 
 - `local-folder` is the location of the locally cached Hugging Face model snapshot. This can be found in the following path: `~/.cache/huggingface/hub/models--{huggingface.namespace}--{huggingface.repo.name}/snapshots/{commit.sha}/`, where `{commit.sha}` represents the Git commit SHA of the latest changes to this repository.
+
+## Access a model snapshot's details
+
+A Hugging Face model snapshot's details can be accessed from its source registry through the **Releases** (tab) section of your Hugging Face source registry page. To do this:
+
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
+1. Select your Hugging Face source registry on this page.
+1. On your Hugging Face source registry page, select the model snapshot to display its details page.
+
+The model snapshot's details page provides the following information in the following sections:
+
+- **Installation** (tab): the [installation instructions](#access-a-model-snapshots-details-installing-a-model-snapshot).
+- **Contents** (tab, where available): a list of directories and files contained within the model snapshot.
+- **Details** (tab): a list of checksum values for this model snapshot—MD5, SHA1, SHA256, and SHA512.
+- **Details**: details about:
+
+    * the name of the model snapshot, consisting of the model's Hugging Face Hub namespace and name, along with the commit SHA.
+    * the source registry the model snapshot is located in.
+    * the model snapshot's visibility (based on its registry's visibility)—whether the model snapshot is **Private** and requires authentication to access, or is publicly accessible.
+    * additional optional metadata contained within the model snapshot, such as a homepage, licenses, etc.
+
+- **Pushed**: the date when the model snapshot was uploaded to the source registry.
+- **Package size**: the storage size (in bytes) of this model snapshot.
+- **Downloads**: the number of times this model snapshot has been downloaded.
+
+<!--
+### Downloading a model snapshot
+
+A Hugging Face model snapshot can be downloaded from the model snapshot's details page. To do this:
+
+1. [Access the package's details](#access-a-model-snapshots-details).
+1. Select **Download**.
+-->
+
+### Installing a model snapshot
+
+A Hugging Face model snapshot can be downloaded using code snippet details provided on the model snapshot's details page. To do this:
+
+1. [Access the model snapshot's details](#access-a-model-snapshots-details).
+1. Ensure the **Installation** > **Instructions** section is displayed.
+1. Copy the relevant code snippet, paste it into your terminal, and run it.
