@@ -453,6 +453,8 @@
           path: "test-engine/golang-collectors"
         - name: "JavaScript"
           path: "test-engine/javascript-collectors"
+        - name: ".NET"
+          path: "test-engine/dotnet-collectors"
         - name: "Python"
           path: "test-engine/python-collectors"
         - name: "Ruby"
@@ -461,8 +463,6 @@
           path: "test-engine/rust-collectors"
         - name: "Swift"
           path: "test-engine/swift-collectors"
-        - name: ".NET"
-          path: "test-engine/dotnet-collectors"
         - name: "Other test collectors"
           children:
             - name: "Overview"

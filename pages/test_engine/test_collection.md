@@ -15,11 +15,11 @@ Test collectors are available for the following languages and their test runners
 - [Go (gotestsum)](/docs/test-engine/golang-collectors)
 - [Java (via JUnit XML import)](/docs/test-engine/importing-junit-xml)
 - [JavaScript (Jest, Cypress, Playwright, Mocha, Jasmine)](/docs/test-engine/javascript-collectors)
+- [.NET (xUnit)](/docs/test-engine/dotnet-collectors)
 - [Python (pytest)](/docs/test-engine/python-collectors)
 - [Ruby (RSpec, minitest)](/docs/test-engine/ruby-collectors)
 - [Rust (Cargo test)](/docs/test-engine/rust-collectors)
 - [Swift (XCTest)](/docs/test-engine/swift-collectors)
-- [.NET (xUnit)](/docs/test-engine/dotnet-collectors)
 - [Other languages or test runners](/docs/test-engine/other-collectors)
 
 Note that you can also [create your own test collectors](/docs/test-engine/your-own-collectors).
