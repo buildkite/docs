@@ -270,6 +270,11 @@ type Agent implements Node {
   Note supplied when agent was paused, if paused
   """
   pausedNote: String
+
+  """
+  Number of minutes the agent will remain paused for, if paused
+  """
+  pausedTimeoutInMinutes: Int!
   permissions: AgentPermissions!
 
   """
@@ -364,6 +369,11 @@ input AgentPauseInput {
   Leave a note, e.g. describe why this agent is paused
   """
   note: String
+
+  """
+  Specify how long the agent will remain paused for
+  """
+  timeoutInMinutes: Int
 }
 
 """
