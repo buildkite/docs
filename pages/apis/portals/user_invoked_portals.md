@@ -2,7 +2,7 @@
 
 User invoked Portal allows organization users to execute GraphQL operations from a portal and ensure operations run under their own permissions and identity. This approach is suitable when the acting principal of an operation must be explicitly identified, or when user-specific permissions must be enforced.
 
-User invoked Portal allow users to authorize and generate short-lived tokens, providing a secure mechanism to execute API actions without requiring API tokens to be stored on a developer's machine
+User invoked Portal allow users to authorize and generate short-lived tokens, providing a secure mechanism to execute API actions without requiring API tokens to be stored on a developer's machine.
 
 ## Short-lived Portal token
 
