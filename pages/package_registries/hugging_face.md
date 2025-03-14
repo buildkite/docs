@@ -1,10 +1,13 @@
 # Hugging Face
 
+> 📘
+> The _Hugging Face registries_ feature is currently in _customer preview_. To enquire about accessing this feature for your Buildkite organization, please contact support@buildkite.com.
+
 Buildkite Package Registries provides registry support for [Hugging Face models](https://huggingface.co/models), which are essentially Git repositories aimed for developing [machine learning models](https://en.wikipedia.org/wiki/Machine_learning#Models). Learn more about Hugging Face's machine learning (ML) models from their [Hugging Face Hub documentation](https://huggingface.co/docs/hub/en/index#models).
 
 Hugging Face's [open source models](https://huggingface.co/models) can be developed, fine tuned, and published to your (private) Hugging Face registry in Buildkite Package Registries. Each Git commit to a model constitutes a new version of the model (known as a _model version_), which is published as an individual 'package' to your Hugging Face registry, with the Git commit SHA forming part of the file name.
 
-Once your Hugging Face source registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload model versions to this registry via the relevant `huggingface-cli` command presented on your Hugging Face registry's details page. Learn more about installing the Hugging Face command line interface (CLI) tool from their [Hub Python Library CLI documentation](https://huggingface.co/docs/huggingface_hub/main/en/guides/cli).
+Once your Hugging Face source registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can cache your model locally from the [Hugging Face Hub](https://huggingface.co/docs/hub/index), then publish/upload model versions to this source registry via the relevant `huggingface-cli` commands presented on your Hugging Face registry's details page. Learn more about installing the Hugging Face command line interface (CLI) tool from their [Hub Python Library CLI documentation](https://huggingface.co/docs/huggingface_hub/main/en/guides/cli).
 
 To view and copy these `huggingface-cli` commands:
 
@@ -14,9 +17,9 @@ To view and copy these `huggingface-cli` commands:
 
 These Hugging Face commands are used to:
 
-- Set the API access token required to publish the model's Git commit as a new model version to your specific Hugging Face source registry to the [`HF_TOKEN` environment variable](https://huggingface.co/docs/huggingface_hub/main/en/package_reference/environment_variables#hftoken).
-- Set the URL for this source registry to the [`HF_ENDPOINT` environment variable](https://huggingface.co/docs/huggingface_hub/v0.16.3/en/package_reference/environment_variables#hfendpoint)
-- Publish your model's new version (locally cached Git commit) to this source registry.
+- Set the [`HF_TOKEN` environment variable](https://huggingface.co/docs/huggingface_hub/main/en/package_reference/environment_variables#hftoken)'s value to the required access token used to either access the Hugging Face model from the Hub to cache locally, or publish the model's Git commit as a new model version to your specific Hugging Face source registry in Buildkite Package Registries.
+- Set the [`HF_ENDPOINT` environment variable](https://huggingface.co/docs/huggingface_hub/v0.16.3/en/package_reference/environment_variables#hfendpoint)'s value to the (base) URL of the Hugging Face Hub, or the source registry in Buildkite Package Registries.
+- Cache the Hugging Face model locally, or publish your model's new version (from a locally cached Git commit) to this source registry.
 
 ## Publish a model version
 

@@ -560,6 +560,7 @@
               path: "package-registries/helm"
         - name: "Hugging Face"
           path: "package-registries/hugging-face"
+          pill: "preview"
         - name: "Java"
           start_expanded: true
           children:
@@ -780,7 +781,8 @@
           path: "apis/webhooks/ping-events"
         - name: "Integrations"
           path: "apis/webhooks/integrations"
-    - name: "Portals (Customer preview)"
+    - name: "Portals"
+      pill: "preview"
       children:
         - name: "Overview"
           path: "apis/portals"
