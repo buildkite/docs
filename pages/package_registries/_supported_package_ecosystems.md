@@ -2,7 +2,7 @@
 - [Container (Docker)](/docs/package-registries/container) images
 - [Debian/Ubuntu (deb)](/docs/package-registries/debian)
 - [Files (generic)](/docs/package-registries/files)
-- Helm ([OCI](/docs/package-registries/helm-oci) or [Standard](/docs/package-registries/helm))
+- Helm ([OCI](/docs/package-registries/helm-oci) or [Standard](/docs/package-registries/helm)) charts
 - [Hugging Face](/docs/package-registries/hugging-face) models
 - Java ([Maven](/docs/package-registries/maven) or Gradle using [Kotlin](/docs/package-registries/gradle-kotlin) or [Groovy](/docs/package-registries/gradle-groovy))
 - [JavaScript (npm)](/docs/package-registries/javascript)
