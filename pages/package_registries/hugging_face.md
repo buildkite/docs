@@ -84,16 +84,6 @@ The model version's details page provides the following information in the follo
 
 - **Pushed**: the date when the model version was uploaded to the source registry.
 - **Package size**: the storage size (in bytes) of this model version.
-- **Downloads**: the number of times this model version has been downloaded.
-
-<!--
-### Downloading a model version
-
-A Hugging Face model version can be downloaded from the model version's details page. To do this:
-
-1. [Access the package's details](#access-a-model-versions-details).
-1. Select **Download**.
--->
 
 ### Installing a model version
 
