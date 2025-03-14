@@ -53,7 +53,7 @@ huggingface-cli upload {huggingface.namespace}/{huggingface.repo.name} local-fol
 
 where:
 
-- `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload a new model version to your Hugging Face source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish new model versions and other package types to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Alpine source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
+- `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload a new model version to your Hugging Face source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish new model versions and other package types to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Hugging Face source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
