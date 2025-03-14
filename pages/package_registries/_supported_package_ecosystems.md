@@ -1,11 +1,12 @@
-- [Alpine (apk)](/docs/packages/alpine)
-- [Container (Docker)](/docs/packages/container) images
-- [Debian/Ubuntu (deb)](/docs/packages/debian)
-- [Files (generic)](/docs/packages/files)
-- Helm ([OCI](/docs/packages/helm-oci) or [Standard](/docs/packages/helm))
-- Java ([Maven](/docs/packages/maven) or Gradle using [Kotlin](/docs/packages/gradle-kotlin) or [Groovy](/docs/packages/gradle-groovy))
-- [JavaScript (npm)](/docs/packages/javascript)
-- [Python (PyPI)](/docs/packages/python)
-- [Red Hat (RPM)](/docs/packages/red-hat)
-- [Ruby (RubyGems)](/docs/packages/ruby)
-- [Terraform](/docs/packages/terraform) modules
+- [Alpine (apk)](/docs/package-registries/alpine)
+- [Container (Docker)](/docs/package-registries/container) images
+- [Debian/Ubuntu (deb)](/docs/package-registries/debian)
+- [Files (generic)](/docs/package-registries/files)
+- Helm ([OCI](/docs/package-registries/helm-oci) or [Standard](/docs/package-registries/helm)) charts
+- [Hugging Face](/docs/package-registries/hugging-face) models
+- Java ([Maven](/docs/package-registries/maven) or Gradle using [Kotlin](/docs/package-registries/gradle-kotlin) or [Groovy](/docs/package-registries/gradle-groovy))
+- [JavaScript (npm)](/docs/package-registries/javascript)
+- [Python (PyPI)](/docs/package-registries/python)
+- [Red Hat (RPM)](/docs/package-registries/red-hat)
+- [Ruby (RubyGems)](/docs/package-registries/ruby)
+- [Terraform](/docs/package-registries/terraform) modules

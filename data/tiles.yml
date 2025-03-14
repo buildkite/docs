@@ -4,7 +4,7 @@ test_engine_features:
     url: "/docs/test-engine/test-suites#trends-and-analysis"
     desc: "Automatic tracing across your test suite, deeply integrated with your programming language and test framework."
   - title: "Find and fix flaky tests"
-    url: "/docs/test-engine/test-suites#detecting-flaky-tests"
+    url: "/docs/test-engine/flaky-test-management#detecting-flaky-tests"
     desc: "Quickly identify which tests are the most disruptive for your team, and get a head-start on fixing them."
   - title: "Reduce build times with test splitting"
     url: "/docs/test-engine/test-splitting"

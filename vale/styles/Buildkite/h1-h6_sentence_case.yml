@@ -105,6 +105,7 @@ exceptions:
   - Heroku
   - HMAC
   - HTTP
+  - Hugging Face
   - I
   - IAM
   - ID
