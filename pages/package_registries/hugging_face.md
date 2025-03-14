@@ -61,7 +61,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/hugging_face_namespace_and_repo' %>
 
-- `local-folder` is the location of the locally cached Hugging Face model version. This can be found in the following path: `~/.cache/huggingface/hub/models--{huggingface.namespace}--{huggingface.repo.name}/snapshots/{commit.sha}/`, where `{commit.sha}` represents the Git commit SHA of the latest changes to this repository.
+- `local-folder` is the location of the locally cached Hugging Face model version. This can be found in the following path: `~/.cache/huggingface/hub/models--{huggingface.namespace}--{huggingface.repo.name}/snapshots/{commit.sha}/`, where `{commit.sha}` represents the Git commit SHA of model version you want to publish to this repository.
 
 ## Access a model version's details
 
