@@ -15,7 +15,7 @@ For example, each of the following three tests are unique managed tests:
 Test Engine conducts the following on each managed test:
 
 - Tracks its history
-- Calculates its [flakiness](/docs/test-engine/test-suites#detecting-flaky-tests)
+- Calculates its [flakiness](/docs/test-engine/flaky-test-management#detecting-flaky-tests)
 - Maintains its state (for example, [Enterprise plan](https://buildkite.com/pricing) customers can quarantine tests by disabling them under certain conditions)
 - Attributes [ownership by team](/docs/test-engine/test-ownership)
 
