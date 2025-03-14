@@ -1,10 +1,14 @@
 # Portals
+
+> 📘
+> The _portals_ feature is currently in _customer preview_.
+
 Buildkite Portals are an alternative to the Buildkite REST and GraphQL APIs. You can think of them as stored user-defined GraphQL operations made accessible via an authenticated URL endpoint.
 
 Portals are an ideal fit for machine-to-machine operations since they're scoped down to perform only the operations described within a GraphQL document and aren't tied to user-owned access tokens.
 
-
 ## Getting started
+
 The best way to learn about Portals is by creating a portal.
 
 Let’s get started by heading over to your [organization](https://buildkite.com/organizations/~/portals) and creating an example portal for triggering a build on the main branch of a pipeline.
@@ -54,15 +58,14 @@ Voila! You've just created and executed a portal.
 >📘 What more examples?
 > To explore our entire GraphQL API, check out our [GraphQL Explorer](https://buildkite.com/user/graphql/console) or our [GraphQL Cookbook](https://buildkite.com/docs/apis/graphql/graphql-cookbook).
 
-
 ## Endpoint
+
 Each portal has a unique endpoint served from `http://portal.buildkite.com` with the following URL structure:
 
 
 ```
 https://portal.buildkite.com/organizations/<organization>/portals/<portal>
 ```
-
 
 All requests must be `HTTP POST` requests with `application/json` encoded bodies.
 
@@ -81,6 +84,7 @@ A corresponding access token is generated on creation of a portal.
 If you need to rotate a given access token, you can do this by duplicating and removing the existing portal, which will in turn generate a fresh token.
 
 ## Passing arguments
+
 GraphQL operations may include arguments which can be provided as part of the JSON request body.
 
 For example, given a portal that uses the following GraphQL query:
@@ -97,7 +101,6 @@ query GetTotalBuildRunTime($build_slug: ID) {
   }
 }
 ```
-
 
 Calling this specific portal would then require `build_slug` to be included as part of the HTTP request.
 

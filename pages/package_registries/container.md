@@ -27,7 +27,7 @@ The following steps describe the process above:
     ```
 
     where:
-    * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your container source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your container source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
+    * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload images to your container source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish container images and other package types to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your container source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
     <%= render_markdown partial: 'package_registries/org_slug' %>
     <%= render_markdown partial: 'package_registries/container_registry_slug' %>
@@ -35,7 +35,7 @@ The following steps describe the process above:
 1. Copy the following `docker tag` command, paste it into your terminal, and modify as required before running to tag your container image:
 
     ```bash
-    docker tag current-image-name:tag packages.buildkite.com/{org.slug}/{registry.slug}/package-name:tag
+    docker tag current-image-name:tag packages.buildkite.com/{org.slug}/{registry.slug}/image-name:tag
     ```
 
     where:
@@ -45,10 +45,10 @@ The following steps describe the process above:
 1. Copy the following `docker push` command, paste it into your terminal, and modify as required before running to push your container image:
 
     ```bash
-    docker push packages.buildkite.com/{org.slug}/{registry.slug}/package-name:tag
+    docker push packages.buildkite.com/{org.slug}/{registry.slug}/image-name:tag
     ```
 
-    where `package-name:tag` is the image name and tag combination you configured in the previous step.
+    where `image-name:tag` is the image name and tag combination you configured in the previous step.
 
 ## Access an image's details
 
@@ -108,9 +108,9 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/registry_slug' %>
+<%= render_markdown partial: 'package_registries/container_registry_slug' %>
 
-- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download images from your container registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download images from any registry your user account has access to within your Buildkite organization.
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download images from your container registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download container images and other package types from any registry your user account has access to within your Buildkite organization.
 
 > 📘
 > This step is not required for public container registries.
@@ -127,7 +127,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/registry_slug' %>
+<%= render_markdown partial: 'package_registries/container_registry_slug' %>
 
 - `image-name` is the name of your image.
 
