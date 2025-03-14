@@ -270,6 +270,11 @@ type Agent implements Node {
   Note supplied when agent was paused, if paused
   """
   pausedNote: String
+
+  """
+  Number of minutes the agent will remain paused for, if paused
+  """
+  pausedTimeoutInMinutes: Int!
   permissions: AgentPermissions!
 
   """
@@ -364,6 +369,11 @@ input AgentPauseInput {
   Leave a note, e.g. describe why this agent is paused
   """
   note: String
+
+  """
+  Specify how long the agent will remain paused for
+  """
+  timeoutInMinutes: Int
 }
 
 """
@@ -976,6 +986,8 @@ enum AuditEventType {
   PIPELINE_WEBHOOK_URL_ROTATED
   PORTAL_CREATED
   PORTAL_DELETED
+  PORTAL_TOKEN_CODE_AUTHORIZED
+  PORTAL_TOKEN_CREATED
   PORTAL_UPDATED
   REGISTRY_CREATED
   REGISTRY_DELETED
@@ -1113,6 +1125,8 @@ enum AuditSubjectType {
   PIPELINE_SCHEDULE
   PIPELINE_TEMPLATE
   PORTAL
+  PORTAL_TOKEN
+  PORTAL_TOKEN_CODE
   REGISTRY
   REGISTRY_TOKEN
   RULE

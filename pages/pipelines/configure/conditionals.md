@@ -365,6 +365,43 @@ The following variables are supported by the `if` attribute. Note that you canno
 > 🚧 Using `build.env()` with custom environment variables
 > To access custom environment variables with the `build.env()` function, ensure that the <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML pipeline steps editor</a> has been enabled in the Pipeline Settings menu.
 
+The following step variables are also available for <a href="#conditional-notifications">conditional notifications</a> only.
+
+<table>
+<tbody>
+	<tr>
+		<td><code>step.id</code></td>
+		<td width="20%"><code>String</code></td>
+		<td>The ID of the current step</td>
+	</tr>
+	<tr>
+		<td><code>step.key</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The key of the current step</td>
+	</tr>
+	<tr>
+		<td><code>step.label</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The label of the current step</td>
+	</tr>
+	<tr>
+		<td><code>step.type</code></td>
+		<td><code>String</code></td>
+		<td>The type of the current step<br><em>Available types:</em> <code>command</code>, <code>wait</code>, <code>input</code>, <code>trigger</code>, <code>group</code></td>
+	</tr>
+	<tr>
+		<td><code>step.state</code></td>
+		<td><code>String</code></td>
+		<td>The state of the current step<br><em>Available states:</em> <code>ignored</code>, <code>waiting_for_dependencies</code>, <code>ready</code>, <code>running</code>, <code>failing</code>, <code>finished</code></td>
+	</tr>
+	<tr>
+		<td><code>step.outcome</code></td>
+		<td><code>String</code></td>
+		<td>The outcome of the current step<br><em>Available types:</em> <code>neutral</code>, <code>passed</code>, <code>soft_failed</code>, <code>hard_failed</code>, <code>errored</code></td>
+	</tr>
+</tbody>
+</table>
+
 ## Example expressions
 
 To run only when the branch is `main` or `production`:
