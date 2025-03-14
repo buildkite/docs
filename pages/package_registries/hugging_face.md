@@ -57,7 +57,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-- `{registry.slug}` is the slug of your Hugging Face source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your Debian source registry from the **Registries** page.
+- `{registry.slug}` is the slug of your Hugging Face source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your Hugging Face source registry from the **Registries** page.
 
 <%= render_markdown partial: 'package_registries/hugging_face_namespace_and_repo' %>
 
