@@ -33,8 +33,9 @@ Token codes expire after 5 minutes. Users must authorize the code and generate a
 To complete authorization, users must navigate to the provided authorization URL and approve the token code. Once authorized, the user may close the browser tab.
 
 Requirements:
-* The user must be authenticated.
-* The user must be a member of the organization.
+
+- The user must be authenticated.
+- The user must be a member of the organization.
 
 ### Generating a Portal token
 
@@ -55,10 +56,11 @@ The response contains the generated token and its expiration timestamp:
 ```
 
 Token Usage and Expiry:
-* Each token code can generate only a single token.
-* Portal tokens are valid for 12 hours by default.
-* Users can request token for a shorter duration if needed.
-* The generated token can be used to execute operations in portal that was authorized by the user.
+
+- Each token code can generate only a single token.
+- Portal tokens are valid for 12 hours by default.
+- Users can request token for a shorter duration if needed.
+- The generated token can be used to execute operations in portal that was authorized by the user.
 
 ### Custom expiry duration
 
