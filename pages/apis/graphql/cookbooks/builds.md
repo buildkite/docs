@@ -254,7 +254,7 @@ mutation PipelineUpdate {
 To get the total run time for a build, you can use the following query.
 
 ```
-query GetTotalBuildRunTime{
+query GetTotalBuildRunTime {
   build(slug: "organization-slug/pipeline-slug/build-number") {
     pipeline {
       name

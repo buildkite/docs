@@ -8,12 +8,12 @@ To view and copy this `curl` command:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Terraform source registry on this page.
-1. Select **Publish a Terraform Package** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish a module to your Terraform registry.
+1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of the relevant code box to copy this `curl` command and run it (with the appropriate values) to publish the module to this source registry.
 
 This command provides:
 
 - The specific URL to publish a module to your specific Terraform source registry in Buildkite.
-- The API access token required to publish modules to your Terraform source registry.
+- The API access token required to publish modules to this source registry.
 - The Terraform module file to be published.
 
 ## Publish a module
@@ -36,7 +36,7 @@ where:
 
 - `{registry.slug}` is the slug of your Terraform registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of your Terraform registry name, and can be obtained after accessing **Package Registries** in the global navigation > your Terraform registry from the **Registries** page.
 
-- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload modules to your Terraform source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish modules and packages to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Terraform source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
+- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload modules to your Terraform source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish modules and other package types to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Terraform source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
 <%= render_markdown partial: 'package_registries/path_to_terraform_module' %>
 
@@ -120,7 +120,7 @@ To install a module:
     }
     ```
 
-    where `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download modules from your Terraform registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download modules and packages from any registry your user account has access to within your Buildkite organization.
+    where `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download modules from your Terraform registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download modules and other package types from any registry your user account has access to within your Buildkite organization.
 
     **Note:** This step only needs to be performed once for the life of your Terraform registry.
 

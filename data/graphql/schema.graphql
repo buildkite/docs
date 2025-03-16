@@ -270,6 +270,11 @@ type Agent implements Node {
   Note supplied when agent was paused, if paused
   """
   pausedNote: String
+
+  """
+  Number of minutes the agent will remain paused for, if paused
+  """
+  pausedTimeoutInMinutes: Int!
   permissions: AgentPermissions!
 
   """
@@ -364,6 +369,11 @@ input AgentPauseInput {
   Leave a note, e.g. describe why this agent is paused
   """
   note: String
+
+  """
+  Specify how long the agent will remain paused for
+  """
+  timeoutInMinutes: Int
 }
 
 """
@@ -976,6 +986,8 @@ enum AuditEventType {
   PIPELINE_WEBHOOK_URL_ROTATED
   PORTAL_CREATED
   PORTAL_DELETED
+  PORTAL_TOKEN_CODE_AUTHORIZED
+  PORTAL_TOKEN_CREATED
   PORTAL_UPDATED
   REGISTRY_CREATED
   REGISTRY_DELETED
@@ -1087,7 +1099,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | OrganizationRepositoryProviderGitHub | OrganizationRepositoryProviderGitHubEnterpriseServer | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -1113,6 +1125,8 @@ enum AuditSubjectType {
   PIPELINE_SCHEDULE
   PIPELINE_TEMPLATE
   PORTAL
+  PORTAL_TOKEN
+  PORTAL_TOKEN_CODE
   REGISTRY
   REGISTRY_TOKEN
   RULE
@@ -1996,6 +2010,11 @@ input ClusterAgentTokenCreateInput {
   clientMutationId: String
   clusterId: ID!
   description: String!
+
+  """
+  The date and time at which this token will expire and no longer be valid. If not provided, the token will never expire.
+  """
+  expiresAt: DateTime
   organizationId: ID!
 }
 
@@ -2450,6 +2469,11 @@ type ClusterToken implements Node {
   A description about what this cluster agent token is used for
   """
   description: String
+
+  """
+  The date and time at which this token will expire and no longer be valid. If empty, the token will never expire.
+  """
+  expiresAt: DateTime
   id: ID!
 
   """
@@ -5396,6 +5420,11 @@ type Organization implements Node {
     Filter agents to those only having the matching meta data
     """
     metaData: [String!]
+
+    """
+    Filter agents by whether they are paused or not
+    """
+    paused: Boolean
 
     """
     Search agents for the given query terms case insensitively across name and meta data
