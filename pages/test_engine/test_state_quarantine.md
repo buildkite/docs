@@ -1,6 +1,6 @@
-# Quarantine
+# Test state & quarantine
 
-Customers on the [Enterprise plan](https://buildkite.com/pricing) can access Buildkite Test Engine's quarantine feature. Contact Buildkite sales at sales@buildkite.com to gain access to this feature and try it out.
+Customers on the [Enterprise plan](https://buildkite.com/pricing) can access Buildkite Test Engine's test state management. Contact Buildkite sales at sales@buildkite.com to gain access to test state management and try it out.
 
 The quarantine feature allows you to [automatically](#automatic-quarantine) or [manually](#manual-quarantine) assign a state to a [flaky test](/docs/test-engine/flaky-test-management#detecting-flaky-tests) of a pipeline, so that when the pipeline is being built, any failures in these flaky tests will be ignored, or the flaky tests will be skipped completely.
 
