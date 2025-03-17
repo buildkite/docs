@@ -483,8 +483,8 @@
           path: "test-engine/manage-test-suites"
         - name: "Flaky test management"
           path: "test-engine/flaky-test-management"
-        - name: "Test state & quarantine"
-          path: "test-engine/test-state-quarantine"
+        - name: "Test state and quarantine"
+          path: "test-engine/test-state-and-quarantine"
         - name: "Test splitting"
           children:
             - name: "Overview"
