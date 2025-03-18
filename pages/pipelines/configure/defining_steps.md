@@ -100,6 +100,7 @@ For more example steps and detailed configuration options, see the example `pipe
 * [block steps](/docs/pipelines/configure/step-types/block-step)
 * [input steps](/docs/pipelines/configure/step-types/input-step)
 * [trigger steps](/docs/pipelines/configure/step-types/trigger-step)
+* [group steps](/docs/pipelines/configure/step-types/group-step)
 
 If your pipeline has more than one step and you have multiple agents available to run them, they will automatically run at the same time. If your steps rely on running in sequence, you can separate them with [wait steps](/docs/pipelines/configure/step-types/wait-step). This will ensure that any steps before the 'wait' are completed before steps after the 'wait' are run.
 
