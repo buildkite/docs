@@ -96,7 +96,7 @@ To ensure correct file permissions, you can:
 
 To use Docker and volume mounting from build scripts, you need to ensure that the builds directory, and the `buildkite-agent` binary path, are mounted in from the host machine, and that their paths on the host and in the agent container are the same.
 
-For example, when a script runs the command `docker run --volume "$PWD:/code" ...` the `$PWD` environment variable will resolve to the path in your agent's container (for example, `/var/lib/buildkite/builds/my-org/my-pipeline`). The Docker daemon, which exists on the host machine, will attempt to mount `/var/lib/buildkite/builds/my-org/my-pipeline` from the host filesystem, not the agent container filesystem. If that directory does not exist on the host, Docker will mount an empty directory to `/code` without showing any error.
+For example, when a script runs the command `docker run --volume "$PWD:/code" ...` the `$PWD` environment variable will resolve to the path in your agent's container (for example, `/var/lib/buildkite/builds/my-org/my-pipeline`). The Docker daemon, which exists on the host machine, will attempt to mount `/var/lib/buildkite/builds/my-org/my-pipeline` from the host file system, not the agent container file system. If that directory does not exist on the host, Docker will mount an empty directory to `/code` without showing any error.
 
 The following example shows how to configure the agent container with the correct host volumes mounts, and `BUILDKITE_BUILD_PATH` configuration:
 

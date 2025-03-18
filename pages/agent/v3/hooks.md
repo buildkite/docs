@@ -13,7 +13,7 @@ A hook is a script executed or sourced by the Buildkite agent at a specific poin
 
 You can define hooks in the following locations:
 
-* In the filesystem of the agent machine (called _agent hooks_, or more rarely _global hooks_).
+* In the file system of the agent machine (called _agent hooks_, or more rarely _global hooks_).
 * In your pipeline's repository (called _repository hooks_, or more rarely _local hooks_).
 * In [plugins](/docs/pipelines/integrations/plugins) applied to steps.
 

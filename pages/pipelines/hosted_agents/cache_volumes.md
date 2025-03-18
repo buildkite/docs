@@ -64,6 +64,9 @@ steps:
   </tr>
 </table>
 
+> 📘
+> On [macOS hosted agents](/docs/pipelines/hosted-agents/macos), the instance is a full macOS snapshot, including the standard file system structure. Cache paths cannot be specified on reserved paths, such as `/tmp` and `/private`. However, sub-paths such as `/tmp/cache` are acceptable.
+
 ### Optional attributes
 
 <table data-attributes data-attributes-required>
