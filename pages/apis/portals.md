@@ -35,9 +35,11 @@ At a minimum, a portal requires a name that will be used to generate a unique en
 
     **Tip:** You can get the GraphQL pipeline ID from your pipeline settings.
 
-1. After completing the required fields with this mutation, proceed to create the portal, which subsequently generates a new HTTP endpoint and corresponding access token which you'll use later for  authentication.
+1. After completing the required fields with this mutation, proceed to create the portal, which subsequently generates a new HTTP endpoint and corresponding access token (known as an _admin-level portal token_) which you'll use later for authentication.
 
 1. Save this access token to somewhere secure, as you won't be able to access its value again through the Buildkite interface.
+
+    **Note:** This _portal token_ is referred to as an _admin-level_ one, since it grants Buildkite organization administrator-access privileges to this Buildkite organization.
 
 1. Make a request to your new endpoint. You can access it using the following `curl` command, replacing the organization slug with your own.
 

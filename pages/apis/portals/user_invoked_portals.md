@@ -1,16 +1,18 @@
 # User-invoked portals
 
-User-invoked portals allow:
+User-invoked portals allow users within a Buildkite organization (also known as _Buildkite organization members_) to:
 
-- Organization users to execute GraphQL operations from a portal and ensure operations run under their own permissions and identity. This approach is suitable when the acting principal of an operation must be explicitly identified, or when user-specific permissions must be enforced.
+- Execute GraphQL operations from a portal, and ensures that such operations are run under their own permissions and identity. This approach is suitable when the user conducting such portal operations need to be identified, or when user-specific permissions for such operations must be enforced.
 
-- Users to authorize and generate short-lived tokens, providing a secure mechanism to execute API actions without requiring API tokens to be stored on a developer's machine.
+- Authorize and generate short-lived tokens, providing a secure mechanism to execute API actions through these portals, without requiring API tokens to be stored on a developer's machine.
 
 ## Short-lived portal token
 
 To use a user-invoked portal, Buildkite organization administrators must explicitly configure portals to be _user-invokable_. This provides these administrators control over which portals allow user-invoked operations while restricting other from being user-invokable.
 
-Once a portal is marked as user-invokable, users can request a token code, authorize it, and retrieve a token for executing portal operations.
+Once a portal is marked as user-invokable, users can request a _token code_ and authorize it to retrieve a _user-specific portal token_ for executing portal operations.
+
+Unlike [admin-level portal tokens](/docs/apis/portals#getting-started), these types of _portal tokens_ are referred to as _user-specific_ ones, since they only grant privileges to what this user has access to within the Buildkite organization.
 
 ### Generating token codes
 
@@ -29,7 +31,7 @@ curl -X POST "https://portal.buildkite.com/organizations/{org.slug}/portals/{por
 }
 ```
 
-Token codes expire after 5 minutes. Users must authorize the code and generate a token before expiration.
+Token codes expire after 5 minutes. Users must authorize the token code before it expires, to generate a portal token.
 
 ### Authorizing using web interface
 
