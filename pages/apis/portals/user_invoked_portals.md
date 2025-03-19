@@ -35,7 +35,7 @@ Token codes expire after 5 minutes. Users must authorize the token code before i
 
 ### Authorizing using web interface
 
-To complete authorization, users must navigate to the provided authorization URL and approve the token code. Once authorized, the user may close the browser tab.
+To complete authorization, users must navigate to the authorization URL (provided by the `authorization_url` value when [generating token codes](#short-lived-portal-token-generating-token-codes)) and approve the token codes in the request. Once authorized, the user may close the browser tab.
 
 For this authorization process to succeed, the user must be both:
 
@@ -44,7 +44,7 @@ For this authorization process to succeed, the user must be both:
 
 ### Generating a portal token
 
-Once the token code is authorized, users can obtain a portal token by making a `POST` request to the portal's token endpoint, including the code and secret from the previous step:
+Once the token codes are authorized, users can obtain a portal token by making a `POST` request to the portal's token endpoint, including the `code` and `secret` values in the response from [generating token codes](#short-lived-portal-token-generating-token-codes):
 
 ```bash
 curl -H "Content-Type: application/json" \
@@ -52,7 +52,7 @@ curl -H "Content-Type: application/json" \
   -X POST "https://portal.buildkite.com/organizations/{org.slug}/portals/{portal.slug}/tokens"
 ```
 
-The response contains the generated token and its expiration timestamp:
+The response contains the generated user-specific portal token and its expiration timestamp:
 
 ```json
 {
@@ -63,10 +63,10 @@ The response contains the generated token and its expiration timestamp:
 
 Token usage and expiration:
 
-- Each token code can generate only a single token.
+- Each set of token codes can generate only a single user-specific portal token.
 - Portal tokens are valid for 12 hours by default.
-- Users can request token for a shorter duration if needed.
-- The generated token can be used to execute operations in portal that was authorized by the user.
+- Users can request their own portal tokens with a shorter duration if needed.
+- The portal token generated can be used to execute operations with the portal that was authorized by the user.
 
 ### Custom expiration duration
 
