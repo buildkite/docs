@@ -169,6 +169,7 @@ Rails.application.routes.draw do
   get "/docs/test-analytics",                             to: redirect("/docs/test-engine")
   get "/docs/test-analytics/*page",                       to: redirect("/docs/test-engine/%{page}")
   get "/docs/test-analytics/js-collectors",               to: redirect("/docs/test-engine/javascript-collectors")
+  get "/docs/test-engine/quarantine",                     to: redirect("/docs/test-engine/test-state-and-quarantine")
   get "/docs/tutorials/2fa",                              to: redirect("/docs/platform/tutorials/2fa")
   get "/docs/tutorials/bazel",                            to: redirect("/docs/pipelines/tutorials/bazel")
   get "/docs/tutorials/bitbucket",                        to: redirect("/docs/pipelines/source-control/bitbucket")
