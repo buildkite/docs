@@ -21,8 +21,8 @@ At a minimum, a portal requires a name that will be used to generate a unique en
     mutation triggerBuild {
     buildCreate(input:{
       branch: "main",
-      commit:"HEAD,"
-      pipelineID:"UGlwZWxpbmUtLS0wMTkzMDkxZC1lOTIUzzRhMWEtYWQ0NS1jMWJhNTA2N2RiMzQ=",
+      commit: "HEAD,"
+      pipelineID: "UGlwZWxpbmUtLS0wMTkzMDkxZC1lOTIUzzRhMWEtYWQ0NS1jMWJhNTA2N2RiMzQ=",
     }) {
         build {
           url
@@ -57,7 +57,7 @@ Voila! You've just created and executed a portal.
 
 ## Endpoint
 
-Each portal has a unique endpoint served from `http://portal.buildkite.com` with the following URL structure:
+Each portal has a unique endpoint served from `https://portal.buildkite.com` with the following URL structure:
 
 ```
 https://portal.buildkite.com/organizations/{organization.slug}/portals/{portal}
@@ -105,7 +105,7 @@ e.g.
 curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d "{ "build_slug": "organization-slug/pipeline-slug/build-number" }" \
-  -X POST "https://portal.buildkite.com/organizations/my-organization/portals/get-total-run-time"
+  -X POST "https://portal.buildkite.com/organizations/my-organization/portals/get-total-build-run-time"
 ```
 
 ## Customer preview
