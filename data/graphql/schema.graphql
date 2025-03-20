@@ -986,6 +986,7 @@ enum AuditEventType {
   PIPELINE_WEBHOOK_URL_ROTATED
   PORTAL_CREATED
   PORTAL_DELETED
+  PORTAL_SECRET_CREATED
   PORTAL_TOKEN_CODE_AUTHORIZED
   PORTAL_TOKEN_CREATED
   PORTAL_UPDATED
@@ -1125,6 +1126,7 @@ enum AuditSubjectType {
   PIPELINE_SCHEDULE
   PIPELINE_TEMPLATE
   PORTAL
+  PORTAL_SECRET
   PORTAL_TOKEN
   PORTAL_TOKEN_CODE
   REGISTRY
@@ -12312,26 +12314,6 @@ type Viewer implements Node {
   The ID of the current user
   """
   id: ID!
-  jobs(
-    after: String
-
-    """
-    Filter jobs based on matching agent query rules (for example, a single tag
-    match "queue=test", or an array of matches ["queue=test", "tag=value"])
-    """
-    agentQueryRules: [String!]
-    before: String
-    first: Int
-    last: Int
-
-    """
-    Order the jobs
-    """
-    order: JobOrder = RECENTLY_CREATED
-    priority: JobPrioritySearch
-    state: [JobStates!]
-    type: [JobTypes!]
-  ): JobConnection
   notice(namespace: NoticeNamespaces!, scope: String!): Notice
   organizations(first: Int, last: Int): OrganizationConnection
 
