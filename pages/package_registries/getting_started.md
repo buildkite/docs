@@ -20,13 +20,13 @@ First, create a new JavaScript source registry:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select **New registry** > **Source Registry**.
-1. On the **New Registry** page, enter the mandatory **Name** for your registry. For example, `My JavaScript registry`.
-1. Enter an optional **Description** for the registry, which will appear under the name of the registry item on the **Registries** page. For example, `This is an example of a JavaScript registry`.
+1. On the **New Registry** page, enter the mandatory **Name** for your source registry. For example, `My JavaScript registry`.
+1. Enter an optional **Description** for the source registry, which will appear under the name of the registry item listed on the **Registries** page. For example, `This is an example of a JavaScript registry`.
 1. Select the required registry **Ecosystem** of **JavaScript (npm)**.
 1. If your Buildkite organization has the [teams feature](/docs/package-registries/security/permissions) enabled, select the relevant **Teams** to be granted access to the new JavaScript registry.
 1. Select **Create Registry**.
 
-    The new JavaScript registry's details page is displayed. Selecting **Package Registries** in the global navigation opens the **Registries** page, where your new registry will be listed.
+    The new JavaScript source registry's **Releases** page is displayed. Selecting **Package Registries** in the global navigation opens the **Registries** page, where your new source registry will be listed.
 
 ## Clone the Node.js example package project
 
@@ -51,9 +51,9 @@ Then, clone the Node.js example package project:
 
 Next, configure your Node.js environment to publish Node.js packages to [the JavaScript registry you created above](#create-a-source-registry):
 
-1. Access your JavaScript registry's details page. To do this, select **Package Registries** in the global navigation > your npm package from the list.
-1. Select **Publish a JavaScript Package** to open the dialog with code boxes.
-1. Copy the `npm` command in the first code box and run it to configure your npm config settings file (`.npmrc`). This configuration allows you to publish packages to your JavaScript registry. The `npm` command has the following format:
+1. Access your JavaScript registry's publishing instructions page. To do this, select **Package Registries** in the global navigation > your JavaScript source registry (for example, **My JavaScript registry**) from the list on the **Registries** page.
+1. Select the **Publish Instructions** tab.
+1. On the resulting page, copy the `npm` command in the first code box and run it to configure your npm config settings file (`.npmrc`). This configuration allows you to publish packages to your JavaScript registry. The `npm` command has the following format:
 
     ```bash
     npm set "//packages.buildkite.com/{org.slug}/{registry.slug}/npm/:_authToken" registry-write-token
@@ -66,7 +66,7 @@ Next, configure your Node.js environment to publish Node.js packages to [the Jav
 
     **Note:**
     * If your `.npmrc` file doesn't exist, this command will automatically create it for you.
-    * This step only needs to be performed once for the life of your JavaScript registry.
+    * This step only needs to be performed once for the life of your JavaScript source registry.
 
 1. Copy the `publishConfig` field and its value in the second code box and paste it to the end of your Node.js package's `package.json` file. Alternatively, select and copy the line of code beginning `"publishConfig": ...`. For example:
 
