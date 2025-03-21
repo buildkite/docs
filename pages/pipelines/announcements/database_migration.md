@@ -5,7 +5,7 @@ toc: false
 # Database migration
 
 > 📘
-> This announcement relates to a past event that has since been completed. However, this page is being retained for archival purposes.
+> This announcement relates to a previous event that has since been completed. However, this page is being retained for archival purposes.
 
 ## Introduction
 
