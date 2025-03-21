@@ -2,7 +2,7 @@
 
 This tutorial takes you through the process of creating dynamic pipelines and build annotations in Buildkite Pipelines, using [Bazel](https://www.bazel.build/) as the build tool. In you are not familiar with how the Bazel build tool can integrate with Buildkite, learn more about this in the [Using Bazel with Buildkite tutorial](/docs/pipelines/tutorials/bazel), which uses a simple Bazel example and Buildkite pipeline.
 
-The tutorial uses an example Python project (built with Bazel) that Buildkite initially uploads in its build to create additional Buildkite pipeline steps (in JSON format), which are then uploaded to your Buildkite pipeline. As part of the same pipeline build, Buildkite continues to build these additional pipeline steps (created earlier in the build), which are the steps that build and test an emoji library.
+The tutorial uses an example Python project (built with Bazel) whose Buildkite pipeline is initially uploaded at the start of its build and runs its `main` Python target. The `main` target creates additional Buildkite pipeline steps (in JSON format), which are then uploaded to your Buildkite pipeline. As part of the same pipeline build, Buildkite continues to build these additional pipeline steps, which in turn build and test an emoji library.
 
 Buildkite pipelines that generate new pipeline steps dynamically like this, which are then uploaded to run as part of the same pipeline build, are known as [_dynamic pipelines_](/docs/pipelines/configure/dynamic-pipelines).
 
