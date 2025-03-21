@@ -4,13 +4,16 @@ toc: false
 
 # Database migration
 
+> 📘
+> This announcement relates to a past event that has since been completed. However, this page is being retained for archival purposes.
+
 ## Introduction
 
 In early 2024, Buildkite successfully completed an initial phase of work to begin migrating Buildkite Pipelines from using a single, very large PostgreSQL database, over to smaller, multiple database shards. Migrating customers from one large database to a series for smaller multiple shards allows Buildkite Pipelines' database access to be distributed across multiple entry points, thereby improving the performance of Buildkite Pipelines for all customers.
 
 This initial phase of work involved migrating some of Buildkite's largest customers (accounting for approximately half of the load on this original single database) over to smaller multiple shards, which greatly improved overall Buildkite Pipelines performance.
 
-From December 2024 to February 2025, Buildkite will migrate all remaining customers on this original single database over to smaller database shards. There will be migration windows from 07:00 – 09:00 UTC each Sunday during this period.
+From December 2024 to March 2025, Buildkite will migrate all remaining customers on this original single database over to smaller database shards. There will be migration windows from 07:00 – 09:00 UTC each Sunday during this period.
 
 ## The migration process
 
