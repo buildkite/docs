@@ -47,7 +47,7 @@ By default, Buildkite organizations have one cluster, named **Default cluster** 
 You need at least one agent configured within its own queue and cluster to run builds.
 
 > 📘 Already running an agent
-> If you're already running an agent, skip to the [next step](#create-a-pipeline).
+> If you're already running an agent, skip to the [next step on creating a pipeline](#create-a-pipeline).
 
 ### Create a Buildkite hosted agent
 
