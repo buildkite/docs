@@ -431,7 +431,7 @@
               path: "pipelines/integrations/other/slack-workspace"
     - name: "Announcements"
       children:
-        - name: "Database migration"
+        - name: "Database migration (Archived)"
           path: "pipelines/announcements/database-migration"
 - name: "Test Engine"
   path: "test-engine"
