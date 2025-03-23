@@ -140,7 +140,7 @@ Each build matrix has a limit of 6 dimensions, 20 elements in each dimension, an
 
 ## Grouping matrix elements
 
-When you're creating many jobs with a matrix, you might want to [group](/docs/pipelines/configure/step-types/group-step) them together, for a tidier view.
+If you're using the [new build page experience](/docs/pipelines/build-page), matrix jobs are automatically grouped under the matrix step you define in your pipeline. This makes them easier to use and work with. However, if you're using the classic build page with many matrix jobs, then you may want to consider [grouping](/docs/pipelines/configure/step-types/group-step) them together manually with a group step, for a tidier view.
 
 <%= image "grouped.jpg", width: 497/2, height: 331/2, alt: "Screenshot of an eight job matrix inside a group step" %>
 
