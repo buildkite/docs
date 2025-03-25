@@ -42,7 +42,7 @@ The program that executes work is called an _agent_ in Buildkite. An agent is a 
 
 Buildkite agents connect to Buildkite through a [_cluster_](/docs/pipelines/glossary#cluster). Clusters provide a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within [_queues_](/docs/pipelines/glossary#queue)) in the same cluster.
 
-By default, Buildkite organizations have one cluster, named **Default cluster** with a single queue, named **default-queue**, noting that a cluster maintainer or Buildkite organization administrator can customize these default names.
+By default, new Buildkite organizations have one cluster, named **Default cluster** with a single queue, named with they key **default**, noting that a cluster maintainer or Buildkite organization administrator can customize the cluster's name.
 
 You need at least one agent configured within its own queue and cluster to run builds.
 
@@ -54,6 +54,9 @@ You need at least one agent configured within its own queue and cluster to run b
 You can create the first [Buildkite hosted agent](/docs/pipelines/hosted-agents) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
 
 Before creating your Buildkite hosted agent, ensure you have a [cluster](/docs/pipelines/clusters/manage-clusters) (for example, **Default cluster**) you can connect this agent to.
+
+> 📘
+> If you're unable to access the Buildkite hosted agent feature or create one in your cluster, please contact support at support@buildkite.com to request access to this feature. Otherwise, you can set yourself up with a [self-hosted agent](#set-up-an-agent-install-and-run-a-self-hosted-agent) instead.
 
 To create a hosted agent:
 
