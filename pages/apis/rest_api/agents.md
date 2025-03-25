@@ -175,6 +175,70 @@ Error responses:
 </tbody>
 </table>
 
+## Pause an agent
+
+> 📘 Required permissions
+> To pause an agent you need either
+- An Admin user API token with `write_agents` [scope](/docs/apis/managing-api-tokens#token-scopes)
+- Or, if you're using the Buildkite organization's [security for pipelines](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) feature, a user token with the <em>Stop Agents</em> permission.
+
+Prevent dispatching jobs to an agent, and instruct the agent to remain running after finishing its current job if it would otherwise exit.
+
+```bash
+curl -H "Authorization: Bearer ${TOKEN}" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}/pause" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "note": "A short note explaining why this agent is being paused",
+    "timeoutInMinutes": 60
+  }'
+```
+
+Required scope: `write_agents`
+
+Success response: `204 No Content`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr><th><code>404 Not Found</code></th><td><code>{ "message": "No agent found" }</code></td></tr>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Agent is already paused" }</code></td></tr>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Only connected agents may be paused" }</code></td></tr>
+</tbody>
+</table>
+
+
+## Resume an agent
+
+> 📘 Required permissions
+> To resume a paused agent you need either
+- An Admin user API token with `write_agents` [scope](/docs/apis/managing-api-tokens#token-scopes)
+- Or, if you're using the Buildkite organization's [security for pipelines](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) feature, a user token with the <em>Stop Agents</em> permission.
+
+Resume dispatching jobs to an agent, and instruct the agent to resume normal operation.
+
+```bash
+curl -H "Authorization: Bearer ${TOKEN}" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}/resume" \
+  -H "Content-Type: application/json" \
+  -d '{}'
+```
+
+Required scope: `write_agents`
+
+Success response: `204 No Content`
+
+Error responses:
+
+<table>
+<tbody>
+<tr><th><code>404 Not Found</code></th><td><code>{ "message": "No agent found" }</code></td></tr>
+<tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Agent is not paused" }</code></td></tr>
+</tbody>
+</table>
+
+
 ## Agent tokens
 
 Agent tokens are created through the [clusters REST API endpoint](/docs/apis/rest-api/clusters#agent-tokens).
