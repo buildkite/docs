@@ -21,7 +21,7 @@ Before you start, make sure ExUnit runs with access to [CI environment variables
     ```elixir
     def deps do
       [
-        {:buildkite_test_collector, "~> 0.1.0", only: [:test]}
+        {:buildkite_test_collector, "~> 0.3.1", only: [:test]}
       ]
     end
     ```
