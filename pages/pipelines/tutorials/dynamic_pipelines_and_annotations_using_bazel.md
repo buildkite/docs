@@ -9,7 +9,7 @@ The tutorial uses an example Python project whose program `pipeline.py` is first
 
 This `pipeline.py` Python program:
 
-- Determines which _intial files_ need to be run, based on changes that have been committed to either the `app/main.py` or `library/hello.py` files, and then proceeds to upload the relevant steps that run these files as part of the same pipeline build.
+- Determines which _initial files_ need to be run, based on changes that have been committed to either the `app/main.py` or `library/hello.py` files, and then proceeds to upload the relevant steps that run these files as part of the same pipeline build.
 - Also runs [Bazel queries](https://bazel.build/query/guide) to determine which _additional files_ depend on these initial files (for example, test files), and then runs those additional files too, based on which initial files are run.
 
 ## Before you start
