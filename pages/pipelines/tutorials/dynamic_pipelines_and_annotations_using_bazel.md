@@ -111,4 +111,3 @@ To create this pipeline:
 
     1. In the **Message** field, enter a short description for the build. For example, **My first build**.
     1. Select **Create Build**.
-
