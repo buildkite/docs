@@ -1,6 +1,6 @@
 # Dynamic pipelines
 
-Because the [pipeline upload step](/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file) runs on your agent machine, you can generate pipelines dynamically using scripts from your source code. This provides you with the flexibility to structure your pipelines however you require.
+When your source code projects are built with Buildkite Pipelines, you can write scripts in the same language as your source code, or any other suitable one, which generate new Buildkite pipeline steps (in either YAML or JSON format) that you can then upload to the same pipeline using the [pipeline upload step](/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file). These additional _dynamically generated_ pipeline steps are run on the same Buildkite Agent, as part of the same pipeline build, and will appear as their own steps in your pipeline builds. This provides you with the flexibility to structure your pipelines however you require.
 
 The following example generates a list of parallel test steps based upon the `test/*` directory within your repository:
 
@@ -61,3 +61,6 @@ Each team defines their steps in `team-steps.yml`. Your templating logic is in `
 In `enforce-rules.sh` you can add steps to the YAML, require certain versions of dependencies or plugins, or implement any other logic you can program. Depending on your use case, you might want to get `enforce-rules.sh` from an external catalog instead of committing it to the team repository.
 
 See how [Hasura.io](https://hasura.io) used [dynamic templates and pipelines](https://hasura.io/blog/what-we-learnt-by-migrating-from-circleci-to-buildkite/#dynamic-pipelines) to replace their YAML configuration with Go and some shell scripts.
+
+## The Buildkite SDK
+
