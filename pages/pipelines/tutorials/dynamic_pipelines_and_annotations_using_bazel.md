@@ -5,9 +5,12 @@ This tutorial takes you through the process of creating dynamic pipelines and bu
 - How the Bazel build tool can integrate with Buildkite, learn more about this in the [Using Bazel with Buildkite tutorial](/docs/pipelines/tutorials/bazel), which uses a Buildkite pipeline to build a simple Bazel example.
 - The basics of Buildkite Pipelines, run through the [Pipelines getting started tutorial](/docs/pipelines/getting-started) first, which explains Buildkite Pipelines' [architecture](/docs/pipelines/getting-started#understand-the-architecture) and [agent setup](/docs/pipelines/getting-started#set-up-an-agent), and builds a simple pipeline.
 
-The tutorial uses an example Python project (built with Bazel) whose Buildkite pipeline is initially uploaded at the start of its build and runs its `main` Python target. The `main` target creates additional Buildkite pipeline steps (in JSON format), which are then uploaded to your pipeline's build. As part of the same pipeline build, Buildkite continues to build these additional steps, which in turn builds and tests an emoji library.
+The tutorial uses an example Python project whose program `pipeline.py` is first run by Buildkite Pipelines. This Python program creates additional Buildkite pipeline steps (in JSON format) that are then uploaded to the same pipeline build, which Buildkite continues to run as part of the same pipeline. Buildkite pipelines that generate new pipeline steps dynamically like this, are known as [_dynamic pipelines_](/docs/pipelines/configure/dynamic-pipelines).
 
-Buildkite pipelines that generate new pipeline steps dynamically like this, which are then uploaded to run as part of the same pipeline build, are known as [_dynamic pipelines_](/docs/pipelines/configure/dynamic-pipelines).
+This `pipeline.py` Python program:
+
+- Determines which _intial files_ need to be run, based on changes that have been committed to either the `app/main.py` or `library/hello.py` files, and then proceeds to upload the relevant steps that run these files as part of the same pipeline build.
+- Also runs [Bazel queries](https://bazel.build/query/guide) to determine which _additional files_ depend on these initial files (for example, test files), and then runs those additional files too, based on which initial files are run.
 
 ## Before you start
 
@@ -104,7 +107,7 @@ Next, you'll create a new pipeline that builds an [example Python project with B
 
 To create this pipeline:
 
-1. [Add a new pipeline](https://buildkite.com/new) in your Buildkite organization, using `https://github.com/cnunciato/bazel-buildkite.git` as the Git Repository value.
+1. [Add a new pipeline](https://buildkite.com/new) in your Buildkite organization, using `https://github.com/cnunciato/bazel-buildkite-example.git` as the Git Repository value.
 1. On the **New Pipeline** page, select the cluster associated with the [agent you had set up with Bazel](#set-up-an-agent).
 1. If necessary, provide a **Name** for your new pipeline, then leave all other fields with their pre-filled default values, and select **Create Pipeline**. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
 1. On the next page showing your pipeline name, select **New Build**. In the resulting dialog, create a build using the pre-filled details.
