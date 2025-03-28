@@ -80,7 +80,8 @@ Your Buildkite hosted agent, as the new default queue, is now ready to use.
 
 Before installing and running a self-hosted agent, ensure you have:
 
-- a [cluster](/docs/pipelines/clusters/manage-clusters) (for example, **Default cluster**) you can connect this agent to, and
+- a [cluster](/docs/pipelines/clusters/manage-clusters) (for example, **Default cluster**) you can connect this agent to,
+- a [queue](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue) (for example, with the key **default**) to which the agent will be associated with, and
 - the value of an [agent token](/docs/agent/v3/tokens) (for example, **Initial agent token**), which you can configure for the agent.
 
     Be aware that since [hosted agents](#set-up-an-agent-create-a-buildkite-hosted-agent) are managed by Buildkite, there is no need to create agent tokens for these types of agents.

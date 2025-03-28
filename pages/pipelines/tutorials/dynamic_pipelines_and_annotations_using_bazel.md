@@ -5,7 +5,7 @@ This tutorial takes you through the process of creating dynamic pipelines and bu
 - How the Bazel build tool can integrate with Buildkite, learn more about this in the [Using Bazel with Buildkite tutorial](/docs/pipelines/tutorials/bazel), which uses a Buildkite pipeline to build a simple Bazel example.
 - The basics of Buildkite Pipelines, run through the [Pipelines getting started tutorial](/docs/pipelines/getting-started) first, which explains Buildkite Pipelines' [architecture](/docs/pipelines/getting-started#understand-the-architecture) and [agent setup](/docs/pipelines/getting-started#set-up-an-agent), and builds a simple pipeline.
 
-The tutorial uses an example Python project whose program `pipeline.py` is first run by Buildkite Pipelines. This Python program creates additional Buildkite pipeline steps (in JSON format) that are then uploaded to the same pipeline, which Buildkite continues to run as part of the same pipeline build. Buildkite pipelines that generate new pipeline steps dynamically like this, are known as [_dynamic pipelines_](/docs/pipelines/configure/dynamic-pipelines).
+The tutorial uses an [example Python project](https://github.com/buildkite/bazel-buildkite-example) whose program `pipeline.py` within the `.buildkite/` directory is one of the first things run by Buildkite Pipelines when the pipeline commences its build. This Python program creates additional Buildkite pipeline steps (in JSON format) that are then uploaded to the same pipeline, which Buildkite continues to run as part of the same pipeline build. Buildkite pipelines that generate new pipeline steps dynamically like this, are known as [_dynamic pipelines_](/docs/pipelines/configure/dynamic-pipelines).
 
 This `pipeline.py` Python program:
 
@@ -26,6 +26,8 @@ To complete this tutorial, you'll need:
     * Select **Use YAML Steps for New Pipelines**, then confirm the action in the modal.
 
 - [Git](https://git-scm.com/downloads). This tutorial uses GitHub, but Buildkite can work with any version control system.
+
+- To have made your own copy or fork of the [bazel-buildkite-example](https://github.com/buildkite/bazel-buildkite-example) repository to your own GitHub account.
 
 ## Set up an agent
 
@@ -56,7 +58,7 @@ To create your macOS hosted agent:
 1. Follow the [Create a Buildkite hosted queue](/docs/clusters/manage-queues#create-a-buildkite-hosted-queue) > [Using the Buildkite interface](/docs/clusters/manage-queues#create-a-buildkite-hosted-queue-using-the-buildkite-interface) instructions to begin creating your hosted agent within its own queue.
 
     As part of this process:
-    * Give this queue an intuitive **key** and **description**, for example, **buildkite-macos-hosted-queue** and **Buildkite macOS hosted queue**, respectively.
+    * Give this queue an intuitive **key** and **description**, for example, **macos** and **Buildkite macOS hosted queue**, respectively.
     * In the **Select your agent infrastructure** section, select **Hosted**.
     * Select **macOS** as the **Machine type** and **Small** for the **Capacity**.
 
@@ -74,7 +76,8 @@ Setting up a self-hosted agent for this tutorial requires you to first install a
 
 Before installing and running a self-hosted agent, ensure you have:
 
-- a [cluster](/docs/pipelines/clusters/manage-clusters) (for example, **Default cluster**) you can connect this agent to, and
+- a [cluster](/docs/pipelines/clusters/manage-clusters) (for example, **Default cluster**) you can connect this agent to,
+- a [queue](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue) (for example, with the key **macos**) to which the agent will be associated with, and
 - the value of an [agent token](/docs/agent/v3/tokens) (for example, **Initial agent token**), which you can configure for the agent.
 
     Be aware that since [hosted agents](#set-up-an-agent-create-a-buildkite-hosted-agent-for-macos) are managed by Buildkite, there is no need to create agent tokens for these types of agents.
@@ -107,10 +110,30 @@ Next, you'll create a new pipeline that builds an [example Python project with B
 
 To create this pipeline:
 
-1. [Add a new pipeline](https://buildkite.com/new) in your Buildkite organization, using `https://github.com/cnunciato/bazel-buildkite-example.git` as the Git Repository value.
+1. [Add a new pipeline](https://buildkite.com/new) in your Buildkite organization, select your GitHub account from the **Any account** dropdown, and specify [your copy or fork of the 'bazel-buildkite-example' repository](#before-you-start) for the **Git Repository** value.
+
 1. On the **New Pipeline** page, select the cluster associated with the [agent you had set up with Bazel](#set-up-an-agent).
+
 1. If necessary, provide a **Name** for your new pipeline, then leave all other fields with their pre-filled default values, and select **Create Pipeline**. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
+
 1. On the next page showing your pipeline name, select **New Build**. In the resulting dialog, create a build using the pre-filled details.
 
     1. In the **Message** field, enter a short description for the build. For example, **My first build**.
     1. Select **Create Build**.
+    1. Verify that the initial **Compute the pipeline with Python** step has been run.
+
+1. Create a new branch, edit one of the files within both the `./app` and `./library` directories, and commit this change.
+
+    Visit [your pipeline's build summary page](https://buildkite.com/~/bazel-buildkite-example), and notice that both the dynamically generated **Build and test //library/...** _and_ **Build and test //app/...** steps are built.
+
+1. Create a new branch, edit one of the files within the `./app` directory, and commit this change.
+
+1. Push this branch up to your repo GitHub repo and create a pull request (PR).
+
+    Visit your pipeline's build summary page again, and notice that only the dynamically generated **Build and test //app/...** step is built.
+
+1. Create a new branch, edit one of the files within the `./library` directory, and commit this change.
+
+1. Push this branch up to your repo GitHub repo and create a pull request (PR).
+
+    On your pipeline's build summary page, notice that both the dynamically generated **Build and test //library/...** _and_ **Build and test //app/...** steps have both been built, since according to each Bazel package's respective `BUILD.bazel` files, `//app` has a dependency on `//library`.
