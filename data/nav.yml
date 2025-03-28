@@ -487,6 +487,9 @@
           path: "test-engine/flaky-test-management"
         - name: "Test state and quarantine"
           path: "test-engine/test-state-and-quarantine"
+        - name: "Tags"
+          path: "test-engine/tags"
+          pill: "preview"
         - name: "Test splitting"
           children:
             - name: "Overview"

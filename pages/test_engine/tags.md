@@ -1,0 +1,221 @@
+> 📘 Public preview
+> Tags are currently in public preview. Test Engine customers can tag
+> executions with an additional 10 custom tags beyond the included core
+> tags.
+
+# Tags
+
+Tags are a way of adding dimensions to Test execution metadata so they can be
+filtered, aggregated, and compared in Test Engine visualizations.
+
+Using tags enables you to observe aggregate performance across
+several Tests and (optionally) narrow the dataset further based on specific
+constraints. In summary, tagging is a method to observe aggregate data points.
+
+Tags are key:value pairs containing two parts:
+
+- The tag key is the identifier. The tag key can only exist once on each
+Test and is case sensitive.
+- The tag value is the specific data or information associated with the key.
+
+## Core tags
+
+We believe the following core tags are vital to helping you understand and
+improve the performance of your test suite. That's why they are included in
+the [managed tests](/docs/test-engine/usage_and_billing#managed-tests) price.
+
+Where possible Test Engine will automatically ingest this data on your behalf.
+
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th>Tag Key</th>
+      <th>Use case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>build.id</code></td>
+      <td>Filtering and aggregating based on the build identifier</td>
+    </tr>
+    <tr>
+      <td><code>build.job_id</code></td>
+      <td>Filtering and aggregating based on the job identifier</td>
+    </tr>
+    <tr>
+      <td><code>build.step_id</code></td>
+      <td>Filtering and aggregating based on the step identifier</td>
+    </tr>
+    <tr>
+      <td><code>cloud.provider</code></td>
+      <td>
+        Filtering and aggregating based on your cloud provider to compare
+        cloud provider performance and reliability in your test suite.
+        For example <code>aws</code> vs <code>gcp</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>cloud.region</code></td>
+      <td>
+        Filtering and aggregating based on your cloud region to compare
+        region performance and reliability in your test suite.
+        For example <code>us-east-1</code> vs <code>us-east-2</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>code.file.path</code></td>
+      <td>
+        Filtering and aggregating based on a file path or subsection
+        of the file path.
+      </td>
+    </tr>
+    <tr>
+      <td><code>collector.name</code></td>
+      <td>
+        Filtering and aggregating based on the Test Engine collector you
+        are using. Useful when onboarding or updating your Test Engine collector.
+      </td>
+    </tr>
+    <tr>
+      <td><code>collector.version</code></td>
+      <td>
+        Filtering and aggregating based on the Test Engine collector version you
+        are using. Useful when onboarding or updating your Test Engine collector.
+      </td>
+    </tr>
+    <tr>
+      <td><code>host.arch</code></td>
+      <td>
+        Filtering and aggregating based on the architecture to compare
+        architecture performance and reliability in your
+        test suite. For example <code>arm64</code> vs <code>x86_64</code>.
+      </td>
+    </tr>
+    <tr>
+      <td><code>host.type</code></td>
+      <td>
+        Filtering and aggregating based on the instance type to compare
+        instance performance and reliability in your
+        test suite. For example <code>m4.large</code> vs <code>m5.large</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>language.name</code></td>
+      <td>
+        Filtering and aggregating based on the programming language to compare
+        language performance and reliability in your test suite.
+        For example <code>python</code> vs <code>javascript</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>language.version</code></td>
+      <td>
+        Filtering and aggregating based on the language version to compare
+        version performance and reliability in your test suite.
+        For example <code>3.0.2</code> vs <code>2.5.3</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>scm.branch</code></td>
+      <td>
+        Filtering and aggregating based on source code branch to compare
+        branch performance and reliability. For example you might
+        be rolling out a new dependency and you are testing this in a branch.
+      </td>
+    </tr>
+    <tr>
+      <td><code>scm.commit_sha</code></td>
+      <td>
+        Filtering and aggregating based on commit_sha to compare specific
+        commit performance and reliability.
+      </td>
+    </tr>
+    <tr>
+      <td><code>test.framework.name</code></td>
+      <td>
+        Filtering and aggregating based on testing framework to compare
+        performance and reliability.
+      </td>
+    </tr>
+    <tr>
+      <td><code>test.framework.version</code></td>
+      <td>
+        Filtering and aggregating based on testing framework version to compare
+        performance and reliability.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Custom tags
+
+In addition to the core tags listed above you can tag executions with custom
+tags of your own.
+
+### Defining tags
+
+Below are Test Engine's tagging requirements:
+
+#### Tag keys
+
+- Must not be blank
+- Must begin with a letter, and may contain letters, numbers, underscores, hyphens and periods
+- Must be less than 64 bytes of UTF-8 text
+
+#### Tag values
+
+- Must not be blank
+- Must be less than 128 bytes of UTF-8 text
+- Up to 10 tags may be specified at the upload level (applying to all executions), per upload
+- Up to 10 tags may be specified on each execution
+
+### Tagging methods
+
+Tags may be assigned using the following collection methods:
+
+- [Java (using JUnit XML import)](/docs/test-engine/importing-junit-xml)
+- [JavaScript (Jest, Cypress, Playwright, Mocha, Jasmine)](/docs/test-engine/javascript-collectors#upload-custom-tags-for-test-executions)
+- [Python (PyTest)](/docs/test-engine/python-collectors#pytest-collector-upload-custom-tags-for-test-executions)
+- [Ruby (RSpec, minitest)](/docs/test-engine/ruby-collectors#upload-custom-tags-for-test-executions)
+- [Importing JSON](/docs/test-engine/importing-json#json-test-results-data-reference-execution-level-custom-tags)
+
+## Usage
+
+After you have assigned tags at the test collection level, start using
+them to filter and group your Test results. Tags are used in the following areas
+of your Buildkite scale-out delivery platform.
+
+### Test execution drawer
+
+On the test page you can open the execution drawer by selection an execution.
+
+This will then present all the tags which has been applied to the Test execution.
+
+<%= image "execution-tags.png", width: 2950, height: 1618, alt: "Screenshot of test page with execution drawer open displaying execution tags available for filtering and aggregtion" %>
+
+### Group by tag
+
+Grouping by tag on the Test page will break down the test reliability and duration (p50, p95)
+so you can compare performance across the tag values.
+
+<%= image "group-by-tag.png", width: 2974, height: 1000, alt: "Screenshot of test page with a group
+  by tag aggregation applied breaking down metrics by architecture" %>
+
+### Filter by tag
+
+Filtering by tag on the Test page will constrain all executions for the test which match the filter
+conditions.
+
+<%= image "filter-by-tag.png", width: 2996, height: 1288, alt: "Screenshot of test page with a tag
+filter applied restricting executions to just those that ran on t3.large in ruby" %>
+
+Filtering by tag on the Test index page will constrain all tests to those that had executions
+matching the conditions of the filter. In the following case all tests that ran on the `t3.large` instance type.
+
+<%= image "filter-tests-by-tag.png", width: 2992, height: 998, alt: "Screenshot of test index with a tag filter applied restricting tests to just those running on t3.large instances" %>
+
+You can filter by tag using the `@` prefix to denote that you want to filter by tag. For example:
+
+```
+@host.type:t3.large
+```

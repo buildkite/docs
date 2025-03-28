@@ -57,6 +57,7 @@ CloudWatch
 CMake
 cmake
 cocoapods
+commit_sha
 composable
 config
 cpu
