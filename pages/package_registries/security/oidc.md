@@ -45,10 +45,11 @@ Learn more about how an OIDC policy for a registry is constructed in [Policy str
 
 ### Basic OIDC policy format
 
-The basic format for a Buildkite registry's OIDC policy, to handle OIDC tokens issued by a Buildkite Agent is:
+The basic format for a Buildkite registry's OIDC policy is:
 
 ```yaml
 - iss: https://agent.buildkite.com
+  scopes: [read_packages]
   claims:
     organization_slug: organization-slug
     pipeline_slug: pipeline-slug
@@ -57,8 +58,9 @@ The basic format for a Buildkite registry's OIDC policy, to handle OIDC tokens i
 
 where:
 
-- `iss` (the issuer) must be `https://agent.buildkite.com`, representing the Buildkite Agent.
-- the `claims:` field contains:
+- `iss` (the issuer) is `https://agent.buildkite.com`, representing tokens issued by Buildkite
+- the `scopes` field identifies the actions that the token can perform. Currently, the only supported scope is `read_packages`, which allows the token to read packages from the registry, but not to upload or delete them.
+- the `claims` field contains:
 
     * `organization-slug`, which can be obtained from the end of your Buildkite URL, after accessing **Package Registries** or **Pipelines** in the global navigation of your organization in Buildkite.
     * `pipeline-slug`, which can be obtained from the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite.
@@ -72,6 +74,9 @@ The following OIDC policy for a Buildkite registry contains two [_statements_](#
 
 ```yaml
 - iss: https://agent.buildkite.com
+  scopes:
+    - read_packages
+    - write_packages
   claims:
     organization_slug:
       equals: your-org
@@ -86,6 +91,8 @@ The following OIDC policy for a Buildkite registry contains two [_statements_](#
       not_equals: feature/not-this-one
 
 - iss: https://token.actions.githubusercontent.com
+  scopes:
+    - delete_packages
   claims:
     repository:
       matches: your-org/*
@@ -101,10 +108,14 @@ The first statement allows OIDC tokens representing a pipeline's job being built
 - The [pipeline slug](/docs/agent/v3/cli-oidc#pipeline-slug) is either `one-pipeline` or `another-pipeline`
 - The [build branch](/docs/agent/v3/cli-oidc#build-branch) is either `main` or matches a `feature/*` branch
 
+Tokens allowed by this statement can read and write packages in the registry.
+
 The second statement allows OIDC tokens representing a GitHub Actions workflow, but only when all of the following is true for the tokens' claims:
 
 - The repositories match `your-org/*`
 - The actor is either `deploy-bot` or `revert-bot`
+
+Tokens allowed by this statement can only delete packages in the registry.
 
 ### Policy structure and behavior
 
@@ -112,15 +123,19 @@ OIDC policy [_statements_](#statements) in Buildkite Package Registries are defi
 
 If an OIDC token's claims match both the token issuer and _all_ claim rules defined by any statement within a registry's OIDC policy, then the token is accepted and the OIDC identity provider that issued the token is granted access to the registry. If no statements of the OIDC policy match, the token is rejected, and no registry access is granted.
 
-When using YAML to define an OIDC policy, only _simple_ YAML syntax is accepted—that is, YAML containing only scalar values, maps, and lists. Complex YAML syntax and features, such as anchors, aliases, and tagged values are not supported.
+When multiple statements match a token's claims, the token is accepted by the first matching statement in the policy, and no further statements are evaluated. This affects the use of scopes, as only the scopes defined in the first matching statement are granted to the token.
+
+When using YAML to define an OIDC policy, only simple YAML syntax is accepted—that is, YAML containing only scalar values, maps, and lists. Complex YAML syntax and features, such as anchors, aliases, and tagged values are not supported.
 
 <a id="statements"></a>
 
 #### Statements
 
-A _statement_ defines a list of [_claim rules_](#claim-rules) for a particular _token issuer_ within an OIDC policy, where a token issuer is typically determined by an OIDC identity provider.
+A _statement_ consists a list of [_claim rules_](#claim-rules) for a particular _token issuer_ within an OIDC policy, as well as the _API scopes_ that the token is allowed to access.
 
-Each statement in the policy must contain contain a token issuer (`iss`) field, whose value is determined by the OIDC identity provider, and permits OIDC tokens from that token issuer. While multiple statements are typically used to allow access from multiple token issuers (that is, one statement per issuer), more than one statement can also be defined for a single issuer or OIDC identity provider to handle more complex claim rule scenarios.
+Each statement in the policy must contain contain a token issuer (`iss`) field, whose value is determined by the OIDC identity provider, and only evaluates against OIDC tokens for that issuer.
+
+Each statement must also contain a `scopes` field, which is a list of API scopes that the token is allowed to access. Currently, the only scopes supported by Registry OIDC policies are `read_packages`, `write_packages`, and `delete_packages`. If a token's claims match a statement, the token is granted access to the registry with the scopes defined in that statement.
 
 A statement must also contain a `claims` field, which is a map of [claim rules](#claim-rules).
 
