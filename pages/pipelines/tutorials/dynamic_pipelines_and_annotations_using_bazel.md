@@ -35,7 +35,7 @@ Buildkite Pipelines requires an [agent](/docs/agent/v3) running Bazel to build t
 
 Buildkite agents connect to Buildkite through a [_cluster_](/docs/pipelines/glossary#cluster), which provides a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within [_queues_](/docs/pipelines/glossary#queue)) in the same cluster.
 
-By default, new Buildkite organizations have one cluster, named **Default cluster** with a single queue, named with they key **default**, noting that a cluster maintainer or Buildkite organization administrator can customize the cluster's name.
+By default, new Buildkite organizations have one cluster, named **Default cluster**, with a single queue, named with the key **default**. A cluster maintainer or Buildkite organization administrator can customize the cluster's name.
 
 You need at least one agent configured within its own queue and cluster to run builds.
 
