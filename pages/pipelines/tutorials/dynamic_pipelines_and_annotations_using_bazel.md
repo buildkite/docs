@@ -5,7 +5,7 @@ This tutorial takes you through the process of creating dynamic pipelines and bu
 - How the Bazel build tool can integrate with Buildkite, learn more about this in the [Using Bazel with Buildkite tutorial](/docs/pipelines/tutorials/bazel), which uses a Buildkite pipeline to build a simple Bazel example.
 - The basics of Buildkite Pipelines, run through the [Pipelines getting started tutorial](/docs/pipelines/getting-started) first, which explains Buildkite Pipelines' [architecture](/docs/pipelines/getting-started#understand-the-architecture) and [agent setup](/docs/pipelines/getting-started#set-up-an-agent), and builds a simple pipeline.
 
-The tutorial uses an [example Python project](https://github.com/buildkite/bazel-buildkite-example) whose program `pipeline.py` within the `.buildkite/` directory is one of the first things run by Buildkite Pipelines when the pipeline commences its build. This Python program creates additional Buildkite pipeline steps (in JSON format) that are then uploaded to the same pipeline, which Buildkite continues to run as part of the same pipeline build. Buildkite pipelines that generate new pipeline steps dynamically like this, are known as [_dynamic pipelines_](/docs/pipelines/configure/dynamic-pipelines).
+The tutorial uses an [example Python project](https://github.com/buildkite/bazel-buildkite-example) whose program `pipeline.py` within the `.buildkite/` directory is one of the first things run by Buildkite Pipelines when the pipeline commences its build. This Python program creates additional Buildkite pipeline steps (in JSON format) that are then uploaded to the same pipeline, which Buildkite continues to run as part of the same pipeline build. Buildkite pipelines that generate new pipeline steps dynamically like this are known as [_dynamic pipelines_](/docs/pipelines/configure/dynamic-pipelines).
 
 This `pipeline.py` Python program:
 
@@ -35,7 +35,7 @@ Buildkite Pipelines requires an [agent](/docs/agent/v3) running Bazel to build t
 
 Buildkite agents connect to Buildkite through a [_cluster_](/docs/pipelines/glossary#cluster), which provides a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within [_queues_](/docs/pipelines/glossary#queue)) in the same cluster.
 
-By default, new Buildkite organizations have one cluster, named **Default cluster** with a single queue, named with they key **default**, noting that a cluster maintainer or Buildkite organization administrator can customize the cluster's name.
+By default, new Buildkite organizations have one cluster, named **Default cluster**, with a single queue, named with the key **default**. A cluster maintainer or Buildkite organization administrator can customize the cluster's name.
 
 You need at least one agent configured within its own queue and cluster to run builds.
 
@@ -106,7 +106,7 @@ Last, to install Bazel, follow the relevant instructions to install [Bazelisk (r
 
 ## Create a pipeline
 
-Next, you'll create a new pipeline that builds an [example Python project with Bazel](https://github.com/cnunciato/bazel-buildkite), which in turn, creates additional dynamically-generated steps in JSON format that Buildkite runs to build and test an emoji library.
+Next, you'll create a new pipeline that builds an [example Python project with Bazel](https://github.com/buildkite/bazel-buildkite-example), which in turn creates additional dynamically-generated steps in JSON format that Buildkite runs to build and test a hello-world library.
 
 To create this pipeline:
 
