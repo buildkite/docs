@@ -42,7 +42,7 @@ The program that executes work is called an _agent_ in Buildkite. An agent is a 
 
 Buildkite agents connect to Buildkite through a [_cluster_](/docs/pipelines/glossary#cluster). Clusters provide a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within [_queues_](/docs/pipelines/glossary#queue)) in the same cluster.
 
-By default, new Buildkite organizations have one cluster, named **Default cluster** with a single queue, named with they key **default**, noting that a cluster maintainer or Buildkite organization administrator can customize the cluster's name.
+By default, new Buildkite organizations have one cluster, named **Default cluster** with a single queue, named with the key **default**. A cluster maintainer or Buildkite organization administrator can customize the cluster's name.
 
 You need at least one agent configured within its own queue and cluster to run builds.
 
@@ -129,7 +129,12 @@ To create a pipeline:
 
     <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 
-1. On the **New Pipeline** page, leave all fields with their pre-filled default values and select **Create Pipeline**. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
+1. On the **New Pipeline** page, select the **Cluster** of the [agent you had previously set up](#set-up-an-agent).
+
+1. If the **Team** field appears further down the page, this means that your Buildkite organization already has the [teams feature enabled](/docs/platform/team-management/permissions#manage-teams-and-permissions). Therefore, choose the **Team** who will have access to this pipeline.
+
+1. Leave all fields with their pre-filled default values and select **Create Pipeline**. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
+
 1. On the next page showing your pipeline name, select **New Build**. In the resulting dialog, create a build using the pre-filled details.
 
    1. In the **Message** field, enter a short description for the build. For example, **My first build**.

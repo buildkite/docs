@@ -27,7 +27,7 @@ To complete this tutorial, you'll need:
 
 - [Git](https://git-scm.com/downloads). This tutorial uses GitHub, but Buildkite can work with any version control system.
 
-- To have made your own copy or fork of the [bazel-buildkite-example](https://github.com/buildkite/bazel-buildkite-example) repository to your own GitHub account.
+- To have made your own copy or fork of the [bazel-buildkite-example](https://github.com/buildkite/bazel-buildkite-example) repository within your own GitHub account.
 
 ## Set up an agent
 
@@ -114,13 +114,23 @@ To create this pipeline:
 
 1. On the **New Pipeline** page, select the cluster associated with the [agent you had set up with Bazel](#set-up-an-agent).
 
-1. If necessary, provide a **Name** for your new pipeline, then leave all other fields with their pre-filled default values, and select **Create Pipeline**. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
+1. If necessary, provide a **Name** for your new pipeline.
+
+1. Select the **Cluster** of the [agent you had previously set up](#set-up-an-agent).
+
+1. If your Buildkite organization already has the [teams feature enabled](/docs/platform/team-management/permissions#manage-teams-and-permissions), choose the **Team** who will have access to this pipeline.
+
+1. Leave all other fields with their pre-filled default values, and select **Create Pipeline**. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
+
+### Step 1: Create the first build
 
 1. On the next page showing your pipeline name, select **New Build**. In the resulting dialog, create a build using the pre-filled details.
 
     1. In the **Message** field, enter a short description for the build. For example, **My first build**.
     1. Select **Create Build**.
     1. Verify that the initial **Compute the pipeline with Python** step has been run.
+
+### Step 2: Create a 
 
 1. Create a new branch, edit one of the files within both the `./app` and `./library` directories, and commit this change.
 
