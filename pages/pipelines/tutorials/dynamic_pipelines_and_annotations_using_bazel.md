@@ -106,7 +106,7 @@ Last, to install Bazel, follow the relevant instructions to install [Bazelisk (r
 
 ## Create a pipeline
 
-Next, you'll create a new pipeline that builds an [example Python project with Bazel](https://github.com/cnunciato/bazel-buildkite), which in turn, creates additional dynamically-generated steps in JSON format that Buildkite runs to build and test an emoji library.
+Next, you'll create a new pipeline that builds an [example Python project with Bazel](https://github.com/buildkite/bazel-buildkite-example), which in turn creates additional dynamically-generated steps in JSON format that Buildkite runs to build and test a hello-world library.
 
 To create this pipeline:
 
