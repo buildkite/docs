@@ -4,33 +4,22 @@ You can install Buildkite Agent on most FreeBSD systems.
 
 ## Installation
 
-You first need to ensure that both `git` and `bash` are installed on your server:
+The folks at [FreeBSD](https://www.freebsd.org/) have made it easy to install Buildkite Agent using the `pkg` package manager.
 
 ```shell
-sudo pkg install bash git
-sudo sh -c 'echo "fdesc /dev/fd fdescfs rw 0 0" >> /etc/fstab'
-sudo mount -a
-
-# The agent requires a version of bash to be available at: /bin/bash
-sudo ln -s /usr/local/bin/bash /bin/bash
-
-# If you want to change your default shell to bash
-sudo chsh -s /usr/local/bin/bash `whoami`
-
-# You now switch to bash
-bash
+pkg install buildkite-agent
 ```
 
-Once they have been installed, you can run the following script (<a href="https://raw.githubusercontent.com/buildkite/agent/main/install.sh">view the source</a>), which will download and install the correct binary for your system and architecture (you will need your [agent token](/docs/agent/v3/tokens)):
+Configure your [agent token](https://buildkite.com/docs/agent/v3/tokens):
 
 ```shell
-TOKEN="INSERT-YOUR-AGENT-TOKEN-HERE" bash -c "`curl -sL https://raw.githubusercontent.com/buildkite/agent/main/install.sh`"
+sudo sed -i "s/xxx/INSERT-YOUR-AGENT-TOKEN-HERE/g" /usr/local/etc/buildkite/buildkite-agent.cfg
 ```
 
 Then, start the agent:
 
 ```shell
-~/.buildkite-agent/bin/buildkite-agent start
+buildkite-agent start
 ```
 
 Alternatively you can follow the [manual installation instructions](installation).
@@ -48,15 +37,17 @@ See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details
 
 ## File locations
 
-* Configuration: `~/.buildkite-agent/buildkite-agent.cfg`
-* Agent Hooks: `~/.buildkite-agent/hooks`
-* Builds: `~/.buildkite-agent/builds`
+* Configuration: `/usr/local/etc/buildkite/buildkite-agent.cfg`
+* Agent Hooks: `/usr/local/etc/buildkite/hooks`
+* Builds: `/usr/local/var/buildkite/builds`
 * SSH keys: `~/.ssh`
 
 ## Configuration
 
-The configuration file is located at `~/.buildkite-agent/buildkite-agent.cfg`. See the [configuration documentation](/docs/agent/v3/configuration) for an explanation of each configuration setting.
+The configuration file is located at `/usr/local/etc/buildkite/buildkite-agent.cfg`. See the [configuration documentation](/docs/agent/v3/configuration) for an explanation of each configuration setting.
 
 ## Upgrading
 
-Rerun the install script.
+```
+pkg upgrade buildkite-agent
+```
