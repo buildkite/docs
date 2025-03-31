@@ -44,7 +44,7 @@ You need at least one agent configured within its own queue and cluster to run b
 
 ### Create a Buildkite hosted agent for macOS
 
-Unlike [Linux hosted agents](/docs/pipelines/hosted-agents/linux), which would require you to create and use an [agent image](/docs/pipelines/hosted-agents/linux#agent-images) to install Bazel or Bazelisk, along with other configurations to ensure that Bazel runs successfully on the agent, [macOS hosted agents](/docs/pipelines/hosted-agents/macos) already come pre-installed with Bazelisk and ready to run Bazel.
+Unlike [Linux hosted agents](/docs/pipelines/hosted-agents/linux), which would require you to install Bazel or Bazelisk on the agent (for example, using an [agent image](/docs/pipelines/hosted-agents/linux#agent-images)), and implement other configurations on the agent to ensure that Bazel runs successfully on it, [macOS hosted agents](/docs/pipelines/hosted-agents/macos) already come pre-installed with Bazelisk and ready to run Bazel.
 
 You can create the first [Buildkite hosted agent](/docs/pipelines/hosted-agents/overview) for [macOS](/docs/pipelines/hosted-agents/macos) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
 
@@ -137,21 +137,32 @@ Now that your pipeline has been set up and [created](#create-a-pipeline) in Buil
 
 ### Step 2: Make changes to both an app and library file
 
-1. Edit one of the files within both the `./app` and `./library` directories, and commit this change to its `main` branch, with an appropriate message (for example, **A change to both an app and a library file**).
+1. Edit one of the files within both the `./app` and `./library` directories, and commit and push this change to its `main` branch, with an appropriate message (for example, **A change to both an app and a library file**).
 
-1. On [your pipeline's build summary page](https://buildkite.com/~/bazel-buildkite-example), and notice that both the dynamically generated **Build and test //library/...** _and_ **Build and test //app/...** steps have also been run.
+1. On [your pipeline's build summary page](https://buildkite.com/~/bazel-buildkite-example), and notice that both the dynamically generated **Build and test //library/...** _and_ **Build and test //app/...** Bazel package build steps have also been run.
+
+1. Note also the **Bazel Results** build annotation on this pipeline build's results, which are generated from Bazel builds using the [Bazel BEP Annotate Buildkite Plugin](https://github.com/buildkite-plugins/bazel-annotate-buildkite-plugin). This plugin is defined in the example Python project's `utils.py` file, which in turn, is used by the `pipeline.py` file.
 
 ### Step 3: Make changes to only an app file
 
-1. Edit one of the files within the `./app` directory only, and commit this change to its `main` branch, with an appropriate message (for example, **A change to only an app file**).
+1. Edit one of the files within the `./app` directory only, and commit and push this change to its `main` branch, with an appropriate message (for example, **A change to only an app file**).
 
-1. On [your pipeline's build summary page](https://buildkite.com/~/bazel-buildkite-example) again, and notice that only the dynamically generated **Build and test //app/...** step is built.
+1. On [your pipeline's build summary page](https://buildkite.com/~/bazel-buildkite-example) again, and notice that only the dynamically generated **Build and test //app/...** Bazel package build step is built.
 
 ### Step 4: Make changes to only a library file
 
-1. Edit one of the files within the `./library` directory only, and commit this change to its `main` branch, with an appropriate message (for example, **A change to only a library file**).
+1. Edit one of the files within the `./library` directory only, and commit and push this change to its `main` branch, with an appropriate message (for example, **A change to only a library file**).
 
-1. On [your pipeline's build summary page](https://buildkite.com/~/bazel-buildkite-example), notice that both the dynamically generated **Build and test //library/...** _and_ **Build and test //app/...** steps have been built.
+1. On [your pipeline's build summary page](https://buildkite.com/~/bazel-buildkite-example), notice that both the dynamically generated **Build and test //library/...** _and_ **Build and test //app/...** Bazel package build steps have been built.
 
 **Why?** According to each Bazel package's respective `BUILD.bazel` files in this project, `//app` has a dependency on `//library`. Therefore, if any change is made to a file in `./library`, then `./app` needs to be re-built to determine if the changes in `./library` also affect those in `./app`.
 
+## Next steps
+
+That's it! You've successfully configured a Buildkite agent, built a Buildkite pipeline with an example Python program that:
+
+- Builds pipeline steps dynamically.
+- Uses Bazel to define Bazel package dependencies, and runs [Bazel queries](https://bazel.build/query/guide) to determine which Bazel packages need to be built (based on their dependencies).
+- Generates pipeline build annotations using the using the [Bazel BEP Annotate Buildkite Plugin](https://github.com/buildkite-plugins/bazel-annotate-buildkite-plugin). 🎉
+
+Learn more about dynamic pipelines from the [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) page.
