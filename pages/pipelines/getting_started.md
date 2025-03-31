@@ -42,18 +42,21 @@ The program that executes work is called an _agent_ in Buildkite. An agent is a 
 
 Buildkite agents connect to Buildkite through a [_cluster_](/docs/pipelines/glossary#cluster). Clusters provide a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within [_queues_](/docs/pipelines/glossary#queue)) in the same cluster.
 
-By default, Buildkite organizations have one cluster, named **Default cluster** with a single queue, named **default-queue**, noting that a cluster maintainer or Buildkite organization administrator can customize these default names.
+By default, new Buildkite organizations have one cluster, named **Default cluster** with a single queue, named with the key **default**. A cluster maintainer or Buildkite organization administrator can customize the cluster's name.
 
 You need at least one agent configured within its own queue and cluster to run builds.
 
 > 📘 Already running an agent
-> If you're already running an agent, skip to the [next step](#create-a-pipeline).
+> If you're already running an agent, skip to the [next step on creating a pipeline](#create-a-pipeline).
 
 ### Create a Buildkite hosted agent
 
 You can create the first [Buildkite hosted agent](/docs/pipelines/hosted-agents) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
 
 Before creating your Buildkite hosted agent, ensure you have a [cluster](/docs/pipelines/clusters/manage-clusters) (for example, **Default cluster**) you can connect this agent to.
+
+> 📘
+> If you're unable to access the Buildkite hosted agent feature or create one in your cluster, please contact support at support@buildkite.com to request access to this feature. Otherwise, you can set yourself up with a [self-hosted agent](#set-up-an-agent-install-and-run-a-self-hosted-agent) instead.
 
 To create a hosted agent:
 
@@ -77,7 +80,8 @@ Your Buildkite hosted agent, as the new default queue, is now ready to use.
 
 Before installing and running a self-hosted agent, ensure you have:
 
-- a [cluster](/docs/pipelines/clusters/manage-clusters) (for example, **Default cluster**) you can connect this agent to, and
+- a [cluster](/docs/pipelines/clusters/manage-clusters) (for example, **Default cluster**) you can connect this agent to,
+- a [queue](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue) (for example, with the key **default**) to which the agent will be associated with, and
 - the value of an [agent token](/docs/agent/v3/tokens) (for example, **Initial agent token**), which you can configure for the agent.
 
     Be aware that since [hosted agents](#set-up-an-agent-create-a-buildkite-hosted-agent) are managed by Buildkite, there is no need to create agent tokens for these types of agents.
@@ -125,8 +129,13 @@ To create a pipeline:
 
     <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 
-1. On the **New Pipeline** page, leave all fields with their pre-filled default values and select **Create Pipeline**. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
-1. On the next page showing your pipeline name, click **New Build**. In the modal that opens, create a build using the pre-filled details.
+1. On the **New Pipeline** page, select the **Cluster** of the [agent you had previously set up](#set-up-an-agent).
+
+1. If the **Team** field appears further down the page, this means that your Buildkite organization already has the [teams feature enabled](/docs/platform/team-management/permissions#manage-teams-and-permissions). Therefore, choose the **Team** who will have access to this pipeline.
+
+1. Leave all fields with their pre-filled default values and select **Create Pipeline**. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
+
+1. On the next page showing your pipeline name, select **New Build**. In the resulting dialog, create a build using the pre-filled details.
 
    1. In the **Message** field, enter a short description for the build. For example, **My first build**.
    1. Select **Create Build**.

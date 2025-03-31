@@ -51,6 +51,7 @@ exceptions:
   - Buildkite Package Registries
   - Buildkite Pipelines
   - Buildkite Platform
+  - Buildkite SDK
   - buildkite-agent
   - BuildNotify
   - BuildReactor
