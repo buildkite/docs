@@ -144,6 +144,7 @@ libpq
 linux
 llamasecret
 macOS
+macos
 matchers
 Memcache
 minitest

@@ -57,6 +57,8 @@
           path: "pipelines/tutorials/parallel-builds"
         - name: "Using Bazel on Buildkite"
           path: "pipelines/tutorials/bazel"
+        - name: "Dynamic pipelines and annotations using Bazel"
+          path: "pipelines/tutorials/dynamic-pipelines-and-annotations-using-bazel"
         - name: "Migrating to YAML steps"
           path: "pipelines/tutorials/pipeline-upgrade"
         - name: "Using GitHub merge queues"
