@@ -215,6 +215,11 @@ variables:
       The value of the `git-clone-flags` [agent configuration option](/docs/agent/v3/configuration). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
     modifiable: true
     example: "-v"
+  - name: BUILDKITE_GIT_FETCH_FLAGS
+    desc: |
+      The value of the `git-fetch-flags` [agent configuration option](/docs/agent/v3/configuration). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+    modifiable: true
+    example: "-v --prune"
   - name: BUILDKITE_GIT_SUBMODULES
     desc: |
       The opposite of the value of the `no-git-submodules` [agent configuration option](/docs/agent/v3/configuration).
