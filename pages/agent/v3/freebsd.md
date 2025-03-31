@@ -4,7 +4,7 @@ You can install Buildkite Agent on most FreeBSD systems.
 
 ## Installation
 
-The folks at [FreeBSD](https://www.freebsd.org/) have made it easy to install Buildkite Agent using the `pkg` package manager.
+[FreeBSD](https://www.freebsd.org/) allows you to install Buildkite Agent using the `pkg` package manager.
 
 ```shell
 pkg install buildkite-agent
