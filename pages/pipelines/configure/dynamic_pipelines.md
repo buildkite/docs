@@ -1,6 +1,6 @@
 # Dynamic pipelines
 
-When your source code projects are built with Buildkite Pipelines, you can write scripts in the same language as your source code, or any other suitable one, which generate new Buildkite pipeline steps (in either YAML or JSON format) that you can then upload to the same pipeline using the [pipeline upload step](/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file). These additional _dynamically generated_ pipeline steps are run on the same Buildkite Agent, as part of the same pipeline build, and will appear as their own steps in your pipeline builds. This provides you with the flexibility to structure your pipelines however you require.
+When your source code projects are built with Buildkite Pipelines, you can write scripts in the same language as your source code, or another suitable language, that generate new Buildkite pipeline steps (in either YAML or JSON format), which you can then upload to the same pipeline using the [pipeline upload step](/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file). These additional _dynamically generated_ pipeline steps are run on the same Buildkite Agent, as part of the same pipeline build, and will appear as their own steps in your pipeline builds. This provides you with the flexibility to structure your pipelines however you require.
 
 For example, the following code snippet is an executable shell script that generates a list of parallel test steps based upon the `test/*` directory within your repository:
 
@@ -29,7 +29,7 @@ To use this script, save it to the `.buildkite/` directory inside your repositor
 When the pipeline's build commences, this step executes the script and pipes the output to the `buildkite-agent pipeline upload` command. The upload command then inserts the steps from the script into the build immediately after this upload step.
 
 > 📘 Step ordering
-> If run the pipeline upload step multiple times in a _single command step_ (for example, by running a script file from a command step, where this script file runs the pipeline upload step multiple times), then each of these pipeline upload steps are executed in reverse order, since the upload command inserts its steps immediately after the upload step.
+> If you run the pipeline upload step multiple times in a _single command step_ (for example, by running a script file from a command step, in which the script runs the pipeline upload step multiple times), then each of these pipeline upload steps are executed in reverse order, since the upload command inserts its steps immediately after the upload step.
 > To avoid each of your dynamically-generated pipeline upload steps being executed in reverse order, define each of these upload steps in reverse order—that is, the steps being run as part of an upload step that you want to run first should be defined last.
 
 In the following `pipeline.yml` example, when the build runs, it will execute the `.buildkite/pipeline.sh` script, then the test steps from the script will be added to the build _before_ the wait step and command step. After the test steps have run, the wait and command step will run.
@@ -62,18 +62,19 @@ In `enforce-rules.sh` you can add steps to the YAML, require certain versions of
 
 See how [Hasura.io](https://hasura.io) used [dynamic templates and pipelines](https://hasura.io/blog/what-we-learnt-by-migrating-from-circleci-to-buildkite/#dynamic-pipelines) to replace their YAML configuration with Go and some shell scripts.
 
-## The Buildkite SDK
+## Buildkite SDK
 
-The [Buildkite SDK](https://github.com/buildkite/buildkite-sdk) is a multi-language software development kit (SDK) that generates pipeline templates in native languages. These pipeline template files are designed to generate steps (in YAML or JSON format) when they are executed as part of your pipeline build. You can customize these files with your own logic, thereby generating custom steps that can be uploaded to Buildkite to execute as part of your pipeline builds.
+The [Buildkite SDK](https://github.com/buildkite/buildkite-sdk) is a multi-language software development kit (SDK) that makes it easy to script the generation of pipeline steps for dynamic pipelines in native languages. The SDK has simple functions to output these pipeline steps in YAML or JSON format, which you can then upload to your Buildkite pipeline to execute as part of your pipeline build.
 
-Currently, the Buildkite SDK supports the following languages:
+Currently, the Buildkite SDK supports the following languages. Once imported into your script program, you can make the following example function calls to generate a new step:
 
-- Node.js
+- Node.js—`pipeline.addStep( ... );`
 
   * JavaScript
   * TypeScript
 
-- Python
-- Go
-- Ruby
+- Python—`pipeline.add_step( ... )`
+- Go—`pipeline.AddCommandStep( ... )`
+- Ruby—`pipeline.add_step( ... )`
 
+Learn more about how to use the Buildkite SDK from its [README](https://github.com/buildkite/buildkite-sdk?tab=readme-ov-file#buildkite-sdk).
