@@ -122,28 +122,36 @@ To create this pipeline:
 
 1. Leave all other fields with their pre-filled default values, and select **Create Pipeline**. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
 
+## Build the pipeline
+
+Now that your pipeline has been set up and [created](#create-a-pipeline) in Buildkite Pipelines, it is ready to start being built, and we can start making commits to different areas of this project to see how these affect your dynamic pipeline builds.
+
 ### Step 1: Create the first build
 
-1. On the next page showing your pipeline name, select **New Build**. In the resulting dialog, create a build using the pre-filled details.
+1. On the next page after [creating](#create-a-pipeline) your pipeline, which shows its name, select **New Build**. In the resulting dialog, create a build using the pre-filled details.
 
     1. In the **Message** field, enter a short description for the build. For example, **My first build**.
     1. Select **Create Build**.
-    1. Verify that the initial **Compute the pipeline with Python** step has been run.
 
-### Step 2: Create a 
+1. Once the build has completed, visit [your pipeline's build summary page](https://buildkite.com/~/bazel-buildkite-example), and verify that only the initial **Compute the pipeline with Python** step has been run.
 
-1. Create a new branch, edit one of the files within both the `./app` and `./library` directories, and commit this change.
+### Step 2: Make changes to both an app and library file
 
-    Visit [your pipeline's build summary page](https://buildkite.com/~/bazel-buildkite-example), and notice that both the dynamically generated **Build and test //library/...** _and_ **Build and test //app/...** steps are built.
+1. Edit one of the files within both the `./app` and `./library` directories, and commit this change to its `main` branch, with an appropriate message (for example, **A change to both an app and a library file**).
 
-1. Create a new branch, edit one of the files within the `./app` directory, and commit this change.
+1. On [your pipeline's build summary page](https://buildkite.com/~/bazel-buildkite-example), and notice that both the dynamically generated **Build and test //library/...** _and_ **Build and test //app/...** steps have also been run.
 
-1. Push this branch up to your repo GitHub repo and create a pull request (PR).
+### Step 3: Make changes to only an app file
 
-    Visit your pipeline's build summary page again, and notice that only the dynamically generated **Build and test //app/...** step is built.
+1. Edit one of the files within the `./app` directory only, and commit this change to its `main` branch, with an appropriate message (for example, **A change to only an app file**).
 
-1. Create a new branch, edit one of the files within the `./library` directory, and commit this change.
+1. On [your pipeline's build summary page](https://buildkite.com/~/bazel-buildkite-example) again, and notice that only the dynamically generated **Build and test //app/...** step is built.
 
-1. Push this branch up to your repo GitHub repo and create a pull request (PR).
+### Step 4: Make changes to only a library file
 
-    On your pipeline's build summary page, notice that both the dynamically generated **Build and test //library/...** _and_ **Build and test //app/...** steps have both been built, since according to each Bazel package's respective `BUILD.bazel` files, `//app` has a dependency on `//library`.
+1. Edit one of the files within the `./library` directory only, and commit this change to its `main` branch, with an appropriate message (for example, **A change to only a library file**).
+
+1. On [your pipeline's build summary page](https://buildkite.com/~/bazel-buildkite-example), notice that both the dynamically generated **Build and test //library/...** _and_ **Build and test //app/...** steps have been built.
+
+**Why?** According to each Bazel package's respective `BUILD.bazel` files in this project, `//app` has a dependency on `//library`. Therefore, if any change is made to a file in `./library`, then `./app` needs to be re-built to determine if the changes in `./library` also affect those in `./app`.
+
