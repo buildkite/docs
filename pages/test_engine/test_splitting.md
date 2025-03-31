@@ -4,7 +4,7 @@ toc: false
 
 # Test splitting
 
-Intelligently partition your pipeline with Test Splitting to substantially reduce your critical path to delivery.
+Intelligently partition your pipeline with test splitting to substantially reduce your critical path to delivery.
 
 - Split tests automatically based on your historical timing data.
 - Maintain peak speed through continuous optimization and automated re-balancing.
