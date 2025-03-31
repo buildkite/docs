@@ -29,7 +29,8 @@ To use this script, save it to the `.buildkite/` directory inside your repositor
 When the pipeline's build commences, this step executes the script and pipes the output to the `buildkite-agent pipeline upload` command. The upload command then inserts the steps from the script into the build immediately after this upload step.
 
 > 📘 Step ordering
-> Since the pipeline upload command inserts the additional dynamically-generated steps from the script immediately after the upload step, these additional steps appear in reverse order (when multiple steps from the command are uploaded). To avoid your dynamically-generated steps appearing in reverse order, upload the steps in reverse order—that is, the step you want to run first goes last. That way, the steps will be in the expected order when inserted.
+> If run the pipeline upload step multiple times in a _single command step_ (for example, by running a script file from a command step, where this script file runs the pipeline upload step multiple times), then each of these pipeline upload steps are executed in reverse order, since the upload command inserts its steps immediately after the upload step.
+> To avoid each of your dynamically-generated pipeline upload steps being executed in reverse order, define each of these upload steps in reverse order—that is, the steps being run as part of an upload step that you want to run first should be defined last.
 
 In the following `pipeline.yml` example, when the build runs, it will execute the `.buildkite/pipeline.sh` script, then the test steps from the script will be added to the build _before_ the wait step and command step. After the test steps have run, the wait and command step will run.
 
