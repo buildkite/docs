@@ -49,7 +49,8 @@ The basic format for a Buildkite registry's OIDC policy is:
 
 ```yaml
 - iss: https://agent.buildkite.com
-  scopes: [read_packages]
+  scopes:
+    - read_packages
   claims:
     organization_slug: organization-slug
     pipeline_slug: pipeline-slug
@@ -58,8 +59,8 @@ The basic format for a Buildkite registry's OIDC policy is:
 
 where:
 
-- `iss` (the issuer) is `https://agent.buildkite.com`, representing tokens issued by Buildkite
-- the `scopes` field identifies the actions that the token can perform. Currently, the only supported scope is `read_packages`, which allows the token to read packages from the registry, but not to upload or delete them.
+- `iss` (the issuer) is `https://agent.buildkite.com`, representing tokens issued by Buildkite.
+- the `scopes` field identifies the actions that the token can perform. The only supported scopes are `read_packages`, `write_packages`, and `delete_packages`.
 - the `claims` field contains:
 
     * `organization-slug`, which can be obtained from the end of your Buildkite URL, after accessing **Package Registries** or **Pipelines** in the global navigation of your organization in Buildkite.
@@ -131,13 +132,12 @@ When using YAML to define an OIDC policy, only simple YAML syntax is accepted—
 
 #### Statements
 
-A _statement_ consists a list of [_claim rules_](#claim-rules) for a particular _token issuer_ within an OIDC policy, as well as the _API scopes_ that the token is allowed to access.
+A _statement_ consists of a list of [_claim rules_](#claim-rules) for a particular _token issuer_ within an OIDC policy, as well as the _API scopes_ that the token is allowed to access.
 
-Each statement in the policy must contain contain a token issuer (`iss`) field, whose value is determined by the OIDC identity provider, and only evaluates against OIDC tokens for that issuer.
-
-Each statement must also contain a `scopes` field, which is a list of API scopes that the token is allowed to access. Currently, the only scopes supported by Registry OIDC policies are `read_packages`, `write_packages`, and `delete_packages`. If a token's claims match a statement, the token is granted access to the registry with the scopes defined in that statement.
-
-A statement must also contain a `claims` field, which is a map of [claim rules](#claim-rules).
+Each statement in the policy must contain contain:
+- An `iss` field, which is used to identify the token issuer. Statements will only match OIDC tokens whose `iss` claim matches the value of this field.
+- A `scopes` field, which is a list of API scopes that a token is granted. Currently, the only scopes supported by Registry OIDC policies are `read_packages`, `write_packages`, and `delete_packages`. If a token's claims match a statement, the token is granted access to the registry with the scopes defined in that statement.
+- A `claims` field, which is a map of [claim rules](#claim-rules).
 
 Currently, only OIDC tokens from the following token issuers are supported.
 
