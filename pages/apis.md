@@ -12,6 +12,20 @@ Generate an [access token](https://buildkite.com/user/api-access-tokens).
 
 All webhooks contain an [`X-Buildkite-Token` header](/docs/apis/webhooks#http-headers) which allows you to verify the authenticity of the request.
 
+## API security
+
+We are a member of the [GitHub Secret Scanning Program](https://docs.github.com/en/code-security/secret-scanning/secret-scanning-partnership-program/secret-scanning-partner-program).
+This service [alerts](https://docs.github.com/en/code-security/secret-scanning/secret-scanning-partnership-program/secret-scanning-partner-program#the-secret-scanning-process) us when a Buildkite API key has been leaked on GitHub in a public repository.
+
+Once we receive a notification of a publicly leaked token from GitHub, we will:
+- Revoke the token immediately
+- Email the user who generated the token to let them know it has been revoked.
+- Email the organizations associated with the token to let them know it has been revoked.
+
+This can also be enabled for [private repositories](https://docs.github.com/en/code-security/secret-scanning/enabling-secret-scanning-features/enabling-secret-scanning-for-your-repository).
+
+You can generate a new access token [here](https://buildkite.com/user/api-access-tokens).
+
 ## REST API
 
 The Buildkite REST API aims to give you complete programmatic access and control of Buildkite to extend, integrate and automate anything to suit your particular needs.
