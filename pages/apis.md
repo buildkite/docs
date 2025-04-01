@@ -14,7 +14,7 @@ All webhooks contain an [`X-Buildkite-Token` header](/docs/apis/webhooks#http-he
 
 ## API security
 
-We are a member of the [GitHub Secret Scanning Program](https://docs.github.com/en/code-security/secret-scanning/secret-scanning-partnership-program/secret-scanning-partner-program).
+Buildkite is a member of the [GitHub Secret Scanning Program](https://docs.github.com/en/code-security/secret-scanning/secret-scanning-partnership-program/secret-scanning-partner-program).
 This service [alerts](https://docs.github.com/en/code-security/secret-scanning/secret-scanning-partnership-program/secret-scanning-partner-program#the-secret-scanning-process) us when a Buildkite API key has been leaked on GitHub in a public repository.
 
 Once we receive a notification of a publicly leaked token from GitHub, we will:
