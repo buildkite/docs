@@ -55,6 +55,46 @@ For more information, see the [Builds API in the Buildkite REST API documentatio
 
 <!-- vale on -->
 
+## Using build input parameters
+
+When a Pipeline's steps begin with a block step or input step, any fields will be rendered in the New Build form.
+
+For example, suppose there exists a Pipeline with the slug `activities`, within in an organization with the slug `demo`, with the following definition:
+
+```yaml
+steps:
+  - block: What would you like to see?
+    fields:
+      - text: Which city?
+        key: city
+      - select: What activities?
+        key: activities
+        multiple: true
+        options:
+          - label: Restaurants
+            value: restaurants
+          - label: Museums
+            value: museums
+          - label: Sports
+            value: sports
+```
+
+The New Build form will include the block or input step fields, and will set the meta-data fields on the new build.
+
+Meta-data fields can also be pre-populated using query string parameters.
+
+```
+https://buildkite.com/organizations/{organization-slug}/pipelines/{pipelines-slug}/new?meta_data[{key}]={value}
+```
+
+For the hypothetical Pipeline above, one could pre-populate the input fields with the following bookmark-able URL.
+
+```
+https://buildkite.com/organizations/demo/pipelines/activities/new?meta_data[city]=Melbourne&meta_data[activities]=restaurants,sports
+```
+
+<%= image "new_build_form.png", alt: "New Build form with input fields pre-populated" %>
+
 ## Further documentation
 
 See the [Buildkite agent build meta-data documentation](/docs/agent/v3/cli-meta-data) for a full list of options and details of Buildkite's meta-data support.
