@@ -22,9 +22,11 @@ Once Buildkite receives a notification of a publicly leaked token from GitHub, B
 - Email the user who generated the token to let them know it has been revoked.
 - Email the organizations associated with the token to let them know it has been revoked.
 
-This can also be enabled for [private repositories](https://docs.github.com/en/code-security/secret-scanning/enabling-secret-scanning-features/enabling-secret-scanning-for-your-repository).
+You can also:
 
-You can generate a new access token [here](https://buildkite.com/user/api-access-tokens).
+- Enable GitHub secret scanning for [private repositories](https://docs.github.com/en/code-security/secret-scanning/enabling-secret-scanning-features/enabling-secret-scanning-for-your-repository).
+
+- Generate a new [access token for your Buildkite user account](https://buildkite.com/user/api-access-tokens).
 
 ## REST API
 
