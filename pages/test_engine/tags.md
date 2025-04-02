@@ -36,22 +36,22 @@ Where possible Test Engine will automatically ingest this data on your behalf.
   <tbody>
     <tr>
       <td><code>build.id</code></td>
-      <td>Filtering and aggregating based on the build identifier</td>
+      <td>Filtering and aggregating based on the build identifier.</td>
     </tr>
     <tr>
       <td><code>build.job_id</code></td>
-      <td>Filtering and aggregating based on the job identifier</td>
+      <td>Filtering and aggregating based on the job identifier.</td>
     </tr>
     <tr>
       <td><code>build.step_id</code></td>
-      <td>Filtering and aggregating based on the step identifier</td>
+      <td>Filtering and aggregating based on the step identifier.</td>
     </tr>
     <tr>
       <td><code>cloud.provider</code></td>
       <td>
         Filtering and aggregating based on your cloud provider to compare
         cloud provider performance and reliability in your test suite.
-        For example <code>aws</code> vs <code>gcp</code>
+        For example <code>aws</code> vs <code>gcp</code>.
       </td>
     </tr>
     <tr>
@@ -59,7 +59,7 @@ Where possible Test Engine will automatically ingest this data on your behalf.
       <td>
         Filtering and aggregating based on your cloud region to compare
         region performance and reliability in your test suite.
-        For example <code>us-east-1</code> vs <code>us-east-2</code>
+        For example <code>us-east-1</code> vs <code>us-east-2</code>.
       </td>
     </tr>
     <tr>
@@ -96,7 +96,7 @@ Where possible Test Engine will automatically ingest this data on your behalf.
       <td>
         Filtering and aggregating based on the instance type to compare
         instance performance and reliability in your
-        test suite. For example <code>m4.large</code> vs <code>m5.large</code>
+        test suite. For example <code>m4.large</code> vs <code>m5.large</code>.
       </td>
     </tr>
     <tr>
@@ -104,7 +104,7 @@ Where possible Test Engine will automatically ingest this data on your behalf.
       <td>
         Filtering and aggregating based on the programming language to compare
         language performance and reliability in your test suite.
-        For example <code>python</code> vs <code>javascript</code>
+        For example <code>python</code> vs <code>javascript</code>.
       </td>
     </tr>
     <tr>
@@ -112,7 +112,7 @@ Where possible Test Engine will automatically ingest this data on your behalf.
       <td>
         Filtering and aggregating based on the language version to compare
         version performance and reliability in your test suite.
-        For example <code>3.0.2</code> vs <code>2.5.3</code>
+        For example <code>3.0.2</code> vs <code>2.5.3</code>.
       </td>
     </tr>
     <tr>
