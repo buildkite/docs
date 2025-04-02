@@ -135,6 +135,7 @@ When using YAML to define an OIDC policy, only simple YAML syntax is accepted—
 A _statement_ consists of a list of [_claim rules_](#claim-rules) for a particular _token issuer_ within an OIDC policy, as well as the _API scopes_ that the token is allowed to access.
 
 Each statement in the policy must contain contain:
+
 - An `iss` field, which is used to identify the token issuer. Statements will only match OIDC tokens whose `iss` claim matches the value of this field.
 - A `scopes` field, which is a list of API scopes that a token is granted. Currently, the only scopes supported by Registry OIDC policies are `read_packages`, `write_packages`, and `delete_packages`. If a token's claims match a statement, the token is granted access to the registry with the scopes defined in that statement.
 - A `claims` field, which is a map of [claim rules](#claim-rules).
