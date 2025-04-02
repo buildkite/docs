@@ -162,6 +162,8 @@ Be aware that this means some combinations of matchers used in a claim rule may 
 
 ```yaml
 - iss: https://agent.buildkite.com
+  scopes:
+    - read_packages
   claims:
     build_branch:
       equals: main
