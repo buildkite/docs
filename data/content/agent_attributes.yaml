@@ -103,7 +103,7 @@ attributes:
   env_var: BUILDKITE_GIT_FETCH_FLAGS
   default_value: "-v --prune"
   required: false
-  experimental: true
+  experimental: false
   desc: |
       Flags to pass to the `git fetch` command. Before [running builds on git tags](https://buildkite.com/docs/integrations/github#running-builds-on-git-tags), make sure your agent is fetching git tags.
 - name: git-mirrors-lock-timeout
