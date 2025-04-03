@@ -289,11 +289,9 @@ To resume a queue:
 
     Jobs will resume being dispatched to the resumed queue as usual, including any jobs waiting to run.
 
-## Pause and resume an individual agent
+### Pause and resume an individual agent
 
-You can pause an agent to prevent any jobs of the cluster's pipelines from being
-dispatched to that particular agent. Learn more in
-[Pausing and resuming an agent](/docs/agent/v3/pausing-and-resuming).
+You can also pause an agent to prevent any jobs of the cluster's pipelines from being dispatched to that particular agent. Learn more in [Pausing and resuming an agent](/docs/agent/v3/pausing-and-resuming).
 
 ## Queue metrics
 

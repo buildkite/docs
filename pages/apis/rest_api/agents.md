@@ -140,9 +140,9 @@ Success response: `200 OK`
 ## Stop an agent
 
 > 📘 Required permissions
-> To stop an agent you need either
-- An Admin user API token with `write_agents` [scope](/docs/apis/managing-api-tokens#token-scopes)
-- Or, if you're using the Buildkite organization's [security for pipelines](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) feature, a user token with the <em>Stop Agents</em> permission.
+> To stop an agent you need either:
+> - An Admin user API token with `write_agents` [scope](/docs/apis/managing-api-tokens#token-scopes).
+> - Or, if you're using the Buildkite organization's [security for pipelines](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) feature, a user token with the **Stop Agents** permission.
 
 Instruct an agent to stop accepting new build jobs and shut itself down.
 
@@ -178,9 +178,9 @@ Error responses:
 ## Pause an agent
 
 > 📘 Required permissions
-> To pause an agent you need either
-- An Admin user API token with `write_agents` [scope](/docs/apis/managing-api-tokens#token-scopes)
-- Or, if you're using the Buildkite organization's [security for pipelines](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) feature, a user token with the <em>Stop Agents</em> permission.
+> To pause an agent you need either:
+> - An Admin user API token with `write_agents` [scope](/docs/apis/managing-api-tokens#token-scopes).
+> - Or, if you're using the Buildkite organization's [security for pipelines](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) feature, a user token with the **Stop Agents** permission.
 
 Prevent dispatching jobs to an agent, and instruct the agent to remain running after finishing its current job if it would otherwise exit.
 
@@ -212,9 +212,9 @@ Error responses:
 ## Resume an agent
 
 > 📘 Required permissions
-> To resume a paused agent you need either
-- An Admin user API token with `write_agents` [scope](/docs/apis/managing-api-tokens#token-scopes)
-- Or, if you're using the Buildkite organization's [security for pipelines](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) feature, a user token with the <em>Stop Agents</em> permission.
+> To resume a paused agent you need either:
+> - An Admin user API token with `write_agents` [scope](/docs/apis/managing-api-tokens#token-scopes).
+> - Or, if you're using the Buildkite organization's [security for pipelines](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) feature, a user token with the **Stop Agents** permission.
 
 Resume dispatching jobs to an agent, and instruct the agent to resume normal operation.
 
