@@ -164,6 +164,8 @@ pr_description = <<-PR_DESCRIPTION
 
 _Note_: The original public PR will automatically close when this PR is merged. If there are additional changes to sync from the public PR, re-run the [Docs (Sync public PR)](https://buildkite.com/buildkite/docs-sync-public-pr) Pipeline.
 
+https://buildkite.com/organizations/buildkite/pipelines/docs-sync-public-pr/builds/new?meta_data[pull_request_number]=#{PR_NUMBER}
+
 ---
 
 ## [docs##{PR_NUMBER}](#{public_pr["html_url"]}): #{public_pr["title"]}
