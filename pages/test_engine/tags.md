@@ -65,7 +65,7 @@ Where possible Test Engine will automatically ingest this data on your behalf.
     <tr>
       <td><code>code.file.path</code></td>
       <td>
-        Filtering and aggregating based on a file path or subsection
+        Filtering and aggregating based on the file path or subsection
         of the file path.
       </td>
     </tr>
