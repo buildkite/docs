@@ -5,17 +5,17 @@
 
 # Tags
 
-Tags are a way of adding dimensions to Test execution metadata so they can be
+Tags are a way of adding dimensions to test execution metadata so they can be
 filtered, aggregated, and compared in Test Engine visualizations.
 
 Using tags enables you to observe aggregate performance across
-several Tests and (optionally) narrow the dataset further based on specific
+several tests and (optionally) narrow the dataset further based on specific
 constraints. In summary, tagging is a method to observe aggregate data points.
 
 Tags are key:value pairs containing two parts:
 
 - The tag key is the identifier. The tag key can only exist once on each
-Test and is case sensitive.
+test and is case sensitive.
 - The tag value is the specific data or information associated with the key.
 
 ## Core tags
@@ -190,13 +190,13 @@ of your Buildkite scale-out delivery platform.
 
 On the test page you can open the execution drawer by selection an execution.
 
-This will then present all the tags which has been applied to the Test execution.
+This will then present all the tags which has been applied to the test execution.
 
 <%= image "execution-tags.png", width: 2950, height: 1618, alt: "Screenshot of test page with execution drawer open displaying execution tags available for filtering and aggregtion" %>
 
 ### Group by tag
 
-Grouping by tag on the Test page will break down the test reliability and duration (p50, p95)
+Grouping by tag on the test page will break down the test reliability and duration (p50, p95)
 so you can compare performance across the tag values.
 
 <%= image "group-by-tag.png", width: 2974, height: 1000, alt: "Screenshot of test page with a group
@@ -204,13 +204,13 @@ so you can compare performance across the tag values.
 
 ### Filter by tag
 
-Filtering by tag on the Test page will constrain all executions for the test which match the filter
+Filtering by tag on the test page will constrain all executions for the test which match the filter
 conditions.
 
 <%= image "filter-by-tag.png", width: 2996, height: 1288, alt: "Screenshot of test page with a tag
 filter applied restricting executions to just those that ran on t3.large in ruby" %>
 
-Filtering by tag on the Test index page will constrain all tests to those that had executions
+Filtering by tag on the test index page will constrain all tests to those that had executions
 matching the conditions of the filter. In the following case all tests that ran on the `t3.large` instance type.
 
 <%= image "filter-tests-by-tag.png", width: 2992, height: 998, alt: "Screenshot of test index with a tag filter applied restricting tests to just those running on t3.large instances" %>
