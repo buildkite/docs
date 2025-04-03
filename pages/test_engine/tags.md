@@ -156,6 +156,9 @@ tags of your own.
 
 Below are Test Engine's tagging requirements:
 
+- Up to 10 tags may be specified at the upload level (applying to all executions), per upload
+- Up to 10 tags may be specified on each execution
+
 #### Tag keys
 
 - Must not be blank
@@ -166,8 +169,6 @@ Below are Test Engine's tagging requirements:
 
 - Must not be blank
 - Must be less than 128 bytes of UTF-8 text
-- Up to 10 tags may be specified at the upload level (applying to all executions), per upload
-- Up to 10 tags may be specified on each execution
 
 ### Tagging methods
 
