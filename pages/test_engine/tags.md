@@ -5,7 +5,7 @@
 
 Tags are a way of adding dimensions to test execution metadata so tests and executions can be better filtered, aggregated, and compared in Test Engine visualizations.
 
-Tagging can be used to observe aggregated data points. For example, by using tagging, you to observe aggregated performance across several tests, and (optionally) narrow the dataset further based on specific constraints.
+Tagging can be used to observe aggregated data points. For example, by using tagging, you can observe aggregated performance across several tests, and (optionally) narrow the dataset further based on specific constraints.
 
 Tags are `key:value` pairs containing two parts:
 
