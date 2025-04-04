@@ -171,7 +171,7 @@ Grouping by tag on the test page breaks down the test reliability and duration (
 
 ### Filter by tag
 
-Filtering by tag on the test page retains all executions for the test that match the filter conditions.
+Filtering by tag on the test page will constrain all executions for the test which match the filter conditions.
 
 <%= image "filter-by-tag.png", width: 2996, height: 1288, alt: "Screenshot of test page with a tag filter applied restricting executions to just those that ran on t3.large in ruby" %>
 
