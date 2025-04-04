@@ -159,7 +159,7 @@ After you have assigned tags at the test collection level, start using them to f
 
 On the test page, you can open the execution drawer by selection an execution.
 
-This will then present all the tags which has been applied to the test execution.
+This presents all the tags which have been applied to the test execution.
 
 <%= image "execution-tags.png", width: 2950, height: 1618, alt: "Screenshot of test page with execution drawer open displaying execution tags available for filtering and aggregtion" %>
 
