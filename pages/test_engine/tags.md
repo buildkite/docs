@@ -7,10 +7,10 @@ Tags are a way of adding dimensions to test execution metadata so tests and exec
 
 Tagging can be used to observe aggregated data points. For example, by using tagging, you to observe aggregated performance across several tests, and (optionally) narrow the dataset further based on specific constraints.
 
-Tags are key:value pairs containing two parts:
+Tags are `key:value` pairs containing two parts:
 
-- The tag key is the identifier. The tag key can only exist once on each test and is case sensitive.
-- The tag value is the specific data or information associated with the key.
+- The tag's `key` is the identifier, which can only exist once on each test, and is case sensitive.
+- The tag's `value` is the specific data or information associated with the `key`.
 
 ## Core tags
 
@@ -21,7 +21,7 @@ Where possible Test Engine will automatically ingest this data on your behalf.
 <table class="responsive-table">
   <thead>
     <tr>
-      <th>Tag Key</th>
+      <th>Tag key</th>
       <th>Use case</th>
     </tr>
   </thead>
@@ -121,11 +121,11 @@ Where possible Test Engine will automatically ingest this data on your behalf.
 
 ## Custom tags
 
-In addition to the core tags listed above you can tag executions with custom tags of your own.
+In addition to the [core tags](#core-tags), you can tag executions with your own custom tags.
 
 ### Defining tags
 
-Below are Test Engine's tagging requirements:
+Test Engine has the following tagging requirements:
 
 - Up to 10 tags may be specified at the upload level (applying to all executions), per upload.
 - Up to 10 tags may be specified on each execution.
@@ -153,13 +153,13 @@ Tags may be assigned using the following collection methods:
 
 ## Usage
 
-After you have assigned tags at the test collection level, start using them to filter and group your Test results. Tags are used in the following areas of your Buildkite scale-out delivery platform.
+After you have assigned tags at the test collection level, start using them to filter and group your test results. Tags are used in the following areas of the Buildkite Platform.
 
 ### Test execution drawer
 
-On the test page you can open the execution drawer by selection an execution.
+On the test page, you can open the execution drawer by selection an execution.
 
-This will then present all the tags which has been applied to the test execution.
+This presents all the tags which have been applied to the test execution.
 
 <%= image "execution-tags.png", width: 2950, height: 1618, alt: "Screenshot of test page with execution drawer open displaying execution tags available for filtering and aggregtion" %>
 
@@ -171,7 +171,7 @@ Grouping by tag on the test page will break down the test reliability and durati
 
 ### Filter by tag
 
-Filtering by tag on the test page will constrain all executions for the test which match the filter conditions.
+Filtering by tag on the test page retains all executions for the test that match the filter conditions.
 
 <%= image "filter-by-tag.png", width: 2996, height: 1288, alt: "Screenshot of test page with a tag filter applied restricting executions to just those that ran on t3.large in ruby" %>
 
