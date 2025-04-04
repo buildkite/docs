@@ -153,7 +153,7 @@ Tags may be assigned using the following collection methods:
 
 ## Usage
 
-After you have assigned tags at the test collection level, start using them to filter and group your Test results. Tags are used in the following areas of your Buildkite scale-out delivery platform.
+After you have assigned tags at the test collection level, start using them to filter and group your test results. Tags are used in the following areas of the Buildkite Platform.
 
 ### Test execution drawer
 
