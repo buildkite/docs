@@ -7,10 +7,10 @@ Tags are a way of adding dimensions to test execution metadata so they can be fi
 
 Tagging can be used to observe aggregated data points. For example, by using tagging, you to observe aggregated performance across several tests, and (optionally) narrow the dataset further based on specific constraints.
 
-Tags are key:value pairs containing two parts:
+Tags are `key:value` pairs containing two parts:
 
-- The tag key is the identifier. The tag key can only exist once on each test and is case sensitive.
-- The tag value is the specific data or information associated with the key.
+- The tag's `key` is the identifier, which can only exist once on each test, and is case sensitive.
+- The tag's `value` is the specific data or information associated with the `key`.
 
 ## Core tags
 
