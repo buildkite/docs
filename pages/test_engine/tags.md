@@ -125,7 +125,7 @@ In addition to the [core tags](#core-tags), you can tag executions with your own
 
 ### Defining tags
 
-Below are Test Engine's tagging requirements:
+Test Engine has the following tagging requirements:
 
 - Up to 10 tags may be specified at the upload level (applying to all executions), per upload.
 - Up to 10 tags may be specified on each execution.
