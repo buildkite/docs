@@ -185,6 +185,6 @@ You can filter by tag using the `@` prefix to denote that you want to filter by 
 @host.type:t3.large
 ```
 
-To filter tests by tags in [Pipelines](/docs/pipelines), click the **Tests** tab in either the job or build interface and then click the **Add filter** filter button.
+To filter tests by tags in [Pipelines](/docs/pipelines), select the **Tests** tab in either the job or build interface and then select the **Add filter** filter button.
 
 <%= image "pipelines-filter-by-tag.png", width: 1656, height: 1150, alt: "Screenshot of filtering tests on a pipeline build" %>
