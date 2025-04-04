@@ -121,7 +121,7 @@ Where possible Test Engine will automatically ingest this data on your behalf.
 
 ## Custom tags
 
-In addition to the core tags listed above you can tag executions with custom tags of your own.
+In addition to the [core tags](#core-tags), you can tag executions with your own custom tags.
 
 ### Defining tags
 
