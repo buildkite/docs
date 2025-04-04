@@ -157,7 +157,7 @@ After you have assigned tags at the test collection level, start using them to f
 
 ### Test execution drawer
 
-On the test page you can open the execution drawer by selection an execution.
+On the test page, you can open the execution drawer by selection an execution.
 
 This will then present all the tags which has been applied to the test execution.
 
