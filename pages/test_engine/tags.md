@@ -14,9 +14,9 @@ Tags are `key:value` pairs containing two parts:
 
 ## Core tags
 
-We believe the following core tags are vital to helping you understand and improve the performance of your test suite. That's why they are included in the [managed tests](/docs/test-engine/usage_and_billing#managed-tests) price.
+The following core tags are vital to helping you understand and improve the performance of your test suite. These tags are included in the [managed tests](/docs/test-engine/usage_and_billing#managed-tests) price.
 
-Where possible Test Engine will automatically ingest this data on your behalf.
+Where possible, Test Engine will automatically ingest this data on your behalf.
 
 <table class="responsive-table">
   <thead>
@@ -165,7 +165,7 @@ This presents all the tags which have been applied to the test execution.
 
 ### Group by tag
 
-Grouping by tag on the test page will break down the test reliability and duration (p50, p95) so you can compare performance across the tag values.
+Grouping by tag on the test page breaks down the test reliability and duration (p50, p95), so that you can compare performance across the tag values.
 
 <%= image "group-by-tag.png", width: 2974, height: 1000, alt: "Screenshot of test page with a group by tag aggregation applied breaking down metrics by architecture" %>
 
@@ -185,6 +185,6 @@ You can filter by tag using the `@` prefix to denote that you want to filter by 
 @host.type:t3.large
 ```
 
-To filter tests by tags in [Pipelines](/docs/pipelines), click the **Tests** tab in either the job or build interface and then click the **Add filter** filter button.
+To filter tests by tags in [Pipelines](/docs/pipelines), select the **Tests** tab in either the job or build interface and then select the **Add filter** filter button.
 
 <%= image "pipelines-filter-by-tag.png", width: 1656, height: 1150, alt: "Screenshot of filtering tests on a pipeline build" %>
