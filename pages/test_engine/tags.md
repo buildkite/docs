@@ -21,7 +21,7 @@ Where possible Test Engine will automatically ingest this data on your behalf.
 <table class="responsive-table">
   <thead>
     <tr>
-      <th>Tag Key</th>
+      <th>Tag key</th>
       <th>Use case</th>
     </tr>
   </thead>
