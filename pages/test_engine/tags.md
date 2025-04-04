@@ -14,9 +14,9 @@ Tags are `key:value` pairs containing two parts:
 
 ## Core tags
 
-We believe the following core tags are vital to helping you understand and improve the performance of your test suite. That's why they are included in the [managed tests](/docs/test-engine/usage_and_billing#managed-tests) price.
+The following core tags are vital to helping you understand and improve the performance of your test suite. These tags are included in the [managed tests](/docs/test-engine/usage_and_billing#managed-tests) price.
 
-Where possible Test Engine will automatically ingest this data on your behalf.
+Where possible, Test Engine will automatically ingest this data on your behalf.
 
 <table class="responsive-table">
   <thead>
