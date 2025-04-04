@@ -165,7 +165,7 @@ This presents all the tags which have been applied to the test execution.
 
 ### Group by tag
 
-Grouping by tag on the test page will break down the test reliability and duration (p50, p95) so you can compare performance across the tag values.
+Grouping by tag on the test page breaks down the test reliability and duration (p50, p95), so that you can compare performance across the tag values.
 
 <%= image "group-by-tag.png", width: 2974, height: 1000, alt: "Screenshot of test page with a group by tag aggregation applied breaking down metrics by architecture" %>
 
