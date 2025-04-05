@@ -248,7 +248,11 @@
         - name: "Defining steps"
           path: "pipelines/configure/defining-steps"
         - name: "Dynamic pipelines"
-          path: "pipelines/configure/dynamic-pipelines"
+          children:
+            - name: "Overview"
+              path: "pipelines/configure/dynamic-pipelines"
+            - name: "Buildkite SDK"
+              path: "pipelines/configure/dynamic-pipelines/sdk"
         - name: "Step types"
           children:
             - name: "Overview"
