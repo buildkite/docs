@@ -53,7 +53,7 @@ To link your private AWS S3 storage to Buildkite Package Registries:
 
 1. Once the stack is created, return to the Buildkite interface and select **Run diagnostic** to verify that Buildkite Package Registries can publish (`PUT`), download (`GET`), tag (`PUT`) and delete (`DELETE`) packages on your S3 private storage.
 
-1. Once the **Diagnostic Result** page indicates a **Pass** for each of these four tests, select **Create Private Storage Link** complete this linking process.
+1. Once the **Diagnostic Result** page indicates a **Pass** for each of these tests, select **Create Private Storage Link** complete this linking process.
 
 You are returned to the **Private Storage Link** page, where you can:
 
