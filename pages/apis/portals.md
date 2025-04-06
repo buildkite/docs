@@ -104,7 +104,7 @@ e.g.
 ```sh
 curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
-  -d "{ "build_slug": "organization-slug/pipeline-slug/build-number" }" \
+  -d '{ "build_slug": "organization-slug/pipeline-slug/build-number" }' \
   -X POST "https://portal.buildkite.com/organizations/my-organization/portals/get-total-build-run-time"
 ```
 

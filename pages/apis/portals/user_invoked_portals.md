@@ -48,7 +48,7 @@ Once the token codes are authorized, users can obtain a portal token by making a
 
 ```bash
 curl -H "Content-Type: application/json" \
-  -d "{ "code": "$CODE", "secret": "$SECRET" }" \
+  -d '{ "code": "$CODE", "secret": "$SECRET" }' \
   -X POST "https://portal.buildkite.com/organizations/{org.slug}/portals/{portal.slug}/tokens"
 ```
 
@@ -74,7 +74,7 @@ Optionally, expiration duration can be specified (in minutes) if a shorter expir
 
 ```bash
 curl -H "Content-Type: application/json" \
-  -d "{ "code": "$CODE", "secret": "$SECRET", "expires_in": $MINUTES }" \
+  -d '{ "code": "$CODE", "secret": "$SECRET", "expires_in": $MINUTES }' \
   -X POST "https://portal.buildkite.com/organizations/{org.slug}/portals/{portal.slug}/tokens"
 ```
 
