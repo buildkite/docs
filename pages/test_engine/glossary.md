@@ -8,7 +8,7 @@ In the context of Test Engine, dimensions relate to structured data, consisting 
 
 ## Execution
 
-An execution is the result of a single test run.
+An execution is an instance of a single test run.
 
 ## Managed test
 
