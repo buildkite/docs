@@ -22,7 +22,7 @@ For example, each of the following three tests are unique managed tests:
 
 - Test Suite 2 - here.is.scope.one - Login Test name
 
-Test Engine uses managed tests to track of key areas test runs, and for billing purposes.
+Test Engine uses managed tests to track key areas [test runs](#run), and for billing purposes.
 
 Learn more about managed tests in [Usage and billing](/docs/test-engine/usage-and-billing).
 
@@ -32,7 +32,7 @@ Learn more about managed tests in [Usage and billing](/docs/test-engine/usage-an
 
 ## Run
 
-The execution of one or more tests in a [test suite](#test-suite).
+The execution of one or more tests in a [test suite](#test-suite). A _run_ is sometimes referred to as a _test run_.
 
 ## Scope
 
