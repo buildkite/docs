@@ -1,10 +1,10 @@
-# Pipelines glossary
+# Test Engine glossary
 
 The following terms describe key concepts to help you use Test Engine.
 
 ## Dimensions
 
-In the context of Test Engine, dimensions relate to structured data, consisting of [tags](#tag), which can be used to filter or group (that is, aggregate) test executions. Dimensions are added to test executions using the tags feature, which you can learn more about in [Tags](/docs/test-engine/tags).
+In the context of Test Engine, dimensions relate to structured data, consisting of [tags](#tag), which can be used to filter or group (that is, aggregate) test [executions](#execution). Dimensions are added to test executions using the tags feature, which you can learn more about in [Tags](/docs/test-engine/tags).
 
 ## Execution
 
@@ -54,13 +54,13 @@ While a development project's test runners (such RSpec or Jest) are typically co
 
 ## Test collector
 
-A test collector is a dedicated open source source library (developed by Buildkite) that can be implemented into your development project, to collect test data from a test runner within your project.
+A test collector is a dedicated open source source library (developed by Buildkite) that can be implemented into your development project, to collect test data from a [test runner](#test-runner) within your project.
 
 Buildkite offers [a number of test collectors](/docs/test-engine/test-collection) for a range of languages and their test runners.
 
 ## Test runner
 
-A test runner is a synonymous term used for a _test framework_, which is typical a code library that can be integrated into a development project to facilitate the implementation of [tests](#test) for that project.
+A test runner is a synonymous term used for a _test framework_, which is typically a code library that can be integrated into a development project to facilitate the implementation of [tests](#test) for that project.
 
 ## Test state
 
@@ -70,4 +70,4 @@ A test runner is a synonymous term used for a _test framework_, which is typical
 
 A test suite is a collection of [tests](#test), which is managed through Buildkite Test Engine. A _test suite_ is sometimes abbreviated to _suite_.
 
-In a development project configured with of one or more [test runners](#test-runner), it is usually typical to configure one test suite for each of these test runners.
+In a development project configured with of one or more [test runners](#test-runner), it is usually typical to configure a separate test suite each of the project's test runners.
