@@ -182,7 +182,7 @@ Error responses:
 > - An Admin user API token with `write_agents` [scope](/docs/apis/managing-api-tokens#token-scopes).
 > - Or, if you're using the Buildkite organization's [security for pipelines](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) feature, a user token with the **Stop Agents** permission.
 
-Prevent dispatching jobs to an agent, and instruct the agent to remain running after finishing its current job if it would otherwise exit.
+Prevent dispatching jobs to an agent, and instruct the agent (which would otherwise exit when the job either is completed or times out) to remain running after finishing its current job.
 
 ```bash
 curl -H "Authorization: Bearer ${TOKEN}" \
