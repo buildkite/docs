@@ -51,7 +51,7 @@ To link your private AWS S3 storage to Buildkite Package Registries:
 
 1. Select **Create stack** to begin creating the CloudFormation stack for your S3 bucket.
 
-1. Once the stack is created, return to the Buildkite interface and select **Run diagnostic** to verify that Buildkite Package Registries can do the following to packages in your S3 private storage:
+1. Once the stack is created, return to the Buildkite interface and select **Run diagnostic** to verify that Buildkite Package Registries can do the following with packages in your S3 private storage:
     * publish (`PUT`)
     * download (`GET`)
     * tag (`PUT`)
