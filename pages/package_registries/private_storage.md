@@ -51,9 +51,13 @@ To link your private AWS S3 storage to Buildkite Package Registries:
 
 1. Select **Create stack** to begin creating the CloudFormation stack for your S3 bucket.
 
-1. Once the stack is created, return to the Buildkite interface and select **Run diagnostic** to verify that Buildkite Package Registries can publish (`PUT`), download (`GET`), tag (`PUT`) and delete (`DELETE`) packages on your S3 private storage.
+1. Once the stack is created, return to the Buildkite interface and select **Run diagnostic** to verify that Buildkite Package Registries can do the following to packages in your S3 private storage:
+    * publish (`PUT`)
+    * download (`GET`)
+    * tag (`PUT`)
+    * delete (`DELETE`)
 
-1. Once the **Diagnostic Result** page indicates a **Pass** for each of these tests, select **Create Private Storage Link** complete this linking process.
+1. Once the **Diagnostic Result** page indicates a **Pass** for each of these diagnostic tests, select **Create Private Storage Link** to complete this linking process.
 
 You are returned to the **Private Storage Link** page, where you can:
 
@@ -79,13 +83,12 @@ All [newly created source registries](/docs/package-registries/manage-registries
 
 ## Deleting packages
 
-When deleting a package, Buildkite will not delete the associated objects from your storage. Instead, it will mark them for deletion using [S3 Object Tags](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-tagging.html)
+When deleting a package, Buildkite does not delete the associated objects from your storage. Instead, Buildkite marks them for deletion using [S3 object tags](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-tagging.html).
 
-Objects tagged for deletion will use the following key value pair:
+Objects tagged for deletion by Buildkite have the following key value pair:
 
 | Key                 | Value            |
 |---------------------|------------------|
 | `buildkite:deleted` | Timestamp in UTC |
 
-
-Expire objects from your bucket using a [Lifecycle Configuration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/how-to-set-lifecycle-configuration-intro.html) set up to filter tagged objects. See [lifecycle rules filters](https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html#intro-lifecycle-rules-filter) for more information.
+Expire objects from your bucket using an [S3 Lifecycle configuration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/how-to-set-lifecycle-configuration-intro.html) set up to filter tagged objects. Learn more about lifecycle rules filters in the [Lifecycle configuration elements > Filter element](https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html#intro-lifecycle-rules-filter) section of the [Amazon S3 documentation](https://docs.aws.amazon.com/s3/).
