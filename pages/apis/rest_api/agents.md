@@ -140,9 +140,9 @@ Success response: `200 OK`
 ## Stop an agent
 
 > 📘 Required permissions
-> To stop an agent you need either
-- An Admin user API token with `write_agents` [scope](/docs/apis/managing-api-tokens#token-scopes)
-- Or, if you're using the Buildkite organization's [security for pipelines](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) feature, a user token with the <em>Stop Agents</em> permission.
+> To stop an agent you need either:
+> - An Admin user API token with `write_agents` [scope](/docs/apis/managing-api-tokens#token-scopes).
+> - Or, if you're using the Buildkite organization's [security for pipelines](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) feature, a user token with the **Stop Agents** permission.
 
 Instruct an agent to stop accepting new build jobs and shut itself down.
 
@@ -174,6 +174,70 @@ Error responses:
   <tr><th><code>400 Bad Request</code></th><td><code>{ "message": "Can only stop connected agents" }</code></td></tr>
 </tbody>
 </table>
+
+## Pause an agent
+
+> 📘 Required permissions
+> To pause an agent you need either:
+> - An Admin user API token with `write_agents` [scope](/docs/apis/managing-api-tokens#token-scopes).
+> - Or, if you're using the Buildkite organization's [security for pipelines](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) feature, a user token with the **Stop Agents** permission.
+
+Prevent dispatching jobs to an agent, and instruct the agent (which would otherwise exit when the job either is completed or times out) to remain running after finishing its current job.
+
+```bash
+curl -H "Authorization: Bearer ${TOKEN}" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}/pause" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "note": "A short note explaining why this agent is being paused",
+    "timeoutInMinutes": 60
+  }'
+```
+
+Required scope: `write_agents`
+
+Success response: `204 No Content`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr><th><code>404 Not Found</code></th><td><code>{ "message": "No agent found" }</code></td></tr>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Agent is already paused" }</code></td></tr>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Only connected agents may be paused" }</code></td></tr>
+</tbody>
+</table>
+
+
+## Resume an agent
+
+> 📘 Required permissions
+> To resume a paused agent you need either:
+> - An Admin user API token with `write_agents` [scope](/docs/apis/managing-api-tokens#token-scopes).
+> - Or, if you're using the Buildkite organization's [security for pipelines](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) feature, a user token with the **Stop Agents** permission.
+
+Resume dispatching jobs to an agent, and instruct the agent to resume normal operation.
+
+```bash
+curl -H "Authorization: Bearer ${TOKEN}" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}/resume" \
+  -H "Content-Type: application/json" \
+  -d '{}'
+```
+
+Required scope: `write_agents`
+
+Success response: `204 No Content`
+
+Error responses:
+
+<table>
+<tbody>
+<tr><th><code>404 Not Found</code></th><td><code>{ "message": "No agent found" }</code></td></tr>
+<tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Agent is not paused" }</code></td></tr>
+</tbody>
+</table>
+
 
 ## Agent tokens
 
