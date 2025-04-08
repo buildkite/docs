@@ -8,7 +8,7 @@ In the context of Test Engine, dimensions relate to structured data, consisting 
 
 ## Execution
 
-An execution is an instance of a single test run.
+An execution is an instance of a single test run. An execution tracks several aspects of a test, including its _result_ (passed, failed, skipped, other), _duration_ (time), and [dimensions](#dimensions) (that is, [tags](#tag)).
 
 ## Managed test
 
