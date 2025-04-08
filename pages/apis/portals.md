@@ -65,6 +65,51 @@ https://portal.buildkite.com/organizations/{organization.slug}/portals/{portal}
 
 All requests must be `HTTP POST` requests with `application/json` encoded bodies.
 
+## Defining multiple operations
+
+Multiple GraphQL operations can be defined within a single portal document. This enables grouping related queries and mutations such as those used in CLI tools or custom workflows under a single portal token for more streamlined usage.
+
+The following example defines two operations in the same document: one to fetch recent builds, and another to trigger a new build:
+
+```graphql
+  query GetBuilds($pipelineSlug: ID!) {
+    pipeline(slug: $pipelineSlug) {
+      builds(last: 10, branch: "main") {
+        edges {
+          node {
+            url
+          }
+        }
+      }
+    }
+  }
+
+  mutation triggerBuild($pipelineID: ID!) {
+    buildCreate(input:{
+      branch: "main",
+      commit: "HEAD",
+      pipelineID: $pipelineID,
+    }) {
+      build {
+        url
+      }
+    }
+  }
+```
+
+>📘
+> While multiple operations can exist in a portal document, only one can be executed per request. To run a specific operation, include its `operation_name` as a query parameter along with the relevant variables.
+
+Example request for running the GetBuilds operation:
+
+```sh
+curl -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{ "pipelineSlug": "organization-slug/pipeline-slug" }' \
+  -X POST "https://portal.buildkite.com/organizations/my-organization/portals/portal-slug?operation_name=GetBuilds"
+```
+
+
 ## Authentication
 
 Similar to the Buildkite REST and GraphQL APIs, portals are authenticated with the associated portal token generated for a given portal.
