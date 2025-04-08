@@ -81,6 +81,8 @@
           path: "agent/v3/hooks"
         - name: "Monitoring and observing"
           path: "agent/v3/monitoring"
+        - name: "Pausing and resuming"
+          path: "agent/v3/pausing-and-resuming"
         - name: "Queues"
           path: "agent/v3/queues"
         - name: "Prioritization"
@@ -337,10 +339,10 @@
           path: "pipelines/hosted-agents/terminal-access"
         - name: "Mobile Delivery Cloud"
           children:
-          - name: "Overview"
-            path: "pipelines/hosted-agents/mobile-delivery-cloud"
-          - name: "Getting started"
-            path: "pipelines/hosted-agents/mobile-delivery-cloud/getting-started"
+            - name: "Overview"
+              path: "pipelines/hosted-agents/mobile-delivery-cloud"
+            - name: "Getting started"
+              path: "pipelines/hosted-agents/mobile-delivery-cloud/getting-started"
     - name: "Rules"
       children:
         - name: "Overview"
