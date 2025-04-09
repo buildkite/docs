@@ -37,7 +37,7 @@ To get started with portals, as a Buildkite organization administrator, access t
     }
     ```
 
-    **Tip:** You can get the GraphQL pipeline ID from your pipeline settings.
+    **Tip:** You can get the GraphQL pipeline ID (for example, a value looking similar to something like `UGlwZWxpbmUtLS0wMTkzMDkxZC1lOTIUzzRhMWEtYWQ0NS1jMWJhNTA2N2RiMzQ=`) from your pipeline settings.
 
 1. After completing these required fields and any others for this portal, select **Save Portal** to create the portal.
 
