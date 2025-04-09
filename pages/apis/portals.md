@@ -100,7 +100,7 @@ The following example defines two operations in the same document—one to fetch
 >📘
 > While multiple operations can exist in a portal document, only one can be executed per request. To run a specific operation, include its `operation_name` as a query parameter along with the relevant variables.
 
-Example request for running the GetBuilds operation:
+An example request for running the `GetBuilds` operation:
 
 ```sh
 curl -H "Authorization: Bearer $TOKEN" \
