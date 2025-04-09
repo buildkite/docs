@@ -69,7 +69,7 @@ All requests must be `HTTP POST` requests with `application/json` encoded bodies
 
 Multiple GraphQL operations can be defined within a single portal document. This enables grouping related queries and mutations such as those used in CLI tools or custom workflows under a single portal token for more streamlined usage.
 
-The following example defines two operations in the same document: one to fetch recent builds, and another to trigger a new build:
+The following example defines two operations in the same document—one to fetch recent builds, and another to trigger a new build:
 
 ```graphql
   query GetBuilds($pipelineSlug: ID!) {
