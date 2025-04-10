@@ -4,7 +4,7 @@ toc: false
 
 # Hybrid architecture
 
-Buildkite Pipelines uses a hybrid architecture consisting of the following:
+In a self-hosted architectural setup, Buildkite Pipelines has a hybrid architecture consisting of the following:
 
 - **Buildkite dashboard:** A software-as-a-service (SaaS) control plane for visualizing and managing CI/CD pipelines. This coordinates work and displays results.
 - **Agents:** Small, reliable, and cross-platform build runners. These are hosted by you, either on-premises or in the cloud. They execute the work they receive from the Buildkite dashboard.

@@ -18,14 +18,17 @@ To complete this tutorial, you'll need:
 
 - A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a 30-day free trial account</a>.
 
-    When you create a new organization as part of sign-up, you'll be guided through a flow to create and run a starter pipeline. Complete that before continuing.
+    If you're signing up to Buildkite and need to create a new Buildkite organization, you'll initially be guided through a flow to create a starter pipeline.
 
-- To enable the YAML steps editor in Buildkite:
+    Upon reaching the **Create your first pipeline** page, select **Create starter pipeline**, and on the next **Choose your agent setup** page, select **Skip agent setup**.
 
-    * Select **Settings** > **YAML Migration** to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
-    * Select **Use YAML Steps for New Pipelines**, then confirm the action in the modal.
+    You'll be doing these steps as part of this tutorial.
 
-- [Git](https://git-scm.com/downloads). This tutorial uses GitHub, but Buildkite can work with any version control system.
+- To enable the YAML steps editor in Buildkite. To do this:
+    1. Select **Settings** > **YAML Migration** to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
+    1. Select **Use YAML Steps for New Pipelines**, then confirm the action in the modal.
+
+- [Git](https://git-scm.com/downloads). This tutorial uses GitHub, but Buildkite can work with any version control system by adapting the relevant steps below to those for your particular Git-based setup.
 
 - To have made your own copy or fork of the [bazel-buildkite-example](https://github.com/buildkite/bazel-buildkite-example) repository within your own GitHub account.
 

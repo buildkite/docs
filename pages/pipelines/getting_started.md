@@ -14,14 +14,17 @@ To complete this tutorial, you'll need:
 
 - A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a 30-day free trial account</a>.
 
-    When you create a new organization as part of sign-up, you'll be guided through a flow to create and run a starter pipeline. Complete that before continuing, and keep your agent running to continue using it in this tutorial.
+    If you're signing up to Buildkite and need to create a new Buildkite organization, you'll initially be guided through a flow to create a starter pipeline.
 
-- To enable the YAML steps editor in Buildkite:
+    Upon reaching the **Create your first pipeline** page, select **Create starter pipeline**, and on the next **Choose your agent setup** page, select **Skip agent setup**.
 
-    * Select **Settings** > **YAML Migration** to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
-    * Select **Use YAML Steps for New Pipelines**, then confirm the action in the modal.
+    You'll be doing these steps as part of this tutorial.
 
-- [Git](https://git-scm.com/downloads). This tutorial uses GitHub, but Buildkite can work with any version control system.
+- To enable the YAML steps editor in Buildkite. To do this:
+    1. Select **Settings** > **YAML Migration** to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
+    1. Select **Use YAML Steps for New Pipelines**, then confirm the action in the modal.
+
+- [Git](https://git-scm.com/downloads). This tutorial uses GitHub, but Buildkite can work with any version control system by adapting the relevant steps below to those for your particular Git-based setup.
 
 ## Understand the architecture
 
@@ -74,7 +77,7 @@ To create a hosted agent:
     1. On the queue's **Overview** page, select the **Settings** tab to open this page.
     1. In the **Queue Management** section, select **Set as Default Queue**.
 
-Your Buildkite hosted agent, as the new default queue, is now ready to use.
+Your Buildkite hosted agent, as the new default queue, is now ready to use. You can now skip to the [next step on creating a pipeline](#create-a-pipeline).
 
 ### Install and run a self-hosted agent
 
@@ -110,24 +113,17 @@ To confirm that your agent is running, and configured correctly with your creden
 
 _Pipelines_ are how Buildkite represents a CI/CD workflow. You define each pipeline with a series of _steps_ to run. When you trigger a pipeline, you create a _build_, and steps are dispatched as _jobs_ to run on agents. Jobs are independent of each other and can run on different agents.
 
-Next, you'll create a new pipeline based on one of the following example pipelines:
-
-- [Bash example](https://github.com/buildkite/bash-example/)
-- [PowerShell example](https://github.com/buildkite/powershell-example/)
-
-Both result in the same behavior: the pipeline definition is uploaded from the repository (`.buildkite/pipeline.yml`), then a script runs that prints output to the logs.
-
 To create a pipeline:
 
 1. Select **Add to Buildkite** for the appropriate example based on where your agent is running.
+    * For Bash:<br/>
+        <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a><br/>
+        (from the [Bash example](https://github.com/buildkite/bash-example/) GitHub repository)
+    * For PowerShell:<br/>
+        <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a><br/>
+        (from the [PowerShell example](https://github.com/buildkite/powershell-example/) GitHub repository)
 
-    For Bash:
-
-    <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
-
-    For PowerShell:
-
-    <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a>
+    **Note:** Both result in the same behavior—the pipeline definition is uploaded from the repository (`.buildkite/pipeline.yml`), then a script runs that prints output to the logs.
 
 1. On the **New Pipeline** page, select the **Cluster** of the [agent you had previously set up](#set-up-an-agent).
 
