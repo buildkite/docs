@@ -36,9 +36,9 @@ Learn more about managed tests in [Usage and billing](/docs/test-engine/usage-an
 
 Quarantine is a state applied to a [test](#test) that, based on the [state of the test](#test-state), changes how Test Engine [executes](#execution) that test as part of a [run](#run). When a test is quarantined, and its test state is flagged as:
 
-- _mute_, the test will be [executed](#execution) as part of a [run](#run), but its failure will not cause the pipeline build to fail, allowing the test's metadata to still be collected.
+- _mute_, the test is [executed](#execution) as part of the [run](#run), but its failure does not cause the pipeline build to fail, allowing the test's metadata to still be collected.
 
-- _skip_, the test will not be [executed](#execution) as part of a [run](#run), which can allow pipeline builds to execute more rapidly and can reduce costs, but no data is recorded from the test.
+- _skip_, the test is not be [executed](#execution) as part of the [run](#run), which can allow pipeline builds to execute more rapidly and can reduce costs, but no data is recorded from the test.
 
 Learn more about quarantining tests in [Test state and quarantine](/docs/test-engine/test-state-and-quarantine).
 
@@ -94,7 +94,11 @@ A test runner is a synonymous term used for a _test framework_, which is typical
 
 A test state is a configurable flag that can be applied to a [test](#test) (typically [flaky tests](#flaky-test)), which [quarantines](#quarantine) the test and affects how the test is [executed](#execution) as part of a [run](#run).
 
+The following test state flags for quarantining tests are supported:
 
+- _mute_, the test is [executed](#execution) as part of the [run](#run), but its failure does not cause the pipeline build to fail, allowing the test's metadata to still be collected.
+
+- _skip_, the test is not be [executed](#execution) as part of the [run](#run), which can allow pipeline builds to execute more rapidly and can reduce costs, but no data is recorded from the test.
 
 Learn more about test states in [Test state and quarantine](/docs/test-engine/test-state-and-quarantine).
 
