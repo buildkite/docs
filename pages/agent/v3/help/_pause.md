@@ -14,29 +14,22 @@ script.
 
 ### Usage
 
-`buildkite-agent step update <attribute> <value> [options...]`
+`buildkite-agent pause [options...]`
 
 ### Description
 
-Update an attribute of a step in the build
-
-Note that step labels are used in commit status updates, so if you change the
-label of a running step, you may end up with an &#39;orphaned&#39; status update
-under the old label, as well as new ones using the updated label.
-
-To avoid orphaned status updates, in your Pipeline Settings &gt; GitHub:
-
-* Make sure Update commit statuses is not selected. Note that this prevents
-Buildkite from automatically creating and sending statuses for this pipeline,
-meaning you will have to handle all commit statuses through the pipeline.yml
+Pauses the current agent.
 
 ### Example
 
 ```shell
-$ buildkite-agent step update "label" "New Label"
-$ buildkite-agent step update "label" " (add to end of label)" --append
-$ buildkite-agent step update "label" < ./tmp/some-new-label
-$ ./script/label-generator | buildkite-agent step update "label"
+# Pauses the agent
+$ buildkite-agent pause
+```
+
+```shell
+# Pauses the agent with an explanatory note and a custom timeout
+$ buildkite-agent pause --note 'too many llamas' --timeout-in-minutes 60
 ```
 
 ### Options
@@ -44,9 +37,8 @@ $ ./script/label-generator | buildkite-agent step update "label"
 <!-- vale off -->
 
 <table class="Docs__attribute__table">
-<tr id="step"><th><code>--step value</code> <a class="Docs__attribute__link" href="#step">#</a></th><td><p>The step to update. Can be either its ID (BUILDKITE_STEP_ID) or key (BUILDKITE_STEP_KEY)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_STEP_ID</code></p></td></tr>
-<tr id="build"><th><code>--build value</code> <a class="Docs__attribute__link" href="#build">#</a></th><td><p>The build to look for the step in. Only required when targeting a step using its key (BUILDKITE_STEP_KEY)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_BUILD_ID</code></p></td></tr>
-<tr id="append"><th><code>--append </code> <a class="Docs__attribute__link" href="#append">#</a></th><td><p>Append to current attribute instead of replacing it<br /><strong>Environment variable</strong>: <code>$BUILDKITE_STEP_UPDATE_APPEND</code></p></td></tr>
+<tr id="note"><th><code>--note value</code> <a class="Docs__attribute__link" href="#note">#</a></th><td><p>A descriptive note to record why the agent is paused<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_PAUSE_NOTE</code></p></td></tr>
+<tr id="timeout-in-minutes"><th><code>--timeout-in-minutes value</code> <a class="Docs__attribute__link" href="#timeout-in-minutes">#</a></th><td><p>Timeout after which the agent is automatically resumed, in minutes (default: 0)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_PAUSE_TIMEOUT_MINUTES</code></p></td></tr>
 <tr id="agent-access-token"><th><code>--agent-access-token value</code> <a class="Docs__attribute__link" href="#agent-access-token">#</a></th><td><p>The access token used to identify the agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></p></td></tr>
 <tr id="endpoint"><th><code>--endpoint value</code> <a class="Docs__attribute__link" href="#endpoint">#</a></th><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ENDPOINT</code></p></td></tr>
 <tr id="no-http2"><th><code>--no-http2 </code> <a class="Docs__attribute__link" href="#no-http2">#</a></th><td><p>Disable HTTP2 when communicating with the Agent API.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_NO_HTTP2</code></p></td></tr>
@@ -56,7 +48,6 @@ $ ./script/label-generator | buildkite-agent step update "label"
 <tr id="log-level"><th><code>--log-level value</code> <a class="Docs__attribute__link" href="#log-level">#</a></th><td><p>Set the log level for the agent, making logging more or less verbose. Defaults to notice. Allowed values are: debug, info, error, warn, fatal (default: "notice")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_LOG_LEVEL</code></p></td></tr>
 <tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_EXPERIMENT</code></p></td></tr>
 <tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_PROFILE</code></p></td></tr>
-<tr id="redacted-vars"><th><code>--redacted-vars value</code> <a class="Docs__attribute__link" href="#redacted-vars">#</a></th><td><p>Pattern of environment variable names containing sensitive values (default: "*_PASSWORD", "*_SECRET", "*_TOKEN", "*_PRIVATE_KEY", "*_ACCESS_KEY", "*_SECRET_KEY", "*_CONNECTION_STRING")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_REDACTED_VARS</code></p></td></tr>
 </table>
 
 <!-- vale on -->
