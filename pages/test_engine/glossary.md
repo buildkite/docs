@@ -8,7 +8,7 @@ In the context of Test Engine, dimensions relate to structured data, consisting 
 
 ## Execution
 
-An execution is an instance of a single test run. An execution tracks several aspects of a test, including its _result_ (passed, failed, skipped, other), _duration_ (time), and [dimensions](#dimensions) (that is, [tags](#tag)).
+An execution is an instance of a single test, which is generated as part of a [run](#run). An execution tracks several aspects of a test, including its _result_ (passed, failed, skipped, other), _duration_ (time), and [dimensions](#dimensions) (that is, [tags](#tag)).
 
 ## Managed test
 
@@ -32,11 +32,18 @@ Learn more about managed tests in [Usage and billing](/docs/test-engine/usage-an
 
 ## Run
 
-The execution of one or more tests in a [test suite](#test-suite). A _run_ is sometimes referred to as a _test run_.
+A run is the [execution](#execution) of one or more tests in a [test suite](#test-suite). A _run_ is sometimes referred to as a _test run_, bearing in mind that a single test run usually involves the [execution](#execution) of multiple [tests](#test). A Test Engine _run_ is analogous to a Pipeline [_build_](/docs/pipelines/glossary#build).
 
 ## Scope
 
+A scope is a mechanism that can be implemented to differentiate between two or more identically named tests. For example, the following hypothetical tests have the same name as they both test the process of a user logging into a product platform. However, applies to this test being done on a mobile device, while the other applies to a desktop web setting. Therefore, a scope can be used to differentiate between these two tests.
 
+| Name | Scope | Description |
+| ----- | ---- | ----------- |
+| User logs into platform | Mobile | A mobile user logs into the platform |
+| User logs into platform | Web | A web user logs into the platform |
+
+A test's scope is used in determining a [managed test](#managed-test)'s uniqueness.
 
 ## Tag
 
@@ -50,7 +57,7 @@ A test is an individual piece of code that runs as part of an application's or c
 
 Test collection is the process of collecting test data from a development project. Test collection may consist of one or more [test collectors](#test-collector) configured within a development project, or make use other methods based on common standards such as JUnit XML or JSON to collect tests.
 
-While a development project's test runners (such RSpec or Jest) are typically configured with their respective test collectors, the JUnit XML or JSON test collection mechanisms can be used to collect test data from multiple test runners.
+While a development project's [test runners](#test-runner) (such RSpec or Jest) are typically configured with their respective test collectors, the JUnit XML or JSON test collection mechanisms can be used to collect test data from multiple test runners.
 
 ## Test collector
 
