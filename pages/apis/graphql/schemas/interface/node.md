@@ -86,9 +86,6 @@ An object with an ID.
 <a href="/docs/apis/graphql/schemas/object/build" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Build">
   <code>Build</code>
 </a>
-<a href="/docs/apis/graphql/schemas/object/changelog" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Changelog">
-  <code>Changelog</code>
-</a>
 <a href="/docs/apis/graphql/schemas/object/cluster" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Cluster">
   <code>Cluster</code>
 </a>
