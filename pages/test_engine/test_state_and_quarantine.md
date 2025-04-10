@@ -14,11 +14,11 @@ Users with the [**Full Access** permission to a test suite](/docs/test-engine/pe
 
 ### Mute (recommended)
 
-Muted tests will still run as jobs in your pipeline builds, but any failed results of these test jobs are handled as a _soft fail_. A soft fail result does not affect the result of your pipeline build, and allows the pipeline build to pass. However, metadata about the test is still collected by Test Engine.
+Muted tests will still execute as jobs in your pipeline builds, but any failed results of these test jobs are handled as a _soft fail_. A soft fail result does not affect the result of your pipeline build, and allows the pipeline build to pass. However, metadata about the test is still collected by Test Engine.
 
 ### Skip
 
-Skipped tests are not run during your pipeline builds. Since these tests are not run, no data is recorded from them by Test Engine. To collect metadata about your [flaky tests](/docs/test-engine/flaky-test-management#detecting-flaky-tests), it is recommended that you only use the **Skip** option when you have a scheduled pipeline that is running skipped tests.
+Skipped tests are not run during your pipeline builds. Since these tests are not executed, no data is recorded from them by Test Engine. To collect metadata about your [flaky tests](/docs/test-engine/flaky-test-management#detecting-flaky-tests), it is recommended that you only use the **Skip** option when you have a scheduled pipeline that is running skipped tests.
 
 ## Automatic quarantine
 

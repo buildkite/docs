@@ -4,11 +4,17 @@ The following terms describe key concepts to help you use Test Engine.
 
 ## Dimensions
 
-In the context of Test Engine, dimensions relate to structured data, consisting of [tags](#tag), which can be used to filter or group (that is, aggregate) test [executions](#execution). Dimensions are added to test executions using the tags feature, which you can learn more about in [Tags](/docs/test-engine/tags).
+In the context of Test Engine, dimensions are structured data, consisting of [tags](#tag), which can be used to filter or group (that is, aggregate) test [executions](#execution). Dimensions are added to test executions using the tags feature, which you can learn more about in [Tags](/docs/test-engine/tags).
 
 ## Execution
 
 An execution is an instance of a single test, which is generated as part of a [run](#run). An execution tracks several aspects of a test, including its _result_ (passed, failed, skipped, other), _duration_ (time), and [dimensions](#dimensions) (that is, [tags](#tag)).
+
+## Flaky test
+
+A flaky test is a [test](#test) that produce inconsistent or unreliable results, despite being run in the same code and environment. Flaky tests are usually identified following a number of [runs](#run) which are executed as part of pipeline builds, such as [those of a Buildkite pipeline](/docs/pipelines/glossary#build).
+
+Learn more about flaky tests in [Flaky test management](/docs/test-engine/flaky-test-management).
 
 ## Managed test
 
@@ -28,7 +34,13 @@ Learn more about managed tests in [Usage and billing](/docs/test-engine/usage-an
 
 ## Quarantine
 
+Quarantine is a state applied to a [test](#test) that, based on the [state of the test](#test-state), changes how Test Engine [executes](#execution) that test as part of a [run](#run). When a test is quarantined, and its test state is flagged as:
 
+- _mute_, the test will be [executed](#execution) as part of a [run](#run), but its failure will not cause the pipeline build to fail, allowing the test's metadata to still be collected.
+
+- _skip_, the test will not be [executed](#execution) as part of a [run](#run), which can allow pipeline builds to execute more rapidly and can reduce costs, but no data is recorded from the test.
+
+Learn more about quarantining tests in [Test state and quarantine](/docs/test-engine/test-state-and-quarantine).
 
 ## Run
 
@@ -36,7 +48,7 @@ A run is the [execution](#execution) of one or more tests in a [test suite](#tes
 
 ## Scope
 
-A scope is a mechanism that can be implemented to differentiate between two or more identically named tests. For example, the following hypothetical tests have the same name as they both test the process of a user logging into a product platform. However, applies to this test being done on a mobile device, while the other applies to a desktop web setting. Therefore, a scope can be used to differentiate between these two tests.
+A scope is a mechanism that can be implemented to differentiate between two or more identically named tests. For example, the following hypothetical tests have the same name as they both test the process of a user logging into a product platform. However, one of these applies to this test being done on a mobile device, while the other applies to a desktop web setting. Therefore, a scope can be used to differentiate between these two tests.
 
 | Name | Scope | Description |
 | ----- | ---- | ----------- |
@@ -47,7 +59,16 @@ A test's scope is used in determining a [managed test](#managed-test)'s uniquene
 
 ## Tag
 
+A tag is a `key:value` pair containing two parts:
 
+- The tag's `key` is the identifier, which can only exist once on each test, and is case sensitive.
+- The tag's `value` is the specific data or information associated with the `key`.
+
+In Test Engine, tags add [dimensions](#dimensions) to test execution metadata, so that [tests](#test) and their [executions](#execution) can be better filtered, aggregated, and compared in Test Engine visualizations.
+
+Tagging can be used to observe aggregated data points—for example, to observe aggregated performance across several tests, and (optionally) narrow the dataset further based on specific constraints.
+
+Learn more about tags in the [Tags](/docs/test-engine/tags) topic.
 
 ## Test
 
@@ -71,7 +92,11 @@ A test runner is a synonymous term used for a _test framework_, which is typical
 
 ## Test state
 
+A test state is a configurable flag that can be applied to a [test](#test) (typically [flaky tests](#flaky-test)), which [quarantines](#quarantine) the test and affects how the test is [executed](#execution) as part of a [run](#run).
 
+
+
+Learn more about test states in [Test state and quarantine](/docs/test-engine/test-state-and-quarantine).
 
 ## Test suite
 
