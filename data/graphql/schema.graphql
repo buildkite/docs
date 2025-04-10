@@ -1870,62 +1870,6 @@ type BuildStepUploadDefinition {
   yaml: String!
 }
 
-"""
-A changelog
-"""
-type Changelog implements Node {
-  author: ChangelogAuthor
-
-  """
-  The body of this changelog
-  """
-  body: String
-  id: ID!
-
-  """
-  The date and time this changelog was published
-  """
-  publishedAt: DateTime
-
-  """
-  The tag for this changelog
-  """
-  tag: String!
-
-  """
-  The title for this changelog
-  """
-  title: String!
-
-  """
-  The public UUID for this changelog
-  """
-  uuid: String!
-}
-
-"""
-The author of the changelog
-"""
-type ChangelogAuthor {
-  avatar: Avatar!
-
-  """
-  The name of the author
-  """
-  name: String!
-}
-
-type ChangelogConnection implements Connection {
-  count: Int!
-  edges: [ChangelogEdge]
-  pageInfo: PageInfo
-}
-
-type ChangelogEdge {
-  cursor: String!
-  node: Changelog
-}
-
 type Cluster implements Node {
   """
   Returns agent tokens for the Cluster
@@ -12284,7 +12228,6 @@ type Viewer implements Node {
     type: [AuthorizationType!]
   ): AuthorizationConnection
   builds(branch: String, first: Int, last: Int, metaData: [String!], state: [BuildStates!]): BuildConnection
-  changelogs(first: Int, last: Int, read: Boolean): ChangelogConnection
 
   """
   Emails associated with the current user
