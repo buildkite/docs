@@ -19,9 +19,10 @@ The diagram shows that Buildkite provides a web interface, handles integrations 
 
 Compared to _fully self-hosted_ solutions, where you run both the control plane and build environment on your own infrastructure, a hybrid architecture reduces the maintenance burden on your team. Unlike managed solutions, a hybrid architecture gives you full control over security within your build environment.
 
+Learn more about how to set up this architecture in [Install and run a self-hosted agent](/docs/pipelines/getting-started#set-up-an-agent-install-and-run-a-self-hosted-agent) of the main [Getting started](/docs/pipelines/getting-started) tutorial.
+
 ## Buildkite hosted architecture
 
 Buildkite also provides a _managed_ solution, offered by the _Buildkite hosted agents_ feature, where both the control plane and build environment are provided and handled by Buildkite. This solution is useful when you need to get a build environment up and running quickly or you have limited resources to implement a hybrid architecture, or both.
 
-Learn more about this feature in [Buildkite hosted agents](/docs/pipelines/hosted-agents).
-
+Learn more about this feature in [Buildkite hosted agents](/docs/pipelines/hosted-agents), and how to set this architecture in [Create a Buildkite hosted agent](/docs/pipelines/getting-started#set-up-an-agent-create-a-buildkite-hosted-agent) of the main [Getting started](/docs/pipelines/getting-started) tutorial.
