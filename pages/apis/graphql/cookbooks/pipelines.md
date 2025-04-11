@@ -94,9 +94,9 @@ query RecentPipelineSlugs {
 }
 ```
 
-## Get a list of repositories for pipelines
+## Get a list of pipelines and their respective repository
 
-Get a list of the first 100 most recently created pipelines along with the URLs of the repositories set each pipeline.
+Get a list of the first 100 most recently created pipelines along with the URL of each pipeline's configured repository.
 
 ```
 query GetPipelinesRepositories{
