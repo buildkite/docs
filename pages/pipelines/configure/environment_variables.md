@@ -3,6 +3,8 @@
 When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/configure/defining-steps) and
 [job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks).
 
+Environment variable size limits are dependent on the operating systems the agents are run on. When a program or process is started, it can typically accept inputs as either one or more environment variables in the form of `key:value` pairs (each referred to as an `envp`), or a list (array) of command line arguments (referred to as a vector of arguments or `argv`). Depending on the operating system, these limits could be shared limit across all such `envp` and `argv`, whereas others impose limits per item (such as per `envp`).
+
 For best practices and recommendations about using secrets in your environment variables, see the [Managing secrets](/docs/pipelines/security/secrets/managing) guide.
 
 ## Buildkite environment variables
