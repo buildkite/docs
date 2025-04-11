@@ -1,6 +1,6 @@
 # Buildkite Pipelines architecture
 
-Buildkite provides both a _hosted_ (known as a _managed_ solution) and _self-hosted_ architecture for its build environments.
+Buildkite provides both a [_self-hosted_](#self-hosted-hybrid-architecture) architecture, as well as a [_hosted_](#buildkite-hosted-architecture) architecture (as a _managed_ solution) for its build environments.
 
 ## Self-hosted (hybrid) architecture
 

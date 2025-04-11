@@ -28,7 +28,7 @@ To complete this tutorial, you'll need:
 
 ## Understand the architecture
 
-Before creating a pipeline, take a moment to understand Buildkite's architectures and the advantages they provide. Buildkite provides both a _hosted_ (known as a _managed_ solution) and _self-hosted_ architecture for its build environments.
+Before creating a pipeline, take a moment to understand Buildkite's architectures and the advantages they provide. Buildkite provides both a _hosted_ (as a _managed_ solution) and _self-hosted_ architecture for its build environments.
 
 You can learn more about the differences between these architectures in [Buildkite Pipelines architecture](/docs/pipelines/architecture).
 
