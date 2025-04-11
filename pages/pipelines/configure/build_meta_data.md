@@ -95,7 +95,7 @@ https://buildkite.com/organizations/demo/pipelines/activities/new?meta_data[city
 
 <%= image "new_build_form.png", alt: "New Build form with input fields pre-populated" %>
 
-Using meta-data to pre-populate feilds in this way carries some considerations regarding how the input step behaves, which can be read about in the [Input Step documentation](/docs/pipelines/configure/step_types/input_step.md).
+Using meta-data to pre-populate fields in this way carries some considerations regarding how the input step behaves. Learn more about this in the [Input step](/docs/pipelines/configure/step_types/input_step.md) page.
 
 ## Further documentation
 
