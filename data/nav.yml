@@ -11,7 +11,7 @@
           path: "pipelines/getting-started"
         - name: "Create your own pipeline"
           path: "pipelines/create-your-own"
-        - name: "Hybrid architecture"
+        - name: "Buildkite Pipelines architecture"
           path: "pipelines/architecture"
         - name: "Dashboard walkthrough"
           path: "pipelines/dashboard-walkthrough"

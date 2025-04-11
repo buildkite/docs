@@ -28,20 +28,15 @@ To complete this tutorial, you'll need:
 
 ## Understand the architecture
 
-Before creating a pipeline, take a moment to understand Buildkite's architectures and the advantages they provide. Buildkite provides both a _hosted_ (known as a _managed_ solution) and _self-hosted_ architecture for its build environments. A self-hosted architecture (also known as a _hybrid_ architecture) separates the following aspects of Buildkite's core functionality:
+Before creating a pipeline, take a moment to understand Buildkite's architectures and the advantages they provide. Buildkite provides both a _hosted_ (known as a _managed_ solution) and _self-hosted_ architecture for its build environments.
 
-- The control plane
-- The build environment
+You can learn more about hte differences between these architectures in [Buildkite Pipelines architecture](/docs/pipelines/architecture).
 
-In this type of hybrid architecture, Buildkite runs the control plane (the main product interface) as a SaaS product, and you run the build environment on your own infrastructure. In other words, Buildkite handles the _orchestration_, and you bring the _compute_. That means you can fine-tune and secure the build environment to suit your particular use case and workflow.
-
-Compared to _fully self-hosted_ solutions, where you run both the control plane and build environment on your own infrastructure, a hybrid architecture reduces the maintenance burden on your team. Unlike managed solutions, a hybrid architecture gives you full control over security within your build environment. See [Hybrid architecture](/docs/pipelines/architecture) to learn more.
-
-Buildkite also provides a _managed_ solution, offered by the [Buildkite hosted agents](/docs/pipelines/hosted-agents) feature, where both the control plane and build environment are provided and handled by Buildkite. This solution is useful when you need to get a build environment up and running quickly or you have limited resources to implement a hybrid architecture, or both.
+If you already familiar with Buildkite Pipelines' architectures, continue on, bearing in mind that the remainder of this tutorial assumes that you already understand them.
 
 ## Set up an agent
 
-The program that executes work is called an _agent_ in Buildkite. An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. The agent polls Buildkite for work, runs jobs, and reports results. You can install agents on local machines, cloud servers, or other remote machines, as well as part of [Buildkite hosted agents](/docs/pipelines/hosted-agents).
+The program that executes work is called an _agent_ in Buildkite. An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. The agent polls Buildkite for work, runs jobs, and reports results. You can install agents on local machines, cloud servers, or other remote machines, as well as part of [Buildkite hosted agents](/docs/pipelines/hosted-agents), which provides the quickest method to get up and running with Pipelines.
 
 Buildkite agents connect to Buildkite through a [_cluster_](/docs/pipelines/glossary#cluster). Clusters provide a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within [_queues_](/docs/pipelines/glossary#queue)) in the same cluster.
 
