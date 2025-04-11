@@ -9309,7 +9309,7 @@ type RepositoryProviderGitlab implements RepositoryProvider {
 }
 
 """
-A pipeline's repository is being provided by GitLab Community Edition
+Deprecated: Use RepositoryProviderGitlabEnterpriseType instead. This type represented GitLab Community Edition.
 """
 type RepositoryProviderGitlabCommunity implements RepositoryProvider {
   """
@@ -9334,7 +9334,7 @@ type RepositoryProviderGitlabCommunity implements RepositoryProvider {
 }
 
 """
-A pipeline's repository is being provided by GitLab Enterprise Edition
+A pipeline's repository is being provided by a GitLab Self-Managed instance.
 """
 type RepositoryProviderGitlabEnterprise implements RepositoryProvider {
   """
