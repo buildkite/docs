@@ -16,9 +16,9 @@ To complete this tutorial, you'll need:
 
     You'll be doing these steps as part of this tutorial.
 
-- To enable the YAML steps editor in Buildkite. To do this:
-    1. Select **Settings** > **YAML Migration** to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
-    1. Select **Use YAML Steps for New Pipelines**, then confirm the action in the modal.
+- To enable the YAML steps editor in Buildkite. If you haven't already done this:
+    1. Select **Settings** > **YAML Migration** to open the [**Pipeline YAML Migration**](https://buildkite.com/organizations/~/pipeline-migration) page.
+    1. Select **Use YAML Steps for New Pipelines**, then confirm the action in the dialog.
 
 - [Git](https://git-scm.com/downloads). This tutorial uses GitHub, but Buildkite can work with any version control system by adapting the relevant steps below to those for your particular Git-based setup.
 
