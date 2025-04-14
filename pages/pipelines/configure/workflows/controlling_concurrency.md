@@ -45,14 +45,17 @@ Concurrency groups guarantee that jobs will be run in the order that they were c
 > 🚧 Troubleshooting and using `concurrency_group` with `block` / `input` steps
 > When a build is blocked by a concurrency group, you can check which jobs are in the queue and their state using the [`getConcurrency` GraphQL query](/docs/apis/graphql/cookbooks/jobs#get-all-jobs-in-a-particular-concurrency-group).
 > <p>
-> Be aware that both the [`block`](/docs/pipelines/configure/step-types/block-step) and [`input`](/docs/pipelines/configure/step-types/input-step) steps cause these steps to be uploaded and scheduled at the same time, which breaks concurrency groups. These two steps block jobs being added to the concurrency group, but do not affect the jobs' ordering once unblocked. The concurrency group won't be added to the queue until the `block` or `input` step is unblocked, and once it is, the timestamp will be from the pipeline upload step.
+> Be aware that both the [`block`](/docs/pipelines/configure/step-types/block-step) and [`input`](/docs/pipelines/configure/step-types/input-step) steps cause these steps to be uploaded and scheduled at the same time, which breaks concurrency groups. These two steps prevent jobs being added to the concurrency group, although these steps do not affect the jobs' ordering once they are allowed to continue. The concurrency group won't be added to the queue until the `block` or `input` step is allowed to continue, and once this happens, the timestamp will be from the pipeline upload step.
 
 ## Concurrency and parallelism
 
 Sometimes you need strict concurrency while also having jobs that would benefit from parallelism.
-In these situations, you can use *concurrency gates* to control which jobs run in parallel and which jobs run one at a time. Concurrency gates come in pairs, so when you open a gate, you have to close it. You can't use input or block steps inside concurrency gates.
+In these situations, you can use _concurrency gates_ to control which jobs run in parallel and which jobs run one at a time. Concurrency gates come in pairs, so when you open a gate, you have to close it.
 
-In the following setup, only one build at a time can *enter the concurrency gate*, but within that gate up to three e2e tests can run in parallel, subject to Agent availability. Putting the `stage-deploy` section in the gate as well ensures that every time there is a deployment made to the staging environment, the e2e tests are carried out on that deployment:
+> 🚧
+> Since [`block`](/docs/pipelines/block-step) and [`input`](/docs/pipelines/input-step) steps [prevent jobs being added to concurrency groups](#troubleshooting-and-using-concurrency-group-with-block-slash-input-steps), you cannot use these two steps inside concurrency gates.
+
+In the following setup, only one build at a time can _enter the concurrency gate_, but within that gate up to three e2e tests can run in parallel, subject to Agent availability. Putting the `stage-deploy` section in the gate as well ensures that every time there is a deployment made to the staging environment, the e2e tests are carried out on that deployment:
 
 ```yaml
 steps:
