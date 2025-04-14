@@ -2,7 +2,7 @@ To complete this tutorial, you'll need:
 
 - A Buildkite account. If you don't have one already, <a href="https://buildkite.com/signup">create a 30-day free trial account</a>.
 
-    If you're signing up to Buildkite and need to create a new Buildkite organization, you'll initially be guided through a flow to start creating a starter pipeline.
+    If you're signing up to Buildkite and need to create a new Buildkite organization, you'll initially be guided through a flow to create a starter pipeline.
 
     As part of this flow, upon reaching the **Create your first pipeline** page, select **Create starter pipeline**, and on the next **Choose your agent setup** page, select **Skip agent setup**, since you'll be doing these steps as part of this tutorial.
 
