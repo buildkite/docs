@@ -174,10 +174,14 @@
               path: "agent/v3/cli-meta-data"
             - name: "oidc"
               path: "agent/v3/cli-oidc"
+            - name: "pause"
+              path: "agent/v3/cli-pause"
             - name: "pipeline"
               path: "agent/v3/cli-pipeline"
             - name: "redactor"
               path: "agent/v3/cli-redactor"
+            - name: "resume"
+              path: "agent/v3/cli-resume"
             - name: "secret"
               path: "agent/v3/cli-secret"
             - name: "step"
@@ -445,6 +449,8 @@
       children:
         - name: "Getting started"
           path: "test-engine/getting-started"
+        - name: "Glossary"
+          path: "test-engine/glossary"
     - name: "Test collection"
       children:
         - name: "Overview"

@@ -51,7 +51,7 @@ To resume an agent:
 
 ## Using the REST API
 
-To pause an agent using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+To pause an agent (clustered or unclustered) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```bash
 curl -H "Authorization: Bearer ${TOKEN}" \
@@ -80,7 +80,7 @@ curl -H "Authorization: Bearer ${TOKEN}" \
 
 ## Using the GraphQL API
 
-To pause an agent using the [GraphQL API](/docs/apis/graphql-api), run the following example [mutation](/docs/apis/graphql/schemas/mutation/agentpause):
+To pause an agent (clustered or unclustered) using the [GraphQL API](/docs/apis/graphql-api), run the following example [mutation](/docs/apis/graphql/schemas/mutation/agentpause):
 
 ```graphql
 mutation {

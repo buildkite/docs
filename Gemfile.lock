@@ -38,7 +38,7 @@ GEM
     benchmark (0.4.0)
     bigdecimal (3.1.9)
     bindex (0.8.1)
-    bugsnag (6.21.0)
+    bugsnag (6.27.1)
       concurrent-ruby (~> 1.0)
     builder (3.3.0)
     buildkite-test_collector (2.3.1)
