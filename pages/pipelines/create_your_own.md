@@ -11,11 +11,12 @@ This tutorial assumes you've created a starter pipeline, completed the [Getting 
 You'll also need the following:
 
 - The code you plan to create a pipeline for. This could be an example you put together to test different functionality or your real repository.
-- A task you want to perform with the code. For example, run some tests or a script.
-- To enable the YAML steps editor in Buildkite. If you haven't already:
 
-  * Select **Settings** > **YAML Migration** to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
-  * Select **Use YAML Steps for New Pipelines**, then confirm the action in the modal.
+- A task you want to perform with the code. For example, run some tests or a script.
+
+- To enable the YAML steps editor in Buildkite. If you haven't already done this:
+    1. Select **Settings** > **YAML Migration** to open the [**Pipeline YAML Migration**](https://buildkite.com/organizations/~/pipeline-migration) page.
+    1. Select **Use YAML Steps for New Pipelines**, then confirm the action in the dialog.
 
 ## Continue running an agent
 

@@ -6,18 +6,7 @@ This getting started page is a tutorial that helps you understand Mobile Deliver
 
 ## Before you start
 
-To complete this tutorial, you'll need:
-
-- A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a 30-day free trial account</a>.
-
-    When you create a new organization as part of sign-up, you'll be guided through a flow to create and run a starter pipeline. Complete that before continuing.
-
-- To enable the YAML steps editor in Buildkite:
-
-    * Select **Settings** > **YAML Migration** to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
-    * Select **Use YAML Steps for New Pipelines**, then confirm the action in the modal.
-
-- [Git](https://git-scm.com/downloads). This tutorial uses GitHub, but Buildkite can work with any version control system.
+<%= render_markdown partial: 'pipelines/pipelines_tutorials_prereqs' %>
 
 - To have made your own copy or fork of the [FlappyKite](https://github.com/buildkite/FlappyKite) repository within your own GitHub account.
 
