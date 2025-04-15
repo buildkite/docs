@@ -19,15 +19,15 @@ Regardless of whether you choose to manage your packages in Buildkite storage or
 - Both storage and bandwidth are metered in the same manner, with no differences in additional costs.
 - Package management, indexing, and access are all routed through the Buildkite API.
 
-The following diagram shows how your private storage link interfaces between the Buildkite Package Registries software-as-a-service (SaaS) _control plane_, consisting of the Buildkite Platform and your (the customer's) teams, operating in your own infrastructure.
+The following diagram shows how your private storage link interfaces between the Buildkite Package Registries software-as-a-service (SaaS) _control plane_ (which constitutes the [Buildkite Platform](/docs/platform)), and your (that is, the customer's) teams, operating in infrastructure you're in control of.
 
 <%= image "private-storage-link-overview.png", alt: "Shows how your private storage link fits between the SaaS platform and your own infrastructure" %>
 
-where:
+Abbreviations:
 
-- CDN is content delivery network
-- API / CLI is application programming interface / command line interface
-- SSO & RBAC is single sign-on & role-based access control
+- CDN—content delivery network
+- API/CLI—is application programming interface/command line interface
+- SSO & RBAC—single sign-on & role-based access control
 
 ## Before you start
 
