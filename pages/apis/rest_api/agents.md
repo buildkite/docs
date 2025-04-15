@@ -190,7 +190,7 @@ curl -H "Authorization: Bearer ${TOKEN}" \
   -H "Content-Type: application/json" \
   -d '{
     "note": "A short note explaining why this agent is being paused",
-    "timeoutInMinutes": 60
+    "timeout_in_minutes": 60
   }'
 ```
 

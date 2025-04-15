@@ -3,6 +3,10 @@ module ApplicationHelper
     "/dashboard"
   end
 
+  def buildkite_url
+    @buildkite_url ||= Page::BuildkiteUrl.new
+  end
+
   def nav_path(path)
     if path =~ URI::regexp
       path
