@@ -18,7 +18,7 @@ Before creating a pipeline, take a moment to understand Buildkite's architecture
 
 You can learn more about the differences between these architectures in [Buildkite Pipelines architecture](/docs/pipelines/architecture).
 
-If you already familiar with Buildkite Pipelines' architectures, continue on, bearing in mind that the remainder of this tutorial assumes that you already understand them.
+If you're already familiar with Buildkite Pipelines' architectures, continue on, bearing in mind that the remainder of this tutorial assumes that you already understand the fundamental differences between them.
 
 ## Set up an agent
 

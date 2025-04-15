@@ -34,7 +34,7 @@ Learn more about managed tests in [Usage and billing](/docs/test-engine/usage-an
 
 ## Quarantine
 
-Quarantine is a state applied to a [test](#test) that, based on the [state of the test](#test-state), changes how Test Engine [executes](#execution) that test as part of a [run](#run). When a test is quarantined, and its test state is flagged as:
+Quarantine is a classification applied to a [test](#test) that, based on the [state of the test](#test-state), changes how Test Engine [executes](#execution) that test as part of a [run](#run). When a test is quarantined, and its test state is flagged as:
 
 - _mute_, the test is [executed](#execution) as part of the [run](#run), but its failure does not cause the pipeline build to fail, allowing the test's metadata to still be collected.
 
