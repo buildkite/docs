@@ -51,6 +51,7 @@ exceptions:
   - Buildkite Package Registries
   - Buildkite Pipelines
   - Buildkite Platform
+  - Buildkite SDK
   - buildkite-agent
   - BuildNotify
   - BuildReactor
@@ -105,6 +106,7 @@ exceptions:
   - Heroku
   - HMAC
   - HTTP
+  - Hugging Face
   - I
   - IAM
   - ID

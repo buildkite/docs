@@ -27,7 +27,7 @@ with the `agent-api` experiment enabled.
 ### Examples
 
 ```shell
-#!/bin/bash
+#!/usr/bin/env bash
 if [[ $(buildkite-agent lock do llama) == 'do' ]]; then
   # your critical section here...
   buildkite-agent lock done llama

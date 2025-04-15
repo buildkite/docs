@@ -216,6 +216,13 @@ The following optional claims can be added, whose values are automatically gener
     </td>
   </tr>
   <tr>
+    <td><code>build_id</code></td>
+    <td>
+      <p>The build UUID.</p>
+      <p><em>Example:</em> <code>019583d7-3737-4e38-af67-f7cc356bd580</code></p>
+    </td>
+  </tr>
+  <tr>
     <td><code>cluster_id</code></td>
     <td>
       <p>The cluster UUID if using clusters.</p>

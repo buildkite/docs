@@ -8,12 +8,12 @@ To view and copy this `curl` command:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Helm source registry on this page.
-1. Select **Publish a Helm Chart** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish your chart to your Helm registry.
+1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of the relevant code box to copy this `curl` command and run it (with the appropriate values) to publish the chart to this source registry.
 
 This command provides:
 
 - The specific URL to publish a chart to your specific Helm source registry in Buildkite.
-- The API access token required to publish charts to your Helm registry.
+- The API access token required to publish charts to this source registry.
 - The Helm chart (`.tgz`) to be published.
 
 ## Publish a chart
@@ -36,7 +36,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/helm_registry_slug' %>
 
-- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload charts to your Helm source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Helm source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
+- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload charts to your Helm source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish charts and other package types to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Helm source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
 <%= render_markdown partial: 'package_registries/path_to_helm_chart' %>
 
@@ -111,7 +111,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/registry_slug' %>
 
-- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download charts from your Helm registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download charts from your Helm registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download charts and other package types from any registry your user account has access to within your Buildkite organization.
 
 > 📘
 > This step is not required for public Helm registries.

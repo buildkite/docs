@@ -8,12 +8,13 @@ To view and copy the required command/code snippet for your `~/.npmrc` and `pack
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your JavaScript source registry on this page.
-1. Select **Publish a JavaScript Package** and in the resulting dialog, use the copy icon at the top-right of the relevant code box to copy its snippet and paste it into your command line tool or the appropriate file.
+1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of each respective code box to copy the its snippet and paste it into your command line tool or the appropriate file.
 
-These file configurations contain the following:
+    These file configurations contain the following:
+    * `~/.npmrc`: the URL for your specific JavaScript source registry in Buildkite and the API access token required to publish the package to this registry.
+    * `package.json`: the URL for this source registry.
 
-- `~/.npmrc`: the URL for your specific JavaScript source registry in Buildkite and the API access token required to publish the package to this registry.
-- `package.json`: the URL for your specific JavaScript source registry in Buildkite.
+1. You can then run the `npm pack` and `npm publish` commands to publish the package to this source registry.
 
 ## Publish a package
 

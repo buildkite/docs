@@ -33,7 +33,7 @@ DOCKER_LOGIN_PASSWORD="the-password"
 
 ## Other Buildkite agents authenticating with a paid Docker Hub account
 
-All agents check the local filesystem for [hook scripts to execute during a job](/docs/agent/v3/hooks).
+All agents check the local file system for [hook scripts to execute during a job](/docs/agent/v3/hooks).
 
 A [pre-command hook](/docs/agent/v3/hooks#job-lifecycle-hooks) script like this is one option for authenticating with Docker Hub, and can be configured to fetch credentials from the system you use to store them in:
 

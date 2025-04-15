@@ -32,6 +32,7 @@ If you're familiar with the basics, explore how to use registries for each of Bu
   <%= button ":package: Files (generic)", "/docs/package-registries/files" %>
   <%= button ":helm: Helm (OCI)", "/docs/package-registries/helm-oci" %>
   <%= button ":helm: Helm", "/docs/package-registries/helm" %>
+  <%= button ":hugging_face: Hugging Face (models)", "/docs/package-registries/hugging-face" %>
   <%= button ":maven: Java (Maven)", "/docs/package-registries/maven" %>
   <%= button ":gradle: Java (Gradle)", "/docs/package-registries/gradle-kotlin" %>
   <%= button ":node: JavaScript (npm)", "/docs/package-registries/javascript" %>

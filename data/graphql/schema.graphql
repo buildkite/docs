@@ -270,6 +270,11 @@ type Agent implements Node {
   Note supplied when agent was paused, if paused
   """
   pausedNote: String
+
+  """
+  Number of minutes the agent will remain paused for, if paused
+  """
+  pausedTimeoutInMinutes: Int!
   permissions: AgentPermissions!
 
   """
@@ -364,6 +369,11 @@ input AgentPauseInput {
   Leave a note, e.g. describe why this agent is paused
   """
   note: String
+
+  """
+  Specify how long the agent will remain paused for
+  """
+  timeoutInMinutes: Int
 }
 
 """
@@ -976,6 +986,11 @@ enum AuditEventType {
   PIPELINE_WEBHOOK_URL_ROTATED
   PORTAL_CREATED
   PORTAL_DELETED
+  PORTAL_SECRET_CREATED
+  PORTAL_SECRET_DELETED
+  PORTAL_TOKEN_CODE_AUTHORIZED
+  PORTAL_TOKEN_CREATED
+  PORTAL_TOKEN_DELETED
   PORTAL_UPDATED
   REGISTRY_CREATED
   REGISTRY_DELETED
@@ -1035,6 +1050,9 @@ enum AuditEventType {
   TEAM_REGISTRY_CREATED
   TEAM_REGISTRY_DELETED
   TEAM_REGISTRY_UPDATED
+  TEAM_SECRET_CREATED
+  TEAM_SECRET_DELETED
+  TEAM_SECRET_UPDATED
   TEAM_SUITE_CREATED
   TEAM_SUITE_DELETED
   TEAM_SUITE_UPDATED
@@ -1113,6 +1131,9 @@ enum AuditSubjectType {
   PIPELINE_SCHEDULE
   PIPELINE_TEMPLATE
   PORTAL
+  PORTAL_SECRET
+  PORTAL_TOKEN
+  PORTAL_TOKEN_CODE
   REGISTRY
   REGISTRY_TOKEN
   RULE
@@ -1128,6 +1149,7 @@ enum AuditSubjectType {
   TEAM_MEMBER
   TEAM_PIPELINE
   TEAM_REGISTRY
+  TEAM_SECRET
   TEAM_SUITE
   USER
   USER_EMAIL
@@ -1846,62 +1868,6 @@ type BuildStepUploadDefinition {
   The uploaded step definition rendered as YAML
   """
   yaml: String!
-}
-
-"""
-A changelog
-"""
-type Changelog implements Node {
-  author: ChangelogAuthor
-
-  """
-  The body of this changelog
-  """
-  body: String
-  id: ID!
-
-  """
-  The date and time this changelog was published
-  """
-  publishedAt: DateTime
-
-  """
-  The tag for this changelog
-  """
-  tag: String!
-
-  """
-  The title for this changelog
-  """
-  title: String!
-
-  """
-  The public UUID for this changelog
-  """
-  uuid: String!
-}
-
-"""
-The author of the changelog
-"""
-type ChangelogAuthor {
-  avatar: Avatar!
-
-  """
-  The name of the author
-  """
-  name: String!
-}
-
-type ChangelogConnection implements Connection {
-  count: Int!
-  edges: [ChangelogEdge]
-  pageInfo: PageInfo
-}
-
-type ChangelogEdge {
-  cursor: String!
-  node: Changelog
 }
 
 type Cluster implements Node {
@@ -9343,7 +9309,7 @@ type RepositoryProviderGitlab implements RepositoryProvider {
 }
 
 """
-A pipeline's repository is being provided by GitLab Community Edition
+Deprecated: Use RepositoryProviderGitlabEnterpriseType instead. This type represented GitLab Community Edition.
 """
 type RepositoryProviderGitlabCommunity implements RepositoryProvider {
   """
@@ -9368,7 +9334,7 @@ type RepositoryProviderGitlabCommunity implements RepositoryProvider {
 }
 
 """
-A pipeline's repository is being provided by GitLab Enterprise Edition
+A pipeline's repository is being provided by a GitLab Self-Managed instance.
 """
 type RepositoryProviderGitlabEnterprise implements RepositoryProvider {
   """
@@ -12262,7 +12228,6 @@ type Viewer implements Node {
     type: [AuthorizationType!]
   ): AuthorizationConnection
   builds(branch: String, first: Int, last: Int, metaData: [String!], state: [BuildStates!]): BuildConnection
-  changelogs(first: Int, last: Int, read: Boolean): ChangelogConnection
 
   """
   Emails associated with the current user
@@ -12298,26 +12263,6 @@ type Viewer implements Node {
   The ID of the current user
   """
   id: ID!
-  jobs(
-    after: String
-
-    """
-    Filter jobs based on matching agent query rules (for example, a single tag
-    match "queue=test", or an array of matches ["queue=test", "tag=value"])
-    """
-    agentQueryRules: [String!]
-    before: String
-    first: Int
-    last: Int
-
-    """
-    Order the jobs
-    """
-    order: JobOrder = RECENTLY_CREATED
-    priority: JobPrioritySearch
-    state: [JobStates!]
-    type: [JobTypes!]
-  ): JobConnection
   notice(namespace: NoticeNamespaces!, scope: String!): Notice
   organizations(first: Int, last: Int): OrganizationConnection
 

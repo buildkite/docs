@@ -36,7 +36,7 @@ If `lock do` prints &#39;done&#39; immediately, the work was already done.
 ### Examples
 
 ```shell
-#!/bin/bash
+#!/usr/bin/env bash
 if [[ $(buildkite-agent lock do llama) == 'do' ]]; then
   # your critical section here...
   buildkite-agent lock done llama

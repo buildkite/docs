@@ -6,26 +6,17 @@ This getting started page is a tutorial that helps you understand Mobile Deliver
 
 ## Before you start
 
-To complete this tutorial, you'll need:
+<%= render_markdown partial: 'pipelines/pipelines_tutorials_prereqs' %>
 
-- A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a 30-day free trial account</a>.
-
-    When you create a new organization as part of sign-up, you'll be guided through a flow to create and run a starter pipeline. Complete that before continuing.
-
-- To enable the YAML steps editor in Buildkite:
-
-    * Select **Settings** > **YAML Migration** to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
-    * Select **Use YAML Steps for New Pipelines**, then confirm the action in the modal.
-
-- [Git](https://git-scm.com/downloads). This tutorial uses GitHub, but Buildkite can work with any version control system.
+- To have made your own copy or fork of the [FlappyKite](https://github.com/buildkite/FlappyKite) repository within your own GitHub account.
 
 ## Set up your hosted agent
 
 An agent is a small, reliable, and cross-platform program that runs pipeline builds. The agent polls Buildkite for work, runs jobs, and reports results.
 
-Mobile Delivery Cloud uses [Buildkite hosted agents](/docs/pipelines/hosted-agents/overview) running [macOS on Mac machines](/docs/pipelines/hosted-agents/macos), which are configured through a [_cluster_](/docs/pipelines/glossary#cluster). Clusters provide a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within [_queues_](/docs/pipelines/glossary#queue)) in the same cluster.
+Mobile Delivery Cloud uses [Buildkite hosted agents](/docs/pipelines/hosted-agents/overview) running [macOS](/docs/pipelines/hosted-agents/macos), which are configured through a [_cluster_](/docs/pipelines/glossary#cluster). Clusters provide a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within [_queues_](/docs/pipelines/glossary#queue)) in the same cluster.
 
-By default, Buildkite organizations have one cluster, named **Default cluster** with a single self-hosted queue, named **default-queue**, noting that a cluster maintainer or Buildkite organization administrator can customize these default names.
+By default, Buildkite organizations have one cluster, named **Default cluster** with a single self-hosted queue, named with the key **default**. A cluster maintainer or Buildkite organization administrator can customize these default names.
 
 You need at least one Buildkite hosted agent queue configured to run a build.
 
@@ -65,16 +56,27 @@ The source code for this app contains the Buildkite pipeline in its `.buildkite`
 
 To create the new Buildkite pipeline for this app:
 
-1. [Add a new pipeline](https://buildkite.com/new) in your Buildkite organization, using `https://github.com/buildkite/FlappyKite.git` as the Git Repository value.
+1. [Add a new pipeline](https://buildkite.com/new) in your Buildkite organization, select your GitHub account from the **Any account** dropdown, and specify [your copy or fork of the 'FlappyKite' repository](#before-you-start) for the **Git Repository** value.
+
 1. On the **New Pipeline** page, select the cluster you [created the hosted agent for macOS](#set-up-your-hosted-agent-create-a-buildkite-hosted-agent-for-macos) in.
-1. Leave all other fields with their pre-filled default values and select **Create Pipeline**. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
-1. On the next page showing your pipeline name, click **New Build**. In the modal that opens, create a build using the pre-filled details.
+
+1. If necessary, provide a **Name** for your new pipeline.
+
+1. Select the **Cluster** of the [agent you had previously set up](#set-up-your-hosted-agent).
+
+1. If your Buildkite organization already has the [teams feature enabled](/docs/platform/team-management/permissions#manage-teams-and-permissions), choose the **Team** who will have access to this pipeline.
+
+1. Leave all other fields with their pre-filled default values, and select **Create Pipeline**. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
+
+1. On the next page showing your pipeline name, select **New Build**. In the resulting dialog, create a build using the pre-filled details.
 
     1. In the **Message** field, enter a short description for the build. For example, **My first build**.
     1. Select **Create Build**.
 
 1. After a few minutes, and when the pipeline has completed its build, expand the **screenshots** job.
+
 1. Select the **Artifacts** tab to reveal the two screenshots taken (one from each iOS emulator) after the UI tests 'tap' the **+** button three times.
+
 1. Select each screenshot to view the results, such as the following from the main screen of the app run by the pipeline in an iPhone 16 Pro emulator.
 
 <%= image "iphone16pro-01mainscreen.png", width: 610, height: 610, alt: "Screenshot from the main screen of an iPhone 16 Pro" %>
