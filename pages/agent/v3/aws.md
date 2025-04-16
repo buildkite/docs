@@ -18,7 +18,7 @@ You can use an Elastic CI Stack for AWS deployment to test Linux or Windows proj
 parallelize large test suites, run Docker containers or docker-compose
 integration tests, or perform any AWS ops related tasks.
 
-You can launch an instance of the Elastic CI Stack for AWS from its [GitHub repository](https://github.com/buildkite/elastic-ci-stack-for-aws).
+You can launch an instance of the Elastic CI Stack for AWS from the [Getting started section of its GitHub repository's README](https://github.com/buildkite/elastic-ci-stack-for-aws?tab=readme-ov-file#getting-started).
 
 ## Using the Buildkite Agent Stack for Kubernetes on AWS
 
