@@ -10,7 +10,7 @@
   <tbody>
     <tr>
       <th><code>job.scheduled</code></th>
-      <td>A command step job has been scheduled to run on an agent</td>
+      <td>A command step job is in a scheduled state and is waiting to run on an agent</td>
     </tr>
     <tr>
       <th><code>job.started</code></th>
