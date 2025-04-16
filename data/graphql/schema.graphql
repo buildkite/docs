@@ -8991,6 +8991,11 @@ type RepositoryProviderBitbucketSettings implements RepositoryProviderSettings {
   filterEnabled: Boolean
 
   """
+  Ensure that even if Build Pull Requests is disabled, all commits to the default branch will trigger a build.
+  """
+  ignoreDefaultBranchPullRequests: Boolean!
+
+  """
   Whether to update the status of commits in Bitbucket.
   """
   publishCommitStatus: Boolean!
@@ -9097,6 +9102,11 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   filterEnabled: Boolean
 
   """
+  Ensure that even if Build Pull Requests is disabled, all commits to the default branch will trigger a build.
+  """
+  ignoreDefaultBranchPullRequests: Boolean!
+
+  """
   Whether to update the status of commits in Bitbucket or GitHub.
   """
   publishCommitStatus: Boolean!
@@ -9176,6 +9186,11 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   Whether the filter is enabled
   """
   filterEnabled: Boolean
+
+  """
+  Ensure that even if Build Pull Requests is disabled, all commits to the default branch will trigger a build.
+  """
+  ignoreDefaultBranchPullRequests: Boolean!
 
   """
   Prefix branch names for third-party fork builds to ensure they don't trigger
