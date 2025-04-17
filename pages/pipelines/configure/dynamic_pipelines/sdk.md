@@ -1,4 +1,4 @@
-# Buildkite SDK overview
+# Buildkite SDK
 
 The [Buildkite SDK](https://github.com/buildkite/buildkite-sdk) is an open-source multi-language software development kit (SDK) that makes it easy to script the generation of pipeline steps for dynamic pipelines in native languages. The SDK has simple functions to output these pipeline steps in YAML or JSON format, which you can then upload to your Buildkite pipeline to execute as part of your pipeline build.
 
