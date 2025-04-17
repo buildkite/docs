@@ -3,9 +3,9 @@
 > 📘
 > The _tags_ feature is currently in public preview. Test Engine customers can tag executions with an additional 10 custom tags beyond the included core tags.
 
-Tags are a way of adding dimensions to test execution metadata so tests and executions can be better filtered, aggregated, and compared in Test Engine visualizations.
+Tags is a Test Engine feature that adds dimensions to test execution metadata so tests and executions can be better filtered, aggregated, and compared in Test Engine visualizations.
 
-Tagging can be used to observe aggregated data points. For example, by using tagging, you can observe aggregated performance across several tests, and (optionally) narrow the dataset further based on specific constraints.
+Tagging can be used to observe aggregated data points—for example, to observe aggregated performance across several tests, and (optionally) narrow the dataset further based on specific constraints.
 
 Tags are `key:value` pairs containing two parts:
 

@@ -44,11 +44,11 @@ For this authorization process to succeed, the user must be both:
 
 ### Generating a portal token
 
-Once the token codes are authorized, users can obtain a portal token by making a `POST` request to the portal's token endpoint, including the `code` and `secret` values in the response from [generating token codes](#short-lived-portal-token-generating-token-codes):
+Once the token codes are authorized, users can obtain a portal token by making a `POST` request to the portal's token endpoint. The request body must contain `grant_type` as `device_code` along with the `code` and `secret` obtained from [generating token codes](#short-lived-portal-token-generating-token-codes):
 
 ```bash
 curl -H "Content-Type: application/json" \
-  -d "{ "code": "$CODE", "secret": "$SECRET" }" \
+  -d '{ "grant_type": "device_code", "code": "$CODE", "secret": "$SECRET" }' \
   -X POST "https://portal.buildkite.com/organizations/{org.slug}/portals/{portal.slug}/tokens"
 ```
 
@@ -74,7 +74,7 @@ Optionally, expiration duration can be specified (in minutes) if a shorter expir
 
 ```bash
 curl -H "Content-Type: application/json" \
-  -d "{ "code": "$CODE", "secret": "$SECRET", "expires_in": $MINUTES }" \
+  -d '{ "grant_type": "device_code", "code": "$CODE", "secret": "$SECRET", "expires_in": $MINUTES }' \
   -X POST "https://portal.buildkite.com/organizations/{org.slug}/portals/{portal.slug}/tokens"
 ```
 

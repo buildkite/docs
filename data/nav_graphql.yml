@@ -322,14 +322,6 @@
     path: apis/graphql/schemas/object/buildstepupload
   - name: BuildStepUploadDefinition
     path: apis/graphql/schemas/object/buildstepuploaddefinition
-  - name: Changelog
-    path: apis/graphql/schemas/object/changelog
-  - name: ChangelogAuthor
-    path: apis/graphql/schemas/object/changelogauthor
-  - name: ChangelogConnection
-    path: apis/graphql/schemas/object/changelogconnection
-  - name: ChangelogEdge
-    path: apis/graphql/schemas/object/changelogedge
   - name: Cluster
     path: apis/graphql/schemas/object/cluster
   - name: ClusterAgentTokenConnection

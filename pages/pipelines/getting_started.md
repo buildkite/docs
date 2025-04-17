@@ -10,35 +10,19 @@ This getting started page is a tutorial that helps you understand Pipelines' fun
 
 ## Before you start
 
-To complete this tutorial, you'll need:
-
-- A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a 30-day free trial account</a>.
-
-    When you create a new organization as part of sign-up, you'll be guided through a flow to create and run a starter pipeline. Complete that before continuing, and keep your agent running to continue using it in this tutorial.
-
-- To enable the YAML steps editor in Buildkite:
-
-    * Select **Settings** > **YAML Migration** to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
-    * Select **Use YAML Steps for New Pipelines**, then confirm the action in the modal.
-
-- [Git](https://git-scm.com/downloads). This tutorial uses GitHub, but Buildkite can work with any version control system.
+<%= render_markdown partial: 'pipelines/pipelines_tutorials_prereqs' %>
 
 ## Understand the architecture
 
-Before creating a pipeline, take a moment to understand Buildkite's architectures and the advantages they provide. Buildkite provides both a _hosted_ (known as a _managed_ solution) and _self-hosted_ architecture for its build environments. A self-hosted architecture (also known as a _hybrid_ architecture) separates the following aspects of Buildkite's core functionality:
+Before creating a pipeline, take a moment to understand Buildkite's architectures and the advantages they provide. Buildkite provides both a _hosted_ (as a _managed_ solution) and _self-hosted_ architecture for its build environments.
 
-- The control plane
-- The build environment
+You can learn more about the differences between these architectures in [Buildkite Pipelines architecture](/docs/pipelines/architecture).
 
-In this type of hybrid architecture, Buildkite runs the control plane (the main product interface) as a SaaS product, and you run the build environment on your own infrastructure. In other words, Buildkite handles the _orchestration_, and you bring the _compute_. That means you can fine-tune and secure the build environment to suit your particular use case and workflow.
-
-Compared to _fully self-hosted_ solutions, where you run both the control plane and build environment on your own infrastructure, a hybrid architecture reduces the maintenance burden on your team. Unlike managed solutions, a hybrid architecture gives you full control over security within your build environment. See [Hybrid architecture](/docs/pipelines/architecture) to learn more.
-
-Buildkite also provides a _managed_ solution, offered by the [Buildkite hosted agents](/docs/pipelines/hosted-agents) feature, where both the control plane and build environment are provided and handled by Buildkite. This solution is useful when you need to get a build environment up and running quickly or you have limited resources to implement a hybrid architecture, or both.
+If you're already familiar with Buildkite Pipelines' architectures, continue on, bearing in mind that the remainder of this tutorial assumes that you already understand the fundamental differences between them.
 
 ## Set up an agent
 
-The program that executes work is called an _agent_ in Buildkite. An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. The agent polls Buildkite for work, runs jobs, and reports results. You can install agents on local machines, cloud servers, or other remote machines, as well as part of [Buildkite hosted agents](/docs/pipelines/hosted-agents).
+The program that executes work is called an _agent_ in Buildkite. An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. The agent polls Buildkite for work, runs jobs, and reports results. You can install agents on local machines, cloud servers, or other remote machines, as well as part of [Buildkite hosted agents](/docs/pipelines/hosted-agents), which provides the quickest method to get up and running with Pipelines.
 
 Buildkite agents connect to Buildkite through a [_cluster_](/docs/pipelines/glossary#cluster). Clusters provide a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within [_queues_](/docs/pipelines/glossary#queue)) in the same cluster.
 
@@ -74,7 +58,7 @@ To create a hosted agent:
     1. On the queue's **Overview** page, select the **Settings** tab to open this page.
     1. In the **Queue Management** section, select **Set as Default Queue**.
 
-Your Buildkite hosted agent, as the new default queue, is now ready to use.
+Your Buildkite hosted agent, as the new default queue, is now ready to use. You can now skip to the [next step on creating a pipeline](#create-a-pipeline).
 
 ### Install and run a self-hosted agent
 
@@ -110,24 +94,17 @@ To confirm that your agent is running, and configured correctly with your creden
 
 _Pipelines_ are how Buildkite represents a CI/CD workflow. You define each pipeline with a series of _steps_ to run. When you trigger a pipeline, you create a _build_, and steps are dispatched as _jobs_ to run on agents. Jobs are independent of each other and can run on different agents.
 
-Next, you'll create a new pipeline based on one of the following example pipelines:
-
-- [Bash example](https://github.com/buildkite/bash-example/)
-- [PowerShell example](https://github.com/buildkite/powershell-example/)
-
-Both result in the same behavior: the pipeline definition is uploaded from the repository (`.buildkite/pipeline.yml`), then a script runs that prints output to the logs.
-
 To create a pipeline:
 
 1. Select **Add to Buildkite** for the appropriate example based on where your agent is running.
+    * For Bash:<br/>
+        <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a><br/>
+        (from the [Bash example](https://github.com/buildkite/bash-example/) GitHub repository)
+    * For PowerShell:<br/>
+        <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a><br/>
+        (from the [PowerShell example](https://github.com/buildkite/powershell-example/) GitHub repository)
 
-    For Bash:
-
-    <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
-
-    For PowerShell:
-
-    <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a>
+    **Note:** Both result in the same behavior—the pipeline definition is uploaded from the repository (`.buildkite/pipeline.yml`), then a script runs that prints output to the logs.
 
 1. On the **New Pipeline** page, select the **Cluster** of the [agent you had previously set up](#set-up-an-agent).
 
