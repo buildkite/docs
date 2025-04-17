@@ -5580,6 +5580,16 @@ type Organization implements Node {
     concurrency: JobConcurrencySearch
 
     """
+    Filter jobs by created at from, ISO8601 format
+    """
+    createdAtFrom: DateTime
+
+    """
+    Filter jobs by created at to, ISO8601 format
+    """
+    createdAtTo: DateTime
+
+    """
     Filter jobs by the time they finished, format yyyy-mm-dd
     """
     finishedAt: DateTime
