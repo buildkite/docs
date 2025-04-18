@@ -2,15 +2,26 @@
 
 The [Buildkite SDK](https://github.com/buildkite/buildkite-sdk) is an open-source multi-language software development kit (SDK) that makes it easy to script the generation of pipeline steps for dynamic pipelines in native languages. The SDK has simple functions to output these pipeline steps in YAML or JSON format, which you can then upload to your Buildkite pipeline to execute as part of your pipeline build.
 
-## Supported languages
+Currently, the Buildkite SDK supports the following languages:
 
-Currently, the Buildkite SDK supports the following languages. Once imported into your script program, you can make the following example function calls to generate a new step:
+- [JavaScript and TypeScript (Node.js)](#javascript-and-typescript-node-dot-js)
+- [Python](#python)
+- [Go](#go)
+- [Ruby](#ruby)
 
-### Node.js (JavaScript and TypeScript)
+## JavaScript and TypeScript (Node.js)
+
+### Installing
+
+To install the Buildkite SDK for [Node.js](https://nodejs.org/en) to your local environment, run this command:
 
 ```bash
 npm install @buildkite/buildkite-sdk
 ```
+
+### Using
+
+This code example demonstrates how to import the Buildkite SDK into a simple TypeScript script, which then generates a Buildkite Pipelines step for a simple command step that `echo`s "Hello, world!", and then outputs this step in both JSON and YAML format:
 
 ```typescript
 const { Pipeline } = require("@buildkite/buildkite-sdk");
@@ -26,11 +37,19 @@ console.log(pipeline.toYAML());
 ```
 {: codeblock-file="index.ts"}
 
-### Python
+## Python
+
+### Installing
+
+To install the Buildkite SDK for Python (with [uv](https://docs.astral.sh/uv/)) to your local environment, run this command:
 
 ```bash
 uv add buildkite-sdk
 ```
+
+### Using
+
+This code example demonstrates how to import the Buildkite SDK into a simple Python script, which then generates a Buildkite Pipelines step for a simple command step that `echo`s "Hello, world!", and then outputs this step in both JSON and YAML format:
 
 ```python
 from buildkite_sdk import Pipeline, CommandStep
@@ -45,11 +64,19 @@ print(pipeline.to_yaml())
 ```
 {: codeblock-file="main.py"}
 
-### Go
+## Go
+
+### Installing
+
+To install the Buildkite SDK for [Go](https://go.dev/) to your local environment, run this command:
 
 ```bash
 go get github.com/buildkite/buildkite-sdk/sdk/go
 ```
+
+### Using
+
+This code example demonstrates how to import the Buildkite SDK into a simple Go script, which then generates a Buildkite Pipelines step for a simple command step that `echo`s "Hello, world!", and then outputs this step in both JSON and YAML format:
 
 ```go
 package main
@@ -75,11 +102,19 @@ func main() {
 ```
 {: codeblock-file="main.go"}
 
-### Ruby
+## Ruby
+
+### Installing
+
+To install the Buildkite SDK for [Ruby](https://www.ruby-lang.org/en/) to your local environment, run this command:
 
 ```bash
 gem install buildkite-sdk
 ```
+
+### Using
+
+This code example demonstrates how to import the Buildkite SDK into a simple Ruby script, which then generates a Buildkite Pipelines step for a simple label and command that `echo`s "Hello, world!", and then outputs this step in both JSON and YAML format:
 
 ```main.rb
 require "buildkite"
@@ -95,7 +130,9 @@ puts pipeline.to_json
 puts pipeline.to_yaml
 ```
 
-Learn more about how to use the Buildkite SDK from its README.
+## Developing the Buildkite SDK
+
+Since the Buildkite SDK is open source, you can make your own contributions to this SDK. You can learn more about how to do this from the [Buildkite SDK's README](https://github.com/buildkite/buildkite-sdk?tab=readme-ov-file#buildkite-sdk).
 
 ## API documentation
 
