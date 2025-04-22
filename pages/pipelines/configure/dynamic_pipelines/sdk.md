@@ -37,7 +37,16 @@ pipeline.addStep({
 console.log(pipeline.toJSON());
 console.log(pipeline.toYAML());
 ```
-{: codeblock-file="index.ts"}
+{: codeblock-file="dynamic-pipeline.ts"}
+
+When you're ready to upload your output JSON or YAML steps to Buildkite Pipelines, you can do so from a currently running pipeline step:
+
+```yaml
+# For example, in your pipeline's Settings > Steps, and with ts-node installed to your agent:
+steps:
+  - label: "\:pipeline\: Run dynamic pipeline steps"
+    command: ts-node .buildkite/dynamic-pipeline.ts | buildkite-agent pipeline upload
+```
 
 ## Python
 
@@ -64,7 +73,16 @@ pipeline.add_step(CommandStep(
 print(pipeline.to_json())
 print(pipeline.to_yaml())
 ```
-{: codeblock-file="main.py"}
+{: codeblock-file="dynamic-pipeline.py"}
+
+When you're ready to upload your output JSON or YAML steps to Buildkite Pipelines, you can do so from a currently running pipeline step:
+
+```yaml
+# For example, in your pipeline's Settings > Steps:
+steps:
+  - label: "\:pipeline\: Run dynamic pipeline steps"
+    command: python3 .buildkite/dynamic-pipeline.py | buildkite-agent pipeline upload
+```
 
 ## Go
 
@@ -102,7 +120,16 @@ func main() {
 	fmt.Println(pipeline.ToYAML())
 }
 ```
-{: codeblock-file="main.go"}
+{: codeblock-file="dynamic-pipeline.go"}
+
+When you're ready to upload your output JSON or YAML steps to Buildkite Pipelines, you can do so from a currently running pipeline step:
+
+```yaml
+# For example, in your pipeline's Settings > Steps:
+steps:
+  - label: "\:pipeline\: Run dynamic pipeline steps"
+    command: go run .buildkite/dynamic-pipeline.go | buildkite-agent pipeline upload
+```
 
 ## Ruby
 
@@ -130,6 +157,16 @@ pipeline.add_step(
 
 puts pipeline.to_json
 puts pipeline.to_yaml
+```
+{: codeblock-file="dynamic-pipeline.rb"}
+
+When you're ready to upload your output JSON or YAML steps to Buildkite Pipelines, you can do so from a currently running pipeline step:
+
+```yaml
+# For example, in your pipeline's Settings > Steps:
+steps:
+  - label: "\:pipeline\: Run dynamic pipeline steps"
+    command: ruby .buildkite/dynamic-pipeline.rb | buildkite-agent pipeline upload
 ```
 
 ## Developing the Buildkite SDK
