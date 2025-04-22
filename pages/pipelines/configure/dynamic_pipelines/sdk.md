@@ -34,7 +34,9 @@ pipeline.addStep({
     command: "echo 'Hello, world!'",
 });
 
-console.log(pipeline.toJSON());
+// JSON output
+// console.log(pipeline.toJSON());
+// YAML output
 console.log(pipeline.toYAML());
 ```
 {: codeblock-file="dynamicPipeline.ts"}
@@ -70,7 +72,9 @@ pipeline.add_step(CommandStep(
     commands="echo 'Hello, world!'"
 ))
 
-print(pipeline.to_json())
+# JSON output
+# print(pipeline.to_json())
+# YAML output
 print(pipeline.to_yaml())
 ```
 {: codeblock-file="dynamic_pipeline.py"}
@@ -116,7 +120,9 @@ func main() {
 		},
 	})
 
-	fmt.Println(pipeline.ToJSON())
+    // JSON output
+	// fmt.Println(pipeline.ToJSON())
+    // YAML output
 	fmt.Println(pipeline.ToYAML())
 }
 ```
@@ -145,7 +151,7 @@ gem install buildkite-sdk
 
 The following code example demonstrates how to import the Buildkite SDK into a simple Ruby script, which then generates a Buildkite Pipelines step for a simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, along with a [label](/docs/pipelines/configure/step-types/command-step#label) attribute, and then outputs this step in both JSON and YAML format:
 
-```main.rb
+```ruby
 require "buildkite"
 
 pipeline = Buildkite::Pipeline.new
@@ -155,7 +161,9 @@ pipeline.add_step(
   command: "echo 'Hello, World!'"
 )
 
-puts pipeline.to_json
+# JSON output
+# puts pipeline.to_json
+# YAML output
 puts pipeline.to_yaml
 ```
 {: codeblock-file="dynamic_pipeline.rb"}
