@@ -37,7 +37,7 @@ pipeline.addStep({
 console.log(pipeline.toJSON());
 console.log(pipeline.toYAML());
 ```
-{: codeblock-file="dynamic-pipeline.ts"}
+{: codeblock-file="dynamicPipeline.ts"}
 
 When you're ready to upload your output JSON or YAML steps to Buildkite Pipelines, you can do so from a currently running pipeline step:
 
@@ -45,7 +45,7 @@ When you're ready to upload your output JSON or YAML steps to Buildkite Pipeline
 # For example, in your pipeline's Settings > Steps, and with ts-node installed to your agent:
 steps:
   - label: "\:pipeline\: Run dynamic pipeline steps"
-    command: ts-node .buildkite/dynamic-pipeline.ts | buildkite-agent pipeline upload
+    command: ts-node .buildkite/dynamicPipeline.ts | buildkite-agent pipeline upload
 ```
 
 ## Python
@@ -73,7 +73,7 @@ pipeline.add_step(CommandStep(
 print(pipeline.to_json())
 print(pipeline.to_yaml())
 ```
-{: codeblock-file="dynamic-pipeline.py"}
+{: codeblock-file="dynamic_pipeline.py"}
 
 When you're ready to upload your output JSON or YAML steps to Buildkite Pipelines, you can do so from a currently running pipeline step:
 
@@ -81,7 +81,7 @@ When you're ready to upload your output JSON or YAML steps to Buildkite Pipeline
 # For example, in your pipeline's Settings > Steps:
 steps:
   - label: "\:pipeline\: Run dynamic pipeline steps"
-    command: python3 .buildkite/dynamic-pipeline.py | buildkite-agent pipeline upload
+    command: python3 .buildkite/dynamic_pipeline.py | buildkite-agent pipeline upload
 ```
 
 ## Go
@@ -120,7 +120,7 @@ func main() {
 	fmt.Println(pipeline.ToYAML())
 }
 ```
-{: codeblock-file="dynamic-pipeline.go"}
+{: codeblock-file="dynamic_pipeline.go"}
 
 When you're ready to upload your output JSON or YAML steps to Buildkite Pipelines, you can do so from a currently running pipeline step:
 
@@ -128,7 +128,7 @@ When you're ready to upload your output JSON or YAML steps to Buildkite Pipeline
 # For example, in your pipeline's Settings > Steps:
 steps:
   - label: "\:pipeline\: Run dynamic pipeline steps"
-    command: go run .buildkite/dynamic-pipeline.go | buildkite-agent pipeline upload
+    command: go run .buildkite/dynamic_pipeline.go | buildkite-agent pipeline upload
 ```
 
 ## Ruby
@@ -158,7 +158,7 @@ pipeline.add_step(
 puts pipeline.to_json
 puts pipeline.to_yaml
 ```
-{: codeblock-file="dynamic-pipeline.rb"}
+{: codeblock-file="dynamic_pipeline.rb"}
 
 When you're ready to upload your output JSON or YAML steps to Buildkite Pipelines, you can do so from a currently running pipeline step:
 
@@ -166,7 +166,7 @@ When you're ready to upload your output JSON or YAML steps to Buildkite Pipeline
 # For example, in your pipeline's Settings > Steps:
 steps:
   - label: "\:pipeline\: Run dynamic pipeline steps"
-    command: ruby .buildkite/dynamic-pipeline.rb | buildkite-agent pipeline upload
+    command: ruby .buildkite/dynamic_pipeline.rb | buildkite-agent pipeline upload
 ```
 
 ## Developing the Buildkite SDK
