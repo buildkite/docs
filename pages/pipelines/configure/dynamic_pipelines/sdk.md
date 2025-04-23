@@ -9,7 +9,7 @@ Currently, the Buildkite SDK supports the following languages:
 - [Go](#go)
 - [Ruby](#ruby)
 
-Each of the **Installation** sub-sections below assume that your local environment already has the required language tools installed.
+Each of the **Installing** sub-sections below assume that your local environment already has the required language tools installed.
 
 ## JavaScript and TypeScript (Node.js)
 
