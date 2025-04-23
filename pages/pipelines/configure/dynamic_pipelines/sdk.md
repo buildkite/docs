@@ -23,7 +23,7 @@ npm install @buildkite/buildkite-sdk
 
 ### Using
 
-The following code example demonstrates how to import the Buildkite SDK into a simple TypeScript script, which then generates a Buildkite Pipelines step for a simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step in both JSON and YAML format:
+The following code example demonstrates how to import the Buildkite SDK into a simple TypeScript script, which then generates a Buildkite Pipelines step for a simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step in either JSON or YAML format:
 
 ```typescript
 const { Pipeline } = require("@buildkite/buildkite-sdk");
@@ -62,7 +62,7 @@ uv add buildkite-sdk
 
 ### Using
 
-The following code example demonstrates how to import the Buildkite SDK into a simple Python script, which then generates a Buildkite Pipelines step for a simple simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step in both JSON and YAML format:
+The following code example demonstrates how to import the Buildkite SDK into a simple Python script, which then generates a Buildkite Pipelines step for a simple simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step in either JSON or YAML format:
 
 ```python
 from buildkite_sdk import Pipeline, CommandStep
@@ -100,7 +100,7 @@ go get github.com/buildkite/buildkite-sdk/sdk/go
 
 ### Using
 
-The following code example demonstrates how to import the Buildkite SDK into a simple Go script, which then generates a Buildkite Pipelines step for a simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step in both JSON and YAML format:
+The following code example demonstrates how to import the Buildkite SDK into a simple Go script, which then generates a Buildkite Pipelines step for a simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step in either JSON or YAML format:
 
 ```go
 package main
@@ -149,7 +149,7 @@ gem install buildkite-sdk
 
 ### Using
 
-The following code example demonstrates how to import the Buildkite SDK into a simple Ruby script, which then generates a Buildkite Pipelines step for a simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, along with a [label](/docs/pipelines/configure/step-types/command-step#label) attribute, and then outputs this step in both JSON and YAML format:
+The following code example demonstrates how to import the Buildkite SDK into a simple Ruby script, which then generates a Buildkite Pipelines step for a simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, along with a [label](/docs/pipelines/configure/step-types/command-step#label) attribute, and then outputs this step in either JSON or YAML format:
 
 ```ruby
 require "buildkite"
