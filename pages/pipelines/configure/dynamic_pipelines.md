@@ -64,17 +64,4 @@ See how [Hasura.io](https://hasura.io) used [dynamic templates and pipelines](ht
 
 ## Buildkite SDK
 
-The [Buildkite SDK](https://github.com/buildkite/buildkite-sdk) is a multi-language software development kit (SDK) that makes it easy to script the generation of pipeline steps for dynamic pipelines in native languages. The SDK has simple functions to output these pipeline steps in YAML or JSON format, which you can then upload to your Buildkite pipeline to execute as part of your pipeline build.
-
-Currently, the Buildkite SDK supports the following languages. Once imported into your script program, you can make the following example function calls to generate a new step:
-
-- Node.js—`pipeline.addStep( ... );`
-
-  * JavaScript
-  * TypeScript
-
-- Python—`pipeline.add_step( ... )`
-- Go—`pipeline.AddCommandStep( ... )`
-- Ruby—`pipeline.add_step( ... )`
-
-Learn more about how to use the Buildkite SDK from its [README](https://github.com/buildkite/buildkite-sdk?tab=readme-ov-file#buildkite-sdk).
+Learn more about about the Buildkite SDK, which makes it easy to script the generation of steps for dynamic pipelines, on the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk) page.
