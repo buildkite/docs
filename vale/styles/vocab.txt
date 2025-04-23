@@ -214,6 +214,7 @@ rvm
 sandboxed
 sed
 scriptwrapper
+SDK's
 sha
 sharding
 Shardy

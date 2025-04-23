@@ -13,9 +13,11 @@ Each of the **Installation** sub-sections below assume that your local environme
 
 ## JavaScript and TypeScript (Node.js)
 
+This section explains how to install and use the Buildkite SDK for JavaScript and TypeScript ([Node.js](https://nodejs.org/en)-based) projects.
+
 ### Installing
 
-To install the Buildkite SDK for [Node.js](https://nodejs.org/en) to your local environment, run this command:
+To install the Buildkite SDK for [Node.js](https://nodejs.org/en) to your local development environment, run this command:
 
 ```bash
 npm install @buildkite/buildkite-sdk
@@ -60,9 +62,11 @@ For more detailed API documentation on the Buildkite SDK for TypeScript, consult
 
 ## Python
 
+This section explains how to install and use the Buildkite SDK for Python projects.
+
 ### Installing
 
-To install the Buildkite SDK for Python (with [uv](https://docs.astral.sh/uv/)) to your local environment, run this command:
+To install the Buildkite SDK for Python (with [uv](https://docs.astral.sh/uv/)) to your local development environment, run this command:
 
 ```bash
 uv add buildkite-sdk
@@ -106,9 +110,11 @@ For more detailed API documentation on the Buildkite SDK for Python, consult the
 
 ## Go
 
+This section explains how to install and use the Buildkite SDK for [Go](https://go.dev/) projects.
+
 ### Installing
 
-To install the Buildkite SDK for [Go](https://go.dev/) to your local environment, run this command:
+To install the Buildkite SDK for [Go](https://go.dev/) to your local development environment, run this command:
 
 ```bash
 go get github.com/buildkite/buildkite-sdk/sdk/go
@@ -163,9 +169,11 @@ For more detailed API documentation on the Buildkite SDK for Go, consult the [Bu
 
 ## Ruby
 
+This section explains how to install and use the Buildkite SDK for [Ruby](https://www.ruby-lang.org/en/) projects.
+
 ### Installing
 
-To install the Buildkite SDK for [Ruby](https://www.ruby-lang.org/en/) to your local environment, run this command:
+To install the Buildkite SDK for [Ruby](https://www.ruby-lang.org/en/) to your local development environment, run this command:
 
 ```bash
 gem install buildkite-sdk
