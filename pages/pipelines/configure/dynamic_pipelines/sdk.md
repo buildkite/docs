@@ -23,7 +23,7 @@ npm install @buildkite/buildkite-sdk
 
 ### Using
 
-The following code example demonstrates how to import the Buildkite SDK into a simple TypeScript script, which then generates a Buildkite Pipelines step for a simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step in either JSON or YAML format:
+The following code example demonstrates how to import the Buildkite SDK into a simple TypeScript script, which then generates a Buildkite Pipelines step for a simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step to either JSON or YAML format:
 
 ```typescript
 const { Pipeline } = require("@buildkite/buildkite-sdk");
@@ -50,6 +50,14 @@ steps:
     command: ts-node .buildkite/dynamicPipeline.ts | buildkite-agent pipeline upload
 ```
 
+<!--
+
+### API documentation
+
+For more detailed API documentation on the Buildkite SDK for TypeScript, consult the [Buildkite SDK's TypeScript API documentation](/docs/sdk/typescript).
+
+-->
+
 ## Python
 
 ### Installing
@@ -62,7 +70,7 @@ uv add buildkite-sdk
 
 ### Using
 
-The following code example demonstrates how to import the Buildkite SDK into a simple Python script, which then generates a Buildkite Pipelines step for a simple simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step in either JSON or YAML format:
+The following code example demonstrates how to import the Buildkite SDK into a simple Python script, which then generates a Buildkite Pipelines step for a simple simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step to either JSON or YAML format:
 
 ```python
 from buildkite_sdk import Pipeline, CommandStep
@@ -88,6 +96,14 @@ steps:
     command: python3 .buildkite/dynamic_pipeline.py | buildkite-agent pipeline upload
 ```
 
+<!--
+
+### API documentation
+
+For more detailed API documentation on the Buildkite SDK for Python, consult the [Buildkite SDK's Python API documentation](/docs/sdk/python).
+
+-->
+
 ## Go
 
 ### Installing
@@ -100,7 +116,7 @@ go get github.com/buildkite/buildkite-sdk/sdk/go
 
 ### Using
 
-The following code example demonstrates how to import the Buildkite SDK into a simple Go script, which then generates a Buildkite Pipelines step for a simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step in either JSON or YAML format:
+The following code example demonstrates how to import the Buildkite SDK into a simple Go script, which then generates a Buildkite Pipelines step for a simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step to either JSON or YAML format:
 
 ```go
 package main
@@ -137,6 +153,14 @@ steps:
     command: go run .buildkite/dynamic_pipeline.go | buildkite-agent pipeline upload
 ```
 
+<!--
+
+### API documentation
+
+For more detailed API documentation on the Buildkite SDK for Go, consult the [Buildkite SDK's Go API documentation](https://pkg.go.dev/github.com/buildkite/buildkite-sdk/sdk/go).
+
+-->
+
 ## Ruby
 
 ### Installing
@@ -149,7 +173,7 @@ gem install buildkite-sdk
 
 ### Using
 
-The following code example demonstrates how to import the Buildkite SDK into a simple Ruby script, which then generates a Buildkite Pipelines step for a simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, along with a [label](/docs/pipelines/configure/step-types/command-step#label) attribute, and then outputs this step in either JSON or YAML format:
+The following code example demonstrates how to import the Buildkite SDK into a simple Ruby script, which then generates a Buildkite Pipelines step for a simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, along with a [label](/docs/pipelines/configure/step-types/command-step#label) attribute, and then outputs this step to either JSON or YAML format:
 
 ```ruby
 require "buildkite"
@@ -177,15 +201,14 @@ steps:
     command: ruby .buildkite/dynamic_pipeline.rb | buildkite-agent pipeline upload
 ```
 
+<!--
+
+### API documentation
+
+For more detailed API documentation on the Buildkite SDK for Ruby, consult the [Buildkite SDK's Ruby API documentation](/docs/sdk/ruby).
+
+-->
+
 ## Developing the Buildkite SDK
 
 Since the Buildkite SDK is open source, you can make your own contributions to this SDK. You can learn more about how to do this from the [Buildkite SDK's README](https://github.com/buildkite/buildkite-sdk?tab=readme-ov-file#buildkite-sdk).
-
-## API documentation
-
-Detailed API documentation is available for each individual language:
-
-- [TypeScript SDK documentation](/docs/sdk/typescript)
-- [Python SDK documentation](/docs/sdk/typescript)
-- [Go SDK documentation](https://pkg.go.dev/github.com/buildkite/buildkite-sdk/sdk/go)
-- [Ruby SDK documentation](/docs/sdk/typescript)
