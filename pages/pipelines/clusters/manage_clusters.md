@@ -19,9 +19,9 @@ Once your clusters are set up, you can set up one or more [queues](/docs/pipelin
 
 ## Create a cluster
 
-New clusters can be created by a Buildkite organization administrator using the [**Clusters** page](#create-a-cluster-using-the-buildkite-interface), as well as Buildkite's [REST API](#create-a-cluster-using-the-rest-api) or [GraphQL API](#create-a-cluster-using-the-graphql-api).
+New clusters can be created by a [_Buildkite organization administrator_](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions) using the [**Clusters** page](#create-a-cluster-using-the-buildkite-interface), as well as Buildkite's [REST API](#create-a-cluster-using-the-rest-api) or [GraphQL API](#create-a-cluster-using-the-graphql-api).
 
-Once the cluster has been created, a Buildkite organization administrator can then assign [_cluster maintainers_](#manage-maintainers-on-a-cluster) to members of their Buildkite organization, to administer the cluster.
+Once the cluster has been created, a Buildkite organization administrator can then make other members of their Buildkite organization a [_cluster maintainer_](#manage-maintainers-on-a-cluster) of the cluster. These people can then administer the cluster on behalf of the Buildkite organization administrator.
 
 ### Using the Buildkite interface
 
@@ -240,7 +240,7 @@ where:
 
 ## Manage maintainers on a cluster
 
-A user who is a [_Buildkite organization administrator_](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) can create clusters. Learn more about user permissions in Buildkite from [User and team permissions](/docs/platform/team-management/permissions).
+A user who is a [_Buildkite organization administrator_](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions) can create clusters. Learn more about user permissions in Buildkite from [User and team permissions](/docs/platform/team-management/permissions).
 
 As a Buildkite organization administrator, you can add and manage other users or teams in your Buildkite organization as _maintainers_ of a cluster in the organization. A cluster maintainer can:
 
