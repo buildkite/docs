@@ -194,7 +194,7 @@ Optional attributes:
     <td><code>soft_fail</code></td>
     <td>
       Allow specified non-zero exit statuses not to fail the build.
-      Can be either an <code>array</code> of allowed soft failure exit statuses, <code>"*"</code> to allow all non-zero exit statuses not to fail the buildor <code>true</code> to make all exit statuses soft-fail.<br/>
+      Can be either an <code>array</code> of allowed soft failure exit statuses, <code>"*"</code> to allow all non-zero exit statuses not to fail the build, or <code>true</code> to make all exit statuses soft-fail.<br/>
       <em>Example:</em> <code>true</code><br/>
       <em>Example:</em> <code>"*"</code><br/>
       <em>Example:</em><br/>
