@@ -2,6 +2,8 @@
 
 A Buildkite agent running in a [self-hosted architecture](/docs/pipelines/getting-started#understand-the-architecture) requires an _agent token_ to connect to Buildkite and register for work. Agent tokens connect to Buildkite via a [cluster](/docs/pipelines/clusters), and can be accessed from the cluster's **Agent Tokens** page.
 
+A user who is a Buildkite organization administrator or a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) of a cluster within the organization can manage agent tokens for that cluster.
+
 If you are managing agents in an unclustered environment, refer to [unclustered tokens](/docs/agent/v3/unclustered-tokens) instead.
 
 ## The initial agent token
@@ -16,7 +18,7 @@ It's recommended you use your platform's secret storage (such as the [AWS System
 
 ## Create a token
 
-New agent tokens can be created by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) using the [**Agent Tokens** page of a cluster](#create-a-token-using-the-buildkite-interface), as well as Buildkite's [REST API](#create-a-token-using-the-rest-api) or [GraphQL API](#create-a-token-using-the-graphql-api).
+New agent tokens can be created by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the [**Agent Tokens** page of a cluster](#create-a-token-using-the-buildkite-interface), as well as Buildkite's [REST API](#create-a-token-using-the-rest-api) or [GraphQL API](#create-a-token-using-the-graphql-api).
 
 For these API requests, the _cluster ID_ value submitted as part of the request is the target cluster the token is associated with.
 
@@ -126,7 +128,7 @@ The new agent token appears on the cluster's **Agent Tokens** page.
 
 ## Update a token
 
-Agent tokens can be updated by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) using the [**Agent Tokens** page of a cluster](#update-a-token-using-the-buildkite-interface), as well as Buildkite's [REST API](#update-a-token-using-the-rest-api) or [GraphQL API](#update-a-token-using-the-graphql-api).
+Agent tokens can be updated by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the [**Agent Tokens** page of a cluster](#update-a-token-using-the-buildkite-interface), as well as Buildkite's [REST API](#update-a-token-using-the-rest-api) or [GraphQL API](#update-a-token-using-the-graphql-api).
 
 Only the **Description** and **Allowed IP Addresses** of an existing agent token can be updated.
 
@@ -234,7 +236,7 @@ The agent token's updates will appear on the cluster's **Agent Tokens** page.
 
 ## Revoke a token
 
-Agent tokens can be revoked by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) using the [**Agent Tokens** page of a cluster](#revoke-a-token-using-the-buildkite-interface), as well as Buildkite's [REST API](#revoke-a-token-using-the-rest-api) or [GraphQL API](#revoke-a-token-using-the-graphql-api).
+Agent tokens can be revoked by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the [**Agent Tokens** page of a cluster](#revoke-a-token-using-the-buildkite-interface), as well as Buildkite's [REST API](#revoke-a-token-using-the-rest-api) or [GraphQL API](#revoke-a-token-using-the-graphql-api).
 
 For these API requests, the _cluster ID_ value submitted as part of the request is the target cluster the token is associated with.
 
