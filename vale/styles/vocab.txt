@@ -242,7 +242,6 @@ sudo
 svg
 swiftformat
 systemd
-te
 templated
 tgz
 timeframe

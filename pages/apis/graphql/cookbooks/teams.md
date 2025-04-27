@@ -172,7 +172,11 @@ The GraphQL API supports the following ways to retrieve members of a specific te
 - Within a Buildkite organization, you'll need to specify the team _name_.
 - Using the team's _slug_, you'll need to specify both the organization and team slugs, separated by a `/`.
 
+<!-- vale off -->
+
 The following query retrieves members of a team within a Buildkite organization, along with each team member's role, using the team _name_, where the team name can be a partial match. This query finds the first 200 members of the first team containing the letters "My te" (for example, "My team").
+
+<!-- vale on -->
 
 ```graphql
 query GetTeamMember {
