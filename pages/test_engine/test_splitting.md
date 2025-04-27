@@ -11,7 +11,7 @@ Intelligently partition your pipeline with test splitting to substantially reduc
 
 Customers on the [Pro and Enterprise plans](https://buildkite.com/pricing/) can leverage test splitting. If you are on a legacy plan please contact sales@buildkite.com to gain access this feature and try it out.
 
-Test Engine can automatically split tests on the following frameworks: Cypress, Jest, PlayWright and RSpec.
+Test Engine can automatically split tests on the following frameworks: Cypress, Jest, PlayWright, Pytest and RSpec.
 
 ## How it works
 
