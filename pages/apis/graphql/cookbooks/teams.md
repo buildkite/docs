@@ -169,7 +169,7 @@ If you have more than 100 teams or more than 100 pipelines per team, use the pag
 
 <!-- vale off -->
 
-The following query retrieves members of one or more teams within a Buildkite organization, along with each team member's role, based on a partial match to the teams' _name_ specified in the query. This query finds the first 200 members of the first team containing the letters "My te" (for example, "My team").
+The following query retrieves members of one or more teams within a Buildkite organization, along with each team member's role, based on a partial match to the teams' _name_ specified in the query. This query finds the first 200 members of the first team containing the letters "My te" (for example, "My team"), noting that any letters specified are case insensitive.
 
 <!-- vale on -->
 
