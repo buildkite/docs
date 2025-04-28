@@ -179,6 +179,7 @@ query GetTeamsAndTheirMembers {
     teams(first:1, search:"My te") {
       edges {
         node {
+          name
           members(first:200) {
             edges {
               node {
