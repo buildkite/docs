@@ -149,7 +149,7 @@ variables:
     default_value: "10"
   - name: BUILDKITE_CANCEL_SIGNAL
     desc: |
-      The value of the `cancel-signal` [agent configuration option](/docs/agent/v3/configuration). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+      The value of the `cancel-signal` [agent configuration option](/docs/agent/v3/configuration).
     modifiable: true
     default_value: "SIGTERM"
   - name: BUILDKITE_CLEAN_CHECKOUT
