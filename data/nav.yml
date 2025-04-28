@@ -253,12 +253,6 @@
           path: "pipelines/configure"
         - name: "Defining steps"
           path: "pipelines/configure/defining-steps"
-        - name: "Dynamic pipelines"
-          children:
-            - name: "Overview"
-              path: "pipelines/configure/dynamic-pipelines"
-            - name: "Buildkite SDK"
-              path: "pipelines/configure/dynamic-pipelines/sdk"
         - name: "Step types"
           children:
             - name: "Overview"
@@ -275,6 +269,12 @@
               path: "pipelines/configure/step-types/trigger-step"
             - name: "Group step"
               path: "pipelines/configure/step-types/group-step"
+        - name: "Dynamic pipelines"
+          children:
+            - name: "Overview"
+              path: "pipelines/configure/dynamic-pipelines"
+            - name: "Buildkite SDK"
+              path: "pipelines/configure/dynamic-pipelines/sdk"
         - name: "Writing build scripts"
           path: "pipelines/configure/writing-build-scripts"
         - name: "Using conditionals"

@@ -240,14 +240,17 @@ where:
 
 ## Manage maintainers on a cluster
 
-A user who is a [_Buildkite organization administrator_](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions) can [create clusters](#create-a-cluster). Learn more about user permissions in Buildkite from [User and team permissions](/docs/platform/team-management/permissions).
+A user who is a [_Buildkite organization administrator_](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions) can [create clusters](#create-a-cluster). As a Buildkite organization administrator, you can add and manage other users or teams in your Buildkite organization as _maintainers_ of a cluster in the organization.
 
-As a Buildkite organization administrator, you can add and manage other users or teams in your Buildkite organization as _maintainers_ of a cluster in the organization. A cluster maintainer can:
+A cluster maintainer can:
 
 - Update or delete the cluster.
 - Manage [agent tokens](/docs/agent/v3/tokens) associated with the cluster.
 - Manage [queues](/docs/pipelines/clusters/manage-queues) within the cluster.
 - Add pipelines to or remove them from the cluster.
+
+> 📘
+> Learn more about Buildkite organization administrators and user permissions in Buildkite from [User and team permissions](/docs/platform/team-management/permissions).
 
 To add a maintainer to a cluster:
 
