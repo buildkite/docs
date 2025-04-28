@@ -165,21 +165,16 @@ query getPipelinesByTeam {
 
 If you have more than 100 teams or more than 100 pipelines per team, use the pagination information in `pageInfo` to get the next results page.
 
-## Get members from a specific team
-
-The GraphQL API supports the following ways to retrieve members of a specific team. When searching for team members:
-
-- Within a Buildkite organization, you'll need to specify the team _name_.
-- Using the team's _slug_, you'll need to specify both the organization and team slugs, separated by a `/`.
+## Search for team names and retrieve the teams' members
 
 <!-- vale off -->
 
-The following query retrieves members of a team within a Buildkite organization, along with each team member's role, using the team _name_, where the team name can be a partial match. This query finds the first 200 members of the first team containing the letters "My te" (for example, "My team").
+The following query retrieves members of one or more teams within a Buildkite organization, along with each team member's role, based on a partial match to the teams' _name_ specified in the query. This query finds the first 200 members of the first team containing the letters "My te" (for example, "My team").
 
 <!-- vale on -->
 
 ```graphql
-query GetTeamMember {
+query GetTeamsAndTheirMembers {
   organization(slug:"organization-slug") {
     teams(first:1, search:"My te") {
       edges {
@@ -202,7 +197,9 @@ query GetTeamMember {
 }
 ```
 
-The following query retrieves members of a team, along with each team member's roles, using the team's slug, which requires both the Buildkite organization and team slugs, separated by a `/`. This query finds the first 10 members of the team with slug `my-team` within the Buildkite organization with slug `organization-slug`.
+## Get members from a specific team
+
+The following query retrieves members of a team, along with each team member's roles, which requires both the Buildkite organization and team slugs, separated by a `/`. This query finds the first 10 members of the team with slug `my-team` within the Buildkite organization with slug `organization-slug`.
 
 ```graphql
 query GetTeamMember {
