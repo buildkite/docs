@@ -29,6 +29,7 @@ html.dark {
   .SiteHeader__nav,
   .divider,
   .Article tbody tr,
+  iframe,
   hr {
     border-color: $navy-800;
   }
@@ -356,5 +357,18 @@ html.dark {
 
   .invertible {
     filter: invert(92%) hue-rotate(180deg);
+  }
+
+  .Frameheader {
+    border-color: $navy-800;
+  }
+
+  .Frameheader__address {
+    background: $navy-900;
+    color: $navy-400;
+  }
+
+  .Frameheader:hover .Frameheader__address {
+    color: $purple1-400;
   }
 }

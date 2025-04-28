@@ -4,36 +4,16 @@ Buildkite supports over 300 custom emojis that you can use in your Buildkite [pi
 
 To use an emoji, write the name of the emoji in between colons, like `\:buildkite\:` which shows up as :buildkite:.
 
-A few common emojis are listed below, but you can see the [full list of available emoji](https://github.com/buildkite/emojis#emoji-reference) on GitHub.
+Explore the full list of available emoji below or at [emoji.buildkite.com](https://emoji.buildkite.com):
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Emoji</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>\:buildkite\:</code></td>
-      <td>:buildkite:</td>
-    </tr>
-    <tr>
-      <td><code>\:one-does-not-simply\:</code></td>
-      <td>:one-does-not-simply:</td>
-    </tr>
-    <tr>
-      <td><code>\:nomad\:</code></td>
-      <td>:nomad:</td>
-    </tr>
-    <tr>
-      <td><code>\:algolia\:</code></td>
-      <!-- vale off -->
-      <td>:algolia:</td>
-      <!-- vale on -->
-    </tr>
-  </tbody>
-</table>
+<a class="Frameheader" href='https://emoji.buildkite.com' target='_blank'>
+  <span class="Frameheader__address">emoji.buildkite.com</span>
+</a>
+<iframe
+  src='https://emoji.buildkite.com'
+  allow="fullscreen" crossorigin="anonymous" width="100%" height="400px"
+  style="border-radius:0 0 8px 8px;box-sizing: border-box;"
+/>
 
 ## Adding custom emojis
 
