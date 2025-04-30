@@ -29,7 +29,7 @@ The entry point rewriting and ordering logic is heavily inspired by the approach
 - A Buildkite API Access Token with the [GraphQL scope enabled](https://buildkite.com/docs/apis/graphql-api#authentication)
 - A Cluster [Agent Token](https://buildkite.com/docs/agent/v3/tokens#create-a-token)
 - A Cluster [Queue](https://buildkite.com/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue)
-  - The UUID of the Cluster is also required. See [Obtain Cluster UUID](docs/installation.md#how-to-find-a-buildkite-clusters-uuid)
+  * The UUID of the Cluster is also required. See [Obtain Cluster UUID](docs/installation.md#how-to-find-a-buildkite-clusters-uuid)
 - Helm version v3.8.0 or newer (as support for OCI-based registries is required).
 
 ## Get started with the Agent Stack for Kubernetes
