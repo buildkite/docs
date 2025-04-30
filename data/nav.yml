@@ -128,6 +128,12 @@
                   path: "agent/v3/elastic-ci-stack-for-ec2-mac/autoscaling-mac-metal"
                 - name: "Troubleshooting"
                   path: "agent/v3/elastic-ci-stack-for-ec2-mac/troubleshooting"
+        - name: "Running on Kubernetes"
+          children:
+            - name: "Overview"
+              path: "agent/v3/agent-stack-k8s"
+            - name: "Installation"
+              path: "agent/v3/agent-stack-k8s/installation"
         - name: "Agent installers"
           children:
             - name: "Ubuntu"

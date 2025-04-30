@@ -7,16 +7,21 @@ The Buildkite Agent Stack for Kubernetes `agent-stack-k8s` is a Kubernetes [cont
 When a matching job is returned from the GraphQL API, the controller creates a Kubernetes job containing a single Pod with containers that will acquire and run the Buildkite job. The [PodSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec) contained in the job defines a [PodSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec) containing all the containers required to acquire and run a Buildkite job:
 
 - adding an init container to:
-  - copy the agent binary onto the workspace volume (`copy-agent`)
-  - check that other container images pull successfully before starting (`imagecheck`)
+  * copy the agent binary onto the workspace volume (`copy-agent`)
+  * check that other container images pull successfully before starting (`imagecheck`)
 - adding a container to run the Buildkite agent (`agent`)
 - adding a container to clone the source repository (`checkout`)
 - modifying the (`container-N`) user-specified containers to:
-  - overwrite the entrypoint to the agent binary
-  - run with the working directory set to the workspace
+  * overwrite the entrypoint to the agent binary
+  * run with the working directory set to the workspace
 
 <!--alex ignore Tekton-->
+
+<!-- vale off -->
+
 The entry point rewriting and ordering logic is heavily inspired by the approach used in [Tekton](https://github.com/tektoncd/pipeline/blob/933e4f667c19eaf0a18a19557f434dbabe20d063/docs/developers/README.md#entrypoint-rewriting-and-step-ordering).
+
+<!-- vale on -->
 
 ## Requirements
 
