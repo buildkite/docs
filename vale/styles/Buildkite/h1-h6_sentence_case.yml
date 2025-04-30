@@ -165,6 +165,7 @@ exceptions:
   - Sonoma
   - SSH
   - SSO
+  - Tekton
   - Test Engine
   - Test Engine Client
   - TESTOWNER

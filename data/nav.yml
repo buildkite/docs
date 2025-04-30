@@ -131,9 +131,15 @@
         - name: "Running on Kubernetes"
           children:
             - name: "Overview"
-              path: "agent/v3/agent-stack-k8s"
+              path: "agent/v3/agent-stack-k8s/overview"
             - name: "Installation"
               path: "agent/v3/agent-stack-k8s/installation"
+            - name: "Running builds"
+              path: "agent/v3/agent-stack-k8s/running-builds"
+            - name: "Default parameters"
+              path: "agent/v3/agent-stack-k8s/default-parameters"
+            - name: "Agent configuration"
+              path: "agent/v3/agent-stack-k8s/agent-configuration"
         - name: "Agent installers"
           children:
             - name: "Ubuntu"
