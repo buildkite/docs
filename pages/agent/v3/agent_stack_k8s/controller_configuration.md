@@ -15,6 +15,7 @@ This section covers the available commands for:
 
 ## Flags
 
+```
 Options:
 - Flag: --agent-token-secret string
   Description: name of the Buildkite agent token secret (default "buildkite-agent-token")
