@@ -27,6 +27,18 @@ threshold is triggered or resolved respectively.
 
 See [automatic quarantine](/docs/test-engine/test-state-and-quarantine#automatic-quarantine) to learn more.
 
+### Via execution tags
+
+Test execution tag values can be applied as a label on the Test.
+
+When Test Engine detects a change to the tag value it will update the label on the respective test.
+
+Test Engine will only label tests based on execution tags when configured to do so in the suite settings under **test labels**.
+
+<%= image "execution_tags.png", width: 1547, height: 604, alt: "Screenshot of configuring suite settings to copy tags to labels" %>
+
+See [Tags](/docs/test-engine/tags) to learn more about execution tagging.
+
 ### Via API
 
 You can label tests via the API, to learn more see the [Label API](/docs/apis/rest-api/test-engine/tests#add-slash-remove-labels-from-a-test).
