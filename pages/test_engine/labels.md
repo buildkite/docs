@@ -4,7 +4,7 @@ Use labels to categorize tests.
 
 <%= image "labelling.png", width: 938, height: 349, alt: "Screenshot of a test with labels categorizing the test" %>
 
-Labels allow you to organize tests in a way that is most meaningful to your team and organization. They can be used to filter and aggregate tests within Test Engine.
+Labels allow you to organize tests in a way that is most meaningful to your team and organization. They can be used to filter tests within Test Engine.
 
 Labels are created at the suite level, so labels belonging to one suite won't impact other suites.
 
