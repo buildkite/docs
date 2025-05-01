@@ -106,7 +106,7 @@ Latest and previous `agent-stack-k8s` versions (with digests) can be found under
 
 ## Controller configuration
 
-Detailed configuration options can be found under Controller Configuration (FUTURE WORK!).
+Detailed configuration options can be found in the the documentation for [controller Configuration](/docs/agent/v3/agent-stack-k8s/controller-configuration).
 
 ## Running builds
 

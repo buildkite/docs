@@ -4,7 +4,7 @@ After you configure, deploy, and set up the Buildkite Agent Stack for Kubernetee
 
 ## Defining steps
 
-The simplest pipeline step can target the `kubernetes` queue with [agent tags](/docs/agent/v3/queues):
+A pipeline step can target the `kubernetes` queue with [agent tags](/docs/agent/v3/queues):
 
 ```yaml
 steps:
@@ -14,13 +14,14 @@ steps:
     queue: kubernetes
 ```
 
-This will create a Buildkite job containing an agent tag of `queue=kubernetes`.
+An example above will create a Buildkite job containing an agent tag of `queue=kubernetes`.
 The `agent-stack-k8s` controller will retrieve this job via the Agent API and convert it into a Kubernetes job.
-The Kubernetes job will contain a single Pod, with containers that will checkout the pipeline's Git repository and use the (default image) `buildkite/agent:latest` container to run the `echo Hello World!` command.
+The Kubernetes job will contain a single Pod with containers that will checkout the pipeline's Git repository and use the (default image) `buildkite/agent:latest` container to run the `echo Hello World!` command.
 
 ### The `kubernetes` plugin
 
-Additional configuration can use the `kubernetes` plugin to define more complicated pipeline steps.
+For defining of more complicated pipeline steps, additional configurations can be used with the `kubernetes` plugin. 
+
 Unlike other [Buildkite plugins](/docs/pipelines/integrations/plugins), there is no corresponding plugin repository for the `kubernetes` plugin. Rather, this is reserved syntax that is interpreted by the `agent-stack-k8s` controller.
 For example, defining `checkout.skip: true` will skip cloning the pipeline's repo for the job:
 
@@ -40,13 +41,11 @@ steps:
 
 Just like with a standalone installation of the Buildkite agent, in order to access and clone private repositories you will need to make Git credentials available for the Agent to use. These credentials can be in the form of a SSH key for cloning over `ssh://` or with a `.git-credentials` file for cloning over `https://`.
 
-## Kubernetes Node Selection
+## Defining `nodeSelector`
 
 The `agent-stack-k8s` controller can schedule your Buildkite jobs to run on particular Kubernetes Nodes, using Kubernetes PodSpec fields for `nodeSelector` and `nodeName`.
 
 The `agent-stack-k8s` controller can schedule your Buildkite jobs to run on particular Kubernetes Nodes with matching Labels. The [`nodeSelector`](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-your-chosen-node) field of the PodSpec can be used to schedule your Buildkite jobs on a chosen Kubernetes Node with matching Labels.
-
-### Configuration values YAML file
 
 The `nodeSelector` field can be defined in the controller's configuration via `pod-spec-patch`. This will apply to all Buildkite jobs processed by the controller:
 
@@ -60,9 +59,7 @@ config:
 ...
 ```
 
-### `kubernetes` plugin
-
-The `nodeSelector` field can be defined in under `podSpecPatch` using the `kubernetes` plugin. It will apply only to this job and will override any __matching__ labels defined under `nodeSelector` in the controller's configuration:
+The `nodeSelector` field can also be defined under `podSpecPatch` using the `kubernetes` plugin. It will apply only to this job and will override any __matching__ labels defined under `nodeSelector` in the controller's configuration:
 
 ```yaml
 # pipeline.yaml
@@ -79,11 +76,9 @@ steps:
 ...
 ```
 
-## `nodeName`
+## Defining `nodeName`
 
 The [`nodeName`](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-specific-node) field of the PodSpec can also be used to schedule your Buildkite jobs on a specific Kubernetes Node.
-
-### Configuration values YAML file
 
 The `nodeName` field can be defined in the controller's configuration via `pod-spec-patch`. This will apply to all Buildkite jobs processed by the controller:
 
@@ -96,9 +91,7 @@ config:
 ...
 ```
 
-### `kubernetes` plugin
-
-The `nodeName` field can be defined in under `podSpecPatch` using the `kubernetes` plugin. It will apply only to this job and will override `nodeName` in the controller's configuration:
+The `nodeName` field can also be defined in under `podSpecPatch` using the `kubernetes` plugin. It will apply only to this job and will override `nodeName` in the controller's configuration:
 
 ```yaml
 # pipeline.yaml
