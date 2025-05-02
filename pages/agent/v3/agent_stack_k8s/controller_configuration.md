@@ -15,93 +15,220 @@ This section covers the available commands for:
 
 ## Flags
 
-```
-Options:
-- Flag: --agent-token-secret string
-  Description: name of the Buildkite agent token secret (default "buildkite-agent-token")
-- Flag: --buildkite-token string
-  Description: Buildkite API token with GraphQL scopes
-- Flag: --cluster-uuid string
-  Description: UUID of the Buildkite Cluster. The agent token must be for the Buildkite
-    Cluster.
-- Flag: -f, --config string
-  Description: config file path
-- Flag: --debug
-  Description: debug logs
-- Flag: --default-image-check-pull-policy string
-  Description: Sets a default PullPolicy for image-check init containers, used if
+<table>
+  <thead>
+    <tr>
+      <th style="width:25%">Flag and value type if applicable</th>
+      <th style="width:75%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        flag: "--agent-token-secret",
+        type: "string",
+        description: "The name of the Buildkite agent token secret.",
+        default_value: "buildkite-agent-token"
+      },
+      {
+        flag: "--buildkite-token",
+        type: "string",
+        description: "The Buildkite API token with GraphQL scopes."
+      },
+      {
+        flag: "--cluster-uuid",
+        type: "string",
+        description: "The UUID of the Buildkite cluster. The agent token must be for the Buildkite cluster."
+      },
+      {
+        flag: "-f, --config",
+        type: "string",
+        description: "The config file path."
+      },
+      {
+        flag: "--debug",
+        description: "Debug logs."
+      },
+      {
+        flag: "--default-image-check-pull-policy",
+        type: "string",
+        description: "Sets a default PullPolicy for image-check init containers, used if
     an image pull policy is not set for the corresponding container in a podSpec or
-    podSpecPatch
-- Flag: --default-image-pull-policy string
-  Description: Configures a default image pull policy for containers that do not specify
-    a pull policy and non-init containers created by the stack itself (default "IfNotPresent")
-- Flag: --empty-job-grace-period duration
-  Description: Duration after starting a Kubernetes job that the controller will wait
-    before considering failing the job due to a missing pod (e.g., when the podSpec
-    specifies a missing service account) (default 30s)
-- Flag: --graphql-endpoint string
-  Description: Buildkite GraphQL endpoint URL
-- Flag: --graphql-results-limit int
-  Description: Sets the amount of results returned by GraphQL queries when retrieving
-    Jobs to be Scheduled (default 100)
-- Flag: -h, --help
-  Description: help for agent-stack-k8s
-- Flag: --image string
-  Description: The image to use for the Buildkite agent (default "ghcr.io/buildkite/agent:3.91.0")
-- Flag: --image-pull-backoff-grace-period duration
-  Description: Duration after starting a pod that the controller will wait before
+    podSpecPatch."
+      },
+      {
+        flag: "--default-image-pull-policy",
+        type: "string",
+        description: "Configures a default image pull policy for containers that do not specify
+    a pull policy and non-init containers created by the stack itself.",
+        default_value: "IfNotPresent"
+      },
+      {
+        flag: "--empty-job-grace-period",
+        type: "duration",
+        description: "The duration after starting a Kubernetes job that the controller will wait
+    before considering failing the job due to a missing pod (for example, when the podSpec
+    specifies a missing service account).",
+        default_value: "30s"
+      },
+      {
+        flag: "--graphql-endpoint",
+        type: "string",
+        description: "The Buildkite GraphQL endpoint URL."
+      },
+      {
+        flag: "--graphql-results-limit",
+        type: "integer",
+        description: "Sets the amount of results returned by GraphQL queries when retrieving
+    Jobs to be Scheduled.",
+        default_value: "100"
+      },
+      {
+        flag: "-h, --help",
+        description: "Displays help for the agent-stack-k8s."
+      },
+      {
+        flag: "--image",
+        type: "string",
+        description: "The image to use for the Buildkite agent.",
+        default_value: "ghcr.io/buildkite/agent:3.91.0"
+      },
+      {
+        flag: "--image-pull-backoff-grace-period",
+        type: "duration",
+        description: "Duration after starting a pod that the controller will wait before
     considering cancelling a job due to ImagePullBackOff (e.g., when the podSpec specifies
-    container images that cannot be pulled) (default 30s)
-- Flag: --job-cancel-checker-poll-interval duration
-  Description: Controls the interval between job state queries while a pod is still
-    Pending (default 5s)
-- Flag: --job-creation-concurrency int
-  Description: Number of concurrent goroutines to run for converting Buildkite jobs
-    into Kubernetes jobs (default 5)
-- Flag: --job-ttl duration
-  Description: time to retain kubernetes jobs after completion (default 10m0s)
-- Flag: --job-active-deadline-seconds int
-  Description: maximum number of seconds a kubernetes job is allowed to run before
-    terminating all pods and failing (default 21600)
-- Flag: --k8s-client-rate-limiter-burst int
-  Description: The burst value of the K8s client rate limiter. (default 20)
-- Flag: --k8s-client-rate-limiter-qps int
-  Description: The QPS value of the K8s client rate limiter. (default 10)
-- Flag: --max-in-flight int
-  Description: max jobs in flight, 0 means no max (default 25)
-- Flag: --namespace string
-  Description: kubernetes namespace to create resources in (default "default")
-- Flag: --org string
-  Description: Buildkite organization name to watch
-- Flag: --pagination-depth-limit int
-  Description: Sets the maximum depth of pagination when retrieving Buildkite Jobs
-    to be Scheduled. Increasing this value will increase the number of requests made
-    to the Buildkite GraphQL API and number of Jobs to be scheduled on the Kubernetes
-    Cluster. (default 1)
-- Flag: --poll-interval duration
-  Description: time to wait between polling for new jobs (minimum 1s); note that increasing
-    this causes jobs to be slower to start (default 1s)
-- Flag: --profiler-address string
-  Description: Bind address to expose the pprof profiler (e.g., localhost:6060)
-- Flag: --prohibit-kubernetes-plugin
-  Description: Causes the controller to prohibit the kubernetes plugin specified within
-    jobs (pipeline YAML) - enabling this causes jobs with a kubernetes plugin to fail,
-    preventing the pipeline YAML from having any influence over the podSpec
-- Flag: --prometheus-port uint16
-  Description: Bind port to expose Prometheus /metrics; 0 disables it
-- Flag: --stale-job-data-timeout duration
-  Description: Duration after querying jobs in Buildkite that the data is considered
-    valid (default 10s)
-- Flag: --tags strings
-  Description: A comma-separated list of agent tags. The "queue" tag must be unique
-    (e.g., "queue=kubernetes,os=linux") (default [queue=kubernetes])
-- Flag: --enable-queue-pause bool
-  Description: Allow the controller to pause processing the jobs when the queue is
-    paused on Buildkite. (default false)
-```
+    container images that cannot be pulled).",
+        default_value: "30s"
+      },
+      {
+        flag: "--job-cancel-checker-poll-interval",
+        type: "duration",
+        description: "Controls the interval between job state queries while a pod is still
+    Pending.",
+        default_value: "5s"
+      },
+      {
+        flag: "--job-creation-concurrency",
+        type: "integer",
+        description: "Controls the interval between job state queries while a pod is still
+    Pending.",
+        default_value: "5"
+      },
+      {
+        flag: " --job-ttl",
+        type: "duration",
+        description: "The time to retain Kubernetes jobs after completion.",
+        default_value: "10m0s"
+      },
+      {
+        flag: "--job-active-deadline-seconds",
+        type: "integer",
+        description: "The maximum number of seconds a Kubernetes job is allowed to run before
+    terminating all pods and failing.",
+        default_value: "21600"
+      },
+      {
+        flag: "--k8s-client-rate-limiter-burst",
+        type: "integer",
+        description: "The burst value of the K8s client rate limiter.",
+        default_value: "20"
+      },
+      {
+        flag: "--k8s-client-rate-limiter-qps",
+        type: "integer",
+        description: "The QPS value of the K8s client rate limiter.",
+        default_value: "10"
+      },
+      {
+        flag: "--max-in-flight",
+        type: "integer",
+        description: "The maximum jobs in flight, where a value of 0 means no maximum.",
+        default_value: "25"
+      },
+      {
+        flag: "--namespace",
+        type: "string",
+        description: "The Kubernetes namespace to create resources in.",
+        default_value: "default"
+      },
+      {
+        flag: "--org",
+        type: "string",
+        description: "The Buildkite organization name to watch."
+      },
+      {
+        flag: "--pagination-depth-limit",
+        type: "integer",
+        description: "Sets the maximum depth of pagination when retrieving Buildkite jobs
+    to be scheduled. Increasing this value will increase the number of requests made
+    to the Buildkite GraphQL API and number of jobs to be scheduled on the Kubernetes
+    cluster.",
+        default_value: "1"
+      },
+      {
+        flag: "--poll-interval",
+        type: "duration",
+        description: "The time to wait between polling for new jobs (minimum <code>1s</code>). Note that increasing this causes jobs to be slower to start.",
+        default_value: "1s"
+      },
+      {
+        flag: "--profiler-address",
+        type: "string",
+        description: "The bind address to expose the pprof profiler (for example, <code>localhost:6060</code>)."
+      },
+      {
+        flag: "--prohibit-kubernetes-plugin",
+        description: "Causes the controller to prohibit the Kubernetes plugin specified within
+    jobs (pipeline YAML). Enabling this causes jobs with a Kubernetes plugin to fail,
+    preventing the pipeline YAML from having any influence over the podSpec."
+      },
+      {
+        flag: "--prometheus-port",
+        type: "uint16",
+        description: "The bind port to expose Prometheus /metrics. Specifying 0 disables this feature."
+      },
+      {
+        flag: "--stale-job-data-timeout",
+        type: "duration",
+        description: "Duration after querying jobs in Buildkite that the data is considered
+    valid",
+        default_value: "10s"
+      },
+      {
+        flag: "--tags",
+        type: "strings",
+        description: "A comma-separated list of agent tags. The \"queue\" tag must be unique
+    (for example, \"queue=kubernetes,os=linux\")",
+        default_value: "[queue=kubernetes]"
+      },
+      {
+        flag: "--enable-queue-pause",
+        type: "bool",
+        description: "Allow the controller to pause processing the jobs when the queue is
+    paused on Buildkite.",
+        default_value: "false"
+      }
+    ].select { |field| field[:flag] }.each do |field| %>
+      <tr>
+        <td>
+          <p><code><%= field[:flag] %></code></p>
+          <% if field[:type] %>
+            <strong>&nbsp;&nbsp;Type:</strong> <code><%= field[:type] %></code>
+          <% end %>
+         </td>
+        <td>
+          <p><%= field[:description] %></p>
+          <% if field[:default_value] %>
+            <strong>Default:</strong> <code><%= field[:default_value] %></code>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 Use `agent-stack-k8s [command] --help` for more information about a command.
-
 
 > 📘 Queue pausing
 > With release `v0.24.0` of `agent-stack-k8s`, it is now possible to enable `--enable-queue-pause` in the config, allowing the controller to pause processing the jobs when `queue` is paused in Buildkite.
