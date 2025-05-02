@@ -52,23 +52,18 @@ This section covers the available commands for:
       {
         flag: "--default-image-check-pull-policy",
         type: "string",
-        description: "Sets a default PullPolicy for image-check init containers, used if
-    an image pull policy is not set for the corresponding container in a podSpec or
-    podSpecPatch."
+        description: "Sets a default PullPolicy for image-check init containers, used if an image pull policy is not set for the corresponding container in a podSpec or podSpecPatch."
       },
       {
         flag: "--default-image-pull-policy",
         type: "string",
-        description: "Configures a default image pull policy for containers that do not specify
-    a pull policy and non-init containers created by the stack itself.",
+        description: "Configures a default image pull policy for containers that do not specify a pull policy and non-init containers created by the stack itself.",
         default_value: "IfNotPresent"
       },
       {
         flag: "--empty-job-grace-period",
         type: "duration",
-        description: "The duration after starting a Kubernetes job that the controller will wait
-    before considering failing the job due to a missing pod (for example, when the podSpec
-    specifies a missing service account).",
+        description: "The duration after starting a Kubernetes job that the controller will wait before considering failing the job due to a missing pod (for example, when the podSpec specifies a missing service account).",
         default_value: "30s"
       },
       {
@@ -79,8 +74,7 @@ This section covers the available commands for:
       {
         flag: "--graphql-results-limit",
         type: "integer",
-        description: "Sets the amount of results returned by GraphQL queries when retrieving
-    Jobs to be Scheduled.",
+        description: "Sets the amount of results returned by GraphQL queries when retrieving jobs to be scheduled.",
         default_value: "100"
       },
       {
@@ -96,23 +90,19 @@ This section covers the available commands for:
       {
         flag: "--image-pull-backoff-grace-period",
         type: "duration",
-        description: "Duration after starting a pod that the controller will wait before
-    considering cancelling a job due to ImagePullBackOff (e.g., when the podSpec specifies
-    container images that cannot be pulled).",
+        description: "Duration after starting a pod that the controller will wait before considering cancelling a job due to ImagePullBackOff (e.g., when the podSpec specifies container images that cannot be pulled).",
         default_value: "30s"
       },
       {
         flag: "--job-cancel-checker-poll-interval",
         type: "duration",
-        description: "Controls the interval between job state queries while a pod is still
-    Pending.",
+        description: "Controls the interval between job state queries while a pod is still Pending.",
         default_value: "5s"
       },
       {
         flag: "--job-creation-concurrency",
         type: "integer",
-        description: "Controls the interval between job state queries while a pod is still
-    Pending.",
+        description: "Controls the interval between job state queries while a pod is still Pending.",
         default_value: "5"
       },
       {
@@ -124,8 +114,7 @@ This section covers the available commands for:
       {
         flag: "--job-active-deadline-seconds",
         type: "integer",
-        description: "The maximum number of seconds a Kubernetes job is allowed to run before
-    terminating all pods and failing.",
+        description: "The maximum number of seconds a Kubernetes job is allowed to run before terminating all pods and failing.",
         default_value: "21600"
       },
       {
@@ -160,10 +149,7 @@ This section covers the available commands for:
       {
         flag: "--pagination-depth-limit",
         type: "integer",
-        description: "Sets the maximum depth of pagination when retrieving Buildkite jobs
-    to be scheduled. Increasing this value will increase the number of requests made
-    to the Buildkite GraphQL API and number of jobs to be scheduled on the Kubernetes
-    cluster.",
+        description: "Sets the maximum depth of pagination when retrieving Buildkite jobs to be scheduled. Increasing this value will increase the number of requests made to the Buildkite GraphQL API and number of jobs to be scheduled on the Kubernetes cluster.",
         default_value: "1"
       },
       {
@@ -179,9 +165,7 @@ This section covers the available commands for:
       },
       {
         flag: "--prohibit-kubernetes-plugin",
-        description: "Causes the controller to prohibit the Kubernetes plugin specified within
-    jobs (pipeline YAML). Enabling this causes jobs with a Kubernetes plugin to fail,
-    preventing the pipeline YAML from having any influence over the podSpec."
+        description: "Causes the controller to prohibit the Kubernetes plugin specified within jobs (pipeline YAML). Enabling this causes jobs with a Kubernetes plugin to fail, preventing the pipeline YAML from having any influence over the podSpec."
       },
       {
         flag: "--prometheus-port",
@@ -191,22 +175,19 @@ This section covers the available commands for:
       {
         flag: "--stale-job-data-timeout",
         type: "duration",
-        description: "Duration after querying jobs in Buildkite that the data is considered
-    valid",
+        description: "Duration after querying jobs in Buildkite that the data is considered valid",
         default_value: "10s"
       },
       {
         flag: "--tags",
         type: "strings",
-        description: "A comma-separated list of agent tags. The \"queue\" tag must be unique
-    (for example, \"queue=kubernetes,os=linux\")",
+        description: "A comma-separated list of agent tags. The \"queue\" tag must be unique (for example, \"queue=kubernetes,os=linux\")",
         default_value: "[queue=kubernetes]"
       },
       {
         flag: "--enable-queue-pause",
         type: "bool",
-        description: "Allow the controller to pause processing the jobs when the queue is
-    paused on Buildkite.",
+        description: "Allow the controller to pause processing the jobs when the queue is paused on Buildkite.",
         default_value: "false"
       }
     ].select { |field| field[:flag] }.each do |field| %>
