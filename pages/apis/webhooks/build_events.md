@@ -58,7 +58,7 @@ Example request body:
 ```
 ## Finding out if a build is blocked
 
-To if a build is blocked, look for `blocked: true` in the `build.finished` event
+If a build is blocked, look for `blocked: true` in the `build.finished` event.
 
 Example request body for blocked build:
 
