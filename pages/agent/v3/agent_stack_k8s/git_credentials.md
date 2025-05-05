@@ -172,7 +172,7 @@ default-checkout-params:
       path: .git-credentials
 ```
 
-### Provide Kubernetes Secret via `kubernetes` plugin
+### Provide Kubernetes Secret via the Kubernetes plugin
 
 Under the `kubernetes` plugin, specify the name of the Kubernetes Secret via the `checkout.gitCredentialsSecret` config:
 
@@ -190,7 +190,7 @@ steps:
           secretName: my-git-https-credentials  # <---- this is the name of the Kubernetes Secret (ex. my-git-https-credentials, from command above)
 ```
 
-### Provide Git credentials to non-`checkout` containers
+### Provide Git credentials to non-checkout containers
 
 The above configurations provide Git credentials as a Kubernetes Secret to only the `checkout` container. If the `.git-credentials` file is required in user-defined job
 containers, you can add a volume mount for the `git-credentials` volume, and configure Git to use the file within it (e.g. with `git config credential.helper 'store --file ...'`).
@@ -211,9 +211,9 @@ steps:
         skip: true # prevents scheduling the checkout container
 ```
 
-## Using `default-checkout-params`
+## Using default checkout parameters
 
-`envFrom` can be added to all checkout, command, and sidecar containers
+While using Using `default-checkout-params`, `envFrom` can be added to all checkout, command, and sidecar containers
 separately, either per-step in the pipeline or for all jobs in `values.yaml`.
 
 Pipeline example (note that the blocks are `checkout`, `commandParams`, and

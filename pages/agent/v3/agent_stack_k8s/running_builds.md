@@ -18,7 +18,7 @@ An example above will create a Buildkite job containing an agent tag of `queue=k
 The `agent-stack-k8s` controller will retrieve this job via the Agent API and convert it into a Kubernetes job.
 The Kubernetes job will contain a single Pod with containers that will checkout the pipeline's Git repository and use the (default image) `buildkite/agent:latest` container to run the `echo Hello World!` command.
 
-### The `kubernetes` plugin
+### The Kubernetes plugin
 
 For defining of more complicated pipeline steps, additional configurations can be used with the `kubernetes` plugin. 
 
@@ -41,7 +41,7 @@ steps:
 
 Just like with a standalone installation of the Buildkite agent, in order to access and clone private repositories you will need to make Git credentials available for the Agent to use. These credentials can be in the form of a SSH key for cloning over `ssh://` or with a `.git-credentials` file for cloning over `https://`.
 
-## Defining `nodeSelector`
+## Defining the node selector
 
 The `agent-stack-k8s` controller can schedule your Buildkite jobs to run on particular Kubernetes Nodes, using Kubernetes PodSpec fields for `nodeSelector` and `nodeName`.
 
@@ -76,7 +76,7 @@ steps:
 ...
 ```
 
-## Defining `nodeName`
+## Defining the node name`
 
 The [`nodeName`](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-specific-node) field of the PodSpec can also be used to schedule your Buildkite jobs on a specific Kubernetes Node.
 

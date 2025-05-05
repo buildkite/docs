@@ -33,6 +33,8 @@ The following are the optional ways of implementing pipeline signing with the co
 
 ### `config/agent-config/signing-jwks-file`
 
+The following applies to `config/agent-config/signing-jwks-file`.
+
 Specifies the relative/absolute path of the JWKS file containing a signing key.
 When an absolute path is provided, the will be the mount path for the JWKS file.
 When a relative path (or filename) is provided, this will be appended to `/buildkite/signing-jwks` to create the mount path for the JWKS file.
