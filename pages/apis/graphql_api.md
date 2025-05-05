@@ -10,7 +10,7 @@ The quickest way to get started with the GraphQL API is to try the [GraphQL cons
 
 <div><a href="https://buildkite.com/user/graphql/console"><%= image "console.png", width: 2470, height: 1530, alt: "Screenshot of the GraphQL Console on Buildkite" %></a></div>
 
-See our [Getting started tutorial](https://buildkite.com/docs/apis/graphql/graphql-tutorial) for a step-by-step guide to using GraphQL queries and mutations from the GraphQL console or the command line.
+Learn more about using GraphQL queries and mutations with the GraphQL console or command line in the [Console and CLI getting started tutorial](https://buildkite.com/docs/apis/graphql/graphql-tutorial).
 
 >📘 Note for contributors to public and open-source projects
 > You need to be a member of the Buildkite organization to be able to generate and use an API token for it.
