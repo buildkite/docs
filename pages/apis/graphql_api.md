@@ -4,16 +4,13 @@ The Buildkite GraphQL API provides an alternative to the [REST API](/docs/apis/r
 
 For the list of existing disparities between the GraphQL API and the REST API, see [API differences](/docs/apis/api-differences).
 
-
 ## Getting started
 
-The quickest way to get started with the GraphQL API is to generate an <a href="<%= url_helpers.user_access_tokens_url %>" rel="nofollow">API Access Token</a> with GraphQL scope, and then use the [GraphQL explorer](https://graphql.buildkite.com/explorer) with its built-in documentation:
+The quickest way to get started with the GraphQL API is to try the [GraphQL console](https://buildkite.com/user/graphql/console) on Buildkite.
 
-<div><a href="https://graphql.buildkite.com/explorer"><%= image "explorer.png", width: 1065, height: 489, alt: "Screenshot of the Buildkite GraphQL Explorer" %></a></div>
+<div><a href="https://buildkite.com/user/graphql/console"><%= image "console.png", width: 2470, height: 1530, alt: "Screenshot of the GraphQL Console on Buildkite" %></a></div>
 
-See our [Getting started tutorial](https://building.buildkite.com/tutorial-getting-started-with-graphql-queries-and-mutations-11211dfe5d64) for a step-by-step guide to using GraphQL queries and mutations.
-
-You can also use Buildkite's [GraphQL console](https://buildkite.com/user/graphql/console), or the command line. See our [Tutorial](/docs/apis/graphql/graphql-tutorial) to get started.
+Learn more about using GraphQL queries and mutations with the GraphQL console or command line in the [Console and CLI getting started tutorial](https://buildkite.com/docs/apis/graphql/graphql-tutorial).
 
 >📘 Note for contributors to public and open-source projects
 > You need to be a member of the Buildkite organization to be able to generate and use an API token for it.
