@@ -41,7 +41,7 @@ helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-
     --values values.yml
 ```
 
-These deployment methods will:
+Both of these deployment methods will:
 - Create a Kubernetes deployment and install the `agent-stack-k8s` controller as a Pod running in the `buildkite` namespace.
   * The `buildkite` namespace is created if it does not already exist in the Kubernetes cluster
 - The controller will use the provided `agentToken` to query the Buildkite Agent API looking for jobs:
