@@ -1,49 +1,65 @@
 # Labels
 
+Labels:
+
+- Allow you to organize tests to be more meaningful to your team and organization.
+- Can be used to filter tests within Test Engine.
+
 Use labels to categorize tests.
 
-<%= image "labelling.png", width: 938, height: 349, alt: "Screenshot of a test with labels categorizing the test" %>
+<%= image "labeling.png", width: 938, height: 349, alt: "Screenshot of a test with labels categorizing the test" %>
 
-Labels allow you to organize tests in a way that is most meaningful to your team and organization. They can be used to filter tests within Test Engine.
+Labels are created at the test suite level. Therefore, labels belonging to one test suite will not impact the labels associated with other test suites.
 
-Labels are created at the suite level, so labels belonging to one suite won't impact other suites.
+## Label a test
 
-## Labelling a test
+Labels may be applied to tests using the following methods.
 
-Labels may be applied to tests using the following methods:
+### Using the Buildkite interface
 
-### Via UI
+From the details page of a test (accessible through its test suite's **Test** page), select **Add labels** and either:
 
-From the test page select **add labels** and either pick from the existing labels used in the suite or create a new label and select a color.
+- Select a label from the list of existing used in the test's suite.
+- Specify a **New label**, select its **Label color**, and select **Save**.
 
-### Via workflow automation
+> 📘
+> To remove a label from a test, select **Add labels** from the test's details page, and from its drop-down, clear the checkbox next to the label.
 
-Using test state you can automate adding and removing labels when the the threshold is triggered or resolved respectively.
+### Using workflow automation
 
-See [automatic quarantine](/docs/test-engine/test-state-and-quarantine#automatic-quarantine) to learn more.
+Using [test states](/docs/test-engine/glossary#test-state), you can automate the addition and removal of labels when a specific test failure threshold is reached.
 
-### Via execution tags
+Learn more about this feature in [Automatic quarantine](/docs/test-engine/test-state-and-quarantine#automatic-quarantine).
 
-Test execution tag values can be applied as a label on the Test.
+### Using execution tags
+
+Test execution [tag](/docs/test-engine/glossary#tag) values can be applied as a label on a test.
 
 When Test Engine detects a change to the tag value it will update the label on the respective test.
 
-Test Engine will only label tests based on execution tags when configured to do so in the suite settings under **test labels**.
+Test Engine will only label tests based on execution tags when their test suite is configured to do so in the suite's **Settings** > **Test labels** (tab) page.
 
 <%= image "execution_tags.png", width: 1547, height: 604, alt: "Screenshot of configuring suite settings to copy tags to labels" %>
 
-See [Tags](/docs/test-engine/tags) to learn more about execution tagging.
+Learn more about test execution tagging in [Tags](/docs/test-engine/tags).
 
-### Via API
+### Using the REST API
 
-You can label tests via the API, to learn more see the [Label API](/docs/apis/rest-api/test-engine/tests#add-slash-remove-labels-from-a-test).
+You can label tests using the [REST API](/docs/apis/rest-api) with the [Tests API](/docs/apis/rest-api/test-engine/tests) endpoint. Learn more about this in [Add/remove labels from a test](/docs/apis/rest-api/test-engine/tests#add-slash-remove-labels-from-a-test).
 
-## Filtering
+## Filter tests
 
-Filtering tests by label by either entering `label:{labelname}` in the search bar of the test index or by selecting **filter by** in the label drop down on the test.
+You can filter tests using labels through the [Buildkite interface](#filter-tests-using-the-buildkite-interface) or [REST API](#filter-tests-using-the-rest-api).
+
+### Using the Buildkite interface
+
+On the test suite's **Tests** page, either:
+
+- Enter `label:labelname` in the search field and select **Search**.
+- For any existing test with at least one label applied to it, select the test's label > **Filter by** from its drop down to filter the test suite for all tests with that label applied to them.
 
 <%= image "filtering.png", width: 1130, height: 514, alt: "Screenshot of filtering by a test label" %>
 
-### Via API
+### Using the REST API
 
-You can fetch all tests with a label via the API, to learn more see the [Label API](/docs/apis/rest-api/test-engine/tests#list-tests).
+You can fetch all tests with a label using the [REST API](/docs/apis/rest-api) with the [Tests API](/docs/apis/rest-api/test-engine/tests) endpoint. Learn more about this in [List tests](/docs/apis/rest-api/test-engine/tests#list-tests), and by specifying the optional `label` query string parameter.
