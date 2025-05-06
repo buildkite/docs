@@ -318,11 +318,11 @@ query getOrgMemberID{
     members(first: 1, search: "user-email") {
       edges {
         node {
+          id
           role
           user {
             name
             email
-            id
           }
         }
       }
