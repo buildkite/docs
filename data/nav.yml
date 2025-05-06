@@ -801,7 +801,6 @@
         - name: "Integrations"
           path: "apis/webhooks/integrations"
     - name: "Portals"
-      pill: "preview"
       children:
         - name: "Overview"
           path: "apis/portals"
