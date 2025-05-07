@@ -1,19 +1,21 @@
 # Labels
 
-Labels:
+Labels allow you to:
 
-- Allow you to organize tests to be more meaningful to your team and organization.
-- Can be used to filter tests within Test Engine.
-
-Use labels to categorize tests.
+- Organize tests to be more meaningful to your team and organization.
+- Categorize tests, and therefore, can be used to filter tests within Test Engine.
 
 <%= image "labeling.png", width: 938, height: 349, alt: "Screenshot of a test with labels categorizing the test" %>
 
-Labels are created at the test suite level. Therefore, labels belonging to one test suite will not impact the labels associated with other test suites.
+Labels are created at the [test suite](/docs/test-engine/glossary#test-suite) level. Therefore, labels belonging to one test suite will not impact the labels associated with other test suites.
 
 ## Label a test
 
-Labels may be applied to tests using the following methods.
+Labels may be applied to or removed from tests:
+
+- Manually through the [Buildkite interface](#label-a-test-using-the-buildkite-interface).
+- Automatically through the [automatic quarantine](#label-a-test-using-automatic-quarantine) or [test execution tags](#label-a-test-using-execution-tags) features.
+- The [REST API](#label-a-test-using-the-rest-api).
 
 ### Using the Buildkite interface
 
