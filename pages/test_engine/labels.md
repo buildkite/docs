@@ -25,7 +25,7 @@ From the details page of a test (accessible through its test suite's **Test** pa
 > 📘
 > To remove a label from a test, select **Add labels** from the test's details page, and from its drop-down, clear the checkbox next to the label.
 
-### Using workflow automation
+### Using automatic quarantine
 
 Using [test states](/docs/test-engine/glossary#test-state), you can automate the addition and removal of labels when a specific test failure threshold is reached.
 
@@ -33,15 +33,18 @@ Learn more about this feature in [Automatic quarantine](/docs/test-engine/test-s
 
 ### Using execution tags
 
-Test execution [tag](/docs/test-engine/glossary#tag) values can be applied as a label on a test.
+A test execution [tag](/docs/test-engine/glossary#tag) value can be applied as a label on a test.
 
-When Test Engine detects a change to the tag value it will update the label on the respective test.
+Also, when Test Engine detects a change to such a tag's value, its label on the respective test is also updated to this value.
 
-Test Engine will only label tests based on execution tags when their test suite is configured to do so in the suite's **Settings** > **Test labels** (tab) page.
+Test Engine only labels tests from execution tag values when their test suite is configured to do so in the suite's **Settings** > **Test labels** (tab) page.
 
 <%= image "execution_tags.png", width: 1547, height: 604, alt: "Screenshot of configuring suite settings to copy tags to labels" %>
 
 Learn more about test execution tagging in [Tags](/docs/test-engine/tags).
+
+> 📘
+> A label added to a test through a test execution tag is automatically removed when the tag is removed from the test execution.
 
 ### Using the REST API
 
