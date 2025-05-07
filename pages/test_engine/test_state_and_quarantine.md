@@ -28,6 +28,8 @@ Users can enable automatic quarantine from the test suite's **Settings** > **Tes
 
 Automatic quarantining tests only either mutes or skips [flaky tests](/docs/test-engine/flaky-test-management#detecting-flaky-tests) when the pipeline is built on the test suite's **Default branch**, as well as the merge queue branch.
 
+Along with changing the test state, the automatic quarantine feature can apply a label to a test when the test is quarantined and remove the label when the test is released from quarantine. Learn more about labeling in [Labels](/docs/test-engine/labels).
+
 ## Manual quarantine
 
 Users can manually quarantine flaky tests via the dropdown menu within the test's page itself or the test digest. This helps unblock builds affected by unreliable tests in real time.

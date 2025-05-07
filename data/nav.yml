@@ -512,6 +512,8 @@
               path: "test-engine/test-splitting/client-installation"
         - name: "Test ownership"
           path: "test-engine/test-ownership"
+        - name: "Labels"
+          path: "test-engine/labels"
         - name: "Usage and billing"
           path: "test-engine/usage-and-billing"
         - name: "Public test suites"
