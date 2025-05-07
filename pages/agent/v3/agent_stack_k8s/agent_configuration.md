@@ -24,12 +24,11 @@ config:
     plugin-validation: false
 ```
 
-Note that even if `no-command-eval` or `no-plugins` is enabled, the Kubernetes
-plugin may still be able to override everything, since it is interpreted by the stack controller and not the agent. `no-command-eval` or `no-plugins` should be used together with [`prohibit-kubernetes-plugin`](TODO add proper link to securing-stack).
+Note that even if `no-command-eval` or `no-plugins` is enabled, the Kubernetes plugin may still be able to override everything, since it is interpreted by the stack controller and not the agent. `no-command-eval` or `no-plugins` should be used together with the [`prohibit-kubernetes-plugin`](/docs/agent/v3/agent-stack-k8s/securing-the-stack) option.
 
 ## Pipeline signing
 
-The following sections describe optional methods for implementing pipeline signing with the controller.
+The following sections describe optional methods for implementing pipeline signing with the Buildkite Agent Stack for Kubernetes controller.
 
 ### JWKS signing file configuration
 
@@ -49,7 +48,7 @@ config:
 
 ### JWKS key ID configuration
 
-Applies to the signing-jwks-key-id configuration parameter.
+Applies to the `signing-jwks-key-id` configuration parameter.
 
 The value provided via `--key-id` during JWKS key pair generation.
 If not provided and the JWKS file contains only one key, that key will be used.
@@ -61,6 +60,8 @@ config:
 ```
 
 ### Signing JWKS volume configuration
+
+Applies to the `config/agent-config/signing-jwks-file` configuration parameter.
 
 Creates a Kubernetes Volume, which is mounted to the user-defined command containers at the path specified by `config/agent-config/signing-jwks-file`, containing JWKS signing key data from a Kubernetes Secret.
 

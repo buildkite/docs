@@ -1,10 +1,10 @@
 # Default parameters for the Buildkite Agent Stack for Kubernetes
 
-This document outlines the default parameters for the  Buildkite Agent Stack for Kubernetes.
+This document outlines the default checkout, command, and sidecar parameters for configuring and using the Buildkite Agent Stack for Kubernetes.
 
 ## Default checkout parameters
 
-`envFrom` can be added to all `checkout` containers separately, either per-step in the pipeline or for all jobs in `values.yaml`:
+You can add `envFrom` to all `checkout` containers separately, either per-step in the pipeline or for all jobs in `values.yaml`:
 
 ```yaml
 # pipeline.yml
@@ -33,7 +33,7 @@ config:
 
 ## Default command parameters
 
-`envFrom` can be added to all user-defined command containers separately, either per-step in the pipeline or for all jobs in `values.yaml`:
+You can add `envFrom` to all user-defined command containers separately, either per-step in the pipeline or for all jobs in `values.yaml`:
 
 ```yaml
 # pipeline.yml
@@ -64,7 +64,7 @@ config:
 
 ## Default sidecar parameters
 
-`envFrom` can be added to all `sidecar` containers separately, either per-step in the pipeline or for all jobs in `values.yaml`:
+You can add `envFrom` all `sidecar` containers separately, either per-step in the pipeline or for all jobs in `values.yaml`:
 
 ```yaml
 # pipeline.yml

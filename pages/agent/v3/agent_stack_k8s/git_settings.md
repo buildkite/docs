@@ -1,6 +1,6 @@
 # Git settings
 
-In the controller versions v0.13.0 and later, flags for `git clone` and `git fetch` can be overridden per-step (similar to
+In the Buildkite Agent Stack for Kubernetes controller versions v0.13.0 and later, flags for `git clone` and `git fetch` can be overridden on a per-step basis (similar to
 `BUILDKITE_GIT_CLONE_FLAGS` and `BUILDLKITE_GIT_FETCH_FLAGS` env vars) with the `checkout` block:
 
 ```yaml
@@ -16,8 +16,7 @@ steps:
         fetchFlags: -v --prune --tags
 ```
 
-From version v0.16.0 onwards, more Git flags and options supported by the agent are
-also configurable with the `checkout` block. For example:
+Starting with the Buildkite Agent Stack for Kubernetes controller version v0.16.0 onwards, more Git flags and options supported by the agent are also configurable with the `checkout` block. For example:
 
 ```yaml
 # pipeline.yml
@@ -42,7 +41,7 @@ steps:
           cloneFlags: -v
 ```
 
-To avoid setting `checkout` on every step, you can use `default-checkout-params` within `values.yaml` when deploying the stack. These will apply the settings to every job. Example:
+To avoid setting `checkout` on every step, you can use `default-checkout-params` within `values.yaml` when deploying the stack. These will apply the settings to every job. For example:
 
 ```yaml
 # values.yaml

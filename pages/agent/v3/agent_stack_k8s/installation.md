@@ -18,19 +18,13 @@ You will need to create a YAML configuration file with the following values:
 
 ```yaml
 # values.yml
-agentToken: <Buildkite Cluster Agent Token>
+agentToken: "your-Buildkite-cluster-agent-token"
 config:
-  org: <Buildkite Org Slug>
-  cluster-uuid: <Buildkite Cluster UUID>
+  org: "Buildkite-organization-slug"
+  cluster-uuid: "Buildkite-cluster-UUID"
   tags:
     - queue=kubernetes
 ```
-
-To find the Buildkite cluster UUID:
-- Go to the [Clusters page](https://buildkite.com/organizations/-/clusters)
-- Click on the Cluster containing your Cluster Queue
-- Click on "Settings"
-- The UUID of the Cluster UUID will shown under "GraphQL API Integration"
 
 Next, you need to deploy the Helm chart, referencing the configuration values in the YAML file you've created:
 
@@ -42,11 +36,20 @@ helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-
 ```
 
 Both of these deployment methods will:
+
 - Create a Kubernetes deployment and install the `agent-stack-k8s` controller as a Pod running in the `buildkite` namespace.
   * The `buildkite` namespace is created if it does not already exist in the Kubernetes cluster
 - The controller will use the provided `agentToken` to query the Buildkite Agent API looking for jobs:
   * In your Organization (`config.org`)
   * Assigned to the `kubernetes` Queue in your Cluster (`config.cluster-uuid`)
+
+## How to find a Buildkite Cluster's UUID
+
+To find the Buildkite cluster UUID:
+- Go to the [Clusters page](https://buildkite.com/organizations/-/clusters)
+- Click on the Cluster containing your Cluster Queue
+- Click on "Settings"
+- The UUID of the Cluster UUID will shown under "GraphQL API Integration"
 
 ## Storing Buildkite tokens in Kubernetes Secret
 
@@ -77,10 +80,10 @@ To reference your Kubernetes Secret with your configuration values YAML file:
 
 ```yaml
 # values.yml
-agentStackSecret: <Kubernetes Secret name>
+agentStackSecret: "Kubernetes-Secret-name"
 config:
-  org: <Buildkite Org Slug>
-  cluster-uuid: <Buildkite Cluster UUID>
+  org: "Buildkite-organization-slug"
+  cluster-uuid: "Buildkite-cluster-UUID"
   tags:
     - queue=kubernetes
 ```
@@ -102,7 +105,7 @@ Alternatively, you can also use this chart as a Helm [template](https://helm.sh/
 helm template oci://ghcr.io/buildkite/helm/agent-stack-k8s --values values.yaml
 ```
 
-Latest and previous `agent-stack-k8s` versions (with digests) can be found under [Releases](https://github.com/buildkite/agent-stack-k8s/releases) in the Buildkite Agent Stack for Kubernetes [GitHub repository](https://github.com/buildkite/agent-stack-k8s/).
+Latest and previous versions (with digests) of the Buildkite Agent Stack for Kubernetes `agent-stack-k8s` can be found under [Releases](https://github.com/buildkite/agent-stack-k8s/releases) in the Buildkite Agent Stack for Kubernetes [GitHub repository](https://github.com/buildkite/agent-stack-k8s/).
 
 ## Controller configuration
 
@@ -110,4 +113,4 @@ Detailed configuration options can be found in the the documentation for [contro
 
 ## Running builds
 
-After the `agent-stack-k8s` Kubernetes controller has been configured and deployed, you are ready to [run a Buildkite build](/docs/agent/v3/agent-stack-k8s/running-builds).
+After the Buildkite Agent Stack `agent-stack-k8s` Kubernetes controller has been configured and deployed, you are ready to [run a Buildkite build](/docs/agent/v3/agent-stack-k8s/running-builds).

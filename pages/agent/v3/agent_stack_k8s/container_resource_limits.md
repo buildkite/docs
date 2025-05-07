@@ -1,7 +1,5 @@
 # Default container resources (requests and limits)
 
-## Using `pod-spec-patch` in the Controller's Configuration
-
 In the controller's values YAML, you can specify the default resources (requests/limits) to apply to Pods/containers:
 
 ```yaml
@@ -42,7 +40,9 @@ config:
           memory: 1Gi
 ```
 
-All Jobs created by the `agent-stack-k8s` controller will have these resources applied. To override these resources for a single job, use the `kubernetes` plugin with `podSpecPatch` to define container resources:
+## Using the PodSpec patch
+
+All Jobs created by the `agent-stack-k8s` controller will have the resources applied in the example in the previous section. To override these resources for a single job, use the `kubernetes` plugin with `podSpecPatch` to define container resources:
 
 ```yaml
 # pipelines.yaml

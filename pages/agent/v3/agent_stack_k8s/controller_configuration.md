@@ -1,6 +1,7 @@
 # Controller configuration
 
-This section covers the available commands for: 
+This section covers the available commands for:
+ 
 - `agent-stack-k8s [flags]`
 - `agent-stack-k8s [command]`
 

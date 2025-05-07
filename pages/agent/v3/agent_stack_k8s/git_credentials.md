@@ -1,25 +1,24 @@
 # Git credentials 
 
-Similarly to a standalone installation of the Buildkite agent, in order to access and clone private repos, you will need to make Git credentials available for the Agent to use.
-These credentials can be in the form of an SSH key for cloning over `ssh://` or with a `.git-credentials` file for cloning over `https://`.
+Similarly to a standalone installation of the Buildkite agent, in order to access and clone private repos, you will need to make Git credentials available for the Agent to use. These credentials can be in the form of an SSH key for cloning over `ssh://` or with a `.git-credentials` file for cloning over `https://`.
 
 ## Cloning repositories using SSH keys
 
-To use SSH to clone your repos, you'll need to create a Kubernetes Secret containing an authorized SSH private key and configure `agent-stack-k8s` to mount this Secret into the `checkout` container that is used to perform the Git repository cloning.
+To use SSH to clone your repos, you'll need to create a Kubernetes Secret containing an authorized SSH private key and configure the Buildkite Agent Stack for Kubernetes to mount this Secret into the `checkout` container that is used to perform the Git repository cloning.
 
 ### Create Kubernetes Secret from SSH Private Key
 
 > 🚧 Warning!
 > Support for DSA keys has been removed from OpenSSH as of early 2025. This removal now affects `buildkite/agent` version `v3.88.0` and newer. Please migrate to `RSA`, `ECDSA`, or `EDDSA` keys.
 
-After creating an SSH keypair and registering its public key with the remote repository provider (e.g. [GitHub](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)), you can create a Kubernetes Secret using the SSH private key file.
+After creating an SSH keypair and registering its public key with the remote repository provider (for example, [GitHub](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)), you can create a Kubernetes Secret using the SSH private key file.
 
 Ensure that the environment variable name matches the recognized names (`SSH_PRIVATE_*_KEY`) in [`docker-ssh-env-config`](https://github.com/buildkite/docker-ssh-env-config).
 - `SSH_PRIVATE_ECDSA_KEY`
 - `SSH_PRIVATE_ED25519_KEY`
 - `SSH_PRIVATE_RSA_KEY`
 
-A script from this project is included in the default entry point of the default [`buildkite/agent`](https://hub.docker.com/r/buildkite/agent) Docker image. It will process the value of the secret and write out a private key to the `~/.ssh` directory of the checkout container.
+A script from this project is included in the default entry point of the default [`buildkite/agent`](https://hub.docker.com/r/buildkite/agent) Docker image. It will process the value of the Kubernetes Secret and write out a private key to the `~/.ssh` directory of the checkout container.
 
 To create a Kubernetes Secret named `my-git-ssh-credentials` containing the contents of the SSH private key file `$HOME/.ssh/id_rsa`:
 
@@ -27,11 +26,11 @@ To create a Kubernetes Secret named `my-git-ssh-credentials` containing the cont
 kubectl create secret generic my-git-ssh-credentials --from-file=SSH_PRIVATE_RSA_KEY="$HOME/.ssh/id_rsa" -n buildkite
 ```
 
-This Secret can be referenced by the `agent-stack-k8s` controller using [EnvFrom](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables) from within the controller configuration or via the `gitEnvFrom` config of the `kubernetes` plugin.
+This Kubernetes Secret can be referenced by the Buildkite Agent Stack for Kubernetes controller using [EnvFrom](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables) from within the controller configuration or via the `gitEnvFrom` config of the `kubernetes` plugin.
 
 ### Provide Kubernetes Secret in the configuration
 
-Using [`pod-spec-patch`](TODO need-link-to-configuration-value-page), you can specify the Kubernetes Secret containing your SSH private key in your configuration values YAML file using `envFrom`:
+Using [`pod-spec-patch`](/docs/agent/v3/agent-stack-k8s/container-resource-limits#using-the-podspec-patch), you can specify the Kubernetes Secret containing your SSH private key in your configuration values YAML file using `envFrom`:
 
 ```yaml
 # values.yaml
@@ -40,10 +39,10 @@ config:
   ...
   pod-spec-patch:
     containers:
-    - name: checkout                    # <---- this is needed so that the secret will only be mounted on the checkout container
+    - name: checkout                    # <---- this is needed for the secret to only be mounted on the checkout container
       envFrom:
       - secretRef:
-          name: my-git-ssh-credentials  # <---- this is the name of the Kubernetes Secret (ex. my-git-ssh-credentials, from command above)
+          name: my-git-ssh-credentials  # <---- this is an example name of the Kubernetes Secret
 ```
 
 ### Provide Kubernetes Secret using the Kubernetes plugin
@@ -61,7 +60,7 @@ steps:
   - kubernetes:
       gitEnvFrom:
       - secretRef:
-          name: my-git-ssh-credentials  # <---- this is the name of the Kubernetes Secret (ex. my-git-ssh-credentials, from command above)
+          name: my-git-ssh-credentials  # <---- this is an example name of the Kubernetes Secret
 ```
 
 > 📘 Note! 
@@ -71,10 +70,10 @@ steps:
 
 ### Provide SSH Private Key to non-checkout containers
 
-The above configurations provide the SSH private key as a Kubernetes Secret to only the `checkout` container. If Git SSH credentials are required in user-defined job
-containers, there are a few options:
-* Use a container image based on the default `buildkite/agent` Docker image, which preserves the default entry point by not overriding the command in the job spec
-* Include or reproduce the functionality of the [`ssh-env-config.sh`](https://github.com/buildkite/docker-ssh-env-config/blob/-/ssh-env-config.sh) script in the entry point for your job container image to source from recognized environment variable names.
+The above configurations provide the SSH private key as a Kubernetes Secret to only the `checkout` container. If Git SSH credentials are required in user-defined job containers, there are a few options:
+
+- Use a container image based on the default `buildkite/agent` Docker image, which preserves the default entry point by not overriding the command in the job spec.
+- Include or reproduce the functionality of the [`ssh-env-config.sh`](https://github.com/buildkite/docker-ssh-env-config/blob/-/ssh-env-config.sh) script in the entry point for your job container image to source from recognized environment variable names.
 
 Here is an example how to setup an SSH Private key in `container-0`
 
@@ -131,8 +130,7 @@ steps:
 
 ## Cloning repositories using Git credentials
 
-To use HTTPS to clone private repos, you can use a `.git-credentials` file stored in a secret, and
-refer to this secret using the `gitCredentialsSecret` checkout parameter.
+To use HTTPS to clone private repos, you can use a `.git-credentials` file stored in a secret, and refer to this secret using the `gitCredentialsSecret` checkout parameter.
 
 ### Creating Kubernetes Secret from Git credentials file
 
@@ -157,8 +155,7 @@ config:
       secretName: my-git-https-credentials
 ```
 
-If you wish to use a different key within the Kubernetes Secret than `.git-credentials`, you can
-[project it](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#project-secret-keys-to-specific-file-paths)
+If you wish to use a different key within the Kubernetes Secret than `.git-credentials`, you can [project it](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#project-secret-keys-to-specific-file-paths)
 to `.git-credentials` by using `items` within `gitCredentialsSecret`.
 
 ```yaml
@@ -192,10 +189,12 @@ steps:
 
 ### Provide Git credentials to non-checkout containers
 
-The above configurations provide Git credentials as a Kubernetes Secret to only the `checkout` container. If the `.git-credentials` file is required in user-defined job
-containers, you can add a volume mount for the `git-credentials` volume, and configure Git to use the file within it (e.g. with `git config credential.helper 'store --file ...'`).
+The above configurations provide Git credentials as a Kubernetes Secret to only the `checkout` container. If the `.git-credentials` file is required in user-defined job containers, you can add a volume mount for the `git-credentials` volume, and configure Git to use the file within it (e.g. with `git config credential.helper 'store --file ...'`).
 
 ## Skipping checkout (v0.13.0 and later)
+
+> 📘 Version requirement
+> To be able to implement the configuration options described below, `v0.13.0` or newer of the controller is required.
 
 For some steps, you may wish to avoid checkout (cloning a source repository).
 This can be done with the `checkout` block under the `kubernetes` plugin:
