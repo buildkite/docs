@@ -84,31 +84,31 @@ steps:
 
 There are 3 main aspects necessary for making sure that hooks are available to the containers in `agent-stack-k8s`.
 
-1. Define the env variable `BUILDKITE_HOOKS_PATH` with the path `agent ` and `checkout` containers will look for hooks:
+- Define the env variable `BUILDKITE_HOOKS_PATH` with the path `agent ` and `checkout` containers will look for hooks:
 
-   ```yaml
-          env:
-          - name: BUILDKITE_HOOKS_PATH
-            value: /buildkite/hooks
-   ```
+```yaml
+       env:
+       - name: BUILDKITE_HOOKS_PATH
+         value: /buildkite/hooks
+```
 
-2. Define the `VolumeMounts` using `extraVolumeMounts` which will be the path where the hooks will be mounted to within the containers:
+- Define the `VolumeMounts` using `extraVolumeMounts` which will be the path where the hooks will be mounted to within the containers:
 
-   ```yaml
-        extraVolumeMounts:
-        - mountPath: /buildkite/hooks
-          name: agent-hooks
-   ```
+```yaml
+     extraVolumeMounts:
+     - mountPath: /buildkite/hooks
+       name: agent-hooks
+```
 
-3. Define `volumes` where the configmap will be mounted:
+- Define `volumes` where the configmap will be mounted:
 
-   ```yaml
-          volumes:
-          - configMap:
-              defaultMode: 493
-              name: buildkite-agent-hooks
-            name: agent-hooks
-   ```
+```yaml
+       volumes:
+       - configMap:
+           defaultMode: 493
+           name: buildkite-agent-hooks
+         name: agent-hooks
+```
    
 > 📘 Permissions and availability
 > Note that in the examples above, the defaultMode `493` is setting the Unix permissions to `755` which enables the hooks to be executable. Another way to make this hooks directory available to containers is to use [hostPath](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) mount but it is not a recommended approach for production environments.
