@@ -1,6 +1,6 @@
 # Prometheus metrics
 
-All metrics exported by agent-stack-k8s begin with `buildkite_`. The second component of the metric name refers to the controller component that produces the metric.
+All metrics exported by the `agent-stack-k8s` controller begin with `buildkite_`. The second component of the metric name refers to the controller component that produces the metric.
 
 ## Notes on using the metrics
 
@@ -8,14 +8,12 @@ Most metrics below are counter metrics, designed to be used in conjunction with 
 
 PromQL examples:
 
-- `rate(buildkite_scheduler_job_create_success_total[10m])` - jobs successfully created per second over a 10 minute window
-- `rate(buildkite_scheduler_job_create_errors_total[10m])` - errors per second of failures to create jobs over a 10 minute window
+- `rate(buildkite_scheduler_job_create_success_total[10m])` - jobs successfully created per second over a 10 minute window.
+- `rate(buildkite_scheduler_job_create_errors_total[10m])` - errors per second of failures to create jobs over a 10-minute window.
 
 Some metrics are gauges, which can be useful for diagnosing particular issues.
 
-A few metrics are native histograms, which requires the Prometheus feature flag
-to be enabled (`--enable-feature=native-histograms`). These are mostly latency
-histograms named ending in `_seconds`, and again work well with `rate`:
+A few metrics are native histograms, which requires the Prometheus feature flag to be enabled (`--enable-feature=native-histograms`). These are mostly latency histograms named ending in `_seconds`, and again work well with `rate`:
 
 - `rate(buildkite_job_end_to_end_seconds[10m])` - histogram of time in seconds that jobs spent between being returned from a query to Buildkite and being created in Kubernetes, over a 10 minute window.
 - `rate(buildkite_monitor_job_query_seconds[10m])` - histogram of time spent querying Buildkite for jobs that can be scheduled, over a 10 minute window.

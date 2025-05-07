@@ -1,8 +1,6 @@
 # Volume mounts
 
-Sometimes you might want to attach extra volume mounts (in addition to the `/workspace` one) to some or all of the pod containers, for example if you want to use [git mirrors](https://buildkite.com/docs/agent/v3#promoted-experiments-git-mirrors). 
-
-In order to attach extra volume mounts to all containers (`checkout`, `agent`, `command`, `sidecar`, etc.) you can use the `kubernetes` plugin:
+In case you need to attach extra volume mounts (in addition to the `/workspace` one) to some or all of the pod containers, for example if you want to use [git mirrors](https://buildkite.com/docs/agent/v3#promoted-experiments-git-mirrors), it is possible. To attach extra volume mounts to _all_ containers (`checkout`, `agent`, `command`, `sidecar`, etc.) you can use the `kubernetes` plugin. For example:
 
 ```
 steps:
@@ -47,7 +45,7 @@ steps:
 
 ## Checkout containers
 
-In order to attach extra volumes to your `checkout` containers, define `config.default-checkout-params.extraVolumeMounts` in your configuration. Example:
+In order to only attach extra volumes to your `checkout` containers, define `config.default-checkout-params.extraVolumeMounts` in your yaml configuration. For example:
 
 ```yaml
 # values.yaml
@@ -69,7 +67,7 @@ config:
           type: DirectoryOrCreate
 ```
 
-Or `checkout.extraVolumeMounts` in the `kubernetes` plugin. Example:
+Alternatively, you can also do this via `checkout.extraVolumeMounts` in the `kubernetes` plugin. For example:
 
 ```yaml
 # pipeline.yml
@@ -92,7 +90,7 @@ Or `checkout.extraVolumeMounts` in the `kubernetes` plugin. Example:
 
 ## Command containers
 
-In order to attach extra volumes to your `container-#` (`command`) containers, define `config.default-command-params.extraVolumeMounts` in your configuration. Example:
+In order to only attach extra volumes to your `container-#` (`command`) containers, define `config.default-command-params.extraVolumeMounts` in your yaml configuration. For example:
 
 ```yaml
 # values.yaml
@@ -112,7 +110,7 @@ config:
           type: DirectoryOrCreate
 ```
 
-Or `commandParams.extraVolumeMounts` in the `kubernetes` plugin. Example:
+Alternatively, you can also do this via `commandParams.extraVolumeMounts` in the `kubernetes` plugin. For example:
 
 ```yaml
 # pipeline.yml
@@ -135,7 +133,7 @@ Or `commandParams.extraVolumeMounts` in the `kubernetes` plugin. Example:
 
 ## Sidecar containers
 
-In order to attach extra volumes to your `sidecar` containers, define `config.default-sidecar-params.extraVolumeMounts` in your configuration. Example:
+In order to only attach extra volumes to your `sidecar` containers, define `config.default-sidecar-params.extraVolumeMounts` in your configuration. For example:
 
 ```yaml
 # values.yaml
@@ -155,7 +153,7 @@ config:
           type: DirectoryOrCreate
 ```
 
-Or `sidecarParams.extraVolumeMounts` in the `kubernetes` plugin. Example:
+Alternatively, you can also do this via `sidecarParams.extraVolumeMounts` in the `kubernetes` plugin. For example:
 
 ```yaml
 # pipeline.yml

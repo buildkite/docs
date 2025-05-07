@@ -1,8 +1,6 @@
 # Default job metadata
 
-The `agent-stack-k8s` controller can automatically add labels and annotations to the Kubernetes Jobs it creates.
-
-## Controller configuration
+The Buildkite Agent Stack for Kubernetes controller can automatically add labels and annotations to the Kubernetes Jobs it creates.
 
 Default annotations and labels can be set in the controller's configuration values YAML file, via `default-metadata`.
 This will apply the defined annotations and labels to all Jobs created by the controller:
@@ -20,9 +18,7 @@ default-metadata:
 ...
 ```
 
-## Using the Kubernetes plugin
-
-Default labels can be set for individual steps in a pipeline using the `metadata` config of the `kubernetes` plugin:
+Alternatively, you can set the default labels for individual steps in a pipeline using the `metadata` config of the `kubernetes` plugin:
 
 ```yaml
 # pipeline.yaml
@@ -32,9 +28,9 @@ Default labels can be set for individual steps in a pipeline using the `metadata
         metadata:
           annotations:
             imageregistry: "https://hub.docker.com/"
-            mycoolannotation: llamas
+            myannotation: "ci-pipeline"
           labels:
-            argocd.argoproj.io/tracking-id: example-id-here
-            mycoollabel: alpacas
+            argocd.argoproj.io/tracking-id: "example-id-here"
+            mylabel: "backend"
 ...
 ```

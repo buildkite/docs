@@ -1,6 +1,6 @@
 # Default container resources (requests and limits)
 
-In the controller's values YAML, you can specify the default resources (requests/limits) to apply to Pods/containers:
+In the Buildkite Agent Stack for Kubernetes controller's values YAML, you can specify the default resources (requests and limits) to apply to the Pods and containers:
 
 ```yaml
 # values.yaml
@@ -24,7 +24,7 @@ config:
           memory: 50Mi
         limits:
           memory: 1Gi
-    - name: checkout       # this container clones the repo
+    - name: checkout       # this container clones the repository
       resources:
         requests:
           cpu: 100m
@@ -42,7 +42,7 @@ config:
 
 ## Using the PodSpec patch
 
-All Jobs created by the `agent-stack-k8s` controller will have the resources applied in the example in the previous section. To override these resources for a single job, use the `kubernetes` plugin with `podSpecPatch` to define container resources:
+All the Kubernetes Jobs created by the `agent-stack-k8s` controller will have the resources applied in the example in the previous section. To override these resources for a single job, use the `kubernetes` plugin with `podSpecPatch` to define container resources. For example:
 
 ```yaml
 # pipelines.yaml
@@ -64,7 +64,7 @@ steps:
               memory: 1Gi
 
 - name: Hello from a container with default resources
-  command: echo Hello World!
+  command: echo "Hello World!"
 ```
 
 ## Configuring imagecheck-* containers

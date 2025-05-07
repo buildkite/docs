@@ -1,7 +1,7 @@
 # Securing the Stack
 
-> Version requirements
-> Requires `v0.13.0` or newer
+> 📘 Version requirement
+> To be able to implement the configuration options described below, `v0.13.0` or newer of the controller is required.
 
 For securing Buildkite jobs on `agent-stack-k8s`, the `prohibit-kubernetes-plugin` configuration option can be used to prevent users from overriding a controller-defined `pod-spec-patch`. With the `prohibit-kubernetes-plugin` configuration enabled, any Buildkite job including the `kubernetes` plugin will fail.
 
