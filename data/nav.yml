@@ -151,7 +151,7 @@
             - name: "Pipeine signing"
               path: "agent/v3/agent-stack-k8s/pipeline-signing"
             - name: "Setting up hooks and plugins"
-              path: "agent/v3/agent-stack-k8s/setting-up-hooks"
+              path: "agent/v3/agent-stack-k8s/setting-up-hooks-and-plugins"
             - name: "Pipeline validation"
               path: "agent/v3/agent-stack-k8s/pipeline-validation"
             - name: "Job metadata"
