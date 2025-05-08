@@ -21,7 +21,7 @@ The entry point rewriting and ordering logic is heavily inspired by the approach
 
 <!-- vale on -->
 
-## Requirements
+## Before you start
 
 > 📘 A note on GraphQL API token redundancy
 > Starting with v0.28.0 of the controller, the Buildkite GraphQL API is no longer used. If you are upgrading from an older version, your GraphQL-enabled token can be safely removed from your configuration or Kubernetes secret. Only the agent token is required.
@@ -30,13 +30,13 @@ The entry point rewriting and ordering logic is heavily inspired by the approach
 - A [Buildkite API access token with the GraphQL scope enabled](/docs/apis/graphql-api#authentication).
 - An [agent token](/docs/agent/v3/tokens#create-a-token) Buildkite cluster.
 - A [self-hosted queue](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue) for this Buildkite cluster.
-  * The UUID of the cluster is also required. Learn how to do this in [How to find a Buildkite Cluster's UUID](https://github.com/buildkite/agent-stack-k8s/blob/main/docs/installation.md#how-to-find-a-buildkite-clusters-uuid).
+  * The UUID of the cluster is also required. Learn how to do this in [How to find a Buildkite cluster's UUID](/docs/agent/v3/agent-stack-k8s/installation#how-to-find-a-buildkite-clusters-uuid).
 - Helm version v3.8.0 or newer (as support for OCI-based registries is required).
 
 ## Get started with the Agent Stack for Kubernetes
 
-Follow the [installation instructions](/docs/agent/v3/agent-stack-k8s/installation) to set up the Buildkite Agent Stack for Kubernetes.
+Learn more about how to set up the Buildkite Agent Stack for Kubernetes from the [Installation](/docs/agent/v3/agent-stack-k8s/installation) page.
 
 ## Development and contributing
 
-If you would like to contribute to the development of the , follow the [development instructions](https://github.com/buildkite/agent-stack-k8s/blob/main/DEVELOPMENT.md) in the [official GitHub repository](https://github.com/buildkite/agent-stack-k8s) for the Buildkite Agent Stack for Kubernetes.
+Since the Buildkite Agent Stack for K8s is open source, you can make your own contributions to this project. Learn more about how to do this from in [Agent Stack K8s Development](https://github.com/buildkite/agent-stack-k8s/blob/main/DEVELOPMENT.md).
