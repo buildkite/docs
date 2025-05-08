@@ -1,19 +1,20 @@
-# Git credentials 
+# Git credentials
 
-Similarly to a standalone installation of the Buildkite agent, in order to access and clone private repos, you will need to make Git credentials available for the Agent to use. These credentials can be in the form of an SSH key for cloning over `ssh://` or with a `.git-credentials` file for cloning over `https://`.
+Similarly to a standalone [Buildkite Agent installation](/docs/agent/v3/installation), to access and clone private Git repositories, Git credentials must be made available for the Agent to use. These credentials can be in the form of an SSH key for cloning over `ssh://`, or using a `.git-credentials` file for cloning over `https://`.
 
 ## Cloning repositories using SSH keys
 
 To use SSH to clone your repos, you'll need to create a Kubernetes Secret containing an authorized SSH private key and configure the Buildkite Agent Stack for Kubernetes to mount this Secret into the `checkout` container that is used to perform the Git repository cloning.
 
-### Create Kubernetes Secret from SSH Private Key
+### Create a Kubernetes Secret using an SSH private key
 
 > 🚧 Warning!
-> Support for DSA keys has been removed from OpenSSH as of early 2025. This removal now affects `buildkite/agent` version `v3.88.0` and newer. Please migrate to `RSA`, `ECDSA`, or `EDDSA` keys.
+> Support for DSA keys was removed from OpenSSH in early 2025. This removal affects `buildkite/agent` version `v3.88.0` and newer. Please migrate to `RSA`, `ECDSA`, or `EDDSA` keys.
 
 After creating an SSH keypair and registering its public key with the remote repository provider (for example, [GitHub](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)), you can create a Kubernetes Secret using the SSH private key file.
 
 Ensure that the environment variable name matches the recognized names (`SSH_PRIVATE_*_KEY`) in [`docker-ssh-env-config`](https://github.com/buildkite/docker-ssh-env-config).
+
 - `SSH_PRIVATE_ECDSA_KEY`
 - `SSH_PRIVATE_ED25519_KEY`
 - `SSH_PRIVATE_RSA_KEY`
@@ -63,14 +64,13 @@ steps:
           name: my-git-ssh-credentials  # <---- this is an example name of the Kubernetes Secret
 ```
 
-> 📘 Note! 
-> Using the `kubernetes` plugin to provide the SSH private key Secret will need to be **defined under every step** accessing a private Git repository.
+> 📘
+> Using the `kubernetes` plugin to provide the SSH private key Kubernetes Secret, will need to be _defined under every step_ accessing a private Git repository.
 > Defining this Secret using the controller configuration means that it only needs to be configured once.
-
 
 ### Provide SSH Private Key to non-checkout containers
 
-The above configurations provide the SSH private key as a Kubernetes Secret to only the `checkout` container. If Git SSH credentials are required in user-defined job containers, there are a few options:
+The configurations above provide the SSH private key as a Kubernetes Secret to only the `checkout` container. If Git SSH credentials are required in user-defined job containers, there are a few options:
 
 - Use a container image based on the default `buildkite/agent` Docker image, which preserves the default entry point by not overriding the command in the job spec.
 - Include or reproduce the functionality of the [`ssh-env-config.sh`](https://github.com/buildkite/docker-ssh-env-config/blob/-/ssh-env-config.sh) script in the entry point for your job container image to source from recognized environment variable names.
