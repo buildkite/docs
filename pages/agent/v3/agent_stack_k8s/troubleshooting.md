@@ -4,6 +4,8 @@ If you're experiencing any issues with the `agent-stack-k8s` controller, we reco
 
 ## Enable debug mode
 
+Increasing the verbosity of the `agent-stack-k8s` controller's logs can be accomplished by enabling Debug mode. Once enabled, the logs will emit individual, detailed actions performed by the controller while obtaining jobs from Buildkite's API, processing configurations to generate a Kubernetes PodSpec and creating a new Kubernetes Job. Debug mode can help to identify processing delays or incorrect job processing issues.
+
 Debug mode can be enabled during the Helm deployment of the `agent-stack-k8s` controller via the command line:
 
 ```bash
@@ -48,3 +50,45 @@ The `log-collector` script will gather the following information:
 - Kubernetes Pod logs that executed Buildkite job ID (if provided)
 
 The logs will be archived in a tarball named `logs.tar.gz` in the current directory. If requested, these logs may be provided via email to the Buildkite Support (`support@buildkite.com`).
+
+## Common issues and fixes
+
+Below are some common issues that users may experience when using the `agent-stack-k8s` controller to process Buildkite jobs.
+
+### Jobs created, but not processed by controller
+
+The primary requirement to have the `agent-stack-k8s` controller acquire and process a Buildkite job is a matching `queue` tag. If the controller is configured to process scheduled jobs with tag `"queue=kubernetes"` you will need to ensure that your pipeline YAML is [targeting the same queue](https://buildkite.com/docs/agent/v3/queues#targeting-a-queue) at either the pipeline-level or at each step-level. If a job is created without any queue target, the [default queue](https://buildkite.com/docs/agent/v3/queues#the-default-queue) will be applied. The `agent-stack-k8s` controller expects all jobs to have a `queue` tag explicitly defined, even for "default" cluster queues. Any job missing a `queue` tag will be skipped by the controller during processing and the controller emit the following log:
+
+```
+job missing 'queue' tag, skipping...
+```
+
+To view the agent tags applied to your job(s), the following GraphQL query can be executed (be sure to substitute your Organization's slug and Cluster ID):
+
+```
+query getClusterScheduledJobs {
+  organization(slug: "<organization-slug>") {
+    jobs(
+      state: [SCHEDULED]
+      type: [COMMAND]
+      order: RECENTLY_CREATED
+      first: 100
+      clustered: true
+      cluster: "<cluster-id>"
+    ) {
+      count
+      edges {
+        node {
+          ... on JobTypeCommand {
+            url
+            uuid
+            agentQueryRules
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+This will return the `100` newest created jobs for the `<cluster-id>` Cluster in the `<organization-slug>` Organization that are in a `scheduled` state and waiting for the controller to convert them each to a Kubernetes Job. Each Buildkite job's agent tags will be defined under `agentQueryRules`.
