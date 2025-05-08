@@ -8,9 +8,9 @@ The `agent-config` block within `values.yaml` accepts a `hookVolumeSource` and `
 You can specify any volume source for agent hooks and plugins, but a common choice is to use a `configMap`, since hooks generally aren't large and config maps are made available across the cluster.
 To create the config map containing hooks:
 
-    ```shell
-    kubectl create configmap buildkite-agent-hooks --from-file=/tmp/hooks -n buildkite
-    ```
+```shell
+kubectl create configmap buildkite-agent-hooks --from-file=/tmp/hooks -n buildkite
+```
 
 Example of using hooks from a config map:
 
@@ -84,7 +84,7 @@ steps:
 
 There are 3 main aspects necessary for making sure that hooks are available to the containers in `agent-stack-k8s`.
 
-- Define the env variable `BUILDKITE_HOOKS_PATH` with the path `agent ` and `checkout` containers will look for hooks:
+- Define the env variable `BUILDKITE_HOOKS_PATH` with the path `agent` and `checkout` containers will look for hooks:
 
 ```yaml
        env:
@@ -115,7 +115,7 @@ There are 3 main aspects necessary for making sure that hooks are available to t
 
 Now, when the pipeline from the example is run, agent hooks will be available to the container and will run them.
 
-The key difference that we will notice with hooks' execution with `agent-stack-k8s` is that hooks will run at the end of every container.  The environment hooks will execute twice, but checkout-related hooks such as `pre-checkout`, `checkout` and `post-checkout` will only be executed once in the `checkout` container. Similarly, the command-related hooks like `pre-command`, `command` and `post-command` hooks will be executed once by the `command` container(s).
+With jobs created by the `agent-stack-k8s` controller, there are key differences with hook execution. The primary difference is with the `checkout` container and user-defined `command` containers. The `checkout` container will run checkout-related hooks such as `pre-checkout`, `checkout` and `post-checkout`. Similarly, the command-related hooks like `pre-command`, `command` and `post-command` hooks will be executed by the `command` container(s). The `environment` hook will be executed multiple times, once within the `checkout` container and once within each of the user-defined `command` containers.
 
 If the env `BUILDKITE_HOOKS_PATH` is set at pipeline level instead of container like shown in the example pipeline config earlier, then the hooks will run for both `checkout` container and `command` container(s).
 
@@ -150,18 +150,18 @@ steps:
 This happens because agent hooks will be present in both containers and `environment` hook will also run in both containers. Here is what the resulting build output will look like:
 
 ```
-Running global environment hook
-Running global pre-checkout hook
-Preparing working directory
-Running global post-checkout hook
-Running global environment hook
-Running commands
-Running global pre-exit hook
+Running global environment hook     # <-- checkout container
+Running global pre-checkout hook    # <-- checkout container
+Preparing working directory         # <-- checkout container
+Running global post-checkout hook   # <-- checkout container
+Running global environment hook     # <-- user-defined container
+Running commands                    # <-- user-defined container
+Running global pre-exit hook        # <-- user-defined container
 ```
 
 In the scenarios where you would want to `skip checkout` when running on `agent-stack-k8s`, the outlined configuration will cause checkout-related hooks such as pre-checkout, checkout, and post-checkout _not_ to run because `checkout` container will not be present when `skip checkout` is set.
 
-Here is the pipeline config where the checkout is skipped:
+Here is the pipeline config where checkout is skipped:
 
 ```yaml
 # pipeline.yml
@@ -191,11 +191,10 @@ steps:
             name: agent-hooks
 ```
 
-Now, if you look at the build output below, you'll see that it only has `environment` and `pre-exit` hooks that ran and no checkout-related hooks, unlike the earlier build output where checkout was not skipped.
+Looking at the resulting build logs below, you'll see that it only has `environment` and `pre-exit` hooks that ran for the user-defined `command` container and no checkout-related hooks. The is due to the `checkout.skip: true` value being applied, resulting in the `checkout` container not being created and checkout-related hooks no executing.
 
 ```
-Preparing working directory
-Running global environment hook
-Running commands
-Running global pre-exit hook
+Running global environment hook     # <-- user-defined container
+Running commands                    # <-- user-defined container
+Running global pre-exit hook        # <-- user-defined container
 ```
