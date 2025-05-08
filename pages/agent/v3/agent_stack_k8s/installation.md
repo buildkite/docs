@@ -2,7 +2,7 @@
 
 Before proceeding, ensure that you have met the [prerequisites](/docs/agent/v3/agent-stack-k8s/overview#before-you-start) for the Buildkite Agent Stack for Kubernetes.
 
-The recommended way to start setting up the Buildkite Agent Stack for Kubernetes is to deploy a [Helm](https://helm.sh) chart by running the following command your appropriate configuration values:
+The recommended way to start setting up the Buildkite Agent Stack for Kubernetes is to deploy a [Helm](https://helm.sh) chart by running the following command with your appropriate configuration values:
 
 ```bash
 helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-k8s \
@@ -58,7 +58,7 @@ kubectl create secret generic <secret-name> -n buildkite \
 
 This Kubernetes Secret name can be provided to the controller with the `agentStackSecret` option, replacing the `agentToken` option. You can then reference your Kubernetes Secret by name during Helm chart deployments.
 
-To reference your Kubernetes Secret when setting up the Buildkite Agent Stack for Kubernetes from a command with your appropriate configuration values:
+To reference your Kubernetes Secret when setting up the Buildkite Agent Stack for Kubernetes, run the Helm chart deployment command with your appropriate configuration values:
 
 ```bash
 helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-k8s \
