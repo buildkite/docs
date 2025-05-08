@@ -8,7 +8,7 @@ A pipeline step can target the `kubernetes` queue with [agent tags](/docs/agent/
 
 ```yaml
 steps:
-- label: ":kubernetes: Hello World!"
+- label: "\:kubernetes\: Hello World!"
   command: echo Hello World!
   agents:
     queue: kubernetes
@@ -27,7 +27,7 @@ Unlike other [Buildkite plugins](/docs/pipelines/integrations/plugins), there is
 
 ```yaml
 steps:
-- label: ":kubernetes: Hello World!"
+- label: "\:kubernetes\: Hello World!"
   command: echo Hello World!
   agents:
     queue: kubernetes
@@ -62,7 +62,7 @@ The `nodeSelector` field can also be defined under `podSpecPatch` using the `kub
 ```yaml
 # pipeline.yaml
 steps:
-- label: ":kubernetes: Hello World!"
+- label: "\:kubernetes\: Hello World!"
   command: echo Hello World!
   agents:
     queue: kubernetes
@@ -94,7 +94,7 @@ The `nodeName` field can also be defined in under `podSpecPatch` using the `kube
 ```yaml
 # pipeline.yaml
 steps:
-- label: ":kubernetes: Hello World!"
+- label: "\:kubernetes\: Hello World!"
   command: echo Hello World!
   agents:
     queue: kubernetes

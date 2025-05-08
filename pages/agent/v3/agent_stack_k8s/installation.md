@@ -47,7 +47,7 @@ To find the Buildkite cluster UUID from the Buildkite interface:
 
 ## Storing Buildkite tokens in a Kubernetes Secret
 
-If you prefer to self-manage a Kubernetes Secret containing the agent token instead of allowing the Helm chart to create a secret automatically, the Buildkite Agent Stack for Kubernetes controller can referece a custom secret.
+If you prefer to self-manage a Kubernetes Secret containing the agent token instead of allowing the Helm chart to create a secret automatically, the Buildkite Agent Stack for Kubernetes controller can reference a custom secret.
 
 Here's how a custom secret can be created:
 

@@ -4,14 +4,14 @@ Similarly to a standalone [Buildkite Agent installation](/docs/agent/v3/installa
 
 ## Cloning repositories using SSH keys
 
-To use SSH to clone your repos, you'll need to create a Kubernetes Secret containing an authorized SSH private key and configure the Buildkite Agent Stack for Kubernetes to mount this Secret into the `checkout` container that is used to perform the Git repository cloning.
+To use SSH to clone your private Git repositories, you'll need to create a Kubernetes Secret containing an authorized SSH private key and configure the Buildkite Agent Stack for Kubernetes to mount this Secret into the `checkout` container that is used to perform the Git repository cloning.
 
 ### Create a Kubernetes Secret using an SSH private key
 
 > 🚧 Warning!
 > Support for DSA keys was removed from OpenSSH in early 2025. This removal affects `buildkite/agent` version `v3.88.0` and newer. Please migrate to `RSA`, `ECDSA`, or `EDDSA` keys.
 
-After creating an SSH keypair and registering its public key with the remote repository provider (for example, [GitHub](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)), you can create a Kubernetes Secret using the SSH private key file.
+After creating an SSH key pair and registering its public key with the remote repository provider (for example, [GitHub](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)), you can create a Kubernetes Secret using the SSH private key file.
 
 Ensure that the environment variable name matches the recognized names (`SSH_PRIVATE_*_KEY`) in [`docker-ssh-env-config`](https://github.com/buildkite/docker-ssh-env-config).
 
@@ -53,7 +53,7 @@ Under the `kubernetes` plugin, specify the name of the Kubernetes Secret via the
 ```yaml
 # pipeline.yaml
 steps:
-- label: ":kubernetes: Hello World!"
+- label: "\:kubernetes\: Hello World!"
   command: echo Hello World!
   agents:
     queue: kubernetes
@@ -68,14 +68,14 @@ steps:
 > Using the `kubernetes` plugin to provide the SSH private key Kubernetes Secret, will need to be _defined under every step_ accessing a private Git repository.
 > Defining this Secret using the controller configuration means that it only needs to be configured once.
 
-### Provide SSH Private Key to non-checkout containers
+### Provide SSH private key to non-checkout containers
 
-The configurations above provide the SSH private key as a Kubernetes Secret to only the `checkout` container. If Git SSH credentials are required in user-defined job containers, there are a few options:
+The configurations above only provide the SSH private key as a Kubernetes Secret to the `checkout` container. If Git SSH credentials are required in user-defined job containers, you have these options instead:
 
 - Use a container image based on the default `buildkite/agent` Docker image, which preserves the default entry point by not overriding the command in the job spec.
 - Include or reproduce the functionality of the [`ssh-env-config.sh`](https://github.com/buildkite/docker-ssh-env-config/blob/-/ssh-env-config.sh) script in the entry point for your job container image to source from recognized environment variable names.
 
-Here is an example how to setup an SSH Private key in `container-0`
+The following example shows how to set up an SSH private key in `container-0`.
 
 ```yaml
 # values.yaml
@@ -95,7 +95,7 @@ config:
 
 ```
 
-After setting the SSH key to use on `container-0`, you will need to setup `container-0` for `git` operations. The suggested approach is to implement a `pre-command` hook to run `ssh-keyscan` and generate the `known_hosts` files.
+After setting the SSH key to use on `container-0`, you need to set up `container-0` for `git` operations. The recommended approach is to implement a `pre-command` hook to run `ssh-keyscan` and generate the `known_hosts` files.
 
 ```bash
 #!/bin/bash
@@ -114,15 +114,15 @@ ssh-keyscan github.com >> ~/.ssh/known_hosts
 echo "$SSH_PRIVATE_RSA_KEY" | tr -d '\r' | ssh-add -
 ```
 
-In your pipeline yaml, you can now add git operations such as `git clone` in the command step.
+In your pipeline YAML, you can now add git operations such as `git clone` in the command step.
 
 ```yaml
 # pipeline.yaml
 steps:
-  - label: ":kubernetes: Hello World!"
+  - label: "\:kubernetes\: Hello World!"
     command:  git clone -v git@github.com:{repo_name}.git
     plugins:
-      - kubernetes: 
+      - kubernetes:
           podSpec:
             containers:
                 - image: buildkite/agent:alpine-k8s
@@ -130,18 +130,17 @@ steps:
 
 ## Cloning repositories using Git credentials
 
-To use HTTPS to clone private repos, you can use a `.git-credentials` file stored in a secret, and refer to this secret using the `gitCredentialsSecret` checkout parameter.
+To use HTTPS to clone private Git repositories, you can use a `.git-credentials` file stored in a secret, and refer to this secret using the `gitCredentialsSecret` checkout parameter.
 
-### Creating Kubernetes Secret from Git credentials file
+### Create a Kubernetes Secret from Git credentials file
 
-Create a `.git-credentials` file formatted in the manner expected by the `store` [Git credential helper](https://git-scm.com/docs/git-credential-store).
-After this file has been created, you can create a Kubernetes Secret containing the contents of this file:
+Create a `.git-credentials` file formatted in the manner expected by the `store` [Git credential helper](https://git-scm.com/docs/git-credential-store). After this file has been created, you can create a Kubernetes Secret containing the contents of this file:
 
 ```bash
 kubectl create secret generic my-git-https-credentials --from-file='.git-credentials'="$HOME/.git-credentials" -n buildkite
 ```
 
-### Providing Kubernetes Secret through the configuration
+### Provide a Kubernetes Secret through the configuration
 
 Using `default-checkout-params`, you can define your Kubernetes Secret as follows:
 
@@ -176,7 +175,7 @@ Under the `kubernetes` plugin, specify the name of the Kubernetes Secret via the
 ```yaml
 # pipeline.yaml
 steps:
-- label: ":kubernetes: Hello World!"
+- label: "\:kubernetes\: Hello World!"
   command: echo Hello World!
   agents:
     queue: kubernetes
@@ -189,19 +188,18 @@ steps:
 
 ### Provide Git credentials to non-checkout containers
 
-The above configurations provide Git credentials as a Kubernetes Secret to only the `checkout` container. If the `.git-credentials` file is required in user-defined job containers, you can add a volume mount for the `git-credentials` volume, and configure Git to use the file within it (e.g. with `git config credential.helper 'store --file ...'`).
+The configurations above only provide Git credentials as a Kubernetes Secret to the `checkout` container. If the `.git-credentials` file is required in user-defined job containers, you can add a volume mount for the `git-credentials` volume, and configure Git to use the file within it (for example, with `git config credential.helper 'store --file ...'`).
 
 ## Skipping checkout (v0.13.0 and later)
 
 > 📘 Version requirement
-> To be able to implement the configuration options described below, `v0.13.0` or newer of the controller is required.
+> To implement the following configuration options, `v0.13.0` or newer of the Agent Stack for Kubernetes controller is required.
 
-For some steps, you may wish to avoid checkout (cloning a source repository).
-This can be done with the `checkout` block under the `kubernetes` plugin:
+For some steps, you may wish to avoid checkout (cloning a source repository). This can be done with the `checkout` block under the `kubernetes` plugin:
 
 ```yaml
 steps:
-- label: ":kubernetes: Hello World!"
+- label: "\:kubernetes\: Hello World!"
   agents:
     queue: kubernetes
   plugins:
@@ -210,10 +208,9 @@ steps:
         skip: true # prevents scheduling the checkout container
 ```
 
-## Using default checkout parameters
+## Using default-checkout-params
 
-While using Using `default-checkout-params`, `envFrom` can be added to all checkout, command, and sidecar containers
-separately, either per-step in the pipeline or for all jobs in `values.yaml`.
+Using `default-checkout-params`, `envFrom` can be added to all checkout, command, and sidecar containers separately, either per-step in the pipeline or for all jobs in `values.yaml`.
 
 Pipeline example (note that the blocks are `checkout`, `commandParams`, and
 `sidecarParams`):
@@ -240,7 +237,7 @@ Pipeline example (note that the blocks are `checkout`, `commandParams`, and
           name: logging-config
 ```
 
-`values.yaml` example:
+An example of how this would be done using a `values.yml` configuration file:
 
 ```yaml
 # values.yml
