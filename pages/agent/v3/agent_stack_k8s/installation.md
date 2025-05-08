@@ -38,7 +38,7 @@ Both of these deployment methods:
 
 ## How to find a Buildkite cluster's UUID
 
-To find the Buildkite cluster UUID:
+To find the Buildkite cluster UUID from the Buildkite interface:
 
 1. Select **Agents** in the global navigation to access your Buildkite organization's [**Clusters** page](https://buildkite.com/organizations/-/clusters).
 1. Select the cluster containing your configured queue.

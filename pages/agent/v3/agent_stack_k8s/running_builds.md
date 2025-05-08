@@ -14,15 +14,16 @@ steps:
     queue: kubernetes
 ```
 
-This yaml configuration will create a Buildkite job containing an agent tag of `queue=kubernetes`.
-The `agent-stack-k8s` controller will retrieve this job via the Agent API and convert it into a Kubernetes job.
-The Kubernetes job will contain a single Pod with containers that will checkout the pipeline's Git repository and use the (default image) `buildkite/agent:latest` container to run the `echo Hello World!` command.
+This YAML step configuration creates a Buildkite job containing an agent tag of `queue=kubernetes`.
+The `agent-stack-k8s` controller retrieves this job using the Agent API and converts it into a Kubernetes job.
 
-### The Kubernetes plugin
+The Kubernetes job contains a single Pod with containers that will check out the pipeline's Git repository and use the `buildkite/agent:latest` (default image) container to run the `echo Hello World!` command.
 
-For defining of more complicated pipeline steps, additional configurations can be used with the `kubernetes` plugin. 
+### Kubernetes plugin
 
-Unlike other [Buildkite plugins](/docs/pipelines/integrations/plugins), there is no corresponding plugin repository for the `kubernetes` plugin. Rather, this is reserved syntax that is interpreted by the `agent-stack-k8s` controller. For example, defining `checkout.skip: true` will skip cloning the pipeline's repo for the job:
+For defining of more complicated pipeline steps, additional configurations can be used with the `kubernetes` plugin.
+
+Unlike other [Buildkite plugins](/docs/pipelines/integrations/plugins), there is no corresponding plugin repository for the `kubernetes` plugin. Instead, this `kubernetes` plugin syntax is reserved for and interpreted by the `agent-stack-k8s` controller. For example, defining `checkout.skip: true` will skip cloning the pipeline's repo for the job:
 
 ```yaml
 steps:
@@ -38,11 +39,11 @@ steps:
 
 ## Cloning private repositories
 
-Just like with a standalone installation of the Buildkite agent, in order to access and clone private repositories you will need to make [Git credentials](/docs/agent/v3/agent-stack-k8s/git-credentials) available for the agent to use. These credentials can be in the form of a SSH key for cloning over `ssh://` or with a `.git-credentials` file for cloning over `https://`.
+As is the case with standalone [Buildkite Agent installations](/docs/agent/v3/installation), to access and clone private repositories, you need to make [Git credentials](/docs/agent/v3/agent-stack-k8s/git-credentials) available for the agent to use. These credentials can be in the form of a SSH key for cloning over `ssh://` or with a `.git-credentials` file for cloning over `https://`.
 
 ## Defining the node selector
 
-The Buildkite Agent Stack for Kubernetes controller can schedule your Buildkite jobs to run on particular Kubernetes Nodes with matching Labels using Kubernetes PodSpec fields for `nodeSelector` and `nodeName`. The [`nodeSelector`](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-your-chosen-node) field of the PodSpec can be used to schedule your Buildkite jobs on a chosen Kubernetes Node with matching Labels.
+The Buildkite Agent Stack for Kubernetes controller can schedule your Buildkite jobs to run on particular Kubernetes Nodes with matching _labels_ using Kubernetes PodSpec fields for `nodeSelector` and `nodeName`. The [`nodeSelector`](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-your-chosen-node) field of the PodSpec can be used to schedule your Buildkite jobs on a chosen Kubernetes Node with matching labels.
 
 The `nodeSelector` field can be defined in the controller's configuration via `pod-spec-patch`. This will apply to all Buildkite jobs processed by the controller:
 
