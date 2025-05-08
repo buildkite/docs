@@ -41,11 +41,12 @@ steps:
 
 As is the case with standalone [Buildkite Agent installations](/docs/agent/v3/installation), to access and clone private repositories, you need to make [Git credentials](/docs/agent/v3/agent-stack-k8s/git-credentials) available for the agent to use. These credentials can be in the form of a SSH key for cloning over `ssh://` or with a `.git-credentials` file for cloning over `https://`.
 
-## Defining the node selector
+## Kubernetes node selection
 
-The Buildkite Agent Stack for Kubernetes controller can schedule your Buildkite jobs to run on particular Kubernetes Nodes with matching _labels_ using Kubernetes PodSpec fields for `nodeSelector` and `nodeName`. The [`nodeSelector`](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-your-chosen-node) field of the PodSpec can be used to schedule your Buildkite jobs on a chosen Kubernetes Node with matching labels.
+The Buildkite Agent Stack for Kubernetes controller can schedule your Buildkite jobs to run on particular Kubernetes Nodes with matching _labels_ using Kubernetes PodSpec fields for `nodeSelector` and `nodeName`. 
 
-The `nodeSelector` field can be defined in the controller's configuration via `pod-spec-patch`. This will apply to all Buildkite jobs processed by the controller:
+### nodeSelector
+The [`nodeSelector`](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-your-chosen-node) field of the PodSpec can be used to schedule your Buildkite jobs on a chosen Kubernetes Node with matching labels. The `nodeSelector` field can be defined in the controller's configuration via `pod-spec-patch`. This will apply to all Buildkite jobs processed by the controller:
 
 ```yaml
 # values.yml
@@ -74,7 +75,7 @@ steps:
 ...
 ```
 
-## Defining the node name
+### nodeName
 
 The [`nodeName`](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-specific-node) field of the PodSpec can be used to schedule your Buildkite jobs on a specific Kubernetes Node.
 

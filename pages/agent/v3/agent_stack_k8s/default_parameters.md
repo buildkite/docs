@@ -1,12 +1,12 @@
 # Default parameters
 
-This page describes the default [checkout](#default-checkout-parameters), [command](#default-command-parameters), and [sidecar](#default-sidecar-parameters) parameters for the Buildkite Agent Stack for Kubernetes.
+This page describes how to add environment variables to the default parameters of the [checkout](#default-checkout-parameters), [command](#default-command-parameters), and [sidecar](#default-sidecar-parameters) containers in your Buildkite Agent Stack for Kubernetes controller setup using the `envFrom` feature.
 
 ## Default checkout parameters
 
-You can add `envFrom` to all `checkout` containers separately, either:
+You can add `envFrom` to all `checkout` containers in two ways:
 
-- Per-step in the pipeline, for example:
+- Per-step in your pipeline configuration, for example:
 
     ```yaml
     # pipeline.yml
@@ -14,30 +14,30 @@ You can add `envFrom` to all `checkout` containers separately, either:
     kubernetes:
         checkout:
         envFrom:
-        - prefix: GITHUB_
-            secretRef:
-            name: github-secrets
+        - prefix: GITHUB_  # This prefix is added to all variable names
+          secretRef:
+            name: github-secrets # References a Secret named "github-secrets"
     ...
     ```
 
-- Or alternatively, for all jobs using a `values.yml` file, for example:
+- Or globally for all jobs using a `values.yml` file, for example:
 
     ```yaml
     # values.yml
     config:
     default-checkout-params:
         envFrom:
-        - prefix: GITHUB_
-        secretRef:
-            name: github-secrets
+        - prefix: GITHUB_   # This prefix is added to all variable names
+          secretRef:
+            name: github-secrets # References a Secret named "github-secrets"
     ...
     ```
 
 ## Default command parameters
 
-You can add `envFrom` to all user-defined command containers separately, either:
+You can add `envFrom` to all user-defined command containers in two ways:
 
-- Per-step in the pipeline, for example:
+- Per-step in your pipeline configuration, for example:
 
     ```yaml
     # pipeline.yml
@@ -46,9 +46,9 @@ You can add `envFrom` to all user-defined command containers separately, either:
         commandParams:
         interposer: vector
         envFrom:
-        - prefix: DEPLOY_
-            secretRef:
-            name: deploy-secrets
+        - prefix: DEPLOY_  # This prefix is added to all variable names
+          secretRef:
+            name: deploy-secrets # References a Secret named "deploy-secrets"
     ...
     ```
 
@@ -60,17 +60,17 @@ You can add `envFrom` to all user-defined command containers separately, either:
     default-command-params:
         interposer: vector
         envFrom:
-        - prefix: DEPLOY_
-        secretRef:
-            name: deploy-secrets
+        - prefix: DEPLOY_  # This prefix is added to all variable names
+          secretRef:
+            name: deploy-secrets  # References a Secret named "deploy-secrets"
     ...
     ```
 
 ## Default sidecar parameters
 
-You can add `envFrom` to all `sidecar` containers separately, either:
+You can add `envFrom` to all `sidecar` containers in two ways:
 
-- Per-step in the pipeline, for example:
+- Per-step in your pipeline configuration, for example:
 
     ```yaml
     # pipeline.yml
@@ -78,9 +78,9 @@ You can add `envFrom` to all `sidecar` containers separately, either:
     kubernetes:
         sidecarParams:
         envFrom:
-        - prefix: LOGGING_
-            configMapRef:
-            name: logging-config
+        - prefix: LOGGING_  # This prefix is added to all variable names
+          configMapRef:
+            name: logging-config  # References a ConfigMap named "logging-config"
     ...
     ```
 
@@ -91,8 +91,8 @@ You can add `envFrom` to all `sidecar` containers separately, either:
     config:
     default-sidecar-params:
         envFrom:
-        - prefix: LOGGING_
-        configMapRef:
-            name: logging-config
+        - prefix: LOGGING_  # This prefix is added to all variable names
+          configMapRef:
+            name: logging-config  # References a ConfigMap named "logging-config"
     ...
     ```

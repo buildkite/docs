@@ -1,7 +1,7 @@
 # Controller configuration
 
 This section covers the available commands for:
- 
+
 - `agent-stack-k8s [flags]`
 - `agent-stack-k8s [command]`
 
@@ -13,6 +13,8 @@ This section covers the available commands for:
 | `help`      | Help about any command                                            |
 | `lint`      | A tool for linting Buildkite pipelines                            |
 | `version`   | Prints the version                                                |
+
+Use `agent-stack-k8s [command] --help` for more information about a command.
 
 ## Flags
 
@@ -188,7 +190,7 @@ This section covers the available commands for:
       {
         flag: "--enable-queue-pause",
         type: "bool",
-        description: "Allow the controller to pause processing the jobs when the queue is paused on Buildkite.",
+        description: "Allow the controller to pause processing the jobs when the queue is paused on Buildkite. Available in the controller `v0.24.0` and above",
         default_value: "false"
       }
     ].select { |field| field[:flag] }.each do |field| %>
@@ -210,7 +212,58 @@ This section covers the available commands for:
   </tbody>
 </table>
 
-Use `agent-stack-k8s [command] --help` for more information about a command.
+## Kubernetes Node Selection
 
-> 📘 Queue pausing
-> With release `v0.24.0` of `agent-stack-k8s`, it is now possible to enable `--enable-queue-pause` in the config, allowing the controller to pause processing the jobs when `queue` is paused in Buildkite.
+The `agent-stack-k8s` controller can be deployed to particular Kubernetes Nodes, using the Kubernetes PodSpec [`nodeSelector`](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-your-chosen-node) field.
+
+### Configuration values YAML file
+
+The `nodeSelector` field can be defined in the controller's configuration:
+
+```yaml
+# values.yml
+...
+nodeSelector:
+  teamowner: "services"
+config:
+...
+```
+
+## Additional environment variables for the `agent-stack-k8s` Controller container
+
+If the Buildkite Agent Stack for Kubernetes controller container requires extra environment variables in order to correctly operate inside your Kubernetes cluster, they can be added to your values YAML file and applied during a deployment with Helm.
+
+### Configuration values YAML file
+
+The `controllerEnv` field can be used to define extra Kubernetes EnvVar environment variables that will apply to the Buildkite Agent Stack for Kubernetes controller container:
+
+```yaml
+# values.yml
+...
+controllerEnv:
+  - name: KUBERNETES_SERVICE_HOST
+    value: "10.10.10.10"
+  - name: KUBERNETES_SERVICE_PORT
+    value: "8443"
+config:
+...
+```
+
+## Custom Annotations for the Buildkite Agent Stack for Kubernetes controller
+
+If you need to add custom annotations to the Buildkite Agent Stack for Kubernetes controller pod, they can be defined in your values YAML file and applied during a deployment with Helm. Note that the controller pod will also have the annotations `checksum/config` and `checksum/secrets` to track changes to the configuration and secrets.
+
+### Configuration
+
+The `annotations` field can be used to define custom annotations that will be applied to the Buildkite Agent Stack for Kubernetes controller pod:
+
+```yaml
+# values.yml
+...
+annotations:
+  kubernetes.io/description: "Agent Stack K8s Controller"
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "8080"
+config:
+...
+```

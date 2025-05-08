@@ -65,8 +65,8 @@ steps:
 ```
 
 > 📘
-> Using the `kubernetes` plugin to provide the SSH private key Kubernetes Secret, will need to be _defined under every step_ accessing a private Git repository.
-> Defining this Secret using the controller configuration means that it only needs to be configured once.
+> If you are using the `kubernetes` plugin to provide the SSH private key Kubernetes Secret, you will need to _defined this under every step_ accessing a private Git repository.
+> If you are defining the Kubernetes Secret using the Buildkite Agent Stack for Kubernetes controller configuration, you'll only needs to configure it once.
 
 ### Provide SSH private key to non-checkout containers
 
@@ -140,9 +140,9 @@ Create a `.git-credentials` file formatted in the manner expected by the `store`
 kubectl create secret generic my-git-https-credentials --from-file='.git-credentials'="$HOME/.git-credentials" -n buildkite
 ```
 
-### Provide a Kubernetes Secret through the configuration
+### Provide a Kubernetes Secret through the configuration file
 
-Using `default-checkout-params`, you can define your Kubernetes Secret as follows:
+Using `default-checkout-params`, you can define your Kubernetes Secret as follows through the configuration yaml file:
 
 ```yaml
 # values.yaml
@@ -212,8 +212,7 @@ steps:
 
 Using `default-checkout-params`, `envFrom` can be added to all checkout, command, and sidecar containers separately, either per-step in the pipeline or for all jobs in `values.yaml`.
 
-Pipeline example (note that the blocks are `checkout`, `commandParams`, and
-`sidecarParams`):
+Pipeline example (note that the blocks are `checkout`, `commandParams`, and `sidecarParams`):
 
 ```yaml
 # pipeline.yml
