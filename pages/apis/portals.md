@@ -1,8 +1,5 @@
 # Portals
 
-> 📘
-> The _portals_ feature is currently in _customer preview_.
-
 Buildkite _portals_ is an alternative feature to Buildkite's REST and GraphQL APIs. Portals behave like stored, user-defined GraphQL operations made accessible via an authenticated URL endpoint.
 
 Portals work well with machine-to-machine operations, since they're scoped to perform only the operations described within a [GraphQL document](https://spec.graphql.org/October2021/#sec-Language) and are not tied to user-owned access tokens.
@@ -160,7 +157,3 @@ curl -H "Authorization: Bearer $TOKEN" \
   -d '{ "build_slug": "organization-slug/pipeline-slug/build-number" }' \
   -X POST "https://portal.buildkite.com/organizations/my-organization/portals/get-total-build-run-time"
 ```
-
-## Customer preview
-
-While portals are in customer preview, the creation of portals is restricted to organization administrators.

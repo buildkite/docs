@@ -130,7 +130,7 @@ The Buildkite Docs aims to be _semi-formal_, in that a balance is being struck b
 
 This list summarizes word usage (or words and punctuation to avoid) in line with the _semi-formal_ tone of the Buildkite Docs:
 
-- **We (as in Buildkite)**: Avoid using this pronoun in the Buildkite Docs as it is inherently ambiguous, especially in standardized/formalized documentation. 'We' does not necessarily mean Buildkite in all contexts. This pronoun's usage would be more suitable in content with a less formal tone—for example, friendlier, introductory content such as that of a tutorial, where you might begin a sentence or paragraph with "We recommend..." and where the context unambiguously indicates "we" as "Buildkite".
+- **We (as in Buildkite)**: Avoid using this pronoun (which also encompasses the pronoun "our") in the Buildkite Docs as these pronouns are inherently ambiguous, especially in standardized/formalized documentation. "We" does not necessarily mean Buildkite in all contexts. This pronoun's usage would be more suitable in content with a less formal tone—for example, friendlier, introductory content such as that of a tutorial, where you might begin a sentence or paragraph with "We recommend..." and where the context unambiguously indicates "we" as "Buildkite."
 - **Exclamation marks**: Following on from "we" usage above, avoid using exclamation marks `!` for punctuation in standardized/formalized documentation unless the content suits it—that is, content with a less formal, friendlier, tone, such as introductory content or a tutorial. For example, "That's it! You've completed this tutorial."
 
 ### Glossary of notable terms and their spelling

@@ -288,6 +288,7 @@ xcbeautify
 Xcode
 xcode
 xcodebuild
+xcodes
 xcpretty
 XCTest
 xUnit

@@ -62,6 +62,8 @@ A [Markdown linter](https://github.com/DavidAnson/markdownlint) also runs on the
 
 The rules enabled for this Markdown linting are defined in the [`.markdownlint.yaml`](.markdownlint.yaml) file.
 
+For the linter jobs to pass, every line in a Markdown file must not end in any trailing spaces, and the last character in the Markdown file must be a new line character.
+
 #### Fix spelling errors
 
 The Buildkite Docs build pipeline uses [Vale](https://vale.sh/) to check for spelling errors, and builds will fail if a spelling error is encountered. Vale also checks for incorrect letter case handling, for example, Proper Nouns that should be treated as common nouns.
