@@ -1,12 +1,12 @@
 # Troubleshooting
 
-If you're experiencing any issues with the `agent-stack-k8s` controller, we recommend enabling the debug mode and enable log collection to get a better visibility into potential issues.
+If you're experiencing any issues with Buildkite Agent Stack for Kubernetes controller, we recommend enabling the debug mode and log collection to get a better visibility into potential issues.
 
 ## Enable debug mode
 
-Increasing the verbosity of the `agent-stack-k8s` controller's logs can be accomplished by enabling Debug mode. Once enabled, the logs will emit individual, detailed actions performed by the controller while obtaining jobs from Buildkite's API, processing configurations to generate a Kubernetes PodSpec and creating a new Kubernetes Job. Debug mode can help to identify processing delays or incorrect job processing issues.
+Increasing the verbosity of Buildkite Agent Stack for Kubernetes controller's logs can be accomplished by enabling Debug mode. Once enabled, the logs will emit individual, detailed actions performed by the controller while obtaining jobs from Buildkite's API, processing configurations to generate a Kubernetes PodSpec and creating a new Kubernetes Job. Debug mode can help to identify processing delays or incorrect job processing issues.
 
-Debug mode can be enabled during the Helm deployment of the `agent-stack-k8s` controller via the command line:
+Debug mode can be enabled during the Helm deployment of the Buildkite Agent Stack for Kubernetes controller via the command line:
 
 ```bash
 helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-k8s \
@@ -28,7 +28,7 @@ config:
 
 ## Kubernetes log collection
 
-To enable log collection for the `agent-stack-k8s` controller, use the [`utils/log-collector`](https://github.com/buildkite/agent-stack-k8s/blob/main/utils/log-collector) script in the controller repository.
+To enable log collection for the Buildkite Agent Stack for Kubernetes controller, use the [`utils/log-collector`](https://github.com/buildkite/agent-stack-k8s/blob/main/utils/log-collector) script in the controller repository.
 
 ### Prerequisites
 
@@ -38,14 +38,14 @@ To enable log collection for the `agent-stack-k8s` controller, use the [`utils/l
 ### Inputs to the script
 
 When executing the `log-collector` script, you will be prompted for:
-- Kubernetes Namespace where the `agent-stack-k8s` controller is deployed
+- Kubernetes Namespace where the Buildkite Agent Stack for Kubernetes controller is deployed
 - Buildkite job ID to collect Job and Pod logs
 
 ### Gathering of data and logs
 
 The `log-collector` script will gather the following information:
-- Kubernetes Job, Pod resource details for `agent-stack-k8s` controller
-- Kubernetes Pod logs for `agent-stack-k8s` controller
+- Kubernetes Job, Pod resource details for Buildkite Agent Stack for Kubernetes controller
+- Kubernetes Pod logs for Buildkite Agent Stack for Kubernetes controller
 - Kubernetes Job, Pod resource details for Buildkite job ID (if provided)
 - Kubernetes Pod logs that executed Buildkite job ID (if provided)
 
@@ -53,11 +53,13 @@ The logs will be archived in a tarball named `logs.tar.gz` in the current direct
 
 ## Common issues and fixes
 
-Below are some common issues that users may experience when using the `agent-stack-k8s` controller to process Buildkite jobs.
+Below are some common issues that users may experience when using the Buildkite Agent Stack for Kubernetes controller to process Buildkite jobs.
 
-### Jobs created, but not processed by controller
+### Jobs are being created, but not processed by controller
 
-The primary requirement to have the `agent-stack-k8s` controller acquire and process a Buildkite job is a matching `queue` tag. If the controller is configured to process scheduled jobs with tag `"queue=kubernetes"` you will need to ensure that your pipeline YAML is [targeting the same queue](https://buildkite.com/docs/agent/v3/queues#targeting-a-queue) at either the pipeline-level or at each step-level. If a job is created without any queue target, the [default queue](https://buildkite.com/docs/agent/v3/queues#the-default-queue) will be applied. The `agent-stack-k8s` controller expects all jobs to have a `queue` tag explicitly defined, even for "default" cluster queues. Any job missing a `queue` tag will be skipped by the controller during processing and the controller emit the following log:
+The primary requirement to have the Buildkite Agent Stack for Kubernetes controller acquire and process a Buildkite job is a matching `queue` tag. If the controller is configured to process scheduled jobs with tag `"queue=kubernetes"` you will need to ensure that your pipeline YAML is [targeting the same queue](https://buildkite.com/docs/agent/v3/queues#targeting-a-queue) at either the pipeline-level or at each step-level.
+
+If a job is created without a queue target, the [default queue](https://buildkite.com/docs/agent/v3/queues#the-default-queue) will be applied. The Buildkite Agent Stack for Kubernetes controller expects all jobs to have a `queue` tag explicitly defined, even for "default" cluster queues. Any job missing a `queue` tag will be skipped by the controller during processing and the controller emit the following log:
 
 ```
 job missing 'queue' tag, skipping...

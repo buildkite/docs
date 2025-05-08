@@ -3,9 +3,10 @@
 > 📘 Version requirement
 > To be able to implement the configuration options described below, `v0.16.0` or newer of the controller is required.
 
-The `agent-config` block within `values.yaml` accepts a `hookVolumeSource` and `pluginVolumeSource`. If used, the corresponding volumes named `buildkite-hooks` and `buildkite-plugins` will be automatically mounted on checkout and command containers, with the agent configured to use them.
+The `agent-config` block within `values.yaml` accepts a `hookVolumeSource` and `pluginVolumeSource`. If used, the corresponding volumes named `buildkite-hooks` and `buildkite-plugins` will be automatically mounted on checkout and command containers, with the Buildkite agent configured to use them.
 
-You can specify any volume source for agent hooks and plugins, but a common choice is to use a `configMap`, since hooks generally aren't large and config maps are made available across the cluster.
+You can specify any volume source for the agent hooks and plugins, but a common choice is to use a `configMap`, since hooks generally aren't large and config maps are made available across the cluster.
+
 To create the config map containing hooks:
 
 ```shell
@@ -38,13 +39,13 @@ config:
         path: /etc/buildkite-agent/plugins
 ```
 
-Note that `hooks-path` and `plugins-path` agent config options can be used to change the mount point of the corresponding volume. The default mount points are `/buildkite/hooks` and `/buildkite/plugins`.
+Note that `hooks-path` and `plugins-path` Buildkite agent config options can be used to change the mount point of the corresponding volume. The default mount points are `/buildkite/hooks` and `/buildkite/plugins`.
 
 ## Setting up agent hooks in v0.15.0 and earlier
 
-If you are running Agent Stack Kubernetes v0.15.0 and earlier in order for the agent hooks to work, they must be present on the instances where the agent runs.
+If you are running the Buildkite Agent Stack Kubernetes controller v0.15.0 and earlier in order for the agent hooks to work, they must be present on the instances where the agent runs.
 
-In case of the Buildkite Agent Stack for Kubernetes v0.15.0 and earlier, the hooks need to be accessible to the Kubernetes pod where the `checkout` and `command` containers will be running. The recommended approach is to create a configmap with the agent hooks and mount the configmap as volume to the containers.
+In case of the Buildkite Agent Stack for Kubernetes controller v0.15.0 and earlier, the hooks need to be accessible to the Kubernetes pod where the `checkout` and `command` containers will be running. The recommended approach is to create a configmap with the agent hooks and mount the configmap as volume to the containers.
 
 Here is the command to create `configmap` which will have agent hooks in it:
 
@@ -115,7 +116,7 @@ There are 3 main aspects necessary for making sure that hooks are available to t
 
 Now, when the pipeline from the example is run, agent hooks will be available to the container and will run them.
 
-With jobs created by the `agent-stack-k8s` controller, there are key differences with hook execution. The primary difference is with the `checkout` container and user-defined `command` containers. The `checkout` container will run checkout-related hooks such as `pre-checkout`, `checkout` and `post-checkout`. Similarly, the command-related hooks like `pre-command`, `command` and `post-command` hooks will be executed by the `command` container(s). The `environment` hook will be executed multiple times, once within the `checkout` container and once within each of the user-defined `command` containers.
+With jobs created by the Buildkite Agent Stack for Kubernetes controller, there are key differences with hook execution. The primary difference is with the `checkout` container and user-defined `command` containers. The `checkout` container will run checkout-related hooks such as `pre-checkout`, `checkout` and `post-checkout`. Similarly, the command-related hooks like `pre-command`, `command` and `post-command` hooks will be executed by the `command` container(s). The `environment` hook will be executed multiple times, once within the `checkout` container and once within each of the user-defined `command` containers.
 
 If the env `BUILDKITE_HOOKS_PATH` is set at pipeline level instead of container like shown in the example pipeline config earlier, then the hooks will run for both `checkout` container and `command` container(s).
 
@@ -159,7 +160,7 @@ Running commands                    # <-- user-defined container
 Running global pre-exit hook        # <-- user-defined container
 ```
 
-In the scenarios where you would want to `skip checkout` when running on `agent-stack-k8s`, the outlined configuration will cause checkout-related hooks such as pre-checkout, checkout, and post-checkout _not_ to run because `checkout` container will not be present when `skip checkout` is set.
+In the scenarios where you would want to `skip checkout` when running on Buildkite Agent Stack for Kubernetes controller, the outlined configuration will cause checkout-related hooks such as pre-checkout, checkout, and post-checkout _not_ to run because `checkout` container will not be present when `skip checkout` is set.
 
 Here is the pipeline config where checkout is skipped:
 
