@@ -26,11 +26,11 @@ The entry point rewriting and ordering logic is heavily inspired by the approach
 > 📘 A note on GraphQL API token redundancy
 > Starting with v0.28.0 of the controller, the Buildkite GraphQL API is no longer used. If you are upgrading from an older version, your GraphQL-enabled token can be safely removed from your configuration or Kubernetes secret. Only the agent token is required.
 
-- A Kubernetes cluster
-- A Buildkite API access token with the [GraphQL scope enabled](/docs/apis/graphql-api#authentication)
-- A cluster's [agent token](/docs/agent/v3/tokens#create-a-token)
-- A cluster's [Queue](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue)
-  * The UUID of the Cluster is also required. See [Obtain Cluster UUID](https://github.com/buildkite/agent-stack-k8s/blob/main/docs/installation.md#how-to-find-a-buildkite-clusters-uuid)
+- A Kubernetes cluster.
+- A [Buildkite API access token with the GraphQL scope enabled](/docs/apis/graphql-api#authentication).
+- An [agent token](/docs/agent/v3/tokens#create-a-token) Buildkite cluster.
+- A [self-hosted queue](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue) for this Buildkite cluster.
+  * The UUID of the cluster is also required. Learn how to do this in [How to find a Buildkite Cluster's UUID](https://github.com/buildkite/agent-stack-k8s/blob/main/docs/installation.md#how-to-find-a-buildkite-clusters-uuid).
 - Helm version v3.8.0 or newer (as support for OCI-based registries is required).
 
 ## Get started with the Agent Stack for Kubernetes
