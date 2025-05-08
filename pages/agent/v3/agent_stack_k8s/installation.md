@@ -1,8 +1,8 @@
 # Installation
 
-Before proceeding, ensure that you have met the [prerequisites](/docs/agent/v3/agent-stack-k8s/overview#before-you-start) for the Buildkite Agent Stack for Kubernetes.
+Before proceeding, ensure that you have met the [prerequisites](/docs/agent/v3/agent-stack-k8s/overview#before-you-start) for the Buildkite Agent Stack for Kubernetes controller.
 
-The recommended way to start setting up the Buildkite Agent Stack for Kubernetes is to deploy a [Helm](https://helm.sh) chart by running the following command with your appropriate configuration values:
+The recommended way to install the Buildkite Agent Stack for Kubernetes controller is to deploy a [Helm](https://helm.sh) chart by running the following command with your appropriate configuration values:
 
 ```bash
 helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-k8s \
@@ -18,10 +18,10 @@ Alternatively, you can place these configuration values into a YAML configuratio
 
 ```yaml
 # values.yml
-agentToken: "buildkite-cluster-agent-token"
+agentToken: "<buildkite-cluster-agent-token>"
 config:
-  org: "buildkite-organization-slug"
-  cluster-uuid: "buildkite-cluster-uuid"
+  org: "<buildkite-organization-slug>"
+  cluster-uuid: "<buildkite-cluster-uuid>"
   tags:
     - queue=kubernetes
 ```
@@ -30,11 +30,11 @@ config:
 
 Both of these deployment methods:
 
-- Create a Kubernetes deployment and install the `agent-stack-k8s` controller as a Pod running in the `buildkite` namespace.
+- Create a Kubernetes deployment in the `buildkite` namespace with a single Pod containing the `controller` container.
   * The `buildkite` namespace is created if it does not already exist in the Kubernetes cluster.
 - Use the provided `agentToken` to query the Buildkite Agent API looking for jobs:
   * In your Buildkite organization (`config.org`)
-  * Assigned to the `kubernetes` queue in your cluster (`config.cluster-uuid`)
+  * Assigned to the `kubernetes` queue in your Buildkite cluster (`config.cluster-uuid`)
 
 ## How to find a Buildkite cluster's UUID
 
@@ -52,13 +52,13 @@ If you prefer to self-manage a Kubernetes Secret containing the agent token inst
 Here's how a custom secret can be created:
 
 ```bash
-kubectl create secret generic <secret-name> -n buildkite \
+kubectl create secret generic <kubernetes-secret-name> -n buildkite \
   --from-literal=BUILDKITE_AGENT_TOKEN='<buildkite-cluster-agent-token>'
 ```
 
 This Kubernetes Secret name can be provided to the controller with the `agentStackSecret` option, replacing the `agentToken` option. You can then reference your Kubernetes Secret by name during Helm chart deployments.
 
-To reference your Kubernetes Secret when setting up the Buildkite Agent Stack for Kubernetes, run the Helm chart deployment command with your appropriate configuration values:
+To reference your Kubernetes Secret when setting up the Buildkite Agent Stack for Kubernetes controller, run the Helm chart deployment command with your appropriate configuration values:
 
 ```bash
 helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-k8s \
@@ -74,10 +74,10 @@ Alternatively, to reference your Kubernetes Secret with your configuration value
 
 ```yaml
 # values.yml
-agentStackSecret: "kubernetes-secret-name"
+agentStackSecret: "<kubernetes-secret-name>"
 config:
-  org: "buildkite-organization-slug"
-  cluster-uuid: "buildkite-cluster-uuid"
+  org: "<buildkite-organization-slug>"
+  cluster-uuid: "<buildkite-cluster-uuid>"
   tags:
     - queue=kubernetes
 ```
@@ -101,7 +101,7 @@ Alternatively, you can also use this chart as a Helm [template](https://helm.sh/
 helm template oci://ghcr.io/buildkite/helm/agent-stack-k8s --values values.yaml
 ```
 
-The latest and earlier versions (with digests) of the Buildkite Agent Stack for Kubernetes `agent-stack-k8s` can be found under [Releases](https://github.com/buildkite/agent-stack-k8s/releases) in the Buildkite Agent Stack for Kubernetes [GitHub repository](https://github.com/buildkite/agent-stack-k8s/).
+The latest and earlier versions (with digests) of the Buildkite Agent Stack for Kubernetes controller can be found under [Releases](https://github.com/buildkite/agent-stack-k8s/releases) in the Buildkite Agent Stack for Kubernetes controller [GitHub repository](https://github.com/buildkite/agent-stack-k8s/).
 
 ## Controller configuration
 
@@ -109,4 +109,4 @@ Learn more about detailed configuration options in [Controller configuration](/d
 
 ## Running builds
 
-After the Buildkite Agent Stack `agent-stack-k8s` Kubernetes controller has been configured and deployed, you are ready to [run a Buildkite build](/docs/agent/v3/agent-stack-k8s/running-builds).
+After the Buildkite Agent Stack for Kubernetes controller has been configured and deployed, you are ready to [run a Buildkite build](/docs/agent/v3/agent-stack-k8s/running-builds).
