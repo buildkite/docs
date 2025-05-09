@@ -1,9 +1,11 @@
 # Controller configuration
 
-This section covers the available commands for:
+This page covers the available commands for:
 
 - `agent-stack-k8s [flags]`
 - `agent-stack-k8s [command]`
+
+All references to "controller" on this page refer to the Agent Stack for Kubernetes controller.
 
 ## Available commands
 
@@ -190,7 +192,7 @@ Use `agent-stack-k8s [command] --help` for more information about a command.
       {
         flag: "--enable-queue-pause",
         type: "bool",
-        description: "Allow the controller to pause processing the jobs when the queue is paused on Buildkite. Available in the controller `v0.24.0` and above",
+        description: "Allow the controller to pause processing the jobs when the queue is paused on Buildkite.<br/>This flag is only available in version 0.24.0 and later of the controller.",
         default_value: "false"
       }
     ].select { |field| field[:flag] }.each do |field| %>
