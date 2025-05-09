@@ -54,7 +54,7 @@ steps:
 
 ### API documentation
 
-For more detailed API documentation on the Buildkite SDK for TypeScript, consult the [Buildkite SDK's TypeScript API documentation](https://buildkite.com/docs/sdk/typescript).
+For more detailed API documentation on the Buildkite SDK for TypeScript, consult the [Buildkite SDK's TypeScript API documentation](https://buildkite.com/docs/sdk/typescript/).
 
 ## Python
 
@@ -98,7 +98,7 @@ steps:
 
 ### API documentation
 
-For more detailed API documentation on the Buildkite SDK for Python, consult the [Buildkite SDK's Python API documentation](https://buildkite.com/docs/sdk/python).
+For more detailed API documentation on the Buildkite SDK for Python, consult the [Buildkite SDK's Python API documentation](https://buildkite.com/docs/sdk/python/).
 
 ## Go
 
@@ -203,4 +203,4 @@ For more detailed API documentation on the Buildkite SDK for Ruby, consult the [
 
 ## Developing the Buildkite SDK
 
-Since the Buildkite SDK is open source, you can make your own contributions to this SDK. You can learn more about how to do this from the [Buildkite SDK's README](https://github.com/buildkite/buildkite-sdk?tab=readme-ov-file#buildkite-sdk).
+Since the Buildkite SDK is open source, you can make your own contributions to this SDK. You can learn more about how to do this from the [Buildkite SDK's README](https://github.com/buildkite/buildkite-sdk?tab=readme-ov-file#buildkite-sdk/).
