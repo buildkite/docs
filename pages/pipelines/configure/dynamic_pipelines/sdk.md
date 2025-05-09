@@ -199,7 +199,7 @@ steps:
 
 ### API documentation
 
-For more detailed API documentation on the Buildkite SDK for Ruby, consult the [Buildkite SDK's Ruby API documentation](https://buildkite.com/docs/sdk/ruby).
+For more detailed API documentation on the Buildkite SDK for Ruby, consult the [Buildkite SDK's Ruby API documentation](https://buildkite.com/docs/sdk/ruby/).
 
 ## Developing the Buildkite SDK
 
