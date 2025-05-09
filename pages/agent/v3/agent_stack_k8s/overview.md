@@ -4,7 +4,7 @@ The Buildkite Agent Stack for Kubernetes `agent-stack-k8s` is a Kubernetes [cont
 
 ## Architecture
 
-When a matching job is returned from the Agent API (starting with version v0.28.0 of the controller - and GraphQL API in the previous versions), the controller creates a Kubernetes job containing a single Pod with containers that will acquire and run the Buildkite job. The job contains a [PodSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec) that defines all the containers required to acquire and run a Buildkite job:
+When a matching job is returned from the Agent API, the controller creates a Kubernetes job containing a single Pod with containers that will acquire and run the Buildkite job. The job contains a [PodSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec) that defines all the containers required to acquire and run a Buildkite job:
 
 - Adding an init container to:
   * Copy the agent binary onto the workspace volume (`copy-agent`).
@@ -14,6 +14,9 @@ When a matching job is returned from the Agent API (starting with version v0.28.
 - Modifying the (`container-N`) user-specified containers to:
   * Overwrite the entrypoint to the agent binary.
   * Run with the working directory set to the workspace.
+
+> 📘
+> The Agent Stack for Kubernetes controller works with the Agent API in version 0.28.0 and later of the controller. Earlier versions of the controller work with the GraphQL API.
 
 <!-- vale off -->
 
