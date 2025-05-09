@@ -44,7 +44,7 @@ To [create a new cluster](/docs/apis/rest-api/clusters#clusters-create-a-cluster
 curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters" \
   -H "Content-Type: application/json" \
-  -d '{ 
+  -d '{
     "name": "Open Source",
     "description": "A place for safely running our open source builds",
     "emoji": "\:technologist\:",
@@ -248,6 +248,7 @@ A cluster maintainer can:
 - Manage [agent tokens](/docs/agent/v3/tokens) associated with the cluster.
 - Manage [queues](/docs/pipelines/clusters/manage-queues) within the cluster.
 - Add pipelines to or remove them from the cluster.
+- Stop, pause and resume agents belonging to a queue within the cluster.
 
 > 📘
 > Learn more about Buildkite organization administrators and user permissions in Buildkite from [User and team permissions](/docs/platform/team-management/permissions).
