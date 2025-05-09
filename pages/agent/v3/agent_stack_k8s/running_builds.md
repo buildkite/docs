@@ -1,6 +1,6 @@
 # Running builds
 
-After you've [configured](/docs/agent/v3/agent-stack-k8s/controller-configuration), [deployed](/docs/agent/v3/agent-stack-k8s/installation), and [set up](/docs/agent/v3/agent-stack-k8s/agent-configuration) the Buildkite Agent Stack for Kubernetes controller, and it is monitoring the Agent API for jobs assigned to the `kubernetes` queue, you can start creating builds in your pipelines.
+After you've [installed](/docs/agent/v3/agent-stack-k8s/installation), [configured](/docs/agent/v3/agent-stack-k8s/controller-configuration), and [set up](/docs/agent/v3/agent-stack-k8s/agent-configuration) the Buildkite Agent Stack for Kubernetes controller, and it is monitoring the Agent API for jobs assigned to the `kubernetes` queue, you can start creating builds in your pipelines.
 
 ## Defining steps
 
@@ -43,9 +43,10 @@ As is the case with standalone [Buildkite Agent installations](/docs/agent/v3/in
 
 ## Kubernetes node selection
 
-The Buildkite Agent Stack for Kubernetes controller can schedule your Buildkite jobs to run on particular Kubernetes Nodes with matching _labels_ using Kubernetes PodSpec fields for `nodeSelector` and `nodeName`. 
+The Buildkite Agent Stack for Kubernetes controller can schedule your Buildkite jobs to run on particular Kubernetes Nodes with matching [_labels_](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/) using Kubernetes PodSpec [`nodeSelector`](#kubernetes-node-selection-nodeselector) and [`nodeName`](#kubernetes-node-selection-nodename) fields.
 
 ### nodeSelector
+
 The [`nodeSelector`](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-your-chosen-node) field of the PodSpec can be used to schedule your Buildkite jobs on a chosen Kubernetes Node with matching labels. The `nodeSelector` field can be defined in the controller's configuration via `pod-spec-patch`. This will apply to all Buildkite jobs processed by the controller:
 
 ```yaml
