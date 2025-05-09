@@ -1,21 +1,22 @@
 # Agent Stack for Kubernetes overview
 
-The Buildkite Agent Stack for Kubernetes `agent-stack-k8s` is a Kubernetes [controller](https://kubernetes.io/docs/concepts/architecture/controller/) that uses the Buildkite [GraphQL API](https://buildkite.com/docs/apis/graphql-api) to watch for scheduled jobs assigned to the controller's queue.
+The Buildkite Agent Stack for Kubernetes `agent-stack-k8s` is a Kubernetes [controller](https://kubernetes.io/docs/concepts/architecture/controller/) that uses Buildkite's [Agent API](/docs/apis/agent-api) to watch for scheduled jobs assigned to the controller's queue.
 
 ## Architecture
 
-When a matching job is returned from the GraphQL API, the controller creates a Kubernetes job containing a single Pod with containers that will acquire and run the Buildkite job. The [PodSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec) contained in the job defines a [PodSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec) containing all the containers required to acquire and run a Buildkite job:
+When a matching job is returned from the Agent API, the controller creates a Kubernetes job containing a single Pod with containers that will acquire and run the Buildkite job. The job contains a [PodSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec) that defines all the containers required to acquire and run a Buildkite job:
 
-- adding an init container to:
-  * copy the agent binary onto the workspace volume (`copy-agent`)
-  * check that other container images pull successfully before starting (`imagecheck`)
-- adding a container to run the Buildkite agent (`agent`)
-- adding a container to clone the source repository (`checkout`)
-- modifying the (`container-N`) user-specified containers to:
-  * overwrite the entrypoint to the agent binary
-  * run with the working directory set to the workspace
+- Adding an init container to:
+  * Copy the agent binary onto the workspace volume (`copy-agent`).
+  * Check that other container images pull successfully before starting (`imagecheck`).
+- Adding a container to run the Buildkite agent (`agent`).
+- Adding a container to clone the source repository (`checkout`).
+- Modifying the (`container-N`) user-specified containers to:
+  * Overwrite the entrypoint to the agent binary.
+  * Run with the working directory set to the workspace.
 
-<!--alex ignore Tekton-->
+> 📘
+> The Agent Stack for Kubernetes controller works with the Agent API in version 0.28.0 and later of the controller. Earlier versions of the controller work with the GraphQL API.
 
 <!-- vale off -->
 
@@ -23,19 +24,22 @@ The entry point rewriting and ordering logic is heavily inspired by the approach
 
 <!-- vale on -->
 
-## Requirements
+## Before you start
 
-- A Kubernetes cluster
-- A Buildkite API Access Token with the [GraphQL scope enabled](https://buildkite.com/docs/apis/graphql-api#authentication)
-- A Cluster [Agent Token](https://buildkite.com/docs/agent/v3/tokens#create-a-token)
-- A Cluster [Queue](https://buildkite.com/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue)
-  * The UUID of the Cluster is also required. See [Obtain Cluster UUID](docs/installation.md#how-to-find-a-buildkite-clusters-uuid)
+> 📘 A note on using GraphQL API token
+> Starting with v0.28.0 of the controller, the Buildkite GraphQL API is no longer used. If you are upgrading from an older version, your GraphQL-enabled token can be safely removed from your configuration or Kubernetes secret. Only the agent token is required.
+
+- A Kubernetes cluster.
+- A [Buildkite API access token with the GraphQL scope enabled](/docs/apis/graphql-api#authentication).
+- An [agent token](/docs/agent/v3/tokens#create-a-token) Buildkite cluster.
+- A [self-hosted queue](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue) for this Buildkite cluster.
+  * The UUID of the cluster is also required. Learn how to do this in [How to find a Buildkite cluster's UUID](/docs/agent/v3/agent-stack-k8s/installation#how-to-find-a-buildkite-clusters-uuid).
 - Helm version v3.8.0 or newer (as support for OCI-based registries is required).
 
 ## Get started with the Agent Stack for Kubernetes
 
-Get started with Buildkite Agent Stack for Kubernetes by following the [installation instructions](https://github.com/buildkite/agent-stack-k8s/blob/main/docs/installation.md) in the `agent-stack-k8s` repository.
+Learn more about how to set up the Buildkite Agent Stack for Kubernetes from the [Installation](/docs/agent/v3/agent-stack-k8s/installation) page.
 
-## Documentation
+## Development and contributing
 
-Currently, the Buildkite Agent Stack for Kubernetes is extensively documented in the [Documentation](https://github.com/buildkite/agent-stack-k8s/blob/main/docs/README.md) section of its corresponding repository.
+Since the Buildkite Agent Stack for K8s is open source, you can make your own contributions to this project. Learn more about how to do this from in [Agent Stack K8s Development](https://github.com/buildkite/agent-stack-k8s/blob/main/DEVELOPMENT.md).
