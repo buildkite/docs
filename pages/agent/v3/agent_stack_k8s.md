@@ -31,6 +31,7 @@ The entry point rewriting and ordering logic is heavily inspired by the approach
 - A [Buildkite cluster](/docs/pipelines/clusters/manage-clusters) and an [agent token](/docs/agent/v3/tokens#create-a-token) for this cluster.
 - A [self-hosted queue](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue) for this Buildkite cluster.
   * The UUID of the cluster is also required. Learn how to do this in [How to find a Buildkite cluster's UUID](/docs/agent/v3/agent-stack-k8s/installation#how-to-find-a-buildkite-clusters-uuid).
+  * You can name this queue to be whatever suits you requirements. However, the examples used throughout this documentation assume a queue name of **kubernetes**.
 - Helm version v3.8.0 or newer (as support for OCI-based registries is required).
 
 > 📘 A note on using GraphQL API tokens
