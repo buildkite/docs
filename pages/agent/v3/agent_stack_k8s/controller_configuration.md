@@ -218,8 +218,6 @@ Use `agent-stack-k8s [command] --help` for more information about a command.
 
 The `agent-stack-k8s` controller can be deployed to particular Kubernetes Nodes, using the Kubernetes PodSpec [`nodeSelector`](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-your-chosen-node) field.
 
-### Configuration values YAML file
-
 The `nodeSelector` field can be defined in the controller's configuration:
 
 ```yaml
@@ -234,8 +232,6 @@ config:
 ## Additional environment variables for the controller container
 
 If the Buildkite Agent Stack for Kubernetes controller container requires extra environment variables in order to correctly operate inside your Kubernetes cluster, they can be added to your values YAML file and applied during a deployment with Helm.
-
-### Configuration values YAML file
 
 The `controllerEnv` field can be used to define extra Kubernetes EnvVar environment variables that will apply to the Buildkite Agent Stack for Kubernetes controller container:
 
@@ -254,8 +250,6 @@ config:
 ## Custom annotations for the controller
 
 If you need to add custom annotations to the Agent Stack for Kubernetes controller pod, these annotations can be defined in your values YAML file and applied during a deployment with Helm. Note that the controller pod will also have the annotations `checksum/config` and `checksum/secrets` to track changes to the configuration and secrets.
-
-### Configuration
 
 The `annotations` field can be used to define custom annotations that will be applied to the Buildkite Agent Stack for Kubernetes controller pod:
 
