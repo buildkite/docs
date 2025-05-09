@@ -32,12 +32,12 @@ config:
 
 The following sections describe optional methods for implementing pipeline signing with the Buildkite Agent Stack for Kubernetes controller.
 
-### JWKS signing file configuration
+### JWKS file configuration containing a signing key
 
-Applies to `config/agent-config/signing-jwks-file`.
+This option applies to the `config/agent-config/signing-jwks-file` file.
 
-Specifies the relative/absolute path of the JWKS file containing a signing key.
-When an absolute path is provided, the will be the mount path for the JWKS file.
+Specifies the relative/absolute path of the JWKS file containing a signing key. When an absolute path is provided, this will be the mount path for the JWKS file.
+
 When a relative path (or filename) is provided, this will be appended to `/buildkite/signing-jwks` to create the mount path for the JWKS file.
 
 Default value: `key`.
@@ -48,12 +48,11 @@ config:
     signing-jwks-key-file: key
 ```
 
-### JWKS key ID configuration
+### JWKS signing key ID configuration
 
-Applies to the `signing-jwks-key-id` configuration parameter.
+This option applies to the `signing-jwks-key-id` configuration parameter.
 
-The value provided via `--key-id` during JWKS key pair generation.
-If not provided and the JWKS file contains only one key, that key will be used.
+The value provided via `--key-id` during JWKS key pair generation. If not provided and the JWKS file contains only one key, that key will be used.
 
 ```
 config:
@@ -61,11 +60,11 @@ config:
     signing-jwks-key-id: my-key-id
 ```
 
-### Signing JWKS volume configuration
+### Volume configuration containing a JWKS signing key
 
-Applies to the `config/agent-config/signing-jwks-file` configuration parameter.
+This option applies to the `config/agent-config/signing-jwks-file` configuration parameter.
 
-Creates a Kubernetes Volume, which is mounted to the user-defined command containers at the path specified by `config/agent-config/signing-jwks-file`, containing JWKS signing key data from a Kubernetes Secret.
+Creates a Kubernetes volume, which is mounted to the user-defined command containers at the path specified by `config/agent-config/signing-jwks-file`, containing the JWKS signing key data from a Kubernetes Secret.
 
 ```
 config:
@@ -76,9 +75,11 @@ config:
         secretName: my-signing-key
 ```
 
-### Verification of JWKS file configuration
+### JWKS file configuration containing a verification key
 
-Specifies the relative/absolute path of the JWKS file containing a verification key. When an absolute path is provided, the will be the mount path for the JWKS file.
+This option applies to the `config/agent-config/verification-jwks-file` configuration parameter.
+
+Specifies the relative/absolute path of the JWKS file containing a verification key. When an absolute path is provided, this will be the mount path for the JWKS file.
 
 When a relative path (or filename) is provided, this will be appended to `/buildkite/verification-jwks` to create the mount path for the JWKS file.
 
@@ -92,9 +93,12 @@ config:
 
 ### Verification of failure behavior configuration
 
-This setting determines the Buildkite agent's response when it receives a job without a proper signature, and also specifies how strictly the agent should enforce signature verification for incoming jobs.
+This option applies to the `config/agent-config/verification-failure-behavior` configuration parameter.
+
+This setting determines the Buildkite Agent's response when it receives a job without a proper signature, and also specifies how strictly the agent should enforce signature verification for incoming jobs.
 
 Valid options are:
+
 - `warn`: The agent will emit a warning about missing or invalid signatures but will still proceed to execute the job.
 - `block`: Prevents any job without a valid signature from running, ensuring a secure pipeline environment.
 
@@ -106,9 +110,11 @@ config:
     verification-failure-behavior: warn
 ```
 
-### Verification of JWKS volume configuration
+### Volume configuration containing a JWKS verification key
 
-Creates a Kubernetes Volume, which is mounted to the `agent` containers at the path specified by `config/agent-config/verification-jwks-file`, containing JWKS verification key data from a Kubernetes Secret.
+This option applies to the `config/agent-config/verificationJWKSVolume` configuration parameter.
+
+Creates a Kubernetes Volume, which is mounted to the `agent` containers at the path specified by `config/agent-config/verification-jwks-file`, containing the JWKS verification key data from a Kubernetes Secret.
 
 ```
 config:
