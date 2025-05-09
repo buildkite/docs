@@ -29,7 +29,7 @@ kubectl create secret generic my-git-ssh-credentials --from-file=SSH_PRIVATE_RSA
 
 This Kubernetes Secret can be referenced by the Buildkite Agent Stack for Kubernetes controller using [EnvFrom](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables) from within the controller configuration or via the `gitEnvFrom` config of the `kubernetes` plugin.
 
-### Provide Kubernetes Secret in the configuration
+### Provide a Kubernetes Secret through a configuration file
 
 Using [`pod-spec-patch`](/docs/agent/v3/agent-stack-k8s/container-resource-limits#using-the-podspec-patch), you can specify the Kubernetes Secret containing your SSH private key in your configuration values YAML file using `envFrom`:
 
@@ -46,7 +46,7 @@ config:
           name: my-git-ssh-credentials  # <---- this is an example name of the Kubernetes Secret
 ```
 
-### Provide Kubernetes Secret using the Kubernetes plugin
+### Provide a Kubernetes Secret using the Kubernetes plugin
 
 Under the `kubernetes` plugin, specify the name of the Kubernetes Secret via the `gitEnvFrom` config:
 
@@ -68,7 +68,7 @@ steps:
 > If you are using the `kubernetes` plugin to provide the Kubernetes Secret's SSH private key, you need to _define this configuration for every step_ that requires access to the private Git repository.
 > If you are defining the Kubernetes Secret using the Buildkite Agent Stack for Kubernetes controller configuration, you'll only needs to configure it once.
 
-### Provide SSH private key to non-checkout containers
+### Provide an SSH private key to non-checkout containers
 
 The configurations above only provide the SSH private key as a Kubernetes Secret to the `checkout` container. If Git SSH credentials are required in user-defined job containers, you have these options instead:
 
@@ -132,7 +132,7 @@ steps:
 
 To use HTTPS to clone private Git repositories, you can use a `.git-credentials` file stored in a secret, and refer to this secret using the `gitCredentialsSecret` checkout parameter.
 
-### Create a Kubernetes Secret from Git credentials file
+### Create a Kubernetes Secret from a Git credentials file
 
 Create a `.git-credentials` file formatted in the manner expected by the `store` [Git credential helper](https://git-scm.com/docs/git-credential-store). After this file has been created, you can create a Kubernetes Secret containing the contents of this file:
 
@@ -140,7 +140,7 @@ Create a `.git-credentials` file formatted in the manner expected by the `store`
 kubectl create secret generic my-git-https-credentials --from-file='.git-credentials'="$HOME/.git-credentials" -n buildkite
 ```
 
-### Provide a Kubernetes Secret through the configuration file
+### Provide a Kubernetes Secret through a configuration file
 
 Using `default-checkout-params`, you can define your Kubernetes Secret as follows through the configuration yaml file:
 
@@ -168,9 +168,9 @@ default-checkout-params:
       path: .git-credentials
 ```
 
-### Provide Kubernetes Secret via the Kubernetes plugin
+### Provide a Kubernetes Secret using the Kubernetes plugin
 
-Under the `kubernetes` plugin, specify the name of the Kubernetes Secret via the `checkout.gitCredentialsSecret` config:
+Under the `kubernetes` plugin, specify the name of the Kubernetes Secret using the `checkout.gitCredentialsSecret` config:
 
 ```yaml
 # pipeline.yaml
