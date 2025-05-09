@@ -131,7 +131,7 @@
         - name: "Running on Kubernetes"
           children:
             - name: "Overview"
-              path: "agent/v3/agent-stack-k8s/overview"
+              path: "agent/v3/agent-stack-k8s"
             - name: "Installation"
               path: "agent/v3/agent-stack-k8s/installation"
             - name: "Git credentials"
