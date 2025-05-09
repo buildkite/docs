@@ -1,9 +1,9 @@
 # Agent configuration options
 
-> 📘 Version requirement
-> To be able to implement the agent configuration options described below, `v0.16.0` or newer of the controller is required.
+> 📘 Minimum version requirement
+> To implement the agent configuration options described on this page, version 0.16.0 or later of the Agent Stack for Kubernetes controller is required.
 
-The `agent-config` block within `values.yaml` can be used to set a subset of [the agent configuration file options](/docs/agent/v3/configuration).
+The `agent-config` block within `values.yaml` can be used to set a subset of the [Buildkite Agent configuration](/docs/agent/v3/configuration) options.
 
 ```yaml
 # values.yaml
@@ -24,7 +24,9 @@ config:
     plugin-validation: false
 ```
 
-Note that even if `no-command-eval` or `no-plugins` is enabled, the Kubernetes plugin may still be able to override everything, since it is interpreted by the stack controller and not the agent. `no-command-eval` or `no-plugins` should be used together with the [`prohibit-kubernetes-plugin`](/docs/agent/v3/agent-stack-k8s/securing-the-stack) option.
+> 📘
+> If `no-command-eval` or `no-plugins` are set to `true`, the Kubernetes plugin may still be able to override everything, since it is interpreted by the Agent Stack for Kubernetes controller and not the Buildkite Agent itself.
+> The `no-command-eval` or `no-plugins` options should only be used together with the [`prohibit-kubernetes-plugin`](/docs/agent/v3/agent-stack-k8s/securing-the-stack) option.
 
 ## Pipeline signing
 
