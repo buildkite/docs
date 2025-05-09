@@ -35,7 +35,7 @@ The entry point rewriting and ordering logic is heavily inspired by the approach
 - Helm version v3.8.0 or newer (as support for OCI-based registries is required).
 
 > 📘 A note on using GraphQL API tokens
-> Since the Agent Stack for Kubernetes controller version 0.28.0 and later works with the [Agent REST API](/docs/apis/agent-api), the Buildkite GraphQL API is no longer used. Therefore, if you are upgrading from an older version of the controller to its current version, your GraphQL-enabled token can be safely removed from your configuration or Kubernetes Secret. Only an [agent token](/docs/agent/v3/tokens#create-a-token) for your Buildkite cluster is required.
+> Since the Agent Stack for Kubernetes controller version 0.28.0 and later works with the [Agent REST API](/docs/apis/agent-api), the Buildkite GraphQL API is no longer used. Therefore, if you are upgrading from an older version of the controller to its current version, your Buildkite API access token with the GraphQL scope enabled can be safely removed from your configuration or Kubernetes Secret. Only an [agent token](/docs/agent/v3/tokens#create-a-token) for your Buildkite cluster is required.
 
 ## Get started with the Agent Stack for Kubernetes
 

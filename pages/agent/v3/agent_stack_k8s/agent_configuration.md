@@ -26,7 +26,7 @@ config:
 
 > 📘
 > If `no-command-eval` or `no-plugins` are set to `true`, the Kubernetes plugin may still be able to override everything, since it is interpreted by the Agent Stack for Kubernetes controller and not the Buildkite Agent itself.
-> The `no-command-eval` or `no-plugins` options should only be used together with the [`prohibit-kubernetes-plugin`](/docs/agent/v3/agent-stack-k8s/securing-the-stack) option.
+> To avoid being overridden, the `no-command-eval` or `no-plugins` options should be used together with the [`prohibit-kubernetes-plugin`](/docs/agent/v3/agent-stack-k8s/securing-the-stack) option.
 
 ## Pipeline signing
 
@@ -34,7 +34,7 @@ The following sections describe optional methods for implementing pipeline signi
 
 ### JWKS file configuration containing a signing key
 
-This option applies to the `config/agent-config/signing-jwks-file` file.
+This option applies to the `config.agent-config.verification-jwks-file` file.
 
 Specifies the relative/absolute path of the JWKS file containing a signing key. When an absolute path is provided, this will be the mount path for the JWKS file.
 
@@ -45,14 +45,14 @@ Default value: `key`.
 ```
 config:
   agent-config:
-    signing-jwks-key-file: key
+    signing-jwks-file: key
 ```
 
 ### JWKS signing key ID configuration
 
 This option applies to the `signing-jwks-key-id` configuration parameter.
 
-The value provided via `--key-id` during JWKS key pair generation. If not provided and the JWKS file contains only one key, that key will be used.
+The value provided via `--key-id` during JWKS key pair generation. If you don't specify a `signing-jwks-key-id` in your configuration and your JWKS file contains only one key, then this JWKS file's key will be used.
 
 ```
 config:
@@ -88,7 +88,7 @@ Default value: `key`.
 ```
 config:
   agent-config:
-    verification-jwks-key-file: key
+    verification-jwks-file: key
 ```
 
 ### Verification of failure behavior configuration
