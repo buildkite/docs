@@ -47,7 +47,7 @@ The Buildkite Agent Stack for Kubernetes controller can schedule your Buildkite 
 
 ### nodeSelector
 
-The [`nodeSelector`](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-your-chosen-node) field of the PodSpec can be used to schedule your Buildkite jobs on a chosen Kubernetes Node with matching labels. The `nodeSelector` field can be defined in the controller's configuration via `pod-spec-patch`. This will apply to all Buildkite jobs processed by the controller:
+The [`nodeSelector`](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-your-chosen-node) field of the PodSpec can be used to schedule your Buildkite jobs on a chosen Kubernetes Node with matching labels. The `nodeSelector` field can be defined in the controller's configuration using `pod-spec-patch`. This will apply to all Buildkite jobs processed by the controller:
 
 ```yaml
 # values.yml
@@ -80,7 +80,7 @@ steps:
 
 The [`nodeName`](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-specific-node) field of the PodSpec can be used to schedule your Buildkite jobs on a specific Kubernetes Node.
 
-The `nodeName` field can be defined in the controller's configuration via `pod-spec-patch`. This will apply to all Buildkite jobs processed by the controller:
+The `nodeName` field can be defined in the controller's configuration using `pod-spec-patch`. This will apply to all Buildkite jobs processed by the controller:
 
 ```yaml
 # values.yml

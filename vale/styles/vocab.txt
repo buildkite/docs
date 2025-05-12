@@ -162,6 +162,8 @@ negator
 NGINX
 nginx
 Nodejs
+nodeName
+nodeSelector
 Noreply
 npm
 ns

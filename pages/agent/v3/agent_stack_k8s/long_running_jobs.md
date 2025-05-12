@@ -19,7 +19,7 @@ config:
 
 ## Kubernetes plugin configuration for increasing maximum job duration (on a per-job basis)
 
-It is also possible to override this configuration via the `kubernetes` plugin directly in your pipeline steps, which will only apply to the Kubernetes Job running this `command` step:
+It is also possible to override this configuration using the `kubernetes` plugin directly in your pipeline steps, which will only apply to the Kubernetes Job running this `command` step:
 
 ```yaml
 steps:

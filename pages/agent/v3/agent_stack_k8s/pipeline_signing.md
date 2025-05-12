@@ -1,11 +1,11 @@
 # Pipeline signing
 
-> 📘 Version requirement
-> To be able to implement the configuration options described below, `v0.16.0` or newer of the controller is required.
+> 📘 Minimum version requirement
+> To implement the configuration options described on this page, version 0.16.0 or later of the Agent Stack for Kubernetes controller is required.
 
-The Buildkite Agent Stack for Kubernetes controller supports Buildkite's [Signed Pipelines](/docs/agent/v3/signed-pipelines) feature. A JWKS key pair is stored as Kubernetes Secrets and mounted to the `agent` and user-defined command containers.
+The Buildkite Agent Stack for Kubernetes controller supports Buildkite's [signed pipelines](/docs/agent/v3/signed-pipelines) feature. A JWKS key pair is stored as Kubernetes Secrets and mounted to the `agent` and user-defined command containers.
 
-## Generating JWKS Key Pair
+## Generating a JWKS key pair
 
 Using the `buildkite-agent` CLI, [generate a JWKS key pair](https://buildkite.com/docs/agent/v3/signed-pipelines#self-managed-key-creation-step-1-generate-a-key-pair):
 
@@ -20,7 +20,7 @@ EdDSA-my-jwks-key-private.json
 EdDSA-my-jwks-key-public.json
 ```
 
-## Creating Kubernetes Secrets for JWKS Key Pair
+## Creating Kubernetes Secrets for a JWKS key pair
 
 After using `buildkite-agent` to generate a JWKS key pair, create a Kubernetes Secret for the JWKS signing key that will be used by user-defined command containers:
 
@@ -57,4 +57,4 @@ config:
         secretName: my-verification-key
 ```
 
-Additional information on configuring JWKS key pairs for signing/verification can be found in the [Agent configuration](/docs/agent/v3/agent-stack-k8s/agent-configuration#pipeline-signing).
+Learn more about configuring JWKS key pairs for signing/verification on the [Agent configuration](/docs/agent/v3/agent-stack-k8s/agent-configuration#pipeline-signing) page.

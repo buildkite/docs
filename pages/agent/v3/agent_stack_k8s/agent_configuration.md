@@ -52,7 +52,7 @@ config:
 
 This option applies to the `signing-jwks-key-id` configuration parameter.
 
-The value provided via `--key-id` during JWKS key pair generation. If you don't specify a `signing-jwks-key-id` in your configuration and your JWKS file contains only one key, then this JWKS file's key will be used.
+The value that was provided for `--key-id` during JWKS key pair generation. If you don't specify a `signing-jwks-key-id` in your configuration and your JWKS file contains only one key, then this JWKS file's key will be used.
 
 ```
 config:
