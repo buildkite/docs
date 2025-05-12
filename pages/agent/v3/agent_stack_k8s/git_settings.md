@@ -19,7 +19,7 @@ steps:
         fetchFlags: -v --prune --tags
 ```
 
-In the Buildkite Agent Stack for Kubernetes controller version v0.16.0 and later, more Git flags and options supported by the agent are also configurable with the `checkout` block. For example:
+In the Buildkite Agent Stack for Kubernetes controller version v0.16.0 and later, more Git flags and options are supported by the agent: `cleanFlags`, `noSubmodules`, `submoduleCloneConfig`, `gitMirrors` (`cloneFlags`, `lockTimeout`, and `skipUpdate`) and are configurable with the `checkout` block. For example:
 
 ```yaml
 # pipeline.yml
