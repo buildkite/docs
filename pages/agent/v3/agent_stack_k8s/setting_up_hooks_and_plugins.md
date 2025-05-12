@@ -3,7 +3,7 @@
 > 📘 Minimum version requirement
 > To implement the configuration options described on this page, version 0.16.0 or later of the Agent Stack for Kubernetes controller is required. However, agent hooks are supported in [earlier versions of the controller](#setting-up-agent-hooks-in-earlier-versions).
 
-The `agent-config` block within `values.yaml` accepts a `hookVolumeSource` and `pluginVolumeSource`. If used, the corresponding volumes named `buildkite-hooks` and `buildkite-plugins` will be automatically mounted on checkout and command containers, with the Buildkite Agent configured to use them.
+The `agent-config` block within `values.yaml` accepts a `hookVolume` and `pluginVolume`. If used, the corresponding volumes named `buildkite-hooks` and `buildkite-plugins` will be automatically mounted on checkout and command containers, with the Buildkite Agent configured to use them.
 
 You can specify any volume source for the agent hooks and plugins, but a common choice is to use a `configMap`, since hooks generally aren't large and config maps are made available across the cluster.
 

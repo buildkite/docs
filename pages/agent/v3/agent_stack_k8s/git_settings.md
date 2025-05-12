@@ -4,8 +4,7 @@ toc: false
 
 # Git settings
 
-In the Buildkite Agent Stack for Kubernetes controller version v0.13.0 and later, flags for `git clone` and `git fetch` can be overridden on a per-step basis (similar to
-`BUILDKITE_GIT_CLONE_FLAGS` and `BUILDLKITE_GIT_FETCH_FLAGS` env vars) with the `checkout` block:
+In the Buildkite Agent Stack for Kubernetes controller version v0.13.0 and later, flags for `git clone` and `git fetch` can be overridden on a per-step basis (similar to `BUILDKITE_GIT_CLONE_FLAGS` and `BUILDKITE_GIT_FETCH_FLAGS` env vars) with the `checkout` block:
 
 ```yaml
 # pipeline.yml
