@@ -1,9 +1,9 @@
-# How to set up agent hooks and plugins 
+# How to set up agent hooks and plugins
 
-> 📘 Version requirement
-> To be able to implement the configuration options described below, `v0.16.0` or newer of the controller is required.
+> 📘 Minimum version requirement
+> To implement the configuration options described on this page, version 0.16.0 or later of the Agent Stack for Kubernetes controller is required. However, agent hooks are supported in [earlier versions of the controller](#setting-up-agent-hooks-in-earlier-versions).
 
-The `agent-config` block within `values.yaml` accepts a `hookVolumeSource` and `pluginVolumeSource`. If used, the corresponding volumes named `buildkite-hooks` and `buildkite-plugins` will be automatically mounted on checkout and command containers, with the Buildkite agent configured to use them.
+The `agent-config` block within `values.yaml` accepts a `hookVolumeSource` and `pluginVolumeSource`. If used, the corresponding volumes named `buildkite-hooks` and `buildkite-plugins` will be automatically mounted on checkout and command containers, with the Buildkite Agent configured to use them.
 
 You can specify any volume source for the agent hooks and plugins, but a common choice is to use a `configMap`, since hooks generally aren't large and config maps are made available across the cluster.
 
@@ -13,39 +13,40 @@ To create the config map containing hooks:
 kubectl create configmap buildkite-agent-hooks --from-file=/tmp/hooks -n buildkite
 ```
 
-Example of using hooks from a config map:
+- Example of using hooks from a config map:
 
-```yaml
-# values.yaml
-config:
-  agent-config:
-    hooksVolume:
-      name: buildkite-hooks
-      configMap:
-        defaultMode: 493
-        name: buildkite-agent-hooks
-```
+    ```yaml
+    # values.yaml
+    config:
+    agent-config:
+        hooksVolume:
+        name: buildkite-hooks
+        configMap:
+            defaultMode: 493
+            name: buildkite-agent-hooks
+    ```
 
-Example of using plugins from a host path ([_caveat lector_](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath)):
+- Example of using plugins from a host path ([_caveat lector_](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath)):
 
-```yaml
-# values.yaml
-config:
-  agent-config:
-    pluginsVolume:
-      name: buildkite-plugins
-      hostPath:
-        type: Directory
-        path: /etc/buildkite-agent/plugins
-```
+    ```yaml
+    # values.yaml
+    config:
+    agent-config:
+        pluginsVolume:
+        name: buildkite-plugins
+        hostPath:
+            type: Directory
+            path: /etc/buildkite-agent/plugins
+    ```
 
-Note that `hooks-path` and `plugins-path` Buildkite agent config options can be used to change the mount point of the corresponding volume. The default mount points are `/buildkite/hooks` and `/buildkite/plugins`.
+> 📘
+> The `hooks-path` and `plugins-path` Buildkite agent config options can be used to change the mount point of the corresponding volume. The default mount points are `/buildkite/hooks` and `/buildkite/plugins`.
 
-## Setting up agent hooks in v0.15.0 and earlier
+## Setting up agent hooks in earlier versions
 
-If you are running the Buildkite Agent Stack Kubernetes controller v0.15.0 and earlier in order for the agent hooks to work, they must be present on the instances where the agent runs.
+If you are running the Buildkite Agent Stack Kubernetes controller 0.15.0 or earlier, your agent hooks must be present on the instances where the Builkite Agent runs.
 
-In case of the Buildkite Agent Stack for Kubernetes controller v0.15.0 and earlier, the hooks need to be accessible to the Kubernetes pod where the `checkout` and `command` containers will be running. The recommended approach is to create a configmap with the agent hooks and mount the configmap as volume to the containers.
+These hooks need to be accessible to the Kubernetes pod where the `checkout` and `command` containers will be running. The recommended approach is to create a configmap with the agent hooks and mount the configmap as volume to the containers.
 
 Here is the command to create `configmap` which will have agent hooks in it:
 
@@ -53,7 +54,7 @@ Here is the command to create `configmap` which will have agent hooks in it:
 kubectl create configmap buildkite-agent-hooks --from-file=/tmp/hooks -n buildkite
 ```
 
-ALl the hooks will need to be under directory `/tmp/hooks` and `configmap` with name `buildkite-agent-hooks` needs to be created in `buildkite` namespace in the Kubernetes cluster.
+All the hooks will need to be under the `/tmp/hooks` directory and `configmap` created with the name `buildkite-agent-hooks` in the `buildkite` namespace of the Kubernetes cluster.
 
 Here is how to make these hooks in configmap available to the containers with the help of the pipeline config for setting up agent hooks:
 
@@ -83,42 +84,46 @@ steps:
             name: agent-hooks
 ```
 
-There are 3 main aspects necessary for making sure that hooks are available to the containers in `agent-stack-k8s`.
+There are 3 main aspects necessary for making sure that hooks are available to the containers in the Agent Stack for Kubernetes.
 
 - Define the env variable `BUILDKITE_HOOKS_PATH` with the path `agent` and `checkout` containers will look for hooks:
 
-```yaml
-       env:
-       - name: BUILDKITE_HOOKS_PATH
-         value: /buildkite/hooks
-```
+    ```yaml
+        env:
+        - name: BUILDKITE_HOOKS_PATH
+            value: /buildkite/hooks
+    ```
 
 - Define the `VolumeMounts` using `extraVolumeMounts` which will be the path where the hooks will be mounted to within the containers:
 
-```yaml
-     extraVolumeMounts:
-     - mountPath: /buildkite/hooks
-       name: agent-hooks
-```
+    ```yaml
+        extraVolumeMounts:
+        - mountPath: /buildkite/hooks
+        name: agent-hooks
+    ```
 
 - Define `volumes` where the configmap will be mounted:
 
-```yaml
-       volumes:
-       - configMap:
-           defaultMode: 493
-           name: buildkite-agent-hooks
-         name: agent-hooks
-```
-   
+    ```yaml
+        volumes:
+        - configMap:
+            defaultMode: 493
+            name: buildkite-agent-hooks
+            name: agent-hooks
+    ```
+
 > 📘 Permissions and availability
-> Note that in the examples above, the defaultMode `493` is setting the Unix permissions to `755` which enables the hooks to be executable. Another way to make this hooks directory available to containers is to use [hostPath](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) mount but it is not a recommended approach for production environments.
+> In the examples above, the `defaultMode` value of `493` sets the Unix permissions to `755`, which enables the hooks to be executable. Another way to make this hooks directory available to containers is to use [hostPath](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) mount, but this is not a recommended approach for production environments.
 
-Now, when the pipeline from the example is run, agent hooks will be available to the container and will run them.
+When the pipeline from the example is run, agent hooks will be available to the container and will run them.
 
-With jobs created by the Buildkite Agent Stack for Kubernetes controller, there are key differences with hook execution. The primary difference is with the `checkout` container and user-defined `command` containers. The `checkout` container will run checkout-related hooks such as `pre-checkout`, `checkout` and `post-checkout`. Similarly, the command-related hooks like `pre-command`, `command` and `post-command` hooks will be executed by the `command` container(s). The `environment` hook will be executed multiple times, once within the `checkout` container and once within each of the user-defined `command` containers.
+With jobs created by the Buildkite Agent Stack for Kubernetes controller, there are key differences with hook execution. The primary difference is with the `checkout` container and user-defined `command` containers.
 
-If the env `BUILDKITE_HOOKS_PATH` is set at pipeline level instead of container like shown in the example pipeline config earlier, then the hooks will run for both `checkout` container and `command` container(s).
+- The `checkout` container runs checkout-related hooks, such as `pre-checkout`, `checkout` and `post-checkout`.
+- Similarly, the command-related hooks, such as `pre-command`, `command` and `post-command` are executed by the `command` container(s).
+- The `environment` hook is executed multiple times, once within the `checkout` container, and once within each of the user-defined `command` containers.
+
+If the env `BUILDKITE_HOOKS_PATH` is set at pipeline level instead of at the container level, as shown in the earlier pipeline configuration examples, then the hooks will run for both `checkout` container and `command` container(s).
 
 Here is the pipeline config where env `BUILDKITE_HOOKS_PATH` is exposed to all containers in the pipeline:
 
