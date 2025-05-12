@@ -3,7 +3,7 @@
 > 📘 Minimum version requirement
 > To implement the configuration options described on this page, version 0.24.0 or later of the Agent Stack for Kubernetes controller is required.
 
-The `agent-stack-k8s` controller supports the `activeDeadlineSeconds` field of the Kubernetes [JobSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/job-v1/#JobSpec), which can be achieved by setting the Job's active deadline (that is, the number of seconds specified in its `activeDeadlineSeconds` field). Learn more about this in Kubernetes' documentation on [Job termination and cleanup](https://kubernetes.io/docs/concepts/workloads/controllers/job/#job-termination-and-cleanup).
+The Agent Stack for Kubernetes controller supports the `activeDeadlineSeconds` field of the Kubernetes [JobSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/job-v1/#JobSpec), which can be achieved by setting the Job's active deadline (that is, the number of seconds specified in its `activeDeadlineSeconds` field). Learn more about this in Kubernetes' documentation on [Job termination and cleanup](https://kubernetes.io/docs/concepts/workloads/controllers/job/#job-termination-and-cleanup).
 
 ## Controller configuration for increasing maximum job duration (for all jobs)
 
