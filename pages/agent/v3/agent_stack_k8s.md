@@ -1,6 +1,6 @@
 # Agent Stack for Kubernetes overview
 
-The Buildkite Agent Stack for Kubernetes `agent-stack-k8s` is a Kubernetes [controller](https://kubernetes.io/docs/concepts/architecture/controller/) that uses Buildkite's [Agent API](/docs/apis/agent-api) to watch for scheduled jobs assigned to the controller's queue.
+The Buildkite Agent Stack for Kubernetes (`agent-stack-k8s`) is a Kubernetes [controller](https://kubernetes.io/docs/concepts/architecture/controller/) that uses Buildkite's [Agent API](/docs/apis/agent-api) to watch for scheduled jobs assigned to the controller's queue.
 
 ## Architecture
 

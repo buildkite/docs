@@ -126,5 +126,5 @@ steps:
       podSpecPatch:
         containers:
         - name: container-0      # <-- For the time being, specify this exactly as `container-0`.
-          image: alpine:latest   #     Currently under experimentation to make this more ergonomic
+          image: alpine:latest   #     Currently under experimentation to make this more ergonomic.
 ```

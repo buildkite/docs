@@ -42,7 +42,7 @@ config:
 
 ## Using the PodSpec patch
 
-All the Kubernetes Jobs created by the `agent-stack-k8s` controller will have the resources applied in the example in the previous section. To override these resources for a single job, use the `kubernetes` plugin with `podSpecPatch` to define container resources. For example:
+Following on from the Agent Stack for Kubernetes controller's YAML configuration values file above, all the Kubernetes Jobs created by the controller will have the resources (defined in this file) applied to them. To override these resources for a single job, use the `kubernetes` plugin with `podSpecPatch` to define container resources. For example:
 
 ```yaml
 # pipelines.yaml
@@ -55,8 +55,8 @@ steps:
   - kubernetes:
       podSpecPatch:
         containers:
-        - name: container-0    # <---- Please specify this as exactly `container-0`.
-          resources:           #       We are working on making this more ergonomic
+        - name: container-0    # <-- Specify this exactly as `container-0`.
+          resources:           #     Currently under experimentation to make this more ergonomic.
             requests:
               cpu: 1000m
               memory: 50Mi
@@ -69,7 +69,7 @@ steps:
 
 ## Configuring imagecheck-* containers
 
-Defining [CPU](https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/#cpu-units) and [memory](https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource/#memory-units) resource limits can be set with the `image-check-container-cpu-limit` and `image-check-container-memory-limit` configuration values:
+To define [CPU](https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/#cpu-units) and [memory](https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource/#memory-units) resource limits for your containers, use the `image-check-container-cpu-limit` and `image-check-container-memory-limit` configuration values:
 
 ```
 # values.yaml
