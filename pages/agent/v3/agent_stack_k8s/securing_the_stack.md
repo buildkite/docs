@@ -1,4 +1,4 @@
-# Securing the Stack
+# Securing the Agent Stack for Kubernetes
 
 > 📘 Minimum version requirement
 > To implement the configuration options described on this page, version 0.13.0 or later of the Agent Stack for Kubernetes controller is required.
@@ -20,7 +20,7 @@ helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-
     --prohibit-kubernetes-plugin
 ```
 
-## Configuration values YAML File
+## Using a YAML configuration file
 
 You can also enable the `prohibit-kubernetes-plugin` option in your configuration values YAML file:
 

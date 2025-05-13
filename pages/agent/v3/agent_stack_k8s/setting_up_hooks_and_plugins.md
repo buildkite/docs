@@ -44,7 +44,7 @@ kubectl create configmap buildkite-agent-hooks --from-file=/tmp/hooks -n buildki
 
 ## Setting up agent hooks in earlier versions
 
-If you are running the Buildkite Agent Stack Kubernetes controller 0.15.0 or earlier, your agent hooks must be present on the instances where the Builkite Agent runs.
+If you are running the Buildkite Agent Stack Kubernetes controller 0.15.0 or earlier, your agent hooks must be present on the instances where the Buildkite Agent runs.
 
 These hooks need to be accessible to the Kubernetes pod where the `checkout` and `command` containers will be running. The recommended approach is to create a configmap with the agent hooks and mount the configmap as volume to the containers.
 
@@ -112,8 +112,12 @@ There are 3 main aspects necessary for making sure that hooks are available to t
             name: agent-hooks
     ```
 
+<!-- vale off -->
+
 > 📘 Permissions and availability
 > In the examples above, the `defaultMode` value of `493` sets the Unix permissions to `755`, which enables the hooks to be executable. Another way to make this hooks directory available to containers is to use [hostPath](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) mount, but this is not a recommended approach for production environments.
+
+<!-- vale on -->
 
 When the pipeline from the example is run, agent hooks will be available to the container and will run them.
 

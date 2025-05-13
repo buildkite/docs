@@ -1,10 +1,10 @@
 # Prometheus metrics
 
-All metrics exported by the `agent-stack-k8s` controller begin with `buildkite_`. The second component of the metric name refers to the controller component that produces the metric.
+All metrics exported by the Agent Stack for Kubernetes controller begin with `buildkite_`. The second component of the metric name refers to the controller component that produces the metric.
 
 ## Notes on using the metrics
 
-Most metrics below are counter metrics, designed to be used in conjunction with the `rate` and a time window. These are named ending in `_total`. 
+Most metrics below are counter metrics, designed to be used in conjunction with the `rate` and a time window. These are named ending in `_total`.
 
 PromQL examples:
 

@@ -58,14 +58,17 @@ CMake
 cmake
 cocoapods
 commit_sha
+completion_watcher
 composable
 config
+configmap
 cpu
 cron
 crontab
 Crontab
 Datadog
 debuild
+deduper
 deno
 deprioritize
 deprovisioning
@@ -127,6 +130,8 @@ iTerm's
 Jenkins
 JFrog
 JFrog's
+job_watcher
+jobWatcher
 jpegs
 jq
 json
@@ -188,6 +193,8 @@ plaintext
 plist
 png
 pngs
+pod_watcher
+podWatcher
 Postgres
 PowerShell
 PR's
