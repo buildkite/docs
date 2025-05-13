@@ -1,9 +1,12 @@
+---
+toc: false
+---
+
 # Default job metadata
 
 The Buildkite Agent Stack for Kubernetes controller can automatically add labels and annotations to the Kubernetes Jobs it creates.
 
-Default annotations and labels can be set in the controller's configuration values YAML file, via `default-metadata`.
-This will apply the defined annotations and labels to all Jobs created by the controller:
+Default annotations and labels can be set in the controller's YAML configuration values file, through `default-metadata`. Such a configuration applies its defined annotations and labels to all Jobs created by the controller:
 
 ```yaml
 # values.yaml
@@ -18,7 +21,7 @@ default-metadata:
 ...
 ```
 
-Alternatively, you can set the default labels for individual steps in a pipeline using the `metadata` config of the `kubernetes` plugin:
+Alternatively, you can set the default labels for individual steps in a pipeline using the `metadata` configuration of the `kubernetes` plugin:
 
 ```yaml
 # pipeline.yaml

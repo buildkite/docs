@@ -1,3 +1,7 @@
+---
+toc: false
+---
+
 # Validating your pipeline
 
 Buildkite plugin specifications are unstructured by nature, which can lead to configuration errors that cause agent pod startup failures. These issues can be difficult and time-consuming to troubleshoot.

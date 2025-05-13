@@ -1,11 +1,15 @@
+---
+toc: false
+---
+
 # Sidecars
 
-Youcan add sidecar containers to your job by specifying them under the `sidecars` key of the `kubernetes` plugin. These containers are started at the same time as the job's `command` containers. However, there is no guarantee that your `sidecar` containers will have started before your job's `command` containers commands are executed, so using retries or a tool like [wait-for-it](https://github.com/vishnubob/wait-for-it) is recommended to avoid failed dependencies in case the `sidecar` container will still be getting started.
+You can add sidecar containers to your job by specifying them under the `sidecars` key of the `kubernetes` plugin. These containers are started at the same time as the job's `command` containers. However, there is no guarantee that your `sidecar` containers will have started before the commands in your job's `command` containers are executed. Therefore, using retries or a tool like [wait-for-it](https://github.com/vishnubob/wait-for-it) is recommended to avoid failed dependencies in the event that the `sidecar` container is still in the process of getting started.
 
-> 📘 Difference in containers
-> The `sidecar` containers configured by the `agent-stack-k8s` controller differ from [Sidecar containers](https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/) defined by Kubernetes. True Kubernetes Sidecar containers run as init containers, whereas `sidecar` containers defined by the controller run as application containers in the Pod alongside the job's `command` containers.
+> 📘 Sidecar container differences
+> The `sidecar` containers configured by the Agent Stack for Kubernetes controller differ from [sidecar containers](https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/) defined by Kubernetes. True Kubernetes sidecar containers run as init containers, whereas `sidecar` containers defined by the controller run as application containers in the Pod alongside the job's `command` containers.
 
-Here is an example using a `nginx` container as a Sidecar container and using `curl` from the job's `command` container to interact with the `nginx` container:
+The following pipeline example shows how to use an `nginx` container as a sidecar container and run `curl` from the job's `command` container to interact with the `nginx` container:
 
 ```
 steps:
@@ -24,7 +28,7 @@ steps:
                   - curl --retry 10 --retry-all-errors localhost:80
 ```
 
-For example, you can use sidecar containers for running asynchronous commands against files/directories under the `/workspace` directory outside of the `command` containers:
+For example, you can use sidecar containers to run asynchronous commands against files or directories or both under the `/workspace` directory outside of the `command` containers:
 
 ```
 steps:
