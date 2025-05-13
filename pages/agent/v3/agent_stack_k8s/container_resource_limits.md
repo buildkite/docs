@@ -4,7 +4,7 @@ In the Buildkite Agent Stack for Kubernetes controller's values YAML configurati
 
 ```yaml
 # values.yaml
-agentStackSecret: <name of predefend secrets for k8s>
+agentStackSecret: <name of predefend secrets for Kubernetes>
 config:
   org: <your-org-slug>
   pod-spec-patch:

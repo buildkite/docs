@@ -216,7 +216,7 @@ Use `agent-stack-k8s [command] --help` for more information about a command.
 
 ## Kubernetes node selection
 
-The `agent-stack-k8s` controller can be deployed to particular Kubernetes Nodes, using the Kubernetes PodSpec [`nodeSelector`](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-your-chosen-node) field.
+The Buildkite Agent Stack for Kubernetes controller can be deployed to particular Kubernetes Nodes, using the Kubernetes PodSpec [`nodeSelector`](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-your-chosen-node) field.
 
 The `nodeSelector` field can be defined in the controller's configuration:
 
