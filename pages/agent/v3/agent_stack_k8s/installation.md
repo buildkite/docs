@@ -1,6 +1,6 @@
 # Installation
 
-Before proceeding, ensure that you have met the [prerequisites](/docs/agent/v3/agent-stack-k8s/overview#before-you-start) for the Buildkite Agent Stack for Kubernetes controller.
+Before proceeding, ensure that you have met the [prerequisites](/docs/agent/v3/agent-stack-k8s#before-you-start) for the Buildkite Agent Stack for Kubernetes controller.
 
 The recommended way to install the Buildkite Agent Stack for Kubernetes controller is to deploy a [Helm](https://helm.sh) chart by running the following command with your appropriate configuration values:
 

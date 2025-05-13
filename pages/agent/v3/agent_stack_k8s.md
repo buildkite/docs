@@ -34,7 +34,7 @@ The entry point rewriting and ordering logic is heavily inspired by the approach
 
 - A [self-hosted queue](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue) for this Buildkite cluster.
   * The UUID of the cluster is also required. Learn how to do this in [How to find a Buildkite cluster's UUID](/docs/agent/v3/agent-stack-k8s/installation#how-to-find-a-buildkite-clusters-uuid).
-  * If the queue tags are not explicitly specified, by default, the controller will assume that the tag is `tags=["queue=kubernetes"]`. You can define the queue name to be whatever suits you requirements to query the API for scheduled jobs assigned to that queue. However, the examples used throughout this documentation assume the default queue name of **kubernetes**.
+  * If the queue tags are not explicitly specified, by default, the controller will assume that the tag is `tags=["queue=kubernetes"]`. You can define the queue name to be whatever suits your requirements to query the API for scheduled jobs assigned to that queue. However, the examples used throughout this documentation assume the default queue name of **kubernetes**.
 - Helm version v3.8.0 or newer (as support for OCI-based registries is required).
 
 <!-- vale on -->
