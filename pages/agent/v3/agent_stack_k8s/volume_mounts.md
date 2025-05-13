@@ -1,8 +1,10 @@
 # Volume mounts
 
-In case you need to attach extra volume mounts (in addition to the `/workspace` one) to some or all of the pod containers, for example if you want to use [git mirrors](https://buildkite.com/docs/agent/v3#promoted-experiments-git-mirrors), it is possible. To attach extra volume mounts to _all_ containers (`checkout`, `agent`, `command`, `sidecar`, etc.) you can use the `kubernetes` plugin. For example:
+You can attach extra volume mounts (in addition to the `/workspace` one) to some or all of the pod containers. This can be useful when using [git mirrors](/docs/agent/v3#promoted-experiments-git-mirrors), mounted as an extra volume.
 
-```
+To attach extra volume mounts to _all_ containers (`checkout`, `agent`, `command`, `sidecar`, etc.), you can use the `kubernetes` plugin. For example:
+
+```yaml
 steps:
   - label: ":file_cabinet: Share file across containers using volume mount"
     key: share-file-using-scratch-volume
@@ -43,9 +45,9 @@ steps:
               mountPath: /tmp/scratch
 ```
 
-## Checkout containers
+## Checkout containers only
 
-In order to only attach extra volumes to your `checkout` containers, define `config.default-checkout-params.extraVolumeMounts` in your yaml configuration. For example:
+To attach extra volumes only to your `checkout` containers, define `config.default-checkout-params.extraVolumeMounts` in your YAML configuration. For example:
 
 ```yaml
 # values.yaml
@@ -88,9 +90,9 @@ Alternatively, you can also do this via `checkout.extraVolumeMounts` in the `kub
             type: DirectoryOrCreate
 ```
 
-## Command containers
+## Command containers only
 
-In order to only attach extra volumes to your `container-#` (`command`) containers, define `config.default-command-params.extraVolumeMounts` in your yaml configuration. For example:
+To attach extra volumes only to your `container-#` (`command`) containers, define `config.default-command-params.extraVolumeMounts` in your YAML configuration. For example:
 
 ```yaml
 # values.yaml
@@ -131,9 +133,9 @@ Alternatively, you can also do this via `commandParams.extraVolumeMounts` in the
             type: DirectoryOrCreate
 ```
 
-## Sidecar containers
+## Sidecar containers only
 
-In order to only attach extra volumes to your `sidecar` containers, define `config.default-sidecar-params.extraVolumeMounts` in your configuration. For example:
+To attach extra volumes only to your `sidecar` containers, define `config.default-sidecar-params.extraVolumeMounts` in your YAML configuration. For example:
 
 ```yaml
 # values.yaml
