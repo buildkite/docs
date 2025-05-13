@@ -62,6 +62,6 @@ You can control conditional notifications using `pipeline.started_passing` and `
 
 See [Conditional Slack notifications](/docs/pipelines/configure/notifications#slack-channel-and-direct-messages-conditional-slack-notifications) for more examples.
 
-#### Privacy policy
+## Privacy policy
 
 For more details on how we handle your information, please check our [Privacy Policy](https://buildkite.com/about/legal/privacy-policy/).

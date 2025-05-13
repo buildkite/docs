@@ -79,6 +79,6 @@ Once you've found the matching Buildkite service and Slack app, confirm where an
 
 Using the instructions above, [add a new Buildkite notification service](/docs/pipelines/integrations/other/slack#adding-a-notification-service) with the same settings as the legacy integration.
 
-#### Privacy policy
+## Privacy policy
 
 For more details on how we handle your information, please check our [Privacy Policy](https://buildkite.com/about/legal/privacy-policy/).
