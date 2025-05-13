@@ -520,6 +520,8 @@
           path: "test-engine/public-test-suites"
         - name: "Permissions"
           path: "test-engine/permissions"
+        - name: "Webhooks"
+          path: "test-engine/webhooks"
 - name: "Package Registries"
   path: "package-registries"
   children:
