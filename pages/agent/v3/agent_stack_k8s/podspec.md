@@ -41,7 +41,7 @@ With multiple `PodSpec` inputs provided, here is how the Agent Stack for Kuberne
 
 In a `podSpec`, `command` _must_ be a list of strings, since it is [defined by Kubernetes](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#entrypoint). However, the Buildkite Agent Stack for Kubernetes controller runs the Buildkite Agent instead of the container's default entrypoint.
 
-To run a command, it must _re-interpret_ `command` into input for the Buildkite Agent. By default, it treats `command` as a sequence of multiple commands, similar to steps and commands in a `pipeline.yaml` file which is different to the interpretation of `command` (as an entrypoint vector run without a shell as a single command) in Kubernetes.
+To run a command, the controller must _re-interpret_ `command` into input for the Buildkite Agent. By default, the controller treats `command` as a sequence of multiple commands, similar to steps and commands in a `pipeline.yaml` file which is different to the interpretation of `command` (as an entrypoint vector run without a shell as a single command) in Kubernetes.
 
 This _interposer_ behavior can be changed using `commandParams/interposer`, which can have one of the following values:
 
@@ -98,7 +98,7 @@ steps:
 
 ### Custom images
 
-Almost any container image may be used, but it _must_ have a POSIX shell available to be executed at `/bin/sh`.
+Almost any container image may be used, but the image _must_ have a POSIX shell available to be executed at `/bin/sh`.
 You can specify a different image to use for a step in a step level `podSpecPatch`. Previously this could be done with a step level `podSpec`.
 
 ```yaml

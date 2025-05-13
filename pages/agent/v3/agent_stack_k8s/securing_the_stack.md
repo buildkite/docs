@@ -5,7 +5,7 @@
 
 To secure Buildkite Pipelines jobs on the Agent Stack for Kubernetes controller, the `prohibit-kubernetes-plugin` configuration option can be used to prevent users from overriding a controller-defined `pod-spec-patch`. With the `prohibit-kubernetes-plugin` configuration enabled, any Pipelines job including the `kubernetes` plugin will fail.
 
-## Inline configuration
+## Using inline configuration
 
 Add the `--prohibit-kubernetes-plugin` argument to your Helm deployment:
 

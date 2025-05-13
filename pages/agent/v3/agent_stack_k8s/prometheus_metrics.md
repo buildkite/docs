@@ -1,6 +1,6 @@
 # Prometheus metrics
 
-All metrics exported by the Agent Stack for Kubernetes controller begin with `buildkite_`. The second component of the metric name refers to the controller component that produces the metric.
+All [Prometheus metrics](https://prometheus.io/) exported by the Agent Stack for Kubernetes controller begin with `buildkite_`. The second component of the metric name refers to the controller component that produces the metric.
 
 ## Notes on using the metrics
 
