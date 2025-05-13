@@ -10,7 +10,7 @@ You can configure webhooks to be triggered by the following events in Test Engin
 
 Webhooks are delivered to an HTTP POST endpoint of your choosing with a `Content-Type: application/json` header and a JSON encoded request body.
 
-To configure webhooks for your suite, navigate to **Suites**, select your suite, the click on **Settings** and select the **Notifications** tab.
+To configure webhooks for your suite, navigate to **Test Suites**, select your suite, then click on **Settings** and select the **Notifications** tab.
 
 ## Test state changed
 
