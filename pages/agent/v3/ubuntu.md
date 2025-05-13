@@ -69,6 +69,10 @@ See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details
 
 <%= render_markdown partial: 'agent/v3/apt_configuration' %>
 
+## Which user the agent runs as
+
+On Ubuntu, the Buildkite agent runs as user `buildkite-agent`.
+
 ## Running multiple agents
 
 <%= render_markdown partial: 'agent/v3/linux_multiple_agents' %>
@@ -80,3 +84,7 @@ See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details
 ## Alternative keyservers
 
 <%= render_markdown partial: 'agent/v3/alternative_keyservers' %>
+
+## Systemd modifications
+
+<%= render_markdown partial: 'agent/v3/linux_systemd_modifications' %>
