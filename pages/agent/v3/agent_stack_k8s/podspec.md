@@ -12,6 +12,7 @@ The Agent Stack for Kubernetes controller allows you to define some or all of th
 With multiple `PodSpec` inputs provided, here is how the Agent Stack for Kubernetes controller generates a Kubernetes `PodSpec`:
 
 1. Create a simple `PodSpec` containing a single container with the `Image` defined in the controller's configuration and the value of the Buildkite job's command (`BUILDKITE_COMMAND`).
+
     If the `kubernetes` plugin is present in the Buildkite job's plugins and contains a `podSpec`, use this as the starting `PodSpec` instead.
 
 1. Apply the `/workspace` Volume.
@@ -38,17 +39,17 @@ With multiple `PodSpec` inputs provided, here is how the Agent Stack for Kuberne
 
 ## PodSpec command and interpretation of arguments
 
-In a `podSpec`, `command` _must_ be a list of strings, since it is [defined by Kubernetes](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#entrypoint). However, the Buildkite Agent Stack for Kubernetes controller runs the Buildkite agent instead of the container's default entrypoint.
+In a `podSpec`, `command` _must_ be a list of strings, since it is [defined by Kubernetes](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#entrypoint). However, the Buildkite Agent Stack for Kubernetes controller runs the Buildkite Agent instead of the container's default entrypoint.
 
-To run a command, it must _re-interpret_ `command` into input for the Buildkite agent. By default, it treats `command` as a sequence of multiple commands, similar to steps and commands in a pipeline.yaml which is different to the interpretation of `command` (as an entrypoint vector run without a shell as a single command) in Kubernetes.
+To run a command, it must _re-interpret_ `command` into input for the Buildkite Agent. By default, it treats `command` as a sequence of multiple commands, similar to steps and commands in a `pipeline.yaml` file which is different to the interpretation of `command` (as an entrypoint vector run without a shell as a single command) in Kubernetes.
 
-This "interposer" behaviour can be changed using `commandParams/interposer`:
+This _interposer_ behavior can be changed using `commandParams/interposer`, which can have one of the following values:
 
-- `buildkite` is the default, in which agent-stack-k8s treats `command` as a sequence of multiple commands and `args` as extra arguments added to the end of the last command, which is then typically interpreted by the shell.
+- `buildkite` is the default, in which the Agent Stack for Kubernetes controller treats `command` as a sequence of multiple commands, and `args` as extra arguments added to the end of the last command, which are then typically interpreted by the shell.
 - `vector` emulates the Kubernetes' interpretation in which `command` and `args` specify components of a single command intended to be run directly.
-- `legacy` is the 0.14.0 and earlier behaviour in which `command` and `args` were joined directly into a single command with spaces.
+- `legacy` is the behavior of the Agent Stack for Kubernetes controller version 0.14.0 and earlier, where `command` and `args` are joined directly into a single command with spaces.
 
-A Buildkite example:
+An example using `buildkite` interposer behavior:
 
 ```yaml
 steps:
@@ -69,9 +70,9 @@ steps:
             cat hello.txt | buildkite-agent annotate
 ```
 
-If you have a multi-line `command`, specifying the `args` could lead to confusion, so we recommend just using `command`.
+If you have a multi-line `command`, specifying the `args` could lead to confusion. Therefore, it is recommended to just use `command`.
 
-`vector` example:
+An example using `vector` interposer behavior:
 
 ```yaml
 steps:
@@ -124,6 +125,6 @@ steps:
   - kubernetes:
       podSpecPatch:
         containers:
-        - name: container-0      # <---- Please specify this as exactly `container-0` for now.
-          image: alpine:latest   #       We are experimenting with ways to make this more ergonomic
+        - name: container-0      # <-- For the time being, specify this exactly as `container-0`.
+          image: alpine:latest   #     Currently under experimentation to make this more ergonomic
 ```
