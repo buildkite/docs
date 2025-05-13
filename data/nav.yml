@@ -165,7 +165,7 @@
             - name: "Volume mounts"
               path: "agent/v3/agent-stack-k8s/volume-mounts"
             - name: "Command override"
-              path: "agent/v3/agent-stack-k8s/command-override"
+              path: "agent/v3/agent-stack-k8s/overriding-commands"
             - name: "Securing the stack"
               path: "agent/v3/agent-stack-k8s/securing-the-stack"
             - name: "Prometheus metrics"
