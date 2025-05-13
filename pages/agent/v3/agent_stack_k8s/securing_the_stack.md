@@ -1,9 +1,9 @@
 # Securing the Stack
 
-> 📘 Version requirement
-> To be able to implement the configuration options described below, `v0.13.0` or newer of the controller is required.
+> 📘 Minimum version requirement
+> To implement the configuration options described on this page, version 0.13.0 or later of the Agent Stack for Kubernetes controller is required.
 
-For securing Buildkite jobs on `agent-stack-k8s`, the `prohibit-kubernetes-plugin` configuration option can be used to prevent users from overriding a controller-defined `pod-spec-patch`. With the `prohibit-kubernetes-plugin` configuration enabled, any Buildkite job including the `kubernetes` plugin will fail.
+To secure Buildkite Pipelines jobs on the Agent Stack for Kubernetes controller, the `prohibit-kubernetes-plugin` configuration option can be used to prevent users from overriding a controller-defined `pod-spec-patch`. With the `prohibit-kubernetes-plugin` configuration enabled, any Pipelines job including the `kubernetes` plugin will fail.
 
 ## Inline configuration
 
@@ -13,9 +13,9 @@ Add the `--prohibit-kubernetes-plugin` argument to your Helm deployment:
 helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-k8s \
     --namespace buildkite \
     --create-namespace \
-    --set agentToken=<Buildkite Cluster Agent Token> \
-    --set config.org=<Buildkite Org Slug> \
-    --set config.cluster-uuid=<Buildkite Cluster UUID> \
+    --set agentToken=<buildkite-cluster-agent-token> \
+    --set config.org=<buildkite-organization-slug> \
+    --set config.cluster-uuid=<buildkite-cluster-uuid> \
     --set-json='config.tags=["queue=kubernetes"]' \
     --prohibit-kubernetes-plugin
 ```
