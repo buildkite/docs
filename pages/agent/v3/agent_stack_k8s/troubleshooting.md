@@ -1,12 +1,12 @@
 # Troubleshooting
 
-If you're experiencing any issues with Buildkite Agent Stack for Kubernetes controller, we recommend enabling the debug mode and log collection to get a better visibility into potential issues.
+If you're experiencing any issues with Buildkite Agent Stack for Kubernetes controller, it is recommended that you enable the debug mode and log collection to obtain better visibility and insight into such issues or any other related problems.
 
 ## Enable debug mode
 
-Increasing the verbosity of Buildkite Agent Stack for Kubernetes controller's logs can be accomplished by enabling Debug mode. Once enabled, the logs will emit individual, detailed actions performed by the controller while obtaining jobs from Buildkite's API, processing configurations to generate a Kubernetes PodSpec and creating a new Kubernetes Job. Debug mode can help to identify processing delays or incorrect job processing issues.
+Increasing the verbosity of Buildkite Agent Stack for Kubernetes controller's logs can be accomplished by enabling debug mode. Once enabled, the logs will emit individual, detailed actions performed by the controller while obtaining jobs from Buildkite's API, processing configurations to generate a Kubernetes PodSpec and creating a new Kubernetes Job. Debug mode can help to identify processing delays or incorrect job processing issues.
 
-Debug mode can be enabled during the Helm deployment of the Buildkite Agent Stack for Kubernetes controller via the command line:
+Debug mode can be enabled during the [installation](/docs/agent/v3/agent-stack-k8s/installation) (Helm chart deployment) of the Buildkite Agent Stack for Kubernetes controller via the command line:
 
 ```bash
 helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-k8s \
@@ -38,16 +38,22 @@ To enable log collection for the Buildkite Agent Stack for Kubernetes controller
 ### Inputs to the script
 
 When executing the `log-collector` script, you will be prompted for:
-- Kubernetes Namespace where the Buildkite Agent Stack for Kubernetes controller is deployed
-- Buildkite job ID to collect Job and Pod logs
+
+- Kubernetes Namespace where the Buildkite Agent Stack for Kubernetes controller is deployed.
+
+- Buildkite job ID to collect Job and Pod logs.
 
 ### Gathering of data and logs
 
 The `log-collector` script will gather the following information:
-- Kubernetes Job, Pod resource details for Buildkite Agent Stack for Kubernetes controller
-- Kubernetes Pod logs for Buildkite Agent Stack for Kubernetes controller
-- Kubernetes Job, Pod resource details for Buildkite job ID (if provided)
-- Kubernetes Pod logs that executed Buildkite job ID (if provided)
+
+- Kubernetes Job, Pod resource details for the Buildkite Agent Stack for Kubernetes controller.
+
+- Kubernetes Pod logs for the Buildkite Agent Stack for Kubernetes controller.
+
+- Kubernetes Job, Pod resource details for the Buildkite job ID (if provided).
+
+- Kubernetes Pod logs that executed the Buildkite job ID (if provided).
 
 The logs will be archived in a tarball named `logs.tar.gz` in the current directory. If requested, these logs may be provided via email to the Buildkite Support (`support@buildkite.com`).
 
