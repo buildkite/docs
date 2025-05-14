@@ -405,6 +405,10 @@
           path: "pipelines/insights/clusters"
         - name: "Queue metrics"
           path: "pipelines/insights/queue-metrics"
+    - name: "Observability"
+      children: 
+        - name: "Datadog"
+          path: "pipelines/observability/datadog" 
     - name: "Integrations"
       children:
         - name: "Overview"
