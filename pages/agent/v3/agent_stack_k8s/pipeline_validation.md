@@ -10,4 +10,4 @@ To prevent configuration problems before deployment, we suggest using a linter t
 
 Even such linters currently can't catch every type of error and you might still get a reference to a Kubernetes volume that doesn't exist or other similar errors. However, using a JSON Schema linter will help validating that the fields match the expected API specifications.
 
-Our JSON schema can also be used with editors that support JSON Schema by configuring your editor to validate against the schema found in the controller repository [here](https://github.com/buildkite/agent-stack-k8s/blob/main/cmd/linter/schema.json).
+The [JSON schema](https://github.com/buildkite/agent-stack-k8s/blob/main/cmd/linter/schema.json) found in the Agent Stack for Kubernetes controller's open source repository, can also be used with editors that support JSON Schema, by configuring your editor to validate against this controller's schema.

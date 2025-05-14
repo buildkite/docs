@@ -27,17 +27,18 @@ The entry point rewriting and ordering logic is heavily inspired by the approach
 ## Before you start
 
 - A Kubernetes cluster.
-- A [Buildkite API access token with the GraphQL scope enabled](/docs/apis/graphql-api#authentication).
 - A [Buildkite cluster](/docs/pipelines/clusters/manage-clusters) and an [agent token](/docs/agent/v3/tokens#create-a-token) for this cluster.
 
 <!-- vale off -->
 
 - A [self-hosted queue](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue) for this Buildkite cluster.
   * The UUID of the cluster is also required. Learn how to do this in [How to find a Buildkite cluster's UUID](/docs/agent/v3/agent-stack-k8s/installation#how-to-find-a-buildkite-clusters-uuid).
-  * If the [queue tags](https://buildkite.com/docs/agent/v3/cli-start#the-queue-tag) are not explicitly specified, by default, the controller will assume that the tag is `tags=["queue=kubernetes"]`. You can define the queue name to be whatever suits your requirements to query the API for scheduled jobs assigned to that queue. However, the examples used throughout this documentation assume the default queue name of **kubernetes**.
+  * If [queue tags are not explicitly specified when the agent is started](/docs/agent/v3/queues#setting-an-agents-queue), then the controller assumes that the tag is `tags=["queue=kubernetes"]`. You can define the queue name to be whatever suits your requirements to query the API for scheduled jobs assigned to that queue. However, the examples used throughout this documentation assume the default queue name of **kubernetes**.
 - Helm version v3.8.0 or newer (as support for OCI-based registries is required).
 
 <!-- vale on -->
+
+- If working with a version of the Agent Stack for Kubernetes controller prior to 0.28.0, a [Buildkite API access token with the GraphQL scope enabled](/docs/apis/graphql-api#authentication).
 
 > 📘 A note on using GraphQL API tokens
 > Since the Agent Stack for Kubernetes controller version 0.28.0 and later works with the [Agent REST API](/docs/apis/agent-api), the Buildkite GraphQL API is no longer used. Therefore, if you are upgrading from an older version of the controller to its current version, your Buildkite API access token with the GraphQL scope enabled can be safely removed from your configuration or Kubernetes Secret. Only an [agent token](/docs/agent/v3/tokens#create-a-token) for your Buildkite cluster is required.

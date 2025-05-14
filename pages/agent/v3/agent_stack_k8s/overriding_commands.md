@@ -1,11 +1,15 @@
 # Overriding commands
 
-You can alter the `command` or `args` or command containers using PodSpecPatch. These will be re-wrapped in the necessary `buildkite-agent` invocation. However, PodSpecPatch will not modify the `command` or `args` values for these containers (provided by the `agent-stack-k8s` controller), and will instead return an error:
+You can alter the `command` or `args` for `command` containers using PodSpecPatch. These will be re-wrapped in the necessary `buildkite-agent` invocation.
+
+However, PodSpecPatch will not modify the `command` or `args` values for containers with the following names or patterns (provided by the Agent Stack for Kubernetes controller):
 
 - `copy-agent`
 - `imagecheck-*`
 - `agent`
 - `checkout`
+
+Instead, if an attempt is made to modify the `command` or `args` values for these containers, an error is returned.
 
 If modifying the commands of these containers is something you want to do, consider other potential solutions:
 
@@ -13,7 +17,7 @@ If modifying the commands of these containers is something you want to do, consi
 - To run additional containers without `buildkite-agent` in them, consider using a [sidecar](/docs/agent/v3/agent-stack-k8s/sidecars).
 
 > 📘
-> Buildkite is continually looking into adding ways to make the Buildkite Agent Stack for Kubernetes more flexible while ensuring core functionality.
+> Buildkite is continually looking into adding ways to make the Buildkite Agent Stack for Kubernetes more flexible while ensuring core functionality is maintained.
 
 ## Important considerations and precautions
 
