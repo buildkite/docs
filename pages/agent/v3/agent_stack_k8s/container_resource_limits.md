@@ -1,5 +1,9 @@
 # Default container resources (requests and limits)
 
+Default resources for requests and limits can be allocated to Pods and their containers using the PodSpec patch in the Buildkite [Agent Stack for Kubernetes controller's values YAML configuration file](#using-the-podspec-patch-in-the-controller-values-yaml-configuration-file), which applies across the board, or within a [pipeline's YAML file](#overriding-the-podspec-patch-for-a-single-job), which can override those defined in the values YAML configuration file.
+
+## Using the PodSpec patch in the controller values YAML configuration file
+
 In the Buildkite Agent Stack for Kubernetes controller's values YAML configuration file, you can specify the default resources (requests and limits) to apply to the Pods and containers:
 
 ```yaml
