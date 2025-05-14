@@ -2,17 +2,14 @@
 toc_include_h3: false
 ---
 
-# Running Buildkite Agent on AWS
+# Installation and setup recommendations
 
-The Buildkite Agent can be run on AWS using our Elastic CI Stack for AWS
-CloudFormation template, or by installing the agent on your self-managed
-instances. On this page, common installation and setup questions for different scenarios of using the Buildkite Agent on AWS are covered.
+The Buildkite Agent can be run on AWS using our Elastic CI Stack for AWS CloudFormation template, or by installing the agent on your self-managed instances. On this page, common installation and setup recommendations for different scenarios of using the Buildkite Agent on AWS are covered.
 
 ## Using the Elastic CI Stack for AWS CloudFormation template
 
 The [Elastic CI Stack for AWS](/docs/agent/v3/elastic-ci-aws/elastic-ci-stack-overview) is a
-CloudFormation template for an autoscaling Buildkite Agent cluster. The
-agent instances include Docker, S3 and CloudWatch integration.
+CloudFormation template for an autoscaling Buildkite Agent cluster. The agent instances include Docker, S3, and CloudWatch integration.
 
 You can use an Elastic CI Stack for AWS deployment to test Linux or Windows projects,
 parallelize large test suites, run Docker containers or docker-compose
@@ -30,7 +27,7 @@ Once your Kubernetes cluster is running on AWS, follow the [Buildkite Agent Stac
 
 ## Installing the agent on your own AWS instances
 
-To run the agent on your own AWS instances, use the installer that matches your
+To run the Buildkite agent on your own AWS instances, use the installer that matches your
 instance operating system:
 
 * For Amazon Linux 2 or later, use the [Red Hat/CentOS installer](/docs/agent/v3/redhat)
@@ -45,7 +42,7 @@ cluster.
 You can use an Elastic CI Stack for AWS for EC2 Mac deployment to build and test macOS,
 iOS, iPadOS, tvOS, and watchOS projects.
 
-Read the [Auto Scaling EC2 Mac instances](/docs/agent/v3/elastic_ci_stack_for_ec2_mac/autoscaling_mac_metal) documentation for instructions on preparing and deploying this template.
+Read the [Auto Scaling EC2 Mac instances](/docs/agent/v3/elastic-ci-stack-for-ec2-mac/autoscaling-mac-metal) documentation for instructions on preparing and deploying this template.
 
 ## Installing the Agent on your own AWS EC2 Mac instances
 
@@ -101,7 +98,7 @@ There is an excellent blog post on [running iOS agents in the cloud](https://www
 
 ## Preventing builds from accessing Amazon EC2 metadata
 
-If you provision infrastructure like databases, Redis, Amazon SQS, etc using AWS permission sandboxes, you might want to restrict access to those roles in your builds.
+If you provision infrastructure like databases, Redis, Amazon SQS, etc. using AWS permission sandboxes, you might want to restrict access to those roles in your builds.
 
 If you run your builds on an AWS EC2 permission sandbox and then allow Buildkite agents to generate and inject some sandboxed AWS credentials into the build secrets, such builds will have access to the EC2 metadata API. They will also be able to access the same permissions as your EC2.
 
