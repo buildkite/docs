@@ -40,14 +40,14 @@ Buildkite can update commit statuses on GitLab. You can then see the status of y
 
 For GitLab.com, connect your Buildkite user account to your GitLab user account from your user > **Connected Apps** page:
 
-    <%= image "gitlab-connected-apps.png", width: 1164/2, height: 369/2, alt: "Screen of Buildkite User Connected Apps with GitLab.com connected" %>
+<%= image "gitlab-connected-apps.png", width: 1164/2, height: 369/2, alt: "Screen of Buildkite User Connected Apps with GitLab.com connected" %>
 
 Then go to **Pipelines** > your specific pipeline > **Settings** > your Git service provider and enable **Update commit statuses**:
 
-    <%= image "gitlab-update-commit-status.png", width: 1499/2, height: 962/2, alt: "Screen of Buildkite User Connected Apps with GitLab.com connected" %>
+<%= image "gitlab-update-commit-status.png", width: 1499/2, height: 962/2, alt: "Screen of Buildkite User Connected Apps with GitLab.com connected" %>
 
 For self-managed GitLab, make sure you have configured API authentication on your GitLab repository provider on your organization > **Settings** > **Repository Providers** > **GitLab** page:
 
-    <%= image "gitlab-repository-provider-authentication.png", width: 1168/2, height: 1129/2, alt: "Screen of Buildkite GitLab repository provider settings page with authentication configured" %>
+<%= image "gitlab-repository-provider-authentication.png", width: 1168/2, height: 1129/2, alt: "Screen of Buildkite GitLab repository provider settings page with authentication configured" %>
 
 Then follow the same procedure as above.
