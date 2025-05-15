@@ -16,6 +16,7 @@ exceptions:
   - 2FA
   - ADFS
   - Advanced Queue Metrics
+  - Agent Stack for Kubernetes
   - API
   - APM
   - AWS
@@ -66,10 +67,12 @@ exceptions:
   - Cloudsmith
   - CloudWatch
   - CloudWatch Logs
+  - completion_watcher
   - CORS
   - CSS
   - Datadog
   - Debian
+  - deduper
   - Docker
   - Docker Compose
   - Docker Hub
@@ -119,20 +122,26 @@ exceptions:
   - Jenkins
   - JFrog
   - Jest
+  - job_watcher
   - JSON
   - JUnit
+  - JWKS
   - KMS
   - Kotlin
   - Kubernetes
+  - limiter
   - Linux
   - M1
   - Mac
   - macOS
   - Markdown
   - minitest
+  - monitor
   - Mobile Delivery Cloud
   - NET
   - Node.js
+  - nodeName
+  - nodeSelector
   - OIDC
   - Okta
   - OneLogin
@@ -145,6 +154,8 @@ exceptions:
   - pipeline.artifacts_read.pipeline
   - pipeline.trigger_build.pipeline
   - pipeline.yml
+  - pod_watcher
+  - PodSpec
   - PowerShell
   - pytest
   - QA
@@ -156,6 +167,7 @@ exceptions:
   - RSpec
   - S3
   - SAML
+  - scheduler
   - SCIM
   - Sequoia
   - Slack
@@ -164,6 +176,7 @@ exceptions:
   - Sonoma
   - SSH
   - SSO
+  - Tekton
   - Test Engine
   - Test Engine Client
   - TESTOWNER
