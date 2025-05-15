@@ -64,4 +64,4 @@ See [Conditional Slack notifications](/docs/pipelines/configure/notifications#sl
 
 ## Privacy policy
 
-For more details on how we handle your information, please check our [Privacy Policy](https://buildkite.com/about/legal/privacy-policy/).
+For details on how Buildkite handles your information, please see Buildkite's [Privacy Policy](https://buildkite.com/about/legal/privacy-policy/).
