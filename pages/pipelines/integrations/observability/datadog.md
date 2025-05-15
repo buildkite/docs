@@ -4,9 +4,8 @@
 
 You can set up Datadog integration with Buildkite to gain actionable insights into your CI/CD processes, monitor build performance metrics, and ensure optimal resource utilization throughout your development workflow. 
 
-
-> 
-> If you are looking for the information on using Datadog APM tracing with Buildkite agent, you can find this information [here](https://www.datadoghq.com/product/apm/).
+> 📘
+> If you are looking for the information on using Datadog APM tracing with Buildkite agent, you can find it [here](https://www.datadoghq.com/product/apm/).
 
 ## Compatibility 
 
@@ -81,8 +80,7 @@ The CI Pipeline List page shows data for only the default branch of each reposit
 
 ## Additional resources
 
-
-For the most recent version for Datadog, see https://docs.datadoghq.com/continuous_integration/pipelines/buildkite/
+For the most recent version of Datadog documentation regarding the integration with Buildkite, see [Set up Tracing on a Buildkite Pipeline](https://docs.datadoghq.com/continuous_integration/pipelines/buildkite/).
 
 - Explore Pipeline Execution Results and Performance https://docs.datadoghq.com/continuous_integration/pipelines
 - Troubleshooting CI Visibility https://docs.datadoghq.com/continuous_integration/troubleshooting/
