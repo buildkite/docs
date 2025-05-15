@@ -19,6 +19,7 @@ steps:
         --exclude="https://github.com/buildkite/docs/" \
         --exclude="buildkite.com/docs" \
         --max-connections=10 \
+        --buffer-size=8192 \
         --color=always
     env:
       RAILS_ENV: production
