@@ -413,7 +413,6 @@
         - name: "Overview"
           path: "pipelines/integrations"
         - name: "Observability"
-          path: "pipelines/integrations/observability"
           children:
             - name: "Datadog"
               path: "pipelines/integrations/observability/datadog"
