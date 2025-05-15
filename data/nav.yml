@@ -405,9 +405,6 @@
           path: "pipelines/insights/clusters"
         - name: "Queue metrics"
           path: "pipelines/insights/queue-metrics"
-    
-
-
     - name: "Integrations"
       children:
         - name: "Overview"
