@@ -20,7 +20,7 @@ When a matching job is returned from the Agent REST API, the controller creates 
 
 <!-- vale off -->
 
-The entry point rewriting and ordering logic is heavily inspired by the approach used in <a href="https://github.com/tektoncd/pipeline/blob/933e4f667c19eaf0a18a19557f434dbabe20d063/docs/developers/README.md#entrypoint-rewriting-and-step-ordering" id="user-content-entrypoint-rewriting-and-step-ordering">Tekton</a>.
+The entry point rewriting and ordering logic is heavily inspired by the approach used in <a href="https://github.com/tektoncd/pipeline/blob/933e4f667c19eaf0a18a19557f434dbabe20d063/docs/developers/README.md">Tekton</a>.
 
 <!-- vale on -->
 
