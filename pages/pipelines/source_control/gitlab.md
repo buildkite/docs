@@ -43,7 +43,7 @@ For GitLab.com, connect your Buildkite and GitLab user accounts by going to your
 
 <%= image "gitlab-connected-apps.png", width: 1164/2, height: 369/2, alt: "Screen of Buildkite User Connected Apps with GitLab.com connected" %>
 
-Next, in your Buildkite organization, go to **Pipelines** > your specific pipeline > **Settings** > **GitLab**, and select the **Update commit statuses** checkbox:
+Next, in your Buildkite organization, go to **Pipelines** > your specific pipeline > **Settings** > **GitLab**, and make sure the **Update commit statuses** checkbox is selected:
 
 <%= image "gitlab-update-commit-status.png", width: 1499/2, height: 962/2, alt: "Screen of Buildkite User Connected Apps with GitLab.com connected" %>
 
