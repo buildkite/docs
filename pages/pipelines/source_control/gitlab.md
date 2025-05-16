@@ -51,4 +51,4 @@ For a self-managed GitLab service, ensure you have configured API authentication
 
 <%= image "gitlab-repository-provider-authentication.png", width: 1168/2, height: 1129/2, alt: "Screen of Buildkite GitLab repository provider settings page with authentication configured" %>
 
-Then follow the same procedure as above.
+Then update your pipeline's repository settings as above.
