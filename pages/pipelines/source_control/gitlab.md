@@ -8,7 +8,7 @@ If you host your repositories on [gitlab.com](https://gitlab.com/) enter your gi
 
 ## GitLab Self-Managed repositories
 
-You can also your own self-managed GitLab service but you'll need to connect it to Buildkite first.
+You can also use repositories from your own self-managed GitLab service but you'll need to connect it to Buildkite first.
 
 >📘
 > The earliest supported version of GitLab is <a href=https://about.gitlab.com/2014/10/22/gitlab-7-4-released/>7.4</a>.
