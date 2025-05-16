@@ -52,13 +52,9 @@ steps:
     command: ts-node .buildkite/dynamicPipeline.ts | buildkite-agent pipeline upload
 ```
 
-<!--
-
 ### API documentation
 
-For more detailed API documentation on the Buildkite SDK for TypeScript, consult the [Buildkite SDK's TypeScript API documentation](/docs/sdk/typescript).
-
--->
+For more detailed API documentation on the Buildkite SDK for TypeScript, consult the [Buildkite SDK's TypeScript API documentation](https://buildkite.com/docs/sdk/typescript/).
 
 ## Python
 
@@ -100,13 +96,9 @@ steps:
     command: python3 .buildkite/dynamic_pipeline.py | buildkite-agent pipeline upload
 ```
 
-<!--
-
 ### API documentation
 
-For more detailed API documentation on the Buildkite SDK for Python, consult the [Buildkite SDK's Python API documentation](/docs/sdk/python).
-
--->
+For more detailed API documentation on the Buildkite SDK for Python, consult the [Buildkite SDK's Python API documentation](https://buildkite.com/docs/sdk/python/).
 
 ## Go
 
@@ -159,13 +151,9 @@ steps:
     command: go run .buildkite/dynamic_pipeline.go | buildkite-agent pipeline upload
 ```
 
-<!--
-
 ### API documentation
 
 For more detailed API documentation on the Buildkite SDK for Go, consult the [Buildkite SDK's Go API documentation](https://pkg.go.dev/github.com/buildkite/buildkite-sdk/sdk/go).
-
--->
 
 ## Ruby
 
@@ -209,14 +197,10 @@ steps:
     command: ruby .buildkite/dynamic_pipeline.rb | buildkite-agent pipeline upload
 ```
 
-<!--
-
 ### API documentation
 
-For more detailed API documentation on the Buildkite SDK for Ruby, consult the [Buildkite SDK's Ruby API documentation](/docs/sdk/ruby).
-
--->
+For more detailed API documentation on the Buildkite SDK for Ruby, consult the [Buildkite SDK's Ruby API documentation](https://buildkite.com/docs/sdk/ruby/).
 
 ## Developing the Buildkite SDK
 
-Since the Buildkite SDK is open source, you can make your own contributions to this SDK. You can learn more about how to do this from the [Buildkite SDK's README](https://github.com/buildkite/buildkite-sdk?tab=readme-ov-file#buildkite-sdk).
+Since the Buildkite SDK is open source, you can make your own contributions to this SDK. Learn more about how to do this from the [Buildkite SDK's README](https://github.com/buildkite/buildkite-sdk?tab=readme-ov-file#buildkite-sdk).

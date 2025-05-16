@@ -52,7 +52,8 @@ When you connect your GitHub organization, Buildkite needs the following permiss
 
     1. Add a new webhook in GitHub.
     1. Paste in the provided webhook URL.
-    1. Select which events trigger the webhook.
+    1. Select `application/json` as the content type of the webhook.
+    1. Select the `deployment`, `pull_request`, and `push` events to trigger the webhook.
 
     The repository webhook is required so that the Buildkite GitHub app does not need read access to your repository.
 
