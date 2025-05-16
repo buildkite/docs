@@ -27,7 +27,7 @@ Once your Kubernetes cluster is running on AWS, follow the [Buildkite Agent Stac
 
 ## Installing the agent on your own AWS instances
 
-To run the Buildkite agent on your own AWS instances, use the installer that matches your
+To run the Buildkite Agent on your own AWS instances, use the installer that matches your
 instance operating system:
 
 * For Amazon Linux 2 or later, use the [Red Hat/CentOS installer](/docs/agent/v3/redhat)
