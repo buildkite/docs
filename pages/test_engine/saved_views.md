@@ -1,6 +1,6 @@
 # Saved views
 
-**Saved Views** let you create, name and easily access custom test filters within Test Engine. This is useful for teams who frequently search for the same sets of tests using tags or labels.
+**Saved Views** let you create, name and easily access custom test filters within Test Engine. This is useful for teams who frequently search using the same set of tags or labels.
 
 ### Adding filters
 
@@ -13,7 +13,7 @@
 Once a set of filters have been added to the **Tests** page, you can now save this as a view:
 
 - Click **Save** in the filter bar.
-- Give you new view a name.
+- Give your view a name.
 - Click **Save view**.
 
 Your new view will now appear in the sidebar under **Tests** and will be visible to all users in the suite.
