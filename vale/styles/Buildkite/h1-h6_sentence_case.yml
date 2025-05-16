@@ -91,8 +91,7 @@ exceptions:
   - GitHub Enterprise
   - GitHub Enterprise Server
   - GitLab
-  - GitLab Community
-  - GitLab Enterprise
+  - GitLab Self-Managed
   - Go
   - Google Artifact Registry
   - Google Chrome
