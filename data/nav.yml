@@ -541,6 +541,8 @@
           path: "test-engine/test-suites"
         - name: "Manage test suites"
           path: "test-engine/manage-test-suites"
+        - name: "Saved views"
+          path: "test-engine/saved-views"
         - name: "Flaky test management"
           path: "test-engine/flaky-test-management"
         - name: "Test state and quarantine"
