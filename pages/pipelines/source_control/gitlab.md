@@ -36,17 +36,17 @@ If you host your repositories on [gitlab.com](https://gitlab.com/) enter your gi
 
 ## Commit statuses
 
-Buildkite can update commit statuses on GitLab. You can then see the status of your builds from your GitLab.com commits and merge requests with direct links back to your Buildkite build.
+Buildkite Pipelines can update commit statuses in GitLab. You can then see the status of your builds from your GitLab.com commits and merge requests with direct links back to your Buildkite Pipelines build.
 
-For GitLab.com, connect your Buildkite user account to your GitLab user account from your user > **Connected Apps** page:
+For GitLab.com, connect your Buildkite and GitLab user accounts by going to your Buildkite user account's **Personal Settings** from the global navigation > **Connected Apps** page:
 
 <%= image "gitlab-connected-apps.png", width: 1164/2, height: 369/2, alt: "Screen of Buildkite User Connected Apps with GitLab.com connected" %>
 
-Then go to **Pipelines** > your specific pipeline > **Settings** > your Git service provider and enable **Update commit statuses**:
+Next, in your Buildkite organization, go to **Pipelines** > your specific pipeline > **Settings** > **GitLab**, and select the **Update commit statuses** checkbox:
 
 <%= image "gitlab-update-commit-status.png", width: 1499/2, height: 962/2, alt: "Screen of Buildkite User Connected Apps with GitLab.com connected" %>
 
-For self-managed GitLab, make sure you have configured API authentication on your GitLab repository provider on your organization > **Settings** > **Repository Providers** > **GitLab** page:
+For a self-managed GitLab service, ensure you have configured API authentication for your Buildkite organization's GitLab repository provider. To do this, select  **Settings** from the global navigation > **Repository Providers** > **GitLab** page:
 
 <%= image "gitlab-repository-provider-authentication.png", width: 1168/2, height: 1129/2, alt: "Screen of Buildkite GitLab repository provider settings page with authentication configured" %>
 
