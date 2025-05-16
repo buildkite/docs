@@ -46,7 +46,7 @@ Next, in your Buildkite organization, go to **Pipelines** > your specific pipeli
 
 <%= image "gitlab-update-commit-status.png", width: 1499/2, height: 962/2, alt: "Screen of Buildkite User Connected Apps with GitLab.com connected" %>
 
-For a self-managed GitLab service, ensure you have configured API authentication for your Buildkite organization's GitLab repository provider. To do this, select  **Settings** from the global navigation > **Repository Providers** > **GitLab** page:
+For a self-managed GitLab service, ensure you have configured API authentication for your Buildkite organization's GitLab repository provider. To do this, select  **Settings** from the global navigation > **Repository Providers** > **GitLab Self-Managed** page:
 
 <%= image "gitlab-repository-provider-authentication.png", width: 1168/2, height: 1129/2, alt: "Screen of Buildkite GitLab repository provider settings page with authentication configured" %>
 
