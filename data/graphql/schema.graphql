@@ -5636,6 +5636,11 @@ type Organization implements Node {
     """
     email: String
     first: Int
+
+    """
+    Filter to members with a 'last seen at' value that is nil or before the given date
+    """
+    inactiveSince: DateTime
     last: Int
 
     """
@@ -6562,6 +6567,11 @@ type OrganizationMember implements Node {
   """
   createdBy: User
   id: ID!
+
+  """
+  The time this member was last active within the organization
+  """
+  lastSeenAt: DateTime
   organization: Organization!
   permissions: OrganizationMemberPermissions!
 

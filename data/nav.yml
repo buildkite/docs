@@ -102,6 +102,8 @@
           children:
             - name: "Overview"
               path: "agent/v3/elastic-ci-aws/elastic-ci-stack-overview"
+            - name: "Installation and setup recommendations"
+              path: "agent/v3/aws"
             - name: "VPC design"
               path: "agent/v3/aws/vpc"
             - name: "EC2 Linux and Windows"
@@ -128,6 +130,10 @@
                   path: "agent/v3/elastic-ci-stack-for-ec2-mac/autoscaling-mac-metal"
                 - name: "Troubleshooting"
                   path: "agent/v3/elastic-ci-stack-for-ec2-mac/troubleshooting"
+        - name: "Running on Google Cloud"
+          children:
+            - name: "Overview"
+              path: "agent/v3/gcloud"
         - name: "Running on Kubernetes"
           children:
             - name: "Overview"
@@ -190,10 +196,6 @@
               path: "agent/v3/linux"
             - name: "Docker"
               path: "agent/v3/docker"
-            - name: "AWS"
-              path: "agent/v3/aws"
-            - name: "Google Cloud"
-              path: "agent/v3/gcloud"
         - name: "Command-line reference"
           children:
             - name: "Overview"
