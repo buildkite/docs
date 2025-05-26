@@ -9,7 +9,8 @@ The [plugins directory](https://buildkite.com/resources/plugins) is where you ca
   <span class="Frameheader__address">buildkite.com/resources/plugins</span>
 </a>
 <iframe
-  src='https://buildkite.com/resources/plugins'
+  src='https://buildkite.com/resources/plugins/embed'
+  referrerPolicy='same-origin'
   allow="fullscreen" crossorigin="anonymous" width="100%" height="800px"
   style="border-radius:0 0 8px 8px;box-sizing: border-box;"
 />
