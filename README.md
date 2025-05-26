@@ -70,7 +70,7 @@ After completing all the relevant [Before you start](#before-you-start) steps ab
    docker-compose up --build
    ```
 
-1. Open `http://localhost:3000` to preview the docs site.
+1. Open `http://localhost:3000` (or your chosen port number) to preview the docs site.
 
 1. After saving your modifications to a page, refresh the relevant page on this site to see your changes.
 
