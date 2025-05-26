@@ -1,8 +1,18 @@
+---
+template: "landing_page"
+---
 # Plugins directory
 
-The [plugins directory](https://buildkite.com/plugins) is where you can both discover and publish Buildkite plugins. Visit the directory at https://buildkite.com/plugins
+The [plugins directory](https://buildkite.com/resources/plugins) is where you can both discover and publish Buildkite plugins. Visit the directory at https://buildkite.com/resources/plugins:
 
-<a href="https://buildkite.com/plugins"><%= image("plugins-directory.png", width: 404, height: 237, alt: "Screenshot of a number of plugins", class: "no-decoration") %></a>
+<a class="Frameheader" href='https://buildkite.com/resources/plugins' target='_blank'>
+  <span class="Frameheader__address">buildkite.com/resources/plugins</span>
+</a>
+<iframe
+  src='https://buildkite.com/resources/plugins'
+  allow="fullscreen" crossorigin="anonymous" width="100%" height="800px"
+  style="border-radius:0 0 8px 8px;box-sizing: border-box;"
+/>
 
 Plugins supported by the Buildkite team display the Buildkite logo in the directory, and can be found in the [Buildkite Plugins GitHub Organization](https://github.com/buildkite-plugins).
 
