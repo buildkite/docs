@@ -834,7 +834,9 @@
       children:
         - name: "Overview"
           path: "apis/webhooks"
-        - name: "Pipelines"
+        - name: "Pipelines "
+          # Keep space at end to prevent "Pipelines" in global nav bar being
+          # highlighted when any child page of "API > Webhooks > Pipelines" is selected.
           children:
             - name: "Overview"
               path: "apis/webhooks/pipelines"
@@ -850,7 +852,9 @@
               path: "apis/webhooks/pipelines/ping-events"
             - name: "Integrations"
               path: "apis/webhooks/pipelines/integrations"
-        - name: "Test Engine"
+        - name: "Test Engine "
+          # Keep space at end to prevent "Test Engine" in global nav bar being
+          # highlighted when any child page of "API > Webhooks > Test Engine" is selected.
           children:
             - name: "Overview"
               path: "apis/webhooks/test-engine"
