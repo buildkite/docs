@@ -193,8 +193,8 @@ Rails.application.routes.draw do
   get "/docs/tutorials/parallel-builds",                  to: redirect("/docs/pipelines/tutorials/parallel-builds")
   get "/docs/tutorials/pipeline-upgrade",                 to: redirect("/docs/pipelines/tutorials/pipeline-upgrade")
   get "/docs/tutorials/sso-setup-with-graphql",           to: redirect("/docs/platform/sso/sso-setup-with-graphql")
-  get "/docs/webhooks/setup",                             to: redirect("/docs/apis/webhooks")
-  get "/docs/webhooks",                                   to: redirect("/docs/apis/webhooks")
+  get "/docs/webhooks/setup",                             to: redirect("/docs/apis/webhooks/pipelines")
+  get "/docs/webhooks",                                   to: redirect("/docs/apis/webhooks/pipelines")
   get "/docs/webhooks/*page",                             to: redirect("/docs/apis/webhooks/%{page}")
 
   # Doc sections that don't have overview/index pages, so need redirecting
