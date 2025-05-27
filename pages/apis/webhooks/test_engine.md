@@ -1,8 +1,5 @@
 # Webhooks
 
-> 🚧 Looking for build or agent webhooks?
-> This page describes webhooks specific to Test Engine. For information on build and agent webhooks see the [Webhooks API documentation](/docs/apis/webhooks)
-
 You can configure webhooks to be triggered by the following events in Test Engine:
 
 - When a test's state is changed

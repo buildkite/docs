@@ -23,7 +23,7 @@ You can subscribe to one or more of the following events:
   <tr><th><code>job.started</code></th><td>A command step job has started running on an agent</td></tr>
   <tr><th><code>job.finished</code></th><td>A job has finished</td></tr>
   <tr><th><code>job.activated</code></th><td>A block step job has been unblocked using the web or API</td></tr>
-  <%= render_markdown partial: 'apis/webhooks/agent_events_table' %>
+  <%= render_markdown partial: 'apis/webhooks/pipelines/agent_events_table' %>
   <tr><th><code>cluster_token.registration_blocked</code></th><td>An attempted agent registration has been blocked because the request IP address is not included in the agent token's <a href="/docs/pipelines/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td></tr>
 </tbody>
 </table>
@@ -38,7 +38,7 @@ The following HTTP headers are present in every webhook request, which allow you
 </tbody>
 </table>
 
-One of either the [Token](/docs/apis/webhooks#webhook-token) or [Signature](/docs/apis/webhooks#webhook-signature) headers will be present in every webhook request. The token value and header setting can be found under **Token** in your **Webhook Notification** service.
+One of either the [Token](/docs/apis/webhooks/pipelines#webhook-token) or [Signature](/docs/apis/webhooks/pipelines#webhook-signature) headers will be present in every webhook request. The token value and header setting can be found under **Token** in your **Webhook Notification** service.
 
 Your selection in the **Webhook Notification** service will determine which is sent:
 
@@ -51,7 +51,7 @@ Your selection in the **Webhook Notification** service will determine which is s
 
 ## HTTP request body
 
-Each event's data is sent JSON encoded in the request body. See each event's documentation ([agent](/docs/apis/webhooks/agent-events), [build](/docs/apis/webhooks/build-events#request-body-data), [job](/docs/apis/webhooks/job-events), [ping](/docs/apis/webhooks/ping-events)) to see which keys are available in the payload. For example:
+Each event's data is sent JSON encoded in the request body. See each event's documentation ([agent](/docs/apis/webhooks/pipelines/agent-events), [build](/docs/apis/webhooks/pipelines/build-events#request-body-data), [job](/docs/apis/webhooks/pipelines/job-events), [ping](/docs/apis/webhooks/pipelines/ping-events)) to see which keys are available in the payload. For example:
 
 ```json
 {

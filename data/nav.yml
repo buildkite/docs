@@ -566,8 +566,6 @@
           path: "test-engine/public-test-suites"
         - name: "Permissions"
           path: "test-engine/permissions"
-        - name: "Webhooks"
-          path: "test-engine/webhooks"
 - name: "Package Registries"
   path: "package-registries"
   children:
@@ -834,20 +832,26 @@
           path: apis/graphql/graphql-resource-limits
     - name: "Webhooks"
       children:
-        - name: "Overview"
-          path: "apis/webhooks"
-        - name: "Agent events"
-          path: "apis/webhooks/agent-events"
-        - name: "Build events"
-          path: "apis/webhooks/build-events"
-        - name: "Agent token events"
-          path: "apis/webhooks/agent-token-events"
-        - name: "Job events"
-          path: "apis/webhooks/job-events"
-        - name: "Ping events"
-          path: "apis/webhooks/ping-events"
-        - name: "Integrations"
-          path: "apis/webhooks/integrations"
+        - name: "Pipelines"
+          children:
+            - name: Overview
+              path: "apis/webhooks/pipelines"
+            - name: "Agent events"
+              path: "apis/webhooks/pipelines/agent-events"
+            - name: "Build events"
+              path: "apis/webhooks/pipelines/build-events"
+            - name: "Agent token events"
+              path: "apis/webhooks/pipelines/agent-token-events"
+            - name: "Job events"
+              path: "apis/webhooks/pipelines/job-events"
+            - name: "Ping events"
+              path: "apis/webhooks/pipelines/ping-events"
+            - name: "Integrations"
+              path: "apis/webhooks/pipelines/integrations"
+        - name: "Test Engine"
+          children:
+            - name: Overview
+              path: "apis/webhooks/test-engine"
     - name: "Portals"
       children:
         - name: "Overview"

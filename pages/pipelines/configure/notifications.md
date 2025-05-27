@@ -83,7 +83,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can only send email notifications on entire pipeline [events](/docs/apis/webhooks#events), specifically upon `build.failing` and `build.finished`.
+You can only send email notifications on entire pipeline [events](/docs/apis/webhooks/pipelines#events), specifically upon `build.failing` and `build.finished`.
 
 Restrict notifications to finished builds by adding a [conditional](#conditional-notifications):
 
@@ -131,7 +131,7 @@ notify:
 
 The `basecamp_campfire` attribute accepts a single URL as a string.
 
-Basecamp notifications happen at the following [events](/docs/apis/webhooks#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
+Basecamp notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
 
 * `build created`
 * `build started`
@@ -514,7 +514,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Webhook notifications happen at the following [events](/docs/apis/webhooks#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
+Webhook notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
 
 * `build created`
 * `build started`
@@ -534,7 +534,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Email notifications happen at the following [event](/docs/apis/webhooks#events):
+Email notifications happen at the following [event](/docs/apis/webhooks/pipelines#events):
 
 * `build finished`
 
