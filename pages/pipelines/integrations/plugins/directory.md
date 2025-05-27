@@ -22,7 +22,7 @@ Plugins supported by the Buildkite team display the Buildkite logo in the direct
 
 ## Adding your plugin
 
-To add your plugin to the plugin directory:
+To add your plugin to the plugins directory:
 
 1. Host your plugin in GitHub as a public repository.
 1. Ensure your repository contains a valid `plugin.yml` file containing at least the `name` and `description` fields.
