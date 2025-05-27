@@ -23,7 +23,8 @@ curl -H "Authorization: Bearer $TOKEN" \
     "instances": 1,
     "latest_occurrence_at": "2024-07-15T00:07:02.547Z",
     "most_recent_instance_at": "2024-07-15T00:07:02.547Z",
-    "last_resolved_at": null
+    "last_resolved_at": null,
+    "ownership_team_ids": ["4c15a4c7-6674-4585-b592-4adcc8630383", "d30fd7ba-82d8-487f-9d98-6e1a057bcca8"]
   }
 ]
 ```
