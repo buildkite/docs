@@ -1,4 +1,4 @@
-# Webhooks
+# Pipelines webhooks
 
 Webhooks allow you to monitor and respond to events within your Buildkite organization, providing a real time view of activity and allowing you to extend and integrate Buildkite into your systems.
 

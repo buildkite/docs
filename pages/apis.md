@@ -59,4 +59,4 @@ Webhooks allow you to monitor and respond to events within your Buildkite organi
 
 Webhooks can be added and configured on your [organization's Notification Services settings](https://buildkite.com/organizations/-/services) page.
 
-More information about the [webhooks](/docs/apis/webhooks/pipelines).
+More information about the [webhooks](/docs/apis/webhooks).

@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   get "/docs/apis/graphql/schemas/union",                 to: redirect("/docs/apis/graphql-api")
   get "/docs/apis/rest-api/analytics/*page",              to: redirect("/docs/apis/rest-api/test-engine/%{page}")
   get "/docs/apis/rest-api/packages/*page",               to: redirect("/docs/apis/rest-api/package-registries/%{page}")
-  get "/docs/apis/webhooks",                              to: redirect("/docs/apis/webhooks/pipelines")
   get "/docs/apis/webhooks/agent-events",                 to: redirect("/docs/apis/webhooks/pipelines/agent-events")
   get "/docs/apis/webhooks/build-events",                 to: redirect("/docs/apis/webhooks/pipelines/build-events")
   get "/docs/apis/webhooks/agent-token-events",           to: redirect("/docs/apis/webhooks/pipelines/agent-token-events")
@@ -193,9 +192,9 @@ Rails.application.routes.draw do
   get "/docs/tutorials/parallel-builds",                  to: redirect("/docs/pipelines/tutorials/parallel-builds")
   get "/docs/tutorials/pipeline-upgrade",                 to: redirect("/docs/pipelines/tutorials/pipeline-upgrade")
   get "/docs/tutorials/sso-setup-with-graphql",           to: redirect("/docs/platform/sso/sso-setup-with-graphql")
-  get "/docs/webhooks/setup",                             to: redirect("/docs/apis/webhooks/pipelines")
-  get "/docs/webhooks",                                   to: redirect("/docs/apis/webhooks/pipelines")
-  # get "/docs/webhooks/*page",                             to: redirect("/docs/apis/webhooks/%{page}")
+  get "/docs/webhooks/setup",                             to: redirect("/docs/apis/webhooks")
+  get "/docs/webhooks",                                   to: redirect("/docs/apis/webhooks")
+  get "/docs/webhooks/*page",                             to: redirect("/docs/apis/webhooks/%{page}")
 
   # Doc sections that don't have overview/index pages, so need redirecting
   get "/docs/tutorials",    to: redirect("/docs/pipelines/getting-started"), status: 302

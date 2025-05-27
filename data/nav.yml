@@ -832,9 +832,11 @@
           path: apis/graphql/graphql-resource-limits
     - name: "Webhooks"
       children:
+        - name: "Overview"
+          path: "apis/webhooks"
         - name: "Pipelines"
           children:
-            - name: Overview
+            - name: "Overview"
               path: "apis/webhooks/pipelines"
             - name: "Agent events"
               path: "apis/webhooks/pipelines/agent-events"
@@ -850,7 +852,7 @@
               path: "apis/webhooks/pipelines/integrations"
         - name: "Test Engine"
           children:
-            - name: Overview
+            - name: "Overview"
               path: "apis/webhooks/test-engine"
     - name: "Portals"
       children:
