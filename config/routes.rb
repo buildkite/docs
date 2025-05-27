@@ -195,7 +195,7 @@ Rails.application.routes.draw do
   get "/docs/tutorials/sso-setup-with-graphql",           to: redirect("/docs/platform/sso/sso-setup-with-graphql")
   get "/docs/webhooks/setup",                             to: redirect("/docs/apis/webhooks/pipelines")
   get "/docs/webhooks",                                   to: redirect("/docs/apis/webhooks/pipelines")
-  get "/docs/webhooks/*page",                             to: redirect("/docs/apis/webhooks/%{page}")
+  # get "/docs/webhooks/*page",                             to: redirect("/docs/apis/webhooks/%{page}")
 
   # Doc sections that don't have overview/index pages, so need redirecting
   get "/docs/tutorials",    to: redirect("/docs/pipelines/getting-started"), status: 302
