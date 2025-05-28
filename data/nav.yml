@@ -443,7 +443,7 @@
           path: "pipelines/deployments/to-kubernetes"
         - name: "Deploying with Argo"
           path: "pipelines/deployments/with-argocd"
-        - name: "Deploying to Heroku"
+        - name: "Deploying with Heroku"
           path: "pipelines/deployments/to-heroku"
 
     - name: "Insights"
