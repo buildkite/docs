@@ -100,10 +100,10 @@
           path: "agent/v3/tracing"
         - name: "Running on AWS"
           children:
-            - name: "Overview"
-              path: "agent/v3/elastic-ci-aws/elastic-ci-stack-overview"
-            - name: "Installation and setup recommendations"
+            - name: "Installation and setup options"
               path: "agent/v3/aws"
+            - name: "Elastic CI Stack overview"
+              path: "agent/v3/elastic-ci-aws/elastic-ci-stack-overview"
             - name: "VPC design"
               path: "agent/v3/aws/vpc"
             - name: "EC2 Linux and Windows"
