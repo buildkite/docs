@@ -26,6 +26,11 @@ steps:
     agents:
       queue: hosted
     plugins:
+      - aws-assume-role-with-web-identity#v1.0.0:
+          role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
+      - ecr#v2.9.0:
+          login: true
+          account-ids: public.ecr.aws
       - docker-compose#v3.9.0:
           run: muffet
           shell: false
@@ -38,6 +43,11 @@ steps:
     agents:
       queue: hosted
     plugins:
+      - aws-assume-role-with-web-identity#v1.0.0:
+          role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
+      - ecr#v2.9.0:
+          login: true
+          account-ids: public.ecr.aws
       - docker-compose#v3.9.0:
           run: app
           dependencies: false
@@ -137,6 +147,11 @@ steps:
     agents:
       queue: hosted
     plugins:
+      - aws-assume-role-with-web-identity#v1.0.0:
+          role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
+      - ecr#v2.9.0:
+          login: true
+          account-ids: public.ecr.aws
       - docker-compose#v3.9.0:
           run: app
           dependencies: false
@@ -160,6 +175,11 @@ steps:
     agents:
       queue: hosted
     plugins:
+      - aws-assume-role-with-web-identity#v1.0.0:
+          role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
+      - ecr#v2.9.0:
+          login: true
+          account-ids: public.ecr.aws
       - docker-compose#v3.9.0:
           build: app
 
