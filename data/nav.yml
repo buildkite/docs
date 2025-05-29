@@ -154,7 +154,7 @@
               path: "agent/v3/agent-stack-k8s/long-running-jobs"
             - name: "Git settings"
               path: "agent/v3/agent-stack-k8s/git-settings"
-            - name: "Pipeine signing"
+            - name: "Pipeline signing"
               path: "agent/v3/agent-stack-k8s/pipeline-signing"
             - name: "Setting up hooks and plugins"
               path: "agent/v3/agent-stack-k8s/setting-up-hooks-and-plugins"
