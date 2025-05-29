@@ -34,37 +34,22 @@ The following configurations provide additional customization options to enhance
 
 ### Setting custom tags
 
-Here is an example of how tags can be set and used in a yaml pipeline configuration:
+For creation of custom tags for filtering the Datadog results, you can use `buildkite-agent meta-data set` command. Here is an example of how tags can be set through a YAML pipeline configuration:
 
-```yaml #TODO - replace with our own example
+```yaml
 steps:
-  - command: buildkite-agent meta-data set "dd_tags.team" "backend"
-  - command: go version | buildkite-agent meta-data set "dd_tags.go.version"
-    label: Go version
-  - commands: go test ./...
-    label: Run tests
+- key: dd_key_test_01
+  label: step_01
+  command: buildkite-agent meta-data set "dd_tags.key" dd_key_test_01
+...
 ```
 
-The following tags are shown in the root span as well as the relevant job span in Datadog:
-
-- `team: backend`
-- `go.version: go version go1.17 darwin/amd64` (output depends on the runner)
+After setting a tag as described above and running a build on a pipeline, you'll be able to filter the Datadog output results by using a tag.
 
 [potential screenshot placeholder]
 
-Any metadata with a key starting with `dd-measures`. and containing a numerical value will be set as a metric tag that can be used to create numerical measures. 
-For creation of these tags, you can use `buildkite-agent meta-data set` command.
-
-For example, you can measure the [different example command] in a pipeline with this command:
-
-```
-steps:
-  - commands:
-```
-
-The resulting pipeline will have the tags shown below in the pipeline span:
-[example output]
-
+> 📘
+> Any metadata with a key that starts with `dd-measures` and contains a numerical value will be set as a metric tag that can be used to create numerical measures. 
 
 ### Correlating infrastructure metrics to jobs
 
