@@ -58,15 +58,15 @@ When combining positive and negative patterns, any positive pattern must match, 
 
 The following are examples of patterns, and the branches that they will match:
 
-* `main` will match `main` only
-* `!production` will match any branch that's not `production`
-* `main features/*` will match `main` and any branch that starts with `features/`
-* `*-test` will match any branch ending with `-test`, such as `rails-update-test`
-* `stages/* !stages/production` will match any branch starting with `stages/` except `stages/production`, such as `stages/demo`
-* `v*.0` will match any branch that begins with a `v` and ends with a `.0`, such as `v1.0`
-* `v* !v1.*` will match any branch that begins with a `v` unless it also begins with `v1.`, such as `v2.3`, but not `v1.1`
+* `'main'` will match `main` only
+* `'!production'` will match any branch that's not `production`
+* `'main features/*'` will match `main` and any branch that starts with `features/`
+* `'*-test'` will match any branch ending with `-test`, such as `rails-update-test`
+* `'stages/* !stages/production'` will match any branch starting with `stages/` except `stages/production`, such as `stages/demo`
+* `'v*.0'` will match any branch that begins with a `v` and ends with a `.0`, such as `v1.0`
+* `'v* !v1.*'` will match any branch that begins with a `v` unless it also begins with `v1.`, such as `v2.3`, but not `v1.1`
 
-For more advanced step filtering, see the [Using conditionals](/docs/pipelines/configure/conditionals) guide.
+It's recommended to wrap your branch patterns inside quotes to prevent characters such as exclamation marks from causing issues as they are part of the YAML spec.  For more advanced step filtering, see the [Using conditionals](/docs/pipelines/configure/conditionals) guide.
 
 ## Alternative methods
 
