@@ -1,7 +1,7 @@
 # Using agent hooks and plugins
 
 > 📘 Minimum version requirement
-> To implement the configuration options described on this page, version 0.16.0 or later of the Agent Stack for Kubernetes controller is required. However, agent hooks are supported in [earlier versions of the controller](#setting-up-agent-hooks-in-earlier-versions).
+> To implement the configuration options described on this page, version 0.16.0 or later of the Agent Stack for Kubernetes controller is required. However, agent hooks are supported in [earlier versions of the controller](#agent-hooks-in-earlier-versions).
 
 ## Agent hooks
 
