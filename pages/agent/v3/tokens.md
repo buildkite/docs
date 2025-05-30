@@ -57,6 +57,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "description": "A description",
+    "expires_at": "2026-01-01T00:00:00Z",
     "allowed_ip_addresses": "0.0.0.0/0"
   }'
 ```
@@ -73,6 +74,8 @@ where:
 
 - <%= render_markdown partial: 'apis/descriptions/common_agent_token_description_required' %>
 
+- <%= render_markdown partial: 'apis/descriptions/rest_agent_token_expires_at' %>
+
 - <%= render_markdown partial: 'apis/descriptions/rest_allowed_ip_addresses' %>
 
 The new agent token appears on the cluster's **Agent Tokens** page.
@@ -88,6 +91,7 @@ mutation {
       organizationId: "organization-id"
       clusterId: "cluster-id"
       description: "A description"
+      expiresAt: "2026-01-01T00:00:00Z"
       allowedIpAddresses: "0.0.0.0/0"
     }
   ) {
@@ -122,15 +126,17 @@ where:
 
 - <%= render_markdown partial: 'apis/descriptions/common_agent_token_description_required' %>
 
+- <%= render_markdown partial: 'apis/descriptions/rest_agent_token_expires_at' %>
+
 - <%= render_markdown partial: 'apis/descriptions/graphql_allowed_ip_addresses' %>
 
 The new agent token appears on the cluster's **Agent Tokens** page.
 
 ## Update a token
 
-Agent tokens can be updated by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the [**Agent Tokens** page of a cluster](#update-a-token-using-the-buildkite-interface), as well as Buildkite's [REST API](#update-a-token-using-the-rest-api) or [GraphQL API](#update-a-token-using-the-graphql-api).
+Agent tokens can be updated by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the [**Agent Tokens** page of a cluster](#update-a-token-using-the-buildkite-interface), as well as Buildkite's [REST API](#update-a-token-using-the-rest-api) or [GraphQL API](#update-a-token-using-the-graphql-api). 
 
-Only the **Description** and **Allowed IP Addresses** of an existing agent token can be updated.
+Only the **Description** and **Allowed IP Addresses** of an existing agent token can be updated. **Expiration date** for a token cannot be updated.
 
 For these API requests, the _cluster ID_ value submitted as part of the request is the target cluster the token is associated with.
 
@@ -297,7 +303,19 @@ where:
 
 An agent token is specific to the cluster it was associated when created (within a Buildkite organization), and can be used to register an agent with any [queue](/docs/agent/v3/queues) defined in that cluster. Agent tokens can not be shared between different clusters within an organization, or between different organizations.
 
-## Session and job tokens
+## Agent token lifetime
+
+Agent tokens created through the Buildkite do not expire and need to be rotated manually.
+
+Agent tokens created via API can have an optional expiration date attribute - `expiresAt` in GraphQL or `expires_at` in API. This approach enables automated token rotation through API integration, replacing the previous manual rotation process for long-lived tokens.
+
+### Agent token expiration date timestamp
+
+Agent token expiry timestamps is a feature introduced in response to customer feedback around security compliance and token lifecycle management. 
+
+The timestamp must be set in ISO8601 format (2025-01-01T00:00:00Z) and cannot be changed.
+
+## Session and job token lifetime
 
 During registration, the agent exchanges its agent token for a session token. The session token lasts for the lifetime of the agent and is used to request and start new jobs. When each job is started, the agent gets a job token specific to that job. The job token is exposed to the job as the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN`, and is used by various CLI commands (including the [annotate](/docs/agent/v3/cli-annotate), [artifact](/docs/agent/v3/cli-artifact), [meta-data](/docs/agent/v3/cli-meta-data), and [pipeline](/docs/agent/v3/cli-pipeline) commands).
 

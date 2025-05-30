@@ -802,7 +802,7 @@ Success response: `200 OK`
 curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens" \
   -H "Content-Type: application/json" \
-  -d '{ "description": "Windows agents", "allowed_ip_addresses": "202.144.0.0/24" }'
+  -d '{ "description": "Windows agents", "expires_at": "2025-01-01T00:00:00Z", "allowed_ip_addresses": "202.144.0.0/24" }'
 ```
 
 ```json
@@ -810,6 +810,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "id": "b6001416-0e1e-41c6-9dbe-3d96766f451a",
   "graphql_id": "Q2x1c3RlclRva2VuLS0tYjYwMDE0MTYtMGUxZS00MWM2LTlkYmUtM2Q5Njc2NmY0NTFh",
   "description": "Windows agents",
+  "expires_at": "2025-01-01T00:00:00Z",
   "allowed_ip_addresses": "202.144.0.0/24",
   "url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a/tokens/b6001416-0e1e-41c6-9dbe-3d96766f451a",
   "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a",
