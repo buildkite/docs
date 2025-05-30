@@ -66,7 +66,7 @@ The following are examples of patterns, and the branches that they will match:
 * `'v*.0'` will match any branch that begins with a `v` and ends with a `.0`, such as `v1.0`
 * `'v* !v1.*'` will match any branch that begins with a `v` unless it also begins with `v1.`, such as `v2.3`, but not `v1.1`
 
-If your branch pattern contains any special characters like exclamation marks or asterisks then you should wrap the pattern in quotes to prevent issues.  For more advanced step filtering, see the [Using conditionals](/docs/pipelines/configure/conditionals) guide.
+If your branch pattern contains any special characters like `!` or `*`, then enclose the entire pattern in a pair of quotation marks (either `''` or `""`) to ensure the pattern is treated as a string, and mitigate any YAML parsing issues. For more advanced step filtering, see the [Using conditionals](/docs/pipelines/configure/conditionals) guide.
 
 ## Alternative methods
 
