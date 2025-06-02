@@ -13,7 +13,7 @@ default route pointing to an [internet gateway](https://docs.aws.amazon.com/vpc/
 [NAT device](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat.html)
 
 Auxiliary services used by the agent or your jobs such as S3, ECR, or SSM,
-can be routed over the public internet, or trhough a
+can be routed over the public internet, or through a
 [VPC Endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints.html).
 
 The [AWS VPC quick start](https://aws.amazon.com/quickstart/architecture/vpc/)
