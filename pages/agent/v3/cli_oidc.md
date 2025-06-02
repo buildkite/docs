@@ -296,6 +296,11 @@ These OIDC tokens also typically have an audience of `sts.amazonaws.com`. For ex
 $ buildkite-agent oidc request-token --audience sts.amazonaws.com --aws-session-tag "organization_slug,organization_id"
 ```
 
+AWS requires session tags to be string values, so:
+
+- numeric claim values (e.g. `build_number`) are presented as strings
+- nullable claim values (e.g. `step_key`) are presented as `""` instead of `null`
+
 Learn more about using Buildkite OIDC tokens with AWS in [OIDC with AWS](/docs/pipelines/security/oidc/aws).
 
 ### Example token contents
