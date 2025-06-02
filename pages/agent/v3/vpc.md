@@ -13,7 +13,7 @@ default route pointing to an [internet gateway](https://docs.aws.amazon.com/vpc/
 [NAT device](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat.html)
 
 Auxiliary services used by the agent or your jobs such as S3, ECR, or SSM,
-can be routed over the public internet, or though a
+can be routed over the public internet, or trhough a
 [VPC Endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints.html).
 
 The [AWS VPC quick start](https://aws.amazon.com/quickstart/architecture/vpc/)
@@ -77,7 +77,7 @@ an unmanaged instance to public traffic. Public facing instances should be
 patched and updated regularly.
 
 The [Linux Bastion Hosts on AWS Quick Start](https://aws.amazon.com/quickstart/architecture/linux-bastion/)
-provides a example of this pattern.
+provides an example of this pattern.
 
 ### VPN
 
@@ -100,9 +100,9 @@ endpoints can also be used to [control access to services](https://docs.aws.amaz
 your VPC resources are allowed to access.
 
 The AWS VPC Quick Start creates and configures a gateway VPC endpoint for AWS
-S3. The private subnet route tables are configured forward the endpoint's
+S3. The private subnet route tables are configured to forward the endpoint's
 IP-prefix list to the endpoint, instead of the NAT gateway. In-region S3 access
-from the private subnets will routed directly over the VPC endpoint, and bypass
+from the private subnets will be routed directly over the VPC endpoint, and bypass
 the NAT gateway. By default, the VPC endpoint has a permissive "Full Access"
 policy. Should you wish to customize this, or the security group that the
 endpoint belongs to, create a fork of the CloudFormation template.
