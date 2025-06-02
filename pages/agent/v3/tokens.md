@@ -311,7 +311,7 @@ Agent tokens created via API can have an optional expiration date attribute - `e
 
 ### Agent token expiration date timestamp
 
-Agent token expiry timestamps is a feature introduced in response to customer feedback around security compliance and token lifecycle management. 
+Agent token expiry timestamps is a feature introduced in response to customer feedback around security compliance and token lifecycle management.
 
 The timestamp must be set in ISO8601 format (2025-01-01T00:00:00Z) and cannot be changed.
 
