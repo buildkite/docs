@@ -834,18 +834,30 @@
       children:
         - name: "Overview"
           path: "apis/webhooks"
-        - name: "Agent events"
-          path: "apis/webhooks/agent-events"
-        - name: "Build events"
-          path: "apis/webhooks/build-events"
-        - name: "Agent token events"
-          path: "apis/webhooks/agent-token-events"
-        - name: "Job events"
-          path: "apis/webhooks/job-events"
-        - name: "Ping events"
-          path: "apis/webhooks/ping-events"
-        - name: "Integrations"
-          path: "apis/webhooks/integrations"
+        - name: "Pipelines "
+          # Keep space at end to prevent "Pipelines" in global nav bar being
+          # highlighted when any child page of "API > Webhooks > Pipelines" is selected.
+          children:
+            - name: "Overview"
+              path: "apis/webhooks/pipelines"
+            - name: "Agent events"
+              path: "apis/webhooks/pipelines/agent-events"
+            - name: "Build events"
+              path: "apis/webhooks/pipelines/build-events"
+            - name: "Agent token events"
+              path: "apis/webhooks/pipelines/agent-token-events"
+            - name: "Job events"
+              path: "apis/webhooks/pipelines/job-events"
+            - name: "Ping events"
+              path: "apis/webhooks/pipelines/ping-events"
+            - name: "Integrations"
+              path: "apis/webhooks/pipelines/integrations"
+        - name: "Test Engine "
+          # Keep space at end to prevent "Test Engine" in global nav bar being
+          # highlighted when any child page of "API > Webhooks > Test Engine" is selected.
+          children:
+            - name: "Overview"
+              path: "apis/webhooks/test-engine"
     - name: "Portals"
       children:
         - name: "Overview"
