@@ -2,17 +2,35 @@
 
 You can configure webhooks to be triggered by the following events in Test Engine:
 
-- When a test's state is changed
-- When a label is added to or removed from a test
+- When a [test's state](/docs/test-engine/glossary#test-state) is changed.
+- When a [label](/docs/test-engine/labels) is added to or removed from a test.
 
 Webhooks are delivered to an HTTP POST endpoint of your choosing with a `Content-Type: application/json` header and a JSON encoded request body.
 
-To configure webhooks for your suite, navigate to **Test Suites**, select your suite, then click on **Settings** and select the **Notifications** tab.
+## Add a webhook
 
-## Test state changed
+To add a webhook for your test suite:
 
-If [test state management](/docs/test-engine/test-state-and-quarantine) is enabled for your suite you can configure a webhook to be sent on **Test state changed** events.
-The webhook will be sent whether the state change was triggered manually through the [Buildkite interface](/docs/test-engine/test-state-and-quarantine#manual-quarantine), through the [REST API](/docs/apis/rest-api/test-engine/quarantine), or through [automatic quarantine](/docs/test-engine/test-state-and-quarantine#automatic-quarantine)
+1. Select **Test Suites** in the global navigation > your test suite to configure webhooks on.
+1. Select **Settings** > **Notifications** tab.
+1. Select the **Add** button on **Webhooks**.
+1. Specifying your webhook's **Description** and **Webhook URL**.
+1. Select one or more of the following **Events** that will trigger this webhook:
+    * **Test state changed**
+    * **Test label added**
+    * **Test label removed**
+
+1. If the [teams feature](/docs/platform/team-management/permissions#manage-teams-and-permissions) has been enabled for your Buildkite organization, select the **Teams** whose test suite' test executions can trigger this webhook. The webhook is only triggered when the [test ownership](/docs/test-engine/test-ownership) feature has been configured for this test suite, and the test is owned by one of the selected teams.
+
+    **Notes:**
+    * If the **No owner** checkbox is selected, then the webhook is triggered when the test does not have an owner.
+    * If no checkbox is selected, then the webhook is triggered on all selected **Events** (above).
+
+### Test state changed
+
+If [test state management](/docs/test-engine/test-state-and-quarantine) is enabled for your test suite, you can configure a webhook to be sent on **Test state changed** events.
+
+The webhook is triggered when a test's state is changed [manually through the Buildkite interface](/docs/test-engine/test-state-and-quarantine#manual-quarantine), through [automatic quarantine](/docs/test-engine/test-state-and-quarantine#automatic-quarantine), or using the [REST API](/docs/apis/rest-api/test-engine/quarantine) when a [test state is updated](/docs/apis/rest-api/test-engine/quarantine#update-test-state).
 
 Example payload:
 
@@ -33,10 +51,11 @@ Example payload:
 }
 ```
 
-## Test label added / removed
+### Test label added or removed
 
 You can configure a webhook to be sent on **Test label added** and **Test label removed** events.
-The webhook will be sent whether the label was added manually through the [Buildkite interface](/docs/test-engine/labels#label-a-test-using-the-buildkite-interface), through the [REST API](/docs/test-engine/labels#label-a-test-using-the-rest-api), through [automatic quarantine](/docs/test-engine/test-state-and-quarantine#automatic-quarantine) or through the [test execution tags](/docs/test-engine/labels#label-a-test-using-execution-tags) feature.
+
+The webhook is triggered sent when a label is added [manually through the Buildkite interface](/docs/test-engine/labels#label-a-test-using-the-buildkite-interface), using [automatic quarantine](/docs/test-engine/labels#label-a-test-using-automatic-quarantine), using [test execution tags](/docs/test-engine/labels#label-a-test-using-execution-tags), or using the [REST API](/docs/test-engine/labels#label-a-test-using-the-rest-api).
 
 Example payload for when a label is added:
 
@@ -56,22 +75,19 @@ Example payload for when a label is added:
 }
 ```
 
-In the case of a **Test Label Removed** webhook the request payload will be identical to **Test Label Added** except for the `event` property:
+In the case of a **Test Label Removed** webhook, the request payload will be identical to **Test Label Added** except the the `event` property's value indicates:
 
 ```json
   "event": "test.label_removed"
 ```
 
-## Filtering webhooks by team
+## Disable, re-enable or delete a webhook
 
-If [test ownership](/docs/test-engine/test-ownership) is enabled on your suite you can configure webhooks to be sent only when a test is owned by a given team.
-One or more teams may be selected.
-The **No Owner** option will select tests that do not have an owner.
+To temporarily disable, re-enable or delete a webhook:
 
-If no checkbox is selected in the **Teams** section the webhook will be sent on events related to all tests.
-
-## Disabling webhooks
-
-Webhooks can be temporarily disabled with the **Disable** button when editing the webhook.
-The webhook and it's configuration will be retained but it will no longer be sent until re-enabled.
-Click **Enable** when editing the webhook to re-enable.
+1. Select **Test Suites** in the global navigation > your test suite with configured webhooks.
+1. Select **Settings** > **Notifications** tab to open its page.
+1. Select the webhook to open its page, and to:
+    * Temporarily disable the webhook, select its **Disable** button and confirm the action. Disabled webhooks have a note at their top to indicate this state.
+    * Re-enable a disabled webhook, select its **Enable** button.
+    * Delete the webhook, select its **Delete** button  and confirm the action. The webhook is removed from the **Notifications** page.
