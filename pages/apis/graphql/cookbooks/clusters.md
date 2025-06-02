@@ -76,7 +76,7 @@ query getClusterTokens {
 
 ## Create agent token with expiry date
 
-Create an agent token with expiry date. The expiry date will be displayed in the Buildkite UI and cannot be changed using GraphQL API. 
+Create an agent token with expiry date. The expiry date will be displayed in the Buildkite UI and cannot be changed using GraphQL API.
 
 ```graphql
 mutation createToken {
