@@ -134,7 +134,7 @@ The new agent token appears on the cluster's **Agent Tokens** page.
 
 ## Update a token
 
-Agent tokens can be updated by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the [**Agent Tokens** page of a cluster](#update-a-token-using-the-buildkite-interface), as well as Buildkite's [REST API](#update-a-token-using-the-rest-api) or [GraphQL API](#update-a-token-using-the-graphql-api). 
+Agent tokens can be updated by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the [**Agent Tokens** page of a cluster](#update-a-token-using-the-buildkite-interface), as well as Buildkite's [REST API](#update-a-token-using-the-rest-api) or [GraphQL API](#update-a-token-using-the-graphql-api).
 
 Only the **Description** and **Allowed IP Addresses** of an existing agent token can be updated. **Expiration date** for a token cannot be updated.
 
