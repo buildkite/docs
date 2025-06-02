@@ -26,6 +26,8 @@ To add a webhook for your test suite:
     * If the **No owner** checkbox is selected, then the webhook is triggered when the test does not have an owner.
     * If no checkbox is selected, then the webhook is triggered on all selected **Events** (above).
 
+1. Select the **Save** button to save these changes and add the webhook.
+
 ### Test state changed
 
 If [test state management](/docs/test-engine/test-state-and-quarantine) is enabled for your test suite, you can configure a webhook to be sent on **Test state changed** events.
@@ -81,13 +83,14 @@ In the case of a **Test Label Removed** webhook, the request payload will be ide
   "event": "test.label_removed"
 ```
 
-## Disable, re-enable or delete a webhook
+## Edit, disable, re-enable or delete a webhook
 
-To temporarily disable, re-enable or delete a webhook:
+To do any of these actions a webhook:
 
 1. Select **Test Suites** in the global navigation > your test suite with configured webhooks.
 1. Select **Settings** > **Notifications** tab to open its page.
 1. Select the webhook to open its page, and to:
-    * Temporarily disable the webhook, select its **Disable** button and confirm the action. Disabled webhooks have a note at their top to indicate this state.
-    * Re-enable a disabled webhook, select its **Enable** button.
+    * Edit the webhook, alter the **Description**, **Webhook URL**, **Events** and **Teams** fields as required (see [Add a webhook](#add-a-webhook) for details), then select the **Save** button.
+    * Disable the webhook, select its **Disable** button and confirm the action. Disabled webhooks have a note at their top to indicate this state.
+        - Re-enable the disabled webhook, select its **Enable** button.
     * Delete the webhook, select its **Delete** button  and confirm the action. The webhook is removed from the **Notifications** page.
