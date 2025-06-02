@@ -68,6 +68,9 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
+> 📘
+> `build.state` conditionals cannot be used on step-level notifications as a step can not know the state of the total build
+
 See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
 > 🚧
