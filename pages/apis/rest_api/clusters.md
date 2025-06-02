@@ -853,7 +853,7 @@ Error responses:
 curl -H "Authorization: Bearer $TOKEN" \
   -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}" \
   -H "Content-Type: application/json" \
-  -d '{ "description": "Windows agents", "allowed_ip_addresses": "202.144.0.0/24" }'
+  -d '{ "description": "Windows agents", "expires_at": "2025-01-01T00:00:00Z", "allowed_ip_addresses": "202.144.0.0/24" }'
 ```
 
 ```json
