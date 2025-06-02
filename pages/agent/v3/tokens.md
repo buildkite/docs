@@ -307,7 +307,7 @@ An agent token is specific to the cluster it was associated when created (within
 
 Agent tokens created through the Buildkite UI do not expire and need to be rotated manually.
 
-Agent tokens created using API can have an optional expiration date attribute - `expiresAt` in GraphQL or `expires_at` timestamp in the API call. Agent token expiry timestamps is a feature introduced in response to customer feedback around security compliance and token lifecycle management. This enables automated token rotation through API integration, replacing the previous manual rotation process for long-lived tokens. Note that the axisting tokens will continue to work without expiry unless manually revoked.
+Agent tokens created using API can have an optional expiration date attribute - `expiresAt` in GraphQL or `expires_at` timestamp in the API call. Agent token expiry timestamps is a feature introduced in response to customer feedback around security compliance and token lifecycle management. This enables automated token rotation through API integration, replacing the previous manual rotation process for long-lived tokens. Note that the existing tokens will continue to work without expiry unless manually revoked.
 
 There is no maximum expiry duration but a minimum of 10 minutes in the future is required. After a token has expired, it will be displayed as "expired". Expired tokens will prevent new agent registrations but won't affect currently connected agents.
 
@@ -329,7 +329,7 @@ Job tokens are valid until the job finishes. To ensure job tokens have a limited
   <tr>
     <td>Agent token</td>
     <td>Registering new agents.</td>
-    <td>Forever unless expiration date ia set during creation with GraphQL or REST API, or manually revoked.</td>
+    <td>Forever unless expiration date is set during creation with GraphQL or REST API, or manually revoked.</td>
   </tr>
   <tr>
     <td>Session token</td>
