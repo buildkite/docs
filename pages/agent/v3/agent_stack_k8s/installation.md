@@ -9,24 +9,26 @@ helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-
     --namespace buildkite \
     --create-namespace \
     --set agentToken=<buildkite-cluster-agent-token> \
-    --set graphqlToken=<buildkite-api-token-with-graphql-scope> \
     --set config.org=<buildkite-organization-slug> \
     --set config.cluster-uuid=<buildkite-cluster-uuid> \
     --set-json='config.tags=["queue=kubernetes"]'
 ```
+
+Note: versions 0.27.0 and earlier also require a GraphQL API token to be included, using this argument: `--set graphqlToken=<buildkite-api-token-with-graphql-scope>`
 
 Alternatively, you can place these configuration values into a YAML configuration file by creating the YAML file in this format:
 
 ```yaml
 # values.yml
 agentToken: "<buildkite-cluster-agent-token>"
-graphqlToken: "<buildkite-api-token-with-graphql-scope>"
 config:
   org: "<buildkite-organization-slug>"
   cluster-uuid: "<buildkite-cluster-uuid>"
   tags:
     - queue=kubernetes
 ```
+
+Note: versions 0.27.0 and earlier also require a GraphQL API token to be included, using this config after the agentToken: `graphqlToken: "<buildkite-api-token-with-graphql-scope>"`
 
 <%= render_markdown partial: 'agent/v3/agent_stack_k8s/deploy_helm_chart_using_a_yaml_configuration_file' %>
 
