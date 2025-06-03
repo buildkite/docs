@@ -560,6 +560,8 @@
           path: "test-engine/test-ownership"
         - name: "Labels"
           path: "test-engine/labels"
+        - name: "Saved views"
+          path: "test-engine/saved-views"
         - name: "Usage and billing"
           path: "test-engine/usage-and-billing"
         - name: "Public test suites"
