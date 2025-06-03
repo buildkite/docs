@@ -9,6 +9,7 @@ helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-
     --namespace buildkite \
     --create-namespace \
     --set agentToken=<buildkite-cluster-agent-token> \
+    --set graphqlToken=<buildkite-api-token-with-graphql-scope> \
     --set config.org=<buildkite-organization-slug> \
     --set config.cluster-uuid=<buildkite-cluster-uuid> \
     --set-json='config.tags=["queue=kubernetes"]'
@@ -19,6 +20,7 @@ Alternatively, you can place these configuration values into a YAML configuratio
 ```yaml
 # values.yml
 agentToken: "<buildkite-cluster-agent-token>"
+graphqlToken: "<buildkite-api-token-with-graphql-scope>"
 config:
   org: "<buildkite-organization-slug>"
   cluster-uuid: "<buildkite-cluster-uuid>"
