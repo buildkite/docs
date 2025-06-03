@@ -49,6 +49,14 @@ RUN echo "--- :yarn: Installing node packages" && yarn
 
 # ------------------------------------------------------------------
 
+FROM public.ecr.aws/docker/library/golang:1.24-bookworm as gobuild
+
+# This was previously installed from gobinaries.com within
+# the deploy-preview step, but gobinaries.com keeps being unavailable :(
+RUN go install github.com/tj/staticgen/cmd/staticgen@v1.1.0
+
+# ------------------------------------------------------------------
+
 FROM builder as assets
 
 COPY . /app/
@@ -92,6 +100,7 @@ COPY --from=node-deps /usr/local/bin /usr/local/bin
 COPY --from=node-deps /node_modules /app/node_modules
 COPY --from=bundle /usr/local/bundle/ /usr/local/bundle/
 COPY --from=assets /app/public/ /app/public/
+COPY --from=gobuild /go/bin/staticgen /usr/local/bin/staticgen
 
 RUN bundle exec rake sitemap:create
 
