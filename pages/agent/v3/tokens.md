@@ -329,7 +329,7 @@ Job tokens are valid until the job finishes. To ensure job tokens have a limited
   <tr>
     <td>Agent token</td>
     <td>Registering new agents.</td>
-    <td>Forever unless expiration date is set during creation with GraphQL or REST API, or manually revoked.</td>
+    <td>Forever unless expiration date is set during creation with GraphQL or REST API, or is manually revoked.</td>
   </tr>
   <tr>
     <td>Session token</td>
