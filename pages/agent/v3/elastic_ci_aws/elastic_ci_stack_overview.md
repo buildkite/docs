@@ -28,8 +28,7 @@ The Buildkite Elastic CI Stack for AWS supports:
 * Multiple stacks in the same AWS Account
 * Rolling updates to stack instances to reduce interruption
 
-Most instance features are supported on both Linux and Windows. See below for a
-per-operating system breakdown:
+Most features are supported across both Linux and Windows. The following table provides details of which features are supported by these operating systems:
 
 Feature | Linux | Windows
 --- | --- | ---
@@ -50,6 +49,7 @@ Periodic Instance Health Check | ✅ |
 Git LFS | ✅ |
 Additional sudo Permissions | ✅ |
 RDP Access | | ✅
+Pipeline Signing | ✅ | ✅
 
 ## Get started with the Elastic CI Stack for AWS
 
