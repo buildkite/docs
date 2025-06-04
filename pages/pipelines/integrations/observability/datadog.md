@@ -26,7 +26,7 @@ To set up the Datadog integration for Buildkite:
 [screenshot placeholder]
 
 > 📘
-> For the latest compatiblity information on Datadog's side regarding this integration, please check the [Datadog documentation](https://docs.datadoghq.com/continuous_integration/pipelines/buildkite/#compatibility).
+> For the latest compatibility information on Datadog's side regarding this integration, please check the [Datadog documentation](https://docs.datadoghq.com/continuous_integration/pipelines/buildkite/#compatibility).
 
 ## Advanced configuration
 
@@ -48,8 +48,15 @@ After setting a tag as described above and running a build on a pipeline, you'll
 
 [potential screenshot placeholder]
 
-> 📘
-> Any metadata with a key that starts with `dd-measures` and contains a numerical value will be set as a metric tag that can be used to create numerical measures. 
+Any metadata with a key that starts with `dd-measures` and contains a numerical value will be set as a metric tag that can be used to create numerical measures. For example:
+
+```yaml
+...
+ - key: "dd-measures-01"
+    label: "step_02"
+    command: "buildkite-agent meta-data set "dd_tags.key" dd-measures-01"
+...
+```
 
 ### Correlating infrastructure metrics to jobs
 
@@ -61,11 +68,9 @@ You can use the following filters to customize your search query in the [Datadog
 
 ## Visualizing pipeline data in Datadog
 
-The CI Pipeline List and Executions pages in Datadog populate with data after the pipelines finish.
+After the pipelines finish, in the Datadog interface, you can navigate to the [CI Pipeline List](https://app.datadoghq.com/ci/pipelines) and [Executions](https://app.datadoghq.com/ci/pipeline-executions) pages to see the Datadog populated with data. 
 
-[screenshot placeholder]
-
-The CI Pipeline List page shows data for only the default branch of each repository. For more information, see Search and Manage CI Pipelines.
+Note that the [CI Pipeline List](https://app.datadoghq.com/ci/pipelines) page in Datadog displays data for only the default branch of each repository. 
 
 [screenshot placeholder]
 
