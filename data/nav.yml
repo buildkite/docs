@@ -102,14 +102,14 @@
           children:
             - name: "Overview"
               path: "agent/v3/aws"
-            - name: "Architecture consideartions for AWS"
+            - name: "Architecture considerations for AWS"
               children:
                 - name: "VPC design"
                   path: "agent/v3/vpc"
                 - name: "Secure setup"
                   path: "agent/v3/secure-setup"
                 - name: "Recommendations"
-                  path: "agent/v3/recommendations"
+                  path: "agent/v3/aws/recommendations"
             - name: "Elastic CI Stack"
               children:
                 - name: "Overview"

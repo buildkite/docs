@@ -15,7 +15,7 @@ To avoid this, you need to prevent the builds from accessing your EC2 metadata o
 
 If you run all the build steps in Docker containers, take a look at [compartmentalizing your agents](#preventing-builds-from-accessing-amazon-ec2-metadata-restricting-permissions-using-compartmentalization-of-agents). If you are using Kubernetes for your Buildkite CI, use the [same approach](#preventing-builds-from-accessing-amazon-ec2-metadata-restricting-permissions-using-compartmentalization-of-agents) and also check out [this article](https://github.com/blakestoddard/scaledkite) for more information and inspiration.
 
-## Restricting permissions using compartmentalization of agents
+### Restricting permissions using compartmentalization of agents
 
 This approach suggests the use of Elastic CI Stack for AWS. However, these instructions can also be followed using hooks or scripts.
 
@@ -25,7 +25,7 @@ To divide the responsibilities and permissions of Buildkite agents and provide t
 
 To ensure that the agent in charge of a job, build, pipeline, etc., is allowed to run and will assume the role it has permission to, you can perform a [pre-checkout hook](/docs/agent/v3/hooks) on the agent.
 
-## Restricting permissions by downgrading an instance profile role
+### Restricting permissions by downgrading an instance profile role
 
 This approach is [suggested by Amazon](https://docs.aws.amazon.com/cli/latest/reference/ec2/replace-iam-instance-profile-association.html) and is helpful if you are not using Elastic CI Stack for AWS.
 
