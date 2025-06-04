@@ -15,7 +15,7 @@ helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-
 ```
 
 > 📘
-> Versions 0.27.0 and earlier of the Agent Stack for Kubernetes controller also requires you to specify a [Buildkite API access token with the GraphQL scope enabled](/docs/apis/graphql-api#authentication), using the argument: `--set graphqlToken=<buildkite-api-token-with-graphql-scope>`
+> Versions 0.27.0 and earlier of the Agent Stack for Kubernetes controller also requires you to specify a [Buildkite API access token with the GraphQL scope enabled](/docs/apis/graphql-api#authentication), using the argument: `--set graphqlToken=<buildkite-api-access-token-with-graphql-scope>`
 
 Alternatively, you can place these configuration values into a YAML configuration file by creating the YAML file in this format:
 
@@ -30,7 +30,7 @@ config:
 ```
 
 > 📘
-> Versions 0.27.0 and earlier of the Agent Stack for Kubernetes controller also requires you to specify a [Buildkite API access token with the GraphQL scope enabled](/docs/apis/graphql-api#authentication), as an additional configuration (`graphqlToken: "<buildkite-api-token-with-graphql-scope>"`) following `agentToken` in the `values.yml` file.
+> Versions 0.27.0 and earlier of the Agent Stack for Kubernetes controller also requires you to specify a [Buildkite API access token with the GraphQL scope enabled](/docs/apis/graphql-api#authentication), as an additional top-level configuration (`graphqlToken: "<buildkite-api-access-token-with-graphql-scope>"`) in the `values.yml` file.
 
 <%= render_markdown partial: 'agent/v3/agent_stack_k8s/deploy_helm_chart_using_a_yaml_configuration_file' %>
 
