@@ -1,4 +1,4 @@
-# Recommendations 
+# Recommendations
 
 Optimizing your Buildkite agent infrastructure requires balancing performance, cost, and availability based on your team's specific needs and usage patterns. This section provides guidance on sizing your agent pools effectively, helping you avoid both resource waste from over-provisioning and delays from under-provisioning your CI/CD capacity.
 
