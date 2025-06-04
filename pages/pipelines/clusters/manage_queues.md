@@ -30,7 +30,7 @@ Furthermore, once a queue has been created, it is not possible to change its typ
 
 ## Create a self-hosted queue
 
-Self-hosted queues use [Buildkite Agents installed in your own infrastructure](/docs/agent/v3/installation) to run your pipeline builds. New self-hosted queues can be created by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) using the [Buildkite interface](#create-a-self-hosted-queue-using-the-buildkite-interface), as well as Buildkite's [REST API](#create-a-self-hosted-queue-using-the-rest-api) or [GraphQL API](#create-a-self-hosted-queue-using-the-graphql-api).
+Self-hosted queues use [Buildkite Agents installed in your own infrastructure](/docs/agent/v3/installation) to run your pipeline builds. New self-hosted queues can be created by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the [Buildkite interface](#create-a-self-hosted-queue-using-the-buildkite-interface), as well as Buildkite's [REST API](#create-a-self-hosted-queue-using-the-rest-api) or [GraphQL API](#create-a-self-hosted-queue-using-the-graphql-api).
 
 For these API requests, the _cluster ID_ value submitted in the request is the target cluster the queue will be created in.
 
@@ -124,7 +124,7 @@ where:
 
 ## Create a Buildkite hosted queue
 
-Buildkite hosted queues use [Buildkite's hosted agent infrastructure](/docs/pipelines/hosted-agents) to run your pipeline builds. New Buildkite hosted queues can be created by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) using the [Buildkite interface](#create-a-buildkite-hosted-queue-using-the-buildkite-interface), as well as Buildkite's [REST API](#create-a-buildkite-hosted-queue-using-the-rest-api) or [GraphQL API](#create-a-buildkite-hosted-queue-using-the-graphql-api).
+Buildkite hosted queues use [Buildkite's hosted agent infrastructure](/docs/pipelines/hosted-agents) to run your pipeline builds. New Buildkite hosted queues can be created by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the [Buildkite interface](#create-a-buildkite-hosted-queue-using-the-buildkite-interface), as well as Buildkite's [REST API](#create-a-buildkite-hosted-queue-using-the-rest-api) or [GraphQL API](#create-a-buildkite-hosted-queue-using-the-graphql-api).
 
 When you create a Buildkite hosted queue, you can choose the machine type (Linux or macOS) and the capacity (small, medium, large, or extra large), known as the _instance shape_, of the Buildkite hosted agents that will run your builds.
 
@@ -288,3 +288,11 @@ To resume a queue:
 1. On the queue's details page, select **Resume Queue**.
 
     Jobs will resume being dispatched to the resumed queue as usual, including any jobs waiting to run.
+
+### Pause and resume an individual agent
+
+You can also pause an agent to prevent any jobs of the cluster's pipelines from being dispatched to that particular agent. Learn more in [Pausing and resuming an agent](/docs/agent/v3/pausing-and-resuming).
+
+## Queue metrics
+
+Clusters provides additional, easy to access queue metrics that are available only for queues within a cluster. Learn more in [Queue metrics in clusters](/docs/pipelines/insights/queue-metrics).

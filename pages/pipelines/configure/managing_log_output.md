@@ -77,6 +77,9 @@ When your build is finished the agent will upload `build.log` as a build artifac
 
 <%= image("large_build_log.png", alt: "Screenshot of build log available in the Artifacts tab", size: '511x241') %>
 
+> 📘
+> The `tee` command almost always exits with a code of `0`, and so this command won't report on the preceding command. Capturing the status of the preceding command with `"${PIPESTATUS[0]}"` may help with error debugging.
+
 ## Filtering with grep
 
 Grep is a Unix tool to help you filter lines of text that match a pattern. For example, the following script only sends Buildkite the matching lines as your log output, whilst storing the original log for artifact uploading.
@@ -140,6 +143,7 @@ The default environment variable name patterns are:
 - `*_PASSWORD`
 - `*_SECRET`
 - `*_TOKEN`
+- `*_PRIVATE_KEY`
 - `*_ACCESS_KEY`
 - `*_SECRET_KEY`
 - `*_CONNECTION_STRING` (added in Agent v3.53.0)
@@ -149,7 +153,7 @@ With these defaults, if you have an environment variable `MY_SECRET="topsecret"`
 You can append additional patterns or replace the default patterns entirely by [setting redacted-vars](/docs/agent/v3/configuration#redacted-vars) on your agent. For example, if you wanted to redact the value of `FOO` in your log output and keep the existing default patterns, the configuration setting should look like the following:
 
 ```sh
-redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_ACCESS_KEY, *_SECRET_KEY, *_CONNECTION_STRING, *_SOME_VALUE, FOO"
+redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_PRIVATE_KEY, *_ACCESS_KEY, *_SECRET_KEY, *_CONNECTION_STRING, *_SOME_VALUE, FOO"
 ```
 
 >📘 Setting environment variables

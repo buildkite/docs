@@ -1,6 +1,5 @@
 # Builds API
 
-
 ## Build number vs build ID
 
 All builds have a *build ID* (e.g. `01908131-7d9f-495e-a17b-80ed31276810`), which is unique within the whole of Buildkite, and a *build number* (e.g. `27`), which is unique to the pipeline. The build number is monotonically increasing but may include gaps.
@@ -284,7 +283,11 @@ curl -H "Authorization: Bearer $TOKEN" \
       "finished_at": "2015-05-09T21:08:59.874Z",
       "retried": false,
       "retried_in_job_id": null,
-      "retries_count": null,
+      "retries_count": 1,
+      "retry_source": {
+        "job_id": "0194b92a-4d74-46bb-a1bf-61c73c5642af",
+        "retry_type": "manual"
+      },
       "retry_type": null,
       "parallel_group_index": null,
       "parallel_group_total": null,
@@ -458,6 +461,7 @@ curl -H "Authorization: Bearer $TOKEN" \
       "retried": false,
       "retried_in_job_id": null,
       "retries_count": null,
+      "retry_source": null,
       "retry_type": null,
       "parallel_group_index": null,
       "parallel_group_total": null,
@@ -633,6 +637,7 @@ curl -H "Authorization: Bearer $TOKEN" \
       "retried": false,
       "retried_in_job_id": null,
       "retries_count": null,
+      "retry_source": null,
       "retry_type": null,
       "parallel_group_index": null,
       "parallel_group_total": null,
@@ -781,6 +786,7 @@ curl -H "Authorization: Bearer $TOKEN" \
       "retried": false,
       "retried_in_job_id": null,
       "retries_count": null,
+      "retry_source": null,
       "retry_type": null,
       "parallel_group_index": null,
       "parallel_group_total": null,

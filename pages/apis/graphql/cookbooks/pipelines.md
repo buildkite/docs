@@ -94,6 +94,27 @@ query RecentPipelineSlugs {
 }
 ```
 
+## Get a list of pipelines and their respective repository
+
+Get a list of the first 100 most recently created pipelines along with the URL of each pipeline's configured repository.
+
+```
+query GetPipelinesRepositories{
+  organization(slug: "organization-slug") {
+    pipelines(first: 100) {
+      edges {
+        node {
+          name
+          repository {
+            url
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ## Get a pipeline's ID
 
 Get a pipeline's ID which can be used in other queries.
@@ -147,6 +168,7 @@ query GetPipelineInfo {
   }
 }
 ```
+
 
 ## Get pipeline metrics
 

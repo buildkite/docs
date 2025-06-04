@@ -100,6 +100,12 @@ Kinds of subjects which can have audit events performed on them
 <a href="/docs/apis/graphql/schemas/object/organizationmember" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationMember">
   <code>OrganizationMember</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/organizationrepositoryprovidergithub" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationRepositoryProviderGitHub">
+  <code>OrganizationRepositoryProviderGitHub</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/organizationrepositoryprovidergithubenterpriseserver" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationRepositoryProviderGitHubEnterpriseServer">
+  <code>OrganizationRepositoryProviderGitHubEnterpriseServer</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/pipeline" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Pipeline">
   <code>Pipeline</code>
 </a>

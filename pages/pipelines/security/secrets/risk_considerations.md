@@ -47,7 +47,7 @@ steps:
 
 Referencing secrets in your steps risks them being interpolated, uploaded to Buildkite, and shown in plain text in the "Uploaded Pipelines" list in the job's Timeline tab.
 
-The Buildkite agent does [redact strings](/docs/pipelines/configure/managing-log-output#redacted-environment-variables) that match the values off of environment variables whose names match common password patterns such as `*_PASSWORD`, `*_SECRET`, `*_TOKEN`, `*_ACCESS_KEY`, and `*_SECRET_KEY`.
+The Buildkite agent does [redact strings](/docs/pipelines/configure/managing-log-output#redacted-environment-variables) that match the values off of environment variables whose names match common password patterns such as `*_PASSWORD`, `*_SECRET`, `*_TOKEN`, `*_PRIVATE_KEY` ,  `*_ACCESS_KEY`, `*_SECRET_KEY`, and `*_CONNECTION_STRING` .
 
 To prevent the risk of interpolation, it is recommended that you replace the command block with a script in your repository, for example:
 

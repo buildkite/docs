@@ -19,7 +19,9 @@ Once your clusters are set up, you can set up one or more [queues](/docs/pipelin
 
 ## Create a cluster
 
-New clusters can be created by a [cluster maintainer](#manage-maintainers-on-a-cluster) using the [**Clusters** page](#create-a-cluster-using-the-buildkite-interface), as well as Buildkite's [REST API](#create-a-cluster-using-the-rest-api) or [GraphQL API](#create-a-cluster-using-the-graphql-api).
+New clusters can be created by a [_Buildkite organization administrator_](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions) using the [**Clusters** page](#create-a-cluster-using-the-buildkite-interface), as well as Buildkite's [REST API](#create-a-cluster-using-the-rest-api) or [GraphQL API](#create-a-cluster-using-the-graphql-api).
+
+Once the cluster has been created, a Buildkite organization administrator can then make other members of their Buildkite organization a [_maintainer_](#manage-maintainers-on-a-cluster) of the cluster. These people can then administer the cluster on behalf of the Buildkite organization administrator.
 
 ### Using the Buildkite interface
 
@@ -42,7 +44,7 @@ To [create a new cluster](/docs/apis/rest-api/clusters#clusters-create-a-cluster
 curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters" \
   -H "Content-Type: application/json" \
-  -d '{ 
+  -d '{
     "name": "Open Source",
     "description": "A place for safely running our open source builds",
     "emoji": "\:technologist\:",
@@ -138,7 +140,7 @@ If you migrate all your existing agents over to clusters, ensure that all of you
 
 As a security measure, each agent token has an optional **Allowed IP Addresses** setting that can be used to lock down access to the token. When this option is set on an agent token, only agents with an IP address that matches one this agent token's setting can use this token to connect to your Buildkite organization (through your cluster).
 
-An agent token's **Allowed IP Addresses** setting can be set [when the token is created](/docs/agent/v3/tokens#create-a-token), or this setting can be added to or modified on existing agent tokens by a [cluster maintainer](#manage-maintainers-on-a-cluster), using the [**Agent Tokens** page of a cluster](#restrict-an-agent-tokens-access-by-ip-address-using-the-buildkite-interface), as well as Buildkite's [REST API](#restrict-an-agent-tokens-access-by-ip-address-using-the-rest-api) or [GraphQL API](#restrict-an-agent-tokens-access-by-ip-address-using-the-graphql-api).
+An agent token's **Allowed IP Addresses** setting can be set [when the token is created](/docs/agent/v3/tokens#create-a-token), or this setting can be added to or modified on existing agent tokens by a [cluster maintainer](#manage-maintainers-on-a-cluster) or Buildkite organization administrator, using the [**Agent Tokens** page of a cluster](#restrict-an-agent-tokens-access-by-ip-address-using-the-buildkite-interface), as well as Buildkite's [REST API](#restrict-an-agent-tokens-access-by-ip-address-using-the-rest-api) or [GraphQL API](#restrict-an-agent-tokens-access-by-ip-address-using-the-graphql-api).
 
 For these API requests, the _cluster ID_ value submitted in the request is the target cluster the token is associated with.
 
@@ -238,14 +240,18 @@ where:
 
 ## Manage maintainers on a cluster
 
-A user who is a [_Buildkite organization administrator_](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) can create clusters. Learn more about user permissions in Buildkite from [User and team permissions](/docs/platform/team-management/permissions).
+A user who is a [_Buildkite organization administrator_](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions) can [create clusters](#create-a-cluster). As a Buildkite organization administrator, you can add and manage other users or teams in your Buildkite organization as _maintainers_ of a cluster in the organization.
 
-As a Buildkite organization administrator, you can add and manage other users or teams in your Buildkite organization as _maintainers_ of a cluster in the organization. A cluster maintainer can:
+A cluster maintainer can:
 
 - Update or delete the cluster.
 - Manage [agent tokens](/docs/agent/v3/tokens) associated with the cluster.
 - Manage [queues](/docs/pipelines/clusters/manage-queues) within the cluster.
 - Add pipelines to or remove them from the cluster.
+- Stop, pause and resume agents belonging to a queue within the cluster.
+
+> 📘
+> Learn more about Buildkite organization administrators and user permissions in Buildkite from [User and team permissions](/docs/platform/team-management/permissions).
 
 To add a maintainer to a cluster:
 
@@ -253,7 +259,7 @@ To add a maintainer to a cluster:
 1. Select the cluster whose user or team is to be added as a maintainer of this cluster.
 1. Select **Maintainers** > **Add Maintainer**.
 1. Select if the maintainer will either be a specific **User** or **Team** of users.
-1. Select the specific user or team from the drop-down list.
+1. Select the specific user or team from the dropdown list.
 1. Select **Add Maintainer** and the user or team is listed on the **Maintainers** page.
 
 To remove a maintainer from a cluster:
@@ -268,7 +274,7 @@ Move a pipeline to a specific cluster to ensure the pipeline's builds run only o
 > 📘 Associating pipelines with cluster
 > A pipeline can only be associated with one cluster at a time. It is not possible to associate a pipeline with two or more clusters simultaneously.
 
-A pipeline can be moved to a cluster by a [cluster maintainer](#manage-maintainers-on-a-cluster) via the pipeline's [**General** settings page](#move-a-pipeline-to-a-specific-cluster-using-the-buildkite-interface), as well as Buildkite's [REST API](#move-a-pipeline-to-a-specific-cluster-using-the-rest-api) or [GraphQL API](#move-a-pipeline-to-a-specific-cluster-using-the-graphql-api).
+A pipeline can be moved to a cluster by a [cluster maintainer](#manage-maintainers-on-a-cluster) or Buildkite organization administrator via the pipeline's [**General** settings page](#move-a-pipeline-to-a-specific-cluster-using-the-buildkite-interface), as well as Buildkite's [REST API](#move-a-pipeline-to-a-specific-cluster-using-the-rest-api) or [GraphQL API](#move-a-pipeline-to-a-specific-cluster-using-the-graphql-api).
 
 For these API requests, the _cluster ID_ value submitted in the request is the target cluster the pipeline is being moved to.
 
@@ -392,3 +398,7 @@ where:
 <%= render_markdown partial: 'apis/descriptions/graphql_cluster_id' %>
 
 <!-- ## Delete a cluster -->
+
+## Cluster insights
+
+The cluster insights page provides an overview on the overall health of your cluster and agent set-up. Learn more in [Cluster insights](/docs/pipelines/insights/clusters).

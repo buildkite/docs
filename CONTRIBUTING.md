@@ -62,13 +62,15 @@ A [Markdown linter](https://github.com/DavidAnson/markdownlint) also runs on the
 
 The rules enabled for this Markdown linting are defined in the [`.markdownlint.yaml`](.markdownlint.yaml) file.
 
+For the linter jobs to pass, every line in a Markdown file must not end in any trailing spaces, and the last character in the Markdown file must be a new line character.
+
 #### Fix spelling errors
 
-The Buildkite Docs build pipeline uses [Vale](https://vale.sh/) to check for spelling errors, and builds will fail if a spelling error is encountered.
+The Buildkite Docs build pipeline uses [Vale](https://vale.sh/) to check for spelling errors, and builds will fail if a spelling error is encountered. Vale also checks for incorrect letter case handling, for example, Proper Nouns that should be treated as common nouns.
 
 If you need to add an exception to this (for example, you are referencing a new technology or tool that isn't in Vale's vocabulary), add this term verbatim to the [`./vale/styles/vocab.txt`](./vale/styles/vocab.txt) file, ensuring that the term is added in the correct alphabetical order within the file. Case is important but should be ignored with regard to alphabetical ordering within the file. This makes it easier to identify if an exception has already been added.
 
-If you encounter a spelling error within a heading, add this entry into the [`./vale/styles/Buildkite/h1-h6_sentence_case.yml`](./vale/styles/Buildkite/h1-h6_sentence_case.yml) file.
+If you encounter a spelling or letter case handling error within a heading, add this entry into the [`./vale/styles/Buildkite/h1-h6_sentence_case.yml`](./vale/styles/Buildkite/h1-h6_sentence_case.yml) file.
 
 #### Escape vale linting
 
@@ -102,9 +104,9 @@ Use the snippet render link wherever you need to add the content of the snippet 
 
 If a snippet is stored within a subdirectory of `/pages`, you need to specify the subdirectory hierarchy in the link to the snippet.
 
-Therefore, a reference to the `_agent_events_table.md` file stored within the `webhooks` subdirectory of the `apis` subdirectory would look like this:
+Therefore, a reference to the `_agent_events_table.md` file stored within the `webhooks/pipelines` subdirectory of the `apis` subdirectory would look like this:
 
-`<%= render_markdown partial: 'apis/webhooks/agent_events_table' %>`
+`<%= render_markdown partial: 'apis/webhooks/pipelines/agent_events_table' %>`
 
 > [!WARNING]
 > Do not use H2, H3-level headings in the first line of a snippet because this results in the generation of incorrect anchor links for such headings. Instead, if you need to start a snippet with a heading, add the heading to the main document just before you add a snippet render link.
@@ -246,9 +248,15 @@ This information was aggregated by going over the existing screenshots in the do
 > Before you proceed, make sure that both the width and the height of the image are an even number of pixels!
 
 Steps for adding add an image to a documentation page:
+
 1. Name the image file (lowercase, separate words using hyphens; add a number to the filename, for example, 'installation-1' if you are adding several images to the same page).
-1. Save the file into its corresponding `images` folder (that is, a sub-folder within `images` whose path and name respectively matches that of the Markdown page's path within `pages` and the name this image file is referenced by on this page). Create this sub-folder hierarchy if it doesn't yet exist within `images`.
+
+1. Save the file into its corresponding `images` folder. This folder is a sub-folder within `images` whose path matches that of the Markdown page's path within `pages`, _which includes_ the file name of Markdown page that this image file is referenced on, as the final sub-folder. Create this sub-folder hierarchy if it doesn't yet exist within `images`.
+
+    For example, if you add an image called `my_image.png` to a page located in the path `/docs/pages/pipelines/insights/queue_metrics.md`, then save the actual image file to the path `/docs/images/pipelines/insights/queue_metrics/my_image.png`.
+
 1. Compose relevant alt text for the image file using sentence case.
+
 1. Add your image file to the documentation page using the following code example `<%= image "your-image.png", width: 1110, height: 1110, alt: "Screenshot of Important Feature" %>`.
 For large images/screenshots taken on a retina screen, use `<%= image "your-image.png", width: 1110/2, height: 1110/2, alt: "Screenshot of Important Feature" %>`.
 

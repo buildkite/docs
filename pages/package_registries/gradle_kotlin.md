@@ -8,12 +8,13 @@ To view and copy the required `build.gradle.kts` configurations:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Java source registry on this page.
-1. Select **Publish a Java Package** and in the resulting dialog's **Using Gradle with `maven-publish` plugin** section, select **Gradle (Kotlin)** to expand this section.
+1. Select the **Publish Instructions** tab and on the resulting page, in the **Using Gradle with `maven-publish` plugin** section, select **Gradle (Kotlin)** to expand this section.
 1. Use the copy icon at the top-right of the code box to copy the Gradle code snippet and paste it into the appropriate area/s of your `build.gradle.kts` file.
 
-These `build.gradle.kts` file configurations contain the:
+    These `build.gradle.kts` file configurations contain the:
+    <%= render_markdown partial: 'package_registries/gradle_file_configurations' %>
 
-<%= render_markdown partial: 'package_registries/gradle_file_configurations' %>
+1. You can then run the `gradle publish` command to publish the package to this source registry.
 
 ## Publish a package
 

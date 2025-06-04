@@ -78,3 +78,7 @@ On RedHat, the Buildkite agent runs as user `buildkite-agent`.
 ```shell
 sudo yum clean expire-cache && sudo yum update buildkite-agent
 ```
+
+## Systemd modifications
+
+<%= render_markdown partial: 'agent/v3/linux_systemd_modifications' %>

@@ -114,7 +114,7 @@ query AgentJobs {
 To get the run time of each job in a build, you can use the following query.
 
 ```
-query GetJobRunTimeByBuild{
+query GetJobRunTimeByBuild {
   build(slug: "organization-slug/pipeline-slug/build-number") {
     jobs(first: 1) {
       edges {
@@ -155,7 +155,7 @@ query GetJobsUUID {
 Get info about a job using the job's UUID only.
 
 ```graphql
-query GetJob  {
+query GetJob {
   job(uuid: "a00000a-xxxx-xxxx-xxxx-a000000000a") {
     ... on JobTypeCommand {
       id

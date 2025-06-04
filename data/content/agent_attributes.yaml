@@ -103,7 +103,7 @@ attributes:
   env_var: BUILDKITE_GIT_FETCH_FLAGS
   default_value: "-v --prune"
   required: false
-  experimental: true
+  experimental: false
   desc: |
       Flags to pass to the `git fetch` command. Before [running builds on git tags](https://buildkite.com/docs/integrations/github#running-builds-on-git-tags), make sure your agent is fetching git tags.
 - name: git-mirrors-lock-timeout
@@ -271,7 +271,7 @@ attributes:
       The priority of the agent. Higher priorities are assigned work first, null is assigned last.
 - name: redacted-vars
   env_var: BUILDKITE_REDACTED_VARS
-  default_value: "'*_PASSWORD', '*_SECRET', '*_TOKEN', '*_ACCESS_KEY', '*_SECRET_KEY'"
+  default_value: "'*_PASSWORD', '*_SECRET', '*_TOKEN', '*_PRIVATE_KEY', '*_ACCESS_KEY', '*_SECRET_KEY', '*_CONNECTION_STRING'"
   required: false
   desc: |
       A list of environment variable name patterns whose values should be [redacted](/docs/pipelines/managing-log-output#redacted-environment-variables) before being printed to the build log. To disable redaction, set this to an empty string. Introduced in [v3.31](https://github.com/buildkite/agent/releases/tag/v3.31.0).

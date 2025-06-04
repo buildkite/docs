@@ -2,17 +2,32 @@
 
 This page provides details on how to link and configure your private Amazon Web Services (AWS) Simple Storage Service (S3) storage to Buildkite Package Registries within your Buildkite organization. These processes can only be performed by [Buildkite organization administrators](/docs/package-registries/security/permissions#manage-teams-and-permissions-organization-level-permissions).
 
-By default, Buildkite Package Registries provides its own storage to house any packages, container images and modules stored in source registries. You can also link your own private AWS S3 bucket to Buildkite Package Registries, which allows you to:
+By default, Buildkite Package Registries provides its own storage (known as _Buildkite storage_) to house any packages, container images and modules stored in source registries. You can also link your own private AWS S3 bucket to Buildkite Package Registries, which allows you to:
 
 - Manage Buildkite registry packages, container images and modules stored within your private AWS S3 bucket (that is, your _private storage_). Private storage:
     * Located closer to your geographical location may provide faster registry access.
     * Mitigates network transmission costs.
 
-- Use Buildkite Package Registries' management and metadata-handling features to manage these files in registries within your private storage.
+- Use Buildkite Package Registries' management and metadata-handling features to manage these files in registries within your private storage. While packages are stored in your own private storage, Buildkite still handles the indexing of these packages.
 
 - Maintain control, ownership and sovereignty over the packages, container images and modules stored within your source registries managed by Buildkite Package Registries.
 
 Buildkite Package Registries uses [AWS CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html) to provision its services within your private AWS S3 storage.
+
+Regardless of whether you choose to manage your packages in Buildkite storage or in your own storage through a private storage link:
+
+- Both storage and bandwidth are metered in the same manner, with no differences in additional costs.
+- Package management, indexing, and access are all routed through the Buildkite API.
+
+The following diagram shows how your private storage link interfaces between the Buildkite Package Registries software-as-a-service (SaaS) _control plane_ (which constitutes the [Buildkite Platform](/docs/platform)), and your teams' infrastructure, operating in environments you can control.
+
+<%= image "private-storage-link-overview.png", alt: "Shows how your private storage link fits between the SaaS platform and your own infrastructure" %>
+
+Abbreviations:
+
+- CDN—content delivery network
+- API/CLI—is application programming interface/command line interface
+- SSO & RBAC—single sign-on & role-based access control
 
 ## Before you start
 
@@ -51,9 +66,13 @@ To link your private AWS S3 storage to Buildkite Package Registries:
 
 1. Select **Create stack** to begin creating the CloudFormation stack for your S3 bucket.
 
-1. Once the stack is created, return to the Buildkite interface and select **Run diagnostic** to verify that Buildkite Package Registries can publish (`PUT`), download (`GET`) and delete (`DELETE`) packages to and from your S3 private storage.
+1. Once the stack is created, return to the Buildkite interface and select **Run diagnostic** to verify that Buildkite Package Registries can do the following with packages in your S3 private storage:
+    * publish (`PUT`)
+    * download (`GET`)
+    * tag (`PUT`)
+    * delete (`DELETE`)
 
-1. Once the **Diagnostic Result** page indicates a **Pass** for each of these three tests, select **Create Private Storage Link** complete this linking process.
+1. Once the **Diagnostic Result** page indicates a **Pass** for each of these diagnostic tests, select **Create Private Storage Link** to complete this linking process.
 
 You are returned to the **Private Storage Link** page, where you can:
 
@@ -76,3 +95,15 @@ Once you have [configured at least one other private storage link](#link-your-pr
 1. Select **Change** to switch from using **Buildkite-hosted storage** (or a previously configured private storage beginning with **s3://...**) to your new private storage link. If this setting is currently configured to use a previously configured private storage link, the default storage can also be reverted back to using **Buildkite-hosted storage**.
 
 All [newly created source registries](/docs/package-registries/manage-registries#create-a-source-registry) will automatically use the default private storage location to house packages.
+
+## Deleting packages
+
+When deleting a package, Buildkite does not delete the associated objects from your storage. Instead, Buildkite marks them for deletion using [S3 object tags](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-tagging.html).
+
+Objects tagged for deletion by Buildkite have the following key value pair:
+
+| Key                 | Value            |
+|---------------------|------------------|
+| `buildkite:deleted` | Timestamp in UTC |
+
+Expire objects from your bucket using an [S3 Lifecycle configuration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/how-to-set-lifecycle-configuration-intro.html) set up to filter tagged objects. Learn more about lifecycle rules filters in the [Lifecycle configuration elements > Filter element](https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html#intro-lifecycle-rules-filter) section of the [Amazon S3 documentation](https://docs.aws.amazon.com/s3/).

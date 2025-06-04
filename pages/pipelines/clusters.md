@@ -51,7 +51,11 @@ Learn more about working with queues in [Manage queues](/docs/pipelines/clusters
 
 ## Queue metrics
 
-Clusters provides additional, easy to access queue metrics that are available only for queues within a cluster. Learn more in [Cluster queue metrics](/docs/pipelines/clusters/queue-metrics).
+Clusters provides additional, easy to access queue metrics that are available only for queues within a cluster. Learn more in [Queue metrics in clusters](/docs/pipelines/insights/queue-metrics).
+
+## Cluster insights
+
+The cluster insights page provides an overview on the overall health of your cluster and agent set-up. Learn more in [Cluster insights](/docs/pipelines/insights/clusters).
 
 ## Accessing your agents and pipelines
 

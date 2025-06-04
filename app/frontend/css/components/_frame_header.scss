@@ -1,0 +1,40 @@
+.Frameheader {
+  border-radius: 8px 8px 0 0;
+  display: block;
+  text-align: center;
+  padding: 4px 8px;
+  border: 1px solid #ddd;
+  border-bottom: 0 none;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 14px !important;
+}
+
+.Frameheader__address {
+  display: inline-block;
+  padding: 1px 12px;
+  background: $navy-100;
+  color: $navy-600;
+  border-radius: 6px;
+  min-width: 50%;
+  transition: color 0.2s ease;
+}
+
+.Frameheader__address::after {
+  content: "→";
+  padding-left: 4px;
+  display: inline-block;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.Frameheader:hover {
+  .Frameheader__address {
+    color: $purple1-600;
+  }
+  .Frameheader__address::after {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}

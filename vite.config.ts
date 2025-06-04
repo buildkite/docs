@@ -12,6 +12,7 @@ export default defineConfig(({ mode }) => {
       __ALGOLIA_INDEX_NAME__: JSON.stringify(env.ALGOLIA_INDEX_NAME),
     },
     server: {
+      allowedHosts: ["vite"],
       watch: {
         ignored: ['/app/log/**']
       }

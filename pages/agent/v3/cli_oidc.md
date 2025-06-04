@@ -216,6 +216,13 @@ The following optional claims can be added, whose values are automatically gener
     </td>
   </tr>
   <tr>
+    <td><code>build_id</code></td>
+    <td>
+      <p>The build UUID.</p>
+      <p><em>Example:</em> <code>019583d7-3737-4e38-af67-f7cc356bd580</code></p>
+    </td>
+  </tr>
+  <tr>
     <td><code>cluster_id</code></td>
     <td>
       <p>The cluster UUID if using clusters.</p>
@@ -288,6 +295,11 @@ These OIDC tokens also typically have an audience of `sts.amazonaws.com`. For ex
 ```sh
 $ buildkite-agent oidc request-token --audience sts.amazonaws.com --aws-session-tag "organization_slug,organization_id"
 ```
+
+AWS requires that session tags are string values. Therefore:
+
+- Numeric claim values (for example, `build_number`) are presented as strings.
+- Nullable claim values (for example, `step_key`) are presented as `""` instead of the literal value `null`.
 
 Learn more about using Buildkite OIDC tokens with AWS in [OIDC with AWS](/docs/pipelines/security/oidc/aws).
 

@@ -41,6 +41,50 @@ query getRules {
 }
 ```
 
+> 📘 Rule access for organization members
+> Organization members are able to obtain rule data using the above `rules` query above, as long as the user has at least **Read Only** access to both the source _and_ target pipelines. Learn more about this in [Pipeline-level permissions](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions).
+> A user typically gains **Read Only** permission to access pipelines if the user is associated with one or more [teams](/docs/platform/team-management/permissions#manage-teams-and-permissions) that the source and target pipelines (with at least the **Read Only** permission) are also associated with.
+> Learn more about associating pipelines with teams in [Team-level permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
+
+## Get a rule
+
+Get the details of a specific rule by using its `id` using a `node` query. The `id` of a rule can can be obtained:
+
+- From the **Rules** section of your **Organization Settings** page, accessed by selecting **Settings** in the global navigation of your organization in Buildkite. Then, expand the existing rule and copy its **GraphQL ID** value.
+- By running a [List rules GraphQL API query](/docs/apis/graphql/cookbooks/rules#list-rules) to obtain the rule's `id` in the response.
+
+```graphql
+query getRule {
+  node(id: "rule-id") {
+    id
+    type
+    targetType
+    sourceType
+    source {
+      ... on Pipeline {
+        slug
+      }
+    }
+    target {
+      ... on Pipeline {
+        slug
+      }
+    }
+    effect
+    action
+    createdBy {
+      id
+      name
+    }
+  }
+}
+```
+
+> 📘 Rule access for organization members
+> Organization members are able to obtain rule data using the above `node` query above, as long as the user has at least **Read Only** access to both the source _and_ target pipelines. Learn more about this in [Pipeline-level permissions](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions).
+> A user typically gains **Read Only** permission to access pipelines if the user is associated with one or more [teams](/docs/platform/team-management/permissions#manage-teams-and-permissions) that the source and target pipelines (with at least the **Read Only** permission) are also associated with.
+> Learn more about associating pipelines with teams in [Team-level permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
+
 ## Create a rule
 
 Create a rule. The value of the `value` field must be a JSON-encoded string.

@@ -8,22 +8,26 @@ To view and copy this `curl` command:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Helm source registry on this page.
-1. Select **Publish a Helm Chart** and in the resulting dialog, use the copy icon at the top-right of the code box to copy this `curl` command and run it to publish your chart to your Helm registry.
+1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of the relevant code box to copy this `curl` command and run it (with the appropriate values) to publish the chart to this source registry.
 
 This command provides:
 
 - The specific URL to publish a chart to your specific Helm source registry in Buildkite.
-- The API access token required to publish charts to your Helm registry.
+- The API access token required to publish charts to this source registry.
 - The Helm chart (`.tgz`) to be published.
 
 ## Publish a chart
+
+You can use two approaches to publish a chart to your Helm source registry—[`curl`](#publish-a-chart-using-curl) or the [Buildkite CLI](#publish-a-chart-using-the-buildkite-cli).
+
+### Using curl
 
 The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a chart to your Helm source registry:
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
   -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
-  -F "file=@<path_to_file>"
+  -F "file=@path/to/helm/chart.tgz"
 ```
 
 where:
@@ -32,9 +36,9 @@ where:
 
 <%= render_markdown partial: 'package_registries/helm_registry_slug' %>
 
-- `<path_to_file>` is the full path required to the chart file. If the file is located in the same directory that this command is running from, then no path is required.
+- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload charts to your Helm source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish charts and other package types to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Helm source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
-- `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload charts to your Helm source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization.
+<%= render_markdown partial: 'package_registries/path_to_helm_chart' %>
 
 For example, to upload the file `my-helm-chart-0.1.2.tgz` from the current directory to the **My Helm Charts** registry in the **My organization** Buildkite organization, run the `curl` command:
 
@@ -43,6 +47,24 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
   -H "Authorization: Bearer $REPLACE_WITH_YOUR_REGISTRY_WRITE_TOKEN" \
   -F "file=@my-helm-chart-0.1.2.tgz"
 ```
+
+### Using the Buildkite CLI
+
+The following [Buildkite CLI](/docs/platform/cli) command can also be used to publish a chart to your Helm source registry from your local environment, once it has been [installed](/docs/platform/cli/installation) and [configured with an appropriate token](#token-usage-with-the-buildkite-cli):
+
+```bash
+bk package push registry-slug path/to/helm/chart.tgz
+```
+
+where:
+
+- `registry-slug` is the slug of your Helm source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your Helm source registry from the **Registries** page.
+
+<%= render_markdown partial: 'package_registries/path_to_helm_chart' %>
+
+<h4 id="token-usage-with-the-buildkite-cli">Token usage with the Buildkite CLI</h4>
+
+<%= render_markdown partial: 'package_registries/buildkite_cli_token_usage' %>
 
 ## Access a chart's details
 
@@ -89,7 +111,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/registry_slug' %>
 
-- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download charts from your Helm registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download charts from your Helm registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download charts and other package types from any registry your user account has access to within your Buildkite organization.
 
 > 📘
 > This step is not required for public Helm registries.

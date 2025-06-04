@@ -22,7 +22,7 @@ toc: false
 <!-- vale on -->
 
 
-A pipeline's repository is being provided by GitLab Community Edition
+Deprecated: Use RepositoryProviderGitlabEnterpriseType instead. This type represented GitLab Community Edition.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

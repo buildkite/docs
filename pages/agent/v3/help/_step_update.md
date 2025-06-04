@@ -56,6 +56,7 @@ $ ./script/label-generator | buildkite-agent step update "label"
 <tr id="log-level"><th><code>--log-level value</code> <a class="Docs__attribute__link" href="#log-level">#</a></th><td><p>Set the log level for the agent, making logging more or less verbose. Defaults to notice. Allowed values are: debug, info, error, warn, fatal (default: "notice")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_LOG_LEVEL</code></p></td></tr>
 <tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_EXPERIMENT</code></p></td></tr>
 <tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_PROFILE</code></p></td></tr>
+<tr id="redacted-vars"><th><code>--redacted-vars value</code> <a class="Docs__attribute__link" href="#redacted-vars">#</a></th><td><p>Pattern of environment variable names containing sensitive values (default: "*_PASSWORD", "*_SECRET", "*_TOKEN", "*_PRIVATE_KEY", "*_ACCESS_KEY", "*_SECRET_KEY", "*_CONNECTION_STRING")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_REDACTED_VARS</code></p></td></tr>
 </table>
 
 <!-- vale on -->

@@ -1,0 +1,1 @@
+- `path/to/helm/chart.tgz` is the full path to the Helm `.tgz` chart, including the file's name. If the file is located in the same directory that this command is running from, then no path is required.

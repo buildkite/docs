@@ -97,7 +97,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     }
   ],
   "links": {
-    "self": "https://api.buildkite.localhost/v2/packages/organizations/my_great_org/registries/my-registry/packages",
+    "self": "https://api.buildkite.com/v2/packages/organizations/my_great_org/registries/my-registry/packages",
   }
 }
 ```

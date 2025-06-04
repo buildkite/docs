@@ -4,10 +4,7 @@ Test ownership is critical in adopting a healthy testing culture at your organiz
 
 Customers on the [Pro and Enterprise plans](https://buildkite.com/pricing) can assign test ownership to [teams](/docs/test-engine/permissions#manage-teams-and-permissions).
 
-Test ownership is managed via team assignments in a TESTOWNERS file. The team that is the default owner of a test [will be automatically assigned flaky tests](/docs/test-engine/flaky-test-assignment) to triage.
-
-> 🚧 Buildkite test ownership is currently in private beta
-> Please reach out to our support team to register for early access.
+Test ownership is managed via team assignments in a TESTOWNERS file. The team that is the default owner of a test [will be automatically assigned flaky tests](/docs/test-engine/flaky-test-management) to triage.
 
 ## TESTOWNERS file format
 
@@ -107,7 +104,7 @@ You can upload the same TESTOWNERS file to multiple test suites. However, a test
 
 ## Viewing test ownership
 
-You can view the current test ownership rules for a test suite in your **Test Suite** > **Test Ownership** page.
+You can view the current test ownership rules for a test suite in your **Test Suite** > **Settings** > **Test ownership** page.
 
 <%= image "test-ownership.png", width: 1500/2, height: 1180/2, alt: "Suite settings page showing test ownership" %>
 

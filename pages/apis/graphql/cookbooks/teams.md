@@ -72,7 +72,7 @@ Then, add a team member. You can get the `user-id` using the example in [Search 
 
 
 ```graphql
-mutation addTeamMember{
+mutation addTeamMember {
   teamMemberCreate(input: {teamID: "team-id", userID: "user-id"}) {
     clientMutationId
   }
@@ -165,16 +165,21 @@ query getPipelinesByTeam {
 
 If you have more than 100 teams or more than 100 pipelines per team, use the pagination information in `pageInfo` to get the next results page.
 
-## Get members from a specific team
+## Search for team names and retrieve the teams' members
 
-This query will display members of a team with their roles.
+<!-- vale off -->
+
+The following query retrieves members of one or more teams within a Buildkite organization, along with each team member's role, based on a partial match to the teams' _name_ specified in the query. This query finds the first 200 members of the first team containing the letters "My te" (for example, "My team"), noting that any letters specified are case insensitive.
+
+<!-- vale on -->
 
 ```graphql
-query GetTeamMember {
+query GetTeamsAndTheirMembers {
   organization(slug:"organization-slug") {
-    teams(first:1, search:"team-slug") {
+    teams(first:1, search:"My te") {
       edges {
         node {
+          name
           members(first:200) {
             edges {
               node {
@@ -185,6 +190,29 @@ query GetTeamMember {
                 }
               }
             }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## Get members from a specific team
+
+The following query retrieves members of a team, along with each team member's roles, which requires both the Buildkite organization and team slugs, separated by a `/`. This query finds the first 10 members of the team with slug `my-team` within the Buildkite organization with slug `organization-slug`.
+
+```graphql
+query GetTeamMember {
+  team(slug: "organization-slug/my-team") {
+    id
+    members(first:10) {
+      edges {
+        node {
+          role
+          user {
+            name
+            email
           }
         }
       }

@@ -22,7 +22,7 @@ The [Building with Bazel](https://buildkite.com/pipelines/templates/ci/bazel-ci?
 
 ## Buildkite C++ Bazel example
 
-We've made a short Bazel example which you can run and customize.
+The following repository is a simple Bazel example which you can run and customize.
 
 Make sure you're signed into your [Buildkite account](https://buildkite.com) and have access to a Buildkite Agent [running Bazel](https://docs.bazel.build/install.html), then click through to the example:
 
@@ -39,3 +39,7 @@ Make sure you're signed into your [Buildkite account](https://buildkite.com) and
 
 - The [Bazel C++ tutorial](https://docs.bazel.build/tutorial/cpp.html#refine-your-bazel-build) goes into more detail about how to configure more complex Bazel builds, covering multiple build targets and multiple packages.
 - The Bazel [external dependencies docs](https://docs.bazel.build/external.html) show you how to build other local and remote repositories.
+
+## Next steps
+
+Now that you've built a simple Bazel example, you can also [use Bazel to create dynamic pipelines and build annotations](/docs/pipelines/tutorials/dynamic-pipelines-and-annotations-using-bazel).

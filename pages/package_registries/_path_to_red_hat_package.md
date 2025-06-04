@@ -1,0 +1,1 @@
+- `path/to/red-hat/package.rpm` is the full path to the RPM package, including the file's name. If the file is located in the same directory that this command is running from, then no path is required.

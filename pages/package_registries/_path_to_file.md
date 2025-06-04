@@ -1,1 +1,1 @@
-- `<path_to_file>` is the full path required to the package file. If the file is located in the same directory that this command is running from, then no path is required.
+- `path/to/file` is the full path to the file, including the file's name and extension if present. If the file is located in the same directory that this command is running from, then no path is required.

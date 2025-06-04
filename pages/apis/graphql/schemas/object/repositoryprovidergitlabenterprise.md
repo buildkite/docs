@@ -22,7 +22,7 @@ toc: false
 <!-- vale on -->
 
 
-A pipeline's repository is being provided by GitLab Enterprise Edition
+A pipeline's repository is being provided by a GitLab Self-Managed instance.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
