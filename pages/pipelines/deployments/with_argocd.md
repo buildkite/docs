@@ -13,9 +13,12 @@ An example workflow for Buildkite plus Argo CD would look as follows:
 
 This approach allows for a clear separation of concerns: Buildkite handles the build and test processes, while Argo CD handles the deployment to Kubernetes. This simplifies the overall CI/CD pipeline and makes it easier to manage deployments. 
 
-## Triggering Argo CD from a pipeline
 
-To trigger Argo CD from a Buildkite pipeline, you need to have Argo CD configured in your infrastructure and then you need to add triggering Argo CD as a command step in your Buildkite pipeline configuration. For example:
+## Using Argo CD with Buildkite
+
+Deployment to Kubernetes with Argo CD with the help of Buildkite consists of the following stages:
+
+Step 1: You trigger the deployments to ArgoCD. For example:
 
 ```yaml
 ...
@@ -57,5 +60,10 @@ You can also use webhook-based synchronization approach. For example:
 ...
 ```
 
-> Monitoring and observability considerations 
-> You can use Buildkite's [build annotations](/docs/agent/v3/cli-annotate) to track deployment progress. 
+Step 2: In your Buildkite pipeline configuration, add a [block step](/docs/pipelines/configure/step-types/block-step) that waits for the deployment to happen in Argo CD.
+
+[example]
+
+Step 3: Argo CD will then unblock the step through the API and add the deployment link in Argo CD's UI as well as in the Buildkite's build [annotations](/docs/agent/v3/cli-annotate).
+
+[example]
