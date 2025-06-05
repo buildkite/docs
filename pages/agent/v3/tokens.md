@@ -312,7 +312,7 @@ Agent tokens created using API can have an optional expiration date attribute - 
 There is no maximum expiry duration but a minimum of 10 minutes in the future is required. After a token has expired, it will be displayed as "expired". Expired tokens will prevent new agent registrations but won't affect currently connected agents.
 
 > 📘 Agent token expiration format
-> The timestamp must be set in ISO8601 format (2025-01-01T00:00:00Z). It cannot be changed via token update using GraphQL but can be changed using REST API.
+> The timestamp must be set in ISO8601 format (2025-01-01T00:00:00Z). It cannot be changed and an error will be thrown on an attempt at updating the expiration date field in an API call.
 
 ## Session and job token lifetime
 
