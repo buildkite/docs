@@ -458,7 +458,7 @@
         - name: "Observability"
           children:
             - name: "Datadog"
-              path: "pipelines/integrations/observability/datadog"
+              path: "pipelines/integrations/datadog"
         - name: "Plugins"
           children:
             - name: "Overview"
