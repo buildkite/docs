@@ -46,7 +46,7 @@ steps:
 
 After setting a tag as described above and running a build on a pipeline, you'll be able to filter the Datadog output results by using a tag.
 
-[potential screenshot placeholder]
+<%= image "datadog-tags.png", alt: "Custom tag in the Datadog UI" %>
 
 Any metadata with a key that starts with `dd-measures` and contains a numerical value will be set as a metric tag that can be used to create numerical measures. For example:
 
@@ -57,6 +57,8 @@ Any metadata with a key that starts with `dd-measures` and contains a numerical 
     command: "buildkite-agent meta-data set "dd_tags.key" dd-measures-01"
 ...
 ```
+
+<%= image "datadog-dd-measures.png", alt: "Custom `dd-measures` tag in the Datadog UI" %>
 
 ### Correlating infrastructure metrics to jobs
 
@@ -72,7 +74,7 @@ After the pipelines finish, in the Datadog interface, you can navigate to the [C
 
 Note that the [CI Pipeline List](https://app.datadoghq.com/ci/pipelines) page in Datadog displays data for only the default branch of each repository. 
 
-[screenshot placeholder]
+<%= image "datadog-pipeline-view.png", alt: "Pipeline view in the Datadog UI" %>
 
 ## Additional resources
 
