@@ -109,7 +109,7 @@
                 - name: "Securing your setup"
                   path: "agent/v3/aws/architecture/securing-your-setup"
                 - name: "Recommendations"
-                  path: "agent/v3/aws/recommendations"
+                  path: "agent/v3/aws/architecture/recommendations"
             - name: "Elastic CI Stack"
               children:
                 - name: "Overview"
