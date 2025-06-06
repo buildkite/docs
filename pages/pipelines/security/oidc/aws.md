@@ -247,7 +247,7 @@ Here is a fragment of an AWS CloudTrail event with the relevant tags:
 
 ## Including the build branch in your custom trust policy
 
-When [creating a custom trust policy for your IAM role](#step-2-create-a-new-or-update-an-existing-iam-role-to-use-with-your-pipelines), you can include the build branch within this policy. However, be aware that doing so comes with potential risks. For instance, the policy might allow a build to commence off the `main` branch. However, the next pipeline step of the build might check out a different branch and run the build from that branch.
+When [creating a custom trust policy for your IAM role](#step-2-create-a-new-or-update-an-existing-iam-role-to-use-with-your-pipelines), you can include the build branch within this policy. However, be aware that doing so comes with potential risks, since this doesn't necessarily guarantee that the entire build will be run from the branch defined in the policy. For instance, the policy might allow a build to commence off the `main` branch. However, the next step of the pipeline might check out a different branch and run the remainder of the pipeline's build from that branch.
 
 Nevertheless, being aware of these risks, if you do wish to include the build branch in your custom trust policy, you can do so by making the following modifications to the steps above.
 
