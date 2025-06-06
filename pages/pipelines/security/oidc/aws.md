@@ -210,6 +210,9 @@ steps:
             EXAMPLE_DEPLOY_KEY: /pipelines/example-pipeline/oidc-for-ssm/example-deploy-key
 ```
 
+> 📘
+> The backslash (`\`) before `$EXAMPLE_DEPLOY_KEY` in the example above prevents this environment variable from being interpolated during the pipeline's upload to Buildkite Pipelines. You could alternatively use a `$` symbol for this purpose (resulting in `$$EXAMPLE_DEPLOY_KEY`).
+
 ## AWS CloudTrail
 
 A Buildkite job that successfully assumes an AWS IAM Role using this pattern will leave a record in AWS CloudTrail. That record will include details like the IP address of the agent that ran the job, plus the values for any of the `session-tags` that were listed in the `pipeline.yml`.
@@ -221,8 +224,8 @@ Here is a fragment of an AWS CloudTrail event with the relevant tags:
     "eventVersion": "1.08",
     "userIdentity": {
         "type": "WebIdentityUser",
-        "principalId": "arn\:aws\:iam::AWS_ACCOUNT_ID:oidc-provider/agent.buildkite.com\:sts.amazonaws.com\:organization\:example-org\:pipeline\:example-pipeline\:ref\:refs/heads/main\:commit\:1da177e4c3f41524e886b7f1b8a0c1fc7321cac2\:step\:",
-        "userName": "organization\:example-org\:pipeline\:example-pipeline\:ref\:refs/heads/main\:commit\:1da177e4c3f41524e886b7f1b8a0c1fc7321cac2\:step\:",
+        "principalId": "arn\:aws\:iam::AWS_ACCOUNT_ID:oidc-provider/agent.buildkite.com:sts.amazonaws.com\:organization\:example-org\:pipeline\:example-pipeline\:ref\:refs/heads/main\:commit\:1da177e4c3f41524e886b7f1b8a0c1fc7321cac2\:step\:",
+        "userName": "organization\:example-org\:pipeline\:example-pipeline\:ref:refs/heads/main\:commit\:1da177e4c3f41524e886b7f1b8a0c1fc7321cac2\:step\:",
         "identityProvider": "arn\:aws\:iam::AWS_ACCOUNT_ID:oidc-provider/agent.buildkite.com"
     },
     "eventTime": "2025-02-18T13:34:48Z",
@@ -263,18 +266,6 @@ Nevertheless, being aware of these risks, if you do wish to include the build br
     ```
 
     where `BRANCH_NAME` is usually replaced with `main` to initially restrict the IAM role's access to the `main` branch. If this `RequestTag` condition is omitted, the role can initially be assumed by a build on any branch.
-
-    Following on from [the example in step 2](#step-2-create-a-new-or-update-an-existing-iam-role-to-use-with-your-pipelines), this part of the policy might look like:
-
-    ```json
-    ...
-    "Condition": {
-        "StringEquals": {
-            ...
-            "aws:RequestTag/build_branch": "main"
-        }
-    ...
-    ```
 
 1. When [configuring your pipeline to use the IAM role](#step-4-configure-your-pipeline-to-assume-the-role), ensure `build_branch` is included in the [AWS assume-role-with-web-identity](https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin) `plugins` attribute's `session-tags` value, for example:
 
