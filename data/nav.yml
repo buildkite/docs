@@ -442,7 +442,7 @@
         - name: "Deploying to Kubernetes"
           path: "pipelines/deployments/to-kubernetes"
         - name: "Deploying with Argo"
-          path: "pipelines/deployments/with-argocd"
+          path: "pipelines/deployments/with-argo-cd"
         - name: "Deploying with Heroku"
           path: "pipelines/deployments/to-heroku"
 

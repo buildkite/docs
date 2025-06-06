@@ -28,37 +28,11 @@ Step 1: You trigger the deployments to ArgoCD. For example:
       argocd app sync myapp --auth-token ${ARGOCD_TOKEN} --server ${ARGOCD_SERVER}
     env:
       ARGOCD_TOKEN: ${ARGOCD_AUTH_TOKEN}
-      ARGOCD_SERVER: "argocd.myorg.com"
+      ARGOCD_SERVER: "argocd.example.com"
     if: build.branch == "main"
 ```
 
-You can also use webhook-based synchronization approach. For example:
-
-```yaml
-- label ":hook: Webhook-Based Sync"
-  command: |
-    echo "Triggering Argo CD via webhook..."
-    
-    WEBHOOK_RESPONSE=$(curl -s -X POST "${ARGOCD_WEBHOOK_URL}" \
-      -H "Content-Type: application/json" \
-      -H "X-Webhook-Token: ${ARGOCD_WEBHOOK_TOKEN}" \
-      -d '{
-        "repository": {
-          "url": "'${GITOPS_REPO}'"
-        },
-        "ref": "refs/heads/main",
-        "commits": [{
-          "id": "'${BUILDKITE_COMMIT}'",
-          "message": "Deploy via Buildkite build '${BUILDKITE_BUILD_NUMBER}'"
-        }]
-      }')
-    
-    echo "Webhook response: ${WEBHOOK_RESPONSE}"
-  env:
-    ARGOCD_WEBHOOK_URL: "${ARGOCD_SERVER}/api/webhook"
-    ARGOCD_WEBHOOK_TOKEN: ${WEBHOOK_SECRET}
-...
-```
+You could also use Argo CD API to [sync an application](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Sync) or to [rollback a synchroization](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Rollback).
 
 Step 2: In your Buildkite pipeline configuration, add a [block step](/docs/pipelines/configure/step-types/block-step) that waits for the deployment to happen in Argo CD.
 
