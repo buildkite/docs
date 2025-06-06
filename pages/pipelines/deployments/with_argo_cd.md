@@ -34,7 +34,7 @@ Step 1: You trigger the deployments to ArgoCD. For example:
 
 You could also use Argo CD API to [sync an application](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Sync) or to [rollback a synchroization](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Rollback).
 
-Step 2: In your Buildkite pipeline configuration, add a [block step](/docs/pipelines/configure/step-types/block-step) that waits for the deployment to happen in Argo CD.
+Step 2: In your Buildkite pipeline configuration, add a command step that triggers the sync and monitors the deployment until completion:
 
 [example]
 
