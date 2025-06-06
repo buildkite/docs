@@ -1,4 +1,4 @@
-# Secure setup
+# Securing your setup
 
 Security is paramount when running CI/CD infrastructure in the cloud. This section outlines essential security practices for Buildkite agent deployments in Elastic CI Stack for AWS, focusing on preventing unauthorized access to AWS resources and implementing proper permission boundaries. These configurations help protect your infrastructure from potential security risks while maintaining the functionality your build processes require.
 
