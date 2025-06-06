@@ -144,7 +144,7 @@ This means the first step in the example can only run on an agent with the hostn
 * Using the Build API's [Get a build](/docs/apis/rest-api/builds#get-a-build) endpoint. This returns build information, including all jobs in the build.
 * Through the [GraphQL API](/docs/apis/graphql_api).
 * The `BUILDKITE_JOB_ID` build environment variable.
-* In outbound [job event webhooks](/docs/apis/webhooks/job_events).
+* In outbound [job event webhooks](/docs/apis/webhooks/pipelines/job_events).
 * Using the GUI: select a job, and the job ID is the final value in the URL.
 
 ### When to use

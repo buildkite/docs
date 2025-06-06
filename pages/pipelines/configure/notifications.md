@@ -68,6 +68,9 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
+> 📘
+> `build.state` conditionals cannot be used on step-level notifications as a step cannot know the state of the entire build.
+
 See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
 > 🚧
@@ -83,7 +86,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can only send email notifications on entire pipeline [events](/docs/apis/webhooks#events), specifically upon `build.failing` and `build.finished`.
+You can only send email notifications on entire pipeline [events](/docs/apis/webhooks/pipelines#events), specifically upon `build.failing` and `build.finished`.
 
 Restrict notifications to finished builds by adding a [conditional](#conditional-notifications):
 
@@ -131,7 +134,7 @@ notify:
 
 The `basecamp_campfire` attribute accepts a single URL as a string.
 
-Basecamp notifications happen at the following [events](/docs/apis/webhooks#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
+Basecamp notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
 
 * `build created`
 * `build started`
@@ -420,7 +423,7 @@ See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-sy
 
 You are able to use `pipeline.started_passing` and `pipeline.started_failing` in your if statements if you are using the [Slack Workspace](/docs/pipelines/integrations/other/slack-workspace) integration.
 
-Slack notifications happen at the following [event](/docs/apis/webhooks#events):
+Slack notifications happen at the following [event](/docs/apis/webhooks/pipelines#events):
 
 * `build finished`
 
@@ -514,7 +517,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Webhook notifications happen at the following [events](/docs/apis/webhooks#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
+Webhook notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
 
 * `build created`
 * `build started`
@@ -534,7 +537,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Email notifications happen at the following [event](/docs/apis/webhooks#events):
+Email notifications happen at the following [event](/docs/apis/webhooks/pipelines#events):
 
 * `build finished`
 

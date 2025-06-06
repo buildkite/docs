@@ -53,6 +53,7 @@ classpath
 cli
 Cloudsmith
 Cloudsmith's
+CloudTrail
 CloudWatch
 CMake
 cmake
@@ -175,6 +176,7 @@ npm
 ns
 nsc
 nssm
+nullable
 NVMe
 OAuth
 oidc

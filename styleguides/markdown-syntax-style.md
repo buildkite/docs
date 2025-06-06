@@ -292,7 +292,7 @@ The `{: class="two-column"}` class added at the end of a two-column table is wha
 
 #### Fixed-width tables
 
-To use a custom style for two column tables that include long text without whitespace that are rendered like the table in the [Webhooks HTTP headers](/docs/apis/webhooks#http-headers) section, use the following syntax:
+To use a custom style for two column tables that include long text without whitespace that are rendered like the table in the [Webhooks HTTP headers](/docs/apis/webhooks/pipelines#http-headers) section, use the following syntax:
 
 ```
 Column header 1   | Column header 2

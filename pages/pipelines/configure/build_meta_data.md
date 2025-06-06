@@ -6,6 +6,9 @@ Meta-data is intended to store data to be used across steps. For example, you ca
 
 Meta-data values are each restricted to a maximum of 100 kilobytes (kb). However, meta-data values larger than 1 kb are discouraged. For any such values over 1 kb, use an [artifact](/docs/pipelines/configure/artifacts) instead.
 
+> 🚧
+> You should not store secrets or other sensitive information in build meta-data, as it is not a secure medium and its contents can be viewed through the Buildkite interface. Instead, please follow the guidance in [Managing pipeline secrets](/docs/pipelines/security/secrets/managing) for best practices on storing and using secrets in your pipelines.
+
 ## Setting data
 
 The agent's `meta-data` command is the only method for setting meta-data. You can run the command from the command line or in a script.
