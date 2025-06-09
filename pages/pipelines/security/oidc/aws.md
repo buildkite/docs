@@ -151,8 +151,7 @@ As part of this process:
     }
     ```
 
-> 📘
-> In order to target all refs on a pipeline, a `*` should be used, like `organization:example-org:pipeline:example-pipeline:ref:*`.
+    **Note:** In order to target all refs on a pipeline, a `*` should be used, like `organization:example-org:pipeline:example-pipeline:ref:*`.
 
 1. In the **Custom trust policy** section, copy your modified custom trust policy, paste it into your IAM role, and complete the next few steps up to specifying the **Role name**.
 
