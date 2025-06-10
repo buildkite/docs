@@ -100,3 +100,7 @@ On Debian, the Buildkite agent runs as user `buildkite-agent`.
 ## Alternative keyservers
 
 <%= render_markdown partial: 'agent/v3/alternative_keyservers' %>
+
+## Systemd modifications
+
+<%= render_markdown partial: 'agent/v3/linux_systemd_modifications' %>

@@ -104,9 +104,9 @@ Use the snippet render link wherever you need to add the content of the snippet 
 
 If a snippet is stored within a subdirectory of `/pages`, you need to specify the subdirectory hierarchy in the link to the snippet.
 
-Therefore, a reference to the `_agent_events_table.md` file stored within the `webhooks` subdirectory of the `apis` subdirectory would look like this:
+Therefore, a reference to the `_agent_events_table.md` file stored within the `webhooks/pipelines` subdirectory of the `apis` subdirectory would look like this:
 
-`<%= render_markdown partial: 'apis/webhooks/agent_events_table' %>`
+`<%= render_markdown partial: 'apis/webhooks/pipelines/agent_events_table' %>`
 
 > [!WARNING]
 > Do not use H2, H3-level headings in the first line of a snippet because this results in the generation of incorrect anchor links for such headings. Instead, if you need to start a snippet with a heading, add the heading to the main document just before you add a snippet render link.
