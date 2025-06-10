@@ -1252,7 +1252,7 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
   </tbody>
 </table>
 
-Additional properties available for GitHub:
+Additional properties available for GitHub and GitHub Enterprise:
 
 <table class="responsive-table">
   <tbody>
