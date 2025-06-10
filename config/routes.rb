@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
   # Pages and guides that have been renamed (and we don't want to break old URLs)
 
-  get "/docs/agent/v3/aws",                               to: redirect("/docs/agent/v3/aws")
   get "/docs/agent/v3/aws/secrets-manager",               to: redirect("/docs/agent/v3/aws/ec2-linux-and-windows/secrets-manager")
-  get "/docs/agent/v3/aws/vpc",                           to: redirect("/docs//agent/v3/aws/architecture/aws-vpc")
+  get "/docs/agent/v3/aws/vpc",                           to: redirect("/docs/agent/v3/aws/architecture/vpc")
   get "/docs/agent/v3/elastic-ci-stack-for-ec2-mac/autoscaling-mac-metal", to: redirect("/docs/agent/v3/aws/elastic-ci-stack/ec2-mac/setup")
   get "/docs/agent/v3/elastic-ci-aws",                    to: redirect("/docs//agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/setup")
   get "/docs/agent/v3/elastic-ci-aws/cloudformation-service-role", to: redirect("/docs/agent/v3/aws/elastic-ci-aws/ec2-linux-and-windows/cloudformation-service-role")
