@@ -1,3 +1,7 @@
+---
+toc_include_h3: false
+---
+
 # Elastic CI Stack for AWS overview
 
 The Buildkite Elastic CI Stack for AWS gives you a private, autoscaling
