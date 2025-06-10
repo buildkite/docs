@@ -23,7 +23,7 @@
       <code>period</code>
     </th>
     <td>
-      <span>Filters the results by the given time <code>period</code>. Valid values are <code>1hour</code>, <code>4hours</code>, <code>1day</code>, <code>7days</code>, <code>14days</code> and <code>28days</code>. Default period when no <code>period</code> value is specified is <code>7days</code>.</span>
+      <span>Filters the results by the given time <code>period</code>. Valid values are <code>1hour</code>, <code>4hours</code>, <code>1day</code>, <code>7days</code>, <code>14days</code>, and <code>28days</code>. The default period when no <code>period</code> value is specified is <code>7days</code>.</span>
       <p class="Docs__api-param-eg"><em>Example:</em> <code>?period=28days</code></p>
     </td>
   </tr>
