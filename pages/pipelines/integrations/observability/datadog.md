@@ -2,7 +2,7 @@
 
 [Datadog](https://www.datadoghq.com/) is a comprehensive monitoring and analytics platform that provides real-time visibility into your entire technology stack. It combines infrastructure monitoring, application performance monitoring (APM), and log management into a unified solution, allowing you to track the health and performance of your systems while identifying and troubleshooting issues across your entire deployment pipeline.
 
-Datadog users can send the information about their Buildkite pipelines to Datadog’s Continuous Integration Visibility (Datadog CI Visibility). This way, any organization using both Datadog and Buildkite can enable get insights into their pipeline’s performance over time.
+Datadog users can send the information about their Buildkite pipelines to Datadog’s Continuous Integration Visibility (Datadog CI Visibility) if the Datadog Pipeline Visibility Notification service was enabled in Buildkite. This way, any organization using both Datadog and Buildkite can enable get insights into their pipeline’s performance over time.
 
 You can set up Datadog integration with Buildkite to gain actionable insights into your CI/CD processes, monitor build performance metrics, and ensure optimal resource utilization throughout your development workflow.
 
@@ -23,7 +23,7 @@ To set up the Datadog integration for Buildkite:
 - Branch filtering: select the branches which will trigger a notification. You can leave this field empty to trace all branches or select the subset of branches you would like to trace.
 1. Click *Add Datadog Pipeline Visibility Notification* button to save the integration.
 
-[screenshot placeholder]
+<%= image "datadog-integration-add.png", alt: "Adding Datadog Pipeline Visibility Notification to Buildkite" %>
 
 > 📘
 > For the latest compatibility information on Datadog's side regarding this integration, please check the [Datadog documentation](https://docs.datadoghq.com/continuous_integration/pipelines/buildkite/#compatibility).
@@ -46,19 +46,17 @@ steps:
 
 After setting a tag as described above and running a build on a pipeline, you'll be able to filter the Datadog output results by using a tag.
 
-<%= image "datadog-tags.png", alt: "Custom tag in the Datadog UI" %>
-
 Any metadata with a key that starts with `dd-measures` and contains a numerical value will be set as a metric tag that can be used to create numerical measures. For example:
 
 ```yaml
 ...
  - key: "dd-measures-01"
-    label: "step_02"
-    command: "buildkite-agent meta-data set "dd_tags.key" dd-measures-01"
+   label: "step_02"
+   command: "buildkite-agent meta-data set "dd_tags.key" dd-measures-01
 ...
 ```
 
-<%= image "datadog-dd-measures.png", alt: "Custom `dd-measures` tag in the Datadog UI" %>
+<%= image "datadog-dd-measures-01.png", alt: "Custom `dd-measures-01` tag in the Datadog UI" %>
 
 ### Correlating infrastructure metrics to jobs
 
@@ -81,3 +79,6 @@ Note that the [CI Pipeline List](https://app.datadoghq.com/ci/pipelines) page in
 For the most recent version of Datadog documentation regarding the CI Visibility integration with Buildkite, see Datadog's documentation on [setting up tracing on a Buildkite Pipeline](https://docs.datadoghq.com/continuous_integration/pipelines/buildkite/).
 
 For overall best CI/CD practices involving the use of Datadog's APM tracing and CI Visibility integration recommended by Buildkite, check out [this blog post](https://buildkite.com/resources/blog/ci-cd-best-practices/).
+
+> 📘
+> Please note that Datadog CI Visibility feature is maintained by Datadog so for any questions or feature requests please visit [Datadog Support Platform](https://www.datadoghq.com/support/).
