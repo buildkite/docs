@@ -718,12 +718,6 @@
           path: "apis/rest-api"
         - name: "Limits"
           path: "apis/rest-api/limits"
-        - name: "Agent"
-          children:
-            - name: "Overview"
-              path: "apis/agent-api"
-            - name: "Metrics"
-              path: "apis/agent-api/metrics"
         - name: "Organizations"
           children:
             - name: "Overview"
@@ -870,3 +864,9 @@
           path: "apis/portals/ephemeral-portal-tokens"
         - name: "User-invoked portals"
           path: "apis/portals/user-invoked-portals"
+    - name: "Agent"
+      children:
+        - name: "Overview"
+          path: "apis/agent-api"
+        - name: "Metrics"
+          path: "apis/agent-api/metrics"
