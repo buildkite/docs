@@ -10,7 +10,6 @@ In the Buildkite Agent Stack for Kubernetes controller's values YAML configurati
 # values.yaml
 agentStackSecret: <name-of-predefined-secrets-for-kubernetes>
 config:
-  org: <your-org-slug>
   pod-spec-patch:
     initContainers:
     - name: copy-agent
