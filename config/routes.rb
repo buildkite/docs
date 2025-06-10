@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   # Pages and guides that have been renamed (and we don't want to break old URLs)
+  get "/docs/agent/v3/agent-stack-k8s/setting-up-hooks-and-plugins", to: redirect("/docs/agent/v3/agent-stack-k8s/agent-hooks-and-plugins")
   get "/docs/agent/v3/osx",                               to: redirect("/docs/agent/v3/macos")
   get "/docs/agent/clusters",                             to: redirect("/docs/clusters/overview")
   get "/docs/agent/v3/plugins",                           to: redirect("/docs/pipelines/integrations/plugins")
