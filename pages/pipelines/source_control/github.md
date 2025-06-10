@@ -128,6 +128,8 @@ In a setup for a repository containing one codebase and one `pipeline.yml`, this
 
 For example, if you have a monorepo containing three applications, you could use the same pipeline, with different `pipeline.yml` files for each application. Each `pipeline.yml` can contain a different GitHub status.
 
+When you set a build level custom commit status as part of an uploaded pipeline yaml, the Github status gets only reported after the build finishes. The reason being that the `notify` block are uploaded - even if it was at build level - and only gets evaluated after the build has started. 
+
 ### Step level
 
 1. Add `notify` to a command in your `pipeline.yml`:
