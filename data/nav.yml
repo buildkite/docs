@@ -105,7 +105,7 @@
             - name: "Architectural considerations"
               children:
                 - name: "VPC design"
-                  path: "/docs/agent/v3/aws/architecture/vpc"
+                  path: "/agent/v3/aws/architecture/vpc"
                 - name: "Securing your setup"
                   path: "agent/v3/aws/architecture/securing-your-setup"
                 - name: "Recommendations"
