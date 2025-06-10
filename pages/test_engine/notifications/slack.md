@@ -2,7 +2,7 @@
 toc: false
 ---
 
-# Slack Notifications
+# Slack notifications
 You can receive notifications in your Slack workspace for the following events in Test Engine:
 
 - When a [test's state](/docs/test-engine/glossary#test-state) changes
