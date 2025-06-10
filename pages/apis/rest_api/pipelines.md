@@ -1257,6 +1257,12 @@ Additional properties available for GitHub:
 <table class="responsive-table">
   <tbody>
     <tr>
+      <th><code>build_pull_request_base_branch_changed</code></th>
+      <td>
+        Whether to create builds for pull requests when the base branch is changed.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
       <th><code>build_pull_request_forks</code></th>
       <td>
         Whether to create builds for pull requests from third-party forks.
