@@ -16,7 +16,7 @@ Description: "Buildkite stack v6.36.0"
 # * Elastic CI Stack for AWS Tutorial: https://buildkite.com/docs/tutorials/elastic-ci-stack-aws
 # * Running Buildkite Agent on AWS: https://buildkite.com/docs/agent/v3/aws
 # * GitHub Repo for Elastic CI Stack: https://github.com/buildkite/elastic-ci-stack-for-aws
-# * Template Parameters for Elastic CI Stack for AWS: https://buildkite.com/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/parameters
+# * Template Parameters for Elastic CI Stack for AWS: https://buildkite.com/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/template-parameters
 # * Using AWS Secrets Manager: https://buildkite.com/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/secrets-manager
 # * VPC Design: https://buildkite.com/docs/agent/v3/aws/architecture/vpc
 # * CloudFormation Service Role: https://buildkite.com/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/cloudformation-service-role

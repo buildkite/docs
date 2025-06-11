@@ -127,7 +127,7 @@
                 - name: "Managing the Stack"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack"
                 - name: "Template parameters"
-                  path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/parameters"
+                  path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/template-parameters"
                 - name: "CloudFormation service role"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/cloudformation-service-role"
                 - name: "Troubleshooting"
