@@ -48,13 +48,13 @@ After setting a tag as described above and running a build on a pipeline, you'll
 
 #### Numerical measures
 
-Any metadata with a key that starts with `dd-measures.` and contains a numerical value will be set as a metric tag that can be used to create numerical measures. For example:
+Any metadata with a key that starts with `dd_measures.` and contains a numerical value will be set as a metric tag that can be used to create numerical measures. For example:
 
 ```yaml
 ...
  - key: "dd-measures-01"
    label: "step_02"
-   command: "buildkite-agent meta-data set \"dd_measures.memory_usage\" 
+   command: "buildkite-agent meta-data set \"dd_measures.memory_usage\" {numeric value}"
 ...
 ```
 In the pipeline span for the resulting pipeline, you'll see a custom tag `memory_usage:{numeric value}`, for example `memory_usage:1000`.
