@@ -53,6 +53,7 @@ classpath
 cli
 Cloudsmith
 Cloudsmith's
+CloudTrail
 CloudWatch
 CMake
 cmake
