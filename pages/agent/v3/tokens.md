@@ -305,14 +305,14 @@ An agent token is specific to the cluster it was associated when created (within
 
 ## Agent token lifetime
 
-Agent tokens created through the Buildkite UI do not expire and need to be rotated manually.
+Agent tokens [created using the Buildkite interface](#create-a-token-using-the-buildkite-interface) do not expire and need to be rotated manually.
 
-Agent tokens created using API can have an optional expiration date attribute - `expiresAt` in GraphQL or `expires_at` timestamp in the API call. Agent token expiry timestamps is a feature introduced in response to customer feedback around security compliance and token lifecycle management. This enables automated token rotation through API integration, replacing the previous manual rotation process for long-lived tokens. Note that the existing tokens will continue to work without expiry unless manually revoked.
+However, using Buildkite's APIs, you can specify an optional expiration date attribute with a timestamp value in your API call to create an agent token—[`expires_at` using the REST API](#create-a-token-using-the-rest-api) or [`expiresAt` using the GraphQL API](#create-a-token-using-the-graphql-api). Agent token expiry timestamps is a feature introduced in response to customer feedback around security compliance and token lifecycle management. This enables automated token rotation through API integration, replacing the previous manual rotation process for long-lived tokens. Note that the existing tokens will continue to work without expiry unless manually revoked.
 
-There is no maximum expiry duration but a minimum of 10 minutes in the future is required. After a token has expired, it will be displayed as "expired". Expired tokens will prevent new agent registrations but won't affect currently connected agents.
+There is no maximum expiration duration but a minimum of 10 minutes from the current time is required. After an agent token has expired, it will be displayed as "expired". Expired tokens will prevent new agent registrations but won't affect currently connected agents.
 
 > 📘 Agent token expiration format
-> The timestamp must be set in ISO8601 format (2025-01-01T00:00:00Z). It cannot be changed and an error will be thrown on an attempt at updating the expiration date field in an API call.
+> The timestamp must be set in ISO8601 format (2025-01-01T00:00:00Z). It cannot be changed and an error is returned on an attempt to update the expiration date field in an API call.
 
 ## Session and job token lifetime
 

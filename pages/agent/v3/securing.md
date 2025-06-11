@@ -8,9 +8,9 @@ For best practices and recommendations about secret storage in the Agent, see [M
 
 Learn more about other secrets management approaches in Buildkite on the [Secrets overview](/docs/pipelines/security/secrets) page.
 
-## Set Agent token expiration date
+## Set the agent token expiration date
 
-For secure and automated Agent token lifecycle management, you can use the API to set [Agent token expiry timestamps](/docs/agent/v3/tokens#agent-token-lifetime) when new Agent tokes are created. This enables automated token rotation for long-lived tokens. Once set, Agent token expiry date cannot be updated.
+For secure and automated agent token lifecycle management, you can use Buildkite's APIs to set the expiration date for agent tokens. Learn more about this feature in [Agent token lifetime](/docs/agent/v3/tokens#agent-token-lifetime). This feature allows for automated token rotation for long-lived tokens. Once set, an agent token's expiration date cannot be changed.
 
 ## Disable automatic ssh-keyscan
 
