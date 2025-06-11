@@ -58,6 +58,7 @@ If you prefer to self-manage a Kubernetes Secret containing the agent token inst
 Here is how a custom secret can be created:
 
 ```bash
+kubectl create namespace buildkite
 kubectl create secret generic <kubernetes-secret-name> -n buildkite \
   --from-literal=BUILDKITE_AGENT_TOKEN='<buildkite-cluster-agent-token>'
 ```
