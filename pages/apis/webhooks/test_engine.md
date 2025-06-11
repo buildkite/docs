@@ -20,7 +20,7 @@ To add a webhook for your test suite:
     * **Test label added**
     * **Test label removed**
 
-1. If the [teams feature](/docs/platform/team-management/permissions#manage-teams-and-permissions) has been enabled for your Buildkite organization, select the **Teams** whose test suite' test executions can trigger this webhook. The webhook is only triggered when the [test ownership](/docs/test-engine/test-ownership) feature has been configured for this test suite, and the test is owned by one of the selected teams.
+1. If the [teams feature](/docs/platform/team-management/permissions#manage-teams-and-permissions) has been enabled for your Buildkite organization, select the **Teams** whose test executions for this test suite can trigger this webhook. The webhook is only triggered when the [test ownership](/docs/test-engine/test-ownership) feature has been configured for this test suite, and the test is owned by one of the selected teams.
 
     **Notes:**
     * If the **No owner** checkbox is selected, then the webhook is triggered when the test does not have an owner.

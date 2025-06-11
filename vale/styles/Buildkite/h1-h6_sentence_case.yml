@@ -65,6 +65,7 @@ exceptions:
   - CLI
   - CloudFormation
   - Cloudsmith
+  - CloudTrail
   - CloudWatch
   - CloudWatch Logs
   - completion_watcher
