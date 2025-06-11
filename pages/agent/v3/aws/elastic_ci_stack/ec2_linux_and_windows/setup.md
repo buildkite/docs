@@ -125,7 +125,7 @@ steps:
 
 For more information, see [Buildkite Agent job queues](/docs/agent/v3/queues), specifically [Targeting a queue](/docs/agent/v3/queues#targeting-a-queue).
 
-Review the parameters, see [Elastic CI Stack for AWS parameters](/docs/agent/v3/elastic_ci_aws/parameters) for more details.
+Review the parameters, see [Elastic CI Stack for AWS parameters](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/parameters) for more details.
 
 Once you're ready, check these three checkboxes:
 
@@ -187,7 +187,7 @@ To gain a better understanding of how Elastic CI Stack for AWS works and how to 
 
 - [Running Buildkite Agent on AWS](/docs/agent/v3/aws)
 - [GitHub repo for Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws)
-- [Template parameters for Elastic CI Stack for AWS](/docs/agent/v3/elastic-ci-aws/parameters)
-- [Using AWS Secrets Manager](/docs/agent/v3/aws/secrets-manager)
-- [VPC design](/docs/agent/v3/aws/vpc)
-- [CloudFormation service role](/docs/agent/v3/elastic-ci-aws/cloudformation-service-role)
+- [Template parameters for Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/parameters)
+- [Using AWS Secrets Manager](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/secrets-manager)
+- [VPC design](/docs/agent/v3/aws/architecture/vpc)
+- [CloudFormation service role](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/cloudformation-service-role)
