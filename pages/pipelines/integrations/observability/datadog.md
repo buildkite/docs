@@ -15,10 +15,10 @@ To set up the Datadog integration for Buildkite:
 * Fill in the following information:
   - Description: A description to help identify this integration in the future, for example "Datadog CI Visibility".
   - API key: Your Datadog API Key. You can generate it in [your Datadog account settings](https://app.datadoghq.com/account/settings#api).
-  - Datadog site to send notifications to: `datadoghq.com`. Note that `datadoghq.com` is the default website to send your notifications to. Depending on your location, you might want to use a different site, for instance, `us3.datadoghq.com` or `us5.datadoghq.com`for US or `ap1.datadoghq.com` for Japan. Please see [Datadog documentation](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site) for the latest list of available websites to send notifications to.  
+  - Datadog site to send notifications to: `datadoghq.com`. Note that `datadoghq.com` is the default website to send your notifications to. Depending on your location, you might want to use a different site, for instance, `us3.datadoghq.com` or `us5.datadoghq.com` for US or `ap1.datadoghq.com` for Japan. Please see [Datadog documentation](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site) for the latest list of available websites to send notifications to.  
   - Datadog tags: your custom tags in Datadog. You can use one tag per line in `key:value` format.
-  - Pipelines: you can select the subset of pipelines you want to trace in Datadog. Select All Pipelines, Only Some pipelines, Pipelines in Teams, or Pipelines in Clusters.
-  - Branch filtering: select the branches which will trigger a notification. You can leave this field empty to trace all branches or select the subset of branches you would like to trace.
+  - Pipelines: you can select a subset of pipelines you want to trace in Datadog. Select All Pipelines, Only Some pipelines, Pipelines in Teams, or Pipelines in Clusters.
+  - Branch filtering: select the branches that will trigger a notification. You can leave this field empty to trace all branches or select a subset of branches you would like to trace.
 * Click *Add Datadog Pipeline Visibility Notification* button to save the integration.
 
 <%= image "datadog-integration-add.png", alt: "Adding Datadog Pipeline Visibility Notification to Buildkite" %>
@@ -32,7 +32,7 @@ The following configurations provide additional customization options to enhance
 
 ### Setting custom tags
 
-For creation of custom tags for filtering the Datadog results, you can use `buildkite-agent meta-data set` command. Here is an example of how tags can be set through a YAML pipeline configuration:
+To create custom tags for filtering the Datadog results, you can use `buildkite-agent meta-data set` command. Here is an example of how tags can be set through a YAML pipeline configuration:
 
 ```yaml
 steps:
