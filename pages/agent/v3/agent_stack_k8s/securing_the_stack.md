@@ -14,8 +14,6 @@ helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-
     --namespace buildkite \
     --create-namespace \
     --set agentToken=<buildkite-cluster-agent-token> \
-    --set config.org=<buildkite-organization-slug> \
-    --set config.cluster-uuid=<buildkite-cluster-uuid> \
     --set-json='config.tags=["queue=kubernetes"]' \
     --prohibit-kubernetes-plugin
 ```

@@ -9,8 +9,6 @@ helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-
     --namespace buildkite \
     --create-namespace \
     --set agentToken=<buildkite-cluster-agent-token> \
-    --set config.org=<buildkite-organization-slug> \
-    --set config.cluster-uuid=<buildkite-cluster-uuid> \
     --set-json='config.tags=["queue=kubernetes"]'
 ```
 
@@ -23,14 +21,26 @@ Alternatively, you can place these configuration values into a YAML configuratio
 # values.yml
 agentToken: "<buildkite-cluster-agent-token>"
 config:
-  org: "<buildkite-organization-slug>"
-  cluster-uuid: "<buildkite-cluster-uuid>"
   tags:
     - queue=kubernetes
 ```
 
 > 📘
-> Versions 0.27.0 and earlier of the Agent Stack for Kubernetes controller also requires you to specify a [Buildkite API access token with the GraphQL scope enabled](/docs/apis/graphql-api#authentication), as an additional top-level configuration (`graphqlToken: "<buildkite-api-access-token-with-graphql-scope>"`) in the `values.yml` file.
+> Versions 0.27.0 and earlier of the Agent Stack for Kubernetes controller also requires you to specify a [Buildkite API access token with the GraphQL scope enabled](/docs/apis/graphql-api#authentication), the organization slug, and the cluster UUID, as additional top-level configuration. For example, in the `values.yml` file:
+>
+> ```yaml
+> graphqlToken: "<buildkite-api-access-token-with-graphql-scope>"
+> config:
+>   org: "<buildkite-organization-slug>"
+>   cluster-uuid: "<buildkite-cluster-uuid>"
+> ```
+>
+> To find the Buildkite cluster UUID from the Buildkite interface:
+>
+> 1. Select **Agents** in the global navigation to access your Buildkite organization's [**Clusters** page](https://buildkite.com/organizations/-/clusters).
+> 1. Select the cluster containing your configured queue.
+> 1. Select **Settings**.
+> 1. On the **Cluster Settings** page, scroll down to the **GraphQL API Integration** section and your Buildkite cluster's UUID is shown as the `id` parameter value.
 
 <%= render_markdown partial: 'agent/v3/agent_stack_k8s/deploy_helm_chart_using_a_yaml_configuration_file' %>
 
@@ -39,17 +49,9 @@ Both of these deployment methods:
 - Create a Kubernetes deployment in the `buildkite` namespace with a single Pod containing the `controller` container.
   * The `buildkite` namespace is created if it does not already exist in the Kubernetes cluster.
 - Use the provided `agentToken` to query the Buildkite Agent API looking for jobs:
-  * In your Buildkite organization (`config.org`)
-  * Assigned to the `kubernetes` queue in your Buildkite cluster (`config.cluster-uuid`)
+  * In your Buildkite organization (associated with the `agentToken`)
+  * Assigned to the `kubernetes` queue in your Buildkite cluster (associated with the `agentToken`)
 
-## How to find a Buildkite cluster's UUID
-
-To find the Buildkite cluster UUID from the Buildkite interface:
-
-1. Select **Agents** in the global navigation to access your Buildkite organization's [**Clusters** page](https://buildkite.com/organizations/-/clusters).
-1. Select the cluster containing your configured queue.
-1. Select **Settings**.
-1. On the **Cluster Settings** page, scroll down to the **GraphQL API Integration** section and your Buildkite cluster's UUID is shown as the `id` parameter value.
 
 ## Storing Buildkite tokens in a Kubernetes Secret
 
@@ -58,6 +60,7 @@ If you prefer to self-manage a Kubernetes Secret containing the agent token inst
 Here is how a custom secret can be created:
 
 ```bash
+kubectl create namespace buildkite
 kubectl create secret generic <kubernetes-secret-name> -n buildkite \
   --from-literal=BUILDKITE_AGENT_TOKEN='<buildkite-cluster-agent-token>'
 ```
@@ -71,8 +74,6 @@ helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-
     --namespace buildkite \
     --create-namespace \
     --set agentStackSecret=<kubernetes-secret-name> \
-    --set config.org=<buildkite-organization-slug> \
-    --set config.cluster-uuid=<buildkite-cluster-uuid> \
     --set-json='config.tags=["queue=kubernetes"]'
 ```
 
@@ -82,8 +83,6 @@ Alternatively, to reference your Kubernetes Secret with your configuration value
 # values.yml
 agentStackSecret: "<kubernetes-secret-name>"
 config:
-  org: "<buildkite-organization-slug>"
-  cluster-uuid: "<buildkite-cluster-uuid>"
   tags:
     - queue=kubernetes
 ```
