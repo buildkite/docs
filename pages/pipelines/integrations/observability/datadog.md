@@ -13,12 +13,12 @@ To set up the Datadog integration for Buildkite:
 
 1. In your Buildkite organization, go to **Settings** > **Notification Services** and click the **Add** button next to Datadog Pipeline Visibility icon.
 1. Fill in the following information:
-- Description: A description to help identify this integration in the future, for example "Datadog CI Visibility".
-- API key: Your Datadog API Key. You can generate it in [your Datadog account settings](https://app.datadoghq.com/account/settings#api).
-- Datadog site to send notifications to: `datadoghq.com`.
-- Datadog tags: your custom tags in Datadog. You can use one tag per line in `key:value` format.
-- Pipelines: you can select the subset of pipelines you want to trace in Datadog. Select All Pipelines, Only Some pipelines, Pipelines in Teams, or Pipelines in Clusters.
-- Branch filtering: select the branches which will trigger a notification. You can leave this field empty to trace all branches or select the subset of branches you would like to trace.
+  - Description: A description to help identify this integration in the future, for example "Datadog CI Visibility".
+  - API key: Your Datadog API Key. You can generate it in [your Datadog account settings](https://app.datadoghq.com/account/settings#api).
+  - Datadog site to send notifications to: `datadoghq.com`. Note that `datadoghq.com` is the default website to send your notifications to. Depending on your location, you might want to use a different site, for instance, `us3.datadoghq.com` or `us5.datadoghq.com`for US or `ap1.datadoghq.com` for Japan. Please see [Datadog documentation](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site) for the latest list of available websites to send notifications to.  
+  - Datadog tags: your custom tags in Datadog. You can use one tag per line in `key:value` format.
+  - Pipelines: you can select the subset of pipelines you want to trace in Datadog. Select All Pipelines, Only Some pipelines, Pipelines in Teams, or Pipelines in Clusters.
+  - Branch filtering: select the branches which will trigger a notification. You can leave this field empty to trace all branches or select the subset of branches you would like to trace.
 1. Click *Add Datadog Pipeline Visibility Notification* button to save the integration.
 
 <%= image "datadog-integration-add.png", alt: "Adding Datadog Pipeline Visibility Notification to Buildkite" %>
