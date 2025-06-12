@@ -126,7 +126,7 @@ where:
 
 - <%= render_markdown partial: 'apis/descriptions/common_agent_token_description_required' %>
 
-- <%= render_markdown partial: 'apis/descriptions/rest_agent_token_expires_at' %>
+- <%= render_markdown partial: 'apis/descriptions/graphql_agent_token_expiresat' %>
 
 - <%= render_markdown partial: 'apis/descriptions/graphql_allowed_ip_addresses' %>
 
