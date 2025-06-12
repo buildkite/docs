@@ -8,11 +8,12 @@ The recommended way to install the Buildkite Agent Stack for Kubernetes controll
 helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-k8s \
     --namespace buildkite \
     --create-namespace \
-    --set agentToken=<buildkite-cluster-agent-token> \
-    --set-json='config.tags=["queue=kubernetes"]'
+    --set agentToken=<buildkite-cluster-agent-token>
 ```
 
 > 📘
+> Versions 0.28.1 and earlier of the Agent Stack for Kubernetes controller also requires you to specify a queue, using the argument: `--set-json='config.tags=["queue=arm64"]'`. If you were not to supply a queue, it will listen to a queue named `kubernetes`.
+> <br/>
 > Versions 0.27.0 and earlier of the Agent Stack for Kubernetes controller also requires you to specify a [Buildkite API access token with the GraphQL scope enabled](/docs/apis/graphql-api#authentication), using the argument: `--set graphqlToken=<buildkite-api-access-token-with-graphql-scope>`
 
 Alternatively, you can place these configuration values into a YAML configuration file by creating the YAML file in this format:
@@ -20,9 +21,10 @@ Alternatively, you can place these configuration values into a YAML configuratio
 ```yaml
 # values.yml
 agentToken: "<buildkite-cluster-agent-token>"
-config:
-  tags:
-    - queue=kubernetes
+# Optionally:
+# config:
+#   tags:
+#     - queue=some-queue
 ```
 
 > 📘
@@ -50,7 +52,7 @@ Both of these deployment methods:
   * The `buildkite` namespace is created if it does not already exist in the Kubernetes cluster.
 - Use the provided `agentToken` to query the Buildkite Agent API looking for jobs:
   * In your Buildkite organization (associated with the `agentToken`)
-  * Assigned to the `kubernetes` queue in your Buildkite cluster (associated with the `agentToken`)
+  * Assigned to the [default queue](/docs/agent/v3/queues#the-default-queue) in your Buildkite cluster (associated with the `agentToken`)
 
 
 ## Storing Buildkite tokens in a Kubernetes Secret
