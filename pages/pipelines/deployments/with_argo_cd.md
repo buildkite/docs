@@ -13,12 +13,19 @@ An example workflow for Buildkite plus Argo CD would look as follows:
 
 This approach allows for a clear separation of concerns: Buildkite handles the build and test processes, while Argo CD handles the deployment to Kubernetes. This simplifies the overall CI/CD pipeline and makes it easier to manage deployments. 
 
-
 ## Using Argo CD with Buildkite
+
+There are various ways Argo CD could be used with Buildkite. The most common one include:
+
+* Buildkite agent pushes some Kubernetes Manifests to a gitops repo and then wait fors the GitOps Engine to reconcile the change to a target cluster.
+* Buildkite triggers Argo CD to deploy to Kubernetes
+* Buildkite triggers Argo CD via Argo API to [sync an application](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Sync) or to [rollback a synchroization](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Rollback) and monitors the deployment until completion
+
+# Deployment to Kubernetes with Argo CD triggered by Buildkite
 
 Deployment to Kubernetes with Argo CD with the help of Buildkite consists of the following stages:
 
-Step 1: You trigger the deployments to ArgoCD. For example:
+WIth Buildkite, you trigger the deployments to Argo CD. For example:
 
 ```yaml
 ...
@@ -32,12 +39,15 @@ Step 1: You trigger the deployments to ArgoCD. For example:
     if: build.branch == "main"
 ```
 
-You could also use Argo CD API to [sync an application](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Sync) or to [rollback a synchroization](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Rollback).
+You can insert a block step before triggering Argo CD for deployment to make sure a condition for deployment is met. For example:
 
-Step 2: In your Buildkite pipeline configuration, add a command step that triggers the sync and monitors the deployment until completion:
+```yaml
+- if: "build.branch != \"main\""
+    key: "block-condition-for-deploy"
+    block: ":rocket: Deploy to dev?"
+  - key: "deploy-to-dev"
+    label: "Buildkite Agent to Argo CD CLI Manifest for Dev"
+    command: "[command to trigger Argo]"
+```
 
-[example]
-
-Step 3: Argo CD will then unblock the step through the API and add the deployment link in Argo CD's UI as well as in the Buildkite's build [annotations](/docs/agent/v3/cli-annotate).
-
-[example]
+In the Buildkite's build [annotations](/docs/agent/v3/cli-annotate), you can have a deplyoment link to the Argo CD's UI.
