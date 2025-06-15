@@ -29,13 +29,13 @@ WIth Buildkite, you trigger the deployments to Argo CD. For example:
 
 ```yaml
 ...
-- label ":rocket: Trigger Argo CD Sync (Optional)"
+- label "Trigger Argo CD sync"
     command: |
       echo "Triggering Argo CD application sync..."
-      argocd app sync myapp --auth-token ${ARGOCD_TOKEN} --server ${ARGOCD_SERVER}
+      argocd app sync myapp --auth-token ${MYARGOCD_TOKEN} --server ${MYARGOCD_SERVER}
     env:
-      ARGOCD_TOKEN: ${ARGOCD_AUTH_TOKEN}
-      ARGOCD_SERVER: "argocd.example.com"
+      MYARGOCD_TOKEN: ${MYARGOCD_AUTH_TOKEN}
+      MYARGOCD_SERVER: "argocd.example.com"
     if: build.branch == "main"
 ```
 
@@ -44,7 +44,7 @@ You can insert a block step before triggering Argo CD for deployment to make sur
 ```yaml
 - if: "build.branch != \"main\""
     key: "block-condition-for-deploy"
-    block: ":rocket: Deploy to dev?"
+    block: "Deploy this to Dev?"
   - key: "deploy-to-dev"
     label: "Buildkite Agent to Argo CD CLI Manifest for Dev"
     command: "[command to trigger Argo]"
