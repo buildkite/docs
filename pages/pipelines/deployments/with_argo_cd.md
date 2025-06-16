@@ -6,12 +6,12 @@ Buildkite and Argo CD complement each other in modern CI/CD workflows. Buildkite
 
 An example workflow for Buildkite plus Argo CD would look as follows:
 
-1. Buildkite receives a code commit and triggers a build. 
-1. The build process in Buildkite might include steps like packaging, testing, and creating Kubernetes manifests. 
-1. Buildkite pushes the generated manifests to a GitOps repo, which is monitored by Argo CD. 
-1. Argo CD detects the changes in the GitOps repo and automatically deploys the application to the target Kubernetes cluster. 
+1. Buildkite receives a code commit and triggers a build.
+1. The build process in Buildkite might include steps like packaging, testing, and creating Kubernetes manifests.
+1. Buildkite pushes the generated manifests to a GitOps repo, which is monitored by Argo CD.
+1. Argo CD detects the changes in the GitOps repo and automatically deploys the application to the target Kubernetes cluster.
 
-This approach allows for a clear separation of concerns: Buildkite handles the build and test processes, while Argo CD handles the deployment to Kubernetes. This simplifies the overall CI/CD pipeline and makes it easier to manage deployments. 
+This approach allows for a clear separation of concerns: Buildkite handles the build and test processes, while Argo CD handles the deployment to Kubernetes. This simplifies the overall CI/CD pipeline and makes it easier to manage deployments.
 
 ## Using Argo CD with Buildkite
 
