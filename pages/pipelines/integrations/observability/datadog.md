@@ -11,17 +11,23 @@ Datadog users can send the information about their Buildkite pipelines to Datado
 
 To set up the Datadog integration for Buildkite:
 
-* In your Buildkite organization, go to **Settings** > **Notification Services** and click the **Add** button next to Datadog Pipeline Visibility icon.
-* Fill in the following information:
-  - Description: A description to help identify this integration in the future, for example "Datadog CI Visibility".
-  - API key: Your Datadog API Key. You can generate it in [your Datadog account settings](https://app.datadoghq.com/account/settings#api).
-  - Datadog site to send notifications to: `datadoghq.com`. Note that `datadoghq.com` is the default website to send your notifications to. Depending on your location, you might want to use a different site, for instance, `us3.datadoghq.com` or `us5.datadoghq.com` for US or `ap1.datadoghq.com` for Japan. Please see [Datadog documentation](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site) for the latest list of available websites to send notifications to.  
-  - Datadog tags: your custom tags in Datadog. You can use one tag per line in `key:value` format.
-  - Pipelines: you can select a subset of pipelines you want to trace in Datadog. Select All Pipelines, Only Some pipelines, Pipelines in Teams, or Pipelines in Clusters.
-  - Branch filtering: select the branches that will trigger a notification. You can leave this field empty to trace all branches or select a subset of branches you would like to trace.
-* Click *Add Datadog Pipeline Visibility Notification* button to save the integration.
+1. As a [Buildkite organization administrator](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions), go to **Settings** > **Notification Services** and select the **Add** button next to **Datadog Pipeline Visibility**.
 
-<%= image "datadog-integration-add.png", alt: "Adding Datadog Pipeline Visibility Notification to Buildkite" %>
+1. Complete in the following fields:
+    - **Description**: A description to help identify this integration in the future, for example `Datadog CI Visibility`.
+    - **API key**: Your Datadog API Key. You can generate it in [your Datadog account settings](https://app.datadoghq.com/account/settings#api).
+    - **Datadog site**: The URL of your Datadog site to send notifications to, which is typically `datadoghq.com`. While this is the default value of this field, depending on your location, you might wish to use a different site, for instance, `us3.datadoghq.com` or `us5.datadoghq.com` for US or `ap1.datadoghq.com` for Japan. Learn more about these different sites in [Access the Datadog site](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site) for the current list of available websites to can choose from.
+    - **Datadog tags**: your custom tags in Datadog. You can use one tag per line in `key:value` format.
+    - **Pipelines**: you can select a subset of pipelines you want to trace in Datadog. Select from:
+      * **All Pipelines**.
+      * **Only Some pipelines**, where you can select specific pipelines in your Buildkite organization.
+      * **Pipelines in Teams**, where you can select pipelines accessible to specific teams configured in your Buildkite organization.
+      * **Pipelines in Clusters**, where you can select pipelines associated with specific Buildkite clusters.
+    - **Branch filtering**: select the branches that will trigger a notification. You can leave this field empty to trace all branches or select a subset of branches you would like to trace.
+
+1. Click **Add Datadog Pipeline Visibility Notification** button to save the integration.
+
+    <%= image "datadog-integration-add.png", alt: "Adding Datadog Pipeline Visibility Notification to Buildkite" %>
 
 > 📘
 > For the latest compatibility information on Datadog's side regarding this integration, please check the [Datadog documentation](https://docs.datadoghq.com/continuous_integration/pipelines/buildkite/#compatibility).
