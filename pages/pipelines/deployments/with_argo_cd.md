@@ -21,7 +21,7 @@ There are various ways Argo CD could be used with Buildkite. The most common one
 * Buildkite triggers Argo CD to deploy to Kubernetes.
 * Buildkite triggers Argo CD via Argo API to [sync an application](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Sync) or to [rollback a synchronization](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Rollback) and monitors the deployment until completion.
 
-## Deployment to Kubernetes with Argo CD triggered by Buildkite
+## Deploying to Kubernetes with Argo CD triggered by Buildkite
 
 You can trigger the deployments to Argo CD through a command defined in your Buildkite pipeline definition. For example:
 
@@ -49,8 +49,11 @@ You can insert a [block step](/docs/pipelines/configure/step-types/block-step) b
     command: |
       echo "--- :rocket: Deploying to Dev via Argo CD"
       argocd app sync my-app-dev --server $MYARGOCD_SERVER --auth-token $MYARGOCD_TOKEN
+    env:
+      MYARGOCD_TOKEN: ${MYARGOCD_AUTH_TOKEN}
+      MYARGOCD_SERVER: "argocd.example.com"
 ...
 ```
 
->
+> [!NOTE]
 > With the help of Buildkite's build [annotations](/docs/agent/v3/cli-annotate), you can include a deployment link to the Argo CD UI after the build has finished running to review the deployment status.
