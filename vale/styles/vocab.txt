@@ -49,6 +49,7 @@ CCTray
 chatbot
 chroot
 chroots
+CD
 CI
 classpath
 cli
@@ -146,6 +147,7 @@ keyserver
 keyservers
 kotlin
 kubectl
+Kubernetes
 kustomize
 Kuzco
 launchd
