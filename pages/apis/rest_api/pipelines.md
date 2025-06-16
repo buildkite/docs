@@ -171,7 +171,7 @@ Success response: `200 OK`
 
 ## Create a YAML pipeline
 
-YAML pipelines are the recommended way to [manage your pipelines](/docs/pipelines/tutorials/pipeline-upgrade). To create a YAML pipeline using this endpoint, set the `configuration` key in your json request body to an the YAML you want in your pipeline.
+YAML pipelines are the recommended way to [manage your pipelines](/docs/pipelines/tutorials/pipeline-upgrade). To create a YAML pipeline using this endpoint, set the `configuration` key in your json request body to the YAML you want in your pipeline.
 
 For example, to create a pipeline called `"My Pipeline"` containing the following command step
 
