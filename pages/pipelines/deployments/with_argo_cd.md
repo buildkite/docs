@@ -40,12 +40,17 @@ You can trigger the deployments to Argo CD through a command defined in your Bui
 You can insert a [block step](/docs/pipelines/configure/step-types/block-step) before triggering Argo CD for deployment to make sure a condition for deployment is met. For example:
 
 ```yaml
-- if: "build.branch != \"main\""
+...
+  - if: "build.branch = \"main\""
     key: "block-step-condition-for-deploy"
     block: "Deploy this to Dev?"
   - key: "deploy-to-dev"
     label: "Buildkite Agent to Argo CD CLI Manifest for Dev"
-    command: "..."
+    command: |
+      echo "--- :rocket: Deploying to Dev via Argo CD"
+      argocd app sync my-app-dev --server $MYARGOCD_SERVER --auth-token $MYARGOCD_TOKEN
+...
 ```
 
-Note that with the help of Buildkite's build [annotations](/docs/agent/v3/cli-annotate), you can have a deployment link to the Argo CD's UI.
+>
+> With the help of Buildkite's build [annotations](/docs/agent/v3/cli-annotate), you can include a deployment link to the Argo CD UI after the build has finished running to review the deployment status.
