@@ -313,7 +313,7 @@ There is no maximum expiration duration for an agent token, although a minimum o
 
 ⚠️ **This token expired on ...**
 
-Expired tokens will prevent new agent registrations but won't affect currently connected agents.
+An expired agent token will prevent agents configured with this token from being able to re-connect to its Buildkite cluster. However, agents currently connected to their cluster at the time of expiration won't be affected.
 
 > 📘 Agent token expiration format
 > The timestamp must be set in ISO8601 format (for example, `2025-01-01T00:00:00Z`). This timestamp value cannot be changed on an existing agent token. An error is returned if an attempt is made to update the expiration date field of an existing agent token.

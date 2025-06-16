@@ -716,15 +716,15 @@ An agent token is used to [connect agents to a cluster](/docs/pipelines/clusters
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>id</code></th><td>ID of the token</td></tr>
-  <tr><th><code>graphql_id</code></th><td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the token</td></tr>
-  <tr><th><code>description</code></th><td>Description of the token</td></tr>
-  <tr><th><code>allowed_ip_addresses</code></th><td>A list of <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">CIDR-notation</a> IPv4 addresses from which agents can use this token</td></tr>
-  <tr><th><code>url</code></th><td>Canonical API URL of the token</td></tr>
-  <tr><th><code>cluster_url</code></th><td>API URL of the cluster the token belongs to</td></tr>
-  <tr><th><code>created_at</code></th><td>When the token was created</td></tr>
-  <tr><th><code>created_by</code></th><td>User who created the token</td></tr>
-  <tr><th><code>expires_at</code></th><td>The ISO8601 timestamp at which point the token expires and is no longer functional</td></tr>
+  <tr><th><code>id</code></th><td>The ID of the agent token.</td></tr>
+  <tr><th><code>graphql_id</code></th><td>The <a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the token.</td></tr>
+  <tr><th><code>description</code></th><td>The description of the token.</td></tr>
+  <tr><th><code>allowed_ip_addresses</code></th><td>A list of permitted <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">CIDR-notation</a> IPv4 addresses that agents must be accessible through, to access this token and connect to your Buildkite cluster.</td></tr>
+  <tr><th><code>url</code></th><td>The canonical API URL of the token.</td></tr>
+  <tr><th><code>cluster_url</code></th><td>The API URL of the Buildkite cluster that the token belongs to.</td></tr>
+  <tr><th><code>created_at</code></th><td>The date and time when the token was created.</td></tr>
+  <tr><th><code>created_by</code></th><td>The user who created the token.</td></tr>
+  <tr><th><code>expires_at</code></th><td>The ISO8601 timestamp at which point the token expires and prevents agents configured with this token from re-connecting to their Buildkite cluster.</td></tr>
 </tbody>
 </table>
 
@@ -842,7 +842,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>expires_at</code></th><td>The ISO8601 timestamp at which point the token expires and is no longer functional.<br><em>Example:</em> <code>2025-01-01T00:00:00Z</code>
+  <tr><th><code>expires_at</code></th><td>The ISO8601 timestamp at which point the token expires and prevents agents configured with this token from re-connecting to their Buildkite cluster.<br><em>Example:</em> <code>2025-01-01T00:00:00Z</code>
 </tbody>
 </table>
 
