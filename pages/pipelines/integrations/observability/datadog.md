@@ -2,10 +2,10 @@
 
 [Datadog](https://www.datadoghq.com/) is a comprehensive monitoring and analytics platform that combines infrastructure monitoring, application performance monitoring (APM), and log management, allowing you to track the health and performance of your systems while identifying and troubleshooting issues across your entire deployment pipeline.
 
-Datadog users can send the information about their Buildkite pipelines to Datadog’s Continuous Integration Visibility (Datadog CI Visibility) if the Datadog Pipeline Visibility Notification service was enabled in Buildkite. This way, any organization using both Datadog and Buildkite can get insights into their pipeline’s performance over time and ensure optimal resource utilization throughout their development workflow.
+Datadog users can send the information about their Buildkite pipelines to Datadog's Continuous Integration Visibility (Datadog CI Visibility) if the Datadog Pipeline Visibility Notification service was enabled in Buildkite. This way, any organization using both Datadog and Buildkite Pipelines can gain insights into the performance of their pipelines over time and ensure optimal resource utilization throughout their development workflow.
 
 > 📘
-> If you are looking for the information on using Datadog APM tracing with Buildkite agent, you can find it [here](https://www.datadoghq.com/product/apm/).
+> Learn more about Datadog's Application Performance Monitoring (APM) feature, you can do so from [Datadog's product page for APM](https://www.datadoghq.com/product/apm/).
 
 ## Configuring the integration in Datadog
 
