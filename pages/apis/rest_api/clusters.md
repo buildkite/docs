@@ -724,6 +724,7 @@ An agent token is used to [connect agents to a cluster](/docs/pipelines/clusters
   <tr><th><code>cluster_url</code></th><td>API URL of the cluster the token belongs to</td></tr>
   <tr><th><code>created_at</code></th><td>When the token was created</td></tr>
   <tr><th><code>created_by</code></th><td>User who created the token</td></tr>
+  <tr><th><code>expires_at</code></th><td>The ISO8601 timestamp at which point the token expires and is no longer functional</td></tr>
 </tbody>
 </table>
 
@@ -743,6 +744,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "graphql_id": "Q2x1c3RlclRva2VuLS0tYjYwMDE0MTYtMGUxZS00MWM2LTlkYmUtM2Q5Njc2NmY0NTFh",
     "description": "Windows agents",
     "allowed_ip_addresses": "202.144.0.0/24",
+    "expires_at" : "2026-01-01T00:00:00Z",
     "url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a/tokens/b6001416-0e1e-41c6-9dbe-3d96766f451a",
     "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a",
     "created_at": "2023-05-26T04:21:41.350Z",
@@ -775,6 +777,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "graphql_id": "Q2x1c3RlclRva2VuLS0tYjYwMDE0MTYtMGUxZS00MWM2LTlkYmUtM2Q5Njc2NmY0NTFh",
   "description": "Windows agents",
   "allowed_ip_addresses": "202.144.0.0/24",
+  "expires_at" : "2026-01-01T00:00:00Z",
   "url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a/tokens/b6001416-0e1e-41c6-9dbe-3d96766f451a",
   "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a",
   "created_at": "2023-05-26T04:21:41.350Z",
@@ -835,6 +838,15 @@ Required [request body properties](/docs/api#request-body-properties):
 </tbody>
 </table>
 
+Optional [request body properties](/docs/api#request-body-properties):
+
+<table class="responsive-table">
+<tbody>
+  <tr><th><code>expires_at</code></th><td>The ISO8601 timestamp at which point the token expires and is no longer functional.<br><em>Example:</em> <code>2025-01-01T00:00:00Z</code>
+</tbody>
+</table>
+
+
 Required scope: `write_clusters`
 
 Success response: `201 Created`
@@ -862,6 +874,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "graphql_id": "Q2x1c3RlclRva2VuLS0tYjYwMDE0MTYtMGUxZS00MWM2LTlkYmUtM2Q5Njc2NmY0NTFh",
   "description": "Windows agents",
   "allowed_ip_addresses": "202.144.0.0/24",
+  "expires_at" : "2026-01-01T00:00:00Z",
   "url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a/tokens/b6001416-0e1e-41c6-9dbe-3d96766f451a",
   "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a",
   "created_at": "2023-05-26T04:21:41.350Z",
