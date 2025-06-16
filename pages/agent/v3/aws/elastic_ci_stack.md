@@ -1,3 +1,7 @@
+---
+toc_include_h3: false
+---
+
 # Elastic CI Stack for AWS overview
 
 The Buildkite Elastic CI Stack for AWS gives you a private, autoscaling
@@ -55,5 +59,5 @@ Pipeline Signing | ✅ | ✅
 
 Get started with Buildkite Elastic CI Stack for AWS for:
 
-* [Linux and Windows](/docs/agent/v3/elastic-ci-aws)
-* [Mac](/docs/agent/v3/elastic-ci-stack-for-ec2-mac/autoscaling-mac-metal)
+* [Linux and Windows](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/setup)
+* [Mac](/docs/agent/v3/aws/elastic-ci-stack/ec2-mac/setup)
