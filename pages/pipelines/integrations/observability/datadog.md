@@ -2,10 +2,10 @@
 
 [Datadog](https://www.datadoghq.com/) is a comprehensive monitoring and analytics platform that combines infrastructure monitoring, application performance monitoring (APM), and log management, allowing you to track the health and performance of your systems while identifying and troubleshooting issues across your entire deployment pipeline.
 
-Datadog users can send the information about their Buildkite pipelines to Datadog's Continuous Integration Visibility (Datadog CI Visibility) if the Datadog Pipeline Visibility Notification service was enabled in Buildkite. This way, any organization using both Datadog and Buildkite Pipelines can gain insights into the performance of their pipelines over time and ensure optimal resource utilization throughout their development workflow.
+Datadog users can send the information about their Buildkite pipelines to Datadog's Continuous Integration Visibility (Datadog CI Pipeine Visibility) if the Datadog Pipeline Visibility Notification service was enabled in Buildkite. This way, any organization using both Datadog and Buildkite Pipelines can gain insights into the performance of their pipelines over time and ensure optimal resource utilization throughout their development workflow.
 
 > 📘
-> Learn more about Datadog's Application Performance Monitoring (APM) feature, you can do so from [Datadog's product page for APM](https://www.datadoghq.com/product/apm/).
+> If you are looking for the information on using Datadog APM tracing with Buildkite agent, you can find it [here](/docs/agent/v3/tracing#using-datadog-apm).
 
 ## Configuring the integration in Datadog
 
@@ -14,8 +14,8 @@ To set up the Datadog integration for Buildkite:
 1. As a [Buildkite organization administrator](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions), go to **Settings** > **Notification Services** and select the **Add** button next to **Datadog Pipeline Visibility**.
 
 1. Complete in the following fields:
-    - **Description**: A description to help identify this integration in the future, for example `Datadog CI Visibility`.
-    - **API key**: Your Datadog API Key. You can generate it in [your Datadog account settings](https://app.datadoghq.com/account/settings#api).
+    - **Description**: A description to help identify this integration in the future, for example `Datadog CI Pipeline Visibility`.
+    - **API key**: Your Datadog API Key. You can generate it in [your Datadog account settings](https://app.datadoghq.com/organization-settings/api-keys).
     - **Datadog site**: The URL of your Datadog site to send notifications to, which is typically `datadoghq.com`. While this is the default value of this field, depending on your location, you might wish to use a different site, for instance, `us3.datadoghq.com` or `us5.datadoghq.com` for US or `ap1.datadoghq.com` for Japan. Learn more about these different sites in [Access the Datadog site](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site) for the current list of available websites to can choose from.
     - **Datadog tags**: your custom tags in Datadog. You can use one tag per line in `key:value` format.
     - **Pipelines**: you can select a subset of pipelines you want to trace in Datadog. Select from:
@@ -34,7 +34,7 @@ To set up the Datadog integration for Buildkite:
 
 ## Advanced configuration
 
-The following configurations provide additional customization options to enhance the integration between Buildkite and Datadog CI Visibility feature. These settings allow you to fine-tune how pipeline data is collected and reported, ensuring you get the most valuable insights from your CI/CD metrics.
+The following configurations provide additional customization options to enhance the integration between Buildkite and Datadog CI Pipeline Visibility feature. These settings allow you to fine-tune how pipeline data is collected and reported, ensuring you get the most valuable insights from your CI/CD metrics.
 
 ### Setting custom tags
 
@@ -79,9 +79,9 @@ Note that the [CI Pipeline List](https://app.datadoghq.com/ci/pipelines) page in
 
 ## Additional resources
 
-For the most recent version of Datadog documentation regarding the CI Visibility integration with Buildkite, see Datadog's documentation on [setting up tracing on a Buildkite Pipeline](https://docs.datadoghq.com/continuous_integration/pipelines/buildkite/).
+For the most recent version of Datadog documentation regarding the CI Pipeline Visibility integration with Buildkite, see Datadog's documentation on [setting up tracing on a Buildkite Pipeline](https://docs.datadoghq.com/continuous_integration/pipelines/buildkite/).
 
-For overall best CI/CD practices involving the use of Datadog's APM tracing and CI Visibility integration recommended by Buildkite, check out [this blog post](https://buildkite.com/resources/blog/ci-cd-best-practices/).
+For overall best CI/CD practices involving the use of Datadog's APM tracing and CI Pipeline Visibility integration recommended by Buildkite, check out [this blog post](https://buildkite.com/resources/blog/ci-cd-best-practices/).
 
 > 📘
 > Please note that Datadog CI Visibility feature is maintained by Datadog so for any questions or feature requests please visit [Datadog Support Platform](https://www.datadoghq.com/support/).
