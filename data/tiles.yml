@@ -82,5 +82,3 @@ integrations:
         url: "/docs/pipelines/integrations/other/build-status-badges"
       - text: "Docker Hub"
         url: "/docs/pipelines/integrations/other/docker-hub"
-
-
