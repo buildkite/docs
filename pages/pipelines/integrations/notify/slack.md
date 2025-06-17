@@ -7,7 +7,7 @@ Configuring a Slack notification service will authorize access for a required ch
 Setting up a notification service requires Buildkite organization admin access.
 
 > 📘
-> You can use the [Slack Workspace](/docs/pipelines/integrations/other/slack-workspace) notification service to set up Slack notifications as a once-off process for each workspace, after which, you can then configure notifications within your YAML pipelines to be sent to any Slack channels or users.
+> You can use the [Slack Workspace](/docs/pipelines/integrations/notify/slack-workspace) notification service to set up Slack notifications as a once-off process for each workspace, after which, you can then configure notifications within your YAML pipelines to be sent to any Slack channels or users.
 
 ## Adding a notification service
 
@@ -34,7 +34,7 @@ Once you have granted access to your chosen channel or user in your Slack worksp
 <%= image "buildkite-slack-connected.png", width: 1458/2, height: 1540/2, alt: "Screenshot of Buildkite Slack Notification Settings, requesting a description, your choice of text or emoji message themes, which pipelines and branches to include, and which build states should trigger a notification" %>
 
 > 🚧
-> There is a default maximum number of 50 Slack notification services that can be added to your Buildkite organization. If you are an Enterprise customer and need more Slack notification services than this limit, please contact support@buildkite.com. Alternatively, you can use a [Slack Workspace](/docs/pipelines/integrations/other/slack-workspace) notification service, which only requires you to configure a single service for your Slack workspace.
+> There is a default maximum number of 50 Slack notification services that can be added to your Buildkite organization. If you are an Enterprise customer and need more Slack notification services than this limit, please contact support@buildkite.com. Alternatively, you can use a [Slack Workspace](/docs/pipelines/integrations/notify/slack-workspace) notification service, which only requires you to configure a single service for your Slack workspace.
 
 Once your Slack notification services have been configured, notifications will automatically be sent at the pipeline level, but not on the outcomes of individual steps.
 
@@ -45,7 +45,7 @@ The **Choose notifications to send > When a build passes > After a failure ("Fix
 
 ## Changing channels and users
 
-Once a Slack notification service has been [added](#adding-a-notification-service), its Slack channel, user and workspace cannot be changed. To post to a different channel, user or workspace, you'll need to add a new Slack notification service. Alternatively, you can use the [Slack Workspace](/docs/pipelines/integrations/other/slack-workspace) notification service to set up Slack notifications as a once-off process for each workspace, after which, you can then configure notifications within your YAML pipelines to be sent to any Slack channels or users.
+Once a Slack notification service has been [added](#adding-a-notification-service), its Slack channel, user and workspace cannot be changed. To post to a different channel, user or workspace, you'll need to add a new Slack notification service. Alternatively, you can use the [Slack Workspace](/docs/pipelines/integrations/notify/slack-workspace) notification service to set up Slack notifications as a once-off process for each workspace, after which, you can then configure notifications within your YAML pipelines to be sent to any Slack channels or users.
 
 ## Conditional notifications
 
@@ -77,7 +77,7 @@ Once you've found the matching Buildkite service and Slack app, confirm where an
 
 ### Create a new Slack notification service which posts
 
-Using the instructions above, [add a new Buildkite notification service](/docs/pipelines/integrations/other/slack#adding-a-notification-service) with the same settings as the legacy integration.
+Using the instructions above, [add a new Buildkite notification service](/docs/pipelines/integrations/notify/slack#adding-a-notification-service) with the same settings as the legacy integration.
 
 ## Privacy policy
 
