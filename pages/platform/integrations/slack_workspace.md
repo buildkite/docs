@@ -13,11 +13,19 @@ The Slack Workspace integration lets you receive notifications in your [Slack](h
 ## Connect Slack workspace
 
 1. Select **Settings** in the global navigation and select **Notification Services** in the left sidebar.
-1. Click the **Add** button on **Slack Workspace**
-  <%= image "buildkite-add-slack-workspace.png", width: 1458/2, height: 142/2, alt: "Screenshot of the 'Add' button for adding a Slack workspace service to Buildkite" %>
-1. Click the **Add to Slack** button:
-  <%= image "buildkite-add-to-slack-workspace.png", width: 1458/2, height: 358/2, alt: "Screenshot of 'Add Slack workspace service' screen on Buildkite. It shows an 'Add to Slack workspace' button" %>
-1. This will redirect you to Slack. Log in and grant Buildkite permission to post across your workspace.
+
+1. Select the **Add** button on **Slack Workspace**.
+
+    <%= image "buildkite-add-slack-workspace.png", width: 1458/2, height: 142/2, alt: "Screenshot of the 'Add' button for adding a Slack workspace service to Buildkite" %>
+
+1. Select the **Add to Slack** button:
+
+    <%= image "buildkite-add-to-slack-workspace.png", width: 1458/2, height: 358/2, alt: "Screenshot of 'Add Slack workspace service' screen on Buildkite. It shows an 'Add to Slack workspace' button" %>
+
+    This action redirects you to Slack.
+
+1. Log in to Slack and grant Buildkite permission to post across your workspace.
+
 1. After granting access, you can then configure [Pipeline build notifications](/docs/pipelines/integrations/other/slack-workspace) and [Test Engine test notifications](/docs/test-engine/notifications/slack).
 
 ## Privacy policy
