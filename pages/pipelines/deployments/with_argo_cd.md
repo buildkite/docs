@@ -27,14 +27,15 @@ You can trigger the deployments to Argo CD through a command defined in your Bui
 
 ```yaml
 ...
-- label "Trigger Argo CD sync"
-    command: |
-      echo "Triggering Argo CD application sync..."
-      argocd app sync myapp --auth-token ${MYARGOCD_TOKEN} --server ${MYARGOCD_SERVER}
-    env:
+- key: "deploy-to-dev"
+  label: "Trigger Argo CD sync"
+  command: |
+    echo "Triggering Argo CD application sync..."
+    argocd app sync myapp --auth-token ${MYARGOCD_TOKEN} --server ${MYARGOCD_SERVER}
+  env:
       MYARGOCD_TOKEN: ${MYARGOCD_AUTH_TOKEN}
       MYARGOCD_SERVER: "argocd.example.com"
-    if: build.branch == "main"
+  if: build.branch == "main"
 ```
 
 You can insert a [block step](/docs/pipelines/configure/step-types/block-step) before triggering Argo CD for deployment to make sure a condition for deployment is met. For example:
