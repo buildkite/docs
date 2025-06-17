@@ -1,0 +1,1 @@
+`expiresAt` (optional) is the date and time at which the token expires and prevents agents configured with this token from re-connecting to their Buildkite cluster. The timestamp for `expiresAt` must be in ISO8601 format (2025-01-01T00:00:00Z) and must be at least 10 minutes in the future at the moment of token creation. Once set, `expiresAt` cannot be updated.

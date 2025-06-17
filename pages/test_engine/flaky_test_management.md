@@ -12,12 +12,8 @@ Alternatively, you can create [scheduled builds](/docs/pipelines/configure/workf
 
 Test Engine reviews the test results to detect flaky tests after every test run.
 
-### Resolving a flaky test
-
-From the **Manage flaky test** dropdown, you can resolve your flaky test. Resolving a flaky test will cause a **Flaky behaviour marked as resolved** badge to display within the flaky index. The test will stay in the flaky index until it has not flaked within 28 days. If the test flakes again, it will be considered a **Reoccurring Flaky** and will receive a corresponding badge in the index.
-
 ### Weekly flaky test summary
 
-You're able to schedule a weekly summary of the flakiest tests assigned to your teams. Visit the **Suite settings** page to create new notifications, or manage existing ones.
+You're able to schedule a weekly summary of the flakiest tests owned by your teams. Visit the **Suite settings** page to create new notifications, or manage existing ones.
 
 <%= image "flaky-test-summary-mailer.png", width: 1960/2, height: 630/2, alt: "Flaky test page showing team assignments" %>
