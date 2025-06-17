@@ -56,5 +56,5 @@ You can insert a [block step](/docs/pipelines/configure/step-types/block-step) b
 ...
 ```
 
-> [!NOTE]
+> 📘 Using annotations to link to Argo CD
 > With the help of Buildkite's build [annotations](/docs/agent/v3/cli-annotate), you can include a deployment link to the Argo CD UI after the build has finished running to review the deployment status.
