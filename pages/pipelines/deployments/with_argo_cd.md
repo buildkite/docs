@@ -42,7 +42,7 @@ You can insert a [block step](/docs/pipelines/configure/step-types/block-step) b
 
 ```yaml
 ...
-  - if: "build.branch = \"main\""
+  - if: build.branch == "main"
     key: "block-step-condition-for-deploy"
     block: "Deploy this to Dev?"
   - key: "deploy-to-dev"
