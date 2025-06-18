@@ -15,7 +15,7 @@ This approach allows for a clear separation of concerns: Buildkite handles the b
 
 ## Using Argo CD with Buildkite
 
-There are various ways Argo CD could be used with Buildkite. The most common one include:
+There are various ways Argo CD could be used with Buildkite. The most common ones include:
 
 * Buildkite agent pushes some Kubernetes Manifests to a GitOps repo and then waits for the GitOps Engine to reconcile the change to a target cluster.
 * Buildkite triggers Argo CD to deploy to Kubernetes.
