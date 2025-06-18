@@ -101,6 +101,13 @@
         }
       }
     }
+
+    th code,
+    td:first-child code {
+      @media (min-width: $screen-lg) {
+        white-space: wrap;
+      }
+    }
   }
 
   code {
