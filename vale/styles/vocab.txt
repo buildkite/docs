@@ -125,6 +125,7 @@ gz
 gzipped
 Hashicorp
 heroku
+Honeycomb
 hostname
 http
 httpd
