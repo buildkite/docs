@@ -11,7 +11,7 @@ APIs
 apk
 applesimutils
 architecting
-Argo CD
+Argo
 argumentless
 Artifactory
 Artifactory's
