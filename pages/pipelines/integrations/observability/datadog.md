@@ -5,18 +5,18 @@
 Datadog users can send the information about their Buildkite pipelines to Datadog's Continuous Integration (CI) Visibility product, also known as CI Pipeline Visibility, if the **Datadog Pipeline Visibility** notification service was enabled in Buildkite. This way, any organization using both Datadog and Buildkite Pipelines can gain insights into the performance of their pipelines over time and ensure optimal resource utilization throughout their development workflow.
 
 > 📘
-> If you are looking for the information on using Datadog Application Performance Monitoring (APM) tracing with Buildkite agent, learn more in [Using Datadog APM](/docs/agent/v3/tracing#using-datadog-apm).
+> If you are looking for the information on using Datadog Application Performance Monitoring (APM) tracing with Buildkite agent, you can find it in [Using Datadog APM](/docs/agent/v3/tracing#using-datadog-apm).
 
-## Configuring the integration in Datadog
+## Configuring the integration in Buildkite
 
-To set up the Datadog integration for Buildkite:
+To set up the Datadog CI Pipeline Visibility integration for Buildkite:
 
 1. As a [Buildkite organization administrator](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions), go to **Settings** > **Notification Services** and select the **Add** button next to **Datadog Pipeline Visibility**.
 
 1. Complete in the following fields:
     - **Description**: A description to help identify this integration in the future, for example `Datadog CI Pipeline Visibility`.
     - **API key**: Your Datadog API Key. You can generate it in [your Datadog account settings](https://app.datadoghq.com/organization-settings/api-keys).
-    - **Datadog site**: The URL of your Datadog site to send notifications to, which is typically `datadoghq.com`. While this is the default value of this field, depending on your location, you might wish to use a different site, for instance, `us3.datadoghq.com` or `us5.datadoghq.com` for US or `ap1.datadoghq.com` for Japan. Learn more about these different sites in [Access the Datadog site](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site) for the current list of available websites to can choose from.
+    - **Datadog site**: The URL of your Datadog site to send notifications to, which is typically `datadoghq.com`. While this is the default value of this field, depending on your location, you might wish to use a different site, for instance, `us3.datadoghq.com` or `us5.datadoghq.com` for US or `ap1.datadoghq.com` for Japan. Learn more about these different sites and the current list of available websites to choose from in [Getting Started with Datadog Sites](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site).
     - **Datadog tags**: your custom tags in Datadog. You can use one tag per line in `key:value` format.
     - **Pipelines**: you can select a subset of pipelines you want to trace in Datadog. Select from:
       * **All Pipelines**.
@@ -63,6 +63,7 @@ Any metadata with a key that starts with `dd_measures.` and contains a numerical
    command: "buildkite-agent meta-data set \"dd_measures.memory_usage\" {numeric value}"
 ...
 ```
+
 In the pipeline span for the resulting pipeline, you'll see a custom tag `memory_usage:{numeric value}`, for example `memory_usage:1000`.
 
 ### Correlating infrastructure metrics to jobs
@@ -71,7 +72,7 @@ It is possible to correlate jobs with the infrastructure that is running them. F
 
 ## Visualizing pipeline data in Datadog
 
-After the pipelines finish, in the Datadog interface, you can navigate to the [CI Pipeline List](https://app.datadoghq.com/ci/pipelines) and [Executions](https://app.datadoghq.com/ci/pipeline-executions) pages to see the Datadog populated with data.
+After the builds in Buildkite pipelines that are being traced by Datadog finish, in the Datadog interface, you can navigate to the [CI Pipeline List](https://app.datadoghq.com/ci/pipelines) and [Executions](https://app.datadoghq.com/ci/pipeline-executions) pages to see the Datadog UI populated with data.
 
 Note that the [CI Pipeline List](https://app.datadoghq.com/ci/pipelines) page in Datadog displays data for only the default branch of each repository.
 
