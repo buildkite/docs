@@ -57,7 +57,7 @@ You can insert a [block step](/docs/pipelines/configure/step-types/block-step) b
 ```
 
 > 🚧 Warning!
-> Please keep it in mind that these examples are aimed at providing you with a basic understanding of how it is possible to use Argo CD with Buildkite. For a production-ready implementation, we [strongly advise against](/docs/pipelines/security/secrets/risk-considerations) using secrets in plaintext pipeline files. Instead, the recommended way of handling secrets would be by using the [Buildkite secrets](https://buildkite.com/docs/pipelines/security/secrets/buildkite-secrets)-based approach. 
+> Please keep it in mind that these examples are aimed at providing you with a basic understanding of how it is possible to use Argo CD with Buildkite. For a production-ready implementation, we [strongly advise against](/docs/pipelines/security/secrets/risk-considerations) using secrets in plaintext pipeline files. Instead, the recommended way of handling secrets would be by using the [Buildkite secrets](https://buildkite.com/docs/pipelines/security/secrets/buildkite-secrets)-based approach.
 
 ## Using annotations to link to Argo CD
 
