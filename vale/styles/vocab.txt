@@ -39,6 +39,7 @@ bktec
 boolean
 Boomper
 Buildbox
+buildevents
 Buildkite
 Buildkite's
 buildscript
