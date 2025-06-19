@@ -7,7 +7,7 @@ Datadog users can send the information about their Buildkite pipelines to Datado
 > 📘
 > If you are looking for the information on using Datadog Application Performance Monitoring (APM) tracing with Buildkite agent, you can find it in [Using Datadog APM](/docs/agent/v3/tracing#using-datadog-apm).
 
-## Configuring the integration in Buildkite
+## Configuring the Datadog integration in Buildkite
 
 To set up the Datadog CI Pipeline Visibility integration for Buildkite:
 
