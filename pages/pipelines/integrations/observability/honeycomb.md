@@ -51,9 +51,9 @@ steps:
 
 For more examples and description of the options, please refer to the Honeycomb Marker Buildkite Plugin's [readme](https://github.com/tendnz/honeymarker-buildkite-plugin/blob/master/README.md) file.
 
-## OpenTelemetry tracing 
+## OpenTelemetry tracing
 
-You can send traces from the Buildkite agent to Honeycomb with the help of OpenTelemetry by setting `--tracing-backend opentelemetry` flag and adding the following enviromnment variables to your Buildkite pipeline definition:
+You can send traces from the Buildkite agent to Honeycomb with the help of OpenTelemetry by setting `--tracing-backend opentelemetry` flag and adding the following environment variables to your Buildkite pipeline definition:
 
 ```yaml
 OTEL_EXPORTER_OTLP_TRACES_ENDPOINT="https://api.honeycomb.io"
