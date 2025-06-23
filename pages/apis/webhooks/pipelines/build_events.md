@@ -56,9 +56,14 @@ Example request body:
   }
 }
 ```
+
+> 📘 Job data not included
+> When using webhooks, the build object does not contain job data as specified in the <a href="/docs/api/builds">Build API</a> documentation. See <a href="/docs/webhooks/pipelines/job_events">job events</a> if this is required.
+
+
 ## Finding out if a build is blocked
 
-To if a build is blocked, look for `blocked: true` in the `build.finished` event
+If a build is blocked, look for `blocked: true` in the `build.finished` event
 
 Example request body for blocked build:
 
