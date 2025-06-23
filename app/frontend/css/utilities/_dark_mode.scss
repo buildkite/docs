@@ -201,6 +201,10 @@ html.dark {
     background-color: #1e293b;
   }
 
+  .Article table {
+    box-shadow: #121e3c 0px 0px 0px 1px, #10172ac7 0px 1px 3px;
+  }
+
   .Article h1:not([class]) > code,
   .Article h2:not([class]) > code,
   .Article h3:not([class]) > code,
@@ -209,6 +213,7 @@ html.dark {
   .Article h6:not([class]) > code,
   .Article p:not([class]) > code,
   .Article a:not([class]) > code,
+  .Article p > code,
   .Article li > code,
   .Article dt > code,
   .Article td > code,
