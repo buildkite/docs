@@ -11,9 +11,6 @@ if [ -z "$PULL_REQUEST_NUMBER" ]; then
   exit 1
 fi
 
-# Install tool for generating static site
-curl -sf https://gobinaries.com/tj/staticgen/cmd/staticgen | sh
-
 echo "--- :spider_web: Generating static site"
 DD_RUM_ENABLED="true" DD_RUM_ENV="preview" DD_RUM_VERSION=${PULL_REQUEST_NUMBER} staticgen generate
 

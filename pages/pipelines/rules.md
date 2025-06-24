@@ -77,17 +77,17 @@ In the `pipeline.trigger_build.pipeline` rule the available variables for condit
     </td>
   </tr>
   <tr>
-    <td><code>source.target.branch</code></td>
+    <td><code>target.trigger.branch</code></td>
     <td><code>String</code></td>
     <td>The branch of the target pipeline that the trigger step is targeting.</td>
   </tr>
   <tr>
-    <td><code>source.target.commit</code></td>
+    <td><code>target.trigger.commit</code></td>
     <td><code>String</code></td>
     <td>The commit of the target pipeline that the trigger step is targeting.</td>
   </tr>
   <tr>
-    <td><code>source.target.message</code></td>
+    <td><code>target.trigger.message</code></td>
     <td><code>String</code></td>
     <td>The commit message of the target pipeline that the trigger step is targeting.</td>
   </tr>
