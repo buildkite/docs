@@ -58,7 +58,7 @@ Example request body:
 ```
 
 > 📘 Job data not included
-> When using webhooks, the build object does not contain job data as specified in the <a href="/docs/api/builds">Build API</a> docs. See <a href="/docs/webhooks/pipelines/job_events">job events</a> if this is required.
+> When using webhooks, the build object does not contain job data (as returned by calls to the [Build API](/docs/apis/rest-api/builds) of Buildkite's REST API). Learn more about obtaining job data from Buildkite Pipelines using webhooks in [Job events](/docs/webhooks/pipelines/job_events).
 
 
 ## Finding out if a build is blocked
