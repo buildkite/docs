@@ -5,7 +5,7 @@
 
 ## Agent hooks
 
-The `agent-config` block within the controller's configuration file (`values.yaml`) accepts a value for [`hooks-path`](/docs/agent/v3/configuration#hooks-path) via the `hookVolume` configuration. If configured, a corresponding volume named `buildkite-hooks` will be automatically mounted on `checkout` and command containers, with the Buildkite Agent configured to use them.
+The `agent-config` block within the controller's configuration file (`values.yaml`) accepts a value for [`hooks-path`](/docs/agent/v3/configuration#hooks-path) as part of the `hooksVolume` configuration. If configured, a corresponding volume named `buildkite-hooks` will be automatically mounted on `checkout` and command containers, with the Buildkite Agent configured to use them.
 
 You can specify any volume source for agent hooks, but a common choice is to use a [ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/), since hooks generally aren't large and ConfigMaps are made available across the cluster.
 
@@ -19,19 +19,6 @@ All the hooks needed are under the `/tmp/hooks` directory and a ConfigMap create
 
 Example of using hooks from a ConfigMap:
 
-<!-- vale off -->
-
-> 📘 Permissions and availability
-> The `defaultMode` value of `493` sets the Unix permissions to `755`, which enables the hooks to be executable. Another way to make this hooks directory available to containers is to use [HostPath](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) volume mounts, but this is not a recommended approach for production environments.
-
-<!-- vale on -->
-<!-- vale off -->
-
-> 📘 Hooks mount point
-> The `hooks-path` Buildkite agent config option can be used to change the mount point of the corresponding volume. This will also set `BUILDKITE_HOOKS_PATH` to the defined path on `checkout` and command containers. The default mount point is `/buildkite/hooks`.
-
-<!-- vale on -->
-
 ```yaml
 config:
   agent-config:
@@ -43,6 +30,14 @@ config:
       name: buildkite-agent-hooks
 ```
 {: codeblock-file="values.yaml"}
+
+### Permissions and availability
+
+The `defaultMode` value of `493` sets the Unix permissions to `755`, which enables the hooks to be executable. Another way to make this hooks directory available to containers is to use [HostPath](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) volume mounts, but this is not a recommended approach for production environments.
+
+### Hooks mount point
+
+The `hooks-path` Buildkite agent config option can be used to change the mount point of the corresponding volume. This will also set `BUILDKITE_HOOKS_PATH` to the defined path on `checkout` and command containers. The default mount point is `/buildkite/hooks`.
 
 ## Agent hooks in earlier versions
 
