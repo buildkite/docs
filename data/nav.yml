@@ -802,6 +802,7 @@
           # highlighted when any child page of "API > REST > Pipelines" is selected.
           children:
             - name: "Flaky tests"
+              pill: "deprecated"
               path: "apis/rest-api/test-engine/flaky-tests"
             - name: "Quarantine"
               path: "apis/rest-api/test-engine/quarantine"
