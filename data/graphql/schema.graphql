@@ -1038,6 +1038,8 @@ enum AuditEventType {
   SUITE_MONITOR_CREATED
   SUITE_MONITOR_DELETED
   SUITE_MONITOR_UPDATED
+  SUITE_SAVED_VIEW_CREATED
+  SUITE_SAVED_VIEW_DELETED
   SUITE_UPDATED
   SUITE_VISIBILITY_CHANGED
   TEAM_CREATED
@@ -1146,6 +1148,7 @@ enum AuditSubjectType {
   SUBSCRIPTION
   SUITE
   SUITE_MONITOR
+  SUITE_SAVED_VIEW
   TEAM
   TEAM_MEMBER
   TEAM_PIPELINE
@@ -3456,6 +3459,12 @@ enum JobEventSignalReason {
   that in this case, no signal was sent to the process, the job was not run at all.
   """
   SIGNATURE_REJECTED
+
+  """
+  The job couldn't be launched by the stack controlling agents. This could be
+  due to a misconfiguration of the job, or due to a lack of resources.
+  """
+  STACK_ERROR
 }
 
 """
@@ -9098,6 +9107,26 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   buildBranches: Boolean!
 
   """
+  Whether to create builds for pull requests when the base branch is changed.
+  """
+  buildPullRequestBaseBranchChanged: Boolean!
+
+  """
+  Whether to create builds for pull requests from third-party forks.
+  """
+  buildPullRequestForks: Boolean!
+
+  """
+  Whether to create builds for pull requests when labels are added or removed.
+  """
+  buildPullRequestLabelsChanged: Boolean!
+
+  """
+  Whether to create builds for pull requests that are ready for review.
+  """
+  buildPullRequestReadyForReview: Boolean!
+
+  """
   Whether to create builds for commits that are part of a Pull Request.
   """
   buildPullRequests: Boolean!
@@ -9128,6 +9157,19 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   ignoreDefaultBranchPullRequests: Boolean!
 
   """
+  Prefix branch names for third-party fork builds to ensure they don't trigger
+  branch conditions. For example, the main branch from some-user will become
+  some-user:main.
+  """
+  prefixPullRequestForkBranchNames: Boolean!
+
+  """
+  The status to use for blocked builds. Pending can be used with required status
+  checks to prevent merging pull requests with blocked builds.
+  """
+  publishBlockedAsPending: Boolean!
+
+  """
   Whether to update the status of commits in Bitbucket or GitHub.
   """
   publishCommitStatus: Boolean!
@@ -9149,6 +9191,12 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   pullRequestBranchFilterEnabled: Boolean!
 
   """
+  Whether to create a separate status for pull request builds, allowing you to
+  require a passing pull request build in your required status checks in GitHub.
+  """
+  separatePullRequestStatuses: Boolean!
+
+  """
   Whether to skip creating a new build if a build for the commit and branch already exists.
   """
   skipBuildsForExistingCommits: Boolean!
@@ -9157,6 +9205,11 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
   """
   skipPullRequestBuildsForExistingCommits: Boolean!
+
+  """
+  What type of event to trigger builds on.
+  """
+  triggerMode: String!
 }
 
 """
@@ -9167,6 +9220,11 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   Whether to create builds when branches are pushed.
   """
   buildBranches: Boolean!
+
+  """
+  Whether to create builds for pull requests when the base branch is changed.
+  """
+  buildPullRequestBaseBranchChanged: Boolean!
 
   """
   Whether to create builds for pull requests from third-party forks.
