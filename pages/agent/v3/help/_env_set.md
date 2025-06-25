@@ -50,13 +50,13 @@ $ echo '{"ALPACA":"Geronimo the Incredible","LLAMA":"Kuzco"}' | \
 <!-- vale off -->
 
 <table class="Docs__attribute__table">
-<tr id="input-format"><th><code>--input-format value</code> <a class="Docs__attribute__link" href="#input-format">#</a></th><td><p>Input format: plain or json (default: "plain")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ENV_SET_INPUT_FORMAT</code></p></td></tr>
-<tr id="output-format"><th><code>--output-format value</code> <a class="Docs__attribute__link" href="#output-format">#</a></th><td><p>Output format: quiet (no output), plain, json, or json-pretty (default: "plain")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ENV_SET_OUTPUT_FORMAT</code></p></td></tr>
 <tr id="no-color"><th><code>--no-color </code> <a class="Docs__attribute__link" href="#no-color">#</a></th><td><p>Don't show colors in logging<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_NO_COLOR</code></p></td></tr>
 <tr id="debug"><th><code>--debug </code> <a class="Docs__attribute__link" href="#debug">#</a></th><td><p>Enable debug mode. Synonym for `--log-level debug`. Takes precedence over `--log-level`<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG</code></p></td></tr>
 <tr id="log-level"><th><code>--log-level value</code> <a class="Docs__attribute__link" href="#log-level">#</a></th><td><p>Set the log level for the agent, making logging more or less verbose. Defaults to notice. Allowed values are: debug, info, error, warn, fatal (default: "notice")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_LOG_LEVEL</code></p></td></tr>
 <tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_EXPERIMENT</code></p></td></tr>
 <tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_PROFILE</code></p></td></tr>
+<tr id="input-format"><th><code>--input-format value</code> <a class="Docs__attribute__link" href="#input-format">#</a></th><td><p>Input format: plain or json (default: "plain")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ENV_SET_INPUT_FORMAT</code></p></td></tr>
+<tr id="output-format"><th><code>--output-format value</code> <a class="Docs__attribute__link" href="#output-format">#</a></th><td><p>Output format: quiet (no output), plain, json, or json-pretty (default: "plain")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ENV_SET_OUTPUT_FORMAT</code></p></td></tr>
 </table>
 
 <!-- vale on -->
