@@ -59,7 +59,7 @@ You can locate a test record using its scope and name to retrieve the UUID from 
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/suites/{suite.uuid}/tests/find" \
+  -X POST "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/tests/find" \
   -H "Content-Type: application/json" \
   -d '{
     "scope": "User#email",
