@@ -263,5 +263,5 @@ annotations:
 config:
 ...
 ```
-## Cleanup for old buildkite jobs
-Users of kubernetes v1.23 and below may sometimes find that their old jobs are still present and not getting automatically cleaned up. This may take up space and may cause other distruptions with deployments. In the case where you notice old Buildkite jobs still presnt in your cluster, you can use the script located in https://github.com/buildkite/agent-stack-k8s/tree/main/utils called "clean-up-job.yaml" to run the clean up of old buildkite jobs 
+## Cleanup for old Buildkite jobs
+Users of Kubernetes v1.23 and below may sometimes find that their old jobs are still present and not getting automatically cleaned up. This may take up space and may cause other distruptions with deployments. In the case where you notice old Buildkite jobs still presnt in your cluster, you can use the script located in https://github.com/buildkite/agent-stack-k8s/tree/main/utils called "clean-up-job.yaml" to run the clean up of old Buildkite jobs 
