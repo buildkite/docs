@@ -73,7 +73,7 @@ steps:
   <tr>
     <td><code>name</code></td>
     <td>
-      A name for the cache. If no <code>name</code> is specified, this will default to the pipeline slug. This allows for multiple cache volumes to be used in a single pipeline.<br>
+      A name for the cache. This allows for multiple cache volumes to be used in a single pipeline. If no <code>name</code> is specified, the value of this attribute defaults to the pipeline slug.<br>
       <em>Example:</em> <code>"node-modules-cache"</code><br>
     </td>
   </tr>
