@@ -286,6 +286,7 @@ UUIDs
 uv
 vendored
 virtualenv
+Vitest
 VMs
 VPC's
 VPCs
