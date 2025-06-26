@@ -2848,24 +2848,14 @@ enum HostedAgentInstanceShapeName {
   LINUX_ARM64_8X32
 
   """
-  macOS 12 vCPU x 28 GB Memory
+  macOS 6 vCPU x 28 GB Memory
   """
-  MACOS_M2_12X28
-
-  """
-  macOS 4 vCPU x 7 GB Memory
-  """
-  MACOS_M2_4X7
-
-  """
-  macOS 6 vCPU x 14 GB Memory
-  """
-  MACOS_M2_6X14
+  MACOS_ARM64_M4_6X28
 
   """
   macOS 12 vCPU x 56 GB Memory
   """
-  MACOS_M4_12X56
+  MACOS_ARM64_M4_12X56
 }
 
 """
