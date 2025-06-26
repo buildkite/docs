@@ -489,6 +489,10 @@
               path: "pipelines/integrations/notifications/slack-workspace"
             - name: "CCMenu and CCTray"
               path: "pipelines/integrations/notifications/cc-menu"
+        - name: "Observability"
+          children:
+            - name: "Datadog"
+              path: "pipelines/integrations/observability/datadog"
         - name: "Other integrations"
           children:
             - name: "Amazon EventBridge"
@@ -802,6 +806,7 @@
           # highlighted when any child page of "API > REST > Pipelines" is selected.
           children:
             - name: "Flaky tests"
+              pill: "deprecated"
               path: "apis/rest-api/test-engine/flaky-tests"
             - name: "Quarantine"
               path: "apis/rest-api/test-engine/quarantine"
