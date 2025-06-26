@@ -12,7 +12,6 @@ apk
 applesimutils
 architecting
 Argo
-Argo CD
 argumentless
 Artifactory
 Artifactory's
@@ -50,7 +49,6 @@ CCTray
 chatbot
 chroot
 chroots
-CD
 CI
 classpath
 cli

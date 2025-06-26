@@ -1,27 +1,30 @@
 # Deploying with Argo CD
 
-[Argo CD](https://argoproj.github.io/cd/) is a continuous delivery tool specifically designed for Kubernetes. It focuses on deploying applications to Kubernetes clusters using GitOps principles, where the desired state of your applications is declaratively defined in Git repositories and automatically synchronized to your clusters.
+[Argo CD](https://argoproj.github.io/cd/):
 
-Buildkite and Argo CD complement each other in modern CI/CD workflows. Buildkite takes care of the CI tasks like building, testing, and packaging applications, while Argo CD specializes in continuous deployment.
+- Is a continuous delivery tool specifically designed for Kubernetes.
+- Focuses on deploying applications to Kubernetes clusters using GitOps principles, where the desired state of your applications is declaratively defined in Git repositories and automatically synchronized to your Kubernetes clusters.
 
-An example workflow for Buildkite plus Argo CD would look as follows:
+Buildkite Pipelines and Argo CD complement each other in modern CI/CD workflows. Buildkite Pipelines handles CI tasks, such as building, testing, and packaging applications, while Argo CD specializes in continuous deployment.
 
-1. Buildkite receives a code commit and triggers a build.
-1. The build process in Buildkite might include steps like packaging, testing, and creating Kubernetes manifests.
-1. Buildkite pushes the generated manifests to a GitOps repo, which is monitored by Argo CD.
+The following example workflow outlines how Buildkite would work with Argo CD:
+
+1. Buildkite Pipelines receives a code commit and triggers a build.
+1. The build process in Buildkite Pipelines might include steps to package, test, and create Kubernetes manifests.
+1. Buildkite Pipelines pushes the generated manifests to a GitOps repository, which is monitored by Argo CD.
 1. Argo CD detects the changes in the GitOps repo and automatically deploys the application to the target Kubernetes cluster.
 
 This approach allows for a clear separation of concerns: Buildkite handles the build and test processes, while Argo CD handles the deployment to Kubernetes. This simplifies the overall CI/CD pipeline and makes it easier to manage deployments.
 
-## Using Argo CD with Buildkite
+## Using Argo CD with Buildkite Pipelines
 
-There are various ways Argo CD could be used with Buildkite. The most common ones include:
+There are various ways Argo CD could be used with Buildkite Pipelines. The most common ones include:
 
-* Buildkite agent pushes some Kubernetes Manifests to a GitOps repo and then waits for the GitOps Engine to reconcile the change to a target cluster.
-* Buildkite triggers Argo CD to deploy to Kubernetes.
-* Buildkite triggers Argo CD via Argo API to [sync an application](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Sync) or to [rollback a synchronization](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Rollback) and monitors the deployment until completion.
+- The Buildkite agent pushes some Kubernetes Manifests to a GitOps repo and then waits for the GitOps Engine to reconcile the change to a target cluster.
+- Buildkite Pipelines triggers Argo CD to deploy to Kubernetes.
+- Buildkite Pipelines triggers Argo CD via Argo API to [sync an application](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Sync) or to [roll back a synchronization](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Rollback), and monitors the deployment until completion.
 
-## Deploying to Kubernetes with Argo CD triggered by Buildkite
+## Deploying to Kubernetes with Argo CD triggered by Buildkite Pipelines
 
 You can trigger the deployments to Argo CD through a command defined in your Buildkite pipeline definition. For example:
 
