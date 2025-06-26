@@ -76,10 +76,6 @@ RUN if [ "$RAILS_ENV" = "production" ]; then \
 
 FROM $BASE_IMAGE AS runtime
 
-# Install a few misc. deps for CI
-RUN apt-get update && apt-get install -y curl jq
-RUN apt purge --assume-yes linux-libc-dev
-
 WORKDIR /app
 
 ARG RAILS_ENV
@@ -100,9 +96,32 @@ COPY --from=node-deps /usr/local/bin /usr/local/bin
 COPY --from=node-deps /node_modules /app/node_modules
 COPY --from=bundle /usr/local/bundle/ /usr/local/bundle/
 COPY --from=assets /app/public/ /app/public/
-COPY --from=gobuild /go/bin/staticgen /usr/local/bin/staticgen
 
 RUN bundle exec rake sitemap:create
 
 EXPOSE 3000
 CMD ["bundle", "exec", "puma", "-C", "./config/puma.rb"]
+
+# ------------------------------------------------------------------
+#
+# We use this image to deploy previews to Netlify.
+#
+# It needs npm packages installed by Yarn in node-deps, as well as jq, curl and
+# staticgen for our orchestration machinery.
+#
+
+FROM runtime as deploy-preview
+
+# bin/deploy-preview has a couple of dependencies
+RUN apt-get update && \
+    apt-get install -y curl jq && \
+    apt purge --assume-yes linux-libc-dev
+
+COPY --from=gobuild /go/bin/staticgen /usr/local/bin/staticgen
+
+# ------------------------------------------------------------------
+#
+# Here, we ensure that the `runtime` image is the final result if this
+# Dockerfile is invoked without specifying a target.
+#
+FROM runtime
