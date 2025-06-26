@@ -56,6 +56,7 @@ classpath
 cli
 Cloudsmith
 Cloudsmith's
+CloudTrail
 CloudWatch
 CMake
 cmake
@@ -181,6 +182,7 @@ npm
 ns
 nsc
 nssm
+nullable
 NVMe
 OAuth
 oidc
@@ -290,6 +292,7 @@ UUIDs
 uv
 vendored
 virtualenv
+Vitest
 VMs
 VPC's
 VPCs

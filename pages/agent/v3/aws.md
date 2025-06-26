@@ -2,13 +2,13 @@
 toc_include_h3: false
 ---
 
-# Installation and setup recommendations
+# Buildkite Agents in AWS
 
 The Buildkite Agent can be run on AWS using our Elastic CI Stack for AWS CloudFormation template, or by installing the agent on your self-managed instances. On this page, common installation and setup recommendations for different scenarios of using the Buildkite Agent on AWS are covered.
 
 ## Using the Elastic CI Stack for AWS CloudFormation template
 
-The [Elastic CI Stack for AWS](/docs/agent/v3/elastic-ci-aws/elastic-ci-stack-overview) is a
+The [Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack) is a
 CloudFormation template for an autoscaling Buildkite Agent cluster. The agent instances include Docker, S3, and CloudWatch integration.
 
 You can use an Elastic CI Stack for AWS deployment to test Linux or Windows projects,
@@ -31,9 +31,9 @@ To run the Buildkite Agent on your own AWS instances, use the installer that mat
 instance operating system:
 
 * For Amazon Linux 2 or later, use the [Red Hat/CentOS installer](/docs/agent/v3/redhat)
-* For macOS, use [installing the agent on your own AWS EC2 Mac instances](#installing-the-agent-on-your-own-aws-ec2-mac-instances)
+* For macOS, use [installing the agent on your own AWS EC2 Mac instances](/docs/agent/v3/aws/self-serve-installation/ec2-mac)
 
-## Using the experimental Elastic CI Stack for AWS for EC2 Mac CloudFormation template
+## Using the Elastic CI Stack for AWS for EC2 Mac CloudFormation template
 
 [Elastic CI Stack for AWS for EC2 Mac](https://github.com/buildkite/elastic-ci-stack-for-ec2-mac) is an
 experimental CloudFormation template for an autoscaling macOS Buildkite agent
@@ -42,110 +42,4 @@ cluster.
 You can use an Elastic CI Stack for AWS for EC2 Mac deployment to build and test macOS,
 iOS, iPadOS, tvOS, and watchOS projects.
 
-Read the [Auto Scaling EC2 Mac instances](/docs/agent/v3/elastic-ci-stack-for-ec2-mac/autoscaling-mac-metal) documentation for instructions on preparing and deploying this template.
-
-## Installing the Agent on your own AWS EC2 Mac instances
-
-Setting up a macOS AMI that starts a Buildkite Agent on launch is a multi
-step process. You can start with one of the macOS AMIs from AWS, or with an AMI
-you've already installed Xcode or other software on.
-
-To use Xcode and the iOS Simulator, you must configure auto-login of a GUI
-session, and launch the Buildkite Agent in an `aqua` session as a Launchd Agent:
-
-1. Reserve an [EC2 Mac](https://aws.amazon.com/ec2/instance-types/mac/)
-Dedicated Host.
-1. Boot a macOS instance using your desired AMI on the Dedicated Host.
-1. Configure instance VPC subnets, security groups, and key pairs so that you
-can access the instance.
-1. Using an SSH or AWS SSM session:
-	- Set a password for the `ec2-user` using `sudo passwd ec2-user`
-	- Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
-	- Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
-1. Using a VNC session (run SSH port forwarding `ssh -L 5900:localhost:5900 ec2-user@<ip-address>` if direct access is not available):
-	1. Sign in as the `ec2-user`.
-	1. Enable **Automatic login** for the `ec2-user` in **System Preferences** > **Users & Accounts** > **Login Options**.
-	1. Disable **Require password** in **System Preferences** > **Security & Privacy** > **General**.
-	1. Set system sleep in **System Preferences** > **Energy Saver** > **Turn display off after** to **Never**.
-	1. Disable the screen saver in **System Preferences** > **Desktop & Screen Saver** > **Show screen saver after**.
-1. Follow the [macOS installation guide](/docs/agent/v3/macos#installation)
-instructions to install the Buildkite agent using Homebrew and configure
-starting on login.
-1. Verify that the Buildkite agent has connected to buildkite.com with your
-desired agent tags.
-1. Create an AMI from your instance.
-
-Your saved AMI can now be used to boot as many macOS instances as you require.
-
-To make this process repeatable, save your instance configuration in a
-[launch template](https://docs.aws.amazon.com/autoscaling/ec2/userguide/LaunchTemplates.html).
-To automate instance replacement, use an [Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html)
-to boot instances and a [host resource group](https://docs.aws.amazon.com/license-manager/latest/userguide/host-resource-groups.html)
-to reserve Dedicated Hosts.
-
-While the use of an Auto Scaling group and host resource group to automatically
-maintain capacity in the face of hardware failures is recommended, load based
-dynamic auto-scaling of macOS instances is not recommended. The instances are
-currently slow to boot and slow to terminate. Use of load based auto-scaling is
-likely to result in an over-provision of agents which carries a high minimum
-charge per Dedicated Host.
-
-There is an excellent blog post on [running iOS agents in the cloud](https://www.starkandwayne.com/blog/buildkite-2/) that goes into more detail on preparing macOS AMIs using [Packer](https://www.packer.io/).
-
-### Known issues
-
-* You might need to give the agent [full disk access](https://github.com/buildkite/agent/issues/1400)
-
-## Preventing builds from accessing Amazon EC2 metadata
-
-If you provision infrastructure like databases, Redis, Amazon SQS, etc. using AWS permission sandboxes, you might want to restrict access to those roles in your builds.
-
-If you run your builds on an AWS EC2 permission sandbox and then allow Buildkite agents to generate and inject some sandboxed AWS credentials into the build secrets, such builds will have access to the EC2 metadata API. They will also be able to access the same permissions as your EC2.
-
-To avoid this, you need to prevent the builds from accessing your EC2 metadata or provide sandboxed AWS credentials for each build and restrict their permissions. There are two main ways to do it:
-
-* Compartmentalizing your Buildkite agents
-* Downgrading an instance profile role
-
-If you run all the build steps in Docker containers, take a look at [compartmentalizing your agents](#preventing-builds-from-accessing-amazon-ec2-metadata-restricting-permissions-using-compartmentalization-of-agents). If you are using Kubernetes for your Buildkite CI, use the [same approach](#preventing-builds-from-accessing-amazon-ec2-metadata-restricting-permissions-using-compartmentalization-of-agents) and also check out [this article](https://github.com/blakestoddard/scaledkite) for more information and inspiration.
-
-### Restricting permissions using compartmentalization of agents
-
-This approach suggests the use of Elastic CI Stack for AWS. However, these instructions can also be followed using hooks or scripts.
-
-You can divide your Buildkite agents by responsibilities. For example — agents building for development environments or release, agents deploying for staging or production, etc. This will help reflect multiple AWS environments at your Buildkite organization.
-
-To divide the responsibilities and permissions of Buildkite agents and provide the relevant teams with sandboxed IAM permissions for their own microservices, for each pipeline you will need to use a [third-party AWS AssumeRole Buildkite Plugin](https://github.com/cultureamp/aws-assume-role-buildkite-plugin/). This plugin also takes care of the injection of AWS credentials.
-
-To ensure that the agent in charge of a job, build, pipeline, etc., is allowed to run and will assume the role it has permission to, you can perform a [pre-checkout hook](/docs/agent/v3/hooks) on the agent.
-
-### Restricting permissions by downgrading an instance profile role
-
-This approach is [suggested by Amazon](https://docs.aws.amazon.com/cli/latest/reference/ec2/replace-iam-instance-profile-association.html) and is helpful if you are not using Elastic CI Stack for AWS.
-
-To restrict permissions of an instance, you can permanently downgrade an instance's profile from a high-permission bootstrap role to a low-permission steady-state role. The high-permission role has a policy that allows replacing the instance profile with a low-permission role, but there is no such policy for a low-permission role.
-
-## Further tightening the security around EC2 permissions
-
-For added security, you can expire agents after a job. For example, you can:
-
-1. Create a new agent for a pending job
-1. Transition the agent to a sandbox role
-1. Terminate the agent instance when the agent completes the job
-
-Starting a new EC2 instance for every job results in a small trade-off of speed in favor of security. However, the Buildkite CI stack for AWS uses a Lambda to start new EC2 instances on demand, and it usually takes around one minute for a typical Linux instance.
-
-A larger trade-off here is the need to keep discarding the cache on the machine — for example, pre-fetched and pre-built Docker images — and start anew every time.
-
-If you're less concerned about the CI spend, new EC2 instance starting time, and other resources, you can specify a minimum stack size large enough to keep a pool of agents ready to go. This way, you can quickly replace any terminated agent instance with a clean instance.
-Buildkite uses this approach to secure open-source agent instances as they could be running untrusted code.
-
-For more information on AWS security practices regarding restricting access to the API in EKS, see [Amazon EKS security best practices](https://docs.aws.amazon.com/eks/latest/userguide/best-practices-security.html).
-
-### A note on recommended pool size
-
-There is no exact recommended quantity of agents in a pool. An optimal pool size is the minimum number of available agents you would want to have ready to run jobs instantly.
-
-You can start with one or two extra instances that are always available for running lightweight jobs (for example, pipeline uploads), and you can increase the number of agents per machine so that they can run in parallel.
-
-For organizations where at any given moment there are engineers working (for example, for shift-based 24/7 schedules or in globally distributed teams), having a large pool of build agents always available makes sense. Otherwise, idly running agents overnight might be a waste of resources.
+Read the [Auto Scaling EC2 Mac instances](/docs/agent/v3/aws/elastic-ci-stack/ec2-mac/setup) documentation for instructions on preparing and deploying this template.

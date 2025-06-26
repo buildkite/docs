@@ -12,7 +12,7 @@ You can add `envFrom` to all `checkout` containers in two ways:
     # pipeline.yml
     ...
     kubernetes:
-        checkout:
+      checkout:
         envFrom:
         - prefix: GITHUB_  # This prefix is added to all variable names
           secretRef:
@@ -25,7 +25,7 @@ You can add `envFrom` to all `checkout` containers in two ways:
     ```yaml
     # values.yml
     config:
-    default-checkout-params:
+      default-checkout-params:
         envFrom:
         - prefix: GITHUB_   # This prefix is added to all variable names
           secretRef:
@@ -43,8 +43,7 @@ You can add `envFrom` to all user-defined command containers in two ways:
     # pipeline.yml
     ...
     kubernetes:
-        commandParams:
-        interposer: vector
+      commandParams:
         envFrom:
         - prefix: DEPLOY_  # This prefix is added to all variable names
           secretRef:
@@ -57,8 +56,7 @@ You can add `envFrom` to all user-defined command containers in two ways:
     ```yaml
     # values.yml
     config:
-    default-command-params:
-        interposer: vector
+      default-command-params:
         envFrom:
         - prefix: DEPLOY_  # This prefix is added to all variable names
           secretRef:
@@ -76,7 +74,7 @@ You can add `envFrom` to all `sidecar` containers in two ways:
     # pipeline.yml
     ...
     kubernetes:
-        sidecarParams:
+      sidecarParams:
         envFrom:
         - prefix: LOGGING_  # This prefix is added to all variable names
           configMapRef:
@@ -89,7 +87,7 @@ You can add `envFrom` to all `sidecar` containers in two ways:
     ```yaml
     # values.yml
     config:
-    default-sidecar-params:
+      default-sidecar-params:
         envFrom:
         - prefix: LOGGING_  # This prefix is added to all variable names
           configMapRef:

@@ -10,7 +10,7 @@ curl -H "Authorization: Bearer $TOKEN" https://api.buildkite.com/v2/user
 
 Generate an [access token](https://buildkite.com/user/api-access-tokens).
 
-All webhooks contain an [`X-Buildkite-Token` header](/docs/apis/webhooks#http-headers) which allows you to verify the authenticity of the request.
+All webhooks contain an [`X-Buildkite-Token` header](/docs/apis/webhooks/pipelines#http-headers) which allows you to verify the authenticity of the request.
 
 ## API security
 

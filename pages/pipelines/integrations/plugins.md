@@ -30,8 +30,8 @@ See [Using plugins](/docs/pipelines/integrations/plugins/using) for more informa
 
 ## Finding plugins
 
-In the [Buildkite plugins directory](/docs/pipelines/integrations/plugins/directory) you can find all the plugins maintained by Buildkite, as well as plugins from third-party developers.
+Use the [Buildkite plugins directory](/docs/pipelines/integrations/plugins/directory) to find all the plugins maintained by Buildkite, as well as plugins from third-party developers.
 
 ## Creating a plugin
 
-See the [Writing plugins](/docs/pipelines/integrations/plugins/writing) documentation for step-by-step instructions on how to create a plugin.
+Learn more about how to create plugins, along with step-by-step instructions, on the [Writing plugins](/docs/pipelines/integrations/plugins/writing) page, along with some [useful tools](/docs/pipelines/integrations/plugins/tools) to help you develop them.

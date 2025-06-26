@@ -74,6 +74,23 @@ query getClusterTokens {
 >🚧 Cluster `token` field deprecation
 > The `token` field of the [ClusterToken](/docs/apis/graphql/schemas/object/clustertoken) object has been deprecated to improve security. Please use the `tokenValue` field from the [ClusterAgentTokenCreatePayload](/docs/apis/graphql/schemas/object/clusteragenttokencreatepayload) object instead after creating a token.
 
+## Create agent token with an expiration date
+
+Create an agent token with an expiration date. The expiration date is displayed in the Buildkite interface and cannot be changed using another Buildkite API call.
+
+```graphql
+mutation createToken {
+  clusterAgentTokenCreate(input: {
+    organizationId: "",
+    description: "A token with an expiration date",
+    clusterId:"",
+    expiresAt: "2026-01-01T00:00:00Z"
+  }) {
+    tokenValue
+  }
+}
+```
+
 ## List jobs in a particular cluster queue
 
 To get jobs within a cluster queue, use the `clusterQueue` argument of the `jobs` query, passing in the ID of the cluster queue to filter jobs from:

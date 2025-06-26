@@ -1,3 +1,7 @@
+---
+toc_include_h3: false
+---
+
 # Elastic CI Stack for AWS overview
 
 The Buildkite Elastic CI Stack for AWS gives you a private, autoscaling
@@ -28,8 +32,7 @@ The Buildkite Elastic CI Stack for AWS supports:
 * Multiple stacks in the same AWS Account
 * Rolling updates to stack instances to reduce interruption
 
-Most instance features are supported on both Linux and Windows. See below for a
-per-operating system breakdown:
+Most features are supported across both Linux and Windows. The following table provides details of which features are supported by these operating systems:
 
 Feature | Linux | Windows
 --- | --- | ---
@@ -50,10 +53,11 @@ Periodic Instance Health Check | ✅ |
 Git LFS | ✅ |
 Additional sudo Permissions | ✅ |
 RDP Access | | ✅
+Pipeline Signing | ✅ | ✅
 
 ## Get started with the Elastic CI Stack for AWS
 
 Get started with Buildkite Elastic CI Stack for AWS for:
 
-* [Linux and Windows](/docs/agent/v3/elastic-ci-aws)
-* [Mac](/docs/agent/v3/elastic-ci-stack-for-ec2-mac/autoscaling-mac-metal)
+* [Linux and Windows](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/setup)
+* [Mac](/docs/agent/v3/aws/elastic-ci-stack/ec2-mac/setup)

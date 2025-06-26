@@ -30,7 +30,7 @@ steps:
             NETLIFY_AUTH_TOKEN: /pipelines/buildkite/docs-private/netlify-auth-token
             NETLIFY_SITE_ID: /pipelines/buildkite/docs-private/netlify-site-id
       - docker-compose#v3.9.0:
-          run: app
+          run: deploy-preview
           dependencies: false
           mount-buildkite-agent: true
           env:

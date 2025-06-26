@@ -2,6 +2,7 @@
 
 This page shows you how to write your own Buildkite plugin, and how to validate the `plugin.yml` file which describes it against the plugin schema.
 
+A [number of tools](/docs/pipelines/integrations/plugins/tools) are also available to help you develop your plugin.
 
 ## Tutorial: write a plugin
 

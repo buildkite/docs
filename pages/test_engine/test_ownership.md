@@ -4,7 +4,7 @@ Test ownership is critical in adopting a healthy testing culture at your organiz
 
 Customers on the [Pro and Enterprise plans](https://buildkite.com/pricing) can assign test ownership to [teams](/docs/test-engine/permissions#manage-teams-and-permissions).
 
-Test ownership is managed via team assignments in a TESTOWNERS file. The team that is the default owner of a test [will be automatically assigned flaky tests](/docs/test-engine/flaky-test-management) to triage.
+Test ownership is managed via team assignments in a TESTOWNERS file.
 
 ## TESTOWNERS file format
 
@@ -40,9 +40,7 @@ The following example TESTOWNERS file, which you can copy as a starting point, e
 # owner, these additional teams will not be notified about test
 # issues. Any file pattern matches defined later in this file take
 # precedence and override any file patterns defined further up
-# this file. Therefore, unless a subsequent file pattern match
-# takes precedence, `team-slug-1` will have any flaky tests
-# assigned to them and the team's users notified by default.
+# this file.
 *                     team-slug-1 team-slug-2
 
 # In this example, any test file ending with `_spec.rb` will be

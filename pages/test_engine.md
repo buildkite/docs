@@ -31,6 +31,7 @@ If you're familiar with the basics, begin configuring [test collection](/docs/te
   <%= button ":cypress: Cypress", "/docs/test-engine/javascript-collectors#configure-the-test-framework-cypress" %>
   <%= button ":jasmine: Jasmine", "/docs/test-engine/javascript-collectors#configure-the-test-framework-jasmine" %>
   <%= button ":playwright: Playwright", "/docs/test-engine/javascript-collectors#configure-the-test-framework-playwright" %>
+  <%= button ":vitest: Vitest", "/docs/test-engine/javascript-collectors#configure-the-test-framework-vitest" %>
   <%= button ":swift: Swift", "/docs/test-engine/swift-collectors" %>
   <%= button ":android: Android", "/docs/test-engine/android-collectors" %>
   <%= button ":pytest: pytest", "/docs/test-engine/python-collectors" %>
@@ -53,3 +54,7 @@ Once test collection has been set up in your development project, you can procee
 
 > 📘 Data retention
 > The data uploaded to Test Engine is stored in S3 and deleted after six months.
+
+## API & references
+
+Learn more about Test Engine's APIs through the [REST API documentation](/docs/apis/rest-api), and related endpoints, starting with [test suites](/docs/apis/rest-api/test-engine/suites), as well as Test Engine-specific [webhooks](/docs/apis/webhooks/test-engine).

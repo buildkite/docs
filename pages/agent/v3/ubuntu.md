@@ -69,6 +69,12 @@ See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details
 
 <%= render_markdown partial: 'agent/v3/apt_configuration' %>
 
+## Default operating system user running the agent
+
+On Ubuntu, the Buildkite agent runs as the `buildkite-agent` operating system user account.
+
+You can override this default user through a [systemd modification](#systemd-modifications).
+
 ## Running multiple agents
 
 <%= render_markdown partial: 'agent/v3/linux_multiple_agents' %>
@@ -80,3 +86,7 @@ See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details
 ## Alternative keyservers
 
 <%= render_markdown partial: 'agent/v3/alternative_keyservers' %>
+
+## Systemd modifications
+
+<%= render_markdown partial: 'agent/v3/linux_systemd_modifications' %>
