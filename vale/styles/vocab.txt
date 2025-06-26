@@ -71,6 +71,7 @@ cron
 crontab
 Crontab
 Datadog
+Datadog's
 debuild
 declaratively
 deduper
