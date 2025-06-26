@@ -489,6 +489,10 @@
               path: "pipelines/integrations/notifications/slack-workspace"
             - name: "CCMenu and CCTray"
               path: "pipelines/integrations/notifications/cc-menu"
+        - name: "Observability"
+          children:
+            - name: "Datadog"
+              path: "pipelines/integrations/observability/datadog"
         - name: "Other integrations"
           children:
             - name: "Amazon EventBridge"

@@ -68,6 +68,7 @@ cron
 crontab
 Crontab
 Datadog
+Datadog's
 debuild
 deduper
 deno

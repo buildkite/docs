@@ -4,10 +4,9 @@ Distributed tracing tools like [Datadog APM](https://www.datadoghq.com/product/a
 
 The Buildkite agent currently supports the two tracing backends listed above, Datadog APM (using OpenTracing) and OpenTelemetry. This doc will guide you through setting up tracing using either of these backends.
 
-
 ## Using Datadog APM
 
-To use the Datadog APM integration, start the Buildkite agent with the `--tracing-backend datadog` option. This will enable Datadog APM tracing, and send the traces to a Datadog agent at `localhost:8126` by default. If your Datadog agent is located at another host, the Buildkite agent will respect the `DD_AGENT_HOST` and `DD_AGENT_TRACE_PORT` environment variables defined by [`dd-trace-go`](https://docs.datadoghq.com/tracing/setup_overview/setup/go/?tab=containers). Note that there will need to be a Datadog agent present at the above address to ingest these traces.
+To use the Datadog Application Performance Monitoring (APM) integration, start the Buildkite agent with the `--tracing-backend datadog` option. This will enable Datadog APM tracing, and send the traces to a Datadog agent at `localhost:8126` by default. If your Datadog agent is located at another host, the Buildkite agent will respect the `DD_AGENT_HOST` and `DD_AGENT_TRACE_PORT` environment variables defined by [`dd-trace-go`](https://docs.datadoghq.com/tracing/setup_overview/setup/go/?tab=containers). Note that there will need to be a Datadog agent present at the above address to ingest these traces.
 
 Once this is done, the agent will start sending tracing information to Datadog. You can observe traces as they come in in the APM > Traces screen in your Datadog instance.
 
