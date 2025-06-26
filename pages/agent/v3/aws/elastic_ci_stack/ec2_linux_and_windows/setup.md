@@ -23,7 +23,7 @@ The following AMIs are available in all the supported regions:
 - Amazon Linux 2023 (64-bit ARM, Graviton)
 - Windows Server 2019 (64-bit x86)
 
-If you want to use the [AWS CLI](https://aws.amazon.com/cli/) instead, download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/config.json.example), rename it to `config.json`, add your Buildkite Agent token (and any other config values), and then run the below command:
+If you want to use the [AWS CLI](https://aws.amazon.com/cli/) instead, download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/config.json.example), rename it to `config.json`, add your Buildkite Agent token (and any [other config values](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/templates/aws-stack.yml)), and then run the below command:
 
 ```bash
 aws cloudformation create-stack \
