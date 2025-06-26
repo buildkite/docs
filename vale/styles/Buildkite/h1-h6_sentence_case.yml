@@ -19,6 +19,7 @@ exceptions:
   - Agent Stack for Kubernetes
   - API
   - APM
+  - Argo CD
   - AWS
   - AWS Elastic Container Registry
   - Amazon
