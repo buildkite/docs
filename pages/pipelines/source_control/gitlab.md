@@ -24,7 +24,7 @@ You can also use repositories from your own self-managed GitLab service but you'
 1. Create a new pipeline on Buildkite using your GitLab repository's URL (for example, `git@git.mycompany.com:your/repo.git`) and follow the instructions on the pipeline creation page.
 
 > 📘 Verify your GitLab account
-> To ensure that the commit author from Gitlab is a verified Buildkite account user, a public email must be specified from the user's Gitlab account.
+> To ensure that the commit author from GitLab is a verified Buildkite account user, a public email must be specified from the user's GitLab account.
 
 ## Branch configuration and settings
 
