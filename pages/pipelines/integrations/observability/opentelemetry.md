@@ -166,7 +166,7 @@ The OpenTelemetry collector also supports many downstream data stores via [expor
 
 `otelcol validate` lets you validate your [collector configuration](https://opentelemetry.io/docs/collector/configuration/).
 
-For example, to validate one of the example configuration files in [collector-config](https://github.com/buildkite/opentelemetry-notification-service-examples/tree/main/collector-config), say `basic-auth-debug.yml` you could run the following command:
+For example, to validate one of the example configuration files in [examples repository](https://github.com/buildkite/opentelemetry-notification-service-examples/tree/main/collector-config), say `basic-auth-debug.yml` you could run the following command:
 
 ```bash
 docker run --rm -it -v $(pwd)/collector-config:/config otel/opentelemetry-collector-contrib validate --config=/config/basic-auth-debug.yml && echo "config valid"
