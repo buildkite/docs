@@ -20,7 +20,7 @@ This approach allows for a clear separation of concerns—Pipelines handles the 
 
 There are various ways Argo CD could be used with Buildkite Pipelines. The most common ones include:
 
-- The Buildkite agent pushes some Kubernetes Manifests to a GitOps repo and then waits for the GitOps Engine to reconcile the change to a target cluster.
+- The Buildkite agent pushes Kubernetes manifests to a GitOps repository and then waits for the GitOps engine to [reconcile](http://argo-cd.readthedocs.io/en/stable/operator-manual/reconcile/) the change to a target Kubernetes cluster.
 - Buildkite Pipelines triggers Argo CD to deploy to Kubernetes.
 - Buildkite Pipelines triggers Argo CD via Argo API to either [sync an application](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Sync), or [roll back a synchronization](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Rollback), and monitors the deployment until completion.
 
