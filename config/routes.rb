@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # Pages and guides that have been renamed (and we don't want to break old URLs)
 
   get "/docs/agent/clusters",                                              to: redirect("/docs/clusters/overview")
+  get "/docs/agent/v3/agent-stack-k8s/setting-up-hooks-and-plugins",       to: redirect("/docs/agent/v3/agent-stack-k8s/agent-hooks-and-plugins")
   get "/docs/agent/v3/aws/secrets-manager",                                to: redirect("/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/secrets-manager")
   get "/docs/agent/v3/aws/vpc",                                            to: redirect("/docs/agent/v3/aws/architecture/vpc")
   get "/docs/agent/v3/elastic-ci-stack-for-ec2-mac/autoscaling-mac-metal", to: redirect("/docs/agent/v3/aws/elastic-ci-stack/ec2-mac/setup")
