@@ -5,16 +5,16 @@
 - Is a continuous delivery tool specifically designed for Kubernetes.
 - Focuses on deploying applications to Kubernetes clusters using GitOps principles, where the desired state of your applications is declaratively defined in Git repositories and automatically synchronized to your Kubernetes clusters.
 
-Buildkite Pipelines and Argo CD complement each other in modern CI/CD workflows. Buildkite Pipelines handles CI tasks, such as building, testing, and packaging applications, while Argo CD specializes in continuous deployment.
+Buildkite Pipelines and Argo CD complement each other in modern CI/CD workflows, where you can allow Pipelines to handle the CI tasks, such as building, testing, and packaging applications, and allow Argo CD to specialize in handling continuous deployment.
 
 The following example workflow outlines how Buildkite would work with Argo CD:
 
 1. Buildkite Pipelines receives a code commit and triggers a build.
-1. The build process in Buildkite Pipelines might include steps to package, test, and create Kubernetes manifests.
+1. The build process in Pipelines might include steps to package, test, and create Kubernetes manifests.
 1. Buildkite Pipelines pushes the generated manifests to a GitOps repository, which is monitored by Argo CD.
 1. Argo CD detects the changes in the GitOps repo and automatically deploys the application to the target Kubernetes cluster.
 
-This approach allows for a clear separation of concerns: Buildkite handles the build and test processes, while Argo CD handles the deployment to Kubernetes. This simplifies the overall CI/CD pipeline and makes it easier to manage deployments.
+This approach allows for a clear separation of concerns—Pipelines handles the build and test processes, while Argo CD handles the deployment to Kubernetes. This simplifies the overall CI/CD pipeline and makes it easier to manage deployments.
 
 ## Using Argo CD with Buildkite Pipelines
 
@@ -22,7 +22,7 @@ There are various ways Argo CD could be used with Buildkite Pipelines. The most 
 
 - The Buildkite agent pushes some Kubernetes Manifests to a GitOps repo and then waits for the GitOps Engine to reconcile the change to a target cluster.
 - Buildkite Pipelines triggers Argo CD to deploy to Kubernetes.
-- Buildkite Pipelines triggers Argo CD via Argo API to [sync an application](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Sync) or to [roll back a synchronization](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Rollback), and monitors the deployment until completion.
+- Buildkite Pipelines triggers Argo CD via Argo API to either [sync an application](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Sync), or [roll back a synchronization](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Rollback), and monitors the deployment until completion.
 
 ## Deploying to Kubernetes with Argo CD triggered by Buildkite Pipelines
 
@@ -59,12 +59,12 @@ You can insert a [block step](/docs/pipelines/configure/step-types/block-step) b
 ...
 ```
 
-> 🚧 Warning!
-> Please keep in mind that these examples are aimed at providing you with a basic understanding of how it is possible to use Argo CD with Buildkite. For a production-ready implementation, we [strongly advise against](/docs/pipelines/security/secrets/risk-considerations) using secrets in plaintext pipeline files. Instead, the recommended way of handling secrets would be by using the [Buildkite secrets](https://buildkite.com/docs/pipelines/security/secrets/buildkite-secrets)-based approach.
+> 🚧
+> Bear in mind that these examples are aimed at providing you with a basic understanding of how to use Argo CD with Buildkite. For production-ready implementations, as discussed in [Risk considerations](/docs/pipelines/security/secrets/risk-considerations), it is _strongly recommended_ that you avoid using your secrets in plaintext pipeline files. Instead, you can use a [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets)-based approach.
 
 ## Using annotations to link to Argo CD
 
-With the help of Buildkite's build [annotations](/docs/agent/v3/cli-annotate), you can include a deployment link to the Argo CD UI after the build has finished running to review the deployment status. For example:
+With the help of Buildkite's build [annotations](/docs/agent/v3/cli-annotate), you can include a deployment link to the Argo CD interface after the build has finished running to review the deployment status. For example:
 
 ```yaml
 steps:
