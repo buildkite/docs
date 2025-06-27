@@ -39,10 +39,9 @@ Use `acquire` and `release` when multiple builds need to run the same operation 
 steps:
   - label: "Install Dependencies"
     commands:
-        - echo "+++ Installing dependencies"
-        - bundle install
-        - echo "+++ Installing Node dependencies"
-        - npm ci
+        - "echo '+++ Installing dependencies'"
+        - "bundle install"
+        - "npm ci"
     key: "install"
 
   - label: "Migrate DB Schema"
@@ -54,7 +53,7 @@ steps:
     plugins:
         - vault-secrets#v2.2.1:
             server: "https://my-vault-server"
-            path: data/buildkite/postgres
+            path: "data/buildkite/postgres"
             auth:
                 method: "approle"
                 role-id: "my-role-id"
@@ -74,21 +73,21 @@ When running parallel jobs that need shared setup, `do` and `done` ensure expens
 steps:
   - label: "Install Dependencies"
     commands:
-        - echo "+++ Installing dependencies"
-        - bundle install
-        - npm ci
+        - "echo '+++ Installing dependencies'"
+        - "bundle install"
+        - "npm ci"
     key: "install"
 
   - label: "Setup Test Environment"
-    command: setup_test.sh
+    command: "setup_test.sh"
     depends_on: "install"
     key: "prep"
     parallelism: 5
 
   - label: "Run Tests"
-    command: |
-        echo "+++ Running tests"
-        bundle exec rspec
+    commands:
+        - "echo '+++ Running tests'"
+        - "bundle exec rspec"
     depends_on: "prep"
     parallelism: 10
 ```
