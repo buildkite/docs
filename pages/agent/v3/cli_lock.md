@@ -67,7 +67,7 @@ steps:
 
 ### One-time locks
 
-When running parallel jobs that need shared setup, `do` and `done` ensure expensive operations happen only once. One agent performs the setup (downloading datasets, generating certificates, starting services) while others wait and then proceed. This saves time and resources compared to each parallel job repeating the same work. Once marked as done, the lock remains completed for all subsequent builds on that agent until the agent restarts.
+When running parallel jobs, on the same host, that need shared setup, `do` and `done` ensure expensive operations happen only once. One agent performs the setup (downloading datasets, generating certificates, starting services, etc.,) while others wait and then proceed. This saves time and resources compared to each parallel job repeating the same work. Once marked as `done`, the lock remains completed for all subsequent jobs on the host unless it is restarted.
 
 ```yml
 steps:
