@@ -14,6 +14,9 @@ steps:
 
 When running multiple commands, either defined in a single line (`npm install && tests.sh`) or defined in a list, any failure will prevent subsequent commands from running, and will mark the command step as failed.
 
+> 📘 Commands and `PATH`
+> The shell command(s) provided for execution must be resolvable through the directories defined within the `PATH` environment variable. When referencing scripts for execution, preference using a relative path (for example, `./scripts/build.sh`, or `scripts/bin/build-prod`).
+
 ## Command step attributes
 
 Required attributes:
@@ -26,7 +29,7 @@ Required attributes:
       <em>Example:</em> <code>"build.sh"</code><br/>
       <em>Example:</em><br/>
       <code>- "npm install"</code><br/>
-      <code>- "tests.sh"</code><br/>
+      <code>- "./tests.sh"</code><br/>
       <em>Alias:</em> <code>commands</code>
     </td>
   </tr>
@@ -36,8 +39,8 @@ Required attributes:
 steps:
   - commands:
     - "npm install && npm test"
-    - "moretests.sh"
-    - "build.sh"
+    - "extras/moretests.sh"
+    - "./build.sh"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -245,7 +248,7 @@ steps:
     retry:
       automatic: true
 
-  - wait
+  - wait: ~
 
   - label: "Deploy"
     command: "deploy.sh"
@@ -277,7 +280,7 @@ Conditions on retries can be specified. For example, it's possible to set steps 
           limit: 2
         - exit_status: "*"
           limit: 4
-  - wait
+  - wait: ~
   - label: "Deploy"
     command: "deploy.sh"
     branches: "main"
@@ -394,7 +397,7 @@ steps:
       manual:
         permit_on_passed: true
 
-  - wait
+  - wait: ~
 
   - label: "Deploy"
     command: "deploy.sh"
@@ -531,7 +534,7 @@ steps:
     command: "broken.sh"
     skip: "Currently broken and needs to be fixed"
 
-  - wait
+  - wait: ~
 
   - label: "\:shipit\: Deploy"
     command: "deploy.sh"
@@ -543,7 +546,7 @@ steps:
         allowed: false
         reason: "Sorry, you can't retry a deployment"
 
-  - wait
+  - wait: ~
 
   - label: "Smoke test"
     command: "smoke-test.sh"
