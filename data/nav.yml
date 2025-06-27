@@ -457,7 +457,6 @@
           path: "pipelines/deployments/with-argo-cd"
         - name: "Deploying with Heroku"
           path: "pipelines/deployments/with-heroku"
-
     - name: "Insights"
       children:
         - name: "Waterfall view"
