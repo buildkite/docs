@@ -76,7 +76,6 @@ steps:
     commands:
         - echo "+++ Installing dependencies"
         - bundle install
-        - echo "+++ Installing Node dependencies"
         - npm ci
     key: "install"
 
