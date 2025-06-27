@@ -22,7 +22,11 @@ If you want to have the group open by default, use `+++` instead:
 echo "+++ A section of the build"
 ```
 
-If no group is explicitly expanded (`+++`), then the last collapsed regular group (`---`) gets expanded instead. If you really want all groups to be collapsed, add an empty expanded group (`+++`).
+If no group is explicitly expanded (`+++`), then the last collapsed regular group (`---`) gets expanded instead. If you _really_ want all groups to be collapsed, add an empty expanded group at the end of your build:
+
+```bash
+echo -e "+++ \032"
+```
 
 If you'd like to open the previously defined group, use `^^^ +++`. This is useful if a command within a group fails, and you'd like to have the group already open when you view the log.
 
