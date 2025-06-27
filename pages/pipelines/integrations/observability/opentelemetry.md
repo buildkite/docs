@@ -1,5 +1,5 @@
 ---
-keywords: OpenRelemetry, tracing, observability, Datadog, honeycomb, otlp
+keywords: OpenTelemetry, tracing, observability, Datadog, honeycomb, otlp
 ---
 
 # OpenTelemetry

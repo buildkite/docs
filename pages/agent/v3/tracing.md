@@ -20,4 +20,4 @@ To set the OpenTelemetry service name, provide the `--tracing-service-name examp
 
 If using the OpenTelemetry Tracing Notification Service, you can provide the `--tracing-propagate-traceparent` flag to propagate traces from the Buildkite control plane, and through to your Agent trace spans.
 
-See more information on the OpenTelemetry integrations see: [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry).
+For more information on the OpenTelemetry integrations see: [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry).
