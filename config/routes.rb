@@ -141,6 +141,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/controlling-concurrency",                           to: redirect("/docs/pipelines/configure/workflows/controlling-concurrency")
   get "/docs/pipelines/defining-steps",                                    to: redirect("/docs/pipelines/configure/defining-steps")
   get "/docs/pipelines/dependencies",                                      to: redirect("/docs/pipelines/configure/dependencies")
+  get "/docs/pipelines/deployments/to-heroku",                             to: redirect("/docs/pipelines/deployments/with-heroku")
   get "/docs/pipelines/emoji",                                             to: redirect("/docs/platform/emojis")
   get "/docs/pipelines/emojis",                                            to: redirect("/docs/platform/emojis")
   get "/docs/pipelines/example-pipelines",                                 to: redirect("/docs/pipelines/configure/example-pipelines")
