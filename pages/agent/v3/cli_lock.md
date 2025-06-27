@@ -29,7 +29,7 @@ With the `lock` command, processes can acquire and release a lock using the `acq
 
 ## Usage within a pipeline
 
-Locks help coordinate access to shared resources when multiple processes run concurrently on the same machine, such as when `--spawn` is used to create multiple agents.
+Locks help coordinate access to shared resources when multiple agents run concurrently on the same host, such as when `--spawn` is used to create multiple agents.
 
 ### Coordinating sequential access
 
