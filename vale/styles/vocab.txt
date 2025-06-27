@@ -9,6 +9,7 @@ API
 API's
 APIs
 apk
+APM
 applesimutils
 architecting
 Argo
@@ -184,7 +185,11 @@ NVMe
 OAuth
 oidc
 Okta
+OpenTelemetry
+opentelemetry
 onboarding
+OTLP
+otlp
 Pagerduty
 parsable
 pbuilder
@@ -204,6 +209,7 @@ podWatcher
 Postgres
 PowerShell
 PR's
+protobuf
 preemptible
 prefill
 proxied
@@ -237,6 +243,7 @@ shasum
 shellcheck
 shellscripting
 Shipit
+signaltometrics
 snake_case
 Sonoma
 Splitter's
