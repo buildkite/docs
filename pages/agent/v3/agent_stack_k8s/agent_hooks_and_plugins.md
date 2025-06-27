@@ -55,13 +55,6 @@ All the hooks needed are under the `/tmp/hooks` directory and a ConfigMap create
 
 In order for the agent to use these hooks, a volume containing the ConfigMap is defined and then mounted to all containers via `extraVolumeMounts` at `/buildkite/hooks`, using the `kubernetes` plugin:
 
-<!-- vale off -->
-
-> 📘 Permissions and availability
-> The `defaultMode` value of `493` sets the Unix permissions to `755`, which enables the hooks to be executable. Another way to make this hooks directory available to containers is to use [HostPath](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) volume mounts, but this is not a recommended approach for production environments.
-
-<!-- vale on -->
-
 ```yaml
 steps:
 - label: "\:pipeline\: Pipeline Upload"
@@ -88,6 +81,9 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+> 📘 Permissions and availability
+> The `defaultMode` value of `493` sets the Unix permissions to `755`, which enables the hooks to be executable.
+
 ## Agent hook execution differences
 
 With jobs created by the Buildkite Agent Stack for Kubernetes controller, there are key differences with hook execution. The primary difference is with the `checkout` container and user-defined `command` containers.
@@ -96,12 +92,8 @@ With jobs created by the Buildkite Agent Stack for Kubernetes controller, there 
 - Checkout-related hooks (`pre-checkout`, `checkout`, `post-checkout`) are only executed within the `checkout` container.
 - Command-related hooks (`pre-command`, `command`, `post-command`) are only executed within the `command` container(s).
 
-<!-- vale off -->
-
 > 📘 Exporting environment variables
 > Since hooks are executed from within separate containers for checkout and command phases of the job's lifecycle, any environment variables exported during the execution of hooks with the `checkout` container will _not_ be available to the command container(s). This is operationally different from how hooks are [sourced](/docs/agent/v3/hooks#hook-scopes) outside of the Buildkite Agent Stack for Kubernetes.
-
-<!-- vale on -->
 
 If the env `BUILDKITE_HOOKS_PATH` is set at pipeline level instead of at the container level, as shown in the earlier pipeline configuration examples, then the hooks will run for both `checkout` container and `command` container(s).
 
@@ -145,7 +137,7 @@ Running commands                    # <-- user-defined container
 Running global pre-exit hook        # <-- user-defined container
 ```
 
-In the scenarios where you would want to `skip checkout` when running on Buildkite Agent Stack for Kubernetes controller, the outlined configuration will cause checkout-related hooks (`pre-checkout`, `checkout` and `post-checkout`) to _not_ execute because the `checkout` container will not be present when `skip:true` is configured for `checkout`.
+In the scenarios where you would want to `skip checkout` when running on Buildkite Agent Stack for Kubernetes controller, the outlined configuration will cause checkout-related hooks (`pre-checkout`, `checkout` and `post-checkout`) to _not_ execute because the `checkout` container will not be present when `skip: true` is configured for `checkout`.
 
 Here is a pipeline example where `checkout` is skipped:
 
@@ -191,13 +183,6 @@ The `agent-config` block within the controller's configuration file (`values.yam
 
 Example of using plugins from a [HostPath](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath)):
 
-<!-- vale off -->
-
-> 📘 Plugins mount point
-> The `plugins-path` Buildkite agent config option can be used to change the mount point of the corresponding volume. This will also set `BUILDKITE_PLUGINS_PATH` to the defined path on `checkout` and command containers. The default mount point is `/buildkite/plugins`.
-
-<!-- vale on -->
-
 ```yaml
 config:
 agent-config:
@@ -209,3 +194,6 @@ agent-config:
     path: /etc/buildkite-agent/plugins
 ```
 {: codeblock-file="values.yaml"}
+
+> 📘 Plugins mount point
+> The `plugins-path` Buildkite agent config option can be used to change the mount point of the corresponding volume. This will also set `BUILDKITE_PLUGINS_PATH` to the defined path on `checkout` and command containers. The default mount point is `/buildkite/plugins`.
