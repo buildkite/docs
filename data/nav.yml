@@ -451,10 +451,12 @@
       children:
         - name: "Overview"
           path: "pipelines/deployments"
-        - name: "Deploying to Heroku"
-          path: "pipelines/deployments/to-heroku"
         - name: "Deploying to Kubernetes"
           path: "pipelines/deployments/to-kubernetes"
+        - name: "Deploying with Argo"
+          path: "pipelines/deployments/with-argo-cd"
+        - name: "Deploying with Heroku"
+          path: "pipelines/deployments/with-heroku"
     - name: "Insights"
       children:
         - name: "Waterfall view"
