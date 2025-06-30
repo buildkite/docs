@@ -212,6 +212,13 @@ To pass through pull request information to the triggered build, pass through th
 ```
 {: codeblock-file="pipeline.yml"}
 
+> 📘 BUILDKITE_PULL_REQUEST in triggered builds
+> If BUILDKITE_PULL_REQUEST is set, the agent will check out the corresponding pull request ref (refs/pull/ID/head) instead of the branch specified by BUILDKITE_BRANCH.
+
+This behavior is part of the agent’s checkout [logic](https://github.com/buildkite/agent/blob/14692744615158279cf73ed024a0304b2dbe8fe5/internal/job/checkout.go#L380-L395) and is intended to support pull requests builds.However, it may be unexpected in triggered builds where BUILDKITE_PULL_REQUEST is passed for reporting purposes only.
+
+To pass pull request metadata to a triggered build without affecting the code checkout, use a custom environment variable name (for example, MONOREPO_PULL_REQUEST instead of BUILDKITE_PULL_REQUEST).
+
 To set environment variables on the build created by the trigger step, use the `env` attribute:
 
 ```yml
