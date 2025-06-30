@@ -264,6 +264,8 @@ config:
 ...
 ```
 
-## Cleanup for old Buildkite jobs
+## Cleaning up old Buildkite Pipelines jobs
 
-Users of Kubernetes v1.23 and below may sometimes find that their old jobs are still present and not getting automatically cleaned up. This may take up space and may cause other disruptions with deployments. In the case where you notice old Buildkite jobs still present in your cluster, you can use the script located in https://github.com/buildkite/agent-stack-k8s/tree/main/utils called "clean-up-job.yaml" to run the clean up of old Buildkite jobs.
+If you are using Kubernetes v1.23 and earlier, you may sometimes find that old jobs are still present in your Kubernetes cluster and are not getting automatically cleaned up. This may consume unnecessary space and potentially cause other disruptions with deployments.
+
+If you notice old Buildkite Pipelines jobs still present in your Kubernetes cluster, you can use the [`clean-up-job.yaml`](https://github.com/buildkite/agent-stack-k8s/blob/main/utils/clean-up-job.yaml) script (with usage instructions provided at the top of this file) located in [Agent Stack for Kubernetes](https://github.com/buildkite/agent-stack-k8s) repository to clean up your old Buildkite jobs.
