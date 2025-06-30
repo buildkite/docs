@@ -11,18 +11,18 @@
 #  replace the content in data/schema.graphql
 #  and run the generation script `./scripts/generate-graphql-api-content.sh`.
 
-title: NotificationService – Interfaces – GraphQL API
+title: NotificationServiceOpenTelemetryTracing – Objects – GraphQL API
 toc: false
 ---
 <!-- vale off -->
 <h1 class="has-pills">
-  NotificationService
-  <span data-algolia-exclude><span class="pill pill--interface pill--normal-case pill--large"><code>INTERFACE</code></span></span>
+  NotificationServiceOpenTelemetryTracing
+  <span data-algolia-exclude><span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></span>
 </h1>
 <!-- vale on -->
 
 
-
+Deliver OpenTelemetry Traces to a custom OTLP endpoint
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
@@ -38,16 +38,10 @@ toc: false
 
 
 
+<h2 data-algolia-exclude>Interfaces</h2>
+<div>
+  <a href="/docs/apis/graphql/schemas/interface/notificationservice" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE NotificationService">
+  <code>NotificationService</code>
+</a>
 
-
-<h2 data-algolia-exclude>Possible types</h2>
-<div><a href="/docs/apis/graphql/schemas/object/notificationserviceopentelemetrytracing" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT NotificationServiceOpenTelemetryTracing">
-  <code>NotificationServiceOpenTelemetryTracing</code>
-</a>
-<a href="/docs/apis/graphql/schemas/object/notificationserviceslack" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT NotificationServiceSlack">
-  <code>NotificationServiceSlack</code>
-</a>
-<a href="/docs/apis/graphql/schemas/object/notificationservicewebhook" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT NotificationServiceWebhook">
-  <code>NotificationServiceWebhook</code>
-</a>
 </div>

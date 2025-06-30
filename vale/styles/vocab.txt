@@ -11,6 +11,7 @@ APIs
 apk
 applesimutils
 architecting
+Argo
 argumentless
 Artifactory
 Artifactory's
@@ -68,7 +69,9 @@ cron
 crontab
 Crontab
 Datadog
+Datadog's
 debuild
+declaratively
 deduper
 deno
 deprioritize

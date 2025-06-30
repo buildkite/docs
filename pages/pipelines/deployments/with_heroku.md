@@ -1,4 +1,4 @@
-# Deploying to Heroku
+# Deploying with Heroku
 
 You can test and deploy [Heroku](https://heroku.com/) applications from your Buildkite pipelines.
 
