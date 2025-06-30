@@ -43,7 +43,7 @@ Before planning your move, assess your current environment to understand the sco
     * Artifact sharing
     * Other dependencies
 
-### Evaluate complexity of the move
+### Evaluate complexity of the agent move process
 
 Consider the following factors that might increase the complexity of moving your unclustered agents to clustered ones:
 
@@ -67,9 +67,51 @@ Consider the following factors that might increase the complexity of moving your
     * You may need to rethink how shared infrastructure is accessed across cluster boundaries.
 
 - **Custom scripts or automation that interacts with the Buildkite API**: Any custom scripts, integrations, or automations that interact with the Buildkite API might need updates to work with the cluster model.
-    * Scripts that create or manage agents may need updating to handle [agent tokens](/docs/agent/v3/tokens) (which work with clusters),
+    * Scripts that create or manage agents may need updating to handle [agent tokens](/docs/agent/v3/tokens) (which work with clusters).
     * Reporting tools that query agent or pipeline state might need modification.
     * CI/CD automation that interacts with Buildkite Pipelines may require updates to handle the clustered structure.
 
 Use this assessment to determine which agent move approach is best for your Buildkite organization.
 
+## Agent move approaches
+
+Choose an agent move approach based on your organization's structure, CI/CD ownership model, and risk tolerance.
+
+### Gradual team-by-team agent move
+
+This agent move approach is best for Buildkite organizations that have their CI/CD ownership distributed across multiple teams.
+
+#### Advantages
+
+- Inherently has lower risk, as changes affect only one team at a time.
+- Teams can move to clustered agents at their own pace.
+- Easier to troubleshoot issues if they arise.
+
+#### Considerations
+
+- Requires a longer overall migration timeframe.
+- May require temporary solutions for cross-team pipeline dependencies.
+- Requires coordination between teams for shared resources.
+
+### All-at-once agent move
+
+This agent move approach is best for Buildkite organizations with centrally managed infrastructure, particularly those using infrastructure-as-code tools like Terraform.
+
+#### Advantages
+
+- Provides a shorter migration timeframe.
+- Provides a consistent implementation across all teams.
+- Avoids a prolonged hybrid state, where your Buildkite organization contains a mix of clustered and unclustered agents.
+
+#### Considerations
+
+- Higher risk of other problems occurring if issues are encountered during migration.
+- Requires more extensive planning and testing.
+
+### Hybrid agent move
+
+Consider a hybrid of the [team-by-team](#agent-move-approaches-gradual-team-by-team-agent-move) and [all-at-once](#agent-move-approaches-all-at-once-agent-move) agent move approaches if your Buildkite organization has both centralized and distributed CI/CD components:
+
+- Move core infrastructure in one operation.
+- Allow teams to migrate their team-specific agents and pipelines gradually.
+- Create a timeline with clear milestones for the complete agent move process.
