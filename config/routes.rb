@@ -274,7 +274,7 @@ Rails.application.routes.draw do
   get "/docs" => "pages#index", as: :home_page
 
   # All other standard docs pages
-  get "/docs/*path" => "pages#show", as: :docs_page
+  get "/docs/*path" => "pages#show", as: :docs_page, constraints: { format: /html|md/ }
 
   # Content Security Policy violations are sent here, and in production the path is handled by buildkite/buildkite. This is a stub response so CSP violations in development don't generate extra noise in the development log
   post "/_csp-violation-reports", to: proc { [201, {}, ['']] }

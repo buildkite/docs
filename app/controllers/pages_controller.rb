@@ -24,8 +24,13 @@ class PagesController < ApplicationController
       return # ensure we exit the method after redirecting
     end
 
-    # Otherwise, render the page (the default)
-    render @page.template
+    # Handle different formats
+    respond_to do |format|
+      format.html { render @page.template }
+      format.md {
+        render plain: @page.markdown_body, content_type: "text/markdown"
+      }
+    end
   end
 
   private
