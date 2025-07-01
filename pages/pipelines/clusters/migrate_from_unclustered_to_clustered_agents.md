@@ -173,21 +173,21 @@ Understanding these limitations and differences is crucial for planning your mig
   </tbody>
 </table>
 
-### Token Management
+### Token management
 
-#### Token Differences
+#### Token differences
 
 - Agent tokens for clusters are different from unclustered agent tokens.
 - Agent tokens have a different length and are scoped to a single cluster.
 - Agent tokens for clusters offer the ability to restrict access based on IP address, offering greater security and control.
 
-#### Security Considerations
+#### Security considerations
 
 - Switching from unclustered agent tokens to agent tokens for clusters is necessity for migrating your agents to clusters.
 - Ensure secure distribution of new agent tokens.
 - Plan for token rotation if needed, and if doing so, plan to implement [agent token expiration with a limited lifetime](/docs/agent/v3/tokens#agent-token-lifetime) (available via token creation API).
 
-### Pipeline Relationships
+### Pipeline relationships
 
 - As part of [evaluating the complexity of the agent migration process](#assessing-your-current-environment-evaluate-complexity-of-the-agent-migration-process), be aware of which of your pipelines trigger others.
 - You'll need to create [rules](/docs/pipelines/rules) to allow cross-cluster pipeline interactions, such as triggering or reading cross-cluster artifacts.
