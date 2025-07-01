@@ -1,15 +1,15 @@
-# Move from unclustered to clustered agents
+# Migrate from unclustered to clustered agents
 
 Clusters create logical boundaries between different parts of your build infrastructure, enhancing security, discoverability, and manageability. Learn more about clusters from the [Clusters overview](/docs/pipelines/clusters) page.
 
-Therefore, if your Buildkite pipelines are still operating in an unclustered agent environment, you should move these pipelines across to operating with clustered agents. This guide provides details on how to move your unclustered agents across to clustered ones.
+Therefore, if your Buildkite pipelines are still operating in an unclustered agent environment, you should migrate these pipelines across to operating with clustered agents. This guide provides details on how to migrate your unclustered agents across to clustered ones.
 
 Unclustered agents are agents associated with the **Unclustered** area of the **Clusters** page in a Buildkite organization. Learn more about unclustered agents in [Unclustered agent tokens](/docs/agent/v3/unclustered-tokens).
 
 Moving unclustered agents to a cluster allows those agents to use [agent tokens](/docs/agent/v3/tokens) that connect to Buildkite via a cluster, and requires at least [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) privileges.
 
 > 📘 Buildkite organizations created after February 26, 2024
-> Buildkite organizations created after this date will not have an **Unclustered** area. Therefore, this process is not required for these newer organizations.
+> Buildkite organizations created after this date will not have an **Unclustered** area. Therefore, this process is not required for these newer Buildkite organizations.
 
 ## Key benefits of clusters
 
@@ -23,7 +23,7 @@ Moving unclustered agents to a cluster allows those agents to use [agent tokens]
 
 ## Assessing your current environment
 
-Before planning your move, assess your current environment to understand the scope and complexity of the transition.
+Before planning your migration, assess your current environment to understand the scope and complexity of the transition.
 
 ### Make an inventory of existing resources
 
@@ -43,7 +43,7 @@ Before planning your move, assess your current environment to understand the sco
     * Artifact sharing
     * Other dependencies
 
-### Evaluate complexity of the agent move process
+### Evaluate complexity of the agent migration process
 
 Consider the following factors that might increase the complexity of moving your unclustered agents to clustered ones:
 
@@ -61,9 +61,9 @@ Consider the following factors that might increase the complexity of moving your
     * Consider grouping pipelines that interact frequently into the same cluster (at least initially, to simplify the agent moving process).
     * Triggers between clusters may have different behavior than within the same scope (for instance, [rules](/docs/pipelines/rules) allows [conditionals](/docs/pipelines/configure/conditionals)).
 
-- **Shared infrastructure or configuration between different teams or environments**: When different environments share infrastructure or configurations, sharing these resources across separate clusters adds complexity to the entire agent move process.
+- **Shared infrastructure or configuration between different teams or environments**: When different environments share infrastructure or configurations, sharing these resources across separate clusters adds complexity to the entire agent migration process.
     * Shared resources like caches, artifacts, or Docker images may need reconfiguring.
-    * Teams might need to coordinate the timing their individual agent moves to avoid disruption.
+    * Teams might need to coordinate the timing their individual agent migrations to avoid disruption.
     * You may need to rethink how shared infrastructure is accessed across cluster boundaries.
 
 - **Custom scripts or automation that interacts with the Buildkite API**: Any custom scripts, integrations, or automations that interact with the Buildkite API might need updates to work with the cluster model.
@@ -71,20 +71,20 @@ Consider the following factors that might increase the complexity of moving your
     * Reporting tools that query agent or pipeline state might need modification.
     * CI/CD automation that interacts with Buildkite Pipelines may require updates to handle the clustered structure.
 
-Use this assessment to determine which agent move approach is best for your Buildkite organization.
+Use this assessment to determine which agent migration approach is best for your Buildkite organization.
 
-## Agent move approaches
+## Agent migration approaches
 
-Choose an agent move approach based on your organization's structure, CI/CD ownership model, and risk tolerance.
+Choose an agent migration approach based on your organization's structure, CI/CD ownership model, and risk tolerance.
 
-### Gradual team-by-team agent move
+### Gradual team-by-team agent migration
 
-This agent move approach is best for Buildkite organizations that have their CI/CD ownership distributed across multiple teams.
+This agent migration approach is best for Buildkite organizations that have their CI/CD ownership _distributed_ across multiple teams.
 
 #### Advantages
 
 - Inherently has lower risk, as changes affect only one team at a time.
-- Teams can move to clustered agents at their own pace.
+- Teams can migration to clustered agents at their own pace.
 - Easier to troubleshoot issues if they arise.
 
 #### Considerations
@@ -93,9 +93,9 @@ This agent move approach is best for Buildkite organizations that have their CI/
 - May require temporary solutions for cross-team pipeline dependencies.
 - Requires coordination between teams for shared resources.
 
-### All-at-once agent move
+### All-at-once agent migration
 
-This agent move approach is best for Buildkite organizations with centrally managed infrastructure, particularly those using infrastructure-as-code tools like Terraform.
+This agent migration approach is best for Buildkite organizations with _centrally_ managed infrastructure, particularly those using infrastructure-as-code tools like Terraform.
 
 #### Advantages
 
@@ -108,10 +108,88 @@ This agent move approach is best for Buildkite organizations with centrally mana
 - Higher risk of other problems occurring if issues are encountered during migration.
 - Requires more extensive planning and testing.
 
-### Hybrid agent move
+### Hybrid approaches
 
-Consider a hybrid of the [team-by-team](#agent-move-approaches-gradual-team-by-team-agent-move) and [all-at-once](#agent-move-approaches-all-at-once-agent-move) agent move approaches if your Buildkite organization has both centralized and distributed CI/CD components:
+Consider a hybrid of the [team-by-team](#agent-migration-approaches-gradual-team-by-team-agent-migration) and [all-at-once](#agent-migration-approaches-all-at-once-agent-migration) agent migration approaches if your Buildkite organization has both distributed and centralized CI/CD components:
 
-- Move core infrastructure in one operation.
-- Allow teams to migrate their team-specific agents and pipelines gradually.
-- Create a timeline with clear milestones for the complete agent move process.
+- Migrate core infrastructure in one operation.
+- Allow teams to gradually migrate their team-specific agents and pipelines over to clusters.
+- Create a timeline with clear milestones for the complete agent migration process.
+
+## Technical considerations and blockers
+
+Understanding these limitations and differences is crucial for planning your migration.
+
+### Agent queue limitations
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:20%">Feature</th>
+      <th style="width:40%">Unclustered environment</th>
+      <th style="width:40%">Clustered environment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        feature: "Agent queue membership",
+        clustered_environment: "Each agent can only belong to one queue.",
+        unclustered_environment: "Agents can belong to multiple queues."
+      },
+      {
+        feature: "Queue management",
+        clustered_environment: "Users create queues in the Buildkite interface or APIs.",
+        unclustered_environment: "Tags function as queues."
+      },
+      {
+        feature: "Agent tag scope",
+        clustered_environment: "Tags are scoped to the cluster and queue the agent belongs to.",
+        unclustered_environment: "Tags have broader scope and function as queues."
+      },
+      {
+        feature: "Agent tag targeting",
+        clustered_environment: "Requires mapping existing tag-based targeting to the cluster model.",
+        unclustered_environment: "Direct tag-based targeting available."
+      },
+      {
+        feature: "Migration considerations",
+        clustered_environment: "Requires planning for agents in multiple queues: create separate agents for each queue, consolidate queues, or use agent tags for granular targeting within a single queue.",
+        unclustered_environment: "No migration needed for existing multi-queue agents."
+      }
+    ].select { |field| field[:feature] }.each do |field| %>
+      <tr>
+        <td>
+          <p><strong><%= field[:feature] %></strong></p>
+        </td>
+        <td>
+          <p><%= field[:unclustered_environment] %></p>
+        </td>
+        <td>
+          <p><%= field[:clustered_environment] %></p>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+### Token Management
+
+#### Token Differences
+
+- Agent tokens for clusters are different from unclustered agent tokens.
+- Agent tokens have a different length and are scoped to a single cluster.
+- Agent tokens for clusters offer the ability to restrict access based on IP address, offering greater security and control.
+
+#### Security Considerations
+
+- Switching from unclustered agent tokens to agent tokens for clusters is necessity for migrating your agents to clusters.
+- Ensure secure distribution of new agent tokens.
+- Plan for token rotation if needed, and if doing so, plan to implement [agent token expiration with a limited lifetime](/docs/agent/v3/tokens#agent-token-lifetime) (available via token creation API).
+
+### Pipeline Relationships
+
+- As part of [evaluating the complexity of the agent migration process](#assessing-your-current-environment-evaluate-complexity-of-the-agent-migration-process), be aware of which of your pipelines trigger others.
+- You'll need to create [rules](/docs/pipelines/rules) to allow cross-cluster pipeline interactions, such as triggering or reading cross-cluster artifacts.
+- Consider how to structure your clusters to minimize the need for cross-cluster triggers, but also maintain meaningful boundaries.
+

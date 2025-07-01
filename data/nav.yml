@@ -387,8 +387,8 @@
           path: "pipelines/clusters/manage-clusters"
         - name: "Manage queues"
           path: "pipelines/clusters/manage-queues"
-        - name: "Move from unclustered to clustered agents"
-          path: "pipelines/clusters/move-from-unclustered-to-clustered-agents"
+        - name: "Migrate from unclustered to clustered agents"
+          path: "pipelines/clusters/migrate-from-unclustered-to-clustered-agents"
     - name: "Hosted agents"
       children:
         - name: "Overview"
