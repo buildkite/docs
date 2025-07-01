@@ -16,8 +16,7 @@ This guide leads you through getting started with the [Elastic CI Stack for AWS]
 
 ## Before you start
 
-Most Elastic CI Stack for AWS features are supported on both Linux and Windows.
-The following AMIs are available in all the supported regions:
+Most Elastic CI Stack for AWS features are supported on both Linux and Windows. The following AMIs are available by default in all supported regions. Operating System and architecture will be selected based on the values provided for the `InstanceOperatingSystem` and `InstanceTypes` parameters:
 
 - Amazon Linux 2023 (64-bit x86)
 - Amazon Linux 2023 (64-bit ARM, Graviton)
@@ -91,6 +90,68 @@ This stack is designed to run your builds in a share-nothing pattern similar to 
 - Secrets are configured using environment variables exposed using the S3 secrets bucket.
 
 By following these conventions you get a scalable, repeatable, and source-controlled CI environment that any team within your organization can use.
+
+## Custom Images
+
+Custom images help teams ensure that their agents have all of the required tools and configurations prior to the launch of the instance. This helps prevent agent refreshes reverting the instance state back to the base image after any manual changes.
+
+Custom AMIs can be used with the stack by specifying the `ImageId` parameter. You can use any AMI available to your AWS account, but we recommend starting with our base Packer templates as a starting point. The Packer templates used to create the default stack images are available in the [packer directory](https://github.com/buildkite/elastic-ci-stack-for-aws/tree/main/packer) of our [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) repository.
+
+### Requirements
+To use the Packer templates provided, you will need the following installed on your system:
+
+- Docker
+- Make
+- AWS CLI
+
+The following permissions will be required on your AWS account in order to create and publish a new AMI:
+
+- EC2 instance launch, terminate, and AMI creation
+- IAM role creation
+- Security group creation
+
+We also recommend a base knowledge of:
+
+- Packer
+- HCL
+- Bash or PowerShell (depending on the Operating System of choice)
+
+### Creating an image
+
+To create a custom AMI, you can use the provided Packer templates to build new images with your modifications. Firstly, you should make any of your desired changes to the Packer templates. Once this has been done, you can run the [Makefile](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) located on the root directory to begin the build process.
+
+When creating an image, the [Makefile](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) provides several targets for Packer.
+
+| Command                            | Description                                                                              |
+| ---------------------------------- | ---------------------------------------------------------------------------------------- |
+| `make packer`                      | Build all AMI variants                                                                   |
+| `make packer-linux-amd64.output`   | Build Amazon Linux 2023 (64-bit x86) AMI only                                            |
+| `make packer-linux-arm64.output`   | Build Amazon Linux 2023 (64-bit ARM, Graviton) AMI only                                  |
+| `make packer-windows-amd64.output` | Build Windows Server 2019 (64-bit x86) AMI only                                          |
+
+By default, all builds target the `us-east-1` region and use your default AWS profile. The make command can be prefixed environment variables to change the behavior of the creation.
+
+| Variable                 | Default         | Description                                         |
+|--------------------------|-----------------|-----------------------------------------------------|
+| `AWS_REGION`             | `us-east-1`     | Target AWS region for AMI creation                  |
+| `AWS_PROFILE`            | `default`       | Specific AWS profile to use                         |
+| `PACKER_LOG`             | `0`             | Enable Packer debug logging (`PACKER_LOG=1`)        |
+| `BUILDKITE_BUILD_NUMBER` | `none`          | Build identifier passed to Packer                   |
+| `IS_RELEASED`            | `false`         | Whether this is a release build                     |
+| `ARM64_INSTANCE_TYPE`    | `m7g.xlarge`    | Instance type for ARM64 builds                      |
+| `AMD64_INSTANCE_TYPE`    | `m7a.xlarge`    | Instance type for AMD64 builds                      |
+| `WIN64_INSTANCE_TYPE`    | `m7i.xlarge`    | Instance type for Windows builds                    |
+
+For example, you could build an AMD64 Linux image in the `eu-west-1` region using a smaller instance type and a specific AWS profile by running:
+
+```bash
+AMD64_INSTANCE_TYPE="t3.medium" \
+AWS_REGION="eu-west-1" \
+AWS_PROFILE="assets-profile" \
+make packer-linux-amd64.output
+```
+
+Once your image build completes, the AMI will be stored on your AWS account and the AMI ID will be displayed in your terminal output. You can also find this by checking the relevant output file targeted previously when running the make command.
 
 ## Launching the stack
 
