@@ -23,7 +23,7 @@ To propagate traces from the Buildkite control plane through to the agent runnin
 | `--tracing-service-name`          | `BUILDKITE_TRACING_SERVICE_NAME`          | `buildkite-agent` (default)                        |
 |                                   | `OTEL_EXPORTER_OTLP_ENDPOINT`             | `http://otel-collector:4317`                       |
 |                                   | `OTEL_EXPORTER_OTLP_HEADERS`              | `"Authorization=Bearer <token>,x-my-header=value"` |
-|                                   | `OTEL_EXPORTER_OTLP_PROTOCOL`             | `grpc`                                             |
+|                                   | `OTEL_EXPORTER_OTLP_PROTOCOL`             | `grpc` (default)                                   |
 
 ### Propagating traces to Buildkite agents
 
