@@ -272,3 +272,23 @@ You can [create agent tokens](/docs/agent/v3/tokens#create-a-token) using the [B
 
 1. Verify that agents appear in the correct cluster in the Buildkite interface.
 
+### Move pipelines to clusters
+
+Move all the pipelines that were associated with your unclustered agents to their appropriate clusters (associated with the agents that will build these pipelines).
+
+1. For each such pipeline:
+   1. Navigate to the pipeline's **Settings**.
+   1. On the **General** settings page, select the **Change Cluster** button, and then select the appropriate cluster from the resulting dialog.
+   1. Select **Save** to update the pipeline's cluster.
+   1. Update any queue references in the pipeline's steps if required. Check both the pipeline's **Settings** > **Steps**, as well as the relevant `pipeline.yml` file uploaded from its Git repository.
+   1. Ensure these queue reference updates are saved.
+
+1. Configure cross-cluster interactions if needed:
+   1. Navigate to your Buildkite organization's **Settings** > **Rules** to access its [**Rules** page](https://buildkite.com/organizations/~/rules).
+   1. Create [rules](/docs/pipelines/rules) to allow specific cross-cluster interactions.
+   1. Test that these new rules function as expected.
+
+1. Update any CI/CD automation that interacts with these pipelines.
+
+Alternatively, consider using [Terraform](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs) to assign pipelines to clusters in a single action at once.
+
