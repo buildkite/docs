@@ -122,6 +122,8 @@ Understanding these limitations and differences is crucial for planning your mig
 
 ### Agent queue limitations
 
+The following table lists the differences in how agents, queues and tags are handled between unclustered and clustered environments.
+
 <table>
   <thead>
     <tr>
@@ -210,7 +212,7 @@ This section outlines the complete migration process from unclustered to cluster
 
 1. Create a realistic timeline that accounts for testing and potential rollbacks.
 
-1. Develop a communication plan for all teams affected by the migration.
+1. Develop a communication plan for all teams affected by the migration. See [best practices on communication planning](#best-practices-and-recommendations-communication-planning) for some high-level guidelines on how to approach this step.
 
 ### Set up your infrastructure
 
@@ -235,8 +237,8 @@ This section outlines the complete migration process from unclustered to cluster
 
 #### Considerations
 
-- Name queues according to their purpose (for example, `linux-amd64`, `macos-m1`, etc.)
-- Add descriptions to help users understand the queues' purposes and capabilities
+- Name queues according to their purpose (for example, `linux-amd64`, `macos-m1`, etc.).
+- Add descriptions to help users understand the queues' purposes and capabilities.
 - Consider how you'll set up [cluster maintainers](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) so that infrastructure teams are enabled to self-manage agent resources.
 
 ### Configure agent tokens
@@ -251,6 +253,7 @@ You can [create agent tokens](/docs/agent/v3/tokens#create-a-token) using the [B
 
 1. Update your unclustered agent configurations. For each such agent:
    * Replace its existing unclustered agent token with its new agent token for its cluster.
+      - As part of a [best practice](#best-practices-and-recommendations) strategy to [minimize downtime](#best-practices-and-recommendations-minimizing-downtime), create a copy of this agent and replace its unclustered agent token with this new new agent token for the cluster. Therefore, you'll end up with two instances of this agent—one running in your original unclustered environment and the other associated with its appropriate cluster.
    * Set a queue (or the [default queue](/docs/agent/v3/queues#the-default-queue) that will be selected for that agent).
    * Ensure agents have appropriate tags for targeting.
 
@@ -274,7 +277,7 @@ You can [create agent tokens](/docs/agent/v3/tokens#create-a-token) using the [B
 
 ### Move pipelines to clusters
 
-Move all the pipelines that were associated with your unclustered agents to their appropriate clusters (associated with the agents that will build these pipelines).
+Move all the pipelines that were associated with your unclustered agents to their appropriate clusters (associated with the agents that will build these pipelines). Also, see [best practices](#best-practices-and-recommendations) on [minimizing downtime](#best-practices-and-recommendations-minimizing-downtime) and [testing strategies](#best-practices-and-recommendations-testing-strategies) for some high-level guidelines on how to approach moving your pipelines over to clusters.
 
 1. For each such pipeline:
    1. Navigate to the pipeline's **Settings**.
@@ -292,3 +295,84 @@ Move all the pipelines that were associated with your unclustered agents to thei
 
 Alternatively, consider using [Terraform](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs) to assign pipelines to clusters in a single action at once.
 
+### Test and validate the migrated pipelines
+
+1. Run test builds on migrated pipelines to verify their execution.
+
+1. Verify that agents pick up jobs correctly and use [queue metrics](/docs/pipelines/insights/queue-metrics) graphs to monitor job creation within your clusters.
+
+1. Check that any pipeline triggers that you implemented work as expected.
+
+1. Monitor for any errors or unexpected behavior.
+
+1. Test failure scenarios to ensure proper recovery.
+
+### Decommission your unclustered resources
+
+1. Once all tests pass, gradually increase traffic to the pipelines that were migrated to clusters.
+
+1. Monitor for any issues during the transition. If you are on an Enterprise plan, monitor [cluster insights](/docs/pipelines/insights/clusters).
+
+1. After a suitable monitoring period (typically 1-2 weeks):
+   * Decommission your old unclustered agents.
+   * Archive any obsolete pipelines.
+   * Remove temporary configurations used during the agent migration process.
+
+1. Document the final cluster configuration for future reference.
+
+## Best practices and recommendations
+
+### Minimizing downtime
+
+- Maintain parallel unclustered and clustered agents during migration.
+- Migrate one pipeline at a time to minimize risk.
+- Schedule migrations during low-traffic periods.
+- Have a rollback plan ready in the event that unexpected issues are encountered.
+
+### Testing strategies
+
+- Create a test cluster with a subset of pipelines and agents before full migration.
+- Test with non-critical pipelines first.
+- Use feature branches to validate pipeline behavior in clusters.
+- Simulate failure scenarios to verify recovery processes.
+
+### Communication planning
+
+- Notify all stakeholders well in advance of the migration.
+- Provide documentation on how the new cluster structure works.
+- Offer training or support sessions for teams unfamiliar with clusters.
+- Set up a communication channel for reporting issues during migration.
+
+## Troubleshooting common issues
+
+### Agent connection problems
+
+**Issue**: Agents fail to connect to Buildkite after the migration.
+
+**Solutions**:
+
+- Verify the agent token is correct and belongs to the intended cluster.
+- Check network connectivity between the agent and Buildkite.
+- Review agent logs for error messages.
+
+### Pipeline execution failures
+
+**Issue**: Pipelines don't execute on clustered agents.
+
+**Solutions**:
+
+- Verify the pipeline is assigned to the correct cluster.
+- Check that any queues referenced in the pipeline steps exist in the cluster.
+- Ensure agent tags match what's expected by the pipeline.
+- Verify that agents are connected and healthy.
+
+### Queue configuration issues
+
+**Issue**: Jobs target the wrong agents or don't run.
+
+**Solutions**:
+
+- Review queue names and configurations.
+- Verify agent tags are correctly set and aren't trying to align cross-queues.
+- Check pipeline step queue targeting in your YAML.
+- Consider using more descriptive queue names to avoid confusion.
