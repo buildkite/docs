@@ -226,17 +226,17 @@ This section outlines the complete migration process from unclustered to cluster
 
 #### Overview
 
-- Create the clusters in your Buildkite organization.
-- Define the queues within each cluster. If using multiple queues, select a sensible queue to be the default. Jobs without a specific queue mentioned will use the default queue.
-- Configure the necessary permissions for each cluster.
+1. Create the appropriate clusters within your Buildkite organization.
+1. Define the queues within each cluster. If defining multiple queues, select a sensible queue to be the default. Jobs without a specific queue mentioned will use the default queue.
+1. Configure the necessary permissions for each cluster.
 
 #### Creation options
 
-- Create [clusters](/docs/pipelines/clusters/manage-clusters#create-a-cluster-using-the-buildkite-interface) and [queues (hosted and self-hosted)](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue) via the Buildkite interface
-- Create [clusters](/docs/pipelines/clusters/manage-clusters#create-a-cluster-using-the-rest-api) and [queues (hosted and self-hosted)](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue-using-the-rest-api) via REST/GraphQL APIs.
+- Create the appropriate [clusters](/docs/pipelines/clusters/manage-clusters#create-a-cluster) using the [Buildkite interface](/docs/pipelines/clusters/manage-clusters#create-a-cluster-using-the-buildkite-interface), or [REST](/docs/pipelines/clusters/manage-clusters#create-a-cluster-using-the-rest-api) or [GraphQL](/docs/pipelines/clusters/manage-clusters#create-a-cluster-using-the-graphql-api) APIs.
+- Create the appropriate [self-hosted queues](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue) (using the [Buildkite interface](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue-using-the-buildkite-interface), or [REST](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue-using-the-rest-api) or [GraphQL](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue-using-the-graphql-api) APIs), or [Buildkite hosted queues](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue) (also using the [Buildkite interface](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue-using-the-buildkite-interface), or [REST](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue-using-the-rest-api) or [GraphQL](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue-using-the-graphql-api) APIs).
 
 #### Considerations
 
-- Name queues according to their purpose (e.g., linux-amd64, macos-m1)
-- Add descriptions to help users understand the queue's purpose and capabilities
-- Consider how you'll setup [Cluster Maintainers](https://buildkite.com/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) so that infrastructure teams are enabled to self-manage agent resources.
+- Name queues according to their purpose (for example, `linux-amd64`, `macos-m1`, etc.)
+- Add descriptions to help users understand the queues' purposes and capabilities
+- Consider how you'll set up [cluster maintainers](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) so that infrastructure teams are enabled to self-manage agent resources.
