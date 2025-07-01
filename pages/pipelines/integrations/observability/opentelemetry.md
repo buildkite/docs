@@ -106,7 +106,7 @@ See [Basic Authentication example](https://github.com/buildkite/opentelemetry-no
 
 Set the Endpoint to `https://api.honeycomb.io`, or `https://api.eu1.honeycomb.io ` if your Honeycomb team is in the EU instance.
 
-Add the require header:
+Add the required header:
 
 | Key                | Value                 |
 | ------------------ | --------------------- |
