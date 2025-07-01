@@ -173,9 +173,9 @@ Understanding these limitations and differences is crucial for planning your mig
   </tbody>
 </table>
 
-### Token management
+### Agent token management
 
-#### Token differences
+#### Agent token differences
 
 - Agent tokens for clusters are different from unclustered agent tokens.
 - Agent tokens have a different length and are scoped to a single cluster.
@@ -193,11 +193,11 @@ Understanding these limitations and differences is crucial for planning your mig
 - You'll need to create [rules](/docs/pipelines/rules) to allow cross-cluster pipeline interactions, such as triggering or reading cross-cluster artifacts.
 - Consider how to structure your clusters to minimize the need for cross-cluster triggers, but also maintain meaningful boundaries.
 
-## Migration process
+## Agent migration process
 
 This section outlines the complete migration process from unclustered to clustered agents, providing both an overview of each step and detailed implementation guidance.
 
-### Planning and preparation
+### Plan and prepare
 
 1. Identify which clusters you need based on your organization's structure.
    * Common patterns include creating clusters to separate environments (development, test, production), platforms (Linux, macOS, Windows), or teams.
@@ -212,7 +212,7 @@ This section outlines the complete migration process from unclustered to cluster
 
 1. Develop a communication plan for all teams affected by the migration.
 
-### Infrastructure setup
+### Set up your infrastructure
 
 1. Set up infrastructure to support your new cluster configuration.
    * Update agent installation scripts or configuration management tools.
@@ -222,12 +222,10 @@ This section outlines the complete migration process from unclustered to cluster
 
 1. Establish monitoring for both clustered and unclustered agents during the transition.
 
-### Creating clusters and queues
+### Create your clusters and queues
 
-#### Overview
-
-1. Create the appropriate clusters within your Buildkite organization.
-1. Define the queues within each cluster. If defining multiple queues, select a sensible queue to be the default. Jobs without a specific queue mentioned will use the default queue.
+1. Create the [appropriate clusters](/docs/pipelines/clusters/manage-clusters#setting-up-clusters) within your Buildkite organization.
+1. Define the [appropriate queues](/docs/pipelines/clusters/manage-queues#setting-up-queues) within each cluster. If defining multiple queues, select a sensible queue to be the default. Jobs without a specific queue mentioned will use the default queue.
 1. Configure the necessary permissions for each cluster.
 
 #### Creation options
@@ -240,3 +238,37 @@ This section outlines the complete migration process from unclustered to cluster
 - Name queues according to their purpose (for example, `linux-amd64`, `macos-m1`, etc.)
 - Add descriptions to help users understand the queues' purposes and capabilities
 - Consider how you'll set up [cluster maintainers](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) so that infrastructure teams are enabled to self-manage agent resources.
+
+### Configure agent tokens
+
+1. Generate new [agent tokens](/docs/agent/v3/tokens) for each cluster.
+1. Securely distribute these agent tokens to the appropriate teams or systems.
+1. Document the mapping between these agent tokens and their clusters.
+
+You can [create agent tokens](/docs/agent/v3/tokens#create-a-token) using the [Buildkite interface](/docs/agent/v3/tokens#create-a-token-using-the-buildkite-interface), or the [REST](/docs/agent/v3/tokens#create-a-token-using-the-rest-api) or [GraphQL](/docs/agent/v3/tokens#create-a-token-using-the-graphql-api) API. Consider rotating tokens and setting an expiry date as you create them. Learn more about this process in [Agent token lifetime](/docs/agent/v3/tokens#agent-token-lifetime).
+
+### Migrate unclustered agents to clusters
+
+1. Update your unclustered agent configurations. For each such agent:
+   * Replace its existing unclustered agent token with its new agent token for its cluster.
+   * Set a queue (or the [default queue](/docs/agent/v3/queues#the-default-queue) that will be selected for that agent).
+   * Ensure agents have appropriate tags for targeting.
+
+1. Example [agent configuration](/docs/agent/v3/configuration) as parameter update:
+
+    ```bash
+    # Before migration (unclustered) - multiple queues
+    buildkite-agent start \
+        --token "unclustered-token" \
+        --tags "queue=linux,queue=testing,arch=amd64,env=prod"
+    
+    # After migration (clustered) - single queue
+    buildkite-agent start \
+        --token "cluster-token" \
+        --tags "queue=linux,arch=amd64,env=prod"
+    ```
+
+1. Restart agents to apply the new configuration.
+
+1. Verify that agents appear in the correct cluster in the Buildkite interface.
+

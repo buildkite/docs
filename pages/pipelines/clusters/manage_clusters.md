@@ -122,19 +122,12 @@ Migrating unclustered agents to a cluster allows those agents to use [agent toke
 > 📘 Buildkite organizations created after February 26, 2024
 > Buildkite organizations created after this date will not have an **Unclustered** area. Therefore, this process is not required for these newer Buildkite organizations.
 
-To move an unclustered agent across to using a cluster:
+Learn more about this entire process from the detailed [Migrate from unclustered to clustered agents](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents) guide, which guides you through the individual processes of:
 
-1. Stop the unclustered agent (from running). To do this, either terminate the agent's running process (for example, via Ctrl-C on the keyboard) or use the Buildkite interface:
-
-    1. Select **Agents** in the global navigation to access the **Clusters** page.
-    1. Select **Unclustered**.
-    1. From the **Unclustered Agents** page, select the agent to stop and on its page, select **Stop Agent**.
-
-1. [Create a new agent token](/docs/agent/v3/tokens#create-a-token) for the cluster the agent will be moved to.
-
-1. [Start the Buildkite agent](/docs/agent/v3/cli-start) using the `--token` value is that of the agent token created in the previous step. Alternatively, configure this agent token's value in the [Buildkite agent's configuration file](/docs/agent/v3/configuration) before starting the agent.
-
-If you migrate all your existing agents over to clusters, ensure that all of your pipelines have also been [moved to their relevant clusters](#move-a-pipeline-to-a-specific-cluster). Otherwise, any builds for those pipelines will never find agents to run them.
+1. [Assessing your current environment](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#assessing-your-current-environment).
+1. Deciding on an [agent migration approach](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#agent-migration-approaches).
+1. Discussing [technical considerations](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#technical-considerations-and-blockers) for the agent migration.
+1. The [agent migration process](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#agent-migration-process) itself.
 
 ## Restrict an agent token's access by IP address
 
