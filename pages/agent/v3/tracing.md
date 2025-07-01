@@ -14,7 +14,15 @@ Once this is done, the agent will start sending tracing information to Datadog. 
 
 To use OpenTelemetry tracing, start the Buildkite Agent with the `--tracing-backend opentelemetry` option. This will enable OpenTelemetry tracing, and start sending traces to an OpenTelemetry collector.
 
-The Buildkite agent's OpenTelemetry implementation uses the OTLP gRPC exporter to export trace information. This means that there must be a collector capable of ingesting OTLP gRPC traces accessible by the Buildkite agent. By default, the Buildkite agent will export trace information to `https://localhost:4317`, but this can be overridden by passing in an environment variable `OTEL_EXPORTER_OTLP_ENDPOINT` containing an updated endpoint for the collector when the agent is started.
+The Buildkite agent's OpenTelemetry implementation uses the OTLP gRPC exporter to export trace information. This means that there must be a collector capable of ingesting OTLP gRPC traces accessible by the Buildkite agent. By default, the Buildkite agent will export trace information to `http://localhost:4317`, but this can be overridden by passing in an environment variable `OTEL_EXPORTER_OTLP_ENDPOINT` containing an updated endpoint for the collector when the agent is started.
+
+See the OpenTelemetry documentation for more information on supported environment variables.
+
+https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/
+https://opentelemetry.io/docs/specs/otel/protocol/exporter/#endpoint-urls-for-otlphttp
+
+> 🚧 Note on OTLP protocol
+> The Buildkite agent currently only supports the `grpc` transport for OpenTelemetry, and cannot currently be overridden using the `OTEL_EXPORTER_OTLP_PROTOCOL` environment variable.
 
 To set the OpenTelemetry service name, provide the `--tracing-service-name example-buildkite-agent`. The default service name when not specified is `buildkite-agent`.
 
