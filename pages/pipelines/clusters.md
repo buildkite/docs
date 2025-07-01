@@ -5,7 +5,9 @@ Clusters is a Buildkite Pipelines feature used to manage and organize agents and
 - allows teams to self-manage their Buildkite agent pools
 - allows admins to create isolated sets of agents and pipelines within the one Buildkite organization
 - helps make agents and queues more discoverable across your organization
-- provides easily accessible [queue metrics](/docs/pipelines/insights/queue-metrics) and operational [cluster insights](/docs/pipelines/insights/clusters) such as queue wait times (available on Enterprise plans only).
+- provides easily accessible [queue metrics](/docs/pipelines/insights/queue-metrics) and operational [cluster insights](/docs/pipelines/insights/clusters) such as queue wait times (available on Enterprise plans only)
+- allows easier agent management through [queue pausing](/docs/pipelines/clusters/manage-queues#pause-and-resume-a-queue)
+- allows you to easily [create queues for Buildkite hosted agents](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
 
 Clusters create logical boundaries between different parts of your build infrastructure, enhancing security, discoverability, and manageability.
 
