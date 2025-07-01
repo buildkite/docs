@@ -31,7 +31,7 @@ Propagating trace spans from the OpenTelemetry Notification service requires Bui
 
 ### Buildkite hosted agents
 
-To export OpenTelemetry traces from hosted agents, this currently requires using a custom Agent Image with the following Environment variables set.
+To export OpenTelemetry traces from hosted agents, this currently requires using a custom Agent Image with the following Environment variables set. Custom images can be created in Cluster settings, and is currently supported for Linux only.
 
 ```dockerfile
 # this is the same as --tracing-backend opentelemetry
