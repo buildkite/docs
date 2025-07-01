@@ -238,7 +238,11 @@ This section outlines the complete migration process from unclustered to cluster
 #### Considerations
 
 - Name queues according to their purpose (for example, `linux-amd64`, `macos-m1`, etc.).
+
+    If you have unclustered agents that were assigned to multiple queues, refer to **Migration considerations** under [Agent queue limitations](#technical-considerations-and-blockers-agent-queue-limitations) above, for guidelines on how to reconfigure these queues into a clustered environment.
+
 - Add descriptions to help users understand the queues' purposes and capabilities.
+
 - Consider how you'll set up [cluster maintainers](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) so that infrastructure teams are enabled to self-manage agent resources.
 
 ### Configure agent tokens
@@ -252,10 +256,11 @@ You can [create agent tokens](/docs/agent/v3/tokens#create-a-token) using the [B
 ### Migrate unclustered agents to clusters
 
 1. Update your unclustered agent configurations. For each such agent:
-   * Replace its existing unclustered agent token with its new agent token for its cluster.
-      - As part of a [best practice](#best-practices-and-recommendations) strategy to [minimize downtime](#best-practices-and-recommendations-minimizing-downtime), create a copy of this agent and replace its unclustered agent token with this new new agent token for the cluster. Therefore, you'll end up with two instances of this agent—one running in your original unclustered environment and the other associated with its appropriate cluster.
-   * Set a queue (or the [default queue](/docs/agent/v3/queues#the-default-queue) that will be selected for that agent).
-   * Ensure agents have appropriate tags for targeting.
+    * Replace its existing unclustered agent token with its new agent token for its cluster.
+
+        As part of a [best practice](#best-practices-and-recommendations) strategy to [minimize downtime](#best-practices-and-recommendations-minimizing-downtime), create a copy of this agent and replace its unclustered agent token with the new new agent token for its cluster. This creates two instances of this agent—one running in your original unclustered environment and the other associated with its appropriate cluster. You can then use the unclustered agent to fall back on if you have issues getting your clustered agent to operate as expected.
+    * Set a queue (or the [default queue](/docs/agent/v3/queues#the-default-queue) that will be selected for that agent).
+    * Ensure agents have appropriate tags for targeting.
 
 1. Example [agent configuration](/docs/agent/v3/configuration) as parameter update:
 
