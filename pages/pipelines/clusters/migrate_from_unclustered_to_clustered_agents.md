@@ -110,7 +110,7 @@ This agent migration approach is best for Buildkite organizations with _centrall
 
 ### Hybrid approaches
 
-Consider a hybrid of the [team-by-team](#agent-migration-approaches-gradual-team-by-team-agent-migration) and [all-at-once](#agent-migration-approaches-all-at-once-agent-migration) agent migration approaches if your Buildkite organization has both distributed and centralized CI/CD components:
+Consider a hybrid of the [team-by-team](#agent-migration-approaches-gradual-team-by-team-agent-migration) and [all-at-once](#agent-migration-approaches-all-at-once-agent-migration) agent migration approaches if your Buildkite organization has both _distributed_ and _centralized_ CI/CD components:
 
 - Migrate core infrastructure in one operation.
 - Allow teams to gradually migrate their team-specific agents and pipelines over to clusters.
@@ -193,3 +193,50 @@ Understanding these limitations and differences is crucial for planning your mig
 - You'll need to create [rules](/docs/pipelines/rules) to allow cross-cluster pipeline interactions, such as triggering or reading cross-cluster artifacts.
 - Consider how to structure your clusters to minimize the need for cross-cluster triggers, but also maintain meaningful boundaries.
 
+## Migration process
+
+This section outlines the complete migration process from unclustered to clustered agents, providing both an overview of each step and detailed implementation guidance.
+
+### Planning and preparation
+
+1. Identify which clusters you need based on your organization's structure.
+   * Common patterns include creating clusters to separate environments (development, test, production), platforms (Linux, macOS, Windows), or teams.
+   * Create a mapping of existing agents to their future clusters.
+
+1. Document your current unclustered setup including:
+   * Agent configurations and locations.
+   * Pipeline configurations and dependencies.
+   * Cross-pipeline interactions.
+
+1. Create a realistic timeline that accounts for testing and potential rollbacks.
+
+1. Develop a communication plan for all teams affected by the migration.
+
+### Infrastructure setup
+
+1. Set up infrastructure to support your new cluster configuration.
+   * Update agent installation scripts or configuration management tools.
+   * Prepare for temporary coexistence of clustered and unclustered agents during migration.
+
+1. If using infrastructure as code, create or update templates to support the new cluster model.
+
+1. Establish monitoring for both clustered and unclustered agents during the transition.
+
+### Creating clusters and queues
+
+#### Overview
+
+- Create the clusters in your Buildkite organization.
+- Define the queues within each cluster. If using multiple queues, select a sensible queue to be the default. Jobs without a specific queue mentioned will use the default queue.
+- Configure the necessary permissions for each cluster.
+
+#### Creation options
+
+- Create [clusters](/docs/pipelines/clusters/manage-clusters#create-a-cluster-using-the-buildkite-interface) and [queues (hosted and self-hosted)](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue) via the Buildkite interface
+- Create [clusters](/docs/pipelines/clusters/manage-clusters#create-a-cluster-using-the-rest-api) and [queues (hosted and self-hosted)](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue-using-the-rest-api) via REST/GraphQL APIs.
+
+#### Considerations
+
+- Name queues according to their purpose (e.g., linux-amd64, macos-m1)
+- Add descriptions to help users understand the queue's purpose and capabilities
+- Consider how you'll setup [Cluster Maintainers](https://buildkite.com/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) so that infrastructure teams are enabled to self-manage agent resources.
