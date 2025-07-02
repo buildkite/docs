@@ -179,13 +179,47 @@ The following table lists the differences in how agents, queues and tags are han
 
 #### Agent token differences
 
-- Agent tokens for clusters are different from unclustered agent tokens.
-- Agent tokens have a different length and are scoped to a single cluster.
-- Agent tokens for clusters offer the ability to restrict access based on IP address, offering greater security and control.
+The following table lists the differences between the former unclustered agent tokens and newer agent tokens associated with clusters.
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:20%">Feature</th>
+      <th style="width:40%">Unclustered agent tokens</th>
+      <th style="width:40%">Agent tokens for clusters</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        feature: "Token scope",
+        agent_tokens_for_clusters: "Agent tokens are scoped to a single cluster",
+        unclustered_agent_tokens: "Unclustered agent tokens can be configured on any unclustered agent"
+      },
+      {
+        feature: "IP address restrictions",
+        agent_tokens_for_clusters: "Agent tokens offer the ability to restrict access based on IP address, providing greater security and control",
+        unclustered_agent_tokens: "Unclustered agent tokens do not possess IP address restriction capabilities"
+      }
+    ].select { |field| field[:feature] }.each do |field| %>
+      <tr>
+        <td>
+          <p><strong><%= field[:feature] %></strong></p>
+        </td>
+        <td>
+          <p><%= field[:unclustered_agent_tokens] %></p>
+        </td>
+        <td>
+          <p><%= field[:agent_tokens_for_clusters] %></p>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 #### Security considerations
 
-- Switching from unclustered agent tokens to agent tokens for clusters is necessity for migrating your agents to clusters.
+- Switching from unclustered agent tokens to agent tokens for clusters is necessary for migrating your agents to clusters.
 - Ensure secure distribution of new agent tokens.
 - Plan for token rotation if needed, and if doing so, plan to implement [agent token expiration with a limited lifetime](/docs/agent/v3/tokens#agent-token-lifetime) (available when creating agent tokens using the [REST](/docs/agent/v3/tokens#create-a-token-using-the-rest-api) or [GraphQL](/docs/agent/v3/tokens#create-a-token-using-the-graphql-api) APIs).
 
