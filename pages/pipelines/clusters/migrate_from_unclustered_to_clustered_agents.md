@@ -193,13 +193,13 @@ The following table lists the differences between the former unclustered agent t
     <% [
       {
         feature: "Token scope",
-        agent_tokens_for_clusters: "Agent tokens are scoped to a single cluster",
-        unclustered_agent_tokens: "Unclustered agent tokens can be configured on any unclustered agent"
+        agent_tokens_for_clusters: "Agent tokens are scoped to a single cluster.",
+        unclustered_agent_tokens: "Unclustered agent tokens can be configured on any unclustered agent."
       },
       {
         feature: "IP address restrictions",
-        agent_tokens_for_clusters: "Agent tokens offer the ability to restrict access based on IP address, providing greater security and control",
-        unclustered_agent_tokens: "Unclustered agent tokens do not possess IP address restriction capabilities"
+        agent_tokens_for_clusters: "Agent tokens offer the ability to restrict access based on IP address, providing greater security and control.",
+        unclustered_agent_tokens: "Unclustered agent tokens do not possess IP address restriction capabilities."
       }
     ].select { |field| field[:feature] }.each do |field| %>
       <tr>
@@ -221,7 +221,7 @@ The following table lists the differences between the former unclustered agent t
 
 - Switching from unclustered agent tokens to agent tokens for clusters is necessary for migrating your agents to clusters.
 - Ensure secure distribution of new agent tokens.
-- Plan for token rotation if needed, and if doing so, plan to implement [agent token expiration with a limited lifetime](/docs/agent/v3/tokens#agent-token-lifetime) (available when creating agent tokens using the [REST](/docs/agent/v3/tokens#create-a-token-using-the-rest-api) or [GraphQL](/docs/agent/v3/tokens#create-a-token-using-the-graphql-api) APIs).
+- Plan for token rotation if needed, and if doing so, plan to implement [agent token expiration with a limited lifetime](/docs/agent/v3/tokens#agent-token-lifetime) (available when [creating agent tokens](/docs/agent/v3/tokens#create-a-token) using the [REST](/docs/agent/v3/tokens#create-a-token-using-the-rest-api) or [GraphQL](/docs/agent/v3/tokens#create-a-token-using-the-graphql-api) APIs).
 
 ### Pipeline relationships
 
