@@ -187,7 +187,7 @@ The following table lists the differences in how agents, queues and tags are han
 
 - Switching from unclustered agent tokens to agent tokens for clusters is necessity for migrating your agents to clusters.
 - Ensure secure distribution of new agent tokens.
-- Plan for token rotation if needed, and if doing so, plan to implement [agent token expiration with a limited lifetime](/docs/agent/v3/tokens#agent-token-lifetime) (available via token creation API).
+- Plan for token rotation if needed, and if doing so, plan to implement [agent token expiration with a limited lifetime](/docs/agent/v3/tokens#agent-token-lifetime) (available when creating agent tokens using the [REST](/docs/agent/v3/tokens#create-a-token-using-the-rest-api) or [GraphQL](/docs/agent/v3/tokens#create-a-token-using-the-graphql-api) APIs).
 
 ### Pipeline relationships
 
