@@ -426,12 +426,12 @@ You are able to use `pipeline.started_passing` and `pipeline.started_failing` in
 Build-level Slack notifications happen at the following [event](/docs/apis/webhooks/pipelines#events):
 
 * `build finished`
-* `build failing`
+* `build.failing`
 
 Step-level Slack notifications happen at the following [events](/docs/apis/webhooks/pipelines#events):
 
-* `step finished`
-* `step failing`
+* `step.finished`
+* `step.failing`
 
 An example to deliver slack notification when a step is soft-failed:
 
