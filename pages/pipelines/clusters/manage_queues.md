@@ -159,7 +159,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "key": "mac_small_silicon",
     "description": "macOS agents running on Apple silicon architecture.",
     "hostedAgents": {
-      "instanceShape": "MACOS_M2_4X7"
+      "instanceShape": "MACOS_ARM64_M4_6X28"
     }
   }'
 ```
@@ -195,7 +195,7 @@ mutation {
       key: "mac_small_silicon"
       description: "macOS agents running on Apple silicon architecture."
       hostedAgents: {
-        instanceShape: MACOS_M2_4X7
+        instanceShape: MACOS_ARM64_M4_6X28
       }
     }
   ) {
