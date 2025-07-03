@@ -387,6 +387,8 @@
           path: "pipelines/clusters/manage-clusters"
         - name: "Manage queues"
           path: "pipelines/clusters/manage-queues"
+        - name: "Migrate from unclustered to clustered agents"
+          path: "pipelines/clusters/migrate-from-unclustered-to-clustered-agents"
     - name: "Hosted agents"
       children:
         - name: "Overview"
@@ -495,6 +497,8 @@
           children:
             - name: "Datadog"
               path: "pipelines/integrations/observability/datadog"
+            - name: "OpenTelemetry"
+              path: "pipelines/integrations/observability/opentelemetry"
         - name: "Other integrations"
           children:
             - name: "Amazon EventBridge"
