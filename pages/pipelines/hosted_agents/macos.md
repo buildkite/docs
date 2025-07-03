@@ -10,8 +10,6 @@ Buildkite offers a selection of macOS instance types (each based on a different 
 
 <%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
 
-Extra large instances are available on request. Please contact support@buildkite.com to have them enabled for your account.
-
 ## macOS instance software support
 
 All standard macOS [Sequoia](#macos-sequoia) and [Sonoma](#macos-sonoma) version instances have their own respective Xcode and runtime software versions available by default (listed below). For both of these macOS versions, the [Homebrew packages](#homebrew-packages) and their versions (listed further down) are also available. If you have specific requirements for software that is not listed here, please contact support.
