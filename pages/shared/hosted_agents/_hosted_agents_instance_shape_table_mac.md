@@ -24,3 +24,5 @@
     </tr>
   </tbody>
 </table>
+
+Note: Shapes `MACOS_M2_4X7`, `MACOS_M2_6X14`, `MACOS_M2_12X28`, `MACOS_M4_12X56` have been deprecated and will be removed on the 1st of July, 2025.
