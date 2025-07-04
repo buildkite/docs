@@ -21,8 +21,8 @@ See the OpenTelemetry documentation for more information on supported environmen
 https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/
 https://opentelemetry.io/docs/specs/otel/protocol/exporter/#endpoint-urls-for-otlphttp
 
-> 🚧 Note on OTLP protocol
-> The Buildkite agent currently only supports the `grpc` transport for OpenTelemetry, and cannot currently be overridden using the `OTEL_EXPORTER_OTLP_PROTOCOL` environment variable.
+> 📘 Note on OTLP protocol
+> The Buildkite agent defaults to the `grpc` transport for OpenTelemetry, but can overridden using the `OTEL_EXPORTER_OTLP_PROTOCOL` environment variable to `http/protobuf` on [`v3.101.0`](https://github.com/buildkite/agent/releases/tag/v3.101.0) or more recent.
 
 To set the OpenTelemetry service name, provide the `--tracing-service-name example-buildkite-agent`. The default service name when not specified is `buildkite-agent`.
 
