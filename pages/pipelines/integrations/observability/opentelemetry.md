@@ -23,7 +23,12 @@ To propagate traces from the Buildkite control plane through to the agent runnin
 | `--tracing-service-name`          | `BUILDKITE_TRACING_SERVICE_NAME`          | `buildkite-agent` (default)                        |
 |                                   | `OTEL_EXPORTER_OTLP_ENDPOINT`             | `http://otel-collector:4317`                       |
 |                                   | `OTEL_EXPORTER_OTLP_HEADERS`              | `"Authorization=Bearer <token>,x-my-header=value"` |
-|                                   | `OTEL_EXPORTER_OTLP_PROTOCOL`             | `grpc` (default)                                   |
+|                                   | `OTEL_EXPORTER_OTLP_PROTOCOL`             | `grpc` (default) or `http/protobuf`                |
+|                                   | `OTEL_RESOURCE_ATTRIBUTES`                | `key1=value1,key2=value2`                          |
+
+Note: `http/protobuf` protocol is only supported on Buildkite agent [v3.101.0](https://github.com/buildkite/agent/releases/tag/v3.101.0) or newer.
+
+See [OpenTelemetry SDK documentation](https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/) for more information on available environment variables.
 
 ### Propagating traces to Buildkite agents
 
@@ -43,7 +48,7 @@ ENV BUILDKITE_TRACING_PROPAGATE_TRACEPARENT="true"
 # service name is configurable
 ENV OTEL_SERVICE_NAME="buildkite-agent"
 
-# the agent OpenTelemetry exporter only supports gRPC transport
+# http/protobuf available on Buildkite agent v3.101.0 or newer
 ENV OTEL_EXPORTER_OTLP_PROTOCOL="grpc"
 
 # the gRPC transport requires a port to be specified in the URL
