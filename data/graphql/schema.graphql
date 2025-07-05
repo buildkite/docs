@@ -2218,6 +2218,11 @@ type ClusterQueue implements Node {
   key: String!
 
   """
+  The health status of stacks associated with this queue
+  """
+  stackHealth: String
+
+  """
   The public UUID for this cluster queue
   """
   uuid: ID!
