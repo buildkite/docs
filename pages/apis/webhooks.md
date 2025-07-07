@@ -31,9 +31,9 @@ Buildkite Pipelines supports the following categories of webhook events.
 
 | Event family | Description |
 |--------------|-------------|
-| [Agent events](/docs/apis/webhooks/pipelines/agent_events) | A Buildkite Agent connects, disconnects, stops, is lost, or gets blocked. |
 | [Build events](/docs/apis/webhooks/pipelines/build_events) | A pipeline build starts, fails, finishes, is scheduled, or is skipped. |
 | [Job events](/docs/apis/webhooks/pipelines/job_events) | A pipeline's job runs, finishes, is in a scheduled state, or is activated. |
+| [Agent events](/docs/apis/webhooks/pipelines/agent_events) | A Buildkite Agent connects, disconnects, stops, is lost, or gets blocked. |
 | [Ping events](/docs/apis/webhooks/pipelines/ping_events) | A webhook's notification configuration has changed. |
 | [Agent-token events](/docs/apis/webhooks/pipelines/agent_token_events) | An agent token's registration has failed. |
 | [Integrations](/docs/apis/webhooks/pipelines/integrations) | Buildkite Pipeline events related to third-party application integrations. |
