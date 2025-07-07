@@ -18,7 +18,7 @@ Common use cases for implementing Buildkite webhooks include:
 
 Buildkite currently provides webhook support for both [Pipelines](/docs/apis/webhooks/pipelines) and [Test Engine](/docs/apis/webhooks/test-engine).
 
-### Creating webhooks
+## Creating webhooks
 
 Learn more about how to add Buildkite webhooks from the **Add a webhook** procedures for both [Pipelines](/docs/apis/webhooks/pipelines#add-a-webhook) and [Test Engine](/docs/apis/webhooks/test-engine#add-a-webhook).
 
