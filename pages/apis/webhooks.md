@@ -1,5 +1,4 @@
 ---
-title: Webhooks
 description: Receive real-time Buildkite events in your systems
 weight: 10
 ---
