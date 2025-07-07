@@ -52,7 +52,8 @@ When you connect your GitHub organization, Buildkite needs the following permiss
 
     1. Add a new webhook in GitHub.
     1. Paste in the provided webhook URL.
-    1. Select which events trigger the webhook.
+    1. Select `application/json` as the content type of the webhook.
+    1. Select the `deployment`, `pull_request`, and `push` events to trigger the webhook.
 
     The repository webhook is required so that the Buildkite GitHub app does not need read access to your repository.
 
@@ -75,6 +76,8 @@ Optionally, select one or more of the following:
 - **Limit pull request branches**
 - **Skip pull request builds for existing commits**
 - **Rebuild pull requests when they become ready for review**
+- **Build when pull request base branch is changed**
+- **Build when pull request labels are changed**
 - **Build pull requests from third-party forked repositories**. Make sure to check the [managing secrets](/docs/pipelines/security/secrets/managing) guide if you choose to do this.
 
 If you want to control which third-party forks can trigger builds in GitHub, you can prefix the branches from third-party forks with the contributor's username. For example, the `main` branch from `some-user` becomes `some-user:main`. You can then detect these using a pre-command hook or something similar before running a build. To enable prefixing the branch names, go to the GitHub settings for the pipeline and select **Prefix third-party fork branch names**.

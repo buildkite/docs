@@ -49,6 +49,14 @@ RUN echo "--- :yarn: Installing node packages" && yarn
 
 # ------------------------------------------------------------------
 
+FROM public.ecr.aws/docker/library/golang:1.24-bookworm as gobuild
+
+# This was previously installed from gobinaries.com within
+# the deploy-preview step, but gobinaries.com keeps being unavailable :(
+RUN go install github.com/tj/staticgen/cmd/staticgen@v1.1.0
+
+# ------------------------------------------------------------------
+
 FROM builder as assets
 
 COPY . /app/
@@ -67,10 +75,6 @@ RUN if [ "$RAILS_ENV" = "production" ]; then \
 # ------------------------------------------------------------------
 
 FROM $BASE_IMAGE AS runtime
-
-# Install a few misc. deps for CI
-RUN apt-get update && apt-get install -y curl jq
-RUN apt purge --assume-yes linux-libc-dev
 
 WORKDIR /app
 
@@ -97,3 +101,27 @@ RUN bundle exec rake sitemap:create
 
 EXPOSE 3000
 CMD ["bundle", "exec", "puma", "-C", "./config/puma.rb"]
+
+# ------------------------------------------------------------------
+#
+# We use this image to deploy previews to Netlify.
+#
+# It needs npm packages installed by Yarn in node-deps, as well as jq, curl and
+# staticgen for our orchestration machinery.
+#
+
+FROM runtime as deploy-preview
+
+# bin/deploy-preview has a couple of dependencies
+RUN apt-get update && \
+    apt-get install -y curl jq && \
+    apt purge --assume-yes linux-libc-dev
+
+COPY --from=gobuild /go/bin/staticgen /usr/local/bin/staticgen
+
+# ------------------------------------------------------------------
+#
+# Here, we ensure that the `runtime` image is the final result if this
+# Dockerfile is invoked without specifying a target.
+#
+FROM runtime

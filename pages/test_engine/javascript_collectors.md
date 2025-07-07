@@ -7,6 +7,7 @@ To use Test Engine with your JavaScript (npm) projects, use the :github: [`test-
 - [Mocha](https://mochajs.org/)
 - [Cypress](https://www.cypress.io)
 - [Playwright](https://playwright.dev)
+- [Vitest](https://vitest.dev/)
 
 You can also upload test results by importing [JSON](/docs/test-engine/importing-json) or [JUnit XML](/docs/test-engine/importing-junit-xml).
 
@@ -166,6 +167,44 @@ To configure Playwright:
       ]
     }
     ```
+
+### Vitest
+
+If you are already using Vitest, you can add `buildkite-test-collector/vitest/reporter` to the list of reporters to collect test results in your Test Engine dashboard.
+
+To configure Vitest:
+
+Update your [Vitest configuration](https://vitest.dev/config/):
+
+```js
+// vitest.config.js OR vite.config.js OR vitest.workspace.js
+
+test: {
+  // Send results to Test Engine
+   reporters: [
+     'default',
+     'buildkite-test-collector/vitest/reporter'
+   ],
+   // Enable column + line capture for Test Engine
+   includeTaskLocation: true,
+}
+```
+
+If you would like to pass in the API token using a custom environment variable, you can do so using the report options.
+
+```js
+// vitest.config.js OR vite.config.js OR vitest.workspace.js
+test: {
+   // Send results to Test Engine
+   reporters: [
+     'default',
+     [
+       "buildkite-test-collector/vitest/reporter",
+       { token: process.env.CUSTOM_ENV_VAR },
+     ],
+   ],
+}
+```
 
 ## Save the changes
 

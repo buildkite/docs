@@ -14,7 +14,7 @@ Test collectors are available for the following languages and their test runners
 - [Elixir (ExUnit)](/docs/test-engine/elixir-collectors)
 - [Go (gotestsum)](/docs/test-engine/golang-collectors)
 - [Java (via JUnit XML import)](/docs/test-engine/importing-junit-xml)
-- [JavaScript (Jest, Cypress, Playwright, Mocha, Jasmine)](/docs/test-engine/javascript-collectors)
+- [JavaScript (Jest, Cypress, Playwright, Mocha, Jasmine, Vitest)](/docs/test-engine/javascript-collectors)
 - [.NET (xUnit)](/docs/test-engine/dotnet-collectors)
 - [Python (pytest)](/docs/test-engine/python-collectors)
 - [Ruby (RSpec, minitest)](/docs/test-engine/ruby-collectors)

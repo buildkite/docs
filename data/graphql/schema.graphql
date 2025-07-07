@@ -86,6 +86,7 @@ enum APIAccessTokenScopes {
   READ_PORTALS
   READ_REGISTRIES
   READ_RULES
+  READ_SECRETS_DETAILS
   READ_SUITES
   READ_TEAMS
   READ_TEST_PLAN
@@ -101,6 +102,7 @@ enum APIAccessTokenScopes {
   WRITE_PORTALS
   WRITE_REGISTRIES
   WRITE_RULES
+  WRITE_SECRETS
   WRITE_SUITES
   WRITE_TEAMS
   WRITE_TEST_PLAN
@@ -958,6 +960,7 @@ enum AuditEventType {
   ORGANIZATION_BANNER_CREATED
   ORGANIZATION_BANNER_DELETED
   ORGANIZATION_BANNER_UPDATED
+  ORGANIZATION_BILLING_SETTING_UPDATED
   ORGANIZATION_BUILD_EXPORT_UPDATED
   ORGANIZATION_CREATED
   ORGANIZATION_DELETED
@@ -1016,6 +1019,7 @@ enum AuditEventType {
   SECRET_QUERIED
   SECRET_READ
   SECRET_UPDATED
+  SECRET_VALUE_UPDATED
   SSO_PROVIDER_CREATED
   SSO_PROVIDER_DELETED
   SSO_PROVIDER_DISABLED
@@ -1037,8 +1041,13 @@ enum AuditEventType {
   SUITE_MONITOR_CREATED
   SUITE_MONITOR_DELETED
   SUITE_MONITOR_UPDATED
+  SUITE_SAVED_VIEW_CREATED
+  SUITE_SAVED_VIEW_DELETED
   SUITE_UPDATED
   SUITE_VISIBILITY_CHANGED
+  SUITE_WORKFLOW_CREATED
+  SUITE_WORKFLOW_DELETED
+  SUITE_WORKFLOW_UPDATED
   TEAM_CREATED
   TEAM_DELETED
   TEAM_MEMBER_CREATED
@@ -1105,7 +1114,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | OrganizationRepositoryProviderGitHub | OrganizationRepositoryProviderGitHubEnterpriseServer | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceOpenTelemetryTracing | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | OrganizationRepositoryProviderGitHub | OrganizationRepositoryProviderGitHubEnterpriseServer | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -1124,6 +1133,7 @@ enum AuditSubjectType {
   NOTIFICATION_SERVICE
   ORGANIZATION
   ORGANIZATION_BANNER
+  ORGANIZATION_BILLING_SETTING
   ORGANIZATION_IMPERSONATION_REQUEST
   ORGANIZATION_INVITATION
   ORGANIZATION_MEMBER
@@ -1145,6 +1155,8 @@ enum AuditSubjectType {
   SUBSCRIPTION
   SUITE
   SUITE_MONITOR
+  SUITE_SAVED_VIEW
+  SUITE_WORKFLOW
   TEAM
   TEAM_MEMBER
   TEAM_PIPELINE
@@ -2206,6 +2218,11 @@ type ClusterQueue implements Node {
   key: String!
 
   """
+  The health status of stacks associated with this queue
+  """
+  stackHealth: String
+
+  """
   The public UUID for this cluster queue
   """
   uuid: ID!
@@ -2840,6 +2857,16 @@ enum HostedAgentInstanceShapeName {
   LINUX_ARM64_8X32
 
   """
+  macOS 12 vCPU x 56 GB Memory
+  """
+  MACOS_ARM64_M4_12X56
+
+  """
+  macOS 6 vCPU x 28 GB Memory
+  """
+  MACOS_ARM64_M4_6X28
+
+  """
   macOS 12 vCPU x 28 GB Memory
   """
   MACOS_M2_12X28
@@ -3455,6 +3482,12 @@ enum JobEventSignalReason {
   that in this case, no signal was sent to the process, the job was not run at all.
   """
   SIGNATURE_REJECTED
+
+  """
+  The job couldn't be launched by the stack controlling agents. This could be
+  due to a misconfiguration of the job, or due to a lack of resources.
+  """
+  STACK_ERROR
 }
 
 """
@@ -5285,6 +5318,22 @@ interface NotificationService {
 }
 
 """
+Deliver OpenTelemetry Traces to a custom OTLP endpoint
+"""
+type NotificationServiceOpenTelemetryTracing implements NotificationService {
+  """
+  The description of this service
+  """
+  description: String!
+  id: ID!
+
+  """
+  The name of the service provider
+  """
+  name: String!
+}
+
+"""
 Deliver notifications to Slack
 """
 type NotificationServiceSlack implements Node & NotificationService {
@@ -5635,6 +5684,11 @@ type Organization implements Node {
     """
     email: String
     first: Int
+
+    """
+    Filter to members with a 'last seen at' value that is nil or before the given date
+    """
+    inactiveSince: DateTime
     last: Int
 
     """
@@ -6561,6 +6615,11 @@ type OrganizationMember implements Node {
   """
   createdBy: User
   id: ID!
+
+  """
+  The time this member was last active within the organization
+  """
+  lastSeenAt: DateTime
   organization: Organization!
   permissions: OrganizationMemberPermissions!
 
@@ -9087,6 +9146,26 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   buildBranches: Boolean!
 
   """
+  Whether to create builds for pull requests when the base branch is changed.
+  """
+  buildPullRequestBaseBranchChanged: Boolean!
+
+  """
+  Whether to create builds for pull requests from third-party forks.
+  """
+  buildPullRequestForks: Boolean!
+
+  """
+  Whether to create builds for pull requests when labels are added or removed.
+  """
+  buildPullRequestLabelsChanged: Boolean!
+
+  """
+  Whether to create builds for pull requests that are ready for review.
+  """
+  buildPullRequestReadyForReview: Boolean!
+
+  """
   Whether to create builds for commits that are part of a Pull Request.
   """
   buildPullRequests: Boolean!
@@ -9117,6 +9196,19 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   ignoreDefaultBranchPullRequests: Boolean!
 
   """
+  Prefix branch names for third-party fork builds to ensure they don't trigger
+  branch conditions. For example, the main branch from some-user will become
+  some-user:main.
+  """
+  prefixPullRequestForkBranchNames: Boolean!
+
+  """
+  The status to use for blocked builds. Pending can be used with required status
+  checks to prevent merging pull requests with blocked builds.
+  """
+  publishBlockedAsPending: Boolean!
+
+  """
   Whether to update the status of commits in Bitbucket or GitHub.
   """
   publishCommitStatus: Boolean!
@@ -9138,6 +9230,12 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   pullRequestBranchFilterEnabled: Boolean!
 
   """
+  Whether to create a separate status for pull request builds, allowing you to
+  require a passing pull request build in your required status checks in GitHub.
+  """
+  separatePullRequestStatuses: Boolean!
+
+  """
   Whether to skip creating a new build if a build for the commit and branch already exists.
   """
   skipBuildsForExistingCommits: Boolean!
@@ -9146,6 +9244,11 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
   """
   skipPullRequestBuildsForExistingCommits: Boolean!
+
+  """
+  What type of event to trigger builds on.
+  """
+  triggerMode: String!
 }
 
 """
@@ -9156,6 +9259,11 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   Whether to create builds when branches are pushed.
   """
   buildBranches: Boolean!
+
+  """
+  Whether to create builds for pull requests when the base branch is changed.
+  """
+  buildPullRequestBaseBranchChanged: Boolean!
 
   """
   Whether to create builds for pull requests from third-party forks.

@@ -1,2 +1,2 @@
 vite: bin/vite dev
-web: bin/rails s -p 3000
+web: bin/rails s -p ${WEB_PORT-3000}

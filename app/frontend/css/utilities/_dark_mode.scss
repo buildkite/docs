@@ -201,6 +201,10 @@ html.dark {
     background-color: #1e293b;
   }
 
+  .Article table {
+    box-shadow: #121e3c 0px 0px 0px 1px, #10172ac7 0px 1px 3px;
+  }
+
   .Article h1:not([class]) > code,
   .Article h2:not([class]) > code,
   .Article h3:not([class]) > code,
@@ -209,6 +213,7 @@ html.dark {
   .Article h6:not([class]) > code,
   .Article p:not([class]) > code,
   .Article a:not([class]) > code,
+  .Article p > code,
   .Article li > code,
   .Article dt > code,
   .Article td > code,
@@ -287,8 +292,28 @@ html.dark {
   }
 
   a.Docs__example-repo {
+    background: #020617;
     border-color: $navy-700;
     color: $navy-300;
+    box-shadow: 0px 4px 4px 0px rgba($base-1000, 0.01),
+      0px 3px 3px 0px rgba($base-1000, 0.18),
+      0px 2px 2px 0px rgba($base-1000, 0.08),
+      0px 1px 0px 0px rgba($base-1000, 0.18),
+      0px 0px 0px 1px rgba($base-1000, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.075),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.09);
+
+    &:hover,
+    &:active,
+    &:focus {
+      box-shadow: 0px 4px 4px 0px rgba($base-1000, 0.01),
+        0px 3px 3px 0px rgba($base-1000, 0.18),
+        0px 2px 2px 0px rgba($base-1000, 0.08),
+        0px 1px 0px 0px rgba($base-1000, 0.18),
+        0px 0px 0px 1px rgba($base-1000, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
     .repo {
       color: $navy-400;
       &:hover {

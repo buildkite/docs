@@ -12,6 +12,9 @@ curl -H "Authorization: Bearer $TOKEN" \
     "name": "my registry",
     "ecosystem": "ruby",
     "description": "registry containing ruby gems",
+    "team_ids": [
+      "team-one-uuid", "team-two-uuid"
+    ]
     "oidc_policy": [
       {
         "iss": "https://agent.buildkite.com",
@@ -49,6 +52,7 @@ Required [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr><th><code>name</code></th><td>Name of the new registry.<br><em>Example:</em> <code>"my registry"</code>.</td></tr>
   <tr><th><code>ecosystem</code></th><td>Registry ecosystem based on the <a href="/docs/package-registries#get-started">package ecosystem</a> for the new registry.<br><em>Example:</em> <code>"ruby"</code>.</td></tr>
+  <tr><th><code>team_ids</code></th><td>The IDs of one or more teams who will be granted access to this registry.<br>Required only when the <a href="/docs/platform/team-management/permissions">teams feature</a> has been enabled.<br><em>Example:</em> <code>[ "2a1ac413-a56c-4aaa-aede-dc49bb46d00f", "5916fed1-1fbb-4a8d-9791-5b3fa0b5d269" ]</code>.</td></tr>
 </tbody>
 </table>
 

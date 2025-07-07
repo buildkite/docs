@@ -68,10 +68,13 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
+> 📘
+> `build.state` conditionals cannot be used on step-level notifications as a step cannot know the state of the entire build.
+
 See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
 > 🚧
-> To trigger conditional notifications to a Slack channel, you will first need to configure [Conditional notifications for Slack](/docs/pipelines/integrations/other/slack#conditional-notifications).
+> To trigger conditional notifications to a Slack channel, you will first need to configure [Conditional notifications for Slack](/docs/pipelines/integrations/notifications/slack#conditional-notifications).
 
 ## Email
 
@@ -83,7 +86,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can only send email notifications on entire pipeline [events](/docs/apis/webhooks#events), specifically upon `build.failing` and `build.finished`.
+You can only send email notifications on entire pipeline [events](/docs/apis/webhooks/pipelines#events), specifically upon `build.failing` and `build.finished`.
 
 Restrict notifications to finished builds by adding a [conditional](#conditional-notifications):
 
@@ -131,7 +134,7 @@ notify:
 
 The `basecamp_campfire` attribute accepts a single URL as a string.
 
-Basecamp notifications happen at the following [events](/docs/apis/webhooks#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
+Basecamp notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
 
 * `build created`
 * `build started`
@@ -146,13 +149,13 @@ You can set notifications:
 * On step status and other non-build events, by extending your Slack or Slack Workspace notification service with the `notify` attribute in your `pipeline.yml`.
 * On build status events in the Buildkite interface, by using your Slack notification service's **Build state filtering** settings.
 
-Before adding a `notify` attribute to your `pipeline.yml`, ensure a Buildkite organization admin has set up either the [Slack Workspace](/docs/pipelines/integrations/other/slack-workspace) notification service (a once-off configuration for each workspace), or the required [Slack](/docs/pipelines/integrations/other/slack) notification services, to send notifications to a channel or a user. Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan can also select the [**Manage Notifications Services**](https://buildkite.com/organizations/~/security/pipelines) checkbox to allow their users to create, edit, or delete notification services.
+Before adding a `notify` attribute to your `pipeline.yml`, ensure a Buildkite organization admin has set up either the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service (a once-off configuration for each workspace), or the required [Slack](/docs/pipelines/integrations/notifications/slack) notification services, to send notifications to a channel or a user. Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan can also select the [**Manage Notifications Services**](https://buildkite.com/organizations/~/security/pipelines) checkbox to allow their users to create, edit, or delete notification services.
 
 * The _Slack Workspace_ notification service requires a once-off configuration (only one per Slack workspace) in Buildkite, and then allows you to notify specific Slack channels or users, or both, directly within relevant pipeline steps.
 
-* The _Slack_ notification service requires you to first configure one or more of these services for a channel or user, along with the pipelines, branches and build states that these channels or users receive notifications for. Once configured, your pipelines will generate automated notifications whenever the conditions in these notification services are met. You can also use the `notify` attribute in your `pipeline.yml` file for more fine grained control, by mentioning specific channels and users in these attributes, as long as Slack notification services have been created for these channels and users. If you mention any channels or users in a pipeline `notify` attribute for whom a Slack notification service has not yet been configured, the notification will not be sent. For a simplified configuration experience, use the [Slack Workspace](/docs/pipelines/integrations/other/slack-workspace) notification service instead.
+* The _Slack_ notification service requires you to first configure one or more of these services for a channel or user, along with the pipelines, branches and build states that these channels or users receive notifications for. Once configured, your pipelines will generate automated notifications whenever the conditions in these notification services are met. You can also use the `notify` attribute in your `pipeline.yml` file for more fine grained control, by mentioning specific channels and users in these attributes, as long as Slack notification services have been created for these channels and users. If you mention any channels or users in a pipeline `notify` attribute for whom a Slack notification service has not yet been configured, the notification will not be sent. For a simplified configuration experience, use the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service instead.
 
-Learn more about these different [Slack Workspace](/docs/pipelines/integrations/other/slack-workspace) and [Slack](/docs/pipelines/integrations/other/slack) notification services within [Other integrations](/docs/pipelines/integrations).
+Learn more about these different [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) and [Slack](/docs/pipelines/integrations/notifications/slack) notification services within [Other integrations](/docs/pipelines/integrations).
 
 Once a Slack channel or workspace has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` YAML block.
 
@@ -198,7 +201,7 @@ You can notify a user in all workspaces configured through your Slack or Slack W
 
 #### Build-level notifications
 
-When using [Slack notification services](/docs/pipelines/integrations/other/slack), specify the user's handle (for example, `@someuser`) to notify this user about a build. The user will receive a notification in all Slack workspaces they have been configured for with this service type. For example:
+When using [Slack notification services](/docs/pipelines/integrations/notifications/slack), specify the user's handle (for example, `@someuser`) to notify this user about a build. The user will receive a notification in all Slack workspaces they have been configured for with this service type. For example:
 
 ```yaml
 notify:
@@ -223,7 +226,7 @@ notify:
         - "@someuser"
 ```
 
-When using the [Slack Workspace notification service](/docs/pipelines/integrations/other/slack-workspace), specify the user's user ID (for example, `U12AB3C456D`) instead of their user handle (`@someuser`), to notify this user about a build in the configured Slack workspace. For example:
+When using the [Slack Workspace notification service](/docs/pipelines/integrations/notifications/slack-workspace), specify the user's user ID (for example, `U12AB3C456D`) instead of their user handle (`@someuser`), to notify this user about a build in the configured Slack workspace. For example:
 
 ```yaml
 notify:
@@ -250,7 +253,7 @@ notify:
 
 #### Step-level notifications
 
-When using the [Slack notification services](/docs/pipelines/integrations/other/slack), specify the user's handle (for example, `@someuser`) to notify this user about this step's job. The user will receive a notification in all Slack workspaces they have been configured for with this service type. For example:
+When using the [Slack notification services](/docs/pipelines/integrations/notifications/slack), specify the user's handle (for example, `@someuser`) to notify this user about this step's job. The user will receive a notification in all Slack workspaces they have been configured for with this service type. For example:
 
 ```yaml
 steps:
@@ -261,7 +264,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-When using the [Slack Workspace notification service](/docs/pipelines/integrations/other/slack-workspace), specify the user's user ID (for example, `U12AB3C456D`) instead of their user handle (`@someuser`), to notify this user about this step's job in the configured Slack workspace. For example:
+When using the [Slack Workspace notification service](/docs/pipelines/integrations/notifications/slack-workspace), specify the user's user ID (for example, `U12AB3C456D`) instead of their user handle (`@someuser`), to notify this user about this step's job in the configured Slack workspace. For example:
 
 ```yaml
 steps:
@@ -418,11 +421,17 @@ notify:
 
 See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
-You are able to use `pipeline.started_passing` and `pipeline.started_failing` in your if statements if you are using the [Slack Workspace](/docs/pipelines/integrations/other/slack-workspace) integration.
+You are able to use `pipeline.started_passing` and `pipeline.started_failing` in your if statements if you are using the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) integration.
 
-Slack notifications happen at the following [event](/docs/apis/webhooks#events):
+Build-level Slack notifications happen at the following [event](/docs/apis/webhooks/pipelines#events):
 
-* `build finished`
+* `build.finished`
+* `build.failing`
+
+Step-level Slack notifications happen at the following [events](/docs/apis/webhooks/pipelines#events):
+
+* `step.finished`
+* `step.failing`
 
 An example to deliver slack notification when a step is soft-failed:
 
@@ -434,7 +443,7 @@ steps:
   - wait: ~
   - command: |
       if [ $(buildkite-agent step get "outcome" --step "step1") == "soft_failed" ]; then
-         cat <<- YAML | buildkite-agent pipeline upload 
+         cat <<- YAML | buildkite-agent pipeline upload
          steps:
            - label: "Notify slack about soft failed step"
              command: echo "Notifying slack about the soft_failed step"
@@ -514,7 +523,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Webhook notifications happen at the following [events](/docs/apis/webhooks#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
+Webhook notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
 
 * `build created`
 * `build started`
@@ -523,7 +532,7 @@ Webhook notifications happen at the following [events](/docs/apis/webhooks#event
 
 ## PagerDuty change events
 
-If you've set up a [PagerDuty integration](/docs/pipelines/integrations/other/pagerduty) you can send change events from your pipeline using the `pagerduty_change_event` attribute of the `notify` YAML block:
+If you've set up a [PagerDuty integration](/docs/pipelines/integrations/notifications/pagerduty) you can send change events from your pipeline using the `pagerduty_change_event` attribute of the `notify` YAML block:
 
 ```yaml
 steps:
@@ -534,7 +543,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Email notifications happen at the following [event](/docs/apis/webhooks#events):
+Email notifications happen at the following [event](/docs/apis/webhooks/pipelines#events):
 
 * `build finished`
 
@@ -555,9 +564,3 @@ notify:
 <%= render_markdown partial: 'pipelines/configure/build_states' %>
 
 See the full [build states diagram](/docs/pipelines/configure/defining-steps#build-states) for more information on how builds transition between states.
-
-## Job states
-
-<%= render_markdown partial: 'pipelines/configure/job_states' %>
-
-See the full [job states diagram](/docs/pipelines/configure/defining-steps#job-states) for more information on how jobs transition between states.

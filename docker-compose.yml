@@ -3,6 +3,7 @@ services:
   app:
     build:
       context: .
+      target: runtime
       args:
         RAILS_ENV: ${RAILS_ENV:-development}
     depends_on:
@@ -19,6 +20,7 @@ services:
   vite:
     build:
       context: .
+      target: runtime
       args:
         RAILS_ENV: ${RAILS_ENV:-development}
     entrypoint: bin/vite dev
@@ -35,7 +37,18 @@ services:
   muffet:
     depends_on:
       - app
-    image: raviqqe/muffet
+    image: raviqqe/muffet:2.10.9
     entrypoint:
       - ash
       - -c
+
+  deploy-preview:
+    build:
+      context: .
+      target: deploy-preview
+      args:
+        RAILS_ENV: ${RAILS_ENV:-development}
+    volumes:
+      - ".:/app"
+      - /app/node_modules
+      - /app/public/docs
