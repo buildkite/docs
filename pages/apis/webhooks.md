@@ -14,7 +14,7 @@ Common use cases for implementing Buildkite webhooks include:
 - Automating infrastructure, such as scaling agents.
 - Allowing your third party applications to:
     * Ingest analytics or data on specific activities from the Buildkite platform.
-    * Display custom dashboards or wallboards on data from the Buildkite platform.
+    * Display custom dashboards on data from the Buildkite platform.
 
 Buildkite currently provides webhook support for both [Pipelines](/docs/apis/webhooks/pipelines) and [Test Engine](/docs/apis/webhooks/test-engine).
 
