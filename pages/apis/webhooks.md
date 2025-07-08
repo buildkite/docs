@@ -1,6 +1,5 @@
 ---
 description: Receive real-time Buildkite events in your systems
-weight: 10
 ---
 
 # Webhooks overview
@@ -47,7 +46,7 @@ Buildkite Test Engine supports webhook events relating to [changes in test state
 When configuring your third party applications to receive Buildkite webhook events, ensure the following security measures are implemented:
 
 - Serve your endpoint over TLS.
-- Restrict accepted IP ranges for Buildkite webhooks to Buildkite’s outgoing addresses.
+- Restrict accepted IP ranges for Buildkite webhooks to Buildkite's outgoing addresses.
 - Ensure your endpoints only accept JSON payloads from Buildkite webhooks.
 
 ## See also
