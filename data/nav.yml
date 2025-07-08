@@ -27,13 +27,13 @@
         - name: Migration Tool
           children:
             - name: "Overview"
-              path: "pipelines/migration/migration-tool/overview"
+              path: "pipelines/migration/tool"
             - name: "Bitbucket Pipelines"
-              path: "pipelines/migration/migration-tool/bitbucket-pipelines"
+              path: "pipelines/migration/tool/bitbucket-pipelines"
             - name: "CircleCI"
-              path: "pipelines/migration/migration-tool/circleci"
+              path: "pipelines/migration/tool/circleci"
             - name: "GitHub Actions"
-              path: "pipelines/migration/migration-tool/github-actions"
+              path: "pipelines/migration/tool/github-actions"
         - name: From Jenkins
           path: pipelines/migration/from-jenkins
         - name: From Bamboo
