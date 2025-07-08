@@ -2,14 +2,14 @@
 
 An agent goes through different phases in its lifecycle, including starting up, shutting down, and checking out code. Hooks let you extend or override the behavior of agents at different stages of its lifecycle. You "hook into" the agent at a particular stage.
 
-### What's a hook?
+## What's a hook?
 
 A hook is a script executed or sourced by the Buildkite agent at a specific point in the job lifecycle. You can use hooks to extend or override the built-in behavior of an agent. Hooks are generally shell scripts, which the agent then executes or sources.
 
 > 🛠 Experimental feature
 > Using the `polyglot-hooks` experiment, agents running v3.47.0 or later can run hooks written in any programming language. See the [polyglot hooks](#polyglot-hooks) section for more information.
 
-### Hook scopes
+## Hook scopes
 
 You can define hooks in the following locations:
 

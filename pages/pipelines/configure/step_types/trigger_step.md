@@ -4,7 +4,6 @@ A _trigger_ step creates a build on another pipeline.
 
 You can use trigger steps to separate your test and deploy pipelines, or to create build dependencies between pipelines.
 
-
 A trigger step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/configure/defining-steps) file, by setting the `trigger` attribute to the the [slug of the pipeline you want to trigger](#trigger).
 
 ```yml
@@ -30,6 +29,9 @@ If neither condition is true, the build will fail, and builds on subsequent pipe
 If using bot users (unregistered users who are not part of any team) to trigger pipelines, make sure you have shared team which has the build permission on parent and child pipelines.
 
 If your triggering pipelines are started by an API call or a webhook, it might not be clear whether the triggering user has access to the triggered pipeline, which will cause your build to fail. To prevent that from happening, make sure that all of your GitHub user accounts that are triggering builds are [connected to Buildkite accounts](/docs/pipelines/source-control/github#connecting-buildkite-and-github).
+
+> 📘 Pipeline triggering
+> Pipelines associated with one [cluster](/docs/pipelines/glossary#cluster) cannot trigger pipelines associated with another cluster, unless a [rule](/docs/pipelines/rules) has been created to explicitly allow triggering between pipelines in different clusters.
 
 ## Trigger step attributes
 
