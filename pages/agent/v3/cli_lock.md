@@ -3,7 +3,7 @@
 The Buildkite Agent's `lock` subcommands provide the ability to coordinate multiple concurrent builds on the same host that access shared resources.
 
 > 🛠 Experimental feature
-> The agent-api experiment must be enabled to use the `lock` command. To enable the agent-api experiment, include the `--experiment=agent-api` flag when starting the agent or add `experiment="agent-api"` to your agent [configuration file](/docs/agent/v3/configuration).
+> The agent-api experiment must be enabled to use the `lock` command. To enable the agent-api experiment, include the `--experiment=agent-api` flag when starting the agent, or add `experiment="agent-api"` to your [agent configuration file](/docs/agent/v3/configuration).
 
 With the `lock` command, processes can acquire and release a lock using the `acquire` and `release` subcommands. For the special case of performing setup once for the life of the agent (and waiting until it is complete), there are the `do` and `done` subcommands. These provide an alternative to using `flock` or OS-dependent locking mechanisms.
 
@@ -33,7 +33,7 @@ Locks help coordinate access to shared resources when multiple agents run concur
 
 ### Coordinating sequential access
 
-Use `acquire` and `release` when multiple builds need to run the same operation sequentially to prevent conflicts. Each build will execute the task, but only one at a time. This coordination works across multiple pipelines when they use the same lock key and the jobs run on the same host. Unlike `do/done`, each build still performs the work - locks just ensure they don't interfere with each other.
+Use `acquire` and `release` when multiple builds need to run the same operation sequentially to prevent conflicts. Each build will execute the task, but only one at a time. This coordination works across multiple pipelines when they use the same lock key and the jobs run on the same host. Unlike `do/done`, each build still performs the work—locks just ensure they don't interfere with each other.
 
 ```yml
 steps:
@@ -67,7 +67,7 @@ steps:
 
 ### One-time locks
 
-When running parallel jobs, on the same host, that need shared setup, `do` and `done` ensure expensive operations happen only once. One agent performs the setup (downloading datasets, generating certificates, starting services, etc.,) while others wait and then proceed. This saves time and resources compared to each parallel job repeating the same work. Once marked as `done`, the lock remains completed for all subsequent jobs on the host unless it is restarted.
+When running parallel jobs on the same host that need a shared setup, `do` and `done` ensure expensive operations happen only once. For instance, one agent performs the setup (for example, downloading datasets, generating certificates, starting services, etc.), while others wait and then proceed. This saves time and resources compared to each parallel job repeating the same work. Once marked as `done`, the lock remains completed for all subsequent jobs on the host unless it is restarted.
 
 ```yml
 steps:
