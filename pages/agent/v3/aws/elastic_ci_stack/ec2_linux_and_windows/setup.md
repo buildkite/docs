@@ -203,8 +203,8 @@ The following AWS IAM permissions are required to build custom AMIs using the pr
 
 It is also recommended that you have a base knowledge of:
 
-- Packer
-- HCL
+- [Packer](https://developer.hashicorp.com/packer/docs/intro)
+- [HCL](https://github.com/hashicorp/hcl)
 - Bash or PowerShell (depending on the operating system of choice)
 
 ### Creating an image
