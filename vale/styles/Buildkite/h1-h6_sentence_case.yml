@@ -109,6 +109,7 @@ exceptions:
   - Groovy
   - Heroku
   - HMAC
+  - Honeycomb
   - HTTP
   - Hugging Face
   - I
