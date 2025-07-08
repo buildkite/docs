@@ -14,7 +14,7 @@ You can integrate Honeycomb with Buildkite using three methods:
 
 1. [**buildevents binary**](https://github.com/honeycombio/buildevents) - captures detailed trace telemetry for each build step.
 2. [**OpenTelemetry tracing**](/docs/agent/v3/tracing#using-opentelemetry-tracing) - sends traces directly from the Buildkite agent.
-3. [**Honeycomb Marker Buildkite plugin**](https://www.honeycomb.io/integration/buildkite-markers) - adds Buildkite markers to your traces. However, this approach is considered to be outdated and is not recommended. 
+3. [**Honeycomb Marker Buildkite plugin**](https://www.honeycomb.io/integration/buildkite-markers) - adds Buildkite markers to your traces. However, this approach is considered to be outdated and is not recommended.
 
 ## Buildkite buildevents
 
@@ -42,7 +42,7 @@ Each trace contains:
 
 The buildevents script needs a unique Trace ID to join together all of the steps and commands with the build. You can use Buildkite's `BUILDKITE_BUILD_ID` environment variable since it is both unique (even when re-running builds, you will get a new `BUILDKITE_BUILD_ID`) and is also a primary value that the build system uses to identify the build.
 
-You can get started with using Buildkite buildevents by following the [installation instructions](https://github.com/honeycombio/buildevents?tab=readme-ov-file#installation). 
+You can get started with using Buildkite buildevents by following the [installation instructions](https://github.com/honeycombio/buildevents?tab=readme-ov-file#installation).
 
 Since Honeycomb maintains the buildevents integration, direct questions and feature requests to the [Honeycomb Support Portal](https://www.honeycomb.io/support).
 
@@ -51,7 +51,7 @@ Since Honeycomb maintains the buildevents integration, direct questions and feat
 You can send traces from the Buildkite agent to Honeycomb with the help of OpenTelemetry by following these steps:
 
 1. Enable OpenTelemetry tracing by setting the `--tracing-backend opentelemetry` flag on your Buildkite agent.
-2. Add environment variables to your pipeline configuration:
+2. Set the following values in the environment where you are running the Builkite agent:
 
 ```yaml
 OTEL_EXPORTER_OTLP_TRACES_ENDPOINT="https://api.honeycomb.io"
