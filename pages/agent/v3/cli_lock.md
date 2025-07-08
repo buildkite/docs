@@ -35,6 +35,11 @@ Locks help coordinate access to shared resources when multiple agents run concur
 
 Use [`acquire`](#acquiring-a-lock) and [`release`](#releasing-a-previously-acquired-lock) when multiple builds need to run the same operation sequentially to prevent conflicts. Each build will execute the task, but only one at a time. This coordination works across multiple pipelines when they use the same lock key and the jobs run on the same host. Unlike [`do`](#starting-a-do-once-section) and [`done`](#completing-a-do-once-section), each build still performs the work—locks just ensure they don't interfere with each other.
 
+> 📘 Sequential locks example
+> In this example, we use `db-migration-lock` to ensure that database migrations run sequentially across multiple builds on the same host.
+> The lock only controls access to the `bundle exec rake db:migrate` process itself in the below example, and does not lock access to the Vault server defined by the plugin, or any subsequent commands following the `buildkite-agent lock release db-migration-lock '$${token}'` command.
+> Multiple builds can still retrieve secrets from Vault concurrently, but only one can execute the actual database migration at a time, as long as all builds use the same lock key.
+
 ```yml
 steps:
   - label: "Install Dependencies"
@@ -65,9 +70,17 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+> 📘 Lock key naming
+> Lock keys like `db-migration-lock` are arbitrary names you choose to identify your locks. They don't reference predefined values and can be anything you decide, but we recommend that you use descriptive names that clearly indicate what resource or operation is being protected. All builds using the same lock key will coordinate with each other on the same host.
+
 ### One-time locks
 
 When running parallel jobs on the same host that need a shared setup, [`do`](#starting-a-do-once-section) and [`done`](#completing-a-do-once-section) ensure expensive operations happen only once. For instance, one agent performs the setup (for example, downloading datasets, generating certificates, starting services, etc.), while others wait and then proceed. This saves time and resources compared to each parallel job repeating the same work. Once marked as `done`, the lock remains completed for all subsequent jobs on the host unless it is restarted.
+
+> 📘 One-time locks example
+> In this example, we use `test-env-setup` to ensure that test environment setup happens only once across multiple parallel jobs on the same host.
+> The first job to reach the `buildkite-agent lock do test-env-setup` command will receive a response of `do` and execute the setup work (downloading and extracting test data). All other parallel jobs will wait and then receive a response of `done`. These jobs will skip the `if` statement in the example bash script below and output `Assets have already been pulled and unarchived`.
+> Unlike the `acquire`/`release` pattern, this lock is performed only once and subsequent jobs benefit from the completed work without repeating it.
 
 ```yml
 steps:
