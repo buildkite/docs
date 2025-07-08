@@ -33,7 +33,7 @@ Locks help coordinate access to shared resources when multiple agents run concur
 
 ### Coordinating sequential access
 
-Use `acquire` and `release` when multiple builds need to run the same operation sequentially to prevent conflicts. Each build will execute the task, but only one at a time. This coordination works across multiple pipelines when they use the same lock key and the jobs run on the same host. Unlike `do/done`, each build still performs the work—locks just ensure they don't interfere with each other.
+Use [`acquire`](#acquiring-a-lock) and [`release`](#releasing-a-previously-acquired-lock) when multiple builds need to run the same operation sequentially to prevent conflicts. Each build will execute the task, but only one at a time. This coordination works across multiple pipelines when they use the same lock key and the jobs run on the same host. Unlike [`do`](#starting-a-do-once-section) and [`done`](#completing-a-do-once-section), each build still performs the work—locks just ensure they don't interfere with each other.
 
 ```yml
 steps:
