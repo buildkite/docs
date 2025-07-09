@@ -53,7 +53,9 @@ The **Table** view provides a detailed list of all jobs in your build. This view
 Here's how to use it:
 
 - Sort steps by selecting the column header (select three times to remove sorting).
-- Filter steps in the table via the sidebar filter.
+- Filter jobs using the state filter.
+
+<%= image "build_table.png", alt: "Screenshot showing the build table" %>
 
 ### Browsing your build on mobile
 
