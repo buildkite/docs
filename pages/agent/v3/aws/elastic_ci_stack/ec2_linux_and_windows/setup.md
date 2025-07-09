@@ -142,7 +142,7 @@ By following these conventions you get a scalable, repeatable, and source-contro
 
 Custom images help teams ensure that their agents have all required tools and configurations before instance launch. This prevents instances from reverting to the base image state when agents restart, which would lose any manual changes made during run time.
 
-Custom [AMIs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html) can be used with the Elastic CI Stack for AWS by specifying the `ImageId` parameter. You can use any AMI available to your AWS account, but it is recommend starting with Buildkite's base packer templates as a starting point. The packer templates used to create the default stack images are available in the [packer directory](https://github.com/buildkite/elastic-ci-stack-for-aws/tree/main/packer) of the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) repository.
+Custom [AMIs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html) can be used with the Elastic CI Stack for AWS by specifying the `ImageId` parameter. You can use any AMI available to your AWS account, but it is recommend starting with Buildkite's base [Packer](https://developer.hashicorp.com/packer) templates as a starting point. The Packer templates used to create the default stack images are available in the [packer directory](https://github.com/buildkite/elastic-ci-stack-for-aws/tree/main/packer) of the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) repository.
 
 ### Requirements
 
@@ -204,14 +204,14 @@ The following AWS IAM permissions are required to build custom AMIs using the pr
 It is also recommended that you have a base knowledge of:
 
 - [Packer](https://developer.hashicorp.com/packer/docs/intro)
-- [HCL](https://github.com/hashicorp/hcl)
+- [HashiCorp configuration language (HCL)](https://github.com/hashicorp/hcl?tab=readme-ov-file#hcl)
 - Bash or PowerShell (depending on the operating system of choice)
 
 ### Creating an image
 
 To create a custom AMI, use the provided Packer templates to build new images with your modifications. First, make your desired changes to the Packer templates, then run the [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) in the root directory to begin the build process.
 
-The [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) provides several build targets, each running Packer in a Docker container:
+This [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) provides several build targets, each running Packer in a Docker container:
 
 <table>
   <thead>
@@ -251,7 +251,7 @@ The [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main
   </tbody>
 </table>
 
-By default, all builds target the `us-east-1` region and use your default AWS profile. The make command can be prefixed with environment variables to change the behavior of the build.
+By default, all builds target the `us-east-1` region and use your default AWS profile. The `make` command can be prefixed with environment variables to change the behavior of the build.
 
 <table>
   <thead>
@@ -333,7 +333,7 @@ AWS_PROFILE="assets-profile" \
 make packer-linux-amd64.output
 ```
 
-Once your image build completes, the AMI will be stored in your AWS account and the AMI ID will be displayed in your terminal output. You can also find the AMI ID in the corresponding output file (such as `packer-linux-amd64.output`).
+Once your image build is completed, the AMI will be stored in your AWS account and the AMI ID is displayed in your terminal output. You can also find the AMI ID in the corresponding output file (such as `packer-linux-amd64.output`).
 
 ## Launching the stack
 
