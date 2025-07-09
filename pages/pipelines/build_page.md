@@ -86,6 +86,7 @@ The following keyboard shortcuts are currently available:
 - `j`: Follow build (for in-progress builds, only on canvas view).
 - `esc`: Clear active step selection.
 - `g`: Toggle collapse groups (early experiment only).
+- `s`: Toggle step search
 
 ## Tips for large builds
 
