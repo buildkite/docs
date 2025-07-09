@@ -13,7 +13,7 @@ Honeycomb offers several advantages for Buildkite users:
 You can integrate Honeycomb with Buildkite using three methods:
 
 1. [**buildevents binary**](https://github.com/honeycombio/buildevents) - captures detailed trace telemetry for each build step.
-2. [**OpenTelemetry tracing**](/docs/agent/v3/tracing#using-opentelemetry-tracing) - sends traces directly from the Buildkite agent.
+2. [**OpenTelemetry tracing**](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service-honeycomb) - sends traces directly from the Buildkite agent.
 3. [**Honeycomb Marker Buildkite plugin**](https://www.honeycomb.io/integration/buildkite-markers) - adds Buildkite markers to your traces. However, this approach is considered to be outdated and is not recommended.
 
 ## Buildkite buildevents
