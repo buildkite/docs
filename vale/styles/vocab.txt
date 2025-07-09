@@ -61,6 +61,7 @@ CloudWatch
 CMake
 cmake
 cocoapods
+codesign
 commit_sha
 completion_watcher
 composable
@@ -97,6 +98,7 @@ eval
 Eventbridge
 EventBridge
 Explainshell
+fastfile
 fastlane
 fastlane's
 favorited
@@ -159,6 +161,7 @@ linux
 llamasecret
 macOS
 macos
+matchfile
 matchers
 Memcache
 minitest

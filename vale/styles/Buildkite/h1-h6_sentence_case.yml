@@ -69,6 +69,7 @@ exceptions:
   - CloudTrail
   - CloudWatch
   - CloudWatch Logs
+  - CocoaPods
   - completion_watcher
   - CORS
   - CSS

@@ -20,7 +20,7 @@ For more information regarding code signing errors, see fastlane's code signing 
 
 ## Common Fastlane errors and resolutions
 
-The following section covers the errors you are most litely to encounter when using fastlane with Buildkite and ways to troubleshoot those errors.
+The following section covers the errors you are most likely to encounter when using fastlane with Buildkite and ways to troubleshoot those errors.
 
 ### CocoaPods sandbox error
 
