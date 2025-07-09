@@ -1,29 +1,26 @@
-# Troubleshooting Fastlane
+# Troubleshooting fastlane
  
-This guide provides troubleshooting steps for common Fastlane issues when working with iOS development in Buildkite's Mobile Delivery Cloud.
+This guide provides troubleshooting steps for common [fastlane](https://docs.fastlane.tools/) issues when working with iOS development in Buildkite's [Mobile Delivery Cloud](/docs/pipelines/hosted-agents/mobile-delivery-cloud/getting-started).
 
-## Understanding Fastlane errors
+## Enabling verbose mode
 
-Fastlane is a wrapper tool that doesn't always surface the true error and tends to produce vague error messages. This can make troubleshooting challenging. Running Fastlane in verbose mode will output additional information that can help with debugging:
+Fastlane is a wrapper tool that by default tends to produce vague error messages which can make troubleshooting challenging. Running fastlane in verbose mode will output additional information that can help with debugging. To enable the verbose mode, set the `--verbose`flag:
 
 ```bash
 fastlane [lane] --verbose
 ```
 
-The first step of any troubleshooting should be to share the Fastlane or xcodebuild logs. These should be uploaded as a build artifact. Build and signing issues with Apple can get complex quickly, so the goal isn't always to solve the issue for the customer, but to highlight the errors and have them take the lead on finding the solution.
+## Examining the logs
 
-When examining verbose logs, the actual error is often buried deep in the output, above where Fastlane reports its simplified error message. For code signing errors especially, look for messages containing 'codesign', 'security', or 'provisioning profile' earlier in the log.
+For successful debugging, you'll need Fastlane or xcodebuild logs. To be able to examine the logs, upload them as a [build artifact](/docs/pipelines/configure/artifacts). 
 
-[Fastlane documentation](https://docs.fastlane.tools/) will be your friend throughout the troubleshooting process.
+When examining the verbose logs, the actual errors will often be found around the parts where fastlane reports its simplified error messages. For code signing errors specifically, look for messages containing 'codesign', 'security', or 'provisioning profile' and be sure to check the raw xcodebuild output which can be found in `$HOME/Library/Logs/gym/*`.
 
-> 📘 Code signing logs location
-> For code signing issues, be sure to check the raw xcodebuild output. This is found in `$HOME/Library/Logs/gym/`
->
-> ```bash
-> buildkite-agent artifact upload "$HOME/Library/Logs/gym/*"
-> ```
+For more information regarding code signing errors, see fastlane's code signing [troubleshooting documentation](https://docs.fastlane.tools/codesigning/troubleshooting/).
 
 ## Common Fastlane errors and resolutions
+
+The following section covers the errors you are most litely to encounter when using fastlane with Buildkite and ways to troubleshoot those errors.
 
 ### CocoaPods sandbox error
 
@@ -38,7 +35,7 @@ The sandbox is the `Pods` directory within the project folder, representing the 
 
 **Resolution:**
 
-Add `cocoapods(clean: true)` to the `Fastfile`:
+To resolve the error, delete the current `Pods` directory and rebuild the sandbox from scratch based on the `Podfile.lock` by adding `cocoapods(clean: true)` to the `Fastfile`:
 
 ```ruby
 lane :build do
@@ -49,11 +46,9 @@ lane :build do
 end
 ```
 
-This deletes the current `Pods` directory and rebuilds the sandbox from scratch based on the `Podfile.lock`.
+If the proposed solution doesn't resolve the issue, ensure a consistent environment:
 
-This should resolve the sandbox out of sync error. If that doesn't resolve the issue, ensure a consistent environment:
-
-* Run `bundle install` before calling Fastlane to ensure all Ruby gems (CocoaPods is a Ruby gem) are installed based on the `Gemfile.lock`
+* Run `bundle install` before calling Fastlane to ensure all Ruby gems (since CocoaPods is a Ruby gem, too) are installed based on the `Gemfile.lock`
 * Execute Fastlane using `bundle exec fastlane` to use the versions of gems specified in the `Gemfile.lock`
 
 ### Ruby gem dependency error
@@ -80,9 +75,9 @@ You can add abbrev to your Gemfile or gemspec to silence this warning.
 
 **Resolution:**
 
-macOS hosted agents have Ruby 3.4+ installed via Homebrew. In Ruby 3.4+, the gems `mutex_m` and `abbrev` are no longer default gems. In Ruby 3.5+, `ostruct` will no longer be a default gem, causing Fastlane to fail.
+macOS hosted Buildkite agents have Ruby 3.4+ installed via Homebrew. In Ruby 3.4+, the gems `mutex_m` and `abbrev` are no longer the default gems. In Ruby 3.5+, `ostruct` will no longer be a default gem, causing Fastlane to fail.
 
-These gems need to be added to the `Gemfile`:
+To fix this discrepancy, you need to add the following gems to the `Gemfile`:
 
 ```ruby
 gem 'mutex_m'
@@ -142,7 +137,7 @@ build_app(
 ```
 
 > 📘 Fastlane match
-> If you're using Fastlane match, many of these code signing steps are automated. Match handles everything from creating and storing certificates and profiles, setting up code signing on a new machine, and handling multiple teams keys and profiles through git. If match is being used, look for issues in the Matchfile and check the Fastlane output logs.
+> If you're using the [fastlane match](https://docs.fastlane.tools/actions/match/) implementation, many of the code signing steps will be automated. Match handles everything from creating and storing certificates and profiles, setting up code signing on a new machine, and handling multiple teams keys and profiles through Git. If match is being used, look for issues in the Matchfile and check the fastlane output logs.
 
 #### Troubleshooting steps
 
@@ -208,8 +203,3 @@ echo "Set Keychain partition List (Required)"
 security delete-keychain build.keychain
 ```
 
-## Additional resources
-
-- [Fastlane documentation](https://docs.fastlane.tools/)
-- [Mobile Delivery Cloud overview](/docs/pipelines/hosted-agents/mobile-delivery-cloud)
-- [Getting started with Mobile Delivery Cloud](/docs/pipelines/hosted-agents/mobile-delivery-cloud/getting-started)
