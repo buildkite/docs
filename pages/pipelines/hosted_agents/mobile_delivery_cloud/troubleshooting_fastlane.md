@@ -1,5 +1,5 @@
 # Troubleshooting fastlane
- 
+
 This guide provides troubleshooting steps for common [fastlane](https://docs.fastlane.tools/) issues when working with iOS development in Buildkite's [Mobile Delivery Cloud](/docs/pipelines/hosted-agents/mobile-delivery-cloud/getting-started).
 
 ## Enabling verbose mode
@@ -12,7 +12,7 @@ fastlane [lane] --verbose
 
 ## Examining the logs
 
-For successful debugging, you'll need Fastlane or xcodebuild logs. To be able to examine the logs, upload them as a [build artifact](/docs/pipelines/configure/artifacts). 
+For successful debugging, you'll need Fastlane or xcodebuild logs. To be able to examine the logs, upload them as a [build artifact](/docs/pipelines/configure/artifacts).
 
 When examining the verbose logs, the actual errors will often be found around the parts where fastlane reports its simplified error messages. For code signing errors specifically, look for messages containing 'codesign', 'security', or 'provisioning profile' and be sure to check the raw xcodebuild output which can be found in `$HOME/Library/Logs/gym/*`.
 
@@ -48,8 +48,8 @@ end
 
 If the proposed solution doesn't resolve the issue, ensure a consistent environment:
 
-* Run `bundle install` before calling Fastlane to ensure all Ruby gems (since CocoaPods is a Ruby gem, too) are installed based on the `Gemfile.lock`
-* Execute Fastlane using `bundle exec fastlane` to use the versions of gems specified in the `Gemfile.lock`
+- Run `bundle install` before calling Fastlane to ensure all Ruby gems (since CocoaPods is a Ruby gem, too) are installed based on the `Gemfile.lock`
+- Execute Fastlane using `bundle exec fastlane` to use the versions of gems specified in the `Gemfile.lock`
 
 ### Ruby gem dependency error
 
@@ -99,20 +99,20 @@ Exit status: 65
 
 This error occurs during the code signing process. Code signing requires several components to be set up correctly:
 
-* **Certificate and private keys:**
+- **Certificate and private keys:**
   * Certificate issued by Apple to verify the developer's identity
   * Private key available in the keychain
   * Both must be properly imported into a keychain
-* **Provisioning profile:**
+- **Provisioning profile:**
   * A `.mobileprovision` file installed in `~/Library/MobileDevice/Provisioning Profiles/`
   * Must match the app's bundle identifier
   * Must include the certificate being used to sign
   * Must contain the app's entitlements (push notification support, etc.)
   * Must not be expired
-* **Keychain access:**
+- **Keychain access:**
   * Keychain needs to be unlocked during the build
   * Should not be the default `login.keychain-db`
-* **Xcode build settings:**
+- **Xcode build settings:**
   * **Signing identity** - The certificate from the keychain
   * **Provisioning profile** - Valid `.mobileprovision` file that matches the app bundle ID
   * **Matching team ID** - Apple Developer Team ID must match between certificate and profile
