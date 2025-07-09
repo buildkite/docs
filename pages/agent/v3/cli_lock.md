@@ -71,7 +71,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-This lock only controls access to the `bundle exec rake db:migrate` process itself, and does not lock access to the vault server defined by the plugin, or any subsequent commands following the `buildkite-agent lock release db-migration-lock '$${token}'` command.
+This lock only controls access to the `bundle exec rake db:migrate` process itself, and does not lock access to the vault server defined by the plugin, or any subsequent commands following the `buildkite-agent lock release db-migration-lock '$${token}'` command. Only processes that occur between the `lock acquire` and `lock release` commands are the ones which are locked.
 
 Multiple builds can still retrieve secrets from the vault concurrently, but only one can execute the actual database migration at a time, as long as all builds use the same lock key.
 
