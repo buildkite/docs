@@ -40,7 +40,7 @@ When you select a step, its details appear in the resizable panel. You can:
 - View a step on tab of the build page.
 - View logs, artifacts, and environment variables in their respective tabs.
 - Drag the panel edge to resize.
-- Dock the panel on the right, bottom, center, or fullscreen using the layout toggle.
+- Dock the panel on the right, bottom, or center using the layout toggle.
 
 <%= image "build_page_drawer.png", alt: "Screenshot showing the drawer and positioning buttons" %>
 
