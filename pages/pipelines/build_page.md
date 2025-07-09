@@ -27,6 +27,12 @@ The **sidebar** provides a hierarchical view of all steps in your build. Here's 
 
 <%= image "build_page_sidebar.png", alt: "Screenshot showing the sidebar" %>
 
+### Searching for steps
+
+Use the search input to find specific steps in your build. Type the name of the step or any relevant keywords, and the sidebar will filter the list to show only matching steps.
+
+<%= image "build_step_search.png", alt: "Screenshot showing the search bar" %>
+
 ### Viewing step details
 
 When you select a step, its details appear in the resizable panel. You can:
