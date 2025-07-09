@@ -31,9 +31,10 @@ The **sidebar** provides a hierarchical view of all steps in your build. Here's 
 
 When you select a step, its details appear in the resizable panel. You can:
 
-1. Drag the panel edge to resize.
-1. Switch between side and bottom panel positioning using the layout toggle.
-1. View logs, artifacts, and environment variables in their respective tabs.
+- View a step on tab of the build page.
+- View logs, artifacts, and environment variables in their respective tabs.
+- Drag the panel edge to resize.
+- Dock the panel on the right, bottom, center, or fullscreen using the layout toggle.
 
 <%= image "build_page_drawer.png", alt: "Screenshot showing the drawer and positioning buttons" %>
 
