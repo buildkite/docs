@@ -411,7 +411,7 @@
               path: "pipelines/hosted-agents/mobile-delivery-cloud"
             - name: "Getting started"
               path: "pipelines/hosted-agents/mobile-delivery-cloud/getting-started"
-            - name: "Troubleshooting Fastlane"
+            - name: "Troubleshooting fastlane"
               path: "pipelines/hosted-agents/mobile-delivery-cloud/troubleshooting-fastlane"
     - name: "Rules"
       children:
