@@ -11,11 +11,34 @@ Migrating unclustered agents to a cluster allows those agents to use [agent toke
 > 📘 Buildkite organizations created after February 26, 2024
 > Buildkite organizations created after this date will not have an **Unclustered** area. Therefore, this process is not required for these newer Buildkite organizations.
 
+## Quick-start: one cluster, zero fuss ✅ {#quick-start-one-cluster-zero-fuss}
+
+> 📘 Fastest migration path
+> 1. Create a single "default" cluster
+> 2. Generate a new agent token for that cluster
+> 3. Gracefully stop each running agent, update `BUILDKITE_AGENT_TOKEN` (or config file), restart the agent service
+> 4. Confirm agents now appear in the cluster
+>
+> Instantly unlock cluster insights, queue metrics, and organization-level secrets management.
+
+### Why start with one cluster? {#why-start-with-one-cluster}
+
+Starting with a single cluster offers several advantages:
+
+- **No queue rewiring**: Your existing queue structure remains unchanged
+- **No pipeline edits**: Pipelines continue to work without modification  
+- **Immediate insights**: Access cluster insights and queue metrics instantly
+- **Org-level secrets**: Benefit from organization-level secrets management right away
+
+[See full process](#agent-migration-process) for detailed migration steps.
+
 ## Key benefits of clusters
 
 - **Enhanced security boundaries**: Clusters provide hard security boundaries between different environments. However, you can use [rules](/docs/pipelines/rules) to create exceptions that allow controlled interaction between clusters when needed.
 
 - **Improved observability**: Clusters provide access to [cluster insights](/docs/pipelines/insights/clusters) (for customers on Enterprise plans), providing better metrics and visibility into your build infrastructure such as queue wait times and job pass rates. All plans have access to [cluster queue metrics](/docs/pipelines/insights/queue-metrics).
+
+- **Organization-level secrets management**: Clusters enable better organization-level secrets management and controlled access to sensitive resources.
 
 - **Easier agent management**: Clusters make agents and queues more discoverable across your organization and allow teams to self-manage their agent pools.
 
@@ -73,13 +96,31 @@ Consider the following factors that might increase the complexity of moving your
 
 Use this assessment to determine which agent migration approach is best for your Buildkite organization.
 
-## Agent migration approaches
+## Migration strategies
 
-Choose an agent migration approach based on your organization's structure, CI/CD ownership model, and risk tolerance.
+Choose a migration strategy based on your organization's structure, CI/CD ownership model, and risk tolerance.
 
-### Gradual team-by-team agent migration
+### Single-cluster quick-start (recommended) {#single-cluster-quick-start}
 
-This agent migration approach is best for Buildkite organizations that have their CI/CD ownership _distributed_ across multiple teams.
+This is the fastest and safest migration approach for most organizations. Start with a single cluster containing all your agents, then optionally split into multiple clusters later.
+
+#### Advantages
+
+- **Lowest risk**: No queue or pipeline configuration changes required
+- **Fastest implementation**: Complete migration in hours, not days or weeks
+- **Immediate benefits**: Instant access to cluster insights and queue metrics
+- **Simplest rollback**: Easy to revert if issues arise
+
+#### Considerations
+
+- **Future segmentation**: You may want to split into multiple clusters later for better organization
+- **Temporary single boundary**: All agents initially share the same security boundary
+
+[See full process](#agent-migration-process) for detailed implementation steps.
+
+### Team-by-team migration {#team-by-team-migration}
+
+This migration approach is best for Buildkite organizations that have their CI/CD ownership _distributed_ across multiple teams.
 
 #### Advantages
 
@@ -93,9 +134,9 @@ This agent migration approach is best for Buildkite organizations that have thei
 - May require temporary solutions for cross-team pipeline dependencies.
 - Requires coordination between teams for shared resources.
 
-### All-at-once agent migration
+### All-at-once migration {#all-at-once-migration}
 
-This agent migration approach is best for Buildkite organizations with _centrally_ managed infrastructure, particularly those using infrastructure-as-code tools like Terraform.
+This migration approach is best for Buildkite organizations with _centrally_ managed infrastructure, particularly those using infrastructure-as-code tools like Terraform.
 
 #### Advantages
 
@@ -108,9 +149,9 @@ This agent migration approach is best for Buildkite organizations with _centrall
 - Higher risk of other problems occurring if issues are encountered during migration.
 - Requires more extensive planning and testing.
 
-### Hybrid approaches
+### Hybrid approaches {#hybrid-approaches}
 
-Consider a hybrid of the [team-by-team](#agent-migration-approaches-gradual-team-by-team-agent-migration) and [all-at-once](#agent-migration-approaches-all-at-once-agent-migration) agent migration approaches if your Buildkite organization has both _distributed_ and _centralized_ CI/CD components:
+Consider a hybrid of the [team-by-team](#team-by-team-migration) and [all-at-once](#all-at-once-migration) migration approaches if your Buildkite organization has both _distributed_ and _centralized_ CI/CD components:
 
 - Migrate core infrastructure in one operation.
 - Allow teams to gradually migrate their team-specific agents and pipelines over to clusters.
