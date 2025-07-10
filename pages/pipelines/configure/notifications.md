@@ -423,9 +423,15 @@ See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-sy
 
 You are able to use `pipeline.started_passing` and `pipeline.started_failing` in your if statements if you are using the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) integration.
 
-Slack notifications happen at the following [event](/docs/apis/webhooks/pipelines#events):
+Build-level Slack notifications happen at the following [event](/docs/apis/webhooks/pipelines#events):
 
-* `build finished`
+* `build.finished`
+* `build.failing`
+
+Step-level Slack notifications happen at the following [events](/docs/apis/webhooks/pipelines#events):
+
+* `step.finished`
+* `step.failing`
 
 An example to deliver slack notification when a step is soft-failed:
 
@@ -437,7 +443,7 @@ steps:
   - wait: ~
   - command: |
       if [ $(buildkite-agent step get "outcome" --step "step1") == "soft_failed" ]; then
-         cat <<- YAML | buildkite-agent pipeline upload 
+         cat <<- YAML | buildkite-agent pipeline upload
          steps:
            - label: "Notify slack about soft failed step"
              command: echo "Notifying slack about the soft_failed step"

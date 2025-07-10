@@ -1,9 +1,37 @@
 # Pipelines webhooks
 
-Webhooks allow you to monitor and respond to events within your Buildkite organization, providing a real time view of activity and allowing you to extend and integrate Buildkite into your systems.
+Pipelines webhooks allow you to monitor and respond to events within your Buildkite organization, providing a real time view of activity and allowing you to extend and integrate Buildkite into your systems.
 
-Webhooks can be added and configured on your [organization's Notification Services settings](https://buildkite.com/organizations/-/services) page.
+## Add a webhook
 
+To add a webhook for your pipeline event:
+
+1. Select **Settings** in the global navigation > **Notification Services** to access the [**Notification Services** page](https://buildkite.com/organizations/-/services).
+
+1. Select the **Add** button on **Webhook**.
+
+1. Specifying your webhook's **Description** and **Webhook URL**.
+
+1. If you are using self-signed certificates for your webhooks, clear the **Verify TLS Certificates** checkbox.
+
+1. To allow the authenticity of your Pipeline webhook events to be verified, configure your webhook's **Token** value to be sent either a as a plain text [`X-Buildkite-Token`](#webhook-token) value or an encrypted [`X-Buildkite-Signature`](#webhook-signature) in the request [header](#http-headers), bearing in mind that the latter provides the more secure verification method.
+
+1. Select one or more of the listed [**Events**](#events) that will trigger this webhook, which include the following categories of webhooks:
+    * [Build events](/docs/apis/webhooks/pipelines/build-events)
+    * [Job events](/docs/apis/webhooks/pipelines/job-events)
+    * [Agent events](/docs/apis/webhooks/pipelines/agent-events)
+    * [Ping](/docs/apis/webhooks/pipelines/ping-events) and [agent token](/docs/apis/webhooks/pipelines/agent-token-events) events
+    * Other events associated with [third-party application integrations](/docs/apis/webhooks/pipelines/integrations).
+
+1. Select the **Pipelines** that this webhook will trigger:
+    * **All Pipelines**.
+    * **Only Some pipelines**, where you can select specific pipelines in your Buildkite organization.
+    * **Pipelines in Teams**, where you can select pipelines accessible to specific teams configured in your Buildkite organization.
+    * **Pipelines in Clusters**, where you can select pipelines associated with specific Buildkite clusters.
+
+1. In the **Branch filtering** field, specify the branches that will trigger this webhook. You can leave this field empty to allow all branches to trigger the webhook, or select a subset of branches you would like to trigger it, based on [branch configuration](/docs/pipelines/configure/workflows/branch-configuration) and [pattern examples](/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples).
+
+1. Select the **Add Webhook Notification** button to save these changes and add the webhook.
 
 ## Events
 
@@ -19,6 +47,7 @@ You can subscribe to one or more of the following events:
   <tr><th><code>build.running</code></th><td>A build has started running</td></tr>
   <tr><th><code>build.failing</code></th><td>A build is failing</td></tr>
   <tr><th><code>build.finished</code></th><td>A build has finished</td></tr>
+  <tr><th><code>build.skipped</code></th><td>A job has been scheduled</td></tr>
   <tr><th><code>job.scheduled</code></th><td>A job has been scheduled</td></tr>
   <tr><th><code>job.started</code></th><td>A command step job has started running on an agent</td></tr>
   <tr><th><code>job.finished</code></th><td>A job has finished</td></tr>
@@ -38,14 +67,14 @@ The following HTTP headers are present in every webhook request, which allow you
 </tbody>
 </table>
 
-One of either the [Token](/docs/apis/webhooks/pipelines#webhook-token) or [Signature](/docs/apis/webhooks/pipelines#webhook-signature) headers will be present in every webhook request. The token value and header setting can be found under **Token** in your **Webhook Notification** service.
+One of either the [token](/docs/apis/webhooks/pipelines#webhook-token) or [signature](/docs/apis/webhooks/pipelines#webhook-signature) headers will be present in every webhook request. The token value and header setting can be found under **Token** in your **Webhook Notification** service.
 
 Your selection in the **Webhook Notification** service will determine which is sent:
 
 <table class="fixed-width">
 <tbody>
-  <tr><th><code>X-Buildkite-Token</code></th><td>The webhook's token. <p class="Docs__api-param-eg"><em>Example:</em> <code>309c9c842g8565adecpd7469x6005989</code></p></td></tr>
-  <tr><th><code>X-Buildkite-Signature</code></th><td>The signature created from your webhook payload, webhook token, and the SHA-256 hash function.<p class="Docs__api-param-eg"><em>Example:</em> <code>timestamp=1619071700,signature=30222eb518dc3fb61ec9e64dd78d163f62cb134a6ldb768f1d40e0edbn6e43f0</code></p></td></tr>
+  <tr><th><code>X-Buildkite-Token</code></th><td>The webhook's <a href="/docs/apis/webhooks/pipelines#webhook-token">token</a>. <p class="Docs__api-param-eg"><em>Example:</em> <code>309c9c842g8565adecpd7469x6005989</code></p></td></tr>
+  <tr><th><code>X-Buildkite-Signature</code></th><td>The <a href="/docs/apis/webhooks/pipelines#webhook-signature">signature</a> created from your webhook payload, webhook token, and the SHA-256 hash function.<p class="Docs__api-param-eg"><em>Example:</em> <code>timestamp=1619071700,signature=30222eb518dc3fb61ec9e64dd78d163f62cb134a6ldb768f1d40e0edbn6e43f0</code></p></td></tr>
 </tbody>
 </table>
 

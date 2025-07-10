@@ -23,7 +23,7 @@ To set up the Datadog's CI Pipeline Visibility integration for Buildkite:
       * **Only Some pipelines**, where you can select specific pipelines in your Buildkite organization.
       * **Pipelines in Teams**, where you can select pipelines accessible to specific teams configured in your Buildkite organization.
       * **Pipelines in Clusters**, where you can select pipelines associated with specific Buildkite clusters.
-    - **Branch filtering**: select the branches that will trigger a notification. You can leave this field empty to trace all branches or select a subset of branches you would like to trace.
+    - **Branch filtering**: specify the branches that will trigger trace notifications. You can leave this field empty to trace all branches or select a subset of branches you would like to trace, based on [branch configuration](/docs/pipelines/configure/workflows/branch-configuration) and [pattern examples](/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples).
 
 1. Click **Add Datadog Pipeline Visibility Notification** button to save the integration.
 

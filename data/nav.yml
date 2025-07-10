@@ -387,6 +387,8 @@
           path: "pipelines/clusters/manage-clusters"
         - name: "Manage queues"
           path: "pipelines/clusters/manage-queues"
+        - name: "Migrate from unclustered to clustered agents"
+          path: "pipelines/clusters/migrate-from-unclustered-to-clustered-agents"
     - name: "Hosted agents"
       children:
         - name: "Overview"
@@ -495,6 +497,8 @@
           children:
             - name: "Datadog"
               path: "pipelines/integrations/observability/datadog"
+            - name: "OpenTelemetry"
+              path: "pipelines/integrations/observability/opentelemetry"
         - name: "Other integrations"
           children:
             - name: "Amazon EventBridge"
@@ -866,16 +870,16 @@
           children:
             - name: "Overview"
               path: "apis/webhooks/pipelines"
-            - name: "Agent events"
-              path: "apis/webhooks/pipelines/agent-events"
             - name: "Build events"
               path: "apis/webhooks/pipelines/build-events"
-            - name: "Agent token events"
-              path: "apis/webhooks/pipelines/agent-token-events"
             - name: "Job events"
               path: "apis/webhooks/pipelines/job-events"
+            - name: "Agent events"
+              path: "apis/webhooks/pipelines/agent-events"
             - name: "Ping events"
               path: "apis/webhooks/pipelines/ping-events"
+            - name: "Agent token events"
+              path: "apis/webhooks/pipelines/agent-token-events"
             - name: "Integrations"
               path: "apis/webhooks/pipelines/integrations"
         - name: "Test Engine "

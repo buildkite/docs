@@ -12,9 +12,7 @@ helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-
 ```
 
 > 📘
-> Versions 0.28.1 and earlier of the Agent Stack for Kubernetes controller also requires you to specify a queue, using the argument: `--set-json='config.tags=["queue=arm64"]'`. If you were not to supply a queue, it will listen to a queue named `kubernetes`.
-> <br/>
-> Versions 0.27.0 and earlier of the Agent Stack for Kubernetes controller also requires you to specify a [Buildkite API access token with the GraphQL scope enabled](/docs/apis/graphql-api#authentication), using the argument: `--set graphqlToken=<buildkite-api-access-token-with-graphql-scope>`
+> Versions 0.28.1 and earlier of the Agent Stack for Kubernetes controller also requires you to specify a queue, using the argument: `--set-json='config.tags=["queue=arm64"]'`. If you do not specify a queue, then the queue name is assumed to be `kubernetes`.
 
 Alternatively, you can place these configuration values into a YAML configuration file by creating the YAML file in this format:
 
@@ -28,21 +26,7 @@ agentToken: "<buildkite-cluster-agent-token>"
 ```
 
 > 📘
-> Versions 0.27.0 and earlier of the Agent Stack for Kubernetes controller also requires you to specify a [Buildkite API access token with the GraphQL scope enabled](/docs/apis/graphql-api#authentication), the organization slug, and the cluster UUID, as additional top-level configuration. For example, in the `values.yml` file:
->
-> ```yaml
-> graphqlToken: "<buildkite-api-access-token-with-graphql-scope>"
-> config:
->   org: "<buildkite-organization-slug>"
->   cluster-uuid: "<buildkite-cluster-uuid>"
-> ```
->
-> To find the Buildkite cluster UUID from the Buildkite interface:
->
-> 1. Select **Agents** in the global navigation to access your Buildkite organization's [**Clusters** page](https://buildkite.com/organizations/-/clusters).
-> 1. Select the cluster containing your configured queue.
-> 1. Select **Settings**.
-> 1. On the **Cluster Settings** page, scroll down to the **GraphQL API Integration** section and your Buildkite cluster's UUID is shown as the `id` parameter value.
+> If using version 0.27.0 and earlier of the Agent Stack for Kubernetes controller, see [Early versions of the controller](#early-versions-of-the-controller) (below) for details on additional configuration requirements.
 
 <%= render_markdown partial: 'agent/v3/agent_stack_k8s/deploy_helm_chart_using_a_yaml_configuration_file' %>
 
@@ -54,6 +38,23 @@ Both of these deployment methods:
   * In your Buildkite organization (associated with the `agentToken`)
   * Assigned to the [default queue](/docs/agent/v3/queues#the-default-queue) in your Buildkite cluster (associated with the `agentToken`)
 
+## Early versions of the controller
+
+Versions 0.27.0 and earlier of the Agent Stack for Kubernetes controller also requires you to specify a [Buildkite API access token with the GraphQL scope enabled](/docs/apis/graphql-api#authentication), the organization slug, and the cluster UUID, as additional top-level configuration. For example, in the `values.yml` file:
+
+```yaml
+graphqlToken: "<buildkite-api-access-token-with-graphql-scope>"
+config:
+  org: "<buildkite-organization-slug>"
+  cluster-uuid: "<buildkite-cluster-uuid>"
+```
+
+To find the Buildkite cluster UUID from the Buildkite interface:
+
+1. Select **Agents** in the global navigation to access your Buildkite organization's [**Clusters** page](https://buildkite.com/organizations/-/clusters).
+1. Select the cluster containing your configured queue.
+1. Select **Settings**.
+1. On the **Cluster Settings** page, scroll down to the **GraphQL API Integration** section and your Buildkite cluster's UUID is shown as the `id` parameter value.
 
 ## Storing Buildkite tokens in a Kubernetes Secret
 

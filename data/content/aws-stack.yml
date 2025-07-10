@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v6.40.3"
+Description: "Buildkite stack v6.40.5"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
 # autoscaling Buildkite Agent cluster. Use it to parallelize
@@ -98,6 +98,13 @@ Metadata:
         - IMDSv2Tokens
         - EnableDetailedMonitoring
         - InstanceName
+        - ExperimentalEnableResourceLimits
+        - ResourceLimitsMemoryHigh
+        - ResourceLimitsMemoryMax
+        - ResourceLimitsMemorySwapMax
+        - ResourceLimitsCPUWeight
+        - ResourceLimitsCPUQuota
+        - ResourceLimitsIOWeight
 
       - Label:
           default: Auto-scaling Configuration
@@ -112,6 +119,7 @@ Metadata:
         - InstanceCreationTimeout
         - ScalerEventSchedulePeriod
         - ScalerMinPollInterval
+        - ScalerEnableExperimentalElasticCIMode
 
       - Label:
           default: Cost Allocation Configuration
@@ -241,6 +249,14 @@ Parameters:
 
   BuildkiteTerminateInstanceAfterJob:
     Description: Set to "true" to terminate the instance after a job has completed.
+    Type: String
+    AllowedValues:
+      - "true"
+      - "false"
+    Default: "false"
+
+  BuildkiteTerminateInstanceOnDiskFull:
+    Description: Set to "true" to terminate the instance when disk space is critically low (default is to exit job with code 1).
     Type: String
     AllowedValues:
       - "true"
@@ -981,26 +997,26 @@ Mappings:
 
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-09b2e6e1330fe4820, linuxarm64: ami-02078a5d58f66132b, windows: ami-07bd0333da29c3317 }
-    us-east-2 : { linuxamd64: ami-0f66c40b6d437ac3c, linuxarm64: ami-099eae0c3a511bbfb, windows: ami-083f9331ac972375e }
-    us-west-1 : { linuxamd64: ami-02bd11241d5e91120, linuxarm64: ami-050f24b7ac82127c4, windows: ami-0228ea905f84d312a }
-    us-west-2 : { linuxamd64: ami-0c31c0e985b4ebd23, linuxarm64: ami-0aefac7805a6a0cb3, windows: ami-075b88d0cf2ed2e33 }
-    af-south-1 : { linuxamd64: ami-04c85b8c507fe6d6d, linuxarm64: ami-022ea26ae28ea5c00, windows: ami-019578b3868712225 }
-    ap-east-1 : { linuxamd64: ami-0e97a9cf5d73aa5e7, linuxarm64: ami-06a142ae67235fba2, windows: ami-0f7750998fca9f7d8 }
-    ap-south-1 : { linuxamd64: ami-03e6e5025e51211ca, linuxarm64: ami-00dfa01baa4914424, windows: ami-00e01a934841549af }
-    ap-northeast-2 : { linuxamd64: ami-02d1d63f78fe67655, linuxarm64: ami-03bb8b641ff50bb7c, windows: ami-07ad45b5b5ac45103 }
-    ap-northeast-1 : { linuxamd64: ami-0ee7c799972378508, linuxarm64: ami-0151b7da61f020424, windows: ami-0e29907e26191720c }
-    ap-southeast-2 : { linuxamd64: ami-034611dc9cdf82f85, linuxarm64: ami-0300acec531b987f6, windows: ami-0deb5190e441a7c45 }
-    ap-southeast-1 : { linuxamd64: ami-06029e06028902179, linuxarm64: ami-0462cf242deeafccf, windows: ami-08aa49445308f33f9 }
-    ca-central-1 : { linuxamd64: ami-092ce6a124a837126, linuxarm64: ami-06cf9cfdb271e5d16, windows: ami-0e012e903b19c6a44 }
-    eu-central-1 : { linuxamd64: ami-0e9997c936a24e543, linuxarm64: ami-0f64ef910e2628f5f, windows: ami-0c8da2f154870b275 }
-    eu-west-1 : { linuxamd64: ami-0ed49feef8f9a3248, linuxarm64: ami-0bf67377b09a99a32, windows: ami-0c36604748f0b9b17 }
-    eu-west-2 : { linuxamd64: ami-097849af719dfc3ed, linuxarm64: ami-02e1d23de4498febd, windows: ami-0d0f3fc0ae25ff8f8 }
-    eu-south-1 : { linuxamd64: ami-02dad3a810e2942da, linuxarm64: ami-0c87554844d6d3303, windows: ami-0f9f14b42df1fab81 }
-    eu-west-3 : { linuxamd64: ami-0825b01b33b7ab05c, linuxarm64: ami-00b460bba08cad9c7, windows: ami-0897b98cd48e42501 }
-    eu-north-1 : { linuxamd64: ami-0438db49e54fc7eaf, linuxarm64: ami-09bb22d0f277a49a2, windows: ami-08bca308faf1f3033 }
-    me-south-1 : { linuxamd64: ami-059535891e5902807, linuxarm64: ami-0281fed67ed2abad3, windows: ami-00c6e26ca1038e3c6 }
-    sa-east-1 : { linuxamd64: ami-06501d9fd5818d959, linuxarm64: ami-0f2a11b98b1700f0f, windows: ami-0c108ff00a5628102 }
+    us-east-1 : { linuxamd64: ami-0cbc08fc514000e4f, linuxarm64: ami-0acf49a1c5676c1b8, windows: ami-00441736526f25d84 }
+    us-east-2 : { linuxamd64: ami-0378ffe8fd85d1606, linuxarm64: ami-08e617b925d22a74b, windows: ami-097b8b3c9a445f1ff }
+    us-west-1 : { linuxamd64: ami-0fca9e7c2ddfe1d51, linuxarm64: ami-03c641c2ebb068c79, windows: ami-00e0d31168f622b5e }
+    us-west-2 : { linuxamd64: ami-024bc28d7b5616089, linuxarm64: ami-0daefe2c79dbca87b, windows: ami-02f4a0e0c16c21389 }
+    af-south-1 : { linuxamd64: ami-06893d6a74a942ab6, linuxarm64: ami-0d7715a06c3e95575, windows: ami-07456a6163d5c9cca }
+    ap-east-1 : { linuxamd64: ami-0c430bfd81df994f7, linuxarm64: ami-07f80c447d44e83af, windows: ami-050efdf87c7edd396 }
+    ap-south-1 : { linuxamd64: ami-08f2d66c968d74e78, linuxarm64: ami-086ef50f7faf6558b, windows: ami-02a02303f31c59f7a }
+    ap-northeast-2 : { linuxamd64: ami-043b7c4a3c95e9108, linuxarm64: ami-0fdcb9d456b11e784, windows: ami-03626d014534289b2 }
+    ap-northeast-1 : { linuxamd64: ami-06aad07f83f73882a, linuxarm64: ami-0661549cee3a2c7c9, windows: ami-0f01de94f0eab3451 }
+    ap-southeast-2 : { linuxamd64: ami-039481f7a39045eb2, linuxarm64: ami-0cfe5858e19c97390, windows: ami-09d4a48b6bc2f17de }
+    ap-southeast-1 : { linuxamd64: ami-0446ad6c967aff081, linuxarm64: ami-074378415eca6f057, windows: ami-02571b3b2b3c50934 }
+    ca-central-1 : { linuxamd64: ami-034225b7ef2b86ea7, linuxarm64: ami-0a239717b9f02ed3d, windows: ami-082f51bf292f1cf78 }
+    eu-central-1 : { linuxamd64: ami-09d706096f3ca719c, linuxarm64: ami-0987fda3d873a79f4, windows: ami-0cc1c74f521d3f9bb }
+    eu-west-1 : { linuxamd64: ami-0b945756ed450a768, linuxarm64: ami-09c3c5bedbadecddc, windows: ami-00ed908bc2000ade0 }
+    eu-west-2 : { linuxamd64: ami-08147aa53ce4f9ba2, linuxarm64: ami-09fb2545ad75e07fd, windows: ami-01a926e1e5e24fbd3 }
+    eu-south-1 : { linuxamd64: ami-0bf34791d2a677fb5, linuxarm64: ami-0313113d0ca49e0ca, windows: ami-031048f38afb71b06 }
+    eu-west-3 : { linuxamd64: ami-0e79d6940540c595f, linuxarm64: ami-052f75e78e335b25b, windows: ami-02077bab40f920881 }
+    eu-north-1 : { linuxamd64: ami-0b08e2df9cececc38, linuxarm64: ami-0bd2567163b59ce64, windows: ami-00724de549a9b3ce7 }
+    me-south-1 : { linuxamd64: ami-08a9c7755d2c28977, linuxarm64: ami-02f4577bad68d4122, windows: ami-0b631211ab8f34604 }
+    sa-east-1 : { linuxamd64: ami-0761c466f1c1018c8, linuxarm64: ami-0c02e463498356b78, windows: ami-0990125ab51e0a473 }
 
 Resources:
   Vpc:
@@ -1501,7 +1517,7 @@ Resources:
                   powershell -file C:\buildkite-agent\bin\bk-configure-docker.ps1 >> C:\buildkite-agent\elastic-stack.log
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v6.40.3"
+                  $Env:BUILDKITE_STACK_VERSION="v6.40.5"
                   $Env:BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}"
                   $Env:BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}"
                   $Env:BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}"
@@ -1574,7 +1590,7 @@ Resources:
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v6.40.3" \
+                  BUILDKITE_STACK_VERSION="v6.40.5" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
                   BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}" \
@@ -1598,6 +1614,7 @@ Resources:
                   BUILDKITE_AUTHORIZED_USERS_URL="${AuthorizedUsersUrl}" \
                   BUILDKITE_ECR_POLICY="${ECRAccessPolicy}" \
                   BUILDKITE_TERMINATE_INSTANCE_AFTER_JOB="${BuildkiteTerminateInstanceAfterJob}" \
+                  BUILDKITE_TERMINATE_INSTANCE_ON_DISK_FULL="${BuildkiteTerminateInstanceOnDiskFull}" \
                   BUILDKITE_ADDITIONAL_SUDO_PERMISSIONS="${BuildkiteAdditionalSudoPermissions}" \
                   AWS_DEFAULT_REGION="${AWS::Region}" \
                   SECRETS_PLUGIN_ENABLED="${EnableSecretsPlugin}" \
