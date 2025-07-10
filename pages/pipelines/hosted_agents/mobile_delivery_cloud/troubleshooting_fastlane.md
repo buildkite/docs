@@ -139,7 +139,7 @@ build_app(
 > 📘 Fastlane match
 > If you're using the [fastlane match](https://docs.fastlane.tools/actions/match/) implementation, many of the code signing steps will be automated. Match handles everything from creating and storing certificates and profiles, setting up code signing on a new machine, and handling multiple teams keys and profiles through Git. If match is being used, look for issues in the Matchfile and check the fastlane output logs.
 
-#### Troubleshooting steps
+### Troubleshooting steps
 
 1. **Check certificate availability:**
 
