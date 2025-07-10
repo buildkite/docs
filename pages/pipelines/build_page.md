@@ -8,9 +8,9 @@ Buildkite's new build page has been completely reimagined to support modern soft
 
 The new build page consists of three main components:
 
-- A collapsible sidebar to allow for quick navigation between steps in your build.
-- The main content area showing your selected view (**Summary**, **Steps**, or **Annotations**).
-- A configurable step drawer for viewing logs and step information.
+- A collapsible _sidebar_ to allow for quick navigation between steps in your build.
+- The main _content area_ showing your selected view (**Summary**, **Steps**, or **Annotations**).
+- A configurable _step panel_ for viewing logs and step information.
 
 ## Core actions
 
@@ -35,9 +35,9 @@ Use the search input to find specific steps in your build. Type the name of the 
 
 ### Viewing step details
 
-When you select a step, its details appear in the resizable panel. You can:
+When you select a step, its details appear in a resizable step panel. You can:
 
-- View a step on tab of the build page.
+- Open the step panel on any tab of the build page.
 - View **Log**s, **Artifacts**, and **Environment** variables in their respective tabs.
 - Drag the panel edge to resize.
 - Dock the panel on the right, bottom, or center using the layout toggle.
