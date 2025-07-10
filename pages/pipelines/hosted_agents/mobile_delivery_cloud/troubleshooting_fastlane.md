@@ -1,24 +1,34 @@
 # Troubleshooting fastlane
 
-This guide provides troubleshooting steps for common [fastlane](https://docs.fastlane.tools/) issues when working with iOS development in Buildkite's [Mobile Delivery Cloud](/docs/pipelines/hosted-agents/mobile-delivery-cloud/getting-started).
+This is a comprehensive guide to diagnosing and resolving common [fastlane](https://docs.fastlane.tools/) issues in iOS development, specifically for Buildkite's [Mobile Delivery Cloud](/docs/pipelines/hosted-agents/mobile-delivery-cloud/getting-started).
 
-## Enabling verbose mode
+## Essential debugging steps
 
-Fastlane is a wrapper tool that by default tends to produce vague error messages which can make troubleshooting challenging. Running fastlane in verbose mode will output additional information that can help with debugging. To enable the verbose mode, set the `--verbose`flag:
+When fastlane fails, start with these troubleshooting steps:
 
-```bash
-fastlane [lane] --verbose
-```
+1. **Enable verbose logging** for detailed error information:
+   ```bash
+   fastlane [lane] --verbose
+   ```
 
-## Examining the logs
+2. **Upload fastlane logs as build artifacts** for analysis:
+   - Configure the [build artifacts](/docs/pipelines/configure/artifacts) in your pipeline to upload your fastlane or xcodebuild logs.
+   - Look for actual errors around fastlane's simplified error messages. When examining the verbose logs, the actual errors will often be found around the parts where fastlane reports its simplified error messages. For code signing errors specifically, look for messages containing 'codesign', 'security', or 'provisioning profile'.
+   - For code signing issues, check `$HOME/Library/Logs/gym/*`. For more information regarding code signing errors, see fastlane's code signing [troubleshooting documentation](https://docs.fastlane.tools/codesigning/troubleshooting/).
 
-For successful debugging, you'll need Fastlane or xcodebuild logs. To be able to examine the logs, upload them as a [build artifact](/docs/pipelines/configure/artifacts).
+3. **Verify your environment** with these diagnostic commands:
+   ```bash
+   # Check code signing certificates
+   security find-identity -v -p codesigning
+   
+   # Verify keychain configuration
+   security list-keychains
+   
+   # List provisioning profiles
+   ls -la ~/Library/MobileDevice/Provisioning\ Profiles/
+   ```
 
-When examining the verbose logs, the actual errors will often be found around the parts where fastlane reports its simplified error messages. For code signing errors specifically, look for messages containing 'codesign', 'security', or 'provisioning profile' and be sure to check the raw xcodebuild output which can be found in `$HOME/Library/Logs/gym/*`.
-
-For more information regarding code signing errors, see fastlane's code signing [troubleshooting documentation](https://docs.fastlane.tools/codesigning/troubleshooting/).
-
-## Common Fastlane errors and resolutions
+## Common fastlane errors and resolutions
 
 The following section covers the errors you are most likely to encounter when using fastlane with Buildkite and ways to troubleshoot those errors.
 
@@ -31,7 +41,7 @@ The sandbox is not in sync with the Podfile.lock.
 Run 'pod install' or update your CocoaPods installation.
 ```
 
-The sandbox is the `Pods` directory within the project folder, representing the currently installed dependencies (pods). This error occurs when the installed dependencies don't match the pods and versions specified in the `Podfile.lock`.
+The sandbox is the Pods directory that contains your project's installed dependencies (pods). This error occurs when the installed dependencies don't match the pods and versions specified in the `Podfile.lock`.
 
 **Resolution:**
 
@@ -48,8 +58,8 @@ end
 
 If the proposed solution doesn't resolve the issue, ensure a consistent environment:
 
-- Run `bundle install` before calling Fastlane to ensure all Ruby gems (since CocoaPods is a Ruby gem, too) are installed based on the `Gemfile.lock`
-- Execute Fastlane using `bundle exec fastlane` to use the versions of gems specified in the `Gemfile.lock`
+- Run `bundle install` before calling fastlane to ensure all Ruby gems (since CocoaPods is a Ruby gem, too) are installed based on the `Gemfile.lock`
+- Execute fastlane using `bundle exec fastlane` to use the versions of gems specified in the `Gemfile.lock`
 
 ### Ruby gem dependency error
 
@@ -75,7 +85,7 @@ You can add abbrev to your Gemfile or gemspec to silence this warning.
 
 **Resolution:**
 
-macOS hosted Buildkite agents have Ruby 3.4+ installed via Homebrew. In Ruby 3.4+, the gems `mutex_m` and `abbrev` are no longer the default gems. In Ruby 3.5+, `ostruct` will no longer be a default gem, causing Fastlane to fail.
+macOS hosted Buildkite agents have Ruby 3.4+ installed via Homebrew. In Ruby 3.4+, the gems `mutex_m` and `abbrev` are no longer the default gems. In Ruby 3.5+, `ostruct` will no longer be a default gem, causing fastlane to fail.
 
 To fix this discrepancy, you need to add the following gems to the `Gemfile`:
 
@@ -136,69 +146,26 @@ build_app(
 )
 ```
 
-> 📘 Fastlane match
-> If you're using the [fastlane match](https://docs.fastlane.tools/actions/match/) implementation, many of the code signing steps will be automated. Match handles everything from creating and storing certificates and profiles, setting up code signing on a new machine, and handling multiple teams keys and profiles through Git. If match is being used, look for issues in the Matchfile and check the fastlane output logs.
+## Using fastlane match
 
-### Troubleshooting steps
+If you're using [fastlane match](https://docs.fastlane.tools/actions/match/), most code signing is automated:
 
-1. **Check certificate availability:**
-
-    ```bash
-    security find-identity -v -p codesigning
-    ```
-
-    If there are no valid identities, the certificates were imported incorrectly.
-
-1. **Check the keychain:**
-
-    ```bash
-    security list-keychains
-    ```
-
-1. **Verify the provisioning profiles:**
-
-    ```bash
-    ls -la ~/Library/MobileDevice/Provisioning\ Profiles/
-    ```
-
-1. **Run Fastlane with verbose logging:**
-
-    ```bash
-    bundle exec fastlane [lane_name] --verbose
-    ```
-
-## Keychain best practices
-
-It's a best practice to create a new keychain for each build and import the certificates and profiles at build time. It is not recommended to use the default `login.keychain-db` in CI/CD environments. Remember to destroy this keychain at the end of the build for security.
-
-Here's an example keychain setup script:
-
-```bash
-# Set up the keychain
-echo "+++ Setting up keychain"
-security create-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
-
-echo "Created Keychain"
-security default-keychain -s build.keychain
-
-echo "Set Keychain as Default"
-security unlock-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
-
-echo "Unlocked Keychain"
-security set-keychain-settings -t 3600 -u build.keychain
-
-echo "Set Keychain Settings"
-security list-keychains -d user -s build.keychain $(security list-keychains -d user | sed 's/"//g')
-echo "Added Keychain to search list (required)"
-
-# Import the certificate and give it codesign permission
-echo "+++ Importing certificate"
-security import "$CERT_PATH" -k build.keychain -P "$KEYCHAIN_PASSWORD" -T /usr/bin/codesign
-
-echo "Imported certificate"
-security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" build.keychain
-echo "Set Keychain partition List (Required)"
-
-# At the end of the build
-security delete-keychain build.keychain
+```ruby
+lane :build do
+  # Match handles certificates and profiles automatically
+  match(type: "appstore")
+  
+  build_app(
+    scheme: "AppName",
+    workspace: "AppName.xcworkspace"
+  )
+end
 ```
+
+Match handles everything from creating and storing certificates and profiles, setting up code signing on a new machine, and handling multiple teams keys and profiles through Git. If match is being used, look for issues in the Matchfile and check the fastlane output logs.
+
+If you're experiencing issues with fastlane match, for troubleshooting:
+
+- Verify your `Matchfile` configuration
+- Check match repository access permissions
+- Review match output logs for specific errors
