@@ -125,7 +125,7 @@ Migrating unclustered agents to a cluster allows those agents to use [agent toke
 Learn more about this entire process from the detailed [Migrate from unclustered to clustered agents](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents) guide, which guides you through the individual processes of:
 
 1. [Assessing your current environment](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#assessing-your-current-environment).
-1. Deciding on an [agent migration approach](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#agent-migration-approaches).
+1. Deciding on an [agent migration strategy](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#migration-strategies).
 1. Discussing [technical considerations](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#technical-considerations-and-blockers) for the agent migration.
 1. The [agent migration process](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#agent-migration-process) itself.
 
