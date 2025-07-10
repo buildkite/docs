@@ -17,6 +17,7 @@ steps:
             - organization_slug
             - organization_id
             - pipeline_slug
+            - build_branch
       - ecr#v2.7.0:
           login: true
           account-ids: ${ECR_ACCOUNT_ID}
@@ -35,6 +36,7 @@ steps:
             - organization_slug
             - organization_id
             - pipeline_slug
+            - build_branch
       - cultureamp/ecr-scan-results#v1.7.0:
           image-name: "${ECR_REPO}:${BUILDKITE_BUILD_NUMBER}"
           fail-build-on-plugin-failure: true
@@ -70,6 +72,7 @@ steps:
             - organization_slug
             - organization_id
             - pipeline_slug
+            - build_branch
 
   - wait
 
