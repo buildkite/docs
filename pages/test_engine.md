@@ -31,6 +31,7 @@ If you're familiar with the basics, begin configuring [test collection](/docs/te
   <%= button ":cypress: Cypress", "/docs/test-engine/javascript-collectors#configure-the-test-framework-cypress" %>
   <%= button ":jasmine: Jasmine", "/docs/test-engine/javascript-collectors#configure-the-test-framework-jasmine" %>
   <%= button ":playwright: Playwright", "/docs/test-engine/javascript-collectors#configure-the-test-framework-playwright" %>
+  <%= button ":vitest: Vitest", "/docs/test-engine/javascript-collectors#configure-the-test-framework-vitest" %>
   <%= button ":swift: Swift", "/docs/test-engine/swift-collectors" %>
   <%= button ":android: Android", "/docs/test-engine/android-collectors" %>
   <%= button ":pytest: pytest", "/docs/test-engine/python-collectors" %>

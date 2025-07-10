@@ -335,7 +335,7 @@ attributes:
   default_value: "none"
   required: false
   desc: |
-      Set to `datadog` to enable the Datadog API tracing for builds using the default APM address `localhost:8126`, or Datadog variables like `DD_AGENT_HOST` and `DD_AGENT_TRACE_PORT`.
+      Set to `datadog` to enable the Datadog API tracing for builds using the default APM address `localhost:8126`, or Datadog variables like `DD_AGENT_HOST` and `DD_TRACE_AGENT_PORT`.
       Set to `opentelemetry` to enable OpenTelemetry tracing, sending OTLP gRPC traces to `https://localhost:4317`, or override with the environment variable `OTEL_EXPORTER_OTLP_ENDPOINT`.
       Accepts empty string (`""`), `"datadog"`, or `opentelemetry`.
 - name: wait-for-ec2-tags-timeout

@@ -18,8 +18,8 @@ You can set up distinct queues for your Buildkite hosted agents (known as _Build
 
 For example you may have two queues set up:
 
-- `mac_small_7gb`
-- `mac_large_32gb`
+- `mac_medium_28gb`
+- `mac_large_56gb`
 
 Learn more about:
 

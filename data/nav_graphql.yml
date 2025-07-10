@@ -458,6 +458,8 @@
     path: apis/graphql/schemas/object/notice
   - name: NoticeDismissPayload
     path: apis/graphql/schemas/object/noticedismisspayload
+  - name: NotificationServiceOpenTelemetryTracing
+    path: apis/graphql/schemas/object/notificationserviceopentelemetrytracing
   - name: NotificationServiceSlack
     path: apis/graphql/schemas/object/notificationserviceslack
   - name: NotificationServiceWebhook

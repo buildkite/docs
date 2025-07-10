@@ -9,8 +9,9 @@
   <tbody>
     <tr><th><code>build.scheduled</code></th><td>A build has been scheduled</td></tr>
     <tr><th><code>build.running</code></th><td>A build has started running</td></tr>
-    <tr><th><code>build.finished</code></th><td>A build has finished</td></tr>
     <tr><th><code>build.failing</code></th><td>A build is failing</td></tr>
+    <tr><th><code>build.finished</code></th><td>A build has finished</td></tr>
+    <tr><th><code>build.skipped</code></th><td>A build has been skipped</td></tr>
   </tbody>
 </table>
 
@@ -56,9 +57,14 @@ Example request body:
   }
 }
 ```
+
+> 📘 Job data not included
+> When using webhooks, the build object does not contain job data (as returned by calls to the [Build API](/docs/apis/rest-api/builds) of Buildkite's REST API). Learn more about obtaining job data from Buildkite Pipelines using webhooks in [Job events](/docs/webhooks/pipelines/job_events).
+
+
 ## Finding out if a build is blocked
 
-To if a build is blocked, look for `blocked: true` in the `build.finished` event
+If a build is blocked, look for `blocked: true` in the `build.finished` event
 
 Example request body for blocked build:
 

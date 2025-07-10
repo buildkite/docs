@@ -11,7 +11,7 @@ Explore the full list of Buildkite-specific emojis below or at [emoji.buildkite.
 </a>
 <iframe
   src='https://emoji.buildkite.com'
-  allow="fullscreen" crossorigin="anonymous" width="100%" height="400px"
+  allow="fullscreen; clipboard-read; clipboard-write;" crossorigin="anonymous" width="100%" height="400px"
   style="border-radius:0 0 8px 8px;box-sizing: border-box;"
 />
 

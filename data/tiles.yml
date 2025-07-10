@@ -60,7 +60,7 @@ integrations:
         url: "/docs/pipelines/integrations/plugins/tools"
       - text: "Writing plugins"
         url: "/docs/pipelines/integrations/plugins/writing"
-  - title: "Notifications"
+  - title: "Notifications and observability"
     desc: "Add notification services that allows Buildkite Pipelines to send notifications or data to third-party applications."
     links:
       - text: "CCMenu & CCTray"
@@ -71,6 +71,10 @@ integrations:
         url: "/docs/pipelines/integrations/notifications/slack"
       - text: "Slack workspace"
         url: "/docs/pipelines/integrations/notifications/slack-workspace"
+      - text: "Datadog"
+        url: "/docs/pipelines/integrations/observability/datadog"
+      - text: "OpenTelemetry"
+        url: "/docs/pipelines/integrations/observability/opentelemetry"
   - title: "Other integrations"
     desc: "Buildkite offers other integrations to improve your workflow."
     links:
@@ -82,5 +86,3 @@ integrations:
         url: "/docs/pipelines/integrations/other/build-status-badges"
       - text: "Docker Hub"
         url: "/docs/pipelines/integrations/other/docker-hub"
-
-

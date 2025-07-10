@@ -86,6 +86,7 @@ enum APIAccessTokenScopes {
   READ_PORTALS
   READ_REGISTRIES
   READ_RULES
+  READ_SECRETS_DETAILS
   READ_SUITES
   READ_TEAMS
   READ_TEST_PLAN
@@ -101,6 +102,7 @@ enum APIAccessTokenScopes {
   WRITE_PORTALS
   WRITE_REGISTRIES
   WRITE_RULES
+  WRITE_SECRETS
   WRITE_SUITES
   WRITE_TEAMS
   WRITE_TEST_PLAN
@@ -958,6 +960,7 @@ enum AuditEventType {
   ORGANIZATION_BANNER_CREATED
   ORGANIZATION_BANNER_DELETED
   ORGANIZATION_BANNER_UPDATED
+  ORGANIZATION_BILLING_SETTING_UPDATED
   ORGANIZATION_BUILD_EXPORT_UPDATED
   ORGANIZATION_CREATED
   ORGANIZATION_DELETED
@@ -1042,6 +1045,9 @@ enum AuditEventType {
   SUITE_SAVED_VIEW_DELETED
   SUITE_UPDATED
   SUITE_VISIBILITY_CHANGED
+  SUITE_WORKFLOW_CREATED
+  SUITE_WORKFLOW_DELETED
+  SUITE_WORKFLOW_UPDATED
   TEAM_CREATED
   TEAM_DELETED
   TEAM_MEMBER_CREATED
@@ -1108,7 +1114,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | OrganizationRepositoryProviderGitHub | OrganizationRepositoryProviderGitHubEnterpriseServer | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceOpenTelemetryTracing | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | OrganizationRepositoryProviderGitHub | OrganizationRepositoryProviderGitHubEnterpriseServer | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -1127,6 +1133,7 @@ enum AuditSubjectType {
   NOTIFICATION_SERVICE
   ORGANIZATION
   ORGANIZATION_BANNER
+  ORGANIZATION_BILLING_SETTING
   ORGANIZATION_IMPERSONATION_REQUEST
   ORGANIZATION_INVITATION
   ORGANIZATION_MEMBER
@@ -1149,6 +1156,7 @@ enum AuditSubjectType {
   SUITE
   SUITE_MONITOR
   SUITE_SAVED_VIEW
+  SUITE_WORKFLOW
   TEAM
   TEAM_MEMBER
   TEAM_PIPELINE
@@ -2210,6 +2218,11 @@ type ClusterQueue implements Node {
   key: String!
 
   """
+  The health status of stacks associated with this queue
+  """
+  stackHealth: String
+
+  """
   The public UUID for this cluster queue
   """
   uuid: ID!
@@ -2842,6 +2855,16 @@ enum HostedAgentInstanceShapeName {
   Linux 8 vCPU x 32 GB Memory
   """
   LINUX_ARM64_8X32
+
+  """
+  macOS 12 vCPU x 56 GB Memory
+  """
+  MACOS_ARM64_M4_12X56
+
+  """
+  macOS 6 vCPU x 28 GB Memory
+  """
+  MACOS_ARM64_M4_6X28
 
   """
   macOS 12 vCPU x 28 GB Memory
@@ -5282,6 +5305,22 @@ enum NoticeNamespaces {
 }
 
 interface NotificationService {
+  """
+  The description of this service
+  """
+  description: String!
+  id: ID!
+
+  """
+  The name of the service provider
+  """
+  name: String!
+}
+
+"""
+Deliver OpenTelemetry Traces to a custom OTLP endpoint
+"""
+type NotificationServiceOpenTelemetryTracing implements NotificationService {
   """
   The description of this service
   """

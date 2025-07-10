@@ -1,7 +1,3 @@
----
-toc_include_h3: false
----
-
 # Linux and Windows setup for the Elastic CI Stack for AWS
 
 This guide leads you through getting started with the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) for Linux and Windows. With the help of the Elastic CI Stack for AWS, you are able to launch a private, autoscaling Buildkite agent cluster in your own AWS account.
@@ -16,8 +12,7 @@ This guide leads you through getting started with the [Elastic CI Stack for AWS]
 
 ## Before you start
 
-Most Elastic CI Stack for AWS features are supported on both Linux and Windows.
-The following AMIs are available in all the supported regions:
+Most Elastic CI Stack for AWS features are supported on both Linux and Windows. The following [Amazon Machine Images (AMIs)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html) are available by default in all supported regions. The operating system and architecture will be selected based on the values provided for the `InstanceOperatingSystem` and `InstanceTypes` parameters:
 
 - Amazon Linux 2023 (64-bit x86)
 - Amazon Linux 2023 (64-bit ARM, Graviton)
@@ -48,19 +43,70 @@ For post-deployment diagnostic purposes, deeper familiarity with EC2 is recommen
 
 ### Billable services
 
-> Elastic CI Stack for AWS creates its own VPC (virtual private cloud) by default. Best practice is to set up a separate development AWS account and use role switching and consolidated billing. You can check out this external tutorial for more information on how to ["Delegate Access Across AWS Accounts"](http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html).
+Elastic CI Stack for AWS creates its own VPC (virtual private cloud) by default. Best practice is to set up a separate development AWS account and use role switching and consolidated billing. You can check out this external tutorial for more information on how to ["Delegate Access Across AWS Accounts"](http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html).
 
 The Elastic CI Stack for AWS template deploys several billable Amazon services that do not require upfront payment and operate on a pay-as-you-go principle, with the bill proportional to usage.
 
-| Service name                    | Purpose                                                                                  | Required |
-| ------------------------------- | ---------------------------------------------------------------------------------------- | -------- |
-| EC2                             | Deployment of instances                                                                  | ☑️       |
-| EBS                             | Root disk storage of EC2 instances                                                       | ☑️       |
-| Lambda                          | Scaling of Auto Scaling group and modifying Auto Scaling group's properties              | ☑️       |
-| Systems Manager Parameter Store | Storing the Buildkite agent token                                                        | ☑️       |
-| CloudWatch Logs                 | Logs for instances and Lambda scaler                                                     | ☑️       |
-| CloudWatch Metrics              | Metrics recorded by Lambda scaler                                                        | ☑️       |
-| S3                              | Charging based on storage and transfers in/and out of the secrets bucket (on by default) | ❌       |
+<table>
+  <thead>
+    <tr>
+      <th style="width:30%">Service name</th>
+      <th style="width:60%">Purpose</th>
+      <th style="width:10%">Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        "service_name": "EC2",
+        "purpose": "Deployment of instances",
+        "required": "☑️"
+      },
+      {
+        "service_name": "EBS",
+        "purpose": "Root disk storage of EC2 instances",
+        "required": "☑️"
+      },
+      {
+        "service_name": "Lambda",
+        "purpose": "Scaling of Auto Scaling group and modifying Auto Scaling group's properties",
+        "required": "☑️"
+      },
+      {
+        "service_name": "Systems Manager Parameter Store",
+        "purpose": "Storing the Buildkite agent token",
+        "required": "☑️"
+      },
+      {
+        "service_name": "CloudWatch Logs",
+        "purpose": "Logs for instances and Lambda scaler",
+        "required": "☑️"
+      },
+      {
+        "service_name": "CloudWatch Metrics",
+        "purpose": "Metrics recorded by Lambda scaler",
+        "required": "☑️"
+      },
+      {
+        "service_name": "S3",
+        "purpose": "Charging based on storage and transfers in/and out of the secrets bucket (on by default)",
+        "required": "❌"
+      }
+    ].select { |field| field[:service_name] }.each do |field| %>
+      <tr>
+        <td>
+          <p><%= field[:service_name] %></p>
+        </td>
+        <td>
+          <p><%= field[:purpose] %></p>
+        </td>
+        <td>
+          <p><%= field[:required] %></p>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 Buildkite services are billed according to your [plan](https://buildkite.com/pricing).
 
@@ -91,6 +137,203 @@ This stack is designed to run your builds in a share-nothing pattern similar to 
 - Secrets are configured using environment variables exposed using the S3 secrets bucket.
 
 By following these conventions you get a scalable, repeatable, and source-controlled CI environment that any team within your organization can use.
+
+## Custom images
+
+Custom images help teams ensure that their agents have all required tools and configurations before instance launch. This prevents instances from reverting to the base image state when agents restart, which would lose any manual changes made during run time.
+
+Custom [AMIs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html) can be used with the Elastic CI Stack for AWS by specifying the `ImageId` parameter. You can use any AMI available to your AWS account, but it is recommend starting with Buildkite's base [Packer](https://developer.hashicorp.com/packer) templates as a starting point. The Packer templates used to create the default stack images are available in the [packer directory](https://github.com/buildkite/elastic-ci-stack-for-aws/tree/main/packer) of the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) repository.
+
+### Requirements
+
+To use the Packer templates provided, you will need the following installed on your system:
+
+- Docker
+- Make
+- AWS CLI
+
+The following AWS IAM permissions are required to build custom AMIs using the provided packer templates:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:AttachVolume",
+        "ec2:AuthorizeSecurityGroupIngress",
+        "ec2:CopyImage",
+        "ec2:CreateImage",
+        "ec2:CreateKeyPair",
+        "ec2:CreateSecurityGroup",
+        "ec2:CreateSnapshot",
+        "ec2:CreateTags",
+        "ec2:CreateVolume",
+        "ec2:DeleteKeyPair",
+        "ec2:DeleteSecurityGroup",
+        "ec2:DeleteSnapshot",
+        "ec2:DeleteVolume",
+        "ec2:DeregisterImage",
+        "ec2:DescribeImageAttribute",
+        "ec2:DescribeImages",
+        "ec2:DescribeInstances",
+        "ec2:DescribeInstanceStatus",
+        "ec2:DescribeRegions",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeSnapshots",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeTags",
+        "ec2:DescribeVolumes",
+        "ec2:DetachVolume",
+        "ec2:GetPasswordData",
+        "ec2:ModifyImageAttribute",
+        "ec2:ModifyInstanceAttribute",
+        "ec2:ModifySnapshotAttribute",
+        "ec2:RegisterImage",
+        "ec2:RunInstances",
+        "ec2:StopInstances",
+        "ec2:TerminateInstances"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+It is also recommended that you have a base knowledge of:
+
+- [Packer](https://developer.hashicorp.com/packer/docs/intro)
+- [HashiCorp configuration language (HCL)](https://github.com/hashicorp/hcl?tab=readme-ov-file#hcl)
+- Bash or PowerShell (depending on the operating system of choice)
+
+### Creating an image
+
+To create a custom AMI, use the provided Packer templates to build new images with your modifications. First, make your desired changes to the Packer templates, then run the [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) in the root directory to begin the build process.
+
+This [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) provides several build targets, each running Packer in a Docker container:
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:40%">Command</th>
+      <th style="width:60%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        "command": "make packer",
+        "description": "Build all AMI variants"
+      },
+      {
+        "command": "make packer-linux-amd64.output",
+        "description": "Build Amazon Linux 2023 (64-bit x86) AMI only"
+      },
+      {
+        "command": "make packer-linux-arm64.output",
+        "description": "Build Amazon Linux 2023 (64-bit ARM, Graviton) AMI only"
+      },
+      {
+        "command": "make packer-windows-amd64.output",
+        "description": "Build Windows Server 2019 (64-bit x86) AMI only"
+      }
+    ].select { |field| field[:command] }.each do |field| %>
+      <tr>
+        <td>
+          <p><code><%= field[:command] %></code></p>
+        </td>
+        <td>
+          <p><%= field[:description] %></p>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+By default, all builds target the `us-east-1` region and use your default AWS profile. The `make` command can be prefixed with environment variables to change the behavior of the build.
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:30%">Variable</th>
+      <th style="width:20%">Default</th>
+      <th style="width:50%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        "variable": "AWS_REGION",
+        "default": "us-east-1",
+        "description": "Target AWS region for AMI creation"
+      },
+      {
+        "variable": "AWS_PROFILE",
+        "default": "(system default)",
+        "description": "Specific AWS profile to use"
+      },
+      {
+        "variable": "PACKER_LOG",
+        "default": "(unset)",
+        "description": "Enable Packer debug logging (<code>PACKER_LOG=1</code>)"
+      },
+      {
+        "variable": "BUILDKITE_BUILD_NUMBER",
+        "default": "none",
+        "description": "Build identifier passed to Packer"
+      },
+      {
+        "variable": "IS_RELEASED",
+        "default": "false",
+        "description": "Whether this is a release build"
+      },
+      {
+        "variable": "ARM64_INSTANCE_TYPE",
+        "default": "m7g.xlarge",
+        "description": "Instance type for ARM64 builds"
+      },
+      {
+        "variable": "AMD64_INSTANCE_TYPE",
+        "default": "m7a.xlarge",
+        "description": "Instance type for AMD64 builds"
+      },
+      {
+        "variable": "WIN64_INSTANCE_TYPE",
+        "default": "m7i.xlarge",
+        "description": "Instance type for Windows builds"
+      }
+    ].select { |field| field[:variable] }.each do |field| %>
+      <tr>
+        <td>
+          <p><code><%= field[:variable] %></code></p>
+        </td>
+        <td>
+          <% if field[:default].starts_with?('(') %>
+            <p><%= field[:default] %></p>
+          <% else %>
+            <p><code><%= field[:default] %></code></p>
+          <% end %>
+        </td>
+        <td>
+          <p><%= field[:description] %></p>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+For example, you could build an AMD64 Linux image in the `eu-west-1` region using a smaller instance type and a specific AWS profile by running:
+
+```bash
+AMD64_INSTANCE_TYPE="t3.medium" \
+AWS_REGION="eu-west-1" \
+AWS_PROFILE="assets-profile" \
+make packer-linux-amd64.output
+```
+
+Once your image build is completed, the AMI will be stored in your AWS account and the AMI ID is displayed in your terminal output. You can also find the AMI ID in the corresponding output file (such as `packer-linux-amd64.output`).
 
 ## Launching the stack
 
