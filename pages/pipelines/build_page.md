@@ -21,7 +21,7 @@ The _sidebar_ provides a hierarchical view of all steps in your build. Here's ho
 - Expand/collapse groups by selecting their arrow icons.
 - Group steps by state to see important steps (such as blocked or failed) at the top.
 - Select any step to view its details.
-- Use the action button or press the `f` key to cycle through failures.
+- Use the action button (with the curved arrow) or press the `f` key to cycle through failures.
 - Use keyword search to quickly open or focus a step.
 - Optionally collapse the sidebar to make more room for the content area.
 
