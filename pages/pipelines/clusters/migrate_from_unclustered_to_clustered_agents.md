@@ -16,11 +16,20 @@ Migrating unclustered agents to a cluster allows those agents to use [agent toke
 Migrating your unclustered agents to a single cluster is the fastest migration strategy that offers the least friction, and is a recommended starting point. To do this:
 
 1. Learn more about the [key benefits of clusters](#key-benefits-of-clusters), and starting the migration process with a [single cluster](#key-benefits-of-clusters-starting-with-a-single-cluster).
+
 1. Generate a new agent token for your **Default cluster**.
+
+1. Create queues in this cluster—one for each queue tag that was assigned to all agents when they were started in your unclustered agent environment.
+
+    Learn more about the differences in queue management between unclustered and clustered environments in [Agent queue limitations](#technical-considerations-and-blockers-agent-queue-limitations) and [Migrate unclustered agents to clusters](#agent-migration-process-migrate-unclustered-agents-to-clusters) section of the [Agent migration process](#agent-migration-process).
+
 1. Gracefully stop each running agent, update `BUILDKITE_AGENT_TOKEN` (or config file), restart the agent service.
+
 1. Confirm agents now appear in the cluster.
 
-Instantly unlock cluster insights, queue metrics, and organization-level secrets management.
+You can now unlock cluster insights, queue metrics, and organization-level secrets management.
+
+See [Agent migration process](#agent-migration-process) for the full migration process and detailed migration steps, bearing in mind that you are only working with a single cluster.
 
 ## Key benefits of clusters
 
@@ -42,8 +51,6 @@ Starting with a single cluster offers several advantages:
 - **No pipeline edits**: Pipelines continue to work without modification.
 - **Immediate insights**: Access cluster insights and queue metrics instantly.
 - **Org-level secrets**: Benefit from organization-level secrets management right away.
-
-[See full process](#agent-migration-process) for detailed migration steps.
 
 ## Assessing your current environment
 
@@ -117,7 +124,7 @@ This migration strategy is the fastest and safest for most organizations. Start 
 - **Future segmentation**: You may want to split into multiple clusters later for better organization
 - **Temporary single boundary**: All agents initially share the same security boundary
 
-[See full process](#agent-migration-process) for detailed implementation steps.
+See [Agent migration process](#agent-migration-process) for the full migration process and detailed migration steps, bearing in mind that you are only working with a single cluster.
 
 ### Team-by-team migration
 
