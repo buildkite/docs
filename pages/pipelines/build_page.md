@@ -8,40 +8,51 @@ Buildkite's new build page has been completely reimagined to support modern soft
 
 The new build page consists of three main components:
 
-- A _sidebar_ listing all build steps with **Filter**s at the top.
-- The main _content area_ showing your selected view (**Summary**, **Canvas**, **Table**, or **Waterfall**).
-- A resizable _step drawer_ for viewing logs and step information.
+- A collapsible _sidebar_ to allow for quick navigation between steps in your build.
+- The main _content area_ showing your selected view (**Summary**, **Steps**, or **Annotations**).
+- A configurable _step panel_ for viewing logs and step information.
 
 ## Core actions
 
 ### Navigating your build
 
-The **sidebar** provides a hierarchical view of all steps in your build. Here's how to use it:
+The _sidebar_ provides a hierarchical view of all steps in your build. Here's how to use it:
 
-- Expand/collapse groups by selecting the arrow icon.
-- Filter steps by status using the status dropdown.
+- Expand/collapse groups by selecting their arrow icons.
 - Group steps by state to see important steps (such as blocked or failed) at the top.
-- Click any step to view its details.
+- Select any step to view its details.
+- Use the action button (with the curved arrow) or press the `f` key to cycle through failures.
+- Use keyword search to quickly open or focus a step.
+- Optionally collapse the sidebar to make more room for the content area.
 
 <%= image "build_page_sidebar.png", alt: "Screenshot showing the sidebar" %>
 
+### Searching for steps
+
+Use the search input to find specific steps in your build. Type the name of the step or any relevant keywords, and the sidebar will filter the list to show only steps that match what you've typed.
+
+<%= image "build_step_search.png", alt: "Screenshot showing the search bar" %>
+
 ### Viewing step details
 
-When you select a step, its details appear in the resizable panel. You can:
+When you select a step, its details appear in a resizable step panel. You can:
 
-1. Drag the panel edge to resize.
-1. Switch between side and bottom panel positioning using the layout toggle.
-1. View logs, artifacts, and environment variables in their respective tabs.
+- Open the step panel on any tab of the build page.
+- View **Log**s, **Artifacts**, and **Environment** variables in their respective tabs.
+- Drag the panel edge to resize.
+- Dock the panel on the right, bottom, or center using the layout toggle.
 
 <%= image "build_page_drawer.png", alt: "Screenshot showing the drawer and positioning buttons" %>
 
 ### Managing retries
 
-The sidebar now shows an indicator for steps with retries. You can access the retried jobs when you open the step details.
+The sidebar now shows an indicator for steps with retries.
 
 1. Look for the retry indicator in the sidebar.
 1. Select the step to view the latest attempt.
 1. Use the retry selector to switch between attempts.
+
+You can also access the retried jobs when you open the step details.
 
 ### Using the table view
 
@@ -50,7 +61,9 @@ The **Table** view provides a detailed list of all jobs in your build. This view
 Here's how to use it:
 
 - Sort steps by selecting the column header (select three times to remove sorting).
-- Filter steps in the table via the sidebar filter.
+- Filter jobs using the state filter.
+
+<%= image "build_table.png", alt: "Screenshot showing the build table" %>
 
 ### Browsing your build on mobile
 
@@ -71,10 +84,11 @@ Turn on follow mode by pressing `j` when the build is in progress on the canvas 
 
 The following keyboard shortcuts are currently available:
 
-- `f`: Go to next failure.
-- `j`: Follow build (for in-progress builds, only on canvas view).
-- `esc`: Clear active step selection.
-- `g`: Toggle collapse groups (early experiment only).
+- `f`: Go to the next failure.
+- `j`: Follow the build (for in-progress builds, and only available in the **Canvas** view).
+- `esc`: Clear the active step selection.
+- `g`: Toggle between collapsing and expanding groups (experimental only).
+- `s`: Access step search.
 
 ## Tips for large builds
 
