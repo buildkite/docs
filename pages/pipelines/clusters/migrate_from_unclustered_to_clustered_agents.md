@@ -11,26 +11,16 @@ Migrating unclustered agents to a cluster allows those agents to use [agent toke
 > 📘 Buildkite organizations created after February 26, 2024
 > Buildkite organizations created after this date will not have an **Unclustered** area. Therefore, this process is not required for these newer Buildkite organizations.
 
-## Quick-start: one cluster, zero fuss ✅ {#quick-start-one-cluster-zero-fuss}
+## Single-cluster migration
 
-> 📘 Fastest migration path
-> 1. Create a single "default" cluster
-> 2. Generate a new agent token for that cluster
-> 3. Gracefully stop each running agent, update `BUILDKITE_AGENT_TOKEN` (or config file), restart the agent service
-> 4. Confirm agents now appear in the cluster
->
-> Instantly unlock cluster insights, queue metrics, and organization-level secrets management.
+Migrating your unclustered agents to a single cluster is the fastest migration strategy that offers the least friction, and is a recommended starting point. To do this:
 
-### Why start with one cluster? {#why-start-with-one-cluster}
+1. Learn more about the [key benefits of clusters](#key-benefits-of-clusters), and starting the migration process with a [single cluster](#key-benefits-of-clusters-starting-with-a-single-cluster).
+1. Generate a new agent token for your **Default cluster**.
+1. Gracefully stop each running agent, update `BUILDKITE_AGENT_TOKEN` (or config file), restart the agent service.
+1. Confirm agents now appear in the cluster.
 
-Starting with a single cluster offers several advantages:
-
-- **No queue rewiring**: Your existing queue structure remains unchanged
-- **No pipeline edits**: Pipelines continue to work without modification  
-- **Immediate insights**: Access cluster insights and queue metrics instantly
-- **Org-level secrets**: Benefit from organization-level secrets management right away
-
-[See full process](#agent-migration-process) for detailed migration steps.
+Instantly unlock cluster insights, queue metrics, and organization-level secrets management.
 
 ## Key benefits of clusters
 
@@ -43,6 +33,17 @@ Starting with a single cluster offers several advantages:
 - **Easier agent management**: Clusters make agents and queues more discoverable across your organization and allow teams to self-manage their agent pools.
 
 - **Better organization**: You can separate agents and pipelines by team, environment, or use case, making your CI/CD infrastructure easier to understand and maintain.
+
+### Starting with a single cluster
+
+Starting with a single cluster offers several advantages:
+
+- **No queue rewiring**: Your existing queue structure remains unchanged.
+- **No pipeline edits**: Pipelines continue to work without modification.
+- **Immediate insights**: Access cluster insights and queue metrics instantly.
+- **Org-level secrets**: Benefit from organization-level secrets management right away.
+
+[See full process](#agent-migration-process) for detailed migration steps.
 
 ## Assessing your current environment
 
@@ -100,13 +101,13 @@ Use this assessment to determine which agent migration approach is best for your
 
 Choose a migration strategy based on your organization's structure, CI/CD ownership model, and risk tolerance.
 
-### Single-cluster quick-start (recommended) {#single-cluster-quick-start}
+### Single-cluster migration
 
-This is the fastest and safest migration approach for most organizations. Start with a single cluster containing all your agents, then optionally split into multiple clusters later.
+This migration strategy is the fastest and safest for most organizations. Start with a single cluster containing all your agents, then optionally split into multiple clusters later.
 
 #### Advantages
 
-- **Lowest risk**: No queue or pipeline configuration changes required
+- **Least risk**: No queue or pipeline configuration changes required
 - **Fastest implementation**: Complete migration in hours, not days or weeks
 - **Immediate benefits**: Instant access to cluster insights and queue metrics
 - **Simplest rollback**: Easy to revert if issues arise
@@ -118,9 +119,9 @@ This is the fastest and safest migration approach for most organizations. Start 
 
 [See full process](#agent-migration-process) for detailed implementation steps.
 
-### Team-by-team migration {#team-by-team-migration}
+### Team-by-team migration
 
-This migration approach is best for Buildkite organizations that have their CI/CD ownership _distributed_ across multiple teams.
+This migration strategy is best for Buildkite organizations that have their CI/CD ownership _distributed_ across multiple teams.
 
 #### Advantages
 
@@ -134,9 +135,9 @@ This migration approach is best for Buildkite organizations that have their CI/C
 - May require temporary solutions for cross-team pipeline dependencies.
 - Requires coordination between teams for shared resources.
 
-### All-at-once migration {#all-at-once-migration}
+### All-at-once migration
 
-This migration approach is best for Buildkite organizations with _centrally_ managed infrastructure, particularly those using infrastructure-as-code tools like Terraform.
+This migration strategy is best for Buildkite organizations with _centrally_ managed infrastructure, particularly those using infrastructure-as-code tools like Terraform.
 
 #### Advantages
 
@@ -149,9 +150,9 @@ This migration approach is best for Buildkite organizations with _centrally_ man
 - Higher risk of other problems occurring if issues are encountered during migration.
 - Requires more extensive planning and testing.
 
-### Hybrid approaches {#hybrid-approaches}
+### Hybrid approaches
 
-Consider a hybrid of the [team-by-team](#team-by-team-migration) and [all-at-once](#all-at-once-migration) migration approaches if your Buildkite organization has both _distributed_ and _centralized_ CI/CD components:
+Consider a hybrid of the [team-by-team](#migration-strategies-team-by-team-migration) and [all-at-once](#migration-strategies-all-at-once-migration) migration approaches if your Buildkite organization has both _distributed_ and _centralized_ CI/CD components:
 
 - Migrate core infrastructure in one operation.
 - Allow teams to gradually migrate their team-specific agents and pipelines over to clusters.
