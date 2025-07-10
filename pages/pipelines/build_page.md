@@ -16,12 +16,12 @@ The new build page consists of three main components:
 
 ### Navigating your build
 
-The **sidebar** provides a hierarchical view of all steps in your build. Here's how to use it:
+The _sidebar_ provides a hierarchical view of all steps in your build. Here's how to use it:
 
-- Expand/collapse groups by selecting the arrow icon.
+- Expand/collapse groups by selecting their arrow icons.
 - Group steps by state to see important steps (such as blocked or failed) at the top.
-- Click any step to view its details.
-- Use the action button or hot key "F" to cycle through failures.
+- Select any step to view its details.
+- Use the action button or press the `f` key to cycle through failures.
 - Use keyword search to quickly open or focus a step.
 - Optionally collapse the sidebar to make more room for the content area.
 
@@ -29,7 +29,7 @@ The **sidebar** provides a hierarchical view of all steps in your build. Here's 
 
 ### Searching for steps
 
-Use the search input to find specific steps in your build. Type the name of the step or any relevant keywords, and the sidebar will filter the list to show only matching steps.
+Use the search input to find specific steps in your build. Type the name of the step or any relevant keywords, and the sidebar will filter the list to show only steps that match what you've typed.
 
 <%= image "build_step_search.png", alt: "Screenshot showing the search bar" %>
 
@@ -38,7 +38,7 @@ Use the search input to find specific steps in your build. Type the name of the 
 When you select a step, its details appear in the resizable panel. You can:
 
 - View a step on tab of the build page.
-- View logs, artifacts, and environment variables in their respective tabs.
+- View **Log**s, **Artifacts**, and **Environment** variables in their respective tabs.
 - Drag the panel edge to resize.
 - Dock the panel on the right, bottom, or center using the layout toggle.
 
@@ -46,11 +46,13 @@ When you select a step, its details appear in the resizable panel. You can:
 
 ### Managing retries
 
-The sidebar now shows an indicator for steps with retries. You can access the retried jobs when you open the step details.
+The sidebar now shows an indicator for steps with retries.
 
 1. Look for the retry indicator in the sidebar.
 1. Select the step to view the latest attempt.
 1. Use the retry selector to switch between attempts.
+
+You can also access the retried jobs when you open the step details.
 
 ### Using the table view
 
@@ -82,11 +84,11 @@ Turn on follow mode by pressing `j` when the build is in progress on the canvas 
 
 The following keyboard shortcuts are currently available:
 
-- `f`: Go to next failure.
-- `j`: Follow build (for in-progress builds, only on canvas view).
-- `esc`: Clear active step selection.
-- `g`: Toggle collapse groups (early experiment only).
-- `s`: Toggle step search
+- `f`: Go to the next failure.
+- `j`: Follow the build (for in-progress builds, and only available in the **Canvas** view).
+- `esc`: Clear the active step selection.
+- `g`: Toggle between collapsing and expanding groups (experimental only).
+- `s`: Access step search.
 
 ## Tips for large builds
 
