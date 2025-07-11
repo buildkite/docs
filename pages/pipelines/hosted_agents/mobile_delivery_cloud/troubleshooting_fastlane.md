@@ -18,13 +18,13 @@ When fastlane fails, start with these troubleshooting steps:
 
 3. **Verify your environment** with these diagnostic commands:
    ```bash
-   # Check code signing certificates
+     # Check code signing certificates
    security find-identity -v -p codesigning
    
-   # Verify keychain configuration
+     # Verify keychain configuration
    security list-keychains
    
-   # List provisioning profiles
+     # List provisioning profiles
    ls -la ~/Library/MobileDevice/Provisioning\ Profiles/
    ```
 
