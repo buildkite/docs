@@ -121,22 +121,22 @@ Exit status: 65
 This error occurs during the code signing process. Code signing requires several components to be set up correctly:
 
 - **Certificate and private keys:**
-  * Certificate issued by Apple to verify the developer's identity
-  * Private key available in the keychain
-  * Both must be properly imported into a keychain
+  - Certificate issued by Apple to verify the developer's identity
+  - Private key available in the keychain
+  - Both must be properly imported into a keychain
 - **Provisioning profile:**
-  * A `.mobileprovision` file installed in `~/Library/MobileDevice/Provisioning Profiles/`
-  * Must match the app's bundle identifier
-  * Must include the certificate being used to sign
-  * Must contain the app's entitlements (push notification support, etc.)
-  * Must not be expired
+  - A `.mobileprovision` file installed in `~/Library/MobileDevice/Provisioning Profiles/`
+  - Must match the app's bundle identifier
+  - Must include the certificate being used to sign
+  - Must contain the app's entitlements (push notification support, etc.)
+  - Must not be expired
 - **Keychain access:**
-  * Keychain needs to be unlocked during the build
-  * Should not be the default `login.keychain-db`
+  - Keychain needs to be unlocked during the build
+  - Should not be the default `login.keychain-db`
 - **Xcode build settings:**
-  * **Signing identity** - The certificate from the keychain
-  * **Provisioning profile** - Valid `.mobileprovision` file that matches the app bundle ID
-  * **Matching team ID** - Apple Developer Team ID must match between certificate and profile
+  - **Signing identity** - The certificate from the keychain
+  - **Provisioning profile** - Valid `.mobileprovision` file that matches the app bundle ID
+  - **Matching team ID** - Apple Developer Team ID must match between certificate and profile
 
 Example Fastfile build configuration:
 
