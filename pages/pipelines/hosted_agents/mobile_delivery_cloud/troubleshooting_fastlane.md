@@ -1,6 +1,6 @@
 # Troubleshooting fastlane
 
-This guide covers [fastlane](https://fastlane.tools/) issues in iOS development commonly encountered during migration to ephemeral agents, such as Buildkite's [Mobile Delivery Cloud](/docs/pipelines/hosted-agents/mobile-delivery-cloud/getting-started).
+This guide covers some common [fastlane](https://fastlane.tools/) issues encountered during migration to ephemeral agents, such as Buildkite's [Mobile Delivery Cloud](/docs/pipelines/hosted-agents/mobile-delivery-cloud/getting-started).
 
 ## Essential debugging steps
 
@@ -13,7 +13,7 @@ When fastlane fails, start with these troubleshooting steps:
 
 2. **Upload fastlane logs as build artifacts** for analysis:
    - Configure the [build artifacts](/docs/pipelines/configure/artifacts) in your pipeline to upload your fastlane or xcodebuild logs.
-   - Look for actual errors around fastlane's simplified error messages. When examining the verbose logs, the actual errors will often be found around the parts where fastlane reports its simplified error messages. For code signing errors specifically, look for messages containing 'codesign', 'security', or 'provisioning profile'.
+   - Look for actual errors around fastlane's simplified error messages. When examining the verbose logs, you will often find the actual errors around the parts where fastlane reports its simplified error messages. For code signing errors specifically, look for messages containing 'codesign', 'security', or 'provisioning profile'.
    - For code signing issues, check `$HOME/Library/Logs/gym/*`. For more information regarding code signing errors, see fastlane's code signing [troubleshooting documentation](https://docs.fastlane.tools/codesigning/troubleshooting/).
 
 3. **Verify your environment** with these diagnostic commands:
@@ -28,7 +28,7 @@ When fastlane fails, start with these troubleshooting steps:
    ls -la ~/Library/MobileDevice/Provisioning\ Profiles/
    ```
 
-## Fastlane errors and resolutions
+## Errors and resolutions for fastlane
 
 The following section covers some of the fastlane errors you may encounter when using Buildkite's Mobile Delivery Cloud and ways to troubleshoot those errors.
 
@@ -41,11 +41,11 @@ The sandbox is not in sync with the Podfile.lock.
 Run 'pod install' or update your CocoaPods installation.
 ```
 
-The sandbox is the Pods directory that contains your project's installed dependencies (pods). This error occurs when the installed dependencies don't match the pods and versions specified in the `Podfile.lock`. It's best practice to not commit the `Pods` directory to your repository and only commit the `Podfile` and `Podfile.lock`, and rebuild the dependencies during CI builds.
+The sandbox is the `Pods` directory that contains your project's installed dependencies (pods). This error occurs when the installed dependencies don't match the pods and versions specified in the `Podfile.lock`. It's best practice to not commit the `Pods` directory to your repository and only commit the `Podfile` and `Podfile.lock`, and rebuild the dependencies during CI builds.
 
 **Resolution:**
 
-To resolve the error, run a standard `Pod`installation:
+To resolve the error, run a standard Pod installation command:
 
 ```ruby
 lane :build do
@@ -56,7 +56,7 @@ lane :build do
 end
 ```
 
-If this doesn't resolve the issue, try rebuilding the entire `Pods`directory:
+If this doesn't resolve the issue, try rebuilding the entire `Pods` directory:
 
 ```ruby
 lane :build do
@@ -96,7 +96,7 @@ You can add abbrev to your Gemfile or gemspec to silence this warning.
 
 **Resolution:**
 
-macOS hosted Buildkite agents have Ruby 3.4+ installed via Homebrew. In Ruby 3.4+, the gems `mutex_m` and `abbrev` are no longer the default gems. In Ruby 3.5+, `ostruct` will no longer be a default gem, causing fastlane to fail.
+Buildkite Agents hosted on macOS have Ruby 3.4+ installed via Homebrew. In Ruby 3.4+, the gems `mutex_m` and `abbrev` are no longer the default gems. In Ruby 3.5+, `ostruct` will no longer be a default gem, causing fastlane to fail.
 
 To fix this discrepancy, you need to add the following gems to the `Gemfile`:
 
@@ -132,7 +132,7 @@ This error occurs during the code signing process. Code signing requires several
   - Must not be expired
 - **Keychain access:**
   - Keychain needs to be unlocked during the build
-  - Should not be the default `login.keychain-db`
+  - Keychain should not be the default `login.keychain-db`
 - **Xcode build settings:**
   - **Signing identity** - The certificate from the keychain
   - **Provisioning profile** - Valid `.mobileprovision` file that matches the app bundle ID
@@ -173,7 +173,7 @@ lane :build do
 end
 ```
 
-Match handles everything from creating and storing certificates and profiles, setting up code signing on a new machine, and handling multiple teams keys and profiles through Git. If match is being used, look for issues in the Matchfile and check the fastlane output logs.
+Match handles everything from creating and storing certificates and profiles, setting up code signing on a new machine, and handling multiple teams' keys and profiles through Git. If match is being used, look for issues in the Matchfile and check the fastlane output logs.
 
 If you're experiencing issues with fastlane match, for troubleshooting:
 
