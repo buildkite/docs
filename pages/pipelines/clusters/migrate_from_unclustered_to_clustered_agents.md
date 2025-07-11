@@ -11,23 +11,25 @@ Migrating unclustered agents to a cluster allows those agents to use [agent toke
 > 📘 Buildkite organizations created after February 26, 2024
 > Buildkite organizations created after this date will not have an **Unclustered** area. Therefore, this process is not required for these newer Buildkite organizations.
 
-## Single-cluster migration
+## Single-cluster migration overview
 
 Migrating your unclustered agents to a single cluster is the fastest migration strategy that offers the least friction, and is a recommended starting point. To do this:
 
-1. Learn more about the [key benefits of clusters](#key-benefits-of-clusters), and starting the migration process with a [single cluster](#key-benefits-of-clusters-starting-with-a-single-cluster).
+1. Ensure you are familiar with the [key benefits of clusters](#key-benefits-of-clusters), and starting the migration process with a [single cluster](#key-benefits-of-clusters-starting-with-a-single-cluster).
 
-1. Generate a new agent token for your **Default cluster**.
+1. Generate a [new agent token](/docs/agent/v3/tokens#create-a-token) for your **Default cluster**.
 
-1. Create queues in this cluster—one for each queue tag that was assigned to all agents when they were started in your unclustered agent environment.
+1. Create your required [self-hosted](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue) or [Buildkite hosted](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue) queues in this cluster—one for each queue tag that was assigned to all agents when they were started in your unclustered agent environment.
 
-    Learn more about the differences in queue management between unclustered and clustered environments in [Agent queue limitations](#technical-considerations-and-blockers-agent-queue-limitations) and [Migrate unclustered agents to clusters](#agent-migration-process-migrate-unclustered-agents-to-clusters) section of the [Agent migration process](#agent-migration-process).
+    Ensure you are familiar with the differences in _queue management_ between unclustered and clustered environments in [Agent queue limitations](#technical-considerations-and-blockers-agent-queue-limitations), and the [Migrate unclustered agents to clusters](#agent-migration-process-migrate-unclustered-agents-to-clusters) section of the [Agent migration process](#agent-migration-process).
 
-1. Gracefully stop each running agent, update `BUILDKITE_AGENT_TOKEN` (or config file), restart the agent service.
+    **Tip:** Ensure you create _copies_ of your unclustered agents for your new cluster. This allows you to use your unclustered agents to fall back on if you experience any issues in getting your new clustered agents up and running. Once your agents have been successfully migrated over to your new cluster, you can decommission your unlcustered agents.
 
-1. Confirm agents now appear in the cluster.
+1. Move the [pipelines associated with your unclustered agents to their new cluster](#agent-migration-process-move-pipelines-to-clusters), and [test and validate](#agent-migration-process-test-and-validate-the-migrated-pipelines) that they build as expected on your new clustered agents.
 
-You can now unlock cluster insights, queue metrics, and organization-level secrets management.
+1. Decommission your [unclustered agents](#agent-migration-process-decommission-your-unclustered-resources).
+
+You can now unlock [cluster insights](/docs/pipelines/insights/clusters), [queue metrics](/docs/pipelines/insights/queue-metrics), and organization-level secrets management.
 
 See [Agent migration process](#agent-migration-process) for the full migration process and detailed migration steps, bearing in mind that you are only working with a single cluster.
 
@@ -35,9 +37,9 @@ See [Agent migration process](#agent-migration-process) for the full migration p
 
 - **Enhanced security boundaries**: Clusters provide hard security boundaries between different environments. However, you can use [rules](/docs/pipelines/rules) to create exceptions that allow controlled interaction between clusters when needed.
 
-- **Improved observability**: Clusters provide access to [cluster insights](/docs/pipelines/insights/clusters) (for customers on Enterprise plans), providing better metrics and visibility into your build infrastructure such as queue wait times and job pass rates. All plans have access to [cluster queue metrics](/docs/pipelines/insights/queue-metrics).
+- **Improved observability**: Clusters provide access to [cluster insights](/docs/pipelines/insights/clusters) (for customers on Enterprise plans), providing better metrics and visibility into your build infrastructure such as queue wait times and job pass rates. All plans have access to [queue metrics](/docs/pipelines/insights/queue-metrics).
 
-- **Organization-level secrets management**: Clusters enable better organization-level secrets management and controlled access to sensitive resources.
+- **Organization-level secrets management**: Clusters provide access to Buildkite organization-level secrets and controlled access to sensitive resources.
 
 - **Easier agent management**: Clusters make agents and queues more discoverable across your organization and allow teams to self-manage their agent pools.
 
@@ -45,12 +47,12 @@ See [Agent migration process](#agent-migration-process) for the full migration p
 
 ### Starting with a single cluster
 
-Starting with a single cluster offers several advantages:
+Starting your unclustered to clustered migration process with a single cluster offers several advantages:
 
-- **No queue rewiring**: Your existing queue structure remains unchanged.
+- **Minimal queue rewiring**: Your existing queue structure requires minimal configuration changes.
 - **No pipeline edits**: Pipelines continue to work without modification.
-- **Immediate insights**: Access cluster insights and queue metrics instantly.
-- **Org-level secrets**: Benefit from organization-level secrets management right away.
+- **Immediate insights**: Access [cluster insights](/docs/pipelines/insights/clusters) and [queue metrics](/docs/pipelines/insights/queue-metrics) instantly.
+- **Buildkite organization-level secrets**: Benefit from immediate access to organization-level secrets management.
 
 ## Assessing your current environment
 
@@ -114,17 +116,17 @@ This migration strategy is the fastest and safest for most organizations. Start 
 
 #### Advantages
 
-- **Least risk**: No queue or pipeline configuration changes required
-- **Fastest implementation**: Complete migration in hours, not days or weeks
-- **Immediate benefits**: Instant access to cluster insights and queue metrics
-- **Simplest rollback**: Easy to revert if issues arise
+- Involves minimal queue and pipeline configuration changes.
+- Complete migration could be achieved within a matter of hours—not days or weeks.
+- Instant access to [cluster insights](/docs/pipelines/insights/clusters) and [queue metrics](/docs/pipelines/insights/queue-metrics).
+- Easiest environment to revert if issues arise, provided you have made copies of your agents as part of the [agent migration process](#agent-migration-process-migrate-unclustered-agents-to-clusters).
 
 #### Considerations
 
-- **Future segmentation**: You may want to split into multiple clusters later for better organization
-- **Temporary single boundary**: All agents initially share the same security boundary
+- All agents initially share the same security boundary.
+- Once you have completed migrating all your unclustered agents across to a single cluster, you may wish or need to split your agents and pipelines into multiple clusters later, using a [team-by-team](#migration-strategies-team-by-team-migration), [all-at-once](#migration-strategies-all-at-once-migration), or a [hybrid](#migration-strategies-hybrid-strategy) migration strategy, for an improved and more secure build environment.
 
-See [Agent migration process](#agent-migration-process) for the full migration process and detailed migration steps, bearing in mind that you are only working with a single cluster.
+See [Agent migration process](#agent-migration-process) for detailed steps on the full migration process, bearing in mind that you are only working with a single cluster.
 
 ### Team-by-team migration
 
@@ -142,6 +144,8 @@ This migration strategy is best for Buildkite organizations that have their CI/C
 - May require temporary solutions for cross-team pipeline dependencies.
 - Requires coordination between teams for shared resources.
 
+Learn more about the [technical considerations](#technical-considerations-and-blockers) of migrating agents from unclustered to clustered environments, and the [Agent migration process](#agent-migration-process) for detailed steps on the full migration process.
+
 ### All-at-once migration
 
 This migration strategy is best for Buildkite organizations with _centrally_ managed infrastructure, particularly those using infrastructure-as-code tools like Terraform.
@@ -157,13 +161,17 @@ This migration strategy is best for Buildkite organizations with _centrally_ man
 - Higher risk of other problems occurring if issues are encountered during migration.
 - Requires more extensive planning and testing.
 
-### Hybrid approaches
+Learn more about the [technical considerations](#technical-considerations-and-blockers) of migrating agents from unclustered to clustered environments, and the [Agent migration process](#agent-migration-process) for detailed steps on the full migration process.
 
-Consider a hybrid of the [team-by-team](#migration-strategies-team-by-team-migration) and [all-at-once](#migration-strategies-all-at-once-migration) migration approaches if your Buildkite organization has both _distributed_ and _centralized_ CI/CD components:
+### Hybrid strategy
+
+Consider a hybrid of the [team-by-team](#migration-strategies-team-by-team-migration) and [all-at-once](#migration-strategies-all-at-once-migration) migration strategy if your Buildkite organization has both _distributed_ and _centralized_ CI/CD components:
 
 - Migrate core infrastructure in one operation.
 - Allow teams to gradually migrate their team-specific agents and pipelines over to clusters.
 - Create a timeline with clear milestones for the complete agent migration process.
+
+Learn more about the [technical considerations](#technical-considerations-and-blockers) of migrating agents from unclustered to clustered environments, and the [Agent migration process](#agent-migration-process) for detailed steps on the full migration process.
 
 ## Technical considerations and blockers
 
@@ -338,10 +346,10 @@ You can [create agent tokens](/docs/agent/v3/tokens#create-a-token) using the [B
 
 ### Migrate unclustered agents to clusters
 
-1. Update your unclustered agent configurations. For each such agent:
+1. Update your unclustered agent configurations—preferably by making a new copy of each agent for its new clustered environment. For each new agent:
     * Replace its existing unclustered agent token with its new agent token for its cluster.
 
-        As part of a [best practice](#best-practices-and-recommendations) strategy to [minimize downtime](#best-practices-and-recommendations-minimizing-downtime), create a copy of this agent and replace its unclustered agent token with the new new agent token for its cluster. This creates two instances of this agent—one running in your original unclustered environment and the other associated with its appropriate cluster. You can then use the unclustered agent to fall back on if you have issues getting your clustered agent to operate as expected.
+        As part of a [best practice](#best-practices-and-recommendations) strategy to [minimize downtime](#best-practices-and-recommendations-minimizing-downtime), creating copies of your agents like this results in two instances of each agent—one running in your original unclustered environment and the other associated with its appropriate cluster. This allows you to fall back on your unclustered agents if you have issues getting your clustered agent to operate as expected, thereby minimizing downtime. Be aware that this situation is only temporary, since you'll eventually [decommission your unclustered agents](#agent-migration-process-decommission-your-unclustered-resources).
     * Set a queue (or the [default queue](/docs/agent/v3/queues#the-default-queue) that will be selected for that agent).
     * Ensure agents have appropriate tags for targeting.
 
