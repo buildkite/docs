@@ -1,6 +1,6 @@
 # Troubleshooting fastlane
 
-This is a comprehensive guide to diagnosing and resolving common [fastlane](https://docs.fastlane.tools/) issues in iOS development, specifically for Buildkite's [Mobile Delivery Cloud](/docs/pipelines/hosted-agents/mobile-delivery-cloud/getting-started).
+This guide covers [fastlane](https://fastlane.tools/) issues in iOS development commonly encountered during migration to ephemeral agents, such as Buildkite's [Mobile Delivery Cloud](/docs/pipelines/hosted-agents/mobile-delivery-cloud/getting-started).
 
 ## Essential debugging steps
 
@@ -28,9 +28,9 @@ When fastlane fails, start with these troubleshooting steps:
    ls -la ~/Library/MobileDevice/Provisioning\ Profiles/
    ```
 
-## Common fastlane errors and resolutions
+## Fastlane errors and resolutions
 
-The following section covers the errors you are most likely to encounter when using fastlane with Buildkite and ways to troubleshoot those errors.
+The following section covers some of the fastlane errors you may encounter when using Buildkite's Mobile Delivery Cloud and ways to troubleshoot those errors.
 
 ### CocoaPods sandbox error
 
@@ -41,16 +41,27 @@ The sandbox is not in sync with the Podfile.lock.
 Run 'pod install' or update your CocoaPods installation.
 ```
 
-The sandbox is the Pods directory that contains your project's installed dependencies (pods). This error occurs when the installed dependencies don't match the pods and versions specified in the `Podfile.lock`.
+The sandbox is the Pods directory that contains your project's installed dependencies (pods). This error occurs when the installed dependencies don't match the pods and versions specified in the `Podfile.lock`. It's best practice to not commit the `Pods` directory to your repository and only commit the `Podfile` and `Podfile.lock`, and rebuild the dependencies during CI builds.
 
 **Resolution:**
 
-To resolve the error, delete the current `Pods` directory and rebuild the sandbox from scratch based on the `Podfile.lock` by adding `cocoapods(clean: true)` to the `Fastfile`:
+To resolve the error, run a standard `Pod`installation:
 
 ```ruby
 lane :build do
-  # This will delete and rebuild the entire Pods directory
-  cocoapods(clean: true)
+  # This will run pod install
+  cocoapods()
+
+  # Rest of your lane...
+end
+```
+
+If this doesn't resolve the issue, try rebuilding the entire `Pods`directory:
+
+```ruby
+lane :build do
+  # This will delete and rebuild your entire Pods directory
+  cocoapods(clean_install: true)
 
   # Rest of your lane...
 end
@@ -58,8 +69,8 @@ end
 
 If the proposed solution doesn't resolve the issue, ensure a consistent environment:
 
-- Run `bundle install` before calling fastlane to ensure all Ruby gems (since CocoaPods is a Ruby gem, too) are installed based on the `Gemfile.lock`
-- Execute fastlane using `bundle exec fastlane` to use the versions of gems specified in the `Gemfile.lock`
+- Run `bundle install` before calling fastlane to ensure all Ruby gems (since CocoaPods is a Ruby gem, too) are installed based on the `Gemfile.lock`.
+- Execute fastlane using `bundle exec fastlane` to use the versions of gems specified in the `Gemfile.lock`.
 
 ### Ruby gem dependency error
 
