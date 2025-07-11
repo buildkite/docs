@@ -29,7 +29,9 @@ Migrating your unclustered agents to a single cluster is the fastest migration s
 
 1. Decommission your [unclustered agents](#agent-migration-process-decommission-your-unclustered-resources).
 
-You can now unlock [cluster insights](/docs/pipelines/insights/clusters), [queue metrics](/docs/pipelines/insights/queue-metrics), and organization-level secrets management.
+You can now unlock [cluster insights](/docs/pipelines/insights/clusters) and [queue metrics](/docs/pipelines/insights/queue-metrics).
+
+<!-- , and organization-level secrets management. -->
 
 See [Agent migration process](#agent-migration-process) for the full migration process and detailed migration steps, bearing in mind that you are only working with a single cluster.
 
@@ -39,7 +41,9 @@ See [Agent migration process](#agent-migration-process) for the full migration p
 
 - **Improved observability**: Clusters provide access to [cluster insights](/docs/pipelines/insights/clusters) (for customers on Enterprise plans), providing better metrics and visibility into your build infrastructure such as queue wait times and job pass rates. All plans have access to [queue metrics](/docs/pipelines/insights/queue-metrics).
 
+<!--
 - **Organization-level secrets management**: Clusters provide access to Buildkite organization-level secrets and controlled access to sensitive resources.
+-->
 
 - **Easier agent management**: Clusters make agents and queues more discoverable across your organization and allow teams to self-manage their agent pools.
 
@@ -50,9 +54,14 @@ See [Agent migration process](#agent-migration-process) for the full migration p
 Starting your unclustered to clustered migration process with a single cluster offers several advantages:
 
 - **Minimal queue rewiring**: Your existing queue structure requires minimal configuration changes.
+
 - **No pipeline edits**: Pipelines continue to work without modification.
+
 - **Immediate insights**: Access [cluster insights](/docs/pipelines/insights/clusters) and [queue metrics](/docs/pipelines/insights/queue-metrics) instantly.
+
+<!--
 - **Buildkite organization-level secrets**: Benefit from immediate access to organization-level secrets management.
+-->
 
 ## Assessing your current environment
 
