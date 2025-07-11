@@ -23,7 +23,7 @@ Migrating your unclustered agents to a single cluster is the fastest migration s
 
     Ensure you are familiar with the differences in _queue management_ between unclustered and clustered environments in [Agent queue limitations](#technical-considerations-and-blockers-agent-queue-limitations), and the [Migrate unclustered agents to clusters](#agent-migration-process-migrate-unclustered-agents-to-clusters) section of the [Agent migration process](#agent-migration-process).
 
-    **Tip:** Ensure you create _copies_ of your unclustered agents for your new cluster. This allows you to use your unclustered agents to fall back on if you experience any issues in getting your new clustered agents up and running. Once your agents have been successfully migrated over to your new cluster, you can decommission your unlcustered agents.
+    **Tip:** Ensure you create _copies_ of your unclustered agents for your new cluster. This allows you to use your unclustered agents to fall back on if you experience any issues in getting your new clustered agents up and running. Once your agents have been successfully migrated over to your new cluster, you can decommission your unclustered agents.
 
 1. Move the [pipelines associated with your unclustered agents to their new cluster](#agent-migration-process-move-pipelines-to-clusters), and [test and validate](#agent-migration-process-test-and-validate-the-migrated-pipelines) that they build as expected on your new clustered agents.
 
