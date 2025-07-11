@@ -128,7 +128,7 @@ This migration strategy is the fastest and safest for most organizations. Start 
 - Involves minimal queue and pipeline configuration changes.
 - Complete migration could be achieved within a matter of hours—not days or weeks.
 - Instant access to [cluster insights](/docs/pipelines/insights/clusters) and [queue metrics](/docs/pipelines/insights/queue-metrics).
-- Easiest environment to revert if issues arise, provided you have made copies of your agents as part of the [agent migration process](#agent-migration-process-migrate-unclustered-agents-to-clusters).
+- Easiest environment to revert if issues arise, provided you have made copies of your agents as part of the [Migrate unclustered agents to clusters](#agent-migration-process-migrate-unclustered-agents-to-clusters) process.
 
 #### Considerations
 
