@@ -67,16 +67,22 @@ can access the instance.
 	- Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
 1. Using a VNC session (run SSH port forwarding `ssh -L 5900:localhost:5900 ec2-user@<ip-address>` if direct access is not available):
 	1. Sign in as the `ec2-user`.
-	1. Set **Automatically log in as** to `ec2-user` in **System Preferences** > **Users & Groups**.
-	1. Set an empty password in **System Preferences** > **Login Password**.
-	1. Set **Start Screen Saver when inactive** to `Never` in **System Preferences** > **Lock Screen**.
+	1. Set **Automatically log in as** to `ec2-user` in **System Settings** > **Users & Groups**.
+	1. Set an empty password in **System Settings** > **Login Password**.
+	1. Set **Start Screen Saver when inactive** to `Never` in **System Settings** > **Lock Screen**.
 1. Install your required version of Xcode, and ensure you launch Xcode at least
 once so you are presented with the EULA prompt.
+1. If you plan to customize the UserData script or build automation tools, note that Homebrew paths differ by architecture:
+   - Apple Silicon (ARM): `/opt/homebrew/bin`
+   - Intel (x86): `/usr/local/bin`
 1. Using the AWS EC2 Console, create an AMI from your instance.
 
 You do not need to install the `buildkite-agent` in your template AMI, the
 `buildkite-agent` will be installed at boot time by the launch template's
 `UserData` script.
+
+> 📘 UserData script considerations
+> The default UserData script installs the Buildkite agent using Homebrew. Since Homebrew is installed under the `ec2-user` account (not root), the UserData script must run Homebrew commands using `su - ec2-user -c`. If you're customizing the UserData script, ensure you maintain this pattern to avoid "command not found: brew" errors.
 
 ## Step 3: Associate your AMI with a self-managed license in AWS License Manager
 
