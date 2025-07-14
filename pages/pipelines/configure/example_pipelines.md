@@ -210,7 +210,7 @@ Further example pipelines with their own repository are below.
 </a>
 
 <a class="Docs__example-repo" href="https://github.com/buildkite/bazel-monorepo-example">
- <span class="icon">:buildkite:</span>
+ <span class="icon">:bazel:</span>
   <span class="detail">
     <strong>Dynamic Pipelines using Bazel</strong>
      <span class="description">Generating a pipeline's steps programmatically at run-time, with annotations, and using Bazel queries to also build dependencies.</span>
