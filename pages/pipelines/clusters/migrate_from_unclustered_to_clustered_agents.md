@@ -15,15 +15,15 @@ Migrating unclustered agents to a cluster allows those agents to use [agent toke
 
 Migrating your unclustered agents to a single cluster is the fastest migration strategy that offers the least friction, and is a recommended starting point. To do this:
 
-1. Ensure you are familiar with the [key benefits of clusters](#key-benefits-of-clusters), and starting the migration process with a [single cluster](#key-benefits-of-clusters-starting-with-a-single-cluster).
+1. Ensure you are familiar with the [key benefits of clusters](#key-benefits-of-clusters), and [starting the migration process with a single cluster](#key-benefits-of-clusters-starting-with-a-single-cluster).
 
 1. Generate a [new agent token](/docs/agent/v3/tokens#create-a-token) for your **Default cluster**.
 
 1. Create your required [self-hosted](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue) or [Buildkite hosted](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue) queues in this cluster—one for each queue tag that was assigned to all agents when they were started in your unclustered agent environment.
 
-    Ensure you are familiar with the differences in _queue management_ between unclustered and clustered environments in [Agent queue limitations](#technical-considerations-and-blockers-agent-queue-limitations), and the [Migrate unclustered agents to clusters](#agent-migration-process-migrate-unclustered-agents-to-clusters) section of the [Agent migration process](#agent-migration-process).
+    Ensure you are familiar with the differences in how queues are managed between unclustered and clustered environments in [Agent queue differences](#technical-considerations-and-blockers-agent-queue-differences), and the [Migrate unclustered agents to clusters](#agent-migration-process-migrate-unclustered-agents-to-clusters) section of the [Agent migration process](#agent-migration-process).
 
-    **Tip:** Ensure you create _copies_ of your unclustered agents for your new cluster. This allows you to use your unclustered agents to fall back on if you experience any issues in getting your new clustered agents up and running. Once your agents have been successfully migrated over to your new cluster, you can decommission your unclustered agents.
+    **Tip:** Ensure you create _copies_ of your unclustered agents for your new cluster. This allows you to use your unclustered agents to fall back on if you experience any issues in getting your new clustered agents up and running. Once your agents have been successfully migrated over to your new cluster, you can then decommission your unclustered agents.
 
 1. Move the [pipelines associated with your unclustered agents to their new cluster](#agent-migration-process-move-pipelines-to-clusters), and [test and validate](#agent-migration-process-test-and-validate-the-migrated-pipelines) that they build as expected on your new clustered agents.
 
@@ -186,7 +186,7 @@ Learn more about the [technical considerations](#technical-considerations-and-bl
 
 Understanding these limitations and differences is crucial for planning your migration.
 
-### Agent queue limitations
+### Agent queue differences
 
 The following table lists the differences in how agents, queues and tags are handled between unclustered and clustered environments.
 
@@ -358,21 +358,20 @@ You can [create agent tokens](/docs/agent/v3/tokens#create-a-token) using the [B
 1. Update your unclustered agent configurations—preferably by making a new copy of each agent for its new clustered environment. For each new agent:
     * Replace its existing unclustered agent token with its new agent token for its cluster.
 
-        As part of a [best practice](#best-practices-and-recommendations) strategy to [minimize downtime](#best-practices-and-recommendations-minimizing-downtime), creating copies of your agents like this results in two instances of each agent—one running in your original unclustered environment and the other associated with its appropriate cluster. This allows you to fall back on your unclustered agents if you have issues getting your clustered agent to operate as expected, thereby minimizing downtime. Be aware that this situation is only temporary, since you'll eventually [decommission your unclustered agents](#agent-migration-process-decommission-your-unclustered-resources).
-    * Set a queue (or the [default queue](/docs/agent/v3/queues#the-default-queue) that will be selected for that agent).
-    * Ensure agents have appropriate tags for targeting.
+        As part of a [best practice](#best-practices-and-recommendations) strategy to [minimize downtime](#best-practices-and-recommendations-minimizing-downtime), creating copies of your agents like this results in two instances of each agent—one running in your original unclustered environment and the other associated with its appropriate cluster. This allows you to fall back on your unclustered agents if you have issues getting any of your clustered agents to operate as expected, thereby minimizing downtime. Be aware that this situation is only temporary, since you'll eventually be [decommissioning your unclustered agents](#agent-migration-process-decommission-your-unclustered-resources).
+    * Set the queue that was [already defined in your cluster](#agent-migration-process-create-your-clusters-and-queues), or the [default queue](/docs/agent/v3/queues#the-default-queue), which will be selected for this agent.
 
-1. Example [agent configuration](/docs/agent/v3/configuration) as parameter update:
+1. Ensure your agents are configured to start with their appropriate tags for targeting. For example, the following code snippet shows how to [configure an agent](/docs/agent/v3/configuration) from its former unclustered environment that defined multiple queue tags, to instead target its single queue (set previously) for its clustered environment:
 
     ```bash
     # Before migration (unclustered) - multiple queues
     buildkite-agent start \
-        --token "unclustered-token" \
+        --token "unclustered-agent-token-value" \
         --tags "queue=linux,queue=testing,arch=amd64,env=prod"
     
     # After migration (clustered) - single queue
     buildkite-agent start \
-        --token "cluster-token" \
+        --token "agent-token-value-for-cluster" \
         --tags "queue=linux,arch=amd64,env=prod"
     ```
 
@@ -414,7 +413,7 @@ Alternatively, consider using [Terraform](https://registry.terraform.io/provider
 
 ### Decommission your unclustered resources
 
-1. Once all tests pass, gradually increase traffic to the pipelines that were migrated to clusters.
+1. Once [all tests pass](#agent-migration-process-test-and-validate-the-migrated-pipelines), gradually increase traffic to the pipelines that were migrated to clusters.
 
 1. Monitor for any issues during the transition. If you are on an Enterprise plan, monitor [cluster insights](/docs/pipelines/insights/clusters).
 
