@@ -25,7 +25,7 @@ Migrating your unclustered agents to a single cluster is the fastest migration s
 
     Ensure you are familiar with the differences in how queues are managed between unclustered and clustered environments in [Agent queue differences](#technical-considerations-agent-queue-differences), and the [Migrate unclustered agents to clusters](#agent-migration-process-migrate-unclustered-agents-to-clusters) section of the [Agent migration process](#agent-migration-process).
 
-    **Tip:** Ensure you create _copies_ of your unclustered agents for your new cluster. This allows you to use your unclustered agents to fall back on if you experience any issues in getting your new clustered agents up and running. Once your agents have been successfully migrated over to your new cluster, you can then decommission your unclustered agents.
+    **Tip:** If you'll be running your clustered agents in a self-hosted (hybrid) environment, ensure you create _copies_ of your unclustered agents for your new cluster. This allows you to use your unclustered agents to fall back on if you experience any issues in getting your new clustered agents up and running. Once your agents have been successfully migrated over to your new cluster, you can then decommission your unclustered agents.
 
 1. Move the [pipelines associated with your unclustered agents to their new cluster](#agent-migration-process-move-pipelines-to-clusters), and [test and validate](#agent-migration-process-test-and-validate-the-migrated-pipelines) that they build as expected on your new clustered agents.
 
@@ -130,7 +130,7 @@ This migration strategy is the fastest and safest for most organizations. Start 
 - Involves minimal queue and pipeline configuration changes.
 - Complete migration could be achieved within a matter of hours—not days or weeks.
 - Instant access to [cluster insights](/docs/pipelines/insights/clusters) and [queue metrics](/docs/pipelines/insights/queue-metrics).
-- Easiest environment to revert if issues arise, provided you have made copies of your agents as part of the [Migrate unclustered agents to clusters](#agent-migration-process-migrate-unclustered-agents-to-clusters) process.
+- Easiest environment to revert if issues arise, provided you have made copies of your agents as part of the [Migrate unclustered agents to clusters](#agent-migration-process-migrate-unclustered-agents-to-clusters) process (when running the agents in a [self-hosted (hybrid)](/docs/pipelines/architecture#self-hosted-hybrid-architecture) environment).
 
 #### Considerations
 
@@ -340,7 +340,7 @@ This section outlines the complete migration process from unclustered to cluster
 
 1. Configure the necessary permissions for each cluster. As part of this process, consider how you'll set up [cluster maintainers](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) so that infrastructure teams are enabled to self-manage agent resources.
 
-If you'll be running all of your clustered agents as Buildkite hosted agents, you can skip to the [Move pipelines to clusters](#agent-migration-process-move-pipelines-to-clusters) section of this process.
+If you'll be running _all_ of your clustered agents as Buildkite hosted agents, you can skip to the [Move pipelines to clusters](#agent-migration-process-move-pipelines-to-clusters) section of this process.
 
 #### Queue considerations
 
@@ -352,7 +352,7 @@ If you'll be running all of your clustered agents as Buildkite hosted agents, yo
 
 ### Configure agent tokens
 
-This part of the agent migration process is only applicable if you are running your clustered agents in a [self-hosted (hybrid)](/docs/pipelines/architecture#self-hosted-hybrid-architecture) environment.
+This part of the agent migration process is only applicable for clustered agents running in a [self-hosted (hybrid)](/docs/pipelines/architecture#self-hosted-hybrid-architecture) environment.
 
 1. Generate new [agent tokens](/docs/agent/v3/tokens) for each cluster.
 1. Securely distribute these agent tokens to the appropriate teams or systems.
@@ -362,7 +362,7 @@ You can [create agent tokens](/docs/agent/v3/tokens#create-a-token) using the [B
 
 ### Migrate unclustered agents to clusters
 
-This part of the agent migration process is only applicable if you are running your clustered agents in a [self-hosted (hybrid)](/docs/pipelines/architecture#self-hosted-hybrid-architecture) environment.
+This part of the agent migration process is only applicable for clustered agents running in a [self-hosted (hybrid)](/docs/pipelines/architecture#self-hosted-hybrid-architecture) environment.
 
 1. Update your unclustered agent configurations—preferably by making a new copy of each agent for its new clustered environment. For each new agent, replace its existing unclustered agent token with its new agent token for its cluster.
 
