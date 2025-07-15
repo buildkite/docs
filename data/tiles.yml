@@ -86,3 +86,5 @@ integrations:
         url: "/docs/pipelines/integrations/other/build-status-badges"
       - text: "Docker Hub"
         url: "/docs/pipelines/integrations/other/docker-hub"
+      - text: "Backstage"
+        url: "/docs/pipelines/integrations/other/backstage"

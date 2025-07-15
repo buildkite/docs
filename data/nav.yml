@@ -459,6 +459,8 @@
           path: "pipelines/deployments/with-argo-cd"
         - name: "Deploying with Heroku"
           path: "pipelines/deployments/with-heroku"
+        - name: "Deployment visibility with Backstage"
+          path: "pipelines/deployments/deployment_visibility_with_backstage"
     - name: "Insights"
       children:
         - name: "Waterfall view"
@@ -509,6 +511,8 @@
               path: "pipelines/integrations/other/build-status-badges"
             - name: "Docker Hub"
               path: "pipelines/integrations/other/docker-hub"
+            - name: "Backstage"
+              path: "pipelines/integrations/other/backstage"
     - name: "Announcements"
       children:
         - name: "Database migration (Archived)"
