@@ -31,7 +31,7 @@ To allow your pipelines to use Xcode and the iOS simulator the Buildkite Agent l
 
 The Buildkite agent runs as `ec2-user`.
 
-## UserData script fails with Homebrew commands
+## UserData script fails with homebrew commands
 
 Common errors include:
 ```
@@ -52,7 +52,7 @@ echo "tags-from-ec2=true" >> "${config}"
 su - "${user}" -c 'brew services start buildkite/buildkite/buildkite-agent'
 ```
 
-## Homebrew service fails to start with launchctl error 125
+## Homebrew service fails to start with launch control error 125
 
 You may see errors like:
 ```
@@ -62,7 +62,7 @@ Warning: running through sudo, using user/* instead of gui/* domain!
 
 This is related to GUI service startup and the agent should still start successfully. If problems persist, ensure your AMI was configured with auto-login enabled.
 
-## PATH issues when building custom AMIs with Packer
+## Path issues when building custom AMIs with Packer
 
 When using Packer to build custom macOS AMIs, you may encounter PATH related issues where commands like `brew` cannot be found.
 
