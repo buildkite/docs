@@ -2,49 +2,49 @@
 
 [Honeycomb](https://www.honeycomb.io/) is an observability and application performance management (APM) platform that helps you monitor and debug your applications.
 
-Honeycomb offers several advantages for Buildkite users:
+Honeycomb offers several advantages for Buildkite Pipelines users:
 
-- **Free plan available** - start monitoring your builds without additional costs.
-- **Build grouping** - group traced jobs into a single build for better visibility.
-- **Comprehensive tracing** - track performance and identify bottlenecks in your CI/CD pipeline.
+- **Free plan available**: start monitoring your builds without additional costs.
+- **Build grouping**: group traced jobs into a single build for better visibility.
+- **Comprehensive tracing**: track performance and identify bottlenecks in your CI/CD pipeline.
 
 ## Honeycomb integration methods
 
-You can integrate Honeycomb with Buildkite using three methods:
+You can integrate Honeycomb with Buildkite Pipelines using three methods:
 
-1. [**buildevents binary**](https://github.com/honeycombio/buildevents) - captures detailed trace telemetry for each build step.
-2. [**OpenTelemetry tracing**](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service-honeycomb) - sends traces directly from the Buildkite agent.
-3. [**Honeycomb Marker Buildkite plugin**](https://www.honeycomb.io/integration/buildkite-markers) - adds Buildkite markers to your traces. However, we do not recommend using this community-maintained plugin for the reasons of security best practices and frequency of updates.
+- [**buildevents binary**](https://github.com/honeycombio/buildevents): captures detailed trace telemetry for each build step.
+- [**OpenTelemetry tracing**](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service-honeycomb): sends traces directly from the Buildkite Agent.
+- [**Honeycomb Marker Buildkite plugin**](https://www.honeycomb.io/integration/buildkite-markers): adds Buildkite Pipelines markers to your traces. However, for security best practice reasons, it is not recommended using this plugin as it is community-maintained with infrequent updates.
 
-## Buildkite buildevents
+## Using the buildevents binary
 
-The [buildevents binary](https://github.com/honeycombio/buildevents) generates trace telemetry for your builds. It captures invocation details and command outputs, creating a comprehensive trace of your entire build process.
+The [buildevents binary](https://github.com/honeycombio/buildevents) generates trace telemetry for your builds, and captures invocation details and command outputs, creating a comprehensive trace of your entire build process.
 
 ### How it works
 
-The Buildkite buildevents binary:
+The buildevents binary:
 
-- Creates spans for each build section and subsection.
-- Tracks the duration of each stage or command.
-- Records success/failure status and additional metadata.
-- Sends the complete trace to Honeycomb when the build finishes.
+1. Creates _spans_ (individual or grouped executed commands) for each build section and subsection.
+1. Tracks the duration of each stage or command.
+1. Records success/failure status and additional metadata.
+1. Sends the complete trace to Honeycomb when the build finishes.
 
-### Buildkite buildevents trace structure
+### buildevents trace structure
 
 Each trace contains:
 
-- **Spans** - individual or grouped executed commands.
-- **Duration data** - runtime for each stage or command.
-- **Status information** - success or failure details.
-- **Custom metadata** - additional data you choose to capture.
+- **Spans**: individual or grouped executed commands.
+- **Duration data**: runtime for each stage or command.
+- **Status information**: success or failure details.
+- **Custom metadata**: additional data you choose to capture.
 
 <%= image "honeycomb-buildevents.png", size: '1030x1236', alt: 'Buildkite buildevents in the Honeycomb interface' %>
 
-The buildevents script needs a unique Trace ID to join together all of the steps and commands with the build. You can use Buildkite's `BUILDKITE_BUILD_ID` environment variable since it is both unique (even when re-running builds, you will get a new `BUILDKITE_BUILD_ID`) and is also a primary value that the build system uses to identify the build.
+The buildevents script needs a unique [Trace ID](https://github.com/honeycombio/buildevents?tab=readme-ov-file#trace-identifier) to connect all the steps and commands with the build. You can use Buildkite's `BUILDKITE_BUILD_ID` environment variable, since it is unique (when re-running builds, you'll get a new `BUILDKITE_BUILD_ID`), and is also a primary value that the build system uses to identify the build.
 
-You can get started with using Buildkite buildevents by following the [installation instructions](https://github.com/honeycombio/buildevents?tab=readme-ov-file#installation).
+You can get started with using buildevents by following the [installation instructions for buildevents](https://github.com/honeycombio/buildevents?tab=readme-ov-file#installation).
 
-Since Honeycomb maintains the buildevents integration, direct questions and feature requests to the [Honeycomb Support Portal](https://www.honeycomb.io/support).
+Since Honeycomb maintains the buildevents integration, direct questions and feature requests through to [Honeycomb Support](https://www.honeycomb.io/support).
 
 ## OpenTelemetry tracing
 
