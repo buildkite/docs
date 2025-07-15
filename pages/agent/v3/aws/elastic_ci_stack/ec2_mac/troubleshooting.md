@@ -31,7 +31,7 @@ To allow your pipelines to use Xcode and the iOS simulator the Buildkite Agent l
 
 The Buildkite agent runs as `ec2-user`.
 
-## UserData script fails with homebrew commands
+## UserData script fails with Homebrew commands
 
 Common errors include:
 ```
