@@ -47,6 +47,7 @@ exceptions:
   - Bitbucket Server
   - bktec
   - BUILD_AND_READ
+  - buildevents
   - Buildkite
   - Buildkite Agent
   - Buildkite Agents
