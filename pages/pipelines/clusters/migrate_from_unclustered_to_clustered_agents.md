@@ -338,7 +338,7 @@ This section outlines the complete migration process from unclustered to cluster
 
 1. Configure the necessary permissions for each cluster. As part of this process, consider how you'll set up [cluster maintainers](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) so that infrastructure teams are enabled to self-manage agent resources.
 
-If you will be running all of your clustered agents as Buildkite hosted agents, you can skip to [moving your pipelines to clusters](#agent-migration-process-move-pipelines-to-clusters) section of this process.
+If you'll be running all of your clustered agents as Buildkite hosted agents, you can skip to the [Move pipelines to clusters](#agent-migration-process-move-pipelines-to-clusters) section of this process.
 
 #### Queue considerations
 
