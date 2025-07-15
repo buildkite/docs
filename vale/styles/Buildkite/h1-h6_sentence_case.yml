@@ -108,6 +108,7 @@ exceptions:
   - GraphQL
   - Groovy
   - Heroku
+  - Homebrew
   - HMAC
   - HTTP
   - Hugging Face
@@ -186,6 +187,7 @@ exceptions:
   - Ubuntu
   - URL
   - URL(s)
+  - UserData
   - UUID
   - visionOS
   - VPC
