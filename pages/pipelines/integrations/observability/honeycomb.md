@@ -51,14 +51,15 @@ Since Honeycomb maintains the buildevents integration, direct questions and feat
 You can send traces from the Buildkite agent to Honeycomb with the help of OpenTelemetry by following these steps:
 
 1. Enable OpenTelemetry tracing by setting the `--tracing-backend opentelemetry` flag on your Buildkite agent.
-2. Set the following values in the environment where you are running the Buildkite agent:
 
-```yaml
-OTEL_EXPORTER_OTLP_TRACES_ENDPOINT="https://api.honeycomb.io"
-OTEL_EXPORTER_OTLP_HEADERS="x-honeycomb-team=<api_key>"
-OTEL_SERVICE_NAME="buildkite-agent"
-```
+1. Set the following values in the environment where you are running the Buildkite agent:
 
-Replace `<api_key>` with your actual Honeycomb API key.
+    ```yaml
+    OTEL_EXPORTER_OTLP_TRACES_ENDPOINT="https://api.honeycomb.io"
+    OTEL_EXPORTER_OTLP_HEADERS="x-honeycomb-team=<api_key>"
+    OTEL_SERVICE_NAME="buildkite-agent"
+    ```
 
-For more details, see the [OpenTelemetry tracing documentation](/docs/agent/v3/tracing#using-opentelemetry-tracing).
+    Replace `<api_key>` with your actual Honeycomb API key.
+
+    For more details, see the [OpenTelemetry tracing documentation](/docs/agent/v3/tracing#using-opentelemetry-tracing).
