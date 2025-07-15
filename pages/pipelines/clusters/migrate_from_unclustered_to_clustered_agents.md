@@ -19,6 +19,8 @@ Migrating your unclustered agents to a single cluster is the fastest migration s
 
 1. Generate a [new agent token](/docs/agent/v3/tokens#create-a-token) for your **Default cluster**.
 
+    **Note:** This step is only required for clustered agents that you'll be running in a [self-hosted (hybrid)](/docs/pipelines/architecture#self-hosted-hybrid-architecture) environment.
+
 1. Create your required [self-hosted](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue) or [Buildkite hosted](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue) queues in this cluster—one for each queue tag that was assigned to all agents when they were started in your unclustered agent environment.
 
     Ensure you are familiar with the differences in how queues are managed between unclustered and clustered environments in [Agent queue differences](#technical-considerations-agent-queue-differences), and the [Migrate unclustered agents to clusters](#agent-migration-process-migrate-unclustered-agents-to-clusters) section of the [Agent migration process](#agent-migration-process).
