@@ -28,9 +28,9 @@ To cancel running builds on the same branch:
 
 You can also configure these options using the [REST API](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline).
 
-> 🚧 **Cancel Intermediate Builds** and rerunning prior builds
-> If a prior build has started running again e.g., due to a job being retried, whilst the newest build is running, the prior build will not be cancelled.
-> But if the prior build has started running again and a new build has started running, the prior build will be cancelled.
+> 🚧 Using **Cancel Intermediate Builds** and re-running earlier builds
+> If an earlier build has started running again (for example, due to a job being retried) while the newest build is already running, then this earlier build will not be canceled.
+> If, however, an earlier build has started running again _before_ a new build starts running, then the earlier build will be canceled.
 
 ## Manually cancel a job
 
