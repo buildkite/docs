@@ -350,7 +350,7 @@ If you will be running all of your clustered agents as Buildkite hosted agents, 
 
 ### Configure agent tokens
 
-This part of the agent migration process is only applicable if you are running your clustered agents in [self-hosted (hybrid)](/docs/pipelines/architecture#self-hosted-hybrid-architecture) environment.
+This part of the agent migration process is only applicable if you are running your clustered agents in a [self-hosted (hybrid)](/docs/pipelines/architecture#self-hosted-hybrid-architecture) environment.
 
 1. Generate new [agent tokens](/docs/agent/v3/tokens) for each cluster.
 1. Securely distribute these agent tokens to the appropriate teams or systems.
@@ -360,7 +360,7 @@ You can [create agent tokens](/docs/agent/v3/tokens#create-a-token) using the [B
 
 ### Migrate unclustered agents to clusters
 
-This part of the agent migration process is only applicable if you are running your clustered agents in [self-hosted (hybrid)](/docs/pipelines/architecture#self-hosted-hybrid-architecture) environment.
+This part of the agent migration process is only applicable if you are running your clustered agents in a [self-hosted (hybrid)](/docs/pipelines/architecture#self-hosted-hybrid-architecture) environment.
 
 1. Update your unclustered agent configurations—preferably by making a new copy of each agent for its new clustered environment. For each new agent, replace its existing unclustered agent token with its new agent token for its cluster.
 
