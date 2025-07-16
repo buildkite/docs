@@ -39,5 +39,3 @@ The [Usage page](https://buildkite.com/organizations/~/usage?product=test_engine
 The [managed tests usage page](https://buildkite.com/organizations/~/usage/test_engine_managed_tests) graphs the maximum number of unique tests per day over the organization's billing periods. This page includes a breakdown of usage by suite and a CSV download of usage over the period.
 
 The [test executions usage page](https://buildkite.com/organizations/~/usage/test_executions) graphs the total executions over the organization's billing periods. This page includes a breakdown of usage by suite and a CSV download of usage over the period.
-
-Your organization's usage is also accessible in the [GraphQL API](/docs/apis/graphql/cookbooks/organizations#query-the-usage-api).

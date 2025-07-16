@@ -5,7 +5,7 @@ This tutorial takes you through the process of creating dynamic pipelines and bu
 - How the Bazel build tool can integrate with Buildkite, learn more about this in the [Using Bazel with Buildkite tutorial](/docs/pipelines/tutorials/bazel), which uses a Buildkite pipeline to build a simple Bazel example.
 - The basics of Buildkite Pipelines, run through the [Pipelines getting started tutorial](/docs/pipelines/getting-started) first, which explains Buildkite Pipelines' [architecture](/docs/pipelines/getting-started#understand-the-architecture) and [agent setup](/docs/pipelines/getting-started#set-up-an-agent), and builds a simple pipeline.
 
-The tutorial uses an [example Python project](https://github.com/buildkite/bazel-buildkite-example) whose program `pipeline.py` within the `.buildkite/` directory is one of the first things run by Buildkite Pipelines when the pipeline commences its build. This Python program creates additional Buildkite pipeline steps (in JSON format) that are then uploaded to the same pipeline, which Buildkite continues to run as part of the same pipeline build. Buildkite pipelines that generate new pipeline steps dynamically like this are known as [_dynamic pipelines_](/docs/pipelines/configure/dynamic-pipelines).
+The tutorial uses an [example Python project](https://github.com/buildkite/bazel-monorepo-example) whose program `pipeline.py` within the `.buildkite/` directory is one of the first things run by Buildkite Pipelines when the pipeline commences its build. This Python program creates additional Buildkite pipeline steps (in JSON format) that are then uploaded to the same pipeline, which Buildkite continues to run as part of the same pipeline build. Buildkite pipelines that generate new pipeline steps dynamically like this are known as [_dynamic pipelines_](/docs/pipelines/configure/dynamic-pipelines).
 
 This `pipeline.py` Python program:
 
@@ -16,7 +16,7 @@ This `pipeline.py` Python program:
 
 <%= render_markdown partial: 'pipelines/pipelines_tutorials_prereqs' %>
 
-- To have made your own copy or fork of the [bazel-buildkite-example](https://github.com/buildkite/bazel-buildkite-example) repository within your own GitHub account.
+- To have made your own copy or fork of the [bazel-monorepo-example](https://github.com/buildkite/bazel-monorepo-example) repository within your own GitHub account.
 
 ## Set up an agent
 
@@ -95,11 +95,11 @@ Last, to install Bazel, follow the relevant instructions to install [Bazelisk (r
 
 ## Create a pipeline
 
-Next, you'll create a new pipeline that builds an [example Python project with Bazel](https://github.com/buildkite/bazel-buildkite-example), which in turn creates additional dynamically-generated steps in JSON format that Buildkite runs to build and test a hello-world library.
+Next, you'll create a new pipeline that builds an [example Python project with Bazel](https://github.com/buildkite/bazel-monorepo-example), which in turn creates additional dynamically-generated steps in JSON format that Buildkite runs to build and test a hello-world library.
 
 To create this pipeline:
 
-1. [Add a new pipeline](https://buildkite.com/new) in your Buildkite organization, select your GitHub account from the **Any account** dropdown, and specify [your copy or fork of the 'bazel-buildkite-example' repository](#before-you-start) for the **Git Repository** value.
+1. [Add a new pipeline](https://buildkite.com/new) in your Buildkite organization, select your GitHub account from the **Any account** dropdown, and specify [your copy or fork of the 'bazel-monorepo-example' repository](#before-you-start) for the **Git Repository** value.
 
 1. On the **New Pipeline** page, select the cluster associated with the [agent you had set up with Bazel](#set-up-an-agent).
 
@@ -122,13 +122,13 @@ Now that your pipeline has been set up and [created](#create-a-pipeline) in Buil
     1. In the **Message** field, enter a short description for the build. For example, **My first build**.
     1. Select **Create Build**.
 
-1. Once the build has completed, visit [your pipeline's build summary page](https://buildkite.com/~/bazel-buildkite-example), and verify that only the initial **Compute the pipeline with Python** step has been run.
+1. Once the build has completed, visit [your pipeline's build summary page](https://buildkite.com/~/bazel-monorepo-example), and verify that only the initial **Compute the pipeline with Python** step has been run.
 
 ### Step 2: Make changes to both an app and library file
 
 1. Edit one of the files within both the `./app` and `./library` directories, and commit and push this change to its `main` branch, with an appropriate message (for example, **A change to both an app and a library file**).
 
-1. On [your pipeline's build summary page](https://buildkite.com/~/bazel-buildkite-example), and notice that both the dynamically generated **Build and test //library/...** _and_ **Build and test //app/...** Bazel package build steps have also been run.
+1. On [your pipeline's build summary page](https://buildkite.com/~/bazel-monorepo-example), and notice that both the dynamically generated **Build and test //library/...** _and_ **Build and test //app/...** Bazel package build steps have also been run.
 
 1. Note also the **Bazel Results** build annotation on this pipeline build's results, which are generated from Bazel builds using the [Bazel BEP Annotate Buildkite Plugin](https://github.com/buildkite-plugins/bazel-annotate-buildkite-plugin). This plugin is defined in the example Python project's `utils.py` file, which in turn, is used by the `pipeline.py` file.
 
@@ -136,13 +136,13 @@ Now that your pipeline has been set up and [created](#create-a-pipeline) in Buil
 
 1. Edit one of the files within the `./app` directory only, and commit and push this change to its `main` branch, with an appropriate message (for example, **A change to only an app file**).
 
-1. On [your pipeline's build summary page](https://buildkite.com/~/bazel-buildkite-example) again, and notice that only the dynamically generated **Build and test //app/...** Bazel package build step is built.
+1. On [your pipeline's build summary page](https://buildkite.com/~/bazel-monorepo-example) again, and notice that only the dynamically generated **Build and test //app/...** Bazel package build step is built.
 
 ### Step 4: Make changes to only a library file
 
 1. Edit one of the files within the `./library` directory only, and commit and push this change to its `main` branch, with an appropriate message (for example, **A change to only a library file**).
 
-1. On [your pipeline's build summary page](https://buildkite.com/~/bazel-buildkite-example), notice that both the dynamically generated **Build and test //library/...** _and_ **Build and test //app/...** Bazel package build steps have been built.
+1. On [your pipeline's build summary page](https://buildkite.com/~/bazel-monorepo-example), notice that both the dynamically generated **Build and test //library/...** _and_ **Build and test //app/...** Bazel package build steps have been built.
 
 **Why?** According to each Bazel package's respective `BUILD.bazel` files in this project, `//app` has a dependency on `//library`. Therefore, if any change is made to a file in `./library`, then `./app` needs to be re-built to determine if the changes in `./library` also affect those in `./app`.
 

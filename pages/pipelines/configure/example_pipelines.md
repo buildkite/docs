@@ -209,12 +209,12 @@ Further example pipelines with their own repository are below.
   </span>
 </a>
 
-<a class="Docs__example-repo" href="https://github.com/buildkite/bazel-buildkite-example">
+<a class="Docs__example-repo" href="https://github.com/buildkite/bazel-monorepo-example">
  <span class="icon">:bazel:</span>
   <span class="detail">
     <strong>Dynamic Pipelines using Bazel</strong>
      <span class="description">Generating a pipeline's steps programmatically at run-time, with annotations, and using Bazel queries to also build dependencies.</span>
-    <span class="repo">github.com/buildkite/bazel-buildkite-example</span>
+    <span class="repo">github.com/buildkite/bazel-monorepo-example</span>
   </span>
 </a>
 
