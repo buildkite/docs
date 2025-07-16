@@ -69,7 +69,7 @@ lane :build do
 end
 ```
 
-If the proposed solution doesn't resolve the issue, ensure a consistent environment:
+If both of the proposed solutions still don't resolve the issue, ensure a consistent environment:
 
 - Run `bundle install` before calling fastlane to ensure all Ruby gems are installed based on the `Gemfile.lock`, since CocoaPods is also a Ruby gem.
 - Execute fastlane using `bundle exec fastlane` to use the versions of gems specified in the `Gemfile.lock`.
