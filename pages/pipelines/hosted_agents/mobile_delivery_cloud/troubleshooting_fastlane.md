@@ -1,36 +1,38 @@
 # Troubleshooting fastlane
 
-This guide covers some common [fastlane](https://fastlane.tools/) issues encountered during migration to ephemeral agents, such as Buildkite's [Mobile Delivery Cloud](/docs/pipelines/hosted-agents/mobile-delivery-cloud/getting-started).
+This guide covers some common [fastlane](https://fastlane.tools/) issues encountered during migration to [ephemeral agents](/docs/pipelines/glossary#ephemeral-agent), such as Buildkite's [Mobile Delivery Cloud](/docs/pipelines/hosted-agents/mobile-delivery-cloud/getting-started).
 
 ## Essential debugging steps
 
 When fastlane fails, start with these troubleshooting steps:
 
-1. **Enable verbose logging** for detailed error information:
-   ```bash
-   fastlane [lane] --verbose
-   ```
+1. Enable verbose logging for detailed error information:
 
-2. **Upload fastlane logs as build artifacts** for analysis:
-   - Configure the [build artifacts](/docs/pipelines/configure/artifacts) in your pipeline to upload your fastlane or xcodebuild logs.
-   - Look for actual errors around fastlane's simplified error messages. When examining the verbose logs, you will often find the actual errors around the parts where fastlane reports its simplified error messages. For code signing errors specifically, look for messages containing 'codesign', 'security', or 'provisioning profile'.
-   - For code signing issues, check `$HOME/Library/Logs/gym/*`. For more information regarding code signing errors, see fastlane's code signing [troubleshooting documentation](https://docs.fastlane.tools/codesigning/troubleshooting/).
+    ```bash
+    fastlane [lane] --verbose
+    ```
 
-3. **Verify your environment** with these diagnostic commands:
-   ```bash
-     # Check code signing certificates
-   security find-identity -v -p codesigning
-   
-     # Verify keychain configuration
-   security list-keychains
-   
-     # List provisioning profiles
-   ls -la ~/Library/MobileDevice/Provisioning\ Profiles/
-   ```
+1. Upload fastlane logs as build artifacts for analysis:
+    * Configure the [build artifacts](/docs/pipelines/configure/artifacts) in your pipeline to upload your fastlane or xcodebuild logs.
+    * Look for actual errors around fastlane's simplified error messages. When examining the verbose logs, you will often find the actual errors around the parts where fastlane reports its simplified error messages. For code signing errors specifically, look for messages containing "codesign", "security", or "provisioning profile".
+    * For code signing issues, check `$HOME/Library/Logs/gym/*`. Learn more about fastlane's code signing errors in fastlane's documentation on [Debugging codesigning issues](https://docs.fastlane.tools/codesigning/troubleshooting/).
+
+1. Verify your environment with these diagnostic commands:
+
+    ```bash
+    # Check code signing certificates
+    security find-identity -v -p codesigning
+
+    # Verify keychain configuration
+    security list-keychains
+
+    # List provisioning profiles
+    ls -la ~/Library/MobileDevice/Provisioning\ Profiles/
+    ```
 
 ## Errors and resolutions for fastlane
 
-The following section covers some of the fastlane errors you may encounter when using Buildkite's Mobile Delivery Cloud and ways to troubleshoot those errors.
+This section covers some of the fastlane errors you may encounter when using Buildkite's Mobile Delivery Cloud and ways to troubleshoot those errors.
 
 ### CocoaPods sandbox error
 
@@ -41,7 +43,7 @@ The sandbox is not in sync with the Podfile.lock.
 Run 'pod install' or update your CocoaPods installation.
 ```
 
-The sandbox is the `Pods` directory that contains your project's installed dependencies (pods). This error occurs when the installed dependencies don't match the pods and versions specified in the `Podfile.lock`. It's best practice to not commit the `Pods` directory to your repository and only commit the `Podfile` and `Podfile.lock`, and rebuild the dependencies during CI builds.
+The sandbox is the `Pods` directory that contains your project's installed dependencies (pods). This error occurs when the installed dependencies don't match the pods and versions specified in the `Podfile.lock` file. It is best practice _not_ to commit the `Pods` directory to your repository, but only commit the `Podfile` and `Podfile.lock` files, and rebuild the dependencies during CI builds.
 
 **Resolution:**
 
@@ -69,7 +71,7 @@ end
 
 If the proposed solution doesn't resolve the issue, ensure a consistent environment:
 
-- Run `bundle install` before calling fastlane to ensure all Ruby gems (since CocoaPods is a Ruby gem, too) are installed based on the `Gemfile.lock`.
+- Run `bundle install` before calling fastlane to ensure all Ruby gems are installed based on the `Gemfile.lock`, since CocoaPods is also a Ruby gem.
 - Execute fastlane using `bundle exec fastlane` to use the versions of gems specified in the `Gemfile.lock`.
 
 ### Ruby gem dependency error
@@ -121,22 +123,25 @@ Exit status: 65
 This error occurs during the code signing process. Code signing requires several components to be set up correctly:
 
 - **Certificate and private keys:**
-  - Certificate issued by Apple to verify the developer's identity
-  - Private key available in the keychain
-  - Both must be properly imported into a keychain
+   * Certificate issued by Apple to verify the developer's identity
+   * Private key available in the keychain
+   * Both must be properly imported into a keychain
+
 - **Provisioning profile:**
-  - A `.mobileprovision` file installed in `~/Library/MobileDevice/Provisioning Profiles/`
-  - Must match the app's bundle identifier
-  - Must include the certificate being used to sign
-  - Must contain the app's entitlements (push notification support, etc.)
-  - Must not be expired
+   * A `.mobileprovision` file installed in `~/Library/MobileDevice/Provisioning Profiles/`
+   * Must match the app's bundle identifier
+   * Must include the certificate being used to sign
+   * Must contain the app's entitlements (push notification support, etc.)
+   * Must not be expired
+
 - **Keychain access:**
-  - Keychain needs to be unlocked during the build
-  - Keychain should not be the default `login.keychain-db`
+   * Keychain needs to be unlocked during the build
+   * Keychain should not be the default `login.keychain-db`
+
 - **Xcode build settings:**
-  - **Signing identity** - The certificate from the keychain
-  - **Provisioning profile** - Valid `.mobileprovision` file that matches the app bundle ID
-  - **Matching team ID** - Apple Developer Team ID must match between certificate and profile
+   * **Signing identity** - The certificate from the keychain
+   * **Provisioning profile** - Valid `.mobileprovision` file that matches the app bundle ID
+   * **Matching team ID** - Apple Developer Team ID must match between certificate and profile
 
 Example Fastfile build configuration:
 
