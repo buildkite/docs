@@ -1,6 +1,6 @@
 # Troubleshooting fastlane
 
-This guide covers some common [fastlane](https://fastlane.tools/) issues encountered during migration to [ephemeral agents](/docs/pipelines/glossary#ephemeral-agent), such as Buildkite's [Mobile Delivery Cloud](/docs/pipelines/hosted-agents/mobile-delivery-cloud/getting-started).
+This is a guide for troubleshooting some common [fastlane](https://fastlane.tools/) issues in iOS development, specifically for Buildkite's [Mobile Delivery Cloud](/docs/pipelines/hosted-agents/mobile-delivery-cloud/getting-started).
 
 ## Essential debugging steps
 
