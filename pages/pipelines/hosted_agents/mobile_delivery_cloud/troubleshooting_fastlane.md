@@ -122,26 +122,26 @@ Exit status: 65
 
 This error occurs during the code signing process. Code signing requires several components to be set up correctly:
 
-- **Certificate and private keys:**
-   * Certificate issued by Apple to verify the developer's identity
-   * Private key available in the keychain
-   * Both must be properly imported into a keychain
+- Certificate and private keys:
+   * Certificate issued by Apple to verify the developer's identity.
+   * Private key available in the keychain.
+   * Both must be properly imported into a keychain.
 
-- **Provisioning profile:**
+- Provisioning profile:
    * A `.mobileprovision` file installed in `~/Library/MobileDevice/Provisioning Profiles/`
-   * Must match the app's bundle identifier
-   * Must include the certificate being used to sign
-   * Must contain the app's entitlements (push notification support, etc.)
-   * Must not be expired
+   * Must match the app's bundle identifier.
+   * Must include the certificate being used to sign.
+   * Must contain the app's entitlements (for example, push notification support).
+   * Must not be expired.
 
-- **Keychain access:**
-   * Keychain needs to be unlocked during the build
-   * Keychain should not be the default `login.keychain-db`
+- Keychain access:
+   * Keychain needs to be unlocked during the build.
+   * Keychain should not be the default `login.keychain-db`.
 
-- **Xcode build settings:**
-   * **Signing identity** - The certificate from the keychain
-   * **Provisioning profile** - Valid `.mobileprovision` file that matches the app bundle ID
-   * **Matching team ID** - Apple Developer Team ID must match between certificate and profile
+- Xcode build settings:
+   * **Signing identity**: The certificate from the keychain.
+   * **Provisioning profile**: Valid `.mobileprovision` file that matches the app bundle ID.
+   * **Matching team ID**: Apple Developer Team ID must match between certificate and profile.
 
 Example Fastfile build configuration:
 
@@ -180,8 +180,8 @@ end
 
 Match handles everything from creating and storing certificates and profiles, setting up code signing on a new machine, and handling multiple teams' keys and profiles through Git. If match is being used, look for issues in the Matchfile and check the fastlane output logs.
 
-If you're experiencing issues with fastlane match, for troubleshooting:
+If you're experiencing issues with fastlane match, then to troubleshoot:
 
-- Verify your `Matchfile` configuration
-- Check match repository access permissions
-- Review match output logs for specific errors
+- Verify your `Matchfile` configuration.
+- Check match repository access permissions.
+- Review match output logs for specific errors.
