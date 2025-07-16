@@ -73,6 +73,8 @@ integrations:
         url: "/docs/pipelines/integrations/notifications/slack-workspace"
       - text: "Datadog"
         url: "/docs/pipelines/integrations/observability/datadog"
+      - text: "Honeycomb"
+        url: "/docs/pipelines/integrations/observability/honeycomb"
       - text: "OpenTelemetry"
         url: "/docs/pipelines/integrations/observability/opentelemetry"
   - title: "Other integrations"
