@@ -1,3 +1,7 @@
+---
+toc: false
+---
+
 # Mobile Delivery Cloud overview
 
 Mobile Delivery Cloud:

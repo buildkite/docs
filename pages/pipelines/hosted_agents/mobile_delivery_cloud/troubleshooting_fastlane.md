@@ -1,6 +1,6 @@
 # Troubleshooting fastlane
 
-This is a guide for troubleshooting some common [fastlane](https://fastlane.tools/) issues in iOS development, specifically for Buildkite's [Mobile Delivery Cloud](/docs/pipelines/hosted-agents/mobile-delivery-cloud/getting-started).
+This guide is for troubleshooting some common [fastlane](https://fastlane.tools/) issues in iOS development, specifically for Buildkite's [Mobile Delivery Cloud](/docs/pipelines/hosted-agents/mobile-delivery-cloud/getting-started).
 
 ## Essential debugging steps
 
@@ -164,9 +164,9 @@ build_app(
 
 ## Using fastlane match
 
-Match is tool within the fastlane platform that handles tasks ranging from creating and storing certificates and profiles, setting up code signing on a new machine, and handling multiple teams' keys and profiles through Git.
+The fastlane platform offers the [match](https://docs.fastlane.tools/actions/match/) tool, which handles tasks ranging from creating and storing certificates and profiles, setting up code signing on a new machine, and handling multiple teams' keys and profiles through Git.
 
-If you're using [fastlane match](https://docs.fastlane.tools/actions/match/), most code signing is automated:
+If you're using fastlane match, most code signing is automated:
 
 ```ruby
 lane :build do
