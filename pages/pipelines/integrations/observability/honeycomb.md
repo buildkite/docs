@@ -14,7 +14,7 @@ You can integrate Honeycomb with Buildkite Pipelines using three methods:
 
 - **buildevents binary**: the [buildevents binary](https://github.com/honeycombio/buildevents) captures detailed trace telemetry for each build step. Learn more about configuring this method in [Using the buildevents binary](#using-the-buildevents-binary).
 - **OpenTelemetry tracing**: setting your [OpenTelemetry tracing notification endpoint to Honeycomb](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service-honeycomb) sends traces directly from the Buildkite Agent. Learn more about configuring this method in [Using OpenTelemetry tracing](#using-opentelemetry-tracing).
-- **Honeycomb Markers Buildkite plugin**: the [Honeycomb Markers Buildkite plugin](https://www.honeycomb.io/integration/buildkite-markers) adds Buildkite Pipelines markers to your traces. However, for security best practice reasons, it is not recommended using this plugin as it is community-maintained with infrequent updates.
+- **Honeycomb Markers Buildkite plugin**: the [Honeycomb Markers Buildkite plugin](https://www.honeycomb.io/integration/buildkite-markers) adds Buildkite Pipelines markers to your traces. However, for security best practice reasons, it is not recommended using this plugin as it is community-maintained with irregular updates.
 
 ## Using the buildevents binary
 
@@ -40,7 +40,7 @@ Each trace contains:
 
 <%= image "honeycomb-buildevents.png", size: '1030x1236', alt: 'Buildkite buildevents in the Honeycomb interface' %>
 
-The buildevents script needs a unique [Trace ID](https://github.com/honeycombio/buildevents?tab=readme-ov-file#trace-identifier) to connect all the relevant steps and commands with its build. You can use Buildkite's `BUILDKITE_BUILD_ID` environment variable, since its value is unique (when re-running builds, you'll get a new `BUILDKITE_BUILD_ID`), and is also a primary value that the build system uses to identify the build.
+The buildevents script needs a unique [Trace ID](https://github.com/honeycombio/buildevents?tab=readme-ov-file#trace-identifier) to connect all the relevant steps and commands with its build. You can use Buildkite's `BUILDKITE_BUILD_ID` environment variable, since its value is unique (when re-running builds, you'll get a new `BUILDKITE_BUILD_ID`), and is also a primary value that Buildkite Pipelines uses to identify the build.
 
 You can get started with using buildevents by following the [installation instructions for buildevents](https://github.com/honeycombio/buildevents?tab=readme-ov-file#installation).
 
