@@ -164,6 +164,8 @@ build_app(
 
 ## Using fastlane match
 
+Match is tool within the fastlane platform that handles tasks ranging from creating and storing certificates and profiles, setting up code signing on a new machine, and handling multiple teams' keys and profiles through Git.
+
 If you're using [fastlane match](https://docs.fastlane.tools/actions/match/), most code signing is automated:
 
 ```ruby
@@ -178,9 +180,7 @@ lane :build do
 end
 ```
 
-Match handles everything from creating and storing certificates and profiles, setting up code signing on a new machine, and handling multiple teams' keys and profiles through Git. If match is being used, look for issues in the Matchfile and check the fastlane output logs.
-
-If you're experiencing issues with fastlane match, then to troubleshoot:
+If you're experiencing issues with fastlane match, look for issues in the Matchfile and check the fastlane output logs. For troubleshooting match:
 
 - Verify your `Matchfile` configuration.
 - Check match repository access permissions.
