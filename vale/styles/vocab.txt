@@ -39,6 +39,7 @@ bktec
 boolean
 Boomper
 Buildbox
+buildevents
 Buildkite
 Buildkite's
 buildscript
@@ -125,6 +126,7 @@ gz
 gzipped
 Hashicorp
 heroku
+Honeycomb
 hostname
 http
 httpd
