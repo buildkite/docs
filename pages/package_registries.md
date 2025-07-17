@@ -48,4 +48,4 @@ Learn more about how to:
 
 - Work with registries in [Manage registries](/docs/package-registries/manage-registries).
 - Manage access to your registries in [User, team, and registry permissions](/docs/package-registries/security/permissions).
-- Configure your own private storage for Buildkite Package Registries in [Private storage](/docs/package-registries/private-storage).
+- Configure your own private storage for Buildkite Package Registries in [Private storage link](/docs/package-registries/private-storage-link).
