@@ -1,5 +1,5 @@
 import * as Turbo from "@hotwired/turbo";
-import { bindToggles } from "../components/nav";
+import { bindToggles, preserveScroll } from "../components/nav";
 import { initToc } from "../components/toc";
 import { attachCopyToClipboardButton } from "../components/copyToClipboardButton";
 import { themeToggle } from "../components/themeToggle";
@@ -24,6 +24,7 @@ function render() {
   });
 
   bindToggles();
+  preserveScroll();
   initToc();
   attachCopyToClipboardButton("pre.highlight");
   themeToggle();

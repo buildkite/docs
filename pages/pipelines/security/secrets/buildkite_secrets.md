@@ -88,7 +88,7 @@ Buildkite secrets are designed, with the following controls in place:
 
 Buildkite secrets is not a zero-knowledge system, whereby Buildkite owns, stores, and manages the keys used for encrypting the secrets stored in the service at rest and in transit. You should implement additional controls to manage the lifecycle of secrets stored within Buildkite secrets, in addition to any monitoring capability you may require in line with your risk appetite. For example:
 
-- Only store short-lived secrets in Buildkite secrets. Do not store long-lived secrets or secrets with no expiry in Buildkite secrets.
+- All credentials should be rotated regularly.
 - Track the secrets stored in Buildkite secrets within your own asset management processes.
 - Enable logging for services that are accessed using the secrets stored in Buildkite secrets.
 - Should you detect a compromise or are concerned about the security of your secrets, please contact security@buildkite.com immediately.

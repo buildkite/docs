@@ -83,7 +83,7 @@ steps:
 > 🚧 Explicit dependencies in uploaded steps
 > If a step depends on an upload step, then all steps uploaded by that step become dependencies of the original step. For example, if step B depends on step A, and step A uploads step C, then step B will also depend on step C.
 
-To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character (YAML) or `null` (JSON). This also ensures that the step will run immediately at the start of the build:
+To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character (YAML), `null` (JSON) or `[]` (JSON and YAML). This also ensures that the step will run immediately regardless of implicit dependencies. For example wait or upload steps:
 
 ```yml
 steps:
@@ -91,6 +91,31 @@ steps:
   - wait: ~
   - command: "lint.sh"
     depends_on: ~
+```
+
+```yml
+steps:
+  - command: "tests.sh"
+  - wait: ~
+  - command: "lint.sh"
+    depends_on: []
+```
+
+```json
+{
+    "steps": [
+        {
+            "command": "tests.sh"
+        },
+        {
+            "wait": null
+        },
+        {
+            "command": "lint.sh",
+            "depends_on": []
+        }
+    ]
+}
 ```
 {: codeblock-file="pipeline.yml"}
 

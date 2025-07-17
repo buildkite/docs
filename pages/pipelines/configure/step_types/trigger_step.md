@@ -4,7 +4,6 @@ A _trigger_ step creates a build on another pipeline.
 
 You can use trigger steps to separate your test and deploy pipelines, or to create build dependencies between pipelines.
 
-
 A trigger step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/configure/defining-steps) file, by setting the `trigger` attribute to the the [slug of the pipeline you want to trigger](#trigger).
 
 ```yml
@@ -30,6 +29,9 @@ If neither condition is true, the build will fail, and builds on subsequent pipe
 If using bot users (unregistered users who are not part of any team) to trigger pipelines, make sure you have shared team which has the build permission on parent and child pipelines.
 
 If your triggering pipelines are started by an API call or a webhook, it might not be clear whether the triggering user has access to the triggered pipeline, which will cause your build to fail. To prevent that from happening, make sure that all of your GitHub user accounts that are triggering builds are [connected to Buildkite accounts](/docs/pipelines/source-control/github#connecting-buildkite-and-github).
+
+> 📘 Pipeline triggering
+> Pipelines associated with one [cluster](/docs/pipelines/glossary#cluster) cannot trigger pipelines associated with another cluster, unless a [rule](/docs/pipelines/rules) has been created to explicitly allow triggering between pipelines in different clusters.
 
 ## Trigger step attributes
 
@@ -209,6 +211,11 @@ To pass through pull request information to the triggered build, pass through th
       BUILDKITE_PULL_REQUEST_REPO: "${BUILDKITE_PULL_REQUEST_REPO}"
 ```
 {: codeblock-file="pipeline.yml"}
+
+> 📘 BUILDKITE_PULL_REQUEST in triggered builds
+> If `BUILDKITE_PULL_REQUEST` is set, the agent will check out the corresponding pull request ref (that is, `refs/pull/ID/head`) instead of the branch specified by `BUILDKITE_BRANCH`.
+> This behavior is part of the agent's checkout logic, and is intended to support builds from pull requests. However, such behavior may be unexpected in triggered builds where `BUILDKITE_PULL_REQUEST` is passed for reporting purposes only.
+> To pass pull request metadata to a triggered build without affecting the code checkout, use a custom environment variable name (for example, `MONOREPO_PULL_REQUEST` instead of `BUILDKITE_PULL_REQUEST`).
 
 To set environment variables on the build created by the trigger step, use the `env` attribute:
 

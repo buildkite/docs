@@ -6,8 +6,12 @@ steps:
     command: bin/prepare-preview
     key: prepare-preview
     plugins:
-      - aws-assume-role-with-web-identity#v1.0.0:
+      - aws-assume-role-with-web-identity#v1.4.0:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs-private
+          session-tags:
+            - organization_slug
+            - organization_id
+            - pipeline_slug
       - aws-ssm#v1.0.0:
           parameters:
             GH_TOKEN: /pipelines/buildkite/docs-private/gh-token
@@ -21,8 +25,12 @@ steps:
     env:
       RAILS_ENV: "production"
     plugins:
-      - aws-assume-role-with-web-identity#v1.0.0:
+      - aws-assume-role-with-web-identity#v1.4.0:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs-private
+          session-tags:
+            - organization_slug
+            - organization_id
+            - pipeline_slug
       - aws-ssm#v1.0.0:
           parameters:
             GH_TOKEN: /pipelines/buildkite/docs-private/gh-token
@@ -30,7 +38,7 @@ steps:
             NETLIFY_AUTH_TOKEN: /pipelines/buildkite/docs-private/netlify-auth-token
             NETLIFY_SITE_ID: /pipelines/buildkite/docs-private/netlify-site-id
       - docker-compose#v3.9.0:
-          run: app
+          run: deploy-preview
           dependencies: false
           mount-buildkite-agent: true
           env:

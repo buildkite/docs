@@ -25,7 +25,7 @@ redacted from subsequent logs. Secrets fetched with the builtin
 `secret get` command do not require the use of this command, they will
 be redacted automatically.
 
-### Example
+### Examples
 
 To redact the verbatim contents of the file &#39;id_ed25519&#39; from future logs:
 
@@ -39,12 +39,10 @@ To redact the string &#39;llamasecret&#39; from future logs:
 $ echo llamasecret | buildkite-agent redactor add
 ```
 
-To redact multiple secrets from future logs in one command, create a flat
-JSON object file (for example, &#39;my-secrets.json&#39;), with multiple &quot;key&quot; values,
-one for each secret:
+Pass a flat JSON object whose keys are unique and whose values are your secrets:
 
 ```shell
-$ echo '{"key":"secret1","key":"secret2"}' | buildkite-agent redactor add --format json
+$ echo '{"db_password":"secret1","api_token":"secret2","ssh_key":"secret3"}' | buildkite-agent redactor add --format json
 ```
 
 Or
@@ -53,21 +51,28 @@ Or
 $ buildkite-agent redactor add --format json my-secrets.json
 ```
 
+JSON does not allow duplicate keys. If you repeat the same key (&quot;key&quot;), the JSON parser keeps only the final entry, so only that single value is added to the redactor:
+
+```shell
+$ echo '{"key":"value1","key":"value2","key":"value3"}' | buildkite-agent redactor add --format json
+```
+
 ### Options
 
 <!-- vale off -->
 
 <table class="Docs__attribute__table">
-<tr id="format"><th><code>--format value</code> <a class="Docs__attribute__link" href="#format">#</a></th><td><p>The format for the input, whose value is either `json` or `none`. `none` adds the entire input's content to the redactor, with the exception of leading and trailing space. `json` parses the input's content as a JSON object, where each value of each key is added to the redactor. (default: "none")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_REDACT_ADD_FORMAT</code></p></td></tr>
-<tr id="agent-access-token"><th><code>--agent-access-token value</code> <a class="Docs__attribute__link" href="#agent-access-token">#</a></th><td><p>The access token used to identify the agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></p></td></tr>
-<tr id="endpoint"><th><code>--endpoint value</code> <a class="Docs__attribute__link" href="#endpoint">#</a></th><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ENDPOINT</code></p></td></tr>
-<tr id="no-http2"><th><code>--no-http2 </code> <a class="Docs__attribute__link" href="#no-http2">#</a></th><td><p>Disable HTTP2 when communicating with the Agent API.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_NO_HTTP2</code></p></td></tr>
-<tr id="debug-http"><th><code>--debug-http </code> <a class="Docs__attribute__link" href="#debug-http">#</a></th><td><p>Enable HTTP debug mode, which dumps all request and response bodies to the log<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG_HTTP</code></p></td></tr>
 <tr id="no-color"><th><code>--no-color </code> <a class="Docs__attribute__link" href="#no-color">#</a></th><td><p>Don't show colors in logging<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_NO_COLOR</code></p></td></tr>
 <tr id="debug"><th><code>--debug </code> <a class="Docs__attribute__link" href="#debug">#</a></th><td><p>Enable debug mode. Synonym for `--log-level debug`. Takes precedence over `--log-level`<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG</code></p></td></tr>
 <tr id="log-level"><th><code>--log-level value</code> <a class="Docs__attribute__link" href="#log-level">#</a></th><td><p>Set the log level for the agent, making logging more or less verbose. Defaults to notice. Allowed values are: debug, info, error, warn, fatal (default: "notice")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_LOG_LEVEL</code></p></td></tr>
 <tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_EXPERIMENT</code></p></td></tr>
 <tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_PROFILE</code></p></td></tr>
+<tr id="agent-access-token"><th><code>--agent-access-token value</code> <a class="Docs__attribute__link" href="#agent-access-token">#</a></th><td><p>The access token used to identify the agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></p></td></tr>
+<tr id="endpoint"><th><code>--endpoint value</code> <a class="Docs__attribute__link" href="#endpoint">#</a></th><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ENDPOINT</code></p></td></tr>
+<tr id="no-http2"><th><code>--no-http2 </code> <a class="Docs__attribute__link" href="#no-http2">#</a></th><td><p>Disable HTTP2 when communicating with the Agent API.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_NO_HTTP2</code></p></td></tr>
+<tr id="debug-http"><th><code>--debug-http </code> <a class="Docs__attribute__link" href="#debug-http">#</a></th><td><p>Enable HTTP debug mode, which dumps all request and response bodies to the log<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG_HTTP</code></p></td></tr>
+<tr id="trace-http"><th><code>--trace-http </code> <a class="Docs__attribute__link" href="#trace-http">#</a></th><td><p>Enable HTTP trace mode, which logs timings for each HTTP request. Timings are logged at the debug level unless a request fails at the network level in which case they are logged at the error level<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_TRACE_HTTP</code></p></td></tr>
+<tr id="format"><th><code>--format value</code> <a class="Docs__attribute__link" href="#format">#</a></th><td><p>The format for the input, whose value is either `json` or `none`. `none` adds the entire input's content to the redactor, with the exception of leading and trailing space. `json` parses the input's content as a JSON object, where each value of each key is added to the redactor. (default: "none")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_REDACT_ADD_FORMAT</code></p></td></tr>
 </table>
 
 <!-- vale on -->
