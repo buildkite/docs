@@ -411,6 +411,8 @@
               path: "pipelines/hosted-agents/mobile-delivery-cloud"
             - name: "Getting started"
               path: "pipelines/hosted-agents/mobile-delivery-cloud/getting-started"
+            - name: "Troubleshooting fastlane"
+              path: "pipelines/hosted-agents/mobile-delivery-cloud/troubleshooting-fastlane"
     - name: "Rules"
       children:
         - name: "Overview"
@@ -497,6 +499,8 @@
           children:
             - name: "Datadog"
               path: "pipelines/integrations/observability/datadog"
+            - name: "Honeycomb"
+              path: "pipelines/integrations/observability/honeycomb"
             - name: "OpenTelemetry"
               path: "pipelines/integrations/observability/opentelemetry"
         - name: "Other integrations"

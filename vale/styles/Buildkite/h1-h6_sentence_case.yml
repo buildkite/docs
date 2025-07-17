@@ -47,6 +47,7 @@ exceptions:
   - Bitbucket Server
   - bktec
   - BUILD_AND_READ
+  - buildevents
   - Buildkite
   - Buildkite Agent
   - Buildkite Agents
@@ -69,6 +70,7 @@ exceptions:
   - CloudTrail
   - CloudWatch
   - CloudWatch Logs
+  - CocoaPods
   - completion_watcher
   - CORS
   - CSS
@@ -109,6 +111,7 @@ exceptions:
   - Groovy
   - Heroku
   - HMAC
+  - Honeycomb
   - HTTP
   - Hugging Face
   - I

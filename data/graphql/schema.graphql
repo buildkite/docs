@@ -3619,6 +3619,16 @@ enum JobEventType {
   NOTIFICATION
 
   """
+  The Job was reserved by a stack for later execution
+  """
+  RESERVED
+
+  """
+  The Job was reserved by a stack but the stack took too long to spin up agent
+  """
+  RESERVED_EXPIRED
+
+  """
   The Job was retried either automatically or by a user
   """
   RETRIED
@@ -6029,7 +6039,7 @@ type Organization implements Node {
     Filter results by the associated Suite ID
     """
     suiteIds: [ID!] = []
-  ): UsageUnionConnection!
+  ): UsageUnionConnection! @deprecated(reason: "Does not support newer resource types - eg. concurrent agents, active users etc.")
 
   """
   The public UUID for this organization
