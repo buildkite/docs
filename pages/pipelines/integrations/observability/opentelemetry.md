@@ -30,6 +30,57 @@ Note: `http/protobuf` protocol is only supported on Buildkite agent [v3.101.0](h
 
 See [OpenTelemetry SDK documentation](https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/) for more information on available environment variables.
 
+### Propagating traces to Buildkite agents
+
+Propagating trace spans from the OpenTelemetry Notification service requires Buildkite agent [v3.100](https://github.com/buildkite/agent/releases/tag/v3.100.0) or newer, and the `--tracing-propagate-traceparent` flag or equivalent environment variable.
+
+### Buildkite hosted agents
+
+To export OpenTelemetry traces from hosted agents, this currently requires using a custom Agent Image with the following Environment variables set. Custom images can be created in Cluster settings, and is currently supported for Linux only.
+
+```dockerfile
+# this is the same as --tracing-backend opentelemetry
+ENV BUILDKITE_TRACING_BACKEND="opentelemetry"
+
+# this is the same as --tracing-propagate-traceparent
+ENV BUILDKITE_TRACING_PROPAGATE_TRACEPARENT="true"
+
+# service name is configurable
+ENV OTEL_SERVICE_NAME="buildkite-agent"
+
+# http/protobuf available on Buildkite agent v3.101.0 or newer
+ENV OTEL_EXPORTER_OTLP_PROTOCOL="grpc"
+
+# the gRPC transport requires a port to be specified in the URL
+ENV OTEL_EXPORTER_OTLP_ENDPOINT="http://otel-collector:4317"
+
+# authentication of traces is done via tokens in headers
+ENV OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <token>,x-my-header=value"
+```
+
+## OpenTelemetry tracing notification service
+
+> 📘 Preview feature
+> OpenTelemetry Tracing Notification Service is currently in Private Preview. Please contact support@buildkite.com or your account team for access.
+
+To provide a build-wide view of Build performance, enable the OpenTelemetry Tracing
+
+### Creating a new service
+
+[Create a new OpenTelemetry Notification Service](https://buildkite.com/organizations/~/services/) in your organization's Notification Services settings (under Integrations).
+
+<%= image "form.png", width: 1110/2, height: 1110/2, alt: "Screenshot of OpenTelemetry Notification Service settings" %>
+
+### Endpoint
+
+Please provide the base URL for your OTLP endpoint. Do not include the `/v1/traces` path as that automatically appended by the Buildkite OpenTelemetry exporter.
+
+#### Limitations
+
+- We currently only support the [OTLP/HTTP](https://opentelemetry.io/docs/specs/otlp/#otlphttp) binary protobuf encoding.
+- We currently only support sending [trace](https://opentelemetry.io/docs/concepts/signals/traces/) data, but may introduce other OpenTelemetry signals in the future.
+- The endpoint must be accessible over the internet. Contact support@buildkite.com if you would like to send traces to a [AWS PrivateLink endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html).
+
 ### Trace structure
 
 The following attributes are included in OpenTelemetry traces from the Buildkite notification service:
@@ -95,57 +146,6 @@ The following attributes are included in OpenTelemetry traces from the Buildkite
 | `buildkite.agent.queue`              | `buildkite.job`                                            | Agent queue                                 |
 | `buildkite.agent.meta_data`          | `buildkite.job`                                            | Agent metadata                              |
 | `error.type`                         | All (when error status)                                    | Error type description                      |
-
-### Propagating traces to Buildkite agents
-
-Propagating trace spans from the OpenTelemetry Notification service requires Buildkite agent [v3.100](https://github.com/buildkite/agent/releases/tag/v3.100.0) or newer, and the `--tracing-propagate-traceparent` flag or equivalent environment variable.
-
-### Buildkite hosted agents
-
-To export OpenTelemetry traces from hosted agents, this currently requires using a custom Agent Image with the following Environment variables set. Custom images can be created in Cluster settings, and is currently supported for Linux only.
-
-```dockerfile
-# this is the same as --tracing-backend opentelemetry
-ENV BUILDKITE_TRACING_BACKEND="opentelemetry"
-
-# this is the same as --tracing-propagate-traceparent
-ENV BUILDKITE_TRACING_PROPAGATE_TRACEPARENT="true"
-
-# service name is configurable
-ENV OTEL_SERVICE_NAME="buildkite-agent"
-
-# http/protobuf available on Buildkite agent v3.101.0 or newer
-ENV OTEL_EXPORTER_OTLP_PROTOCOL="grpc"
-
-# the gRPC transport requires a port to be specified in the URL
-ENV OTEL_EXPORTER_OTLP_ENDPOINT="http://otel-collector:4317"
-
-# authentication of traces is done via tokens in headers
-ENV OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <token>,x-my-header=value"
-```
-
-## OpenTelemetry tracing notification service
-
-> 📘 Preview feature
-> OpenTelemetry Tracing Notification Service is currently in Private Preview. Please contact support@buildkite.com or your account team for access.
-
-To provide a build-wide view of Build performance, enable the OpenTelemetry Tracing
-
-### Creating a new service
-
-[Create a new OpenTelemetry Notification Service](https://buildkite.com/organizations/~/services/) in your organization's Notification Services settings (under Integrations).
-
-<%= image "form.png", width: 1110/2, height: 1110/2, alt: "Screenshot of OpenTelemetry Notification Service settings" %>
-
-### Endpoint
-
-Please provide the base URL for your OTLP endpoint. Do not include the `/v1/traces` path as that automatically appended by the Buildkite OpenTelemetry exporter.
-
-#### Limitations
-
-- We currently only support the [OTLP/HTTP](https://opentelemetry.io/docs/specs/otlp/#otlphttp) binary protobuf encoding.
-- We currently only support sending [trace](https://opentelemetry.io/docs/concepts/signals/traces/) data, but may introduce other OpenTelemetry signals in the future.
-- The endpoint must be accessible over the internet. Contact support@buildkite.com if you would like to send traces to a [AWS PrivateLink endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html).
 
 ### Headers
 
