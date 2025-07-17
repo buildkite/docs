@@ -195,6 +195,7 @@ exceptions:
   - watchOS
   - Windows
   - Windows Subsystem for Linux 2
+  - Workload Identity Federation
   - Xcode
   - XCTest
   - XML
