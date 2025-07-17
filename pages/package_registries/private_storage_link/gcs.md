@@ -75,7 +75,7 @@ To link your private Google Cloud Storage (GCS) bucket to Buildkite Package Regi
 
 You're returned to the **Private Storage Link** page where you can:
 
-- [Set the default Buildkite Package Registries storage for your organization](../private-storage-link#set-the-default-buildkite-package-registries-storage).
+- [Set the default Buildkite Package Registries storage for your organization](/docs/package-registries/private-storage-link#set-the-default-buildkite-package-registries-storage).
 - [Choose storage per registry](/docs/package-registries/manage-registries#update-a-source-registry-configure-registry-storage).
 
 ## Set as default storage (optional)

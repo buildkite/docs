@@ -44,7 +44,7 @@ The following aspects of a source registry can be updated:
 
 <%= render_markdown partial: 'package_registries/updatable_registry_components_2' %>
 
-- **Storage**: choose your [registry storage](#update-a-source-registry-configure-registry-storage), selecting from **Buildkite-hosted storage** (the initially default storage system) or [your own private AWS S3 bucket](/docs/package-registries/private-storage) to store packages for this registry.
+- **Storage**: choose your [registry storage](#update-a-source-registry-configure-registry-storage), selecting from **Buildkite-hosted storage** (the initially default storage system) or [your own private AWS S3 bucket](/docs/package-registries/private-storage-link) to store packages for this registry.
 
 A source registry's ecosystem type cannot be changed once the [registry is created](#create-a-source-registry).
 
@@ -68,11 +68,11 @@ To update a source registry:
 
 1. If the registry is _private_ and _registry tokens_ (an alternative to API access tokens) need to be configured, learn more about this in [Configure registry tokens](#configure-registry-tokens).
 
-1. If [_private storage_](/docs/package-registries/private-storage) has been configured and linked to your Buildkite organization, the storage location for the registry can be changed. Learn more about this in [Configure registry storage](#update-a-source-registry-configure-registry-storage).
+1. If [_private storage_](/docs/package-registries/private-storage-link) has been configured and linked to your Buildkite organization, the storage location for the registry can be changed. Learn more about this in [Configure registry storage](#update-a-source-registry-configure-registry-storage).
 
 ### Configure registry storage
 
-When a [new source registry is created](#create-a-source-registry), it automatically uses the [default Buildkite Package Registries storage](/docs/package-registries/private-storage#set-the-default-buildkite-package-registries-storage) location. However, your new source registry's default storage location can be overridden to use another configured storage location. Learn more about configuring private storage in [Private storage links](/docs/package-registries/private-storage).
+When a [new source registry is created](#create-a-source-registry), it automatically uses the [default Buildkite Package Registries storage](/docs/package-registries/private-storage-link#set-the-default-buildkite-package-registries-storage) location. However, your new source registry's default storage location can be overridden to use another configured storage location. Learn more about configuring private storage in [Private storage links](/docs/package-registries/private-storage-link).
 
 To configure/change your source registry's current storage:
 
