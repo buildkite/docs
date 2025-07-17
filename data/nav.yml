@@ -459,6 +459,8 @@
           path: "pipelines/deployments/with-argo-cd"
         - name: "Deploying with Heroku"
           path: "pipelines/deployments/with-heroku"
+        - name: "Deployment plugins"
+          path: "pipelines/deployments/deployment-plugins"
     - name: "Insights"
       children:
         - name: "Waterfall view"
@@ -493,18 +495,36 @@
               path: "pipelines/integrations/notifications/slack-workspace"
             - name: "CCMenu and CCTray"
               path: "pipelines/integrations/notifications/cc-menu"
+            - name: "Notification plugins"
+              path: "pipelines/integrations/notifications/notification-plugins"
         - name: "Observability"
           children:
             - name: "Datadog"
               path: "pipelines/integrations/observability/datadog"
             - name: "OpenTelemetry"
               path: "pipelines/integrations/observability/opentelemetry"
-        - name: "Other integrations"
-          children:
             - name: "Amazon EventBridge"
               path: "pipelines/integrations/other/amazon-eventbridge"
+            - name: "Observability plugins"
+              path: "pipelines/integrations/observability/observability-plugins"
+        - name: "Security & compliance"
+          children:
+            - name: "Security & compliance plugins"
+              path: "pipelines/integrations/security-compliance/security-compliance-plugins"
+        - name: "Secrets"
+          children:
+            - name: "Secrets plugins"
+              path: "pipelines/integrations/secrets/secrets-plugins"
+        - name: "Artifacts & packages"
+          children:
             - name: "Artifactory"
               path: "pipelines/integrations/other/artifactory"
+            - name: "Artifact plugins"
+              path: "pipelines/integrations/artifacts/artifact-plugins"
+            - name: "Package plugins"
+              path: "pipelines/integrations/artifacts/package-plugins"
+        - name: "Other integrations"
+          children:
             - name: "Build status badges"
               path: "pipelines/integrations/other/build-status-badges"
             - name: "Docker Hub"
