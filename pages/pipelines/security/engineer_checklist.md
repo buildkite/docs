@@ -11,7 +11,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 **Remediations:**
 
 - Enforce [Single Sign-On (SSO)](/docs/platform/sso) and [Two-Factor Authentication (2FA/MFA)](/docs/platform/team-management/enforce-2fa) for all web UI access to prevent credential-based attacks.
-- Implement time-scoped API tokens with [automated rotation on a regular schedule](https://buildkite.com/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security) to limit exposure windows and reduce the impact of compromised tokens.
+- Implement time-scoped API tokens with [automated rotation on a regular schedule](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security) to limit exposure windows and reduce the impact of compromised tokens.
 - Apply the principle of least privilege when scoping API keys, granting only the minimum permissions required for each specific function or integration.
 
 ## Source code and version control integrity
@@ -23,7 +23,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Implement the [Buildkite GitHub App integration](/docs/pipelines/source-control/github#connecting-buildkite-and-github) for secure repository connections.
 - Enforce [SCM signed commits](https://buildkite.com/resources/blog/securing-your-software-supply-chain-signed-git-commits-with-oidc-and-sigstore/) and configure [branch protection rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule) with [Buildkite conditionals](/docs/pipelines/configure/conditionals).
 - Map Buildkite users to SCM identities and leverage [team-based permissions](https://buildkite.com/resources/examples/buildkite/agent-hooks-example/) to ensure only authorized team members can trigger builds.
-- Deploy [programmatic team management](https://buildkite.com/docs/platform/team-management/permissions#manage-teams-and-permissions-programmatically-managing-teams) and pre-merge hooks to verify commit authors have appropriate permissions before allowing build execution.
+- Deploy [programmatic team management](/docs/platform/team-management/permissions#manage-teams-and-permissions-programmatically-managing-teams) and pre-merge hooks to verify commit authors have appropriate permissions before allowing build execution.
 
 ## Dependencies and package management
 
@@ -56,7 +56,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Deploy ephemeral build environments using isolated virtual machines or containers with minimal operating systems, disabled inbound SSH access, and strict network egress controls to limit the blast radius of potential compromises.
 - Consider migrating to Buildkite-managed [hosted agents](/docs/pipelines/hosted-agents) for particularly sensitive workloads, allowing Buildkite to handle infrastructure security rather than managing [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture) in your own environment.
 - Implement [pipeline signing](/docs/agent/v3/signed-pipelines) and verification mechanisms to ensure only authorized pipeline configurations can be executed by agents, preventing injection of malicious build steps.
-- Configure [automatic expiration date](https://buildkite.com/docs/agent/v3/securing#set-the-agent-token-expiration-date) on agent registration tokens to limit the window of opportunity for compromised tokens and ensure regular credential rotation.
+- Configure [automatic expiration date](/docs/agent/v3/securing#set-the-agent-token-expiration-date) on agent registration tokens to limit the window of opportunity for compromised tokens and ensure regular credential rotation.
 - Set appropriate [job time limits](/docs/pipelines/configure/build-timeouts#command-timeouts) to prevent runaway processes and limit the duration that malicious code can execute on compromised agents.
 - Utilize [OIDC-based authentication for AWS](/docs/pipelines/security/oidc/aws) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags and strong unique claims to minimize credential exposure.
 
@@ -66,10 +66,10 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 **Remediations:**
 
-- Implement the principle of least privilege by creating tokens with minimal required scopes and permissions for each specific use case. Regularly audit token permissions to ensure they align with current operational needs.
-- Establish token rotation policies with defined expiration periods for all API tokens and agent registration tokens. Automate rotation processes where possible to reduce the risk of long-lived credential exposure.
-- Restrict token usage by binding them to specific IP addresses, networks, or build agents when feasible. Use network-level controls to limit where tokens can be used within your infrastructure.
-- Monitor token usage patterns through audit logs and implement alerting for unusual access patterns, including usage from unexpected locations, excessive API calls, or access to unauthorized resources.
+- Implement the principle of least privilege by creating tokens with minimal [required scopes](/docs/apis/managing-api-tokens#token-scopes) and permissions for each specific use case. Regularly audit token permissions to ensure they align with current operational needs.
+- Establish [token rotation](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security) policies with defined expiration periods for all API tokens and agent registration tokens. Automate rotation processes where possible to reduce the risk of long-lived credential exposure.
+- Restrict token usage by binding them to specific IP addresses, networks, or agents when feasible. Use network-level controls to limit where tokens can be used within your infrastructure.
+- Monitor token usage patterns through [Audio Log](/docs/platform/audit-log) and implement alerting for unusual access patterns, including usage from unexpected locations, excessive API calls, or access to unauthorized resources.
 
 ## Network and transport security
 
@@ -79,9 +79,9 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 While Buildkite enforces TLS encryption by default for all platform communications, ensuring traffic to and from Buildkite services is encrypted in transit, you can take these additional steps to further tighten network security:
 
-- For [self-hosted agents](https://buildkite.com/docs/pipelines/architecture#self-hosted-hybrid-architecture), Implement zero-trust network architecture with least-privilege outbound egress rules to minimize attack surface and prevent unauthorized external communications.
+- For [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), Implement zero-trust network architecture with least-privilege outbound egress rules to minimize attack surface and prevent unauthorized external communications.
 - Configure network monitoring and logging to detect anomalous traffic patterns or connection attempts from build agents.
-- Consider taking your infrastructure fully into the cloud with the help of [Buildkite hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) or by running your agents in [AWS](/docs/agent/v3/aws) or in [Google Cloud](https://buildkite.com/docs/agent/v3/gcloud).
+- Consider taking your infrastructure fully into the cloud with the help of [Buildkite hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) or by running your agents in [AWS](/docs/agent/v3/aws) or in [Google Cloud](/docs/agent/v3/gcloud).
 
 ## Artifact storage and integrity
 
