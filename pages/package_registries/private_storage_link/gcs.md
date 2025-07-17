@@ -1,154 +1,110 @@
 # Private Storage Link – Google Cloud Storage (GCS)
 
-> **Audience** — Buildkite organization administrators.
+This page guides you through connecting Google Cloud Storage (GCS) to Buildkite Package Registries. These processes can only be performed by [Buildkite organization administrators](/docs/package-registries/security/permissions#manage-teams-and-permissions-organization-level-permissions). For a high-level overview of Private Storage Links, see the [Overview page](/docs/package-registries/private-storage-link).
 
-This guide connects a **Google Cloud Storage (GCS)** bucket to Buildkite Package Registries. The flow mirrors the S3 instructions but uses Google-native IAM and Workload Identity Federation for stronger security.
+By default, Buildkite Package Registries provides its own storage (called *Buildkite storage*). Linking your own GCS bucket lets you:
 
-<%# Hero graphic placeholder %>
-<%= image "psl-gcs-overview.png", alt: "GCS Private Storage Link architecture" %>
+- Keep packages close to your geographical region for faster downloads.
+- Avoid cross-cloud egress costs.
+- Retain full sovereignty over your data while Buildkite continues to manage metadata and indexing.
 
-## Why GCS PSL is different
+## Securely connected with Workload Identity Federation (WIF)
 
-| Feature | GCS | S3 |
-| ------- | --- | --- |
-| Workload Identity Federation | ✔︎ (no long-lived IAM keys) | ✖︎ |
-| Signed downloads | V4 signed URLs generated on demand via **IAMCredentials signBlob** | CloudFront/S3 signed URLs |
-| Object deletion tagging | _Coming soon_ | ✔︎ |
+Each time Buildkite uploads, downloads, or signs a package object it presents its own OIDC identity token to Google Cloud’s [Security Token Service](https://cloud.google.com/iam/docs/reference/sts/rest). STS swaps that token for a short-lived access token on the service account you specify. This exchange is [Workload Identity Federation](https://cloud.google.com/iam/docs/workload-identity-federation) and allows Buildkite to act inside your bucket without storing any long-lived credentials.
+
+Key security benefits:
+
+- No long-lived service-account keys — tokens are minted just-in-time and expire automatically.
+- Least-privilege access — Buildkite needs only these IAM roles:
+  + `roles/storage.bucketViewer` on the bucket so Buildkite can read bucket metadata.
+  + `roles/storage.objectAdmin` on the bucket to create, read, update, and delete package objects.
+  + `roles/iam.serviceAccountTokenCreator` on the service account so it can mint signed URLs.
+You can audit or revoke these at any time.
+- Full audit history — every token exchange and object access is recorded in Cloud Audit Logs.
 
 ## Before you start
 
-> **Terminology refresher** — *Workload Identity Federation (WIF)* lets an external OIDC identity (Buildkite) exchange a token for a short-lived Google Cloud access token **without** creating or storing service-account keys.
+Before you begin, you’ll need a GCS bucket in a Google Cloud project that Buildkite can access.
 
-The high-level steps you need outside Buildkite are:
+Learn more about:
 
-1. **Create a bucket** (or choose an existing one).
-1. **Create a Workload Identity _Pool_ and _Provider_** that trusts your Buildkite organization’s OIDC issuer.
-1. **Create (or select) a service account** for Buildkite to impersonate.
-1. **Grant IAM roles** to wire everything together.
+- [Google Cloud Storage](https://cloud.google.com/storage) – product overview.
+- [Creating a bucket](https://cloud.google.com/storage/docs/creating-buckets) – step-by-step guide.
+- [Bucket naming requirements](https://cloud.google.com/storage/docs/naming-buckets) – rules for globally-unique names.
+- [Public access prevention](https://cloud.google.com/storage/docs/public-access-prevention) – keep data private by default.
+- [Object versioning](https://cloud.google.com/storage/docs/object-versioning) – optional protection against accidental deletes.
 
-### Create the Workload Identity pool and provider
+Once you have a bucket, the Buildkite wizard will guide you through:
 
-Replace `PROJECT_ID` and `ORG_UUID` with real values:
+1. **Creating (or selecting) a service account** for Buildkite to impersonate.
+1. **Creating a Workload Identity _Pool_ and _Provider_**.
+1. **Granting IAM roles** to wire everything together.
 
-```bash
-PROJECT_ID=my-project
-ORG_UUID=123e4567-e89b-12d3-a456-426614174000   # find in Organization Settings → General
-POOL_ID=buildkite-psl
-PROVIDER_ID=buildkite-oidc
+## Link your private storage to Buildkite Package Registries
 
-# Create the pool
- gcloud iam workload-identity-pools create $POOL_ID \
-   --project=$PROJECT_ID --location=global \
-   --display-name="Buildkite PSL"
+To link your private Google Cloud Storage (GCS) bucket to Buildkite Package Registries:
 
-# Create the OIDC provider within the pool
- gcloud iam workload-identity-pools providers create-oidc $PROVIDER_ID \
-   --project=$PROJECT_ID --location=global --workload-identity-pool=$POOL_ID \
-   --display-name="Buildkite OIDC" \
-   --issuer-uri="https://idp.buildkite.com/$ORG_UUID" \
-   --attribute-mapping="google.subject=assertion.sub" \
-   --allowed-audiences="//iam.googleapis.com/*"
+1. Select **Settings** in the global navigation to open the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
-WIF_RESOURCE="projects/$(gcloud projects describe $PROJECT_ID --format=value(projectNumber))/locations/global/workloadIdentityPools/$POOL_ID/providers/$PROVIDER_ID"
-```
+1. In the **Packages** section, select **Private Storage Link**.
 
-The **issuer URI** is unique per organization (`https://idp.buildkite.com/<org_uuid>`). Buildkite’s IdP issues tokens where `sub` is `organization:<org_uuid>`, so the simple attribute mapping above works out of the box.
+1. Click **Add private storage link** to start the wizard.
 
-### Create or choose the bucket
+1. On the **Provide your storage's details** page select **GCS**, then:
+    + Click **Open Google Cloud** to locate an existing bucket or create a new one.
+    + Enter the **Bucket name** (for example `my-bucket`).
 
-```bash
-gsutil mb -p $PROJECT_ID -c STANDARD -l us-central1 gs://my-bucket
-# Optional hardening
-gsutil uniformbucketlevelaccess set on gs://my-bucket
-gsutil bucketpolicyonly set on gs://my-bucket
-```
-
-### Create the service account
-
-```bash
-gcloud iam service-accounts create registry-access \
-  --project=$PROJECT_ID \
-  --display-name="Buildkite Package Registry access"
-SA_EMAIL=registry-access@$PROJECT_ID.iam.gserviceaccount.com
-```
-
-### Grant IAM roles
-
-```bash
-# Bucket access
- gcloud storage buckets add-iam-policy-binding gs://my-bucket \
-   --member="serviceAccount:$SA_EMAIL" \
-   --role="roles/storage.objectAdmin"
-
-# Allow Buildkite (via WIF) to impersonate the service account
- for ROLE in roles/iam.workloadIdentityUser roles/iam.serviceAccountTokenCreator; do
-   gcloud iam service-accounts add-iam-policy-binding $SA_EMAIL \
-     --member="principalSet://iam.googleapis.com/$WIF_RESOURCE/subjects/*" \
-     --role="$ROLE"
- done
-```
-
-With the groundwork done, continue in the Buildkite UI.
-
-1. **Bucket** — create or identify a GCS bucket in the project that will hold your packages.
-2. **Service account** — create / choose a service account that will access the bucket.
-3. **Workload Identity Federation provider** — Buildkite issues OIDC tokens; you must create a Workload Identity Pool + Provider that trusts `https://idp.buildkite.com`.
-4. **IAM roles** — grant:
-   * `roles/storage.objectAdmin` on the bucket to the *service account*.
-   * `roles/iam.workloadIdentityUser` **and** `roles/iam.serviceAccountTokenCreator` on the service account to the *principal set* of your WIF provider.
-
-> The *Token Creator* role lets Buildkite use **IAMCredentials signBlob** to mint short-lived signatures for download URLs without storing a private key.
-
-## Link your GCS bucket
-
-1. **Organization Settings > Packages > Private Storage Link > Add private storage link**.
-1. Choose **Google Cloud Storage** and fill:
-   * **Region** — drop-down list.
-   * **Bucket name** — `my-bucket`.
 1. Click **Continue**.
-1. Provide:
-   * **Service account email** — `registry-access@my-project.iam.gserviceaccount.com`.
-   * **Workload Identity provider resource** — `projects/<project-number>/locations/global/workloadIdentityPools/<pool>/providers/<provider>`.
-1. Follow the on-screen *Authorize Buildkite* commands, reproduced below for reference:
 
-```bash
-# Grant bucket access
-BUCKET=my-bucket
-SA=registry-access@my-project.iam.gserviceaccount.com
-WIF="projects/123/locations/global/workloadIdentityPools/buildkite/providers/oidc"
+1. On the **Connect Buildkite to Google Cloud** page, follow the instructions to provide:
+    + **Service account email** – `registry-access@my-project.iam.gserviceaccount.com`.
+    + **Workload Identity provider resource** – `projects/<project-number>/locations/global/workloadIdentityPools/<pool>/providers/<provider>`.
 
-gcloud storage buckets add-iam-policy-binding gs://$BUCKET \
-  --member="serviceAccount:$SA" \
-  --role="roles/storage.objectAdmin"
+1. On the **Authorize Buildkite** page, complete two bindings by following the instructions:
+    + **Impersonation** — add the `roles/iam.workloadIdentityUser` role so Buildkite can impersonate the service account.
+    + **Bucket access** — grant the service account `roles/storage.objectAdmin` and `roles/storage.bucketViewer` on your bucket so Buildkite can manage package objects and read bucket metadata.
 
-gcloud iam service-accounts add-iam-policy-binding $SA \
-  --member="principalSet://iam.googleapis.com/$WIF/subjects/*" \
-  --role="roles/iam.workloadIdentityUser"
+1. Click **Run diagnostic**. Buildkite uploads, downloads, and tags a test object to confirm it can:
+    + publish (`PUT`)
+    + download (`GET`)
+    + generate a signed URL (`signBlob`)
+    + tag for deletion (`PATCH`)
+    + delete (`DELETE`)
 
-gcloud iam service-accounts add-iam-policy-binding $SA \
-  --member="principalSet://iam.googleapis.com/$WIF/subjects/*" \
-  --role="roles/iam.serviceAccountTokenCreator"
-```
+1. When all tests pass, click **Create Private Storage Link** to finish.
 
-1. Click **Run diagnostic**. Buildkite uploads and downloads a test object; tagging deletion is skipped.
-1. When the diagnostic passes, click **Create Private Storage Link**.
+You're returned to the **Private Storage Link** page where you can:
 
-## Signed downloads
-
-When a client requests a package:
-
-1. Buildkite creates a short-lived OIDC ID-token for the organization.
-1. The token is exchanged via **Security Token Service** and **IAMCredentials** to impersonate the service account.
-1. The process calls `signBlob` to generate a V4 signed URL.
-1. The client downloads directly from `https://storage.googleapis.com/<bucket>/<object>` by using the signed URL.
-
-<%# Placeholder – sequence diagram of signed download %>
-<%= image "psl-gcs-signed-url-sequence.png", alt: "Signed-URL download sequence" %>
-
-## Deleting packages
-
-Until tagging support lands, Buildkite marks package metadata as deleted but **does not** modify the GCS object. Add [Lifecycle Rules](https://cloud.google.com/storage/docs/lifecycle) that expire objects under the prefix `org-uuid/*` after the desired retention period.
+- [Set the default Buildkite Package Registries storage for your organization](../private-storage-link#set-the-default-buildkite-package-registries-storage).
+- [Choose storage per registry](/docs/package-registries/manage-registries#update-a-source-registry-configure-registry-storage).
 
 ## Set as default storage (optional)
 
-Same process as S3: **Organization Settings > Packages > Private Storage Link > Change** and select the `gs://…` link.
+Once at least one PSL exists you can change the organization’s default storage (this affects newly-created registries):
+
+1. **Organization Settings > Packages > Private Storage Link**.
+1. Click **Change** and select the `gs://…` link.
+
+## Deleting packages
+
+Buildkite does **not** delete objects straight away. When a package is removed it:
+
+- Adds a metadata tag of `buildkite:deleted=<ISO8601_timestamp>`.
+- Sets the object’s `customTime` field to the same timestamp.
+
+| Metadata key       | Value (UTC) |
+|--------------------|-------------|
+| `buildkite:deleted`| ISO 8601 timestamp |
+
+Create a [Lifecycle rule](https://cloud.google.com/storage/docs/lifecycle) that removes objects a set number of days after their `customTime`. For example, to purge 30 days after deletion:
+
+```json
+{
+  "rule": [
+    {
+      "action": { "type": "Delete" },
+      "condition": { "daysSinceCustomTime": 30 }
+    }
+  ]
+}
+```

@@ -82,7 +82,7 @@ To configure/change your source registry's current storage:
 
 1. Select **Settings** > **Storage** to access the source registry's **Storage** page.
 
-1. Select **Change** to switch from using **Buildkite-hosted storage** (or a previously configured private storage beginning with **s3://...**) to your new private storage link. If this setting is currently configured to use a previously configured private storage link, the storage location can also be reverted back to using **Buildkite-hosted storage**.
+1. Select **Change** to switch from using **Buildkite-hosted storage** (or a previously configured private storage link such as **s3://…** or **gs://…**) to your new private storage link. If this setting is currently configured to use a previously configured private storage link, the storage location can also be reverted back to using **Buildkite-hosted storage**.
 
 > 📘
 > All subsequent packages published to this source registry will be stored in your newly configured storage location. Bear in mind that all existing packages in this registry will remain in their original storage location.
