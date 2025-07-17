@@ -27,12 +27,12 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 ## Dependencies and package management
 
-**Risk:** Malicious or typosquatted packages can execute arbitrary code during builds, while vulnerable libraries may persist in packaged images and production deployments.
+**Risk:** Malicious or typosquatted (named in such as way as to take advantage of common misspelling) packages can execute arbitrary code during builds, while vulnerable libraries may persist in packaged images and production deployments.
 
 **Remediations:**
 
 - Implement automated dependency and malware scanning on every merge using established tools such as [Sonatype](https://www.sonatype.com/) or [Trivy](https://trivy.dev/latest/). Leverage Buildkite's official security plugins to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment.
-- Deploy [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all pipelines, ensuring vulnerability scans are executed and results are properly reported as part of every build process in Buildkite Pipelines.
+- Use [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all pipelines, ensuring vulnerability scans are executed and results are properly reported as part of every build process in Buildkite Pipelines.
 
 ## Secrets management
 
@@ -69,7 +69,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Implement the principle of least privilege by creating tokens with minimal [required scopes](/docs/apis/managing-api-tokens#token-scopes) and permissions for each specific use case. Regularly audit token permissions to ensure they align with current operational needs.
 - Establish [token rotation](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security) policies with defined expiration periods for all API tokens and agent registration tokens. Automate rotation processes where possible to reduce the risk of long-lived credential exposure.
 - Restrict token usage by binding them to specific IP addresses, networks, or agents when feasible. Use network-level controls to limit where tokens can be used within your infrastructure.
-- Monitor token usage patterns through [Audio Log](/docs/platform/audit-log) and implement alerting for unusual access patterns, including usage from unexpected locations, excessive API calls, or access to unauthorized resources.
+- Monitor token usage patterns through [Audit Log](/docs/platform/audit-log) and implement alerting for unusual access patterns, including usage from unexpected locations, excessive API calls, or access to unauthorized resources.
 
 ## Network and transport security
 
@@ -79,7 +79,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 While Buildkite enforces TLS encryption by default for all platform communications, ensuring traffic to and from Buildkite services is encrypted in transit, you can take these additional steps to further tighten network security:
 
-- For [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), Implement zero-trust network architecture with least-privilege outbound egress rules to minimize attack surface and prevent unauthorized external communications.
+- For [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), implement zero-trust network architecture with least-privilege outbound egress rules to minimize attack surface and prevent unauthorized external communications.
 - Configure network monitoring and logging to detect anomalous traffic patterns or connection attempts from build agents.
 - Consider taking your infrastructure fully into the cloud with the help of [Buildkite hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) or by running your agents in [AWS](/docs/agent/v3/aws) or in [Google Cloud](/docs/agent/v3/gcloud).
 
@@ -114,7 +114,7 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 **Remediations:**
 
 - Export or stream all Buildkite build data to your preferred monitoring and observability platform to maintain comprehensive visibility across your CI/CD pipeline activities.
-- Integrate Buildkite audit logs with your Security Information and Event Management (SIEM) system to centralize security monitoring and enable correlation with other security events.
+- Integrate Buildkite alogs with your Security Information and Event Management (SIEM) system to centralize security monitoring and enable correlation with other security events.
 - Configure automated alerts for suspicious activities including logins from unusual IP addresses, anomalous secret access patterns, and unexpected spikes in build frequency that may indicate compromise or abuse.
 - Enable detailed logging for all job executions, artifact access, and secret usage to ensure complete audit trails for security investigations and compliance requirements.
 
@@ -124,8 +124,8 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 
 **Remediations:**
 
-- Contact Buildkite Support immediately upon discovering any security incident by emailing [support@buildkite.com](mailto:support@buildkite.com) or through your dedicated Premium Support channel. Early notification allows Buildkite to assist with immediate remediation steps and help prevent further exposure of sensitive data. An internal security incident will be opened to coordinate response efforts.
-- Buildkite's security team can [audit access logs](/docs/platform/audit-log) to identify which users and IP addresses accessed builds containing leaked information. When necessary, logs can be rehydrated for comprehensive forensic analysis to determine the full scope of exposure.
+- Contact Buildkite Support immediately upon discovering any security incident by emailing [support@buildkite.com](mailto:support@buildkite.com) or through your dedicated Premium Support channel. Early notification allows Buildkite to assist with immediate remediation steps and help prevent further exposure of sensitive data. An internal security incident will be opened by Buildkite to coordinate response efforts.
+- Buildkite's incident response team can [audit access logs](/docs/platform/audit-log) to identify which users and IP addresses accessed builds containing leaked information. When necessary, older logs can be rehydrated for comprehensive forensic analysis to determine the full scope of exposure.
 
 > Didn't find coverage of a security-related question here?
 > Feel free to raise it on the [Buildkite Community Forum](https://forum.buildkite.community/) or reach out to the [Buildkite's Support Team](mailto:support@buildkite.com).
