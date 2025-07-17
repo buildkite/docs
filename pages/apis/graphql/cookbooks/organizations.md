@@ -432,15 +432,14 @@ mutation OrganizationBannerDelete {
 }
 ```
 
-## Get an organization's ID and UUID
+## Get an organization's ID
 
-Get the ID and UUID of an organization using the `organization` query, passing in the organization's slug, they are required for other GraphQL queries:
+Get the ID of an organization, this is required for other GraphQL queries:
 
 ```graphql
 query getOrganizationID {
   organization(slug:"organization-slug") {
     id
-    uuid
   }
 }
 ```
