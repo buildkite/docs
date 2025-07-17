@@ -120,6 +120,7 @@ You can customize the commit statuses, for example to reuse the same pipeline fo
         - github_commit_status:
             context: "my-custom-status"
     ```
+
 1. In **Pipeline** > your specific pipeline > **Settings** > **GitHub**, make sure **Update commit statuses** is not selected. Note that this prevents Buildkite from automatically creating and sending statuses for this pipeline, meaning you will have to handle all commit statuses through the `pipeline.yml`.
 1. When you make a new commit or pull request, you should see **my-custom-status** as the commit status:
     <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
@@ -128,7 +129,7 @@ In a setup for a repository containing one codebase and one `pipeline.yml`, this
 
 For example, if you have a monorepo containing three applications, you could use the same pipeline, with different `pipeline.yml` files for each application. Each `pipeline.yml` can contain a different GitHub status.
 
-When you set a build level custom commit status as part of an uploaded pipeline yaml, the Github status gets only reported after the build finishes. The reason being that the `notify` block are uploaded - even if it was at build level - and only gets evaluated after the build has started.
+When a build level custom commit status is set as part of an uploaded pipeline YAML file, the GitHub status is only reported after the build has completed. The reason for this behavior is that the `notify` block is evaluated after the build has started. By moving the GitHub status notification block to the pipeline level, this will be evaluated when the build starts and sends off the commit status to GitHub.
 
 ### Step level
 
