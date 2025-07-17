@@ -1,7 +1,8 @@
 ---
-title: Secrets Plugins
 template: "landing_page"
 ---
+
+# Secrets plugins
 
 The _secrets plugins directory_ helps you discover Buildkite plugins for secrets management.
 

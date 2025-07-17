@@ -1,7 +1,8 @@
 ---
-title: Notification Plugins
 template: "landing_page"
 ---
+
+# Notification plugins
 
 The _notification plugins directory_ helps you discover Buildkite plugins that deliver notifications.
 

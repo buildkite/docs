@@ -1,7 +1,8 @@
 ---
-title: Package Plugins
 template: "landing_page"
 ---
+
+# Package plugins
 
 The _package plugins directory_ helps you discover Buildkite plugins for publishing or retrieving packages.
 
