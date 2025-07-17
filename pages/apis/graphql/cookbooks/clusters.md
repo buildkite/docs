@@ -219,3 +219,21 @@ mutation AssociatePipelineWithCluster {
   }
 }
 ```
+
+## Revoke a cluster agent token
+
+First, [get the Cluster Agent Token ID](#list-agent-tokens).
+Second, [get the Organization ID](/docs/apis/graphql/cookbooks/organizations#get-an-organizations-id).
+Then, use the IDs to revoke the cluster agent token:
+
+```graphql
+mutation revokeClusterAgentToken {
+  clusterAgentTokenRevoke(input: { 
+    id: "cluster-agent-token-id" 
+    organizationId: "organization-id" 
+    }) {
+    clientMutationId
+    deletedClusterAgentTokenId
+  }
+}
+```
