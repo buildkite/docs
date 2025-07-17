@@ -506,7 +506,7 @@
             - name: "OpenTelemetry"
               path: "pipelines/integrations/observability/opentelemetry"
             - name: "Amazon EventBridge"
-              path: "pipelines/integrations/other/amazon-eventbridge"
+              path: "pipelines/integrations/observability/amazon-eventbridge"
             - name: "Observability plugins"
               path: "pipelines/integrations/observability/observability-plugins"
         - name: "Security & compliance"

@@ -92,7 +92,7 @@ integrations:
       - text: "OpenTelemetry"
         url: "/docs/pipelines/integrations/observability/opentelemetry"
       - text: "Amazon EventBridge"
-        url: "/docs/pipelines/integrations/other/amazon-eventbridge"
+        url: "/docs/pipelines/integrations/observability/amazon-eventbridge"
       - text: "Observability plugins"
         url: "/docs/pipelines/integrations/observability/observability-plugins"
   - title: "Security & compliance"
