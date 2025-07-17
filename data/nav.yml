@@ -421,7 +421,7 @@
       children:
         - name: "Overview"
           path: "pipelines/security"
-        - name: "Security Engineer Checklist"
+        - name: "Security engineer checklist"
           path: "pipelines/security/engineer-checklist"
         - name: "Secrets"
           children:
