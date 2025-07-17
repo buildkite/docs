@@ -126,7 +126,7 @@ Learn more about this entire process from the detailed [Migrate from unclustered
 
 1. [Assessing your current environment](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#assessing-your-current-environment).
 1. Deciding on an [agent migration strategy](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#migration-strategies), noting that an initial [single-cluster migration strategy](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#single-cluster-migration-overview) may likely provide the least friction.
-1. Understanding the [technical considerations](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#technical-considerations-and-blockers) of the agent migration process.
+1. Understanding the [technical considerations](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#technical-considerations) of the agent migration process.
 1. The [agent migration process](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#agent-migration-process) itself.
 
 ## Restrict an agent token's access by IP address

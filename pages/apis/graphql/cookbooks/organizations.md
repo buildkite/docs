@@ -147,51 +147,6 @@ mutation EnableEnforced2FA {
 }
 ```
 
-## Query the usage API
-
-Use the usage API to query your organization's usage by pipeline or test suite at daily granularity.
-
-```graphql
-query Usage {
-  organization(slug: "organization-slug") {
-    id
-    name
-    usage(
-      aggregatedOnFrom: "2023-04-01"
-      aggregatedOnTo: "2023-05-01"
-      resource: [JOB_MINUTES, TEST_EXECUTIONS]
-    ) {
-      edges {
-        node {
-          __typename ... on JobMinutesUsage {
-            aggregatedOn
-            seconds
-            pipeline {
-              name
-              id
-            }
-          }
-        }
-        node {
-          __typename ... on TestExecutionsUsage {
-            Time: aggregatedOn
-            executions
-            suite {
-              name
-              id
-            }
-          }
-        }
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-      }
-    }
-  }
-}
-```
-
 ## Create a user, add them to a team, and set user permissions
 
 Invite a new user to the organization, add them to a team, and set their role.

@@ -501,6 +501,8 @@
           children:
             - name: "Datadog"
               path: "pipelines/integrations/observability/datadog"
+            - name: "Honeycomb"
+              path: "pipelines/integrations/observability/honeycomb"
             - name: "OpenTelemetry"
               path: "pipelines/integrations/observability/opentelemetry"
             - name: "Amazon EventBridge"
