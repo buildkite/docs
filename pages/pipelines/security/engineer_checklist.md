@@ -90,7 +90,7 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 **Remediations:**
 
 - Store artifacts in private, organization-controlled storage with auditable bucket policies rather than relying solely on Buildkite-hosted storage. Supported private storage options include:
-  * [AWS S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket) 
+  * [AWS S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket)
   * [Google Cloud Storage buckets](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket)
   * [Azure Blob containers](/docs/agent/v3/cli-artifact#using-your-private-azure-blob-container)
   * [JFrog Artifactory instances](/docs/agent/v3/cli-artifact#using-your-artifactory-instance)
@@ -127,5 +127,5 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 - Contact Buildkite Support immediately upon discovering any security incident by emailing [support@buildkite.com](mailto:support@buildkite.com) or through your dedicated Premium Support channel. Early notification allows Buildkite to assist with immediate remediation steps and help prevent further exposure of sensitive data. An internal security incident will be opened to coordinate response efforts.
 - Buildkite's security team can [audit access logs](/docs/platform/audit-log) to identify which users and IP addresses accessed builds containing leaked information. When necessary, logs can be rehydrated for comprehensive forensic analysis to determine the full scope of exposure.
 
-> Didn't find coverage of a security-related question here? 
+> Didn't find coverage of a security-related question here?
 > Feel free to raise it on the [Buildkite Community Forum](https://forum.buildkite.community/) or reach out to the [Buildkite's Support Team](mailto:support@buildkite.com).

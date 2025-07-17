@@ -18,6 +18,7 @@ exceptions:
   - Advanced Queue Metrics
   - Agent Stack for Kubernetes
   - API
+  - API Access Token
   - APM
   - Argo CD
   - AWS

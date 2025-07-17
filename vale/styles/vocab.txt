@@ -97,6 +97,7 @@ env
 eval
 Eventbridge
 EventBridge
+exfiltrated
 Explainshell
 fastlane
 fastlane's
@@ -194,6 +195,7 @@ opentelemetry
 onboarding
 OTLP
 otlp
+overprivileged
 Pagerduty
 parsable
 pbuilder
@@ -226,7 +228,11 @@ readme
 readmes
 refetch
 refspec
+rehydrate
+rehydrated
 reimagined
+remediation
+remediations
 repo
 resizable
 routable
@@ -249,6 +255,7 @@ shellscripting
 Shipit
 signaltometrics
 snake_case
+Sonatype
 Sonoma
 Splitter's
 sre
@@ -276,6 +283,7 @@ tmux
 toolmantim
 tooltip
 TOTP's
+typosquatted
 udp
 unmanaged
 unarchive
