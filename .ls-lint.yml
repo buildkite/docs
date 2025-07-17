@@ -6,3 +6,4 @@ ignore:
   - node_modules
   - .git
   - vendor
+  - pages/pipelines/integrations/security-compliance
