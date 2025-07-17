@@ -283,6 +283,7 @@ tmux
 toolmantim
 tooltip
 TOTP's
+Trivy
 typosquatted
 udp
 unmanaged
