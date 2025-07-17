@@ -3,8 +3,6 @@ title: Observability Plugins
 template: "landing_page"
 ---
 
-# Observability plugins
-
 The _observability plugins directory_ helps you discover Buildkite plugins for observability.
 
 <a class="Frameheader" href='https://buildkite.com/resources/plugins/category/observability' target='_blank'>

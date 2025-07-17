@@ -3,8 +3,6 @@ title: "Security & Compliance Plugins"
 template: "landing_page"
 ---
 
-# Security & compliance plugins
-
 The _security & compliance plugins directory_ helps you discover Buildkite plugins focused on security, governance, or compliance.
 
 <a class="Frameheader" href='https://buildkite.com/resources/plugins/category/security-compliance' target='_blank'>

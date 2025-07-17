@@ -3,8 +3,6 @@ title: Notification Plugins
 template: "landing_page"
 ---
 
-# Notification plugins
-
 The _notification plugins directory_ helps you discover Buildkite plugins that deliver notifications.
 
 <a class="Frameheader" href='https://buildkite.com/resources/plugins/category/notify' target='_blank'>
@@ -16,4 +14,3 @@ The _notification plugins directory_ helps you discover Buildkite plugins that d
   allow="fullscreen" crossorigin="anonymous" width="100%" height="800px"
   style="border-radius:0 0 8px 8px;box-sizing: border-box;"
 />
-

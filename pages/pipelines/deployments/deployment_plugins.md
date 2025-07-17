@@ -3,8 +3,6 @@ title: Deployment Plugins
 template: "landing_page"
 ---
 
-# Deployment plugins
-
 The _deployment plugins directory_ helps you discover Buildkite plugins for deployment.
 
 <a class="Frameheader" href='https://buildkite.com/resources/plugins/category/deployment' target='_blank'>

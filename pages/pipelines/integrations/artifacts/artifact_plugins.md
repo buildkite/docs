@@ -3,8 +3,6 @@ title: Artifact Plugins
 template: "landing_page"
 ---
 
-# Artifact plugins
-
 The _artifact plugins directory_ helps you discover Buildkite plugins for managing or uploading build artifacts.
 
 <a class="Frameheader" href='https://buildkite.com/resources/plugins/category/artifacts' target='_blank'>
