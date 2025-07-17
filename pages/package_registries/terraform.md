@@ -27,7 +27,7 @@ The following `curl` command (which you'll need to modify as required before sub
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
   -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
-  -F "file=@path/to/terraform/module.tgz"
+  -F "file=@path/to/terraform/module-{major.minor.patch}.tgz"
 ```
 
 where:
