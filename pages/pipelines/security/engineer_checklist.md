@@ -4,6 +4,16 @@ This guide provides security engineers with a comprehensive map of failure scena
 
 Use this as your reference for building a defensible, auditable, and resilient CI/CD foundation with Buildkite.
 
+## Authentication and session security in the Buildkite UI, CLI, and API
+
+**Risk:** Unauthorized access through compromised credentials or session hijacking can allow attackers to impersonate legitimate users across Buildkite's UI, CLI, and API. Over-privileged API keys compound this risk by providing broader access than necessary for specific use cases.
+
+**Remediations:**
+
+- Enforce [Single Sign-On (SSO)](/docs/platform/sso) and [Two-Factor Authentication (2FA/MFA)](/docs/platform/team-management/enforce-2fa) for all web UI access to prevent credential-based attacks.
+- Implement time-scoped API tokens with [automated rotation on a regular schedule](https://buildkite.com/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security) to limit exposure windows and reduce the impact of compromised tokens.
+- Apply the principle of least privilege when scoping API keys, granting only the minimum permissions required for each specific function or integration.
+
 ## Source code and version control integrity
 
 **Risk:** Compromised credentials, unsigned commits, or unauthorized branches can provide attackers with direct access to your codebase and build infrastructure.
@@ -22,29 +32,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 **Remediations:**
 
 - Implement automated dependency and malware scanning on every merge using established tools such as [Sonatype](https://www.sonatype.com/) or [Trivy](https://trivy.dev/latest/). Leverage Buildkite's official security plugins to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment.
-- Deploy [pipeline templates](docs/pipelines/governance/templates) to standardize security testing across all pipelines, ensuring vulnerability scans are executed and results are properly reported as part of every build process in Buildkite Pipelines.
-
-## Network and transport security
-
-**Risk:** Traffic between agents, the Buildkite API, and artifact storage can be intercepted or tampered with, potentially exposing sensitive data or allowing malicious code injection.
-
-**Remediations:**
-
-Note that Buildkite enforces TLS encryption by default for all platform communications, ensuring traffic to and from Buildkite services is encrypted in transit. These are the furthe steps you can take to tighten the network security:
-
-- For [self-hosted agents](https://buildkite.com/docs/pipelines/architecture#self-hosted-hybrid-architecture), Implement zero-trust network architecture with least-privilege outbound egress rules to minimize attack surface and prevent unauthorized external communications.
-- Configure network monitoring and logging to detect anomalous traffic patterns or connection attempts from build agents.
-- Consider taking your infrastructure fully into the cloud with the help of [Buildkite hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) or by running your agents in [AWS](/docs/agent/v3/aws) on in [Google Cloud](https://buildkite.com/docs/agent/v3/gcloud).
-
-## Authentication and session security in the Buildkite UI, CLI, and API
-
-**Risk:** Unauthorized access through compromised credentials or session hijacking can allow attackers to impersonate legitimate users across Buildkite's UI, CLI, and API. Over-privileged API keys compound this risk by providing broader access than necessary for specific use cases.
-
-**Remediations:**
-
-- Enforce [Single Sign-On (SSO)](/docs/platform/sso) and [Two-Factor Authentication (2FA/MFA)](/docs/platform/team-management/enforce-2fa) for all web UI access to prevent credential-based attacks.
-- Implement time-scoped API tokens with [automated rotation on a regular schedule](https://buildkite.com/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security) to limit exposure windows and reduce the impact of compromised tokens.
-- Apply the principle of least privilege when scoping API keys, granting only the minimum permissions required for each specific function or integration.
+- Deploy [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all pipelines, ensuring vulnerability scans are executed and results are properly reported as part of every build process in Buildkite Pipelines.
 
 ## Secrets management
 
@@ -60,20 +48,17 @@ Note that Buildkite enforces TLS encryption by default for all platform communic
 
 ## Buildkite Agent compromise
 
-**Risk**
+**Risk:** Compromised Buildkite Agents can enable attackers to perform privilege escalation, lateral movement within your infrastructure, access sensitive data, or execute malicious code with the permissions granted to the agent's host system.
 
-- Privilege escalation or lateral movement from the host running jobs.
+**Remediations:**
 
-**Remediations**
-
-- **Clusters**: isolate high-trust workloads into their own agent pools.
-- Choose *hosted agents* (Buildkite-managed) vs. *unhosted* (self-managed) based on data-sensitivity; ensure the one **you** control meets hardening baseline.
-- Mitigation: run builds in ephemeral, isolated VMs/containers with the minimal OS, no inbound SSH, and network egress controls.
-    - max [job time limits](/docs/pipelines/configure/build-timeouts#command-timeouts) - 
-- OIDC-based auth for agents ⇄ cloud IAM. TODO links
-- Ephemeral VMs/containers, no inbound SSH, strict egress. TODO links, explanations
-- Expiry on agent tokens, signed pipelines. TODO link 1 & 2
-
+- Implement workload isolation by segregating high-trust and sensitive builds into dedicated [agent pools within Clusters](/docs/pipelines/clusters), ensuring that critical workloads cannot be affected by compromise of less secure environments.
+- Deploy ephemeral build environments using isolated virtual machines or containers with minimal operating systems, disabled inbound SSH access, and strict network egress controls to limit the blast radius of potential compromises.
+- Consider migrating to Buildkite-managed [hosted agents](/docs/pipelines/hosted-agents) for particularly sensitive workloads, allowing Buildkite to handle infrastructure security rather than managing [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture) in your own environment.
+- Implement [pipeline signing](/docs/agent/v3/signed-pipelines) and verification mechanisms to ensure only authorized pipeline configurations can be executed by agents, preventing injection of malicious build steps.
+- Configure [automatic expiration date](https://buildkite.com/docs/agent/v3/securing#set-the-agent-token-expiration-date) on agent registration tokens to limit the window of opportunity for compromised tokens and ensure regular credential rotation.
+- Set appropriate [job time limits](/docs/pipelines/configure/build-timeouts#command-timeouts) to prevent runaway processes and limit the duration that malicious code can execute on compromised agents.
+- Utilize [OIDC-based authentication for AWS](/docs/pipelines/security/oidc/aws) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags and strong unique claims to minimize credential exposure.
 
 ## API Access Token compromise
 
@@ -85,6 +70,18 @@ Note that Buildkite enforces TLS encryption by default for all platform communic
 - Establish token rotation policies with defined expiration periods for all API tokens and agent registration tokens. Automate rotation processes where possible to reduce the risk of long-lived credential exposure.
 - Restrict token usage by binding them to specific IP addresses, networks, or build agents when feasible. Use network-level controls to limit where tokens can be used within your infrastructure.
 - Monitor token usage patterns through audit logs and implement alerting for unusual access patterns, including usage from unexpected locations, excessive API calls, or access to unauthorized resources.
+
+## Network and transport security
+
+**Risk:** Traffic between agents, the Buildkite API, and artifact storage can be intercepted or tampered with, potentially exposing sensitive data or allowing malicious code injection.
+
+**Remediations:**
+
+While Buildkite enforces TLS encryption by default for all platform communications, ensuring traffic to and from Buildkite services is encrypted in transit, you can take these additional steps to further tighten network security:
+
+- For [self-hosted agents](https://buildkite.com/docs/pipelines/architecture#self-hosted-hybrid-architecture), Implement zero-trust network architecture with least-privilege outbound egress rules to minimize attack surface and prevent unauthorized external communications.
+- Configure network monitoring and logging to detect anomalous traffic patterns or connection attempts from build agents.
+- Consider taking your infrastructure fully into the cloud with the help of [Buildkite hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) or by running your agents in [AWS](/docs/agent/v3/aws) or in [Google Cloud](https://buildkite.com/docs/agent/v3/gcloud).
 
 ## Artifact storage and integrity
 
@@ -131,4 +128,4 @@ Note that Buildkite enforces TLS encryption by default for all platform communic
 - Buildkite's security team can [audit access logs](/docs/platform/audit-log) to identify which users and IP addresses accessed builds containing leaked information. When necessary, logs can be rehydrated for comprehensive forensic analysis to determine the full scope of exposure.
 
 > Didn't find coverage of a security-related question here? 
-> Feel free to raise it on the [Buildkite Community Forum](https://forum.buildkite.community/) or reach out to the [Buildkite's Support Team]((mailto:support@buildkite.com)).
+> Feel free to raise it on the [Buildkite Community Forum](https://forum.buildkite.community/) or reach out to the [Buildkite's Support Team](mailto:support@buildkite.com).
