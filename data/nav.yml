@@ -460,7 +460,7 @@
         - name: "Deploying with Heroku"
           path: "pipelines/deployments/with-heroku"
         - name: "Deployment visibility with Backstage"
-          path: "pipelines/deployments/deployment_visibility_with_backstage"
+          path: "pipelines/deployments/deployment-visibility-with-backstage"
     - name: "Insights"
       children:
         - name: "Waterfall view"
