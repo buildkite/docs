@@ -615,8 +615,16 @@
       children:
         - name: "Manage registries"
           path: "package-registries/manage-registries"
-        - name: "Private storage"
-          path: "package-registries/private-storage"
+        - name: "Private Storage Link"
+          start_expanded: true
+          children:
+            - name: "Overview"
+              path: "package-registries/private-storage-link"
+            - name: "Amazon S3"
+              path: "package-registries/private-storage-link/s3"
+            - name: "Google Cloud Storage"
+              path: "package-registries/private-storage-link/gcs"
+              pill: "preview"
     - name: "Migration"
       children:
         - name: "Overview"
