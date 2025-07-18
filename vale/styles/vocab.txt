@@ -73,6 +73,8 @@ cpu
 cron
 crontab
 Crontab
+CVE
+CVEs
 Datadog
 Datadog's
 debuild
@@ -259,6 +261,7 @@ shellscripting
 Shipit
 signaltometrics
 snake_case
+Snyk
 Sonatype
 Sonoma
 Splitter's
@@ -298,6 +301,7 @@ unblocker
 unbuildable
 unclustered
 unencrypted
+unpatched
 unset
 unsets
 unsetting
