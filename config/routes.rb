@@ -104,6 +104,7 @@ Rails.application.routes.draw do
   get "/docs/integrations/gitlab",                                         to: redirect("/docs/pipelines/source-control/gitlab")
   get "/docs/pipelines/integrations/other/amazon-eventbridge",             to: redirect("/docs/pipelines/integrations/observability/amazon-eventbridge")
   get "/docs/pipelines/integrations/other/cc-menu",                        to: redirect("/docs/pipelines/integrations/notifications/cc-menu")
+  get "/docs/pipelines/integrations/other/artifactory",                    to: redirect("/docs/pipelines/integrations/artifacts-and-packages/artifactory")
   get "/docs/pipelines/integrations/other/pagerduty",                      to: redirect("/docs/pipelines/integrations/notifications/pagerduty")
   get "/docs/pipelines/integrations/other/slack",                          to: redirect("/docs/pipelines/integrations/notifications/slack")
   get "/docs/pipelines/integrations/other/slack-workspace",                to: redirect("/docs/pipelines/integrations/notifications/slack-workspace")

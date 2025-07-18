@@ -520,7 +520,7 @@
         - name: "Artifacts and packages"
           children:
             - name: "Artifactory"
-              path: "pipelines/integrations/other/artifactory"
+              path: "pipelines/integrations/artifacts-and-packages/artifactory"
             - name: "Artifact plugins"
               path: "pipelines/integrations/artifacts-and-packages/artifact-plugins"
             - name: "Package plugins"
