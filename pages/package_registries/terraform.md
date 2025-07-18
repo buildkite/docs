@@ -18,7 +18,7 @@ This command provides:
 
 ## Publish a module
 
-You can use two approaches to publish a module to your Terraform source registry—[`curl`](#publish-a-module-using-curl) or the [Buildkite CLI](#publish-a-module-using-the-buildkite-cli). Please note that the [SemVer-style](https://semver.org/) `major.minor.patch` must be included in the filename of the `.tgz` package and be unique, or Package Registries will return an error. Also the format must be in accordance with [Terraform developer documentation](https://developer.hashicorp.com/terraform/registry/modules/publish#requirements).
+You can use two approaches to publish a module to your Terraform source registry—[`curl`](#publish-a-module-using-curl) or the [Buildkite CLI](#publish-a-module-using-the-buildkite-cli). Please note that the [SemVer-style](https://semver.org/) `major.minor.patch` must be included in the filename of the `.tgz` package and be unique, or Package Registries will return an error. Also the format of the filename must be in accordance with [Terraform developer documentation](https://developer.hashicorp.com/terraform/registry/modules/publish#requirements).
 
 
 ### Using curl
