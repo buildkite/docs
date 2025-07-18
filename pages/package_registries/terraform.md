@@ -53,7 +53,7 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 The following [Buildkite CLI](/docs/platform/cli) command can also be used to publish a module to your Terraform source registry from your local environment, once it has been [installed](/docs/platform/cli/installation) and [configured with an appropriate token](#token-usage-with-the-buildkite-cli):
 
 ```bash
-bk package push registry-slug path/to/terraform/module.tgz
+bk package push registry-slug path/to/terraform/module-{major.minor.patch}.tgz
 ```
 
 where:
