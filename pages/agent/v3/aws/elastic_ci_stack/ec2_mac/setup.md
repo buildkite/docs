@@ -82,7 +82,7 @@ You do not need to install the `buildkite-agent` in your template AMI, the
 `UserData` script.
 
 > 📘 UserData script considerations
-> The default UserData script installs the Buildkite agent using Homebrew. Since Homebrew is installed under the `ec2-user` account (not root), the UserData script must run Homebrew commands using `su - ec2-user -c`. If you're customizing the UserData script, ensure you maintain this pattern to avoid "command not found: brew" errors.
+> The default UserData script installs the Buildkite Agent using Homebrew. Since Homebrew is installed under the `ec2-user` account (not root), the UserData script must run Homebrew commands using `su - ec2-user -c`. If you're customizing the UserData script, ensure you maintain this pattern to avoid "command not found: brew" errors.
 
 ## Step 3: Associate your AMI with a self-managed license in AWS License Manager
 
