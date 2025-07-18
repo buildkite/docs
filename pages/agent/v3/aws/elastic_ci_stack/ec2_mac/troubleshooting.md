@@ -64,9 +64,9 @@ This is related to GUI service startup and the agent should still start successf
 
 ## Path issues when building custom AMIs with Packer
 
-When using Packer to build custom macOS AMIs, you may encounter PATH related issues where commands like `brew` cannot be found.
+When using Packer to build custom macOS AMIs, you may encounter issues where commands like `brew` cannot be found, which are usually the result of these executables not being configured in your `PATH` environment variable.
 
-Add the Homebrew paths to your Packer provisioner scripts:
+Add the Homebrew executable paths to your Packer provisioner scripts:
 
 ```bash
 PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin
