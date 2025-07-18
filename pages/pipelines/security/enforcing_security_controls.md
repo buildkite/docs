@@ -1,6 +1,6 @@
-# Security engineer checklist
+# Enforcing security controls
 
-This guide provides security engineers with a comprehensive map of failure scenarios and proven mitigation strategies across key areas of the Buildkite ecosystem including secret management, supply chain security, artifact storage reliability, and platform hardening.
+This guide provides security engineers with a comprehensive checklist of failure scenarios and proven mitigation strategies across key areas of the Buildkite ecosystem including secret management, supply chain security, artifact storage reliability, and platform hardening.
 
 Use this as your reference for building a defensible, auditable, and resilient CI/CD foundation with Buildkite.
 
@@ -13,6 +13,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Enforce [Single Sign-On (SSO)](/docs/platform/sso) and [Two-Factor Authentication (2FA/MFA)](/docs/platform/team-management/enforce-2fa) for all web UI access to prevent credential-based attacks.
 - Implement time-scoped API tokens with [automated rotation on a regular schedule](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security) to limit exposure windows and reduce the impact of compromised tokens.
 - Apply the principle of least privilege when scoping API keys, granting only the minimum permissions required for each specific function or integration.
+- Implement IP-based access controls for API tokens. Link tokens to designated IP addresses, network ranges, or user agents where practical.
 
 ## Source code and version control integrity
 
@@ -45,6 +46,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Establish immediate incident response procedures for secret compromise, including automated revocation and rotation processes. Cluster maintainers can [revoke tokens](/docs/agent/v3/tokens#revoke-a-token) using the REST API for rapid containment.
 - Monitor all secret access activities through [Audit Log](/docs/platform/audit-log) tracking to maintain visibility into when and how secrets are accessed within your CI/CD environment.
 - Deploy additional scanning tools such as [GitHub Secret Scanning](https://docs.github.com/en/code-security/secret-scanning/introduction/about-secret-scanning) to detect accidentally committed secrets in source code repositories before they enter the build process.
+- Consider redacting secrets from job logs and using [environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) for agent-level secrets rather than injecting them at build runtime where applicable.
 
 ## Buildkite Agent compromise
 
@@ -66,7 +68,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 **Remediations:**
 
-- Implement the principle of least privilege by creating tokens with minimal [required scopes](/docs/apis/managing-api-tokens#token-scopes) and permissions for each specific use case. Regularly audit token permissions to ensure they align with current operational needs.
+- Follow the principle of least privilege by creating tokens with only the [required scopes](/docs/apis/managing-api-tokens#token-scopes) and permissions needed for each use case. Regularly review token permissions to ensure they match current operational needs. For GraphQL, use [Portals](/docs/apis/portals) to limit query permissions by [Teams](https://buildkite.com/docs/platform/team-management/permissions).
 - Establish [token rotation](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security) policies with defined expiration periods for all API tokens and agent registration tokens. Automate rotation processes where possible to reduce the risk of long-lived credential exposure.
 - Restrict token usage by binding them to specific IP addresses, networks, or agents when feasible. Use network-level controls to limit where tokens can be used within your infrastructure.
 - Monitor token usage patterns through [Audit Log](/docs/platform/audit-log) and implement alerting for unusual access patterns, including usage from unexpected locations, excessive API calls, or access to unauthorized resources.
@@ -89,12 +91,13 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 
 **Remediations:**
 
-- Store artifacts in private, organization-controlled storage with auditable bucket policies rather than relying solely on Buildkite-hosted storage. Supported private storage options include:
+- Enforce encryption at rest and in transit when storing and transferring build artifacts with the help of cloud services with auditable storage policies. Supported private cloud storage options include:
   * [AWS S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket)
   * [Google Cloud Storage buckets](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket)
   * [Azure Blob containers](/docs/agent/v3/cli-artifact#using-your-private-azure-blob-container)
   * [JFrog Artifactory instances](/docs/agent/v3/cli-artifact#using-your-artifactory-instance)
 - Implement artifact signing using [SLSA/in-toto provenance](/docs/package-registries/security/slsa-provenance) and establish verification processes before deployment to ensure artifact authenticity and detect tampering.
+- Enforce KMS signing of the stored artifacts.
 
 ## Consistent pipeline-as-code approach
 
@@ -106,6 +109,8 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 - Mandate comprehensive security scanning processes including container vulnerability scanning, static code analysis, and Software Bill of Materials (SBOM) generation for all builds. Consider implementing community-maintained [SBOM generation tools](https://github.com/cybeats/sbomgen) to track dependencies and supply chain components.
 - Restrict plugin usage to [private](/docs/pipelines/integrations/plugins/using#plugin-sources) or [version-pinned](/docs/pipelines/integrations/plugins/using#pinning-plugin-versions) plugins to prevent supply chain attacks and ensure reproducible builds with known, vetted components.
 - Utilize only [verified Docker images](https://docs.docker.com/docker-hub/repos/manage/trusted-content/dvp-program/) from trusted sources to reduce the risk of malicious or vulnerable base images entering your build environment.
+- Scope pipelines to specific [agent queues](/docs/agent/v3/queues#setting-an-agents-queue) to maintain separation between environments and prevent unauthorized access across build processes.
+- Use permission models to [target appropriate agents](/docs/pipelines/configure/defining-steps#targeting-specific-agents) for builds, ensuring sensitive workloads run only on designated, secured infrastructure.
 
 ## Monitoring, anomaly detection, logging
 
@@ -117,6 +122,7 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 - Integrate Buildkite logs with your Security Information and Event Management (SIEM) system to centralize security monitoring and enable correlation with other security events.
 - Configure automated alerts for suspicious activities including logins from unusual IP addresses, anomalous secret access patterns, and unexpected spikes in build frequency that may indicate compromise or abuse.
 - Enable detailed logging for all job executions, artifact access, and secret usage to ensure complete audit trails for security investigations and compliance requirements.
+- Monitor audit logs for anomalies or spikes in sensitive activities.
 
 ## Incident response and recovery
 

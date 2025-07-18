@@ -423,8 +423,8 @@
       children:
         - name: "Overview"
           path: "pipelines/security"
-        - name: "Security engineer checklist"
-          path: "pipelines/security/engineer-checklist"
+        - name: "Enforcing security controls"
+          path: "pipelines/security/enforcing-security-controls"
         - name: "Secrets"
           children:
             - name: "Overview"
