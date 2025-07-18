@@ -42,7 +42,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 **Remediations:**
 
 - Implement external secrets management by integrating with dedicated [secrets storage services](/docs/pipelines/security/secrets/managing#using-a-secrets-storage-service) such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [HashiCorp Vault](https://www.vaultproject.io/). Configure secrets to be injected at runtime rather than stored as static environment variables.
-- Leverage [Buildkite scoped secrets](/docs/pipelines/security/secrets/buildkite-secrets) to limit secret access at both pipeline and step levels, ensuring secrets are only available where explicitly required. Note that Buildkite [automatically redacts secrets](/docs/pipelines/security/secrets/buildkite-secrets#redaction) in logs across the platform.
+- Leverage [Buildkite scoped secrets](/docs/pipelines/security/secrets/buildkite-secrets) to ensure that secrets are only available where explicitly required. Note that Buildkite [automatically redacts secrets](/docs/pipelines/security/secrets/buildkite-secrets#redaction) in logs across the platform.
 - Establish immediate incident response procedures for secret compromise, including automated revocation and rotation processes. Cluster maintainers can [revoke tokens](/docs/agent/v3/tokens#revoke-a-token) using the REST API for rapid containment.
 - Monitor all secret access activities through [Audit Log](/docs/platform/audit-log) tracking to maintain visibility into when and how secrets are accessed within your CI/CD environment.
 - Deploy additional scanning tools such as [GitHub Secret Scanning](https://docs.github.com/en/code-security/secret-scanning/introduction/about-secret-scanning) to detect accidentally committed secrets in source code repositories before they enter the build process.
@@ -83,8 +83,8 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 
 - For [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), implement zero-trust network architecture with least-privilege outbound egress rules to minimize attack surface and prevent unauthorized external communications.
 - Configure network monitoring and logging to detect anomalous traffic patterns or connection attempts from build agents.
-- Consider taking your infrastructure fully into the cloud with the help of [Buildkite hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) or by running your agents in [AWS](/docs/agent/v3/aws) or in [Google Cloud](/docs/agent/v3/gcloud).
-
+- Consider taking your infrastructure fully into the cloud with the help of [Buildkite hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) or by running your agents in [AWS](/docs/agent/v3/aws) or in [Google Cloud](/docs/agent/v3/gcloud). Additionaly, you can further harden the perimeter by using [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html) or [VPC Endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html) for the AWS services, or [Private Google Access](https://cloud.google.com/vpc/docs/private-google-access) for Google Cloud.
+ 
 ## Artifact storage and integrity
 
 **Risk:** Build artifacts can be tampered with or exfiltrated during storage and transit, potentially compromising the integrity of deployments or exposing sensitive build outputs.
@@ -96,7 +96,7 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
   * [Google Cloud Storage buckets](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket)
   * [Azure Blob containers](/docs/agent/v3/cli-artifact#using-your-private-azure-blob-container)
   * [JFrog Artifactory instances](/docs/agent/v3/cli-artifact#using-your-artifactory-instance)
-- Implement artifact signing using [SLSA/in-toto provenance](/docs/package-registries/security/slsa-provenance) and establish verification processes before deployment to ensure artifact authenticity and detect tampering.
+- Implement artifact signing using [SLSA/in-toto provenance](/docs/package-registries/security/slsa-provenance) or [cosign](https://github.com/sigstore/cosign) and establish verification processes before deployment to ensure artifact authenticity and detect tampering.
 - Enforce KMS signing of the stored artifacts.
 
 ## Consistent pipeline-as-code approach
