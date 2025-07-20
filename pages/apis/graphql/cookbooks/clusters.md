@@ -91,6 +91,24 @@ mutation createToken {
 }
 ```
 
+## Revoke a cluster agent token
+
+First, [get the cluster agent token ID](#list-agent-tokens).
+Second, [get the Organization ID](/docs/apis/graphql/cookbooks/organizations#get-an-organizations-id).
+Then, use the IDs to revoke the cluster agent token:
+
+```graphql
+mutation revokeClusterAgentToken {
+  clusterAgentTokenRevoke(input: { 
+    id: "cluster-agent-token-id" 
+    organizationId: "organization-id" 
+    }) {
+    clientMutationId
+    deletedClusterAgentTokenId
+  }
+}
+```
+
 ## List jobs in a particular cluster queue
 
 To get jobs within a cluster queue, use the `clusterQueue` argument of the `jobs` query, passing in the ID of the cluster queue to filter jobs from:
@@ -220,20 +238,3 @@ mutation AssociatePipelineWithCluster {
 }
 ```
 
-## Revoke a cluster agent token
-
-First, [get the Cluster Agent Token ID](#list-agent-tokens).
-Second, [get the Organization ID](/docs/apis/graphql/cookbooks/organizations#get-an-organizations-id).
-Then, use the IDs to revoke the cluster agent token:
-
-```graphql
-mutation revokeClusterAgentToken {
-  clusterAgentTokenRevoke(input: { 
-    id: "cluster-agent-token-id" 
-    organizationId: "organization-id" 
-    }) {
-    clientMutationId
-    deletedClusterAgentTokenId
-  }
-}
-```
