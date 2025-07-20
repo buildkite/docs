@@ -83,6 +83,7 @@ exceptions:
   - EC2
   - Elastic
   - Elastic CI Stack
+  - Entity Page
   - Everyone
   - ExUnit
   - FAQs

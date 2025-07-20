@@ -1,31 +1,27 @@
----
-toc: false
----
-
 # Deployment visibility with Backstage
 
-[Backstage](https://backstage.io/) provides a unified developer portal that can give you comprehensive visibility into your Buildkite deployments. By integrating Buildkite with Backstage, you can track deployment statuses, monitor deployment pipelines, and manage your entire deployment lifecycle from a single interface.
+[Backstage](https://backstage.io/) is an open source framework for building unified developer portals that provide comprehensive visibility into your infrastructure tools, services, and documentation. You can integrate Buildkite with Backstage using the [Buildkite plugin for Backstage](https://github.com/buildkite/backstage-plugin) to monitor pipeline status and manage builds from a single interface.
 
 ## Overview
 
-The Buildkite Backstage plugin enhances your deployment visibility by:
+The Buildkite plugin for Backstage provides:
 
-- **Centralizing deployment information** - View all your deployment pipelines alongside your service catalog
-- **Providing real-time status updates** - Monitor deployment progress without switching between tools
-- **Enabling deployment history tracking** - Access historical deployment data and trends
-- **Facilitating deployment management** - Trigger and manage deployments directly from Backstage
+- **Centralized pipeline monitoring** - view Buildkite pipeline status alongside your service catalog.
+- **Real-time build tracking** - monitor build progress with automatic status updates.
+- **Build management** - trigger rebuilds directly from Backstage.
+- **Detailed build information** - access build logs, timing, and commit context.
 
 ## Setting up deployment visibility
 
 To use Backstage for deployment visibility with Buildkite, you'll need to:
 
-1. [Install and configure the Buildkite Backstage plugin](/docs/pipelines/integrations/other/backstage)
-2. Annotate your deployment-related components in Backstage
-3. Configure your deployment pipelines for optimal visibility
+1. [Install and configure the Buildkite Backstage plugin](/docs/pipelines/integrations/other/backstage).
+1. Annotate your deployment components in the Backstage catalog.
+1. Configure your deployment pipelines for optimal visibility.
 
 ### Annotating deployment components
 
-For deployment-specific visibility, annotate your services in the Backstage catalog with your deployment pipeline information:
+Add the Buildkite annotation to your component's `catalog-info.yaml` for deployment-specific visibility:
 
 ```yaml
 apiVersion: backstage.io/v1alpha1
@@ -48,8 +44,8 @@ spec:
 To maximize deployment visibility in Backstage:
 
 1. **Use consistent naming conventions** for deployment pipelines (e.g., `service-name-env-deploy`)
-2. **Tag deployment builds** with environment information using build metadata
-3. **Set up deployment-specific badges** to quickly identify deployment status
+1. **Tag deployment builds** with environment information using build metadata
+1. **Set up deployment-specific badges** to quickly identify deployment status
 
 ## Deployment dashboard features
 
@@ -58,6 +54,7 @@ When properly configured, the Backstage integration provides:
 ### Environment overview
 
 View all deployments across different environments:
+
 - Production deployments
 - Staging deployments
 - Development deployments
@@ -65,6 +62,7 @@ View all deployments across different environments:
 ### Deployment metrics
 
 Track key deployment indicators:
+
 - Deployment frequency
 - Lead time for changes
 - Deployment success rate
@@ -73,6 +71,7 @@ Track key deployment indicators:
 ### Build artifact tracking
 
 Monitor deployment artifacts:
+
 - Docker images
 - Build packages
 - Configuration files
@@ -80,24 +79,21 @@ Monitor deployment artifacts:
 
 ## Best practices for deployment visibility
 
-### 1. Structure your pipelines
+The following are some tips for optimizing your workflow in Buildkite Pipelines and Backstage for the best integration results.
 
-Organize your Buildkite pipelines to clearly distinguish between:
-- Build pipelines
-- Test pipelines
-- Deployment pipelines
+### Structure your pipelines
 
-Example pipeline naming:
+Structure your Buildkite pipelines with clear naming conventions:
+
 ```
-my-service-build
-my-service-test
-my-service-deploy-staging
-my-service-deploy-production
+my-service-ci          # Continuous integration
+my-service-deploy-dev  # Development deployment
+my-service-deploy-prod # Production deployment
 ```
 
-### 2. Use deployment-specific metadata
+### Use deployment-specific metadata
 
-Add metadata to your deployment builds:
+Add metadata context to your deployment builds:
 
 ```yaml
 steps:
@@ -109,9 +105,9 @@ steps:
       deployed_by: "$BUILDKITE_BUILD_CREATOR"
 ```
 
-### 3. Implement deployment gates
+### Implement deployment gates
 
-Use Buildkite's block steps to create approval gates visible in Backstage:
+Use Buildkite's [block steps](/docs/pipelines/configure/step-types/block-step) to create approval gates visible in Backstage:
 
 ```yaml
 steps:
@@ -123,7 +119,7 @@ steps:
         required: true
 ```
 
-### 4. Track deployment events
+### Track deployment events
 
 Configure your pipelines to emit deployment events that Backstage can consume:
 
@@ -133,26 +129,6 @@ buildkite-agent annotate "Deployed version ${VERSION} to ${ENVIRONMENT}" \
   --style "success" \
   --context "deployment-${ENVIRONMENT}"
 ```
-
-## Integrating with other tools
-
-Backstage can aggregate deployment information from multiple sources:
-
-### Kubernetes deployments
-
-If deploying to Kubernetes, consider using Backstage's Kubernetes plugin alongside Buildkite for complete visibility:
-
-```yaml
-metadata:
-  annotations:
-    buildkite.com/pipeline-slug: my-org/k8s-deployment-pipeline
-    backstage.io/kubernetes-id: my-service
-    backstage.io/kubernetes-namespace: production
-```
-
-### ArgoCD integration
-
-For GitOps deployments, combine Buildkite build information with ArgoCD deployment status in Backstage.
 
 ## Monitoring and alerting
 
@@ -164,9 +140,12 @@ Use Backstage's deployment visibility to:
 
 ## Troubleshooting deployment visibility
 
+Here are some common issues and the proposed mitigations for integration between Buildkite Pipelines and Backstage using a plugin.
+
 ### Deployments not appearing
 
 If your deployments aren't visible in Backstage:
+
 - Verify the pipeline annotation matches your deployment pipeline
 - Check that the Buildkite API token has sufficient permissions
 - Ensure deployment builds are properly tagged
@@ -174,6 +153,7 @@ If your deployments aren't visible in Backstage:
 ### Incomplete deployment information
 
 To improve deployment data quality:
+
 - Add comprehensive build metadata
 - Use consistent environment naming
 - Include version information in all deployment builds
@@ -181,5 +161,4 @@ To improve deployment data quality:
 ## Further reading
 
 - [Buildkite Backstage integration](/docs/pipelines/integrations/other/backstage)
-- [Buildkite deployments overview](/docs/pipelines/deployments)
 - [Backstage Service Catalog](https://backstage.io/docs/features/software-catalog/)
