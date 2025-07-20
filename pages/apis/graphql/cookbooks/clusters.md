@@ -93,8 +93,8 @@ mutation createToken {
 
 ## Revoke a cluster agent token
 
-First, [get the cluster agent token ID](#list-agent-tokens).
-Second, [get the Organization ID](/docs/apis/graphql/cookbooks/organizations#get-an-organizations-id).
+First, [get the Cluster Agent Token ID](#list-agent-tokens).
+Second, [get the Organization ID](/docs/apis/graphql/cookbooks/organizations#get-organization-id).
 Then, use the IDs to revoke the cluster agent token:
 
 ```graphql
