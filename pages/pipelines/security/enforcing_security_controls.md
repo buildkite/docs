@@ -73,6 +73,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Configure [automatic expiration date](/docs/agent/v3/securing#set-the-agent-token-expiration-date) on agent registration tokens to limit the window of opportunity for compromised tokens and ensure regular credential rotation.
 - Set appropriate [job time limits](/docs/pipelines/configure/build-timeouts#command-timeouts) to prevent runaway processes and limit the duration that malicious code can execute on compromised agents.
 - Utilize [OIDC-based authentication for AWS](/docs/pipelines/security/oidc/aws) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags and strong unique claims to minimize credential exposure.
+- Consider [disabling command evaluation](https://buildkite.com/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation) and enforcing script-only execution instead.
 
 ## API Access Token compromise
 
@@ -80,7 +81,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 **Remediations:**
 
-- Follow the principle of least privilege by creating tokens with only the [required scopes](/docs/apis/managing-api-tokens#token-scopes) and permissions needed for each use case. Regularly review token permissions to ensure they match current operational needs. For GraphQL, use [Portals](/docs/apis/portals) to limit query permissions by [Teams](https://buildkite.com/docs/platform/team-management/permissions).
+- Follow the principle of least privilege by creating tokens with only the [required scopes](/docs/apis/managing-api-tokens#token-scopes) and permissions needed for each use case. Regularly review token permissions to ensure they match current operational needs. For GraphQL, use [Portals](/docs/apis/portals) to scope queries to specific operations.
 - Establish [token rotation](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security) policies with defined expiration periods for all API tokens and agent registration tokens. Automate rotation processes where possible to reduce the risk of long-lived credential exposure.
 - Restrict token usage by binding them to specific IP addresses, networks, or agents when feasible. Use network-level controls to limit where tokens can be used within your infrastructure.
 - Monitor token usage patterns through [Audit Log](/docs/platform/audit-log) and implement alerting for unusual access patterns, including usage from unexpected locations, excessive API calls, or access to unauthorized resources.
