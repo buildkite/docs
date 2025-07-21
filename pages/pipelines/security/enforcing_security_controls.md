@@ -33,9 +33,9 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 **Remediations:**
 
-- Establish a comprehensive [Infrastructure as Code](https://aws.amazon.com/what-is/iac/) governance framework utilizing enterprise-grade tools such as Terraform, implementing mandatory peer review protocols and enforcing exclusive deployment channels to maintain integrity and configuration consistency across all the pipelines in your organization.
+- Establish a proper change-management process with security controls in place to ensure that pipelines can't be created, modified, or deleted without a peer-review process, and include a set of security requirements around scanning dependencies. This is usually accomplished via a comprehensive [Infrastructure as Code (IaC)](https://aws.amazon.com/what-is/iac/) plan that restricts access to Buildkite administrative functions around creating and updating pipelines to a peer-review process, and the Buildkite UI would only function as a read-only interface to pipeline interactivity.
 - Use [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all pipelines, ensuring vulnerability scans are executed and results are properly reported as part of every build process in Buildkite Pipelines.
-- Implement automated dependency and malware scanning on every merge using established tools such as [Aqua Trivy](https://www.aquasec.com/products/trivy/). Leverage Buildkite's official security plugins to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment.
+- Implement automated dependency and malware scanning on every merge using established tools such as [GuardDog](https://github.com/DataDog/guarddog) or [Aqua Trivy](https://www.aquasec.com/products/trivy/). Leverage Buildkite's official security plugins to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment.
 
 
 ## Vulnerability monitoring and mitigation
