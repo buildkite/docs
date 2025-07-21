@@ -18,7 +18,8 @@ This command provides:
 
 ## Publish a module
 
-You can use two approaches to publish a module to your Terraform source registry—[`curl`](#publish-a-module-using-curl) or the [Buildkite CLI](#publish-a-module-using-the-buildkite-cli).
+You can use two approaches to publish a module to your Terraform source registry—[`curl`](#publish-a-module-using-curl) or the [Buildkite CLI](#publish-a-module-using-the-buildkite-cli). Please note that the [SemVer-style](https://semver.org/) `major.minor.patch` must be included in the filename of the `.tgz` package and be unique, or Package Registries will return an error. Also the format of the filename must be in accordance with [Terraform developer documentation](https://developer.hashicorp.com/terraform/registry/modules/publish#requirements).
+
 
 ### Using curl
 
@@ -27,7 +28,7 @@ The following `curl` command (which you'll need to modify as required before sub
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
   -H "Authorization: Bearer $REGISTRY_WRITE_TOKEN" \
-  -F "file=@path/to/terraform/module.tgz"
+  -F "file=@path/to/terraform/terraform-{provider}-{module}-{major.minor.patch}.tgz"
 ```
 
 where:
@@ -40,12 +41,12 @@ where:
 
 <%= render_markdown partial: 'package_registries/path_to_terraform_module' %>
 
-For example, to upload the file `my-terraform-module-1.0.1.tgz` from the current directory to the **My Terraform modules** source registry in the **My organization** Buildkite organization, run the `curl` command:
+For example, to upload the file `terraform-buildkite-pipeline-1.0.0.tgz` from the current directory to the **My Terraform modules** source registry in the **My organization** Buildkite organization, run the `curl` command:
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-terraform-modules/packages \
   -H "Authorization: Bearer $REPLACE_WITH_YOUR_REGISTRY_WRITE_TOKEN" \
-  -F "file=@my-terraform-module-1.0.1.tgz"
+  -F "file=@terraform-buildkite-pipeline-1.0.0.tgz"
 ```
 
 ### Using the Buildkite CLI
@@ -53,7 +54,7 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization
 The following [Buildkite CLI](/docs/platform/cli) command can also be used to publish a module to your Terraform source registry from your local environment, once it has been [installed](/docs/platform/cli/installation) and [configured with an appropriate token](#token-usage-with-the-buildkite-cli):
 
 ```bash
-bk package push registry-slug path/to/terraform/module.tgz
+bk package push registry-slug path/to/terraform/terraform-{provider}-{module}-{major.minor.patch}.tgz
 ```
 
 where:
