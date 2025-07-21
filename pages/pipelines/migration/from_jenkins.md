@@ -1,10 +1,10 @@
 # Migrate from Jenkins
 
-This guide is for people who are familiar with or already use [Jenkins](https://www.jenkins.io) and want to migrate to Buildkite Pipelines.
+This guide is for people who are familiar with or already use [Jenkins](https://www.jenkins.io) and want to migrate to the Buildkite platform.
 
-Buildkite Pipelines is a modern and flexible continuous integration and deployment (CI/CD) platform that provides a powerful and scalable build infrastructure for your applications.
+The Buildkite platform is a modern and flexible continuous integration and deployment (CI/CD) platform that provides a powerful and scalable build infrastructure for your applications.
 
-While Jenkins and Buildkite Pipelines have similar goals as CI/CD platforms, their approach differs. Buildkite Pipelines uses a hybrid model consisting of the following:
+While Jenkins and the Buildkite platform (which offers Buildkite Pipelines) have similar goals as CI/CD platforms, their approach differs. Buildkite Pipelines uses a hybrid model consisting of the following:
 
 - A software-as-a-service (SaaS) platform for visualization and management of CI/CD pipelines.
 - Agents for executing jobs—hosted by you, either on-premises or in the cloud.
