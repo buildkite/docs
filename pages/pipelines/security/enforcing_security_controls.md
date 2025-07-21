@@ -24,6 +24,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Implement the [Buildkite GitHub App integration](/docs/pipelines/source-control/github#connecting-buildkite-and-github) for secure repository connections.
 - Enforce [SCM signed commits](https://buildkite.com/resources/blog/securing-your-software-supply-chain-signed-git-commits-with-oidc-and-sigstore/) and configure [branch protection rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule) with [Buildkite conditionals](/docs/pipelines/configure/conditionals).
 - Map Buildkite users to SCM identities and leverage [team-based permissions](https://buildkite.com/resources/examples/buildkite/agent-hooks-example/) to ensure only authorized team members can trigger builds.
+- Filter out any public pipelines that you have from automaic execution to prevent untrusted unreviewed code from running on your agents.
 - Deploy [programmatic team management](/docs/platform/team-management/permissions#manage-teams-and-permissions-programmatically-managing-teams) and pre-merge hooks to verify commit authors have appropriate permissions before allowing build execution.
 
 ## Dependencies and package management
@@ -32,8 +33,10 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 **Remediations:**
 
-- Implement automated dependency and malware scanning on every merge using established tools such as [Aqua Trivy](https://www.aquasec.com/products/trivy/). Leverage Buildkite's official security plugins to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment.
+- Establish a comprehensive [Infrastructure as Code](https://aws.amazon.com/what-is/iac/) governance framework utilizing enterprise-grade tools such as Terraform, implementing mandatory peer review protocols and enforcing exclusive deployment channels to maintain integrity and configuration consistency across all the pipelines in your organization.
 - Use [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all pipelines, ensuring vulnerability scans are executed and results are properly reported as part of every build process in Buildkite Pipelines.
+- Implement automated dependency and malware scanning on every merge using established tools such as [Aqua Trivy](https://www.aquasec.com/products/trivy/). Leverage Buildkite's official security plugins to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment.
+
 
 ## Vulnerability monitoring and mitigation
 
@@ -55,9 +58,11 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 - Implement external secrets management by integrating with dedicated [secrets storage services](/docs/pipelines/security/secrets/managing#using-a-secrets-storage-service) such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [HashiCorp Vault](https://www.vaultproject.io/). Configure secrets to be injected at runtime rather than stored as static environment variables.
 - Leverage [Buildkite scoped secrets](/docs/pipelines/security/secrets/buildkite-secrets) to ensure that secrets are only available where explicitly required. Note that Buildkite [automatically redacts secrets](/docs/pipelines/security/secrets/buildkite-secrets#redaction) in logs across the platform.
+- Implement secrets management though [exporting secrets with environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks).
+- Establish environment-specific build queue segmentation to restrict pipeline access exclusively to authorized environments, ensuring builds can only access the precise secrets and resources required for their designated operational scope.
 - Establish immediate incident response procedures for secret compromise, including automated revocation and rotation processes. Cluster maintainers can [revoke tokens](/docs/agent/v3/tokens#revoke-a-token) using the REST API for rapid containment.
 - Monitor all secret access activities through [Audit Log](/docs/platform/audit-log) tracking to maintain visibility into when and how secrets are accessed within your CI/CD environment.
-- Deploy additional scanning tools such as [GitHub Secret Scanning](https://docs.github.com/en/code-security/secret-scanning/introduction/about-secret-scanning) to detect accidentally committed secrets in source code repositories before they enter the build process.
+- Deploy additional scanning tools such as [git-secrets](https://github.com/awslabs/git-secrets) to prevent accidental committing of secrets to the source code repositories before they enter the build process.
 - Consider redacting secrets from job logs and using [environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) for agent-level secrets rather than injecting them at build runtime where applicable.
 
 ## Buildkite Agent compromise
@@ -67,10 +72,11 @@ Use this as your reference for building a defensible, auditable, and resilient C
 **Remediations:**
 
 - Implement workload isolation by segregating high-trust and sensitive builds into dedicated [agent pools within Clusters](/docs/pipelines/clusters), ensuring that critical workloads cannot be affected by compromise of less secure environments.
+- Set granular command authorization controls for waht the `buildkite-agent` user is allowed to run, restricting executable operations to predefined security parameters. For instance, you can configure `buildkite-agent secret get` access to only authorized secrets for the designated host environment, preventing unauthorized secret retrieval. This security framework mitigates risks associated with compromised hosts and user accounts, blocking malicious activities such as unauthorized pipeline uploads and privilege escalation attempts.
 - Deploy ephemeral build environments using isolated virtual machines or containers with minimal operating systems, disabled inbound SSH access, and strict network egress controls to limit the blast radius of potential compromises.
 - Consider migrating to Buildkite-managed [hosted agents](/docs/pipelines/hosted-agents) for particularly sensitive workloads, allowing Buildkite to handle infrastructure security rather than managing [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture) in your own environment.
 - Implement [pipeline signing](/docs/agent/v3/signed-pipelines) and verification mechanisms to ensure only authorized pipeline configurations can be executed by agents, preventing injection of malicious build steps.
-- Configure [automatic expiration date](/docs/agent/v3/securing#set-the-agent-token-expiration-date) on agent registration tokens to limit the window of opportunity for compromised tokens and ensure regular credential rotation.
+- Configure automated regular credential rotation. Additionally, you can set [automatic expiration date](/docs/agent/v3/securing#set-the-agent-token-expiration-date) on agent registration tokens to limit the window of opportunity for compromised tokens.
 - Set appropriate [job time limits](/docs/pipelines/configure/build-timeouts#command-timeouts) to prevent runaway processes and limit the duration that malicious code can execute on compromised agents.
 - Utilize [OIDC-based authentication for AWS](/docs/pipelines/security/oidc/aws) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags and strong unique claims to minimize credential exposure.
 - Consider [disabling command evaluation](https://buildkite.com/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation) and enforcing script-only execution instead.
@@ -83,7 +89,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 - Follow the principle of least privilege by creating tokens with only the [required scopes](/docs/apis/managing-api-tokens#token-scopes) and permissions needed for each use case. Regularly review token permissions to ensure they match current operational needs. For GraphQL, use [Portals](/docs/apis/portals) to scope queries to specific operations.
 - Establish [token rotation](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security) policies with defined expiration periods for all API tokens and agent registration tokens. Automate rotation processes where possible to reduce the risk of long-lived credential exposure.
-- Restrict token usage by binding them to specific IP addresses, networks, or agents when feasible. Use network-level controls to limit where tokens can be used within your infrastructure.
+- Implement network-based token access controls by binding authentication tokens to specific IP addresses and network segments. Deploy Network Address Translation (NAT) in conjunction with Internet Gateways to establish a centralized egress architecture, routing all requests through a singular IP endpoint to enhance monitoring capabilities and facilitate rapid compromise detection.
 - Monitor token usage patterns through [Audit Log](/docs/platform/audit-log) and implement alerting for unusual access patterns, including usage from unexpected locations, excessive API calls, or access to unauthorized resources.
 
 ## Network and transport security
@@ -143,7 +149,7 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 **Remediations:**
 
 - Contact Buildkite Support immediately upon discovering any security incident by emailing [support@buildkite.com](mailto:support@buildkite.com) or through your dedicated Premium Support channel. Early notification allows Buildkite to assist with immediate remediation steps and help prevent further exposure of sensitive data. An internal security incident will be opened by Buildkite to coordinate response efforts.
-- Buildkite's incident response team can [audit access logs](/docs/platform/audit-log) to identify which users and IP addresses accessed builds containing leaked information. When necessary, older logs can be rehydrated for comprehensive forensic analysis to determine the full scope of exposure.
+- Buildkite's incident response team can [audit access logs](/docs/platform/audit-log) to identify which users and IP addresses accessed builds containing leaked information. For Enterprise tier organizations, older logs can be rehydrated for comprehensive forensic analysis to determine the full scope of exposure.
 
 > Didn't find coverage of a security-related question here?
 > Feel free to raise it on the [Buildkite Community Forum](https://forum.buildkite.community/) or reach out to the [Buildkite's Support Team](mailto:support@buildkite.com).

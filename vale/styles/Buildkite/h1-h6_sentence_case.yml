@@ -120,6 +120,7 @@ exceptions:
   - ID
   - IdP # TODO: unabbreviate this in headings
   - IDs
+  - Infrastructure as Code
   - iOS
   - IronWorker
   - Installation
