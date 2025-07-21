@@ -62,6 +62,7 @@ CloudWatch
 CMake
 cmake
 cocoapods
+codeql
 codesign
 codesigning
 commit_sha
@@ -271,6 +272,7 @@ substrings
 sudo
 svg
 swiftformat
+swiftlint
 systemd
 templated
 tgz
