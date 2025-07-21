@@ -13,7 +13,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Enforce [Single Sign-On (SSO)](/docs/platform/sso) and [Two-Factor Authentication (2FA/MFA)](/docs/platform/team-management/enforce-2fa) for all web UI access to prevent credential-based attacks.
 - Implement time-scoped API tokens with [automated rotation on a regular schedule](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security) to limit exposure windows and reduce the impact of compromised tokens.
 - Apply the principle of least privilege when scoping API keys, granting only the minimum permissions required for each specific function or integration.
-- Implement IP-based access controls for API tokens. Link tokens to designated IP addresses, network ranges, or user agents where practical.
+- Implement IP-based access controls for API tokens. Link tokens to designated IP addresses or network ranges where practical.
 
 ## Source code and version control integrity
 
@@ -32,7 +32,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 **Remediations:**
 
-- Implement automated dependency and malware scanning on every merge using established tools such as [Sonatype](https://www.sonatype.com/) or [Trivy](https://trivy.dev/latest/). Leverage Buildkite's official security plugins to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment.
+- Implement automated dependency and malware scanning on every merge using established tools such as [Aqua Trivy](https://www.aquasec.com/products/trivy/). Leverage Buildkite's official security plugins to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment.
 - Use [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all pipelines, ensuring vulnerability scans are executed and results are properly reported as part of every build process in Buildkite Pipelines.
 
 ## Vulnerability monitoring and mitigation
@@ -104,13 +104,12 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 
 **Remediations:**
 
-- Enforce encryption at rest and in transit when storing and transferring build artifacts with the help of cloud services with auditable storage policies. Supported private cloud storage options include:
+- Enforce encryption at rest and in transit when storing and transferring build artifacts with the help of cloud services with auditable storage policies. You can use [Buildkite Package Registries](https://buildkite.com/platform/package-registries/); other supported private cloud storage options include:
   * [AWS S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket)
   * [Google Cloud Storage buckets](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket)
   * [Azure Blob containers](/docs/agent/v3/cli-artifact#using-your-private-azure-blob-container)
-  * [JFrog Artifactory instances](/docs/agent/v3/cli-artifact#using-your-artifactory-instance)
 - Implement artifact signing using [SLSA/in-toto provenance](/docs/package-registries/security/slsa-provenance) or [cosign](https://github.com/sigstore/cosign) and establish verification processes before deployment to ensure artifact authenticity and detect tampering.
-- Enforce KMS signing of the stored artifacts.
+- Enforce [KMS signing](/docs/agent/v3/signed-pipelines#aws-kms-managed-key-setup) of the stored artifacts.
 
 ## Consistent pipeline-as-code approach
 

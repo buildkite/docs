@@ -11,6 +11,7 @@ APIs
 apk
 APM
 applesimutils
+Aqua
 architecting
 Argo
 argumentless
