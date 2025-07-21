@@ -1,6 +1,6 @@
 # Organizations
 
-A collection of common tasks with organizations using the GraphQL API.
+A collection of common tasks with Buildkite organizations using the GraphQL API.
 
 You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the **Docs** panel.
 

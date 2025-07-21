@@ -91,17 +91,16 @@ mutation createToken {
 }
 ```
 
-## Revoke a cluster agent token
+## Revoke an agent token
 
-First, [get the Cluster Agent Token ID](#list-agent-tokens).
-Second, [get the Organization ID](/docs/apis/graphql/cookbooks/organizations#get-organization-id).
-Then, use the IDs to revoke the cluster agent token:
+First, get the agent token's ID from your [list of agent tokens](#list-agent-tokens), followed by your [Buildkite organization's ID](/docs/apis/graphql/cookbooks/organizations#get-organization-id).
+Then, use these ID values to revoke the agent token:
 
 ```graphql
 mutation revokeClusterAgentToken {
-  clusterAgentTokenRevoke(input: { 
-    id: "cluster-agent-token-id" 
-    organizationId: "organization-id" 
+  clusterAgentTokenRevoke(input: {
+    id: "agent-token-id"
+    organizationId: "organization-id"
     }) {
     clientMutationId
     deletedClusterAgentTokenId
