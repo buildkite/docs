@@ -63,6 +63,7 @@ CloudWatch
 CMake
 cmake
 cocoapods
+codeql
 codesign
 codesigning
 commit_sha
@@ -132,6 +133,7 @@ Graviton
 gz
 gzipped
 Hashicorp
+Homebrew
 heroku
 Honeycomb
 hostname
@@ -282,6 +284,7 @@ substrings
 sudo
 svg
 swiftformat
+swiftlint
 systemd
 templated
 tgz
@@ -295,6 +298,7 @@ Trivy
 typosquatted
 udp
 unmanaged
+UserData
 unarchive
 unarchived
 unarchiving
