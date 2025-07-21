@@ -129,6 +129,7 @@ Graviton
 gz
 gzipped
 Hashicorp
+Homebrew
 heroku
 Honeycomb
 hostname
@@ -284,6 +285,7 @@ tooltip
 TOTP's
 udp
 unmanaged
+UserData
 unarchive
 unarchived
 unarchiving
