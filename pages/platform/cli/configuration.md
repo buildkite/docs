@@ -40,6 +40,8 @@ To do this:
 
 1. When prompted for `API Token`, specify the value for your configured API access token.
 
+    **Note:** Upon successfully running this command, a new file is created at `$HOME/.config/bk.yaml`, which stores the Buildkite organization and its API access token configuration for your local Buildkite CLI.
+
 ## Configure the Buildkite CLI with multiple organizations
 
 Some users may have access to Buildkite organizations—one for their company, and others for open-source work, personal work, etc.
@@ -60,6 +62,8 @@ To configure the Buildkite CLI tool with another Buildkite organization:
 
 1. When prompted for `API Token`, specify the value for your configured API access token for this organization.
 
+    **Note:** Upon success, a new Buildkite organization and corresponding API access token entry is added to your `$HOME/.config/bk.yaml`. This file stores all currently configured Buildkite organizations and their respective API access tokens for your local Buildkite CLI.
+
 ## Select a configured organization
 
 If your Buildkite CLI tool has been [configured with multiple Buildkite organizations](#configure-the-buildkite-cli-with-multiple-organizations), you can switch from your current/active organization to another. To do this:
@@ -71,3 +75,5 @@ If your Buildkite CLI tool has been [configured with multiple Buildkite organiza
     ```
 
 1. Use the cursor select another configured Buildkite organization and make it the current/active one. All subsequent `bk` commands will operate with the new active organization.
+
+    **Note:** Upon success, your `$HOME/.bk.yaml` file is updated with your current/active Buildkite organization.

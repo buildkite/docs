@@ -16,6 +16,7 @@ The Buildkite CLI can be installed on all major platforms. Learn more about how 
 Work with Buildkite from the command line.
 
 Usage:
+  bk <command> <subcommand> [flags]
   bk [command]
 
 Examples:
@@ -25,6 +26,7 @@ $ bk build view
 Available Commands:
   agent       Manage agents
   api         Interact with the Buildkite API
+  artifacts   Manage pipeline build artifacts
   build       Manage pipeline builds
   cluster     Manage organization clusters
   completion  Generate the autocompletion script for the specified shell
@@ -36,9 +38,12 @@ Available Commands:
   pipeline    Manage pipelines
   use         Select an organization
   user        Invite users to the organization
+  version     Print the version of the CLI being used
 
 Flags:
-  -h, --help   help for bk
+  -h, --help      help for bk
+  -V, --verbose   Enable verbose error output
+  -v, --version   Print the version number
 
 Use "bk [command] --help" for more information about a command.
 </code>
