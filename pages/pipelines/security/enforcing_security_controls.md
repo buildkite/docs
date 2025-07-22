@@ -43,7 +43,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 **Remediations:**
 
-- Implement comprehensive vulnerability scanning during the CI/CD process by integrating security scanning tools directly into your pipelines before deployment occurs. Configure scanning as mandatory pipeline steps that block deployments when critical vulnerabilities are detected.
+- Implement comprehensive vulnerability scanning during the CI/CD process by integrating security scanning tools directly into your pipelines before deployment occurs. Configure scanning as mandatory pipeline steps that block deployments when critical vulnerabilities are detected. Buildkite features such as templates, plugins, dynamic pipelines, and hooks can all be used (independently or in concert) to ensure that required security scans cannot be skipped by editing the pipeline.yml on a branch.
 - Deploy continuous monitoring of production environments through automated SBOM (Software Bill of Materials) generation and analysis. Use pipeline steps to execute vulnerability scanners on your agents, ensuring all deployed components are continuously assessed for newly discovered vulnerabilities.
 - Maintain detailed dependency tracking using [Buildkite Annotations](/docs/agent/v3/cli-annotate) to document exact package versions and dependencies included in each build. This creates an auditable record of all components that enables targeted remediation when vulnerabilities are discovered.
 - Establish automated vulnerability response workflows that trigger immediate notifications and remediation processes when critical CVEs are identified in deployed components. Configure pipeline templates to standardize vulnerability scanning across all projects within your organization.
