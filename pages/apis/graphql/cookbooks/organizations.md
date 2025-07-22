@@ -1,8 +1,20 @@
 # Organizations
 
-A collection of common tasks with organizations using the GraphQL API.
+A collection of common tasks with Buildkite organizations using the GraphQL API.
 
 You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the **Docs** panel.
+
+## Get organization ID
+
+Knowing the ID of a Buildkite organization is a prerequisite for running many other GraphQL queries. Use this query to get the ID of an organization based on the organization's slug.
+
+```graphql
+query getOrganizationID {
+  organization(slug:"organization-slug") {
+    id
+  }
+}
+```
 
 ## List organization members
 
@@ -431,3 +443,4 @@ mutation OrganizationBannerDelete {
   }
 }
 ```
+
