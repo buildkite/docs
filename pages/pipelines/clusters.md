@@ -39,9 +39,7 @@ Learn more about working with clusters in [Manage clusters](/docs/pipelines/clus
 > 📘 Pipeline triggering and artifact access
 > Pipelines associated with one cluster cannot trigger or access artifacts from pipelines associated with another cluster, unless a [rule](/docs/pipelines/rules) has been created to explicitly allow triggering or artifact access between pipelines in different clusters.
 
-#### Buildkite clusters and Kubernetes clusters
-
-A Buildkite cluster is a group of pipelines and agents that can be logically linked to multiple Kubernetes clusters. Conversely, a single Kubernetes cluster can logically power multiple Buildkite clusters.
+Be aware that if you are using the the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) to run your Buildkite Agents in a Kubernetes environment (with Kubernetes clusters), a Kubernetes cluster is unrelated to a Buildkite cluster.
 
 ### How should I structure my queues
 
