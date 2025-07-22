@@ -40,7 +40,25 @@ To do this:
 
 1. When prompted for `API Token`, specify the value for your configured API access token.
 
-    **Note:** Upon successfully running this command, a new file is created at `$HOME/.config/bk.yaml`, which stores the Buildkite organization and its API access token configuration for your local Buildkite CLI.
+    **Note:** Upon successfully running this command for the first time, a new file is created at `$HOME/.config/bk.yaml`, which stores the Buildkite organization and its API access token configuration for your local Buildkite CLI.
+
+### Using command flags
+
+You can also run the `bk configure` command with the command flags, `--org` and `--token`, each of which can take either a literal or environment variable for the Buildkite organization slug and API access token, respectively.
+
+For example:
+
+```bash
+bk configure --org my-buildkite-organization --token $BUILDKITE_API_TOKEN
+```
+
+### Command behavior and configuration files
+
+The `bk configure` command is directory-specific, and running it also creates the file `.bk.yaml` in your current directory. This file records the current Buildkite organization that your `bk` command is configured to work with from this current directory.
+
+Attempting to run this command again in the same directory results in an error (due to the presence of a `.bk.yaml` file). Instead, to configure other Buildkite organizations to use with the Buildkite CLI, refer to [Configure the Buildkite CLI with multiple organizations](#configure-the-buildkite-cli-with-multiple-organizations).
+
+If you run this command in a new directory (without a `.bk.yaml` file), and you specify a different API access token value for a Buildkite organization which has already been configured in `$HOME/.config/bk.yaml`, then this new API access token replaces the existing one configured in this file for that Buildkite organization.
 
 ## Configure the Buildkite CLI with multiple organizations
 
@@ -76,4 +94,4 @@ If your Buildkite CLI tool has been [configured with multiple Buildkite organiza
 
 1. Use the cursor select another configured Buildkite organization and make it the current/active one. All subsequent `bk` commands will operate with the new active organization.
 
-    **Note:** Upon success, your `$HOME/.bk.yaml` file is updated with your current/active Buildkite organization.
+    **Note:** Upon success, your `./.bk.yaml` file is updated with your current/active Buildkite organization.
