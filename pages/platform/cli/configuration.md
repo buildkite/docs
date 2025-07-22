@@ -18,9 +18,9 @@ To create a new API access token:
 
 **Note:** You can also use the following **New API Access Token** page links with pre-set fields to create these API access tokens:
 
-* [New API access token with description](https://buildkite.com/user/api-access-tokens/new?description=Buildkite%20CLI)—pre-sets the **Description** field with `Buildkite CLI`.
+- [New API access token with description](https://buildkite.com/user/api-access-tokens/new?description=Buildkite%20CLI)—pre-sets the **Description** field with `Buildkite CLI`.
 
-* [New API access token with description and API scopes](https://buildkite.com/user/api-access-tokens/new?description=Buildkite%20CLI&scopes%5B%5D=read_agents&scopes%5B%5D=write_agents&scopes%5B%5D=read_clusters&scopes%5B%5D=write_clusters&scopes%5B%5D=read_teams&scopes%5B%5D=write_teams&scopes%5B%5D=read_artifacts&scopes%5B%5D=write_artifacts&scopes%5B%5D=read_builds&scopes%5B%5D=write_builds&scopes%5B%5D=read_build_logs&scopes%5B%5D=read_organizations&scopes%5B%5D=read_pipelines&scopes%5B%5D=write_pipelines&scopes%5B%5D=read_user&scopes%5B%5D=read_suites&scopes%5B%5D=write_suites&scopes%5B%5D=read_registries&scopes%5B%5D=write_registries&scopes%5B%5D=delete_registries&scopes%5B%5D=read_packages&scopes%5B%5D=write_packages&scopes%5B%5D=delete_packages&scopes%5B%5D=graphql)—pre-sets the **Description** field with `Buildkite CLI`, along with all the required **REST API Scopes** and **Enable GraphQL API access** options already selected.
+-  [New API access token with description and API scopes](https://buildkite.com/user/api-access-tokens/new?description=Buildkite%20CLI&scopes%5B%5D=read_agents&scopes%5B%5D=write_agents&scopes%5B%5D=read_clusters&scopes%5B%5D=write_clusters&scopes%5B%5D=read_teams&scopes%5B%5D=write_teams&scopes%5B%5D=read_artifacts&scopes%5B%5D=write_artifacts&scopes%5B%5D=read_builds&scopes%5B%5D=write_builds&scopes%5B%5D=read_build_logs&scopes%5B%5D=read_organizations&scopes%5B%5D=read_pipelines&scopes%5B%5D=write_pipelines&scopes%5B%5D=read_user&scopes%5B%5D=read_suites&scopes%5B%5D=write_suites&scopes%5B%5D=read_registries&scopes%5B%5D=write_registries&scopes%5B%5D=delete_registries&scopes%5B%5D=read_packages&scopes%5B%5D=write_packages&scopes%5B%5D=delete_packages&scopes%5B%5D=graphql)—pre-sets the **Description** field with `Buildkite CLI`, along with all the required **REST API Scopes** and **Enable GraphQL API access** options already selected.
 
 If you use one of these links, you must still specify the Buildkite organization (in **Organization Access**) for this API access token.
 
@@ -54,9 +54,12 @@ bk configure --org my-buildkite-organization --token $BUILDKITE_API_TOKEN
 
 ### Command behavior and configuration files
 
-The `bk configure` command is directory-specific, and running it also creates the file `.bk.yaml` in your current directory. This file records the current Buildkite organization that your `bk` command is configured to work with from this current directory.
+The `bk configure` command is directory-specific, and running this command also creates a file called `.bk.yaml` in your current directory, which records the current Buildkite organization that your `bk` command is configured to work with from this current directory.
 
-Attempting to run this command again in the same directory results in an error (due to the presence of a `.bk.yaml` file). Instead, to configure other Buildkite organizations to use with the Buildkite CLI, refer to [Configure the Buildkite CLI with multiple organizations](#configure-the-buildkite-cli-with-multiple-organizations).
+Attempting to run this command again in the same directory results in an error (due to the presence of a `.bk.yaml` file). Instead:
+
+- You can [configure your Buildkite CLI tool to work with other Buildkite organizations](#configure-the-buildkite-cli-with-multiple-organizations).
+- If your Buildkite CLI is already configured with multiple organizations, you can [choose a different Buildkite organization](#select-a-configured-organization) for it to work with.
 
 If you run this command in a new directory (without a `.bk.yaml` file), and you specify a different API access token value for a Buildkite organization which has already been configured in `$HOME/.config/bk.yaml`, then this new API access token replaces the existing one configured in this file for that Buildkite organization.
 
@@ -94,4 +97,4 @@ If your Buildkite CLI tool has been [configured with multiple Buildkite organiza
 
 1. Use the cursor select another configured Buildkite organization and make it the current/active one. All subsequent `bk` commands will operate with the new active organization.
 
-    **Note:** Upon success, your `./.bk.yaml` file is updated with your current/active Buildkite organization.
+    **Note:** Upon success, the `.bk.yaml` file in your current directory is updated with your current/active Buildkite organization.
