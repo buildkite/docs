@@ -19,20 +19,24 @@ Clusters encapsulate groups of agents and pipelines, enabling the following:
 
 - Clusters are viewable to your entire Buildkite organization, allowing engineers to better understand the agents and queues available for their pipelines.
 - Individual users or teams can maintain their own clusters. Cluster maintainers can manage queues and agent tokens, and add and remove pipelines.
-- Pipelines can be assigned to a cluster, ensuring their builds run only on the agents connected to this cluster. These pipelines can also trigger builds only on other pipelines in the same cluster.
+- Pipelines must be assigned to a cluster, ensuring their builds run only on the agents connected to this cluster. These pipelines can also trigger builds only on other pipelines in the same cluster.
 
 ## Clusters and queues best practices
 
 ### How should I structure my clusters
 
-The most common patterns seen for cluster configurations are based on stage setup, type of work, type of platform/build, or product:
+In a small to medium organization, a single default cluster will often suffice, there is no need to create extra clusters.
 
-- Stage setup: development, test, and production clusters
-- Type of work: open source vs everything else
-- Type of platform/build: Linux, Android, macOS, Windows, Docker, ML, etc
+When your organization grows, the most common patterns seen for cluster configurations are based on team/department ownership:
+
 - Product lines: companies with multiple products often have a cluster configured for each individual product.
+- Type of work: open source, infrastructure, frontend, backend vs everything else.
 
-You can create as many clusters as your require for your setup.
+You can create as many clusters as you require for your setup. However, keep in mind that different clusters generally do not share pipelines.
+
+> 📘 Buildkite Cluster and Kubernetes cluster
+> A Buildkite cluster is a group of pipeline and agents, it can logically to be linked to multiple Kubernetes clusters,
+> vice versa, a single Kubernetes cluster can logically powers multiple Buildkite Clusters.
 
 Learn more about working with clusters in [Manage clusters](/docs/pipelines/clusters/manage-clusters).
 
