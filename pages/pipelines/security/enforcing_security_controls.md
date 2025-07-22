@@ -124,7 +124,6 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 **Remediations:**
 
 - Mandate the exclusive use of the [Buildkite Terraform provider](https://buildkite.com/resources/blog/manage-your-ci-cd-resources-as-code-with-terraform/) for all pipeline configuration management, implementing a mandatory two-reviewer approval process for infrastructure changes. Organizations operating without comprehensive Terraform governance and peer review protocols are fundamentally compromising their security posture. Establish zero-tolerance policies for manual pipeline overrides, with any unauthorized modifications triggering immediate alerts within your Security Information and Event Management (SIEM) system to ensure rapid incident response and maintain configuration integrity.
-
 - Implement change management controls with mandatory peer review for all pipeline creation, modification, and deletion operations, incorporating dependency scanning requirements. Adopt an [Infrastructure as Code (IaC)](https://aws.amazon.com/what-is/iac/) approach that restricts administrative access to pipeline configuration, treating the Buildkite interface as read-only for pipeline execution while maintaining all configuration changes through version-controlled code review processes.
 - Mandate comprehensive security scanning processes including container vulnerability scanning, static code analysis, and Software Bill of Materials (SBOM) generation for all builds. Consider implementing community-maintained [SBOM generation tools](https://github.com/cybeats/sbomgen) to track dependencies and supply chain components.
 - Restrict plugin usage to [private](/docs/pipelines/integrations/plugins/using#plugin-sources) or [version-pinned](/docs/pipelines/integrations/plugins/using#pinning-plugin-versions) plugins to prevent supply chain attacks and ensure reproducible builds with known, vetted components.
@@ -139,7 +138,7 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 
 **Remediations:**
 
-- Export or stream all Buildkite build data to your preferred monitoring and observability platform to maintain comprehensive visibility across your CI/CD pipeline activities.
+- Export or stream all Buildkite build data to your preferred monitoring and observability platform to maintain comprehensive visibility across your CI/CD pipeline activities. Consider using [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry) and [OpenTelemetry tracing capabilities in Buildkite Agent](docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-from-buildkite-agent).
 - Integrate Buildkite logs with your Security Information and Event Management (SIEM) system to centralize security monitoring and enable correlation with other security events.
 - Configure automated alerts for suspicious activities including logins from unusual IP addresses, anomalous secret access patterns, and unexpected spikes in build frequency that may indicate compromise or abuse.
 - Enable detailed logging for all job executions, artifact access, and secret usage to ensure complete audit trails for security investigations and compliance requirements.
@@ -151,7 +150,7 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 
 **Remediations:**
 
-- Contact Buildkite Support immediately upon discovering any security incident by emailing [support@buildkite.com](mailto:support@buildkite.com) or through your dedicated Premium Support channel. Early notification allows Buildkite to assist with immediate remediation steps and help prevent further exposure of sensitive data. An internal security incident will be opened by Buildkite to coordinate response efforts.
+- Contact Buildkite Support immediately upon discovering any security incident by emailing [support@buildkite.com](mailto:support@buildkite.com). [Enterprise Premium Support](https://buildkite.com/pricing/#premium-support) customers can report an incident through their dedicated Premium Support channel. Early notification allows Buildkite to assist with immediate remediation steps and help prevent further exposure of sensitive data. An internal security incident will be opened by Buildkite to coordinate response efforts.
 - Buildkite's incident response team can [audit access logs](/docs/platform/audit-log) to identify which users and IP addresses accessed builds containing leaked information. For Enterprise tier organizations, older logs can be rehydrated for comprehensive forensic analysis to determine the full scope of exposure.
 
 > Didn't find coverage of a security-related question here?

@@ -85,6 +85,7 @@ exceptions:
   - EC2
   - Elastic
   - Elastic CI Stack
+  - Enterprise Premium Support
   - Everyone
   - ExUnit
   - FAQs
