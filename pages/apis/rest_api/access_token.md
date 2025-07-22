@@ -22,8 +22,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   "description": "Development Token",
   "created_at": "2025-07-16 06:07:42 UTC",
   "user": {
-    "email": "anita.m@examplecorp.com",
-    "name": "Anita MacDowell"
+    "email": "algernon.m@buildkite.com",
+    "name": "Algernon Moncrieff"
   }
 }
 ```

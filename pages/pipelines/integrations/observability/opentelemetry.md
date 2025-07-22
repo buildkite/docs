@@ -61,7 +61,7 @@ ENV OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <token>,x-my-header=value"
 ## OpenTelemetry tracing notification service
 
 > 📘 Preview feature
-> OpenTelemetry Tracing Notification Service is currently in Private Preview. Please contact support@buildkite.com or your account team for access.
+> OpenTelemetry Tracing Notification Service is currently in Preview.
 
 To provide a build-wide view of Build performance, enable the OpenTelemetry Tracing
 
