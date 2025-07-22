@@ -25,7 +25,7 @@ Clusters encapsulate groups of agents and pipelines, enabling the following:
 
 ### How should I structure my clusters
 
-In a small to medium organization, a single default cluster will often suffice, there is no need to create extra clusters.
+In a small to medium organization, a single default cluster will often suffice. There is no need to create extra clusters.
 
 When your organization grows, the most common patterns seen for cluster configurations are based on team/department ownership:
 
@@ -34,14 +34,12 @@ When your organization grows, the most common patterns seen for cluster configur
 
 You can create as many clusters as you require for your setup. However, keep in mind that different clusters generally do not share pipelines.
 
-> 📘 Buildkite Cluster and Kubernetes cluster
-> A Buildkite cluster is a group of pipeline and agents, it can logically to be linked to multiple Kubernetes clusters,
-> vice versa, a single Kubernetes cluster can logically powers multiple Buildkite Clusters.
-
 Learn more about working with clusters in [Manage clusters](/docs/pipelines/clusters/manage-clusters).
 
 > 📘 Pipeline triggering and artifact access
 > Pipelines associated with one cluster cannot trigger or access artifacts from pipelines associated with another cluster, unless a [rule](/docs/pipelines/rules) has been created to explicitly allow triggering or artifact access between pipelines in different clusters.
+
+Be aware that if you are using the the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) to run your Buildkite Agents in a Kubernetes environment (with Kubernetes clusters), a Kubernetes cluster is unrelated to a Buildkite cluster.
 
 ### How should I structure my queues
 
