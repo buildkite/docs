@@ -73,6 +73,7 @@ exceptions:
   - CloudWatch Logs
   - CocoaPods
   - completion_watcher
+  - Comliance
   - CORS
   - CSS
   - Datadog
@@ -108,7 +109,9 @@ exceptions:
   - Google Compute Engine
   - Google Kubernetes Engine
   - Google Workspace
+  - Governance
   - GraphQL
+  - GRC
   - Groovy
   - Heroku
   - Homebrew
@@ -171,6 +174,7 @@ exceptions:
   - Red Hat Enterprise Linux
   - Registry Configuration
   - REST
+  - Risk
   - RSpec
   - S3
   - SAML
