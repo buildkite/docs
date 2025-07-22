@@ -63,7 +63,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Monitor all secret access activities through [Audit Log](/docs/platform/audit-log) tracking to maintain visibility into when and how secrets are accessed within your CI/CD environment.
 - Deploy additional scanning tools such as [git-secrets](https://github.com/awslabs/git-secrets) to prevent accidental committing of secrets to the source code repositories before they enter the build process.
 - Consider strict pipeline upload guards, such as [reject-secrets](https://buildkite.com/docs/agent/v3/cli-pipeline#reject-secrets) option to your `buildkite-agent pipeline upload` commands.
-- Consider redacting secrets from job logs and using [environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) for agent-level secrets rather than injecting them at build runtime where applicable.
+- Buildkite automatically redacts many secrets from job logs, and you can also use [environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) for agent-level secrets rather than injecting them at build runtime where applicable.
 
 ## Buildkite Agent compromise
 
