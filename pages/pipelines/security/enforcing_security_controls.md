@@ -62,8 +62,8 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Establish immediate incident response procedures for secret compromise, including automated revocation and rotation processes. Cluster maintainers can [revoke tokens](/docs/agent/v3/tokens#revoke-a-token) using the REST API for rapid containment.
 - Monitor all secret access activities through [Audit Log](/docs/platform/audit-log) tracking to maintain visibility into when and how secrets are accessed within your CI/CD environment.
 - Deploy additional scanning tools such as [git-secrets](https://github.com/awslabs/git-secrets) to prevent accidental committing of secrets to the source code repositories before they enter the build process.
-- Consider strict pipeline upload guards, such as [reject-secrets](https://buildkite.com/docs/agent/v3/cli-pipeline#reject-secrets) option to your `buildkite-agent pipeline upload` commands.
-- Buildkite automatically redacts many secrets from job logs, and you can also use [environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) for agent-level secrets rather than injecting them at build runtime where applicable.
+- Consider strict pipeline upload guards, such as [reject-secrets](/docs/agent/v3/cli-pipeline#reject-secrets) option to your `buildkite-agent pipeline upload` commands.
+- Be aware that Buildkite automatically redacts many secrets from job logs, and you can also use [environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) for agent-level secrets rather than injecting them at build runtime where applicable.
 
 ## Buildkite Agent compromise
 
@@ -79,7 +79,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Configure automated regular credential rotation. Additionally, you can set [automatic expiration date](/docs/agent/v3/securing#set-the-agent-token-expiration-date) on agent registration tokens to limit the window of opportunity for compromised tokens.
 - Set appropriate [job time limits](/docs/pipelines/configure/build-timeouts#command-timeouts) to prevent runaway processes and limit the duration that malicious code can execute on compromised agents.
 - Utilize [OIDC-based authentication for AWS](/docs/pipelines/security/oidc/aws) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags and strong unique claims to minimize credential exposure.
-- Consider [disabling command evaluation](https://buildkite.com/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation) and enforcing script-only execution instead.
+- Consider [disabling command evaluation](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation) and enforcing script-only execution instead.
 
 ## API Access Token compromise
 
