@@ -88,10 +88,9 @@ Optional attributes:
   <tr>
     <td><code>allowed_teams</code></td>
     <td>
-      A list of teams that are permitted to complete this input step, by slug or ID. In order to complete the step, a user must be a member of one of the teams listed here, if the field is specified. Also accepts a single value.<br/>
+      A list of teams that are permitted to complete this step, by slug or ID. If this field is specified, a user must be a member of one of the teams listed in order to submit.<br/>
       The use of <code>allowed_teams</code> replaces the need for write access to the pipeline, meaning a member of an allowed team with read-only access may complete the step.<br/>
-      <em>Example:</em> <code>["deployers", "approvers"]</code><br/>
-      <em>Example:</em> <code>"b50084ea-4ed1-405e-a204-58bde987f52b"</code><br/>
+      <em>Example:</em> <code>["deployers", "approvers", "b50084ea-4ed1-405e-a204-58bde987f52b"]</code><br/>
     </td>
   </tr>
   <tr>
