@@ -68,7 +68,7 @@ To link your private Google Cloud Storage (GCS) bucket to Buildkite Package Regi
     + publish (`PUT`)
     + download (`GET`)
     + generate a signed URL (`signBlob`)
-    + tag with metadata (copy-to-self)
+    + tag with metadata (to allow lifecycle rules to delete)
     + delete (`DELETE`)
 
 1. When all tests pass, click **Create Private Storage Link** to finish.
