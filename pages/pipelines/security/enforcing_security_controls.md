@@ -71,12 +71,6 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 **Remediations:**
 
-use IOC
-update regularly
-ephemeral agents via the k8s stack?
-I made a review comment about the risk categories, which I think will let us sidestep the "compromised agent" wording but also allow us to make the useful recommendations
-
-
 - Implement workload isolation by segregating high-trust and sensitive builds into dedicated [agent pools within Clusters](/docs/pipelines/clusters), ensuring that critical workloads cannot be affected by compromise of less secure environments.
 - Set granular command authorization controls for what the `buildkite-agent` user is allowed to run, restricting executable operations to predefined security parameters. For instance, you can configure `buildkite-agent secret get` access to only authorized secrets for the designated host environment, preventing unauthorized secret retrieval. This security framework mitigates risks associated with compromised hosts and user accounts, blocking malicious activities such as unauthorized pipeline uploads and privilege escalation attempts.
 - Deploy ephemeral build environments using isolated virtual machines or containers with minimal operating systems, disabled inbound SSH access, and strict network egress controls to limit the blast radius of potential compromises.
@@ -134,6 +128,8 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 
 - Mandate the exclusive use of the [Buildkite Terraform provider](https://buildkite.com/resources/blog/manage-your-ci-cd-resources-as-code-with-terraform/) for all pipeline configuration management, implementing a mandatory two-reviewer approval process for infrastructure changes. Organizations operating without Terraform governance and peer review protocols are fundamentally compromising their security posture. Establish zero-tolerance policies for manual pipeline overrides, with any unauthorized modifications triggering immediate alerts within your Security Information and Event Management (SIEM) system to ensure rapid incident response and maintain configuration integrity.
 - Implement change management controls with mandatory peer review for all pipeline creation, modification, and deletion operations, incorporating dependency scanning requirements. Adopt an [Infrastructure as Code (IaC)](https://aws.amazon.com/what-is/iac/) approach that restricts administrative access to pipeline configuration, treating the Buildkite interface as read-only for pipeline execution while maintaining all configuration changes through version-controlled code review processes.
+- Deploy agent-level [lifecycle hooks](/docs/agent/v3/hooks#agent-lifecycle-hooks) as they cannot be bypassed or avoided through modifying a `pipeline.yml` or other developer-level code changes. Since you're controlling the execution environment, agent-level lifecycle hooks enable you to ensure your policies are enforced and can't be circumvented. You can also customize the hooks to scan your `pipeline.yml` files to validate their shape and contents and ensure that those files conform to your Buildkite organization's security requirements.
+- Use ephemeral Buildkite agents (fon instance, the [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s)) or tools like Ansible or Puppet to force configuration changes on the hosts if they are statically generated.
 - Mandate comprehensive security scanning processes including container vulnerability scanning, static code analysis, and Software Bill of Materials (SBOM) generation for all builds. Consider implementing community-maintained [SBOM generation tools](https://github.com/cybeats/sbomgen) to track dependencies and supply chain components.
 - Restrict plugin usage to [private](/docs/pipelines/integrations/plugins/using#plugin-sources) or [version-pinned](/docs/pipelines/integrations/plugins/using#pinning-plugin-versions) plugins to prevent supply chain attacks and ensure reproducible builds with known, vetted components.
 - Utilize only [verified Docker images](https://docs.docker.com/docker-hub/repos/manage/trusted-content/dvp-program/) from trusted sources to reduce the risk of malicious or vulnerable base images entering your build environment.
