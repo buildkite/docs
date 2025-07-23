@@ -32,7 +32,6 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 **Remediations:**
 
-- Establish a proper change-management process with security controls in place to ensure that pipelines can't be created, modified, or deleted without a peer-review process, and include a set of security requirements around scanning dependencies. You can accomplish this by adopting [Infrastructure as Code (IaC)](https://aws.amazon.com/what-is/iac/) approach that restricts access to Buildkite Pipelines' administrative functions around creating and updating pipelines to a peer-review process, such that Buildkite's interface would only function in a read-only (or read&execute) mode to interact with pipelines.
 - Use [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all pipelines, ensuring vulnerability scans are executed and results are properly reported as part of every build of every Buildkite Pipeline.
 - Implement automated dependency and malware scanning on every merge using established tools such as [GuardDog](https://github.com/DataDog/guarddog) or [Aqua Trivy](https://www.aquasec.com/products/trivy/). Leverage Buildkite's official [security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins) to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment. You can also [write your own plugin](/docs/pipelines/integrations/plugins/writing) to integrate with the security scanning tool of your choice.
 
@@ -78,7 +77,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Implement [pipeline signing](/docs/agent/v3/signed-pipelines) and verification mechanisms to ensure only authorized pipeline configurations can be executed by agents, preventing injection of malicious build steps.
 - Configure automated regular credential rotation. Additionally, you can set [automatic expiration date](/docs/agent/v3/securing#set-the-agent-token-expiration-date) on agent registration tokens to limit the window of opportunity for compromised tokens.
 - Set appropriate [job time limits](/docs/pipelines/configure/build-timeouts#command-timeouts) to prevent runaway processes and limit the duration that malicious code can execute on compromised agents.
-- Utilize [OIDC-based authentication for AWS](/docs/pipelines/security/oidc/aws) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags and strong unique claims to minimize credential exposure.
+- Utilize [OIDC-based authentication for AWS](/docs/pipelines/security/oidc/aws) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags to add strong unique claims for ensuring that only the expected agents are able to access your cloud infrastructure.
 - Consider [disabling command evaluation](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation) and enforcing script-only execution instead.
 
 ## API Access Token compromise
