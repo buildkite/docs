@@ -45,6 +45,24 @@ For an example pipeline, see the [Input step example pipeline](https://github.c
 > 🚧 Don't store sensitive data in input steps
 > You shouldn't use input steps to store sensitive information like secrets because the data will be stored in build metadata.
 
+## Permissions
+
+In order to complete an input step, a user must either have write access to the pipeline, or where <code>allowed_teams</code> is specified, must belong to one of the allowed teams. When <code>allowed_teams</code> is specified, a user who has write access to the pipeline but is not a member of any of the allowed teams will not be permitted to complete the step.
+
+<code>allowed_teams</code> serves as a useful way to restrict input permissions to a subset of users without restricting the ability to create builds. Conversely, it is also useful for granting input permissions to users _without_ also granting the ability create builds.
+
+```yml
+- input: "Release"
+  prompt: "Fill out the details for release"
+  allowed_teams:
+    - "approvers"
+  fields:
+    - text: "Release Name"
+      key: "release-name"
+```
+
+{: codeblock-file="pipeline.yml"}
+
 ## Input step attributes
 
 Input and block steps have the same attributes available for use.

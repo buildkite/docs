@@ -47,6 +47,24 @@ For a complete example pipeline, including dynamically generated input fields, s
 
 <a class="Docs__example-repo" href="https://github.com/buildkite/block-step-example"><span class="detail">:pipeline: Block Step Example Pipeline</span> <span class="repo">github.com/buildkite/block-step-example</span></a>
 
+## Permissions
+
+In order to unblock a unblock step, a user must either have write access to the pipeline, or where <code>allowed_teams</code> is specified, must belong to one of the allowed teams. When <code>allowed_teams</code> is specified, a user who has write access to the pipeline but is not a member of any of the allowed teams will not be permitted to unblock the step.
+
+<code>allowed_teams</code> serves as a useful way to restrict unblock permissions to a subset of users without restricting the ability to create builds. Conversely, it is also useful for granting unblock permissions to users _without_ also granting the ability create builds.
+
+```yml
+- block: "Release"
+  prompt: "Fill out the details for release"
+  allowed_teams:
+    - "approvers"
+  fields:
+    - text: "Release Name"
+      key: "release-name"
+```
+
+{: codeblock-file="pipeline.yml"}
+
 ## Block step attributes
 
 Input and block steps have the same attributes available for use.
