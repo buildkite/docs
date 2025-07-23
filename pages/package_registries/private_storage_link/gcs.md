@@ -17,7 +17,7 @@ Key security benefits:
 - No long-lived service-account keys — tokens are minted just-in-time and expire automatically.
 - Least-privilege access — Buildkite needs only these IAM roles:
   + `roles/storage.bucketViewer` on the bucket so Buildkite can read bucket metadata.
-  + `roles/storage.objectAdmin` on the bucket to create, read, update, and delete package objects.
+  + `roles/storage.objectUser` on the bucket to create, read, update, delete, and tag package objects.
   + `roles/iam.serviceAccountTokenCreator` on the service account so it can mint signed URLs.
 You can audit or revoke these at any time.
 - Full audit history — every token exchange and object access is recorded in Cloud Audit Logs.
@@ -62,13 +62,13 @@ To link your private Google Cloud Storage (GCS) bucket to Buildkite Package Regi
 
 1. On the **Authorize Buildkite** page, complete two bindings by following the instructions:
     + **Impersonation** — add the `roles/iam.workloadIdentityUser` role so Buildkite can impersonate the service account.
-    + **Bucket access** — grant the service account `roles/storage.objectAdmin` and `roles/storage.bucketViewer` on your bucket so Buildkite can manage package objects and read bucket metadata.
+    + **Bucket access** — grant the service account `roles/storage.objectUser` and `roles/storage.bucketViewer` on your bucket so Buildkite can manage package objects and read bucket metadata.
 
 1. Click **Run diagnostic**. Buildkite uploads, downloads, and tags a test object to confirm it can:
     + publish (`PUT`)
     + download (`GET`)
     + generate a signed URL (`signBlob`)
-    + tag for deletion (`PATCH`)
+    + tag with metadata (copy-to-self)
     + delete (`DELETE`)
 
 1. When all tests pass, click **Create Private Storage Link** to finish.
