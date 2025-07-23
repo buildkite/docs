@@ -596,6 +596,9 @@
         - name: "Tags"
           path: "test-engine/tags"
           pill: "preview"
+        - name: "Workflows"
+          path: "test-engine/workflows"
+          pill: "preview"
         - name: "Test splitting"
           children:
             - name: "Overview"
