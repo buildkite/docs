@@ -149,9 +149,8 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 
 - Export or stream all Buildkite metrics to your preferred monitoring and observability platform to maintain visibility across your CI/CD pipeline activities. Consider using [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry) and [OpenTelemetry tracing capabilities in Buildkite Agent](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-from-buildkite-agent).
 - Integrate Buildkite's audit log with your Security Information and Event Management (SIEM) system to centralize security monitoring and enable correlation with other security events.
-- Configure automated alerts for suspicious activities including logins from unusual IP addresses, anomalous secret access patterns, and unexpected spikes in build frequency that may indicate compromise or abuse.
 - Enable detailed logging for all job executions, artifact access, and secret usage to ensure complete audit trails for security investigations and compliance requirements.
-- Monitor audit logs for anomalies or spikes in sensitive activities.
+- Monitor audit logs for anomalies or spikes in sensitive and suspicious activities (including logins from unusual IP addresses, anomalous secret access patterns, and unexpected spikes in build frequency, etc.) and configure automated alerts for detection of such activities.
 
 ## Incident response and recovery
 
