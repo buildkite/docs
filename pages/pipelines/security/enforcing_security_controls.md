@@ -1,6 +1,6 @@
 # Enforcing security controls
 
-This guide provides security engineers with a list of common sisks and proven mitigation strategies across key areas of the Buildkite ecosystem including secret management, supply chain security, artifact storage reliability, and platform hardening.
+This guide provides security engineers with a list of common risks and proven mitigation strategies across key areas of the Buildkite ecosystem including secret management, supply chain security, artifact storage reliability, and platform hardening.
 
 Use this as your reference for building a defensible, auditable, and resilient CI/CD foundation with Buildkite.
 
