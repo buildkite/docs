@@ -80,6 +80,9 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Utilize [OIDC-based authentication for AWS](/docs/pipelines/security/oidc/aws) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags to add strong unique claims for ensuring that only the expected agents are able to access your cloud infrastructure.
 - Consider [disabling command evaluation](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation) and enforcing script-only execution instead.
 
+> Additional information for better Buildkite Agent security
+> Please see [Securing your Buildkite Agent](/docs/agent/v3/securing) documentation page which has many specific recommendations for making your virtual machine or Docker container running the `buildkite-agent` process more secure in the context of running your CI/CD pipelines.
+
 ## API Access Token compromise
 
 **Risk:** Compromised or overprivileged Buildkite tokens can provide unauthorized access to pipelines, builds, and sensitive data, enabling attackers to execute malicious code, steal secrets, or manipulate CI/CD processes across your organization.
