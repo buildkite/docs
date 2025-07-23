@@ -616,6 +616,11 @@
               path: "test-engine/test-collection/your-own-collectors"
         - name: "CI environment variables"
           path: "test-engine/test-collection/ci-environments"
+    - name: "Workflows"
+      children:
+        - name: "Overview"
+          path: "test-engine/workflows"
+      pill: "new"
     - name: "Test Engine Client (bktec)"
       children:
         - name: "Configuring"
