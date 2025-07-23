@@ -32,8 +32,9 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 **Remediations:**
 
-- Use [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all pipelines, ensuring vulnerability scans are executed and results are properly reported as part of every build of every Buildkite Pipeline.
+- Use [Buildkite Package Registries](/docs/package-registries) to secure your supply chain and avoid the bottlenecks of poorly managed and insecure dependencies.
 - Implement automated dependency and malware scanning on every merge using established tools such as [GuardDog](https://github.com/DataDog/guarddog) or [Aqua Trivy](https://www.aquasec.com/products/trivy/). Leverage Buildkite's official [security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins) to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment. You can also [write your own plugin](/docs/pipelines/integrations/plugins/writing) to integrate with the security scanning tool of your choice.
+- Consider using [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all pipelines, ensuring vulnerability scans are executed and results are properly reported as part of every build of every Buildkite Pipeline.
 
 
 ## Vulnerability monitoring and mitigation
@@ -57,7 +58,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Implement external secrets management by integrating with dedicated [secrets storage services](/docs/pipelines/security/secrets/managing#using-a-secrets-storage-service) such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [HashiCorp Vault](https://www.vaultproject.io/). Configure secrets to be injected at runtime rather than stored as static environment variables.
 - Leverage [Buildkite scoped secrets](/docs/pipelines/security/secrets/buildkite-secrets) to ensure that secrets are only available where explicitly required. Note that Buildkite [automatically redacts secrets](/docs/pipelines/security/secrets/buildkite-secrets#redaction) in logs across the platform.
 - Implement secrets management though [exporting secrets with environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks).
-- Establish environment-specific cluster and queue segmentation of your builds or deploys to restrict pipeline access exclusively to authorized environments, ensuring builds (even scoped to builds or deploys of specific branches) can only access the precise secrets and resources required for their designated operational scope.
+- Establish environment-specific cluster and queue segmentation of your builds or deploys to scope and restrict access to the secrets in such a way that the builds in a queue can only access those secrets they require to run.
 - Establish immediate incident response procedures for secret compromise, including automated revocation and rotation processes. Cluster maintainers can [revoke tokens](/docs/agent/v3/tokens#revoke-a-token) using the REST API for rapid containment.
 - Monitor all secret access activities through [Audit Log](/docs/platform/audit-log) tracking to maintain visibility into when and how secrets are accessed within your CI/CD environment.
 - Deploy additional scanning tools such as [git-secrets](https://github.com/awslabs/git-secrets) to prevent accidental committing of secrets to the source code repositories before they enter the build process.
@@ -69,6 +70,12 @@ Use this as your reference for building a defensible, auditable, and resilient C
 **Risk:** Compromised Buildkite Agents can enable attackers to perform privilege escalation, lateral movement within your infrastructure, access sensitive data, or execute malicious code with the permissions granted to the agent's host system.
 
 **Remediations:**
+
+use IOC
+update regularly
+ephemeral agents via the k8s stack?
+I made a review comment about the risk categories, which I think will let us sidestep the "compromised agent" wording but also allow us to make the useful recommendations
+
 
 - Implement workload isolation by segregating high-trust and sensitive builds into dedicated [agent pools within Clusters](/docs/pipelines/clusters), ensuring that critical workloads cannot be affected by compromise of less secure environments.
 - Set granular command authorization controls for what the `buildkite-agent` user is allowed to run, restricting executable operations to predefined security parameters. For instance, you can configure `buildkite-agent secret get` access to only authorized secrets for the designated host environment, preventing unauthorized secret retrieval. This security framework mitigates risks associated with compromised hosts and user accounts, blocking malicious activities such as unauthorized pipeline uploads and privilege escalation attempts.
