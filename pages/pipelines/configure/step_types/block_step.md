@@ -57,7 +57,7 @@ Optional attributes:
   <tr>
     <td><code>prompt</code></td>
     <td>
-      The instructional message displayed in the dialog box when the unblock step is activated.
+      The instructional message displayed in the dialog box when the unblock step is activated.<br/>
       <em>Example:</em>
       <ul><li> <code>"Release to production?"</code></li><li><code>"Fill out the details for this release"</code></li></ul>
     </td>
@@ -65,37 +65,46 @@ Optional attributes:
   <tr>
     <td><code>fields</code></td>
     <td>
-      A list of input fields required to be filled out before unblocking the step.
+      A list of input fields required to be filled out before unblocking the step.<br/>
       Available input field types: <code>text</code>, <code>select</code>
     </td>
   </tr>
     <tr>
     <td><code>blocked_state</code></td>
     <td>
-      The state that the build is set to when the build is blocked by this block step. The default is passed. When the <code>blocked_state</code> of a block step is set to <code>failed</code>, the step that triggered it will be stuck in the <code>running</code> state until it is manually unblocked.
-      <em>Default:</em> <code>passed</code>
-      <em>Values:</em> <code>passed</code>, <code>failed</code>, <code>running</code>
+      The state that the build is set to when the build is blocked by this block step. The default is passed. When the <code>blocked_state</code> of a block step is set to <code>failed</code>, the step that triggered it will be stuck in the <code>running</code> state until it is manually unblocked.<br/>
+      <em>Default:</em> <code>passed</code><br/>
+      <em>Values:</em> <code>passed</code>, <code>failed</code>, <code>running</code><br/>
       If you're using GitHub, you can also <a href="/docs/pipelines/source-control/github#customizing-commit-statuses">configure which GitHub status</a> to use for blocked builds on a per-pipeline basis.
+    </td>
+  </tr>
+  <tr>
+    <td><code>allowed_teams</code></td>
+    <td>
+      A list of teams that are permitted to unblock this step, by slug or ID. In order to unblock the step, a user must be a member of one of the teams listed here, if the field is specified. Also accepts a single value.<br/>
+      The use of <code>allowed_teams</code> replaces the need for write access to the pipeline, meaning a member of an allowed team with read-only access may unblock the step.<br/>
+      <em>Example:</em> <code>["deployers", "approvers"]</code><br/>
+      <em>Example:</em> <code>"b50084ea-4ed1-405e-a204-58bde987f52b"</code><br/>
     </td>
   </tr>
   <tr>
     <td><code>branches</code></td>
     <td>
-      The <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this block step in their builds.
+      The <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this block step in their builds.<br/>
       <em>Example:</em> <code>"main stable/*"</code>
     </td>
   </tr>
   <tr>
     <td><code>if</code></td>
     <td>
-      A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.
+      A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.<br/>
       <em>Example:</em> <code>build.message != "skip me"</code>
     </td>
   </tr>
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step keys that this step depends on. This step will only proceed after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.
+      A list of step keys that this step depends on. This step will only proceed after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br/>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
    </tr>
@@ -103,15 +112,15 @@ Optional attributes:
     <td><code>key</code></td>
     <td>
       A unique string to identify the block step.<br/>
-      Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).
-      <em>Example:</em> <code>"test-suite"</code>
+      Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br/>
+      <em>Example:</em> <code>"test-suite"</code><br/>
       <em>Alias:</em> <code>identifier</code>
     </td>
    </tr>
    <tr>
     <td><code>allow_dependency_failure</code></td>
     <td>
-      Whether to continue to proceed past this step if any of the steps named in the <code>depends_on</code> attribute fail.
+      Whether to continue to proceed past this step if any of the steps named in the <code>depends_on</code> attribute fail.<br/>
       <em>Default:</em> <code>false</code>
     </td>
   </tr>
