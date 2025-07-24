@@ -71,7 +71,7 @@ See the [plugin documentation](/docs/pipelines/integrations/plugins) for how to 
 
 ## Polyglot hooks
 
-For Agent versions previous to 3.85.0, hooks must be shell scripts. However, with the Agent version v3.85.0 or later, hooks are significantly more flexible and can be written in the programming language of your choice.
+For Agent versions previous to 3.85.0, hooks must be shell scripts. However, with the Buildkite Agent version v3.85.0 or later, hooks are significantly more flexible and can be written in the programming language of your choice.
 
 In addition to the regular shell script hooks, polyglot hooks enable you to run two more types of hooks:
 
