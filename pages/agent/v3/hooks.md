@@ -6,8 +6,7 @@ An agent goes through different phases in its lifecycle, including starting up, 
 
 A hook is a script executed or sourced by the Buildkite agent at a specific point in the job lifecycle. You can use hooks to extend or override the built-in behavior of an agent. Hooks are generally shell scripts, which the agent then executes or sources.
 
-> 🛠 Experimental feature
-> Using the `polyglot-hooks` experiment, agents running v3.47.0 or later can run hooks written in any programming language. See the [polyglot hooks](#polyglot-hooks) section for more information.
+We support hooks written in the language that your development teams use. See the [polyglot hooks](#polyglot-hooks) section for more information.
 
 ## Hook scopes
 
@@ -72,10 +71,7 @@ See the [plugin documentation](/docs/pipelines/integrations/plugins) for how to 
 
 ## Polyglot hooks
 
->🛠 Experimental feature
-> To use Polyglot hooks, set <code>experiment="polyglot-hooks"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.
-
-By default, hooks must be shell scripts. However, with the `polyglot-hooks` experiment on agents running version v3.47.0, hooks are significantly more flexible and can be written in the programming language of your choice.
+For Agent versions previous to 3.85.0, hooks must be shell scripts. However, with the Agent version v3.85.0 or later, hooks are significantly more flexible and can be written in the programming language of your choice.
 
 In addition to the regular shell script hooks, polyglot hooks enable you to run two more types of hooks:
 
