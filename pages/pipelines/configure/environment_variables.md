@@ -221,11 +221,13 @@ Defining an environment variable at the top of your yaml file will set that vari
 
 > ⚠️ **Concurrent Pipeline Uploads and Environment Variables**
 > When running concurrent pipeline uploads, be aware that build-level environment variables can cause non-deterministic behavior. Each pipeline upload that includes build-level environment variables can potentially modify the environment for subsequent steps that haven't started. This behavior affects:
+>
 > * Steps that run after pipeline uploads.
 > * Signed pipeline steps, as environment variables are used in the signature verification.
 > * Any jobs that depend on specific environment variable values.
 >
 > This can lead to unexpected results if:
+>
 > * Multiple pipeline uploads happen concurrently that include build-level environment variables.
 > * The same environment variable is set with different values in different uploads.
 
