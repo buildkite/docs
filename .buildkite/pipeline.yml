@@ -2,7 +2,25 @@ env:
   BUILDKIT_PROGRESS: plain
 
 steps:
-  - label: ":spider: Check for broken links"
+  - label: ":spider: muffet"
+    # We need to wait until rails has started before running muffet as otherwise it will error out
+    # and the test will appear to have failed without having run. The time to wait is hard to
+    # predict, and furthermore, some paths take longer to be be ready than others. The path in this
+    # loop was chosen after some non-systematic observations. So it does not guarantee that the
+    # server will be ready. But it seems to work well in practice.
+    command: >-
+      while ! wget --spider -Sq http://app:3000/docs/agent/v3/hooks;
+        do echo 💎🛤️🦥 Rails is still starting;
+        sleep 0.5;
+      done &&
+      echo 💎🛤️🚆 Rails has started running &&
+      /muffet http://app:3000/docs \
+        --include="/docs/" \
+        --exclude="https://github.com/buildkite/docs/" \
+        --exclude="buildkite.com/docs" \
+        --max-connections=10 \
+        --buffer-size=8192 \
+        --color=always
     env:
       RAILS_ENV: production
     agents:
@@ -21,7 +39,8 @@ steps:
           run: muffet
           shell: false
           upload-container-logs: always
-          mount-buildkite-agent: true
+          env:
+            - RAILS_ENV
 
   - label: ":graphql: Check generated code is up to date"
     command: bundle exec rake graphql:generate

@@ -10,7 +10,6 @@ services:
       - vite
     environment:
       VITE_RUBY_HOST: vite
-      RAILS_LOG_TO_STDOUT: "true"
     ports:
       - "3000:3000"
     volumes:
@@ -40,9 +39,8 @@ services:
       - app
     image: raviqqe/muffet:2.10.9
     entrypoint:
-      - /work/muffet.sh
-    volumes:
-      - .buildkite/steps:/work
+      - ash
+      - -c
 
   deploy-preview:
     build:
