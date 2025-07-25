@@ -76,7 +76,7 @@ For more advanced build filtering and commit skipping, see the [Using conditiona
 > 🚧 Skipping commits with Bitbucket Server
 > Not all webhooks from Bitbucket Server contain the commit message. When a commit message is not included in a webhook, the build will run.
 
-## Ignore Pull Requests
+## Ignore pull requests
 
 Pull requests can also be skipped by adding `[ci skip]`, `[skip ci]`, `[ci-skip]`, or `[skip-ci]` anywhere in the pull request title. Refer to [Running builds on pull requests](/docs/pipelines/source-control/github#running-builds-on-pull-requests) for more information.
 
