@@ -261,7 +261,7 @@ steps:
       apt-get update && apt-get install -y zip
       zip -r app.zip frontend/ backend/
     # No image specified in this step.
-    # Therefore, this job uses pipeline's default ubuntu:22.04 image
+    # Therefore, this step's job uses the pipeline's default ubuntu:22.04 image
 ```
 
 ## Retry attributes
