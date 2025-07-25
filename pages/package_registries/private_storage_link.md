@@ -4,7 +4,9 @@ This page provides an overview of Private Storage Links — linking your own clo
 
 By default, Buildkite Package Registries provides its own storage (known as _Buildkite storage_) to house any packages, container images and modules stored in source registries.
 
-However, you can also link your own private storage to Buildkite Package Registries (known as a _private storage link_), which allows you to:
+However, you can also link your own private storage to Buildkite Package Registries (known as a _private storage link_).
+
+A private storage link allows you to:
 
 - Manage Buildkite registry packages, container images and modules stored within your private storage, which has the following advantages:
 
