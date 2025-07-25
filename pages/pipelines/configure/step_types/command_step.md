@@ -220,18 +220,17 @@ Optional attributes:
 
 ## Container image attributes
 
-If you are using the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) to run your [Buildkite Agents](/docs/agent/v3), then you can use the `image` attribute to specify a container image for a command step to run its jobs in.
+If you are using the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) to run your [Buildkite Agents](/docs/agent/v3), then you can use the `image` attribute to specify a container image for a command step to run its job in.
 
 <table>
   <tr>
     <td><code>image</code></td>
     <td>
-      A fully qualified image reference string that will run the command in a <code>command</code> container. The value is available in the <code>BUILDKITE_IMAGE</code> <a href="/docs/pipelines/configure/environment-variables">environment variable</a>. Arbitrary container images are supported.<br/>
+      A fully qualified image reference string. The <a href="/docs/agent/v3/agent-stack-k8s">Agent Stack for Kubernetes</a> will configure the image for the <code>command</code> container of this job. The value is available in the <code>BUILDKITE_IMAGE</code> <a href="/docs/pipelines/configure/environment-variables">environment variable</a>. Arbitrary container images are supported by the Agent Stack for Kubernetes.<br/>
       <em>Example:</em> <code>"alpine:latest"</code>
     </td>
   </tr>
 </table>
-
 
 > 🚧
 > Support for this `image` attribute is currently experimental.
