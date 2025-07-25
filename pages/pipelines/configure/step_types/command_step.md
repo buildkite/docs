@@ -218,8 +218,6 @@ Optional attributes:
 
 These attributes are only applied by the Buildkite Agent when uploading a pipeline (`buildkite-agent pipeline upload`), since they require direct access to your code or repository to process correctly.
 
-> 🚧 Agent-applied attributes are not accepted in pipelines set using the Buildkite UI.
-
 <table>
   <tr>
     <td><code>if_changed</code></td>
@@ -231,47 +229,26 @@ These attributes are only applied by the Buildkite Agent when uploading a pipeli
   </tr>
 </table>
 
+> 🚧
+> Agent-applied attributes are not accepted in pipelines set using the Buildkite interface.
+
 ## Container image attributes
 
-These attributes enable running a build job within a container.
+If you are using the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) to run your [Buildkite Agents](/docs/agent/v3), then you can use this attribute to run your builds' jobs within a container.
 
 <table>
   <tr>
     <td><code>image</code></td>
     <td>
-      A fully qualified image reference string. Run agent in a container.
-
-      The value is available in the <code>BUILDKITE_IMAGE</code> <a href="/docs/pipelines/configure/environment-variables">environment variable</a>.<br/>
+      A fully qualified image reference string for the agent that will run in a <a href="/docs/agent/v3/agent-stack-k8s/volume-mounts#command-containers-only"><code>command</code> container</a>. The value is available in the <code>BUILDKITE_IMAGE</code> <a href="/docs/pipelines/configure/environment-variables">environment variable</a>. Arbitrary container images are supported.<br/>
       <em>Example:</em> <code>"alpine:latest"</code>
     </td>
   </tr>
 </table>
 
 
-> 🚧 The support for `image` attributes is experimental and only works with Agent Kubernetes stack currently:
-
-<table>
-  <tr>
-    <td><strong>Agent type</strong></td>
-    <td><strong>Support Status</strong></td>
-    <td><strong>Notes</strong></td>
-  </tr>
-  <tr>
-    <td>Agent Kubernetes stack</td>
-    <td>✅ Supported</td>
-    <td>Support arbitrary container image. But, it only impacts `command` container.</td>
-  </tr>
-  <tr>
-    <td>Hosted agents</td>
-    <td>🚧 Coming next</td>
-    <td>Required `git` and `bash` to be installed</td>
-  </tr>
-  <tr>
-    <td>Self-hosted agents</td>
-    <td>❌ Not supported</td>
-    <td>TBD</td>
-  </tr>
-</table>
+> 🚧
+> Support for this `image` attribute is currently experimental.
 
 Example pipeline:
 
