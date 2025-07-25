@@ -52,6 +52,7 @@ Some code changes, such as editing a Readme, may not require a Buildkite build. 
 > 📘
 > When squashing commits in a merge, any commit message that contains `[skip ci]` will be included in the squashed commit message. This means that the merge will not trigger a build.
 > In order to avoid this and have the merge trigger a build, you should remove the commit containing `[skip ci]` from the squashed commit message.
+> When creating a pull request, if pull request events are enabled, a build will be triggered unless `[skip ci]` is added to the pull request title.
 
 For example, the following commit message will cause Buildkite to ignore the commit and not create a corresponding build:
 
@@ -74,6 +75,10 @@ For more advanced build filtering and commit skipping, see the [Using conditiona
 
 > 🚧 Skipping commits with Bitbucket Server
 > Not all webhooks from Bitbucket Server contain the commit message. When a commit message is not included in a webhook, the build will run.
+
+## Ignore Pull Requests
+
+Pull requests can also be skipped by adding `[ci skip]`, `[skip ci]`, `[ci-skip]`, or `[skip-ci]` anywhere in the pull request title. Refer to [Running builds on pull requests](/docs/pipelines/source-control/github#running-builds-on-pull-requests) for more information.
 
 ## Ignore branches
 
