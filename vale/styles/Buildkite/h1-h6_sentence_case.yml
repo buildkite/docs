@@ -70,6 +70,7 @@ exceptions:
   - CloudTrail
   - CloudWatch
   - CloudWatch Logs
+  - CocoaPods
   - completion_watcher
   - CORS
   - CSS
@@ -109,6 +110,7 @@ exceptions:
   - GraphQL
   - Groovy
   - Heroku
+  - Homebrew
   - HMAC
   - Honeycomb
   - HTTP
@@ -188,6 +190,7 @@ exceptions:
   - Ubuntu
   - URL
   - URL(s)
+  - UserData
   - UUID
   - visionOS
   - VPC

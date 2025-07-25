@@ -39,8 +39,9 @@ services:
       - app
     image: raviqqe/muffet:2.10.9
     entrypoint:
-      - ash
-      - -c
+      - /work/muffet.sh
+    volumes:
+      - .buildkite/steps:/work
 
   deploy-preview:
     build:
