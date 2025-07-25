@@ -226,7 +226,7 @@ If you are using the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s
   <tr>
     <td><code>image</code></td>
     <td>
-      A fully qualified image reference string that will run the command in a <a href="/docs/agent/v3/agent-stack-k8s/volume-mounts#command-containers-only"><code>command</code> container</a>. The value is available in the <code>BUILDKITE_IMAGE</code> <a href="/docs/pipelines/configure/environment-variables">environment variable</a>. Arbitrary container images are supported.<br/>
+      A fully qualified image reference string that will run the command in a <code>command</code> container. The value is available in the <code>BUILDKITE_IMAGE</code> <a href="/docs/pipelines/configure/environment-variables">environment variable</a>. Arbitrary container images are supported.<br/>
       <em>Example:</em> <code>"alpine:latest"</code>
     </td>
   </tr>
