@@ -1,10 +1,8 @@
 # Private storage link
 
-This page provides an overview of Private Storage Links — linking your own cloud storage (S3 / GCS) to Buildkite Package Registries.
+This page provides an overview of Buildkite Package Registries' private storage link feature.
 
-By default, Buildkite Package Registries provides its own storage (known as _Buildkite storage_) to house any packages, container images and modules stored in source registries.
-
-However, you can also link your own private storage to Buildkite Package Registries (known as a _private storage link_).
+By default, Buildkite Package Registries provides its own storage (known as _Buildkite storage_) to house any packages, container images and modules stored in source registries. However, as a [Buildkite organization administrator](/docs/package-registries/security/permissions#manage-teams-and-permissions-organization-level-permissions), you can also link your own private storage to Buildkite Package Registries (known as a _private storage link_) to house these files.
 
 A private storage link allows you to:
 
@@ -18,8 +16,6 @@ A private storage link allows you to:
 - Use Buildkite Package Registries' management and metadata-handling features to manage these files in registries within your private storage. While packages are stored in your own private storage, Buildkite still handles the indexing and management of these packages.
 
 - Maintain control, ownership and sovereignty over the packages, container images and modules stored within your source registries managed by Buildkite Package Registries.
-
-A private storage link can only be configured by a [Buildkite organization administrator](/docs/package-registries/security/permissions#manage-teams-and-permissions-organization-level-permissions).
 
 Regardless of whether you choose to manage your packages in Buildkite storage or in your own storage through a private storage link:
 
@@ -38,17 +34,17 @@ Abbreviations:
 
 ## Link your private storage to Buildkite Package Registries
 
-The high-level flow to link a storage provider:
+The following steps provide a high-level overview on how to link your private storage (offered through a cloud-based storage provider) to Package Registries:
 
 1. Provide bucket details.
 1. Authorize Buildkite to access the bucket.
 1. Run a diagnostic to confirm Buildkite can access/modify/sign objects in that bucket.
 1. Activate the link.
 
-Buildkite currently supports the following storage providers:
+Learn more about how to configure Package Registries to use your private storage with the following supported cloud-based storage providers:
 
-- [Configure Amazon S3 Private Storage Link](/docs/package-registries/private_storage_link/s3)
-- [Configure Google Cloud Storage (GCS) Private Storage Link](/docs/package-registries/private_storage_link/gcs)
+- [Amazon S3 storage](/docs/package-registries/private_storage_link/s3)
+- [Google Cloud Storage](/docs/package-registries/private_storage_link/gcs)
 
 ## Set the default Buildkite Package Registries storage
 
