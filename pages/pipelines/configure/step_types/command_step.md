@@ -231,6 +231,59 @@ These attributes are only applied by the Buildkite Agent when uploading a pipeli
   </tr>
 </table>
 
+## Container image attributes
+
+These attributes enable running a build job within a container.
+
+<table>
+  <tr>
+    <td><code>image</code></td>
+    <td>
+      A fully qualified image reference string. Run agent in a container.
+
+      The value is available in the <code>BUILDKITE_IMAGE</code> <a href="/docs/pipelines/configure/environment-variables">environment variable</a>.<br/>
+      <em>Example:</em> <code>"alpine:latest"</code>
+    </td>
+  </tr>
+</table>
+
+
+> 🚧 The support for `image` attributes is experimental and only works with Agent Kubernetes stack currently:
+
+<table>
+  <tr>
+    <td><strong>Agent type</strong></td>
+    <td><strong>Support Status</strong></td>
+    <td><strong>Notes</strong></td>
+  </tr>
+  <tr>
+    <td>Agent Kubernetes stack</td>
+    <td>✅ Supported</td>
+    <td>Support arbitrary container image. But, it only impacts `command` container.</td>
+  </tr>
+  <tr>
+    <td>Hosted agents</td>
+    <td>🚧 Coming next</td>
+    <td>Required `git` and `bash` to be installed</td>
+  </tr>
+  <tr>
+    <td>Self-hosted agents</td>
+    <td>❌ Not supported</td>
+    <td>TBD</td>
+  </tr>
+</table>
+
+Example pipeline:
+
+```yml
+image: alpine:latest # Apply to all steps
+
+steps:
+  - label: "Tests"
+    command: "tests.sh"
+    image: ruby:latest # Apply to a single step
+```
+
 ## Retry attributes
 
 At least one of the following attributes is required:
