@@ -91,6 +91,23 @@ mutation createToken {
 }
 ```
 
+## Revoke an agent token
+
+First, get the agent token's ID from your [list of agent tokens](#list-agent-tokens), followed by your [Buildkite organization's ID](/docs/apis/graphql/cookbooks/organizations#get-organization-id).
+Then, use these ID values to revoke the agent token:
+
+```graphql
+mutation revokeClusterAgentToken {
+  clusterAgentTokenRevoke(input: {
+    id: "agent-token-id"
+    organizationId: "organization-id"
+    }) {
+    clientMutationId
+    deletedClusterAgentTokenId
+  }
+}
+```
+
 ## List jobs in a particular cluster queue
 
 To get jobs within a cluster queue, use the `clusterQueue` argument of the `jobs` query, passing in the ID of the cluster queue to filter jobs from:
@@ -219,3 +236,4 @@ mutation AssociatePipelineWithCluster {
   }
 }
 ```
+
