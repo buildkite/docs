@@ -78,7 +78,7 @@ For more advanced build filtering and commit skipping, see the [Using conditiona
 
 ## Ignore pull requests
 
-Pull requests can also be skipped by adding `[ci skip]`, `[skip ci]`, `[ci-skip]`, or `[skip-ci]` anywhere in the pull request title. Refer to [Running builds on pull requests](/docs/pipelines/source-control/github#running-builds-on-pull-requests) for more information.
+You can skip pull requests by adding `[ci skip]`, `[skip ci]`, `[ci-skip]`, or `[skip-ci]` anywhere in the title of a pull request. Refer to [Running builds on pull requests](/docs/pipelines/source-control/github#running-builds-on-pull-requests) for more information.
 
 ## Ignore branches
 
