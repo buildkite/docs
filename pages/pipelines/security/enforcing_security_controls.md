@@ -32,7 +32,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 **Remediations:**
 
-- Use [Buildkite Package Registries](/docs/package-registries) to secure your supply chain and avoid the bottlenecks of poorly managed and insecure dependencies.
+- Use [Buildkite Package Registries](/docs/package-registries) to retain your infrastructure in a single ecosystem.
 - Implement automated dependency and malware scanning on every merge using established tools such as [GuardDog](https://github.com/DataDog/guarddog) or [Aqua Trivy](https://www.aquasec.com/products/trivy/). Leverage Buildkite's official [security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins) to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment. You can also [write your own plugin](/docs/pipelines/integrations/plugins/writing) to integrate with the security scanning tool of your choice.
 - Consider using [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all pipelines, ensuring vulnerability scans are executed and results are properly reported as part of every build of every Buildkite Pipeline.
 
@@ -93,6 +93,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Follow the principle of least privilege by creating tokens with only the [required scopes](/docs/apis/managing-api-tokens#token-scopes) and permissions needed for each use case. Regularly review token permissions to ensure they match current operational needs. For GraphQL, use [Portals](/docs/apis/portals) to scope queries to specific operations.
 - Establish [token rotation](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security) policies with defined expiration periods for all API tokens and agent registration tokens. Automate rotation processes where possible to reduce the risk of long-lived credential exposure.
 - Implement network-based token access controls by binding authentication tokens to specific IP addresses and network segments. Deploy Network Address Translation (NAT) in conjunction with Internet Gateways to establish a centralized egress architecture, routing all requests through a singular IP endpoint to enhance monitoring capabilities and facilitate rapid compromise detection.
+- Use [Buildkite’s Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security#network-configuration) to create a dedicated VPC or deploy it to an existing VPC to meet your organisation’s security and networking requirements.
 - Monitor token usage patterns through [Audit Log](/docs/platform/audit-log) and implement alerting for unusual access patterns, including usage from unexpected locations, excessive API calls, or access to unauthorized resources.
 
 ## Network and transport security
