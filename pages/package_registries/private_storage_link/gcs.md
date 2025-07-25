@@ -1,4 +1,4 @@
-# Private storage link – Google Cloud Storage (GCS)
+# Google Cloud Storage
 
 This page guides you through connecting Google Cloud Storage (GCS) to Buildkite Package Registries. These processes can only be performed by [Buildkite organization administrators](/docs/package-registries/security/permissions#manage-teams-and-permissions-organization-level-permissions). For a high-level overview of Private Storage Links, see the [Overview page](/docs/package-registries/private-storage-link).
 
