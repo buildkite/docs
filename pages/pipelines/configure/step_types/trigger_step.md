@@ -128,24 +128,6 @@ Optional attributes:
   </tr>
 </table>
 
-
-## Agent-applied attributes
-
-These attributes are only applied by the Buildkite Agent when uploading a pipeline (`buildkite-agent pipeline upload`), since they require direct access to your code or repository to process correctly.
-
-> 🚧 Agent-applied attributes are not accepted in pipelines set using the Buildkite UI.
-
-<table>
-  <tr>
-    <td><code>if_changed</code></td>
-    <td>
-      A <a href="https://github.com/DrJosh9000/zzglob?tab=readme-ov-file#pattern-syntax">glob pattern</a> that omits the step from a build if it does not match any files changed in the build. <br/>
-      <em>Example:</em> <code>{**.go,go.mod,go.sum,fixtures/**}</code><br/>
-      <em>Minimum Buildkite Agent version:</em> v3.99 (with <code>--apply-if-changed</code> flag), v3.103.0 (enabled by default)
-    </td>
-  </tr>
-</table>
-
 Optional `build` attributes:
 
 <table>
@@ -197,6 +179,10 @@ Optional `build` attributes:
       release-version: "1.1"
 ```
 {: codeblock-file="pipeline.yml"}
+
+## Agent-applied attributes
+
+<%= render_markdown partial: 'pipelines/configure/step_types/agent_applied_attributes' %>
 
 ## Environment variables
 

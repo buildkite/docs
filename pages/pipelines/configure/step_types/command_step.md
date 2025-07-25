@@ -216,20 +216,52 @@ Optional attributes:
 
 ## Agent-applied attributes
 
-These attributes are only applied by the Buildkite Agent when uploading a pipeline (`buildkite-agent pipeline upload`), since they require direct access to your code or repository to process correctly.
+<%= render_markdown partial: 'pipelines/configure/step_types/agent_applied_attributes' %>
 
-> 🚧 Agent-applied attributes are not accepted in pipelines set using the Buildkite UI.
+## Container image attributes
+
+If you are using the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) to run your [Buildkite Agents](/docs/agent/v3), then you can use the `image` attribute to specify a container image for a command step to run its job in.
 
 <table>
   <tr>
-    <td><code>if_changed</code></td>
+    <td><code>image</code></td>
     <td>
-      A <a href="https://github.com/DrJosh9000/zzglob?tab=readme-ov-file#pattern-syntax">glob pattern</a> that omits the step from a build if it does not match any files changed in the build. <br/>
-      <em>Example:</em> <code>{**.go,go.mod,go.sum,fixtures/**}</code><br/>
-      <em>Minimum Buildkite Agent version:</em> v3.99 (with <code>--apply-if-changed</code> flag), v3.103.0 (enabled by default)
+      A fully qualified image reference string. The <a href="/docs/agent/v3/agent-stack-k8s">Agent Stack for Kubernetes</a> will configure the image for the <code>command</code> container of this job. The value is available in the <code>BUILDKITE_IMAGE</code> <a href="/docs/pipelines/configure/environment-variables">environment variable</a>.<br/>
+      <em>Example:</em> <code>"alpine:latest"</code>
     </td>
   </tr>
 </table>
+
+> 🚧
+> Support for this `image` attribute is currently experimental.
+
+Example pipeline, showing how build and step level `image` attributes interact:
+
+```yml
+image: "ubuntu:22.04" # The default image for the pipeline's build
+
+steps:
+  - name: "\:node\: Frontend tests"
+    command: |
+      cd frontend
+      npm ci
+      npm test
+    image: "node:18" # This step's job uses the node:18 image
+
+  - name: "\:golang\: Backend tests"
+    command: |
+      cd backend
+      go mod download
+      go test ./...
+    image: "golang:1.21" # This step's job uses the golang:1.21 image
+
+  - name: "\:package\: Package application"
+    command: |
+      apt-get update && apt-get install -y zip
+      zip -r app.zip frontend/ backend/
+    # No image specified in this step.
+    # Therefore, this step's job uses the pipeline's default ubuntu:22.04 image
+```
 
 ## Retry attributes
 
