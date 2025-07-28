@@ -5,7 +5,6 @@ This page provides details on how to link your own Amazon Web Services (AWS) Sim
 By default, Buildkite Package Registries provides its own storage (known as _Buildkite storage_). However, linking your own Amazon S3 bucket to Package Registries lets you:
 
 - Keep packages and artifacts close to your geographical region for faster downloads.
-- Avoid cross-cloud egress costs.
 - Retain full sovereignty over your packages and artifacts, while Buildkite continues to manage their metadata and indexing.
 
 Buildkite Package Registries uses [AWS CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html) to provision its services within your private Amazon S3 storage.
@@ -36,7 +35,7 @@ To link your private Amazon S3 bucket to Package Registries:
 
     **Note:** If you are not already signed in to your AWS account, you may need to navigate to the area listing your S3 buckets.
 
-1. Back on the Buildkite interface, in **Step 3: Enter your AWS S3 bucket details**, specify the **Region** (for example, `us-east-1`) and **Bucket** name for your Amazon S3 bucket, then select **Continue**.
+1. Back on the Buildkite interface, in **Step 3: Enter your AWS S3 bucket details**, specify the **Region** (for example, `us-east-1`) and **Bucket name** for your Amazon S3 bucket, then select **Continue**.
 
 1. On the next **Authorize Buildkite in AWS** page, select **Launch Stack** to open the **Quick create stack** page in the AWS CloudFormation interface.
 
