@@ -255,6 +255,8 @@ shellcheck
 shellscripting
 Shipit
 signaltometrics
+SLO
+SLOs
 snake_case
 Sonoma
 Splitter's

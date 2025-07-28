@@ -208,7 +208,7 @@ This way, you can track multiple applications deployed to different environments
 
 ### Using environment-specific deployment flags
 
-If you waould like to track multiple deployments from a single build as they sequntially progress through your environments (for example, from staging to production), you can use environment-specific flags:
+If you would like to track multiple deployments from a single build as they sequentially progress through your environments (for example, from staging to production), you can use environment-specific flags:
 
 ```yaml
 # In your pipeline.yml
@@ -231,7 +231,7 @@ steps:
 
 ## Usage
 
-Once you have configured the Buildkite plugin for Backstage and marked your builds for deploment tracking, you can:
+Once you have configured the Buildkite plugin for Backstage and marked your builds for deployment tracking, you can:
 
 - View build status directly on the component's overview page in Backstage.
 - Navigate to the CI/CD tab to see detailed build information.

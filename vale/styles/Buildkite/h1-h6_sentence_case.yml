@@ -39,6 +39,7 @@ exceptions:
   - Azure AD
   - Azure Active Directory
   - Azure Blob
+  - Backstage
   - Bash
   - Bazel
   - Bamboo
@@ -180,6 +181,8 @@ exceptions:
   - Slack Workspace
   - SLSA
   - Sonoma
+  - SLO
+  - SLOs
   - SSH
   - SSO
   - Tekton
