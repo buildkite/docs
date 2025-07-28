@@ -4,8 +4,20 @@
 
 Datadog users can send the information about their Buildkite pipelines to Datadog's Continuous Integration (CI) Visibility product, also known as CI Pipeline Visibility, if the **Datadog Pipeline Visibility** notification service was enabled in Buildkite. This way, any organization using both Datadog and Buildkite Pipelines can gain insights into the performance of their pipelines over time and ensure optimal resource utilization throughout their development workflow.
 
-> 📘
-> If you are looking for the information on using Datadog Application Performance Monitoring (APM) tracing with Buildkite agent, you can find it in [Using Datadog APM](/docs/agent/v3/tracing#using-datadog-apm).
+## Using Datadog APM
+
+Install datadog agent following the official [guide] (https://us5.datadoghq.com/fleet/install-agent/latest?platform=overview).
+
+Launch the Buildkite agent with the --tracing-backend datadog flag. 
+```bash 
+buildkite-agent start --tracing-backend datadog 
+```
+This will enable Datadog APM tracing, and send the traces to a Datadog agent at `localhost:8126` by default. 
+
+If your Datadog agent is located at another host, the Buildkite agent will respect the `DD_AGENT_HOST` and `DD_AGENT_TRACE_PORT` environment variables defined by [`dd-trace-go`](https://docs.datadoghq.com/tracing/setup_overview/setup/go/?tab=containers). Note that there will need to be a Datadog agent present at the above address to ingest these traces.
+Once the Buildkite agent is running with `--tracing-backend datadog`, you must run at least one job on that agent to generate trace data. After the job runs, go to Datadog > APM > Traces to view the traces.
+
+Once Datadog APM is integrated with Buildkite, you gain full visibility into your CI pipeline through detailed tracing of Buildkite agent activity. Each job execution is captured as a trace with individual spans representing key phases such as hook execution, command runtime, and lifecycle events like pre-exit or post-command. These spans provide real-time insights into duration, performance bottlenecks, and potential failures across your builds. With built-in filtering, service tagging, Datadog enables deep observability into your CI workflows, making it easier to troubleshoot, optimize, and maintain high pipeline reliability.
 
 ## Configuring the Datadog integration in Buildkite
 
