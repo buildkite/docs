@@ -26,7 +26,7 @@ Before installing the Buildkite Backstage plugin, ensure you have:
 
 ## Installation
 
-Regardless of whether you're installing the Buildkite plugin for Backstage from your project's plugins directory or from an external package, run the following command to install the plugin:
+Regardless of whether you are installing the Buildkite plugin for Backstage from your project's plugins directory or from an external package, run the following command to install the plugin:
 
 ```bash
 yarn workspace app add @buildkite/backstage-plugin-buildkite
@@ -62,7 +62,7 @@ Make sure to set the `BUILDKITE_API_TOKEN` environment variable with your Buildk
 
 Create or update `packages/app/src/plugins.ts` to register the plugin:
 
-```
+```bash
 // Import plugins that you want to be included in your app
 export { buildkitePlugin } from '@buildkite/backstage-plugin-buildkite';
 ```
@@ -71,7 +71,7 @@ export { buildkitePlugin } from '@buildkite/backstage-plugin-buildkite';
 
 Import the plugins file in your `packages/app/src/App.tsx`:
 
-```
+```bash
 // Import plugins
 import './plugins';
 ```
@@ -80,7 +80,7 @@ import './plugins';
 
 Add the API factory in `packages/app/src/apis.ts`:
 
-```
+```bash
 import { buildkiteAPIRef, BuildkiteClient } from '@buildkite/backstage-plugin-buildkite';
 
 export const apis: AnyApiFactory[] = [
@@ -107,7 +107,7 @@ export const apis: AnyApiFactory[] = [
 
 Add the routes to the Buildkite plugin in `packages/app/src/App.tsx`:
 
-```
+```bash
 import { PipelinePage } from '@buildkite/backstage-plugin-buildkite';
 
 const routes = (
@@ -125,7 +125,7 @@ const routes = (
 
 Add the Buildkite plugin for Backstage to your [Entity Page](https://backstage.io/docs/features/software-catalog/life-of-an-entity) in Backstage:
 
-```
+```bash
 import { isBuildkiteAvailable, BuildkiteWrapper } from '@buildkite/backstage-plugin-buildkite';
 
 const cicdContent = (
@@ -176,7 +176,7 @@ The Buildkite plugin for Backstage can track deployments across your pipelines. 
 
 You can mark builds for deployment by setting the `environment` metadata field in your Buildkite build using the following command:
 
-```bash
+```yaml
 # In your pipeline.yml
 steps:
   - label: "Deploy to Production"
@@ -210,7 +210,7 @@ This way, you can track multiple applications deployed to different environments
 
 If you waould like to track multiple deployments from a single build as they sequntially progress through your environments (for example, from staging to production), you can use environment-specific flags:
 
-```
+```yaml
 # In your pipeline.yml
 steps:
   - label: "Deploy to Staging"
@@ -243,7 +243,7 @@ Once you have configured the Buildkite plugin for Backstage and marked your buil
 
 ### API token issues
 
-If you're experiencing authentication errors, verify that:
+If you are experiencing authentication errors, verify that:
 
 - Your API token has all required permissions
 - The token is correctly set in your environment variables

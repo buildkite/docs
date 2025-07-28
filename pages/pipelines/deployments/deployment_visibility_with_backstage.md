@@ -15,7 +15,7 @@ The Buildkite plugin for Backstage provides:
 
 To use Backstage for deployment visibility with Buildkite, you'll need to:
 
-1. [Install and configure the Buildkite Backstage plugin](/docs/pipelines/integrations/other/backstage).
+1. [Install and configure the Buildkite plugin for Backstage](/docs/pipelines/integrations/other/backstage).
 1. Annotate your deployment components in the Backstage catalog.
 1. Configure your deployment pipelines for optimal visibility.
 
@@ -140,7 +140,7 @@ Use Backstage's deployment visibility to:
 
 ## Troubleshooting deployment visibility
 
-Here are some common issues and the proposed mitigations for integration between Buildkite Pipelines and Backstage using the [Buildkite plugin](/docs/pipelines/integrations/other/backstage) for Backstage.
+This section covers some common issues and the proposed mitigations for integration between Buildkite Pipelines and Backstage using the [Buildkite plugin](/docs/pipelines/integrations/other/backstage) for Backstage.
 
 ### Deployments not appearing
 
