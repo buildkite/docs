@@ -2,9 +2,9 @@
 
 This page provides details on how to link your own Amazon Web Services (AWS) Simple Storage Service (S3) bucket (or simply _Amazon S3_ bucket) to Buildkite Package Registries, through a [private storage link](/docs/package-registries/private-storage-link).
 
-By default, Buildkite Package Registries provides its own storage (known as _Buildkite storage_). However, linking your own Amazon S3 bucket lets you:
+By default, Buildkite Package Registries provides its own storage (known as _Buildkite storage_). However, linking your own Amazon S3 bucket to Package Registries lets you:
 
-- Keep packages close to your geographical region for faster downloads.
+- Keep packages and artifacts close to your geographical region for faster downloads.
 - Avoid cross-cloud egress costs.
 - Retain full sovereignty over your packages and artifacts, while Buildkite continues to manage their metadata and indexing.
 
@@ -20,17 +20,19 @@ Learn more about:
 
 - How to create an Amazon S3 bucket from Amazon's [Getting started with Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html) guide.
 
-## Link your private storage to Buildkite Package Registries
+## Link your private Amazon S3 bucket to Buildkite Package Registries
 
-To link your private Amazon S3 storage to Buildkite Package Registries:
+To link your private Amazon S3 bucket to Package Registries:
 
-1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+1. As a [Buildkite organization administrator](/docs/package-registries/security/permissions#manage-teams-and-permissions-organization-level-permissions), select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
 1. In the **Packages** section, select **Private Storage Link** to open its page.
 
-1. Select **Add private storage link** to begin configuring your private storage for Buildkite Package Registries.
+1. Select **Add private storage link** start the private storage configuration process.
 
-1. On the **Provide your storage's details** page, in **Step 2: Create or locate your AWS S3 bucket**, select **Open AWS** to open the list of Amazon S3 buckets in your AWS account, to either retrieve your existing empty S3 bucket, or create a new one if you [haven't already done so](#before-you-start).
+1. On the **Provide your storage's details** (page) > **Step 1: Select your storage provider**, select **AWS**.
+
+1. In **Step 2: Create or locate your AWS S3 bucket**, select **Open AWS** to open the list of Amazon S3 buckets in your AWS account, to either retrieve your existing empty S3 bucket, or create a new one if you [haven't already done so](#before-you-start).
 
     **Note:** If you are not already signed in to your AWS account, you may need to navigate to the area listing your S3 buckets.
 
