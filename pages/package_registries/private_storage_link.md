@@ -1,6 +1,6 @@
 # Private storage link
 
-This page provides an overview of Buildkite Package Registries' private storage link feature.
+This page provides an overview of Buildkite Package Registries' _private storage link_ feature.
 
 By default, Buildkite Package Registries provides its own storage (known as _Buildkite storage_) to house any packages, container images and modules stored in source registries. However, as a [Buildkite organization administrator](/docs/package-registries/security/permissions#manage-teams-and-permissions-organization-level-permissions), you can also link your own private storage to Buildkite Package Registries (known as a _private storage link_) to house these files.
 
@@ -43,12 +43,12 @@ The following steps provide a high-level overview on how to link your private st
 
 Learn more about how to configure Package Registries to use your private storage with the following supported cloud-based storage providers:
 
-- [Amazon S3 storage](/docs/package-registries/private_storage_link/s3)
-- [Google Cloud Storage](/docs/package-registries/private_storage_link/gcs)
+- [Amazon S3 storage](/docs/package-registries/private-storage-link/amazon-s3)
+- [Google Cloud Storage](/docs/package-registries/private-storage-link/google-cloud-storage)
 
 ## Set the default Buildkite Package Registries storage
 
-By default, your Buildkite organization uses storage provided by Buildkite (known as **Buildkite-hosted storage**).
+By default, your Buildkite organization uses storage provided by Buildkite (indicated as **Buildkite-hosted storage**).
 
 The _default storage_ is the storage used when a [new source registry is created](/docs/package-registries/manage-registries#create-a-source-registry).
 
