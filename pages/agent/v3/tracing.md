@@ -27,7 +27,7 @@ Once traces are being sent, you can view the internal state of the collector by 
 
 This UI shows active and sampled spans and is helpful for troubleshooting your OpenTelemetry trace pipeline.
 
-<%= image "open-telemetry.png", size: "2772x61", alt: "Open telemetry dashboard with spans" %>
+<%= image "open-telemetry.png", size: "2202x444", alt: "Open telemetry dashboard with spans" %>
 
 > 📘 Note on OTLP protocol
 > The Buildkite agent defaults to the `grpc` transport for OpenTelemetry, but can overridden using the `OTEL_EXPORTER_OTLP_PROTOCOL` environment variable to `http/protobuf` on [`v3.101.0`](https://github.com/buildkite/agent/releases/tag/v3.101.0) or more recent.
