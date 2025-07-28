@@ -5,24 +5,23 @@ This page details on how to link your own Google Cloud Storage (GCS) bucket to B
 By default, Buildkite Package Registries provides its own storage (called *Buildkite storage*). However, linking your own GCS bucket to Package Registries lets you:
 
 - Keep packages and artifacts close to your geographical region for faster downloads.
-- Avoid cross-cloud egress costs.
 - Retain full sovereignty over your packages and artifacts, while Buildkite continues to manage their metadata and indexing.
 
 ## Google Cloud's Workload Identity Federation feature
 
-Each time Buildkite Package Registries uploads, downloads, or signs an object, Package Registries presents its own OIDC token to Google Cloud's [Security Token Service](https://cloud.google.com/iam/docs/reference/sts/rest) (STS). The STS swaps this OIDC token for a short-lived access token on the service account you specify. This exchange is part of Google Cloud's [Workload Identity Federation](https://cloud.google.com/iam/docs/workload-identity-federation) feature, and allows Package Registries to perform its required actions inside your GCS bucket without the need for any storage of long-lived credentials.
+Each time Buildkite Package Registries uploads, downloads, or signs an object, the Buildkite platform presents its own OIDC token to Google Cloud's [Security Token Service](https://cloud.google.com/iam/docs/reference/sts/rest) (STS). The STS swaps this OIDC token for a short-lived access token representing your configured Google Cloud service account. This exchange is part of Google Cloud's [Workload Identity Federation](https://cloud.google.com/iam/docs/workload-identity-federation) feature, and allows Package Registries to perform its required actions inside your GCS bucket without the need for any storage of long-lived credentials.
 
 Key security benefits of Workload Identity Federation:
 
-- No long-lived service-account keys—tokens are generated when they're required and expire automatically.
+- No long-lived [service account keys](https://cloud.google.com/iam/docs/service-account-creds#key-types)—tokens are generated when they're required and expire automatically.
 
 - Least-privilege access—Buildkite Package Registries only requires these Google Cloud Identity and Access Management (IAM) roles:
     * `roles/storage.bucketViewer` on the GCS bucket, to allow Package Registries to read the bucket's metadata.
     * `roles/storage.objectUser` on the GCS bucket to allow Package Registries to create, read, update, delete, and tag objects.
-    * `roles/iam.serviceAccountTokenCreator` on the service account so it can mint signed URLs.
+    * `roles/iam.serviceAccountTokenCreator` on the Google Cloud service account so it can mint signed URLs.
 You can audit or revoke these at any time.
 
-- Full audit history—every token exchange and object access is recorded in Cloud Audit Logs.
+- Full audit history—every token exchange and object access is recorded in Google Cloud service's audit logs.
 
 ## Before you start
 
@@ -59,21 +58,29 @@ To link your private Google Cloud Storage (GCS) bucket to Package Registries:
 
 1. In **Step 2: Create or locate your Google Cloud bucket**, select **Open Google Cloud** to open the list of GCS buckets in your Google Cloud account, to either retrieve your existing empty GCS bucket, or create a new one if you [haven't already done so](#before-you-start).
 
-    **Note:** If you are already familiar with working with Google Cloud Storage and need to create a new GCS bucket, expand the **Create a new bucket** section for quick instructions on this process.
+    **Notes:**
+    * If you are already familiar with working with Google Cloud Storage and need to create a new GCS bucket, expand the **Create a new bucket** section for quick instructions on this process.
+    * Ensure you are in the correct Google Cloud _organization_ and _project_ in which to create your GCS bucket.
 
-1. Enter the **Bucket name** (for example `my-bucket`).
+1. Back on the Buildkite interface, in **Step 3: Enter your Google Cloud bucket details**, specify the **Bucket name** (for example, `my-gcs-bucket`) for your GCS bucket, then select **Continue**.
 
-1. Click **Continue**.
+1. On the **Connect Buildkite to Google** page, access and follow the relevant instructions to either:
+    * Create a new Google Cloud (GC) service account and Workload Identity Pool and Provider (WIPP) using the Google Cloud Console or CLI—expand the relevant **Create new** section. Links to the relevant Google Cloud Console pages are provided.
+    * Use an existing GC service account and WIPP—expand the relevant **Find existing** section.
 
-1. On the **Connect Buildkite to Google Cloud** page, follow the instructions to provide:
-    * **Service account email** – `registry-access@my-project.iam.gserviceaccount.com`.
-    * **Workload Identity provider resource** – `projects/<project-number>/locations/global/workloadIdentityPools/<pool>/providers/<provider>`.
+1. From your Google Cloud Console or CLI output of creating a new or finding an existing GC service account, copy the **Email** address for this account (for example, `buildkite-storage-link@my-google-cloud-project.iam.gserviceaccount.com`), and paste the value into the **Service account email** field on the **Connect Buildkite to Google** Package Registries page.
 
-1. On the **Authorize Buildkite** page, complete two bindings by following the instructions:
-    * **Impersonation** — add the `roles/iam.workloadIdentityUser` role so Buildkite can impersonate the service account.
-    * **Bucket access** — grant the service account `roles/storage.objectUser` and `roles/storage.bucketViewer` on your bucket so Buildkite can manage package objects and read bucket metadata.
+1. From your Google Cloud Console or CLI output of creating a new or finding an existing WIPP, copy the path component (`projects/<project-number>/locations/global/workloadIdentityPools/<pool>/providers/<provider>`) of the URL within **Audiences** > **Default audience** (when creating or editing the workload identity provider), and paste this path component value into the **Workload Identity Provider (full resource name)** field on the **Connect Buildkite to Google** Package Registries page.
 
-1. Click **Run diagnostic**. Buildkite uploads, downloads, and tags a test object to confirm it can:
+1. Select **Next**.
+
+1. On the next **Connect Buildkite to Google** page's **Allow Buildkite to impersonate service account** section, follow the instructions to allow the Buildkite platform to impersonate your GC service account (through the **Grant access using service account impersonation** option).
+
+    **Note:** If you are using the Google Cloud Console to implement this configuration, then the **Workload Identity User** (`roles/iam.workloadIdentityUser`) role is automatically applied to the GC service account as part of this process.
+
+1. In the next **Grant bucket access** section, follow the instructions grant the service account `roles/storage.objectUser` and `roles/storage.bucketViewer` on your bucket so Buildkite can manage package objects and read bucket metadata.
+
+1. Select **Run diagnostic**. Buildkite uploads, downloads, and tags a test object to confirm it can:
     * publish (`PUT`)
     * download (`GET`)
     * generate a signed URL (`signBlob`)
