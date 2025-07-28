@@ -1,12 +1,12 @@
 # Deployment visibility with Backstage
 
-[Backstage](https://backstage.io/) is an open source framework for building unified developer portals that provide comprehensive visibility into your infrastructure tools, services, and documentation. You can integrate Buildkite with Backstage using the [Buildkite plugin for Backstage](https://github.com/buildkite/backstage-plugin) to monitor pipeline status and manage builds from a single interface.
+[Backstage](https://backstage.io/) is an open source framework for building unified developer portals that provide unified visibility into your infrastructure tools, services, and documentation. You can integrate Buildkite with Backstage using the [Buildkite plugin for Backstage](https://github.com/buildkite/backstage-plugin) to monitor pipeline status and manage builds from a single interface.
 
 ## Overview
 
 The Buildkite plugin for Backstage provides:
 
-- **Centralized pipeline monitoring** - view Buildkite pipeline status alongside your service catalog.
+- **Centralized pipeline monitoring** - view Buildkite pipeline status alongside your [Backstage Service Catalog](https://backstage.io/docs/features/software-catalog/).
 - **Real-time build tracking** - monitor build progress with automatic status updates.
 - **Build management** - trigger rebuilds directly from Backstage.
 - **Detailed build information** - access build logs, timing, and commit context.
@@ -43,9 +43,9 @@ spec:
 
 To maximize deployment visibility in Backstage:
 
-1. **Use consistent naming conventions** for deployment pipelines (e.g., `service-name-env-deploy`)
-1. **Tag deployment builds** with environment information using build metadata
-1. **Set up deployment-specific badges** to quickly identify deployment status
+1. **Use consistent naming conventions** for deployment pipelines (e.g., `service-name-env-deploy`).
+1. **Tag deployment builds** with environment information using build metadata.
+1. **Set up deployment-specific badges** to quickly identify deployment status.
 
 ## Deployment dashboard features
 
@@ -134,31 +134,26 @@ buildkite-agent annotate "Deployed version ${VERSION} to ${ENVIRONMENT}" \
 
 Use Backstage's deployment visibility to:
 
-1. **Set up deployment alerts** - Configure notifications for failed deployments
-2. **Create deployment reports** - Generate regular deployment performance reports
-3. **Track deployment SLOs** - Monitor service level objectives for deployments
+1. **Set up deployment alerts** - configure notifications for failed deployments.
+2. **Create deployment reports** - generate regular deployment performance reports.
+3. **Track deployment SLOs** - monitor service level objectives for deployments.
 
 ## Troubleshooting deployment visibility
 
-Here are some common issues and the proposed mitigations for integration between Buildkite Pipelines and Backstage using a plugin.
+Here are some common issues and the proposed mitigations for integration between Buildkite Pipelines and Backstage using the [Buildkite plugin](/docs/pipelines/integrations/other/backstage) for Backstage.
 
 ### Deployments not appearing
 
-If your deployments aren't visible in Backstage:
+If your Buildkite deployments aren't appearing in Backstage:
 
-- Verify the pipeline annotation matches your deployment pipeline
-- Check that the Buildkite API token has sufficient permissions
-- Ensure deployment builds are properly tagged
+- Verify the pipeline annotation matches your deployment pipeline.
+- Check that the Buildkite API token has sufficient permissions.
+- Ensure deployment builds are properly tagged.
 
 ### Incomplete deployment information
 
 To improve deployment data quality:
 
-- Add comprehensive build metadata
-- Use consistent environment naming
-- Include version information in all deployment builds
-
-## Further reading
-
-- [Buildkite Backstage integration](/docs/pipelines/integrations/other/backstage)
-- [Backstage Service Catalog](https://backstage.io/docs/features/software-catalog/)
+- Add comprehensive build metadata.
+- Use consistent environment naming.
+- Include version information in all deployment builds.
