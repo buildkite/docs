@@ -147,7 +147,7 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 
 ## Monitoring, anomaly detection, logging
 
-**Risk:** Insufficient monitoring and logging capabilities can allow malicious activity to persist undetected, resulting in delayed incident response and prolonged exposure to security threats within your CI/CD environment.
+**Risk:** Insufficient monitoring and logging resulting in undetected malicious activity, delayed incident response, and prolonged exposure to security threats within your CI/CD environment.
 
 **Controls:**
 
