@@ -32,10 +32,11 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 **Remediations:**
 
-- Use [Buildkite Package Registries](/docs/package-registries) to retain your infrastructure in a single ecosystem. Add Buildkite's [Security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins) to keep a track of the contents of the packages in a SLSA-compliant way. Leverage Buildkite's official [security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins) to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment. You can also [write your own plugin](/docs/pipelines/integrations/plugins/writing) to integrate with the security scanning tool of your choice.
 - Integrate with a container scanning tool of your choice that allows you to record/keep track of Software Bill of Materials (SBOM) of the package. Consider implementing community-maintained [SBOM generation tools](https://github.com/cybeats/sbomgen) to track dependencies and supply chain components.
+- Leverage Buildkite's official [security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins) to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment. You can also [write your own plugin](/docs/pipelines/integrations/plugins/writing) to integrate with the security scanning tool of your choice.
 - Consider implementing community-maintained [SBOM generation tools](https://github.com/cybeats/sbomgen) to track dependencies and supply chain components.
 - Implement automated dependency and malware scanning on every merge using established tools such as [GuardDog](https://github.com/DataDog/guarddog) or [Aqua Trivy](https://www.aquasec.com/products/trivy/).
+- Use [Buildkite Package Registries](/docs/package-registries) to retain your infrastructure in a single ecosystem.
 - Provide [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all pipelines, ensuring vulnerability scans are executed and results are properly reported as part of every build of every Buildkite Pipeline.
 
 ## Vulnerability monitoring and mitigation
@@ -82,7 +83,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Utilize [OIDC-based authentication for AWS](/docs/pipelines/security/oidc/aws) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags to add strong unique claims for ensuring that only the expected agents are able to access your cloud infrastructure.
 - Consider [disabling command evaluation](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation) and enforcing script-only execution instead.
 
-> Additional information for better Buildkite Agent security
+> 📘 Additional information for better Buildkite Agent security
 > Please see [Securing your Buildkite Agent](/docs/agent/v3/securing) documentation page which has many specific recommendations for making your virtual machine or Docker container running the `buildkite-agent` process more secure in the context of running your CI/CD pipelines.
 
 ## API Access Token compromise
@@ -115,11 +116,12 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 
 **Remediations:**
 
-- Enforce encryption at rest and in transit when storing and transferring build artifacts with the help of cloud services with auditable storage policies. You can use [Buildkite Package Registries](https://buildkite.com/platform/package-registries/) in combination with Buildkite's [Security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins). Other supported private cloud storage options include:
+- Enforce encryption at rest and in transit when storing and transferring build artifacts with the help of cloud services with auditable storage policies.
+- Use cloud storage options for storing your artifacts, for instance - [Buildkite Package Registries](https://buildkite.com/platform/package-registries/) in combination with Buildkite's [Security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins). Other supported private cloud storage options include:
   * [AWS S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket)
   * [Google Cloud Storage buckets](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket)
   * [Azure Blob containers](/docs/agent/v3/cli-artifact#using-your-private-azure-blob-container)
-- Implement artifact signing using [SLSA/in-toto provenance](/docs/package-registries/security/slsa-provenance) or [cosign](https://github.com/sigstore/cosign) and establish verification processes before deployment to ensure artifact authenticity and detect tampering.
+- Implement artifact signing using [SLSA/in-toto provenance](/docs/package-registries/security/slsa-provenance) or [cosign](https://github.com/sigstore/cosign) and establish verification processes before deployment to document artifact provenance and and detect tampering.
 - Enforce [KMS signing](/docs/agent/v3/signed-pipelines#aws-kms-managed-key-setup) of the stored artifacts.
 
 ## Consistent pipeline-as-code approach
