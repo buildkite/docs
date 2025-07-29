@@ -105,6 +105,7 @@ eval
 Eventbridge
 EventBridge
 exfiltrated
+exfiltration
 Explainshell
 fastfile
 fastlane
