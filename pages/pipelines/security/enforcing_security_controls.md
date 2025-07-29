@@ -33,7 +33,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 **Controls:**
 
 - Integrate with a container scanning tool to keep track of Software Bill of Materials (SBOM) of your packages. You can check out the following list of community-maintained [SBOM generation tools](https://github.com/cybeats/sbomgen).
-- Use Buildkite's official [security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins) (or [write your own plugin](/docs/pipelines/integrations/plugins/writing)) to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment.
+- Use Buildkite's official [Security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins) (or [write your own plugin](/docs/pipelines/integrations/plugins/writing)) to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment.
 - Run automated dependency and malware scanning on every merge using established tools such as [GuardDog](https://github.com/DataDog/guarddog) or [Aqua Trivy](https://www.aquasec.com/products/trivy/).
 - Deploy [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all of your pipelines.
 
@@ -82,7 +82,6 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 > 📘 Additional information on better Buildkite Agent security
 > For small teams with limited experience in hosting and hardening infrastructure, [hosted agents](/docs/pipelines/hosted-agents) provide a secure, managed solution that reduces operational overhead. However, organizations with stringent Governance, Risk, and Compliance (GRC) requirements that mandate enhanced security postures should deploy [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture) for their most sensitive workloads, as this approach offers greater control over the security configuration and compliance controls.
->Contact Buildkite Support by [email](mailto:support@buildkite.com) or through your dedicated Premium Support channel to discuss agent machine hardening strategies and security best practices tailored to your specific compliance framework.
 
 ## API Access Token compromise
 
@@ -134,8 +133,8 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 
 > 📘 Additional information on using Buildkite Terraform provider for better security
 > Organizations operating without Terraform governance and peer review protocols are fundamentally compromising their security posture. The suggested approach is to create a service account that is not tied to any specific user identity using your identity provider, utilize Buildkite's RBAC capabilities to prohibit any changes in your pipelines, tokens, etc., and use this account's API key to perform any changes in Terraform using Buildkite Terraform provider by utilizing [GitOps](https://www.redhat.com/en/topics/devops/what-is-gitops).
->Establish a "break glass" protocol that is tied to your SIEM alerts in case someone has to make manual modifications to Buildkite's systems outside of the automated workflow.
 
+- Establish a "break glass" protocol that is tied to your SIEM alerts in case someone has to make manual modifications to Buildkite's systems outside of the automated workflow.
 - Establish zero-tolerance policies for manual pipeline overrides, with any unauthorized modifications triggering immediate alerts within your Security Information and Event Management (SIEM) system to ensure rapid incident response and maintain configuration integrity.
 - Deploy agent-level [lifecycle hooks](/docs/agent/v3/hooks#agent-lifecycle-hooks) as they cannot be bypassed or avoided through modifying a `pipeline.yml` or other developer-level code changes. You can also customize the hooks to scan your `pipeline.yml` files to validate their shape and contents and ensure that those files conform to your Buildkite organization's security requirements.
 - Use ephemeral Buildkite agents (like the [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s)) or tools like [Ansible](https://docs.ansible.com/) or [Puppet](https://www.puppet.com/blog/puppet-cicd) to force configuration changes on persistent hosts.
