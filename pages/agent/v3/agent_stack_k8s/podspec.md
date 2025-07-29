@@ -114,7 +114,7 @@ In older Agent Kubernetes stack version `< v0.30.0`.
 You can specify a different image to use for a step in a step level `podSpecPatch`. Previously this could be done with a step level `podSpec`.
 
 ```yaml
-# pipelines.yaml
+# pipeline.yaml
 agents:
   queue: kubernetes
 steps:
