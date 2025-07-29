@@ -98,7 +98,7 @@ steps:
 
 ### Custom images
 
-Since `v0.30.0`, you can use the [Container image attribute](/docs/pipelines/configure/step-types/command-step#container-image-attributes) to specify container image in k8s stack.
+In version 0.30.0 and later of the Agent Stack for Kubernetes, you can use the [`image` attribute](/docs/pipelines/configure/step-types/command-step#container-image-attributes) in a command step to specify a container image for the step's job.
 Almost any container image may be used, but the image _must_ have a POSIX shell available to be executed at `/bin/sh`.
 
 ```yaml
