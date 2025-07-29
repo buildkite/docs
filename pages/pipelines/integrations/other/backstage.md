@@ -19,10 +19,10 @@ Before installing the Buildkite Backstage plugin, ensure you have:
 - A Buildkite account with at least one pipeline
 - An up-to-date Backstage instance
 - A Buildkite API token with the following permissions:
-  - `read_pipelines`
-  - `read_builds`
-  - `read_user`
-  - `write_builds` (for rebuild functionality)
+  + `read_pipelines`
+  + `read_builds`
+  + `read_user`
+  + `write_builds` (for rebuild functionality)
 
 ## Installation
 
