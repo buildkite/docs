@@ -98,7 +98,7 @@ steps:
 
 ### Custom images
 
-In version 0.30.0 and later of the Agent Stack for Kubernetes, you can use the [`image` attribute](/docs/pipelines/configure/step-types/command-step#container-image-attributes) in a command step to specify a container image for the step's job.
+In version 0.30.0 and later of the Agent Stack for Kubernetes controller, you can use the [`image` attribute](/docs/pipelines/configure/step-types/command-step#container-image-attributes) in a command step to specify a container image for the step's job.
 Almost any container image may be used, but the image _must_ have a POSIX shell available to be executed at `/bin/sh`.
 
 ```yaml
@@ -110,7 +110,7 @@ steps:
   - echo -n Hello!
 ```
 
-For versions of the Agent Stack for Kubernetes prior to 0.30.0, you can specify a different image to use for a step in a step level `podSpecPatch`. Previously this could be done with a step level `podSpec`.
+For versions of the  prior to 0.30.0, you can specify a different image to use for a step in a step level `podSpecPatch`. Previously this could be done with a step level `podSpec`.
 
 ```yaml
 # pipeline.yaml
