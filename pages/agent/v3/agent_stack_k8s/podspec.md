@@ -110,8 +110,7 @@ steps:
   - echo -n Hello!
 ```
 
-In older Agent Kubernetes stack version `< v0.30.0`.
-You can specify a different image to use for a step in a step level `podSpecPatch`. Previously this could be done with a step level `podSpec`.
+For versions of the Agent Stack for Kubernetes prior to 0.30.0, you can specify a different image to use for a step in a step level `podSpecPatch`. Previously this could be done with a step level `podSpec`.
 
 ```yaml
 # pipeline.yaml
