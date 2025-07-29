@@ -102,7 +102,7 @@ Since `v0.30.0`, you can use the [Container image attribute](/docs/pipelines/con
 Almost any container image may be used, but the image _must_ have a POSIX shell available to be executed at `/bin/sh`.
 
 ```yaml
-# pipelines.yaml
+# pipeline.yaml
 steps:
 - name: Hello World!
   image: "alpine:latest" # <- New in v0.30.0
