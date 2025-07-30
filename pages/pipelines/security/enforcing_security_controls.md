@@ -92,7 +92,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 - Create tokens with minimal [required scopes](/docs/apis/managing-api-tokens#token-scopes) only. Use [Portals](/docs/apis/portals) to limit GraphQL query scope. Review permissions regularly to match current needs.
 - Establish [token rotation](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security) with defined expiration periods. Automate rotation where possible to limit exposure windows.
-- Bind tokens to specific IP addresses or network segments. Use Network Address Translation (NAT) with centralized egress routing for enhanced monitoring and rapid compromise detection.
+- Bind tokens to [specific IP addresses or network segments](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address). Use Network Address Translation (NAT) with centralized egress routing for enhanced monitoring and rapid compromise detection.
 - Deploy tokens within dedicated VPCs using [Buildkite’s Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security#network-configuration) for network isolation.
 - Monitor token usage patterns through [Audit Logs](/docs/platform/audit-log). Set up alerts on unusual patterns: unexpected locations, excessive API calls, unauthorized resource access.
 
