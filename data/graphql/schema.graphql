@@ -3047,11 +3047,6 @@ input HostedAgentsQueueSettingsUpdateInput {
 }
 
 """
-An ISO 8601-encoded date
-"""
-scalar ISO8601Date
-
-"""
 Represents non-fractional signed whole numeric values.
 
 `JSInt` can represent values between -(2^53) + 1 and 2^53 - 1.
@@ -3696,21 +3691,6 @@ interface JobInterface {
 }
 
 """
-A record of job minutes usage, aggregated by day and pipeline.
-"""
-type JobMinutesUsage implements ResourceUsageInterface {
-  aggregatedOn: ISO8601Date!
-  pipeline: Pipeline
-  pipelineId: ID!
-
-  """
-  The recorded usage in seconds. For billing purposes, seconds are summed for a
-  billing period and rounded down to the nearest minute.
-  """
-  seconds: Int!
-}
-
-"""
 The different orders you can sort jobs by
 """
 enum JobOrder {
@@ -3831,6 +3811,11 @@ enum JobStates {
   The job has just been created and doesn't have a state yet
   """
   PENDING
+
+  """
+  The job is reserved by a stack for later execution
+  """
+  RESERVED
 
   """
   The job is running
@@ -5994,56 +5979,6 @@ type Organization implements Node {
     """
     user: UserSelector
   ): TeamConnection
-
-  """
-  Returns the resource usage data for this organization.
-  """
-  usage(
-    """
-    Returns the elements in the list that come after the specified cursor.
-    """
-    after: String
-
-    """
-    Filter aggregations performed from this date
-    """
-    aggregatedOnFrom: ISO8601Date
-
-    """
-    Filter aggregations performed until this date
-    """
-    aggregatedOnTo: ISO8601Date
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
-    before: String
-
-    """
-    Returns the first _n_ elements from the list.
-    """
-    first: Int
-
-    """
-    Returns the last _n_ elements from the list.
-    """
-    last: Int
-
-    """
-    Filter results by the associated Pipeline ID
-    """
-    pipelineIds: [ID!] = []
-
-    """
-    Filter results by resource type
-    """
-    resource: [ResourceUsageType!] = [JOB_MINUTES, TEST_EXECUTIONS]
-
-    """
-    Filter results by the associated Suite ID
-    """
-    suiteIds: [ID!] = []
-  ): UsageUnionConnection! @deprecated(reason: "Does not support newer resource types - eg. concurrent agents, active users etc.")
 
   """
   The public UUID for this organization
@@ -9573,28 +9508,6 @@ type RepositoryProviderUnknownSettings implements RepositoryProviderSettings {
 }
 
 """
-An aggregate of resource usage, grouped by day and resource.
-"""
-interface ResourceUsageInterface {
-  aggregatedOn: ISO8601Date!
-}
-
-"""
-All types of billable resources
-"""
-enum ResourceUsageType {
-  """
-  These records represent a pipeline's job minutes usage for a single day
-  """
-  JOB_MINUTES
-
-  """
-  These records represent a suite's test executions usage for a single day
-  """
-  TEST_EXECUTIONS
-}
-
-"""
 API tokens with access to this organization will be automatically revoked after this many days of inactivity.
 """
 enum RevokeInactiveTokenPeriod {
@@ -12235,20 +12148,6 @@ type TeamUpdatePayload {
 }
 
 """
-A record of test executions usage, aggregated by day and test suite.
-"""
-type TestExecutionsUsage implements ResourceUsageInterface {
-  aggregatedOn: ISO8601Date!
-
-  """
-  The recorded usage.
-  """
-  executions: Int!
-  suite: Suite
-  suiteId: ID!
-}
-
-"""
 A person who hasn’t signed up to Buildkite
 """
 type UnregisteredUser {
@@ -12263,46 +12162,6 @@ type UnregisteredUser {
   The name of the user
   """
   name: String
-}
-
-"""
-The possible resource usage types
-"""
-union UsageUnion = JobMinutesUsage | TestExecutionsUsage
-
-"""
-The connection type for UsageUnion.
-"""
-type UsageUnionConnection {
-  """
-  A list of edges.
-  """
-  edges: [UsageUnionEdge]
-
-  """
-  A list of nodes.
-  """
-  nodes: [UsageUnion]
-
-  """
-  Information to aid in pagination.
-  """
-  pageInfo: PageInfo!
-}
-
-"""
-An edge in a connection.
-"""
-type UsageUnionEdge {
-  """
-  A cursor for use in pagination.
-  """
-  cursor: String!
-
-  """
-  The item at the end of the edge.
-  """
-  node: UsageUnion
 }
 
 """
