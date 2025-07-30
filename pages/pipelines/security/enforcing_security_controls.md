@@ -13,7 +13,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Enforce [Single Sign-On (SSO)](/docs/platform/sso) and [Two-Factor Authentication (2FA/MFA)](/docs/platform/team-management/enforce-2fa) for all UI access.
 - Use time-scoped API tokens with [automated rotation](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security).
 - Apply least privilege principle when [scoping API keys](/docs/apis/managing-api-tokens#token-scopes).
-- Restrict API tokens to specific IP ranges where possible.
+- [Restrict API tokens to specific IP ranges](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address) where possible.
 
 ## Source code security and version control integrity
 
