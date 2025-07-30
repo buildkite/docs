@@ -72,7 +72,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 **Controls:**
 
 - Isolate sensitive builds in dedicated [agent pools within Clusters](/docs/pipelines/clusters), ensuring that critical workloads cannot be affected by compromise of less secure environments.
-- Set granular command authorization controls for what the `buildkite-agent` user is allowed to run, restricting executable operations to predefined security parameters.
+- Set [granular command authorization controls](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller) for what the `buildkite-agent` user is allowed to run, restricting executable operations to predefined security parameters.
 - Deploy ephemeral build environments using isolated virtual machines or containers with minimal operating systems, disabled inbound SSH access, and strict network egress controls.
 - Enable [pipeline signing](/docs/agent/v3/signed-pipelines) and verification mechanisms.
 - Configure automated regular credential rotation or even set [automatic expiration date](/docs/agent/v3/securing#set-the-agent-token-expiration-date) on agent registration tokens to limit the window of opportunity for compromised tokens.
