@@ -25,7 +25,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Enforce [SCM signed commits](https://buildkite.com/resources/blog/securing-your-software-supply-chain-signed-git-commits-with-oidc-and-sigstore/) and [branch protection rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule) with [Buildkite conditionals](/docs/pipelines/configure/conditionals).
 - Map Buildkite users to SCM identities with [team-based permissions](https://buildkite.com/resources/examples/buildkite/agent-hooks-example/) to ensure only authorized team members can trigger builds.
 - Deploy [programmatic team management](/docs/platform/team-management/permissions#manage-teams-and-permissions-programmatically-managing-teams) and pre-merge hooks to verify commit authors have appropriate permissions before allowing build execution.
-- [Disable trigger on fork builds](/docs/pipelines/source-control/github#running-builds-on-pull-requests) for public pipelines and repositories to ensure open source contributors are unable to substantially alter your pipeline to extract secrets. 
+- [Disable trigger on fork builds](/docs/pipelines/source-control/github#running-builds-on-pull-requests) for public pipelines and repositories to ensure open source contributors are unable to substantially alter your pipeline to extract secrets.
 
 ## Dependencies and package management
 
@@ -71,11 +71,13 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 **Controls:**
 
-- Isolate sensitive builds in dedicated [agent pools within Clusters](/docs/pipelines/clusters), ensuring that critical workloads cannot be affected by compromise of less secure environments.
+
 - Set [granular command authorization controls](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller) for what the `buildkite-agent` user is allowed to run, restricting executable operations to predefined security parameters.
-- Deploy ephemeral build environments using isolated virtual machines or containers with minimal operating systems, disabled inbound SSH access, and strict network egress controls.
-- Enable [pipeline signing](/docs/agent/v3/signed-pipelines) and verification mechanisms.
 - Configure automated regular credential rotation or even set [automatic expiration date](/docs/agent/v3/securing#set-the-agent-token-expiration-date) on agent registration tokens to limit the window of opportunity for compromised tokens.
+- [Update your Buildkite Agents](https://buildkite.com/docs/agent/v3/installation#upgrade-agents) on a regular basis.
+- Deploy ephemeral build environments using isolated virtual machines or containers with minimal operating systems, disabled inbound SSH access, and strict network egress controls.
+- Isolate sensitive builds in dedicated [agent pools within Clusters](/docs/pipelines/clusters), ensuring that critical workloads cannot be affected by compromise of less secure environments.
+- Enable [pipeline signing](/docs/agent/v3/signed-pipelines) and verification mechanisms.
 - Set appropriate [job time limits](/docs/pipelines/configure/build-timeouts#command-timeouts) to limit the potential duration of malicious code execution on compromised agents.
 - Utilize [OIDC-based authentication for AWS](/docs/pipelines/security/oidc/aws) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags to add strong unique claims.
 - [Disable command evaluation](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation) where appropriate and enforce script-only execution instead.
