@@ -56,14 +56,14 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 **Controls:**
 
-- Use external secrets management by integrating with dedicated [secrets storage services](/docs/pipelines/security/secrets/managing#using-a-secrets-storage-service) such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [HashiCorp Vault](https://www.vaultproject.io/).
-- Implement secrets management through [exporting secrets with environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) for agent-level secrets rather than injecting them at build runtime where applicable. Otherwise - configure your secrets to be injected at runtime rather than stored as static environment variables.
 - Leverage [Buildkite scoped secrets](/docs/pipelines/security/secrets/buildkite-secrets) to ensure that secrets are only available where explicitly required. Note that Buildkite [automatically redacts secrets](/docs/pipelines/security/secrets/buildkite-secrets#redaction) in logs.
+- Integrate with your existing external secrets management by integrating with dedicated [secrets storage services](/docs/pipelines/security/secrets/managing#using-a-secrets-storage-service) such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [HashiCorp Vault](https://www.vaultproject.io/).
+- Implement secrets management through [exporting secrets with environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) for agent-level secrets rather than injecting them at build runtime where applicable. Otherwise - configure your secrets to be injected at runtime rather than stored as static environment variables.
 - Establish environment-specific cluster and queue segmentation of your builds to scope and restrict access to the secrets so that the builds in a queue can only access the secrets they require to run.
-- Establish incident response procedures for secret compromise, including automated revocation and rotation processes. Note that cluster maintainers can [revoke tokens](/docs/agent/v3/tokens#revoke-a-token) using the REST API for rapid containment.
 - Monitor secret access activities within your CI/CD environment through [Audit Log](/docs/platform/audit-log).
 - Deploy additional scanning tools such as [git-secrets](https://github.com/awslabs/git-secrets) to prevent accidental committing of secrets to the source code repositories before they enter the build process.
 - Consider using strict pipeline upload guards, such as [reject-secrets](/docs/agent/v3/cli-pipeline#reject-secrets) option for `buildkite-agent pipeline upload` commands.
+- Have incident response procedures in place for secret compromise, including automated revocation and rotation processes. Note that cluster maintainers can [revoke tokens](/docs/agent/v3/tokens#revoke-a-token) using the REST API for rapid containment.
 
 ## Buildkite Agent security
 
