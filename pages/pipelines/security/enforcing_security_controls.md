@@ -45,7 +45,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 **Controls:**
 
 - Integrate security scanning tools directly into pipelines as mandatory steps that block deployments when critical vulnerabilities are detected. Use [pipeline templates](/docs/pipelines/governance/templates), [plugins](/docs/pipelines/integrations/plugins), [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), and [agent hooks](/docs/agent/v3/hooks) to ensure security scans cannot be bypassed by modifying `pipeline.yml` files.
-- Deploy continuous monitoring through automated SBOM generation and vulnerability scanning of production environments. Execute scanners on your agents using pipeline steps to continuously assess deployed components for newly discovered vulnerabilities.
+- Deploy continuous monitoring through automated SBOM generation and vulnerability scanning of production environments. Execute scanners on your agents using pipeline steps to continuously assess deployed components for newly discovered vulnerabilities - for example, you can use Buildkite's [Security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins).
 - Track dependencies using [Buildkite Annotations](/docs/agent/v3/cli-annotate) to document exact package versions in each build. This creates an auditable record enabling targeted remediation when vulnerabilities are discovered.
 - Establish automated response workflows that trigger notifications and remediation processes when critical CVEs are identified.
 - Integrate with vulnerability databases and scanning tools like [Trivy](https://trivy.dev/latest/), [Snyk](https://snyk.io/), or cloud security services across your software supply chain.
@@ -70,7 +70,6 @@ Use this as your reference for building a defensible, auditable, and resilient C
 **Risk:** Buildkite Agent compromise leading to privilege escalation, lateral movement, data access, malicious code execution.
 
 **Controls:**
-
 
 - Set [granular command authorization controls](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller) for what the `buildkite-agent` user is allowed to run, restricting executable operations to predefined security parameters.
 - Configure automated regular credential rotation or even set [automatic expiration date](/docs/agent/v3/securing#set-the-agent-token-expiration-date) on agent registration tokens to limit the window of opportunity for compromised tokens.
