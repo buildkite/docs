@@ -95,7 +95,9 @@ Plugins are an essential part of both Jenkins and Buildkite, and they help you e
 
 Rather than managing plugins through a web-based system like Jenkins, in Buildkite, you manage plugins directly in pipeline definitions. This means that teams can manage plugins at the pipeline level, rather than there being a need to manage plugins at a monolithic system-wide level.
 
-Jenkins plugins are typically developed in Java and are closely integrated with the Jenkins core, which may lead to compatibility issues when updating Jenkins or its plugins. Buildkite plugins are written in Bash and are typically only loosely coupled with Buildkite, making them more maintainable and less prone to compatibility issues.
+Jenkins plugins are typically Java-based, run in the Jenkins controller's Java virtual machine, and are shared across all pipelines. Therefore, a failure with one of these plugins can crash your entire Jenkins instance. Furthermore, since Jenkins plugins are closely integrated with Jenkins core, compatibility issues can often be encountered when either Jenkins core or its plugins are upgraded.
+
+Buildkite plugins are shell-based, run on individual Buildkite Agents, and are pipeline-specific with independent versioning, such that plugins are only loosely coupled with Buildkite. Therefore, plugin failures are isolated to individual builds, and issues are rare whenever you use newer versions of plugins in Buildkite pipelines.
 
 ### Try out Buildkite
 
@@ -106,7 +108,7 @@ With a basic understanding of the differences between Buildkite and Jenkins, if 
 Buildkite Agents:
 
 - Are where your builds, tests, and deployments run.
-- Can either run as [Buildkite hosted agents](/docs/pipelines/hosted-agents), or on your infrastructure, providing flexibility and control over the environment and resources. Operating agents in a self-hosted environment is similar in approach to hosting nodes in Jenkins.
+- Can either run as [Buildkite hosted agents](/docs/pipelines/hosted-agents), or on your infrastructure (known as _self-hosted_), providing flexibility and control over the environment and resources. Operating agents in a self-hosted environment is similar in approach to hosting nodes in Jenkins.
 
 If running self-hosted Buildkite Agents, you'll need to consider the following:
 
@@ -128,28 +130,30 @@ See the [Installation](/docs/agent/v3/installation/) guides when you're ready to
 
 ## Translate pipeline definitions
 
+This section covers how to translate your Jenkins pipelines over to Buildkite.
+
 A pipeline is a container for modeling and defining workflows. While that's true for both Buildkite and Jenkins, they look quite different. Both can read a pipeline (configuration) file checked into a repository, which defines the workflow. In Jenkins, this is the `Jenkinsfile`, whereas in Buildkite, it's the `pipeline.yml` file. Where a `Jenkinsfile` uses a Groovy-based syntax and strong hierarchy, `pipelines.yml` uses YAML syntax, with a flat structure for better readability.
 
 ### Audit your pipelines
 
-Before you start converting your pipelines over to Buildkite, take an inventory of your existing pipelines, plugins, and integrations. Determine which parts of your Jenkins setup are essential and which can be replaced or removed. This will help you decide what needs to be migrated to Buildkite.
+First, take an inventory of your existing pipelines, plugins, and integrations. Determine which parts of your Jenkins setup are essential and which can be replaced or removed. This will help you decide what needs to be migrated to Buildkite.
 
 ### Understand the fundamental differences
 
-Before translating a pipeline over from Jenkins to Buildkite, you'll need to understand the following fundamental differences in processing and building pipelines between these products:
+Before translating any pipeline over from Jenkins to Buildkite, you'll need to understand the following fundamental differences in processing and building pipelines between these products:
 
 - [Step execution](#step-execution)
 - [Workspace state](#workspace-state)
 - [Agent targeting](#agent-targeting)
-- [Plugins system](#plugins-system)
+- [Plugins](#plugins)
 
 Once you've understood these differences, you can then assess the goal of the Jenkins pipeline to see how you can translate it to achieve the same goal with Buildkite.
 
 <h4 id="step-execution">Step execution</h4>
 
-By default, Jenkins runs its pipeline steps in sequence, whereas Buildkite farms out all of its steps simultaneously (that is, in parallel) to any available agents that can run them. However, you can force the opposite of this default behavior in each type of pipeline.
+By default, Jenkins runs its pipeline steps in sequence, whereas Buildkite farms out all of its steps simultaneously (that is, in parallel) to any available agents that can run them. However, you can achieve the opposite of these default behaviors in each products' pipelines.
 
-To force a Jenkins pipeline to run its steps in parallel, the `parallel` directive is used explicitly in the Jenkins pipeline. For instance, in the following Jenkins pipeline snippet, the `Lint` and `Unit Tests` steps are run simultaneously.
+To make a Jenkins pipeline run its steps in parallel, the [`parallel` directive](https://www.jenkins.io/doc/book/pipeline/syntax/#parallel) is used explicitly in the Jenkins pipeline. For instance, in the following Jenkins pipeline snippet, the `Lint` and `Unit Tests` steps are run simultaneously.
 
 ```groovy
 // Jenkins: Explicit parallelization required to run steps in parallel
@@ -159,7 +163,7 @@ parallel(
 )
 ```
 
-Conversely, to force a Buildkite pipeline to run its steps in a specific order, use the `depends_on` attribute in the step you want to run after others have run first. For instance, in the following Buildkite pipeline example, the `Lint` and `Test` steps are run in parallel (by default) first, whereas the `Build` step is run after the `Lint` and `Test` steps have completed.
+Conversely, to make a Buildkite pipeline run its steps in a specific order, use the [`depends_on` attribute](/docs/pipelines/configure/dependencies#defining-explicit-dependencies) in the step you want to run after others have run first. For instance, in the following Buildkite pipeline example, the `Lint` and `Test` steps are run in parallel (by default) first, whereas the `Build` step is run after the `Lint` and `Test` steps have completed.
 
 ```yaml
 # Buildkite: Explicit sequencing is required to make steps run in sequence
@@ -184,15 +188,15 @@ In Jenkins, all stages and steps in a pipeline share the same workspace. This me
 ```groovy
 // Jenkins: All stages share the same workspace.
 stage('Install') {
-    sh 'npm install'  // Creates node_modules
+    sh 'npm install' // Creates node_modules
 }
 
 stage('Test') {
-    sh 'npm test'     // Uses the node_modules installed in the 'Install' stage
+    sh 'npm test'    // Uses the node_modules installed in the 'Install' stage
 }
 ```
 
-In Buildkite, each step is executed in a fresh workspace. Therefore, even with explicit sequencing (using a [`wait` step](/docs/pipelines/configure/step-types/wait-step)), artifacts from previous steps won't be available in subsequent steps.
+In Buildkite, each step is executed in a fresh workspace. Therefore, even if you implement a [`wait` step](/docs/pipelines/configure/dependencies#implicit-dependencies-with-wait-and-block), artifacts from previously processed steps won't be available in subsequent steps.
 
 ```yaml
 # ❌ This won't work in Buildkite
@@ -203,7 +207,7 @@ steps:
   - wait
 
   - label: Run tests
-    command: npm test # 💥 node_modules won't be there
+    command: npm test # 💥 Fails because node_modules won't be there
 ```
 
 However, there are have several options for sharing state between steps:
@@ -212,11 +216,11 @@ However, there are have several options for sharing state between steps:
 
     ```yaml
     steps:
-      ...
+      # Install dependencies step
 
       - label: Run tests
         commands:
-          - "npm ci" # (Re-)installs node_modules
+          - "npm ci"   # (Re-)installs node_modules
           - "npm test" # node_modules will be available
     ```
 
@@ -230,21 +234,30 @@ However, there are have several options for sharing state between steps:
 
 Jenkins uses a push-based agent targeting model, where the controller assigns work to pre-registered agents based on labels.
 
-Conversely, Buildkite uses a pull-based agent targeting model, where agents poll queues for work. This pull-based agent targeting model approach provides better security (no incoming connections to agents), easier scaling (through [ephemeral agents](/docs/pipelines/glossary#ephemeral-agent)), and more resilient networking. However, this difference in agent targeting approaches may likely require you to rethink your agent topology when [provisioning your agent infrastructure](#provision-agent-infrastructure).
+Conversely, Buildkite uses a pull-based agent targeting model, where agents poll queues for work. This pull-based agent targeting model approach provides better security (no incoming connections to agents), easier scaling (through [ephemeral agents](/docs/pipelines/glossary#ephemeral-agent)), and more resilient networking. However, this difference between Jenkins and Buildkite may likely require you to rethink your agent topology when [provisioning your agent infrastructure](#provision-agent-infrastructure).
 
-<h4 id="plugins-system">Plugins system</h4>
+<h4 id="plugins">Plugins</h4>
 
-Jenkins plugins are Java-based, run in the controller JVM, and are shared across all pipelines. A plugin failure can crash your entire Jenkins instance. Buildkite plugins are shell-based, run on individual agents, and are pipeline-specific with independent versioning. Plugin failures are isolated to individual builds.
+Following on from [Plugin system](#understand-the-differences-plugin-system), many popular Jenkins plugins become unnecessary in Buildkite due to native features like artifact handling, build visualization, and emoji support.
 
-Many popular Jenkins plugins become unnecessary in Buildkite due to native features like artifact handling, build visualization, and emoji support.
+### Translate an example Jenkins pipeline
 
-<!-- Got up to here -->
+This section is a guide how to translate an example of a [declarative Jenkins pipeline](https://www.jenkins.io/doc/book/pipeline/syntax/#declarative-pipeline) into a Buildkite pipeline. This pipeline implements typical use cases found in many Jenkins pipelines, such as:
 
-To translate a pipeline:
+- Multiple [`stage` directives](https://www.jenkins.io/doc/book/pipeline/syntax/#stage) to group [steps](https://www.jenkins.io/doc/book/pipeline/syntax/#steps) for the install, test, and build stages of the pipeline (executed sequentially).
+- The [`matrix` directive](https://www.jenkins.io/doc/book/pipeline/syntax/#declarative-matrix) to process this set of sequential stages in parallel using different versions of a build tool ([Node.js](https://nodejs.org/)).
+- A [`post` section](https://www.jenkins.io/doc/book/pipeline/syntax/#post) that uses the Jenkins core [`archiveArtifacts` step](https://www.jenkins.io/doc/pipeline/steps/core/#archiveartifacts-archive-the-artifacts) to save the artifact to storage.
 
-1. Identify the goal of the pipeline.
+This guide consists of the following steps:
 
-1. Look for an [example pipeline](/docs/pipelines/configure/example-pipelines) closest to that goal.
+1. [Copy or fork the `jenkins-to-buildkite` repository](#copy-or-fork-the-jenkins-to-buildkite-repository).
+1. [Examine the Jenkins pipeline](#examine-the-jenkins-pipeline).
+
+<h4 id=""></h4>
+
+<h4 id="copy-or-fork-the-jenkins-to-buildkite-repository">Step 1: Copy or fork the jenkins-to-buildkite repository</h4>
+
+<h4 id="examine-the-jenkins-pipeline">Step 2: Examine the Jenkins pipeline</h4>
 
 1. Follow [Defining steps](/docs/pipelines/configure/defining-steps) and surrounding documentation to learn how to customize the pipeline definition to meet your needs, including:
    * Targeting a specific agent or queue.
