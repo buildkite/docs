@@ -119,3 +119,21 @@ For example, the following step will echo the first 7 characters of the `BUILDKI
 ```
 
 If the environment variable has not been set, the range will return a blank string.
+
+## Troubleshooting
+
+Here are some of the common issues that can occur when uploading a pipeline.
+
+### Common errors
+
+Pipeline uploads can be rejected if certain criteria is not met. Here are explanations on why your pipeline upload might be rejected.
+
+<table>
+  <thead>
+    <tr><th>Error</th><th>Reason</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>The key "duplicate-key-name" has already <br>been used by another step in this build</code></td><td>This error occurs when a pipeline step is uploaded with a <code>key</code> attribute that matches the <code>key</code> attribute of an existing step in the pipeline. <code>key</code> attributes must be unique for all steps in a build.</td></tr>
+    <tr><td><code>You can only change the pipeline of a <br>running build</code></td><td>This error occurs when a pipeline is uploaded to a finished build, due to the inclusion of the <code>--job</code> option with the upload command.</td></tr>
+  </tbody>
+</table>
