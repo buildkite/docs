@@ -142,7 +142,7 @@ This table outlines the fundamental differences in pipeline files and their synt
 | **Syntax** | Groovy-based | YAML |
 | **Structure** | Strong hierarchy | Flat structure (more readable) |
 
-Buildkite's YAML-based pipeline syntax and definitions, along with its flat structure, is simpler, more human-readable, and easier to understand. Furthermore, you can even generate pipeline definitions at buildtime with the power and flexibility of [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
+Buildkite's YAML-based pipeline syntax and definitions, along with its flat structure, is simpler, more human-readable, and easier to understand. Furthermore, you can even generate pipeline definitions at build-time with the power and flexibility of [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
 ### Step execution
 
@@ -247,7 +247,7 @@ This section guides you through the process of translating a [declarative Jenkin
 
 The declarative Jenkins pipeline example can be found in the [jenkins-to-buildkite](https://github.com/cnunciato/jenkins-to-buildkite) repository.
 
-Make a copy or fork this repository within your own GitHub account if you'd like to examine it further. This repository has its own Dockerized version of Jenkins, which you can run locally to see how it builds the Jenkins pipeline and app included within this repository.
+Make a copy or fork this repository within your own GitHub account if you'd like to examine it further. This repository has its own containerized version of Jenkins, which you can run locally to see how it builds the Jenkins pipeline and app included within this repository.
 
 ### Step 2: Examine the Jenkins pipeline
 
@@ -257,7 +257,7 @@ Make a copy or fork this repository within your own GitHub account if you'd like
     * **Matrix builds**: The pipeline is built twice—once with Node.js version 20.x and the other with version 22.x.
     * **Agent targeting**: Agents are targeted using label-based selection, which are the Node.js versions defined within the [`axes` section](https://www.jenkins.io/doc/book/pipeline/syntax/#matrix-axes).
     * **Tool management**: Node.js capabilities within the pipeline steps handled by Jenkins' own built-in `nodejs` tool.
-    * **Sequential stages**: Each `stage` within the [`stages` section](https://www.jenkins.io/doc/book/pipeline/syntax/#stages) is executed sequentially, with one stage containing parallel substeps. Also not that since the `stages` section is wrapped in a `matrix` directive, the entire stages section is run in parallel (that is, twice, once using each Node.js version).
+    * **Sequential stages**: Each `stage` within the [`stages` section](https://www.jenkins.io/doc/book/pipeline/syntax/#stages) is executed sequentially, with one stage containing parallel sub-steps. Also not that since the `stages` section is wrapped in a `matrix` directive, the entire stages section is run in parallel (that is, twice, once using each Node.js version).
     * **Plugin usage**: The [`options` directive](https://www.jenkins.io/doc/book/pipeline/syntax/#options) uses the [Jenkins AnsiColor plugin](https://plugins.jenkins.io/ansicolor/) for output colorization.
     * **Artifact archiving**: Artifacts from the test coverage and build process are saved in the pipeline's `post` section.
 

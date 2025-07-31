@@ -143,6 +143,7 @@ IPs
 iTerm
 iTerm's
 Jenkins
+Jenkinsfile
 JFrog
 JFrog's
 job_watcher
