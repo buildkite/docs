@@ -92,7 +92,7 @@ buildkite-agent start --priority 8 --tags "queue=ci-builds,performance=standard,
 buildkite-agent start --priority 4 --tags "queue=ci-builds,performance=basic,cpu=4-core"
 ```
 
-This configuration schedules jobs in the `ci-builds` queue to more performant hardware first, but still allows users to target jobs to a specific agent's hardware using [tags](/docs/pipelines/configure/defining-steps#targeting-specific-agents).
+This configuration schedules jobs in the `ci-builds` queue onto larger hardware first, but still allows users to target jobs to a specific agent's hardware using [tags](/docs/pipelines/configure/defining-steps#targeting-specific-agents).
 
 ### Spillover strategy
 
