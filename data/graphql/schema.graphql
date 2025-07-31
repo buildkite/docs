@@ -2222,6 +2222,11 @@ type ClusterQueue implements Node {
   key: String!
 
   """
+  Latest metrics for this cluster queue (only if advanced queue metrics are enabled)
+  """
+  metrics: ClusterQueueMetrics
+
+  """
   The health status of stacks associated with this queue
   """
   stackHealth: String
@@ -2302,6 +2307,31 @@ type ClusterQueueDeletePayload {
 type ClusterQueueEdge {
   cursor: String!
   node: ClusterQueue
+}
+
+"""
+Latest metrics for a cluster queue (time bucket, agent/job counts)
+"""
+type ClusterQueueMetrics {
+  """
+  Number of connected agents in the latest bucket
+  """
+  connectedAgentsCount: Int!
+
+  """
+  Number of running jobs in the latest bucket
+  """
+  runningJobsCount: Int!
+
+  """
+  The timestamp (start of the most recent time bucket, in UTC)
+  """
+  timestamp: DateTime!
+
+  """
+  Number of waiting (scheduled) jobs in the latest bucket
+  """
+  waitingJobsCount: Int!
 }
 
 """
