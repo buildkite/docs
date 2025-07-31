@@ -47,7 +47,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Integrate security scanning tools directly into pipelines as mandatory steps that block deployments when critical vulnerabilities are detected. Use [pipeline templates](/docs/pipelines/governance/templates), [plugins](/docs/pipelines/integrations/plugins), [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), and [agent hooks](/docs/agent/v3/hooks) to ensure security scans cannot be bypassed by modifying `pipeline.yml` files.
 - Deploy continuous monitoring through automated SBOM generation and vulnerability scanning of production environments. Execute scanners on your agents using pipeline steps to continuously assess deployed components for newly discovered vulnerabilities - for example, you can use Buildkite's [Security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins).
 - Track dependencies using [Buildkite Annotations](/docs/agent/v3/cli-annotate) to document exact package versions in each build. This creates an auditable record enabling targeted remediation when vulnerabilities are discovered.
-- Establish automated response workflows that trigger notifications and remediation processes when critical CVEs are identified.
+- Establish automated response workflows that trigger [notifications](/docs/pipelines/configure/notifications) and remediation processes when [critical CVEs](https://www.cve.org/) are identified.
 - Integrate with vulnerability databases and scanning tools like [Trivy](https://trivy.dev/latest/), [Snyk](https://snyk.io/), or cloud security services across your software supply chain.
 
 ## Secrets management
@@ -75,7 +75,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Configure automated regular credential rotation or even set [automatic expiration date](/docs/agent/v3/securing#set-the-agent-token-expiration-date) on agent registration tokens to limit the window of opportunity for compromised tokens.
 - [Update your Buildkite Agents](https://buildkite.com/docs/agent/v3/installation#upgrade-agents) on a regular basis.
 - Deploy ephemeral build environments using isolated virtual machines or containers with minimal operating systems, disabled inbound SSH access, and strict network egress controls.
-- Isolate sensitive builds in dedicated [agent pools within Clusters](/docs/pipelines/clusters), ensuring that critical workloads cannot be affected by compromise of less secure environments.
+- Isolate sensitive builds in dedicated [agent pools within Clusters](/docs/pipelines/clusters), ensuring that critical workloads cannot be affected by compromise of less secure environments, for example - unverified code bases like open-source repositories.
 - Enable [pipeline signing](/docs/agent/v3/signed-pipelines) and verification mechanisms.
 - Set appropriate [job time limits](/docs/pipelines/configure/build-timeouts#command-timeouts) to limit the potential duration of malicious code execution on compromised agents.
 - Utilize [OIDC-based authentication for AWS](/docs/pipelines/security/oidc/aws) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags to add strong unique claims.
@@ -140,12 +140,11 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 - Establish zero-tolerance policies for manual pipeline overrides, with any unauthorized modifications triggering immediate alerts within your Security Information and Event Management (SIEM) system to ensure rapid incident response and maintain configuration integrity.
 - Deploy agent-level [lifecycle hooks](/docs/agent/v3/hooks#agent-lifecycle-hooks) as they cannot be bypassed or avoided through modifying a `pipeline.yml` or other developer-level code changes. You can also customize the hooks to scan your `pipeline.yml` files to validate their shape and contents and ensure that those files conform to your Buildkite organization's security requirements.
 - Use ephemeral Buildkite agents (like the [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s)) or tools like [Ansible](https://docs.ansible.com/) or [Puppet](https://www.puppet.com/blog/puppet-cicd) to force configuration changes on persistent hosts.
-- Mandate comprehensive security scanning (including container vulnerability and static code analysis scanning) and SBOM generation for all builds.
+- Mandate comprehensive security scanning (including container vulnerability and static code analysis scanning) and SBOM generation for all builds, for instance, by using Pipeline templates to also ensure every pipeline in your Buildkite organization inherits predetermined configurations and maintains consistent baseline protections.
 - Restrict plugin usage to [private](/docs/pipelines/integrations/plugins/using#plugin-sources) or [version-pinned](/docs/pipelines/integrations/plugins/using#pinning-plugin-versions) plugins to prevent supply chain attacks and ensure reproducible builds with known, vetted components.
 - Utilize only [verified Docker images](https://docs.docker.com/docker-hub/repos/manage/trusted-content/dvp-program/).
 - Scope pipelines to specific [agent queues](/docs/agent/v3/queues#setting-an-agents-queue) to maintain separation between environments and prevent unauthorized access across build processes.
 - Use permission models to [target appropriate agents](/docs/pipelines/configure/defining-steps#targeting-specific-agents) for builds, ensuring sensitive workloads run only on designated, secured infrastructure.
-- Consider using [pipeline templates](/docs/pipelines/governance/templates) to ensure every pipeline in your Buildkite organization inherits predetermined configurations and maintains consistent baseline protections.
 
 ## Monitoring, anomaly detection, logging
 
