@@ -498,6 +498,8 @@ The final result is now dramatically shorter than the original Jenkins pipeline,
 
 **You should now see** a maintainable pipeline where changes to the Node.js installation process or matrix configuration only need to be made in one place. The `&install` creates an alias, and `*install` references it.
 
+<!-- Remainder to be reviewed -->
+
 ----
 
 Some Buildkite features you might want to use include [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), [lifecycle hooks](/docs/agent/v3/hooks), [conditionals](/docs/pipelines/configure/conditionals), [artifacts](/docs/pipelines/configure/artifacts), [build matrices](/docs/pipelines/configure/workflows/build-matrix), and [annotations](/docs/agent/v3/cli-annotate).
