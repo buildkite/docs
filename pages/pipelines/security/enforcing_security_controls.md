@@ -2,7 +2,7 @@
 
 This practical guide for security engineers lists common risks and proven prevention and mitigation strategies across key areas of the Buildkite ecosystem. The guide covers secrets management, supply chain security, artifact storage reliability, and platform hardening.
 
-Use this as your reference for building a defensible, auditable, and resilient CI/CD foundation with Buildkite.
+Use this as a reference for building a defensible, auditable, and resilient CI/CD foundation with Buildkite.
 
 ## Authentication and session security in the Buildkite UI, CLI, and API
 
@@ -10,7 +10,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 **Controls:**
 
-- Enforce [Single Sign-On (SSO)](/docs/platform/sso) and [Two-Factor Authentication (2FA/MFA)](/docs/platform/team-management/enforce-2fa) for all UI access.
+- Enforce [Single Sign-On (SSO)](/docs/platform/sso) and [two-factor authentication (2FA/MFA)](/docs/platform/team-management/enforce-2fa) for all UI access.
 - Use time-scoped API tokens with [automated rotation](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security).
 - Apply least privilege principle when [scoping API keys](/docs/apis/managing-api-tokens#token-scopes).
 - [Restrict API tokens to specific IP ranges](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address) where possible.
@@ -25,7 +25,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Enforce [SCM signed commits](https://buildkite.com/resources/blog/securing-your-software-supply-chain-signed-git-commits-with-oidc-and-sigstore/) and [branch protection rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule) with [Buildkite conditionals](/docs/pipelines/configure/conditionals).
 - Map Buildkite users to SCM identities with [team-based permissions](https://buildkite.com/resources/examples/buildkite/agent-hooks-example/) to ensure only authorized team members can trigger builds.
 - Utilize [programmatic team management](/docs/platform/team-management/permissions#manage-teams-and-permissions-programmatically-managing-teams) alongside pre-merge hooks to verify that commit authors have appropriate permissions before allowing build execution.
-- [Disable trigger on fork builds](/docs/pipelines/source-control/github#running-builds-on-pull-requests) for public pipelines and repositories to ensure open source contributors are unable to substantially alter your pipeline to extract secrets.
+- [Disable trigger on fork builds](/docs/pipelines/source-control/github#running-builds-on-pull-requests) for public pipelines and repositories to ensure open source contributors are unable to substantially alter a pipeline to extract secrets.
 
 ## Dependencies and package management
 
@@ -36,7 +36,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Integrate with a container scanning tool to keep track of Software Bill of Materials (SBOM) for your packages. For example, see the following list of community-maintained [SBOM generation tools](https://github.com/cybeats/sbomgen).
 - Use Buildkite's official [security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins) (or [write your own plugin](/docs/pipelines/integrations/plugins/writing)) to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment.
 - Run automated dependency and malware scanning on every merge using established tools such as [GuardDog](https://github.com/DataDog/guarddog) or [Aqua Trivy](https://www.aquasec.com/products/trivy/).
-- Deploy [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all of your pipelines.
+- Deploy [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all the pipelines in a Buildkite organization.
 
 ## Vulnerability management
 
@@ -45,7 +45,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 **Controls:**
 
 - Integrate security scanning tools directly into pipelines as mandatory steps that block deployments when critical vulnerabilities are detected. Use [pipeline templates](/docs/pipelines/governance/templates), [plugins](/docs/pipelines/integrations/plugins), [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), and [agent hooks](/docs/agent/v3/hooks) to ensure security scans cannot be bypassed by modifying `pipeline.yml` files.
-- Deploy continuous monitoring through automated SBOM generation and vulnerability scanning of production environments. Run scanners on your agents using pipeline steps to continuously assess deployed components for newly discovered vulnerabilities. For example, you can use Buildkite's [security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins).
+- Deploy continuous monitoring through automated SBOM generation and vulnerability scanning of production environments. Run scanners on Buildkite Agents using pipeline steps to continuously assess deployed components for newly discovered vulnerabilities. For example, you can use Buildkite's [security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins).
 - Track dependencies using [Buildkite Annotations](/docs/agent/v3/cli-annotate) to document exact package versions in each build. This creates an auditable record enabling targeted remediation when vulnerabilities are discovered.
 - Establish automated response workflows that trigger [notifications](/docs/pipelines/configure/notifications) and remediation processes when [critical CVEs](https://www.cve.org/) are identified.
 - Integrate with vulnerability databases and scanning tools like [Trivy](https://trivy.dev/latest/), [Snyk](https://snyk.io/), or cloud security services across your software supply chain.
@@ -63,7 +63,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Monitor secret access activities within your CI/CD environment through [Audit Log](/docs/platform/audit-log).
 - Use additional scanning tools such as [git-secrets](https://github.com/awslabs/git-secrets) to prevent accidental commits of secrets to repositories before they enter the build process.
 - Consider using strict pipeline upload guards, such as the [reject-secrets](/docs/agent/v3/cli-pipeline#reject-secrets) option for `buildkite-agent pipeline upload` commands.
-- Have incident response procedures in place for secret compromise, including automated revocation and rotation processes. Note that cluster maintainers can [revoke tokens](/docs/agent/v3/tokens#revoke-a-token) using the REST API for rapid containment.
+- Have incident response procedures for secret compromise, including automated revocation and rotation processes. Note that cluster maintainers can [revoke tokens](/docs/agent/v3/tokens#revoke-a-token) using the REST API for rapid containment.
 
 ## Buildkite Agent security
 
@@ -80,7 +80,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 - Set appropriate [job time limits](/docs/pipelines/configure/build-timeouts#command-timeouts) to limit the potential duration of malicious code execution on compromised agents.
 - Utilize [OIDC-based authentication for AWS](/docs/pipelines/security/oidc/aws) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags to add strong unique claims.
 - [Disable command evaluation](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation) where appropriate and enforce script-only execution instead.
-- See the [Securing your Buildkite Agent](/docs/agent/v3/securing) documentation page which has many specific recommendations for making your virtual machine or Docker container running the `buildkite-agent` process more secure in the context of running your CI/CD pipelines.
+- Learn more about making your virtual machine or Docker container running the `buildkite-agent` process more secure in the context of running your CI/CD pipelines in [Securing your Buildkite Agent](/docs/agent/v3/securing).
 
 > 📘 Additional information on better Buildkite Agent security
 > For small teams with limited experience in hosting and hardening infrastructure, [hosted agents](/docs/pipelines/hosted-agents) provide a secure, fully managed solution that reduces operational overhead. However, organizations with stringent Governance, Risk, and Compliance (GRC) requirements that mandate enhanced security postures should deploy [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture) for their most sensitive workloads, as this approach offers greater control over the security configuration and compliance controls.
@@ -105,7 +105,7 @@ Use this as your reference for building a defensible, auditable, and resilient C
 
 While Buildkite enforces TLS encryption by default for all platform communications, ensuring traffic to and from Buildkite services is encrypted in transit, you can take these additional steps to further tighten network security:
 
-- For [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), implement zero-trust architecture with least-privilege egress rules.
+- For [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), implement [Zero Trust Architecture (ZTA)](https://www.ibm.com/think/topics/zero-trust) with least-privilege egress rules.
 - Monitor network traffic for anomalies or suspicious connection attempts from build agents.
 - Consider taking your infrastructure fully into the cloud with the help of [Buildkite hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) or by running your agents in [AWS](/docs/agent/v3/aws) or in [Google Cloud](/docs/agent/v3/gcloud).
 - Harden your cloud infrastructure perimeter by using [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html) or [VPC Endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html) for the AWS services, or [Private Google Access](https://cloud.google.com/vpc/docs/private-google-access) for Google Cloud.
@@ -116,8 +116,8 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 
 **Controls:**
 
-- Enforce encryption at rest and in transit when storing and transferring your build artifacts.
-- Use cloud storage for storing your build artifacts, for instance, [Buildkite Package Registries](https://buildkite.com/platform/package-registries/). Other supported private cloud storage options include:
+- Enforce encryption at rest and in transit when storing and transferring build artifacts.
+- Use cloud storage for storing build artifacts. For instance, you can use [Buildkite Package Registries](https://buildkite.com/platform/package-registries/). Other supported private cloud storage options include:
   * [AWS S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket)
   * [Google Cloud Storage buckets](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket)
   * [Azure Blob containers](/docs/agent/v3/cli-artifact#using-your-private-azure-blob-container)
@@ -134,9 +134,9 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 - Mandate the exclusive use of the [Buildkite Terraform provider](https://buildkite.com/resources/blog/manage-your-ci-cd-resources-as-code-with-terraform/) for all pipeline configuration management, implementing a mandatory two-reviewer approval process for infrastructure changes.
 
 > 📘 Additional information on using Buildkite Terraform provider for better security
-> Organizations without proper governance and peer review protocols may have gaps in their security posture. The suggested approach is to create a service account for Terraform that is not tied to any specific user identity using your identity provider. Use this account's API key to make changes (in your pipelines, tokens, etc.) in Terraform through the Buildkite Terraform provider — while enforcing Buildkite's RBAC capabilities and [GitOps](https://www.redhat.com/en/topics/devops/what-is-gitops) workflows.
-- Establish a "break glass" protocol that is tied to your SIEM alerts in case someone has to make manual modifications to Buildkite's systems outside of the automated IaC workflow.
+> Organizations without proper governance and peer review protocols may have gaps in their security posture. The suggested approach is to create a service account for Terraform that is not tied to any specific user identity using your identity provider. Use this account's API key to make changes (in the pipelines, tokens, etc.) in Terraform through the Buildkite Terraform provider — while enforcing Buildkite's RBAC capabilities and [GitOps](https://www.redhat.com/en/topics/devops/what-is-gitops) workflows.
 - Set zero-tolerance policies for manual pipeline overrides, with any unauthorized modifications triggering immediate alerts within your Security Information and Event Management (SIEM) system to ensure rapid incident response and maintain configuration integrity.
+- Establish a "break glass" protocol that is tied to SIEM alerts in case someone has to make manual modifications to Buildkite's systems outside of the automated IaC workflow.
 - Deploy agent-level [lifecycle hooks](/docs/agent/v3/hooks#agent-lifecycle-hooks) as they cannot be bypassed or avoided through modifying a `pipeline.yml` or other developer-level code changes. You can also customize the hooks to scan your `pipeline.yml` files to validate their shape and contents and ensure that those files conform to your Buildkite organization's security requirements.
 - Use ephemeral Buildkite agents (like the [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s)) or tools like [Ansible](https://docs.ansible.com/) or [Puppet](https://www.puppet.com/blog/puppet-cicd) to force configuration changes on persistent hosts.
 - Mandate comprehensive security scanning (including container vulnerability and static code analysis scanning) and SBOM generation for all builds, for instance, by using Pipeline templates to ensure every pipeline in your Buildkite organization inherits predetermined configurations and maintains consistent baseline protections.
@@ -147,12 +147,12 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 
 ## Monitoring, anomaly detection, logging
 
-**Risk:** Insufficient monitoring and logging resulting in undetected malicious activity, delayed incident response, and prolonged exposure to security threats within your CI/CD environment.
+**Risk:** Insufficient monitoring and logging resulting in undetected malicious activity, delayed incident response, and prolonged exposure to security threats within a CI/CD environment.
 
 **Controls:**
 
-- Export or stream all Buildkite metrics to your preferred monitoring and observability platform to maintain visibility across your CI/CD pipeline activities (for example, see the [OpenTelemetry integration capabilities in Buildkite](/docs/pipelines/integrations/observability/opentelemetry)).
-- Set up [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) to consume Buildkite's [Audit Log](/docs/platform/audit-log) and integrate that information with your Security Information and Event Management (SIEM) system.
+- Export or stream all Buildkite metrics to your preferred monitoring and observability platform to maintain visibility across CI/CD pipeline activities (for example, see the [OpenTelemetry integration capabilities in Buildkite](/docs/pipelines/integrations/observability/opentelemetry)).
+- Set up [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) to consume Buildkite's [Audit Log](/docs/platform/audit-log) and integrate that information with your SIEM system.
 - Monitor logs for anomalies (unusual IPs, secret access patterns, build frequency spikes) and configure automated alerts.
 
 ## Incident response and recovery
