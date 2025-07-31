@@ -135,6 +135,7 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 
 > 📘 Additional information on using Buildkite Terraform provider for better security
 > Organizations without proper governance and peer review protocols may have gaps in their security posture. The suggested approach is to create a service account for Terraform that is not tied to any specific user identity using your identity provider. Use this account's API key to make changes (in the pipelines, tokens, etc.) in Terraform through the Buildkite Terraform provider — while enforcing Buildkite's RBAC capabilities and [GitOps](https://www.redhat.com/en/topics/devops/what-is-gitops) workflows.
+
 - Set zero-tolerance policies for manual pipeline overrides, with any unauthorized modifications triggering immediate alerts within your Security Information and Event Management (SIEM) system to ensure rapid incident response and maintain configuration integrity.
 - Establish a "break glass" protocol that is tied to SIEM alerts in case someone has to make manual modifications to Buildkite's systems outside of the automated IaC workflow.
 - Deploy agent-level [lifecycle hooks](/docs/agent/v3/hooks#agent-lifecycle-hooks) as they cannot be bypassed or avoided through modifying a `pipeline.yml` or other developer-level code changes. You can also customize the hooks to scan your `pipeline.yml` files to validate their shape and contents and ensure that those files conform to your Buildkite organization's security requirements.
