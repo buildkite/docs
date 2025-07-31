@@ -463,9 +463,9 @@ The `pipeline.started_failing` conditional is designed to send notifications **o
 
 #### How it works
 
-- **Triggers only on state change**: The notification is sent when a pipeline goes from a successful state to a failing state
-- **Prevents excessive notifications**: Unlike `build.state == "failed"` which notifies on every failure, `pipeline.started_failing` only notifies on the **first** failure after successful build(s)
-- **Branch-based logic**: The conditional operates at the branch level, tracking state transitions for builds on specific branches
+* **Triggers only on state change**: The notification is sent when a pipeline goes from a successful state to a failing state
+* **Prevents excessive notifications**: Unlike `build.state == "failed"` which notifies on every failure, `pipeline.started_failing` only notifies on the **first** failure after successful build(s)
+* **Branch-based logic**: The conditional operates at the branch level, tracking state transitions for builds on specific branches
 
 #### Basic example
 
@@ -489,8 +489,8 @@ notify:
 
 This setup provides notifications when:
 
-- A pipeline **starts** failing (after being green)
-- A pipeline **starts** passing (after being red - the "fixed" notification)
+* A pipeline **starts** failing (after being green)
+* A pipeline **starts** passing (after being red - the "fixed" notification)
 
 #### Alternative patterns
 
@@ -507,9 +507,9 @@ notify:
 
 This pattern is particularly valuable for:
 
-- **Reducing notification fatigue**: Teams that want immediate alerts when something breaks but don't want repeated notifications for consecutive failures
-- **Flaky environments**: Teams with flaky tests or environments where builds might fail multiple times in a row
-- **Continuous integration**: Workflows where quick feedback on state changes is more important than being notified about every individual failure
+* **Reducing notification fatigue**: Teams that want immediate alerts when something breaks but don't want repeated notifications for consecutive failures
+* **Flaky environments**: Teams with flaky tests or environments where builds might fail multiple times in a row
+* **Continuous integration**: Workflows where quick feedback on state changes is more important than being notified about every individual failure
 
 
 ### Notify only on first pass
@@ -518,10 +518,10 @@ The `pipeline.started_passing` conditional is designed to send notifications **o
 
 #### How it works
 
-- **Triggers only on state change**: The notification is sent when a pipeline goes from a failing state to a passing state
-- **Prevents excessive notifications**: Unlike `build.state == "passed"` which notifies on every success, `pipeline.started_passing` only notifies on the **first** pass after failure(s)
-- **Branch-based logic**: The conditional operates at the branch level, tracking state transitions for builds on specific branches
-- **Successor to deprecated `build.fixed`**: `pipeline.started_passing` replaces the deprecated `build.fixed` conditional but remains backwards compatible
+* **Triggers only on state change**: The notification is sent when a pipeline goes from a failing state to a passing state
+* **Prevents excessive notifications**: Unlike `build.state == "passed"` which notifies on every success, `pipeline.started_passing` only notifies on the **first** pass after failure(s)
+* **Branch-based logic**: The conditional operates at the branch level, tracking state transitions for builds on specific branches
+* **Successor to deprecated `build.fixed`**: `pipeline.started_passing` replaces the deprecated `build.fixed` conditional but remains backwards compatible
 
 #### Basic example
 
@@ -545,8 +545,8 @@ notify:
 
 This setup provides notifications when:
 
-- A pipeline **starts** failing (after being green)
-- A pipeline **starts** passing (after being red - the "fixed" notification)
+* A pipeline **starts** failing (after being green)
+* A pipeline **starts** passing (after being red - the "fixed" notification)
 
 #### Alternative patterns
 
@@ -563,9 +563,9 @@ notify:
 
 This pattern is particularly valuable for:
 
-- **Resolution alerts**: Teams that want immediate confirmation when broken builds are fixed
-- **Recovery tracking**: Teams that need to track when issues are resolved after failures
-- **Reduced noise**: Teams that want to avoid notifications for builds that were already passing
+* **Resolution alerts**: Teams that want immediate confirmation when broken builds are fixed
+* **Recovery tracking**: Teams that need to track when issues are resolved after failures
+* **Reduced noise**: Teams that want to avoid notifications for builds that were already passing
 
 ### Notify on all failures and first successful pass
 
@@ -573,10 +573,10 @@ This combined pattern sends notifications for **all failed builds and the first 
 
 #### How it works
 
-- **All failures**: Triggers on every failed build using `build.state == "failed"`
-- **Recovery notification**: Triggers only when a pipeline transitions from failing to passing using `pipeline.started_passing`
-- **No repeated success notifications**: Avoids notifications for builds that were already passing
-- **Comprehensive coverage**: Ensures teams never miss failures while getting clear resolution alerts
+* **All failures**: Triggers on every failed build using `build.state == "failed"`
+* **Recovery notification**: Triggers only when a pipeline transitions from failing to passing using `pipeline.started_passing`
+* **No repeated success notifications**: Avoids notifications for builds that were already passing
+* **Comprehensive coverage**: Ensures teams never miss failures while getting clear resolution alerts
 
 #### Basic example
 
@@ -619,10 +619,10 @@ notify:
 
 This pattern is particularly valuable for:
 
-- **Complete failure tracking**: Teams that need to be notified about every failure, not just the first one
-- **Continuous monitoring**: Teams that want comprehensive coverage of build health
-- **Issue escalation**: Teams where repeated failures might indicate worsening issues that need attention
-- **Debugging workflows**: Teams that need detailed failure information for troubleshooting
+* **Complete failure tracking**: Teams that need to be notified about every failure, not just the first one
+* **Continuous monitoring**: Teams that want comprehensive coverage of build health
+* **Issue escalation**: Teams where repeated failures might indicate worsening issues that need attention
+* **Debugging workflows**: Teams that need detailed failure information for troubleshooting
 
 ### Comparison of notification patterns
 
