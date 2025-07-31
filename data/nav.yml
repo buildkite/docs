@@ -363,6 +363,8 @@
           path: "pipelines/configure/notifications"
         - name: "Job minutes"
           path: "pipelines/configure/job-minutes"
+        - name: "Glob pattern syntax"
+          path: "pipelines/configure/glob-pattern-syntax"
         - name: "Example pipelines"
           path: "pipelines/configure/example-pipelines"
         - name: "Workflows"
