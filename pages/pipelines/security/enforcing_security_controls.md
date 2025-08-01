@@ -56,12 +56,12 @@ Use this as a reference for building a defensible, auditable, and resilient CI/C
 
 **Controls:**
 
-- Leverage [Buildkite scoped secrets](/docs/pipelines/security/secrets/buildkite-secrets) to ensure that secrets are only available where explicitly required. Note that Buildkite [automatically redacts secrets](/docs/pipelines/security/secrets/buildkite-secrets#redaction) in logs.
-- Integrate with your existing external secrets management by using dedicated [secrets storage services](/docs/pipelines/security/secrets/managing#using-a-secrets-storage-service) such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [HashiCorp Vault](https://www.vaultproject.io/).
+- Leverage [Buildkite secrets plugins](/docs/pipelines/integrations/secrets/plugins) for secrets management and [Buildkite scoped secrets](/docs/pipelines/security/secrets/buildkite-secrets) to ensure that secrets are only available where explicitly required. Note that Buildkite [automatically redacts secrets](/docs/pipelines/security/secrets/buildkite-secrets#redaction) in logs.
+- Integrate with your existing external secrets manager by using dedicated [secrets storage services](/docs/pipelines/security/secrets/managing#using-a-secrets-storage-service) such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [HashiCorp Vault](https://www.vaultproject.io/).
 - Implement secrets management through [exporting secrets with environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) for agent-level secrets rather than injecting them at build runtime where applicable. Otherwise, configure your secrets to be injected at runtime rather than stored as static environment variables.
 - Establish environment-specific cluster and queue segmentation of your builds to restrict access so that builds in a queue can only access the secrets they require to run.
-- Monitor secret access activities within your CI/CD environment through [Audit Log](/docs/platform/audit-log).
-- Use additional scanning tools such as [git-secrets](https://github.com/awslabs/git-secrets) to prevent accidental commits of secrets to repositories before they enter the build process.
+- Monitor how secrets are accessed within your CI/CD environment by reviewing the [Audit Log](/docs/platform/audit-log).
+- Use additional secret scanning tools such as [git-secrets](https://github.com/awslabs/git-secrets) to prevent accidental commits of secrets to repositories before they enter the build process.
 - Consider using strict pipeline upload guards, such as the [reject-secrets](/docs/agent/v3/cli-pipeline#reject-secrets) option for `buildkite-agent pipeline upload` commands.
 - Have incident response procedures for secret compromise, including automated revocation and rotation processes. Note that cluster maintainers can [revoke tokens](/docs/agent/v3/tokens#revoke-a-token) using the REST API for rapid containment.
 
@@ -78,9 +78,9 @@ Use this as a reference for building a defensible, auditable, and resilient CI/C
 - Isolate sensitive builds in dedicated [agent pools within Clusters](/docs/pipelines/clusters), ensuring that critical workloads cannot be affected by compromise of less secure environments — for example, open-source repositories with unverified code.
 - Enable [pipeline signing](/docs/agent/v3/signed-pipelines) and verification mechanisms.
 - Set appropriate [job time limits](/docs/pipelines/configure/build-timeouts#command-timeouts) to limit the potential duration of malicious code execution on compromised agents.
-- Utilize [OIDC-based authentication for AWS](/docs/pipelines/security/oidc/aws) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags to add strong unique claims.
+- Utilize [OIDC-based authentication](/docs/pipelines/security/oidc) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags to add strong unique claims.
 - [Disable command evaluation](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation) where appropriate and enforce script-only execution instead.
-- Learn more about making your virtual machine or Docker container running the `buildkite-agent` process more secure in the context of running your CI/CD pipelines in [Securing your Buildkite Agent](/docs/agent/v3/securing).
+- Learn more about making your virtual machine or container running the `buildkite-agent` process more secure in [Securing your Buildkite Agent](/docs/agent/v3/securing).
 
 > 📘 Additional information on better Buildkite Agent security
 > For small teams with limited experience in hosting and hardening infrastructure, [hosted agents](/docs/pipelines/hosted-agents) provide a secure, fully managed solution that reduces operational overhead. However, organizations with stringent Governance, Risk, and Compliance (GRC) requirements that mandate enhanced security postures should deploy [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture) for their most sensitive workloads, as this approach offers greater control over the security configuration and compliance controls.
@@ -117,7 +117,7 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 **Controls:**
 
 - Enforce encryption at rest and in transit when storing and transferring build artifacts.
-- Use cloud storage for storing build artifacts. For instance, you can use [Buildkite Package Registries](https://buildkite.com/platform/package-registries/). Other supported private cloud storage options include:
+- Use cloud storage for storing build artifacts. You can use [Buildkite Package Registries](https://buildkite.com/platform/package-registries/) or other supported private cloud storage options include:
   * [AWS S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket)
   * [Google Cloud Storage buckets](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket)
   * [Azure Blob containers](/docs/agent/v3/cli-artifact#using-your-private-azure-blob-container)
