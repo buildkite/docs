@@ -18,17 +18,63 @@ steps.
 Characters match themselves only, with the following syntax elements having
 special meaning.
 
-Element | Meaning
---- | ---
-`\` | Used to _escape_ the next character in the pattern, preventing it from being treated as special syntax. The escaped character matches itself exactly. For example, `\*` matches `*` (_not_ zero or more arbitrary characters). Note that on Windows, `\` and `/` have swapped meanings.
-`/` | The path separator. Separates segments of each path. Within a path, it matches itself only. Note that on Windows, `\` and `/` have swapped meanings.
-`?` | Matches exactly one arbitrary character, except for  the path separator `/`.
-`*` | Matches zero or more arbitrary characters, except for the path separator `/`.
-`**` | Matches zero or more arbitrary characters, including the path separator `/`. Since it can be used to mean zero or more path components, `/**/` also matches `/`.
-`{,}` | `{a,b,c}` matches `a` or `b` or `c`. A component can be empty, e.g. `{,a,b}` matches either nothing or `a` or `b`. Multiple path segments, `*`, `**`, etc are all allowed within `{}`. To specify a path containing `,` within `{}`, escape it (`\,`).
-`[ ]` | `[abc]` matches a single character (`a` or `b` or `c`). `[]` is a shorter way to write a match for a single character than `{,}`. Note that ranges are currently not supported.
-`[^ ]` | `[^abc]` matches a single character _other than_ the listed characters. Note that ranges are currently not supported.
-`~` | Prior to matching, `~` is expanded to the current user's home directory.
+<table>
+  <thead>
+    <tr>
+      <th style="width:10%">Syntax element</th>
+      <th style="width:90%">Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        "syntax_element": "\\",
+        "meaning": "Used to <em>escape</em> the next character in the pattern, preventing it from being treated as special syntax. The escaped character matches itself exactly. For example, <code>\\*</code> matches <code>*</code> (<em>not</em> zero or more arbitrary characters). Note that on Windows, <code>\\</code> and <code>/</code> have swapped meanings."
+      },
+      {
+        "syntax_element": "/",
+        "meaning": "The path separator. Separates segments of each path. Within a path, it matches itself only. Note that on Windows, <code>\\</code> and <code>/</code> have swapped meanings."
+      },
+      {
+        "syntax_element": "?",
+        "meaning": "Matches exactly one arbitrary character, except for  the path separator <code>/</code>."
+      },
+      {
+        "syntax_element": "*",
+        "meaning": "Matches zero or more arbitrary characters, except for the path separator <code>/</code>."
+      },
+      {
+        "syntax_element": "**",
+        "meaning": "Matches zero or more arbitrary characters, including the path separator <code>/</code>. Since it can be used to mean zero or more path components, <code>/**/</code> also matches <code>/</code>."
+      },
+      {
+        "syntax_element": "{,}",
+        "meaning": "<code>{a,b,c}</code> matches <code>a</code> or <code>b</code> or <code>c</code>. A component can be empty, e.g. <code>{,a,b}</code> matches either nothing or <code>a</code> or <code>b</code>. Multiple path segments, <code>*</code>, <code>**</code>, etc are all allowed within <code>{}</code>. To specify a path containing <code>,</code> within <code>{}</code>, escape it (<code>\\,</code>)."
+      },
+      {
+        "syntax_element": "[ ]",
+        "meaning": "<code>[abc]</code> matches a single character (<code>a</code> or <code>b</code> or <code>c</code>). <code>[]</code> is a shorter way to write a match for a single character than <code>{,}</code>. Note that ranges are currently not supported."
+      },
+      {
+        "syntax_element": "[^ ]",
+        "meaning": "<code>[^abc]</code> matches a single character <em>other than</em> the listed characters. Note that ranges are currently not supported."
+      },
+      {
+        "syntax_element": "~",
+        "meaning": "Prior to matching, <code>~</code> is expanded to the current user's home directory."
+      }
+    ].select { |field| field[:syntax_element] }.each do |field| %>
+      <tr>
+        <td>
+          <p><code><%= field[:syntax_element] %></code></p>
+        </td>
+        <td>
+          <p><%= field[:meaning] %></p>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 > 📘 On Windows
 > `\` is the path separator on Windows, and `/` is the escape character when the agent performing the action is running on Windows, as unlike other platforms, `\` is the standard Windows path separator.
@@ -40,28 +86,116 @@ Also note the following about character classes.
 
 ## Examples
 
-Pattern | Explanation
---- | ---
-`foo?.txt` | Matches files in the current directory whose names start with `foo`, followed by any one arbitrary character, and ending with `.txt`
-`foo*.txt` | Matches files in the current directory whose names start with `foo`, followed by any number of other characters, and ending with `.txt`
-`foo\?.txt` | Matches the file in the current directory named `foo?.txt`
-`log????.out` | Matches files in the current directory whose names start with `log`, followed by exactly four arbitrary characters, and ending with `.out`.
-`log[^789]???.out` | Like `log????.out`, but the first character after `log` must not be `7`, `8`, or `9`.
-`log???[16].out` | Like `log????.out`, but the last character before `.out` must be `1` or `6`.
-`foo/*` | Matches all files within the `foo` directory only
-`foo/**` | Matches all files within the `foo` directory, or any subdirectory of `foo`
-`*.go` | Matches all Go files within the current directory only
-`**.go` | Matches all Go files within the current directory or any subdirectory
-`**/*.go` | Equivalent to `**.go`
-`foo/**.go` | Matches all Go files within the `foo` directory or any subdirectory
-`foo/**/*.go` | Equivalent to `foo/**.go`
-`foo/**/bar/*` | Matches all files in every subdirectory named `bar` anywhere among the subdirectories of `foo` (including e.g. `foo/bar` and `foo/tmp/logs/bar`)
-`{foo,bar}.go` | Matches the files `foo.go` and `bar.go` (in the current directory)
-`foo{,bar}.go` | Matches the files `foo.go` and `foobar.go` (in the current directory)
-`go.{mod,sum}` | Matches the files `go.mod` and `go.sum` (in the current directory)
-`**/go.{mod,sum}` | Matches `go.mod` and `go.sum` within the current directory or any subdirectory
-`{foo,bar}/**.go` | Matches all Go files within the `foo` directory, the `bar` directory, or any of their subdirectories
-`{foo/**.go,fixtures/**}` | Matches all Go files within the `foo` directory and its subdirectories, and all files within the `fixtures` directory and its subdirectories
-`side[AB]` | Matches the files `sideA` and `sideB` (in the current directory)
-`scale_[ABCDEFG]` | Matches the files `scale_A` through `scale_G` (in the current directory)
-`~/.bash_profile` | Matches the `.bash_profile` file in the current user's home directory
+<table>
+  <thead>
+    <tr>
+      <th style="width:25%">Pattern</th>
+      <th style="width:75%">Explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        "pattern": "foo?.txt",
+        "explanation": "Matches files in the current directory whose names start with <code>foo</code>, followed by any one arbitrary character, and ending with <code>.txt</code>"
+      },
+      {
+        "pattern": "foo*.txt",
+        "explanation": "Matches files in the current directory whose names start with <code>foo</code>, followed by any number of other characters, and ending with <code>.txt</code>"
+      },
+      {
+        "pattern": "foo\\?.txt",
+        "explanation": "Matches the file in the current directory named <code>foo?.txt</code>"
+      },
+      {
+        "pattern": "log????.out",
+        "explanation": "Matches files in the current directory whose names start with <code>log</code>, followed by exactly four arbitrary characters, and ending with <code>.out</code>."
+      },
+      {
+        "pattern": "log[^789]???.out",
+        "explanation": "Like <code>log????.out</code>, but the first character after <code>log</code> must not be <code>7</code>, <code>8</code>, or <code>9</code>."
+      },
+      {
+        "pattern": "log???[16].out",
+        "explanation": "Like <code>log????.out</code>, but the last character before <code>.out</code> must be <code>1</code> or <code>6</code>."
+      },
+      {
+        "pattern": "foo/*",
+        "explanation": "Matches all files within the <code>foo</code> directory only"
+      },
+      {
+        "pattern": "foo/**",
+        "explanation": "Matches all files within the <code>foo</code> directory, or any subdirectory of <code>foo</code>"
+      },
+      {
+        "pattern": "*.go",
+        "explanation": "Matches all Go files within the current directory only"
+      },
+      {
+        "pattern": "**.go",
+        "explanation": "Matches all Go files within the current directory or any subdirectory"
+      },
+      {
+        "pattern": "**/*.go",
+        "explanation": "Equivalent to <code>**.go</code>"
+      },
+      {
+        "pattern": "foo/**.go",
+        "explanation": "Matches all Go files within the <code>foo</code> directory or any subdirectory"
+      },
+      {
+        "pattern": "foo/**/*.go",
+        "explanation": "Equivalent to <code>foo/**.go</code>"
+      },
+      {
+        "pattern": "foo/**/bar/*",
+        "explanation": "Matches all files in every subdirectory named <code>bar</code> anywhere among the subdirectories of <code>foo</code> (including e.g. <code>foo/bar</code> and <code>foo/tmp/logs/bar</code>)"
+      },
+      {
+        "pattern": "{foo,bar}.go",
+        "explanation": "Matches the files <code>foo.go</code> and <code>bar.go</code> (in the current directory)"
+      },
+      {
+        "pattern": "foo{,bar}.go",
+        "explanation": "Matches the files <code>foo.go</code> and <code>foobar.go</code> (in the current directory)"
+      },
+      {
+        "pattern": "go.{mod,sum}",
+        "explanation": "Matches the files <code>go.mod</code> and <code>go.sum</code> (in the current directory)"
+      },
+      {
+        "pattern": "**/go.{mod,sum}",
+        "explanation": "Matches <code>go.mod</code> and <code>go.sum</code> within the current directory or any subdirectory"
+      },
+      {
+        "pattern": "{foo,bar}/**.go",
+        "explanation": "Matches all Go files within the <code>foo</code> directory, the <code>bar</code> directory, or any of their subdirectories"
+      },
+      {
+        "pattern": "{foo/**.go,fixtures/**}",
+        "explanation": "Matches all Go files within the <code>foo</code> directory and its subdirectories, and all files within the <code>fixtures</code> directory and its subdirectories"
+      },
+      {
+        "pattern": "side[AB]",
+        "explanation": "Matches the files <code>sideA</code> and <code>sideB</code> (in the current directory)"
+      },
+      {
+        "pattern": "scale_[ABCDEFG]",
+        "explanation": "Matches the files <code>scale_A</code> through <code>scale_G</code> (in the current directory)"
+      },
+      {
+        "pattern": "~/.bash_profile",
+        "explanation": "Matches the <code>.bash_profile</code> file in the current user's home directory"
+      }
+    ].select { |field| field[:pattern] }.each do |field| %>
+      <tr>
+        <td>
+          <p><code><%= field[:pattern] %></code></p>
+        </td>
+        <td>
+          <p><%= field[:explanation] %></p>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
