@@ -22,10 +22,10 @@ Use this as a reference for building a defensible, auditable, and resilient CI/C
 **Controls:**
 
 - Use the [Buildkite GitHub App integration](/docs/pipelines/source-control/github#connecting-buildkite-and-github) for secure repository connections.
-- Enforce [SCM signed commits](https://buildkite.com/resources/blog/securing-your-software-supply-chain-signed-git-commits-with-oidc-and-sigstore/) and [branch protection rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule) with [Buildkite conditionals](/docs/pipelines/configure/conditionals).
+- Enforce [SCM signed commits](https://buildkite.com/resources/blog/securing-your-software-supply-chain-signed-git-commits-with-oidc-and-sigstore/) and branch protection rules on [GitHub](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule) and [GitLab](https://docs.gitlab.com/user/project/repository/branches/protected/) with [Buildkite conditionals](/docs/pipelines/configure/conditionals).
 - Map Buildkite users to SCM identities with [team-based permissions](https://buildkite.com/resources/examples/buildkite/agent-hooks-example/) to ensure only authorized team members can trigger builds.
 - Utilize [programmatic team management](/docs/platform/team-management/permissions#manage-teams-and-permissions-programmatically-managing-teams) alongside pre-merge hooks to verify that commit authors have appropriate permissions before allowing build execution.
-- [Disable trigger on fork builds](/docs/pipelines/source-control/github#running-builds-on-pull-requests) for public pipelines and repositories to ensure open source contributors are unable to substantially alter a pipeline to extract secrets.
+- [Disable triggering builds on forks](/docs/pipelines/source-control/github#running-builds-on-pull-requests) for public pipelines and repositories to ensure open source contributors are unable to substantially alter a pipeline to extract secrets.
 
 ## Dependencies and package management
 
@@ -35,8 +35,8 @@ Use this as a reference for building a defensible, auditable, and resilient CI/C
 
 - Integrate with a container scanning tool to keep track of Software Bill of Materials (SBOM) for your packages. For example, see the following list of community-maintained [SBOM generation tools](https://github.com/cybeats/sbomgen).
 - Use Buildkite's official [security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins) (or [write your own plugin](/docs/pipelines/integrations/plugins/writing)) to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment.
-- Run automated dependency and malware scanning on every merge using established tools such as [GuardDog](https://github.com/DataDog/guarddog) or [Aqua Trivy](https://www.aquasec.com/products/trivy/).
-- Deploy [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all the pipelines in a Buildkite organization.
+- Run automated dependency and malware scanning on every merge using established tools such as [GuardDog](https://github.com/DataDog/guarddog) or [Aqua Trivy](https://www.aquasec.com/products/trivy/) (also available as a [Trivy Buildkite plugin](https://buildkite.com/resources/plugins/equinixmetal-buildkite/trivy-buildkite-plugin/)).
+- Use [pipeline templates](/docs/pipelines/governance/templates) (a [Buildkite Enterprise](https://buildkite.com/pricing/)-only feature) to standardize security testing across all the pipelines in a Buildkite organization.
 
 ## Vulnerability management
 
@@ -45,7 +45,7 @@ Use this as a reference for building a defensible, auditable, and resilient CI/C
 **Controls:**
 
 - Integrate security scanning tools directly into pipelines as mandatory steps that block deployments when critical vulnerabilities are detected. Use [pipeline templates](/docs/pipelines/governance/templates), [plugins](/docs/pipelines/integrations/plugins), [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), and [agent hooks](/docs/agent/v3/hooks) to ensure security scans cannot be bypassed by modifying `pipeline.yml` files.
-- Deploy continuous monitoring through automated SBOM generation and vulnerability scanning of production environments. Run scanners on Buildkite Agents using pipeline steps to continuously assess deployed components for newly discovered vulnerabilities. For example, you can use Buildkite's [security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins).
+- Deploy continuous monitoring through automated SBOM generation and vulnerability scanning of production environments. Run scanners on Buildkite Agents using pipeline steps to continuously assess deployed components for newly discovered vulnerabilities. One way to achieve this is to use Buildkite's [security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins).
 - Track dependencies using [Buildkite Annotations](/docs/agent/v3/cli-annotate) to document exact package versions in each build. This creates an auditable record enabling targeted remediation when vulnerabilities are discovered.
 - Establish automated response workflows that trigger [notifications](/docs/pipelines/configure/notifications) and remediation processes when [critical CVEs](https://www.cve.org/) are identified.
 - Integrate with vulnerability databases and scanning tools like [Trivy](https://trivy.dev/latest/), [Snyk](https://snyk.io/), or cloud security services across your software supply chain.
@@ -167,4 +167,4 @@ While Buildkite enforces TLS encryption by default for all platform communicatio
 
 ## Further questions
 
-If you didn't find coverage of a security-related question that interests you here, feel free to raise it on the [Buildkite Community Forum](https://forum.buildkite.community/) or reach out to [Buildkite Support](mailto:support@buildkite.com).
+If you didn't find coverage of a security-related question that interests you here, feel free to reach out to [Buildkite Support](mailto:support@buildkite.com).
