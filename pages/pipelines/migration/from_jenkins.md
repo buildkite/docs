@@ -139,7 +139,7 @@ This table outlines the fundamental differences in pipeline files and their synt
 | Pipeline aspect | Jenkins | Buildkite |
 |-----------------|---------|-----------|
 | **Configuration file** | `Jenkinsfile` | `pipeline.yml` |
-| **Syntax** | Groovy-based | YAML |
+| **Syntax** | Groovy-based domain-specific language (DSL) | YAML |
 | **Structure** | Strong hierarchy | Flat structure (more readable) |
 
 Buildkite's YAML-based pipeline syntax and definitions, along with its flat structure, is simpler, more human-readable, and easier to understand. Furthermore, you can even generate pipeline definitions at build-time with the power and flexibility of [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
@@ -207,7 +207,7 @@ steps:
 
 However, there are have several options for sharing state between steps:
 
-- **Reinstall per step**: Simple for fast-installing dependencies like `npm ci`. For instance, from the example above:
+- **Reinstall per step**: Simple for fast-installing dependencies like `npm ci` (instead of `npm install`). For instance, from the example above:
 
     ```yaml
     steps:
@@ -302,7 +302,7 @@ steps:
 
 Notice the immediate differences in this pipeline syntax from Jenkins:
 
-- YAML format instead of Groovy DSL. Each stage in the Jenkins pipeline is replaced by a single [`command` step](/docs/pipelines/configure/step-types/command-step) in the Buildkite pipeline (which may consist of one or more shell commands, executable files or scripts).
+- YAML format instead of Groovy DSL. Each stage in the Jenkins pipeline is replaced by a single [`command` step](/docs/pipelines/configure/step-types/command-step) in the Buildkite pipeline (which may consist of one or more shell commands, executable files or scripts). Each of these three steps will be dispatched as a single job to an available Buildkite Agent.
 - Emoji support in labels without plugins.
 - ID assignment for dependency references.
 
@@ -447,13 +447,15 @@ steps:
       - app/dist/**/*
 ```
 
-While this Buildkite pipeline YAML syntax is substantially shorter than the original Jenkins declarative pipeline's Groovy-based syntax, there still remains clear duplication in the YAML pipeline. The verbose version demonstrates that our conversion works correctly—each step properly installs Node.js, sets up dependencies, and executes the required commands.
+While this Buildkite pipeline YAML syntax is substantially shorter than the original Jenkins declarative pipeline's Groovy DSL syntax, there still remains clear duplication in the YAML pipeline.
+
+However, this verbose version demonstrates that the translation of this pipeline from Jenkins to Buildkite works correctly—each step properly installs Node.js onto its Buildkite Agent, sets up dependencies, and executes its remaining required commands.
 
 **You should now see** a fully functional pipeline that will create a total of six jobs: lint, test, and build for each of the two Node.js versions. The build jobs will wait for their corresponding lint and test jobs to complete.
 
 ### Step 10: Refactor with YAML aliases
 
-Now that we've verified the pipeline works, let's eliminate duplication using YAML aliases. This refactoring maintains the same functionality while dramatically improving maintainability:
+Now that you've verified that the pipeline works, you can eliminate the duplication using YAML aliases. This refactoring maintains the same functionality while dramatically improving the pipeline code's maintainability:
 
 ```yaml
 common:
@@ -498,7 +500,38 @@ The final result is now dramatically shorter than the original Jenkins pipeline,
 
 **You should now see** a maintainable pipeline where changes to the Node.js installation process or matrix configuration only need to be made in one place. The `&install` creates an alias, and `*install` references it.
 
-<!-- Remainder to be reviewed -->
+## Key differences and benefits of migrating to Buildkite
+
+This [example pipeline translation](#translate-an-example-jenkins-pipeline) demonstrates several important advantages of Buildkite's approach:
+
+- **Simpler pipeline configuration**: The resulting Buildkite YAML syntax is much smaller than its Jenkins Groovy DSL.
+- **Execution model**: Buildkite's steps are parallel by default with explicit sequencing vs Jenkins' stages, which are sequential by default with explicit parallelization.
+- **Plugin usage**: Buildkite required no plugins needed, whereas Jenkins required  two plugins ([AnsiColor](https://plugins.jenkins.io/ansicolor/) and build-name-setter)
+- **Tool Management**: Buildkite requires explicit tool installation for each step, with full control, whereas Jenkins provides black-box tool management.
+- **Artifact Handling**: Buildkite provides native archiving and glob pattern support vs plugin-based archiving
+
+For larger deployments, these differences become more significant:
+
+- The fresh workspace model avoids state leakage between builds.
+- The pull-based agent model simplifies scaling and security.
+- Pipeline-specific plugin versioning eliminates dependency conflicts.
+
+Be aware of common pipeline-translation mistakes, which might include:
+
+- Forgetting about fresh workspaces (leading to missing dependencies).
+- Over-parallelizing interdependent steps.
+- Misunderstanding the queue-based agent targeting model.
+
+These Buildkite-specific patterns, however, force better pipeline design that's more resilient and scalable.
+
+## Next steps and continued learning
+
+For deeper learning, explore these Buildkite resources:
+
+- [Pipeline definition documentation](/docs/pipelines/defining-steps) for advanced step configurations.
+- [Agent configuration guide](/docs/agent/v3/cli-step) for agent setup and targeting
+- [Plugins directory](https://buildkite.com/resources/plugins/) for community-developed functionality.
+- [Migration guide](/docs/pipelines/migration/from-jenkins) for comprehensive migration strategies.
 
 ----
 

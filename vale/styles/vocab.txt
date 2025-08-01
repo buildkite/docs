@@ -203,6 +203,7 @@ OTLP
 otlp
 Pagerduty
 parsable
+parallelization
 pbuilder
 pbuilder's
 perl
