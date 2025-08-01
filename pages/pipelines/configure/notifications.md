@@ -461,12 +461,6 @@ steps:
 
 The `pipeline.started_failing` conditional is designed to send notifications **only when a pipeline transitions from passing to failing** - not for every failed build. This prevents excessive notifications while ensuring teams are immediately alerted when something breaks.
 
-#### How it works
-
-* **Triggers only on state change**: The notification is sent when a pipeline goes from a successful state to a failing state
-* **Prevents excessive notifications**: Unlike `build.state == "failed"` which notifies on every failure, `pipeline.started_failing` only notifies on the **first** failure after successful build(s)
-* **Branch-based logic**: The conditional operates at the branch level, tracking state transitions for builds on specific branches
-
 #### Basic example
 
 ```yaml
@@ -476,52 +470,17 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-#### Complete state change notifications
+#### When to use
 
-Many teams combine `pipeline.started_failing` with `pipeline.started_passing` to get notifications for both failure and recovery:
+This conditional might be valuable for teams that:
 
-```yaml
-notify:
-  - slack: "#team-alerts"
-    if: pipeline.started_failing || pipeline.started_passing
-```
-{: codeblock-file="pipeline.yml"}
-
-This setup provides notifications when:
-
-* A pipeline **starts** failing (after being green)
-* A pipeline **starts** passing (after being red - the "fixed" notification)
-
-#### Alternative patterns
-
-For teams that want both first failures and continued failures:
-
-```yaml
-notify:
-  - slack: "#builds"
-    if: build.state == "failed" || pipeline.started_passing
-```
-{: codeblock-file="pipeline.yml"}
-
-#### When to use this conditional
-
-This pattern is particularly valuable for:
-
-* **Reducing notification fatigue**: Teams that want immediate alerts when something breaks but don't want repeated notifications for consecutive failures
-* **Flaky environments**: Teams with flaky tests or environments where builds might fail multiple times in a row
-* **Continuous integration**: Workflows where quick feedback on state changes is more important than being notified about every individual failure
-
+* Want immediate alerts when something breaks but don't want repeated notifications for consecutive failures
+* Have flaky tests or environments where builds might fail multiple times in a row
+* Implement workflows where quick feedback on state changes is more important than being notified about every individual failure
 
 ### Notify only on first pass
 
 The `pipeline.started_passing` conditional is designed to send notifications **only when a pipeline transitions from failing to passing** - not for every successful build. This prevents excessive notifications while ensuring teams are immediately alerted when issues are resolved.
-
-#### How it works
-
-* **Triggers only on state change**: The notification is sent when a pipeline goes from a failing state to a passing state
-* **Prevents excessive notifications**: Unlike `build.state == "passed"` which notifies on every success, `pipeline.started_passing` only notifies on the **first** pass after failure(s)
-* **Branch-based logic**: The conditional operates at the branch level, tracking state transitions for builds on specific branches
-* **Successor to deprecated `build.fixed`**: `pipeline.started_passing` replaces the deprecated `build.fixed` conditional but remains backwards compatible
 
 #### Basic example
 
@@ -532,51 +491,16 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-#### Complete state change notifications
+#### When to use
 
-Many teams combine `pipeline.started_passing` with `pipeline.started_failing` to get notifications for both failure and recovery:
+This conditional might be valuable for teams that:
 
-```yaml
-notify:
-  - slack: "#team-alerts"
-    if: pipeline.started_failing || pipeline.started_passing
-```
-{: codeblock-file="pipeline.yml"}
-
-This setup provides notifications when:
-
-* A pipeline **starts** failing (after being green)
-* A pipeline **starts** passing (after being red - the "fixed" notification)
-
-#### Alternative patterns
-
-For teams that want both recovery notifications and all failures:
-
-```yaml
-notify:
-  - slack: "#builds"
-    if: build.state == "failed" || pipeline.started_passing
-```
-{: codeblock-file="pipeline.yml"}
-
-#### When to use this conditional
-
-This pattern is particularly valuable for:
-
-* **Resolution alerts**: Teams that want immediate confirmation when broken builds are fixed
-* **Recovery tracking**: Teams that need to track when issues are resolved after failures
-* **Reduced noise**: Teams that want to avoid notifications for builds that were already passing
+* Need to track when build issues are resolved after failures
+* Prefer to avoid notifications for builds that were already passing
 
 ### Notify on all failures and first successful pass
 
 This combined pattern sends notifications for **all failed builds and the first successful build after failures**. It provides comprehensive failure coverage while avoiding excessive notifications for consecutive successful builds.
-
-#### How it works
-
-* **All failures**: Triggers on every failed build using `build.state == "failed"`
-* **Recovery notification**: Triggers only when a pipeline transitions from failing to passing using `pipeline.started_passing`
-* **No repeated success notifications**: Avoids notifications for builds that were already passing
-* **Comprehensive coverage**: Ensures teams never miss failures while getting clear resolution alerts
 
 #### Basic example
 
@@ -615,29 +539,13 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-#### When to use this pattern
+#### When to use
 
-This pattern is particularly valuable for:
+This conditional might be valuable for teams that:
 
-* **Complete failure tracking**: Teams that need to be notified about every failure, not just the first one
-* **Continuous monitoring**: Teams that want comprehensive coverage of build health
-* **Issue escalation**: Teams where repeated failures might indicate worsening issues that need attention
-* **Debugging workflows**: Teams that need detailed failure information for troubleshooting
-
-### Comparison of notification patterns
-
-The following table compares different notification patterns to help you choose the right approach for your team's needs:
-
-<table>
-  <thead>
-    <tr><th>Pattern</th><th>Triggers</th><th>Use case</th></tr>
-  </thead>
-  <tbody>
-    <tr><td><code>build.state == "failed"</code></td><td>Every failed build</td><td>Teams that want to be notified about all failures</td></tr>
-    <tr><td><code>pipeline.started_failing</code></td><td>First failure after success</td><td>Teams that want immediate alerts but reduced noise</td></tr>
-    <tr><td><code>pipeline.started_failing || pipeline.started_passing</code></td><td>State changes only</td><td>Teams that want clean "state change only" notifications</td></tr>
-  </tbody>
-</table>
+* Need to be notified about every failure, not just the first one
+* Require comprehensive coverage of build health
+* See repeated failures as a possible leading indicator of worsening issues that need attention
 
 ## Webhooks
 
