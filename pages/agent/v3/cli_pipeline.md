@@ -7,6 +7,9 @@ See the [Defining your pipeline steps](/docs/pipelines/configure/defining-steps)
 
 ## Uploading pipelines
 
+> 🚧 Single pipeline file processing
+> The `buildkite-agent pipeline upload` command only processes a single pipeline file. If multiple files are passed into the command (including using a wildcard `*` in the filename), only the first pipeline file will be processed. Additional pipeline files provided as arguments are ignored. Please see [uploading multiple pipeline files](/docs/agent/v3/cli_pipeline#uploading-multiple-pipelines).
+
 <%= render 'agent/v3/help/pipeline_upload' %>
 
 ## Pipeline format
@@ -119,3 +122,32 @@ For example, the following step will echo the first 7 characters of the `BUILDKI
 ```
 
 If the environment variable has not been set, the range will return a blank string.
+
+## Uploading multiple pipelines
+
+While the `buildkite-agent pipeline upload` command is only able to process a single file, there are many approaches available to handle uploading multiple pipeline files for processing.
+
+### Multiple sequential uploads
+
+You can call `buildkite-agent pipeline upload` multiple times within the same step to upload multiple pipeline files:
+
+```bash
+buildkite-agent pipeline upload .buildkite/pipeline1.yml
+buildkite-agent pipeline upload .buildkite/pipeline2.yml
+```
+
+### Pass multiple files to command
+
+Using the `find` command, you can pipe `|` multiple file paths into the `buildkite-agent pipeline upload` command:
+
+```bash
+find .buildkite/ -type f -iname '*.yaml' -print0 | xargs -0 -n1 buildkite-agent pipeline upload
+```
+
+### Combine multiple pipeline files
+
+With the `buildkite-agent pipeline upload` command able to also accept pipeline YAML, you can emit the contents of multiple pipeline files and have this combined output be processed directory from STDIN:
+
+```bash
+cat .buildkite/pipeline*.yml | buildkite-agent pipeline upload
+```
