@@ -926,6 +926,8 @@
     path: apis/graphql/schemas/enum/hostedagentarchitecture
   - name: HostedAgentInstanceShapeName
     path: apis/graphql/schemas/enum/hostedagentinstanceshapename
+  - name: HostedAgentMacOSVersion
+    path: apis/graphql/schemas/enum/hostedagentmacosversion
   - name: HostedAgentMachineType
     path: apis/graphql/schemas/enum/hostedagentmachinetype
   - name: HostedAgentSize
