@@ -1,4 +1,4 @@
-# Background to packages
+# Background to packages#
 
 A _package_ is a combination of _metadata_, _configuration_, and _software_ that is prepared in a way that a package management tool can use to properly and reliably install software and related configuration data on a computer. Some examples of package management tools include:
 
