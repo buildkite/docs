@@ -54,8 +54,6 @@ steps:
     key: "deploy-check-block"
     depends_on: "ecr-push"
     if: "!(build.creator.teams includes 'deploy') && build.branch == 'main'"
-    agents:
-      queue: hosted
 
   - label: ":docker::rocket:"
     branches: main
