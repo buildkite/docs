@@ -47,8 +47,6 @@ steps:
     key: "deploy-check-wait"
     depends_on: "ecr-push"
     if: "(build.creator.teams includes 'deploy') && build.branch == 'main'"
-    agents:
-      queue: hosted
 
   # If the user *isn't* in the deploy team, require a block step for manual
   # verification by someone who is in the team.
