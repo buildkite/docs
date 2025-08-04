@@ -1,8 +1,7 @@
 **********************************************************************************************
      ___
-    [O_O] 
-   /[ai]\ + [instructions]
-    ]  [  
+    [O_O] [AI + instructions]
+
 
 HOW TO USE THE AI STYLE GUIDE CHECKER INSTRUCTIONS
 
@@ -18,18 +17,18 @@ a. Break up long documents for review
 Don’t ask the model to apply all rules to a whole document at once. Do it per paragraph,
 section, or page.
 Example prompt for long documents:
-"Please apply the Buildkite documentation style guide to the following section. 
+"Please apply the Buildkite documentation style guide to the following section.
 Output rule violations only, referencing section headers from the guide."
 
 b. Use rule anchoring in your query
 
-Ask AI to list all rule violations, referencing specific rule section 
+Ask AI to list all rule violations, referencing specific rule section
 (e.g. “Formatting rules > Italics”) and not to flag anything unless it breaks an explicit rule.
 
 c. Pre-load the style guide separately
 Provide the guide to the model as a JSON file - available as full_buildkite_styleguide.json file
 in this (ai_tools) repository.
- 
+
 **********************************************************************************************
 
 # Buildkite documentation style rules
@@ -48,7 +47,7 @@ For each paragraph in the provided document, evaluate every rule and list violat
 
 **Review the content twice:**
 - First pass: Check for violations against the core rules
-- Second pass: Confirm consistency and identify overlooked errors, typos, trailing spaces
+- Second pass: Confirm consistency and identify overlooked errors, spelling errors, typos, trailing spaces
 
 Be strict. Do not allow edge cases to slide.
 
@@ -59,7 +58,7 @@ If a rule conflicts with another (e.g., clarity vs formatting), prioritize:
 
 Do NOT deviate. Do NOT add style suggestions based on general best practices. Only apply the rules outlined below.
 
-Here are the rules: 
+Here are the rules:
 
 ## Core style and voice
 
@@ -76,7 +75,7 @@ It does NOT apply to blog posts, marketing content, support tickets, or internal
 
 **Formatting standards:**
 - Use sentence case for all headings (capitalize only first word and proper nouns)
-- Format UI elements in **bold** matching exact Buildkite interface capitalization
+- Format Buildkite UI elements in **bold** matching exact Buildkite interface capitalization
 - Format key terms and emphasis in _italics_ (use sparingly)
 - Use serial commas when listing items
 - In paragraphs, write out numbers up to 10, then use digits; in headings - AVOID digits for numbers smaller than 10
@@ -126,6 +125,7 @@ Review documentation content for:
 
 **Language issues:**
 - Correct use of their/they're/there and your/you're
+- Proper use of homonyms and words with 1 character spelling difference (seek vs. sick, though vs. through, etc.)
 - Proper affect/effect usage (affect = verb, effect = noun)
 - Appropriate hyphen usage (compound adjectives vs. verbs)
 - Consistent capitalization and abbreviations
@@ -134,7 +134,7 @@ Review documentation content for:
 **Style Consistency:**
 - Sentence case headings without punctuation
 - Proper product name capitalization (e.g., "GitHub" not "Github")
-- UI elements in bold, key terms in italics
+- Buildkite UI elements in bold, key terms in italics
 - Consistent terminology
 - Semi-formal tone without excessive formality or casualness
 
@@ -171,7 +171,7 @@ Ensure documentation is accessible and clear:
 - [ ] US English, semi-formal tone
 - [ ] Active voice, plain English
 - [ ] Sentence case headings, no punctuation
-- [ ] **Bold** for UI elements, _italics_ for key terms
+- [ ] **Bold** for Buildkite UI elements, _italics_ for key terms
 - [ ] Serial commas, "and" not "&"
 - [ ] "They" for pronouns, numbers <10 spelled out
 - [ ] Proper Buildkite terminology (Agent, buildkite-agent)
@@ -247,10 +247,10 @@ Ensure documentation is accessible and clear:
 
 ## Formatting rules
 
-**Bold text (UI elements):**
+**Bold text (Buildkite UI elements):**
 - Use `**text**` (double asterisks) for bold
 - Never use `__text__` (double underscores)
-- Format all UI elements in bold
+- Format all Buildkite UI elements in bold
 
 **Italic text (key terms/emphasis):**
 - Use `_text_` (single underscores) for italics
@@ -395,7 +395,7 @@ Content 1         | Content 2
 - [ ] Headings nested incrementally (H1 → H2 → H3 → H4)
 - [ ] Empty lines above and below headings
 - [ ] Sentence case headings without punctuation
-- [ ] `**bold**` for UI elements, `_italics_` for key terms
+- [ ] `**bold**` for Buildkite UI elements, `_italics_` for key terms
 - [ ] `-` for top-level lists, `*` for 2nd level, `-` for 3rd level
 - [ ] 4-space indentation for nested lists and paragraphs
 - [ ] `1.` for all numbered list items

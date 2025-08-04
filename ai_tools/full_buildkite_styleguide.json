@@ -22,7 +22,7 @@
     },
     {
       "id": "Instructions.6",
-      "text": "Second pass: Confirm consistency and identify overlooked errors, typos, trailing spaces"
+      "text": "Second pass: Confirm consistency and identify overlooked errors, spelling errors, typos, trailing spaces"
     },
     {
       "id": "Instructions.7",
@@ -68,7 +68,7 @@
     },
     {
       "id": "Corestyleandvoice.8",
-      "text": "Format UI elements in **bold** matching exact Buildkite interface capitalization"
+      "text": "Format Buildkite UI elements in **bold** matching exact Buildkite interface capitalization"
     },
     {
       "id": "Corestyleandvoice.9",
@@ -210,7 +210,7 @@
     },
     {
       "id": "Contentreviewchecklist.8",
-      "text": "UI elements in bold, key terms in italics"
+      "text": "Buildkite UI elements in bold, key terms in italics"
     },
     {
       "id": "Contentreviewchecklist.9",
@@ -235,6 +235,10 @@
     {
       "id": "Contentreviewchecklist.14",
       "text": "Plain English without unnecessary complexity"
+    },
+    {
+      "id": "Contentreviewchecklist.15",
+      "text": "Proper use of homonyms and words with 1 character spelling difference (seek vs. sick, though vs. through, etc.)"
     }
   ],
   "AccessibilityAndClarityRules": [
@@ -302,7 +306,7 @@
     },
     {
       "id": "Quickreferencechecklist.4",
-      "text": "[ ] **Bold** for UI elements, _italics_ for key terms"
+      "text": "[ ] **Bold** for Buildkite UI elements, _italics_ for key terms"
     },
     {
       "id": "Quickreferencechecklist.5",
@@ -416,7 +420,7 @@
     },
     {
       "id": "Formattingrules.3",
-      "text": "Format all UI elements in bold"
+      "text": "Format all Buildkite UI elements in bold"
     },
     {
       "id": "Formattingrules.4",
@@ -586,7 +590,7 @@
     },
     {
       "id": "Markdownsyntaxchecklist.4",
-      "text": "[ ] `**bold**` for UI elements, `_italics_` for key terms"
+      "text": "[ ] `**bold**` for Buildkite UI elements, `_italics_` for key terms"
     },
     {
       "id": "Markdownsyntaxchecklist.5",
