@@ -70,8 +70,17 @@
     }
   }
 
+  &__divider {
+    height: 1px;
+    background: #f3f4f6;
+    margin: 4px 0;
+  }
+
   &__copy,
-  &__view {
+  &__view,
+  &__chatgpt,
+  &__claude,
+  &__cursor {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -167,6 +176,10 @@
       svg {
         color: #9ca3af;
       }
+    }
+
+    &__divider {
+      background: #374151;
     }
 
     &__copy {
