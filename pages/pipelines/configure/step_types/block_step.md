@@ -8,7 +8,7 @@ A block step can be defined in your pipeline settings, or in your [pipeline.yml]
 
 Once all steps before the block have completed, the pipeline will pause and wait for a team member to unblock it. Clicking on a block step in the Buildkite web UI opens a dialog box asking if you'd like to continue.
 
-```yml
+```yaml
 steps:
   - block: "\:rocket\: Are we ready?"
 ```
@@ -27,7 +27,7 @@ In this example, the `pipeline.yml` defines an input step with the key `release-
 
 <%= image "release_modal_input.png", alt: "Screenshot of a block step with input fields" %>
 
-```yml
+```yaml
 - block: "Release"
   prompt: "Fill out the details for release"
   fields:
@@ -57,9 +57,9 @@ Optional attributes:
   <tr>
     <td><code>prompt</code></td>
     <td>
-      The instructional message displayed in the dialog box when the unblock step is activated.
-      <em>Example:</em>
-      <ul><li> <code>"Release to production?"</code></li><li><code>"Fill out the details for this release"</code></li></ul>
+      The instructional message displayed in the dialog box when the unblock step is activated.<br/>
+      <em>Example:</em> <code>"Release to production?"</code><br/>
+      <em>Example:</em> <code>"Fill out the details for this release"</code>
     </td>
   </tr>
   <tr>
@@ -72,30 +72,29 @@ Optional attributes:
     <tr>
     <td><code>blocked_state</code></td>
     <td>
-      The state that the build is set to when the build is blocked by this block step. The default is passed. When the <code>blocked_state</code> of a block step is set to <code>failed</code>, the step that triggered it will be stuck in the <code>running</code> state until it is manually unblocked.
-      <em>Default:</em> <code>passed</code>
+      The state that the build is set to when the build is blocked by this block step. The default is passed. When the <code>blocked_state</code> of a block step is set to <code>failed</code>, the step that triggered it will be stuck in the <code>running</code> state until it is manually unblocked. If you're using GitHub, you can also <a href="/docs/pipelines/source-control/github#customizing-commit-statuses">configure which GitHub status</a> to use for blocked builds on a per-pipeline basis.<br/>
+      <em>Default:</em> <code>passed</code><br/>
       <em>Values:</em> <code>passed</code>, <code>failed</code>, <code>running</code>
-      If you're using GitHub, you can also <a href="/docs/pipelines/source-control/github#customizing-commit-statuses">configure which GitHub status</a> to use for blocked builds on a per-pipeline basis.
     </td>
   </tr>
   <tr>
     <td><code>branches</code></td>
     <td>
-      The <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this block step in their builds.
+      The <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this block step in their builds.<br/>
       <em>Example:</em> <code>"main stable/*"</code>
     </td>
   </tr>
   <tr>
     <td><code>if</code></td>
     <td>
-      A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.
+      A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.<br/>
       <em>Example:</em> <code>build.message != "skip me"</code>
     </td>
   </tr>
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step keys that this step depends on. This step will only proceed after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.
+      A list of step keys that this step depends on. This step will only proceed after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br/>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
    </tr>
@@ -103,28 +102,28 @@ Optional attributes:
     <td><code>key</code></td>
     <td>
       A unique string to identify the block step.<br/>
-      Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).
-      <em>Example:</em> <code>"test-suite"</code>
+      Keys cannot have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br/>
+      <em>Example:</em> <code>"test-suite"</code><br/>
       <em>Alias:</em> <code>identifier</code>
     </td>
    </tr>
    <tr>
     <td><code>allow_dependency_failure</code></td>
     <td>
-      Whether to continue to proceed past this step if any of the steps named in the <code>depends_on</code> attribute fail.
+      Whether to continue to proceed past this step if any of the steps named in the <code>depends_on</code> attribute fail.<br/>
       <em>Default:</em> <code>false</code>
     </td>
   </tr>
 </table>
 
-```yml
+```yaml
 steps:
   - block: "\:rocket\: Release!"
 ```
 
 {: codeblock-file="pipeline.yml"}
 
-## Text input attributes
+## Text field attributes
 
 > 📘 Line endings
 > A text field normalizes line endings to Unix format (<code>\n</code>).
@@ -136,13 +135,13 @@ Required attributes:
     <td><code>key</code></td>
     <td>
       The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br/>
-      The key may only contain alphanumeric characters, slashes, dashes, or underscores.
+      The key may only contain alphanumeric characters, slashes, dashes, or underscores.<br/>
       <em>Example:</em> <code>"release-name"</code>
     </td>
   </tr>
 </table>
 
-```yml
+```yaml
 steps:
   - block: "Request Release"
     fields:
@@ -156,29 +155,43 @@ Optional attributes:
 
 <table>
   <tr>
+    <td><code>text</code></td>
+    <td>
+      The text input name.<br/>
+      <em>Example:</em> <code>"Release Name"</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>hint</code></td>
     <td>
-      The explanatory text that is shown after the label.
+      The explanatory text that is shown after the label.<br/>
       <em>Example:</em> <code>"What's the code name for this release? \:name_badge\:"</code>
     </td>
   </tr>
   <tr>
     <td><code>required</code></td>
     <td>
-      A boolean value that defines whether the field is required for form submission.
-      <em>Default value:</em> <code>true</code>
+      A boolean value that defines whether the field is required for form submission.<br/>
+      <em>Default:</em> <code>true</code>
     </td>
   </tr>
   <tr>
     <td><code>default</code></td>
     <td>
-      The value that is pre-filled in the text field.
+      The value that is pre-filled in the text field.<br/>
       <em>Example:</em> <code>"Flying Dolphin"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>format</code></td>
+    <td>
+      A regular expression used for <a href="#input-validation">input validation</a> that indicates invalid input.<br/>
+      <em>Example:</em> <code>"[a-zA-Z]+"</code>
     </td>
   </tr>
 </table>
 
-```yml
+```yaml
 steps:
   - block: "Request Release"
     fields:
@@ -191,7 +204,7 @@ steps:
 
 {: codeblock-file="pipeline.yml"}
 
-## Select input attributes
+## Select field attributes
 
 Required attributes:
 
@@ -200,7 +213,7 @@ Required attributes:
     <td><code>key</code></td>
     <td>
       The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br/>
-      The key may only contain alphanumeric characters, slashes, dashes, or underscores.
+      The key may only contain alphanumeric characters, slashes, dashes, or underscores.<br/>
       <em>Example:</em> <code>"release-stream"</code>
     </td>
   </tr>
@@ -208,32 +221,13 @@ Required attributes:
     <td><code>options</code></td>
     <td>
       The list of select field options.<br/>
-      For 6 or less options they'll be displayed as radio buttons, otherwise they'll be displayed in a dropdown box.<br/>
+      For six or fewer options they'll be displayed as radio buttons, otherwise they'll be displayed in a dropdown box.<br/>
       If selecting multiple options is permitted the options will be displayed as checkboxes.
     </td>
   </tr>
 </table>
 
-Each select option has the following _required_ attributes:
-
-<table>
-  <tr>
-    <td><code>label</code></td>
-    <td>
-      The text displayed for the option.<br/>
-      <em>Example:</em> <code>"Stable"</code>
-    </td>
-  </tr>
-  <tr>
-    <td><code>value</code></td>
-    <td>
-      The value to be stored as meta-data (to be later retrieved using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br/>
-      <em>Example:</em> <code>"stable"</code>
-    </td>
-  </tr>
-</table>
-
-```yml
+```yaml
 steps:
   - block: "Request Release"
     fields:
@@ -284,31 +278,14 @@ Optional attributes:
   </tr>
 </table>
 
-```yml
-steps:
-  - block: "Request Release"
-    fields:
-      - select: "Stream"
-        key: "release-stream"
-        hint: "Which release stream does this belong in? \:fork\:"
-        required: false
-        default: "beta"
-        options:
-          - label: "Beta"
-            value: "beta"
-          - label: "Stable"
-            value: "stable"
-```
-
-{: codeblock-file="pipeline.yml"}
-
-```yml
+```yaml
 steps:
   - block: "Deploy To"
     fields:
       - select: "Regions"
         key: "deploy-regions"
         hint: "Which regions should we deploy this to? \:earth_asia\:"
+        required: true
         multiple: true
         default:
           - "na"
@@ -325,8 +302,26 @@ steps:
           - label: "Oceania"
             value: "aunz"
 ```
-
 {: codeblock-file="pipeline.yml"}
+
+Each select option has the following _required_ attributes:
+
+<table>
+  <tr>
+    <td><code>label</code></td>
+    <td>
+      The text displayed for the option.<br/>
+      <em>Example:</em> <code>"Stable"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>value</code></td>
+    <td>
+      The value to be stored as meta-data (to be later retrieved using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br/>
+      <em>Example:</em> <code>"stable"</code>
+    </td>
+  </tr>
+</table>
 
 ## Passing block step data to other steps
 
@@ -422,6 +417,25 @@ You can modify a trigger step to dynamically upload itself to a pipeline as foll
 The command step added in the above example will upload the trigger step and add it to the end of our pipeline at runtime.
 
 In the pipeline you're triggering, you will be able to use the meta-data that you have passed through as if it was set during the triggered build.
+
+## Input validation
+
+To prevent users from entering invalid text values in block steps (for example, to gather some deployment information), you can use input validation.
+
+If you associate a regular expression to a field, the field outline will turn red when an invalid value is entered.
+
+To do it, use the following sample syntax:
+
+```yaml
+steps:
+  - block: "Click me!"
+    fields:
+      - text: Must be hexadecimal
+        key: hex
+        format: "[0-9a-f]+"
+```
+
+The `format` must be a regular expression implicitly anchored to the beginning and end of the input and is functionally equivalent to the [HTML5 pattern attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern).
 
 ## Block steps interacting with wait steps
 
