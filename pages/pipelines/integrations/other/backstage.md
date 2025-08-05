@@ -2,7 +2,7 @@
 
 [Backstage](https://backstage.io/) is an open platform for building developer portals that provide a unified front end for many development and CI/CD tools in one place. The Buildkite plugin for Backstage integrates your Buildkite CI/CD pipelines directly into your Backstage service catalog, providing real-time build monitoring and management capabilities.
 
-
+<%= image "buildkite_in_backstage_ui.png", width: 1450/2, height: 960/2, alt: "A Buildkite pipeline in Backstage UI" %>
 
 ## Features
 
@@ -21,10 +21,10 @@ Before installing the Buildkite Backstage plugin, ensure you have:
 - A Buildkite account with at least one pipeline
 - An up-to-date Backstage instance
 - A Buildkite API token with the following permissions:
-  + `read_pipelines`
-  + `read_builds`
-  + `read_user`
-  + `write_builds` (for rebuild functionality)
+  * `read_pipelines`
+  * `read_builds`
+  * `read_user`
+  * `write_builds` (for rebuild functionality)
 
 ## Installation
 
