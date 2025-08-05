@@ -3,6 +3,7 @@ import { bindToggles, preserveScroll } from "../components/nav";
 import { initToc } from "../components/toc";
 import { attachCopyToClipboardButton } from "../components/copyToClipboardButton";
 import { themeToggle } from "../components/themeToggle";
+import { initPageCopyDropdown } from "../components/pageCopyDropdown";
 import docsearch from "@docsearch/js";
 
 Turbo.start();
@@ -28,6 +29,7 @@ function render() {
   initToc();
   attachCopyToClipboardButton("pre.highlight");
   themeToggle();
+  initPageCopyDropdown();
 }
 
 window.addEventListener("DOMContentLoaded", () => {

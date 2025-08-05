@@ -1,0 +1,155 @@
+.PageHeader {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+  padding: 0;
+}
+
+.PageCopyDropdown {
+  position: relative;
+  display: inline-block;
+
+  &__button {
+    @extend .Button;
+    @extend .Button--default;
+    @extend .Button--small;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid #d1d5db;
+    background: white;
+    color: #374151;
+    transition: all 0.15s ease;
+
+    &:hover {
+      background: #f9fafb;
+      border-color: #9ca3af;
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  &__menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 4px;
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    min-width: 180px;
+    z-index: 50;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.15s ease;
+
+    &--open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+
+  &__copy,
+  &__view {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    background: none;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+
+    &:hover {
+      background: #f9fafb;
+      color: #111827;
+    }
+
+    &:first-child {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+
+    svg {
+      flex-shrink: 0;
+      color: #6b7280;
+    }
+  }
+
+  &__copy {
+    border-bottom: 1px solid #f3f4f6;
+
+    &--success {
+      color: #059669;
+      
+      svg {
+        color: #059669;
+      }
+    }
+
+    &--error {
+      color: #dc2626;
+      
+      svg {
+        color: #dc2626;
+      }
+    }
+  }
+
+  // Dark mode support
+  @media (prefers-color-scheme: dark) {
+    &__button {
+      background: #1f2937;
+      border-color: #374151;
+      color: #f3f4f6;
+
+      &:hover {
+        background: #374151;
+        border-color: #4b5563;
+      }
+    }
+
+    &__menu {
+      background: #1f2937;
+      border-color: #374151;
+    }
+
+    &__copy,
+    &__view {
+      color: #f3f4f6;
+
+      &:hover {
+        background: #374151;
+        color: #ffffff;
+      }
+
+      svg {
+        color: #9ca3af;
+      }
+    }
+
+    &__copy {
+      border-bottom-color: #374151;
+    }
+  }
+}
