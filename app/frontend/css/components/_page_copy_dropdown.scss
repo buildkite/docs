@@ -10,7 +10,7 @@
   }
 }
 
-.PageCopyDropdown {
+.page-copy-dropdown {
   position: relative;
   display: inline-block;
 
@@ -76,11 +76,7 @@
     margin: 4px 0;
   }
 
-  &__copy,
-  &__view,
-  &__chatgpt,
-  &__claude,
-  &__cursor {
+  &__item {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -117,14 +113,12 @@
     }
   }
 
-  &__copy {
-    border-bottom: 1px solid #f3f4f6;
-
+  &__item {
     &--loading {
       color: #6b7280;
       pointer-events: none;
       
-      svg {
+      .page-copy-dropdown__item-icon svg {
         color: #6b7280;
       }
     }
@@ -132,7 +126,7 @@
     &--success {
       color: #059669;
       
-      svg {
+      .page-copy-dropdown__item-icon svg {
         color: #059669;
       }
     }
@@ -140,9 +134,55 @@
     &--error {
       color: #dc2626;
       
-      svg {
+      .page-copy-dropdown__item-icon svg {
         color: #dc2626;
       }
+    }
+  }
+
+  &__item-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    
+    svg {
+      color: #6b7280;
+    }
+  }
+
+  &__item-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__item-title {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+
+  &__item-subtitle {
+    font-size: 12px;
+    color: #6b7280;
+    line-height: 1.2;
+  }
+
+  &__item-external {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    opacity: 0.6;
+    
+    svg {
+      color: currentColor;
     }
   }
 
@@ -164,8 +204,7 @@
       border-color: #374151;
     }
 
-    &__copy,
-    &__view {
+    &__item {
       color: #f3f4f6;
 
       &:hover {
@@ -173,25 +212,25 @@
         color: #ffffff;
       }
 
-      svg {
+      &--loading {
         color: #9ca3af;
+        
+        .page-copy-dropdown__item-icon svg {
+          color: #9ca3af;
+        }
       }
+    }
+
+    &__item-icon svg {
+      color: #9ca3af;
+    }
+
+    &__item-subtitle {
+      color: #9ca3af;
     }
 
     &__divider {
       background: #374151;
-    }
-
-    &__copy {
-      border-bottom-color: #374151;
-
-      &--loading {
-        color: #9ca3af;
-        
-        svg {
-          color: #9ca3af;
-        }
-      }
     }
   }
 }

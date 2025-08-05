@@ -51,43 +51,43 @@ const cursorIcon = `
 const COPY_TIMEOUT = 2000;
 
 export function initPageCopyDropdown() {
-  const container = document.querySelector('.PageCopyDropdown');
-  if (!container) return;
+  const dropdown = document.querySelector('.page-copy-dropdown');
+  if (!dropdown) return;
 
-  const button = container.querySelector('.PageCopyDropdown__button');
-  const dropdown = container.querySelector('.PageCopyDropdown__menu');
-  const copyButton = container.querySelector('.PageCopyDropdown__copy');
-  const viewButton = container.querySelector('.PageCopyDropdown__view');
-  const chatGPTButton = container.querySelector('.PageCopyDropdown__chatgpt');
-  const claudeButton = container.querySelector('.PageCopyDropdown__claude');
-  const cursorButton = container.querySelector('.PageCopyDropdown__cursor');
+  const button = dropdown.querySelector('.page-copy-dropdown__button');
+  const menu = dropdown.querySelector('.page-copy-dropdown__menu');
+  const copyButton = dropdown.querySelector('[data-action="copy-markdown"]');
+  const viewButton = dropdown.querySelector('[data-action="view-markdown"]');
+  const chatgptButton = dropdown.querySelector('[data-action="open-chatgpt"]');
+  const claudeButton = dropdown.querySelector('[data-action="open-claude"]');
+  const cursorButton = dropdown.querySelector('[data-action="connect-cursor"]');
 
   // Toggle dropdown
   button.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
-    const isOpen = dropdown.classList.contains('PageCopyDropdown__menu--open');
-    dropdown.classList.toggle('PageCopyDropdown__menu--open');
+    const isOpen = menu.classList.contains('page-copy-dropdown__menu--open');
+    menu.classList.toggle('page-copy-dropdown__menu--open');
     button.setAttribute('aria-expanded', (!isOpen).toString());
   });
 
   // Close dropdown when clicking outside
   document.addEventListener('click', (e) => {
-    if (!container.contains(e.target)) {
-      dropdown.classList.remove('PageCopyDropdown__menu--open');
+    if (!dropdown.contains(e.target)) {
+      menu.classList.remove('page-copy-dropdown__menu--open');
       button.setAttribute('aria-expanded', 'false');
     }
   });
 
   // Handle keyboard navigation
-  container.addEventListener('keydown', (e) => {
-    const isOpen = dropdown.classList.contains('PageCopyDropdown__menu--open');
+  dropdown.addEventListener('keydown', (e) => {
+    const isOpen = menu.classList.contains('page-copy-dropdown__menu--open');
     
     switch (e.key) {
       case 'Escape':
         if (isOpen) {
           e.preventDefault();
-          dropdown.classList.remove('PageCopyDropdown__menu--open');
+          menu.classList.remove('page-copy-dropdown__menu--open');
           button.setAttribute('aria-expanded', 'false');
           button.focus();
         }
@@ -96,7 +96,7 @@ export function initPageCopyDropdown() {
       case 'ArrowUp':
         if (isOpen) {
           e.preventDefault();
-          const focusableElements = dropdown.querySelectorAll('button');
+          const focusableElements = menu.querySelectorAll('button');
           const currentIndex = Array.from(focusableElements).findIndex(el => el === document.activeElement);
           let nextIndex;
           
@@ -109,7 +109,7 @@ export function initPageCopyDropdown() {
           focusableElements[nextIndex].focus();
         } else if (e.key === 'ArrowDown') {
           e.preventDefault();
-          dropdown.classList.add('PageCopyDropdown__menu--open');
+          menu.classList.add('page-copy-dropdown__menu--open');
           button.setAttribute('aria-expanded', 'true');
           copyButton.focus();
         }
@@ -120,15 +120,21 @@ export function initPageCopyDropdown() {
   // Handle copy to clipboard
   copyButton.addEventListener('click', async (e) => {
     e.preventDefault();
-    dropdown.classList.remove('PageCopyDropdown__menu--open');
+    menu.classList.remove('page-copy-dropdown__menu--open');
     
-    // Store original content
-    const originalContent = copyButton.innerHTML;
+    const titleElement = copyButton.querySelector('.page-copy-dropdown__item-title');
+    const icon = copyButton.querySelector('.page-copy-dropdown__item-icon svg');
+    const originalTitle = titleElement?.textContent || 'Copy page as Markdown for LLMs';
     
     try {
       // Show loading state
-      copyButton.innerHTML = `${spinnerIcon} Copying...`;
-      copyButton.classList.add('PageCopyDropdown__copy--loading');
+      copyButton.classList.add('page-copy-dropdown__item--loading');
+      if (titleElement) {
+        titleElement.textContent = 'Copying...';
+      }
+      if (icon) {
+        icon.classList.add('animate-spin');
+      }
       copyButton.disabled = true;
       
       // Fetch the markdown content from the .md URL
@@ -150,13 +156,21 @@ export function initPageCopyDropdown() {
       await navigator.clipboard.writeText(markdownContent);
       
       // Show success state
-      copyButton.innerHTML = `${checkedCircleIcon} Copied!`;
-      copyButton.classList.remove('PageCopyDropdown__copy--loading');
-      copyButton.classList.add('PageCopyDropdown__copy--success');
+      copyButton.classList.remove('page-copy-dropdown__item--loading');
+      copyButton.classList.add('page-copy-dropdown__item--success');
+      if (titleElement) {
+        titleElement.textContent = 'Copied!';
+      }
+      if (icon) {
+        icon.classList.remove('animate-spin');
+      }
       
+      // Reset after delay
       setTimeout(() => {
-        copyButton.innerHTML = originalContent;
-        copyButton.classList.remove('PageCopyDropdown__copy--success');
+        copyButton.classList.remove('page-copy-dropdown__item--success');
+        if (titleElement) {
+          titleElement.textContent = originalTitle;
+        }
         copyButton.disabled = false;
       }, COPY_TIMEOUT);
       
@@ -164,26 +178,29 @@ export function initPageCopyDropdown() {
       console.error('Failed to copy markdown:', error);
       
       // Show error state
-      const errorMessage = error.message.includes('Clipboard API') 
-        ? 'Clipboard not supported'
-        : 'Copy failed';
-      
-      copyButton.innerHTML = `${clipboardDocumentIcon} ${errorMessage}`;
-      copyButton.classList.remove('PageCopyDropdown__copy--loading');
-      copyButton.classList.add('PageCopyDropdown__copy--error');
+      copyButton.classList.remove('page-copy-dropdown__item--loading');
+      copyButton.classList.add('page-copy-dropdown__item--error');
+      if (titleElement) {
+        titleElement.textContent = 'Failed';
+      }
+      if (icon) {
+        icon.classList.remove('animate-spin');
+      }
       
       setTimeout(() => {
-        copyButton.innerHTML = originalContent;
-        copyButton.classList.remove('PageCopyDropdown__copy--error');
+        copyButton.classList.remove('page-copy-dropdown__item--error');
+        if (titleElement) {
+          titleElement.textContent = originalTitle;
+        }
         copyButton.disabled = false;
-      }, COPY_TIMEOUT);
+      }, 3000);
     }
   });
 
   // Handle view as markdown
   viewButton.addEventListener('click', (e) => {
     e.preventDefault();
-    dropdown.classList.remove('PageCopyDropdown__menu--open');
+    menu.classList.remove('page-copy-dropdown__menu--open');
     
     const currentUrl = window.location.pathname;
     const markdownUrl = currentUrl + '.md';
@@ -203,10 +220,10 @@ export function initPageCopyDropdown() {
   }
 
   // Handle ChatGPT integration
-  if (chatGPTButton) {
-    chatGPTButton.addEventListener('click', (e) => {
+  if (chatgptButton) {
+    chatgptButton.addEventListener('click', (e) => {
       e.preventDefault();
-      dropdown.classList.remove('PageCopyDropdown__menu--open');
+      menu.classList.remove('page-copy-dropdown__menu--open');
       
       const publicURL = getPublicDocURL();
       const prompt = `Read and analyze this Buildkite documentation page so I can ask you questions about it: ${publicURL}`;
@@ -221,7 +238,7 @@ export function initPageCopyDropdown() {
   if (claudeButton) {
     claudeButton.addEventListener('click', (e) => {
       e.preventDefault();
-      dropdown.classList.remove('PageCopyDropdown__menu--open');
+      menu.classList.remove('page-copy-dropdown__menu--open');
       
       const publicURL = getPublicDocURL();
       const prompt = `Read and analyze this Buildkite documentation page so I can ask you questions about it: ${publicURL}`;
@@ -236,7 +253,7 @@ export function initPageCopyDropdown() {
   if (cursorButton) {
     cursorButton.addEventListener('click', (e) => {
       e.preventDefault();
-      dropdown.classList.remove('PageCopyDropdown__menu--open');
+      menu.classList.remove('page-copy-dropdown__menu--open');
       
       // Cursor MCP URL with title and URL parameters
       const cursorURL = 'cursor://anysphere.cursor-deeplink/mcp/install?name=Helius%20Docs&config=eyJuYW1lIjoiSGVsaXVzIERvY3MiLCJ1cmwiOiJodHRwczovL3d3dy5oZWxpdXMuZGV2L2RvY3MvbWNwIn0%3D';
