@@ -22,6 +22,13 @@ const checkedCircleIcon = `
   </svg>
 `;
 
+const spinnerIcon = `
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="animate-spin">
+    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-dasharray="31.416" stroke-dashoffset="31.416" opacity="0.3"/>
+    <path d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor"/>
+  </svg>
+`;
+
 const COPY_TIMEOUT = 2000;
 
 export function initPageCopyDropdown() {
@@ -37,13 +44,54 @@ export function initPageCopyDropdown() {
   button.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
+    const isOpen = dropdown.classList.contains('PageCopyDropdown__menu--open');
     dropdown.classList.toggle('PageCopyDropdown__menu--open');
+    button.setAttribute('aria-expanded', (!isOpen).toString());
   });
 
   // Close dropdown when clicking outside
   document.addEventListener('click', (e) => {
     if (!container.contains(e.target)) {
       dropdown.classList.remove('PageCopyDropdown__menu--open');
+      button.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Handle keyboard navigation
+  container.addEventListener('keydown', (e) => {
+    const isOpen = dropdown.classList.contains('PageCopyDropdown__menu--open');
+    
+    switch (e.key) {
+      case 'Escape':
+        if (isOpen) {
+          e.preventDefault();
+          dropdown.classList.remove('PageCopyDropdown__menu--open');
+          button.setAttribute('aria-expanded', 'false');
+          button.focus();
+        }
+        break;
+      case 'ArrowDown':
+      case 'ArrowUp':
+        if (isOpen) {
+          e.preventDefault();
+          const focusableElements = dropdown.querySelectorAll('button');
+          const currentIndex = Array.from(focusableElements).findIndex(el => el === document.activeElement);
+          let nextIndex;
+          
+          if (e.key === 'ArrowDown') {
+            nextIndex = currentIndex === -1 ? 0 : (currentIndex + 1) % focusableElements.length;
+          } else {
+            nextIndex = currentIndex <= 0 ? focusableElements.length - 1 : currentIndex - 1;
+          }
+          
+          focusableElements[nextIndex].focus();
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          dropdown.classList.add('PageCopyDropdown__menu--open');
+          button.setAttribute('aria-expanded', 'true');
+          copyButton.focus();
+        }
+        break;
     }
   });
 
@@ -52,38 +100,60 @@ export function initPageCopyDropdown() {
     e.preventDefault();
     dropdown.classList.remove('PageCopyDropdown__menu--open');
     
+    // Store original content
+    const originalContent = copyButton.innerHTML;
+    
     try {
+      // Show loading state
+      copyButton.innerHTML = `${spinnerIcon} Copying...`;
+      copyButton.classList.add('PageCopyDropdown__copy--loading');
+      copyButton.disabled = true;
+      
       // Fetch the markdown content from the .md URL
       const currentUrl = window.location.pathname;
       const markdownUrl = currentUrl + '.md';
       
       const response = await fetch(markdownUrl);
-      if (!response.ok) throw new Error('Failed to fetch markdown');
+      if (!response.ok) {
+        throw new Error(`Failed to fetch markdown: ${response.status} ${response.statusText}`);
+      }
       
       const markdownContent = await response.text();
+      
+      // Check if clipboard API is available
+      if (!navigator.clipboard) {
+        throw new Error('Clipboard API not available');
+      }
+      
       await navigator.clipboard.writeText(markdownContent);
       
-      // Update button to show success
-      const originalContent = copyButton.innerHTML;
+      // Show success state
       copyButton.innerHTML = `${checkedCircleIcon} Copied!`;
+      copyButton.classList.remove('PageCopyDropdown__copy--loading');
       copyButton.classList.add('PageCopyDropdown__copy--success');
       
       setTimeout(() => {
         copyButton.innerHTML = originalContent;
         copyButton.classList.remove('PageCopyDropdown__copy--success');
+        copyButton.disabled = false;
       }, COPY_TIMEOUT);
       
     } catch (error) {
       console.error('Failed to copy markdown:', error);
       
       // Show error state
-      const originalContent = copyButton.innerHTML;
-      copyButton.innerHTML = `${clipboardDocumentIcon} Copy failed`;
+      const errorMessage = error.message.includes('Clipboard API') 
+        ? 'Clipboard not supported'
+        : 'Copy failed';
+      
+      copyButton.innerHTML = `${clipboardDocumentIcon} ${errorMessage}`;
+      copyButton.classList.remove('PageCopyDropdown__copy--loading');
       copyButton.classList.add('PageCopyDropdown__copy--error');
       
       setTimeout(() => {
         copyButton.innerHTML = originalContent;
         copyButton.classList.remove('PageCopyDropdown__copy--error');
+        copyButton.disabled = false;
       }, COPY_TIMEOUT);
     }
   });

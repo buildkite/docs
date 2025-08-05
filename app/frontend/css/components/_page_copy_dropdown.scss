@@ -3,6 +3,11 @@
   justify-content: flex-end;
   margin-bottom: 24px;
   padding: 0;
+
+  // Mobile adjustments
+  @media (max-width: 768px) {
+    margin-bottom: 16px;
+  }
 }
 
 .PageCopyDropdown {
@@ -56,6 +61,13 @@
       visibility: visible;
       transform: translateY(0);
     }
+
+    // Mobile adjustments
+    @media (max-width: 480px) {
+      right: -8px;
+      min-width: 160px;
+      box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+    }
   }
 
   &__copy,
@@ -98,6 +110,15 @@
 
   &__copy {
     border-bottom: 1px solid #f3f4f6;
+
+    &--loading {
+      color: #6b7280;
+      pointer-events: none;
+      
+      svg {
+        color: #6b7280;
+      }
+    }
 
     &--success {
       color: #059669;
@@ -150,6 +171,28 @@
 
     &__copy {
       border-bottom-color: #374151;
+
+      &--loading {
+        color: #9ca3af;
+        
+        svg {
+          color: #9ca3af;
+        }
+      }
     }
   }
+}
+
+// Spinner animation
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
 }
