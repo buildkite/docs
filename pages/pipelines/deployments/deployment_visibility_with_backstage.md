@@ -11,7 +11,7 @@ The Buildkite plugin for Backstage provides:
 - **Build management** - trigger rebuilds directly from Backstage.
 - **Detailed build information** - access build logs, timing, and commit context.
 
-<%= image "buildkite-in-backstage-ui.png", width: 1450/2, height: 960/2, alt: "A Buildkite pipeline in Backstage UI" %>
+<%= image "buildkite_in_backstage_ui.png", width: 1450/2, height: 960/2, alt: "A Buildkite pipeline in Backstage UI" %>
 
 ## Setting up deployment visibility
 
@@ -53,7 +53,7 @@ To maximize deployment visibility in Backstage:
 
 When properly configured, the Backstage integration provides environment overview, deployment metrics, and build artifact tracking.
 
-<%= image "deployments-in-backstge-ui.png", width: 1346/2, height: 582/2, alt: "Deployment overview dashboard with Buildkite Pipelines' build activity in Backstage UI" %>
+<%= image "deployments_in_backstge_ui.png", width: 1346/2, height: 582/2, alt: "Deployment overview dashboard with Buildkite Pipelines' build activity in Backstage UI" %>
 
 ### Environment overview
 
