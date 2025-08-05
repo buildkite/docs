@@ -2,8 +2,6 @@
 
 [Backstage](https://backstage.io/) is an open platform for building developer portals that provide a unified front end for many development and CI/CD tools in one place. The Buildkite plugin for Backstage integrates your Buildkite CI/CD pipelines directly into your Backstage service catalog, providing real-time build monitoring and management capabilities.
 
-<%= image "buildkite_in_backstage_ui.png", width: 1450/2, height: 960/2, alt: "A Buildkite pipeline in Backstage UI" %>
-
 ## Features
 
 The Buildkite plugin for Backstage provides:
