@@ -926,7 +926,7 @@ Optional [request body properties](/docs/api#request-body-properties):
     <th><code>emoji</code></th>
     <td>
       <p>An emoji to represent this pipeline.</p>
-      <p><em>Example:</em> <code>"\:rocket\:"</code></p>
+      <p><em>Example:</em> <code>"\:rocket\:"</code> (will be rendered as "🚀")</p>
     </td>
   </tr>
   <tr>
