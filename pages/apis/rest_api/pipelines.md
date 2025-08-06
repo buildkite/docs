@@ -317,7 +317,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>allow_rebuilds</code></th>
     <td>
-      <p>Whether existing builds can be rebuilt as new builds.</p>
+      <p>Enables rebuilding of existing builds.</p>
       <p><em>Example:</em> <code>false</code><br><em>Default:</em> <code>true</code></p>
     </td>
   </tr>
