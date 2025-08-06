@@ -157,3 +157,15 @@ BUILDKITE_AGENT_TAGS="queue=deploy,host=$(hostname)" buildkite-agent start
 ```
 
 These variables cannot be modified through the Buildkite web interface, API or using pipeline upload for security reasons. You may be able to modify some of the options, such as `BUILDKITE_GIT_CLONE_FLAGS`, from within [hooks](/docs/agent/v3/hooks).
+
+## Agent Naming
+
+The following template variables are supported when configuring the agent name:
+
+- `%hostname` - the agent machine's hostname
+- `%spawn` - a unique number for each agent started using `--spawn` (added in [v3.27.0](https://github.com/buildkite/agent/releases/tag/v3.27.0))
+- `%random` - some random alphanumeric characters
+- `%pid` - the agent process ID
+
+> 📘 Note
+> If you're using `--spawn` to run multiple agents on a single host, we recommend using `%spawn` in your agent name to ensure that each agent running on the host using the same `build-path` has a unique agent name.
