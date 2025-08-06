@@ -217,7 +217,7 @@ Required attributes:
     <td>
       The list of select field options.<br/>
       For six or fewer options they'll be displayed as radio buttons, otherwise they'll be displayed in a dropdown box.<br/>
-      If selecting multiple options is permitted the options will be displayed as checkboxes.
+      If selecting multiple options is permitted, the options will be displayed as checkboxes.
     </td>
   </tr>
 </table>
@@ -311,7 +311,7 @@ Each select option has the following _required_ attributes:
   <tr>
     <td><code>value</code></td>
     <td>
-      The value to be stored as meta-data (to be later retrieved using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br/>
+      The value to be stored as meta-data (to be later retrieved using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>).<br/>
       <em>Example:</em> <code>"stable"</code>
     </td>
   </tr>
