@@ -181,7 +181,6 @@ steps:
             - RAILS_ENV
 
   - label: ":docker: Build image"
-    depends_on: "linting"
     key: "assets"
     env:
       RAILS_ENV: production
