@@ -72,7 +72,7 @@ Optional attributes:
     <tr>
     <td><code>blocked_state</code></td>
     <td>
-      The state that the build is set to when the build is blocked by this block step. The default is passed. When the <code>blocked_state</code> of a block step is set to <code>failed</code>, the step that triggered it will be stuck in the <code>running</code> state until it is manually unblocked. If you're using GitHub, you can also <a href="/docs/pipelines/source-control/github#customizing-commit-statuses">configure which GitHub status</a> to use for blocked builds on a per-pipeline basis.<br/>
+      The state that the build is set to when the build is blocked by this block step. The default is <code>passed</code>. When the <code>blocked_state</code> of a block step is set to <code>failed</code>, the step that triggered it will be stuck in the <code>running</code> state until it is manually unblocked. If you're using GitHub, you can also <a href="/docs/pipelines/source-control/github#customizing-commit-statuses">configure which GitHub status</a> to use for blocked builds on a per-pipeline basis.<br/>
       <em>Default:</em> <code>passed</code><br/>
       <em>Values:</em> <code>passed</code>, <code>failed</code>, <code>running</code>
     </td>
