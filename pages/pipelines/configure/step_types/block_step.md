@@ -424,7 +424,7 @@ To prevent users from entering invalid text values in block steps (for example, 
 
 If you associate a regular expression with a field, the field outline will turn red when an invalid value is entered.
 
-To do it, use the following sample syntax:
+To implement input validation, use the following sample syntax:
 
 ```yaml
 steps:
