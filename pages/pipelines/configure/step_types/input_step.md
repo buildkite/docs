@@ -17,7 +17,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can add form fields to input steps by adding a `fields` attribute. There are two field types available: `text` or `select`. The `select` input type displays differently depending on how you configure the options. If you allow people to select multiple options, they display as checkboxes. If you are required to select only one option from six or fewer, they display as radio buttons. Otherwise, the options display in a dropdown menu.
+You can add form fields to input steps by adding a `fields` attribute. There are two field types available: `text` or `select`. The `select` input type displays differently depending on how you configure the options. If you allow users to select multiple options, those options display as checkboxes. If users are required to select only one option from six or fewer, those options display as radio buttons. Seven or more options display as a dropdown menu.
 
 The data you collect from these fields is available to subsequent steps through the [build meta-data](/docs/pipelines/configure/build-meta-data) command.
 
