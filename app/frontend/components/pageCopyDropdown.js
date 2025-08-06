@@ -4,6 +4,9 @@ export function initPageCopyDropdown() {
   const dropdown = document.querySelector('.page-copy-dropdown');
   if (!dropdown) return;
 
+  // Move dropdown to be inline with the first h1 heading
+  moveDropdownInlineWithHeading(dropdown);
+
   const button = dropdown.querySelector('.page-copy-dropdown__button');
   const menu = dropdown.querySelector('.page-copy-dropdown__menu');
   const copyButton = dropdown.querySelector('[data-action="copy-markdown"]');
@@ -11,6 +14,8 @@ export function initPageCopyDropdown() {
   const chatgptButton = dropdown.querySelector('[data-action="open-chatgpt"]');
   const claudeButton = dropdown.querySelector('[data-action="open-claude"]');
   const cursorButton = dropdown.querySelector('[data-action="connect-cursor"]');
+
+  if (!button || !menu) return;
 
   // Toggle dropdown
   button.addEventListener('click', (e) => {
@@ -22,23 +27,21 @@ export function initPageCopyDropdown() {
   });
 
   // Close dropdown when clicking outside
-  document.addEventListener('click', (e) => {
+  document.addEventListener('click', function(e) {
     if (!dropdown.contains(e.target)) {
-      menu.classList.remove('page-copy-dropdown__menu--open');
-      button.setAttribute('aria-expanded', 'false');
+      closeDropdown();
     }
   });
 
   // Handle keyboard navigation
-  dropdown.addEventListener('keydown', (e) => {
+  dropdown.addEventListener('keydown', function(e) {
     const isOpen = menu.classList.contains('page-copy-dropdown__menu--open');
     
     switch (e.key) {
       case 'Escape':
         if (isOpen) {
           e.preventDefault();
-          menu.classList.remove('page-copy-dropdown__menu--open');
-          button.setAttribute('aria-expanded', 'false');
+          closeDropdown();
           button.focus();
         }
         break;
@@ -53,161 +56,190 @@ export function initPageCopyDropdown() {
           if (e.key === 'ArrowDown') {
             nextIndex = currentIndex === -1 ? 0 : (currentIndex + 1) % focusableElements.length;
           } else {
-            nextIndex = currentIndex <= 0 ? focusableElements.length - 1 : currentIndex - 1;
+            nextIndex = currentIndex === -1 ? focusableElements.length - 1 : (currentIndex - 1 + focusableElements.length) % focusableElements.length;
           }
           
           focusableElements[nextIndex].focus();
-        } else if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          menu.classList.add('page-copy-dropdown__menu--open');
-          button.setAttribute('aria-expanded', 'true');
-          copyButton.focus();
         }
         break;
     }
   });
 
-  // Handle copy to clipboard
-  copyButton.addEventListener('click', async (e) => {
-    e.preventDefault();
+  function closeDropdown() {
     menu.classList.remove('page-copy-dropdown__menu--open');
+    button.setAttribute('aria-expanded', 'false');
+  }
+
+  /**
+   * Moves the dropdown to be inline with the first h1 heading
+   */
+  function moveDropdownInlineWithHeading(dropdown) {
+    const article = dropdown.closest('.Article');
+    if (!article) return;
+
+    // Find the first h1 in the article content (after the dropdown)
+    const firstH1 = article.querySelector('h1');
+    if (!firstH1) return;
+
+    // Clone the h1 content
+    const headingText = firstH1.innerHTML;
     
-    const titleElement = copyButton.querySelector('.page-copy-dropdown__item-title');
-    const icon = copyButton.querySelector('.page-copy-dropdown__item-icon svg');
-    const originalTitle = titleElement?.textContent || 'Copy as Markdown';
+    // Clear the h1 and make it a flex container
+    firstH1.innerHTML = '';
+    firstH1.style.display = 'flex';
+    firstH1.style.alignItems = 'center';
+    firstH1.style.flexWrap = 'wrap';
+    firstH1.style.gap = '1rem';
+    firstH1.style.marginTop = '0';
+    firstH1.style.marginBottom = '1.5rem';
+    firstH1.style.lineHeight = '1.3';
     
-    try {
-      // Show loading state
-      copyButton.classList.add('page-copy-dropdown__item--loading');
-      if (titleElement) {
-        titleElement.textContent = 'Copying...';
-      }
-      if (icon) {
-        icon.classList.add('animate-spin');
-      }
-      copyButton.disabled = true;
+    // Create a span for the heading text
+    const headingSpan = document.createElement('span');
+    headingSpan.innerHTML = headingText;
+    headingSpan.style.flex = '1';
+    headingSpan.style.minWidth = 'fit-content';
+    
+    // Move the dropdown into the h1
+    dropdown.remove();
+    dropdown.classList.add('page-copy-dropdown--inline');
+    
+    // Add elements to h1: heading text first, then dropdown
+    firstH1.appendChild(headingSpan);
+    firstH1.appendChild(dropdown);
+    
+    console.log('Dropdown moved inline with heading');
+  }
+
+  // Handle copy to clipboard
+  if (copyButton) {
+    copyButton.addEventListener('click', async (e) => {
+      e.preventDefault();
+      menu.classList.remove('page-copy-dropdown__menu--open');
       
-      // Fetch the markdown content from the .md URL
-      const currentUrl = window.location.pathname;
-      const markdownUrl = currentUrl + '.md';
+      const titleElement = copyButton.querySelector('.page-copy-dropdown__item-title');
+      const icon = copyButton.querySelector('.page-copy-dropdown__item-icon svg');
+      const originalTitle = titleElement?.textContent || 'Copy as Markdown';
       
-      const response = await fetch(markdownUrl);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch markdown: ${response.status} ${response.statusText}`);
-      }
-      
-      const markdownContent = await response.text();
-      
-      // Check if clipboard API is available
-      if (!navigator.clipboard) {
-        throw new Error('Clipboard API not available');
-      }
-      
-      await navigator.clipboard.writeText(markdownContent);
-      
-      // Show success state
-      copyButton.classList.remove('page-copy-dropdown__item--loading');
-      copyButton.classList.add('page-copy-dropdown__item--success');
-      if (titleElement) {
-        titleElement.textContent = 'Copied!';
-      }
-      if (icon) {
-        icon.classList.remove('animate-spin');
-      }
-      
-      // Reset after delay
-      setTimeout(() => {
-        copyButton.classList.remove('page-copy-dropdown__item--success');
+      try {
+        // Show loading state
+        copyButton.classList.add('page-copy-dropdown__item--loading');
         if (titleElement) {
-          titleElement.textContent = originalTitle;
+          titleElement.textContent = 'Copying...';
         }
-        copyButton.disabled = false;
-      }, COPY_TIMEOUT);
-      
-    } catch (error) {
-      console.error('Failed to copy markdown:', error);
-      
-      // Show error state
-      copyButton.classList.remove('page-copy-dropdown__item--loading');
-      copyButton.classList.add('page-copy-dropdown__item--error');
-      if (titleElement) {
-        titleElement.textContent = 'Failed';
-      }
-      if (icon) {
-        icon.classList.remove('animate-spin');
-      }
-      
-      setTimeout(() => {
-        copyButton.classList.remove('page-copy-dropdown__item--error');
+        if (icon) {
+          icon.classList.add('animate-spin');
+        }
+        copyButton.disabled = true;
+        
+        // Fetch the markdown content from the .md URL
+        const currentUrl = window.location.pathname;
+        const markdownUrl = currentUrl + '.md';
+        
+        const response = await fetch(markdownUrl);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch markdown: ${response.status} ${response.statusText}`);
+        }
+        
+        const markdownContent = await response.text();
+        
+        // Check if clipboard API is available
+        if (!navigator.clipboard) {
+          throw new Error('Clipboard API not available');
+        }
+        
+        await navigator.clipboard.writeText(markdownContent);
+        
+        // Show success state
+        copyButton.classList.remove('page-copy-dropdown__item--loading');
+        copyButton.classList.add('page-copy-dropdown__item--success');
         if (titleElement) {
-          titleElement.textContent = originalTitle;
+          titleElement.textContent = 'Copied!';
         }
-        copyButton.disabled = false;
-      }, 3000);
-    }
-  });
+        if (icon) {
+          icon.classList.remove('animate-spin');
+        }
+        
+        // Reset after delay
+        setTimeout(() => {
+          copyButton.classList.remove('page-copy-dropdown__item--success');
+          if (titleElement) {
+            titleElement.textContent = originalTitle;
+          }
+          copyButton.disabled = false;
+        }, COPY_TIMEOUT);
+        
+      } catch (error) {
+        console.error('Failed to copy markdown:', error);
+        
+        // Show error state
+        copyButton.classList.remove('page-copy-dropdown__item--loading');
+        copyButton.classList.add('page-copy-dropdown__item--error');
+        if (titleElement) {
+          titleElement.textContent = 'Failed';
+        }
+        if (icon) {
+          icon.classList.remove('animate-spin');
+        }
+        
+        setTimeout(() => {
+          copyButton.classList.remove('page-copy-dropdown__item--error');
+          if (titleElement) {
+            titleElement.textContent = originalTitle;
+          }
+          copyButton.disabled = false;
+        }, 3000);
+      }
+    });
+  }
 
   // Handle view as markdown
-  viewButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    menu.classList.remove('page-copy-dropdown__menu--open');
-    
-    const currentUrl = window.location.pathname;
-    const markdownUrl = currentUrl + '.md';
-    window.open(markdownUrl, '_blank');
+  if (viewButton) {
+    viewButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      menu.classList.remove('page-copy-dropdown__menu--open');
+      
+      const currentUrl = window.location.pathname;
+      const markdownUrl = currentUrl + '.md';
+      window.open(markdownUrl, '_blank');
+    });
+  }
+
+  // Handle AI integration buttons
+  [chatgptButton, claudeButton, cursorButton].forEach(button => {
+    if (button) {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        menu.classList.remove('page-copy-dropdown__menu--open');
+        
+        const action = button.getAttribute('data-action');
+        const pageTitle = document.querySelector('h1')?.textContent || document.title;
+        const pageUrl = window.location.href;
+        
+        // Convert local URLs to production URLs for AI services
+        const productionUrl = pageUrl.replace(/localhost:\d+/, 'buildkite.com');
+        const markdownUrl = productionUrl.replace(/\/$/, '') + '.md';
+        
+        let targetUrl;
+        
+        switch (action) {
+          case 'open-chatgpt':
+            const chatgptPrompt = `I'm looking at the Buildkite documentation page titled "${pageTitle}". Here's the markdown content: ${markdownUrl}`;
+            targetUrl = `https://chat.openai.com/?q=${encodeURIComponent(chatgptPrompt)}`;
+            break;
+          case 'open-claude':
+            const claudePrompt = `I'm looking at the Buildkite documentation page titled "${pageTitle}". Here's the markdown content: ${markdownUrl}`;
+            targetUrl = `https://claude.ai/chat?q=${encodeURIComponent(claudePrompt)}`;
+            break;
+          case 'connect-cursor':
+            targetUrl = 'https://www.cursor.com/settings';
+            break;
+        }
+        
+        if (targetUrl) {
+          window.open(targetUrl, '_blank');
+        }
+      });
+    }
   });
-
-  // Helper function to get public documentation URL
-  function getPublicDocURL() {
-    // Convert local/dev URLs to production buildkite.com URLs
-    const currentPath = window.location.pathname;
-    return `https://buildkite.com${currentPath}.md`;
-  }
-
-  // Helper function to get page title
-  function getPageTitle() {
-    return document.title || 'Buildkite Documentation';
-  }
-
-  // Handle ChatGPT integration
-  if (chatgptButton) {
-    chatgptButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      menu.classList.remove('page-copy-dropdown__menu--open');
-      
-      const publicURL = getPublicDocURL();
-      const prompt = `Read and analyze this Buildkite documentation page so I can ask you questions about it: ${publicURL}`;
-      
-      // ChatGPT URL with pre-filled message
-      const chatGPTURL = `https://chat.openai.com/?q=${encodeURIComponent(prompt)}`;
-      window.open(chatGPTURL, '_blank');
-    });
-  }
-
-  // Handle Claude integration
-  if (claudeButton) {
-    claudeButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      menu.classList.remove('page-copy-dropdown__menu--open');
-      
-      const publicURL = getPublicDocURL();
-      const prompt = `Read and analyze this Buildkite documentation page so I can ask you questions about it: ${publicURL}`;
-      
-      // Claude URL with pre-filled message
-      const claudeURL = `https://claude.ai/chat?q=${encodeURIComponent(prompt)}`;
-      window.open(claudeURL, '_blank');
-    });
-  }
-
-  // Handle Cursor MCP integration
-  if (cursorButton) {
-    cursorButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      menu.classList.remove('page-copy-dropdown__menu--open');
-      
-      // Cursor MCP URL with title and URL parameters
-      const cursorURL = 'cursor://anysphere.cursor-deeplink/mcp/install?name=Helius%20Docs&config=eyJuYW1lIjoiSGVsaXVzIERvY3MiLCJ1cmwiOiJodHRwczovL3d3dy5oZWxpdXMuZGV2L2RvY3MvbWNwIn0%3D';
-      window.open(cursorURL, '_blank');
-    });
-  }
 }

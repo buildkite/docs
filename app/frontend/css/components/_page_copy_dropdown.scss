@@ -10,9 +10,47 @@
   }
 }
 
+// Page Copy Dropdown Component  
+// Create a shared container effect between dropdown and first h1
+.Article[data-has-copy-dropdown="true"] {
+  // Target the first h1 that comes after the dropdown
+  .page-copy-dropdown + h1,
+  .page-copy-dropdown ~ h1:first-of-type {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0; // Remove default margin
+    margin-bottom: 1.5rem;
+    
+    // Ensure proper line height for inline elements  
+    line-height: 1.3;
+    
+    // Move the dropdown to be inline with this heading
+    &::before {
+      content: '';
+      order: -1; // This will be replaced by JS
+    }
+  }
+}
+
 .page-copy-dropdown {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  margin-bottom: 1rem; // Temporary spacing until JS moves it
+  flex-shrink: 0; // Don't shrink the button
+  
+  // When moved inline with heading
+  &.page-copy-dropdown--inline {
+    margin-bottom: 0;
+    order: 1; // Place after heading text
+    
+    @media (max-width: 768px) {
+      order: -1; // Place before heading on mobile
+      margin-bottom: 0.5rem;
+      align-self: flex-start;
+    }
+  }
 
   &__button {
     @extend .Button;
@@ -25,14 +63,20 @@
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    // border: 1px solid #d1d5db;
-    background: white;
-    // color: #374151;
+    border: 1px solid rgba(209, 213, 219, 0.3);
+    background: rgba(248, 249, 250, 0.8);
+    color: #374151;
+    white-space: nowrap;
     transition: all 0.15s ease;
+    
+    // Reduce font size slightly to better match heading context
+    font-size: 13px;
 
     &:hover {
-      background: #f9fafb;
-      border-color: #9ca3af;
+      background: #e5e7eb;
+      border-color: rgba(209, 213, 219, 0.6);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     svg {
@@ -194,8 +238,10 @@
       color: #f3f4f6;
 
       &:hover {
-        background: #374151;
-        border-color: #4b5563;
+        background: rgba(55, 65, 81, 0.95);
+        border-color: rgba(107, 114, 128, 0.6);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
       }
     }
 
