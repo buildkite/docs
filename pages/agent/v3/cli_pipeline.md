@@ -4,7 +4,6 @@ The Buildkite Agent's `pipeline` command allows you to add and replace build ste
 
 See the [Defining your pipeline steps](/docs/pipelines/configure/defining-steps) guide for a step-by-step example and list of step types.
 
-
 ## Uploading pipelines
 
 > 🚧 Single pipeline file processing
@@ -14,10 +13,10 @@ See the [Defining your pipeline steps](/docs/pipelines/configure/defining-steps)
 
 ## Pipeline format
 
-The pipeline can be written as YAML or JSON, but YAML is more common for its readability. There are three top level properties you can specify:
+The pipeline can be written as YAML or JSON, but YAML is more common for its readability. There are three top-level properties you can specify:
 
 * `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
-* `env` - A map of <a href="/docs/pipelines/configure/environment-variables">environment variables</a> to apply to all steps
+* `env` - A map of [environment variables](/docs/pipelines/configure/environment-variables) to apply to all steps
 * `steps` - A list of [build pipeline steps](/docs/pipelines/configure/defining-steps)
 
 
@@ -32,7 +31,7 @@ The `pipeline upload` command supports environment variable substitution using t
 
 For example, the following pipeline substitutes a number of [Buildkite's default environment variables](/docs/pipelines/configure/environment-variables) into a [trigger step](/docs/pipelines/configure/step-types/trigger-step):
 
-```yml
+```yaml
 - trigger: "app-deploy"
   label: "\:rocket\: Deploy"
   branches: "main"
@@ -45,7 +44,7 @@ For example, the following pipeline substitutes a number of [Buildkite's default
 
 If you want an environment variable to be evaluated at run-time (for example, using the step's environment variables) make sure to escape the `$` character using `$$` or `\$`. For example:
 
-```yml
+```yaml
 - command: "deploy.sh $$SERVER"
   env:
     SERVER: "server-a"
@@ -87,7 +86,7 @@ For example, the following step will run the command `deploy.sh staging`:
 - command: "deploy.sh \"${SERVER:-staging}\""
 ```
 
-<table>
+<table class="responsive-table">
   <thead>
     <tr><th>Environment Variables</th><th>Syntax</th><th>Result</th></tr>
   </thead>
@@ -100,7 +99,7 @@ For example, the following step will run the command `deploy.sh staging`:
 
 If you need to substitute environment variables containing empty strings, you can use the syntax `${VAR-default-value}` (notice the missing `:`).
 
-<table>
+<table class="responsive-table">
   <thead>
     <tr><th>Environment Variables</th><th>Syntax</th><th>Result</th></tr>
   </thead>
@@ -146,10 +145,47 @@ find .buildkite/ -type f -iname '*.yaml' -print0 | xargs -0 -n1 buildkite-agent 
 
 ### Combine multiple pipeline files
 
-With the `buildkite-agent pipeline upload` command able to also accept pipeline YAML, you can emit the contents of multiple pipeline files and have this combined output be processed directory from STDIN:
+With the `buildkite-agent pipeline upload` command able to also accept pipeline YAML, you can emit the contents of multiple pipeline files and have this combined output be processed directly from STDIN.
+
+> 🚧 Multiple pipeline file processing
+> When passing multiple pipeline files into the pipeline upload command, it is important to include a `---` on the first line of each pipeline file to indicate the beginning of each pipeline YAML file. This is required to ensure the `buildkite-agent` is able to correctly process multiple files that have been combined into a single input stream.
+
+Using the following three example pipeline files:
+
+```yaml
+---
+steps:
+  - label: "Start of build"
+    command: ./scripts/build-start.sh
+```
+{: codeblock-file="pipeline-start.yml"}
+
+```yaml
+---
+steps:
+  - label: "Middle of build"
+    command: ./scripts/build-middle.sh
+```
+{: codeblock-file="pipeline-middle.yml"}
+
+```yaml
+---
+steps:
+  - label: "End of build"
+    command: ./scripts/build-end.sh
+```
+{: codeblock-file="pipeline-end.yml"}
+
+Pass the contents of all pipeline files matching the wildcard `*` file pattern into the pipeline upload command:
 
 ```bash
-cat .buildkite/pipeline*.yml | buildkite-agent pipeline upload
+cat .buildkite/pipeline-*.yml | buildkite-agent pipeline upload
+```
+
+Alternatively, you can explicitly list each pipeline file to pass into the pipeline upload command:
+
+```bash
+cat .buildkite/pipeline-start.yml .buildkite/pipeline-middle.yml .buildkite/pipeline-end.yml | buildkite-agent pipeline upload
 ```
 
 ## Troubleshooting
@@ -160,7 +196,7 @@ Here are some common issues that can occur when uploading a pipeline.
 
 Pipeline uploads can be rejected if certain criteria are not met. Here are explanations for why your pipeline upload might be rejected.
 
-<table>
+<table class="responsive-table">
   <thead>
     <tr><th>Error</th><th>Reason</th></tr>
   </thead>
