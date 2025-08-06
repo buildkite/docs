@@ -131,7 +131,7 @@ Required attributes:
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br/>
+      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>).<br/>
       The key may only contain alphanumeric characters, slashes, dashes, or underscores.
       <em>Example:</em> <code>"release-name"</code>
     </td>
@@ -258,7 +258,7 @@ Optional attributes:
     <td><code>multiple</code></td>
     <td>
       A boolean value that defines whether multiple options may be selected.<br/>
-      When multiple options are selected, they are delimited in the meta-data field by a line break (<code>\n</code>)<br/>
+      When multiple options are selected, they are delimited in the meta-data field by a line break (<code>\n</code>).<br/>
       <em>Default:</em> <code>false</code>
     </td>
   </tr>
