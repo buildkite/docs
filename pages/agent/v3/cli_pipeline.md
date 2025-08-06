@@ -151,3 +151,21 @@ With the `buildkite-agent pipeline upload` command able to also accept pipeline 
 ```bash
 cat .buildkite/pipeline*.yml | buildkite-agent pipeline upload
 ```
+
+## Troubleshooting
+
+Here are some common issues that can occur when uploading a pipeline.
+
+### Common errors
+
+Pipeline uploads can be rejected if certain criteria are not met. Here are explanations for why your pipeline upload might be rejected.
+
+<table>
+  <thead>
+    <tr><th>Error</th><th>Reason</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>The key "duplicate-key-name" has already <br>been used by another step in this build</code></td><td>This error occurs when you try to upload a pipeline step with a <code>key</code> attribute that matches the <code>key</code> attribute of an existing step in the pipeline. <code>key</code> attributes must be unique for all steps in a build. To resolve this error, either remove the duplicate <code>key</code> or change it to a unique value.</td></tr>
+    <tr><td><code>You can only change the pipeline of a <br>running build</code></td><td>This error occurs when you attempt to upload a pipeline to a build that has already finished. This typically happens when using the <code>--job</code> option with the upload command. To resolve this, ensure the build is still running before uploading, or start a new build.</td></tr>
+  </tbody>
+</table>
