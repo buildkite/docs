@@ -304,7 +304,7 @@ Each select option has the following _required_ attributes:
   <tr>
     <td><code>label</code></td>
     <td>
-      The text displayed for the option.<br/>
+      Descriptive text displayed for the option.<br/>
       <em>Example:</em> <code>"Stable"</code>
     </td>
   </tr>
