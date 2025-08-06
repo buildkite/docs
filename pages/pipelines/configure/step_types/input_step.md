@@ -329,7 +329,7 @@ To do it, use the following sample syntax:
 steps:
   - input: "Click me!"
     fields:
-      - text: Must be hexadecimal
+      - text: "Must be hexadecimal"
         key: hex
         format: "[0-9a-f]+"
 ```
