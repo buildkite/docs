@@ -380,7 +380,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>maximum_command_step_timeout</code></th>
     <td>
-      <p>The maximum timeout in minutes for all command steps in this pipeline. Any command step without a timeout or with a timeout greater than this value will be set to this value.</p>
+      <p>The maximum timeout in minutes for all command steps in this pipeline. Any command step without a timeout or with a timeout greater than this value will be capped at this limit.</p>
       <p><em>Example:</em> <code>120</code></p>
     </td>
   </tr>
