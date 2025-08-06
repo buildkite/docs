@@ -51,7 +51,7 @@ The following shows the `/status` page for an agent:
 
 <%= image 'status-page.png', size: '600x437', alt: 'Agent internal status page' %>
 
-## Datadog Metrics
+## Datadog metrics
 
 The Buildkite Agent supports sending metrics to Datadog via DogStatsD for monitoring and observability.
 
