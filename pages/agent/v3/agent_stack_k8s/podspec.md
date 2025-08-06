@@ -139,3 +139,17 @@ steps:
         - name: container-0      # <-- For the time being, specify this exactly as `container-0`.
           image: alpine:latest   #     Currently under experimentation to make this more ergonomic.
 ```
+
+### Environment variables precedence
+
+During `agent` bootstrap, it receives many environment variables from backend. Those environments are normally the one
+set via `env` keyword in pipeline.yaml.
+
+During Kubernetes `podSpec` generation, it also put some environment variables directly as part of `podSpec`. They contain
+various Kubernetes stack specific environment variables or environment variables that users set in various `podSpec`
+configuration step.
+
+Currently, `podSpec`'s environment variables take higher precedence over job environment from backend.
+
+If you have a need for more flexible environment variables setup, we encourage to leverage the [Agent hooks](/docs/agent/v3/hooks) to implement a
+precedence rule suite to your organization.
