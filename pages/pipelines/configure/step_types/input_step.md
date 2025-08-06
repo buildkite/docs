@@ -132,7 +132,7 @@ Required attributes:
     <td><code>key</code></td>
     <td>
       The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>).<br/>
-      The key may only contain alphanumeric characters, slashes, dashes, or underscores.
+      The key may only contain alphanumeric characters, slashes, dashes, or underscores.<br/>
       <em>Example:</em> <code>"release-name"</code>
     </td>
   </tr>
@@ -207,7 +207,7 @@ Required attributes:
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br/>
+      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>).<br/>
       The key may only contain alphanumeric characters, slashes, dashes, or underscores.<br/>
       <em>Example:</em> <code>"release-stream"</code>
     </td>
