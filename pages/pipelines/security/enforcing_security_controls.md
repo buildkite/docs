@@ -47,7 +47,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 **Controls:**
 
 - Leverage [Buildkite secrets plugins](/docs/pipelines/integrations/secrets/plugins) for secrets management and [Buildkite scoped secrets](/docs/pipelines/security/secrets/buildkite-secrets) to ensure that secrets are only available where explicitly required. Note that Buildkite [automatically redacts secrets](/docs/pipelines/security/secrets/buildkite-secrets#redaction) in logs.
-- Integrate with your existing external secrets manager by using dedicated [secrets storage services](/docs/pipelines/security/secrets/managing#using-a-secrets-storage-service) such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [HashiCorp Vault](https://www.vaultproject.io/).
+- Integrate external secrets management using dedicated [secrets storage services](/docs/pipelines/security/secrets/managing#using-a-secrets-storage-service) such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [HashiCorp Vault](https://www.vaultproject.io/).
 - Implement secrets management through [exporting secrets with environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) for agent-level secrets rather than injecting them at build runtime where applicable. Alternatively, configure your secrets to be injected at runtime rather than stored as static environment variables.
 - Establish environment-specific cluster and queue segmentation of your builds to restrict access so that builds in a queue can only access the secrets they require to run.
 - Monitor how secrets are accessed within your CI/CD environment by reviewing the [Audit Log](/docs/platform/audit-log).
