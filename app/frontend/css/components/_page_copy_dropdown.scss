@@ -1,0 +1,296 @@
+.PageHeader {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+  padding: 0;
+
+  // Mobile adjustments
+  @media (max-width: 768px) {
+    margin-bottom: 16px;
+  }
+}
+
+// Page Copy Dropdown Component  
+// Create a shared container effect between dropdown and first h1
+.Article[data-has-copy-dropdown="true"] {
+  // Target the first h1 that comes after the dropdown
+  .page-copy-dropdown + h1,
+  .page-copy-dropdown ~ h1:first-of-type {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0; // Remove default margin
+    margin-bottom: 1.5rem;
+    
+    // Ensure proper line height for inline elements  
+    line-height: 1.3;
+    
+    // Move the dropdown to be inline with this heading
+    &::before {
+      content: '';
+      order: -1; // This will be replaced by JS
+    }
+  }
+}
+
+.page-copy-dropdown {
+  position: relative;
+  display: inline-flex;
+  margin-bottom: 1rem; // Temporary spacing until JS moves it
+  flex-shrink: 0; // Don't shrink the button
+  
+  // When moved inline with heading
+  &.page-copy-dropdown--inline {
+    margin-bottom: 0;
+    order: 1; // Place after heading text
+    
+    @media (max-width: 768px) {
+      order: -1; // Place before heading on mobile
+      margin-bottom: 0.5rem;
+      align-self: flex-start;
+    }
+  }
+
+  &__button {
+    @extend .Button;
+    @extend .Button--default;
+    @extend .Button--small;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid rgba(209, 213, 219, 0.3);
+    background: rgba(248, 249, 250, 0.8);
+    color: #374151;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+    
+    // Reduce font size slightly to better match heading context
+    font-size: 13px;
+
+    &:hover {
+      background: #e5e7eb;
+      border-color: rgba(209, 213, 219, 0.6);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  &__menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 4px;
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    min-width: 260px;
+    z-index: 50;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.15s ease;
+
+    &--open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    // Mobile adjustments
+    @media (max-width: 480px) {
+      right: -8px;
+      min-width: 160px;
+      box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  &__divider {
+    height: 1px;
+    background: #f3f4f6;
+    margin: 4px 0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 12px;
+    border: none;
+    background: none;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+
+    &:hover {
+      background: #f9fafb;
+      color: #111827;
+    }
+
+    &:first-child {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+
+    svg {
+      flex-shrink: 0;
+      color: #6b7280;
+    }
+  }
+
+  &__item {
+    &--loading {
+      color: #6b7280;
+      pointer-events: none;
+      
+      .page-copy-dropdown__item-icon svg {
+        color: #6b7280;
+      }
+    }
+
+    &--success {
+      color: #059669;
+      
+      .page-copy-dropdown__item-icon svg {
+        color: #059669;
+      }
+    }
+
+    &--error {
+      color: #dc2626;
+      
+      .page-copy-dropdown__item-icon svg {
+        color: #dc2626;
+      }
+    }
+  }
+
+  &__item-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    
+    svg {
+      color: #6b7280;
+    }
+  }
+
+  &__item-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__item-title {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+
+  &__item-subtitle {
+    font-size: 12px;
+    color: #6b7280;
+    line-height: 1.2;
+  }
+
+  &__item-external {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    opacity: 0.6;
+    
+    svg {
+      color: currentColor;
+    }
+  }
+
+  // Dark mode support
+  @media (prefers-color-scheme: dark) {
+    &__button {
+      background: #1f2937;
+      border-color: #374151;
+      color: #f3f4f6;
+
+      &:hover {
+        background: rgba(55, 65, 81, 0.95);
+        border-color: rgba(107, 114, 128, 0.6);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      }
+    }
+
+    &__menu {
+      background: #1f2937;
+      border-color: #374151;
+    }
+
+    &__item {
+      color: #f3f4f6;
+
+      &:hover {
+        background: #374151;
+        color: #ffffff;
+      }
+
+      &--loading {
+        color: #9ca3af;
+        
+        .page-copy-dropdown__item-icon svg {
+          color: #9ca3af;
+        }
+      }
+    }
+
+    &__item-icon svg {
+      color: #9ca3af;
+    }
+
+    &__item-subtitle {
+      color: #9ca3af;
+    }
+
+    &__divider {
+      background: #374151;
+    }
+  }
+}
+
+// Spinner animation
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
