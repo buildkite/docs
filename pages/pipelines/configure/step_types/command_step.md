@@ -530,18 +530,11 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Fail fast
+## Fast-fail running jobs
 
-To automatically cancel any remaining jobs as soon as the first job fails (except jobs that you've marked as `soft_fail`), add the `cancel_on_build_failing: true` attribute to your command steps.
+To automatically cancel any remaining jobs as soon as any job in the build fails (except jobs marked as `soft_fail`), add the `cancel_on_build_failing: true` attribute to your command steps.
 
-Next time a job in your build fails, those jobs will be automatically canceled.
-
-<!--
-
-TODO:
-To set `cancel_on_build_failing: true` for all jobs in a Build:
-
- -->
+When a job fails, the build enters a **failing** state. Any jobs still running that have `cancel_on_build_failing: true` are automatically cancelled. Once all running jobs have been cancelled, the build is marked as **failed** due to the initial job failure.
 
 ## Example
 
@@ -575,12 +568,14 @@ steps:
     commands:
       - "npm install"
       - "npm run visual-diff"
+    cancel_on_build_failing: true
     retry:
       automatic:
         limit: 3
 
   - label: "Skipped job"
     command: "broken.sh"
+    cancel_on_build_failing: true
     skip: "Currently broken and needs to be fixed"
 
   - wait: ~
