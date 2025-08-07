@@ -10,7 +10,7 @@ The `agent-config` block within `values.yaml` can be used to set a subset of the
 config:
   agent-config:
     no-http2: false
-    experiment: ["use-zzglob", "polyglot-hooks"]
+    experiment: ["use-zzglob"]
     shell: "/bin/bash"
     no-color: false
     strict-single-hooks: true

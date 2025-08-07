@@ -180,6 +180,10 @@ Optional `build` attributes:
 ```
 {: codeblock-file="pipeline.yml"}
 
+## Agent-applied attributes
+
+<%= render_markdown partial: 'pipelines/configure/step_types/agent_applied_attributes' %>
+
 ## Environment variables
 
 You can use [environment variable substitution](/docs/agent/v3/cli-pipeline#environment-variable-substitution) to set attribute values:
