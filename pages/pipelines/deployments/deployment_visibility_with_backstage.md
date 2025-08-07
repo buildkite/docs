@@ -19,6 +19,11 @@ To use Backstage for deployment visibility with Buildkite, you'll need to have:
 
 - Admin access to both your Buildkite organization and Backstage instance.
 - The [Buildkite plugin for Backstage](/docs/pipelines/integrations/other/backstage) installed and configured.
+- A valid Buildkite API token with the following permissions:
+  * `read_pipelines`
+  * `read_builds`
+  * `read_user`
+  * `write_builds` (for rebuild functionality)
 - Existing deployment pipelines in Buildkite that you want to monitor.
 - Deployment components annotated in your [Backstage Software Catalog](https://backstage.io/docs/features/software-catalog/).
 - Your deployment pipelines configured for optimal visibility.
@@ -125,13 +130,26 @@ Use Backstage's deployment visibility to:
 
 This section covers some common issues and the proposed mitigations for integration between Buildkite Pipelines and Backstage using the [Buildkite plugin for Backstage](/docs/pipelines/integrations/other/backstage).
 
+### API token issues
+
+If you are experiencing authentication errors, verify that:
+
+- Your API token has all required permissions
+- The API token is correctly set in your environment variables
+- The proxy configuration in `app-config.yaml` is correct
+
 ### Missing Buildkite deployments
 
 If your Buildkite deployments aren't appearing in Backstage:
 
-- Verify that your pipeline annotation exactly matches the deployment pipeline you're expecting to see. Even a small mismatch (like a typo) will break this connection.
-- Check that that your Buildkite API access token has [sufficient permissions](/docs/apis/managing-api-tokens#token-scopes) (it needs read access to pipelines and builds at minimum).
-- Confirm your deployment builds are [properly tagged with deployment metadata](/docs/pipelines/deployments/deployment-visibility-with-backstage#best-practices-for-deployment-visibility-use-deployment-specific-metadata) as Backstage relies on these tags to identify deployments.
+- Check that the annotation format is correct: `organization-slug/pipeline-slug`
+- Verify that the pipeline slug matches exactly what's shown in your Buildkite URL
+- Verify that your pipeline annotation exactly matches the deployment pipeline you're expecting to see
+- Ensure the component has been properly registered in your Backstage Catalog
+- Ensure the builds exist within the selected time range
+- Confirm that all filters are set correctly
+- Check that that your Buildkite API access token has [sufficient permissions](/docs/apis/managing-api-tokens#token-scopes)
+- Confirm your deployment builds are [properly tagged with deployment metadata](/docs/pipelines/deployments/deployment-visibility-with-backstage#best-practices-for-deployment-visibility-use-deployment-specific-metadata)
 
 ### Incomplete deployment information
 
@@ -140,3 +158,19 @@ To improve deployment data quality and make the deployment information complete:
 - Add comprehensive [build metadata](/docs/pipelines/configure/build-meta-data#setting-data) and [deployment metadata](/docs/pipelines/deployments/deployment-visibility-with-backstage#best-practices-for-deployment-visibility-use-deployment-specific-metadata).
 - Use consistent environment naming (for example, `production`, `staging`, `dev`) and avoid variations like, for example, `prod-east` and `production-us-east-1` for the same environment type.
 - Include version information in all deployment builds.
+
+### Missing real-time updates
+
+If your Buildkite deployments show up in Backstage correctly, but you are experiencing issues with the synchronization of updates, do the following:
+
+- Verify that your web browser tab is active as the updates pause in background tabs
+- Check your network connectivity
+- Ensure that the API token you are using hasn't expired
+
+### Build logs are not loading
+
+If you are experiencing an issue with loading logs from Buildkite deployments in Backstage:
+
+- Check if the build exists and is accessible
+- Ensure the API token has `read_builds` permission
+- Verify the your proxy configuration can handle log requests

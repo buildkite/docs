@@ -1,6 +1,6 @@
 # Backstage
 
-[Backstage](https://backstage.io/) is an open platform for building developer portals that provide a unified front end for many development and CI/CD tools in one place. The Buildkite plugin for Backstage integrates your Buildkite CI/CD pipelines directly into your Backstage service catalog, providing real-time build monitoring and management capabilities.
+[Backstage](https://backstage.io/) is an open platform for building developer portals that provide a unified front end for many development and CI/CD tools in one place. The [Buildkite plugin for Backstage](https://github.com/buildkite/backstage-plugin) integrates your Buildkite CI/CD pipelines directly into your Backstage service catalog, providing real-time build monitoring and management capabilities.
 
 <%= image "buildkite_in_backstage_ui.png", width: 1450/2, height: 960/2, alt: "A Buildkite pipeline in Backstage UI" %>
 
@@ -38,7 +38,6 @@ yarn workspace app add @buildkite/backstage-plugin-buildkite
 
 Follow these steps to configure the Buildkite plugin for Backstage after the installation.
 
-
 ### Add proxy configuration
 
 Add the proxy configuration to your `app-config.yaml`:
@@ -64,7 +63,7 @@ Make sure to set the `BUILDKITE_API_TOKEN` environment variable with your Buildk
 
 Create or update `packages/app/src/plugins.ts` to register the plugin:
 
-```bash
+```typescript
 // Import plugins that you want to be included in your app
 export { buildkitePlugin } from '@buildkite/backstage-plugin-buildkite';
 ```
@@ -73,7 +72,7 @@ export { buildkitePlugin } from '@buildkite/backstage-plugin-buildkite';
 
 Import the plugins file in your `packages/app/src/App.tsx`:
 
-```bash
+```typescript
 // Import plugins
 import './plugins';
 ```
@@ -82,7 +81,7 @@ import './plugins';
 
 Add the API factory in `packages/app/src/apis.ts`:
 
-```bash
+```typescript
 import { buildkiteAPIRef, BuildkiteClient } from '@buildkite/backstage-plugin-buildkite';
 
 export const apis: AnyApiFactory[] = [
@@ -109,7 +108,7 @@ export const apis: AnyApiFactory[] = [
 
 Add the routes to the Buildkite plugin in `packages/app/src/App.tsx`:
 
-```bash
+```typescript
 import { PipelinePage } from '@buildkite/backstage-plugin-buildkite';
 
 const routes = (
@@ -127,7 +126,7 @@ const routes = (
 
 Add the Buildkite plugin for Backstage to your [Entity Page](https://backstage.io/docs/features/software-catalog/life-of-an-entity) in Backstage:
 
-```bash
+```typescript
 import { isBuildkiteAvailable, BuildkiteWrapper } from '@buildkite/backstage-plugin-buildkite';
 
 const cicdContent = (
@@ -206,6 +205,7 @@ steps:
       ./scripts/deploy-backend-staging.sh
     branches: "main"
 ```
+
 This way, you can track multiple applications deployed to different environments. Backstage will display both the application name and environment in the deployments view.
 
 ### Using environment-specific deployment flags
@@ -241,37 +241,7 @@ Once you have configured the Buildkite plugin for Backstage and marked your buil
 - Click on individual builds to view logs and artifacts.
 - Trigger new builds directly from Backstage.
 
-## Troubleshooting
-
-### API token issues
-
-If you are experiencing authentication errors, verify that:
-
-- Your API token has all required permissions
-- The token is correctly set in your environment variables
-- The proxy configuration in `app-config.yaml` is correct
-
-### Missing build data
-
-If your pipeline is not appearing in Backstage:
-
-- Check that the annotation format is correct: `organization-slug/pipeline-slug`
-- Verify the pipeline slug matches exactly what's shown in your Buildkite URL
-- Ensure the component has been properly registered in your Backstage catalog
-- Ensure the builds exist within the selected time range
-- Confirm that all filters are set correctly
-
-### Missing real-time updates
-
-- Verify that your web browser tab is active as the updates pause in background tabs
-- Check your network connectivity
-- Ensure that the API token you are using hasn't expired
-
-### Build logs are not loading
-
-- Check if the build exists and is accessible
-- Ensure the API token has `read_builds` permission
-- Verify the your proxy configuration can handle log requests
+See [Deployment visibility with Backstage](/docs/pipelines/deployments/deployment-visibility-with-backstage) page for more details and troubleshooting tips.
 
 ## Further reading
 
