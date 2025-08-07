@@ -2,15 +2,15 @@
 
 This guide helps security engineers identify common risks and implement proven prevention and mitigation strategies across key areas of the Buildkite ecosystem. The guide covers secrets management, supply chain security, artifact storage reliability, and platform hardening.
 
-Use this as a reference for building a defensible, auditable, and resilient CI/CD foundation with Buildkite.
+Use this guide as a reference for building a defensible, auditable, and resilient CI/CD foundation with Buildkite.
 
-## Authentication and session security in the Buildkite UI, CLI, and API
+## Authentication and session security in the Buildkite interface, APIs and CLI
 
 **Risk:** Unauthorized access through credential compromise, user impersonation, session hijacking, overprivileged API keys.
 
 **Controls:**
 
-- Enforce [Single sign-on (SSO)](/docs/platform/sso) and [Two-factor authentication (2FA/MFA)](/docs/platform/team-management/enforce-2fa) for all UI access.
+- Enforce [Single sign-on (SSO)](/docs/platform/sso) and [Two-factor authentication (2FA/MFA)](/docs/platform/team-management/enforce-2fa) for all access to the Buildkite interface.
 - Use time-scoped API tokens with [automated rotation](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security).
 - Apply least privilege principle when [scoping API keys](/docs/apis/managing-api-tokens#token-scopes).
 - [Restrict API tokens to specific IP ranges](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address) where possible.
@@ -22,21 +22,21 @@ Use this as a reference for building a defensible, auditable, and resilient CI/C
 **Controls:**
 
 - Use the [Buildkite GitHub App integration](/docs/pipelines/source-control/github#connecting-buildkite-and-github) for secure repository connections.
-- Enforce [SCM signed commits](https://buildkite.com/resources/blog/securing-your-software-supply-chain-signed-git-commits-with-oidc-and-sigstore/) and branch protection rules on [GitHub](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule) and [GitLab](https://docs.gitlab.com/user/project/repository/branches/protected/) with [Buildkite conditionals](/docs/pipelines/configure/conditionals).
+- Enforce [SCM signed commits](https://buildkite.com/resources/blog/securing-your-software-supply-chain-signed-git-commits-with-oidc-and-sigstore/) and branch protection rules on [GitHub](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule) and [GitLab](https://docs.gitlab.com/user/project/repository/branches/protected/) with Buildkite Pipeline [conditionals](/docs/pipelines/configure/conditionals).
 - Map Buildkite users to SCM identities with [team-based permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions). Use [agent hooks](https://buildkite.com/resources/examples/buildkite/agent-hooks-example/) to ensure only authorized team members can trigger builds.
 - Utilize [programmatic team management](/docs/platform/team-management/permissions#manage-teams-and-permissions-programmatically-managing-teams) alongside pre-merge hooks to verify that commit authors have appropriate permissions before allowing build execution.
 - [Disable triggering builds on forks](/docs/pipelines/source-control/github#running-builds-on-pull-requests) for public pipelines and repositories to ensure open source contributors are unable to substantially alter a pipeline to extract secrets.
 
 ## Dependencies and package management
 
-**Risk:** Malicious or typosquatted packages that can execute arbitrary code during builds, vulnerable dependencies that persist in packaged images and production deployments.
+**Risk:** Malicious or [typosquatted](https://en.wikipedia.org/wiki/Typosquatting) packages that can execute arbitrary code during builds, vulnerable dependencies that persist in packaged images and production deployments.
 
 **Controls:**
 
-- Integrate with a container scanning tool to keep track of Software Bill of Materials (SBOM) for your packages. For example, see the following list of community-maintained [SBOM generation tools](https://github.com/cybeats/sbomgen).
+- Integrate with a container scanning tool to keep track of a [software bill of materials (SBOM)](https://github.com/cybeats/sbomgen?tab=readme-ov-file#list-of-sbom-generation-tools) for your packages. For example, see the following list of community-maintained [SBOM generation tools](https://github.com/cybeats/sbomgen).
 - Use Buildkite's official [security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins) (or [write your own plugin](/docs/pipelines/integrations/plugins/writing)) to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment.
 - Run automated dependency and malware scanning on every merge using established tools such as [GuardDog](https://github.com/DataDog/guarddog), [Snyk](https://snyk.io/), [Aqua Trivy](https://www.aquasec.com/products/trivy/) (also available as a [Trivy Buildkite plugin](https://buildkite.com/resources/plugins/equinixmetal-buildkite/trivy-buildkite-plugin/)), or cloud security services across your software supply chain.
-- Use [pipeline templates](/docs/pipelines/governance/templates)(a [Buildkite Enterprise](https://buildkite.com/pricing/)-only feature), [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), and [agent hooks](/docs/agent/v3/hooks) to ensure security scans cannot be bypassed by modifying `pipeline.yml` files. Use [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all the pipelines in a Buildkite organization.
+- Use [pipeline templates](/docs/pipelines/governance/templates) (a [Buildkite Enterprise](https://buildkite.com/pricing/)-only feature), [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), and [agent hooks](/docs/agent/v3/hooks) to ensure security scans cannot be bypassed by modifying `pipeline.yml` files. Use [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all the pipelines in a Buildkite organization.
 - Track dependencies using [Buildkite Annotations](/docs/agent/v3/cli-annotate) to document exact package versions in each build. This creates an auditable record enabling targeted remediation when vulnerabilities are discovered.
 - Establish automated response workflows that trigger [notifications](/docs/pipelines/configure/notifications) and remediation processes when [critical CVEs](https://www.cve.org/) are identified.
 
@@ -63,7 +63,7 @@ Use this as a reference for building a defensible, auditable, and resilient CI/C
 
 - Set [granular command authorization controls](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller) for what the `buildkite-agent` user is allowed to run, restricting executable operations to predefined security parameters.
 - Configure automated regular credential rotation or even set [automatic expiration date](/docs/agent/v3/securing#set-the-agent-token-expiration-date) on agent registration tokens to limit the window of opportunity for compromised tokens.
-- [Update your Buildkite Agents](https://buildkite.com/docs/agent/v3/installation#upgrade-agents) on a regular basis.
+- [Update your Buildkite Agents](/docs/agent/v3/installation#upgrade-agents) on a regular basis.
 - Deploy ephemeral build environments using isolated virtual machines or containers. Ensure that your deployment environment is secure by installing minimal operating systems, disabling inbound SSH access, and enforcing strict network egress controls.
 - Isolate sensitive builds in dedicated [agent pools within Clusters](/docs/pipelines/clusters). This way, you're ensuring that critical workloads cannot be affected by compromise of less secure environments — for example, open-source repositories with unverified code.
 - Enable [pipeline signing](/docs/agent/v3/signed-pipelines) and verification mechanisms.
