@@ -1,28 +1,42 @@
 # Installing Buildkite Agent on Red Hat Enterprise Linux, CentOS, and Amazon Linux
 
-The Buildkite Agent is supported on Red Hat Enterprise Linux 7 and newer, CentOS 7 and newer, and Amazon Linux 2 and newer using our yum repository.
+The Buildkite Agent is supported on the following operating systems using the yum repository:
 
+- Red Hat Enterprise Linux
+  - Red Hat Enterprise Linux 7 (RHEL7)
+  - Red Hat Enterprise Linux 8 (RHEL8)
+  - Red Hat Enterprise Linux 9 (RHEL9)
+  - Red Hat Enterprise Linux 10 (RHEL10)
+- CentOS
+  - CentOS 7
+  - CentOS 8
+- Amazon Linux
+  - Amazon Linux 2 (AL2)
+  - Amazon Linux 2023 (AL2023)
 
 ## Installation
 
-Firstly, add our yum repository for your architecture (run `uname -m` to find your system's arch). The default version of the agent is `stable`, but you can get the beta version by using `unstable` instead of `stable` in the following command, or the agent built from the `main` branch of the repository by using `experimental` instead of `stable`.
+First, add the yum repository for your architecture (run `uname -m` to find your system's arch). The default version of the agent is `stable`, but you can get the beta version by using `unstable` instead of `stable` in the following command, or the agent built from the `main` branch of the repository by using `experimental` instead of `stable`.
+
+> 📘
+> The `repo_gpgcheck=0` parameter is required when additional OS hardening has been enabled to verify the GPG signature of the repository's metadata. Without this extra parameter to disable metadata signature checking, the package install will not succeed.
 
 For 64-bit (x86_64):
 
 ```shell
-sudo sh -c 'echo -e "[buildkite-agent]\nname = Buildkite Pty Ltd\nbaseurl = https://yum.buildkite.com/buildkite-agent/stable/x86_64/\nenabled=1\ngpgcheck=0\npriority=1" > /etc/yum.repos.d/buildkite-agent.repo'
+sudo sh -c 'echo -e "[buildkite-agent]\nname = Buildkite Pty Ltd\nbaseurl = https://yum.buildkite.com/buildkite-agent/stable/x86_64/\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=0\npriority=1" > /etc/yum.repos.d/buildkite-agent.repo'
 ```
 
 For 32-bit (i386):
 
 ```shell
-sudo sh -c 'echo -e "[buildkite-agent]\nname = Buildkite Pty Ltd\nbaseurl = https://yum.buildkite.com/buildkite-agent/stable/i386/\nenabled=1\ngpgcheck=0\npriority=1" > /etc/yum.repos.d/buildkite-agent.repo'
+sudo sh -c 'echo -e "[buildkite-agent]\nname = Buildkite Pty Ltd\nbaseurl = https://yum.buildkite.com/buildkite-agent/stable/i386/\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=0\npriority=1" > /etc/yum.repos.d/buildkite-agent.repo'
 ```
 
-For ARM 64-bit (aarch64)):
+For ARM 64-bit (aarch64):
 
 ```shell
-sudo sh -c 'echo -e "[buildkite-agent]\nname = Buildkite Pty Ltd\nbaseurl = https://yum.buildkite.com/buildkite-agent/stable/aarch64/\nenabled=1\ngpgcheck=0\npriority=1" > /etc/yum.repos.d/buildkite-agent.repo'
+sudo sh -c 'echo -e "[buildkite-agent]\nname = Buildkite Pty Ltd\nbaseurl = https://yum.buildkite.com/buildkite-agent/stable/aarch64/\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=0\npriority=1" > /etc/yum.repos.d/buildkite-agent.repo'
 ```
 
 Then install the agent:
@@ -37,7 +51,7 @@ Configure your [agent token](/docs/agent/v3/tokens):
 sudo sed -i "s/xxx/INSERT-YOUR-AGENT-TOKEN-HERE/g" /etc/buildkite-agent/buildkite-agent.cfg
 ```
 
-And then start the agent, and tail the logs:
+Start the agent and tail the logs:
 
 ```shell
 sudo systemctl enable buildkite-agent && sudo systemctl start buildkite-agent
@@ -67,7 +81,7 @@ The configuration file is located at `/etc/buildkite-agent/buildkite-agent.cfg`.
 
 ## Which user the agent runs as
 
-On RedHat, the Buildkite agent runs as user `buildkite-agent`.
+On Red Hat, the Buildkite Agent runs as user `buildkite-agent`.
 
 ## Running multiple agents
 
