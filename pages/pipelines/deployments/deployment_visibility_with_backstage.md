@@ -1,32 +1,31 @@
 # Deployment visibility with Backstage
 
-[Backstage](https://backstage.io/) is an open source framework for building developer portals that provide unified visibility into your infrastructure tools, services, and documentation. You can integrate Buildkite with Backstage using the [Buildkite plugin for Backstage](https://github.com/buildkite/backstage-plugin) to monitor pipeline status and manage builds from a single interface.
-
-This guide shows you how to integrate Buildkite with Backstage to monitor deployments from a unified developer portal.
+[Backstage](https://backstage.io/) is an open source framework for building developer portals that provide unified visibility into your infrastructure tools, services, and documentation. By integrating Buildkite with Backstage using the [Buildkite plugin for Backstage](https://github.com/buildkite/backstage-plugin) to monitor pipeline status and manage builds from a single interface.
 
 <%= image "buildkite_in_backstage.png", width: 1450/2, height: 960/2, alt: "A Buildkite pipeline in Backstage UI" %>
 
 ## Overview
 
-The Buildkite plugin for Backstage provides:
+The Buildkite plugin for Backstage transforms how your team manages deployments by providing:
 
-- **Centralized pipeline monitoring** - view Buildkite pipeline status alongside your [Backstage Service Catalog](https://backstage.io/docs/features/software-catalog/).
+- **Centralized pipeline monitoring** - view Buildkite pipeline status alongside your [Backstage Service Catalog](https://backstage.io/docs/features/software-catalog/), eliminating the need to switch between multiple tools.
 - **Real-time build tracking** - monitor build progress with automatic status updates.
 - **Build management** - trigger rebuilds directly from Backstage.
-- **Detailed build information** - access build logs, timing, and commit context.
+- **Detailed build information** - access build logs, timing metrics, and commit context.
 
 ## Setting up deployment visibility
 
-To use Backstage for deployment visibility with Buildkite, you'll need to:
+To use Backstage for deployment visibility with Buildkite, you'll need to have:
 
-1. Have Admin access to both Buildkite and Backstage.
-1. [Install and configure the Buildkite plugin for Backstage](/docs/pipelines/integrations/other/backstage).
-1. Annotate your deployment components in the [Backstage Software Catalog](https://backstage.io/docs/features/software-catalog/).
-1. Configure your deployment pipelines for optimal visibility.
+- Admin access to both your Buildkite organization and Backstage instance.
+- The [Buildkite plugin for Backstage](/docs/pipelines/integrations/other/backstage) installed and configured.
+- Existing deployment pipelines in Buildkite that you want to monitor.
+- Deployment components annotated in your [Backstage Software Catalog](https://backstage.io/docs/features/software-catalog/).
+- Your deployment pipelines configured for optimal visibility.
 
 ### Annotating deployment components
 
-Add the Buildkite annotation to your deployment component's `catalog-info.yaml` for deployment-specific visibility:
+Connect your Backstage components to their corresponding Buildkite deployment pipelines by adding annotations to your `catalog-info.yaml` files:
 
 ```yaml
 apiVersion: backstage.io/v1alpha1
@@ -43,14 +42,17 @@ spec:
   owner: platform-team
   lifecycle: production
 ```
+Note that the `pipeline-slug` must exactly match your Buildkite Organization's slug and the pipeline slug.
+
+It is also recommended to use descriptive tags to categorize and filter deployment components (for example, `production`or `dev`).
 
 ### Organizing deployment pipelines
 
-To maximize deployment visibility in Backstage:
+To maximize deployment visibility of your Buildkite pipelines in Backstage:
 
-1. **Use consistent naming conventions** for deployment pipelines (e.g., `service-name-env-deploy`).
-1. **Tag deployment builds** with environment information using build metadata.
-1. **Set up deployment-specific badges** to visually identify deployment status.
+- Use consistent naming conventions for deployment pipelines (for example, `service-name-env-deploy`).
+- Tag deployment builds with environment information using [build metadata](/docs/pipelines/configure/build-meta-data).
+- Set up deployment-specific badges to visually identify deployment status.
 
 ## Monitoring your deployments
 
@@ -58,39 +60,13 @@ When properly configured, the Backstage integration provides environment overvie
 
 <%= image "deployments_in_backstage.png", width: 1346/2, height: 582/2, alt: "Deployment overview dashboard with Buildkite Pipelines' build activity in Backstage UI" %>
 
-### Environment overview
-
-View all deployments across different environments:
-
-- Production deployments
-- Staging deployments
-- Development deployments
-
-### Deployment metrics
-
-Track key deployment indicators:
-
-- Deployment frequency
-- Lead time for changes
-- Deployment success rate
-- Time to restore service
-
-### Build artifact tracking
-
-Monitor deployment artifacts:
-
-- Docker images
-- Build packages
-- Configuration files
-- Release notes
-
 ## Best practices for deployment visibility
 
 The following are some tips for optimizing your workflow in Buildkite Pipelines and Backstage for the best integration results.
 
 ### Structure your pipelines
 
-Structure your Buildkite pipelines with clear naming conventions:
+When naming your pipelines, use descriptive and consistent naming conventions that can scale:
 
 ```
 my-service-ci          # Continuous integration
@@ -100,7 +76,7 @@ my-service-deploy-prod # Production deployment
 
 ### Use deployment-specific metadata
 
-Add metadata context to your deployment builds:
+Add metadata context to the configuration file of your deployment pipelines:
 
 ```yaml
 steps:
@@ -141,9 +117,9 @@ buildkite-agent annotate "Deployed version ${VERSION} to ${ENVIRONMENT}" \
 
 Use Backstage's deployment visibility to:
 
-1. **Set up deployment alerts** - configure notifications for failed deployments.
-2. **Create deployment reports** - generate regular deployment performance reports.
-3. **Track deployment SLOs** - monitor service level objectives for deployments.
+- Configure notifications for failed deployments to set up deployment alerts.
+- Generate regular deployment performance reports.
+- Monitor service level objectives for deployments.
 
 ## Troubleshooting deployment visibility
 
@@ -155,12 +131,12 @@ If your Buildkite deployments aren't appearing in Backstage:
 
 - Verify that your pipeline annotation exactly matches the deployment pipeline you're expecting to see. Even a small mismatch (like a typo) will break this connection.
 - Check that that your Buildkite API access token has [sufficient permissions](/docs/apis/managing-api-tokens#token-scopes) (it needs read access to pipelines and builds at minimum).
-- Confirm your deployment builds are [properly tagged with deployment metadata](/docs/pipelines/deployments/deployment_visibility_with_backstage#use-deployment-specific-metadata) as Backstage relies on these tags to identify deployments.
+- Confirm your deployment builds are [properly tagged with deployment metadata](/docs/pipelines/deployments/best-practices-fordeployment-visibility#use-deployment-specific-metadata) as Backstage relies on these tags to identify deployments.
 
 ### Incomplete deployment information
 
 To improve deployment data quality and make the deployment information complete:
 
-- Add comprehensive [build metadata](/docs/pipelines/configure/build-meta-data#setting-data) and [deployment metadata](/docs/pipelines/deployments/deployment_visibility_with_backstage#use-deployment-specific-metadata).
+- Add comprehensive [build metadata](/docs/pipelines/configure/build-meta-data#setting-data) and [deployment metadata](/docs/pipelines/deployments/best-practices-fordeployment-visibility#use-deployment-specific-metadata).
 - Use consistent environment naming (for example, `production`, `staging`, `dev`) and avoid variations like, for example, `prod-east` and `production-us-east-1` for the same environment type.
 - Include version information in all deployment builds.
