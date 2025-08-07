@@ -148,5 +148,4 @@ During Kubernetes `podSpec` generation, it also put some environment variables d
 
 Currently, `podSpec`'s environment variables take higher precedence over job environment from backend.
 
-If you have a need for more flexible environment variables setup, we encourage to leverage the [Agent hooks](/docs/agent/v3/hooks) to implement a
-precedence rule suite to your organization.
+If you have a need for more flexible environment variables setup, we encourage to leverage the [Agent hooks](/docs/agent/v3/hooks) to implement a precedence rule suite to your organization.
