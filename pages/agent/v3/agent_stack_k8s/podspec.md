@@ -144,9 +144,7 @@ steps:
 
 During `agent` bootstrap, it receives many environment variables from backend. Those environments are normally the one set via `env` keyword in pipeline.yaml.
 
-During Kubernetes `podSpec` generation, it also put some environment variables directly as part of `podSpec`. They contain
-various Kubernetes stack specific environment variables or environment variables that users set in various `podSpec`
-configuration step.
+During Kubernetes `podSpec` generation, it also put some environment variables directly as part of `podSpec`. They contain various Kubernetes stack specific environment variables or environment variables that users set in various `podSpec` configuration step.
 
 Currently, `podSpec`'s environment variables take higher precedence over job environment from backend.
 
