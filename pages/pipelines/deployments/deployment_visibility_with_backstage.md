@@ -131,12 +131,12 @@ If your Buildkite deployments aren't appearing in Backstage:
 
 - Verify that your pipeline annotation exactly matches the deployment pipeline you're expecting to see. Even a small mismatch (like a typo) will break this connection.
 - Check that that your Buildkite API access token has [sufficient permissions](/docs/apis/managing-api-tokens#token-scopes) (it needs read access to pipelines and builds at minimum).
-- Confirm your deployment builds are [properly tagged with deployment metadata](/docs/pipelines/deployments/best-practices-fordeployment-visibility#use-deployment-specific-metadata) as Backstage relies on these tags to identify deployments.
+- Confirm your deployment builds are [properly tagged with deployment metadata](/docs/pipelines/deployments/best-practices-for-deployment-visibility#use-deployment-specific-metadata) as Backstage relies on these tags to identify deployments.
 
 ### Incomplete deployment information
 
 To improve deployment data quality and make the deployment information complete:
 
-- Add comprehensive [build metadata](/docs/pipelines/configure/build-meta-data#setting-data) and [deployment metadata](/docs/pipelines/deployments/best-practices-fordeployment-visibility#use-deployment-specific-metadata).
+- Add comprehensive [build metadata](/docs/pipelines/configure/build-meta-data#setting-data) and [deployment metadata](/docs/pipelines/deployments/best-practices-for-deployment-visibility#use-deployment-specific-metadata).
 - Use consistent environment naming (for example, `production`, `staging`, `dev`) and avoid variations like, for example, `prod-east` and `production-us-east-1` for the same environment type.
 - Include version information in all deployment builds.
