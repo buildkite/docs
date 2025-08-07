@@ -45,24 +45,6 @@ For an example pipeline, see the [Input step example pipeline](https://github.c
 > 🚧 Don't store sensitive data in input steps
 > You shouldn't use input steps to store sensitive information like secrets because the data will be stored in build metadata.
 
-## Permissions
-
-To complete an input step, a user must either have write access to the pipeline, or where the `allowed_teams` attribute is specified, the user must belong to one of the allowed teams. When `allowed_teams` is specified, a user who has write access to the pipeline but is not a member of any of the allowed teams will not be permitted to complete the step. Buildkite organization administrators will always be able to complete an input step, regardless of `allowed_teams`.
-
-The `allowed_teams` attribute serves as a useful way to restrict input permissions to a subset of users without restricting the ability to create builds. Conversely, this attribute is also useful for granting input permissions to users _without_ also granting the ability create builds.
-
-```yml
-- input: "Release"
-  prompt: "Fill out the details for release"
-  allowed_teams:
-    - "approvers"
-  fields:
-    - text: "Release Name"
-      key: "release-name"
-```
-
-{: codeblock-file="pipeline.yml"}
-
 ## Input step attributes
 
 Input and block steps have the same attributes available for use.
@@ -89,7 +71,7 @@ Optional attributes:
     <td><code>allowed_teams</code></td>
     <td>
       A list of teams that are permitted to complete this step, whose values are a list of one or more team slugs or IDs. If this field is specified, a user must be a member of one of the teams listed in order to submit a value to complete this step.<br/>
-      The use of <code>allowed_teams</code> replaces the need for write access to the pipeline, meaning a member of an allowed team with read-only access may complete the step.<br/>
+      The use of <code>allowed_teams</code> replaces the need for write access to the pipeline, meaning a member of an allowed team with read-only access may complete the step. Learn more about this attribute in the <a href="#permissions">Permissions</a> section.<br/>
       <em>Example:</em> <code>["deployers", "approvers", "b50084ea-4ed1-405e-a204-58bde987f52b"]</code><br/>
     </td>
   </tr>
@@ -342,6 +324,23 @@ Each select option has the following _required_ attributes:
     </td>
   </tr>
 </table>
+
+## Permissions
+
+To complete an input step, a user must either have write access to the pipeline, or where the [`allowed_teams` attribute](#input-step-attributes) is specified, the user must belong to one of the allowed teams. When `allowed_teams` is specified, a user who has write access to the pipeline but is not a member of any of the allowed teams will not be permitted to complete the step. Buildkite organization administrators will always be able to complete an input step, regardless of `allowed_teams`.
+
+The `allowed_teams` attribute serves as a useful way to restrict input permissions to a subset of users without restricting the ability to create builds. Conversely, this attribute is also useful for granting input permissions to users _without_ also granting the ability create builds.
+
+```yml
+- input: "Release"
+  prompt: "Fill out the details for release"
+  allowed_teams:
+    - "approvers"
+  fields:
+    - text: "Release Name"
+      key: "release-name"
+```
+{: codeblock-file="pipeline.yml"}
 
 ## Input validation
 
