@@ -3,16 +3,16 @@
 The Buildkite Agent is supported on the following operating systems using the yum repository:
 
 - Red Hat Enterprise Linux
-  - Red Hat Enterprise Linux 7 (RHEL7)
-  - Red Hat Enterprise Linux 8 (RHEL8)
-  - Red Hat Enterprise Linux 9 (RHEL9)
-  - Red Hat Enterprise Linux 10 (RHEL10)
+  + Red Hat Enterprise Linux 7 (RHEL7)
+  + Red Hat Enterprise Linux 8 (RHEL8)
+  + Red Hat Enterprise Linux 9 (RHEL9)
+  + Red Hat Enterprise Linux 10 (RHEL10)
 - CentOS
-  - CentOS 7
-  - CentOS 8
+  + CentOS 7
+  + CentOS 8
 - Amazon Linux
-  - Amazon Linux 2 (AL2)
-  - Amazon Linux 2023 (AL2023)
+  + Amazon Linux 2 (AL2)
+  + Amazon Linux 2023 (AL2023)
 
 ## Installation
 
@@ -66,14 +66,14 @@ See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details
 
 ## File locations
 
-* Configuration: `/etc/buildkite-agent/buildkite-agent.cfg`
-* Agent Hooks: `/etc/buildkite-agent/hooks/`
-* Builds: `/var/buildkite-agent/builds/`
-* Logs, depending on your system:
-  - `journalctl -f -u buildkite-agent` (systemd)
-  - `/var/log/buildkite-agent.log` (older systems)
-* Agent user home: `/var/lib/buildkite-agent/`
-* SSH keys: `/var/lib/buildkite-agent/.ssh/`
+- Configuration: `/etc/buildkite-agent/buildkite-agent.cfg`
+- Agent Hooks: `/etc/buildkite-agent/hooks/`
+- Builds: `/var/buildkite-agent/builds/`
+- Logs, depending on your system:
+  + `journalctl -f -u buildkite-agent` (systemd)
+  + `/var/log/buildkite-agent.log` (older systems)
+- Agent user home: `/var/lib/buildkite-agent/`
+- SSH keys: `/var/lib/buildkite-agent/.ssh/`
 
 ## Configuration
 
