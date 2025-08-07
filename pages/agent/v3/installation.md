@@ -31,7 +31,7 @@ If your architecture isn't on the releases page send an email to support and we'
 
 ## Upgrade agents
 
-To update your agents, you can either:
+To upgrade your agents, you can either:
 
 * Use the package manager for your operating system.
 * Re-run the installation script.

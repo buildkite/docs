@@ -63,7 +63,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 
 - Set [granular command authorization controls](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller) for what the `buildkite-agent` user is allowed to run, restricting executable operations to predefined security parameters.
 - Configure automated regular credential rotation or even set [automatic expiration date](/docs/agent/v3/securing#set-the-agent-token-expiration-date) on agent registration tokens to limit the window of opportunity for compromised tokens.
-- [Update your Buildkite Agents](/docs/agent/v3/installation#upgrade-agents) on a regular basis.
+- [Upgrade your Buildkite Agents](/docs/agent/v3/installation#upgrade-agents) on a regular basis.
 - Deploy ephemeral build environments using isolated virtual machines or containers. Ensure that your deployment environment is secure by installing minimal operating systems, disabling inbound SSH access, and enforcing strict network egress controls.
 - Isolate sensitive builds in dedicated [agent pools within Clusters](/docs/pipelines/clusters). This way, you're ensuring that critical workloads cannot be affected by compromise of less secure environments — for example, open-source repositories with unverified code.
 - Enable [pipeline signing](/docs/agent/v3/signed-pipelines) and verification mechanisms.
