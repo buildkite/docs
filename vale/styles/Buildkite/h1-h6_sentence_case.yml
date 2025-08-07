@@ -40,6 +40,7 @@ exceptions:
   - Azure Active Directory
   - Azure Blob
   - Backstage
+  - Backstage Software Catalog
   - Bash
   - Bazel
   - Bamboo
