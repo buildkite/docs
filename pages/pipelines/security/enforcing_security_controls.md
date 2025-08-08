@@ -62,7 +62,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 **Controls:**
 
 - Set [granular command authorization controls](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller) for what the `buildkite-agent` user is allowed to run, restricting executable operations to predefined security parameters.
-- Configure automated regular credential rotation, such as setting automatic [expiration dates](/docs/agent/v3/tokens#agent-token-lifetime) on your agent tokens to limit their window of opportunity for being compromised.
+- Configure automated regular credential rotation, such as setting automatic [expiration dates](/docs/agent/v3/tokens#agent-token-lifetime) on your agent tokens to limit their window of opportunity to be compromised.
 - [Upgrade your Buildkite Agents](/docs/agent/v3/installation#upgrade-agents) on a regular basis.
 - Deploy ephemeral build environments using isolated virtual machines or containers. Ensure that your deployment environment is secure by installing minimal operating systems, disabling inbound SSH access, and enforcing strict network egress controls.
 - Isolate pipelines with sensitive builds to run on dedicated agent pools within their own [cluster](/docs/pipelines/clusters). This way, you're ensuring that critical workloads cannot be affected by compromise of less secure environments—for example, open-source repositories with unverified code.
@@ -143,8 +143,8 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 
 **Controls:**
 
-- Export or stream all Buildkite metrics to your preferred monitoring and observability platform to maintain visibility across CI/CD pipeline activities (for example, see the [OpenTelemetry integration capabilities in Buildkite](/docs/pipelines/integrations/observability/opentelemetry)).
-- Set up [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) to consume Buildkite's [Audit Log](/docs/platform/audit-log) and integrate that information with your SIEM system.
+- Export or stream all of your Buildkite Pipelines metrics to your preferred monitoring and observability platform to maintain visibility across CI/CD pipeline activities (for example, see the [OpenTelemetry integration capabilities in Buildkite](/docs/pipelines/integrations/observability/opentelemetry)).
+- Set up [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) to consume Buildkite's [Audit Log](/docs/platform/audit-log) and integrate that information with your [SIEM](https://en.wikipedia.org/wiki/Security_information_and_event_management) system.
 - Monitor logs for anomalies (unusual IPs, secret access patterns, build frequency spikes) and configure automated alerts.
 
 ## Incident response and recovery
@@ -153,9 +153,9 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 
 **Controls:**
 
-- Contact Buildkite Support immediately upon discovering any security incident: [support@buildkite.com](mailto:support@buildkite.com). [Enterprise Premium Support](https://buildkite.com/pricing/#premium-support) customers can report an incident through their Premium Support channel. Early notification allows Buildkite to assist with immediate remediation steps.
-- Buildkite's incident response team can [audit access logs](/docs/platform/audit-log) to identify which users and IP addresses accessed builds containing leaked information. For Enterprise tier organizations, older logs can be rehydrated for in-depth forensic analysis.
+- Contact support@buildkite.com immediately upon discovering any security incident. [Enterprise Premium Support](https://buildkite.com/pricing/#premium-support) customers can report an incident through their priority support channel. Early notification allows Buildkite to assist with immediate remediation steps.
+- Buildkite's incident response team can [audit access logs](/docs/platform/audit-log) to identify which users and IP addresses accessed builds containing leaked information. For Enterprise plan customers, older logs can be rehydrated for in-depth forensic analysis.
 
 ## Further questions
 
-If you didn't find coverage of a security-related question that interests you here, feel free to reach out to [Buildkite Support](mailto:support@buildkite.com).
+If you didn't find coverage of a security-related question that interests you here, feel free to contact support@buildkite.com.
