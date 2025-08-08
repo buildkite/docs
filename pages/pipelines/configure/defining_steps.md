@@ -117,6 +117,21 @@ When you run a pipeline, a build is created. The following diagram shows you how
 
 <%= render_markdown partial: 'pipelines/configure/build_states' %>
 
+### Build timestamps
+
+Each build has several timestamps that track its lifecycle from creation to completion. The expected chronological order is: `created_at` → `scheduled_at` → `started_at` → `finished_at`.
+
+Timestamp        | Description
+---------------- | -----------
+`created_at`     | When the build record was initially created in the database. This happens when a build is first triggered (via API, webhook, UI, etc.) and the build enters the `creating` state.
+`scheduled_at`   | When the build is scheduled to run. For scheduled builds (triggered from pipeline schedules), this represents the intended execution time.
+`started_at`     | When the build actually begins executing (transitions from `scheduled` to `started` state). This occurs when the first job starts running, marking the build as active.
+`finished_at`    | When the build reaches a terminal state (`passed`, `failed`, `canceled`, `skipped`, or `not_run`). This is set when all jobs are complete and the build's final state is determined.
+{: class="two-column"}
+
+> 📘 Builds with job retries
+> A build's `started_at` timestamp can be more recent than some of its job's `started_at` timestamps. This occurs when builds move from terminal states back to non-terminal states when failed jobs are retried.
+
 ## Job states
 
 When you run a pipeline, a build is created. Each of the steps in the pipeline ends up as a job in the build, which then get distributed to available agents. Job states have a similar flow to [build states](#build-states) but with a few extra states. The following diagram shows you how jobs progress from start to end.
@@ -184,6 +199,18 @@ Each job in a build also has a footer that displays exit status information. It 
 >🚧
 > Exit status information available in the <a href="/docs/apis/graphql-api">GraphQL API</a> but not the <a href="/docs/apis/rest-api">REST API</a>.
 
+### Job timestamps
+
+Each job has several timestamps that track its lifecycle from creation to completion. The expected chronological order is: `created_at` → `scheduled_at` → `runnable_at` → `started_at` → `finished_at`.
+
+Timestamp        | Description
+---------------- | -----------
+`created_at`     | When the job record was first created in the database. This happens when a build's pipeline is processed and jobs are created in the `pending` state.
+`scheduled_at`   | When the job was intended to run (set at job creation). This is set during initial job creation and defaults to the job's `created_at` timestamp.
+`runnable_at`    | When the job actually became eligible to run and ready for agent assignment. This is set when the job transitions to the `scheduled` state after resolving dependencies (wait steps, manual blocks, concurrency limits).
+`started_at`     | When an agent confirmed it had started running the job (transitions to the `running` state). This occurs after the job has been `assigned` to an agent, `accepted` by the agent, and the agent sends the first log output indicating execution has begun.
+`finished_at`    | When the job reaches a terminal state (`finished`, `canceled`, `timed_out`, `skipped`, or `expired`). This marks the completion of the job's execution, whether successful or not.
+{: class="two-column"}
 
 ## Example pipeline
 
