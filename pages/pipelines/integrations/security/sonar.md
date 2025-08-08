@@ -162,7 +162,7 @@ steps:
 
 When using Docker, adjust your `sonar-project.properties` working directory, for example:
 
-```terminal
+```conf
 # For Docker execution
 sonar.working.directory=/usr/src/.scannerwork # Container runs as root
 # For native binary execution (e.g., Elastic CI Stack for AWS)
@@ -203,7 +203,7 @@ steps:
 
 ### Properties file configuration
 
-```
+```conf
 # SonarQube configuration
 sonar.host.url=https://sonarqube.mycompany.com
 sonar.projectKey=sample-project
@@ -219,9 +219,10 @@ sonar.working.directory=/tmp/.scannerwork
 # Exclusions for clean analysis
 sonar.exclusions=**/.git/**,**/.buildkite/**,**/.scannerwork/**,**/images/**,**/target/**,**/build/**,**/gradle/**,**/node_modules/**,**/*.jar,**/*.class,**/vendor/**,**/__pycache__/**,**/*.pyc,**/dist/**,**/.terraform/**
 ```
+
 ## Best practices
 
-- **Version Control** - store `sonar-project.properties` in your repository root.
+- **Version control** - store `sonar-project.properties` in your repository root.
 - **Security** - never commit authentication tokens; always use secrets management.
 - **Performance** - exclude unnecessary files to speed up analysis.
 - **Versioning** - use specific Docker image tags instead of `latest` in production.
@@ -254,21 +255,25 @@ This section covers some common issues and proposed mitigations for SonarScanner
 
 ## Using SonarCloud instead of SonarQube
 
-While this tutorial focuses on self-hosted SonarQube, you can also use [SonarCloud](https://docs.sonarcloud.io/) (the hosted SaaS version) by making a few adjustments.
+While this tutorial describes the implementation of self-hosted SonarQube, you can also use [SonarCloud](https://docs.sonarcloud.io/) (the hosted SaaS version) by making a few changes.
 
-Environment variables changes:
+### Environment variables changes
 
 - `SONAR_HOST_URL`: Optional (defaults to `https://sonarcloud.io`)
 - `SONAR_TOKEN`: Required (also saved in your choice of Buildkite secrets management service)
 
-Properties file changes:
+### Properties file changes
 
-```terminal
+```conf
 # SonarCloud configuration
 sonar.host.url=https://sonarcloud.io # Optional (defaults to <https://sonarcloud.io>)
 sonar.projectKey=my-org_sample-project
 sonar.organization=my-org  # Required
 ```
+
+### Token generation changes
+
+Generate your SonarCloud token from **My Account > Security > Generate Tokens** in your SonarCloud dashboard.
 
 ## Additional resources
 
