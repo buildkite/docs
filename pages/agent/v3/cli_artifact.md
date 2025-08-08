@@ -289,7 +289,7 @@ up, see our [Google Cloud installation guide](/docs/agent/v3/gcloud#uploading-ar
 
 You can configure the `buildkite-agent artifact` command to store artifacts in
 Artifactory. For instructions for how to set this up, see our
-[Artifactory guide](/docs/pipelines/integrations/other/artifactory).
+[Artifactory guide](/docs/pipelines/integrations/artifacts-and-packages/artifactory).
 
 ## Using your private Azure Blob container
 

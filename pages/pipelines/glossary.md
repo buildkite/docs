@@ -32,6 +32,16 @@ Dynamic pipelines are helpful when you have a complex build process that require
 
 To learn more, see [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
+## Ephemeral agent
+
+An ephemeral agent is a Buildkite Agent that only operates for the duration in which it runs a [job](#job). Such an agent is disconnected either once its job is completed, or the agent's idle time period has been reached. An ephemeral agent is created when one of the following options has been used to [start the Buildkite Agent](/docs/agent/v3/cli-start):
+
+- `--acquire-job`
+- `--disconnect-after-job`
+- `--disconnect-after-idle-timeout`
+
+Learn more about ephemeral agents in [Pause and resume an agent](/docs/agent/v3/pausing-and-resuming).
+
 ## Hook
 
 A hook is a method of customizing the behavior of Buildkite through lifecycle events. They let you run scripts at different points of the agent or job lifecycle. Using hooks, you can extend the functionality of Buildkite and automate tasks specific to your workflow and requirements.

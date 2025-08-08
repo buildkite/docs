@@ -39,6 +39,7 @@ bktec
 boolean
 Boomper
 Buildbox
+buildevents
 Buildkite
 Buildkite's
 buildscript
@@ -61,6 +62,9 @@ CloudWatch
 CMake
 cmake
 cocoapods
+codeql
+codesign
+codesigning
 commit_sha
 completion_watcher
 composable
@@ -97,6 +101,7 @@ eval
 Eventbridge
 EventBridge
 Explainshell
+fastfile
 fastlane
 fastlane's
 favorited
@@ -124,7 +129,9 @@ Graviton
 gz
 gzipped
 Hashicorp
+Homebrew
 heroku
+Honeycomb
 hostname
 http
 httpd
@@ -159,6 +166,7 @@ linux
 llamasecret
 macOS
 macos
+matchfile
 matchers
 Memcache
 minitest
@@ -268,6 +276,7 @@ substrings
 sudo
 svg
 swiftformat
+swiftlint
 systemd
 templated
 tgz
@@ -279,6 +288,7 @@ tooltip
 TOTP's
 udp
 unmanaged
+UserData
 unarchive
 unarchived
 unarchiving
@@ -416,3 +426,5 @@ bazel
 github
 
 landing_page_pipelines
+
+eg

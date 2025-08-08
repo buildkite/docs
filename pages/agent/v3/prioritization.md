@@ -25,9 +25,6 @@ or with the `BUILDKITE_AGENT_PRIORITY` an environment variable:
 env BUILDKITE_AGENT_PRIORITY=9 buildkite-agent start
 ```
 
-> 📘
-> Using the `--priority` flag requires agent v3.65.0 or later.
-
 ## Load balancing
 
 You can use the Agent priority value to load balance jobs across machines running multiple Agents. Be aware that this priority value is only set when the agents are started, as described above. The resulting load balancing is then determined internally by Buildkite Pipelines, and is unrelated to typical network load balancing mechanisms.
