@@ -8,12 +8,11 @@ Learn more about on how to set up queues within a cluster in [Manage queues](/do
 
 When a new Buildkite organization is created, a single default cluster (initially named **Default cluster**) is also created.
 
-For smaller organizations, working on smaller projects, this default cluster may be sufficient. However, it's usually more convenient for organizations to manage projects in separate clusters, when these projects require different:
+For smaller organizations, working on smaller projects, this default cluster may be sufficient. However, it's usually more convenient for large organizations to manage projects in separate clusters, when these projects require different:
 
-- Staged environments, for example, development, test, staging/pre-production and production
-- Source code visibility, such as open-source versus closed-source code projects
-- Target platforms, such as Linux, Android, macOS, Windows, etc.
-- Multiple projects, for example, different product lines
+- Source code visibility, such as open-source versus closed-source code projects.
+- Expertise and ownership, such as Android developers, macOS developers, Windows developers, Machine Learning expert etc.
+- Multiple projects, for example, different product lines.
 
 Once your clusters are set up, you can set up one or more [queues](/docs/pipelines/clusters/manage-queues) within each cluster.
 
@@ -126,7 +125,7 @@ Learn more about this entire process from the detailed [Migrate from unclustered
 
 1. [Assessing your current environment](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#assessing-your-current-environment).
 1. Deciding on an [agent migration strategy](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#migration-strategies), noting that an initial [single-cluster migration strategy](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#single-cluster-migration-overview) may likely provide the least friction.
-1. Understanding the [technical considerations](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#technical-considerations-and-blockers) of the agent migration process.
+1. Understanding the [technical considerations](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#technical-considerations) of the agent migration process.
 1. The [agent migration process](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#agent-migration-process) itself.
 
 ## Restrict an agent token's access by IP address

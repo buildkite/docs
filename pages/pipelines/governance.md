@@ -1,3 +1,7 @@
+---
+toc: false
+---
+
 # Governance overview
 
 Governance plays a crucial role in CI/CD tools, particularly for anyone operating in regulated industries or handling sensitive data. It encompasses policies, processes, and controls to ensure practices align with the following:

@@ -61,7 +61,7 @@ ENV OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <token>,x-my-header=value"
 ## OpenTelemetry tracing notification service
 
 > 📘 Preview feature
-> OpenTelemetry Tracing Notification Service is currently in Private Preview. Please contact support@buildkite.com or your account team for access.
+> OpenTelemetry Tracing Notification Service is currently in Preview.
 
 To provide a build-wide view of Build performance, enable the OpenTelemetry Tracing
 
@@ -80,6 +80,72 @@ Please provide the base URL for your OTLP endpoint. Do not include the `/v1/trac
 - We currently only support the [OTLP/HTTP](https://opentelemetry.io/docs/specs/otlp/#otlphttp) binary protobuf encoding.
 - We currently only support sending [trace](https://opentelemetry.io/docs/concepts/signals/traces/) data, but may introduce other OpenTelemetry signals in the future.
 - The endpoint must be accessible over the internet. Contact support@buildkite.com if you would like to send traces to a [AWS PrivateLink endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html).
+
+### Trace structure
+
+The following attributes are included in OpenTelemetry traces from the Buildkite notification service:
+
+#### Resource attributes
+
+[Resource](https://opentelemetry.io/docs/concepts/resources/) attributes are included in all spans and provide context about the organization, pipeline, and build:
+
+| Key                             | Description                                          |
+| ------------------------------- | ---------------------------------------------------- |
+| `service.name`                  | Service name (configurable, defaults to `buildkite`) |
+| `buildkite.organization.slug`   | Organization slug                                    |
+| `buildkite.organization.name`   | Organization name                                    |
+| `buildkite.organization.id`     | Organization ID                                      |
+| `buildkite.pipeline.slug`       | Pipeline slug                                        |
+| `buildkite.pipeline.name`       | Pipeline name                                        |
+| `buildkite.pipeline.id`         | Pipeline ID                                          |
+| `buildkite.pipeline.repo`       | Pipeline repository URL                              |
+| `buildkite.pipeline.graphql_id` | Pipeline GraphQL ID                                  |
+
+#### Span attributes
+
+[Span attributes](https://opentelemetry.io/docs/concepts/signals/traces/#attributes) are specific to certain span types:
+
+| Key                                  | Spans                                                      | Description                                 |
+| ------------------------------------ | ---------------------------------------------------------- | ------------------------------------------- |
+| `buildkite.build.number`             | All                                                        | Build number                                |
+| `buildkite.build.commit`             | All                                                        | Build commit SHA                            |
+| `buildkite.build.message`            | All                                                        | Build commit message                        |
+| `buildkite.build.branch`             | All                                                        | Build branch                                |
+| `buildkite.build.source`             | All                                                        | Build source (`ui`, `api`, `webhook`, etc.) |
+| `buildkite.build.graphql_id`         | All                                                        | Build GraphQL ID                            |
+| `buildkite.build.creator.id`         | All                                                        | Build creator ID                            |
+| `buildkite.build.creator.email`      | All                                                        | Build creator email                         |
+| `buildkite.build.creator.name`       | All                                                        | Build creator name                          |
+| `buildkite.build.creator.graphql_id` | All                                                        | Build creator GraphQL ID                    |
+| `buildkite.build.state`              | `buildkite.build`, `buildkite.build.stage`                 | Build state (running, passed, failed, etc.) |
+| `buildkite.build.blocked_state`      | `buildkite.build`, `buildkite.build.stage`                 | Build blocked state (if blocked)            |
+| `buildkite.build.stage`              | `buildkite.build.stage`, `buildkite.job`, `buildkite.step` | Build stage/phase number                    |
+| `buildkite.step.id`                  | `buildkite.job`, `buildkite.step`                          | Step ID                                     |
+| `buildkite.step.key`                 | `buildkite.job`, `buildkite.step`                          | Step key                                    |
+| `buildkite.step.command`             | `buildkite.job`, `buildkite.step`                          | Step command script                         |
+| `buildkite.step.label`               | `buildkite.job`, `buildkite.step`                          | Step label                                  |
+| `buildkite.job.id`                   | `buildkite.job`                                            | Job ID                                      |
+| `buildkite.job.graphql_id`           | `buildkite.job`                                            | Job GraphQL ID                              |
+| `buildkite.job.type`                 | `buildkite.job`                                            | Job type (script, manual, waiter, etc.)     |
+| `buildkite.job.label`                | `buildkite.job`                                            | Job label/name                              |
+| `buildkite.job.command`              | `buildkite.job`                                            | Job command                                 |
+| `buildkite.job.agent_query_rules`    | `buildkite.job`                                            | Job agent query rules                       |
+| `buildkite.job.exit_status`          | `buildkite.job`                                            | Job exit status                             |
+| `buildkite.job.passed`               | `buildkite.job`                                            | Whether job passed                          |
+| `buildkite.job.soft_failed`          | `buildkite.job`                                            | Whether job soft failed                     |
+| `buildkite.job.state`                | `buildkite.job`                                            | Job state                                   |
+| `buildkite.job.runnable_at`          | `buildkite.job`                                            | When job became runnable                    |
+| `buildkite.job.started_at`           | `buildkite.job`                                            | When job started                            |
+| `buildkite.job.finished_at`          | `buildkite.job`                                            | When job finished                           |
+| `buildkite.job.wait_time_ms`         | `buildkite.job`                                            | Job wait time in milliseconds               |
+| `buildkite.job.unblocked_by`         | `buildkite.job`                                            | User who unblocked job                      |
+| `buildkite.job.retried_in_job_id`    | `buildkite.job`                                            | ID of retry job (if retried)                |
+| `buildkite.job.signal_reason`        | `buildkite.job`                                            | Signal reason (if terminated by signal)     |
+| `buildkite.agent.name`               | `buildkite.job`                                            | Agent name                                  |
+| `buildkite.agent.id`                 | `buildkite.job`                                            | Agent ID                                    |
+| `buildkite.agent.queue`              | `buildkite.job`                                            | Agent queue                                 |
+| `buildkite.agent.meta_data`          | `buildkite.job`                                            | Agent metadata                              |
+| `error.type`                         | All (when error status)                                    | Error type description                      |
 
 ### Headers
 

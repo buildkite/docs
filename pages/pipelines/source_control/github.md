@@ -21,7 +21,7 @@ Connecting Buildkite and GitHub using the GitHub App lets your GitHub organizati
 > The user adding the provider needs to be a Buildkite user connected to a GitHub user who has administrative privileges on both Buildkite and the GitHub organizations.
 
 1. Open your Buildkite organization's **Settings**.
-1. Select [**Repository Providers**](https://buildkite.com/organizations/~/repository-providers) > **GitHub**.
+1. Select [**Repository Providers**](https://buildkite.com/organizations/~/repository-providers) > **GitHub (Limited Access)**.
     <%= image "repository-providers.png", width: 2338/2, height: 1600/2, alt: "Screenshot of the Buildkite Repository Providers" %>
 1. Select **Connect to a new GitHub Account**. If you have never connected your Buildkite and GitHub accounts before, you will first need to select **Connect** and authorize Buildkite.
 1. Select the GitHub organization you want to connect to your Buildkite organization.
@@ -119,9 +119,10 @@ You can customize the commit statuses, for example to reuse the same pipeline fo
 
     ```yaml
     notify:
-        - github_commit_status:
-            context: "my-custom-status"
+      - github_commit_status:
+        context: "my-custom-status"
     ```
+
 1. In **Pipeline** > your specific pipeline > **Settings** > **GitHub**, make sure **Update commit statuses** is not selected. Note that this prevents Buildkite from automatically creating and sending statuses for this pipeline, meaning you will have to handle all commit statuses through the `pipeline.yml`.
 1. When you make a new commit or pull request, you should see **my-custom-status** as the commit status:
     <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
@@ -130,17 +131,19 @@ In a setup for a repository containing one codebase and one `pipeline.yml`, this
 
 For example, if you have a monorepo containing three applications, you could use the same pipeline, with different `pipeline.yml` files for each application. Each `pipeline.yml` can contain a different GitHub status.
 
+When a _build level_ GitHub commit status has been set (as part of an [uploaded pipeline YAML file](/docs/agent/v3/cli-pipeline#uploading-pipelines)), as opposed to a _pipeline level_ GitHub commit status, where the `notify` block is defined within the [YAML step editor of the Buildkite Pipelines interface](/docs/pipelines/configure/defining-steps#adding-steps), then the GitHub status is only reported _after_ the build has completed, because the `notify` block is evaluated after the build has started. By moving the GitHub status notification block to the pipeline level (in the YAML step editor of the Buildkite Pipelines interface), the `notify` block will be evaluated when the build starts and sends off the commit status to GitHub.
+
 ### Step level
 
 1. Add `notify` to a command in your `pipeline.yml`:
 
     ```yaml
     steps:
-    - label: "Example Script"
-        command: "script.sh"
-        notify:
-          - github_commit_status:
-              context: "my-custom-status"
+      - label: "Example Script"
+          command: "script.sh"
+          notify:
+            - github_commit_status:
+                context: "my-custom-status"
     ```
 1. In **Pipeline** > your specific pipeline > **Settings** > **GitHub**, you can choose to either:
     + Make sure **Update commit statuses** is not selected. Note that this prevents Buildkite from automatically creating and sending statuses for this pipeline, meaning you will have to handle all commit statuses through the `pipeline.yml`.

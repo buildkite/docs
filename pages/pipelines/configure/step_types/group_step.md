@@ -113,6 +113,10 @@ Optional attributes:
   </tr>
 </table>
 
+## Agent-applied attributes
+
+<%= render_markdown partial: 'pipelines/configure/step_types/agent_applied_attributes' %>
+
 ## Parallel groups
 
 If you put two or more group steps in a YAML config file consecutively, they will run in parallel. For example:
