@@ -62,6 +62,9 @@ integrations:
         url: "/docs/pipelines/integrations/plugins/writing"
   - title: "Artifacts and packages"
     desc: "Discover plugins and services for managing build artifacts and packages."
+
+  - title: "Notifications and observability"
+    desc: "Add notification services that allow Buildkite Pipelines to send notifications or data to third-party applications."
     links:
       - text: "Artifactory"
         url: "/docs/pipelines/integrations/artifacts-and-packages/artifactory"
@@ -91,6 +94,22 @@ integrations:
         url: "/docs/pipelines/integrations/observability/honeycomb"
       - text: "OpenTelemetry"
         url: "/docs/pipelines/integrations/observability/opentelemetry"
+      - text: "Amazon EventBridge"
+        url: "/docs/pipelines/integrations/observability/amazon-eventbridge"
+      - text: "Observability plugins"
+        url: "/docs/pipelines/integrations/observability/plugins"
+  - title: "Security and compliance"
+    desc: "Keep your pipelines secure and compliant."
+    links:
+      - text: "Security and compliance plugins"
+        url: "/docs/pipelines/integrations/security-and-compliance/plugins"
+      - text: "SonarScanner CLI"
+        url: "/docs/pipelines/integrations/security/sonar"
+  - title: "Secrets"
+    desc: "Manage secrets passed to your builds."
+    links:
+      - text: "Secrets plugins"
+        url: "/docs/pipelines/integrations/secrets/plugins"
   - title: "Other integrations"
     desc: "Additional services that work with Buildkite."
     links:

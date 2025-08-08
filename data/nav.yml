@@ -507,13 +507,12 @@
               path: "pipelines/integrations/observability/honeycomb"
             - name: "OpenTelemetry"
               path: "pipelines/integrations/observability/opentelemetry"
-<<<<<<< HEAD
         - name: "Security"
           children:
-            - name: "SonarQube"
+            - name: "SonarScanner CLI tutorial"
               path: "pipelines/integrations/security/sonar"
-=======
-              pill: "preview"
+        - name: "Other integrations"
+          children:
             - name: "Amazon EventBridge"
               path: "pipelines/integrations/observability/amazon-eventbridge"
             - name: "Observability plugins"
@@ -534,7 +533,6 @@
               path: "pipelines/integrations/artifacts-and-packages/artifact-plugins"
             - name: "Package plugins"
               path: "pipelines/integrations/artifacts-and-packages/package-plugins"
->>>>>>> main
         - name: "Other integrations"
           children:
             - name: "Build status badges"
