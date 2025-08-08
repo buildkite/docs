@@ -75,17 +75,17 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 > 📘 On better Buildkite Agent security
 > For small teams with limited experience in hosting and hardening infrastructure, [Buildkite hosted agents](/docs/pipelines/hosted-agents) provide a secure, fully managed solution that reduces operational overhead. However, organizations with stringent governance, risk, and compliance (GRC) requirements that mandate enhanced security postures, should deploy [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture) for their most sensitive workloads, as this approach offers greater control over security configurations and compliance controls.
 
-## API Access Token compromise
+## API access token compromise
 
 **Risk:** Compromised or overprivileged Buildkite API access tokens enabling unauthorized pipeline access, code execution, and data theft.
 
 **Controls:**
 
-- Create tokens with only the minimal [required scopes](/docs/apis/managing-api-tokens#token-scopes). Use [Portals](/docs/apis/portals) to limit GraphQL query scope. Review permissions regularly to match current needs.
-- Establish [token rotation](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security) with defined expiration periods. Automate rotation where possible to limit exposure windows.
-- Bind tokens to [specific IP addresses or network segments](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address). Use Network Address Translation (NAT) with centralized egress routing for enhanced monitoring and rapid compromise detection.
-- Deploy tokens within dedicated VPCs using [Buildkite’s Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security#network-configuration) for network isolation.
-- Monitor token usage patterns through [Audit Log](/docs/platform/audit-log). Set up alerts on unusual patterns: unexpected locations, excessive API calls, unauthorized resource access.
+- Create API access tokens with only the minimal [required scopes](/docs/apis/managing-api-tokens#token-scopes). Use [portals](/docs/apis/portals) to limit GraphQL query scope. Review permissions regularly to match current needs.
+- Establish [rotation of access tokens](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security) with defined expiration periods. Automate rotation where possible to limit exposure windows.
+- Bind access tokens to [specific IP addresses or network segments](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address). Use network address translation (NAT) with centralized egress routing for enhanced monitoring and rapid compromise detection.
+- Deploy access tokens within dedicated virtual private clouds (VPCs) using [Buildkite’s Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security#network-configuration) for network isolation.
+- Monitor access token usage patterns through the [Audit Log](/docs/platform/audit-log). Set up alerts on unusual patterns: unexpected locations, excessive API calls, unauthorized resource access.
 
 ## Network and transport security
 
@@ -95,10 +95,10 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 
 Buildkite enforces TLS encryption by default for all platform communications, ensuring traffic to and from Buildkite services is encrypted in transit. To further tighten your network security, you can take these additional steps:
 
-- For [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), implement [Zero Trust Architecture (ZTA)](https://www.ibm.com/think/topics/zero-trust) with least-privilege egress rules.
+- For [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), implement a [zero trust architecture (ZTA)](https://www.ibm.com/think/topics/zero-trust) with least-privilege egress rules.
 - Monitor network traffic for anomalies or suspicious connection attempts from build agents.
-- Consider taking your infrastructure fully into the cloud with the help of [Buildkite hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) or by running your agents in [AWS](/docs/agent/v3/aws) or in [Google Cloud](/docs/agent/v3/gcloud).
-- Harden your cloud infrastructure perimeter by using [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html) or [VPC Endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html) for the AWS services, or [Private Google Access](https://cloud.google.com/vpc/docs/private-google-access) for Google Cloud.
+- Consider taking your infrastructure fully into the cloud with the help of [Buildkite hosted agents](/docs/pipelines/hosted-agents) or by running your agents in [AWS](/docs/agent/v3/aws) or in [Google Cloud](/docs/agent/v3/gcloud).
+- Harden your cloud infrastructure perimeter using [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html) or [VPC endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html) for the AWS services, or [Private Google Access](https://cloud.google.com/vpc/docs/private-google-access) for Google Cloud.
 
 ## Artifact storage and integrity
 
