@@ -229,29 +229,70 @@ sonar.exclusions=**/.git/**,**/.buildkite/**,**/.scannerwork/**,**/images/**,**/
 
 ## Troubleshooting
 
-This section covers some common issues and proposed mitigations for SonarScanner.
+This section covers some common issues and proposed mitigations for the SonarScanner integration for Buildkite.
 
-### SonarScanner binary not found (Elastic CI Stack for AWS)
+### Installation and path issues
 
-- Verify installation: `ls -la /opt/sonar-scanner/bin/sonar-scanner`
-- Check permissions: `chmod +x /opt/sonar-scanner/bin/sonar-scanner`
-- Verify PATH: `echo $PATH | grep sonar-scanner`
+**SonarScanner binary not found (pre-installed binary approach)**
 
-### Authentication failures
+```bash
+# Check if binary exists
+ls -la /opt/sonar-scanner/bin/sonar-scanner
 
-- Verify token is correctly stored in secrets manager
-- Check token permissions in SonarQube/SonarCloud
-- Ensure token hasn't expired
+# Verify permissions
+sudo chmod +x /opt/sonar-scanner/bin/sonar-scanner
+
+# Check PATH configuration
+echo $PATH | grep sonar-scanner
+
+# Test direct execution
+/opt/sonar-scanner/bin/sonar-scanner --version
+```
+
+### Authentication problems
+
+**Token authentication failures**
+
+- Verify that the SonarQube/SonarCloud token is correctly stored in your secrets manager.
+- Check token permissions in SonarQube/SonarCloud (the token needs "Execute Analysis" permission).
+- Ensure token hasn't expired (check expiration date in SonarQube/SonarCloud).
+- Test token manually: `curl -u YOUR_TOKEN: https://your-sonarqube-url/api/authentication/validate`.
+
 
 ### Analysis timeout or performance issues
 
-- Increase timeout for large projects
-- Exclude unnecessary files using `sonar.exclusions`
+**Analysis timeout or memory issues**
+
+```properties
+# Increase memory allocation for large projects
+sonar.javascript.node.maxspace=8192
+
+# Exclude large or unnecessary files and file types using `sonar.exclusions`
+sonar.exclusions=**/*.min.js,**/vendor/**,**/third-party/**,**/*.pdf,**/*.jpg,**/*.png
+```
+
+**Large project optimization**
+
+```properties
+# Exclude test files from duplication analysis
+sonar.cpd.exclusions=**/test/**,**/tests/**
+
+# Skip binary files
+sonar.exclusions=**/*.jar,**/*.zip
+
+# Limit analysis scope
+sonar.sources=src/main
+sonar.tests=src/test
+```
 
 ### Docker permission issues
 
-- Verify working directory permissions
-- Check Docker image version compatibility
+- Check Docker image version compatibility.
+- Verify working directory permissions:
+
+```bash
+docker exec -it <container_name> ls -ld /path/to/workdir
+```
 
 ## Using SonarCloud instead of SonarQube
 
