@@ -62,9 +62,6 @@ integrations:
         url: "/docs/pipelines/integrations/plugins/writing"
   - title: "Artifacts and packages"
     desc: "Discover plugins and services for managing build artifacts and packages."
-
-  - title: "Notifications and observability"
-    desc: "Add notification services that allow Buildkite Pipelines to send notifications or data to third-party applications."
     links:
       - text: "Artifactory"
         url: "/docs/pipelines/integrations/artifacts-and-packages/artifactory"

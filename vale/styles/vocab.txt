@@ -55,6 +55,7 @@ chroots
 CI
 classpath
 cli
+CLI
 Cloudsmith
 Cloudsmith's
 CloudTrail
@@ -257,7 +258,8 @@ signaltometrics
 snake_case
 Sonar
 SonarCloud
-SonarCube
+SonarQube
+SonarScanner
 Sonoma
 Splitter's
 sre
@@ -305,6 +307,7 @@ uploaders
 upstreams
 url
 urls
+userdata
 util
 uuid
 UUIDs

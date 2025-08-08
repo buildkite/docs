@@ -58,7 +58,7 @@ sonar.python.coverage.reportPaths=coverage.xml
 sonar.java.binaries=target/classes
 ```
 
-### Understanding Key Properties
+### Understanding key properties
 
 - **sonar.sources** - comma-separated list of directories containing source code, relative to project root.
 - **sonar.working.directory** - directory where SonarScanner stores temporary analysis files. Must be writable by the execution user.
@@ -165,7 +165,7 @@ When using Docker, adjust your `sonar-project.properties` working directory, for
 ```terminal
 # For Docker execution
 sonar.working.directory=/usr/src/.scannerwork # Container runs as root
-# For native binary execution (e.g., Elastic CI stack)
+# For native binary execution (e.g., Elastic CI Stack for AWS)
 sonar.working.directory=/tmp/.scannerwork # Runs as buildkite-agent user
 ```
 
@@ -183,7 +183,7 @@ steps:
       echo "🎯 Analyzing 20+ language samples..."
   - label: "🔍 SonarCloud Analysis"
     command: |
-      # Wait for sonar-scanner availability (Elastic CI Stack)
+      # Wait for sonar-scanner availability (Elastic CI Stack for AWS)
       echo "⏳ Ensuring sonar-scanner is ready..."
       timeout 30 bash -c 'while [[ ! -x "/opt/sonar-scanner/bin/sonar-scanner" ]]; do sleep 5; done'
       # Run analysis using properties file configuration
@@ -212,7 +212,7 @@ sonar.projectVersion=1.0
 # Comprehensive source analysis - scan all example projects
 sonar.sources=examples/
 sonar.sourceEncoding=UTF-8
-# Working directory (Elastic CI Stack)
+# Working directory (Elastic CI Stack for AWS)
 sonar.working.directory=/tmp/.scannerwork
 # Working directory (Docker execution)
 # sonar.working.directory=/usr/src/.scannerwork
@@ -230,7 +230,7 @@ sonar.exclusions=**/.git/**,**/.buildkite/**,**/.scannerwork/**,**/images/**,**/
 
 This section covers some common issues and proposed mitigations for SonarScanner.
 
-### SonarScanner binary not found (Elastic CI Stack)
+### SonarScanner binary not found (Elastic CI Stack for AWS)
 
 - Verify installation: `ls -la /opt/sonar-scanner/bin/sonar-scanner`
 - Check permissions: `chmod +x /opt/sonar-scanner/bin/sonar-scanner`
@@ -270,9 +270,9 @@ sonar.projectKey=my-org_sample-project
 sonar.organization=my-org  # Required
 ```
 
-## Additional Resources
+## Additional resources
 
 - [SonarQube documentation](https://docs.sonarqube.org/latest/)
 - [SonarCloud documentation](https://docs.sonarcloud.io/)
 - [SonarScanner CLI reference](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/)
-- [Buildkite Secrets Management](/docs/pipelines/security/secrets/managing) documenation page
+- [Buildkite Secrets Management](/docs/pipelines/security/secrets/managing) documentation page

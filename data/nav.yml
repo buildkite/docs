@@ -507,12 +507,7 @@
               path: "pipelines/integrations/observability/honeycomb"
             - name: "OpenTelemetry"
               path: "pipelines/integrations/observability/opentelemetry"
-        - name: "Security"
-          children:
-            - name: "SonarScanner CLI tutorial"
-              path: "pipelines/integrations/security/sonar"
-        - name: "Other integrations"
-          children:
+              pill: "preview"
             - name: "Amazon EventBridge"
               path: "pipelines/integrations/observability/amazon-eventbridge"
             - name: "Observability plugins"
@@ -521,6 +516,8 @@
           children:
             - name: "Security and compliance plugins"
               path: "pipelines/integrations/security-and-compliance/plugins"
+            - name: "SonarScanner CLI tutorial"
+              path: "pipelines/integrations/security/sonar"
         - name: "Secrets"
           children:
             - name: "Secrets plugins"
