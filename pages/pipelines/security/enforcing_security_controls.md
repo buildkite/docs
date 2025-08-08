@@ -107,11 +107,11 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 **Controls:**
 
 - Enforce encryption at rest and in transit when storing and transferring build artifacts.
-- Use cloud storage for storing build artifacts. You can use [Buildkite Package Registries](https://buildkite.com/platform/package-registries/) or other supported private cloud storage options:
+- Use cloud storage for storing build artifacts. You can use [Buildkite Package Registries](/docs/package-registries/) or other supported private cloud storage options:
   * [AWS S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket)
   * [Google Cloud Storage buckets](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket)
   * [Azure Blob containers](/docs/agent/v3/cli-artifact#using-your-private-azure-blob-container)
-- Implement artifact signing using [SLSA](/docs/package-registries/security/slsa-provenance) or [in-toto](https://in-toto.io/) provenance, or [cosign](https://github.com/sigstore/cosign), and establish verification processes before deployment to document artifact provenance and detect tampering.
+- Implement artifact signing using Buildkite's [SLSA provenance](/docs/package-registries/security/slsa-provenance) feture, or alternatively using [in-toto](https://in-toto.io/) or [cosign](https://github.com/sigstore/cosign), and establish verification processes before deployment to document artifact provenance and detect tampering.
 - Enforce [KMS signing](/docs/agent/v3/signed-pipelines#aws-kms-managed-key-setup) of the stored artifacts.
 
 ## Consistent pipeline-as-code approach
@@ -120,19 +120,20 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 
 **Controls:**
 
-- Adopt an [Infrastructure as Code (IaC)](https://aws.amazon.com/what-is/iac/) approach and mandate the exclusive use of the [Buildkite Terraform provider](https://buildkite.com/resources/blog/manage-your-ci-cd-resources-as-code-with-terraform/) for all pipeline configuration management, implementing a mandatory two-reviewer approval process for infrastructure changes.
+- Adopt an [infrastructure-as-code (IaC)](https://aws.amazon.com/what-is/iac/) approach and mandate the exclusive use of the [Buildkite Terraform provider](https://buildkite.com/resources/blog/manage-your-ci-cd-resources-as-code-with-terraform/) for all pipeline configuration management, implementing a mandatory two-reviewer approval process for infrastructure changes.
 
-> 📘 On using Buildkite Terraform provider for better security
-> Organizations without proper governance and peer review protocols may have gaps in their security posture. The suggested approach is to create a service account for Terraform that is not tied to any specific user identity using your identity provider. Use this account's API key to make changes (in the pipelines, tokens, etc.) in Terraform through the Buildkite Terraform provider — while enforcing Buildkite's RBAC capabilities and [GitOps](https://www.redhat.com/en/topics/devops/what-is-gitops) workflows.
+    **Note:** On using Buildkite Terraform provider for better security
 
-- Restrict administrative access to pipeline configuration through Buildkite user interface by treating the Buildkite user interface as read-only.
-- Set zero-tolerance policies for manual pipeline overrides, with any unauthorized modifications triggering immediate alerts within your Security Information and Event Management (SIEM) system to ensure rapid incident response and maintain configuration integrity.
+    Organizations without proper governance and peer review protocols may have gaps in their security posture. The suggested approach is to create a service account for Terraform that is not tied to any specific user identity using your identity provider. Use this account's API key to make changes (in the pipelines, tokens, etc.) in Terraform through the Buildkite Terraform provider, while enforcing Buildkite's role-based access control capabilities and [GitOps](https://www.redhat.com/en/topics/devops/what-is-gitops) workflows.
+
+- Restrict pipeline configuration access to [Buildkite organization administrators](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions) only by [making the your pipelines **Read Only** to your teams](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions).
+- Set zero-tolerance policies for manual pipeline overrides, with any unauthorized modifications triggering immediate alerts within your [security information and event management (SIEM)](https://en.wikipedia.org/wiki/Security_information_and_event_management) system to ensure rapid incident response and maintain configuration integrity.
 - Establish a "break glass" protocol that is tied to SIEM alerts in case someone has to make manual modifications to Buildkite's systems outside of the automated IaC workflow.
-- Deploy agent-level [lifecycle hooks](/docs/agent/v3/hooks#agent-lifecycle-hooks) as they cannot be bypassed or avoided through modifying a `pipeline.yml` or other developer-level code changes. You can also customize the hooks to scan your `pipeline.yml` files to validate their shape and contents and ensure that those files conform to your Buildkite organization's security requirements.
-- Use ephemeral Buildkite agents (like the [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s)) or tools like [Ansible](https://docs.ansible.com/) or [Puppet](https://www.puppet.com/blog/puppet-cicd) to force configuration changes on persistent hosts.
-- Mandate comprehensive security scanning (including container vulnerability and static code analysis scanning) and SBOM generation for all builds, for instance, by using [pipeline templates](/docs/pipelines/governance/templates) to ensure every pipeline in your Buildkite organization inherits predetermined configurations and maintains consistent baseline protections.
+- Deploy agent-level [lifecycle hooks](/docs/agent/v3/hooks#agent-lifecycle-hooks) as these cannot be bypassed or avoided through a `pipeline.yml` modification or other developer-level code change. You can also customize the hooks to scan your `pipeline.yml` files to validate their shape and contents, and ensure that those files conform to your Buildkite organization's security requirements.
+- Use [ephemeral Buildkite Agents](/docs/pipelines/glossary#ephemeral-agent) (like the Buildkite [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s)) or tools such as [Ansible](https://docs.ansible.com/) or [Puppet](https://www.puppet.com/blog/puppet-cicd) to force configuration changes on persistent hosts.
+- Mandate comprehensive security scanning (including container vulnerability and static code analysis scanning) and [SBOM](https://en.wikipedia.org/wiki/Software_supply_chain) generation for all builds. For instance, use [pipeline templates](/docs/pipelines/governance/templates) to ensure every pipeline in your Buildkite organization inherits predetermined configurations and maintains consistent baseline protections.
 - Restrict plugin usage to [private](/docs/pipelines/integrations/plugins/using#plugin-sources) or [version-pinned](/docs/pipelines/integrations/plugins/using#pinning-plugin-versions) plugins to prevent supply chain attacks and ensure reproducible builds with known, vetted components.
-- Utilize only [verified Docker images](https://docs.docker.com/docker-hub/repos/manage/trusted-content/dvp-program/).
+- Use only [verified Docker images](https://docs.docker.com/docker-hub/repos/manage/trusted-content/dvp-program/).
 - Scope pipelines to specific [agent queues](/docs/agent/v3/queues#setting-an-agents-queue) to maintain separation between environments and prevent unauthorized access across build processes.
 - Use permission models to [target appropriate agents](/docs/pipelines/configure/defining-steps#targeting-specific-agents) for builds, ensuring sensitive workloads run only on designated, secured infrastructure.
 
