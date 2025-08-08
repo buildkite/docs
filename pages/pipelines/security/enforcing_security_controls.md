@@ -111,7 +111,7 @@ Buildkite enforces TLS encryption by default for all platform communications, en
   * [AWS S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket)
   * [Google Cloud Storage buckets](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket)
   * [Azure Blob containers](/docs/agent/v3/cli-artifact#using-your-private-azure-blob-container)
-- Implement artifact signing using Buildkite's [SLSA provenance](/docs/package-registries/security/slsa-provenance) feture, or alternatively using [in-toto](https://in-toto.io/) or [cosign](https://github.com/sigstore/cosign), and establish verification processes before deployment to document artifact provenance and detect tampering.
+- Implement artifact signing using Buildkite's [SLSA provenance](/docs/package-registries/security/slsa-provenance) feature, or alternatively using [in-toto](https://in-toto.io/) or [cosign](https://github.com/sigstore/cosign), and establish verification processes before deployment to document artifact provenance and detect tampering.
 - Enforce [KMS signing](/docs/agent/v3/signed-pipelines#aws-kms-managed-key-setup) of the stored artifacts.
 
 ## Consistent pipeline-as-code approach
