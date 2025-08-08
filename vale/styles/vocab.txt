@@ -247,6 +247,9 @@ shellscripting
 Shipit
 signaltometrics
 snake_case
+Sonar
+SonarCloud
+SonarCube
 Sonoma
 Splitter's
 sre

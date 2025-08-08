@@ -499,6 +499,10 @@
               path: "pipelines/integrations/observability/datadog"
             - name: "OpenTelemetry"
               path: "pipelines/integrations/observability/opentelemetry"
+        - name: "Security"
+          children:
+            - name: "SonarQube"
+              path: "pipelines/integrations/security/sonar"
         - name: "Other integrations"
           children:
             - name: "Amazon EventBridge"

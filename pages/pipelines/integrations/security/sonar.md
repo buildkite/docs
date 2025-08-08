@@ -1,73 +1,85 @@
-# SonarScanner CLI Tutorial
+# SonarScanner CLI integration tutorial
 
-The [SonarScanner CLI](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/) integration allows you to perform static code analysis of your projects using your [SonarQube](https://docs.sonarsource.com/sonarqube-server/latest/) server directly within your Buildkite pipelines.
-
-## Overview
+The [SonarScanner CLI](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/) integration enables static code analysis of your projects using SonarQube or SonarCloud directly within your Buildkite pipelines.
 
 SonarScanner analyzes your code for bugs, vulnerabilities, and code smells across 25+ programming languages. This integration is designed for self-hosted SonarQube instances, with optional support for SonarCloud as an alternative.
+
+This page is a tutorial that covers both self-hosted SonarQube instances and SonarCloud integration.
 
 ## Prerequisites
 
 Before configuring SonarScanner in your Buildkite pipeline, ensure you have:
 
-1. SonarQube account
-2. Authentication token 
-    - Generated from your SonarQube account settings
-    - Stored securely using your choice of [Buildkite secrets management](https://buildkite.com/docs/pipelines/security/secrets/managing) service. This tutorial uses  [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) and the [AWS Secrets Manager Buildkite Plugin](https://buildkite.com/resources/plugins/seek-oss/aws-sm-buildkite-plugin/)
+This tutorial uses [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) and the [AWS Secrets Manager Buildkite Plugin](https://buildkite.com/resources/plugins/seek-oss/aws-sm-buildkite-plugin/).
 
-# Configuration Approaches
+Before configuring SonarScanner in your Buildkite pipeline, ensure you have:
 
-SonarScanner can be configured using **environment variables** or a **properties file**. The recommended approach is to use environment variables for sensitive authentication and properties files for project-specific settings.
+1. **SonarQube account** (self-hosted) or **SonarCloud account** (SaaS)
+1. **Authentication token** that is:
+   - Generated from your SonarQube/SonarCloud account settings
+   - Stored securely using [Buildkite secrets management](/docs/pipelines/security/secrets/managing)
+1. **Secrets management solutions** - this tutorial demonstrates [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) with the [AWS Secrets Manager Buildkite Plugin](https://buildkite.com/resources/plugins/seek-oss/aws-sm-buildkite-plugin/).
 
-## Environment Variables
+## Configuration strategy
+
+SonarScanner supports two configuration methods: environment variables for authentication and runtime settings, and properties files for project-specific configuration.
+
+**Recommended approach:** Use environment variables for sensitive authentication data (tokens, URLs) and properties files for project-specific settings.
+
+## Environment variables
 
 Use environment variables in your pipeline for authentication and server configuration:
 
 | Environment Variable | Description |
 | --- | --- |
-| `SONAR_TOKEN` | **Required.** Authentication token for your SonarQube server<br>*Example:* `squ_a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0`<br>**Security:** Store using [secrets management](https://www.notion.so/docs/pipelines/security/secrets/managing) |
+| `SONAR_TOKEN` | **Required.** Authentication token for your SonarQube server<br>*Example:* `squ_a1***********0`<br>**Security:** Store using [secrets management](/docs/pipelines/security/secrets/managing) |
 | `SONAR_HOST_URL` | **Required.** URL of your SonarQube server<br>*Example:* `https://sonarqube.mycompany.com` or `https://sonar.internal.company.com` |
 
-## Properties File Configuration
+## Properties file configuration
 
-Create a `sonar-project.properties` file in your repository root for project-specific configuration:
+Create a `sonar-project.properties` file in your repository root to define project-specific settings:
 
-```
+```properties
 # SonarQube configuration
 sonar.host.url=https://sonarqube.mycompany.com
 sonar.projectKey=sample-project
 sonar.projectName=Multi-Language Sample Project
 sonar.projectVersion=1.0
-
 # Source configuration
 sonar.sources=src,lib,scripts
 sonar.sourceEncoding=UTF-8
-
 # Working directory (adjust based on execution environment but default is root)
 sonar.working.directory="./.scannerwork"
-
 # Exclusions
 sonar.exclusions=**/.git/**,**/.buildkite/**,**/node_modules/**,**/target/**,**/*.jar,**/*.class
-
 # Language-specific settings (optional)
 sonar.javascript.lcov.reportPaths=coverage/lcov.info
 sonar.python.coverage.reportPaths=coverage.xml
 sonar.java.binaries=target/classes
 ```
 
-> 📘 Configuration Precedence
-> 
-> 
-> Environment variables take precedence over properties file settings. This design allows you to keep project configuration in version control while securely managing authentication through Buildkite's secrets management.
-> 
+### Understanding Key Properties
 
-# Implementation Approaches
+- **sonar.sources** - comma-separated list of directories containing source code, relative to project root.
+- **sonar.working.directory** - directory where SonarScanner stores temporary analysis files. Must be writable by the execution user.
+- **sonar.exclusions** - files and directories to exclude from analysis using Ant-style patterns (`**` = any subdirectories, `*` = any characters).
+- **sonar.tests** - directories containing test files, separate from main source analysis.
 
-## Approach 1: Pre-installed Binary
+> 📘 Configuration precedence
+> Environment variables take precedence over the settings in the properties file. This design allows you to keep project configuration in version control while securely managing authentication through Buildkite's secrets management.
 
-This approach uses the sonar-scanner CLI binary installed directly on your Buildkite agents. Below is an example for [Buildkite Elastic CI Stack for AWS](https://buildkite.com/docs/agent/v3/aws/elastic-ci-stack).
+## Implementation approaches
 
-### **Step 1: Update Launch Template Userdata**
+Choose between two deployment approaches based on your infrastructure preferences and agent setup:
+
+- [Pre-installed binary](/docs/pipelines/integrations/security/sonar#implementation-approaches-pre-installed-binary-approach) - install SonarScanner directly on your Buildkite agents for faster execution and reduced container overhead.
+- [Docker image](/docs/pipelines/integrations/security/sonar#implementation-approaches-docker-image-approach) - use the official SonarScanner Docker image for consistent environments and simplified agent setup
+
+### Pre-installed binary approach
+
+This approach uses the sonar-scanner CLI binary installed directly on your Buildkite agents. Below is an example for [Buildkite Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack).
+
+#### Update launch template userdata
 
 Add the following installation script to your Auto Scaling Group's launch template userdata:
 
@@ -99,20 +111,21 @@ EOF
 echo "SonarScanner installation completed"
 ```
 
-### **Step 2: Deploy Launch Template Updates**
+#### Deploy launch template updates
 
 Update your existing launch template with the new userdata script, create a new version, and configure your Auto Scaling Group to use the updated template. This ensures new agent instances will have SonarScanner pre-installed.
 
-### **Step 3: Pipeline Configuration**
+#### Pipeline configuration
 
-```
+Configure your pipeline configuration file to be able to run the `sonar-scanner`.
+
+```yaml
 steps:
   - label: " 📊 SonarQube Analysis"
     command: |
       # Wait for sonar-scanner availability
       echo "⏳ Ensuring sonar-scanner is ready..."
       timeout 30 bash -c 'while [[ ! -x "/opt/sonar-scanner/bin/sonar-scanner" ]]; do sleep 5; done'
-
       # Run SonarScanner analysis
       /opt/sonar-scanner/bin/sonar-scanner
     env:
@@ -124,11 +137,11 @@ steps:
             SONAR_TOKEN: path/to/your/sonar-token
 ```
 
-## Approach 2: Docker Image
+### Docker image approach
 
-This approach uses the official SonarScanner Docker image, eliminating the need for agent setup. This tutorial uses the [Docker Buildkite Plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/).
+This approach uses the official SonarScanner Docker image, eliminating the need for agent setup. This tutorial uses the [Docker Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/).
 
-```
+```yaml
 steps:
   - label: " 📊 SonarQube Analysis"
     env:
@@ -145,46 +158,41 @@ steps:
           propagate-environment: true
 ```
 
-## Working Directory Configuration
+#### Configure your working directory
 
-When using a properties file option, adjust your working directory, for example:
+When using Docker, adjust your `sonar-project.properties` working directory, for example:
 
-```
-# For Docker execution 
+```terminal
+# For Docker execution
 sonar.working.directory=/usr/src/.scannerwork # Container runs as root
-
-# For native binary execution (e.g., Elastic CI stack) 
+# For native binary execution (e.g., Elastic CI stack)
 sonar.working.directory=/tmp/.scannerwork # Runs as buildkite-agent user
 ```
 
-# Templated Multi-Language Sample Project
+## Complete templated multi-language Sonar sample project
 
-This complete example demonstrates SonarScanner analysis against the [sample projects](https://github.com/SonarSource/sonar-scanning-examples/tree/master/sonar-scanner/src) using the **properties file approach**.
+This example demonstrates SonarScanner setup for running an analysis against the [sample projects](https://github.com/SonarSource/sonar-scanning-examples/tree/master/sonar-scanner/src) using the [pre-installed binary approach](/docs/pipelines/integrations/security/sonar#implementation-approaches-pre-installed-binary-approach).
 
-### Pipeline Configuration
+#### Pipeline configuration
 
-```
+```yaml
 steps:
   - label: "📥 Setup"
     command: |
       echo "🏗️  Multi-Language SonarScanner Analysis"
       echo "🎯 Analyzing 20+ language samples..."
-
   - label: "🔍 SonarCloud Analysis"
     command: |
       # Wait for sonar-scanner availability (Elastic CI Stack)
       echo "⏳ Ensuring sonar-scanner is ready..."
       timeout 30 bash -c 'while [[ ! -x "/opt/sonar-scanner/bin/sonar-scanner" ]]; do sleep 5; done'
-
       # Run analysis using properties file configuration
       /opt/sonar-scanner/bin/sonar-scanner
-
       echo "✅ Analysis completed successfully"
     plugins:
       - seek-oss/aws-sm#v2.3.3:
           env:
             SONAR_TOKEN: my-org/sonar-token
-
     # If using Docker
     #   - docker#v5.11.0:
     #       image: "sonarsource/sonar-scanner-cli:latest"
@@ -193,7 +201,7 @@ steps:
     #       propagate-environment: true
 ```
 
-### Properties File Configuration
+### Properties file configuration
 
 ```
 # SonarQube configuration
@@ -201,60 +209,70 @@ sonar.host.url=https://sonarqube.mycompany.com
 sonar.projectKey=sample-project
 sonar.projectName=Multi-Language Sample Project
 sonar.projectVersion=1.0
-
 # Comprehensive source analysis - scan all example projects
 sonar.sources=examples/
 sonar.sourceEncoding=UTF-8
-
 # Working directory (Elastic CI Stack)
 sonar.working.directory=/tmp/.scannerwork
 # Working directory (Docker execution)
 # sonar.working.directory=/usr/src/.scannerwork
-
 # Exclusions for clean analysis
 sonar.exclusions=**/.git/**,**/.buildkite/**,**/.scannerwork/**,**/images/**,**/target/**,**/build/**,**/gradle/**,**/node_modules/**,**/*.jar,**/*.class,**/vendor/**,**/__pycache__/**,**/*.pyc,**/dist/**,**/.terraform/**
 ```
+## Best practices
 
-# Troubleshooting
+- **Version Control** - store `sonar-project.properties` in your repository root.
+- **Security** - never commit authentication tokens; always use secrets management.
+- **Performance** - exclude unnecessary files to speed up analysis.
+- **Versioning** - use specific Docker image tags instead of `latest` in production.
 
-## Common Issues
+## Troubleshooting
 
-**SonarScanner binary not found (Elastic CI stack agent)**
+This section covers some common issues and proposed mitigations for SonarScanner.
+
+### SonarScanner binary not found (Elastic CI Stack)
 
 - Verify installation: `ls -la /opt/sonar-scanner/bin/sonar-scanner`
 - Check permissions: `chmod +x /opt/sonar-scanner/bin/sonar-scanner`
 - Verify PATH: `echo $PATH | grep sonar-scanner`
 
-**Authentication failures**
+### Authentication failures
 
 - Verify token is correctly stored in secrets manager
 - Check token permissions in SonarQube/SonarCloud
 - Ensure token hasn't expired
 
-**Analysis timeout or performance issues**
+### Analysis timeout or performance issues
 
 - Increase timeout for large projects
 - Exclude unnecessary files using `sonar.exclusions`
 
-**Docker permission issues**
+### Docker permission issues
 
 - Verify working directory permissions
 - Check Docker image version compatibility
 
-# SonarCloud Alternative
+## Using SonarCloud instead of SonarQube
 
-While this documentation focuses on self-hosted SonarQube, you can also use [SonarCloud](https://docs.sonarcloud.io/) (the hosted SaaS version) by making these simple adjustments:
+While this tutorial focuses on self-hosted SonarQube, you can also use [SonarCloud](https://docs.sonarcloud.io/) (the hosted SaaS version) by making a few adjustments.
 
-### **Environment Variables:**
+Environment variables changes:
 
 - `SONAR_HOST_URL`: Optional (defaults to `https://sonarcloud.io`)
 - `SONAR_TOKEN`: Required (also saved in your choice of Buildkite secrets management service)
 
-### **Properties File Changes:**
+Properties file changes:
 
-```
+```terminal
 # SonarCloud configuration
 sonar.host.url=https://sonarcloud.io # Optional (defaults to <https://sonarcloud.io>)
 sonar.projectKey=my-org_sample-project
 sonar.organization=my-org  # Required
 ```
+
+## Additional Resources
+
+- [SonarQube documentation](https://docs.sonarqube.org/latest/)
+- [SonarCloud documentation](https://docs.sonarcloud.io/)
+- [SonarScanner CLI reference](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/)
+- [Buildkite Secrets Management](/docs/pipelines/security/secrets/managing) documenation page

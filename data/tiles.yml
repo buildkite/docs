@@ -61,7 +61,7 @@ integrations:
       - text: "Writing plugins"
         url: "/docs/pipelines/integrations/plugins/writing"
   - title: "Notifications and observability"
-    desc: "Add notification services that allows Buildkite Pipelines to send notifications or data to third-party applications."
+    desc: "Add notification services that allow Buildkite Pipelines to send notifications or data to third-party applications."
     links:
       - text: "CCMenu & CCTray"
         url: "/docs/pipelines/integrations/notifications/cc-menu"
@@ -75,6 +75,11 @@ integrations:
         url: "/docs/pipelines/integrations/observability/datadog"
       - text: "OpenTelemetry"
         url: "/docs/pipelines/integrations/observability/opentelemetry"
+  - title: "Security"
+    desc: "Buildkite supports integrations that help harden your CI/CD security perimeter."
+    links:
+      - text: "SonarScanner CLI"
+        url: "/docs/pipelines/integrations/security/sonar"
   - title: "Other integrations"
     desc: "Buildkite offers other integrations to improve your workflow."
     links:
