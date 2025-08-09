@@ -8,7 +8,7 @@ Input steps block your build from completing, but do not automatically block oth
 
 An input step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/configure/defining-steps) file.
 
-```yml
+```yaml
 steps:
   - input: "Information please"
     fields:
@@ -17,13 +17,13 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can add form `fields` to block steps by adding a fields attribute. Block steps with input fields can only be defined using a `pipeline.yml`. There are two field types available: text or select. The select input type displays differently depending on how you configure the options. If you allow people to select multiple options, they display as checkboxes. If you are required to select only one option from six or fewer, they display as radio buttons. Otherwise, the options display in a dropdown menu.
+You can add form fields to input steps by adding a `fields` attribute. There are two field types available: `text` or `select`. The `select` input type displays differently depending on how you configure the options. If you allow users to select multiple options, those options display as checkboxes. If users are required to select only one option from six or fewer, those options display as radio buttons. Seven or more options display as a dropdown menu.
 
 The data you collect from these fields is available to subsequent steps through the [build meta-data](/docs/pipelines/configure/build-meta-data) command.
 
-In this example, the `pipeline.yml` defines an input step with the key `name`. The Bash script then accesses the value of the step using the [meta-data](/docs/agent/v3/cli-meta-data) command.
+In this example, the pipeline defines an input step with the key `name`. The Bash script then accesses the value of the step using the [meta-data](/docs/agent/v3/cli-meta-data) command.
 
-```yml
+```yaml
   - input: "Who is running this script?"
     fields:
       - text: "Your name"
@@ -89,10 +89,18 @@ Optional attributes:
     </td>
    </tr>
    <tr>
+     <td><code>blocked_state</code></td>
+     <td>
+       The state that the build is set to when the build is blocked by this block step. If you're using GitHub, you can also <a href="/docs/pipelines/source-control/github#customizing-commit-statuses">configure which GitHub status</a> to use for blocked builds on a per-pipeline basis.<br/>
+       <em>Default:</em> <code>passed</code><br/>
+       <em>Values:</em> <code>passed</code>, <code>failed</code>, <code>running</code>
+     </td>
+   </tr>
+   <tr>
     <td><code>key</code></td>
     <td>
       A unique string to identify the input step.<br/>
-      Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br/>
+      Keys cannot have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br/>
       <em>Example:</em> <code>"test-suite"</code><br/>
       <em>Alias:</em> <code>identifier</code>
     </td>
@@ -106,13 +114,13 @@ Optional attributes:
   </tr>
 </table>
 
-```yml
+```yaml
 steps:
   - input: "\:rocket\: Release!"
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Text input attributes
+## Text field attributes
 
 > 📘 Line endings
 > A text field normalizes line endings to Unix format (<code>\n</code>).
@@ -123,14 +131,14 @@ Required attributes:
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br/>
-      The key may only contain alphanumeric characters, slashes, dashes, or underscores.
+      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>).<br/>
+      The key may only contain alphanumeric characters, slashes, dashes, or underscores.<br/>
       <em>Example:</em> <code>"release-name"</code>
     </td>
   </tr>
 </table>
 
-```yml
+```yaml
 steps:
   - input: "Release information"
     fields:
@@ -170,9 +178,16 @@ Optional attributes:
       <em>Example:</em> <code>"Flying Dolphin"</code>
     </td>
   </tr>
+  <tr>
+    <td><code>format</code></td>
+    <td>
+      A regular expression used for <a href="#input-validation">input validation</a> that indicates invalid input.<br/>
+      <em>Example:</em> <code>"[a-zA-Z]+"</code>
+    </td>
+  </tr>
 </table>
 
-```yml
+```yaml
 steps:
   - input: "Request Release"
     fields:
@@ -184,7 +199,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Select input attributes
+## Select field attributes
 
 Required attributes:
 
@@ -192,8 +207,8 @@ Required attributes:
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br/>
-      The key may only contain alphanumeric characters, slashes, dashes, or underscores.
+      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>).<br/>
+      The key may only contain alphanumeric characters, slashes, dashes, or underscores.<br/>
       <em>Example:</em> <code>"release-stream"</code>
     </td>
   </tr>
@@ -201,32 +216,13 @@ Required attributes:
     <td><code>options</code></td>
     <td>
       The list of select field options.<br/>
-      For 6 or less options they'll be displayed as radio buttons, otherwise they'll be displayed in a dropdown box.<br/>
-      If selecting multiple options is permitted the options will be displayed as checkboxes.
+      For six or fewer options they'll be displayed as radio buttons, otherwise they'll be displayed in a dropdown box.<br/>
+      If selecting multiple options is permitted, the options will be displayed as checkboxes.
     </td>
   </tr>
 </table>
 
-Each select option has the following _required_ attributes:
-
-<table>
-  <tr>
-    <td><code>label</code></td>
-    <td>
-      The text displayed for the option.<br/>
-      <em>Example:</em> <code>"Stable"</code>
-    </td>
-  </tr>
-  <tr>
-    <td><code>value</code></td>
-    <td>
-      The value to be stored as meta-data (to be later retrieved using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br/>
-      <em>Example:</em> <code>"stable"</code>
-    </td>
-  </tr>
-</table>
-
-```yml
+```yaml
 steps:
   - input: "Request Release"
     fields:
@@ -262,7 +258,7 @@ Optional attributes:
     <td><code>multiple</code></td>
     <td>
       A boolean value that defines whether multiple options may be selected.<br/>
-      When multiple options are selected, they are delimited in the meta-data field by a line break (<code>\n</code>)<br/>
+      When multiple options are selected, they are delimited in the meta-data field by a line break (<code>\n</code>).<br/>
       <em>Default:</em> <code>false</code>
     </td>
   </tr>
@@ -276,22 +272,50 @@ Optional attributes:
   </tr>
 </table>
 
-```yml
+```yaml
 steps:
-  - input: "Release details"
+  - input: "Deploy To"
     fields:
-      - select: "Stream"
-        key: "release-stream"
-        hint: "Which release stream does this belong in? \:fork\:"
-        required: false
-        default: "beta"
+      - select: "Regions"
+        key: "deploy-regions"
+        hint: "Which regions should we deploy this to? \:earth_asia\:"
+        required: true
+        multiple: true
+        default:
+          - "na"
+          - "eur"
+          - "asia"
+          - "aunz"
         options:
-          - label: "Beta"
-            value: "beta"
-          - label: "Stable"
-            value: "stable"
+          - label: "North America"
+            value: "na"
+          - label: "Europe"
+            value: "eur"
+          - label: "Asia"
+            value: "asia"
+          - label: "Oceania"
+            value: "aunz"
 ```
 {: codeblock-file="pipeline.yml"}
+
+Each select option has the following _required_ attributes:
+
+<table>
+  <tr>
+    <td><code>label</code></td>
+    <td>
+      Descriptive text displayed for the option.<br/>
+      <em>Example:</em> <code>"Stable"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>value</code></td>
+    <td>
+      The value to be stored as meta-data (to be later retrieved using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>).<br/>
+      <em>Example:</em> <code>"stable"</code>
+    </td>
+  </tr>
+</table>
 
 ## Input validation
 
@@ -301,11 +325,11 @@ If you associate a regular expression to a field, the field outline will turn re
 
 To do it, use the following sample syntax:
 
-```yml
+```yaml
 steps:
   - input: "Click me!"
     fields:
-      - text: Must be hexadecimal
+      - text: "Must be hexadecimal"
         key: hex
         format: "[0-9a-f]+"
 ```

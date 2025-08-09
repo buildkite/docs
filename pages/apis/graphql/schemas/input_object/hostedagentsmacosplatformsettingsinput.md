@@ -33,6 +33,6 @@ Settings for Mac hosted agents on this queue
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>xcodeVersion</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></p><p>The Xcode version to pre-select (via xcode-select) on macOS hosted agent instances for this cluster queue</p></td></tr>
+    <tr><td><p><strong><code>macosVersion</code></strong><a href="/docs/apis/graphql/schemas/enum/hostedagentmacosversion" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM HostedAgentMacOSVersion"><code>HostedAgentMacOSVersion</code></a></p><p>The macOS version to use for macOS hosted agent instances for this cluster queue</p></td></tr><tr><td><p><strong><code>xcodeVersion</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></p><p>The Xcode version to pre-select (via xcode-select) on macOS hosted agent instances for this cluster queue</p></td></tr>
   </tbody>
 </table>

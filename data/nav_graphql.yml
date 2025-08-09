@@ -354,6 +354,8 @@
     path: apis/graphql/schemas/object/clusterqueuedeletepayload
   - name: ClusterQueueEdge
     path: apis/graphql/schemas/object/clusterqueueedge
+  - name: ClusterQueueMetrics
+    path: apis/graphql/schemas/object/clusterqueuemetrics
   - name: ClusterQueuePauseDispatchPayload
     path: apis/graphql/schemas/object/clusterqueuepausedispatchpayload
   - name: ClusterQueueResumeDispatchPayload
@@ -924,6 +926,8 @@
     path: apis/graphql/schemas/enum/hostedagentarchitecture
   - name: HostedAgentInstanceShapeName
     path: apis/graphql/schemas/enum/hostedagentinstanceshapename
+  - name: HostedAgentMacOSVersion
+    path: apis/graphql/schemas/enum/hostedagentmacosversion
   - name: HostedAgentMachineType
     path: apis/graphql/schemas/enum/hostedagentmachinetype
   - name: HostedAgentSize
