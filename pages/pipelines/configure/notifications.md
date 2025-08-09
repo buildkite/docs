@@ -459,7 +459,7 @@ steps:
 
 ### Notify only on first failure
 
-The `pipeline.started_failing` conditional is designed to send notifications **only when a pipeline transitions from passing to failing** - not for every failed build. This prevents excessive notifications while ensuring teams are immediately alerted when something breaks.
+The `pipeline.started_failing` conditional is designed to only send notifications when a pipeline transitions from passing to failing - and not for every failed build. This prevents excessive notifications while ensuring teams are immediately alerted when something goes wrong.
 
 #### Basic example
 
@@ -472,7 +472,7 @@ notify:
 
 #### When to use
 
-This conditional might be valuable for teams that:
+The `pipeline.started_failing` conditional might be valuable for teams that:
 
 * Want immediate alerts when something breaks but don't want repeated notifications for consecutive failures
 * Have flaky tests or environments where builds might fail multiple times in a row
@@ -480,7 +480,7 @@ This conditional might be valuable for teams that:
 
 ### Notify only on first pass
 
-The `pipeline.started_passing` conditional is designed to send notifications **only when a pipeline transitions from failing to passing** - not for every successful build. This prevents excessive notifications while ensuring teams are immediately alerted when issues are resolved.
+The `pipeline.started_passing` conditional is designed to only send notifications when a pipeline transitions from failing to passing - not for every successful build. This prevents excessive notifications while ensuring teams are immediately alerted when issues are resolved.
 
 #### Basic example
 
@@ -493,14 +493,14 @@ notify:
 
 #### When to use
 
-This conditional might be valuable for teams that:
+The `pipeline.started_passing` conditional might be valuable for teams that:
 
 * Need to track when build issues are resolved after failures
 * Prefer to avoid notifications for builds that were already passing
 
 ### Notify on all failures and first successful pass
 
-This combined pattern sends notifications for **all failed builds and the first successful build after failures**. It provides comprehensive failure coverage while avoiding excessive notifications for consecutive successful builds.
+This combined pattern sends notifications for all failed builds and the first successful build after failures. It provides comprehensive failure coverage while avoiding excessive notifications for consecutive successful builds.
 
 #### Basic example
 
@@ -524,7 +524,7 @@ notify:
 
 #### Alternative messaging for different states
 
-You can send different messages for failures vs. recoveries:
+You can send different messages to differentiate between failures and recoveries:
 
 ```yaml
 notify:
