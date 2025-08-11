@@ -42,7 +42,7 @@ Characters match themselves only, with the following syntax elements having spec
       },
       {
         "syntax_element": "{,}",
-        "meaning": "<code>{a,b,c}</code> matches <code>a</code> or <code>b</code> or <code>c</code>. A component can be empty, e.g. <code>{,a,b}</code> matches either nothing or <code>a</code> or <code>b</code>. Multiple path segments, <code>*</code>, <code>**</code>, etc are all allowed within <code>{}</code>. To specify a path containing <code>,</code> within <code>{}</code>, escape it (that is, use <code>\\,</code>)."
+        "meaning": "<code>{a,b,cd}</code> matches <code>a</code> or <code>b</code> or <code>cd</code>. A component can be empty, e.g. <code>{,a,b}</code> matches either nothing or <code>a</code> or <code>b</code>. Multiple path segments, <code>*</code>, <code>**</code>, etc are all allowed within <code>{}</code>. To specify a path containing <code>,</code> within <code>{}</code>, escape it (that is, use <code>\\,</code>)."
       },
       {
         "syntax_element": "[ ]",
@@ -90,15 +90,15 @@ Character classes (`[abc]`) and negated character classes (`[^abc]`) currently d
     <% [
       {
         "pattern": "foo?.txt",
-        "explanation": "Matches files in the current directory whose names start with <code>foo</code>, followed by any one arbitrary character, and ending with <code>.txt</code>"
+        "explanation": "Matches files in the current directory whose names start with <code>foo</code>, followed by any one arbitrary character, and ending with <code>.txt</code>."
       },
       {
         "pattern": "foo*.txt",
-        "explanation": "Matches files in the current directory whose names start with <code>foo</code>, followed by any number of other characters, and ending with <code>.txt</code>"
+        "explanation": "Matches files in the current directory whose names start with <code>foo</code>, followed by any number of other characters, and ending with <code>.txt</code>."
       },
       {
         "pattern": "foo\\?.txt",
-        "explanation": "Matches the file in the current directory named <code>foo?.txt</code>"
+        "explanation": "Matches the file in the current directory named <code>foo?.txt</code>."
       },
       {
         "pattern": "log????.out",
@@ -114,71 +114,71 @@ Character classes (`[abc]`) and negated character classes (`[^abc]`) currently d
       },
       {
         "pattern": "foo/*",
-        "explanation": "Matches all files within the <code>foo</code> directory only"
+        "explanation": "Matches all files within the <code>foo</code> directory only."
       },
       {
         "pattern": "foo/**",
-        "explanation": "Matches all files within the <code>foo</code> directory, or any subdirectory of <code>foo</code>"
+        "explanation": "Matches all files within the <code>foo</code> directory, as well as any subdirectory of <code>foo</code>."
       },
       {
         "pattern": "*.go",
-        "explanation": "Matches all Go files within the current directory only"
+        "explanation": "Matches all Go files within the current directory only."
       },
       {
         "pattern": "**.go",
-        "explanation": "Matches all Go files within the current directory or any subdirectory"
+        "explanation": "Matches all Go files within the current directory as well as any of its subdirectories."
       },
       {
         "pattern": "**/*.go",
-        "explanation": "Equivalent to <code>**.go</code>"
+        "explanation": "Equivalent to <code>**.go</code>."
       },
       {
         "pattern": "foo/**.go",
-        "explanation": "Matches all Go files within the <code>foo</code> directory or any subdirectory"
+        "explanation": "Matches all Go files within the <code>foo</code> directory as well as any of its subdirectories."
       },
       {
         "pattern": "foo/**/*.go",
-        "explanation": "Equivalent to <code>foo/**.go</code>"
+        "explanation": "Equivalent to <code>foo/**.go</code>."
       },
       {
         "pattern": "foo/**/bar/*",
-        "explanation": "Matches all files in every subdirectory named <code>bar</code> anywhere among the subdirectories of <code>foo</code> (including e.g. <code>foo/bar</code> and <code>foo/tmp/logs/bar</code>)"
+        "explanation": "Matches all files in every subdirectory named <code>bar</code> anywhere within the <code>foo</code> directory (including, for example, both <code>foo/bar</code> and <code>foo/tmp/logs/bar</code>)."
       },
       {
         "pattern": "{foo,bar}.go",
-        "explanation": "Matches the files <code>foo.go</code> and <code>bar.go</code> (in the current directory)"
+        "explanation": "Matches the files <code>foo.go</code> and <code>bar.go</code> in the current directory."
       },
       {
         "pattern": "foo{,bar}.go",
-        "explanation": "Matches the files <code>foo.go</code> and <code>foobar.go</code> (in the current directory)"
+        "explanation": "Matches the files <code>foo.go</code> and <code>foobar.go</code> in the current directory."
       },
       {
         "pattern": "go.{mod,sum}",
-        "explanation": "Matches the files <code>go.mod</code> and <code>go.sum</code> (in the current directory)"
+        "explanation": "Matches the files <code>go.mod</code> and <code>go.sum</code> in the current directory."
       },
       {
         "pattern": "**/go.{mod,sum}",
-        "explanation": "Matches <code>go.mod</code> and <code>go.sum</code> within the current directory or any subdirectory"
+        "explanation": "Matches <code>go.mod</code> and <code>go.sum</code> within the current directory as well as any of its subdirectories."
       },
       {
         "pattern": "{foo,bar}/**.go",
-        "explanation": "Matches all Go files within the <code>foo</code> directory, the <code>bar</code> directory, or any of their subdirectories"
+        "explanation": "Matches all Go files within the <code>foo</code> directory, the <code>bar</code> directory, as well as any of their subdirectories."
       },
       {
         "pattern": "{foo/**.go,fixtures/**}",
-        "explanation": "Matches all Go files within the <code>foo</code> directory and its subdirectories, and all files within the <code>fixtures</code> directory and its subdirectories"
+        "explanation": "Matches all Go files within the <code>foo</code> directory as well as its subdirectories, and all files within the <code>fixtures</code> directory as well as its subdirectories."
       },
       {
         "pattern": "side[AB]",
-        "explanation": "Matches the files <code>sideA</code> and <code>sideB</code> (in the current directory)"
+        "explanation": "Matches the files <code>sideA</code> and <code>sideB</code> in the current directory."
       },
       {
         "pattern": "scale_[ABCDEFG]",
-        "explanation": "Matches the files <code>scale_A</code> through <code>scale_G</code> (in the current directory)"
+        "explanation": "Matches the files <code>scale_A</code> through <code>scale_G</code> in the current directory."
       },
       {
         "pattern": "~/.bash_profile",
-        "explanation": "Matches the <code>.bash_profile</code> file in the current user's home directory"
+        "explanation": "Matches the <code>.bash_profile</code> file in the current user's home directory."
       }
     ].select { |field| field[:pattern] }.each do |field| %>
       <tr>
