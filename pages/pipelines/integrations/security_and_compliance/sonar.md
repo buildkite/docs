@@ -117,7 +117,7 @@ Configure your pipeline configuration file to be able to run the `sonar-scanner`
 
 ```yaml
 steps:
-  - label: " 📊 SonarQube Analysis"
+  - label: "📊 SonarQube Analysis"
     command: |
       # Wait for sonar-scanner availability
       echo "⏳ Ensuring sonar-scanner is ready..."
@@ -139,7 +139,7 @@ This approach uses the official SonarScanner Docker image, eliminating the need 
 
 ```yaml
 steps:
-  - label: " 📊 SonarQube Analysis"
+  - label: "📊 SonarQube Analysis"
     env:
       SONAR_HOST_URL: "<https://sonarqube.mycompany.com>"
       SONAR_PROJECT_CONFIG: "./config/sonar-project.properties"
