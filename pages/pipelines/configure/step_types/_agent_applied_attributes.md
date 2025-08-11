@@ -4,7 +4,7 @@ These attributes are only applied by the Buildkite Agent when uploading a pipeli
   <tr>
     <td><code>if_changed</code></td>
     <td>
-      A <a href="https://github.com/DrJosh9000/zzglob?tab=readme-ov-file#pattern-syntax">glob pattern</a> that omits the step from a build if it does not match any files changed in the build. <br/>
+      A <a href="/docs/pipelines/configure/glob-pattern-syntax">glob pattern</a> that omits the step from a build if it does not match any files changed in the build. <br/>
       <em>Example:</em> <code>{**.go,go.mod,go.sum,fixtures/**}</code><br/>
       <em>Minimum Buildkite Agent version:</em> v3.99 (with <code>--apply-if-changed</code> flag), v3.103.0 (enabled by default)
     </td>
