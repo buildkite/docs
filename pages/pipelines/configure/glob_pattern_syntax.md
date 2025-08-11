@@ -1,22 +1,15 @@
 # Glob pattern syntax
 
-A glob pattern is "what a file name looks like". Glob patterns are a compact way
-of referring to multiple files at once, by
-writing a pattern that is used to find all file paths that match that pattern.
+A glob pattern is a representation of a file name and optionally its path, and is a compact way of specifying multiple files with a single pattern. You can use a glob pattern to find all files in paths that match that pattern.
 
-This syntax is used for glob patterns supported in pipelines for artifact
-uploads (using either `artifact_paths` in a pipeline or
-`buildkite-agent artifact upload`), and `if_changed` conditions on pipeline
-steps.
+This syntax is used for glob patterns supported in pipelines for artifact uploads (using either [`artifact_paths`](/docs/pipelines/configure/step-types/command-step#command-step-attributes) in a pipeline or [`buildkite-agent artifact upload`](/docs/agent/v3/cli-pipeline)), and `if_changed` conditions on [command](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes), [trigger](/docs/pipelines/configure/step-types/trigger-step#agent-applied-attributes) or [group](/docs/pipelines/configure/step-types/group-step#agent-applied-attributes) pipeline steps.
 
 > 📘 Full path matching
-> Glob patterns must match whole path strings, not just substrings. However
-> they are usually evaluated relative to the current directory.
+> Glob patterns must match whole path strings, and cannot be used to represent substrings. However, glob patters are usually evaluated relative to the current directory.
 
 ## Syntax elements
 
-Characters match themselves only, with the following syntax elements having
-special meaning.
+Characters match themselves only, with the following syntax elements having special meaning.
 
 <table>
   <thead>
@@ -29,11 +22,11 @@ special meaning.
     <% [
       {
         "syntax_element": "\\",
-        "meaning": "Used to <em>escape</em> the next character in the pattern, preventing it from being treated as special syntax. The escaped character matches itself exactly. For example, <code>\\*</code> matches <code>*</code> (<em>not</em> zero or more arbitrary characters). Note that on Windows, <code>\\</code> and <code>/</code> have swapped meanings."
+        "meaning": "Used to <em>escape</em> the next character in the pattern, preventing it from being treated as special syntax. An escaped character matches itself exactly. For example, <code>\\*</code> matches <code>*</code> (<em>not</em> zero or more arbitrary characters). Note that on Windows, <code>\\</code> and <code>/</code> have swapped meanings."
       },
       {
         "syntax_element": "/",
-        "meaning": "The path separator. Separates segments of each path. Within a path, it matches itself only. Note that on Windows, <code>\\</code> and <code>/</code> have swapped meanings."
+        "meaning": "The path separator. Separates segments of each path. Within a path, <code>/</code> matches itself only. Note that on Windows, <code>\\</code> and <code>/</code> have swapped meanings."
       },
       {
         "syntax_element": "?",
@@ -45,15 +38,15 @@ special meaning.
       },
       {
         "syntax_element": "**",
-        "meaning": "Matches zero or more arbitrary characters, including the path separator <code>/</code>. Since it can be used to mean zero or more path components, <code>/**/</code> also matches <code>/</code>."
+        "meaning": "Matches zero or more arbitrary characters, including the path separator <code>/</code>. Since <code>**</code> can be used to mean zero or more path components, <code>/**/</code> also matches <code>/</code>."
       },
       {
         "syntax_element": "{,}",
-        "meaning": "<code>{a,b,c}</code> matches <code>a</code> or <code>b</code> or <code>c</code>. A component can be empty, e.g. <code>{,a,b}</code> matches either nothing or <code>a</code> or <code>b</code>. Multiple path segments, <code>*</code>, <code>**</code>, etc are all allowed within <code>{}</code>. To specify a path containing <code>,</code> within <code>{}</code>, escape it (<code>\\,</code>)."
+        "meaning": "<code>{a,b,c}</code> matches <code>a</code> or <code>b</code> or <code>c</code>. A component can be empty, e.g. <code>{,a,b}</code> matches either nothing or <code>a</code> or <code>b</code>. Multiple path segments, <code>*</code>, <code>**</code>, etc are all allowed within <code>{}</code>. To specify a path containing <code>,</code> within <code>{}</code>, escape it (that is, use <code>\\,</code>)."
       },
       {
         "syntax_element": "[ ]",
-        "meaning": "<code>[abc]</code> matches a single character (<code>a</code> or <code>b</code> or <code>c</code>). <code>[]</code> is a shorter way to write a match for a single character than <code>{,}</code>. Note that ranges are currently not supported."
+        "meaning": "<code>[abc]</code> matches single characters only (<code>a</code> or <code>b</code> or <code>c</code>). <code>[]</code> is a shorter way to write a match for a single character than <code>{,}</code>. Note that ranges are currently not supported."
       },
       {
         "syntax_element": "[^ ]",
@@ -76,13 +69,13 @@ special meaning.
   </tbody>
 </table>
 
-> 📘 On Windows
-> `\` is the path separator on Windows, and `/` is the escape character when the agent performing the action is running on Windows, as unlike other platforms, `\` is the standard Windows path separator.
+### On Windows
 
-Also note the following about character classes.
+The path separator on Windows is `\`, and therefore, `/` is the escape character when the agent performing the action is running on Windows. On other operating system platforms, `/` is the standard path separator and `\` is the standard escape character for the agent.
 
-> 📘 Character classes
-> Character classes (`[abc]`) and negated character classes (`[^abc]`) currently do _not_ support ranges, and `-` is treated literally. For example, `[c-g]` only matches one of `c`, `g`, or `-`.
+### Character classes
+
+Character classes (`[abc]`) and negated character classes (`[^abc]`) currently do _not_ support ranges, and `-` is treated literally. For example, `[c-g]` only matches one of `c`, `g`, or `-`.
 
 ## Examples
 
