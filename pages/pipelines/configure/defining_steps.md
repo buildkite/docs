@@ -209,7 +209,7 @@ Timestamp        | Description
 `scheduled_at`   | When the job was intended to run. This is set during initial job creation and defaults to the job's `created_at` timestamp.
 `runnable_at`    | When the job became ready for agent assignment and eligible to run. This is set when the job transitions to the `scheduled` state after resolving dependencies (for example, wait steps, manual blocks, concurrency limits).
 `started_at`     | When an agent confirmed it had started running the job (and the job transitions to the `running` state). This occurs after the job has been `assigned` to an agent, `accepted` by the agent, and the agent sends the first log output indicating that the execution has begun.
-`finished_at`    | When the job reaches a terminal state (`finished`, `canceled`, `timed_out`, `skipped`, or `expired`). This marks the completion of the job's execution, whether successful or not.
+`finished_at`    | When the job reaches a terminal state (`finished`, `canceled`, `timed_out`, `skipped`, or `expired`). Transitioning to this state marks the completion of the job's execution, whether successful or not.
 {: class="two-column"}
 
 ## Example pipeline
