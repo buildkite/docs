@@ -68,8 +68,8 @@ sonar.java.binaries=target/classes
 
 Choose between two deployment approaches based on your infrastructure preferences and agent setup:
 
-- [Pre-installed binary](/docs/pipelines/integrations/security/sonar#implementation-approaches-pre-installed-binary-approach) - install SonarScanner directly on your Buildkite agents for faster execution and reduced container overhead.
-- [Docker image](/docs/pipelines/integrations/security/sonar#implementation-approaches-docker-image-approach) - use the official SonarScanner Docker image for consistent environments and simplified agent setup
+- [Pre-installed binary](/docs/pipelines/integrations/security-and-compliance/sonar#implementation-approaches-pre-installed-binary-approach) - install SonarScanner directly on your Buildkite agents for faster execution and reduced container overhead.
+- [Docker image](/docs/pipelines/integrations/security-and-compliance/sonar#implementation-approaches-docker-image-approach) - use the official SonarScanner Docker image for consistent environments and simplified agent setup
 
 ### Pre-installed binary approach
 
