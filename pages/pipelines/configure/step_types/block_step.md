@@ -65,7 +65,7 @@ Optional attributes:
   <tr>
     <td><code>fields</code></td>
     <td>
-      A list of input fields required to be filled out before unblocking the step.
+      A list of input fields required to be filled out before unblocking the step.<br/>
       Available input field types: <code>text</code>, <code>select</code>
     </td>
   </tr>
@@ -75,6 +75,14 @@ Optional attributes:
       The state that the build is set to when the build is blocked by this block step. The default is <code>passed</code>. When the <code>blocked_state</code> of a block step is set to <code>failed</code>, the step that triggered it will be stuck in the <code>running</code> state until it is manually unblocked. If you're using GitHub, you can also <a href="/docs/pipelines/source-control/github#customizing-commit-statuses">configure which GitHub status</a> to use for blocked builds on a per-pipeline basis.<br/>
       <em>Default:</em> <code>passed</code><br/>
       <em>Values:</em> <code>passed</code>, <code>failed</code>, <code>running</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>allowed_teams</code></td>
+    <td>
+      A list of teams that are permitted to unblock this step, whose values are a list of one or more team slugs or IDs. If this field is specified, a user must be a member of one of the teams listed in order to unblock.<br/>
+      The use of <code>allowed_teams</code> replaces the need for write access to the pipeline, meaning a member of an allowed team with read-only access may unblock the step. Learn more about this attribute in the <a href="#permissions">Permissions</a> section.<br/>
+      <em>Example:</em> <code>["deployers", "approvers", "b50084ea-4ed1-405e-a204-58bde987f52b"]</code><br/>
     </td>
   </tr>
   <tr>
@@ -322,6 +330,23 @@ Each select option has the following _required_ attributes:
     </td>
   </tr>
 </table>
+
+## Permissions
+
+To unblock a block step, a user must either have write access to the pipeline, or where the [`allowed_teams` attribute](#block-step-attributes) is specified, the user must belong to one of the allowed teams. When `allowed_teams` is specified, a user who has write access to the pipeline but is not a member of any of the allowed teams will not be permitted to unblock the step.
+
+The `allowed_teams` attribute serves as a useful way to restrict unblock permissions to a subset of users without restricting the ability to create builds. Conversely, this attribute is also useful for granting unblock permissions to users _without_ also granting the ability create builds.
+
+```yml
+- block: "Release"
+  prompt: "Fill out the details for release"
+  allowed_teams:
+    - "approvers"
+  fields:
+    - text: "Release Name"
+      key: "release-name"
+```
+{: codeblock-file="pipeline.yml"}
 
 ## Passing block step data to other steps
 

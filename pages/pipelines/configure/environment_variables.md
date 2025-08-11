@@ -215,9 +215,14 @@ In the final job environment, the value of `MY_ENV1` would be `"c"`.
 There are two places in a pipeline.yml file that you can set environment variables:
 
   1. In the `env` attribute of command and trigger steps.
-  2. In the `env` attribute at the top of the yaml file, before you define your pipeline's steps.
+  1. In the `env` attribute at the top of the yaml file, before you define your pipeline's steps.
 
-Defining an environment variable at the top of your yaml file will set that variable on each of the command steps in the pipeline, and is equivalent to setting the `env` attribute on every step. This includes further pipeline uploads through `buildkite-agent pipeline upload`.
+Defining an environment variable at the top of your yaml file will set that variable on each of the command steps in the pipeline that have not already started running, and is equivalent to setting the `env` attribute on every step. This includes further pipeline uploads through `buildkite-agent pipeline upload`.
+
+> 🚧 Concurrent pipeline uploads and environment variables
+> Concurrent pipeline uploads with build-level environment variables can cause unpredictable behavior by modifying the environment for steps that haven't started yet.
+> This affects steps running after pipeline uploads, signed pipeline steps (where environment variables affect signature verification), and jobs that depend on specific environment variable values.
+> Issues typically occur when multiple pipeline uploads that include build-level environment variables happen at the same time or set the same environment variable to different values.
 
 #### Setting variables in a Trigger step
 
