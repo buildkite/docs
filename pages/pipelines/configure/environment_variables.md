@@ -221,13 +221,8 @@ Defining an environment variable at the top of your yaml file will set that vari
 
 > 🚧 Concurrent pipeline uploads and environment variables
 > Concurrent pipeline uploads with build-level environment variables can cause unpredictable behavior by modifying the environment for steps that haven't started yet.
-> What is affected:
-> * Steps running after pipeline uploads
-> * Signed pipeline steps (environment variables affect signature verification)
-> * Jobs that depend on specific environment variable values
-> Issues arise when multiple pipeline uploads that include build-level environment variables:
-> * Happen at the same time
-> * Set the same environment variable to different values
+> This affects steps running after pipeline uploads, signed pipeline steps (where environment variables affect signature verification), and jobs that depend on specific environment variable values.
+> Issues typically occur when multiple pipeline uploads that include build-level environment variables happen at the same time or set the same environment variable to different values.
 
 #### Setting variables in a Trigger step
 
