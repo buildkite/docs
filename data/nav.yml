@@ -521,7 +521,7 @@
             - name: "Security and compliance plugins"
               path: "pipelines/integrations/security-and-compliance/plugins"
             - name: "SonarScanner CLI tutorial"
-              path: "pipelines/integrations/security/sonar"
+              path: "pipelines/integrations/security-and-compliance/sonar"
         - name: "Secrets"
           children:
             - name: "Secrets plugins"
