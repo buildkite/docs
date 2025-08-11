@@ -125,7 +125,7 @@ Timestamp        | Description
 ---------------- | -----------
 `created_at`     | When the build record was initially created in the database. This happens when a build is first triggered (via API, webhook, UI, etc.) and the build enters the `creating` state.
 `scheduled_at`   | When the build is scheduled to run. For scheduled builds (triggered from pipeline schedules), this represents the intended execution time.
-`started_at`     | When the build actually begins executing (transitions from `scheduled` to `started` state). This occurs when the first job starts running, marking the build as active.
+`started_at`     | When the build begins executing (transitions from `scheduled` to `started` state). This occurs when the first job starts running, marking the build as active.
 `finished_at`    | When the build reaches a terminal state (`passed`, `failed`, `canceled`, `skipped`, or `not_run`). This is set when all jobs are complete and the build's final state is determined.
 {: class="two-column"}
 
