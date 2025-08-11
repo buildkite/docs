@@ -197,7 +197,7 @@ See [Build timeouts](/docs/pipelines/configure/build-timeouts) for information a
 Each job in a build also has a footer that displays exit status information. It may include an exit signal reason, which indicates whether the Buildkite agent stopped or the job was canceled.
 
 >🚧
-> Exit status information available in the <a href="/docs/apis/graphql-api">GraphQL API</a> but not the <a href="/docs/apis/rest-api">REST API</a>.
+> Exit status information is available in the <a href="/docs/apis/graphql-api">GraphQL API</a> but not the <a href="/docs/apis/rest-api">REST API</a>.
 
 ### Job timestamps
 
