@@ -167,7 +167,7 @@ sonar.working.directory=/tmp/.scannerwork # Runs as buildkite-agent user
 
 ## Complete templated multi-language Sonar sample project
 
-This example demonstrates SonarScanner setup for running an analysis against the [sample projects](https://github.com/SonarSource/sonar-scanning-examples/tree/master/sonar-scanner/src) using the [pre-installed binary approach](/docs/pipelines/integrations/security/sonar#implementation-approaches-pre-installed-binary-approach).
+This example demonstrates SonarScanner setup for running an analysis against the [sample projects](https://github.com/SonarSource/sonar-scanning-examples/tree/master/sonar-scanner/src) using the [pre-installed binary approach](/docs/pipelines/integrations/security-and-compliance/sonar#implementation-approaches-pre-installed-binary-approach).
 
 #### Pipeline configuration
 
