@@ -10,10 +10,6 @@ This page is a tutorial that covers both self-hosted SonarQube instances and Son
 
 Before configuring SonarScanner in your Buildkite pipeline, ensure you have:
 
-This tutorial uses [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) and the [AWS Secrets Manager Buildkite Plugin](https://buildkite.com/resources/plugins/seek-oss/aws-sm-buildkite-plugin/).
-
-Before configuring SonarScanner in your Buildkite pipeline, ensure you have:
-
 1. **SonarQube account** (self-hosted) or **SonarCloud account** (SaaS)
 1. **Authentication token** that is:
    - Generated from your SonarQube/SonarCloud account settings
@@ -33,7 +29,7 @@ Use environment variables in your pipeline for authentication and server configu
 | Environment Variable | Description |
 | --- | --- |
 | `SONAR_TOKEN` | **Required.** Authentication token for your SonarQube server<br>*Example:* `squ_a1***********0`<br>**Security:** Store using [secrets management](/docs/pipelines/security/secrets/managing) |
-| `SONAR_HOST_URL` | **Required.** URL of your SonarQube server<br>*Example:* `https://sonarqube.mycompany.com` or `https://sonar.internal.company.com` |
+| `SONAR_HOST_URL` | **Required.** URL of your SonarQube server<br>*Example:* `https://sonarqube.mycompany.com` or `https://sonar.internal.mycompany.com` |
 
 ## Properties file configuration
 
@@ -48,7 +44,7 @@ sonar.projectVersion=1.0
 # Source configuration
 sonar.sources=src,lib,scripts
 sonar.sourceEncoding=UTF-8
-# Working directory (adjust based on execution environment but default is root)
+# Working directory (adjust based on execution environment; default is root)
 sonar.working.directory="./.scannerwork"
 # Exclusions
 sonar.exclusions=**/.git/**,**/.buildkite/**,**/node_modules/**,**/target/**,**/*.jar,**/*.class
@@ -89,7 +85,7 @@ Add the following installation script to your Auto Scaling Group's launch templa
 # Download and install SonarScanner CLI
 echo "Installing SonarScanner CLI..."
 cd /opt
-sudo wget <https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip>
+sudo wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
 sudo unzip sonar-scanner-cli-5.0.1.3006-linux.zip
 sudo ln -s sonar-scanner-5.0.1.3006-linux sonar-scanner
 
@@ -219,13 +215,6 @@ sonar.working.directory=/tmp/.scannerwork
 # Exclusions for clean analysis
 sonar.exclusions=**/.git/**,**/.buildkite/**,**/.scannerwork/**,**/images/**,**/target/**,**/build/**,**/gradle/**,**/node_modules/**,**/*.jar,**/*.class,**/vendor/**,**/__pycache__/**,**/*.pyc,**/dist/**,**/.terraform/**
 ```
-
-## Best practices
-
-- **Version control** - store `sonar-project.properties` in your repository root.
-- **Security** - never commit authentication tokens; always use secrets management.
-- **Performance** - exclude unnecessary files to speed up analysis.
-- **Versioning** - use specific Docker image tags instead of `latest` in production.
 
 ## Troubleshooting
 
