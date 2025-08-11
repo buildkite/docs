@@ -89,7 +89,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 
 ## Network and transport security
 
-**Risk:** Interception of traffic between agents, the Buildkite API, and artifact storage; data tampering, exposure, unauthorized external communications potentially allowing malicious code injection.
+**Risk:** Interception of traffic between agents, the Buildkite API, and artifact storage, as well as data tampering, exposure, and unauthorized external communications potentially allowing malicious code injection.
 
 **Controls:**
 
