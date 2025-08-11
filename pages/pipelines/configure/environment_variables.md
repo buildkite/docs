@@ -215,22 +215,13 @@ In the final job environment, the value of `MY_ENV1` would be `"c"`.
 There are two places in a pipeline.yml file that you can set environment variables:
 
   1. In the `env` attribute of command and trigger steps.
-  2. In the `env` attribute at the top of the yaml file, before you define your pipeline's steps.
+  1. In the `env` attribute at the top of the yaml file, before you define your pipeline's steps.
 
 Defining an environment variable at the top of your yaml file will set that variable on each of the command steps in the pipeline that have not already started running, and is equivalent to setting the `env` attribute on every step. This includes further pipeline uploads through `buildkite-agent pipeline upload`.
 
 > 🚧 Concurrent pipeline uploads and environment variables
-> When running concurrent pipeline uploads, be aware that build-level environment variables can cause unpredictable behavior. Each pipeline upload that includes build-level environment variables can potentially modify the environment for subsequent steps that haven't started. This behavior affects:
->
-> - Steps that run after pipeline uploads.
-> - Signed pipeline steps (environment variables are used in the signature verification).
-> - Jobs that depend on specific environment variable values.
->
-> This can lead to unexpected results if:
->
-> - Multiple pipeline uploads that include build-level environment variables happen concurrently.
-> - The same environment variable is set to different values in different uploads.
-
+> When running concurrent pipeline uploads with build-level environment variables, unpredictable behavior can occur as each pipeline upload that includes build-level environment variables can modify the environment for subsequent steps that haven't started yet. This affects steps running after pipeline uploads, signed pipeline steps (which use environment variables for signature verification), and jobs depending on specific environment variable values.
+> Unexpected results are likely when multiple pipeline uploads that include build-level environment variables happen concurrently or set the same environment variable to different values.
 
 #### Setting variables in a Trigger step
 
