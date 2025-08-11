@@ -142,10 +142,10 @@ steps:
 
 ### Environment variables precedence
 
-During `agent` bootstrap, it receives many environment variables from backend. Those environments are normally the one set via `env` keyword in pipeline.yaml.
+During `agent` bootstrap, the `agent` receives many environment variables from backend. Those environments are normally the one set via `env` keyword in pipeline.yaml.
 
-During Kubernetes `podSpec` generation, it also put some environment variables directly as part of `podSpec`. They contain various Kubernetes stack specific environment variables or environment variables that users set in various `podSpec` configuration step.
+During Kubernetes `podSpec` generation, the Kubernetes Stack controller also put some environment variables directly as part of `podSpec`. These environment variables contain various Kubernetes stack specific environment variables or environment variables that users set in various `podSpec` configuration step.
 
-Currently, `podSpec`'s environment variables take higher precedence over job environment from backend.
+Currently, `podSpec`'s environment variables take higher precedence over environment variables set via `env` keyword in pipeline.yaml.
 
 If you have a need for more flexible environment variables setup, we encourage to leverage the [Agent hooks](/docs/agent/v3/hooks) to implement a precedence rule suite to your organization.
