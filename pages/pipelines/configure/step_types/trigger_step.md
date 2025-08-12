@@ -268,7 +268,7 @@ When using trigger steps targeting pipelines that have the **Cancel Intermediate
 
 ### Multiple triggered builds for the same pipeline
 
-When multiple pipeline builds (for instance, run from the same commit) trigger the build of another pipeline, you can enable the **Cancel Intermediate Builds** feature to allow only the newest build to run, thereby reducing unnecessary, duplicated pipeline builds.
+When multiple pipeline builds (for instance, when multiple builds are running as a result of a single commit) trigger builds in other pipelines, you can enable the **Cancel Intermediate Builds** feature to allow only the newest build to run, thereby reducing unnecessary, duplicated pipeline builds.
 
 For example, assume a scenario with three pipelines—**Pipeline A**, **Pipeline B**, and **Pipeline C**. A commit that runs **Pipeline A** triggers a build on **Pipeline B**. The same commit runs **Pipeline C**, which also triggers a build on **Pipeline B**.
 
