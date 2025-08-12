@@ -68,6 +68,14 @@ Optional attributes:
     </td>
   </tr>
   <tr>
+    <td><code>allowed_teams</code></td>
+    <td>
+      A list of teams that are permitted to complete this step, whose values are a list of one or more team slugs or IDs. If this field is specified, a user must be a member of one of the teams listed in order to submit a value to complete this step.<br/>
+      The use of <code>allowed_teams</code> replaces the need for write access to the pipeline, meaning a member of an allowed team with read-only access may complete the step. Learn more about this attribute in the <a href="#permissions">Permissions</a> section.<br/>
+      <em>Example:</em> <code>["deployers", "approvers", "b50084ea-4ed1-405e-a204-58bde987f52b"]</code><br/>
+    </td>
+  </tr>
+  <tr>
     <td><code>branches</code></td>
     <td>
       The <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this input step in their builds.<br/>
@@ -316,6 +324,23 @@ Each select option has the following _required_ attributes:
     </td>
   </tr>
 </table>
+
+## Permissions
+
+To complete an input step, a user must either have write access to the pipeline, or where the [`allowed_teams` attribute](#input-step-attributes) is specified, the user must belong to one of the allowed teams. When `allowed_teams` is specified, a user who has write access to the pipeline but is not a member of any of the allowed teams will not be permitted to complete the step.
+
+The `allowed_teams` attribute serves as a useful way to restrict input permissions to a subset of users without restricting the ability to create builds. Conversely, this attribute is also useful for granting input permissions to users _without_ also granting the ability create builds.
+
+```yml
+- input: "Release"
+  prompt: "Fill out the details for release"
+  allowed_teams:
+    - "approvers"
+  fields:
+    - text: "Release Name"
+      key: "release-name"
+```
+{: codeblock-file="pipeline.yml"}
 
 ## Input validation
 
