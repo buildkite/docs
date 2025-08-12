@@ -1,6 +1,6 @@
 # Deployment visibility with Backstage
 
-[Backstage](https://backstage.io/) is an open source framework for building developer portals that provide unified visibility into your infrastructure tools, services, and documentation. By integrating Buildkite with Backstage using the [Buildkite plugin for Backstage](https://github.com/buildkite/backstage-plugin) to monitor pipeline status and manage builds from a single interface.
+[Backstage](https://backstage.io/) is an open source framework for building developer portals that provide unified visibility into your infrastructure's tools, services, and documentation. By integrating Buildkite with Backstage using the [Buildkite plugin for Backstage](https://github.com/buildkite/backstage-plugin), you can monitor pipeline status and manage builds from a single interface.
 
 <%= image "buildkite_in_backstage.png", width: 1450/2, height: 960/2, alt: "A Buildkite pipeline in Backstage UI" %>
 
@@ -47,9 +47,10 @@ spec:
   owner: platform-team
   lifecycle: production
 ```
-Note that the `pipeline-slug` must exactly match your Buildkite Organization's slug and the pipeline slug.
 
-It is also recommended to use descriptive tags to categorize and filter deployment components (for example, `production`or `dev`).
+Note that the `pipeline-slug` must exactly match your Buildkite organization's slug and the pipeline slug.
+
+It is also recommended to use descriptive tags to categorize and filter deployment components (for example, `production`or `deployment`).
 
 ### Organizing deployment pipelines
 

@@ -6,7 +6,7 @@
 
 ## Features
 
-The Buildkite plugin for Backstage provides:
+The Buildkite plugin for Backstage provides integration capabilities that allow for:
 
 - **Real-time build status monitoring** - view the current status of your builds and build information directly in Backstage.
 - **Comprehensive build log tracking** - access detailed build logs with syntax highlighting without leaving Backstage.
@@ -171,7 +171,7 @@ The `pipeline-slug` should be in the format `organization-slug/pipeline-slug`, w
 
 ## Deployment tracking
 
-The Buildkite plugin for Backstage can track deployments across your pipelines. Here are the ways to marks builds as deployments. Choose the one that suits your use case.
+The Buildkite plugin for Backstage can track deployments across your pipelines. Here are the ways to mark builds as deployments. Choose the one that suits your use case.
 
 ### Using the metadata
 
@@ -241,7 +241,7 @@ Once you have configured the Buildkite plugin for Backstage and marked your buil
 - Click on individual builds to view logs and artifacts.
 - Trigger new builds directly from Backstage.
 
-See [Deployment visibility with Backstage](/docs/pipelines/deployments/deployment-visibility-with-backstage) page for more details and troubleshooting tips.
+See [Deployment visibility with Backstage](/docs/pipelines/deployments/deployment-visibility-with-backstage) page for an in-depth coverage of deployment visibility and tracking, as well as some optimization and troubleshooting tips.
 
 ## Further reading
 
