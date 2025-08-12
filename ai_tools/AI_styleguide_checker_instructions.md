@@ -1,8 +1,7 @@
 **********************************************************************************************
      ___
-    [O_O] 
-   /[ai]\ + [instructions]
-    ]  [  
+    [O_O] [AI + instructions]
+
 
 HOW TO USE THE AI STYLE GUIDE CHECKER INSTRUCTIONS
 
@@ -18,18 +17,18 @@ a. Break up long documents for review
 Don’t ask the model to apply all rules to a whole document at once. Do it per paragraph,
 section, or page.
 Example prompt for long documents:
-"Please apply the Buildkite documentation style guide to the following section. 
+"Please apply the Buildkite documentation style guide to the following section.
 Output rule violations only, referencing section headers from the guide."
 
 b. Use rule anchoring in your query
 
-Ask AI to list all rule violations, referencing specific rule section 
+Ask AI to list all rule violations, referencing specific rule section
 (e.g. “Formatting rules > Italics”) and not to flag anything unless it breaks an explicit rule.
 
 c. Pre-load the style guide separately
 Provide the guide to the model as a JSON file - available as full_buildkite_styleguide.json file
 in this (ai_tools) repository.
- 
+
 **********************************************************************************************
 
 # Buildkite documentation style rules
@@ -45,10 +44,11 @@ For each paragraph in the provided document, evaluate every rule and list violat
 - Flag each instance of rule violation, referencing the rule being broken
 - Do not suggest changes that are not covered by the rules
 - Do not hallucinate missing or implied rules
+- Check for typos
 
 **Review the content twice:**
 - First pass: Check for violations against the core rules
-- Second pass: Confirm consistency and identify overlooked errors, typos, trailing spaces
+- Second pass: Confirm consistency and identify overlooked errors, spelling errors, typos, trailing spaces
 
 Be strict. Do not allow edge cases to slide.
 
@@ -59,24 +59,23 @@ If a rule conflicts with another (e.g., clarity vs formatting), prioritize:
 
 Do NOT deviate. Do NOT add style suggestions based on general best practices. Only apply the rules outlined below.
 
-Here are the rules: 
+Here are the rules:
 
 ## Core style and voice
 
-This style guide applies to Buildkite product documentation, API reference pages, step-by-step how-tos.
-It does NOT apply to blog posts, marketing content, support tickets, or internal memos.
+This style guide applies to Buildkite product documentation, API reference pages, step-by-step how-tos, and tutorials.
 
 **Language and Voice:**
 - Use US English (Merriam Webster)
 - Write in plain English, avoid unnecessary jargon
 - Maintain a semi-formal tone - balance between professional and approachable
 - Use active voice whenever possible
-- Use contractions appropriately (didn't, haven't)
+- Use contractions appropriately (didn't, haven't, etc.)
 - Always use "they" for gender-neutral pronouns, NEVER "he" or "she"
 
 **Formatting standards:**
 - Use sentence case for all headings (capitalize only first word and proper nouns)
-- Format UI elements in **bold** matching exact Buildkite interface capitalization
+- Format Buildkite UI elements in **bold** matching exact Buildkite interface capitalization
 - Format key terms and emphasis in _italics_ (use sparingly)
 - Use serial commas when listing items
 - In paragraphs, write out numbers up to 10, then use digits; in headings - AVOID digits for numbers smaller than 10
@@ -109,7 +108,7 @@ When writing technical documentation for Buildkite:
 When documenting code or technical processes for Buildkite:
 
 **Code references:**
-- Use code blocks with language identifiers (```yaml, ```bash)
+- Use code blocks with language identifiers (```yaml, ```bash, etc.)
 - Avoid using `code` formatting in headings
 - Don't grammatically inflect code elements in headings
 - Present CLI commands clearly with proper formatting
@@ -126,17 +125,24 @@ Review documentation content for:
 
 **Language issues:**
 - Correct use of their/they're/there and your/you're
+- Proper use of homonyms and words with 1 character spelling difference (seek vs. sick, though vs. through, etc.)
 - Proper affect/effect usage (affect = verb, effect = noun)
+- Use "for example" instead of "e.g."
+- Use "that is" instead of "i.e."
+- Use "and so on" instead of "etc."
+- Use "using" instead of "via."
+- Use "blocklist" instead of "blacklist"
+- Use "allowlist" instead of "whitelist"
+- Use "OAuth" instead of "oauth"
+- Use "plugins directory" instead of "plugin directory"
 - Appropriate hyphen usage (compound adjectives vs. verbs)
-- Consistent capitalization and abbreviations
-- Proper comma usage including serial commas
+
 
 **Style Consistency:**
 - Sentence case headings without punctuation
 - Proper product name capitalization (e.g., "GitHub" not "Github")
-- UI elements in bold, key terms in italics
 - Consistent terminology
-- Semi-formal tone without excessive formality or casualness
+- Use consistent capitalization and abbreviations
 
 **Structure:**
 - Clear, logical flow of information
@@ -162,7 +168,6 @@ Ensure documentation is accessible and clear:
 - Ensure headings follow a logical hierarchy
 
 **User focus:**
-- Anticipate common questions or confusion points
 - Provide clear next steps or related information
 - Use inclusive language throughout
 
@@ -171,19 +176,19 @@ Ensure documentation is accessible and clear:
 - [ ] US English, semi-formal tone
 - [ ] Active voice, plain English
 - [ ] Sentence case headings, no punctuation
-- [ ] **Bold** for UI elements, _italics_ for key terms
 - [ ] Serial commas, "and" not "&"
 - [ ] "They" for pronouns, numbers <10 spelled out
-- [ ] Proper Buildkite terminology (Agent, buildkite-agent)
-- [ ] Consistent capitalization (GitHub, API, SSO)
+- [ ] Proper Buildkite terminology (Agent, buildkite-agent, etc.)
+- [ ] Consistent capitalization (GitHub, API, SSO, etc.)
 - [ ] Clear structure with appropriate lists
-- [ ] No "we/our" in formal docs, avoid exclamation marks
+- [ ] Avoid "we/our" in formal docs whenever possible
+- [ ] Avoid exclamation marks
 
 ---
 
 # Buildkite Markdown syntax rules
 
-## File dtructure and Markdown engine
+## File structure and Markdown engine
 
 **Markdown engine:**
 - Uses Redcarpet Ruby library (not CommonMark or GitHub Flavored Markdown)
@@ -243,14 +248,15 @@ Ensure documentation is accessible and clear:
 
 **Sentence spacing:**
 - Use only one space after punctuation at end of sentences
+- Do not leave trailing spaces at the end of sentences or list items
 - Never use double spaces
 
 ## Formatting rules
 
-**Bold text (UI elements):**
+**Bold text (Buildkite UI elements):**
 - Use `**text**` (double asterisks) for bold
 - Never use `__text__` (double underscores)
-- Format all UI elements in bold
+- Format all Buildkite UI elements in bold
 
 **Italic text (key terms/emphasis):**
 - Use `_text_` (single underscores) for italics
@@ -267,6 +273,14 @@ Ensure documentation is accessible and clear:
 
 **Ordered lists:**
 - Always use `1.` for all numbered items (don't increment manually)
+
+**Example:**
+```markdown
+1. First item on the list
+1. Second item on the list
+1. Third item on the list
+```
+
 - Use exactly 4-space indentation for nesting
 
 **Example:**
@@ -312,7 +326,7 @@ Ensure documentation is accessible and clear:
 > Warning content goes here.
 ```
 
-**Callouts in lists:**
+**Callouts in numbered lists:**
 - Use indented bold text instead of emoji format
 - Example:
 ```markdown
@@ -320,7 +334,8 @@ Ensure documentation is accessible and clear:
 
     **Note:** This is important information.
 
-2. Step two.
+1. Step two.
+1. Step three.
 ```
 
 ## Table rules
@@ -368,7 +383,7 @@ Content 1         | Content 2
 
 **Emoji escaping in code:**
 - Escape colons in emoji codes: `\:hammer\:` to prevent rendering
-- Use when showing literal emoji codes in examples
+- Use when showing emoji codes in examples
 
 ## Syntax highlighting
 
@@ -377,12 +392,6 @@ Content 1         | Content 2
 - Common languages: `bash`, `yaml`, `json`, `javascript`, `ruby`, `python`
 
 ## Content organization rules
-
-**Page structure:**
-- One H1 per page (page title)
-- Logical heading hierarchy
-- Empty lines around headings
-- Consistent indentation (4 spaces)
 
 **Readability:**
 - Use responsive tables for complex data
@@ -395,13 +404,12 @@ Content 1         | Content 2
 - [ ] Headings nested incrementally (H1 → H2 → H3 → H4)
 - [ ] Empty lines above and below headings
 - [ ] Sentence case headings without punctuation
-- [ ] `**bold**` for UI elements, `_italics_` for key terms
+- [ ] `**bold**` for Buildkite UI elements, `_italics_` for key terms
 - [ ] `-` for top-level lists, `*` for 2nd level, `-` for 3rd level
 - [ ] 4-space indentation for nested lists and paragraphs
 - [ ] `1.` for all numbered list items
 - [ ] Relative URLs for internal links (`/docs/...`)
 - [ ] Absolute URLs for external links
-- [ ] Proper callout formatting with emoji
 - [ ] Language identifiers in code blocks
 - [ ] Escaped emoji in code examples when needed
 - [ ] Appropriate table classes for styling
@@ -415,7 +423,7 @@ Content 1         | Content 2
 
 **Refer to meaning, not source:**
 - Describe what the YAML represents (command, step, pipeline) rather than the literal YAML syntax
-- Never use code formatting when referring to the abstract meaning
+- Never use code formatting when referring to an abstract meaning
 - Use code formatting only for literal YAML source or filenames
 
 **Examples:**
@@ -424,9 +432,7 @@ Content 1         | Content 2
 - Incorrect: "Add a `command` to `pipeline.yml`…"
 
 **Avoid YAML specification terminology:**
-- Never use: *block*, *flow*, *sequence*, *scalar*
-- These terms conflict with product terminology or are unclear to users
-- Use simpler, more descriptive terms instead
+- Never use: *block*, *flow*, *sequence*, *scalar* as these terms conflict with product terminology or are unclear to users
 
 ## YAML code formatting rules
 
@@ -495,7 +501,7 @@ steps:
 -  "Add the `steps` attribute to the command step, then on a new line…"
 
 ### Key and value
-**Definition:** 
+**Definition:**
 - Key: The identifier part of an attribute
 - Value: The data part of an attribute
 
@@ -548,3 +554,37 @@ steps:
 - [ ] Use 2-space indentation in YAML examples
 - [ ] Qualify nested relationships with "of" or "nested"
 - [ ] Never use inline/flow style formatting
+
+## Sensitive information security
+
+### Never include in examples
+
+**Personal/account information:**
+- Real API tokens or keys
+- Real email addresses
+- Real passwords or credentials
+- Real account IDs or organization IDs
+- Real webhook URLs or endpoints
+- Real IP addresses (use RFC 5737 ranges: 192.0.2.0/24, 198.51.100.0/24, 203.0.113.0/24)
+
+**Buildkite-specific:**
+- Real agent tokens
+- Real GraphQL/REST API tokens
+- Real build artifacts URLs
+- Real SSO/SAML credentials or endpoints
+- Real cluster tokens or queue names from production
+
+**Safe Example Patterns:**
+- API tokens: `xxx-yyy-zzz` or `YOUR_API_TOKEN`
+- Emails: `user@example.com`, `admin@example.org`
+- Organizations: `acme-inc`, `example-org`, `your-organization`
+- Pipelines: `example-pipeline`, `your-pipeline`
+- Webhook URLs: `https://example.com/webhook`
+- Build IDs: `01234567-****-****-****-456789abcdef`
+
+**Validation Rules:**
+- Check all code examples for realistic-looking tokens
+- Verify URLs point to example.com or localhost
+- Ensure UUIDs/IDs are clearly placeholder values
+- Confirm no internal Buildkite infrastructure details
+- Review any copied content for accidental real data
