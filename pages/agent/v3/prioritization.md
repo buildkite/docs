@@ -20,7 +20,7 @@ When selecting from a pool of agents of the same priority level, Buildkite's job
 
 ### Job targeting constraints
 
-Jobs can be targeted to specific agents with agent tags that define queues and other capabilities.
+Jobs can be targeted to specific agents using [agent tags](/docs/agent/v3/cli-start#setting-tags) that define queues, and other capabilities.
 
 ## Setting agent priority
 
