@@ -122,16 +122,16 @@ Session tokens are internal tokens that last for the lifetime of the agent conne
 
 Job tokens are internal agent access tokens that are generated for each individual job when it starts. They are exposed to the job as the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN` and are used by the Buildkite Agent's local Job API, which provides access to various CLI commands (including [annotate](/docs/agent/v3/cli-annotate), [artifact](/docs/agent/v3/cli-artifact), [meta-data](/docs/agent/v3/cli-meta-data), and [pipeline](/docs/agent/v3/cli-pipeline) commands). Job tokens are scoped to a single job for security reasons, limiting both the duration and the scope of access, and are valid until the job finishes.
 
-To ensure job tokens have a limited lifetime, you can set a default or maximum [command timeout](/docs/pipelines/configure/build-timeouts#command-timeouts).
+You can set a default or maximum [command timeout](/docs/pipelines/configure/build-timeouts#command-timeouts) to further scope the lifetime of job tokens.
 
 ### Token exchange process
 
-When an agent starts, it follows this token exchange process:
+When an agent starts, it follows the token exchange process:
 
-1. The agent connects to the Buildkite Agent API to register itself using its configured unclustered **agent token** (`BUILDKITE_AGENT_TOKEN`)
-2. The Agent API generates and returns a **session token** to the agent
-3. The agent uses this session token to poll for available jobs and manage its connection to Buildkite
-4. When the agent accepts a job, Buildkite generates a **job token** specific to that job
+1. The agent connects to the Buildkite Agent API to register itself using its configured **agent token** (`BUILDKITE_AGENT_TOKEN`).
+1. The Agent API generates and returns a **session token** to the agent.
+1. The agent uses this session token to poll for available jobs and manage its connection to Buildkite.
+1. When the agent accepts a job, Buildkite generates a **job token** specific to that job.
 
 <table>
   <tr>
