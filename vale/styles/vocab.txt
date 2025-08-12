@@ -5,12 +5,14 @@ Allowlist
 allowlist
 AMI's
 AMIs
+Ansible
 API
 API's
 APIs
 apk
 APM
 applesimutils
+Aqua
 architecting
 Argo
 argumentless
@@ -76,6 +78,8 @@ cpu
 cron
 crontab
 Crontab
+CVE
+CVEs
 Datadog
 Datadog's
 debuild
@@ -102,6 +106,8 @@ env
 eval
 Eventbridge
 EventBridge
+exfiltrated
+exfiltration
 Explainshell
 fastfile
 fastlane
@@ -128,6 +134,7 @@ Gradle
 gradle
 Gradle's
 Graviton
+GRC
 gz
 gzipped
 Hashicorp
@@ -202,6 +209,7 @@ opentelemetry
 onboarding
 OTLP
 otlp
+overprivileged
 Pagerduty
 parsable
 pbuilder
@@ -234,7 +242,11 @@ readme
 readmes
 refetch
 refspec
+rehydrate
+rehydrated
 reimagined
+remediation
+remediations
 repo
 resizable
 routable
@@ -259,6 +271,8 @@ signaltometrics
 SLO
 SLOs
 snake_case
+Snyk
+Sonatype
 Sonoma
 Splitter's
 sre
@@ -287,6 +301,8 @@ tmux
 toolmantim
 tooltip
 TOTP's
+Trivy
+typosquatted
 udp
 unmanaged
 UserData
@@ -297,6 +313,8 @@ unblocker
 unbuildable
 unclustered
 unencrypted
+unpatched
+unreviewed
 unset
 unsets
 unsetting
