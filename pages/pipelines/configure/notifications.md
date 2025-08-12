@@ -459,9 +459,7 @@ steps:
 
 ### Notify only on first failure
 
-The `pipeline.started_failing` conditional is designed to only send notifications when a pipeline transitions from passing to failing - and not for every failed build. This prevents excessive notifications while ensuring teams are immediately alerted when something goes wrong.
-
-#### Basic example
+The `pipeline.started_failing` conditional is designed to only send notifications when a pipeline transitions from passing to failing - and not for every failed build. This prevents excessive notifications, while ensuring teams are immediately alerted when something goes wrong.
 
 ```yaml
 notify:
@@ -480,9 +478,7 @@ The `pipeline.started_failing` conditional might be valuable for teams that:
 
 ### Notify only on first pass
 
-The `pipeline.started_passing` conditional is designed to only send notifications when a pipeline transitions from failing to passing - not for every successful build. This prevents excessive notifications while ensuring teams are immediately alerted when issues are resolved.
-
-#### Basic example
+The `pipeline.started_passing` conditional is designed to only send notifications when a pipeline transitions from failing to passing - not for every successful build. This prevents excessive notifications, while ensuring teams are immediately alerted when issues are resolved.
 
 ```yaml
 notify:
@@ -500,9 +496,7 @@ The `pipeline.started_passing` conditional might be valuable for teams that:
 
 ### Notify on all failures and first successful pass
 
-This combined pattern sends notifications for all failed builds and the first successful build after failures. It provides comprehensive failure coverage while avoiding excessive notifications for consecutive successful builds.
-
-#### Basic example
+This combined pattern sends notifications for all failed builds and the first successful build after failures. It provides comprehensive failure coverage, while avoiding excessive notifications for consecutive successful builds.
 
 ```yaml
 notify:
@@ -511,9 +505,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-#### Targeted notifications with branch filtering
-
-You can combine this pattern with branch conditions for more targeted notifications:
+You can add a branch filter to this conditional pattern to target specific branches:
 
 ```yaml
 notify:
@@ -522,9 +514,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-#### Alternative messaging for different states
-
-You can send different messages to differentiate between failures and recoveries:
+Different messages can also be used to differentiate between failures and recoveries:
 
 ```yaml
 notify:
@@ -541,11 +531,9 @@ notify:
 
 #### When to use
 
-This conditional might be valuable for teams that:
+These conditionals might be valuable for teams that:
 
-* Need to be notified about every failure, not just the first one
-* Require comprehensive coverage of build health
-* See repeated failures as a possible leading indicator of worsening issues that need attention
+* Want to be notified about each build failure but avoid notifications for consecutive successful builds
 
 ## Webhooks
 
