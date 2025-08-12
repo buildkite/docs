@@ -72,8 +72,8 @@ See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details
 - Agent Hooks: `/etc/buildkite-agent/hooks/`
 - Builds: `/var/buildkite-agent/builds/`
 - Logs, depending on your system:
-  * `journalctl -f -u buildkite-agent` (systemd)
-  * `/var/log/buildkite-agent.log` (older systems)
+  + `journalctl -f -u buildkite-agent` (systemd)
+  + `/var/log/buildkite-agent.log` (older systems)
 - Agent user home: `/var/lib/buildkite-agent/`
 - SSH keys: `/var/lib/buildkite-agent/.ssh/`
 
