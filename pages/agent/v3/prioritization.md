@@ -53,7 +53,7 @@ BUILDKITE_AGENT_PRIORITY=5 buildkite-agent start
 
 ## Load balancing strategies
 
-Agent priority allows you to apply sophisticated load balancing strategies within your infrastructure. Here are a few example strategies you might choose to implement:
+Agent priority allows you to apply sophisticated load balancing strategies within your infrastructure. Here are a few example strategies you might choose to implement.
 
 ### Simple load balancing
 
