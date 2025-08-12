@@ -334,7 +334,7 @@ You can set a default or maximum [command timeout](/docs/pipelines/configure/bui
 
 ### Token exchange process
 
-When an agent starts, it follows this token exchange process:
+When an agent starts, it follows the token exchange process:
 
 1. The agent connects to the Buildkite Agent API to register itself using its configured **agent token** (`BUILDKITE_AGENT_TOKEN`)
 2. The Agent API generates and returns a **session token** to the agent
