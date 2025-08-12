@@ -18,7 +18,15 @@ The Buildkite Agent is supported on the following operating systems, using the y
 
 Start by adding the yum repository for your architecture (if unsure, run `uname -m` to find your system's architecture).
 
-The default version of the agent is `stable`. You can also get the beta version by using `unstable` instead of `stable` in the installation command below, or the agent built from the `main` branch of the repository by using `experimental` instead of `stable`.
+<!-- TODO: Verify if this is still valid for yum repository packages for the agent -->
+
+Buildkite agent versions come in three release channels:
+
+- **Stable**: Thoroughly tested, production-ready releases recommended for most users
+- **Unstable/Beta**: Newer features still being tested, may contain bugs that affect stability
+- **Experimental**: Built directly from the `main` branch, may be incomplete or have unresolved issues
+
+The default version of the agent is `stable`. You can also get the beta version by using `unstable` instead of `stable` in the installation commands below, or the experimental version by using `experimental` instead of `stable`.
 
 > 📘
 > The `repo_gpgcheck=0` parameter is required when additional OS hardening has been enabled to verify the GPG signature of the repository's metadata. Without this extra parameter for disabling metadata signature checking, the package installation will not succeed.
