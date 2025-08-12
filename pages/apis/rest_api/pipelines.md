@@ -89,7 +89,7 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 <table>
 <tbody>
   <tr><th><code>name</code></th><td>Filters the results by the pipeline name. Supports partial matches and is case insensitive.<p class="Docs__api-param-eg"><em>Example:</em> <code>?name=agent</code></p></td></tr>
-  <tr><th><code>repository</code></th><td>Filters the results by the repository URL of the source repository, supports partial matches and is case insensitive.<p class="Docs__api-param-eg"><em>Example:</em> <code>?repository=agent</code></p></td></tr>
+  <tr><th><code>repository</code></th><td>Filters the results by the repository URL of the source repository. Supports partial matches and is case insensitive.<p class="Docs__api-param-eg"><em>Example:</em> <code>?repository=agent</code></p></td></tr>
 </tbody>
 </table>
 
