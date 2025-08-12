@@ -368,5 +368,5 @@ When an agent starts, it follows the token exchange process:
   </tr>
 </table>
 
-> 📘 Job tokens not supported in agents prior to v3.39.0
+>📘 Job tokens are not supported in agents prior to v3.39.0
 > Agents prior to v3.39.0 use the session token for the `BUILDKITE_AGENT_ACCESS_TOKEN` environment variable and the job APIs.
