@@ -1,6 +1,8 @@
 # Example pipelines
 
-[Browse the full example pipeline gallery](https://buildkite.com/resources/examples), covering a wide range of technologies and use cases.
+This page lists core example pipelines used throughout this documentation, and to help you improve your understanding of Buildkite Pipelines for different use cases.
+
+You can also [browse the full example pipeline gallery](https://buildkite.com/resources/examples), which covers a much wider range of technologies and use cases.
 
 <!-- vale off -->
 <!-- this turns it off for the whole file because I can't ignore the emoji in the html :( -->
