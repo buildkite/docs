@@ -11,10 +11,14 @@ This page is a tutorial that covers both self-hosted SonarQube instances and Son
 Before configuring SonarScanner in your Buildkite pipeline, ensure you have:
 
 1. **SonarQube account** (self-hosted) or **SonarCloud account** (SaaS)
-1. **Authentication token** that is:
+2. **Authentication token** that is:
    - Generated from your SonarQube/SonarCloud account settings
    - Stored securely using [Buildkite secrets management](/docs/pipelines/security/secrets/managing)
-1. **Secrets management solutions** - this tutorial demonstrates [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) with the [AWS Secrets Manager Buildkite Plugin](https://buildkite.com/resources/plugins/seek-oss/aws-sm-buildkite-plugin/).
+3. **Java Runtime Environment (JRE) 11 or higher** (for pre-installed binary approach only)
+   - Required by SonarScanner CLI to run
+   - Pre-installed on most Buildkite agent environments
+   - Not needed for Docker approach (Java is included in the container)
+4. **Secrets management solutions** - this tutorial demonstrates [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) with the [AWS Secrets Manager Buildkite Plugin](https://buildkite.com/resources/plugins/seek-oss/aws-sm-buildkite-plugin/).
 
 ## Configuration strategy
 
@@ -28,7 +32,7 @@ Use environment variables in your pipeline for authentication and server configu
 
 | Environment Variable | Description |
 | --- | --- |
-| `SONAR_TOKEN` | **Required.** Authentication token for your SonarQube server<br>*Example:* `squ_a1***********0`<br>**Security:** Store using [secrets management](/docs/pipelines/security/secrets/managing) |
+| `SONAR_TOKEN` | **Required.** Authentication token for your SonarQube/SonarCloud server<br>*SonarQube example:* `sqp_1234567890abcdef1234567890abcdef12345678`<br>*SonarCloud example:* `a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0`<br>**Security:** Store using [secrets management](/docs/pipelines/security/secrets/managing) |
 | `SONAR_HOST_URL` | **Required.** URL of your SonarQube server<br>*Example:* `https://sonarqube.mycompany.com` or `https://sonar.internal.mycompany.com` |
 
 ## Properties file configuration
@@ -45,7 +49,7 @@ sonar.projectVersion=1.0
 sonar.sources=src,lib,scripts
 sonar.sourceEncoding=UTF-8
 # Working directory (adjust based on execution environment; default is root)
-sonar.working.directory="./.scannerwork"
+sonar.working.directory=./.scannerwork
 # Exclusions
 sonar.exclusions=**/.git/**,**/.buildkite/**,**/node_modules/**,**/target/**,**/*.jar,**/*.class
 # Language-specific settings (optional)
@@ -121,12 +125,17 @@ steps:
     command: |
       # Wait for sonar-scanner availability
       echo "⏳ Ensuring sonar-scanner is ready..."
-      timeout 30 bash -c 'while [[ ! -x "/opt/sonar-scanner/bin/sonar-scanner" ]]; do sleep 5; done'
+      timeout 30 bash -c 'while [[ ! -x "/opt/sonar-scanner/bin/sonar-scanner" ]]; do sleep 5; done' || {
+        echo "❌ Error: SonarScanner binary not ready after 30 seconds"
+        echo "Check that SonarScanner is properly installed on your agents"
+        exit 1
+      }
+
       # Run SonarScanner analysis
       /opt/sonar-scanner/bin/sonar-scanner
     env:
-      SONAR_HOST_URL: "<https://sonarqube.mycompany.com>"
-      SONAR_PROJECT_CONFIG: "./config/sonar-project.properties"
+      SONAR_HOST_URL: "https://sonarqube.mycompany.com"
+      SONAR_PROJECT_CONFIG: "./sonar-project.properties"
     plugins:
       - seek-oss/aws-sm#v2.3.3:
           env:
@@ -140,9 +149,12 @@ This approach uses the official SonarScanner Docker image, eliminating the need 
 ```yaml
 steps:
   - label: "📊 SonarQube Analysis"
+    command: |
+      # Run SonarScanner analysis in Docker container
+      sonar-scanner
     env:
-      SONAR_HOST_URL: "<https://sonarqube.mycompany.com>"
-      SONAR_PROJECT_CONFIG: "./config/sonar-project.properties"
+      SONAR_HOST_URL: "https://sonarqube.mycompany.com"
+      SONAR_PROJECT_CONFIG: "./sonar-project.properties"
     plugins:
       - seek-oss/aws-sm#v2.3.3:
           env:
@@ -165,9 +177,9 @@ sonar.working.directory=/usr/src/.scannerwork # Container runs as root
 sonar.working.directory=/tmp/.scannerwork # Runs as buildkite-agent user
 ```
 
-## Complete templated multi-language Sonar sample project
+## Complete templated multi-language example
 
-This example demonstrates SonarScanner setup for running an analysis against the [sample projects](https://github.com/SonarSource/sonar-scanning-examples/tree/master/sonar-scanner/src) using the [pre-installed binary approach](/docs/pipelines/integrations/security-and-compliance/sonar#implementation-approaches-pre-installed-binary-approach).
+This example demonstrates a complete SonarScanner setup for analyzing a typical multi-language project using the [pre-installed binary approach](/docs/pipelines/integrations/security-and-compliance/sonar#implementation-approaches-pre-installed-binary-approach). You can adapt this configuration for your own projects by modifying the properties file.
 
 #### Pipeline configuration
 
@@ -181,7 +193,12 @@ steps:
     command: |
       # Wait for sonar-scanner availability (Elastic CI Stack for AWS)
       echo "⏳ Ensuring sonar-scanner is ready..."
-      timeout 30 bash -c 'while [[ ! -x "/opt/sonar-scanner/bin/sonar-scanner" ]]; do sleep 5; done'
+      timeout 30 bash -c 'while [[ ! -x "/opt/sonar-scanner/bin/sonar-scanner" ]]; do sleep 5; done' || {
+        echo "❌ Error: SonarScanner binary not ready after 30 seconds"
+        echo "Check that SonarScanner is properly installed on your agents"
+        exit 1
+      }
+
       # Run analysis using properties file configuration
       /opt/sonar-scanner/bin/sonar-scanner
       echo "✅ Analysis completed successfully"
@@ -296,7 +313,7 @@ While this tutorial describes the implementation of self-hosted SonarQube, you c
 
 ```conf
 # SonarCloud configuration
-sonar.host.url=https://sonarcloud.io # Optional (defaults to <https://sonarcloud.io>)
+sonar.host.url=https://sonarcloud.io # Optional (defaults to https://sonarcloud.io)
 sonar.projectKey=my-org_sample-project
 sonar.organization=my-org  # Required
 ```
