@@ -10,9 +10,9 @@ Several factors are evaluated by the Buildkite Pipelines job dispatcher when sel
 
 Agent priority is the primary factor in job assignment:
 
-* Agents with higher priority values are assigned jobs before lower priority agents
-* Priority can be any integer value, with higher numbers indicating higher priority
-* Agents with the default priority of `null` are assigned jobs last
+- Agents with higher priority values are assigned jobs before agents with lower priority values
+- Priority can be set to any integer value, with higher numbers indicating higher priority
+- Agents with the default priority of `null` are assigned jobs last
 
 ### Success-based preference
 
