@@ -55,7 +55,7 @@ BUILDKITE_AGENT_PRIORITY=5 buildkite-agent start
 
 Agent priority allows you to apply sophisticated load balancing strategies within your infrastructure. Here are a few example strategies you might choose to implement.
 
-### Simple load balancing
+### Common load balancing
 
 Distributing jobs evenly across multiple machines can be accomplished with the `--spawn-with-priority` command-line [option](/docs/agent/v3/cli-start#spawn-with-priority):
 
@@ -77,11 +77,11 @@ buildkite-agent start --tags "queue=ci-builds" --spawn 5 --spawn-with-priority
 buildkite-agent start --tags "queue=ci-builds" --spawn 5 --spawn-with-priority
 ```
 
-This configuration will launch 5 agents on each machine (15 total agents) that handle scheduled jobs in the `ci-builds` queue. Using the `--spawn-with-priority` option will launch each agent with a priority equal to their agent's index. Jobs will be equally distributed across agents running on all machines.
+This configuration will launch 5 agents on each machine (a total of 15 agents) that handle scheduled jobs in the `ci-builds` queue. Using the `--spawn-with-priority` option will launch each agent with a priority equal to their agent's index. Jobs will be equally distributed across agents running on all machines.
 
 ### Resource-based prioritization
 
-If your environment has a mix of hardware capabilities you can adjust agent priority to control which hardware is more likely to be dispatched jobs. Here is how to prioritize jobs to agents with the highest hardware capabilities:
+If your environment has a mix of hardware capabilities, you can adjust agent priority to ensure jobs are assigned to your most capable hardware first. Here is how to prioritize jobs to agents with the highest hardware capabilities:
 
 ```bash
 # High-performance agents running on larger hardware for intensive jobs
@@ -98,9 +98,9 @@ This configuration schedules jobs in the `ci-builds` queue onto larger hardware 
 
 ### Spillover strategy
 
-This is an advanced strategy that greatly increases overall resource utilization on your self-hosted infrastructure by configuring agents with overlapping capabilities that can handle multiple job types based on priority and availability, while also leveraging job priorities to ensure higher priority jobs are always dispatched first.
+Spillover strategy is an advanced strategy that greatly increases overall resource utilization on your self-hosted infrastructure. This strategy is applied by configuring agents with overlapping capabilities that can handle multiple job types based on priority and availability, while also leveraging job priorities to ensure higher priority jobs are always dispatched first.
 
-#### Agent configuration
+#### Agent configuration for spillover strategy
 
 Set up agents with overlapping tags where some agents can handle multiple job types:
 
@@ -116,7 +116,7 @@ buildkite-agent start --spawn 3 --priority 5 --tags "queue=ci-builds,build_type=
 buildkite-agent start --spawn 5 --priority 1 --tags "queue=ci-builds,build_type=normal,build_type=release"
 ```
 
-#### Pipeline configuration
+#### Pipeline configuration for spillover strategy
 
 Configure your pipelines with higher priority jobs for "release" steps, while also targeting the specific agent tags:
 
@@ -132,7 +132,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-**Normal development builds:**
+**Regular-priority development builds:**
 
 ```yaml
 steps:
@@ -144,11 +144,11 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-#### How this strategy works
+#### How spillover strategy works
 
-This configuration creates a spillover system that operates as follows:
+The configuration described in the previous section creates a spillover system that operates as follows:
 
 1. High-priority "release" jobs are handled by dedicated `build_type=release` agents first
-2. When these dedicated agents are all busy, "release" jobs can spillover to flexible agents that have agent tags for both `build_type=normal` and `build_type=release`
-3. Higher priority "release" jobs will always be processed before lower priority "normal" jobs, regardless of which jobs were created first
-4. Flexible agents return to handling "normal" jobs when there is sufficient dedicated agent capacity for high-priority "release" jobs
+1. When these dedicated agents are all busy, "release" jobs can spillover to flexible agents that have agent tags for both `build_type=normal` and `build_type=release`
+1. Higher priority "release" jobs will always be processed before lower priority "normal" jobs, regardless of which jobs were created first
+1. Flexible agents return to handling "normal" jobs when there is sufficient dedicated agent capacity for high-priority "release" jobs
