@@ -1,6 +1,6 @@
 # Installing Buildkite Agent on Red Hat Enterprise Linux, CentOS, and Amazon Linux
 
-The Buildkite Agent is supported on the following operating systems using the yum repository:
+The Buildkite Agent is supported on the following operating systems, using the yum repository:
 
 - Red Hat Enterprise Linux
   + Red Hat Enterprise Linux 7 (RHEL7)
@@ -16,10 +16,12 @@ The Buildkite Agent is supported on the following operating systems using the yu
 
 ## Installation
 
-First, add the yum repository for your architecture (run `uname -m` to find your system's arch). The default version of the agent is `stable`, but you can get the beta version by using `unstable` instead of `stable` in the following command, or the agent built from the `main` branch of the repository by using `experimental` instead of `stable`.
+Start by adding the yum repository for your architecture (if unsure, run `uname -m` to find your system's architecture).
+
+The default version of the agent is `stable`. You can also get the beta version by using `unstable` instead of `stable` in the installation command below, or the agent built from the `main` branch of the repository by using `experimental` instead of `stable`.
 
 > 📘
-> The `repo_gpgcheck=0` parameter is required when additional OS hardening has been enabled to verify the GPG signature of the repository's metadata. Without this extra parameter to disable metadata signature checking, the package install will not succeed.
+> The `repo_gpgcheck=0` parameter is required when additional OS hardening has been enabled to verify the GPG signature of the repository's metadata. Without this extra parameter for disabling metadata signature checking, the package installation will not succeed.
 
 For 64-bit (x86_64):
 
@@ -51,7 +53,7 @@ Configure your [agent token](/docs/agent/v3/tokens):
 sudo sed -i "s/xxx/INSERT-YOUR-AGENT-TOKEN-HERE/g" /etc/buildkite-agent/buildkite-agent.cfg
 ```
 
-Start the agent and tail the logs:
+After the installation, you can start the agent and tail the logs by using the following command:
 
 ```shell
 sudo systemctl enable buildkite-agent && sudo systemctl start buildkite-agent
@@ -70,8 +72,8 @@ See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details
 - Agent Hooks: `/etc/buildkite-agent/hooks/`
 - Builds: `/var/buildkite-agent/builds/`
 - Logs, depending on your system:
-  + `journalctl -f -u buildkite-agent` (systemd)
-  + `/var/log/buildkite-agent.log` (older systems)
+  * `journalctl -f -u buildkite-agent` (systemd)
+  * `/var/log/buildkite-agent.log` (older systems)
 - Agent user home: `/var/lib/buildkite-agent/`
 - SSH keys: `/var/lib/buildkite-agent/.ssh/`
 
