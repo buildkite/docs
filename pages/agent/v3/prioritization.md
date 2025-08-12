@@ -24,7 +24,7 @@ Jobs can be targeted to specific agents using [agent tags](/docs/agent/v3/cli-st
 
 ## Setting agent priority
 
-You can configure agent priority using several methods:
+You can configure agent priority in the configuration file, by using a command line flag, or through an environment variable. Let's look into these approaches in more detail.
 
 ### Configuration file
 
