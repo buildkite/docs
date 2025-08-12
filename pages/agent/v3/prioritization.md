@@ -16,7 +16,7 @@ Agent priority is the primary factor in job assignment:
 
 ### Success-based preference
 
-Within agents of the same priority level, Buildkite favors agents with better track records. Our job dispatcher prefers agents that have most recently completed jobs successfully. This helps ensure jobs are assigned to more reliable agents and infrastructure. If the most successful agent is busy, the next most successful available agent is selected.
+When selecting from a pool of agents of the same priority level, Buildkite's job dispatcher favors agents that have most recently completed jobs successfully. This helps ensure jobs are assigned to more reliable agents and infrastructure. If the most successful agent is busy, the next most successful available agent is selected.
 
 ### Job targeting constraints
 
