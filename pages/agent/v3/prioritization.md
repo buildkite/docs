@@ -148,7 +148,7 @@ steps:
 
 The configuration described in the previous section creates a spillover system that operates as follows:
 
-1. High-priority "release" jobs are handled by dedicated `build_type=release` agents first
-1. When these dedicated agents are all busy, "release" jobs can spillover to flexible agents that have agent tags for both `build_type=normal` and `build_type=release`
-1. Higher priority "release" jobs will always be processed before lower priority "normal" jobs, regardless of which jobs were created first
-1. Flexible agents return to handling "normal" jobs when there is sufficient dedicated agent capacity for high-priority "release" jobs
+1. High-priority "release" jobs are handled by dedicated `build_type=release` agents first.
+1. When these dedicated agents are all busy, "release" jobs can spillover to flexible agents that have agent tags for both `build_type=normal` and `build_type=release`.
+1. Higher priority "release" jobs will always be processed before lower priority "normal" jobs, regardless of which jobs were created first.
+1. Flexible agents return to handling "normal" jobs when there is sufficient dedicated agent capacity for high-priority "release" jobs.
