@@ -534,7 +534,7 @@ steps:
 
 To automatically cancel any remaining jobs as soon as any job in the build fails (except jobs marked as `soft_fail`), add the `cancel_on_build_failing: true` attribute to your command steps.
 
-When a job fails, the build enters a **failing** state. Any jobs still running that have `cancel_on_build_failing: true` are automatically cancelled. Once all running jobs have been cancelled, the build is marked as **failed** due to the initial job failure.
+When a job fails, the build enters a _failing_ state. Any jobs still running that have `cancel_on_build_failing: true` are automatically canceled. Once all running jobs have been cancelled, the build is marked as _failed_ due to the initial job failure.
 
 ## Example
 
