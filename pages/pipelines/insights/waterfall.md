@@ -1,6 +1,8 @@
-# Waterfall view
+---
+toc: false
+---
 
-## Overview
+# Waterfall view
 
 Waterfall view allows you to see build data as a waterfall chart, providing enhanced visibility into your build's job processes, durations and dependencies.
 
