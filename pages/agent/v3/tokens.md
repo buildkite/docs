@@ -320,7 +320,7 @@ An expired agent token will prevent agents configured with this token from being
 
 ## Additional agent tokens
 
-In addition to the initial agent token, the Buildkite agent automatically generates and manages two internal types of tokens during its operation:
+In addition to the initial agent token, the Buildkite Agent automatically generates and manages two internal types of tokens during its operation. These tokens are session tokens and job tokens.
 
 ### Session tokens
 
