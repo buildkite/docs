@@ -4,7 +4,7 @@ Agent prioritization controls how Buildkite assigns jobs to available agents. Un
 
 ## Agent selection criteria
 
-Several factors are evaluated by the Buildkite job dispatcher when selecting an agent to process a job. These factors can be priority-based, success-based or targeting constraints.
+Several factors are evaluated by the Buildkite Pipelines job dispatcher when selecting an agent to process a job. These factors can be priority-based, success-based, or targeting constraints.
 
 ### Priority-based selection
 
