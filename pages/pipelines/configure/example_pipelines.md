@@ -9,13 +9,21 @@
 
 <%= render 'pipelines/configure/example_pipelines/languages' %>
 
-## Step types and techniques
+## Build systems and package managers
+
+<%= render 'pipelines/configure/example_pipelines/build_systems' %>
+
+## Pipeline step-types and techniques
 
 <%= render 'pipelines/configure/example_pipelines/step_types' %>
 
-## Third-party tools
+## Hooks and permissions
 
-<%= render 'pipelines/configure/example_pipelines/third_party' %>
+<%= render 'pipelines/configure/example_pipelines/hooks' %>
+
+## Third-party integrations
+
+<%= render 'pipelines/configure/example_pipelines/integrations' %>
 
 ## template.yml files
 
