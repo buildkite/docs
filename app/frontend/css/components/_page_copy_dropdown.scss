@@ -236,61 +236,6 @@
     }
   }
 
-  @media (prefers-color-scheme: dark) {
-    &__button {
-      --icon-color: $navy-400;
-
-      &:hover {
-        background: rgba($navy-700, 0.95);
-        border-color: rgba(map-get($color-aliases, "icon"), 0.6);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-      }
-
-      &:active {
-        transform: translateY(0);
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-      }
-
-      .lucide-copy {
-        color: $navy-100;
-      }
-    }
-
-    &__menu {
-      background: $navy-800;
-      border-color: map-get($color-aliases, "text-base");
-    }
-
-    &__item {
-      color: $gray-100;
-
-      &:hover {
-        background: map-get($color-aliases, "text-base");
-        color: $base-0;
-      }
-
-      &--loading {
-        color: $gray-500;
-        
-        .page-copy-dropdown__item-icon svg {
-          color: $gray-500;
-        }
-      }
-    }
-
-    &__item-icon svg {
-      color: $gray-500;
-    }
-
-    &__item-subtitle {
-      color: $gray-500;
-    }
-
-    &__divider {
-      background: #140D30;
-    }
-  }
 
   // Temporarily hide Cursor MCP connection until hosted server is ready
   &__item[data-action="connect-cursor"] {
