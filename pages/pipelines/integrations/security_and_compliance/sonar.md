@@ -10,21 +10,26 @@ This page is a tutorial that covers both self-hosted SonarQube instances and Son
 
 Before configuring SonarScanner in your Buildkite pipeline, ensure you have:
 
-1. **SonarQube account** (self-hosted) or **SonarCloud account** (SaaS)
-2. **Authentication token** that is:
+1. **SonarQube account** or **SonarCloud account**
+1. **Authentication token** that is:
    - Generated from your SonarQube/SonarCloud account settings
    - Stored securely using [Buildkite secrets management](/docs/pipelines/security/secrets/managing)
-3. **Java Runtime Environment (JRE) 11 or higher** (for pre-installed binary approach only)
+1. **Java Runtime Environment (JRE) 11 or higher**
    - Required by SonarScanner CLI to run
-   - Pre-installed on most Buildkite agent environments
-   - Not needed for Docker approach (Java is included in the container)
-4. **Secrets management solutions** - this tutorial demonstrates [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) with the [AWS Secrets Manager Buildkite Plugin](https://buildkite.com/resources/plugins/seek-oss/aws-sm-buildkite-plugin/).
+   - Needs to be installed for the [pre-installed binary implementation approach](/docs/pipelines/integrations/security-and-compliance/sonar#implementation-approaches-pre-installed-binary-approach)
+   - Comes pre-installed in most Buildkite Agent environments
+   - Not required for [Docker image-based implementation approach](/docs/pipelines/integrations/security-and-compliance/sonar#implementation-approaches-docker-image-approach) (Java is included in the container)
+1. **Secrets management solutions** - this tutorial demonstrates [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) with the [AWS Secrets Manager Buildkite Plugin](https://buildkite.com/resources/plugins/seek-oss/aws-sm-buildkite-plugin/).
 
 ## Configuration strategy
 
-SonarScanner supports two configuration methods: environment variables for authentication and runtime settings, and properties files for project-specific configuration.
+SonarScanner supports two configuration methods:
 
-**Recommended approach:** Use environment variables for sensitive authentication data (tokens, URLs) and properties files for project-specific settings.
+- **Environment variables**: Recommended for runtime settings and sensitive authentication data (tokens, URLs).
+- **Properties files**: Recommended for project-specific settings.
+
+> 📘 Configuration precedence
+> Environment variables take precedence over the settings in the properties file. This design allows you to keep project configuration in version control while securely managing authentication through Buildkite's secrets management.
 
 ## Environment variables
 
@@ -60,24 +65,21 @@ sonar.java.binaries=target/classes
 
 ### Understanding key properties
 
-- **sonar.sources** - comma-separated list of directories containing source code, relative to project root.
-- **sonar.working.directory** - directory where SonarScanner stores temporary analysis files. Must be writable by the execution user.
-- **sonar.exclusions** - files and directories to exclude from analysis using Ant-style patterns (`**` = any subdirectories, `*` = any characters).
-- **sonar.tests** - directories containing test files, separate from main source analysis.
-
-> 📘 Configuration precedence
-> Environment variables take precedence over the settings in the properties file. This design allows you to keep project configuration in version control while securely managing authentication through Buildkite's secrets management.
+- **sonar.sources**: comma-separated list of directories containing source code, relative to project root.
+- **sonar.working.directory**: directory where SonarScanner stores temporary analysis files. Execution user must have `write` permissions to this directory.
+- **sonar.exclusions**: files and directories to exclude from analysis using Ant-style patterns (`**` = any subdirectories, `*` = any characters).
+- **sonar.tests**: directories containing test files, separate from the main source analysis.
 
 ## Implementation approaches
 
 Choose between two deployment approaches based on your infrastructure preferences and agent setup:
 
 - [Pre-installed binary](/docs/pipelines/integrations/security-and-compliance/sonar#implementation-approaches-pre-installed-binary-approach) - install SonarScanner directly on your Buildkite agents for faster execution and reduced container overhead.
-- [Docker image](/docs/pipelines/integrations/security-and-compliance/sonar#implementation-approaches-docker-image-approach) - use the official SonarScanner Docker image for consistent environments and simplified agent setup
+- [Docker image](/docs/pipelines/integrations/security-and-compliance/sonar#implementation-approaches-docker-image-approach) - use the official SonarScanner Docker image for consistent environments and simplified agent setup.
 
 ### Pre-installed binary approach
 
-This approach uses the sonar-scanner CLI binary installed directly on your Buildkite agents. Below is an example for [Buildkite Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack).
+This approach uses the SonarScanner CLI binary installed directly on your Buildkite Agents. Below is an example for [Buildkite Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack).
 
 #### Update launch template userdata
 
@@ -168,7 +170,7 @@ steps:
 
 #### Configure your working directory
 
-When using Docker, adjust your `sonar-project.properties` working directory, for example:
+Adjust your `sonar-project.properties` working directory in Docker, for example:
 
 ```conf
 # For Docker execution
@@ -261,15 +263,14 @@ echo $PATH | grep sonar-scanner
 
 - Verify that the SonarQube/SonarCloud token is correctly stored in your secrets manager.
 - Check token permissions in SonarQube/SonarCloud (the token needs "Execute Analysis" permission).
-- Ensure token hasn't expired (check expiration date in SonarQube/SonarCloud).
-- Test token manually: `curl -u YOUR_TOKEN: https://your-sonarqube-url/api/authentication/validate`.
-
+- Ensure token hasn't expired (check the expiration date in SonarQube/SonarCloud).
+- Test token's validity manually: `curl -u YOUR_TOKEN: https://your-sonarqube-url/api/authentication/validate`.
 
 ### Analysis timeout or performance issues
 
 **Analysis timeout or memory issues**
 
-```properties
+```conf
 # Increase memory allocation for large projects
 sonar.javascript.node.maxspace=8192
 
@@ -279,7 +280,7 @@ sonar.exclusions=**/*.min.js,**/vendor/**,**/third-party/**,**/*.pdf,**/*.jpg,**
 
 **Large project optimization**
 
-```properties
+```conf
 # Exclude test files from duplication analysis
 sonar.cpd.exclusions=**/test/**,**/tests/**
 
@@ -313,9 +314,13 @@ While this tutorial describes the implementation of self-hosted SonarQube, you c
 
 ```conf
 # SonarCloud configuration
-sonar.host.url=https://sonarcloud.io # Optional (defaults to https://sonarcloud.io)
+
+# Optional (defaults to https://sonarcloud.io)
+sonar.host.url=https://sonarcloud.io
+# Required
 sonar.projectKey=my-org_sample-project
-sonar.organization=my-org  # Required
+# Required
+sonar.organization=my-org
 ```
 
 ### Token generation changes
@@ -327,4 +332,4 @@ Generate your SonarCloud token from **My Account > Security > Generate Tokens** 
 - [SonarQube documentation](https://docs.sonarqube.org/latest/)
 - [SonarCloud documentation](https://docs.sonarcloud.io/)
 - [SonarScanner CLI reference](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/)
-- [Buildkite Secrets Management](/docs/pipelines/security/secrets/managing) documentation page
+- [Buildkite Secrets Management](/docs/pipelines/security/secrets/managing) documentation page.
