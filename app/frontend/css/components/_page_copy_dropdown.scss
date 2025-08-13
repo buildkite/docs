@@ -57,7 +57,7 @@
     cursor: pointer;
     border: 1px solid rgba(209, 213, 219, 0.3);
     background: white;
-    color: #374151;
+    color: #140D30;
     white-space: nowrap;
     transition: all 0.15s ease;
 
@@ -76,6 +76,10 @@
 
     svg {
       flex-shrink: 0;
+    }
+
+    .lucide-copy {
+      color: #8E8E8E;
     }
 
     .lucide-chevron-down {
@@ -128,7 +132,7 @@
     padding: 12px 12px;
     border: none;
     background: none;
-    color: #374151;
+    color: #140D30;
     font-size: 14px;
     font-weight: 500;
     text-align: left;
@@ -233,7 +237,7 @@
   @media (prefers-color-scheme: dark) {
     &__button {
       background: #1f2937;
-      border-color: #374151;
+      border-color: #140D30;
       color: #f3f4f6;
 
       &:hover {
@@ -247,40 +251,44 @@
         transform: translateY(0);
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
       }
+
+      .lucide-copy {
+        color: #6b7280;
+      }
     }
 
     &__menu {
       background: #1f2937;
-      border-color: #374151;
+      border-color: #140D30;
     }
 
     &__item {
       color: #f3f4f6;
 
       &:hover {
-        background: #374151;
+        background: #140D30;
         color: #ffffff;
       }
 
       &--loading {
-        color: #9ca3af;
+        color: #8E8E8E;
         
         .page-copy-dropdown__item-icon svg {
-          color: #9ca3af;
+          color: #8E8E8E;
         }
       }
     }
 
     &__item-icon svg {
-      color: #9ca3af;
+      color: #8E8E8E;
     }
 
     &__item-subtitle {
-      color: #9ca3af;
+      color: #8E8E8E;
     }
 
     &__divider {
-      background: #374151;
+      background: #140D30;
     }
   }
 }
