@@ -47,7 +47,6 @@
   margin-bottom: 1rem;
   flex-shrink: 0;
 
-
   &.page-copy-dropdown--inline {
     margin-bottom: 0;
     order: 1;
@@ -123,12 +122,11 @@
 
   &__button-text-short {
     display: none;
-    
+
     @media (max-width: 768px) {
       display: none;
     }
   }
-
 
   &__menu {
     position: absolute;
