@@ -16,7 +16,7 @@ echo "--- A section of the build"
 
 ### De-emphasized groups
 
-Use `~~~` to create de-emphasized groups that are collapsed by default and visually de-emphasized with non-bold text for less important output:
+Use `~~~` to create groups that by default are collapsed and visually de-emphasized through the use of non-bold text (can be useful for less important output):
 
 ```bash
 echo "~~~ An unimportant section of the build"
@@ -38,6 +38,8 @@ echo -e "+++ \032"
 ```
 
 ### Advanced grouping techniques
+
+This section covers build log output grouping methods that go beyond formatting, collapsing, or expanding, and can be used for a better visual filtering of information, especially when it comes to long logs.
 
 #### Opening previous groups
 
