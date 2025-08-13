@@ -67,7 +67,7 @@ Optional attributes:
   <tr>
     <td><code>artifact_paths</code></td>
     <td>
-      The <a href="/docs/agent/v3/cli-artifact#uploading-artifacts">glob path</a> or paths of <a href="/docs/agent/v3/cli-artifact">artifacts</a> to upload from this step. This can be a single line of paths separated by semicolons, or a list.<br/>
+      The <a href="/docs/pipelines/configure/glob-pattern-syntax">glob path</a> or paths of <a href="/docs/agent/v3/cli-artifact">artifacts</a> to upload from this step. This can be a single line of paths separated by semicolons, or a list.<br/>
       <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code><br/>
       <em>Example:</em><br/>
       <code>- "logs/**/*"</code><br/>
@@ -220,13 +220,13 @@ Optional attributes:
 
 ## Container image attributes
 
-If you are using the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) to run your [Buildkite Agents](/docs/agent/v3), then you can use the `image` attribute to specify a container image for a command step to run its job in.
+If you are using the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) controller to run your [Buildkite Agents](/docs/agent/v3), then you can use the `image` attribute to specify a [container image](/docs/agent/v3/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images) for a command step to run its job in.
 
 <table>
   <tr>
     <td><code>image</code></td>
     <td>
-      A fully qualified image reference string. The <a href="/docs/agent/v3/agent-stack-k8s">Agent Stack for Kubernetes</a> will configure the image for the <code>command</code> container of this job. The value is available in the <code>BUILDKITE_IMAGE</code> <a href="/docs/pipelines/configure/environment-variables">environment variable</a>.<br/>
+      A fully qualified image reference string. The <a href="/docs/agent/v3/agent-stack-k8s">Agent Stack for Kubernetes</a> controller will configure the <a href="/docs/agent/v3/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images">custom image</a> for the <code>command</code> container of this job. The value is available in the <code>BUILDKITE_IMAGE</code> <a href="/docs/pipelines/configure/environment-variables">environment variable</a>.<br/>
       <em>Example:</em> <code>"alpine:latest"</code>
     </td>
   </tr>
@@ -530,18 +530,11 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Fail fast
+## Fast-fail running jobs
 
-To automatically cancel any remaining jobs as soon as the first job fails (except jobs that you've marked as `soft_fail`), add the `cancel_on_build_failing: true` attribute to your command steps.
+To automatically cancel any remaining jobs as soon as any job in the build fails (except jobs marked as `soft_fail`), add the `cancel_on_build_failing: true` attribute to your command steps.
 
-Next time a job in your build fails, those jobs will be automatically canceled.
-
-<!--
-
-TODO:
-To set `cancel_on_build_failing: true` for all jobs in a Build:
-
- -->
+When a job fails, the build enters a _failing_ state. Any jobs still running that have `cancel_on_build_failing: true` are automatically canceled. Once all running jobs have been cancelled, the build is marked as _failed_ due to the initial job failure.
 
 ## Example
 
@@ -575,12 +568,14 @@ steps:
     commands:
       - "npm install"
       - "npm run visual-diff"
+    cancel_on_build_failing: true
     retry:
       automatic:
         limit: 3
 
   - label: "Skipped job"
     command: "broken.sh"
+    cancel_on_build_failing: true
     skip: "Currently broken and needs to be fixed"
 
   - wait: ~
