@@ -78,19 +78,9 @@ cd log
 buildkite-agent artifact upload test.log
 ```
 
-Keep in mind while you're writing your path pattern:
+Learn more about Buildkite's glob syntax from the [Glob pattern syntax](/docs/pipelines/configure/glob-pattern-syntax) page.
 
 <!--alex ignore just-->
-
-- patterns must match whole path strings, not just substrings
-- there are two wildcards available that match non-separator characters (on Linux `/` is a separator character, and on Windows `\` is a separator character):
-  + `*` to match a sequence of characters
-  + `?` to match a single character
-- character ranges surrounded by `[]` support the `^` as a negator
-- special characters can be escaped with `\\`
-- multiple paths are separated with `;`
-- surround the pattern with quotes
-
 
 ## Downloading artifacts
 

@@ -1,0 +1,16 @@
+<%= render partial: 'pipelines/configure/example_pipelines/repos', locals: {
+  repos: [
+    {
+      emoji: ':sparkles:',
+      name: 'Jobsworth',
+      link: 'saymedia/jobsworth',
+      description: 'Uses dynamic pipelines for defining high level build and deploy processes'
+    },
+    {
+      emoji: ':jenkins:',
+      name: 'Jenkinsfile',
+      link: 'buildkite/jenkinsfile-example',
+      description: 'Run a Jenkinsfile on Buildkite using Jenkinsfile Runner'
+    }
+  ]
+} %>

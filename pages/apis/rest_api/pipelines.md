@@ -84,6 +84,15 @@ curl -H "Authorization: Bearer $TOKEN" \
 ]
 ```
 
+Optional [query string parameters](/docs/api#query-string-parameters):
+
+<table>
+<tbody>
+  <tr><th><code>name</code></th><td>Filters the results by the pipeline name. Supports partial matches and is case insensitive.<p class="Docs__api-param-eg"><em>Example:</em> <code>?name=agent</code></p></td></tr>
+  <tr><th><code>repository</code></th><td>Filters the results by the repository URL of the source repository. Supports partial matches and is case insensitive.<p class="Docs__api-param-eg"><em>Example:</em> <code>?repository=agent</code></p></td></tr>
+</tbody>
+</table>
+
 > 📘 Webhook URL
 > The response only includes a webhook URL in `provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
 
