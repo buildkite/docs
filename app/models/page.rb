@@ -130,7 +130,11 @@ class Page
     template_binding = TemplateBinding.new(view_helpers: @view,
                                            image_path: File.join("docs", basename))
 
-    erb_renderer.result(template_binding.get_binding)
+    result = erb_renderer.result(template_binding.get_binding)
+    
+    # Remove HTML comments from the markdown output
+    # This ensures they don't appear in .md format responses or copy functionality
+    filter_html_comments(result)
   end
 
   def body
@@ -227,5 +231,16 @@ class Page
 
   def keywords_from_path
     @view.request.path.split("/").reject(&:empty?).map { |segment| segment.gsub("-", " ") }.join(", ")
+  end
+
+  def filter_html_comments(text)
+    # Remove HTML comments using a regex that handles:
+    # - Single line comments: <!-- comment -->
+    # - Multi-line comments that span multiple lines
+    # - Comments with various content including newlines and special characters
+    result = text.gsub(/<!--.*?-->/m, '')
+    
+    # Clean up any resulting blank lines (but preserve intentional spacing)
+    result.gsub(/\n\s*\n\s*\n/, "\n\n")
   end
 end
