@@ -262,9 +262,9 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Cancelling intermediate builds and triggers
+## Canceling intermediate builds and triggers
 
-When using trigger steps targeting pipelines that have the **Cancel Intermediate Builds** setting enabled, it's important to understand how this feature interacts with triggered builds. If a triggered build is "canceled" due to the **Cancel Intermediate Builds** setting being enabled, this will result in the trigger step getting marked as "skipped" in the triggering build.
+When using trigger steps that target pipelines with **Cancel Intermediate Builds** setting enabled, it's important to understand how this feature interacts with triggered builds. If a triggered build is "canceled" due to the **Cancel Intermediate Builds** setting being enabled, such trigger step will be marked as "skipped" in the triggering build.
 
 ### Multiple triggered builds for the same pipeline
 
