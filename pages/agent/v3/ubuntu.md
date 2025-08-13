@@ -48,7 +48,7 @@ sudo systemctl enable buildkite-agent && sudo systemctl start buildkite-agent
 You can view the logs at:
 
 ```shell
-journalctl -f -u buildkite-agent
+sudo journalctl -f -u buildkite-agent
 ```
 
 ## Updating keys installed using apt-key
