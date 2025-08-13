@@ -1,0 +1,52 @@
+<%= render partial: 'pipelines/configure/example_pipelines/repos', locals: {
+  repos: [
+    {
+      emoji: ':rspec:',
+      name: 'RSpec & JUnit Build Annotations',
+      link: 'buildkite/rspec-junit-example',
+      description: 'Annotating a build with JUnit test failure information'
+    },
+    {
+      emoji: ':buildkite:',
+      name: 'Artifact Uploading and Downloading',
+      link: 'buildkite/artifacts-example',
+      description: 'Uploading and downloading artifacts between build pipeline steps'
+    },
+    {
+      emoji: ':buildkite:',
+      name: 'Block steps',
+      link: 'buildkite/block-step-example',
+      description: 'An example of how to include block steps with form fields in your pipeline'
+    },
+    {
+      emoji: ':buildkite:',
+      name: 'Input steps',
+      link: 'buildkite/input-step-example',
+      description: 'An example of how to include input steps with form fields in your pipeline'
+    },
+    {
+      emoji: ':buildkite:',
+      name: 'Group steps',
+      link: 'buildkite/group-step-example',
+      description: 'An example of how to group steps in a pipeline'
+    },
+    {
+      emoji: ':buildkite:',
+      name: 'Dependent Pipelines',
+      link: 'buildkite/dependent-pipeline-example',
+      description: 'Triggering another pipeline from a pipeline'
+    },
+    {
+      emoji: ':buildkite:',
+      name: 'Dynamic Pipelines',
+      link: 'buildkite/dynamic-pipeline-example',
+      description: 'Generating a pipeline\'s steps programmatically at run-time'
+    },
+    {
+      emoji: ':rage4:',
+      name: 'Doom',
+      link: 'buildkite/doom-example',
+      description: 'Lets you play Doom on Buildkite, optionally with Claude Code'
+    }
+  ]
+} %>
