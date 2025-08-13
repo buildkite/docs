@@ -22,12 +22,12 @@ window.addEventListener("DOMContentLoaded", () => {
 
 function cleanup() {
   // Call all cleanup functions from previous renders
-  cleanupFunctions.forEach(fn => {
-    if (typeof fn === 'function') {
+  cleanupFunctions.forEach((fn) => {
+    if (typeof fn === "function") {
       try {
         fn();
       } catch (error) {
-        console.warn('Error during cleanup:', error);
+        console.warn("Error during cleanup:", error);
       }
     }
   });
@@ -47,7 +47,7 @@ function render() {
   initToc();
   attachCopyToClipboardButton("pre.highlight");
   themeToggle();
-  
+
   // Store cleanup function if component returns one
   const dropdownCleanup = initPageCopyDropdown();
   if (dropdownCleanup) {

@@ -9,7 +9,7 @@ export function themeToggle() {
   function updateAppearance() {
     let storedTheme = localStorage.getItem("docs-theme") || "system";
     let systemPrefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
+      "(prefers-color-scheme: dark)",
     ).matches;
 
     themeSelect.value = storedTheme;
