@@ -57,6 +57,7 @@ chroots
 CI
 classpath
 cli
+CLI
 Cloudsmith
 Cloudsmith's
 CloudTrail
@@ -267,6 +268,10 @@ shellscripting
 Shipit
 signaltometrics
 snake_case
+Sonar
+SonarCloud
+SonarQube
+SonarScanner
 Snyk
 Sonatype
 Sonoma
@@ -320,6 +325,7 @@ uploaders
 upstreams
 url
 urls
+userdata
 util
 uuid
 UUIDs
