@@ -4,32 +4,25 @@
   margin-bottom: 24px;
   padding: 0;
 
-  // Mobile adjustments
   @media (max-width: 768px) {
     margin-bottom: 16px;
   }
 }
 
-// Page Copy Dropdown Component  
-// Create a shared container effect between dropdown and first h1
 .Article[data-has-copy-dropdown="true"] {
-  // Target the first h1 that comes after the dropdown
   .page-copy-dropdown + h1,
   .page-copy-dropdown ~ h1:first-of-type {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-top: 0; // Remove default margin
+    margin-top: 0;
     margin-bottom: 1.5rem;
     
-    // Ensure proper line height for inline elements  
     line-height: 1.3;
-    
-    // Move the dropdown to be inline with this heading
     &::before {
       content: '';
-      order: -1; // This will be replaced by JS
+      order: -1;
     }
   }
 }
@@ -37,16 +30,15 @@
 .page-copy-dropdown {
   position: relative;
   display: inline-flex;
-  margin-bottom: 1rem; // Temporary spacing until JS moves it
-  flex-shrink: 0; // Don't shrink the button
+  margin-bottom: 1rem;
+  flex-shrink: 0;
   
-  // When moved inline with heading
   &.page-copy-dropdown--inline {
     margin-bottom: 0;
-    order: 1; // Place after heading text
+    order: 1;
     
     @media (max-width: 768px) {
-      order: -1; // Place before heading on mobile
+      order: -1;
       margin-bottom: 0.5rem;
       align-self: flex-start;
     }
@@ -64,13 +56,11 @@
     font-weight: 500;
     cursor: pointer;
     border: 1px solid rgba(209, 213, 219, 0.3);
-    background: rgba(248, 249, 250, 0.8);
+    background: white;
     color: #374151;
     white-space: nowrap;
     transition: all 0.15s ease;
-    
-    // Reduce font size slightly to better match heading context
-    font-size: 13px;
+
 
     &:hover {
       background: #e5e7eb;
@@ -79,8 +69,17 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
     svg {
       flex-shrink: 0;
+    }
+
+    .lucide-chevron-down {
+      margin-left: 4px;
     }
   }
 
@@ -89,6 +88,8 @@
     top: 100%;
     right: 0;
     margin-top: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
     background: white;
     border: 1px solid #d1d5db;
     border-radius: 6px;
@@ -106,7 +107,6 @@
       transform: translateY(0);
     }
 
-    // Mobile adjustments
     @media (max-width: 480px) {
       right: -8px;
       min-width: 160px;
@@ -230,7 +230,6 @@
     }
   }
 
-  // Dark mode support
   @media (prefers-color-scheme: dark) {
     &__button {
       background: #1f2937;
@@ -242,6 +241,11 @@
         border-color: rgba(107, 114, 128, 0.6);
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
       }
     }
 
@@ -281,7 +285,6 @@
   }
 }
 
-// Spinner animation
 @keyframes spin {
   from {
     transform: rotate(0deg);

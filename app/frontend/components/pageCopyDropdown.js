@@ -217,22 +217,22 @@ export function initPageCopyDropdown() {
         const pageUrl = window.location.href;
         
         // Convert local URLs to production URLs for AI services
-        const productionUrl = pageUrl.replace(/localhost:\d+/, 'buildkite.com');
+        const productionUrl = pageUrl.replace(/https?:\/\/localhost:\d+/, 'https://buildkite.com');
         const markdownUrl = productionUrl.replace(/\/$/, '') + '.md';
         
         let targetUrl;
         
         switch (action) {
           case 'open-chatgpt':
-            const chatgptPrompt = `I'm looking at the Buildkite documentation page titled "${pageTitle}". Here's the markdown content: ${markdownUrl}`;
+            const chatgptPrompt = `Read and analyze this Buildkite documentation page so I can ask you questions about it: ${markdownUrl}`;
             targetUrl = `https://chat.openai.com/?q=${encodeURIComponent(chatgptPrompt)}`;
             break;
           case 'open-claude':
-            const claudePrompt = `I'm looking at the Buildkite documentation page titled "${pageTitle}". Here's the markdown content: ${markdownUrl}`;
-            targetUrl = `https://claude.ai/chat?q=${encodeURIComponent(claudePrompt)}`;
+            const claudePrompt = `Read and analyze this Buildkite documentation page so I can ask you questions about it: ${markdownUrl}`;
+            targetUrl = `https://claude.ai/new?q=${encodeURIComponent(claudePrompt)}`;
             break;
           case 'connect-cursor':
-            targetUrl = 'https://www.cursor.com/settings';
+            targetUrl = 'cursor://anysphere.cursor-deeplink/mcp/install?name=buildkite&config=eyJjb21tYW5kIjoiZG9ja2VyIHJ1biAtaSAtLXJtIC1lIEJVSUxES0lURV9BUElfVE9LRU4gZ2hjci5pby9idWlsZGtpdGUvYnVpbGRraXRlLW1jcC1zZXJ2ZXIgc3RkaW8iLCJlbnYiOnsiQlVJTERLSVRFX0FQSV9UT0tFTiI6ImJrdWFfeHh4eHh4eHgifX0%3D';
             break;
         }
         
