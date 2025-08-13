@@ -4,8 +4,8 @@ html.dark {
   --docsearch-text-color: rgb(245, 246, 247);
   --docsearch-container-background: rgba(9, 10, 17, 0.8);
   --docsearch-modal-background: rgb(21, 23, 42);
-  --docsearch-modal-shadow:
-    inset 1px 1px 0 0 rgb(44, 46, 64), 0 3px 8px 0 rgb(0, 3, 9);
+  --docsearch-modal-shadow: inset 1px 1px 0 0 rgb(44, 46, 64),
+    0 3px 8px 0 rgb(0, 3, 9);
   --docsearch-searchbox-background: rgb(9, 10, 17);
   --docsearch-searchbox-focus-background: #000;
   --docsearch-hit-color: rgb(190, 195, 201);
@@ -16,12 +16,11 @@ html.dark {
     rgb(86, 88, 114) 0%,
     rgb(49, 53, 91) 100%
   );
-  --docsearch-key-shadow:
-    inset 0 -2px 0 0 rgb(40, 45, 85), inset 0 0 1px 1px rgb(81, 87, 125),
-    0 2px 2px 0 rgba(3, 4, 9, 0.3);
+  --docsearch-key-shadow: inset 0 -2px 0 0 rgb(40, 45, 85),
+    inset 0 0 1px 1px rgb(81, 87, 125), 0 2px 2px 0 rgba(3, 4, 9, 0.3);
   --docsearch-footer-background: rgb(30, 33, 54);
-  --docsearch-footer-shadow:
-    inset 0 1px 0 0 rgba(73, 76, 106, 0.5), 0 -4px 8px 0 rgba(0, 0, 0, 0.2);
+  --docsearch-footer-shadow: inset 0 1px 0 0 rgba(73, 76, 106, 0.5),
+    0 -4px 8px 0 rgba(0, 0, 0, 0.2);
   --docsearch-muted-color: rgb(127, 132, 151);
   --docsearch-logo-color: rgb(255, 255, 255);
 
@@ -192,12 +191,9 @@ html.dark {
   .Article details {
     background-color: #0f172a;
     color: $navy-50 !important;
-    box-shadow:
-      0px 4px 4px 0px rgba(0, 0, 0, 0.01),
-      0px 3px 3px 0px rgba(0, 0, 0, 0.02),
-      0px 2px 2px 0px rgba(0, 0, 0, 0.04),
-      0px 1px 0px 0px rgba(0, 0, 0, 0.09),
-      0px 0px 0px 1px rgba(0, 0, 0, 0.09);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.01),
+      0px 3px 3px 0px rgba(0, 0, 0, 0.02), 0px 2px 2px 0px rgba(0, 0, 0, 0.04),
+      0px 1px 0px 0px rgba(0, 0, 0, 0.09), 0px 0px 0px 1px rgba(0, 0, 0, 0.09);
   }
 
   .Button--default:hover,
@@ -206,9 +202,7 @@ html.dark {
   }
 
   .Article table {
-    box-shadow:
-      #121e3c 0px 0px 0px 1px,
-      #10172ac7 0px 1px 3px;
+    box-shadow: #121e3c 0px 0px 0px 1px, #10172ac7 0px 1px 3px;
   }
 
   .Article h1:not([class]) > code,
@@ -301,8 +295,7 @@ html.dark {
     background: #020617;
     border-color: $navy-700;
     color: $navy-300;
-    box-shadow:
-      0px 4px 4px 0px rgba($base-1000, 0.01),
+    box-shadow: 0px 4px 4px 0px rgba($base-1000, 0.01),
       0px 3px 3px 0px rgba($base-1000, 0.18),
       0px 2px 2px 0px rgba($base-1000, 0.08),
       0px 1px 0px 0px rgba($base-1000, 0.18),
@@ -313,8 +306,7 @@ html.dark {
     &:hover,
     &:active,
     &:focus {
-      box-shadow:
-        0px 4px 4px 0px rgba($base-1000, 0.01),
+      box-shadow: 0px 4px 4px 0px rgba($base-1000, 0.01),
         0px 3px 3px 0px rgba($base-1000, 0.18),
         0px 2px 2px 0px rgba($base-1000, 0.08),
         0px 1px 0px 0px rgba($base-1000, 0.18),

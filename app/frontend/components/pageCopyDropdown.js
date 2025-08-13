@@ -36,7 +36,7 @@ export function initPageCopyDropdown() {
   const copyButton = dropdown.querySelector('[data-action="copy-markdown"]');
   const viewButton = dropdown.querySelector('[data-action="view-markdown"]');
   const aiButtons = dropdown.querySelectorAll(
-    '[data-action^="open-"], [data-action="connect-cursor"]',
+    '[data-action^="open-"], [data-action="connect-cursor"]'
   );
 
   if (!button || !menu) return null;
@@ -100,7 +100,7 @@ export function initPageCopyDropdown() {
     if (focusableElements.length === 0) return;
 
     const currentIndex = Array.from(focusableElements).findIndex(
-      (el) => el === document.activeElement,
+      (el) => el === document.activeElement
     );
     let nextIndex;
 
@@ -145,7 +145,7 @@ export function initPageCopyDropdown() {
     closeDropdown();
 
     const titleElement = copyButton.querySelector(
-      ".page-copy-dropdown__item-title",
+      ".page-copy-dropdown__item-title"
     );
     const icon = copyButton.querySelector(".page-copy-dropdown__item-icon svg");
     const originalTitle = titleElement?.textContent || "Copy as Markdown";
@@ -201,12 +201,12 @@ export function initPageCopyDropdown() {
     button.classList.remove(
       "page-copy-dropdown__item--loading",
       "page-copy-dropdown__item--success",
-      "page-copy-dropdown__item--error",
+      "page-copy-dropdown__item--error"
     );
     button.classList.add(`page-copy-dropdown__item--${state}`);
 
     const titleElement = button.querySelector(
-      ".page-copy-dropdown__item-title",
+      ".page-copy-dropdown__item-title"
     );
     if (titleElement) {
       titleElement.textContent = text;
@@ -227,11 +227,11 @@ export function initPageCopyDropdown() {
     button.classList.remove(
       "page-copy-dropdown__item--loading",
       "page-copy-dropdown__item--success",
-      "page-copy-dropdown__item--error",
+      "page-copy-dropdown__item--error"
     );
 
     const titleElement = button.querySelector(
-      ".page-copy-dropdown__item-title",
+      ".page-copy-dropdown__item-title"
     );
     if (titleElement) {
       titleElement.textContent = originalTitle;
@@ -250,7 +250,7 @@ export function initPageCopyDropdown() {
 
     if (!response.ok) {
       throw new Error(
-        `Failed to fetch markdown: ${response.status} ${response.statusText}`,
+        `Failed to fetch markdown: ${response.status} ${response.statusText}`
       );
     }
 
@@ -279,12 +279,12 @@ export function initPageCopyDropdown() {
       case "open-chatgpt":
         return buildServiceUrl(
           "chatgpt",
-          `Read and analyze this Buildkite documentation page so I can ask you questions about it: ${markdownUrl}`,
+          `Read and analyze this Buildkite documentation page so I can ask you questions about it: ${markdownUrl}`
         );
       case "open-claude":
         return buildServiceUrl(
           "claude",
-          `Read and analyze this Buildkite documentation page so I can ask you questions about it: ${markdownUrl}`,
+          `Read and analyze this Buildkite documentation page so I can ask you questions about it: ${markdownUrl}`
         );
       case "connect-cursor":
         return AI_SERVICES.cursor.url;
@@ -308,7 +308,7 @@ export function initPageCopyDropdown() {
     const currentUrl = window.location.href;
     const productionUrl = currentUrl.replace(
       /https?:\/\/localhost:\d+/,
-      PRODUCTION_BASE_URL,
+      PRODUCTION_BASE_URL
     );
     const cleanUrl = productionUrl.replace(/\/$/, "");
     return cleanUrl + ".md";
