@@ -51,13 +51,15 @@
     @extend .Button--default;
     @extend .Button--small;
 
+    --icon-color: #{rgba(map-get($color-aliases, "icon"), 0.8)};
+    
     display: flex;
     align-items: center;
+    padding-left: 12px;
     gap: 8px;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    border: 1px solid rgba(map-get($color-aliases, "border"), 0.3);
     background: $base-0;
     color: map-get($color-aliases, "text-base");
     white-space: nowrap;
@@ -65,15 +67,12 @@
 
 
     &:hover {
-      background: $gray-200;
-      border-color: rgba(map-get($color-aliases, "border"), 0.6);
+      border-color: map-get($color-aliases, "border"); 
       transform: translateY(-1px);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     &:active {
       transform: translateY(0);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
 
     svg {
@@ -85,7 +84,7 @@
     }
 
     .lucide-chevron-down {
-      margin-left: 4px;
+      margin-left: 5px;
     }
   }
 
@@ -219,7 +218,7 @@
 
   &__item-subtitle {
     font-size: 12px;
-    color: map-get($color-aliases, "icon");
+    color: $charcoal-300;
     line-height: 1.2;
   }
 
@@ -239,9 +238,7 @@
 
   @media (prefers-color-scheme: dark) {
     &__button {
-      background: $navy-800;
-      border-color: map-get($color-aliases, "text-base");
-      color: $gray-100;
+      --icon-color: $navy-400;
 
       &:hover {
         background: rgba($navy-700, 0.95);
@@ -256,7 +253,7 @@
       }
 
       .lucide-copy {
-        color: rgba(map-get($color-aliases, "icon"), 0.8);
+        color: $navy-100;
       }
     }
 
