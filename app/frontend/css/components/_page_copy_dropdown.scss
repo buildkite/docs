@@ -12,19 +12,31 @@
 }
 
 .Article[data-has-copy-dropdown="true"] {
-  .page-copy-dropdown + h1,
-  .page-copy-dropdown ~ h1:first-of-type {
+  // Create a container wrapper around h1 + dropdown
+  .page-heading-container {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
     margin-top: 0;
     margin-bottom: 1.5rem;
-    
     line-height: 1.3;
-    &::before {
-      content: '';
-      order: -1;
+
+    h1 {
+      flex: 1;
+      margin: 0;
+      min-width: fit-content;
+    }
+
+    .page-copy-dropdown--inline {
+      flex-shrink: 0;
+      margin: 0;
+      
+      @media (max-width: 768px) {
+        order: -1;
+        margin-bottom: 0.5rem;
+        align-self: flex-start;
+      }
     }
   }
 }

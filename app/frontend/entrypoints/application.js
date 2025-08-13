@@ -8,13 +8,31 @@ import docsearch from "@docsearch/js";
 
 Turbo.start();
 
+// Store cleanup functions for proper memory management
+let cleanupFunctions = [];
+
 document.addEventListener("turbo:render", async (event) => {
+  cleanup();
   render();
 });
 
 window.addEventListener("DOMContentLoaded", () => {
   render();
 });
+
+function cleanup() {
+  // Call all cleanup functions from previous renders
+  cleanupFunctions.forEach(fn => {
+    if (typeof fn === 'function') {
+      try {
+        fn();
+      } catch (error) {
+        console.warn('Error during cleanup:', error);
+      }
+    }
+  });
+  cleanupFunctions = [];
+}
 
 function render() {
   docsearch({
@@ -29,7 +47,12 @@ function render() {
   initToc();
   attachCopyToClipboardButton("pre.highlight");
   themeToggle();
-  initPageCopyDropdown();
+  
+  // Store cleanup function if component returns one
+  const dropdownCleanup = initPageCopyDropdown();
+  if (dropdownCleanup) {
+    cleanupFunctions.push(dropdownCleanup);
+  }
 }
 
 window.addEventListener("DOMContentLoaded", () => {
