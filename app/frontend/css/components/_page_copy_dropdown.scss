@@ -1,3 +1,5 @@
+@import '../base/variables';
+
 .PageHeader {
   display: flex;
   justify-content: flex-end;
@@ -55,16 +57,16 @@
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    border: 1px solid rgba(209, 213, 219, 0.3);
-    background: white;
-    color: #140D30;
+    border: 1px solid rgba(map-get($color-aliases, "border"), 0.3);
+    background: $base-0;
+    color: map-get($color-aliases, "text-base");
     white-space: nowrap;
     transition: all 0.15s ease;
 
 
     &:hover {
-      background: #e5e7eb;
-      border-color: rgba(209, 213, 219, 0.6);
+      background: $gray-200;
+      border-color: rgba(map-get($color-aliases, "border"), 0.6);
       transform: translateY(-1px);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
@@ -79,7 +81,7 @@
     }
 
     .lucide-copy {
-      color: #8E8E8E;
+      color: rgba(map-get($color-aliases, "icon"), 0.8);
     }
 
     .lucide-chevron-down {
@@ -92,10 +94,9 @@
     top: 100%;
     right: 0;
     margin-top: 4px;
-    padding-left: 4px;
-    padding-right: 4px;
-    background: white;
-    border: 1px solid #d1d5db;
+    padding: 4px;
+    background: $base-0;
+    border: 1px solid map-get($color-aliases, "border");
     border-radius: 6px;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     min-width: 260px;
@@ -120,7 +121,7 @@
 
   &__divider {
     height: 1px;
-    background: #f3f4f6;
+    background: $gray-100;
     margin: 4px 0;
   }
 
@@ -131,8 +132,10 @@
     width: 100%;
     padding: 12px 12px;
     border: none;
+    border-radius: 4px;
     background: none;
-    color: #140D30;
+    color: map-get($color-aliases, "text-base");
+    font-family: $font-family-base;
     font-size: 14px;
     font-weight: 500;
     text-align: left;
@@ -141,8 +144,8 @@
     text-decoration: none;
 
     &:hover {
-      background: #f9fafb;
-      color: #111827;
+      background: map-get($color-aliases, "panel-background");
+      color: $navy-900;
     }
 
     &:first-child {
@@ -157,33 +160,33 @@
 
     svg {
       flex-shrink: 0;
-      color: #6b7280;
+      color: map-get($color-aliases, "icon");
     }
   }
 
   &__item {
     &--loading {
-      color: #6b7280;
+      color: map-get($color-aliases, "icon");
       pointer-events: none;
       
       .page-copy-dropdown__item-icon svg {
-        color: #6b7280;
+        color: map-get($color-aliases, "icon");
       }
     }
 
     &--success {
-      color: #059669;
+      color: map-get($color-aliases, "state-success");
       
       .page-copy-dropdown__item-icon svg {
-        color: #059669;
+        color: map-get($color-aliases, "state-success");
       }
     }
 
     &--error {
-      color: #dc2626;
+      color: map-get($color-aliases, "state-fail");
       
       .page-copy-dropdown__item-icon svg {
-        color: #dc2626;
+        color: map-get($color-aliases, "state-fail");
       }
     }
   }
@@ -197,7 +200,7 @@
     flex-shrink: 0;
     
     svg {
-      color: #6b7280;
+      color: map-get($color-aliases, "icon");
     }
   }
 
@@ -216,7 +219,7 @@
 
   &__item-subtitle {
     font-size: 12px;
-    color: #6b7280;
+    color: map-get($color-aliases, "icon");
     line-height: 1.2;
   }
 
@@ -236,13 +239,13 @@
 
   @media (prefers-color-scheme: dark) {
     &__button {
-      background: #1f2937;
-      border-color: #140D30;
-      color: #f3f4f6;
+      background: $navy-800;
+      border-color: map-get($color-aliases, "text-base");
+      color: $gray-100;
 
       &:hover {
-        background: rgba(55, 65, 81, 0.95);
-        border-color: rgba(107, 114, 128, 0.6);
+        background: rgba($navy-700, 0.95);
+        border-color: rgba(map-get($color-aliases, "icon"), 0.6);
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
       }
@@ -253,43 +256,48 @@
       }
 
       .lucide-copy {
-        color: #6b7280;
+        color: rgba(map-get($color-aliases, "icon"), 0.8);
       }
     }
 
     &__menu {
-      background: #1f2937;
-      border-color: #140D30;
+      background: $navy-800;
+      border-color: map-get($color-aliases, "text-base");
     }
 
     &__item {
-      color: #f3f4f6;
+      color: $gray-100;
 
       &:hover {
-        background: #140D30;
-        color: #ffffff;
+        background: map-get($color-aliases, "text-base");
+        color: $base-0;
       }
 
       &--loading {
-        color: #8E8E8E;
+        color: $gray-500;
         
         .page-copy-dropdown__item-icon svg {
-          color: #8E8E8E;
+          color: $gray-500;
         }
       }
     }
 
     &__item-icon svg {
-      color: #8E8E8E;
+      color: $gray-500;
     }
 
     &__item-subtitle {
-      color: #8E8E8E;
+      color: $gray-500;
     }
 
     &__divider {
       background: #140D30;
     }
+  }
+
+  // Temporarily hide Cursor MCP connection until hosted server is ready
+  &__item[data-action="connect-cursor"] {
+    display: none;
   }
 }
 
