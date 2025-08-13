@@ -180,6 +180,10 @@ Optional `build` attributes:
 ```
 {: codeblock-file="pipeline.yml"}
 
+## Agent-applied attributes
+
+<%= render_markdown partial: 'pipelines/configure/step_types/agent_applied_attributes' %>
+
 ## Environment variables
 
 You can use [environment variable substitution](/docs/agent/v3/cli-pipeline#environment-variable-substitution) to set attribute values:
@@ -211,6 +215,11 @@ To pass through pull request information to the triggered build, pass through th
       BUILDKITE_PULL_REQUEST_REPO: "${BUILDKITE_PULL_REQUEST_REPO}"
 ```
 {: codeblock-file="pipeline.yml"}
+
+> 📘 BUILDKITE_PULL_REQUEST in triggered builds
+> If `BUILDKITE_PULL_REQUEST` is set, the agent will check out the corresponding pull request ref (that is, `refs/pull/ID/head`) instead of the branch specified by `BUILDKITE_BRANCH`.
+> This behavior is part of the agent's checkout logic, and is intended to support builds from pull requests. However, such behavior may be unexpected in triggered builds where `BUILDKITE_PULL_REQUEST` is passed for reporting purposes only.
+> To pass pull request metadata to a triggered build without affecting the code checkout, use a custom environment variable name (for example, `MONOREPO_PULL_REQUEST` instead of `BUILDKITE_PULL_REQUEST`).
 
 To set environment variables on the build created by the trigger step, use the `env` attribute:
 

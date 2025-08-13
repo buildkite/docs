@@ -9,8 +9,9 @@
   <tbody>
     <tr><th><code>build.scheduled</code></th><td>A build has been scheduled</td></tr>
     <tr><th><code>build.running</code></th><td>A build has started running</td></tr>
-    <tr><th><code>build.finished</code></th><td>A build has finished</td></tr>
     <tr><th><code>build.failing</code></th><td>A build is failing</td></tr>
+    <tr><th><code>build.finished</code></th><td>A build has finished</td></tr>
+    <tr><th><code>build.skipped</code></th><td>A build has been skipped</td></tr>
   </tbody>
 </table>
 
@@ -86,4 +87,4 @@ Example request body for blocked build:
 ```
 
 > 📘 To determine if an EventBridge notification is blocked
-> However, to determine if an EventBridge notification is blocked, look for <code>"state": "blocked". </code>, like in this <a href="/docs/pipelines/integrations/other/amazon-eventbridge#events-build-blocked">sample Eventbridge request</a>.
+> However, to determine if an EventBridge notification is blocked, look for <code>"state": "blocked". </code>, like in this <a href="/docs/pipelines/integrations/observability/amazon-eventbridge#events-build-blocked">sample Eventbridge request</a>.

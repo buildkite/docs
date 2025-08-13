@@ -9,10 +9,15 @@ steps:
     if: |
       build.branch == "main"
     agents:
-      queue: elastic-runners
+      queue: hosted
     plugins:
-      - aws-assume-role-with-web-identity#v1.0.0:
+      - aws-assume-role-with-web-identity#v1.4.0:
           role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
+          session-tags:
+            - organization_slug
+            - organization_id
+            - pipeline_slug
+            - build_branch
       - ecr#v2.7.0:
           login: true
           account-ids: ${ECR_ACCOUNT_ID}
@@ -22,11 +27,16 @@ steps:
     soft_fail:
       - exit_status: 75 # soft fail for scan timeouts
     agents:
-      queue: elastic-runners
+      queue: hosted
     depends_on: "ecr-push"
     plugins:
-      - aws-assume-role-with-web-identity#v1.0.0:
+      - aws-assume-role-with-web-identity#v1.4.0:
           role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
+          session-tags:
+            - organization_slug
+            - organization_id
+            - pipeline_slug
+            - build_branch
       - cultureamp/ecr-scan-results#v1.7.0:
           image-name: "${ECR_REPO}:${BUILDKITE_BUILD_NUMBER}"
           fail-build-on-plugin-failure: true
@@ -53,11 +63,16 @@ steps:
     concurrency: 1
     concurrency_group: docs-deploy
     agents:
-      queue: elastic-runners
+      queue: hosted
     command: scripts/deploy-ecs
     plugins:
-      - aws-assume-role-with-web-identity#v1.0.0:
+      - aws-assume-role-with-web-identity#v1.4.0:
           role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
+          session-tags:
+            - organization_slug
+            - organization_id
+            - pipeline_slug
+            - build_branch
 
   - wait
 

@@ -86,7 +86,7 @@ def pytest_itemcollected(item):
 
 #### Execution-level tags
 
-For more granular control, you can programmatically or statically add tags to target individual test.
+For more granular control, you can programmatically or statically add tags to target individual tests.
 
 To do it statically, targeting a single test or module:
 

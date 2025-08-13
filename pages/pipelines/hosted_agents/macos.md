@@ -145,7 +145,7 @@ Updated Xcode versions will be available one week after Apple offers them for do
   </tr>
   <tr>
     <td>applesimutils</td>
-    <td>0.9.10</td>
+    <td>0.9.12</td>
   </tr>
   <tr>
     <td>aria2</td>
@@ -153,23 +153,23 @@ Updated Xcode versions will be available one week after Apple offers them for do
   </tr>
   <tr>
     <td>awscli</td>
-    <td>2.25.7</td>
+    <td>2.25.49</td>
   </tr>
   <tr>
     <td>azcopy</td>
-    <td>10.28.1</td>
+    <td>10.29.1</td>
   </tr>
   <tr>
     <td>azure-cli</td>
-    <td>2.71.0</td>
+    <td>2.75.0</td>
   </tr>
   <tr>
     <td>bazelisk</td>
-    <td>1.25.0</td>
+    <td>1.26.0</td>
   </tr>
   <tr>
     <td>bicep</td>
-    <td>0.34.44</td>
+    <td>0.36.177</td>
   </tr>
   <tr>
     <td>carthage</td>
@@ -177,43 +177,47 @@ Updated Xcode versions will be available one week after Apple offers them for do
   </tr>
   <tr>
     <td>cmake</td>
-    <td>4.0.0</td>
+    <td>4.0.3</td>
   </tr>
   <tr>
     <td>cocoapods</td>
     <td>1.16.2_1</td>
   </tr>
   <tr>
+    <td>codeql</td>
+    <td>2.21.4</td>
+  </tr>
+  <tr>
     <td>curl</td>
-    <td>8.12.1</td>
+    <td>8.14.1</td>
   </tr>
   <tr>
     <td>deno</td>
-    <td>2.2.6</td>
+    <td>2.4.1</td>
   </tr>
   <tr>
     <td>docker</td>
-    <td>28.0.4</td>
+    <td>28.3.0</td>
   </tr>
   <tr>
     <td>fastlane</td>
-    <td>2.227.0</td>
+    <td>2.228.0</td>
   </tr>
   <tr>
     <td>gcc@13</td>
-    <td>13.3.0</td>
+    <td>13.4.0</td>
   </tr>
   <tr>
     <td>gh</td>
-    <td>2.69.0</td>
+    <td>2.74.2</td>
   </tr>
   <tr>
     <td>git</td>
-    <td>2.49.0</td>
+    <td>2.50.1</td>
   </tr>
   <tr>
     <td>git-lfs</td>
-    <td>3.6.1</td>
+    <td>3.7.0</td>
   </tr>
   <tr>
     <td>gmp</td>
@@ -225,15 +229,15 @@ Updated Xcode versions will be available one week after Apple offers them for do
   </tr>
   <tr>
     <td>gnupg</td>
-    <td>2.4.7</td>
+    <td>2.4.8</td>
   </tr>
   <tr>
     <td>go</td>
-    <td>1.24.1</td>
+    <td>1.24.5</td>
   </tr>
   <tr>
     <td>gradle</td>
-    <td>8.13</td>
+    <td>8.14.3</td>
   </tr>
   <tr>
     <td>httpd</td>
@@ -241,15 +245,15 @@ Updated Xcode versions will be available one week after Apple offers them for do
   </tr>
   <tr>
     <td>jq</td>
-    <td>1.7.1</td>
+    <td>1.8.1</td>
   </tr>
   <tr>
     <td>kotlin</td>
-    <td>2.1.20</td>
+    <td>2.2.0</td>
   </tr>
   <tr>
     <td>libpq</td>
-    <td>17.4_1</td>
+    <td>17.5</td>
   </tr>
   <tr>
     <td>llvm@15</td>
@@ -257,23 +261,23 @@ Updated Xcode versions will be available one week after Apple offers them for do
   </tr>
   <tr>
     <td>maven</td>
-    <td>3.9.9</td>
+    <td>3.9.10</td>
   </tr>
   <tr>
     <td>mint</td>
-    <td>0.17.5_1</td>
+    <td>0.18.0</td>
   </tr>
   <tr>
     <td>nginx</td>
-    <td>1.27.4</td>
+    <td>1.29.0</td>
   </tr>
   <tr>
     <td>node</td>
-    <td>23.10.0_1</td>
+    <td>24.3.0</td>
   </tr>
   <tr>
     <td>openssl@3</td>
-    <td>3.4.1</td>
+    <td>3.5.1</td>
   </tr>
   <tr>
     <td>p7zip</td>
@@ -281,27 +285,27 @@ Updated Xcode versions will be available one week after Apple offers them for do
   </tr>
   <tr>
     <td>packer</td>
-    <td>1.12.0</td>
+    <td>1.13.1</td>
   </tr>
   <tr>
     <td>perl</td>
-    <td>5.40.1</td>
+    <td>5.40.2</td>
   </tr>
   <tr>
     <td>php</td>
-    <td>8.4.5_1</td>
+    <td>8.4.10</td>
   </tr>
   <tr>
     <td>pkgconf</td>
-    <td>2.4.3</td>
+    <td>2.5.1</td>
   </tr>
   <tr>
     <td>postgresql@14</td>
-    <td>14.17_1</td>
+    <td>14.18</td>
   </tr>
   <tr>
     <td>r</td>
-    <td>4.4.3_1</td>
+    <td>4.5.1</td>
   </tr>
   <tr>
     <td>rbenv</td>
@@ -313,23 +317,27 @@ Updated Xcode versions will be available one week after Apple offers them for do
   </tr>
   <tr>
     <td>ruby</td>
-    <td>3.4.2</td>
+    <td>3.4.4</td>
   </tr>
   <tr>
     <td>rust</td>
-    <td>1.85.1_1</td>
+    <td>1.88.0</td>
   </tr>
   <tr>
     <td>rustup</td>
-    <td>1.28.1</td>
+    <td>1.28.2</td>
   </tr>
   <tr>
     <td>selenium-server</td>
-    <td>4.29.0</td>
+    <td>4.34.0</td>
   </tr>
   <tr>
     <td>swiftformat</td>
-    <td>0.55.5</td>
+    <td>0.56.4</td>
+  </tr>
+  <tr>
+    <td>swiftlint</td>
+    <td>0.59.1</td>
   </tr>
   <tr>
     <td>tmux</td>
@@ -337,7 +345,7 @@ Updated Xcode versions will be available one week after Apple offers them for do
   </tr>
   <tr>
     <td>unxip</td>
-    <td>3.1</td>
+    <td>3.2</td>
   </tr>
   <tr>
     <td>wget</td>
@@ -345,15 +353,15 @@ Updated Xcode versions will be available one week after Apple offers them for do
   </tr>
   <tr>
     <td>xcbeautify</td>
-    <td>2.28.0</td>
+    <td>2.29.0</td>
   </tr>
   <tr>
     <td>xcodes</td>
-    <td>1.6.0</td>
+    <td>1.6.2</td>
   </tr>
   <tr>
     <td>yq</td>
-    <td>4.45.1</td>
+    <td>4.45.4</td>
   </tr>
   <tr>
     <td>zstd</td>
