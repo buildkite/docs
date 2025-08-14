@@ -209,9 +209,9 @@ The hook execution flow for jobs created by the Buildkite Agent Stack for Kubern
 
 The main differences arise with the `checkout` container and user-defined `command` containers:
 
-- The `environment` hook is executed multiple times, once within the `checkout` container, and once within each of the user-defined `command` containers.
-- Checkout-related hooks (`pre-checkout`, `checkout`, `post-checkout`) are only executed within the `checkout` container.
-- Command-related hooks (`pre-command`, `command`, `post-command`) are only executed within the `command` container(s).
+* The `environment` hook is executed multiple times, once within the `checkout` container, and once within each of the user-defined `command` containers.
+* Checkout-related hooks (`pre-checkout`, `checkout`, `post-checkout`) are only executed within the `checkout` container.
+* Command-related hooks (`pre-command`, `command`, `post-command`) are only executed within the `command` container(s).
 
 See the dedicated [Using agent hooks and plugins](/docs/agent/v3/agent-stack-k8s/agent-hooks-and-plugins) page for the detailed information on how agent hooks function when using the Buildkite Agent Stack for Kubernetes controller.
 
