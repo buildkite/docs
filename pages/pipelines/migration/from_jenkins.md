@@ -504,7 +504,7 @@ This [example pipeline translation](#translate-an-example-jenkins-pipeline) demo
 
 - **Simpler pipeline configuration**: The resulting Buildkite YAML syntax is much smaller than its Jenkins Groovy DSL.
 - **Execution model**: Buildkite's steps are parallel by default with explicit sequencing vs Jenkins' stages, which are sequential by default with explicit parallelization.
-- **Plugin usage**: Buildkite required no plugins needed, whereas Jenkins required  two plugins ([AnsiColor](https://plugins.jenkins.io/ansicolor/) and build-name-setter)
+- **Plugin usage**: Buildkite required no plugins, whereas Jenkins required  two plugins ([AnsiColor](https://plugins.jenkins.io/ansicolor/) and [Build Name and Description Setter](https://plugins.jenkins.io/build-name-setter/))
 - **Tool Management**: Buildkite requires explicit tool installation for each step, with full control, whereas Jenkins provides black-box tool management.
 - **Artifact Handling**: Buildkite provides native archiving and glob pattern support vs plugin-based archiving
 
