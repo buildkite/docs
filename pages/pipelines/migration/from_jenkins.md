@@ -213,8 +213,11 @@ However, there are have several options for sharing state between steps:
 
       - label: Run tests
         commands:
-          - "npm ci"   # (Re-)installs node_modules
-          - "npm test" # node_modules will be available
+          # Obtain the required version of Node.js (22.x)
+          - curl -fsSL https://deb.nodesource.com/setup_22.x | bash
+          - sudo apt install nodejs # Installs this version of nodejs on the agent
+          - npm ci                  # (Re-)installs node_modules
+          - npm test                # node_modules will be available
     ```
 
 - **Buildkite artifacts**: You can upload [build artifacts](/docs/pipelines/configure/artifacts) from one step, which can be used in a subsequently processed step. This works best with small files and build outputs.
