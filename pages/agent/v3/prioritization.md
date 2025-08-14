@@ -4,15 +4,15 @@ Agent prioritization controls how Buildkite assigns jobs to available agents. Un
 
 ## Agent selection criteria
 
-Several factors are evaluated by the Buildkite Pipelines job dispatcher when selecting an agent to process a job. These factors can be priority-based, success-based, or targeting constraints.
+When the Buildkite's job dispatcher is selecting an agent to process a job, the evaluation is based on several factors: agent's priority, success in running previous jobs, or targeting constraints.
 
 ### Priority-based selection
 
 Agent priority is the primary factor in job assignment:
 
-- Agents with higher priority values are assigned jobs before agents with lower priority values
-- Priority can be set to any integer value, with higher numbers indicating higher priority
-- Agents with the default priority of `null` are assigned jobs last
+- Agents with higher priority values are assigned jobs before agents with lower priority values.
+- Priority can be set to any integer value, with higher numbers indicating higher priority.
+- Agents with the default priority of `null` are assigned jobs last.
 
 ### Success-based preference
 
@@ -24,7 +24,7 @@ Jobs can be targeted to specific agents using [agent tags](/docs/agent/v3/cli-st
 
 ## Setting agent priority
 
-You can configure agent priority in the configuration file, by using a command line flag, or through an environment variable. Let's look into these approaches in more detail.
+You can configure agent priority in the agent configuration file, by using a command line flag, or through an environment variable.
 
 ### Configuration file
 
@@ -118,7 +118,7 @@ buildkite-agent start --spawn 5 --priority 1 --tags "queue=ci-builds,build_type=
 
 #### Pipeline configuration for spillover strategy
 
-Configure your pipelines with higher priority jobs for "release" steps, while also targeting the specific agent tags:
+Configure your pipelines with higher priority jobs for "release" steps, while also targeting specific agent tags:
 
 **High-priority release builds:**
 
