@@ -1,0 +1,58 @@
+#!/usr/bin/env ruby
+
+# Script to parse command-line options from 'buildkite-agent start --help'
+# This script extracts all options and outputs them in YAML format
+
+puts "attributes:"
+
+# List of required options
+required_options = ["token", "build-path"]
+
+# Run the help command and get output
+help_output = `buildkite-agent start --help`
+
+# Process each line that starts with "  --"
+help_output.lines.each do |line|
+  next unless line.match?(/^  --/)
+  
+  original_line = line.dup
+  
+  # Extract option name (remove leading spaces and --, get first word)
+  line_without_prefix = line.gsub(/^  --/, '')
+  option_name = line_without_prefix.split(' ').first
+  
+  # Check if option is in the required list
+  required = required_options.include?(option_name)
+  
+  # Extract environment variable (text in brackets, preserve $ prefixes, convert commas to newlines)
+  env_var = ""
+  if match = line.match(/\[([^\]]+)\]/)
+    env_var = match[1].gsub(/, /, "\n      ")
+  end
+  
+  # Extract default value (text between "default:" and ")", preserve quotes)
+  default_value = ""
+  if match = line.match(/\(default:([^)]*)\)/)
+    default_value = match[1].strip
+  end
+  
+  # Extract description
+  # Start with the line and remove option name and value part
+  temp = line_without_prefix.gsub(/^[a-zA-Z0-9-]+( value)?[ ]*/, '')
+  # Remove default value part
+  temp = temp.gsub(/[ ]*\(default:[^)]*\)/, '')
+  # Remove environment variable part  
+  temp = temp.gsub(/[ ]*\[\$[^\]]*\][ ]*$/, '')
+  
+  description = temp.strip
+  
+  # Output YAML
+  puts "  - name: \"#{option_name}\""
+  puts "    env_var: |"
+  puts "      #{env_var}"
+  puts "    default_value: |"
+  puts "      #{default_value}"
+  puts "    required: #{required}"
+  puts "    desc: |"
+  puts "      #{description}"
+end
