@@ -255,7 +255,7 @@ Make a copy or fork this repository within your own GitHub account if you'd like
     * **Matrix builds**: The pipeline is built twice—once with Node.js version 20.x and the other with version 22.x.
     * **Agent targeting**: Agents are targeted using label-based selection, which are the Node.js versions defined within the [`axes` section](https://www.jenkins.io/doc/book/pipeline/syntax/#matrix-axes).
     * **Tool management**: Node.js capabilities within the pipeline steps handled by Jenkins' own built-in `nodejs` tool.
-    * **Sequential stages**: Each `stage` within the [`stages` section](https://www.jenkins.io/doc/book/pipeline/syntax/#stages) is executed sequentially, with one stage containing parallel sub-steps. Also not that since the `stages` section is wrapped in a `matrix` directive, the entire stages section is run in parallel (that is, twice, once using each Node.js version).
+    * **Sequential stages**: Each `stage` within the [`stages` section](https://www.jenkins.io/doc/book/pipeline/syntax/#stages) is executed sequentially, with one stage containing parallel sub-steps. Also note that since the `stages` section is wrapped in a `matrix` directive, the entire stages section is run in parallel (that is, twice, once using each Node.js version).
     * **Plugin usage**: The [`options` directive](https://www.jenkins.io/doc/book/pipeline/syntax/#options) uses the [Jenkins AnsiColor plugin](https://plugins.jenkins.io/ansicolor/) for output colorization.
     * **Artifact archiving**: Artifacts from the test coverage and build process are saved in the pipeline's `post` section.
 
