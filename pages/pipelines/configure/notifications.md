@@ -459,7 +459,7 @@ steps:
 
 ### Notify only on first failure
 
-The `pipeline.started_failing` conditional is designed to only send notifications when a pipeline transitions from passing to failing - and not for every failed build. This prevents excessive notifications, while ensuring teams are immediately alerted when something goes wrong.
+The `pipeline.started_failing` conditional is designed to only send notifications when a pipeline transitions from a passing state to a failing state - not for every failed build. This prevents excessive notifications, while ensuring teams are immediately alerted when something goes wrong.
 
 ```yaml
 notify:
@@ -472,13 +472,13 @@ notify:
 
 The `pipeline.started_failing` conditional might be valuable for teams that:
 
-* Want immediate alerts when something breaks but don't want repeated notifications for consecutive failures
-* Have flaky tests or environments where builds might fail multiple times in a row
-* Implement workflows where quick feedback on state changes is more important than being notified about every individual failure
+- Want immediate alerts when something breaks but don't want repeated notifications for consecutive failures.
+- Have flaky tests or environments where builds might fail multiple times in a row.
+- Implement workflows where quick feedback on state changes is more important than being notified about every individual failure
 
 ### Notify only on first pass
 
-The `pipeline.started_passing` conditional is designed to only send notifications when a pipeline transitions from failing to passing - not for every successful build. This prevents excessive notifications, while ensuring teams are immediately alerted when issues are resolved.
+The `pipeline.started_passing` conditional is designed to only send notifications when a pipeline transitions from a failing state to a passing state - not for every successful build. This prevents excessive notifications, while ensuring teams are immediately alerted when issues are resolved.
 
 ```yaml
 notify:
@@ -491,8 +491,8 @@ notify:
 
 The `pipeline.started_passing` conditional might be valuable for teams that:
 
-* Need to track when build issues are resolved after failures
-* Prefer to avoid notifications for builds that were already passing
+- Need to track when build issues are resolved after failures.
+- Prefer to avoid notifications for builds that were already passing.
 
 ### Notify on all failures and first successful pass
 
@@ -531,9 +531,7 @@ notify:
 
 #### When to use
 
-These conditionals might be valuable for teams that:
-
-* Want to be notified about each build failure but avoid notifications for consecutive successful builds
+These conditionals might be valuable for teams that want to be notified about each build failure but avoid notifications for consecutive successful builds.
 
 ## Webhooks
 
