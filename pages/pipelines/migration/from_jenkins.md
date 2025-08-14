@@ -248,7 +248,7 @@ This section guides you through the process of translating a [declarative Jenkin
 
 ### Step 1: Copy or fork the jenkins-to-buildkite repository
 
-The declarative Jenkins pipeline example can be found in the [jenkins-to-buildkite](https://github.com/cnunciato/jenkins-to-buildkite) repository.
+The declarative Jenkins pipeline example can be found in the [jenkins-to-buildkite](https://github.com/buildkite/jenkins-to-buildkite) repository.
 
 Make a copy or fork this repository (within your own GitHub account) to examine it further. This repository has its own containerized version of Jenkins, which you can run locally to see how it builds the Jenkins pipeline and app included within this repository.
 
@@ -256,7 +256,7 @@ In your Buildkite organization, which you would have created or began working wi
 
 ### Step 2: Examine the Jenkins pipeline
 
-1. Open your [Jenkinsfile](https://github.com/cnunciato/jenkins-to-buildkite/blob/main/app/Jenkinsfile) to examine its stages, steps, its matrix and post-processed steps.
+1. Open your [Jenkinsfile](https://github.com/buildkite/jenkins-to-buildkite/blob/main/app/Jenkinsfile) to examine its stages, steps, its matrix and post-processed steps.
 
 1. Identify the typical features of this pipeline:
     * **Matrix builds**: The pipeline is built twice—once with Node.js version 20.x and the other with version 22.x.
