@@ -8,6 +8,9 @@ puts "attributes:"
 # List of required options
 required_options = ["token", "build-path"]
 
+# List of options to exclude from parsing
+exclude_options = ["config"]
+
 # Run the help command and get output
 help_output = `buildkite-agent start --help`
 
@@ -21,6 +24,9 @@ help_output.lines.each do |line|
   line_without_prefix = line.gsub(/^  --/, '')
   option_name = line_without_prefix.split(' ').first
   
+  # Skip if option is in the exclude list
+  next if exclude_options.include?(option_name)
+
   # Check if option is in the required list
   required = required_options.include?(option_name)
   

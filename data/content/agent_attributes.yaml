@@ -39,14 +39,6 @@ attributes:
     required: false
     desc: |
       Enable a profiling mode, either cpu, memory, mutex or block
-  - name: "config"
-    env_var: |
-      $BUILDKITE_AGENT_CONFIG
-    default_value: |
-      
-    required: false
-    desc: |
-      Path to a configuration file
   - name: "name"
     env_var: |
       $BUILDKITE_AGENT_NAME
