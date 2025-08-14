@@ -6,8 +6,8 @@ Flaky tests are automated tests that produce inconsistent or unreliable results,
 
 Test Engine detects flaky tests by surfacing when the same test is run multiple times on the same commit SHA with different results. The tests might run multiple times within a single build or across different builds. Either way, they are detected as flaky if they report both passed and failed results.
 
-When a test is detected as flaky, Test Engine adds a Flaky label to the test and that test will be displayed in the Flaky view.
-If a test hasn’t produced both a failed and a passed result on the same commit SHA within the last 100 executions or 7 days, the Flaky label is removed and the test is removed from the Flaky view.
+When a test is detected as flaky, Test Engine adds a flaky label to the test and that test will be displayed in the **Flaky** view.
+If a test hasn’t produced both a failed and a passed result on the same commit SHA within the last 100 executions or 7 days, the flaky label is removed and the test is removed from the **Flaky** view.
 
 If your test suite supports it, we recommend enabling the option to retry failed tests automatically. Automatic retries are typically run more often and provide more data to detect flaky tests. If you can't use automatic retries, Test Engine also detects flaky tests from manual retries.
 
