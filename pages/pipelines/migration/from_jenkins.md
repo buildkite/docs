@@ -144,7 +144,7 @@ Buildkite's YAML-based pipeline syntax and definitions, along with its flat stru
 
 ### Step execution
 
-By default, Jenkins runs its pipeline steps in sequence, whereas Buildkite farms out all of its steps simultaneously (that is, in parallel) to any available agents that can run them. However, you can achieve the opposite of these default behaviors in each products' pipelines.
+By default, Jenkins runs its pipeline steps in sequence, whereas Buildkite runs steps simultaneously (that is, in parallel) on any available agents that can run them. However, you can achieve the opposite of these default behaviors in each products' pipelines.
 
 To make a Jenkins pipeline run its steps in parallel, the [`parallel` directive](https://www.jenkins.io/doc/book/pipeline/syntax/#parallel) is used explicitly in the Jenkins pipeline. For instance, in the following Jenkins pipeline snippet, the `Lint` and `Unit Tests` steps are run simultaneously.
 
