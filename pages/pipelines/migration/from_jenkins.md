@@ -93,7 +93,7 @@ Rather than managing plugins through a web-based system like Jenkins, in Buildki
 
 Jenkins plugins are typically Java-based, run in the Jenkins controller's Java virtual machine, and are shared across all pipelines. Therefore, a failure with one of these plugins can crash your entire Jenkins instance. Furthermore, since Jenkins plugins are closely integrated with Jenkins core, compatibility issues can often be encountered when either Jenkins core or its plugins are upgraded.
 
-Buildkite plugins are shell-based, run on individual Buildkite Agents, and are pipeline-specific with independent versioning, such that plugins are only loosely coupled with Buildkite. Therefore, plugin failures are isolated to individual builds, and issues are rare whenever you use newer versions of plugins in Buildkite pipelines.
+Buildkite plugins are shell-based, run on individual Buildkite Agents, and are pipeline- or even step-specific with independent versioning, such that plugins are only loosely coupled with Buildkite. Therefore, plugin failures are isolated to individual builds, and issues are rare whenever you use newer versions of plugins in Buildkite pipelines.
 
 ### Try out Buildkite
 
