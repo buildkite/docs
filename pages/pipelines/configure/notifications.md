@@ -120,7 +120,7 @@ To send notifications to a Basecamp Campfire, you'll need to set up a chatbot in
 
 1. Add a [chatbot](https://m.signalvnoise.com/new-in-basecamp-3-chatbots/) to the Basecamp project or team that you'll be sending notifications to.
 1. Set up your chatbot with a name and an optional URL. If you'd like to include an image, you can find the Buildkite logo in our [Brand assets](https://buildkite.com/brand-assets).
-1. On the next page of the chatbot setup, copy the URL that Basecamp provides in the `curl` code snippet
+1. On the next page of the chatbot setup, copy the URL that Basecamp provides in the `curl` code snippet.
 1. Add a Basecamp notification to your pipeline using the `basecamp_campfire` attribute of the `notify` YAML block and the URL copied from your Basecamp chatbot:
 
 ```yaml
@@ -374,7 +374,7 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 > 📘
-> You can also send notifications with custom messages to specific users with the relevant syntax mentioned in [Notify a user in all workspaces](#slack-channel-and-direct-messages-notify-a-user-in-all-workspaces). Employ the appropriate user notification syntax based on your configured the Slack or Slack Workspace notification service/s.
+> You can also send notifications with custom messages to specific users with the relevant syntax mentioned in [Notify a user in all workspaces](#slack-channel-and-direct-messages-notify-a-user-in-all-workspaces). Employ the appropriate user notification syntax based on your configured the Slack or Slack Workspace notification service(s).
 
 ### Custom messages with user mentions
 
