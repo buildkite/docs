@@ -118,8 +118,8 @@ This page list the Buildkite Migration tool's currently supported, partially sup
 > - `variables`: Customized variable definition to utilise within a custom Bitbucket pipeline starting condition.
 >
 > For information on each of these individual properties, refer to the reference within the Bitbucket Pipelines documentation for [parallel](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel), [step](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property), [stage](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage) and [variable](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Custom--manual--pipeline-variables) properties.
-> 
-> Additionally, implementation of these pipeline properties can be enhanced with best practices through the use of [Dynamic Pipelines](/docs/pipelines/defining-steps#dynamic-pipelines) to generate and upload pipeline configuration dynamically, using [conditionals](/docs/pipelines/conditionals#conditionals-in-pipelines) at both pipelines/step level to apply jobs only on certain conditions and setting [trigger steps](/docs/pipelines/trigger-step) with required attributes/environment variable configuration passed through to triggered builds.
+>
+> Additionally, implementation of these pipeline properties can be enhanced with best practices through the use of [Dynamic Pipelines](/docs/pipelines/dynamic-pipelines) to generate and upload pipeline configuration dynamically, using [conditionals](/docs/pipelines/conditionals#conditionals-in-pipelines) at both pipelines/step level to apply jobs only on certain conditions and setting [trigger steps](/docs/pipelines/trigger-step) with required attributes/environment variable configuration passed through to triggered builds.
 
 ### Parallel
 
