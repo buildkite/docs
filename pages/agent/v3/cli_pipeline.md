@@ -15,15 +15,13 @@ See the [Defining your pipeline steps](/docs/pipelines/configure/defining-steps)
 
 The pipeline can be written as YAML or JSON, but YAML is more common for its readability. There are three top-level properties you can specify:
 
-* `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
-* `env` - A map of [environment variables](/docs/pipelines/configure/environment-variables) to apply to all steps
-* `steps` - A list of [build pipeline steps](/docs/pipelines/configure/defining-steps)
-
+* The `agents` attribute is a map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
+* The `env` attribute is a map of [environment variables](/docs/pipelines/configure/environment-variables) to apply to all steps
+* The `steps` attribute is an array of [build pipeline steps](/docs/pipelines/configure/defining-steps)
 
 ## Insertion order
 
 Steps are inserted immediately following the job performing the pipeline upload. Note that if you perform multiple uploads from a single step, they can appear to be in reverse order, because the later uploads are inserted earlier in the pipeline.
-
 
 ## Environment variable substitution
 
@@ -42,7 +40,7 @@ For example, the following pipeline substitutes a number of [Buildkite's default
     branch: "${BUILDKITE_BRANCH}"
 ```
 
-If you want an environment variable to be evaluated at run-time (for example, using the step's environment variables) make sure to escape the `$` character using `$$` or `\$`. For example:
+If you want an environment variable to be evaluated at run-time (for example, using the step's environment variables) ensure you escape the `$` character using `$$` or `\$`. For example:
 
 ```yaml
 - command: "deploy.sh $$SERVER"
