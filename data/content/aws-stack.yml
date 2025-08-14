@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v6.40.9"
+Description: "Buildkite stack v6.40.10"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
 # autoscaling Buildkite Agent cluster. Use it to parallelize
@@ -60,6 +60,7 @@ Metadata:
         - BuildkiteAgentScalerServerlessARN
         - BuildkiteAgentScalerVersion
         - LogRetentionDays
+        - BuildkiteAgentEnableGracefulShutdown
 
       - Label:
           default: Network Configuration
@@ -210,8 +211,8 @@ Parameters:
   BuildkiteAgentScalerVersion:
     Description: "Version of the buildkite-agent-scaler to use."
     Type: String
-    AllowedPattern: '^(?:(?:[2-9]|[1-9]\d+)\.\d+\.\d+|1\.(?:[1-9]\d+\.\d+|9\.[1-9]\d*))$'
-    ConstraintDescription: "The agent scaler release must be greater than 1.9.0 as a new parameter was introduced in 1.9.1"
+    AllowedPattern: '^(?:(?:[2-9]|[1-9]\d+)\.\d+\.\d+|1\.(?:[1-9]\d+\.\d+|9\.(?:[5-9]|[1-9]\d+)))$'
+    ConstraintDescription: "The agent scaler release must be 1.9.5 or newer."
     Default: "1.9.5"
 
   ScalerEnableExperimentalElasticCIMode:
@@ -222,10 +223,28 @@ Parameters:
         - "false"
     Default: "false"
 
+  ScaleOutCooldownPeriod:
+    Description: Cooldown period in seconds before allowing another scale-out event
+    Type: Number
+    Default: 300
+
+  ScaleInCooldownPeriod:
+    Description: Cooldown period in seconds before allowing another scale-in event
+    Type: Number
+    Default: 3600
+
   LogRetentionDays:
     Type: Number
     Description: The number of days to retain the Cloudwatch Logs of the lambda.
     Default: "1"
+
+  BuildkiteAgentEnableGracefulShutdown:
+    Description: Set to true to enable graceful shutdown of agents when the ASG is updated with replacement. This allows ASGs to be removed in a timely manner during an in-place update of the elastic stack, and allows remaining agents to finish jobs without interruptions.
+    Type: String
+    AllowedValues:
+      - "true"
+      - "false"
+    Default: "false"
 
   BuildkiteAgentTracingBackend:
     Description: The tracing backend to use for CI tracing. See https://buildkite.com/docs/agent/v3/tracing
@@ -245,7 +264,7 @@ Parameters:
   BuildkiteAgentSignalGracePeriod:
     Description: The number of seconds given to a subprocess to handle being sent `cancel-signal`. After this period has elapsed, SIGKILL will be sent.
     Type: Number
-    Default: 60
+    Default: -1
     MinValue: -1
 
   BuildkiteTerminateInstanceAfterJob:
@@ -587,6 +606,21 @@ Parameters:
       - "dualstack"
     Default: "ipv4"
 
+  DockerIPv4AddressPool1:
+    Type: String
+    Description: Primary IPv4 CIDR block for Docker default address pools. Must not conflict with host network or VPC CIDR. Only applies to Linux instances, not Windows.
+    Default: "172.17.0.0/12"
+
+  DockerIPv4AddressPool2:
+    Type: String
+    Description: Secondary IPv4 CIDR block for Docker default address pools. Only applies to Linux instances, not Windows.
+    Default: "192.168.0.0/16"
+
+  DockerIPv6AddressPool:
+    Type: String
+    Description: IPv6 CIDR block for Docker default address pools in dualstack mode. Only applies to Linux instances, not Windows.
+    Default: "2001:db8:2::/104"
+
   EnableSecretsPlugin:
     Type: String
     Description: Enables s3-secrets plugin for all pipelines
@@ -912,6 +946,9 @@ Conditions:
     UseCostAllocationTags:
       !Equals [ !Ref EnableCostAllocationTags, "true" ]
 
+    EnableBuildkiteAgentGracefulShutdown:
+      !Equals [ !Ref BuildkiteAgentEnableGracefulShutdown, "true" ]
+
     UsePipelineSigningKMSKey:
       !Not [ !Equals [ !Ref PipelineSigningKMSKeyId, "" ] ]
 
@@ -973,6 +1010,7 @@ Conditions:
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m7g" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m7gd" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m8g" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m8gd" ]
         - !Or
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r6g" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r6gd" ]
@@ -1003,26 +1041,26 @@ Mappings:
 
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-07fc359fc556298f9, linuxarm64: ami-0ceb414b9bd2610b9, windows: ami-0aff4c33e9fc97833 }
-    us-east-2 : { linuxamd64: ami-0da5cdc250bfe2a1a, linuxarm64: ami-027b5e78a8545db34, windows: ami-02c0ed0e68b3cd0bc }
-    us-west-1 : { linuxamd64: ami-08505300181e80973, linuxarm64: ami-0714b9a13a7a5d6fc, windows: ami-0f024ede65a7d1fee }
-    us-west-2 : { linuxamd64: ami-00ef790bd7be65eca, linuxarm64: ami-08521ad32299cbae5, windows: ami-0b4b8b4b66d016091 }
-    af-south-1 : { linuxamd64: ami-08468d4ecf60a8574, linuxarm64: ami-0e6f99a3062660449, windows: ami-0452eee80cfee79bd }
-    ap-east-1 : { linuxamd64: ami-0fbafab93bcdf41ee, linuxarm64: ami-094ce4851134f5e0c, windows: ami-0505602437e021c1d }
-    ap-south-1 : { linuxamd64: ami-01b22ebd32a675074, linuxarm64: ami-0bc7d157725ccdc1d, windows: ami-087992ec241e8bf3c }
-    ap-northeast-2 : { linuxamd64: ami-0be95796c08e32c68, linuxarm64: ami-08cacafadb3ed2364, windows: ami-049745d2b72dc39e2 }
-    ap-northeast-1 : { linuxamd64: ami-011048bfd9270a21a, linuxarm64: ami-0222878970f0a47bc, windows: ami-08dcdf68cce811273 }
-    ap-southeast-2 : { linuxamd64: ami-08c41aeb5a734eb45, linuxarm64: ami-022964be91fe7674a, windows: ami-0e019c863fbf4425c }
-    ap-southeast-1 : { linuxamd64: ami-0705db8c9ff74e05b, linuxarm64: ami-0950a6bbf1a4d279c, windows: ami-035707e652042fd75 }
-    ca-central-1 : { linuxamd64: ami-0dbd29f9b589f326a, linuxarm64: ami-044d33acc53340925, windows: ami-079ffedd8931b363c }
-    eu-central-1 : { linuxamd64: ami-0586819f002b4885b, linuxarm64: ami-0795772f3a7a37986, windows: ami-0c52ea65ba1de5db6 }
-    eu-west-1 : { linuxamd64: ami-04db3e657117326ee, linuxarm64: ami-09518850e8e0e3fb9, windows: ami-0e6cc65da8884caff }
-    eu-west-2 : { linuxamd64: ami-0c0812de855c4049e, linuxarm64: ami-0d5ac83ad3c9c8576, windows: ami-0daf352fa5ccbb99d }
-    eu-south-1 : { linuxamd64: ami-004b030c344e123ce, linuxarm64: ami-052a4fdf803783a72, windows: ami-0ad4dce9deac1143b }
-    eu-west-3 : { linuxamd64: ami-04c16120938d8e254, linuxarm64: ami-00791e7233256f1aa, windows: ami-00f89b1917431029b }
-    eu-north-1 : { linuxamd64: ami-0a816060978d1f1eb, linuxarm64: ami-092679bc2cd57bad7, windows: ami-043144cd12b0dff48 }
-    me-south-1 : { linuxamd64: ami-0fc799dfe38dcf28e, linuxarm64: ami-099779b2fa57053d3, windows: ami-06cac586339175e87 }
-    sa-east-1 : { linuxamd64: ami-0e48bf2302637778d, linuxarm64: ami-01f8d1e1082da78d6, windows: ami-0ff0b45ff66a51b9f }
+    us-east-1 : { linuxamd64: ami-0a4bbaeedf879f421, linuxarm64: ami-024670662964ac9f0, windows: ami-01edef1b88f718154 }
+    us-east-2 : { linuxamd64: ami-02a3958857d5ef1a1, linuxarm64: ami-078d694c80c67da70, windows: ami-05d20be2c423ec1d7 }
+    us-west-1 : { linuxamd64: ami-04eab57058c287bbe, linuxarm64: ami-0687c0d0ab9ffd0b5, windows: ami-02401e5fd81a63c45 }
+    us-west-2 : { linuxamd64: ami-022f6253aaf60e1c5, linuxarm64: ami-0e0fbc8b5f2bbe6e4, windows: ami-0d0bd6f6af2196e18 }
+    af-south-1 : { linuxamd64: ami-008e73008aca95475, linuxarm64: ami-016a32360a11aa984, windows: ami-05e7cae571acb5c05 }
+    ap-east-1 : { linuxamd64: ami-0a1f91b5eeea4d10f, linuxarm64: ami-02457cb0ce3570a95, windows: ami-09cf5049171bc5bf7 }
+    ap-south-1 : { linuxamd64: ami-03a5d20197d5da0ad, linuxarm64: ami-09c743194f625a61e, windows: ami-0fc0e4a6dd76db649 }
+    ap-northeast-2 : { linuxamd64: ami-01e0077fb238a92d9, linuxarm64: ami-0fd337a80456019b0, windows: ami-02abf5caca1beac5f }
+    ap-northeast-1 : { linuxamd64: ami-0ad26c92a34b1aede, linuxarm64: ami-0709f1c54d975684f, windows: ami-03474d2ae30350e52 }
+    ap-southeast-2 : { linuxamd64: ami-052ec86ac848977f2, linuxarm64: ami-0c90ace4eb4cf8942, windows: ami-05368a4aabe3bedb3 }
+    ap-southeast-1 : { linuxamd64: ami-0e4e9816c70ee3fee, linuxarm64: ami-0f1557362623ff715, windows: ami-0dba8fb2e4523a047 }
+    ca-central-1 : { linuxamd64: ami-03af7596ce7ccb433, linuxarm64: ami-07a3d6a6a2859d014, windows: ami-0ed9c3b8145aff014 }
+    eu-central-1 : { linuxamd64: ami-0275da55581e8c400, linuxarm64: ami-0e0312b8b8d12118c, windows: ami-0f8b23c54d58fa835 }
+    eu-west-1 : { linuxamd64: ami-0cd7071f7d4eebea2, linuxarm64: ami-0bd0179e8d7dc4644, windows: ami-0ca5162cd3a0e2e8d }
+    eu-west-2 : { linuxamd64: ami-0dc87797705b04f0a, linuxarm64: ami-0fd1e9dc1289c0c25, windows: ami-05f970ab615b21d7d }
+    eu-south-1 : { linuxamd64: ami-0cee87bf77f314adc, linuxarm64: ami-009e4dc97e498caa9, windows: ami-063f9aebf316dfca7 }
+    eu-west-3 : { linuxamd64: ami-09e73f0ef2a2ca334, linuxarm64: ami-0002990f3abbcc27b, windows: ami-0a06985affd647ac8 }
+    eu-north-1 : { linuxamd64: ami-0e2673f3322d53181, linuxarm64: ami-0774df120284d2bee, windows: ami-00897376d15de8521 }
+    me-south-1 : { linuxamd64: ami-0ce63529fe90645e4, linuxarm64: ami-09366749448ccbc08, windows: ami-0649e5048cada3c27 }
+    sa-east-1 : { linuxamd64: ami-0f36244032c50c84d, linuxarm64: ami-0e7bb6d9c540e55dc, windows: ami-01c1d22ef2f3a4f2d }
 
 Resources:
   Vpc:
@@ -1523,7 +1561,7 @@ Resources:
                   powershell -file C:\buildkite-agent\bin\bk-configure-docker.ps1 >> C:\buildkite-agent\elastic-stack.log
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v6.40.9"
+                  $Env:BUILDKITE_STACK_VERSION="v6.40.10"
                   $Env:BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}"
                   $Env:BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}"
                   $Env:BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}"
@@ -1590,13 +1628,16 @@ Resources:
                   DOCKER_USERNS_REMAP=${EnableDockerUserNamespaceRemap} \
                   DOCKER_EXPERIMENTAL=${EnableDockerExperimental} \
                   DOCKER_NETWORKING_PROTOCOL=${DockerNetworkingProtocol} \
+                  DOCKER_IPV4_ADDRESS_POOL_1=${DockerIPv4AddressPool1} \
+                  DOCKER_IPV4_ADDRESS_POOL_2=${DockerIPv4AddressPool2} \
+                  DOCKER_IPV6_ADDRESS_POOL=${DockerIPv6AddressPool} \
                   BUILDKITE_ENABLE_INSTANCE_STORAGE="${EnableInstanceStorage}" \
                     /usr/local/bin/bk-configure-docker.sh
                   --==BOUNDARY==
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v6.40.9" \
+                  BUILDKITE_STACK_VERSION="v6.40.10" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
                   BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}" \
@@ -1849,6 +1890,147 @@ Resources:
       ServiceToken: !GetAtt AzRebalancingSuspenderFunction.Arn
       AutoScalingGroupName: !Ref AgentAutoScaleGroup
 
+  StopBuildkiteAgentsRole:
+    Type: AWS::IAM::Role
+    Condition: EnableBuildkiteAgentGracefulShutdown
+    Properties:
+      PermissionsBoundary:
+        !If [
+          SetInstanceRolePermissionsBoundaryARN,
+          !Ref InstanceRolePermissionsBoundaryARN,
+          !Ref "AWS::NoValue",
+        ]
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: DescribeASGs
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "autoscaling:DescribeAutoScalingGroups"
+                Resource: "*"
+        - PolicyName: ModifyASGs
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "autoscaling:UpdateAutoScalingGroup"
+                Resource: !Sub arn:${AWS::Partition}:autoscaling:${AWS::Region}:${AWS::AccountId}:autoScalingGroup:*:autoScalingGroupName/${AWS::StackName}-AgentAutoScaleGroup-*
+        - PolicyName: RunStopBuildkiteDocument
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "ssm:SendCommand"
+                Resource:
+                  - !Sub arn:${AWS::Partition}:ssm:${AWS::Region}::document/AWS-RunShellScript
+        - PolicyName: StopBuildkiteInstances
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "ssm:SendCommand"
+                Resource:
+                  - !Sub arn:${AWS::Partition}:ec2:${AWS::Region}:${AWS::AccountId}:instance/*
+                Condition:
+                  StringEquals:
+                    "aws:resourceTag/aws:cloudformation:logical-id": "AgentAutoScaleGroup"
+
+  StopBuildkiteAgentsFunction:
+    Type: AWS::Lambda::Function
+    Condition: EnableBuildkiteAgentGracefulShutdown
+    Properties:
+      Description: "Gracefully stops all Buildkite agents in a given Auto Scaling group."
+      Code:
+        ZipFile: |
+          import boto3
+          import logging
+          import cfnresponse
+
+          logger = logging.getLogger()
+          logger.setLevel(logging.INFO)
+
+          autoscaling_client = boto3.client("autoscaling")
+          ssm_client = boto3.client("ssm")
+
+          def handler(event, context):
+              logger.info(f"Received event: {event}")
+
+              # only trigger on update upon replacement events
+              if event["RequestType"] == "Update":
+                  try:
+                      props = event["OldResourceProperties"]
+                      autoscaling_group_name = props["AutoScalingGroupName"]
+
+                      # Scale ASG down to zero, to allow Buildkite agents to terminate
+                      force_instance_termination(autoscaling_group_name)
+
+                      # Stop all Buildkite agents in the old ASG
+                      stop_bk_agents(autoscaling_group_name)
+
+                      # Send success response to CloudFormation
+                      cfnresponse.send(event, context, cfnresponse.SUCCESS, {}, "CustomResourcePhysicalID")
+                  except Exception as e:
+                      logger.error(f"Error: {str(e)}")
+                      cfnresponse.send(event, context, cfnresponse.FAILED, {"Error": str(e)}, "CustomResourcePhysicalID")
+              else:
+                  # For Create and Delete events, just send success response
+                  cfnresponse.send(event, context, cfnresponse.SUCCESS, {}, "CustomResourcePhysicalID")
+
+          def force_instance_termination(autoscaling_group_name):
+              """Forces all EC2 instances to terminate in the specified Auto Scaling group by setting the desired capacity to zero."""
+              logger.info(f"Setting the desired capacity of {autoscaling_group_name} to zero")
+              autoscaling_client.update_auto_scaling_group(
+                  AutoScalingGroupName=autoscaling_group_name,
+                  MinSize=0,
+                  DesiredCapacity=0
+              )
+
+          def stop_bk_agents(autoscaling_group_name):
+              """Gracefully terminates Buildkite agents running in the given Auto Scaling Group."""
+              stack_name = autoscaling_group_name.split("-AgentAutoScaleGroup")[0]
+
+              logger.info(f"Stopping BK agents in {stack_name}")
+              response = ssm_client.send_command(
+                  Targets=[
+                      {
+                          "Key": "tag:aws:autoscaling:groupName",
+                          "Values": [autoscaling_group_name]
+                      }
+                  ],
+                  DocumentName="AWS-RunShellScript",
+                  Comment=f"Stopping BK agents in {stack_name}",
+                  Parameters={
+                      "commands": ["sudo kill -s SIGTERM $(/bin/pidof buildkite-agent)"]
+                  }
+              )
+              logger.info(f"SSM command response: {response}")
+      Handler: index.handler
+      Role: !GetAtt StopBuildkiteAgentsRole.Arn
+      Runtime: "python3.12"
+
+  StopBuildkiteAgents:
+    Type: AWS::CloudFormation::CustomResource
+    Condition: EnableBuildkiteAgentGracefulShutdown
+    Version: 1.0
+    Properties:
+      ServiceToken: !GetAtt StopBuildkiteAgentsFunction.Arn
+      AutoScalingGroupName: !Ref AgentAutoScaleGroup
+
   SecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Condition: CreateSecurityGroup
@@ -1889,6 +2071,8 @@ Resources:
         AgentAutoScaleGroup: !Ref AgentAutoScaleGroup
         ScaleOutFactor: !Ref ScaleOutFactor
         ScaleOutForWaitingJobs: !Ref ScaleOutForWaitingJobs
+        ScaleInCooldownPeriod: !Ref ScaleInCooldownPeriod
+        ScaleOutCooldownPeriod: !Ref ScaleOutCooldownPeriod
         EventSchedulePeriod: !Ref ScalerEventSchedulePeriod
         MinPollInterval: !Ref ScalerMinPollInterval
         LogRetentionDays: !Ref LogRetentionDays
