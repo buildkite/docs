@@ -39,7 +39,7 @@ This page list the Buildkite Migration tool's currently supported, partially sup
 | `jobs.<id>.steps.strategy` | Yes | Allows for the conversion of a step's `strategy` (matrix) to create multiple jobs of a combination of values. |
 | `jobs.<id>.steps.strategy.matrix` | Yes | A `matrix` key inside of a step's `strategy` will be translated to a [Buildkite build matrix](/docs/pipelines/build-matrix). |
 | `jobs.<id>.steps.strategy.matrix.include` | Yes| Key/value pairs to add in the generated [matrix](/docs/pipelines/build-matrix)'s combinations. |
-| `jobs.<id>.steps.strategy.matrix.exclude`| Yes | Key/value pairs to exclude in the generated [matrix](/docs/pipelines/build-matrix)'s combinations (`skip`). | 
+| `jobs.<id>.steps.strategy.matrix.exclude`| Yes | Key/value pairs to exclude in the generated [matrix](/docs/pipelines/build-matrix)'s combinations (`skip`). |
 | `jobs.<id>.steps.uses` | No | `uses` defines a separate action to use within the context of a action's job, and is currently not supported. |
 
 ## Name
