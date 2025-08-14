@@ -42,7 +42,7 @@ The diagram shows that Buildkite provides a web interface, handles integrations 
 
 In Jenkins, concurrency is managed through multiple executors within a single node. In Buildkite, multiple agents can run on either a single machine or across multiple machines.
 
-More recently, Buildkite also provides its own [hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) feature, as a managed solution that suits smaller teams, including those wishing to get up and running with Pipelines more rapidly.
+More recently, Buildkite has provided its own [hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) feature (as an alternative to this self-hosted, hybrid architecture, described above), as a managed solution that suits smaller teams, including those wishing to get up and running with Pipelines more rapidly.
 
 See [Buildkite Pipelines architecture](/docs/pipelines/architecture) to learn more about how you can set up Buildkite to work with your organization.
 
