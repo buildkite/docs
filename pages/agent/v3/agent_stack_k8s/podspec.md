@@ -142,10 +142,10 @@ steps:
 
 ### Environment variables precedence
 
-During `agent` bootstrap, the `agent` receives many environment variables from backend. Those environments are normally the one set via `env` keyword in pipeline.yaml.
+During its bootstrap phase, the Buildkite Agent receives some of its environment variables from the Buildkite platform. These environment variables are normally set using the `env` keyword in pipeline.yaml file.
 
-During Kubernetes `podSpec` generation, the Kubernetes Stack controller also put some environment variables directly as part of `podSpec`. These environment variables contain various Kubernetes stack specific environment variables or environment variables that users set in various `podSpec` configuration step.
+During the generation of the Kubernetes `podSpec`, the `podSpec` receives some of its environment variables from the Agent Stack for Kubernetes controller (that is, controller-specific environment variables), as well as environment variables that can be set in various `podSpec` configuration steps of the pipeline.yaml file.
 
-Currently, `podSpec`'s environment variables take higher precedence over environment variables set via `env` keyword in pipeline.yaml.
+Be aware that currently, environment variables defined as part of a `podSpec` take higher precedence over environment variables set using the `env` keyword in the pipeline.yaml file.
 
-If you have a need for more flexible environment variables setup, we encourage to leverage the [Agent hooks](/docs/agent/v3/hooks) to implement a precedence rule suite to your organization.
+If you have a need for a more flexible environment variable setup, use [Agent hooks](/docs/agent/v3/hooks) to implement a precedence rule suite to your organization.
