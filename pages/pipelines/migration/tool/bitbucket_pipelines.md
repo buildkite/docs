@@ -17,7 +17,7 @@ This page list the Buildkite Migration tool's currently supported, partially sup
 | Key | Supported | Notes |
 | --- | --- | --- |
 | `definitions` | Partially | Customised definitions utilised throughout a Bitbucket pipeline. `caches` and `services` are supported for translation within Buildkite Migration tool. |
-| `definitions.caches` | Partially | Customised cache definitions that can be applied to specific Bitbucket pipeline steps - inclusive of folders, single file - or multifile cache. Targeted into specific steps with the `pipelines.default.step.caches.<name>` property, and in which the translation will utilise the [cache-buildkite-plugin](https://github.com/buildkite-plugins/cache-buildkite-plugin) that may require further setup/tweaking around specific caching strategies. |
+| `definitions.caches` | Partially | Customised cache definitions that can be applied to specific Bitbucket pipeline steps - inclusive of folders, single file - or multi-file cache. Targeted into specific steps with the `pipelines.default.step.caches.<name>` property, and in which the translation will utilise the [cache-buildkite-plugin](https://github.com/buildkite-plugins/cache-buildkite-plugin) that may require further setup/tweaking around specific caching strategies. |
 | `definitions.caches.<name>` | Yes | A customised cache name applicable for one or more steps within a Bitbucket pipeline. |
 | `definitions.caches.<name>.path` | Yes | The directory path that is desired to be cached. |
 | `definitions.caches.<name>.key.files` | Partially | The list (one or more) files that are monitored for changes - and stored once its hash changes between file versions change. If multiple files are specified - multiple cache-plugin definitions are set on the resultant Buildkite command step (differing `manifest` properties between each). <br/><br/> Note this may cause issues if the same folder is being maintained by each cache definition! |
@@ -42,7 +42,7 @@ This page list the Buildkite Migration tool's currently supported, partially sup
 | --- | --- | --- |
 | `options` | Partially | Customised options utilised throughout a Bitbucket pipeline. The `max-time` and `size` sub-properties are supported for translation within Buildkite Migration tool through to the generated Buildkite command step's `timeout_in_minutes` and agent tag respectfully. <br/></br> The `docker` sub-property is not supported: and will depend on the agent configuration that the corresponding Buildkite command step is being targeted to run said job has available. <br/><br/> Both supported properties at Bitbucket pipeline step-level definition will have higher precedences than the two values set at `options` level. |
 
-## Pipeline Starting Conditions
+## Pipeline starting conditions
 
 > 📘
 > Bitbucket Pipelines allows the configuration of various pipeline start conditions: each supporting different configuration and permissible properties:
@@ -86,7 +86,7 @@ This page list the Buildkite Migration tool's currently supported, partially sup
 | `pipelines.default.step` | Yes | Individual step configuration for default Bitbucket pipelines. View the available step [properties](#pipeline-properties-step) supported by the Migrations Tool - and additional property information in the Bitbucket Pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property). |
 
 
-### Pull Request
+### Pull request
 
 | Key | Supported | Notes |
 | --- | --- | --- |
@@ -108,7 +108,7 @@ This page list the Buildkite Migration tool's currently supported, partially sup
 | `pipelines.tags.<tag>.step` | Yes | Individual step configuration for tag builds within a Bitbucket pipeline. View the available step [properties](#pipeline-properties-step) supported by the Migrations Tool - and additional property information in the Bitbucket Pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property). |
 
 
-## Pipeline Properties
+## Pipeline properties
 
 > 📘
 > Each starting pipeline condition listed [above](#pipeline-starting-conditions) can support various pipeline properties:

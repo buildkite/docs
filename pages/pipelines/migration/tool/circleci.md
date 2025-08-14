@@ -2,7 +2,7 @@
 
 This page list the Buildkite Migration tool's currently supported, partially supported and unsupported properties in translation of CircleCI pipelines to Buildkite pipelines.
 
-## Logical Operators/Helpers
+## Logical operators (helpers)
 
 > 📘
 > The Buildkite Migration tool supports the use of YAML aliases - re-usable snippets of configuration to apply to a specific point in a CircleCI pipeline. These are defined with a `&` (anchor) within the top-level `aliases` key and substituted into CircleCI pipeline configuration with `*`: for example, `*tests`. Configuration defined by an alias will be respected and parsed accordingly at the specified section of the pipeline.
@@ -23,7 +23,7 @@ This page list the Buildkite Migration tool's currently supported, partially sup
 
 | Key | Supported | Notes |
 | --- | --- | --- |
-| `executors` | Yes | The `executor` key defined at topmost-level in a CircleCI workflow maps to the use of the `executor` key specificed within a specific `job`. Supported execition environments include `machine`, `docker`, `macos` and `windows`; further information can be found in the Jobs table below. The execution environment in Buildkite is specified with each environment's applied [tags](/docs/agent/v3/cli-start#setting-tags) in their generated [command step](/docs/pipelines/command-step), for which can be [targeted](/docs/pipelines/defining-steps#targeting-specific-agents) when creating builds. |
+| `executors` | Yes | The `executor` key defined at topmost-level in a CircleCI workflow maps to the use of the `executor` key specified within a specific `job`. Supported execution environments include `machine`, `docker`, `macos` and `windows`; further information can be found in the Jobs table below. The execution environment in Buildkite is specified with each environment's applied [tags](/docs/agent/v3/cli-start#setting-tags) in their generated [command step](/docs/pipelines/command-step), for which can be [targeted](/docs/pipelines/defining-steps#targeting-specific-agents) when creating builds. |
 
 ## Jobs
 
@@ -31,10 +31,10 @@ This page list the Buildkite Migration tool's currently supported, partially sup
 
 | Key | Supported | Notes |
 | --- | --- | --- |
-| `jobs` | Yes | A collection of steps that are run on a single worker unit: whether that is on a host directly, or on a virtualised host (such as within a Docker container). Orchestrated with `workflows`. |
-| `jobs.<name>` | Yes | The named, induvidual `jobs` that makes up part of a given `workflow`. |
+| `jobs` | Yes | A collection of steps that are run on a single worker unit: whether that is on a host directly, or on a virtualized host (such as within a Docker container). Orchestrated with `workflows`. |
+| `jobs.<name>` | Yes | The named, individual `jobs` that makes up part of a given `workflow`. |
 | `jobs.<name>.environment` | Yes | The `job` level environment variables of a CircleCI pipeline. Applied in the generated [command step](/docs/pipelines/command-step) as [step level](/docs/pipelines/environment-variables#runtime-variable-interpolation) environment variables with the `env` key. |
-| `jobs.<name>.parallelism` | No | A `parallelism` parameter (if defined greater than 1) will create a seperate execution environment and will run the `steps` of the specific `job` in parallel. In Buildkite - a similar `parallelism` key can be set to a [command step](/docs/pipelines/command-step) which will run the defined `command` over seperate jobs (sharing the same agent [queues](/docs/agent/v3/queues#setting-an-agents-queue)/[tags](/docs/agent/v3/cli-start#setting-tags) targets). |
+| `jobs.<name>.parallelism` | No | A `parallelism` parameter (if defined greater than 1) will create a separate execution environment and will run the `steps` of the specific `job` in parallel. In Buildkite - a similar `parallelism` key can be set to a [command step](/docs/pipelines/command-step) which will run the defined `command` over separate jobs (sharing the same agent [queues](/docs/agent/v3/queues#setting-an-agents-queue)/[tags](/docs/agent/v3/cli-start#setting-tags) targets). |
 | `jobs.<name>.parameters` | Yes | Reusable keys that are used within `step` definitions within a `job`. Default parameters that are specified in a `parameters` block are passed through into the [command step](/docs/pipelines/command-step)'s `commands` if specified. |
 | `jobs.<name>.shell` | No | The `shell` property sets the default shell that is used across all commands within all steps. This should be configured on the agent - or by defining the `shell` [option](/docs/agent/v3/cli-start#shell) when starting a Buildkite agent: which will set the shell command used to interpret all build commands. |
 | `jobs.<name>.steps` | Yes | A collection of non-`orb` `jobs` commands that are executed as part of a CircleCI `job`. Steps can be defined within an `alias`. All `steps` within a singular `job` are translated to the `commands` of a shared [command step](/docs/pipelines/command-step) within the generated Buildkite pipeline to ensure they share the same execution environment. |
@@ -83,12 +83,12 @@ This page list the Buildkite Migration tool's currently supported, partially sup
 | Key | Supported | Notes |
 | --- | --- | --- |
 | `workflows` | Yes | A a collection of `jobs`, whose ordering defines how a CircleCI pipeline is run. |
-| `workflows.<name>` | Yes | An induvidual named workflow that makes up part of the CircleCI pipeline's definition. If a CircleCI pipeline has more than 1 `workflow` specified, each will be transitioned to a [group step](/docs/pipelines/group-step). |
-| `workflows.<name>.jobs` | Yes | The induvidually named, non-`orb` `jobs` that make up part of this specific workflow.<br/></br>Customised `jobs` defined as part of a `workflow` will be translated to a Buildkite [command step](/docs/pipelines/command-step) within the generated pipeline, and `jobs` with the `approval` type will be translated to a Buildkite [block step](/docs/pipelines/block-step). |
+| `workflows.<name>` | Yes | An individual named workflow that makes up part of the CircleCI pipeline's definition. If a CircleCI pipeline has more than 1 `workflow` specified, each will be transitioned to a [group step](/docs/pipelines/group-step). |
+| `workflows.<name>.jobs` | Yes | The individually named, non-`orb` `jobs` that make up part of this specific workflow.<br/></br>Customised `jobs` defined as part of a `workflow` will be translated to a Buildkite [command step](/docs/pipelines/command-step) within the generated pipeline, and `jobs` with the `approval` type will be translated to a Buildkite [block step](/docs/pipelines/block-step). |
 | `workflows.<name>.jobs.<name>.branches` | No | The `branches` that will be allowed/blocked for a singular `job`. Presently, the Buildkite Migration tool supports setting `filters` within `workflows`: and in particular, `branches` and `tags` sub-properties in setting a [step conditional](/docs/pipelines/conditionals#conditionals-in-steps) in the generated pipeline. |
 | `workflows.<name>.jobs.<name>.filters` | Yes | The `branches` and `tag` filters that will determine the eligibility for a CircleCI to run. |
 | `workflows.<name>.jobs.<name>.filters.branches`| Yes | The specific `branches` that are applicable to the `job`'s filter. Translated to a [step conditional](/docs/pipelines/conditionals#conditionals-in-steps). |
 | `workflows.<name>.jobs.<name>.filters.tags` | Yes |  The specific `tags` that are applicable to the `job`'s filter. Translated to a [step conditional](/docs/pipelines/conditionals#conditionals-in-steps). |
 | `workflows.<name>.jobs.<name>.matrix` | Yes | The `matrix` key allows running a specific job as part of a workload with different values. Translated to a [build matrix](/docs/pipelines/build-matrix) setup within a [command step](/docs/pipelines/command-step). |
-| `workflows.<name>.jobs.<name>.requires` | Yes | A list of `jobs` that require this `job` to start. Translated to explicit [step dependencies](/docs/pipelines/dependencies#defining-explicit-dependencies) with the `depends_on` key. | 
-| `workflows.<name>.when` | Yes | Conditionals that allow for running a workflow under certain conditions. The Buildkite Migration tool allows for the speicification using Logical operators `and`, `or` and `not` in creating command conditionals. |
+| `workflows.<name>.jobs.<name>.requires` | Yes | A list of `jobs` that require this `job` to start. Translated to explicit [step dependencies](/docs/pipelines/dependencies#defining-explicit-dependencies) with the `depends_on` key. |
+| `workflows.<name>.when` | Yes | Conditionals that allow for running a workflow under certain conditions. The Buildkite Migration tool allows for the specification using Logical operators `and`, `or` and `not` in creating command conditionals. |

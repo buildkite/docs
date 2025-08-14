@@ -59,7 +59,7 @@ This page list the Buildkite Migration tool's currently supported, partially sup
 | --- | ---------- | ----- |
 | `permissions` | No | [API Access Tokens](/docs/apis/managing-api-tokens) can be used within the context of a pipelines' build to interact with various Buildkite resources such as pipelines, artifacts, users, Test suites and more. Each token has a specified [token scope](/docs/apis/managing-api-tokens#token-scopes) that applies to interactions with the [REST](/docs/apis/rest-api) API, and can be configured with permission to interact with Buildkite's [GraphQL](/docs/apis/graphql-api) API. The `permissions` key allows for the interaction with commit `statuses`. For Buildkite to publish commit statuses for builds based on commits and pull requests on pipeline builds: the [GitHub App](/docs/integrations/github#connect-your-buildkite-account-to-github-using-the-github-app) must be added to the respective GitHub organization for statuses to appear based on a build's outcome. The GitHub App can be configured with access to all repositories within a GitHub organization - or a select number. |
 
-## Run Name
+## Run name
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
