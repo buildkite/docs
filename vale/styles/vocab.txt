@@ -333,6 +333,7 @@ UUIDs
 uv
 vendored
 virtualenv
+virtualized
 Vitest
 VMs
 VPC's

@@ -2,7 +2,6 @@
 
 This page list the Buildkite Migration tool's currently supported, partially supported and unsupported properties in translation of Bitbucket pipelines to Buildkite pipelines.
 
-
 > 📘
 > The Bitbucket Pipeline configuration that is described in the various sections below is specified in the central `bitbucket-pipelines.yml` within a specific Bitbucket workspace [repository](https://support.atlassian.com/bitbucket-cloud/docs/what-is-a-workspace/). In Buildkite - pipeline configuration can be set in a singular `pipeline.yml` within a repository - but can also be set and uploaded dynamically through the use of [Dynamic Pipelines](/docs/pipelines/defining-steps#dynamic-pipelines). Additionally, control and governance of Buildkite pipelines can be achieved by the use of [Pipeline Templates](/docs/pipelines/templates) to set shared pipeline configuration within a Buildkite organization.
 
@@ -51,7 +50,7 @@ This page list the Buildkite Migration tool's currently supported, partially sup
 > - `default`: The default starting configuration of a Bitbucket pipeline if it does not fall into one of the other conditions.
 > - `pull_request`: Defines the pull-request specific configuration of a Bitbucket pipeline.
 > - `tags`: Defines the tag specific configuration of a Bitbucket pipeline.
-> 
+>
 > For information on each of these individual starting conditions, refer to the reference within the Bitbucket Pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Custom--manual--pipeline-variables).
 
 ### Branches
