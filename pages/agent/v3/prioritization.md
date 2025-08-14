@@ -4,7 +4,7 @@ Agent prioritization controls how Buildkite assigns jobs to available agents. Un
 
 ## Agent selection criteria
 
-When the Buildkite's job dispatcher is selecting an agent to process a job, the evaluation is based on several factors: agent's priority, success in running previous jobs, or targeting constraints.
+When Buildkite's job dispatch system is selecting an agent to process a job, the evaluation is based on several factors: agent's priority, success in running previous jobs, or targeting constraints.
 
 ### Priority-based selection
 
@@ -16,7 +16,7 @@ Agent priority is the primary factor in job assignment:
 
 ### Success-based preference
 
-When selecting from a pool of agents of the same priority level, Buildkite's job dispatcher favors agents that have most recently completed jobs successfully. This helps ensure jobs are assigned to more reliable agents and infrastructure. If the most successful agent is busy, the next most successful available agent is selected.
+When selecting from a pool of agents of the same priority level, Buildkite's job dispatch favors agents that have most recently completed jobs successfully. This helps ensure jobs are assigned to more reliable agents and infrastructure. If the most successful agent is busy, the next most successful available agent is selected.
 
 ### Job targeting constraints
 
