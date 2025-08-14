@@ -363,6 +363,8 @@
           path: "pipelines/configure/notifications"
         - name: "Job minutes"
           path: "pipelines/configure/job-minutes"
+        - name: "Glob pattern syntax"
+          path: "pipelines/configure/glob-pattern-syntax"
         - name: "Example pipelines"
           path: "pipelines/configure/example-pipelines"
         - name: "Workflows"
@@ -423,6 +425,8 @@
       children:
         - name: "Overview"
           path: "pipelines/security"
+        - name: "Enforcing security controls"
+          path: "pipelines/security/enforcing-security-controls"
         - name: "Secrets"
           children:
             - name: "Overview"
@@ -516,6 +520,8 @@
           children:
             - name: "Security and compliance plugins"
               path: "pipelines/integrations/security-and-compliance/plugins"
+            - name: "SonarScanner CLI tutorial"
+              path: "pipelines/integrations/security-and-compliance/sonar"
         - name: "Secrets"
           children:
             - name: "Secrets plugins"
