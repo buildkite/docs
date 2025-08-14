@@ -95,7 +95,7 @@ Rather than managing plugins through a web-based system like Jenkins, in Buildki
 
 Jenkins plugins are typically Java-based, run in the Jenkins controller's Java virtual machine, and are shared across all pipelines. Therefore, a failure with one of these plugins can crash your entire Jenkins instance. Furthermore, since Jenkins plugins are closely integrated with Jenkins core, compatibility issues can often be encountered when either Jenkins core or its plugins are upgraded.
 
-Buildkite plugins are shell-based, run on individual Buildkite Agents, and are pipeline-specific with independent versioning, such that plugins are only loosely coupled with Buildkite. Therefore, plugin failures are isolated to individual builds, and issues are rare whenever you use newer versions of plugins in Buildkite pipelines.
+Buildkite plugins are shell-based, run on individual Buildkite Agents, and are pipeline- or even step-specific with independent versioning, such that plugins are only loosely coupled with Buildkite. Therefore, plugin failures are isolated to individual builds, and issues are rare whenever you use newer versions of plugins in Buildkite pipelines.
 
 ### Try out Buildkite
 
@@ -146,7 +146,7 @@ Buildkite's YAML-based pipeline syntax and definitions, along with its flat stru
 
 ### Step execution
 
-By default, Jenkins runs its pipeline steps in sequence, whereas Buildkite farms out all of its steps simultaneously (that is, in parallel) to any available agents that can run them. However, you can achieve the opposite of these default behaviors in each products' pipelines.
+By default, Jenkins runs its pipeline steps in sequence, whereas Buildkite runs steps simultaneously (that is, in parallel) on any available agents that can run them. However, you can achieve the opposite of these default behaviors in each products' pipelines.
 
 To make a Jenkins pipeline run its steps in parallel, the [`parallel` directive](https://www.jenkins.io/doc/book/pipeline/syntax/#parallel) is used explicitly in the Jenkins pipeline. For instance, in the following Jenkins pipeline snippet, the `Lint` and `Unit Tests` steps are run simultaneously.
 
@@ -215,8 +215,11 @@ However, there are have several options for sharing state between steps:
 
       - label: Run tests
         commands:
-          - "npm ci"   # (Re-)installs node_modules
-          - "npm test" # node_modules will be available
+          # Obtain the required version of Node.js (22.x)
+          - curl -fsSL https://deb.nodesource.com/setup_22.x | bash
+          - sudo apt install nodejs # Installs this version of nodejs on the agent
+          - npm ci                  # (Re-)installs node_modules
+          - npm test                # node_modules will be available
     ```
 
 - **Buildkite artifacts**: You can upload [build artifacts](/docs/pipelines/configure/artifacts) from one step, which can be used in a subsequently processed step. This works best with small files and build outputs.
@@ -259,7 +262,7 @@ In your Buildkite organization, which you would have created or began working wi
     * **Matrix builds**: The pipeline is built twice—once with Node.js version 20.x and the other with version 22.x.
     * **Agent targeting**: Agents are targeted using label-based selection, which are the Node.js versions defined within the [`axes` section](https://www.jenkins.io/doc/book/pipeline/syntax/#matrix-axes).
     * **Tool management**: Node.js capabilities within the pipeline steps handled by Jenkins' own built-in `nodejs` tool.
-    * **Sequential stages**: Each `stage` within the [`stages` section](https://www.jenkins.io/doc/book/pipeline/syntax/#stages) is executed sequentially, with one stage containing parallel sub-steps. Also not that since the `stages` section is wrapped in a `matrix` directive, the entire stages section is run in parallel (that is, twice, once using each Node.js version).
+    * **Sequential stages**: Each `stage` within the [`stages` section](https://www.jenkins.io/doc/book/pipeline/syntax/#stages) is executed sequentially, with one stage containing parallel sub-steps. Also note that since the `stages` section is wrapped in a `matrix` directive, the entire stages section is run in parallel (that is, twice, once using each Node.js version).
     * **Plugin usage**: The [`options` directive](https://www.jenkins.io/doc/book/pipeline/syntax/#options) uses the [Jenkins AnsiColor plugin](https://plugins.jenkins.io/ansicolor/) for output colorization.
     * **Artifact archiving**: Artifacts from the test coverage and build process are saved in the pipeline's `post` section.
 
@@ -508,8 +511,8 @@ This [example pipeline translation](#translate-an-example-jenkins-pipeline) demo
 
 - **Simpler pipeline configuration**: The resulting Buildkite YAML syntax is much smaller than its Jenkins Groovy DSL.
 - **Execution model**: Buildkite's steps are parallel by default with explicit sequencing vs Jenkins' stages, which are sequential by default with explicit parallelization.
-- **Plugin usage**: Buildkite required no plugins needed, whereas Jenkins required  two plugins ([AnsiColor](https://plugins.jenkins.io/ansicolor/) and build-name-setter)
-- **Tool Management**: Buildkite requires explicit tool installation for each step, with full control, whereas Jenkins provides black-box tool management.
+- **Plugin usage**: Buildkite required no plugins, whereas Jenkins required  two plugins ([AnsiColor](https://plugins.jenkins.io/ansicolor/) and [Build Name and Description Setter](https://plugins.jenkins.io/build-name-setter/))
+- **Tool Management**: Buildkite requires explicit tool installation for each step, with full control, whereas Jenkins manages tools through the use of plugins.
 - **Artifact Handling**: Buildkite provides native archiving and glob pattern support vs plugin-based archiving
 
 For larger deployments, these differences become more significant:
