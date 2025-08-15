@@ -14,8 +14,8 @@ To view and copy the required command or `nuget.config` configurations:
 
 The following subsections describe the processes in the code boxes above, serving the following use cases:
 
-- [Single command](#publish-a-package-single-command)—for rapid NuGet package publishing, using a temporary token.
-- [Ongoing publishing](#publish-a-package-ongoing-publishing)—implements configurations for a more permanent NuGet package publishing solution.
+- [Single command](#publish-a-package-single-command) (**Quick start**)—for rapid NuGet package publishing, using a temporary token.
+- [Ongoing publishing](#publish-a-package-ongoing-publishing) (**Setup**)—implements configurations for a more permanent NuGet package publishing solution.
 
 ### Single command
 
