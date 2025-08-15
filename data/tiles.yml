@@ -100,6 +100,8 @@ integrations:
     links:
       - text: "Security and compliance plugins"
         url: "/docs/pipelines/integrations/security-and-compliance/plugins"
+      - text: "SonarScanner"
+        url: "/docs/pipelines/integrations/security-and-compliance/sonar"
   - title: "Secrets"
     desc: "Manage secrets passed to your builds."
     links:
