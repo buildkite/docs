@@ -4,7 +4,7 @@ Buildkite uses our open-source [terminal-to-html](https://github.com/buildkite/t
 
 ## Grouping log output
 
-You can organize your build output into collapsible sections using different grouping methods. Each method provides a different visual presentation and default behavior. Build output appears under the most recently defined heading until you define a new heading.
+You can organize your build output into collapsible sections using different grouping methods, each providing a distinct visual presentation and default behavior. Build output appears under the most recently defined heading until you define a new heading.
 
 ### Collapsed groups
 
@@ -56,7 +56,7 @@ fi
 
 #### Creating section boundaries
 
-Different group types can be combined to create defined start/end markers for your log output. This is useful for creating distinct sections with clear boundaries:
+Different group types can be combined to create defined start and end markers for your log output. This is useful for creating distinct sections with clear boundaries:
 
 ```bash
 echo "--- Starting deployment..."
@@ -126,7 +126,7 @@ your_build_command | tee build.log | grep 'some pattern'
 
 ## Truncating with tail
 
-Tail is a Unix tool that returns the last portion of a file. This is useful if your log output is exceeding our hard limit of 100MB. For example, the following script only sends Buildkite the last 90MB as your output log, whilst storing the original log for artifact uploading.
+Tail is a Unix tool that returns the last portion of a file. This is useful if your log output is exceeding our hard limit of 100MB. For example, the following script only sends Buildkite the last 90MB as your log output, whilst storing the original log for artifact uploading.
 
 ```bash
 #!/bin/bash
