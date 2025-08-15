@@ -14,8 +14,8 @@ To view and copy the required command or `nuget.config` configurations:
 
 The following subsections describe the processes in the code boxes above, serving the following use cases:
 
-- [Single command](#publish-a-package-single-command) (**Quick start**)—for rapid NuGet package publishing, using a temporary token.
-- [Ongoing publishing](#publish-a-package-ongoing-publishing) (**Setup**)—implements configurations for a more permanent NuGet package publishing solution.
+- [Single command](#publish-a-package-single-command) (**Quick start** section)—for rapid NuGet package publishing, using a temporary token.
+- [Ongoing publishing](#publish-a-package-ongoing-publishing) (**Setup** section)—implements configurations for a more permanent NuGet package publishing solution.
 
 ### Single command
 
@@ -70,7 +70,7 @@ The remaining code boxes on the **Publish Instructions** page provide configurat
 
 ## Access a package's details
 
-A NuGet package's details can be accessed from this registry through the **Releases** (tab) section of your NuGet source registry page. To do this:
+A NuGet package's details can be accessed from its source registry through the **Releases** (tab) section of your NuGet source registry page. To do this:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your NuGet source registry on this page.
@@ -94,14 +94,18 @@ A NuGet package can be installed using code snippet details provided on the pack
 To install a package:
 
 1. [Access the package's details](#access-a-packages-details).
-1. Ensure the **Installation** > **Instructions** section is displayed.
-1. Copy the command in the code snippet, paste it into your terminal, and run it.
+1. Ensure the **Installation** tab is displayed.
+1. Follow the relevant section to install the NuGet package, based on your requirements:
+    * [Single command](#package-installation-with-a-single-command) (**Quick install** section)—for rapid NuGet package installation, using a temporary token.
+    * [Ongoing publishing](#ongoing-package-installation) (**Setup** section)—implements configurations for a more permanent NuGet package installation solution.
 
-This code snippet is based on this format:
+<h4 id="package-installation-with-a-single-command">Package installation with a single command</h4>
+
+The **Quick install** code snippet is based on this format:
 
 ```bash
 dotnet add package package-name -v version.number \
-  --source "https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/nuget/index.json"
+  --source "https://buildkite:temporary-read-token-that-expires-after-5-minutes@packages.buildkite.com/{org.slug}/{registry.slug}/nuget/index.json"
 ```
 
 where:
@@ -110,8 +114,44 @@ where:
 
 - `version.number` is the version of your NuGet package.
 
-- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages to your NuGet registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
-
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
 - `{registry.slug}` is the name of your NuGet registry.
+
+Since the `temporary-read-token-that-expires-after-5-minutes` expires quickly, it is recommended that you just copy this command directly from the **Installation** page.
+
+<h4 id="ongoing-package-installation">Ongoing package installation</h4>
+
+The **Setup** section's instructions are as follows:
+
+1. Create a `nuget.config` file in your project (if one doesn't already exist):
+
+    ```bash
+    dotnet new nugetconfig
+    ```
+
+1. Copy the following command, paste it and modify as required before running to add the NuGet registry to your `nuget.config` file:
+
+    ```bash
+    dotnet nuget add source https://packages.buildkite.com/{org.slug}/{registry.slug}/nuget/index.json \
+      --name {registry.slug} \
+      --username _ \
+      --password $TOKEN \
+      --store-password-in-clear-text \
+      --configfile ./nuget.config \
+      --valid-authentication-types basic
+    ```
+
+    where:
+    * `$TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages to your NuGet registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This command option and value are not required for registries that are publicly accessible.
+
+    <%= render_markdown partial: 'package_registries/org_slug' %>
+    <%= render_markdown partial: 'package_registries/nuget_registry_slug' %>
+
+    **Note:** This step only needs to be conducted once for the life of your NuGet source registry.
+
+1. Publish your NuGet package:
+
+    ```bash
+    dotnet nuget push *.nupkg --source {registry.slug} --api-key $TOKEN
+    ```
