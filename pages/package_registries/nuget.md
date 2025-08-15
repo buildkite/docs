@@ -44,11 +44,11 @@ The remaining code boxes on the **Publish Instructions** page provide configurat
     dotnet new nugetconfig
     ```
 
-1. Add the Buildkite registry to your `nuget.config` with your API Access Token:
+1. Copy the following command, paste it and modify as required before running to add the NuGet registry to your `nuget.config` file:
 
     ```bash
     dotnet nuget add source https://packages.buildkite.com/{org.slug}/{registry.slug}/nuget/index.json \
-      --name {registry.slug} \
+      --name {org.slug}_{registry.slug} \
       --username _ \
       --password $TOKEN \
       --store-password-in-clear-text \
@@ -65,7 +65,7 @@ The remaining code boxes on the **Publish Instructions** page provide configurat
 1. Publish your NuGet package:
 
     ```bash
-    dotnet nuget push *.nupkg --source {registry.slug} --api-key $TOKEN
+    dotnet nuget push *.nupkg --source {org.slug}_{registry.slug} --api-key $TOKEN
     ```
 
 ## Access a package's details
