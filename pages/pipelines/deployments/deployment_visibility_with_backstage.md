@@ -30,7 +30,7 @@ To use Backstage for deployment visibility with Buildkite, you'll need to have:
 
 ### Annotating deployment components
 
-Connect your Backstage components to their corresponding Buildkite deployment pipelines by adding annotations to your `catalog-info.yaml` files:
+Connect your Backstage components to their corresponding Buildkite deployment pipelines by adding annotations to your [`catalog-info.yaml`](https://backstage.io/docs/features/software-catalog/descriptor-format/) files:
 
 ```yaml
 apiVersion: backstage.io/v1alpha1
@@ -151,14 +151,14 @@ If your Buildkite deployments aren't appearing in Backstage:
 - Ensure the component has been properly registered in your [Backstage Software Catalog](https://backstage.io/docs/features/software-catalog/).
 - Ensure the builds exist within the selected time range.
 - Confirm that all filters are set correctly.
-- Check that that your Buildkite API access token has [sufficient permissions](/docs/apis/managing-api-tokens#token-scopes).
+- Check that that your Buildkite API access token has [sufficient permissions](/docs/apis/managing-api-tokens#token-scopes) (`read_pipelines`, `read_builds`, `read_user`, and `write_builds`, for rebuild functionality).
 - Confirm your deployment builds are [properly tagged with deployment metadata](/docs/pipelines/deployments/deployment-visibility-with-backstage#best-practices-for-deployment-visibility-use-deployment-specific-metadata).
 
 ### Incomplete deployment information
 
 To improve deployment data quality and make the deployment information complete:
 
-- Add comprehensive [build metadata](/docs/pipelines/configure/build-meta-data#setting-data) and [deployment metadata](/docs/pipelines/deployments/deployment-visibility-with-backstage#best-practices-for-deployment-visibility-use-deployment-specific-metadata).
+- Add comprehensive [build metadata](/docs/pipelines/integrations/other/backstage#deployment-tracking-using-the-metadata) and [deployment metadata](/docs/pipelines/deployments/deployment-visibility-with-backstage#best-practices-for-deployment-visibility-use-deployment-specific-metadata).
 - Use consistent environment naming (for example, `production`, `staging`, `dev`) and avoid variations like, for example, `prod-east` and `production-us-east-1` for the same environment type.
 - Include version information in all deployment builds.
 
