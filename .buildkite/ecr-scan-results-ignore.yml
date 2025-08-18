@@ -22,3 +22,4 @@ ignores:
   - id: CVE-2024-37371 # krb5 1.20.1-2+deb12u1
   - id: CVE-2024-37370 # krb5 1.20.1-2+deb12u1
   - id: CVE-2024-10963 # pam 1.5.2-6+deb12u1
+  - id: CVE-2025-32990 # gnutls28 3.7.9-2+deb12u3

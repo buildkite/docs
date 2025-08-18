@@ -272,6 +272,9 @@ Rails.application.routes.draw do
   # Quick Reference JSON
   get "/docs/quick-reference/pipelines", to: "quick_reference#pipelines", as: :pipelines_quick_reference
 
+  # LLMs.txt
+  get "/docs/llms.txt", to: "llm_text#index", defaults: { format: "txt" }
+
   # Homepage
   get "/docs" => "pages#index", as: :home_page
 
