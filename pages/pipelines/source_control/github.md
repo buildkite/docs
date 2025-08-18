@@ -21,7 +21,7 @@ Connecting Buildkite and GitHub using the GitHub App lets your GitHub organizati
 > The user adding the provider needs to be a Buildkite user connected to a GitHub user who has administrative privileges on both Buildkite and the GitHub organizations.
 
 1. Open your Buildkite organization's **Settings**.
-1. Select [**Repository Providers**](https://buildkite.com/organizations/~/repository-providers) > **GitHub**.
+1. Select [**Repository Providers**](https://buildkite.com/organizations/~/repository-providers) > **GitHub (Limited Access)**.
     <%= image "repository-providers.png", width: 2338/2, height: 1600/2, alt: "Screenshot of the Buildkite Repository Providers" %>
 1. Select **Connect to a new GitHub Account**. If you have never connected your Buildkite and GitHub accounts before, you will first need to select **Connect** and authorize Buildkite.
 1. Select the GitHub organization you want to connect to your Buildkite organization.

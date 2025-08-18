@@ -98,11 +98,22 @@ steps:
 
 ### Custom images
 
+In version 0.30.0 and later of the Agent Stack for Kubernetes controller, you can use the [`image` attribute](/docs/pipelines/configure/step-types/command-step#container-image-attributes) in a command step to specify a container image for the step's job.
 Almost any container image may be used, but the image _must_ have a POSIX shell available to be executed at `/bin/sh`.
-You can specify a different image to use for a step in a step level `podSpecPatch`. Previously this could be done with a step level `podSpec`.
 
 ```yaml
-# pipelines.yaml
+# pipeline.yaml
+steps:
+- name: Hello World!
+  image: "alpine:latest" # <- New in v0.30.0
+  commands:
+  - echo -n Hello!
+```
+
+For versions of the  prior to 0.30.0, you can specify a different image to use for a step in a step level `podSpecPatch`. Previously this could be done with a step level `podSpec`.
+
+```yaml
+# pipeline.yaml
 agents:
   queue: kubernetes
 steps:
@@ -128,3 +139,13 @@ steps:
         - name: container-0      # <-- For the time being, specify this exactly as `container-0`.
           image: alpine:latest   #     Currently under experimentation to make this more ergonomic.
 ```
+
+### Environment variables precedence
+
+During its bootstrap phase, the Buildkite Agent receives some of its environment variables from the Buildkite platform. These environment variables are normally set using the `env` keyword in pipeline.yaml file.
+
+During the generation of the Kubernetes `podSpec`, the `podSpec` receives some of its environment variables from the Agent Stack for Kubernetes controller itself, some controller-specific environment variables defined in the values.yaml file, as well as environment variables that can be set in various `podSpec` configuration steps of the pipeline.yaml file.
+
+Be aware that currently, environment variables defined as part of a `podSpec` take higher precedence over environment variables set using the `env` keyword in the pipeline.yaml file.
+
+If you have a need for a more flexible environment variable setup, use [Agent hooks](/docs/agent/v3/hooks) to implement a precedence rule suite to your organization.

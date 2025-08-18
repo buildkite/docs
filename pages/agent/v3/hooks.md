@@ -203,6 +203,18 @@ ECHO "--- \:house_with_garden\: Setting up the environment"
 SET GITHUB_RELEASE_ACCESS_KEY='xxx'
 ```
 
+## Hooks on Buildkite Agent Stack for Kubernetes
+
+The hook execution flow for jobs created by the Buildkite Agent Stack for Kubernetes controller is operationally different. The reason for this is that hooks are executed from within separate containers for checkout and command phases of the job's lifecycle. This means that any environment variables exported during the execution of hooks with the `checkout` container will _not_ be available to the command container(s).
+
+The main differences arise with the `checkout` container and user-defined `command` containers:
+
+* The `environment` hook is executed multiple times, once within the `checkout` container, and once within each of the user-defined `command` containers.
+* Checkout-related hooks (`pre-checkout`, `checkout`, `post-checkout`) are only executed within the `checkout` container.
+* Command-related hooks (`pre-command`, `command`, `post-command`) are only executed within the `command` container(s).
+
+See the dedicated [Using agent hooks and plugins](/docs/agent/v3/agent-stack-k8s/agent-hooks-and-plugins) page for the detailed information on how agent hooks function when using the Buildkite Agent Stack for Kubernetes controller.
+
 ## Hooks on Buildkite hosted agents
 
 Agent hooks are supported on [Buildkite hosted agents for Linux](/docs/pipelines/hosted-agents/linux#agent-images-using-agent-hooks).

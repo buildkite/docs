@@ -11,15 +11,34 @@
 #  replace the content in data/schema.graphql
 #  and run the generation script `./scripts/generate-graphql-api-content.sh`.
 
-title: ISO8601Date – Scalars – GraphQL API
+title: HostedAgentMacOSVersion – Enums – GraphQL API
 toc: false
 ---
 <!-- vale off -->
 <h1 class="has-pills">
-  ISO8601Date
-  <span data-algolia-exclude><span class="pill pill--scalar pill--normal-case pill--large"><code>SCALAR</code></span></span>
+  HostedAgentMacOSVersion
+  <span data-algolia-exclude><span class="pill pill--enum pill--normal-case pill--large"><code>ENUM</code></span></span>
 </h1>
 <!-- vale on -->
 
 
-An ISO 8601-encoded date
+Possible macOS versions for the Hosted Agent instance
+
+
+
+
+
+
+
+
+
+<table class="responsive-table responsive-table--single-column-rows">
+  <thead>
+    <th>
+      <h2 data-algolia-exclude>ENUM Values</h2>
+    </th>
+  </thead>
+  <tbody>
+    <tr><td><p><strong><code>SEQUOIA</code></strong></p><p>macOS Sequoia (15.5)</p></td></tr><tr><td><p><strong><code>SONOMA</code></strong></p><p>macOS Sonoma (14.6.1)</p></td></tr><tr><td><p><strong><code>TAHOE</code></strong></p><p>macOS Tahoe (26.0)</p></td></tr>
+  </tbody>
+</table>
