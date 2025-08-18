@@ -18,6 +18,9 @@ The following S3 objects are downloaded and processed:
 
 These files are encrypted using [Amazon's KMS Service](https://aws.amazon.com/kms/).
 
+> 🚧 Sourcing of environment variable files
+> Files such as `/env` or `/{pipeline-slug}/environment` are sourced and it is possible to include shell code in them that will be executed by the agent. Including shell code in these files should be used with caution, as it can lead to unexpected behavior.
+
 Here's an example that shows how to generate a private SSH key, and upload it with KMS encryption to an S3 bucket:
 
 ```bash
