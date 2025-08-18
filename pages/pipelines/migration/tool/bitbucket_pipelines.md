@@ -125,7 +125,7 @@ This page list the Buildkite Migration tool's currently supported, partially sup
 | Key | Supported | Notes |
 | --- | --- | --- |
 | `pipelines.<start-condition>.parallel` | Yes | The grouping of multiple steps within a Bitbucket pipeline that are to be run concurrently. By default, Buildkite executes steps in parallel unless [implicit or explicit dependencies](/docs/pipelines/dependencies) are set. Parallel Bitbucket pipeline steps are transitioned into a [group step](/docs/pipelines/group-step) within the generated Buildkite pipeline without explicit dependencies. |
-| `pipelines.<start-condition>.parallel.fail-fast` | No | Whether a Bitbucket pipeline allows this parallel step to fail entirely if it fails (set as `true`), or allows failures (set as `false`). Consider using a combination of `soft_fail` and/or `cancel_on_build_failing` in the corresponding Buildkite command steps' [attributes](/docs/pipelines/command-step#command-step-attributes) for a similar [approach](/docs/pipelines/configure/step-types/command-step#fail-fast). |
+| `pipelines.<start-condition>.parallel.fail-fast` | No | Whether a Bitbucket pipeline allows this parallel step to fail entirely if it fails (set as `true`), or allows failures (set as `false`). Consider using a combination of `soft_fail` and/or `cancel_on_build_failing` in the corresponding Buildkite command steps' [attributes](/docs/pipelines/command-step#command-step-attributes) for a similar [approach](/docs/pipelines/configure/step-types/command-step#fast-fail-running-jobs). |
 
 ### Step
 
