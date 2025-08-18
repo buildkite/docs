@@ -9,7 +9,7 @@ This page list the Buildkite Migration tool's currently supported, partially sup
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
-| `concurrency` | No | [Buildkite concurrency groups](/docs/pipelines/controlling-concurrency#concurrency-groups) don't apply to whole pipelines but steps so there is no direct translation of this configuration. Refer to the support of the job-level configuration for more information: [`jobs.<id>.concurrency`](#jobs-jobs). |
+| `concurrency` | No | [Buildkite concurrency groups](/docs/pipelines/controlling-concurrency#concurrency-groups) don't apply to whole pipelines but steps so there is no direct translation of this configuration. Refer to the support of the job-level configuration for more information: [`jobs.<id>.concurrency`](#jobs). |
 
 ## Defaults
 
