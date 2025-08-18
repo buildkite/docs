@@ -151,6 +151,7 @@ IPs
 iTerm
 iTerm's
 Jenkins
+Jenkinsfile
 JFrog
 JFrog's
 job_watcher
@@ -212,6 +213,7 @@ otlp
 overprivileged
 Pagerduty
 parsable
+parallelization
 pbuilder
 pbuilder's
 perl

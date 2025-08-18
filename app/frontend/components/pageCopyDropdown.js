@@ -13,7 +13,7 @@ const AI_SERVICES = {
     url: "https://claude.ai/new",
     queryParam: "q",
   },
-  // Removed until we have hosted MCP
+  // Removed until we have have hosted MCP
   // cursor: {
   //   url: 'cursor://anysphere.cursor-deeplink/mcp/install?name=buildkite&config=eyJjb21tYW5kIjoiZG9ja2VyIHJ1biAtaSAtLXJtIC1lIEJVSUxES0lURV9BUElfVE9LRU4gZ2hjci5pby9idWlsZGtpdGUvYnVpbGRraXRlLW1jcC1zZXJ2ZXIgc3RkaW8iLCJlbnYiOnsiQlVJTERLSVRFX0FQSV9UT0tFTiI6ImJrdWFfeHh4eHh4eHgifX0%3D'
   // }
@@ -286,8 +286,9 @@ export function initPageCopyDropdown() {
           "claude",
           `Read and analyze this Buildkite documentation page so I can ask you questions about it: ${markdownUrl}`
         );
-      case "connect-cursor":
-        return AI_SERVICES.cursor.url;
+      // Removed until we have have hosted MCP
+      // case "connect-cursor":
+      //   return AI_SERVICES.cursor.url;
       default:
         return null;
     }
