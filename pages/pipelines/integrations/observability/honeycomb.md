@@ -31,11 +31,11 @@ The buildevents binary:
 
 ### buildevents trace structure
 
-The buildevents script needs a unique [Trace ID](https://github.com/honeycombio/buildevents?tab=readme-ov-file#trace-identifier) to connect all the relevant steps and commands with its build. You can use Buildkite's `BUILDKITE_BUILD_ID` environment variable, since its value is unique (when re-running builds, you'll get a new `BUILDKITE_BUILD_ID`), and is also a primary value that Buildkite Pipelines uses to identify the build.
+The buildevents script needs a unique [Trace ID](https://github.com/honeycombio/buildevents?tab=readme-ov-file#trace-identifier) to connect all the relevant steps and commands with its build. You can use Buildkite Pipeline's `BUILDKITE_BUILD_ID` environment variable, since its value is unique (when re-running builds, you'll get a new `BUILDKITE_BUILD_ID`), and it is also a primary value that Buildkite Pipelines uses to identify the build.
 
-You can get started with using buildevents by following the [installation instructions for buildevents](https://github.com/honeycombio/buildevents?tab=readme-ov-file#installation).
+You can get started with buildevents from the [installation instructions for buildevents](https://github.com/honeycombio/buildevents?tab=readme-ov-file#installation).
 
-After integration, you'll see key telemetry from Buildkite pipelines in Honeycomb’s Traces dashboard. Each trace typically represents a full build, and each span represents a job or command.
+After integration, you'll see key telemetry from Buildkite pipelines in Honeycomb's Traces dashboard. Each trace typically represents a full build, and each span represents a job or command.
 
 Metrics visible in this dashboard include:
 
@@ -50,14 +50,13 @@ Metrics visible in this dashboard include:
 
 Since Honeycomb maintains the buildevents integration, direct questions and feature requests through to [Honeycomb Support](https://www.honeycomb.io/support).
 
-## Explore Data View
+## Explore data view
 
-The Explore tab lets you inspect spans as individual structured events. You can filter by tags like `trace.trace_id`, `command_name`, `error`, or `duration_ms`. This is helpful for isolating problematic steps, long durations, or agent behavior.
+The **Explore Data** tab lets you inspect spans as individual structured events. You can filter by tags like `trace.trace_id`, `command_name`, `error`, or `duration_ms`. This is helpful for isolating problematic steps, long durations, or agent behavior.
 
 <%= image "honeycomb-data.png", size: "2940x704", alt: "This Honeycomb view shows detailed event data from Buildkite, including trace IDs and timestamps, helping to analyze what happened and when during builds." %>
 
-Clicking a trace ID opens the flamegraph (trace view), showing the full build execution timeline.
-
+Selecting a trace ID opens the flame graph (trace view), showing the full build execution timeline.
 
 ## Using OpenTelemetry tracing
 
