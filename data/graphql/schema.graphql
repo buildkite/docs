@@ -3678,6 +3678,11 @@ enum JobEventType {
   NOTIFICATION
 
   """
+  The Job is limited by a platform limit
+  """
+  PLATFORM_LIMITED
+
+  """
   The Job was reserved by a stack for later execution
   """
   RESERVED
@@ -3871,6 +3876,16 @@ enum JobStates {
   The job has just been created and doesn't have a state yet
   """
   PENDING
+
+  """
+  The job is blocked by platform-wide concurrency/resource limits
+  """
+  PLATFORM_LIMITED
+
+  """
+  The job is waiting on platform-wide concurrency/resource limits before becoming either `PLATFORM_LIMITED` or `SCHEDULED`
+  """
+  PLATFORM_LIMITING
 
   """
   The job is reserved by a stack for later execution

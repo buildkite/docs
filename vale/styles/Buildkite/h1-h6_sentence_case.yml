@@ -188,6 +188,9 @@ exceptions:
   - Slack
   - Slack Workspace
   - SLSA
+  - SonarCloud
+  - SonarQube
+  - SonarScanner
   - Sonoma
   - SLO
   - SLOs

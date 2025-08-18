@@ -59,6 +59,7 @@ chroots
 CI
 classpath
 cli
+CLI
 Cloudsmith
 Cloudsmith's
 CloudTrail
@@ -152,6 +153,7 @@ IPs
 iTerm
 iTerm's
 Jenkins
+Jenkinsfile
 JFrog
 JFrog's
 job_watcher
@@ -212,6 +214,7 @@ otlp
 overprivileged
 Pagerduty
 parsable
+parallelization
 pbuilder
 pbuilder's
 perl
@@ -271,6 +274,10 @@ signaltometrics
 SLO
 SLOs
 snake_case
+Sonar
+SonarCloud
+SonarQube
+SonarScanner
 Snyk
 Sonatype
 Sonoma
@@ -324,6 +331,7 @@ uploaders
 upstreams
 url
 urls
+userdata
 util
 uuid
 UUIDs
