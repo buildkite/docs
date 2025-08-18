@@ -1,6 +1,6 @@
 # Deployment visibility with Backstage
 
-[Backstage](https://backstage.io/) is an open source framework for building developer portals that provide unified visibility into your infrastructure's tools, services, and documentation. By integrating Buildkite with Backstage using the [Buildkite plugin for Backstage](https://github.com/buildkite/backstage-plugin), you can monitor pipeline status and manage builds from a single interface.
+[Backstage](https://backstage.io/) is an open source framework for building developer portals that provide unified visibility into your infrastructure's tools, services, and documentation. By integrating your Buildkite pipelines with Backstage using the [Buildkite plugin for Backstage](/docs/pipelines/integrations/other/backstage), you can monitor the status of your pipelines and manage their builds from a single interface.
 
 <%= image "buildkite_in_backstage.png", width: 1450/2, height: 960/2, alt: "A Buildkite pipeline in Backstage UI" %>
 
@@ -8,18 +8,18 @@
 
 The Buildkite plugin for Backstage transforms how your team manages deployments by providing:
 
-- **Centralized pipeline monitoring** - view Buildkite pipeline status alongside your [Backstage Service Catalog](https://backstage.io/docs/features/software-catalog/), eliminating the need to switch between multiple tools.
-- **Real-time build tracking** - monitor build progress with automatic status updates.
-- **Build management** - trigger rebuilds directly from Backstage.
-- **Detailed build information** - access build logs, timing metrics, and commit context.
+- **Centralized pipeline monitoring**: view Buildkite pipeline status alongside your [Backstage Service Catalog](https://backstage.io/docs/features/software-catalog/), eliminating the need to switch between multiple tools.
+- **Real-time build tracking**: monitor build progress with automatic status updates.
+- **Build management**: trigger rebuilds directly from Backstage.
+- **Detailed build information**: access build logs, timing metrics, and commit context.
 
 ## Setting up deployment visibility
 
 To use Backstage for deployment visibility with Buildkite, you'll need to have:
 
 - Admin access to both your Buildkite organization and Backstage instance.
-- The [Buildkite plugin for Backstage](/docs/pipelines/integrations/other/backstage) installed and configured.
-- A valid Buildkite API token with the following permissions:
+- The [Buildkite plugin for Backstage](/docs/pipelines/integrations/other/backstage) [installed](/docs/pipelines/integrations/other/backstage#installation) and [configured](/docs/pipelines/integrations/other/backstage#plugin-configuration).
+- A valid [Buildkite API access token](/docs/apis/managing-api-tokens) with the following permissions:
   * `read_pipelines`
   * `read_builds`
   * `read_user`
@@ -131,26 +131,28 @@ Use Backstage's deployment visibility to:
 
 This section covers some common issues and the proposed mitigations for integration between Buildkite Pipelines and Backstage using the [Buildkite plugin for Backstage](/docs/pipelines/integrations/other/backstage).
 
-### API token issues
+### API access token issues
 
 If you are experiencing authentication errors, verify that:
 
-- Your API token has all required permissions
-- The API token is correctly set in your environment variables
-- The proxy configuration in `app-config.yaml` is correct
+- Your [Buildkite API access token](/docs/apis/managing-api-tokens):
+    * Has [all required permissions](#setting-up-deployment-visibility).
+    * Is correctly set in your environment variables.
+
+- The [proxy configuration in `app-config.yaml`](/docs/pipelines/integrations/other/backstage#plugin-configuration-add-proxy-configuration) is correct.
 
 ### Missing Buildkite deployments
 
 If your Buildkite deployments aren't appearing in Backstage:
 
-- Check that the annotation format is correct: `organization-slug/pipeline-slug`
-- Verify that the pipeline slug matches exactly what's shown in your Buildkite URL
-- Verify that your pipeline annotation exactly matches the deployment pipeline you're expecting to see
-- Ensure the component has been properly registered in your Backstage Catalog
-- Ensure the builds exist within the selected time range
-- Confirm that all filters are set correctly
-- Check that that your Buildkite API access token has [sufficient permissions](/docs/apis/managing-api-tokens#token-scopes)
-- Confirm your deployment builds are [properly tagged with deployment metadata](/docs/pipelines/deployments/deployment-visibility-with-backstage#best-practices-for-deployment-visibility-use-deployment-specific-metadata)
+- Check that the annotation format is correct: `organization-slug/pipeline-slug`.
+- Verify that the pipeline slug matches exactly what's shown in your Buildkite URL.
+- Verify that your pipeline annotation exactly matches the deployment pipeline you're expecting to see.
+- Ensure the component has been properly registered in your [Backstage Software Catalog](https://backstage.io/docs/features/software-catalog/).
+- Ensure the builds exist within the selected time range.
+- Confirm that all filters are set correctly.
+- Check that that your Buildkite API access token has [sufficient permissions](/docs/apis/managing-api-tokens#token-scopes).
+- Confirm your deployment builds are [properly tagged with deployment metadata](/docs/pipelines/deployments/deployment-visibility-with-backstage#best-practices-for-deployment-visibility-use-deployment-specific-metadata).
 
 ### Incomplete deployment information
 
@@ -164,14 +166,14 @@ To improve deployment data quality and make the deployment information complete:
 
 If your Buildkite deployments show up in Backstage correctly, but you are experiencing issues with the synchronization of updates, do the following:
 
-- Verify that your web browser tab is active as the updates pause in background tabs
-- Check your network connectivity
-- Ensure that the API token you are using hasn't expired
+- Verify that your web browser tab is active as the updates pause in background tabs.
+- Check your network connectivity.
+- Ensure that the Buildkite API access token you are using hasn't expired.
 
 ### Build logs are not loading
 
 If you are experiencing an issue with loading logs from Buildkite deployments in Backstage:
 
-- Check if the build exists and is accessible
-- Ensure the API token has `read_builds` permission
-- Verify the your proxy configuration can handle log requests
+- Check that the build exists and is accessible.
+- Ensure the Buildkite API access token has `read_builds` permission.
+- Verify that your [proxy configuration](/docs/pipelines/integrations/other/backstage#plugin-configuration-add-proxy-configuration) can handle log requests.

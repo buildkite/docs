@@ -8,11 +8,11 @@
 
 The Buildkite plugin for Backstage provides integration capabilities that allow for:
 
-- **Real-time build status monitoring** - view the current status of your builds and build information directly in Backstage.
-- **Comprehensive build log tracking** - access detailed build logs with syntax highlighting without leaving Backstage.
-- **Advanced filtering and search capabilities** - quickly find specific builds using powerful multiple-criteria filters.
-- **Interactive build management** - trigger rebuilds and manage builds from within Backstage or click through to Buildkite.
-- **Customization options** - configure the plugin to match your team's workflow with custom styling and time settings.
+- **Real-time build status monitoring**: view the current status of your builds and build information directly in Backstage.
+- **Comprehensive build log tracking**: access detailed build logs with syntax highlighting without leaving Backstage.
+- **Advanced filtering and search capabilities**: quickly find specific builds using powerful multiple-criteria filters.
+- **Interactive build management**: trigger rebuilds and manage builds from within Backstage or click through to Buildkite.
+- **Customization options**: configure the plugin to match your team's workflow with custom styling and time settings.
 
 ## Installation requirements
 
@@ -20,7 +20,7 @@ Before installing the Buildkite Backstage plugin, ensure you have:
 
 - A Buildkite account with at least one pipeline
 - An up-to-date Backstage instance
-- A Buildkite API token with the following permissions:
+- A [Buildkite API access token](/docs/apis/managing-api-tokens) with the following permissions:
   * `read_pipelines`
   * `read_builds`
   * `read_user`
@@ -57,7 +57,7 @@ buildkite:
   organization: ${BUILDKITE_ORGANIZATION}
 ```
 
-Make sure to set the `BUILDKITE_API_TOKEN` environment variable with your Buildkite API token.
+Make sure to set the `BUILDKITE_API_TOKEN` environment variable with your Buildkite API access token.
 
 ### Register the plugin
 
@@ -166,8 +166,9 @@ metadata:
 ```
 
 The `pipeline-slug` should be in the format `organization-slug/pipeline-slug`, where:
-- `organization-slug` is your Buildkite organization's slug
-- `pipeline-slug` is the specific pipeline's slug
+
+- `organization-slug` is your Buildkite organization's slug.
+- `pipeline-slug` is the specific pipeline's slug.
 
 ## Deployment tracking
 
@@ -175,7 +176,7 @@ The Buildkite plugin for Backstage can track deployments across your pipelines. 
 
 ### Using the metadata
 
-You can mark builds for deployment by setting the `environment` metadata field in your Buildkite build using the following command:
+You can mark builds for deployment by setting the `environment` metadata field in your Buildkite pipeline build using the following command:
 
 ```yaml
 # In your pipeline.yml
