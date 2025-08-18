@@ -6,16 +6,15 @@ The Buildkite agent currently supports the two tracing backends listed above, Da
 
 ## Using Datadog APM
 
-> 📘
-> If you are looking for the information on using Datadog Application Performance Monitoring (APM) tracing with Buildkite agent, you can find it in [Using Datadog APM](/docs/pipelines/integrations/observability/datadog).
+If you are looking to use Datadog's Application Performance Monitoring (APM) tracing with a Buildkite Agent, [Using Datadog APM](/docs/pipelines/integrations/observability/datadog#using-datadog-apm) section of Buildkite Pipelines' [Datadog integration](/docs/pipelines/integrations/observability/datadog) documentation.
 
 ## Using OpenTelemetry tracing
 
-Before starting the agent, install and configure an OpenTelemetry Collector from the officcial [guide](https://opentelemetry.io/docs/collector/installation/). 
+Before starting the agent, install and configure an OpenTelemetry Collector from the official [guide](https://opentelemetry.io/docs/collector/installation/).
 Once the collector is running, start the Buildkite Agent with:
 
 ```bash
-buildkite-agent start --tracing-backend opentelemetry 
+buildkite-agent start --tracing-backend opentelemetry
 ```
 
  This will enable OpenTelemetry tracing, and start sending traces to an OpenTelemetry collector.
