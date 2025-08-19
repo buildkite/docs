@@ -6,8 +6,8 @@ See the [Defining your pipeline steps](/docs/pipelines/configure/defining-steps)
 
 ## Uploading pipelines
 
-> 🚧 Single pipeline file processing
-> The `buildkite-agent pipeline upload` command only processes a single pipeline file. If multiple files are passed into the command (including using a wildcard `*` in the filename), only the first pipeline file will be processed. Additional pipeline files provided as arguments are ignored. Please see [uploading multiple pipeline files](/docs/agent/v3/cli_pipeline#uploading-multiple-pipelines).
+> 🚧 Processing of a single pipeline file
+> The `buildkite-agent pipeline upload` command only processes a single pipeline file. If multiple files are passed into the command (including using a wildcard `*` in the filename), only the first pipeline file will be processed. Additional pipeline files provided as arguments will be ignored. Please see [uploading multiple pipeline files](/docs/agent/v3/cli_pipeline#uploading-multiple-pipelines).
 
 <%= render 'agent/v3/help/pipeline_upload' %>
 
@@ -15,9 +15,9 @@ See the [Defining your pipeline steps](/docs/pipelines/configure/defining-steps)
 
 The pipeline can be written as YAML or JSON, but YAML is more common for its readability. There are three top-level properties you can specify:
 
-* The `agents` attribute is a map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
-* The `env` attribute is a map of [environment variables](/docs/pipelines/configure/environment-variables) to apply to all steps
-* The `steps` attribute is an array of [build pipeline steps](/docs/pipelines/configure/defining-steps)
+* The `agents` attribute - a map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on.
+* The `env` attribute - a map of [environment variables](/docs/pipelines/configure/environment-variables) to apply to all steps.
+* The `steps` attribute - an array of [build pipeline steps](/docs/pipelines/configure/defining-steps).
 
 ## Insertion order
 
@@ -40,7 +40,7 @@ For example, the following pipeline substitutes a number of [Buildkite's default
     branch: "${BUILDKITE_BRANCH}"
 ```
 
-If you want an environment variable to be evaluated at run-time (for example, using the step's environment variables) ensure you escape the `$` character using `$$` or `\$`. For example:
+If you want an environment variable to be evaluated at run-time (for example, using the step's environment variables), ensure you escape the `$` character using `$$` or `\$`. For example:
 
 ```yaml
 - command: "deploy.sh $$SERVER"
@@ -122,7 +122,7 @@ If the environment variable has not been set, the range will return a blank stri
 
 ## Uploading multiple pipelines
 
-While the `buildkite-agent pipeline upload` command is only able to process a single file, there are many approaches available to handle uploading multiple pipeline files for processing.
+While the `buildkite-agent pipeline upload` command is only able to process a single file, different approaches are available for handling the upload of multiple pipeline files for processing.
 
 ### Multiple sequential uploads
 
@@ -143,17 +143,17 @@ find .buildkite/ -type f -iname '*.yaml' -print0 | xargs -0 -n1 buildkite-agent 
 
 ### Combine multiple pipeline files
 
-With the `buildkite-agent pipeline upload` command able to also accept pipeline YAML, you can emit the contents of multiple pipeline files and have this combined output be processed directly from STDIN.
+Since the `buildkite-agent pipeline upload` command is also able to accept pipeline YAML, you can emit the contents of multiple pipeline files and have this combined output be processed directly from STDIN.
 
-> 🚧 Multiple pipeline file processing
-> When passing multiple pipeline files into the pipeline upload command, it is important to include a `---` on the first line of each pipeline file to indicate the beginning of each pipeline YAML file. This is required to ensure the `buildkite-agent` is able to correctly process multiple files that have been combined into a single input stream.
+> 🚧 Processing of multiple pipeline files
+> When passing multiple pipeline files into the pipeline upload command, include a `---` on the first line of each pipeline file to indicate the beginning of each pipeline YAML file. This is required to ensure the `buildkite-agent` is able to correctly process multiple files that have been combined into a single input stream.
 
 Using the following three example pipeline files:
 
 ```yaml
 ---
 steps:
-  - label: "Start of build"
+  - label: "Start of the build"
     command: ./scripts/build-start.sh
 ```
 {: codeblock-file="pipeline-start.yml"}
@@ -161,7 +161,7 @@ steps:
 ```yaml
 ---
 steps:
-  - label: "Middle of build"
+  - label: "Middle of the build"
     command: ./scripts/build-middle.sh
 ```
 {: codeblock-file="pipeline-middle.yml"}
@@ -169,12 +169,12 @@ steps:
 ```yaml
 ---
 steps:
-  - label: "End of build"
+  - label: "End of the build"
     command: ./scripts/build-end.sh
 ```
 {: codeblock-file="pipeline-end.yml"}
 
-Pass the contents of all pipeline files matching the wildcard `*` file pattern into the pipeline upload command:
+Pass the contents of all the pipeline files that are matching the wildcard `*` file pattern into the pipeline upload command:
 
 ```bash
 cat .buildkite/pipeline-*.yml | buildkite-agent pipeline upload
