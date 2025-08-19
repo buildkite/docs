@@ -18,7 +18,7 @@ The Buildkite plugin for Backstage provides integration capabilities that allow 
 
 Before installing the Buildkite Backstage plugin, ensure you have:
 
-- A Buildkite account with at least one pipeline
+- A Buildkite user account with admin permissions and at least one pipeline
 - An up-to-date Backstage instance
 - A [Buildkite API access token](/docs/apis/managing-api-tokens) with the following permissions:
   * `read_pipelines`
