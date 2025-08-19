@@ -102,3 +102,22 @@ Alternatively, a file can be downloaded via the command line using code snippet 
 1. [Access the file's details](#access-a-files-details).
 1. Ensure the **Installation** > **Instructions** section is displayed.
 1. For each required command in the relevant code snippets, copy the relevant code snippet, paste it into your terminal, and run it.
+
+The following set of code snippets are descriptions of what each code snippet does and where applicable, its format:
+
+#### Using curl to download the file
+
+```bash
+curl -O -L -H "Authorization: Bearer $TOKEN" \
+  https://packages.buildkite.com/{org.slug}/{registry.slug}/files/{filename}
+```
+
+where:
+
+- `$TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your files source registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+
+<%= render_markdown partial: 'package_registries/org_slug' %>
+
+- `{registry.slug}` is the slug of your Files source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your Files source registry from the **Registries** page.
+
+- `{filename}` is the name of the file that you want to download.
