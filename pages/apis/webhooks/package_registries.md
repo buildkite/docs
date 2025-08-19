@@ -1,4 +1,4 @@
-# Package Registry webhooks
+# Package registry webhooks
 
 You can configure webhooks to be triggered by the following events in Package Registries:
 
