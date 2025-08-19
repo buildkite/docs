@@ -895,6 +895,12 @@
       children:
         - name: "Overview"
           path: "apis/webhooks"
+        - name: "Package Registries "
+          # Keep space at end to prevent "Package Registries" in global nav bar being
+          # highlighted when any child page of "API > Webhooks > Package Registries" is selected.
+          children:
+            - name: "Overview"
+              path: "apis/webhooks/package-registries"
         - name: "Pipelines "
           # Keep space at end to prevent "Pipelines" in global nav bar being
           # highlighted when any child page of "API > Webhooks > Pipelines" is selected.
