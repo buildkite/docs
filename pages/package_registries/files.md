@@ -114,6 +114,8 @@ curl -O -L -H "Authorization: Bearer $TOKEN" \
 
 where:
 
+- `$TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your files source registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
 - `{registry.slug}` is the slug of your Files source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your Files source registry from the **Registries** page.
