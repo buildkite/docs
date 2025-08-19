@@ -198,38 +198,38 @@ You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
 ## Using GitHub App installation access tokens
 
-> 📘 Repository authentication vs account connection
+> 📘 The difference between repository authentication and account connection
 > Configuring a GitHub App for repository authentication is different from using the [Buildkite GitHub App](#connect-your-buildkite-account-to-github-using-the-github-app) to connect your Buildkite account to GitHub.
 
-An alternative to using SSH keys for access to your private repositories is to use a GitHub App and [installation access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-an-installation-access-token-for-a-github-app). This requires a private key to generate a JWT that is exchanged for an installation access token. The repository permissions of the GitHub App can be scoped to read only and every generated installation access token expires after 1 hour.
+An alternative to using SSH keys for accessing your private repositories is to use the GitHub App and [installation access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-an-installation-access-token-for-a-github-app). This requires a private key for generating a JSON Web Token (JWT) that is exchanged for an installation access token. The repository permissions of the GitHub App can be scoped to read-only and every generated installation access token cab be set to expire after 1 hour.
 
 ### Configuring a GitHub App for repository authentication
 
-> 📘 GitHub Organization Admin required
-> When creating and installing this GitHub App to a GitHub Organization, the following steps must be performed by a GitHub Organization Admin.
+> 📘 GitHub Organization access prerequisites
+> When creating and installing the GitHub App on a GitHub Organization, the following steps must be performed by a GitHub Organization Admin.
 
 #### Create the GitHub App
 
-In GitHub, follow the [documentation](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/registering-a-github-app/registering-a-github-app#registering-a-github-app) to register a GitHub App. Configure this new GitHub App as follows:
+To register a GitHub App, follow the Git Hub [documentation](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/registering-a-github-app/registering-a-github-app#registering-a-github-app). Configure this new GitHub App as follows:
 
 - GitHub App name: Choose a unique name (for example, buildkite-agent-ro-access)
 - Homepage URL: Your company's homepage
 - Webhook:
-    + Uncheck **Active** (webhooks not required)
+    + Uncheck **Active** (webhooks are not required)
     + Webhook URL (leave blank)
     + Secret (leave blank)
 - Permissions:
     + Repository Permissions:
         - Contents: Choose either `Read-only` or `Read and write`, depending on whether write access will be required to push files
         - Metadata: Select `Read-only` (Required for basic repository info)
-        - Pull requests: Choose either `Read-only` or `Read and write`, depending on whether read or write access will be required to pull requests
+        - Pull requests: Choose either `Read-only` or `Read and write`, depending on whether read or write access will be required for pull requests
 - Where can this GitHub App be installed?
     + Choose "Only on this account"
 
-After the GitHub App has been configured with the above settings, click the **Create GitHub App** button. You will see the General settings of the new GitHub App.
+After the GitHub App has been configured with the settings outlined above, click the **Create GitHub App** button. You will see the General settings of the new GitHub App.
 
-> 📘 GitHub App Client ID
-> Make note of the GitHub App's Client ID shown on the General settings page, as this value will be required when generating tokens.
+> 📘 GitHub App's Client ID
+> The value of the GitHub App's Client ID shown on the General settings page will be required for generating tokens. Make sure you have this value available.
 
 #### Generate authentication keys
 
@@ -246,18 +246,18 @@ In order to create a JWT that can be exchanged for an installation access token,
 
 #### Install the newly created GitHub App
 
-After creating the GitHub App, it can be installed to your account. In the GitHub App's settings, select **Install App** from the left-hand menu. Choose the account where you want to install the GitHub App. Choose the repositories that the GitHub App will have access to, based on the repository permissions selected during the GitHub App's creation. After selecting the GitHub App's repository access, click the **Install** button.
+After creating the GitHub App, you can install this app into your account. To install the GitHub App, go to the app's settings and select **Install App** from the left-hand menu. Choose the account into which you want to install the GitHub App. Choose the repositories that the GitHub App will have access to, based on the repository permissions selected during the GitHub App's creation. After selecting the GitHub App's repository access, click the **Install** button.
 
-> 📘 GitHub App Installation ID
-> Make note of the GitHub App's Installation ID, which can be found at the end of the URL after install is complete: `.../settings/installations/<installation_id>`. This value will be required when generating tokens.
+> 📘 GitHub App's Installation ID
+> The value of the GitHub App's Installation ID, which can be found at the end of the URL after installation is complete: `.../settings/installations/<installation_id>`, will be required for generating tokens. Make sure you have this value available.
 
 ### Generating tokens
 
-GitHub outlines the [process](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-an-installation-access-token-for-a-github-app#generating-an-installation-access-token) for generating a JWT and then exchanging it for an installation access token. There are a few examples available that show how you can [generate a JWT](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-json-web-token-jwt-for-a-github-app#generating-a-json-web-token-jwt) using some common programming languages. We will be using Bash to configure a `pre-checkout` [agent hook](/docs/agent/v3/hooks#hook-locations-agent-hooks).
+The GitHub's documentation describes the [process](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-an-installation-access-token-for-a-github-app#generating-an-installation-access-token) of generating a JWT and then exchanging it for an installation access token. There are a few examples available that show how you can [generate a JWT](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-json-web-token-jwt-for-a-github-app#generating-a-json-web-token-jwt) using some common programming languages. The example that follows will be using Bash to configure a `pre-checkout` [agent hook](/docs/agent/v3/hooks#hook-locations-agent-hooks).
 
 #### Configure agent hook
 
-In order to have the agent generate a GitHub App installation token, add the following code to your agent hooks [directory](/docs/agent/v3/hooks#hook-locations) as a `pre-checkout` hook, configuring the variables at the beginning of the hook with the GitHub App's Client ID (`client_id`), Installation ID (`installation_id`), and Buildkite Secret name (`private_key_secret_name`):
+In order to have the agent generate a GitHub App installation token, add the following code to your [agent hooks directory](/docs/agent/v3/hooks#hook-locations) as a `pre-checkout` hook, configuring the variables at the beginning of the hook with the GitHub App's Client ID (`client_id`), Installation ID (`installation_id`), and Buildkite Secret name (`private_key_secret_name`):
 
 ```bash
 #!/usr/bin/env bash
@@ -303,7 +303,7 @@ signature=$(
 JWT="${header_payload}"."${signature}"
 
 echo "~~~ \:github\: Requesting GitHub App installation access token"
-# Exchange JWT for installation access token
+# Exchange your JWT for the installation access token
 access_token=$(curl -sS --request POST \
     --url "https://api.github.com/app/installations/${installation_id}/access_tokens" \
     --header "Accept: application/vnd.github+json" \
