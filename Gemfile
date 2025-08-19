@@ -74,8 +74,6 @@ group :test do
 
   # Browser testing stuff
   gem "capybara"
-end
 
-group :test do
   gem "buildkite-test_collector"
 end
