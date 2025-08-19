@@ -2,6 +2,8 @@
 
 This page list the Buildkite Migration tool's currently supported, partially supported and unsupported properties in translation of Bitbucket pipelines to Buildkite pipelines.
 
+With the help of the Buildkite Migration too, you can start converting your CircleCI pipelines Actions workflows into Buildkite pipelines. This page lists the Buildkite Migration tool's currently supported, partially supported, and unsupported attributes for translating from CircleCI pipelines to Buildkite pipelines.
+
 > 📘
 > The Bitbucket Pipeline configuration that is described in the various sections below is specified in the central `bitbucket-pipelines.yml` within a specific Bitbucket workspace [repository](https://support.atlassian.com/bitbucket-cloud/docs/what-is-a-workspace/). In Buildkite - pipeline configuration can be set in a singular `pipeline.yml` within a repository - but can also be set and uploaded dynamically through the use of [Dynamic Pipelines](/docs/pipelines/configure/dynamic-pipelines). Additionally, control and governance of Buildkite pipelines can be achieved by the use of [Pipeline Templates](/docs/pipelines/templates) to set shared pipeline configuration within a Buildkite organization.
 

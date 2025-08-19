@@ -1,6 +1,6 @@
 # CircleCI
 
-This page list the Buildkite Migration tool's currently supported, partially supported and unsupported properties in translation of CircleCI pipelines to Buildkite pipelines.
+With the help of the Buildkite Migration too, you can start converting your CircleCI pipelines Actions workflows into Buildkite pipelines. This page lists the Buildkite Migration tool's currently supported, partially supported, and unsupported attributes for translating from CircleCI pipelines to Buildkite pipelines.
 
 ## Logical operators (helpers)
 
