@@ -14,7 +14,7 @@ To add a webhook for your pipeline event:
 
 1. If you are using self-signed certificates for your webhooks, clear the **Verify TLS Certificates** checkbox.
 
-1. To allow the authenticity of your Pipeline webhook events to be verified, configure your webhook's **Token** value to be sent either a as a plain text [`X-Buildkite-Token`](#webhook-token) value or an encrypted [`X-Buildkite-Signature`](#webhook-signature) in the request [header](#http-headers), bearing in mind that the latter provides the more secure verification method.
+1. To allow the authenticity of your Pipeline webhook events to be verified, configure your webhook's **Token** value to be sent either as a plain text [`X-Buildkite-Token`](#webhook-token) value or an encrypted [`X-Buildkite-Signature`](#webhook-signature) in the request [header](#http-headers), bearing in mind that the latter provides the more secure verification method.
 
 1. Select one or more of the listed [**Events**](#events) that will trigger this webhook, which include the following categories of webhooks:
     * [Build events](/docs/apis/webhooks/pipelines/build-events)

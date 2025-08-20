@@ -1,22 +1,28 @@
 # Package registry webhooks
 
-You can configure webhooks to be triggered by the following events in Package Registries:
-
-- When a package is created.
+You can configure webhooks to be triggered in Package Registries when a package, image, chart, model, module, or file is created.
 
 Webhooks are delivered to an HTTP POST endpoint of your choosing with a `Content-Type: application/json` header and a JSON encoded request body.
 
 ## Add a webhook
 
-To add a webhook to a package registry:
+To add a webhook for your package creation event:
 
-1. Select **Package Registries** in the global navigation > the package registry to configure webhooks on.
-1. Select **Settings** > **Notification Services** tab.
-1. Select the **Add** button on **Webhooks**.
+1. Select **Package Registries** in the global navigation > your registry to configure webhooks on.
+
+1. Select **Settings** tab > **Notification Services** page.
+
+1. Select the **Add** button on **Webhook**.
+
 1. Specifying your webhook's **Description** and **Webhook URL**.
-1. Select one or more of the following **Events** that will trigger this webhook:
-   + **Package created**
-1. Select the **Save** button to save these changes and add the webhook.
+
+1. If you are using self-signed certificates for your webhooks, clear the **Verify TLS Certificates** checkbox.
+
+1. To allow the authenticity of your Package Registries webhook events to be verified, configure your webhook's **Token** value to be sent either as a plain text [`X-Buildkite-Token`](#webhook-token) value or an encrypted [`X-Buildkite-Signature`](#webhook-signature) in the request [header](#http-headers), bearing in mind that the latter provides the more secure verification method.
+
+1. In the **Events** section, ensure the **package.created** event has been selected.
+
+1. Select the **Save Webhook Settings** button to save these changes and add the webhook.
 
 ### Package created
 
@@ -79,13 +85,13 @@ Example payload:
 
 To do any of these actions a webhook:
 
-1. Select **Package Registries** in the global navigation > your registry with configured webhooks.
-1. Select **Settings** > **Notification Services** tab t open its page.
+1. Select **Package Registries** in the global navigation > your registry with your configured webhooks.
+1. Select **Settings** tab > **Notification Services** to open its page.
 1. Select the webhook to open its page, and to:
-   + Edit the webhook, alter the **Description**, **Webhook URL**, **Events** and **Teams** fields as required (see [Add a webhook](#add-a-webhook) for details), then select the **Save** button.
-   + Disable the webhook, select its **Disable** button and confirm the action. Disabled webhooks have a note at the top to indicate this state.
-     - Re-enable the disabled webhook, select its **Enable** button.
-   + Delete the webhook, select its **Delete** button and confirm the action. The webhook is removed from the **Notification Services** page.
+    * Edit the webhook, alter the **Description**, **Webhook URL**, **Verify TLS Certificates** and **Token** fields as required (see [Add a webhook](#add-a-webhook) for details), then select the **Save Webhook Settings** button.
+    * Disable the webhook, select its **Disable** button and confirm the action. Disabled webhooks have a note at the top to indicate this state.
+        - To re-enable the disabled webhook, select its **Enable** button.
+    * Delete the webhook, select its **Delete** button and confirm the action. The webhook is removed from the **Notification Services** page.
 
 ## Request logs
 
