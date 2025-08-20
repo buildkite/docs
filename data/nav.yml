@@ -919,6 +919,12 @@
           children:
             - name: "Overview"
               path: "apis/webhooks/test-engine"
+        - name: "Package Registries "
+          # Keep space at end to prevent "Package Registries" in global nav bar being
+          # highlighted when any child page of "API > Webhooks > Package Registries" is selected.
+          children:
+            - name: "Overview"
+              path: "apis/webhooks/package-registries"
     - name: "Portals"
       children:
         - name: "Overview"

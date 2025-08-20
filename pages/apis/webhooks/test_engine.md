@@ -92,5 +92,5 @@ To do any of these actions a webhook:
 1. Select the webhook to open its page, and to:
     * Edit the webhook, alter the **Description**, **Webhook URL**, **Events** and **Teams** fields as required (see [Add a webhook](#add-a-webhook) for details), then select the **Save** button.
     * Disable the webhook, select its **Disable** button and confirm the action. Disabled webhooks have a note at their top to indicate this state.
-        - Re-enable the disabled webhook, select its **Enable** button.
+        - To re-enable the disabled webhook, select its **Enable** button.
     * Delete the webhook, select its **Delete** button and confirm the action. The webhook is removed from the **Notifications** page.
