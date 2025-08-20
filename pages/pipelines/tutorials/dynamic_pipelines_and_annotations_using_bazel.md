@@ -57,11 +57,11 @@ Your Buildkite macOS hosted agent, as the new default queue, is now ready to use
 
 Setting up a self-hosted agent for this tutorial requires you to first install a Buildkite Agent in a self-hosted environment, and then install [Bazel](https://www.bazel.build/) to the same environment.
 
-To set up a self-hosted agent:
+To set up a self-hosted agent for this tutorial:
 
-1. Follow the [Install and run a self-hosted agent](/docs/pipelines/getting-started#set-up-an-agent-install-and-run-a-self-hosted-agent) instructions from the [Getting started with Pipelines](/docs/pipelines/getting-started) tutorial.
+1. Ensure you have followed the [Install and run a self-hosted agent](/docs/pipelines/getting-started#set-up-an-agent-install-and-run-a-self-hosted-agent) instructions from the [Getting started with Pipelines](/docs/pipelines/getting-started) tutorial to get set up with your self-hosted agent.
 
-1. Install Bazel, by following the relevant instructions to install [Bazelisk (recommended)](https://bazel.build/install/bazelisk) or the relevant [Bazel package](https://bazel.build/install) to the same operating system environment that your Buildkite agent was installed to.
+1. Install Bazel, by following the relevant instructions to install [Bazelisk (recommended)](https://bazel.build/install/bazelisk) or the relevant [Bazel package](https://bazel.build/install) to the same operating system environment that your self-hosted agent was installed to.
 
 ## Create a pipeline
 
