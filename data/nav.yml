@@ -20,24 +20,6 @@
           pill: "new"
         - name: "Glossary"
           path: "pipelines/glossary"
-    - name: Migration
-      children:
-        - name: Overview
-          path: pipelines/migration
-        - name: Migration Tool
-          children:
-            - name: "Overview"
-              path: "pipelines/migration/tool"
-            - name: "Bitbucket Pipelines"
-              path: "pipelines/migration/tool/bitbucket-pipelines"
-            - name: "CircleCI"
-              path: "pipelines/migration/tool/circleci"
-            - name: "GitHub Actions"
-              path: "pipelines/migration/tool/github-actions"
-        - name: From Jenkins
-          path: pipelines/migration/from-jenkins
-        - name: From Bamboo
-          path: pipelines/migration/from-bamboo
     # If you're adding a source control provider you probably want to update
     # /docs/pages/integrations/source_control.md.erb
     # as well
@@ -63,6 +45,16 @@
       children:
         - name: Overview
           path: pipelines/migration
+        - name: Migration Tool
+          children:
+            - name: "Overview"
+              path: "pipelines/migration/tool"
+            - name: "Bitbucket Pipelines"
+              path: "pipelines/migration/tool/bitbucket-pipelines"
+            - name: "CircleCI"
+              path: "pipelines/migration/tool/circleci"
+            - name: "GitHub Actions"
+              path: "pipelines/migration/tool/github-actions"
         - name: From Jenkins
           path: pipelines/migration/from-jenkins
         - name: From Bamboo
