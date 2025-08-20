@@ -1,10 +1,11 @@
 # GitHub Actions
 
-With the help of the Buildkite Migration too, you can start converting your GitHub Actions workflows into Buildkite pipelines. This page lists the Buildkite Migration tool's currently supported, partially supported, and unsupported attributes for translating from GitHub Actions workflows to Buildkite pipelines.
+With the help of the Buildkite Migration tool, you can start converting your GitHub Actions workflows into Buildkite pipelines. This page lists the Buildkite Migration tool's currently supported, partially supported, and unsupported attributes for translating from GitHub Actions workflows to Buildkite pipelines.
 
 > 📘
-> The Buildkite Migration tool does not currently support [GitHub secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) stored within GitHub organizations or repositories (such as `{{ secrets.FOO }}`).<br/><br/>A core principle of the Buildkite's [Self-hosted (hybrid) architecture](/docs/pipelines/architecture) is that secrets and sensitive data are decoupled from the core SaaS platform and remains on customer/tenant environments and are not seen or stored.
-> The utilisation of a [secret storage service](/docs/pipelines/security/secrets/managing) such as [Hashicorp Vault](https://www.vaultproject.io/) or [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/), accompanied by the use of their respective [plugin](https://github.com/buildkite-plugins) can be configured to read and utilize secrets within Buildkite pipelines. The [S3 Secrets Buildkite plugin](https://github.com/buildkite/elastic-ci-stack-s3-secrets-hooks) can be installed within a Buildkite agent - this service automatically included within [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) setups to expose secrets from S3 into the jobs of a Buildkite pipelines' builds.
+> The Buildkite Migration tool does not currently support [GitHub secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) stored within GitHub organizations or repositories (such as `{{ secrets.FOO }}`).
+> A core principle of the Buildkite's [Self-hosted (hybrid) architecture](/docs/pipelines/architecture) is that secrets and sensitive data are decoupled from the core SaaS platform and remains on customer/tenant environments and are not seen or stored.
+> The utilization of a [secret storage service](/docs/pipelines/security/secrets/managing) such as [Hashicorp Vault](https://www.vaultproject.io/) or [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/), accompanied by the use of their respective [plugin](https://github.com/buildkite-plugins) can be configured to read and utilize secrets within Buildkite pipelines. The [S3 Secrets Buildkite plugin](https://github.com/buildkite/elastic-ci-stack-s3-secrets-hooks) can be installed within a Buildkite agent - this service automatically included within [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) setups to expose secrets from S3 into the jobs of a Buildkite pipelines' builds.
 
 ## Concurrency
 
@@ -27,7 +28,7 @@ With the help of the Buildkite Migration too, you can start converting your GitH
 ## Jobs
 
 > 📘
-> > When Buildkite builds are run, each created command step inside the pipeline is ran as a [job](/docs/pipelines/defining-steps#job-states) that will be distributed and assigned to the matching agents meeting its specific queue and/or tag [targeting](/docs/pipelines/defining-steps#targeting-specific-agents). Each job is run within its own separate environment, with potentially different environment variables (for example those defined at [step](/docs/pipelines/command-step#command-step-attributes) level) - and is not always guaranteed to run on the same agent depending on targeting rules specified/agent fleet setup.
+> When Buildkite builds are run, each created command step inside the pipeline is ran as a [job](/docs/pipelines/defining-steps#job-states) that will be distributed and assigned to the matching agents meeting its specific queue and/or tag [targeting](/docs/pipelines/defining-steps#targeting-specific-agents). Each job is run within its own separate environment, with potentially different environment variables (for example those defined at [step](/docs/pipelines/command-step#command-step-attributes) level) - and is not always guaranteed to run on the same agent depending on targeting rules specified/agent fleet setup.
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
@@ -47,7 +48,7 @@ With the help of the Buildkite Migration too, you can start converting your GitH
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
-| `name` | No | The `name` key sets the name of the action as it will appear in the GitHub repository's "Actions" tab. When creating a Buildkite pipeline, it's name is set through the UI when first creating the pipeline - and can be altered within its pipeline settings, or via the [REST](/docs/apis/rest-api/pipelines#update-a-pipeline) or [GraphQL](/docs/apis/graphql/schemas/input-object/pipelineupdateinput) APIs. |
+| `name` | No | The `name` key sets the name of the action as it will appear in the GitHub repository's **Actions** tab. When creating a Buildkite pipeline, it's name is set through the UI when first creating the pipeline - and can be altered within its pipeline settings, or via the [REST](/docs/apis/rest-api/pipelines#update-a-pipeline) or [GraphQL](/docs/apis/graphql/schemas/input-object/pipelineupdateinput) APIs. |
 
 ## On
 | Key | Supported | Notes |
@@ -58,7 +59,7 @@ With the help of the Buildkite Migration too, you can start converting your GitH
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
-| `permissions` | No | [API Access Tokens](/docs/apis/managing-api-tokens) can be used within the context of a pipelines' build to interact with various Buildkite resources such as pipelines, artifacts, users, Test suites and more. Each token has a specified [token scope](/docs/apis/managing-api-tokens#token-scopes) that applies to interactions with the [REST](/docs/apis/rest-api) API, and can be configured with permission to interact with Buildkite's [GraphQL](/docs/apis/graphql-api) API. The `permissions` key allows for the interaction with commit `statuses`. For Buildkite to publish commit statuses for builds based on commits and pull requests on pipeline builds: the [GitHub App](/docs/integrations/github#connect-your-buildkite-account-to-github-using-the-github-app) must be added to the respective GitHub organization for statuses to appear based on a build's outcome. The GitHub App can be configured with access to all repositories within a GitHub organization - or a select number. |
+| `permissions` | No | [API Access Tokens](/docs/apis/managing-api-tokens) can be used within the context of a pipelines' build to interact with various Buildkite resources such as pipelines, artifacts, users, test suites, and more. Each token has a specified [token scope](/docs/apis/managing-api-tokens#token-scopes) that applies to interactions with the [REST](/docs/apis/rest-api) API, and can be configured with permission to interact with Buildkite's [GraphQL](/docs/apis/graphql-api) API. The `permissions` key allows for the interaction with commit `statuses`. For Buildkite to publish commit statuses for builds based on commits and pull requests on pipeline builds: the [GitHub App](/docs/integrations/github#connect-your-buildkite-account-to-github-using-the-github-app) must be added to the respective GitHub organization for statuses to appear based on a build's outcome. The GitHub App can be configured with access to all repositories within a GitHub organization - or a select number. |
 
 ## Run name
 
