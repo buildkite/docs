@@ -254,9 +254,9 @@ mutation UpdateSchedule {
 }
 ```
 
-## Get pipeline webhook URLs
+## Get a list of all webhook URLs
 
-Get all the webhook URLs associated with your pipelines.
+Get a list of all the webhook URLs associated with the 500 most recently created pipelines.
 
 ```graphql
 query GetPipelineWebhooks {
