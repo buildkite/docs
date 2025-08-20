@@ -311,7 +311,7 @@ access_token=$(curl -sS --request POST \
     --header "X-GitHub-Api-Version: 2022-11-28" | awk -F'"' '/"token"/ {print $4}')
 
 echo "~~~ \:git\: Configuring Git credential helper to use installation access token"
-# Save the installation access token to ~/.git-credentials and configure the credential helper
+# Store the installation access token in ~/.git-credentials and configure the credential helper
 echo "https://x-access-token:${access_token}@github.com" > ~/.git-credentials
 git config --global url."https://github.com/".insteadOf git@github.com:
 git config --global credential.helper store
