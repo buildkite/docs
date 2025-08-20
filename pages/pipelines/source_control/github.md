@@ -242,7 +242,7 @@ In order to create a JWT that can be exchanged for an installation access token,
     + Add the contents of the `.pem` file as the secret's _Value_
 
 > 📘 Private key Buildkite Secret
-> Make note of the Buildkite Secret name containing the private key, as this will be required when generating tokens.
+> The value of the Buildkite Secret's name contains the private key and will be required when generating tokens. Make sure you have this value available as it will be referenced by `buildkite-agent secret get <bk-secret-name>` command in the agent environment hook.
 
 #### Install the newly created GitHub App
 
