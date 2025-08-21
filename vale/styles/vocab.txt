@@ -32,6 +32,8 @@ autoscaling
 aws
 awscli
 azcopy
+Backstage
+Backstage Software Catalog
 Basecamp
 Basscss
 Bazel
@@ -269,6 +271,8 @@ shellcheck
 shellscripting
 Shipit
 signaltometrics
+SLO
+SLOs
 snake_case
 Sonar
 SonarCloud

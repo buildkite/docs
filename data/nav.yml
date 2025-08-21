@@ -465,6 +465,8 @@
           path: "pipelines/deployments/with-argo-cd"
         - name: "Deploying with Heroku"
           path: "pipelines/deployments/with-heroku"
+        - name: "Deployment visibility with Backstage"
+          path: "pipelines/deployments/deployment-visibility-with-backstage"
         - name: "Deployment plugins"
           path: "pipelines/deployments/deployment-plugins"
     - name: "Insights"
@@ -540,6 +542,8 @@
               path: "pipelines/integrations/other/build-status-badges"
             - name: "Docker Hub"
               path: "pipelines/integrations/other/docker-hub"
+            - name: "Backstage"
+              path: "pipelines/integrations/other/backstage"
     - name: "Announcements"
       children:
         - name: "Database migration (Archived)"
@@ -919,6 +923,12 @@
           children:
             - name: "Overview"
               path: "apis/webhooks/test-engine"
+        - name: "Package Registries "
+          # Keep space at end to prevent "Package Registries" in global nav bar being
+          # highlighted when any child page of "API > Webhooks > Package Registries" is selected.
+          children:
+            - name: "Overview"
+              path: "apis/webhooks/package-registries"
     - name: "Portals"
       children:
         - name: "Overview"

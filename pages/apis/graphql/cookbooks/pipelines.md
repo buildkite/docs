@@ -254,6 +254,25 @@ mutation UpdateSchedule {
 }
 ```
 
+## Get a list of all webhook URLs
+
+Get a list of all the webhook URLs associated with the 500 most recently created pipelines.
+
+```graphql
+query GetPipelineWebhooks {
+  organization(slug: "organization-slug") {
+    pipelines(first: 500) {
+      edges {
+        node {
+          slug
+          webhookURL
+        }
+      }
+    }
+  }
+}
+```
+
 ## Archive a pipeline
 
 First, [get the ID of the pipeline](#get-a-pipelines-id) you want to archive.
