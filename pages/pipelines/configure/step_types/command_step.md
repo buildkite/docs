@@ -67,7 +67,7 @@ Optional attributes:
   <tr>
     <td><code>artifact_paths</code></td>
     <td>
-      The <a href="/docs/agent/v3/cli-artifact#uploading-artifacts">glob path</a> or paths of <a href="/docs/agent/v3/cli-artifact">artifacts</a> to upload from this step. This can be a single line of paths separated by semicolons, or a list.<br/>
+      The <a href="/docs/pipelines/configure/glob-pattern-syntax">glob path</a> or paths of <a href="/docs/agent/v3/cli-artifact">artifacts</a> to upload from this step. This can be a single line of paths separated by semicolons, or a list.<br/>
       <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code><br/>
       <em>Example:</em><br/>
       <code>- "logs/**/*"</code><br/>
@@ -216,20 +216,52 @@ Optional attributes:
 
 ## Agent-applied attributes
 
-These attributes are only applied by the Buildkite Agent when uploading a pipeline (`buildkite-agent pipeline upload`), since they require direct access to your code or repository to process correctly.
+<%= render_markdown partial: 'pipelines/configure/step_types/agent_applied_attributes' %>
 
-> 🚧 Agent-applied attributes are not accepted in pipelines set using the Buildkite UI.
+## Container image attributes
+
+If you are using the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) controller to run your [Buildkite Agents](/docs/agent/v3), then you can use the `image` attribute to specify a [container image](/docs/agent/v3/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images) for a command step to run its job in.
 
 <table>
   <tr>
-    <td><code>if_changed</code></td>
+    <td><code>image</code></td>
     <td>
-      A <a href="https://github.com/DrJosh9000/zzglob?tab=readme-ov-file#pattern-syntax">glob pattern</a> that omits the step from a build if it does not match any files changed in the build. <br/>
-      <em>Example:</em> <code>{**.go,go.mod,go.sum,fixtures/**}</code><br/>
-      <em>Minimum Buildkite Agent version:</em> v3.99 (with <code>--apply-if-changed</code> flag), v3.103.0 (enabled by default)
+      A fully qualified image reference string. The <a href="/docs/agent/v3/agent-stack-k8s">Agent Stack for Kubernetes</a> controller will configure the <a href="/docs/agent/v3/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images">custom image</a> for the <code>command</code> container of this job. The value is available in the <code>BUILDKITE_IMAGE</code> <a href="/docs/pipelines/configure/environment-variables">environment variable</a>.<br/>
+      <em>Example:</em> <code>"alpine:latest"</code>
     </td>
   </tr>
 </table>
+
+> 🚧
+> Support for this `image` attribute is currently experimental.
+
+Example pipeline, showing how build and step level `image` attributes interact:
+
+```yml
+image: "ubuntu:22.04" # The default image for the pipeline's build
+
+steps:
+  - name: "\:node\: Frontend tests"
+    command: |
+      cd frontend
+      npm ci
+      npm test
+    image: "node:18" # This step's job uses the node:18 image
+
+  - name: "\:golang\: Backend tests"
+    command: |
+      cd backend
+      go mod download
+      go test ./...
+    image: "golang:1.21" # This step's job uses the golang:1.21 image
+
+  - name: "\:package\: Package application"
+    command: |
+      apt-get update && apt-get install -y zip
+      zip -r app.zip frontend/ backend/
+    # No image specified in this step.
+    # Therefore, this step's job uses the pipeline's default ubuntu:22.04 image
+```
 
 ## Retry attributes
 
@@ -498,18 +530,11 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Fail fast
+## Fast-fail running jobs
 
-To automatically cancel any remaining jobs as soon as the first job fails (except jobs that you've marked as `soft_fail`), add the `cancel_on_build_failing: true` attribute to your command steps.
+To automatically cancel any remaining jobs as soon as any job in the build fails (except jobs marked as `soft_fail`), add the `cancel_on_build_failing: true` attribute to your command steps.
 
-Next time a job in your build fails, those jobs will be automatically canceled.
-
-<!--
-
-TODO:
-To set `cancel_on_build_failing: true` for all jobs in a Build:
-
- -->
+When a job fails, the build enters a _failing_ state. Any jobs still running that have `cancel_on_build_failing: true` are automatically canceled. Once all running jobs have been cancelled, the build is marked as _failed_ due to the initial job failure.
 
 ## Example
 
@@ -543,12 +568,14 @@ steps:
     commands:
       - "npm install"
       - "npm run visual-diff"
+    cancel_on_build_failing: true
     retry:
       automatic:
         limit: 3
 
   - label: "Skipped job"
     command: "broken.sh"
+    cancel_on_build_failing: true
     skip: "Currently broken and needs to be fixed"
 
   - wait: ~

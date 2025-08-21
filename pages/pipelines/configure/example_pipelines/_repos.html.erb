@@ -1,0 +1,12 @@
+<% repos.each do |repo| %>
+  <p>
+    <a class="Docs__example-repo" href="https://github.com/<%= repo[:link] %>">
+      <span class="icon"><%= repo[:emoji] %></span>
+      <span class="detail">
+        <strong><%= repo[:name] %></strong>
+        <span class="description"><%= repo[:description] %></span>
+        <span class="repo"><%= repo[:link] %></span>
+      </span>
+    </a>
+  </p>
+<% end %>

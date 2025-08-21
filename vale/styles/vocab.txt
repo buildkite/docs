@@ -5,12 +5,14 @@ Allowlist
 allowlist
 AMI's
 AMIs
+Ansible
 API
 API's
 APIs
 apk
 APM
 applesimutils
+Aqua
 architecting
 Argo
 argumentless
@@ -30,6 +32,8 @@ autoscaling
 aws
 awscli
 azcopy
+Backstage
+Backstage Software Catalog
 Basecamp
 Basscss
 Bazel
@@ -55,6 +59,7 @@ chroots
 CI
 classpath
 cli
+CLI
 Cloudsmith
 Cloudsmith's
 CloudTrail
@@ -74,6 +79,8 @@ cpu
 cron
 crontab
 Crontab
+CVE
+CVEs
 Datadog
 Datadog's
 debuild
@@ -100,6 +107,8 @@ env
 eval
 Eventbridge
 EventBridge
+exfiltrated
+exfiltration
 Explainshell
 fastfile
 fastlane
@@ -126,6 +135,7 @@ Gradle
 gradle
 Gradle's
 Graviton
+GRC
 gz
 gzipped
 Hashicorp
@@ -143,6 +153,7 @@ IPs
 iTerm
 iTerm's
 Jenkins
+Jenkinsfile
 JFrog
 JFrog's
 job_watcher
@@ -200,8 +211,10 @@ opentelemetry
 onboarding
 OTLP
 otlp
+overprivileged
 Pagerduty
 parsable
+parallelization
 pbuilder
 pbuilder's
 perl
@@ -232,7 +245,11 @@ readme
 readmes
 refetch
 refspec
+rehydrate
+rehydrated
 reimagined
+remediation
+remediations
 repo
 resizable
 routable
@@ -254,7 +271,15 @@ shellcheck
 shellscripting
 Shipit
 signaltometrics
+SLO
+SLOs
 snake_case
+Sonar
+SonarCloud
+SonarQube
+SonarScanner
+Snyk
+Sonatype
 Sonoma
 Splitter's
 sre
@@ -283,6 +308,8 @@ tmux
 toolmantim
 tooltip
 TOTP's
+Trivy
+typosquatted
 udp
 unmanaged
 UserData
@@ -293,6 +320,8 @@ unblocker
 unbuildable
 unclustered
 unencrypted
+unpatched
+unreviewed
 unset
 unsets
 unsetting
@@ -302,6 +331,7 @@ uploaders
 upstreams
 url
 urls
+userdata
 util
 uuid
 UUIDs

@@ -20,14 +20,6 @@
           pill: "new"
         - name: "Glossary"
           path: "pipelines/glossary"
-    - name: Migration
-      children:
-        - name: Overview
-          path: pipelines/migration
-        - name: From Jenkins
-          path: pipelines/migration/from-jenkins
-        - name: From Bamboo
-          path: pipelines/migration/from-bamboo
     # If you're adding a source control provider you probably want to update
     # /docs/pages/integrations/source_control.md.erb
     # as well
@@ -49,6 +41,14 @@
           path: "pipelines/source-control/phabricator"
         - name: "Other Git servers"
           path: "pipelines/source-control/git"
+    - name: Migration
+      children:
+        - name: Overview
+          path: pipelines/migration
+        - name: From Jenkins
+          path: pipelines/migration/from-jenkins
+        - name: From Bamboo
+          path: pipelines/migration/from-bamboo
     - name: "Tutorials"
       children:
         - name: "Docker-based builds"
@@ -363,6 +363,8 @@
           path: "pipelines/configure/notifications"
         - name: "Job minutes"
           path: "pipelines/configure/job-minutes"
+        - name: "Glob pattern syntax"
+          path: "pipelines/configure/glob-pattern-syntax"
         - name: "Example pipelines"
           path: "pipelines/configure/example-pipelines"
         - name: "Workflows"
@@ -423,6 +425,8 @@
       children:
         - name: "Overview"
           path: "pipelines/security"
+        - name: "Enforcing security controls"
+          path: "pipelines/security/enforcing-security-controls"
         - name: "Secrets"
           children:
             - name: "Overview"
@@ -461,6 +465,8 @@
           path: "pipelines/deployments/with-argo-cd"
         - name: "Deploying with Heroku"
           path: "pipelines/deployments/with-heroku"
+        - name: "Deployment visibility with Backstage"
+          path: "pipelines/deployments/deployment-visibility-with-backstage"
         - name: "Deployment plugins"
           path: "pipelines/deployments/deployment-plugins"
     - name: "Insights"
@@ -516,6 +522,8 @@
           children:
             - name: "Security and compliance plugins"
               path: "pipelines/integrations/security-and-compliance/plugins"
+            - name: "SonarScanner CLI tutorial"
+              path: "pipelines/integrations/security-and-compliance/sonar"
         - name: "Secrets"
           children:
             - name: "Secrets plugins"
@@ -534,6 +542,8 @@
               path: "pipelines/integrations/other/build-status-badges"
             - name: "Docker Hub"
               path: "pipelines/integrations/other/docker-hub"
+            - name: "Backstage"
+              path: "pipelines/integrations/other/backstage"
     - name: "Announcements"
       children:
         - name: "Database migration (Archived)"
@@ -921,6 +931,12 @@
           children:
             - name: "Overview"
               path: "apis/webhooks/test-engine"
+        - name: "Package Registries "
+          # Keep space at end to prevent "Package Registries" in global nav bar being
+          # highlighted when any child page of "API > Webhooks > Package Registries" is selected.
+          children:
+            - name: "Overview"
+              path: "apis/webhooks/package-registries"
     - name: "Portals"
       children:
         - name: "Overview"

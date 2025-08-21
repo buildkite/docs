@@ -14,7 +14,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "description": "registry containing ruby gems",
     "team_ids": [
       "team-one-uuid", "team-two-uuid"
-    ]
+    ],
     "oidc_policy": [
       {
         "iss": "https://agent.buildkite.com",
