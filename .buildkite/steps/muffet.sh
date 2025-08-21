@@ -26,6 +26,7 @@ set +e
   --exclude="https://github.com/buildkite/docs/" \
   --exclude="buildkite.com/docs" \
   --max-connections=10 \
+  --timeout=15 \
   --buffer-size=8192 \
   --format=json \
   > muffet-results.json
