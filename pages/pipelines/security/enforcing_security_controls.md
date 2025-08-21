@@ -10,7 +10,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 
 **Controls:**
 
-- Enable [Single sign-on (SSO)](/docs/platform/sso) and [Two-factor authentication (2FA/MFA)](/docs/platform/team-management/enforce-2fa) for all access to the Buildkite interface.
+- Enforce either [Single sign-on (SSO)](/docs/platform/sso) or [Two-factor authentication (2FA/MFA)](/docs/platform/team-management/enforce-2fa) for all access to the Buildkite interface.
 - Use time-scoped API tokens with [automated rotation](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security).
 - Apply least privilege principle when [scoping API keys](/docs/apis/managing-api-tokens#token-scopes).
 - [Restrict API tokens to specific IP ranges](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address) where possible.
