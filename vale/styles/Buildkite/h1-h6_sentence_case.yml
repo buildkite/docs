@@ -40,6 +40,8 @@ exceptions:
   - Azure AD
   - Azure Active Directory
   - Azure Blob
+  - Backstage
+  - Backstage Software Catalog
   - Bash
   - Bazel
   - Bamboo
@@ -86,6 +88,7 @@ exceptions:
   - Elastic
   - Elastic CI Stack
   - Enterprise Premium Support
+  - Entity Page
   - Everyone
   - ExUnit
   - FAQs
@@ -189,6 +192,8 @@ exceptions:
   - SonarQube
   - SonarScanner
   - Sonoma
+  - SLO
+  - SLOs
   - SSH
   - SSO
   - Tekton
