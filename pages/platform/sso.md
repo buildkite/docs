@@ -8,7 +8,7 @@ You can use a single sign-on (SSO) provider to protect access to your organizati
 
 SSO is available to customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans.
 
-You can enforce SSO authentication for the entire organization by disabling 2FA authentication in your organization settings. This ensures that all users must log in via SSO when accessing the organization.
+You can enforce SSO authentication for the entire organization by disabling [2FA authentication](/docs/platform/team-management/enforce-2fa) for your Buildkite organization. This ensures that all users must log in using SSO when accessing your Buildkite organization.
 
 ## Supported providers
 
