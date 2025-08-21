@@ -14,19 +14,15 @@ This `pipeline.py` Python program:
 
 ## Before you start
 
-<%= render_markdown partial: 'pipelines/pipelines_tutorials_prereqs' %>
+To complete this tutorial, you'll need to have done the following:
 
-- To have made your own copy or fork of the [bazel-monorepo-example](https://github.com/buildkite/bazel-monorepo-example) repository within your own GitHub account.
+- Run through the [Getting started with Pipelines](/docs/pipelines/getting-started) tutorial.
+
+- Made your own copy or fork of the [bazel-monorepo-example](https://github.com/buildkite/bazel-monorepo-example) repository within your own GitHub account, or Git-based setup.
 
 ## Set up an agent
 
 Buildkite Pipelines requires an [agent](/docs/agent/v3) running Bazel to build this pipeline. You can [set up your own self-hosted agent](#set-up-an-agent-set-up-a-self-hosted-agent) to do this. However, you can get up and running more rapidly by [creating a Buildkite hosted agent for macOS](#set-up-an-agent-create-a-buildkite-hosted-agent-for-macos), instead.
-
-Buildkite agents connect to Buildkite through a [_cluster_](/docs/pipelines/glossary#cluster), which provides a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within [_queues_](/docs/pipelines/glossary#queue)) in the same cluster.
-
-By default, new Buildkite organizations have one cluster, named **Default cluster**, with a single queue, named with the key **default**. A cluster maintainer or Buildkite organization administrator can customize the cluster's name.
-
-You need at least one agent configured within its own queue and cluster to run builds.
 
 > 📘 Already running an agent
 > If you're already running an agent and its operating system environment is already running [Bazel](https://bazel.build/install), skip to the [next step on creating a pipeline](#create-a-pipeline).
@@ -42,14 +38,12 @@ You can create the first [Buildkite hosted agent](/docs/pipelines/hosted-agents/
 
 To create your macOS hosted agent:
 
-1. Navigate to the [cluster](/docs/clusters/manage-clusters) you want to run your pipeline in. To do this, select **Agents** in the global navigation to access the **Clusters** page.
-1. Select the cluster (for example, **Default cluster**) to which the hosted agent will be added.
 1. Follow the [Create a Buildkite hosted queue](/docs/clusters/manage-queues#create-a-buildkite-hosted-queue) > [Using the Buildkite interface](/docs/clusters/manage-queues#create-a-buildkite-hosted-queue-using-the-buildkite-interface) instructions to begin creating your hosted agent within its own queue.
 
     As part of this process:
     * Give this queue an intuitive **key** and **description**, for example, **macos** and **Buildkite macOS hosted queue**, respectively.
     * In the **Select your agent infrastructure** section, select **Hosted**.
-    * Select **macOS** as the **Machine type** and **Small** for the **Capacity**.
+    * Select **macOS** as the **Machine type** and **Medium** for the **Capacity**.
 
 1. Make your pipelines use your new macOS hosted agent by default, by ensuring its queue is the _default queue_. This should be indicated by **(default)** after the queue's key on the cluster's **Queues** page. If this is not the case and another queue is marked **(default)**:
 
@@ -63,35 +57,11 @@ Your Buildkite macOS hosted agent, as the new default queue, is now ready to use
 
 Setting up a self-hosted agent for this tutorial requires you to first install a Buildkite Agent in a self-hosted environment, and then install [Bazel](https://www.bazel.build/) to the same environment.
 
-Before installing and running a self-hosted agent, ensure you have:
+To set up a self-hosted agent for this tutorial:
 
-- a [cluster](/docs/pipelines/clusters/manage-clusters) (for example, **Default cluster**) you can connect this agent to,
-- a [queue](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue) (for example, with the key **macos**) to which the agent will be associated with, and
-- the value of an [agent token](/docs/agent/v3/tokens) (for example, **Initial agent token**), which you can configure for the agent.
+1. Ensure you have followed the [Install and run a self-hosted agent](/docs/pipelines/getting-started#set-up-an-agent-install-and-run-a-self-hosted-agent) instructions from the [Getting started with Pipelines](/docs/pipelines/getting-started) tutorial to get set up with your self-hosted agent.
 
-    Be aware that since [hosted agents](#set-up-an-agent-create-a-buildkite-hosted-agent-for-macos) are managed by Buildkite, there is no need to create agent tokens for these types of agents.
-
-To install and run an agent in your own self-hosted infrastructure (including your own computer):
-
-1. Decide where you want to run the agent.
-
-    Most engineers start by running an agent on their local machine while playing around with pipeline definitions before setting up a long-term solution.
-
-1. Follow the instructions for where you want to install the agent.
-
-    To install locally, see:
-    * [macOS](/docs/agent/v3/macos#installation)
-    * [Windows](/docs/agent/v3/windows#automated-install-with-powershell)
-    * [Linux](/docs/agent/v3/linux#installation)
-    * [Docker](/docs/agent/v3/docker#running-using-docker)
-
-    Or see [all installation options](/docs/agent/v3/installation).
-
-    Ensure you configure the agent token, which connects the agent to your Buildkite account.
-
-1. To confirm that your agent is running, and configured correctly with your credentials, go to [Agents](https://buildkite.com/organizations/~/agents). You should see a list of all agents linked to the account and their status.
-
-Last, to install Bazel, follow the relevant instructions to install [Bazelisk (recommended)](https://bazel.build/install/bazelisk) or the relevant [Bazel package](https://bazel.build/install) to the same operating system environment that your Buildkite agent was installed to.
+1. Install Bazel, by following the relevant instructions to install [Bazelisk (recommended)](https://bazel.build/install/bazelisk) or the relevant [Bazel package](https://bazel.build/install) to the same operating system environment that your self-hosted agent was installed to.
 
 ## Create a pipeline
 
