@@ -8,7 +8,7 @@ Two-factor authentication can be enforced for the whole organization to ensure t
 
 ## Before enforcing two-factor authentication
 
-Before you enforce two-factor authentication (2FA) for your organization, consider that users without 2FA enabled will immediately lose access to the organization and subsequent pipelines.
+Before you enforce two-factor authentication (2FA) for your organization, consider that users without 2FA enabled will immediately lose access to the organization and the subsequent pipelines in the organizaion.
 
 Users can set up 2FA by following the [2FA tutorial].
 
