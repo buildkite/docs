@@ -61,21 +61,21 @@ To link your private Google Cloud Storage (GCS) bucket to Package Registries:
     **Notes:**
     * If you are already familiar with using Google Cloud Storage and need to create a new GCS bucket, expand the **Create a new bucket** section for quick instructions to start this process.
     * Ensure you are in the correct Google Cloud _organization_ and _project_ in which to create your GCS bucket.
-    * For the fastest outcome, you can also copy the command line interface (CLI) code snippet and modify its following values before pasting the modified code snippet into your [Cloud Shell Terminal](https://cloud.google.com/storage/docs/discover-object-storage-gcloud):
+    * For the fastest outcome, you can also copy the command line interface (CLI) code snippet and modify its following values before pasting the modified code snippet into your [Cloud Shell Terminal](https://cloud.google.com/storage/docs/discover-object-storage-gcloud) and submitting it:
         - `BUCKET`: the name of your new GCS bucket, for example, `my-gcs-bucket`.
         - `--location`: A location that's geographically closest to your current location, or the location closest to where this bucket's packages will most frequently be accessed from.
 
 1. Back on the Buildkite interface, in **Step 3: Enter your Google Cloud bucket details**, specify the **Bucket name** (for example, `my-gcs-bucket`) for your GCS bucket configured in the previous step, then select **Continue**.
 
 1. On the **Connect Buildkite to Google** page, you'll be configuring a [Google Cloud (GC) service account](https://cloud.google.com/iam/docs/service-account-overview) and [Workload Identity Pool and Provider (WIPP)](https://cloud.google.com/iam/docs/workload-identity-federation#providers) using the CLI code snippets on this page, which you can modify if required and paste into your [Cloud Shell Terminal](https://cloud.google.com/storage/docs/discover-object-storage-gcloud).
-    * To create a new GC service account and WIPP, copy the **Create New** CLI code snippet and if required, modify its following **Setup** values before pasting the modified code snippet into your Cloud Shell Terminal:
+    * To create a new GC service account and WIPP, copy the **Create New** CLI code snippet and if required, modify its following **Setup** values before pasting the modified code snippet into your Cloud Shell Terminal and submitting it:
         - `SERVICE_ACCOUNT_NAME`: The name of your GC service account, which appears before the `@` symbol of your resulting GC service account's email address.
         - `POOL_ID`: The ID for your [workload identity pool](https://cloud.google.com/iam/docs/workload-identity-federation#pools), which must be a unique value for both active and deleted pools.
         - `PROVIDER_ID`: The ID for your [workload identity pool provider](https://cloud.google.com/iam/docs/workload-identity-federation#providers).
     * To find an existing GC service account and WIPP:
         1. Scroll down the page and expand the **Find Existing** section.
-        1. If necessary, modify its `POOL_ID` and `PROVIDER_ID` values to those for the WIPP you want to use.
-        1. Paste this modified code snippet into your Cloud Shell Terminal.
+        1. Copy this CLI code snippet and if necessary, modify its `POOL_ID` and `PROVIDER_ID` values to those for the WIPP you want to use.
+        1. Paste this modified code snippet into your Cloud Shell Terminal and submit it.
 
 1. From your Cloud Shell Terminal output:
     * If you created a new GC service account and WIPP:
@@ -89,9 +89,9 @@ To link your private Google Cloud Storage (GCS) bucket to Package Registries:
 
 1. Select **Next**.
 
-1. On the next **Connect Buildkite to Google** page's **Allow Buildkite to impersonate service account** section of the Buildkite interface, copy and paste this CLI code snippet into your [Cloud Shell Terminal](https://cloud.google.com/storage/docs/discover-object-storage-gcloud). This allows the Buildkite platform to impersonate your GC service account.
+1. On the next **Connect Buildkite to Google** page's **Allow Buildkite to impersonate service account** section of the Buildkite interface, copy and paste this CLI code snippet into your [Cloud Shell Terminal](https://cloud.google.com/storage/docs/discover-object-storage-gcloud) and submit it. This allows the Buildkite platform to impersonate your GC service account.
 
-1. In the next **Grant bucket access to the service account** section of the Buildkite interface, copy and paste this CLI code snippet into your [Cloud Shell Terminal](https://cloud.google.com/storage/docs/discover-object-storage-gcloud). This grants your GC service account the `roles/storage.objectUser` and `roles/storage.bucketViewer` roles on your bucket so the Buildkite platform can manage package objects and read bucket metadata.
+1. In the next **Grant bucket access to the service account** section of the Buildkite interface, copy and paste this CLI code snippet into your [Cloud Shell Terminal](https://cloud.google.com/storage/docs/discover-object-storage-gcloud) and submit it. This grants your GC service account the `roles/storage.objectUser` and `roles/storage.bucketViewer` roles on your bucket so the Buildkite platform can manage package objects and read bucket metadata.
 
 1. Select **Run diagnostic**. Buildkite uploads, downloads, and tags a test object to confirm it can:
     * publish (`PUT`)
