@@ -15,7 +15,7 @@ https://buildkite.com/resources/migrations/
 Migration tool https://buildkite.com/resources/migrate/
 and how to use it - general overview and three tools:
 
-- BitBucket
+- Bitbucket
 - CircleCI
 - GitHub actions
 
