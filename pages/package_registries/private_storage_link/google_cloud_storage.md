@@ -59,10 +59,13 @@ To link your private Google Cloud Storage (GCS) bucket to Package Registries:
 1. In **Step 2: Create or locate your Google Cloud bucket**, select **Open Google Cloud** to open the list of GCS buckets in your Google Cloud account, to either retrieve your existing empty GCS bucket, or create a new one if you [haven't already done so](#before-you-start).
 
     **Notes:**
-    * If you are already familiar with working with Google Cloud Storage and need to create a new GCS bucket, expand the **Create a new bucket** section for quick instructions on this process.
+    * If you are already familiar with using Google Cloud Storage and need to create a new GCS bucket, expand the **Create a new bucket** section for quick instructions to start this process.
     * Ensure you are in the correct Google Cloud _organization_ and _project_ in which to create your GCS bucket.
+    * For the fastest outcome, you can also copy the CLI code snippet and modify its following values before pasting the modified code snippet into your [Cloud Shell Terminal](https://cloud.google.com/storage/docs/discover-object-storage-gcloud):
+        - `BUCKET`: the name of your new GCS bucket, for example, `my-gcs-bucket`.
+        - `--location`: A location that's geographically closest to your current location, or the location closest to where this bucket's packages will most frequently be accessed from.
 
-1. Back on the Buildkite interface, in **Step 3: Enter your Google Cloud bucket details**, specify the **Bucket name** (for example, `my-gcs-bucket`) for your GCS bucket, then select **Continue**.
+1. Back on the Buildkite interface, in **Step 3: Enter your Google Cloud bucket details**, specify the **Bucket name** (for example, `my-gcs-bucket`) for your GCS bucket configured in the previous step, then select **Continue**.
 
 1. On the **Connect Buildkite to Google** page, access and follow the relevant instructions to either:
     * Create a new Google Cloud (GC) service account and Workload Identity Pool and Provider (WIPP) using the Google Cloud Console or CLI—expand the relevant **Create new** section. Links to the relevant Google Cloud Console pages are provided.
