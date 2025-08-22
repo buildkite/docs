@@ -72,7 +72,10 @@ To link your private Google Cloud Storage (GCS) bucket to Package Registries:
         - `SERVICE_ACCOUNT_NAME`: The name of your GC service account, which appears before the `@` symbol of your resulting GC service account's email address.
         - `POOL_ID`: The ID for your [workload identity pool](https://cloud.google.com/iam/docs/workload-identity-federation#pools), which must be a unique value for both active and deleted pools.
         - `PROVIDER_ID`: The ID for your [workload identity pool provider](https://cloud.google.com/iam/docs/workload-identity-federation#providers).
-    * To find an existing GC service account and WIPP, scroll down the page, expand the **Find Existing** section, and copy and paste this CLI code snippet into your Cloud Shell Terminal.
+    * To find an existing GC service account and WIPP:
+        1. Scroll down the page and expand the **Find Existing** section.
+        1. If necessary, modify its `POOL_ID` and `PROVIDER_ID` values to those for the WIPP you want to use.
+        1. Paste this modified code snippet into your Cloud Shell Terminal.
 
 1. From your Cloud Shell Terminal output:
     * If you created a new GC service account and WIPP:
@@ -80,15 +83,15 @@ To link your private Google Cloud Storage (GCS) bucket to Package Registries:
         `service-account-name@google-cloud-project-name.iam.gserviceaccount.com`.
         1. Copy the **Workload Identity Provider** value (from the Cloud Shell Terminal output, for example, `projects/123456789012/locations/global/workloadIdentityPools/bk-pool/providers/buildkite`), and paste it into the **Workload Identity Provider (full resource name)** field on the **Connect Buildkite to Google** page of the Buildkite interface. This resource name has the format<br/>
         `projects/project-id/locations/global/workloadIdentityPools/pool-id/providers/provider-id`.
-    * If you want to use an existing GC service account and WIPP:
+    * If you are using an existing GC service account and WIPP:
         1. Copy the relevant **EMAIL** value (from the Cloud Shell Terminal output, for example `buildkite-storage-link@my-google-cloud-project.iam.gserviceaccount.com`), and paste it into the **Service account email** field on the **Connect Buildkite to Google** page of the Buildkite interface.
         1. Copy the relevant **Workload Identity Provider resource name** value (from the Cloud Shell Terminal output, for example, `projects/123456789012/locations/global/workloadIdentityPools/bk-pool/providers/buildkite`), and paste it into the **Workload Identity Provider (full resource name)** field on the **Connect Buildkite to Google** page of the Buildkite interface.
 
 1. Select **Next**.
 
-1. On the next **Connect Buildkite to Google** page's **Allow Buildkite to impersonate service account** section, copy and paste this CLI code snippet into your [Cloud Shell Terminal](https://cloud.google.com/storage/docs/discover-object-storage-gcloud) to allow the Buildkite platform to impersonate your GC service account.
+1. On the next **Connect Buildkite to Google** page's **Allow Buildkite to impersonate service account** section of the Buildkite interface, copy and paste this CLI code snippet into your [Cloud Shell Terminal](https://cloud.google.com/storage/docs/discover-object-storage-gcloud). This allows the Buildkite platform to impersonate your GC service account.
 
-1. In the next **Grant bucket access to the service account** section, copy and paste this CLI code snippet into your [Cloud Shell Terminal](https://cloud.google.com/storage/docs/discover-object-storage-gcloud) to grant the service account `roles/storage.objectUser` and `roles/storage.bucketViewer` on your bucket so the Buildkite platform can manage package objects and read bucket metadata.
+1. In the next **Grant bucket access to the service account** section of the Buildkite interface, copy and paste this CLI code snippet into your [Cloud Shell Terminal](https://cloud.google.com/storage/docs/discover-object-storage-gcloud). This grants your GC service account the `roles/storage.objectUser` and `roles/storage.bucketViewer` roles on your bucket so the Buildkite platform can manage package objects and read bucket metadata.
 
 1. Select **Run diagnostic**. Buildkite uploads, downloads, and tags a test object to confirm it can:
     * publish (`PUT`)
