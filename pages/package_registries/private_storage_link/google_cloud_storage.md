@@ -104,13 +104,6 @@ You're returned to the **Private Storage Link** page where you can:
 - [Set the default Buildkite Package Registries storage for your organization](/docs/package-registries/private-storage-link#set-the-default-buildkite-package-registries-storage).
 - [Choose storage per registry](/docs/package-registries/manage-registries#update-a-source-registry-configure-registry-storage).
 
-## Set as default storage (optional)
-
-Once at least one PSL exists you can change the organization’s default storage (this affects newly-created registries):
-
-1. **Organization Settings > Packages > Private Storage Link**.
-1. Click **Change** and select the `gs://…` link.
-
 ## Deleting packages
 
 Buildkite does **not** delete objects straight away. When a package is removed it:
