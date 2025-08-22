@@ -61,19 +61,28 @@ To link your private Google Cloud Storage (GCS) bucket to Package Registries:
     **Notes:**
     * If you are already familiar with using Google Cloud Storage and need to create a new GCS bucket, expand the **Create a new bucket** section for quick instructions to start this process.
     * Ensure you are in the correct Google Cloud _organization_ and _project_ in which to create your GCS bucket.
-    * For the fastest outcome, you can also copy the CLI code snippet and modify its following values before pasting the modified code snippet into your [Cloud Shell Terminal](https://cloud.google.com/storage/docs/discover-object-storage-gcloud):
+    * For the fastest outcome, you can also copy the command line interface (CLI) code snippet and modify its following values before pasting the modified code snippet into your [Cloud Shell Terminal](https://cloud.google.com/storage/docs/discover-object-storage-gcloud):
         - `BUCKET`: the name of your new GCS bucket, for example, `my-gcs-bucket`.
         - `--location`: A location that's geographically closest to your current location, or the location closest to where this bucket's packages will most frequently be accessed from.
 
 1. Back on the Buildkite interface, in **Step 3: Enter your Google Cloud bucket details**, specify the **Bucket name** (for example, `my-gcs-bucket`) for your GCS bucket configured in the previous step, then select **Continue**.
 
-1. On the **Connect Buildkite to Google** page, access and follow the relevant instructions to either:
-    * Create a new Google Cloud (GC) service account and Workload Identity Pool and Provider (WIPP) using the Google Cloud Console or CLI—expand the relevant **Create new** section. Links to the relevant Google Cloud Console pages are provided.
-    * Use an existing GC service account and WIPP—expand the relevant **Find existing** section.
+1. On the **Connect Buildkite to Google** page, you'll be configuring a [Google Cloud (GC) service account](https://cloud.google.com/iam/docs/service-account-overview) and [Workload Identity Pool and Provider (WIPP)](https://cloud.google.com/iam/docs/workload-identity-federation#providers) using the CLI code snippets on this page, which you can modify if required and paste into your [Cloud Shell Terminal](https://cloud.google.com/storage/docs/discover-object-storage-gcloud).
+    * To create a new GC service account and WIPP, copy the **Create New** CLI code snippet and if required, modify its following **Setup** values before pasting the modified code snippet into your Cloud Shell Terminal:
+        - `SERVICE_ACCOUNT_NAME`: The name of your GC service account, which appears before the `@` symbol of your resulting GC service account's email address.
+        - `POOL_ID`: The ID for your [workload identity pool](https://cloud.google.com/iam/docs/workload-identity-federation#pools), which must be a unique value for both active and deleted pools.
+        - `PROVIDER_ID`: The ID for your [workload identity pool provider](https://cloud.google.com/iam/docs/workload-identity-federation#providers).
+    * To find an existing GC service account and WIPP, scroll down the page, expand the **Find Existing** section, and copy and paste this CLI code snippet into your Cloud Shell Terminal.
 
-1. From your Google Cloud Console or CLI output of creating a new or finding an existing GC service account, copy the **Email** address for this account (for example, `buildkite-storage-link@my-google-cloud-project.iam.gserviceaccount.com`), and paste the value into the **Service account email** field on the **Connect Buildkite to Google** Package Registries page.
-
-1. From your Google Cloud Console or CLI output of creating a new or finding an existing WIPP, copy the path component (`projects/<project-number>/locations/global/workloadIdentityPools/<pool>/providers/<provider>`) of the URL within **Audiences** > **Default audience** (when creating or editing the workload identity provider), and paste this path component value into the **Workload Identity Provider (full resource name)** field on the **Connect Buildkite to Google** Package Registries page.
+1. From your Cloud Shell Terminal output:
+    * If you created a new GC service account and WIPP:
+        1. Copy the **Service account created** value (from the Cloud Shell Terminal output, for example, `buildkite-storage-link@my-google-cloud-project.iam.gserviceaccount.com`), and paste it into the **Service account email** field on the **Connect Buildkite to Google** page of the Buildkite interface. This email address has the format<br/>
+        `service-account-name@google-cloud-project-name.iam.gserviceaccount.com`.
+        1. Copy the **Workload Identity Provider** value (from the Cloud Shell Terminal output, for example, `projects/123456789012/locations/global/workloadIdentityPools/bk-pool/providers/buildkite`), and paste it into the **Workload Identity Provider (full resource name)** field on the **Connect Buildkite to Google** page of the Buildkite interface. This resource name has the format<br/>
+        `projects/123456789012/locations/global/workloadIdentityPools/pool-id/providers/provider-id`.
+    * If you want to use an existing GC service account and WIPP:
+        1. Copy the relevant **EMAIL** value (from the Cloud Shell Terminal output, for example `buildkite-storage-link@my-google-cloud-project.iam.gserviceaccount.com`), and paste it into the **Service account email** field on the **Connect Buildkite to Google** page of the Buildkite interface.
+        1. Copy the relevant **Workload Identity Provider resource name** value (from the Cloud Shell Terminal output, for example, `projects/123456789012/locations/global/workloadIdentityPools/bk-pool/providers/buildkite`), and paste it into the **Workload Identity Provider (full resource name)** field on the **Connect Buildkite to Google** page of the Buildkite interface.
 
 1. Select **Next**.
 
