@@ -19,7 +19,9 @@ Where [Buildkite Pipelines](/docs/pipelines) helps you automate your CI/CD pipel
 
 Run through the [Getting started](/docs/test-engine/getting-started) tutorial for a step-by-step guide on how to use Buildkite Test Engine.
 
-If you're familiar with the basics, begin configuring [test collection](/docs/test-engine/test-collection) for your development project. Do this by setting it up with the required Buildkite _test collectors_ for your project's testing frameworks (also known as _test runners_), which sends the required test data information to Test Engine:
+If you're familiar with the basics, understand how to run your tests within your development project, and analyze and report on them through a Test Engine [_test suite_](/docs/test-engine/test-suites).
+
+As part of configuring a test suite, you'll need to configure [test collection](/docs/test-engine/test-collection) for your development project. Do this by setting it up with the required Buildkite _test collectors_ for your project's testing frameworks (also known as _test runners_), which sends the required test data information to Test Engine:
 
 <!-- vale off -->
 
@@ -45,8 +47,6 @@ If you're familiar with the basics, begin configuring [test collection](/docs/te
 <!-- vale on -->
 
 If a Buildkite test collector is not available for one of these test runners, you can use [other test collection](/docs/test-engine/other-collectors) mechanisms instead.
-
-Once test collection has been set up in your development project, you can proceed to run your tests, and analyze and report on them through its test suites. Learn more about this from the [Test suites overview](/docs/test-engine/test-suites) page, which covers Test Engine's concepts and functionality.
 
 ## Core features
 
