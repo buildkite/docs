@@ -1,21 +1,54 @@
-# Migration tool overview
+# Buildkite migration tool overview
 
-The Buildkite Migration tool is a tool to help kick start the transition of pipelines from other CI providers to Buildkite Pipelines.
+The Buildkite migration tool is a tool to help you start the transition of pipelines from other CI providers to Buildkite Pipelines. It serves as a compatibility layer, enabling the conversion of existing CI configurations into a format compatible with Buildkite's pipeline definition.
 
-It serves as a compatibility layer or transformation tool, enabling the conversion of existing CI configurations into a format compatible with Buildkite's pipeline definition.
+The primary purpose of the Buildkite migration tool is to reduce the effort and complexity involved in switching CI/CD platforms by automating the translation of pipeline structures and steps that have close matching equivalents in Buildkite Pipelines.
 
-The primary purpose of buildkite-compat is to reduce the effort and complexity involved in switching CI/CD platforms by automating the translation of pipeline structures and steps. This tool aims to make the transition to Buildkite smoother for organizations and teams currently using other CI solutions.
+The Buildkite migration tool can be used as a standalone tool or potentially integrated into your [Buildkite Migration Services](https://buildkite.com/resources/migrations/) workflow, offering a way to leverage existing CI configurations within the Buildkite ecosystem.
 
-It can be used as a standalone tool or potentially integrated into migration workflows, offering a way to leverage existing CI configurations within the Buildkite ecosystem.
+## Interactive web-based version
 
-## Installing
+The fastest way to start using the Buildkite migration tool for transforming your pipeline definitions is to use it as an [interactive web tool](https://buildkite.com/resources/migrate/).
 
-TBA ...
+<%= image "migration-tool-web.png", alt: "Buildkite migration tool's web UI" %>
 
-## Using
+The Buildkite migration tool currently supports the following CI providers:
 
-```bash
-$ buildkite-compat examples/circleci/legacy.yml
+- [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines)
+- [CircleCI](/docs/pipelines/migration/tool/circleci)
+- [GitHub Actions](/docs/pipelines/migration/tool/github-actions)
+- Jenkins (currently in Beta)
+
+To start translating your existing pipeline configuration into a Buildkite pipeline:
+
+1. In the drop-down list, select your CI/CD platform.
+1. Enter a pipeline definition you would like to translate into a Buildkite pipeline definition on the left side of the tool.
+1. Click the **Convert** button.
+1. You'll see the translated pipeline definition on the right side of the tool.
+
+## Local API-based version
+
+If you would like to run the Buildkite migration tool locally, you can clone the [Buildkite migration tool repository](https://github.com/buildkite/migration) to run the migration tool's API via a HTTP API using `puma` from the `app` folder of this repository.
+
+You start the web UI with either of the following Docker commands:
+
+```sh
+docker compose up webui
+```
+
+> 📘
+> If you are using `docker run`, you will need to override the entrypoint:
+
+```shell
+$ docker run --rm -ti -p 9292:9292 --entrypoint '' --workdir /app $IMAGE:$TAG puma --port 9292
+```
+
+After that, you will be able to access a web interface at `http://localhost:9292`.
+
+You can also programmatically interact with it (and even pipe the output directly to `buildkite-agent pipeline upload`):
+
+```shell
+$ curl -X POST -F 'file=@app/examples/circleci/legacy.yml' http://localhost:9292
 ---
 steps:
 - commands:
@@ -29,14 +62,11 @@ steps:
   key: build
 ```
 
-## Using through API/web
+## Next steps
 
-Explanation.
+For more tools and recommendations regarding migrating from your existing CI/CD platform to Buildkite, see:
 
-## Using through the web example
-
-Instruction, link.
-
-## With exact tool
-
-TODO: cross-link to the existing pages for GHA, BBP, CCI.
+- [Migrate to Buildkite Pipelines](/docs/pipelines/migration)
+- [Buildkite Migration Services](https://buildkite.com/resources/migrations/)
+- [Migration from Jenkins - a step-by-step guide](/docs/pipelines/migration/from-jenkins)
+- [Migration from Bamboo - a step-by-step guide](https://buildkite.com/docs/pipelines/migration/from-bamboo)

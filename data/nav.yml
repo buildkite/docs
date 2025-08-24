@@ -45,7 +45,7 @@
       children:
         - name: Overview
           path: pipelines/migration
-        - name: Migration Tool
+        - name: Migration tool
           children:
             - name: "Overview"
               path: "pipelines/migration/tool"
