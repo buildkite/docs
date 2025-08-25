@@ -30,7 +30,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/nuget_registry_slug' %>
+<%= render_markdown partial: 'package_registries/ecosystems/nuget_registry_slug' %>
 
 Since the `temporary-write-token-that-expires-after-5-minutes` expires quickly, it is recommended that you just copy this command directly from the **Publish Instructions** page.
 
@@ -57,8 +57,8 @@ The remaining code boxes on the **Publish Instructions** page provide configurat
 
     where:
     <%= render_markdown partial: 'package_registries/org_slug' %>
-    <%= render_markdown partial: 'package_registries/nuget_registry_slug' %>
-    <%= render_markdown partial: 'package_registries/nuget_registry_write_token' %>
+    <%= render_markdown partial: 'package_registries/ecosystems/nuget_registry_slug' %>
+    <%= render_markdown partial: 'package_registries/ecosystems/nuget_registry_write_token' %>
 
     **Note:** This step only needs to be conducted once for the life of your NuGet source registry.
 
@@ -76,7 +76,7 @@ A NuGet package's details can be accessed from its source registry through the *
 1. Select your NuGet source registry on this page.
 1. On your NuGet source registry page, select the package within the **Releases** (tab) section. The package's details page is displayed.
 
-<%= render_markdown partial: 'package_registries/package_details_page_sections' %>
+<%= render_markdown partial: 'package_registries/ecosystems/package_details_page_sections' %>
 
 ### Downloading a package
 
@@ -146,7 +146,7 @@ The **Setup** section's instructions are as follows:
     * `$TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages to your NuGet registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This command option and value are not required for registries that are publicly accessible.
 
     <%= render_markdown partial: 'package_registries/org_slug' %>
-    <%= render_markdown partial: 'package_registries/nuget_registry_slug' %>
+    <%= render_markdown partial: 'package_registries/ecosystems/nuget_registry_slug' %>
 
     **Note:** This step only needs to be conducted once for the life of your NuGet source registry.
 
