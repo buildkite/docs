@@ -57,6 +57,8 @@ More information about the [GraphQL API](/docs/apis/graphql-api).
 
 Webhooks allow you to monitor and respond to events within your Buildkite organization, providing a real time view of activity and allowing you to extend and integrate Buildkite into your systems.
 
-Webhooks can be added and configured on your [organization's Notification Services settings](https://buildkite.com/organizations/-/services) page.
+For Pipelines, webhooks can be [added and configured](/docs/apis/webhooks/pipelines#add-a-webhook) on your Buildkite organization's [**Notification Services** settings](https://buildkite.com/organizations/-/services) page.
 
-More information about the [webhooks](/docs/apis/webhooks).
+For Test Engine and Package Registries, webhooks can be configured through specific [test suites](/docs/apis/webhooks/test-engine#add-a-webhook) and [registries](/docs/apis/webhooks/package-registries#add-a-webhook), respectively.
+
+Learn more about Buildkite's webhooks from the [Webhooks overview](/docs/apis/webhooks) page.
