@@ -4,7 +4,7 @@ The following terms describe key concepts to help you use Test Engine.
 
 ## Dimensions
 
-In the context of Test Engine, dimensions are structured data, consisting of [tags](#tag), which can be used to filter or group (that is, aggregate) test [executions](#execution). Dimensions are added to test executions using the tags feature, which you can learn more about in [Tags](/docs/test-engine/tags).
+In the context of Test Engine, dimensions are structured data, consisting of [tags](#tag), which can be used to filter or group (that is, aggregate) test [executions](#execution). Dimensions are added to test executions using the tags feature, which you can learn more about in [Tags](/docs/test-engine/test-suites/tags).
 
 ## Execution
 
@@ -14,7 +14,7 @@ An execution is an instance of a single test, which is generated as part of a [r
 
 A flaky test is a [test](#test) that produce inconsistent or unreliable results, despite being run in the same code and environment. Flaky tests are usually identified following a number of [runs](#run) which are executed as part of pipeline builds, such as [those of a Buildkite pipeline](/docs/pipelines/glossary#build).
 
-Learn more about flaky tests in [Flaky test management](/docs/test-engine/flaky-test-management).
+Learn more about flaky tests in [Flaky test management](/docs/test-engine/test-suites/flaky-test-management).
 
 ## Managed test
 
@@ -40,7 +40,7 @@ Quarantine is a classification applied to a [test](#test) that, based on the [st
 
 - _skip_, the test is not be [executed](#execution) as part of the [run](#run), which can allow pipeline builds to execute more rapidly and can reduce costs, but no data is recorded from the test.
 
-Learn more about quarantining tests in [Test state and quarantine](/docs/test-engine/test-state-and-quarantine).
+Learn more about quarantining tests in [Test state and quarantine](/docs/test-engine/test-suites/test-state-and-quarantine).
 
 ## Run
 
@@ -68,7 +68,7 @@ In Test Engine, tags add [dimensions](#dimensions) to test execution metadata, s
 
 Tagging can be used to observe aggregated data points—for example, to observe aggregated performance across several tests, and (optionally) narrow the dataset further based on specific constraints.
 
-Learn more about tags in the [Tags](/docs/test-engine/tags) topic.
+Learn more about tags in the [Tags](/docs/test-engine/test-suites/tags) topic.
 
 ## Test
 
@@ -100,7 +100,7 @@ The following test state flags for quarantining tests are supported:
 
 - _skip_, the test is not be [executed](#execution) as part of the [run](#run), which can allow pipeline builds to execute more rapidly and can reduce costs, but no data is recorded from the test.
 
-Learn more about test states in [Test state and quarantine](/docs/test-engine/test-state-and-quarantine).
+Learn more about test states in [Test state and quarantine](/docs/test-engine/test-suites/test-state-and-quarantine).
 
 ## Test suite
 

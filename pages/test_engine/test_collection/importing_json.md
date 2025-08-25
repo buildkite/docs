@@ -1,11 +1,11 @@
 # Importing JSON
 
-If a test collector is not available for your test framework, you can upload tests results directly to the Test Engine API or [write your own test collector](/docs/test-engine/your-own-collectors).
-You can upload JSON-formatted test results (described in this page) or [JUnit XML](/docs/test-engine/importing-junit-xml).
+If a test collector is not available for your test framework, you can upload tests results directly to the Test Engine API or [write your own test collector](/docs/test-engine/test-collection/your-own-collectors).
+You can upload JSON-formatted test results (described in this page) or [JUnit XML](/docs/test-engine/test-collection/importing-junit-xml).
 
 ## How to import JSON in Buildkite
 
-It's possible to import JSON (or [JUnit](/docs/test-engine/importing-junit-xml#how-to-import-junit-xml-in-buildkite) files) to Buildkite Test Engine with or without the help of a plugin.
+It's possible to import JSON (or [JUnit](/docs/test-engine/test-collection/importing-junit-xml#how-to-import-junit-xml-in-buildkite) files) to Buildkite Test Engine with or without the help of a plugin.
 
 ### Using a plugin
 
@@ -55,7 +55,7 @@ For example, to import the contents of a [JSON-formatted test results](#json-tes
       https://analytics-api.buildkite.com/v1/uploads
     ```
 
-To learn more about passing through environment variables to `run_env`-prefixed fields, see the [Buildkite](/docs/test-engine/ci-environments#buildkite) or [Other CI providers](/docs/test-engine/ci-environments#other-ci-providers) (including manually) on the [CI environments](/docs/test-engine/ci-environments) page.
+To learn more about passing through environment variables to `run_env`-prefixed fields, see the [Buildkite](/docs/test-engine/test-collection/ci-environments#buildkite) or [Other CI providers](/docs/test-engine/test-collection/ci-environments#other-ci-providers) (including manually) on the [CI environments](/docs/test-engine/test-collection/ci-environments) page.
 
 A single file can have a maximum of 5000 test results, and if that limit is exceeded then the upload request will fail. To upload more than 5000 test results for a single run upload multiple smaller files with the same `run_env[key]`.
 
@@ -73,7 +73,7 @@ curl \
   https://analytics-api.buildkite.com/v1/uploads
 ```
 
-Upload-level tags may be overwritten by execution-level tags, check [Execution level custom tags](/docs/test-analytics/importing-json#json-test-results-data-reference-execution-level-custom-tags).
+Upload-level tags may be overwritten by execution-level tags, check [Execution level custom tags](/docs/test-engine/test-collection/importing-json#json-test-results-data-reference-execution-level-custom-tags).
 
 
 ## How to import JSON in CircleCI
@@ -101,7 +101,7 @@ For example, to import the contents of a `test-results.json` file in a CircleCI 
     https://analytics-api.buildkite.com/v1/uploads
     ```
 
-To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments > CircleCI](/docs/test-engine/ci-environments#circleci) page section.
+To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments > CircleCI](/docs/test-engine/test-collection/ci-environments#circleci) page section.
 
 A single file can have a maximum of 5000 test results, and if that limit is exceeded then the upload request will fail. To upload more than 5000 test results for a single run upload multiple smaller files with the same `run_env[key]`.
 
@@ -130,7 +130,7 @@ For example, to import the contents of a `test-results.json` file in a GitHub Ac
     https://analytics-api.buildkite.com/v1/uploads
     ```
 
-To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments > GitHub Actions](/docs/test-engine/ci-environments#github-actions) page section.
+To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments > GitHub Actions](/docs/test-engine/test-collection/ci-environments#github-actions) page section.
 
 A single file can have a maximum of 5000 test results, and if that limit is exceeded then the upload request will fail. To upload more than 5000 test results for a single run upload multiple smaller files with the same `run_env[key]`.
 

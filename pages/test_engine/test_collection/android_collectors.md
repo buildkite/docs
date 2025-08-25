@@ -6,11 +6,11 @@ toc: false
 
 To use Test Engine with your Android projects use the :github: [`test-collector-android`](https://github.com/buildkite/test-collector-android) package.
 
-You can also upload test results by importing [JSON](/docs/test-engine/importing-json) or [JUnit XML](/docs/test-engine/importing-junit-xml).
+You can also upload test results by importing [JSON](/docs/test-engine/test-collection/importing-json) or [JUnit XML](/docs/test-engine/test-collection/importing-junit-xml).
 
 ## Android
 
-Before you start, make sure your tests run with access to [CI environment variables](/docs/test-engine/ci-environments).
+Before you start, make sure your tests run with access to [CI environment variables](/docs/test-engine/test-collection/ci-environments).
 
 1. [Create a test suite](/docs/test-engine) and copy the test suite API token.
 
@@ -96,7 +96,7 @@ Before you start, make sure your tests run with access to [CI environment variab
 
 Once you're done, in your Test Engine dashboard, you'll see analytics of test executions on all branches that include this code.
 
-If you don't see branch names, build numbers, or commit hashes in Test Engine, then read [CI Environments](/docs/test-engine/ci-environments) to learn more about exporting your environment to the collector.
+If you don't see branch names, build numbers, or commit hashes in Test Engine, then read [CI Environments](/docs/test-engine/test-collection/ci-environments) to learn more about exporting your environment to the collector.
 
 ### Debugging
 

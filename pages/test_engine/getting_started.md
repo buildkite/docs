@@ -31,7 +31,7 @@ To begin creating a new test suite:
 1. Enter the **Default branch name**, which is the default branch that Test Engine shows trends for, and can be changed any time. For example (and usually), `main`.
 1. Enter an optional **Suite emoji**, using [emoji syntax](/docs/pipelines/emojis). For example, `\:ruby\:` for a ruby emoji representing the Ruby language.
 1. Select **Set up suite**.
-1. If your Buildkite organization has the [teams feature](/docs/test-engine/permissions) enabled, select the relevant **Teams** to be granted access to this test suite, followed by **Continue**.
+1. If your Buildkite organization has the [teams feature](/docs/test-engine/test-suites/permissions) enabled, select the relevant **Teams** to be granted access to this test suite, followed by **Continue**.
 
     The new test suite's **Complete test suite setup** page is displayed, requesting you to configure your test collector within your development project.
 
@@ -113,7 +113,7 @@ Next, configure your Ruby project's RSpec test runner with its Buildkite test co
 
     where:
     * `<api-token-value>` is the value of the **Test Suite API token** value you copied in the previous step. This value can typically be pasted without any quotation marks.
-    * `BUILDKITE_ANALYTICS_MESSAGE` is an environment variable, which is usually used for a source control (Git) commit message, and is presented in a run of your Buildkite test suite. However, in this scenario, this environment variable and its value are being used to describe the test run (or build). Learn more about [these types of environment variables](/docs/test-engine/ci-environments#other-ci-providers), which are available to _other CI/CD providers_ (that is, those other than [Buildkite Pipelines](/docs/test-engine/ci-environments#buildkite), [CircleCI](/docs/test-engine/ci-environments#circleci) or [GitHub Actions](/docs/test-engine/ci-environments#github-actions)), as well as [containers](/docs/test-engine/ci-environments#containers-and-test-collectors), and manually run builds such as this `rspec` execution command above.
+    * `BUILDKITE_ANALYTICS_MESSAGE` is an environment variable, which is usually used for a source control (Git) commit message, and is presented in a run of your Buildkite test suite. However, in this scenario, this environment variable and its value are being used to describe the test run (or build). Learn more about [these types of environment variables](/docs/test-engine/test-collection/ci-environments#other-ci-providers), which are available to _other CI/CD providers_ (that is, those other than [Buildkite Pipelines](/docs/test-engine/test-collection/ci-environments#buildkite), [CircleCI](/docs/test-engine/test-collection/ci-environments#circleci) or [GitHub Actions](/docs/test-engine/test-collection/ci-environments#github-actions)), as well as [containers](/docs/test-engine/test-collection/ci-environments#containers-and-test-collectors), and manually run builds such as this `rspec` execution command above.
 
     The command output should display something similar to:
 
@@ -136,5 +136,5 @@ That's it! You've successfully created a test suite, configured your Ruby projec
 Learn more about:
 
 - How to configure [test collection](/docs/test-engine/test-collection) for other test runners.
-- [CI environment variables](/docs/test-engine/ci-environments) that test collectors (and other test collection mechanisms) provide to your Buildkite test suites, when your test runs are automated through CI/CD.
+- [CI environment variables](/docs/test-engine/test-collection/ci-environments) that test collectors (and other test collection mechanisms) provide to your Buildkite test suites, when your test runs are automated through CI/CD.
 - How to work with [test suites](/docs/test-engine/test-suites) in Buildkite Test Engine.
