@@ -558,6 +558,8 @@
       children:
         - name: "Getting started"
           path: "test-engine/getting-started"
+        - name: "Power up your builds with bktec"
+          path: "test-engine/power-up-your-builds-with-bktec"
         - name: "Glossary"
           path: "test-engine/glossary"
     - name: "Test suites"
