@@ -12,7 +12,7 @@ To view and copy the required `build.gradle` configurations:
 1. Use the copy icon at the top-right of the code box to copy the Gradle code snippet and paste it into the appropriate area/s of your `build.gradle` file.
 
     These `build.gradle` file configurations contain the:
-    <%= render_markdown partial: 'package_registries/gradle_file_configurations' %>
+    <%= render_markdown partial: 'package_registries/ecosystems/gradle_file_configurations' %>
 
 1. You can then run the `gradle publish` command to publish the package to this source registry.
 
@@ -65,13 +65,13 @@ The following steps describe the process above:
     ```
 
     where:
-    <%= render_markdown partial: 'package_registries/java_package_domain_name_version' %>
+    <%= render_markdown partial: 'package_registries/ecosystems/java_package_domain_name_version' %>
 
     <%= render_markdown partial: 'package_registries/org_slug' %>
 
-    <%= render_markdown partial: 'package_registries/java_registry_slug' %>
+    <%= render_markdown partial: 'package_registries/ecosystems/java_registry_slug' %>
 
-    <%= render_markdown partial: 'package_registries/java_registry_write_token' %>
+    <%= render_markdown partial: 'package_registries/ecosystems/java_registry_write_token' %>
 
 1. Publish your package:
 
@@ -81,9 +81,9 @@ The following steps describe the process above:
 
 ## Access a package's details
 
-<%= render_markdown partial: 'package_registries/access_java_package_details_page' %>
+<%= render_markdown partial: 'package_registries/ecosystems/access_java_package_details_page' %>
 
-<%= render_markdown partial: 'package_registries/package_details_page_sections' %>
+<%= render_markdown partial: 'package_registries/ecosystems/package_details_page_sections' %>
 
 ### Downloading a package
 
@@ -129,13 +129,13 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/registry_slug' %>
+<%= render_markdown partial: 'package_registries/ecosystems/registry_slug' %>
 
 - `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Java source registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
     **Note:** Both the `authentication` and `credentials` sections are not required for registries that are publicly accessible.
 
-<%= render_markdown partial: 'package_registries/java_package_domain_name_version' %>
+<%= render_markdown partial: 'package_registries/ecosystems/java_package_domain_name_version' %>
 
 ### Installing a package from a composite registry
 
@@ -173,7 +173,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/registry_slug' %>
+<%= render_markdown partial: 'package_registries/ecosystems/registry_slug' %>
 
 - `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Java composite registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 

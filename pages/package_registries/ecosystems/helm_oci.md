@@ -29,7 +29,7 @@ The following steps describe the process above:
     * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload charts to your Helm OCI source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish charts and other package types to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Helm OCI source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
     <%= render_markdown partial: 'package_registries/org_slug' %>
-    <%= render_markdown partial: 'package_registries/helm_registry_slug' %>
+    <%= render_markdown partial: 'package_registries/ecosystems/helm_registry_slug' %>
 
 1. Copy the following `helm push` command, paste it into your terminal, and modify as required before running to publish your Helm chart:
 
@@ -90,7 +90,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/registry_slug' %>
+<%= render_markdown partial: 'package_registries/ecosystems/registry_slug' %>
 
 - `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download charts from your Helm OCI registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download charts and other package types from any registry your user account has access to within your Buildkite organization.
 
@@ -109,7 +109,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/registry_slug' %>
+<%= render_markdown partial: 'package_registries/ecosystems/registry_slug' %>
 
 - `chart-name` is the name of your chart.
 

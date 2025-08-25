@@ -29,7 +29,7 @@ To create a new source registry:
 
 Once a [source registry has been created](#create-a-source-registry), packages can then be uploaded to it. Learn more about how to manage packages for your registry's relevant language and package ecosystem:
 
-<%= render_markdown partial: 'package_registries/supported_package_ecosystems' %>
+<%= render_markdown partial: 'package_registries/registries/supported_package_ecosystems' %>
 
 ## Update a source registry
 
@@ -37,12 +37,12 @@ Source registries can be updated using the **Registries** page of the Buildkite 
 
 The following aspects of a source registry can be updated:
 
-<%= render_markdown partial: 'package_registries/updatable_registry_components_1' %>
+<%= render_markdown partial: 'package_registries/registries/updatable_registry_components_1' %>
 
 - **Registry Management**: the privacy settings for the registry—private (the initial default state for all newly created registries) or public.
 - **OIDC Policy**: one or more [policies defining which OpenID Connect (OIDC) tokens](/docs/package-registries/security/oidc), from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another third-party system, can be used to either publish/upload packages to the registry, or download/install packages from the registry.
 
-<%= render_markdown partial: 'package_registries/updatable_registry_components_2' %>
+<%= render_markdown partial: 'package_registries/registries/updatable_registry_components_2' %>
 
 - **Storage**: choose your [registry storage](#update-a-source-registry-configure-registry-storage), selecting from **Buildkite-hosted storage** (the initially default storage system) or [your own private AWS S3 bucket](/docs/package-registries/private-storage-link) to store packages for this registry.
 
@@ -173,11 +173,11 @@ Composite registries can be updated using the **Registries** page of the Buildki
 
 The following aspects of a composite registry can be updated:
 
-<%= render_markdown partial: 'package_registries/updatable_registry_components_1' %>
+<%= render_markdown partial: 'package_registries/registries/updatable_registry_components_1' %>
 
 - **OIDC Policy**: one or more [policies defining which OpenID Connect (OIDC) tokens](/docs/package-registries/security/oidc), from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another third-party system, can be used to download/install packages from the registry.
 
-<%= render_markdown partial: 'package_registries/updatable_registry_components_2' %>
+<%= render_markdown partial: 'package_registries/registries/updatable_registry_components_2' %>
 
 A composite registry's ecosystem type cannot be changed once the [registry is created](#composite-registries-create-a-composite-registry).
 

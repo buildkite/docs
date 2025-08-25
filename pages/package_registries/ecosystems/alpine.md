@@ -38,7 +38,7 @@ where:
 
 - `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Alpine source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Alpine source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
-<%= render_markdown partial: 'package_registries/path_to_alpine_package' %>
+<%= render_markdown partial: 'package_registries/ecosystems/path_to_alpine_package' %>
 
 For example, to upload the file `my-alpine-package_0.1.1_r0.apk` from the current directory to the **My Alpine packages** source registry in the **My organization** Buildkite organization, run the `curl` command:
 
@@ -60,11 +60,11 @@ where:
 
 - `registry-slug` is the slug of your Alpine source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your Alpine source registry from the **Registries** page.
 
-<%= render_markdown partial: 'package_registries/path_to_alpine_package' %>
+<%= render_markdown partial: 'package_registries/ecosystems/path_to_alpine_package' %>
 
 <h4 id="token-usage-with-the-buildkite-cli">Token usage with the Buildkite CLI</h4>
 
-<%= render_markdown partial: 'package_registries/buildkite_cli_token_usage' %>
+<%= render_markdown partial: 'package_registries/ecosystems/buildkite_cli_token_usage' %>
 
 ## Access a package's details
 
@@ -74,7 +74,7 @@ An Alpine (apk) package's details can be accessed from its source registry throu
 1. Select your Alpine source registry on this page.
 1. On your Alpine source registry page, select the package to display its details page.
 
-<%= render_markdown partial: 'package_registries/package_details_page_sections' %>
+<%= render_markdown partial: 'package_registries/ecosystems/package_details_page_sections' %>
 
 ### Downloading a package
 
@@ -107,7 +107,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/registry_slug' %>
+<%= render_markdown partial: 'package_registries/ecosystems/registry_slug' %>
 
 **Step 2**: Install the registry signing key:
 

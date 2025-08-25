@@ -39,7 +39,7 @@ where:
 
 - `huggingface-token` is your [Hugging Face user access token](https://huggingface.co/docs/hub/security-tokens) required to access the Hugging Face model from the [Hugging Face Hub](https://huggingface.co/docs/hub/index).
 
-<%= render_markdown partial: 'package_registries/hugging_face_namespace_and_repo' %>
+<%= render_markdown partial: 'package_registries/ecosystems/hugging_face_namespace_and_repo' %>
 
 ### Step 2: Publish your model version
 
@@ -59,7 +59,7 @@ where:
 
 - `{registry.slug}` is the slug of your Hugging Face source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your Hugging Face source registry from the **Registries** page.
 
-<%= render_markdown partial: 'package_registries/hugging_face_namespace_and_repo' %>
+<%= render_markdown partial: 'package_registries/ecosystems/hugging_face_namespace_and_repo' %>
 
 - `local-folder` is the location of the locally cached Hugging Face model version. This can be found in the following path: `~/.cache/huggingface/hub/models--{huggingface.namespace}--{huggingface.repo.name}/snapshots/{commit.sha}/`, where `{commit.sha}` represents the Git commit SHA of model version you want to publish to this repository.
 
