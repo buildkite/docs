@@ -2,7 +2,7 @@
 
 Buildkite Package Registries provides registry support for Terraform modules.
 
-Once your Terraform source registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload modules (generated from your application's build) to this registry via the `curl` command presented on your Terraform registry's details page.
+Once your Terraform source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload modules (generated from your application's build) to this registry via the `curl` command presented on your Terraform registry's details page.
 
 To view and copy this `curl` command:
 
@@ -121,7 +121,7 @@ To install a module:
     }
     ```
 
-    where `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download modules from your Terraform registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download modules and other package types from any registry your user account has access to within your Buildkite organization.
+    where `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/registries/manage#configure-registry-tokens) used to download modules from your Terraform registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download modules and other package types from any registry your user account has access to within your Buildkite organization.
 
     **Note:** This step only needs to be performed once for the life of your Terraform registry.
 

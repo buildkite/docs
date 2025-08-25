@@ -26,7 +26,7 @@ As an organization administrator, you can access the [**Organization Settings** 
 
 - [Enable Buildkite Package Registries](#enabling-buildkite-packages) for your Buildkite organization.
 
-- Configure [private storage](/docs/package-registries/private-storage-link) for your registries in Buildkite Package Registries.
+- Configure [private storage](/docs/package-registries/registries/private-storage-link) for your registries in Buildkite Package Registries.
 
 <h4 id="enabling-buildkite-packages">Enabling Buildkite Package Registries</h4>
 
