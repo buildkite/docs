@@ -2,7 +2,7 @@
 
 A collection of common tasks with Buildkite organizations using the GraphQL API.
 
-You can test out the Buildkite GraphQL API using the Buildkite [GraphQL console](https://buildkite.com/user/graphql/console). This includes built-in documentation under its **Documentation** tab.
+<%= render_markdown partial: 'apis/graphql/cookbooks/graphql_console_link' %>
 
 ## Get organization ID
 

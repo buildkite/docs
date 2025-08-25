@@ -2,7 +2,7 @@
 
 A collection of common tasks with unclustered agents using the GraphQL API.
 
-You can test out the Buildkite GraphQL API using the Buildkite [GraphQL console](https://buildkite.com/user/graphql/console). This includes built-in documentation under its **Documentation** tab.
+<%= render_markdown partial: 'apis/graphql/cookbooks/graphql_console_link' %>
 
 ## Get a list of unclustered agent token IDs
 
