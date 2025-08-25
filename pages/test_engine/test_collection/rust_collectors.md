@@ -6,9 +6,9 @@ toc: false
 
 To use Test Engine with your [Rust](https://www.rust-lang.org/) projects use the :github: [`test-collector-rust`](https://github.com/buildkite/test-collector-rust) package with `cargo test`.
 
-You can also upload test results by importing [JSON](/docs/test-engine/importing-json) or [JUnit XML](/docs/test-engine/importing-junit-xml).
+You can also upload test results by importing [JSON](/docs/test-engine/test-collection/importing-json) or [JUnit XML](/docs/test-engine/test-collection/importing-junit-xml).
 
-Before you start, make sure Rust runs with access to [CI environment variables](/docs/test-engine/ci-environments).
+Before you start, make sure Rust runs with access to [CI environment variables](/docs/test-engine/test-collection/ci-environments).
 
 1. Create a [test suite](/docs/test-engine/test-suites) and copy the API token that it gives you.
 

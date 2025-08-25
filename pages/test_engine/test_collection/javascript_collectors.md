@@ -9,7 +9,7 @@ To use Test Engine with your JavaScript (npm) projects, use the :github: [`test-
 - [Playwright](https://playwright.dev)
 - [Vitest](https://vitest.dev/)
 
-You can also upload test results by importing [JSON](/docs/test-engine/importing-json) or [JUnit XML](/docs/test-engine/importing-junit-xml).
+You can also upload test results by importing [JSON](/docs/test-engine/test-collection/importing-json) or [JUnit XML](/docs/test-engine/test-collection/importing-junit-xml).
 
 
 ## Add the test collector package
@@ -51,7 +51,7 @@ If you're already using Jest, you can add `buildkite-test-collector/jest/reporte
 
 To configure Jest:
 
-1. Make sure Jest runs with access to [CI environment variables](/docs/test-engine/ci-environments).
+1. Make sure Jest runs with access to [CI environment variables](/docs/test-engine/test-collection/ci-environments).
 1. Add `"buildkite-test-collector/jest/reporter"` to [Jest's `reporters` configuration array](https://jestjs.io/docs/configuration#reporters-arraymodulename--modulename-options) (typically found in `jest.config.js`, `jest.config.js`, or `package.json`):
 
     ```json
@@ -128,7 +128,7 @@ To configure Mocha:
 ### Cypress
 To configure Cypress:
 
-1. Make sure Cypress runs with access to [CI environment variables](/docs/test-engine/ci-environments).
+1. Make sure Cypress runs with access to [CI environment variables](/docs/test-engine/test-collection/ci-environments).
 1. Update your [Cypress configuration](https://docs.cypress.io/guides/references/configuration).
 
     ```js
@@ -155,7 +155,7 @@ If you're already using Playwright, you can add `buildkite-test-collector/playwr
 
 To configure Playwright:
 
-1. Make sure Playwright runs with access to [CI environment variables](/docs/test-engine/ci-environments).
+1. Make sure Playwright runs with access to [CI environment variables](/docs/test-engine/test-collection/ci-environments).
 1. Add `"buildkite-test-collector/playwright/reporter"` to [Playwright's `reporter` configuration array](https://playwright.dev/docs/test-reporters#multiple-reporters) (typically found in `playwright.config.js`):
 
     ```js
@@ -232,7 +232,7 @@ When your collector is installed, commit and push your changes:
 
 After completing these steps, you'll see the analytics of test executions on all branches that include this code in the Test Engine dashboard.
 
-If you don't see branch names, build numbers, or commit hashes in the Test Engine dashboard, see [CI environments](/docs/test-engine/ci-environments) to learn more about exporting your environment.
+If you don't see branch names, build numbers, or commit hashes in the Test Engine dashboard, see [CI environments](/docs/test-engine/test-collection/ci-environments) to learn more about exporting your environment.
 
 ## Upload custom tags for test executions
 
