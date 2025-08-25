@@ -1,6 +1,6 @@
 # Amazon S3 storage
 
-This page provides details on how to link your own Amazon Web Services (AWS) Simple Storage Service (S3) bucket (or simply _Amazon S3_ bucket) to Buildkite Package Registries, through a [private storage link](/docs/package-registries/private-storage-link).
+This page provides details on how to link your own Amazon Web Services (AWS) Simple Storage Service (S3) bucket (or simply _Amazon S3_ bucket) to Buildkite Package Registries, through a [private storage link](/docs/package-registries/registries/private-storage-link).
 
 By default, Buildkite Package Registries provides its own storage (known as _Buildkite storage_). However, linking your own Amazon S3 bucket to Package Registries lets you:
 
@@ -58,9 +58,9 @@ To link your private Amazon S3 bucket to Package Registries:
 
 You are returned to the **Private Storage Link** page, where you can:
 
-- [Set the default Buildkite Package Registries storage for your Buildkite organization](/docs/package-registries/private-storage-link#set-the-default-buildkite-package-registries-storage).
+- [Set the default Buildkite Package Registries storage for your Buildkite organization](/docs/package-registries/registries/private-storage-link#set-the-default-buildkite-package-registries-storage).
 
-- [Set the storage independently for each of your Buildkite registries](/docs/package-registries/manage-registries#update-a-source-registry-configure-registry-storage).
+- [Set the storage independently for each of your Buildkite registries](/docs/package-registries/registries/manage#update-a-source-registry-configure-registry-storage).
 
 ## Deleting packages
 
