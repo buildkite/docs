@@ -45,9 +45,9 @@ The following steps describe the process above:
     ```
 
     where:
-    <%= render_markdown partial: 'package_registries/java_registry_id' %>
+    <%= render_markdown partial: 'package_registries/ecosystems/java_registry_id' %>
 
-    <%= render_markdown partial: 'package_registries/java_registry_write_token' %>
+    <%= render_markdown partial: 'package_registries/ecosystems/java_registry_write_token' %>
 
     **Note:** This step only needs to be performed once for the life of your Java source registry, and API access token.
 
@@ -71,7 +71,7 @@ The following steps describe the process above:
 
     <%= render_markdown partial: 'package_registries/org_slug' %>
 
-    <%= render_markdown partial: 'package_registries/java_registry_slug' %>
+    <%= render_markdown partial: 'package_registries/ecosystems/java_registry_slug' %>
 
 1. Publish your package:
 
@@ -81,9 +81,9 @@ The following steps describe the process above:
 
 ## Access a package's details
 
-<%= render_markdown partial: 'package_registries/access_java_package_details_page' %>
+<%= render_markdown partial: 'package_registries/ecosystems/access_java_package_details_page' %>
 
-<%= render_markdown partial: 'package_registries/package_details_page_sections' %>
+<%= render_markdown partial: 'package_registries/ecosystems/package_details_page_sections' %>
 
 ### Downloading a package
 
@@ -133,7 +133,7 @@ The `~/.m2/settings.xml` code snippet is based on this format:
 
 where:
 
-<%= render_markdown partial: 'package_registries/java_registry_id' %>
+<%= render_markdown partial: 'package_registries/ecosystems/java_registry_id' %>
 
 - `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Java source registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
@@ -164,13 +164,13 @@ The `pom.xml` code snippet is based on this format:
 
 where:
 
-<%= render_markdown partial: 'package_registries/java_registry_id' %>
+<%= render_markdown partial: 'package_registries/ecosystems/java_registry_id' %>
 
 - `{org.slug}` is the org slug, which can be obtained as described above.
 
-<%= render_markdown partial: 'package_registries/registry_slug' %>
+<%= render_markdown partial: 'package_registries/ecosystems/registry_slug' %>
 
-<%= render_markdown partial: 'package_registries/java_package_domain_name_version' %>
+<%= render_markdown partial: 'package_registries/ecosystems/java_package_domain_name_version' %>
 
 ### Installing a package from a composite registry
 
@@ -209,7 +209,7 @@ The `~/.m2/settings.xml` code snippet is based on this format:
 
 where:
 
-<%= render_markdown partial: 'package_registries/java_registry_id' %>
+<%= render_markdown partial: 'package_registries/ecosystems/java_registry_id' %>
 
 - `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Java composite registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
@@ -265,8 +265,8 @@ The `pom.xml` code snippet is based on this format:
 
 where:
 
-<%= render_markdown partial: 'package_registries/java_registry_id' %>
+<%= render_markdown partial: 'package_registries/ecosystems/java_registry_id' %>
 
 - `{org.slug}` is the org slug, which can be obtained as described above.
 
-<%= render_markdown partial: 'package_registries/registry_slug' %>
+<%= render_markdown partial: 'package_registries/ecosystems/registry_slug' %>

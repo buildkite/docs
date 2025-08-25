@@ -34,11 +34,11 @@ where:
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown partial: 'package_registries/red_hat_registry_slug' %>
+<%= render_markdown partial: 'package_registries/ecosystems/red_hat_registry_slug' %>
 
 - `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your Red Hat source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Red Hat source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
-<%= render_markdown partial: 'package_registries/path_to_red_hat_package' %>
+<%= render_markdown partial: 'package_registries/ecosystems/path_to_red_hat_package' %>
 
 For example, to upload the file `my-red-hat-package_1.0-2.x86_64.rpm` from the current directory to the **My Red Hat packages** source registry in the **My organization** Buildkite organization, run the `curl` command:
 
@@ -60,11 +60,11 @@ where:
 
 - `registry-slug` is the slug of your Red Hat source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your file source registry from the **Registries** page.
 
-<%= render_markdown partial: 'package_registries/path_to_red_hat_package' %>
+<%= render_markdown partial: 'package_registries/ecosystems/path_to_red_hat_package' %>
 
 <h4 id="token-usage-with-the-buildkite-cli">Token usage with the Buildkite CLI</h4>
 
-<%= render_markdown partial: 'package_registries/buildkite_cli_token_usage' %>
+<%= render_markdown partial: 'package_registries/ecosystems/buildkite_cli_token_usage' %>
 
 ## Access a package's details
 
@@ -74,7 +74,7 @@ A Red Hat (RPM) package's details can be accessed from this registry through the
 1. Select your Red Hat source registry on this page.
 1. On your Red Hat source registry page, select the package to display its details page.
 
-<%= render_markdown partial: 'package_registries/package_details_page_sections' %>
+<%= render_markdown partial: 'package_registries/ecosystems/package_details_page_sections' %>
 
 ### Downloading a package
 
@@ -103,7 +103,7 @@ sudo sh -c 'echo -e "[{registry.slug}]\nname={registry.name}\nbaseurl=https://bu
 
 where:
 
-<%= render_markdown partial: 'package_registries/red_hat_registry_slug' %>
+<%= render_markdown partial: 'package_registries/ecosystems/red_hat_registry_slug' %>
 
 - `{registry.name}` is the name of your Red Hat registry.
 
