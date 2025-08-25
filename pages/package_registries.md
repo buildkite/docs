@@ -44,8 +44,15 @@ If you're familiar with the basics, explore how to use registries for each of Bu
 
 <!-- vale on -->
 
-Learn more about how to:
+## Core features
 
-- Work with registries in [Manage registries](/docs/package-registries/registries/manage).
-- Manage access to your registries in [User, team, and registry permissions](/docs/package-registries/security/permissions).
-- Configure your own private storage for Buildkite Package Registries in [Private storage link](/docs/package-registries/registries/private-storage-link).
+<%= tiles "package_registries_features" %>
+
+## API & references
+
+Learn more about:
+
+- Package Registries' APIs through the:
+    * [REST API documentation](/docs/apis/rest-api), and related endpoints, starting with [registries](/docs/apis/rest-api/package-registries/registries).
+    * [GraphQL documentation](/docs/apis/graphql-api) and its [registries](/docs/apis/graphql/cookbooks/registries)-related queries, as well as [portals](/docs/apis/portals).
+- Package Registries-specific [webhooks](/docs/apis/webhooks/package-registries).

@@ -57,4 +57,8 @@ If a Buildkite test collector is not available for one of these test runners, yo
 
 ## API & references
 
-Learn more about Test Engine's APIs through the [REST API documentation](/docs/apis/rest-api), and related endpoints, starting with [test suites](/docs/apis/rest-api/test-engine/suites), as well as Test Engine-specific [webhooks](/docs/apis/webhooks/test-engine).
+Learn more about:
+
+- Test Engine's APIs through the [REST API documentation](/docs/apis/rest-api), and related endpoints, starting with [test suites](/docs/apis/rest-api/test-engine/suites).
+- Test Engine-specific [webhooks](/docs/apis/webhooks/test-engine).
+- Test Engine [glossary](/docs/test-engine/glossary) of important terms.
