@@ -50,7 +50,8 @@ steps:
   - command: ./scripts/tests.sh
     label: tests
     if: |
-      // Don't when the message contains "skip tests"
+      // Do not run when the message contains "skip tests"
+      //   and
       // Only run on feature branches
       build.message !~ /skip tests/ &&
         build.branch =~ /^feature\//
