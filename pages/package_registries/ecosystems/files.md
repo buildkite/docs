@@ -3,7 +3,7 @@
 
 Buildkite Package Registries provides registry support for generic _files_ to cover some use cases where native package management either isn't required or isn't available.
 
-Once your **Files** source registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload files (of any type and extension) to this registry via the relevant `curl` command presented on your file registry details page.
+Once your **Files** source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload files (of any type and extension) to this registry via the relevant `curl` command presented on your file registry details page.
 
 To view and copy this `curl` command:
 
@@ -114,7 +114,7 @@ curl -O -L -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-- `$TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your files source registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+- `$TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/registries/manage#configure-registry-tokens) used to download packages from your files source registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 

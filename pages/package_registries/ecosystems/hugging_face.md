@@ -7,7 +7,7 @@ Buildkite Package Registries provides registry support for [Hugging Face models]
 
 Hugging Face's [open source models](https://huggingface.co/models) can be developed, fine tuned, and published to your (private) Hugging Face registry in Buildkite Package Registries. Each Git commit to a model constitutes a new version of the model (known as a _model version_), which is published as an individual 'package' to your Hugging Face registry, with the Git commit SHA forming part of the package name.
 
-Once your Hugging Face source registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can cache your model locally from the [Hugging Face Hub](https://huggingface.co/docs/hub/index), then publish/upload model versions to this source registry via the relevant `huggingface-cli` commands presented on your Hugging Face registry's details page. Learn more about installing the Hugging Face command line interface (CLI) tool from their [Hub Python Library CLI documentation](https://huggingface.co/docs/huggingface_hub/main/en/guides/cli).
+Once your Hugging Face source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can cache your model locally from the [Hugging Face Hub](https://huggingface.co/docs/hub/index), then publish/upload model versions to this source registry via the relevant `huggingface-cli` commands presented on your Hugging Face registry's details page. Learn more about installing the Hugging Face command line interface (CLI) tool from their [Hub Python Library CLI documentation](https://huggingface.co/docs/huggingface_hub/main/en/guides/cli).
 
 To view and copy these `huggingface-cli` commands:
 

@@ -2,7 +2,7 @@
 
 Buildkite Package Registries provides registry support for Debian-based (deb) packages for Debian and Ubuntu operating system variants.
 
-Once your Debian source registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry via the `curl` command presented on your Debian registry's details page.
+Once your Debian source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry via the `curl` command presented on your Debian registry's details page.
 
 To view and copy this `curl` command:
 
@@ -109,7 +109,7 @@ curl -fsSL "https://buildkite:{registry.read.token}@packages.buildkite.com/{org.
 
 where:
 
-- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Debian registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
+- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/registries/manage#configure-registry-tokens) used to download packages from your Debian registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 

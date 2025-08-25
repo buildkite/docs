@@ -2,7 +2,7 @@
 
 Buildkite Package Registries provides registry support for Python-based (PyPI) packages.
 
-Once your Python source registry has been [created](/docs/package-registries/manage-registries#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry via the `curl` command presented on your Python registry's details page.
+Once your Python source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry via the `curl` command presented on your Python registry's details page.
 
 To view and copy this `curl` command:
 
@@ -75,7 +75,7 @@ A Python package's details can be accessed from this registry through the **Rele
 1. On your Python source registry page, select the package to display its details.
 
 > 📘
-> If your Python source registry is an upstream of a [composite registry](/docs/package-registries/manage-registries#composite-registries), you can also access a Python package's details from this composite registry (listed on the **Registries** page) by selecting the relevant Python composite registry > from the **Upstreams** tab, select the relevant Python source registry, then its relevant package.
+> If your Python source registry is an upstream of a [composite registry](/docs/package-registries/registries/manage#composite-registries), you can also access a Python package's details from this composite registry (listed on the **Registries** page) by selecting the relevant Python composite registry > from the **Upstreams** tab, select the relevant Python source registry, then its relevant package.
 
 <%= render_markdown partial: 'package_registries/ecosystems/package_details_page_sections' %>
 
@@ -116,7 +116,7 @@ or the alternative `requirements.txt` (for virtualenv) code snippet is based on 
 
 where:
 
-- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Python source registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
+- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/registries/manage#configure-registry-tokens) used to download packages from your Python source registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization. This URL component, along with its surrounding `buildkite:` and `@` components are not required for registries that are publicly accessible.
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
@@ -138,7 +138,7 @@ where:
 
 ### Installing a package from a composite registry
 
-If your Python source registry is an upstream of a [composite registry](/docs/package-registries/manage-registries#composite-registries), you can install one of its packages using the code snippet details provided on the composite registry's **Setup & Usage** page. To do this:
+If your Python source registry is an upstream of a [composite registry](/docs/package-registries/registries/manage#composite-registries), you can install one of its packages using the code snippet details provided on the composite registry's **Setup & Usage** page. To do this:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Python composite registry on this page.
@@ -164,7 +164,7 @@ pip install --extra-index-url=https://buildkite:{registry.read.token}@packages.b
 
 where:
 
-- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Python composite registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/registries/manage#configure-registry-tokens) used to download packages from your Python composite registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
@@ -199,7 +199,7 @@ or for the alternative virtualenv for pip, modify the following code snippet and
 
 where:
 
-- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/manage-registries#configure-registry-tokens) used to download packages from your Python composite registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
+- `{registry.read.token}` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/registries/manage#configure-registry-tokens) used to download packages from your Python composite registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
