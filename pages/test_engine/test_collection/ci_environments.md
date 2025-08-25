@@ -4,13 +4,13 @@ Buildkite Test Engine collectors automatically detect common continuous integrat
 If available, test collectors gather information about your test runs, such as branch names and build IDs.
 Test collectors gather information from the following CI environments:
 
-- [Buildkite](/docs/test-engine/ci-environments#buildkite)
-- [CircleCI](/docs/test-engine/ci-environments#circleci)
-- [GitHub Actions](/docs/test-engine/ci-environments#github-actions)
+- [Buildkite](/docs/test-engine/test-collection/ci-environments#buildkite)
+- [CircleCI](/docs/test-engine/test-collection/ci-environments#circleci)
+- [GitHub Actions](/docs/test-engine/test-collection/ci-environments#github-actions)
 
-If you run test collectors inside [containers](/docs/test-engine/ci-environments#containers-and-test-collectors) or use another CI system, you must set variables to report your CI details to Buildkite.
+If you run test collectors inside [containers](/docs/test-engine/test-collection/ci-environments#containers-and-test-collectors) or use another CI system, you must set variables to report your CI details to Buildkite.
 
-If you're not using a test collector, see [Importing JSON](/docs/test-engine/importing-json) and [Importing JUnit XML](/docs/test-engine/importing-junit-xml) to learn how to provide run environment data.
+If you're not using a test collector, see [Importing JSON](/docs/test-engine/test-collection/importing-json) and [Importing JUnit XML](/docs/test-engine/test-collection/importing-junit-xml) to learn how to provide run environment data.
 
 
 ## Run environment
@@ -239,7 +239,7 @@ During GitHub Actions workflow runs, test collectors upload information from the
 If you're using other CI providers (or [containers](#containers-and-test-collectors)), then set environment variables for test collectors to gather information about your builds and tests.
 If you don't set these environment variables, then Test Engine lacks the details needed to produce useful reports.
 
-Each environment variable corresponds to a `run_env` key in the payload `https://analytics-api.buildkite.com/v1/uploads`. Read [Importing JSON](/docs/test-engine/importing-json) to learn how these keys are used to make API calls.
+Each environment variable corresponds to a `run_env` key in the payload `https://analytics-api.buildkite.com/v1/uploads`. Read [Importing JSON](/docs/test-engine/test-collection/importing-json) to learn how these keys are used to make API calls.
 
 <table class="responsive-table">
   <thead>

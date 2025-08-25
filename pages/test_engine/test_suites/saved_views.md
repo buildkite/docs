@@ -4,7 +4,7 @@
 
 ## Adding filters
 
-1. On the **Tests** page, select **Add filter**, then select either an [Execution tag](/docs/test-engine/tags) or [Test label](/docs/test-engine/labels) as your filter type.
+1. On the **Tests** page, select **Add filter**, then select either an [Execution tag](/docs/test-engine/test-suites/tags) or [Test label](/docs/test-engine/test-suites/labels) as your filter type.
 1. If filtering by tag, choose a tag key from the list of keys found in your recent executions.
 1. Add a value for your filter and select **Add filter**.
 

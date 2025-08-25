@@ -31,7 +31,7 @@ From the details page of a test (accessible through its test suite's **Test** pa
 
 Using [test states](/docs/test-engine/glossary#test-state), you can automate the addition and removal of labels when a specific test failure threshold is reached.
 
-Learn more about this feature in [Automatic quarantine](/docs/test-engine/test-state-and-quarantine#automatic-quarantine).
+Learn more about this feature in [Automatic quarantine](/docs/test-engine/test-suites/test-state-and-quarantine#automatic-quarantine).
 
 ### Using execution tags
 
@@ -43,7 +43,7 @@ Test Engine only labels tests from execution tag values when their test suite is
 
 <%= image "execution_tags.png", width: 1547, height: 604, alt: "Screenshot of configuring suite settings to copy tags to labels" %>
 
-Learn more about test execution tagging in [Tags](/docs/test-engine/tags).
+Learn more about test execution tagging in [Tags](/docs/test-engine/test-suites/tags).
 
 > 📘
 > A label added to a test through a test execution tag is automatically removed when the tag is removed from the test execution.

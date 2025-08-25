@@ -6,13 +6,13 @@ toc: false
 
 To use Test Engine with your Elixir projects use :github: [`test_collector_elixir`](https://github.com/buildkite/test_collector_elixir) with ExUnit.
 
-You can also upload test results by importing [JSON](/docs/test-engine/importing-json) or [JUnit XML](/docs/test-engine/importing-junit-xml).
+You can also upload test results by importing [JSON](/docs/test-engine/test-collection/importing-json) or [JUnit XML](/docs/test-engine/test-collection/importing-junit-xml).
 
 ## ExUnit
 
 [ExUnit](https://hexdocs.pm/ex_unit/) is a Elixir unit test library.
 
-Before you start, make sure ExUnit runs with access to [CI environment variables](/docs/test-engine/ci-environments).
+Before you start, make sure ExUnit runs with access to [CI environment variables](/docs/test-engine/test-collection/ci-environments).
 
 1. Create a [test suite](/docs/test-engine/test-suites) and copy the API token that it gives you.
 

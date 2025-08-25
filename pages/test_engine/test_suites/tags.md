@@ -145,11 +145,11 @@ Test Engine has the following tagging requirements:
 
 Tags may be assigned using the following collection methods:
 
-- [Java (using JUnit XML import)](/docs/test-engine/importing-junit-xml)
-- [JavaScript (Jest, Cypress, Playwright, Mocha, Jasmine, Vitest)](/docs/test-engine/javascript-collectors#upload-custom-tags-for-test-executions)
-- [Python (PyTest)](/docs/test-engine/python-collectors#pytest-collector-upload-custom-tags-for-test-executions)
-- [Ruby (RSpec, minitest)](/docs/test-engine/ruby-collectors#upload-custom-tags-for-test-executions)
-- [Importing JSON](/docs/test-engine/importing-json#json-test-results-data-reference-execution-level-custom-tags)
+- [Java (using JUnit XML import)](/docs/test-engine/test-collection/importing-junit-xml)
+- [JavaScript (Jest, Cypress, Playwright, Mocha, Jasmine, Vitest)](/docs/test-engine/test-collection/javascript-collectors#upload-custom-tags-for-test-executions)
+- [Python (PyTest)](/docs/test-engine/test-collection/python-collectors#pytest-collector-upload-custom-tags-for-test-executions)
+- [Ruby (RSpec, minitest)](/docs/test-engine/test-collection/ruby-collectors#upload-custom-tags-for-test-executions)
+- [Importing JSON](/docs/test-engine/test-collection/importing-json#json-test-results-data-reference-execution-level-custom-tags)
 
 ## Usage
 
