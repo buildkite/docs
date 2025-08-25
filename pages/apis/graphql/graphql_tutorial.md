@@ -1,10 +1,8 @@
-# Getting started with GraphQL from the console or the command line
+# Using GraphQL from the console or the command line
 
 [GraphQL](http://graphql.org) is a standard for defining, querying and documenting APIs in a human-friendly way, with built-in documentation, a friendly query language and a bunch of tools to help you get started.
 
-This guide shows you how to query the GraphQL API using the [GraphQL console](https://buildkite.com/user/graphql/console) and from the command line.
-You'll first need a [Buildkite](https://buildkite.com/) account, and a [Buildkite API Access Token](https://buildkite.com/user/api-access-tokens/new) with GraphQL scope.
-
+This guide shows you how to query the GraphQL API using the GraphQL console (see the [GraphQL overview](/docs/apis/graphql-api) page > [Getting started](/docs/apis/graphql-api#getting-started) section for more information) and from the command line. You'll first need a [Buildkite](https://buildkite.com/) user account, and for the command line, an [API access token](https://buildkite.com/user/api-access-tokens/new) for this user account with the **Enable GraphQL API Access** permission selected.
 
 ## Running your first GraphQL request in the console
 

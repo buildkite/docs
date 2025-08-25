@@ -2,6 +2,8 @@
 
 A collection of common tasks with artifacts using the GraphQL API.
 
+You can test out the Buildkite GraphQL API using the Buildkite [GraphQL console](https://buildkite.com/user/graphql/console). This includes built-in documentation under its **Documentation** tab.
+
 ## List download URLs for artifacts from a build
 
 To get the download URLs for artifacts from a build.

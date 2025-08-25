@@ -10,9 +10,9 @@ The quickest way to get started with the GraphQL API is to try the [GraphQL cons
 
 <div><a href="https://buildkite.com/user/graphql/console"><%= image "console.png", width: 2470, height: 1530, alt: "Screenshot of the GraphQL Console on Buildkite" %></a></div>
 
-Learn more about using GraphQL queries and mutations with the GraphQL console or command line in the [Console and CLI getting started tutorial](https://buildkite.com/docs/apis/graphql/graphql-tutorial).
+Learn more about using GraphQL queries and mutations with the GraphQL console or command line in the [Using GraphQL from the console or the command line](/docs/apis/graphql/graphql-tutorial) tutorial.
 
->📘 Note for contributors to public and open-source projects
+> 📘 Note for contributors to public and open-source projects
 > You need to be a member of the Buildkite organization to be able to generate and use an API token for it.
 
 ## Endpoint
@@ -21,7 +21,7 @@ The GraphQL API endpoint is `https://graphql.buildkite.com/v1`. All requests mus
 
 ## Authentication
 
-GraphQL requests must be authenticated using an <a href="<%= url_helpers.user_access_tokens_url %>" rel="nofollow">API access token</a> with the GraphQL scope enabled. Pass the token in your GraphQL request using the `Authorization` HTTP header with a value `Bearer <token>`.
+GraphQL requests must be authenticated using an <a href="<%= url_helpers.user_access_tokens_url %>" rel="nofollow">API access token</a> with the **Enable GraphQL API Access** permission selected. Pass the token in your GraphQL request using the `Authorization` HTTP header with a value `Bearer <token>`.
 
 For example:
 
@@ -57,7 +57,7 @@ curl https://graphql.buildkite.com/v1 \
 }
 ```
 
-For documentation on the full list of fields and types, see the interactive documentation in the [GraphQL explorer](https://graphql.buildkite.com/explorer).
+For documentation on the full list of fields and types, see the interactive documentation in the [GraphQL console](https://buildkite.com/user/graphql/console).
 
 ## GraphQL IDs
 

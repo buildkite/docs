@@ -2,6 +2,8 @@
 
 A collection of common tasks with [Hosted agents](/docs/pipelines/hosted-agents) using the GraphQL API.
 
+You can test out the Buildkite GraphQL API using the Buildkite [GraphQL console](https://buildkite.com/user/graphql/console). This includes built-in documentation under its **Documentation** tab.
+
 ## Create a Buildkite hosted queue
 
 ```graphql
