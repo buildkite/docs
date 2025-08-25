@@ -29,7 +29,7 @@ To create a new source registry:
 
 Once a [source registry has been created](#create-a-source-registry), packages can then be uploaded to it. Learn more about how to manage packages for your registry's relevant language and package ecosystem:
 
-<%= render_markdown partial: 'package_registries/registries/supported_package_ecosystems' %>
+<%= render_markdown partial: 'package_registries/supported_package_ecosystems' %>
 
 ## Update a source registry
 
