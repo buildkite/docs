@@ -26,22 +26,22 @@ As part of configuring a test suite, you'll need to configure [test collection](
 <!-- vale off -->
 
 <div class="ButtonGroup">
-  <%= button ":rspec: RSpec", "/docs/test-engine/ruby-collectors#rspec-collector" %>
-  <%= button ":ruby: minitest", "/docs/test-engine/ruby-collectors#minitest-collector" %>
-  <%= button ":jest: Jest", "/docs/test-engine/javascript-collectors#configure-the-test-framework-jest" %>
-  <%= button ":mocha: Mocha", "/docs/test-engine/javascript-collectors#configure-the-test-framework-mocha" %>
-  <%= button ":cypress: Cypress", "/docs/test-engine/javascript-collectors#configure-the-test-framework-cypress" %>
-  <%= button ":jasmine: Jasmine", "/docs/test-engine/javascript-collectors#configure-the-test-framework-jasmine" %>
-  <%= button ":playwright: Playwright", "/docs/test-engine/javascript-collectors#configure-the-test-framework-playwright" %>
-  <%= button ":vitest: Vitest", "/docs/test-engine/javascript-collectors#configure-the-test-framework-vitest" %>
-  <%= button ":swift: Swift", "/docs/test-engine/swift-collectors" %>
-  <%= button ":android: Android", "/docs/test-engine/android-collectors" %>
-  <%= button ":pytest: pytest", "/docs/test-engine/python-collectors" %>
-  <%= button ":golang: Go", "/docs/test-engine/golang-collectors" %>
-  <%= button ":junit: JUnit", "/docs/test-engine/importing-junit-xml" %>
-  <%= button ":dotnet: .NET", "/docs/test-engine/dotnet-collectors" %>
-  <%= button ":elixir: Elixir", "/docs/test-engine/elixir-collectors" %>
-  <%= button ":rust: Rust", "/docs/test-engine/rust-collectors" %>
+  <%= button ":rspec: RSpec", "/docs/test-engine/test-collection/ruby-collectors#rspec-collector" %>
+  <%= button ":ruby: minitest", "/docs/test-engine/test-collection/ruby-collectors#minitest-collector" %>
+  <%= button ":jest: Jest", "/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-jest" %>
+  <%= button ":mocha: Mocha", "/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-mocha" %>
+  <%= button ":cypress: Cypress", "/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-cypress" %>
+  <%= button ":jasmine: Jasmine", "/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-jasmine" %>
+  <%= button ":playwright: Playwright", "/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-playwright" %>
+  <%= button ":vitest: Vitest", "/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-vitest" %>
+  <%= button ":swift: Swift", "/docs/test-engine/test-collection/swift-collectors" %>
+  <%= button ":android: Android", "/docs/test-engine/test-collection/android-collectors" %>
+  <%= button ":pytest: pytest", "/docs/test-engine/test-collection/python-collectors" %>
+  <%= button ":golang: Go", "/docs/test-engine/test-collection/golang-collectors" %>
+  <%= button ":junit: JUnit", "/docs/test-engine/test-collection/importing-junit-xml" %>
+  <%= button ":dotnet: .NET", "/docs/test-engine/test-collection/dotnet-collectors" %>
+  <%= button ":elixir: Elixir", "/docs/test-engine/test-collection/elixir-collectors" %>
+  <%= button ":rust: Rust", "/docs/test-engine/test-collection/rust-collectors" %>
 </div>
 
 <!-- vale on -->

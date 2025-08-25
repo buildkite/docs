@@ -3,7 +3,7 @@
 You can configure webhooks to be triggered by the following events in Test Engine:
 
 - When a [test's state](/docs/test-engine/glossary#test-state) is changed.
-- When a [label](/docs/test-engine/labels) is added to or removed from a test.
+- When a [label](/docs/test-engine/test-suites/labels) is added to or removed from a test.
 
 Webhooks are delivered to an HTTP POST endpoint of your choosing with a `Content-Type: application/json` header and a JSON encoded request body.
 
@@ -20,7 +20,7 @@ To add a webhook for your test suite:
     * **Test label added**
     * **Test label removed**
 
-1. If the [teams feature](/docs/platform/team-management/permissions#manage-teams-and-permissions) has been enabled for your Buildkite organization, select the **Teams** whose test executions for this test suite can trigger this webhook. The webhook is only triggered when the [test ownership](/docs/test-engine/test-ownership) feature has been configured for this test suite, and the test is owned by one of the selected teams.
+1. If the [teams feature](/docs/platform/team-management/permissions#manage-teams-and-permissions) has been enabled for your Buildkite organization, select the **Teams** whose test executions for this test suite can trigger this webhook. The webhook is only triggered when the [test ownership](/docs/test-engine/test-suites/test-ownership) feature has been configured for this test suite, and the test is owned by one of the selected teams.
 
     **Notes:**
     * If the **No owner** checkbox is selected, then the webhook is triggered when the test does not have an owner.
@@ -30,9 +30,9 @@ To add a webhook for your test suite:
 
 ### Test state changed
 
-If [test state management](/docs/test-engine/test-state-and-quarantine) is enabled for your test suite, you can configure a webhook to be sent on **Test state changed** events.
+If [test state management](/docs/test-engine/test-suites/test-state-and-quarantine) is enabled for your test suite, you can configure a webhook to be sent on **Test state changed** events.
 
-The webhook is triggered when a test's state is changed [manually through the Buildkite interface](/docs/test-engine/test-state-and-quarantine#manual-quarantine), through [automatic quarantine](/docs/test-engine/test-state-and-quarantine#automatic-quarantine), or using the [REST API](/docs/apis/rest-api/test-engine/quarantine) when a [test state is updated](/docs/apis/rest-api/test-engine/quarantine#update-test-state).
+The webhook is triggered when a test's state is changed [manually through the Buildkite interface](/docs/test-engine/test-suites/test-state-and-quarantine#manual-quarantine), through [automatic quarantine](/docs/test-engine/test-suites/test-state-and-quarantine#automatic-quarantine), or using the [REST API](/docs/apis/rest-api/test-engine/quarantine) when a [test state is updated](/docs/apis/rest-api/test-engine/quarantine#update-test-state).
 
 Example payload:
 
@@ -57,7 +57,7 @@ Example payload:
 
 You can configure a webhook to be sent on **Test label added** and **Test label removed** events.
 
-The webhook is triggered sent when a label is added [manually through the Buildkite interface](/docs/test-engine/labels#label-a-test-using-the-buildkite-interface), using [automatic quarantine](/docs/test-engine/labels#label-a-test-using-automatic-quarantine), using [test execution tags](/docs/test-engine/labels#label-a-test-using-execution-tags), or using the [REST API](/docs/test-engine/labels#label-a-test-using-the-rest-api).
+The webhook is triggered sent when a label is added [manually through the Buildkite interface](/docs/test-engine/test-suites/labels#label-a-test-using-the-buildkite-interface), using [automatic quarantine](/docs/test-engine/test-suites/labels#label-a-test-using-automatic-quarantine), using [test execution tags](/docs/test-engine/test-suites/labels#label-a-test-using-execution-tags), or using the [REST API](/docs/test-engine/test-suites/labels#label-a-test-using-the-rest-api).
 
 Example payload for when a label is added:
 
