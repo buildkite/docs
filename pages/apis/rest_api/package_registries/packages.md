@@ -24,7 +24,7 @@ However, this type of REST API call is just recommended for:
 
 For other supported package ecosystems, it is recommended that you use their native tools to publish to registries in your Buildkite Package Registries organization. These ecosystems' native tools are for:
 
-- [Container (Docker)](/docs/package-registries/ecosystems/container#publish-an-image) images
+- [OCI (Docker)](/docs/package-registries/ecosystems/oci#publish-an-image) images
 - [Helm (OCI)](/docs/package-registries/ecosystems/helm-oci#publish-a-chart) charts
 - Java ([Maven](/docs/package-registries/ecosystems/maven#publish-a-package) or [Gradle](/docs/package-registries/ecosystems/gradle-kotlin#publish-a-package)) packages
 - [JavaScript (npm)](/docs/package-registries/ecosystems/javascript#publish-a-package) packages
