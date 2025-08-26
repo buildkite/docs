@@ -953,3 +953,7 @@
           path: "apis/agent-api"
         - name: "Metrics"
           path: "apis/agent-api/metrics"
+    - name: "Model context protocol server"
+      children:
+        - name: "Overview"
+          path: "apis/mcp"
