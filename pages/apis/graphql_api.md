@@ -224,5 +224,5 @@ query IntrospectionQuery {
 Further resources for learning more about GraphQL:
 
 - The [GraphQL API cookbook](/docs/apis/graphql/graphql-cookbook) page full of common queries and mutations.
-- The [Learn section](https://graphql.org/learn/) of [the official GraphQL website](https://graphql.org).
-- The [Getting Started with GraphQL Queries and Mutations](https://buildkite.com/blog/getting-started-with-graphql-queries-and-mutations) blog post.
+- The [**Learn** section](https://graphql.org/learn/) of [the official GraphQL website](https://graphql.org).
+- The [Getting started with GraphQL queries and mutations](https://buildkite.com/blog/getting-started-with-graphql-queries-and-mutations) blog post.
