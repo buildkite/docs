@@ -25,6 +25,7 @@ To start translating your existing pipeline configuration into a Buildkite pipel
 1. Enter a pipeline definition you would like to translate into a Buildkite pipeline definition on the left side of the tool.
 1. Click the **Convert** button.
 1. You'll see the translated pipeline definition on the right side of the tool.
+1. You can copy the resulting yaml pipeline definition and [create](/docs/pipelines/configure) a [new Buildkite pipeline](https://www.buildkite.com/new) with it.
 
 ## Local API-based version
 

@@ -28,7 +28,7 @@ With the help of the [Buildkite migration tool](/docs/pipelines/migration/tool),
 ## Jobs
 
 > 📘
-> When Buildkite builds are run, each created command step inside the pipeline is ran as a [job](/docs/pipelines/defining-steps#job-states) that will be distributed and assigned to the matching agents meeting their specific queue and tag [targeting](/docs/pipelines/defining-steps#targeting-specific-agents). Each job is run within its own separate environment, with potentially different environment variables (for example, those defined at the [step](/docs/pipelines/command-step#command-step-attributes) level) and is not guaranteed to run on the same agent depending on targeting rules specified and the agent fleet setup.
+> When Buildkite builds are run, each created command step inside the pipeline is ran as a [job](/docs/pipelines/configure/defining-steps#job-states) that will be distributed and assigned to the matching agents meeting their specific queue and tag [targeting](/docs/pipelines/configure/defining-steps#targeting-specific-agents). Each job is run within its own separate environment, with potentially different environment variables (for example, those defined at the [step](/docs/pipelines/configure/step-types/command-step#command-step-attributes) level) and is not guaranteed to run on the same agent depending on targeting rules specified and the agent fleet setup.
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
@@ -36,7 +36,7 @@ With the help of the [Buildkite migration tool](/docs/pipelines/migration/tool),
 | `jobs.<id>.env` | Yes | Environment variables defined within the context of each of a workflow's `jobs` are transitioned to [step level](/docs/pipelines/environment-variables#runtime-variable-interpolation) environment variables. |
 | `jobs.<id>.runs-on` | Yes | This attribute is mapped to the agent targeting [tag](/docs/agent/v3/queues#targeting-a-queue) `runs-on`. Jobs that target custom `tag` names will have a `queue` target of `default`. |
 | `jobs.<id>.steps`| Yes | Steps that make up a particular action's `job`. |
-| `jobs.<id>.steps.env` | Yes | Environment variables that are defined at `step` level are translated as a variable definition within the `commands` of a [command step](/docs/pipelines/command-step). |
+| `jobs.<id>.steps.env` | Yes | Environment variables that are defined at `step` level are translated as a variable definition within the `commands` of a [command step](/docs/pipelines/configure/step-types/command-step). |
 | `jobs.<id>.steps.run` | Yes | The commands (must be shorter than 21,000 characters) that make up a particular job. Each `run` is translated to a separate command inside of the output `commands` block of its generated Buildkite command step. |
 | `jobs.<id>.steps.strategy` | Yes | Allows for the conversion of a step's `strategy` (matrix) to create multiple jobs of a combination of values. |
 | `jobs.<id>.steps.strategy.matrix` | Yes | A `matrix` key inside of a step's `strategy` will be translated to a [Buildkite build matrix](/docs/pipelines/build-matrix). |
