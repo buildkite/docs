@@ -947,13 +947,13 @@
           path: "apis/portals/ephemeral-portal-tokens"
         - name: "User-invoked portals"
           path: "apis/portals/user-invoked-portals"
+    - name: "Model Context Protocol server"
+      children:
+        - name: "Overview"
+          path: "apis/mcp"
     - name: "Agent"
       children:
         - name: "Overview"
           path: "apis/agent-api"
         - name: "Metrics"
           path: "apis/agent-api/metrics"
-    - name: "Model Context Protocol server"
-      children:
-        - name: "Overview"
-          path: "apis/mcp"

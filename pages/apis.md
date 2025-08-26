@@ -48,8 +48,6 @@ The Buildkite GraphQL API provides an alternative to the REST API. The GraphQL A
 
 You can access the GraphQL API through the _GraphQL console_ (see the [GraphQL overview](/docs/apis/graphql-api) page > [Getting started](/docs/apis/graphql-api#getting-started) section for more information), as well as at the command line (see the [Console and CLI tutorial](/docs/apis/graphql/graphql-tutorial) page for more information). For command line access, you'll need a Buildkite [API access token](https://buildkite.com/user/api-access-tokens) with the **Enable GraphQL API Access** permission selected.
 
-Learn more information about the Buildkite's GraphQL API through its [overview](/docs/apis/graphql-api) and [Console and CLI tutorial](/docs/apis/graphql/graphql-tutorial) pages.
-
 ## Webhooks
 
 Webhooks allow you to monitor and respond to events within your Buildkite organization, providing a real time view of activity and allowing you to extend and integrate Buildkite into your systems.
