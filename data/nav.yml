@@ -20,7 +20,8 @@
           pill: "new"
         - name: "Glossary"
           path: "pipelines/glossary"
-        - name: "Additional controls for the Platform team"
+        - name: "Platform administration"
+          path: "pipelines/platform-administration"
     # If you're adding a source control provider you probably want to update
     # /docs/pages/integrations/source_control.md.erb
     # as well
