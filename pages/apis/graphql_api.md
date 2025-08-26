@@ -57,7 +57,7 @@ curl https://graphql.buildkite.com/v1 \
 }
 ```
 
-For documentation on the full list of fields and types, see the interactive documentation in the [GraphQL console](https://buildkite.com/user/graphql/console).
+For documentation on the full list of fields and types, refer to the [**Documentation** tab of the GraphQL console](https://buildkite.com/user/graphql/documentation).
 
 ## GraphQL IDs
 
@@ -112,7 +112,6 @@ query {
 ## Relay compatibility
 
 The Buildkite GraphQL API adheres to the [Relay specification](https://relay.dev/docs/guides/graphql-server-specification/), which defines standards for querying [paginated collections](https://relay.dev/docs/guides/graphql-server-specification/#connections) ("Connections" and "Edges") and for [identifying objects](https://relay.dev/docs/guides/graphql-server-specification/#object-identification) directly from the root of a query (avoiding long nested queries).
-
 
 ## GraphQL schema
 
@@ -224,6 +223,6 @@ query IntrospectionQuery {
 
 Further resources for learning more about GraphQL:
 
-* Our [Getting Started with GraphQL Queries and Mutations](https://buildkite.com/blog/getting-started-with-graphql-queries-and-mutations) tutorial
-* Our [GraphQL API cookbook](/docs/apis/graphql/graphql-cookbook) page full of common queries and mutations
-* The [Learn section](https://graphql.org/learn/) of [the official GraphQL website](https://graphql.org)
+- The [GraphQL API cookbook](/docs/apis/graphql/graphql-cookbook) page full of common queries and mutations.
+- The [Learn section](https://graphql.org/learn/) of [the official GraphQL website](https://graphql.org).
+- The [Getting Started with GraphQL Queries and Mutations](https://buildkite.com/blog/getting-started-with-graphql-queries-and-mutations) blog post.
