@@ -6,22 +6,15 @@ toc: false
 
 Migrating to Buildkite is a smooth process with the right context and planning. This page covers the tools and resources that will help you seamlessly transition from your existing CI/CD tool to Buildkite Pipelines.
 
-## Strategic overview
-
-The following resources provide you with a high-level strategic overview of a process of migration from your current CI/CD platform to Buildkite:
-
-- [Webinar: Strategies for migrating your CI/CD pipelines to Buildkite](https://www.youtube.com/watch?v=nV8u3dnEHZ0)
-- PDF guide: The CI/CD Migration Playbook
-
 ## Migration tool
 
-To start translating your existing pipelines from other CI providers to Buildkite Pipelines, you can use the [Buildkite migration tool](/docs/pipelines/migration/tool).
+The Buildkite migration tool is designed to help you understand Buildkite by providing a hands-on, high-level overview of how workflows from other CI/CD platforms map to Buildkite Pipelines concepts and architecture.
 
-Instead of manually rewriting all of your pipeline definitions, the Buildkite migration tool helps you automatically translate configurations from [GitHub Actions](/docs/pipelines/migration/tool/github-actions), [CircleCI](/docs/pipelines/migration/tool/circleci), [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines), and Jenkins (currently in beta) into compatible Buildkite formats.
+Rather than serving as a complete automated migration solution, the Buildkite migration tool helps you visualize how configurations from from [GitHub Actions](/docs/pipelines/migration/tool/github-actions), [CircleCI](/docs/pipelines/migration/tool/circleci), [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines), and Jenkins (currently in beta) could be structured in Buildkite pipeline configuration format.
 
-The tool intelligently handles platform-specific features like matrix builds, executor mappings, and step dependencies, preserving your workflow logic while adapting it to Buildkite's architecture. This automated approach significantly reduces migration time and helps ensure your converted pipelines maintain the same functionality as your original configurations where maintaining equivalent functionality is possible.
+This approach will accelerate your understanding of Buildkite concepts, allowing you to make informed decisions about how to rearchitect and optimize your pipelines for the Buildkite platform. Use the migration tool's output as a learning foundation, then iterate and refine your pipeline designs before beginning the actual migration process.
 
-You can immediately start using the Buildkite migration tool as an [interactive web-based app](https://buildkite.com/resources/migrate/) or run the Buildkite migration tool [locally via an HTTP API](/docs/pipelines/migration/tool#local-api-based-version).
+You can immediately start experimenting with the Buildkite migration tool in its [interactive web-based app](https://buildkite.com/resources/migrate/) form or run the Buildkite migration tool [locally via an HTTP API](/docs/pipelines/migration/tool#local-api-based-version).
 
 ## Migration guides
 
@@ -38,6 +31,13 @@ To get started, choose the guide that corresponds to the CI/CD tool you are migr
 
 - [Migrate from Jenkins](/docs/pipelines/migration/from-jenkins)
 - [Migrate from Bamboo](/docs/pipelines/migration/from-bamboo)
+
+## Plan your migration
+
+Take a look at the following information resources to understand how customers usually migrate to Buildkite. These resources cover the different strategies of migrating to Buildkite, the pitfalls and benefits of different approaches, and will help you plan your own migration to Buildkite.
+
+- [Webinar: Strategies for migrating your CI/CD pipelines to Buildkite](https://www.youtube.com/watch?v=nV8u3dnEHZ0).
+- Coming soon: "The CI/CD Migration Playbook" guide.
 
 ## Migration services
 
