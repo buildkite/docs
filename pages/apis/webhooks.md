@@ -20,7 +20,7 @@ Buildkite currently provides webhook support for both [Pipelines](/docs/apis/web
 
 Learn more about how to add Buildkite webhooks from the **Add a webhook** procedures [Pipelines](/docs/apis/webhooks/pipelines#add-a-webhook), [Test Engine](/docs/apis/webhooks/test-engine#add-a-webhook), and [Package Registries](/docs/apis/webhooks/package-registries#add-a-webhook).
 
-Request headers for [Pipelines](/docs/apis/webhooks/pipelines#http-headers) and [Package Registries](/docs/apis/webhooks/package-registries#http-headers) webhooks also provide to allow the authenticity of these webhook events to be verified.
+Request headers for [Pipelines](/docs/apis/webhooks/pipelines#http-headers) and [Package Registries](/docs/apis/webhooks/package-registries#http-headers) webhooks are also provided to allow the authenticity of these webhook events to be verified.
 
 ## Event families
 
