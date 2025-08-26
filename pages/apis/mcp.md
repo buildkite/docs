@@ -1,2 +1,3 @@
 # Buildkite Model Context Protocol server
 
+A Model Context Protocol is ...

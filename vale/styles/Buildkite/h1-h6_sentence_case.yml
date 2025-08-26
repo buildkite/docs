@@ -150,8 +150,9 @@ exceptions:
   - macOS
   - Markdown
   - minitest
-  - monitor
+  - Model Context Protocol
   - Mobile Delivery Cloud
+  - monitor
   - NET
   - Node.js
   - nodeName
