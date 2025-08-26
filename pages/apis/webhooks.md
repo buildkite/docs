@@ -26,7 +26,7 @@ Request headers for [Pipelines](/docs/apis/webhooks/pipelines#http-headers) and 
 
 ### Pipelines
 
-Buildkite Pipelines supports the following categories of webhook events.
+Buildkite Pipelines supports the following categories of webhook events, which are summarized in the [Events](/docs/apis/webhooks/pipelines#events) section of the [Pipelines webhooks](/docs/apis/webhooks/pipelines) overview page.
 
 | Event family | Description |
 |--------------|-------------|
