@@ -1,4 +1,4 @@
-# Package registry webhooks
+# Package Registries webhooks
 
 You can configure webhooks to be triggered in Package Registries when a package, image, chart, model, module, or file is created.
 
