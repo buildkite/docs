@@ -2,6 +2,8 @@
 
 A collection of common tasks with artifacts using the GraphQL API.
 
+<%= render_markdown partial: 'apis/graphql/cookbooks/graphql_console_link' %>
+
 ## List download URLs for artifacts from a build
 
 To get the download URLs for artifacts from a build.
