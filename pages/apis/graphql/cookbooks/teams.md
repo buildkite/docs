@@ -222,7 +222,7 @@ query GetTeamMember {
 ```
 ## Get teams and members with pipeline creation permissions
 
-This query retrieves all teams in an organization along with their members, showing which teams have pipeline creation permissions enabled. Use this to audit who can create pipelines across your organization.
+The following query retrieves all teams in an organization and their members, showing which teams have pipeline creation permissions enabled. Use this query to identify which members across your organization can create pipelines.
 
 ```graphql
 query CanCreatePipelines {
