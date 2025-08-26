@@ -191,9 +191,9 @@ export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="s3://name-of-your-s3-bucket/$BUILD
 export BUILDKITE_S3_DEFAULT_REGION="eu-central-1" # default: us-east-1
 ```
 
-### Uploading artifacts to multiple S3 buckets in different regions
+### Uploading artifacts to multiple AWS S3 buckets in different regions
 
-To upload artifacts to multiple S3 buckets in different regions within the same pipeline, configure `BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` and `BUILDKITE_S3_DEFAULT_REGION` at the step level. Defining these variables per step ensures that each upload uses the correct bucket and region. For example, one step can target a bucket in `us-east-1`, while another targets a bucket in `eu-central-1`:
+To upload artifacts to multiple AWS S3 buckets in different regions within a single pipeline, configure the `BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` and `BUILDKITE_S3_DEFAULT_REGION` environment variables at the step level. Defining these variables per step ensures that each upload uses the correct bucket and region. For example, one step can target a bucket in `us-east-1`, while another targets a bucket in `eu-central-1`:
 
 ```bash
 steps:
