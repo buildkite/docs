@@ -1,9 +1,8 @@
+---
+toc: false
+---
+
 # Waterfall view
-
-> 📘 Pro/Enterprise feature
-> Waterfall is only available on [Pro or Enterprise](https://buildkite.com/pricing) plans.
-
-## Overview
 
 Waterfall view allows you to see build data as a waterfall chart, providing enhanced visibility into your build's job processes, durations and dependencies.
 

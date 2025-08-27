@@ -44,19 +44,18 @@ More information about the [REST API](/docs/apis/rest-api).
 
 ## GraphQL
 
-The Buildkite GraphQL API provides an alternative to the REST API.
-It allows for more efficient retrieval of data by enabling you to fetch multiple, nested resources in a single request.
+The Buildkite GraphQL API provides an alternative to the REST API. The GraphQL API allows for more efficient retrieval of data by enabling you to fetch multiple, nested resources in a single request.
 
-1. Generate an [API access token](https://buildkite.com/user/api-access-tokens) with `GraphQL` scope
-2. Open the [GraphQL explorer](https://graphql.buildkite.com/explorer)
-3. Follow the [GraphQL tutorial](https://buildkite.com/blog/getting-started-with-graphql-queries-and-mutations)
+You can access the GraphQL API through the _GraphQL console_ (see the [GraphQL overview](/docs/apis/graphql-api) page > [Getting started](/docs/apis/graphql-api#getting-started) section for more information), as well as at the command line (see the [Console and CLI tutorial](/docs/apis/graphql/graphql-tutorial) page for more information). For command line access, you'll need a Buildkite [API access token](https://buildkite.com/user/api-access-tokens) with the **Enable GraphQL API Access** permission selected.
 
-More information about the [GraphQL API](/docs/apis/graphql-api).
+Learn more information about the Buildkite's GraphQL API through its [overview](/docs/apis/graphql-api) and [Console and CLI tutorial](/docs/apis/graphql/graphql-tutorial) pages.
 
 ## Webhooks
 
 Webhooks allow you to monitor and respond to events within your Buildkite organization, providing a real time view of activity and allowing you to extend and integrate Buildkite into your systems.
 
-Webhooks can be added and configured on your [organization's Notification Services settings](https://buildkite.com/organizations/-/services) page.
+For Pipelines, webhooks can be [added and configured](/docs/apis/webhooks/pipelines#add-a-webhook) on your Buildkite organization's [**Notification Services** settings](https://buildkite.com/organizations/-/services) page.
 
-More information about the [webhooks](/docs/apis/webhooks).
+For Test Engine and Package Registries, webhooks can be configured through their specific [test suites](/docs/apis/webhooks/test-engine#add-a-webhook) and [registries](/docs/apis/webhooks/package-registries#add-a-webhook), respectively.
+
+Learn more about Buildkite's webhooks from the [Webhooks overview](/docs/apis/webhooks) page.

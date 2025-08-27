@@ -1,6 +1,6 @@
 # Registries API
 
-The registries API endpoint lets you [create and manage registries](/docs/package-registries/manage-registries) in your organization.
+The registries API endpoint lets you [create and manage registries](/docs/package-registries/registries/manage) in your organization.
 
 ## Create a registry
 
@@ -14,7 +14,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "description": "registry containing ruby gems",
     "team_ids": [
       "team-one-uuid", "team-two-uuid"
-    ]
+    ],
     "oidc_policy": [
       {
         "iss": "https://agent.buildkite.com",

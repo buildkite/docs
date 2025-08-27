@@ -18,6 +18,7 @@ exceptions:
   - Advanced Queue Metrics
   - Agent Stack for Kubernetes
   - API
+  - API Access Token
   - APM
   - Argo CD
   - AWS
@@ -39,6 +40,8 @@ exceptions:
   - Azure AD
   - Azure Active Directory
   - Azure Blob
+  - Backstage
+  - Backstage Software Catalog
   - Bash
   - Bazel
   - Bamboo
@@ -72,6 +75,7 @@ exceptions:
   - CloudWatch Logs
   - CocoaPods
   - completion_watcher
+  - Comliance
   - CORS
   - CSS
   - Datadog
@@ -83,6 +87,8 @@ exceptions:
   - EC2
   - Elastic
   - Elastic CI Stack
+  - Enterprise Premium Support
+  - Entity Page
   - Everyone
   - ExUnit
   - FAQs
@@ -107,7 +113,9 @@ exceptions:
   - Google Compute Engine
   - Google Kubernetes Engine
   - Google Workspace
+  - Governance
   - GraphQL
+  - GRC
   - Groovy
   - Heroku
   - Homebrew
@@ -120,6 +128,7 @@ exceptions:
   - ID
   - IdP # TODO: unabbreviate this in headings
   - IDs
+  - Infrastructure as Code
   - iOS
   - IronWorker
   - Installation
@@ -169,6 +178,7 @@ exceptions:
   - Red Hat Enterprise Linux
   - Registry Configuration
   - REST
+  - Risk
   - RSpec
   - S3
   - SAML
@@ -178,7 +188,12 @@ exceptions:
   - Slack
   - Slack Workspace
   - SLSA
+  - SonarCloud
+  - SonarQube
+  - SonarScanner
   - Sonoma
+  - SLO
+  - SLOs
   - SSH
   - SSO
   - Tekton
@@ -198,6 +213,7 @@ exceptions:
   - watchOS
   - Windows
   - Windows Subsystem for Linux 2
+  - Workload Identity Federation
   - Xcode
   - XCTest
   - XML
