@@ -85,13 +85,15 @@ Please provide the base URL for your OTLP endpoint. Do not include the `/v1/trac
 
 OpenTelemetry traces from the Buildkite notification service follow a hierarchical span structure. All spans within a build share the same trace ID, allowing you to view the complete execution flow in your observability platform.
 
-- `buildkite.build`
-  - `buildkite.build.stage`
-    - `buildkite.step`
-      - `buildkite.job`
-    - `buildkite.step.group`
-      - `buildkite.step`
-        - `buildkite.job`
+```
+─ buildkite.build
+  └─ buildkite.build.stage
+    ├─ buildkite.step
+    │  └─ buildkite.job
+    └─ buildkite.step.group
+       └─ buildkite.step
+          └─ buildkite.job
+```
 
 > 📘 Build Stages
 > Buildkite builds that have finished may be resumed at a later time, eg. by unblocking a `block` step, or manually retrying a failed job. To represent that in the OpenTelemetry format, we add an extra `buildkite.build.stage` span for each period of time that the build is in the `running`, `scheduled`, `canceling` or `failing` state. We also include a `buildkite.build.stage` span attribute to indicate how many times the build has been resumed.
