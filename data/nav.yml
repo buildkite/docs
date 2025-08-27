@@ -20,8 +20,8 @@
           pill: "new"
         - name: "Glossary"
           path: "pipelines/glossary"
-        - name: "Platform administration"
-          path: "pipelines/platform-administration"
+        - name: "Buildkite administration best practices"
+          path: "pipelines/administration-best-practices"
     # If you're adding a source control provider you probably want to update
     # /docs/pages/integrations/source_control.md.erb
     # as well
