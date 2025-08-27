@@ -60,15 +60,60 @@ Select the following [scopes](/docs/apis/managing-api-tokens#token-scopes) for y
 
 - **Write Builds** (`write_builds`)
 - **Write Pipelines** (`write_pipelines`)
-- All [read-only](#configure-required-api-access-token-scopes-all-read-only-functionality) scopes.
+- All [minimum recommended](#configure-required-api-access-token-scopes-minimum-recommended-functionality) and [read-only](#configure-required-api-access-token-scopes-all-read-only-functionality) scopes.
 
 You can also [create a new Buildkite API access token with these pre-selected scopes](https://buildkite.com/user/api-access-tokens/new?scopes%5B%5D=read_clusters&scopes%5B%5D=read_pipelines&scopes%5B%5D=read_builds&scopes%5B%5D=read_build_logs&scopes%5B%5D=read_user&scopes%5B%5D=read_organizations&scopes%5B%5D=read_artifacts&scopes%5B%5D=read_suites&scopes%5B%5D=write_builds&scopes%5B%5D=write_pipelines), to create this API access token more rapidly through the Buildkite interface.
 
 ## Install the Buildkite MCP server
 
-### Docker (recommended)
+To install and run the Buildkite MCP server locally, you can do so using [Docker](#install-the-buildkite-mcp-server-using-docker) (recommended), or natively as a [pre-built binary](#install-the-buildkite-mcp-server-using-a-pre-built-binary), or [build it from source](#install-the-buildkite-mcp-server-building-from-source).
 
-### Pre-built binary
+### Using Docker
 
-### Build from source
+To run the Buildkite MCP server locally in Docker:
+
+1. Open a terminal or command prompt, and run this command to obtain the Buildkite MCP server Docker image.
+
+    ```bash
+    docker pull buildkite/mcp-server
+    ```
+
+1. Run the following command to spin up the Buildkite MCP server image in Docker.
+
+    ```bash
+    docker run --pull=always -q -it --rm -e BUILDKITE_API_TOKEN=<api-token-value> buildkite/mcp-server stdio
+    ```
+
+    where `<api-token-value>` is the value of your Buildkite API access token, set with [your required  scopes](#configure-required-api-access-token-scopes). This token usually begins with the value `bkua_`.
+
+### Using a pre-built binary
+
+To run the Buildkite MCP server locally using a pre-built binary, follow these steps, bearing in mind that macOS users can also use the convenient [Homebrew method](#homebrew-method) as an alternative to this procedure:
+
+1. Visit the [buildkite-mcp-server Releases](https://github.com/buildkite/buildkite-mcp-server/releases) page in GitHub.
+1. Download the appropriate pre-built binary file for your particular operating system and its architecture. For macOS, choose the appropriate **Darwin** binary for your machine's architecture.
+1. Extract the binary and execute it to install the Buildkite MCP server locally to your computer.
+
+> 📘
+> The installer is fully static, and no pre-requisite libraries are required.
+
+<h4 id="homebrew-method">Homebrew method</h4>
+
+Instead of installing the relevant **Darwin** binary from the [buildkite-mcp-server Releases](https://github.com/buildkite/buildkite-mcp-server/releases) page, you can run this [Homebrew](https://brew.sh/) command to install the Buildkite MCP server locally on macOS:
+
+```bash
+brew install buildkite/buildkite/buildkite-mcp-server
+```
+
+### Building from source
+
+To build the Buildkite MCP server locally from source, run these commands:
+
+```bash
+go install github.com/buildkite/buildkite-mcp-server@latest
+# or
+goreleaser build --snapshot --clean
+# or
+make build    # uses goreleaser (snapshot)
+```
 
