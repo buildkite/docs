@@ -120,7 +120,9 @@ You can use these two environment variables to divide your application's tests b
 
 ## Libraries
 
-The following libraries have built-in support the `BUILDKITE_PARALLEL_JOB` and `BUILDKITE_PARALLEL_JOB_COUNT` environment variables:
+For best results, we recommend using the Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) which is developed and maintained by Buildkite. This client uses your Buildkite test suite data to provide intelligent test splitting and automatic management of flaky tests. For more information see the [guide](/docs/test-engine/power-up-your-builds-with-bktec) and the [configuration options](/docs/test-engine/bktec/configuring).
+
+Other libraries that have built-in support for the `BUILDKITE_PARALLEL_JOB` and `BUILDKITE_PARALLEL_JOB_COUNT` environment variables are:
 
 * [Knapsack](https://github.com/ArturT/knapsack)
 <br>Knapsack is a ruby gem for automatically dividing your tests between parallel jobs, as well as making sure each job runs in comparable time. It supports RSpec, Cucumber, and minitest.
