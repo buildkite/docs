@@ -1,14 +1,14 @@
 # Buildkite migration tool overview
 
-The Buildkite migration tool is a tool to help you start the transition of pipelines from other CI providers to Buildkite Pipelines. It serves as a compatibility layer, enabling the conversion of existing CI configurations into a format compatible with Buildkite's pipeline definition.
+The Buildkite migration tool helps you start the transition of pipelines from other CI providers to Buildkite Pipelines by demonstrating how workflows from other CI/CD platforms map to Buildkite Pipelines concepts and architecture. It serves as a compatibility layer, enabling the conversion of some of your existing CI configurations into a format compatible with Buildkite's pipeline definition.
 
-The primary purpose of the Buildkite migration tool is to reduce the effort and complexity involved in switching CI/CD platforms by automating the translation of pipeline structures and steps that have close matching equivalents in Buildkite Pipelines.
+Rather than serving as a complete automated migration solution, the Buildkite migration tool helps you visualize how configurations from from [GitHub Actions](/docs/pipelines/migration/tool/github-actions), [CircleCI](/docs/pipelines/migration/tool/circleci), [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines), and Jenkins (currently in beta) could be structured in Buildkite pipeline configuration format.
 
-The Buildkite migration tool can be used as a standalone tool or potentially integrated into your [Buildkite Migration Services](https://buildkite.com/resources/migrations/) workflow, offering a way to leverage existing CI configurations within the Buildkite ecosystem.
+The Buildkite migration tool can be used as a standalone tool or potentially integrated into your [Buildkite Migration Services](https://buildkite.com/resources/migrations/) process, offering a way to leverage existing CI configurations within the Buildkite ecosystem.
 
 ## Interactive web-based version
 
-The fastest way to start using the Buildkite migration tool for transforming your pipeline definitions is to use it as an [interactive web tool](https://buildkite.com/resources/migrate/).
+The fastest way of getting started with the Buildkite migration tool is to use it as an [interactive web tool](https://buildkite.com/resources/migrate/).
 
 <%= image "migration-tool-web.png", alt: "Buildkite migration tool's web UI" %>
 
@@ -26,6 +26,163 @@ To start translating your existing pipeline configuration into a Buildkite pipel
 1. Click the **Convert** button.
 1. You'll see the translated pipeline definition on the right side of the tool.
 1. You can copy the resulting yaml pipeline definition and [create](/docs/pipelines/configure) a [new Buildkite pipeline](https://www.buildkite.com/new) with it.
+
+In the following chapters, you will find example pipeline snippets from GitHub Actions, CircleCI, and Bitbucket pipeline definitions and the results you are expected to get after convecrting them to Buildkite pipeline configurations by running the Buildkite migration tool. In each example, two steps are decidedly easily translatable to Buildkite pipeline configuration and one is not. This approach should give you an idea of what you'll see when translating a real-world pipeline configuration where some parts map well to Buildkite while oher parts do not have an exact equivalent in Buildkite.
+
+### GitHub Actions conversion example
+
+Here is a short example of a GitHub Actions pipeline configuration that demonstrates both convertible and non-convertible features:
+
+```yaml
+name: CI Pipeline
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+env:
+  NODE_VERSION: "18"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://example.com
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build application
+        run: |
+          echo "Building application..."
+          npm run build
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-files
+          path: dist/
+```
+
+If you paste the following GitHub Actions example into the Buildkite migration tool, this is the output you will get:
+
+```yaml
+env:
+  NODE_VERSION: '18'
+steps:
+  - commands:
+      - "# action actions/checkout@v4 is not necessary in Buildkite"
+      - echo '~~~ Install dependencies'
+      - npm ci
+      - echo '~~~ Run tests'
+      - npm test
+    plugins:
+      - docker#v5.10.0:
+          image: node:${{ env.NODE_VERSION }}
+    agents:
+      runs-on: ubuntu-latest
+    label: ":github: test"
+    key: test
+    branches: main develop
+  - artifact_paths:
+      - dist/**/*
+    commands:
+      - "# action actions/checkout@v4 is not necessary in Buildkite"
+      - echo '~~~ Build application'
+      - echo "Building application..."
+      - npm run build
+    depends_on:
+      - test
+    agents:
+      runs-on: ubuntu-latest
+    label: ":github: build"
+    key: build
+    branches: main develop
+```
+
+What the Buildkite migration tool _can_ convert:
+
+- `env` variables - the `NODE_VERSION: "18"` will be converted to build-level environment variables in Buildkite.
+- `runs-on: ubuntu-latest` - this will be mapped to agent targeting tags like `runs-on: ubuntu-latest` in the generated Buildkite pipeline.
+
+What the Buildkite migration tool _cannot_ convert:
+
+- `uses: actions/setup-node@v4` - the migration tool doesn't support GitHub Actions' `uses` directive for calling external actions. This would need to be manually converted to appropriate commands or Buildkite plugins.
+
+The resulting Buildkite pipeline would have the environment variables and agent targeting, but you'd need to replace the `uses` steps with equivalent commands or plugins manually.
+
+### CircleCI conversion example
+
+Here is a short example of a CircleCI pipeline configuration that demonstrates both convertible and non-convertible features:
+
+```yml
+version: 2.1
+
+# Supported: Commands are fully supported
+commands:
+  run_tests:
+    description: "Run the test suite"
+    steps:
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Run tests
+          command: npm test
+
+# Supported: Jobs with Docker executor
+jobs:
+  test:
+    docker:
+      - image: node:16
+    environment:
+      NODE_ENV: test
+    steps:
+      - checkout
+      - run_tests
+
+  build:
+    docker:
+      - image: node:16
+    steps:
+      - checkout
+      - run:
+          name: Build application
+          command: npm run build
+
+# Unsupported: Pipeline-level parameters
+parameters:
+  deploy_environment:
+    type: string
+    default: "staging"
+
+# Supported: Workflows with dependencies
+workflows:
+  version: 2
+  test_and_build:
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
+```
+
+### Bitbucket Pipelines conversion example
+
+Here is a short example of a Bitbucket pipeline configuration that demonstrates both convertible and non-convertible features.
 
 ## Local API-based version
 
