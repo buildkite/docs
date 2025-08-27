@@ -27,7 +27,7 @@ If you're familiar with the basics, explore how to use registries for each of Bu
 
 <div class="ButtonGroup">
   <%= button ":alpine: Alpine (apk)", "/docs/package-registries/ecosystems/alpine" %>
-  <%= button ":docker: Container (Docker)", "/docs/package-registries/ecosystems/container" %>
+  <%= button ":docker: OCI (Docker)", "/docs/package-registries/ecosystems/oci" %>
   <%= button ":debian: Debian/Ubuntu (deb)", "/docs/package-registries/ecosystems/debian" %>
   <%= button ":package: Files (generic)", "/docs/package-registries/ecosystems/files" %>
   <%= button ":helm: Helm (OCI)", "/docs/package-registries/ecosystems/helm-oci" %>

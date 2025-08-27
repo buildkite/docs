@@ -1,5 +1,5 @@
 - [Alpine (apk)](/docs/package-registries/ecosystems/alpine)
-- [Container (Docker)](/docs/package-registries/ecosystems/container) images
+- [OCI (Docker)](/docs/package-registries/ecosystems/oci) images
 - [Debian/Ubuntu (deb)](/docs/package-registries/ecosystems/debian)
 - [Files (generic)](/docs/package-registries/ecosystems/files)
 - Helm ([OCI](/docs/package-registries/ecosystems/helm-oci) or [Standard](/docs/package-registries/ecosystems/helm)) charts
