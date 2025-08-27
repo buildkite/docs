@@ -33,7 +33,7 @@ mandatory:
       - The Test Engine Client will not delete the file after running the test, however it will be deleted by Buildkite Agent as part of the build lifecycle.
   - name: BUILDKITE_TEST_ENGINE_TEST_RUNNER
     desc:
-      - The test runner to use for running tests. Currently `rspec` and `jest` are supported.
+      - The test runner to use for running tests. Currently `rspec`, `jest`, `cypress`, `playwright`, `pytest`, `pytest-pants`, `gotest`, and `cucumber` are supported.
   - name: BUILDKITE_TEST_ENGINE_SUITE_SLUG 
     desc:
       - The slug of your Test Engine test suite. You can find the suite slug in the url for your test suite. 
