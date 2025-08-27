@@ -86,6 +86,19 @@ To run the Buildkite MCP server locally in Docker:
 
     where `<api-token-value>` is the value of your Buildkite API access token, set with [your required  scopes](#configure-required-api-access-token-scopes). This token usually begins with the value `bkua_`.
 
+<h4 id="using-docker-desktop">Using Docker Desktop</h4>
+
+If you use [Docker Desktop](https://www.docker.com/products/docker-desktop/), you can add the Buildkite MCP server to the **MCP Toolkit** area of Docker Desktop by either:
+
+- Selecting **Add to Docker Desktop**:<p></p>
+    <a class="inline-block" href="https://hub.docker.com/open-desktop?url=https://open.docker.com/dashboard/mcp/servers/id/buildkite/config?enable=true" target="_blank" rel="nofollow"><img src="https://img.shields.io/badge/Add%20to%20Docker%20Desktop-17191e?style=flat&logo=docker" class="no-decoration" width="175" height="25"></a>
+
+- Running this command:
+
+    ```bash
+    docker mcp server enable buildkite
+    ```
+
 ### Using a pre-built binary
 
 To run the Buildkite MCP server locally using a pre-built binary, follow these steps, bearing in mind that macOS users can also use the convenient [Homebrew method](#homebrew-method) as an alternative to this procedure:
