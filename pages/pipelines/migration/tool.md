@@ -27,7 +27,7 @@ To start translating your existing pipeline configuration into a Buildkite pipel
 1. You'll see the translated pipeline definition on the right side of the tool.
 1. You can copy the resulting yaml pipeline definition and [create](/docs/pipelines/configure) a [new Buildkite pipeline](https://www.buildkite.com/new) with it.
 
-In the following chapters, you will find example pipeline snippets from GitHub Actions, CircleCI, and Bitbucket pipeline definitions and the results you are expected to get after convecrting them to Buildkite pipeline configurations by running the Buildkite migration tool. In each example, two steps are decidedly easily translatable to Buildkite pipeline configuration and one is not. This approach should give you an idea of what you'll see when translating a real-world pipeline configuration where some parts map well to Buildkite while oher parts do not have an exact equivalent in Buildkite.
+In the following chapters, you will find example pipeline snippets from GitHub Actions, CircleCI, and Bitbucket pipeline definitions and the results you are expected to get after converting them to Buildkite pipeline configurations by running the Buildkite migration tool. In each example, two steps are decidedly easily translatable to Buildkite pipeline configuration and one is not. This approach should give you an idea of what you'll see when translating a real-world pipeline configuration where some parts map well to Buildkite while other parts do not have an exact equivalent in Buildkite.
 
 ### GitHub Actions conversion example
 
@@ -35,43 +35,43 @@ Here is a short example of a GitHub Actions pipeline configuration that demonstr
 
 ```yaml
 name: CI Pipeline
-on:
+on: #  ❌ Not supported - Buildkite uses trigger steps instead
   push:
     branches: [main, develop]
   pull_request:
     branches: [main]
 
-env:
+env: # ✅ Supported - Converted to build-level environment variables
   NODE_VERSION: "18"
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-    environment:
+    runs-on: ubuntu-latest # ✅ Supported - Mapped to agent targeting tags
+    environment: # ❌ Not supported - No direct equivalent in Buildkite
       name: production
       url: https://example.com
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4 # ❌ Not supported - Uses directive not supported
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4 # ❌ Not supported - Uses directive not supported
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Install dependencies
-        run: npm ci
+        run: npm ci # ✅ Supported - Converted to command step commands
       - name: Run tests
-        run: npm test
+        run: npm test # ✅ Supported - Converted to command step commands
 
   build:
-    runs-on: ubuntu-latest
-    needs: test
+    runs-on: ubuntu-latest # ✅ Supported - Mapped to agent targeting tags
+    needs: test # ✅ Supported - Converted to depends_on in Buildkite
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4 # ❌ Not supported - Uses directive not supported
       - name: Build application
-        run: |
+        run: | # ✅ Supported - Converted to command step commands
           echo "Building application..."
           npm run build
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4 # ❌ Not supported - Uses directive not supported
         with:
           name: build-files
           path: dist/
@@ -131,7 +131,7 @@ Here is a short example of a CircleCI pipeline configuration that demonstrates b
 ```yml
 version: 2.1
 
-# Supported: Commands are fully supported
+# ✅ Supported: Commands are fully supported
 commands:
   run_tests:
     description: "Run the test suite"
@@ -143,7 +143,7 @@ commands:
           name: Run tests
           command: npm test
 
-# Supported: Jobs with Docker executor
+# ✅ Supported: Jobs with Docker executor
 jobs:
   test:
     docker:
@@ -163,13 +163,13 @@ jobs:
           name: Build application
           command: npm run build
 
-# Unsupported: Pipeline-level parameters
+# ❌ Unsupported: Pipeline-level parameters
 parameters:
   deploy_environment:
     type: string
     default: "staging"
 
-# Supported: Workflows with dependencies
+# ✅ Supported: Workflows with dependencies
 workflows:
   version: 2
   test_and_build:
@@ -180,9 +180,94 @@ workflows:
             - test
 ```
 
+If you paste the following GitHub Actions example into the Buildkite migration tool, this is the output you will get:
+
+```yml
+steps:
+  - commands:
+      - "# No need for checkout, the agent takes care of that"
+      - echo '~~~ Install dependencies'
+      - npm install
+      - echo '~~~ Run tests'
+      - npm test
+    plugins:
+      - docker#v5.10.0:
+          image: node:16
+    agents:
+      executor_type: docker
+    env:
+      NODE_ENV: test
+    key: test
+  - commands:
+      - "# No need for checkout, the agent takes care of that"
+      - echo '~~~ Build application'
+      - npm run build
+    depends_on:
+      - test
+    plugins:
+      - docker#v5.10.0:
+          image: node:16
+    agents:
+      executor_type: docker
+    key: build
+```
+
+What the Buildkite migration tool _can_ convert:
+- `commands` - the `run_tests` command with parameters and steps will be fully supported and translated to Buildkite command steps
+- `workflows` with `requires` - the workflow dependency where `build` requires `test` to complete will be translated to explicit step dependencies using Buildkite's `depends_on` key
+
+What the Buildkite migration tool _cannot_ convert:
+- `parameters` - the pipeline-level `deploy_environment` parameter is explicitly listed as "No" support in the documentation and will need manual translation.
+
 ### Bitbucket Pipelines conversion example
 
-Here is a short example of a Bitbucket pipeline configuration that demonstrates both convertible and non-convertible features.
+Here is a short example of a Bitbucket pipeline configuration that demonstrates both convertible and non-convertible features:
+
+```yml
+pipelines:
+  default:
+    - step:
+        name: "Build and Test"
+        # ✅ Supported: Will be converted to Buildkite command step label
+        script:
+          - npm install
+          - npm test
+        # ✅ Supported: Will be converted to timeout_in_minutes in Buildkite
+        max-time: 10
+        # ❌ Not supported: Will NOT be converted - no equivalent in Buildkite
+        after-script:
+          - echo "Cleanup after step completion"
+        # ✅ Supported: Will be converted to artifact_paths in Buildkite
+        artifacts:
+          - test-results/**
+          - coverage/**
+```
+
+If you paste the following Bitbucket Pipelines example into the Buildkite migration tool, this is the output you will get:
+
+```yml
+steps:
+  - artifact_paths:
+      - test-results/**
+      - coverage/**
+    commands:
+      - npm install
+      - npm test
+      - "# The after-script property should be configured as a pre-exit repository hook"
+      - "# IMPORTANT: artifacts are not automatically downloaded in future steps"
+    label: Build and Test
+    timeout_in_minutes: 10
+```
+
+What the Buildkite migration tool _can_ convert:
+- `name` - Converts to Buildkite command step `label`
+- `max-time` - Converts to `timeout_in_minutes` in Buildkite
+- `artifacts` - Converts to `artifact_paths` in Buildkite command step
+
+What the Buildkite migration tool _cannot_ convert:
+- `after-script` - According to the docs, this has no direct equivalent in Buildkite and won't be converted (the docs suggest using a repository-level `pre-exit` hook instead)
+
+Here the `script` section will also convert (each command becomes an entry in the Buildkite `commands` array), and the top-level `image` will convert using the docker-buildkite-plugin.
 
 ## Local API-based version
 
