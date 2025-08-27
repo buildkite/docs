@@ -14,9 +14,9 @@ The fastest way to start using the Buildkite migration tool for transforming you
 
 The Buildkite migration tool currently supports the following CI providers:
 
-- [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines)
-- [CircleCI](/docs/pipelines/migration/tool/circleci)
 - [GitHub Actions](/docs/pipelines/migration/tool/github-actions)
+- [CircleCI](/docs/pipelines/migration/tool/circleci)
+- [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines)
 - Jenkins (currently in Beta)
 
 To start translating your existing pipeline configuration into a Buildkite pipeline:
