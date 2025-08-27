@@ -49,12 +49,12 @@
           children:
             - name: "Overview"
               path: "pipelines/migration/tool"
-            - name: "Bitbucket Pipelines"
-              path: "pipelines/migration/tool/bitbucket-pipelines"
-            - name: "CircleCI"
-              path: "pipelines/migration/tool/circleci"
             - name: "GitHub Actions"
               path: "pipelines/migration/tool/github-actions"
+            - name: "CircleCI"
+              path: "pipelines/migration/tool/circleci"
+            - name: "Bitbucket Pipelines"
+              path: "pipelines/migration/tool/bitbucket-pipelines"
         - name: From Jenkins
           path: pipelines/migration/from-jenkins
         - name: From Bamboo
