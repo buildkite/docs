@@ -34,10 +34,9 @@ To get started, choose the guide that corresponds to the CI/CD tool you are migr
 
 ## Plan your migration
 
-Take a look at the following information resources to understand how customers usually migrate to Buildkite. These resources cover the different strategies of migrating to Buildkite, the pitfalls and benefits of different approaches, and will help you plan your own migration to Buildkite.
+Take a look at the following information resource to understand how customers usually migrate to Buildkite. This resources section will keep expanding to cover the different strategies of migrating to Buildkite, the pitfalls and benefits of different approaches, and will help you plan your own migration to Buildkite.
 
 - [Webinar: Strategies for migrating your CI/CD pipelines to Buildkite](https://www.youtube.com/watch?v=nV8u3dnEHZ0).
-- Coming soon: "The CI/CD Migration Playbook" guide.
 
 ## Migration services
 
