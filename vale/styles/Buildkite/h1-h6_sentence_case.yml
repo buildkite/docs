@@ -83,6 +83,7 @@ exceptions:
   - deduper
   - Docker
   - Docker Compose
+  - Docker Desktop
   - Docker Hub
   - EC2
   - Elastic
