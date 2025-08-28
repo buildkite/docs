@@ -709,6 +709,8 @@
               path: "package-registries/ecosystems/gradle-groovy"
         - name: "JavaScript"
           path: "package-registries/ecosystems/javascript"
+        - name: "NuGet"
+          path: "package-registries/ecosystems/nuget"
         - name: "OCI"
           path: "package-registries/ecosystems/oci"
         - name: "Python"
