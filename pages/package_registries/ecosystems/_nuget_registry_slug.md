@@ -1,0 +1,1 @@
+- `{registry.slug}` is the slug of your NuGet source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of your NuGet registry name, and can be obtained after accessing **Package Registries** in the global navigation > your NuGet source registry from the **Registries** page.

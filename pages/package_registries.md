@@ -36,6 +36,7 @@ If you're familiar with the basics, explore how to use registries for each of Bu
   <%= button ":maven: Java (Maven)", "/docs/package-registries/ecosystems/maven" %>
   <%= button ":gradle: Java (Gradle)", "/docs/package-registries/ecosystems/gradle-kotlin" %>
   <%= button ":node: JavaScript (npm)", "/docs/package-registries/ecosystems/javascript" %>
+  <%= button ":nuget: NuGet", "/docs/package-registries/ecosystems/nuget" %>
   <%= button ":python: Python (PyPI)", "/docs/package-registries/ecosystems/python" %>
   <%= button ":redhat: Red Hat (RPM)", "/docs/package-registries/ecosystems/red-hat" %>
   <%= button ":ruby: Ruby (RubyGems)", "/docs/package-registries/ecosystems/ruby" %>
