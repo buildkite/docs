@@ -170,7 +170,10 @@ Add the following JSON configuration to your [Amp `settings.json` file](https://
     "buildkite": {
       "command": "buildkite-mcp-server",
       "args": ["stdio"],
-      "env": { "BUILDKITE_API_TOKEN": "bkua_xxxxx", "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threashold-value" }
+      "env": { 
+        "BUILDKITE_API_TOKEN": "bkua_xxxxx", 
+        "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threashold-value" 
+      }
     }
   }
 }
