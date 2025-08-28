@@ -242,7 +242,7 @@ Add the following configuration to your [Claude Desktop's `claude_desktop_config
     "buildkite": {
       "command": "buildkite-mcp-server",
       "args": ["stdio"],
-      "env": { "BUILDKITE_API_TOKEN": "bkua_xxxxx", "JOB_LOG_TOKEN_THRESHOLD": "2000" }
+      "env": { "BUILDKITE_API_TOKEN": "bkua_xxxxx", "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threashold-value" }
     }
   }
 }
@@ -253,3 +253,50 @@ where:
 - `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](#configure-required-api-access-token-scopes).
 
 - `job-log-token-threashold-value` is ?
+
+### Cursor
+
+You can configure [Cursor](https://cursor.com/) with the Buildkite MCP server, which runs either [using Docker](#cursor-mcp-server-using-docker) or [as a local binary](#cursor-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
+
+<h4 id="cursor-mcp-server-using-docker">MCP server using Docker</h4>
+
+Add the following JSON configuration to your [Cursor `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
+
+```json
+{
+  "buildkite": {
+    "command": "docker",
+    "args": [
+      "run", "--pull=always", "-q",
+      "-i", "--rm",
+      "-e", "BUILDKITE_API_TOKEN",
+      "buildkite/mcp-server",
+      "stdio"
+    ]
+  }
+}
+```
+
+<h4 id="cursor-mcp-server-as-a-local-binary">MCP server as a local binary</h4>
+
+Add the following JSON configuration to your [Cursor `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
+
+```json
+{
+  "buildkite": {
+    "command": "buildkite-mcp-server",
+    "args": ["stdio"],
+    "env": {
+      "BUILDKITE_API_TOKEN": "bkua_xxxxxxxx",
+      "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threashold-value"
+    }
+  }
+}
+```
+
+where:
+
+- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](#configure-required-api-access-token-scopes).
+
+- `job-log-token-threashold-value` (_optional_) is ?
+
