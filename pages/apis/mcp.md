@@ -64,9 +64,9 @@ Select the following [scopes](/docs/apis/managing-api-tokens#token-scopes) for y
 
 You can also [create a new Buildkite API access token with these pre-selected scopes](https://buildkite.com/user/api-access-tokens/new?scopes%5B%5D=read_clusters&scopes%5B%5D=read_pipelines&scopes%5B%5D=read_builds&scopes%5B%5D=read_build_logs&scopes%5B%5D=read_user&scopes%5B%5D=read_organizations&scopes%5B%5D=read_artifacts&scopes%5B%5D=read_suites&scopes%5B%5D=write_builds&scopes%5B%5D=write_pipelines), to create this API access token more rapidly through the Buildkite interface.
 
-## Install the Buildkite MCP server
+## Install the Buildkite MCP server locally
 
-To install and run the Buildkite MCP server locally, you can do so using [Docker](#install-the-buildkite-mcp-server-using-docker) (recommended), or natively as a [pre-built binary](#install-the-buildkite-mcp-server-using-a-pre-built-binary), or [build it from source](#install-the-buildkite-mcp-server-building-from-source).
+To install and run the Buildkite MCP server locally, you can do so using [Docker](#install-the-buildkite-mcp-server-locally-using-docker) (recommended), or natively as a [pre-built binary](#install-the-buildkite-mcp-server-locally-using-a-pre-built-binary), or [build it from source](#install-the-buildkite-mcp-server-locally-building-from-source).
 
 ### Using Docker
 
@@ -84,7 +84,7 @@ To run the Buildkite MCP server locally in Docker:
     docker run --pull=always -q -it --rm -e BUILDKITE_API_TOKEN=<api-token-value> buildkite/mcp-server stdio
     ```
 
-    where `<api-token-value>` is the value of your Buildkite API access token, set with [your required  scopes](#configure-required-api-access-token-scopes). This token usually begins with the value `bkua_`.
+    where `<api-token-value>` is the value of your Buildkite API access token, set with [your required scopes](#configure-required-api-access-token-scopes). This token usually begins with the value `bkua_`.
 
 <h4 id="using-docker-desktop">Using Docker Desktop</h4>
 
@@ -130,3 +130,126 @@ goreleaser build --snapshot --clean
 make build    # uses goreleaser (snapshot)
 ```
 
+## Configure the Buildkite MCP server for your AI tool
+
+This section contains code snippets, which you can copy and modify, and then use to configure your AI tools to work with the Buildkite MCP server.
+
+### Amp
+
+You can configure [Amp](https://ampcode.com/) with the Buildkite MCP server, which runs either [using Docker](#amp-mcp-server-using-docker) or [as a local binary](#amp-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
+
+<h4 id="amp-mcp-server-using-docker">MCP server using Docker</h4>
+
+Add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
+
+```json
+{
+  "amp.mcpServers": {
+    "buildkite": {
+      "command": "docker",
+      "args": [
+        "run", "--pull=always", "-q",
+        "-i", "--rm", "-e", "BUILDKITE_API_TOKEN",
+        "buildkite/mcp-server", "stdio"
+      ],
+      "env": { "BUILDKITE_API_TOKEN": "bkua_xxxxx" }
+    }
+  }
+}
+```
+
+where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](#configure-required-api-access-token-scopes).
+
+<h4 id="amp-mcp-server-as-a-local-binary">MCP server as a local binary</h4>
+
+Add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
+
+```json
+{
+  "amp.mcpServers": {
+    "buildkite": {
+      "command": "buildkite-mcp-server",
+      "args": ["stdio"],
+      "env": { "BUILDKITE_API_TOKEN": "bkua_xxxxx", "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threashold-value" }
+    }
+  }
+}
+```
+
+where:
+
+- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](#configure-required-api-access-token-scopes).
+
+- `job-log-token-threashold-value` is ?
+
+### Claude Code
+
+You can configure [Claude Code](https://www.anthropic.com/claude-code) (as a command line tool) with the Buildkite MCP server, which runs either [using Docker](#claude-code-mcp-server-using-docker) or [as a local binary](#claude-code-mcp-server-as-a-local-binary). To do this, run the relevant Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
+
+<h4 id="claude-code-mcp-server-using-docker">MCP server using Docker</h4>
+
+Run the following Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
+
+```bash
+claude mcp add buildkite -- docker run --pull=always -q --rm -i -e BUILDKITE_API_TOKEN=bkua_xxxxx buildkite/mcp-server stdio
+```
+
+where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](#configure-required-api-access-token-scopes).
+
+<h4 id="claude-code-mcp-server-as-a-local-binary">MCP server as a local binary</h4>
+
+Run the following Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
+
+```bash
+claude mcp add buildkite --env BUILDKITE_API_TOKEN=bkua_xxxxx -- buildkite-mcp-server stdio
+```
+
+where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](#configure-required-api-access-token-scopes).
+
+### Claude Desktop
+
+You can configure [Claude Desktop](https://claude.ai/download) with the Buildkite MCP server, which runs either [using Docker](#claude-dekstop-mcp-server-using-docker) or [as a local binary](#claude-dekstop-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop).
+
+<h4 id="claude-dekstop-mcp-server-using-docker">MCP server using Docker</h4>
+
+Add the following configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop), which you can access from Claude Desktop's **Settings** > **Developer** > **Edit Config** button on the **Local MCP servers** page.
+
+```json
+{
+  "mcpServers": {
+    "buildkite": {
+      "command": "docker",
+      "args": [
+        "run", "--pull=always", "-q",
+        "-i", "--rm", "-e", "BUILDKITE_API_TOKEN",
+        "buildkite/mcp-server", "stdio"
+      ],
+      "env": { "BUILDKITE_API_TOKEN": "bkua_xxxxx" }
+    }
+  }
+}
+```
+
+where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](#configure-required-api-access-token-scopes).
+
+<h4 id="claude-dekstop-mcp-server-as-a-local-binary">MCP server as a local binary</h4>
+
+Add the following configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop), which you can access from Claude Desktop's **Settings** > **Developer** > **Edit Config** button on the **Local MCP servers** page.
+
+```json
+{
+  "mcpServers": {
+    "buildkite": {
+      "command": "buildkite-mcp-server",
+      "args": ["stdio"],
+      "env": { "BUILDKITE_API_TOKEN": "bkua_xxxxx", "JOB_LOG_TOKEN_THRESHOLD": "2000" }
+    }
+  }
+}
+```
+
+where:
+
+- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](#configure-required-api-access-token-scopes).
+
+- `job-log-token-threashold-value` is ?
