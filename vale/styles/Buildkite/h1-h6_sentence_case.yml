@@ -67,6 +67,8 @@ exceptions:
   - CentOS
   - CI
   - CircleCI
+  - Claude Code
+  - Claude Desktop
   - CLI
   - CloudFormation
   - Cloudsmith
@@ -150,6 +152,7 @@ exceptions:
   - Mac
   - macOS
   - Markdown
+  - MCP
   - minitest
   - Mobile Delivery Cloud
   - Model Context Protocol
