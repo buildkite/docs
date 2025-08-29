@@ -7,7 +7,7 @@ While there are no installation requirements for the remote MCP server, this pag
 Once you have installed your local Buildkite MCP server using the relevant instructions on this page, you can proceed to [configure your AI tools](/docs/apis/mcp-server/configuring-ai-tools) to work with this MCP server.
 
 > 📘
-> If you are connecting to Buildkite's remote MCP server, proceed directly to [configure your AI tools](/docs/apis/mcp-server/configuring-ai-tools) to work with this server.
+> If you are connecting to Buildkite's _remote_ MCP server, proceed directly to [configure your AI tools](/docs/apis/mcp-server/configuring-ai-tools) to work with this server.
 
 ## Before you start
 

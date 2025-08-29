@@ -1,8 +1,9 @@
 # Configuring the Buildkite MCP server for AI tools
 
-Once you have chosen which Buildkite MCP server (remote or local) to use, you can then use the instructions on this page to configure your AI tool to work with this MCP server.
+Once you have established which Buildkite MCP server to use ([remote or local](/docs/apis/mcp-server#types-of-mcp-servers)), you can then use the instructions on this page to configure your AI tool to work with this MCP server.
 
-For instructions on how to set up and install a _local_ Buildkite MCP server, see [Installing the Buildkite MCP server locally](/docs/apis/mcp-server/installing-locally).
+> 📘
+> If you are using a _local_ MCP server, ensure you have followed the required instructions on [Installing the Buildkite MCP server locally](/docs/apis/mcp-server/installing-locally) first, before proceeding with the instructions on this page.
 
 ## Amp
 
