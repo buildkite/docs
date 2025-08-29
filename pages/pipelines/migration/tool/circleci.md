@@ -28,6 +28,11 @@ jobs:
       - run:
           name: Install dependencies
           command: npm install
+
+workflows:
+  build-workflow:
+    jobs:
+      - build
 ```
 
 This is the output that the Buildkite migration tool is going to provide:
@@ -35,8 +40,19 @@ This is the output that the Buildkite migration tool is going to provide:
 ```yml
 ---
 steps:
-# Example pending, service is temporarily OOOrder
+- commands:
+  - "# No need for checkout, the agent takes care of that"
+  - echo '~~~ Install dependencies'
+  - npm install
+  plugins:
+  - docker#v5.10.0:
+      image: cimg/node:18.20
+  agents:
+    executor_type: docker
+  key: build
 ```
+
+<%= image "migration-tool-circleci.png", alt: "Converting a CircleCI pipeline in Buildkite migration tool's web UI" %>
 
 > 📘
 > Remember that not all the features of CircleCI can be fully converted to the Buildkite Pipelines format. See the following chapters to learn more about the compatibility, workarounds, and limitation of converting CircleCI pipelines to Buildkite Pipelines.
