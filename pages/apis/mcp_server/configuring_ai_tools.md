@@ -248,7 +248,7 @@ where:
 
 ## Visual Studio Code
 
-You can configure [Visual Studio Code](https://code.visualstudio.com/) with the Buildkite MCP server, either [remotely](#vs-code-remote-mcp-server) or running locally [using Docker](#vs-code-mcp-server-using-docker) or [as a local binary](#vs-code-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server).
+You can configure [Visual Studio Code](https://code.visualstudio.com/) with the Buildkite MCP server, either [remotely](#visual-studio-code-remote-mcp-server) or running locally [using Docker](#visual-studio-code-mcp-server-using-docker) or [as a local binary](#visual-studio-code-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server).
 
 ### Remote MCP server
 
