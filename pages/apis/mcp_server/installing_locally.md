@@ -86,27 +86,27 @@ Select the following additional [scopes](/docs/apis/managing-api-tokens#token-sc
       {
         "scope": "Read Clusters",
         "scope_internal": "read_clusters",
-        "access_permissions": "Access cluster & queue information"
+        "access_permissions": "List and retrieve details of clusters and their queues."
       },
       {
         "scope": "Read Artifacts",
         "scope_internal": "read_artifacts",
-        "access_permissions": "Build artifacts & metadata"
+        "access_permissions": "Retrieve build artifacts and their metadata."
       },
       {
         "scope": "Read Build Logs",
         "scope_internal": "read_build_logs",
-        "access_permissions": "Job log output"
+        "access_permissions": "Retrieve the log output of builds and their jobs."
       },
       {
         "scope": "Read Organizations",
         "scope_internal": "read_organizations",
-        "access_permissions": "Organization details"
+        "access_permissions": "List and retrieve details of the Buildkite organization."
       },
       {
         "scope": "Read Suites",
         "scope_internal": "read_suites",
-        "access_permissions": "Buildkite Test Engine data"
+        "access_permissions": "List and retrieve details of Test Engine test suites—including runs, tests, executions, etc."
       }
     ].select { |field| field[:scope] }.each do |field| %>
       <tr>
@@ -133,9 +133,9 @@ Select the following [scopes](/docs/apis/managing-api-tokens#token-scopes) for y
 <table>
   <thead>
     <tr>
-      <th style="width:25%">Scope</th>
-      <th style="width:25%"></th>
-      <th style="width:50%">Access permissions</th>
+      <th style="width:20%">Scope</th>
+      <th style="width:20%"></th>
+      <th style="width:60%">Access permissions</th>
     </tr>
   </thead>
   <tbody>
@@ -143,12 +143,12 @@ Select the following [scopes](/docs/apis/managing-api-tokens#token-scopes) for y
       {
         "scope": "Write Builds",
         "scope_internal": "write_builds",
-        "access_permissions": ""
+        "access_permissions": "Create new pipeline builds, unblock jobs, and trigger builds."
       },
       {
         "scope": "Write Pipelines",
         "scope_internal": "write_pipelines",
-        "access_permissions": ""
+        "access_permissions": "Create new pipelines, update update existing ones, and delete pipelines too."
       }
     ].select { |field| field[:scope] }.each do |field| %>
       <tr>
@@ -170,11 +170,13 @@ You can also [create a new Buildkite API access token with these pre-selected sc
 
 ## Install the Buildkite MCP server locally
 
-To install and run the Buildkite MCP server locally, you can do so using [Docker](#install-the-buildkite-mcp-server-locally-using-docker) (recommended), or natively as a [pre-built binary](#install-the-buildkite-mcp-server-locally-using-a-pre-built-binary), or [build it from source](#install-the-buildkite-mcp-server-locally-building-from-source).
+To install and run the Buildkite MCP server locally, you can do so using [Docker](#install-the-buildkite-mcp-server-locally-using-docker) (recommended) or [Docker Desktop](#using-docker-desktop), or natively as a [pre-built binary](#install-the-buildkite-mcp-server-locally-using-a-pre-built-binary), or [build it from source](#install-the-buildkite-mcp-server-locally-building-from-source).
 
 ### Using Docker
 
 To run the Buildkite MCP server locally in Docker:
+
+1. Ensure you have installed and are running [Docker](https://www.docker.com/) version 20.x or later.
 
 1. Open a terminal or command prompt, and run this command to obtain the Buildkite MCP server Docker image.
 
@@ -192,7 +194,7 @@ To run the Buildkite MCP server locally in Docker:
 
 <h4 id="using-docker-desktop">Using Docker Desktop</h4>
 
-If you use [Docker Desktop](https://www.docker.com/products/docker-desktop/), you can add the Buildkite MCP server to the **MCP Toolkit** area of Docker Desktop by either:
+If you have installed and are using [Docker Desktop](https://www.docker.com/products/docker-desktop/), you can add the Buildkite MCP server to the **MCP Toolkit** area of Docker Desktop by either:
 
 - Selecting **Add to Docker Desktop**:<p></p>
     <a class="inline-block" href="https://hub.docker.com/open-desktop?url=https://open.docker.com/dashboard/mcp/servers/id/buildkite/config?enable=true" target="_blank" rel="nofollow"><img src="https://img.shields.io/badge/Add%20to%20Docker%20Desktop-17191e?style=flat&logo=docker" class="no-decoration" width="175" height="25"></a>
@@ -226,10 +228,14 @@ brew install buildkite/buildkite/buildkite-mcp-server
 
 To build the Buildkite MCP server locally from source, run these commands:
 
-```bash
-go install github.com/buildkite/buildkite-mcp-server@latest
-# or
-goreleaser build --snapshot --clean
-# or
-make build    # uses goreleaser (snapshot)
-```
+1. Ensure you have installed [Go](https://www.docker.com/) version 1.24 or later.
+
+1. Run the following commands to build the MCP server locally from source.
+
+    ```bash
+    go install github.com/buildkite/buildkite-mcp-server@latest
+    # or
+    goreleaser build --snapshot --clean
+    # or
+    make build    # uses goreleaser (snapshot)
+    ```
