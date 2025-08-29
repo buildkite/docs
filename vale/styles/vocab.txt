@@ -347,6 +347,7 @@ walkthrough
 webhook's
 webtask
 wget
+Windsurf's
 worktree
 workspace's
 xcbeautify

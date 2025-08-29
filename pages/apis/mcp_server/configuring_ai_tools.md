@@ -45,7 +45,7 @@ Add the following JSON configuration to your [Amp `settings.json` file](https://
       "args": ["stdio"],
       "env": { 
         "BUILDKITE_API_TOKEN": "bkua_xxxxx", 
-        "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threashold-value" 
+        "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threshold-value" 
       }
     }
   }
@@ -56,7 +56,7 @@ where:
 
 - `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
 
-- `job-log-token-threashold-value` is ?
+- `job-log-token-threshold-value` is ?
 
 ## Claude Code
 
@@ -126,7 +126,7 @@ Add the following configuration to your [Claude Desktop's `claude_desktop_config
       "args": ["stdio"],
       "env": {
         "BUILDKITE_API_TOKEN": "bkua_xxxxx",
-        "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threashold-value"
+        "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threshold-value"
       }
     }
   }
@@ -137,7 +137,7 @@ where:
 
 - `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
 
-- `job-log-token-threashold-value` is ?
+- `job-log-token-threshold-value` is ?
 
 ## Cursor
 
@@ -158,11 +158,14 @@ Add the following JSON configuration to your [Cursor `mcp.json` file](https://do
         "run", "--pull=always", "-q", "-i", "--rm", "-e", "BUILDKITE_API_TOKEN",
         "buildkite/mcp-server",
         "stdio"
-      ]
+      ],
+      "env": { "BUILDKITE_API_TOKEN": "bkua_xxxxx" }
     }
   }
 }
 ```
+
+where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
 
 ### MCP server as a local binary
 
@@ -176,7 +179,7 @@ Add the following JSON configuration to your [Cursor `mcp.json` file](https://do
       "args": ["stdio"],
       "env": {
         "BUILDKITE_API_TOKEN": "bkua_xxxxxxxx",
-        "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threashold-value"
+        "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threshold-value"
       }
     }
   }
@@ -187,19 +190,189 @@ where:
 
 - `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
 
-- `job-log-token-threashold-value` (_optional_) is ?
+- `job-log-token-threshold-value` (_optional_) is ?
 
 ## Goose
 
-You can configure [Goose](https://block.github.io/goose/) with the Buildkite MCP server, either [remotely](#goose-remote-mcp-server) or running locally [using Docker](#goose-mcp-server-using-docker) or [as a local binary](#goose-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
+You can configure [Goose](https://block.github.io/goose/) with the Buildkite MCP server, either [remotely](#goose-remote-mcp-server) or running locally [using Docker](#goose-mcp-server-using-docker) or [as a local binary](#goose-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
 
 ### Remote MCP server
 
 
 ### MCP server using Docker
 
+Add the following YAML configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
 
+```yaml
+extensions:
+  fetch:
+    name: Buildkite
+    cmd: docker
+    args: ["run", "--pull=always", "-q", "-i", "--rm",
+           "-e", "BUILDKITE_API_TOKEN",
+           "buildkite/mcp-server",
+           "stdio"]
+    enabled: true
+    envs: { "BUILDKITE_API_TOKEN": "bkua_xxxxx" }
+    type: stdio
+    timeout: 300
+```
+
+where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
 
 ### MCP server as a local binary
 
+Add the following YAML configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
 
+```yaml
+extensions:
+  fetch:
+    name: Buildkite
+    cmd: buildkite-mcp-server
+    args: [stdio]
+    enabled: true
+    envs: |
+      {
+        "BUILDKITE_API_TOKEN": "bkua_xxxxx",
+        "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threshold-value"
+      }
+    type: stdio
+    timeout: 300
+```
+
+where:
+
+- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
+
+- `job-log-token-threshold-value` is ?
+
+## Visual Studio Code
+
+You can configure [Visual Studio Code](https://code.visualstudio.com/) with the Buildkite MCP server, either [remotely](#vs-code-remote-mcp-server) or running locally [using Docker](#vs-code-mcp-server-using-docker) or [as a local binary](#vs-code-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server).
+
+### Remote MCP server
+
+### MCP server using Docker
+
+Add the following JSON configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server).
+
+```json
+{
+  "inputs": [
+    {
+      "id": "BUILDKITE_API_TOKEN",
+      "type": "promptString",
+      "description": "Enter your Buildkite API access token",
+      "password": true
+    }
+  ],
+  "servers": {
+    "buildkite": {
+      "command": "docker",
+      "args": [
+        "run", "--pull=always", "-q", "-i", "--rm", "-e", "BUILDKITE_API_TOKEN",
+        "buildkite/mcp-server",
+        "stdio"
+      ],
+      "env": { "BUILDKITE_API_TOKEN": "${input:BUILDKITE_API_TOKEN}" }
+    }
+  }
+}
+```
+
+### MCP server as a local binary
+
+Add the following JSON configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server).
+
+```json
+{
+  "inputs": [
+    {
+      "id": "BUILDKITE_API_TOKEN",
+      "type": "promptString",
+      "description": "Enter your Buildkite API access token",
+      "password": true
+    }
+  ],
+  "servers": {
+    "buildkite": {
+      "command": "buildkite-mcp-server",
+      "args": ["stdio"],
+      "env": {
+        "BUILDKITE_API_TOKEN": "${input:BUILDKITE_API_TOKEN}",
+        "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threshold-value"
+      }
+    }
+  }
+}
+```
+
+where `job-log-token-threshold-value` (_optional_) is ?
+
+## Windsurf
+
+You can configure [Windsurf](https://code.visualstudio.com/) with the Buildkite MCP server, either [remotely](#windsurf-remote-mcp-server) or running locally [using Docker](#windsurf-mcp-server-using-docker) or [as a local binary](#windsurf-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Windsurf's `mcp_config.json` file](https://docs.windsurf.com/windsurf/cascade/mcp#mcp-config-json).
+
+### Remote MCP server
+
+### MCP server using Docker
+
+Add the following JSON configuration to your [Windsurf's `mcp_config.json` file](https://docs.windsurf.com/windsurf/cascade/mcp#mcp-config-json).
+
+```json
+{
+  "mcpServers": {
+    "buildkite": {
+      "command": "docker",
+      "args": [
+        "run", "--pull=always", "-q", "-i", "--rm", "-e", "BUILDKITE_API_TOKEN",
+        "buildkite/mcp-server",
+        "stdio"
+      ],
+      "env": { "BUILDKITE_API_TOKEN": "bkua_xxxxx" }
+    }
+  }
+}
+```
+
+where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
+
+### MCP server as a local binary
+
+Add the following JSON configuration to your [Windsurf's `mcp_config.json` file](https://docs.windsurf.com/windsurf/cascade/mcp#mcp-config-json).
+
+```json
+{
+  "mcpServers": {
+    "buildkite": {
+      "command": "buildkite-mcp-server",
+      "args": ["stdio"],
+      "env": {
+        "BUILDKITE_API_TOKEN": "bkua_xxxxx",
+        "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threshold-value"
+      }
+    }
+  }
+}
+```
+
+where:
+
+- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
+
+- `job-log-token-threshold-value` is ?
+
+## ToolHive
+
+You can configure [ToolHive](https://toolhive.dev/) to run the Buildkite MCP server from its registry. To do this:
+
+1. Use ToolHive's `thv secret set` command to store your [Buildkite API access token](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes) as a secret.
+
+    ```bash
+    cat ~/path/to/your/buildkite-api-token.txt | thv secret set buildkite-api-key
+    ```
+1. Run the Buildkite MCP server.
+
+    ```bash
+    thv run --secret buildkite-api-key,target=BUILDKITE_API_TOKEN buildkite
+    ```

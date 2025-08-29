@@ -205,6 +205,7 @@ exceptions:
   - Test Engine
   - Test Engine Client
   - TESTOWNER
+  - ToolHive
   - tvOS
   - TypeScript
   - Ubuntu
@@ -213,6 +214,7 @@ exceptions:
   - UserData
   - UUID
   - visionOS
+  - Visual Studio Code
   - VPC
   - VPN
   - watchOS
