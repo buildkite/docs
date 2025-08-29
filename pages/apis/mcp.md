@@ -300,3 +300,12 @@ where:
 
 - `job-log-token-threashold-value` (_optional_) is ?
 
+### Goose
+
+You can configure [Goose](https://block.github.io/goose/) with the Buildkite MCP server, which runs either [using Docker](#goose-mcp-server-using-docker) or [as a local binary](#goose-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
+
+<h4 id="goose-mcp-server-using-docker">MCP server using Docker</h4>
+
+
+
+<h4 id="goose-mcp-server-as-a-local-binary">MCP server as a local binary</h4>
