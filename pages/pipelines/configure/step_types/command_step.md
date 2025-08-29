@@ -12,6 +12,26 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+To define multiple commands, you can either use `command` syntax followed by a `|` symbol:
+
+```yml
+steps:
+  - command: |
+      "tests.sh"
+      "echo 'running tests'"
+```
+{: codeblock-file="pipeline.yml"}
+
+Or you can define multiple commands by using the `commands` syntax and starting each new command on a new line:
+
+```yml
+steps:
+  - commands:
+    - "tests.sh"
+    - "echo 'running tests'"
+```
+{: codeblock-file="pipeline.yml"}
+
 When running multiple commands, either defined in a single line (`npm install && tests.sh`) or defined in a list, any failure will prevent subsequent commands from running, and will mark the command step as failed.
 
 > 📘 Commands and `PATH`
