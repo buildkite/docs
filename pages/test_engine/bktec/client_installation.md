@@ -1,4 +1,4 @@
-# Package installation
+# Installing the Test Engine Client
 
 This page provides instructions on how to install the Test Engine Client (bktec) via installers provided by Buildkite.
 
