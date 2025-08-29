@@ -15,9 +15,9 @@ For example, each of the following three tests are unique managed tests:
 Test Engine conducts the following on each managed test:
 
 - Tracks its history
-- Calculates its [flakiness](/docs/test-engine/flaky-test-management#detecting-flaky-tests)
+- Calculates its [flakiness](/docs/test-engine/test-suites/flaky-test-management#detecting-flaky-tests)
 - Maintains its state (for example, [Enterprise plan](https://buildkite.com/pricing) customers can quarantine tests by disabling them under certain conditions)
-- Attributes [ownership by team](/docs/test-engine/test-ownership)
+- Attributes [ownership by team](/docs/test-engine/test-suites/test-ownership)
 
 For billing purposes, Buildkite measures usage by calculating the number of managed tests that have executed (run) at least once each day, and then bills based on the 90th percentile of this usage for the month. This billing method ensures that occasional spikes in usage, such as those caused by refactoring, don't result in excessive charges.
 

@@ -1,1 +1,0 @@
-- `{registry.slug}` is the slug of your container source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your container source registry from the **Registries** page.

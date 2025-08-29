@@ -131,4 +131,4 @@ Your JavaScript registry's details page should show your new package with the in
 
 That's it! You've created a new Buildkite registry, configured your Node.js environment and project to publish to your new JavaScript registry, and published a Node.js package to this registry. 🎉
 
-Learn more about how to work with Buildkite Package Registries in [Manage registries](/docs/package-registries/manage-registries), and the difference between [_source_](/docs/package-registries/manage-registries#create-a-source-registry) and [_composite_](/docs/package-registries/manage-registries#composite-registries) registries.
+Learn more about how to work with Buildkite Package Registries in [Manage registries](/docs/package-registries/registries/manage), and the difference between [_source_](/docs/package-registries/registries/manage#create-a-source-registry) and [_composite_](/docs/package-registries/registries/manage#composite-registries) registries.
