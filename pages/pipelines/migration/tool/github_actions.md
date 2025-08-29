@@ -7,6 +7,68 @@ With the help of the [Buildkite migration tool](/docs/pipelines/migration/tool),
 > A core principle of Buildkite's [Self-hosted (hybrid) architecture](/docs/pipelines/architecture) is that secrets and sensitive data are decoupled from the core SaaS platform and stay in the customer's environments and are not seen or stored.
 > Using a [secret storage service](/docs/pipelines/security/secrets/managing) such as [Hashicorp Vault](https://www.vaultproject.io/) or [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/), along with their respective [plugin](https://github.com/buildkite-plugins) can be configured to read and utilize secrets within Buildkite pipelines. The [S3 Secrets Buildkite plugin](https://github.com/buildkite/elastic-ci-stack-s3-secrets-hooks) can be installed within a Buildkite agent - and this service is automatically included within [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) setups to expose secrets from S3 into the jobs of Buildkite Pipelines' builds.
 
+## Using the Buildkite migration tool with GitHub Actions
+
+To start converting your GitHub Actions pipelines to the Buildkite format:
+
+1. Go to the [interactive web tool](https://buildkite.com/resources/migrate/) page.
+1. Select **GitHub Actions** in the UI.
+1. Paste your GitHub Actions pipeline configuration.
+1. Click **Convert**.
+1. See the converted pipeline configuration on the **Buildkite Pipeline** side of the tool.
+
+For example, you would like to convert the following GitHub Actions pipeline configruration:
+
+```yml
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm install
+```
+
+This is the output that the Buildkite migration tool is going to provide:
+
+```yml
+---
+steps:
+- commands:
+  - "# action actions/checkout@v4 is not necessary in Buildkite"
+  - echo '~~~ Install dependencies'
+  - npm install
+  plugins:
+  - docker#v5.10.0:
+      image: node:18
+  agents:
+    runs-on: ubuntu-latest
+  label: ":github: build"
+  key: build
+  branches: main
+```
+
+<%= image "migration-tool-gha.png", alt: "Converting a GitHub Actions pipeline in Buildkite migration tool's web UI" %>
+
+> 📘
+> Remember that not all the features of GitHub Actions can be fully converted to the Buildkite Pipelines format. See the following chapters to learn more about the compatibility, workarounds, and limitiation of converting GitHub Actions pipelines to Buildkite Pipelines.
+
+Alternatively, you can use the [local API-based version of the Buildkite migration tool](/docs/pipelines/migration/tool#local-api-based-version). Same usage instructions apply.
+
 ## Concurrency
 
 | Key | Supported | Notes |
