@@ -103,7 +103,7 @@ When you need to conditionally run plugins, use [group steps](/docs/pipelines/co
 
 ```yaml
 steps:
-  - group: ":docker: Docker Build"
+  - group: "Docker Build"
     if: build.env("DOCKER_PASSWORD") != null
     steps:
       - label: "Build and push image"
@@ -123,7 +123,7 @@ For complex conditional logic, use dynamic pipeline uploads where the conditiona
 
 ```yaml
 steps:
-  - label: ":pipeline: Docker Build"
+  - label: "Docker Build"
     command: |
       if [ -n "${DOCKER_PASSWORD}" ]; then
         echo "Docker credentials found, uploading build steps..."
