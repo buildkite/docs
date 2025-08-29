@@ -5,6 +5,49 @@ With the help of the [Buildkite migration tool](/docs/pipelines/migration/tool),
 > 📘
 > The Bitbucket Pipeline configuration that is referred to in various sections below is specified in the central `bitbucket-pipelines.yml` within a specific Bitbucket workspace [repository](https://support.atlassian.com/bitbucket-cloud/docs/what-is-a-workspace/). In Buildkite, the pipeline configuration can be set in a singular `pipeline.yml` within a repository or it can also be set and uploaded dynamically through the use of [Dynamic Pipelines](/docs/pipelines/configure/dynamic-pipelines). Additionally, control and governance of Buildkite pipelines can be achieved through the use of [Pipeline Templates](/docs/pipelines/templates) to set shared pipeline configuration within a Buildkite organization.
 
+## Using the Buildkite migration tool with Bitbucket
+
+To start converting your Bitbucket pipelines to the Buildkite format:
+
+1. Go to the [interactive web tool](https://buildkite.com/resources/migrate/) page.
+1. Select **Bitbucket** in the UI.
+1. Paste your Bitbucket pipeline configuration.
+1. Click **Convert**.
+1. See the converted pipeline configuration on the **Buildkite Pipeline** side of the tool.
+
+For example, you would like to convert the following Bitbucket pipeline configuration:
+
+```yml
+image: node:18
+
+pipelines:
+  default:
+    - step:
+        name: Build
+        script:
+          - npm install
+```
+
+This is the output that the Buildkite migration tool is going to provide:
+
+```yml
+---
+steps:
+- commands:
+  - npm install
+  plugins:
+  - docker#v5.10.0:
+      image: node:18
+  label: Build
+```
+
+<%= image "migration-tool-bitbucket.png", alt: "Converting a Bitbucket pipeline in Buildkite migration tool's web UI" %>
+
+> 📘
+> Remember that not all the features of Bitbucket can be fully converted to the Buildkite Pipelines format. See the following chapters to learn more about the compatibility, workarounds, and limitation of converting Bitbucket pipelines to Buildkite Pipelines.
+
+Alternatively, you can use the [local API-based version of the Buildkite migration tool](/docs/pipelines/migration/tool#local-api-based-version). Same usage instructions apply.
+
 ## Clone
 
 | Key | Supported | Notes |
