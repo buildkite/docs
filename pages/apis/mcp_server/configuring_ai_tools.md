@@ -79,7 +79,7 @@ where `bkua_xxxxx` is the value of your Buildkite API access token, set with [yo
 
 ## Claude Desktop
 
-You can configure [Claude Desktop](https://claude.ai/download) with the Buildkite MCP server, which runs either [using Docker](#claude-dekstop-mcp-server-using-docker) or [as a local binary](#claude-dekstop-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop).
+You can configure [Claude Desktop](https://claude.ai/download) with the Buildkite MCP server, which runs either [using Docker](#claude-desktop-mcp-server-using-docker) or [as a local binary](#claude-desktop-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop).
 
 ### MCP server using Docker
 
