@@ -23,6 +23,10 @@ You can also [browse the full example pipeline gallery](https://buildkite.com/re
 
 <%= render 'pipelines/configure/example_pipelines/hooks' %>
 
+## Packages
+
+<%= render 'pipelines/configure/example_pipelines/packages' %>
+
 ## Third-party integrations
 
 <%= render 'pipelines/configure/example_pipelines/integrations' %>
