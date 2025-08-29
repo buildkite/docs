@@ -244,6 +244,7 @@ pytest
 rbenv
 readme
 readmes
+rearchitect
 refetch
 refspec
 rehydrate
