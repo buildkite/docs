@@ -14,24 +14,33 @@ When you create a token, select the organizations it grants access to, and for R
 REST API scopes are very granular, you can select some or all of the following:
 
 - **Read Agents** (`read_agents`): Permission to list and retrieve details of agents.
-- **Modify Agents** (`write_agents`): Permission to stop agents. To register agents, use an [Agent token] instead.
+- **Write Agents** (`write_agents`): Permission to stop agents. To register agents, use an [Agent token] instead.
+- **Read Clusters** (`read_clusters`): Permission to list and retrieve details of clusters.
+- **Write Clusters** (`write_clusters`): Permission to create, update and delete clusters.
 - **Read Teams** (`read_teams`): Permission to list teams.
+- **Write Teams** (`write_teams`): Permission to create, update and delete teams.
 - **Read Artifacts** (`read_artifacts`): Permission to retrieve build artifacts.
 - **Write Artifacts** (`write_artifacts`): Permission to delete build artifacts.
 - **Read Builds** (`read_builds`): Permission to list and retrieve details of builds.
-- **Modify Builds** (`write_builds`): Permission to create new builds.
+- **Write Builds** (`write_builds`): Permission to create new builds.
 - **Read Job Environment Variables** (`read_job_env`): Permission to retrieve job environment variables.
-- **Read Build Logs** (`read_build_logs`): Permission to retrieve `build` logs.
+- **Read Build Logs** (`read_build_logs`): Permission to retrieve build logs.
 - **Write Build Logs** (`write_build_logs`): Permission to delete build logs.
 - **Read Organizations** (`read_organizations`): Permission to list and retrieve details of organizations.
 - **Read Pipelines** (`read_pipelines`): Permission to list and retrieve details of pipelines.
 - **Write Pipelines** (`write_pipelines`): Permission to create, update and delete pipelines.
+- **Read Pipeline Templates** (`read_pipeline_templates`): Permission to list and retrieve details of pipeline templates.
+- **Write Pipeline Templates** (`write_pipeline_templates`): Permission to create, update and delete pipeline templates.
+- **Read Rules** (`read_rules`): Permission to list and retrieve details of rules.
+- **Write Rules** (`write_rules`): Permission to create or delete rules.
 - **Read User** (`read_user`): Permission to retrieve basic details of the user.
 - **Read Suites** (`read_suites`): Permission to list and retrieve details of test suites; including runs,
   tests, executions, etc.
 - **Write Suites** (`write_suites`): Permission to create, update and delete test suites.
 - **Read Test Plan** (`read_test_plan`): Permission to retrieve test plan information.
 - **Write Test Plan** (`write_test_plan`): Permission to create test plan.
+- **Read Portals** (`read_portals`): Permission to list and retrieve details of portals.
+- **Write Portals** (`write_portals`): Permission to create, update, and delete portals.
 - **Read Registries** (`read_registries`): Permission to list and retrieve details of registries.
 - **Write Registries** (`write_registries`): Permission to create and update registries.
 - **Delete Registries** (`delete_registries`): Permission to delete registries.

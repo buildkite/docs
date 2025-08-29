@@ -950,7 +950,11 @@
     - name: "MCP server"
       children:
         - name: "Overview"
-          path: "apis/mcp"
+          path: "apis/mcp-server"
+        - name: "Installing locally"
+          path: "apis/mcp-server/installing-locally"
+        - name: "Configuring for AI tools"
+          path: "apis/mcp-server/configuring-ai-tools"
     - name: "Agent"
       children:
         - name: "Overview"
