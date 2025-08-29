@@ -947,7 +947,7 @@
           path: "apis/portals/ephemeral-portal-tokens"
         - name: "User-invoked portals"
           path: "apis/portals/user-invoked-portals"
-    - name: "Model Context Protocol server"
+    - name: "MCP server"
       children:
         - name: "Overview"
           path: "apis/mcp"
