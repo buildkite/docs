@@ -2,6 +2,47 @@
 
 With the help of the [Buildkite migration tool](/docs/pipelines/migration/tool), you can start converting your CircleCI pipelines into Buildkite pipelines. This page lists the Buildkite migration tool's currently supported, partially supported, and unsupported attributes for translating from CircleCI pipelines to Buildkite pipelines.
 
+## Using the Buildkite migration tool with CircleCI
+
+To start converting your CircleCI pipelines to the Buildkite format:
+
+1. Go to the [interactive web tool](https://buildkite.com/resources/migrate/) page.
+1. Select **CircleCI** in the UI.
+1. Paste your CircleCI pipeline configuration.
+1. Click **Convert**.
+1. See the converted pipeline configuration on the **Buildkite Pipeline** side of the tool.
+
+For example, you would like to convert the following CircleCI pipeline configuration:
+
+```yml
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: cimg/node:18.20
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install dependencies
+          command: npm install
+```
+
+This is the output that the Buildkite migration tool is going to provide:
+
+```yml
+---
+steps:
+# Example pending, service is temporarily OOOrder
+```
+
+> 📘
+> Remember that not all the features of CircleCI can be fully converted to the Buildkite Pipelines format. See the following chapters to learn more about the compatibility, workarounds, and limitation of converting CircleCI pipelines to Buildkite Pipelines.
+
+Alternatively, you can use the [local API-based version of the Buildkite migration tool](/docs/pipelines/migration/tool#local-api-based-version). Same usage instructions apply.
+
 ## Logical operators (helpers)
 
 > 📘
