@@ -2,7 +2,12 @@
 
 The Buildkite MCP server is available to install locally, and is also available remotely at `https://mcp.buildkite.com/mcp`, which is Buildkite's official _remote MCP server_.
 
-While there are no installation requirements for the remote MCP server, this page covers the details and requirements for installing Buildkite's MCP server locally.
+While there are no installation requirements for the remote MCP server, this page covers the details and requirements for installing Buildkite's MCP server locally, beginning with [Before you start](#before-you-start).
+
+Once you have installed your local Buildkite MCP server using the relevant instructions on this page, you can proceed to [configure your AI tools](/docs/apis/mcp-server/configuring-ai-tools) to work with this MCP server.
+
+> 📘
+> If you are connecting to Buildkite's remote MCP server, proceed directly to [configure your AI tools](/docs/apis/mcp-server/configuring-ai-tools) to work with this server.
 
 ## Before you start
 
@@ -16,7 +21,7 @@ Specific requirements for each type of local installation method for the Buildki
 
 ## Configure required API access token scopes
 
-The following sections explain which [scopes](/docs/apis/managing-api-tokens#token-scopes) for your Buildkite MCP server's API access token are required, to access the relevant Buildkite platform functionality for your particular use case. These sets of scopes fit into the following categories:
+This section explains which [scopes](/docs/apis/managing-api-tokens#token-scopes) your local Buildkite MCP server's API access token requires permission for within your Buildkite organization, for your particular use case. These scopes fit into the following categories:
 
 - [Minimum access](#configure-required-api-access-token-scopes-minimum-access)
 - [All read-only access](#configure-required-api-access-token-scopes-all-read-only-access)
@@ -24,7 +29,7 @@ The following sections explain which [scopes](/docs/apis/managing-api-tokens#tok
 
 ### Minimum access
 
-Select the following [scopes](/docs/apis/managing-api-tokens#token-scopes) for your MCP server's API access token. These scopes provide your token with the minimum required access permissions on the Buildkite MCP server, and prevents access to more sensitive information within your Buildkite organization.
+For minimum access, select the following [scopes](/docs/apis/managing-api-tokens#token-scopes) for your local MCP server's API access token. These scopes provide your token with the minimum required access permissions on the Buildkite MCP server, and prevents access to more sensitive information within your Buildkite organization.
 
 <table>
   <thead>
@@ -71,7 +76,7 @@ To create this API access token rapidly through the Buildkite interface, you can
 
 ### All read-only access
 
-Select the following additional [scopes](/docs/apis/managing-api-tokens#token-scopes) for your MCP server's API access token. These scopes provide your token with the [minimum access permissions](#configure-required-api-access-token-scopes-minimum-access), as well as all other read-only access permissions available through the Buildkite MCP server. These include permission to access more information about your Buildkite organization, including clusters, more pipeline build details, as well as access to Test Engine test suite data.
+For all read-only access, select both the [minimum access permissions](#configure-required-api-access-token-scopes-minimum-access), as well as the following additional [scopes](/docs/apis/managing-api-tokens#token-scopes) for your local MCP server's API access token. These scopes provide your token with all read-only access permissions available through the Buildkite MCP server. These additional scopes include permission to access more information about your Buildkite organization, including clusters, more pipeline build details (that is, log information), as well as access to Test Engine test suite data.
 
 <table>
   <thead>
@@ -128,7 +133,7 @@ To create this API access token rapidly through the Buildkite interface, you can
 
 ### All read and write access
 
-Select the following [scopes](/docs/apis/managing-api-tokens#token-scopes) for your MCP server's API access token. These scopes provide your token with the [minimum access permissions](#configure-required-api-access-token-scopes-minimum-access), [all read-only access permissions](#configure-required-api-access-token-scopes-all-read-only-access), as well as all available write access permissions available through the Buildkite MCP server. These include permissions to edit pipelines and their builds within your Buildkite organization.
+For all read and write access, select both the [minimum access permissions](#configure-required-api-access-token-scopes-minimum-access) and [all read-only access permissions](#configure-required-api-access-token-scopes-all-read-only-access), as well as the following additional [scopes](/docs/apis/managing-api-tokens#token-scopes) for your local MCP server's API access token. These scopes provide your token with all available read _and_ write access permissions available through the Buildkite MCP server. These additional scopes include permission to edit pipelines and their builds within your Buildkite organization.
 
 <table>
   <thead>
