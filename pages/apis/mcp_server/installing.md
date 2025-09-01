@@ -15,7 +15,7 @@ To use Buildkite's MCP server locally, you'll need the following:
 
 - A [Buildkite API access token](https://buildkite.com/user/api-access-tokens) for this Buildkite user account. Learn more about the required scopes to configure for this token in [Configure API access token with required scopes](#configure-an-api-access-token).
 
-Specific requirements for each type of local installation method for the Buildkite MCP server are covered in their relevant [installation sections](#install-the-buildkite-mcp-server-locally).
+Specific requirements for each type of local installation method for the Buildkite MCP server are covered in their relevant [installation sections](#install-and-run-the-server-locally).
 
 ## Configure an API access token
 
@@ -173,7 +173,7 @@ You can also [Create a new Buildkite API access token rapidly with these pre-sel
 
 ## Install and run the server locally
 
-To install and run the Buildkite MCP server locally, you can do so using [Docker](#install-the-buildkite-mcp-server-locally-using-docker) (recommended) or [Docker Desktop](#using-docker-desktop), or natively as a [pre-built binary](#install-the-buildkite-mcp-server-locally-using-a-pre-built-binary), or [build it from source](#install-the-buildkite-mcp-server-locally-building-from-source).
+To install and run the Buildkite MCP server locally, you can do so using [Docker](#install-and-run-the-server-locally-using-docker) (recommended) or [Docker Desktop](#using-docker-desktop), or natively as a [pre-built binary](#install-and-run-the-server-locally-using-a-pre-built-binary), or [build it from source](#install-and-run-the-server-locally-building-from-source).
 
 ### Using Docker
 
