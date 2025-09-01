@@ -67,8 +67,6 @@ steps:
 > 📘
 > Remember that not all the features of GitHub Actions can be fully converted to the Buildkite Pipelines format. See the following sections to learn more about the compatibility, workarounds, and limitation of converting GitHub Actions pipelines to Buildkite Pipelines.
 
-Alternatively, you can use the [local API-based version of the Buildkite migration tool](/docs/pipelines/migration/tool#local-api-based-version). Same usage instructions apply.
-
 ## Concurrency
 
 | Key | Supported | Notes |

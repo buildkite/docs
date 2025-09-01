@@ -57,12 +57,10 @@ steps:
 > 📘
 > Remember that not all the features of CircleCI can be fully converted to the Buildkite Pipelines format. See the following sections to learn more about the compatibility, workarounds, and limitation of converting CircleCI pipelines to Buildkite Pipelines.
 
-Alternatively, you can use the [local API-based version of the Buildkite migration tool](/docs/pipelines/migration/tool#local-api-based-version). Same usage instructions apply.
-
 ## Logical operators (helpers)
 
 > 📘
-> The Buildkite Migration tool supports the use of YAML aliases - reusable configuration snippets to be applied to specific points in a CircleCI pipeline. These are defined with a `&` (anchor) within the top-level `aliases` key and substituted into CircleCI pipeline configuration with `*` (for example, `*tests`). Configuration defined by an alias will be respected and parsed at the specified section of the pipeline.
+> The Buildkite Migration tool supports the use of YAML aliases - reusable configuration snippets to be applied to specific points in a CircleCI pipeline. These are defined with a `&` (anchor) within the top-level `aliases` key and substituted into CircleCI pipeline configuration with `*` (for example, `*tests`). Configuration defined by an alias will be respected and parsed at the specified section of the pipeline. Also note that the anchors will be expanded in the resulting converted pipeline.
 
 | Key | Supported | Notes |
 | --- | --- | --- |
