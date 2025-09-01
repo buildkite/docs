@@ -240,7 +240,7 @@ Rails.application.routes.draw do
   get "/docs/test-engine/tags",                                            to: redirect("/docs/test-engine/test-suites/tags")
   get "/docs/test-engine/test-ownership",                                  to: redirect("/docs/test-engine/test-suites/test-ownership")
   get "/docs/test-engine/test-state-and-quarantine",                       to: redirect("/docs/test-engine/test-suites/test-state-and-quarantine")
-  get "/docs/test-engine/test-splitting",                                  to: redirect("/docs/test-engine/power-up-your-builds-with-bktec")
+  get "/docs/test-engine/test-splitting",                                  to: redirect("/docs/test-engine/speed-up-builds-with-bktec")
   get "/docs/test-engine/test-splitting/client-installation",              to: redirect("/docs/test-engine/bktec/client-installation")
   get "/docs/test-engine/test-splitting/configuring",                      to: redirect("/docs/test-engine/bktec/configuring")
   get "/docs/test-engine/your-own-collectors",                             to: redirect("/docs/test-engine/test-collection/your-own-collectors")

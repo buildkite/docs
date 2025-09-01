@@ -1,8 +1,8 @@
-# Power up builds with the Test Engine Client
+# Speed up builds with the Test Engine Client (bktec)
 
 The Buildkite Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) is a powerful tool that leverages your Test Engine test suite data to make your Buildkite pipelines run faster and be more reliable.
 
-## Speed up build times with test splitting
+## Faster build times with test splitting
 
 Intelligently partition your pipeline with bktec to substantially reduce build times on your critical path to delivery. bktec split tests automatically based on your historical timing data, and maintains peak speed through continuous optimization and automated re-balancing.
 
