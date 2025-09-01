@@ -1,4 +1,4 @@
-# Installing the Buildkite MCP server locally
+# Installing the Buildkite MCP server
 
 The Buildkite MCP server is available to install locally, and is also available remotely at `https://mcp.buildkite.com/mcp`, which is Buildkite's official _remote MCP server_.
 
@@ -72,7 +72,7 @@ For minimum access, select the following [scopes](/docs/apis/managing-api-tokens
   </tbody>
 </table>
 
-To create this API access token rapidly through the Buildkite interface, you can do so by [creating a new Buildkite API access token with these pre-selected scopes](https://buildkite.com/user/api-access-tokens/new?scopes%5B%5D=read_builds&scopes%5B%5D=read_pipelines&scopes%5B%5D=read_user).
+You can also [Create a new Buildkite API access token rapidly with these pre-selected scopes](https://buildkite.com/user/api-access-tokens/new?scopes%5B%5D=read_builds&scopes%5B%5D=read_pipelines&scopes%5B%5D=read_user).
 
 ### All read-only access
 
@@ -129,7 +129,7 @@ For all read-only access, select both the [minimum access permissions](#configur
   </tbody>
 </table>
 
-To create this API access token rapidly through the Buildkite interface, you can do so by [creating a new Buildkite API access token with these pre-selected scopes](https://buildkite.com/user/api-access-tokens/new?scopes%5B%5D=read_clusters&scopes%5B%5D=read_pipelines&scopes%5B%5D=read_builds&scopes%5B%5D=read_build_logs&scopes%5B%5D=read_user&scopes%5B%5D=read_organizations&scopes%5B%5D=read_artifacts&scopes%5B%5D=read_suites).
+You can also [Create a new Buildkite API access token rapidly with these pre-selected scopes](https://buildkite.com/user/api-access-tokens/new?scopes%5B%5D=read_clusters&scopes%5B%5D=read_pipelines&scopes%5B%5D=read_builds&scopes%5B%5D=read_build_logs&scopes%5B%5D=read_user&scopes%5B%5D=read_organizations&scopes%5B%5D=read_artifacts&scopes%5B%5D=read_suites).
 
 ### All read and write access
 
@@ -171,7 +171,7 @@ For all read and write access, select both the [minimum access permissions](#con
   </tbody>
 </table>
 
-To create this API access token rapidly through the Buildkite interface, you can do so by [create a new Buildkite API access token with these pre-selected scopes](https://buildkite.com/user/api-access-tokens/new?scopes%5B%5D=read_clusters&scopes%5B%5D=read_pipelines&scopes%5B%5D=read_builds&scopes%5B%5D=read_build_logs&scopes%5B%5D=read_user&scopes%5B%5D=read_organizations&scopes%5B%5D=read_artifacts&scopes%5B%5D=read_suites&scopes%5B%5D=write_builds&scopes%5B%5D=write_pipelines).
+You can also [Create a new Buildkite API access token rapidly with these pre-selected scopes](https://buildkite.com/user/api-access-tokens/new?scopes%5B%5D=read_clusters&scopes%5B%5D=read_pipelines&scopes%5B%5D=read_builds&scopes%5B%5D=read_build_logs&scopes%5B%5D=read_user&scopes%5B%5D=read_organizations&scopes%5B%5D=read_artifacts&scopes%5B%5D=read_suites&scopes%5B%5D=write_builds&scopes%5B%5D=write_pipelines).
 
 ## Install and run the server locally
 
