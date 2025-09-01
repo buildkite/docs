@@ -19,7 +19,7 @@ To use Buildkite's MCP server locally, you'll need the following:
 
 Specific requirements for each type of local installation method for the Buildkite MCP server are covered in their relevant [installation sections](#install-the-buildkite-mcp-server-locally).
 
-## Configure API access token with required scopes
+## Configure an API access token 
 
 This section explains which [scopes](/docs/apis/managing-api-tokens#token-scopes) your local Buildkite MCP server's API access token requires permission for within your Buildkite organization, for your particular use case. These scopes fit into the following categories:
 
