@@ -44,7 +44,7 @@ steps:
 <%= image "migration-tool-bitbucket.png", alt: "Converting a Bitbucket pipeline in Buildkite migration tool's web UI" %>
 
 > 📘
-> Remember that not all the features of Bitbucket can be fully converted to the Buildkite Pipelines format. See the following chapters to learn more about the compatibility, workarounds, and limitation of converting Bitbucket pipelines to Buildkite Pipelines.
+> Remember that not all the features of Bitbucket can be fully converted to the Buildkite Pipelines format. See the following sections to learn more about the compatibility, workarounds, and limitation of converting Bitbucket pipelines to Buildkite Pipelines.
 
 Alternatively, you can use the [local API-based version of the Buildkite migration tool](/docs/pipelines/migration/tool#local-api-based-version). Same usage instructions apply.
 
@@ -100,7 +100,7 @@ Alternatively, you can use the [local API-based version of the Buildkite migrati
 
 | Key | Supported | Notes |
 | --- | --- | --- |
-| `pipelines.branches` | Yes | Application of a specific Bitbucket pipeline configuration for specific branches. Translated to a [step conditional](/docs/pipelines/conditionals#conditionals-in-steps) in the corresponding Buildkite pipeline utilizing the `build.branch`/`BUILDKITE_BRANCH` variable. |
+| `pipelines.branches` | Yes | Application of a specific Bitbucket pipeline configuration for specific branches. Translated to a [step conditional](/docs/pipelines/configure/conditionals#conditionals-in-steps) in the corresponding Buildkite pipeline utilizing the `build.branch`/`BUILDKITE_BRANCH` variable. |
 | `pipelines.branches.<branch>` | Yes | The branch name or a wildcard where a specific Bitbucket pipeline step configuration needs to be applied. |
 | `pipelines.branches.<branch>.parallel` | Yes | Parallel (concurrent) step configuration for a specific branch within a Bitbucket pipeline. See more information regarding the available parallel [properties](#pipeline-properties-parallel) supported by the Buildkite migration tool and additional property information in the Bitbucket Pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel). |
 | `pipelines.branches.<branch>.step` | Yes | Individual step configuration for a specific branch within a Bitbucket pipeline. See more information regarding the available step [properties](#pipeline-properties-step) supported by the migration tool - and additional property information in the Bitbucket Pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property). |
@@ -132,7 +132,7 @@ Alternatively, you can use the [local API-based version of the Buildkite migrati
 
 | Key | Supported | Notes |
 | --- | --- | --- |
-| `pipelines.pull_request` | Yes | Application of specific Bitbucket pipeline configuration based for pull requests. Translated to a [step conditional](/docs/pipelines/conditionals#conditionals-in-steps) in the corresponding Buildkite pipeline utilizing the `pull_request.id`/`BUILDKITE_PULL_REQUEST` and `build.branch`/`BUILDKITE_BRANCH` variables. |
+| `pipelines.pull_request` | Yes | Application of specific Bitbucket pipeline configuration based for pull requests. Translated to a [step conditional](/docs/pipelines/configure/conditionals#conditionals-in-steps) in the corresponding Buildkite pipeline utilizing the `pull_request.id`/`BUILDKITE_PULL_REQUEST` and `build.branch`/`BUILDKITE_BRANCH` variables. |
 | `pipelines.pull_request.<branch>` | Yes | The base branch name or a wildcard to be applied within a specific Bitbucket pipeline step configuration. To apply the configuration for all builds, use a `**` wildcard. |
 | `pipelines.pull_request.<branch>.parallel` | Yes | Parallel (concurrent) step configuration for pull request builds of a Bitbucket pipeline. See the available parallel [properties](#pipeline-properties-parallel) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel). |
 | `pipelines.default.stage` | Yes | Stage configuration for pull request builds of a Bitbucket pipelines. See the available stage [properties](#pipeline-properties-stage) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage).  |
@@ -143,7 +143,7 @@ Alternatively, you can use the [local API-based version of the Buildkite migrati
 
 | Key | Supported | Notes |
 | --- | --- | --- |
-| `pipelines.tags` | Yes | Application of a specific Bitbucket pipeline configuration based on triggered tag builds. Translated to a [step conditional](/docs/pipelines/conditionals#conditionals-in-steps) in the corresponding Buildkite pipeline utilizing the `build.tag`/`BUILDKITE_TAG` variable. |
+| `pipelines.tags` | Yes | Application of a specific Bitbucket pipeline configuration based on triggered tag builds. Translated to a [step conditional](/docs/pipelines/configure/conditionals#conditionals-in-steps) in the corresponding Buildkite pipeline utilizing the `build.tag`/`BUILDKITE_TAG` variable. |
 | `pipelines.tags.<tag>` | Yes | The tag name or a wildcard to be applied within a specific Bitbucket pipeline step configuration. |
 | `pipelines.tags.<tag>.parallel` | Yes | Parallel (concurrent) step configuration for tag builds of a Bitbucket pipeline. See the available parallel [properties](#pipeline-properties-parallel) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel). |
 | `pipelines.tags.<tag>.stage` | Yes | Stage configuration for tag builds of a Bitbucket pipeline. See the available stage [properties](#pipeline-properties-stage) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage).  |
@@ -161,7 +161,7 @@ Alternatively, you can use the [local API-based version of the Buildkite migrati
 >
 > For information on each of these individual properties, refer to the reference within the Bitbucket Pipelines documentation for [parallel](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel), [step](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property), [stage](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage) and [variable](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Custom--manual--pipeline-variables) properties.
 >
-> Additionally, implementation of these pipeline properties can be enhanced with best practices by using [Dynamic Pipelines](/docs/pipelines/configure/dynamic-pipelines) to generate and upload pipeline configuration dynamically and using [conditionals](/docs/pipelines/conditionals#conditionals-in-pipelines) at both pipeline level and step level to apply jobs only when certain conditions are met, and setting [trigger steps](/docs/pipelines/configure/step-types/trigger-step) with required attributes and environment variable configurations passed through to the triggered builds.
+> Additionally, implementation of these pipeline properties can be enhanced with best practices by using [Dynamic Pipelines](/docs/pipelines/configure/dynamic-pipelines) to generate and upload pipeline configuration dynamically and using [conditionals](/docs/pipelines/configure/conditionals#conditionals-in-pipelines) at both pipeline level and step level to apply jobs only when certain conditions are met, and setting [trigger steps](/docs/pipelines/configure/step-types/trigger-step) with required attributes and environment variable configurations passed through to the triggered builds.
 
 ### Parallel
 

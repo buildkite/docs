@@ -55,7 +55,7 @@ steps:
 <%= image "migration-tool-circleci.png", alt: "Converting a CircleCI pipeline in Buildkite migration tool's web UI" %>
 
 > 📘
-> Remember that not all the features of CircleCI can be fully converted to the Buildkite Pipelines format. See the following chapters to learn more about the compatibility, workarounds, and limitation of converting CircleCI pipelines to Buildkite Pipelines.
+> Remember that not all the features of CircleCI can be fully converted to the Buildkite Pipelines format. See the following sections to learn more about the compatibility, workarounds, and limitation of converting CircleCI pipelines to Buildkite Pipelines.
 
 Alternatively, you can use the [local API-based version of the Buildkite migration tool](/docs/pipelines/migration/tool#local-api-based-version). Same usage instructions apply.
 
