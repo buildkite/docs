@@ -179,6 +179,7 @@ macOS
 macos
 matchfile
 matchers
+mcp
 Memcache
 minitest
 misconfiguration

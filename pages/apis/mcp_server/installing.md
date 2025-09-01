@@ -199,7 +199,11 @@ To run the Buildkite MCP server locally in Docker:
 
 If you have installed and are using [Docker Desktop](https://www.docker.com/products/docker-desktop/), you can add the Buildkite MCP server to the **MCP Toolkit** area of Docker Desktop.
 
+<!-- vale off -->
+
 To do so, visit the [Buildkite MCP server](https://hub.docker.com/mcp/server/buildkite/overview) page on [Docker's mcp hub site](https://hub.docker.com/mcp) for MCP servers.
+
+<!-- vale on -->
 
 ### Using a pre-built binary
 
