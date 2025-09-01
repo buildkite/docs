@@ -3,15 +3,15 @@
 Once you have established which Buildkite MCP server to use ([remote or local](/docs/apis/mcp-server#types-of-mcp-servers)), you can then use the instructions on this page to configure your AI tool to work with this MCP server.
 
 > 📘
-> If you are using a _local_ MCP server, ensure you have followed the required instructions on [Installing the Buildkite MCP server locally](/docs/apis/mcp-server/installing) first, before proceeding with the instructions on this page.
+> If you are using a _local_ MCP server, ensure you have followed the required instructions on [Installing the Buildkite MCP server](/docs/apis/mcp-server/installing) locally first, before proceeding with the instructions on this page.
 
 ## Amp
 
 You can configure [Amp](https://ampcode.com/) with the Buildkite MCP server, either [remotely](#amp-remote-mcp-server) or running locally [using Docker](#amp-mcp-server-using-docker) or [as a local binary](#amp-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
 
-### Remote
+### Remote MCP server
 
-### With Docker
+### MCP server using Docker
 
 Add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
 
