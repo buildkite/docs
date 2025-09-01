@@ -28,7 +28,9 @@ Once you have established which Buildkite MCP server to use (remote or local) an
 
 ## Available tools
 
-The Buildkite MCP server provides access to the following features of Buildkite's [REST API](/docs/apis/rest-api).
+The Buildkite MCP server exposes the following [MCP tools](https://modelcontextprotocol.io/docs/learn/server-concepts#tools-ai-actions).
+
+### User and authentication
 
 <table>
   <thead>
@@ -40,11 +42,50 @@ The Buildkite MCP server provides access to the following features of Buildkite'
   <tbody>
     <% [
       {
-        "tool": "get_cluster",
-        "description": "Get detailed information about a specific cluster including its name, description, default queue, and configuration.",
-        "link_text": "Get a cluster",
-        "link": "/docs/apis/rest-api/clusters#clusters-get-a-cluster"
+        "tool": "access_token",
+        "description": "Get information about the current API access token including its scopes and UUID.",
+        "link_text": "Get the current token",
+        "link": "/docs/apis/rest-api/access-token#get-the-current-token"
       },
+      {
+        "tool": "current_user",
+        "description": "Get details about the user account that owns the API token, including name, email, avatar, and account creation date.",
+        "link_text": "Get the current user",
+        "link": "/docs/apis/rest-api/user#get-the-current-user"
+      },
+      {
+        "tool": "user_token_organization",
+        "description": "Get the organization associated with the user token used for this request.",
+        "link_text": "Get an organization",
+        "link": "/docs/apis/rest-api/organizations#get-an-organization"
+      }
+    ].select { |field| field[:tool] }.each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:tool] %></code>
+         </td>
+        <td>
+          <p><%= field[:description] %></p>
+          <% if field[:link] %>
+            <p>Learn more about this from <%= link_to field[:link_text], field[:link] %> of the REST API docs.</p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+### Organizations and clusters
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:20%">Tool</th>
+      <th style="width:80%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
       {
         "tool": "list_clusters",
         "description": "List all clusters in an organization with their names, descriptions, default queues, and creation details.",
@@ -52,10 +93,10 @@ The Buildkite MCP server provides access to the following features of Buildkite'
         "link": "/docs/apis/rest-api/clusters#clusters-list-clusters"
       },
       {
-        "tool": "get_cluster_queue",
-        "description": "Get detailed information about a specific queue including its key, description, dispatch status, and hosted agent configuration.",
-        "link_text": "Get a queue",
-        "link": "/docs/apis/rest-api/clusters#queues-get-a-queue"
+        "tool": "get_cluster",
+        "description": "Get detailed information about a specific cluster including its name, description, default queue, and configuration.",
+        "link_text": "Get a cluster",
+        "link": "/docs/apis/rest-api/clusters#clusters-get-a-cluster"
       },
       {
         "tool": "list_cluster_queues",
@@ -64,16 +105,49 @@ The Buildkite MCP server provides access to the following features of Buildkite'
         "link": "/docs/apis/rest-api/clusters#queues-list-queues"
       },
       {
-        "tool": "get_pipeline",
-        "description": "Get detailed information about a specific pipeline including its configuration, steps, environment variables, and build statistics.",
-        "link_text": "Get a pipeline",
-        "link": "/docs/apis/rest-api/pipelines#get-a-pipeline"
-      },
+        "tool": "get_cluster_queue",
+        "description": "Get detailed information about a specific queue including its key, description, dispatch status, and hosted agent configuration.",
+        "link_text": "Get a queue",
+        "link": "/docs/apis/rest-api/clusters#queues-get-a-queue"
+      }
+    ].select { |field| field[:tool] }.each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:tool] %></code>
+         </td>
+        <td>
+          <p><%= field[:description] %></p>
+          <% if field[:link] %>
+            <p>Learn more about this from <%= link_to field[:link_text], field[:link] %> of the REST API docs.</p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+### Pipelines
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:20%">Tool</th>
+      <th style="width:80%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
       {
         "tool": "list_pipelines",
         "description": "List all pipelines in an organization with their basic details, build counts, and current status.",
         "link_text": "List pipelines",
         "link": "/docs/apis/rest-api/pipelines#list-pipelines"
+      },
+      {
+        "tool": "get_pipeline",
+        "description": "Get detailed information about a specific pipeline including its configuration, steps, environment variables, and build statistics.",
+        "link_text": "Get a pipeline",
+        "link": "/docs/apis/rest-api/pipelines#get-a-pipeline"
       },
       {
         "tool": "create_pipeline",
@@ -86,7 +160,34 @@ The Buildkite MCP server provides access to the following features of Buildkite'
         "description": "Modify an existing Buildkite pipeline's configuration, repository, settings, or metadata.",
         "link_text": "Update a pipeline",
         "link": "/docs/apis/rest-api/pipelines#update-a-pipeline"
-      },
+      }
+    ].select { |field| field[:tool] }.each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:tool] %></code>
+         </td>
+        <td>
+          <p><%= field[:description] %></p>
+          <% if field[:link] %>
+            <p>Learn more about this from <%= link_to field[:link_text], field[:link] %> of the REST API docs.</p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+### Builds
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:20%">Tool</th>
+      <th style="width:80%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
       {
         "tool": "list_builds",
         "description": "List all builds for a pipeline with their status, commit information, and metadata.",
@@ -112,29 +213,120 @@ The Buildkite MCP server provides access to the following features of Buildkite'
       {
         "tool": "wait_for_build",
         "description": "Wait for a specific build to complete."
-      },
-      {
-        "tool": "current_user",
-        "description": "Get details about the user account that owns the API token, including name, email, avatar, and account creation date.",
-        "link_text": "Get the current user",
-        "link": "/docs/apis/rest-api/user#get-the-current-user"
-      },
-      {
-        "tool": "user_token_organization",
-        "description": "Get the organization associated with the user token used for this request.",
-        "link_text": "Get an organization",
-        "link": "/docs/apis/rest-api/organizations#get-an-organization"
-      },
+      }
+    ].select { |field| field[:tool] }.each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:tool] %></code>
+         </td>
+        <td>
+          <p><%= field[:description] %></p>
+          <% if field[:link] %>
+            <p>Learn more about this from <%= link_to field[:link_text], field[:link] %> of the REST API docs.</p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+### Jobs
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:20%">Tool</th>
+      <th style="width:80%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
       {
         "tool": "get_jobs",
         "description": "Get all jobs for a specific build including their state, timing, commands, and execution details."
+      },
+      {
+        "tool": "get_job_logs",
+        "description": "Get the log output and metadata for a specific job, including content, size, and header timestamps. Automatically saves to file for large logs to avoid token limits.",
+        "link_text": "Get a job's log output",
+        "link": "/docs/apis/rest-api/jobs#get-a-jobs-log-output"
       },
       {
         "tool": "unblock_job",
         "description": "Unblock a blocked job in a Buildkite build to allow it to continue execution.",
         "link_text": "Unblock a job",
         "link": "/docs/apis/rest-api/jobs#unblock-a-job"
+      }
+    ].select { |field| field[:tool] }.each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:tool] %></code>
+         </td>
+        <td>
+          <p><%= field[:description] %></p>
+          <% if field[:link] %>
+            <p>Learn more about this from <%= link_to field[:link_text], field[:link] %> of the REST API docs.</p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+### Logs
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:20%">Tool</th>
+      <th style="width:80%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        "tool": "search_logs",
+        "description": "Search log entries using regex patterns with optional context lines."
       },
+      {
+        "tool": "tail_logs",
+        "description": "Show the last N entries from the log file."
+      },
+      {
+        "tool": "get_logs_info",
+        "description": "Get metadata and statistics about the Parquet log file."
+      },
+      {
+        "tool": "read_logs",
+        "description": "Read log entries from the file, optionally starting from a specific row number."
+      }
+    ].select { |field| field[:tool] }.each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:tool] %></code>
+         </td>
+        <td>
+          <p><%= field[:description] %></p>
+          <% if field[:link] %>
+            <p>Learn more about this from <%= link_to field[:link_text], field[:link] %> of the REST API docs.</p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+### Artifacts
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:20%">Tool</th>
+      <th style="width:80%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
       {
         "tool": "list_artifacts",
         "description": "List a build's artifacts across all of its jobs, including file details, paths, sizes, MIME types, and download URLs.",
@@ -146,12 +338,72 @@ The Buildkite MCP server provides access to the following features of Buildkite'
         "description": "Get detailed information about a specific artifact including its metadata, file size, SHA-1 hash, and download URL.",
         "link_text": "Get an artifact",
         "link": "/docs/apis/rest-api/artifacts#get-an-artifact"
-      },
+      }
+    ].select { |field| field[:tool] }.each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:tool] %></code>
+         </td>
+        <td>
+          <p><%= field[:description] %></p>
+          <% if field[:link] %>
+            <p>Learn more about this from <%= link_to field[:link_text], field[:link] %> of the REST API docs.</p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+### Annotations
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:20%">Tool</th>
+      <th style="width:80%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
       {
         "tool": "list_annotations",
         "description": "List all annotations for a build, including their context, style (success/info/warning/error), rendered HTML content, and creation timestamps.",
         "link_text": "List annotations for a build",
         "link": "/docs/apis/rest-api/annotations#list-annotations-for-a-build"
+      }
+    ].select { |field| field[:tool] }.each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:tool] %></code>
+         </td>
+        <td>
+          <p><%= field[:description] %></p>
+          <% if field[:link] %>
+            <p>Learn more about this from <%= link_to field[:link_text], field[:link] %> of the REST API docs.</p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+### Test Engine
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:20%">Tool</th>
+      <th style="width:80%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        "tool": "get_test",
+        "description": "Get a specific test in Buildkite Test Engine. This provides additional metadata for failed test executions.",
+        "link_text": "Get a test",
+        "link": "/docs/apis/rest-api/test-engine/tests#get-a-test"
       },
       {
         "tool": "list_test_runs",
@@ -170,34 +422,6 @@ The Buildkite MCP server provides access to the following features of Buildkite'
         "description": "Get failed test executions for a specific test run in Buildkite Test Engine. Optionally get the expanded failure details such as full error messages and stack traces.",
         "link_text": "Get failed execution data",
         "link": "/docs/apis/rest-api/test-engine/runs#get-failed-execution-data"
-      },
-      {
-        "tool": "get_test",
-        "description": "Get a specific test in Buildkite Test Engine. This provides additional metadata for failed test executions.",
-        "link_text": "Get a test",
-        "link": "/docs/apis/rest-api/test-engine/tests#get-a-test"
-      },
-      {
-        "tool": "search_logs",
-        "description": "Search log entries using regex patterns with optional context lines."
-      },
-      {
-        "tool": "tail_logs",
-        "description": "Show the last N entries from the log file."
-      },
-      {
-        "tool": "get_logs_info",
-        "description": "Get metadata and statistics about the Parquet log file."
-      },
-      {
-        "tool": "read_logs",
-        "description": "Read log entries from the file, optionally starting from a specific row number."
-      },
-      {
-        "tool": "access_token",
-        "description": "Get information about the current API access token including its scopes and UUID.",
-        "link_text": "Get the current token",
-        "link": "/docs/apis/rest-api/access-token#get-the-current-token"
       }
     ].select { |field| field[:tool] }.each do |field| %>
       <tr>
