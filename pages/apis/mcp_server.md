@@ -2,7 +2,7 @@
 
 The [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) is an open protocol standard on how to connect AI tools and models to a variety of other systems and data sources.
 
-Buildkite provides its own MCP server to expose Buildkite product data (for example, data from pipelines, builds, and jobs for Pipelines, as well as from test data for Test Engine) for AI tools, editors and other products to interact with.
+Buildkite provides its own [open-source MCP server](https://github.com/buildkite/buildkite-mcp-server) to expose Buildkite product data (for example, data from pipelines, builds, and jobs for Pipelines, as well as from test data for Test Engine) for AI tools, editors and other products to interact with.
 
 Learn more about what Buildkite's MCP server is capable of in [Available tools](#available-tools).
 
