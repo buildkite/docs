@@ -99,7 +99,7 @@ Note that conditional expressions on the build state are only available at the p
 
 ## Conditionally running plugins with group steps
 
-When you need to conditionally run plugins, use [group steps](/docs/pipelines/configure/step-types/group-step) instead of step-level `if` conditions. The group's conditional is evaluated before any steps within the group are created, preventing plugin execution entirely:
+To conditionally run plugins, use [group steps](/docs/pipelines/configure/step-types/group-step) rather than step-level `if` conditions. Group's conditional is evaluated before any steps within the group are created, which prevents plugin from executing entirely:
 
 ```yaml
 steps:
