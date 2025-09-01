@@ -241,6 +241,8 @@ Rails.application.routes.draw do
   get "/docs/test-engine/test-ownership",                                  to: redirect("/docs/test-engine/test-suites/test-ownership")
   get "/docs/test-engine/test-state-and-quarantine",                       to: redirect("/docs/test-engine/test-suites/test-state-and-quarantine")
   get "/docs/test-engine/your-own-collectors",                             to: redirect("/docs/test-engine/test-collection/your-own-collectors")
+  get "/docs/test-engine/test-suites/permissions",                         to:
+  redirect("/docs/test-engine/permissions")
   get "/docs/tutorials/2fa",                                               to: redirect("/docs/platform/tutorials/2fa")
   get "/docs/tutorials/bazel",                                             to: redirect("/docs/pipelines/tutorials/bazel")
   get "/docs/tutorials/bitbucket",                                         to: redirect("/docs/pipelines/source-control/bitbucket")
