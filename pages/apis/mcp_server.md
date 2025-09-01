@@ -20,11 +20,11 @@ Buildkite provides both a _remote_ and _local_ MCP server:
 
 - The local MCP server is one that you install yourself on your own machine. Learn more about how to set up and install a local Buildkite MCP server in [Installing the Buildkite MCP server locally](/docs/apis/mcp-server/installing).
 
-The MCP server is built on and interacts with Buildkite's REST API. Therefore, as part of installing a local Buildkite MCP server, you'll also need to [configure an API access token with the required scopes](/docs/apis/mcp-server/installing#configure-api-access-token-with-required-scopes) that your local MCP server will use.
+The MCP server is built on and interacts with Buildkite's REST API. Therefore, as part of installing a local Buildkite MCP server, you'll also need to [configure an API access token with the required scopes](/docs/apis/mcp-server/installing#configure-an-api-access-token) that your local MCP server will use.
 
 If you are using Buildkite's remote MCP server, you do not need to configure an API access token. Instead, an OAuth token representing your Buildkite user account is used, along with access permission scopes which are pre-set by the Buildkite platform. This OAuth token configuration process takes place when configuring your AI tool with the remote MCP server.
 
-Once you have established which Buildkite MCP server to use (remote or local) and if local, have [installed the MCP server](/docs/apis/mcp-server/installing#install-the-buildkite-mcp-server-locally) and [configured its API access token](/docs/apis/mcp-server/installing#configure-api-access-token-with-required-scopes), you can then proceed to [configure your AI tools](/docs/apis/mcp-server/configuring-ai-tools) to work with this MCP server.
+Once you have established which Buildkite MCP server to use (remote or local) and if local, have [installed the MCP server](/docs/apis/mcp-server/installing#install-the-buildkite-mcp-server-locally) and [configured its API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), you can then proceed to [configure your AI tools](/docs/apis/mcp-server/configuring-ai-tools) to work with this MCP server.
 
 ## Available tools
 
