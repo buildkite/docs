@@ -951,8 +951,8 @@
       children:
         - name: "Overview"
           path: "apis/mcp-server"
-        - name: "Installing locally"
-          path: "apis/mcp-server/installing-locally"
+        - name: "Installing the server"
+          path: "apis/mcp-server/installing"
         - name: "Configuring for AI tools"
           path: "apis/mcp-server/configuring-ai-tools"
     - name: "Agent"

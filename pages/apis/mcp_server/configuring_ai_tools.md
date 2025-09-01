@@ -3,7 +3,7 @@
 Once you have established which Buildkite MCP server to use ([remote or local](/docs/apis/mcp-server#types-of-mcp-servers)), you can then use the instructions on this page to configure your AI tool to work with this MCP server.
 
 > 📘
-> If you are using a _local_ MCP server, ensure you have followed the required instructions on [Installing the Buildkite MCP server locally](/docs/apis/mcp-server/installing-locally) first, before proceeding with the instructions on this page.
+> If you are using a _local_ MCP server, ensure you have followed the required instructions on [Installing the Buildkite MCP server locally](/docs/apis/mcp-server/installing) first, before proceeding with the instructions on this page.
 
 ## Amp
 
@@ -31,7 +31,7 @@ Add the following JSON configuration to your [Amp `settings.json` file](https://
 }
 ```
 
-where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
+where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-api-access-token-with-required-scopes).
 
 ### MCP server as a local binary
 
@@ -54,7 +54,7 @@ Add the following JSON configuration to your [Amp `settings.json` file](https://
 
 where:
 
-- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
+- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-api-access-token-with-required-scopes).
 
 - `job-log-token-threshold-value` is ?
 
@@ -74,7 +74,7 @@ Run the following Claude Code command, after [installing Claude Code](https://do
 claude mcp add buildkite -- docker run --pull=always -q --rm -i -e BUILDKITE_API_TOKEN=bkua_xxxxx buildkite/mcp-server stdio
 ```
 
-where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
+where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-api-access-token-with-required-scopes).
 
 ### MCP server as a local binary
 
@@ -84,7 +84,7 @@ Run the following Claude Code command, after [installing Claude Code](https://do
 claude mcp add buildkite --env BUILDKITE_API_TOKEN=bkua_xxxxx -- buildkite-mcp-server stdio
 ```
 
-where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
+where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-api-access-token-with-required-scopes).
 
 ## Claude Desktop
 
@@ -112,7 +112,7 @@ Add the following configuration to your [Claude Desktop's `claude_desktop_config
 }
 ```
 
-where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
+where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-api-access-token-with-required-scopes).
 
 ### MCP server as a local binary
 
@@ -135,7 +135,7 @@ Add the following configuration to your [Claude Desktop's `claude_desktop_config
 
 where:
 
-- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
+- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-api-access-token-with-required-scopes).
 
 - `job-log-token-threshold-value` is ?
 
@@ -165,7 +165,7 @@ Add the following JSON configuration to your [Cursor `mcp.json` file](https://do
 }
 ```
 
-where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
+where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-api-access-token-with-required-scopes).
 
 ### MCP server as a local binary
 
@@ -188,7 +188,7 @@ Add the following JSON configuration to your [Cursor `mcp.json` file](https://do
 
 where:
 
-- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
+- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-api-access-token-with-required-scopes).
 
 - `job-log-token-threshold-value` (_optional_) is ?
 
@@ -218,7 +218,7 @@ extensions:
     timeout: 300
 ```
 
-where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
+where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-api-access-token-with-required-scopes).
 
 ### MCP server as a local binary
 
@@ -242,7 +242,7 @@ extensions:
 
 where:
 
-- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
+- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-api-access-token-with-required-scopes).
 
 - `job-log-token-threshold-value` is ?
 
@@ -335,7 +335,7 @@ Add the following JSON configuration to your [Windsurf's `mcp_config.json` file]
 }
 ```
 
-where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
+where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-api-access-token-with-required-scopes).
 
 ### MCP server as a local binary
 
@@ -358,7 +358,7 @@ Add the following JSON configuration to your [Windsurf's `mcp_config.json` file]
 
 where:
 
-- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes).
+- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-api-access-token-with-required-scopes).
 
 - `job-log-token-threshold-value` is ?
 
@@ -366,7 +366,7 @@ where:
 
 You can configure [ToolHive](https://toolhive.dev/) to run the Buildkite MCP server from its registry. To do this:
 
-1. Use ToolHive's `thv secret set` command to store your [Buildkite API access token](/docs/apis/mcp-server/installing-locally#configure-api-access-token-with-required-scopes) as a secret.
+1. Use ToolHive's `thv secret set` command to store your [Buildkite API access token](/docs/apis/mcp-server/installing#configure-api-access-token-with-required-scopes) as a secret.
 
     ```bash
     cat ~/path/to/your/buildkite-api-token.txt | thv secret set buildkite-api-key

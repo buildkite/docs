@@ -1,13 +1,11 @@
 # Installing the Buildkite MCP server
 
-The Buildkite MCP server is available to install locally, and is also available remotely at `https://mcp.buildkite.com/mcp`, which is Buildkite's official _remote MCP server_.
+The Buildkite MCP server is available both locally and remotely. This page is about installing and configuring the MCP server locally, beginning with [Before you start](#before-you-start).
 
-While there are no installation requirements for the remote MCP server, this page covers the details and requirements for installing Buildkite's MCP server locally, beginning with [Before you start](#before-you-start).
-
-Once you have installed your local Buildkite MCP server using the relevant instructions on this page, you can proceed to [configure your AI tools](/docs/apis/mcp-server/configuring-ai-tools) to work with this MCP server.
+Once you have installed your _local_ Buildkite MCP server using the relevant instructions on this page, you can proceed to [configure your AI tools](/docs/apis/mcp-server/configuring-ai-tools) to work with this MCP server.
 
 > 📘
-> If you are connecting to Buildkite's _remote_ MCP server, proceed directly to [configure your AI tools](/docs/apis/mcp-server/configuring-ai-tools) to work with this server.
+> Buildkite's _remote_ MCP server requires no installation and is available publicly, with authentication and authorization fully managed by OAuth. If you are connecting to the remote MCP server, proceed directly to [configure your AI tools](/docs/apis/mcp-server/configuring-ai-tools) to work with this server.
 
 ## Before you start
 
@@ -19,7 +17,7 @@ To use Buildkite's MCP server locally, you'll need the following:
 
 Specific requirements for each type of local installation method for the Buildkite MCP server are covered in their relevant [installation sections](#install-the-buildkite-mcp-server-locally).
 
-## Configure an API access token 
+## Configure an API access token
 
 This section explains which [scopes](/docs/apis/managing-api-tokens#token-scopes) your local Buildkite MCP server's API access token requires permission for within your Buildkite organization, for your particular use case. These scopes fit into the following categories:
 
@@ -199,16 +197,9 @@ To run the Buildkite MCP server locally in Docker:
 
 <h4 id="using-docker-desktop">Using Docker Desktop</h4>
 
-If you have installed and are using [Docker Desktop](https://www.docker.com/products/docker-desktop/), you can add the Buildkite MCP server to the **MCP Toolkit** area of Docker Desktop by either:
+If you have installed and are using [Docker Desktop](https://www.docker.com/products/docker-desktop/), you can add the Buildkite MCP server to the **MCP Toolkit** area of Docker Desktop.
 
-- Selecting **Add to Docker Desktop**:<p></p>
-    <a class="inline-block" href="https://hub.docker.com/open-desktop?url=https://open.docker.com/dashboard/mcp/servers/id/buildkite/config?enable=true" target="_blank" rel="nofollow"><img src="https://img.shields.io/badge/Add%20to%20Docker%20Desktop-17191e?style=flat&logo=docker" class="no-decoration" width="175" height="25"></a>
-
-- Running this command:
-
-    ```bash
-    docker mcp server enable buildkite
-    ```
+To do so, visit the [Buildkite MCP server](https://hub.docker.com/mcp/server/buildkite/overview) page on [Docker's mcp hub site](https://hub.docker.com/mcp) for MCP servers.
 
 ### Using a pre-built binary
 
