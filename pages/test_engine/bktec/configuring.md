@@ -6,7 +6,7 @@ If your testing framework is not supported, get in touch via support@buildkite.c
 
 ## Dependencies
 
-bktec relies on execution timing data captured by the test collectors from previous builds to partition your tests evenly across your agents. Therefore, you will need to configure the [Ruby test collector](/docs/test-engine/test-collection/ruby-collectors) for your test suite if you are running RSpec, and [JavaScript test collector](/docs/test-engine/test-collection/javascript-collectors) if you are running Jest.
+bktec relies on execution timing data captured by the test collectors from previous builds to partition your tests evenly across your agents. Therefore, you will need to configure the [test collector](/docs/test-engine/test-collection) for your test framework.
 
 ## Installation
 
