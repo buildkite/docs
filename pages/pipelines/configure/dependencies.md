@@ -186,8 +186,8 @@ This pattern is often used to run steps like code coverage or annotations to the
 
 When a step is skipped (due to an `if` condition returning `false`), any steps that depend on it will still run. Skipped steps are considered "satisfied" for dependency purposes.
 
-> 🚧 Skipped dependencies pass
-> If a step you depend on is skipped due to a conditional, the dependency is treated as satisfied and dependent steps will run. This is different from failed or canceled steps, which block dependent steps, unless `allow_dependency_failure` is used.
+> 🚧 Skipped dependencies are treated as satisfied
+> When a step that another step depends on is skipped due to a conditional, the dependency is treated as satisfied and dependent steps will run. Skipped dependencies are treated as passing, which is different from failed or canceled steps that block dependent steps, unless `allow_dependency_failure` is used.
 
 The following table shows how different step states affect dependencies:
 
@@ -202,6 +202,8 @@ The following table shows how different step states affect dependencies:
 
 ### Skipped dependency behavior
 
+In this example, when building a branch other than `main`, the "Conditional Step" will be skipped but the "Dependent Step" will still run because the skipped dependency is satisfied.
+
 ```yaml
 steps:
   - label: "Conditional Step"
@@ -214,8 +216,6 @@ steps:
     depends_on: "conditional"
 ```
 {: codeblock-file="pipeline.yml"}
-
-In this example, when building a branch other than `main`, the "Conditional Step" will be skipped but the "Dependent Step" will still run because the skipped dependency is satisfied.
 
 ## Allowed failure and soft fail
 
