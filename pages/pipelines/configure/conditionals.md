@@ -139,7 +139,7 @@ steps:
                 password-env: DOCKER_PASSWORD
       EOF
       else
-        echo "No Docker credentials, skipping build"
+        echo "No Docker credentials found, skipping build"
       fi
 ```
 {: codeblock-file="pipeline.yml"}
