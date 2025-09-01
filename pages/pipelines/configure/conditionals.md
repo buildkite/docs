@@ -60,7 +60,7 @@ steps:
 Since `if` conditions are evaluated at the time of the pipeline upload, it's not possible to use the `if` attribute to conditionally run a step based on the result of another step.
 
 > 🚧 Plugin execution and conditionals
-> Step-level `if` conditions only prevent commands from running but they _do not_ affect plugins. Plugins run during the job lifecycle before the conditional is evaluated. To conditionally run plugins, use either [group steps](#conditionally-running-plugins-with-group-steps) or [dynamic pipeline uploads](#conditionally-running-plugins-with-dynamic-uploads).
+> Step-level `if` conditions only prevent commands from running but they _do not_ affect plugins. Plugins run during the job lifecycle, before the conditional is evaluated. To conditionally run plugins, use either [group steps](#conditionally-running-plugins-with-group-steps) or [dynamic pipeline uploads](#conditionally-running-plugins-with-dynamic-uploads).
 
 To run a step based on the result of another step, upload a new pipeline based on the `if` condition set up in the [command step](/docs/pipelines/configure/step-types/command-step) like in the example below:
 
