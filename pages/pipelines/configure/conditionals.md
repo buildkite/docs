@@ -119,7 +119,7 @@ steps:
 
 ## Conditionally running plugins with dynamic uploads
 
-For complex conditional logic, use dynamic pipeline uploads where the conditional logic runs in a shell script before uploading steps with plugins:
+For complex conditional logic, use dynamic pipeline uploads with conditional logic running in a shell script before the steps with plugins are uploaded:
 
 ```yaml
 steps:
