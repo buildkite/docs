@@ -572,7 +572,6 @@
           path: "test-engine/test-suites/test-state-and-quarantine"
         - name: "Tags"
           path: "test-engine/test-suites/tags"
-          pill: "preview"
         - name: "Test ownership"
           path: "test-engine/test-suites/test-ownership"
         - name: "Labels"
