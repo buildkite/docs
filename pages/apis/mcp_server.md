@@ -28,7 +28,7 @@ Once you have established which Buildkite MCP server to use (remote or local) an
 
 ## Available tools
 
-The Buildkite MCP server provides access to the following features of Buildkite's [REST API](/docs/apis/rest-api).
+The Buildkite MCP server exposes the following MCP tools.
 
 <table>
   <thead>
