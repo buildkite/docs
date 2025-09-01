@@ -60,7 +60,7 @@ steps:
 Since `if` conditions are evaluated at the time of the pipeline upload, it's not possible to use the `if` attribute to conditionally run a step based on the result of another step.
 
 > 🚧 Plugin execution and conditionals
-> Step-level `if` conditions only prevent the command from running, not plugins. Plugins run during the job lifecycle before the conditional is evaluated. To conditionally run plugins, use [group steps](#conditionally-running-plugins-with-group-steps) or [dynamic pipeline uploads](#conditionally-running-plugins-with-dynamic-uploads).
+> Step-level `if` conditions only prevent commands from running but they _do not_ affect plugins. Plugins run during the job lifecycle before the conditional is evaluated. To conditionally run plugins, use either [group steps](#conditionally-running-plugins-with-group-steps) or [dynamic pipeline uploads](#conditionally-running-plugins-with-dynamic-uploads).
 
 To run a step based on the result of another step, upload a new pipeline based on the `if` condition set up in the [command step](/docs/pipelines/configure/step-types/command-step) like in the example below:
 
@@ -99,7 +99,7 @@ Note that conditional expressions on the build state are only available at the p
 
 ## Conditionally running plugins with group steps
 
-When you need to conditionally run plugins, use [group steps](/docs/pipelines/configure/step-types/group-step) instead of step-level `if` conditions. The group's conditional is evaluated before any steps within the group are created, preventing plugin execution entirely:
+To conditionally run plugins, use [group steps](/docs/pipelines/configure/step-types/group-step) rather than step-level `if` conditions. Group's conditional is evaluated before any steps within the group are created, which prevents plugin from executing entirely:
 
 ```yaml
 steps:
@@ -119,7 +119,7 @@ steps:
 
 ## Conditionally running plugins with dynamic uploads
 
-For complex conditional logic, use dynamic pipeline uploads where the conditional logic runs in a shell script before uploading steps with plugins:
+For complex conditional logic, use dynamic pipeline uploads with conditional logic running in a shell script before the steps with plugins are uploaded:
 
 ```yaml
 steps:
@@ -139,7 +139,7 @@ steps:
                 password-env: DOCKER_PASSWORD
       EOF
       else
-        echo "No Docker credentials, skipping build"
+        echo "No Docker credentials found, skipping build"
       fi
 ```
 {: codeblock-file="pipeline.yml"}

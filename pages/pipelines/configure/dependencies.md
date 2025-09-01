@@ -184,7 +184,7 @@ This pattern is often used to run steps like code coverage or annotations to the
 
 ## How skipped steps affect dependencies
 
-When a step is skipped (due to an `if` condition returning `false`), any steps that depend on it will still run. Skipped steps are considered "satisfied" for dependency purposes.
+When a step is skipped (due to an `if` condition returning `false`), any steps that depend on that step will still run. Skipped steps are treated as "satisfied" dependencies.
 
 > 🚧 Skipped dependencies are treated as satisfied
 > When a step that another step depends on is skipped due to a conditional, the dependency is treated as satisfied and dependent steps will run. Skipped dependencies are treated as passing, which is different from failed or canceled steps that block dependent steps, unless `allow_dependency_failure` is used.
