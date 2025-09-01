@@ -25,7 +25,7 @@ Once you have downloaded the bktec binary and it is executable in your pipeline,
 
 ### Configure environment variables
 
-bktec tool uses a number of [predefined](#predefined-environment-variables) and [mandatory](#mandatory-environment-variables) environment variables, as well as several optional ones for either [RSpec](#optional-rspec-environment-variables) or [Jest](#optional-jest-environment-variables).
+bktec uses a number of [predefined](#predefined-environment-variables) and [mandatory](#mandatory-environment-variables) environment variables, as well as several optional ones for either [RSpec](#optional-rspec-environment-variables) or [Jest](#optional-jest-environment-variables).
 
 <a id="predefined-environment-variables"></a>
 
