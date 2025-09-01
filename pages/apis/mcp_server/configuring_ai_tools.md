@@ -9,9 +9,9 @@ Once you have established which Buildkite MCP server to use ([remote or local](/
 
 You can configure [Amp](https://ampcode.com/) with the Buildkite MCP server, either [remotely](#amp-remote-mcp-server) or running locally [using Docker](#amp-mcp-server-using-docker) or [as a local binary](#amp-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
 
-### Remote MCP server
+### Remote
 
-### MCP server using Docker
+### With Docker
 
 Add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
 
