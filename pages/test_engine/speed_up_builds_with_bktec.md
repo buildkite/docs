@@ -16,7 +16,7 @@ Since the sum of all test executions across all agents is 16 minutes, _with_ tes
 
 ## Increase build reliability with test states
 
-bktec uses [test state](/docs/test-engine/glossary#test-state) data from your test suite to _mute_ or _skip_ problematic tests, so that [flaky tests](/docs/test-engine/glossary#flaky-test) don't affect the result of your build. This reduces build times by ensuring passing builds, first time, without having to retry jobs with failing tests.
+bktec uses [test state](/docs/test-engine/glossary#test-state) data from your test suite to _mute_ or _skip_ problematic tests, which [quarantines](/docs/test-engine/glossary#quarantine) them, so that [flaky tests](/docs/test-engine/glossary#flaky-test) don't affect the result of your build. Quarantining reduces build times by ensuring passing builds, first time, without having to retry jobs with failing tests.
 
 A test marked _skip_ within Test Engine won't be executed as part of your test run.
 
