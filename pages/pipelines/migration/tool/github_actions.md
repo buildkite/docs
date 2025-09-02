@@ -62,7 +62,7 @@ steps:
   branches: main
 ```
 
-You will see the following in the Buildkite migration tool UI dring the conversion of the example configuration:
+You will see the following in the Buildkite migration tool UI during the conversion of the example configuration:
 
 <%= image "migration-tool-gha.png", alt: "Converting a GitHub Actions pipeline in Buildkite migration tool's web UI" %>
 

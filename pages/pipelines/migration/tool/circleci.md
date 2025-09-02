@@ -52,7 +52,7 @@ steps:
   key: build
 ```
 
-You will see the following in the Buildkite migration tool UI dring the conversion of the example configuration:
+You will see the following in the Buildkite migration tool UI during the conversion of the example configuration:
 
 <%= image "migration-tool-circleci.png", alt: "Converting a CircleCI pipeline in Buildkite migration tool's web UI" %>
 

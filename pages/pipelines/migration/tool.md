@@ -27,7 +27,13 @@ To start translating your existing pipeline configuration into a Buildkite pipel
 1. You'll see the translated pipeline definition on the right side of the tool.
 1. You can copy the resulting yaml pipeline definition and [create](/docs/pipelines/configure) a [new Buildkite pipeline](https://www.buildkite.com/new) with it.
 
-In the following chapters, you will find example pipeline snippets from GitHub Actions, CircleCI, and Bitbucket pipeline definitions and the results you are expected to get after converting them to Buildkite pipeline configurations by running the Buildkite migration tool. In each example, two steps are decidedly easily translatable to Buildkite pipeline configuration and one is not. This approach should give you an idea of what you'll see when translating a real-world pipeline configuration where some parts map well to Buildkite while other parts do not have an exact equivalent in Buildkite.
+### Conversion errors
+
+If the pipeline configuration you are trying to convert to a Buildkite pipeline contains syntax or other errors, you might see the following pop-up **Conversion failed** message:
+
+<%= image "conversion-failed.png", alt: "Error message in the Buildkite migration tool's web UI" %>
+
+In this case, make sure that the original pipeline configuration you are trying to translate to a Buildkite pipeline configuration is a valid pipeline definition for the CI/CD platform you are migrating from.
 
 ## Local API-based version
 
