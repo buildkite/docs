@@ -954,7 +954,7 @@
           path: "apis/mcp-server"
         - name: "Installing the server"
           path: "apis/mcp-server/installing"
-        - name: "Configuring for AI tools"
+        - name: "Configuring AI tools"
           path: "apis/mcp-server/configuring-ai-tools"
     - name: "Agent"
       children:

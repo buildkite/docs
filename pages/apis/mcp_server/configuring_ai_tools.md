@@ -1,4 +1,4 @@
-# Configuring the Buildkite MCP server for AI tools
+# Configuring AI tools with the Buildkite MCP server
 
 Once you have established which Buildkite MCP server to use ([remote or local](/docs/apis/mcp-server#types-of-mcp-servers)), you can then use the instructions on this page to configure your AI tool to work with this MCP server.
 
@@ -7,13 +7,13 @@ Once you have established which Buildkite MCP server to use ([remote or local](/
 
 ## Amp
 
-You can configure [Amp](https://ampcode.com/) with the Buildkite MCP server, either [remotely](#amp-remote-mcp-server) or running locally [using Docker](#amp-mcp-server-using-docker) or [as a local binary](#amp-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
+You can configure [Amp](https://ampcode.com/) with the Buildkite MCP server, either [remotely](#amp-remote) or running locally [using Docker](#amp-docker) or [as a binary](#amp-binary). To do this, add the relevant configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
 
-### Remote MCP server
+### Remote
 
-### MCP server using Docker
+### Docker
 
-Add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
+When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
 
 ```json
 {
@@ -31,11 +31,11 @@ Add the following JSON configuration to your [Amp `settings.json` file](https://
 }
 ```
 
-where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-an-api-access-token).
+where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
 
-### MCP server as a local binary
+### Binary
 
-Add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
+When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
 
 ```json
 {
@@ -54,47 +54,47 @@ Add the following JSON configuration to your [Amp `settings.json` file](https://
 
 where:
 
-- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-an-api-access-token).
+- `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
 
 - `job-log-token-threshold-value` is ?
 
 ## Claude Code
 
-You can configure [Claude Code](https://www.anthropic.com/claude-code) (as a command line tool) with the Buildkite MCP server, either [remotely](#claude-code-remote-mcp-server) or running locally [using Docker](#claude-code-mcp-server-using-docker) or [as a local binary](#claude-code-mcp-server-as-a-local-binary). To do this, run the relevant Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
+You can configure [Claude Code](https://www.anthropic.com/claude-code) (as a command line tool) with the Buildkite MCP server, either [remotely](#claude-code-remote) or running locally [using Docker](#claude-code-docker) or [as a binary](#claude-code-binary). To do this, run the relevant Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
 
-### Remote MCP server
+### Remote
 
 
 
-### MCP server using Docker
+### Docker
 
-Run the following Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
+When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, run the following Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
 
 ```bash
 claude mcp add buildkite -- docker run --pull=always -q --rm -i -e BUILDKITE_API_TOKEN=bkua_xxxxx buildkite/mcp-server stdio
 ```
 
-where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-an-api-access-token).
+where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
 
-### MCP server as a local binary
+### Binary
 
-Run the following Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
+When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, run the following Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
 
 ```bash
 claude mcp add buildkite --env BUILDKITE_API_TOKEN=bkua_xxxxx -- buildkite-mcp-server stdio
 ```
 
-where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-an-api-access-token).
+where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
 
 ## Claude Desktop
 
-You can configure [Claude Desktop](https://claude.ai/download) with the Buildkite MCP server, either [remotely](#claude-desktop-remote-mcp-server) or running locally [using Docker](#claude-desktop-mcp-server-using-docker) or [as a local binary](#claude-desktop-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop).
+You can configure [Claude Desktop](https://claude.ai/download) with the Buildkite MCP server, either [remotely](#claude-desktop-remote) or running locally [using Docker](#claude-desktop-docker) or [as a binary](#claude-desktop-binary). To do this, add the relevant configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop).
 
-### Remote MCP server
+### Remote
 
-### MCP server using Docker
+### Docker
 
-Add the following configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop), which you can access from Claude Desktop's **Settings** > **Developer** > **Edit Config** button on the **Local MCP servers** page.
+When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop), which you can access from Claude Desktop's **Settings** > **Developer** > **Edit Config** button on the **Local MCP servers** page.
 
 ```json
 {
@@ -112,11 +112,11 @@ Add the following configuration to your [Claude Desktop's `claude_desktop_config
 }
 ```
 
-where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-an-api-access-token).
+where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
 
-### MCP server as a local binary
+### Binary
 
-Add the following configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop), which you can access from Claude Desktop's **Settings** > **Developer** > **Edit Config** button on the **Local MCP servers** page.
+When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop), which you can access from Claude Desktop's **Settings** > **Developer** > **Edit Config** button on the **Local MCP servers** page.
 
 ```json
 {
@@ -135,19 +135,19 @@ Add the following configuration to your [Claude Desktop's `claude_desktop_config
 
 where:
 
-- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-an-api-access-token).
+- `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
 
 - `job-log-token-threshold-value` is ?
 
 ## Cursor
 
-You can configure [Cursor](https://cursor.com/) with the Buildkite MCP server, either [remotely](#cursor-remote-mcp-server) or running locally [using Docker](#cursor-mcp-server-using-docker) or [as a local binary](#cursor-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
+You can configure [Cursor](https://cursor.com/) with the Buildkite MCP server, either [remotely](#cursor-remote) or running locally [using Docker](#cursor-docker) or [as a binary](#cursor-binary). To do this, add the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
 
-### Remote MCP server
+### Remote
 
-### MCP server using Docker
+### Docker
 
-Add the following JSON configuration to your [Cursor `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
+When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Cursor `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
 
 ```json
 {
@@ -165,11 +165,11 @@ Add the following JSON configuration to your [Cursor `mcp.json` file](https://do
 }
 ```
 
-where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-an-api-access-token).
+where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
 
-### MCP server as a local binary
+### Binary
 
-Add the following JSON configuration to your [Cursor `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
+When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Cursor `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
 
 ```json
 {
@@ -188,20 +188,20 @@ Add the following JSON configuration to your [Cursor `mcp.json` file](https://do
 
 where:
 
-- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-an-api-access-token).
+- `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
 
 - `job-log-token-threshold-value` (_optional_) is ?
 
 ## Goose
 
-You can configure [Goose](https://block.github.io/goose/) with the Buildkite MCP server, either [remotely](#goose-remote-mcp-server) or running locally [using Docker](#goose-mcp-server-using-docker) or [as a local binary](#goose-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
+You can configure [Goose](https://block.github.io/goose/) with the Buildkite MCP server, either [remotely](#goose-remote) or running locally [using Docker](#goose-docker) or [as a binary](#goose-binary). To do this, add the relevant configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
 
-### Remote MCP server
+### Remote
 
 
-### MCP server using Docker
+### Docker
 
-Add the following YAML configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
+When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following YAML configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
 
 ```yaml
 extensions:
@@ -218,11 +218,11 @@ extensions:
     timeout: 300
 ```
 
-where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-an-api-access-token).
+where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
 
-### MCP server as a local binary
+### Binary
 
-Add the following YAML configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
+When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following YAML configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
 
 ```yaml
 extensions:
@@ -242,19 +242,19 @@ extensions:
 
 where:
 
-- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-an-api-access-token).
+- `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
 
 - `job-log-token-threshold-value` is ?
 
 ## Visual Studio Code
 
-You can configure [Visual Studio Code](https://code.visualstudio.com/) with the Buildkite MCP server, either [remotely](#visual-studio-code-remote-mcp-server) or running locally [using Docker](#visual-studio-code-mcp-server-using-docker) or [as a local binary](#visual-studio-code-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server).
+You can configure [Visual Studio Code](https://code.visualstudio.com/) with the Buildkite MCP server, either [remotely](#visual-studio-code-remote) or running locally [using Docker](#visual-studio-code-docker) or [as a binary](#visual-studio-code-binary). To do this, add the relevant configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server).
 
-### Remote MCP server
+### Remote
 
-### MCP server using Docker
+### Docker
 
-Add the following JSON configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server).
+When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server).
 
 ```json
 {
@@ -280,9 +280,9 @@ Add the following JSON configuration to your [Visual Studio Code's `mcp.json` fi
 }
 ```
 
-### MCP server as a local binary
+### Binary
 
-Add the following JSON configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server).
+When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server).
 
 ```json
 {
@@ -311,13 +311,13 @@ where `job-log-token-threshold-value` (_optional_) is ?
 
 ## Windsurf
 
-You can configure [Windsurf](https://code.visualstudio.com/) with the Buildkite MCP server, either [remotely](#windsurf-remote-mcp-server) or running locally [using Docker](#windsurf-mcp-server-using-docker) or [as a local binary](#windsurf-mcp-server-as-a-local-binary). To do this, add the relevant configuration to your [Windsurf's `mcp_config.json` file](https://docs.windsurf.com/windsurf/cascade/mcp#mcp-config-json).
+You can configure [Windsurf](https://code.visualstudio.com/) with the Buildkite MCP server, either [remotely](#windsurf-remote) or running locally [using Docker](#windsurf-docker) or [as a binary](#windsurf-binary). To do this, add the relevant configuration to your [Windsurf's `mcp_config.json` file](https://docs.windsurf.com/windsurf/cascade/mcp#mcp-config-json).
 
-### Remote MCP server
+### Remote
 
-### MCP server using Docker
+### Docker
 
-Add the following JSON configuration to your [Windsurf's `mcp_config.json` file](https://docs.windsurf.com/windsurf/cascade/mcp#mcp-config-json).
+When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Windsurf's `mcp_config.json` file](https://docs.windsurf.com/windsurf/cascade/mcp#mcp-config-json).
 
 ```json
 {
@@ -335,11 +335,11 @@ Add the following JSON configuration to your [Windsurf's `mcp_config.json` file]
 }
 ```
 
-where `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-an-api-access-token).
+where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
 
-### MCP server as a local binary
+### Binary
 
-Add the following JSON configuration to your [Windsurf's `mcp_config.json` file](https://docs.windsurf.com/windsurf/cascade/mcp#mcp-config-json).
+When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Windsurf's `mcp_config.json` file](https://docs.windsurf.com/windsurf/cascade/mcp#mcp-config-json).
 
 ```json
 {
@@ -358,7 +358,7 @@ Add the following JSON configuration to your [Windsurf's `mcp_config.json` file]
 
 where:
 
-- `bkua_xxxxx` is the value of your Buildkite API access token, set with [your required scopes](/docs/apis/mcp-server/installing#configure-an-api-access-token).
+- `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
 
 - `job-log-token-threshold-value` is ?
 
