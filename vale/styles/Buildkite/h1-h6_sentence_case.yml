@@ -161,6 +161,7 @@ exceptions:
   - Node.js
   - nodeName
   - nodeSelector
+  - NuGet
   - OIDC
   - Okta
   - OneLogin
