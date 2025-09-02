@@ -18,9 +18,9 @@ Since the sum of all test executions across all agents is 16 minutes, _with_ tes
 
 bktec uses [test state](/docs/test-engine/glossary#test-state) data from your test suite to _mute_ or _skip_ problematic tests, which [quarantines](/docs/test-engine/glossary#quarantine) them, so that [flaky tests](/docs/test-engine/glossary#flaky-test) don't affect the result of your build. Quarantining reduces build times by ensuring passing builds, first time, without having to retry jobs with failing tests.
 
-A test marked _skip_ within Test Engine won't be executed as part of your test run.
+A test marked _skip_ within a test suite won't be executed as part of its test run.
 
-A test marked with _mute_ within Test Engine will still be executed, but the result of the test will be ignored.
+A test marked with _mute_ within a test suite will still be executed, but the result of the test will be ignored.
 
 Buildkite recommends muting tests rather than skipping them, as a muted test will still report its result to Test Engine, so if the test's reliability improves over time, it can be re-enabled.
 
