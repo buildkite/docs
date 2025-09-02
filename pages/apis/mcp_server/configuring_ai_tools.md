@@ -11,6 +11,24 @@ You can configure [Amp](https://ampcode.com/) with the Buildkite MCP server, eit
 
 ### Remote
 
+When using the remote MCP server, add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration), which requires the `mcp-remote` command argument to allow OAuth authorization. Learn more about this in the [Custom Tools (MCP)](https://ampcode.com/manual#mcp) section of the Amp docs.
+
+```json
+{
+  "amp.mcpServers": {
+    "buildkite": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp.buildkite.com/mcp"
+      ]
+    }
+  }
+}
+```
+
+The first time you start using the remote MCP server on Amp, the **Authorize Application** for the **Buildkite MCP Server** page opens. On this page, scroll down and select your Buildkite organization in **Authorize for organization**, followed by **Authorize**. You're now ready to use the Buildkite's remote MCP server through Amp.
+
 ### Docker
 
 When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
@@ -64,7 +82,11 @@ You can configure [Claude Code](https://www.anthropic.com/claude-code) (as a com
 
 ### Remote
 
+When using the remote MCP server, run the following Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
 
+```bash
+
+```
 
 ### Docker
 
@@ -91,6 +113,15 @@ where `bkua_xxxxx` is the value of your [configured Buildkite API access token](
 You can configure [Claude Desktop](https://claude.ai/download) with the Buildkite MCP server, either [remotely](#claude-desktop-remote) or running locally [using Docker](#claude-desktop-docker) or [as a binary](#claude-desktop-binary). To do this, add the relevant configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop).
 
 ### Remote
+
+When using the remote MCP server, to configure Claude Desktop to use this server:
+
+1. Select **Settings** > **Connectors**.
+1. Scroll down the page of connectors.
+    * If **Buildkite** appears (indicating the URL `https://mcp.buildkite.com/mcp`).
+        1. Select its **Connect** button.
+        1. On the **Authorize Application** for the **Buildkite MCP Server** page, scroll down and select your Buildkite organization in **Authorize for organization**, followed by **Authorize**.
+    * If **Buildkite** is not l
 
 ### Docker
 
