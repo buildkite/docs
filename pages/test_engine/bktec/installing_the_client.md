@@ -1,6 +1,6 @@
 # Installing the Test Engine Client
 
-This page provides instructions on how to install the Test Engine Client via installers provided by Buildkite.
+This page provides instructions on how to install the Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) using installers provided by Buildkite.
 
 If you need to install this tool on a system without an installer listed below, you'll need to perform a manual installation using one of the binaries from [Test Engine Client's releases page](https://github.com/buildkite/test-engine-client/releases/latest). Once you have the binary, make it executable in your pipeline.
 

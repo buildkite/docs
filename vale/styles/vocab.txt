@@ -40,6 +40,7 @@ Bazel
 bazelisk
 Bitium
 bktec
+bktec's
 boolean
 Boomper
 Buildbox
