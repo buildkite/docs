@@ -10,7 +10,7 @@ This guide uses the following Buildkite examples to demonstrate this process:
 - Pipeline: `ruby-logger-gem`, which builds a RubyGem package
 - Registry: `ruby-gems` to store the RubyGem
 
-Although this guide uses RubyGems as examples, this process will work for [all supported package ecosystems](/docs/packages/ecosystems) (with the exception of [OCI (Docker)](/docs/packages/oci) images.
+Although this guide uses RubyGems as examples, this process will work for [all supported package ecosystems](/docs/packages/ecosystems) (with the exception of OCI-based packages like [OCI (Docker)](/docs/packages/oci) and [Helm OCI](/docs/packages/helm-oci)).
 
 ## Step 1: Configure steps to generate SLSA provenance
 

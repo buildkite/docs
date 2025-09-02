@@ -1,8 +1,5 @@
 # Tags
 
-> 📘
-> The _tags_ feature is currently in public preview. Test Engine customers can tag executions with an additional 10 custom tags beyond the included core tags.
-
 Tags is a Test Engine feature that adds dimensions to test execution metadata so tests and executions can be better filtered, aggregated, and compared in Test Engine visualizations.
 
 Tagging can be used to observe aggregated data points—for example, to observe aggregated performance across several tests, and (optionally) narrow the dataset further based on specific constraints.
@@ -121,7 +118,7 @@ Where possible, Test Engine will automatically ingest this data on your behalf.
 
 ## Custom tags
 
-In addition to the [core tags](#core-tags), you can tag executions with your own custom tags.
+In addition to the [core tags](#core-tags), you can tag executions with your own custom tags. Test Engine customers can tag executions with an additional 10 custom tags beyond the included core tags.
 
 ### Defining tags
 

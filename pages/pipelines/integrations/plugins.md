@@ -24,6 +24,9 @@ Add plugins to [command steps](/docs/pipelines/configure/step-types/command-step
 
 Reference plugins in your pipeline configuration, and when the step containing the plugin runs, your agent will override the default behavior with hooks defined in the plugin [hooks](/docs/agent/v3/hooks). In case there is more than one, it will be with the command hook of the first plugin that defines it.
 
+> 📘 Plugin execution and conditionals
+> Plugins run during the job lifecycle, before the step-level `if` conditionals are evaluated. To conditionally run plugins, use either [group steps with conditionals](/docs/pipelines/configure/conditionals#conditionally-running-plugins-with-group-steps) or [dynamic pipeline uploads](/docs/pipelines/configure/conditionals#conditionally-running-plugins-with-dynamic-uploads).
+
 Some plugins allow configuration. This is usually defined in your `pipeline.yml` file and is read by the agent before the plugin hooks are run. See plugins' readme files for detailed configuration and usage instructions.
 
 See [Using plugins](/docs/pipelines/integrations/plugins/using) for more information about adding plugins to your pipeline definition.

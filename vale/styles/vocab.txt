@@ -40,6 +40,7 @@ Bazel
 bazelisk
 Bitium
 bktec
+bktec's
 boolean
 Boomper
 Buildbox
@@ -134,6 +135,7 @@ gpg
 Gradle
 gradle
 Gradle's
+graphql_id
 Graviton
 GRC
 gz
