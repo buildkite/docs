@@ -1,6 +1,6 @@
 # Configuring the Test Engine Client
 
-Buildkite maintains its open source Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) tool.  Currently, the Test Engine Client tool supports [RSpec](/docs/test-engine/test-collection/ruby-collectors#rspec-collector), [Jest](/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-jest), [Cypress](/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-cypress), [PlayWright](/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-playwright), and [Pytest](/docs/test-engine/test-collection/python-collectors#pytest-collector), pytest-pants, [Go](/docs/test-engine/test-collection/golang-collectors), and cucumber testing frameworks.
+Buildkite maintains its open source Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) tool. Currently, the bktec tool supports [RSpec](/docs/test-engine/test-collection/ruby-collectors#rspec-collector), [Jest](/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-jest), [Cypress](/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-cypress), [PlayWright](/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-playwright), and [Pytest](/docs/test-engine/test-collection/python-collectors#pytest-collector), pytest-pants, [Go](/docs/test-engine/test-collection/golang-collectors), and cucumber testing frameworks.
 
 If your testing framework is not supported, get in touch via support@buildkite.com or submit a pull request.
 
@@ -12,10 +12,10 @@ bktec relies on execution timing data captured by the test collectors from previ
 
 bktec is supported on both Linux and macOS with 64-bit ARM and AMD architectures. You can install the client using the following installers:
 
-- [Debian](/docs/test-engine/test-splitting/client-installation#debian)
-- [Red Hat](/docs/test-engine/test-splitting/client-installation#red-hat)
-- [macOS](/docs/test-engine/test-splitting/client-installation#macos)
-- [Docker](/docs/test-engine/test-splitting/client-installation#docker)
+- [Debian](/docs/test-engine/bktec/installing-the-client#debian)
+- [Red Hat](/docs/test-engine/bktec/installing-the-client#red-hat)
+- [macOS](/docs/test-engine/bktec/installing-the-client#macos)
+- [Docker](/docs/test-engine/bktec/installing-the-client#docker)
 
 If you need to install this tool on a system without an installer listed above, you'll need to perform a manual installation using one of the binaries from [Test Engine Client's releases page](https://github.com/buildkite/test-engine-client/releases/latest). Once you have the binary, make it executable in your pipeline.
 
