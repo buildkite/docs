@@ -39,22 +39,23 @@ In this case, make sure that the original pipeline configuration you are trying 
 
 If you would like to run the Buildkite migration tool locally, you can clone the [Buildkite migration tool repository](https://github.com/buildkite/migration) to run the migration tool's API via a HTTP API using `puma` from the `app` folder of this repository.
 
-You start the web UI with either of the following Docker commands:
+You start the web UI with the following Docker command:
 
 ```sh
 docker compose up webui
 ```
 
-> 📘
-> If you are using `docker run`, you will need to override the entrypoint:
+After starting the Docker image, you will be able to access the web interface of the Buildkite migration tool at `http://localhost:9292`.
+
+<%= image "api-web-ui.png", alt: "Web UI of the API version of the Buildkite migration tool" %>
+
+If you would prefer to use `docker run` command for starting the Buildkite migration too, you can do it but you will need to override the entrypoint:
 
 ```shell
 $ docker run --rm -ti -p 9292:9292 --entrypoint '' --workdir /app $IMAGE:$TAG puma --port 9292
 ```
 
-After that, you will be able to access a web interface at `http://localhost:9292`.
-
-You can also programmatically interact with it (and even pipe the output directly to `buildkite-agent pipeline upload`):
+You can also interact with the Buildkite migration tool programmatically and even pipe the output directly to `buildkite-agent pipeline upload`:
 
 ```shell
 $ curl -X POST -F 'file=@app/examples/circleci/legacy.yml' http://localhost:9292
