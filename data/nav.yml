@@ -621,10 +621,10 @@
           path: "test-engine/test-collection/ci-environments"
     - name: "Test Engine Client (bktec)"
       children:
-        - name: "Configuration"
+        - name: "Configuring"
           path: "test-engine/bktec/configuring"
-        - name: "Package installation"
-          path: "test-engine/bktec/client-installation"
+        - name: "Installing"
+          path: "test-engine/bktec/installing-the-client"
     - name: "Notifications"
       children:
         - name: "Slack"
