@@ -229,7 +229,6 @@ Rails.application.routes.draw do
   get "/docs/test-engine/labels",                                          to: redirect("/docs/test-engine/test-suites/labels")
   get "/docs/test-engine/manage-test-suites",                              to: redirect("/docs/test-engine/test-suites/manage")
   get "/docs/test-engine/other-collectors",                                to: redirect("/docs/test-engine/test-collection/other-collectors")
-  get "/docs/test-engine/permissions",                                     to: redirect("/docs/test-engine/test-suites/permissions")
   get "/docs/test-engine/public-test-suites",                              to: redirect("/docs/test-engine/test-suites/public")
   get "/docs/test-engine/python-collectors",                               to: redirect("/docs/test-engine/test-collection/python-collectors")
   get "/docs/test-engine/quarantine",                                      to: redirect("/docs/test-engine/test-suites/test-state-and-quarantine")
@@ -241,8 +240,7 @@ Rails.application.routes.draw do
   get "/docs/test-engine/test-ownership",                                  to: redirect("/docs/test-engine/test-suites/test-ownership")
   get "/docs/test-engine/test-state-and-quarantine",                       to: redirect("/docs/test-engine/test-suites/test-state-and-quarantine")
   get "/docs/test-engine/your-own-collectors",                             to: redirect("/docs/test-engine/test-collection/your-own-collectors")
-  get "/docs/test-engine/test-suites/permissions",                         to:
-  redirect("/docs/test-engine/permissions")
+  get "/docs/test-engine/test-suites/permissions",                         to: redirect("/docs/test-engine/permissions")
   get "/docs/tutorials/2fa",                                               to: redirect("/docs/platform/tutorials/2fa")
   get "/docs/tutorials/bazel",                                             to: redirect("/docs/pipelines/tutorials/bazel")
   get "/docs/tutorials/bitbucket",                                         to: redirect("/docs/pipelines/source-control/bitbucket")
