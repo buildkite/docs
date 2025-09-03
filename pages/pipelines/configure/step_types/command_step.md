@@ -12,7 +12,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-To define multiple commands, you can either use `command` syntax followed by a `|` symbol:
+Commands defined in separate command steps can be processed in different environments. To have a set of commands execute sequentially in a single step, use the `command` syntax followed by a `|` symbol or write a script and execute it with your environment of choice (Bash, Python, Ruby, etc.):
 
 ```yml
 steps:
@@ -22,7 +22,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Or you can define multiple commands by using the `commands` syntax and starting each new command on a new line:
+You can also define multiple commands by using the `commands` syntax and starting each new command on a new line:
 
 ```yml
 steps:
