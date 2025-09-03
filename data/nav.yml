@@ -20,8 +20,6 @@
           pill: "new"
         - name: "Glossary"
           path: "pipelines/glossary"
-        - name: "Administration best practices"
-          path: "pipelines/administration-best-practices"
     # If you're adding a source control provider you probably want to update
     # /docs/pages/integrations/source_control.md.erb
     # as well
@@ -51,6 +49,10 @@
           path: pipelines/migration/from-jenkins
         - name: From Bamboo
           path: pipelines/migration/from-bamboo
+    - name: Architecting Buildkite
+      children:
+        - name: "Enforcing platform controls"
+          path: "pipelines/architecture/enforcing-platform-controls"
     - name: "Tutorials"
       children:
         - name: "Docker-based builds"
