@@ -316,6 +316,8 @@ The Buildkite MCP server exposes the following [MCP tools](https://modelcontextp
   </tbody>
 </table>
 
+<h4 id="smart-caching-and-storage">Smart caching and storage</h4>
+
 ### Artifacts
 
 <table>

@@ -173,13 +173,17 @@ You can also [create a new Buildkite API access token rapidly with these pre-sel
 
 ## Install and run the server locally
 
-To install and run the Buildkite MCP server locally, you can do so using [Docker](#install-and-run-the-server-locally-using-docker) (recommended) or [Docker Desktop](#using-docker-desktop), or natively as a [pre-built binary](#install-and-run-the-server-locally-using-a-pre-built-binary), or [build it from source](#install-and-run-the-server-locally-building-from-source).
+To install and run the Buildkite MCP server locally, you can do so using [Docker](#install-and-run-the-server-locally-using-docker) (recommended), or natively as a [pre-built binary](#install-and-run-the-server-locally-using-a-pre-built-binary), or [build it from source](#install-and-run-the-server-locally-building-from-source).
 
 ### Using Docker
 
 To run the Buildkite MCP server locally in Docker:
 
 1. Ensure you have installed and are running [Docker](https://www.docker.com/) version 20.x or later.
+
+    **Note:**
+    * You can also confirm the minimum required Docker version from the [buildkite-mcp-server's README](https://github.com/buildkite/buildkite-mcp-server/tree/main?tab=readme-ov-file#%EF%B8%8F-prerequisites).
+    * These remaining steps are for running the MCP server in Docker from the command line, or if you have installed the [Docker Engine](https://docs.docker.com/engine/install/) only. If you've installed Docker through Docker Desktop, you can follow the more convenient [Docker Desktop instructions](#using-docker-desktop) instead.
 
 1. Open a terminal or command prompt, and run this command to obtain the Buildkite MCP server Docker image.
 
@@ -197,11 +201,11 @@ To run the Buildkite MCP server locally in Docker:
 
 <h4 id="using-docker-desktop">Using Docker Desktop</h4>
 
-If you have installed and are using [Docker Desktop](https://www.docker.com/products/docker-desktop/), you can add the Buildkite MCP server to the **MCP Toolkit** area of Docker Desktop.
+If you are using [Docker Desktop](https://www.docker.com/products/docker-desktop/), you can add the Buildkite MCP server to the **MCP Toolkit** area of Docker Desktop.
 
 <!-- vale off -->
 
-To do so, visit the [Buildkite MCP server](https://hub.docker.com/mcp/server/buildkite/overview) page on [Docker's mcp hub site](https://hub.docker.com/mcp) for MCP servers, for details on the supported Docker Desktop versions, and from which you can add the MCP server directly to your Docker Desktop installation.
+To do so, visit the [Buildkite MCP server](https://hub.docker.com/mcp/server/buildkite/overview) page on [Docker's mcp hub site](https://hub.docker.com/mcp) for MCP servers. This page provides details on which Docker Desktop versions are supported, and a button from which you can add the MCP server directly to your Docker Desktop installation.
 
 <!-- vale on -->
 
@@ -228,14 +232,18 @@ brew install buildkite/buildkite/buildkite-mcp-server
 
 To build the Buildkite MCP server locally from source, run these commands:
 
-1. Ensure you have installed [Go](https://www.docker.com/) version 1.24 or later.
+1. Ensure you have installed [Go](https://go.dev/dl/) version 1.24 or later.
+
+    **Note:** You can also confirm the minimum required Go version from the [buildkite-mcp-server's README](https://github.com/buildkite/buildkite-mcp-server/tree/main?tab=readme-ov-file#%EF%B8%8F-prerequisites).
 
 1. Run the following commands to build the MCP server locally from source.
 
     ```bash
-    go install github.com/buildkite/buildkite-mcp-server@latest
-    # or
-    goreleaser build --snapshot --clean
-    # or
-    make build    # uses goreleaser (snapshot)
+    go install github.com/buildkite/buildkite-mcp-server/cmd/buildkite-mcp-server@latest
     ```
+
+> 📘
+> If you're interested in contributing to the development of the Buildkite MCP server, see the [Contributing section of the README](https://github.com/buildkite/buildkite-mcp-server/tree/main?tab=readme-ov-file#-contributing) and [Development](https://github.com/buildkite/buildkite-mcp-server/blob/main/DEVELOPMENT.md) guide for more information.
+
+## Self-hosting the MCP server
+

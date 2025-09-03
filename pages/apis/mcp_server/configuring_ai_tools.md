@@ -61,9 +61,9 @@ When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-se
     "buildkite": {
       "command": "buildkite-mcp-server",
       "args": ["stdio"],
-      "env": { 
-        "BUILDKITE_API_TOKEN": "bkua_xxxxx", 
-        "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threshold-value" 
+      "env": {
+        "BUILDKITE_API_TOKEN": "bkua_xxxxx",
+        "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threshold-value"
       }
     }
   }
@@ -82,7 +82,7 @@ You can configure [Claude Code](https://www.anthropic.com/claude-code) (as a com
 
 ### Remote
 
-When using the remote MCP server, run the following Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
+When using the remote MCP server, run the following Claude Code command.
 
 ```bash
 
@@ -90,7 +90,7 @@ When using the remote MCP server, run the following Claude Code command, after [
 
 ### Docker
 
-When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, run the following Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
+When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, run the following Claude Code command.
 
 ```bash
 claude mcp add buildkite -- docker run --pull=always -q --rm -i -e BUILDKITE_API_TOKEN=bkua_xxxxx buildkite/mcp-server stdio
@@ -100,7 +100,7 @@ where `bkua_xxxxx` is the value of your [configured Buildkite API access token](
 
 ### Binary
 
-When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, run the following Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
+When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, run the following Claude Code command.
 
 ```bash
 claude mcp add buildkite --env BUILDKITE_API_TOKEN=bkua_xxxxx -- buildkite-mcp-server stdio
@@ -114,14 +114,14 @@ You can configure [Claude Desktop](https://claude.ai/download) with the Buildkit
 
 ### Remote
 
-When using the remote MCP server, to configure Claude Desktop to use this server:
+When using the remote MCP server, do the following to configure this server in Claude Desktop:
 
 1. Select **Settings** > **Connectors**.
 1. Scroll down the page of connectors.
     * If **Buildkite** appears (indicating the URL `https://mcp.buildkite.com/mcp`).
         1. Select its **Connect** button.
         1. On the **Authorize Application** for the **Buildkite MCP Server** page, scroll down and select your Buildkite organization in **Authorize for organization**, followed by **Authorize**.
-    * If **Buildkite** is not l
+    * If **Buildkite** is not listed ...
 
 ### Docker
 
@@ -172,9 +172,30 @@ where:
 
 ## Cursor
 
-You can configure [Cursor](https://cursor.com/) with the Buildkite MCP server, either [remotely](#cursor-remote) or running locally [using Docker](#cursor-docker) or [as a binary](#cursor-binary). To do this, add the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
+You can configure [Cursor](https://cursor.com/) with the Buildkite MCP server, either [remotely](#cursor-remote) or running locally [using Docker](#cursor-docker) or [as a binary](#cursor-binary). To do this, add the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json), which is usually located in your home directory's `.cursor` sub-directory.
+
+To access the `mcp.json` file through the Cursor app:
+
+1. From your **Cursor Settings**, select **MCP & Integrations**.
+1. Under **MCP Tools**, select **Add Custom MCP** to open the `mcp.json` file.
 
 ### Remote
+
+When using the remote MCP server, add the following JSON configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
+
+```json
+{
+  "mcpServers": {
+    "buildkite": {
+      "url": "https://mcp.buildkite.com/mcp"
+    }
+  }
+}
+```
+
+You can also conveniently add this configuration using the following button.
+
+<a class="inline-block" href="https://cursor.com/en/install-mcp?name=buildkite&config=eyJ1cmwiOiJodHRwczovL21jcC5idWlsZGtpdGUuY29tL21jcCJ9" target="_blank" rel="nofollow"><img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Add to Cursor" class="no-decoration" width="160" height="30"></a><br/>
 
 ### Docker
 
