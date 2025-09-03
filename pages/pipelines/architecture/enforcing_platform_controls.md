@@ -3,7 +3,7 @@
 This page aims to cover the best practices for administrating Buildkite in terms of agent controls, platform controls, and controls around cost. Platform engineers and infrastructure teams will benefit from reading this page.
 
 > 📘
-> If you're looking for in-depth infomation on best practices for security controls, see [Enforcing security controls](/docs/pipelines/security/enforcing-security-controls).
+> If you're looking for in-depth information on best practices for security controls, see [Enforcing security controls](/docs/pipelines/security/enforcing-security-controls).
 
 ## Buildkite agent controls
 
@@ -51,7 +51,7 @@ Cluster maintainer can create the allowed queues and only allow the sizes they w
 ### Agent scaling
 
 Only allow the number of agents you’d like in that queue. Monitor wait times.
-Potential lifehack - scale all (AWS agents) to zero and only keep a handful warm during the work/peak hours (could be the ones that are running CloudFormation deploy or Terraform apply).
+Potential tip - scale all (AWS agents) to zero and only keep a handful warm during the work/peak hours (could be the ones that are running CloudFormation deploy or Terraform apply).
 
 ### User number control
 
