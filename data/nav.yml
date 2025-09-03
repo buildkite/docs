@@ -560,6 +560,8 @@
           path: "test-engine/getting-started"
         - name: "Speed up builds with bktec"
           path: "test-engine/speed-up-builds-with-bktec"
+        - name: "Reduce flaky tests"
+          path: "test-engine/reduce-flaky-tests"
         - name: "Glossary"
           path: "test-engine/glossary"
     - name: "Test suites"
