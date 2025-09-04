@@ -49,16 +49,16 @@
           path: pipelines/migration/from-jenkins
         - name: From Bamboo
           path: pipelines/migration/from-bamboo
-    - name: Architecting Buildkite
+    - name: Platform administation
       children:
         - name: "Enforcing platform controls"
-          path: "pipelines/architecture/enforcing-platform-controls"
-    - name: "Tutorials"
-      children:
+          path: "pipelines/platform-administration/enforcing-platform-controls"
         - name: "Docker-based builds"
           path: "pipelines/tutorials/docker-containerized-builds"
         - name: "Parallelizing builds"
           path: "pipelines/tutorials/parallel-builds"
+    - name: "Tutorials"
+      children:
         - name: "Using Bazel on Buildkite"
           path: "pipelines/tutorials/bazel"
         - name: "Dynamic pipelines and annotations using Bazel"
