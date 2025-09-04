@@ -49,7 +49,7 @@
           path: pipelines/migration/from-jenkins
         - name: From Bamboo
           path: pipelines/migration/from-bamboo
-    - name: Platform administation
+    - name: Platform administration
       children:
         - name: "Enforcing platform controls"
           path: "pipelines/platform-administration/enforcing-platform-controls"
