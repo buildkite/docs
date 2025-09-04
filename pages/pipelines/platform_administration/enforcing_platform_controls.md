@@ -106,23 +106,23 @@ We do have API commands that can show the number of users and active users, in G
 - Generate regular usage reports
 - Set up alerts for unusual usage spikes
 
-## Implementation Recommendations
+## Implementation recommendations
 
-### Getting Started
+### Getting started
 
 1. **Assess current state**: Audit existing pipelines, agents, and usage patterns
 2. **Define policies**: Establish resource limits, security requirements, and cost targets
 3. **Create templates**: Build standard pipeline templates for common use cases
 4. **Implement gradually**: Roll out controls incrementally to avoid disrupting existing workflows
 
-### Common Pitfalls to Avoid
+### Common pitfalls to avoid
 
 - **Over-restricting initially**: Start permissive and tighten controls based on actual usage
 - **Ignoring developer feedback**: Platform controls should enable, not hinder, development teams
 - **Lack of documentation**: Provide clear guidance on how teams should request resources or escalate issues
 - **No monitoring**: Implement observability from day one to understand the impact of your controls
 
-## Next Steps
+## Next steps
 
 This framework provides a foundation for managing Buildkite at scale. Consider your organization's specific needs around security, compliance, and cost management when implementing these controls.
 

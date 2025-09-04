@@ -148,6 +148,8 @@ RSpec.feature "reading pages" do
       /docs/pipelines/uploading-pipelines
       /docs/projects
       /docs/rest-api
+      /docs/tutorials/docker-containerized-builds
+      /docs/tutorials/parallel-builds
       /docs/tutorials/sso-setup-with-graphql
       /docs/webhooks/setup
       /docs/webhooks

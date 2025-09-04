@@ -54,9 +54,9 @@
         - name: "Enforcing platform controls"
           path: "pipelines/platform-administration/enforcing-platform-controls"
         - name: "Docker-based builds"
-          path: "pipelines/tutorials/docker-containerized-builds"
+          path: "pipelines/platform-administration/docker-containerized-builds"
         - name: "Parallelizing builds"
-          path: "pipelines/tutorials/parallel-builds"
+          path: "pipelines/platform-administration/parallel-builds"
     - name: "Tutorials"
       children:
         - name: "Using Bazel on Buildkite"
