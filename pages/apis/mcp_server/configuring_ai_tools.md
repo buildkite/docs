@@ -524,10 +524,12 @@ You can also configure ToolHive to run the Buildkite MCP server from its registr
 
 1. Access [ToolHive's **Registry** page](https://docs.stacklok.com/toolhive/guides-ui/run-mcp-servers).
 
+<!-- vale off -->
+
 1. Search for `buildkite` and then select the filtered **buildkite** registry option.
 
 1. Select **Install server** and on the **Configure buildkite** dialog's **Configuration** tab, specify the following values:
     * **Secrets**: Select `buildkite-api-key`.
     * **Environment variables** (_optional_): Specify the threshold for logging tokens. Omitting this field sets its value to 0, which means that no tokens are logged.
 
-
+<!-- vale on -->
