@@ -1,6 +1,6 @@
 # Enforcing platform controls in Buildkite
 
-This page aims to cover the best practices for administrating Buildkite in terms of agent controls, platform controls, and controls around cost. Platform engineers and infrastructure teams will benefit from reading this page.
+This page aims to cover the best practices for administrating Buildkite in terms of agent controls, platform controls, and controls around cost. Platform engineers and infrastructure teams will benefit from reading this page as they will learn expose some amount of control to their feature teams but still manage the shared and centralized resources.
 
 > 📘
 > If you're looking for in-depth information on best practices for security controls, see [Enforcing security controls](/docs/pipelines/security/enforcing-security-controls).
