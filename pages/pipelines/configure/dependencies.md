@@ -182,6 +182,41 @@ steps:
 
 This pattern is often used to run steps like code coverage or annotations to the build log that will give insight into what failed.
 
+## How skipped steps affect dependencies
+
+When a step is skipped (due to an `if` condition returning `false`), any steps that depend on that step will still run. Skipped steps are treated as "satisfied" dependencies.
+
+> 🚧 Skipped dependencies are treated as satisfied
+> When a step that another step depends on is skipped due to a conditional, the dependency is treated as satisfied and dependent steps will run. Skipped dependencies are treated as passing, which is different from failed or canceled steps that block dependent steps, unless `allow_dependency_failure` is used.
+
+The following table shows how different step states affect dependencies:
+
+| Step State | Dependency Result | Dependent Steps Behavior |
+|------------|------------------|---------------------------|
+| **Passed** | ✅ Satisfied | Run normally |
+| **Skipped** (due to `if` condition) | ✅ Satisfied | **Run normally** |
+| **Failed** (with `allow_failure: true`) | ✅ Satisfied | Run normally |
+| **Failed** (no `allow_failure`) | ❌ Failed | Don't run |
+| **Blocked** | ⏸️ Blocked | Wait for unblocking |
+| **Canceled/Expired** | ❌ Failed | Don't run |
+
+### Skipped dependency behavior
+
+In this example, when building a branch other than `main`, the "Conditional Step" will be skipped but the "Dependent Step" will still run because the skipped dependency is satisfied.
+
+```yaml
+steps:
+  - label: "Conditional Step"
+    key: "conditional"
+    command: "echo 'This only runs on main'"
+    if: build.branch == "main"
+
+  - label: "Dependent Step"
+    command: "echo 'This always runs'"
+    depends_on: "conditional"
+```
+{: codeblock-file="pipeline.yml"}
+
 ## Allowed failure and soft fail
 
 Setting [`soft_fail`](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes) on a step will also allow steps that depend upon it to run, even when [`allow_dependency_failure: false`](/docs/pipelines/configure/dependencies#allowing-dependency-failures) is set on the subsequent step.

@@ -10,6 +10,7 @@ services:
       - vite
     environment:
       VITE_RUBY_HOST: vite
+      RAILS_LOG_TO_STDOUT: yes
     ports:
       - "3000:3000"
     volumes:

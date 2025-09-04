@@ -8,7 +8,7 @@ Quarantining the flaky tests of a pipeline's builds allows the pipeline to be bu
 
 ## Lifecycle states
 
-Users with the [**Full Access** permission to a test suite](/docs/test-engine/test-suites/permissions#manage-teams-and-permissions-test-suite-level-permissions) can enable a _test state_ in a test suite's **Settings**, by selecting the appropriate test states that quarantining can be based upon.
+Users with the [**Full Access** permission to a test suite](/docs/test-engine/permissions#manage-teams-and-permissions-test-suite-level-permissions) can enable a _test state_ in a test suite's **Settings**, by selecting the appropriate test states that quarantining can be based upon.
 
 <%= image "lifecycle-management.png", alt: "The UI for test state lifecycle management" %>
 
