@@ -198,6 +198,8 @@ Rails.application.routes.draw do
   get "/docs/pipelines/step-reference",                                    to: redirect("/docs/pipelines/configure/step-types")
   get "/docs/pipelines/tags",                                              to: redirect("/docs/pipelines/configure/tags")
   get "/docs/pipelines/templates",                                         to: redirect("/docs/pipelines/governance/templates")
+  get "/docs/pipelines/tutorials/parallel-builds",                         to: redirect("/docs/pipelines/platform-administration/parallel-builds")
+  get "/docs/pipelines/tutorials/docker-containerized-builds",             to: redirect("/docs/pipelines/platform-administration/docker-containerized-builds")
   get "/docs/pipelines/trigger-step",                                      to: redirect("/docs/pipelines/configure/step-types/trigger-step")
   get "/docs/pipelines/uploading-pipelines",                               to: redirect("/docs/pipelines/defining-steps")
   get "/docs/pipelines/wait-step",                                         to: redirect("/docs/pipelines/configure/step-types/wait-step")
