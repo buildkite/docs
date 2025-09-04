@@ -78,7 +78,7 @@ Rails.application.routes.draw do
   get "/docs/guides/images-in-build-output",                               to: redirect("/docs/pipelines/links-and-images-in-log-output")
   get "/docs/guides/managing-log-output",                                  to: redirect("/docs/pipelines/managing-log-output")
   get "/docs/guides/migrating-from-bamboo",                                to: redirect("/docs/pipelines/migration/from-bamboo")
-  get "/docs/guides/parallelizing-builds",                                 to: redirect("/docs/pipelines/tutorials/parallel-builds")
+  get "/docs/guides/parallelizing-builds",                                 to: redirect("/docs/pipelines/platform-administration/parallel-builds")
   get "/docs/guides/skipping-a-build",                                     to: redirect("/docs/pipelines/ignoring-a-commit")
   get "/docs/guides/uploading-pipelines",                                  to: redirect("/docs/pipelines/defining-steps")
   get "/docs/guides/writing-build-scripts",                                to: redirect("/docs/pipelines/writing-build-scripts")
