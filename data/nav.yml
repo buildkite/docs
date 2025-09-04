@@ -620,6 +620,8 @@
       children:
         - name: "Overview"
           path: "test-engine/workflows"
+        - name: "Monitors"
+          path: "test-engine/workflows/monitors"
       pill: "new"
     - name: "Test Engine Client (bktec)"
       children:
