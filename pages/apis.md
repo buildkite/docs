@@ -54,6 +54,6 @@ Learn more about Buildkite's webhooks from the [Webhooks overview](/docs/apis/we
 
 ## Portals
 
-Buildkite's portals provide an alternative to the REST and GraphQL APIs, which allow Buildkite organization administrators to define custom GraphQL operations that can then be accessed through an authenticated URL endpoint by other members of the Buildkite organization.
+Buildkite's portals provide an alternative to the REST and GraphQL APIs. Portals allow Buildkite organization administrators to define custom GraphQL operations, which can then be accessed through an authenticated URL endpoint by other members of the Buildkite organization.
 
 Learn more about the portals feature in [Portals](/docs/apis/portals).
