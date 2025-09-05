@@ -3708,6 +3708,16 @@ enum JobEventType {
   SCHEDULED
 
   """
+  Stack encountered an error handling this job
+  """
+  STACK_ERRORED
+
+  """
+  Stack sent a notification for this job
+  """
+  STACK_NOTIFICATION
+
+  """
   The Job was started by an agent
   """
   STARTED
