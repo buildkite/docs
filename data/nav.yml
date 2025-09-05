@@ -795,7 +795,7 @@
   children:
     - name: "Overview"
       path: "apis"
-    - name: "Managing API tokens"
+    - name: "Managing API access tokens"
       path: "apis/managing-api-tokens"
     - name: "API differences"
       path: "apis/api-differences"
