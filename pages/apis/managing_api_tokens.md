@@ -103,7 +103,7 @@ Buildkite's API access tokens have the following lifecycle characteristics:
 
 - API access tokens are issued for users within a Buildkite organization. The tokens are stored in the Buildkite database (linked to the user ID) and by the user for which they're issued.
 
-- The tokens are associated with a specific user and can only be revoked by that user. Buildkite organization administrators can [remove a user from an organization](#removing-an-organization-from-a-token), which prevents the user from accessing any organization resources and pipelines, and prevents access using any API access token associated with that user.
+- The tokens are associated with a specific user and can only be revoked by that user. Buildkite organization administrators can remove a user from an organization, which prevents the user from accessing any organization resources and pipelines, and prevents access using any API access token associated with that user.
 
 ## API token security
 
