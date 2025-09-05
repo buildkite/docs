@@ -52,7 +52,7 @@ When creating API access tokens, you can also restrict which network address are
 
 ## Auditing tokens
 
-Viewing the **API Access Audit** page requires Buildkite organization admininistrator privileges. The page can be found in the **Audit** section of the Buildkite organization's **Settings** in the global naviation.
+Viewing the **API Access Audit** page requires Buildkite organization administrator privileges. The page can be found in the **Audit** section of the Buildkite organization's **Settings** in the global navigation.
 
 All tokens that currently have access to your organization's data will be listed. The table includes the scope of each token, how long ago they were created, and how long since they've been used.
 
