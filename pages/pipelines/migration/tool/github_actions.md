@@ -117,7 +117,7 @@ You might need to adjust the syntax of the resulting converted output to make it
 ## On
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
-| `on` | No | The `on` key allows for triggering a GitHub Action workflow. In Buildkite pipelines this capability is defined within a `trigger` [step](/docs/pipelines/configure/step-types/trigger-step) - where utilized within a pipeline, will create a build on the specified pipeline with additional properties. |
+| `on` | No | The `on` key defines the pipeline trigger in a GitHub Action workflow. In Buildkite pipelines, this is a UI setting. |
 
 ## Permissions
 
