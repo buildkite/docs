@@ -1,4 +1,4 @@
-# Buildkite MCP server
+# Buildkite MCP server overview
 
 The [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) is an open protocol standard on how to connect AI tools and models to a variety of other systems and data sources.
 
@@ -18,7 +18,7 @@ Buildkite provides both a _remote_ and _local_ MCP server:
     https://mcp.buildkite.com/mcp
     ```
 
-- The local MCP server is one that you install yourself on your own machine. Learn more about how to set up and install a local Buildkite MCP server in [Installing the Buildkite MCP server locally](/docs/apis/mcp-server/installing).
+- The local MCP server is one that you install yourself on your own machine. Learn more about how to set up and install a local Buildkite MCP server in [Installing the Buildkite MCP server](/docs/apis/mcp-server/installing).
 
 The MCP server is built on and interacts with Buildkite's REST API. Therefore, as part of installing a local Buildkite MCP server, you'll also need to [configure an API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token) with the required scopes that your local MCP server will use.
 
