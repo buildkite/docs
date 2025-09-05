@@ -9,9 +9,15 @@ This guide covers best practices for managing Buildkite at scale, focusing on ho
 
 The key to successful Buildkite administration lies in finding the right balance between centralized control and developer autonomy. Platform teams need to manage shared resources and enforce company-wide standards while avoiding becoming a bottleneck for feature teams.
 
-One script can generate many different permutations of pipelines, so it's very easy for platform teams to manage shared logic, company-wide checks like security etc. You also have the full power of a programming language (conditionals, loops, tests etc) and can version control these pipeline generation scripts.
+The distinction between platform/infrastructre and the developer team is that the former get to specify settings like the size of the infrastructure, machine capacity, maximum rerun attempts, time-outs, etc. in the YAML confogurations included in the codebase, that stays unchanged (by the developer teams). The platrofm team also manages a script that reads these YAML configuration files, generates the correct pipeline(s), and allocates agents (with correct underlying capacity) to run the jobs in those pipelines.
 
-End users get just the information that's relevant to their run, and don't have to worry about the complexities of other permutations
+When the resulting pipeline runs, the end user of Buildkite sees [annotations](/docs/agent/v3/cli-annotate) generated from the specific steps that ran just for their run. These annotation can contain some useful additional information/context (for example, a a link to an internal dashboard if there's an error).
+
+To sum it up:
+
+- Platform teams manage central control while still giving end users of Buildkite (developer teams) as much or as little flexibility as necessary.
+- One script can generate many different permutations of pipelines, and this allows the platform teams to manage shared logic and run organization-wide checks, for example, [security scanning](https://buildkite.com/docs/pipelines/security/enforcing-security-controls#dependencies-and-package-management).
+- Developer teams only get the permissions and information that is relevant to their builds/pipelines.
 
 ## Buildkite agent controls
 
