@@ -89,14 +89,7 @@ You might need to adjust the syntax of the resulting converted output to make it
 ## Pipeline starting conditions
 
 > 📘
-> Bitbucket Pipelines allows the configuration of various pipeline start conditions, with each condition supporting different configuration and permissible properties:
-> - `branches`: defines the branch-specific configuration of a Bitbucket pipeline.
-> - `custom`: a customized starting condition where only manual triggering is allowed.
-> - `default`: the default starting configuration of a Bitbucket pipeline if no other conditions apply.
-> - `pull_request`: defines the pull request-specific configuration of a Bitbucket pipeline.
-> - `tags`: defines the tag-specific configuration of a Bitbucket pipeline.
->
-> For information on each of these individual starting conditions, refer to the reference within the Bitbucket Pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Custom--manual--pipeline-variables).
+> Bitbucket Pipelines allows the configuration of various pipeline start conditions, with each condition supporting different configuration and permissible properties like `branches`, `custom`, `default`, `pull_request`, `tags`, and more. For information on each of these individual starting conditions, refer to the reference within the Bitbucket Pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Custom--manual--pipeline-variables).
 
 ### Branches
 
@@ -155,12 +148,7 @@ You might need to adjust the syntax of the resulting converted output to make it
 ## Pipeline properties
 
 > 📘
-> Each starting pipeline condition listed [above](#pipeline-starting-conditions) can support various pipeline properties:
-> - `parallel`: a grouping of multiple steps within a Bitbucket pipeline to be run concurrently.
-> - `step`: a logical execution unit that makes up a specific workflow within a Bitbucket pipeline.
-> - `stage`: a grouping of multiple Bitbucket pipeline steps with shared properties.
-> - `variables`: a customized variable definition to utilize within a custom Bitbucket pipeline starting condition.
->
+> Each [starting pipeline condition](#pipeline-starting-conditions) in Bitbucket can support various pipeline properties like `parallel`, `step`, `stage`, `variables` and so on.
 > For information on each of these individual properties, refer to the reference within the Bitbucket Pipelines documentation for [parallel](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel), [step](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property), [stage](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage) and [variable](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Custom--manual--pipeline-variables) properties.
 >
 > Additionally, implementation of these pipeline properties can be enhanced with best practices by using [Dynamic Pipelines](/docs/pipelines/configure/dynamic-pipelines) to generate and upload pipeline configuration dynamically and using [conditionals](/docs/pipelines/configure/conditionals#conditionals-in-pipelines) at both pipeline level and step level to apply jobs only when certain conditions are met, and setting [trigger steps](/docs/pipelines/configure/step-types/trigger-step) with required attributes and environment variable configurations passed through to the triggered builds.

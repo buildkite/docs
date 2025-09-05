@@ -58,13 +58,12 @@ You will see the following in the Buildkite migration tool UI during the convers
 
 You might need to adjust the syntax of the resulting converted output to make it is consistent with the [step configuration conventions](/docs/pipelines/configure/step-types) syntax used in Buildkite Pipelines.
 
+The Buildkite migration tool supports the use of YAML aliases - reusable configuration snippets to be applied to specific points in a CircleCI pipeline. These are defined with a `&` (anchor) within the top-level `aliases` key and substituted into CircleCI pipeline configuration with `*` (for example, `*tests`). Configuration defined by an alias will be respected and parsed at the specified section of the pipeline. Also note that the anchors will be expanded in the resulting converted pipeline.
+
 > 📘
 > Remember that not all the features of CircleCI can be fully converted to the Buildkite Pipelines format. See the following sections to learn more about the compatibility, workarounds, and limitation of converting CircleCI pipelines to Buildkite Pipelines.
 
 ## Logical operators (helpers)
-
-> 📘
-> The Buildkite Migration tool supports the use of YAML aliases - reusable configuration snippets to be applied to specific points in a CircleCI pipeline. These are defined with a `&` (anchor) within the top-level `aliases` key and substituted into CircleCI pipeline configuration with `*` (for example, `*tests`). Configuration defined by an alias will be respected and parsed at the specified section of the pipeline. Also note that the anchors will be expanded in the resulting converted pipeline.
 
 | Key | Supported | Notes |
 | --- | --- | --- |
@@ -96,13 +95,13 @@ You might need to adjust the syntax of the resulting converted output to make it
 | `jobs.<name>.parallelism` | No | A `parallelism` parameter (if greater than `1` is defined) will create a separate execution environment and will run the `steps` of the specific `job` in parallel. In Buildkite, a similar `parallelism` key can be set to a [command step](/docs/pipelines/configure/step-types/command-step) which will run the defined `command` over separate jobs (sharing the same agent [queues](/docs/agent/v3/queues#setting-an-agents-queue) and [tags](/docs/agent/v3/cli-start#setting-tags) targeting). |
 | `jobs.<name>.parameters` | Yes | Reusable keys that are used within `step` definitions within a `job`. Default parameters that are specified in a `parameters` block are passed through into the [command step](/docs/pipelines/configure/step-types/command-step)'s `commands` if specified. |
 | `jobs.<name>.shell` | No | The `shell` property sets the default shell that is used across all commands within all steps. This should be configured on the agent - or by defining the `shell` [option](/docs/agent/v3/cli-start#shell) when starting a Buildkite agent which will set the shell command used to interpret all build commands. |
-| `jobs.<name>.steps` | Yes | A collection of non-`orb` `jobs` commands that are executed as part of a CircleCI `job`. Steps can be defined within an `alias`. All `steps` within a singular `job` are translated to the `commands` of a shared [command step](/docs/pipelines/configure/step-types/command-step) within the generated Buildkite pipeline to ensure they share the same execution environment. |
+| `jobs.<name>.steps` | Partially | A collection of non-`orb` `jobs` commands that are executed as part of a CircleCI `job`. Steps can be defined within an `alias`. All `steps` within a singular `job` are translated to the `commands` of a shared [command step](/docs/pipelines/configure/step-types/command-step) within the generated Buildkite pipeline to ensure they share the same execution environment. |
 | `jobs.<name>.working_directory` | Yes | The location of the executor where steps are run. If set, a "change directory" (`cd`) command is created within the shared `commands` of a Buildkite [command step](/docs/pipelines/configure/step-types/command-step) to the desired location. |
 
 ### Executors
 
 > 📘
-> While the Buildkite migration tool will translate the executor types listed below, the prerequisite for using the generated steps will require a relevant compatible OS, dependencies, and tooling (for example, Docker, XCode) on targeted agents. Buildkite offers the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws?tab=readme-ov-file#supported-features) as a fully scalable Buildkite agent fleet on AWS with a suite of tooling installed by default. Additionally, customized agents can be [set up](/docs/agent/v3/configuration) to target builds that require specific OSes/tooling.
+> While the Buildkite migration tool will translate the executor types listed below, the prerequisite for using the generated steps will require a relevant compatible OS, dependencies, and tooling (for example, Docker, XCode) on targeted agents. Buildkite offers the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws?tab=readme-ov-file#supported-features) as a fully scalable Buildkite agent fleet on AWS with a suite of tooling installed by default. Additionally, customized agents can be [set up](/docs/agent/v3/configuration) to target builds that require specific OSes/tooling. Or you can use [Buildkite hosted agents](/docs/pipelines/hosted-agents) - a platform for running your agents, fully managed by Buildkite.
 
 | Key | Supported | Notes |
 | --- | --- | --- |
