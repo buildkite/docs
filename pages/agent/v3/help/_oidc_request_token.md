@@ -51,6 +51,7 @@ Requests and prints an OIDC token from Buildkite that claims the Job ID
 <tr id="job"><th><code>--job value</code> <a class="Docs__attribute__link" href="#job">#</a></th><td><p>Buildkite Job Id to claim in the OIDC token<br /><strong>Environment variable</strong>: <code>$BUILDKITE_JOB_ID</code></p></td></tr>
 <tr id="claim"><th><code>--claim value</code> <a class="Docs__attribute__link" href="#claim">#</a></th><td><p>Claims to add to the OIDC token<br /><strong>Environment variable</strong>: <code>$BUILDKITE_OIDC_TOKEN_CLAIMS</code></p></td></tr>
 <tr id="aws-session-tag"><th><code>--aws-session-tag value</code> <a class="Docs__attribute__link" href="#aws-session-tag">#</a></th><td><p>Add claims as AWS Session Tags<br /><strong>Environment variable</strong>: <code>$BUILDKITE_OIDC_TOKEN_AWS_SESSION_TAGS</code></p></td></tr>
+<tr id="skip-redaction"><th><code>--skip-redaction </code> <a class="Docs__attribute__link" href="#skip-redaction">#</a></th><td><p>Skip redacting the OIDC token from the logs. Then, the command will print the token to the Job's logs if called directly.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_OIDC_REQUEST_TOKEN_SKIP_TOKEN_REDACTION</code></p></td></tr>
 </table>
 
 <!-- vale on -->
