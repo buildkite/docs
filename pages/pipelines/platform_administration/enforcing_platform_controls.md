@@ -9,7 +9,7 @@ This guide covers best practices for managing Buildkite at scale, focusing on ho
 
 The key to successful Buildkite administration lies in finding the right balance between centralized control and developer autonomy. Platform teams need to manage shared resources and enforce company-wide standards while avoiding becoming a bottleneck for feature teams.
 
-The distinction between platform/infrastructre and the developer team is that the former get to specify settings like the size of the infrastructure, machine capacity, maximum rerun attempts, time-outs, etc. in the YAML confogurations included in the codebase, that stays unchanged (by the developer teams). The platrofm team also manages a script that reads these YAML configuration files, generates the correct pipeline(s), and allocates agents (with correct underlying capacity) to run the jobs in those pipelines.
+The distinction between platform/infrastructre and the developer team is that the former get to specify settings like the size of the infrastructure, machine capacity, maximum rerun attempts, time-outs, etc. in the YAML configurations included in the codebase, that stays unchanged (by the developer teams). The platform team also manages a script that reads these YAML configuration files, generates the correct pipeline(s), and allocates agents (with correct underlying capacity) to run the jobs in those pipelines.
 
 When the resulting pipeline runs, the end user of Buildkite sees [annotations](/docs/agent/v3/cli-annotate) generated from the specific steps that ran just for their run. These annotation can contain some useful additional information/context (for example, a a link to an internal dashboard if there's an error).
 
