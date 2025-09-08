@@ -28,6 +28,51 @@ An alternative method to collect the logs is to use the [`log-collector`](https:
 
 The script collects CloudWatch Logs for the Instance, Lambda function, and AutoScaling activity, then packages them in a zip archive that you can email to Support for help at [support@buildkite.com](mailto:support@buildkite.com).
 
+## Debugging BootstrapScriptUrl failures
+
+When you've configured a custom `BootstrapScriptUrl` parameter but instances aren't working correctly, use the following suggestions to help identify and resolve any issues.
+
+**Verify the basics**
+
+- Test `BootstrapScriptUrl` is accessible: `curl -f "$BOOTSTRAP_URL" -o bootstrap_script.sh`
+- Syntax check the script: `bash -n bootstrap_script.sh`
+- Check Auto Scaling group activity for launch failures:
+
+```bash
+aws autoscaling describe-scaling-activities \
+  --auto-scaling-group-name your-buildkite-asg \
+  --max-items 10
+```
+
+**Examine CloudWatch logs**
+
+- `/buildkite/elastic-stack/{instance_id}` - Look for "Running bootstrap script from" message
+- `/buildkite/cloud-init/output/{instance_id}` - Check environment setup
+- `/buildkite/buildkite-agent/{instance_id}` - Verify agent startup
+
+**Collect detailed information**
+
+For active instances:
+
+```bash
+aws ssm send-command \
+  --instance-ids i-1234567890abcdef0 \
+  --document-name "AWS-RunShellScript" \
+  --parameters 'commands=["cat /var/log/elastic-stack-bootstrap-status", "tail -50 /var/log/elastic-stack.log"]'
+```
+
+For terminated instances:
+
+```bash
+aws ec2 get-console-output --instance-id i-1234567890abcdef0
+```
+
+Use the [`log-collector`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/utils/log-collector) script:
+
+```bash
+./utils/log-collector.sh -s your-stack-name -r your-region
+```
+
 ## Accessing Elastic CI Stack for AWS instances directly
 
 Sometimes, looking at the logs isn't enough to figure out what's going on in your instances. In these cases, it can be useful to access the shell on the instance directly:
