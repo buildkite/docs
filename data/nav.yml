@@ -49,14 +49,14 @@
           path: pipelines/migration/from-jenkins
         - name: From Bamboo
           path: pipelines/migration/from-bamboo
-    - name: Platform administration
+    - name: Implementation
       children:
-        - name: "Enforcing platform controls"
-          path: "pipelines/platform-administration/enforcing-platform-controls"
+        - name: "Best practices"
+          path: "pipelines/implementation/best-practices"
         - name: "Docker-based builds"
-          path: "pipelines/platform-administration/docker-containerized-builds"
+          path: "pipelines/implementation/docker-containerized-builds"
         - name: "Parallelizing builds"
-          path: "pipelines/platform-administration/parallel-builds"
+          path: "pipelines/implementation/parallel-builds"
     - name: "Tutorials"
       children:
         - name: "Using Bazel on Buildkite"

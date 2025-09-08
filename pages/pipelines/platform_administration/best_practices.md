@@ -1,4 +1,4 @@
-# Enforcing platform controls in Buildkite
+# Best practices
 
 This guide covers best practices for managing Buildkite at scale, focusing on how platform and infrastructure teams can maintain centralized control while providing development teams with the flexibility they need.
 
