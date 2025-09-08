@@ -22,21 +22,21 @@ On Windows instances only:
 
 There are a couple of other log groups that the Elastic CI Stack for AWS sends logs to, but their use cases are pretty specific. For a full accounting of what logs are sent to CloudWatch, see the config for [Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/linux/conf/cloudwatch-agent/config.json) and [Windows](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/windows/conf/cloudwatch-agent/amazon-cloudwatch-agent.json).
 
-## Collecting logs via script
+## Collecting logs using script
 
 An alternative method to collect the logs is to use the [`log-collector`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/utils/log-collector) script in the [`utils`](https://github.com/buildkite/elastic-ci-stack-for-aws/tree/main/utils) folder of the [Elastic CI Stack for AWS repository](https://github.com/buildkite/elastic-ci-stack-for-aws).
 
 The script collects CloudWatch Logs for the Instance, Lambda function, and AutoScaling activity, then packages them in a zip archive that you can email to Support for help at [support@buildkite.com](mailto:support@buildkite.com).
 
-## Debugging BootstrapScriptUrl failures
+## Debugging bootstrap script failures
 
 When you've configured a custom `BootstrapScriptUrl` parameter but instances aren't working correctly, use the following suggestions to help identify and resolve any issues.
 
 **Verify the basics**
 
-- Test `BootstrapScriptUrl` is accessible: `curl -f "$BOOTSTRAP_URL" -o bootstrap_script.sh`
-- Syntax check the script: `bash -n bootstrap_script.sh`
-- Check Auto Scaling group activity for launch failures:
+* Test `BootstrapScriptUrl` is accessible: `curl -f "$BOOTSTRAP_URL" -o bootstrap_script.sh`
+* Syntax check the script: `bash -n bootstrap_script.sh`
+* Check Auto Scaling group activity for launch failures:
 
 ```bash
 aws autoscaling describe-scaling-activities \
@@ -44,11 +44,11 @@ aws autoscaling describe-scaling-activities \
   --max-items 10
 ```
 
-**Examine CloudWatch logs**
+**Examine CloudWatch Logs**
 
-- `/buildkite/elastic-stack/{instance_id}` - Look for "Running bootstrap script from" message
-- `/buildkite/cloud-init/output/{instance_id}` - Check environment setup
-- `/buildkite/buildkite-agent/{instance_id}` - Verify agent startup
+* `/buildkite/elastic-stack/{instance_id}` - Look for "Running bootstrap script from" message
+* `/buildkite/cloud-init/output/{instance_id}` - Check environment setup
+* `/buildkite/buildkite-agent/{instance_id}` - Verify agent startup
 
 **Collect detailed information**
 
