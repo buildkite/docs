@@ -87,7 +87,7 @@ You can configure [Claude Code](https://www.anthropic.com/claude-code) (as a com
 When using the remote MCP server, run the following Claude Code command.
 
 ```bash
-
+claude mcp add --transport http buildkite https://mcp.buildkite.com/mcp
 ```
 
 ### Docker
