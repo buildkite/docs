@@ -105,7 +105,7 @@ Optional attributes:
   <tr>
     <td><code>concurrency_method</code></td>
     <td>
-      Allows control of the scheduling method for jobs in a <a href="/docs/pipelines/configure/workflows/controlling-concurrency">concurrency group</a>. <code>"ordered"</code> runs jobs sequentially in the order they were queued, while <code>"eager"</code> allows jobs to run as soon as resources become available. If you use this attribute, you must also define the <code>concurrency</code> and <code>concurrency_group</code> attributes.<br/>
+      This attribute provides control of the scheduling method for jobs in a <a href="/docs/pipelines/configure/workflows/controlling-concurrency">concurrency group</a>. With the <code>"ordered"</code> value set, the jobs sequentially in the order they were queued, while the <code>"eager"</code> value allows jobs to run as soon as resources become available. If you use this attribute, you must also define the <code>concurrency</code> and <code>concurrency_group</code> attributes.<br/>
       <em>Default:</em> <code>"ordered"</code><br/>
       <em>Example:</em> <code>"eager"</code>
     </td>
