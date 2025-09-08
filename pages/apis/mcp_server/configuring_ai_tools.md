@@ -64,19 +64,14 @@ When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-se
       "command": "buildkite-mcp-server",
       "args": ["stdio"],
       "env": {
-        "BUILDKITE_API_TOKEN": "bkua_xxxxx",
-        "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threshold-value"
+        "BUILDKITE_API_TOKEN": "bkua_xxxxx"
       }
     }
   }
 }
 ```
 
-where:
-
-- `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
-
-- `job-log-token-threshold-value` (_optional_) is the threshold for logging tokens. Omitting this field sets its value to 0, which means that no tokens are logged.
+where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
 
 ## Claude Code
 
@@ -162,19 +157,14 @@ When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-se
       "command": "buildkite-mcp-server",
       "args": ["stdio"],
       "env": {
-        "BUILDKITE_API_TOKEN": "bkua_xxxxx",
-        "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threshold-value"
+        "BUILDKITE_API_TOKEN": "bkua_xxxxx"
       }
     }
   }
 }
 ```
 
-where:
-
-- `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
-
-- `job-log-token-threshold-value` (_optional_) is the threshold for logging tokens. Omitting this field sets its value to 0, which means that no tokens are logged.
+where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
 
 ## Cursor
 
@@ -236,19 +226,14 @@ When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-se
       "command": "buildkite-mcp-server",
       "args": ["stdio"],
       "env": {
-        "BUILDKITE_API_TOKEN": "bkua_xxxxxxxx",
-        "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threshold-value"
+        "BUILDKITE_API_TOKEN": "bkua_xxxxx"
       }
     }
   }
 }
 ```
 
-where:
-
-- `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
-
-- `job-log-token-threshold-value` (_optional_) is the threshold for logging tokens. Omitting this field sets its value to 0, which means that no tokens are logged.
+where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
 
 ## Goose
 
@@ -292,18 +277,13 @@ extensions:
     enabled: true
     envs: |
       {
-        "BUILDKITE_API_TOKEN": "bkua_xxxxx",
-        "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threshold-value"
+        "BUILDKITE_API_TOKEN": "bkua_xxxxx"
       }
     type: stdio
     timeout: 300
 ```
 
-where:
-
-- `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
-
-- `job-log-token-threshold-value` (_optional_) is the threshold for logging tokens. Omitting this field sets its value to 0, which means that no tokens are logged.
+where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
 
 ## Visual Studio Code
 
@@ -396,19 +376,14 @@ When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-se
       "command": "buildkite-mcp-server",
       "args": ["stdio"],
       "env": {
-        "BUILDKITE_API_TOKEN": "${input:BUILDKITE_API_TOKEN}",
-        "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threshold-value"
+        "BUILDKITE_API_TOKEN": "${input:BUILDKITE_API_TOKEN}"
       }
     }
   }
 }
 ```
 
-where:
-
-- `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
-
-- `job-log-token-threshold-value` (_optional_) is the threshold for logging tokens. Omitting this field sets its value to 0, which means that no tokens are logged.
+where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
 
 ## Windsurf
 
@@ -465,19 +440,14 @@ When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-se
       "command": "buildkite-mcp-server",
       "args": ["stdio"],
       "env": {
-        "BUILDKITE_API_TOKEN": "bkua_xxxxx",
-        "JOB_LOG_TOKEN_THRESHOLD": "job-log-token-threshold-value"
+        "BUILDKITE_API_TOKEN": "bkua_xxxxx"
       }
     }
   }
 }
 ```
 
-where:
-
-- `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
-
-- `job-log-token-threshold-value` (_optional_) is the threshold for logging tokens. Omitting this field sets its value to 0, which means that no tokens are logged.
+where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
 
 ## Zed
 
