@@ -118,7 +118,7 @@ Only allow the number of agents you’d like in that queue. Monitor wait times.
 
 ### User number control
 
-Orinigal notes:
+Original notes:
 
 User based cost, do we have any reporting to let you know of the number of user you have? any alerting? (most likely no).
 We do have API commands that can show the number of users and active users, in GraphQL.
