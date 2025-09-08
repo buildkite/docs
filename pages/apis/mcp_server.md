@@ -4,7 +4,7 @@ The [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) is an open 
 
 Buildkite provides its own [open-source MCP server](https://github.com/buildkite/buildkite-mcp-server) to expose Buildkite product data (for example, data from pipelines, builds, and jobs for Pipelines, as well as from test data for Test Engine) for AI tools, editors and other products to interact with.
 
-Learn more about what Buildkite's MCP server is capable of in [Available tools](#available-tools).
+Learn more about what Buildkite's MCP server is capable of in [Available MCP tools](#available-mcp-tools).
 
 To start using Buildkite's MCP server, first determine which [type of Buildkite MCP server](#types-of-mcp-servers) to work with. This next section provides an overview of the differences between these MCP server types and how they are configured. From there, you can proceed to install the MCP server (if necessary) and proceed to configure your AI tool with the MCP server.
 
@@ -26,9 +26,11 @@ If you are using Buildkite's remote MCP server, you do not need to configure an 
 
 Once you have established which Buildkite MCP server to use (remote or local) and if local, have [installed the MCP server](/docs/apis/mcp-server/installing#install-and-run-the-server-locally) and [configured its API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), you can then proceed to [configure your AI tools](/docs/apis/mcp-server/configuring-ai-tools) to work with this MCP server.
 
-## Available tools
+## Available MCP tools
 
-The Buildkite MCP server exposes the following [MCP tools](https://modelcontextprotocol.io/docs/learn/server-concepts#tools-ai-actions).
+The Buildkite MCP server exposes the following _MCP tools_.
+
+Learn more about MCP tools in the [Core Server Features](https://modelcontextprotocol.io/docs/learn/server-concepts#core-server-features) and [Tools](https://modelcontextprotocol.io/docs/learn/server-concepts#tools) sections of the [Understanding MCP servers](https://modelcontextprotocol.io/docs/learn/server-concepts) page of the [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro) docs.
 
 ### User and authentication
 
@@ -201,10 +203,6 @@ The Buildkite MCP server exposes the following [MCP tools](https://modelcontextp
         "link": "/docs/apis/rest-api/builds#get-a-build"
       },
       {
-        "tool": "get_build_test_engine_runs",
-        "description": "Get Test Engine runs data for a specific build in Buildkite Pipelines. This can be used to look up test runs."
-      },
-      {
         "tool": "create_build",
         "description": "Trigger a new build on a Buildkite pipeline for a specific commit and branch, with optional environment variables, metadata, and author information.",
         "link_text": "Create a build",
@@ -241,10 +239,6 @@ The Buildkite MCP server exposes the following [MCP tools](https://modelcontextp
   </thead>
   <tbody>
     <% [
-      {
-        "tool": "get_jobs",
-        "description": "Get all jobs for a specific build including their state, timing, commands, and execution details."
-      },
       {
         "tool": "get_job_logs",
         "description": "Get the log output and metadata for a specific job, including content, size, and header timestamps. Automatically saves to file for large logs to avoid token limits.",
@@ -424,6 +418,10 @@ The Buildkite MCP server exposes the following [MCP tools](https://modelcontextp
         "description": "Get failed test executions for a specific test run in Buildkite Test Engine. Optionally get the expanded failure details such as full error messages and stack traces.",
         "link_text": "Get failed execution data",
         "link": "/docs/apis/rest-api/test-engine/runs#get-failed-execution-data"
+      },
+      {
+        "tool": "get_build_test_engine_runs",
+        "description": "Get Test Engine runs data for a specific build in Buildkite Pipelines. This can be used to look up test runs."
       }
     ].select { |field| field[:tool] }.each do |field| %>
       <tr>
