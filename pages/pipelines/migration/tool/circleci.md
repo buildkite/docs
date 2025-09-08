@@ -117,6 +117,7 @@ The Buildkite migration tool supports the use of YAML aliases - reusable configu
 | Key | Supported | Notes |
 | --- | --- | --- |
 | `orbs` | No | Orbs are currently not supported by the Buildkite migration tool and should be translated by hand if their equivalent functionality is required within a Buildkite pipeline. The Buildkite platform has reusable [plugins](/docs/plugins/directory) that provide a similar functionality for integrating various common (and third-party integration) tasks throughout a Buildkite pipeline, such as [logging into ECR](https://github.com/buildkite-plugins/ecr-buildkite-plugin), running a step within a [Docker container](https://github.com/buildkite-plugins/docker-buildkite-plugin), running multiple Docker images through a [compose file](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), triggering builds in a [monorepo setup](https://github.com/buildkite-plugins/monorepo-diff-buildkite-plugin) and more. |
+| `Docker orbs` | Partially | Docker orbs will be converted but the translation will be an extreme approximation. It is recommended that any orb-related logic is rebuild in a Buildkite pipeline instead based on the recommendations outlined in `orbs`. |
 
 ## Parameters
 

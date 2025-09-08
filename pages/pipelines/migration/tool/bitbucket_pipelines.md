@@ -78,13 +78,18 @@ You might need to adjust the syntax of the resulting converted output to make it
 
 | Key | Supported | Notes |
 | --- | --- | --- |
-| `image` | Yes | The container image that is to be applied to each step within a Bitbucket pipeline, utilizing the specified image within the [docker-buildkite-plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin). This has lower precedence over per-step `image` configuration (see `pipelines.default.step.image`). <br/><br/> The `aws`, `aws.oidc`, `name`, `username` and `password` sub-properties are supported through the use of the corresponding plugin ([Docker Login](https://github.com/buildkite-plugins/docker-login-buildkite-plugin/) or [ECR](https://github.com/buildkite-plugins/ecr-buildkite-plugin/)). |
+| `image` | Yes | The container image that is to be applied to each step within a Bitbucket pipeline, utilizing the specified image within the [docker-buildkite-plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin). This has lower precedence over per-step `image` configuration (see `pipelines.default.step.image`). |
+| `aws`, `aws.oidc`, `name`, `username` and `password` sub-properties | Partially | Supported through the use of the corresponding plugin ([Docker Login](https://github.com/buildkite-plugins/docker-login-buildkite-plugin/) or [ECR](https://github.com/buildkite-plugins/ecr-buildkite-plugin/)). |
 
 ## Options
 
 | Key | Supported | Notes |
 | --- | --- | --- |
-| `options` | Partially | Customized options utilized throughout a Bitbucket pipeline. The `max-time` and `size` sub-properties are supported for translation within the Buildkite migration tool into the generated Buildkite command step's `timeout_in_minutes` and agent tag respectively. <br/></br> The `docker` sub-property is not supported and will depend on the agent configuration that the corresponding Buildkite command step is being targeted to run said job has available. <br/><br/> Both supported properties in the Bitbucket pipeline step-level definition will have higher precedences than the two values set at `options` level. |
+| `options` | Partially | Customized options utilized throughout a Bitbucket pipeline. |
+| `max-time`, `size`| Partially | These sub-properties are supported for translation within the Buildkite migration tool into the generated Buildkite command step's `timeout_in_minutes` and agent tag respectively. |
+| `docker` | No| This sub-property is not supported and will depend on the agent configuration that the corresponding Buildkite command step is being targeted to run said job has available. |
+
+Note that both supported properties in the Bitbucket pipeline step-level definition will have higher precedences than the two values set at `options` level. |
 
 ## Pipeline starting conditions
 
