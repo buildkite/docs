@@ -161,6 +161,8 @@ Job state             | Description
 `skipped`             | The job was skipped.
 `broken`              | The job's configuration means that it can't be run.
 `expired`             | The job expired before it was started on an agent.
+`platform_limiting`   | The job is waiting on an organization level concurrency check before moving to `platform_limited` or `scheduled`.
+`platform_limited`    | The job is waiting for organization level concurrency to become available before moving to `scheduled`.
 {: class="two-column"}
 
 As well as the states shown in the diagram, the following progressions can occur:
@@ -173,7 +175,9 @@ can progress to `skipped`  | can progress to `canceling` or `canceled`
 `limiting`                 | `limited`
 `limited`                  | `blocked`
 `accepted`                 | `unblocked`
-`broken`                   |
+`broken`                   | `platform_limiting`
+`platform_limiting`        | `platform_limited`
+`platform_limited`
 {: class="two-column"}
 
 Differentiating between `broken`, `skipped` and `canceled` states:
