@@ -125,6 +125,14 @@ Optional attributes:
     </td>
   </tr>
   <tr>
+    <td><code>concurrency_method</code></td>
+    <td>
+      This attribute provides control of the scheduling method for jobs in a <a href="/docs/pipelines/configure/workflows/controlling-concurrency">concurrency group</a>. With the <code>"ordered"</code> value set, the jobs run sequentially in the order they were queued, while the <code>"eager"</code> value allows jobs to run as soon as resources become available. If you use this attribute, you must also define the <code>concurrency</code> and <code>concurrency_group</code> attributes.<br/>
+      <em>Default:</em> <code>"ordered"</code><br/>
+      <em>Example:</em> <code>"eager"</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>depends_on</code></td>
     <td>
       A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br/>
@@ -607,6 +615,7 @@ steps:
     branches: "main"
     concurrency: 1
     concurrency_group: "my-app/deploy"
+    concurrency_method: "eager"
     retry:
       manual:
         allowed: false
