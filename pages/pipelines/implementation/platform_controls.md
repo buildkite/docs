@@ -25,7 +25,7 @@ Before the agents in your infrastructure pick start picking up jobs, the platfor
 
 ## Pipeline templates as platform control tool
 
-Controls and templates can be used, but initially, someone has to be responsible for the pipeline YAML. A dedicated administration/infrastructure team can do that.
+Controls and templates can be used in the process of running the pipelines. Initially, someone has to create and be responsible for the pipeline YAML and the [pipeline templates](/docs/pipelines/governance/templates). This is what the platform team is responsible for.
 
 ### Clusters and queues
 
@@ -36,11 +36,11 @@ Use [clusters](/docs/pipelines/clusters) for workload separation. You can organi
 - Apply different security policies per cluster
 - Manage costs more granularly
 
-Only run in the queues you define, in the cluster.
+Only run your builds in the queues you define, in the cluster.
 
-Have different clusters for different workloads.
+Use different clusters for different workloads.
 
-Common queue patterns:
+Suggested Ccommon queue patterns:
 
 - `default` - standard CI workloads
 - `deploy` - production deployment jobs
@@ -51,13 +51,13 @@ See [Clusters and queues for more details](/docs/pipelines/clusters#clusters-and
 
 ## Platform team controls
 
-Controls for the platform team in terms of how they run different pipelines/workloads. These controls help standardize operations while providing teams with necessary flexibility.
+Controls for the platform team in terms of how they run different pipelines and workloads. These controls help standardize operations while providing teams with necessary flexibility.
 
 See more in [Teams permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions).
 
 ### Telemetry reporting
 
-Standardise the number of times infrastructure/test flakes are retried and have their custom exit statuses that you can report on with your telemetry provider, for example, [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service).
+Standardize the number of times test flakes are retried and have their custom exit statuses that you can report on with your telemetry provider. For example, you can use the [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service) integration with Buildkite Pipelines.
 
 ### Standardize retry behavior
 
@@ -91,11 +91,11 @@ Have standard checkout scripts in which you gather the same data as part of ever
 
 ### Private plugins
 
-Build a private plugin if you would like things to be done in a certain way - helps standardize things. For example, some functionality can be offloaded into a plugin and reused.
+[Write](/docs/pipelines/integrations/plugins/writing) a [private plugin](/docs/pipelines/integrations/plugins/using#plugin-sources) if you would like things to be done in a certain way. For example, some repeated functionality from your pipelines can be offloaded into a plugin and reused.
 
 ### Annotations
 
-Standardised annotation can add additional context for the user. You can add internal links for the developers to check from tools.
+Standardized [annotations](/docs/agent/v3/cli-annotate) can add additional context for the user. You can add internal links for the developers to check from tools.
 
 ## Cost and billing controls
 
@@ -107,25 +107,14 @@ Cluster maintainer can create the allowed queues and only allow the sizes they w
 
 ### Agent scaling
 
-Only allow the number of agents you’d like in that queue. Monitor wait times.
+Only allow the specific number of agents you’d like to be in a queue. Monitor the wait times.
 
 > 📘 Scaling tip
 > Scale all of your AWS agents to zero and only keep a handful warm during the work/peak hours (could be the ones that are running CloudFormation deploy or Terraform apply).
 
 ### User number control
 
-Original notes:
-
-User based cost, do we have any reporting to let you know of the number of user you have? any alerting? (most likely no).
-We do have API commands that can show the number of users and active users, in GraphQL.
-
-My notes:
-
-Buildkite organization administrators can view the number of users in an organization in https://buildkite.com/organizations/~/users.
-
-Some user activity in Buildkite organizations can be tracked via [GraphQL](/docs/apis/graphql/cookbooks/organizations).
-
-Count users via GraphQL:
+With the cost of using Buildkite (depending on your tier) is partically based on the number of users, the platform team or (platform administrator) can track the number of users in an organiation with the help of the following GraphQL query:
 
 ```graphql
 query getOrgMembersCount {
@@ -137,12 +126,16 @@ query getOrgMembersCount {
 }
 ```
 
+Alternatively, Buildkite organization administrators can view the number of users in a Buildkite organization in https://buildkite.com/organizations/~/users.
+
+Some of the other user activity in Buildkite organizations can also be tracked via [GraphQL](/docs/apis/graphql/cookbooks/organizations).
+
 ### Implement cost allocation
 
 - Tag builds with team/project identifiers
 - Generate regular usage reports
 - Set up alerts for unusual usage spikes
-- API-based logging out of users
+- API-based logging out of users (if possible)
 
 ## Implementation recommendations
 
