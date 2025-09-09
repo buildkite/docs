@@ -126,6 +126,18 @@ Buildkite organization administrators can view the number of users in an organiz
 
 Some user activity in Buildkite organizations can be tracked via [GraphQL](/docs/apis/graphql/cookbooks/organizations).
 
+Count users via GraphQL:
+
+```graphql
+query getOrgMembersCount {
+  organization(slug: "org-slug") {
+    members(first:1) {
+      count
+    }
+  }
+}
+```
+
 ### Implement cost allocation
 
 - Tag builds with team/project identifiers
