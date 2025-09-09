@@ -38,7 +38,7 @@ services:
   muffet:
     depends_on:
       - app
-    image: raviqqe/muffet:2.11.0
+    image: raviqqe/muffet:2.10.9
     entrypoint:
       - /work/muffet.sh
     volumes:
