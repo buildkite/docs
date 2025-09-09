@@ -463,3 +463,7 @@ These MCP tools are used to process the logs of [jobs](#available-mcp-tools-jobs
 ## Smart caching and storage
 
 [Try this example 404 link](https://www.google.com/404).
+
+[Non-existent web site](https://blah.blah.blah.com/).
+
+[Non-existent Buildkite Docs page](https://buildkite.com/docs/non-existant-page).
