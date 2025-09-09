@@ -19,7 +19,8 @@ done
 echo 💎🛤️🚆 Rails has started running
 
 # If muffet fails, we want to process the results instead of quitting immediately.
-#
+
+# Status Code 429 accepted as this is often us being rate limited by other servers
 set +e
 /muffet http://app:3000/docs \
   --include="/docs/" \
@@ -28,7 +29,7 @@ set +e
   --max-connections=10 \
   --timeout=15 \
   --buffer-size=8192 \
-  --verbose \
+  --accepted-status-codes="200..300,429" \
   --format=json \
   > muffet-results.json
 
