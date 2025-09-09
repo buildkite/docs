@@ -51,6 +51,8 @@
           path: pipelines/migration/from-bamboo
     - name: Implementation
       children:
+        - name: "Platform controls"
+          path: "pipelines/implementation/platform-controls"
         - name: "Best practices"
           path: "pipelines/implementation/best-practices"
         - name: "Docker-based builds"
