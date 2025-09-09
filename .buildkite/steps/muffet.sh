@@ -74,7 +74,7 @@ else
     # If all the errors are 429, then we were probably just rate limited by 
     # the link provider. 
     # We should pass the build but still call out a warning.
-    if [ $(jq -r 'map(select(.links[].error == "429")) | length != 0' muffet-results.json) ]; then
+    if [ $(jq -r 'map(select(.links[].error != "429")) | length == 0' muffet-results.json) ]; then
         echo >> annotation.md
         echo >> annotation.md
         echo "All errors are Too Many Requests (429), we were likely just blocked for checking too many times. Confirm the links manually as this build will pass and ignore these failures." >> annotation.md
