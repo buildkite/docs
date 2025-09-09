@@ -51,7 +51,7 @@ When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-
 }
 ```
 
-where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
 ### Binary
 
@@ -71,7 +71,7 @@ When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-se
 }
 ```
 
-where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
 ## Claude Code
 
@@ -93,7 +93,7 @@ When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-
 claude mcp add buildkite -- docker run --pull=always -q --rm -i -e BUILDKITE_API_TOKEN=bkua_xxxxx buildkite/mcp-server stdio
 ```
 
-where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
 ### Binary
 
@@ -103,7 +103,7 @@ When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-se
 claude mcp add buildkite --env BUILDKITE_API_TOKEN=bkua_xxxxx -- buildkite-mcp-server stdio
 ```
 
-where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
 ## Claude Desktop
 
@@ -144,7 +144,7 @@ When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-
 }
 ```
 
-where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
 ### Binary
 
@@ -164,7 +164,7 @@ When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-se
 }
 ```
 
-where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
 ## Cursor
 
@@ -213,7 +213,7 @@ When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-
 }
 ```
 
-where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
 ### Binary
 
@@ -233,7 +233,7 @@ When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-se
 }
 ```
 
-where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
 ## Goose
 
@@ -262,7 +262,7 @@ extensions:
     timeout: 300
 ```
 
-where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
 ### Binary
 
@@ -283,7 +283,7 @@ extensions:
     timeout: 300
 ```
 
-where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
 ## Visual Studio Code
 
@@ -345,7 +345,7 @@ When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-
 }
 ```
 
-where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
 Alternatively, you can initiate this process through the Visual Studio Code interface. To do this:
 
@@ -383,7 +383,7 @@ When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-se
 }
 ```
 
-where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
 ## Windsurf
 
@@ -427,7 +427,7 @@ When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-
 }
 ```
 
-where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
 ### Binary
 
@@ -447,7 +447,7 @@ When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-se
 }
 ```
 
-where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
 ## Zed
 
@@ -477,7 +477,7 @@ Alternatively, you can copy and paste the following configuration as a new entry
 }
 ```
 
-where `bkua_xxxxx` is the value of your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), set with your required scopes.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
 ## ToolHive
 
