@@ -462,3 +462,4 @@ These MCP tools are used to process the logs of [jobs](#available-mcp-tools-jobs
 
 ## Smart caching and storage
 
+[Try this example 404 link](https://www.google.com/404).
