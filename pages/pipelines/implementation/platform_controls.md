@@ -1,29 +1,27 @@
-# Best practices
+# Platform contorls
 
-This guide, focusing on how platform and infrastructure teams can maintain centralized control while providing development teams with the flexibility they need.
+This guide is focusing on how platform and infrastructure teams can maintain centralized control while providing development teams with the flexibility they need to run and observe the pipelines in your Buildkite organization.
 
 > 📘
-> If you're looking for in-depth information on best practices for security controls, see [Enforcing security controls](/docs/pipelines/security/enforcing-security-controls).
+> If you're looking for in-depth information on security controls, see [Enforcing security controls](/docs/pipelines/security/enforcing-security-controls).
 
 ## Concept of platform management
 
 The key to successful Buildkite administration lies in finding the right balance between centralized control and developer autonomy. Platform teams need to manage shared resources and enforce company-wide standards while avoiding becoming a bottleneck for feature teams.
 
-The distinction between platform/infrastructre and the developer team is that the former get to specify settings like the size of the infrastructure, machine capacity, maximum rerun attempts, time-outs, etc. in the YAML configurations included in the codebase, that stays unchanged (by the developer teams). The platform team also manages a script that reads these YAML configuration files, generates the correct pipeline(s), and allocates agents (with correct underlying capacity) to run the jobs in those pipelines.
+The distinction between platform (or "infrastructure") and developer teams is that the former gets to specify settings like the size of the infrastructure, machine capacity, maximum rerun attempts, time-outs, etc. in the YAML configurations included in the codebase, that stays unchanged (by the developer teams). The platform team also manages a script that reads these YAML configuration files, generates the correct pipeline(s), and allocates agents (with correct underlying capacity) to run the jobs in those pipelines.
 
-When the resulting pipeline runs, the end user of Buildkite sees [annotations](/docs/agent/v3/cli-annotate) generated from the specific steps that ran just for their run. These annotation can contain some useful additional information/context (for example, a a link to an internal dashboard if there's an error).
+When the resulting pipeline runs, the end user of Buildkite (a mamaber of the developer team) sees [annotations](/docs/agent/v3/cli-annotate) generated from the specific steps that ran just for their run. These annotations can contain useful additional information and context (for example, a link to an internal dashboard in case of an error).
 
 To sum it up:
 
 - Platform teams manage central control while still giving end users of Buildkite (developer teams) as much or as little flexibility as necessary.
-- One script can generate many different permutations of pipelines, and this allows the platform teams to manage shared logic and run organization-wide checks, for example, [security scanning](https://buildkite.com/docs/pipelines/security/enforcing-security-controls#dependencies-and-package-management).
-- Developer teams only get the permissions and information that is relevant to their builds/pipelines.
+- One script can generate many different variations of pipelines, and this allows the platform teams to manage shared logic and run organization-wide checks, for example, [security scanning](https://buildkite.com/docs/pipelines/security/enforcing-security-controls#dependencies-and-package-management).
+- Developer teams only get the permissions and information that is relevant to their builds and pipelines.
 
 ## Buildkite agent controls
 
-Controls around the agents touch upon using those with different software (?).
-
-Agent controls in Buildkite Pipelines allow you to run your own agents - and before running them, the platform team (team with [Buildkite organization administrator permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions)) decide how much CPU, RAM, other resources the agents can have.
+Before the agents in your infrastructure pick start picking up jobs, the platform team (team with [Buildkite organization administrator permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions)) decides how much CPU, RAM, other resources the agents can have.
 
 ## Pipeline templates as platform control tool
 
@@ -59,11 +57,12 @@ See more in [Teams permissions](/docs/platform/team-management/permissions#manag
 
 ### Telemetry reporting
 
-Standardise the number of times infrastructure/test flakes are retried and have their custom exit statuses that you can report on with your telemetry provider.
+Standardise the number of times infrastructure/test flakes are retried and have their custom exit statuses that you can report on with your telemetry provider, for example, [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service).
 
 ### Standardize retry behavior
 
 Define consistent retry policies for infrastructure flakes and test failures:
+
 ```yaml
 retry:
   automatic:
@@ -145,14 +144,20 @@ query getOrgMembersCount {
 - Set up alerts for unusual usage spikes
 - API-based logging out of users
 
+## Implementation recommendations
+
+- Assess current state: audit existing pipelines, agents, and usage patterns.
+- Define policies: establish resource limits, security requirements, and cost targets.
+- Create templates: build standard pipeline templates for common use cases.
+- Implement gradually: roll out controls incrementally to avoid disrupting existing workflows.
+
 ## Next steps
 
-This framework provides a foundation for managing Buildkite Pipelines at scale. Consider your organization's specific needs around security, compliance, and cost management when implementing these controls.
+The framework of Buildkite Pipelines platform controls outline on this page provides a foundation for managing Buildkite Pipelines at scale. Consider your organization's specific needs around security, compliance, and cost management when implementing these controls.
 
-Key areas to focus on next:
+The following are the key areas we recommend you to focus on next:
 
-- Security controls and secrets management
-- Integration with your existing infrastructure automation
-- Advanced monitoring and alerting strategies
-- Self-service capabilities for development teams
-- Check out best practices
+- [Security controls](/docs/pipelines/security/enforcing-security-controls)
+- [Best practices](/docs/pipelines/implementation/best-practices)
+- Advanced [monitoring](/docs/agent/v3/monitoring) and alerting strategies
+- [Integration](/docs/pipelines/integrations) with your existing infrastructure
