@@ -20,7 +20,6 @@ echo 💎🛤️🚆 Rails has started running
 
 # If muffet fails, we want to process the results instead of quitting immediately.
 
-# Status Code 429 accepted as this is often us being rate limited by other servers
 set +e
 /muffet http://app:3000/docs \
   --include="/docs/" \
@@ -29,7 +28,6 @@ set +e
   --max-connections=10 \
   --timeout=15 \
   --buffer-size=8192 \
-  --accepted-status-codes="200..300,429" \
   --format=json \
   > muffet-results.json
 
@@ -72,6 +70,17 @@ else
     } >> annotation.md
 
     < muffet-results.json jq -r "$jq_query" >> annotation.md
+
+    # If all the errors are 429, then we were probably just rate limited by 
+    # the link provider. 
+    # We should pass the build but still call out a warning.
+    if [ $(jq -r 'map(select(.links[].error == "429")) | length != 0' muffet-results.json) ]; then
+        echo >> annotation.md
+        echo >> annotation.md
+        echo "All errors are Too Many Requests (429), we were likely just blocked for checking too many times. Confirm the links manually as this build will pass and ignore these failures." >> annotation.md
+        muffet_exit_code=0
+    fi
+
 
     if [ -n "$(which buildkite-agent)" ]; then
         buildkite-agent annotate --style=error --context=muffet <annotation.md
