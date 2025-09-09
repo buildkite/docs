@@ -120,3 +120,41 @@ extensions:
 ```
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
+
+## ToolHive
+
+You can configure [ToolHive](https://toolhive.dev/) to run your local Buildkite MCP server from its registry using ToolHive's command line interface (CLI) tool. To do this, ensure you have installed TooHive's [CLI tool](https://toolhive.dev/download.html) and do the following:
+
+1. Use ToolHive's `thv secret set` command to store your [Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token) as a secret.
+
+    ```bash
+    cat ~/path/to/your/buildkite-api-token.txt | thv secret set buildkite-api-key
+    ```
+
+    where `buildkite-api-token.txt` contains the value of your Buildkite API access token.
+
+1. Run the Buildkite MCP server.
+
+    ```bash
+    thv run --secret buildkite-api-key,target=BUILDKITE_API_TOKEN buildkite
+    ```
+
+You can also configure ToolHive to run your local Buildkite MCP server from its registry using the ToolHive interface. To do this, ensure you have installed TooHive's [Desktop app](https://toolhive.dev/download.html) and do the following:
+
+1. Access [ToolHive's **Secrets** page](https://docs.stacklok.com/toolhive/guides-ui/secrets-management#manage-secrets).
+
+1. Add a new secret with the following values:
+    * **Secret name**: `buildkite-api-key`
+    * **Secret value**: Your [Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token)'s value.
+
+1. Access [ToolHive's **Registry** page](https://docs.stacklok.com/toolhive/guides-ui/run-mcp-servers).
+
+<!-- vale off -->
+
+1. Search for `buildkite` and then select the filtered **buildkite** registry option.
+
+1. Select **Install server** and on the **Configure buildkite** dialog's **Configuration** tab, specify the following values:
+    * **Secrets**: Select `buildkite-api-key`.
+    * **Environment variables** (_optional_): Specify the threshold for logging tokens. Omitting this field sets its value to 0, which means that no tokens are logged.
+
+<!-- vale on -->

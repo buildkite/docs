@@ -30,7 +30,7 @@ Buildkite provides both a _remote_ and _local_ MCP server:
 
 As part of installing a local Buildkite MCP server, you'll also need to [configure an API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token) with the required scopes that your local MCP server will use.
 
-If you are using Buildkite's remote MCP server, you do not need to configure an API access token. Instead, you only require a Buildkite user account, and an OAuth token representing this account is used for authentication, along with access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place after [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/configuring-ai-tools).
+If you are using Buildkite's remote MCP server, you do not need to configure an API access token. Instead, you only require a Buildkite user account, and the Buildkite platform issues an OAuth token representing this user account for authentication, along with access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place after [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/configuring-ai-tools).
 
 ## Available MCP tools
 
