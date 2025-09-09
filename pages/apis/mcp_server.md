@@ -34,14 +34,18 @@ If you are using Buildkite's remote MCP server, you do not need to configure an 
 
 ## Available MCP tools
 
-The Buildkite MCP server exposes the following _MCP tools_.
+The Buildkite MCP server exposes the following categories of _MCP tools_.
+
+The names of these tools (for example, `list_pipelines`) are not typically used in direct prompts to AI tools or agents. However, the name of each MCP tool is designed to be human-readable, and it can be used in a prompt when you want your AI tool or agent to explicitly use that MCP tool to query the Buildkite platform.
 
 Learn more about MCP tools in the [Core Server Features](https://modelcontextprotocol.io/docs/learn/server-concepts#core-server-features) and [Tools](https://modelcontextprotocol.io/docs/learn/server-concepts#tools) sections of the [Understanding MCP servers](https://modelcontextprotocol.io/docs/learn/server-concepts) page in the [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro) docs.
 
 > 📘
-> Since Buildkite's MCP server makes calls to Buildkite's REST API, be aware that only a subset of the resulting fields are returned in the response from the Buildkite API to your AI tool or agent. This is done to reduce noise for your AI tool/agent, as well as reduce costs associated with text tokenization of the response.
+> Since Buildkite's MCP server makes calls to Buildkite's REST API, be aware that only a subset of the resulting fields are returned in the response from the Buildkite API to your AI tool or agent. This is done to reduce noise for your AI tool / agent, as well as reduce costs associated with text tokenization of the response.
 
 ### User and authentication
+
+These MCP tools are used for [authentication](/docs/apis#authentication) and when you want to query details about the access token's user and Buildkite organization they belong to.
 
 <table>
   <thead>
@@ -87,6 +91,8 @@ Learn more about MCP tools in the [Core Server Features](https://modelcontextpro
 </table>
 
 ### Organizations and clusters
+
+These MCP tools are used to retrieve details about the [clusters](/docs/pipelines/clusters/manage-clusters) and their [queues](/docs/pipelines/clusters/manage-queues) configured in your Buildkite organization. Learn more about clusters in [Clusters overview](/docs/pipelines/clusters).
 
 <table>
   <thead>
@@ -139,6 +145,8 @@ Learn more about MCP tools in the [Core Server Features](https://modelcontextpro
 
 ### Pipelines
 
+These MCP tools are used to retrieve details about existing [pipelines](/docs/apis/rest-api/pipelines) in [your Buildkite organization](#available-mcp-tools-user-and-authentication), as well as create new pipelines, and update existing ones.
+
 <table>
   <thead>
     <tr>
@@ -190,6 +198,8 @@ Learn more about MCP tools in the [Core Server Features](https://modelcontextpro
 
 ### Builds
 
+These MCP tools are used to retrieve details about existing [builds](/docs/apis/rest-api/builds) of a [pipeline](#available-mcp-tools-pipelines), as well as create new builds, and wait for a specific build to finish.
+
 <table>
   <thead>
     <tr>
@@ -239,6 +249,8 @@ Learn more about MCP tools in the [Core Server Features](https://modelcontextpro
 
 ### Jobs
 
+These MCP tools are used to retrieve the logs of [jobs](/docs/apis/rest-api/jobs) from a pipeline [build](#available-mcp-tools-builds), as well as unblock jobs in a pipeline build. A job's logs can then be processed by the [logs](#available-mcp-tools-logs) tools of the MCP server, for the benefit of your AI tool or agent.
+
 <table>
   <thead>
     <tr>
@@ -277,6 +289,8 @@ Learn more about MCP tools in the [Core Server Features](https://modelcontextpro
 </table>
 
 ### Logs
+
+These MCP tools are used to process the logs of [jobs](#available-mcp-tools-jobs), for the benefit of your AI tool or agent. These MCP tools leverage the [Buildkite Logs Search & Query Library](https://github.com/buildkite/buildkite-logs?tab=readme-ov-file#buildkite-logs-search--query-library), which is used by the Buildkite MCP server, and makes the complex logs returned by the Buildkite platform, more consumable to AI tools, agents and LLMs.
 
 <table>
   <thead>
