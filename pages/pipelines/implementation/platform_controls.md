@@ -40,7 +40,7 @@ Only run your builds in the queues you define, in the cluster.
 
 Use different clusters for different workloads.
 
-Suggested Ccommon queue patterns:
+Suggested common queue patterns:
 
 - `default` - standard CI workloads
 - `deploy` - production deployment jobs
@@ -114,7 +114,7 @@ Only allow the specific number of agents you’d like to be in a queue. Monitor 
 
 ### User number control
 
-With the cost of using Buildkite (depending on your tier) is partically based on the number of users, the platform team or (platform administrator) can track the number of users in an organiation with the help of the following GraphQL query:
+With the cost of using Buildkite (depending on your tier) is partially based on the number of users, the platform team or (platform administrator) can track the number of users in an organization with the help of the following GraphQL query:
 
 ```graphql
 query getOrgMembersCount {
