@@ -48,7 +48,7 @@ This guide outlines recommended practices for designing, operating, and scaling 
 
 - Principle of least privilege: Provide only the permissions required for the job.
 - Prefer ephemeral agents: Short-lived agents reduce the attack surface and minimize drift.
-- Secret management: Use environment hooks or secret managers; never hardcode secrets in YAML.
+- Secret management: Use environment hooks or secret managers; never hard-code secrets in YAML.
 - Keep base images updated: Regularly patch agents to mitigate security vulnerabilities.
 
 ## Environment and dependency management
@@ -66,7 +66,7 @@ This guide outlines recommended practices for designing, operating, and scaling 
 - Validate integrity: Use checksums or signatures to confirm dependency authenticity.
 - Document requirements: Record OS packages, runtimes, and tools for onboarding and reproducibility.
 
-## Patterns and antipatterns
+## Patterns and anti-patterns
 
 ### Effective patterns
 
@@ -114,9 +114,9 @@ steps:
             value: "production"
 ```
 
-### Antipatterns to avoid
+### Anti-patterns to avoid
 
-#### Hardcoding environment values
+#### Hard-coding environment values
 
 Instead, inject via environment variables or pipeline metadata:
 
@@ -161,7 +161,7 @@ Avoid cramming unrelated tasks into one step:
 
 ### Logging best practices
 
-- Structured logs: Favor JSON or other parseable formats.
+- Structured logs: Favor JSON or other parsable formats.
 - Appropriate log levels: Differentiate between info, warnings, and errors.
 - Persist artifacts: Store logs, reports, and binaries for debugging and compliance.
 - Track trends: Use Buildkite Insights or external tools to analyze durations and failure patterns.

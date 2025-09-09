@@ -6,6 +6,7 @@ allowlist
 AMI's
 AMIs
 Ansible
+anti-pattern
 API
 API's
 APIs
@@ -140,6 +141,8 @@ Graviton
 GRC
 gz
 gzipped
+hard-code
+hard-coding
 Hashicorp
 Homebrew
 heroku
@@ -177,6 +180,8 @@ LFS
 libpq
 linux
 llamasecret
+lockfile
+lockfiles
 macOS
 macos
 matchfile
