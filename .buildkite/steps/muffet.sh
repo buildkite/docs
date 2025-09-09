@@ -71,9 +71,9 @@ else
 
     < muffet-results.json jq -r "$jq_query" >> annotation.md
 
-    # If all the errors are 429, then we were probably just rate limited by 
-    # the link provider. 
-    # We should pass the build but still call out a warning.
+    # Select all responses where the error code is not 429. If this list is empty, 
+    # then every error is a 429 and we can pass the build.
+    # Note that the entire list is empty when there are no errors at all.
     if [ $(jq -r 'map(select(.links[].error != "429")) | length == 0' muffet-results.json) ]; then
         echo >> annotation.md
         echo >> annotation.md
