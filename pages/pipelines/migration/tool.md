@@ -39,7 +39,7 @@ In this case, make sure that the original pipeline configuration you are trying 
 
 If you would like to run the Buildkite migration tool locally, you can clone the [Buildkite migration tool repository](https://github.com/buildkite/migration) to run the migration tool's API via a HTTP API using `puma` from the `app` folder of this repository.
 
-You start the web UI with the following Docker command:
+You can start the web UI with the following Docker command:
 
 ```sh
 docker compose up webui

@@ -56,6 +56,9 @@ You will see the following in the Buildkite migration tool UI during the convers
 
 <%= image "migration-tool-circleci.png", alt: "Converting a CircleCI pipeline in Buildkite migration tool's web UI" %>
 
+> 📘 Local API use
+> While the web-based migration tool provides a convenient interface for converting your existing pipelines, you can also run the Buildkite migration tool [locally via its HTTP API](/docs/pipelines/migration/tool#local-API-based-version). The local version offers the same conversion capabilities as the web interface.
+
 You might need to adjust the syntax of the resulting converted output to make it is consistent with the [step configuration conventions](/docs/pipelines/configure/step-types) syntax used in Buildkite Pipelines.
 
 The Buildkite migration tool supports the use of YAML aliases - reusable configuration snippets to be applied to specific points in a CircleCI pipeline. These are defined with a `&` (anchor) within the top-level `aliases` key and substituted into CircleCI pipeline configuration with `*` (for example, `*tests`). Configuration defined by an alias will be respected and parsed at the specified section of the pipeline. Also note that the anchors will be expanded in the resulting converted pipeline.
