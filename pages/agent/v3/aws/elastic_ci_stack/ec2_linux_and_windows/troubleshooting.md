@@ -32,11 +32,11 @@ The script collects CloudWatch Logs for the Instance, Lambda function, and AutoS
 
 When you've configured a custom `BootstrapScriptUrl` parameter but instances aren't working correctly, use the following suggestions to help identify and resolve any issues.
 
-**Verify the basics**
+### Verify the basics
 
-* Test `BootstrapScriptUrl` is accessible: `curl -f "$BOOTSTRAP_URL" -o bootstrap_script.sh`
-* Syntax check the script: `bash -n bootstrap_script.sh`
-* Check Auto Scaling group activity for launch failures:
+- Test whether `BootstrapScriptUrl` is accessible: `curl -f "$BOOTSTRAP_URL" -o bootstrap_script.sh`
+- Syntax-check the script: `bash -n bootstrap_script.sh`
+- Check the Auto Scaling group activity for launch failures:
 
 ```bash
 aws autoscaling describe-scaling-activities \
@@ -44,13 +44,13 @@ aws autoscaling describe-scaling-activities \
   --max-items 10
 ```
 
-**Examine CloudWatch Logs**
+### Examine CloudWatch Logs
 
-* `/buildkite/elastic-stack/{instance_id}` - Look for "Running bootstrap script from" message
-* `/buildkite/cloud-init/output/{instance_id}` - Check environment setup
-* `/buildkite/buildkite-agent/{instance_id}` - Verify agent startup
+- `/buildkite/elastic-stack/{instance_id}` - check for the "Running bootstrap script from" message.
+- `/buildkite/cloud-init/output/{instance_id}` - check the environment setup.
+- `/buildkite/buildkite-agent/{instance_id}` - verify the agent start.
 
-**Collect detailed information**
+### Collect detailed information
 
 For active instances:
 
