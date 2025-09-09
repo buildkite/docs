@@ -920,9 +920,9 @@
           path: "apis/mcp-server"
         - name: "Configuring AI tools"
           path: "apis/mcp-server/configuring-ai-tools"
-        - name: "Installing the server"
+        - name: "Local MCP server"
           children:
-            - name: "Overview"
+            - name: "Installing the server"
               path: "apis/mcp-server/installing"
             - name: "Configuring AI agents"
               path: "apis/mcp-server/installing/configuring-ai-agents"

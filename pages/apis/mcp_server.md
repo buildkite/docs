@@ -36,12 +36,12 @@ If you are using Buildkite's remote MCP server, you do not need to configure an 
 
 The Buildkite MCP server exposes the following categories of _MCP tools_.
 
-The names of these tools (for example, `list_pipelines`) are not typically used in direct prompts to AI tools or agents. However, the name of each MCP tool is designed to be human-readable, and it can be used in a prompt when you want your AI tool or agent to explicitly use that MCP tool to query the Buildkite platform.
+The names of these tools (for example, `list_pipelines`) typically do not need to be used in direct prompts to AI tools or agents. However, each MCP tool name is designed to be understandable, so that it can be used directly in a prompt when you want your AI tool or agent to explicitly use that MCP tool to query the Buildkite platform.
 
 Learn more about MCP tools in the [Core Server Features](https://modelcontextprotocol.io/docs/learn/server-concepts#core-server-features) and [Tools](https://modelcontextprotocol.io/docs/learn/server-concepts#tools) sections of the [Understanding MCP servers](https://modelcontextprotocol.io/docs/learn/server-concepts) page in the [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro) docs.
 
 > 📘
-> Since Buildkite's MCP server makes calls to Buildkite's REST API, be aware that only a subset of the resulting fields are returned in the response from the Buildkite API to your AI tool or agent. This is done to reduce noise for your AI tool / agent, as well as reduce costs associated with text tokenization of the response.
+> Since Buildkite's MCP server makes calls to Buildkite's REST API, note that only a subset of the resulting fields are returned in the response from the Buildkite API to your AI tool or agent. This is done to reduce noise for your AI tool / agent, as well as reduce costs associated with text tokenization of the response.
 
 ### User and authentication
 
