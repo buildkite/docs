@@ -28,7 +28,7 @@ set +e
   --max-connections=10 \
   --timeout=15 \
   --buffer-size=8192 \
-  --rate-limit=2 \
+  --verbose \
   --format=json \
   > muffet-results.json
 
