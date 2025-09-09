@@ -45,7 +45,7 @@ Learn more about MCP tools in the [Core Server Features](https://modelcontextpro
 
 ### User and authentication
 
-These MCP tools are used for [authentication](/docs/apis#authentication) and when you want to query details about the access token's user and Buildkite organization they belong to.
+These MCP tools are associated with [authentication](/docs/apis#authentication) and relate to querying details about the access token's user and Buildkite organization they belong to.
 
 <table>
   <thead>
@@ -290,7 +290,7 @@ These MCP tools are used to retrieve the logs of [jobs](/docs/apis/rest-api/jobs
 
 ### Logs
 
-These MCP tools are used to process the logs of [jobs](#available-mcp-tools-jobs), for the benefit of your AI tool or agent. These MCP tools leverage the [Buildkite Logs Search & Query Library](https://github.com/buildkite/buildkite-logs?tab=readme-ov-file#buildkite-logs-search--query-library), which is used by the Buildkite MCP server, and makes the complex logs returned by the Buildkite platform, more consumable to AI tools, agents and LLMs.
+These MCP tools are used to process the logs of [jobs](#available-mcp-tools-jobs), for the benefit of your AI tool or agent. These MCP tools leverage the [Buildkite Logs Search & Query Library](https://github.com/buildkite/buildkite-logs?tab=readme-ov-file#buildkite-logs-search--query-library) (used by the Buildkite MCP server), which converts the complex Buildkite logs returned by the Buildkite platform into [Parquet files](https://parquet.apache.org/docs/file-format/), making these logs more consumable for AI tools, agents and LLMs.
 
 <table>
   <thead>
@@ -332,8 +332,6 @@ These MCP tools are used to process the logs of [jobs](#available-mcp-tools-jobs
     <% end %>
   </tbody>
 </table>
-
-<h4 id="smart-caching-and-storage">Smart caching and storage</h4>
 
 ### Artifacts
 
@@ -461,3 +459,6 @@ These MCP tools are used to process the logs of [jobs](#available-mcp-tools-jobs
     <% end %>
   </tbody>
 </table>
+
+## Smart caching and storage
+
