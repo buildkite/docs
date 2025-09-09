@@ -24,7 +24,7 @@ Buildkite provides both a _remote_ and _local_ MCP server:
 
 - The _local_ MCP server is one that you install yourself on your own machine or in a containerized environment.
 
-    This type of MCP server is typically used by an _AI agent_, which is a type of AI tool or application that any type of automated system or workflow, such as a Buildkite pipeline, can interact with. AI agents are usually shell-based.
+    This type of MCP server is typically used by an _AI agent_, which is a type of AI tool or application that any type of automated system or workflow, such as a Buildkite pipeline, can interact with. AI agent interactions are usually shell-based.
 
     Learn more about how to set up and install a local Buildkite MCP server in [Installing the Buildkite MCP server](/docs/apis/mcp-server/installing).
 

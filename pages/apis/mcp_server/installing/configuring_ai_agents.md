@@ -74,3 +74,49 @@ claude mcp add buildkite --env BUILDKITE_API_TOKEN=bkua_xxxxx -- buildkite-mcp-s
 ```
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
+
+## Goose
+
+You can configure your [Goose](https://block.github.io/goose/) AI agent to work with your local Buildkite MCP server, running [using Docker](#goose-docker) or [as a binary](#goose-binary). To do this, add the relevant configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
+
+### Docker
+
+When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following YAML configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
+
+```yaml
+extensions:
+  fetch:
+    name: Buildkite
+    cmd: docker
+    args: ["run", "--pull=always", "-q", "-i", "--rm",
+           "-e", "BUILDKITE_API_TOKEN",
+           "buildkite/mcp-server",
+           "stdio"]
+    enabled: true
+    envs: { "BUILDKITE_API_TOKEN": "bkua_xxxxx" }
+    type: stdio
+    timeout: 300
+```
+
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
+
+### Binary
+
+When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following YAML configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
+
+```yaml
+extensions:
+  fetch:
+    name: Buildkite
+    cmd: buildkite-mcp-server
+    args: [stdio]
+    enabled: true
+    envs: |
+      {
+        "BUILDKITE_API_TOKEN": "bkua_xxxxx"
+      }
+    type: stdio
+    timeout: 300
+```
+
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>

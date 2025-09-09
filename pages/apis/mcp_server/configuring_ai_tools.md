@@ -48,16 +48,17 @@ You're now ready to use the Buildkite's remote MCP server through Claude Desktop
 
 ## Cursor
 
-You can configure [Cursor](https://cursor.com/) with the Buildkite MCP server, either [remotely](#cursor-remote) or running locally [using Docker](#cursor-docker) or [as a binary](#cursor-binary). To do this, add the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json), which is usually located in your home directory's `.cursor` sub-directory.
+You can configure [Cursor](https://cursor.com/) with the remote Buildkite MCP server by adding the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json), which is usually located in your home directory's `.cursor` sub-directory.
 
-To access the `mcp.json` file through the Cursor app:
+You can conveniently add this configuration using the following button.
+
+<a class="inline-block" href="https://cursor.com/en/install-mcp?name=buildkite&config=eyJ1cmwiOiJodHRwczovL21jcC5idWlsZGtpdGUuY29tL21jcCJ9" target="_blank" rel="nofollow"><img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Add to Cursor" class="no-decoration" width="160" height="30"></a><br/>
+
+Otherwise, to access the `mcp.json` file through the Cursor app to implement this configuration:
 
 1. From your **Cursor Settings**, select **MCP & Integrations**.
 1. Under **MCP Tools**, select **Add Custom MCP** to open the `mcp.json` file.
-
-### Remote
-
-When using the remote MCP server, add the following JSON configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
+1. Implement the following update to this file, where if you have other MCP servers configured in Cursor, just add the `"buildkite": { ... }` object to this JSON file.
 
 ```json
 {
@@ -69,101 +70,11 @@ When using the remote MCP server, add the following JSON configuration to your [
 }
 ```
 
-You can also conveniently add this configuration using the following button.
-
-<a class="inline-block" href="https://cursor.com/en/install-mcp?name=buildkite&config=eyJ1cmwiOiJodHRwczovL21jcC5idWlsZGtpdGUuY29tL21jcCJ9" target="_blank" rel="nofollow"><img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Add to Cursor" class="no-decoration" width="160" height="30"></a><br/>
-
-### Docker
-
-When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Cursor `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
-
-```json
-{
-  "mcpServers": {
-    "buildkite": {
-      "command": "docker",
-      "args": [
-        "run", "--pull=always", "-q", "-i", "--rm", "-e", "BUILDKITE_API_TOKEN",
-        "buildkite/mcp-server",
-        "stdio"
-      ],
-      "env": { "BUILDKITE_API_TOKEN": "bkua_xxxxx" }
-    }
-  }
-}
-```
-
-<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
-
-### Binary
-
-When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Cursor `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
-
-```json
-{
-  "mcpServers": {
-    "buildkite": {
-      "command": "buildkite-mcp-server",
-      "args": ["stdio"],
-      "env": {
-        "BUILDKITE_API_TOKEN": "bkua_xxxxx"
-      }
-    }
-  }
-}
-```
-
-<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
-
 ## Goose
 
-You can configure [Goose](https://block.github.io/goose/) with the Buildkite MCP server, either [remotely](#goose-remote) or running locally [using Docker](#goose-docker) or [as a binary](#goose-binary). To do this, add the relevant configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
-
-### Remote
+You can configure [Goose](https://block.github.io/goose/) with the remote Buildkite MCP server by adding the relevant configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
 
 
-
-### Docker
-
-When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following YAML configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
-
-```yaml
-extensions:
-  fetch:
-    name: Buildkite
-    cmd: docker
-    args: ["run", "--pull=always", "-q", "-i", "--rm",
-           "-e", "BUILDKITE_API_TOKEN",
-           "buildkite/mcp-server",
-           "stdio"]
-    enabled: true
-    envs: { "BUILDKITE_API_TOKEN": "bkua_xxxxx" }
-    type: stdio
-    timeout: 300
-```
-
-<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
-
-### Binary
-
-When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following YAML configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
-
-```yaml
-extensions:
-  fetch:
-    name: Buildkite
-    cmd: buildkite-mcp-server
-    args: [stdio]
-    enabled: true
-    envs: |
-      {
-        "BUILDKITE_API_TOKEN": "bkua_xxxxx"
-      }
-    type: stdio
-    timeout: 300
-```
-
-<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
 ## Visual Studio Code
 
