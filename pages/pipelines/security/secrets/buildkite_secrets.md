@@ -8,7 +8,13 @@ Buildkite secrets:
 
 - Are available to both [Buildkite hosted](/docs/pipelines/hosted-agents) as well as self-hosted agents.
 
+## Access control
+
+In addition to being scoped within a cluster, access to Buildkite organization secrets is managed through agent access policies. These policies restrict which agents can access secrets during builds. For detailed information about policy structure and examples, see [Access policies for Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets/access-policies).
+
 ## Create a secret
+
+Buildkite secrets can only be created by [cluster maintainers](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster), as well as [Buildkite organization administrators](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions).
 
 ### Using the Buildkite interface
 
@@ -43,6 +49,31 @@ To update an existing Buildkite secret's value using the Buildkite interface:
 
 ## Use a Buildkite secret in a job
 
+### From within pipeline YAML
+
+Once you've [created a secret](#create-a-secret), you can specify secrets in your pipeline YAML which will be injected into your job environment. Secrets can be specified for an entire build and per command step.
+
+For example, to load the `API_ACCESS_TOKEN` secret in all jobs for your build:
+
+```yaml
+steps:
+  - command: do_something.sh
+  - command: api_call.sh
+
+secrets:
+  - API_ACCESS_TOKEN
+```
+
+Or to load it for only the jobs that need it:
+
+```yaml
+steps:
+  - command: do_something.sh
+  - command: api_call.sh
+    secrets:
+      - API_ACCESS_TOKEN
+  ```
+
 ### From a build script or hook
 
 Once you've [created a secret](#create-a-secret), the [`buildkite-agent secret get` command](/docs/agent/v3/cli-secret) can be used within the Buildkite Agent to print the secret's value to standard out (stdout). You can use this command within standard bash-like commands to redirect the secret's output into an environment variable, a file, or your own tool that uses the Buildkite secret's value directly, for example:
@@ -55,7 +86,7 @@ Once you've [created a secret](#create-a-secret), the [`buildkite-agent secret g
 
     `buildkite-agent secret get secret_name > secret.txt`
 
-- Passing the output of your Buildkite secret (via the `buildkite-agent secret get` command) to your own tool named `cli-tool` that accepts a secret via its `-token` option:
+- Passing the output of your Buildkite secret (using the `buildkite-agent secret get` command) to your own tool named `cli-tool` that accepts a secret via its `-token` option:
 
     `cli-tool —token $(buildkite-agent secret get secret_name)`
 
@@ -82,11 +113,19 @@ Buildkite secrets are designed, with the following controls in place:
 - Secrets are encrypted in transit using TLS.
 - Secrets are always stored encrypted at rest.
 - All access to the secrets are logged.
+<<<<<<< HEAD
 - Employee access to secrets is strictly limited and audited.
 
 ## Best practices
 
 Buildkite secrets is not a zero-knowledge system, whereby Buildkite owns, stores, and manages the keys used for encrypting the secrets stored in the service at rest and in transit. You should implement additional controls to manage the lifecycle of secrets stored within Buildkite secrets, in addition to any monitoring capability you may require in line with your risk appetite. For example:
+=======
+- Buildkite employee access to secrets is strictly limited and audited.
+
+## Best practices
+
+Buildkite secrets are stored by Buildkite, and Buildkite manages the keys used to encrypt and decrypt these secrets stored in its secrets management service, both at rest and in transit. You should implement additional controls to manage the lifecycle of secrets stored within Buildkite secrets, in addition to any monitoring capability you may require. For example:
+>>>>>>> 552f5ff11 (Update org secret docs to reflect plans for improved cluster secrets)
 
 - All credentials should be rotated regularly.
 - Track the secrets stored in Buildkite secrets within your own asset management processes.
