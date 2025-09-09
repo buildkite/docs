@@ -1,17 +1,13 @@
 # Configuring AI tools with the Buildkite MCP server
 
-Once you have established which Buildkite MCP server to use ([remote or local](/docs/apis/mcp-server#types-of-mcp-servers)), you can then use the instructions on this page to configure your AI tool to work with this MCP server.
+If you are working directly with AI tools to interact with Buildkite's MCP server, then use the relevant instructions on this page to configure your AI tool to work with the [_remote_ Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers).
 
 > 📘
-> If you are using a _local_ MCP server, ensure you have followed the required instructions on [Installing the Buildkite MCP server](/docs/apis/mcp-server/installing) locally first, before proceeding with the instructions on this page.
+> If you are using an AI agent to work with the _local_ MCP server, ensure you have followed the required instructions on [Installing the Buildkite MCP server](/docs/apis/mcp-server/installing) locally first, before proceeding with the relevant instructions on [Configuring AI agents](/docs/apis/mcp-server/installing/configuring-ai-agents).
 
 ## Amp
 
-You can configure [Amp](https://ampcode.com/) with the Buildkite MCP server, either [remotely](#amp-remote) or running locally [using Docker](#amp-docker) or [as a binary](#amp-binary). To do this, add the relevant configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
-
-### Remote
-
-When using the remote MCP server, add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration), which requires the `mcp-remote` command argument to allow OAuth authorization. Learn more about this in the [Custom Tools (MCP)](https://ampcode.com/manual#mcp) section of the Amp docs.
+You can configure [Amp](https://ampcode.com/) with the remote Buildkite MCP server, by adding the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration), which requires the `mcp-remote` command argument to allow OAuth authorization. Learn more about this type of configuration in the [Custom Tools (MCP)](https://ampcode.com/manual#mcp) section of the Amp docs.
 
 ```json
 {
@@ -31,140 +27,24 @@ The first time you start using the remote MCP server on Amp, the **Authorize App
 
 You're now ready to use the Buildkite's remote MCP server through Amp for this Buildkite organization.
 
-### Docker
-
-When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
-
-```json
-{
-  "amp.mcpServers": {
-    "buildkite": {
-      "command": "docker",
-      "args": [
-        "run", "--pull=always", "-q", "-i", "--rm", "-e", "BUILDKITE_API_TOKEN",
-        "buildkite/mcp-server",
-        "stdio"
-      ],
-      "env": { "BUILDKITE_API_TOKEN": "bkua_xxxxx" }
-    }
-  }
-}
-```
-
-<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
-
-### Binary
-
-When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
-
-```json
-{
-  "amp.mcpServers": {
-    "buildkite": {
-      "command": "buildkite-mcp-server",
-      "args": ["stdio"],
-      "env": {
-        "BUILDKITE_API_TOKEN": "bkua_xxxxx"
-      }
-    }
-  }
-}
-```
-
-<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
-
 ## Claude Code
 
-You can configure [Claude Code](https://www.anthropic.com/claude-code) (as a command line tool) with the Buildkite MCP server, either [remotely](#claude-code-remote) or running locally [using Docker](#claude-code-docker) or [as a binary](#claude-code-binary). To do this, run the relevant Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
-
-### Remote
-
-When using the remote MCP server, run the following Claude Code command.
+You can configure [Claude Code](https://www.anthropic.com/claude-code) with the remote Buildkite MCP server by running the relevant Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
 
 ```bash
 claude mcp add --transport http buildkite https://mcp.buildkite.com/mcp
 ```
 
-### Docker
-
-When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, run the following Claude Code command.
-
-```bash
-claude mcp add buildkite -- docker run --pull=always -q --rm -i -e BUILDKITE_API_TOKEN=bkua_xxxxx buildkite/mcp-server stdio
-```
-
-<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
-
-### Binary
-
-When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, run the following Claude Code command.
-
-```bash
-claude mcp add buildkite --env BUILDKITE_API_TOKEN=bkua_xxxxx -- buildkite-mcp-server stdio
-```
-
-<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
-
 ## Claude Desktop
 
-You can configure [Claude Desktop](https://claude.ai/download) with the Buildkite MCP server, either [remotely](#claude-desktop-remote) or running locally [using Docker](#claude-desktop-docker) or [as a binary](#claude-desktop-binary). To do this, add the relevant configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop).
-
-### Remote
-
-When using the remote MCP server, do the following to configure this server in Claude Desktop:
+You can configure [Claude Desktop](https://claude.ai/download) with the remote Buildkite MCP server, by doing the following to configure this server in Claude Desktop.
 
 1. Select **Settings** > **Connectors**.
-1. Scroll down the page of connectors.
-    * If **Buildkite** appears (indicating the URL `https://mcp.buildkite.com/mcp`).
-        1. Select its **Connect** button.
-        1. On the **Authorize Application** for the **Buildkite MCP Server** page, scroll down and select your Buildkite organization in **Authorize for organization**, followed by **Authorize**.
-    * If **Buildkite** is not listed ...
-
-The first time you start using the remote MCP server on Claude Desktop, the **Authorize Application** for the **Buildkite MCP Server** page opens. On this page, scroll down and select your Buildkite organization in **Authorize for organization**, followed by **Authorize**.
+1. Scroll down the page of connectors and locate the **Buildkite** option (indicating the URL `https://mcp.buildkite.com/mcp`).
+1. Select its **Connect** button.
+1. On the **Authorize Application** for the **Buildkite MCP Server** page, scroll down and select your Buildkite organization in **Authorize for organization**, followed by **Authorize**.
 
 You're now ready to use the Buildkite's remote MCP server through Claude Desktop for this Buildkite organization.
-
-### Docker
-
-When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop), which you can access from Claude Desktop's **Settings** > **Developer** > **Edit Config** button on the **Local MCP servers** page.
-
-```json
-{
-  "mcpServers": {
-    "buildkite": {
-      "command": "docker",
-      "args": [
-        "run", "--pull=always", "-q", "-i", "--rm", "-e", "BUILDKITE_API_TOKEN",
-        "buildkite/mcp-server",
-        "stdio"
-      ],
-      "env": { "BUILDKITE_API_TOKEN": "bkua_xxxxx" }
-    }
-  }
-}
-```
-
-<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
-
-### Binary
-
-When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop), which you can access from Claude Desktop's **Settings** > **Developer** > **Edit Config** button on the **Local MCP servers** page.
-
-```json
-{
-  "mcpServers": {
-    "buildkite": {
-      "command": "buildkite-mcp-server",
-      "args": ["stdio"],
-      "env": {
-        "BUILDKITE_API_TOKEN": "bkua_xxxxx"
-      }
-    }
-  }
-}
-```
-
-<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
 ## Cursor
 

@@ -1,36 +1,45 @@
 # Buildkite MCP server overview
 
-The [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) is an open protocol standard on how to connect AI tools and models to a variety of other systems and data sources.
+The [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) is an open protocol standard on how to connect artificial intelligence (AI) tools, agents and models to a variety of other systems and data sources.
 
-Buildkite provides its own [open-source MCP server](https://github.com/buildkite/buildkite-mcp-server) to expose Buildkite product data (for example, data from pipelines, builds, and jobs for Pipelines, as well as from test data for Test Engine) for AI tools, editors and other products to interact with.
+Buildkite provides its own [open-source MCP server](https://github.com/buildkite/buildkite-mcp-server) to expose Buildkite product data (for example, data from pipelines, builds, and jobs for Pipelines, as well as from test data for Test Engine) for AI tools and editors, as well as AI agents and other products to interact with.
 
-Learn more about what Buildkite's MCP server is capable of in [Available MCP tools](#available-mcp-tools).
+Buildkite's MCP server is built on and interacts with [Buildkite's REST API](/docs/apis/rest-api). Learn more about what the MCP server is capable of in [Available MCP tools](#available-mcp-tools).
 
-To start using Buildkite's MCP server, first determine which [type of Buildkite MCP server](#types-of-mcp-servers) to work with. This next section provides an overview of the differences between these MCP server types and how they are configured. From there, you can proceed to install the MCP server (if necessary) and proceed to configure your AI tool with the MCP server.
+To start using Buildkite's MCP server, first determine which [type of Buildkite MCP server](#types-of-mcp-servers) to work with. This next section provides an overview of the differences between these MCP server types and how they need to be configured.
+
+Once you have established which Buildkite MCP server to use (remote or local) and if local, have [installed the MCP server](/docs/apis/mcp-server/installing#install-and-run-the-server-locally) and [configured its API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), you can then proceed to configure your [AI tools](/docs/apis/mcp-server/configuring-ai-tools) or [AI agents](/docs/apis/mcp-server/installing/configuring-ai-agents) to work with this MCP server.
 
 ## Types of MCP servers
 
 Buildkite provides both a _remote_ and _local_ MCP server:
 
-- The remote MCP server is one that Buildkite hosts, and is available for all customers to access at the following URL:
+- The _remote_ MCP server is one that Buildkite hosts, and is available for all customers to access at the following URL:
 
     ```url
     https://mcp.buildkite.com/mcp
     ```
 
-- The local MCP server is one that you install yourself on your own machine. Learn more about how to set up and install a local Buildkite MCP server in [Installing the Buildkite MCP server](/docs/apis/mcp-server/installing).
+    This type of MCP server is typically used by an _AI tool_, which is a type of AI tool or application that humans interact with directly from a prompt.
 
-The MCP server is built on and interacts with Buildkite's REST API. Therefore, as part of installing a local Buildkite MCP server, you'll also need to [configure an API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token) with the required scopes that your local MCP server will use.
+- The _local_ MCP server is one that you install yourself on your own machine or in a containerized environment.
 
-If you are using Buildkite's remote MCP server, you do not need to configure an API access token. Instead, you only require a Buildkite user account, and an OAuth token representing this account is used for authentication, along with access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place when configuring your AI tool with the remote MCP server.
+    This type of MCP server is typically used by an _AI agent_, which is a type of AI tool or application that any type of automated system or workflow, such as a Buildkite pipeline, can interact with. AI agents are usually shell-based.
 
-Once you have established which Buildkite MCP server to use (remote or local) and if local, have [installed the MCP server](/docs/apis/mcp-server/installing#install-and-run-the-server-locally) and [configured its API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token), you can then proceed to configure your [AI tools](/docs/apis/mcp-server/configuring-ai-tools) or [AI agents](/docs/apis/mcp-server/installing/configuring-ai-agents) to work with this MCP server.
+    Learn more about how to set up and install a local Buildkite MCP server in [Installing the Buildkite MCP server](/docs/apis/mcp-server/installing).
+
+As part of installing a local Buildkite MCP server, you'll also need to [configure an API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token) with the required scopes that your local MCP server will use.
+
+If you are using Buildkite's remote MCP server, you do not need to configure an API access token. Instead, you only require a Buildkite user account, and an OAuth token representing this account is used for authentication, along with access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place after [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/configuring-ai-tools).
 
 ## Available MCP tools
 
 The Buildkite MCP server exposes the following _MCP tools_.
 
-Learn more about MCP tools in the [Core Server Features](https://modelcontextprotocol.io/docs/learn/server-concepts#core-server-features) and [Tools](https://modelcontextprotocol.io/docs/learn/server-concepts#tools) sections of the [Understanding MCP servers](https://modelcontextprotocol.io/docs/learn/server-concepts) page of the [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro) docs.
+Learn more about MCP tools in the [Core Server Features](https://modelcontextprotocol.io/docs/learn/server-concepts#core-server-features) and [Tools](https://modelcontextprotocol.io/docs/learn/server-concepts#tools) sections of the [Understanding MCP servers](https://modelcontextprotocol.io/docs/learn/server-concepts) page in the [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro) docs.
+
+> 📘
+> Since Buildkite's MCP server makes calls to Buildkite's REST API, be aware that only a subset of the resulting fields are returned in the response from the Buildkite API to your AI tool or agent. This is done to reduce noise for your AI tool/agent, as well as reduce costs associated with text tokenization of the response.
 
 ### User and authentication
 
