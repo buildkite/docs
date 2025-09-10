@@ -24,7 +24,7 @@ set +e
 /muffet http://app:3000/docs \
   --exclude="https://github.com/buildkite/docs/" \
   --exclude="buildkite.com/docs" \
-  --exclude="https://buildkite.com/" \
+  --header="User-Agent: Muffet/$(muffet --version)" \
   --max-connections=10 \
   --timeout=15 \
   --buffer-size=8192 \
