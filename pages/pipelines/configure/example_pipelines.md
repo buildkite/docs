@@ -34,11 +34,3 @@ You can also [browse the full example pipeline gallery](https://buildkite.com/re
 ## template.yml files
 
 All of the examples contain a `buildkite/template.yml` file so that you can add the project to your Buildkite account using the 'Add to Buildkite' button in the readme. You don't need this file in your own projects.
-
-Testing:
-
-[Try this example 404 link](https://www.google.com/404).
-
-[Non-existent web site](https://blah.blah.blah.com/).
-
-[Non-existent Buildkite Docs page](https://buildkite.com/docs/non-existant-page).

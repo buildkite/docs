@@ -203,7 +203,7 @@ The following AWS IAM permissions are required to build custom AMIs using the pr
 
 It is also recommended that you have a base knowledge of:
 
-<!-- - [Packer](https://developer.hashicorp.com/packer/docs/intro) -->
+- [Packer](https://developer.hashicorp.com/packer/docs/intro)
 - [HashiCorp configuration language (HCL)](https://github.com/hashicorp/hcl?tab=readme-ov-file#hcl)
 - Bash or PowerShell (depending on the operating system of choice)
 
