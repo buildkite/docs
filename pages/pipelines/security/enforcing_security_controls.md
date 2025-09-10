@@ -11,7 +11,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 **Controls:**
 
 - Enforce either [Single sign-on (SSO)](/docs/platform/sso) or [Two-factor authentication (2FA/MFA)](/docs/platform/team-management/enforce-2fa) for all access to the Buildkite interface.
-- Use time-scoped API tokens with [automated rotation](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security).
+- Use time-scoped API tokens with [automated rotation](/docs/apis/managing-api-tokens#api-token-security-rotation).
 - Apply least privilege principle when [scoping API keys](/docs/apis/managing-api-tokens#token-scopes).
 - [Restrict API tokens to specific IP ranges](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address) where possible.
 
@@ -82,7 +82,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 **Controls:**
 
 - Create API access tokens with only the minimal [required scopes](/docs/apis/managing-api-tokens#token-scopes). Use [portals](/docs/apis/portals) to limit GraphQL query scope. Review permissions regularly to match current needs.
-- Establish [rotation of access tokens](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security) with defined expiration periods. Automate rotation where possible to limit exposure windows.
+- Establish [rotation of access tokens](/docs/apis/managing-api-tokens#api-token-security-rotation) with defined expiration periods. Automate rotation where possible to limit exposure windows.
 - Bind access tokens to [specific IP addresses or network segments](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address). Use network address translation (NAT) with centralized egress routing for enhanced monitoring and rapid compromise detection.
 - Deploy access tokens within dedicated virtual private clouds (VPCs) using [Buildkite’s Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security#network-configuration) for network isolation.
 - Monitor access token usage patterns through the [Audit Log](/docs/platform/audit-log). Set up alerts on unusual patterns: unexpected locations, excessive API calls, unauthorized resource access.

@@ -22,7 +22,7 @@ As an organization administrator, you can access the [**Organization Settings** 
 
 - Add new teams or edit existing ones in the [**Team** section](https://buildkite.com/organizations/~/teams).
 
-    * After selecting a team, you can view and administer the member-, [pipeline-](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/test-engine/test-suites/permissions#manage-teams-and-permissions-test-suite-level-permissions), [registry-](#manage-teams-and-permissions-registry-level-permissions) and [team-](/docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions)level settings for that team.
+    * After selecting a team, you can view and administer the member-, [pipeline-](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/test-engine/permissions#manage-teams-and-permissions-test-suite-level-permissions), [registry-](#manage-teams-and-permissions-registry-level-permissions) and [team-](/docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions)level settings for that team.
 
 - [Enable Buildkite Package Registries](#enabling-buildkite-packages) for your Buildkite organization.
 
@@ -98,5 +98,5 @@ From this page, you can configure the following permissions for all users across
 
 ## Manage an agent's access to registries
 
-To configure the rules by which a Buildkite Agent can access a registry, you'll need to configure the [OpenID Connect (OIDC) policy](/docs/packages/security/oidc) within the registry to allow the Buildkite Agent to generate an OIDC token (using the [`buildkite-agent oidc request-token`](/docs/agent/v3/cli-oidc#request-oidc-token) command), which the agent can use to authenticate to this registry.
+To configure the rules by which a Buildkite Agent can access a registry, you'll need to configure the [OpenID Connect (OIDC) policy](/docs/package-registries/security/oidc) within the registry to allow the Buildkite Agent to generate an OIDC token (using the [`buildkite-agent oidc request-token`](/docs/agent/v3/cli-oidc#request-oidc-token) command), which the agent can use to authenticate to this registry.
 

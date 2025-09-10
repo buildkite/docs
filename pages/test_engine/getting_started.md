@@ -2,7 +2,7 @@
 
 👋 Welcome to Buildkite Test Engine! You can use Test Engine to help you track and analyze the test steps automated through CI/CD using either [Buildkite Pipelines](/docs/pipelines) or another CI/CD application.
 
-This getting started page is a tutorial that helps you understand Buildkite Test Engine's fundamentals, by guiding you through the creation of a new Test Engine test suite, and then cloning and running a simple example Ruby project to generate test results that are collected and reported through this test suite. Note that Buildkite Test Engine supports [other languages and test runners](/docs/test-engine/test-collection) too.
+This getting started page is a tutorial that helps you understand Buildkite Test Engine's fundamentals, by guiding you through the creation of a new Test Engine [test suite](/docs/test-engine/test-suites), and then cloning and running a simple example Ruby project to generate test results that are collected and reported through this test suite. Note that Buildkite Test Engine supports [other languages and test runners](/docs/test-engine/test-collection) too.
 
 ## Before you start
 
@@ -31,7 +31,7 @@ To begin creating a new test suite:
 1. Enter the **Default branch name**, which is the default branch that Test Engine shows trends for, and can be changed any time. For example (and usually), `main`.
 1. Enter an optional **Suite emoji**, using [emoji syntax](/docs/pipelines/emojis). For example, `\:ruby\:` for a ruby emoji representing the Ruby language.
 1. Select **Set up suite**.
-1. If your Buildkite organization has the [teams feature](/docs/test-engine/test-suites/permissions) enabled, select the relevant **Teams** to be granted access to this test suite, followed by **Continue**.
+1. If your Buildkite organization has the [teams feature](/docs/test-engine/permissions) enabled, select the relevant **Teams** to be granted access to this test suite, followed by **Continue**.
 
     The new test suite's **Complete test suite setup** page is displayed, requesting you to configure your test collector within your development project.
 
