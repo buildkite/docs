@@ -26,6 +26,9 @@ set +e
   --exclude="buildkite.com/docs" \
   --exclude="https://buildkite.com/user" \
   --exclude="https://buildkite.com/organizations" \
+  --exclude="https://api.buildkite.com/" \
+  --exclude="https://buildkite.com/my-organization/" \
+  --exclude="https://github.com/my-org/" \
   --header="User-Agent: Muffet/$(muffet --version)" \
   --max-connections=10 \
   --timeout=15 \
