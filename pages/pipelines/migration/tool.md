@@ -8,10 +8,6 @@ The Buildkite migration tool can be used as a standalone tool or potentially int
 
 ## Interactive web-based version
 
-The fastest way to get started with the Buildkite migration tool is to use it as an [interactive web tool](https://buildkite.com/resources/migrate/).
-
-<%= image "migration-tool-web.png", alt: "Buildkite migration tool's web UI" %>
-
 The Buildkite migration tool currently supports the following CI providers:
 
 - [GitHub Actions](/docs/pipelines/migration/tool/github-actions)
@@ -19,13 +15,17 @@ The Buildkite migration tool currently supports the following CI providers:
 - [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines)
 - Jenkins (currently in Beta)
 
+The fastest way to get started with the Buildkite migration tool is to use its [interactive web version](https://buildkite.com/resources/migrate/).
+
+<%= image "migration-tool-web.png", alt: "Buildkite migration tool's web UI" %>
+
 To start translating your existing pipeline configuration into a Buildkite pipeline:
 
 1. In the drop-down list, select your CI/CD platform.
 1. Enter a pipeline definition you would like to translate into a Buildkite pipeline definition on the left side of the tool.
 1. Click the **Convert** button.
 1. You'll see the translated pipeline definition on the right side of the tool.
-1. You can copy the resulting yaml pipeline definition and [create](/docs/pipelines/configure) a [new Buildkite pipeline](https://www.buildkite.com/new) with it.
+1. You can copy the resulting yaml pipeline configuration and [create](/docs/pipelines/configure) a [new Buildkite pipeline](https://www.buildkite.com/new) with it.
 
 ### Conversion errors
 
@@ -39,7 +39,7 @@ In this case, make sure that the original pipeline configuration you are trying 
 
 If you would like to run the Buildkite migration tool locally, you can clone the [Buildkite migration tool repository](https://github.com/buildkite/migration) to run the migration tool's API via a HTTP API using `puma` from the `app` folder of this repository.
 
-You can start the web UI with the following Docker command:
+After cloning the [Buildkite migration tool repository](https://github.com/buildkite/migration), you can start the web UI with the following Docker command:
 
 ```sh
 docker compose up webui
@@ -49,7 +49,7 @@ After starting the Docker image, you will be able to access the web interface of
 
 <%= image "api-web-ui.png", alt: "Web UI of the API version of the Buildkite migration tool" %>
 
-If you would prefer to use `docker run` command for starting the Buildkite migration too, you can do it but you will need to override the entrypoint:
+If you would prefer to use `docker run` command for starting the Buildkite migration too, you can also do it but you will need to override the entrypoint in the following way:
 
 ```shell
 $ docker run --rm -ti -p 9292:9292 --entrypoint '' --workdir /app $IMAGE:$TAG puma --port 9292
