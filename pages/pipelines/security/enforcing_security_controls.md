@@ -26,6 +26,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 - Map Buildkite users to SCM identities with [team-based permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions). Use [agent hooks](/docs/agent/v3/hooks) to ensure only authorized team members can trigger builds. You can also see a [live example](https://buildkite.com/resources/examples/buildkite/agent-hooks-example/) to discover how agent hooks operate in builds.
 - Utilize [programmatic team management](/docs/platform/team-management/permissions#manage-teams-and-permissions-programmatically-managing-teams) alongside pre-merge hooks to verify that commit authors have appropriate permissions before allowing build execution.
 - [Disable triggering builds on forks](/docs/pipelines/source-control/github#running-builds-on-pull-requests) for public pipelines and repositories to ensure open source contributors are unable to substantially alter a pipeline to extract secrets.
+- Consider using `no-plugins`[agent start option](https://buildkite.com/docs/agent/v3/cli-start#no-plugins) if you would like to prevent the agent from loading any plugins.
 
 ## Dependencies and package management
 
