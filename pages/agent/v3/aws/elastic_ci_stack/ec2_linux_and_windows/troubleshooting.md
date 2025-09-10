@@ -34,9 +34,9 @@ When you've configured a custom `BootstrapScriptUrl` parameter but instances are
 
 ### Verify the basics
 
-- Test whether `BootstrapScriptUrl` is accessible: `curl -f "$BOOTSTRAP_URL" -o bootstrap_script.sh`
-- Syntax-check the script: `bash -n bootstrap_script.sh`
-- Check the Auto Scaling group activity for launch failures:
+* Test whether `BootstrapScriptUrl` is accessible: `curl -f "$BOOTSTRAP_URL" -o bootstrap_script.sh`.
+* Syntax-check the script: `bash -n bootstrap_script.sh`.
+* Check the Auto Scaling group activity for launch failures:
 
 ```bash
 aws autoscaling describe-scaling-activities \
@@ -46,9 +46,9 @@ aws autoscaling describe-scaling-activities \
 
 ### Examine CloudWatch Logs
 
-- `/buildkite/elastic-stack/{instance_id}` - check for the "Running bootstrap script from" message.
-- `/buildkite/cloud-init/output/{instance_id}` - check the environment setup.
-- `/buildkite/buildkite-agent/{instance_id}` - verify the agent start.
+* `/buildkite/elastic-stack/{instance_id}` - check for the "Running bootstrap script from" message.
+* `/buildkite/cloud-init/output/{instance_id}` - check the environment setup.
+* `/buildkite/buildkite-agent/{instance_id}` - verify the agent start.
 
 ### Collect detailed information
 
@@ -77,8 +77,8 @@ Use the [`log-collector`](https://github.com/buildkite/elastic-ci-stack-for-aws/
 
 Sometimes, looking at the logs isn't enough to figure out what's going on in your instances. In these cases, it can be useful to access the shell on the instance directly:
 
-* If your Elastic CI Stack for AWS has been configured to allow SSH access (using the `AuthorizedUsersUrl` parameter), run `ssh <some instance id>` in your terminal
-* If SSH access isn't available, you can still use AWS SSM to remotely access the instance by finding the instance ID, and then running `aws ssm start-session --target <instance id>`
+* If your Elastic CI Stack for AWS has been configured to allow SSH access (using the `AuthorizedUsersUrl` parameter), run `ssh <some instance id>` in your terminal.
+* If SSH access isn't available, you can still use AWS SSM to remotely access the instance by finding the instance ID, and then running `aws ssm start-session --target <instance id>`.
 
 ## Auto Scaling group fails to boot instances
 
