@@ -41,7 +41,7 @@ query getOrgMembers {
 
 ## Get the number of organization members
 
-Get the number of users in the organization. Regardless of the value you enter for `members` in the query, the output of the query will include the actual number of users in the organization.
+Get the total number of members in the organization. Regardless of the value you enter for `members` in the query, the output of the query will include the actual number of members in the organization.
 
 ```graphql
 query getOrgMembersCount {
