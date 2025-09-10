@@ -22,9 +22,9 @@ echo 💎🛤️🚆 Rails has started running
 
 set +e
 /muffet http://app:3000/docs \
-  --include="/docs/" \
   --exclude="https://github.com/buildkite/docs/" \
   --exclude="buildkite.com/docs" \
+  --exclude="https://buildkite.com/" \
   --max-connections=10 \
   --timeout=15 \
   --buffer-size=8192 \
