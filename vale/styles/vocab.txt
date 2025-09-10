@@ -39,6 +39,8 @@ Basscss
 Bazel
 bazelisk
 Bitium
+bitbucket
+Bitbucket
 bktec
 bktec's
 boolean
