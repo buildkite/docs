@@ -46,6 +46,7 @@ exceptions:
   - Bazel
   - Bamboo
   - Basecamp Campfire
+  - bitbucket
   - Bitbucket
   - Bitbucket Server
   - bktec

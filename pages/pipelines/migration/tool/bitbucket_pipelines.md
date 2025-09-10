@@ -207,7 +207,7 @@ Note that both supported properties in the Bitbucket pipeline step-level definit
     <tr>
       <td><code>`pipelines.<start-condition>.step.clone`</code></td>
       <td>Partially</td>
-      <td>Clone options for a specific step of a Bitbucket pipeline. The majority of these options should be set directly on a Buildkite agent via [configuration](/docs/agent/v3/configuration) of properties such as the clone flags (`git-clone-flags`, `git-clone-mirror-flags` if utilizing a Git mirror), fetch flags (`git-fetch-flags`) - or changing the entire checkout process in a customized [plugin](/docs/plugins/writing) overriding the default agent `checkout` hook. Sparse checkout options are supported (with the `sparse-checkout` sub-property)</td>
+      <td>Clone options for a specific step of a Bitbucket pipeline. The majority of these options should be set directly on a Buildkite Agent via [configuration](/docs/agent/v3/configuration) of properties such as the clone flags (`git-clone-flags`, `git-clone-mirror-flags` if utilizing a Git mirror), fetch flags (`git-fetch-flags`) - or changing the entire checkout process in a customized [plugin](/docs/plugins/writing) overriding the default agent `checkout` hook. Sparse checkout options are supported (with the `sparse-checkout` sub-property)</td>
     </tr>
     <tr>
       <td><code>`pipelines.<start-condition>.step.deployment`</code></td>
