@@ -1,9 +1,9 @@
 # Configuring AI agents with the Buildkite MCP server
 
-Once you followed the required instructions on [Installing the Buildkite MCP server](/docs/apis/mcp-server/installing) to install the MCP server locally for your AI agent, you can then use the instructions on this page to configure your AI agent to work with this MCP server.
+Once you followed the required instructions on [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing) to install the MCP server locally for your AI agent, you can then use the instructions on this page to configure your AI agent to work with this MCP server.
 
 > 📘
-> If you are working directly with an AI tool to configure it with the _remote_ MCP server, proceed with the relevant instructions on [Configuring AI tools](/docs/apis/mcp-server/configuring-ai-tools).
+> If you are working directly with an AI tool to configure it with the _remote_ MCP server, proceed with the relevant instructions on [Configuring AI tools](/docs/apis/mcp-server/remote/configuring-ai-tools).
 
 ## Amp
 
@@ -11,7 +11,7 @@ You can configure your [Amp](https://ampcode.com/) AI agent to work with your lo
 
 ### Docker
 
-When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
+When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
 
 ```json
 {
@@ -33,7 +33,7 @@ When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-
 
 ### Binary
 
-When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
+When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
 
 ```json
 {
@@ -57,7 +57,7 @@ You can configure your [Claude Code](https://www.anthropic.com/claude-code) AI a
 
 ### Docker
 
-When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, run the following Claude Code command.
+When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, run the following Claude Code command.
 
 ```bash
 claude mcp add buildkite -- docker run --pull=always -q --rm -i -e BUILDKITE_API_TOKEN=bkua_xxxxx buildkite/mcp-server stdio
@@ -67,7 +67,7 @@ claude mcp add buildkite -- docker run --pull=always -q --rm -i -e BUILDKITE_API
 
 ### Binary
 
-When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, run the following Claude Code command.
+When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, run the following Claude Code command.
 
 ```bash
 claude mcp add buildkite --env BUILDKITE_API_TOKEN=bkua_xxxxx -- buildkite-mcp-server stdio
@@ -77,11 +77,11 @@ claude mcp add buildkite --env BUILDKITE_API_TOKEN=bkua_xxxxx -- buildkite-mcp-s
 
 ## Goose
 
-You can configure your [Goose](https://block.github.io/goose/) AI agent to work with your local Buildkite MCP server, running [using Docker](#goose-docker) or [as a binary](#goose-binary). To do this, add the relevant configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
+You can configure your [Goose](https://block.github.io/goose/) AI agent to work with your local Buildkite MCP server, running [using Docker](#goose-docker) or [as a binary](#goose-binary). To do this, add the relevant configuration the `extensions:` section of your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
 
 ### Docker
 
-When using [Docker](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following YAML configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
+When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following YAML configuration the `extensions:` section of your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
 
 ```yaml
 extensions:
@@ -102,7 +102,7 @@ extensions:
 
 ### Binary
 
-When using a [pre-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following YAML configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
+When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following YAML configuration the `extensions:` section of your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
 
 ```yaml
 extensions:
@@ -125,7 +125,7 @@ extensions:
 
 You can configure [ToolHive](https://toolhive.dev/) to run your local Buildkite MCP server from its registry using ToolHive's command line interface (CLI) tool. To do this, ensure you have installed TooHive's [CLI tool](https://toolhive.dev/download.html) and do the following:
 
-1. Use ToolHive's `thv secret set` command to store your [Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token) as a secret.
+1. Use ToolHive's `thv secret set` command to store your [Buildkite API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) as a secret.
 
     ```bash
     cat ~/path/to/your/buildkite-api-token.txt | thv secret set buildkite-api-key
@@ -145,7 +145,7 @@ You can also configure ToolHive to run your local Buildkite MCP server from its 
 
 1. Add a new secret with the following values:
     * **Secret name**: `buildkite-api-key`
-    * **Secret value**: Your [Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token)'s value.
+    * **Secret value**: Your [Buildkite API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token)'s value.
 
 1. Access [ToolHive's **Registry** page](https://docs.stacklok.com/toolhive/guides-ui/run-mcp-servers).
 

@@ -3,7 +3,7 @@
 If you are working directly with AI tools to interact with Buildkite's MCP server, then use the relevant instructions on this page to configure your AI tool to work with the [_remote_ Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers).
 
 > 📘
-> If you are using an AI agent to work with the _local_ MCP server, ensure you have followed the required instructions on [Installing the Buildkite MCP server](/docs/apis/mcp-server/installing) locally first, before proceeding with the relevant instructions on [Configuring AI agents](/docs/apis/mcp-server/installing/configuring-ai-agents).
+> If you are using an AI agent to work with the _local_ MCP server, ensure you have followed the required instructions on [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing) locally first, before proceeding with the relevant instructions on [Configuring AI agents](/docs/apis/mcp-server/local/installing/configuring-ai-agents).
 
 ## Amp
 
@@ -72,10 +72,22 @@ Otherwise, to access the `mcp.json` file through the Cursor app to implement thi
 
 ## Goose
 
-You can configure [Goose](https://block.github.io/goose/) with the remote Buildkite MCP server by adding the relevant configuration to your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
+You can configure [Goose](https://block.github.io/goose/) with the remote Buildkite MCP server by adding the relevant configuration to the `extensions:` section of your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
 
 ```yaml
-
+extensions:
+  buildkite:
+    available_tools: []
+    bundled: null
+    description: null
+    enabled: true
+    env_keys: []
+    envs: {}
+    headers: {}
+    name: Buildkite HTTP
+    timeout: 300
+    type: streamable_http
+    uri: https://mcp.buildkite.com/mcp
 ```
 
 ## Visual Studio Code
@@ -133,7 +145,7 @@ To do add the Buildkite MCP server extension to Zed:
 1. Visit Zed's [Buildkite MCP server extension](https://zed.dev/extensions/mcp-server-buildkite) page.
 1. Select the **Install MCP Server in Zed** button on this web page to open the **Extensions** window in Zed.
 1. In the **Extensions** window, ensure the **Buildkite MCP** extension is shown and select its **Install** button.
-1. In the **Configure mcp-server-buildkite** dialog, copy your [configured Buildkite API access token](/docs/apis/mcp-server/installing#configure-an-api-access-token) and paste this over the `BUILDKITE_API_TOKEN` value.
+1. In the **Configure mcp-server-buildkite** dialog, copy your [configured Buildkite API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) and paste this over the `BUILDKITE_API_TOKEN` value.
 1. Select **Configure Server** to save the changes.
 
     Your configuration should be saved to the [Zed's main `settings.json` file](http://zed.dev/docs/configuring-zed#settings-files), which is usually located within your home directory's `.config/zed/` folder.

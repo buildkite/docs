@@ -918,14 +918,16 @@
       children:
         - name: "Overview"
           path: "apis/mcp-server"
-        - name: "Configuring AI tools"
-          path: "apis/mcp-server/configuring-ai-tools"
+        - name: "Remote MCP server"
+          children:
+            - name: "Configuring AI tools"
+              path: "apis/mcp-server/remote/configuring-ai-tools"
         - name: "Local MCP server"
           children:
             - name: "Installing the server"
-              path: "apis/mcp-server/installing"
+              path: "apis/mcp-server/local/installing"
             - name: "Configuring AI agents"
-              path: "apis/mcp-server/installing/configuring-ai-agents"
+              path: "apis/mcp-server/local/configuring-ai-agents"
     - name: "Webhooks"
       children:
         - name: "Overview"
