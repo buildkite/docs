@@ -40,6 +40,7 @@ Basscss
 Bazel
 bazelisk
 Bitium
+Bayesian
 bktec
 bktec's
 boolean
@@ -191,6 +192,7 @@ misconfiguration
 mitigation
 mitigations
 monorepo
+mrkdwn
 mutex
 namespace
 namespaced
