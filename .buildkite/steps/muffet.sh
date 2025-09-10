@@ -23,7 +23,6 @@ echo 💎🛤️🚆 Rails has started running
 set +e
 /muffet http://app:3000/docs \
   --exclude="https://github.com/buildkite/docs/" \
-  --exclude="buildkite.com/docs" \
   --exclude="https://buildkite.com/user" \
   --exclude="https://buildkite.com/organizations" \
   --exclude="https://api.buildkite.com/" \
