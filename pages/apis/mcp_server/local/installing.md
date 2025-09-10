@@ -2,7 +2,7 @@
 
 The Buildkite MCP server is available both locally and remotely. This page is about installing and configuring the MCP server locally, beginning with [Before you start](#before-you-start).
 
-Once you have installed your _local_ Buildkite MCP server using the relevant instructions on this page, you can proceed to [configure your AI agents](/docs/apis/mcp-server/local/installing/configuring-ai-agents) to work with this MCP server.
+Once you have installed your _local_ Buildkite MCP server using the relevant instructions on this page, you can proceed to [configure your AI agents](/docs/apis/mcp-server/local/configuring-ai-agents) to work with this MCP server.
 
 > 📘
 > Buildkite's _remote_ MCP server requires no installation and is available publicly, with authentication and authorization fully managed by OAuth. If you working directly with an AI tool as opposed to an AI agent (see [Types of MCP servers](/docs/apis/mcp-server#types-of-mcp-servers) for more information), and are configuring your AI tool with the remote MCP server, proceed directly to [configure your AI tools](/docs/apis/mcp-server/remote/configuring-ai-tools).
