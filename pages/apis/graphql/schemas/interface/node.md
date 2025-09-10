@@ -125,6 +125,12 @@ An object with an ID.
 <a href="/docs/apis/graphql/schemas/object/jobeventretryfailed" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventRetryFailed">
   <code>JobEventRetryFailed</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/jobeventstackerror" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventStackError">
+  <code>JobEventStackError</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/jobeventstacknotification" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventStackNotification">
+  <code>JobEventStackNotification</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/jobeventtimedout" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventTimedOut">
   <code>JobEventTimedOut</code>
 </a>
