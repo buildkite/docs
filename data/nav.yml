@@ -926,8 +926,8 @@
           children:
             - name: "Installing the server"
               path: "apis/mcp-server/local/installing"
-            - name: "Configuring AI agents"
-              path: "apis/mcp-server/local/configuring-ai-agents"
+            - name: "Configuring AI tools"
+              path: "apis/mcp-server/local/configuring-ai-tools"
     - name: "Webhooks"
       children:
         - name: "Overview"

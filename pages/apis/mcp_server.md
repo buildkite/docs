@@ -8,7 +8,7 @@ Buildkite's MCP server is built on and interacts with [Buildkite's REST API](/do
 
 To start using Buildkite's MCP server, first determine which [type of Buildkite MCP server](#types-of-mcp-servers) to work with. This next section provides an overview of the differences between these MCP server types and how they need to be configured.
 
-Once you have established which Buildkite MCP server to use (remote or local) and if local, have [installed the MCP server](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally) and [configured its API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token), you can then proceed to configure your [AI tools](/docs/apis/mcp-server/remote/configuring-ai-tools) or [AI agents](/docs/apis/mcp-server/local/configuring-ai-agents) to work with this MCP server.
+Once you have established which Buildkite MCP server to use (remote or local) and if local, have [installed the MCP server](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally) and [configured its API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token), you can then proceed to configure your AI tools to work with the [remote](/docs/apis/mcp-server/remote/configuring-ai-tools) (recommended) or [local](/docs/apis/mcp-server/local/configuring-ai-tools) MCP server.
 
 ## Types of MCP servers
 
@@ -22,7 +22,7 @@ The _remote_ MCP server is one that Buildkite hosts, and is available for all cu
 https://mcp.buildkite.com/mcp
 ```
 
-This type of MCP server is typically used by AI tools that you interact with directly from a prompt.
+This type of MCP server is typically used by AI tools that you interact with directly from a prompt, and is the recommended MCP server type to use.
 
 #### Advantages
 
@@ -50,9 +50,7 @@ This type of MCP server is typically used by AI tools used as _AI agents_, which
 - Need to manage a Buildkite API access token (which never expires) for auth.
 - Need to manage upgrades to the MCP server yourself.
 
-Learn more about how to set up and install a local Buildkite MCP server in [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing).
-
-As part of installing a local Buildkite MCP server, you'll also need to [configure an API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) with the required scopes that your local MCP server will use.
+Learn more about how to set up and install a local Buildkite MCP server in [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing). As part of installing a local Buildkite MCP server, you'll also need to [configure an API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) with the required scopes that your local MCP server will use.
 
 ## Available MCP tools
 
