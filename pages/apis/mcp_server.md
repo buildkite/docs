@@ -488,6 +488,6 @@ If the job is in a terminal state (i.e. completed successfully, failed, or cance
 
 Stored in the locations specified in the README's table.
 
-$BKLOG_CACHE_URL can be used for a local or an s3:// path (the latter being better for pipeline usage).
+$BKLOG_CACHE_URL can be used for a local or an s3:// path (the latter being better for pipeline usage) and is used to override the first two rows in the table.
 
 If the job is in a non-terminal state (e.g. job is still running or blocked), the cached files are retained for 30 seconds.
