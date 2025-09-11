@@ -28,27 +28,33 @@ This type of MCP server is typically used by AI tools that you interact with dir
 
 Unlike the [local MCP server](#types-of-mcp-servers-local-mcp-server), the remote MCP server has the following advantages.
 
-- You do not need to configure an API access token, which poses a potential security risk as these types of tokens never expire.
+- You do not need to configure an API access token, which poses a potential security risk, as these types of tokens never expire.
 
-    Instead, you only require a Buildkite user account, and the Buildkite platform issues a short-lived OAuth token, representing this user account for authentication, along with access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place after [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools).
+    Instead, you only require a Buildkite user account, and the Buildkite platform issues a short-lived OAuth token, representing this user account for authentication, along with access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place after [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) and connecting to it.
 
-- There is no need to upgrade your local MCP server. Since the remote MCP server undergoes rapid updates, you don't miss out on newer features by not keeping your local MCP server up to date.
+- There is no need to upgrade your local MCP server. Since the remote MCP server undergoes rapid updates, you don't miss out on newer or updated features, which you'd miss out on by not keeping your local MCP server up to date.
 
 ### Local MCP server
 
-The _local_ MCP server is one that you install yourself on your own machine or in a containerized environment.
+The _local_ MCP server is one that you install yourself directly on your own machine or in a containerized environment.
 
 This type of MCP server is typically used by AI tools used as _AI agents_, which an automated system or workflow, such as a Buildkite pipeline, can interact with. AI agent interactions are usually shell-based.
 
 #### Advantages
 
-- For advanced users, developing an automated workflow, where running a specific version of the MCP is important, especially for large volume usage of the MCP server.
-- If you want to contribute to the Buildkite MCP server project and to test and run your changes locally.
+The local MCP server provides the following advantages.
+
+- This MCP server type is geared for advanced users, allowing such users to develop automated workflows (for example, using [Buildkite Pipelines](/docs/pipelines)), where running a specific version of the MCP server is important, especially for large volume usage of the MCP server, where consistent results from a given set version of the MCP server is a requirement.
+
+- If you want to contribute to the [Buildkite MCP server project](https://github.com/buildkite/buildkite-mcp-server), the local MCP server allows you to run and test your changes locally.
 
 #### Disadvantages
 
-- Need to manage a Buildkite API access token (which never expires) for auth.
-- Need to manage upgrades to the MCP server yourself.
+Using the local MCP server also has the following disadvantages.
+
+- You'll need to manage a Buildkite API access token (which inherently never expires) for authentication and authorization. Using these types of tokens can pose a potential security risk if they are accidentally leaked.
+
+- You'll also need to manage upgrades to the MCP server yourself, especially if you choose to install the binary version of the local MCP server, which means you may miss out on new and updated features offered automatically through the [remote MCP server](#types-of-mcp-servers-remote-mcp-server).
 
 Learn more about how to set up and install a local Buildkite MCP server in [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing). As part of installing a local Buildkite MCP server, you'll also need to [configure an API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) with the required scopes that your local MCP server will use.
 

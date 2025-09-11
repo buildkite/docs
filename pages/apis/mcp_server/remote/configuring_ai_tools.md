@@ -1,6 +1,6 @@
 # Configuring AI tools with the remote MCP server
 
-If you are working directly with AI tools to interact with Buildkite's MCP server, then use the relevant instructions on this page to configure your AI tool to work with the [_remote_ Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers).
+If you are working directly with AI tools to interact with Buildkite's MCP server, then use the relevant instructions on this page to configure your AI tool to work with the [_remote_ Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server).
 
 > 📘
 > If you are using an AI agent to work with the _local_ MCP server, ensure you have followed the required instructions on [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing) locally first, before proceeding with the relevant instructions on its [Configuring AI tools](/docs/apis/mcp-server/local/configuring-ai-tools) page.
@@ -50,7 +50,7 @@ You're now ready to use the Buildkite's remote MCP server through Claude Desktop
 
 You can configure [Cursor](https://cursor.com/) with the remote Buildkite MCP server by adding the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json), which is usually located in your home directory's `.cursor` sub-directory.
 
-You can conveniently add this configuration using the following button.
+You can conveniently add this configuration using the following button, and then select **Install** on the **MCP & Integrations** page of the Cursor interface.
 
 <a class="inline-block" href="https://cursor.com/en/install-mcp?name=buildkite&config=eyJ1cmwiOiJodHRwczovL21jcC5idWlsZGtpdGUuY29tL21jcCJ9" target="_blank" rel="nofollow"><img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Add to Cursor" class="no-decoration" width="160" height="30"></a><br/>
 
@@ -140,7 +140,7 @@ You're now ready to use the Buildkite's remote MCP server through Windsurf for t
 
 You can configure the [Zed](https://zed.dev/) code editor with the Buildkite MCP server as a locally running binary using the Zed Buildkite MCP extension.
 
-To do add the Buildkite MCP server extension to Zed:
+To add the Buildkite MCP server extension to Zed:
 
 1. Visit Zed's [Buildkite MCP server extension](https://zed.dev/extensions/mcp-server-buildkite) page.
 1. Select the **Install MCP Server in Zed** button on this web page to open the **Extensions** window in Zed.

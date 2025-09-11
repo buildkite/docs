@@ -1,8 +1,8 @@
 # Configuring AI tools with the local MCP server
 
-Once you followed the required instructions on [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing) to install the MCP server locally for your AI tool or agent, you can then use the instructions on this page to configure your AI tool or agent to work with this MCP server.
+Once you followed the required instructions on [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing) to install the MCP server locally for your AI tool or agent, you can then use the instructions on this page to configure your AI tool or agent to work with this [_local_ Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers-local-mcp-server).
 
-All the Docker instructions on this page implement the `--pull=always` option to ensure that the latest MCP server version is obtained when the container is started. If you are installing the Buildkite MCP server locally as a binary, you are responsible for manually upgrading it.
+All the Docker instructions on this page implement the `--pull=always` option to ensure that the latest MCP server version is obtained when the container is started. If you are installing the Buildkite MCP server locally as a binary, then you are responsible for manually upgrading it.
 
 > 📘
 > If you are working directly with an AI tool to configure it with the _remote_ MCP server, proceed with the relevant instructions on its [Configuring AI tools](/docs/apis/mcp-server/remote/configuring-ai-tools) page.
