@@ -12,25 +12,47 @@ Once you have established which Buildkite MCP server to use (remote or local) an
 
 ## Types of MCP servers
 
-Buildkite provides both a _remote_ and _local_ MCP server:
+Buildkite provides both a [_remote_](#types-of-mcp-servers-remote-mcp-server) and [_local_](#types-of-mcp-servers-local-mcp-server) MCP server.
 
-- The _remote_ MCP server is one that Buildkite hosts, and is available for all customers to access at the following URL:
+### Remote MCP server
 
-    ```url
-    https://mcp.buildkite.com/mcp
-    ```
+The _remote_ MCP server is one that Buildkite hosts, and is available for all customers to access at the following URL:
 
-    This type of MCP server is typically used by an _AI tool_, which is a type of AI tool or application that humans interact with directly from a prompt.
+```url
+https://mcp.buildkite.com/mcp
+```
 
-- The _local_ MCP server is one that you install yourself on your own machine or in a containerized environment.
+This type of MCP server is typically used by AI tools that you interact with directly from a prompt.
 
-    This type of MCP server is typically used by an _AI agent_, which is a type of AI tool or application that any type of automated system or workflow, such as a Buildkite pipeline, can interact with. AI agent interactions are usually shell-based.
+#### Advantages
 
-    Learn more about how to set up and install a local Buildkite MCP server in [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing).
+Unlike the [local MCP server](#types-of-mcp-servers-local-mcp-server), the remote MCP server has the following advantages.
+
+- You do not need to configure an API access token, which poses a potential security risk as these types of tokens never expire.
+
+    Instead, you only require a Buildkite user account, and the Buildkite platform issues a short-lived OAuth token, representing this user account for authentication, along with access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place after [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools).
+
+- There is no need to upgrade your local MCP server. Since the remote MCP server undergoes rapid updates, you don't miss out on newer features by not keeping your local MCP server up to date.
+
+### Local MCP server
+
+The _local_ MCP server is one that you install yourself on your own machine or in a containerized environment.
+
+This type of MCP server is typically used by AI tools used as _AI agents_, which an automated system or workflow, such as a Buildkite pipeline, can interact with. AI agent interactions are usually shell-based.
+
+#### Advantages
+
+- For advanced users, developing an automated workflow, where running a specific version of the MCP is important, especially for large volume usage of the MCP server.
+- If you want to contribute to the Buildkite MCP server project and to test and run your changes locally.
+
+#### Disadvantages
+
+- Need to manage a Buildkite API access token (which never expires) for auth.
+- Need to manage upgrades to the MCP server yourself.
+
+Learn more about how to set up and install a local Buildkite MCP server in [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing).
 
 As part of installing a local Buildkite MCP server, you'll also need to [configure an API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) with the required scopes that your local MCP server will use.
-
-If you are using Buildkite's remote MCP server, you do not need to configure an API access token. Instead, you only require a Buildkite user account, and the Buildkite platform issues an OAuth token representing this user account for authentication, along with access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place after [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools).
 
 ## Available MCP tools
 
@@ -307,7 +329,7 @@ These MCP tools are used to process the logs of [jobs](#available-mcp-tools-jobs
       },
       {
         "tool": "tail_logs",
-        "description": "Show the last N entries from the log file."
+        "description": "Show the last N entries from the log file (that is, N lines for recent errors and status checks)."
       },
       {
         "tool": "get_logs_info",
@@ -462,8 +484,10 @@ These MCP tools are used to process the logs of [jobs](#available-mcp-tools-jobs
 
 ## Smart caching and storage
 
-[Try this example 404 link](https://www.google.com/404).
+If the job is in a terminal state (i.e. completed successfully, failed, or canceled), then the job's log is downloaded and stored indefinitely.
 
-[Non-existent web site](https://blah.blah.blah.com/).
+Stored in the locations specified in the README's table.
 
-[Non-existent Buildkite Docs page](https://buildkite.com/docs/non-existant-page).
+$BKLOG_CACHE_URL can be used for a local or an s3:// path (the latter being better for pipeline usage).
+
+If the job is in a non-terminal state (e.g. job is still running or blocked), the cached files are retained for 30 seconds.
