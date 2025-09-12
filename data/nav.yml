@@ -638,6 +638,8 @@
         - name: "Slack"
           path: "test-engine/notifications/slack"
           pill: "new"
+        - name: "Email"
+          path: "test-engine/notifications/email"
     - name: "Usage and billing"
       path: "test-engine/usage-and-billing"
     - name: "Permissions"
