@@ -16,7 +16,7 @@ Buildkite provides both a [_remote_](#types-of-mcp-servers-remote-mcp-server) an
 
 ### Remote MCP server
 
-The _remote_ MCP server is one that Buildkite hosts, and is available for all customers to access at the following URL:
+The _remote_ MCP server is one that Buildkite hosts, and is available for all users to access at the following URL:
 
 ```url
 https://mcp.buildkite.com/mcp
