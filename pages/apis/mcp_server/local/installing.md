@@ -247,3 +247,30 @@ To build the Buildkite MCP server locally from source, run these commands:
 
 ## Self-hosting the MCP server
 
+You can [install the Buildkite MCP server](#install-and-run-the-server-locally) as your own self-hosted server, which effectively behaves similarly to Buildkite's remote MCP server, but is one that operates in your own environment.
+
+To do this, run the following the following command, which runs the MCP server with streamable HTTP transport, and makes the server available through `http://localhost:3000/mcp`:
+
+```bash
+buildkite-mcp-server http --api-token=${BUILDKITE_API_TOKEN}
+```
+
+where `${BUILDKITE_API_TOKEN}` is the value of your [configured Buildkite API access token](#configure-an-api-access-token), set with your required scopes.
+
+To run the MCP server with legacy HTTP or server-sent events (SSE), run this command with the `--use-sse` option. For example:
+
+```bash
+buildkite-mcp-server http --use-sse --api-token=${BUILDKITE_API_TOKEN}
+```
+
+To change the listening address or port on which the MCP server runs, use the `HTTP_LISTEN_ADDR` environment variable. For example, to set this port to `4321`:
+
+```bash
+HTTP_LISTEN_ADDR="localhost:4321" buildkite-mcp-server http --api-token=...
+```
+
+To run the MCP server using Docker with streamable HTTP transport and expose the server through port `3000`:
+
+```bash
+docker run --pull=always -q --rm -e BUILDKITE_API_TOKEN -e HTTP_LISTEN_ADDR=":3000" -p 127.0.0.1:3000:3000 buildkite/mcp-server http
+```

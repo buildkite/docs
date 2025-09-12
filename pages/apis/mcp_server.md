@@ -28,7 +28,7 @@ This type of MCP server is typically used by AI tools that you interact with dir
 
 Unlike the [local MCP server](#types-of-mcp-servers-local-mcp-server), the remote MCP server has the following advantages.
 
-- You do not need to configure an API access token, which poses a potential security risk, as these types of tokens never expire.
+- You don't need to configure an API access token, which poses a potential security risk if they are leaked, as these types of tokens inherently don't expire.
 
     Instead, you only require a Buildkite user account, and the Buildkite platform issues a short-lived OAuth token, representing this user account for authentication, along with access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place after [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) and connecting to it.
 
@@ -52,7 +52,7 @@ The local MCP server provides the following advantages.
 
 Using the local MCP server also has the following disadvantages.
 
-- You'll need to manage a Buildkite API access token (which inherently never expires) for authentication and authorization. Using these types of tokens can pose a potential security risk if they are accidentally leaked.
+- You'll need to manage the storage (in plain text) and security of your Buildkite API access token, used for authentication and authorization to the MCP server.
 
 - You'll also need to manage upgrades to the MCP server yourself, especially if you choose to install the binary version of the local MCP server, which means you may miss out on new and updated features offered automatically through the [remote MCP server](#types-of-mcp-servers-remote-mcp-server).
 
@@ -108,7 +108,7 @@ These MCP tools are associated with [authentication](/docs/apis#authentication) 
         <td>
           <p><%= field[:description] %></p>
           <% if field[:link] %>
-            <p>Learn more about this from <%= link_to field[:link_text], field[:link] %> of the REST API docs.</p>
+            <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
           <% end %>
         </td>
       </tr>
@@ -161,7 +161,7 @@ These MCP tools are used to retrieve details about the [clusters](/docs/pipeline
         <td>
           <p><%= field[:description] %></p>
           <% if field[:link] %>
-            <p>Learn more about this from <%= link_to field[:link_text], field[:link] %> of the REST API docs.</p>
+            <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
           <% end %>
         </td>
       </tr>
@@ -214,7 +214,7 @@ These MCP tools are used to retrieve details about existing [pipelines](/docs/ap
         <td>
           <p><%= field[:description] %></p>
           <% if field[:link] %>
-            <p>Learn more about this from <%= link_to field[:link_text], field[:link] %> of the REST API docs.</p>
+            <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
           <% end %>
         </td>
       </tr>
@@ -265,7 +265,7 @@ These MCP tools are used to retrieve details about existing [builds](/docs/apis/
         <td>
           <p><%= field[:description] %></p>
           <% if field[:link] %>
-            <p>Learn more about this from <%= link_to field[:link_text], field[:link] %> of the REST API docs.</p>
+            <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
           <% end %>
         </td>
       </tr>
@@ -306,7 +306,7 @@ These MCP tools are used to retrieve the logs of [jobs](/docs/apis/rest-api/jobs
         <td>
           <p><%= field[:description] %></p>
           <% if field[:link] %>
-            <p>Learn more about this from <%= link_to field[:link_text], field[:link] %> of the REST API docs.</p>
+            <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
           <% end %>
         </td>
       </tr>
@@ -316,7 +316,9 @@ These MCP tools are used to retrieve the logs of [jobs](/docs/apis/rest-api/jobs
 
 ### Logs
 
-These MCP tools are used to process the logs of [jobs](#available-mcp-tools-jobs), for the benefit of your AI tool or agent. These MCP tools leverage the [Buildkite Logs Search & Query Library](https://github.com/buildkite/buildkite-logs?tab=readme-ov-file#buildkite-logs-search--query-library) (used by the Buildkite MCP server), which converts the complex Buildkite logs returned by the Buildkite platform into [Parquet files](https://parquet.apache.org/docs/file-format/), making these logs more consumable for AI tools, agents and large language models (LLMs).
+These MCP tools are used to process the logs of [jobs](#available-mcp-tools-jobs), for the benefit of your AI tool or agent. These MCP tools leverage the [Buildkite Logs Search & Query Library](https://github.com/buildkite/buildkite-logs?tab=readme-ov-file#buildkite-logs-search--query-library) (used by the Buildkite MCP server), which converts the complex Buildkite logs returned by the Buildkite platform into [Parquet file](https://parquet.apache.org/docs/file-format/) versions of these log files, making the logs more consumable for AI tools, agents and large language models (LLMs).
+
+For improved performance, these Parquet log files are also cached and stored. Learn more about this in [Smart caching and storage](#smart-caching-and-storage).
 
 <table>
   <thead>
@@ -351,7 +353,7 @@ These MCP tools are used to process the logs of [jobs](#available-mcp-tools-jobs
         <td>
           <p><%= field[:description] %></p>
           <% if field[:link] %>
-            <p>Learn more about this from <%= link_to field[:link_text], field[:link] %> of the REST API docs.</p>
+            <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
           <% end %>
         </td>
       </tr>
@@ -390,7 +392,7 @@ These MCP tools are used to process the logs of [jobs](#available-mcp-tools-jobs
         <td>
           <p><%= field[:description] %></p>
           <% if field[:link] %>
-            <p>Learn more about this from <%= link_to field[:link_text], field[:link] %> of the REST API docs.</p>
+            <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
           <% end %>
         </td>
       </tr>
@@ -423,7 +425,7 @@ These MCP tools are used to process the logs of [jobs](#available-mcp-tools-jobs
         <td>
           <p><%= field[:description] %></p>
           <% if field[:link] %>
-            <p>Learn more about this from <%= link_to field[:link_text], field[:link] %> of the REST API docs.</p>
+            <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
           <% end %>
         </td>
       </tr>
@@ -478,7 +480,7 @@ These MCP tools are used to process the logs of [jobs](#available-mcp-tools-jobs
         <td>
           <p><%= field[:description] %></p>
           <% if field[:link] %>
-            <p>Learn more about this from <%= link_to field[:link_text], field[:link] %> of the REST API docs.</p>
+            <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
           <% end %>
         </td>
       </tr>
@@ -488,10 +490,58 @@ These MCP tools are used to process the logs of [jobs](#available-mcp-tools-jobs
 
 ## Smart caching and storage
 
-If the job is in a terminal state (i.e. completed successfully, failed, or canceled), then the job's log is downloaded and stored indefinitely.
+To improve performance in accessing log data from the Buildkite platform, the Buildkite MCP server downloads and stores the [logs of jobs](/docs/apis/rest-api/jobs#get-a-jobs-log-output) in [Parquet file format](https://parquet.apache.org/docs/file-format/) to either of the following areas.
 
-Stored in the locations specified in the README's table.
+- For the [local MCP server](#types-of-mcp-servers-local-mcp-server), on the file system of the machine running the MCP server.
 
-$BKLOG_CACHE_URL can be used for a local or an s3:// path (the latter being better for pipeline usage) and is used to override the first two rows in the table.
+- For the [remote MCP server](#types-of-mcp-servers-remote-mcp-server), a dedicated area of the Buildkite platform.
 
-If the job is in a non-terminal state (e.g. job is still running or blocked), the cached files are retained for 30 seconds.
+These Parquet log files are stored and managed by the MCP server and all interactions with these files are done so using the [MCP server's log tools](#available-mcp-tools-logs).
+
+If the job is in a terminal state (for example, the job was completed successfully, had failed, or was canceled), then the job's Parquet format logs are downloaded and stored indefinitely.
+
+If the job is in a non-terminal state (for example, the job is still running or is blocked), then the job's Parquet logs are retained for 30 seconds.
+
+### Storage locations
+
+If you are running the [local MCP server](/docs/apis/mcp-server/local/installing), the following table indicates the default locations for these Parquet log files.
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:55%">Environment</th>
+      <th style="width:45%">Default Parquet log file location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        "environment": "A physical machine (for example, a desktop or laptop computer)",
+        "default_location": "The <code>.bklog</code> sub-directory of the home directory."
+      },
+      {
+        "environment": "A containerized environment (for example, using Docker or Kubernetes)",
+        "default_location": "The <code>/tmp/bklog</code> sub-directory of the file system's root directory level."
+      }
+    ].select { |field| field[:environment] }.each do |field| %>
+      <tr>
+        <td>
+          <p><%= field[:environment] %></p>
+         </td>
+        <td>
+          <p><%= field[:default_location] %></p>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+You can override these default Parquet log file locations through the `$BKLOG_CACHE_URL` environment variable, which can be used with either a local file system path or an `s3://` path, where the latter may be better suited for pipeline usage, for example:
+
+```bash
+# Local development with persistent cache
+export BKLOG_CACHE_URL="file:///Users/me/bklog-cache"
+
+# Shared cache across build agents
+export BKLOG_CACHE_URL="s3://ci-logs-cache/buildkite/"
+```
