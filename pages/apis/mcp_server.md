@@ -363,6 +363,8 @@ For improved performance, these Parquet log files are also cached and stored. Le
 
 ### Artifacts
 
+These MCP tools are used to retrieve details about artifacts from a pipeline [build](#available-mcp-tools-builds), as well as obtain the artifacts themselves.
+
 <table>
   <thead>
     <tr>
@@ -402,6 +404,8 @@ For improved performance, these Parquet log files are also cached and stored. Le
 
 ### Annotations
 
+These MCP tools are used to retrieve details about the annotations resulting from a pipeline [build](#available-mcp-tools-builds).
+
 <table>
   <thead>
     <tr>
@@ -434,6 +438,8 @@ For improved performance, these Parquet log files are also cached and stored. Le
 </table>
 
 ### Test Engine
+
+These MCP tools are used to retrieve details about Test Engine [tests](/docs/test-engine/glossary#test) and their [runs](/docs/test-engine/glossary#run) from a [test suite](/docs/test-engine/test-suites), along with other Test Engine-related data.
 
 <table>
   <thead>

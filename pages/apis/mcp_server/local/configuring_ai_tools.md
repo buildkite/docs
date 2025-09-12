@@ -9,7 +9,7 @@ All the Docker instructions on this page implement the `--pull=always` option to
 
 ## Amp
 
-You can configure your [Amp](https://ampcode.com/) AI agent to work with your local Buildkite MCP server, running [using Docker](#amp-docker) or [as a binary](#amp-binary). To do this, add the relevant configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
+You can configure your [Amp](https://ampcode.com/) AI tool or agent to work with your local Buildkite MCP server, running [in Docker](#amp-docker) or [as a binary](#amp-binary). To do this, add the relevant configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
 
 ### Docker
 
@@ -55,7 +55,7 @@ When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-
 
 ## Claude Code
 
-You can configure your [Claude Code](https://www.anthropic.com/claude-code) AI agent to work with your local Buildkite MCP server, running [using Docker](#claude-code-docker) or [as a binary](#claude-code-binary). To do this, run the relevant Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
+You can configure your [Claude Code](https://www.anthropic.com/claude-code) AI tool or agent to work with your local Buildkite MCP server, running [in Docker](#claude-code-docker) or [as a binary](#claude-code-binary). To do this, run the relevant Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
 
 ### Docker
 
@@ -77,9 +77,107 @@ claude mcp add buildkite --env BUILDKITE_API_TOKEN=bkua_xxxxx -- buildkite-mcp-s
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
+## Claude Desktop
+
+You can configure [Claude Desktop](https://claude.ai/download) to work with your local Buildkite MCP server, running [in Docker](#claude-desktop-docker) or [as a binary](#claude-desktop-binary). To do this, add the relevant configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop).
+
+### Docker
+
+When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop), which you can access from Claude Desktop's **Settings** > **Developer** > **Edit Config** button on the **Local MCP servers** page.
+
+```json
+{
+  "mcpServers": {
+    "buildkite": {
+      "command": "docker",
+      "args": [
+        "run", "--pull=always", "-q", "-i", "--rm", "-e", "BUILDKITE_API_TOKEN",
+        "buildkite/mcp-server",
+        "stdio"
+      ],
+      "env": { "BUILDKITE_API_TOKEN": "bkua_xxxxx" }
+    }
+  }
+}
+```
+
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
+
+### Binary
+
+When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop), which you can access from Claude Desktop's **Settings** > **Developer** > **Edit Config** button on the **Local MCP servers** page.
+
+```json
+{
+  "mcpServers": {
+    "buildkite": {
+      "command": "buildkite-mcp-server",
+      "args": ["stdio"],
+      "env": {
+        "BUILDKITE_API_TOKEN": "bkua_xxxxx"
+      }
+    }
+  }
+}
+```
+
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
+
+## Cursor
+
+You can configure [Cursor](https://cursor.com/) to work with your local Buildkite MCP server, running [in Docker](#cursor-docker) or [as a binary](#cursor-binary). To do this, add the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json), which is usually located in your home directory's `.cursor` sub-directory.
+
+To access the `mcp.json` file through the Cursor app to implement this configuration:
+
+1. From your **Cursor Settings**, select **MCP & Integrations**.
+1. Under **MCP Tools**, select **Add Custom MCP** to open the `mcp.json` file.
+1. Implement one of the following required updates to this file, where if you have other MCP servers configured in Cursor, just add the `"buildkite": { ... }` object to this JSON file.
+
+### Docker
+
+When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Cursor `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
+
+```json
+{
+  "mcpServers": {
+    "buildkite": {
+      "command": "docker",
+      "args": [
+        "run", "--pull=always", "-q", "-i", "--rm", "-e", "BUILDKITE_API_TOKEN",
+        "buildkite/mcp-server",
+        "stdio"
+      ],
+      "env": { "BUILDKITE_API_TOKEN": "bkua_xxxxx" }
+    }
+  }
+}
+```
+
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
+
+### Binary
+
+When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Cursor `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
+
+```json
+{
+  "mcpServers": {
+    "buildkite": {
+      "command": "buildkite-mcp-server",
+      "args": ["stdio"],
+      "env": {
+        "BUILDKITE_API_TOKEN": "bkua_xxxxx"
+      }
+    }
+  }
+}
+```
+
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
+
 ## Goose
 
-You can configure your [Goose](https://block.github.io/goose/) AI agent to work with your local Buildkite MCP server, running [using Docker](#goose-docker) or [as a binary](#goose-binary). To do this, add the relevant configuration the `extensions:` section of your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
+You can configure your [Goose](https://block.github.io/goose/) AI tool or agent to work with your local Buildkite MCP server, running [in Docker](#goose-docker) or [as a binary](#goose-binary). To do this, add the relevant configuration the `extensions:` section of your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
 
 ### Docker
 
@@ -123,6 +221,124 @@ extensions:
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
+## Visual Studio Code
+
+You can configure [Visual Studio Code](https://code.visualstudio.com/) to work with your local Buildkite MCP server, running [in Docker](#visual-studio-code-docker) or [as a binary](#visual-studio-code-binary). To do this, add the relevant configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server).
+
+### Docker
+
+When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server).
+
+```json
+{
+  "inputs": [
+    {
+      "id": "BUILDKITE_API_TOKEN",
+      "type": "promptString",
+      "description": "Enter your Buildkite API access token",
+      "password": true
+    }
+  ],
+  "servers": {
+    "buildkite": {
+      "command": "docker",
+      "args": [
+        "run", "--pull=always", "-q", "-i", "--rm", "-e", "BUILDKITE_API_TOKEN",
+        "buildkite/mcp-server",
+        "stdio"
+      ],
+      "env": { "BUILDKITE_API_TOKEN": "${input:BUILDKITE_API_TOKEN}" }
+    }
+  }
+}
+```
+
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
+
+Alternatively, you can initiate this process through the Visual Studio Code interface. To do this:
+
+1. In the [Command Palette](https://code.visualstudio.com/docs/getstarted/getting-started#_access-commands-with-the-command-palette), find and select the **MCP: Add Server** command.
+1. Select **Docker image** to start configuring your local MCP server running in Docker.
+1. For **Enter Docker Image Name**, specify `buildkite/mcp-server`, and **Allow** it to be installed.
+1. For **Enter your Buildkite API Access Token**, enter your configured Buildkite API access token.
+1. For **Enter Server ID**, specify `buildkite`.
+
+    Follow the remaining prompts to complete this configuration process.
+
+### Binary
+
+When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server).
+
+```json
+{
+  "inputs": [
+    {
+      "id": "BUILDKITE_API_TOKEN",
+      "type": "promptString",
+      "description": "Enter your Buildkite API access token",
+      "password": true
+    }
+  ],
+  "servers": {
+    "buildkite": {
+      "command": "buildkite-mcp-server",
+      "args": ["stdio"],
+      "env": {
+        "BUILDKITE_API_TOKEN": "${input:BUILDKITE_API_TOKEN}"
+      }
+    }
+  }
+}
+```
+
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
+
+## Windsurf
+
+You can configure [Windsurf](https://windsurf.com/) to work with your local Buildkite MCP server, running [in Docker](#windsurf-docker) or [as a binary](#windsurf-binary). To do this, add the relevant configuration to your [Windsurf's `mcp_config.json` file](https://docs.windsurf.com/windsurf/cascade/mcp#mcp-config-json).
+
+### Docker
+
+When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Windsurf's `mcp_config.json` file](https://docs.windsurf.com/windsurf/cascade/mcp#mcp-config-json).
+
+```json
+{
+  "mcpServers": {
+    "buildkite": {
+      "command": "docker",
+      "args": [
+        "run", "--pull=always", "-q", "-i", "--rm", "-e", "BUILDKITE_API_TOKEN",
+        "buildkite/mcp-server",
+        "stdio"
+      ],
+      "env": { "BUILDKITE_API_TOKEN": "bkua_xxxxx" }
+    }
+  }
+}
+```
+
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
+
+### Binary
+
+When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Windsurf's `mcp_config.json` file](https://docs.windsurf.com/windsurf/cascade/mcp#mcp-config-json).
+
+```json
+{
+  "mcpServers": {
+    "buildkite": {
+      "command": "buildkite-mcp-server",
+      "args": ["stdio"],
+      "env": {
+        "BUILDKITE_API_TOKEN": "bkua_xxxxx"
+      }
+    }
+  }
+}
+```
+
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
+
 ## Zed
 
 You can configure the [Zed](https://zed.dev/) code editor with the Buildkite MCP server as a locally running binary using the Zed Buildkite MCP extension.
@@ -155,7 +371,9 @@ Alternatively, you can copy and paste the following configuration as a new entry
 
 ## ToolHive
 
-You can configure [ToolHive](https://toolhive.dev/) to run your local Buildkite MCP server from its registry using ToolHive's command line interface (CLI) tool. To do this, ensure you have installed TooHive's [CLI tool](https://toolhive.dev/download.html) and do the following:
+[ToolHive](https://toolhive.dev/) is a tool that allows you to abstract the API access token handling processes for your local Buildkite MCP server, away from your other AI tool infrastructure and the Buildkite platform.
+
+You can configure ToolHive to run your local Buildkite MCP server from its registry using ToolHive's command line interface (CLI) tool. To do this, ensure you have installed TooHive's [CLI tool](https://toolhive.dev/download.html) and do the following:
 
 1. Use ToolHive's `thv secret set` command to store your [Buildkite API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) as a secret.
 
