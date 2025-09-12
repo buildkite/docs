@@ -244,6 +244,8 @@ Rails.application.routes.draw do
   get "/docs/test-engine/test-splitting/configuring",                      to: redirect("/docs/test-engine/bktec/configuring")
   get "/docs/test-engine/test-suite/flaky-test-management",                to: redirect("/docs/test-engine/reduce-flaky-tests")
   get "/docs/test-engine/test-state-and-quarantine",                       to: redirect("/docs/test-engine/test-suites/test-state-and-quarantine")
+  get "/docs/test-engine/notifications/slack",                             to:
+  redirect("/docs/test-engine/workflows/actions#send-slack-notification")
   get "/docs/test-engine/your-own-collectors",                             to: redirect("/docs/test-engine/test-collection/your-own-collectors")
   get "/docs/test-engine/test-suites/permissions",                         to: redirect("/docs/test-engine/permissions")
   get "/docs/tutorials/2fa",                                               to: redirect("/docs/platform/tutorials/2fa")

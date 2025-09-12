@@ -633,9 +633,6 @@
           path: "test-engine/bktec/installing-the-client"
     - name: "Notifications"
       children:
-        - name: "Slack"
-          path: "test-engine/notifications/slack"
-          pill: "new"
         - name: "Email"
           path: "test-engine/notifications/email"
     - name: "Usage and billing"
