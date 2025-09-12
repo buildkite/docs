@@ -242,6 +242,7 @@ Rails.application.routes.draw do
   get "/docs/test-engine/test-splitting",                                  to: redirect("/docs/test-engine/speed-up-builds-with-bktec")
   get "/docs/test-engine/test-splitting/client-installation",              to: redirect("/docs/test-engine/bktec/installing-the-client")
   get "/docs/test-engine/test-splitting/configuring",                      to: redirect("/docs/test-engine/bktec/configuring")
+  get "/docs/test-engine/test-suite/flaky-test-management",                to: redirect("/docs/test-engine/reduce-flaky-tests")
   get "/docs/test-engine/test-state-and-quarantine",                       to: redirect("/docs/test-engine/test-suites/test-state-and-quarantine")
   get "/docs/test-engine/your-own-collectors",                             to: redirect("/docs/test-engine/test-collection/your-own-collectors")
   get "/docs/test-engine/test-suites/permissions",                         to: redirect("/docs/test-engine/permissions")

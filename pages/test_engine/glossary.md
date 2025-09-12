@@ -14,7 +14,7 @@ An execution is an instance of a single test, which is generated as part of a [r
 
 A flaky test is a [test](#test) that produce inconsistent or unreliable results, despite being run in the same code and environment. Flaky tests are usually identified following a number of [runs](#run) which are executed as part of pipeline builds, such as [those of a Buildkite pipeline](/docs/pipelines/glossary#build).
 
-Learn more about flaky tests in [Flaky test management](/docs/test-engine/test-suites/flaky-test-management).
+Learn more about flaky tests in [reduce flaky tests](/docs/test-engine/reduce-flaky-tests).
 
 ## Managed test
 

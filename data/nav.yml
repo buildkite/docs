@@ -570,8 +570,6 @@
           path: "test-engine/test-suites"
         - name: "Manage test suites"
           path: "test-engine/test-suites/manage"
-        - name: "Flaky test management"
-          path: "test-engine/test-suites/flaky-test-management"
         - name: "Test state and quarantine"
           path: "test-engine/test-suites/test-state-and-quarantine"
         - name: "Tags"
