@@ -23,7 +23,7 @@ You can configure [Amp](https://ampcode.com/) with the remote Buildkite MCP serv
 }
 ```
 
-The first time you start using the remote MCP server on Amp, the **Authorize Application** for the **Buildkite MCP Server** page opens. On this page, scroll down and select your Buildkite organization in **Authorize for organization**, followed by **Authorize**.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
 
 You're now ready to use the Buildkite's remote MCP server through Amp for this Buildkite organization.
 
@@ -35,16 +35,32 @@ You can configure [Claude Code](https://www.anthropic.com/claude-code) with the 
 claude mcp add --transport http buildkite https://mcp.buildkite.com/mcp
 ```
 
+<%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
+
+You're now ready to use the Buildkite's remote MCP server through Claude Code for this Buildkite organization.
+
 ## Claude Desktop
 
 You can configure [Claude Desktop](https://claude.ai/download) with the remote Buildkite MCP server, by doing the following to configure this server in Claude Desktop.
 
+> 📘
+> This process assumes you are on the Pro or Max plans for Claude Desktop.
+
 1. Select **Settings** > **Connectors**.
-1. Scroll down the page of connectors and locate the **Buildkite** option (indicating the URL `https://mcp.buildkite.com/mcp`).
-1. Select its **Connect** button.
-1. On the **Authorize Application** for the **Buildkite MCP Server** page, scroll down and select your Buildkite organization in **Authorize for organization**, followed by **Authorize**.
+1. In the **Connectors** section, select **Add custom connector**.
+
+    **Note:** To access this feature, you may need to select **Browse connectors** > **Connectors** dialog > **add a custom one**.
+
+1. If prompted for the connector's name, specify **Buildkite**.
+1. When prompted for the connector's URL, specify `https://mcp.buildkite.com/mcp`.
+1. Select **Add** to complete the configuration.
+1. Back on **Connector**, select the **Connect** button for **Buildkite** to connect to the remote MCP server.
+
+If you need a new OAuth token, the **Authorize Application** for the **Buildkite MCP Server** page appears. If so, scroll down and select your Buildkite organization in **Authorize for organization**, followed by **Authorize**.
 
 You're now ready to use the Buildkite's remote MCP server through Claude Desktop for this Buildkite organization.
+
+If you need more assistance with this process, follow Anthropic's guidelines for [Getting Started with Custom Connectors](https://support.anthropic.com/en/articles/11175166-getting-started-with-custom-connectors-using-remote-mcp#h_3d1a65aded).
 
 ## Cursor
 
@@ -70,9 +86,15 @@ Otherwise, to access the `mcp.json` file through the Cursor app to implement thi
 }
 ```
 
+<%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
+
+You're now ready to use the Buildkite's remote MCP server through Cursor for this Buildkite organization.
+
 ## Goose
 
-You can configure [Goose](https://block.github.io/goose/) with the remote Buildkite MCP server by adding the relevant configuration to the `extensions:` section of your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
+[Goose](https://block.github.io/goose/) is a local AI tool and agent that can be configured with different [LLM (AI model) providers](https://block.github.io/goose/docs/getting-started/providers).
+
+You can configure Goose with the remote Buildkite MCP server by adding the relevant configuration to the `extensions:` section of your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
 
 ```yaml
 extensions:
@@ -89,6 +111,10 @@ extensions:
     type: streamable_http
     uri: https://mcp.buildkite.com/mcp
 ```
+
+<%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
+
+You're now ready to use the Buildkite's remote MCP server through Goose for this Buildkite organization.
 
 ## Visual Studio Code
 
@@ -114,7 +140,7 @@ Alternatively, you can initiate this process through the Visual Studio Code inte
 
     Follow the remaining prompts to complete this configuration process.
 
-The first time you start using the remote MCP server on Visual Studio Code, the **Authorize Application** for the **Buildkite MCP Server** page opens. On this page, scroll down and select your Buildkite organization in **Authorize for organization**, followed by **Authorize**.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
 
 You're now ready to use the Buildkite's remote MCP server through Visual Studio Code for this Buildkite organization.
 
@@ -132,7 +158,6 @@ You can configure [Windsurf](https://windsurf.com/) with the remote Buildkite MC
 }
 ```
 
-The first time you start using the remote MCP server on Windsurf, the **Authorize Application** for the **Buildkite MCP Server** page opens. On this page, scroll down and select your Buildkite organization in **Authorize for organization**, followed by **Authorize**.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
 
 You're now ready to use the Buildkite's remote MCP server through Windsurf for this Buildkite organization.
-

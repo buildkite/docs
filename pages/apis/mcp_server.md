@@ -52,7 +52,7 @@ The local MCP server provides the following advantages.
 
 Using the local MCP server also has the following disadvantages.
 
-- You'll need to manage the storage (in plain text) and security of your Buildkite API access token, used for authentication and authorization to the MCP server.
+- Since your Buildkite API access token is used for authentication and authorization to the MCP server, you'll need to manage the security of this token and its storage in plain text.
 
 - You'll also need to manage upgrades to the MCP server yourself, especially if you choose to install the binary version of the local MCP server, which means you may miss out on new and updated features offered automatically through the [remote MCP server](#types-of-mcp-servers-remote-mcp-server).
 
