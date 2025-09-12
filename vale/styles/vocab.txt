@@ -289,6 +289,7 @@ sre
 sso
 statefully
 stdout
+streamable
 stringified
 subcommand
 subcommands
