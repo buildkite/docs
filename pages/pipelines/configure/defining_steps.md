@@ -216,6 +216,12 @@ Timestamp        | Description
 `finished_at`    | When the job reaches a terminal state (`finished`, `canceled`, `timed_out`, `skipped`, or `expired`). Transitioning to this state marks the completion of the job's execution, whether successful or not.
 {: class="two-column"}
 
+### Limitations with the personal plan
+
+Jobs will enter the `platform_limiting` and `platform_limited` states only for a Buildkite organization that is on the personal plan. The personal plan has an organization wide concurrency limit (across Buildkite hosted agents and self-hosted agents) that utilizes these 2 job states, queueing jobs as they're scheduled beyond this limit.
+
+To increase the platform concurrency for an organization, [upgrade to the Pro plan](/organizations/~/billing/plan_changes/new?plan_id=platform_pro_monthly_plan) or [reach out to support](/about/contact/) for help.
+
 ## Example pipeline
 
 Here's a more complete example based on [the Buildkite agent's build pipeline](https://github.com/buildkite/agent/blob/main/.buildkite/pipeline.yml). It contains script commands, wait steps, block steps, and automatic artifact uploading:
