@@ -30,6 +30,7 @@ set +e
   --exclude="https://github.com/my-org/" \
   --exclude="/sample.svg" \
   --header="User-Agent: Muffet/$(muffet --version)" \
+  --ignore-fragments \
   --max-connections=10 \
   --timeout=15 \
   --buffer-size=8192 \
