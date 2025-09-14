@@ -102,4 +102,4 @@ If you don't see branch names, build numbers, or commit hashes in Test Engine, t
 
 To enable debugging output, create and set `BUILDKITE_ANALYTICS_DEBUG_ENABLED` environment variable to `true` on your test environment (CI server or local machine).
 
-For instrumented tests debugging, access the variable using `buildConfigField` and pass it through your `MyTestCollector` class. Refer the [sample project](https://github.com/buildkite/test-collector-android/blob/main/sample/) for implementation.
+For instrumented tests debugging, access the variable using `buildConfigField` and pass it through your `MyTestCollector` class. Refer the [example project](https://github.com/buildkite/test-collector-android/tree/main/example) for implementation.
