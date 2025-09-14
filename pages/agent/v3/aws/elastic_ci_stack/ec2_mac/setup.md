@@ -108,7 +108,7 @@ required parameters:
 * `Subnets` from your VPC set up
 * `SecurityGroupIds` from your VPC set up
 * `IamInstanceProfile` if accessing AWS services from your builds, provide an Instance Profile ARN with an appropriate IAM role attached
-* `BuildkiteAgentToken` an Agent Token for your [Buildkite organization](http://buildkite.com/organizations/-/agents)
+* `BuildkiteAgentToken` an Agent Token for your [Buildkite organization](https://buildkite.com/organizations/-/agents)
 * `BuildkiteAgentQueue` the Buildkite Queue your pipeline steps use
 
 There are optional parameters to configure which EC2 Mac instance types to use:
