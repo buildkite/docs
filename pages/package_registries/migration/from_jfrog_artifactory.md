@@ -12,7 +12,7 @@ You can download a complete folder of packages or a specific package version fro
 
 ## Download packages using the JFrog CLI
 
-The [JFrog CLI](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli) provides a command line interface (CLI) that allows more options on [downloading packages from JFrog Artifactory repositories](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/cli-for-jfrog-artifactory/generic-files#downloading-files) than what is typically available through the JFrog Artifactory interface.
+The [JFrog CLI](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli) provides a command line interface (CLI) that allows more options on [downloading packages from JFrog Artifactory repositories](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/binaries-management-with-jfrog-artifactory/generic-files#downloading-files) than what is typically available through the JFrog Artifactory interface.
 
 ### Setting up the JFrog CLI
 
