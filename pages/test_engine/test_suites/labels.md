@@ -14,7 +14,7 @@ Labels are created at the [test suite](/docs/test-engine/glossary#test-suite) le
 Labels may be applied to or removed from tests:
 
 - Manually through the [Buildkite interface](#label-a-test-using-the-buildkite-interface).
-- Automatically through the [automatic quarantine](#label-a-test-using-automatic-quarantine) or [test execution tags](#label-a-test-using-execution-tags) features.
+- Automatically through the [workflow](#label-a-test-using-workflows) or [test execution tags](#label-a-test-using-execution-tags) features.
 - The [REST API](#label-a-test-using-the-rest-api).
 
 ### Using the Buildkite interface
@@ -27,11 +27,9 @@ From the details page of a test (accessible through its test suite's **Test** pa
 > 📘
 > To remove a label from a test, select **Add labels** from the test's details page, and from its drop-down, clear the checkbox next to the label.
 
-### Using automatic quarantine
+### Using workflows
 
-Using [test states](/docs/test-engine/glossary#test-state), you can automate the addition and removal of labels when a specific test failure threshold is reached.
-
-Learn more about this feature in [Automatic quarantine](/docs/test-engine/test-suites/test-state-and-quarantine#automatic-quarantine).
+Using [workflows](/docs/test-engine/workflows), you can automate the addition and removal of labels when a workflow [monitor](/docs/test-engine/workflows/monitors) condition is met.
 
 ### Using execution tags
 
@@ -58,12 +56,14 @@ You can filter tests using labels through the [Buildkite interface](#filter-test
 
 ### Using the Buildkite interface
 
-On the test suite's **Tests** page, either:
+On the test suite's **Tests** page, or a build page's **Tests** tab, either:
 
-- Enter `label:labelname` in the search field and select **Search**.
+- Click "Filter" and then "Label" and select or search for your label.
 - For any existing test with at least one label applied to it, select the test's label > **Filter by** from its drop down to filter the test suite for all tests with that label applied to them.
 
 <%= image "filtering.png", width: 1130, height: 514, alt: "Screenshot of filtering by a test label" %>
+
+[add image of build test tab]
 
 ### Using the REST API
 
