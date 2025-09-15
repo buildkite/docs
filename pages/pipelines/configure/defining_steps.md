@@ -216,11 +216,13 @@ Timestamp        | Description
 `finished_at`    | When the job reaches a terminal state (`finished`, `canceled`, `timed_out`, `skipped`, or `expired`). Transitioning to this state marks the completion of the job's execution, whether successful or not.
 {: class="two-column"}
 
-### Limitations with the personal plan
+### Platform limits
 
-Jobs will enter the `platform_limiting` and `platform_limited` states only for a Buildkite organization that is on the personal plan. The personal plan has an organization wide concurrency limit (across Buildkite hosted agents and self-hosted agents) that utilizes these 2 job states, queueing jobs as they're scheduled beyond this limit.
+Platform limits are restrictions imposed by Buildkite on usage within your organization. Jobs will enter the `platform_limiting` and `platform_limited` states when these limits are being evaluated or enforced.
 
-To increase the platform concurrency for an organization, [upgrade to the Pro plan](/organizations/~/billing/plan_changes/new?plan_id=platform_pro_monthly_plan) or [reach out to support](/about/contact/) for help.
+The following platform limits may apply:
+
+* **Job concurrency limits**: Organizations on the personal plan have an organization-wide concurrency limit of 3 jobs that applies across both Buildkite hosted agents and self-hosted agents. When jobs are scheduled beyond this limit, they will be queued using the platform limiting states. To remove or increase this limit for your organization, [upgrade to the Pro plan](/organizations/~/billing/plan_changes/new?plan_id=platform_pro_monthly_plan) or [reach out to support](/about/contact/) for help.
 
 ## Example pipeline
 
