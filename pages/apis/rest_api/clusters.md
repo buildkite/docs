@@ -153,9 +153,44 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>description</code></th><td>Description for the cluster.<br><em>Example:</em> <code>"A place for safely running our open source builds"</code>
-  <tr><th><code>emoji</code></th><td>Emoji for the cluster using the <a href="/docs/pipelines/emojis">emoji syntax</a>.<br><em>Example:</em> <code>"\:technologist\:"</code>
-  <tr><th><code>color</code></th><td>Color hex code for the cluster.<br><em>Example:</em> <code>"#FFE0F1"</code>
+  <tr>
+    <th>
+      <code>description</code>
+    </th>
+    <td>
+      Description for the cluster.<br/>
+      <em>Example:</em> <code>"A place for safely running our open source builds"</code>
+    </td>
+  </tr>
+  <tr>
+    <th>
+      <code>emoji</code>
+    </th>
+    <td>
+      Emoji for the cluster using the <a href="/docs/pipelines/emojis">emoji syntax</a><br/>
+      <em>Example:</em> <code>"\:technologist\:"</code>
+    </td>
+  <tr>
+    <th>
+      <code>color</code>
+    </th>
+    <td>
+      Color hex code for the cluster.<br/>
+      <em>Example:</em> <code>"#FFE0F1"</code>
+    </td>
+  </tr>
+  <tr>
+    <th>
+      <code>maintainers</code>
+    </th>
+    <td>
+      An array of one or more hashes of representing users or teams to grant maintainer permissions to for this cluster.<br/>
+      <em>Example:</em>
+      <code>
+      [{ "user: "282a043f-4d4f-4db5-ac9a-58673ae02caf" }, { "team: "0da645b7-9840-428f-bd80-0b92ee274480" }]
+      </code>
+    </td>
+  </tr>
 </tbody>
 </table>
 
