@@ -176,12 +176,10 @@ Filtering by tag on the test index page will constrain all tests to those that h
 
 <%= image "filter-tests-by-tag.png", width: 2992, height: 998, alt: "Screenshot of test index with a tag filter applied restricting tests to just those running on t3.large instances" %>
 
-You can filter by tag using the `@` prefix to denote that you want to filter by tag. For example:
+You can filter by tag using the "Filter" dropdown.
 
-```
-@host.type:t3.large
-```
+### Test tab
 
-To filter tests by tags in [Pipelines](/docs/pipelines), select the **Tests** tab in either the job or build interface and then select the **Add filter** filter button.
+To filter tests by tags in [Pipelines](/docs/pipelines), select the **Tests** tab in either the job or build interface and apply your desired filters.
 
 <%= image "pipelines-filter-by-tag.png", width: 1656, height: 1150, alt: "Screenshot of filtering tests on a pipeline build" %>
