@@ -10,6 +10,14 @@ When [creating a test suite](/docs/test-engine/test-suites/manage#create-a-test-
 
 To delete a suite, or regenerate its API token, go to suite settings.
 
+## Tests tab on build pages
+
+Test Engine information is available on your test pipeline's build pages, in the [new build view](/docs/pipelines/build-page).
+
+[screenshot here]
+
+This allows you to easily view the failing tests in a given build, and filter the test executions to analyze and surface trends about your tests suite. You can also select "Display" to change the columns displayed on the Test tab, so that other types of aggregate data (e.g. average duration) is shown. By default, the executions are grouped by test so that retried tests are shown together.
+
 ## Parallelized builds
 
 In CI/CD, a build's tests can be made to run in parallel using features of your own CI/CD pipeline or workflow tool. Parallelized pipeline/workflow builds typically run and complete faster than builds which are not parallelized.
@@ -18,19 +26,19 @@ In Buildkite Pipelines, you can run tests in parallel when they are configured a
 
 > 📘
 > When tests are run in parallel across multiple agents, they can be grouped into the same run by defining the same `run_env[key]` environment variable. Learn more about this environment variable and others in [CI environments](/docs/test-engine/test-collection/ci-environments).
-> You can further speed up the duration of parallelized builds across multiple agents by implementing [test splitting](/docs/test-engine/test-splitting).
+> The best way to coordinate the distribution of tests in a parallelized build is by implementing [test splitting](/docs/test-engine/test-splitting).
 
-## Compare across branches
+## View by branch
 
-All test suites have a default branch so you can track trends for your most important codebase, and compare it to results across all branches.
+All test suites have a _default branch_ so you can track trends for your most important branch, and compare it to results across _all branches_. Organizations typically choose their main production branch as their default, although this is not required. All Test Engine views are filtered automatically to the default branch.
 
-Organizations typically choose their main production branch as their default, although this is not required.
+In addition to the default branch, you can add any number of additional _stored branches_. Stored branches accept prefix wildcard operators, and are useful for merge queues and other similar naming conventions. You can filter Test Engine views by a stored branch, or any branch, by using the branch filter.
 
-To change your default branch, go to suite settings. You can also filter Test Engine views by any branch by typing its name into the branch query parameter in the Test Engine URL.
+To configure your branches, go to suite settings. In most cases, branch name is tracked automatically as part of the [core tags](/docs/test-engine/test-suites/tags#core-tags) Test Engine ingests on your behalf.
 
 ## Tracking reliability
 
-Test Engine calculates reliability of both your entire test suite and individual tests as a measure of flakiness over time.
+Test Engine calculates reliability of both your entire test suite and individual tests as a measure of pass/fail rate over time.
 
 _Reliability_ is defined as percentage calculated by:
 
@@ -45,7 +53,7 @@ In Test Engine, a run is marked as `failed` as soon as a test execution fails, r
 
 Once your test suite is set up, you'll have many types of information automatically calculated and displayed to help you surface and investigate problems in your test suite.
 
-For individual tests, views include trend information on reliability, test execution count, test execution duration at p50 and p95, along with detailed information about flaky and failed test executions.
+The Summary and Test pages are able to be filtered by branch, result (e.g. pass, fail), state (e.g. enabled, disabled), owner (e.g. core-team, platform-team), label (e.g. flaky, slow, feature-test) and [tag](/docs/test-engine/test-suites/tags). This allows greater flexibility and deeper analysis into the performance of your test suite.
 
 <%= image "test-stats.png", width: 1166, height: 327, alt: "Screenshot of test trend page showing test trend information over the last 28 days, including test reliability and test execution durations" %>
 
