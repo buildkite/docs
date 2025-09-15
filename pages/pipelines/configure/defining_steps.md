@@ -161,8 +161,8 @@ Job state             | Description
 `skipped`             | The job was skipped.
 `broken`              | The job's configuration means that it can't be run.
 `expired`             | The job expired before it was started on an agent.
-`platform_limiting`   | The job is waiting on an organization level concurrency check before moving to `platform_limited` or `scheduled`.
-`platform_limited`    | The job is waiting for organization level concurrency to become available before moving to `scheduled`.
+`platform_limiting`   | The job is waiting for limits imposed by Buildkite to be checked before moving to `platform_limited` or `scheduled`.
+`platform_limited`    | The job is waiting for capacity within limits imposed by Buildkite to become available before moving to `scheduled`.
 {: class="two-column"}
 
 As well as the states shown in the diagram, the following progressions can occur:
