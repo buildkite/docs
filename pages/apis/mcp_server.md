@@ -2,7 +2,7 @@
 
 The [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) is an open protocol standard on how to connect artificial intelligence (AI) tools, agents and models to a variety of other systems and data sources.
 
-Buildkite provides its own [open-source MCP server](https://github.com/buildkite/buildkite-mcp-server) to expose Buildkite product data (for example, data from pipelines, builds, and jobs for Pipelines, as well as from test data for Test Engine) for AI tools and editors, as well as AI agents and other products to interact with.
+Buildkite provides its own [open-source MCP server](https://github.com/buildkite/buildkite-mcp-server) to expose Buildkite product data (for example, data from pipelines, builds, and jobs for Pipelines, including test data for Test Engine) for AI tools, editors, agents, and other products to interact with.
 
 Buildkite's MCP server is built on and interacts with [Buildkite's REST API](/docs/apis/rest-api). Learn more about what the MCP server is capable of in [Available MCP tools](#available-mcp-tools).
 
@@ -12,7 +12,7 @@ Once you have established which Buildkite MCP server to use (remote or local) an
 
 ## Types of MCP servers
 
-Buildkite provides both a [_remote_](#types-of-mcp-servers-remote-mcp-server) and [_local_](#types-of-mcp-servers-local-mcp-server) MCP server.
+Buildkite provides both a [remote](#types-of-mcp-servers-remote-mcp-server) and [local](#types-of-mcp-servers-local-mcp-server) MCP server.
 
 ### Remote MCP server
 
@@ -24,15 +24,19 @@ https://mcp.buildkite.com/mcp
 
 This type of MCP server is typically used by AI tools that you interact with directly from a prompt, and is the recommended MCP server type to use.
 
-#### Advantages
+#### What it's suitable for
 
-Unlike the [local MCP server](#types-of-mcp-servers-local-mcp-server), the remote MCP server has the following advantages.
+The remote MCP server is suitable for personal usage with an AI tool, as it has the following advantages for this use case.
 
-- You don't need to configure an API access token, which poses a potential security risk if they are leaked, as these types of tokens inherently don't expire.
+- You don't need to configure an API access token, which poses a potential security risk if leaked.
 
     Instead, you only require a Buildkite user account, and the Buildkite platform issues a short-lived OAuth token, representing this user account for authentication, along with access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place after [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) and connecting to it.
 
-- There is no need to upgrade your local MCP server. Since the remote MCP server undergoes rapid updates, you don't miss out on newer or updated features, which you'd miss out on by not keeping your local MCP server up to date.
+- There is no need to install or upgrade any software. Since the remote MCP server undergoes frequent updates, you get access to new features and fixes automatically.
+
+#### What it's not suitable for
+
+The remote MCP server is not suitable for use in automated workflows, where running a specific version of the MCP server is important for generating consistent results.
 
 ### Local MCP server
 
@@ -40,23 +44,21 @@ The _local_ MCP server is one that you install yourself directly on your own mac
 
 This type of MCP server is typically used by AI tools used as _AI agents_, which an automated system or workflow, such as a Buildkite pipeline, can interact with. AI agent interactions are usually shell-based.
 
-#### Advantages
+#### What it's suitable for
 
-The local MCP server provides the following advantages.
+The local MCP server enables automated workflows (for example, using [Buildkite Pipelines](/docs/pipelines)), where running a specific version of the MCP server is important for generating consistent results.
 
-- This MCP server type is geared for advanced users, allowing such users to develop automated workflows (for example, using [Buildkite Pipelines](/docs/pipelines)), where running a specific version of the MCP server is important, especially for large volume usage of the MCP server, where consistent results from a given set version of the MCP server is a requirement.
+Also, if you want to contribute to the [Buildkite MCP server project](https://github.com/buildkite/buildkite-mcp-server), the local MCP server allows you to run and test your changes locally.
 
-- If you want to contribute to the [Buildkite MCP server project](https://github.com/buildkite/buildkite-mcp-server), the local MCP server allows you to run and test your changes locally.
+#### What it's not suitable for
 
-#### Disadvantages
+The local MCP server is not suitable for personal usage with an AI tool, as it has the following disadvantages for this use case.
 
-Using the local MCP server also has the following disadvantages.
-
-- Since your Buildkite API access token is used for authentication and authorization to the MCP server, you'll need to manage the security of this token and its storage in plain text.
+- Since your Buildkite API access token is used for authentication and authorization to the MCP server, you'll need to manage the security (for example, leak prevention) of this token and its storage in plain text.
 
 - You'll also need to manage upgrades to the MCP server yourself, especially if you choose to install the binary version of the local MCP server, which means you may miss out on new and updated features offered automatically through the [remote MCP server](#types-of-mcp-servers-remote-mcp-server).
 
-Learn more about how to set up and install a local Buildkite MCP server in [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing). As part of installing a local Buildkite MCP server, you'll also need to [configure an API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) with the required scopes that your local MCP server will use.
+Learn more about how to set up and install a local Buildkite MCP server in [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing).
 
 ## Available MCP tools
 
@@ -67,7 +69,7 @@ The names of these tools (for example, `list_pipelines`) typically do not need t
 Learn more about MCP tools in the [Core Server Features](https://modelcontextprotocol.io/docs/learn/server-concepts#core-server-features) and [Tools](https://modelcontextprotocol.io/docs/learn/server-concepts#tools) sections of the [Understanding MCP servers](https://modelcontextprotocol.io/docs/learn/server-concepts) page in the [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro) docs.
 
 > 📘
-> Since Buildkite's MCP server makes calls to Buildkite's REST API, note that only a subset of the resulting fields are returned in the response from the Buildkite API to your AI tool or agent. This is done to reduce noise for your AI tool / agent, as well as reduce costs associated with text tokenization of the response.
+> While Buildkite's MCP server makes calls to the Buildkite REST API, note that in some cases, only a subset of the resulting fields are returned in the response to your AI tool or agent. This is done to reduce noise for your AI tool / agent, as well as reduce costs associated with text tokenization of the response.
 
 ### User and authentication
 
@@ -171,7 +173,7 @@ These MCP tools are used to retrieve details about the [clusters](/docs/pipeline
 
 ### Pipelines
 
-These MCP tools are used to retrieve details about existing [pipelines](/docs/apis/rest-api/pipelines) in [your Buildkite organization](#available-mcp-tools-user-and-authentication), as well as create new pipelines, and update existing ones.
+These MCP tools are used to retrieve details about existing [pipelines](/docs/apis/rest-api/pipelines) in [your Buildkite organization](/docs/apis/rest-api/organizations), as well as create new pipelines, and update existing ones.
 
 <table>
   <thead>
@@ -500,9 +502,9 @@ To improve performance in accessing log data from the Buildkite platform, the Bu
 
 - For the [local MCP server](#types-of-mcp-servers-local-mcp-server), on the file system of the machine running the MCP server.
 
-- For the [remote MCP server](#types-of-mcp-servers-remote-mcp-server), a dedicated area of the Buildkite platform.
+- For the [remote MCP server](#types-of-mcp-servers-remote-mcp-server), in a dedicated area of the Buildkite platform.
 
-These Parquet log files are stored and managed by the MCP server and all interactions with these files are done so using the [MCP server's log tools](#available-mcp-tools-logs).
+These Parquet log files are stored and managed by the MCP server and all interactions with these files are managed by the [MCP server's log tools](#available-mcp-tools-logs).
 
 If the job is in a terminal state (for example, the job was completed successfully, had failed, or was canceled), then the job's Parquet format logs are downloaded and stored indefinitely.
 
