@@ -113,23 +113,6 @@ This section explains risk mitigation strategies which you can implement, and ot
 
 Buildkite's API access tokens have no built-in expiration date. The best practices regarding regular credential rotation recommended by [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-lifetimes-and-rotation) suggest rotating the tokens at least once a year. In case of a security compromise or breach, it is strongly recommended that the old tokens are [invalidated](/docs/apis/managing-api-tokens#removing-an-organization-from-a-token) or inactive ones [revoked](#inactive-api-tokens-revocation), and new tokens are issued.
 
-### GitHub secret scanning program
-
-Buildkite is a member of the [GitHub secret scanning program](https://docs.github.com/en/code-security/secret-scanning/secret-scanning-partnership-program/secret-scanning-partner-program).
-This service [alerts](https://docs.github.com/en/code-security/secret-scanning/secret-scanning-partnership-program/secret-scanning-partner-program#the-secret-scanning-process) us when a Buildkite personal API access token has been leaked on GitHub in a public repository.
-
-Once Buildkite receives a notification of a publicly leaked token from GitHub, Buildkite will:
-
-- Revoke the token immediately.
-- Email the user who generated the token to let them know it has been revoked.
-- Email the organizations associated with the token to let them know it has been revoked.
-
-You can also:
-
-- Enable GitHub secret scanning for [private repositories](https://docs.github.com/en/code-security/secret-scanning/enabling-secret-scanning-features/enabling-secret-scanning-for-your-repository).
-
-- Generate a new [access token for your Buildkite user account](https://buildkite.com/user/api-access-tokens).
-
 ## FAQs
 
 ### Can I view an existing token?
