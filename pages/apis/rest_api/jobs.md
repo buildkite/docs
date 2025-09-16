@@ -39,7 +39,8 @@ curl -H "Authorization: Bearer $TOKEN" \
       "retries_count": 1,
       "retry_type": null,
       "parallel_group_index": null,
-      "parallel_group_total": null
+      "parallel_group_total": null,
+      "priority": { "number": 0 }
     }
 ```
 
@@ -95,7 +96,8 @@ curl -H "Authorization: Bearer $TOKEN" \
       "retries_count": 0,
       "retry_type": null,
       "parallel_group_index": null,
-      "parallel_group_total": null
+      "parallel_group_total": null,
+      "priority": { "number": 5 }
     }
 ```
 
