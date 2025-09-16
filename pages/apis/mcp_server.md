@@ -54,13 +54,13 @@ Also, if you want to contribute to the [Buildkite MCP server project](https://gi
 
 #### What it's not suitable for
 
-The local MCP server is not suitable for personal usage with an AI tool, as it has the following disadvantages for this use case.
+The local MCP server is not suitable for personal usage with an AI tool, as it has the following disadvantages.
 
 - Since your Buildkite API access token is used for authentication and authorization to the MCP server, you'll need to manage the security (for example, leak prevention) of this token and its storage in plain text.
 
 - You'll also need to manage upgrades to the MCP server yourself, especially if you choose to install the binary version of the local MCP server, which means you may miss out on new and updated features offered automatically through the [remote MCP server](#types-of-mcp-servers-remote-mcp-server).
 
-Learn more about how to set up and install a local Buildkite MCP server in [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing).
+If you intend to use the local Buildkite MCP server, learn more about how to set up and install it in [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing).
 
 ## Available MCP tools
 
