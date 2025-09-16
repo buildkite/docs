@@ -10,7 +10,7 @@ curl -H "Authorization: Bearer $TOKEN" https://api.buildkite.com/v2/user
 
 Generate an [access token](https://buildkite.com/user/api-access-tokens).
 
-All webhooks for [Pipelines](/docs/apis/webhooks/pipelines#http-headers) and [Package Registries](/docs/apis/webhooks/package-registries#http-headers) contain an `X-Buildkite-Token` header which allows you to verify the authenticity of the request.
+If you are implementing [Buildkite webhooks](#webhooks), all webhooks for [Pipelines](/docs/apis/webhooks/pipelines#http-headers) and [Package Registries](/docs/apis/webhooks/package-registries#http-headers) contain an `X-Buildkite-Token` header which allows you to verify the authenticity of the request.
 
 ## Managing API access tokens
 
@@ -45,8 +45,19 @@ You can access the GraphQL API through the _GraphQL console_ (see the [GraphQL o
 Learn more about:
 
 - Buildkite's GraphQL API in the [GraphQL API overview](/docs/apis/graphql-api) and [Console and CLI tutorial](/docs/apis/graphql/graphql-tutorial) pages.
-
 - The differences between Buildkite's REST and GraphQL APIs in [API differences](/docs/apis/api-differences).
+
+## Portals
+
+Buildkite's portals provide an alternative to the REST and GraphQL APIs. Portals allow Buildkite organization administrators to define custom GraphQL operations, which can then be accessed through an authenticated URL endpoint by other members of the Buildkite organization.
+
+Learn more about the portals feature in [Portals](/docs/apis/portals).
+
+## MCP server
+
+Buildkite provides both remote and local [MCP servers](https://modelcontextprotocol.io/docs/learn/server-concepts), which provide your AI tools with access to Buildkite's REST API features.
+
+Learn more about the Buildkite MCP server from the [MCP server overview](/docs/apis/mcp-server) page.
 
 ## Webhooks
 
@@ -57,9 +68,3 @@ For Pipelines, webhooks can be [added and configured](/docs/apis/webhooks/pipeli
 For Test Engine and Package Registries, webhooks can be configured through their specific [test suites](/docs/apis/webhooks/test-engine#add-a-webhook) and [registries](/docs/apis/webhooks/package-registries#add-a-webhook), respectively.
 
 Learn more about Buildkite's webhooks from the [Webhooks overview](/docs/apis/webhooks) page.
-
-## Portals
-
-Buildkite's portals provide an alternative to the REST and GraphQL APIs, which allow Buildkite organization administrators to define custom GraphQL operations that can then be accessed through an authenticated URL endpoint by other members of the Buildkite organization.
-
-Learn more about the portals feature in [Portals](/docs/apis/portals).
