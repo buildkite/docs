@@ -30,9 +30,9 @@ The remote MCP server is suitable for personal usage with an AI tool, as it has 
 
 - You don't need to configure an API access token, which poses a potential security risk if leaked.
 
-    Instead, you only require a Buildkite user account, and the Buildkite platform issues a short-lived OAuth token, representing this user account for authentication, along with access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place after [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) and connecting to it.
+    Instead, you only require a Buildkite user account, and the Buildkite platform issues a short-lived OAuth access token, representing this user account for authentication, along with access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place after [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) and connecting to it.
 
-    **Note:** OAuth tokens are valid for 12 hours, refresh tokens are valid for seven days.
+    **Note:** OAuth access tokens are valid for 12 hours, and the refresh tokens are valid for seven days.
 
 - There is no need to install or upgrade any software. Since the remote MCP server undergoes frequent updates, you get access to new features and fixes automatically.
 
@@ -54,13 +54,13 @@ Also, if you want to contribute to the [Buildkite MCP server project](https://gi
 
 #### What it's not suitable for
 
-The local MCP server is not suitable for personal usage with an AI tool, as it has the following disadvantages for this use case.
+The local MCP server is not suitable for personal usage with an AI tool, as it has the following disadvantages.
 
 - Since your Buildkite API access token is used for authentication and authorization to the MCP server, you'll need to manage the security (for example, leak prevention) of this token and its storage in plain text.
 
 - You'll also need to manage upgrades to the MCP server yourself, especially if you choose to install the binary version of the local MCP server, which means you may miss out on new and updated features offered automatically through the [remote MCP server](#types-of-mcp-servers-remote-mcp-server).
 
-Learn more about how to set up and install a local Buildkite MCP server in [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing).
+If you intend to use the local Buildkite MCP server, learn more about how to set up and install it in [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing).
 
 ## Available MCP tools
 
