@@ -30,9 +30,9 @@ The remote MCP server is suitable for personal usage with an AI tool, as it has 
 
 - You don't need to configure an API access token, which poses a potential security risk if leaked.
 
-    Instead, you only require a Buildkite user account, and the Buildkite platform issues a short-lived OAuth token, representing this user account for authentication, along with access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place after [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) and connecting to it.
+    Instead, you only require a Buildkite user account, and the Buildkite platform issues a short-lived OAuth access token, representing this user account for authentication, along with access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place after [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) and connecting to it.
 
-    **Note:** OAuth tokens are valid for 12 hours, refresh tokens are valid for seven days.
+    **Note:** OAuth access tokens are valid for 12 hours, and the refresh tokens are valid for seven days.
 
 - There is no need to install or upgrade any software. Since the remote MCP server undergoes frequent updates, you get access to new features and fixes automatically.
 
