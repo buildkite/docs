@@ -5,7 +5,7 @@ The Buildkite MCP server is available both [locally and remotely](/docs/apis/mcp
 Once you have installed your local Buildkite MCP server using the relevant instructions on this page, you can proceed to [configure your AI tools or agents](/docs/apis/mcp-server/local/configuring-ai-tools) to work with this MCP server.
 
 > 📘
-> Buildkite's _remote_ MCP server requires no installation and is available publicly, with authentication and authorization fully managed by OAuth. If you working directly with an AI tool as opposed to an AI agent (see [Types of MCP servers](/docs/apis/mcp-server#types-of-mcp-servers) for more information), and are configuring your AI tool with the remote MCP server, proceed directly to [configure your AI tools](/docs/apis/mcp-server/remote/configuring-ai-tools).
+> Buildkite's _remote_ MCP server requires no installation and is available publicly, with authentication and authorization fully managed by OAuth. If you're working directly with an AI tool as opposed to using an AI agent in a workflow (see [Types of MCP servers](/docs/apis/mcp-server#types-of-mcp-servers) for more information), and you'd prefer to use the remote MCP server instead, proceed directly to its [Configuring AI tools](/docs/apis/mcp-server/remote/configuring-ai-tools) page.
 
 ## Before you start
 
@@ -19,7 +19,7 @@ Specific requirements for each type of local installation method for the Buildki
 
 ## Configure an API access token
 
-This section explains which [scopes](/docs/apis/managing-api-tokens#token-scopes) your local Buildkite MCP server's API access token requires permission for within your Buildkite organization, for your particular use case. These scopes fit into the following categories:
+This section explains which [scopes](/docs/apis/managing-api-tokens#token-scopes) your local Buildkite MCP server's API access token requires permission for within your Buildkite organization, for your particular use case. These scopes typically fit into the following categories:
 
 - [Minimum access](#configure-an-api-access-token-minimum-access)
 - [All read-only access](#configure-an-api-access-token-all-read-only-access)
@@ -27,7 +27,7 @@ This section explains which [scopes](/docs/apis/managing-api-tokens#token-scopes
 
 ### Minimum access
 
-For minimum access, select the following [scopes](/docs/apis/managing-api-tokens#token-scopes) for your local MCP server's API access token. These scopes provide your token with the minimum required access permissions on the Buildkite MCP server, and prevents access to more sensitive information within your Buildkite organization.
+For minimum access, select the following [scopes](/docs/apis/managing-api-tokens#token-scopes) for your local MCP server's API access token. These scopes provide your token with the minimum required access permissions on the Buildkite MCP server, and prevent access to more sensitive information within your Buildkite organization.
 
 <table>
   <thead>
@@ -173,7 +173,7 @@ You can also [create a new Buildkite API access token rapidly with these pre-sel
 
 ## Install and run the server locally
 
-To install and run the Buildkite MCP server locally, you can do so using [Docker](#install-and-run-the-server-locally-using-docker) (recommended), or natively as a [pre-built binary](#install-and-run-the-server-locally-using-a-pre-built-binary), or [build it from source](#install-and-run-the-server-locally-building-from-source).
+To install and run the Buildkite MCP server locally, you can do so using [Docker](#install-and-run-the-server-locally-using-docker) (recommended), natively as a [pre-built binary](#install-and-run-the-server-locally-using-a-pre-built-binary), or [build it from source](#install-and-run-the-server-locally-building-from-source).
 
 ### Using Docker
 
@@ -274,3 +274,5 @@ To run the MCP server using Docker with streamable HTTP transport and expose the
 ```bash
 docker run --pull=always -q --rm -e BUILDKITE_API_TOKEN -e HTTP_LISTEN_ADDR=":3000" -p 127.0.0.1:3000:3000 buildkite/mcp-server http
 ```
+
+With your self-hosted MCP server up and running, you can now [configure your AI tools](/docs/apis/mcp-server/remote/configuring-ai-tools) as you would for Buildkite's remote MCP server, but substituting its URL (`https://mcp.buildkite.com/mcp`) for the URL of your self-hosted MCP server (for example, `http://127.0.0.1:3000/mcp`). Note that the OAuth authentication flow won't be triggered in this case, as your server will be configured to use your own API access token.

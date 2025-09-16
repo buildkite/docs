@@ -5,7 +5,7 @@ Once you followed the required instructions on [Installing the Buildkite MCP ser
 All the Docker instructions on this page implement the `--pull=always` option to ensure that the latest MCP server version is obtained when the container is started. If you are installing the Buildkite MCP server locally as a binary, then you are responsible for manually upgrading it.
 
 > 📘
-> If you are working directly with an AI tool to configure it with the _remote_ MCP server, proceed with the relevant instructions on its [Configuring AI tools](/docs/apis/mcp-server/remote/configuring-ai-tools) page.
+> The Buildkite MCP server is available both [locally and remotely](/docs/apis/mcp-server#types-of-mcp-servers). This page is about configuring AI tools with the local MCP server. If you are working directly with an AI tool and would prefer it to use the _remote_ MCP server, proceed with the relevant instructions on its [Configuring AI tools](/docs/apis/mcp-server/remote/configuring-ai-tools) page.
 
 ## Amp
 

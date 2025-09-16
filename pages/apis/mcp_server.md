@@ -4,7 +4,7 @@ The [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) is an open 
 
 Buildkite provides its own [open-source MCP server](https://github.com/buildkite/buildkite-mcp-server) to expose Buildkite product data (for example, data from pipelines, builds, and jobs for Pipelines, including test data for Test Engine) for AI tools, editors, agents, and other products to interact with.
 
-Buildkite's MCP server is built on and interacts with [Buildkite's REST API](/docs/apis/rest-api). Learn more about what the MCP server is capable of in [Available MCP tools](#available-mcp-tools).
+Buildkite's MCP server is built on and interacts with the [Buildkite REST API](/docs/apis/rest-api). Learn more about what the MCP server is capable of in [Available MCP tools](#available-mcp-tools).
 
 To start using Buildkite's MCP server, first determine which [type of Buildkite MCP server](#types-of-mcp-servers) to work with. This next section provides an overview of the differences between these MCP server types and how they need to be configured.
 
@@ -31,6 +31,8 @@ The remote MCP server is suitable for personal usage with an AI tool, as it has 
 - You don't need to configure an API access token, which poses a potential security risk if leaked.
 
     Instead, you only require a Buildkite user account, and the Buildkite platform issues a short-lived OAuth token, representing this user account for authentication, along with access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place after [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) and connecting to it.
+
+    **Note:** OAuth tokens are valid for 12 hours, refresh tokens are valid for seven days.
 
 - There is no need to install or upgrade any software. Since the remote MCP server undergoes frequent updates, you get access to new features and fixes automatically.
 
@@ -257,7 +259,9 @@ These MCP tools are used to retrieve details about existing [builds](/docs/apis/
       },
       {
         "tool": "wait_for_build",
-        "description": "Wait for a specific build to complete."
+        "description": "Wait for a specific build to completed. This tool calls the <em>Get a build</em> endpoint to return the status of the build from its logs. If the build is still running, <code>wait_for_build</code> calls the Get a build endpoint with increasingly less frequency, to reduce text tokenization usage and traffic, until the returned build status is completed.",
+        "link_text": "Get a build",
+        "link": "/docs/apis/rest-api/builds#get-a-build"
       }
     ].select { |field| field[:tool] }.each do |field| %>
       <tr>

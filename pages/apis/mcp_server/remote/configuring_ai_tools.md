@@ -1,9 +1,9 @@
 # Configuring AI tools with the remote MCP server
 
-If you are working directly with AI tools to interact with Buildkite's MCP server, then use the relevant instructions on this page to configure your AI tool to work with the [_remote_ Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server).
+This page explains how to configure your AI tool to work with the [_remote_ Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server).
 
 > 📘
-> If you are using an AI agent to work with the _local_ MCP server, ensure you have followed the required instructions on [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing) locally first, before proceeding with the relevant instructions on its [Configuring AI tools](/docs/apis/mcp-server/local/configuring-ai-tools) page.
+> The Buildkite MCP server is available both [locally and remotely](/docs/apis/mcp-server#types-of-mcp-servers). This page is about configuring AI tools with the remote MCP server. If you are using an AI tool or agent and would prefer it to work with the _local_ MCP server, ensure you have followed the required instructions on [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing) locally first, before proceeding with the relevant instructions on its [Configuring AI tools](/docs/apis/mcp-server/local/configuring-ai-tools) page.
 
 ## Amp
 
@@ -44,17 +44,17 @@ You're now ready to use the Buildkite's remote MCP server through Claude Code fo
 You can configure [Claude Desktop](https://claude.ai/download) with the remote Buildkite MCP server, by doing the following to configure this server in Claude Desktop.
 
 > 📘
-> This process assumes you are on the Pro or Max plans for Claude Desktop.
+> This process assumes you are on an Enterprise, Team, Pro or Max plan for Claude Desktop.
 
 1. Select **Settings** > **Connectors**.
-1. In the **Connectors** section, select **Add custom connector**.
-
-    **Note:** To access this feature, you may need to select **Browse connectors** > **Connectors** dialog > **add a custom one**.
-
-1. If prompted for the connector's name, specify **Buildkite**.
-1. When prompted for the connector's URL, specify `https://mcp.buildkite.com/mcp`.
+1. In the **Connectors** section, and if you are on an Enterprise or Team plan, select the **Organization connectors** tab.
+1. Select the **Add custom connector** button.
+1. In the **Add custom connector** dialog, for the **Name** field, specify **Buildkite**.
+1. For the **Remote MCP server URL** field, specify `https://mcp.buildkite.com/mcp`.
 1. Select **Add** to complete the configuration.
-1. Back on **Connector**, select the **Connect** button for **Buildkite** to connect to the remote MCP server.
+1. Back in the **Connectors** section, select the **Connect** button for **Buildkite** to connect to the remote MCP server.
+
+    **Note:** If you are on the Enterprise or Team plan, to access this **Connect** button, you may need to select the **Your connectors** tab first.
 
 If you need a new OAuth token, the **Authorize Application** for the **Buildkite MCP Server** page appears. If so, scroll down and select your Buildkite organization in **Authorize for organization**, followed by **Authorize**.
 
@@ -66,11 +66,15 @@ If you need more assistance with this process, follow Anthropic's guidelines for
 
 You can configure [Cursor](https://cursor.com/) with the remote Buildkite MCP server by adding the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json), which is usually located in your home directory's `.cursor` sub-directory.
 
+<!--
+
 You can conveniently add this configuration using the following button, and then select **Install** on the **MCP & Integrations** page of the Cursor interface.
 
 <a class="inline-block" href="https://cursor.com/en/install-mcp?name=buildkite&config=eyJ1cmwiOiJodHRwczovL21jcC5idWlsZGtpdGUuY29tL21jcCJ9" target="_blank" rel="nofollow"><img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Add to Cursor" class="no-decoration" width="160" height="30"></a><br/>
 
 Otherwise, to access the `mcp.json` file through the Cursor app to implement this configuration:
+
+-->
 
 1. From your **Cursor Settings**, select **MCP & Integrations**.
 1. Under **MCP Tools**, select **Add Custom MCP** to open the `mcp.json` file.
