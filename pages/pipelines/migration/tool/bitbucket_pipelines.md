@@ -170,27 +170,113 @@ Note that both supported properties in the Bitbucket pipeline step-level definit
 
 ### Step
 
-| Key | Supported | Notes |
-| --- | --- | --- |
-| `pipelines.<start-condition>.step.after-script` | No | The actions that a Bitbucket pipeline will undertake after the commands in the `script` key are run. For similar behaviour in Buildkite, use a [repository-level](/docs/agent/v3/hooks#hook-locations-repository-hooks) `pre-exit` hook running at the latter end of the [job lifecycle](/docs/agent/v3/hooks#job-lifecycle-hooks). |
-| `pipelines.<start-condition>.step.artifacts` | Partially | Build artifacts that will be required for steps later in the Bitbucket pipeline (by default, not obtained unless an explicit `buildkite-agent artifact download` [command](/docs/agent/v3/cli-artifact#downloading-artifacts) is run beforehand within the generated Buildkite command step). Artifacts that are specified (whether one specific file, or multiple) will be set within the generated command step within the `artifact_paths` [key](/docs/pipelines/configure/step-types/command-step). Each file found matching (or via glob syntax) will be uploaded to Buildkite's [Artifact storage](/docs/agent/v3/cli-artifact) that can be obtained in later steps. |
-| `pipelines.<start-condition>.step.caches` | Yes | Step-level dependencies downloaded from external sources (for example,Docker, Maven, PyPi) which can be reused in later Bitbucket pipeline steps. Caches that are set at step level (or through the top-level `definition.cache.<name>` property) are translated in the corresponding Buildkite pipeline utilizing the [cache-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin/) to store the downloaded dependencies for reuse between Buildkite builds. |
-| `pipelines.<start-condition>.step.condition` | Partially | The configuration for preventing a Bitbucket pipeline step from running unless the specific conditional is met. Translated to an inline conditional (`if`) within the corresponding Buildkite pipelines' command step's `commands` - based on a `git diff` of the base branch. |
-| `pipelines.<start-condition>.step.condition.</br>changeset.includePaths` | Partially | The specific file (or files) that need to be detected as changed for the `condition` to apply. This can be set as specific files - or wildcards that match multiple files in a specific directory/directories. <br/><br/> Translated to a script that will review the changed files through git. This means that the step itself will actually run and just be marked as passed, which may not be what you want or need. <br/><br/> You may want to consider utilizing the [monorepo-diff-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/) and watching specific folders or files and the uploading the resulting [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) upon a diff detection. |
-| `pipelines.<start-condition>.step.clone` | Partially | Clone options for a specific step of a Bitbucket pipeline. The majority of these options should be set directly on a Buildkite agent via [configuration](/docs/agent/v3/configuration) of properties such as the clone flags (`git-clone-flags`, `git-clone-mirror-flags` if utilizing a Git mirror), fetch flags (`git-fetch-flags`) - or changing the entire checkout process in a customized [plugin](/docs/plugins/writing) overriding the default agent `checkout` hook. Sparse checkout options are supported (with the `sparse-checkout` sub-property) |
-| `pipelines.<start-condition>.step.deployment` | No | The environment set for the Bitbucket Deployments dashboard. This has no translatable equivalent within Buildkite. |
-| `pipelines.<start-condition>.step.docker` | No | The availability of Docker in a specific Bitbucket pipeline step. This will depend on the agent configuration that the corresponding Buildkite command step is being targeted to run the job. Consider [tagging](/docs/agent/v3/cli-start#tags) agents with `docker=true` to ensure Buildkite command steps requiring hosts with Docker installed and configured to accept and run specific jobs. |
-| `pipelines.<start-condition>.step.fail-fast` | No | Whether a specific step of a Bitbucket pipeline allows a parallel step to fail entirely if it fails (set as `true`), or allows failures (set as `false`). Consider using a combination of `soft_fail` and/or `cancel_on_build_failing` in the corresponding Buildkite command steps' [attributes](/docs/pipelines/configure/step-types/command-step#command-step-attributes) for a similar [approach](/docs/pipelines/configure/step-types/command-step#fast-fail-running-jobs). |
-| `pipelines.<start-condition>.step.image` | Yes | The container image that is to be applied to a specific step within a Bitbucket pipeline. Images set at this level will be applied irrespective of the pipeline-level `image` key, and will be applied in the corresponding Buildkite pipeline using the [docker-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/). <br/><br/> The `aws`, `aws.oidc`, `name`, `username`, and `password` sub-properties are supported through the use of the corresponding plugin ([Docker Login](https://buildkite.com/resources/plugins/buildkite-plugins/docker-login-buildkite-plugin) or [ECR](https://buildkite.com/resources/plugins/buildkite-plugins/ecr-buildkite-plugin/)). |
-| `pipelines.<start-condition>.step.max-time` | Yes | The maximum allowable time that a step within a Bitbucket pipeline is able to run for. Translates to the corresponding Buildkite pipelines' command step `timeout_in_minutes` attribute. |
-| `pipelines.<start-condition>.step.name` | Yes | The name of a specific step within a Bitbucket pipeline. Translates to a Buildkite command step's `label`. |
-| `pipelines.<start-condition>.step.oidc` | Yes | Open ID Connect configuration that will be applied for this Bitbucket pipeline step. The generated command step in the corresponding Buildkite pipeline will [request](/docs/agent/v3/cli-oidc#request-oidc-token) an OIDC token and export it into the job environment as `BITBUCKET_STEP_OIDC_TOKEN` (to be passed to `sts` to assume an AWS role for example) |
-| `pipelines.<start-condition>.step.runs-on` | Yes | Allocating the Bitbucket pipeline to run on a self-hosted runner with the specific label. All `runs-on` values will be set as agent [tags](/docs/pipelines/configure/defining-steps#targeting-specific-agents) in the Buildkite command step for targeting on specific Buildkite agents within an organization. |
-| `pipelines.<start-condition>.step.services` | Partially | The name of one or more services defined at `definitions.services.<name>` that will be applied for this step. Translated to utilize the service configuration with the [docker-compose-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/). <br/><br/> Generated configuration will need to be saved to a `compose.yaml` file within the repository, and the image utilized with the Buildkite command step as `app`. <br/><br/> Refer to the Bitbucket pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/databases-and-service-containers/) for more details on service containers and configuration references. <br/><br/> Authentication-based parameters will not be translated to the corresponding Buildkite pipeline if defined. |
-| `pipelines.<start-condition>.step.script` | Yes | The individual commands that make up a specific step. Each is translated into a singular command within the `commands` key of a Buildkite command step. |
-| `pipelines.<start-condition>.step.script.pipe` | No | Reusable modules to make configuration in Bitbucket pipelines easier and modular. Consider exploring the suite of available [Buildkite Plugins](/docs/pipelines/integrations/plugins) for corresponding functionality that is required. |
-| `pipelines.<start-condition>.step.size` | Yes | Allocation of sizing options for the given memory for a specific step within a Bitbucket pipeline. The `size` value will be set as an agent [tag](/docs/pipelines/configure/defining-steps#targeting-specific-agents) in the Buildkite command step for targeting on specific Buildkite agents within an organization. |
-| `pipelines.<start-condition>.step.trigger` | Yes | The configuration setting for running of a Bitbucket pipeline step manually or automatically (the default setting). For `manual` triggers, an [input step](/docs/pipelines/configure/step-types/input-step) is inserted into the generated Buildkite pipeline before the specified `script` within a further command step. Explicit dependencies with `depends_on` are set between the two steps; requires manual processing. |
+<table>
+  <thead>
+    <tr>
+      <th style="width:65%">Key</th>
+      <th style="width:10%">Supported</th>
+      <th style="width:25%">Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.after-script</code></td>
+      <td>No</td>
+      <td>The actions that a Bitbucket pipeline will undertake after the commands in the <code>script</code> key are run. For similar behaviour in Buildkite, use a <a href="/docs/agent/v3/hooks#hook-locations-repository-hooks">repository-level</a> <code>pre-exit</code> hook running at the latter end of the <a href="/docs/agent/v3/hooks#job-lifecycle-hooks">job lifecycle</a>.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.artifacts</code></td>
+      <td>Partially</td>
+      <td>Build artifacts that will be required for steps later in the Bitbucket pipeline (by default, not obtained unless an explicit <code>buildkite-agent artifact download</code> <a href="/docs/agent/v3/cli-artifact#downloading-artifacts">command</a> is run beforehand within the generated Buildkite command step). Artifacts that are specified (whether one specific file, or multiple) will be set within the generated command step within the <code>artifact_paths</code> <a href="/docs/pipelines/configure/step-types/command-step">key</a>. Each file found matching (or via glob syntax) will be uploaded to Buildkite's <a href="/docs/agent/v3/cli-artifact">Artifact storage</a> that can be obtained in later steps.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.caches</code></td>
+      <td>Yes</td>
+      <td>Step-level dependencies downloaded from external sources (for example, Docker, Maven, PyPi) which can be reused in later Bitbucket pipeline steps. Caches that are set at step level (or through the top-level <code>definition.cache.&lt;name&gt;</code> property) are translated in the corresponding Buildkite pipeline utilizing the <a href="https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin/">cache-buildkite-plugin</a> to store the downloaded dependencies for reuse between Buildkite builds.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.condition</code></td>
+      <td>Partially</td>
+      <td>The configuration for preventing a Bitbucket pipeline step from running unless the specific conditional is met. Translated to an inline conditional (<code>if</code>) within the corresponding Buildkite pipelines' command step's <code>commands</code> – based on a <code>git diff</code> of the base branch.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.condition.changeset.includePaths</code></td>
+      <td>Partially</td>
+      <td>The specific file (or files) that need to be detected as changed for the <code>condition</code> to apply. This can be set as specific files – or wildcards that match multiple files in a specific directory/directories. <br/><br/> Translated to a script that will review the changed files through git. This means that the step itself will actually run and just be marked as passed, which may not be what you want or need. <br/><br/> You may want to consider utilizing the <a href="https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/">monorepo-diff-buildkite-plugin</a> and watching specific folders or files and then uploading the resulting <a href="/docs/pipelines/configure/dynamic-pipelines">Dynamic pipelines</a> upon a diff detection.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.clone</code></td>
+      <td>Partially</td>
+      <td>Clone options for a specific step of a Bitbucket pipeline. The majority of these options should be set directly on a Buildkite agent via <a href="/docs/agent/v3/configuration">configuration</a> of properties such as the clone flags (<code>git-clone-flags</code>, <code>git-clone-mirror-flags</code> if utilizing a Git mirror), fetch flags (<code>git-fetch-flags</code>) – or changing the entire checkout process in a customized <a href="/docs/plugins/writing">plugin</a> overriding the default agent <code>checkout</code> hook. Sparse checkout options are supported (with the <code>sparse-checkout</code> sub-property).</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.deployment</code></td>
+      <td>No</td>
+      <td>The environment set for the Bitbucket Deployments dashboard. This has no translatable equivalent within Buildkite.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.docker</code></td>
+      <td>No</td>
+      <td>The availability of Docker in a specific Bitbucket pipeline step. This will depend on the agent configuration that the corresponding Buildkite command step is being targeted to run the job. Consider <a href="/docs/agent/v3/cli-start#tags">tagging</a> agents with <code>docker=true</code> to ensure Buildkite command steps requiring hosts with Docker installed and configured to accept and run specific jobs.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.fail-fast</code></td>
+      <td>No</td>
+      <td>Whether a specific step of a Bitbucket pipeline allows a parallel step to fail entirely if it fails (set as <code>true</code>), or allows failures (set as <code>false</code>). Consider using a combination of <code>soft_fail</code> and/or <code>cancel_on_build_failing</code> in the corresponding Buildkite command steps' <a href="/docs/pipelines/configure/step-types/command-step#command-step-attributes">attributes</a> for a similar <a href="/docs/pipelines/configure/step-types/command-step#fast-fail-running-jobs">approach</a>.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.image</code></td>
+      <td>Yes</td>
+      <td>The container image that is to be applied to a specific step within a Bitbucket pipeline. Images set at this level will be applied irrespective of the pipeline-level <code>image</code> key, and will be applied in the corresponding Buildkite pipeline using the <a href="https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/">docker-buildkite-plugin</a>. <br/><br/> The <code>aws</code>, <code>aws.oidc</code>, <code>name</code>, <code>username</code>, and <code>password</code> sub-properties are supported through the use of the corresponding plugin (<a href="https://buildkite.com/resources/plugins/buildkite-plugins/docker-login-buildkite-plugin">Docker Login</a> or <a href="https://buildkite.com/resources/plugins/buildkite-plugins/ecr-buildkite-plugin/">ECR</a>).</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.max-time</code></td>
+      <td>Yes</td>
+      <td>The maximum allowable time that a step within a Bitbucket pipeline is able to run for. Translates to the corresponding Buildkite pipelines' command step <code>timeout_in_minutes</code> attribute.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.name</code></td>
+      <td>Yes</td>
+      <td>The name of a specific step within a Bitbucket pipeline. Translates to a Buildkite command step's <code>label</code>.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.oidc</code></td>
+      <td>Yes</td>
+      <td>Open ID Connect configuration that will be applied for this Bitbucket pipeline step. The generated command step in the corresponding Buildkite pipeline will <a href="/docs/agent/v3/cli-oidc#request-oidc-token">request</a> an OIDC token and export it into the job environment as <code>BITBUCKET_STEP_OIDC_TOKEN</code> (to be passed to <code>sts</code> to assume an AWS role for example).</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.runs-on</code></td>
+      <td>Yes</td>
+      <td>Allocating the Bitbucket pipeline to run on a self-hosted runner with the specific label. All <code>runs-on</code> values will be set as agent <a href="/docs/pipelines/configure/defining-steps#targeting-specific-agents">tags</a> in the Buildkite command step for targeting on specific Buildkite agents within an organization.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.services</code></td>
+      <td>Partially</td>
+      <td>The name of one or more services defined at <code>definitions.services.&lt;name&gt;</code> that will be applied for this step. Translated to utilize the service configuration with the <a href="https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/">docker-compose-buildkite-plugin</a>. <br/><br/> Generated configuration will need to be saved to a <code>compose.yaml</code> file within the repository, and the image utilized with the Buildkite command step as <code>app</code>. <br/><br/> Refer to the Bitbucket pipelines <a href="https://support.atlassian.com/bitbucket-cloud/docs/databases-and-service-containers/">documentation</a> for more details on service containers and configuration references. <br/><br/> Authentication-based parameters will not be translated to the corresponding Buildkite pipeline if defined.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.script</code></td>
+      <td>Yes</td>
+      <td>The individual commands that make up a specific step. Each is translated into a singular command within the <code>commands</code> key of a Buildkite command step.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.script.pipe</code></td>
+      <td>No</td>
+      <td>Reusable modules to make configuration in Bitbucket pipelines easier and modular. Consider exploring the suite of available <a href="/docs/pipelines/integrations/plugins">Buildkite Plugins</a> for corresponding functionality that is required.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.size</code></td>
+      <td>Yes</td>
+      <td>Allocation of sizing options for the given memory for a specific step within a Bitbucket pipeline. The <code>size</code> value will be set as an agent <a href="/docs/pipelines/configure/defining-steps#targeting-specific-agents">tag</a> in the Buildkite command step for targeting on specific Buildkite agents within an organization.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.step.trigger</code></td>
+      <td>Yes</td>
+      <td>The configuration setting for running of a Bitbucket pipeline step manually or automatically (the default setting). For <code>manual</code> triggers, an <a href="/docs/pipelines/configure/step-types/input-step">input step</a> is inserted into the generated Buildkite pipeline before the specified <code>script</code> within a further command step. Explicit dependencies with <code>depends_on</code> are set between the two steps; requires manual processing.</td>
+    </tr>
+  </tbody>
+</table>
+
 
 ### Stage
 
