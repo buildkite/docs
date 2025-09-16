@@ -58,9 +58,3 @@ When configuring your third party applications to receive Buildkite webhook even
 - [REST API overview](/docs/apis/rest-api)
 - [GraphQL API overview](/docs/apis/graphql-api)
 - [Amazon EventBridge integration](/docs/pipelines/integrations/observability/amazon-eventbridge)
-
-## Test broken links testing
-
-[Non-existent web site](https://blah.blah.blah.com/).
-
-[Non-existent Buildkite Docs page](https://buildkite.com/docs/non-existant-page).
