@@ -100,6 +100,24 @@ https://buildkite.com/organizations/demo/pipelines/activities/new?meta_data[city
 
 Using meta-data to pre-populate fields in this way carries some considerations regarding how the input step behaves. Learn more about this in the [Input step](/docs/pipelines/configure/step_types/input_step.md) page.
 
+## Special meta-data
+
+Meta-data keys starting with `buildkite:` are reserved for special values provided by Buildkite. These may be generated on request.
+
+### `buildkite:webhook`
+
+The special `buildkite:webhook` meta-data key can be used to get the body of the webhook which triggered the current build. For example, you can access the [GitHub](/docs/pipelines/source-control/github) push webhook payload in a command step:
+
+```yaml
+steps:
+  - command: |
+      WEBHOOK="$(buildkite-agent meta-data get buildkite:webhook)"
+      STARGAZERS="$(jq .repository.stargazers_count <<< "$WEBHOOK")"
+      echo "The current repository has $STARGAZERS stargazers 💫"
+```
+
+This value will only be available for builds triggered by a webhook, and only as long as the full webhook body remains cached — typically for 7 days.
+
 ## Further documentation
 
 See the [Buildkite agent build meta-data documentation](/docs/agent/v3/cli-meta-data) for a full list of options and details of Buildkite's meta-data support.
