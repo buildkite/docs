@@ -426,6 +426,8 @@
     path: apis/graphql/schemas/object/jobeventfinished
   - name: JobEventGeneric
     path: apis/graphql/schemas/object/jobeventgeneric
+  - name: JobEventReprioritized
+    path: apis/graphql/schemas/object/jobeventreprioritized
   - name: JobEventRetried
     path: apis/graphql/schemas/object/jobeventretried
   - name: JobEventRetryFailed
