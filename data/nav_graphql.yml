@@ -430,6 +430,10 @@
     path: apis/graphql/schemas/object/jobeventretried
   - name: JobEventRetryFailed
     path: apis/graphql/schemas/object/jobeventretryfailed
+  - name: JobEventStackError
+    path: apis/graphql/schemas/object/jobeventstackerror
+  - name: JobEventStackNotification
+    path: apis/graphql/schemas/object/jobeventstacknotification
   - name: JobEventTimedOut
     path: apis/graphql/schemas/object/jobeventtimedout
   - name: JobPriority

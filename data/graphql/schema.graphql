@@ -3550,6 +3550,78 @@ enum JobEventSignalReason {
 }
 
 """
+An event created when a stack error is reported
+"""
+type JobEventStackError implements JobEvent & Node {
+  """
+  The actor that caused this event to occur
+  """
+  actor: JobEventActor!
+
+  """
+  Details about the stack error
+  """
+  errorDetail: String
+  id: ID!
+
+  """
+  The job that this event belongs to
+  """
+  job: JobTypeCommand!
+
+  """
+  The time when the event occurred
+  """
+  timestamp: DateTime!
+
+  """
+  The type of event
+  """
+  type: JobEventType!
+
+  """
+  The public UUID for this job event
+  """
+  uuid: ID!
+}
+
+"""
+An event created when a stack notification is triggered
+"""
+type JobEventStackNotification implements JobEvent & Node {
+  """
+  The actor that caused this event to occur
+  """
+  actor: JobEventActor!
+  id: ID!
+
+  """
+  The job that this event belongs to
+  """
+  job: JobTypeCommand!
+
+  """
+  Message from the stack notification
+  """
+  message: String
+
+  """
+  The time when the event occurred
+  """
+  timestamp: DateTime!
+
+  """
+  The type of event
+  """
+  type: JobEventType!
+
+  """
+  The public UUID for this job event
+  """
+  uuid: ID!
+}
+
+"""
 An event created when the job is timed out
 """
 type JobEventTimedOut implements JobEvent & Node {

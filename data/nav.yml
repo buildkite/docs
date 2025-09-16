@@ -904,6 +904,30 @@
               path: apis/graphql/cookbooks/teams
         - name: Limits
           path: apis/graphql/graphql-resource-limits
+    - name: "Portals"
+      children:
+        - name: "Overview"
+          path: "apis/portals"
+        - name: "Limits"
+          path: "apis/portals/limits"
+        - name: "Ephemeral portal tokens"
+          path: "apis/portals/ephemeral-portal-tokens"
+        - name: "User-invoked portals"
+          path: "apis/portals/user-invoked-portals"
+    - name: "MCP server"
+      children:
+        - name: "Overview"
+          path: "apis/mcp-server"
+        - name: "Remote MCP server"
+          children:
+            - name: "Configuring AI tools"
+              path: "apis/mcp-server/remote/configuring-ai-tools"
+        - name: "Local MCP server"
+          children:
+            - name: "Installing the server"
+              path: "apis/mcp-server/local/installing"
+            - name: "Configuring AI tools"
+              path: "apis/mcp-server/local/configuring-ai-tools"
     - name: "Webhooks"
       children:
         - name: "Overview"
@@ -938,16 +962,6 @@
           children:
             - name: "Overview"
               path: "apis/webhooks/package-registries"
-    - name: "Portals"
-      children:
-        - name: "Overview"
-          path: "apis/portals"
-        - name: "Limits"
-          path: "apis/portals/limits"
-        - name: "Ephemeral portal tokens"
-          path: "apis/portals/ephemeral-portal-tokens"
-        - name: "User-invoked portals"
-          path: "apis/portals/user-invoked-portals"
     - name: "Agent"
       children:
         - name: "Overview"
