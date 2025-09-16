@@ -10,7 +10,7 @@ During a build, the policy is evaluated against the build's context. If no rule 
 
 ## Policy schema
 
-Policies are defined as a list of rules in YAML. Each _rule_ (beginning with a `-`) specifies one or more _conditions_ that must be met for a build to access the Buildkite organization secret. Each rule must specify one or more claims. Claims can be a single item or lists of strings.
+Policies are defined as a list of policy rules in YAML. Each _policy rule_ (beginning with a `-`) specifies one or more _conditions_ that must be met for a build to access the Buildkite organization secret. Each policy rule must specify one or more claims. Claims can be a single item or lists of strings.
 
 ### First-party claims
 
