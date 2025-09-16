@@ -568,8 +568,6 @@
       children:
         - name: "Overview"
           path: "test-engine/test-suites"
-        - name: "Manage test suites"
-          path: "test-engine/test-suites/manage"
         - name: "Test state and quarantine"
           path: "test-engine/test-suites/test-state-and-quarantine"
         - name: "Tags"
