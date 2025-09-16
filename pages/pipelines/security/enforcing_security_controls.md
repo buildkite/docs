@@ -54,6 +54,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 - Use additional secret scanning tools such as [git-secrets](https://github.com/awslabs/git-secrets) to prevent accidental commits of secrets to repositories before they enter the build process.
 - Consider using strict pipeline upload guards, such as the [reject-secrets](/docs/agent/v3/cli-pipeline#reject-secrets) option for `buildkite-agent pipeline upload` commands.
 - Have incident response procedures for secret compromise, including automated revocation and rotation processes. Note that cluster maintainers can [revoke tokens](/docs/agent/v3/tokens#revoke-a-token) using the REST API for rapid containment.
+- When using [Buildkite Model Context Protocol (MCP) server](https://buildkite.com/docs/apis/mcp-server), opt for using the [remote MCP server](/docs/apis/mcp-server#types-of-mcp-servers-local-mcp-server) as it doesn't require you to configure an API access token since the Buildkite platform issues short-lived OAuth access tokens that are only valid for 12 hours.
 
 ## Buildkite Agent security
 
