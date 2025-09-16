@@ -44,7 +44,7 @@ You're now ready to use the Buildkite's remote MCP server through Claude Code fo
 You can configure [Claude Desktop](https://claude.ai/download) with the remote Buildkite MCP server, by doing the following to configure this server in Claude Desktop.
 
 > 📘
-> This process assumes you are on an Enterprise, Team, Pro or Max plan for Claude Desktop.
+> This process assumes you are on an Enterprise or Team plan (with either the Owner or Primary Owner role), or a Pro or Max plan for Claude Desktop.
 
 1. Select **Settings** > **Connectors**.
 1. In the **Connectors** section, and if you are on an Enterprise or Team plan, select the **Organization connectors** tab.
