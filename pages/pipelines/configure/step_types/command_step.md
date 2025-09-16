@@ -411,7 +411,7 @@ Optional attributes:
         <li><code>none</code></li>
         <li><code>cancel</code></li>
         <li><code>agent_stop</code></li>
-        <li><code>agent_refused</code></li> 
+        <li><code>agent_refused</code></li>
         <li><code>process_run_error</code></li>
       </ul>
     </td>
