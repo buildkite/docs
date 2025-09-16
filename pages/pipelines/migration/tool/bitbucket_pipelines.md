@@ -173,9 +173,9 @@ Note that both supported properties in the Bitbucket pipeline step-level definit
 <table>
   <thead>
     <tr>
-      <th style="width:65%">Key</th>
+      <th style="width:55%">Key</th>
       <th style="width:10%">Supported</th>
-      <th style="width:25%">Notes</th>
+      <th style="width:35%">Notes</th>
     </tr>
   </thead>
   <tbody>
@@ -276,7 +276,6 @@ Note that both supported properties in the Bitbucket pipeline step-level definit
     </tr>
   </tbody>
 </table>
-
 
 ### Stage
 
