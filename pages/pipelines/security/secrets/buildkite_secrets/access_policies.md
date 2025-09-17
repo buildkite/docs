@@ -142,5 +142,3 @@ During a build, the access policy is evaluated against the build's context. If a
 1. Add your policy to the **Policy** field in YAML format.
 1. Select **Update agent access** to save your changes.
 
-> 🚧
-> Be aware that if subsequently choose the **Allow access from all clustered agents in this organization** option from the **Agent access** section and then save it, any policy that had previously been specified for this secret will be lost.
