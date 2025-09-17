@@ -87,7 +87,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 - Bind access tokens to [specific IP addresses or network segments](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address). Use network address translation (NAT) with centralized egress routing for enhanced monitoring and rapid compromise detection.
 - Deploy access tokens within dedicated virtual private clouds (VPCs) using [Buildkite’s Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security#network-configuration) for network isolation.
 - Monitor access token usage patterns through the [Audit Log](/docs/platform/audit-log). Set up alerts on unusual patterns: unexpected locations, excessive API calls, unauthorized resource access.
-- When using [Buildkite Model Context Protocol (MCP) server](https://buildkite.com/docs/apis/mcp-server), opt for using the [remote MCP server](/docs/apis/mcp-server#types-of-mcp-servers-local-mcp-server) as it doesn't require you to configure an API access token since the Buildkite platform issues short-lived OAuth access tokens that are only valid for 12 hours.
+- When using the [Buildkite Model Context Protocol (MCP) server](/docs/apis/mcp-server), preference using the [remote MCP server](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) as this MCP server type issues short-lived OAuth access tokens, compared to the local MCP server, which requires you to configure an API access token that can pose a security risk if leaked.
 
 ## Network and transport security
 
