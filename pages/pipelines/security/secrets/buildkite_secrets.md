@@ -1,6 +1,6 @@
 # Buildkite secrets
 
-_Buildkite secrets_ is an encrypted key-value store secrets management service offered by Buildkite for use by the Buildkite Agent. These secrets can be accessed using the [`buildkite-agent secret get` command](/docs/agent/v3/cli-secret). The secrets are encrypted both at rest and in transit, and are decrypted on Buildkite's application servers when accessed by the agent.
+_Buildkite secrets_ is an encrypted key-value store secrets management service offered by Buildkite for use by the Buildkite Agent. These secrets can be accessed using the [`buildkite-agent secret get` command](/docs/agent/v3/cli-secret) or within a job's environment variables by defining `secrets` on the pipeline step within pipeline YAML. The secrets are encrypted both at rest and in transit, and are decrypted on Buildkite's application servers when accessed by the agent.
 
 Buildkite secrets:
 
@@ -51,7 +51,10 @@ To update an existing Buildkite secret's value using the Buildkite interface:
 
 ### From within pipeline YAML
 
-Once you've [created a secret](#create-a-secret), you can specify secrets in your pipeline YAML which will be injected into your job environment. Secrets can be specified for an entire build and per command step.
+> 📘 Minimum version requirement
+> To use Buildkite secrets in a job via pipeline YAML, version 3.106.0 or later of the `buildkite-agent` is required. Earlier versions of the Buildkite agent do not support this feature and jobs with secrets defined on their pipeline step will fail to start.
+
+Once you've [created a secret](#create-a-secret), you can specify secrets in your pipeline YAML which will be injected into your job environment. Secrets can be specified for all steps in a build and per command step.
 
 For example, to load the `API_ACCESS_TOKEN` secret in all jobs for your build:
 
@@ -73,6 +76,21 @@ steps:
     secrets:
       - API_ACCESS_TOKEN
   ```
+
+#### Custom environment variable names for secrets
+
+The value of the secret `API_ACCESS_TOKEN` will be retrieved when the job starts up, and injected into the job's environment variables as the value of the environment variable `API_ACCESS_TOKEN`.
+
+To use a custom environment variable name, you can specify `secrets` as a hash with a environment variable name as the key and the secret name as the value.
+
+```yaml
+  - command: do_something.sh
+  - command: api_call.sh
+    secrets:
+      APP_ACCESS_TOKEN: API_ACCESS_TOKEN
+```
+
+This will inject the value of the secret API_ACCESS_TOKEN into the environment variable APP_ACCESS_TOKEN. Custom environment variable names for secrets cannot start with `BUILDKITE` (with the exception of `BUILDKITE_API_TOKEN`).
 
 ### From a build script or hook
 
