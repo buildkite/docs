@@ -4,7 +4,7 @@ Access policies for Buildkite organization secrets:
 
 - Control access to [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) based on build attributes. Policies are written in YAML and configured through the Buildkite interface.
 
-- Restrict access to organization secrets based on build context. You can specify conditions such as the branch, pipeline, or user who triggered the build.
+- Restrict access to cluster secrets based on build context. You can specify conditions such as the branch, pipeline, or user who triggered the build.
 
 During a build, the policy is evaluated against the build's context. If no rule matches, access to the organization secret is denied.
 
