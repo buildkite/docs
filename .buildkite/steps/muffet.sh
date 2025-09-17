@@ -19,8 +19,13 @@ done
 echo 💎🛤️🚆 Rails has started running
 
 # If muffet fails, we want to process the results instead of quitting immediately.
-
 set +e
+
+# Exclude links that show up as failures but definitely work
+# Accept 403's access denied status codes, as these are mostly sites blocking muffet
+# Ignore framents (e.g. markdown heading links) because GitHub doesn't tag headings properly
+# Add a user agent so less sites respond with 403 or 429 statuses
+
 /muffet http://app:3000/docs \
   --exclude="https://github.com/buildkite/docs/" \
   --exclude="https://buildkite.com/user" \
@@ -33,8 +38,9 @@ set +e
   --exclude="http://www.shellcheck.net" \
   --exclude="https://webtask.io/" \
   --exclude="/sample.svg" \
-  --header="User-Agent: Muffet/$(muffet --version)" \
+  --accepted-status-codes="200..300,403" \
   --ignore-fragments \
+  --header="User-Agent: Muffet/$(muffet --version)" \
   --max-connections=10 \
   --timeout=15 \
   --buffer-size=8192 \
