@@ -200,7 +200,7 @@ Note that both supported properties in the Bitbucket pipeline step-level definit
       <td>The configuration for preventing a Bitbucket pipeline step from running unless the specific conditional is met. Translated to an inline conditional (<code>if</code>) within the corresponding Buildkite pipelines' command step's <code>commands</code> – based on a <code>git diff</code> of the base branch.</td>
     </tr>
     <tr>
-      <td><code>pipelines.&lt;start-condition&gt;.step.condition.changeset.includePaths</code></td>
+      <td><code>pipelines.&lt;start-condition&gt;.step.condition.&shy;changeset.includePaths</code></td>
       <td>Partially</td>
       <td>The specific file (or files) that need to be detected as changed for the <code>condition</code> to apply. This can be set as specific files – or wildcards that match multiple files in a specific directory/directories. <br/><br/> Translated to a script that will review the changed files through git. This means that the step itself will actually run and just be marked as passed, which may not be what you want or need. <br/><br/> You may want to consider utilizing the <a href="https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/">monorepo-diff-buildkite-plugin</a> and watching specific folders or files and then uploading the resulting <a href="/docs/pipelines/configure/dynamic-pipelines">Dynamic pipelines</a> upon a diff detection.</td>
     </tr>
@@ -294,7 +294,7 @@ Note that both supported properties in the Bitbucket pipeline step-level definit
       <td>The logical grouping of one or more Bitbucket pipeline steps. Bitbucket pipeline stages are translated into the corresponding Buildkite pipeline as a <a href="/docs/pipelines/configure/step-types/group-step">group step</a>.</td>
     </tr>
     <tr>
-      <td><code>pipelines.&lt;start-condition&gt;.stage.condition.changeset.includePaths</code></td>
+      <td><code>pipelines.&lt;start-condition&gt;.stage.condition.&shy;changeset.includePaths</code></td>
       <td>Partially</td>
       <td>The specific file (or files) that need to be detected as changed for the <code>condition</code> to apply. This can be set as specific files or wildcards that match multiple files in the specific directories. <br/><br/> Translated into a script that will review the changed files through git. This means that the step itself will actually run and will be marked as passed, which may not be what you want or need. <br/><br/> You may want to consider utilizing the <a href="https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/">monorepo-diff-buildkite-plugin</a> and watching for specific folders and files and uploading the resulting <a href="/docs/pipelines/configure/dynamic-pipelines">Dynamic pipelines</a> upon diff detection.</td>
     </tr>
