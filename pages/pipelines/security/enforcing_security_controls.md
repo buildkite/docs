@@ -70,7 +70,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 - Set appropriate [job time limits](/docs/pipelines/configure/build-timeouts#command-timeouts) to limit the potential duration of malicious code execution on compromised agents.
 - Utilize [OIDC-based authentication](/docs/pipelines/security/oidc) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags to add strong unique claims.
 - [Disable command evaluation](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation) where appropriate and enforce script-only execution instead.
-- Consider using `no-plugins`[agent start option](/docs/agent/v3/cli-start#no-plugins) if you would like to prevent the agent from being able to load any plugins.
+- Consider using the [`--no-plugins` buildkite-agent start option](/docs/agent/v3/cli-start#no-plugins) to prevent the agent from loading any plugins.
 - Learn more about making your virtual machine or container running the `buildkite-agent` process more secure in [Securing your Buildkite Agent](/docs/agent/v3/securing).
 
 > 📘 On better Buildkite Agent security
@@ -87,6 +87,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 - Bind access tokens to [specific IP addresses or network segments](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address). Use network address translation (NAT) with centralized egress routing for enhanced monitoring and rapid compromise detection.
 - Deploy access tokens within dedicated virtual private clouds (VPCs) using [Buildkite’s Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security#network-configuration) for network isolation.
 - Monitor access token usage patterns through the [Audit Log](/docs/platform/audit-log). Set up alerts on unusual patterns: unexpected locations, excessive API calls, unauthorized resource access.
+- When using the [Buildkite Model Context Protocol (MCP) server](/docs/apis/mcp-server), preference using the [remote MCP server](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) as this MCP server type issues short-lived OAuth access tokens, compared to the local MCP server, which requires you to configure an API access token that can pose a security risk if leaked.
 
 ## Network and transport security
 

@@ -52,11 +52,7 @@ https://buildkite.com/my-organization/my-pipeline/builds?meta_data[release-versi
 
 You can use meta-data to identify builds when searching for builds in the REST API.
 
-<!-- vale off -->
-
 For more information, see the [Builds API in the Buildkite REST API documentation](/docs/apis/rest-api/builds).
-
-<!-- vale on -->
 
 ## Using build input parameters
 
@@ -104,7 +100,11 @@ Using meta-data to pre-populate fields in this way carries some considerations r
 
 Meta-data keys starting with `buildkite:` are reserved for special values provided by Buildkite. These may be generated on request.
 
-### `buildkite:webhook`
+<!-- vale off -->
+
+### buildkite:webhook
+
+<!-- vale on -->
 
 The special `buildkite:webhook` meta-data key can be used to get the body of the webhook which triggered the current build. For example, you can access the [GitHub](/docs/pipelines/source-control/github) push webhook payload in a command step:
 
