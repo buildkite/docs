@@ -38,7 +38,6 @@ set +e
   --exclude="http://www.shellcheck.net" \
   --exclude="https://webtask.io/" \
   --exclude="/sample.svg" \
-  --accepted-status-codes="200..300,403" \
   --ignore-fragments \
   --header="User-Agent: Muffet/$(muffet --version)" \
   --max-connections=10 \
@@ -90,10 +89,10 @@ else
     # Select all responses where the error code is not 429. If this list is empty, 
     # then every error is a 429 and we can pass the build.
     # Note that the entire list is empty when there are no errors at all.
-    if [[ $(jq -r 'map(select(.links[].error != "429")) | length == 0' muffet-results.json) == true ]]; then
+    if [[ $(jq -r 'map(select( (.links[].error != "429") and ( .links[].error != "403" ))) | length == 0' muffet-results.json) == true ]]; then
         echo >> annotation.md
         echo >> annotation.md
-        echo "All remaining errors detected by muffet are 'Too Many Requests' (429), which the target link blocks as muffet uses a bot account to check these links. Confirm the links manually as this build will pass and ignore these failures." >> annotation.md
+        echo "All remaining errors detected by muffet are either 'Too Many Requests' (429) or 'Forbidden' (403). Often this occurrs when the target link blocks muffet because it's a bot. Confirm the links manually as this build will pass and ignore these failures." >> annotation.md
         muffet_exit_code=0
     fi
 
