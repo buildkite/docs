@@ -173,8 +173,8 @@ Note that both supported properties in the Bitbucket pipeline step-level definit
 <table>
   <thead>
     <tr>
-      <th style="width:55%">Key</th>
-      <th style="width:10%">Supported</th>
+      <th style="width:45%">Key</th>
+      <th style="width:20%">Supported</th>
       <th style="width:35%">Notes</th>
     </tr>
   </thead>
@@ -279,13 +279,43 @@ Note that both supported properties in the Bitbucket pipeline step-level definit
 
 ### Stage
 
-| Key | Supported | Notes |
-| --- | --- | --- |
-| `pipelines.<start-condition>.stage` | Yes | The logical grouping of one or more Bitbucket pipeline steps. Bitbucket pipeline stages are translated into the corresponding Buildkite pipeline as a [group step](/docs/pipelines/configure/step-types/group-step). |
-| `pipelines.<start-condition>.stage.condition.changeset.includePaths` | Partially | The specific file (or files) that need to be detected as changed for the `condition` to apply. This can be set as specific files or wildcards that match multiple files in the specific directories. <br/><br/> Translated into a script that will review the changed files through git. This means that the step itself will actually run and will be marked as passed, which may not be what you want or need. <br/><br/> You may want to consider utilizing the [monorepo-diff-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/) and watching for specific folders and files and uploading the resulting [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) upon diff detection. |
-| `pipelines.<start-condition>.stage.name` | Yes | The name of the Bitbucket pipeline stage. Transitioned to the `group` label of the corresponding Buildkite [group step](/docs/pipelines/configure/step-types/group-step). |
-| `pipelines.<start-condition>.stage.steps` | Yes | Individual step configuration for a Bitbucket pipeline stage. See configuration options in this section (`pipelines.default.step.<property>`) for the supported and unsupported properties. |
-| `pipelines.<start-condition>.stage.trigger` | Yes | The configuration setting for running of a Bitbucket pipeline stage manually or automatically (the default setting). For `manual` triggers, an [input step](/docs/pipelines/configure/step-types/input-step) is inserted into the generated Buildkite pipeline's [group step](/docs/pipelines/configure/step-types/group-step) before the specified `steps` of this stage. The explicit dependencies with `depends_on` are set between the input step and the following steps to ensure manual processing is required for these to run. |
+<table>
+  <thead>
+    <tr>
+      <th style="width:45%">Key</th>
+      <th style="width:20%">Supported</th>
+      <th style="width:35%">Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.stage</code></td>
+      <td>Yes</td>
+      <td>The logical grouping of one or more Bitbucket pipeline steps. Bitbucket pipeline stages are translated into the corresponding Buildkite pipeline as a <a href="/docs/pipelines/configure/step-types/group-step">group step</a>.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.stage.condition.changeset.includePaths</code></td>
+      <td>Partially</td>
+      <td>The specific file (or files) that need to be detected as changed for the <code>condition</code> to apply. This can be set as specific files or wildcards that match multiple files in the specific directories. <br/><br/> Translated into a script that will review the changed files through git. This means that the step itself will actually run and will be marked as passed, which may not be what you want or need. <br/><br/> You may want to consider utilizing the <a href="https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/">monorepo-diff-buildkite-plugin</a> and watching for specific folders and files and uploading the resulting <a href="/docs/pipelines/configure/dynamic-pipelines">Dynamic pipelines</a> upon diff detection.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.stage.name</code></td>
+      <td>Yes</td>
+      <td>The name of the Bitbucket pipeline stage. Transitioned to the <code>group</code> label of the corresponding Buildkite <a href="/docs/pipelines/configure/step-types/group-step">group step</a>.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.stage.steps</code></td>
+      <td>Yes</td>
+      <td>Individual step configuration for a Bitbucket pipeline stage. See configuration options in this section (<code>pipelines.default.step.&lt;property&gt;</code>) for the supported and unsupported properties.</td>
+    </tr>
+    <tr>
+      <td><code>pipelines.&lt;start-condition&gt;.stage.trigger</code></td>
+      <td>Yes</td>
+      <td>The configuration setting for running of a Bitbucket pipeline stage manually or automatically (the default setting). For <code>manual</code> triggers, an <a href="/docs/pipelines/configure/step-types/input-step">input step</a> is inserted into the generated Buildkite pipeline's <a href="/docs/pipelines/configure/step-types/group-step">group step</a> before the specified <code>steps</code> of this stage. The explicit dependencies with <code>depends_on</code> are set between the input step and the following steps to ensure manual processing is required for these to run.</td>
+    </tr>
+  </tbody>
+</table>
+
 
 
 ### Variables
