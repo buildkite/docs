@@ -40,7 +40,7 @@ These types of notifications are available at the following levels.
   </tr>
   <tr>
     <td>Basecamp</td>
-    <td></td>
+    <td>Basecamp</td>
   </tr>
   <tr>
     <td>Webhook</td>
@@ -132,15 +132,31 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
+You can also add Basecamp notifications at the step level:
+
+```yaml
+steps:
+  - label: "Example Test"
+    command: "tests.sh"
+    notify:
+      - basecamp_campfire: "https://3.basecamp.com/1234567/integrations/qwertyuiop/buckets/1234567/chats/1234567/lines"
+```
+{: codeblock-file="pipeline.yml"}
+
 The `basecamp_campfire` attribute accepts a single URL as a string.
 
-Basecamp notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
+Build-level Basecamp notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
 
 * `build created`
 * `build started`
 * `build blocked`
 * `build finished`
 * `build skipped`
+
+Step-level Basecamp notifications happen at the following [events](/docs/apis/webhooks/pipelines#events):
+
+* `step.finished`
+* `step.failing`
 
 ## Slack channel and direct messages
 
