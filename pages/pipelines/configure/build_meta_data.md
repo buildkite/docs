@@ -100,7 +100,11 @@ Using meta-data to pre-populate fields in this way carries some considerations r
 
 Meta-data keys starting with `buildkite:` are reserved for special values provided by Buildkite. These may be generated on request.
 
+<!-- vale off -->
+
 ### buildkite:webhook
+
+<!-- vale on -->
 
 The special `buildkite:webhook` meta-data key can be used to get the body of the webhook which triggered the current build. For example, you can access the [GitHub](/docs/pipelines/source-control/github) push webhook payload in a command step:
 
