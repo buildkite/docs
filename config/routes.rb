@@ -194,7 +194,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/security/overview",                                 to: redirect("/docs/pipelines/security")
   get "/docs/pipelines/security-overview",                                 to: redirect("/docs/pipelines/security")
   get "/docs/pipelines/security/audit-log",                                to: redirect("/docs/platform/audit-log")
-  get "/docs/pipelines/security/managing-secrets",                         to: redirect("/pipelines/security/secrets/buildkite-secrets")
+  get "/docs/pipelines/security/managing-secrets",                         to: redirect("/docs/pipelines/security/secrets/managing")
   get "/docs/pipelines/skipping",                                          to: redirect("/docs/pipelines/configure/skipping")
   get "/docs/pipelines/step-reference",                                    to: redirect("/docs/pipelines/configure/step-types")
   get "/docs/pipelines/tags",                                              to: redirect("/docs/pipelines/configure/tags")

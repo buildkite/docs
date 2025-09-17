@@ -52,7 +52,7 @@ To update an existing Buildkite secret's value using the Buildkite interface:
 ### From within pipeline YAML
 
 > 📘 Minimum version requirement
-> To use Buildkite secrets in a job via pipeline YAML, version 3.106.0 or later of the `buildkite-agent` is required. Earlier versions of the Buildkite agent do not support this feature and jobs with secrets defined on their pipeline step will fail to start.
+> To use Buildkite secrets in a job via pipeline YAML, version 3.106.0 or later of the `buildkite-agent` is required. Earlier versions of the `buildkite-agent` do not support this feature and jobs with secrets defined on their pipeline step will fail to start.
 
 Once you've [created a secret](#create-a-secret), you can specify secrets in your pipeline YAML which will be injected into your job environment. Secrets can be specified for all steps in a build and per command step.
 
@@ -75,13 +75,13 @@ steps:
   - command: api_call.sh
     secrets:
       - API_ACCESS_TOKEN
-  ```
+```
+
+The value of the secret `API_ACCESS_TOKEN` will be retrieved when the job starts up, and injected into the job's environment variables as the value of the environment variable `API_ACCESS_TOKEN`. The environment variable will be available to all of the job's hooks, plugins and commands. If you need to limit the scope of secret exposure to a specific part of a job, you can use `buildkite-agent secret get` to retrieve the secret's value within the phase of the job the secret is required for.
 
 #### Custom environment variable names for secrets
 
-The value of the secret `API_ACCESS_TOKEN` will be retrieved when the job starts up, and injected into the job's environment variables as the value of the environment variable `API_ACCESS_TOKEN`.
-
-To use a custom environment variable name, you can specify `secrets` as a hash with a environment variable name as the key and the secret name as the value.
+To use a custom environment variable name, you can specify `secrets` as a hash with a environment variable name as the key and the secret's key as the value.
 
 ```yaml
   - command: do_something.sh
@@ -90,7 +90,7 @@ To use a custom environment variable name, you can specify `secrets` as a hash w
       APP_ACCESS_TOKEN: API_ACCESS_TOKEN
 ```
 
-This will inject the value of the secret API_ACCESS_TOKEN into the environment variable APP_ACCESS_TOKEN. Custom environment variable names for secrets cannot start with `BUILDKITE` (with the exception of `BUILDKITE_API_TOKEN`).
+This will inject the value of the secret API_ACCESS_TOKEN into the environment variable APP_ACCESS_TOKEN. Custom environment variable names for secrets cannot start with `BUILDKITE` or `BK` (with the exception of `BUILDKITE_API_TOKEN`).
 
 ### From a build script or hook
 
@@ -131,19 +131,11 @@ Buildkite secrets are designed, with the following controls in place:
 - Secrets are encrypted in transit using TLS.
 - Secrets are always stored encrypted at rest.
 - All access to the secrets are logged.
-<<<<<<< HEAD
 - Employee access to secrets is strictly limited and audited.
 
 ## Best practices
 
-Buildkite secrets is not a zero-knowledge system, whereby Buildkite owns, stores, and manages the keys used for encrypting the secrets stored in the service at rest and in transit. You should implement additional controls to manage the lifecycle of secrets stored within Buildkite secrets, in addition to any monitoring capability you may require in line with your risk appetite. For example:
-=======
-- Buildkite employee access to secrets is strictly limited and audited.
-
-## Best practices
-
 Buildkite secrets are stored by Buildkite, and Buildkite manages the keys used to encrypt and decrypt these secrets stored in its secrets management service, both at rest and in transit. You should implement additional controls to manage the lifecycle of secrets stored within Buildkite secrets, in addition to any monitoring capability you may require. For example:
->>>>>>> 552f5ff11 (Update org secret docs to reflect plans for improved cluster secrets)
 
 - All credentials should be rotated regularly.
 - Track the secrets stored in Buildkite secrets within your own asset management processes.

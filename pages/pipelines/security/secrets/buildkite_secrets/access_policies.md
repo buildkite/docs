@@ -10,7 +10,7 @@ During a build, the policy is evaluated against the build's context. If no rule 
 
 ## Policy schema
 
-Policies are defined as a list of policy rules in YAML. Each _policy rule_ (beginning with a `-`) specifies one or more _conditions_ that must be met for a build to access the Buildkite organization secret. Each policy rule must specify one or more claims. Claims can be a single item or lists of strings.
+Policies are defined as a list of policy rules in YAML. Each _policy rule_ (beginning with a `-`) specifies one or more _conditions_ that must be met for a build to access the Buildkite cluster secret. Each policy rule must specify one or more claims. Claims can be a single item or lists of strings.
 
 ### First-party claims
 
@@ -77,17 +77,13 @@ Third-party claims are ones whose values are provided by users or third-party to
 The following example access policy contains three rules with different levels of access control. The secret is accessible only to builds that match all specified conditions for one or more of the rules.
 
 ```yaml
-- cluster_id: "550e8400-e29b-41d4-a716-446655440000"
-  pipeline_slug: "my-pipeline"
+- pipeline_slug: "my-pipeline"
   build_branch: "main"
   build_creator: "user@example.com"
   build_source: "webhook"
   build_creator_team: "123e4567-e89b-12d3-a456-426614174000"
 
-- cluster_id:
-    - "550e8400-e29b-41d4-a716-446655440001"
-    - "550e8400-e29b-41d4-a716-446655440002"
-  pipeline_slug:
+- pipeline_slug:
     - "frontend-pipeline"
     - "backend-pipeline"
   build_branch:
@@ -124,8 +120,7 @@ Access policies can be tailored to fit a wide range of security and workflow req
 #### Only allow a chosen team to deploy from the main branch
 
 ```yaml
-- cluster_id: "b8a1c2d3-4e5f-6789-abcd-ef0123456789"
-  build_branch: "main"
+- build_branch: "main"
   build_creator_team: "e2b7c3f4-1a5d-4e6b-9c8d-2f3a4b5c6d7e"
 ```
 
@@ -142,4 +137,3 @@ During a build, the access policy is evaluated against the build's context. If a
 1. In the **Agent access** section, select **Restrict access to agents matching a policy**.
 1. Add your policy to the **Policy** field in YAML format.
 1. Select **Update agent access** to save your changes.
-
