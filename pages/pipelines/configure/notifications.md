@@ -19,6 +19,8 @@ Available notification types:
 
 * [Email](#email): Send an email to the specified email address.
 * [Basecamp](#basecamp-campfire-message): Post a message to a Basecamp Campfire. Requires a Basecamp Chatbot to be configured in your Basecamp organization.
+* [GitHub Commit Status](#github-commit-status): Create a GitHub Commit Status.
+* [GitHub Check](#github-check): Create a GitHub Check Status.
 * [Slack](#slack-channel-and-direct-messages): Post a message to the specified Slack Channel. Requires a Slack Workspace or individual Slack notification services to be enabled for each channel.
 * [Webhooks](#webhooks): Send a notification to the specified webhook URL.
 * [PagerDuty](#pagerduty-change-events)
@@ -49,6 +51,14 @@ These types of notifications are available at the following levels.
   <tr>
     <td>PagerDuty</td>
     <td></td>
+  </tr>
+  <tr>
+    <td>GitHub Commit Status</td>
+    <td>GitHub Commit Status</td>
+  </tr>
+  <tr>
+    <td>GitHub Check</td>
+    <td>GitHub Check</td>
   </tr>
 </table>
 
@@ -157,6 +167,173 @@ Step-level Basecamp notifications happen at the following [events](/docs/apis/we
 
 * `step.finished`
 * `step.failing`
+
+## GitHub Commit Status
+
+Pipelines using [a GitHub repository](/docs/pipelines/source_control/github) have [GitHub Commit Status](https://docs.github.com/en/rest/commits/statuses) integration built-in, but you can add custom commit statuses using notifications.
+
+GitHub Commit Statuses appear as simple pass/fail indicators on commits and pull requests. For more advanced features like detailed output and annotations, consider using [GitHub Checks](#github-check) instead.
+
+> 📘 Requirements
+> - GitHub notifications require a full 40-character commit SHA. Builds with short SHAs or `HEAD` references will not trigger notifications until the commit SHA is resolved.
+> - For more information on customizing commit statuses, see [Customizing commit statuses](/docs/pipelines/source_control/github#customizing-commit-statuses) in the GitHub integration documentation.
+
+Add a GitHub Commit Status notification to your pipeline using the `github_commit_status` attribute of the `notify` YAML block:
+
+```yaml
+steps:
+  - command: "tests.sh"
+
+notify:
+  - github_commit_status:
+      context: "buildkite/test"
+```
+{: codeblock-file="pipeline.yml"}
+
+You can also add GitHub Commit Status notifications at the step level:
+
+```yaml
+steps:
+  - label: "Tests"
+    command: "tests.sh"
+    notify:
+      - github_commit_status:
+          context: "buildkite/tests"
+```
+{: codeblock-file="pipeline.yml"}
+
+### GitHub Commit Status attributes
+
+The `github_commit_status` attribute supports the following options:
+
+`context` (optional)
+: A string label to differentiate this status from other statuses. Defaults to `buildkite/[pipeline-slug]` for build-level notifications. For step-level notifications, the context is automatically generated based on the step.
+
+`blocked_builds_as_pending` (optional)
+: A boolean value that determines how blocked builds are reported. When `true`, blocked builds are reported as "pending". When `false`, blocked builds are reported as "success". Defaults to `false`.
+
+Build-level GitHub Commit Status notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
+
+* `build.failing`
+* `build.finished`
+
+Step-level GitHub Commit Status notifications happen at the following [events](/docs/apis/webhooks/pipelines#events):
+
+* `step.failing`
+* `step.finished`
+
+## GitHub Check
+
+Create a [GitHub Check](https://docs.github.com/en/rest/checks) to provide detailed feedback on builds and steps with rich formatting, annotations, and summaries. This requires the pipeline is configured to use [a GitHub repository](/docs/pipelines/source_control/github) with the GitHub App integration.
+
+GitHub Checks provide richer status information than commit statuses, including the ability to display detailed output, annotations, and custom formatting. Unlike commit statuses, GitHub Checks can show step-by-step progress, include formatted text and links, and provide inline code annotations.
+
+> 📘 Requirements
+> - GitHub Checks require the GitHub App integration. If you're using OAuth-based GitHub integration, use [GitHub Commit Status](#github-commit-status) notifications instead.
+> - GitHub notifications require a full 40-character commit SHA. Builds with short SHAs or `HEAD` references will not trigger notifications until the commit SHA is resolved.
+
+Add a GitHub Check notification to your pipeline using the `github_check` attribute of the `notify` YAML block:
+
+```yaml
+steps:
+  - command: "tests.sh"
+
+notify:
+  - github_check:
+      name: "Test Suite"
+```
+{: codeblock-file="pipeline.yml"}
+
+You can also add GitHub Check notifications at the step level:
+
+```yaml
+steps:
+  - label: "Tests"
+    command: "tests.sh"
+    notify:
+      - github_check:
+          name: "Unit Tests"
+          output:
+            title: "Test Results"
+            summary: "Detailed test execution summary"
+```
+{: codeblock-file="pipeline.yml"}
+
+### GitHub Check attributes
+
+The `github_check` attribute supports the following options:
+
+`name` (optional)
+: The name of the check. Defaults to the pipeline name for build-level notifications, or auto-generated based on the step label/key for step-level notifications.
+
+`output` (optional)
+: An object containing detailed output information:
+  - `title`: A short title for the check output
+  - `summary`: A summary of the check results
+  - `text`: Detailed information about the check results (supports Markdown)
+  - `annotations`: An array of annotation objects for inline code comments
+
+### GitHub Check annotations
+
+For step-level notifications, you can include annotations that appear as inline comments on specific lines of code in pull requests:
+
+```yaml
+steps:
+  - label: "Lint"
+    command: "lint.sh"
+    notify:
+      - github_check:
+          name: "Code Linting"
+          output:
+            annotations:
+              - path: "src/main.js"
+                start_line: 15
+                end_line: 15
+                annotation_level: "warning"
+                message: "Missing semicolon"
+```
+{: codeblock-file="pipeline.yml"}
+
+Each annotation object supports:
+
+- `path`: The file path relative to the repository root
+- `start_line`: The line number where the annotation starts
+- `end_line`: The line number where the annotation ends
+- `annotation_level`: The level of the annotation (`notice`, `warning`, or `failure`)
+- `message`: The annotation message
+- `start_column` (optional): The column number where the annotation starts
+- `end_column` (optional): The column number where the annotation ends
+
+### Dynamic GitHub Check updates
+
+For step-level GitHub Check notifications, you can dynamically update the check output during step execution using the `buildkite-agent step update` command:
+
+```bash
+# Update the check title
+buildkite-agent step update "notify.github_check.output.title" "Updated Title"
+
+# Update the check summary
+buildkite-agent step update "notify.github_check.output.summary" "Build completed successfully"
+
+# Update the check text with detailed results
+buildkite-agent step update "notify.github_check.output.text" "## Test Results\n\n✅ All tests passed"
+
+# Add annotations (append mode)
+buildkite-agent step update "notify.github_check.output.annotations" '[{"path":"src/main.js","start_line":10,"end_line":10,"annotation_level":"warning","message":"Consider refactoring this function"}]' --append
+```
+{: codeblock-file=".buildkite/hooks/post-command"}
+
+This is particularly useful for displaying test results, code analysis findings, or other dynamic content that becomes available during the build process.
+
+Build-level GitHub Check notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
+
+* `build.finished`
+* `build.failing`
+
+Step-level GitHub Check notifications happen at the following [events](/docs/apis/webhooks/pipelines#events):
+
+* `step.failing`
+* `step.finished`
 
 ## Slack channel and direct messages
 
