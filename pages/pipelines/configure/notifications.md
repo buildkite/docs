@@ -17,13 +17,13 @@ notify:
 
 Available notification types:
 
-* [Email](#email): Send an email to the specified email address.
 * [Basecamp](#basecamp-campfire-message): Post a message to a Basecamp Campfire. Requires a Basecamp Chatbot to be configured in your Basecamp organization.
+* [Email](#email): Send an email to the specified email address.
 * [GitHub Commit Status](#github-commit-status): Create a GitHub Commit Status.
 * [GitHub Check](#github-check): Create a GitHub Check Status.
+* [PagerDuty](#pagerduty-change-events)
 * [Slack](#slack-channel-and-direct-messages): Post a message to the specified Slack Channel. Requires a Slack Workspace or individual Slack notification services to be enabled for each channel.
 * [Webhooks](#webhooks): Send a notification to the specified webhook URL.
-* [PagerDuty](#pagerduty-change-events)
 
 These types of notifications are available at the following levels.
 
@@ -33,32 +33,32 @@ These types of notifications are available at the following levels.
 </thead>
 <tbody>
   <tr>
-    <td>Slack</td>
-    <td>Slack</td>
+    <td>Basecamp</td>
+    <td>Basecamp</td>
   </tr>
   <tr>
     <td>Email</td>
     <td></td>
   </tr>
   <tr>
-    <td>Basecamp</td>
-    <td>Basecamp</td>
+    <td>GitHub Commit Status</td>
+    <td>GitHub Commit Status</td>
   </tr>
   <tr>
-    <td>Webhook</td>
-    <td></td>
+    <td>GitHub Check</td>
+    <td>GitHub Check</td>
   </tr>
   <tr>
     <td>PagerDuty</td>
     <td></td>
   </tr>
   <tr>
-    <td>GitHub Commit Status</td>
-    <td>GitHub Commit Status</td>
+    <td>Slack</td>
+    <td>Slack</td>
   </tr>
   <tr>
-    <td>GitHub Check</td>
-    <td>GitHub Check</td>
+    <td>Webhook</td>
+    <td></td>
   </tr>
 </table>
 
@@ -85,41 +85,6 @@ See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-sy
 
 > 🚧
 > To trigger conditional notifications to a Slack channel, you will first need to configure [Conditional notifications for Slack](/docs/pipelines/integrations/notifications/slack#conditional-notifications).
-
-## Email
-
-Add an email notification to your pipeline using the `email` attribute of the `notify` YAML block:
-
-```yaml
-notify:
-  - email: "dev@acmeinc.com"
-```
-{: codeblock-file="pipeline.yml"}
-
-You can only send email notifications on entire pipeline [events](/docs/apis/webhooks/pipelines#events), specifically upon `build.failing` and `build.finished`.
-
-Restrict notifications to finished builds by adding a [conditional](#conditional-notifications):
-
-```yaml
-notify:
-  - email: "dev@acmeinc.com"
-    if: build.state != "failing"
-```
-{: codeblock-file="pipeline.yml"}
-
-
-The `email` attribute accepts a single email address as a string. To send notifications to more than one address, add each address as a separate email notification attribute:
-
-```yaml
-steps:
-  - command: "tests.sh"
-
-notify:
-  - email: "dev@acmeinc.com"
-  - email: "sre@acmeinc.com"
-  - email: "qa@acmeinc.com"
-```
-{: codeblock-file="pipeline.yml"}
 
 ## Basecamp Campfire message
 
@@ -167,6 +132,41 @@ Step-level Basecamp notifications happen at the following [events](/docs/apis/we
 
 * `step.finished`
 * `step.failing`
+
+## Email
+
+Add an email notification to your pipeline using the `email` attribute of the `notify` YAML block:
+
+```yaml
+notify:
+  - email: "dev@acmeinc.com"
+```
+{: codeblock-file="pipeline.yml"}
+
+You can only send email notifications on entire pipeline [events](/docs/apis/webhooks/pipelines#events), specifically upon `build.failing` and `build.finished`.
+
+Restrict notifications to finished builds by adding a [conditional](#conditional-notifications):
+
+```yaml
+notify:
+  - email: "dev@acmeinc.com"
+    if: build.state != "failing"
+```
+{: codeblock-file="pipeline.yml"}
+
+
+The `email` attribute accepts a single email address as a string. To send notifications to more than one address, add each address as a separate email notification attribute:
+
+```yaml
+steps:
+  - command: "tests.sh"
+
+notify:
+  - email: "dev@acmeinc.com"
+  - email: "sre@acmeinc.com"
+  - email: "qa@acmeinc.com"
+```
+{: codeblock-file="pipeline.yml"}
 
 ## GitHub Commit Status
 
@@ -334,6 +334,35 @@ Step-level GitHub Check notifications happen at the following [events](/docs/api
 
 * `step.failing`
 * `step.finished`
+
+## PagerDuty change events
+
+If you've set up a [PagerDuty integration](/docs/pipelines/integrations/notifications/pagerduty) you can send change events from your pipeline using the `pagerduty_change_event` attribute of the `notify` YAML block:
+
+```yaml
+steps:
+  - command: "tests.sh"
+
+notify:
+  - pagerduty_change_event: "636d22Yourc0418Key3b49eee3e8"
+```
+{: codeblock-file="pipeline.yml"}
+
+Email notifications happen at the following [event](/docs/apis/webhooks/pipelines#events):
+
+* `build finished`
+
+Restrict notifications to passed builds by adding a [conditional](#conditional-notifications):
+
+```yaml
+steps:
+  - command: "tests.sh"
+
+notify:
+  - pagerduty_change_event: "636d22Yourc0418Key3b49eee3e8"
+    if: "build.state == 'passed'"
+```
+{: codeblock-file="pipeline.yml"}
 
 ## Slack channel and direct messages
 
@@ -758,35 +787,6 @@ Webhook notifications happen at the following [events](/docs/apis/webhooks/pipel
 * `build started`
 * `build blocked`
 * `build finished`
-
-## PagerDuty change events
-
-If you've set up a [PagerDuty integration](/docs/pipelines/integrations/notifications/pagerduty) you can send change events from your pipeline using the `pagerduty_change_event` attribute of the `notify` YAML block:
-
-```yaml
-steps:
-  - command: "tests.sh"
-
-notify:
-  - pagerduty_change_event: "636d22Yourc0418Key3b49eee3e8"
-```
-{: codeblock-file="pipeline.yml"}
-
-Email notifications happen at the following [event](/docs/apis/webhooks/pipelines#events):
-
-* `build finished`
-
-Restrict notifications to passed builds by adding a [conditional](#conditional-notifications):
-
-```yaml
-steps:
-  - command: "tests.sh"
-
-notify:
-  - pagerduty_change_event: "636d22Yourc0418Key3b49eee3e8"
-    if: "build.state == 'passed'"
-```
-{: codeblock-file="pipeline.yml"}
 
 ## Build states
 
