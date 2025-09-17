@@ -135,7 +135,8 @@ During a build, the access policy is evaluated against the build's context. If a
 
 ## Add an access policy
 
-1. Select **Secrets** in the global navigation to access the organization **Secrets** page.
+1. Select **Agents** in the global navigation to access the **Clusters** page.
+1. Select the cluster in which to create the new Buildkite cluster secret.
 1. Select the secret you want to secure with an access policy.
 1. Select the secret's **Access** tab.
 1. In the **Agent access** section, select **Restrict access to agents matching a policy**.
