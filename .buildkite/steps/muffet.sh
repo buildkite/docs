@@ -28,6 +28,10 @@ set +e
   --exclude="https://api.buildkite.com/" \
   --exclude="https://buildkite.com/my-organization/" \
   --exclude="https://github.com/my-org/" \
+  --exclude="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" \
+  --exclude="https://github.com/marketplace" \
+  --exclude="http://www.shellcheck.net" \
+  --exclude="https://webtask.io/" \
   --exclude="/sample.svg" \
   --header="User-Agent: Muffet/$(muffet --version)" \
   --ignore-fragments \
@@ -83,7 +87,7 @@ else
     if [[ $(jq -r 'map(select(.links[].error != "429")) | length == 0' muffet-results.json) == true ]]; then
         echo >> annotation.md
         echo >> annotation.md
-        echo "All errors are Too Many Requests (429), we were likely just blocked for checking too many times. Confirm the links manually as this build will pass and ignore these failures." >> annotation.md
+        echo "All remaining errors detected by muffet are 'Too Many Requests' (429), which the target link blocks as muffet uses a bot account to check these links. Confirm the links manually as this build will pass and ignore these failures." >> annotation.md
         muffet_exit_code=0
     fi
 
