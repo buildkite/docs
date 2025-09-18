@@ -81,7 +81,7 @@ pages = JSON.load(muffet_output_json)
 
 pages.each do |page|
   page['links'].each do |link|
-    unless link.has?('error')
+    unless link.has_key?('error')
       next
     end
 
