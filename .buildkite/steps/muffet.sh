@@ -27,6 +27,7 @@ set +e
 # Add a user agent so less sites respond with 403 or 429 statuses
 
 /muffet http://app:3000/docs \
+  --exclude="https://buildkite.com/docs" \
   --exclude="https://api.buildkite.com/" \
   --exclude="https://buildkite.com/%7E/bazel-monorepo-example" \
   --exclude="https://buildkite.com/my-organization/" \
