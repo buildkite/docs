@@ -21,33 +21,56 @@ To sum it up:
 
 ## Buildkite agent controls
 
-Before the agents in your infrastructure pick start picking up jobs, the platform team (team with [Buildkite organization administrator permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions)) decides how much CPU, RAM, other resources the agents can have.
+Before the agents in your infrastructure pick start picking up jobs, the platform team (team with [Buildkite organization administrator permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions)) decides how much CPU, RAM, other resources the agents can have, regardless of whether the Builkite Agents will be [hosted](/docs/pipelines/hosted-agents), [self-hosted](/docs/pipelines/architecture#self-hosted-hybrid-architecture) (running locally), or in the cloud ([AWS](/docs/agent/v3/aws), [GCP](/docs/agent/v3/gcloud), [Kubernetes](/docs/agent/v3/agent-stack-k8s)).
 
 ## Pipeline templates as platform control tool
 
-Controls and templates can be used in the process of running the pipelines. Initially, someone has to create and be responsible for the pipeline YAML and the [pipeline templates](/docs/pipelines/governance/templates). This is what the platform team is responsible for.
+Controls and templates can be used in the process of running the pipelines. Initially, the platform team has to create and be responsible for the pipeline YAML and the [pipeline templates](/docs/pipelines/governance/templates).
+
+> 📘 Enterprise feature
+> Pipeline templates are only available on an [Enterprise](https://buildkite.com/pricing) plan.
+
+Pipeline templates provide platform teams with a powerful mechanism to enforce standardization and security across all CI/CD pipelines in your organization. By creating centrally-managed templates that define approved step configurations, security scanning requirements, deployment patterns, and compliance checks, platform teams can ensure that all development teams follow established best practices without needing to manually review every pipeline.
+
+From an operational perspective, platform teams should leverage pipeline templates to embed infrastructure and security policies directly into the CI/CD workflow. Templates can include mandatory steps for vulnerability scanning, artifact signing, infrastructure-as-code validation, and deployment approvals, ensuring that every build follows your organization's security and compliance requirements.
+
+The ability to update templates centrally means that policy changes or security improvements can be rolled out instantly across all pipelines using that template, eliminating the need to coordinate updates across multiple development teams. Additionally, platform teams can create different template variants for different environments or application types (microservices, frontend applications, data pipelines) while maintaining consistent underlying security and infrastructure patterns, providing both flexibility and control over your organization's build and deployment processes.
 
 ### Clusters and queues
 
-Use [clusters](/docs/pipelines/clusters) for workload separation. You can organize your infrastructure using Buildkite clusters to:
+Use [clusters](/docs/pipelines/clusters) for workload separation and enhanced infrastructure management.Buildkite clusters create logical boundaries between different parts of your build infrastructure, enhancing security, discoverability, and manageability across your organization.
+
+You can organize your infrastructure using Buildkite clusters to:
 
 - Separate different environments (staging, production)
 - Isolate different teams or projects
 - Apply different security policies per cluster
 - Manage costs more granularly
+- Enable teams to self-manage their Buildkite agent pools
+- Provide easily accessible queue metrics and operational insights
 
-Only run your builds in the queues you define, in the cluster.
+See [Clusters and queues for more details](/docs/pipelines/clusters#clusters-and-queues-best-practices).
 
-Use different clusters for different workloads.
+#### Cluster structure recommendations
 
-Suggested common queue patterns:
+In small to medium organizations, a single default cluster will often suffice. As your organization grows, consider structuring clusters based on team or department ownership:
 
-- `default` - standard CI workloads
-- `deploy` - production deployment jobs
-- `security` - security scanning and compliance checks
-- `performance` - resource-intensive performance tests
+- **Product lines:** create individual clusters for each product when managing multiple products.
+- **Type of work:** separate open source, infrastructure, frontend, and backend workloads.
+- **Security boundaries:** isolate sensitive workloads that require different compliance or security policies.
 
-See [Clusters and queues for more details](/docs/pipelines/clusters#clusters-and-queues-best-practices)
+Keep in mind that pipelines associated with one cluster cannot trigger or access artifacts from pipelines in another cluster unless you create explicit rules to allow cross-cluster interactions.
+
+#### Queue structure recommendations
+
+Structure your queues based on infrastructure characteristics to enable efficient scaling and resource management:
+
+- Architecture: `x86`, `arm64`, `apple-silicon`.
+- Agent size: `small`, `medium`, `large`, `extra-large`.
+- Machine type: `macos`, `linux`, `windows`, `gpu`.
+- Workload type: `default`, `deploy`, `security`, `performance`.
+
+An effective naming convention combines these attributes, such as `small_mac_silicon` or `large_linux_deploy`. This approach allows you to scale similar agents together while providing clear reporting and resource allocation.
 
 ## Platform team controls
 

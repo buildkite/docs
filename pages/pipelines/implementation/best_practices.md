@@ -209,6 +209,3 @@ Avoid cramming unrelated tasks into one step:
 
 Buildkite pipelines are most effective when treated as living systems: modular, observable, secure, and developer-friendly. Invest in clarity, speed, and automation from the start, and continuously refine based on developer feedback and scaling needs.
 
-## Next steps
-
-Next relevant key sections in the documentation to read (to do).
