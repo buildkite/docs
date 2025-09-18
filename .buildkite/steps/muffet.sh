@@ -35,6 +35,7 @@ set +e
   --exclude="https://github.com/buildkite/docs/" \
   --exclude="https://github.com/marketplace" \
   --exclude="https://github.com/my-org/" \
+  --exclude="https://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" \
   --exclude="https://webtask.io/" \
   --exclude="/sample.svg" \
   --ignore-fragments \
@@ -81,6 +82,8 @@ else
     {
         echo "## Muffet found broken links"
         echo
+        echo "First, resolve links with statuses other than 429 or 403 (especially, 404)."
+        echo
     } >> annotation.md
 
     < muffet-results.json jq -r "$jq_query" >> annotation.md
@@ -91,6 +94,7 @@ else
     if [[ $(jq -r 'map(select( (.links[].error != "429") and ( .links[].error != "403" ))) | length == 0' muffet-results.json) == true ]]; then
         echo >> annotation.md
         echo >> annotation.md
+        echo
         echo "All remaining errors detected by muffet (above) are either 'Too Many Requests' (429) or 'Forbidden' (403) pages that should actually be accessible when selected by a human.<br/><br/>" >> annotation.md
         echo "These errors usually occur when the target site/page either blocks muffet's link check because muffet uses a bot account to do this, and/or the site/page has authentication implemented.<br/><br/>" >> annotation.md
         echo "Confirm these links manually (especially 403s for pages that indicate 'Forbidden', which is a genuine failure) as this build will pass and ignore these returned page statuses, including ones that are genuine failures." >> annotation.md
