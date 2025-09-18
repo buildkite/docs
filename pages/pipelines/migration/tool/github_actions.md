@@ -17,7 +17,7 @@ To start converting your GitHub Actions pipelines to the Buildkite format:
 1. Click **Convert**.
 1. See the converted pipeline configuration on the **Buildkite Pipeline** side of the tool.
 
-For example, you would like to convert the following GitHub Actions pipeline configuration:
+For example, if you would like to convert the following GitHub Actions pipeline configuration:
 
 ```yml
 name: CI
@@ -78,7 +78,7 @@ You might need to adjust the syntax of the resulting converted output to make it
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
-| `concurrency` | No | [Buildkite concurrency groups](/docs/pipelines/controlling-concurrency#concurrency-groups) don't apply to whole pipelines but rather to individual steps so there is no direct translation of this configuration. Refer to the support of the job-level configuration for more information: [`jobs.<id>.concurrency`](#jobs). |
+| `concurrency` | No | [Buildkite concurrency groups](/docs/pipelines/controlling-concurrency#concurrency-groups) don't apply to whole pipelines but rather to individual steps, so there is no direct translation of this configuration. Refer to the support of the job-level configuration for more information: [`jobs.<id>.concurrency`](#jobs). |
 
 ## Defaults
 
@@ -90,43 +90,43 @@ You might need to adjust the syntax of the resulting converted output to make it
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
-| `env` | Yes | Environment variables that are defined at the top of a workflow will be transition to [build level](/docs/pipelines/environment-variables#environment-variable-precedence) environment variables in the generated Buildkite pipeline |
+| `env` | Yes | Environment variables that are defined at the top of a workflow will be translated to [build-level environment variables](/docs/pipelines/environment-variables#environment-variable-precedence) in the generated Buildkite pipeline |
 
 ## Jobs
 
 > 📘
-> When Buildkite builds are run, each created command step inside the pipeline is ran as a [job](/docs/pipelines/configure/defining-steps#job-states) that will be distributed and assigned to the matching agents meeting their specific queue and tag [targeting](/docs/pipelines/configure/defining-steps#targeting-specific-agents). Each job is run within its own separate environment, with potentially different environment variables (for example, those defined at the [step](/docs/pipelines/configure/step-types/command-step#command-step-attributes) level) and is not guaranteed to run on the same agent depending on targeting rules specified and the agent fleet setup.
+> When Buildkite builds are run, each created command step inside the pipeline is ran as a [job](/docs/pipelines/configure/defining-steps#job-states) that will be distributed and assigned to the matching agents meeting their specific queue and tag [targeting](/docs/pipelines/configure/defining-steps#targeting-specific-agents). Each job is run within its own separate environment, with potentially different environment variables (for example, those defined at the [step](/docs/pipelines/configure/step-types/command-step#command-step-attributes) level) and is not guaranteed to run on the same agent depending on targeting rules and the agent fleet setup.
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
-| `jobs.<id>.concurrency` | Partially | The `group` name inside a `concurrency` definition inside of a job maps to the `concurrency_group` [key](/docs/pipelines/controlling-concurrency#concurrency-groups) available within Buildkite.<br/><br/>The `cancel-in-progress` optional value maps to the Buildkite pipeline setting of [Cancel Intermediate Builds](/docs/pipelines/skipping#cancel-running-intermediate-builds).<br/><br/>Buildkite Pipelines also allow an upper limit on how many jobs are created through a single step definition with the `concurrency` key: which is set as `1` by default (there isn't a translatable key within a GitHub Action workflow). |
-| `jobs.<id>.env` | Yes | Environment variables defined within the context of each of a workflow's `jobs` are transitioned to [step level](/docs/pipelines/environment-variables#runtime-variable-interpolation) environment variables. |
+| `jobs.<id>.concurrency` | Partially | The `group` name inside a `concurrency` definition inside of a job maps to the `concurrency_group` [key](/docs/pipelines/controlling-concurrency#concurrency-groups) available within Buildkite.<br/><br/>The `cancel-in-progress` optional value maps to the Buildkite pipeline setting of [Cancel Intermediate Builds](/docs/pipelines/skipping#cancel-running-intermediate-builds).<br/><br/>Buildkite Pipelines also allow setting an upper limit on how many jobs are created through a single step definition with the `concurrency` key which is set as `1` by default (there isn't a translatable couterpart to the "key" parameter within a GitHub Action workflow). |
+| `jobs.<id>.env` | Yes | Environment variables defined within the context of each of a workflow's `jobs` are translated to [step-level environment variables](/docs/pipelines/environment-variables#runtime-variable-interpolation). |
 | `jobs.<id>.runs-on` | Yes | This attribute is mapped to the agent targeting [tag](/docs/agent/v3/queues#targeting-a-queue) `runs-on`. Jobs that target custom `tag` names will have a `queue` target of `default`. |
 | `jobs.<id>.steps`| Yes | Steps that make up a particular action's `job`. |
 | `jobs.<id>.steps.env` | Yes | Environment variables that are defined at `step` level are translated as a variable definition within the `commands` of a [command step](/docs/pipelines/configure/step-types/command-step). |
 | `jobs.<id>.steps.run` | Yes | The commands (must be shorter than 21,000 characters) that make up a particular job. Each `run` is translated to a separate command inside of the output `commands` block of its generated Buildkite command step. |
-| `jobs.<id>.steps.strategy` | Yes | Allows for the conversion of a step's `strategy` (matrix) to create multiple jobs of a combination of values. |
+| `jobs.<id>.steps.strategy` | Yes | Allows for the conversion of a step's `strategy` (matrix) to create multiple jobs from a combination of values. |
 | `jobs.<id>.steps.strategy.matrix` | Yes | A `matrix` key inside of a step's `strategy` will be translated to a [Buildkite build matrix](/docs/pipelines/build-matrix). |
-| `jobs.<id>.steps.strategy.matrix.include` | Yes| Key-value pairs to add in the generated [matrix](/docs/pipelines/build-matrix)'s combinations. |
-| `jobs.<id>.steps.strategy.matrix.exclude`| Yes | Key-value pairs to exclude in the generated [matrix](/docs/pipelines/build-matrix)'s combinations (`skip`). |
-| `jobs.<id>.steps.uses` | No | `uses` defines a separate action to use within the context of a action's job. Currently isn't supported. |
+| `jobs.<id>.steps.strategy.matrix.include` | Yes| Key-value pairs to add to the generated [matrix](/docs/pipelines/build-matrix)'s combinations. |
+| `jobs.<id>.steps.strategy.matrix.exclude`| Yes | Key-value pairs to exclude from the generated [matrix](/docs/pipelines/build-matrix)'s combinations (`skip`). |
+| `jobs.<id>.steps.uses` | No | `uses` defines a separate action to use within the context of a GitHub Action's job. Currently isn't supported. |
 
 ## Name
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
-| `name` | No | The `name` key sets the name of the action as it will appear in the GitHub repository's **Actions** tab. When creating a Buildkite pipeline, its name is set through the UI when a pipeline is first created - and can be altered through the pipeline settings, or via the [REST](/docs/apis/rest-api/pipelines#update-a-pipeline) or [GraphQL](/docs/apis/graphql/schemas/input-object/pipelineupdateinput) APIs. |
+| `name` | No | The `name` key sets the name of the action as it will appear in the GitHub repository's **Actions** tab. When creating a Buildkite pipeline, its name is usually set through the UI when a pipeline is first created - and can be altered through the pipeline settings, or via the [REST](/docs/apis/rest-api/pipelines#update-a-pipeline) or [GraphQL](/docs/apis/graphql/schemas/input-object/pipelineupdateinput) APIs. |
 
 ## On
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
-| `on` | No | The `on` key defines the pipeline trigger in a GitHub Action workflow. In Buildkite pipelines, this is a UI setting. |
+| `on` | No | The `on` key defines the pipeline trigger in a GitHub Action workflow. In Buildkite Pipelines, this is a UI setting in **Pipeline Settings** (**GitHub Settings**). |
 
 ## Permissions
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
-| `permissions` | No | [API Access Tokens](/docs/apis/managing-api-tokens) can be used within the context of a pipelines' build to interact with various Buildkite resources such as pipelines, artifacts, users, test suites, and more. Each token has a specified [token scope](/docs/apis/managing-api-tokens#token-scopes) that applies to interactions with the [REST](/docs/apis/rest-api) API, and can be configured with permission to interact with Buildkite's [GraphQL](/docs/apis/graphql-api) API. The `permissions` key allows for the interaction with commit `statuses`. For Buildkite to publish commit statuses for builds based on commits and pull requests on pipeline builds, the [GitHub App](/docs/integrations/github#connect-your-buildkite-account-to-github-using-the-github-app) must be added to the respective GitHub organization for the statuses to appear based on a build's outcome. The GitHub App can be configured with access to all or a select number of repositories within a GitHub organization. |
+| `permissions` | No | [API Access Tokens](/docs/apis/managing-api-tokens) can be used within the context of a pipelines' build to interact with various Buildkite resources such as pipelines, artifacts, users, Test Suites, and more. Each token has a specified [token scope](/docs/apis/managing-api-tokens#token-scopes) that applies to interactions with the [REST](/docs/apis/rest-api) API, and can be configured with a permission to interact with Buildkite's [GraphQL](/docs/apis/graphql-api) API. The `permissions` key allows for the interaction with commit `statuses`. The [Buildkite GitHub App](/docs/integrations/github#connect-your-buildkite-account-to-github-using-the-github-app) must be added to the respective GitHub organization to allow Buildkite Pipelines to publish commit statuses for builds based on commits and pull requests on pipeline builds and for the statuses to appear based on a build's outcome. The GitHub App can be configured with access to all or a select number of repositories within a GitHub organization. |
 
 ## Run name
 

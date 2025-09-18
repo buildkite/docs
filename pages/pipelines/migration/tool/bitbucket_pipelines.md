@@ -15,7 +15,7 @@ To start converting your Bitbucket pipelines to the Buildkite format:
 1. Click **Convert**.
 1. See the converted pipeline configuration on the **Buildkite Pipeline** side of the tool.
 
-For example, you would like to convert the following Bitbucket pipeline configuration:
+For example, if you would like to convert the following Bitbucket pipeline configuration:
 
 ```yml
 image: node:18
@@ -66,10 +66,10 @@ You might need to adjust the syntax of the resulting converted output to make it
 | `definitions` | Partially | Customized definitions utilized in a Bitbucket pipeline. `caches` and `services` are supported for translation within Buildkite Migration tool. |
 | `definitions.caches` | Partially | Customized cache definitions that can be applied to specific Bitbucket pipeline steps - inclusive of folders, single file-cache, or multi-file cache. Targeted into specific steps with the `pipelines.default.step.caches.<name>` property, where the translation will utilize the [cache-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin/) that may require further setup and configuring around specific caching strategies. |
 | `definitions.caches.<name>` | Yes | A customized cache name applicable to one or more steps within a Bitbucket pipeline. |
-| `definitions.caches.<name>.path` | Yes | The directory path that is desired to be cached. |
-| `definitions.caches.<name>.key.files` | Partially | The list (one or more) files that are monitored for changes - and stored once the hash changes between file versions change. If multiple files are specified, then multiple cache-plugin definitions are set on the resulting Buildkite command step (so the `manifest` properties between each will be different). <br/><br/> Note this may cause issues if the same folder is being maintained by each cache definition! |
-| `definitions.pipeline` | Partially | Pipelines that are exported for re-use within repositories of the same workspace. A similar functionality exists within Buildkite and is called [Pipeline Templates](/docs/pipelines/templates). |
-| `definitions.services` | Partially | Defined Docker services that are applied within a Bitbucket pipeline. Services defined in a corresponding Bitbucket pipeline step using the `pipelines.default.step.services` property will have its configuration applied with the use of the [docker-compose-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/). <br/><br/> Generated configuration will need to be saved to a `compose.yaml` file within the repository, and the image utilized with the Buildkite command step as `app`. <br/><br/> Refer to the Bitbucket pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/databases-and-service-containers/) for more details on service containers and configuration references. <br/><br/> Authentication-based parameters will not be translated to the corresponding Buildkite pipeline if defined. |
+| `definitions.caches.<name>.path` | Yes | The path to a directory that needs to be cached. |
+| `definitions.caches.<name>.key.files` | Partially | The list (one or more) files that are monitored for changes - and stored once the hash changes between the change of file versions. If multiple files are specified, then multiple cache-plugin definitions are set on the resulting Buildkite Pipelines command step (so the `manifest` properties between each will be different). <br/><br/> Note that this may cause issues if the same folder is being maintained by each cache definition. |
+| `definitions.pipeline` | Partially | Pipelines that are exported for reuse within the repositories of the same workspace. A similar functionality exists within Buildkite Pipelines and is called [Pipeline Templates](/docs/pipelines/templates). |
+| `definitions.services` | Partially | Docker services that are defined and applied within a Bitbucket pipeline. Services defined in a corresponding Bitbucket pipeline step using the `pipelines.default.step.services` property will have this configuration applied with the use of the [docker-compose-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/). <br/><br/> The generated configuration will need to be saved to a `compose.yaml` file within the repository, and the image utilized by the Buildkite Pipelines command step as `app`. <br/><br/> Refer to the Bitbucket pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/databases-and-service-containers/) for more details on service containers and configuration references. <br/><br/> Authentication-based parameters will not be translated to the corresponding Buildkite pipeline even if defined. |
 
 ## Export
 
@@ -89,8 +89,8 @@ You might need to adjust the syntax of the resulting converted output to make it
 | Key | Supported | Notes |
 | --- | --- | --- |
 | `options` | Partially | Customized options utilized throughout a Bitbucket pipeline. |
-| `max-time`, `size`| Partially | These sub-properties are supported for translation within the Buildkite migration tool into the generated Buildkite command step's `timeout_in_minutes` and agent tag respectively. |
-| `docker` | No| This sub-property is not supported and will depend on the agent configuration that the corresponding Buildkite command step is being targeted to run said job has available. |
+| `max-time`, `size`| Partially | These sub-properties are supported for translation within the Buildkite migration tool into the generated Buildkite Pipelines command step's `timeout_in_minutes` and agent tag respectively. |
+| `docker` | No| This sub-property is not supported and will depend on the agent configuration the corresponding Buildkite Pipelines command step is being targeted to run said job has available. |
 
 Note that both supported properties in the Bitbucket pipeline step-level definition will have higher precedences than the two values set at `options` level. |
 
@@ -125,7 +125,7 @@ Note that both supported properties in the Bitbucket pipeline step-level definit
 
 | Key | Supported | Notes |
 | --- | --- | --- |
-| `pipelines.default` | Yes | Bitbucket pipeline configuration that does not meet a specific configuration. Additional details can be found on this pipeline type's [documentation](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Default) |
+| `pipelines.default` | Yes | Bitbucket pipeline configuration that does not meet a specific condition. Additional details can be found the Bitbucket Pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Default) |
 | `pipelines.default.parallel` | Yes | Parallel (concurrent step) configuration for default Bitbucket pipelines. See the available parallel [properties](#pipeline-properties-parallel) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel). |
 | `pipelines.default.stage` | Yes | Stage configuration for default Bitbucket pipelines. See the available stage [properties](#pipeline-properties-stage) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage).  |
 | `pipelines.default.step` | Yes | Individual step configuration for default Bitbucket pipelines. See the available step [properties](#pipeline-properties-step) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property). |
@@ -157,16 +157,16 @@ Note that both supported properties in the Bitbucket pipeline step-level definit
 
 > 📘
 > Each [starting pipeline condition](#pipeline-starting-conditions) in Bitbucket can support various pipeline properties like `parallel`, `step`, `stage`, `variables` and so on.
-> For information on each of these individual properties, refer to the reference within the Bitbucket Pipelines documentation for [parallel](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel), [step](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property), [stage](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage) and [variable](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Custom--manual--pipeline-variables) properties.
+> For information on each of these individual properties, refer to the Bitbucket Pipelines documentation for [parallel](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel), [step](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property), [stage](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage), and [variable](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Custom--manual--pipeline-variables) properties.
 >
-> Additionally, implementation of these pipeline properties can be enhanced with best practices by using [Dynamic Pipelines](/docs/pipelines/configure/dynamic-pipelines) to generate and upload pipeline configuration dynamically and using [conditionals](/docs/pipelines/configure/conditionals#conditionals-in-pipelines) at both pipeline level and step level to apply jobs only when certain conditions are met, and setting [trigger steps](/docs/pipelines/configure/step-types/trigger-step) with required attributes and environment variable configurations passed through to the triggered builds.
+> Additionally, implementation of these pipeline properties can be enhanced with best practices by using [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) to generate and upload pipeline configuration dynamically and using [conditionals](/docs/pipelines/configure/conditionals#conditionals-in-pipelines) at both pipeline level and step level to apply jobs only when certain conditions are met, and setting [trigger steps](/docs/pipelines/configure/step-types/trigger-step) with required attributes and environment variable configurations passed through to the triggered builds.
 
 ### Parallel
 
 | Key | Supported | Notes |
 | --- | --- | --- |
 | `pipelines.<start-condition>.parallel` | Yes | The grouping of multiple steps within a Bitbucket pipeline to be run concurrently. By default, Buildkite executes steps in parallel, unless [implicit or explicit dependencies](/docs/pipelines/dependencies) are set. Parallel Bitbucket pipeline steps are transitioned into a [group step](/docs/pipelines/configure/step-types/group-step) within the generated Buildkite pipeline without explicit dependencies. |
-| `pipelines.<start-condition>.parallel.fail-fast` | No | Whether a Bitbucket pipeline allows this parallel step to fail entirely if it fails (set as `true`), or allows failures (set as `false`). Consider using a combination of `soft_fail` and/or `cancel_on_build_failing` in the corresponding Buildkite command steps' [attributes](/docs/pipelines/configure/step-types/command-step#command-step-attributes) for a similar [approach](/docs/pipelines/configure/step-types/command-step#fast-fail-running-jobs). |
+| `pipelines.<start-condition>.parallel.fail-fast` | No | Whether a Bitbucket pipeline allows this parallel step to fail entirely if it fails (set as `true`), or allows failures (set as `false`). Consider using a combination of `soft_fail` and/or `cancel_on_build_failing` in the corresponding Buildkite Pipelines command steps' [attributes](/docs/pipelines/configure/step-types/command-step#command-step-attributes) for a similar [approach](/docs/pipelines/configure/step-types/command-step#fast-fail-running-jobs). |
 
 ### Step
 
@@ -182,12 +182,12 @@ Note that both supported properties in the Bitbucket pipeline step-level definit
     <tr>
       <td><code>pipelines.&lt;start-condition&gt;.step.after-script</code></td>
       <td>No</td>
-      <td>The actions that a Bitbucket pipeline will undertake after the commands in the <code>script</code> key are run. For similar behaviour in Buildkite, use a <a href="/docs/agent/v3/hooks#hook-locations-repository-hooks">repository-level</a> <code>pre-exit</code> hook running at the latter end of the <a href="/docs/agent/v3/hooks#job-lifecycle-hooks">job lifecycle</a>.</td>
+      <td>The actions that a Bitbucket pipeline will undertake after the commands in the <code>script</code> key are run. For similar behaviour in Buildkite Pipelines, use a <a href="/docs/agent/v3/hooks#hook-locations-repository-hooks">repository-level</a> <code>pre-exit</code> hook running at the latter end of the <a href="/docs/agent/v3/hooks#job-lifecycle-hooks">job lifecycle</a>.</td>
     </tr>
     <tr>
       <td><code>pipelines.&lt;start-condition&gt;.step.artifacts</code></td>
       <td>Partially</td>
-      <td>Build artifacts that will be required for steps later in the Bitbucket pipeline (by default, not obtained unless an explicit <code>buildkite-agent artifact download</code> <a href="/docs/agent/v3/cli-artifact#downloading-artifacts">command</a> is run beforehand within the generated Buildkite command step). Artifacts that are specified (whether one specific file, or multiple) will be set within the generated command step within the <code>artifact_paths</code> <a href="/docs/pipelines/configure/step-types/command-step">key</a>. Each file found matching (or via glob syntax) will be uploaded to Buildkite's <a href="/docs/agent/v3/cli-artifact">Artifact storage</a> that can be obtained in later steps.</td>
+      <td>Build artifacts that will be required for steps later in the Bitbucket pipeline (by default, not obtained unless an explicit <code>buildkite-agent artifact download</code> <a href="/docs/agent/v3/cli-artifact#downloading-artifacts">command</a> is run beforehand within the generated Buildkite Pipelines command step). Artifacts that are specified (whether one specific file, or multiple) will be set within the generated command step within the <code>artifact_paths</code> <a href="/docs/pipelines/configure/step-types/command-step">key</a>. Each file found matching (or via glob syntax) will be uploaded to Buildkite's <a href="/docs/agent/v3/cli-artifact">Artifact storage</a> that can be obtained in later steps.</td>
     </tr>
     <tr>
       <td><code>pipelines.&lt;start-condition&gt;.step.caches</code></td>
@@ -207,22 +207,22 @@ Note that both supported properties in the Bitbucket pipeline step-level definit
     <tr>
       <td><code>pipelines.&lt;start-condition&gt;.step.clone</code></td>
       <td>Partially</td>
-      <td>Clone options for a specific step of a Bitbucket pipeline. The majority of these options should be set directly on a Buildkite agent via <a href="/docs/agent/v3/configuration">configuration</a> of properties such as the clone flags (<code>git-clone-flags</code>, <code>git-clone-mirror-flags</code> if utilizing a Git mirror), fetch flags (<code>git-fetch-flags</code>) – or changing the entire checkout process in a customized <a href="/docs/plugins/writing">plugin</a> overriding the default agent <code>checkout</code> hook. Sparse checkout options are supported (with the <code>sparse-checkout</code> sub-property).</td>
+      <td>Clone options for a specific step of a Bitbucket pipeline. The majority of these options should be set directly on a Buildkite Agent via <a href="/docs/agent/v3/configuration">configuration</a> of properties such as the clone flags (<code>git-clone-flags</code>, <code>git-clone-mirror-flags</code> if utilizing a Git mirror), fetch flags (<code>git-fetch-flags</code>) – or changing the entire checkout process in a customized <a href="/docs/plugins/writing">plugin</a> overriding the default agent <code>checkout</code> hook. Sparse checkout options are supported (with the <code>sparse-checkout</code> sub-property).</td>
     </tr>
     <tr>
       <td><code>pipelines.&lt;start-condition&gt;.step.deployment</code></td>
       <td>No</td>
-      <td>The environment set for the Bitbucket Deployments dashboard. This has no translatable equivalent within Buildkite.</td>
+      <td>The environment set for the Bitbucket Deployments dashboard that has no translatable equivalent within Buildkite Pipelines.</td>
     </tr>
     <tr>
       <td><code>pipelines.&lt;start-condition&gt;.step.docker</code></td>
       <td>No</td>
-      <td>The availability of Docker in a specific Bitbucket pipeline step. This will depend on the agent configuration that the corresponding Buildkite command step is being targeted to run the job. Consider <a href="/docs/agent/v3/cli-start#tags">tagging</a> agents with <code>docker=true</code> to ensure Buildkite command steps requiring hosts with Docker installed and configured to accept and run specific jobs.</td>
+      <td>The availability of Docker in a specific Bitbucket pipeline step. This will depend on the agent configuration that the corresponding Buildkite command step is being targeted to run the job. Consider <a href="/docs/agent/v3/cli-start#tags">tagging</a> agents with <code>docker=true</code> to ensure Buildkite Pipelines command steps requiring hosts with Docker installed and configured to accept and run specific jobs.</td>
     </tr>
     <tr>
       <td><code>pipelines.&lt;start-condition&gt;.step.fail-fast</code></td>
       <td>No</td>
-      <td>Whether a specific step of a Bitbucket pipeline allows a parallel step to fail entirely if it fails (set as <code>true</code>), or allows failures (set as <code>false</code>). Consider using a combination of <code>soft_fail</code> and/or <code>cancel_on_build_failing</code> in the corresponding Buildkite command steps' <a href="/docs/pipelines/configure/step-types/command-step#command-step-attributes">attributes</a> for a similar <a href="/docs/pipelines/configure/step-types/command-step#fast-fail-running-jobs">approach</a>.</td>
+      <td>Whether a specific step of a Bitbucket pipeline allows a parallel step to fail entirely if it fails (set as <code>true</code>), or allows failures (set as <code>false</code>). Consider using a combination of <code>soft_fail</code> and/or <code>cancel_on_build_failing</code> in the corresponding Buildkite Pipelines command steps' <a href="/docs/pipelines/configure/step-types/command-step#command-step-attributes">attributes</a> for a similar <a href="/docs/pipelines/configure/step-types/command-step#fast-fail-running-jobs">approach</a>.</td>
     </tr>
     <tr>
       <td><code>pipelines.&lt;start-condition&gt;.step.image</code></td>
@@ -232,7 +232,7 @@ Note that both supported properties in the Bitbucket pipeline step-level definit
     <tr>
       <td><code>pipelines.&lt;start-condition&gt;.step.max-time</code></td>
       <td>Yes</td>
-      <td>The maximum allowable time that a step within a Bitbucket pipeline is able to run for. Translates to the corresponding Buildkite pipelines' command step <code>timeout_in_minutes</code> attribute.</td>
+      <td>The maximum allowable time that a step within a Bitbucket pipeline is able to run for. Translates to the corresponding Buildkite Pipelines command step <code>timeout_in_minutes</code> attribute.</td>
     </tr>
     <tr>
       <td><code>pipelines.&lt;start-condition&gt;.step.name</code></td>
@@ -247,7 +247,7 @@ Note that both supported properties in the Bitbucket pipeline step-level definit
     <tr>
       <td><code>pipelines.&lt;start-condition&gt;.step.runs-on</code></td>
       <td>Yes</td>
-      <td>Allocating the Bitbucket pipeline to run on a self-hosted runner with the specific label. All <code>runs-on</code> values will be set as agent <a href="/docs/pipelines/configure/defining-steps#targeting-specific-agents">tags</a> in the Buildkite command step for targeting on specific Buildkite agents within an organization.</td>
+      <td>Allocating the Bitbucket pipeline to run on a self-hosted runner with the specific label. All <code>runs-on</code> values will be set as agent <a href="/docs/pipelines/configure/defining-steps#targeting-specific-agents">tags</a> in the Buildkite command step for targeting on specific Buildkite Agents within an organization.</td>
     </tr>
     <tr>
       <td><code>pipelines.&lt;start-condition&gt;.step.services</code></td>
