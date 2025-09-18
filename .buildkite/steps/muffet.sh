@@ -28,7 +28,7 @@ set +e
 
 /muffet http://app:3000/docs \
   --exclude="https://api.buildkite.com/" \
-  --exclude="https://buildkite.com/~/bazel-monorepo-example" \
+  --exclude="https://buildkite.com/%7E/bazel-monorepo-example" \
   --exclude="https://buildkite.com/my-organization/" \
   --exclude="https://buildkite.com/organizations" \
   --exclude="https://buildkite.com/user" \

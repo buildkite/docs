@@ -40,3 +40,11 @@ Learn more about how:
 - To work with registries in [Manage registries](/docs/package-registries/registries/manage).
 - To manage access to your registries in [Access controls](/docs/package-registries/security/permissions).
 - To configure your own private storage for Buildkite Package Registries in [Private storage](/docs/package-registries/registries/private-storage-link).
+
+## Link check
+
+Check [Package creation tools](#package-creation-tools-wrong) for more info.
+
+Check [API & references](/docs/test-engine#api-and-references) (correct).
+
+Check [API & references](/docs/test-engine#api-and-references-wrong) (incorrect).
