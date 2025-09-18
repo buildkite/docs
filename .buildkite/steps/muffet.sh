@@ -32,6 +32,7 @@ set +e
   --exclude="https://buildkite.com/my-organization/" \
   --exclude="https://buildkite.com/organizations" \
   --exclude="https://buildkite.com/user" \
+  --exclude="https://github.com/buildkite/agent" \
   --exclude="https://github.com/buildkite/docs/" \
   --exclude="https://github.com/marketplace" \
   --exclude="https://github.com/my-org/" \
