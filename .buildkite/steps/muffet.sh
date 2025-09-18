@@ -94,7 +94,7 @@ else
         echo >> annotation.md
         echo "All remaining errors detected by muffet (above) are either 'Too Many Requests' (429) or 'Forbidden' (403) pages that should actually be accessible when selected by a human.<br/>" >> annotation.md
         echo "These errors usually occur when the target site/page either blocks muffet's link check because muffet uses a bot account to do this, and/or the site/page has authentication implemented.<br/>" >> annotation.md
-        echo "Confirm the links manually (especially 403s for pages that indicate 'Forbidden') as this build will pass and ignore these failures." >> annotation.md
+        echo "Confirm these links manually (especially 403s for pages that indicate 'Forbidden', which is a genuine failure) as this build will pass and ignore these returned page statuses, including ones that are genuine failures." >> annotation.md
         muffet_exit_code=0
     fi
 
