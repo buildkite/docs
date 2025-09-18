@@ -141,7 +141,7 @@ For more information about the `x` option and debugging in general, see the [Bas
 
 ## Help with linting and debugging
 
-To check your shell scripts for common errors and mistakes we highly recommend using a linting tool like [Shellcheck](http://www.shellcheck.net). Shellcheck is a shell script linter with a web-based front-end, a command line tool, and integrates directly with most code editors.
+To check your shell scripts for common errors and mistakes we highly recommend using a linting tool like [Shellcheck](https://www.shellcheck.net). Shellcheck is a shell script linter with a web-based front-end, a command line tool, and integrates directly with most code editors.
 
 <!--alex ignore gals-man -->
 
