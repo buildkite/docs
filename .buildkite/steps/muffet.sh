@@ -23,7 +23,7 @@ set +e
 
 # Exclude links that show up as failures but definitely work
 # Accept 403's access denied status codes, as these are mostly sites blocking muffet
-# Ignore framents (e.g. markdown heading links) because GitHub doesn't tag headings properly
+# Ignore fragments (e.g. markdown heading links) because GitHub doesn't tag headings properly
 # Add a user agent so less sites respond with 403 or 429 statuses
 
 /muffet http://app:3000/docs \
@@ -33,9 +33,11 @@ set +e
   --exclude="https://buildkite.com/organizations" \
   --exclude="https://buildkite.com/user" \
   --exclude="https://github.com/buildkite/agent?tab=readme-ov-file" \
+  --exclude="https://github.com/buildkite/buildkite-mcp-server" \
+  --exclude="https://github.com/buildkite/buildkite-sdk" \
   --exclude="https://github.com/buildkite/docs/" \
-  --exclude="https://github.com/buildkite/elastic-ci-stack-for-aws?tab=readme-ov-file" \
-  --exclude="https://github.com/buildkite/emojis?tab=readme-ov-file" \
+  --exclude="https://github.com/buildkite/elastic-ci-stack-for-aws" \
+  --exclude="https://github.com/buildkite/emojis" \
   --exclude="https://github.com/buildkite/test-collector-ruby/blob/d9fe11341e4aa470e766febee38124b644572360/lib/buildkite/test_collector.rb#L" \
   --exclude="https://github.com/floraison/fugit" \
   --exclude="https://github.com/marketplace" \
