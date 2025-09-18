@@ -66,12 +66,12 @@ optional:
     - name: BUILDKITE_TEST_ENGINE_TEST_FILE_EXCLUDE_PATTERN
       desc:
         - The glob pattern to exclude certain test files or directories. The exclusion will be applied after discovering the test files using a pattern configured with `BUILDKITE_TEST_ENGINE_TEST_FILE_PATTERN`.
-        - _This option accepts the pattern syntax supported by the [zzglob](https://github.com/DrJosh9000/zzglob?tab=readme-ov-file#pattern-syntax) library._
+        - _This option accepts [glob pattern syntax](/docs/pipelines/configure/glob-pattern-syntax)._
     - name: BUILDKITE_TEST_ENGINE_TEST_FILE_PATTERN
       default: spec/**/*_spec.rb
       desc:
         - The glob pattern to discover test files. You can exclude certain test files or directories from the discovered test files using a pattern that can be configured with `BUILDKITE_TEST_ENGINE_TEST_FILE_EXCLUDE_PATTERN`.
-        - _This option accepts the pattern syntax supported by the [zzglob](https://github.com/DrJosh9000/zzglob?tab=readme-ov-file#pattern-syntax) library._
+        - _This option accepts [glob pattern syntax](/docs/pipelines/configure/glob-pattern-syntax)._
   jest:
     - name: BUILDKITE_TEST_ENGINE_DEBUG_ENABLED
       default: false
@@ -99,9 +99,9 @@ optional:
       default: "node_modules"
       desc:
         - The glob pattern to exclude certain test files or directories. The exclusion will be applied after discovering the test files using a pattern configured with `BUILDKITE_TEST_ENGINE_TEST_FILE_PATTERN`.
-        - _This option accepts the pattern syntax supported by the [zzglob](https://github.com/DrJosh9000/zzglob?tab=readme-ov-file#pattern-syntax) library._
+        - _This option accepts [glob pattern syntax](/docs/pipelines/configure/glob-pattern-syntax)._
     - name: BUILDKITE_TEST_ENGINE_TEST_FILE_PATTERN
       default: "**/{__tests__/**/*,*.spec,*.test}.{ts,js,tsx,jsx}"
       desc:
         - The glob pattern to discover test files. You can exclude certain test files or directories from the discovered test files using a pattern that can be configured with `BUILDKITE_TEST_ENGINE_TEST_FILE_EXCLUDE_PATTERN`.
-        - _This option accepts the pattern syntax supported by the [zzglob](https://github.com/DrJosh9000/zzglob?tab=readme-ov-file#pattern-syntax) library._
+        - _This option accepts [glob pattern syntax](/docs/pipelines/configure/glob-pattern-syntax)._

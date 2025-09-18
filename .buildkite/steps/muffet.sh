@@ -35,14 +35,17 @@ set +e
   --exclude="https://cd.apps.argoproj.io/swagger-ui" \
   --exclude="https://console.aws.amazon.com/cloudformation/home" \
   --exclude="https://console.aws.amazon.com/ec2/v2/home" \
+  --exclude="https://docs.cursor.com/en/context/mcp#using-mcp-json" \
   --exclude="https://github.com/buildkite/agent" \
   --exclude="https://github.com/buildkite/backstage-plugin" \
+  --exclude="https://github.com/buildkite/buildkite-logs" \
   --exclude="https://github.com/buildkite/buildkite-mcp-server" \
   --exclude="https://github.com/buildkite/buildkite-sdk" \
   --exclude="https://github.com/buildkite/docs/" \
   --exclude="https://github.com/buildkite/elastic-ci-stack-for-aws" \
   --exclude="https://github.com/buildkite/emojis" \
   --exclude="https://github.com/buildkite/test-collector-ruby/blob/d9fe11341e4aa470e766febee38124b644572360/lib/buildkite/test_collector.rb#L" \
+  --exclude="https://github.com/cybeats/sbomgen" \
   --exclude="https://github.com/floraison/fugit" \
   --exclude="https://github.com/hashicorp/hcl" \
   --exclude="https://github.com/honeycombio/buildevents" \
