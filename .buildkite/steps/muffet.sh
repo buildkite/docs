@@ -19,12 +19,27 @@ done
 echo 💎🛤️🚆 Rails has started running
 
 # If muffet fails, we want to process the results instead of quitting immediately.
-
 set +e
+
+# Exclude links that show up as failures but definitely work
+# Accept 403's access denied status codes, as these are mostly sites blocking muffet
+# Ignore framents (e.g. markdown heading links) because GitHub doesn't tag headings properly
+# Add a user agent so less sites respond with 403 or 429 statuses
+
 /muffet http://app:3000/docs \
-  --include="/docs/" \
   --exclude="https://github.com/buildkite/docs/" \
-  --exclude="buildkite.com/docs" \
+  --exclude="https://buildkite.com/user" \
+  --exclude="https://buildkite.com/organizations" \
+  --exclude="https://api.buildkite.com/" \
+  --exclude="https://buildkite.com/my-organization/" \
+  --exclude="https://github.com/my-org/" \
+  --exclude="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" \
+  --exclude="https://github.com/marketplace" \
+  --exclude="http://www.shellcheck.net" \
+  --exclude="https://webtask.io/" \
+  --exclude="/sample.svg" \
+  --ignore-fragments \
+  --header="User-Agent: Muffet/$(muffet --version)" \
   --max-connections=10 \
   --timeout=15 \
   --buffer-size=8192 \
@@ -74,10 +89,12 @@ else
     # Select all responses where the error code is not 429. If this list is empty, 
     # then every error is a 429 and we can pass the build.
     # Note that the entire list is empty when there are no errors at all.
-    if [ $(jq -r 'map(select(.links[].error != "429")) | length == 0' muffet-results.json) ]; then
+    if [[ $(jq -r 'map(select( (.links[].error != "429") and ( .links[].error != "403" ))) | length == 0' muffet-results.json) == true ]]; then
         echo >> annotation.md
         echo >> annotation.md
-        echo "All errors are Too Many Requests (429), we were likely just blocked for checking too many times. Confirm the links manually as this build will pass and ignore these failures." >> annotation.md
+        echo "All remaining errors detected by muffet (above) are either 'Too Many Requests' (429) or 'Forbidden' (403) pages that should actually be accessible when selected by a human.<br/><br/>" >> annotation.md
+        echo "These errors usually occur when the target site/page either blocks muffet's link check because muffet uses a bot account to do this, and/or the site/page has authentication implemented.<br/><br/>" >> annotation.md
+        echo "Confirm these links manually (especially 403s for pages that indicate 'Forbidden', which is a genuine failure) as this build will pass and ignore these returned page statuses, including ones that are genuine failures." >> annotation.md
         muffet_exit_code=0
     fi
 

@@ -2,7 +2,6 @@
 
 There are a number of third party services you can use with Buildkite webhooks. Some services (such as RequestBin and Zapier) are designed specifically with webhooks in mind, and others (such as AWS Lambda, Google Cloud Functions, IronWorker and Webtask) are general purpose programming platforms which can be triggered with webhook HTTP requests.
 
-
 ## AWS Lambda
 
 [AWS Lambda](https://aws.amazon.com/lambda/) is a service for running functions, and when combined with [AWS API Gateway](https://aws.amazon.com/api-gateway/), can be used to process your Buildkite webhooks.

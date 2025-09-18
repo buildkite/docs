@@ -3556,6 +3556,13 @@ The reason why a signal was sent to the job's process, or why the process did no
 """
 enum JobEventSignalReason {
   """
+  The agent was incompatible with the job requirements (e.g., version too old to
+  support required features). Note that in this case, no signal was sent to the
+  process, the job was not run at all.
+  """
+  AGENT_INCOMPATIBLE
+
+  """
   The agent refused the job. Note that in this case, no signal was sent to the process, the job was not run at all.
   """
   AGENT_REFUSED
