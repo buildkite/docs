@@ -243,7 +243,7 @@ To build the Buildkite MCP server locally from source, run these commands:
     ```
 
 > 📘
-> If you're interested in contributing to the development of the Buildkite MCP server, see the [Contributing section of the README](https://github.com/buildkite/buildkite-mcp-server/tree/main?tab=readme-ov-file#-contributing) and [Development](https://github.com/buildkite/buildkite-mcp-server/blob/main/DEVELOPMENT.md) guide for more information.
+> If you're interested in contributing to the development of the Buildkite MCP server, see the [Contributing section of the README](https://github.com/buildkite/buildkite-mcp-server/tree/main#-contributing) and [Development](https://github.com/buildkite/buildkite-mcp-server/blob/main/DEVELOPMENT.md) guide for more information.
 
 ## Self-hosting the MCP server
 
