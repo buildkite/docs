@@ -11,7 +11,7 @@ If you host your repositories on [gitlab.com](https://gitlab.com/) enter your gi
 You can also use repositories from your own self-managed GitLab service but you'll need to connect it to Buildkite first.
 
 >📘
-> The earliest supported version of GitLab is <a href=https://about.gitlab.com/2014/10/22/gitlab-7-4-released/>7.4</a>.
+> The earliest supported version of GitLab is <a href=https://about.gitlab.com/releases/2014/10/22/gitlab-7-4-released/>7.4</a>.
 
 1. Open your Buildkite organization's **Settings** and choose [**Repository Providers**](https://buildkite.com/organizations/-/repository-providers).
 1. Select **GitLab Self-Managed**.

@@ -3442,6 +3442,47 @@ type JobEventGeneric implements JobEvent & Node {
 }
 
 """
+A job event for when a job's priority has been changed
+"""
+type JobEventReprioritized implements JobEvent & Node {
+  """
+  The actor that caused this event to occur
+  """
+  actor: JobEventActor!
+
+  """
+  The priority value after the change
+  """
+  changedPriorityAfterValue: Int
+
+  """
+  The priority value before the change
+  """
+  changedPriorityBeforeValue: Int
+  id: ID!
+
+  """
+  The job that this event belongs to
+  """
+  job: JobTypeCommand!
+
+  """
+  The time when the event occurred
+  """
+  timestamp: DateTime!
+
+  """
+  The type of event
+  """
+  type: JobEventType!
+
+  """
+  The public UUID for this job event
+  """
+  uuid: ID!
+}
+
+"""
 An event created when the job is retried
 """
 type JobEventRetried implements JobEvent & Node {
@@ -3515,6 +3556,13 @@ The reason why a signal was sent to the job's process, or why the process did no
 """
 enum JobEventSignalReason {
   """
+  The agent was incompatible with the job requirements (e.g., version too old to
+  support required features). Note that in this case, no signal was sent to the
+  process, the job was not run at all.
+  """
+  AGENT_INCOMPATIBLE
+
+  """
   The agent refused the job. Note that in this case, no signal was sent to the process, the job was not run at all.
   """
   AGENT_REFUSED
@@ -3547,6 +3595,78 @@ enum JobEventSignalReason {
   due to a misconfiguration of the job, or due to a lack of resources.
   """
   STACK_ERROR
+}
+
+"""
+An event created when a stack error is reported
+"""
+type JobEventStackError implements JobEvent & Node {
+  """
+  The actor that caused this event to occur
+  """
+  actor: JobEventActor!
+
+  """
+  Details about the stack error
+  """
+  errorDetail: String
+  id: ID!
+
+  """
+  The job that this event belongs to
+  """
+  job: JobTypeCommand!
+
+  """
+  The time when the event occurred
+  """
+  timestamp: DateTime!
+
+  """
+  The type of event
+  """
+  type: JobEventType!
+
+  """
+  The public UUID for this job event
+  """
+  uuid: ID!
+}
+
+"""
+An event created when a stack notification is triggered
+"""
+type JobEventStackNotification implements JobEvent & Node {
+  """
+  The actor that caused this event to occur
+  """
+  actor: JobEventActor!
+  id: ID!
+
+  """
+  The job that this event belongs to
+  """
+  job: JobTypeCommand!
+
+  """
+  Message from the stack notification
+  """
+  message: String
+
+  """
+  The time when the event occurred
+  """
+  timestamp: DateTime!
+
+  """
+  The type of event
+  """
+  type: JobEventType!
+
+  """
+  The public UUID for this job event
+  """
+  uuid: ID!
 }
 
 """
@@ -3681,6 +3801,11 @@ enum JobEventType {
   The Job is limited by a platform limit
   """
   PLATFORM_LIMITED
+
+  """
+  The Job's priority was changed
+  """
+  REPRIORITIZED
 
   """
   The Job was reserved by a stack for later execution
