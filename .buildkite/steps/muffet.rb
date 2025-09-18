@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'yaml'
+require 'json'
 
 def annotate!(annotation:, context:, style: "info")
   if ENV.key?("BUILDKITE")
@@ -41,6 +42,14 @@ def result_pass(page, link, decided_by)
 
   passed[page] << link.merge({'decided_by' => decided_by})
 end
+
+puts "--- Waiting for app to start"
+
+until system('wget --spider -S http://app:3000/docs/agent/v3/hooks')
+  puts "💎🛤️🦥 Rails is still starting"
+  sleep 0.5
+end
+puts "💎🛤️🚆 Rails has started running"
 
 puts "--- Running muffet"
 
