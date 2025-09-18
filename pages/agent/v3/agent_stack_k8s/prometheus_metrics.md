@@ -82,7 +82,7 @@ Verify that monitoring is working correctly:
 kubectl get pods -n buildkite -o wide
 kubectl port-forward -n buildkite deployment/agent-stack-k8s 8080:8080
 
-# In another terminal, test metrics endpoint
+# In a different terminal window, test the metrics endpoint
 curl http://localhost:8080/metrics
 
 # Verify PodMonitor is created and discovered
