@@ -67,9 +67,7 @@ muffet_cmd = [
 
 muffet_output_json=`#{muffet_cmd}`
 
-File.open('muffet_results.json', 'w') do |f|
-  f.write(muffet_output_json)
-end
+File.write('muffet_results.json', muffet_output_json)
 
 puts "--- Verbose JSON output from muffet"
 puts muffet_output_json
