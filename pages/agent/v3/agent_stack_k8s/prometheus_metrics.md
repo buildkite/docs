@@ -11,7 +11,7 @@ The Agent Stack for Kubernetes controller can expose Prometheus metrics for moni
  * Enabling metrics port exposure in the Helm chart and
  * Creating a PodMonitor resource for scraping.
 
-### Step 1: Enable metrics port exposure
+### Enabling metrics port exposure
 
 Configure the `prometheus-port` option in your Helm deployment to expose the metrics endpoint:
 
