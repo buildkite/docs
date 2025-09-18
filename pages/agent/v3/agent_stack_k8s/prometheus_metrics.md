@@ -46,7 +46,7 @@ This exposes metrics on port 8080 at the `/metrics` endpoint within the controll
 
 ### Creating a PodMonitor for scraping
 
-If you're using [Prometheus Operator](https://prometheus-operator.dev/), create a `PodMonitor` resource to automatically scrape metrics from the controller:
+If you're using [Prometheus Operator](https://prometheus-operator.dev/), create a `PodMonitor` resource to automatically scrape the metrics from the controller:
 
 ```yaml
 # buildkite-podmonitor.yml
