@@ -27,7 +27,6 @@ set +e
 # Add a user agent so less sites respond with 403 or 429 statuses
 
 /muffet http://app:3000/docs \
-  --include="/docs/" \
   --exclude="https://api.buildkite.com/" \
   --exclude="https://buildkite.com/%7E/bazel-monorepo-example" \
   --exclude="https://buildkite.com/my-organization/" \
@@ -39,7 +38,6 @@ set +e
   --exclude="https://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" \
   --exclude="https://webtask.io/" \
   --exclude="/sample.svg" \
-  --ignore-fragments \
   --header="User-Agent: Muffet/$(muffet --version)" \
   --max-connections=10 \
   --timeout=15 \
