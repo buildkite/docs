@@ -26,6 +26,7 @@ helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-
 ```
 
 **Values file approach:**
+
 ```yaml
 # values.yml
 agentToken: "<buildkite-cluster-agent-token>"
@@ -33,7 +34,6 @@ config:
   prometheus-port: 8080
   tags:
     - queue=kubernetes
-```
 
 ```bash
 helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-k8s \
