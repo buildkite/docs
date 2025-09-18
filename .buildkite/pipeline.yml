@@ -24,6 +24,7 @@ steps:
           shell: false
           upload-container-logs: always
           mount-buildkite-agent: true
+          propagate-environment: true
 
   - label: ":graphql: Check generated code is up to date"
     command: bundle exec rake graphql:generate

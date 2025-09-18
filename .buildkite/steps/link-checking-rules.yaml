@@ -1,0 +1,41 @@
+link_checking_exemptions:
+  - name: ignore-all-errors
+    description: |
+      Ignore all errors.
+      All failures are ignored for these prefixes.
+    status_pattern: ".*"
+    url_patterns:
+      - https://github.com/buildkite/docs
+      - https://buildkite.com/my-organization/
+      - https://github.com/my-org/
+  - name: accept-403-unauthorized
+    description: |
+      Ignore HTTP 403 Unauthorized.
+      URLs matching these regular expressions are known not to work unless you are logged in.
+    status_pattern: "403"
+    url_patterns:
+      - https://buildkite.com/organizations
+      - https://buildkite.com/user
+      - https://console.aws.amazon.com/cloudformation/home
+      - https://console.aws.amazon.com/ec2/v2/home
+  - name: accept-429-too-many-requests
+    description: Ignore rate limiting.
+    status_pattern: "429"
+    url_patterns:
+      # Everything
+      - ".*"
+  - name: ignore-missing-anchors
+    description: Ignore missing anchor tags
+    status_pattern: "id #.* not found"
+    url_patterns:
+      - https://github.com/ # All of GitHub :(
+  - name: ignore-sample-dot-svg
+    description: We don't expect /sample.svg to work on the test server.
+    status_pattern: "404"
+    url_patterns:
+      - "https://app:3000/sample.svg\\?"
+  - name: github-marketplace-http-400
+    description: We might resemble a scraper in the eyes of GitHub Marketplace
+    status_pattern: "400"
+    url_patterns:
+      - "https://github.com/marketplace"

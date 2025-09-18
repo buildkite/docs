@@ -121,6 +121,23 @@ COPY --from=gobuild /go/bin/staticgen /usr/local/bin/staticgen
 
 # ------------------------------------------------------------------
 #
+# We use this image to run Muffet, a link checking tool.
+#
+# We use a Ruby wrapper script to process the results in ways that
+# make sense to us.
+#
+
+FROM raviqqe/muffet:2.11.0 as muffet-scratch
+FROM ${BASE_IMAGE} as muffet
+
+RUN apt-get update && \
+    apt-get install -y curl jq && \
+    apt purge --assume-yes linux-libc-dev
+
+COPY --from=muffet-scratch /muffet /muffet
+
+# ------------------------------------------------------------------
+#
 # Here, we ensure that the `runtime` image is the final result if this
 # Dockerfile is invoked without specifying a target.
 #
