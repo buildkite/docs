@@ -641,8 +641,6 @@
       children:
         - name: "Background"
           path: "package-registries/background"
-        - name: "A new page"
-          path: "package-registries/a-new-page"
         - name: "Getting started"
           path: "package-registries/getting-started"
     - name: "Registries"
