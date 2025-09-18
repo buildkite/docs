@@ -44,7 +44,7 @@ helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-
 
 This exposes metrics on port 8080 at the `/metrics` endpoint within the controller pod.
 
-### Step 2: Create a PodMonitor for scraping
+### Creating a PodMonitor for scraping
 
 If you're using [Prometheus Operator](https://prometheus-operator.dev/), create a `PodMonitor` resource to automatically scrape metrics from the controller:
 
