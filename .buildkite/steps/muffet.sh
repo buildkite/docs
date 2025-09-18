@@ -51,6 +51,7 @@ set +e
   --exclude="https://github.com/honeycombio/buildevents" \
   --exclude="https://github.com/marketplace" \
   --exclude="https://github.com/my-org/" \
+  --exclude="https://github.com/rspec/rspec-core" \
   --exclude="https://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" \
   --exclude="https://webtask.io/" \
   --exclude="/sample.svg" \
