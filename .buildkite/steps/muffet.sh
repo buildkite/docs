@@ -34,6 +34,7 @@ set +e
   --exclude="https://buildkite.com/user" \
   --exclude="https://github.com/buildkite/agent" \
   --exclude="https://github.com/buildkite/docs/" \
+  --exclude="https://github.com/buildkite/emojis?tab=readme-ov-file" \
   --exclude="https://github.com/marketplace" \
   --exclude="https://github.com/my-org/" \
   --exclude="https://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" \
