@@ -108,7 +108,7 @@ required parameters:
 * `Subnets` from your VPC set up
 * `SecurityGroupIds` from your VPC set up
 * `IamInstanceProfile` if accessing AWS services from your builds, provide an Instance Profile ARN with an appropriate IAM role attached
-* `BuildkiteAgentToken` an Agent Token for your [Buildkite organization](http://buildkite.com/organizations/-/agents)
+* `BuildkiteAgentToken` an Agent Token for your [Buildkite organization](https://buildkite.com/organizations/-/agents)
 * `BuildkiteAgentQueue` the Buildkite Queue your pipeline steps use
 
 There are optional parameters to configure which EC2 Mac instance types to use:
@@ -178,7 +178,7 @@ $ make
 $ aws cloudformation deploy --stack-name buildkite-mac --region YOUR_REGION --template-file build/template.yml --parameters-override file:///$PWD/.parameters.json
 ```
 
-See the [AWS CloudFormation Deploy CLI documentation](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/deploy/index.html)
+See the [AWS CloudFormation Deploy CLI documentation](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/deploy.html)
 for help using the AWS CLI.
 
 ## Step 5: Starting your Buildkite agents

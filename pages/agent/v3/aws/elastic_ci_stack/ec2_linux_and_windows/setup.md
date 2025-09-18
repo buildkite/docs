@@ -402,7 +402,7 @@ Click **New Build** in the top right and choose a build message (perhaps a littl
 
 <%= image "buildkite-new-build.png", size: "#{1140/2}x#{898/2}", alt: 'Triggering Buildkite Build' %>
 
-Once your build is created, head back to [AWS EC2 Auto Scaling Groups](https://console.aws.amazon.com/ec2autoscaling/home) to watch the Elastic CI Stack for AWS creating new EC2 instances:
+Once your build is created, head back to [AWS EC2 Auto Scaling Groups](https://console.aws.amazon.com/ec2/v2/home?#AutoScalingGroups) to watch the Elastic CI Stack for AWS creating new EC2 instances:
 
 <%= image "ec2-asg.png", size: "#{400/2}x#{200/2}", alt: 'AWS EC2 Auto Scaling Group Menu' %>
 
