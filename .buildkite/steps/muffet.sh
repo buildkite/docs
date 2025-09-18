@@ -38,6 +38,7 @@ set +e
   --exclude="https://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" \
   --exclude="https://webtask.io/" \
   --exclude="/sample.svg" \
+  --ignore-fragments \
   --header="User-Agent: Muffet/$(muffet --version)" \
   --max-connections=10 \
   --timeout=15 \
