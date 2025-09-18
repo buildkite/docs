@@ -123,7 +123,7 @@ query {
 ```
 
 > 📘 Cursor pagination
-> Replace `<endCursor-value-from-previous-response>` with the actual endCursor string returned from your previous query.
+> Replace `<endCursor-value-from-previous-response>` with the actual `endCursor` string returned from your previous query.
 
 ## Get number of builds between two dates
 
