@@ -92,7 +92,7 @@ else
     if [[ $(jq -r 'map(select( (.links[].error != "429") and ( .links[].error != "403" ))) | length == 0' muffet-results.json) == true ]]; then
         echo >> annotation.md
         echo >> annotation.md
-        echo "All remaining errors detected by muffet (above) are either 'Too Many Requests' (429) or 'Forbidden' (403) pages that are accessible. This usually occurs when the target site/page either blocks muffet's link check because muffet uses a bot account to do this, or it has authentication implemented. Confirm the links manually (especially 403s for pages that indicate 'Forbidden') as this build will pass and ignore these failures." >> annotation.md
+        echo "All remaining errors detected by muffet (above) are either 'Too Many Requests' (429) or 'Forbidden' (403) pages that are accessible. This usually occurs when the target site/page either blocks muffet's link check because muffet uses a bot account to do this, and/or it has authentication implemented. Confirm the links manually (especially 403s for pages that indicate 'Forbidden') as this build will pass and ignore these failures." >> annotation.md
         muffet_exit_code=0
     fi
 
