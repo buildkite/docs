@@ -8,7 +8,19 @@ The BuildKit daemon can be run in [rootless mode](https://github.com/moby/buildk
 
 ## Using BuildKit with Agent Stack for Kubernetes
 
-The following example demonstrates how to use BuildKit's daemonless mode to build container images in Buildkite pipelines:
+Agent Stack for Kubernetes supports multiple BuildKit configurations, each providing different security trade-offs. Choose the approach that best matches your environment's security policies and container runtime restrictions:
+
+- **Privileged**: Maximum compatibility, requires privileged containers
+- **Rootless (Non-Privileged)**: Enhanced security, runs as non-root user
+- **Rootless (Strict)**: Maximum security isolation with additional sandbox disabled
+
+### Privileged BuildKit
+
+**Use when**: You need maximum compatibility and your cluster allows privileged containers.
+
+**Security impact**: Container has root access to host kernel features. Use only in trusted environments.
+
+**How it works**: Runs as root with `privileged: true`, giving access to all kernel capabilities needed for container operations.
 
 ```yaml
 steps:
@@ -24,7 +36,6 @@ steps:
         --local context=. \
         --local dockerfile=. \
         --opt filename=Dockerfile \
-        --opt target=test-lint \
         --progress=plain
     plugins:
       - kubernetes:
@@ -49,24 +60,146 @@ steps:
                   privileged: true
 ```
 
-## Key components explained
+### Rootless BuildKit (non-privileged)
 
-### BuildKit image
+**Use when**: Your cluster blocks privileged containers but allows `runAsNonRoot`.
 
-The example uses the `moby/buildkit:master` image which includes both `buildctl` (the BuildKit client) and `buildctl-daemonless.sh` (a helper script for daemonless builds).
+**Security impact**: Runs as non-root user (1000), significantly reducing attack surface.
 
-### Security context
+**How it works**: Uses user namespaces and rootless container runtime. BuildKit runs as regular user but can still build containers through user namespace mapping.
 
-The `securityContext.privileged: true` setting is required for BuildKit to function properly when building container images, as it needs access to kernel features for container operations.
+```yaml
+steps:
+  - label: "\:docker\: BuildKit non-privileged container build"
+    retry:
+      manual:
+        permit_on_passed: true
+    agents:
+      queue: kubernetes
+    command: |
+      buildctl-daemonless.sh build \
+        --frontend dockerfile.v0 \
+        --local context=. \
+        --local dockerfile=. \
+        --opt filename=Dockerfile \
+        --progress=plain
+    plugins:
+      - kubernetes:
+          podSpec:
+            volumes:
+              - name: buildkit-cache
+                emptyDir: {}
+              - name: tmp-space
+                emptyDir: {}
+            containers:
+              - name: main
+                image: moby/buildkit:master-rootless
+                env:
+                  - name: BUILDKITD_FLAGS
+                    value: ""
+                volumeMounts:
+                  - name: buildkit-cache
+                    mountPath: "/home/user/.local/share/buildkit"
+                  - name: tmp-space
+                    mountPath: "/tmp"
+                securityContext:
+                  runAsNonRoot: true
+                  runAsUser: 1000
+                  runAsGroup: 1000
+```
 
-### Volume mounts
+### Rootless BuildKit (strict security)
 
-- **buildkit-cache**: Persistent storage for BuildKit's build cache, improving performance on subsequent runs
-- **tmp-space**: Temporary space for build operations
+Uses `--oci-worker-no-process-sandbox` to work around Kubernetes limitations with PID namespaces. Required when Kubernetes doesn't support `systempaths=unconfined`.
 
-### Environment variables
+```yaml
+steps:
+  - label: "\:docker\: BuildKit rootless daemonless build"
+    retry:
+      manual:
+        permit_on_passed: true
+    agents:
+      queue: kubernetes
+    command: |
+      BUILDKITD_FLAGS="--oci-worker-no-process-sandbox" \
+      buildctl-daemonless.sh build \
+        --frontend dockerfile.v0 \
+        --local context=. \
+        --local dockerfile=. \
+        --opt filename=Dockerfile \
+        --progress=plain
+    plugins:
+      - kubernetes:
+          podSpec:
+            volumes:
+              - name: buildkit-cache
+                emptyDir: {}
+              - name: tmp-space
+                emptyDir: {}
+            containers:
+              - name: main
+                image: moby/buildkit:master-rootless
+                env:
+                  - name: BUILDKITD_FLAGS
+                    value: "--oci-worker-no-process-sandbox"
+                volumeMounts:
+                  - name: buildkit-cache
+                    mountPath: "/home/user/.local/share/buildkit"
+                  - name: tmp-space
+                    mountPath: "/tmp"
+                securityContext:
+                  runAsNonRoot: true
+                  runAsUser: 1000
+                  runAsGroup: 1000
+                  seccompProfile:
+                    type: Unconfined
+                  appArmorProfile:
+                    type: Unconfined
+```
 
-The `BUILDKITD_FLAGS` environment variable passes additional flags to the BuildKit daemon at startup.
+## Configuration comparison
+
+| Feature                      | Privileged               | Rootless (Non-Privileged)       | Rootless (Strict)                 |
+| ---------------------------- | ------------------------ | ------------------------------- | --------------------------------- |
+| **Container Image**          | `moby/buildkit:master`   | `moby/buildkit:master-rootless` | `moby/buildkit:master-rootless`   |
+| **Runs as User**             | root (0)                 | user (1000)                     | user (1000)                       |
+| **Privileged Access**        | Yes (`privileged: true`) | No                              | No                                |
+| **BuildKit Process Sandbox** | Enabled                  | Enabled                         | Disabled\*                        |
+| **Kernel Security Profiles** | Default                  | Default                         | Unconfined†                       |
+| **Kubernetes Version**       | Any                      | Any                             | ≥1.19 (seccomp), ≥1.30 (AppArmor) |
+
+\*Process sandbox disabled due to Kubernetes limitations - reduces security within BuildKit container
+†`Unconfined` profiles are required for rootless container operations
+
+## Understanding the components
+
+### Container Images
+
+- **`moby/buildkit:master`**: Full-featured image designed to run as root with privileged access
+- **`moby/buildkit:master-rootless`**: Specially built image that can run as a regular user through rootless container techniques
+
+### Security contexts
+
+- **Privileged**: Container runs as root with `privileged: true`, bypassing most Kubernetes security controls
+- **Rootless**: Container runs as user 1000 using user namespace mapping. Host kernel sees regular user, container sees root
+- **Security profiles**: seccomp and AppArmor profiles restrict system calls and operations
+
+### Cache storage paths
+
+The cache location depends on who owns the BuildKit process:
+
+- **Root user** (privileged): Uses system location `/var/lib/buildkit`
+- **Regular user** (rootless): Uses user home directory `/home/user/.local/share/buildkit`
+
+### Rootless mode caveats
+
+The `--oci-worker-no-process-sandbox` flag disables BuildKit's internal process isolation:
+
+- Build steps can kill or ptrace other processes in the BuildKit container
+- Processes that don't exit cleanly cannot be force-terminated
+- Required in Kubernetes because `systempaths=unconfined` is not supported
+
+This reduces security compared to rootless mode without the flag, but is necessary for Kubernetes compatibility.
 
 ## BuildKit features
 
@@ -136,11 +269,27 @@ buildctl-daemonless.sh build \
 
 ### Common issues
 
-**Permission denied errors**: Ensure `securityContext.privileged: true` is configured in the PodSpec.
+**Permission denied errors**:
 
-**Cache mount issues**: Verify volume mounts for cache and temporary space are properly configured.
+- Privileged: Ensure `securityContext.privileged: true` is configured
+- Non-privileged/Rootless: Verify `runAsUser: 1000` and `runAsGroup: 1000` are set
+- Rootless: Check that `seccompProfile` and `appArmorProfile` are set to `Unconfined`
 
-**BuildKit tools not found**: Use an image that includes BuildKit tools, such as `moby/buildkit:master`.
+**Cache mount issues**:
+
+- Privileged: Verify cache mount at `/var/lib/buildkit`
+- Rootless (both modes): Verify cache mount at `/home/user/.local/share/buildkit`
+
+**BuildKit tools not found**: Use appropriate image:
+
+- Privileged builds: `moby/buildkit:master`
+- Non-privileged/Rootless builds: `moby/buildkit:master-rootless`
+
+**Rootless build failures**: Ensure `BUILDKITD_FLAGS="--oci-worker-no-process-sandbox"` is set for strict rootless mode
+
+**Pod initialization issues**: For rootless builds, verify Kubernetes version supports required security profiles (≥1.19 for seccomp, ≥1.30 for AppArmor).
+
+**Build processes not terminating**: Known limitation with `--oci-worker-no-process-sandbox` - BuildKit cannot force-kill processes that don't exit cleanly.
 
 ### Debugging builds
 
