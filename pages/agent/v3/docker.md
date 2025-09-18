@@ -117,7 +117,7 @@ docker run \
 
 ## Exposing build secrets into the container
 
-There are many approaches to exposing secrets to Docker containers. In addition, many Docker platforms have their own methods for exposing secrets. If you're running your own Docker containers, we recommend using a read-only [host volume](https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume).
+There are many approaches to exposing secrets to Docker containers. In addition, many Docker platforms have their own methods for exposing secrets. If you're running your own Docker containers, we recommend using a read-only [host volume](https://docs.docker.com/engine/storage/volumes/#use-a-read-only-volume).
 
 The following example mounts a directory containing secrets on the host machine (`$HOME/buildkite-secrets`) into the container as a read-only data volume at `/buildkite-secrets`:
 
