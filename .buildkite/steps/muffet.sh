@@ -32,9 +32,12 @@ set +e
   --exclude="https://buildkite.com/my-organization/" \
   --exclude="https://buildkite.com/organizations" \
   --exclude="https://buildkite.com/user" \
-  --exclude="https://github.com/buildkite/agent" \
+  --exclude="https://github.com/buildkite/agent?tab=readme-ov-file" \
   --exclude="https://github.com/buildkite/docs/" \
+  --exclude="https://github.com/buildkite/elastic-ci-stack-for-aws?tab=readme-ov-file" \
   --exclude="https://github.com/buildkite/emojis?tab=readme-ov-file" \
+  --exclude="https://github.com/buildkite/test-collector-ruby/blob/d9fe11341e4aa470e766febee38124b644572360/lib/buildkite/test_collector.rb#L" \
+  --exclude="https://github.com/floraison/fugit?tab=readme-ov-file" \
   --exclude="https://github.com/marketplace" \
   --exclude="https://github.com/my-org/" \
   --exclude="https://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" \
