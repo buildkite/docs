@@ -179,6 +179,7 @@ libpq
 linux
 llamasecret
 LLMs
+llvm
 macOS
 macos
 matchfile
