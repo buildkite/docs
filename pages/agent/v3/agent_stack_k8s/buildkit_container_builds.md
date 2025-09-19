@@ -47,7 +47,7 @@ steps:
                 emptyDir: {}
             containers:
               - name: main
-                image: moby/buildkit:master
+                image: moby/buildkit:latest
                 env:
                   - name: BUILDKITD_FLAGS
                     value: ""
@@ -93,7 +93,7 @@ steps:
                 emptyDir: {}
             containers:
               - name: main
-                image: moby/buildkit:master-rootless
+                image: moby/buildkit:latest-rootless
                 env:
                   - name: BUILDKITD_FLAGS
                     value: ""
@@ -138,7 +138,7 @@ steps:
                 emptyDir: {}
             containers:
               - name: main
-                image: moby/buildkit:master-rootless
+                image: moby/buildkit:latest-rootless
                 env:
                   - name: BUILDKITD_FLAGS
                     value: "--oci-worker-no-process-sandbox"
@@ -161,7 +161,7 @@ steps:
 
 | Feature                      | Privileged               | Rootless (Non-Privileged)       | Rootless (Strict)                 |
 | ---------------------------- | ------------------------ | ------------------------------- | --------------------------------- |
-| **Container Image**          | `moby/buildkit:master`   | `moby/buildkit:master-rootless` | `moby/buildkit:master-rootless`   |
+| **Container Image**          | `moby/buildkit:latest`   | `moby/buildkit:latest-rootless` | `moby/buildkit:latest-rootless`   |
 | **Runs as User**             | root (0)                 | user (1000)                     | user (1000)                       |
 | **Privileged Access**        | Yes (`privileged: true`) | No                              | No                                |
 | **BuildKit Process Sandbox** | Enabled                  | Enabled                         | Disabled\*                        |
@@ -175,8 +175,8 @@ steps:
 
 ### Container Images
 
-- **`moby/buildkit:master`**: Full-featured image designed to run as root with privileged access
-- **`moby/buildkit:master-rootless`**: Specially built image that can run as a regular user through rootless container techniques
+- **`moby/buildkit:latest`**: Full-featured image designed to run as root with privileged access
+- **`moby/buildkit:latest-rootless`**: Specially built image that can run as a regular user through rootless container techniques
 
 ### Security contexts
 
@@ -282,8 +282,8 @@ buildctl-daemonless.sh build \
 
 **BuildKit tools not found**: Use appropriate image:
 
-- Privileged builds: `moby/buildkit:master`
-- Non-privileged/Rootless builds: `moby/buildkit:master-rootless`
+- Privileged builds: `moby/buildkit:latest`
+- Non-privileged/Rootless builds: `moby/buildkit:latest-rootless`
 
 **Rootless build failures**: Ensure `BUILDKITD_FLAGS="--oci-worker-no-process-sandbox"` is set for strict rootless mode
 
