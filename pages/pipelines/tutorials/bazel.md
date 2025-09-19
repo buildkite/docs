@@ -10,8 +10,8 @@ Bazel supports large codebases across multiple repositories, and large numbers o
 ## Using Bazel on Buildkite
 
 1. [Install Bazel](https://docs.bazel.build/install.html) on one or more Buildkite Agents.
-2. Add an empty [`WORKSPACE` file](https://docs.bazel.build/tutorial/cpp.html#set-up-the-workspace) to your project to mark it as a Bazel workspace.
-3. Add a [`BUILD` file](https://docs.bazel.build/tutorial/cpp.html#understand-the-build-file) to your project to tell Bazel how to build it.
+2. Add an empty [`WORKSPACE` file](https://bazel.build/start/cpp#getting-started) to your project to mark it as a Bazel workspace.
+3. Add a [`BUILD` file](https://bazel.build/start/cpp#understand-build) to your project to tell Bazel how to build it.
 4. Add the Bazel build target(s) to your Buildkite [Pipeline](/docs/pipelines/configure/defining-steps).
 
 ## Buildkite Bazel example
@@ -37,8 +37,8 @@ Make sure you're signed into your [Buildkite account](https://buildkite.com) and
 
 ## Further reading
 
-- The [Bazel C++ tutorial](https://docs.bazel.build/tutorial/cpp.html#refine-your-bazel-build) goes into more detail about how to configure more complex Bazel builds, covering multiple build targets and multiple packages.
-- The Bazel [external dependencies docs](https://docs.bazel.build/external.html) show you how to build other local and remote repositories.
+- The [Bazel Tutorial: Build a C++ Project](https://bazel.build/start/cpp) goes into more detail about how to configure more complex Bazel builds, covering multiple build targets and multiple packages.
+- The Bazel [external dependencies docs](https://bazel.build/external/overview) show you how to build other local and remote repositories.
 
 ## Next steps
 

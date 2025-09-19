@@ -127,10 +127,10 @@ Other libraries that have built-in support for the `BUILDKITE_PARALLEL_JOB` and 
 <br>Knapsack is a ruby gem for automatically dividing your tests between parallel jobs, as well as making sure each job runs in comparable time. It supports RSpec, Cucumber, and minitest.
 
 - [Knapsack Pro](https://knapsackpro.com/?utm_source=buildkite&utm_medium=docs&utm_campaign=buildkite-parallel-builds)
-<br>A commercially supported version of Knapsack that provides a hosted service for test timing data and additional job distribution modes for Ruby, JavaScript, and more. See the [documentation](https://github.com/KnapsackPro/knapsack_pro-ruby#info-for-buildkitecom-users) and [step-by-step tutorial](http://docs.knapsackpro.com/2017/auto-balancing-7-hours-tests-between-100-parallel-jobs-on-ci-buildkite-example) for Ruby setup instructions and example pipelines. For other programming languages please check [integrations](https://docs.knapsackpro.com/integration/).
+<br>A commercially supported version of Knapsack that provides a hosted service for test timing data and additional job distribution modes for Ruby, JavaScript, and more. See the [README](https://github.com/KnapsackPro/knapsack_pro-ruby?tab=readme-ov-file#knapsack_pro-ruby-gem) and [step-by-step tutorial](http://docs.knapsackpro.com/2017/auto-balancing-7-hours-tests-between-100-parallel-jobs-on-ci-buildkite-example) for Ruby setup instructions and example pipelines. For other programming languages please check [integrations](https://docs.knapsackpro.com/integration/).
 
 - [Shardy McShardFace](https://www.npmjs.com/package/shardy-mc-shard-face)
-<br>Shardy McShardFace is an npm package for dividing your tests between parallel jobs. it shards as evenly as possible, uneven splits will end up in the tail shards, supports sharding fewer items than the parallelism count, and distributes items into shards based on a given seed for a random number generator to provide random, but stable distribution. See the [documentation](https://github.com/joscha/ShardyMcShardFace#readme).
+<br>Shardy McShardFace is an npm package for dividing your tests between parallel jobs. it shards as evenly as possible, uneven splits will end up in the tail shards, supports sharding fewer items than the parallelism count, and distributes items into shards based on a given seed for a random number generator to provide random, but stable distribution. See their [README](https://github.com/joscha/ShardyMcShardFace?tab=readme-ov-file#shardymcshardface) for more information.
 
 
 ## Isolated jobs

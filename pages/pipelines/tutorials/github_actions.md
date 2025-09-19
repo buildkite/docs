@@ -18,7 +18,7 @@ This tutorial assumes some familiarity with GitHub and using GitHub Actions. Lea
 ## Creating the workflow for Buildkite GitHub Actions
 
 1. If a workflow directory does not exist yet, create the `.github/workflows` directory in your repo to store the workflow files for Buildkite Pipeline Action.
-1. Create a [Buildkite API access token](/docs/apis/rest-api#authentication) with `write_builds` [scope](/docs/apis/managing-api-tokens#token-scopes), and save it to your GitHub repository’s Settings in Secrets. You can read more about [Creating encrypted secrets for a repository in GitHub](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository).
+1. Create a [Buildkite API access token](/docs/apis/rest-api#authentication) with `write_builds` [scope](/docs/apis/managing-api-tokens#token-scopes), and save it to your GitHub repository's Settings in Secrets. Learn more about this in [Creating secrets for a repository](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets#creating-secrets-for-a-repository) in GitHub's documentation.
 1. Define your GitHub Actions workflow with the details of the pipeline to be triggered. To ensure that the latest version is always used, click "Use latest version" on the [Trigger Buildkite Pipeline](https://github.com/marketplace/actions/trigger-buildkite-pipeline) page. Copy and paste the code snippet provided.
 1. Configure the workflow by setting the applicable configuration options.
 
