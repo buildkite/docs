@@ -97,9 +97,11 @@ else
     map("In `"+.page+"`:\n\n| Link | Status |\n|--|--|\n"+.links_str) | .[]'
 
     {
-        echo "## Muffet found broken links"
+        echo "## Muffet found the following link issues"
         echo
-        echo "First, resolve links with statuses other than 429 or 403 (especially, 404)."
+        echo "Before looking at the list of links below and trying to work out what's going on, ignore links with 429 or 403 statuses first. Links returning either of these two statuses will likely work when selected by a human. Also, muffet's been configured to allow this job to pass if all remaining link issues are either only 429s or 403s."
+        echo
+        echo "Instead, identify genuine link issues, such as 404s (not found) or 'id #some-fragment not found', and resolve them. For 'id #some-fragment not found' issues, fix the link and its fragment first (since the target content may have moved, or the link and its fragment just happen to be wrong). However, if the correct link (which you tested) is implemented and this job still fails, you'll likely need to add the correct link's full URL (excluding its fragment and/or query parameters from '?' onwards) to the list of '--exclude' options in the 'muffet.sh' script."
         echo
     } >> annotation.md
 

@@ -48,5 +48,3 @@ Check [Package creation tools](#package-creation-tools-wrong) for more info.
 Check [API & references](/docs/test-engine#api-and-references) (correct).
 
 Check [API & references](/docs/test-engine#api-and-references-wrong) (incorrect).
-
-Check [non-existent page](/docs/non-existent-page).
