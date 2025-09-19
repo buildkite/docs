@@ -150,11 +150,102 @@ Ensure all pipelines report metrics to your centralized monitoring system for:
 
 ## Custom checkout scripts
 
-Have standard checkout scripts in which you gather the same data as part of every job.
+Platform teams can standardize code checkout processes across all pipelines by implementing custom checkout hooks that gather consistent metadata, enforce security policies, and prepare the build environment according to organizational standards. Custom checkout scripts ensure that every job starts with the same foundation while accommodating different repository and project requirements.
 
-## Private plugins
+### Implementing standardized checkout workflows
 
-[Write](/docs/pipelines/integrations/plugins/writing) a [private plugin](/docs/pipelines/integrations/plugins/using#plugin-sources) if you would like things to be done in a certain way. For example, some repeated functionality from your pipelines can be offloaded into a plugin and reused.
+**Agent-level checkout hooks:**
+
+Create agent hooks that run for every job, regardless of pipeline or repository:
+
+- Place custom checkout scripts in the agent's hooks directory (configured by the [`hooks-path`](/docs/agent/v3/configuration#hooks-path) setting)
+- Use the `checkout` hook to completely override the default git checkout behavior with your organization's standards
+- Implement `pre-checkout` and `post-checkout` hooks to perform setup and validation tasks around the standard checkout process
+
+**Repository-specific enhancements:**
+
+Supplement agent-level hooks with repository-specific checkout customizations:
+
+- Create `.buildkite/hooks/post-checkout` scripts in repositories that need additional setup after code retrieval
+- Implement repository-specific environment variable configuration and dependency preparation
+- Add project-specific validation checks that run immediately after checkout
+
+## Plugin management and standardization
+
+Platform teams can leverage Buildkite plugins to standardize tooling, enforce best practices, and reduce configuration duplication across pipelines. By creating and managing a curated set of plugins, platform teams can provide development teams with approved, secure, and well-maintained tools while maintaining control over the CI/CD environment.
+
+### Private plugin development
+
+You can [write](/docs/pipelines/integrations/plugins/writing) a [private plugin](/docs/pipelines/integrations/plugins/using#plugin-sources) when you need to implement organization-specific requirements or standardize complex workflows:
+
+- **Security and compliance integration**: develop plugins that automatically integrate with your organization's security scanning tools, compliance frameworks, or audit logging systems.
+- **Deployment standardization**: create plugins that encapsulate your organization's deployment patterns, environment-specific configurations, and rollback procedures.
+- **Infrastructure automation**: build plugins that interact with your internal APIs, infrastructure provisioning systems, or monitoring platforms.
+- **Quality gate enforcement**: Implement plugins that enforce code quality standards, testing requirements, or documentation completeness checks.
+
+### Reusable functionality patterns through plugins
+
+You can extract common pipeline functionality into plugins to reduce duplication and ensure consistency:
+
+- Multi-environment deployment pipelines with approval gates.
+- Artifact packaging and distribution processes.
+- Performance testing and benchmarking procedures.
+- Container image building and security scanning workflows.
+
+### Plugin source management
+
+Platform teams should establish clear governance around plugin sources and usage:
+
+- **Buildkite-maintained plugins**: use these for standard functionality like Docker, Docker Compose, and common testing frameworks.
+- **Approved third-party plugins**: maintain an allowlist of vetted community plugins that meet your security and reliability standards.
+- **Private organizational plugins**: host your custom plugins in private repositories using fully qualified Git URLs for sensitive or proprietary functionality.
+
+Implement strict version management practices to ensure reliability and security:
+
+- Always pin plugins to specific versions or commit SHAs to prevent unexpected changes: `docker#v3.3.0` or `my-plugin#287293c4`.
+- Regularly audit and update plugin versions as part of your maintenance cycle.
+- Use YAML anchors to centralize plugin configuration and ensure consistency across pipelines.
+- Monitor plugin repositories for security vulnerabilities and updates.
+
+#### Plugin orchestration
+
+Design plugin workflows that work together seamlessly across pipeline steps:
+
+- Use plugins that leverage Buildkite's meta-data store to share information between steps
+- Create plugin chains that handle complex workflows like build → test → security scan → deploy
+- Implement plugins that can conditionally execute based on previous step results or build metadata
+
+### Plugin access control and security
+
+Platform administrators can control plugin usage through agent configuration:
+
+- Use the [agent's plugin restrictions](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-allow-a-list-of-plugins) to allowlist approved plugins.
+- Set the [`no-plugins`](/docs/agent/v3/configuration#no-plugins) option to disable plugins entirely on sensitive agents.
+- Implement different plugin policies for different agent clusters based on security requirements.
+
+### Private plugin distribution
+
+For sensitive or proprietary functionality, use private Git repositories:
+
+```yml
+steps:
+  - command: deploy to production
+    plugins:
+      - ssh://git@github.com/your-org/deployment-plugin.git#v1.0.0:
+          environment: production
+          approval_required: true
+      - file:///internal/monitoring-plugin.git#v2.0.0:
+          alert_channels: ["#ops", "#security"]
+```
+
+### Plugin security
+
+- Regularly audit plugin permissions and access patterns
+- Use separate Git repositories for different security domains
+- Implement code review processes for all plugin changes
+- Monitor plugin usage across your organization to identify potential security risks or optimization opportunities
+
+By establishing comprehensive plugin management practices, platform teams can provide development teams with powerful, standardized tools while maintaining security, compliance, and operational consistency across the entire CI/CD ecosystem.
 
 ## Annotations
 
@@ -229,7 +320,7 @@ Scale your infrastructure based on actual usage patterns rather than peak capaci
 - Reserve larger agent sizes only for resource-intensive tasks like performance testing or large deployments.
 - Implement queue-specific scaling policies that match the compute requirements of different job types.
 
-### User number control
+### User and license management
 
 With the cost of using Buildkite (depending on your tier) is partially based on the number of users, the platform team or (platform administrator) can track the number of users in an organization with the help of the following GraphQL query:
 
@@ -245,7 +336,12 @@ query getOrgMembersCount {
 
 Alternatively, Buildkite organization administrators can view the number of users in a Buildkite organization in https://buildkite.com/organizations/~/users.
 
-Some of the other user activity in Buildkite organizations can also be tracked via [GraphQL](/docs/apis/graphql/cookbooks/organizations).
+It's also recommended to:
+
+- Monitor user activity and remove inactive accounts to optimize license costs.
+- Implement automated user provisioning and deprovisioning workflows integrated with your identity management system.
+- Track user activity patterns using [GraphQL organization queries](/docs/apis/graphql/cookbooks/organizations) to identify optimization opportunities.
+- Set up alerts when user counts approach license limits to prevent overage charges.
 
 ### User access optimization strategies
 
@@ -256,10 +352,30 @@ Some of the other user activity in Buildkite organizations can also be tracked v
 
 ## Implement cost allocation
 
-- Tag builds with team/project identifiers
-- Generate regular usage reports
-- Set up alerts for unusual usage spikes
-- API-based logging out of users (if possible)
+Implement comprehensive cost allocation mechanisms to understand and optimize spending:
+
+- Tag builds with team, project, or department identifiers to enable cost attribution.
+- Generate regular usage reports that break down compute hours by team, project, and queue type.
+- Track peak usage periods to optimize scaling schedules and resource allocation.
+- Monitor artifact storage costs and implement retention policies for large or frequently uploaded artifacts.
+
+### Proactive cost management
+
+Set up monitoring and alerting systems to prevent unexpected cost overruns:
+
+- Configure alerts for unusual usage spikes that could indicate runaway builds or security incidents.
+- Implement build timeout policies to prevent stuck or infinite-loop jobs from consuming resources.
+- Set up automated reporting that provides cost visibility to team leads and budget owners.
+- Create dashboards that show real-time cost trends and projections for proactive budget management.
+
+### Cost optimization workflows
+
+- Establish regular review cycles to assess queue utilization and right-size resources.
+- Implement automated policies that pause or scale down underutilized queues.
+- Create cost-aware pipeline design guidelines that help teams optimize their build configurations.
+- Use build duration and queue wait time metrics to identify opportunities for parallelization or resource optimization.
+
+By implementing these cost controls, platform teams can maintain predictable infrastructure spending while ensuring that development teams have the resources they need for efficient CI/CD operations.
 
 ## Implementation recommendations for the platform team
 
