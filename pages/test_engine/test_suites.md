@@ -14,7 +14,7 @@ To delete a suite, or regenerate its API token, go to suite settings.
 
 Test Engine information is available on your test pipeline's build pages, in the [new build view](/docs/pipelines/build-page).
 
-[screenshot here]
+<%= image "tests-tab.png", width: 3170, height: 1668, alt: "Screenshot of the tests tab on the build page" %>
 
 This allows you to easily view the failing tests in a given build, and filter the test executions to analyze and surface trends about your tests suite. You can also select "Display" to change the columns displayed on the Test tab, so that other types of aggregate data (e.g. average duration) is shown. By default, the executions are grouped by test so that retried tests are shown together.
 
@@ -55,12 +55,12 @@ Once your test suite is set up, you'll have many types of information automatica
 
 The Summary and Test pages are able to be filtered by branch, result (e.g. pass, fail), state (e.g. enabled, disabled), owner (e.g. core-team, platform-team), label (e.g. flaky, slow, feature-test) and [tag](/docs/test-engine/test-suites/tags). This allows greater flexibility and deeper analysis into the performance of your test suite.
 
-<%= image "test-stats.png", width: 1166, height: 327, alt: "Screenshot of test trend page showing test trend information over the last 28 days, including test reliability and test execution durations" %>
+<%= image "test-stats.png", width: 2570, height: 902, alt: "Screenshot of test trend page showing test trend information over the last day, including test reliability and test execution durations" %>
 
 Select any individual test execution to see more trend and deep-dive information.
 
-<%= image "test-execution-stats.png", width: 1170, height: 578, alt: "Screenshot of individual test execution page showing test information related to that individual execution of the test" %>
+<%= image "test-execution-stats.png", width: 2930, height: 1812, alt: "Screenshot of individual test execution page showing test information related to that individual execution of the test" %>
 
 You can also annotate span information to help investigate problems, and see detailed log information inside Test Engine for any failed test or run.
 
-<%= image "span-timeline.png", width: 1125, height: 451, alt: "Screenshot of span timeline with user-defined annotation" %>
+<%= image "span-timeline.png", width: 1868, height: 1430, alt: "Screenshot of span timeline with user-defined annotation" %>
