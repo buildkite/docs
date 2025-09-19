@@ -27,7 +27,6 @@ This guide outlines recommended practices for designing, operating, and scaling 
 - Emojis for visual cues: Quick scanning is easier with consistent iconography.
 - Comment complex logic: Document non-obvious conditions or dependencies inline.
 
-
 ## Agent management
 
 ### Right-size your agent fleet
@@ -208,4 +207,3 @@ Avoid cramming unrelated tasks into one step:
 ## Conclusion
 
 Buildkite pipelines are most effective when treated as living systems: modular, observable, secure, and developer-friendly. Invest in clarity, speed, and automation from the start, and continuously refine based on developer feedback and scaling needs.
-
