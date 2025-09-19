@@ -36,6 +36,7 @@ set +e
   --exclude="https://cd.apps.argoproj.io/swagger-ui" \
   --exclude="https://console.aws.amazon.com/cloudformation/home" \
   --exclude="https://console.aws.amazon.com/ec2/v2/home" \
+  --exclude="https://console.cloud.google.com/compute/instancesAdd#preconfigured-image-ubuntu-1604-xenial-v20170202" \
   --exclude="https://docs.cursor.com/en/context/mcp#using-mcp-json" \
   --exclude="https://github.com/buildkite/agent" \
   --exclude="https://github.com/buildkite/backstage-plugin" \
@@ -50,6 +51,8 @@ set +e
   --exclude="https://github.com/floraison/fugit" \
   --exclude="https://github.com/hashicorp/hcl" \
   --exclude="https://github.com/honeycombio/buildevents" \
+  --exclude="https://github.com/joscha/ShardyMcShardFace" \
+  --exclude="https://github.com/KnapsackPro/knapsack_pro-ruby" \
   --exclude="https://github.com/marketplace" \
   --exclude="https://github.com/my-org/" \
   --exclude="https://github.com/rspec/rspec-core" \
@@ -101,11 +104,12 @@ else
         echo
         echo "Before looking at the list of links below to work out what's going on, ignore links with **429** or **403** statuses first. Links returning either of these two statuses will likely work when selected by a human. Also, muffet's been configured to allow this job to pass if all remaining links have statuses that are either only **429** or **403**."
         echo
-        echo "Instead, identify genuine link issues, such as those with a **404** status (not found) or ones returning an **id #some-fragment not found** issue, and resolve them. For **id #some-fragment not found** issues, fix the link and its fragment first (since the target content may have moved, or the link and its fragment might just happen to be wrong). However, if the correct link (which you manually tested yourself) is implemented and this job still fails, you'll likely need to add this correct link's full URL (excluding any query parameters from ``?`` onwards, but retaining its fragment) to the list of ``--exclude`` options in the ``muffet.sh`` script."
+        echo "Instead, identify genuine link issues, such as those with a **404** status (not found) or ones returning an **id #some-fragment not found** issue, and resolve them. For **id #some-fragment not found** issues, fix the link and its fragment first (since the target content may have moved, or the link and its fragment might just happen to be wrong). However, if the correct link (which you manually tested yourself) is implemented and this job still fails, you'll likely need to add this correct link's full URL (excluding any query parameters from <code>?</code> onwards, but retaining its fragment) to the list of <code>--exclude</code> options in the <code>muffet.sh</code> script."
         echo
-        echo "If you've added an ``--exclude`` entry for a link that generates an **id #some-fragment not found** error, but this job still fails with the same error (that is, the link and its fragment actually works but muffet still reports it as erroneous), then remove the fragment part of the URL from its ``--exclude`` entry."
+        echo "If you've added an <code>--exclude</code> entry for a link that generates an **id #some-fragment not found** error, but this job still fails with the same error (that is, the link and its fragment actually works but muffet still reports it as erroneous), then remove the fragment part of the URL from its <code>--exclude</code> entry."
         echo
         echo "Last, if you see any links with a **timeout** status, just re-run the muffet job again."
+        echo
     } >> annotation.md
 
     < muffet-results.json jq -r "$jq_query" >> annotation.md
