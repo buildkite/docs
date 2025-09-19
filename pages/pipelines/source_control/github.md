@@ -1,6 +1,6 @@
 # GitHub
 
-Buildkite can connect to a GitHub repository in your GitHub account or GitHub organization and use the [Commit Status API](https://docs.github.com/en/rest/reference/repos#statuses) to update the status of commits in pull requests.
+Buildkite can connect to a GitHub repository in your GitHub account or GitHub organization and use GitHub's [REST API endpoints for commit statuses](https://docs.github.com/en/rest/commits/statuses) to update the status of commits in pull requests.
 
 To complete this integration, you need admin privileges for your GitHub repository.
 

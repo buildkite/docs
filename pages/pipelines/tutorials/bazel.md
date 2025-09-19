@@ -38,7 +38,7 @@ Make sure you're signed into your [Buildkite account](https://buildkite.com) and
 ## Further reading
 
 - The [Bazel Tutorial: Build a C++ Project](https://bazel.build/start/cpp) goes into more detail about how to configure more complex Bazel builds, covering multiple build targets and multiple packages.
-- The Bazel [external dependencies docs](https://docs.bazel.build/external.html) show you how to build other local and remote repositories.
+- The Bazel [external dependencies docs](https://bazel.build/external/overview) show you how to build other local and remote repositories.
 
 ## Next steps
 
