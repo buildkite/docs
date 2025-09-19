@@ -139,9 +139,6 @@ steps:
             containers:
               - name: main
                 image: moby/buildkit:latest-rootless
-                env:
-                  - name: BUILDKITD_FLAGS
-                    value: "--oci-worker-no-process-sandbox"
                 volumeMounts:
                   - name: buildkit-cache
                     mountPath: "/home/user/.local/share/buildkit"
