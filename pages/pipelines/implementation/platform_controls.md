@@ -202,7 +202,7 @@ Platform teams should establish clear governance around plugin sources and usage
 
 Implement strict version management practices to ensure reliability and security:
 
-- Always pin plugins to specific versions or commit SHAs to prevent unexpected changes: `docker#v3.3.0` or `my-plugin#287293c4`.
+- Always pin plugins to specific versions or commit SHA values to prevent unexpected changes: `docker#v3.3.0` or `my-plugin#287293c4`.
 - Regularly audit and update plugin versions as part of your maintenance cycle.
 - Use YAML anchors to centralize plugin configuration and ensure consistency across pipelines.
 - Monitor plugin repositories for security vulnerabilities and updates.
