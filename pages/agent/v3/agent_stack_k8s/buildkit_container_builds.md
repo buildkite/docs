@@ -169,6 +169,7 @@ steps:
 | **Kubernetes Version**       | Any                      | Any                             | ≥1.19 (seccomp), ≥1.30 (AppArmor) |
 
 \*Process sandbox disabled due to Kubernetes limitations - reduces security within BuildKit container
+
 †`Unconfined` profiles are required for rootless container operations
 
 ## Understanding the components
