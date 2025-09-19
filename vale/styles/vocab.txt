@@ -104,6 +104,7 @@ dogstatsd
 dotenv
 DSCs
 enqueued
+Entra
 enum
 env
 eval
