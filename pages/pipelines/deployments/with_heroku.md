@@ -16,7 +16,7 @@ First step is installing the [Heroku CLI](https://devcenter.heroku.com/articles/
 $ wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 ```
 
-You can find OSX and Windows installers [here](https://devcenter.heroku.com/articles/heroku-command-line#download-and-install).
+You can find macOS and Windows installers from [The Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) documentation page.
 
 And now verify it installed correctly by checking the version:
 
