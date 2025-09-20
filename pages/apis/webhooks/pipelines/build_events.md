@@ -88,3 +88,36 @@ Example request body for blocked build:
 
 > 📘 To determine if an EventBridge notification is blocked
 > However, to determine if an EventBridge notification is blocked, look for <code>"state": "blocked". </code>, like in this <a href="/docs/pipelines/integrations/observability/amazon-eventbridge#events-build-blocked">sample Eventbridge request</a>.
+
+## Trigger steps in build events
+
+When a build contains trigger steps, the `build.finished` webhook includes the `async` field in the step configuration.
+
+Example `build.finished` request body with trigger step:
+
+```json
+{
+  "event": "build.finished",
+  "build": {
+    "steps": [
+      {
+        "type": "trigger",
+        "async": true,
+        "...": "..."
+      }
+    ],
+    "...": "..."
+  },
+  "pipeline": {
+    "...": "..."
+  },
+  "sender": {
+    "id": "8a7693f8-dbae-4783-9137-84090fce9045",
+    "name": "Some Person"
+  }
+}
+```
+
+The `async` field indicates:
+- `true`: The trigger step continues immediately, regardless of the triggered build's success
+- `false`: The trigger step waits for the triggered build to complete before continuing.
