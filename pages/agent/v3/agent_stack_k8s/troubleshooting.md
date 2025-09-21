@@ -100,3 +100,29 @@ query getClusterScheduledJobs {
 ```
 
 This will return the `100` newest created jobs for the `<cluster-id>` Cluster in the `<organization-slug>` Organization that are in a `scheduled` state and waiting for the controller to convert them each to a Kubernetes Job. Each Buildkite job's agent tags will be defined under `agentQueryRules`.
+
+### Controller stops accepting new jobs from a cluster Queue
+
+There may be some cases where some waiting jobs increase in Buildkite UI,however there are no new pods created.
+Reviewing the Logs may show “max-in-flight reached” with counters not decreasing.
+Error may look like 
+DEBUG	limiter	scheduler/limiter.go:77	max-in-flight reached	{"in-flight": 25}
+
+Some initial steps to help 
+Enable debug log and look for errors related to max-in-flight reached
+Confirm no new Kubernetes jobs are created while the UI shows jobs waiting 
+Check for recent non-retriable errors in the monitor loop and whether polling continues afterward.
+The likely cause is the Limiter state not decrementing on some code paths or a temporary controller livelock.
+
+Temporary fix 
+Execute kubectl -n buildkite rollout restart deployment agent-stack-k8s makes the controller happy again and it starts jobs from the queue https://github.com/buildkite/agent-stack-k8s/issues/302
+to recover; then inspect logs around limiter and monitor cycles.
+
+config:
+  # temporarily lower to validate drain/decrement behavior
+  max-in-flight: 10
+.
+
+Fixes:
+Upgrade to the latest controller release.
+Reduce in-flight limits temporarily and monitor limiter logs.
