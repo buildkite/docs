@@ -175,8 +175,8 @@ Pipelines using [a GitHub repository](/docs/pipelines/source_control/github) hav
 GitHub Commit Statuses appear as simple pass/fail indicators on commits and pull requests. For more advanced features like detailed output and annotations, consider using [GitHub Checks](#github-check) instead.
 
 > 📘 Requirements
-> - GitHub notifications require a full 40-character commit SHA. Builds with short SHAs or `HEAD` references will not trigger notifications until the commit SHA is resolved.
-> - For more information on customizing commit statuses, see [Customizing commit statuses](/docs/pipelines/source_control/github#customizing-commit-statuses) in the GitHub integration documentation.
+> * GitHub notifications require a full 40-character commit SHA. Builds with short SHAs or `HEAD` references will not trigger notifications until the commit SHA is resolved.
+> * For more information on customizing commit statuses, see [Customizing commit statuses](/docs/pipelines/source_control/github#customizing-commit-statuses) in the GitHub integration documentation.
 
 Add a GitHub Commit Status notification to your pipeline using the `github_commit_status` attribute of the `notify` YAML block:
 
@@ -229,8 +229,8 @@ Create a [GitHub Check](https://docs.github.com/en/rest/checks) to provide detai
 GitHub Checks provide richer status information than commit statuses, including the ability to display detailed output, annotations, and custom formatting. Unlike commit statuses, GitHub Checks can show step-by-step progress, include formatted text and links, and provide inline code annotations.
 
 > 📘 Requirements
-> - GitHub Checks require the GitHub App integration. If you're using OAuth-based GitHub integration, use [GitHub Commit Status](#github-commit-status) notifications instead.
-> - GitHub notifications require a full 40-character commit SHA. Builds with short SHAs or `HEAD` references will not trigger notifications until the commit SHA is resolved.
+> * GitHub Checks require the GitHub App integration. If you're using OAuth-based GitHub integration, use [GitHub Commit Status](#github-commit-status) notifications instead.
+> * GitHub notifications require a full 40-character commit SHA. Builds with short SHAs or `HEAD` references will not trigger notifications until the commit SHA is resolved.
 
 Add a GitHub Check notification to your pipeline using the `github_check` attribute of the `notify` YAML block:
 
@@ -267,11 +267,7 @@ The `github_check` attribute supports the following options:
 : The name of the check. Defaults to the pipeline name for build-level notifications, or auto-generated based on the step label/key for step-level notifications.
 
 `output` (optional)
-: An object containing detailed output information:
-  - `title`: A short title for the check output
-  - `summary`: A summary of the check results
-  - `text`: Detailed information about the check results (supports Markdown)
-  - `annotations`: An array of annotation objects for inline code comments
+: An object containing detailed output information: `title` (a short title for the check output), `summary` (a summary of the check results), `text` (detailed information about the check results, supports Markdown), and `annotations` (an array of annotation objects for inline code comments).
 
 ### GitHub Check annotations
 
@@ -296,13 +292,13 @@ steps:
 
 Each annotation object supports:
 
-- `path`: The file path relative to the repository root
-- `start_line`: The line number where the annotation starts
-- `end_line`: The line number where the annotation ends
-- `annotation_level`: The level of the annotation (`notice`, `warning`, or `failure`)
-- `message`: The annotation message
-- `start_column` (optional): The column number where the annotation starts
-- `end_column` (optional): The column number where the annotation ends
+* `path`: The file path relative to the repository root
+* `start_line`: The line number where the annotation starts
+* `end_line`: The line number where the annotation ends
+* `annotation_level`: The level of the annotation (`notice`, `warning`, or `failure`)
+* `message`: The annotation message
+* `start_column` (optional): The column number where the annotation starts
+* `end_column` (optional): The column number where the annotation ends
 
 ### Dynamic GitHub Check updates
 
