@@ -1,29 +1,31 @@
-# Configuring test splitting
+# Configuring the Test Engine Client
 
-Buildkite maintains its open source Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) tool. This tool uses your Test Engine test suite data to intelligently partition tests throughout your test suite into multiple sets, such that each set of tests runs in parallel across your agents. This results in a _test plan_, where a test plan defines which tests are run on which agents. Currently, the Test Engine Client tool supports [RSpec](/docs/test-engine/test-collection/ruby-collectors#rspec-collector), [Jest](/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-jest), [Cypress](/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-cypress), [PlayWright](/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-playwright), and [Pytest](/docs/test-engine/test-collection/python-collectors#pytest-collector) testing frameworks.
+Buildkite maintains its open source Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) tool. Currently, the bktec tool supports [RSpec](/docs/test-engine/test-collection/ruby-collectors#rspec-collector), [Jest](/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-jest), [Cypress](/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-cypress), [PlayWright](/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-playwright), and [Pytest](/docs/test-engine/test-collection/python-collectors#pytest-collector), pytest-pants, [Go](/docs/test-engine/test-collection/golang-collectors), and cucumber testing frameworks.
+
+If your testing framework is not supported, get in touch via support@buildkite.com or submit a pull request.
 
 ## Dependencies
 
-The Test Engine Client relies on execution timing data captured by the test collectors from previous builds to partition your tests evenly across your agents. Therefore, you will need to configure the [Ruby test collector](/docs/test-engine/test-collection/ruby-collectors) for your test suite if you are running RSpec, and [JavaScript test collector](/docs/test-engine/test-collection/javascript-collectors) if you are running Jest.
+bktec relies on execution timing data captured by the test collectors from previous builds to partition your tests evenly across your agents. Therefore, you will need to configure the [test collector](/docs/test-engine/test-collection) for your test framework.
 
 ## Installation
 
-The Test Engine Client is supported on both Linux and macOS with 64-bit ARM and AMD architectures. You can install the client using the following installers:
+bktec is supported on both Linux and macOS with 64-bit ARM and AMD architectures. You can install the client using the following installers:
 
-- [Debian](/docs/test-engine/test-splitting/client-installation#debian)
-- [Red Hat](/docs/test-engine/test-splitting/client-installation#red-hat)
-- [macOS](/docs/test-engine/test-splitting/client-installation#macos)
-- [Docker](/docs/test-engine/test-splitting/client-installation#docker)
+- [Debian](/docs/test-engine/bktec/installing-the-client#debian)
+- [Red Hat](/docs/test-engine/bktec/installing-the-client#red-hat)
+- [macOS](/docs/test-engine/bktec/installing-the-client#macos)
+- [Docker](/docs/test-engine/bktec/installing-the-client#docker)
 
 If you need to install this tool on a system without an installer listed above, you'll need to perform a manual installation using one of the binaries from [Test Engine Client's releases page](https://github.com/buildkite/test-engine-client/releases/latest). Once you have the binary, make it executable in your pipeline.
 
-## Using the Test Engine Client
+## Using bktec
 
-Once you have downloaded the Test Engine Client (bktec) binary and it is executable in your pipeline, you'll need to configure some additional environment variables for the Test Engine Client to function. You can then update your pipeline step to call `bktec` instead of calling RSpec to run your tests. Learn more about how to do this in [Update the pipeline step](#using-the-test-engine-client-update-the-pipeline-step).
+Once you have downloaded the bktec binary and it is executable in your pipeline, you'll need to configure some additional environment variables for bktec to function. You can then update your pipeline step to call `bktec` instead of calling RSpec to run your tests. Learn more about how to do this in [Update the pipeline step](#using-bktec-update-the-pipeline-step).
 
 ### Configure environment variables
 
-The Test Engine Client tool uses a number of [predefined](#predefined-environment-variables) and [mandatory](#mandatory-environment-variables) environment variables, as well as several optional ones for either [RSpec](#optional-rspec-environment-variables) or [Jest](#optional-jest-environment-variables).
+bktec uses a number of [predefined](#predefined-environment-variables) and [mandatory](#mandatory-environment-variables) environment variables, as well as several optional ones for either [RSpec](#optional-rspec-environment-variables) or [Jest](#optional-jest-environment-variables).
 
 <a id="predefined-environment-variables"></a>
 
@@ -83,7 +85,7 @@ The following mandatory environment variables must be set.
 
 #### Optional RSpec environment variables
 
-The following optional RSpec environment variables can also be used to configure the Test Engine Client's behavior.
+The following optional RSpec environment variables can also be used to configure bktec's behavior.
 
 <table class="Docs__attribute__table">
   <tbody>
@@ -118,7 +120,7 @@ The following optional RSpec environment variables can also be used to configure
 
 #### Optional Jest environment variables
 
-The following optional Jest environment variables can also be used to configure the Test Engine Client's behavior.
+The following optional Jest environment variables can also be used to configure bktec's behavior.
 
 <table class="Docs__attribute__table">
   <tbody>
@@ -152,7 +154,7 @@ The following optional Jest environment variables can also be used to configure 
 
 ### Update the pipeline step
 
-With the environment variables configured, you can now update your pipeline step to run the Test Engine Client instead of running RSpec, or Jest directly. The following example pipeline step demonstrates how to partition your RSpec test suite across 10 nodes.
+With the environment variables configured, you can now update your pipeline step to run bktec instead of running RSpec, or Jest directly. The following example pipeline step demonstrates how to partition your RSpec test suite across 10 nodes.
 
 ```
 steps:
@@ -169,4 +171,4 @@ steps:
 
 ## API rate limits
 
-There is a limit on the number of API requests that the Test Engine Client can make to the server. This limit is 10,000 requests per minute per Buildkite organization. When this limit is reached, the Test Engine Client will pause and wait until the next minute is reached before retrying the request. This rate limit is independent of the [REST API rate limits](/docs/apis/rest-api/limits), and only applies to the Test Engine Client's interactions with the Test Splitting API.
+There is a limit on the number of API requests that bktec can make to the server. This limit is 10,000 requests per minute per Buildkite organization. When this limit is reached, bktec will pause and wait until the next minute is reached before retrying the request. This rate limit is independent of the [REST API rate limits](/docs/apis/rest-api/limits), and only applies to the Test Engine Client's interactions with the Test Splitting API.

@@ -12,6 +12,7 @@ APIs
 apk
 APM
 applesimutils
+Anthropic's
 Aqua
 architecting
 Argo
@@ -40,6 +41,7 @@ Bazel
 bazelisk
 Bitium
 bktec
+bktec's
 boolean
 Boomper
 Buildbox
@@ -102,6 +104,7 @@ dogstatsd
 dotenv
 DSCs
 enqueued
+Entra
 enum
 env
 eval
@@ -134,6 +137,7 @@ gpg
 Gradle
 gradle
 Gradle's
+graphql_id
 Graviton
 GRC
 gz
@@ -175,6 +179,7 @@ LFS
 libpq
 linux
 llamasecret
+LLMs
 macOS
 macos
 matchfile
@@ -286,6 +291,7 @@ sre
 sso
 statefully
 stdout
+streamable
 stringified
 subcommand
 subcommands
@@ -305,6 +311,7 @@ tgz
 timeframe
 tmp
 tmux
+tokenization
 toolmantim
 tooltip
 TOTP's
@@ -347,6 +354,7 @@ walkthrough
 webhook's
 webtask
 wget
+Windsurf's
 worktree
 workspace's
 xcbeautify

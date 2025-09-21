@@ -12,7 +12,6 @@ If you don't want your steps to run at the same time, you can add [wait steps](/
 
 A single command step can also be broken up into many [parallel jobs](#parallel-jobs). For example, a long-running test suite can be split into many parallel pieces across multiple agents, reducing the total run time of your build.
 
-
 ## Running multiple agents
 
 There are two ways to scale your build agents: horizontally across multiple machines, or vertically on a single machine. You can even run many agents per machine across many machines.
@@ -41,7 +40,7 @@ buildkite-agent start --tags queue=deploy
 
 #### Coordinating multiple agents
 
->🛠️ Experimental feature
+> 🛠️ Experimental feature
 > To use it, set <code>experiment="agent-api"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.
 > This requires Agent v3.47.0 or later.
 
@@ -98,9 +97,9 @@ steps:
 
 You can choose from the following parallel job index label helpers:
 
-* `%n` to display job count starting at `0`.
-* `%N` to display job count starting at `1`.
-* `%t` to display the total number of parallel jobs in the step.
+- `%n` to display job count starting at `0`.
+- `%N` to display job count starting at `1`.
+- `%t` to display the total number of parallel jobs in the step.
 
 Now that the pipeline is configured, create a new build:
 
@@ -120,16 +119,18 @@ You can use these two environment variables to divide your application's tests b
 
 ## Libraries
 
-The following libraries have built-in support the `BUILDKITE_PARALLEL_JOB` and `BUILDKITE_PARALLEL_JOB_COUNT` environment variables:
+For best results, Buildkite recommends using the Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) tool, which supports parallel jobs. bktec uses your Test Engine test suite data to provide intelligent test splitting and automatic management of flaky tests. For more information, see [Speed up builds with the Test Engine Client](/docs/test-engine/speed-up-builds-with-bktec) and its [configuration options](/docs/test-engine/bktec/configuring).
 
-* [Knapsack](https://github.com/ArturT/knapsack)
+Other libraries that have built-in support for the `BUILDKITE_PARALLEL_JOB` and `BUILDKITE_PARALLEL_JOB_COUNT` environment variables are:
+
+- [Knapsack](https://github.com/ArturT/knapsack)
 <br>Knapsack is a ruby gem for automatically dividing your tests between parallel jobs, as well as making sure each job runs in comparable time. It supports RSpec, Cucumber, and minitest.
 
-* [Knapsack Pro](https://knapsackpro.com/?utm_source=buildkite&utm_medium=docs&utm_campaign=buildkite-parallel-builds)
-<br>A commercially supported version of Knapsack that provides a hosted service for test timing data and additional job distribution modes for Ruby, JavaScript, and more. See the [documentation](https://github.com/KnapsackPro/knapsack_pro-ruby#info-for-buildkitecom-users) and [step-by-step tutorial](http://docs.knapsackpro.com/2017/auto-balancing-7-hours-tests-between-100-parallel-jobs-on-ci-buildkite-example) for Ruby setup instructions and example pipelines. For other programming languages please check [integrations](https://docs.knapsackpro.com/integration/).
+- [Knapsack Pro](https://knapsackpro.com/?utm_source=buildkite&utm_medium=docs&utm_campaign=buildkite-parallel-builds)
+<br>A commercially supported version of Knapsack that provides a hosted service for test timing data and additional job distribution modes for Ruby, JavaScript, and more. See the [README](https://github.com/KnapsackPro/knapsack_pro-ruby?tab=readme-ov-file#knapsack_pro-ruby-gem) and [step-by-step tutorial](http://docs.knapsackpro.com/2017/auto-balancing-7-hours-tests-between-100-parallel-jobs-on-ci-buildkite-example) for Ruby setup instructions and example pipelines. For other programming languages please check [integrations](https://docs.knapsackpro.com/integration/).
 
-* [Shardy McShardFace](https://www.npmjs.com/package/shardy-mc-shard-face)
-<br>Shardy McShardFace is an npm package for dividing your tests between parallel jobs. it shards as evenly as possible, uneven splits will end up in the tail shards, supports sharding fewer items than the parallelism count, and distributes items into shards based on a given seed for a random number generator to provide random, but stable distribution. See the [documentation](https://github.com/joscha/ShardyMcShardFace#readme).
+- [Shardy McShardFace](https://www.npmjs.com/package/shardy-mc-shard-face)
+<br>Shardy McShardFace is an npm package for dividing your tests between parallel jobs. it shards as evenly as possible, uneven splits will end up in the tail shards, supports sharding fewer items than the parallelism count, and distributes items into shards based on a given seed for a random number generator to provide random, but stable distribution. See their [README](https://github.com/joscha/ShardyMcShardFace?tab=readme-ov-file#shardymcshardface) for more information.
 
 
 ## Isolated jobs
@@ -142,10 +143,10 @@ One convenient way of achieving build job isolation is to use the agent's built 
 
 In addition to the [Elastic CI Stack for AWS](/docs/quickstart/elastic-ci-stack-aws) (which has built-in support for auto-scaling) we provide a number of APIs and tools you can use to auto-scale your own build agents:
 
-* [GraphQL API](/docs/apis/graphql-api) allows you to efficiently fetch your organization's scheduled jobs count, agents count, and details about each agent.
-* [Pipelines REST API](/docs/apis/rest-api/pipelines) and [Agents API](/docs/apis/rest-api/agents) you're able to fetch each pipeline's job count, and information about each agent.
-* [Agent priorities](/docs/agent/v3/prioritization) allow you to define which agents are assigned work first, such as high performance ephemeral agents.
-* [Agent queues](/docs/agent/v3/queues) allow you to divide your agent pools into separate groups for scaling and performance purposes.
-* [buildkite-agent-metrics](https://github.com/buildkite/buildkite-agent-metrics) tool allow you to collect your organization's Buildkite metrics and report them to AWS CloudWatch and StatsD.
+- [GraphQL API](/docs/apis/graphql-api) allows you to efficiently fetch your organization's scheduled jobs count, agents count, and details about each agent.
+- [Pipelines REST API](/docs/apis/rest-api/pipelines) and [Agents API](/docs/apis/rest-api/agents) you're able to fetch each pipeline's job count, and information about each agent.
+- [Agent priorities](/docs/agent/v3/prioritization) allow you to define which agents are assigned work first, such as high performance ephemeral agents.
+- [Agent queues](/docs/agent/v3/queues) allow you to divide your agent pools into separate groups for scaling and performance purposes.
+- [buildkite-agent-metrics](https://github.com/buildkite/buildkite-agent-metrics) tool allow you to collect your organization's Buildkite metrics and report them to AWS CloudWatch and StatsD.
 
 Using these tools you can automate your build infrastructure, scale your agents based on demand, and massively reduce build times using job parallelism.

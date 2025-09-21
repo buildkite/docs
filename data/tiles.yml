@@ -77,9 +77,9 @@ test_engine_features:
   - title: "Find and fix flaky tests"
     url: "/docs/test-engine/test-suites/flaky-test-management#detecting-flaky-tests"
     desc: "Quickly identify which tests are the most disruptive for your team, and get a head-start on fixing them."
-  - title: "Reduce build times with test splitting"
-    url: "/docs/test-engine/test-splitting"
-    desc: "Split tests evenly across agents to reduce overall pipeline build times, especially for highly complex test suites."
+  - title: "Reduce build times with bktec"
+    url: "/docs/test-engine/speed-up-builds-with-bktec"
+    desc: "Split tests evenly across agents to reduce overall pipeline build times, and skip and mute flaky tests."
 test_engine_guides:
   - title: "Test collection"
     links:
