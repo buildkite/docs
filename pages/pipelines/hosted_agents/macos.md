@@ -179,7 +179,7 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ## Homebrew packages
 
-Package versions vary by macOS operating system. Check your hosted agents base image page for specific version details for each macOS version.
+The versions for each of these packages varies by macOS version. See [Identifying Homebrew package versions](#homebrew-packages-identifying-homebrew-package-versions) for instructions on how to identify each package's version.
 
 - ant
 - applesimutils
@@ -239,6 +239,13 @@ Package versions vary by macOS operating system. Check your hosted agents base i
 - xcodes
 - yq
 - zstd
+
+### Identifying Homebrew package versions
+
+To find the [Homebrew package](#homebrew-packages) version used by your macOS hosted agent:
+
+1. Select **Agents** in the global navigation > your [cluster](/docs/pipelines/clusters/manage-clusters) containing the [macOS Buildkite hosted agent queue](/docs/pipelines/clusters/manage-queues) > your macOS hosted agent.
+1. On your macOS hosted agent's page, select **Base image** and scroll down to **Specifications** > **Homebrew packages** to view these packages, along with their respective versions.
 
 ## Git mirror cache
 
