@@ -28,7 +28,7 @@ To add a new documentation (docs) page and a nav entry for it:
     | `icon`        | Prepend with an icon. | String, optional |
     | `theme`       | WIP: doesn't work yet. Apply a theme. You can use `green` or `purple`. | String, optional |
     | `children`    | Child nav entry items. | Array of objects, optional |
-    | `pill`        | Append a pill. Currently you can use `beta`, `coming-soon`, `deprecated` or `new` | String, optional |
+    | `pill`        | Append a pill to indicate the status of a page and its content. Currently, using `beta`, `coming-soon`, `deprecated` or `new` will generate pills that have color formatting. You can also use the pill `preview` to indicate that a page's content, along with the feature it documents, is still in development. | String, optional |
     | `new_window`  | Make this link open up a new window, although this practice should be avoided or minimized. | Bool, optional |
     | `type` | Special nav link types. With `dropdown` the children nav items will be rendered as hover dropdown menus on laptop/desktop screen devices. `link` is a shortcut link that takes the user from one section to another (for example, you may link to SSO under the Integrations section from Pipeline's sidebar). It also renders an 'external link' icon as an affordance. Lastly, `divider` makes a divider line in the nav to help with visual delineation. | String, `dropdown|link|divider`, optional |
 
