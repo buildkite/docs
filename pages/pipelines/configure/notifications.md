@@ -168,14 +168,14 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## GitHub Commit Status
+## GitHub commit status
 
 Pipelines using [a GitHub repository](/docs/pipelines/source_control/github) have [GitHub Commit Status](https://docs.github.com/en/rest/commits/statuses) integration built-in, but you can add custom commit statuses using notifications.
 
 GitHub Commit Statuses appear as simple pass/fail indicators on commits and pull requests. For more advanced features like detailed output and annotations, consider using [GitHub Checks](#github-check) instead.
 
 > 📘 Requirements
-> * GitHub notifications require a full 40-character commit SHA. Builds with short SHAs or `HEAD` references will not trigger notifications until the commit SHA is resolved.
+> * GitHub notifications require a full 40-character commit SHA. Builds with short commit SHA values or `HEAD` references will not trigger notifications until the commit SHA is resolved.
 > * For more information on customizing commit statuses, see [Customizing commit statuses](/docs/pipelines/source_control/github#customizing-commit-statuses) in the GitHub integration documentation.
 
 Add a GitHub Commit Status notification to your pipeline using the `github_commit_status` attribute of the `notify` YAML block:
@@ -202,7 +202,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-### GitHub Commit Status attributes
+### GitHub commit status attributes
 
 The `github_commit_status` attribute supports the following options:
 
@@ -222,7 +222,7 @@ Step-level GitHub Commit Status notifications happen at the following [events](/
 * `step.failing`
 * `step.finished`
 
-## GitHub Check
+## GitHub check
 
 Create a [GitHub Check](https://docs.github.com/en/rest/checks) to provide detailed feedback on builds and steps with rich formatting, annotations, and summaries. This requires the pipeline is configured to use [a GitHub repository](/docs/pipelines/source_control/github) with the GitHub App integration.
 
@@ -230,7 +230,7 @@ GitHub Checks provide richer status information than commit statuses, including 
 
 > 📘 Requirements
 > * GitHub Checks require the GitHub App integration. If you're using OAuth-based GitHub integration, use [GitHub Commit Status](#github-commit-status) notifications instead.
-> * GitHub notifications require a full 40-character commit SHA. Builds with short SHAs or `HEAD` references will not trigger notifications until the commit SHA is resolved.
+> * GitHub notifications require a full 40-character commit SHA. Builds with short commit SHA values or `HEAD` references will not trigger notifications until the commit SHA is resolved.
 
 Add a GitHub Check notification to your pipeline using the `github_check` attribute of the `notify` YAML block:
 
@@ -259,7 +259,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-### GitHub Check attributes
+### GitHub check attributes
 
 The `github_check` attribute supports the following options:
 
@@ -269,7 +269,7 @@ The `github_check` attribute supports the following options:
 `output` (optional)
 : An object containing detailed output information: `title` (a short title for the check output), `summary` (a summary of the check results), `text` (detailed information about the check results, supports Markdown), and `annotations` (an array of annotation objects for inline code comments).
 
-### GitHub Check annotations
+### GitHub check annotations
 
 For step-level notifications, you can include annotations that appear as inline comments on specific lines of code in pull requests:
 
@@ -300,7 +300,7 @@ Each annotation object supports:
 * `start_column` (optional): The column number where the annotation starts
 * `end_column` (optional): The column number where the annotation ends
 
-### Dynamic GitHub Check updates
+### Dynamic GitHub check updates
 
 For step-level GitHub Check notifications, you can dynamically update the check output during step execution using the `buildkite-agent step update` command:
 

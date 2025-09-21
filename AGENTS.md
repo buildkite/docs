@@ -1,3 +1,21 @@
+# Buildkite documentation repository and pipeline
+
+This repository generates the Buildkite documentation website:
+
+https://buildkite.com/docs
+
+- Repository: `https://github.com/buildkite/docs-private`
+- CI: `https://buildkite.com/buildkite/docs-private`
+- CI steps: `.buildkite/pipeline.yml`
+
+There are GitHub Actions workflows but they are not part of the CI pipeline. **Do not use Github Actions. EVER.** When asked to do anything with CI use Buildkite. You should have the Buildkite MCP server available. If you don't, and you need CI, STOP and ask the user to set it up:
+
+https://github.com/buildkite/buildkite-mcp-server
+
+Run the CI steps locally and correct any errors before pushing commits. Review the CI build after push.
+
+---
+
 # Buildkite documentation style rules
 
 ## Instructions
