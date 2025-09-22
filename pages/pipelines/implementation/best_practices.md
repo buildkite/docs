@@ -4,13 +4,26 @@ This guide outlines recommended practices for designing, operating, and scaling 
 
 > 📘 For in-depth information on enforcing Buildkite security controls, see [Enforcing security controls](/docs/pipelines/security/enforcing-security-controls).
 
+## Architecture and ownership
+
+- Prefer hybrid: keep code and secrets in your infrastructure. Use clusters and queues to create clear security and workload boundaries.
+- Establish platform ownership for pipelines, agent fleets, secrets, and access. Route escalations to the platform team and maintain a single source of truth for the Buildkite organization and queues.
+
 ## Pipeline design and structure
 
 ### Keep pipelines focused and modular
 
+- Default to dynamic pipelines to generate steps programmatically. They scale better than static YAML as repositories and requirements grow.
+- Use `buildkite-agent pipeline upload` to generate steps programmatically based on code changes. This allows conditional inclusion of steps (e.g., integration tests only when backend code changes).
 - Separate concerns: Split pipelines into testing, building, and deployment flows. Avoid single, monolithic pipelines.
 - Use pipeline templates: Define reusable YAML templates for common workflows (linting, testing, building images).
-- Leverage dynamic pipelines: Use `buildkite-agent pipeline upload` to generate steps programmatically based on code changes. This allows conditional inclusion of steps (e.g., integration tests only when backend code changes).
+
+### Use monorepos for change scoping
+
+- Run only what changed. Use a monorepo diff strategy, agent `if_changed`, or official plugins to selectively build and test affected components.
+- Two common patterns:
+    + One orchestrator pipeline that triggers component pipelines based on diffs.
+    + One dynamic pipeline that injects only the steps needed for the change set.
 
 ### Prioritize fast feedback loops
 
@@ -231,9 +244,10 @@ Never ignore failing steps without clear documentation or follow-up.
 - Audit readiness: Retain logs, artifacts, and approvals for compliance reporting.
 - Sandbox pipelines: Provide safe environments to test changes without impacting production.
 
-## Developer enablement
+## Enabling developers
 
 ### Self-service pipelines
+
 - Curated templates: Allow teams to adopt pipelines without deep Buildkite expertise.
 - Golden paths: Document and promote recommended workflows to reduce cognitive load.
 - Feedback loops: Encourage engineers to propose improvements or report issues.

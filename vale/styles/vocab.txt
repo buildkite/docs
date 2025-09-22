@@ -265,6 +265,8 @@ repo
 reprioritize
 reprioritizes
 resizable
+rollout
+rollouts
 routable
 rpmbuild
 RSpec
