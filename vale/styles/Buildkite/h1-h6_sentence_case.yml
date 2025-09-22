@@ -203,6 +203,7 @@ exceptions:
   - SLOs
   - SSH
   - SSO
+  - Tahoe
   - Tekton
   - Test Engine
   - Test Engine Client
