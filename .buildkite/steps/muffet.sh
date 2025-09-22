@@ -56,7 +56,6 @@ set +e
   --exclude="https://github.com/marketplace" \
   --exclude="https://github.com/my-org/" \
   --exclude="https://github.com/rspec/rspec-core" \
-  --exclude="https://help.ubuntu.com/community/Repositories/CommandLine" \
   --exclude="https://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" \
   --exclude="https://webtask.io/" \
   --exclude="/sample.svg" \
@@ -109,7 +108,7 @@ else
         echo
         echo "If you've added an <code>--exclude</code> entry for a link that generates an **id #fragment-part-of-url not found** error, but this job still fails with the same error (that is, the link and its fragment actually works but muffet still reports it as erroneous), then remove the fragment part of the URL from its <code>--exclude</code> entry."
         echo
-        echo "Last, if you see any links with a **timeout** status, just re-run the muffet job again. If the **timeout** for a given link keeps recurring, but you strongly believe it's still only a temporary issue, add it to the list of <code>--exclude</code>s in the <code>muffet.sh</code> script."
+        echo "Last, if you see any links with a **timeout** status, just re-run the muffet job again."
         echo
     } >> annotation.md
 
