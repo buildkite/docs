@@ -48,4 +48,4 @@ The title and description fields support [Linear flavoured Markdown](https://lin
 
 [screenshot of Issues tab]
 
-To connect your Linear account, go to your organization's settings, and select "Notification Services".
+To [connect your Linear account](/docs/platform/integrations/linear-workspace), go to your organization's settings, and select "Notification Services".
