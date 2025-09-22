@@ -60,7 +60,7 @@ set +e
   --exclude="https://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" \
   --exclude="https://webtask.io/" \
   --exclude="/sample.svg" \
-  --header="User-Agent: Muffet/$(/muffet --version)" \
+  --header="User-Agent: Muffet/$(muffet --version)" \
   --max-connections=10 \
   --timeout=15 \
   --buffer-size=8192 \
