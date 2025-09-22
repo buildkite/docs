@@ -103,26 +103,41 @@ This will return the `100` newest created jobs for the `<cluster-id>` Cluster in
 
 ### Controller stops accepting new jobs from a cluster Queue
 
-There may be some cases where some waiting jobs increase in Buildkite UI,however there are no new pods created.
-Reviewing the Logs may show “max-in-flight reached” with counters not decreasing.
+There may be some cases where some waiting jobs increase in the Buildkite UI, however, no new pods are created.
+Reviewing the Logs may show `max-in-flight reached` with counters not decreasing.
 Error may look like 
+``` 
 DEBUG	limiter	scheduler/limiter.go:77	max-in-flight reached	{"in-flight": 25}
+````
 
-Some initial steps to help 
-Enable debug log and look for errors related to max-in-flight reached
-Confirm no new Kubernetes jobs are created while the UI shows jobs waiting 
-Check for recent non-retriable errors in the monitor loop and whether polling continues afterward.
-The likely cause is the Limiter state not decrementing on some code paths or a temporary controller livelock.
+#### Some initial steps to help 
 
-Temporary fix 
-Execute kubectl -n buildkite rollout restart deployment agent-stack-k8s makes the controller happy again and it starts jobs from the queue https://github.com/buildkite/agent-stack-k8s/issues/302
-to recover; then inspect logs around limiter and monitor cycles.
+1. Enable debug log and look for errors related to `max-in-flight` reached
+2. Confirm no new Kubernetes jobs are created while the UI shows jobs waiting 
 
-config:
-  # temporarily lower to validate drain/decrement behavior
-  max-in-flight: 10
-.
+#### Temporary fix 
+Execute `kubectl -n buildkite rollout restart deployment agent-stack-k8s` to restart the controller pod and clear the the “max-in-flight reached” condition that allows scheduling to resume
 
-Fixes:
-Upgrade to the latest controller release.
-Reduce in-flight limits temporarily and monitor limiter logs.
+
+#### Fixes:
+[Upgrade](https://github.com/buildkite/agent-stack-k8s/releases) to the latest controller release if using any version less than [v0.2.7](https://github.com/buildkite/agent-stack-k8s/releases/tag/v0.27.0)
+
+
+
+#### Wrong exit code 
+
+Error code from the kubernetes pods may not be passed through the agent preventing the use of exit based retries the error could look like below 
+
+A scenrario would be if a user saw in the Buildkite UI that an exit code was `137` however the exit code emitted from the container was `1`. This would prevent the kickoff of retries that were configured for the exit code `1`. 
+
+A workaround that could help here is to simply add a retry rule for all stack level failures 
+An example of the configuration would look like this 
+
+```
+retry:
+  - signal_reason: stack_error
+    limit: 3
+  ```
+However, the version [v.0.29.0](https://github.com/buildkite/agent-stack-k8s/releases/tag/v0.29.0) has better handling for this situation as we added a "stack_error" exit reason to the agent, to provide better visibility to stack-level errors. 
+
+
