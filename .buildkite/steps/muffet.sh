@@ -58,7 +58,6 @@ set +e
   --exclude="https://github.com/rspec/rspec-core" \
   --exclude="https://help.ubuntu.com/community/Repositories/CommandLine" \
   --exclude="https://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" \
-  --exclude="https://www.terraform.io" \
   --exclude="https://webtask.io/" \
   --exclude="/sample.svg" \
   --header="User-Agent: Muffet/$(/muffet --version)" \
@@ -116,16 +115,16 @@ else
 
     < muffet-results.json jq -r "$jq_query" >> annotation.md
 
-    # Select all responses where the error code is not 429 and 403. If this list is empty, 
-    # then every error is a 429 and 403, and the build can pass.
+    # Select all responses where the error code is not 429, 403 and 'timeout'. If this list is empty, 
+    # then every error is a 429 or 403, and the build can pass.
     # Note that the entire list is empty when there are no errors at all.
-    if [[ $(jq -r 'map(select( (.links[].error != "429") and (.links[].error != "403") )) | length == 0' muffet-results.json) == true ]]; then
+    if [[ $(jq -r 'map(select( (.links[].error != "429") and (.links[].error != "403") and (.links[].error != "timeout") )) | length == 0' muffet-results.json) == true ]]; then
         echo >> annotation.md
         echo >> annotation.md
         echo
-        echo "All remaining errors detected by muffet (above) are either 'Too Many Requests' (**429**) or 'Forbidden' (**403**) pages, which should actually be accessible when selected by a human.<br/><br/>" >> annotation.md
-        echo "These errors usually occur when the target site/page either blocks muffet's link check (because muffet uses a bot account to do this), and/or the site/page has authentication implemented.<br/><br/>" >> annotation.md
-        echo "Confirm these links manually (especially **403**s, to uncover pages that indicate **Forbidden**, which are genuine failures) as this build will pass and ignore these returned page statuses, including ones that are genuine failures." >> annotation.md
+        echo "All remaining errors detected by muffet (above) are either 'Too Many Requests' (**429**), 'Forbidden' (**403**) pages, or 'timeout's, which should actually be accessible when selected by a human.<br/><br/>" >> annotation.md
+        echo "These errors usually occur when the target site/page either blocks muffet's link check (because muffet uses a bot account to do this), and/or the site/page has authentication implemented, or for 'timeout's, because the site is temporarily down.<br/><br/>" >> annotation.md
+        echo "Confirm these links manually, especially **403**s (to uncover pages that indicate **Forbidden**, which are genuine failures), as well as **timeout**s (which, in many cases, should eventually work), since this build will pass and ignore these returned page statuses, including ones that are genuine failures." >> annotation.md
         muffet_exit_code=0
     fi
 
