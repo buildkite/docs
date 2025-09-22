@@ -636,7 +636,7 @@
       children:
         - name: "Slack"
           path: "test-engine/notifications/slack"
-          pill: "New"
+          pill: "new"
     - name: "Usage and billing"
       path: "test-engine/usage-and-billing"
     - name: "Permissions"

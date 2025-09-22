@@ -181,6 +181,7 @@ libpq
 linux
 llamasecret
 LLMs
+llvm
 macOS
 macos
 matchfile
@@ -258,6 +259,8 @@ reimagined
 remediation
 remediations
 repo
+reprioritize
+reprioritizes
 resizable
 routable
 rpmbuild
