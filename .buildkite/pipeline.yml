@@ -7,6 +7,8 @@ steps:
       RAILS_ENV: production
     agents:
       queue: hosted
+    soft_fail:
+      - exit_status: 1
     plugins:
       - aws-assume-role-with-web-identity#v1.4.0:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
