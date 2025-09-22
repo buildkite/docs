@@ -102,13 +102,11 @@ else
     {
         echo "## Muffet found the following link issues"
         echo
-        echo "Before looking at the list of links below to work out what's going on, ignore links with **429** or **403** statuses first. Links returning either of these two statuses will likely work when selected by a human. Muffet's also been configured to allow this job to pass if all remaining links have statuses that are either only **429** or **403**."
+        echo "Before looking at the list of links below to work out what's going on, ignore links with **429**, **403** or **timeout** statuses first. Links returning these statuses will likely work (or in the case of **timeout**s, eventually work) when selected by a human. Muffet's also been configured to allow this job to pass if all remaining links have statuses that are only **429**, **403** or **timeout**."
         echo
         echo "Instead, identify genuine link issues, such as those with a **404** status (not found) or ones returning an **id #fragment-part-of-url not found** issue, and resolve them. For **id #fragment-part-of-url not found** issues, fix the link and its fragment first (since the target content may have moved, or the link and its fragment might just happen to be wrong). However, if the revised/fixed link (which you manually tested yourself) is implemented and this job still fails, you'll likely need to add this revised link's full URL (excluding any query parameters from <code>?</code> onwards, but retaining its fragment) as a new <code>--exclude</code> option to the list of existing ones in the <code>muffet.sh</code> script."
         echo
         echo "If you've added an <code>--exclude</code> entry for a link that generates an **id #fragment-part-of-url not found** error, but this job still fails with the same error (that is, the link and its fragment actually works but muffet still reports it as erroneous), then remove the fragment part of the URL from its <code>--exclude</code> entry."
-        echo
-        echo "Last, if you see any links with a **timeout** status, just re-run the muffet job again."
         echo
     } >> annotation.md
 
