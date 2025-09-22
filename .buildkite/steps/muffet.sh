@@ -56,6 +56,7 @@ set +e
   --exclude="https://github.com/marketplace" \
   --exclude="https://github.com/my-org/" \
   --exclude="https://github.com/rspec/rspec-core" \
+  --exclude="https://help.ubuntu.com/community/Repositories/CommandLine" \
   --exclude="https://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" \
   --exclude="https://webtask.io/" \
   --exclude="/sample.svg" \
@@ -108,7 +109,7 @@ else
         echo
         echo "If you've added an <code>--exclude</code> entry for a link that generates an **id #fragment-part-of-url not found** error, but this job still fails with the same error (that is, the link and its fragment actually works but muffet still reports it as erroneous), then remove the fragment part of the URL from its <code>--exclude</code> entry."
         echo
-        echo "Last, if you see any links with a **timeout** status, just re-run the muffet job again."
+        echo "Last, if you see any links with a **timeout** status, just re-run the muffet job again. If the **timeout** for a given link keeps recurring, but you strongly believe it's still only a temporary issue, add it to the list of <code>--exclude</code>s in the <code>muffet.sh</code> script."
         echo
     } >> annotation.md
 
@@ -117,16 +118,15 @@ else
     # Select all responses where the error code is not 429. If this list is empty, 
     # then every error is a 429 and we can pass the build.
     # Note that the entire list is empty when there are no errors at all.
-    if [[ $(jq -r 'map(select( (.links[].error != "429") and (.links[].error != "403" ) and (.links[].error != "timeout" ))) | length == 0' muffet-results.json) == true ]]; then
+    if [[ $(jq -r 'map(select( (.links[].error != "429") and ( .links[].error != "403" ) )) | length == 0' muffet-results.json) == true ]]; then
         echo >> annotation.md
         echo >> annotation.md
         echo
-        echo "All remaining errors detected by muffet (above) are either 'Too Many Requests' (**429**), 'Forbidden' (**403**) pages, or 'timeout's, which should actually be accessible when selected by a human.<br/><br/>" >> annotation.md
+        echo "All remaining errors detected by muffet (above) are either 'Too Many Requests' (**429**) or 'Forbidden' (**403**) pages, which should actually be accessible when selected by a human.<br/><br/>" >> annotation.md
         echo "These errors usually occur when the target site/page either blocks muffet's link check (because muffet uses a bot account to do this), and/or the site/page has authentication implemented.<br/><br/>" >> annotation.md
-        echo "Confirm these links manually, especially **403**s (to uncover pages that indicate **Forbidden**, which are genuine failures), as well as **timeout**s (which, in many cases, are temporary failures that should eventually work), since this build will pass and ignore these returned page statuses, including ones that are genuine failures." >> annotation.md
+        echo "Confirm these links manually (especially **403**s, to uncover pages that indicate **Forbidden**, which are genuine failures) as this build will pass and ignore these returned page statuses, including ones that are genuine failures." >> annotation.md
         muffet_exit_code=0
     fi
-
 
     if [ -n "$(which buildkite-agent)" ]; then
         buildkite-agent annotate --style=error --context=muffet <annotation.md
