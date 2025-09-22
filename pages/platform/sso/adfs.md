@@ -90,7 +90,7 @@ Rule 3
 1. **Configure claim rule**:
     * **Claim Rule Name**: Attribute Name Transform
     * **Custom Rule**:
-		  <pre><code>c:[Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
+		  <pre><code>c:[Type == "https://schemas.xmlsoap.org/ws/2005/05/identity/claims/name "]
 		  => issue(Type = "Name", Issuer = c.Issuer, OriginalIssuer = c.OriginalIssuer, Value = c.Value, ValueType = c.ValueType);</code></pre>
 1. Click **Finish** to add the rule.
 1. Click **OK** to save and exit the **Claim Issuance Policy** dialog.

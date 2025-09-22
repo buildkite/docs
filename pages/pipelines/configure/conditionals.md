@@ -60,6 +60,9 @@ steps:
 
 Since `if` conditions are evaluated at the time of the pipeline upload, it's not possible to use the `if` attribute to conditionally run a step based on the result of another step.
 
+> 🚧 Plugin execution and conditionals
+> Step-level `if` conditions only prevent commands from running but they _do not_ affect plugins. Plugins run during the job lifecycle, before the conditional is evaluated. To conditionally run plugins, use either [group steps](#conditionally-running-plugins-with-group-steps) or [dynamic pipeline uploads](#conditionally-running-plugins-with-dynamic-uploads).
+
 To run a step based on the result of another step, upload a new pipeline based on the `if` condition set up in the [command step](/docs/pipelines/configure/step-types/command-step) like in the example below:
 
 ```yml
@@ -95,17 +98,50 @@ notify:
 
 Note that conditional expressions on the build state are only available at the pipeline level. You can't use them at the step level.
 
-To trigger notifications based on outcome of a specific step, define an `if` conditional with `step.outcome`:
+## Conditionally running plugins with group steps
+
+To conditionally run plugins, use [group steps](/docs/pipelines/configure/step-types/group-step) rather than step-level `if` conditions. Group's conditional is evaluated before any steps within the group are created, which prevents plugin from executing entirely:
 
 ```yaml
 steps:
-  - label: "Validation check"
-    command: ./scripts/validation_tests.sh
-    notify:
-      - slack:
-          channels: ["#engineering"]
-          message: "Validation check failed!"
-        if: step.outcome == "hard_failed"
+  - group: "Docker Build"
+    if: build.env("DOCKER_PASSWORD") != null
+    steps:
+      - label: "Build and push image"
+        command: "docker build -t myapp ."
+        plugins:
+          - docker#v5.12.0:
+              image: "docker:latest"
+          - docker-login#v2.1.0:
+              username: myuser
+              password-env: DOCKER_PASSWORD
+```
+{: codeblock-file="pipeline.yml"}
+
+## Conditionally running plugins with dynamic uploads
+
+For complex conditional logic, use dynamic pipeline uploads with conditional logic running in a shell script before the steps with plugins are uploaded:
+
+```yaml
+steps:
+  - label: "Docker Build"
+    command: |
+      if [ -n "${DOCKER_PASSWORD}" ]; then
+        echo "Docker credentials found, uploading build steps..."
+        cat <<EOF | buildkite-agent pipeline upload
+      steps:
+        - label: "Build and push image"
+          command: "docker build -t myapp ."
+          plugins:
+            - docker#v5.12.0:
+                image: "docker:latest"
+            - docker-login#v2.1.0:
+                username: myuser
+                password-env: DOCKER_PASSWORD
+      EOF
+      else
+        echo "No Docker credentials found, skipping build"
+      fi
 ```
 {: codeblock-file="pipeline.yml"}
 

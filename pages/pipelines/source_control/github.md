@@ -1,6 +1,6 @@
 # GitHub
 
-Buildkite can connect to a GitHub repository in your GitHub account or GitHub organization and use the [Commit Status API](https://docs.github.com/en/rest/reference/repos#statuses) to update the status of commits in pull requests.
+Buildkite can connect to a GitHub repository in your GitHub account or GitHub organization and use GitHub's [REST API endpoints for commit statuses](https://docs.github.com/en/rest/commits/statuses) to update the status of commits in pull requests.
 
 To complete this integration, you need admin privileges for your GitHub repository.
 
@@ -33,9 +33,7 @@ You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
 When you connect your GitHub organization, Buildkite needs the following permissions:
 
-- Read access to metadata: this is a default permission for all GitHub apps. From the [GitHub documentation](https://docs.github.com/en/rest/reference/permissions-required-for-github-apps#metadata-permissions):
-
-    > GitHub Apps have the Read-only metadata permission by default. The metadata permission provides access to a collection of read-only endpoints with metadata for various resources. These endpoints do not leak sensitive private repository information.
+- Read access to metadata. Learn more about this from [GitHub's documentation](https://docs.github.com/en/rest/authentication/permissions-required-for-github-apps#repository-permissions-for-metadata).
 
 - Read and write access to checks, commit statuses, deployments, pull requests, and repository hooks: this is needed for Buildkite to perform tasks such as running a build on pull requests and reporting that build status directly on the PR on GitHub.
 

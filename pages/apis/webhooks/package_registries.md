@@ -1,4 +1,4 @@
-# Package registry webhooks
+# Package Registries webhooks
 
 You can configure webhooks to be triggered in Package Registries when a package, image, chart, model, module, or file is created.
 
@@ -63,7 +63,15 @@ Example payload:
 
 ## HTTP headers
 
-<%= render_markdown partial: 'apis/webhooks/http_headers' %>
+The following HTTP headers are present in every webhook request, which allow you to identify the event that took place, and to verify the authenticity of the request:
+
+<table>
+<tbody>
+  <tr><th><code>X-Buildkite-Event</code></th><td>The type of event<p class="Docs__api-param-eg"><em>Example:</em> <code>package.created</code></p></td></tr>
+</tbody>
+</table>
+
+<%= render_markdown partial: 'apis/webhooks/http_headers_token_or_signature' %>
 
 ## Webhook token
 

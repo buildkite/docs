@@ -558,6 +558,8 @@
       children:
         - name: "Getting started"
           path: "test-engine/getting-started"
+        - name: "Speed up builds with bktec"
+          path: "test-engine/speed-up-builds-with-bktec"
         - name: "Glossary"
           path: "test-engine/glossary"
     - name: "Test suites"
@@ -572,7 +574,6 @@
           path: "test-engine/test-suites/test-state-and-quarantine"
         - name: "Tags"
           path: "test-engine/test-suites/tags"
-          pill: "preview"
         - name: "Test ownership"
           path: "test-engine/test-suites/test-ownership"
         - name: "Labels"
@@ -581,8 +582,6 @@
           path: "test-engine/test-suites/saved-views"
         - name: "Public test suites"
           path: "test-engine/test-suites/public"
-        - name: "Permissions"
-          path: "test-engine/test-suites/permissions"
     - name: "Test collection"
       children:
         - name: "Overview"
@@ -617,14 +616,12 @@
               path: "test-engine/test-collection/your-own-collectors"
         - name: "CI environment variables"
           path: "test-engine/test-collection/ci-environments"
-    - name: "Test splitting"
+    - name: "Test Engine Client (bktec)"
       children:
-        - name: "Overview"
-          path: "test-engine/test-splitting"
         - name: "Configuring"
-          path: "test-engine/test-splitting/configuring"
-        - name: "Test Engine Client installation"
-          path: "test-engine/test-splitting/client-installation"
+          path: "test-engine/bktec/configuring"
+        - name: "Installing"
+          path: "test-engine/bktec/installing-the-client"
     - name: "Notifications"
       children:
         - name: "Slack"
@@ -632,6 +629,8 @@
           pill: "New"
     - name: "Usage and billing"
       path: "test-engine/usage-and-billing"
+    - name: "Permissions"
+      path: "test-engine/permissions"
 - name: "Package Registries"
   path: "package-registries"
   children:
@@ -684,8 +683,6 @@
           path: "package-registries/ecosystems"
         - name: "Alpine"
           path: "package-registries/ecosystems/alpine"
-        - name: "Container"
-          path: "package-registries/ecosystems/container"
         - name: "Debian"
           path: "package-registries/ecosystems/debian"
         - name: "Files"
@@ -711,6 +708,10 @@
               path: "package-registries/ecosystems/gradle-groovy"
         - name: "JavaScript"
           path: "package-registries/ecosystems/javascript"
+        - name: "NuGet"
+          path: "package-registries/ecosystems/nuget"
+        - name: "OCI"
+          path: "package-registries/ecosystems/oci"
         - name: "Python"
           path: "package-registries/ecosystems/python"
         - name: "Red Hat"
@@ -784,7 +785,7 @@
   children:
     - name: "Overview"
       path: "apis"
-    - name: "Managing API tokens"
+    - name: "Managing API access tokens"
       path: "apis/managing-api-tokens"
     - name: "API differences"
       path: "apis/api-differences"
@@ -903,6 +904,30 @@
               path: apis/graphql/cookbooks/teams
         - name: Limits
           path: apis/graphql/graphql-resource-limits
+    - name: "Portals"
+      children:
+        - name: "Overview"
+          path: "apis/portals"
+        - name: "Limits"
+          path: "apis/portals/limits"
+        - name: "Ephemeral portal tokens"
+          path: "apis/portals/ephemeral-portal-tokens"
+        - name: "User-invoked portals"
+          path: "apis/portals/user-invoked-portals"
+    - name: "MCP server"
+      children:
+        - name: "Overview"
+          path: "apis/mcp-server"
+        - name: "Remote MCP server"
+          children:
+            - name: "Configuring AI tools"
+              path: "apis/mcp-server/remote/configuring-ai-tools"
+        - name: "Local MCP server"
+          children:
+            - name: "Installing the server"
+              path: "apis/mcp-server/local/installing"
+            - name: "Configuring AI tools"
+              path: "apis/mcp-server/local/configuring-ai-tools"
     - name: "Webhooks"
       children:
         - name: "Overview"
@@ -937,16 +962,6 @@
           children:
             - name: "Overview"
               path: "apis/webhooks/package-registries"
-    - name: "Portals"
-      children:
-        - name: "Overview"
-          path: "apis/portals"
-        - name: "Limits"
-          path: "apis/portals/limits"
-        - name: "Ephemeral portal tokens"
-          path: "apis/portals/ephemeral-portal-tokens"
-        - name: "User-invoked portals"
-          path: "apis/portals/user-invoked-portals"
     - name: "Agent"
       children:
         - name: "Overview"

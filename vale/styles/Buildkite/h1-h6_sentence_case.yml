@@ -67,6 +67,8 @@ exceptions:
   - CentOS
   - CI
   - CircleCI
+  - Claude Code
+  - Claude Desktop
   - CLI
   - CloudFormation
   - Cloudsmith
@@ -83,6 +85,7 @@ exceptions:
   - deduper
   - Docker
   - Docker Compose
+  - Docker Desktop
   - Docker Hub
   - EC2
   - Elastic
@@ -149,13 +152,17 @@ exceptions:
   - Mac
   - macOS
   - Markdown
+  - MCP
+  - Microsoft Entra ID
   - minitest
-  - monitor
   - Mobile Delivery Cloud
+  - Model Context Protocol
+  - monitor
   - NET
   - Node.js
   - nodeName
   - nodeSelector
+  - NuGet
   - OIDC
   - Okta
   - OneLogin
@@ -196,10 +203,12 @@ exceptions:
   - SLOs
   - SSH
   - SSO
+  - Tahoe
   - Tekton
   - Test Engine
   - Test Engine Client
   - TESTOWNER
+  - ToolHive
   - tvOS
   - TypeScript
   - Ubuntu
@@ -208,6 +217,7 @@ exceptions:
   - UserData
   - UUID
   - visionOS
+  - Visual Studio Code
   - VPC
   - VPN
   - watchOS

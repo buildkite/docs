@@ -351,6 +351,12 @@ Optional [query string parameters](/docs/api#query-string-parameters):
       <em>Example:</em> <code>?include_retried_jobs=true</code></p>
     </td>
   </tr>
+  <tr>
+    <th><code>include_test_engine</code></th>
+    <td>Include all Test Engine-related data for the build in the response. Without this parameter, you'll only see all Buildkite Pipelines-related build data in the response.<p class="Docs__api-param-eg">
+      <em>Example:</em> <code>?include_test_engine=true</code></p>
+    </td>
+  </tr>
 </tbody>
 </table>
 

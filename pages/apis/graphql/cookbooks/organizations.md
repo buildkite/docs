@@ -2,7 +2,7 @@
 
 A collection of common tasks with Buildkite organizations using the GraphQL API.
 
-You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the **Docs** panel.
+<%= render_markdown partial: 'apis/graphql/cookbooks/graphql_console_link' %>
 
 ## Get organization ID
 
@@ -34,6 +34,20 @@ query getOrgMembers {
           }
         }
       }
+    }
+  }
+}
+```
+
+## Get the number of organization members
+
+Get the total number of members in the organization. Regardless of the value you enter for `members` in the query, the output of the query will provide the actual number of members in the organization.
+
+```graphql
+query getOrgMembersCount {
+  organization(slug: "org-slug") {
+    members(first:1) {
+      count
     }
   }
 }
