@@ -115,10 +115,10 @@ else
 
     < muffet-results.json jq -r "$jq_query" >> annotation.md
 
-    # Select all responses where the error code is not 429 and 403. If this list is empty, 
-    # then every error is a 429 and we can pass the build.
+    # Select all responses where the error code is not 429 or 403. If this list is empty, 
+    # then every error is a 429 or 403, and we can pass the build.
     # Note that the entire list is empty when there are no errors at all.
-    if [[ $(jq -r 'map(select( (.links[].error != "429") and ( .links[].error != "403" ) )) | length == 0' muffet-results.json) == true ]]; then
+    if [[ $(jq -r 'map(select( (.links[].error != "429") or ( .links[].error != "403" ) )) | length == 0' muffet-results.json) == true ]]; then
         echo >> annotation.md
         echo >> annotation.md
         echo
