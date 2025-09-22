@@ -4,9 +4,10 @@ All [Prometheus metrics](https://prometheus.io/) exported by the Agent Stack for
 
 ## Enabling Prometheus monitoring
 
-> **Prerequisites:** This guide assumes you have [Prometheus Operator](https://prometheus-operator.dev/) installed in your cluster. If you're using a different Prometheus setup, you'll need to configure scraping manually using your Prometheus configuration.
-
 The Agent Stack for Kubernetes controller can expose Prometheus metrics for monitoring and observability. This requires two steps: enabling metrics port exposure in the Helm chart and creating a PodMonitor resource for scraping.
+
+> 📘 Prerequisites
+> This guide assumes you have [Prometheus Operator](https://prometheus-operator.dev/) installed in your cluster. If you're using a different Prometheus setup, you'll need to configure scraping manually using your Prometheus configuration.
 
 ### Step 1: Enable metrics port exposure
 
@@ -23,6 +24,7 @@ helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-
 ```
 
 **Values file approach:**
+
 ```yaml
 # values.yml
 agentToken: "<buildkite-cluster-agent-token>"
