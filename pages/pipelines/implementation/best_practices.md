@@ -4,7 +4,6 @@ This guide outlines recommended practices for designing, operating, and scaling 
 
 > 📘 For in-depth information on enforcing Buildkite security controls, see [Enforcing security controls](/docs/pipelines/security/enforcing-security-controls).
 
-
 ## Pipeline design and structure
 
 ### Keep pipelines focused and modular
@@ -23,9 +22,14 @@ This guide outlines recommended practices for designing, operating, and scaling 
 ### Structure YAML for clarity
 
 - Descriptive step names: Step labels should be human-readable and clear at a glance.
-- Organize with groups: Use `group` steps to keep complex pipelines navigable.
+- Organize with groups: Use group steps to keep complex pipelines navigable.
 - Emojis for visual cues: Quick scanning is easier with consistent iconography.
 - Comment complex logic: Document non-obvious conditions or dependencies inline.
+
+### Standardize with reusable modules
+
+- Centralized templates: Maintain organization-wide pipeline templates and plugins to enforce consistency across teams.
+- Shared libraries: Package common scripts or Docker images so individual teams don’t reinvent solutions.
 
 ## Agent management
 
@@ -50,6 +54,11 @@ This guide outlines recommended practices for designing, operating, and scaling 
 - Secret management: Use environment hooks or secret managers; never hard-code secrets in YAML.
 - Keep base images updated: Regularly patch agents to mitigate security vulnerabilities.
 
+### Avoid snowflake agents
+
+- No manual tweaks: Avoid one-off changes to long-lived agents; enforce everything via code and images.
+- Immutable patterns: Use infrastructure-as-code and versioned images for consistency and reproducibility.
+
 ## Environment and dependency management
 
 ### Containerize builds for consistency
@@ -60,6 +69,7 @@ This guide outlines recommended practices for designing, operating, and scaling 
 - Pin base images: Avoid unintended breakage from upstream changes.
 
 ### Handle dependencies reliably
+
 - Lock versions: Use lockfiles and pin versions to ensure repeatable builds (you can also [pin plugin versions](/docs/pipelines/integrations/plugins/using#pinning-plugin-versions)).
 - Cache packages: Reuse downloads where possible to reduce network overhead.
 - Validate integrity: Use checksums or signatures to confirm dependency authenticity.
@@ -84,6 +94,7 @@ steps:
 ```
 
 #### Graceful error handling
+
 Use `soft_fail` where failures are acceptable, but document why:
 
 ```yaml
@@ -95,7 +106,7 @@ steps:
     command: "make unit-tests"
 ```
 
-#### Block steps for approvals
+#### Use block steps for approvals
 
 Require human confirmation before production deployment:
 
@@ -112,6 +123,18 @@ steps:
           - label: "Production"
             value: "production"
 ```
+
+#### Canary releases in CI/CD
+
+Model partial deployments and staged rollouts directly in pipelines.
+
+#### Pipeline-as-code reviews
+
+Require peer reviews for pipeline changes, just like application code.
+
+#### Chaos testing
+
+Periodically inject failure scenarios (e.g., failing agents, flaky dependencies) to validate pipeline resilience.
 
 ### Anti-patterns to avoid
 
@@ -156,6 +179,14 @@ Avoid cramming unrelated tasks into one step:
   command: "npm run deploy"
 ```
 
+#### Unbounded parallelism
+
+Avoid spinning up excessive parallel jobs without considering agent limits and costs.
+
+#### Silent failures
+
+Never ignore failing steps without clear documentation or follow-up.
+
 ## Monitoring and observability
 
 ### Logging best practices
@@ -182,16 +213,36 @@ Avoid cramming unrelated tasks into one step:
 ## Security best practices
 
 ### Manage secrets properly
+
 - Native secret management: Use Buildkite’s secret redaction and plugins.
 - Rotate secrets: Regularly update credentials to minimize risk.
 - Limit scope: Expose secrets only to the steps that require them.
 - Audit usage: Track which steps consume which secrets.
 
 ### Enforce access controls
+
 - Role-based access: Grant permissions per team and role.
 - Branch protections: Limit edits to sensitive pipelines.
 - Permission reviews: Audit permissions on a regular basis.
 - Use SSO/SAML: Centralize authentication and improve compliance.
+
+### Governance and compliance
+- Policy-as-code: Define and enforce organizational rules (e.g., required steps, approved plugins).
+- Audit readiness: Retain logs, artifacts, and approvals for compliance reporting.
+- Sandbox pipelines: Provide safe environments to test changes without impacting production.
+
+## Developer enablement
+
+### Self-service pipelines
+- Curated templates: Allow teams to adopt pipelines without deep Buildkite expertise.
+- Golden paths: Document and promote recommended workflows to reduce cognitive load.
+- Feedback loops: Encourage engineers to propose improvements or report issues.
+
+## Scaling practices
+
+- Workload segmentation: Split pipelines across projects or repositories to reduce contention.
+- Cross-team dashboards: Give stakeholders visibility into bottlenecks and throughput.
+- Cost optimization: Track agent utilization and cloud spend to balance speed with efficiency.
 
 ## Common pitfalls to avoid
 
