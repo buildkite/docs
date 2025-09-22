@@ -262,6 +262,8 @@ reimagined
 remediation
 remediations
 repo
+reprioritize
+reprioritizes
 resizable
 routable
 rpmbuild
