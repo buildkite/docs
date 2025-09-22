@@ -259,7 +259,7 @@ These MCP tools are used to retrieve details about existing [builds](/docs/apis/
       },
       {
         "tool": "wait_for_build",
-        "description": "Wait for a specific build to completed. This tool calls the <em>Get a build</em> endpoint to return the status of the build from its logs. If the build is still running, <code>wait_for_build</code> calls the Get a build endpoint with increasingly less frequency, to reduce text tokenization usage and traffic, until the returned build status is completed.",
+        "description": "Wait for a specific build to be completed. This tool calls the <em>Get a build</em> endpoint to retrieve the status of the build from its logs. If the build is still running, <code>wait_for_build</code> calls the Get a build endpoint with increasingly less frequency, to reduce text tokenization usage and traffic, until the returned build status is completed.",
         "link_text": "Get a build",
         "link": "/docs/apis/rest-api/builds#get-a-build"
       }
