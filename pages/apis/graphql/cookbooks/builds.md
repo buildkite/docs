@@ -98,7 +98,7 @@ Then, if there are more than 500 results, use the value of `organization.pipelin
 ```graphql
 query {
   organization(slug: "organization-slug") {
-    pipelines(first: 500, after: "<endCursor-value-from-previous-response>") {
+    pipelines(first: 500, after: "value-from-organization.pipelines.pageInfo.endCursor") {
       count
       pageInfo {
         endCursor
@@ -121,12 +121,6 @@ query {
   }
 }
 ```
-
-<!-- vale off -->
-
-Replace `<endCursor-value-from-previous-response>` with the actual endCursor string returned from your previous query.
-
-<!-- vale on -->
 
 ## Get number of builds between two dates
 
