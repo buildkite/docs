@@ -14,6 +14,10 @@ Cache volumes act as regular disks with the following properties on Linux:
 
 Cache volumes on macOS are a little different, with [sparse bundle disk images](https://en.wikipedia.org/wiki/Sparse_image#Sparse_bundle_disk_images) utilized rather than bind mount volumes. These volumes are managed in the same way as they are for Linux.
 
+> 📘 **Cache volume retention**
+> Cache volumes are retained for up to 14 days maximum from their last use. Note that 14 days is not a guaranteed retention duration and that the cache volumes may be removed before this period ends.
+> Design your workflows to handle cache misses, as cache volumes are designed for temporary data storage.
+
 ## Cache configuration
 
 Cache paths can be [defined in your `pipeline.yml`](/docs/pipelines/configure/defining-steps) file. Defining cache paths for a step will implicitly create a cache volume for the pipeline.

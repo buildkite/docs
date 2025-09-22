@@ -5,7 +5,7 @@
 
 HOW TO USE THE AI STYLE GUIDE CHECKER INSTRUCTIONS
 
-If you are using a web-browser-based AI tool (ChatGPT 4.0, 4.5, o3; Claude Sonnet 4, etc.),
+If you are using a web-browser-based AI tool (ChatGPT 4o, ChatGPT 5; Claude Sonnet 4 and 4.1, etc.),
 paste the following instructions at the start of your dialogue with the AI model.
 
 A NOTE ON AI HALLUCINATIONS

@@ -1,6 +1,6 @@
 # GitHub
 
-Buildkite can connect to a GitHub repository in your GitHub account or GitHub organization and use the [Commit Status API](https://docs.github.com/en/rest/reference/repos#statuses) to update the status of commits in pull requests.
+Buildkite can connect to a GitHub repository in your GitHub account or GitHub organization and use GitHub's [REST API endpoints for commit statuses](https://docs.github.com/en/rest/commits/statuses) to update the status of commits in pull requests.
 
 To complete this integration, you need admin privileges for your GitHub repository.
 
@@ -9,7 +9,7 @@ To complete this integration, you need admin privileges for your GitHub reposito
 You can use the [Buildkite app for GitHub](#connect-your-buildkite-account-to-github-using-the-github-app) to connect a Buildkite organization to a GitHub organization.
 
 > 📘 Benefits of using the GitHub App
-> Using GitHub App removes the reliance on individual user connections to report build statuses. See the <a href="https://buildkite.com/changelog/102-github-app-integration">changelog announcement</a>
+> Using GitHub App removes the reliance on individual user connections to report build statuses. See the <a href="https://buildkite.com/changelog/102-github-app-integration">changelog announcement</a>.
 
 If you want to [connect using OAuth](#connect-your-buildkite-account-to-github-using-oauth) you can still do so from your **Personal Settings**.
 
@@ -33,9 +33,7 @@ You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
 When you connect your GitHub organization, Buildkite needs the following permissions:
 
-- Read access to metadata: this is a default permission for all GitHub apps. From the [GitHub documentation](https://docs.github.com/en/rest/reference/permissions-required-for-github-apps#metadata-permissions):
-
-    > GitHub Apps have the Read-only metadata permission by default. The metadata permission provides access to a collection of read-only endpoints with metadata for various resources. These endpoints do not leak sensitive private repository information.
+- Read access to metadata. Learn more about this from [GitHub's documentation](https://docs.github.com/en/rest/authentication/permissions-required-for-github-apps#repository-permissions-for-metadata).
 
 - Read and write access to checks, commit statuses, deployments, pull requests, and repository hooks: this is needed for Buildkite to perform tasks such as running a build on pull requests and reporting that build status directly on the PR on GitHub.
 
@@ -87,7 +85,7 @@ If you want to run builds only on pull requests, set the **Branch Filter Pattern
 When you create a pull request, two builds are triggered: one for the pull request and one for the most recent commit. However, any commit made after the pull request is created only triggers one build.
 
 > 📘 Webhook events from GitHub pull requests that trigger Buildkite pipeline builds
-> A Buildkite pipeline's build can be triggered by pull request-related events, such as when a pull request (PR) is opened, a PR's stage is changed from **Draft** to **Open** (via **Ready for review**), and when a PR's labels are changed (if this setting is enabled in your pipeline's settings).
+> A Buildkite pipeline's build can be triggered by pull request-related events, such as when a pull request (PR) is opened, a PR's stage is changed from **Draft** to **Open** (using **Ready for review**), and when a PR's labels are changed (if this setting is enabled in your pipeline's settings).
 
 ## Running builds on git tags
 
@@ -140,10 +138,10 @@ When a _build level_ GitHub commit status has been set (as part of an [uploaded 
     ```yaml
     steps:
       - label: "Example Script"
-          command: "script.sh"
-          notify:
-            - github_commit_status:
-                context: "my-custom-status"
+        command: "script.sh"
+        notify:
+          - github_commit_status:
+              context: "my-custom-status"
     ```
 1. In **Pipeline** > your specific pipeline > **Settings** > **GitHub**, you can choose to either:
     + Make sure **Update commit statuses** is not selected. Note that this prevents Buildkite from automatically creating and sending statuses for this pipeline, meaning you will have to handle all commit statuses through the `pipeline.yml`.
@@ -153,7 +151,7 @@ When a _build level_ GitHub commit status has been set (as part of an [uploaded 
 
 You can also define the commit status in a group step:
 
-```yml
+```yaml
 steps:
   - group: "\:lock_with_ink_pen\: Security Audits"
     key: "audits"
@@ -195,3 +193,124 @@ To connect your GitHub account:
 1. Select **Authorize Buildkite**. GitHub redirects you back to your **Connected Apps** page.
 
 You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
+
+## Using GitHub App installation access tokens
+
+> 📘 The difference between repository authentication and account connection
+> Configuring a GitHub App for repository authentication is different from using the [Buildkite GitHub App](#connect-your-buildkite-account-to-github-using-the-github-app) to connect your Buildkite account to GitHub.
+
+An alternative to using SSH keys for accessing your private repositories is to use the GitHub App and GitHub's [installation access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-an-installation-access-token-for-a-github-app). This approach requires a private key for generating a JSON Web Token (JWT) that is exchanged for an installation access token. The repository permissions of the GitHub App can be scoped to read-only, and every generated installation access token can be set to expire after 1 hour.
+
+### Configuring a GitHub App for repository authentication
+
+> 📘 GitHub Organization access prerequisites
+> You need to be an Admin of the GitHub Organization to be able to create and install the GitHub App and follow the steps outlined in this instruction.
+
+#### Create the GitHub App
+
+To register a GitHub App, follow the GitHub [documentation](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/registering-a-github-app/registering-a-github-app#registering-a-github-app). Configure a new GitHub App:
+
+- GitHub App name: choose a unique name (for example, buildkite-agent-ro-access)
+- Homepage URL: your company's homepage
+- Webhook:
+    + Uncheck **Active** (webhooks are not required)
+    + Webhook URL (leave blank)
+    + Secret (leave blank)
+- Permissions:
+    + Repository Permissions:
+        - Contents: choose either `Read-only` or `Read and write`, depending on whether write access will be required to push files
+        - Metadata: select `Read-only` (required for basic repository info)
+        - Pull requests: choose either `Read-only` or `Read and write`, depending on whether read or write access will be required for pull requests
+- Where can this GitHub App be installed?
+    + Choose "Only on this account"
+
+After the GitHub App has been configured with the settings outlined above, click the **Create GitHub App** button. You will see the **General settings** of the new GitHub App.
+
+> 📘 GitHub App's Client ID
+> The value of the GitHub App's Client ID displayed on the General settings page will be required for generating installation access tokens. Make sure you have this value available.
+
+#### Generate authentication keys
+
+In order to create a JWT that can be exchanged for an installation access token, a private key must be generated for the GitHub App. This private key can then be stored in [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) and securely accessed by a Buildkite Agent. To generate a private key:
+
+- In your GitHub App's **General settings**, scroll to **Private keys**
+- Click the **Generate a private key** button
+- This will download a `.pem` file of the newly generated private key
+- Create a new [Buildkite Secret](/docs/pipelines/security/secrets/buildkite-secrets) in the [Cluster(s)](/docs/pipelines/clusters) containing the Buildkite Agents that require access to your private repositories
+    + Add the contents of the `.pem` file as the secret's _Value_
+
+> 📘 Private key Buildkite Secret
+> The value of the Buildkite Secret's name contains the private key and will be required when generating installation access tokens. Make sure you have this value available as it will be referenced by `buildkite-agent secret get <bk-secret-name>` command in the agent environment hook.
+
+#### Install the newly created GitHub App
+
+After creating the GitHub App, you can install this app into your account. To install the GitHub App, go to the app's settings and select **Install App** from the left-hand menu. Choose the account into which you want to install the GitHub App. Choose the repositories that the GitHub App will have access to, based on the repository permissions selected during the GitHub App's creation. After selecting the GitHub App's repository access, click the **Install** button.
+
+> 📘 GitHub App's Installation ID
+> The value of the GitHub App's Installation ID will be required for generating installation access tokens. This value can be found at the end of the URL after installation is complete: `.../settings/installations/<installation_id>`. Make sure you have this value available.
+
+### Generating tokens
+
+The GitHub documentation describes the [process](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-an-installation-access-token-for-a-github-app#generating-an-installation-access-token) of generating a JWT and then exchanging it for an installation access token. There are a few examples available that show how you can [generate a JWT](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-json-web-token-jwt-for-a-github-app#generating-a-json-web-token-jwt) using some common programming languages. The example that follows will be using Bash to configure a `pre-checkout` [agent hook](/docs/agent/v3/hooks#hook-locations-agent-hooks).
+
+#### Configure agent hook
+
+In order to have the agent generate a GitHub App installation token, add the following code to your [agent hooks directory](/docs/agent/v3/hooks#hook-locations) as a `pre-checkout` hook, configuring the variables at the beginning of the hook with the GitHub App's Client ID (`client_id`), Installation ID (`installation_id`), and Buildkite Secret name (`private_key_secret_name`):
+
+```bash
+#!/usr/bin/env bash
+
+set -o pipefail
+
+echo "~~~ \:lock_with_ink_pen\: Generating JWT for GitHub App access token exchange"
+client_id= # Client ID of GitHub App
+private_key_secret_name= # Buildkite Secret containing private key
+installation_id= # Installation ID of GitHub App
+
+pem=$( buildkite-agent secret get ${private_key_secret_name} )
+
+now=$(date +%s)
+iat=$((${now} - 60)) # Issues 60 seconds in the past
+exp=$((${now} + 600)) # Expires 10 minutes in the future
+
+b64enc() { openssl base64 | tr -d '=' | tr '/+' '_-' | tr -d '\n'; }
+
+header_json='{
+    "typ":"JWT",
+    "alg":"RS256"
+}'
+# Header encode
+header=$( echo -n "${header_json}" | b64enc )
+
+payload_json="{
+    \"iat\":${iat},
+    \"exp\":${exp},
+    \"iss\":\"${client_id}\"
+}"
+# Payload encode
+payload=$( echo -n "${payload_json}" | b64enc )
+
+# Signature
+header_payload="${header}"."${payload}"
+signature=$(
+    openssl dgst -sha256 -sign <(echo -n "${pem}") \
+    <(echo -n "${header_payload}") | b64enc
+)
+
+# Create JWT
+JWT="${header_payload}"."${signature}"
+
+echo "~~~ \:github\: Requesting GitHub App installation access token"
+# Exchange your JWT for the installation access token
+access_token=$(curl -sS --request POST \
+    --url "https://api.github.com/app/installations/${installation_id}/access_tokens" \
+    --header "Accept: application/vnd.github+json" \
+    --header "Authorization: Bearer ${JWT}" \
+    --header "X-GitHub-Api-Version: 2022-11-28" | awk -F'"' '/"token"/ {print $4}')
+
+echo "~~~ \:git\: Configuring Git credential helper to use installation access token"
+# Store the installation access token in ~/.git-credentials and configure the credential helper
+echo "https://x-access-token:${access_token}@github.com" > ~/.git-credentials
+git config --global url."https://github.com/".insteadOf git@github.com:
+git config --global credential.helper store
+```

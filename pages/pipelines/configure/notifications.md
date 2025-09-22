@@ -120,7 +120,7 @@ To send notifications to a Basecamp Campfire, you'll need to set up a chatbot in
 
 1. Add a [chatbot](https://m.signalvnoise.com/new-in-basecamp-3-chatbots/) to the Basecamp project or team that you'll be sending notifications to.
 1. Set up your chatbot with a name and an optional URL. If you'd like to include an image, you can find the Buildkite logo in our [Brand assets](https://buildkite.com/brand-assets).
-1. On the next page of the chatbot setup, copy the URL that Basecamp provides in the `curl` code snippet
+1. On the next page of the chatbot setup, copy the URL that Basecamp provides in the `curl` code snippet.
 1. Add a Basecamp notification to your pipeline using the `basecamp_campfire` attribute of the `notify` YAML block and the URL copied from your Basecamp chatbot:
 
 ```yaml
@@ -374,7 +374,7 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 > 📘
-> You can also send notifications with custom messages to specific users with the relevant syntax mentioned in [Notify a user in all workspaces](#slack-channel-and-direct-messages-notify-a-user-in-all-workspaces). Employ the appropriate user notification syntax based on your configured the Slack or Slack Workspace notification service/s.
+> You can also send notifications with custom messages to specific users with the relevant syntax mentioned in [Notify a user in all workspaces](#slack-channel-and-direct-messages-notify-a-user-in-all-workspaces). Employ the appropriate user notification syntax based on your configured the Slack or Slack Workspace notification service(s).
 
 ### Custom messages with user mentions
 
@@ -459,43 +459,79 @@ steps:
 
 ### Notify only on first failure
 
-You can filter build notifications to only trigger on the first failure using `started_failing`.
-
-Build-level notifications:
+The `pipeline.started_failing` conditional is designed to only send notifications when a pipeline transitions from a passing state to a failing state - not for every failed build. This prevents excessive notifications, while ensuring teams are immediately alerted when something goes wrong.
 
 ```yaml
 notify:
   - slack: "#builds"
     if: build.branch == "main" && pipeline.started_failing
 ```
+{: codeblock-file="pipeline.yml"}
+
+#### When to use
+
+The `pipeline.started_failing` conditional might be valuable for teams that:
+
+* Want immediate alerts when something breaks but don't want repeated notifications for consecutive failures.
+* Have flaky tests or environments where builds might fail multiple times in a row.
+* Implement workflows where quick feedback on state changes is more important than being notified about every individual failure.
 
 ### Notify only on first pass
 
-You can filter build notifications to only trigger on the first pass after a previous failed build using `started_passing`. `pipeline.started_passing` is the successor to `build.fixed`, which is deprecated, but remains available to use for backwards compatibility.
-
-Build-level notifications:
+The `pipeline.started_passing` conditional is designed to only send notifications when a pipeline transitions from a failing state to a passing state - not for every successful build. This prevents excessive notifications, while ensuring teams are immediately alerted when issues are resolved.
 
 ```yaml
 notify:
   - slack: "#builds"
     if: build.branch == "main" && pipeline.started_passing
 ```
+{: codeblock-file="pipeline.yml"}
+
+#### When to use
+
+The `pipeline.started_passing` conditional might be valuable for teams that:
+
+* Need to track when build issues are resolved after failures.
+* Prefer to avoid notifications for builds that were already passing.
 
 ### Notify on all failures and first successful pass
 
-You can filter build notifications to only trigger when a pipeline:
-
-* Starts failing
-* Continues to fail
-* Starts passing after a failure
-
-Build-level notifications:
+This combined pattern sends notifications for all failed builds and the first successful build after failures. It provides comprehensive failure coverage, while avoiding excessive notifications for consecutive successful builds.
 
 ```yaml
 notify:
   - slack: "#builds"
-    if: build.state == failed || pipeline.started_passing
+    if: build.state == "failed" || pipeline.started_passing
 ```
+{: codeblock-file="pipeline.yml"}
+
+You can add a branch filter to this conditional pattern to target specific branches:
+
+```yaml
+notify:
+  - slack: "#critical-alerts"
+    if: (build.state == "failed" || pipeline.started_passing) && build.branch == "main"
+```
+{: codeblock-file="pipeline.yml"}
+
+Different messages can also be used to differentiate between failures and recoveries:
+
+```yaml
+notify:
+  - slack:
+      channels: ["#team-alerts"]
+      message: "🔴 Build failed on ${BUILDKITE_BRANCH}"
+    if: build.state == "failed"
+  - slack:
+      channels: ["#team-alerts"]
+      message: "✅ Build recovered on ${BUILDKITE_BRANCH}"
+    if: pipeline.started_passing
+```
+{: codeblock-file="pipeline.yml"}
+
+#### When to use
+
+These conditionals might be valuable for teams that want to be notified about each build failure but avoid notifications for consecutive successful builds.
 
 ## Webhooks
 

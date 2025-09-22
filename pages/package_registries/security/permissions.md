@@ -26,7 +26,7 @@ As an organization administrator, you can access the [**Organization Settings** 
 
 - [Enable Buildkite Package Registries](#enabling-buildkite-packages) for your Buildkite organization.
 
-- Configure [private storage](/docs/package-registries/private-storage) for your registries in Buildkite Package Registries.
+- Configure [private storage](/docs/package-registries/registries/private-storage-link) for your registries in Buildkite Package Registries.
 
 <h4 id="enabling-buildkite-packages">Enabling Buildkite Package Registries</h4>
 
@@ -98,5 +98,5 @@ From this page, you can configure the following permissions for all users across
 
 ## Manage an agent's access to registries
 
-To configure the rules by which a Buildkite Agent can access a registry, you'll need to configure the [OpenID Connect (OIDC) policy](/docs/packages/security/oidc) within the registry to allow the Buildkite Agent to generate an OIDC token (using the [`buildkite-agent oidc request-token`](/docs/agent/v3/cli-oidc#request-oidc-token) command), which the agent can use to authenticate to this registry.
+To configure the rules by which a Buildkite Agent can access a registry, you'll need to configure the [OpenID Connect (OIDC) policy](/docs/package-registries/security/oidc) within the registry to allow the Buildkite Agent to generate an OIDC token (using the [`buildkite-agent oidc request-token`](/docs/agent/v3/cli-oidc#request-oidc-token) command), which the agent can use to authenticate to this registry.
 
