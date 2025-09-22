@@ -196,6 +196,7 @@ misconfiguration
 mitigation
 mitigations
 monorepo
+monorepos
 mutex
 namespace
 namespaced
