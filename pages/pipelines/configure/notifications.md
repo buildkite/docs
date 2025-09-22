@@ -75,7 +75,7 @@ See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-sy
 
 ### Step-level conditional notifications
 
-You can use conditional notifications at the step level to send notificaions only when specific step outcomes occur. This is useful for immediate notifications when individual steps complete:
+You can use conditional notifications at the step level to send notifications only when specific step outcomes occur. This is useful for immediate notifications when individual steps complete:
 
 ```yaml
 steps:
