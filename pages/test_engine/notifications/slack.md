@@ -6,7 +6,7 @@ toc: false
 You can receive notifications in your Slack workspace for the following events in Test Engine:
 
 - When a [test's state](/docs/test-engine/glossary#test-state) changes.
-- When a [label](/docs/test-engine/labels) is added to or removed from a test.
+- When a [label](/docs/test-engine/test-suites/labels) is added to or removed from a test.
 
 > 📘
 > Before configuring notifications, ensure your Slack workspace is [connected to your Buildkite organization](/docs/platform/integrations/slack-workspace).
@@ -28,7 +28,7 @@ To configure Slack notifications for your test suite:
     * **Test label added**
     * **Test label removed**
 
-1. If [test ownership](/docs/test-engine/test-ownership) is configured, you can select one or more **Teams** to filter notifications to tests owned by those teams.
+1. If [test ownership](/docs/test-engine/test-suites/test-ownership) is configured, you can select one or more **Teams** to filter notifications to tests owned by those teams.
 
     **Notes:**
     * Selecting **No owner** will send notifications for tests without an owner.

@@ -10,7 +10,7 @@ The Buildkite Agent clones your source code directly from GitHub or GitHub Enter
 
 ## Method 1: Machine user
 
-Creating a [machine user](https://developer.github.com/guides/managing-deploy-keys/#machine-users) is the simplest way to create a single SSH key which provides access to your organization's repositories.
+Creating a [machine user](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/managing-deploy-keys#machine-users) is the simplest way to create a single SSH key which provides access to your organization's repositories.
 
 The easiest way to do this is by creating a “Buildkite Agent” machine user in your organization, and adding it to a team that has access to the relevant repositories.
 

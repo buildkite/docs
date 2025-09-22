@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v6.40.10"
+Description: "Buildkite stack v6.41.1"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
 # autoscaling Buildkite Agent cluster. Use it to parallelize
@@ -55,10 +55,13 @@ Metadata:
         - BuildkiteAgentCancelGracePeriod
         - BuildkiteAgentSignalGracePeriod
         - BuildkiteTerminateInstanceAfterJob
+        - BuildkitePurgeBuildsOnDiskFull
         - BuildkiteAdditionalSudoPermissions
         - BuildkiteWindowsAdministrator
         - BuildkiteAgentScalerServerlessARN
         - BuildkiteAgentScalerVersion
+        - EnableEC2LogRetentionPolicy
+        - EC2LogRetentionDays
         - LogRetentionDays
         - BuildkiteAgentEnableGracefulShutdown
 
@@ -86,6 +89,8 @@ Metadata:
         - SecretsBucketRegion
         - SecretsBucketEncryption
         - ArtifactsBucket
+        - ArtifactsBucketRegion
+        - ArtifactsS3ACL
         - AuthorizedUsersUrl
         - BootstrapScriptUrl
         - AgentEnvFileUrl
@@ -96,6 +101,7 @@ Metadata:
         - ManagedPolicyARNs
         - InstanceRoleName
         - InstanceRolePermissionsBoundaryARN
+        - InstanceRoleTags
         - IMDSv2Tokens
         - EnableDetailedMonitoring
         - InstanceName
@@ -113,6 +119,7 @@ Metadata:
         - MinSize
         - MaxSize
         - InstanceBuffer
+        - OnDemandBaseCapacity
         - OnDemandPercentage
         - SpotAllocationStrategy
         - ScaleOutFactor
@@ -233,13 +240,32 @@ Parameters:
     Type: Number
     Default: 3600
 
+  EnableEC2LogRetentionPolicy:
+    Type: String
+    Default: "false"
+    AllowedValues: ["true", "false"]
+    Description: >
+      Enable CloudWatch log retention policy for EC2 instance logs managed by the CloudWatch agent.
+      When enabled, EC2 logs older than EC2LogRetentionDays will be automatically deleted to reduce storage costs.
+      This only affects logs from Buildkite agents, system logs, and other EC2-generated logs - not Lambda or other AWS service logs.
+      WARNING: For existing stacks, this will delete historical EC2 logs older than the retention period. This action cannot be undone.
+
+  EC2LogRetentionDays:
+    Type: Number
+    Description: The number of days to retain CloudWatch Logs for EC2 instances managed by the CloudWatch agent (Buildkite agents, system logs, etc).
+    Default: 7
+    AllowedValues: [1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653]
+
   LogRetentionDays:
     Type: Number
-    Description: The number of days to retain the Cloudwatch Logs of the lambda.
-    Default: "1"
+    Description: The number of days to retain CloudWatch Logs for Lambda functions in the stack.
+    Default: 1
+    AllowedValues: [1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653]
 
   BuildkiteAgentEnableGracefulShutdown:
-    Description: Set to true to enable graceful shutdown of agents when the ASG is updated with replacement. This allows ASGs to be removed in a timely manner during an in-place update of the elastic stack, and allows remaining agents to finish jobs without interruptions.
+    Description: >
+      Set to true to enable graceful shutdown of agents when the ASG is updated with replacement.
+      This allows ASGs to be removed in a timely manner during an in-place update of th Elastic Stack, and allows remaining agents to finish jobs without interruptions.
     Type: String
     AllowedValues:
       - "true"
@@ -282,6 +308,23 @@ Parameters:
       - "true"
       - "false"
     Default: "false"
+
+  BuildkitePurgeBuildsOnDiskFull:
+    Description: Set to "true" to purge build directories as a last resort when disk space is critically low.
+    Type: String
+    AllowedValues:
+      - "true"
+      - "false"
+    Default: "false"
+
+  BuildkiteAgentDisconnectAfterUptime:
+    Description: >
+      The maximum uptime in seconds before the agent stops accepting new jobs and shuts down
+      after any running jobs complete. Set to 0 to disable uptime-based termination.
+      This helps regularly cycle out machines and prevent resource accumulation issues.
+    Type: Number
+    Default: 0
+    MinValue: 0
 
   ExperimentalEnableResourceLimits:
     Description: >
@@ -367,7 +410,9 @@ Parameters:
     MinLength: 1
 
   AgentsPerInstance:
-    Description: Number of Buildkite agents to run on each instance
+    Description: >
+      Number of Buildkite agents to run on each instance. This determines the initial count of agents launched when an instance starts.
+      If an individual agent is terminated (e.g., due to a job failure or manual shutdown), it will not be automatically restarted, resulting in fewer agents on that instance (N-1). The ScaleInIdlePeriod parameter does not affect this agent count.
     Type: Number
     Default: 1
     MinValue: 1
@@ -394,6 +439,24 @@ Parameters:
     Description: Optional - Name of an existing S3 bucket for build artifact storage
     Type: String
     Default: ""
+
+  ArtifactsBucketRegion:
+    Description: Optional - Region for the ArtifactsBucket. If blank the bucket's region is dynamically discovered.
+    Type: String
+    Default: ""
+
+  ArtifactsS3ACL:
+    Description: Optional - ACL to use for S3 artifact uploads
+    Type: String
+    AllowedValues:
+      - "private"
+      - "public-read"
+      - "public-read-write"
+      - "authenticated-read"
+      - "aws-exec-read"
+      - "bucket-owner-read"
+      - "bucket-owner-full-control"
+    Default: "private"
 
   BootstrapScriptUrl:
     Description: Optional - HTTPS or S3 URL for a script to run on each instance during boot
@@ -460,6 +523,12 @@ Parameters:
     Type: String
     Default: "10s"
 
+  OnDemandBaseCapacity:
+    Description: Specify how much On-Demand capacity the Auto Scaling group should have for its base portion before scaling by percentages. The maximum group size will be increased (but not decreased) to this value.
+    Type: Number
+    Default: 0
+    MinValue: 0
+
   OnDemandPercentage:
     Description: Percentage of total instances that should launch as OnDemand. Default is 100% OnDemand - reduce this to use some Spot Instances when they're available and cheaper than the OnDemand price. A value of 70 means 70% OnDemand and 30% Spot Instances.
     Type: Number
@@ -483,7 +552,10 @@ Parameters:
     Default: 1.0
 
   ScaleInIdlePeriod:
-    Description: Number of seconds an agent must be idle before terminating
+    Description: >
+      Number of seconds ALL agents on an instance must be idle before the instance is terminated.
+      When all AgentsPerInstance agents are idle for this duration, the entire instance is terminated, not individual agents.
+      This parameter controls instance-level scaling behavior.
     Type: Number
     Default: 600
 
@@ -512,7 +584,7 @@ Parameters:
     Default: ""
 
   RootVolumeType:
-    Description: Type of root volume to use
+    Description: Type of root volume to use. If you are specifying `io1` or `io2`, you will most likely want to specify `RootVolumeIOPS` as well.
     Type: String
     Default: "gp3"
 
@@ -572,6 +644,12 @@ Parameters:
     Description: The ARN of the policy used to set the permissions boundary for the role.
     Default: ""
 
+  InstanceRoleTags:
+    Description: "Optional - Comma-separated key=value pairs for instance IAM role tags (up to 5 tags). Example: 'Environment=production,Team=platform,Purpose=ci'. Note: Keys and values cannot contain '=' characters."
+    Type: String
+    Default: ""
+    AllowedPattern: "^$|^[\\w\\s_.:/+\\-@]+=[\\w\\s_.:/+\\-@]*(,[\\w\\s_.:/+\\-@]+=[\\w\\s_.:/+\\-@]*){0,4}$"
+
   InstanceOperatingSystem:
     Type: String
     Description: The operating system to run on the instances
@@ -582,11 +660,13 @@ Parameters:
 
   ECRAccessPolicy:
     Type: String
-    Description: ECR access policy to give container instances
+    Description: ECR access policy to give instances. The `-pullthrough` variants add ECR pull-through cache permissions (including `ecr:CreateRepository`, `ecr:BatchImportUpstreamImage`, `ecr:GetImageCopyStatus`, and upload permissions) to enable transparent upstream registry caching.
     AllowedValues:
       - none
       - readonly
+      - readonly-pullthrough
       - poweruser
+      - poweruser-pullthrough
       - full
     Default: "none"
 
@@ -832,6 +912,17 @@ Conditions:
     SetInstanceRolePermissionsBoundaryARN:
       !Not [ !Equals [ !Ref InstanceRolePermissionsBoundaryARN, "" ] ]
 
+    UseInstanceRoleTag1:
+      !Not [ !Equals [ !Select [ "0", !Split [ ",", !Join [ ",", [ !Ref InstanceRoleTags, "", "", "", "", "" ] ] ] ], "" ] ]
+    UseInstanceRoleTag2:
+      !Not [ !Equals [ !Select [ "1", !Split [ ",", !Join [ ",", [ !Ref InstanceRoleTags, "", "", "", "", "" ] ] ] ], "" ] ]
+    UseInstanceRoleTag3:
+      !Not [ !Equals [ !Select [ "2", !Split [ ",", !Join [ ",", [ !Ref InstanceRoleTags, "", "", "", "", "" ] ] ] ], "" ] ]
+    UseInstanceRoleTag4:
+      !Not [ !Equals [ !Select [ "3", !Split [ ",", !Join [ ",", [ !Ref InstanceRoleTags, "", "", "", "", "" ] ] ] ], "" ] ]
+    UseInstanceRoleTag5:
+      !Not [ !Equals [ !Select [ "4", !Split [ ",", !Join [ ",", [ !Ref InstanceRoleTags, "", "", "", "", "" ] ] ] ], "" ] ]
+
     UseSpecifiedSecretsBucket:
       !Not [ !Equals [ !Ref SecretsBucket, "" ] ]
 
@@ -843,6 +934,8 @@ Conditions:
 
     UseArtifactsBucket:
       !Not [ !Equals [ !Ref ArtifactsBucket, "" ] ]
+    IsArtifactsBucketRegionEmpty:
+      !Equals [ !Ref ArtifactsBucketRegion, "" ]
 
     HasImageId:
       !Not [ !Equals [ !Ref ImageId, "" ] ]
@@ -872,13 +965,13 @@ Conditions:
 
     UseInstanceType7:
       !Not [ !Equals [ !Select [ "6", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""] ] ] ], ""] ]
-    
+
     UseInstanceType8:
       !Not [ !Equals [ !Select [ "7", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""] ] ] ], ""] ]
-    
+
     UseInstanceType9:
       !Not [ !Equals [ !Select [ "8", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""] ] ] ], ""] ]
-    
+
     UseInstanceType10:
       !Not [ !Equals [ !Select [ "9", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""] ] ] ], ""] ]
 
@@ -887,13 +980,13 @@ Conditions:
 
     UseInstanceType12:
       !Not [ !Equals [ !Select [ "11", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""] ] ] ], ""] ]
-    
+
     UseInstanceType13:
       !Not [ !Equals [ !Select [ "12", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""] ] ] ], ""] ]
 
     UseInstanceType14:
       !Not [ !Equals [ !Select [ "13", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""] ] ] ], ""] ]
-    
+
     UseInstanceType15:
       !Not [ !Equals [ !Select [ "14", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""] ] ] ], ""] ]
 
@@ -902,13 +995,13 @@ Conditions:
 
     UseInstanceType17:
       !Not [ !Equals [ !Select [ "16", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""] ] ] ], ""] ]
-    
+
     UseInstanceType18:
       !Not [ !Equals [ !Select [ "17", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""] ] ] ], ""] ]
-    
+
     UseInstanceType19:
       !Not [ !Equals [ !Select [ "18", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""] ] ] ], ""] ]
-    
+
     UseInstanceType20:
       !Not [ !Equals [ !Select [ "19", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""] ] ] ], ""] ]
 
@@ -920,7 +1013,7 @@ Conditions:
 
     UseInstanceType23:
       !Not [ !Equals [ !Select [ "22", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""] ] ] ], ""] ]
-    
+
     UseInstanceType24:
       !Not [ !Equals [ !Select [ "23", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""] ] ] ], ""] ]
 
@@ -932,6 +1025,11 @@ Conditions:
 
     UseECR:
       !Not [ !Equals [ !Ref ECRAccessPolicy, "none" ] ]
+
+    AddECRPullThrough:
+      !Or
+        - !Equals [ !Ref ECRAccessPolicy, "readonly-pullthrough" ]
+        - !Equals [ !Ref ECRAccessPolicy, "poweruser-pullthrough" ]
 
     UseCustomerManagedParameterPath:
       !Not [ !Equals [ !Ref BuildkiteAgentTokenParameterStorePath, "" ] ]
@@ -1034,33 +1132,35 @@ Conditions:
 
 Mappings:
   ECRManagedPolicy:
-    none      : { Policy: '' }
-    readonly  : { Policy: 'arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly' }
-    poweruser : { Policy: 'arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser' }
-    full      : { Policy: 'arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess' }
+    none                  : { Policy: '' }
+    readonly              : { Policy: 'arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly' }
+    readonly-pullthrough  : { Policy: 'arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly' }
+    poweruser             : { Policy: 'arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser' }
+    poweruser-pullthrough : { Policy: 'arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser' }
+    full                  : { Policy: 'arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess' }
 
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-0a4bbaeedf879f421, linuxarm64: ami-024670662964ac9f0, windows: ami-01edef1b88f718154 }
-    us-east-2 : { linuxamd64: ami-02a3958857d5ef1a1, linuxarm64: ami-078d694c80c67da70, windows: ami-05d20be2c423ec1d7 }
-    us-west-1 : { linuxamd64: ami-04eab57058c287bbe, linuxarm64: ami-0687c0d0ab9ffd0b5, windows: ami-02401e5fd81a63c45 }
-    us-west-2 : { linuxamd64: ami-022f6253aaf60e1c5, linuxarm64: ami-0e0fbc8b5f2bbe6e4, windows: ami-0d0bd6f6af2196e18 }
-    af-south-1 : { linuxamd64: ami-008e73008aca95475, linuxarm64: ami-016a32360a11aa984, windows: ami-05e7cae571acb5c05 }
-    ap-east-1 : { linuxamd64: ami-0a1f91b5eeea4d10f, linuxarm64: ami-02457cb0ce3570a95, windows: ami-09cf5049171bc5bf7 }
-    ap-south-1 : { linuxamd64: ami-03a5d20197d5da0ad, linuxarm64: ami-09c743194f625a61e, windows: ami-0fc0e4a6dd76db649 }
-    ap-northeast-2 : { linuxamd64: ami-01e0077fb238a92d9, linuxarm64: ami-0fd337a80456019b0, windows: ami-02abf5caca1beac5f }
-    ap-northeast-1 : { linuxamd64: ami-0ad26c92a34b1aede, linuxarm64: ami-0709f1c54d975684f, windows: ami-03474d2ae30350e52 }
-    ap-southeast-2 : { linuxamd64: ami-052ec86ac848977f2, linuxarm64: ami-0c90ace4eb4cf8942, windows: ami-05368a4aabe3bedb3 }
-    ap-southeast-1 : { linuxamd64: ami-0e4e9816c70ee3fee, linuxarm64: ami-0f1557362623ff715, windows: ami-0dba8fb2e4523a047 }
-    ca-central-1 : { linuxamd64: ami-03af7596ce7ccb433, linuxarm64: ami-07a3d6a6a2859d014, windows: ami-0ed9c3b8145aff014 }
-    eu-central-1 : { linuxamd64: ami-0275da55581e8c400, linuxarm64: ami-0e0312b8b8d12118c, windows: ami-0f8b23c54d58fa835 }
-    eu-west-1 : { linuxamd64: ami-0cd7071f7d4eebea2, linuxarm64: ami-0bd0179e8d7dc4644, windows: ami-0ca5162cd3a0e2e8d }
-    eu-west-2 : { linuxamd64: ami-0dc87797705b04f0a, linuxarm64: ami-0fd1e9dc1289c0c25, windows: ami-05f970ab615b21d7d }
-    eu-south-1 : { linuxamd64: ami-0cee87bf77f314adc, linuxarm64: ami-009e4dc97e498caa9, windows: ami-063f9aebf316dfca7 }
-    eu-west-3 : { linuxamd64: ami-09e73f0ef2a2ca334, linuxarm64: ami-0002990f3abbcc27b, windows: ami-0a06985affd647ac8 }
-    eu-north-1 : { linuxamd64: ami-0e2673f3322d53181, linuxarm64: ami-0774df120284d2bee, windows: ami-00897376d15de8521 }
-    me-south-1 : { linuxamd64: ami-0ce63529fe90645e4, linuxarm64: ami-09366749448ccbc08, windows: ami-0649e5048cada3c27 }
-    sa-east-1 : { linuxamd64: ami-0f36244032c50c84d, linuxarm64: ami-0e7bb6d9c540e55dc, windows: ami-01c1d22ef2f3a4f2d }
+    us-east-1 : { linuxamd64: ami-06ae055d002ab7bf7, linuxarm64: ami-0b7eb601ed3b4ad0f, windows: ami-08acc20030ab9a817 }
+    us-east-2 : { linuxamd64: ami-09357cbcc9f5ac8ae, linuxarm64: ami-0fe9891bf59f1a725, windows: ami-05ad75baaa3485537 }
+    us-west-1 : { linuxamd64: ami-0e10ed008edf475a7, linuxarm64: ami-0b2e3437d6291ffc7, windows: ami-08d04f0bab0776b14 }
+    us-west-2 : { linuxamd64: ami-0369a16b9e2bbbd35, linuxarm64: ami-02ae6cd37a356ddbd, windows: ami-0259b615e25ecdaae }
+    af-south-1 : { linuxamd64: ami-026c7c5de6df16c55, linuxarm64: ami-0525e79c127b65afb, windows: ami-0a79a8d3d2932675c }
+    ap-east-1 : { linuxamd64: ami-0eedddc69edd89f48, linuxarm64: ami-0ca746aad798f745d, windows: ami-035afa243061f561d }
+    ap-south-1 : { linuxamd64: ami-04fe683912277adb0, linuxarm64: ami-033ed9e96824c805a, windows: ami-06390585c75bd0281 }
+    ap-northeast-2 : { linuxamd64: ami-09c62d8053c71d1ce, linuxarm64: ami-06a7278a0d7a8e642, windows: ami-0b9dc31c64e43ffe1 }
+    ap-northeast-1 : { linuxamd64: ami-0fae2d4e21edfbb35, linuxarm64: ami-0158ae6e546cd47f1, windows: ami-033969c836e0bd4dd }
+    ap-southeast-2 : { linuxamd64: ami-0acd36489cdc75f97, linuxarm64: ami-0859e4cf98f610662, windows: ami-09a28a7fc480da5f1 }
+    ap-southeast-1 : { linuxamd64: ami-06b4785534b1f553f, linuxarm64: ami-09faf371672be4d55, windows: ami-089dd8c8a54a18d00 }
+    ca-central-1 : { linuxamd64: ami-04a27e9d81ba7556f, linuxarm64: ami-0ed8a526017df7620, windows: ami-0bc475dfc2750bf0d }
+    eu-central-1 : { linuxamd64: ami-053a1720f1391af49, linuxarm64: ami-06857b3aad0e8761a, windows: ami-07427a130959455c7 }
+    eu-west-1 : { linuxamd64: ami-04223bed8c6f55e22, linuxarm64: ami-050f8a780db12bb7e, windows: ami-0456ef4ef7e81c273 }
+    eu-west-2 : { linuxamd64: ami-0387a2e54d5b18189, linuxarm64: ami-04f15df7b5c8cd989, windows: ami-069db7d19e1bf7504 }
+    eu-south-1 : { linuxamd64: ami-041e8ec3baf14dd1e, linuxarm64: ami-092dfdf355f52d4fa, windows: ami-02122e0f8a0c20b9a }
+    eu-west-3 : { linuxamd64: ami-0e10304a5ad7c55ef, linuxarm64: ami-029e8abb896b54f13, windows: ami-0adc3448fd5a9c0f4 }
+    eu-north-1 : { linuxamd64: ami-05ed991f94f8f89f4, linuxarm64: ami-012be5aae2d49196f, windows: ami-076697bc857bf9a96 }
+    me-south-1 : { linuxamd64: ami-0cd51d69a4b1301f5, linuxarm64: ami-093f5a6804cec5446, windows: ami-0899339116e8261bb }
+    sa-east-1 : { linuxamd64: ami-06be5f2ee0ddbb67d, linuxarm64: ami-038ba7da0a8d2c719, windows: ami-0396c37d775ddfbb5 }
 
 Resources:
   Vpc:
@@ -1163,7 +1263,11 @@ Resources:
       VpcResources: !If
         - CreateVpcResources
         - [ !Ref RouteDefault, !Ref Subnet0Routes, !Ref Subnet1Routes ]
-        - !Ref "AWS::NoValue"
+        - []
+      # By referencing these resources, CloudFormation creates implicit dependencies
+      Subnet0RouteCheck: !If [ CreateVpcResources, !Ref Subnet0Routes, !Ref "AWS::NoValue" ]
+      Subnet1RouteCheck: !If [ CreateVpcResources, !Ref Subnet1Routes, !Ref "AWS::NoValue" ]
+      RouteDefaultCheck: !If [ CreateVpcResources, !Ref RouteDefault, !Ref "AWS::NoValue" ]
 
   BuildkiteAgentTokenParameter:
     Type: AWS::SSM::Parameter
@@ -1218,6 +1322,23 @@ Resources:
           - !Ref 'AWS::NoValue'
       Policies:
         - !If
+          - AddECRPullThrough
+          - PolicyName: ECRPullThrough
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - ecr:CreateRepository
+                    - ecr:BatchImportUpstreamImage
+                    - ecr:GetImageCopyStatus
+                    - ecr:InitiateLayerUpload
+                    - ecr:UploadLayerPart
+                    - ecr:CompleteLayerUpload
+                    - ecr:PutImage
+                  Resource: "*"
+          - !Ref 'AWS::NoValue'
+        - !If
           - HasPipelineSigningKMSKey
           - PolicyName: PipelineSigningKMSKeyAccess
             PolicyDocument:
@@ -1269,6 +1390,34 @@ Resources:
               Service: [ autoscaling.amazonaws.com, ec2.amazonaws.com ]
             Action: sts:AssumeRole
       Path: /
+      Tags:
+        - Key: CreatedBy
+          Value: buildkite-elastic-ci-stack
+        - !If
+          - UseInstanceRoleTag1
+          - Key: !Select [ "0", !Split [ "=", !Select [ "0", !Split [ ",", !Join [ ",", [ !Ref InstanceRoleTags, "", "", "", "", "" ] ] ] ] ] ]
+            Value: !Select [ "1", !Split [ "=", !Select [ "0", !Split [ ",", !Join [ ",", [ !Ref InstanceRoleTags, "", "", "", "", "" ] ] ] ] ] ]
+          - !Ref 'AWS::NoValue'
+        - !If
+          - UseInstanceRoleTag2
+          - Key: !Select [ "0", !Split [ "=", !Select [ "1", !Split [ ",", !Join [ ",", [ !Ref InstanceRoleTags, "", "", "", "", "" ] ] ] ] ] ]
+            Value: !Select [ "1", !Split [ "=", !Select [ "1", !Split [ ",", !Join [ ",", [ !Ref InstanceRoleTags, "", "", "", "", "" ] ] ] ] ] ]
+          - !Ref 'AWS::NoValue'
+        - !If
+          - UseInstanceRoleTag3
+          - Key: !Select [ "0", !Split [ "=", !Select [ "2", !Split [ ",", !Join [ ",", [ !Ref InstanceRoleTags, "", "", "", "", "" ] ] ] ] ] ]
+            Value: !Select [ "1", !Split [ "=", !Select [ "2", !Split [ ",", !Join [ ",", [ !Ref InstanceRoleTags, "", "", "", "", "" ] ] ] ] ] ]
+          - !Ref 'AWS::NoValue'
+        - !If
+          - UseInstanceRoleTag4
+          - Key: !Select [ "0", !Split [ "=", !Select [ "3", !Split [ ",", !Join [ ",", [ !Ref InstanceRoleTags, "", "", "", "", "" ] ] ] ] ] ]
+            Value: !Select [ "1", !Split [ "=", !Select [ "3", !Split [ ",", !Join [ ",", [ !Ref InstanceRoleTags, "", "", "", "", "" ] ] ] ] ] ]
+          - !Ref 'AWS::NoValue'
+        - !If
+          - UseInstanceRoleTag5
+          - Key: !Select [ "0", !Split [ "=", !Select [ "4", !Split [ ",", !Join [ ",", [ !Ref InstanceRoleTags, "", "", "", "", "" ] ] ] ] ] ]
+            Value: !Select [ "1", !Split [ "=", !Select [ "4", !Split [ ",", !Join [ ",", [ !Ref InstanceRoleTags, "", "", "", "", "" ] ] ] ] ] ]
+          - !Ref 'AWS::NoValue'
 
   IAMPolicies:
     Type: AWS::IAM::Policy
@@ -1329,6 +1478,7 @@ Resources:
               - logs:PutLogEvents
               - logs:DescribeLogGroups
               - logs:DescribeLogStreams
+              - logs:PutRetentionPolicy
             Resource: "*"
           - Sid: Ssm
             Effect: Allow
@@ -1561,10 +1711,13 @@ Resources:
                   powershell -file C:\buildkite-agent\bin\bk-configure-docker.ps1 >> C:\buildkite-agent\elastic-stack.log
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v6.40.10"
+                  $Env:BUILDKITE_STACK_VERSION="v6.41.1"
                   $Env:BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}"
                   $Env:BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}"
                   $Env:BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}"
+                  $Env:BUILDKITE_ARTIFACTS_BUCKET="${ArtifactsBucket}"
+                  $Env:BUILDKITE_S3_DEFAULT_REGION="${LocalArtifactsBucketRegion}"
+                  $Env:BUILDKITE_S3_ACL="${ArtifactsS3ACL}"
                   $Env:BUILDKITE_AGENT_TOKEN_PATH="${AgentTokenPath}"
                   $Env:BUILDKITE_AGENTS_PER_INSTANCE="${AgentsPerInstance}"
                   $Env:BUILDKITE_AGENT_ENDPOINT="${AgentEndpoint}"
@@ -1582,6 +1735,7 @@ Resources:
                   $Env:BUILDKITE_AUTHORIZED_USERS_URL="${AuthorizedUsersUrl}"
                   $Env:BUILDKITE_ECR_POLICY="${ECRAccessPolicy}"
                   $Env:BUILDKITE_TERMINATE_INSTANCE_AFTER_JOB="${BuildkiteTerminateInstanceAfterJob}"
+                  $Env:BUILDKITE_AGENT_DISCONNECT_AFTER_UPTIME="${BuildkiteAgentDisconnectAfterUptime}"
                   $Env:BUILDKITE_ADDITIONAL_SUDO_PERMISSIONS="${BuildkiteAdditionalSudoPermissions}"
                   $Env:BUILDKITE_WINDOWS_ADMINISTRATOR="${BuildkiteWindowsAdministrator}"
                   $Env:AWS_DEFAULT_REGION="${AWS::Region}"
@@ -1589,6 +1743,8 @@ Resources:
                   $Env:ECR_PLUGIN_ENABLED="${EnableECRPlugin}"
                   $Env:DOCKER_LOGIN_PLUGIN_ENABLED="${EnableDockerLoginPlugin}"
                   $Env:AWS_REGION="${AWS::Region}"
+                  $Env:ENABLE_EC2_LOG_RETENTION_POLICY="${EnableEC2LogRetentionPolicy}"
+                  $Env:EC2_LOG_RETENTION_DAYS="${EC2LogRetentionDays}"
                   powershell -file C:\buildkite-agent\bin\bk-install-elastic-stack.ps1 >> C:\buildkite-agent\elastic-stack.log
                   </powershell>
                 - LocalSecretsBucket: !If
@@ -1599,6 +1755,13 @@ Resources:
                     - CreateSecretsBucket
                     - !Ref "AWS::Region"
                     - !Ref SecretsBucketRegion
+                  LocalArtifactsBucketRegion: !If
+                    - UseArtifactsBucket
+                    - !If
+                      - IsArtifactsBucketRegionEmpty
+                      - !Ref "AWS::Region"
+                      - !Ref ArtifactsBucketRegion
+                    - !Ref "AWS::Region"
                   AgentTokenPath: !If
                     - UseCustomerManagedParameterPath
                     - !Ref BuildkiteAgentTokenParameterStorePath
@@ -1637,10 +1800,13 @@ Resources:
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v6.40.10" \
+                  BUILDKITE_STACK_VERSION="v6.41.1" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
                   BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}" \
+                  BUILDKITE_ARTIFACTS_BUCKET="${ArtifactsBucket}" \
+                  BUILDKITE_S3_DEFAULT_REGION="${LocalArtifactsBucketRegion}" \
+                  BUILDKITE_S3_ACL="${ArtifactsS3ACL}" \
                   BUILDKITE_AGENT_TOKEN_PATH="${AgentTokenPath}" \
                   BUILDKITE_AGENTS_PER_INSTANCE="${AgentsPerInstance}" \
                   BUILDKITE_AGENT_ENDPOINT="${AgentEndpoint}" \
@@ -1661,7 +1827,9 @@ Resources:
                   BUILDKITE_AUTHORIZED_USERS_URL="${AuthorizedUsersUrl}" \
                   BUILDKITE_ECR_POLICY="${ECRAccessPolicy}" \
                   BUILDKITE_TERMINATE_INSTANCE_AFTER_JOB="${BuildkiteTerminateInstanceAfterJob}" \
+                  BUILDKITE_AGENT_DISCONNECT_AFTER_UPTIME="${BuildkiteAgentDisconnectAfterUptime}" \
                   BUILDKITE_TERMINATE_INSTANCE_ON_DISK_FULL="${BuildkiteTerminateInstanceOnDiskFull}" \
+                  BUILDKITE_PURGE_BUILDS_ON_DISK_FULL="${BuildkitePurgeBuildsOnDiskFull}" \
                   BUILDKITE_ADDITIONAL_SUDO_PERMISSIONS="${BuildkiteAdditionalSudoPermissions}" \
                   AWS_DEFAULT_REGION="${AWS::Region}" \
                   SECRETS_PLUGIN_ENABLED="${EnableSecretsPlugin}" \
@@ -1677,6 +1845,8 @@ Resources:
                   RESOURCE_LIMITS_CPU_WEIGHT="${ResourceLimitsCPUWeight}" \
                   RESOURCE_LIMITS_CPU_QUOTA="${ResourceLimitsCPUQuota}" \
                   RESOURCE_LIMITS_IO_WEIGHT="${ResourceLimitsIOWeight}" \
+                  ENABLE_EC2_LOG_RETENTION_POLICY="${EnableEC2LogRetentionPolicy}" \
+                  EC2_LOG_RETENTION_DAYS="${EC2LogRetentionDays}" \
                     /usr/local/bin/bk-install-elastic-stack.sh
                   --==BOUNDARY==--
                 - LocalSecretsBucket: !If
@@ -1687,6 +1857,13 @@ Resources:
                     - CreateSecretsBucket
                     - !Ref "AWS::Region"
                     - !Ref SecretsBucketRegion
+                  LocalArtifactsBucketRegion: !If
+                    - UseArtifactsBucket
+                    - !If
+                      - IsArtifactsBucketRegionEmpty
+                      - !Ref "AWS::Region"
+                      - !Ref ArtifactsBucketRegion
+                    - !Ref "AWS::Region"
                   AgentTokenPath: !If
                     - UseCustomerManagedParameterPath
                     - !Ref BuildkiteAgentTokenParameterStorePath
@@ -1705,6 +1882,7 @@ Resources:
       VPCZoneIdentifier: !If [ "CreateVpcResources", [ !Ref Subnet0, !Ref Subnet1 ], !Ref Subnets ]
       MixedInstancesPolicy:
         InstancesDistribution:
+          OnDemandBaseCapacity: !Ref OnDemandBaseCapacity
           OnDemandPercentageAboveBaseCapacity: !Ref OnDemandPercentage
           SpotAllocationStrategy: !Ref SpotAllocationStrategy
         LaunchTemplate:

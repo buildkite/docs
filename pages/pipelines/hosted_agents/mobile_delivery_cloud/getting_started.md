@@ -33,7 +33,7 @@ To create your macOS hosted agent:
     As part of this process:
     * Give this queue an intuitive **key** and **description**, for example, **buildkite-macos-hosted-queue** and **Buildkite macOS hosted queue**, respectively.
     * In the **Select your agent infrastructure** section, select **Hosted**.
-    * Select **macOS** as the **Machine type** and **Small** for the **Capacity**. While small capacity machines are only available on the trial, larger capacity machines allow your pipelines to run faster, since these pipelines typically execute device emulators, which can be computationally intensive, as part of the build process.
+    * Select **macOS** as the **Machine type** and **Medium** for the **Capacity**. While small capacity machines are only available on the trial, larger capacity machines allow your pipelines to run faster, since these pipelines typically execute device emulators, which can be computationally intensive, as part of the build process.
 
 1. Make your pipelines use your new macOS hosted agent by default, by ensuring its queue is the _default queue_. This should be indicated by **(default)** after the queue's key on the cluster's **Queues** page. If this is not the case and another queue is marked **(default)**:
 
