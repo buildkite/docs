@@ -222,7 +222,7 @@ The versions for each of these packages varies by macOS version. See [Identifyin
 - php
 - pkgconf
 - postgresql@14
-- python@3.13
+- python<span>@</span>3.13
 - r
 - rbenv
 - rbenv-bundler
