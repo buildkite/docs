@@ -63,7 +63,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 API access using basic HTTP authentication is not supported.
 
-### Public key authentication
+### Public key
 
 > 📘 This feature is currently available in preview.
 
