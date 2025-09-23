@@ -77,3 +77,38 @@ Example request body:
   }
 }
 ```
+
+## Trigger job events
+
+When a trigger step in the parent pipeline finishes, the `job.finished` webhook will include an `async` field that shows whether the step runs asynchronously.
+
+Example `job.finished` request body for a trigger job:
+
+```json
+{
+  "event": "job.finished",
+  "job": {
+    "id": "...",
+    "type": "trigger",
+    "name": "...",
+    "state": "...",
+    "async": true,
+    "...": "..."
+  },
+  "build": {
+    "...": "..."
+  },
+  "pipeline": {
+    "...": "..."
+  },
+  "sender": {
+    "id": "8a7693f8-dbae-4783-9137-84090fce9045",
+    "name": "Some Person"
+  }
+}
+```
+
+The `async` field indicates:
+
+- `true`: The trigger step continues immediately, regardless of the triggered build's success.
+- `false`: The trigger step waits for the triggered build to complete before continuing.
