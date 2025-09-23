@@ -119,13 +119,14 @@ if @failed.any?
     path_and_query = page.sub(/https?:\/\/[^\/]+/,'')
 
     rows = links.reduce("") do |table, l|
-      table += "| [#{l['url']}](#{l['url']}) | #{l['error']} |\n"
+      table += "| #{l['url']} | #{l['error']} |\n"
     end
 
     report += <<~MARKDOWN
       In #{path_and_query}:
 
       | Link | Status |
+      |------|--------|
       #{rows}
 
     MARKDOWN
@@ -154,6 +155,7 @@ if @passed.any?
       In #{path_and_query}:
 
       | Link | Status | Deciding rule |
+      |------|--------|---------------|
       #{rows}
 
     MARKDOWN
