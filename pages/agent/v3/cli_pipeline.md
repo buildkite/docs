@@ -7,7 +7,7 @@ See the [Defining your pipeline steps](/docs/pipelines/configure/defining-steps)
 ## Uploading pipelines
 
 > 🚧 Processing of a single pipeline file
-> Prior to v3.104.0, the `buildkite-agent pipeline upload` command only processes a single pipeline file. If multiple files are passed into a command (including using a wildcard `*` in the filename), only the first pipeline file will be processed. Additional pipeline files provided as arguments will be ignored. Please see [Uploading multiple pipeline files](/docs/agent/v3/cli_pipeline#uploading-multiple-pipelines) for more information.
+> In versions of the Buildkite Agent prior to 3.104.0, the `buildkite-agent pipeline upload` command only processes a single pipeline file. If multiple files are passed into a command (including using a wildcard `*` in the filename), only the first pipeline file will be processed, and any additional pipeline files provided as arguments are ignored. Later versions of the Buildkite Agent do support multiple pipeline file uploads. See [Uploading multiple pipelines](/docs/agent/v3/cli_pipeline#uploading-multiple-pipelines) for more information.
 
 <%= render 'agent/v3/help/pipeline_upload' %>
 
