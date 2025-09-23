@@ -17,7 +17,7 @@ end
 def rules
   return @rules if @rules
 
-  rules_yaml = YAML.load(File.read('.buildkite/steps/link-checking-rules.yaml'))
+  rules_yaml = YAML.load(File.read('link-checking-rules.yaml'))
 
   @rules = rules_yaml['rules'].each_with_object([]) do |r, arr|
     arr << {

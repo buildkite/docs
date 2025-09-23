@@ -43,6 +43,7 @@ services:
       target: muffet
     entrypoint:
       - /work/muffet.rb
+    working_dir: /work
     volumes:
       - .buildkite/steps:/work
 
