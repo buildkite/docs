@@ -29,18 +29,18 @@ def rules
   end
 end
 
-failed = {}
+@failed = {}
 def result_fail(page, link)
-  failed[page] ||= []
+  @failed[page] ||= []
 
-  failed[page] << link
+  @failed[page] << link
 end
 
-passed = {}
+@passed = {}
 def result_pass(page, link, decided_by)
-  passed[page] ||= []
+  @passed[page] ||= []
 
-  passed[page] << link.merge({'decided_by' => decided_by})
+  @passed[page] << link.merge({'decided_by' => decided_by})
 end
 
 puts "--- Waiting for app to start"
@@ -84,20 +84,20 @@ pages.each do |page|
     end
 
     rules.each do |rule|
-      if rule[:status_pattern] =~ link['error']
-        if rule[:url_patterns].any? {|patt| patt =~ link['url'] }
-          result_pass(page, link, rule[:name])
+      if rule[:status_pattern].match?(link['error'])
+        if rule[:url_patterns].any? {|patt| patt.match?(link['url']) }
+          result_pass(page['url'], link, rule[:name])
           break
         end
 
-        result_fail(page, link)
+        result_fail(page['url'], link)
       end
     end
   end
 end
 
 report = ""
-if failures.any?
+if @failed.any?
   report = <<~MARKDOWN
     ## Muffet found broken links
 
@@ -105,10 +105,10 @@ if failures.any?
 
   MARKDOWN
 
-  failures.each do |page, links|
+  @failed.each do |page, links|
     path_and_query = page.sub(/https?:\/\/[^\/]+/,'')
 
-    rows = links.each_with_object("") do |l, table|
+    rows = links.reduce("") do |table, l|
       table += "| #{l['url']} | #{l['error']} |\n"
     end
 
@@ -125,16 +125,16 @@ else
   report = "## Muffet found no problems :sunglasses:\n\n"
 end
 
-if successes.any?
+if @passed.any?
   report += <<~MARKDOWN
     The following requests would have failed, but we made them exempt in `.buildkite/steps/link-checking-rules.yaml`.
 
   MARKDOWN
 
-  successes.each do |page, links|
+  @passed.each do |page, links|
     path_and_query = page.sub(/https?:\/\/[^\/]+/,'')
 
-    rows = links.each_with_object("") do |l, table|
+    rows = links.reduce("") do |table, l|
       table += "| #{l['url']} | #{l['error']} | #{l['decided_by']} |\n"
     end
 
@@ -150,4 +150,7 @@ end
 
 report += "The complete results (including **all** successful requests) will be uploaded in JSON format as a build artifact. If you need to figure out why links are passing checks when they shouldn't be, that is a good place to start.\n\n"
 
-annotate!(report)
+annotate!(annotation: report, context: 'muffet')
+
+puts report.size
+puts "Report #{report.size < 1024**2 ? 'will' : 'will not'} fit in an annotation."
