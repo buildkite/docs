@@ -46,6 +46,8 @@ services:
     working_dir: /work
     volumes:
       - .buildkite/steps:/work
+    environment:
+      BUILDKITE: ${BUILDKITE:-false}
 
   deploy-preview:
     build:

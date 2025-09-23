@@ -4,10 +4,13 @@ require 'yaml'
 require 'json'
 
 def annotate!(annotation:, context:, style: "info")
-  if ENV.key?("BUILDKITE")
+  annotated = false
+  if ENV["BUILDKITE"] == 'true'
     puts "Uploading annotation (#{annotation.size} bytes)"
-    system!("buildkite-agent", "annotate", "--style", style, "--context", context, stdin_data: annotation)
-  else
+    annotated = system("buildkite-agent", "annotate", "--style", style, "--context", context, stdin_data: annotation)
+  end
+
+  unless annotated
     puts "--- ANNOTATION [#{style},#{context}]"
     puts annotation
     puts
@@ -129,6 +132,8 @@ if @passed.any?
   report += <<~MARKDOWN
     The following requests would have failed, but we made them exempt in `.buildkite/steps/link-checking-rules.yaml`.
 
+    <details><summary>Exempted failures</summary>
+
   MARKDOWN
 
   @passed.each do |page, links|
@@ -148,9 +153,16 @@ if @passed.any?
   end
 end
 
+report += "</details>\n\n"
 report += "The complete results (including **all** successful requests) will be uploaded in JSON format as a build artifact. If you need to figure out why links are passing checks when they shouldn't be, that is a good place to start.\n\n"
 
 annotate!(annotation: report, context: 'muffet')
 
 puts report.size
 puts "Report #{report.size < 1024**2 ? 'will' : 'will not'} fit in an annotation."
+
+if @failed.any?
+  exit(1)
+else
+  exit(0)
+end
