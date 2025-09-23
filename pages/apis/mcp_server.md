@@ -22,15 +22,15 @@ The _remote_ MCP server is one that Buildkite hosts, and is available for all us
 https://mcp.buildkite.com/mcp
 ```
 
-This type of MCP server is typically used by AI tools that you interact with directly from a prompt, and is the recommended MCP server type to use.
+This type of MCP server is typically used by AI tools that you interact with directly from a prompt, and it's the recommended MCP server type to use.
 
 #### What it's suitable for
 
-The remote MCP server is suitable for personal usage with an AI tool, as it has the following advantages for this use case.
+The remote MCP server is suitable for personal usage with an AI tool, as it has the following advantages.
 
 - You don't need to configure an API access token, which poses a potential security risk if leaked.
 
-    Instead, you only require a Buildkite user account, and the Buildkite platform issues a short-lived OAuth access token, representing this user account for authentication, along with access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place after [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) and connecting to it.
+    Instead, you only require your Buildkite user account, and the Buildkite platform issues a short-lived OAuth access token, representing your user account for authentication, along with access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place after [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) and connecting to it.
 
     **Note:** OAuth access tokens are valid for 12 hours, and the refresh tokens are valid for seven days.
 
@@ -44,7 +44,7 @@ The remote MCP server is not suitable for use in automated workflows, where runn
 
 The _local_ MCP server is one that you install yourself directly on your own machine or in a containerized environment.
 
-This type of MCP server is typically used by AI tools used as _AI agents_, which an automated system or workflow, such as a Buildkite pipeline, can interact with. AI agent interactions are usually shell-based.
+This type of MCP server is typically used by AI tools as _AI agents_, which an automated system or workflow, such as a Buildkite pipeline, can interact with. Such AI agent interactions are usually shell-based.
 
 #### What it's suitable for
 
