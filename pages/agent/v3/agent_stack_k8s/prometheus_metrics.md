@@ -2,20 +2,22 @@
 
 All [Prometheus metrics](https://prometheus.io/) exported by the Agent Stack for Kubernetes controller begin with `buildkite_`. The second component of the metric name refers to the controller component that produces the metric.
 
-## Enabling Prometheus monitoring
-
-This guide assumes that you have [Prometheus Operator](https://prometheus-operator.dev/) installed in your [cluster](/docs/pipelines/clusters). If you're using a different Prometheus setup, you'll need to configure the scraping manually using your Prometheus configuration.
+## How to enable Prometheus monitoring
 
 The Agent Stack for Kubernetes controller can expose Prometheus metrics for monitoring and observability. This requires two steps:
 
 1. Enabling metrics port exposure in the Helm chart.
 1. Creating a PodMonitor resource for scraping.
 
+Note that the folowing instruction for enabling Prometheus monitoring assumes that you have [Prometheus Operator](https://prometheus-operator.dev/) installed in your [cluster](/docs/pipelines/clusters). If you're using a different Prometheus setup, you'll need to configure the scraping manually using your Prometheus configuration.
+
 ### Enable metrics port exposure
 
-Configure the `prometheus-port` option in your Helm deployment to expose the metrics endpoint:
+Configure the `prometheus-port` option in your Helm deployment to expose the metrics endpoint. You can use either the command-line or the value file approach.
 
-**Command-line approach:**
+#### Command-line approach
+
+Use the following command to expose the metrics endpoint:
 
 ```bash
 helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-k8s \
@@ -25,7 +27,10 @@ helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-
     --set config.prometheus-port=8080
 ```
 
-**Values file approach:**
+#### Values file approach
+
+Set the following configuration in your values file:
+
 ```yaml
 # values.yml
 agentToken: "<buildkite-cluster-agent-token>"
@@ -34,6 +39,8 @@ config:
   tags:
     - queue=kubernetes
 ```
+
+And run the following command:
 
 ```bash
 helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-k8s \
@@ -68,6 +75,7 @@ spec:
 ```
 
 Apply the PodMonitor:
+
 ```bash
 kubectl apply -f buildkite-podmonitor.yml
 ```
