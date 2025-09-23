@@ -110,7 +110,7 @@ else
         echo
         echo "For **id #fragment-part-of-url not found** issues, fix the link and its fragment first (since the target content may have moved, or the link and its fragment might just happen to be wrong). However, if the revised/fixed link (which you should manually test yourself) is implemented and this job still fails, you'll likely need to add this revised link's full URL (excluding any query parameters from <code>?</code> onwards, but retaining its fragment) as a new <code>--exclude</code> option to the list of existing ones in the <code>muffet.sh</code> script."
         echo
-        echo "If you've added an <code>--exclude</code> entry for a link that generates an **id #fragment-part-of-url not found** error, but it still appears in the following list (that is, the link and its fragment actually works but muffet still reports it as erroneous), then remove the fragment part of the URL from its <code>--exclude</code> entry."
+        echo "If you've added an <code>--exclude</code> entry for a link that generates an **id #fragment-part-of-url not found** error, but it still appears in the following list (that is, the link and its fragment actually works but muffet still reports it as a problem below), then remove the fragment part of the URL from its <code>--exclude</code> entry."
         echo
     } >> annotation.md
 
