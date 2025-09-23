@@ -109,5 +109,6 @@ Example `job.finished` request body for a trigger job:
 ```
 
 The `async` field indicates:
+
 - `true`: The trigger step continues immediately, regardless of the triggered build's success.
 - `false`: The trigger step waits for the triggered build to complete before continuing.
