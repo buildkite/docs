@@ -626,7 +626,7 @@
       children:
         - name: "Slack"
           path: "test-engine/notifications/slack"
-          pill: "New"
+          pill: "new"
     - name: "Usage and billing"
       path: "test-engine/usage-and-billing"
     - name: "Permissions"
@@ -968,3 +968,6 @@
           path: "apis/agent-api"
         - name: "Metrics"
           path: "apis/agent-api/metrics"
+        - name: "Stacks"
+          pill: preview
+          path: "apis/agent-api/stacks"
