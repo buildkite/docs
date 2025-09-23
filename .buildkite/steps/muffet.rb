@@ -19,7 +19,7 @@ def rules
 
   rules_yaml = YAML.load(File.read('link-checking-rules.yaml'))
 
-  @rules = rules_yaml['rules'].each_with_object([]) do |r, arr|
+  @rules = rules_yaml['link_checking_exemptions'].each_with_object([]) do |r, arr|
     arr << {
       name: r['name'],
       description: r['description'],
