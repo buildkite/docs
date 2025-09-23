@@ -122,7 +122,7 @@ If the environment variable has not been set, the range will return a blank stri
 
 ## Uploading multiple pipelines
 
-Starting with agent v3.104.0, multiple pipelines can be uploaded by passing them as arguments to a single command:
+From version 3.104.0 of the Buildkite Agent, multiple pipelines can be uploaded by passing them as arguments to a single command:
 
 ```bash
 buildkite-agent pipeline upload .buildkite/pipeline1.yml .buildkite/pipeline2.yml
