@@ -4,12 +4,13 @@ All [Prometheus metrics](https://prometheus.io/) exported by the Agent Stack for
 
 ## How to enable Prometheus monitoring
 
-The Agent Stack for Kubernetes controller can expose Prometheus metrics for monitoring and observability. This requires two steps:
+The Agent Stack for Kubernetes controller can expose Prometheus metrics for monitoring and observability. To enable Prometheus monitoring, complete these two steps:
 
-1. Enabling metrics port exposure in the Helm chart.
-1. Creating a PodMonitor resource for scraping.
+1. Enable metrics port exposure in the Helm chart.
+1. Create a PodMonitor resource for scraping.
 
-Note that the folowing instruction for enabling Prometheus monitoring assumes that you have [Prometheus Operator](https://prometheus-operator.dev/) installed in your [cluster](/docs/pipelines/clusters). If you're using a different Prometheus setup, you'll need to configure the scraping manually using your Prometheus configuration.
+> 📘
+> The instructions that follow assume that you have [Prometheus Operator](https://prometheus-operator.dev/) installed in your [cluster](/docs/pipelines/clusters). If you're using a different Prometheus setup, you'll need to configure scraping manually.
 
 ### Enable metrics port exposure
 
@@ -67,7 +68,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: agent-stack-k8s  # Replace with your Helm release name + "-agent-stack-k8s" (release name + chart name)
+      app: agent-stack-k8s  # Replace with your actual Helm release name followed by "-agent-stack-k8s"
   podMetricsEndpoints:
   - port: metrics
     path: /metrics
