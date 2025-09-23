@@ -2,7 +2,7 @@
 
 A collection of common tasks with teams using the GraphQL API.
 
-You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the **Docs** panel.
+<%= render_markdown partial: 'apis/graphql/cookbooks/graphql_console_link' %>
 
 ## Create a team
 
@@ -213,6 +213,33 @@ query GetTeamMember {
           user {
             name
             email
+          }
+        }
+      }
+    }
+  }
+}
+```
+## Get teams and members with pipeline creation permissions
+
+The following query retrieves all teams in an organization and their members, showing which teams have pipeline creation permissions enabled. Use this query to identify which members across your organization can create pipelines.
+
+```graphql
+query CanCreatePipelines {
+  organization(slug: "organization-slug") {
+    teams(first: 100) {
+      edges {
+        node {
+          name
+          membersCanCreatePipelines
+          members(first: 100) {
+            edges {
+              node {
+                user {
+                  email
+                }
+              }
+            }
           }
         }
       }

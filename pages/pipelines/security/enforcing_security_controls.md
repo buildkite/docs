@@ -10,8 +10,8 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 
 **Controls:**
 
-- Enforce [Single sign-on (SSO)](/docs/platform/sso) and [Two-factor authentication (2FA/MFA)](/docs/platform/team-management/enforce-2fa) for all access to the Buildkite interface.
-- Use time-scoped API tokens with [automated rotation](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security).
+- Enforce either [Single sign-on (SSO)](/docs/platform/sso) or [Two-factor authentication (2FA/MFA)](/docs/platform/team-management/enforce-2fa) for all access to the Buildkite interface.
+- Use time-scoped API tokens with [automated rotation](/docs/apis/managing-api-tokens#api-token-security-rotation).
 - Apply least privilege principle when [scoping API keys](/docs/apis/managing-api-tokens#token-scopes).
 - [Restrict API tokens to specific IP ranges](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address) where possible.
 
@@ -47,7 +47,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 **Controls:**
 
 - Leverage [Buildkite's secrets plugins](/docs/pipelines/integrations/secrets/plugins) for secrets management and the [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) feature to ensure that secrets are only available where explicitly required. Note that Buildkite [automatically redacts secrets](/docs/pipelines/security/secrets/buildkite-secrets#redaction) in logs.
-- Integrate external secrets management using dedicated [secrets storage services](/docs/pipelines/security/secrets/managing#using-a-secrets-storage-service) such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [HashiCorp Vault](https://www.vaultproject.io/).
+- Integrate external secrets management using dedicated [secrets storage services](/docs/pipelines/security/secrets/managing#using-a-secrets-storage-service) such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [HashiCorp Vault](https://www.vaultproject.io).
 - [Export secrets with environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) for agent-level secrets, rather than injecting them at build runtime. If you absolutely have to inject your secrets at runtime, avoid storing them as static environment variables.
 - Establish environment-specific [cluster](/docs/pipelines/clusters/manage-clusters) and [queue](/docs/pipelines/clusters/manage-queues) segmentation of your builds to restrict access so that builds in a queue can only access the secrets they require to run.
 - Monitor how secrets are accessed within your CI/CD environment by reviewing the [Audit Log](/docs/platform/audit-log).
@@ -70,6 +70,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 - Set appropriate [job time limits](/docs/pipelines/configure/build-timeouts#command-timeouts) to limit the potential duration of malicious code execution on compromised agents.
 - Utilize [OIDC-based authentication](/docs/pipelines/security/oidc) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags to add strong unique claims.
 - [Disable command evaluation](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation) where appropriate and enforce script-only execution instead.
+- Consider using the [`--no-plugins` buildkite-agent start option](/docs/agent/v3/cli-start#no-plugins) to prevent the agent from loading any plugins.
 - Learn more about making your virtual machine or container running the `buildkite-agent` process more secure in [Securing your Buildkite Agent](/docs/agent/v3/securing).
 
 > 📘 On better Buildkite Agent security
@@ -82,10 +83,11 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 **Controls:**
 
 - Create API access tokens with only the minimal [required scopes](/docs/apis/managing-api-tokens#token-scopes). Use [portals](/docs/apis/portals) to limit GraphQL query scope. Review permissions regularly to match current needs.
-- Establish [rotation of access tokens](/docs/apis/managing-api-tokens#api-access-token-lifecycle-and-security) with defined expiration periods. Automate rotation where possible to limit exposure windows.
+- Establish [rotation of access tokens](/docs/apis/managing-api-tokens#api-token-security-rotation) with defined expiration periods. Automate rotation where possible to limit exposure windows.
 - Bind access tokens to [specific IP addresses or network segments](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address). Use network address translation (NAT) with centralized egress routing for enhanced monitoring and rapid compromise detection.
 - Deploy access tokens within dedicated virtual private clouds (VPCs) using [Buildkite’s Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security#network-configuration) for network isolation.
 - Monitor access token usage patterns through the [Audit Log](/docs/platform/audit-log). Set up alerts on unusual patterns: unexpected locations, excessive API calls, unauthorized resource access.
+- When using the [Buildkite Model Context Protocol (MCP) server](/docs/apis/mcp-server), preference using the [remote MCP server](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) as this MCP server type issues short-lived OAuth access tokens, compared to the local MCP server, which requires you to configure an API access token that can pose a security risk if leaked.
 
 ## Network and transport security
 

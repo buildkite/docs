@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:3.4.2-slim-bookworm@sha256:2864c6bfcf8fec6aecbdbf5bd7adcb8abe9342e28441a77704428decf59930fd
+ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:3.4.5-slim-bookworm@sha256:aa97c41012d81fa89ab5cf61409c3314665d024fd06c3af1ecea27865ffbd9c4
 ARG NODE_IMAGE=public.ecr.aws/docker/library/node:18-bookworm-slim@sha256:d2d8a6420c9fc6b7b403732d3a3c5395d016ebc4996f057aad1aded74202a476
 
 FROM $BASE_IMAGE AS builder
@@ -42,7 +42,7 @@ RUN echo "--- :bundler: Installing ruby gems" \
 
 # ------------------------------------------------------------------
 
-FROM $NODE_IMAGE as node-deps
+FROM $NODE_IMAGE AS node-deps
 
 COPY package.json yarn.lock ./
 RUN echo "--- :yarn: Installing node packages" && yarn
@@ -57,7 +57,7 @@ RUN go install github.com/tj/staticgen/cmd/staticgen@v1.1.0
 
 # ------------------------------------------------------------------
 
-FROM builder as assets
+FROM builder AS assets
 
 COPY . /app/
 COPY --from=node-deps /usr/local/bin /usr/local/bin

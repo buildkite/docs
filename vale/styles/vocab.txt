@@ -12,6 +12,7 @@ APIs
 apk
 APM
 applesimutils
+Anthropic's
 Aqua
 architecting
 Argo
@@ -32,12 +33,15 @@ autoscaling
 aws
 awscli
 azcopy
+Backstage
+Backstage Software Catalog
 Basecamp
 Basscss
 Bazel
 bazelisk
 Bitium
 bktec
+bktec's
 boolean
 Boomper
 Buildbox
@@ -100,6 +104,7 @@ dogstatsd
 dotenv
 DSCs
 enqueued
+Entra
 enum
 env
 eval
@@ -132,6 +137,7 @@ gpg
 Gradle
 gradle
 Gradle's
+graphql_id
 Graviton
 GRC
 gz
@@ -173,6 +179,8 @@ LFS
 libpq
 linux
 llamasecret
+LLMs
+llvm
 macOS
 macos
 matchfile
@@ -230,6 +238,7 @@ podWatcher
 Postgres
 PowerShell
 PR's
+Prometheus
 protobuf
 preemptible
 prefill
@@ -249,6 +258,8 @@ reimagined
 remediation
 remediations
 repo
+reprioritize
+reprioritizes
 resizable
 routable
 rpmbuild
@@ -269,6 +280,8 @@ shellcheck
 shellscripting
 Shipit
 signaltometrics
+SLO
+SLOs
 snake_case
 Sonar
 SonarCloud
@@ -282,6 +295,7 @@ sre
 sso
 statefully
 stdout
+streamable
 stringified
 subcommand
 subcommands
@@ -301,6 +315,7 @@ tgz
 timeframe
 tmp
 tmux
+tokenization
 toolmantim
 tooltip
 TOTP's
@@ -343,6 +358,7 @@ walkthrough
 webhook's
 webtask
 wget
+Windsurf's
 worktree
 workspace's
 xcbeautify

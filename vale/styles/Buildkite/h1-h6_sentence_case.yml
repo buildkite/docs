@@ -40,6 +40,8 @@ exceptions:
   - Azure AD
   - Azure Active Directory
   - Azure Blob
+  - Backstage
+  - Backstage Software Catalog
   - Bash
   - Bazel
   - Bamboo
@@ -65,6 +67,8 @@ exceptions:
   - CentOS
   - CI
   - CircleCI
+  - Claude Code
+  - Claude Desktop
   - CLI
   - CloudFormation
   - Cloudsmith
@@ -81,11 +85,13 @@ exceptions:
   - deduper
   - Docker
   - Docker Compose
+  - Docker Desktop
   - Docker Hub
   - EC2
   - Elastic
   - Elastic CI Stack
   - Enterprise Premium Support
+  - Entity Page
   - Everyone
   - ExUnit
   - FAQs
@@ -146,13 +152,17 @@ exceptions:
   - Mac
   - macOS
   - Markdown
+  - MCP
+  - Microsoft Entra ID
   - minitest
-  - monitor
   - Mobile Delivery Cloud
+  - Model Context Protocol
+  - monitor
   - NET
   - Node.js
   - nodeName
   - nodeSelector
+  - NuGet
   - OIDC
   - Okta
   - OneLogin
@@ -168,6 +178,7 @@ exceptions:
   - pod_watcher
   - PodSpec
   - PowerShell
+  - Prometheus
   - pytest
   - QA
   - READ_ONLY
@@ -189,12 +200,16 @@ exceptions:
   - SonarQube
   - SonarScanner
   - Sonoma
+  - SLO
+  - SLOs
   - SSH
   - SSO
+  - Tahoe
   - Tekton
   - Test Engine
   - Test Engine Client
   - TESTOWNER
+  - ToolHive
   - tvOS
   - TypeScript
   - Ubuntu
@@ -203,11 +218,13 @@ exceptions:
   - UserData
   - UUID
   - visionOS
+  - Visual Studio Code
   - VPC
   - VPN
   - watchOS
   - Windows
   - Windows Subsystem for Linux 2
+  - Workload Identity Federation
   - Xcode
   - XCTest
   - XML

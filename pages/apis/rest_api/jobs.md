@@ -39,7 +39,8 @@ curl -H "Authorization: Bearer $TOKEN" \
       "retries_count": 1,
       "retry_type": null,
       "parallel_group_index": null,
-      "parallel_group_total": null
+      "parallel_group_total": null,
+      "priority": { "number": 0 }
     }
 ```
 
@@ -52,6 +53,71 @@ Error responses:
 <table>
 <tbody>
   <tr><th><code>400 Bad Request</code></th><td><code>{ "message": "Only failed, timed out or canceled jobs can be retried" }</code></td></tr>
+</tbody>
+</table>
+
+## Reprioritize a job
+
+Reprioritizes a job by changing its [priority value](/docs/pipelines/configure/workflows/managing-priorities). This affects the order in which jobs are picked up by agents.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/reprioritize" \
+  -H "Content-Type: application/json" \
+  -d '{"priority": 5}'
+```
+
+```json
+    {
+      "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+      "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
+      "type": "script",
+      "name": ":package:",
+      "step_key": "package",
+      "agent_query_rules": ["*"],
+      "state": "scheduled",
+      "build_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
+      "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+      "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+      "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+      "artifacts_url": "",
+      "command": "scripts/build.sh",
+      "soft_failed": false,
+      "exit_status": 0,
+      "artifact_paths": "",
+      "agent": null,
+      "created_at": "2015-05-09T21:05:59.874Z",
+      "scheduled_at": "2015-05-09T21:05:59.874Z",
+      "runnable_at": null,
+      "started_at": null,
+      "finished_at": null,
+      "retried": false,
+      "retried_in_job_id": null,
+      "retries_count": 0,
+      "retry_type": null,
+      "parallel_group_index": null,
+      "parallel_group_total": null,
+      "priority": { "number": 5 }
+    }
+```
+
+Required [request body properties](/docs/api#request-body-properties):
+
+<table>
+<tbody>
+  <tr><th><code>priority</code></th><td>An integer value representing the job's priority. Higher values indicate higher priority.<br><em>Example: 5</em></td></tr>
+</tbody>
+</table>
+
+Required scope: `write_builds`
+
+Success response: `200 OK`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr><th><code>400 Bad Request</code></th><td><code>{ "message": "Priority must be an integer" }</code></td></tr>
 </tbody>
 </table>
 

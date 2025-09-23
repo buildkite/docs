@@ -2,7 +2,7 @@
 
 A collection of common tasks with builds using the GraphQL API.
 
-You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the **Docs** panel.
+<%= render_markdown partial: 'apis/graphql/cookbooks/graphql_console_link' %>
 
 ## Get build info by ID
 
@@ -98,7 +98,7 @@ Then, if there are more than 500 results, use the value of `organization.pipelin
 ```graphql
 query {
   organization(slug: "organization-slug") {
-    pipelines(first: 500, after: "<endCursor-value-from-previous-response>") {
+    pipelines(first: 500, after: "value-from-organization.pipelines.pageInfo.endCursor") {
       count
       pageInfo {
         endCursor

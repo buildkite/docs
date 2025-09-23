@@ -6,7 +6,7 @@ Many organizations set up one suite per test framework, for example one suite fo
 
 Each suite inside Test Engine has a unique API token that you can use to route test information to the correct suite. Pipelines and test suites do not need to have a one-to-one relationship.
 
-To start configuring your test suite, you first need to have configured the appropriate _test collectors_ for your development project. Learn more about how to do this from the [Test collection](/docs/test-engine/test-collection) section of these docs.
+When [creating a test suite](/docs/test-engine/test-suites/manage#create-a-test-suite) for your development project, you'll need to have configured the appropriate _test collectors_ for your project's test runners before your test suite can fully function and start collecting test data. Learn more about how to do this from the [Test collection](/docs/test-engine/test-collection) section of these docs.
 
 To delete a suite, or regenerate its API token, go to suite settings.
 
@@ -17,7 +17,7 @@ In CI/CD, a build's tests can be made to run in parallel using features of your 
 In Buildkite Pipelines, you can run tests in parallel when they are configured as [parallel jobs](/docs/pipelines/tutorials/parallel-builds#parallel-jobs).
 
 > 📘
-> When tests are run in parallel across multiple agents, they can be grouped into the same run by defining the same `run_env[key]` environment variable. Learn more about this environment variable and others in [CI environments](/docs/test-engine/ci-environments).
+> When tests are run in parallel across multiple agents, they can be grouped into the same run by defining the same `run_env[key]` environment variable. Learn more about this environment variable and others in [CI environments](/docs/test-engine/test-collection/ci-environments).
 > You can further speed up the duration of parallelized builds across multiple agents by implementing [test splitting](/docs/test-engine/test-splitting).
 
 ## Compare across branches

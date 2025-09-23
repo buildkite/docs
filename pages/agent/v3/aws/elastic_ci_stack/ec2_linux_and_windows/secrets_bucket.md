@@ -4,19 +4,22 @@ toc: false
 
 # S3 secrets bucket
 
-The stack creates an S3 bucket for you (or uses the one you provide as the `SecretsBucket` parameter). This is where the agent fetches your SSH private keys for source control, and environment hooks to provide other secrets to your builds.
+The stack creates an S3 bucket for you (or uses the one you provide as the `SecretsBucket` parameter). This is where the agent fetches your SSH private keys for source control, and environment variables to provide other secrets to your builds.
 
 The following S3 objects are downloaded and processed:
 
-* `/env` - An [agent environment hook](/docs/agent/hooks)
-* `/private_ssh_key` - A private key that is added to ssh-agent for your builds
-* `/git-credentials` - A [git-credentials](https://git-scm.com/docs/git-credential-store#_storage_format) file for git over https
-* `/{pipeline-slug}/env` - An [agent environment hook](/docs/agent/hooks), specific to a pipeline
-* `/{pipeline-slug}/private_ssh_key` - A private key that is added to ssh-agent for your builds, specific to the pipeline
-* `/{pipeline-slug}/git-credentials` - A [git-credentials](https://git-scm.com/docs/git-credential-store#_storage_format) file for git over https, specific to a pipeline
+* `/env` or `/environment` - a file that contains environment variables, in the format of `KEY=VALUE`
+* `/private_ssh_key` - a private key that is added to ssh-agent for your builds
+* `/git-credentials` - a [git-credentials](https://git-scm.com/docs/git-credential-store#_storage_format) file for git over https
+* `/{pipeline-slug}/env` or `/{pipeline-slug}/environment` - a file that contains environment variables, specific to a pipeline, in the format of `KEY=VALUE`
+* `/{pipeline-slug}/private_ssh_key` - a private key that is added to ssh-agent for your builds, specific to the pipeline
+* `/{pipeline-slug}/git-credentials` - a [git-credentials](https://git-scm.com/docs/git-credential-store#_storage_format) file for git over https, specific to a pipeline
 * When provided, the environment variable `BUILDKITE_PLUGIN_S3_SECRETS_BUCKET_PREFIX` will overwrite `{pipeline-slug}`
 
 These files are encrypted using [Amazon's KMS Service](https://aws.amazon.com/kms/).
+
+> 🚧 Sourcing of environment variable files
+> Files such as `/env` or `/{pipeline-slug}/environment` are sourced. It is possible to include a shell script that will be executed by the agent in these files. However, including shell scripts in these files should be used with caution, as it can lead to unexpected behavior.
 
 Here's an example that shows how to generate a private SSH key, and upload it with KMS encryption to an S3 bucket:
 
