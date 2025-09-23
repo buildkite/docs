@@ -272,7 +272,7 @@ Optional attributes:
     <td><code>multiple</code></td>
     <td>
       A boolean value that defines whether multiple options may be selected.<br/>
-      When multiple options are selected, they are delimited in the meta-data field by a line break (<code>\n</code>).<br/>
+      When multiple options are selected, they are delimited in the meta-data field by a comma (<code>,</code>).<br/>
       <em>Default:</em> <code>false</code>
     </td>
   </tr>

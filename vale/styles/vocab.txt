@@ -105,6 +105,7 @@ dogstatsd
 dotenv
 DSCs
 enqueued
+Entra
 enum
 env
 eval
@@ -180,6 +181,7 @@ libpq
 linux
 llamasecret
 LLMs
+llvm
 macOS
 macos
 matchfile
@@ -257,6 +259,8 @@ reimagined
 remediation
 remediations
 repo
+reprioritize
+reprioritizes
 resizable
 routable
 rpmbuild

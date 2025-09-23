@@ -154,6 +154,7 @@ exceptions:
   - macOS
   - Markdown
   - MCP
+  - Microsoft Entra ID
   - minitest
   - Mobile Delivery Cloud
   - Model Context Protocol
@@ -203,6 +204,7 @@ exceptions:
   - SLOs
   - SSH
   - SSO
+  - Tahoe
   - Tekton
   - Test Engine
   - Test Engine Client
