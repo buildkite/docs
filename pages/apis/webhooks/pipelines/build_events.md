@@ -61,7 +61,6 @@ Example request body:
 > 📘 Job data not included
 > When using webhooks, the build object does not contain job data (as returned by calls to the [Build API](/docs/apis/rest-api/builds) of Buildkite's REST API). Learn more about obtaining job data from Buildkite Pipelines using webhooks in [Job events](/docs/webhooks/pipelines/job_events).
 
-
 ## Finding out if a build is blocked
 
 If a build is blocked, look for `blocked: true` in the `build.finished` event
@@ -81,7 +80,7 @@ Example request body for blocked build:
   },
   "sender": {
     "id": "0adfbc27-5f72-4a91-bf61-5693da0dd9c5",
-    "name": "Some person"
+    "name": "Some Person"
   }
 }
 ```
@@ -91,7 +90,7 @@ Example request body for blocked build:
 
 ## Trigger steps in build events
 
-When a build contains trigger steps, the `build.finished` webhook includes the `async` field in the step configuration.
+When a build contains trigger steps, the `build.finished` webhook will include the `async` field in the step configuration.
 
 Example `build.finished` request body with trigger step:
 
@@ -119,5 +118,5 @@ Example `build.finished` request body with trigger step:
 ```
 
 The `async` field indicates:
-- `true`: The trigger step continues immediately, regardless of the triggered build's success
+- `true`: The trigger step continues immediately, regardless of the triggered build's success.
 - `false`: The trigger step waits for the triggered build to complete before continuing.
