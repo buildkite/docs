@@ -3,11 +3,18 @@
 require 'yaml'
 require 'json'
 
+require 'open3'
+
 def annotate!(annotation:, context:, style: "info")
   annotated = false
   if ENV["BUILDKITE"] == 'true'
     puts "Uploading annotation (#{annotation.size} bytes)"
-    annotated = system("buildkite-agent", "annotate", "--style", style, "--context", context, stdin_data: annotation)
+    Open3.popen3(%Q[buildkite-agent annotate --style "#{style}" --context "#{context}"]) do |stdin, _, _, wait_thr|
+      stdin.puts(annotation)
+      stdin.close
+
+      annotated = (wait_thr.value.exitstatus == 0)
+    end
   end
 
   unless annotated
