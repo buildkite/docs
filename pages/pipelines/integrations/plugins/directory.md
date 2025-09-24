@@ -8,12 +8,12 @@ The _plugins directory_ (also accessible from the main [Buildkite website](https
 
 Once you have [created your own plugin](/docs/pipelines/integrations/plugins/writing), you can add it to this directory. Learn more about this below in [Adding your plugin](#adding-your-plugin).
 
-<a class="Frameheader" href='https://buildkite.com/resources/plugins' target='_blank'>
+<a class="Frameheader" href=`https://buildkite.com/resources/plugins` target=`_blank`>
   <span class="Frameheader__address">buildkite.com/resources/plugins</span>
 </a>
 <iframe
-  src='https://buildkite.com/resources/plugins/embed'
-  referrerPolicy='same-origin'
+  src=`https://buildkite.com/resources/plugins/embed`
+  referrerPolicy=`same-origin`
   allow="fullscreen" crossorigin="anonymous" width="100%" height="800px"
   style="border-radius:0 0 8px 8px;box-sizing: border-box;"
 />
@@ -37,41 +37,41 @@ Once completed, your plugin will appear in the directory:
 
 <%= image "ecr-plugin-directory-item.png", width: 1014/2, height: 500/2, alt: "Screenshot of ECR plugin in the Buildkite plugins directory" %>
 
-If you would like your plugin to appear in a certain category in the plugins directory, you need to add corresponding Github label(s). Currently, the following labels will be recognized by the plugin directory:
+If you would like your plugin to appear in a certain category in the plugins directory, you need to add the corresponding GitHub label(s). Currently, the following labels will be recognized by the plugin directory:
 
 * Task
-  + Code Checkout: ['checkout', 'git', 'svn'],
-  + Tests: ['test', 'testing', 'junit', 'jest']
-  + Cache: ['cache', 'caching']
-  + Containers/Docker: ['docker', 'container', 'containers'],
-  + Running jobs in kubernetes : ['kubernetes', 'k8s']
-  + Secrets: ['secret', 'secrets', 'vault']
-  + Authenticate: ['auth', 'authenticate']
-  + Writing buildkite pipelines: ['pipeline', 'pipelines']
-  + Deploy: ['deploy', 'deployment', 'release']
-  + Running jobs in VMs: ['vm', 'virtual machine']
-  + Security & compliance: ['security','compliance','audit','scan','scanning','vulnerability']
-  + Running jobs in windows: ['windows']
-  + Observability: ['observability', 'monitoring', 'logging', 'metrics']
-  + Mobile app development: ['mobile', 'ios', 'android', 'react-native']
-  + Notify: ['notify', 'notification']
-  + Linting & formatting: ['lint', 'linting', 'format', 'formatting', 'shellcheck']
-  + Packages: ['package', 'packaging', 'npm', 'pip']
-  + AI/LLMs: ['ai', 'llm', 'ml', 'machine learning']
-  + Project management: ['project', 'management']
+  + Code checkout: `checkout`, `git`, `svn`
+  + Tests: `test`, `testing`, `junit`, `jest`
+  + Cache: `cache`, `caching`
+  + Containers/Docker: `docker`, `container`, `containers`
+  + Running jobs in Kubernetes : `kubernetes`, `k8s`
+  + Secrets: `secret`, `secrets`, `vault`
+  + Authenticate: `auth`, `authenticate`
+  + Writing Buildkite pipelines: `pipeline`, `pipelines`
+  + Deploy: `deploy`, `deployment`, `release`
+  + Running jobs in VMs: `vm`, `virtual machine`
+  + Security & compliance: `security`,`compliance`,`audit`,`scan`,`scanning`,`vulnerability`
+  + Running jobs in Windows: [`windows`]
+  + Observability: `observability`, `monitoring`, `logging`, `metrics`
+  + Mobile app development: `mobile`, `ios`, `android`, `react-native`
+  + Notify: `notify`, `notification`
+  + Linting & formatting: `lint`, `linting`, `format`, `formatting`, `shellcheck`
+  + Packages: `package`, `packaging`, `npm`, `pip`
+  + AI/LLMs: `ai`, `llm`, `ml`, `machine learning`
+  + Project management: `project`, `management`
 * Integration
-  + Integrations: ['integration', 'integrations', 'slack', 'discord', 'jira']
-  + AWS: ['aws', 'amazon']
-  + GCP: ['gcp', 'google-cloud', 'google']
-  + Azure: ['azure', 'microsoft']
+  + Integrations: `integration`, `integrations`, `slack`, `discord`, `jira`
+  + AWS: `aws`, `amazon`
+  + GCP: `gcp`, `google-cloud`, `google`
+  + Azure: `azure`, `microsoft`
 * Language
-  + Java: ['java', 'maven', 'gradle']
-  + Ruby: ['ruby', 'rails']
-  + Golang: ['go', 'golang']
-  + JavaScript: ['javascript', 'typescript', 'node', 'nodejs']
-Bazel: ['bazel']
-  + Infrastructure as code: ['terraform', 'cloudformation', 'cfn', 'infrastructure']
-  + Other languages: ['julia', 'python', 'rust', 'c++', 'c#', 'dhall']
+  + Java: `java`, `maven`, `gradle`
+  + Ruby: `ruby`, `rails`
+  + Golang: `go`, `golang`
+  + JavaScript: `javascript`, `typescript`, `node`, `nodejs`
+  + Bazel: `bazel`
+  + Infrastructure as code: `terraform`, `cloudformation`, `cfn`, `infrastructure`
+  + Other languages: `julia`, `python`, `rust`, `c++`, `c#`, `dhall`
 
 > 🚧
-> If you've completed the above steps and your plugin doesn't appear in the directory, send an email to <a href="mailto:support@buildkite.com">support@buildkite.com</a> and we'll investigate it for you.
+> If you`ve completed the above steps and your plugin doesn`t appear in the directory, send an email to <a href="mailto:support@buildkite.com">support@buildkite.com</a> and we`ll investigate it for you.
