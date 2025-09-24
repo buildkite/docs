@@ -13,7 +13,7 @@ This guide outlines recommended practices for designing, operating, and scaling 
 
 ### Keep pipelines focused and modular
 
-- Start with static pipelunes and gradually move to dynamic pipelines to generate steps programmatically. They latter scale better than static YAML as repositories and requirements grow.
+- Start with static pipelines and gradually move to dynamic pipelines to generate steps programmatically. They latter scale better than static YAML as repositories and requirements grow.
 - Use `buildkite-agent pipeline upload` to generate steps programmatically based on code changes. This allows conditional inclusion of steps (e.g., integration tests only when backend code changes).
 - Separate concerns: Split pipelines into testing, building, and deployment flows. Avoid single, monolithic pipelines.
 - Use pipeline templates: Define reusable YAML templates for common workflows (linting, testing, building images).
@@ -49,7 +49,7 @@ This guide outlines recommended practices for designing, operating, and scaling 
 ### Right-size your agent fleet
 
 - Monitor queue times: Long wait times often mean you need more capacity. You can use cluster insights to monitor queue wait times.
-- Autoscale intelligently: Use cloud-based autoscaling groups to scale with demand (using Elastic CI stack for AWS - and soon-to-be-supported GCP - can help you with auto-scaling).
+- Autoscale intelligently: Use cloud-based autoscaling groups to scale with demand (using Elastic CI Stack for AWS - and soon-to-be-supported GCP - can help you with auto-scaling).
 - Specialized pools: Maintain dedicated pools for CPU-intensive, GPU-enabled, or OS-specific workloads.
 - Graceful scaling: Configure agents to complete jobs before termination to prevent abrupt failures (Elastic CI stack already has graceful scaling implemented).
 
@@ -67,7 +67,7 @@ This guide outlines recommended practices for designing, operating, and scaling 
 - Secret management: Use environment hooks or secret managers; never hard-code secrets in YAML.
 - Keep base images updated: Regularly patch agents to mitigate security vulnerabilities.
 
-Further work in this section: mention BK Secrets, suggest using external secret managers like AWS Secrets Manager or Hashicorp Vault. MPotenitally also link back to our own plugins, too.
+Further work in this section: mention BK Secrets, suggest using external secret managers like AWS Secrets Manager or Hashicorp Vault. Potenitally also link back to our own plugins, too.
 
 ### Avoid snowflake agents
 
@@ -82,7 +82,7 @@ Alternatively: Enforce agent configuration and infrastructure using IaC (Infrast
 
 - Docker-based builds: Ensure environments are reproducible across local and CI.
 - Efficient caching: Optimize Dockerfile layering to maximize [cache reuse](https://docs.docker.com/build/cache/).
-- Multi-stage builds: Keep images slim while supporting complex build processes.
+- [Multi-stage builds in Docker](https://docs.docker.com/build/building/multi-stage/): Keep images slim while supporting complex build processes.
 - Pin base images: Avoid unintended breakage from upstream changes.
 
 ### Handle dependencies reliably
@@ -90,7 +90,6 @@ Alternatively: Enforce agent configuration and infrastructure using IaC (Infrast
 - Lock versions: Use lockfiles and pin versions to ensure repeatable builds (you can also [pin plugin versions](/docs/pipelines/integrations/plugins/using#pinning-plugin-versions)).
 - Cache packages: Reuse downloads where possible to reduce network overhead.
 - Validate integrity: Use checksums or signatures to confirm dependency authenticity.
-- Document requirements: Record OS packages, runtimes, and tools for onboarding and reproducibility.
 
 ## Patterns and anti-patterns
 
@@ -143,7 +142,7 @@ steps:
 
 #### Canary releases in CI/CD
 
-Model partial deployments and staged rollouts directly in pipelines.
+Model partial deployments and staged rollouts directly in pipelines. (Needs examples)
 
 #### Pipeline-as-code reviews
 
@@ -171,7 +170,7 @@ env:
 
 #### Overloaded single steps
 
-Avoid cramming unrelated tasks into one step:
+Avoid cramming unrelated tasks into one step, for example:
 
 ```yaml
 # ❌ Bad
@@ -196,13 +195,18 @@ Avoid cramming unrelated tasks into one step:
   command: "npm run deploy"
 ```
 
+Cramming more tasks into one step reduces the ability of the pipeline to scale and take advantage of multiple agents.
+Splitting steps makes it logically easier to understand and also takes advantage of Buildkite's scalable agents.
+Also makes it easier to troubleshoot when something breaks in the pipeline.
+Maybe a note about how buildkite artifacts could be used to "cache" common data between steps.
+
 #### Unbounded parallelism
 
 Avoid spinning up excessive parallel jobs without considering agent limits and costs.
 
 #### Silent failures
 
-Never ignore failing steps without clear documentation or follow-up.
+Never ignore failing steps without a clear follow-up.
 
 ## Monitoring and observability
 
@@ -211,21 +215,21 @@ Never ignore failing steps without clear documentation or follow-up.
 - Structured logs: Favor JSON or other parsable formats.
 - Appropriate log levels: Differentiate between info, warnings, and errors.
 - Persist artifacts: Store logs, reports, and binaries for debugging and compliance.
-- Track trends: Use Buildkite Insights or external tools to analyze durations and failure patterns.
+- Track trends: Use [cluster insights](/docs/pipelines/insights/clusters) or external tools to analyze durations and failure patterns.
+- Avoid having log files that are too large. Large log files make it harder to troubleshoot the issues and are harder to manage in the Buidlkite Pipelines' UI.
+To avoid overlig large log files, try to not use verbose output of apps and tools unless needed. See also [Managing log output](docs/pipelines/configure/managing-log-output#log-output-limits).
 
 ### Set relevant alerts
 
-- Failure alerts: Notify responsible teams for failing builds.
-- Queue depth monitoring: Detect bottlenecks when builds queue too long.
-- Agent health alerts: Trigger alerts when agents go offline or degrade.
-- Escalation paths: Define clear procedures for handling critical outages.
+- Failure alerts: Notify responsible teams for failing builds (relevant links will be added here).
+- Queue depth monitoring: Detect bottlenecks when builds queue too long - you can make use of the [Queue insights for this](/docs/pipelines/insights/queue-metrics).
+- Agent health alerts: Trigger alerts when agents go offline or degrade. If individual agent health is less of a concern, then terminate an unhealthy instance and spin a new one.
 
 ### Use analytics for improvement
 
-- Key metrics: Monitor build duration, throughput, and success rate.
-- Bottleneck analysis: Identify slowest steps and optimize them.
+- Key metrics: Monitor build duration, throughput, and success rate (a mention of OTEL integration and queue insights that can help do this will be added here).
+- Bottleneck analysis: Identify slowest (using the OTEL integration) steps and optimize them.
 - Failure clustering: Look for repeated error types.
-- Developer experience feedback: Collect input from engineers on pipeline usability.
 
 ## Security best practices
 
@@ -233,12 +237,12 @@ Never ignore failing steps without clear documentation or follow-up.
 
 - Native secret management: Use Buildkite’s secret redaction and plugins.
 - Rotate secrets: Regularly update credentials to minimize risk.
-- Limit scope: Expose secrets only to the steps that require them.
+- Limit scope: Expose secrets only to the steps that require them (an example is necessary).
 - Audit usage: Track which steps consume which secrets.
 
 ### Enforce access controls
 
-- Role-based access: Grant permissions per team and role.
+- Role-based access: Grant permissions per team and role. See [Teams permissions](/docs/platform/team-management/permissions).
 - Branch protections: Limit edits to sensitive pipelines.
 - Permission reviews: Audit permissions on a regular basis.
 - Use SSO/SAML: Centralize authentication and improve compliance.
@@ -265,7 +269,7 @@ Never ignore failing steps without clear documentation or follow-up.
 ## Common pitfalls to avoid
 
 - Overly restrictive defaults: Start permissive, then refine.
-- Ignoring developer input: CI/CD should enable, not block, velocity.
+- Ignoring developer input: CI/CD should enable instead of blocking velocity.
 - Skipping observability early: Add metrics and logging from day one.
 - Treating pipelines as secondary: Invest in CI/CD as critical infra.
 - Not planning for scale: Design for higher volume and parallelism.
