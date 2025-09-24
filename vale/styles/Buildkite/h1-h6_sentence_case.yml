@@ -179,6 +179,7 @@ exceptions:
   - pod_watcher
   - PodSpec
   - PowerShell
+  - Prometheus
   - pytest
   - QA
   - READ_ONLY
