@@ -51,7 +51,7 @@ If you would like your plugin to appear in a certain category in the plugins dir
   + Deploy: `deploy`, `deployment`, `release`
   + Running jobs in VMs: `vm`, `virtual machine`
   + Security & compliance: `security`,`compliance`,`audit`,`scan`,`scanning`,`vulnerability`
-  + Running jobs in Windows: [`windows`]
+  + Running jobs in Windows: `windows`
   + Observability: `observability`, `monitoring`, `logging`, `metrics`
   + Mobile app development: `mobile`, `ios`, `android`, `react-native`
   + Notify: `notify`, `notification`
