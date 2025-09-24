@@ -13,7 +13,7 @@ This guide outlines recommended practices for designing, operating, and scaling 
 
 ### Keep pipelines focused and modular
 
-- Default to dynamic pipelines to generate steps programmatically. They scale better than static YAML as repositories and requirements grow.
+- Start with static pipelunes and gradually move to dynamic pipelines to generate steps programmatically. They latter scale better than static YAML as repositories and requirements grow.
 - Use `buildkite-agent pipeline upload` to generate steps programmatically based on code changes. This allows conditional inclusion of steps (e.g., integration tests only when backend code changes).
 - Separate concerns: Split pipelines into testing, building, and deployment flows. Avoid single, monolithic pipelines.
 - Use pipeline templates: Define reusable YAML templates for common workflows (linting, testing, building images).
@@ -48,15 +48,15 @@ This guide outlines recommended practices for designing, operating, and scaling 
 
 ### Right-size your agent fleet
 
-- Monitor queue times: Long wait times often mean you need more capacity.
-- Autoscale intelligently: Use cloud-based autoscaling groups to scale with demand.
+- Monitor queue times: Long wait times often mean you need more capacity. You can use cluster insights to monitor queue wait times.
+- Autoscale intelligently: Use cloud-based autoscaling groups to scale with demand (using Elastic CI stack for AWS - and soon-to-be-supported GCP - can help you with auto-scaling).
 - Specialized pools: Maintain dedicated pools for CPU-intensive, GPU-enabled, or OS-specific workloads.
-- Graceful scaling: Configure agents to complete jobs before termination to prevent abrupt failures.
+- Graceful scaling: Configure agents to complete jobs before termination to prevent abrupt failures (Elastic CI stack already has graceful scaling implemented).
 
 ### Optimize agent performance
 
 - Use targeting and metadata: Route jobs to the correct environment using queues and agent tags.
-- Implement caching: Reuse dependencies, build artifacts, and Docker layers to reduce redundant work.
+- Implement caching: Reuse dependencies, build artifacts, and Docker layers to reduce redundant work. (Further work here: add a link to some of our cache plugins and highlight cache volumes for hosted agents. Also - potentially create a best practices section for self-hosted and hosted agents.)
 - Pre-warm environments: Bake common tools and dependencies into images for faster startup.
 - Monitor agent health: Continuously check for resource exhaustion and recycle unhealthy instances.
 
@@ -67,17 +67,21 @@ This guide outlines recommended practices for designing, operating, and scaling 
 - Secret management: Use environment hooks or secret managers; never hard-code secrets in YAML.
 - Keep base images updated: Regularly patch agents to mitigate security vulnerabilities.
 
+Further work in this section: mention BK Secrets, suggest using external secret managers like AWS Secrets Manager or Hashicorp Vault. MPotenitally also link back to our own plugins, too.
+
 ### Avoid snowflake agents
 
 - No manual tweaks: Avoid one-off changes to long-lived agents; enforce everything via code and images.
 - Immutable patterns: Use infrastructure-as-code and versioned images for consistency and reproducibility.
+
+Alternatively: Enforce agent configuration and infrastructure using IaC (Infrastructure as code) where possible.
 
 ## Environment and dependency management
 
 ### Containerize builds for consistency
 
 - Docker-based builds: Ensure environments are reproducible across local and CI.
-- Efficient caching: Optimize Dockerfile layering to maximize cache reuse.
+- Efficient caching: Optimize Dockerfile layering to maximize [cache reuse](https://docs.docker.com/build/cache/).
 - Multi-stage builds: Keep images slim while supporting complex build processes.
 - Pin base images: Avoid unintended breakage from upstream changes.
 
