@@ -1,10 +1,8 @@
-# Linear Workspace
+# Linear workspace
 
-The Linear Workspace integration lets you synchronise issues between [Linear](https://linear.app) and Buildkite. This integration supports:
+The Linear workspace integration lets you synchronize issues between [Linear](https://linear.app) and Buildkite. This integration supports the creation of Linear issues based on [Test Engine workflows](docs/test-engine/workflows/actions#creating-a-linear-issue).
 
-- Creating Linear issues based on [Test Engine workflows](docs/test-engine/workflows/actions#creating-a-linear-issue)
-
-[Adding a **Linear Workspace** integration](https://buildkite.com/organizations/-/services/linear/new) will authorize access for your entire Linear workspace, and all the teams contained within. You only need to set up this integration once per Linear workspace, after which, you can then configure action for any Linear team.
+When adding a Linear workspace integration through the [**Add Linear Notification** page](https://buildkite.com/organizations/-/services/linear/new), access for your entire Linear workspace will be authorized, along with all the teams contained within this workspace. You only need to set up this integration once per Linear workspace, after which, you can then configure action for any Linear team.
 
 > 📘
 > Setting up a Workspace requires Buildkite organization admin access.

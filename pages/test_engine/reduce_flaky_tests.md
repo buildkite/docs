@@ -1,8 +1,8 @@
 # Reduce flaky tests
 
-Flaky tests are automated tests that produce inconsistent or unreliable results, despite being run on the same code and environment. They cause frustration, decrease confidence in testing, and waste time while you investigate whether the failure is due to a genuine bug.
+Flaky tests are automated tests that produce inconsistent or unreliable results, despite being run on the same code and environment. Flaky tests cause frustration, decrease confidence in testing, and waste time while you investigate whether the failure is due to a genuine bug.
 
-With Test Engine, you can set up a Workflow to manage your flaky tests, by configuring the Workflow to automatically detect and label flaky tests, and to notify the relevant people when a new flaky test appears.
+With Test Engine, you can set up a workflow to manage your flaky tests, by configuring the workflow to automatically detect and label flaky tests, and to notify the relevant people when a new flaky test appears.
 
 ## Detecting flaky tests
 

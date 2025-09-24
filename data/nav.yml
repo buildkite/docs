@@ -784,7 +784,7 @@
       children:
         - name: "Slack Workspace"
           path: "platform/integrations/slack-workspace"
-        - name: "Linear Workspace"
+        - name: "Linear workspace"
           path: "platform/integrations/linear-workspace"
     - name: "Service quotas"
       path: "platform/service-quotas"
