@@ -40,6 +40,16 @@ The remote MCP server is suitable for personal usage with an AI tool, as it has 
 
 The remote MCP server is not suitable for use in automated workflows, where running a specific version of the MCP server is important for generating consistent results.
 
+#### Readonly access
+
+Readonly access to Buildkite is available by connecting to the remote MCP server at the following URL:
+
+```
+https://mcp.buildkite.com/mcp/readonly
+```
+
+This will reduce the requested access permission scopes to readonly, and only expose readonly tools.
+
 ### Local MCP server
 
 The _local_ MCP server is one that you install yourself directly on your own machine or in a containerized environment.
