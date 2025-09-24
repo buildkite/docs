@@ -51,7 +51,7 @@ This guide outlines recommended practices for designing, operating, and scaling 
 - Monitor queue times: Long wait times often mean you need more capacity. You can use cluster insights to monitor queue wait times.
 - Autoscale intelligently: Use cloud-based autoscaling groups to scale with demand (using Elastic CI Stack for AWS - and soon-to-be-supported GCP - can help you with auto-scaling).
 - Specialized pools: Maintain dedicated pools for CPU-intensive, GPU-enabled, or OS-specific workloads.
-- Graceful scaling: Configure agents to complete jobs before termination to prevent abrupt failures (Elastic CI stack already has graceful scaling implemented).
+- Graceful scaling: Configure agents to complete jobs before termination to prevent abrupt failures (Elastic CI Stack for AWS already has graceful scaling implemented).
 
 ### Optimize agent performance
 
@@ -67,7 +67,7 @@ This guide outlines recommended practices for designing, operating, and scaling 
 - Secret management: Use environment hooks or secret managers; never hard-code secrets in YAML.
 - Keep base images updated: Regularly patch agents to mitigate security vulnerabilities.
 
-Further work in this section: mention BK Secrets, suggest using external secret managers like AWS Secrets Manager or Hashicorp Vault. Potenitally also link back to our own plugins, too.
+Further work in this section: mention BK Secrets, suggest using external secret managers like AWS Secrets Manager or Hashicorp Vault. Potentially also link back to our own plugins, too.
 
 ### Avoid snowflake agents
 
@@ -198,7 +198,7 @@ Avoid cramming unrelated tasks into one step, for example:
 Cramming more tasks into one step reduces the ability of the pipeline to scale and take advantage of multiple agents.
 Splitting steps makes it logically easier to understand and also takes advantage of Buildkite's scalable agents.
 Also makes it easier to troubleshoot when something breaks in the pipeline.
-Maybe a note about how buildkite artifacts could be used to "cache" common data between steps.
+Maybe a note about how Buildkite artifacts could be used to "cache" common data between steps.
 
 #### Unbounded parallelism
 
@@ -216,8 +216,8 @@ Never ignore failing steps without a clear follow-up.
 - Appropriate log levels: Differentiate between info, warnings, and errors.
 - Persist artifacts: Store logs, reports, and binaries for debugging and compliance.
 - Track trends: Use [cluster insights](/docs/pipelines/insights/clusters) or external tools to analyze durations and failure patterns.
-- Avoid having log files that are too large. Large log files make it harder to troubleshoot the issues and are harder to manage in the Buidlkite Pipelines' UI.
-To avoid overlig large log files, try to not use verbose output of apps and tools unless needed. See also [Managing log output](docs/pipelines/configure/managing-log-output#log-output-limits).
+- Avoid having log files that are too large. Large log files make it harder to troubleshoot the issues and are harder to manage in the Buildkite Pipelines' UI.
+To avoid overly large log files, try to not use verbose output of apps and tools unless needed. See also [Managing log output](docs/pipelines/configure/managing-log-output#log-output-limits).
 
 ### Set relevant alerts
 
