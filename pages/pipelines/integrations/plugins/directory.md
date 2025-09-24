@@ -8,12 +8,12 @@ The _plugins directory_ (also accessible from the main [Buildkite website](https
 
 Once you have [created your own plugin](/docs/pipelines/integrations/plugins/writing), you can add it to this directory. Learn more about this below in [Adding your plugin](#adding-your-plugin).
 
-<a class="Frameheader" href=`https://buildkite.com/resources/plugins` target=`_blank`>
+<a class="Frameheader" href='https://buildkite.com/resources/plugins' target='_blank'>
   <span class="Frameheader__address">buildkite.com/resources/plugins</span>
 </a>
 <iframe
-  src=`https://buildkite.com/resources/plugins/embed`
-  referrerPolicy=`same-origin`
+  src='https://buildkite.com/resources/plugins/embed'
+  referrerPolicy='same-origin'
   allow="fullscreen" crossorigin="anonymous" width="100%" height="800px"
   style="border-radius:0 0 8px 8px;box-sizing: border-box;"
 />
@@ -74,4 +74,4 @@ If you would like your plugin to appear in a certain category in the plugins dir
   + Other languages: `julia`, `python`, `rust`, `c++`, `c#`, `dhall`
 
 > 🚧
-> If you`ve completed the above steps and your plugin doesn`t appear in the directory, send an email to <a href="mailto:support@buildkite.com">support@buildkite.com</a> and we`ll investigate it for you.
+> If you've completed the above steps and your plugin doesn't appear in the directory, send an email to <a href="mailto:support@buildkite.com">support@buildkite.com</a> and we'll investigate it for you.
