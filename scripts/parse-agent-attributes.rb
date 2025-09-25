@@ -57,7 +57,11 @@ help_output.lines.each do |line|
   puts "    env_var: |"
   puts "      #{env_var}"
   puts "    default_value: |"
-  puts "      #{default_value}"
+  if default_value.empty?
+    puts ""
+  else
+    puts "      #{default_value}"
+  end
   puts "    required: #{required}"
   puts "    desc: |"
   puts "      #{description}"
