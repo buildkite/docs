@@ -240,14 +240,14 @@ To avoid overly large log files, try to not use verbose output of apps and tools
 
 ### Manage secrets properly
 
-- Native secret management: Use Buildkite’s secret redaction and plugins.
+- Native secret management: Use [Buildkite secrets and redaction](/docs/pipelines/security/secrets/buildkite-secrets) and [secrets plugins](https://buildkite.com/docs/pipelines/integrations/plugins/directory).
 - Rotate secrets: Regularly update credentials to minimize risk.
 - Limit scope: Expose secrets only to the steps that require them (an example is necessary).
 - Audit usage: Track which steps consume which secrets.
 
 ### Enforce access controls
 
-- Role-based access: Grant permissions per team and role. See [Teams permissions](/docs/platform/team-management/permissions).
+- Team-based access: Grant permissions per team and specific team needs (read-only or write permissions). See [Teams permissions](/docs/platform/team-management/permissions).
 - Branch protections: Limit edits to sensitive pipelines.
 - Permission reviews: Audit permissions on a regular basis.
 - Use SSO/SAML: Centralize authentication and improve compliance.
