@@ -1,17 +1,17 @@
 # GitHub Actions
 
-With the help of the [Buildkite migration tool](/docs/pipelines/migration/tool), you can start converting your GitHub Actions workflows into Buildkite pipelines. This page lists the Buildkite migration tool's currently supported, partially supported, and unsupported attributes for translating from GitHub Actions workflows to Buildkite pipelines.
+The [Buildkite migration tool](/docs/pipelines/migration/tool) helps you convert your GitHub Actions workflows into Buildkite pipelines. This page lists the Buildkite migration tool's supported, partially supported, and unsupported keys for translating from GitHub Actions workflows to Buildkite pipelines.
 
 > 📘
-> The Buildkite migration tool does not currently support [GitHub secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) stored within GitHub organizations or repositories (such as `{{ secrets.FOO }}`).
-> A core principle of Buildkite's [Self-hosted (hybrid) architecture](/docs/pipelines/architecture) is that secrets and sensitive data are decoupled from the core SaaS platform and stay in the customer's environments and are not seen or stored.
-> Using a [secret storage service](/docs/pipelines/security/secrets/managing) such as [Hashicorp Vault](https://www.vaultproject.io/) or [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/), along with their respective [plugin](/docs/pipelines/integrations/plugins/directory) can be configured to read and utilize secrets within Buildkite pipelines. The [S3 Secrets Buildkite plugin](https://github.com/buildkite/elastic-ci-stack-s3-secrets-hooks) can be installed within a Buildkite agent - and this service is automatically included within [Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack) setups to expose secrets from S3 into the jobs of Buildkite Pipelines' builds.
+> The Buildkite migration tool currently does not support [GitHub secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) stored within GitHub organizations or repositories (such as `{{ secrets.FOO }}`).
+> A core principle of Buildkite's [self-hosted (hybrid) architecture](/docs/pipelines/architecture#self-hosted-hybrid-architecture) is that secrets and sensitive data stay in the customer's environments, which in turn are decoupled from and not seen by the core Buildkite Pipelines SaaS control plane.
+> Using a [secret storage service](/docs/pipelines/security/secrets/managing#using-a-secrets-storage-service) such as [Hashicorp Vault](https://www.vaultproject.io/) or [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/), along with their respective plugin, can be configured to read and utilize secrets within Buildkite pipelines. The [S3 Secrets Buildkite plugin](https://github.com/buildkite/elastic-ci-stack-s3-secrets-hooks) can be installed within a Buildkite agent—this service is automatically included within [Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack) setups to expose secrets from S3 into the jobs of a Buildkite pipeline's builds.
 
 ## Using the Buildkite migration tool with GitHub Actions
 
 To start converting your GitHub Actions pipelines to the Buildkite format:
 
-1. Go to the [interactive web tool](https://buildkite.com/resources/migrate/) page.
+1. Visit the [Buildkite migration interactive web tool](https://buildkite.com/resources/migrate/) page.
 1. Select **GitHub Actions** in the UI.
 1. Paste your GitHub Actions pipeline configuration.
 1. Click **Convert**.
