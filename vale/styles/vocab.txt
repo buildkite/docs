@@ -238,6 +238,7 @@ podWatcher
 Postgres
 PowerShell
 PR's
+Prometheus
 protobuf
 preemptible
 prefill
@@ -257,6 +258,8 @@ reimagined
 remediation
 remediations
 repo
+reprioritize
+reprioritizes
 resizable
 routable
 rpmbuild
