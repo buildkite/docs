@@ -2,6 +2,18 @@
 
 The following terms describe key concepts to help you use Test Engine.
 
+## Actions
+
+An action is part of a [workflow](#workflow). An action is a user defined operation that trigger automatically when a workflow [monitor](#monitor) goes into the [alarm](#alarm) or [recover](#recover) state for a test. Actions can be for operations that happen within the Test Engine system (i.e. changing a test's state or label) or outside of the Test Engine system (i.e. sending a Slack notification about the test).
+
+Learn more about actions in [actions](/docs/test-engine/workflows/actions).
+
+## Alarm
+
+Alarm, along with [recover](#recover), is one of the two types of events that a workflow [monitor](#monitor) can alert on. Alarm events will be reported by the monitor when the alarm conditions are met. Depending on the monitor type, these alarm conditions can be configurable.
+
+Alarm [actions](#actions) are performed when the alarm event is reported by the monitor. Repeated occurrences of the test meeting the alarm conditions do not retrigger alarm actions.
+
 ## Dimensions
 
 In the context of Test Engine, dimensions are structured data, consisting of [tags](#tag), which can be used to filter or group (that is, aggregate) test [executions](#execution). Dimensions are added to test executions using the tags feature, which you can learn more about in [Tags](/docs/test-engine/test-suites/tags).
@@ -12,7 +24,7 @@ An execution is an instance of a single test, which is generated as part of a [r
 
 ## Flaky test
 
-A flaky test is a [test](#test) that produce inconsistent or unreliable results, despite being run in the same code and environment. Flaky tests are usually identified following a number of [runs](#run) which are executed as part of pipeline builds, such as [those of a Buildkite pipeline](/docs/pipelines/glossary#build).
+A flaky test is a [test](#test) that produce inconsistent or unreliable results, despite being run in the same code and environment. Flaky tests are identified via [workflows](docs/test-engine/workflows).
 
 Learn more about flaky tests in [reduce flaky tests](/docs/test-engine/reduce-flaky-tests).
 
@@ -32,6 +44,14 @@ Test Engine uses managed tests to track key areas [test runs](#run), and for bil
 
 Learn more about managed tests in [Usage and billing](/docs/test-engine/usage-and-billing).
 
+## Monitor
+
+A monitor is a part of a [workflow](#workflow). Monitors observe tests over time, and help to surface valuable qualitative information about the tests in your test suite, which can be hard to surmise from raw execution data. Monitors can report on special events (i.e. a passed on retry event) or produce scores (i.e. transition count score).
+
+A single monitor watches over all the tests in your test suite (apart from those excluded by filters) and generates individual [alarm](#alarm) and [recover](#recover) events for each test, which then trigger the associated alarm and recover [action](#actions).
+
+Learn more about the different monitors types in [monitors](/docs/test-engine/workflows/monitors).
+
 ## Quarantine
 
 Quarantine is a classification applied to a [test](#test) that, based on the [state of the test](#test-state), changes how Test Engine [executes](#execution) that test as part of a [run](#run). When a test is quarantined, and its test state is flagged as:
@@ -41,6 +61,13 @@ Quarantine is a classification applied to a [test](#test) that, based on the [st
 - _skip_, the test is not be [executed](#execution) as part of the [run](#run), which can allow pipeline builds to execute more rapidly and can reduce costs, but no data is recorded from the test.
 
 Learn more about quarantining tests in [Test state and quarantine](/docs/test-engine/test-suites/test-state-and-quarantine).
+
+## Recover
+
+Recover, along with [alarm](#alarm), is one of the two types of events that a workflow [monitor](#monitor) can alert on. Recover events are [hysteric](https://en.wikipedia.org/wiki/Hysteresis), meaning that the recover event can only be reported on a test that has a previous alarm event. In this situation, when the monitor detects that the test has met the recover conditions, a recover event is reported. Depending on the monitor type, these recover conditions can be configurable.
+
+Recover [actions](#actions) are performed when the recover event is reported by the monitor. Repeated occurrences of the test meeting the recover conditions do not retrigger recover actions.
+
 
 ## Run
 
@@ -107,3 +134,9 @@ Learn more about test states in [Test state and quarantine](/docs/test-engine/te
 A test suite is a collection of [tests](#test), which is managed through Buildkite Test Engine. A _test suite_ is sometimes abbreviated to _suite_.
 
 In a development project configured with of one or more [test runners](#test-runner), it is usually typical to configure a separate test suite each of the project's test runners.
+
+## Workflow
+
+A workflow is composed of a single [monitor](#monitor) and any number of [actions](#actions). A workflow enables a user to define a custom identification and management system for tests of interest in their suite. Flaky test management is a common use case for workflows.
+
+Learn more about workflows in [workflows](/docs/test-engine/workflows)
