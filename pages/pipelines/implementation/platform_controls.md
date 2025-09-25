@@ -122,6 +122,43 @@ See more in [Teams permissions](/docs/platform/team-management/permissions#manag
 
 Platform teams should implement comprehensive telemetry and observability solutions to monitor pipeline performance, identify reliability issues, and optimize CI/CD infrastructure. Effective telemetry provides actionable insights into build patterns, failure rates, resource utilization, and team productivity while enabling data-driven infrastructure decisions.
 
+You can turn Buildkite into a first‑class source of operational truth for your CI fleet by combining in‑product metrics with open telemetry streams, your preferred observability backend, and Buildkite’s real‑time event feeds.
+
+### End‑to‑end tracing with OpenTelemetry
+
+- Stream spans that cover control‑plane events and agent execution into your collector, then forward to Datadog, Honeycomb, Lightstep, Prometheus, or another backend.
+- Spans include fields like job start and finish times and agent queue, letting you calculate job minutes, queueing hotspots, and critical path across builds.
+- Use this to correlate queue latency, checkout time, and infrastructure issues across build → stage → step → job → agent for large monorepos.
+
+### Native pipeline metrics in the UI
+
+- Get per‑pipeline health at a glance: build durations, success rates, and recent history for the default branch.
+- Everything visible is queryable via GraphQL for custom dashboards or automation.
+
+### Datadog APM integration from the agent
+
+- Emit traces directly from Buildkite Agent to Datadog to analyze step efficiency, slowest phases, and common failure signatures, without writing custom plumbing.
+
+### Real‑time event streaming with Amazon EventBridge
+
+- Publish build and job lifecycle events, plus agent connect and loss events, to your AWS account.
+- Drive alerts, autoscaling, and SLO burn calculations in your telemetry pipelines.
+
+### Telemetry operational tips
+
+- Start where the pain is: profile queue wait and checkout time first. These are often the biggest, cheapest wins.
+- Tag everything: include pipeline, queue, repo path, and commit metadata in spans and events to make drill‑downs trivial.
+- Keep one source of truth: stream Buildkite to your standard observability stack so platform‑level SLOs and alerts live alongside app telemetry.
+- Document the path: publish internal guidance for teams on reading the Pipeline metrics page and where to find org dashboards.
+
+### Quick checklist for using telemetry
+
+- Enable EventBridge and subscribe your alerting pipeline.
+- Turn on OTEL export to your collector. Start with job spans and queue metrics.
+- If you are a Datadog shop, enable agent APM tracing.
+- Stand up a “CI SLO” dashboard with p95 queue wait and build duration per top pipelines.
+- Document and socialize how developers should use the Pipeline metrics page for day‑to‑day troubleshooting.
+
 ### Core pipeline telemetry recommendations
 
 Establish standardized metrics collection across all pipelines to enable consistent monitoring and analysis:
