@@ -14,7 +14,7 @@ This guide outlines recommended practices for designing, operating, and scaling 
 ### Keep pipelines focused and modular
 
 - Start with static pipelines and gradually move to dynamic pipelines to generate steps programmatically. They latter scale better than static YAML as repositories and requirements grow.
-- Use `buildkite-agent pipeline upload` to generate steps programmatically based on code changes. This allows conditional inclusion of steps (e.g., integration tests only when backend code changes).
+- Use `buildkite-agent pipeline upload` to generate steps programmatically based on code changes. This allows conditional inclusion of steps (e.g., integration tests only when backend code changes). (Further work: reword as `buildkite-agent pipeline upload` does not generate steps programmatically.)
 - Separate concerns: Split pipelines into testing, building, and deployment flows. Avoid single, monolithic pipelines.
 - Use pipeline templates: Define reusable YAML templates for common workflows (linting, testing, building images).
 
@@ -51,14 +51,14 @@ This guide outlines recommended practices for designing, operating, and scaling 
 - Monitor queue times: Long wait times often mean you need more capacity. You can use cluster insights to monitor queue wait times.
 - Autoscale intelligently: Use cloud-based autoscaling groups to scale with demand (using Elastic CI Stack for AWS - and soon-to-be-supported GCP - can help you with auto-scaling).
 - Specialized pools: Maintain dedicated pools for CPU-intensive, GPU-enabled, or OS-specific workloads.
-- Graceful scaling: Configure agents to complete jobs before termination to prevent abrupt failures (Elastic CI Stack for AWS already has graceful scaling implemented).
+- Graceful scaling: Configure agents to complete jobs before termination to prevent abrupt failures (Elastic CI Stack for AWS already has graceful scaling implemented. Also, if you are building your own AWS stack, you can use [Buildkite's lifecycle daemon](https://github.com/buildkite/lifecycled) for handling graceful termination and scaling).
 
 ### Optimize agent performance
 
 - Use targeting and metadata: Route jobs to the correct environment using queues and agent tags.
 - Implement caching: Reuse dependencies, build artifacts, and Docker layers to reduce redundant work. (Further work here: add a link to some of our cache plugins and highlight cache volumes for hosted agents. Also - potentially create a best practices section for self-hosted and hosted agents.)
 - Pre-warm environments: Bake common tools and dependencies into images for faster startup.
-- Monitor agent health: Continuously check for resource exhaustion and recycle unhealthy instances.
+- Monitor agent health: Continuously check for resource exhaustion and recycle unhealthy instances. Utilize agent pausing when resources are tied to the lifetime of the agent, such as a cloud instance configured to terminate when the agent exits. By pausing an agent, you can investigate problems in its environment more easily, without the worry of jobs being dispatched to it.
 
 ### Secure your agents
 
@@ -142,7 +142,7 @@ steps:
 
 #### Canary releases in CI/CD
 
-Model partial deployments and staged rollouts directly in pipelines. (Needs examples)
+Model partial deployments and staged rollouts directly in pipelines. See more in [Deployments](/docs/pipelines/deployments).
 
 #### Pipeline-as-code reviews
 
@@ -205,9 +205,35 @@ Splitting steps makes it logically easier to understand and also takes advantage
 Also makes it easier to troubleshoot when something breaks in the pipeline.
 Maybe a note about how Buildkite artifacts could be used to "cache" common data between steps.
 
-#### Unbounded parallelism
+#### Controlled parallelism and concurrency
 
-Avoid spinning up excessive parallel jobs without considering agent limits and costs.
+Balance parallel execution for speed while managing resource consumption and costs:
+
+**Step-level parallelism (`parallelism` attribute):**
+
+- Set reasonable limits on the `parallelism` attribute for individual steps based on your agent capacity.
+- Consider that each parallel job consumes an agent, so `parallelism: 50` requires 50 available agents.
+- Monitor queue wait times when using high parallelism values to ensure adequate agent availability.
+
+**Build-level concurrency:**
+
+- While running jobs in parallel across different steps speeds up builds, be mindful of your total agent pool capacity.
+- Buildkite has default limits on concurrent steps per build to prevent resource exhaustion.
+- Design pipeline dependencies (`wait` steps) to balance speed with resource availability.
+
+**Example of controlled parallelism:**
+```yaml
+steps:
+  - label: "Unit Tests"
+    command: npm test
+    parallelism: 10  # Reasonable for most agent pools
+
+  - wait
+
+  - label: "Integration Tests"
+    command: npm run test:integration
+    parallelism: 5   # Lower parallelism for resource-intensive tests
+```
 
 #### Silent failures
 
@@ -242,7 +268,7 @@ To avoid overly large log files, try to not use verbose output of apps and tools
 
 - Native secret management: Use [Buildkite secrets and redaction](/docs/pipelines/security/secrets/buildkite-secrets) and [secrets plugins](https://buildkite.com/docs/pipelines/integrations/plugins/directory).
 - Rotate secrets: Regularly update credentials to minimize risk.
-- Limit scope: Expose secrets only to the steps that require them (an example is necessary).
+- Limit scope: Expose secrets only to the steps that require them. See more in [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets#use-a-buildkite-secret-in-a-job).
 - Audit usage: Track which steps consume which secrets.
 
 ### Enforce access controls
