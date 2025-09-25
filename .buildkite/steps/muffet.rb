@@ -122,7 +122,7 @@ if @failed.any?
     end
 
     report += <<~MARKDOWN
-      In #{path_and_query}:
+      ### In \`#{path_and_query}\`:
 
       | Link | Status |
       |------|--------|
@@ -137,9 +137,12 @@ end
 
 if @passed.any?
   report += <<~MARKDOWN
+
+    ## Non-breaking failures
+
     The following requests would have failed, but we made them exempt in `.buildkite/steps/link-checking-rules.yaml`.
 
-    <details><summary>Exempted failures</summary>
+    <details><summary>Exempt links</summary>
 
   MARKDOWN
 
@@ -151,7 +154,7 @@ if @passed.any?
     end
 
     report += <<~MARKDOWN
-      In #{path_and_query}:
+      ### In \`#{path_and_query}\`:
 
       | Link | Status | Deciding rule(s) |
       |------|--------|------------------|
@@ -159,9 +162,10 @@ if @passed.any?
 
     MARKDOWN
   end
+
+  report += "</details>\n\n"
 end
 
-report += "</details>\n\n"
 report += "The complete results (including **all** successful requests) will be uploaded in JSON format as a build artifact. If you need to figure out why links are passing checks when they shouldn't be, that is a good place to start.\n\n"
 
 annotate!(annotation: report, context: 'muffet')
