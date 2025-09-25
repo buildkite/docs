@@ -37,4 +37,4 @@ Use the [Buildkite plugins directory](/docs/pipelines/integrations/plugins/direc
 
 ## Creating a plugin
 
-Learn more about how to create plugins, along with step-by-step instructions, on the [Writing plugins](/docs/pipelines/integrations/plugins/writing) page, along with some [useful tools](/docs/pipelines/integrations/plugins/tools) to help you develop them.
+Learn more about how to create plugins, along with step-by-step instructions, on the [Writing plugins](/docs/pipelines/integrations/plugins/writing) page, along with some [useful tools](/docs/pipelines/integrations/plugins/writing#plugin-tools) to help you develop them.
