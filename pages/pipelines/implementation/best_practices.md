@@ -172,28 +172,33 @@ env:
 
 Avoid cramming unrelated tasks into one step, for example:
 
-```yaml
-# ❌ Bad
-- label: "Build, test, and deploy"
-  command: |
-    npm install
-    npm run build
-    npm test
-    npm run deploy
-
-# ✅ Good
-- label: ":package: Install dependencies"
-  command: "npm install"
-
-- label: ":hammer: Build"
-  command: "npm run build"
-
-- label: ":test_tube: Test"
-  command: "npm test"
-
-- label: ":rocket: Deploy"
-  command: "npm run deploy"
 ```
+# ❌ Bad - Mixing unrelated concerns
+- label: "Build and security scan and deploy"
+  command: |
+    docker build -t myapp .
+    trivy image myapp
+    docker push myapp:latest
+    kubectl apply -f k8s/deployment.yaml
+
+# ✅ Good - Separate logical concerns
+- label: ":docker: Build application"
+  command: "docker build -t myapp ."
+
+- label: ":shield: Security scan"
+  command: "trivy image myapp"
+  depends_on: "build"
+
+- label: ":rocket: Deploy to production"
+  command: |
+    docker push myapp:latest
+    kubectl apply -f k8s/deployment.yaml
+  depends_on:
+    - "build"
+    - "security-scan"
+```
+
+The "bad" example crams together building, security scanning, and deployment which are three totally different concerns that you'd want to handle separately, potentially with different permissions, agents, and failure handling strategies.
 
 Cramming more tasks into one step reduces the ability of the pipeline to scale and take advantage of multiple agents.
 Splitting steps makes it logically easier to understand and also takes advantage of Buildkite's scalable agents.
