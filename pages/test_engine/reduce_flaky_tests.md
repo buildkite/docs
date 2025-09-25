@@ -10,7 +10,7 @@ Test Engine's workflows feature has a number of monitors that can be used to det
 
 Once you've chosen your monitor, add a Workflow action to label this test as "flaky". Having the flaky test labelled as such means that Test Engine can drive other automatic behavior from this, and you can easily surface "flaky" tests in the Test Engine UI and on the Tests tab in the Builds page. By default, Test Engine provides a [saved view](/docs/test-engine/test-suites/saved-views) called "Flaky" which shows you all test with the flaky label.
 
-[some pictures]
+<%= image "workflows.png", alt: "The workflows index page in Test Engine" %>
 
 ## Quarantining flaky tests
 
