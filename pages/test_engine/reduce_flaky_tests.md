@@ -18,7 +18,7 @@ Optionally, if your test suite has test state enabled, you can quarantine a flak
 
 Once a test has been quarantined, you can speed up your builds by using bktec to ignore quarantined tests as part of your test suite execution.
 
-To learn more about quarantining, see [Test state and quarantine](/docs/test-engine/test-suites/test-state-and-quarantine).
+Learn more about quarantining in [Test state and quarantine](/docs/test-engine/test-suites/test-state-and-quarantine).
 
 ## Remediating flaky tests
 
