@@ -21,23 +21,22 @@ The fastest way to get started with the Buildkite migration tool is to use its [
 
 <%= image "migration-tool-web.png", alt: "Buildkite migration tool's web UI" %>
 
-To start translating your existing pipeline configuration into a Buildkite pipeline:
+To start translating your existing pipeline or workflow configuration into a Buildkite pipeline:
 
-1. In the drop-down list, select your CI/CD platform.
-1. Enter a pipeline definition you would like to translate into a Buildkite pipeline definition on the left side of the tool.
-1. Click the **Convert** button.
-1. You'll see the translated pipeline definition on the right side of the tool.
-1. You can copy the resulting yaml pipeline configuration and [create](/docs/pipelines/configure) a [new Buildkite pipeline](https://www.buildkite.com/new) with it.
+1. If you are using a CI/CD platform other than **GitHub Actions**, select it from this drop-down.
+1. In the left panel, enter the pipeline definition to translate into a Buildkite pipeline definition.
+1. Select the **Convert** button to reveal the translated pipeline definition in the right panel.
+1. Copy the resulting Buildkite pipeline YAML configuration on the right and [create](/docs/pipelines/configure) a [new Buildkite pipeline](https://www.buildkite.com/new) with it.
 
 ### Conversion errors
 
-If the pipeline configuration you are trying to convert to a Buildkite pipeline contains syntax or other errors, you might see the following pop-up **Conversion failed** message:
+If the pipeline configuration you are trying to convert to a Buildkite pipeline contains syntax or other errors, you might see the following **Conversion failed** message.
 
 <%= image "conversion-failed.png", alt: "Error message in the Buildkite migration tool's web UI" %>
 
-In this case, make sure that the original pipeline configuration you are trying to translate to a Buildkite pipeline configuration is a valid pipeline definition for the CI/CD platform you are migrating from.
+In such cases, ensure that the original pipeline configuration you are translating to a Buildkite pipeline is a valid pipeline definition for the CI/CD platform you are migrating from.
 
-## Local API-based version
+## Local version
 
 If you would like to run the Buildkite migration tool locally, you can clone the [Buildkite migration tool repository](https://github.com/buildkite/migration) to run the migration tool's API via a HTTP API using `puma` from the `app` folder of this repository.
 
@@ -51,7 +50,7 @@ After starting the Docker image, you will be able to access the web interface of
 
 <%= image "api-web-ui.png", alt: "Web UI of the API version of the Buildkite migration tool" %>
 
-If you would prefer to use `docker run` command for starting the Buildkite migration too, you can also do it but you will need to override the entrypoint in the following way:
+You can also use the `docker run` command to start the Buildkite migration tool, although you will need to override the entrypoint:
 
 ```shell
 $ docker run --rm -ti -p 9292:9292 --entrypoint '' --workdir /app $IMAGE:$TAG puma --port 9292
@@ -81,4 +80,4 @@ For more tools and recommendations regarding migrating from your existing CI/CD 
 - [Migrate to Buildkite Pipelines](/docs/pipelines/migration)
 - [Buildkite Migration Services](https://buildkite.com/resources/migrations/)
 - [Migration from Jenkins - a step-by-step guide](/docs/pipelines/migration/from-jenkins)
-- [Migration from Bamboo - a step-by-step guide](https://buildkite.com/docs/pipelines/migration/from-bamboo)
+- [Migration from Bamboo - a step-by-step guide](/docs/pipelines/migration/from-bamboo)
