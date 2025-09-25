@@ -158,23 +158,23 @@ On the test page, you can open the execution drawer by selection an execution.
 
 This presents all the tags which have been applied to the test execution.
 
-<%= image "execution-tags.png", width: 2950, height: 1618, alt: "Screenshot of test page with execution drawer open displaying execution tags available for filtering and aggregtion" %>
+<%= image "execution-tags.png", width: 3274, height: 1838, alt: "Screenshot of test page with execution drawer open displaying execution tags available for filtering and aggregtion" %>
 
 ### Group by tag
 
 Grouping by tag on the test page breaks down the test reliability and duration (p50, p95), so that you can compare performance across the tag values.
 
-<%= image "group-by-tag.png", width: 2974, height: 1000, alt: "Screenshot of test page with a group by tag aggregation applied breaking down metrics by architecture" %>
+<%= image "group-by-tag.png", width: 3136, height: 966, alt: "Screenshot of test page with a group by tag aggregation applied breaking down metrics by architecture" %>
 
 ### Filter by tag
 
 Filtering by tag on the test page will constrain all executions for the test which match the filter conditions.
 
-<%= image "filter-by-tag.png", width: 2996, height: 1288, alt: "Screenshot of test page with a tag filter applied restricting executions to just those that ran on t3.large in ruby" %>
+<%= image "filter-by-tag.png", width: 3146, height: 946, alt: "Screenshot of test page with a tag filter applied restricting executions to just those that ran on t3.large in ruby" %>
 
 Filtering by tag on the test index page will constrain all tests to those that had executions matching the conditions of the filter. In the following case all tests that ran on the `t3.large` instance type.
 
-<%= image "filter-tests-by-tag.png", width: 2992, height: 998, alt: "Screenshot of test index with a tag filter applied restricting tests to just those running on t3.large instances" %>
+<%= image "filter-tests-by-tag.png", width: 3134, height: 1442, alt: "Screenshot of test index with a tag filter applied restricting tests to just those running on t3.large instances" %>
 
 You can filter by tag using the "Filter" dropdown.
 
@@ -182,4 +182,4 @@ You can filter by tag using the "Filter" dropdown.
 
 To filter tests by tags in [Pipelines](/docs/pipelines), select the **Tests** tab in either the job or build interface and apply your desired filters.
 
-<%= image "pipelines-filter-by-tag.png", width: 1656, height: 1150, alt: "Screenshot of filtering tests on a pipeline build" %>
+<%= image "pipelines-filter-by-tag.png", width: 3800, height: 1764, alt: "Screenshot of filtering tests on a pipeline build" %>
