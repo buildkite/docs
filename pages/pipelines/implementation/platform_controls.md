@@ -126,14 +126,14 @@ You can turn Buildkite into a first‑class source of operational truth for your
 
 ### End‑to‑end tracing with OpenTelemetry
 
-- Stream spans that cover control‑plane events and agent execution into your collector, then forward to Datadog, Honeycomb, Lightstep, Prometheus, or another backend.
-- Spans include fields like job start and finish times and agent queue, letting you calculate job minutes, queueing hotspots, and critical path across builds.
+- Stream spans that cover control‑plane events and agent execution into your collector, then forward to Datadog, Honeycomb, Prometheus, or another backend.
+- Spans include fields like job start and finish times and agent queue, letting you calculate job minutes, queueing times, and critical path across builds.
 - Use this to correlate queue latency, checkout time, and infrastructure issues across build → stage → step → job → agent for large monorepos.
 
 ### Native pipeline metrics in the UI
 
 - Get per‑pipeline health at a glance: build durations, success rates, and recent history for the default branch.
-- Everything visible is queryable via GraphQL for custom dashboards or automation.
+- Everything visible is possible to query via GraphQL for custom dashboards or automation.
 
 ### Datadog APM integration from the agent
 
