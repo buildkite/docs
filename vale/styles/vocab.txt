@@ -238,6 +238,7 @@ podWatcher
 Postgres
 PowerShell
 PR's
+Prometheus
 protobuf
 preemptible
 prefill
