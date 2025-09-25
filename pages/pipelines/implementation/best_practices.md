@@ -217,7 +217,7 @@ Never ignore failing steps without a clear follow-up.
 
 ### Logging best practices
 
-- Structured logs: Favor JSON or other parsable formats. Use [log groups](/docs/pipelines/configure/managing-log-output#grouping-log-output) for better visual representation of the relevants sections in the logs.
+- Structured logs: Favor JSON or other parsable formats. Use [log groups](/docs/pipelines/configure/managing-log-output#grouping-log-output) for better visual representation of the relevant sections in the logs.
 - Appropriate log levels: Differentiate between info, warnings, and errors.
 - Persist artifacts: Store logs, reports, and binaries for debugging and compliance.
 - Track trends: Use [cluster insights](/docs/pipelines/insights/clusters) or external tools to analyze durations and failure patterns.
