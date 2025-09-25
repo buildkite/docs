@@ -79,9 +79,6 @@ muffet_output_json=`#{muffet_cmd}`
 
 File.write('muffet_results.json', muffet_output_json)
 
-puts "--- Verbose JSON output from muffet"
-puts muffet_output_json
-
 puts "--- Checking results"
 
 
@@ -93,16 +90,18 @@ pages.each do |page|
       next
     end
 
-    rules.each do |rule|
-      if rule[:status_pattern].match?(link['error'])
-        if rule[:url_patterns].any? {|patt| patt.match?(link['url']) }
-          result_pass(page['url'], link, rule[:name])
-          break
-        end
-
-        result_fail(page['url'], link)
-      end
+    # There is an error. Do we have an exempting rule for it?
+    exemptors = rules.select do |rule|
+      rule[:status_pattern].match?(link['error']) &&
+        rule[:url_patterns].any? {|patt| patt.match?(link['url']) }
     end
+
+    if exemptors.any?
+      result_pass(page['url'], link, exemptors)
+    else
+      result_fail(page['url'], link)
+    end
+
   end
 end
 
@@ -148,14 +147,14 @@ if @passed.any?
     path_and_query = page.sub(/https?:\/\/[^\/]+/,'')
 
     rows = links.reduce("") do |table, l|
-      table += "| #{l['url']} | #{l['error']} | #{l['decided_by']} |\n"
+      table += "| #{l['url']} | #{l['error']} | #{l['decided_by'].map {|r| r[:name] }.join(', ')} |\n"
     end
 
     report += <<~MARKDOWN
       In #{path_and_query}:
 
-      | Link | Status | Deciding rule |
-      |------|--------|---------------|
+      | Link | Status | Deciding rule(s) |
+      |------|--------|------------------|
       #{rows}
 
     MARKDOWN
