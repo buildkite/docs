@@ -56,10 +56,14 @@ You can also use the `docker run` command to start the Buildkite migration tool,
 $ docker run --rm -ti -p 9292:9292 --entrypoint '' --workdir /app $IMAGE:$TAG puma --port 9292
 ```
 
-You can also interact with the Buildkite migration tool programmatically and even pipe the output directly to `buildkite-agent pipeline upload`:
+Once the Buildkite migration tool is running locally, you can also interact with it programmatically, for example:
 
 ```shell
 $ curl -X POST -F 'file=@app/examples/circleci/legacy.yml' http://localhost:9292
+```
+which should then return output like this:
+
+```yaml
 ---
 steps:
 - commands:
@@ -72,6 +76,8 @@ steps:
     executor_type: docker
   key: build
 ```
+
+You could also pipe the output directly to `buildkite-agent pipeline upload`.
 
 ## Next steps
 

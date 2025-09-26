@@ -90,8 +90,7 @@ You might need to adjust the converted Buildkite pipeline output to make it is c
 
 ## Jobs
 
-> 📘
-> When Buildkite pipelines are built, each created command step inside the pipeline is ran as a [job](/docs/pipelines/configure/defining-steps#job-states) that will be distributed and assigned to the matching agents meeting their specific queue and tag [targeting](/docs/pipelines/configure/defining-steps#targeting-specific-agents). Each job is run within its own separate environment, with potentially different environment variables (for example, those defined at the [step](/docs/pipelines/configure/step-types/command-step#command-step-attributes) level) and is not guaranteed to run on the same agent depending on targeting rules and the agent fleet setup.
+When Buildkite pipelines are built, each command step inside the pipeline is ran as a [job](/docs/pipelines/configure/defining-steps#job-states) that will be distributed and assigned to the matching agents meeting their specific queue and tag [targeting](/docs/pipelines/configure/defining-steps#targeting-specific-agents). Each job is run within its own separate environment, with potentially different environment variables (for example, those defined at the [step](/docs/pipelines/configure/step-types/command-step#command-step-attributes) level) and is not guaranteed to run on the same agent depending on targeting rules and the agent fleet setup.
 
 <table class="responsive-table">
   <thead>
@@ -131,7 +130,7 @@ You might need to adjust the converted Buildkite pipeline output to make it is c
       {
         "key": "jobs.&lt;id&gt;.steps.run",
         "supported": "Yes",
-        "notes": "The commands (must be shorter than 21,000 characters) that make up a particular job. Each `run` is translated to a separate command inside of the output `commands` block of its generated Buildkite command step."
+        "notes": "The commands (must be shorter than 21,000 characters) that make up a particular job. Each `run` is translated to a separate command inside of the output `commands` block of its generated Buildkite Pipelines command step."
       },
       {
         "key": "jobs.&lt;id&gt;.steps.strategy",
@@ -156,7 +155,7 @@ You might need to adjust the converted Buildkite pipeline output to make it is c
       {
         "key": "jobs.&lt;id&gt;.steps.uses",
         "supported": "No",
-        "notes": "`uses` defines a separate action to use within the context of a GitHub Action's job. Currently isn't supported."
+        "notes": "`uses` defines a separate action to use within the context of a GitHub Action's job. This key currently isn't supported."
       }
     ].select { |field| field[:key] }.each do |field| %>
       <tr>
@@ -178,21 +177,21 @@ You might need to adjust the converted Buildkite pipeline output to make it is c
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
-| `name` | No | The `name` key sets the name of the action as it will appear in the GitHub repository's **Actions** tab. When creating a Buildkite pipeline, its name is usually set through the UI when a pipeline is first created - and can be altered through the pipeline settings, or via the [REST](/docs/apis/rest-api/pipelines#update-a-pipeline) or [GraphQL](/docs/apis/graphql/schemas/input-object/pipelineupdateinput) APIs. |
+| `name` | No | The `name` key sets the name of the action as it will appear in the GitHub repository's **Actions** tab. When creating a Buildkite pipeline, its name is usually set through the Buildkite interface when a pipeline is first created, and can be altered through the pipeline settings, or using the [REST](/docs/apis/rest-api/pipelines#update-a-pipeline) or [GraphQL](/docs/apis/graphql/schemas/input-object/pipelineupdateinput) APIs. |
 
 ## On
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
-| `on` | No | The `on` key defines the pipeline trigger in a GitHub Action workflow. In Buildkite Pipelines, this is a UI setting in **Pipeline Settings** (**GitHub Settings**). |
+| `on` | No | The `on` key defines the pipeline trigger in a GitHub Action workflow. In Buildkite Pipelines, this is a Buildkite interface setting in the pipeline's **Settings** > **GitHub** page > **GitHub Settings** section. |
 
 ## Permissions
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
-| `permissions` | No | [API Access Tokens](/docs/apis/managing-api-tokens) can be used within the context of a pipelines' build to interact with various Buildkite resources such as pipelines, artifacts, users, Test Suites, and more. Each token has a specified [token scope](/docs/apis/managing-api-tokens#token-scopes) that applies to interactions with the [REST](/docs/apis/rest-api) API, and can be configured with a permission to interact with Buildkite's [GraphQL](/docs/apis/graphql-api) API. The `permissions` key allows for the interaction with commit `statuses`. The [Buildkite GitHub App](/docs/integrations/github#connect-your-buildkite-account-to-github-using-the-github-app) must be added to the respective GitHub organization to allow Buildkite Pipelines to publish commit statuses for builds based on commits and pull requests on pipeline builds and for the statuses to appear based on a build's outcome. The GitHub App can be configured with access to all or a select number of repositories within a GitHub organization. |
+| `permissions` | No | [API Access Tokens](/docs/apis/managing-api-tokens) can be used within the context of a pipeline's build to interact with various Buildkite resources such as pipelines, artifacts, users, Test Suites, and more. Each access token has a specified set of [token scopes](/docs/apis/managing-api-tokens#token-scopes) that applies to interactions with the [REST](/docs/apis/rest-api) API, and can be configured with a permission to interact with Buildkite's [GraphQL](/docs/apis/graphql-api) API. The `permissions` key allows for the interaction with commit `statuses`. The [Buildkite GitHub App](/docs/integrations/github#connect-your-buildkite-account-to-github-using-the-github-app) must be added to the respective GitHub organization to allow Buildkite Pipelines to publish commit statuses for builds based on commits and pull requests on pipeline builds and for the statuses to appear based on a build's outcome. The GitHub App can be configured with access to all or a select number of repositories within a GitHub organization. |
 
 ## Run name
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
-| `run-name` | No | Build messages in Buildkite Pipelines are set as the `BUILDKITE_MESSAGE` environment variable (commit message from source control). Build messages can be set in manual build creation or by using [REST](/docs/apis/rest-api/builds#create-a-build) or [GraphQL](/docs/apis/graphql/schemas/mutation/buildcreate) APIs. |
+| `run-name` | No | Build messages in Buildkite Pipelines are set as the `BUILDKITE_MESSAGE` environment variable (commit message from source control). Build messages can be set in when creating new builds manually, or by using the [REST](/docs/apis/rest-api/builds#create-a-build) or [GraphQL](/docs/apis/graphql/cookbooks/builds#create-a-build-on-a-pipeline) APIs. |
