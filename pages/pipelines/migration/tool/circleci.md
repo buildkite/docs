@@ -214,38 +214,105 @@ While the Buildkite migration tool will translate the following listed executor 
 
 | Key | Supported | Notes |
 | --- | --- | --- |
-| `orbs` | No | Orbs are currently not supported by the Buildkite migration tool and should be translated by hand if their equivalent functionality is required within a Buildkite pipeline. In Buildkite Pipelines, reusable [plugins](/docs/plugins/directory) can provide a similar functionality for integrating various common (and third-party integration-related) tasks throughout a Buildkite pipeline, such as [logging into ECR](https://buildkite.com/resources/plugins/buildkite-plugins/ecr-buildkite-plugin/), running a step within a [Docker container](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/), running multiple Docker images through a [compose file](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/), triggering builds in a [monorepo setup](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/) and more. |
-| `Docker orbs` | Partially | Docker orbs will be converted but the translation will be an extreme approximation. It is recommended that any orb-related logic is rebuild in a Buildkite pipeline instead based on the recommendations outlined in `orbs`. |
+| `orbs` | No | Orbs are currently not supported by the Buildkite migration tool and should be translated by hand if their equivalent functionality is required within a Buildkite pipeline. In Buildkite Pipelines, reusable [plugins](/docs/plugins/directory) can provide a similar functionality for integrating various common (and third-party integration-related) tasks throughout a Buildkite pipeline, such as [logging into ECR](https://buildkite.com/resources/plugins/buildkite-plugins/ecr-buildkite-plugin/), running a step within a [Docker container](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/), running multiple Docker images through a [compose file](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/), triggering builds in a [monorepo setup](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/), to list a small number of these plugins. |
+| `Docker orbs` | Partially | Docker orbs are converted but their translation is only an approximation. It is recommended that any orb-related logic is rebuilt in a Buildkite pipeline instead based on the recommendations outlined in `orbs`. |
+{: class="responsive-table"}
 
 ## Parameters
 
 | Key | Supported | Notes |
 | --- | --- | --- |
-| `parameters` | No | Pipeline-level parameters that can be used in the pipeline-level configuration. Pipeline-level [environment variables](/docs/pipelines/environment-variables#defining-your-own) allow for utilizing variables in Buildkite pipeline configuration with [conditionals](/docs/pipelines/configure/conditionals). |
+| `parameters` | No | Pipeline-level parameters that can be used in the pipeline-level configuration. Pipeline-level [environment variables](/docs/pipelines/environment-variables#defining-your-own) allow for utilizing variables in a Buildkite pipeline configuration with [conditionals](/docs/pipelines/configure/conditionals). |
+{: class="responsive-table"}
 
 ## Setup
 
 | Key | Supported | Notes |
 | --- | --- | --- |
-| `setup` | No | Allows for the conditional configuration trigger from outside the `.circleci` directory. Not directly compatible with Buildkite. However, Buildkite offers [trigger steps](/docs/pipelines/configure/step-types/trigger-step) that allow for triggering builds from another pipeline. |
+| `setup` | No | Allows for the conditional configuration trigger from outside the `.circleci` directory. While this is not directly compatible with Buildkite Pipelines, Buildkite Pipelines offers [trigger steps](/docs/pipelines/configure/step-types/trigger-step), which allow for triggering builds from another pipeline. |
+{: class="responsive-table"}
 
 ## Version
 
 | Key | Supported | Notes |
 | --- | --- | --- |
 | `version` | No | The version of the CircleCI pipeline configuration applied to this pipeline. No equivalent mapping exists in Buildkite Pipelines. Attributes for required and optional attributes in the various step types that are supported in Buildkite Pipelines are listed in the [Step type overview documentation](/docs/pipelines/configure/step-types) for each of the possible step types. |
+{: class="responsive-table"}
 
 ## Workflows
 
-| Key | Supported | Notes |
-| --- | --- | --- |
-| `workflows` | Yes | A collection of `jobs` the order of which defines how a CircleCI pipeline is run. |
-| `workflows.<name>` | Yes | An individual named workflow that makes up a part of the CircleCI pipeline's definition. If a CircleCI pipeline has more than one `workflow` specified, each workflow will be transitioned to a [group step](/docs/pipelines/configure/step-types/group-step). |
-| `workflows.<name>.jobs` | Yes | The individually named, non-`orb` `jobs` that make up a part of a specific workflow.<br/></br>Customized `jobs` defined as a part of a `workflow` will be translated to a Buildkite [command step](/docs/pipelines/configure/step-types/command-step) within the generated pipeline, and `jobs` with the `approval` type will be translated to a Buildkite [block step](/docs/pipelines/configure/step-types/block-step). |
-| `workflows.<name>.jobs.<name>.branches` | No | The `branches` that will be allowed or blocked for a singular `job`. At the moment, the Buildkite migration tool supports setting `filters` within `workflows`, and in particular, sub-properties `branches` and `tags`  in setting a [step conditional](/docs/pipelines/configure/conditionals#conditionals-in-steps) in the generated pipeline. |
-| `workflows.<name>.jobs.<name>.filters` | Yes | The `branches` and `tag` filters that will determine the eligibility for a CircleCI to run. |
-| `workflows.<name>.jobs.<name>.filters.branches`| Yes | The specific `branches` that are applicable to the `job`'s filter. Translated to a [step conditional](/docs/pipelines/configure/conditionals#conditionals-in-steps). |
-| `workflows.<name>.jobs.<name>.filters.tags` | Yes |  The specific `tags` that are applicable to the `job`'s filter. Translated to a [step conditional](/docs/pipelines/configure/conditionals#conditionals-in-steps). |
-| `workflows.<name>.jobs.<name>.matrix` | Yes | The `matrix` key allows running a specific job as part of a workload with different values. Translated to a [build matrix](/docs/pipelines/build-matrix) setup within a [command step](/docs/pipelines/configure/step-types/command-step). |
-| `workflows.<name>.jobs.<name>.requires` | Yes | A list of `jobs` that require a certain `job` to start. Translated to explicit [step dependencies](/docs/pipelines/configure/dependencies#defining-explicit-dependencies) with the `depends_on` key. |
-| `workflows.<name>.when` | Yes | Conditionals that allow for running a workflow under certain conditions. The Buildkite migration tool allows for the specification using logical operators `and`, `or`, and `not` in creating command conditionals. |
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th style="width:30%">Key</th>
+      <th style="width:10%">Supported</th>
+      <th style="width:60%">Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        "key": "workflows",
+        "supported": "Yes",
+        "notes": "A collection of `jobs` the order of which defines how a CircleCI pipeline is run."
+      },
+      {
+        "key": "workflows.&lt;name&gt;",
+        "supported": "Yes",
+        "notes": "An individual named workflow that makes up a part of the CircleCI pipeline's definition. If a CircleCI pipeline has more than one `workflow` specified, each workflow will be transitioned to a [group step](/docs/pipelines/configure/step-types/group-step)."
+      },
+      {
+        "key": "workflows.&lt;name&gt;.jobs",
+        "supported": "Yes",
+        "notes": "The individually named, non-`orb` `jobs` that make up a part of a specific workflow.<br/><br/>Customized `jobs` defined as a part of a `workflow` will be translated to a Buildkite [command step](/docs/pipelines/configure/step-types/command-step) within the generated pipeline, and `jobs` with the `approval` type will be translated to a Buildkite [block step](/docs/pipelines/configure/step-types/block-step)."
+      },
+      {
+        "key": "workflows.&lt;name&gt;.jobs.&lt;name&gt;.branches",
+        "supported": "No",
+        "notes": "The `branches` that will be allowed or blocked for a singular `job`. At the moment, the Buildkite migration tool supports setting `filters` within `workflows`, and in particular, sub-properties `branches` and `tags`  in setting a [step conditional](/docs/pipelines/configure/conditionals#conditionals-in-steps) in the generated pipeline."
+      },
+      {
+        "key": "workflows.&lt;name&gt;.jobs.&lt;name&gt;.filters",
+        "supported": "Yes",
+        "notes": "The `branches` and `tag` filters that will determine the eligibility for a CircleCI to run."
+      },
+      {
+        "key": "workflows.&lt;name&gt;.jobs.&lt;name&gt;.filters.branches",
+        "supported": "Yes",
+        "notes": "The specific `branches` that are applicable to the `job`'s filter. Translated to a [step conditional](/docs/pipelines/configure/conditionals#conditionals-in-steps)."
+      },
+      {
+        "key": "workflows.&lt;name&gt;.jobs.&lt;name&gt;.filters.tags",
+        "supported": "Yes",
+        "notes": "The specific `tags` that are applicable to the `job`'s filter. Translated to a [step conditional](/docs/pipelines/configure/conditionals#conditionals-in-steps)."
+      },
+      {
+        "key": "workflows.&lt;name&gt;.jobs.&lt;name&gt;.matrix",
+        "supported": "Yes",
+        "notes": "The `matrix` key allows running a specific job as part of a workload with different values. Translated to a [build matrix](/docs/pipelines/build-matrix) setup within a [command step](/docs/pipelines/configure/step-types/command-step)."
+      },
+      {
+        "key": "workflows.&lt;name&gt;.jobs.&lt;name&gt;.requires",
+        "supported": "Yes",
+        "notes": "A list of `jobs` that require a certain `job` to start. Translated to explicit [step dependencies](/docs/pipelines/configure/dependencies#defining-explicit-dependencies) with the `depends_on` key."
+      },
+      {
+        "key": "workflows.&lt;name&gt;.when",
+        "supported": "Yes",
+        "notes": "Conditionals that allow for running a workflow under certain conditions. The Buildkite migration tool allows for the specification using logical operators `and`, `or`, and `not` in creating command conditionals."
+      }
+    ].select { |field| field[:key] }.each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:key] %></code>
+        </td>
+        <td>
+          <p><%= field[:supported] %></p>
+        </td>
+        <td>
+          <p><%= render_markdown(text: field[:notes]) %></p>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
