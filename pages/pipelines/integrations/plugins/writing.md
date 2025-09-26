@@ -162,7 +162,7 @@ buildkite-agent annotate "Found ${COUNT} files matching ${PATTERN}"
 ```
   {: codeblock-file="hooks/post-command"}
 
-## Publish to the Buildkite Plugins Directory
+## Publish to the Buildkite plugins directory
 
 Once you've created your plugin, you can add it to the [Buildkite plugins directory](https://buildkite.com/resources/plugins) by following these steps:
 
@@ -179,7 +179,7 @@ Once completed, your plugin will appear in the directory:
 
 <%= image "ecr-plugin-directory-item.png", width: 1014/2, height: 500/2, alt: "Screenshot of ECR plugin in the Buildkite plugins directory" %>
 
-If you would like your plugin to appear in a certain category in the plugins directory, you need to add the corresponding GitHub label(s). Currently, the following labels will be recognized by the plugin directory:
+If you would like your plugin to appear in a certain category in the plugins directory, you need to add the corresponding GitHub label(s). Currently, the following labels will be recognized by the plugins directory:
 
 * Task
   + Code checkout: `checkout`, `git`, `svn`
