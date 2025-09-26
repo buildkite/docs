@@ -4,10 +4,10 @@ pipelines_integrations:
     desc: "Add plugins to command steps in your YAML pipeline to add functionality to Buildkite."
     url: "/docs/pipelines/integrations/plugins"
     links:
-      - text: "Plugins directory"
-        url: "/docs/pipelines/integrations/plugins/directory"
       - text: "Overview"
         url: "/docs/pipelines/integrations/plugins"
+      - text: "Plugins directory"
+        url: "/docs/pipelines/integrations/plugins#finding-plugins"
       - text: "Using plugins"
         url: "/docs/pipelines/integrations/plugins/using"
       - text: "Writing plugins"
