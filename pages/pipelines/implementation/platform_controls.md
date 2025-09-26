@@ -144,33 +144,6 @@ You can turn Buildkite into a first‑class source of operational truth for your
 - Publish build and job lifecycle events, plus agent connect and loss events, to your AWS account.
 - Drive alerts, autoscaling, and SLO burn calculations in your telemetry pipelines.
 
-### Telemetry operational tips
-
-- Start where the pain is: profile queue wait and checkout time first. These are often the biggest, cheapest wins.
-- Tag everything: include pipeline, queue, repo path, and commit metadata in spans and events to make drill‑downs trivial.
-- Keep one source of truth: stream Buildkite to your standard observability stack so platform‑level SLOs and alerts live alongside app telemetry.
-- Document the path: publish internal guidance for teams on reading the Pipeline metrics page and where to find org dashboards.
-
-### Quick checklist for using telemetry
-
-- Enable EventBridge and subscribe your alerting pipeline.
-- Turn on OTEL export to your collector. Start with job spans and queue metrics.
-- If you are a Datadog shop, enable agent APM tracing.
-- Stand up a “CI SLO” dashboard with p95 queue wait and build duration per top pipelines.
-- Document and socialize how developers should use the Pipeline metrics page for day‑to‑day troubleshooting.
-
-### Core pipeline telemetry recommendations
-
-Establish standardized metrics collection across all pipelines to enable consistent monitoring and analysis:
-
-- **Build duration metrics**: track build times by pipeline, step, and queue to identify performance bottlenecks.
-- **Queue wait times**: monitor agent availability and scaling efficiency across different workload types.
-- **Failure rate analysis**: measure success rates by pipeline, branch, and time period to identify reliability trends.
-- **Retry effectiveness**: track retry success rates by exit code to validate retry policy effectiveness.
-- **Resource utilization**: monitor compute usage, artifact storage, and network bandwidth consumption.
-
-Standardize the number of times test flakes are retried and have their custom exit statuses that you can report on with your telemetry provider. Use [OpenTelemetry integration](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service) to gain deep visibility into pipeline execution flows
-
 ## Centralize observability
 
 Ensure all pipelines report metrics to your centralized monitoring system for:
