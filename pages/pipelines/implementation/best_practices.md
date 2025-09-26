@@ -268,7 +268,7 @@ To avoid overly large log files, try to not use verbose output of apps and tools
 
 - Native secret management: Use [Buildkite secrets and redaction](/docs/pipelines/security/secrets/buildkite-secrets) and [secrets plugins](https://buildkite.com/docs/pipelines/integrations/plugins/directory).
 - Rotate secrets: Regularly update credentials to minimize risk.
-- Limit scope: Expose secrets only to the steps that require them. See more in [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets#use-a-buildkite-secret-in-a-job).
+- Limit scope: Expose secrets only to the steps that require them. See more in [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets#use-a-buildkite-secret-in-a-job) and [vault secrets plugin](https://buildkite.com/resources/plugins/buildkite-plugins/vault-secrets-buildkite-plugin/).
 - Audit usage: Track which steps consume which secrets.
 
 ### Enforce access controls
