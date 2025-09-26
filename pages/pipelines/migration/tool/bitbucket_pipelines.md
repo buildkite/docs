@@ -1,21 +1,20 @@
 # Bitbucket Pipelines
 
-With the help of the [Buildkite migration tool](/docs/pipelines/migration/tool), you can start converting your Bitbucket pipelines into Buildkite pipelines. This page lists the Buildkite migration tool's currently supported, partially supported, and unsupported attributes for translating from Bitbucket pipelines to Buildkite pipelines.
+The [Buildkite migration tool](/docs/pipelines/migration/tool) helps you convert your Bitbucket pipelines into Buildkite pipelines. This page lists the Buildkite migration tool's currently supported, partially supported, and unsupported keys for translating from Bitbucket pipelines to Buildkite pipelines.
 
 > 📘
 > The Bitbucket Pipeline configuration that is referred to in various sections below is specified in the central `bitbucket-pipelines.yml` within a specific Bitbucket workspace [repository](https://support.atlassian.com/bitbucket-cloud/docs/what-is-a-workspace/). In Buildkite, the pipeline configuration can be set in a singular `pipeline.yml` within a repository or it can also be set and uploaded dynamically through the use of [Dynamic Pipelines](/docs/pipelines/configure/dynamic-pipelines). Additionally, control and governance of Buildkite pipelines can be achieved through the use of [Pipeline Templates](/docs/pipelines/templates) to set shared pipeline configuration within a Buildkite organization.
 
 ## Using the Buildkite migration tool with Bitbucket
 
-To start converting your Bitbucket pipelines to the Buildkite format:
+To start converting your Bitbucket pipeline into Buildkite Pipelines format:
 
-1. Go to the [interactive web tool](https://buildkite.com/resources/migrate/) page.
-1. Select **Bitbucket** in the UI.
-1. Paste your Bitbucket pipeline configuration.
-1. Click **Convert**.
-1. See the converted pipeline configuration on the **Buildkite Pipeline** side of the tool.
+1. Open the [Buildkite migration interactive web tool](https://buildkite.com/resources/migrate/) in a new browser tab.
+1. Select **Bitbucket** at the top of the left panel.
+1. Copy your Bitbucket pipeline configuration and paste it into the left panel.
+1. Select **Convert** to reveal the translated pipeline configuration in the **Buildkite Pipeline** panel.
 
-For example, if you would like to convert the following Bitbucket pipeline configuration:
+For example, when converting the following example Bitbucket pipeline configuration:
 
 ```yml
 image: node:18
@@ -28,7 +27,7 @@ pipelines:
           - npm install
 ```
 
-This is the output that the Buildkite migration tool is going to provide:
+The Buildkite migration tool should translate this to the following output:
 
 ```yml
 ---
@@ -41,14 +40,11 @@ steps:
   label: Build
 ```
 
-You will see the following in the Buildkite migration tool UI during the conversion of the example configuration:
+The Buildkite migration tool interface should look similar to this:
 
 <%= image "migration-tool-bitbucket.png", alt: "Converting a Bitbucket pipeline in Buildkite migration tool's web UI" %>
 
-> 📘 Local API use
-> While the web-based migration tool provides a convenient interface for converting your existing pipelines, you can also run the Buildkite migration tool [locally via its HTTP API](/docs/pipelines/migration/tool#local-API-based-version). The local version offers the same conversion capabilities as the web interface.
-
-You might need to adjust the syntax of the resulting converted output to make it is consistent with the [step configuration conventions](/docs/pipelines/configure/step-types) syntax used in Buildkite Pipelines.
+You might need to adjust the converted Buildkite pipeline output to ensure it is consistent with the [step configuration conventions](/docs/pipelines/configure/step-types) used in Buildkite Pipelines.
 
 > 📘
 > Remember that not all the features of Bitbucket can be fully converted to the Buildkite Pipelines format. See the following sections to learn more about the compatibility, workarounds, and limitation of converting Bitbucket pipelines to Buildkite Pipelines.

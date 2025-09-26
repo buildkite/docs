@@ -4,7 +4,7 @@ The [Buildkite migration tool](/docs/pipelines/migration/tool) helps you convert
 
 ## Using the Buildkite migration tool with CircleCI
 
-To start converting your CircleCI pipeline configurations into Buildkite pipelines format:
+To start converting your CircleCI pipeline configurations into Buildkite Pipelines format:
 
 1. Open the [Buildkite migration interactive web tool](https://buildkite.com/resources/migrate/) in a new browser tab.
 1. Select **CircleCI** at the top of the left panel.

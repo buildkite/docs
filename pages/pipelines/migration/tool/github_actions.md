@@ -9,7 +9,7 @@ The [Buildkite migration tool](/docs/pipelines/migration/tool) helps you convert
 
 ## Using the Buildkite migration tool with GitHub Actions
 
-To start converting your GitHub Actions workflow into Buildkite pipelines format:
+To start converting your GitHub Actions workflow into Buildkite Pipelines format:
 
 1. Open the [Buildkite migration interactive web tool](https://buildkite.com/resources/migrate/) in a new browser tab.
 1. Ensure **GitHub Actions** is selected at the top of the left panel.
