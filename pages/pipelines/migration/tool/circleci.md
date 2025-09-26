@@ -66,6 +66,7 @@ The Buildkite migration tool supports the use of [YAML aliases in CircleCI pipel
 
 | Key | Supported | Notes |
 | --- | --- | --- |
+| `when` | Partially | Conditional execution key that allows workflows to run based on pipeline parameters, Git branch patterns, or other conditions. In CircleCI, this enables dynamic workflow control. The Buildkite migration tool maps basic `when` conditions to Buildkite's conditional steps and pipeline rules, though complex nested conditions may require manual adjustment. |
 | `and` | Partially | Logical operator for denoting that all inputs required to be true. Supported alongside the `when` key within setting up conditional `workflow` runs. |
 | `or` | Partially | Logical operator for describing whether any of the inputs are true. Supported alongside the `when` key within setting up conditional `workflow` runs. |
 | `not` | Partially | Logical operator for negating input. Supported alongside the `when` key within setting up conditional `workflow` runs. |
