@@ -1,0 +1,10 @@
+<%= render partial: 'pipelines/configure/example_pipelines/repos', locals: {
+  repos: [
+    {
+      emoji: ':nuget:',
+      name: 'NuGet',
+      link: 'buildkite/packages-nuget-example',
+      description: 'Build NuGet package from Microsoft dotnet project using Buildkite and publishing to Buildkite Package Registries'
+    }
+  ]
+} %>
