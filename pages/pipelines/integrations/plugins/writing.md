@@ -37,7 +37,7 @@ git init
 
 ## Step 2: Add a plugin.yml
 
-Next, create `plugin.yml` to describe how the plugin appears in the [Buildkite plugins directory](/docs/pipelines/integrations/plugins/directory), what it requires, and what configuration options it accepts.
+Next, create `plugin.yml` to describe how the plugin appears in the [Buildkite plugins directory](https://buildkite.com/resources/plugins), what it requires, and what configuration options it accepts.
 
 ```yaml
 name: File Counter
@@ -161,6 +161,62 @@ echo "Found ${COUNT} files matching ${PATTERN}"
 buildkite-agent annotate "Found ${COUNT} files matching ${PATTERN}"
 ```
   {: codeblock-file="hooks/post-command"}
+
+## Publish to the Buildkite Plugins Directory
+
+Once you've created your plugin, you can add it to the [Buildkite plugins directory](https://buildkite.com/resources/plugins) by following these steps:
+
+1. Host your plugin in GitHub as a public repository.
+2. Ensure your repository contains a valid `plugin.yml` file containing at least the `name` and `description` fields.
+3. Add the `buildkite-plugin` [GitHub repository topic](https://help.github.com/en/github/administering-a-repository/classifying-your-repository-with-topics).
+4. Wait until the next Sunday (UTC) for the plugins directory to sync with GitHub, and for your plugin to appear.
+
+For example:
+
+<%= image "github-topic.png", width: 1214/2, height: 440/2, alt: "Screenshot of the ECR plugin GitHub repo with the Buildkite-plugin topic highlighted by a red box" %>
+
+Once completed, your plugin will appear in the directory:
+
+<%= image "ecr-plugin-directory-item.png", width: 1014/2, height: 500/2, alt: "Screenshot of ECR plugin in the Buildkite plugins directory" %>
+
+If you would like your plugin to appear in a certain category in the plugins directory, you need to add the corresponding GitHub label(s). Currently, the following labels will be recognized by the plugin directory:
+
+* Task
+  + Code checkout: `checkout`, `git`, `svn`
+  + Tests: `test`, `testing`, `junit`, `jest`
+  + Cache: `cache`, `caching`
+  + Containers/Docker: `docker`, `container`, `containers`
+  + Running jobs in Kubernetes: `kubernetes`, `k8s`
+  + Secrets: `secret`, `secrets`, `vault`
+  + Authenticate: `auth`, `authenticate`
+  + Writing Buildkite pipelines: `pipeline`, `pipelines`
+  + Deploy: `deploy`, `deployment`, `release`
+  + Running jobs in VMs: `vm`, `virtual machine`
+  + Security & compliance: `security`,`compliance`,`audit`,`scan`,`scanning`,`vulnerability`
+  + Running jobs in Windows: `windows`
+  + Observability: `observability`, `monitoring`, `logging`, `metrics`
+  + Mobile app development: `mobile`, `ios`, `android`, `react-native`
+  + Notify: `notify`, `notification`
+  + Linting & formatting: `lint`, `linting`, `format`, `formatting`, `shellcheck`
+  + Packages: `package`, `packaging`, `npm`, `pip`
+  + AI/LLMs: `ai`, `llm`, `ml`, `machine learning`
+  + Project management: `project`, `management`
+* Integration
+  + Integrations: `integration`, `integrations`, `slack`, `discord`, `jira`
+  + AWS: `aws`, `amazon`
+  + GCP: `gcp`, `google-cloud`, `google`
+  + Azure: `azure`, `microsoft`
+* Language
+  + Java: `java`, `maven`, `gradle`
+  + Ruby: `ruby`, `rails`
+  + Golang: `go`, `golang`
+  + JavaScript: `javascript`, `typescript`, `node`, `nodejs`
+  + Bazel: `bazel`
+  + Infrastructure as code: `terraform`, `cloudformation`, `cfn`, `infrastructure`
+  + Other languages: `julia`, `python`, `rust`, `c++`, `c#`, `dhall`
+
+> 🚧
+> If you've completed the above steps and your plugin doesn't appear in the directory, send an email to <a href="mailto:support@buildkite.com">support@buildkite.com</a> and we'll investigate it for you.
 
 ## Step 5: Add a test
 
@@ -292,7 +348,7 @@ If you would like your plugin to appear in a certain category in the plugins dir
   + Infrastructure as code: `terraform`, `cloudformation`, `cfn`, `infrastructure`
   + Other languages: `julia`, `python`, `rust`, `c++`, `c#`, `dhall`
 
-For full instructions regarding publishing your plugins and making sure they appear in the _plugins directory_, see the [plugins directory documentation](/docs/pipelines/integrations/plugins/directory).
+For full instructions regarding publishing your plugins and making sure they appear in the _plugins directory_, see the [Finding plugins section](/docs/pipelines/integrations/plugins#finding-plugins) in the plugins overview.
 
 ## Designing plugins: single-command plugins versus library plugins
 
