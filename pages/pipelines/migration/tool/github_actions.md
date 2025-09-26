@@ -65,19 +65,16 @@ The Buildkite migration tool interface should look similar to this:
 
 <%= image "migration-tool-gha.png", alt: "Converting a GitHub Actions pipeline in Buildkite migration tool's web UI" %>
 
-> 📘 Local API use
-> While the web-based migration tool provides a convenient interface for converting your existing pipelines, you can also run the Buildkite migration tool [locally via its HTTP API](/docs/pipelines/migration/tool#local-API-based-version). The local version offers the same conversion capabilities as the web interface.
-
-You might need to adjust the syntax of the resulting converted output to make it is consistent with the [step configuration conventions](/docs/pipelines/configure/step-types) syntax used in Buildkite Pipelines.
+You might need to adjust the converted Buildkite pipeline output to make it is consistent with the [step configuration conventions](/docs/pipelines/configure/step-types) used in Buildkite Pipelines.
 
 > 📘
-> Remember that not all the features of GitHub Actions can be fully converted to the Buildkite Pipelines format. See the following sections to learn more about the compatibility, workarounds, and limitation of converting GitHub Actions pipelines to Buildkite Pipelines.
+> Remember that not all the features of GitHub Actions can be fully converted to the Buildkite Pipelines format. See the following sections to learn more about the compatibility, workarounds, and limitation of converting GitHub Actions workflows to Buildkite pipelines.
 
 ## Concurrency
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
-| `concurrency` | No | [Buildkite concurrency groups](/docs/pipelines/controlling-concurrency#concurrency-groups) don't apply to whole pipelines but rather to individual steps, so there is no direct translation of this configuration. Refer to the support of the job-level configuration for more information: [`jobs.<id>.concurrency`](#jobs). |
+| `concurrency` | No | Buildkite Pipelines' [concurrency groups](/docs/pipelines/controlling-concurrency#concurrency-groups) don't apply to whole pipelines but rather to individual steps, so there is no direct translation of this configuration. Refer to the support of the job-level configuration for more information: [`jobs.<id>.concurrency`](#jobs). |
 
 ## Defaults
 
@@ -89,26 +86,93 @@ You might need to adjust the syntax of the resulting converted output to make it
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
-| `env` | Yes | Environment variables that are defined at the top of a workflow will be translated to [build-level environment variables](/docs/pipelines/environment-variables#environment-variable-precedence) in the generated Buildkite pipeline |
+| `env` | Yes | Environment variables that are defined at the top of a workflow will be translated to [build-level environment variables](/docs/pipelines/environment-variables#environment-variable-precedence) in the generated Buildkite pipeline. |
 
 ## Jobs
 
 > 📘
-> When Buildkite builds are run, each created command step inside the pipeline is ran as a [job](/docs/pipelines/configure/defining-steps#job-states) that will be distributed and assigned to the matching agents meeting their specific queue and tag [targeting](/docs/pipelines/configure/defining-steps#targeting-specific-agents). Each job is run within its own separate environment, with potentially different environment variables (for example, those defined at the [step](/docs/pipelines/configure/step-types/command-step#command-step-attributes) level) and is not guaranteed to run on the same agent depending on targeting rules and the agent fleet setup.
+> When Buildkite pipelines are built, each created command step inside the pipeline is ran as a [job](/docs/pipelines/configure/defining-steps#job-states) that will be distributed and assigned to the matching agents meeting their specific queue and tag [targeting](/docs/pipelines/configure/defining-steps#targeting-specific-agents). Each job is run within its own separate environment, with potentially different environment variables (for example, those defined at the [step](/docs/pipelines/configure/step-types/command-step#command-step-attributes) level) and is not guaranteed to run on the same agent depending on targeting rules and the agent fleet setup.
 
-| Key | Supported | Notes |
-| --- | ---------- | ----- |
-| `jobs.<id>.concurrency` | Partially | The `group` name inside a `concurrency` definition inside of a job maps to the `concurrency_group` [key](/docs/pipelines/controlling-concurrency#concurrency-groups) available within Buildkite.<br/><br/>The `cancel-in-progress` optional value maps to the Buildkite pipeline setting of [Cancel Intermediate Builds](/docs/pipelines/skipping#cancel-running-intermediate-builds).<br/><br/>Buildkite Pipelines also allow setting an upper limit on how many jobs are created through a single step definition with the `concurrency` key which is set as `1` by default (there isn't a translatable counterpart to the "key" parameter within a GitHub Action workflow). |
-| `jobs.<id>.env` | Yes | Environment variables defined within the context of each of a workflow's `jobs` are translated to [step-level environment variables](/docs/pipelines/environment-variables#runtime-variable-interpolation). |
-| `jobs.<id>.runs-on` | Yes | This attribute is mapped to the agent targeting [tag](/docs/agent/v3/queues#targeting-a-queue) `runs-on`. Jobs that target custom `tag` names will have a `queue` target of `default`. |
-| `jobs.<id>.steps`| Yes | Steps that make up a particular action's `job`. |
-| `jobs.<id>.steps.env` | Yes | Environment variables that are defined at `step` level are translated as a variable definition within the `commands` of a [command step](/docs/pipelines/configure/step-types/command-step). |
-| `jobs.<id>.steps.run` | Yes | The commands (must be shorter than 21,000 characters) that make up a particular job. Each `run` is translated to a separate command inside of the output `commands` block of its generated Buildkite command step. |
-| `jobs.<id>.steps.strategy` | Yes | Allows for the conversion of a step's `strategy` (matrix) to create multiple jobs from a combination of values. |
-| `jobs.<id>.steps.strategy.matrix` | Yes | A `matrix` key inside of a step's `strategy` will be translated to a [Buildkite build matrix](/docs/pipelines/build-matrix). |
-| `jobs.<id>.steps.strategy.matrix.include` | Yes| Key-value pairs to add to the generated [matrix](/docs/pipelines/build-matrix)'s combinations. |
-| `jobs.<id>.steps.strategy.matrix.exclude`| Yes | Key-value pairs to exclude from the generated [matrix](/docs/pipelines/build-matrix)'s combinations (`skip`). |
-| `jobs.<id>.steps.uses` | No | `uses` defines a separate action to use within the context of a GitHub Action's job. Currently isn't supported. |
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th style="width:30%">Key</th>
+      <th style="width:10%">Supported</th>
+      <th style="width:60%">Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        "key": "jobs.&lt;id&gt;.concurrency",
+        "supported": "Partially",
+        "notes": "The `group` name inside a `concurrency` definition inside of a job maps to the `concurrency_group` [key](/docs/pipelines/controlling-concurrency#concurrency-groups) available within Buildkite Pipelines.<br/><br/>The `cancel-in-progress` optional value maps to the Buildkite pipeline setting of [Cancel Intermediate Builds](/docs/pipelines/skipping#cancel-running-intermediate-builds).<br/><br/>Buildkite Pipelines also allow setting an upper limit on how many jobs are created through a single step definition with the `concurrency` key which is set as `1` by default (there isn't a translatable counterpart to the \"key\" parameter within a GitHub Action workflow)."
+      },
+      {
+        "key": "jobs.&lt;id&gt;.env",
+        "supported": "Yes",
+        "notes": "Environment variables defined within the context of each of a workflow's `jobs` are translated to [step-level environment variables](/docs/pipelines/environment-variables#runtime-variable-interpolation)."
+      },
+      {
+        "key": "jobs.&lt;id&gt;.runs-on",
+        "supported": "Yes",
+        "notes": "This attribute is mapped to the agent targeting [tag](/docs/agent/v3/queues#targeting-a-queue) `runs-on`. Jobs that target custom `tag` names will have a `queue` target of `default`."
+      },
+      {
+        "key": "jobs.&lt;id&gt;.steps",
+        "supported": "Yes",
+        "notes": "Steps that make up a particular action's `job`."
+      },
+      {
+        "key": "jobs.&lt;id&gt;.steps.env",
+        "supported": "Yes",
+        "notes": "Environment variables that are defined at `step` level are translated as a variable definition within the `commands` of a [command step](/docs/pipelines/configure/step-types/command-step)."
+      },
+      {
+        "key": "jobs.&lt;id&gt;.steps.run",
+        "supported": "Yes",
+        "notes": "The commands (must be shorter than 21,000 characters) that make up a particular job. Each `run` is translated to a separate command inside of the output `commands` block of its generated Buildkite command step."
+      },
+      {
+        "key": "jobs.&lt;id&gt;.steps.strategy",
+        "supported": "Yes",
+        "notes": "Allows for the conversion of a step's `strategy` (matrix) to create multiple jobs from a combination of values."
+      },
+      {
+        "key": "jobs.&lt;id&gt;.steps.strategy.matrix",
+        "supported": "Yes",
+        "notes": "A `matrix` key inside of a step's `strategy` will be translated to a [Buildkite build matrix](/docs/pipelines/build-matrix)."
+      },
+      {
+        "key": "jobs.&lt;id&gt;.steps.strategy.matrix.include",
+        "supported": "Yes",
+        "notes": "Key-value pairs to add to the generated [matrix](/docs/pipelines/build-matrix)'s combinations."
+      },
+      {
+        "key": "jobs.&lt;id&gt;.steps.strategy.matrix.exclude",
+        "supported": "Yes",
+        "notes": "Key-value pairs to exclude from the generated [matrix](/docs/pipelines/build-matrix)'s combinations (`skip`)."
+      },
+      {
+        "key": "jobs.&lt;id&gt;.steps.uses",
+        "supported": "No",
+        "notes": "`uses` defines a separate action to use within the context of a GitHub Action's job. Currently isn't supported."
+      }
+    ].select { |field| field[:key] }.each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:key] %></code>
+        </td>
+        <td>
+          <p><%= field[:supported] %></p>
+        </td>
+        <td>
+          <p><%= render_markdown(text: field[:notes]) %></p>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 ## Name
 
