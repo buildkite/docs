@@ -207,7 +207,6 @@ Rails.application.routes.draw do
   get "/docs/plugins",                                                     to: redirect("/docs/pipelines/integrations/plugins")
   get "/docs/plugins/using",                                               to: redirect("/docs/pipelines/integrations/plugins/using")
   get "/docs/plugins/directory",                                           to: redirect("/docs/pipelines/integrations/plugins#finding-plugins")
-  get "/docs/plugins/tools",                                               to: redirect("/docs/pipelines/integrations/plugins/writing#plugin-tools")
   get "/docs/projects",                                                    to: redirect("/docs/pipelines")
   get "/docs/quickstart/*page",                                            to: redirect("/docs/tutorials/%{page}")
   get "/docs/rest-api",                                                    to: redirect("/docs/apis/rest-api")
