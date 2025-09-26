@@ -38,15 +38,15 @@ In such cases, ensure that the original pipeline configuration you are translati
 
 ## Local version
 
-If you would like to run the Buildkite migration tool locally, you can clone the [Buildkite migration tool repository](https://github.com/buildkite/migration) to run the migration tool using [Puma](https://github.com/puma/puma), which you can then access through its HTTP-based API.
+If you would like to run the Buildkite migration tool locally, simply clone the [Buildkite migration tool repository](https://github.com/buildkite/migration) to run the migration tool using [Puma](https://github.com/puma/puma), which you can then access through its HTTP-based API.
 
-After cloning the [Buildkite migration tool repository](https://github.com/buildkite/migration), you can start the web UI with the following Docker command:
+To do this, after cloning this repository, start the Buildkite migration tool's web interface using the following Docker command:
 
 ```sh
 docker compose up webui
 ```
 
-After starting the Docker image, you will be able to access the web interface of the Buildkite migration tool at `http://localhost:9292`.
+After the Docker image has started, you'll be able to access the web interface of the Buildkite migration tool at `http://localhost:9292`.
 
 <%= image "api-web-ui.png", alt: "Web UI of the API version of the Buildkite migration tool" %>
 

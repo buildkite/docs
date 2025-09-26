@@ -16,7 +16,7 @@ To start converting your GitHub Actions workflow into Buildkite pipelines format
 1. Copy your GitHub Actions workflow configuration and paste it into the left panel.
 1. Select **Convert** to reveal the translated pipeline configuration in the **Buildkite Pipeline** panel.
 
-For example, when converting the following GitHub Actions workflow configuration:
+For example, when converting the following example GitHub Actions workflow configuration:
 
 ```yml
 name: CI
@@ -65,7 +65,7 @@ The Buildkite migration tool interface should look similar to this:
 
 <%= image "migration-tool-gha.png", alt: "Converting a GitHub Actions pipeline in Buildkite migration tool's web UI" %>
 
-You might need to adjust the converted Buildkite pipeline output to make it is consistent with the [step configuration conventions](/docs/pipelines/configure/step-types) used in Buildkite Pipelines.
+You might need to adjust the converted Buildkite pipeline output to ensure it is consistent with the [step configuration conventions](/docs/pipelines/configure/step-types) used in Buildkite Pipelines.
 
 > 📘
 > Remember that not all the features of GitHub Actions can be fully converted to the Buildkite Pipelines format. See the following sections to learn more about the compatibility, workarounds, and limitation of converting GitHub Actions workflows to Buildkite pipelines.
@@ -75,18 +75,21 @@ You might need to adjust the converted Buildkite pipeline output to make it is c
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
 | `concurrency` | No | Buildkite Pipelines' [concurrency groups](/docs/pipelines/controlling-concurrency#concurrency-groups) don't apply to whole pipelines but rather to individual steps, so there is no direct translation of this configuration. Refer to the support of the job-level configuration for more information: [`jobs.<id>.concurrency`](#jobs). |
+{: class="responsive-table"}
 
 ## Defaults
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
 | `defaults.run` | No | Buildkite pipeline definitions allow for common pipeline configurations to be applied with [YAML anchors](/docs/plugins/using#using-yaml-anchors-with-plugins), as well as setting up customised [agent](/docs/agent/v3/hooks#agent-lifecycle-hooks) and [job](/docs/agent/v3/hooks#job-lifecycle-hooks) lifecycle hooks. |
+{: class="responsive-table"}
 
 ## Environment
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
 | `env` | Yes | Environment variables that are defined at the top of a workflow will be translated to [build-level environment variables](/docs/pipelines/environment-variables#environment-variable-precedence) in the generated Buildkite pipeline. |
+{: class="responsive-table"}
 
 ## Jobs
 
@@ -178,20 +181,24 @@ When Buildkite pipelines are built, each command step inside the pipeline is ran
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
 | `name` | No | The `name` key sets the name of the action as it will appear in the GitHub repository's **Actions** tab. When creating a Buildkite pipeline, its name is usually set through the Buildkite interface when a pipeline is first created, and can be altered through the pipeline settings, or using the [REST](/docs/apis/rest-api/pipelines#update-a-pipeline) or [GraphQL](/docs/apis/graphql/schemas/input-object/pipelineupdateinput) APIs. |
+{: class="responsive-table"}
 
 ## On
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
 | `on` | No | The `on` key defines the pipeline trigger in a GitHub Action workflow. In Buildkite Pipelines, this is a Buildkite interface setting in the pipeline's **Settings** > **GitHub** page > **GitHub Settings** section. |
+{: class="responsive-table"}
 
 ## Permissions
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
 | `permissions` | No | [API Access Tokens](/docs/apis/managing-api-tokens) can be used within the context of a pipeline's build to interact with various Buildkite resources such as pipelines, artifacts, users, Test Suites, and more. Each access token has a specified set of [token scopes](/docs/apis/managing-api-tokens#token-scopes) that applies to interactions with the [REST](/docs/apis/rest-api) API, and can be configured with a permission to interact with Buildkite's [GraphQL](/docs/apis/graphql-api) API. The `permissions` key allows for the interaction with commit `statuses`. The [Buildkite GitHub App](/docs/integrations/github#connect-your-buildkite-account-to-github-using-the-github-app) must be added to the respective GitHub organization to allow Buildkite Pipelines to publish commit statuses for builds based on commits and pull requests on pipeline builds and for the statuses to appear based on a build's outcome. The GitHub App can be configured with access to all or a select number of repositories within a GitHub organization. |
+{: class="responsive-table"}
 
 ## Run name
 
 | Key | Supported | Notes |
 | --- | ---------- | ----- |
 | `run-name` | No | Build messages in Buildkite Pipelines are set as the `BUILDKITE_MESSAGE` environment variable (commit message from source control). Build messages can be set in when creating new builds manually, or by using the [REST](/docs/apis/rest-api/builds#create-a-build) or [GraphQL](/docs/apis/graphql/cookbooks/builds#create-a-build-on-a-pipeline) APIs. |
+{: class="responsive-table"}

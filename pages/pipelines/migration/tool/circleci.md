@@ -1,18 +1,17 @@
 # CircleCI
 
-With the help of the [Buildkite migration tool](/docs/pipelines/migration/tool), you can start converting your CircleCI pipelines into Buildkite pipelines. This page lists the Buildkite migration tool's currently supported, partially supported, and unsupported attributes for translating from CircleCI pipelines to Buildkite pipelines.
+The [Buildkite migration tool](/docs/pipelines/migration/tool) helps you convert your CircleCI pipelines into Buildkite pipelines. This page lists the Buildkite migration tool's currently supported, partially supported, and unsupported keys for translating from CircleCI pipeline configurations to Buildkite pipelines.
 
 ## Using the Buildkite migration tool with CircleCI
 
-To start converting your CircleCI pipelines to the Buildkite format:
+To start converting your CircleCI pipeline configurations into Buildkite pipelines format:
 
-1. Go to the [interactive web tool](https://buildkite.com/resources/migrate/) page.
-1. Select **CircleCI** in the UI.
-1. Paste your CircleCI pipeline configuration.
-1. Click **Convert**.
-1. See the converted pipeline configuration on the **Buildkite Pipeline** side of the tool.
+1. Open the [Buildkite migration interactive web tool](https://buildkite.com/resources/migrate/) in a new browser tab.
+1. Select **CircleCI** at the top of the left panel.
+1. Copy your CircleCI pipeline configuration and paste it into the left panel.
+1. Select **Convert** to reveal the translated pipeline configuration in the **Buildkite Pipeline** panel.
 
-For example, if you would like to convert the following CircleCI pipeline configuration:
+For example, when converting the following example CircleCI pipeline configuration:
 
 ```yml
 version: 2.1
@@ -35,7 +34,7 @@ workflows:
       - build
 ```
 
-This is the output that the Buildkite migration tool is going to provide:
+The Buildkite migration tool should translate this to the following output:
 
 ```yml
 ---
@@ -52,16 +51,13 @@ steps:
   key: build
 ```
 
-You will see the following in the Buildkite migration tool UI during the conversion of the example configuration:
+The Buildkite migration tool interface should look similar to this:
 
 <%= image "migration-tool-circleci.png", alt: "Converting a CircleCI pipeline in Buildkite migration tool's web UI" %>
 
-> 📘 Local API use
-> While the web-based migration tool provides a convenient interface for converting your existing pipelines, you can also run the Buildkite migration tool [locally via its HTTP API](/docs/pipelines/migration/tool#local-API-based-version). The local version offers the same conversion capabilities as the web interface.
+You might need to adjust the converted Buildkite pipeline output to ensure it is consistent with the [step configuration conventions](/docs/pipelines/configure/step-types) used in Buildkite Pipelines.
 
-You might need to adjust the syntax of the resulting converted output to make it is consistent with the [step configuration conventions](/docs/pipelines/configure/step-types) syntax used in Buildkite Pipelines.
-
-The Buildkite migration tool supports the use of YAML aliases - reusable configuration snippets to be applied to specific points in a CircleCI pipeline. These are defined with a `&` (anchor) within the top-level `aliases` key and substituted into CircleCI pipeline configuration with `*` (for example, `*tests`). Configuration defined by an alias will be respected and parsed at the specified section of the pipeline. Also note that the anchors will be expanded in the resulting converted pipeline.
+The Buildkite migration tool supports the use of [YAML aliases in CircleCI pipeline configurations](https://circleci.com/docs/guides/getting-started/introduction-to-yaml-configurations/#anchors-and-aliases), which are reusable configuration snippets that can applied to specific points in a pipeline configuration. A YAML alias is defined by an `&` (anchor, for example, `&tests`) within the top-level `aliases` key and substituted into a CircleCI pipeline configuration with an `*` (for example, `*tests`). A configuration defined by an alias is respected and parsed at its specified section in the pipeline configuration. Also note that more complex (for example, multi-line) anchors defined as a YAML alias in a CircleCI pipeline configuration are expanded upon their translation into Buildkite pipeline format.
 
 > 📘
 > Remember that not all the features of CircleCI can be fully converted to the Buildkite Pipelines format. See the following sections to learn more about the compatibility, workarounds, and limitation of converting CircleCI pipelines to Buildkite Pipelines.
@@ -70,50 +66,149 @@ The Buildkite migration tool supports the use of YAML aliases - reusable configu
 
 | Key | Supported | Notes |
 | --- | --- | --- |
-| `and` | Partially | Logical operator for denoting all inputs required to be true. Supported alongside the `when` key within setting up conditional `workflow` runs. |
+| `and` | Partially | Logical operator for denoting that all inputs required to be true. Supported alongside the `when` key within setting up conditional `workflow` runs. |
 | `or` | Partially | Logical operator for describing whether any of the inputs are true. Supported alongside the `when` key within setting up conditional `workflow` runs. |
 | `not` | Partially | Logical operator for negating input. Supported alongside the `when` key within setting up conditional `workflow` runs. |
+{: class="responsive-table"}
 
 ## Commands
 
 | Key | Supported | Notes |
 | --- | --- | --- |
-| `commands` | Yes | A `command` defined in a CircleCI pipeline is a reusable set of instructions with parameters that can be inserted into required `job` executions. Commands can have their own lists of `steps` that are translated through to the generated [command step](/docs/pipelines/configure/step-types/command-step)'s `commands`. If a `command` contains a `parameters` key, those parameters are respected when used in jobs and workflows. When not specified otherwise, the default values are used. |
+| `commands` | Yes | A `command` defined in a CircleCI pipeline is a reusable set of instructions with parameters that can be inserted into required `job` executions. Commands can have their own lists of `steps` that are translated through to the generated [command step](/docs/pipelines/configure/step-types/command-step)'s `commands`. If a `command` contains a `parameters` key, these parameters are respected when used in jobs and workflows. When not specified, the parameters' default values are used. |
+{: class="responsive-table"}
 
 ## Executors
 
 | Key | Supported | Notes |
 | --- | --- | --- |
-| `executors` | Yes | The `executor` key defined at the top level in a CircleCI workflow is mapped to the use of the `executor` key specified within a specific `job`. Supported execution environments include `machine`, `docker`, `macos`, and `windows`. Further information can be found in the _Jobs_ table below. The execution environment in Buildkite Pipelines is specified with each environment's applied [tags](/docs/agent/v3/cli-start#setting-tags) in their generated [command step](/docs/pipelines/configure/step-types/command-step), which can be [targeted](/docs/pipelines/configure/defining-steps#targeting-specific-agents) when creating builds. |
+| `executors` | Yes | The `executor` key defined at the top level in a CircleCI workflow is mapped to the use of the `executor` key specified within a specific `job`. Supported execution environments include `machine`, `docker`, `macos`, and `windows`. Further information can be found in the [Jobs > Executors](/docs/pipelines/migration/tool/circleci#jobs-executors) table below. The execution environment in Buildkite Pipelines is specified with each environment's applied [tags](/docs/agent/v3/cli-start#setting-tags) in their generated [command step](/docs/pipelines/configure/step-types/command-step), which can be [targeted](/docs/pipelines/configure/defining-steps#targeting-specific-agents) when creating builds. |
+{: class="responsive-table"}
 
 ## Jobs
 
 ### General
 
-| Key | Supported | Notes |
-| --- | --- | --- |
-| `jobs` | Yes | A collection of steps that run on a single worker unit whether directly on a host or on a virtualized host (for example, within a Docker container). Orchestrated with `workflows`. |
-| `jobs.<name>` | Yes | Named, individual `jobs` that make up a part of a given `workflow`. |
-| `jobs.<name>.environment` | Yes | The `job`-level environment variables of a CircleCI pipeline. Applied in the generated [command step](/docs/pipelines/configure/step-types/command-step) as [step-level environment variables](/docs/pipelines/environment-variables#runtime-variable-interpolation) with the `env` key. |
-| `jobs.<name>.parallelism` | No | A `parallelism` parameter (if greater than `1` is defined) will create a separate execution environment and will run the `steps` of the specific `job` in parallel. In Buildkite Pipelines, a similar `parallelism` key can be set to a [command step](/docs/pipelines/configure/step-types/command-step), which will run the defined `command` over separate jobs (sharing the same agent [queues](/docs/agent/v3/queues#setting-an-agents-queue) and [tags](/docs/agent/v3/cli-start#setting-tags) targeting). |
-| `jobs.<name>.parameters` | Yes | Reusable keys that are used within `step` definitions within a `job`. Default parameters that are specified in a `parameters` block are passed through into the [command step](/docs/pipelines/configure/step-types/command-step)'s `commands` if specified. |
-| `jobs.<name>.shell` | No | The `shell` property sets the default shell that is used across all commands within all steps. This should be configured on the agent - or by defining the `shell` [option](/docs/agent/v3/cli-start#shell) when starting a Buildkite Agent and this will set the shell command used to interpret all build commands. |
-| `jobs.<name>.steps` | Partially | A collection of non-`orb` `jobs` commands that are executed as part of a CircleCI `job`. Steps can be defined within an `alias`. All the `steps` within a singular `job` are translated to the `commands` of a shared [command step](/docs/pipelines/configure/step-types/command-step) within the generated Buildkite pipeline to ensure they share the same execution environment. |
-| `jobs.<name>.working_directory` | Yes | The location of the executor where steps are run. If set, a "change directory" (`cd`) command is created within the shared `commands` of a Buildkite Pipelines' [command step](/docs/pipelines/configure/step-types/command-step) to the desired location. |
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th style="width:30%">Key</th>
+      <th style="width:10%">Supported</th>
+      <th style="width:60%">Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        "key": "jobs.&lt;name&gt;",
+        "supported": "Yes",
+        "notes": "Named, individual `jobs` that make up a part of a given `workflow`."
+      },
+      {
+        "key": "jobs.&lt;name&gt;.environment",
+        "supported": "Yes",
+        "notes": "The `job`-level environment variables of a CircleCI pipeline. Applied in the generated [command step](/docs/pipelines/configure/step-types/command-step) as [step-level environment variables](/docs/pipelines/environment-variables#runtime-variable-interpolation) with the `env` key."
+      },
+      {
+        "key": "jobs.&lt;name&gt;.parallelism",
+        "supported": "No",
+        "notes": "A `parallelism` parameter (if greater than `1` is defined) will create a separate execution environment and will run the `steps` of the specific `job` in parallel. In Buildkite Pipelines, a similar `parallelism` key can be set to a [command step](/docs/pipelines/configure/step-types/command-step), which will run the defined `command` over separate jobs (sharing the same agent [queues](/docs/agent/v3/queues#setting-an-agents-queue) and [tags](/docs/agent/v3/cli-start#setting-tags) targeting)."
+      },
+      {
+        "key": "jobs.&lt;name&gt;.parameters",
+        "supported": "Yes",
+        "notes": "Reusable keys that are used within `step` definitions within a `job`. Default parameters that are specified in a `parameters` block are passed through into the [command step](/docs/pipelines/configure/step-types/command-step)'s `commands` if specified."
+      },
+      {
+        "key": "jobs.&lt;name&gt;.shell",
+        "supported": "No",
+        "notes": "The `shell` property sets the default shell that is used across all commands within all steps. This should be configured on the Buildkite Agent itself, or by defining the `shell` [option](/docs/agent/v3/cli-start#shell) when starting a Buildkite Agent, which sets the shell command used to interpret all build commands."
+      },
+      {
+        "key": "jobs.&lt;name&gt;.steps",
+        "supported": "Partially",
+        "notes": "A collection of non-`orb` `jobs` commands that are executed as part of a CircleCI `job`. Steps can be defined within an `alias`. All the `steps` within a singular `job` are translated to the `commands` of a shared [command step](/docs/pipelines/configure/step-types/command-step) within the generated Buildkite pipeline to ensure they share the same execution environment."
+      },
+      {
+        "key": "jobs.&lt;name&gt;.working_directory",
+        "supported": "Yes",
+        "notes": "The location of the executor where steps are run. If set, a \"change directory\" (`cd`) command is created within the shared `commands` of a Buildkite Pipelines' [command step](/docs/pipelines/configure/step-types/command-step) to the desired location."
+      }
+    ].select { |field| field[:key] }.each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:key] %></code>
+        </td>
+        <td>
+          <p><%= field[:supported] %></p>
+        </td>
+        <td>
+          <p><%= render_markdown(text: field[:notes]) %></p>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 ### Executors
 
-> 📘
-> While the Buildkite migration tool will translate the executor types listed below, the prerequisite for using the generated steps will require a relevant compatible OS, dependencies, and tooling (for example, Docker or XCode) on the targeted agents. Buildkite offers the [Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack) as a fully scalable Buildkite agent fleet on AWS with a suite of tooling installed by default. Additionally, customized agents can be [set up](/docs/agent/v3/configuration) to target builds that require specific OSes/tooling. Or you can use [Buildkite hosted agents](/docs/pipelines/hosted-agents) - a platform for running your agents, fully managed by Buildkite.
+While the Buildkite migration tool will translate the following listed executor types, the prerequisite for using the generated steps in your translated Buildkite pipeline, requires that the targeted agents have the relevant operating system (OS), dependencies, and tooling (for example, Docker or XCode) available. Buildkite offers the [Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack) as a fully scalable Buildkite Agent fleet on AWS with a suite of tooling installed by default. Additionally, customized agents can be [set up](/docs/agent/v3/configuration) to target builds that requires a specific OS, tooling, or both. Or you can use [Buildkite hosted agents](/docs/pipelines/hosted-agents)—a fully managed solution offered by Buildkite.
 
-| Key | Supported | Notes |
-| --- | --- | --- |
-| `jobs.<name>.docker` | Yes | Specifies that the `job` will run within a Docker container (using the `image` property) with the help of the [Docker Buildkite Plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/) or [Docker Compose Buildkite Plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/). Additionally, the [Docker Login Plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-login-buildkite-plugin/) is appended if an `auth` property is defined, or the [ECR Buildkite Plugin](https://buildkite.com/resources/plugins/buildkite-plugins/ecr-buildkite-plugin/) if an `aws-auth` property is defined within the `docker` property. Sets the [agent targeting](/docs/pipelines/configure/defining-steps#targeting-specific-agents) for the generated [command step](/docs/pipelines/configure/step-types/command-step) to `executor_type: docker`. |
-| `jobs.<name>.executor` | Yes | Specifies the execution environment based on an executor definition supplied in the top-level `executors` key. |
-| `jobs.<name>.macos` | Yes | Specifies that the `job` will run on a macOS-based execution environment. The [agent targeting](/docs/pipelines/configure/defining-steps#targeting-specific-agents) tags for the generated [command step](/docs/pipelines/configure/step-types/command-step) will be set to `executor_type: osx` and the specified version of `xcode` from the `macos` parameters will be set as `executor_xcode: <version>`. |
-| `jobs.<name>.machine` | Yes | Specifies that the `job` will run on a machine execution environment. This translates to [agent targeting](/docs/pipelines/configure/defining-steps#targeting-specific-agents) for the generated [command step](/docs/pipelines/configure/step-types/command-step) through the tags of `executor_type: machine` and `executor_image: self-hosted`. |
-| `jobs.<name>.resource_class` | Yes | The specification of compute that the executor will require for running a job. This is used to specify the `resource_class` [agent targeting](/docs/pipelines/configure/defining-steps#targeting-specific-agents) tag for the corresponding [command step](/docs/pipelines/configure/step-types/command-step). |
-| `jobs.<name>.windows` | Yes | Specifies that the `job` will run on a Windows-based execution environment. The [agent targeting](/docs/pipelines/configure/defining-steps#targeting-specific-agents) tags for the generated [command step](/docs/pipelines/configure/step-types/command-step) will be set to `executor_type: windows`. |
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th style="width:30%">Key</th>
+      <th style="width:10%">Supported</th>
+      <th style="width:60%">Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        "key": "jobs.&lt;name&gt;.docker",
+        "supported": "Yes",
+        "notes": "Specifies that the `job` will run within a Docker container (using the `image` property) with the help of the [Docker Buildkite Plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/) or [Docker Compose Buildkite Plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/). Additionally, the [Docker Login Plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-login-buildkite-plugin/) is appended if an `auth` property is defined, or the [ECR Buildkite Plugin](https://buildkite.com/resources/plugins/buildkite-plugins/ecr-buildkite-plugin/) if an `aws-auth` property is defined within the `docker` property. Sets the [agent targeting](/docs/pipelines/configure/defining-steps#targeting-specific-agents) for the generated [command step](/docs/pipelines/configure/step-types/command-step) to `executor_type: docker`."
+      },
+      {
+        "key": "jobs.&lt;name&gt;.executor",
+        "supported": "Yes",
+        "notes": "Specifies the execution environment based on an executor definition supplied in the top-level `executors` key."
+      },
+      {
+        "key": "jobs.&lt;name&gt;.macos",
+        "supported": "Yes",
+        "notes": "Specifies that the `job` will run on a macOS-based execution environment. The [agent targeting](/docs/pipelines/configure/defining-steps#targeting-specific-agents) tags for the generated [command step](/docs/pipelines/configure/step-types/command-step) will be set to `executor_type: osx` and the specified version of `xcode` from the `macos` parameters will be set as `executor_xcode: <version>`."
+      },
+      {
+        "key": "jobs.&lt;name&gt;.machine",
+        "supported": "Yes",
+        "notes": "Specifies that the `job` will run on a machine execution environment. This translates to [agent targeting](/docs/pipelines/configure/defining-steps#targeting-specific-agents) for the generated [command step](/docs/pipelines/configure/step-types/command-step) through the tags of `executor_type: machine` and `executor_image: self-hosted`."
+      },
+      {
+        "key": "jobs.&lt;name&gt;.resource_class",
+        "supported": "Yes",
+        "notes": "The specification of compute that the executor will require for running a job. This is used to specify the `resource_class` [agent targeting](/docs/pipelines/configure/defining-steps#targeting-specific-agents) tag for the corresponding [command step](/docs/pipelines/configure/step-types/command-step)."
+      },
+      {
+        "key": "jobs.&lt;name&gt;.windows",
+        "supported": "Yes",
+        "notes": "Specifies that the `job` will run on a Windows-based execution environment. The [agent targeting](/docs/pipelines/configure/defining-steps#targeting-specific-agents) tags for the generated [command step](/docs/pipelines/configure/step-types/command-step) will be set to `executor_type: windows`."
+      }
+    ].select { |field| field[:key] }.each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:key] %></code>
+        </td>
+        <td>
+          <p><%= field[:supported] %></p>
+        </td>
+        <td>
+          <p><%= render_markdown(text: field[:notes]) %></p>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 ## Orbs
 
