@@ -144,7 +144,6 @@ RSpec.feature "reading pages" do
       /docs/pipelines/emoji
       /docs/pipelines/pipelines
       /docs/pipelines/uploading-pipelines
-      /docs/pipelines/integrations/plugins/directory
       /docs/pipelines/integrations/plugins/tools
       /docs/projects
       /docs/rest-api

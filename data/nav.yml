@@ -488,7 +488,7 @@
             - name: "Using plugins"
               path: "pipelines/integrations/plugins/using"
             - name: "Writing plugins"
-              path: "pipelines/integrations/plugins/writing"
+              path: "/pipelines/integrations/plugins/writing"
         - name: "Notifications"
           children:
             - name: "PagerDuty"
