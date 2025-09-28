@@ -66,6 +66,7 @@ The Buildkite migration tool supports the use of [YAML aliases in CircleCI pipel
 
 | Key | Supported | Notes |
 | --- | --- | --- |
+| `when` | Partially | Conditional execution key that allows workflows to run based on pipeline parameters, Git branch patterns, or other conditions. In CircleCI, this enables dynamic workflow control. The Buildkite migration tool maps basic `when` conditions to Buildkite's conditional steps and pipeline rules, though complex nested conditions may require manual adjustment. |
 | `and` | Partially | Logical operator for denoting that all inputs required to be true. Supported alongside the `when` key within setting up conditional `workflow` runs. |
 | `or` | Partially | Logical operator for describing whether any of the inputs are true. Supported alongside the `when` key within setting up conditional `workflow` runs. |
 | `not` | Partially | Logical operator for negating input. Supported alongside the `when` key within setting up conditional `workflow` runs. |
@@ -215,7 +216,7 @@ While the Buildkite migration tool will translate the following listed executor 
 | Key | Supported | Notes |
 | --- | --- | --- |
 | `orbs` | No | Orbs are currently not supported by the Buildkite migration tool and should be translated by hand if their equivalent functionality is required within a Buildkite pipeline. In Buildkite Pipelines, reusable [plugins](/docs/plugins/directory) can provide a similar functionality for integrating various common (and third-party integration-related) tasks throughout a Buildkite pipeline, such as [logging into ECR](https://buildkite.com/resources/plugins/buildkite-plugins/ecr-buildkite-plugin/), running a step within a [Docker container](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/), running multiple Docker images through a [compose file](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/), triggering builds in a [monorepo setup](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/), to list a small number of these plugins. |
-| `Docker orbs` | Partially | Docker orbs are converted but their translation is only an approximation. It is recommended that any orb-related logic is rebuilt in a Buildkite pipeline instead based on the recommendations outlined in `orbs`. |
+| Docker `orbs` | Partially | Docker orbs are converted but their translation is only an approximation. It is recommended that any orb-related logic is reconstructed in a Buildkite pipeline instead based on the recommendations outlined in `orbs`. |
 {: class="responsive-table"}
 
 ## Parameters
@@ -236,7 +237,7 @@ While the Buildkite migration tool will translate the following listed executor 
 
 | Key | Supported | Notes |
 | --- | --- | --- |
-| `version` | No | The version of the CircleCI pipeline configuration applied to this pipeline. No equivalent mapping exists in Buildkite Pipelines. Attributes for required and optional attributes in the various step types that are supported in Buildkite Pipelines are listed in the [Step type overview documentation](/docs/pipelines/configure/step-types) for each of the possible step types. |
+| `version` | No | The version of the CircleCI pipeline configuration applied to this pipeline. No equivalent mapping exists in Buildkite Pipelines. |
 {: class="responsive-table"}
 
 ## Workflows
