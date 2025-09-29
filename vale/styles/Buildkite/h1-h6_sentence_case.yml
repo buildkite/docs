@@ -87,6 +87,7 @@ exceptions:
   - Docker Compose
   - Docker Desktop
   - Docker Hub
+  - ECR
   - EC2
   - Elastic
   - Elastic CI Stack
@@ -143,6 +144,7 @@ exceptions:
   - JSON
   - JUnit
   - JWKS
+  - Kaniko
   - KMS
   - Kotlin
   - Kubernetes
