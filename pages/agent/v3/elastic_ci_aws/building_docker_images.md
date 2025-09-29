@@ -20,27 +20,27 @@ chmod +x scripts/setup-ecr.sh
 ## 2) Configure your Buildkite pipeline env
 
 Set these env vars in the pipeline settings (or keep defaults in `.buildkite/pipeline.yml`):
-- `AWS_REGION` (e.g., `ca-central-1`)
+- `AWS_REGION` (for example, `ca-central-1`)
 - `ECR_ACCOUNT_ID` (your 12-digit account)
-- `ECR_REPO` (your repository name, e.g., `example/hello-kaniko`)
+- `ECR_REPO` (your repository name, for example, `example/hello-kaniko`)
 
-## 3) Push via Kaniko
+## 3) Push using Kaniko
 
 Commit and push. The step in `.buildkite/pipeline.yml` will:
 - generate a Docker config pointing to the **ECR credential helper**,
 - run the **Chainguard Kaniko** container to build,
 - push to ECR (with optional layer cache at `<repo>-cache`).
 
-> If your Git repository uses **SSH**, make sure your Elastic CI Stack **S3 secrets** bucket contains a `private_ssh_key` at the correct prefix (or switch to HTTPS + `git-credentials`).
+> If your Git repository uses **SSH**, make sure your Elastic CI Stack for AWS **S3 secrets** bucket contains a `private_ssh_key` at the correct prefix (or switch to HTTPS + `git-credentials`).
 
 
 ## Running Kaniko in Docker
 
-The Elastic CI Stack supports running [Kaniko](https://github.com/GoogleContainerTools/kaniko) for building container images without requiring Docker daemon privileges. This is useful for building images in environments where Docker-in-Docker is not available or desired.
+The Elastic CI Stack for AWS supports running [Kaniko](https://github.com/GoogleContainerTools/kaniko) for building container images without requiring Docker daemon privileges. This is useful for building images in environments where Docker-in-Docker is not available or desired.
 
-Kaniko executes your Dockerfile inside a container and pushes the resulting image to a registry. It doesn't depend on a Docker daemon and executes each command in the Dockerfile completely in userspace, making it more secure and suitable for environments where privileged access is not available.
+Kaniko executes your Dockerfile inside a container and pushes the resulting image to a registry. It doesn't depend on a Docker daemon and executes each command in the Dockerfile completely in user space, making it more secure and suitable for environments where privileged access is not available.
 
-### Example Pipeline
+### Example pipeline
 
 Here's a complete example of using Kaniko to build and push a container image:
 
@@ -117,7 +117,7 @@ if [[ -f "$HOME/.docker/config.json" ]]; then
   AUTH_ARGS+=(-v "$HOME/.docker/config.json:/kaniko/.docker/config.json:ro")
 else
   echo "No host Docker auth found; using ECR credential helper with AWS creds"
-  # Tell Kaniko to use ECR helper; give it AWS config so helper can auth via instance role or profile
+  # Tell Kaniko to use ECR helper; give it AWS config so helper can auth using instance role or profile
   printf '{ "credHelpers": { "%s": "ecr-login" } }\n' "$ECR_HOST" > /tmp/kaniko/.docker/config.json
   AUTH_ARGS+=(-v /tmp/kaniko/.docker:/kaniko/.docker:ro -v "$HOME/.aws:/root/.aws:ro" -e AWS_REGION -e AWS_SDK_LOAD_CONFIG=true)
 fi
@@ -146,7 +146,7 @@ docker load -i out/image.tar
 docker run --rm "${IMAGE_URI}"
 ```
 
-### Key Benefits
+### Key benefits
 
 - **No Docker daemon required**: Kaniko runs as a container and doesn't need Docker-in-Docker
 - **Secure**: No privileged access required for building images
@@ -159,7 +159,7 @@ docker run --rm "${IMAGE_URI}"
 
 **Note**: This example uses ECR, but Kaniko works with any container registry. Adjust the authentication and destination URL accordingly for other registries like Docker Hub, GCR, or Azure Container Registry.
 
-### Verifying Signed Kaniko Images
+### Verifying signed Kaniko images
 
 For enhanced security, you can verify the signature of the Kaniko image before using it. This ensures you're running the authentic, unmodified Kaniko executor.
 
@@ -187,7 +187,7 @@ This verification:
 
 For alternative verification methods (like keyless verification with Chainguard images), see the [Kaniko documentation](https://github.com/GoogleContainerTools/kaniko#verifying-signed-kaniko-images).
 
-### Debugging with Kaniko Debug Image
+### Debugging with Kaniko debug image
 
 When troubleshooting build issues, you can use the Kaniko debug image which includes additional debugging tools. The debug image contains utilities like `busybox` and `sh` for interactive debugging.
 
