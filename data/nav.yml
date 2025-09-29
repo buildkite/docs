@@ -459,6 +459,8 @@
       children:
         - name: "Overview"
           path: "pipelines/deployments"
+        - name: "Deploying to AWS Lambda"
+          path: "pipelines/deployments/to-aws-lambda"
         - name: "Deploying to Kubernetes"
           path: "pipelines/deployments/to-kubernetes"
         - name: "Deploying with Argo"

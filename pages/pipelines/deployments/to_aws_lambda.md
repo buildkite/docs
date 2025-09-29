@@ -1,0 +1,294 @@
+# Deploying to AWS Lambda
+
+This tutorial demonstrates deploying Lambda functions to AWS Lambda using Buildkite and the AWS Lambda Deploy plugin. The plugin provides alias management, health checks, and automatic rollback capabilities for reliable Lambda deployments.
+
+## Before starting
+
+Before deploying to AWS Lambda from Buildkite, ensure the following requirements are met:
+
+- An AWS account with appropriate Lambda permissions
+- AWS CLI v2 installed on Buildkite agents
+- `jq` command-line tool available
+- A Lambda function already created in AWS (or permission to create one)
+
+### Required AWS IAM permissions
+
+Buildkite agents need the following Lambda permissions:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "lambda:GetFunction",
+        "lambda:UpdateFunctionCode",
+        "lambda:UpdateFunctionConfiguration",
+        "lambda:PublishVersion",
+        "lambda:GetAlias",
+        "lambda:UpdateAlias",
+        "lambda:CreateAlias",
+        "lambda:DeleteFunction",
+        "lambda:InvokeFunction"
+      ],
+      "Resource": "arn:aws:lambda:*:*:function:*"
+    }
+  ]
+}
+```
+
+For S3-based deployments, additional S3 permissions are required:
+
+```json
+{
+  "Effect": "Allow",
+  "Action": ["s3:GetObject", "s3:GetObjectVersion"],
+  "Resource": "arn:aws:s3:::deployment-bucket/*"
+}
+```
+
+## Deploying zip-based Lambda functions
+
+The most common Lambda deployment pattern uses Zip files containing function code. This example shows a complete pipeline that builds, tests, and deploys a Python Lambda function.
+
+Create a `.buildkite/pipeline.yml` file:
+
+```yaml
+steps:
+  - label: ":package: Build function"
+    key: "build"
+    commands:
+      - echo "Building Lambda function..."
+      - pip install -r requirements.txt -t src/
+      - zip -r function.zip src/
+    artifact_paths:
+      - "function.zip"
+
+  - label: ":test_tube: Test function"
+    depends_on: "build"
+    commands:
+      - python -m pytest tests/
+
+  - wait
+
+  - label: ":rocket: Deploy to Lambda"
+    depends_on: "build"
+    commands:
+      - buildkite-agent artifact download "function.zip" .
+    plugins:
+      - aws-lambda-deploy#v1.0.0:
+          function-name: "my-function"
+          alias: "production"
+          mode: "deploy"
+          zip-file: "function.zip"
+          region: "us-east-1"
+          runtime: "python3.13"
+          handler: "lambda_function.lambda_handler"
+          timeout: 30
+          memory-size: 128
+          description: "Deployed from build ${BUILDKITE_BUILD_NUMBER}"
+          environment:
+            LOG_LEVEL: "INFO"
+            STAGE: "production"
+          auto-rollback: true
+          health-check-enabled: true
+          health-check-timeout: 60
+          health-check-payload: '{"test": true}'
+    concurrency: 1
+    concurrency_group: "lambda-deploy"
+```
+
+This pipeline:
+
+1. **Builds** the Lambda package by installing dependencies and creating a zip file
+2. **Tests** the function code
+3. **Deploys** using the AWS Lambda Deploy plugin with health checks and auto-rollback enabled
+
+## Deploying container-based Lambda functions
+
+For larger functions or those requiring custom runtimes, Lambda supports container images. This example shows deploying a containerized Lambda function from ECR.
+
+```yaml
+steps:
+  - label "\:docker\: Build container image"
+    commands:
+      - docker build -t my-function:${BUILDKITE_BUILD_NUMBER} .
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 123456789012.dkr.ecr.us-east-1.amazonaws.com
+      - docker tag my-function:${BUILDKITE_BUILD_NUMBER} 123456789012.dkr.ecr.us-east-1.amazonaws.com/my-function:${BUILDKITE_BUILD_NUMBER}
+      - docker push 123456789012.dkr.ecr.us-east-1.amazonaws.com/my-function:${BUILDKITE_BUILD_NUMBER}
+
+  - wait
+
+  - label: ":rocket: Deploy Lambda container"
+    plugins:
+      - aws-lambda-deploy#v1.0.0:
+          function-name: "my-container-function"
+          alias: "production"
+          mode: "deploy"
+          package-type: "Image"
+          image-uri: "123456789012.dkr.ecr.us-east-1.amazonaws.com/my-function:${BUILDKITE_BUILD_NUMBER}"
+          region: "us-east-1"
+          timeout: 300
+          memory-size: 512
+          description: "Container deployment from build ${BUILDKITE_BUILD_NUMBER}"
+          environment:
+            STAGE: "production"
+            VERSION: "${BUILDKITE_BUILD_NUMBER}"
+          auto-rollback: true
+          health-check-enabled: true
+          health-check-payload: '{"length": 5, "width": 10}'
+          health-check-timeout: 120
+    concurrency: 1
+    concurrency_group: "lambda-deploy"
+```
+
+## S3-based deployments
+
+For larger deployment packages or shared packages, Lambda functions can be deployed from S3:
+
+```yaml
+steps:
+  - label: ":package: Upload to S3"
+    commands:
+      - zip -r function.zip src/
+      - aws s3 cp function.zip s3://my-deployment-bucket/functions/my-function-${BUILDKITE_BUILD_NUMBER}.zip
+
+  - label: ":rocket: Deploy from S3"
+    plugins:
+      - aws-lambda-deploy#v1.0.0:
+          function-name: "my-function"
+          alias: "production"
+          mode: "deploy"
+          s3-bucket: "my-deployment-bucket"
+          s3-key: "functions/my-function-${BUILDKITE_BUILD_NUMBER}.zip"
+          region: "us-east-1"
+          runtime: "python3.13"
+          handler: "lambda_function.lambda_handler"
+          auto-rollback: true
+          health-check-enabled: true
+```
+
+## Manual approval and rollback
+
+For production deployments, manual approval steps and explicit rollback capabilities can be added:
+
+```yaml
+steps:
+  - label: ":package: Build function"
+    key: "build"
+    commands:
+      - zip -r function.zip src/
+    artifact_paths:
+      - "function.zip"
+
+  - block: ":warning: Deploy to production?"
+    prompt: "Deploy to production environment?"
+
+  - label: ":rocket: Deploy to production"
+    depends_on: "build"
+    commands:
+      - buildkite-agent artifact download "function.zip" .
+    plugins:
+      - aws-lambda-deploy#v1.0.0:
+          function-name: "my-production-function"
+          alias: "production"
+          mode: "deploy"
+          zip-file: "function.zip"
+          region: "us-east-1"
+          auto-rollback: true
+          health-check-enabled: true
+    concurrency: 1
+    concurrency_group: "production-deploy"
+
+  # Rollback step (can be manually triggered if needed)
+  - label: ":leftwards_arrow_with_hook: Rollback"
+    key: "rollback"
+    plugins:
+      - aws-lambda-deploy#v1.0.0:
+          function-name: "my-production-function"
+          alias: "production"
+          mode: "rollback"
+          region: "us-east-1"
+    concurrency: 1
+    concurrency_group: "production-deploy"
+    manual: true
+```
+
+## Health checks
+
+The plugin supports comprehensive health checks to validate deployments:
+
+```yaml
+- label: ":rocket: Deploy with health checks"
+  plugins:
+    - aws-lambda-deploy#v1.0.0:
+        function-name: "my-api-function"
+        alias: "production"
+        mode: "deploy"
+        zip-file: "function.zip"
+        region: "us-east-1"
+        # Health check configuration
+        health-check-enabled: true
+        health-check-timeout: 120
+        health-check-payload: |
+          {
+            "httpMethod": "GET",
+            "path": "/health",
+            "headers": {
+              "User-Agent": "Buildkite-HealthCheck"
+            }
+          }
+        health-check-expected-status: 200
+        auto-rollback: true
+```
+
+Health checks run after the deployment completes and will trigger automatic rollback if they fail (when `auto-rollback` is enabled).
+
+## Build metadata and tracking
+
+The plugin automatically tracks deployment state using Buildkite build metadata. This enables:
+
+- **Cross-step state sharing**: Multiple steps can access deployment information
+- **Rollback coordination**: Rollback steps can access previous version information
+- **Deployment history**: Track which versions were deployed when
+
+Metadata keys are namespaced by function name:
+
+- `deployment:aws_lambda:my-function:current_version`
+- `deployment:aws_lambda:my-function:previous_version`
+- `deployment:aws_lambda:my-function:result`
+
+## Configuration options
+
+The AWS Lambda Deploy plugin supports extensive configuration options:
+
+### Required parameters
+
+- `function-name`: AWS Lambda function name
+- `alias`: Lambda alias to manage (for example, "production", "staging")
+- `mode`: Operation mode (`deploy` or `rollback`)
+
+### Package configuration
+
+- `package-type`: `Zip` or `Image` (default: `Zip`)
+- `zip-file`: Path to local zip file
+- `s3-bucket` + `s3-key`: S3 location for zip files
+- `image-uri`: ECR image URI for container deployments
+
+### Function settings
+
+- `runtime`: Lambda runtime (for Zip packages)
+- `handler`: Function handler (for Zip packages)
+- `timeout`: Function timeout in seconds
+- `memory-size`: Memory allocation in MB
+- `environment`: Environment variables object
+
+### Deployment controls
+
+- `auto-rollback`: Enable automatic rollback on failure (default: `false`)
+- `health-check-enabled`: Enable health check testing (default: `false`)
+- `health-check-timeout`: Health check timeout in seconds (default: `300`)
+- `health-check-payload`: JSON payload for test invocation
+
+For complete configuration options, see the [plugin documentation](https://github.com/buildkite/aws-lambda-deploy-buildkite-plugin).

@@ -146,6 +146,7 @@ exceptions:
   - KMS
   - Kotlin
   - Kubernetes
+  - Lambda
   - limiter
   - Linux
   - M1
