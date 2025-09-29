@@ -29,7 +29,7 @@ If you want to maximize your pipelines' efficiency, you should keep one or two s
 
 If you are truly operating at a large scale, you need a set of cached agent images. For smaller organizations supporting one application, you may just need one. However, you may also have multiple images depending on your needs. It is recommended to keep only the tooling that you need to execute a specific function on a specific queue image.
 
-For example, a "security" image could have ClamAV, Trivy, Datadog's Guarddog, Snyk, and other tooling installed. Try to avoid having a single image containing all of your tooling and dependencies - keep them tightly scoped. You may want to build nightly to take advantage of automatically caching dependencies to speed up your builds, including system, framework, and image updates in Buildkite Packages, or publish to an AWS AMI, etc. This eliminates the potential for you to hit rate limits with high-scaling builds.
+For example, a "security" image could have ClamAV, Trivy, Datadog's GuardDog, Snyk, and other tooling installed. Try to avoid having a single image containing all of your tooling and dependencies - keep them tightly scoped. You may want to build nightly to take advantage of automatically caching dependencies to speed up your builds, including system, framework, and image updates in Buildkite Packages, or publish to an AWS AMI, etc. This eliminates the potential for you to hit rate limits with high-scaling builds.
 
 #### Use ephemeral agents
 
@@ -66,45 +66,45 @@ Managing ephemeral infrastructure can be tough, and so we've [made it easy with 
 
 ### Structure YAML for clarity
 
-- Descriptive step names: step labels should be human-readable and clear at a glance.
-- Organize with groups: use group steps to keep complex pipelines navigable.
-- Emojis for visual cues: quick scanning is easier with consistent iconography.
-- Comment complex logic: document non-obvious conditions or dependencies inline.
+* Descriptive step names: step labels should be human-readable and clear at a glance.
+* Organize with groups: use group steps to keep complex pipelines navigable.
+* Emojis for visual cues: quick scanning is easier with consistent iconography.
+* Comment complex logic: document non-obvious conditions or dependencies inline.
 
 ### Standardize with reusable modules
 
-- Centralized templates: maintain organization-wide pipeline templates and plugins to enforce consistency across teams.
-- Shared libraries: package common scripts or Docker images so individual teams don’t reinvent solutions.
+* Centralized templates: maintain organization-wide pipeline templates and plugins to enforce consistency across teams.
+* Shared libraries: package common scripts or Docker images so individual teams don’t reinvent solutions.
 
 ## Agent management
 
 ### Right-size your agent fleet
 
-- Monitor queue times: Long wait times often mean you need more capacity. You can use cluster insights to monitor queue wait times.
-- Autoscale intelligently: Use cloud-based autoscaling groups to scale with demand (using Elastic CI Stack for AWS - and soon-to-be-supported GCP - can help you with auto-scaling).
-- Specialized pools: Maintain dedicated pools for CPU-intensive, GPU-enabled, or OS-specific workloads.
-- Graceful scaling: Configure agents to complete jobs before termination to prevent abrupt failures (Elastic CI Stack for AWS already has graceful scaling implemented. Also, if you are building your own AWS stack, you can use [Buildkite's lifecycle daemon](https://github.com/buildkite/lifecycled) for handling graceful termination and scaling).
+* Monitor queue times: Long wait times often mean you need more capacity. You can use cluster insights to monitor queue wait times.
+* Autoscale intelligently: Use cloud-based autoscaling groups to scale with demand (using Elastic CI Stack for AWS - and soon-to-be-supported GCP - can help you with auto-scaling).
+* Specialized pools: Maintain dedicated pools for CPU-intensive, GPU-enabled, or OS-specific workloads.
+* Graceful scaling: Configure agents to complete jobs before termination to prevent abrupt failures (Elastic CI Stack for AWS already has graceful scaling implemented. Also, if you are building your own AWS stack, you can use [Buildkite's lifecycle daemon](https://github.com/buildkite/lifecycled) for handling graceful termination and scaling).
 
 ### Optimize agent performance
 
-- Use targeting and metadata: Route jobs to the correct environment using queues and agent tags.
-- Implement caching: Reuse dependencies, build artifacts, and Docker layers to reduce redundant work. (Further work here: add a link to some of our cache plugins and highlight cache volumes for hosted agents. Also - potentially create a best practices section for self-hosted and hosted agents.)
-- Pre-warm environments: Bake common tools and dependencies into images for faster startup.
-- Monitor agent health: Continuously check for resource exhaustion and recycle unhealthy instances. Utilize agent pausing when resources are tied to the lifetime of the agent, such as a cloud instance configured to terminate when the agent exits. By pausing an agent, you can investigate problems in its environment more easily, without the worry of jobs being dispatched to it.
+* Use targeting and metadata: Route jobs to the correct environment using queues and agent tags.
+* Implement caching: Reuse dependencies, build artifacts, and Docker layers to reduce redundant work. (Further work here: add a link to some of our cache plugins and highlight cache volumes for hosted agents. Also - potentially create a best practices section for self-hosted and hosted agents.)
+* Pre-warm environments: Bake common tools and dependencies into images for faster startup.
+* Monitor agent health: Continuously check for resource exhaustion and recycle unhealthy instances. Utilize agent pausing when resources are tied to the lifetime of the agent, such as a cloud instance configured to terminate when the agent exits. By pausing an agent, you can investigate problems in its environment more easily, without the worry of jobs being dispatched to it.
 
 ### Secure your agents
 
-- Principle of least privilege: Provide only the permissions required for the job.
-- Prefer ephemeral agents: Short-lived agents reduce the attack surface and minimize drift.
-- Secret management: Use environment hooks or secret managers; never hard-code secrets in YAML.
-- Keep base images updated: Regularly patch agents to mitigate security vulnerabilities.
+* Principle of least privilege: Provide only the permissions required for the job.
+* Prefer ephemeral agents: Short-lived agents reduce the attack surface and minimize drift.
+* Secret management: Use environment hooks or secret managers; never hard-code secrets in YAML.
+* Keep base images updated: Regularly patch agents to mitigate security vulnerabilities.
 
 Further work in this section: mention BK Secrets, suggest using external secret managers like AWS Secrets Manager or Hashicorp Vault. Potentially also link back to our own plugins, too.
 
 ### Avoid snowflake agents
 
-- No manual tweaks: Avoid one-off changes to long-lived agents; enforce everything via code and images.
-- Immutable patterns: Use infrastructure-as-code and versioned images for consistency and reproducibility.
+* No manual tweaks: Avoid one-off changes to long-lived agents; enforce everything via code and images.
+* Immutable patterns: Use infrastructure-as-code and versioned images for consistency and reproducibility.
 
 Alternatively: Enforce agent configuration and infrastructure using IaC (Infrastructure as code) where possible.
 
@@ -112,89 +112,87 @@ Alternatively: Enforce agent configuration and infrastructure using IaC (Infrast
 
 ### Containerize builds for consistency
 
-- Docker-based builds: Ensure environments are reproducible across local and CI.
-- Efficient caching: Optimize Dockerfile layering to maximize [cache reuse](https://docs.docker.com/build/cache/).
-- [Multi-stage builds in Docker](https://docs.docker.com/build/building/multi-stage/): Keep images slim while supporting complex build processes.
-- Pin base images: Avoid unintended breakage from upstream changes.
+* Docker-based builds: Ensure environments are reproducible across local and CI.
+* Efficient caching: Optimize Dockerfile layering to maximize [cache reuse](https://docs.docker.com/build/cache/).
+* [Multi-stage builds in Docker](https://docs.docker.com/build/building/multi-stage/): Keep images slim while supporting complex build processes.
+* Pin base images: Avoid unintended breakage from upstream changes.
 
 ### Handle dependencies reliably
 
-- Lock versions: Use lockfiles and pin versions to ensure repeatable builds (you can also [pin plugin versions](/docs/pipelines/integrations/plugins/using#pinning-plugin-versions)).
-- Cache packages: Reuse downloads where possible to reduce network overhead.
-- Validate integrity: Use checksums or signatures to confirm dependency authenticity.
-
-
+* Lock versions: Use lockfiles and pin versions to ensure repeatable builds (you can also [pin plugin versions](/docs/pipelines/integrations/plugins/using#pinning-plugin-versions)).
+* Cache packages: Reuse downloads where possible to reduce network overhead.
+* Validate integrity: Use checksums or signatures to confirm dependency authenticity.
 
 ## Monitoring and observability
 
 ### Logging best practices
 
-- Structured logs: Favor JSON or other parsable formats. Use [log groups](/docs/pipelines/configure/managing-log-output#grouping-log-output) for better visual representation of the relevant sections in the logs.
-- Appropriate log levels: Differentiate between info, warnings, and errors.
-- Persist artifacts: Store logs, reports, and binaries for debugging and compliance.
-- Track trends: Use [cluster insights](/docs/pipelines/insights/clusters) or external tools to analyze durations and failure patterns.
-- Avoid having log files that are too large. Large log files make it harder to troubleshoot the issues and are harder to manage in the Buildkite Pipelines' UI.
+* Structured logs: Favor JSON or other parsable formats. Use [log groups](/docs/pipelines/configure/managing-log-output#grouping-log-output) for better visual representation of the relevant sections in the logs.
+* Appropriate log levels: Differentiate between info, warnings, and errors.
+* Persist artifacts: Store logs, reports, and binaries for debugging and compliance.
+* Track trends: Use [cluster insights](/docs/pipelines/insights/clusters) or external tools to analyze durations and failure patterns.
+* Avoid having log files that are too large. Large log files make it harder to troubleshoot the issues and are harder to manage in the Buildkite Pipelines' UI.
 To avoid overly large log files, try to not use verbose output of apps and tools unless needed. See also [Managing log output](docs/pipelines/configure/managing-log-output#log-output-limits).
 
 ### Set relevant alerts
 
-- Failure alerts: Notify responsible teams for failing builds (relevant links will be added here).
-- Queue depth monitoring: Detect bottlenecks when builds queue too long - you can make use of the [Queue insights for this](/docs/pipelines/insights/queue-metrics).
-- Agent health alerts: Trigger alerts when agents go offline or degrade. If individual agent health is less of a concern, then terminate an unhealthy instance and spin a new one.
+* Failure alerts: Notify responsible teams for failing builds (relevant links will be added here).
+* Queue depth monitoring: Detect bottlenecks when builds queue too long - you can make use of the [Queue insights for this](/docs/pipelines/insights/queue-metrics).
+* Agent health alerts: Trigger alerts when agents go offline or degrade. If individual agent health is less of a concern, then terminate an unhealthy instance and spin a new one.
 
 ## Telemetry operational tips
 
-- Start where the pain is: profile queue wait and checkout time first. These are often the biggest, cheapest wins.
-- Tag everything: include pipeline, queue, repo path, and commit metadata in spans and events to make drill‑downs trivial.
-- Keep one source of truth: stream Buildkite to your standard observability stack so platform‑level SLOs and alerts live alongside app telemetry.
-- Document the path: publish internal guidance for teams on reading the Pipeline metrics page and where to find org dashboards.
+* Start where the pain is: profile queue wait and checkout time first. These are often the biggest, cheapest wins.
+* Tag everything: include pipeline, queue, repo path, and commit metadata in spans and events to make drill‑downs trivial.
+* Keep one source of truth: stream Buildkite to your standard observability stack so platform‑level SLOs and alerts live alongside app telemetry.
+* Document the path: publish internal guidance for teams on reading the Pipeline metrics page and where to find org dashboards.
 
 ### Quick checklist for using telemetry
 
-- Enable EventBridge and subscribe your alerting pipeline.
-- Turn on OTEL export to your collector. Start with job spans and queue metrics.
-- If you are a Datadog shop, enable agent APM tracing.
-- Stand up a “CI SLO” dashboard with p95 queue wait and build duration per top pipelines.
-- Document and socialize how developers should use the Pipeline metrics page for day‑to‑day troubleshooting.
+* Enable EventBridge and subscribe your alerting pipeline.
+* Turn on OTEL export to your collector. Start with job spans and queue metrics.
+* If you are a Datadog shop, enable agent APM tracing.
+* Stand up a “CI SLO” dashboard with p95 queue wait and build duration per top pipelines.
+* Document and socialize how developers should use the Pipeline metrics page for day‑to‑day troubleshooting.
 
 ### Core pipeline telemetry recommendations
 
 Establish standardized metrics collection across all pipelines to enable consistent monitoring and analysis:
 
-- **Build duration metrics**: track build times by pipeline, step, and queue to identify performance bottlenecks.
-- **Queue wait times**: monitor agent availability and scaling efficiency across different workload types.
-- **Failure rate analysis**: measure success rates by pipeline, branch, and time period to identify reliability trends.
-- **Retry effectiveness**: track retry success rates by exit code to validate retry policy effectiveness.
-- **Resource utilization**: monitor compute usage, artifact storage, and network bandwidth consumption.
+* Build duration metrics: track build times by pipeline, step, and queue to identify performance bottlenecks.
+* Queue wait times: monitor agent availability and scaling efficiency across different workload types.
+* Failure rate analysis: measure success rates by pipeline, branch, and time period to identify reliability trends.
+* Retry effectiveness: track retry success rates by exit code to validate retry policy effectiveness.
+* Resource utilization: monitor compute usage, artifact storage, and network bandwidth consumption.
 
 Standardize the number of times test flakes are retried and have their custom exit statuses that you can report on with your telemetry provider. Use [OpenTelemetry integration](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service) to gain deep visibility into pipeline execution flows
 
 ### Use analytics for improvement
 
-- Key metrics: Monitor build duration, throughput, and success rate (a mention of OTEL integration and queue insights that can help do this will be added here).
-- Bottleneck analysis: Identify slowest (using the OTEL integration) steps and optimize them.
-- Failure clustering: Look for repeated error types.
+* Key metrics: Monitor build duration, throughput, and success rate (a mention of OTEL integration and queue insights that can help do this will be added here).
+* Bottleneck analysis: Identify slowest (using the OTEL integration) steps and optimize them.
+* Failure clustering: Look for repeated error types.
 
 ## Security best practices
 
 ### Manage secrets properly
 
-- Native secret management: Use [Buildkite secrets and redaction](/docs/pipelines/security/secrets/buildkite-secrets) and [secrets plugins](https://buildkite.com/docs/pipelines/integrations/plugins/directory).
-- Rotate secrets: Regularly update credentials to minimize risk.
-- Limit scope: Expose secrets only to the steps that require them. See more in [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets#use-a-buildkite-secret-in-a-job) and [vault secrets plugin](https://buildkite.com/resources/plugins/buildkite-plugins/vault-secrets-buildkite-plugin/).
-- Audit usage: Track which steps consume which secrets.
+* Native secret management: Use [Buildkite secrets and redaction](/docs/pipelines/security/secrets/buildkite-secrets) and [secrets plugins](https://buildkite.com/docs/pipelines/integrations/plugins/directory).
+* Rotate secrets: Regularly update credentials to minimize risk.
+* Limit scope: Expose secrets only to the steps that require them. See more in [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets#use-a-buildkite-secret-in-a-job) and [vault secrets plugin](https://buildkite.com/resources/plugins/buildkite-plugins/vault-secrets-buildkite-plugin/).
+* Audit usage: Track which steps consume which secrets.
 
 ### Enforce access controls
 
-- Team-based access: Grant permissions per team and specific team needs (read-only or write permissions). See [Teams permissions](/docs/platform/team-management/permissions).
-- Branch protections: Limit edits to sensitive pipelines.
-- Permission reviews: Audit permissions on a regular basis.
-- Use SSO/SAML: Centralize authentication and improve compliance.
+* Team-based access: Grant permissions per team and specific team needs (read-only or write permissions). See [Teams permissions](/docs/platform/team-management/permissions).
+* Branch protections: Limit edits to sensitive pipelines.
+* Permission reviews: Audit permissions on a regular basis.
+* Use SSO/SAML: Centralize authentication and improve compliance.
 
 ### Governance and compliance
-- Policy-as-code: Define and enforce organizational rules (e.g., required steps, approved plugins).
-- Audit readiness: Retain logs, artifacts, and approvals for compliance reporting.
-- Sandbox pipelines: Provide safe environments to test changes without impacting production.
+* Policy-as-code: Define and enforce organizational rules (e.g., required steps, approved plugins).
+* Audit readiness: Retain logs, artifacts, and approvals for compliance reporting.
+* Sandbox pipelines: Provide safe environments to test changes without impacting production.
 
 ## Patterns and anti-patterns
 
@@ -316,15 +314,15 @@ Balance parallel execution for speed while managing resource consumption and cos
 
 **Step-level parallelism (`parallelism` attribute):**
 
-- Set reasonable limits on the `parallelism` attribute for individual steps based on your agent capacity.
-- Consider that each parallel job consumes an agent, so `parallelism: 50` requires 50 available agents.
-- Monitor queue wait times when using high parallelism values to ensure adequate agent availability.
+* Set reasonable limits on the `parallelism` attribute for individual steps based on your agent capacity.
+* Consider that each parallel job consumes an agent, so `parallelism: 50` requires 50 available agents.
+* Monitor queue wait times when using high parallelism values to ensure adequate agent availability.
 
 **Build-level concurrency:**
 
-- While running jobs in parallel across different steps speeds up builds, be mindful of your total agent pool capacity.
-- Buildkite has default limits on concurrent steps per build to prevent resource exhaustion.
-- Design pipeline dependencies (`wait` steps) to balance speed with resource availability.
+* While running jobs in parallel across different steps speeds up builds, be mindful of your total agent pool capacity.
+* Buildkite has default limits on concurrent steps per build to prevent resource exhaustion.
+* Design pipeline dependencies (`wait` steps) to balance speed with resource availability.
 
 **Example of controlled parallelism:**
 ```yaml
@@ -348,26 +346,26 @@ Never ignore failing steps without a clear follow-up.
 
 ### Self-service pipelines
 
-- Curated templates: Allow teams to adopt pipelines without deep Buildkite expertise.
-- Golden paths: Document and promote recommended workflows to reduce cognitive load.
-- Feedback loops: Encourage engineers to propose improvements or report issues.
+* Curated templates: Allow teams to adopt pipelines without deep Buildkite expertise.
+* Golden paths: Document and promote recommended workflows to reduce cognitive load.
+* Feedback loops: Encourage engineers to propose improvements or report issues.
 
 ## Scaling practices
 
-- Workload segmentation: Split pipelines across projects or repositories to reduce contention.
-- Cross-team dashboards: Give stakeholders visibility into bottlenecks and throughput.
-- Cost optimization: Track agent utilization and cloud spend to balance speed with efficiency.
+* Workload segmentation: Split pipelines across projects or repositories to reduce contention.
+* Cross-team dashboards: Give stakeholders visibility into bottlenecks and throughput.
+* Cost optimization: Track agent utilization and cloud spend to balance speed with efficiency.
 
 ## Common pitfalls to avoid
 
-- Overly restrictive defaults: Start permissive, then refine.
-- Ignoring developer input: CI/CD should enable instead of blocking velocity.
-- Skipping observability early: Add metrics and logging from day one.
-- Treating pipelines as secondary: Invest in CI/CD as critical infra.
-- Not planning for scale: Design for higher volume and parallelism.
-- Poor documentation: Document patterns, conventions, and playbooks.
-- Unverified pipeline changes: Test modifications in sandbox pipelines first.
-- Neglecting build performance: Regularly optimize for faster cycles.
+* Overly restrictive defaults: Start permissive, then refine.
+* Ignoring developer input: CI/CD should enable instead of blocking velocity.
+* Skipping observability early: Add metrics and logging from day one.
+* Treating pipelines as secondary: Invest in CI/CD as critical infra.
+* Not planning for scale: Design for higher volume and parallelism.
+* Poor documentation: Document patterns, conventions, and playbooks.
+* Unverified pipeline changes: Test modifications in sandbox pipelines first.
+* Neglecting build performance: Regularly optimize for faster cycles.
 
 ## Conclusion
 
