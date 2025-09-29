@@ -73,6 +73,23 @@ notify:
 
 See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
+### Step-level conditional notifications
+
+You can use conditional notifications at the step level to send notifications only when specific step outcomes occur. This is useful for immediate notifications when individual steps complete:
+
+```yaml
+steps:
+  - command: "important-validation.sh"
+    notify:
+      - slack:
+          channels: ["#engineering"]
+          message: "Critical validation failed, please fix."
+        if: step.outcome == "hard_failed"
+```
+{: codeblock-file="pipeline.yml"}
+
+See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
+
 > 🚧
 > To trigger conditional notifications to a Slack channel, you will first need to configure [Conditional notifications for Slack](/docs/pipelines/integrations/notifications/slack#conditional-notifications).
 
@@ -116,7 +133,7 @@ notify:
 To send notifications to a Basecamp Campfire, you'll need to set up a chatbot in Basecamp as well as adding the notification to your `pipeline.yml` file. Basecamp admin permission is required to setup your chatbot.
 
 > 🚧
-> Campfire messages can only be sent using Basecamp 3.</p>
+> Campfire messages can only be sent using Basecamp 3.
 
 1. Add a [chatbot](https://m.signalvnoise.com/new-in-basecamp-3-chatbots/) to the Basecamp project or team that you'll be sending notifications to.
 1. Set up your chatbot with a name and an optional URL. If you'd like to include an image, you can find the Buildkite logo in our [Brand assets](https://buildkite.com/brand-assets).
@@ -439,21 +456,11 @@ An example to deliver slack notification when a step is soft-failed:
 steps:
   - command: exit -1
     soft_fail: true
-    key: 'step1'
-  - wait: ~
-  - command: |
-      if [ $(buildkite-agent step get "outcome" --step "step1") == "soft_failed" ]; then
-         cat <<- YAML | buildkite-agent pipeline upload
-         steps:
-           - label: "Notify slack about soft failed step"
-             command: echo "Notifying slack about the soft_failed step"
-             notify:
-               - slack:
-                   channels:
-                     - "#general"
-                   message: "Step1 has soft failed."
-      YAML
-      fi
+    notify:
+      - slack:
+          channels: ["#general"]
+          message: "Step has soft failed."
+        if: step.outcome == "soft_failed"
 ```
 {: codeblock-file="pipeline.yml"}
 
