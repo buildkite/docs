@@ -142,6 +142,7 @@ Gradle's
 graphql_id
 Graviton
 GRC
+GuardDog
 gz
 gzipped
 hard-code

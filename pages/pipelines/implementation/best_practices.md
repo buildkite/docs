@@ -29,7 +29,7 @@ If you want to maximize your pipelines' efficiency, you should keep one or two s
 
 If you are truly operating at a large scale, you need a set of cached agent images. For smaller organizations supporting one application, you may just need one. However, you may also have multiple images depending on your needs. It is recommended to keep only the tooling that you need to execute a specific function on a specific queue image.
 
-For example, a "security" image could have ClamAV, trivy, Datadog's Guarddog, Snyk, and other tooling installed. Try to avoid having a single image containing all of your tooling and dependencies - keep them tightly scoped. You may want to build nightly to take advantage of automatically caching dependencies to speed up your builds, including system, framework, and image updates in Buildkite Packages, or publish to an AWS AMI, etc. This eliminates the potential for you to hit rate limits with high-scaling builds.
+For example, a "security" image could have ClamAV, Trivy, Datadog's Guarddog, Snyk, and other tooling installed. Try to avoid having a single image containing all of your tooling and dependencies - keep them tightly scoped. You may want to build nightly to take advantage of automatically caching dependencies to speed up your builds, including system, framework, and image updates in Buildkite Packages, or publish to an AWS AMI, etc. This eliminates the potential for you to hit rate limits with high-scaling builds.
 
 #### Use ephemeral agents
 
@@ -39,30 +39,30 @@ Managing ephemeral infrastructure can be tough, and so we've [made it easy with 
 
 #### Utilize agent hooks in your architecture
 
-[Buildkite Agent hooks](/docs/agent/v3/hooks) can be very useful in structuring a pipeline. Instead of requiring all the code to be included in every repository, you can use lifecycle hooks to pull down different repositories, allowing you to create guardrails and reusable, immutable pieces of your pipeline for every job execution. They're a critical tool for compliance-heavy workloads and help to automate any setup or teardown functions necessary when running jobs.
+[Buildkite Agent hooks](/docs/agent/v3/hooks) can be very useful in structuring a pipeline. Instead of requiring all the code to be included in every repository, you can use lifecycle hooks to pull down different repositories, allowing you to create guardrails and reusable, immutable pieces of your pipeline for every job execution. They're a critical tool for compliance-heavy workloads and help to automate any setup or tear-down functions necessary when running jobs.
 
 ## Pipeline design and structure
 
 ### Keep pipelines focused and modular
 
-- Start with static pipelines and gradually move to dynamic pipelines to generate steps programmatically. They latter scale better than static YAML as repositories and requirements grow.
-- Use `buildkite-agent pipeline upload` to generate steps programmatically based on code changes. This allows conditional inclusion of steps (e.g., integration tests only when backend code changes). (Further work: reword as `buildkite-agent pipeline upload` does not generate steps programmatically.)
-- Separate concerns: Split pipelines into testing, building, and deployment flows. Avoid single, monolithic pipelines.
-- Use pipeline templates: Define reusable YAML templates for common workflows (linting, testing, building images).
+* Start with static pipelines and gradually move to dynamic pipelines to generate steps programmatically. They latter scale better than static YAML as repositories and requirements grow.
+* Use `buildkite-agent pipeline upload` to generate steps programmatically based on code changes. This allows conditional inclusion of steps (e.g., integration tests only when backend code changes). (Further work: reword as `buildkite-agent pipeline upload` does not generate steps programmatically.)
+* Separate concerns: Split pipelines into testing, building, and deployment flows. Avoid single, monolithic pipelines.
+* Use pipeline templates: Define reusable YAML templates for common workflows (linting, testing, building images).
 
 ### Use monorepos for change scoping
 
-- Run only what changed. Use a monorepo diff strategy, agent `if_changed`, or official plugins to selectively build and test affected components.
-- Two common patterns:
+* Run only what changed. Use a monorepo diff strategy, agent `if_changed`, or official plugins to selectively build and test affected components.
+* Two common patterns:
     + One orchestrator pipeline that triggers component pipelines based on diffs.
     + One dynamic pipeline that injects only the steps needed for the change set.
 
 ### Prioritize fast feedback loops
 
-- Parallelize where possible: run independent tests in parallel to reduce overall build duration.
-- Fail fast: place the fastest, most failure-prone steps early in the pipeline.
-- Use conditional steps: skip unnecessary work by using branch filters and step conditions.
-- Smart test selection: use test impact analysis or path-based logic to run only the relevant subset of tests.
+* Parallelize where possible: run independent tests in parallel to reduce overall build duration.
+* Fail fast: place the fastest, most failure-prone steps early in the pipeline.
+* Use conditional steps: skip unnecessary work by using branch filters and step conditions.
+* Smart test selection: use test impact analysis or path-based logic to run only the relevant subset of tests.
 
 ### Structure YAML for clarity
 
