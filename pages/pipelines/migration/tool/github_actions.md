@@ -150,7 +150,7 @@ When Buildkite pipelines are built, each command step inside the pipeline is ran
       {
         "key": "jobs.&lt;id&gt;.steps.strategy.matrix.include",
         "supported": "Yes",
-        "notes": "Key-value pairs to add to the generated [matrix](/docs/pipelines/build-matrix)'s combinations."
+        "notes": "Key-value pairs to add as combinations to the generated [build matrix](/docs/pipelines/configure/workflows/build-matrix#adding-combinations-to-the-build-matrix)."
       },
       {
         "key": "jobs.&lt;id&gt;.steps.strategy.matrix.exclude",
