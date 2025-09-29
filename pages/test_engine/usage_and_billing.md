@@ -25,9 +25,9 @@ For billing purposes, Buildkite measures usage by calculating the number of mana
 
 ## Test executions
 
-Some legacy Buildkite plans measure usage based on the _total number of times_ a test was executed (run).
+Some legacy Buildkite plans measure usage based on the _total number of times_ a test was executed (test execution count).
 
-You can find the test execution details for a run at the bottom of the run page, and your organization's [total usage](#usage-page) in Settings.
+You can find the test execution details for a run at the top of the run page, and your organization's [total usage](#usage-page) in Settings.
 
 <%= image "test_executions.png", alt: "Test executions run page" %>
 

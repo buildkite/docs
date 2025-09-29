@@ -5,7 +5,7 @@ Labels allow you to:
 - Organize tests to be more meaningful to your team and organization.
 - Categorize tests, and therefore, can be used to filter tests within Test Engine.
 
-<%= image "labeling.png", width: 938, height: 349, alt: "Screenshot of a test with labels categorizing the test" %>
+<%= image "labeling.png", width: 3150/2, height: 752/2, alt: "Screenshot of a test with labels categorizing the test" %>
 
 Labels are created at the [test suite](/docs/test-engine/glossary#test-suite) level. Therefore, labels belonging to one test suite will not impact the labels associated with other test suites.
 
@@ -39,7 +39,7 @@ Also, when Test Engine detects a change to such a tag's value, its label on the 
 
 Test Engine only labels tests from execution tag values when their test suite is configured to do so in the suite's **Settings** > **Test labels** (tab) page.
 
-<%= image "execution_tags.png", width: 1547, height: 604, alt: "Screenshot of configuring suite settings to copy tags to labels" %>
+<%= image "execution_tags.png", width: 3116/2, height: 1428/2, alt: "Screenshot of configuring suite settings to copy tags to labels" %>
 
 Learn more about test execution tagging in [Tags](/docs/test-engine/test-suites/tags).
 

@@ -12,7 +12,7 @@
 
 Your new view will now appear in the sidebar under **Tests**, and will be visible to all users in the test suite.
 
-<%= image "saved-views-test-index.png", width: 2992, height: 998, alt: "Screenshot of test index saved view" %>
+<%= image "saved-views-test-index.png", width: 3144/2, height: 988/2, alt: "Screenshot of test index saved view" %>
 
 ## Deleting views
 
