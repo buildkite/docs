@@ -50,19 +50,19 @@ This monitor is only available to Enterprise customers.
 
 Filters are a way of reducing the execution data set that goes into a monitor, so that you can ignore lower relevancy data and produce better insights, or take different actions based on different types of test executions. Select the matching operator (e.g. "is" or "starts with") that corresponds with your matching criteria.
 
-## Branch
+### Default branch filter
 
-A branch filter means that you only monitor on branches where the test results are relevant to your organization's monitoring needs. You might want to set a branch filter if:
+By default, we add a filter for `scm.branch` set to the value of your default branch. This means that test instability on feature/development branches do not affect the reliability of your test suite. You may want to modify or remove this default branch filter if:
 
-- test instability on feature/development branches is not relevant to your organisation and you only monitor your main branch
-- your organization runs test builds on a schedule on a specific branch
-- your organization uses test selection and full test builds are run on a specific branch
+- your organization is interested in test results on a specific branch, that is not your default branch, e.g. your organization uses test selection and full test builds are run on a specific branch
+- your organization uses merge queues, and are interested in branches following the merge queue naming convention
+- your organization is interested in monitoring all branches
 
 > 📘
-> Leave the branch filter blank if you want to monitor on all branches. This filter must be set to a branch if you're using the transition count monitor.
+> Remove the branch filter if you want to monitor on all branches. The branch filter must be set to a value if you're using the transition count monitor.
 
-## Tag
+## Additional filters
 
-A tag filter means you only monitor executions that match a specified tag value. This means that you can set up custom actions and monitors based on tag values, for example you could send different notifications based on different team tag values, or use tags to segment the different types of test (e.g. feature, unit) and monitor on different thresholds.
+Adding additional tag filters allows you to monitor executions that match a specified tag value. This means that you can set up custom actions and monitors based on tag values, for example you could send different notifications based on different team tag values, or use tags to segment the different types of test (e.g. feature, unit) and monitor on different thresholds.
 
-Tag filters are optional and you can configure up to three of them per workflow. If you haven't set up execution tagging, see [this page](/docs/test-engine/test-suites/tags).
+Additional tag filters are optional and you can configure up to three of them per workflow. If you haven't set up execution tagging, see [this page](/docs/test-engine/test-suites/tags).
