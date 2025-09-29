@@ -60,6 +60,7 @@ chatbot
 chroot
 chroots
 CI
+ClamAV
 classpath
 cli
 CLI
