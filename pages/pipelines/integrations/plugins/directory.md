@@ -22,8 +22,6 @@ Plugins supported by the Buildkite team display the Buildkite logo in the direct
 
 ## Adding your plugin
 
-To write your own plugin, see the instructions in [Writing plugins](/docs/pipelines/integrations/plugins/writing#publish-to-the-buildkite-plugins-directory).
-
 To publish your plugin to the [Buildkite plugins directory](https://buildkite.com/resources/plugins):
 
 1. Host your plugin in GitHub as a public repository.
