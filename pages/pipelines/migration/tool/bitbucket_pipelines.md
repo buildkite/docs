@@ -1,8 +1,8 @@
 # Bitbucket Pipelines
 
-The [Buildkite migration tool](/docs/pipelines/migration/tool) helps you convert your Bitbucket pipelines into Buildkite pipelines. This page lists the Buildkite migration tool's currently supported, partially supported, and unsupported keys for translating from Bitbucket pipelines to Buildkite pipelines.
+The [Buildkite migration tool](/docs/pipelines/migration/tool) helps you convert your Bitbucket pipelines into Buildkite pipelines. This page lists the Buildkite migration tool's currently supported, partially supported, and unsupported keys (known as _properties_ in Bitbucket Pipelines) when translating from Bitbucket pipelines to Buildkite pipelines.
 
-For any partially supported and unsupported **Key**s listed in the tables on this page, you should follow the instructions provided in their relevant **Notes** for details on how to successfully complete their translation into a working Buildkite pipeline.
+For any partially supported and unsupported **Key**s listed in the tables on this page, you should follow the instructions provided in their relevant **Notes**, for details on how to successfully complete their translation into a working Buildkite pipeline.
 
 > 📘
 > The Bitbucket Pipeline configuration that is referred to in various sections below is specified in the central `bitbucket-pipelines.yml` within a specific Bitbucket workspace [repository](https://support.atlassian.com/bitbucket-cloud/docs/what-is-a-workspace/). In Buildkite, the pipeline configuration can be set in a singular `pipeline.yml` within a repository or it can also be set and uploaded dynamically through the use of [Dynamic Pipelines](/docs/pipelines/configure/dynamic-pipelines). Additionally, control and governance of Buildkite pipelines can be achieved through the use of [Pipeline Templates](/docs/pipelines/templates) to set shared pipeline configuration within a Buildkite organization.
@@ -55,7 +55,7 @@ You might need to adjust the converted Buildkite pipeline output to ensure it is
 
 | <div style="width: 50px;">Key</div>  | Supported | Notes |
 | --- | --- | --- |
-| `clone` | Partially | Clone options for all steps of a Bitbucket pipeline. The majority of these options need to be set on a Buildkite agent itself via [configuration](/docs/agent/v3/configuration) of properties such as the clone flags (`git-clone-flags` or `git-clone-mirror-flags` if utilizing a Git mirror), fetch flags (`git-fetch-flags`) - or changing the entire checkout process in a customized [plugin](/docs/plugins/writing) overriding the default agent `checkout` hook. <br/><br/> Sparse-checkout properties of `code-mode`, `enabled`, and `patterns` will be translated to the respective properties within the [sparse-checkout-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/). <br/><br/> `clone` properties in a Bitbucket pipeline have higher precedence over these global properties. |
+| `clone` | Partially | Clone options for all steps of a Bitbucket pipeline. The majority of these options need to be set on a Buildkite Agent itself through its [configuration of properties](/docs/agent/v3/configuration) such as the clone flags (`git-clone-flags` or `git-clone-mirror-flags` if utilizing a Git mirror), fetch flags (`git-fetch-flags`) - or changing the entire checkout process in a customized [plugin](/docs/plugins/writing) overriding the default agent `checkout` hook. <br/><br/> Sparse-checkout properties of `code-mode`, `enabled`, and `patterns` will be translated to the respective properties within the [sparse-checkout-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/). <br/><br/> `clone` properties in a Bitbucket pipeline have higher precedence over these global properties. |
 {: class="responsive-table"}
 
 ## Definitions
@@ -73,7 +73,7 @@ You might need to adjust the converted Buildkite pipeline output to ensure it is
       {
         "key": "definitions",
         "supported": "Partially",
-        "notes": "Customized definitions utilized in a Bitbucket pipeline. `caches` and `services` are supported for translation within Buildkite Migration tool."
+        "notes": "Customized definitions utilized in a Bitbucket pipeline. `caches` and `services` are supported for translation using the Buildkite migration tool."
       },
       {
         "key": "definitions.caches",
@@ -93,17 +93,17 @@ You might need to adjust the converted Buildkite pipeline output to ensure it is
       {
         "key": "definitions.caches.&lt;name&gt;.key.files",
         "supported": "Partially",
-        "notes": "The list (one or more) files that are monitored for changes - and stored once the hash changes between the change of file versions. If multiple files are specified, then multiple cache-plugin definitions are set on the resulting Buildkite Pipelines command step (so the `manifest` properties between each will be different). <br/><br/> Note that this may cause issues if the same folder is being maintained by each cache definition."
+        "notes": "The list of (one or more) files that are monitored for changes, and stored once the hash changes between file version changes. If multiple files are specified, then multiple cache-plugin definitions are set on the resulting Buildkite Pipelines command step (so the `manifest` properties between each will be different). <br/><br/> Note that this may cause issues if the same folder is being maintained by each cache definition."
       },
       {
         "key": "definitions.pipeline",
         "supported": "Partially",
-        "notes": "Pipelines that are exported for reuse within the repositories of the same workspace. A similar functionality exists within Buildkite Pipelines and is called [Pipeline Templates](/docs/pipelines/templates)."
+        "notes": "Pipelines that are exported for reuse within the repositories of the same workspace. Similar functionality exists within Buildkite Pipelines, called [Pipeline templates](/docs/pipelines/templates)."
       },
       {
         "key": "definitions.services",
         "supported": "Partially",
-        "notes": "Docker services that are defined and applied within a Bitbucket pipeline. Services defined in a corresponding Bitbucket pipeline step using the `pipelines.default.step.services` property will have this configuration applied with the use of the [docker-compose-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/). <br/><br/> The generated configuration will need to be saved to a `compose.yaml` file within the repository, and the image utilized by the Buildkite Pipelines command step as `app`. <br/><br/> Refer to the Bitbucket pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/databases-and-service-containers/) for more details on service containers and configuration references. <br/><br/> Authentication-based parameters will not be translated to the corresponding Buildkite pipeline even if defined."
+        "notes": "Docker services that are defined and applied within a Bitbucket pipeline. Services defined in a corresponding Bitbucket pipeline step using the `pipelines.default.step.services` property will have this configuration applied with the use of the [docker-compose-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/). <br/><br/> The generated configuration will need to be saved to a `compose.yaml` file within the repository, and the image utilized by the Buildkite Pipelines command step as `app`. <br/><br/> Refer to the Bitbucket Pipelines' [Databases and service containers](https://support.atlassian.com/bitbucket-cloud/docs/databases-and-service-containers/) documentation for more details on service containers and configuration references. <br/><br/> Authentication-based parameters will not be translated to the corresponding Buildkite pipeline even if defined."
       }
     ].select { |field| field[:key] }.each do |field| %>
       <tr>
@@ -125,14 +125,14 @@ You might need to adjust the converted Buildkite pipeline output to ensure it is
 
 | <div style="width: 70px;">Key</div> | Supported | Notes |
 | --- | --- | --- |
-| `export` | No | Bitbucket Premium option for sharing pipeline configurations between workspaces. Not applicable within Buildkite as an attribute, however, similar functionality exists in Buildkite Pipelines within [Pipeline Templates](/docs/pipelines/templates). |
+| `export` | No | Bitbucket Premium option for sharing pipeline configurations between workspaces. Not applicable within Buildkite as an attribute. However, similar functionality exists in Buildkite Pipelines using [Pipeline templates](/docs/pipelines/templates). |
 {: class="responsive-table"}
 
 ## Image
 
 | <div style="width: 50px;">Key</div> | Supported | Notes |
 | --- | --- | --- |
-| `image` | Yes | The container image that is to be applied to each step within a Bitbucket pipeline, utilizing the specified image within the [docker-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/). This has lower precedence over per-step `image` configuration (see `pipelines.default.step.image`). |
+| `image` | Yes | The container image that applies to each step within a Bitbucket pipeline, using the image specified within the [docker-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/). This has a lower precedence over a per-step `image` configuration (see `pipelines.default.step.image`). |
 | `aws`, `aws.oidc`, `name`, `username`, `password` | Partially | Supported through the use of the corresponding plugin ([Docker Login](https://buildkite.com/resources/plugins/buildkite-plugins/docker-login-buildkite-plugin) or [ECR](https://buildkite.com/resources/plugins/buildkite-plugins/ecr-buildkite-plugin/)). |
 {: class="responsive-table"}
 
@@ -141,8 +141,8 @@ You might need to adjust the converted Buildkite pipeline output to ensure it is
 | <div style="width: 50px;">Key</div> | Supported | Notes |
 | --- | --- | --- |
 | `options` | Partially | Customized options utilized throughout a Bitbucket pipeline. |
-| `max-time`, `size`| Partially | These sub-properties are supported for translation within the Buildkite migration tool into the generated Buildkite Pipelines command step's `timeout_in_minutes` and agent tag respectively. |
-| `docker` | No | This sub-property is not supported and will depend on the agent configuration the corresponding Buildkite Pipelines command step is being targeted to run said job has available. |
+| `max-time`, `size`| Partially | These properties are supported for translation within the Buildkite migration tool into the generated Buildkite Pipelines command step's `timeout_in_minutes` and agent tag respectively. |
+| `docker` | No | This property is not supported and will depend on the agent configuration the corresponding Buildkite Pipelines command step is being targeted to run said job has available. |
 {: class="responsive-table"}
 
 Note that both supported properties in the Bitbucket pipeline step-level definition will have higher precedences than the two values set at `options` level.
@@ -463,7 +463,7 @@ Note that both supported properties in the Bitbucket pipeline step-level definit
       {
         "key": "pipelines.&lt;start-condition&gt;.step.caches",
         "supported": "Yes",
-        "notes": "Step-level dependencies downloaded from external sources (for example, Docker, Maven, PyPi) which can be reused in later Bitbucket pipeline steps. Caches that are set at step level (or through the top-level `definition.cache.&lt;name&gt;` property) are translated in the corresponding Buildkite pipeline utilizing the [cache-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin/) to store the downloaded dependencies for reuse between Buildkite builds."
+        "notes": "Step-level dependencies downloaded from external sources (for example, Docker, Maven, PyPi) which can be reused in later Bitbucket pipeline steps. Caches that are set at step level (or through the top-level `definition.cache.<name>` property) are translated in the corresponding Buildkite pipeline utilizing the [cache-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin/) to store the downloaded dependencies for reuse between Buildkite builds."
       },
       {
         "key": "pipelines.&lt;start-condition&gt;.step.condition",
@@ -523,7 +523,7 @@ Note that both supported properties in the Bitbucket pipeline step-level definit
       {
         "key": "pipelines.&lt;start-condition&gt;.step.services",
         "supported": "Partially",
-        "notes": "The name of one or more services defined at `definitions.services.&lt;name&gt;` that will be applied for this step. Translated to utilize the service configuration with the [docker-compose-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/). <br/><br/> Generated configuration will need to be saved to a `compose.yaml` file within the repository, and the image utilized with the Buildkite command step as `app`. <br/><br/> Refer to the Bitbucket pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/databases-and-service-containers/) for more details on service containers and configuration references. <br/><br/> Authentication-based parameters will not be translated to the corresponding Buildkite pipeline if defined."
+        "notes": "The name of one or more services defined at `definitions.services.<name>` that will be applied for this step. Translated to utilize the service configuration with the [docker-compose-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/). <br/><br/> Generated configuration will need to be saved to a `compose.yaml` file within the repository, and the image utilized with the Buildkite command step as `app`. <br/><br/> Refer to the Bitbucket pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/databases-and-service-containers/) for more details on service containers and configuration references. <br/><br/> Authentication-based parameters will not be translated to the corresponding Buildkite pipeline if defined."
       },
       {
         "key": "pipelines.&lt;start-condition&gt;.step.script",
@@ -591,7 +591,7 @@ Note that both supported properties in the Bitbucket pipeline step-level definit
       {
         "key": "pipelines.&lt;start-condition&gt;.stage.steps",
         "supported": "Yes",
-        "notes": "Individual step configuration for a Bitbucket pipeline stage. See configuration options in this section (`pipelines.default.step.&lt;property&gt;`) for the supported and unsupported properties."
+        "notes": "Individual step configuration for a Bitbucket pipeline stage. See configuration options in this section (`pipelines.default.step.<property>`) for the supported and unsupported properties."
       },
       {
         "key": "pipelines.&lt;start-condition&gt;.stage.trigger",

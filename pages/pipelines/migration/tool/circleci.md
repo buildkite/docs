@@ -1,8 +1,8 @@
 # CircleCI
 
-The [Buildkite migration tool](/docs/pipelines/migration/tool) helps you convert your CircleCI pipelines into Buildkite pipelines. This page lists the Buildkite migration tool's currently supported, partially supported, and unsupported keys for translating from CircleCI pipeline configurations to Buildkite pipelines.
+The [Buildkite migration tool](/docs/pipelines/migration/tool) helps you convert your CircleCI pipelines into Buildkite pipelines. This page lists the Buildkite migration tool's currently supported, partially supported, and unsupported CircleCI keys when translating from CircleCI pipeline configurations to Buildkite pipelines.
 
-For any partially supported and unsupported **Key**s listed in the tables on this page, you should follow the instructions provided in their relevant **Notes** for details on how to successfully complete their translation into a working Buildkite pipeline.
+For any partially supported and unsupported **Key**s listed in the tables on this page, you should follow the instructions provided in their relevant **Notes**, for details on how to successfully complete their translation into a working Buildkite pipeline.
 
 ## Using the Buildkite migration tool with CircleCI
 

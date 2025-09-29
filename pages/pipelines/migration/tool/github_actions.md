@@ -1,8 +1,8 @@
 # GitHub Actions
 
-The [Buildkite migration tool](/docs/pipelines/migration/tool) helps you convert your GitHub Actions workflows into Buildkite pipelines. This page lists the Buildkite migration tool's supported, partially supported, and unsupported keys for translating from GitHub Actions workflows to Buildkite pipelines.
+The [Buildkite migration tool](/docs/pipelines/migration/tool) helps you convert your GitHub Actions workflows into Buildkite pipelines. This page lists the Buildkite migration tool's supported, partially supported, and unsupported GitHub Actions keys when translating from GitHub Actions workflows to Buildkite pipelines.
 
-For any partially supported and unsupported **Key**s listed in the tables on this page, you should follow the instructions provided in their relevant **Notes** for details on how to successfully complete their translation into a working Buildkite pipeline.
+For any partially supported and unsupported **Key**s listed in the tables on this page, you should follow the instructions provided in their relevant **Notes**, for details on how to successfully complete their translation into a working Buildkite pipeline.
 
 > 📘
 > The Buildkite migration tool currently does not support [GitHub secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) stored within GitHub organizations or repositories (such as `{{ secrets.FOO }}`).
