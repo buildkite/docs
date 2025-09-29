@@ -2,6 +2,8 @@
 
 The [Buildkite migration tool](/docs/pipelines/migration/tool) helps you convert your CircleCI pipelines into Buildkite pipelines. This page lists the Buildkite migration tool's currently supported, partially supported, and unsupported keys for translating from CircleCI pipeline configurations to Buildkite pipelines.
 
+For any partially supported and unsupported **Key**s listed in the tables on this page, you should follow the instructions provided in their relevant **Notes** for details on how to successfully complete their translation into a working Buildkite pipeline.
+
 ## Using the Buildkite migration tool with CircleCI
 
 To start converting your CircleCI pipeline configurations into Buildkite Pipelines format:
@@ -64,7 +66,7 @@ The Buildkite migration tool supports the use of [YAML aliases in CircleCI pipel
 
 ## Logical operators (helpers)
 
-| Key | Supported | Notes |
+| <div style="width: 50px;">Key</div> | Supported | Notes |
 | --- | --- | --- |
 | `when` | Partially | Conditional execution key that allows workflows to run based on pipeline parameters, Git branch patterns, or other conditions. In CircleCI, this enables dynamic workflow control. The Buildkite migration tool maps basic `when` conditions to Buildkite's conditional steps and pipeline rules, though complex nested conditions may require manual adjustment. |
 | `and` | Partially | Logical operator for denoting that all inputs required to be true. Supported alongside the `when` key within setting up conditional `workflow` runs. |
@@ -74,14 +76,14 @@ The Buildkite migration tool supports the use of [YAML aliases in CircleCI pipel
 
 ## Commands
 
-| Key | Supported | Notes |
+| <div style="width: 80px;">Key</div> | Supported | Notes |
 | --- | --- | --- |
 | `commands` | Yes | A `command` defined in a CircleCI pipeline is a reusable set of instructions with parameters that can be inserted into required `job` executions. Commands can have their own lists of `steps` that are translated through to the generated [command step](/docs/pipelines/configure/step-types/command-step)'s `commands`. If a `command` contains a `parameters` key, these parameters are respected when used in jobs and workflows. When not specified, the parameters' default values are used. |
 {: class="responsive-table"}
 
 ## Executors
 
-| Key | Supported | Notes |
+| <div style="width: 80px;">Key</div> | Supported | Notes |
 | --- | --- | --- |
 | `executors` | Yes | The `executor` key defined at the top level in a CircleCI workflow is mapped to the use of the `executor` key specified within a specific `job`. Supported execution environments include `machine`, `docker`, `macos`, and `windows`. Further information can be found in the [Jobs > Executors](/docs/pipelines/migration/tool/circleci#jobs-executors) table below. The execution environment in Buildkite Pipelines is specified with each environment's applied [tags](/docs/agent/v3/cli-start#setting-tags) in their generated [command step](/docs/pipelines/configure/step-types/command-step), which can be [targeted](/docs/pipelines/configure/defining-steps#targeting-specific-agents) when creating builds. |
 {: class="responsive-table"}
@@ -123,7 +125,7 @@ The Buildkite migration tool supports the use of [YAML aliases in CircleCI pipel
       {
         "key": "jobs.&lt;name&gt;.shell",
         "supported": "No",
-        "notes": "The `shell` property sets the default shell that is used across all commands within all steps. This should be configured on the Buildkite Agent itself, or by defining the `shell` [option](/docs/agent/v3/cli-start#shell) when starting a Buildkite Agent, which sets the shell command used to interpret all build commands."
+        "notes": "The `shell` property sets the default shell that is used across all commands within all steps. This should be configured on the Buildkite Agent itself, or by defining the [`shell` option](/docs/agent/v3/cli-start#shell) when starting a Buildkite Agent, which sets the shell command used to interpret all build commands."
       },
       {
         "key": "jobs.&lt;name&gt;.steps",
@@ -153,7 +155,7 @@ The Buildkite migration tool supports the use of [YAML aliases in CircleCI pipel
 
 ### Executors
 
-While the Buildkite migration tool will translate the following listed executor types, the prerequisite for using the generated steps in your translated Buildkite pipeline, requires that the targeted agents have the relevant operating system (OS), dependencies, and tooling (for example, Docker or XCode) available. Buildkite offers the [Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack) as a fully scalable Buildkite Agent fleet on AWS with a suite of tooling installed by default. Additionally, customized agents can be [set up](/docs/agent/v3/configuration) to target builds that requires a specific OS, tooling, or both. Or you can use [Buildkite hosted agents](/docs/pipelines/hosted-agents)—a fully managed solution offered by Buildkite.
+While the Buildkite migration tool will translate the following listed executor types, to use the generated steps in your translated Buildkite pipeline, your targeted agents must have the relevant operating system (OS), as well as dependencies, and tooling (for example, Docker or XCode) available on them. Buildkite offers the [Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack) as a fully scalable Buildkite Agent fleet on AWS with a suite of tooling installed by default. Additionally, customized agents can be [set up](/docs/agent/v3/configuration) to target builds that requires a specific OS, tooling, or both. Or you can use [Buildkite hosted agents](/docs/pipelines/hosted-agents)—a fully-managed solution offered by Buildkite.
 
 <table class="responsive-table">
   <thead>
@@ -213,29 +215,29 @@ While the Buildkite migration tool will translate the following listed executor 
 
 ## Orbs
 
-| Key | Supported | Notes |
+| <div style="width: 90px;">Key</div> | Supported | Notes |
 | --- | --- | --- |
 | `orbs` | No | Orbs are currently not supported by the Buildkite migration tool and should be translated by hand if their equivalent functionality is required within a Buildkite pipeline. In Buildkite Pipelines, reusable [plugins](/docs/plugins/directory) can provide a similar functionality for integrating various common (and third-party integration-related) tasks throughout a Buildkite pipeline, such as [logging into ECR](https://buildkite.com/resources/plugins/buildkite-plugins/ecr-buildkite-plugin/), running a step within a [Docker container](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/), running multiple Docker images through a [compose file](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/), triggering builds in a [monorepo setup](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/), to list a small number of these plugins. |
-| Docker `orbs` | Partially | Docker orbs are converted but their translation is only an approximation. It is recommended that any orb-related logic is reconstructed in a Buildkite pipeline instead based on the recommendations outlined in `orbs`. |
+| Docker `orbs` | Partially | Docker orbs are converted but their translation is only an approximation. It is recommended that you reconstruct any orb-related logic in a Buildkite pipeline instead based on the recommendations outlined in `orbs`. |
 {: class="responsive-table"}
 
 ## Parameters
 
-| Key | Supported | Notes |
+| <div style="width: 90px;">Key</div> | Supported | Notes |
 | --- | --- | --- |
 | `parameters` | No | Pipeline-level parameters that can be used in the pipeline-level configuration. Pipeline-level [environment variables](/docs/pipelines/environment-variables#defining-your-own) allow for utilizing variables in a Buildkite pipeline configuration with [conditionals](/docs/pipelines/configure/conditionals). |
 {: class="responsive-table"}
 
 ## Setup
 
-| Key | Supported | Notes |
+| <div style="width: 50px;">Key</div> | Supported | Notes |
 | --- | --- | --- |
 | `setup` | No | Allows for the conditional configuration trigger from outside the `.circleci` directory. While this is not directly compatible with Buildkite Pipelines, Buildkite Pipelines offers [trigger steps](/docs/pipelines/configure/step-types/trigger-step), which allow for triggering builds from another pipeline. |
 {: class="responsive-table"}
 
 ## Version
 
-| Key | Supported | Notes |
+| <div style="width: 70px;">Key</div> | Supported | Notes |
 | --- | --- | --- |
 | `version` | No | The version of the CircleCI pipeline configuration applied to this pipeline. No equivalent mapping exists in Buildkite Pipelines. |
 {: class="responsive-table"}
