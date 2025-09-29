@@ -18,3 +18,6 @@ Actions are performed when the recover or alarm event is reported. Actions are a
 
 Repeated occurrences of the test meeting the alarm/recover conditions do not retrigger the corresponding actions.
 
+<%= image "alarm-and-recovery-light.png", class: 'light-only', width: 1424 / 2, height: 1280 / 2, alt: "A diagram showing three tests with different transition count events" %>
+
+<%= image "alarm-and-recovery-dark.png", class: 'dark-only', width: 1424 / 2, height: 1280 / 2, alt: "A diagram showing three tests with different transition count events" %>
