@@ -55,6 +55,7 @@ carthage
 CCMenu
 ccnet
 CCTray
+Chainguard
 chatbot
 chroot
 chroots
@@ -168,8 +169,10 @@ json
 junit
 JWT
 JWTs
+Kaniko
 keyserver
 keyservers
+keyless
 kotlin
 kubectl
 kustomize
