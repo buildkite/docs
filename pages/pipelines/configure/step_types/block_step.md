@@ -443,6 +443,17 @@ The command step added in the above example will upload the trigger step and add
 
 In the pipeline you're triggering, you will be able to use the meta-data that you have passed through as if it was set during the triggered build.
 
+## Metadata validation handling
+
+When using block steps with form fields, it's important to understand how the `required` and `default` attributes interact with metadata validation.
+
+> 📘 Important
+> Setting `required = false` only affects the UI. If you also set `default = ""`, the metadata key will exist with an empty string. Some buildkite-agent commands (for example, `meta-data set`) reject empty/whitespace-only values and fail at runtime.
+
+**Safe approaches:**
+- Set the field `required: true` (no default), OR
+- Keep the field optional (`required: false`) but provide a non-empty default.
+
 ## Input validation
 
 To prevent users from entering invalid text values in block steps (for example, to gather some deployment information), you can use input validation.
