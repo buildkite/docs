@@ -38,7 +38,7 @@ The order and number of pass and fail results don't change the reportage of the 
 
 This monitor is created by default for all test suites.
 
-## Probabilistic flakiness (beta)
+## Probabilistic flakiness (enterprise only)
 
 This monitor tracks the [probabilistic flakiness score](https://engineering.fb.com/2020/12/10/developer-tools/probabilistic-flakiness/) (PFS) of each test. The PFS was developed by Meta, and uses a Bayesian statistical model to derive the probability that a test will flake on its next execution. The PFS model takes into account the current result of the test, and the historical results of the test execution.
 
@@ -46,9 +46,11 @@ The probabilistic flakiness monitor is best suited to large and complex test sui
 
 This monitor is only available to Enterprise customers.
 
-## Filters
+## Tag filters
 
 Tag filters reduce the execution data set that goes into a monitor, so that you can ignore lower relevancy data and produce better insights, or take different actions based on different types of test executions. This means that you can set up custom actions and monitors based on tag values, for example sending different notifications based on different team tag values, or using tags to segment the different types of test (e.g. feature, unit) and monitor on different thresholds.
+
+<%= image "tag-filters.png", alt: "Screenshot showing tag filters, with the branch filter set to main" %>
 
 Tag filters are optional and you can configure up to four of them per workflow. Tag filter values support matching operators (e.g. "is" or "starts with"). If you haven't set up execution tagging, see [this page](/docs/test-engine/test-suites/tags).
 

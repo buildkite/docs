@@ -260,6 +260,7 @@ remediation
 remediations
 repo
 resizable
+retrigger
 routable
 rpmbuild
 RSpec
