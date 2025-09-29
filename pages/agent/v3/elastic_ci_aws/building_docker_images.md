@@ -6,7 +6,7 @@ toc_include_h3: false
 
 This guide shows how to build & push a container image to **Amazon ECR** using **Kaniko** from a **Buildkite Elastic CI Stack for AWS** agent.
 
-## 1) One-time ECR setup
+## One-time ECR setup
 
 ```bash
 export AWS_REGION=ca-central-1
@@ -17,14 +17,14 @@ chmod +x scripts/setup-ecr.sh
 ./scripts/setup-ecr.sh
 ```
 
-## 2) Configure your Buildkite pipeline environment
+## Configure your Buildkite pipeline environment
 
 Set these env vars in the pipeline settings (or keep defaults in `.buildkite/pipeline.yml`):
 - `AWS_REGION` (for example, `ca-central-1`)
 - `ECR_ACCOUNT_ID` (your 12-digit account)
 - `ECR_REPO` (your repository name, for example, `example/hello-kaniko`)
 
-## 3) Push using Kaniko
+## Push using Kaniko
 
 Commit and push. The step in `.buildkite/pipeline.yml` will:
 - generate a Docker config pointing to the **ECR credential helper**,
