@@ -48,7 +48,9 @@ This monitor is only available to Enterprise customers.
 
 ## Filters
 
-Filters are a way of reducing the execution data set that goes into a monitor, so that you can ignore lower relevancy data and produce better insights, or take different actions based on different types of test executions. Select the matching operator (e.g. "is" or "starts with") that corresponds with your matching criteria.
+Tag filters reduce the execution data set that goes into a monitor, so that you can ignore lower relevancy data and produce better insights, or take different actions based on different types of test executions. This means that you can set up custom actions and monitors based on tag values, for example sending different notifications based on different team tag values, or using tags to segment the different types of test (e.g. feature, unit) and monitor on different thresholds.
+
+Tag filters are optional and you can configure up to four of them per workflow. Tag filter values support matching operators (e.g. "is" or "starts with"). If you haven't set up execution tagging, see [this page](/docs/test-engine/test-suites/tags).
 
 ### Default branch filter
 
@@ -60,9 +62,3 @@ By default, we add a filter for `scm.branch` set to the value of your default br
 
 > 📘
 > Remove the branch filter if you want to monitor on all branches. The branch filter must be set to a value if you're using the transition count monitor.
-
-## Additional filters
-
-Adding additional tag filters allows you to monitor executions that match a specified tag value. This means that you can set up custom actions and monitors based on tag values, for example you could send different notifications based on different team tag values, or use tags to segment the different types of test (e.g. feature, unit) and monitor on different thresholds.
-
-Additional tag filters are optional and you can configure up to three of them per workflow. If you haven't set up execution tagging, see [this page](/docs/test-engine/test-suites/tags).
