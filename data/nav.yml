@@ -485,6 +485,8 @@
           children:
             - name: "Overview"
               path: "pipelines/integrations/plugins"
+            - name: "Plugins directory"
+              path: "pipelines/integrations/plugins/directory"
             - name: "Using plugins"
               path: "pipelines/integrations/plugins/using"
             - name: "Writing plugins"

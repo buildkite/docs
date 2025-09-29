@@ -7,7 +7,7 @@ pipelines_integrations:
       - text: "Overview"
         url: "/docs/pipelines/integrations/plugins"
       - text: "Plugins directory"
-        url: "/docs/pipelines/integrations/plugins#finding-plugins"
+        url: "/docs/pipelines/integrations/plugins/directory"
       - text: "Using plugins"
         url: "/docs/pipelines/integrations/plugins/using"
       - text: "Writing plugins"
