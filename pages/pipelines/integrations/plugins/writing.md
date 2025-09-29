@@ -292,7 +292,7 @@ If you would like your plugin to appear in a certain category in the plugins dir
   + Infrastructure as code: `terraform`, `cloudformation`, `cfn`, `infrastructure`
   + Other languages: `julia`, `python`, `rust`, `c++`, `c#`, `dhall`
 
-For full instructions on adding your plugin to the Buildkite plugins directory, see [Adding your pluging](/docs/pipelines/integrations/plugins/directory#adding-your-plugin).
+For full instructions on adding your plugin to the Buildkite plugins directory, see [Adding your plugin](/docs/pipelines/integrations/plugins/directory#adding-your-plugin).
 
 ## Designing plugins: single-command plugins versus library plugins
 
