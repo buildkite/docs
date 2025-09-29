@@ -92,7 +92,7 @@ When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-s
 docker run --rm -e BUILDKITE_API_TOKEN=bkua_xxxxx -e BUILDKITE_TOOLSETS="user,pipelines,builds" buildkite/mcp-server stdio
 ```
 
-## Special Values
+## Special values
 
 - **`all`** - Enables all available toolsets (default)
 - **Read-only mode** - Add `--read-only` flag or `BUILDKITE_READ_ONLY=true` to filter out write operations
