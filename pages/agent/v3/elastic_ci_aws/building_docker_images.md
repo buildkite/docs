@@ -4,7 +4,7 @@ toc_include_h3: false
 
 # Building Docker Images
 
-This guide shows how to build & push a container image to **Amazon ECR** using **Kaniko** from a **Buildkite Elastic CI Stack** agent.
+This guide shows how to build & push a container image to **Amazon ECR** using **Kaniko** from a **Buildkite Elastic CI Stack for AWS** agent.
 
 ## 1) One-time ECR setup
 
@@ -17,7 +17,7 @@ chmod +x scripts/setup-ecr.sh
 ./scripts/setup-ecr.sh
 ```
 
-## 2) Configure your Buildkite pipeline env
+## 2) Configure your Buildkite pipeline environment
 
 Set these env vars in the pipeline settings (or keep defaults in `.buildkite/pipeline.yml`):
 - `AWS_REGION` (for example, `ca-central-1`)
@@ -83,7 +83,7 @@ CMD ["node","app.js"]
 **app.js:**
 ```javascript
 // app.js
-console.log("Hello from Kaniko on Buildkite Elastic CI Stack!");
+console.log("Hello from Kaniko on Buildkite Elastic CI Stack for AWS!");
 ```
 
 **Buildkite Step Script (.buildkite/steps/kaniko.sh):**
