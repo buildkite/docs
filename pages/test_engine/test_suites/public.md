@@ -16,6 +16,8 @@ Making a suite public gives read-only access to all users. This means users who 
     * `url`
     * `number`
     * `job_id`
+- Tags
+- Workflows
 
 Before making a suite public, you should verify that runs do not expose sensitive information in their logs or environment variables. This applies to both new and historical runs.
 
