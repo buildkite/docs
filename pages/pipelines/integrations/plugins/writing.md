@@ -254,7 +254,20 @@ steps:
 
 ## Publish to the Buildkite plugins directory
 
-To add your plugin to the [Buildkite plugins directory](https://buildkite.com/plugins), publish your repository to a public GitHub repository and add the `buildkite-plugin` [repository topic tag](https://github.com/topics/buildkite-plugin).
+To publish your plugin to the [Buildkite plugins directory](https://buildkite.com/resources/plugins):
+
+1. Host your plugin in GitHub as a public repository.
+1. Ensure your repository contains a valid `plugin.yml` file containing at least the `name` and `description` fields.
+1. Add the `buildkite-plugin` [GitHub repository topic tag](https://help.github.com/en/github/administering-a-repository/classifying-your-repository-with-topics) (your plugin will become discoverable under the `buildkite-plugin` [repository topic tag](https://github.com/topics/buildkite-plugin) as a result).
+1. Wait until the next Sunday (UTC) for the plugins directory to sync with GitHub, and for your plugin to appear.
+
+For example:
+
+<%= image "github-topic.png", width: 1214/2, height: 440/2, alt: "Screenshot of the ECR plugin GitHub repo with the Buildkite-plugin topic highlighted by a red box" %>
+
+Once completed, your plugin will appear in the directory:
+
+<%= image "ecr-plugin-directory-item.png", width: 1014/2, height: 500/2, alt: "Screenshot of ECR plugin in the Buildkite plugins directory" %>
 
 If you would like your plugin to appear in a certain category in the plugins directory, you need to add the corresponding GitHub label(s). Currently, the following labels will be recognized by the plugins directory:
 
@@ -292,7 +305,8 @@ If you would like your plugin to appear in a certain category in the plugins dir
   + Infrastructure as code: `terraform`, `cloudformation`, `cfn`, `infrastructure`
   + Other languages: `julia`, `python`, `rust`, `c++`, `c#`, `dhall`
 
-For full instructions on adding your plugin to the Buildkite plugins directory, see [Adding your plugin](/docs/pipelines/integrations/plugins/directory#adding-your-plugin).
+> 🚧
+> If you've completed the above steps and your plugin doesn't appear in the directory, send an email to <a href="mailto:support@buildkite.com">support@buildkite.com</a> and we'll investigate it for you.
 
 ## Designing plugins: single-command plugins versus library plugins
 
