@@ -12,6 +12,8 @@ APIs
 apk
 APM
 applesimutils
+Amazon ECR
+Amazon Elastic Continer Registry
 Anthropic's
 Aqua
 architecting

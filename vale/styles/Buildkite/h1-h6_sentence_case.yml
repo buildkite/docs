@@ -24,6 +24,8 @@ exceptions:
   - AWS
   - AWS Elastic Container Registry
   - Amazon
+  - Amazon ECR
+  - Amazon Elastic Continer Registry
   - Amazon EventBridge
   - Amazon Web Services
   - AMI
