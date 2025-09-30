@@ -22,11 +22,11 @@ Skipped tests are not run during your pipeline builds. Since these tests are not
 
 ## Automatic quarantine
 
-You can automatically quarantine tests using [workflows](/docs/test-engine/reduce-flaky-tests#quarantining-flaky-tests). To do this, use the [change state workflow action](/docs/test-engine/workflows/actions#changing-state), to automatically transition tests into different states.
+You can automatically quarantine tests using [workflows](/docs/test-engine/reduce-flaky-tests#quarantining-flaky-tests). To do this, use the [workflow change state action](/docs/test-engine/workflows/actions#change-state), to automatically transition tests into different states.
 
 [insert picture here]
 
-Using [labelling](/docs/test-engine/test-suites/labels) on a test when it is quarantined and removing the label when the test is released from quarantine is also recommended. Learn more about automatic labelling in [Workflow label actions](/docs/test-engine/workflows/actions#add-or-remove-label).
+Using [labelling](/docs/test-engine/test-suites/labels) on a test when it is quarantined and removing the label when the test is released from quarantine is also recommended. Learn more about automatic labelling in [workflow label actions](/docs/test-engine/workflows/actions#add-or-remove-label).
 
 ## Manual quarantine
 
