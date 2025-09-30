@@ -445,13 +445,13 @@ In the pipeline you're triggering, you will be able to use the meta-data that yo
 
 ## Metadata validation handling
 
-When using block steps with form fields, it's important to understand how the `required` and `default` attributes interact with metadata validation.
+When using block steps with form fields, it's important to understand how the `required` and the `default` attributes interact with metadata validation.
 
-> 📘 Important
-> Setting `required = false` only affects the UI. If you also set `default = ""`, the metadata key will exist with an empty string. Some buildkite-agent commands (for example, `meta-data set`) reject empty/whitespace-only values and fail at runtime.
+Setting `required: false` only affects the UI. If you also set `default: ""`, the metadata key will exist with an empty string. Some `buildkite-agent` commands (for example, `buildkite-agent meta-data set`) reject empty or whitespace-only values and fail at runtime.
 
-**Safe approaches:**
-- Set the field `required: true` (no default), OR
+Recommended approach:
+
+- Set the field `required: true` (no default), or
 - Keep the field optional (`required: false`) but provide a non-empty default.
 
 ## Input validation
