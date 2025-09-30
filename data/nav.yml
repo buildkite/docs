@@ -633,6 +633,10 @@
       children:
         - name: "Email"
           path: "test-engine/notifications/email"
+    - name: "Integrations"
+      children:
+        - name: "Linear"
+          path: "test-engine/integrations/linear"
     - name: "Usage and billing"
       path: "test-engine/usage-and-billing"
     - name: "Permissions"
@@ -784,8 +788,6 @@
       children:
         - name: "Slack Workspace"
           path: "platform/integrations/slack-workspace"
-        - name: "Linear workspace"
-          path: "platform/integrations/linear-workspace"
     - name: "Service quotas"
       path: "platform/service-quotas"
 - name: "APIs"

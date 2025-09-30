@@ -82,4 +82,4 @@ The title and description fields support [Linear flavoured Markdown](https://lin
 <%= image "linear-action-config.png", width: 1336/3, height: 1106/3, alt: "Screenshot showing Linear workflow action configuration" %>
 <%= image "linear-action-result.png", width: 2636/2, height: 458/2, alt: "Screenshot showing Issues tab on a Test, with workflow generated issues" %>
 
-To [connect your Linear account](/docs/platform/integrations/linear-workspace), go to your organization's settings, and select "Notification Services".
+To [connect your Linear account](/docs/test-engine/integrations/linear), go to your organization's settings, and select "Notification Services".

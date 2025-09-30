@@ -2,17 +2,17 @@
 
 The following terms describe key concepts to help you use Test Engine.
 
-## Actions
+## Action
 
-An action is part of a [workflow](#workflow). An action is a user defined operation that trigger automatically when a workflow [monitor](#monitor) goes into the [alarm](#alarm) or [recover](#recover) state for a test. Actions can be for operations that happen within the Test Engine system (i.e. changing a test's state or label) or outside of the Test Engine system (i.e. sending a Slack notification about the test).
+An action is part of a [workflow](#workflow) and provides a user defined operation that is triggered automatically when a workflow [monitor](#monitor) enters the [alarm](#alarm) or [recover](#recover) event state for a [test](#test). Actions can be for operations that happen within the Test Engine system (that is, changing a test's [state](#test-state) or [label](/docs/test-engine/test-suites/labels)), or externally to Test Engine (that is, sending a Slack notification about the test).
 
-Learn more about actions in [actions](/docs/test-engine/workflows/actions).
+Learn more about actions in [Alarm and recover actions](/docs/test-engine/workflows/actions).
 
 ## Alarm
 
-Alarm, along with [recover](#recover), is one of the two types of events that a workflow [monitor](#monitor) can alert on. Alarm events will be reported by the monitor when the alarm conditions are met. Depending on the monitor type, these alarm conditions can be configurable.
+Alarm, along with [recover](#recover), is one of the two types of events that a workflow [monitor](#monitor) can alert on. Alarm events are reported by the monitor when the alarm conditions are met. Depending on the monitor type, these alarm conditions are configurable.
 
-Alarm [actions](#actions) are performed when the alarm event is reported by the monitor. Repeated occurrences of the test meeting the alarm conditions do not retrigger alarm actions.
+Alarm [actions](#action) are performed when the alarm event is reported by the monitor. Repeated occurrences of the test meeting the alarm conditions do not retrigger alarm actions.
 
 ## Dimensions
 
@@ -46,11 +46,11 @@ Learn more about managed tests in [Usage and billing](/docs/test-engine/usage-an
 
 ## Monitor
 
-A monitor is a part of a [workflow](#workflow). Monitors observe tests over time, and help to surface valuable qualitative information about the tests in your test suite, which can be hard to surmise from raw execution data. Monitors can report on special events (i.e. a passed on retry event) or produce scores (i.e. transition count score).
+A monitor is a part of a [workflow](#workflow) and is used to observe [tests](#test) over time. Monitors help to surface valuable qualitative information about the tests in your [test suite](#test-suite), which can be difficult to surmise from raw execution data. Monitors can report on special events (that is, a passed on retry event) or produce scores (that is, transition count score).
 
-A single monitor watches over all the tests in your test suite (apart from those excluded by filters) and generates individual [alarm](#alarm) and [recover](#recover) events for each test, which then trigger the associated alarm and recover [action](#actions).
+A single monitor watches over all the tests in your test suite (apart from those excluded by filters) and generates individual [alarm](#alarm) and [recover](#recover) events for each test, which then trigger the associated alarm and recover [action](#action).
 
-Learn more about the different monitors types in [monitors](/docs/test-engine/workflows/monitors).
+Learn more about the different monitors types in [Monitors](/docs/test-engine/workflows/monitors).
 
 ## Quarantine
 
@@ -64,10 +64,9 @@ Learn more about quarantining tests in [Test state and quarantine](/docs/test-en
 
 ## Recover
 
-Recover, along with [alarm](#alarm), is one of the two types of events that a workflow [monitor](#monitor) can alert on. Recover events are [hysteric](https://en.wikipedia.org/wiki/Hysteresis), meaning that the recover event can only be reported on a test that has a previous alarm event. In this situation, when the monitor detects that the test has met the recover conditions, a recover event is reported. Depending on the monitor type, these recover conditions can be configurable.
+Recover, along with [alarm](#alarm), is one of the two types of events that a workflow [monitor](#monitor) can alert on. Recover events are [hysteric](https://en.wikipedia.org/wiki/Hysteresis), meaning that the recover event can only be reported on a test that has a previous alarm event. In such a situation, when the monitor detects that the test has met the recover conditions, a recover event is reported. Depending on the monitor type, these recover conditions can be configurable.
 
-Recover [actions](#actions) are performed when the recover event is reported by the monitor. Repeated occurrences of the test meeting the recover conditions do not retrigger recover actions.
-
+Recover [actions](#action) are performed when the recover event is reported by the monitor. Repeated occurrences of the test meeting the recover conditions do not retrigger recover actions.
 
 ## Run
 
@@ -137,6 +136,6 @@ In a development project configured with of one or more [test runners](#test-run
 
 ## Workflow
 
-A workflow is composed of a single [monitor](#monitor) and any number of [actions](#actions). A workflow enables a user to define a custom identification and management system for tests of interest in their suite. Flaky test management is a common use case for workflows.
+A workflow defines a process that's composed of a single [monitor](#monitor) and any number of [actions](#action). A workflow enables a user to define a custom identification and management system for tests of interest in their suite. Flaky test management is a common use case for workflows.
 
-Learn more about workflows in [workflows](/docs/test-engine/workflows)
+Learn more about workflows in the [Workflows overview](/docs/test-engine/workflows).
