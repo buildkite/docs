@@ -4,9 +4,9 @@ When conditions from a [monitor](/docs/test-engine/workflows/monitors) in your t
 
 ## Add or remove label
 
-These action lets you add or remove a label on the test. These two actions are often set as a pair, for example an alarm action will label a test "flaky", and the corresponding recover action will remove the "flaky" label.
+The **Add label** or **Remove label** action lets you respectively add a label to or remove a label from a test. These two actions are often set as a pair, for example, an alarm action will label a test **flaky**, and the corresponding recover action will remove the **flaky** label.
 
-## Changing state
+## Change state
 
 This action lets you [change the state](/docs/test-engine/test-suites/test-state-and-quarantine#lifecycle-states) (enabled, muted, skipped) of a test. For example, you can set the alarm action to change the state of a test to "muted", and the recover action to change the state of a test to "enabled", which will allow you to [run builds more reliably](/docs/test-engine/speed-up-builds-with-bktec#increase-build-reliability-with-test-states).
 

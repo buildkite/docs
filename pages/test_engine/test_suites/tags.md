@@ -176,7 +176,7 @@ Filtering by tag on the test index page will constrain all tests to those that h
 
 <%= image "filter-tests-by-tag.png", width: 3134, height: 1442, alt: "Screenshot of test index with a tag filter applied restricting tests to just those running on t3.large instances" %>
 
-You can filter by tag using the "Filter" dropdown.
+You can filter by tag using the **Filter** dropdown.
 
 ### Test tab
 

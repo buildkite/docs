@@ -3,7 +3,7 @@
 The Slack Workspace integration lets you receive notifications in your [Slack](https://slack.com/) workspace. This integration supports:
 
 - [Pipelines build notifications](/docs/pipelines/integrations/notifications/slack-workspace)
-- [Test Engine Workflow Slack notification](/docs/test-engine/workflows/actions#send-slack-notification)
+- [Test Engine workflow Slack notification](/docs/test-engine/workflows/actions#send-slack-notification)
 
 [Adding a **Slack Workspace** notification service](https://buildkite.com/organizations/-/services/slack_workspace/new) will authorize access for your entire Slack app for a given Slack workspace. You only need to set up this integration once per Slack workspace, after which, you can then configure notifications to be sent to any Slack channels or users.
 
@@ -26,7 +26,7 @@ The Slack Workspace integration lets you receive notifications in your [Slack](h
 
 1. Log in to Slack and grant Buildkite permission to post across your workspace.
 
-1. After granting access, you can then configure [Pipeline build notifications](/docs/pipelines/integrations/notifications/slack-workspace) and [Test Engine Workflow Slack notifications](/docs/test-engine/workflows/actions#send-slack-notification).
+1. After granting access, you can then configure [Pipeline build notifications](/docs/pipelines/integrations/notifications/slack-workspace) and [Test Engine workflow Slack notifications](/docs/test-engine/workflows/actions#send-slack-notification).
 
 ## Privacy policy
 

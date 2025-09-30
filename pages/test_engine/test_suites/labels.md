@@ -58,7 +58,7 @@ You can filter tests using labels through the [Buildkite interface](#filter-test
 
 On the test suite's **Tests** page, or a build page's **Tests** tab, either:
 
-- Click "Filter" and then "Label" and select or search for your label.
+- Select **Filter**, then **Label**, and select or search for your label.
 - For any existing test with at least one label applied to it, select the test's label > **Filter by** from its drop down to filter the test suite for all tests with that label applied to them.
 
 <%= image "filtering.png", width: 1130, height: 514, alt: "Screenshot of filtering by a test label" %>

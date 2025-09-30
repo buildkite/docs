@@ -1,14 +1,14 @@
 # Test state and quarantine
 
-Customers on the [Pro and Enterprise plan](https://buildkite.com/pricing) can access Buildkite Test Engine's _test state management_ feature. The test states available are `enabled`, `muted` and `skipped`.
+Customers on the [Pro and Enterprise plan](https://buildkite.com/pricing) can access Buildkite Test Engine's **Test state** management feature, which provides [test state](/docs/test-engine/glossary#test-state) flags of **enabled**, **muted** and **skipped**.
 
-_Quarantine_ refers to the action of moving a test from a trusted state (`enabled`) to one of the untrusted states (`muted` or `skipped`). Tests can be quarantined [automatically](#automatic-quarantine) or [manually](#manual-quarantine).
+[_Quarantine_](/docs/test-engine/glossary#quarantine) refers to the action of moving a test from a trusted state (**enabled**) to one of the untrusted states (**muted** or **skipped**). Tests can be quarantined [automatically](#automatic-quarantine) or [manually](#manual-quarantine).
 
 Quarantining [flaky tests](/docs/test-engine/reduce-flaky-tests) and then using [bktec](/docs/test-engine/speed-up-builds-with-bktec#increase-build-reliability-with-test-states) on pipeline's builds allows the pipeline to be built more rapidly, and run with a higher success rate.
 
 ## Lifecycle states
 
-Users with the [**Full Access** permission to a test suite](/docs/test-engine/permissions#manage-teams-and-permissions-test-suite-level-permissions) can enable a _test state_ in a test suite's **Settings**, by selecting the appropriate test states that quarantining can be based upon.
+Users with the [**Full Access** permission to a test suite](/docs/test-engine/permissions#manage-teams-and-permissions-test-suite-level-permissions) can enable a **Test state** in a test suite's **Settings**, by selecting the appropriate test states that quarantining can be based upon.
 
 <%= image "lifecycle-management.png", alt: "The UI for test state lifecycle management" %>
 
@@ -22,15 +22,15 @@ Skipped tests are not run during your pipeline builds. Since these tests are not
 
 ## Automatic quarantine
 
-Users can automatically quarantine tests using [Workflows](/docs/test-engine/reduce-flaky-tests#quarantining-flaky-tests). By using the [change state workflow action](/docs/test-engine/workflows/actions#changing-state), tests can automatically be transitioned into different states.
+You can automatically quarantine tests using [workflows](/docs/test-engine/reduce-flaky-tests#quarantining-flaky-tests). To do this, use the [change state workflow action](/docs/test-engine/workflows/actions#changing-state), to automatically transition tests into different states.
 
 [insert picture here]
 
-We also recommend [labelling](/docs/test-engine/test-suites/labels) a test when it is quarantined and removing the label when the test is released from quarantine. Learn more about automatic labelling in [Workflow label actions](docs/test-engine/workflows/actions#add-or-remove-label).
+Using [labelling](/docs/test-engine/test-suites/labels) on a test when it is quarantined and removing the label when the test is released from quarantine is also recommended. Learn more about automatic labelling in [Workflow label actions](/docs/test-engine/workflows/actions#add-or-remove-label).
 
 ## Manual quarantine
 
-Users can manually quarantine flaky tests via the dropdown menu within the test's page itself or the test digest. This helps unblock builds affected by unreliable tests in real time.
+You can manually quarantine flaky tests via the dropdown menu within the test's page itself or the test digest. This helps unblock builds affected by unreliable tests in real time.
 
 <%= image "manual-quarantine.png", alt: "Manually quarantine individual tests via the dropdown." %>
 

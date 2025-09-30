@@ -4,8 +4,8 @@
 
 ## Creating views
 
-1. On the **Tests** page, click **Filter**, then select as many filter values as you would like.
-1. Click **Display** and select the columns you would like.
+1. On the **Tests** page, select **Filter**, then select as many filter values as you would like.
+1. Select **Display**, then select the columns you would like to appear in your view.
 1. Select **Save** in the filter bar.
 1. Give your view a name.
 1. Select **Save view**.
