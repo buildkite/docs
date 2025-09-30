@@ -4,7 +4,7 @@ toc: false
 
 # Building Docker images
 
-This guide shows how to build and push a container image to [Amazon Elastic Continer Registry (ECR)](https://aws.amazon.com/ecr/) using [Kaniko](https://github.com/chainguard-dev/kaniko) from a [Buildkite Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack) agent.
+This guide shows how to build and push a container image to [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/ecr/) using [Kaniko](https://github.com/chainguard-dev/kaniko) from a [Buildkite Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack) agent.
 
 ## 1. One-time ECR setup
 
