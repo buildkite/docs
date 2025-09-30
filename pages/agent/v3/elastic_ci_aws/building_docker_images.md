@@ -1,8 +1,8 @@
 ---
-toc_include_h3: false
+toc: false
 ---
 
-# Building Docker Images
+# Building Docker images
 
 This guide shows how to build & push a container image to **Amazon ECR** using **Kaniko** from a **Buildkite Elastic CI Stack for AWS** agent.
 
@@ -20,6 +20,7 @@ chmod +x scripts/setup-ecr.sh
 ## 2. Configure your Buildkite pipeline env
 
 Set these env vars in the pipeline settings (or keep defaults in `.buildkite/pipeline.yml`):
+
 - `AWS_REGION` (for example, `ca-central-1`)
 - `ECR_ACCOUNT_ID` (your 12-digit account)
 - `ECR_REPO` (your repository name, for example, `example/hello-kaniko`)
@@ -27,12 +28,12 @@ Set these env vars in the pipeline settings (or keep defaults in `.buildkite/pip
 ## 3. Push using Kaniko
 
 Commit and push. The step in `.buildkite/pipeline.yml` will:
+
 - generate a Docker config pointing to the **ECR credential helper**,
 - run the **Chainguard Kaniko** container to build,
 - push to ECR (with optional layer cache at `<repo>-cache`).
 
 > If your Git repository uses **SSH**, make sure your Elastic CI Stack for AWS **S3 secrets** bucket contains a `private_ssh_key` at the correct prefix (or switch to HTTPS + `git-credentials`).
-
 
 ## Running Kaniko in Docker
 
@@ -55,6 +56,7 @@ steps:
     commands:
       - bash .buildkite/steps/kaniko.sh
 ```
+
 **Dockerfile:**
 ```dockerfile
 FROM public.ecr.aws/docker/library/node:20-alpine
@@ -88,7 +90,6 @@ console.log("Hello from Kaniko on Buildkite Elastic CI Stack for AWS!");
 
 **Buildkite Step Script (.buildkite/steps/kaniko.sh):**
 ```bash
-
 # ---- Required env from the step ----
 AWS_REGION="${AWS_REGION:?missing AWS_REGION}"
 ECR_ACCOUNT_ID="${ECR_ACCOUNT_ID:?missing ECR_ACCOUNT_ID}"
@@ -140,7 +141,7 @@ docker run --rm \
 
 echo "Pushed ${IMAGE_URI}"
 
-# ---- Run the just-built image 
+# ---- Run the just-built image
 ls -lh out
 docker load -i out/image.tar
 docker run --rm "${IMAGE_URI}"
@@ -157,7 +158,8 @@ docker run --rm "${IMAGE_URI}"
 - **Robust error handling**: Proper validation of required environment variables
 - **Smart tagging**: Uses commit SHA and build number for unique image tags
 
-**Note**: This example uses ECR, but Kaniko works with any container registry. Adjust the authentication and destination URL accordingly for other registries like Docker Hub, GCR, or Azure Container Registry.
+> 📘
+> This example uses ECR, but Kaniko works with any container registry. Adjust the authentication and destination URL accordingly for other registries like Docker Hub, GCR, or Azure Container Registry.
 
 ### Verifying signed Kaniko images
 
@@ -181,6 +183,7 @@ echo "Signature verified OK for ${KANIKO_IMG}"
 ```
 
 This verification:
+
 - Uses the official Kaniko public key from their [GitHub repository](https://github.com/GoogleContainerTools/kaniko#verifying-signed-kaniko-images)
 - Ensures the Kaniko image hasn't been tampered with
 - Runs before your build process to catch any security issues early
@@ -204,7 +207,9 @@ steps:
     commands:
       - bash .buildkite/steps/kaniko.sh
 ```
+
 The debug image provides several debugging options:
+
 - **Interactive shell access**: Set `KANIKO_SHELL=1` to get an interactive shell inside the Kaniko container
 - **Verbose logging**: Use `KANIKO_VERBOSITY=debug` for detailed build logs
 - **No-push mode**: Set `KANIKO_NO_PUSH=1` to build without pushing to registry
@@ -222,6 +227,7 @@ KANIKO_NO_PUSH=1
 ```
 
 The debug image is particularly useful for:
+
 - Investigating build failures
 - Examining the build context and Dockerfile
 - Testing different Kaniko parameters
