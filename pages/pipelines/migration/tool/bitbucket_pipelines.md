@@ -55,7 +55,7 @@ You might need to adjust the converted Buildkite pipeline output to ensure it is
 
 | <div style="width: 50px;">Key</div>  | Supported | Notes |
 | --- | --- | --- |
-| `clone` | Partially | Clone options for all steps of a Bitbucket pipeline. The majority of these options need to be set on a Buildkite Agent itself through its [configuration of properties](/docs/agent/v3/configuration) such as the clone flags (`git-clone-flags` or `git-clone-mirror-flags` if utilizing a Git mirror), fetch flags (`git-fetch-flags`) - or changing the entire checkout process in a customized [plugin](/docs/plugins/writing) overriding the default agent `checkout` hook. <br/><br/> Sparse-checkout properties of `code-mode`, `enabled`, and `patterns` will be translated to the respective properties within the [sparse-checkout-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/). <br/><br/> `clone` properties in a Bitbucket pipeline have higher precedence over these global properties. |
+| `clone` | Partially | Clone options for all steps of a Bitbucket pipeline. The majority of these options need to be set on a Buildkite Agent itself through its [configuration of properties](/docs/agent/v3/configuration) such as the clone flags (`git-clone-flags` or `git-clone-mirror-flags` if utilizing a Git mirror), fetch flags (`git-fetch-flags`) - or changing the entire checkout process in a customized [plugin](/docs/plugins/writing) overriding the default agent `checkout` hook. <br/><br/> Sparse-checkout properties of `code-mode`, `enabled`, and `patterns` used in a Bitbucket pipeline will be translated to the respective properties within the [sparse-checkout-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/). <br/><br/> `clone` properties in a Bitbucket pipeline have higher precedence over these global properties. |
 {: class="responsive-table"}
 
 ## Definitions
@@ -141,7 +141,8 @@ You might need to adjust the converted Buildkite pipeline output to ensure it is
 | <div style="width: 50px;">Key</div> | Supported | Notes |
 | --- | --- | --- |
 | `options` | Partially | Customized options utilized throughout a Bitbucket pipeline. |
-| `max-time`, `size`| Partially | These properties are supported for translation within the Buildkite migration tool into the generated Buildkite Pipelines command step's `timeout_in_minutes` and agent tag respectively. |
+| `max-time`, `size`| Partially | This property is supported for translation within the Buildkite migration tool into the generated Buildkite Pipelines command step's `timeout_in_minutes`. |
+| `size`| Partially | This property is supported for translation within the Buildkite migration tool into the generated Buildkite Pipelines command step's agent tag. |
 | `docker` | No | This property is not supported and will depend on the agent configuration the corresponding Buildkite Pipelines command step is being targeted to run said job has available. |
 {: class="responsive-table"}
 
