@@ -33,7 +33,6 @@ Commit and push. The step in `.buildkite/pipeline.yml` will:
 
 > If your Git repository uses **SSH**, make sure your Elastic CI Stack for AWS **S3 secrets** bucket contains a `private_ssh_key` at the correct prefix (or switch to HTTPS + `git-credentials`).
 
-
 ## Running Kaniko in Docker
 
 The Elastic CI Stack for AWS supports running [Kaniko](https://github.com/GoogleContainerTools/kaniko) for building container images without requiring Docker daemon privileges. This is useful for building images in environments where Docker-in-Docker is not available or desired.
@@ -44,7 +43,6 @@ Kaniko executes your Dockerfile inside a container and pushes the resulting imag
 
 Here's a complete example of using Kaniko to build and push a container image:
 
-**pipeline.yml:**
 ```yaml
 steps:
   - label: ":whale: Kaniko"
@@ -55,7 +53,8 @@ steps:
     commands:
       - bash .buildkite/steps/kaniko.sh
 ```
-**Dockerfile:**
+{: codeblock-file="pipeline.yml"}
+
 ```dockerfile
 FROM public.ecr.aws/docker/library/node:20-alpine
 WORKDIR /app
@@ -64,6 +63,7 @@ RUN npm ci --omit=dev || npm i --omit=dev
 COPY app.js ./
 CMD ["node","app.js"]
 ```
+{: codeblock-file="dockerfile"}
 
 **package.json:**
 ```json
@@ -79,16 +79,15 @@ CMD ["node","app.js"]
   }
 }
 ```
+{: codeblock-file="package.json"}
 
-**app.js:**
 ```javascript
 // app.js
 console.log("Hello from Kaniko on Buildkite Elastic CI Stack for AWS!");
 ```
+{: codeblock-file="app.js"}
 
-**Buildkite Step Script (.buildkite/steps/kaniko.sh):**
 ```bash
-
 # ---- Required env from the step ----
 AWS_REGION="${AWS_REGION:?missing AWS_REGION}"
 ECR_ACCOUNT_ID="${ECR_ACCOUNT_ID:?missing ECR_ACCOUNT_ID}"
@@ -140,11 +139,12 @@ docker run --rm \
 
 echo "Pushed ${IMAGE_URI}"
 
-# ---- Run the just-built image 
+# ---- Run the just-built image
 ls -lh out
 docker load -i out/image.tar
 docker run --rm "${IMAGE_URI}"
 ```
+{: codeblock-file=" Buildkite Step Script ".buildkite/steps/kaniko.sh""}
 
 ### Key benefits
 
