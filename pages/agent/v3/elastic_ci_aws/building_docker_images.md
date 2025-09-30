@@ -1,8 +1,8 @@
 ---
-toc_include_h3: false
+toc: false
 ---
 
-# Building Docker Images
+# Building Docker images
 
 This guide shows how to build & push a container image to **Amazon ECR** using **Kaniko** from a **Buildkite Elastic CI Stack for AWS** agent.
 
@@ -17,7 +17,7 @@ chmod +x scripts/setup-ecr.sh
 ./scripts/setup-ecr.sh
 ```
 
-## 2. Configure your Buildkite pipeline env
+## 2. Configure your Buildkite pipeline environment
 
 Set these env vars in the pipeline settings (or keep defaults in `.buildkite/pipeline.yml`):
 - `AWS_REGION` (for example, `ca-central-1`)
@@ -55,6 +55,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+**Dockerfile:**
 ```dockerfile
 FROM public.ecr.aws/docker/library/node:20-alpine
 WORKDIR /app
@@ -63,7 +64,6 @@ RUN npm ci --omit=dev || npm i --omit=dev
 COPY app.js ./
 CMD ["node","app.js"]
 ```
-{: codeblock-file="dockerfile"}
 
 **package.json:**
 ```json
@@ -79,14 +79,13 @@ CMD ["node","app.js"]
   }
 }
 ```
-{: codeblock-file="package.json"}
 
+**app.js:**
 ```javascript
 // app.js
 console.log("Hello from Kaniko on Buildkite Elastic CI Stack for AWS!");
 ```
-{: codeblock-file="app.js"}
-
+**Buildkite step script .buildkite/steps/kaniko.sh:**
 ```bash
 # ---- Required env from the step ----
 AWS_REGION="${AWS_REGION:?missing AWS_REGION}"
@@ -144,7 +143,6 @@ ls -lh out
 docker load -i out/image.tar
 docker run --rm "${IMAGE_URI}"
 ```
-{: codeblock-file=" Buildkite Step Script ".buildkite/steps/kaniko.sh""}
 
 ### Key benefits
 
@@ -157,7 +155,8 @@ docker run --rm "${IMAGE_URI}"
 - **Robust error handling**: Proper validation of required environment variables
 - **Smart tagging**: Uses commit SHA and build number for unique image tags
 
-**Note**: This example uses ECR, but Kaniko works with any container registry. Adjust the authentication and destination URL accordingly for other registries like Docker Hub, GCR, or Azure Container Registry.
+> 📘
+> This example uses ECR, but Kaniko works with any container registry. Adjust the authentication and destination URL accordingly for other registries like Docker Hub, GCR, or Azure Container Registry.
 
 ### Verifying signed Kaniko images
 
