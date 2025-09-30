@@ -25,9 +25,9 @@ In the below example, the `tests` step will only be run if the build message doe
 
 ```yml
 steps:
-	- command: ./scripts/tests.sh
-	  label: tests
-	  if: build.message !~ /skip tests/
+  - command: ./scripts/tests.sh
+    label: tests
+    if: build.message !~ /skip tests/
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -37,9 +37,9 @@ Be careful when defining conditionals within YAML. Many symbols have special mea
 
 ```yml
 steps:
-	- command: ./scripts/tests.sh
-	  label: tests
-	  if: "!build.pull_request.draft"
+  - command: ./scripts/tests.sh
+    label: tests
+    if: "!build.pull_request.draft"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -47,13 +47,14 @@ Multi-line conditionals can be added with the `|` character, and avoid the need 
 
 ```yml
 steps:
-    - command: ./scripts/tests.sh
-      label: tests
-      if: |
-      	// Don't when the message contains "skip tests"
-      	// Only run on feature branches
-        build.message !~ /skip tests/ &&
-          build.branch =~ /^feature\//
+  - command: ./scripts/tests.sh
+    label: tests
+    if: |
+      // Do not run when the message contains "skip tests"
+      //   and
+      // Only run on feature branches
+      build.message !~ /skip tests/ &&
+        build.branch =~ /^feature\//
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -84,7 +85,7 @@ steps:
 
 ## Conditional notifications
 
-To trigger [Build notifications](/docs/pipelines/configure/notifications#conditional-notifications) only under certain conditions, use  the same `if` syntax as in your [Steps](/docs/pipelines/configure/conditionals#conditionals-in-steps).
+To trigger [Build notifications](/docs/pipelines/configure/notifications#conditional-notifications) only under certain conditions, use the same `if` syntax as in your [Steps](/docs/pipelines/configure/conditionals#conditionals-in-steps).
 
 For example, the following email notification will only be triggered if the build passes:
 
@@ -447,7 +448,7 @@ The following step variables are also available for <a href="#conditional-notifi
 	<tr>
 		<td><code>step.outcome</code></td>
 		<td><code>String</code></td>
-		<td>The outcome of the current step<br><em>Available types:</em> <code>neutral</code>, <code>passed</code>, <code>soft_failed</code>, <code>hard_failed</code>, <code>errored</code></td>
+		<td>The outcome of the current step<br><em>Available outcomes:</em> <code>neutral</code>, <code>passed</code>, <code>soft_failed</code>, <code>hard_failed</code>, <code>errored</code></td>
 	</tr>
 </tbody>
 </table>
