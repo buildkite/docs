@@ -50,9 +50,7 @@ For S3-based deployments, additional S3 permissions are required:
 
 ## Deploying zip-based Lambda functions
 
-The most common Lambda deployment pattern uses Zip files containing function code. This example shows a complete pipeline that builds, tests, and deploys a Python Lambda function.
-
-Create a `.buildkite/pipeline.yml` file:
+The most common Lambda deployment pattern uses Zip files containing function code. This example shows a pipeline that builds and deploys a Python Lambda function:
 
 ```yaml
 steps:
@@ -60,17 +58,9 @@ steps:
     key: "build"
     commands:
       - echo "Building Lambda function..."
-      - pip install -r requirements.txt -t src/
       - zip -r function.zip src/
     artifact_paths:
       - "function.zip"
-
-  - label: ":test_tube: Test function"
-    depends_on: "build"
-    commands:
-      - python -m pytest tests/
-
-  - wait
 
   - label: ":rocket: Deploy to Lambda"
     depends_on: "build"
@@ -95,31 +85,14 @@ steps:
           health-check-enabled: true
           health-check-timeout: 60
           health-check-payload: '{"test": true}'
-    concurrency: 1
-    concurrency_group: "lambda-deploy"
 ```
-
-This pipeline:
-
-1. **Builds** the Lambda package by installing dependencies and creating a zip file
-2. **Tests** the function code
-3. **Deploys** using the AWS Lambda Deploy plugin with health checks and auto-rollback enabled
 
 ## Deploying container-based Lambda functions
 
-For larger functions or those requiring custom runtimes, Lambda supports container images. This example shows deploying a containerized Lambda function from ECR.
+For larger functions or those requiring custom runtimes, Lambda supports container images. This example deploys a containerized Lambda function from ECR:
 
 ```yaml
 steps:
-  - label "\:docker\: Build container image"
-    commands:
-      - docker build -t my-function:${BUILDKITE_BUILD_NUMBER} .
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 123456789012.dkr.ecr.us-east-1.amazonaws.com
-      - docker tag my-function:${BUILDKITE_BUILD_NUMBER} 123456789012.dkr.ecr.us-east-1.amazonaws.com/my-function:${BUILDKITE_BUILD_NUMBER}
-      - docker push 123456789012.dkr.ecr.us-east-1.amazonaws.com/my-function:${BUILDKITE_BUILD_NUMBER}
-
-  - wait
-
   - label: ":rocket: Deploy Lambda container"
     plugins:
       - aws-lambda-deploy#v1.0.0:
@@ -139,8 +112,6 @@ steps:
           health-check-enabled: true
           health-check-payload: '{"length": 5, "width": 10}'
           health-check-timeout: 120
-    concurrency: 1
-    concurrency_group: "lambda-deploy"
 ```
 
 ## S3-based deployments
@@ -149,11 +120,6 @@ For larger deployment packages or shared packages, Lambda functions can be deplo
 
 ```yaml
 steps:
-  - label: ":package: Upload to S3"
-    commands:
-      - zip -r function.zip src/
-      - aws s3 cp function.zip s3://my-deployment-bucket/functions/my-function-${BUILDKITE_BUILD_NUMBER}.zip
-
   - label: ":rocket: Deploy from S3"
     plugins:
       - aws-lambda-deploy#v1.0.0:
@@ -171,48 +137,34 @@ steps:
 
 ## Manual approval and rollback
 
-For production deployments, manual approval steps and explicit rollback capabilities can be added:
+For production deployments, you can use block steps and manual rollback:
 
 ```yaml
 steps:
-  - label: ":package: Build function"
-    key: "build"
-    commands:
-      - zip -r function.zip src/
-    artifact_paths:
-      - "function.zip"
-
-  - block: ":warning: Deploy to production?"
-    prompt: "Deploy to production environment?"
-
   - label: ":rocket: Deploy to production"
-    depends_on: "build"
-    commands:
-      - buildkite-agent artifact download "function.zip" .
     plugins:
       - aws-lambda-deploy#v1.0.0:
-          function-name: "my-production-function"
+          function-name: "my-function"
           alias: "production"
           mode: "deploy"
           zip-file: "function.zip"
           region: "us-east-1"
-          auto-rollback: true
-          health-check-enabled: true
-    concurrency: 1
-    concurrency_group: "production-deploy"
+          runtime: "python3.13"
+          handler: "lambda_function.lambda_handler"
+          timeout: 30
+          memory-size: 128
+          description: "Deployment from build ${BUILDKITE_BUILD_NUMBER}"
 
-  # Rollback step (can be manually triggered if needed)
-  - label: ":leftwards_arrow_with_hook: Rollback"
-    key: "rollback"
+  - block: ":thinking_face: Review deployment"
+    prompt: "Check if the deployment is working correctly"
+
+  - label: ":leftwards_arrow_with_hook: Manual rollback"
     plugins:
       - aws-lambda-deploy#v1.0.0:
-          function-name: "my-production-function"
+          function-name: "my-function"
           alias: "production"
           mode: "rollback"
           region: "us-east-1"
-    concurrency: 1
-    concurrency_group: "production-deploy"
-    manual: true
 ```
 
 ## Health checks
