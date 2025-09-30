@@ -6,7 +6,7 @@ template: "landing_page"
 
 The _Buildkite plugins directory_ (also accessible from the main [Buildkite website](https://buildkite.com/resources/plugins)), allows you to discover and find all plugins maintained by Buildkite, as well as those from third-party developers.
 
-Once you have [created your own plugin](/docs/pipelines/integrations/plugins/writing), you can also [add it to the plugins directory](/docs/pipelines/integrations/plugins/directory#publish-to-the-buildkite-plugins-directory).
+Once you have [created your own plugin](/docs/pipelines/integrations/plugins/writing), you can also [add it to the plugins directory](/docs/pipelines/integrations/plugins/writing#publish-to-the-buildkite-plugins-directory).
 
 <a class="Frameheader" href='https://buildkite.com/resources/plugins' target='_blank'>
   <span class="Frameheader__address">buildkite.com/resources/plugins</span>
