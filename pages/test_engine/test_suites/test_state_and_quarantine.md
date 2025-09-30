@@ -26,7 +26,7 @@ Users can automatically quarantine tests using [Workflows](/docs/test-engine/red
 
 [insert picture here]
 
-We also recommend [labelling](/docs/test-engine/test-suites/labels) a test when it is quarantined and removing the label when the test is released from quarantine. Learn more about automatic labelling in [Workflow label actions](docs/test-engine/workflows/actions#add-slash-remove-label).
+We also recommend [labelling](/docs/test-engine/test-suites/labels) a test when it is quarantined and removing the label when the test is released from quarantine. Learn more about automatic labelling in [Workflow label actions](docs/test-engine/workflows/actions#add-or-remove-label).
 
 ## Manual quarantine
 

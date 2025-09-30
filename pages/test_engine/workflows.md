@@ -12,9 +12,9 @@ Workflows are composed of a single [monitor](/docs/test-engine/workflows/monitor
 
 A single monitor watches over all the tests in your test suite (except for those excluded by filters) and generates individual _alarm_ and _recover_ events for each test, which then trigger the associated [alarm and recover actions](/docs/test-engine/workflows/actions).
 
-Alarm events are reported by the monitor when the alarm conditions are met for a given test. This could be an observation of a single special occurrence (for example, a test reports both a pass and fail result on the same commit SHA) or a cumulative score that is tracked over time being exceeded (for example, the transition count score for a test exceeds 0.05).
+_Alarm_ events are reported by the monitor when the alarm conditions are met for a given test. This could be an observation of a single special occurrence (for example, a test reports both a pass and fail result on the same commit SHA) or a cumulative score that is tracked over time being exceeded (for example, the transition count score for a test exceeds 0.05).
 
-Recover events are [hysteric](https://en.wikipedia.org/wiki/Hysteresis), meaning that the recover event can only be reported on a test that has a previous alarm event. In such a situation, when the monitor detects that the test has met the recover conditions, a recover event is reported.
+_Recover_ events are [hysteric](https://en.wikipedia.org/wiki/Hysteresis), meaning that the recover event can only be reported on a test that has a previous alarm event. In such a situation, when the monitor detects that the test has met the recover conditions, a recover event is reported.
 
 Depending on the monitor type, the alarm and recover conditions can be configured.
 

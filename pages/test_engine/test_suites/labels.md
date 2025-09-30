@@ -48,7 +48,7 @@ Learn more about test execution tagging in [Tags](/docs/test-engine/test-suites/
 
 ### Using the REST API
 
-You can label tests using the [REST API](/docs/apis/rest-api) with the [Tests API](/docs/apis/rest-api/test-engine/tests) endpoint. Learn more about this in [Add/remove labels from a test](/docs/apis/rest-api/test-engine/tests#add-slash-remove-labels-from-a-test).
+You can label tests using the [REST API](/docs/apis/rest-api) with the [Tests API](/docs/apis/rest-api/test-engine/tests) endpoint. Learn more about this in [Add/remove labels from a test](/docs/apis/rest-api/test-engine/tests#add-or-remove-labels-from-a-test).
 
 ## Filter tests
 

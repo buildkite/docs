@@ -1,8 +1,8 @@
 # Alarm and recover actions
 
-When conditions in your test suite trigger an _alarm_ or _recover_ workflow event, there are several automatic actions that Test Engine can perform.
+When conditions from a [monitor](/docs/test-engine/workflows/monitors) in your test suite's [workflow](/docs/test-engine/workflows) triggers an [_alarm_ or _recover_ event](/docs/test-engine/workflows#how-they-work), there are several automatic actions that Test Engine can perform.
 
-## Add/remove label
+## Add or remove label
 
 These action lets you add or remove a label on the test. These two actions are often set as a pair, for example an alarm action will label a test "flaky", and the corresponding recover action will remove the "flaky" label.
 
