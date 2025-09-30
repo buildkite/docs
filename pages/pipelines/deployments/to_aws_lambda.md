@@ -32,7 +32,7 @@ Buildkite agents need the following Lambda permissions:
         "lambda:DeleteFunction",
         "lambda:InvokeFunction"
       ],
-      "Resource": "arn:aws:lambda:*:*:function:*"
+      "Resource": "arn\:aws\:lambda:*:*:function:my-function*"
     }
   ]
 }
@@ -44,7 +44,7 @@ For S3-based deployments, additional S3 permissions are required:
 {
   "Effect": "Allow",
   "Action": ["s3:GetObject", "s3:GetObjectVersion"],
-  "Resource": "arn:aws:s3:::deployment-bucket/*"
+  "Resource": "arn\:aws\:s3:::deployment-bucket/*"
 }
 ```
 
@@ -259,36 +259,4 @@ Metadata keys are namespaced by function name:
 - `deployment:aws_lambda:my-function:previous_version`
 - `deployment:aws_lambda:my-function:result`
 
-## Configuration options
-
-The AWS Lambda Deploy plugin supports extensive configuration options:
-
-### Required parameters
-
-- `function-name`: AWS Lambda function name
-- `alias`: Lambda alias to manage (for example, "production", "staging")
-- `mode`: Operation mode (`deploy` or `rollback`)
-
-### Package configuration
-
-- `package-type`: `Zip` or `Image` (default: `Zip`)
-- `zip-file`: Path to local zip file
-- `s3-bucket` + `s3-key`: S3 location for zip files
-- `image-uri`: ECR image URI for container deployments
-
-### Function settings
-
-- `runtime`: Lambda runtime (for Zip packages)
-- `handler`: Function handler (for Zip packages)
-- `timeout`: Function timeout in seconds
-- `memory-size`: Memory allocation in MB
-- `environment`: Environment variables object
-
-### Deployment controls
-
-- `auto-rollback`: Enable automatic rollback on failure (default: `false`)
-- `health-check-enabled`: Enable health check testing (default: `false`)
-- `health-check-timeout`: Health check timeout in seconds (default: `300`)
-- `health-check-payload`: JSON payload for test invocation
-
-For complete configuration options, see the [plugin documentation](https://github.com/buildkite/aws-lambda-deploy-buildkite-plugin).
+For complete configuration options, see the [plugin documentation](https://github.com/buildkite-plugins/aws-lambda-deploy-buildkite-plugin/).
