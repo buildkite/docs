@@ -4,7 +4,7 @@ The following terms describe key concepts to help you use Test Engine.
 
 ## Action
 
-An action is part of a [workflow](#workflow) and provides a user defined operation that is triggered automatically when a workflow [monitor](#monitor) enters the [alarm](#alarm) or [recover](#recover) event state for a [test](#test). Actions can be for operations that happen within the Test Engine system (that is, changing a test's [state](#test-state) or [label](/docs/test-engine/test-suites/labels)), or externally to Test Engine (that is, sending a Slack notification about the test).
+An action is part of a [workflow](#workflow) and provides a user defined operation that is triggered automatically when a workflow [monitor](#monitor) enters the [alarm](#alarm) or [recover](#recover) event state for a [test](#test). Actions can be for operations that happen within the Test Engine system (that is, changing a test's [state](#test-state) or [label](/docs/test-engine/test-suites/labels)), or externally to Test Engine (for example, sending a Slack notification about the test).
 
 Learn more about actions in [Alarm and recover actions](/docs/test-engine/workflows/actions).
 
@@ -46,7 +46,7 @@ Learn more about managed tests in [Usage and billing](/docs/test-engine/usage-an
 
 ## Monitor
 
-A monitor is a part of a [workflow](#workflow) and is used to observe [tests](#test) over time. Monitors help to surface valuable qualitative information about the tests in your [test suite](#test-suite), which can be difficult to surmise from raw execution data. Monitors can report on special events (that is, a passed on retry event) or produce scores (that is, transition count score).
+A monitor is a part of a [workflow](#workflow) and is used to observe [tests](#test) over time. Monitors help to surface valuable qualitative information about the tests in your [test suite](#test-suite), which can be difficult to surmise from raw execution data. Monitors can report on special events (for example, a passed on retry event) or produce scores (such as, transition count score).
 
 A single monitor watches over all the tests in your test suite (apart from those excluded by filters) and generates individual [alarm](#alarm) and [recover](#recover) events for each test, which then trigger the associated alarm and recover [action](#action).
 
