@@ -30,7 +30,7 @@ In addition to the window, the transition counts that cause the [_alarm_ and _re
 
 A branch must be configured for the transition count monitor, and therefore, it is recommended setting this to the value of the main branch (for example, `main`, `master`, `trunk`). Configuring a branch is necessary so that transitions from feature branches are ignored in the accumulation of the transition count, as failures and passes on feature branches are a byproduct of a standard development workflow, and do not indicate test instability.
 
-If you're unsure what the most suitable monitor is for your test suite, use this the transition count monitor on your test suite's default branch. This monitor will likely work without any pipeline configuration changes (for example, setting up job retries), and has more resiliency to "real world" events (that is, infrastructure) which affect test results.
+If you're unsure what the most suitable monitor is for your test suite, use this the transition count monitor on your test suite's default branch. This monitor will likely work without any pipeline configuration changes (for example, setting up job retries), and has more resiliency to "real world" events (for example, infrastructure-related events) which affect test results.
 
 ## Passed on retry
 
