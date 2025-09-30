@@ -39,7 +39,7 @@ Buildkite Pipelines supports the following categories of webhook events, which a
 
 ### Test Engine
 
-Buildkite Test Engine supports webhook events relating to [changes in test states and labels](/docs/apis/webhooks/test-engine).
+Buildkite Test Engine supports webhook events relating to a [monitor on a test suite's workflow triggering an alarm or recover action](/docs/apis/webhooks/test-engine).
 
 ### Package Registries
 
