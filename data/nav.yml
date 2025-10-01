@@ -63,6 +63,7 @@
           path: "pipelines/tutorials/pipeline-upgrade"
         - name: "Using GitHub merge queues"
           path: "pipelines/tutorials/github-merge-queue"
+          pill: "preview"
         - name: "Triggering Pipelines Using GitHub Actions"
           path: "pipelines/tutorials/github-actions"
     - name: "Agent"

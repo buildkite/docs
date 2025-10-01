@@ -470,3 +470,9 @@ github
 landing_page_pipelines
 
 eg
+
+base_sha
+base_ref
+head_sha
+head_ref
+if_changed
