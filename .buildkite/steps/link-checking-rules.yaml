@@ -8,7 +8,9 @@ link_checking_exemptions:
       - https://github.com/buildkite/docs/
       - https://buildkite.com/my-organization/
       - https://github.com/my-org/
-  - name: accept-403-unauthorized
+      - https://claude.ai/download
+
+  - name: login-required
     description: |
       Ignore HTTP 403 Forbidden.
       URLs matching these regular expressions are known not to work unless you are logged in.
@@ -17,8 +19,16 @@ link_checking_exemptions:
       - https://buildkite.com/organizations/
       - https://buildkite.com/user/
       - https://buildkite.com/(~|%7E)/
-      # NPM is uncompromising with regard to suspected scrapers
+      - https://portal.azure.com/
+
+  - name: accept-anti-scraping-measures
+    description: Muffet resembles a scraper to some sites
+    status_pattern: "403"
+    url_patterns:
       - https://www.npmjs.com/
+      - https://linux.die.net/man/
+      - https://www.seek.com.au/
+      - https://www.cvedetails.com/
 
   - name: ignore-api-401-unauthorized
     description: Ignore HTTP 401 Unauthorized on Buildkite API
@@ -33,30 +43,37 @@ link_checking_exemptions:
       # Everything
       - ".*"
 
-  - name: ignore-missing-anchors
-    description: Ignore missing anchor tags
+  - name: fragments-handled-by-js-not-html
+    description: Sites that interpret URL fragments using JS, rather than standard browser behaviour
     status_pattern: "id #.* not found"
     url_patterns:
-      - https://github.com/ # All of GitHub :(
-      - https://docs.github.com/ # All of GitHub :(
-      # Surprisingly, links to the AWS web console error on missing fragments, not authentication.
+      - https://github.com/
+      - https://docs.github.com/
+      # Argo's Swagger documentation uses JS to interpret the anchor.
+      - https://cd.apps.argoproj.io/swagger-ui
+
+  - name: surprising-fragment-failures
+    description: Surprisingly, these links fail because of missing anchors, not authentication.
+    status_pattern: "id #.* not found"
+    url_patterns:
+      - https://console.cloud.google.com/compute/instancesAdd
       - https://console.aws.amazon.com/cloudformation/home
       - https://console.aws.amazon.com/ec2/v2/home
 
-  - name: download-links
-    description: Sometimes we link directly to things that trigger big downloads, maybe?
-    status_pattern: "error when reading response headers: small read buffer. Increase ReadBufferSize..*"
-    url_patterns:
-      - https://claude.ai/download
-
   - name: ignore-sample-dot-svg
-    description: We don't expect /sample.svg to work on the test server.
+    description: We don't expect /sample.svg to work on the test server that Muffet usees.
     status_pattern: "404"
     url_patterns:
-      - "https://app:3000/sample.svg\\?"
+      - "http://app:3000/sample.svg\\?"
 
   - name: github-marketplace-http-400
     description: We might resemble a scraper in the eyes of GitHub Marketplace
     status_pattern: "400"
     url_patterns:
       - "https://github.com/marketplace"
+
+  - name: not-actually-links
+    description: Muffet can be a bit greedy sometimes, and pick up URLs that are not actually links, but (for example) part of code samples.
+    status_pattern: ".*"
+    url_patterns:
+      - https://schemas.xmlsoap.org/ws/2005/05/identity/claims/name
