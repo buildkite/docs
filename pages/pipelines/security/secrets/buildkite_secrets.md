@@ -10,7 +10,7 @@ Buildkite secrets:
 
 ## Access control
 
-In addition to being scoped within a cluster, access to Buildkite organization secrets is managed through agent access policies. These policies restrict which agents can access secrets during builds. For detailed information about policy structure and examples, see [Access policies for Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets/access-policies).
+In addition to being scoped within a cluster, access to Buildkite secrets is managed through agent access policies. These policies restrict which agents can access secrets during builds. For detailed information about policy structure and examples, see [Access policies for Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets/access-policies).
 
 ## Create a secret
 
@@ -33,6 +33,8 @@ To create a new Buildkite secret using the Buildkite interface:
 1. Select **Create Secret** to create your new secret, which can now be accessed within jobs through the `buildkite-agent secret get` command.
 
 ## Update a secret's value
+
+Buildkite secrets can only be updated by [cluster maintainers](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster), as well as [Buildkite organization administrators](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions).
 
 ### Using the Buildkite interface
 
