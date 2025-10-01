@@ -25,7 +25,7 @@ You must also choose an AWS Region with EC2 Mac instances available. See
 for details on which regions have EC2 Mac Dedicated Hosts.
 
 > 🚧 Minimum allocation
->Dedicated macOS <strong>hosts</strong> on AWS have a <a href="https://aws.amazon.com/ec2/dedicated-hosts/pricing/#on-demand">minimum billing period</a> of 24 hours. However you can scale instances running on the host at will.
+> Dedicated macOS **hosts** on AWS have a minimum billing period of 24 hours (as is indicated in the **On-Demand Pricing** of the [Amazon EC2 Dedicated Hosts pricing](https://aws.amazon.com/ec2/dedicated-hosts/pricing/) page). However you can scale instances running on the host at will.
 
 See also the [Amazon EC2 Mac instances user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html) for more details on AWS EC2 Mac instances.
 
@@ -64,7 +64,7 @@ can access the instance.
 1. Using an SSH or AWS SSM session:
 	- Set a password for the `ec2-user` using `sudo passwd ec2-user`
 	- Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
-	- Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
+	- Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mac-instance-increase-volume.html) for details.
 1. Using a VNC session (run SSH port forwarding `ssh -L 5900:localhost:5900 ec2-user@<ip-address>` if direct access is not available):
 	1. Sign in as the `ec2-user`.
 	1. Set **Automatically log in as** to `ec2-user` in **System Settings** > **Users & Groups**.
@@ -108,7 +108,7 @@ required parameters:
 * `Subnets` from your VPC set up
 * `SecurityGroupIds` from your VPC set up
 * `IamInstanceProfile` if accessing AWS services from your builds, provide an Instance Profile ARN with an appropriate IAM role attached
-* `BuildkiteAgentToken` an Agent Token for your [Buildkite organization](http://buildkite.com/organizations/-/agents)
+* `BuildkiteAgentToken` an Agent Token for your [Buildkite organization](https://buildkite.com/organizations/-/agents)
 * `BuildkiteAgentQueue` the Buildkite Queue your pipeline steps use
 
 There are optional parameters to configure which EC2 Mac instance types to use:
@@ -178,7 +178,7 @@ $ make
 $ aws cloudformation deploy --stack-name buildkite-mac --region YOUR_REGION --template-file build/template.yml --parameters-override file:///$PWD/.parameters.json
 ```
 
-See the [AWS CloudFormation Deploy CLI documentation](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/deploy/index.html)
+See the [AWS CloudFormation Deploy CLI documentation](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/deploy.html)
 for help using the AWS CLI.
 
 ## Step 5: Starting your Buildkite agents

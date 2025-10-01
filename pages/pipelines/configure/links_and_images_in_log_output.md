@@ -87,10 +87,10 @@ The image artifact does not have to be uploaded at the time it's written to the 
 
 ### Base64-encoded images
 
-If you want to embed an image encoded in base64, you can use [iTerm's image format](http://iterm2.com/images.html#/section/home), but be mindful of the [log output limits](/docs/pipelines/configure/managing-log-output#log-output-limits). Unless you're embedding images for a specific reason, it's better to upload the image as a [build artifact](/docs/pipelines/configure/artifacts) and reference it using the `artifact://` URL.
+If you want to embed an image encoded in base64, you can use [iTerm's image format](https://iterm2.com/documentation-images.html), but be mindful of the [log output limits](/docs/pipelines/configure/managing-log-output#log-output-limits). Unless you're embedding images for a specific reason, it's better to upload the image as a [build artifact](/docs/pipelines/configure/artifacts) and reference it using the `artifact://` URL.
 
 ### Library support
 
-* The [capybara-inline-screenshot](https://github.com/buildkite/capybara-inline-screenshot) Ruby gem will automatically inline screenshots of your integration test failures and also supports the iTerm image format for viewing failures directly in your terminal. When run under CI it automatically uses the `artifact://` URL format.
-<br>
+The [capybara-inline-screenshot](https://github.com/buildkite/capybara-inline-screenshot) Ruby gem will automatically inline screenshots of your integration test failures and also supports the iTerm image format for viewing failures directly in your terminal. When run under CI it automatically uses the `artifact://` URL format.
+
 <%= image("ruby_gem.png", size: '806x387') %>

@@ -40,6 +40,7 @@ Basscss
 Bazel
 bazelisk
 Bitium
+Bayesian
 bktec
 bktec's
 boolean
@@ -104,6 +105,7 @@ dogstatsd
 dotenv
 DSCs
 enqueued
+Entra
 enum
 env
 eval
@@ -179,6 +181,7 @@ libpq
 linux
 llamasecret
 LLMs
+llvm
 macOS
 macos
 matchfile
@@ -189,6 +192,7 @@ misconfiguration
 mitigation
 mitigations
 monorepo
+mrkdwn
 mutex
 namespace
 namespaced
@@ -236,6 +240,7 @@ podWatcher
 Postgres
 PowerShell
 PR's
+Prometheus
 protobuf
 preemptible
 prefill
@@ -255,7 +260,10 @@ reimagined
 remediation
 remediations
 repo
+reprioritize
+reprioritizes
 resizable
+retrigger
 routable
 rpmbuild
 RSpec
@@ -462,3 +470,9 @@ github
 landing_page_pipelines
 
 eg
+
+base_sha
+base_ref
+head_sha
+head_ref
+if_changed
