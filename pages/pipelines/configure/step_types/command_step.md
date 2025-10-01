@@ -149,7 +149,7 @@ Optional attributes:
   <tr>
     <td><code>secrets</code></td>
     <td>
-      Either an array of <a href="/docs/pipelines/security/secrets/buildkite-secrets">Buildkite secrets</a> or a map of environment variables names to <a href="/docs/pipelines/security/secrets/buildkite-secrets">Buildkite secrets</a> for this step.<br/>
+      Either an array of <a href="/docs/pipelines/security/secrets/buildkite-secrets">Buildkite secrets</a> or a map of environment variables names to Buildkite secrets for this step.<br/>
       <em>Example:</em> <code>- API_ACCESS_TOKEN</code>
     </td>
   </tr>
