@@ -23,12 +23,15 @@ link_checking_exemptions:
 
   - name: accept-anti-scraping-measures
     description: Muffet resembles a scraper to some sites
-    status_pattern: "403"
+    status_pattern: "(400|403)"
     url_patterns:
       - https://www.npmjs.com/
       - https://linux.die.net/man/
       - https://www.seek.com.au/
       - https://www.cvedetails.com/
+      - https://github.com/marketplace
+      - https://codepen.io/
+      - https://www.java.com
 
   - name: ignore-api-401-unauthorized
     description: Ignore HTTP 401 Unauthorized on Buildkite API
@@ -49,8 +52,8 @@ link_checking_exemptions:
     url_patterns:
       - https://github.com/
       - https://docs.github.com/
-      # Argo's Swagger documentation uses JS to interpret the anchor.
       - https://cd.apps.argoproj.io/swagger-ui
+      - https://docs.cursor.com/
 
   - name: surprising-fragment-failures
     description: Surprisingly, these links fail because of missing anchors, not authentication.
@@ -65,12 +68,6 @@ link_checking_exemptions:
     status_pattern: "404"
     url_patterns:
       - "http://app:3000/sample.svg\\?"
-
-  - name: github-marketplace-http-400
-    description: We might resemble a scraper in the eyes of GitHub Marketplace
-    status_pattern: "400"
-    url_patterns:
-      - "https://github.com/marketplace"
 
   - name: not-actually-links
     description: Muffet can be a bit greedy sometimes, and pick up URLs that are not actually links, but (for example) part of code samples.
