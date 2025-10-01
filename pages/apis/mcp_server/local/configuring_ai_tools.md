@@ -125,7 +125,7 @@ When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-
 
 ## Cursor
 
-You can configure [Cursor](https://cursor.com/) to work with your local Buildkite MCP server, running [in Docker](#cursor-docker) or [as a binary](#cursor-binary). To do this, add the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json), which is usually located in your home directory's `.cursor` sub-directory.
+You can configure [Cursor](https://cursor.com/) to work with your local Buildkite MCP server, running [in Docker](#cursor-docker) or [as a binary](#cursor-binary). To do this, add the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcpjson), which is usually located in your home directory's `.cursor` sub-directory.
 
 To access the `mcp.json` file through the Cursor app to implement this configuration:
 
@@ -135,7 +135,7 @@ To access the `mcp.json` file through the Cursor app to implement this configura
 
 ### Docker
 
-When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Cursor `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
+When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Cursor `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcpjson).
 
 ```json
 {
@@ -157,7 +157,7 @@ When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-s
 
 ### Binary
 
-When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Cursor `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
+When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Cursor `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcpjson).
 
 ```json
 {
