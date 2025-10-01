@@ -191,8 +191,6 @@
               path: "agent/v3/agent-stack-k8s/prometheus-metrics"
             - name: "Building container images"
               children:
-                - name: "BuildKit"
-                  path: "agent/v3/agent-stack-k8s/buildkit-container-builds"
                 - name: "Buildah"
                   path: "agent/v3/agent-stack-k8s/buildah-container-builds"
             - name: "Troubleshooting"
