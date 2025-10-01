@@ -37,6 +37,7 @@ Backstage
 Backstage Software Catalog
 Basecamp
 Basscss
+Bayesian
 Bazel
 bazelisk
 Bitium
@@ -192,6 +193,7 @@ misconfiguration
 mitigation
 mitigations
 monorepo
+mrkdwn
 multi-file
 mutex
 namespace
@@ -263,6 +265,7 @@ repo
 reprioritize
 reprioritizes
 resizable
+retrigger
 routable
 rpmbuild
 RSpec
