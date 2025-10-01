@@ -12,7 +12,7 @@ During a build, the policy is evaluated against the build's context. If any of t
 
 Policies are defined as a list of policy rules in YAML. Each _policy rule_ (beginning with a `-`) specifies one or more _claims_, all of which must be met for a build to access the Buildkite secret.
 
-Each claim must specify one or more _conditions_. Conditions can be a single item or lists of strings. When a list of strings is provided on a claim, at least one condition value must be met for the claim to be met.
+Each claim must specify one or more _conditions_. Conditions can be a single item or lists of strings. When a list of strings is provided on a claim, at least one condition value must match for the claim to be met.
 
 **A single _condition_ on each _claim_ within a _policy rule_:**
 
