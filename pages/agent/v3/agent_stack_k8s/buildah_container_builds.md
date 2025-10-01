@@ -1,6 +1,6 @@
 # Buildah container builds
 
-Buildah provides a lightweight, daemonless approach to building OCI-compliant container images, making it ideal for Agent Stack for Kubernetes where running a Docker daemon within build containers may not be desired or possible.
+Buildah provides a lightweight, daemonless approach to building OCI-compliant container images, making it ideal for Agent Stack for Kubernetes where running a Docker daemon within build containers might not be desired or possible.
 
 ## Buildah daemonless builds
 
@@ -15,11 +15,11 @@ Agent Stack for Kubernetes supports multiple Buildah configurations, each provid
 
 ### Privileged Buildah
 
-**Use when**: You need maximum compatibility and your cluster allows privileged containers.
+Use when: You need maximum compatibility and your cluster allows privileged containers.
 
-**Security impact**: Container has root access to host kernel features. Use only in trusted environments.
+Security impact: Container has root access to host kernel features. Use only in trusted environments.
 
-**How it works**: Runs as root with `privileged: true`, giving access to all kernel capabilities needed for container operations.
+How it works: Runs as root with `privileged: true`, giving access to all kernel capabilities needed for container operations.
 
 ```yaml
 steps:
@@ -53,11 +53,11 @@ steps:
 
 ### Rootless Buildah
 
-**Use when**: You want secure container builds without privileged access (recommended for most environments).
+Use when: You want secure container builds without privileged access (recommended for most environments).
 
-**Security impact**: Runs as non-root user (1000), significantly reducing attack surface compared to privileged mode.
+Security impact: Runs as non-root user (1000), significantly reducing attack surface compared to privileged mode.
 
-**How it works**: Uses user namespaces and rootless container runtime. Buildah runs as regular user but can still build containers through user namespace mapping.
+How it works: Uses user namespaces and rootless container runtime. Buildah runs as regular user but can still build containers through user namespace mapping.
 
 ```yaml
 steps:
@@ -95,37 +95,37 @@ steps:
 
 | Feature                 | Privileged                      | Rootless                        |
 | ----------------------- | ------------------------------- | ------------------------------- |
-| **Container Image**     | `quay.io/buildah/stable:latest` | `quay.io/buildah/stable:latest` |
-| **Runs as User**        | root (0)                        | user (1000)                     |
-| **Privileged Access**   | Yes (`privileged: true`)        | No                              |
-| **Storage Driver**      | overlay (default)               | overlay (default)               |
-| **Storage Path**        | `/var/lib/containers`           | `/home/build/.local/share/containers` |
-| **Kubernetes Version**  | Any                             | Any                             |
+| Container image         | `quay.io/buildah/stable:latest` | `quay.io/buildah/stable:latest` |
+| Runs as user            | root (0)                        | user (1000)                     |
+| Privileged access       | Yes (`privileged: true`)        | No                              |
+| Storage driver          | overlay (default)               | overlay (default)               |
+| Storage path            | `/var/lib/containers`           | `/home/build/.local/share/containers` |
+| Kubernetes version      | Any                             | Any                             |
 
 ## Understanding the components
 
 ### Container images
 
-**`quay.io/buildah/stable:latest`**: Official Buildah image that runs in both privileged and rootless modes. The same image supports both configurations.
+`quay.io/buildah/stable:latest`: Official Buildah image that runs in both privileged and rootless modes. The same image supports both configurations.
 
 ### Security contexts
 
-- **Privileged**: Container runs as root with `privileged: true`, bypassing most Kubernetes security controls
-- **Rootless**: Container runs as user 1000 using user namespace mapping. Host kernel sees regular user, container sees root
+- Privileged: Container runs as root with `privileged: true`, bypassing most Kubernetes security controls
+- Rootless: Container runs as user 1000 using user namespace mapping. Host kernel sees regular user, container sees root
 
 ### Storage driver
 
 Buildah uses container storage backends:
 
-- **overlay**: Fast and efficient, used by default in both privileged and rootless modes. Modern Buildah images support overlay in rootless environments without requiring `/dev/fuse` or additional configuration
-- **vfs**: Fallback option that works in all environments but slower, especially with bigger images. Can be specified with `--storage-driver vfs` if overlay encounters issues
+- overlay: Fast and efficient, used by default in both privileged and rootless modes. Modern Buildah images support overlay in rootless environments without requiring `/dev/fuse` or additional configuration
+- vfs: Fallback option that works in all environments but slower, especially with bigger images. Can be specified with `--storage-driver vfs` if overlay encounters issues
 
 ### Storage paths
 
 The storage location depends on who owns the Buildah process:
 
-- **Root user** (privileged): Uses system location `/var/lib/containers`
-- **Regular user** (rootless): Uses user home directory `/home/build/.local/share/containers`
+- Root user (privileged): Uses system location `/var/lib/containers`
+- Regular user (rootless): Uses user home directory `/home/build/.local/share/containers`
 
 ### Build isolation
 
@@ -135,13 +135,13 @@ The storage location depends on who owns the Buildah process:
 
 Buildah provides several features that make it well-suited for CI/CD environments:
 
-- **Daemonless operation**: No persistent daemon required
-- **OCI-compliant**: Produces standard OCI images
-- **Dockerfile and Containerfile support**: Can build from Dockerfiles or Containerfiles using `buildah bud`
-- **Native commands**: Alternative scripting interface with `buildah from`, `buildah copy`, etc.
-- **Multiple output formats**: Support for Docker and OCI image formats
-- **Layer caching**: Efficient caching for faster builds
-- **No root required**: Can run entirely rootless with appropriate configuration
+- Daemonless operation: No persistent daemon required
+- OCI-compliant: Produces standard OCI images
+- Dockerfile and Containerfile support: Can build from Dockerfiles or Containerfiles using `buildah bud`
+- Native commands: Alternative scripting interface with `buildah from`, `buildah copy`, etc.
+- Multiple output formats: Support for Docker and OCI image formats
+- Layer caching: Efficient caching for faster builds
+- No root required: Can run entirely rootless with appropriate configuration
 
 ## Customizing the build
 
@@ -219,25 +219,25 @@ buildah bud \
 
 ### Common issues
 
-**Permission denied errors**:
+Permission denied errors:
 
 - Privileged: Ensure `securityContext.privileged: true` is configured
 - Rootless: Verify `runAsUser: 1000` and `runAsGroup: 1000` are set
 - Verify storage mount at `/var/lib/containers` (privileged) or `/home/build/.local/share/containers` (rootless)
 
-**Storage driver errors**:
+Storage driver errors:
 
 - The default overlay driver should work in both privileged and rootless modes
 - If overlay fails, try `--storage-driver vfs` as a fallback (slower but more compatible)
 - Check that storage volume has sufficient space
 
-**Registry authentication failures**:
+Registry authentication failures:
 
 - Use `buildah login` before pushing: `buildah login --username $USER --password $PASS registry.com`
 - Or pass credentials directly with `--creds` flag
 - Ensure registry credentials are available as environment variables or secrets
 
-**Image format compatibility issues**:
+Image format compatibility issues:
 
 - Use `--format docker` for Docker registry compatibility
 - Use `--format oci` for strict OCI compliance
