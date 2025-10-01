@@ -22,7 +22,7 @@ A single _claim_ on a _condition_ within a _policy rule_:
   build_branch: "main"                   # Condition 2
 ```
 
-Specifying multiple _claims_ on a _condition_ within a _policy rule_:
+Specifying multiple _claims_ with multiple _conditions_ within a _policy rule_:
 
 This policy will grant access to builds running in the "frontend-pipeline" and the "backend-pipeline" running on either the "main" or "develop" branch.
 
