@@ -17,8 +17,8 @@ link_checking_exemptions:
       - https://buildkite.com/organizations/
       - https://buildkite.com/user/
       - https://buildkite.com/(~|%7E)/
-      - https://console.aws.amazon.com/cloudformation/home
-      - https://console.aws.amazon.com/ec2/v2/home
+      # NPM is uncompromising with regard to suspected scrapers
+      - https://www.npmjs.com/
 
   - name: ignore-api-401-unauthorized
     description: Ignore HTTP 401 Unauthorized on Buildkite API
@@ -39,6 +39,9 @@ link_checking_exemptions:
     url_patterns:
       - https://github.com/ # All of GitHub :(
       - https://docs.github.com/ # All of GitHub :(
+      # Surprisingly, links to the AWS web console error on missing fragments, not authentication.
+      - https://console.aws.amazon.com/cloudformation/home
+      - https://console.aws.amazon.com/ec2/v2/home
 
   - name: download-links
     description: Sometimes we link directly to things that trigger big downloads, maybe?
