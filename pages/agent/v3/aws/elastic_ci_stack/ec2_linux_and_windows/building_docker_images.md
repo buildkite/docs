@@ -9,9 +9,9 @@ This guide shows how to build and push a container image to [Amazon Elastic Cont
 ## 1. One-time ECR setup
 
 ```bash
-export AWS_REGION=ca-central-1
-export ECR_ACCOUNT_ID=123456789012     # CHANGE ME
-export ECR_REPO=example/hello-kaniko    # CHANGE ME
+export AWS_REGION={your-region}
+export ECR_ACCOUNT_ID={your-account-id}
+export ECR_REPO={your-repository-name}
 
 chmod +x scripts/setup-ecr.sh
 ./scripts/setup-ecr.sh
@@ -19,11 +19,11 @@ chmod +x scripts/setup-ecr.sh
 
 ## 2. Configure your Buildkite pipeline environment
 
-Set these environment variables in the Pipeline Settings (or keep the defaults in `.buildkite/pipeline.yml`):
+Set these environment variables in the [Pipeline Settings](/docs/pipelines/configure/environment-variables) (or keep the defaults in `.buildkite/pipeline.yml`):
 
-- `AWS_REGION` (for example, `ca-central-1`)
-- `ECR_ACCOUNT_ID` (your 12-digit account ID)
-- `ECR_REPO` (your repository name, for example, `example/hello-kaniko`)
+- [`AWS_REGION`](/docs/pipelines/configure/environment-variables#aws-region) (for example, `ca-central-1`)
+- `ECR_ACCOUNT_ID` (your 12-digit AWS account ID for [Amazon ECR](https://aws.amazon.com/ecr/))
+- `ECR_REPO` (your ECR repository name, for example, `example/hello-kaniko`)
 
 ## 3. Push using Kaniko
 
@@ -37,22 +37,22 @@ Commit and push. The step in `.buildkite/pipeline.yml` will:
 
 ## Running Kaniko in Docker
 
-The Elastic CI Stack for AWS supports running [Kaniko](https://github.com/GoogleContainerTools/kaniko) for building container images without requiring Docker daemon privileges. This is useful for building images in environments where the "Docker-in-Docker" option is not available or desired.
+The Elastic CI Stack for AWS supports running [Kaniko](https://github.com/GoogleContainerTools/kaniko) for building Docker container images without requiring Docker daemon privileges. This is useful for building images in environments where the "Docker-in-Docker" option is not available or desired.
 
-Kaniko executes your Dockerfile inside a container and pushes the resulting image to a registry. It doesn't depend on a Docker daemon and executes each command in the Dockerfile completely in user space, making it more secure and suitable for environments where privileged access is not available.
+Kaniko executes your Dockerfile inside a container and pushes the resulting image to a registry. It doesn't depend on a Docker daemon and runs without requiring elevated privileges, making it more secure and suitable for environments where privileged access is not available.
 
 ### Example pipeline
 
-Here's a complete example of using Kaniko to build and push a container image:
+Here's a complete example of using Kaniko to build and push a container image to ECR:
 
 **pipeline.yml:**
 ```yaml
 steps:
   - label: ":whale: Kaniko"
     env:
-      AWS_REGION: "us-east-1"          # your region
-      ECR_ACCOUNT_ID: "111122223333"   # your account
-      ECR_REPO: "hello-kaniko"         # repo NAME only
+      AWS_REGION: "{your-region}"
+      ECR_ACCOUNT_ID: "{your-account-id}"
+      ECR_REPO: "{your-repository-name}"
     commands:
       - bash .buildkite/steps/kaniko.sh
 ```
@@ -192,9 +192,15 @@ For alternative verification methods (like keyless verification with Chainguard 
 
 ### Debugging with Kaniko debug image
 
-When troubleshooting build issues, you can use the Kaniko debug image which includes additional debugging tools. The debug image contains utilities like `busybox` and `sh` for interactive debugging.
+When troubleshooting build issues, you can use the [Kaniko debug image](https://github.com/GoogleContainerTools/kaniko#debug-image) which includes additional debugging tools. The debug image contains utilities like `busybox` and `sh` for interactive debugging.
 
-To enable debug mode, set the `KANIKO_DEBUG` environment variable in your pipeline:
+For interactive debugging, you can run the debug image directly:
+
+```bash
+docker run -it --entrypoint=/busybox/sh gcr.io/kaniko-project/executor:debug
+```
+
+To enable debug mode in your pipeline, set the `KANIKO_DEBUG` environment variable:
 
 ```yaml
 steps:
@@ -214,23 +220,9 @@ The debug image provides several debugging options:
 - **Verbose logging**: Use `KANIKO_VERBOSITY=debug` for detailed build logs
 - **No-push mode**: Set `KANIKO_NO_PUSH=1` to build without pushing to registry
 
-Example debug script configuration:
-
-```bash
-# Enable debug mode
-KANIKO_DEBUG=1
-KANIKO_VERBOSITY=debug
-# Optional: Interactive shell for troubleshooting
-KANIKO_SHELL=1
-# Optional: Build without pushing
-KANIKO_NO_PUSH=1
-```
-
 The debug image is particularly useful for:
 
 - Investigating build failures
 - Examining the build context and Dockerfile
 - Testing different Kaniko parameters
 - Debugging authentication issues
-
-For more information about the debug image capabilities, see the [Chainguard Kaniko documentation](https://github.com/chainguard-dev/kaniko?tab=readme-ov-file#debug-image).
