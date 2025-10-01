@@ -47,6 +47,7 @@ boolean
 Boomper
 Buildbox
 buildevents
+Buildah
 Buildkite
 Buildkite's
 buildscript
@@ -78,6 +79,8 @@ completion_watcher
 composable
 config
 configmap
+Containerfile
+Containerfiles
 cpu
 cron
 crontab
@@ -86,6 +89,7 @@ CVE
 CVEs
 Datadog
 Datadog's
+daemonless
 debuild
 declaratively
 deduper
@@ -99,8 +103,8 @@ discoverability
 distro
 distutils
 Dockerfile
+Dockerfiles
 Docker's
-Dockerfile
 dogstatsd
 dotenv
 DSCs
@@ -351,6 +355,7 @@ uuid
 UUIDs
 uv
 vendored
+vfs
 virtualenv
 Vitest
 VMs

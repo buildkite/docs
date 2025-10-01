@@ -50,6 +50,7 @@ exceptions:
   - Bitbucket Server
   - bktec
   - BUILD_AND_READ
+  - Buildah
   - buildevents
   - Buildkite
   - Buildkite Agent
