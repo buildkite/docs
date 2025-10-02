@@ -2,7 +2,7 @@
 
 This page shows you how to write your own Buildkite plugin, and how to validate the `plugin.yml` file which describes it against the plugin schema.
 
-A [number of tools](/docs/pipelines/integrations/plugins/tools) are also available to help you develop your plugin.
+A [number of tools](/docs/pipelines/integrations/plugins/writing#plugin-tools) are also available to help you develop your plugin.
 
 ## Tutorial: write a plugin
 
@@ -37,7 +37,7 @@ git init
 
 ## Step 2: Add a plugin.yml
 
-Next, create `plugin.yml` to describe how the plugin appears in the [Buildkite plugins directory](/docs/pipelines/integrations/plugins/directory), what it requires, and what configuration options it accepts.
+Next, create `plugin.yml` to describe how the plugin appears in the [Buildkite plugins directory](https://buildkite.com/resources/plugins), what it requires, and what configuration options it accepts.
 
 ```yaml
 name: File Counter
@@ -254,7 +254,59 @@ steps:
 
 ## Publish to the Buildkite plugins directory
 
-To add your plugin to the [Buildkite plugins directory](https://buildkite.com/plugins), publish your repository to a public GitHub repository and add the `buildkite-plugin` [repository topic tag](https://github.com/topics/buildkite-plugin). For full instructions, see the [plugins directory documentation](/docs/pipelines/integrations/plugins/directory).
+To publish your plugin to the [Buildkite plugins directory](https://buildkite.com/resources/plugins):
+
+1. Host your plugin in GitHub as a public repository.
+1. Ensure your repository contains a valid `plugin.yml` file containing at least the `name` and `description` fields.
+1. Add the `buildkite-plugin` [GitHub repository topic tag](https://help.github.com/en/github/administering-a-repository/classifying-your-repository-with-topics) (your plugin will become discoverable under the `buildkite-plugin` [repository topic tag](https://github.com/topics/buildkite-plugin) as a result).
+1. Wait until the next Sunday (UTC) for the plugins directory to sync with GitHub, and for your plugin to appear.
+
+For example:
+
+<%= image "github-topic.png", width: 1214/2, height: 440/2, alt: "Screenshot of the ECR plugin GitHub repo with the Buildkite-plugin topic highlighted by a red box" %>
+
+Once completed, your plugin will appear in the directory:
+
+<%= image "ecr-plugin-directory-item.png", width: 1014/2, height: 500/2, alt: "Screenshot of ECR plugin in the Buildkite plugins directory" %>
+
+If you would like your plugin to appear in a certain category in the plugins directory, you need to add the corresponding GitHub label(s). Currently, the following labels will be recognized by the plugins directory:
+
+* Task
+  + Code checkout: `checkout`, `git`, `svn`
+  + Tests: `test`, `testing`, `junit`, `jest`
+  + Cache: `cache`, `caching`
+  + Containers/Docker: `docker`, `container`, `containers`
+  + Running jobs in Kubernetes : `kubernetes`, `k8s`
+  + Secrets: `secret`, `secrets`, `vault`
+  + Authenticate: `auth`, `authenticate`
+  + Writing Buildkite pipelines: `pipeline`, `pipelines`
+  + Deploy: `deploy`, `deployment`, `release`
+  + Running jobs in VMs: `vm`, `virtual machine`
+  + Security & compliance: `security`,`compliance`,`audit`,`scan`,`scanning`,`vulnerability`
+  + Running jobs in Windows: `windows`
+  + Observability: `observability`, `monitoring`, `logging`, `metrics`
+  + Mobile app development: `mobile`, `ios`, `android`, `react-native`
+  + Notify: `notify`, `notification`
+  + Linting & formatting: `lint`, `linting`, `format`, `formatting`, `shellcheck`
+  + Packages: `package`, `packaging`, `npm`, `pip`
+  + AI/LLMs: `ai`, `llm`, `ml`, `machine learning`
+  + Project management: `project`, `management`
+* Integration
+  + Integrations: `integration`, `integrations`, `slack`, `discord`, `jira`
+  + AWS: `aws`, `amazon`
+  + GCP: `gcp`, `google-cloud`, `google`
+  + Azure: `azure`, `microsoft`
+* Language
+  + Java: `java`, `maven`, `gradle`
+  + Ruby: `ruby`, `rails`
+  + Golang: `go`, `golang`
+  + JavaScript: `javascript`, `typescript`, `node`, `nodejs`
+  + Bazel: `bazel`
+  + Infrastructure as code: `terraform`, `cloudformation`, `cfn`, `infrastructure`
+  + Other languages: `julia`, `python`, `rust`, `c++`, `c#`, `dhall`
+
+> 🚧
+> If you've completed the above steps and your plugin doesn't appear in the directory, send an email to <a href="mailto:support@buildkite.com">support@buildkite.com</a> and we'll investigate it for you.
 
 ## Designing plugins: single-command plugins versus library plugins
 
@@ -277,3 +329,90 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 Vendored plugins run after non-vendored plugins and don't have access to all the same hooks. See [the documentation about job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks) to learn more.
+
+## Plugin tools
+
+The following tools can be helpful when creating and maintaining your own Buildkite plugins:
+
+<a class="Docs__example-repo" href="https://github.com/buildkite-plugins/plugin-tester">
+  <span class="icon">:hammer:</span>
+  <span class="detail">
+    <strong>Buildkite Plugin Tester</strong>
+    <span class="description">Docker image with a number of shell testing and stubbing tools.</span>
+    <span class="repo">github.com/buildkite-plugins/plugin-tester</span>
+  </span>
+</a>
+
+<a class="Docs__example-repo" href="https://github.com/buildkite-plugins/buildkite-plugin-linter">
+  <span class="icon">:sparkles:</span>
+  <span class="detail">
+    <strong>Buildkite Plugin Linter</strong>
+    <span class="description">Linter that checks your plugin for best practices.</span>
+    <span class="repo">github.com/buildkite-plugins/buildkite-plugin-linter</span>
+  </span>
+</a>
+
+<a class="Docs__example-repo" href="https://github.com/buildkite-plugins/shellcheck-buildkite-plugin">
+  <span class="icon">:shell:</span>
+  <span class="detail">
+    <strong>Buildkite Shellcheck Plugin</strong>
+    <span class="description">Plugin for detecting potential problems in your hook scripts.</span>
+    <span class="repo">github.com/buildkite-plugins/shellcheck-buildkite-plugin</span>
+  </span>
+</a>
+
+<a class="Docs__example-repo" href="https://github.com/buildkite/cli">
+  <span class="icon">:terminal:</span>
+  <span class="detail">
+    <strong>Buildkite CLI</strong>
+    <span class="description">Command line tool for running Buildkite pipelines entirely locally.</span>
+    <span class="repo">github.com/buildkite/cli</span>
+  </span>
+</a>
+
+<a class="Docs__example-repo" href="https://github.com/release-drafter/release-drafter">
+  <span class="icon">:memo:</span>
+  <span class="detail">
+    <strong>Release Drafter</strong>
+    <span class="description">A GitHub App to help draft your release notes.</span>
+    <span class="repo">github.com/release-drafter/release-drafter</span>
+  </span>
+</a>
+
+<a class="Docs__example-repo" href="https://github.com/toolmantim/boomper">
+  <span class="icon">:duck:</span>
+  <span class="detail">
+    <strong>Boomper</strong>
+    <span class="description">A GitHub app for bumping the version numbers in your readme examples.</span>
+    <span class="repo">github.com/toolmantim/boomper</span>
+  </span>
+</a>
+
+For help writing the JSON Schema in the `configuration` key of your `plugin.yml` file, the following resources may be useful:
+
+<a class="Docs__example-repo" href="http://json-schema.org">
+  <span class="icon">:json:</span>
+  <span class="detail">
+    <strong>JSON Schema</strong>
+    <span class="description">The official JSON Schema specification.</span>
+    <span class="repo">json-schema.org</span>
+  </span>
+</a>
+
+<a class="Docs__example-repo" href="https://jsonschemalint.com/">
+  <span class="icon">:json:</span>
+  <span class="detail">
+    <strong>JSON Schema Lint</strong>
+    <span class="description">Validating your JSON schema with YAML.</span>
+    <span class="repo">jsonschemalint.com</span>
+  </span>
+</a>
+
+<a class="Docs__example-repo" href="https://spacetelescope.github.io/understanding-json-schema/">
+  <span class="icon">:json:</span>
+  <span class="detail">
+    <strong>Understanding JSON Schema</strong>
+    <span class="description">Tutorial to help understand how to write JSON Schema.</span>
+    <span class="repo">spacetelescope.github.io/understanding-json-schema/</span>
+  </span>
+</a>
