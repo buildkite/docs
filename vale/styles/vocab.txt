@@ -38,9 +38,11 @@ Backstage
 Backstage Software Catalog
 Basecamp
 Basscss
+Bayesian
 Bazel
 bazelisk
 Bitium
+Bitbucket
 bktec
 bktec's
 boolean
@@ -199,6 +201,8 @@ mitigation
 mitigations
 monorepo
 monorepos
+mrkdwn
+multi-file
 mutex
 namespace
 namespaced
@@ -258,6 +262,7 @@ pytest
 rbenv
 readme
 readmes
+rearchitect
 refetch
 refspec
 rehydrate
@@ -271,6 +276,7 @@ reprioritizes
 resizable
 rollout
 rollouts
+retrigger
 routable
 rpmbuild
 RSpec
@@ -359,6 +365,7 @@ UUIDs
 uv
 vendored
 virtualenv
+virtualized
 Vitest
 VMs
 VPC's
@@ -477,3 +484,9 @@ github
 landing_page_pipelines
 
 eg
+
+base_sha
+base_ref
+head_sha
+head_ref
+if_changed
