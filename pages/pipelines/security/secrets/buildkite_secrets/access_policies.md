@@ -17,7 +17,7 @@ Each claim must specify one or more _conditions_. Conditions can be a single ite
 **A single _condition_ on each _claim_ within a _policy rule_:**
 
 ```
-# All claims must match. The build must be from the "frontend-pipeline" pipeline and built on the "main" branch.
+# All claims must bet met. The build must be from the "frontend-pipeline" pipeline and built on the "main" branch.
 - pipeline_slug: "frontend-pipeline"     # Claim 1 with a single condition
   build_branch: "main"                   # Claim 2 with a single condition
 ```
