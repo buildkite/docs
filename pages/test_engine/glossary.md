@@ -24,7 +24,7 @@ An execution is an instance of a single test, which is generated as part of a [r
 
 ## Flaky test
 
-A flaky test is a [test](#test) that produce inconsistent or unreliable results, despite being run in the same code and environment. Flaky tests are identified via [workflows](docs/test-engine/workflows).
+A flaky test is a [test](#test) that produce inconsistent or unreliable results, despite being run in the same code and environment. Flaky tests are identified via [workflows](/docs/test-engine/workflows).
 
 Learn more about flaky tests in [reduce flaky tests](/docs/test-engine/reduce-flaky-tests).
 
