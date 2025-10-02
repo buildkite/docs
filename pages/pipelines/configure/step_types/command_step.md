@@ -2,7 +2,7 @@
 
 A command step runs one or more shell commands on one or more agents.
 
-Each command step can run either a shell command like `npm test`, or an executable file or script like `build.sh`.
+Each command step can run either a shell command like `npm test`, or an executable file, or script like `build.sh`.
 
 A command step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/configure/defining-steps) file.
 
@@ -12,7 +12,29 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+To have a set of commands execute sequentially in a single step, use the `command` syntax followed by a `|` symbol:
+
+```yml
+steps:
+  - command: |
+      "tests.sh"
+      "echo 'running tests'"
+```
+{: codeblock-file="pipeline.yml"}
+
+You can also define multiple commands by using the `commands` syntax and starting each new command on a new line:
+
+```yml
+steps:
+  - commands:
+    - "tests.sh"
+    - "echo 'running tests'"
+```
+{: codeblock-file="pipeline.yml"}
+
 When running multiple commands, either defined in a single line (`npm install && tests.sh`) or defined in a list, any failure will prevent subsequent commands from running, and will mark the command step as failed.
+
+The results of running the commands defined in separate command steps are not guaranteed to be available to the subsequent command steps as those steps could be running on a different machine in the [cluster queue](/docs/pipelines/clusters/manage-queues#setting-up-queues).
 
 > 📘 Commands and `PATH`
 > The shell command(s) provided for execution must be resolvable through the directories defined within the `PATH` environment variable. When referencing scripts for execution, preference using a relative path (for example, `./scripts/build.sh`, or `scripts/bin/build-prod`).
@@ -103,6 +125,14 @@ Optional attributes:
     </td>
   </tr>
   <tr>
+    <td><code>concurrency_method</code></td>
+    <td>
+      This attribute provides control of the scheduling method for jobs in a <a href="/docs/pipelines/configure/workflows/controlling-concurrency">concurrency group</a>. With the <code>"ordered"</code> value set, the jobs run sequentially in the order they were queued, while the <code>"eager"</code> value allows jobs to run as soon as resources become available. If you use this attribute, you must also define the <code>concurrency</code> and <code>concurrency_group</code> attributes.<br/>
+      <em>Default:</em> <code>"ordered"</code><br/>
+      <em>Example:</em> <code>"eager"</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>depends_on</code></td>
     <td>
       A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br/>
@@ -114,6 +144,13 @@ Optional attributes:
     <td>
       A map of <a href="/docs/pipelines/configure/environment-variables">environment variables</a> for this step.<br/>
       <em>Example:</em> <code>RAILS_ENV: "test"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>secrets</code></td>
+    <td>
+      Either an array of <a href="/docs/pipelines/security/secrets/buildkite-secrets">Buildkite secrets</a> or a map of environment variables names to Buildkite secrets for this step.<br/>
+      <em>Example:</em> <code>- API_ACCESS_TOKEN</code>
     </td>
   </tr>
   <tr>
@@ -220,7 +257,7 @@ Optional attributes:
 
 ## Container image attributes
 
-If you are using the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) controller to run your [Buildkite Agents](/docs/agent/v3), then you can use the `image` attribute to specify a [container image](/docs/agent/v3/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images) for a command step to run its job in.
+If you are using the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) controller to run your [Buildkite Agents](/docs/agent/v3), then you can use the `image` attribute to specify a [container image](/docs/agent/v3/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images) for a command step to run its job in. If you are using [Buildkite hosted agents](/docs/pipelines/hosted-agents), support for the `image` attribute is experimental and subject to change.
 
 <table>
   <tr>
@@ -381,6 +418,8 @@ Optional attributes:
         <li><code>none</code></li>
         <li><code>cancel</code></li>
         <li><code>agent_stop</code></li>
+        <li><code>agent_refused</code></li>
+        <li><code>process_run_error</code></li>
       </ul>
     </td>
   </tr>
@@ -585,6 +624,7 @@ steps:
     branches: "main"
     concurrency: 1
     concurrency_group: "my-app/deploy"
+    concurrency_method: "eager"
     retry:
       manual:
         allowed: false

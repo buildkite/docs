@@ -30,6 +30,7 @@ The following steps describe the process above:
     * `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload images to your OCI source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish container images and other package types to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your OCI source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
     <%= render_markdown partial: 'package_registries/org_slug' %>
+
     <%= render_markdown partial: 'package_registries/ecosystems/oci_registry_slug' %>
 
 1. Copy the following `docker tag` command, paste it into your terminal, and modify as required before running to tag your container image:
@@ -125,4 +126,3 @@ where:
 - `image-name` is the name of your image.
 
 - `tag` is the tag associated with this image.
-

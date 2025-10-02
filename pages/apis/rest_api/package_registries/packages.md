@@ -151,7 +151,7 @@ Success response: `200 OK`
 
 ## Copy a package
 
-For some supported [package ecosystems](/docs/packages/ecosystems), copies a package from a source registry to a destination registry.
+For some supported [package ecosystems](/docs/package-registries/ecosystems), copies a package from a source registry to a destination registry.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -161,13 +161,13 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Currently, this REST API call only supports package types belonging to the following package ecosystems:
 
-- [Alpine (apk)](/docs/packages/alpine)
-- [Debian/Ubuntu (deb)](/docs/packages/debian)
-- [Files (generic)](/docs/packages/files)
-- [JavaScript (npm)](/docs/packages/javascript)
-- [Python (PyPI)](/docs/packages/python)
-- [Red Hat (RPM)](/docs/packages/red-hat)
-- [Ruby (RubyGems)](/docs/packages/ruby)
+- [Alpine (apk)](/docs/package-registries/ecosystems/alpine)
+- [Debian/Ubuntu (deb)](/docs/package-registries/ecosystems/debian)
+- [Files (generic)](/docs/package-registries/ecosystems/files)
+- [JavaScript (npm)](/docs/package-registries/ecosystems/javascript)
+- [Python (PyPI)](/docs/package-registries/ecosystems/python)
+- [Red Hat (RPM)](/docs/package-registries/ecosystems/red-hat)
+- [Ruby (RubyGems)](/docs/package-registries/ecosystems/ruby)
 
 If you wish this feature to be available for package types belonging to other package ecosystems, please contact [support](https://buildkite.com/about/contact/).
 

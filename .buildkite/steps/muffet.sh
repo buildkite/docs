@@ -19,12 +19,46 @@ done
 echo 💎🛤️🚆 Rails has started running
 
 # If muffet fails, we want to process the results instead of quitting immediately.
-#
 set +e
+
+# Exclude links that show up as failures but definitely work
+# Accept 403's access denied status codes, as these are mostly sites blocking muffet
+# Ignore fragments (e.g. markdown heading links) because GitHub doesn't tag headings properly
+# Add a user agent so less sites respond with 403 or 429 statuses
+
 /muffet http://app:3000/docs \
-  --include="/docs/" \
+  --exclude="https://buildkite.com/docs" \
+  --exclude="https://api.buildkite.com/" \
+  --exclude="https://buildkite.com/%7E/bazel-monorepo-example" \
+  --exclude="https://buildkite.com/my-organization/" \
+  --exclude="https://buildkite.com/organizations" \
+  --exclude="https://buildkite.com/user" \
+  --exclude="https://cd.apps.argoproj.io/swagger-ui" \
+  --exclude="https://console.aws.amazon.com/cloudformation/home" \
+  --exclude="https://console.aws.amazon.com/ec2/v2/home" \
+  --exclude="https://console.cloud.google.com/compute/instancesAdd#preconfigured-image-ubuntu-1604-xenial-v20170202" \
+  --exclude="https://docs.cursor.com/en/context/mcp#using-mcp-json" \
+  --exclude="https://github.com/buildkite/agent" \
+  --exclude="https://github.com/buildkite/backstage-plugin" \
+  --exclude="https://github.com/buildkite/buildkite-logs" \
+  --exclude="https://github.com/buildkite/buildkite-mcp-server" \
+  --exclude="https://github.com/buildkite/buildkite-sdk" \
   --exclude="https://github.com/buildkite/docs/" \
-  --exclude="buildkite.com/docs" \
+  --exclude="https://github.com/buildkite/elastic-ci-stack-for-aws" \
+  --exclude="https://github.com/buildkite/emojis" \
+  --exclude="https://github.com/buildkite/test-collector-ruby/blob/d9fe11341e4aa470e766febee38124b644572360/lib/buildkite/test_collector.rb#L" \
+  --exclude="https://github.com/cybeats/sbomgen" \
+  --exclude="https://github.com/floraison/fugit" \
+  --exclude="https://github.com/hashicorp/hcl" \
+  --exclude="https://github.com/honeycombio/buildevents" \
+  --exclude="https://github.com/joscha/ShardyMcShardFace" \
+  --exclude="https://github.com/KnapsackPro/knapsack_pro-ruby" \
+  --exclude="https://github.com/marketplace" \
+  --exclude="https://github.com/my-org/" \
+  --exclude="https://github.com/rspec/rspec-core" \
+  --exclude="https://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" \
+  --exclude="/sample.svg" \
+  --header="User-Agent: Muffet/$(/muffet --version)" \
   --max-connections=10 \
   --timeout=15 \
   --buffer-size=8192 \
@@ -65,7 +99,17 @@ else
     map("In `"+.page+"`:\n\n| Link | Status |\n|--|--|\n"+.links_str) | .[]'
 
     {
-        echo "## Muffet found broken links"
+        echo "## Muffet found the following link issues"
+        echo
+        echo "Before looking at the list of links below to work out what's going on, ignore links with **429**, **403** or **timeout** statuses first. Links returning these statuses will likely work (or in the case of **timeout**s, eventually work) when selected by a human."
+        echo
+        echo "The '429' and '403' statuses usually occur when the target site/page either blocks muffet's link check (because muffet uses a bot account to do this), and/or the site/page has authentication implemented, or for 'timeout's, because the site is temporarily down."
+        echo
+        echo "Instead, identify genuine link issues, such as those with a **404** status (not found) or ones returning an **id #fragment-part-of-url not found** issue, and resolve them."
+        echo
+        echo "For **id #fragment-part-of-url not found** issues, fix the link and its fragment first (since the target content may have moved, or the link and its fragment might just happen to be wrong). However, if the revised/fixed link (which you should manually test yourself) is implemented and this job still fails, you'll likely need to add this revised link's full URL (excluding any query parameters from <code>?</code> onwards, but retaining its fragment) as a new <code>--exclude</code> option to the list of existing ones in the <code>muffet.sh</code> script."
+        echo
+        echo "If you've added an <code>--exclude</code> entry for a link that generates an **id #fragment-part-of-url not found** error, but it still appears in the following list (that is, the link and its fragment actually works but muffet still reports it as a problem below), then remove the fragment part of the URL from its <code>--exclude</code> entry."
         echo
     } >> annotation.md
 
@@ -76,6 +120,8 @@ else
     else
         cat annotation.md
     fi
+
+    # The logic in this script is currently quite flaky, and hence, the implementation of a 'soft fail' in this pipeline's step to allow the builds pass.
 
     exit $muffet_exit_code
 fi

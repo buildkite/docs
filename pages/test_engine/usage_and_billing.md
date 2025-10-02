@@ -15,7 +15,6 @@ For example, each of the following three tests are unique managed tests:
 Test Engine conducts the following on each managed test:
 
 - Tracks its history
-- Calculates its [flakiness](/docs/test-engine/test-suites/flaky-test-management#detecting-flaky-tests)
 - Maintains its state (for example, [Enterprise plan](https://buildkite.com/pricing) customers can quarantine tests by disabling them under certain conditions)
 - Attributes [ownership by team](/docs/test-engine/test-suites/test-ownership)
 
@@ -26,9 +25,9 @@ For billing purposes, Buildkite measures usage by calculating the number of mana
 
 ## Test executions
 
-Some legacy Buildkite plans measure usage based on the _total number of times_ a test was executed (run).
+Some legacy Buildkite plans measure usage based on the _total number of times_ a test was executed (test execution count).
 
-You can find the test execution details for a run at the bottom of the run page, and your organization's [total usage](#usage-page) in Settings.
+You can find the test execution details for a run at the top of the run page, and your organization's [total usage](#usage-page) in Settings.
 
 <%= image "test_executions.png", alt: "Test executions run page" %>
 

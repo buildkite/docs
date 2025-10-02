@@ -10,7 +10,7 @@ This guide uses the following Buildkite examples to demonstrate this process:
 - Pipeline: `ruby-logger-gem`, which builds a RubyGem package
 - Registry: `ruby-gems` to store the RubyGem
 
-Although this guide uses RubyGems as examples, this process will work for [all supported package ecosystems](/docs/packages/ecosystems) (with the exception of OCI-based packages like [OCI (Docker)](/docs/packages/oci) and [Helm OCI](/docs/packages/helm-oci)).
+Although this guide uses RubyGems as examples, this process will work for [all supported package ecosystems](/docs/package-registries/ecosystems) (with the exception of OCI-based packages like [OCI (Docker)](/docs/package-registries/ecosystems/oci) and [Helm OCI](/docs/package-registries/ecosystems/helm-oci)).
 
 ## Step 1: Configure steps to generate SLSA provenance
 
@@ -65,7 +65,7 @@ In the example above, artifacts matching `logger-*.gem` will be published to `no
 
 ## Step 3: Define an OIDC policy for the registry
 
-The Publish to Packages plugin authenticates with Package Registries using an [Agent OIDC token](/docs/agent/v3/cli-oidc). Therefore, an [OIDC policy](/docs/packages/security/oidc#define-an-oidc-policy-for-a-registry) must be configured on the [Ruby registry](/docs/package-registries/ecosystems/ruby).
+The Publish to Packages plugin authenticates with Package Registries using an [Agent OIDC token](/docs/agent/v3/cli-oidc). Therefore, an [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry) must be configured on the [Ruby registry](/docs/package-registries/ecosystems/ruby).
 
 ```yaml
 - iss: "https://agent.buildkite.com"
