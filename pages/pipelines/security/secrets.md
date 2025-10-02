@@ -15,3 +15,5 @@ This section of the Buildkite Docs provides guidelines on how to manage and conf
 - [Risk considerations](/docs/pipelines/security/secrets/risk-considerations) and practices to avoid exposing your secrets, which could compromise the security of your 3rd party systems.
 
 - [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets), an encrypted key-value store secrets management service offered by Buildkite for use with either Buildkite hosted or self-hosted agents.
+
+- [Buildkite secrets policies](/docs/pipelines/security/secrets/buildkite-secrets/access-policies), to provide agent access control for your secrets, ensuring that only authorized agents can access them during builds.
