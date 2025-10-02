@@ -59,16 +59,30 @@
           path: pipelines/migration/from-jenkins
         - name: From Bamboo
           path: pipelines/migration/from-bamboo
-    - name: Implementation
+    - name: Best practices
       children:
+        - name: "Overview"
+          path: "pipelines/best-practices/overview"
+        - name: "Architecture and ownership"
+          path: "pipelines/best-practices/architecute-and-ownership"
         - name: "Platform controls"
-          path: "pipelines/implementation/platform-controls"
-        - name: "Best practices"
-          path: "pipelines/implementation/best-practices"
+          path: "pipelines/best-practices/platform-controls"
+        - name: "Pipeline design and structure"
+          path: "pipelines/best-practices/pipeline-design-and-structure"
+        - name: "Agent management"
+          path: "pipelines/best-practices/agent-management"
+        - name: "Environment and dependency management"
+          path: "pipelines/best-practices/environment-and-dependency"
+        - name: "Security recommendations"
+          path: "pipelines/best-practices/security-recommendations"
+        - name: "Monitoring and observability"
+          path: "pipelines/best-practices/monitoring-and-observability"
+        - name: "Patterns and antipatterns"
+          path: "pipelines/best-practices/patterns-and-antipatterns"
         - name: "Docker-based builds"
-          path: "pipelines/implementation/docker-containerized-builds"
+          path: "pipelines/best-practices/docker-containerized-builds"
         - name: "Parallelizing builds"
-          path: "pipelines/implementation/parallel-builds"
+          path: "pipelines/best-practices/parallel-builds"
     - name: "Tutorials"
       children:
         - name: "Using Bazel on Buildkite"

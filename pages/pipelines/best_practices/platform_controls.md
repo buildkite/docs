@@ -578,6 +578,31 @@ Set up monitoring and alerting systems to prevent unexpected cost overruns:
 
 By implementing these cost controls, platform teams can maintain predictable infrastructure spending while ensuring that development teams have the resources they need for efficient CI/CD operations.
 
+## Enabling developers
+
+### Self-service pipelines
+
+- Curated templates: Allow teams to adopt pipelines without deep Buildkite expertise.
+- Golden paths: Document and promote recommended workflows to reduce cognitive load.
+- Feedback loops: Encourage engineers to propose improvements or report issues.
+
+## Scaling practices
+
+- Workload segmentation: Split pipelines across projects or repositories to reduce contention.
+- Cross-team dashboards: Give stakeholders visibility into bottlenecks and throughput.
+- Cost optimization: Track agent utilization and cloud spend to balance speed with efficiency.
+
+## Common pitfalls to avoid
+
+- Overly restrictive defaults: Start permissive, then refine.
+- Ignoring developer input: CI/CD should enable instead of blocking velocity.
+- Skipping observability early: Add metrics and logging from day one.
+- Treating pipelines as secondary: Invest in CI/CD as critical infra.
+- Not planning for scale: Design for higher volume and parallelism.
+- Poor documentation: Document patterns, conventions, and playbooks.
+- Unverified pipeline changes: Test modifications in sandbox pipelines first.
+- Neglecting build performance: Regularly optimize for faster cycles.
+
 ## Implementation recommendations for the platform team
 
 - Assess current state: audit existing pipelines, agents, and usage patterns.
@@ -589,9 +614,10 @@ By implementing these cost controls, platform teams can maintain predictable inf
 
 The framework of Buildkite Pipelines platform controls outline on this page provides a foundation for managing Buildkite Pipelines at scale. Consider your organization's specific needs around security, compliance, and cost management when implementing these controls.
 
+Remember that Buildkite Pipelines are most effective when treated as a living systems: modular, observable, secure, and developer-friendly. Invest in clarity, speed, and automation from the start, and continuously refine based on developer feedback and scaling needs.
+
 The following are the key areas we recommend you to focus on next:
 
 - [Security controls](/docs/pipelines/security/enforcing-security-controls)
-- [Best practices](/docs/pipelines/implementation/best-practices)
 - Advanced [monitoring](/docs/agent/v3/monitoring) and alerting strategies
 - [Integration](/docs/pipelines/integrations) with your existing infrastructure
