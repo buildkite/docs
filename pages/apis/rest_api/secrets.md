@@ -9,6 +9,7 @@
   <tr><th><code>id</code></th><td>ID of the secret</td></tr>
   <tr><th><code>graphql_id</code></th><td>GraphQL ID of the secret</td></tr>
   <tr><th><code>key</code></th><td>A unique identifier for the secret</td></tr>
+  <tr><th><code>value</code></th><td>The encrypted secret value. This field is never returned by the API</td></tr>
   <tr><th><code>description</code></th><td>Description of the secret</td></tr>
   <tr><th><code>policy</code></th><td>YAML policy defining access rules for the secret</td></tr>
   <tr><th><code>url</code></th><td>Canonical API URL of the secret</td></tr>
