@@ -6,7 +6,7 @@ This page provides guidance on best practices for managing your secrets in a [hy
 
 The best practice for managing secrets with Buildkite is to house your secrets within your own _secrets storage service_, such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [Hashicorp Vault](https://www.vaultproject.io).
 
-Buildkite provides various [plugins](/docs/pipelines/integrations/plugins) that integrate reading and exposing secrets to your build steps using secrets storage services, such as the following. If a plugin for the service you use is not listed below or in the [Buildkite plugins directory](https://buildkite.com/resources/plugins), please contact support.
+Buildkite provides various [plugins](/docs/pipelines/integrations/plugins) that integrate reading and exposing secrets to your build steps using secrets storage services, such as the following. If a plugin for the service you use is not listed below or in [Buildkite's plugins directory](/docs/pipelines/integrations/plugins/directory), please contact support.
 
 A secrets storage service can be used with either self-hosted agents in your own infrastructure, as part of a [hybrid Buildkite architecture](/docs/pipelines/getting-started#understand-the-architecture), or with [Buildkite hosted agents](/docs/pipelines/hosted-agents).
 
