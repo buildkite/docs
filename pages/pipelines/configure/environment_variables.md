@@ -27,7 +27,7 @@ The following environment variables may be visible in your commands, plugins, an
     %>
     <tr id="<%= anchor %>">
       <th>
-        <code><%= env['name'] %> <a class="Docs__attribute__link" href="#<%= anchor %>">#</a></code>
+        <code><%= env['name'] %></code> <a class="Docs__attribute__link" href="#<%= anchor %>">#</a>
         <% if env['default_value'] %>
           <p class="Docs__attribute__env-var">
             <strong>Default</strong>:
@@ -136,6 +136,8 @@ If you're using the YAML Steps editor to define your pipeline, only the followin
 * `BUILDKITE_PULL_REQUEST`
 * `BUILDKITE_PULL_REQUEST_BASE_BRANCH`
 * `BUILDKITE_PULL_REQUEST_REPO`
+* `BUILDKITE_MERGE_QUEUE_BASE_BRANCH`
+* `BUILDKITE_MERGE_QUEUE_BASE_COMMIT`
 
 Some variables, for example `BUILDKITE_BUILD_NUMBER`, cannot be supported in the YAML Step editor as the interpolation happens before the build is created. In those cases, interpolate them at the [runtime](/docs/pipelines/configure/environment-variables#runtime-variable-interpolation).
 
