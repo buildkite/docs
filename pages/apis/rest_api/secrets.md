@@ -162,7 +162,7 @@ Required scope: `write_secrets`
 
 Success response: `201 Created`
 
-## Update a secret
+## Update secret details (description and access policy)
 
 Updates the secret's details. To update the secret value, use the [update secret value](#update-secret-value) endpoint.
 
