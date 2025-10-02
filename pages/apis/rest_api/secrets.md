@@ -216,11 +216,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 </tbody>
 </table>
 
-Required scope: `write_secrets`
-
-Success response: `200 OK`
-
-Error response: `422 Unprocessable Entity`
+Unpermitted [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
@@ -228,6 +224,10 @@ Error response: `422 Unprocessable Entity`
   <tr><th><code>value</code></th><td>Attempting to update the <code>value</code> parameter returns an error: <code>"The value parameter cannot be updated on this endpoint."</code></td></tr>
 </tbody>
 </table>
+
+Required scope: `write_secrets`
+
+Success response: `200 OK`
 
 ## Update secret value
 
