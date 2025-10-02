@@ -37,10 +37,11 @@ Backstage
 Backstage Software Catalog
 Basecamp
 Basscss
+Bayesian
 Bazel
 bazelisk
 Bitium
-Bayesian
+Bitbucket
 bktec
 bktec's
 boolean
@@ -193,6 +194,7 @@ mitigation
 mitigations
 monorepo
 mrkdwn
+multi-file
 mutex
 namespace
 namespaced
@@ -352,6 +354,7 @@ UUIDs
 uv
 vendored
 virtualenv
+virtualized
 Vitest
 VMs
 VPC's
