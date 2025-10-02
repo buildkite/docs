@@ -1,7 +1,3 @@
----
-toc: false
----
-
 # Migrate to Buildkite Pipelines overview
 
 Migrating to Buildkite is a smooth process with the right context and planning. This page covers the tools and guides that allow you get familiar with Buildkite, help you with planning a migration from your existing CI/CD platform, and introduce you to the Buildkite Migration Services.
