@@ -144,7 +144,7 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>key</code></th><td>A unique identifier for the secret<br><em>Example:</em> <code>"MY_SECRET"</code></td></tr>
+  <tr><th><code>key</code></th><td>A unique identifier for the secret. Must start with a letter and only contain letters, numbers, and underscores. Cannot start with <code>buildkite</code> or <code>bk</code> (case insensitive). Maximum length is 255 characters. Must be unique within the cluster<br><em>Example:</em> <code>"MY_SECRET"</code></td></tr>
 </tbody>
 </table>
 
@@ -152,7 +152,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>value</code></th><td>The secret value to encrypt and store<br><em>Example:</em> <code>"secret-value"</code></td></tr>
+  <tr><th><code>value</code></th><td>The secret value to encrypt and store. Must be less than 8 kilobytes<br><em>Example:</em> <code>"secret-value"</code></td></tr>
   <tr><th><code>description</code></th><td>A description of the secret<br><em>Example:</em> <code>"My secret description"</code></td></tr>
   <tr><th><code>policy</code></th><td>YAML policy defining access rules. See <a href="/docs/pipelines/security/secrets/buildkite-secrets/access-policies">Access policies for Buildkite secrets</a> for details on policy structure and available claims<br><em>Example:</em> <code>"- pipeline_slug: my-pipeline\n  build_branch: main"</code></td></tr>
 </tbody>
@@ -273,7 +273,7 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>value</code></th><td>The new secret value to encrypt and store<br><em>Example:</em> <code>"new-secret-value"</code></td></tr>
+  <tr><th><code>value</code></th><td>The new secret value to encrypt and store. Must be less than 8 kilobytes<br><em>Example:</em> <code>"new-secret-value"</code></td></tr>
 </tbody>
 </table>
 
