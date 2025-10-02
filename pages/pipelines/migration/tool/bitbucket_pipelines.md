@@ -53,12 +53,16 @@ You might need to adjust the converted Buildkite pipeline output to ensure it is
 
 ## Clone
 
+Bitbucket Pipelines' [`clone` property](https://support.atlassian.com/bitbucket-cloud/docs/git-clone-behavior/) provides options for controlling how a repository is cloned during a build.
+
 | <div style="width: 50px;">Key</div>  | Supported | Notes |
 | --- | --- | --- |
 | `clone` | Partially | Clone options for all steps of a Bitbucket pipeline. The majority of these options need to be set on a Buildkite Agent itself through its [configuration of properties](/docs/agent/v3/configuration) such as the clone flags (`git-clone-flags` or `git-clone-mirror-flags` if utilizing a Git mirror), fetch flags (`git-fetch-flags`) - or changing the entire checkout process in a customized [plugin](/docs/plugins/writing) overriding the default agent `checkout` hook. <br/><br/> Sparse-checkout properties of `code-mode`, `enabled`, and `patterns` used in a Bitbucket pipeline will be translated to the respective properties within the [sparse-checkout-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/). <br/><br/> `clone` properties in a Bitbucket pipeline have higher precedence over these global properties. |
 {: class="responsive-table"}
 
 ## Definitions
+
+Bitbucket Pipelines' [`definitions` property](https://support.atlassian.com/bitbucket-cloud/docs/cache-and-service-container-definitions/) is used to define resources used elsewhere in a pipeline configuration.
 
 <table class="responsive-table">
   <thead>
@@ -130,29 +134,35 @@ You might need to adjust the converted Buildkite pipeline output to ensure it is
 
 ## Image
 
-| <div style="width: 50px;">Key</div> | Supported | Notes |
+Bitbucket Pipelines' [`image` property](https://support.atlassian.com/bitbucket-cloud/docs/docker-image-options/) is used to specify public images or private images, and supports a number of sub-properties.
+
+| <div style="width: 110px;">Key</div> | Supported | Notes |
 | --- | --- | --- |
 | `image` | Yes | The container image that applies to each step within a Bitbucket pipeline, using the image specified within the [docker-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/). This has a lower precedence over a per-step `image` configuration (see `pipelines.default.step.image`). |
-| `aws`, `aws.oidc`, `name`, `username`, `password` | Partially | Supported through the use of the corresponding plugin ([Docker Login](https://buildkite.com/resources/plugins/buildkite-plugins/docker-login-buildkite-plugin) or [ECR](https://buildkite.com/resources/plugins/buildkite-plugins/ecr-buildkite-plugin/)). |
+| `image.aws`<br/>`image.aws.oidc`<br/>`image.name`<br/>`image.username`<br/>`image.password` | Partially | Supported through the use of the corresponding plugin ([Docker Login](https://buildkite.com/resources/plugins/buildkite-plugins/docker-login-buildkite-plugin) or [ECR](https://buildkite.com/resources/plugins/buildkite-plugins/ecr-buildkite-plugin/)). |
 {: class="responsive-table"}
 
 ## Options
 
-| <div style="width: 50px;">Key</div> | Supported | Notes |
+Bitbucket Pipelines' [`options` property](https://support.atlassian.com/bitbucket-cloud/docs/docker-image-options/) contains global settings that apply throughout a pipeline, or all of a repository's pipelines.
+
+| <div style="width: 110px;">Key</div> | Supported | Notes |
 | --- | --- | --- |
 | `options` | Partially | Customized options utilized throughout a Bitbucket pipeline. |
-| `max-time`, `size`| Partially | This property is supported for translation within the Buildkite migration tool into the generated Buildkite Pipelines command step's `timeout_in_minutes`. |
-| `size`| Partially | This property is supported for translation within the Buildkite migration tool into the generated Buildkite Pipelines command step's agent tag. |
-| `docker` | No | This property is not supported and will depend on the agent configuration the corresponding Buildkite Pipelines command step is being targeted to run said job has available. |
+| `options.max-time` | Partially | This property is supported for translation within the Buildkite migration tool into the generated Buildkite Pipelines command step's `timeout_in_minutes`. |
+| `options.size`| Partially | This property is supported for translation within the Buildkite migration tool into the generated Buildkite Pipelines command step's agent tag. |
+| `options.docker` | No | This property is not supported and will depend on the agent configuration the corresponding Buildkite Pipelines command step is being targeted to run said job has available. |
 {: class="responsive-table"}
 
-Note that both supported properties in the Bitbucket pipeline step-level definition will have higher precedences than the two values set at `options` level.
+Note that both of these partially supported properties, when defined at the Bitbucket pipeline step-level, will have a higher precedence than when these properties are set at `options` level.
 
 ## Pipeline starting conditions
 
-Bitbucket Pipelines allows the configuration of various pipeline start conditions, with each condition supporting different configuration and permissible properties like `branches`, `custom`, `default`, `pull_request`, `tags`, and more. For information on each of these individual starting conditions, refer to the Bitbucket Pipeline's [Starting conditions](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Custom--manual--pipeline-variables) documentation.
+Bitbucket Pipelines allows the configuration of various [pipeline start conditions](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/), with each condition supporting different configurations and permissible properties, listed in the following set of tables, such as [`branches`](#pipeline-starting-conditions-branches), [`custom`](#pipeline-starting-conditions-custom), [`default`](#pipeline-starting-conditions-default), [`pull-requests`](#pipeline-starting-conditions-pull-requests), and [`tags`](#pipeline-starting-conditions-tags).
 
 ### Branches
+
+Bitbucket Pipelines' [`branches` property](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Branches) defines all branch-specific build pipelines.
 
 <table class="responsive-table">
   <thead>
@@ -177,17 +187,17 @@ Bitbucket Pipelines allows the configuration of various pipeline start condition
       {
         "key": "pipelines.branches.&lt;branch&gt;.parallel",
         "supported": "Yes",
-        "notes": "Parallel (concurrent) step configuration for a specific branch within a Bitbucket pipeline. See more information regarding the available parallel [properties](#pipeline-properties-parallel) supported by the Buildkite migration tool and additional property information in the Bitbucket Pipelines' [Parallel step options](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel) documentation."
+        "notes": "Parallel (concurrent) step configuration for a specific branch within a Bitbucket pipeline. See more information regarding the available [pipeline parallel properties](#pipeline-properties-parallel) supported by the Buildkite migration tool and additional property information in the Bitbucket Pipelines' [Parallel step options](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel) documentation."
       },
       {
         "key": "pipelines.branches.&lt;branch&gt;.step",
         "supported": "Yes",
-        "notes": "Individual step configuration for a specific branch within a Bitbucket pipeline. See more information regarding the available step [properties](#pipeline-properties-step) supported by the migration tool - and additional property information in the Bitbucket Pipelines' [Step property](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property) documentation."
+        "notes": "Individual step configuration for a specific branch within a Bitbucket pipeline. See more information regarding the available [pipeline step properties](#pipeline-properties-step) supported by the migration tool, and additional property information in the Bitbucket Pipelines' [Step property options](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property) documentation."
       },
       {
         "key": "pipelines.branches.&lt;branch&gt;.stage",
         "supported": "Yes",
-        "notes": "Stage configuration for a specific branch within a Bitbucket pipeline. See the available stage [properties](#pipeline-properties-stage) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines' [Stage options](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage) documentation."
+        "notes": "Stage configuration for a specific branch within a Bitbucket pipeline. See the available [pipeline stage properties](#pipeline-properties-stage) supported by the Buildkite migration tool, and additional property information in the Bitbucket Pipelines' [Stage options](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage) documentation."
       }
     ].select { |field| field[:key] }.each do |field| %>
       <tr>
@@ -206,6 +216,8 @@ Bitbucket Pipelines allows the configuration of various pipeline start condition
 </table>
 
 ### Custom
+
+Bitbucket Pipelines' [`custom` property](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Custom--manual--pipelines) is used to define pipelines that can only be triggered manually.
 
 <table class="responsive-table">
   <thead>
@@ -235,22 +247,22 @@ Bitbucket Pipelines allows the configuration of various pipeline start condition
       {
         "key": "pipelines.custom.&lt;name&gt;.parallel",
         "supported": "Yes",
-        "notes": "Parallel (concurrent) step configuration for a custom Bitbucket pipeline. See the available parallel [properties](#pipeline-properties-parallel) supported by the Buildkite migration tool as well as the additional property information in the Bitbucket Pipelines' [Parallel step properties](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel) documentation."
+        "notes": "Parallel (concurrent) step configuration for a custom Bitbucket pipeline. See the available [pipeline parallel properties](#pipeline-properties-parallel) supported by the Buildkite migration tool as well as the additional property information in the Bitbucket Pipelines' [Parallel step options](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel) documentation."
       },
       {
         "key": "pipelines.custom.&lt;name&gt;.stage",
         "supported": "Yes",
-        "notes": "Stage configuration for a custom Bitbucket pipeline. See the available stage [properties](#pipeline-properties-stage) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines' [Stage options](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage) documentation."
+        "notes": "Stage configuration for a custom Bitbucket pipeline. See the available [pipeline stage properties](#pipeline-properties-stage) supported by the Buildkite migration tool, and additional property information in the Bitbucket Pipelines' [Stage options](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage) documentation."
       },
       {
         "key": "pipelines.custom.&lt;name&gt;.step",
         "supported": "Yes",
-        "notes": "Individual step configuration for a custom Bitbucket pipeline. See the available step [properties](#pipeline-properties-step) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines' [Step options](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property) documentation."
+        "notes": "Individual step configuration for a custom Bitbucket pipeline. See the available [pipeline step properties](#pipeline-properties-step) supported by the Buildkite migration tool, and additional property information in the Bitbucket Pipelines' [Step property options](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property) documentation."
       },
       {
         "key": "pipelines.custom.&lt;name&gt;.variables",
         "supported": "Partially",
-        "notes": "Variable configuration for a custom Bitbucket pipeline. See the available variable [properties](#pipeline-properties-variables) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines' [Pipeline start conditions](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Custom--manual--pipeline-variables) documenation."
+        "notes": "Variable configuration for a custom Bitbucket pipeline. See the available [pipeline variable properties](#pipeline-properties-variables) supported by the Buildkite migration tool, and additional property information in the Bitbucket Pipelines' [Custom (manual) pipeline variables](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Custom--manual--pipeline-variables) documenation."
       }
     ].select { |field| field[:key] }.each do |field| %>
       <tr>
@@ -270,6 +282,8 @@ Bitbucket Pipelines allows the configuration of various pipeline start condition
 
 ### Default
 
+Bitbucket Pipelines' [`default` property](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Default) contains the pipeline definition for all branches that don't match a pipeline definition in other sections.
+
 <table class="responsive-table">
   <thead>
     <tr>
@@ -283,22 +297,22 @@ Bitbucket Pipelines allows the configuration of various pipeline start condition
       {
         "key": "pipelines.default",
         "supported": "Yes",
-        "notes": "Bitbucket pipeline configuration that does not meet a specific condition. Additional details can be found the Bitbucket Pipelines [documentation](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Default)"
+        "notes": "Bitbucket pipeline configuration that does not meet a specific condition."
       },
       {
         "key": "pipelines.default.parallel",
         "supported": "Yes",
-        "notes": "Parallel (concurrent step) configuration for default Bitbucket pipelines. See the available parallel [properties](#pipeline-properties-parallel) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines' [Parallel step options](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel) documentation."
+        "notes": "Parallel (concurrent step) configuration for default Bitbucket pipelines. See the available [pipeline parallel properties](#pipeline-properties-parallel) supported by the Buildkite migration tool, and additional property information in the Bitbucket Pipelines' [Parallel step options](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel) documentation."
       },
       {
         "key": "pipelines.default.stage",
         "supported": "Yes",
-        "notes": "Stage configuration for default Bitbucket pipelines. See the available stage [properties](#pipeline-properties-stage) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines' [Stage options](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage) documentation."
+        "notes": "Stage configuration for default Bitbucket pipelines. See the available [pipeline stage properties](#pipeline-properties-stage) supported by the Buildkite migration tool, and additional property information in the Bitbucket Pipelines' [Stage options](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage) documentation."
       },
       {
         "key": "pipelines.default.step",
         "supported": "Yes",
-        "notes": "Individual step configuration for default Bitbucket pipelines. See the available step [properties](#pipeline-properties-step) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines' [Step options](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property) documentation."
+        "notes": "Individual step configuration for default Bitbucket pipelines. See the available [pipeline step properties](#pipeline-properties-step) supported by the Buildkite migration tool, and additional property information in the Bitbucket Pipelines' [Step property options](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property) documentation."
       }
     ].select { |field| field[:key] }.each do |field| %>
       <tr>
@@ -316,7 +330,9 @@ Bitbucket Pipelines allows the configuration of various pipeline start condition
   </tbody>
 </table>
 
-### Pull request
+### Pull requests
+
+Bitbucket Pipelines' [`pull-requests` property](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Pull-Requests) defines pipelines that only run when a pull request is created.
 
 <table class="responsive-table">
   <thead>
@@ -329,29 +345,29 @@ Bitbucket Pipelines allows the configuration of various pipeline start condition
   <tbody>
     <% [
       {
-        "key": "pipelines.pull_request",
+        "key": "pipelines.pull-requests",
         "supported": "Yes",
         "notes": "Application of specific Bitbucket pipeline configuration based for pull requests. Translated to a [step conditional](/docs/pipelines/configure/conditionals#conditionals-in-steps) in the corresponding Buildkite pipeline utilizing the `pull_request.id`/`BUILDKITE_PULL_REQUEST` and `build.branch`/`BUILDKITE_BRANCH` variables."
       },
       {
-        "key": "pipelines.pull_request.&lt;branch&gt;",
+        "key": "pipelines.pull-requests.&lt;branch&gt;",
         "supported": "Yes",
         "notes": "The base branch name or a wildcard to be applied within a specific Bitbucket pipeline step configuration. To apply the configuration for all builds, use a `**` wildcard."
       },
       {
-        "key": "pipelines.pull_request.&lt;branch&gt;.parallel",
+        "key": "pipelines.pull-requests.&lt;branch&gt;.parallel",
         "supported": "Yes",
-        "notes": "Parallel (concurrent) step configuration for pull request builds of a Bitbucket pipeline. See the available parallel [properties](#pipeline-properties-parallel) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines' [Parallel step options](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel) documentation."
+        "notes": "Parallel (concurrent) step configuration for pull request builds of a Bitbucket pipeline. See the available [pipeline parallel properties](#pipeline-properties-parallel) supported by the Buildkite migration tool, and additional property information in the Bitbucket Pipelines' [Parallel step options](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel) documentation."
       },
       {
-        "key": "pipelines.default.stage",
+        "key": "pipelines.pull-requests.&lt;branch&gt;.stage",
         "supported": "Yes",
-        "notes": "Stage configuration for pull request builds of a Bitbucket pipelines. See the available stage [properties](#pipeline-properties-stage) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines' [Stage options](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage) documentation."
+        "notes": "Stage configuration for pull request builds of a Bitbucket pipelines. See the available [pipeline stage properties](#pipeline-properties-stage) supported by the Buildkite migration tool, and additional property information in the Bitbucket Pipelines' [Stage options](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage) documentation."
       },
       {
-        "key": "pipelines.pull_request.&lt;branch&gt;.step",
+        "key": "pipelines.pull-requests.&lt;branch&gt;.step",
         "supported": "Yes",
-        "notes": "Individual step configuration for pull requests builds within a Bitbucket pipeline. See the available step [properties](#pipeline-properties-step) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines' [Step options](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property) documentation."
+        "notes": "Individual step configuration for pull requests builds within a Bitbucket pipeline. See the available [pipeline step properties](#pipeline-properties-step) supported by the Buildkite migration tool, and additional property information in the Bitbucket Pipelines' [Step property options](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property) documentation."
       }
     ].select { |field| field[:key] }.each do |field| %>
       <tr>
@@ -370,6 +386,8 @@ Bitbucket Pipelines allows the configuration of various pipeline start condition
 </table>
 
 ### Tags
+
+Bitbucket Pipelines' [`tags` property](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Tags) defines all tag-specific build pipelines.
 
 <table class="responsive-table">
   <thead>
@@ -394,17 +412,17 @@ Bitbucket Pipelines allows the configuration of various pipeline start condition
       {
         "key": "pipelines.tags.&lt;tag&gt;.parallel",
         "supported": "Yes",
-        "notes": "Parallel (concurrent) step configuration for tag builds of a Bitbucket pipeline. See the available parallel [properties](#pipeline-properties-parallel) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines' [Parallel step options](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel) documentation."
+        "notes": "Parallel (concurrent) step configuration for tag builds of a Bitbucket pipeline. See the available [pipeline parallel properties](#pipeline-properties-parallel) supported by the Buildkite migration tool, and additional property information in the Bitbucket Pipelines' [Parallel step options](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel) documentation."
       },
       {
         "key": "pipelines.tags.&lt;tag&gt;.stage",
         "supported": "Yes",
-        "notes": "Stage configuration for tag builds of a Bitbucket pipeline. See the available stage [properties](#pipeline-properties-stage) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines' [Stage options](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage) documentation."
+        "notes": "Stage configuration for tag builds of a Bitbucket pipeline. See the available [pipeline stage properties](#pipeline-properties-stage) supported by the Buildkite migration tool, and additional property information in the Bitbucket Pipelines' [Stage options](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage) documentation."
       },
       {
         "key": "pipelines.tags.&lt;tag&gt;.step",
         "supported": "Yes",
-        "notes": "Individual step configuration for tag builds within a Bitbucket pipeline. See the available step [properties](#pipeline-properties-step) supported by the Buildkite migration tool - and additional property information in the Bitbucket Pipelines' [Step options](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property) documentation."
+        "notes": "Individual step configuration for tag builds within a Bitbucket pipeline. See the available [pipeline step properties](#pipeline-properties-step) supported by the Buildkite migration tool, and additional property information in the Bitbucket Pipelines' [Step property options](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property) documentation."
       }
     ].select { |field| field[:key] }.each do |field| %>
       <tr>
@@ -424,13 +442,13 @@ Bitbucket Pipelines allows the configuration of various pipeline start condition
 
 ## Pipeline properties
 
-Each [starting pipeline condition](#pipeline-starting-conditions) in Bitbucket can support various pipeline properties like `parallel`, `step`, `stage`, `variables` and so on.
-
-For information on each of these individual properties, see the Bitbucket Pipelines documentation for [parallel](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel), [step](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property), [stage](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage), and [variable](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Custom--manual--pipeline-variables) properties.
+Each [pipeline starting condition](#pipeline-starting-conditions) in Bitbucket can support various pipeline properties like [`parallel`](#pipeline-properties-parallel), [`step`](#pipeline-properties-step), [`stage`](#pipeline-properties-stage), and [`variables`](#pipeline-properties-variables).
 
 Additionally, implementation of these pipeline properties can be enhanced with best practices by using [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) to generate and upload pipeline configuration dynamically and using [conditionals](/docs/pipelines/configure/conditionals#conditionals-in-pipelines) at both pipeline level and step level to apply jobs only when certain conditions are met, and setting [trigger steps](/docs/pipelines/configure/step-types/trigger-step) with required attributes and environment variable configurations passed through to the triggered builds.
 
 ### Parallel
+
+Bitbucket Pipelines' [`parallel` step options](https://support.atlassian.com/bitbucket-cloud/docs/parallel-step-options/#Parallel) allow faster building and testing of code by running a list of steps concurrently.
 
 | <div style="width: 120px;">Key</div> | Supported | Notes |
 | --- | --- | --- |
@@ -439,6 +457,8 @@ Additionally, implementation of these pipeline properties can be enhanced with b
 {: class="responsive-table"}
 
 ### Step
+
+Bitbucket Pipelines' [`step` property options](https://support.atlassian.com/bitbucket-cloud/docs/step-options/#The-Step-property) are used to define build execution units.
 
 <table class="responsive-table">
   <thead>
@@ -468,7 +488,7 @@ Additionally, implementation of these pipeline properties can be enhanced with b
       {
         "key": "pipelines.&lt;start-condition&gt;.step.condition",
         "supported": "Partially",
-        "notes": "The configuration for preventing a Bitbucket pipeline step from running unless the specific conditional is met. Translated to an inline conditional (`if`) within the corresponding Buildkite pipelines' command step's `commands` – based on a `git diff` of the base branch."
+        "notes": "The configuration for preventing a Bitbucket pipeline step from running unless the specific conditional is met. Translated to an inline conditional (`if`) within the corresponding Buildkite pipelines' command step's `commands`, based on a `git diff` of the base branch."
       },
       {
         "key": "pipelines.&lt;start-condition&gt;.step.condition.changeset.includePaths",
@@ -563,6 +583,8 @@ Additionally, implementation of these pipeline properties can be enhanced with b
 
 ### Stage
 
+Bitbucket Pipelines' [`stage` options](https://support.atlassian.com/bitbucket-cloud/docs/stage-options/#Stage) allow the grouping of pipeline steps with shared properties.
+
 <table class="responsive-table">
   <thead>
     <tr>
@@ -615,6 +637,8 @@ Additionally, implementation of these pipeline properties can be enhanced with b
 </table>
 
 ### Variables
+
+Bitbucket Pipelines' [Custom (manual) pipeline variables](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-start-conditions/#Custom--manual--pipeline-variables) allow defined variables to be set or updated when a custom pipeline is run.
 
 <table class="responsive-table">
   <thead>

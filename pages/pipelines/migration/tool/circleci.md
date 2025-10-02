@@ -68,10 +68,9 @@ The Buildkite migration tool supports the use of [YAML aliases in CircleCI pipel
 
 | <div style="width: 50px;">Key</div> | Supported | Notes |
 | --- | --- | --- |
-| `when` | Partially | Conditional execution key that allows workflows to run based on pipeline parameters, Git branch patterns, or other conditions. In CircleCI, this enables dynamic workflow control. The Buildkite migration tool maps basic `when` conditions to Buildkite's conditional steps and pipeline rules, though complex nested conditions may require manual adjustment. |
-| `and` | Partially | Logical operator for denoting that all inputs required to be true. Supported alongside the `when` key within setting up conditional `workflow` runs. |
-| `or` | Partially | Logical operator for describing whether any of the inputs are true. Supported alongside the `when` key within setting up conditional `workflow` runs. |
-| `not` | Partially | Logical operator for negating input. Supported alongside the `when` key within setting up conditional `workflow` runs. |
+| `and` | Partially | Logical operator for denoting that all inputs required to be true. Supported alongside the [`when` key within setting up conditional `workflow` runs](#workflows). |
+| `or` | Partially | Logical operator for describing whether any of the inputs are true. Supported alongside the [`when` key within setting up conditional `workflow` runs](#workflows). |
+| `not` | Partially | Logical operator for negating input. Supported alongside the [`when` key within setting up conditional `workflow` runs](#workflows). |
 {: class="responsive-table"}
 
 ## Commands
@@ -239,7 +238,7 @@ While the Buildkite migration tool will translate the following listed executor 
 
 | <div style="width: 70px;">Key</div> | Supported | Notes |
 | --- | --- | --- |
-| `version` | No | The version of the CircleCI pipeline configuration applied to this pipeline. No equivalent mapping exists in Buildkite Pipelines. |
+| `version` | No | The version of the CircleCI pipeline configuration applied to this pipeline. Since Buildkite Pipelines is a fully-SaaS product, there is no equivalent mapping for this key in Buildkite Pipelines, and this key can generally be ignored. |
 {: class="responsive-table"}
 
 ## Workflows
@@ -302,7 +301,7 @@ While the Buildkite migration tool will translate the following listed executor 
       {
         "key": "workflows.&lt;name&gt;.when",
         "supported": "Yes",
-        "notes": "Conditionals that allow for running a workflow under certain conditions. The Buildkite migration tool allows for the specification using logical operators `and`, `or`, and `not` in creating command conditionals."
+        "notes": "Conditional execution key that allows workflows to run under certain conditions, such as those based on pipeline parameters. The Buildkite migration tool allows for the specification using [logical operators `and`, `or`, and `not`](#logical-operators-helpers) in creating command conditionals, and maps basic `when` conditions to Buildkite's conditional steps, though complex nested conditions may require manual adjustment."
       }
     ].select { |field| field[:key] }.each do |field| %>
       <tr>

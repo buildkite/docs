@@ -150,12 +150,12 @@ When Buildkite pipelines are built, each command step inside the pipeline is ran
       {
         "key": "jobs.&lt;id&gt;.steps.strategy.matrix.include",
         "supported": "Yes",
-        "notes": "Key-value pairs to add as combinations to the generated [build matrix](/docs/pipelines/configure/workflows/build-matrix#adding-combinations-to-the-build-matrix)."
+        "notes": "Key-value pairs to add as combinations (using [`adjustments.with`](/docs/pipelines/configure/workflows/build-matrix#adding-combinations-to-the-build-matrix)) to the generated [build matrix](/docs/pipelines/configure/workflows/build-matrix)'s combinations."
       },
       {
         "key": "jobs.&lt;id&gt;.steps.strategy.matrix.exclude",
         "supported": "Yes",
-        "notes": "Key-value pairs to exclude from being processed (that is, [removed using `skip`](/docs/pipelines/configure/workflows/build-matrix#removing-combinations-from-the-build-matrix)) from the generated [matrix](/docs/pipelines/build-matrix)'s combinations."
+        "notes": "Key-value pairs to exclude from being processed (using [`skip`](/docs/pipelines/configure/workflows/build-matrix#excluding-combinations-from-the-build-matrix)) from the generated [build matrix](/docs/pipelines/build-matrix)'s combinations."
       },
       {
         "key": "jobs.&lt;id&gt;.steps.uses",
