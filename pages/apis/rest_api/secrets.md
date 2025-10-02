@@ -154,7 +154,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr><th><code>value</code></th><td>The secret value to encrypt and store<br><em>Example:</em> <code>"secret-value"</code></td></tr>
   <tr><th><code>description</code></th><td>A description of the secret<br><em>Example:</em> <code>"My secret description"</code></td></tr>
-  <tr><th><code>policy</code></th><td>YAML policy defining access rules<br><em>Example:</em> <code>"- pipeline_slug: my-pipeline\n  build_branch: main"</code></td></tr>
+  <tr><th><code>policy</code></th><td>YAML policy defining access rules. See <a href="/docs/pipelines/security/secrets/buildkite-secrets/access-policies">Access policies for Buildkite secrets</a> for details on policy structure and available claims<br><em>Example:</em> <code>"- pipeline_slug: my-pipeline\n  build_branch: main"</code></td></tr>
 </tbody>
 </table>
 
@@ -211,7 +211,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 <table>
 <tbody>
   <tr><th><code>description</code></th><td>A description of the secret<br><em>Example:</em> <code>"Updated description"</code></td></tr>
-  <tr><th><code>policy</code></th><td>YAML policy defining access rules<br><em>Example:</em> <code>"- pipeline_slug: my-pipeline\n  build_branch: production"</code></td></tr>
+  <tr><th><code>policy</code></th><td>YAML policy defining access rules. See <a href="/docs/pipelines/security/secrets/buildkite-secrets/access-policies">Access policies for Buildkite secrets</a> for details on policy structure and available claims<br><em>Example:</em> <code>"- pipeline_slug: my-pipeline\n  build_branch: production"</code></td></tr>
 </tbody>
 </table>
 
