@@ -45,6 +45,16 @@
       children:
         - name: Overview
           path: pipelines/migration
+        - name: Migration tool
+          children:
+            - name: "Overview"
+              path: "pipelines/migration/tool"
+            - name: "GitHub Actions"
+              path: "pipelines/migration/tool/github-actions"
+            - name: "CircleCI"
+              path: "pipelines/migration/tool/circleci"
+            - name: "Bitbucket Pipelines"
+              path: "pipelines/migration/tool/bitbucket-pipelines"
         - name: From Jenkins
           path: pipelines/migration/from-jenkins
         - name: From Bamboo
@@ -63,6 +73,7 @@
           path: "pipelines/tutorials/pipeline-upgrade"
         - name: "Using GitHub merge queues"
           path: "pipelines/tutorials/github-merge-queue"
+          pill: "preview"
         - name: "Triggering Pipelines Using GitHub Actions"
           path: "pipelines/tutorials/github-actions"
     - name: "Agent"
@@ -435,8 +446,13 @@
               path: "pipelines/security/secrets/managing"
             - name: "Risk considerations"
               path: "pipelines/security/secrets/risk-considerations"
-            - name: "Buildkite secrets"
-              path: "pipelines/security/secrets/buildkite-secrets"
+            - name: "Buildkite Secrets"
+              children:
+                - name: "Overview"
+                  path: "pipelines/security/secrets/buildkite-secrets"
+                - name: "Access policies"
+                  path: "pipelines/security/secrets/buildkite-secrets/access-policies"
+                  pill: "preview"
         - name: "Incoming webhooks"
           path: "pipelines/security/incoming-webhooks"
         - name: "OIDC"
@@ -560,16 +576,14 @@
           path: "test-engine/getting-started"
         - name: "Speed up builds with bktec"
           path: "test-engine/speed-up-builds-with-bktec"
+        - name: "Reduce flaky tests"
+          path: "test-engine/reduce-flaky-tests"
         - name: "Glossary"
           path: "test-engine/glossary"
     - name: "Test suites"
       children:
         - name: "Overview"
           path: "test-engine/test-suites"
-        - name: "Manage test suites"
-          path: "test-engine/test-suites/manage"
-        - name: "Flaky test management"
-          path: "test-engine/test-suites/flaky-test-management"
         - name: "Test state and quarantine"
           path: "test-engine/test-suites/test-state-and-quarantine"
         - name: "Tags"
@@ -616,6 +630,15 @@
               path: "test-engine/test-collection/your-own-collectors"
         - name: "CI environment variables"
           path: "test-engine/test-collection/ci-environments"
+    - name: "Workflows"
+      children:
+        - name: "Overview"
+          path: "test-engine/workflows"
+        - name: "Monitors"
+          path: "test-engine/workflows/monitors"
+        - name: "Actions"
+          path: "test-engine/workflows/actions"
+      pill: "new"
     - name: "Test Engine Client (bktec)"
       children:
         - name: "Configuring"
@@ -624,9 +647,12 @@
           path: "test-engine/bktec/installing-the-client"
     - name: "Notifications"
       children:
-        - name: "Slack"
-          path: "test-engine/notifications/slack"
-          pill: "New"
+        - name: "Email"
+          path: "test-engine/notifications/email"
+    - name: "Integrations"
+      children:
+        - name: "Linear"
+          path: "test-engine/integrations/linear"
     - name: "Usage and billing"
       path: "test-engine/usage-and-billing"
     - name: "Permissions"
@@ -906,6 +932,30 @@
               path: apis/graphql/cookbooks/teams
         - name: Limits
           path: apis/graphql/graphql-resource-limits
+    - name: "Portals"
+      children:
+        - name: "Overview"
+          path: "apis/portals"
+        - name: "Limits"
+          path: "apis/portals/limits"
+        - name: "Ephemeral portal tokens"
+          path: "apis/portals/ephemeral-portal-tokens"
+        - name: "User-invoked portals"
+          path: "apis/portals/user-invoked-portals"
+    - name: "MCP server"
+      children:
+        - name: "Overview"
+          path: "apis/mcp-server"
+        - name: "Remote MCP server"
+          children:
+            - name: "Configuring AI tools"
+              path: "apis/mcp-server/remote/configuring-ai-tools"
+        - name: "Local MCP server"
+          children:
+            - name: "Installing the server"
+              path: "apis/mcp-server/local/installing"
+            - name: "Configuring AI tools"
+              path: "apis/mcp-server/local/configuring-ai-tools"
     - name: "Webhooks"
       children:
         - name: "Overview"
@@ -940,19 +990,12 @@
           children:
             - name: "Overview"
               path: "apis/webhooks/package-registries"
-    - name: "Portals"
-      children:
-        - name: "Overview"
-          path: "apis/portals"
-        - name: "Limits"
-          path: "apis/portals/limits"
-        - name: "Ephemeral portal tokens"
-          path: "apis/portals/ephemeral-portal-tokens"
-        - name: "User-invoked portals"
-          path: "apis/portals/user-invoked-portals"
     - name: "Agent"
       children:
         - name: "Overview"
           path: "apis/agent-api"
         - name: "Metrics"
           path: "apis/agent-api/metrics"
+        - name: "Stacks"
+          pill: preview
+          path: "apis/agent-api/stacks"

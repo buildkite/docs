@@ -47,15 +47,18 @@ When you create a new test suite in Buildkite:
 
 **Full Access** on a test suite allows you to:
 
-- View test runs.
-- Edit test suite's settings
+- View test data.
+- Edit test suite's settings.
 - Delete the test suite.
 - Provide access to other users, by adding the test suite to other teams that you are a [team maintainer](#manage-teams-and-permissions-team-level-permissions) on.
+- Configure test splitting.
+- Create and edit workflows.
 
 Any user with **Full Access** permission to a test suite can change its permission to **Read Only**, which allows you to view test runs only, but _not_:
 
 - Edit the test suite's settings.
 - Delete the test suite.
+- Create and edit workflows.
 - Provide access to other users.
 
 A user who is a member of at least one team with **Full Access** permission to a test suite can change the permissions on this test suite. However, once this user loses this **Full Access** through their last team with this permission on this test suite, the user then loses the ability to change the test suite's permission in any team they are a member of.

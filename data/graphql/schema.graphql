@@ -3442,6 +3442,47 @@ type JobEventGeneric implements JobEvent & Node {
 }
 
 """
+A job event for when a job's priority has been changed
+"""
+type JobEventReprioritized implements JobEvent & Node {
+  """
+  The actor that caused this event to occur
+  """
+  actor: JobEventActor!
+
+  """
+  The priority value after the change
+  """
+  changedPriorityAfterValue: Int
+
+  """
+  The priority value before the change
+  """
+  changedPriorityBeforeValue: Int
+  id: ID!
+
+  """
+  The job that this event belongs to
+  """
+  job: JobTypeCommand!
+
+  """
+  The time when the event occurred
+  """
+  timestamp: DateTime!
+
+  """
+  The type of event
+  """
+  type: JobEventType!
+
+  """
+  The public UUID for this job event
+  """
+  uuid: ID!
+}
+
+"""
 An event created when the job is retried
 """
 type JobEventRetried implements JobEvent & Node {
@@ -3514,6 +3555,13 @@ type JobEventRetryFailed implements JobEvent & Node {
 The reason why a signal was sent to the job's process, or why the process did not start
 """
 enum JobEventSignalReason {
+  """
+  The agent was incompatible with the job requirements (e.g., version too old to
+  support required features). Note that in this case, no signal was sent to the
+  process, the job was not run at all.
+  """
+  AGENT_INCOMPATIBLE
+
   """
   The agent refused the job. Note that in this case, no signal was sent to the process, the job was not run at all.
   """
@@ -3753,6 +3801,11 @@ enum JobEventType {
   The Job is limited by a platform limit
   """
   PLATFORM_LIMITED
+
+  """
+  The Job's priority was changed
+  """
+  REPRIORITIZED
 
   """
   The Job was reserved by a stack for later execution
@@ -9252,6 +9305,11 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   buildBranches: Boolean!
 
   """
+  Whether to create builds for merge group check runs.
+  """
+  buildMergeGroupChecksRequested: Boolean!
+
+  """
   Whether to create builds for pull requests when the base branch is changed.
   """
   buildPullRequestBaseBranchChanged: Boolean!
@@ -9285,6 +9343,11 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
   """
   cancelDeletedBranchBuilds: Boolean!
+
+  """
+  Whether to cancel running builds when a merge group is destroyed.
+  """
+  cancelWhenMergeGroupDestroyed: Boolean!
 
   """
   The conditions under which this pipeline will trigger a build.
@@ -9355,6 +9418,11 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   What type of event to trigger builds on.
   """
   triggerMode: String!
+
+  """
+  Whether to use the merge group base commit for git diff base.
+  """
+  useMergeGroupBaseCommitForGitDiffBase: Boolean!
 }
 
 """
@@ -9367,6 +9435,11 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   buildBranches: Boolean!
 
   """
+  Whether to create builds for merge group check runs.
+  """
+  buildMergeGroupChecksRequested: Boolean!
+
+  """
   Whether to create builds for pull requests when the base branch is changed.
   """
   buildPullRequestBaseBranchChanged: Boolean!
@@ -9400,6 +9473,11 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
   """
   cancelDeletedBranchBuilds: Boolean!
+
+  """
+  Whether to cancel running builds when a merge group is destroyed.
+  """
+  cancelWhenMergeGroupDestroyed: Boolean!
 
   """
   The conditions under which this pipeline will trigger a build.
@@ -9470,6 +9548,11 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   What type of event to trigger builds on.
   """
   triggerMode: String!
+
+  """
+  Whether to use the merge group base commit for git diff base.
+  """
+  useMergeGroupBaseCommitForGitDiffBase: Boolean!
 }
 
 """

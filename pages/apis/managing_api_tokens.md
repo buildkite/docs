@@ -13,43 +13,50 @@ When you create a token, select the organizations it grants access to, and for R
 
 REST API scopes are very granular, you can select some or all of the following:
 
-Here's the content with asterisks replaced by hyphens:
-
-- Read Agents `read_agents` - Permission to list and retrieve details of agents
-- Modify Agents `write_agents` - Permission to stop agents. To register agents, use an [Agent token] instead
-- Read Teams `read_teams` - Permission to list teams
-- Read Artifacts `read_artifacts` - Permission to retrieve build artifacts
-- Write Artifacts `write_artifacts` - Permission to delete build artifacts
-- Read Builds `read_builds` - Permission to list and retrieve details of builds
-- Modify Builds `write_builds` - Permission to create new builds
-- Read Job Environment Variables `read_job_env` - Permission to retrieve job environment variables
-- Read Build Logs `read_build_logs` - Permission to retrieve `build` logs
-- Write Build Logs `write_build_logs` - Permission to delete build logs
-- Read Organizations `read_organizations` - Permission to list and retrieve details of organizations
-- Read Pipelines `read_pipelines` - Permission to list and retrieve details of pipelines
-- Write Pipelines `write_pipelines` - Permission to create, update and delete pipelines
-- Read User `read_user` - Permission to retrieve basic details of the user
-- Read Suites `read_suites` - Permission to list and retrieve details of test suites; including runs,
+- **Read Agents** (`read_agents`): Permission to list and retrieve details of agents.
+- **Write Agents** (`write_agents`): Permission to stop agents. To register agents, use an [Agent token] instead.
+- **Read Clusters** (`read_clusters`): Permission to list and retrieve details of clusters.
+- **Write Clusters** (`write_clusters`): Permission to create, update and delete clusters.
+- **Read Teams** (`read_teams`): Permission to list teams.
+- **Write Teams** (`write_teams`): Permission to create, update and delete teams.
+- **Read Artifacts** (`read_artifacts`): Permission to retrieve build artifacts.
+- **Write Artifacts** (`write_artifacts`): Permission to delete build artifacts.
+- **Read Builds** (`read_builds`): Permission to list and retrieve details of builds.
+- **Write Builds** (`write_builds`): Permission to create new builds.
+- **Read Job Environment Variables** (`read_job_env`): Permission to retrieve job environment variables.
+- **Read Build Logs** (`read_build_logs`): Permission to retrieve build logs.
+- **Write Build Logs** (`write_build_logs`): Permission to delete build logs.
+- **Read Organizations** (`read_organizations`): Permission to list and retrieve details of organizations.
+- **Read Pipelines** (`read_pipelines`): Permission to list and retrieve details of pipelines.
+- **Write Pipelines** (`write_pipelines`): Permission to create, update and delete pipelines.
+- **Read Pipeline Templates** (`read_pipeline_templates`): Permission to list and retrieve details of pipeline templates.
+- **Write Pipeline Templates** (`write_pipeline_templates`): Permission to create, update and delete pipeline templates.
+- **Read Rules** (`read_rules`): Permission to list and retrieve details of rules.
+- **Write Rules** (`write_rules`): Permission to create or delete rules.
+- **Read User** (`read_user`): Permission to retrieve basic details of the user.
+- **Read Suites** (`read_suites`): Permission to list and retrieve details of test suites; including runs,
   tests, executions, etc.
-- Write Suites `write_suites` - Permission to create, update and delete test suites
-- Read Test Plan `read_test_plan` - Permission to retrieve test plan information
-- Write Test Plan `write_test_plan` - Permission to create test plan
-- Read Registries `read_registries` - Permission to list and retrieve details of registries
-- Write Registries `write_registries` - Permission to create and update registries
-- Delete Registries `delete_registries` - Permission to delete registries
-- Read Packages `read_packages` - Permission to list and retrieve details of packages
-- Write Packages `write_packages` - Permission to create packages
-- Delete Packages `delete_packages` - Permission to delete packages
+- **Write Suites** (`write_suites`): Permission to create, update and delete test suites.
+- **Read Test Plan** (`read_test_plan`): Permission to retrieve test plan information.
+- **Write Test Plan** (`write_test_plan`): Permission to create test plan.
+- **Read Portals** (`read_portals`): Permission to list and retrieve details of portals.
+- **Write Portals** (`write_portals`): Permission to create, update, and delete portals.
+- **Read Registries** (`read_registries`): Permission to list and retrieve details of registries.
+- **Write Registries** (`write_registries`): Permission to create and update registries.
+- **Delete Registries** (`delete_registries`): Permission to delete registries.
+- **Read Packages** (`read_packages`): Permission to list and retrieve details of packages.
+- **Write Packages** (`write_packages`): Permission to create packages.
+- **Delete Packages** (`delete_packages`): Permission to delete packages.
 
 When creating API access tokens, you can also restrict which network address are allowed to use them, using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
 
 ## Auditing tokens
 
-Viewing the API Access Audit page requires admin privileges. The page can be found in the Audit section of the Organization Settings sidebar.
+Viewing the **API Access Audit** page requires Buildkite organization administrator privileges. The page can be found in the **Audit** section of the Buildkite organization's **Settings** in the global navigation.
 
 All tokens that currently have access to your organization's data will be listed. The table includes the scope of each token, how long ago they were created, and how long since they've been used.
 
-Click through any token to see more detailed information about its scopes and the most recent request.
+From the **API Access Audit** page, navigate through to any token to see more detailed information about its scopes and the most recent request.
 
 <%= image "all-tokens-view.png", width: 1820/2, height: 1344/2, alt: "Screenshot of the API Access Audit page displaying a list of all tokens" %>
 
@@ -61,11 +68,11 @@ The list of tokens can be filtered by username, scopes, IP address, or whether t
 
 If you have old API access tokens that should no longer be used, or need to prevent such a token from performing further actions, Buildkite organization administrators can remove the token's access to organization data.
 
-From the **API Access Audit** page, find the API token whose access you want to remove. You can search for tokens using usernames, token scopes, full IP addresses, admin privileges, or the value of the token itself.
+From the [**API Access Audit** page](#auditing-tokens), find the API token whose access you want to remove. You can search for tokens using usernames, token scopes, full IP addresses, admin privileges, or the value of the token itself.
 
 <%= image "token-view.png", width: 1788/2, height: 2288/2, alt: "Screenshot of the API access token page with the Revoke Access button at the bottom of the screen" %>
 
-Navigate through to the token you'd like to remove, then select **Remove Organization from Token**.
+From the **API Access Audit** page, navigate through to the token you'd like to remove, then select **Remove Organization from Token**.
 
 Removing access from a token sends a notification email to the token's owner, who cannot re-add your organization to the token's scope.
 
@@ -104,7 +111,9 @@ This section explains risk mitigation strategies which you can implement, and ot
 
 ### Rotation
 
-Be aware that Buildkite's API access tokens have no built-in expiration date. The best practices regarding regular credential rotation recommended by [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-lifetimes-and-rotation) suggest rotating the tokens at least once a year. In case of a security compromise or breach, it is strongly recommended that the old tokens are [invalidated](/docs/apis/managing-api-tokens#removing-an-organization-from-a-token), and new tokens are issued.
+Buildkite's API access tokens have no built-in expiration date. The best practices regarding regular credential rotation recommended by [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-lifetimes-and-rotation) suggest rotating the tokens at least once a year. In case of a security compromise or breach, it is strongly recommended that the old tokens are [invalidated](/docs/apis/managing-api-tokens#removing-an-organization-from-a-token) or inactive ones [revoked](#inactive-api-tokens-revocation), and new tokens are issued.
+
+The [API Access Tokens page](https://buildkite.com/user/api-access-tokens) has a _Duplicate_ button that can be used to create a new token with the same permissions as the existing token.
 
 ### GitHub secret scanning program
 

@@ -1,0 +1,1 @@
+Once connected to the remote MCP server, if you need a new OAuth token, the **Authorize Application** for the **Buildkite MCP Server** page appears. If so, scroll down and select your Buildkite organization in **Authorize for organization**, followed by **Authorize**.

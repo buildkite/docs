@@ -104,8 +104,11 @@
   }
 
   code {
-    overflow-wrap: break-word;
+    /* Including this seems to do the opposite of what's intended. */
+    /* overflow-wrap: break-word; */
     display: inline-block;
+    /* Forces internal wrapping of longer code lines, making them look ugly in table cells. */
+    /* max-width: 30ch; */
     vertical-align: top;
   }
 
