@@ -162,10 +162,10 @@ steps:
 | **Runs as user**             | root (0)                 | user (1000)                     | user (1000)                       |
 | **Privileged access**        | Yes (`privileged: true`) | No                              | No                                |
 | **BuildKit process sandbox** | Enabled                  | Enabled                         | Disabled\*                        |
-| **Kernel security profiles** | Default                  | Default                         | Unconfined†                       |
+| **Kernel security profiles** | Default                  | Default                         | Unconfined                        |
 | **Kubernetes version**       | Any                      | Any                             | ≥1.19 (seccomp), ≥1.30 (AppArmor) |
 
-\*Process sandbox disabled due to Kubernetes limitations - reduces security within BuildKit container
+\*Process sandbox disabled due to Kubernetes limitations - reduces security within BuildKit container.
 
 >📘
 >`Unconfined` profiles are required for rootless container operations.
@@ -257,7 +257,7 @@ buildctl-daemonless.sh build \
 
 ## Troubleshooting
 
-This section describes common issues for BuildKit deployment and the ways of solving these issues.
+This section describes common issues for BuildKit and the ways of solving these issues.
 
 ### Permission denied errors
 
