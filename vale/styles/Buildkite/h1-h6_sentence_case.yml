@@ -51,6 +51,7 @@ exceptions:
   - bktec
   - BUILD_AND_READ
   - buildevents
+  - BuildKit
   - Buildkite
   - Buildkite Agent
   - Buildkite Agents

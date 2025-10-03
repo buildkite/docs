@@ -199,6 +199,10 @@
               path: "agent/v3/agent-stack-k8s/securing-the-stack"
             - name: "Prometheus metrics"
               path: "agent/v3/agent-stack-k8s/prometheus-metrics"
+            - name: "Building container images"
+              children:
+                - name: "BuildKit"
+                  path: "agent/v3/agent-stack-k8s/buildkit-container-builds"
             - name: "Troubleshooting"
               path: "agent/v3/agent-stack-k8s/troubleshooting"
         - name: "Agent installers"
