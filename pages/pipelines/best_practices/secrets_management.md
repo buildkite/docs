@@ -2,7 +2,7 @@
 
 For in-depth information on enforcing Buildkite security controls, see [Enforcing security controls](/docs/pipelines/security/enforcing-security-controls).
 
-* Native secret management: Use [Buildkite secrets and redaction](/docs/pipelines/security/secrets/buildkite-secrets) and [secrets plugins](https://buildkite.com/docs/pipelines/integrations/plugins/directory).
+* Native secret management: Use [Buildkite secrets and redaction](/docs/pipelines/security/secrets/buildkite-secrets) and [secrets plugins](/docs/pipelines/integrations/plugins/directory).
 * Rotate secrets: Regularly update credentials to minimize risk.
 * Limit scope: Expose secrets only to the steps that require them. See more in [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets#use-a-buildkite-secret-in-a-job) and [vault secrets plugin](https://buildkite.com/resources/plugins/buildkite-plugins/vault-secrets-buildkite-plugin/).
 * Audit usage: Track which steps consume which secrets.
