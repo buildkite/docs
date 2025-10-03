@@ -452,7 +452,6 @@
                   path: "pipelines/security/secrets/buildkite-secrets"
                 - name: "Access policies"
                   path: "pipelines/security/secrets/buildkite-secrets/access-policies"
-                  pill: "preview"
         - name: "Incoming webhooks"
           path: "pipelines/security/incoming-webhooks"
         - name: "OIDC"
