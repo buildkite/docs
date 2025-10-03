@@ -53,8 +53,7 @@ To update an existing Buildkite secret's value using the Buildkite interface:
 
 ### From within a pipeline YAML configuration
 
-> 📘 Preview feature and minimum Buildkite Agent version requirement
-> Fetching secrets from within a pipeline YAML configuration is currently in customer preview.
+> 📘 Minimum Buildkite Agent version requirement
 > To use Buildkite secrets in a job, defined by its pipeline YAML configuration, version 3.106.0 or later of the Buildkite Agent is required. Using earlier versions of the Buildkite Agent will result in pipeline failures.
 
 Once you've [created a secret](#create-a-secret), you can specify secrets in your pipeline YAML configuration, which will be injected into your job environment. Secrets can be specified for all steps in a build and per command step.

@@ -219,6 +219,10 @@
               path: "agent/v3/agent-stack-k8s/securing-the-stack"
             - name: "Prometheus metrics"
               path: "agent/v3/agent-stack-k8s/prometheus-metrics"
+            - name: "Building container images"
+              children:
+                - name: "BuildKit"
+                  path: "agent/v3/agent-stack-k8s/buildkit-container-builds"
             - name: "Troubleshooting"
               path: "agent/v3/agent-stack-k8s/troubleshooting"
         - name: "Agent installers"
@@ -472,7 +476,6 @@
                   path: "pipelines/security/secrets/buildkite-secrets"
                 - name: "Access policies"
                   path: "pipelines/security/secrets/buildkite-secrets/access-policies"
-                  pill: "preview"
         - name: "Incoming webhooks"
           path: "pipelines/security/incoming-webhooks"
         - name: "OIDC"
@@ -495,6 +498,8 @@
       children:
         - name: "Overview"
           path: "pipelines/deployments"
+        - name: "Deploying to AWS Lambda"
+          path: "pipelines/deployments/to-aws-lambda"
         - name: "Deploying to Kubernetes"
           path: "pipelines/deployments/to-kubernetes"
         - name: "Deploying with Argo"
