@@ -158,12 +158,12 @@ steps:
 
 | Feature                      | Privileged               | Rootless (Non-Privileged)       | Rootless (Strict)                 |
 | ---------------------------- | ------------------------ | ------------------------------- | --------------------------------- |
-| **Container Image**          | `moby/buildkit:latest`   | `moby/buildkit:latest-rootless` | `moby/buildkit:latest-rootless`   |
-| **Runs as User**             | root (0)                 | user (1000)                     | user (1000)                       |
-| **Privileged Access**        | Yes (`privileged: true`) | No                              | No                                |
-| **BuildKit Process Sandbox** | Enabled                  | Enabled                         | Disabled\*                        |
-| **Kernel Security Profiles** | Default                  | Default                         | Unconfined†                       |
-| **Kubernetes Version**       | Any                      | Any                             | ≥1.19 (seccomp), ≥1.30 (AppArmor) |
+| **Container image**          | `moby/buildkit:latest`   | `moby/buildkit:latest-rootless` | `moby/buildkit:latest-rootless`   |
+| **Runs as user**             | root (0)                 | user (1000)                     | user (1000)                       |
+| **Privileged access**        | Yes (`privileged: true`) | No                              | No                                |
+| **BuildKit process sandbox** | Enabled                  | Enabled                         | Disabled\*                        |
+| **Kernel security profiles** | Default                  | Default                         | Unconfined†                       |
+| **Kubernetes version**       | Any                      | Any                             | ≥1.19 (seccomp), ≥1.30 (AppArmor) |
 
 \*Process sandbox disabled due to Kubernetes limitations - reduces security within BuildKit container
 
@@ -201,17 +201,6 @@ The `--oci-worker-no-process-sandbox` flag disables BuildKit's internal process 
 - Required in Kubernetes because `systempaths=unconfined` is not supported.
 
 This reduces security compared to rootless mode without the flag, but is necessary for Kubernetes compatibility.
-
-## BuildKit features
-
-BuildKit provides several advanced features that make it well-suited for CI/CD environments:
-
-- **Daemonless operation**: No persistent daemon required
-- **Efficient caching**: Layer caching and cache mounts
-- **Multi-stage builds**: Advanced Dockerfile features
-- **Concurrent builds**: Parallel processing of build steps
-- **Multiple output formats**: Support for various image formats and registries
-- **Secrets management**: Secure handling of build-time secrets
 
 ## Customizing the build
 
@@ -268,33 +257,33 @@ buildctl-daemonless.sh build \
 
 ## Troubleshooting
 
-This section describes the common issues for BuildKit deployment and the ways of solving those issues.
+This section describes common issues for BuildKit deployment and the ways of solving these issues.
 
 ### Permission denied errors
 
-- Privileged: Ensure `securityContext.privileged: true` is configured
-- Non-privileged/Rootless: Verify `runAsUser: 1000` and `runAsGroup: 1000` are set
-- Rootless: Check that `seccompProfile` and `appArmorProfile` are set to `Unconfined`
+- **Privileged**: Ensure `securityContext.privileged: true` is configured.
+- **Non-privileged/Rootless**: Verify `runAsUser: 1000` and `runAsGroup: 1000` are set.
+- **Rootless**: Check that `seccompProfile` and `appArmorProfile` are set to `Unconfined`.
 
 ### Cache mount issues
 
-- Privileged: Verify cache mount at `/var/lib/buildkit`
-- Rootless (both modes): Verify cache mount at `/home/user/.local/share/buildkit`
+- **Privileged**: Verify cache mount at `/var/lib/buildkit`.
+- **Rootless (both modes)**: Verify cache mount at `/home/user/.local/share/buildkit`.
 
 ### BuildKit tools not found
 
 Use appropriate image:
 
-- Privileged builds: `moby/buildkit:latest`
-- Non-privileged/Rootless builds: `moby/buildkit:latest-rootless`
+- **Privileged** builds: `moby/buildkit:latest`.
+- **Non-privileged/Rootless** builds: `moby/buildkit:latest-rootless`.
 
 ### Rootless build failures
 
-Ensure `BUILDKITD_FLAGS="--oci-worker-no-process-sandbox"` is set for strict rootless mode
+Ensure `BUILDKITD_FLAGS="--oci-worker-no-process-sandbox"` is set to "rootless (strict)" mode.
 
 ### Pod initialization issues
 
-For rootless builds, verify Kubernetes version supports required security profiles (≥1.19 for seccomp, ≥1.30 for AppArmor).
+For rootless builds, verify Kubernetes version supports the required security profiles (≥1.19 for seccomp, ≥1.30 for AppArmor).
 
 ### Build processes not terminating
 
