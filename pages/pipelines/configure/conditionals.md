@@ -314,6 +314,8 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<code>BUILDKITE_PULL_REQUEST</code><br>
 		<code>BUILDKITE_PULL_REQUEST_BASE_BRANCH</code><br>
 		<code>BUILDKITE_PULL_REQUEST_REPO</code><br>
+		<code>BUILDKITE_MERGE_QUEUE_BASE_BRANCH</code><br>
+		<code>BUILDKITE_MERGE_QUEUE_BASE_COMMIT</code><br>
 		<code>BUILDKITE_GITHUB_DEPLOYMENT_ID</code><br>
 		<code>BUILDKITE_GITHUB_DEPLOYMENT_TASK</code><br>
 		<code>BUILDKITE_GITHUB_DEPLOYMENT_ENVIRONMENT</code><br>
@@ -366,6 +368,16 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<td>If the pull request comes from a forked repository, otherwise <code>null</code> if the branch is not a pull request</td>
 	</tr>
 	<tr>
+		<td><code>build.merge_queue.base_branch</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>If a merge queue build, the target branch which the merge queue build will be merged into</td>
+	</tr>
+	<tr>
+		<td><code>build.merge_queue.base_commit</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>If a merge queue build, the <a href="https://git-scm.com/docs/git-merge-base" target="_blank" rel="nofollow">merge base</a> of the proposed merge commit (<code>build.commit</code>)</td>
+	</tr>
+	<tr>
 		<td><code>build.source</code></td>
 		<td><code>String</code></td>
 		<td>The source of the event that created the build<br><em>Available sources:</em> <code>ui</code>, <code>api</code>, <code>webhook</code>, <code>trigger_job</code>, <code>schedule</code></td>
@@ -373,7 +385,7 @@ The following variables are supported by the `if` attribute. Note that you canno
 	<tr>
 		<td><code>build.state</code></td>
 		<td><code>String</code></td>
-		<td>The state the current build is in<br><em>Available states:</em>, <code>started</code>, <code>scheduled</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>failing</code>, <code>started_failing</code>, <code>blocked</code>, <code>canceling</code>, <code>canceled</code>, <code>skipped</code>, <code>not_run</code></td>
+		<td>The state the current build is in<br><em>Available states:</em> <code>started</code>, <code>scheduled</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>failing</code>, <code>started_failing</code>, <code>blocked</code>, <code>canceling</code>, <code>canceled</code>, <code>skipped</code>, <code>not_run</code></td>
 	</tr>
 	<tr>
 		<td><code>build.tag</code></td>
@@ -523,4 +535,10 @@ To run only non-draft pull requests:
 
 ```js
 !build.pull_request.draft
+```
+
+To run only on merge queue builds targeting the `main` branch:
+
+```js
+build.merge_queue.base_branch == "main"
 ```

@@ -51,7 +51,7 @@ When you connect your GitHub organization, Buildkite needs the following permiss
     1. Add a new webhook in GitHub.
     1. Paste in the provided webhook URL.
     1. Select `application/json` as the content type of the webhook.
-    1. Select the `deployment`, `pull_request`, and `push` events to trigger the webhook.
+    1. Select **Deployments**, **Merge groups**, **Pull requests**, and **Pushes** as events to trigger the webhook.
 
     The repository webhook is required so that the Buildkite GitHub app does not need read access to your repository.
 
@@ -86,6 +86,19 @@ When you create a pull request, two builds are triggered: one for the pull reque
 
 > 📘 Webhook events from GitHub pull requests that trigger Buildkite pipeline builds
 > A Buildkite pipeline's build can be triggered by pull request-related events, such as when a pull request (PR) is opened, a PR's stage is changed from **Draft** to **Open** (using **Ready for review**), and when a PR's labels are changed (if this setting is enabled in your pipeline's settings).
+
+## Running builds on merge queues
+
+To enable merge queue builds, edit the GitHub settings for the pipeline and select **Build merge queues**.
+
+> 🚧 Ensure GitHub webhook has _Merge groups_ events enabled
+> Buildkite relies on receiving `merge_group` webhook events from GitHub to create builds for merge groups in the merge queue. Ensure your pipeline's [webhook](/docs/pipelines/source-control/github#set-up-a-new-pipeline-for-a-github-repository) has the _Merge groups_ event enabled before enabling merge queue builds.
+
+Enabling this will prevent ordinary code pushes to `gh-readonly-queue/*` branches from creating builds, instead builds will be created in response to `merge_group` webhook events from GitHub. Merge queue builds ignore any pipeline-level branch filter settings and do not support [skipping via a commit message](/docs/pipelines/configure/skipping#ignore-a-commit).
+
+To cancel running builds when the corresponding GitHub merge queue entry is destroyed, select the **Cancel builds for destroyed merge groups** option. The way the agent handles the [`if_changed` attribute](/docs/agent/v3/cli-pipeline#apply-if-changed) during pipeline uploads can also be influenced via the **Use base commit when making `if_changed` comparisons** setting.
+
+For more information about the interaction between GitHub merge queues and Buildkite, see our [merge queue tutorial](/docs/pipelines/tutorials/github-merge-queue).
 
 ## Running builds on git tags
 

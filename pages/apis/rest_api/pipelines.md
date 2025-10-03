@@ -1381,6 +1381,25 @@ Additional properties available for GitHub and GitHub Enterprise:
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
     </tr>
     <tr>
+      <th><code>build_merge_group_checks_requested</code></th>
+      <td>
+        Whether to create merge queue builds for merge queue enabled GitHub repository with required status checks.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>cancel_when_merge_group_destroyed</code></th>
+      <td>
+        Whether to cancel any running builds belonging to a removed merge group.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>use_merge_group_base_commit_for_git_diff_base</code></th>
+      <td>
+        When enabled, agents performing a git diff to determine steps to upload based on <a href="/docs/pipelines/configure/step-types/command-step#agent-applied-attributes"><code>if_changed</code></a>
+				comparisons will use the base commit that points to the previous merge group rather than the base branch.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
       <th><code>prefix_pull_request_fork_branch_names</code></th>
       <td>
         Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the <code>main</code> branch from <code>some-user</code> will become <code>some-user:main</code>.

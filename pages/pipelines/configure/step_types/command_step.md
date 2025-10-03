@@ -147,6 +147,13 @@ Optional attributes:
     </td>
   </tr>
   <tr>
+    <td><code>secrets</code></td>
+    <td>
+      Either an array of <a href="/docs/pipelines/security/secrets/buildkite-secrets">Buildkite secrets</a> or a map of environment variables names to Buildkite secrets for this step.<br/>
+      <em>Example:</em> <code>- API_ACCESS_TOKEN</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>if</code></td>
     <td>
       A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.<br/>

@@ -148,6 +148,7 @@ exceptions:
   - Kotlin
   - Kubernetes
   - limiter
+  - Linear
   - Linux
   - M1
   - Mac
