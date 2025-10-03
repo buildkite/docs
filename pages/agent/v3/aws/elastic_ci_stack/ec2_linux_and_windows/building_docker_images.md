@@ -1,5 +1,5 @@
 ---
-toc: false
+toc_include_h3: false
 ---
 
 # Building Docker images
@@ -49,6 +49,7 @@ Kaniko executes your Dockerfile inside a container and pushes the resulting imag
 Here's a complete example of using Kaniko to build and push a container image to ECR:
 
 **pipeline.yml:**
+
 ```yaml
 steps:
   - label: ":whale: Kaniko"
@@ -61,6 +62,7 @@ steps:
 ```
 
 **Dockerfile:**
+
 ```dockerfile
 FROM public.ecr.aws/docker/library/node:20-alpine
 WORKDIR /app
@@ -71,6 +73,7 @@ CMD ["node","app.js"]
 ```
 
 **package.json:**
+
 ```json
 {
   "name": "hello-kaniko",
@@ -86,12 +89,14 @@ CMD ["node","app.js"]
 ```
 
 **app.js:**
+
 ```javascript
 // app.js
 console.log("Hello from Kaniko on Buildkite Elastic CI Stack for AWS!");
 ```
 
 **Buildkite Step Script (.buildkite/steps/kaniko.sh):**
+
 ```bash
 # ---- Required env from the step ----
 AWS_REGION="${AWS_REGION:?missing AWS_REGION}"
