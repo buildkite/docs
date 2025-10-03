@@ -1,19 +1,19 @@
 # Deploying to AWS Lambda
 
-This tutorial demonstrates deploying Lambda functions to AWS Lambda using Buildkite and the AWS Lambda Deploy plugin. The plugin provides alias management, health checks, and automatic rollback capabilities for reliable Lambda deployments.
+This tutorial demonstrates deploying Lambda functions to [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) using Buildkite Pipelines and the [AWS Lambda Deploy plugin](https://buildkite.com/resources/plugins/buildkite-plugins/aws-lambda-deploy-buildkite-plugin/). The plugin provides alias management, health checks, and automatic rollback capabilities for reliable Lambda deployments.
 
 ## Before starting
 
-Before deploying to AWS Lambda from Buildkite, ensure the following requirements are met:
+Before deploying to AWS Lambda from Buildkite Pipelines, ensure the following requirements are met:
 
-- An AWS account with appropriate Lambda permissions
-- AWS CLI v2 installed on Buildkite agents
-- `jq` command-line tool available
+- An AWS account with appropriate [Lambda permissions](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html) (further explained in [Required AWS IAM permissions](#required-aws-iam-permissions))
+- [AWS CLI v2](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) installed on Buildkite Agents
+- [`jq` command-line tool](https://jqlang.org/) available
 - A Lambda function already created in AWS (or permission to create one)
 
 ### Required AWS IAM permissions
 
-Buildkite agents need the following Lambda permissions:
+Buildkite Agents need the following Lambda permissions:
 
 ```json
 {
@@ -50,7 +50,7 @@ For S3-based deployments, additional S3 permissions are required:
 
 ## Deploying zip-based Lambda functions
 
-The most common Lambda deployment pattern uses Zip files containing function code. This example shows a pipeline that builds and deploys a Python Lambda function:
+The most common Lambda deployment pattern uses ZIP files containing the function's code. The following example demonstrates a pipeline that builds and deploys a Python Lambda function:
 
 ```yaml
 steps:
@@ -89,7 +89,7 @@ steps:
 
 ## Deploying container-based Lambda functions
 
-For larger functions or those requiring custom runtimes, Lambda supports container images. This example deploys a containerized Lambda function from ECR:
+For larger functions or functions requiring custom runtimes, Lambda supports container images. The following example deploys a containerized Lambda function from Amazon Elastic Container Registry (ECR):
 
 ```yaml
 steps:
@@ -137,7 +137,7 @@ steps:
 
 ## Manual approval and rollback
 
-For production deployments, you can use block steps and manual rollback:
+For production [deployments](/docs/pipelines/deployments), you can use [block steps](/docs/pipelines/configure/step-types/block-step) and manual rollback:
 
 ```yaml
 steps:
@@ -199,11 +199,11 @@ Health checks run after the deployment completes and will trigger automatic roll
 
 ## Build metadata and tracking
 
-The plugin automatically tracks deployment state using Buildkite build metadata. This enables:
+The [AWS Lambda Deploy plugin](https://buildkite.com/resources/plugins/buildkite-plugins/aws-lambda-deploy-buildkite-plugin/) automatically tracks deployment state using Buildkite build's metadata. This enables:
 
-- **Cross-step state sharing**: Multiple steps can access deployment information
-- **Rollback coordination**: Rollback steps can access previous version information
-- **Deployment history**: Track which versions were deployed when
+- **Cross-step state sharing**: multiple steps can access deployment information.
+- **Rollback coordination**: rollback steps can access previous version information.
+- **Deployment history**: track which versions were deployed when.
 
 Metadata keys are namespaced by function name:
 
@@ -211,4 +211,4 @@ Metadata keys are namespaced by function name:
 - `deployment:aws_lambda:my-function:previous_version`
 - `deployment:aws_lambda:my-function:result`
 
-For complete configuration options, see the [plugin documentation](https://github.com/buildkite-plugins/aws-lambda-deploy-buildkite-plugin/).
+For complete configuration options, see the [AWS Lambda Deploy plugin documentation](https://github.com/buildkite-plugins/aws-lambda-deploy-buildkite-plugin/).
