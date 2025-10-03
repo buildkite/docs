@@ -859,8 +859,6 @@
               path: "apis/rest-api/builds"
             - name: "Clusters"
               path: "apis/rest-api/clusters"
-            - name: "Cluster maintainers"
-              path: "apis/rest-api/cluster-maintainers"
             - name: "Jobs"
               path: "apis/rest-api/jobs"
             - name: "Pipeline templates"
