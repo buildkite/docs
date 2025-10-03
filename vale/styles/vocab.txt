@@ -12,6 +12,8 @@ APIs
 apk
 APM
 applesimutils
+Amazon ECR
+Amazon Elastic Continer Registry
 Anthropic's
 Aqua
 architecting
@@ -57,6 +59,7 @@ carthage
 CCMenu
 ccnet
 CCTray
+Chainguard
 chatbot
 chroot
 chroots
@@ -103,6 +106,7 @@ distutils
 Dockerfile
 Docker's
 Dockerfile
+Docker-in-Docker
 dogstatsd
 dotenv
 DSCs
@@ -171,8 +175,10 @@ json
 junit
 JWT
 JWTs
+Kaniko
 keyserver
 keyservers
+keyless
 kotlin
 kubectl
 kustomize
