@@ -23,7 +23,7 @@ chmod +x scripts/setup-ecr.sh
 
 Set the following environment variables in the [Pipeline Settings](/docs/pipelines/configure/environment-variables) (or keep the defaults in `.buildkite/pipeline.yml`):
 
-- [`AWS_REGION`](/docs/pipelines/configure/environment-variables#aws-region) (for example, `ca-central-1`)
+- `AWS_REGION` (for example, `ca-central-1`)
 - `ECR_ACCOUNT_ID` (your 12-digit AWS account ID for [Amazon ECR](https://aws.amazon.com/ecr/))
 - `ECR_REPO` (your ECR repository name, for example, `example/hello-kaniko`)
 
