@@ -4,7 +4,7 @@ The clusters API endpoint lets you create and manage clusters in your organizati
 
 ## Clusters
 
-A [cluster](/docs/pipelines/clusters) is an isolated set of agents and pipelines within an organization.
+A [Buildkite cluster](/docs/pipelines/clusters) is an isolated set of agents and pipelines within an organization.
 
 ### Cluster data model
 
@@ -287,7 +287,7 @@ Error responses:
 
 ## Queues
 
-[Queues](/docs/pipelines/clusters/manage-queues) are discrete groups of agents within a cluster. Pipelines in that cluster can target queues to run jobs on agents assigned to those queues.
+[Queues](/docs/pipelines/clusters/manage-queues) are discrete groups of agents within a Buildkite cluster. Pipelines in that cluster can target queues to run jobs on agents assigned to those queues.
 
 ### Queue data model
 
@@ -745,7 +745,7 @@ Specify the appropriate **Instance shape** for the `instanceShape` value in your
 
 ## Agent tokens
 
-An agent token is used to [connect agents to a cluster](/docs/pipelines/clusters/manage-clusters#connect-agents-to-a-cluster).
+An agent token is used to [connect agents to a Buildkite cluster](/docs/pipelines/clusters/manage-clusters#connect-agents-to-a-cluster).
 
 ### Token data model
 
@@ -965,7 +965,7 @@ Error responses:
 
 ## Cluster maintainers
 
-Cluster maintainers permissions can be assigned to a list of `Users` or `Teams`. This grants assignees the ability to manage the Cluster resource.
+Cluster maintainers permissions can be assigned to a list of [Users or teams](/docs/platform/team-management/permissions), or both. This grants assignees the ability to manage the [Buildkite clusters they maintain](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster).
 
 ### Cluster maintainer data model
 
@@ -978,7 +978,7 @@ Cluster maintainers permissions can be assigned to a list of `Users` or `Teams`.
 
 ### List cluster maintainers
 
-Returns a list of maintainers for a cluster.
+Returns a list of [maintainers](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) on a [cluster](/docs/pipelines/clusters).
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -1038,7 +1038,7 @@ Success response: `200 OK`
 
 ### Create a cluster maintainer
 
-Assign cluster maintainer permissions to a `User` or `Team`.
+Assigns [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) permissions to a [user or team](/docs/platform/team-management/permissions).
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -1059,24 +1059,24 @@ curl -H "Authorization: Bearer $TOKEN" \
 }
 ```
 
-#### Cluster maintainer permission scopes
+#### Cluster maintainer permission target
 
-Cluster maintainer permissions can be scoped to to either a `User` or `Team` by specifying the request body in the following format.
+Cluster maintainer permissions can be targeted to either a [user or team](/docs/platform/team-management/permissions) by specifying either a `user` or `team` field as the target in the request body, along with the target's UUID for its value.
 
 <table class="responsive-table">
   <thead>
-    <th>Scope</th>
+    <th>Target</th>
     <th>Value</th>
     <th>Example request body</th>
   </thead>
   <tbody>
     <tr>
-      <td><code>User</code></td>
+      <td><code>user</code></td>
       <td>UUID of the user</td>
       <td><code>{ "user: "282a043f-4d4f-4db5-ac9a-58673ae02caf" }</code></td>
     </tr>
     <tr>
-      <td><code>Team</code></td>
+      <td><code>team</code></td>
       <td>UUID of the team</th>
       <td><code>{ "team: "0da645b7-9840-428f-bd80-0b92ee274480" }</code></td>
     </tr>
@@ -1098,9 +1098,9 @@ Error responses:
   </tbody>
 </table>
 
-### Delete a cluster maintainer
+### Remove a cluster maintainer
 
-Delete cluster maintainer permissions for a `User` or `Team`.
+Remove cluster maintainer permissions from a [user or team](/docs/platform/team-management/permissions).
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
