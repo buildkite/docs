@@ -21,7 +21,16 @@ To sum it up:
 
 ## Buildkite agent controls
 
-Before the agents in your infrastructure pick start picking up jobs, the platform team (team with [Buildkite organization administrator permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions)) decides how much CPU, RAM, other resources the agents can have, regardless of whether the Buildkite Agents will be [hosted](/docs/pipelines/hosted-agents), [self-hosted](/docs/pipelines/architecture#self-hosted-hybrid-architecture) (running locally), or in the cloud ([AWS](/docs/agent/v3/aws), [GCP](/docs/agent/v3/gcloud), [Kubernetes](/docs/agent/v3/agent-stack-k8s)).
+Before the agents in your infrastructure pick start picking up jobs, the infrastructure team (team with [Buildkite organization administrator permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions)) decides how much CPU, RAM, other resources the agents can have, regardless of whether the Buildkite Agents will be [hosted](/docs/pipelines/hosted-agents), [self-hosted](/docs/pipelines/architecture#self-hosted-hybrid-architecture) (running locally), or in the cloud ([AWS](/docs/agent/v3/aws), [GCP](/docs/agent/v3/gcloud), [Kubernetes](/docs/agent/v3/agent-stack-k8s)).
+
+## Clusters and queues
+
+Set your clusters and queues according to our best practices and then provide an internal guide for your engineers in terms of which ones they can use. Only allow the specific number of agents you’d like to be in a queue. Monitor the wait times.
+
+See [Clusters and queues for more details](/docs/pipelines/clusters#clusters-and-queues-best-practices).
+
+Monitor or set a maximum job age for waiting jobs to make sure that wrong queue usage is handled.
+
 
 ## Pipeline templates as platform control tool
 
@@ -36,43 +45,7 @@ From an operational perspective, platform teams should leverage pipeline templat
 
 The ability to update templates centrally means that policy changes or security improvements can be rolled out instantly across all pipelines using that template, eliminating the need to coordinate updates across multiple development teams. Additionally, platform teams can create different template variants for different environments or application types (microservices, frontend applications, data pipelines) while maintaining consistent underlying security and infrastructure patterns, providing both flexibility and control over your organization's build and deployment processes.
 
-## Clusters and queues
-
-Use [clusters](/docs/pipelines/clusters) for workload separation and enhanced infrastructure management.Buildkite clusters create logical boundaries between different parts of your build infrastructure, enhancing security, discoverability, and manageability across your organization.
-
-You can organize your infrastructure using Buildkite clusters to:
-
-- Separate different environments (staging, production)
-- Isolate different teams or projects
-- Apply different security policies per cluster
-- Manage costs more granularly
-- Enable teams to self-manage their Buildkite agent pools
-- Provide easily accessible queue metrics and operational insights
-
-See [Clusters and queues for more details](/docs/pipelines/clusters#clusters-and-queues-best-practices).
-
-### Cluster structure recommendations
-
-In small to medium organizations, a single default cluster will often suffice. As your organization grows, consider structuring clusters based on team or department ownership:
-
-- **Product lines:** create individual clusters for each product when managing multiple products.
-- **Type of work:** separate open source, infrastructure, frontend, and backend workloads.
-- **Security boundaries:** isolate sensitive workloads that require different compliance or security policies.
-
-Keep in mind that pipelines associated with one cluster cannot trigger or access artifacts from pipelines in another cluster unless you create explicit rules to allow cross-cluster interactions.
-
-### Queue structure recommendations
-
-Structure your queues based on infrastructure characteristics to enable efficient scaling and resource management:
-
-- Architecture: `x86`, `arm64`, `apple-silicon`.
-- Agent size: `small`, `medium`, `large`, `extra-large`.
-- Machine type: `macos`, `linux`, `windows`, `gpu`.
-- Workload type: `default`, `deploy`, `security`, `performance`.
-
-An effective naming convention combines these attributes, such as `small_mac_silicon` or `large_linux_deploy`. This approach allows you to scale similar agents together while providing clear reporting and resource allocation.
-
-## Platform team controls
+## Access with Least Privilidge
 
 Buildkite's teams feature provides platform teams with granular access controls and functionality management across pipelines, test suites, and registries throughout your organization. These controls help standardize operations while providing teams with necessary flexibility to manage their own resources within defined boundaries.
 
@@ -123,26 +96,6 @@ See more in [Teams permissions](/docs/platform/team-management/permissions#manag
 Platform teams should implement comprehensive telemetry and observability solutions to monitor pipeline performance, identify reliability issues, and optimize CI/CD infrastructure. Effective telemetry provides actionable insights into build patterns, failure rates, resource utilization, and team productivity while enabling data-driven infrastructure decisions.
 
 You can turn Buildkite into a first‑class source of operational truth for your CI fleet by combining in‑product metrics with open telemetry streams, your preferred observability backend, and Buildkite’s real‑time event feeds.
-
-### End‑to‑end tracing with OpenTelemetry
-
-- Stream spans that cover control‑plane events and agent execution into your collector, then forward to Datadog, Honeycomb, Prometheus, or another backend.
-- Spans include fields like job start and finish times and agent queue, letting you calculate job minutes, queueing times, and critical path across builds.
-- Use this to correlate queue latency, checkout time, and infrastructure issues across build → stage → step → job → agent for large monorepos.
-
-### Native pipeline metrics in the UI
-
-- Get per‑pipeline health at a glance: build durations, success rates, and recent history for the default branch.
-- Everything visible is possible to query via GraphQL for custom dashboards or automation.
-
-### Datadog APM integration from the agent
-
-- Emit traces directly from Buildkite Agent to Datadog to analyze step efficiency, slowest phases, and common failure signatures, without writing custom plumbing.
-
-### Real‑time event streaming with Amazon EventBridge
-
-- Publish build and job lifecycle events, plus agent connect and loss events, to your AWS account.
-- Drive alerts, autoscaling, and SLO burn calculations in your telemetry pipelines.
 
 ## Centralize observability
 
@@ -450,76 +403,12 @@ By establishing comprehensive plugin management practices, platform teams can pr
 
 ## Annotations
 
-[Build annotations](/docs/agent/v3/cli-annotate) provide platform teams with a powerful mechanism to surface critical information, standardize reporting, and enhance visibility across your CI/CD pipelines. Using the `buildkite-agent annotate` command, platform teams can programmatically add rich, formatted information to build pages that helps development teams understand build results, identify issues, and access important resources.
-
-### Standardized reporting and visibility
-
-Platform teams can leverage annotations to create consistent reporting standards across all pipelines:
-
-- **Test result summaries**: use annotations to display comprehensive test failure reports, coverage metrics, and performance benchmarks in a standardized format.
-- **Security scan results**: surface vulnerability findings, compliance status, and remediation guidance directly in the build interface.
-- **Deployment status**: provide clear visibility into deployment progress, environment health checks, and rollback procedures.
-- **Infrastructure insights**: display resource utilization, cost analysis, and infrastructure drift detection results.
-
-### Automated quality gates and compliance
-
-Implement automated quality gates that use annotations to communicate pass/fail status and required actions:
-
-- Use different annotation styles (`success`, `warning`, `error`, `info`) to clearly indicate the severity and urgency of findings.
-- Set annotation priorities (1-10) to ensure critical issues are prominently displayed.
-- Embed artifacts like detailed reports, logs, and analysis results using the `artifact://` prefix for easy access.
-
-## Cross-pipeline communication
-
-Platform teams can use contextual annotations to provide consistent information across related builds:
-
-- Use the `--context` parameter to group related annotations and enable updates from different pipeline steps.
-- Leverage the `--append` option to build comprehensive reports that aggregate information from parallel or sequential jobs.
-- Create standardized contexts for common reporting types like `security-scan`, `performance-test`, or `deployment-status`.
-
-### Implementation recommendations
-
-When implementing annotations as part of your platform controls:
-
-- Create reusable scripts or tools that generate consistent annotation formats across teams.
-- Use CommonMark Markdown with supported CSS classes to ensure professional, readable formatting.
-- Implement colored terminal output for logs and console information using `term` or `terminal` code blocks.
-- Set up automated annotation removal for temporary status updates that become obsolete.
-- Consider annotation size limits (1MiB maximum) when designing comprehensive reports.
+Talk about how you can use annotations to communicate and link other documents/systems. So add internal faqs, monitoring dashboards to annotations. Give your contact details/ticketing system to raise things through.
 
 ## Cost and billing controls
 
 Platform teams can implement various controls and optimization methods to manage Buildkite infrastructure costs effectively. These approaches help balance performance requirements with budget constraints while maintaining visibility into resource utilization across your organization.
 
-### Cluster and queue management (size control)
-
-Cluster maintainers have granular control over resource allocation through queue management:
-
-- Create only the agent sizes and types necessary for your workloads in Buildkite-hosted queues.
-- Restrict queue creation permissions to prevent unnecessary resource provisioning.
-- Implement approval workflows for new queue requests that include cost impact assessments.
-- Regularly audit existing queues to identify and remove unused or underutilized resources.
-
-### Agent scaling
-
-Only allow the specific number of agents you’d like to be in a queue. Monitor the wait times.
-
-Implement intelligent scaling strategies to minimize idle resource costs:
-
-- Configure agent scaling policies based on historical usage patterns and queue wait times
-- Monitor queue metrics to identify optimal scaling thresholds for different workload types
-- Set maximum agent limits per queue to prevent runaway scaling during load spikes
-- Use time-based scaling to align agent availability with team working hours
-
-> 📘 Scaling tip
-> Scale all of your AWS agents to zero and only keep a handful warm during the work/peak hours (could be the ones that are running CloudFormation deploy or Terraform apply).
-
-Scale your infrastructure based on actual usage patterns rather than peak capacity:
-
-- Scale AWS agents to zero during off-hours and maintain only essential agents for critical deployments.
-- Keep a minimal number of "warm" agents during peak hours for immediate job execution.
-- Reserve larger agent sizes only for resource-intensive tasks like performance testing or large deployments.
-- Implement queue-specific scaling policies that match the compute requirements of different job types.
 
 ### User and license management
 
@@ -543,13 +432,6 @@ It's also recommended to:
 - Implement automated user provisioning and deprovisioning workflows integrated with your identity management system.
 - Track user activity patterns using [GraphQL organization queries](/docs/apis/graphql/cookbooks/organizations) to identify optimization opportunities.
 - Set up alerts when user counts approach license limits to prevent overage charges.
-
-### User access optimization strategies
-
-- Use team-based access controls to limit pipeline access to necessary personnel only.
-- Implement SSO-based automatic user lifecycle management.
-- Create processes for regular user access reviews and cleanup.
-- Consider using service accounts for automated processes instead of personal user accounts where appropriate.
 
 ## Implement cost allocation
 
@@ -586,35 +468,8 @@ By implementing these cost controls, platform teams can maintain predictable inf
 - Golden paths: Document and promote recommended workflows to reduce cognitive load.
 - Feedback loops: Encourage engineers to propose improvements or report issues.
 
-## Scaling practices
-
-- Workload segmentation: Split pipelines across projects or repositories to reduce contention.
-- Cross-team dashboards: Give stakeholders visibility into bottlenecks and throughput.
-- Cost optimization: Track agent utilization and cloud spend to balance speed with efficiency.
-
-## Common pitfalls to avoid
-
-- Overly restrictive defaults: Start permissive, then refine.
-- Ignoring developer input: CI/CD should enable instead of blocking velocity.
-- Skipping observability early: Add metrics and logging from day one.
-- Treating pipelines as secondary: Invest in CI/CD as critical infra.
-- Not planning for scale: Design for higher volume and parallelism.
-- Poor documentation: Document patterns, conventions, and playbooks.
-- Unverified pipeline changes: Test modifications in sandbox pipelines first.
-- Neglecting build performance: Regularly optimize for faster cycles.
-
-## Implementation recommendations for the platform team
-
-- Assess current state: audit existing pipelines, agents, and usage patterns.
-- Define policies: establish resource limits, security requirements, and cost targets.
-- Create templates: build standard pipeline templates for common use cases.
-- Implement gradually: roll out controls incrementally to avoid disrupting existing workflows.
 
 ## Next steps
-
-The framework of Buildkite Pipelines platform controls outline on this page provides a foundation for managing Buildkite Pipelines at scale. Consider your organization's specific needs around security, compliance, and cost management when implementing these controls.
-
-Remember that Buildkite Pipelines are most effective when treated as a living systems: modular, observable, secure, and developer-friendly. Invest in clarity, speed, and automation from the start, and continuously refine based on developer feedback and scaling needs.
 
 The following are the key areas we recommend you to focus on next:
 
