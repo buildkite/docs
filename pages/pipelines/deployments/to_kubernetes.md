@@ -185,6 +185,89 @@ cluster, then check the kubectl access section for setup advice.
 
 <%= image "final_test_pipeline.png", width: 1440/2, height: 430/2, alt: 'Final Test Pipeline' %>
 
+## Deploying with the Helm Chart Plugin
+
+For complex applications that are already packaged as Helm charts, the [Buildkite Deployment Helm Chart Plugin](https://github.com/buildkite-plugins/deployment-helm-chart-buildkite-plugin) provides a more robust deployment solution. Unlike the kubectl approach, Helm maintains deployment history and enables instant rollbacks when deployments fail or cause issues in production.
+
+The key advantage of using Helm for deployments is **safe rollbacks**. When a deployment introduces bugs or performance issues, you can instantly revert to the previous working version without manual intervention or complex recovery procedures. This is critical for production environments where downtime must be minimized.
+
+### Deployment example
+
+Instead of the custom deploy script, you can use the Helm plugin in your `.buildkite/pipeline.deploy.yml`. The plugin will receive the same `DOCKER_IMAGE` environment variable from your trigger step:
+
+```yml
+steps:
+  - label: "🚀 Deploy to Production"
+    command: |
+      echo "Deploying Docker image: $${DOCKER_IMAGE}"
+      echo "Extracting image repository and tag..."
+      export IMAGE_REPOSITORY="$$(echo "$${DOCKER_IMAGE}" | cut -d: -f1)"
+      export IMAGE_TAG="$$(echo "$${DOCKER_IMAGE}" | cut -d: -f2)"
+      echo "Repository: $${IMAGE_REPOSITORY}"
+      echo "Tag: $${IMAGE_TAG}"
+    plugins:
+      - deployment-helm-chart#v1.0.0:
+          mode: deploy
+          chart: ./k8s/helm-chart
+          release: tutorial
+          namespace: default
+          values:
+            - k8s/helm-chart/values.yaml
+          set:
+            - image.repository=${IMAGE_REPOSITORY}
+            - image.tag=${IMAGE_TAG}
+            - replicas=3
+          create_namespace: true
+          wait: true
+          atomic: true
+          timeout: 600s
+```
+{: codeblock-file="pipeline.yml"}
+
+### Rollback example
+
+```yml
+steps:
+  - label: "🔄 Rollback Deployment"
+    plugins:
+      - deployment-helm-chart#v1.0.0:
+          mode: rollback
+          release: tutorial
+          namespace: default
+          revision: 15  # Optional: specific revision to rollback to
+```
+{: codeblock-file="pipeline.yml"}
+
+> 📘 **Note**
+> While the example above shows how to integrate the Helm plugin with the existing kubectl workflow using `DOCKER_IMAGE`, the plugin can also be used independently. You can configure it with its own parameters as below:
+>
+> ```yml
+ steps:
+>   - label: "🚀 Deploy to Production"
+>     plugins:
+>       - deployment-helm-chart#v1.0.0:
+>           mode: deploy
+>           chart: ./k8s/helm-chart
+>           release: tutorial
+>           namespace: production
+>           repo_url: https://charts.yourcompany.com
+>           repo_name: yourcompany
+>           values:
+>             - k8s/helm-chart/values.yaml
+>             - k8s/helm-chart/values-prod.yaml
+>           set:
+>             - image.tag=v1.2.3
+>             - replicas=5
+>             - environment=production
+>           create_namespace: true
+>           wait: true
+>           atomic: true
+>           timeout: 600s
+>     concurrency: 1
+>     concurrency_group: deploy/production
+> ```
+> {: codeblock-file=".buildkite/pipeline.deploy.yml"}
+
 ## Next steps
 
 Congratulations! :tada: You've setup a continuous deployment pipeline to
@@ -198,25 +281,27 @@ Kubernetes. Practically speaking there are some things to do next.
   Service](https://kubernetes.io/docs/concepts/services-networking/service/).
 - Replace the `envsubst` implementation with something like [kustomize](https://kustomize.io/)
 
-## Configuring kubectl access
+## Configuring kubectl and Helm access
 
-Configuring `kubectl` access depends on your infrastructure. Here's an overview
+Configuring `kubectl` and `helm` access depends on your infrastructure. Here's an overview
 for common scenarios.
 
 If you're on GCP using agents on GCE and a GKE cluster:
 
 1. Grant GCE agents GKE access with a [service account](https://cloud.google.com/compute/docs/access/service-accounts)
-1. Install `gcloud` agent instances
+1. Install `gcloud` and `helm` on agent instances
 1. Use `gcloud container clusters get-credentials` to get `kubectl` access
+1. Helm will automatically use the same kubeconfig as kubectl
 
 If you're on AWS using agents on EC2 and an EKS cluster:
 
 1. Grant agent access to EKS API calls with an instance profile
 1. [Register the Buildkite agent IAM role with EKS](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html)
-1. [Install kubectl](https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html) on agents
+1. [Install kubectl](https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html) and [helm](https://helm.sh/docs/intro/install/) on agents
 1. [Install IAM authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html) on agents
 1. Install the AWS CLI
 1. Use `aws update-kubeconfig` to get [kubectl access](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html)
+1. Helm will automatically use the same kubeconfig as kubectl
 
 [pipelines]: /docs/pipelines
 [k8s_deployment]: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
