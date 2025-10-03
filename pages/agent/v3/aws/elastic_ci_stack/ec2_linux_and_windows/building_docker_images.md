@@ -8,6 +8,8 @@ This guide shows how to build and push a container image to [Amazon Elastic Cont
 
 ## 1. One-time ECR setup
 
+Run this script to create your ECR repository and configure the necessary AWS permissions for Kaniko to push images.
+
 ```bash
 export AWS_REGION={your-region}
 export ECR_ACCOUNT_ID={your-account-id}
@@ -27,10 +29,10 @@ Set the following environment variables in the [Pipeline Settings](/docs/pipelin
 
 ## 3. Push using Kaniko
 
-Commit and push. The step in `.buildkite/pipeline.yml` will:
+Commit your changes (including the `.buildkite/pipeline.yml` file and your Dockerfile) and push them to your repository. The step in `.buildkite/pipeline.yml` will:
 
 - Generate a Docker config pointing to the [Amazon ECR credential helper](https://github.com/awslabs/amazon-ecr-credential-helper),
-- Run the [Chainguard Kaniko](https://github.com/chainguard-dev/kaniko) container to build,
+- Run the [Chainguard Kaniko](https://github.com/chainguard-dev/kaniko) container to build your Docker image,
 - Push to the Amazon ECR (with optional layer cache at `<repo>-cache`).
 
 > 📘
@@ -148,10 +150,10 @@ docker load -i out/image.tar
 docker run --rm "${IMAGE_URI}"
 ```
 
-### Key benefits
+### Key benefits of using Kaniko
 
 - **No Docker daemon required**: Kaniko runs as a container and doesn't need Docker-in-Docker.
-- **Secure**: no privileged access required for building images.
+- **Secure**: no privileged access is required for building images.
 - **Registry agnostic**: works with any container registry (Docker Hub, ECR, GCR, etc.).
 - **Caching support**: built-in support for registry-based caching to speed up builds.
 - **Flexible authentication**: supports Docker config and credential helpers.
