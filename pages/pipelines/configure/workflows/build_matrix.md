@@ -72,7 +72,7 @@ Each dimension you add is multiplied by the other dimensions, so two architectur
 
 <%= image "matrix_build.jpg", width: 1155/2, height: 814/2, alt: "Screenshot of an eight job matrix" %>
 
-If you're using `matrix.setup`, you can also use the `adjustments` key to change specific entries in the build matrix, or add new combinations. You can set the `skip` attribute to effectively remove them from the matrix, or `soft_fail` attributes to allow them to fail without breaking the build.
+If you're using `matrix.setup`, you can also use the `adjustments` key to change specific entries in the build matrix, or add new combinations. You can set the `skip` attribute to exclude them from the matrix, or `soft_fail` attributes to allow them to fail without breaking the build.
 
 ```yaml
 steps:
@@ -103,7 +103,6 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-
 ## Adding combinations to the build matrix
 
 To add an extra combination that isn't present in the `matrix.setup`, use the `adjustments` key and make sure to define all of the elements in the matrix. For example, to add a build for [Plan 9](https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs) (on `arm64`, and test suite `B`) to the previous example, use:
@@ -120,9 +119,9 @@ To add an extra combination that isn't present in the `matrix.setup`, use the `a
 
 This results in nine jobs, (`2 * 2 * 2 + 1 = 9`).
 
-## Removing combinations from the build matrix
+## Excluding combinations from the build matrix
 
-To remove a combination from the matrix, add it to the `adjustments` key and set `skip: true`:
+To exclude a combination from the matrix, add it to the `adjustments` key and set `skip: true`:
 
 ```yaml
     adjustments:

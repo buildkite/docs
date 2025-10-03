@@ -13,7 +13,7 @@ Where [Buildkite Pipelines](/docs/pipelines) helps you automate your CI/CD pipel
 - Identifying, fixing, and monitoring test performance.
 - Tracking, improving, and monitoring test reliability.
 
-<%= image "overview.png", width: 975, height: 205, alt: "Screenshot of test suite trend showing five metrics over 28 days" %>
+<%= image "overview.png", width: 2594, height: 624, alt: "Screenshot of test suite trend showing six metrics over the last day" %>
 
 ## Get started
 
@@ -53,7 +53,7 @@ If a Buildkite test collector is not available for one of these test runners, yo
 <%= tiles "test_engine_features" %>
 
 > 📘 Data retention
-> The data uploaded to Test Engine is stored in S3 and deleted after six months.
+> The execution data uploaded to Test Engine is stored in S3 and deleted after 120 days.
 
 ## API & references
 

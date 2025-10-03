@@ -241,6 +241,7 @@ A cluster maintainer can:
 - Manage [queues](/docs/pipelines/clusters/manage-queues) within the cluster.
 - Add pipelines to or remove them from the cluster.
 - Stop, pause and resume agents belonging to a queue within the cluster.
+- Manage [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) associated with the cluster.
 
 > 📘
 > Learn more about Buildkite organization administrators and user permissions in Buildkite from [User and team permissions](/docs/platform/team-management/permissions).
