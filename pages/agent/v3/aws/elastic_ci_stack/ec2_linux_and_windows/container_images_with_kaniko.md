@@ -98,12 +98,12 @@ console.log("Hello from Kaniko on Buildkite Elastic CI Stack for AWS!");
 **Buildkite Step Script (.buildkite/steps/kaniko.sh):**
 
 ```bash
-# ---- Required env from the step ----
+# Required env from the step
 AWS_REGION="${AWS_REGION:?missing AWS_REGION}"
 ECR_ACCOUNT_ID="${ECR_ACCOUNT_ID:?missing ECR_ACCOUNT_ID}"
 ECR_REPO="${ECR_REPO:?missing ECR_REPO}"
 
-# ---- Derived refs (no ${...} in YAML; we're in bash now) ----
+# Derived refs (no ${...} as the following is in YAML)
 ECR_HOST="${ECR_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
 SHORT_SHA="$(echo "${BUILDKITE_COMMIT:-local}" | cut -c1-12)"
 BUILD_NUM="${BUILDKITE_BUILD_NUMBER:-0}"
@@ -117,7 +117,7 @@ echo "IMAGE_URI=${IMAGE_URI}"
 # Optional sanity
 aws sts get-caller-identity --output text || true
 
-# ---- Prepare outputs & auth mounts ----
+# Prepare outputs & auth mounts
 mkdir -p out /tmp/kaniko/.docker
 
 AUTH_ARGS=()
@@ -126,12 +126,13 @@ if [[ -f "$HOME/.docker/config.json" ]]; then
   AUTH_ARGS+=(-v "$HOME/.docker/config.json:/kaniko/.docker/config.json:ro")
 else
   echo "No host Docker auth found; using ECR credential helper with AWS creds"
-  # Tell Kaniko to use ECR helper; give it AWS config so helper can auth using instance role or profile
+  # Tell Kaniko to use ECR helper;
+  # Give it AWS config so the helper can auth using instance role or profile.
   printf '{ "credHelpers": { "%s": "ecr-login" } }\n' "$ECR_HOST" > /tmp/kaniko/.docker/config.json
   AUTH_ARGS+=(-v /tmp/kaniko/.docker:/kaniko/.docker:ro -v "$HOME/.aws:/root/.aws:ro" -e AWS_REGION -e AWS_SDK_LOAD_CONFIG=true)
 fi
 
-# ---- Build & push with Kaniko, AND write a tar that can be run locally ----
+# Build and push with Kaniko, AND write a tar that can be run locally
 docker run --rm \
   -v "$PWD":/workspace \
   -v "$PWD/out":/out \
@@ -149,7 +150,7 @@ docker run --rm \
 
 echo "Pushed ${IMAGE_URI}"
 
-# ---- Run the just-built image
+# Run the image that was just built
 ls -lh out
 docker load -i out/image.tar
 docker run --rm "${IMAGE_URI}"
