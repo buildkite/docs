@@ -85,6 +85,7 @@ crontab
 Crontab
 CVE
 CVEs
+daemonless
 Datadog
 Datadog's
 debuild
@@ -223,6 +224,7 @@ OTLP
 otlp
 overprivileged
 Pagerduty
+ptrace
 parsable
 parallelization
 pbuilder
@@ -275,6 +277,7 @@ runtimes
 rustup
 rvm
 sandboxed
+seccomp
 sed
 scriptwrapper
 SDK's
