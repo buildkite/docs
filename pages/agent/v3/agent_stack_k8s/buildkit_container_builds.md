@@ -1,22 +1,22 @@
 # BuildKit container builds
 
-BuildKit provides advanced features for building container images in a daemonless environment, making it ideal for Agent Stack for Kubernetes where running a Docker daemon within build containers may not be desired or possible.
+[BuildKit](https://docs.docker.com/build/buildkit/) is a Docker builder that provides advanced features for building container images in a daemonless environment, making it a good fit for Agent Stack for Kubernetes when running a Docker daemon within build containers may not be desired or possible.
 
 ## BuildKit daemonless builds
 
-The BuildKit daemon can be run in [rootless mode](https://github.com/moby/buildkit/blob/b9322799388c6c0d598cb70236d22081c5db3c4b/docs/rootless.md) or embedded directly into your build process without requiring a persistent daemon. This approach provides better security isolation and works well within Kubernetes environments.
+The BuildKit daemon can be run in [rootless mode](https://github.com/moby/buildkit/blob/b9322799388c6c0d598cb70236d22081c5db3c4b/docs/rootless.md) or embedded directly into your build process without requiring a persistent daemon. These deployment options provide better security isolation and work well within Kubernetes environments.
 
 ## Using BuildKit with Agent Stack for Kubernetes
 
 Agent Stack for Kubernetes supports multiple BuildKit configurations, each providing different security trade-offs. Choose the approach that best matches your environment's security policies and container runtime restrictions:
 
-- **Privileged**: Maximum compatibility, requires privileged containers
-- **Rootless (Non-Privileged)**: Enhanced security, runs as non-root user
-- **Rootless (Strict)**: Maximum security isolation with additional sandbox disabled
+- **Privileged**: maximum compatibility, requires [privileged containers](https://docs.docker.com/enterprise/security/hardened-desktop/enhanced-container-isolation/#secured-privileged-containers).
+- **Rootless (Non-Privileged)**: enhanced security, runs as non-root user.
+- **Rootless (Strict)**: maximum security isolation with additional sandbox disabled.
 
 ### Privileged BuildKit
 
-**Use when**: You need maximum compatibility and your cluster allows privileged containers.
+**Recommended**: When you need maximum compatibility and your cluster allows privileged containers.
 
 **Security impact**: Container has root access to host kernel features. Use only in trusted environments.
 
@@ -62,9 +62,9 @@ steps:
 
 ### Rootless BuildKit (non-privileged)
 
-**Use when**: Your cluster blocks privileged containers but allows `runAsNonRoot`.
+**Recommended**: When your Kubernetes cluster blocks privileged containers but allows `runAsNonRoot`.
 
-**Security impact**: Runs as non-root user (1000), significantly reducing attack surface.
+**Security impact**: Runs as [non-root user](https://docs.docker.com/engine/security/rootless/) (`UID 1000`), significantly reducing attack surface.
 
 **How it works**: Uses user namespaces and rootless container runtime. BuildKit runs as regular user but can still build containers through user namespace mapping.
 
@@ -110,7 +110,7 @@ steps:
 
 ### Rootless BuildKit (strict security)
 
-Uses `--oci-worker-no-process-sandbox` to work around Kubernetes limitations with PID namespaces. Required when Kubernetes doesn't support `systempaths=unconfined`.
+Uses `--oci-worker-no-process-sandbox` to work around Kubernetes limitations with PID namespaces. This mode is required when Kubernetes doesn't support `systempaths=unconfined`.
 
 ```yaml
 steps:
@@ -167,35 +167,38 @@ steps:
 
 \*Process sandbox disabled due to Kubernetes limitations - reduces security within BuildKit container
 
-†`Unconfined` profiles are required for rootless container operations
+>📘
+>`Unconfined` profiles are required for rootless container operations.
 
 ## Understanding the components
 
-### Container Images
+This section covers the key components and configuration options for running BuildKit in Kubernetes, including image variants, security contexts, cache storage locations, and the trade-offs of rootless mode.
 
-- **`moby/buildkit:latest`**: Full-featured image designed to run as root with privileged access
-- **`moby/buildkit:latest-rootless`**: Specially built image that can run as a regular user through rootless container techniques
+### Container images
+
+- **`moby/buildkit:latest`**: full-featured image designed to run as root with privileged access.
+- **`moby/buildkit:latest-rootless`**: specially built image that can run as a regular user through rootless container approach.
 
 ### Security contexts
 
-- **Privileged**: Container runs as root with `privileged: true`, bypassing most Kubernetes security controls
-- **Rootless**: Container runs as user 1000 using user namespace mapping. Host kernel sees regular user, container sees root
-- **Security profiles**: seccomp and AppArmor profiles restrict system calls and operations
+- **Privileged**: container runs as root with `privileged: true`, bypassing most Kubernetes security controls.
+- **Rootless**: container runs as `user 1000` using user namespace mapping. Host kernel sees a regular user, container sees root.
+- **Security profiles**: [seccomp](https://docs.docker.com/engine/security/seccomp/) and [AppArmor](https://docs.docker.com/engine/security/apparmor/) profiles restrict system calls and operations.
 
 ### Cache storage paths
 
 The cache location depends on who owns the BuildKit process:
 
-- **Root user** (privileged): Uses system location `/var/lib/buildkit`
-- **Regular user** (rootless): Uses user home directory `/home/user/.local/share/buildkit`
+- **Root user** (privileged): uses system location `/var/lib/buildkit`.
+- **Regular user** (rootless): uses user home directory `/home/user/.local/share/buildkit`.
 
 ### Rootless mode caveats
 
 The `--oci-worker-no-process-sandbox` flag disables BuildKit's internal process isolation:
 
-- Build steps can kill or ptrace other processes in the BuildKit container
-- Processes that don't exit cleanly cannot be force-terminated
-- Required in Kubernetes because `systempaths=unconfined` is not supported
+- Build steps can kill or ptrace other processes in the BuildKit container.
+- Processes that don't exit cleanly cannot be force-terminated.
+- Required in Kubernetes because `systempaths=unconfined` is not supported.
 
 This reduces security compared to rootless mode without the flag, but is necessary for Kubernetes compatibility.
 
@@ -265,29 +268,37 @@ buildctl-daemonless.sh build \
 
 ## Troubleshooting
 
-### Common issues
+This section describes the common issues for BuildKit deployment and the ways of solving those issues.
 
-**Permission denied errors**:
+### Permission denied errors
 
 - Privileged: Ensure `securityContext.privileged: true` is configured
 - Non-privileged/Rootless: Verify `runAsUser: 1000` and `runAsGroup: 1000` are set
 - Rootless: Check that `seccompProfile` and `appArmorProfile` are set to `Unconfined`
 
-**Cache mount issues**:
+### Cache mount issues
 
 - Privileged: Verify cache mount at `/var/lib/buildkit`
 - Rootless (both modes): Verify cache mount at `/home/user/.local/share/buildkit`
 
-**BuildKit tools not found**: Use appropriate image:
+### BuildKit tools not found
+
+Use appropriate image:
 
 - Privileged builds: `moby/buildkit:latest`
 - Non-privileged/Rootless builds: `moby/buildkit:latest-rootless`
 
-**Rootless build failures**: Ensure `BUILDKITD_FLAGS="--oci-worker-no-process-sandbox"` is set for strict rootless mode
+### Rootless build failures
 
-**Pod initialization issues**: For rootless builds, verify Kubernetes version supports required security profiles (≥1.19 for seccomp, ≥1.30 for AppArmor).
+Ensure `BUILDKITD_FLAGS="--oci-worker-no-process-sandbox"` is set for strict rootless mode
 
-**Build processes not terminating**: Known limitation with `--oci-worker-no-process-sandbox` - BuildKit cannot force-kill processes that don't exit cleanly.
+### Pod initialization issues
+
+For rootless builds, verify Kubernetes version supports required security profiles (≥1.19 for seccomp, ≥1.30 for AppArmor).
+
+### Build processes not terminating
+
+Known limitation with `--oci-worker-no-process-sandbox` - BuildKit cannot force-kill processes that don't exit cleanly.
 
 ### Debugging builds
 
