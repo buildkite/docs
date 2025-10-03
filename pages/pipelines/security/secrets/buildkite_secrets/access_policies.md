@@ -195,7 +195,7 @@ Access policies can be tailored to fit a wide range of security and workflow req
   build_creator_team: "e2b7c3f4-1a5d-4e6b-9c8d-2f3a4b5c6d7e"
 ```
 
-#### Restrict secret access to jobs running on a specific cluster queue
+#### Restrict secret access to jobs running on a specific queue of the cluster
 
 ```yaml
 - cluster_queue_key: "production"
