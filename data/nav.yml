@@ -142,7 +142,7 @@
                 - name: "CloudFormation service role"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/cloudformation-service-role"
                 - name: "Building container images using Kaniko"
-                  path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/container_images_with_kaniko"
+                  path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/container-images-with-kaniko"
                 - name: "Troubleshooting"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/troubleshooting"
             - name: "EC2 Mac"
