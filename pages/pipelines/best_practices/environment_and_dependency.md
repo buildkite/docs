@@ -3,7 +3,6 @@
 ## Containerize builds for consistency
 
 * Docker-based builds: ensure environments are reproducible across local and CI.
-* Efficient caching: optimize Dockerfile layering to maximize [cache reuse](https://docs.docker.com/build/cache/).
 * [Multi-stage builds in Docker](https://docs.docker.com/build/building/multi-stage/): keep images slim while supporting complex build processes.
 * Pin base images: avoid unintended breakage from upstream changes.
 

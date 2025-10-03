@@ -1,8 +1,6 @@
-# Security best practices
+# Secrets management
 
 For in-depth information on enforcing Buildkite security controls, see [Enforcing security controls](/docs/pipelines/security/enforcing-security-controls).
-
-## Manage secrets properly
 
 * Native secret management: Use [Buildkite secrets and redaction](/docs/pipelines/security/secrets/buildkite-secrets) and [secrets plugins](https://buildkite.com/docs/pipelines/integrations/plugins/directory).
 * Rotate secrets: Regularly update credentials to minimize risk.
@@ -15,9 +13,3 @@ For in-depth information on enforcing Buildkite security controls, see [Enforcin
 * Branch protections: Limit edits to sensitive pipelines.
 * Permission reviews: Audit permissions on a regular basis.
 * Use SSO/SAML: Centralize authentication and improve compliance.
-
-## Governance and compliance
-
-* Policy-as-code: Define and enforce organizational rules (e.g., required steps, approved plugins).
-* Audit readiness: Retain logs, artifacts, and approvals for compliance reporting.
-* Sandbox pipelines: Provide safe environments to test changes without impacting production.
