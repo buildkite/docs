@@ -860,8 +860,6 @@
               path: "apis/rest-api/clusters"
             - name: "Jobs"
               path: "apis/rest-api/jobs"
-            - name: "Secrets"
-              path: "apis/rest-api/secrets"
             - name: "Pipeline templates"
               path: "apis/rest-api/pipeline-templates"
             - name: "Rules"
