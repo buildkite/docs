@@ -64,7 +64,7 @@
         - name: "Overview"
           path: "pipelines/best-practices/overview"
         - name: "Architecture and ownership"
-          path: "pipelines/best-practices/architecute-and-ownership"
+          path: "pipelines/best-practices/architecture-and-ownership"
         - name: "Platform controls"
           path: "pipelines/best-practices/platform-controls"
         - name: "Pipeline design and structure"
