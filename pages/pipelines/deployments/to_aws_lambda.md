@@ -1,12 +1,12 @@
 # Deploying to AWS Lambda
 
-This tutorial demonstrates deploying Lambda functions to [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) using Buildkite Pipelines and the [AWS Lambda Deploy plugin](https://buildkite.com/resources/plugins/buildkite-plugins/aws-lambda-deploy-buildkite-plugin/). The plugin provides alias management, health checks, and automatic rollback capabilities for reliable Lambda deployments.
+This tutorial demonstrates how to deploy Lambda functions to [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) using Buildkite Pipelines and the [AWS Lambda Deploy plugin](https://buildkite.com/resources/plugins/buildkite-plugins/aws-lambda-deploy-buildkite-plugin/). The plugin provides alias management, health checks, and automatic rollback capabilities for reliable Lambda deployments.
 
 ## Before starting
 
 Before deploying to AWS Lambda from Buildkite Pipelines, ensure the following requirements are met:
 
-- An AWS account with appropriate [Lambda permissions](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html) (further explained in [Required AWS IAM permissions](#required-aws-iam-permissions))
+- An AWS account with appropriate [Lambda permissions](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html) (further explained in [Required AWS IAM permissions](/docs/pipelines/deployments/to-aws-lambda#required-aws-iam-permissions))
 - [AWS CLI v2](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) installed on Buildkite Agents
 - [`jq` command-line tool](https://jqlang.org/) available
 - A Lambda function already created in AWS (or permission to create one)
@@ -48,7 +48,7 @@ For S3-based deployments, additional S3 permissions are required:
 }
 ```
 
-## Deploying zip-based Lambda functions
+## Deploying ZIP-based Lambda functions
 
 The most common Lambda deployment pattern uses ZIP files containing the function's code. The following example demonstrates a pipeline that builds and deploys a Python Lambda function:
 
