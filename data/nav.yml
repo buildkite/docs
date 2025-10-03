@@ -78,7 +78,7 @@
         - name: "Environment and dependency management"
           path: "pipelines/best-practices/environment-and-dependency"
         - name: "Secrets management"
-          path: "pipelines/best-practices/security-controls"
+          path: "pipelines/best-practices/secrets-management"
         - name: "Security controls"
           path: "pipelines/best-practices/security-controls"
         - name: "Monitoring and observability"
