@@ -268,6 +268,9 @@ The GitHub documentation describes the [process](https://docs.github.com/en/ente
 
 #### Configure agent hook
 
+> 📘 OpenSSL package requirement
+> The `pre-checkout` hook example below requires the `openssl` package to be installed and available to the Buildkite Agent performing the checkout.
+
 In order to have the agent generate a GitHub App installation token, add the following code to your [agent hooks directory](/docs/agent/v3/hooks#hook-locations) as a `pre-checkout` hook, configuring the variables at the beginning of the hook with the GitHub App's Client ID (`client_id`), Installation ID (`installation_id`), and Buildkite Secret name (`private_key_secret_name`):
 
 ```bash
