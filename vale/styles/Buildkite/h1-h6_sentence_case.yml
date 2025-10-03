@@ -148,6 +148,7 @@ exceptions:
   - Kubernetes
   - Lambda
   - limiter
+  - Linear
   - Linux
   - M1
   - Mac
