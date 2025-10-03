@@ -94,7 +94,7 @@ Third-party claims are ones whose values are provided by users or third-party to
   <tbody>
     <tr>
       <th><code>cluster_queue_key</code></th>
-      <td>The key of the cluster queue where the job is running.<br>
+      <td>The key of the cluster's queue where the job is running.<br>
         <span class="Docs__api-param-eg"><em>Example:</em> <code>cluster_queue_key: "default"</code></span>
       </td>
     </tr>
