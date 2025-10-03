@@ -19,7 +19,7 @@ chmod +x scripts/setup-ecr.sh
 
 ## 2. Configure your Buildkite pipeline environment
 
-Set these environment variables in the [Pipeline Settings](/docs/pipelines/configure/environment-variables) (or keep the defaults in `.buildkite/pipeline.yml`):
+Set the following environment variables in the [Pipeline Settings](/docs/pipelines/configure/environment-variables) (or keep the defaults in `.buildkite/pipeline.yml`):
 
 - [`AWS_REGION`](/docs/pipelines/configure/environment-variables#aws-region) (for example, `ca-central-1`)
 - `ECR_ACCOUNT_ID` (your 12-digit AWS account ID for [Amazon ECR](https://aws.amazon.com/ecr/))
@@ -33,11 +33,12 @@ Commit and push. The step in `.buildkite/pipeline.yml` will:
 - Run the [Chainguard Kaniko](https://github.com/chainguard-dev/kaniko) container to build,
 - Push to the Amazon ECR (with optional layer cache at `<repo>-cache`).
 
-> If your Git repository uses SSH, make sure your S3 secrets bucket for Elastic CI Stack for AWS contains a `private_ssh_key` at the correct prefix (or switch to HTTPS + `git-credentials`).
+> 📘
+> If your Git repository uses SSH, make sure your [S3 secrets bucket for Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/secrets-bucket) contains a `private_ssh_key` at the correct prefix (otherwise, use HTTPS + `git-credentials` for managing authentication).
 
 ## Running Kaniko in Docker
 
-The Elastic CI Stack for AWS supports running [Kaniko](https://github.com/GoogleContainerTools/kaniko) for building Docker container images without requiring Docker daemon privileges. This is useful for building images in environments where the "Docker-in-Docker" option is not available or desired.
+The Elastic CI Stack for AWS supports running [Kaniko](https://github.com/GoogleContainerTools/kaniko) for building Docker container images without requiring Docker daemon privileges. This is useful for building images in environments where the [Docker-in-Docker (DIND)](https://www.docker.com/resources/docker-in-docker-containerized-ci-workflows-dockercon-2023/) option is not available or desired.
 
 Kaniko executes your Dockerfile inside a container and pushes the resulting image to a registry. It doesn't depend on a Docker daemon and runs without requiring elevated privileges, making it more secure and suitable for environments where privileged access is not available.
 
@@ -149,17 +150,17 @@ docker run --rm "${IMAGE_URI}"
 
 ### Key benefits
 
-- **No Docker daemon required**: Kaniko runs as a container and doesn't need Docker-in-Docker
-- **Secure**: No privileged access required for building images
-- **Registry agnostic**: Works with any container registry (Docker Hub, ECR, GCR, etc.)
-- **Caching support**: Built-in support for registry-based caching to speed up builds
-- **Flexible authentication**: Supports Docker config and credential helpers
-- **Local testing**: Exports built images as tar files for immediate local testing
-- **Robust error handling**: Proper validation of required environment variables
-- **Smart tagging**: Uses commit SHA and build number for unique image tags
+- **No Docker daemon required**: Kaniko runs as a container and doesn't need Docker-in-Docker.
+- **Secure**: no privileged access required for building images.
+- **Registry agnostic**: works with any container registry (Docker Hub, ECR, GCR, etc.).
+- **Caching support**: built-in support for registry-based caching to speed up builds.
+- **Flexible authentication**: supports Docker config and credential helpers.
+- **Local testing**: exports built images as `tar` files for immediate local testing.
+- **Robust error handling**: proper validation of required environment variables.
+- **Smart tagging**: uses commit SHA and build number for unique image tags.
 
 > 📘
-> The example on this page uses ECR, but Kaniko works with any container registry. Adjust the authentication and destination URL accordingly for other registries like Docker Hub, GCR, or Azure Container Registry.
+> The example on this page uses ECR, but Kaniko can work with any container registry. Adjust the authentication and destination URL accordingly for other registries like Docker Hub, GCR, or Azure Container Registry.
 
 ### Verifying signed Kaniko images
 
@@ -184,11 +185,11 @@ echo "Signature verified OK for ${KANIKO_IMG}"
 
 This verification:
 
-- Uses the official Kaniko public key from their [GitHub repository](https://github.com/GoogleContainerTools/kaniko#verifying-signed-kaniko-images)
-- Ensures the Kaniko image hasn't been tampered with
-- Runs before your build process to catch any security issues early
+- Uses the official Kaniko public key from the [Kaniko GitHub repository](https://github.com/GoogleContainerTools/kaniko#verifying-signed-kaniko-images),
+- Ensures the Kaniko image hasn't been tampered with,
+- Runs before your build process to catch any security issues early.
 
-For alternative verification methods (like keyless verification with Chainguard images), see the [Kaniko documentation](https://github.com/GoogleContainerTools/kaniko#verifying-signed-kaniko-images).
+For alternative verification methods (like keyless verification with Chainguard images), see the Kaniko documentation on [verifying signed Kaniko images](https://github.com/GoogleContainerTools/kaniko#verifying-signed-kaniko-images).
 
 ### Debugging with Kaniko debug image
 
@@ -216,13 +217,13 @@ steps:
 
 The debug image provides several debugging options:
 
-- **Interactive shell access**: Set `KANIKO_SHELL=1` to get an interactive shell inside the Kaniko container
-- **Verbose logging**: Use `KANIKO_VERBOSITY=debug` for detailed build logs
-- **No-push mode**: Set `KANIKO_NO_PUSH=1` to build without pushing to registry
+- **Interactive shell access**: set `KANIKO_SHELL=1` to get an interactive shell inside the Kaniko container.
+- **Verbose logging**: use `KANIKO_VERBOSITY=debug` for detailed build logs.
+- **No-push mode**: set `KANIKO_NO_PUSH=1` to build without pushing to registry.
 
 The debug image is particularly useful for:
 
-- Investigating build failures
-- Examining the build context and Dockerfile
-- Testing different Kaniko parameters
-- Debugging authentication issues
+- Investigating build failures,
+- Examining the build context and Dockerfile,
+- Testing different Kaniko parameters,
+- Debugging authentication issues.
