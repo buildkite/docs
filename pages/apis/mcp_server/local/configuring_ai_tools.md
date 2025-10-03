@@ -373,7 +373,7 @@ Alternatively, you can copy and paste the following configuration as a new entry
 
 [ToolHive](https://toolhive.dev/) is a tool that allows you to abstract the API access token handling processes for your local Buildkite MCP server, away from your other AI tool infrastructure and the Buildkite platform.
 
-You can configure ToolHive to run your local Buildkite MCP server from its registry using ToolHive's command line interface (CLI) tool. To do this, ensure you have installed TooHive's [CLI tool](https://toolhive.dev/download.html) and do the following:
+You can configure ToolHive to run your local Buildkite MCP server from its registry using ToolHive's command line interface (CLI) tool. To do this, ensure you have installed TooHive's [CLI tool](https://toolhive.dev/download) and do the following:
 
 1. Use ToolHive's `thv secret set` command to store your [Buildkite API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) as a secret.
 
