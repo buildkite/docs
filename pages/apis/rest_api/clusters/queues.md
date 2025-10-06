@@ -222,7 +222,7 @@ Optional [request body properties](/docs/api#request-body-properties):
       <br/>
       <code>instanceShape</code> (required when <code>hostedAgents</code> is specified): Describes the machine type, architecture, CPU, and RAM to provision for Buildkite hosted agent instances running jobs in this queue.
       <br/>
-      Learn more about the instance shapes available for <a href="#queues-instance-shape-values-for-linux">Linux</a> and <a href="#queues-instance-shape-values-for-macos">macOS</a> hosted agents.
+      Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a> and <a href="#instance-shape-values-for-macos">macOS</a> hosted agents.
   </td>
   </tr>
 </tbody>

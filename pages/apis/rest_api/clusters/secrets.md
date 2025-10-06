@@ -165,7 +165,7 @@ Success response: `201 Created`
 
 ## Update a secret's description and access policy
 
-Updates a secret's description and access policy. To update its value instead, see [Update a secret's value](#secrets-update-a-secrets-value).
+Updates a secret's description and access policy. To update its value instead, see [Update a secret's value](#update-a-secrets-value).
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -231,7 +231,7 @@ Success response: `200 OK`
 
 ## Update a secret's value
 
-Updates a secret's encrypted value only. To update the secret's other details, see [Update a secret's description and access policy](#secrets-update-a-secrets-description-and-access-policy).
+Updates a secret's encrypted value only. To update the secret's other details, see [Update a secret's description and access policy](#update-a-secrets-description-and-access-policy).
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
