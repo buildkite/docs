@@ -1287,9 +1287,9 @@ Required scope: `write_secrets`
 
 Success response: `201 Created`
 
-### Update secret details (description and access policy)
+### Update a secret's description and access policy
 
-Updates the secret's details. To update the secret value, use the [update secret value](#update-secret-value) endpoint.
+Updates a secret's description and access policy. To update its value instead, see [Update a secret's value](#secrets-update-a-secrets-value).
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -1353,9 +1353,11 @@ Required scope: `write_secrets`
 
 Success response: `200 OK`
 
-### Update secret value
+### Update a secret's value
 
-Updates only the secret's encrypted value. To update other details, use the [update secret](#update-a-secret) endpoint.
+Updates a secret's encrypted value only. To update the secret's other details, see [Update a secret's description and access policy](#secrets-update-a-secrets-description-and-access-policy).
+
+To update the secret's value, see [Update a secret value](#update-a-secrets-value).
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
