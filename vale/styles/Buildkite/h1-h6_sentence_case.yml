@@ -52,7 +52,9 @@ exceptions:
   - Bitbucket Server
   - bktec
   - BUILD_AND_READ
+  - Buildah
   - buildevents
+  - BuildKit
   - Buildkite
   - Buildkite Agent
   - Buildkite Agents
@@ -150,7 +152,9 @@ exceptions:
   - KMS
   - Kotlin
   - Kubernetes
+  - Lambda
   - limiter
+  - Linear
   - Linux
   - M1
   - Mac
