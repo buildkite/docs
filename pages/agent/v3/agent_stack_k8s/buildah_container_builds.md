@@ -1,10 +1,10 @@
 # Buildah container builds
 
-[Buildah](https://buildah.io/) provides a lightweight, daemonless approach to building OCI-compliant container images, making it a suitable choice for Agent Stack for Kubernetes in cases where running a Docker daemon within build containers might not be desired or possible.
+[Buildah](https://buildah.io/) provides a lightweight, daemonless approach to building [Open Container Initiative (OCI)](https://opencontainers.org/)-compliant container images, making it a suitable choice for Agent Stack for Kubernetes in cases where running a Docker daemon within build containers might not be desired or possible.
 
 ## Buildah daemonless builds
 
-Buildah operates without a need for a persistent daemon, unlike Docker. Buildah can build containers from Dockerfiles or Containerfiles (the [Open Container Initiative (OCI)](https://opencontainers.org/) standard format) or through its native command-line interface. This approach provides better security isolation and works well within Kubernetes environments.
+Buildah operates without a need for a persistent daemon, unlike Docker. Buildah can build containers from Dockerfiles or Containerfiles (the OCI standard format) or through its native command-line interface. This approach provides better security isolation and works well within Kubernetes environments.
 
 ## Using Buildah with Agent Stack for Kubernetes
 
@@ -110,7 +110,7 @@ This section covers the key components and configuration options for running Bui
 
 ### Container images
 
-`quay.io/buildah/stable:latest`: the official Buildah image that runs in both privileged and rootless modes. The same image supports both configurations.
+The official Buildah image that runs in both privileged and rootless modes and supports both configurations is `quay.io/buildah/stable:latest`.
 
 ### Security contexts
 
@@ -133,11 +133,11 @@ The storage location depends on who owns the Buildah process:
 
 ### Build isolation
 
-`BUILDAH_ISOLATION=chroot` is the recommended isolation mode for container environments. It provides good isolation without requiring additional privileges, unlike other isolation modes that may need extra capabilities.
+The recommended isolation mode for the Buildah container environments is `BUILDAH_ISOLATION=chroot`. It provides good isolation without requiring additional privileges, unlike other isolation modes that may need extra capabilities.
 
 ## Customizing the build
 
-Customize Buildah builds by modifying the `buildah bud` command options using the approaches outlined below.
+You can customize you Buildah builds by modifying the `buildah bud` command options using the approaches outlined below.
 
 ### Using build arguments
 
@@ -246,7 +246,7 @@ buildah --log-level=debug bud \
   .
 ```
 
-## Inspecting the built images
+## Inspecting the built image
 
 Use the following Buildah commands to inspect the built image:
 
