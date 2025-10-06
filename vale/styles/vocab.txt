@@ -197,6 +197,7 @@ LLMs
 llvm
 lockfile
 lockfiles
+lockfile‑keyed
 macOS
 macos
 matchfile

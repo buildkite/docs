@@ -7,10 +7,6 @@ Efficient caching: optimize Dockerfile layering to maximize [cache reuse](https:
 ### What to cache
 
 - Dependency directories for your language or build tool
-    * Node.js: node_modules, pnpm or yarn cache
-    * Ruby: vendor/bundle
-    * Go: GOPATH/pkg/mod
-    * Swift/iOS: Swift Package caches, CocoaPods
 - Docker build layers when applicable
 - Large files repeatedly downloaded from the internet
 - Git mirrors on hosted agents are handled for you and benefit from caching automatically[[1]](https://buildkite.com/docs/pipelines/hosted-agents/cache-volumes)
@@ -24,7 +20,7 @@ Why: The greatest wins come from restoring dependency trees and Docker layers, n
 
 ### Choose the right caching mechanism
 
-- Hosted Agent Cache Volumes
+- Hosted agent cache volumes
 
     * Best for simple, fast, shared caching within a pipeline
     * High‑performance NVMe on Linux and sparse bundle images on macOS
@@ -35,4 +31,4 @@ Why: The greatest wins come from restoring dependency trees and Docker layers, n
     * Use official or community plugins to cache Docker layers externally when needed
     * Example: docker‑ecr‑cache plugin for layer reuse in [ECR/GCR](https://github.com/seek-oss/docker-ecr-cache-buildkite-plugin)
 
-Recommendation: Prefer hosted Cache Volumes for most hosted‑agent pipelines. Layer in key‑based cache where determinism and cross‑build control matter most (for example, lockfile‑keyed dependency caches).
+Recommendation: Prefer hosted cache volumes for most hosted‑agent pipelines. Layer in key‑based cache where determinism and cross‑build control matter most (for example, lockfile‑keyed dependency caches).
