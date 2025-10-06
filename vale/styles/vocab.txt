@@ -114,6 +114,7 @@ enqueued
 Entra
 enum
 env
+errored
 eval
 Eventbridge
 EventBridge
