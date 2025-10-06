@@ -137,7 +137,7 @@ Buildkite secrets are designed, with the following controls in place:
 
 ## Manage secrets using the REST API
 
-You can manage Buildkite secrets programmatically using the [Buildkite REST API](/docs/apis/rest-api/clusters#secrets). The API endpoint allows you to:
+You can manage Buildkite secrets programmatically using the [Buildkite REST API](/docs/apis/rest-api/clusters/secrets). The API endpoint allows you to:
 
 - List all secrets in a cluster
 - Get details for a specific secret
@@ -146,7 +146,7 @@ You can manage Buildkite secrets programmatically using the [Buildkite REST API]
 - Update secret values
 - Delete secrets
 
-For detailed information about available endpoints, authentication, and examples, see the [cluster's secrets endpoint of the REST API documentation](/docs/apis/rest-api/clusters#secrets).
+For detailed information about available endpoints, authentication, and examples, see the [cluster's secrets endpoint of the REST API documentation](/docs/apis/rest-api/clusters/secrets).
 
 ## Best practices
 

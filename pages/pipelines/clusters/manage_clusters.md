@@ -160,7 +160,7 @@ To restrict an existing agent token's access by IP address (via the token's **Al
 
 ### Using the REST API
 
-To restrict an existing agent token's access by IP address using the REST API, run the following example `curl` command to [update this agent token](/docs/apis/rest-api/clusters#agent-tokens-update-a-token):
+To restrict an existing agent token's access by IP address using the REST API, run the following example `curl` command to [update this agent token](/docs/apis/rest-api/clusters/agent-tokens#update-a-token):
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \

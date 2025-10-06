@@ -7,7 +7,7 @@ The pipelines API endpoint consists of several endpoints that allow you to manag
 
 This section of the REST API documentation also contains several other endpoints that allow you to manage other aspects of Buildkite functionality associated with your pipelines, such as:
 
-- [clusters](/docs/apis/rest-api/clusters), including the management of [queues](/docs/apis/rest-api/clusters#queues) and [agent tokens](/docs/apis/rest-api/clusters#agent-tokens)
+- [clusters](/docs/apis/rest-api/clusters), including the management of [queues](/docs/apis/rest-api/clusters/queues) and [agent tokens](/docs/apis/rest-api/clusters/agent-tokens)
 - [agents](/docs/apis/rest-api/agents) themselves
 
 ## List pipelines
