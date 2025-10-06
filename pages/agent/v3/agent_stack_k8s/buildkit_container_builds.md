@@ -156,6 +156,8 @@ steps:
 
 ## Configuration comparison
 
+The following table highlights the key differences between privileged and rootless Buildkit container configurations in Kubernetes environments.
+
 | Feature                      | Privileged               | Rootless (Non-Privileged)       | Rootless (Strict)                 |
 | ---------------------------- | ------------------------ | ------------------------------- | --------------------------------- |
 | **Container image**          | `moby/buildkit:latest`   | `moby/buildkit:latest-rootless` | `moby/buildkit:latest-rootless`   |
@@ -233,7 +235,7 @@ buildctl-daemonless.sh build \
 
 ### Exporting to registry
 
-Export built images to a container registry:
+Export the built images to a container registry:
 
 ```bash
 buildctl-daemonless.sh build \
@@ -245,7 +247,7 @@ buildctl-daemonless.sh build \
 
 ### Exporting as tar file
 
-Export built images as tar files:
+Export the built images as tar files:
 
 ```bash
 buildctl-daemonless.sh build \
@@ -261,14 +263,14 @@ This section describes common issues for BuildKit and the ways of solving these 
 
 ### Permission denied errors
 
-- **Privileged**: Ensure `securityContext.privileged: true` is configured.
-- **Non-privileged/Rootless**: Verify `runAsUser: 1000` and `runAsGroup: 1000` are set.
-- **Rootless**: Check that `seccompProfile` and `appArmorProfile` are set to `Unconfined`.
+- **Privileged**: ensure `securityContext.privileged: true` is configured.
+- **Non-privileged/Rootless**: verify `runAsUser: 1000` and `runAsGroup: 1000` are set.
+- **Rootless**: check that `seccompProfile` and `appArmorProfile` are set to `Unconfined`.
 
 ### Cache mount issues
 
-- **Privileged**: Verify cache mount at `/var/lib/buildkit`.
-- **Rootless (both modes)**: Verify cache mount at `/home/user/.local/share/buildkit`.
+- **Privileged**: verify cache mount at `/var/lib/buildkit`.
+- **Rootless (both modes)**: verify cache mount at `/home/user/.local/share/buildkit`.
 
 ### BuildKit tools not found
 
