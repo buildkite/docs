@@ -51,6 +51,7 @@ Boomper
 Buildbox
 buildevents
 Buildah
+BuildKit
 Buildkite
 Buildkite's
 buildscript

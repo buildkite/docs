@@ -156,7 +156,7 @@ steps:
 
 ## Configuration comparison
 
-The following table highlights the key differences between privileged and rootless Buildkit container configurations in Kubernetes environments.
+The following table highlights the key differences between privileged and rootless BuildKit container configurations in Kubernetes environments.
 
 | Feature                      | Privileged               | Rootless (Non-Privileged)       | Rootless (Strict)                 |
 | ---------------------------- | ------------------------ | ------------------------------- | --------------------------------- |
