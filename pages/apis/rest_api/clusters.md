@@ -1357,8 +1357,6 @@ Success response: `200 OK`
 
 Updates a secret's encrypted value only. To update the secret's other details, see [Update a secret's description and access policy](#secrets-update-a-secrets-description-and-access-policy).
 
-To update the secret's value, see [Update a secret value](#update-a-secrets-value).
-
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/secrets/{id}/value" \
