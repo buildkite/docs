@@ -48,11 +48,11 @@ You can continue using the last published images from Google:
 - `gcr.io/kaniko-project/executor:v1.24.0`
 - `gcr.io/kaniko-project/executor:v1.24.0-debug`
 
-**Option 2: Build your own images from Chainguard's fork**
+**Option 2: Build your own images from the Chainguard fork**
 Since Chainguard requires a subscription for their published images, you can build and publish Kaniko images to your own container registry:
 
 ```bash
-# Build the latest Kaniko image from Chainguard's fork
+# Build the latest Kaniko image from the Chainguard fork
 git clone https://github.com/chainguard-dev/kaniko.git
 cd kaniko
 docker build -t your-registry/kaniko:latest .
@@ -205,7 +205,7 @@ This verification uses Google's official public key and only applies to their de
 
 #### Signing and verifying custom-built images
 
-If you build your own Kaniko images from Chainguard's fork, you can sign them for enhanced security. This process involves generating a key pair, signing your images, and verifying them before use.
+If you build your own Kaniko images from the Chainguard fork, you can sign them for enhanced security. This process involves generating a key pair, signing your images, and verifying them before use.
 
 **1. Generate a key pair and store in Buildkite Secrets:**
 
