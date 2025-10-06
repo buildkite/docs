@@ -37,7 +37,33 @@ Commit and push. The step in `.buildkite/pipeline.yml` will:
 
 ## Running Kaniko in Docker
 
-The Elastic CI Stack for AWS supports running [Kaniko](https://github.com/GoogleContainerTools/kaniko) for building Docker container images without requiring Docker daemon privileges. This is useful for building images in environments where the "Docker-in-Docker" option is not available or desired.
+The Elastic CI Stack for AWS supports running [Kaniko](https://github.com/chainguard-dev/kaniko) for building Docker container images without requiring Docker daemon privileges. This is useful for building images in environments where the "Docker-in-Docker" option is not available or desired.
+
+### Kaniko image availability
+
+Google has deprecated support for the Kaniko project and no longer publishes new images to `gcr.io/kaniko-project/`. However, [Chainguard has forked the project](https://github.com/chainguard-dev/kaniko) and continues to provide support and create new releases.
+
+**Option 1: Use Google's final published images**
+You can continue using the last published images from Google:
+- `gcr.io/kaniko-project/executor:v1.24.0`
+- `gcr.io/kaniko-project/executor:v1.24.0-debug`
+
+**Option 2: Build your own images from Chainguard's fork**
+Since Chainguard requires a subscription for their published images, you can build and publish Kaniko images to your own container registry:
+
+```bash
+# Build the latest Kaniko image from Chainguard's fork
+git clone https://github.com/chainguard-dev/kaniko.git
+cd kaniko
+docker build -t your-registry/kaniko:latest .
+docker push your-registry/kaniko:latest
+
+# Build the debug image
+docker build -f debug.Dockerfile -t your-registry/kaniko:debug .
+docker push your-registry/kaniko:debug
+```
+
+Then update the image references in your pipeline to use your registry.
 
 Kaniko executes your Dockerfile inside a container and pushes the resulting image to a registry. It doesn't depend on a Docker daemon and runs without requiring elevated privileges, making it more secure and suitable for environments where privileged access is not available.
 
@@ -53,6 +79,10 @@ steps:
       AWS_REGION: "{your-region}"
       ECR_ACCOUNT_ID: "{your-account-id}"
       ECR_REPO: "{your-repository-name}"
+    plugins:
+      - ecr#v2.10.0:
+          account-ids: "{your-account-id}"
+          region: "{your-region}"
     commands:
       - bash .buildkite/steps/kaniko.sh
 ```
@@ -90,12 +120,14 @@ console.log("Hello from Kaniko on Buildkite Elastic CI Stack for AWS!");
 
 **Buildkite Step Script (.buildkite/steps/kaniko.sh):**
 ```bash
+#!/bin/bash
+
 # ---- Required env from the step ----
 AWS_REGION="${AWS_REGION:?missing AWS_REGION}"
 ECR_ACCOUNT_ID="${ECR_ACCOUNT_ID:?missing ECR_ACCOUNT_ID}"
 ECR_REPO="${ECR_REPO:?missing ECR_REPO}"
 
-# ---- Derived refs (no ${...} in YAML; we're in bash now) ----
+# ---- Derived refs ----
 ECR_HOST="${ECR_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
 SHORT_SHA="$(echo "${BUILDKITE_COMMIT:-local}" | cut -c1-12)"
 BUILD_NUM="${BUILDKITE_BUILD_NUMBER:-0}"
@@ -106,29 +138,16 @@ IMAGE_URI="${IMAGE_REPO}:${IMAGE_TAG}"
 echo "ECR_HOST=${ECR_HOST}"
 echo "IMAGE_URI=${IMAGE_URI}"
 
-# Optional sanity
-aws sts get-caller-identity --output text || true
+# ---- Prepare outputs ----
+mkdir -p out
 
-# ---- Prepare outputs & auth mounts ----
-mkdir -p out /tmp/kaniko/.docker
-
-AUTH_ARGS=()
-if [[ -f "$HOME/.docker/config.json" ]]; then
-  echo "Using host Docker auth (~/.docker/config.json) for Kaniko"
-  AUTH_ARGS+=(-v "$HOME/.docker/config.json:/kaniko/.docker/config.json:ro")
-else
-  echo "No host Docker auth found; using ECR credential helper with AWS creds"
-  # Tell Kaniko to use ECR helper; give it AWS config so helper can auth using instance role or profile
-  printf '{ "credHelpers": { "%s": "ecr-login" } }\n' "$ECR_HOST" > /tmp/kaniko/.docker/config.json
-  AUTH_ARGS+=(-v /tmp/kaniko/.docker:/kaniko/.docker:ro -v "$HOME/.aws:/root/.aws:ro" -e AWS_REGION -e AWS_SDK_LOAD_CONFIG=true)
-fi
-
-# ---- Build & push with Kaniko, AND write a tar that can be run locally ----
+# ---- Build & push with Kaniko ----
+# Note: ECR authentication is handled by the ecr plugin
 docker run --rm \
   -v "$PWD":/workspace \
   -v "$PWD/out":/out \
-  "${AUTH_ARGS[@]}" \
-  gcr.io/kaniko-project/executor:v1.23.2 \
+  -v "$HOME/.docker/config.json:/kaniko/.docker/config.json:ro" \
+  gcr.io/kaniko-project/executor:v1.24.0 \
   --dockerfile=/workspace/Dockerfile \
   --context=dir:///workspace \
   --destination="${IMAGE_URI}" \
@@ -141,7 +160,7 @@ docker run --rm \
 
 echo "Pushed ${IMAGE_URI}"
 
-# ---- Run the just-built image
+# ---- Run the just-built image locally ----
 ls -lh out
 docker load -i out/image.tar
 docker run --rm "${IMAGE_URI}"
@@ -153,7 +172,7 @@ docker run --rm "${IMAGE_URI}"
 - **Secure**: No privileged access required for building images
 - **Registry agnostic**: Works with any container registry (Docker Hub, ECR, GCR, etc.)
 - **Caching support**: Built-in support for registry-based caching to speed up builds
-- **Flexible authentication**: Supports Docker config and credential helpers
+- **Simple authentication**: Uses the [ECR Buildkite plugin](https://github.com/buildkite-plugins/ecr-buildkite-plugin) for automatic credential management
 - **Local testing**: Exports built images as tar files for immediate local testing
 - **Robust error handling**: Proper validation of required environment variables
 - **Smart tagging**: Uses commit SHA and build number for unique image tags
@@ -163,12 +182,12 @@ docker run --rm "${IMAGE_URI}"
 
 ### Verifying signed Kaniko images
 
-For enhanced security, you can verify the signature of the Kaniko image before using it. This ensures you're running the authentic, unmodified Kaniko executor.
+#### Verifying Google's deprecated images
 
-Add this verification step to your script before running Kaniko:
+If you're using Google's final published images (`gcr.io/kaniko-project/executor:v1.24.0`), you can verify their signatures:
 
 ```bash
-# Verify the Kaniko image signature with cosign (public key)
+# Verify the Google Kaniko image signature with cosign (public key)
 cat > cosign.pub <<'EOF'
 -----BEGIN PUBLIC KEY-----
 MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE9aAfAcgAxIFMTstJUv8l/AMqnSKw
@@ -182,22 +201,74 @@ docker run --rm -v "$PWD:/work" -w /work cgr.dev/chainguard/cosign \
 echo "Signature verified OK for ${KANIKO_IMG}"
 ```
 
-This verification:
+This verification uses Google's official public key and only applies to their deprecated images.
 
-- Uses the official Kaniko public key from their [GitHub repository](https://github.com/GoogleContainerTools/kaniko#verifying-signed-kaniko-images)
-- Ensures the Kaniko image hasn't been tampered with
-- Runs before your build process to catch any security issues early
+#### Signing and verifying custom-built images
 
-For alternative verification methods (like keyless verification with Chainguard images), see the [Kaniko documentation](https://github.com/GoogleContainerTools/kaniko#verifying-signed-kaniko-images).
+If you build your own Kaniko images from Chainguard's fork, you can sign them for enhanced security. This process involves generating a key pair, signing your images, and verifying them before use.
+
+**1. Generate a key pair and store in Buildkite Secrets:**
+
+```bash
+# Generate signing key pair
+cosign generate-key-pair
+
+# Store the private key in Buildkite Secrets
+buildkite-agent secret set "kaniko-signing-private-key" < cosign.key
+
+# Store the public key in Buildkite Secrets  
+buildkite-agent secret set "kaniko-signing-public-key" < cosign.pub
+```
+
+**2. Sign your custom image after building:**
+
+```bash
+# Pull the private key from Buildkite Secrets
+buildkite-agent secret get "kaniko-signing-private-key" > cosign.key
+
+# Sign your custom image and push signature to registry
+docker run --rm -v "$PWD:/work" -w /work cgr.dev/chainguard/cosign \
+  sign -key cosign.key your-registry/kaniko:latest
+```
+
+**3. Verify your custom image before use:**
+
+```bash
+# Pull the public key from Buildkite Secrets
+buildkite-agent secret get "kaniko-signing-public-key" > cosign.pub
+
+# Verify your custom image
+docker run --rm -v "$PWD:/work" -w /work cgr.dev/chainguard/cosign \
+  verify -key cosign.pub your-registry/kaniko:latest
+```
+
+**Alternative: Keyless signing with OIDC**
+
+For a more modern approach, you can use keyless signing with OIDC (OpenID Connect) instead of managing key pairs:
+
+```bash
+# Keyless signing (requires OIDC authentication)
+docker run --rm -v "$PWD:/work" -w /work cgr.dev/chainguard/cosign \
+  sign your-registry/kaniko:latest
+
+# Keyless verification (requires certificate identity and issuer)
+docker run --rm -v "$PWD:/work" -w /work cgr.dev/chainguard/cosign \
+  verify \
+  --certificate-identity="your-email@example.com" \
+  --certificate-oidc-issuer="https://accounts.google.com" \
+  your-registry/kaniko:latest
+```
+
+This approach ensures your custom-built Kaniko images are authentic and haven't been tampered with. For more details on Cosign signing and verification, see the [Chainguard Cosign documentation](https://edu.chainguard.dev/open-source/sigstore/cosign/how-to-sign-a-container-with-cosign/).
 
 ### Debugging with Kaniko debug image
 
-When troubleshooting build issues, you can use the [Kaniko debug image](https://github.com/GoogleContainerTools/kaniko#debug-image) which includes additional debugging tools. The debug image contains utilities like `busybox` and `sh` for interactive debugging.
+When troubleshooting build issues, you can use the [Kaniko debug image](https://github.com/chainguard-dev/kaniko#debug-image) which includes additional debugging tools. The debug image contains utilities like `busybox` and `sh` for interactive debugging.
 
 For interactive debugging, you can run the debug image directly:
 
 ```bash
-docker run -it --entrypoint=/busybox/sh gcr.io/kaniko-project/executor:debug
+docker run -it --entrypoint=/busybox/sh gcr.io/kaniko-project/executor:v1.24.0-debug
 ```
 
 To enable debug mode in your pipeline, set the `KANIKO_DEBUG` environment variable:
