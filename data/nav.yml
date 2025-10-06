@@ -468,8 +468,6 @@
       children:
         - name: "Overview"
           path: "pipelines/security"
-        - name: "Enforcing security controls"
-          path: "pipelines/security/enforcing-security-controls"
         - name: "Secrets"
           children:
             - name: "Overview"
