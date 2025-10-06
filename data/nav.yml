@@ -45,6 +45,16 @@
       children:
         - name: Overview
           path: pipelines/migration
+        - name: Migration tool
+          children:
+            - name: "Overview"
+              path: "pipelines/migration/tool"
+            - name: "GitHub Actions"
+              path: "pipelines/migration/tool/github-actions"
+            - name: "CircleCI"
+              path: "pipelines/migration/tool/circleci"
+            - name: "Bitbucket Pipelines"
+              path: "pipelines/migration/tool/bitbucket-pipelines"
         - name: From Jenkins
           path: pipelines/migration/from-jenkins
         - name: From Bamboo
@@ -193,6 +203,8 @@
               children:
                 - name: "Buildah"
                   path: "agent/v3/agent-stack-k8s/buildah-container-builds"
+                - name: "BuildKit"
+                  path: "agent/v3/agent-stack-k8s/buildkit-container-builds"
             - name: "Troubleshooting"
               path: "agent/v3/agent-stack-k8s/troubleshooting"
         - name: "Agent installers"
@@ -440,8 +452,12 @@
               path: "pipelines/security/secrets/managing"
             - name: "Risk considerations"
               path: "pipelines/security/secrets/risk-considerations"
-            - name: "Buildkite secrets"
-              path: "pipelines/security/secrets/buildkite-secrets"
+            - name: "Buildkite Secrets"
+              children:
+                - name: "Overview"
+                  path: "pipelines/security/secrets/buildkite-secrets"
+                - name: "Access policies"
+                  path: "pipelines/security/secrets/buildkite-secrets/access-policies"
         - name: "Incoming webhooks"
           path: "pipelines/security/incoming-webhooks"
         - name: "OIDC"
@@ -464,6 +480,8 @@
       children:
         - name: "Overview"
           path: "pipelines/deployments"
+        - name: "Deploying to AWS Lambda"
+          path: "pipelines/deployments/to-aws-lambda"
         - name: "Deploying to Kubernetes"
           path: "pipelines/deployments/to-kubernetes"
         - name: "Deploying with Argo"
@@ -490,12 +508,10 @@
           children:
             - name: "Overview"
               path: "pipelines/integrations/plugins"
-            - name: "Using plugins"
-              path: "pipelines/integrations/plugins/using"
             - name: "Plugins directory"
               path: "pipelines/integrations/plugins/directory"
-            - name: "Plugin tools"
-              path: "pipelines/integrations/plugins/tools"
+            - name: "Using plugins"
+              path: "pipelines/integrations/plugins/using"
             - name: "Writing plugins"
               path: "pipelines/integrations/plugins/writing"
         - name: "Notifications"
