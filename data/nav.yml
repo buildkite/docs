@@ -142,7 +142,7 @@
                 - name: "CloudFormation service role"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/cloudformation-service-role"
                 - name: "Building Docker images"
-                  path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/building-docker-images"
+                  path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/building_docker_images"
                 - name: "Troubleshooting"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/troubleshooting"
             - name: "EC2 Mac"
