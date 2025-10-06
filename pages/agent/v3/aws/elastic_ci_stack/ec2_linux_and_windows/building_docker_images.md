@@ -4,7 +4,7 @@ toc: false
 
 # Building Docker images
 
-This guide shows how to build and push a container image to [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/ecr/) using [Kaniko](https://github.com/chainguard-dev/kaniko) from a [Buildkite Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack) agent.
+This guide shows how to build and push a container image to [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/ecr/) using [Kaniko](https://github.com/chainguard-dev/kaniko) from a [Buildkite Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic_ci_stack) agent.
 
 ## 1. One-time ECR setup
 
@@ -19,9 +19,9 @@ chmod +x scripts/setup-ecr.sh
 
 ## 2. Configure your Buildkite pipeline environment
 
-Set these environment variables in the [Pipeline Settings](/docs/pipelines/configure/environment-variables) (or keep the defaults in `.buildkite/pipeline.yml`):
+Set these environment variables in the [Pipeline Settings](/docs/pipelines/configure/environment_variables) (or keep the defaults in `.buildkite/pipeline.yml`):
 
-- [`AWS_REGION`](/docs/pipelines/configure/environment-variables#aws-region) (for example, `ca-central-1`)
+- [`AWS_REGION`](/docs/pipelines/configure/environment_variables#aws-region) (for example, `ca-central-1`)
 - `ECR_ACCOUNT_ID` (your 12-digit AWS account ID for [Amazon ECR](https://aws.amazon.com/ecr/))
 - `ECR_REPO` (your ECR repository name, for example, `example/hello-kaniko`)
 
