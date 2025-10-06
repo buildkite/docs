@@ -143,6 +143,7 @@ RSpec.feature "reading pages" do
       /docs/how-tos/migrating-from-bamboo
       /docs/pipelines/emoji
       /docs/pipelines/pipelines
+      /docs/pipelines/security/enforcing-security-controls
       /docs/pipelines/tutorials/docker-containerized-builds
       /docs/pipelines/tutorials/parallel-builds
       /docs/pipelines/uploading-pipelines
