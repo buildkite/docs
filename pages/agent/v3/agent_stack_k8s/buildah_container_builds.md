@@ -1,10 +1,14 @@
+---
+toc_include_h3: false
+---
+
 # Buildah container builds
 
-[Buildah](https://buildah.io/) provides a lightweight, daemonless approach to building [Open Container Initiative (OCI)](https://opencontainers.org/)-compliant container images, making it a suitable choice for Agent Stack for Kubernetes in cases where running a Docker daemon within build containers might not be desired or possible.
+[Buildah](https://buildah.io/) provides a lightweight, daemonless approach to building [Open Container Initiative (OCI)](https://github.com/containers/buildah)-compliant container images, making it a suitable choice for Agent Stack for Kubernetes in cases where running a Docker daemon within build containers might not be desired or possible.
 
 ## Buildah daemonless builds
 
-Buildah operates without a need for a persistent daemon, unlike Docker. Buildah can build containers from Dockerfiles or Containerfiles (the OCI standard format) or through its native command-line interface. This approach provides better security isolation and works well within Kubernetes environments.
+Buildah operates without a need for a persistent daemon, unlike Docker. Buildah can build containers from Dockerfiles or [Containerfiles](https://github.com/containers/buildah/discussions/3170) (the OCI standard format) or through its native command-line interface. This approach provides better security isolation and works well within Kubernetes environments.
 
 ## Using Buildah with Agent Stack for Kubernetes
 
