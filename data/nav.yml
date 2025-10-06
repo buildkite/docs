@@ -69,6 +69,8 @@
           path: "pipelines/best-practices/platform-controls"
         - name: "Pipeline design and structure"
           path: "pipelines/best-practices/pipeline-design-and-structure"
+        - name: "Running monorepos"
+          path: "pipelines/best-practices/running-monorepos"
         - name: "Git checkout optimization"
           path: "pipelines/best-practices/git-checkout-optimization"
         - name: "Caching"

@@ -192,6 +192,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/scheduled-builds",                                  to: redirect("/docs/pipelines/configure/workflows/scheduled-builds")
   get "/docs/pipelines/secrets",                                           to: redirect("/docs/pipelines/security/secrets/managing")
   get "/docs/pipelines/security/overview",                                 to: redirect("/docs/pipelines/security")
+  get "/docs/pipelines/security/enforcing-security-controls"               to: redirect("/docs/pipelines/best-practices/security-controls")
   get "/docs/pipelines/security-overview",                                 to: redirect("/docs/pipelines/security")
   get "/docs/pipelines/security/audit-log",                                to: redirect("/docs/platform/audit-log")
   get "/docs/pipelines/security/managing-secrets",                         to: redirect("/docs/pipelines/security/secrets/managing")
