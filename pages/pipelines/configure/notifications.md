@@ -17,13 +17,13 @@ notify:
 
 Available notification types:
 
-* [Basecamp](#basecamp-campfire-message): Post a message to a Basecamp Campfire. Requires a Basecamp Chatbot to be configured in your Basecamp organization.
-* [Email](#email): Send an email to the specified email address.
-* [GitHub Commit Status](#github-commit-status): Create a GitHub Commit Status.
-* [GitHub Check](#github-check): Create a GitHub Check Status.
-* [PagerDuty](#pagerduty-change-events)
-* [Slack](#slack-channel-and-direct-messages): Post a message to the specified Slack Channel. Requires a Slack Workspace or individual Slack notification services to be enabled for each channel.
-* [Webhooks](#webhooks): Send a notification to the specified webhook URL.
+- [Basecamp](#basecamp-campfire-message): Post a message to a Basecamp Campfire. Requires a Basecamp Chatbot to be configured in your Basecamp organization.
+- [Email](#email): Send an email to the specified email address.
+- [GitHub commit status](#github-commit-status): Create a GitHub commit status.
+- [GitHub check](#github-check): Create a GitHub check status.
+- [PagerDuty](#pagerduty-change-events)
+- [Slack](#slack-channel-and-direct-messages): Post a message to the specified Slack Channel. Requires a Slack Workspace or individual Slack notification services to be enabled for each channel.
+- [Webhooks](#webhooks): Send a notification to the specified webhook URL.
 
 These types of notifications are available at the following levels.
 
@@ -41,12 +41,12 @@ These types of notifications are available at the following levels.
     <td></td>
   </tr>
   <tr>
-    <td>GitHub Commit Status</td>
-    <td>GitHub Commit Status</td>
+    <td>GitHub commit status</td>
+    <td>GitHub commit status</td>
   </tr>
   <tr>
-    <td>GitHub Check</td>
-    <td>GitHub Check</td>
+    <td>GitHub check</td>
+    <td>GitHub check</td>
   </tr>
   <tr>
     <td>PagerDuty</td>
@@ -80,6 +80,23 @@ notify:
 
 > 📘
 > `build.state` conditionals cannot be used on step-level notifications as a step cannot know the state of the entire build.
+
+See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
+
+### Step-level conditional notifications
+
+You can use conditional notifications at the step level to send notifications only when specific step outcomes occur. This is useful for immediate notifications when individual steps complete:
+
+```yaml
+steps:
+  - command: "important-validation.sh"
+    notify:
+      - slack:
+          channels: ["#engineering"]
+          message: "Critical validation failed, please fix."
+        if: step.outcome == "hard_failed"
+```
+{: codeblock-file="pipeline.yml"}
 
 See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
@@ -122,16 +139,16 @@ The `basecamp_campfire` attribute accepts a single URL as a string.
 
 Build-level Basecamp notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
 
-* `build created`
-* `build started`
-* `build blocked`
-* `build finished`
-* `build skipped`
+- `build created`
+- `build started`
+- `build blocked`
+- `build finished`
+- `build skipped`
 
 Step-level Basecamp notifications happen at the following [events](/docs/apis/webhooks/pipelines#events):
 
-* `step.finished`
-* `step.failing`
+- `step.finished`
+- `step.failing`
 
 ## Email
 
@@ -170,15 +187,15 @@ notify:
 
 ## GitHub commit status
 
-Pipelines using [a GitHub repository](/docs/pipelines/source_control/github) have [GitHub Commit Status](https://docs.github.com/en/rest/commits/statuses) integration built-in, but you can add custom commit statuses using notifications.
+Pipelines using [a GitHub repository](/docs/pipelines/source_control/github) have built-in [GitHub commit statuses](https://docs.github.com/en/rest/commits/statuses) integration. However, you can add custom commit statuses using notifications.
 
-GitHub Commit Statuses appear as simple pass/fail indicators on commits and pull requests. For more advanced features like detailed output and annotations, consider using [GitHub Checks](#github-check) instead.
+GitHub commit statuses appear as simple pass/fail indicators on commits and pull requests. For more advanced features like detailed output and annotations, consider using a [GitHub check](#github-check) instead.
 
 > 📘 Requirements
-> * GitHub notifications require a full 40-character commit SHA. Builds with short commit SHA values or `HEAD` references will not trigger notifications until the commit SHA is resolved.
-> * For more information on customizing commit statuses, see [Customizing commit statuses](/docs/pipelines/source_control/github#customizing-commit-statuses) in the GitHub integration documentation.
+> GitHub notifications require a full 40-character commit SHA. Builds with short commit SHA values or `HEAD` references will not trigger notifications until the commit SHA is resolved.
+> For more information on customizing commit statuses, see [Customizing commit statuses](/docs/pipelines/source_control/github#customizing-commit-statuses) in the GitHub integration documentation.
 
-Add a GitHub Commit Status notification to your pipeline using the `github_commit_status` attribute of the `notify` YAML block:
+Add a GitHub commit status notification to your pipeline using the `github_commit_status` attribute of the `notify` YAML block:
 
 ```yaml
 steps:
@@ -190,7 +207,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can also add GitHub Commit Status notifications at the step level:
+You can also add GitHub commit status notifications at the step level:
 
 ```yaml
 steps:
@@ -206,33 +223,31 @@ steps:
 
 The `github_commit_status` attribute supports the following options:
 
-`context` (optional)
-: A string label to differentiate this status from other statuses. Defaults to `buildkite/[pipeline-slug]` for build-level notifications. For step-level notifications, the context is automatically generated based on the step.
+- `context`: A string label to differentiate this status from other statuses. Defaults to `buildkite/[pipeline-slug]` for build-level notifications. For step-level notifications, the context is automatically generated based on the step.
 
-`blocked_builds_as_pending` (optional)
-: A boolean value that determines how blocked builds are reported. When `true`, blocked builds are reported as "pending". When `false`, blocked builds are reported as "success". Defaults to `false`.
+- `blocked_builds_as_pending`: A boolean value that determines how blocked builds are reported. When `true`, blocked builds are reported as "pending". When `false`, blocked builds are reported as "success". Defaults to `false`.
 
-Build-level GitHub Commit Status notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
+Build-level GitHub commit status notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
 
-* `build.failing`
-* `build.finished`
+- `build.failing`
+- `build.finished`
 
-Step-level GitHub Commit Status notifications happen at the following [events](/docs/apis/webhooks/pipelines#events):
+Step-level GitHub commit status notifications happen at the following [events](/docs/apis/webhooks/pipelines#events):
 
-* `step.failing`
-* `step.finished`
+- `step.failing`
+- `step.finished`
 
 ## GitHub check
 
-Create a [GitHub Check](https://docs.github.com/en/rest/checks) to provide detailed feedback on builds and steps with rich formatting, annotations, and summaries. This requires the pipeline is configured to use [a GitHub repository](/docs/pipelines/source_control/github) with the GitHub App integration.
+Create a [GitHub check](https://docs.github.com/en/rest/checks) to provide detailed feedback on builds and steps with rich formatting, annotations, and summaries. This requires the pipeline is configured to use [a GitHub repository](/docs/pipelines/source_control/github) with the GitHub App integration.
 
-GitHub Checks provide richer status information than commit statuses, including the ability to display detailed output, annotations, and custom formatting. Unlike commit statuses, GitHub Checks can show step-by-step progress, include formatted text and links, and provide inline code annotations.
+GitHub checks provide richer status information than commit statuses, including the ability to display detailed output, annotations, and custom formatting. Unlike commit statuses, GitHub checks can show step-by-step progress, include formatted text and links, and provide inline code annotations.
 
 > 📘 Requirements
-> * GitHub Checks require the GitHub App integration. If you're using OAuth-based GitHub integration, use [GitHub Commit Status](#github-commit-status) notifications instead.
-> * GitHub notifications require a full 40-character commit SHA. Builds with short commit SHA values or `HEAD` references will not trigger notifications until the commit SHA is resolved.
+> GitHub checks require the GitHub App integration. If you're using OAuth-based GitHub integration, use [GitHub commit status](#github-commit-status) notifications instead.
+> GitHub notifications require a full 40-character commit SHA. Builds with short commit SHA values or `HEAD` references will not trigger notifications until the commit SHA is resolved.
 
-Add a GitHub Check notification to your pipeline using the `github_check` attribute of the `notify` YAML block:
+Add a GitHub check notification to your pipeline using the `github_check` attribute of the `notify` YAML block:
 
 ```yaml
 steps:
@@ -244,7 +259,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can also add GitHub Check notifications at the step level:
+You can also add GitHub check notifications at the step level:
 
 ```yaml
 steps:
@@ -263,11 +278,9 @@ steps:
 
 The `github_check` attribute supports the following options:
 
-`name` (optional)
-: The name of the check. Defaults to the pipeline name for build-level notifications, or auto-generated based on the step label/key for step-level notifications.
+- `name`: The name of the check. Defaults to the pipeline name for build-level notifications, or auto-generated based on the step label/key for step-level notifications.
 
-`output` (optional)
-: An object containing detailed output information: `title` (a short title for the check output), `summary` (a summary of the check results), `text` (detailed information about the check results, supports Markdown), and `annotations` (an array of annotation objects for inline code comments).
+- `output`: An object containing detailed output information: `title` (a short title for the check output), `summary` (a summary of the check results), `text` (detailed information about the check results, supports Markdown), and `annotations` (an array of annotation objects for inline code comments).
 
 ### GitHub check annotations
 
@@ -292,17 +305,17 @@ steps:
 
 Each annotation object supports:
 
-* `path`: The file path relative to the repository root
-* `start_line`: The line number where the annotation starts
-* `end_line`: The line number where the annotation ends
-* `annotation_level`: The level of the annotation (`notice`, `warning`, or `failure`)
-* `message`: The annotation message
-* `start_column` (optional): The column number where the annotation starts
-* `end_column` (optional): The column number where the annotation ends
+- `path`: The file path relative to the repository root
+- `start_line`: The line number where the annotation starts
+- `end_line`: The line number where the annotation ends
+- `annotation_level`: The level of the annotation (`notice`, `warning`, or `failure`)
+- `message`: The annotation message
+- `start_column` (optional): The column number where the annotation starts
+- `end_column` (optional): The column number where the annotation ends
 
 ### Dynamic GitHub check updates
 
-For step-level GitHub Check notifications, you can dynamically update the check output during step execution using the `buildkite-agent step update` command:
+For step-level GitHub check notifications, you can dynamically update the check output during step execution using the `buildkite-agent step update` command:
 
 ```bash
 # Update the check title
@@ -321,15 +334,15 @@ buildkite-agent step update "notify.github_check.output.annotations" '[{"path":"
 
 This is particularly useful for displaying test results, code analysis findings, or other dynamic content that becomes available during the build process.
 
-Build-level GitHub Check notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
+Build-level GitHub check notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
 
-* `build.finished`
-* `build.failing`
+- `build.finished`
+- `build.failing`
 
-Step-level GitHub Check notifications happen at the following [events](/docs/apis/webhooks/pipelines#events):
+Step-level GitHub check notifications happen at the following [events](/docs/apis/webhooks/pipelines#events):
 
-* `step.failing`
-* `step.finished`
+- `step.failing`
+- `step.finished`
 
 ## PagerDuty change events
 
@@ -346,7 +359,7 @@ notify:
 
 Email notifications happen at the following [event](/docs/apis/webhooks/pipelines#events):
 
-* `build finished`
+- `build finished`
 
 Restrict notifications to passed builds by adding a [conditional](#conditional-notifications):
 
@@ -364,14 +377,14 @@ notify:
 
 You can set notifications:
 
-* On step status and other non-build events, by extending your Slack or Slack Workspace notification service with the `notify` attribute in your `pipeline.yml`.
-* On build status events in the Buildkite interface, by using your Slack notification service's **Build state filtering** settings.
+- On step status and other non-build events, by extending your Slack or Slack Workspace notification service with the `notify` attribute in your `pipeline.yml`.
+- On build status events in the Buildkite interface, by using your Slack notification service's **Build state filtering** settings.
 
 Before adding a `notify` attribute to your `pipeline.yml`, ensure a Buildkite organization admin has set up either the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service (a once-off configuration for each workspace), or the required [Slack](/docs/pipelines/integrations/notifications/slack) notification services, to send notifications to a channel or a user. Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan can also select the [**Manage Notifications Services**](https://buildkite.com/organizations/~/security/pipelines) checkbox to allow their users to create, edit, or delete notification services.
 
-* The _Slack Workspace_ notification service requires a once-off configuration (only one per Slack workspace) in Buildkite, and then allows you to notify specific Slack channels or users, or both, directly within relevant pipeline steps.
+- The _Slack Workspace_ notification service requires a once-off configuration (only one per Slack workspace) in Buildkite, and then allows you to notify specific Slack channels or users, or both, directly within relevant pipeline steps.
 
-* The _Slack_ notification service requires you to first configure one or more of these services for a channel or user, along with the pipelines, branches and build states that these channels or users receive notifications for. Once configured, your pipelines will generate automated notifications whenever the conditions in these notification services are met. You can also use the `notify` attribute in your `pipeline.yml` file for more fine grained control, by mentioning specific channels and users in these attributes, as long as Slack notification services have been created for these channels and users. If you mention any channels or users in a pipeline `notify` attribute for whom a Slack notification service has not yet been configured, the notification will not be sent. For a simplified configuration experience, use the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service instead.
+- The _Slack_ notification service requires you to first configure one or more of these services for a channel or user, along with the pipelines, branches and build states that these channels or users receive notifications for. Once configured, your pipelines will generate automated notifications whenever the conditions in these notification services are met. You can also use the `notify` attribute in your `pipeline.yml` file for more fine grained control, by mentioning specific channels and users in these attributes, as long as Slack notification services have been created for these channels and users. If you mention any channels or users in a pipeline `notify` attribute for whom a Slack notification service has not yet been configured, the notification will not be sent. For a simplified configuration experience, use the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service instead.
 
 Learn more about these different [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) and [Slack](/docs/pipelines/integrations/notifications/slack) notification services within [Other integrations](/docs/pipelines/integrations).
 
@@ -643,13 +656,13 @@ You are able to use `pipeline.started_passing` and `pipeline.started_failing` in
 
 Build-level Slack notifications happen at the following [event](/docs/apis/webhooks/pipelines#events):
 
-* `build.finished`
-* `build.failing`
+- `build.finished`
+- `build.failing`
 
 Step-level Slack notifications happen at the following [events](/docs/apis/webhooks/pipelines#events):
 
-* `step.finished`
-* `step.failing`
+- `step.finished`
+- `step.failing`
 
 An example to deliver slack notification when a step is soft-failed:
 
@@ -657,21 +670,11 @@ An example to deliver slack notification when a step is soft-failed:
 steps:
   - command: exit -1
     soft_fail: true
-    key: 'step1'
-  - wait: ~
-  - command: |
-      if [ $(buildkite-agent step get "outcome" --step "step1") == "soft_failed" ]; then
-         cat <<- YAML | buildkite-agent pipeline upload
-         steps:
-           - label: "Notify slack about soft failed step"
-             command: echo "Notifying slack about the soft_failed step"
-             notify:
-               - slack:
-                   channels:
-                     - "#general"
-                   message: "Step1 has soft failed."
-      YAML
-      fi
+    notify:
+      - slack:
+          channels: ["#general"]
+          message: "Step has soft failed."
+        if: step.outcome == "soft_failed"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -690,9 +693,9 @@ notify:
 
 The `pipeline.started_failing` conditional might be valuable for teams that:
 
-* Want immediate alerts when something breaks but don't want repeated notifications for consecutive failures.
-* Have flaky tests or environments where builds might fail multiple times in a row.
-* Implement workflows where quick feedback on state changes is more important than being notified about every individual failure.
+- Want immediate alerts when something breaks but don't want repeated notifications for consecutive failures.
+- Have flaky tests or environments where builds might fail multiple times in a row.
+- Implement workflows where quick feedback on state changes is more important than being notified about every individual failure.
 
 ### Notify only on first pass
 
@@ -709,8 +712,8 @@ notify:
 
 The `pipeline.started_passing` conditional might be valuable for teams that:
 
-* Need to track when build issues are resolved after failures.
-* Prefer to avoid notifications for builds that were already passing.
+- Need to track when build issues are resolved after failures.
+- Prefer to avoid notifications for builds that were already passing.
 
 ### Notify on all failures and first successful pass
 
@@ -779,10 +782,10 @@ notify:
 
 Webhook notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
 
-* `build created`
-* `build started`
-* `build blocked`
-* `build finished`
+- `build created`
+- `build started`
+- `build blocked`
+- `build finished`
 
 ## Build states
 

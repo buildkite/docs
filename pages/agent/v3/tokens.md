@@ -49,7 +49,7 @@ To create an agent token for a cluster using the Buildkite interface:
 
 ### Using the REST API
 
-To [create an agent token](/docs/apis/rest-api/clusters#agent-tokens-create-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+To [create an agent token](/docs/apis/rest-api/clusters/agent-tokens#create-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -159,7 +159,7 @@ To update a cluster's agent token using the Buildkite interface:
 
 ### Using the REST API
 
-To [update an agent token](/docs/apis/rest-api/clusters#agent-tokens-update-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+To [update an agent token](/docs/apis/rest-api/clusters/agent-tokens#update-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -259,7 +259,7 @@ To revoke a cluster's agent token using the Buildkite interface:
 
 ### Using the REST API
 
-To [revoke an agent token](/docs/apis/rest-api/clusters#agent-tokens-revoke-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+To [revoke an agent token](/docs/apis/rest-api/clusters/agent-tokens#revoke-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
