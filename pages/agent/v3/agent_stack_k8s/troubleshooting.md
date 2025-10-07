@@ -73,7 +73,7 @@ job missing 'queue' tag, skipping...
 
 To view the agent tags applied to your job(s), the following GraphQL query can be executed (be sure to substitute your Organization's slug and Cluster ID):
 
-```
+```graphql
 query getClusterScheduledJobs {
   organization(slug: "<organization-slug>") {
     jobs(
@@ -101,52 +101,49 @@ query getClusterScheduledJobs {
 
 This will return the `100` newest created jobs for the `<cluster-id>` Cluster in the `<organization-slug>` Organization that are in a `scheduled` state and waiting for the controller to convert them each to a Kubernetes Job. Each Buildkite job's agent tags will be defined under `agentQueryRules`.
 
-### Controller stops accepting new jobs from a cluster Queue
+### Controller stops accepting new jobs from a cluster queue
 
 There may be some cases where some waiting jobs increase in the Buildkite UI, however, no new pods are created.
 Reviewing the Logs may show `max-in-flight reached` with counters not decreasing.
-Error may look like 
-``` 
-DEBUG	limiter	scheduler/limiter.go:77	max-in-flight reached	{"in-flight": 25}
-````
+Error may look like:
 
-#### Some initial steps to help 
+```
+DEBUG	limiter	scheduler/limiter.go:77	max-in-flight reached	{"in-flight": 25}
+```
+
+#### Some initial steps to help
 
 1. Enable debug log and look for errors related to `max-in-flight` reached
-2. Confirm no new Kubernetes jobs are created while the UI shows jobs waiting 
+1. Confirm no new Kubernetes jobs are created while the UI shows jobs waiting
 
-#### Workaround 
+#### Workaround
 Execute `kubectl -n buildkite rollout restart deployment agent-stack-k8s` to restart the controller pod and clear the the “max-in-flight reached” condition that allows scheduling to resume
 
-
-#### Fix:
+#### Solution
 [Upgrade](https://github.com/buildkite/agent-stack-k8s/releases) to the latest controller release if using any version less than [v0.2.7](https://github.com/buildkite/agent-stack-k8s/releases/tag/v0.27.0)
 
+### Wrong exit code affecting auto job retries
 
+Error code from the Kubernetes pods may not be passed through the agent preventing the use of exit based retries. The error could look like below:
 
-### Wrong exit code affecting auto job retries 
-
-Error code from the kubernetes pods may not be passed through the agent preventing the use of exit based retries. The error could look like below 
 ```
 The following init containers failed:
- 
+
  CONTAINER   EXIT CODE  SIGNAL  REASON                  MESSAGE                                                        
  My-agent        137       0  ContainerStatusUnknown  The container could not be located when the pod was terminated
  ```
 
-A scenrario would be if a user saw in the Buildkite UI that an exit code was `137`, however the exit code emitted from the container was `1`. This would prevent the kickoff of retries that were configured for the exit code `1`. 
+A scenario would be if a user saw in the Buildkite UI that an exit code was `137`, however the exit code emitted from the container was `1`. This would prevent the kickoff of retries that were configured for the exit code `1`.
 
-#### Workaround 
-A workaround that could help here is to simply add a retry rule for all stack level failures. 
-An example of the configuration would look like this 
+#### Workaround
+A workaround that could help here is to simply add a retry rule for all stack level failures.
+An example of the configuration would look like this:
 
 ```
 retry:
-  - signal_reason: stack_error
+  - signal_reason: "stack_error"
     limit: 3
   ```
- 
+
  #### Fix:
- Upgrading to version [v.0.29.0](https://github.com/buildkite/agent-stack-k8s/releases/tag/v0.29.0) would be the recommended action here as a "stack_error" exit reason was added to the agent, to provide better visibility to stack-level errors. 
-
-
+ Upgrading to version [v.0.29.0](https://github.com/buildkite/agent-stack-k8s/releases/tag/v0.29.0) would be the recommended action here as a "stack_error" exit reason was added to the agent, to provide better visibility to stack-level errors.
