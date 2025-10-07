@@ -2,16 +2,18 @@
 
 ## Build number vs build ID
 
-All builds have a *build ID* (e.g. `01908131-7d9f-495e-a17b-80ed31276810`), which is unique within the whole of Buildkite, and a *build number* (e.g. `27`), which is unique to the pipeline. The build number is monotonically increasing but may include gaps.
+All builds have a _build ID_ (for example, `01908131-7d9f-495e-a17b-80ed31276810`), which is a unique value throughout the entire Buildkite platform, as well as a _build number_ (for example, `27`). A build number is unique to a pipeline, and its value is incrementally increased with each build, although there may be gaps.
 
-API requests that affect a single build accept the more human readable build number (and the organization and pipeline it belongs to), **not** the build ID:
+All build API request types that relate specifically to pipeline builds themselves can be accessed through this page's **On this page** feature, where more details about each request type are provided. These API request types return either the build ID or build number values, or both.
+
+API request types that affect a single build accept the more human readable build number (and the organization and pipeline it belongs to), _not_ the build ID:
 
 - [Get a build](#get-a-build)
-- [Create a build](#create-a-build)
 - [Cancel a build](#cancel-a-build)
 - [Rebuild a build](#rebuild-a-build)
-- [List artifacts for a build](/docs/apis/rest-api/artifacts#list-artifacts-for-a-build)
-- [List annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build)
+- This also includes API request types for other aspects associated with builds:
+    * [List artifacts for a build](/docs/apis/rest-api/artifacts#list-artifacts-for-a-build), and several other [artifacts-related](/docs/apis/rest-api/artifacts) endpoints.
+    * [List annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build), and several other [annotations-related](/docs/apis/rest-api/annotations) endpoints.
 
 ## List all builds
 
