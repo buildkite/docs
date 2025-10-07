@@ -47,11 +47,10 @@ link_checking_exemptions:
       - ".*"
 
   - name: fragments-handled-by-js-not-html
-    description: Sites that interpret URL fragments using JS, rather than standard browser behaviour
+    description: Sites that interpret URL fragments using JS, rather than standard browser behavior
     status_pattern: "id #.* not found"
     url_patterns:
       - https://github.com/
-      - https://docs.github.com/
       - https://cd.apps.argoproj.io/swagger-ui
       - https://docs.cursor.com/
 
@@ -64,7 +63,7 @@ link_checking_exemptions:
       - https://console.aws.amazon.com/ec2/v2/home
 
   - name: ignore-sample-dot-svg
-    description: We don't expect /sample.svg to work on the test server that Muffet usees.
+    description: We don't expect /sample.svg to work on the test server that Muffet uses.
     status_pattern: "404"
     url_patterns:
       - "http://app:3000/sample.svg\\?"
