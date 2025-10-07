@@ -87,6 +87,7 @@ exceptions:
   - Datadog
   - Debian
   - deduper
+  - Dissociate
   - Docker
   - Docker Compose
   - Docker Desktop

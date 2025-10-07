@@ -88,6 +88,8 @@
           path: "agent/v3/ssh-keys"
         - name: "GitHub SSH keys"
           path: "agent/v3/github-ssh-keys"
+        - name: "Git mirrors"
+          path: "agent/v3/git-mirrors"
         - name: "Hooks"
           path: "agent/v3/hooks"
         - name: "Monitoring and observing"

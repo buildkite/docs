@@ -60,7 +60,7 @@ Using `git remote update` is the usual way to update mirrors as it updates every
 
 `git clone --reference <path> -- dissociate` is similar to `--reference`, however it makes copies of the objects during the clone. This could help with repo corruption and reducing network usage, but it consumes hard disk usage for each clone which could introduce a different issue depending on the available storage space.
 
-#### Git Worktree
+#### Git worktree
 
 In a `----bare` or `--mirror` clone, Git doesn't provide a working copy of the files in the repo. But you can still retrieve them, make commits..etc. if you need to. The most convenient way to do that is using a worktree.
 Instead of  `git clone --reference <mirror>`, jobs could be ran in a directory inside the mirror. Example below
