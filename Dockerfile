@@ -49,7 +49,7 @@ RUN echo "--- :yarn: Installing node packages" && yarn
 
 # ------------------------------------------------------------------
 
-FROM public.ecr.aws/docker/library/golang:1.24-bookworm as gobuild
+FROM public.ecr.aws/docker/library/golang:1.24-bookworm AS gobuild
 
 # This was previously installed from gobinaries.com within
 # the deploy-preview step, but gobinaries.com keeps being unavailable :(
@@ -110,7 +110,7 @@ CMD ["bundle", "exec", "puma", "-C", "./config/puma.rb"]
 # staticgen for our orchestration machinery.
 #
 
-FROM runtime as deploy-preview
+FROM runtime AS deploy-preview
 
 # bin/deploy-preview has a couple of dependencies
 RUN apt-get update && \
@@ -118,6 +118,23 @@ RUN apt-get update && \
     apt purge --assume-yes linux-libc-dev
 
 COPY --from=gobuild /go/bin/staticgen /usr/local/bin/staticgen
+
+# ------------------------------------------------------------------
+#
+# We use this image to run Muffet, a link checking tool.
+#
+# We use a Ruby wrapper script to process the results in ways that
+# make sense to us.
+#
+
+FROM raviqqe/muffet:2.11.0 AS muffet-scratch
+FROM ${BASE_IMAGE} AS muffet
+
+RUN apt-get update && \
+    apt-get install -y curl jq wget && \
+    apt purge --assume-yes linux-libc-dev
+
+COPY --from=muffet-scratch /muffet /muffet
 
 # ------------------------------------------------------------------
 #

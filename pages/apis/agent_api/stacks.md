@@ -33,13 +33,12 @@ The number of active stacks per organization is limited, and each stack is subje
 
 Request payload:
 
-| Field       | Type   | Required | Description                                  |
-| ----------- | ------ | -------- | -------------------------------------------- |
-| `key`       | string | Yes      | Unique identifier for the stack in the org.  |
-| `type`      | string | Yes      | Type of stack. 3rd party stack should use "custom". |
-| `queue_key` | string | Yes      | Cluster queue key the stack plans to serve. |
-| `metadata`  | key-value object | Yes       | Additional metadata for the stack            |
-
+| Field       | Type             | Required | Description                                         |
+| ----------- | ---------------- | -------- | --------------------------------------------------- |
+| `key`       | string           | Yes      | Unique identifier for the stack in the org.         |
+| `type`      | string           | Yes      | Type of stack. 3rd party stack should use "custom". |
+| `queue_key` | string           | Yes      | Cluster queue key the stack plans to serve.         |
+| `metadata`  | key-value object | Yes      | Additional metadata for the stack                   |
 
 Example:
 
@@ -98,10 +97,9 @@ To avoid starting duplicate jobs, we offer some utility APIs below.
 
 Query parameters:
 
-
-| Parameter   | Type    | Required | Description                      |
-| ----------- | ------- | -------- | -------------------------------- |
-| `queue_key` | string  | Yes       | Filter jobs by queue key         |
+| Parameter   | Type    | Required | Description                                |
+| ----------- | ------- | -------- | ------------------------------------------ |
+| `queue_key` | string  | Yes      | Filter jobs by queue key                   |
 | `limit`     | integer | No       | Maximum number of jobs to return, max 1000 |
 
 Example:
@@ -181,10 +179,10 @@ Alternatively, a stack implementation can maintain its own persistent layer to k
 
 Request payload:
 
-| Field                        | Type          | Required | Description                                    |
-| ---------------------------- | ------------- | -------- | ---------------------------------------------- |
-| `job_uuids`                  | array[string] | Yes      | Array of job UUIDs to reserve                  |
-| `reservation_expiry_seconds` | integer       | No       | Reservation duration in seconds                |
+| Field                        | Type          | Required | Description                     |
+| ---------------------------- | ------------- | -------- | ------------------------------- |
+| `job_uuids`                  | array[string] | Yes      | Array of job UUIDs to reserve   |
+| `reservation_expiry_seconds` | integer       | No       | Reservation duration in seconds |
 
 Example:
 
@@ -254,34 +252,32 @@ curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
 
 Success response: `200 OK`
 
-## Fail a job
+## Finish a job
 
-Mark a job as failed when the stack cannot execute it.
-In some situations, an agent cannot be spawned due to infrastructure or other issues. In this case, for each job, a stack can call this API at most once to fail the job with error details.
-`error_detail` can be an arbitrary string less than 4KB.
+Mark a job as finished when the stack cannot or will not execute it, or when it has completed successfully without spawning an agent.
+In some situations, an agent cannot be spawned due to infrastructure or other issues. In this case, for each job, a stack can call this API at most once to finish the job with details.
 
 This is a critical API to shorten the feedback cycle to end users.
 For example, in the Kubernetes stack, if a pod has an image pull issue, the k8s stack uses this API to fail a job with feedback.
 
-A job that is failed with this approach will have a special error popup on the Buildkite Build page.
+A job that is finished with this approach will have a special notification on the Buildkite Build page.
 
 Request payload:
 
-| Field          | Type    | Required | Description                         |
-| -------------- | ------- | -------- | ----------------------------------- |
-| `exit_status`  | integer | Yes      | Exit status code for the failed job. Cannot be 0 |
-| `error_detail` | string  | Yes       | Error description (max 4KB)         |
-
+| Field         | Type    | Required | Description                                                                                            |
+| ------------- | ------- | -------- | ------------------------------------------------------------------------------------------------------ |
+| `exit_status` | integer | No       | Exit status code for the job. Defaults to -1 if not provided. Use 0 to indicate successful completion. |
+| `detail`      | string  | Yes      | Description of why the job finished (max 4KB)                                                          |
 
 Example:
 
 ```bash
 curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
   -H "Content-Type: application/json" \
-  -X POST "https://agent.buildkite.com/v3/stacks/my-kubernetes-stack/jobs/$JOB_UUID/fail" \
+  -X POST "https://agent.buildkite.com/v3/stacks/my-kubernetes-stack/jobs/$JOB_UUID/finish" \
   -d '{
     "exit_status": -1,
-    "error_detail": "Stack failed to start agent: insufficient resources"
+    "detail": "Stack failed to start agent: insufficient resources"
   }'
 ```
 
