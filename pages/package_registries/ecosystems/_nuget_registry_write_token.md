@@ -1,0 +1,1 @@
+- `$TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload packages to your NuGet source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish packages to any source registry your user account has access to within your Buildkite organization.

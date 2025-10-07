@@ -63,6 +63,32 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 API access using basic HTTP authentication is not supported.
 
+### Public key
+
+> 📘 This feature is currently available in preview.
+
+API access tokens can be created with a public key pair instead of a static token. The private key can be used to sign [JWTs](https://datatracker.ietf.org/doc/html/rfc7519) to authenticate API calls. You must use the API access token's UUID as the `iss` claim in the JWT, have an `iat` within 10 seconds of the current time, and an `exp` within 5 minutes of your `iat`.
+
+For example, in Ruby - where `private_key.pem` contains the private key corresponding to an access token's public key and `$UUID` is the UUID of the access token:
+
+```ruby
+require "net/http"
+require "openssl"
+require "jwt" # https://rubygems.org/gems/jwt
+
+claims = {
+  "iss" => "$UUID",
+  "iat" => Time.now.to_i - 5,
+  "exp" => Time.now.to_i + 60,
+}
+
+private_key = OpenSSL::PKey::RSA.new(File.read("private_key.pem"))
+
+jwt = JWT.encode(claims, private_key, "RS256")
+
+Net::HTTP.get(URI("https://api.buildkite.com/v2/access-token"), "Authorization" => "Bearer #{jwt}")
+```
+
 ## Pagination
 
 For endpoints which support pagination, the pagination information can be found in the `Link` HTTP response header containing zero or more of `next`, `prev`, `first` and `last`.
@@ -119,6 +145,6 @@ To make getting started easier, check out these clients available from our contr
 * [pybuildkite](https://github.com/pyasi/pybuildkite) for [Python](https://www.python.org/)
 * [buildkite-php](https://github.com/bbaga/buildkite-php) for [PHP](https://www.php.net/)
 * [buildkite-swift](https://github.com/aaronsky/buildkite-swift) for [Swift](https://swift.org)
-* [buildkite-api-client](https://github.com/SourceLabOrg/Buildkite-Api-Client) for [Java](https://www.java.com/en/)
+* [buildkite-api-client](https://github.com/SourceLabOrg/Buildkite-Api-Client) for [Java](https://www.java.com)
 
 <!-- vale on -->

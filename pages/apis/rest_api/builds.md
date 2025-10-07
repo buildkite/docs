@@ -2,16 +2,9 @@
 
 ## Build number vs build ID
 
-All builds have a *build ID* (e.g. `01908131-7d9f-495e-a17b-80ed31276810`), which is unique within the whole of Buildkite, and a *build number* (e.g. `27`), which is unique to the pipeline. The build number is monotonically increasing but may include gaps.
+All builds have a _build ID_ (for example, `01908131-7d9f-495e-a17b-80ed31276810`), which is a unique value throughout the entire Buildkite platform, as well as a _build number_ (for example, `27`). A build number is unique to a pipeline, and its value is incremented with each build, although there may be occasional gaps.
 
-API requests that affect a single build accept the more human readable build number (and the organization and pipeline it belongs to), **not** the build ID:
-
-- [Get a build](#get-a-build)
-- [Create a build](#create-a-build)
-- [Cancel a build](#cancel-a-build)
-- [Rebuild a build](#rebuild-a-build)
-- [List artifacts for a build](/docs/apis/rest-api/artifacts#list-artifacts-for-a-build)
-- [List annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build)
+Note that some API request types on this page, especially those involving only a single build, require using a build number rather than a build ID.
 
 ## List all builds
 
@@ -205,6 +198,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}"
 ```
 
+<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id' %>
+
 ```json
 {
   "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
@@ -349,6 +344,12 @@ Optional [query string parameters](/docs/api#query-string-parameters):
     <th><code>include_retried_jobs</code></th>
     <td>Include all retried job executions in each build's jobs list. Without this parameter, you'll see only the most recently run job for each step.<p class="Docs__api-param-eg">
       <em>Example:</em> <code>?include_retried_jobs=true</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>include_test_engine</code></th>
+    <td>Include all Test Engine-related data for the build in the response. Without this parameter, you'll only see all Buildkite Pipelines-related build data in the response.<p class="Docs__api-param-eg">
+      <em>Example:</em> <code>?include_test_engine=true</code></p>
     </td>
   </tr>
 </tbody>
@@ -556,6 +557,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/cancel"
 ```
 
+<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id' %>
+
 ```json
 {
   "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
@@ -704,6 +707,8 @@ Returns the newly created build.
 curl -H "Authorization: Bearer $TOKEN" \
   -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/rebuild"
 ```
+
+<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id' %>
 
 ```json
 {

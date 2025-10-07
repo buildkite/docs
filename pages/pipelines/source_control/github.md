@@ -1,6 +1,6 @@
 # GitHub
 
-Buildkite can connect to a GitHub repository in your GitHub account or GitHub organization and use the [Commit Status API](https://docs.github.com/en/rest/reference/repos#statuses) to update the status of commits in pull requests.
+Buildkite can connect to a GitHub repository in your GitHub account or GitHub organization and use GitHub's [REST API endpoints for commit statuses](https://docs.github.com/en/rest/commits/statuses) to update the status of commits in pull requests.
 
 To complete this integration, you need admin privileges for your GitHub repository.
 
@@ -33,9 +33,7 @@ You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
 When you connect your GitHub organization, Buildkite needs the following permissions:
 
-- Read access to metadata: this is a default permission for all GitHub apps. From the [GitHub documentation](https://docs.github.com/en/rest/reference/permissions-required-for-github-apps#metadata-permissions):
-
-    > GitHub Apps have the Read-only metadata permission by default. The metadata permission provides access to a collection of read-only endpoints with metadata for various resources. These endpoints do not leak sensitive private repository information.
+- Read access to metadata. Learn more about this from [GitHub's documentation](https://docs.github.com/en/rest/authentication/permissions-required-for-github-apps#repository-permissions-for-metadata).
 
 - Read and write access to checks, commit statuses, deployments, pull requests, and repository hooks: this is needed for Buildkite to perform tasks such as running a build on pull requests and reporting that build status directly on the PR on GitHub.
 
@@ -53,7 +51,7 @@ When you connect your GitHub organization, Buildkite needs the following permiss
     1. Add a new webhook in GitHub.
     1. Paste in the provided webhook URL.
     1. Select `application/json` as the content type of the webhook.
-    1. Select the `deployment`, `pull_request`, and `push` events to trigger the webhook.
+    1. Select **Deployments**, **Merge groups**, **Pull requests**, and **Pushes** as events to trigger the webhook.
 
     The repository webhook is required so that the Buildkite GitHub app does not need read access to your repository.
 
@@ -88,6 +86,19 @@ When you create a pull request, two builds are triggered: one for the pull reque
 
 > 📘 Webhook events from GitHub pull requests that trigger Buildkite pipeline builds
 > A Buildkite pipeline's build can be triggered by pull request-related events, such as when a pull request (PR) is opened, a PR's stage is changed from **Draft** to **Open** (using **Ready for review**), and when a PR's labels are changed (if this setting is enabled in your pipeline's settings).
+
+## Running builds on merge queues
+
+To enable merge queue builds, edit the GitHub settings for the pipeline and select **Build merge queues**.
+
+> 🚧 Ensure GitHub webhook has _Merge groups_ events enabled
+> Buildkite relies on receiving `merge_group` webhook events from GitHub to create builds for merge groups in the merge queue. Ensure your pipeline's [webhook](/docs/pipelines/source-control/github#set-up-a-new-pipeline-for-a-github-repository) has the _Merge groups_ event enabled before enabling merge queue builds.
+
+Enabling this will prevent ordinary code pushes to `gh-readonly-queue/*` branches from creating builds, instead builds will be created in response to `merge_group` webhook events from GitHub. Merge queue builds ignore any pipeline-level branch filter settings and do not support [skipping via a commit message](/docs/pipelines/configure/skipping#ignore-a-commit).
+
+To cancel running builds when the corresponding GitHub merge queue entry is destroyed, select the **Cancel builds for destroyed merge groups** option. The way the agent handles the [`if_changed` attribute](/docs/agent/v3/cli-pipeline#apply-if-changed) during pipeline uploads can also be influenced via the **Use base commit when making `if_changed` comparisons** setting.
+
+For more information about the interaction between GitHub merge queues and Buildkite, see our [merge queue tutorial](/docs/pipelines/tutorials/github-merge-queue).
 
 ## Running builds on git tags
 
@@ -256,6 +267,9 @@ After creating the GitHub App, you can install this app into your account. To in
 The GitHub documentation describes the [process](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-an-installation-access-token-for-a-github-app#generating-an-installation-access-token) of generating a JWT and then exchanging it for an installation access token. There are a few examples available that show how you can [generate a JWT](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-json-web-token-jwt-for-a-github-app#generating-a-json-web-token-jwt) using some common programming languages. The example that follows will be using Bash to configure a `pre-checkout` [agent hook](/docs/agent/v3/hooks#hook-locations-agent-hooks).
 
 #### Configure agent hook
+
+> 📘 OpenSSL package requirement
+> The `pre-checkout` hook example below requires the `openssl` package to be installed and available to the Buildkite Agent performing the checkout.
 
 In order to have the agent generate a GitHub App installation token, add the following code to your [agent hooks directory](/docs/agent/v3/hooks#hook-locations) as a `pre-checkout` hook, configuring the variables at the beginning of the hook with the GitHub App's Client ID (`client_id`), Installation ID (`installation_id`), and Buildkite Secret name (`private_key_secret_name`):
 

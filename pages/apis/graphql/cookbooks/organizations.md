@@ -39,6 +39,20 @@ query getOrgMembers {
 }
 ```
 
+## Get the number of organization members
+
+Get the total number of members in the organization. Regardless of the value you enter for `members` in the query, the output of the query will provide the actual number of members in the organization.
+
+```graphql
+query getOrgMembersCount {
+  organization(slug: "org-slug") {
+    members(first:1) {
+      count
+    }
+  }
+}
+```
+
 ## Search for organization members
 
 Look up organization members using their email address.

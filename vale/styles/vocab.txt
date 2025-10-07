@@ -12,6 +12,9 @@ APIs
 apk
 APM
 applesimutils
+Amazon ECR
+Amazon Elastic Continer Registry
+Anthropic's
 Aqua
 architecting
 Argo
@@ -36,14 +39,19 @@ Backstage
 Backstage Software Catalog
 Basecamp
 Basscss
+Bayesian
 Bazel
 bazelisk
 Bitium
+Bitbucket
 bktec
+bktec's
 boolean
 Boomper
 Buildbox
 buildevents
+Buildah
+BuildKit
 Buildkite
 Buildkite's
 buildscript
@@ -53,6 +61,7 @@ carthage
 CCMenu
 ccnet
 CCTray
+Chainguard
 chatbot
 chroot
 chroots
@@ -75,14 +84,18 @@ completion_watcher
 composable
 config
 configmap
+Containerfile
+Containerfiles
 cpu
 cron
 crontab
 Crontab
 CVE
 CVEs
+daemonless
 Datadog
 Datadog's
+daemonless
 debuild
 declaratively
 deduper
@@ -96,14 +109,18 @@ discoverability
 distro
 distutils
 Dockerfile
+Dockerfiles
 Docker's
 Dockerfile
+Docker-in-Docker
 dogstatsd
 dotenv
 DSCs
 enqueued
+Entra
 enum
 env
+errored
 eval
 Eventbridge
 EventBridge
@@ -134,6 +151,7 @@ gpg
 Gradle
 gradle
 Gradle's
+graphql_id
 Graviton
 GRC
 gz
@@ -164,8 +182,10 @@ json
 junit
 JWT
 JWTs
+Kaniko
 keyserver
 keyservers
+keyless
 kotlin
 kubectl
 kustomize
@@ -175,6 +195,8 @@ LFS
 libpq
 linux
 llamasecret
+LLMs
+llvm
 macOS
 macos
 matchfile
@@ -185,6 +207,8 @@ misconfiguration
 mitigation
 mitigations
 monorepo
+mrkdwn
+multi-file
 mutex
 namespace
 namespaced
@@ -213,6 +237,7 @@ OTLP
 otlp
 overprivileged
 Pagerduty
+ptrace
 parsable
 parallelization
 pbuilder
@@ -232,6 +257,7 @@ podWatcher
 Postgres
 PowerShell
 PR's
+Prometheus
 protobuf
 preemptible
 prefill
@@ -243,6 +269,7 @@ pytest
 rbenv
 readme
 readmes
+rearchitect
 refetch
 refspec
 rehydrate
@@ -251,7 +278,10 @@ reimagined
 remediation
 remediations
 repo
+reprioritize
+reprioritizes
 resizable
+retrigger
 routable
 rpmbuild
 RSpec
@@ -260,6 +290,7 @@ runtimes
 rustup
 rvm
 sandboxed
+seccomp
 sed
 scriptwrapper
 SDK's
@@ -286,6 +317,7 @@ sre
 sso
 statefully
 stdout
+streamable
 stringified
 subcommand
 subcommands
@@ -305,6 +337,7 @@ tgz
 timeframe
 tmp
 tmux
+tokenization
 toolmantim
 tooltip
 TOTP's
@@ -321,6 +354,7 @@ unbuildable
 unclustered
 unencrypted
 unpatched
+unpermitted
 unreviewed
 unset
 unsets
@@ -337,7 +371,9 @@ uuid
 UUIDs
 uv
 vendored
+vfs
 virtualenv
+virtualized
 Vitest
 VMs
 VPC's
@@ -347,6 +383,7 @@ walkthrough
 webhook's
 webtask
 wget
+Windsurf's
 worktree
 workspace's
 xcbeautify
@@ -455,3 +492,9 @@ github
 landing_page_pipelines
 
 eg
+
+base_sha
+base_ref
+head_sha
+head_ref
+if_changed
