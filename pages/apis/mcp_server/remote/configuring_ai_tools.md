@@ -64,7 +64,7 @@ If you need more assistance with this process, follow Anthropic's guidelines for
 
 ## Cursor
 
-You can configure [Cursor](https://cursor.com/) with the remote Buildkite MCP server by adding the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json), which is usually located in your home directory's `.cursor` sub-directory.
+You can configure [Cursor](https://cursor.com/) with the remote Buildkite MCP server by adding the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcpjson), which is usually located in your home directory's `.cursor` sub-directory.
 
 <!--
 
