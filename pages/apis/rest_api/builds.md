@@ -4,16 +4,7 @@
 
 All builds have a _build ID_ (for example, `01908131-7d9f-495e-a17b-80ed31276810`), which is a unique value throughout the entire Buildkite platform, as well as a _build number_ (for example, `27`). A build number is unique to a pipeline, and its value is incremented with each build, although there may be occasional gaps.
 
-All API request types that relate specifically to pipeline builds themselves are listed on this page, and can be accessed through its **On this page** feature, where more details about each request type is provided. These request types may involve either single or multiple builds, and return either build ID or build number values, or both.
-
-On the other hand, the following API request types, which affect only a single build, accept the more human-readable build number (and the organization and pipeline it belongs to), _not_ the build ID:
-
-- [Get a build](#get-a-build)
-- [Cancel a build](#cancel-a-build)
-- [Rebuild a build](#rebuild-a-build)
-- This also includes API request types for other aspects associated with builds:
-    * [List artifacts for a build](/docs/apis/rest-api/artifacts#list-artifacts-for-a-build), along with several other [artifacts-related](/docs/apis/rest-api/artifacts) endpoints.
-    * [List annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build), along with several other [annotations-related](/docs/apis/rest-api/annotations) endpoints.
+Note that some API request types on this page, especially those involving only a single build, require using a build number rather than a build ID.
 
 ## List all builds
 
@@ -206,6 +197,8 @@ Success response: `200 OK`
 curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}"
 ```
+
+<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id' %>
 
 ```json
 {
@@ -564,6 +557,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/cancel"
 ```
 
+<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id' %>
+
 ```json
 {
   "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
@@ -712,6 +707,8 @@ Returns the newly created build.
 curl -H "Authorization: Bearer $TOKEN" \
   -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/rebuild"
 ```
+
+<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id' %>
 
 ```json
 {

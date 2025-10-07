@@ -28,6 +28,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations"
 ```
 
+<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id_with_link' %>
+
 ```json
 [
   {
