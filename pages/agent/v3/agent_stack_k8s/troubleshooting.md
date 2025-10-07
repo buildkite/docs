@@ -103,41 +103,43 @@ This will return the `100` newest created jobs for the `<cluster-id>` Cluster in
 
 ### Controller stops accepting new jobs from a cluster queue
 
-There may be some cases where some waiting jobs increase in the Buildkite UI, however, no new pods are created.
-Reviewing the Logs may show `max-in-flight reached` with counters not decreasing.
-Error may look like:
+Sometimes the count of jobs in the `waiting` state may increase in the Buildkite UI, however, no new pods are created. Reviewing the logs may reveal `max-in-flight reached` error with counters not decreasing.
+
+This is how the error may appear in the logs:
 
 ```
 DEBUG	limiter	scheduler/limiter.go:77	max-in-flight reached	{"in-flight": 25}
 ```
 
-#### Some initial steps to help
+#### Initial troubleshooting steps
 
-1. Enable debug log and look for errors related to `max-in-flight` reached
-1. Confirm no new Kubernetes jobs are created while the UI shows jobs waiting
+1. Enable the debug log and look for errors related to `max-in-flight` reached.
+1. Confirm no new Kubernetes jobs are created while the UI shows jobs waiting.
 
 #### Workaround
-Execute `kubectl -n buildkite rollout restart deployment agent-stack-k8s` to restart the controller pod and clear the the “max-in-flight reached” condition that allows scheduling to resume
 
-#### Solution
-[Upgrade](https://github.com/buildkite/agent-stack-k8s/releases) to the latest controller release if using any version less than [v0.2.7](https://github.com/buildkite/agent-stack-k8s/releases/tag/v0.27.0)
+Execute `kubectl -n buildkite rollout restart deployment agent-stack-k8s` to restart the controller pod and clear the the `max-in-flight reached` condition which will allow scheduling to resume.
 
-### Wrong exit code affecting auto job retries
+#### Fix
 
-Error code from the Kubernetes pods may not be passed through the agent preventing the use of exit based retries. The error could look like below:
+[Upgrade](https://github.com/buildkite/agent-stack-k8s/releases) to the latest version of the controller if you are using any version older than [v0.2.7](https://github.com/buildkite/agent-stack-k8s/releases/tag/v0.27.0).
+
+### Wrong exit code affects auto job retries
+
+Error code from the Kubernetes pods may not be passed through the agent preventing the use of exit-based retries. This is what the error could look like:
 
 ```
 The following init containers failed:
 
  CONTAINER   EXIT CODE  SIGNAL  REASON                  MESSAGE                                                        
  My-agent        137       0  ContainerStatusUnknown  The container could not be located when the pod was terminated
- ```
+```
 
-A scenario would be if a user saw in the Buildkite UI that an exit code was `137`, however the exit code emitted from the container was `1`. This would prevent the kickoff of retries that were configured for the exit code `1`.
+Such a scenario would take place if in the Buildkite UI the exit code was `137`, however the exit code emitted from the container was `1`. As a result, the kickoff of retries will not happen if they were configured to happen for the exit code `1`.
 
 #### Workaround
-A workaround that could help here is to simply add a retry rule for all stack level failures.
-An example of the configuration would look like this:
+
+Add a retry rule for all stack-level failures. An example of such configuration would look like this:
 
 ```
 retry:
@@ -145,5 +147,6 @@ retry:
     limit: 3
   ```
 
- #### Fix:
- Upgrading to version [v.0.29.0](https://github.com/buildkite/agent-stack-k8s/releases/tag/v0.29.0) would be the recommended action here as a "stack_error" exit reason was added to the agent, to provide better visibility to stack-level errors.
+#### Fix
+
+Upgrading to version [v.0.29.0](https://github.com/buildkite/agent-stack-k8s/releases/tag/v0.29.0) would be the recommended action here as a "stack_error" exit reason was added to the agent, to provide better visibility to stack-level errors.
