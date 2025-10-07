@@ -389,7 +389,7 @@ You can configure ToolHive to run your local Buildkite MCP server from its regis
     thv run --secret buildkite-api-key,target=BUILDKITE_API_TOKEN buildkite
     ```
 
-You can also configure ToolHive to run your local Buildkite MCP server from its registry using the ToolHive interface. To do this, ensure you have installed TooHive's [Desktop app](https://toolhive.dev/download.html) and do the following:
+You can also configure ToolHive to run your local Buildkite MCP server from its registry using the ToolHive interface. To do this, ensure you have installed TooHive's [Desktop app](https://toolhive.dev/download) and do the following:
 
 1. Access [ToolHive's **Secrets** page](https://docs.stacklok.com/toolhive/guides-ui/secrets-management#manage-secrets).
 
