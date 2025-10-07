@@ -83,6 +83,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts"
 ```
 
+<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id_with_link' %>
+
 ```json
 [
   {
@@ -113,6 +115,8 @@ Success response: `200 OK`
 curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts/{id}"
 ```
+
+<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id_with_link' %>
 
 ```json
 {
@@ -146,6 +150,8 @@ You should assume the URL returned will only be valid for 60 seconds, unless you
 curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts/{id}/download"
 ```
+
+<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id_with_link' %>
 
 ```json
 {
