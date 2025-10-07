@@ -57,7 +57,7 @@ To create a new self-hosted agent queue using the Buildkite interface:
 
 ### Using the REST API
 
-To [create a new self-hosted agent queue](/docs/apis/rest-api/clusters#queues-create-a-self-hosted-queue) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+To [create a new self-hosted agent queue](/docs/apis/rest-api/clusters/queues#create-a-self-hosted-queue) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```curl
 curl -H "Authorization: Bearer $TOKEN" \
@@ -149,7 +149,7 @@ To create a new Buildkite hosted queue using the Buildkite interface:
 
 ### Using the REST API
 
-To [create a new Buildkite hosted queue](/docs/apis/rest-api/clusters#queues-create-a-buildkite-hosted-queue) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+To [create a new Buildkite hosted queue](/docs/apis/rest-api/clusters/queues#create-a-buildkite-hosted-queue) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```curl
 curl -H "Authorization: Bearer $TOKEN" \

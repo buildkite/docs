@@ -12,6 +12,8 @@ APIs
 apk
 APM
 applesimutils
+Amazon ECR
+Amazon Elastic Continer Registry
 Anthropic's
 Aqua
 architecting
@@ -48,6 +50,8 @@ boolean
 Boomper
 Buildbox
 buildevents
+Buildah
+BuildKit
 Buildkite
 Buildkite's
 buildscript
@@ -57,6 +61,7 @@ carthage
 CCMenu
 ccnet
 CCTray
+Chainguard
 chatbot
 chroot
 chroots
@@ -79,14 +84,18 @@ completion_watcher
 composable
 config
 configmap
+Containerfile
+Containerfiles
 cpu
 cron
 crontab
 Crontab
 CVE
 CVEs
+daemonless
 Datadog
 Datadog's
+daemonless
 debuild
 declaratively
 deduper
@@ -100,8 +109,10 @@ discoverability
 distro
 distutils
 Dockerfile
+Dockerfiles
 Docker's
 Dockerfile
+Docker-in-Docker
 dogstatsd
 dotenv
 DSCs
@@ -109,6 +120,7 @@ enqueued
 Entra
 enum
 env
+errored
 eval
 Eventbridge
 EventBridge
@@ -170,8 +182,10 @@ json
 junit
 JWT
 JWTs
+Kaniko
 keyserver
 keyservers
+keyless
 kotlin
 kubectl
 kustomize
@@ -223,6 +237,7 @@ OTLP
 otlp
 overprivileged
 Pagerduty
+ptrace
 parsable
 parallelization
 pbuilder
@@ -275,6 +290,7 @@ runtimes
 rustup
 rvm
 sandboxed
+seccomp
 sed
 scriptwrapper
 SDK's
@@ -338,6 +354,7 @@ unbuildable
 unclustered
 unencrypted
 unpatched
+unpermitted
 unreviewed
 unset
 unsets
@@ -354,6 +371,7 @@ uuid
 UUIDs
 uv
 vendored
+vfs
 virtualenv
 virtualized
 Vitest
