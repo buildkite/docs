@@ -189,6 +189,8 @@
               path: "agent/v3/agent-stack-k8s/sidecars"
             - name: "Kubernetes PodSpec"
               path: "agent/v3/agent-stack-k8s/podspec"
+            - name: "Pod templates"
+              path: "agent/v3/agent-stack-k8s/pod-template"
             - name: "Container resource limits"
               path: "agent/v3/agent-stack-k8s/container-resource-limits"
             - name: "Volume mounts"
