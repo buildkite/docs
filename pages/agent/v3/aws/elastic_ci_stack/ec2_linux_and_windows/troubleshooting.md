@@ -9,7 +9,7 @@ Infrastructure as code isn't always easy to troubleshoot, but here are some ways
 Elastic CI Stack for AWS sends logs to various CloudWatch log streams:
 
 * Buildkite Agent logs get sent to the `buildkite/buildkite-agent/{instance_id}` log stream. If there are problems within the agent itself, the agent logs should help diagnose.
-* Output from an Elastic CI Stack for AWS instance's startup script ([Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/linux/conf/bin/bk-install-elastic-stack.sh) or [Windows](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/windows/conf/bin/bk-install-elastic-stack.ps1)) get sent to the `/buildkite/elastic-stack/{instance_id}` log stream. If an instance is failing to launch cleanly, it's often a problem with the startup script, making this log stream especially useful for debugging problems with the Elastic CI Stack for AWS.
+* Output from an Elastic CI Stack for AWS instance's startup script ([Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/linux/stack/conf/bin/bk-install-elastic-stack.sh) or [Windows](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/windows/stack/conf/bin/bk-install-elastic-stack.ps1)) get sent to the `/buildkite/elastic-stack/{instance_id}` log stream. If an instance is failing to launch cleanly, it's often a problem with the startup script, making this log stream especially useful for debugging problems with the Elastic CI Stack for AWS.
 
 Additionally, on Linux instances only:
 
@@ -20,7 +20,7 @@ On Windows instances only:
 
 * Logs from the UserData execution process (similar to the `/buildkite/cloud-init/output` group above) are sent to the `/buildkite/EC2Launch/UserdataExecution/{instance_id}` log stream.
 
-There are a couple of other log groups that the Elastic CI Stack for AWS sends logs to, but their use cases are pretty specific. For a full accounting of what logs are sent to CloudWatch, see the config for [Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/linux/conf/cloudwatch-agent/config.json) and [Windows](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/windows/conf/cloudwatch-agent/amazon-cloudwatch-agent.json).
+There are a couple of other log groups that the Elastic CI Stack for AWS sends logs to, but their use cases are pretty specific. For a full accounting of what logs are sent to CloudWatch, see the config for [Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/linux/stack/conf/cloudwatch-agent/amazon-cloudwatch-agent.json) and [Windows](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/windows/stack/conf/cloudwatch-agent/amazon-cloudwatch-agent.json).
 
 ## Collecting logs using script
 
