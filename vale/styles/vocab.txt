@@ -51,6 +51,8 @@ boolean
 Boomper
 Buildbox
 buildevents
+Buildah
+BuildKit
 Buildkite
 Buildkite's
 buildscript
@@ -84,6 +86,8 @@ completion_watcher
 composable
 config
 configmap
+Containerfile
+Containerfiles
 cpu
 cron
 crontab
@@ -93,6 +97,7 @@ CVEs
 daemonless
 Datadog
 Datadog's
+daemonless
 debuild
 declaratively
 deduper
@@ -106,6 +111,7 @@ discoverability
 distro
 distutils
 Dockerfile
+Dockerfiles
 Docker's
 Dockerfile
 Docker-in-Docker
@@ -116,6 +122,7 @@ enqueued
 Entra
 enum
 env
+errored
 eval
 Eventbridge
 EventBridge
@@ -358,6 +365,7 @@ unbuildable
 unclustered
 unencrypted
 unpatched
+unpermitted
 unreviewed
 unset
 unsets
@@ -374,6 +382,7 @@ uuid
 UUIDs
 uv
 vendored
+vfs
 virtualenv
 virtualized
 Vitest

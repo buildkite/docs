@@ -149,13 +149,13 @@ These MCP tools are used to retrieve details about the [clusters](/docs/pipeline
         "tool": "list_cluster_queues",
         "description": "List all queues in a cluster with their keys, descriptions, dispatch status, and agent configuration.",
         "link_text": "List queues",
-        "link": "/docs/apis/rest-api/clusters#queues-list-queues"
+        "link": "/docs/apis/rest-api/clusters/queues#list-queues"
       },
       {
         "tool": "get_cluster_queue",
         "description": "Get detailed information about a specific queue including its key, description, dispatch status, and hosted agent configuration.",
         "link_text": "Get a queue",
-        "link": "/docs/apis/rest-api/clusters#queues-get-a-queue"
+        "link": "/docs/apis/rest-api/clusters/queues#get-a-queue"
       }
     ].select { |field| field[:tool] }.each do |field| %>
       <tr>

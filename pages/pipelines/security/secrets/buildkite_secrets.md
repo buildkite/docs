@@ -135,6 +135,19 @@ Buildkite secrets are designed, with the following controls in place:
 - All access to the secrets are logged.
 - Employee access to secrets is strictly limited and audited.
 
+## Manage secrets using the REST API
+
+You can manage Buildkite secrets programmatically using the [Buildkite REST API](/docs/apis/rest-api/clusters/secrets). The API endpoint allows you to:
+
+- List all secrets in a cluster
+- Get details for a specific secret
+- Create new secrets
+- Update secret details (description and access policy)
+- Update secret values
+- Delete secrets
+
+For detailed information about available endpoints, authentication, and examples, see the [cluster's secrets endpoint of the REST API documentation](/docs/apis/rest-api/clusters/secrets).
+
 ## Best practices
 
 Buildkite secrets are stored by Buildkite, and Buildkite manages the keys used to encrypt and decrypt these secrets stored in its secrets management service, both at rest and in transit. You should implement additional controls to manage the lifecycle of secrets stored within Buildkite secrets, in addition to any monitoring capability you may require. For example:

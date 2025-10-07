@@ -6,7 +6,7 @@ This tutorial demonstrates how to deploy Lambda functions to [AWS Lambda](https:
 
 Before deploying to AWS Lambda from Buildkite Pipelines, ensure the following requirements are met:
 
-- An AWS account with appropriate [Lambda permissions](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html) (further explained in [Required AWS IAM permissions](/docs/pipelines/deployments/to-aws-lambda#required-aws-iam-permissions))
+- An AWS account with appropriate [Lambda permissions](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html) (further explained in [Required AWS IAM permissions](/docs/pipelines/deployments/to-aws-lambda#before-starting-required-aws-iam-permissions))
 - [AWS CLI v2](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) installed on Buildkite Agents
 - [`jq` command-line tool](https://jqlang.org/) available
 - A Lambda function already created in AWS (or permission to create one)
