@@ -83,7 +83,7 @@ Required scope: `read_suites`
 
 Success response: `200 OK`
 
-## Add/remove labels from a test
+## Add or remove labels from a test
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
