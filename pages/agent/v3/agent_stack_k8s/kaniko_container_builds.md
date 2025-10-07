@@ -41,6 +41,9 @@ steps:
 Note: We are using the `debug` tag for the `executor` image, as the `latest` tag does not have `shell` in it, and with `agent-stack-k8s`, we would need shell. To use the `latest` tag, generate a custom image of Kaniko executor with a `shell` included.
 
 ### Build image and push to Google Artifact Registry
+In this section, we will look at how to use Kaniko executor to build Docker images and push to Google Artifact Registry. In order to push images to Google Artifact Registry, we need to have a Kubernetes secret that will have the token that provides the required permissions. For detailed steps on what permissions are necessary and how to create the secret, refer to the [secret creation documentation](https://github.com/chainguard-dev/kaniko?tab=readme-ov-file#kubernetes-secret). 
+
+Once the secret is created, mount the secret into the container then export the secret as part of env `GOOGLE_APPLICATION_CREDENTIALS` into the executor.
 
 ```yaml
 agents:
@@ -74,6 +77,9 @@ steps:
 ```
 
 ### Build image and push to Elastic Container Registry
+In this section, we will look at how to push an image to Elastic Container Registry. Similar to the above section, need to set up [ECR credentials](https://github.com/chainguard-dev/kaniko?tab=readme-ov-file#pushing-to-amazon-ecr)
+
+The example below also shows how we expose the secret by exporting them to the Kaniko executor.
 
 ```yaml
 agents:
