@@ -1,10 +1,10 @@
 # Kaniko - Build Images in Kubernetes
 
-[Kaniko](https://github.com/GoogleContainerTools/kaniko/tree/main#kaniko---build-images-in-kubernetes) is a tool to build container images from a Dockerfile, inside a container or Kubernetes cluster. Kaniko doesn't depend on a Docker daemon and executes each command within a Dockerfile completely in userspace. This enables building container images in environments that can't easily or securely run a Docker daemon, such as a standard Kubernetes cluster.
+[Kaniko](https://github.com/GoogleContainerTools/kaniko/tree/main#kaniko---build-images-in-kubernetes) is a tool to build container images from a Dockerfile, inside a container or Kubernetes cluster. Kaniko doesn't depend on a Docker daemon and executes each command within a Dockerfile completely in user space. This enables building container images in environments that can't easily or securely run a Docker daemon, such as a standard Kubernetes cluster.
 
-Kaniko is meant to be run as an image: `gcr.io/kaniko-project/executor`. The kaniko executor image is responsible for building an image from a Dockerfile and pushing it to a registry. Within the executor image, we extract the filesystem of the base image (the `FROM` image in the Dockerfile). We then execute the commands in the Dockerfile, snapshotting the filesystem in userspace after each one. After each command, we append a layer of changed files to the base image (if one exists) and update the image metadata.
+Kaniko is meant to be run as an image: `gcr.io/kaniko-project/executor`. The Kaniko executor image is responsible for building an image from a Dockerfile and pushing it to a registry. Within the executor image, we extract the filesystem of the base image (the `FROM` image in the Dockerfile). We then execute the commands in the Dockerfile, taking snapshots of the filesystem in user space after each one. After each command, we append a layer of changed files to the base image (if one exists) and update the image metadata.
 
-## Using Kaniko with Agent Stack Kubernetes
+## Using Kaniko with Agent Stack for Kubernetes
 
 In this section, we will look at how to use Kaniko executor to perform the following:
 
