@@ -447,7 +447,7 @@ In the pipeline you're triggering, you will be able to use the meta-data that yo
 
 When using block steps with form fields, it's important to understand how the `required` and the `default` attributes interact with metadata validation.
 
-Setting `required: false` only affects the UI. It makes the field appear optional and allows users to submit the form with an empty value. However, the metadata key will still be created in the build metadata store. If you also set `default: ""`, the metadata key will exist with an empty string. Some `buildkite-agent` commands (for example, `buildkite-agent meta-data set`) reject empty or whitespace-only values and fail at runtime.
+Setting `required: false` only affects the UI by making the field appear optional and allowing users to submit the form with an empty value. However, the metadata key will still be created in the build's metadata store. If you also set `default: ""`, the metadata key will exist with an empty string. This is important to remember as some `buildkite-agent` commands (for example, `buildkite-agent meta-data set`) will reject empty or whitespace-only values and fail at runtime.
 
 Recommended approach:
 
