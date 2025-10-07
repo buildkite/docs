@@ -187,7 +187,7 @@ notify:
 
 ## GitHub commit status
 
-Pipelines using [a GitHub repository](/docs/pipelines/source_control/github) have built-in [GitHub commit statuses](https://docs.github.com/en/rest/commits/statuses) integration. However, you can add custom commit statuses using notifications.
+Pipelines using [a GitHub repository](/docs/pipelines/source_control/github) have built-in [GitHub commit status](https://docs.github.com/en/rest/commits/statuses) integration. However, you can add custom commit statuses using notifications.
 
 GitHub commit statuses appear as simple pass/fail indicators on commits and pull requests. For more advanced features like detailed output and annotations, consider using a [GitHub check](#github-check) instead.
 
