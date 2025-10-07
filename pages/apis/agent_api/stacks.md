@@ -33,13 +33,12 @@ The number of active stacks per organization is limited, and each stack is subje
 
 Request payload:
 
-| Field       | Type   | Required | Description                                  |
-| ----------- | ------ | -------- | -------------------------------------------- |
-| `key`       | string | Yes      | Unique identifier for the stack in the org.  |
-| `type`      | string | Yes      | Type of stack. 3rd party stack should use "custom". |
-| `queue_key` | string | Yes      | Cluster queue key the stack plans to serve. |
-| `metadata`  | key-value object | Yes       | Additional metadata for the stack            |
-
+| Field       | Type             | Required | Description                                         |
+| ----------- | ---------------- | -------- | --------------------------------------------------- |
+| `key`       | string           | Yes      | Unique identifier for the stack in the org.         |
+| `type`      | string           | Yes      | Type of stack. 3rd party stack should use "custom". |
+| `queue_key` | string           | Yes      | Cluster queue key the stack plans to serve.         |
+| `metadata`  | key-value object | Yes      | Additional metadata for the stack                   |
 
 Example:
 
@@ -98,10 +97,9 @@ To avoid starting duplicate jobs, we offer some utility APIs below.
 
 Query parameters:
 
-
-| Parameter   | Type    | Required | Description                      |
-| ----------- | ------- | -------- | -------------------------------- |
-| `queue_key` | string  | Yes       | Filter jobs by queue key         |
+| Parameter   | Type    | Required | Description                                |
+| ----------- | ------- | -------- | ------------------------------------------ |
+| `queue_key` | string  | Yes      | Filter jobs by queue key                   |
 | `limit`     | integer | No       | Maximum number of jobs to return, max 1000 |
 
 Example:
@@ -181,10 +179,10 @@ Alternatively, a stack implementation can maintain its own persistent layer to k
 
 Request payload:
 
-| Field                        | Type          | Required | Description                                    |
-| ---------------------------- | ------------- | -------- | ---------------------------------------------- |
-| `job_uuids`                  | array[string] | Yes      | Array of job UUIDs to reserve                  |
-| `reservation_expiry_seconds` | integer       | No       | Reservation duration in seconds                |
+| Field                        | Type          | Required | Description                     |
+| ---------------------------- | ------------- | -------- | ------------------------------- |
+| `job_uuids`                  | array[string] | Yes      | Array of job UUIDs to reserve   |
+| `reservation_expiry_seconds` | integer       | No       | Reservation duration in seconds |
 
 Example:
 
@@ -254,59 +252,109 @@ curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
 
 Success response: `200 OK`
 
-## Fail a job
+## Finish a job
 
-Mark a job as failed when the stack cannot execute it.
-In some situations, an agent cannot be spawned due to infrastructure or other issues. In this case, for each job, a stack can call this API at most once to fail the job with error details.
-`error_detail` can be an arbitrary string less than 4KB.
+Mark a job as finished when the stack cannot or will not execute it, or when it has completed successfully without spawning an agent.
+In some situations, an agent cannot be spawned due to infrastructure or other issues. In this case, for each job, a stack can call this API at most once to finish the job with details.
 
 This is a critical API to shorten the feedback cycle to end users.
 For example, in the Kubernetes stack, if a pod has an image pull issue, the k8s stack uses this API to fail a job with feedback.
 
-A job that is failed with this approach will have a special error popup on the Buildkite Build page.
+A job that is finished with this approach will have a special notification on the Buildkite Build page.
 
 Request payload:
 
-| Field          | Type    | Required | Description                         |
-| -------------- | ------- | -------- | ----------------------------------- |
-| `exit_status`  | integer | Yes      | Exit status code for the failed job. Cannot be 0 |
-| `error_detail` | string  | Yes       | Error description (max 4KB)         |
-
+| Field         | Type    | Required | Description                                                                                            |
+| ------------- | ------- | -------- | ------------------------------------------------------------------------------------------------------ |
+| `exit_status` | integer | No       | Exit status code for the job. Defaults to -1 if not provided. Use 0 to indicate successful completion. |
+| `detail`      | string  | Yes      | Description of why the job finished (max 4KB)                                                          |
 
 Example:
 
 ```bash
 curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
   -H "Content-Type: application/json" \
-  -X POST "https://agent.buildkite.com/v3/stacks/my-kubernetes-stack/jobs/$JOB_UUID/fail" \
+  -X POST "https://agent.buildkite.com/v3/stacks/my-kubernetes-stack/jobs/$JOB_UUID/finish" \
   -d '{
     "exit_status": -1,
-    "error_detail": "Stack failed to start agent: insufficient resources"
+    "detail": "Stack failed to start agent: insufficient resources"
   }'
 ```
 
 Success response: `200 OK`
 
-## Create stack notification
+## Create stack notifications
 
 In situations when a stack may take more than a few seconds to provision infrastructure for a job, or when the stack is waiting for some external conditions to be satisfied, a stack can give short textual notifications to the Buildkite Build page.
 This can help with visibility and debugging.
 A notification `detail` can be a short string.
-A job cannot have more than 50 stack notifications, so a stack should use this API judiciously.
+A job cannot have more than 100 stack notifications, so a stack should use this API judiciously.
+
+This endpoint supports batch creation of notifications for multiple jobs. You can send up to 1000 notifications in a single request.
 
 ### Request payload
 
-| Field    | Type   | Required | Description                                 |
-| -------- | ------ | -------- | ------------------------------------------- |
-| `detail` | string | Yes      | Short notification message (max length 255) |
+| Field           | Type          | Required | Description                                          |
+| --------------- | ------------- | -------- | ---------------------------------------------------- |
+| `notifications` | array[object] | Yes      | Array of notification objects (max 1000 per request) |
+
+Each notification object:
+
+| Field       | Type   | Required | Description                                   |
+| ----------- | ------ | -------- | --------------------------------------------- |
+| `job_uuid`  | string | Yes      | UUID of the job to attach the notification to |
+| `detail`    | string | Yes      | Short notification message (max length 256)   |
+| `timestamp` | string | No       | ISO 8601 timestamp (defaults to current time) |
+
+### Constraints
+
+- Maximum 1000 notifications per request
+- Maximum 100 notifications per job
+- `detail` must not be empty and cannot exceed 256 characters
+- `timestamp` cannot be in the future or before job creation time
+- Notifications cannot be sent for jobs that finished more than 300 seconds ago
 
 ```bash
 curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
   -H "Content-Type: application/json" \
-  -X POST "https://agent.buildkite.com/v3/stacks/my-kubernetes-stack/jobs/$JOB_UUID/stack_notifications" \
+  -X POST "https://agent.buildkite.com/v3/stacks/my-kubernetes-stack/notifications" \
   -d '{
-    "detail": "Pod is starting up"
+    "notifications": [
+      {
+        "job_uuid": "01234567-89ab-cdef-0123-456789abcdef",
+        "detail": "Pod is starting up"
+      },
+      {
+        "job_uuid": "fedcba98-7654-3210-fedc-ba9876543210",
+        "detail": "Waiting for resources",
+        "timestamp": "2023-10-01T12:00:00.000Z"
+      }
+    ]
   }'
 ```
 
+Response example with partial success:
+
+```json
+{
+  "errors": [
+    {
+      "error": "detail is required",
+      "indexes": [2]
+    },
+    {
+      "error": "job stack notification count exceeded",
+      "indexes": [5]
+    }
+  ]
+}
+```
+
 Success response: `200 OK`
+
+The response includes an `errors` array. Each error object contains:
+
+- `error`: Description of the validation failure
+- `indexes`: Array of notification indexes (0-based) that failed with this error
+
+Valid notifications are created even if some fail validation. An empty `errors` array indicates all notifications were created successfully.
