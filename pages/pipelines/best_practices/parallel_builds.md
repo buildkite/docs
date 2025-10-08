@@ -150,3 +150,69 @@ In addition to the [Elastic CI Stack for AWS](/docs/quickstart/elastic-ci-stack-
 - [buildkite-agent-metrics](https://github.com/buildkite/buildkite-agent-metrics) tool allow you to collect your organization's Buildkite metrics and report them to AWS CloudWatch and StatsD.
 
 Using these tools you can automate your build infrastructure, scale your agents based on demand, and massively reduce build times using job parallelism.
+
+### Overloaded single steps
+
+Avoid cramming unrelated tasks into one step, for example:
+
+```
+# ❌ Bad - Mixing unrelated concerns
+- label: "Build and security scan and deploy"
+  command: |
+    docker build -t myapp .
+    trivy image myapp
+    docker push myapp:latest
+    kubectl apply -f k8s/deployment.yaml
+
+# ✅ Good - Separate logical concerns
+- label: ":docker: Build application"
+  command: "docker build -t myapp ."
+
+- label: ":shield: Security scan"
+  command: "trivy image myapp"
+  depends_on: "build"
+
+- label: ":rocket: Deploy to production"
+  command: |
+    docker push myapp:latest
+    kubectl apply -f k8s/deployment.yaml
+  depends_on:
+    - "build"
+    - "security-scan"
+```
+
+The "bad" example crams together building, security scanning, and deployment which are three totally different concerns that you'd want to handle separately, potentially with different permissions, agents, and failure handling strategies.
+
+Cramming more tasks into one step reduces the ability of the pipeline to scale and take advantage of multiple agents.
+Splitting steps makes it logically easier to understand and also takes advantage of Buildkite's scalable agents.
+Also makes it easier to troubleshoot when something breaks in the pipeline.
+
+### Controlled parallelism and concurrency
+
+Balance parallel execution for speed while managing resource consumption and costs:
+
+**Step-level parallelism (`parallelism` attribute):**
+
+* Set reasonable limits on the `parallelism` attribute for individual steps based on your agent capacity.
+* Consider that each parallel job consumes an agent, so `parallelism: 50` requires 50 available agents.
+* Monitor queue wait times when using high parallelism values to ensure adequate agent availability.
+
+**Build-level concurrency:**
+
+* While running jobs in parallel across different steps speeds up builds, be mindful of your total agent pool capacity.
+* Buildkite has default limits on concurrent steps per build to prevent resource exhaustion.
+* Design pipeline dependencies (`wait` steps) to balance speed with resource availability.
+
+**Example of controlled parallelism:**
+```yaml
+steps:
+  - label: "Unit Tests"
+    command: npm test
+    parallelism: 10  # Reasonable for most agent pools
+
+  - wait
+
+  - label: "Integration Tests"
+    command: npm run test:integration
+    parallelism: 5   # Lower parallelism for resource-intensive tests
+```

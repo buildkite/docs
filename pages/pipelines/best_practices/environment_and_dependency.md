@@ -11,3 +11,17 @@
 * Lock versions: use lockfiles and pin versions to ensure repeatable builds (you can also [pin plugin versions](/docs/pipelines/integrations/plugins/using#pinning-plugin-versions)).
 * Cache packages: reuse downloads where possible to reduce network overhead.
 * Validate integrity: use checksums or signatures to confirm dependency authenticity.
+
+### Don't hard-code environment values
+
+Instead, inject via environment variables or pipeline metadata:
+
+```yaml
+# ❌ Bad
+command: "deploy.sh https://api.myapp.com/prod"
+
+# ✅ Good
+command: "deploy.sh $API_ENDPOINT"
+env:
+  API_ENDPOINT: "https://api.myapp.com/prod"
+```

@@ -36,3 +36,64 @@ Managing ephemeral infrastructure can be tough, and so we've [made it easy with 
 ### Utilize agent hooks in your architecture
 
 [Buildkite Agent hooks](/docs/agent/v3/hooks) can be very useful in structuring a pipeline. Instead of requiring all the code to be included in every repository, you can use lifecycle hooks to pull down different repositories, allowing you to create guardrails and reusable, immutable pieces of your pipeline for every job execution. They're a critical tool for compliance-heavy workloads and help to automate any setup or tear-down functions necessary when running jobs.
+
+### Wait steps for coordination
+
+Ensure multiple parallel jobs complete before proceeding:
+
+```yaml
+steps:
+  - label: ":hammer: Build"
+    command: "make build"
+    parallelism: 3
+  - wait
+  - label: ":rocket: Deploy"
+    command: "make deploy"
+```
+
+### Graceful error handling
+
+Use `soft_fail` where failures are acceptable, but document why:
+
+```yaml
+steps:
+  - label: ":test_tube: Optional integration tests"
+    command: "make integration-tests"
+    soft_fail: true
+  - label: ":white_check_mark: Required unit tests"
+    command: "make unit-tests"
+```
+
+### Use block steps for approvals
+
+Require human confirmation before production deployment:
+
+```yaml
+steps:
+  - block: ":rocket: Deploy to production?"
+    branches: "main"
+    fields:
+      - select: "Environment"
+        key: "environment"
+        options:
+          - label: "Staging"
+            value: "staging"
+          - label: "Production"
+            value: "production"
+```
+
+### Canary releases in CI/CD
+
+Model partial deployments and staged rollouts directly in pipelines. See more in [Deployments](/docs/pipelines/deployments).
+
+### Pipeline-as-code reviews
+
+Require peer reviews for pipeline changes, just like application code.
+
+### Chaos testing
+
+Periodically inject failure scenarios (e.g., failing agents, flaky dependencies) to validate pipeline resilience.
+
+### Silent failures
+
+Never ignore failing steps without a clear follow-up.

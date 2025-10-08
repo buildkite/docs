@@ -32,3 +32,5 @@ Why: The greatest wins come from restoring dependency trees and Docker layers, n
     * Example: docker‑ecr‑cache plugin for layer reuse in [ECR/GCR](https://github.com/seek-oss/docker-ecr-cache-buildkite-plugin)
 
 Recommendation: Prefer hosted cache volumes for most hosted‑agent pipelines. Layer in key‑based cache where determinism and cross‑build control matter most (for example, lockfile‑keyed dependency caches).
+
+Maybe a note about how Buildkite artifacts could be used to "cache" common data between steps.
