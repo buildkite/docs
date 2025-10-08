@@ -94,6 +94,7 @@ exceptions:
   - ECR
   - EC2
   - Elastic
+  - Elastic Container Registry
   - Elastic CI Stack
   - Enterprise Premium Support
   - Entity Page
