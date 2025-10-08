@@ -9,51 +9,51 @@ Each toolset groups related MCP tools that interact with specific areas of the B
 <table>
   <thead>
     <tr>
-      <th style="width:20%">Toolset</th>
-      <th style="width:40%">Description</th>
-      <th style="width:40%">Tools</th>
+      <th style="width:15%">Toolset</th>
+      <th style="width:35%">Description</th>
+      <th style="width:50%">Tools</th>
     </tr>
   </thead>
   <tbody>
     <% [
       {
         "toolset": "clusters",
-        "description": "Cluster Management",
+        "description": "[Buildkite clusters](/docs/apis/mcp-server#available-mcp-tools-buildkite-clusters) management",
         "tools": "get_cluster, list_clusters, get_cluster_queue, list_cluster_queues"
       },
       {
         "toolset": "pipelines",
-        "description": "Pipeline Management",
+        "description": "[Pipelines](/docs/apis/mcp-server#available-mcp-tools-pipelines) management",
         "tools": "get_pipeline, list_pipelines, create_pipeline, update_pipeline"
       },
       {
         "toolset": "builds",
-        "description": "Build Operations",
+        "description": "[Builds](/docs/apis/mcp-server#available-mcp-tools-builds) operations",
         "tools": "list_builds, get_build, create_build, wait_for_build, get_jobs, unblock_job"
       },
       {
         "toolset": "artifacts",
-        "description": "Artifact Management",
+        "description": "[Artifacts](/docs/apis/mcp-server#available-mcp-tools-artifacts) management",
         "tools": "list_artifacts, get_artifact"
       },
       {
         "toolset": "logs",
-        "description": "Log Analysis",
+        "description": "[Logs](/docs/apis/mcp-server#available-mcp-tools-logs) processing",
         "tools": "search_logs, tail_logs, read_logs, get_logs_info"
       },
       {
         "toolset": "tests",
-        "description": "Test Engine",
+        "description": "[Test Engine](/docs/apis/mcp-server#available-mcp-tools-test-engine)",
         "tools": "list_test_runs, get_test_run, get_failed_executions, get_test"
       },
       {
         "toolset": "annotations",
-        "description": "Annotation Management",
+        "description": "[Annotations](/docs/apis/mcp-server#available-mcp-tools-annotations) management",
         "tools": "list_annotations"
       },
       {
         "toolset": "user",
-        "description": "User & Organization",
+        "description": "[User, authentication, and Buildkite organization](/docs/apis/mcp-server#available-mcp-tools-user-authentication-and-buildkite-organization)",
         "tools": "current_user, user_token_organization, access_token"
       }
     ].select { |field| field[:toolset] }.each do |field| %>
@@ -62,7 +62,7 @@ Each toolset groups related MCP tools that interact with specific areas of the B
           <code><%= field[:toolset] %></code>
          </td>
         <td>
-          <p><%= field[:description] %></p>
+          <p><%= render_markdown(text: field[:description]) %></p>
         </td>
         <td>
           <p><%= field[:tools].split(', ').map { |tool| "<code>#{tool}</code>" }.join(', ') %></p>

@@ -50,7 +50,7 @@ Buildkite also provides a version of the remote MCP server with read-only access
 https://mcp.buildkite.com/mcp/readonly
 ```
 
-This remote MCP server version issues a short-lived OAuth access token for your Buildkite user account, along with _read-only_ access permission scopes pre-set by the Buildkite platform. Hence, when using this remote MCP server, only [MCP tools](#available-mcp-tools) whose required [token scope](/docs/apis/managing-api-tokens#token-scopes) begins with `read_` are available.
+This remote MCP server version issues a short-lived OAuth access token for your Buildkite user account, along with _read-only_ access permission scopes pre-set by the Buildkite platform. Hence, when using this remote MCP server, only [MCP tools](#available-mcp-tools) whose required [token scope](/docs/apis/managing-api-tokens#token-scopes) begins with `read_` are available, as well as tools with no required scope specified.
 
 ### Local MCP server
 
@@ -82,10 +82,12 @@ The names of these tools (for example, `list_pipelines`) typically do not need t
 
 Learn more about MCP tools in the [Core Server Features](https://modelcontextprotocol.io/docs/learn/server-concepts#core-server-features) and [Tools](https://modelcontextprotocol.io/docs/learn/server-concepts#tools) sections of the [Understanding MCP servers](https://modelcontextprotocol.io/docs/learn/server-concepts) page in the [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro) docs.
 
+Once you have configured your [remote or local MCP server](/docs/apis/mcp-server#types-of-mcp-servers), you can then restrict its access to specific categories of tools using [toolsets](/docs/apis/mcp-server/toolsets).
+
 > 📘
 > While Buildkite's MCP server makes calls to the Buildkite REST API, note that in some cases, only a subset of the resulting fields are returned in the response to your AI tool or agent. This is done to reduce noise for your AI tool / agent, as well as reduce costs associated with text tokenization of the response.
 
-### User and authentication
+### User, authentication and Buildkite organization
 
 These MCP tools are associated with [authentication](/docs/apis#authentication) and relate to querying details about the access token's user and Buildkite organization they belong to.
 
@@ -128,7 +130,7 @@ These MCP tools are associated with [authentication](/docs/apis#authentication) 
   </tbody>
 </table>
 
-### Organizations and clusters
+### Buildkite clusters
 
 These MCP tools are used to retrieve details about the [clusters](/docs/pipelines/clusters/manage-clusters) and their [queues](/docs/pipelines/clusters/manage-queues) configured in your Buildkite organization. Learn more about clusters in [Clusters overview](/docs/pipelines/clusters).
 
