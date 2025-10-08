@@ -106,7 +106,7 @@ Example:
 
 ```bash
 curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
-  -X GET "https://agent.buildkite.com/v3/stacks/my-kubernetes-stack/scheduled_jobs?queue_key=default&limit=10"
+  -X GET "https://agent.buildkite.com/v3/stacks/my-kubernetes-stack/scheduled-jobs?queue_key=default&limit=10"
 ```
 
 ```json
@@ -189,7 +189,7 @@ Example:
 ```bash
 curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
   -H "Content-Type: application/json" \
-  -X PUT "https://agent.buildkite.com/v3/stacks/my-kubernetes-stack/scheduled_jobs/batch_reserve" \
+  -X PUT "https://agent.buildkite.com/v3/stacks/my-kubernetes-stack/scheduled-jobs/batch-reserve" \
   -d '{
     "job_uuids": [
       "01234567-89ab-cdef-0123-456789abcdef",
