@@ -33,6 +33,7 @@ link_checking_exemptions:
       - https://codepen.io/
       - https://www.java.com
 
+
   - name: ignore-api-401-unauthorized
     description: Ignore HTTP 401 Unauthorized on Buildkite API
     status_pattern: "401"

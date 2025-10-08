@@ -315,6 +315,7 @@ Sonoma
 Splitter's
 sre
 sso
+stack_error
 statefully
 stdout
 streamable
