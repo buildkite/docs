@@ -2,6 +2,101 @@
 
 All [Prometheus metrics](https://prometheus.io/) exported by the Agent Stack for Kubernetes controller begin with `buildkite_`. The second component of the metric name refers to the controller component that produces the metric.
 
+## How to enable Prometheus monitoring
+
+The Agent Stack for Kubernetes controller can expose Prometheus metrics for monitoring and observability. To enable Prometheus monitoring, complete these two steps:
+
+1. Enable metrics port exposure in the Helm chart.
+1. Create a PodMonitor resource for scraping.
+
+> 📘
+> The instructions that follow assume that you have [Prometheus Operator](https://prometheus-operator.dev/) installed in your [cluster](/docs/pipelines/clusters). If you're using a different Prometheus setup, you'll need to configure scraping manually.
+
+### Enabling metrics port exposure
+
+Configure the `prometheus-port` option in your Helm deployment to expose the metrics endpoint. You can use either the command-line or the value file approach.
+
+#### Command-line approach
+
+Use the following command to expose the metrics endpoint:
+
+```bash
+helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-k8s \
+    --namespace buildkite \
+    --create-namespace \
+    --set agentToken=<buildkite-cluster-agent-token> \
+    --set config.prometheus-port=8080
+```
+
+#### Values file approach
+
+Set the following configuration in your values file:
+
+```yaml
+# values.yml
+agentToken: "<buildkite-cluster-agent-token>"
+config:
+  prometheus-port: 8080
+  tags:
+    - queue=kubernetes
+```
+
+And run the following command:
+
+```bash
+helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-k8s \
+    --namespace buildkite \
+    --create-namespace \
+    --values values.yml
+```
+
+This exposes metrics on port 8080 at the `/metrics` endpoint within the controller pod.
+
+### Creating a PodMonitor for scraping
+
+If you're using [Prometheus Operator](https://prometheus-operator.dev/), create a `PodMonitor` resource to automatically scrape metrics from the controller:
+
+```yaml
+# buildkite-podmonitor.yml
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: buildkite-agent-stack
+  namespace: buildkite
+  labels:
+    app: buildkite-agent-stack
+spec:
+  selector:
+    matchLabels:
+      app: agent-stack-k8s  # Replace with your actual Helm release name followed by "-agent-stack-k8s"
+  podMetricsEndpoints:
+  - port: metrics
+    path: /metrics
+    interval: 30s
+```
+
+Apply the PodMonitor:
+
+```bash
+kubectl apply -f buildkite-podmonitor.yml
+```
+
+### Verification
+
+Verify that monitoring is working correctly:
+
+```bash
+# Check that the metrics port is exposed
+kubectl get pods -n buildkite -o wide
+kubectl port-forward -n buildkite deployment/agent-stack-k8s 8080:8080
+
+# In another terminal, test metrics endpoint
+curl http://localhost:8080/metrics
+
+# Verify PodMonitor is created and discovered
+kubectl get podmonitor -n buildkite
+```
+
 ## Notes on using the metrics
 
 Most metrics below are counter metrics, designed to be used in conjunction with the `rate` and a time window. These are named ending in `_total`.

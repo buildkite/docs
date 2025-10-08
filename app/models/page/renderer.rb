@@ -17,6 +17,7 @@ class Page::Renderer
     doc = add_automatic_ids_to_headings(doc)
     doc = add_heading_anchor_links(doc)
     doc = fix_curl_highlighting(doc)
+    doc = fix_yaml_highlighting(doc)
     doc = add_code_filenames(doc)
     doc = add_callout(doc)
     doc = decorate_external_links(doc)
@@ -118,6 +119,36 @@ class Page::Renderer
       node.replace(node.to_html.gsub(/\{.*?\}/mi) {|uri_template|
         %(<span class="o">) + uri_template + %(</span>)
       })
+    end
+
+    doc
+  end
+
+  def fix_yaml_highlighting(doc)
+    # Find code blocks that contain YAML content
+    doc.search('.//pre[contains(@class, "highlight")]').each do |pre|
+      code_block = pre.at('code')
+      next unless code_block
+
+      # Check if this looks like YAML content (contains common YAML patterns)
+      text_content = code_block.text
+      next unless text_content.match?(/^\s*(steps:|plugins:|commands:|label:)/m)
+
+      # Remove error styling from colons that follow Buildkite plugin patterns
+      # Pattern: <span class="s">plugin-name#version</span><span class="err">:</span>
+      code_block.inner_html = code_block.inner_html.gsub(
+        /(<span class="s">[^<]*#[^<]*<\/span>)<span class="err">:<\/span>/i,
+        '\1<span class="pi">:</span>'
+      )
+
+      # Remove error styling from standalone colons in YAML context
+      # Only if they're likely valid YAML colons (not actual errors)
+      code_block.inner_html = code_block.inner_html.gsub(
+        /<span class="err">:<\/span>/
+      ) do |match|
+        # Replace with normal punctuation indicator styling
+        '<span class="pi">:</span>'
+      end
     end
 
     doc
