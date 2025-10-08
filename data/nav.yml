@@ -205,6 +205,8 @@
                   path: "agent/v3/agent-stack-k8s/buildah-container-builds"
                 - name: "BuildKit"
                   path: "agent/v3/agent-stack-k8s/buildkit-container-builds"
+                - name: "Kaniko"
+                  path: "agent/v3/agent-stack-k8s/kaniko-container-builds"
             - name: "Troubleshooting"
               path: "agent/v3/agent-stack-k8s/troubleshooting"
         - name: "Agent installers"
