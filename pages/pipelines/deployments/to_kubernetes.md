@@ -4,10 +4,7 @@ This tutorial demonstrates deploying to Kubernetes using Buildkite best
 practices.
 
 The tutorial uses one pipeline for tests and another for deploys.
-The test pipeline runs tests and push a Docker image to a registry. The deploy
-pipelines uses the `DOCKER_IMAGE` environment variable to create a [Kubernetes
-deployment][k8s_deployment] using `kubectl`. Then, you'll see how to link them
-together to automate deploys from `main` branch.
+The test pipeline runs tests and push a Docker image to a registry. The deploy pipelines uses the `DOCKER_IMAGE` environment variable to create a [Kubernetes deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) using `kubectl`. Then, you'll see how to link them together to automate deploys from `main` branch.
 
 First up, you need to add a step to your existing test pipeline that pushes a
 Docker image. Also check your agents have `kubectl` access to your target
@@ -18,10 +15,7 @@ up.
 
 ## Create the deploy pipeline
 
-This section covers creating a new Buildkite pipeline that loads steps from
-`.buildkite/pipeline.deploy.yml`. We'll use a [trigger
-steps](/docs/pipelines/configure/step-types/trigger-step) later on to connect
-the test and deploy pipelines.
+This section covers creating a new Buildkite pipeline that loads steps from `.buildkite/pipeline.deploy.yml`. We'll use a [trigger steps](/docs/pipelines/configure/step-types/trigger-step) later on to connect the test and deploy pipelines.
 
 The first step will be a pipeline upload using our new deploy pipeline YAML
 file. Create a new pipeline. Enter `buildkite-agent pipeline upload
@@ -47,7 +41,7 @@ settings ensure only one step runs at a time.
 ## Writing the deploy script
 
 The next step is writing a deploy script that generates a [Kubernetes deployment
-manifest][k8s_deployment] from the `DOCKER_IMAGE` environment variable.
+manifest](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) from the `DOCKER_IMAGE` environment variable.
 
 Let's start with manifest file. This sample file creates a Deployment with
 three replicas (horizontal scale in Kubernetes lingo) each listening port
@@ -185,9 +179,9 @@ cluster, then check the kubectl access section for setup advice.
 
 <%= image "final_test_pipeline.png", width: 1440/2, height: 430/2, alt: 'Final Test Pipeline' %>
 
-## Deploying with the Helm Chart Plugin
+## Deploying with the Helm chart plugin
 
-For complex applications that are already packaged as Helm charts, the [Buildkite Deployment Helm Chart Plugin](https://github.com/buildkite-plugins/deployment-helm-chart-buildkite-plugin) provides a more robust deployment solution. Unlike the kubectl approach, Helm maintains deployment history and enables instant rollbacks when deployments fail or cause issues in production.
+For complex applications that are already packaged as Helm charts, the [Buildkite deployment Helm chart plugin](https://github.com/buildkite-plugins/deployment-helm-chart-buildkite-plugin) provides a more robust deployment solution. Unlike the kubectl approach, Helm maintains deployment history and enables instant rollbacks when deployments fail or cause issues in production.
 
 The key advantage of using Helm for deployments is **safe rollbacks**. When a deployment introduces bugs or performance issues, you can instantly revert to the previous working version without manual intervention or complex recovery procedures. This is critical for production environments where downtime must be minimized.
 
@@ -238,47 +232,44 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-> 📘 **Note**
-> While the example above shows how to integrate the Helm plugin with the existing kubectl workflow using `DOCKER_IMAGE`, the plugin can also be used independently. You can configure it with its own parameters as below:
->
-> ```yml
- steps:
->   - label: "🚀 Deploy to Production"
->     plugins:
->       - deployment-helm-chart#v1.0.0:
->           mode: deploy
->           chart: ./k8s/helm-chart
->           release: tutorial
->           namespace: production
->           repo_url: https://charts.yourcompany.com
->           repo_name: yourcompany
->           values:
->             - k8s/helm-chart/values.yaml
->             - k8s/helm-chart/values-prod.yaml
->           set:
->             - image.tag=v1.2.3
->             - replicas=5
->             - environment=production
->           create_namespace: true
->           wait: true
->           atomic: true
->           timeout: 600s
->     concurrency: 1
->     concurrency_group: deploy/production
-> ```
-> {: codeblock-file=".buildkite/pipeline.deploy.yml"}
+
+Note that while the example above shows how to integrate the Helm plugin with the existing kubectl workflow using `DOCKER_IMAGE`, the plugin can also be used independently. You can configure it with its own parameters as below:
+
+```yml
+steps:
+   - label: "🚀 Deploy to Production"
+     plugins:
+       - deployment-helm-chart#v1.0.0:
+           mode: deploy
+           chart: ./k8s/helm-chart
+           release: tutorial
+           namespace: production
+           repo_url: https://charts.yourcompany.com
+           repo_name: yourcompany
+           values:
+             - k8s/helm-chart/values.yaml
+             - k8s/helm-chart/values-prod.yaml
+           set:
+             - image.tag=v1.2.3
+             - replicas=5
+             - environment=production
+           create_namespace: true
+           wait: true
+           atomic: true
+           timeout: 600s
+     concurrency: 1
+     concurrency_group: deploy/production
+ ```
+{: codeblock-file=".buildkite/pipeline.deploy.yml"}
 
 ## Next steps
 
 Congratulations! :tada: You've setup a continuous deployment pipeline to
 Kubernetes. Practically speaking there are some things to do next.
 
-- Try a [block step](/docs/pipelines/configure/step-types/block-step) before the
-  trigger to enforce manual deploys.
-- Use [GitHub's Deployment API](https://buildkite.com/blog/github-deployments)
-  to trigger deployments from external tooling (for example, ChatOps)
-- Expose the application to the internet with [Kubernetes
-  Service](https://kubernetes.io/docs/concepts/services-networking/service/).
+- Try a [block step](/docs/pipelines/configure/step-types/block-step) before the trigger to enforce manual deploys.
+- Use [GitHub's Deployment API](https://buildkite.com/blog/github-deployments) to trigger deployments from external tooling (for example, ChatOps)
+- Expose the application to the internet with [Kubernetes Service](https://kubernetes.io/docs/concepts/services-networking/service/).
 - Replace the `envsubst` implementation with something like [kustomize](https://kustomize.io/)
 
 ## Configuring kubectl and Helm access
@@ -302,6 +293,3 @@ If you're on AWS using agents on EC2 and an EKS cluster:
 1. Install the AWS CLI
 1. Use `aws update-kubeconfig` to get [kubectl access](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html)
 1. Helm will automatically use the same kubeconfig as kubectl
-
-[pipelines]: /docs/pipelines
-[k8s_deployment]: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/

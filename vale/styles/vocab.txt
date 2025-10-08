@@ -171,6 +171,7 @@ JWTs
 keyserver
 keyservers
 kotlin
+kubeconfig
 kubectl
 kustomize
 Kuzco
