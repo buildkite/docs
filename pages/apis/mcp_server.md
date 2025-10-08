@@ -50,7 +50,7 @@ Buildkite also provides a version of the remote MCP server with read-only access
 https://mcp.buildkite.com/mcp/readonly
 ```
 
-This version of the remote MCP server issues a short-lived OAuth access token for your Buildkite user account, along with _read-only_ access permission scopes pre-set by the Buildkite platform. Hence, when using this remote MCP server, only [MCP tools](#available-mcp-tools) with read-only access are available.
+This remote MCP server version issues a short-lived OAuth access token for your Buildkite user account, along with _read-only_ access permission scopes pre-set by the Buildkite platform. Hence, when using this remote MCP server, only [MCP tools](#available-mcp-tools) that work with read-only access are available.
 
 ### Local MCP server
 

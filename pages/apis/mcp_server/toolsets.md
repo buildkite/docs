@@ -1,10 +1,10 @@
 # Toolsets
 
-The Buildkite MCP server organizes its tools into logical **toolsets** that can be enabled or disabled based on your needs. Learn more about the MCP server in the [Buildkite MCP server overview](/docs/apis/mcp-server).
+The [Buildkite MCP server](/docs/apis/mcp-server) organizes its [MCP tools](/docs/apis/mcp-server#available-mcp-tools) into logical groups of _toolsets_, each of which can be enabled or disabled based on your requirements.
 
 ## Available toolsets
 
-Each toolset groups related MCP tools that interact with specific areas of the Buildkite platform. You can enable or disable individual toolsets to control which API functionality is available to your AI assistant. Learn more about MCP tools in the [Buildkite MCP server overview](/docs/apis/mcp-server).
+Each toolset groups related MCP tools that interact with specific areas of the Buildkite platform. You can enable or disable these individual toolsets to control which API functionality is available to your AI tool or agent.
 
 <table>
   <thead>

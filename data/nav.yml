@@ -969,8 +969,8 @@
               path: "apis/mcp-server/local/installing"
             - name: "Configuring AI tools"
               path: "apis/mcp-server/local/configuring-ai-tools"
-            - name: "Toolsets"
-              path: "apis/mcp-server/local/toolsets"
+        - name: "Toolsets"
+          path: "apis/mcp-server/toolsets"
     - name: "Webhooks"
       children:
         - name: "Overview"
