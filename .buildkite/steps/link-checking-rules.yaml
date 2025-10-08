@@ -32,6 +32,8 @@ link_checking_exemptions:
       - https://github.com/marketplace
       - https://codepen.io/
       - https://www.java.com
+      - https://jsonschemalint.com/
+
 
   - name: ignore-api-401-unauthorized
     description: Ignore HTTP 401 Unauthorized on Buildkite API
