@@ -2,13 +2,13 @@
 
 The pipelines API endpoint consists of several endpoints that allow you to manage:
 
-- pipelines, along with their [builds](/docs/apis/rest-api/builds)
-- a build's [annotations](/docs/apis/rest-api/annotations), [artifacts](/docs/apis/rest-api/artifacts), and [jobs](/docs/apis/rest-api/jobs)
+- Pipelines, along with their [builds](/docs/apis/rest-api/builds).
+- A build's [annotations](/docs/apis/rest-api/annotations), [artifacts](/docs/apis/rest-api/artifacts), and [jobs](/docs/apis/rest-api/jobs).
 
 This section of the REST API documentation also contains several other endpoints that allow you to manage other aspects of Buildkite functionality associated with your pipelines, such as:
 
-- [clusters](/docs/apis/rest-api/clusters), including the management of [queues](/docs/apis/rest-api/clusters#queues) and [agent tokens](/docs/apis/rest-api/clusters#agent-tokens)
-- [agents](/docs/apis/rest-api/agents) themselves
+- [Clusters](/docs/apis/rest-api/clusters), including the management of [queues](/docs/apis/rest-api/clusters/queues), [agent tokens](/docs/apis/rest-api/clusters/agent-tokens), [cluster maintainers](/docs/apis/rest-api/clusters/maintainers), and [Buildkite secrets](/docs/apis/rest-api/clusters/secrets).
+- [Agents](/docs/apis/rest-api/agents) themselves.
 
 ## List pipelines
 
@@ -1378,6 +1378,25 @@ Additional properties available for GitHub and GitHub Enterprise:
       <th><code>build_pull_request_ready_for_review</code></th>
       <td>
         Whether to create builds for pull requests that are ready for review.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>build_merge_group_checks_requested</code></th>
+      <td>
+        Whether to create merge queue builds for merge queue enabled GitHub repository with required status checks.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>cancel_when_merge_group_destroyed</code></th>
+      <td>
+        Whether to cancel any running builds belonging to a removed merge group.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>use_merge_group_base_commit_for_git_diff_base</code></th>
+      <td>
+        When enabled, agents performing a git diff to determine steps to upload based on <a href="/docs/pipelines/configure/step-types/command-step#agent-applied-attributes"><code>if_changed</code></a>
+				comparisons will use the base commit that points to the previous merge group rather than the base branch.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
     </tr>
     <tr>

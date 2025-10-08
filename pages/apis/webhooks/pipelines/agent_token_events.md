@@ -28,7 +28,7 @@
     </tr>
     <tr>
       <td><code>cluster_token</code></td>
-      <td><a href="/docs/apis/rest-api/clusters#agent-tokens">Agent token</a></td>
+      <td><a href="/docs/apis/rest-api/clusters/agent-tokens">Agent token</a></td>
       <td>The agent token used in the registration attempt</td>
     </tr>
     <tr>

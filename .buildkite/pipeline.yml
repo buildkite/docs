@@ -2,7 +2,7 @@ env:
   BUILDKIT_PROGRESS: plain
 
 steps:
-  - label: ":spider: Check for broken links"
+  - label: ":spider: Check for link issues"
     env:
       RAILS_ENV: production
     agents:
@@ -24,6 +24,9 @@ steps:
           shell: false
           upload-container-logs: always
           mount-buildkite-agent: true
+          propagate-environment: true
+    artifact_paths:
+      - ".buildkite/steps/muffet_results.json"
 
   - label: ":graphql: Check generated code is up to date"
     command: bundle exec rake graphql:generate

@@ -61,7 +61,6 @@ Example request body:
 > 📘 Job data not included
 > When using webhooks, the build object does not contain job data (as returned by calls to the [Build API](/docs/apis/rest-api/builds) of Buildkite's REST API). Learn more about obtaining job data from Buildkite Pipelines using webhooks in [Job events](/docs/webhooks/pipelines/job_events).
 
-
 ## Finding out if a build is blocked
 
 If a build is blocked, look for `blocked: true` in the `build.finished` event
@@ -81,10 +80,44 @@ Example request body for blocked build:
   },
   "sender": {
     "id": "0adfbc27-5f72-4a91-bf61-5693da0dd9c5",
-    "name": "Some person"
+    "name": "Some Person"
   }
 }
 ```
 
 > 📘 To determine if an EventBridge notification is blocked
 > However, to determine if an EventBridge notification is blocked, look for <code>"state": "blocked". </code>, like in this <a href="/docs/pipelines/integrations/observability/amazon-eventbridge#events-build-blocked">sample Eventbridge request</a>.
+
+## Trigger steps in build events
+
+When a build contains trigger steps, the `build.finished` webhook will include the `async` field in the step configuration.
+
+Example `build.finished` request body with trigger step:
+
+```json
+{
+  "event": "build.finished",
+  "build": {
+    "steps": [
+      {
+        "type": "trigger",
+        "async": true,
+        "...": "..."
+      }
+    ],
+    "...": "..."
+  },
+  "pipeline": {
+    "...": "..."
+  },
+  "sender": {
+    "id": "8a7693f8-dbae-4783-9137-84090fce9045",
+    "name": "Some Person"
+  }
+}
+```
+
+The `async` field indicates:
+
+- `true`: The trigger step continues immediately, regardless of the triggered build's success.
+- `false`: The trigger step waits for the triggered build to complete before continuing.
