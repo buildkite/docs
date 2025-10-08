@@ -50,7 +50,7 @@ Buildkite also provides a version of the remote MCP server with read-only access
 https://mcp.buildkite.com/mcp/readonly
 ```
 
-This remote MCP server version issues a short-lived OAuth access token for your Buildkite user account, along with _read-only_ access permission scopes pre-set by the Buildkite platform. Hence, when using this remote MCP server, only [MCP tools](#available-mcp-tools) that work with read-only access are available.
+This remote MCP server version issues a short-lived OAuth access token for your Buildkite user account, along with _read-only_ access permission scopes pre-set by the Buildkite platform. Hence, when using this remote MCP server, only [MCP tools](#available-mcp-tools) that have read-only access to the Buildkite platform are available.
 
 ### Local MCP server
 
@@ -100,21 +100,17 @@ These MCP tools are associated with [authentication](/docs/apis#authentication) 
     <% [
       {
         "tool": "access_token",
-        "description": "Get information about the current API access token including its scopes and UUID.",
-        "link_text": "Get the current token",
-        "link": "/docs/apis/rest-api/access-token#get-the-current-token"
+        "description": "Uses the [Get the current token](/docs/apis/rest-api/access-token#get-the-current-token) REST API call to retrieve information about the current API access token, including its scopes and UUID."
       },
       {
         "tool": "current_user",
-        "description": "Get details about the user account that owns the API token, including name, email, avatar, and account creation date.",
-        "link_text": "Get the current user",
-        "link": "/docs/apis/rest-api/user#get-the-current-user"
+        "description": "Uses the [Get the current user](/docs/apis/rest-api/user#get-the-current-user) REST API call to retrieve details about the user account that owns the API token, including name, email, avatar, and account creation date.",
+        "scope": "read_user"
       },
       {
         "tool": "user_token_organization",
-        "description": "Get the organization associated with the user token used for this request.",
-        "link_text": "Get an organization",
-        "link": "/docs/apis/rest-api/organizations#get-an-organization"
+        "description": "Uses the [Get an organization](/docs/apis/rest-api/organizations#get-an-organization) REST API call to retrieve details about the Buildkite organization associated with the user token used for this request.",
+        "scope": "read_organizations"
       }
     ].select { |field| field[:tool] }.each do |field| %>
       <tr>
@@ -122,9 +118,9 @@ These MCP tools are associated with [authentication](/docs/apis#authentication) 
           <code><%= field[:tool] %></code>
          </td>
         <td>
-          <p><%= field[:description] %></p>
-          <% if field[:link] %>
-            <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
+          <p><%= render_markdown(text: field[:description]) %></p>
+          <% if field[:scope] %>
+            <p>Required <a href="/docs/apis/managing-api-tokens#token-scopes">token scope</a>: <code><%= field[:scope] %></code>.</p>
           <% end %>
         </td>
       </tr>
@@ -175,7 +171,7 @@ These MCP tools are used to retrieve details about the [clusters](/docs/pipeline
           <code><%= field[:tool] %></code>
          </td>
         <td>
-          <p><%= field[:description] %></p>
+          <p><%= render_markdown(text: field[:description]) %></p>
           <% if field[:link] %>
             <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
           <% end %>
@@ -228,7 +224,7 @@ These MCP tools are used to retrieve details about existing [pipelines](/docs/ap
           <code><%= field[:tool] %></code>
          </td>
         <td>
-          <p><%= field[:description] %></p>
+          <p><%= render_markdown(text: field[:description]) %></p>
           <% if field[:link] %>
             <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
           <% end %>
@@ -271,7 +267,7 @@ These MCP tools are used to retrieve details about existing [builds](/docs/apis/
       },
       {
         "tool": "wait_for_build",
-        "description": "Wait for a specific build to be completed. This tool calls the <em>Get a build</em> endpoint to retrieve the status of the build from its logs. If the build is still running, <code>wait_for_build</code> calls the Get a build endpoint with increasingly less frequency, to reduce text tokenization usage and traffic, until the returned build status is completed.",
+        "description": "Wait for a specific build to be completed. This tool calls the [Get a build](/docs/apis/rest-api/builds#get-a-build) endpoint to retrieve the status of the build from its logs. If the build is still running, `wait_for_build` calls this Get a build endpoint with increasingly less frequency, to reduce text tokenization usage and traffic, until the returned build status is completed.",
         "link_text": "Get a build",
         "link": "/docs/apis/rest-api/builds#get-a-build"
       }
@@ -281,7 +277,7 @@ These MCP tools are used to retrieve details about existing [builds](/docs/apis/
           <code><%= field[:tool] %></code>
          </td>
         <td>
-          <p><%= field[:description] %></p>
+          <p><%= render_markdown(text: field[:description]) %></p>
           <% if field[:link] %>
             <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
           <% end %>
@@ -322,7 +318,7 @@ These MCP tools are used to retrieve the logs of [jobs](/docs/apis/rest-api/jobs
           <code><%= field[:tool] %></code>
          </td>
         <td>
-          <p><%= field[:description] %></p>
+          <p><%= render_markdown(text: field[:description]) %></p>
           <% if field[:link] %>
             <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
           <% end %>
@@ -369,7 +365,7 @@ For improved performance, these Parquet log files are also cached and stored. Le
           <code><%= field[:tool] %></code>
          </td>
         <td>
-          <p><%= field[:description] %></p>
+          <p><%= render_markdown(text: field[:description]) %></p>
           <% if field[:link] %>
             <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
           <% end %>
@@ -410,7 +406,7 @@ These MCP tools are used to retrieve details about artifacts from a pipeline [bu
           <code><%= field[:tool] %></code>
          </td>
         <td>
-          <p><%= field[:description] %></p>
+          <p><%= render_markdown(text: field[:description]) %></p>
           <% if field[:link] %>
             <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
           <% end %>
@@ -445,7 +441,7 @@ These MCP tools are used to retrieve details about the annotations resulting fro
           <code><%= field[:tool] %></code>
          </td>
         <td>
-          <p><%= field[:description] %></p>
+          <p><%= render_markdown(text: field[:description]) %></p>
           <% if field[:link] %>
             <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
           <% end %>
@@ -502,7 +498,7 @@ These MCP tools are used to retrieve details about Test Engine [tests](/docs/tes
           <code><%= field[:tool] %></code>
          </td>
         <td>
-          <p><%= field[:description] %></p>
+          <p><%= render_markdown(text: field[:description]) %></p>
           <% if field[:link] %>
             <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
           <% end %>
@@ -541,11 +537,11 @@ If you are running the [local MCP server](/docs/apis/mcp-server/local/installing
     <% [
       {
         "environment": "A physical machine (for example, a desktop or laptop computer)",
-        "default_location": "The <code>.bklog</code> sub-directory of the home directory."
+        "default_location": "The `.bklog` sub-directory of the home directory."
       },
       {
         "environment": "A containerized environment (for example, using Docker or Kubernetes)",
-        "default_location": "The <code>/tmp/bklog</code> sub-directory of the file system's root directory level."
+        "default_location": "The `/tmp/bklog` sub-directory of the file system's root directory level."
       }
     ].select { |field| field[:environment] }.each do |field| %>
       <tr>
@@ -553,7 +549,7 @@ If you are running the [local MCP server](/docs/apis/mcp-server/local/installing
           <p><%= field[:environment] %></p>
          </td>
         <td>
-          <p><%= field[:default_location] %></p>
+          <p><%= render_markdown(text: field[:default_location]) %></p>
         </td>
       </tr>
     <% end %>
@@ -569,4 +565,3 @@ export BKLOG_CACHE_URL="file:///Users/me/bklog-cache"
 # Shared cache across build agents
 export BKLOG_CACHE_URL="s3://ci-logs-cache/buildkite/"
 ```
-
