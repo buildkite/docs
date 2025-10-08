@@ -241,10 +241,10 @@ Therefore, the full [`command` step](/docs/pipelines/configure/step-types/comman
 buildkite-agent oidc request-token --audience "https://packages.buildkite.com/{org.slug}/{registry.slug}" --lifetime 300 | docker login packages.buildkite.com/{org.slug}/{registry.slug} --username buildkite --password-stdin
 ```
 
-Assuming a Buildkite organization with slug `my-organization` and a pipeline slug `my-pipeline`, this full command would look like:
+Assuming a Buildkite organization with slug `my-organization` and a registry slug `my-registry`, this full command would look like:
 
 ```bash
-buildkite-agent oidc request-token --audience "https://packages.buildkite.com/my-organization/my-pipeline" --lifetime 300 | docker login packages.buildkite.com/my-organization/my-pipeline --username buildkite --password-stdin
+buildkite-agent oidc request-token --audience "https://packages.buildkite.com/my-organization/my-registry" --lifetime 300 | docker login packages.buildkite.com/my-organization/my-registry --username buildkite --password-stdin
 ```
 
 ### Example pipeline
@@ -259,7 +259,7 @@ steps:
 
 - key: "docker-login" # Authenticate the Buildkite Agent to the Buildkite registry using an OIDC token
   label: "\:docker\: Login"
-  command: buildkite-agent oidc request-token --audience "https://packages.buildkite.com/my-organization/my-pipeline" --lifetime 300 | docker login packages.buildkite.com/my-organization/my-registry --username buildkite --password-stdin
+  command: buildkite-agent oidc request-token --audience "https://packages.buildkite.com/my-organization/my-registry" --lifetime 300 | docker login packages.buildkite.com/my-organization/my-registry --username buildkite --password-stdin
   depends_on: "docker-build"
 
 - key: "docker-push" # Now authenticated, push the Docker image to the registry
