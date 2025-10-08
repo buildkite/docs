@@ -50,7 +50,7 @@ Buildkite also provides a version of the remote MCP server with read-only access
 https://mcp.buildkite.com/mcp/readonly
 ```
 
-This remote MCP server version issues a short-lived OAuth access token for your Buildkite user account, along with _read-only_ access permission scopes pre-set by the Buildkite platform. Hence, when using this remote MCP server, only [MCP tools](#available-mcp-tools) that have read-only access to the Buildkite platform are available.
+This remote MCP server version issues a short-lived OAuth access token for your Buildkite user account, along with _read-only_ access permission scopes pre-set by the Buildkite platform. Hence, when using this remote MCP server, only [MCP tools](#available-mcp-tools) whose required [token scope](/docs/apis/managing-api-tokens#token-scopes) begins with `read_` are available.
 
 ### Local MCP server
 
@@ -100,16 +100,16 @@ These MCP tools are associated with [authentication](/docs/apis#authentication) 
     <% [
       {
         "tool": "access_token",
-        "description": "Uses the [Get the current token](/docs/apis/rest-api/access-token#get-the-current-token) REST API call to retrieve information about the current API access token, including its scopes and UUID."
+        "description": "Uses the [Get the current token](/docs/apis/rest-api/access-token#get-the-current-token) REST API endpoint to retrieve information about the current API access token, including its scopes and UUID."
       },
       {
         "tool": "current_user",
-        "description": "Uses the [Get the current user](/docs/apis/rest-api/user#get-the-current-user) REST API call to retrieve details about the user account that owns the API token, including name, email, avatar, and account creation date.",
+        "description": "Uses the [Get the current user](/docs/apis/rest-api/user#get-the-current-user) REST API endpoint to retrieve details about the user account that owns the API token, including name, email, avatar, and account creation date.",
         "scope": "read_user"
       },
       {
         "tool": "user_token_organization",
-        "description": "Uses the [Get an organization](/docs/apis/rest-api/organizations#get-an-organization) REST API call to retrieve details about the Buildkite organization associated with the user token used for this request.",
+        "description": "Uses the [Get an organization](/docs/apis/rest-api/organizations#get-an-organization) REST API endpoint to retrieve details about the Buildkite organization associated with the user token used for this request.",
         "scope": "read_organizations"
       }
     ].select { |field| field[:tool] }.each do |field| %>
@@ -143,27 +143,23 @@ These MCP tools are used to retrieve details about the [clusters](/docs/pipeline
     <% [
       {
         "tool": "list_clusters",
-        "description": "List all clusters in an organization with their names, descriptions, default queues, and creation details.",
-        "link_text": "List clusters",
-        "link": "/docs/apis/rest-api/clusters#clusters-list-clusters"
+        "description": "Uses the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API endpoint to list all clusters in an organization with their names, descriptions, default queues, and creation details.",
+        "scope": "read_clusters"
       },
       {
         "tool": "get_cluster",
-        "description": "Get detailed information about a specific cluster including its name, description, default queue, and configuration.",
-        "link_text": "Get a cluster",
-        "link": "/docs/apis/rest-api/clusters#clusters-get-a-cluster"
+        "description": "Uses the [Get a cluster](/docs/apis/rest-api/clusters#clusters-get-a-cluster) REST API endpoint to retrieve detailed information about a specific cluster including its name, description, default queue, and configuration.",
+        "scope": "read_clusters"
       },
       {
         "tool": "list_cluster_queues",
-        "description": "List all queues in a cluster with their keys, descriptions, dispatch status, and agent configuration.",
-        "link_text": "List queues",
-        "link": "/docs/apis/rest-api/clusters/queues#list-queues"
+        "description": "Uses the [List queues](/docs/apis/rest-api/clusters/queues#list-queues) REST API endpoint to list all queues in a cluster with their keys, descriptions, dispatch status, and agent configuration.",
+        "scope": "read_clusters"
       },
       {
         "tool": "get_cluster_queue",
-        "description": "Get detailed information about a specific queue including its key, description, dispatch status, and hosted agent configuration.",
-        "link_text": "Get a queue",
-        "link": "/docs/apis/rest-api/clusters/queues#get-a-queue"
+        "description": "Uses the [Get a queue](/docs/apis/rest-api/clusters/queues#get-a-queue) REST API endpoint to retrieve detailed information about a specific queue including its key, description, dispatch status, and hosted agent configuration.",
+        "scope": "read_clusters"
       }
     ].select { |field| field[:tool] }.each do |field| %>
       <tr>
@@ -172,8 +168,8 @@ These MCP tools are used to retrieve details about the [clusters](/docs/pipeline
          </td>
         <td>
           <p><%= render_markdown(text: field[:description]) %></p>
-          <% if field[:link] %>
-            <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
+          <% if field[:scope] %>
+            <p>Required <a href="/docs/apis/managing-api-tokens#token-scopes">token scope</a>: <code><%= field[:scope] %></code>.</p>
           <% end %>
         </td>
       </tr>
@@ -196,27 +192,23 @@ These MCP tools are used to retrieve details about existing [pipelines](/docs/ap
     <% [
       {
         "tool": "list_pipelines",
-        "description": "List all pipelines in an organization with their basic details, build counts, and current status.",
-        "link_text": "List pipelines",
-        "link": "/docs/apis/rest-api/pipelines#list-pipelines"
+        "description": "Uses the [List pipelines](/docs/apis/rest-api/pipelines#list-pipelines) REST API endpoint to list all pipelines in an organization with their basic details, build counts, and current status.",
+        "scope": "read_pipelines"
       },
       {
         "tool": "get_pipeline",
-        "description": "Get detailed information about a specific pipeline including its configuration, steps, environment variables, and build statistics.",
-        "link_text": "Get a pipeline",
-        "link": "/docs/apis/rest-api/pipelines#get-a-pipeline"
+        "description": "Uses the [Get a pipeline](/docs/apis/rest-api/pipelines#get-a-pipeline) REST API endpoint to retrieve detailed information about a specific pipeline including its configuration, steps, environment variables, and build statistics.",
+        "scope": "read_pipelines"
       },
       {
         "tool": "create_pipeline",
-        "description": "Set up a new CI/CD pipeline in Buildkite with YAML configuration, repository connection, and cluster assignment.",
-        "link_text": "Create a YAML pipeline",
-        "link": "/docs/apis/rest-api/pipelines#create-a-yaml-pipeline"
+        "description": "Uses the [Create a YAML pipeline](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline) REST API endpoint to set up a new CI/CD pipeline in Buildkite with YAML configuration, repository connection, and cluster assignment.",
+        "scope": "write_pipelines"
       },
       {
         "tool": "update_pipeline",
-        "description": "Modify an existing Buildkite pipeline's configuration, repository, settings, or metadata.",
-        "link_text": "Update a pipeline",
-        "link": "/docs/apis/rest-api/pipelines#update-a-pipeline"
+        "description": "Uses the [Update a pipeline](/docs/apis/rest-api/pipelines#update-a-pipeline) REST API endpoint to modify an existing Buildkite pipeline's configuration, repository, settings, or metadata.",
+        "scope": "write_pipelines"
       }
     ].select { |field| field[:tool] }.each do |field| %>
       <tr>
@@ -225,8 +217,8 @@ These MCP tools are used to retrieve details about existing [pipelines](/docs/ap
          </td>
         <td>
           <p><%= render_markdown(text: field[:description]) %></p>
-          <% if field[:link] %>
-            <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
+          <% if field[:scope] %>
+            <p>Required <a href="/docs/apis/managing-api-tokens#token-scopes">token scope</a>: <code><%= field[:scope] %></code>.</p>
           <% end %>
         </td>
       </tr>
@@ -249,27 +241,23 @@ These MCP tools are used to retrieve details about existing [builds](/docs/apis/
     <% [
       {
         "tool": "list_builds",
-        "description": "List all builds for a pipeline with their status, commit information, and metadata.",
-        "link_text": "List all builds",
-        "link": "/docs/apis/rest-api/builds#list-all-builds"
+        "description": "Uses the [List all builds](/docs/apis/rest-api/builds#list-all-builds) REST API endpoint to list all builds for a pipeline with their status, commit information, and metadata.",
+        "scope": "read_builds"
       },
       {
         "tool": "get_build",
-        "description": "Get detailed information about a specific build including its jobs, timing, and execution details.",
-        "link_text": "Get a build",
-        "link": "/docs/apis/rest-api/builds#get-a-build"
+        "description": "Uses the [Get a build](/docs/apis/rest-api/builds#get-a-build) REST API endpoint to retrieve detailed information about a specific build including its jobs, timing, and execution details.",
+        "scope": "read_builds"
       },
       {
         "tool": "create_build",
-        "description": "Trigger a new build on a Buildkite pipeline for a specific commit and branch, with optional environment variables, metadata, and author information.",
-        "link_text": "Create a build",
-        "link": "/docs/apis/rest-api/builds#create-a-build"
+        "description": "Uses the [Create a build](/docs/apis/rest-api/builds#create-a-build) REST API endpoint to trigger a new build on a Buildkite pipeline for a specific commit and branch, with optional environment variables, metadata, and author information.",
+        "scope": "write_builds"
       },
       {
         "tool": "wait_for_build",
-        "description": "Wait for a specific build to be completed. This tool calls the [Get a build](/docs/apis/rest-api/builds#get-a-build) endpoint to retrieve the status of the build from its logs. If the build is still running, `wait_for_build` calls this Get a build endpoint with increasingly less frequency, to reduce text tokenization usage and traffic, until the returned build status is completed.",
-        "link_text": "Get a build",
-        "link": "/docs/apis/rest-api/builds#get-a-build"
+        "description": "Waits for a specific build to be completed. This tool uses the [Get a build](/docs/apis/rest-api/builds#get-a-build) REST API endpoint to retrieve the status of the build from its logs. If the build is still running, the `wait_for_build` tool automatically calls this same endpoint again, and does so repeatedly with increasingly less frequency, to reduce text tokenization usage and traffic, until the returned build status is completed.",
+        "scope": "read_builds"
       }
     ].select { |field| field[:tool] }.each do |field| %>
       <tr>
@@ -278,8 +266,8 @@ These MCP tools are used to retrieve details about existing [builds](/docs/apis/
          </td>
         <td>
           <p><%= render_markdown(text: field[:description]) %></p>
-          <% if field[:link] %>
-            <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
+          <% if field[:scope] %>
+            <p>Required <a href="/docs/apis/managing-api-tokens#token-scopes">token scope</a>: <code><%= field[:scope] %></code>.</p>
           <% end %>
         </td>
       </tr>
@@ -302,15 +290,13 @@ These MCP tools are used to retrieve the logs of [jobs](/docs/apis/rest-api/jobs
     <% [
       {
         "tool": "get_job_logs",
-        "description": "Get the log output and metadata for a specific job, including content, size, and header timestamps. Automatically saves to file for large logs to avoid token limits.",
-        "link_text": "Get a job's log output",
-        "link": "/docs/apis/rest-api/jobs#get-a-jobs-log-output"
+        "description": "Uses the [Get a job's log output](/docs/apis/rest-api/jobs#get-a-jobs-log-output) REST API endpoint to get the log output and metadata for a specific job, including content, size, and header timestamps. Automatically saves to file for large logs to avoid token limits.",
+        "scope": "read_build_logs"
       },
       {
         "tool": "unblock_job",
-        "description": "Unblock a blocked job in a Buildkite build to allow it to continue execution.",
-        "link_text": "Unblock a job",
-        "link": "/docs/apis/rest-api/jobs#unblock-a-job"
+        "description": "Uses the [Unblock a job](/docs/apis/rest-api/jobs#unblock-a-job) REST API endpoint to unblock a blocked job in a Buildkite build to allow it to continue execution.",
+        "scope": "write_builds"
       }
     ].select { |field| field[:tool] }.each do |field| %>
       <tr>
@@ -319,8 +305,8 @@ These MCP tools are used to retrieve the logs of [jobs](/docs/apis/rest-api/jobs
          </td>
         <td>
           <p><%= render_markdown(text: field[:description]) %></p>
-          <% if field[:link] %>
-            <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
+          <% if field[:scope] %>
+            <p>Required <a href="/docs/apis/managing-api-tokens#token-scopes">token scope</a>: <code><%= field[:scope] %></code>.</p>
           <% end %>
         </td>
       </tr>
@@ -366,9 +352,6 @@ For improved performance, these Parquet log files are also cached and stored. Le
          </td>
         <td>
           <p><%= render_markdown(text: field[:description]) %></p>
-          <% if field[:link] %>
-            <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
-          <% end %>
         </td>
       </tr>
     <% end %>
@@ -407,8 +390,8 @@ These MCP tools are used to retrieve details about artifacts from a pipeline [bu
          </td>
         <td>
           <p><%= render_markdown(text: field[:description]) %></p>
-          <% if field[:link] %>
-            <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
+          <% if field[:scope] %>
+            <p>Required <a href="/docs/apis/managing-api-tokens#token-scopes">token scope</a>: <code><%= field[:scope] %></code>.</p>
           <% end %>
         </td>
       </tr>
@@ -442,8 +425,8 @@ These MCP tools are used to retrieve details about the annotations resulting fro
          </td>
         <td>
           <p><%= render_markdown(text: field[:description]) %></p>
-          <% if field[:link] %>
-            <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
+          <% if field[:scope] %>
+            <p>Required <a href="/docs/apis/managing-api-tokens#token-scopes">token scope</a>: <code><%= field[:scope] %></code>.</p>
           <% end %>
         </td>
       </tr>
@@ -499,8 +482,8 @@ These MCP tools are used to retrieve details about Test Engine [tests](/docs/tes
          </td>
         <td>
           <p><%= render_markdown(text: field[:description]) %></p>
-          <% if field[:link] %>
-            <p>See <%= link_to field[:link_text], field[:link] %> of the REST API docs for more information.</p>
+          <% if field[:scope] %>
+            <p>Required <a href="/docs/apis/managing-api-tokens#token-scopes">token scope</a>: <code><%= field[:scope] %></code>.</p>
           <% end %>
         </td>
       </tr>
