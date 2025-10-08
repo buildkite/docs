@@ -17,6 +17,11 @@ Each toolset groups related MCP tools that interact with specific areas of the B
   <tbody>
     <% [
       {
+        "toolset": "user",
+        "description": "[User, authentication, and Buildkite organization](/docs/apis/mcp-server#available-mcp-tools-user-authentication-and-buildkite-organization)",
+        "tools": "current_user, user_token_organization, access_token"
+      },
+      {
         "toolset": "clusters",
         "description": "[Buildkite clusters](/docs/apis/mcp-server#available-mcp-tools-buildkite-clusters) management",
         "tools": "get_cluster, list_clusters, get_cluster_queue, list_cluster_queues"
@@ -32,19 +37,14 @@ Each toolset groups related MCP tools that interact with specific areas of the B
         "tools": "list_builds, get_build, create_build, wait_for_build, get_jobs, unblock_job"
       },
       {
-        "toolset": "artifacts",
-        "description": "[Artifacts](/docs/apis/mcp-server#available-mcp-tools-artifacts) management",
-        "tools": "list_artifacts, get_artifact"
-      },
-      {
         "toolset": "logs",
         "description": "[Logs](/docs/apis/mcp-server#available-mcp-tools-logs) processing",
         "tools": "search_logs, tail_logs, read_logs, get_logs_info"
       },
       {
-        "toolset": "tests",
-        "description": "[Test Engine](/docs/apis/mcp-server#available-mcp-tools-test-engine)",
-        "tools": "list_test_runs, get_test_run, get_failed_executions, get_test"
+        "toolset": "artifacts",
+        "description": "[Artifacts](/docs/apis/mcp-server#available-mcp-tools-artifacts) management",
+        "tools": "list_artifacts, get_artifact"
       },
       {
         "toolset": "annotations",
@@ -52,9 +52,9 @@ Each toolset groups related MCP tools that interact with specific areas of the B
         "tools": "list_annotations"
       },
       {
-        "toolset": "user",
-        "description": "[User, authentication, and Buildkite organization](/docs/apis/mcp-server#available-mcp-tools-user-authentication-and-buildkite-organization)",
-        "tools": "current_user, user_token_organization, access_token"
+        "toolset": "tests",
+        "description": "[Test Engine](/docs/apis/mcp-server#available-mcp-tools-test-engine)",
+        "tools": "list_test_runs, get_test_run, get_failed_executions, get_test"
       }
     ].select { |field| field[:toolset] }.each do |field| %>
       <tr>
