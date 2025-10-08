@@ -373,15 +373,13 @@ These MCP tools are used to retrieve details about artifacts from a pipeline [bu
     <% [
       {
         "tool": "list_artifacts",
-        "description": "List a build's artifacts across all of its jobs, including file details, paths, sizes, MIME types, and download URLs.",
-        "link_text": "List artifacts for a build",
-        "link": "/docs/apis/rest-api/artifacts#list-artifacts-for-a-build"
+        "description": "Uses the [List artifacts for a build](/docs/apis/rest-api/artifacts#list-artifacts-for-a-build) REST API endpoint to list a build's artifacts across all of its jobs, including file details, paths, sizes, MIME types, and download URLs.",
+        "scope": "read_artifacts"
       },
       {
         "tool": "get_artifact",
-        "description": "Get detailed information about a specific artifact including its metadata, file size, SHA-1 hash, and download URL.",
-        "link_text": "Get an artifact",
-        "link": "/docs/apis/rest-api/artifacts#get-an-artifact"
+        "description": "Uses the [Get an artifact](/docs/apis/rest-api/artifacts#get-an-artifact) REST API endpoint to get detailed information about a specific artifact including its metadata, file size, SHA-1 hash, and download URL.",
+        "scope": "read_artifacts"
       }
     ].select { |field| field[:tool] }.each do |field| %>
       <tr>
@@ -414,9 +412,8 @@ These MCP tools are used to retrieve details about the annotations resulting fro
     <% [
       {
         "tool": "list_annotations",
-        "description": "List all annotations for a build, including their context, style (success/info/warning/error), rendered HTML content, and creation timestamps.",
-        "link_text": "List annotations for a build",
-        "link": "/docs/apis/rest-api/annotations#list-annotations-for-a-build"
+        "description": "Uses the [List annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build) REST API endpoint to list all annotations for a build, including their context, style (success/info/warning/error), rendered HTML content, and creation timestamps.",
+        "scope": "read_builds"
       }
     ].select { |field| field[:tool] }.each do |field| %>
       <tr>
@@ -449,27 +446,23 @@ These MCP tools are used to retrieve details about Test Engine [tests](/docs/tes
     <% [
       {
         "tool": "get_test",
-        "description": "Get a specific test in Buildkite Test Engine. This provides additional metadata for failed test executions.",
-        "link_text": "Get a test",
-        "link": "/docs/apis/rest-api/test-engine/tests#get-a-test"
+        "description": "Uses the [Get a test](/docs/apis/rest-api/test-engine/tests#get-a-test) REST API endpoint to retrieve a specific test in Buildkite Test Engine. This provides additional metadata for failed test executions.",
+        "scope": "read_suites"
       },
       {
         "tool": "list_test_runs",
-        "description": "List all test runs for a test suite in Buildkite Test Engine.",
-        "link_text": "List all runs",
-        "link": "/docs/apis/rest-api/test-engine/runs#list-all-runs"
+        "description": "Uses the [List all runs](/docs/apis/rest-api/test-engine/runs#list-all-runs) REST API endpoint to list all test runs for a test suite in Buildkite Test Engine.",
+        "scope": "read_suites"
       },
       {
         "tool": "get_test_run",
-        "description": "Get a specific test run in Buildkite Test Engine.",
-        "link_text": "Get a run",
-        "link": "/docs/apis/rest-api/test-engine/runs#get-a-run"
+        "description": "Uses the [Get a run](/docs/apis/rest-api/test-engine/runs#get-a-run) REST API endpoint to retrieve a specific test run in Buildkite Test Engine.",
+        "scope": "read_suites"
       },
       {
         "tool": "get_failed_executions",
-        "description": "Get failed test executions for a specific test run in Buildkite Test Engine. Optionally get the expanded failure details such as full error messages and stack traces.",
-        "link_text": "Get failed execution data",
-        "link": "/docs/apis/rest-api/test-engine/runs#get-failed-execution-data"
+        "description": "Uses the [Get failed execution data](/docs/apis/rest-api/test-engine/runs#get-failed-execution-data) REST API endpoint to retrieve failed test executions for a specific test run in Buildkite Test Engine. Optionally retrieves the expanded failure details such as full error messages and stack traces.",
+        "scope": "read_suites"
       },
       {
         "tool": "get_build_test_engine_runs",
