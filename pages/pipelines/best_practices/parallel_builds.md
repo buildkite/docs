@@ -193,17 +193,18 @@ Balance parallel execution for speed while managing resource consumption and cos
 
 **Step-level parallelism (`parallelism` attribute):**
 
-* Set reasonable limits on the `parallelism` attribute for individual steps based on your agent capacity.
-* Consider that each parallel job consumes an agent, so `parallelism: 50` requires 50 available agents.
-* Monitor queue wait times when using high parallelism values to ensure adequate agent availability.
+- Set reasonable limits on the `parallelism` attribute for individual steps based on your agent capacity.
+- Consider that each parallel job consumes an agent, so `parallelism: 50` requires 50 available agents.
+- Monitor queue wait times when using high parallelism values to ensure adequate agent availability.
 
 **Build-level concurrency:**
 
-* While running jobs in parallel across different steps speeds up builds, be mindful of your total agent pool capacity.
-* Buildkite has default limits on concurrent steps per build to prevent resource exhaustion.
-* Design pipeline dependencies (`wait` steps) to balance speed with resource availability.
+- While running jobs in parallel across different steps speeds up builds, be mindful of your total agent pool capacity.
+- Buildkite has default limits on concurrent steps per build to prevent resource exhaustion.
+- Design pipeline dependencies (`wait` steps) to balance speed with resource availability.
 
 **Example of controlled parallelism:**
+
 ```yaml
 steps:
   - label: "Unit Tests"
