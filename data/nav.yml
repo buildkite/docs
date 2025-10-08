@@ -961,6 +961,22 @@
               path: "apis/graphql/portals/user-invoked-portals"
         - name: Limits
           path: apis/graphql/graphql-resource-limits
+<<<<<<< HEAD
+=======
+    - name: "Portals"
+      children:
+        - name: "Overview"
+          path: "apis/portals"
+        - name: "Limits"
+          path: "apis/portals/limits"
+        - name: "Ephemeral portal tokens"
+          path: "apis/portals/ephemeral-portal-tokens"
+        - name: "User-invoked portals"
+          path: "apis/portals/user-invoked-portals"
+    - name: "Pipeline triggers"
+      path: "apis/pipeline-triggers"
+      pill: "preview"
+>>>>>>> 90be1f436 (Add preview tag to pipeline trigger docs)
     - name: "MCP server"
       children:
         - name: "Overview"
