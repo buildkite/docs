@@ -4,6 +4,9 @@ Pipeline triggers are webhook endpoints that start builds on a pipeline. Each tr
 
 Unlike user API tokens, pipeline triggers are scoped to a specific pipeline. This makes them well-suited for external systems, scheduled jobs, and integrations that need to trigger builds programmatically.
 
+> 📘 This feature is currently available in preview.
+> We're open to feedback on how we can improve this offering for your use cases.
+
 ## Getting started
 
 To set up a pipeline trigger:
@@ -55,18 +58,18 @@ To set up a pipeline trigger:
 5. After completing these fields, select **Create Trigger** to create the pipeline trigger.
 6. A unique trigger URL will be generated. Save this trigger URL to somewhere secure, as you won't be able to access it again through the Buildkite UI.
 
-<%= image "pipeline-trigger-creation-success.png", class: "invertible", alt: "Successful creation of a pipeline trigger" %>
+    <%= image "pipeline-trigger-create.png", width: 2028/2, height: 880/2, class: "invertible", alt: "Successful creation of a pipeline trigger" %>
 
 That's it - You're all set up and ready to invoke first pipeline trigger.
 
 ## Invoke a pipeline trigger
 
 To create a build from a pipeline trigger, simply send a HTTP POST request to the trigger URL.
-The endpoint accepts a JSON payload, which is accessible to all steps via your build's metadata.
+The endpoint accepts a JSON payload, which is accessible to all steps via your build's meta-data.
 
 Here's an example using `curl`:
 
-```sh
+```bash
 curl -H "Content-Type: application/json" \
   -X POST "https://webhook.buildkite.com/deliver/bktr_************" \
   -d '{ "event": "mock-event" }'
@@ -87,8 +90,7 @@ https://webhook.buildkite.com/deliver/bktr_************
 
 All requests must be `HTTP POST` requests with `application/json` encoded bodies.
 
-
-### Response
+##### Response
 
 A successful trigger request returns a `201 Created` response with details about the created build:
 
@@ -98,13 +100,31 @@ A successful trigger request returns a `201 Created` response with details about
 }
 ```
 
-Error responses:
+##### Error responses:
 
-<table>
+<table class="responsive-table">
   <tbody>
-    <tr><th><code>401 Unauthorized</code></th><td><code>{ "message": "Invalid pipeline trigger token" }</code></td></tr>
+    <tr><th><code>400 Bad request</code></th><td><code>{ "message": "Invalid pipeline trigger token" }</code></td></tr>
     <tr><th><code>403 Forbidden</code></th><td><code>{ "message": "Pipeline trigger is disabled" }</code></td></tr>
     <tr><th><code>404 Not Found</code></th><td><code>{ "message": "Pipeline trigger not found" }</code></td></tr>
-    <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation error message" }</code></td></tr>
   </tbody>
 </table>
+
+### Accessing webhook data
+
+Webhook JSON payloads sent to a pipeline trigger URL are accessible in all steps of the triggered build.
+You can retrieve the webhook body using the `buildkite:webhook` meta-data key.
+
+Example: Accessing a GitHub pull request closed webhook sent to the pipeline trigger URL:
+
+```yaml
+steps:
+  - command: |
+      WEBHOOK="$(buildkite-agent meta-data get buildkite:webhook)"
+      ACTION="$(jq -r '.action' <<< "$WEBHOOK")"
+      MERGED="$(jq -r '.pull_request.merged' <<< "$WEBHOOK")"
+
+      if [[ "$ACTION" == "closed" && "$MERGED" == "false" ]]; then
+        echo "PR was manually closed"
+      fi
+```
