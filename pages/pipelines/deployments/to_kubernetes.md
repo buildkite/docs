@@ -4,7 +4,7 @@ This tutorial demonstrates deploying to Kubernetes using Buildkite best
 practices.
 
 The tutorial uses one pipeline for tests and another for deploys.
-The test pipeline runs tests and push a Docker image to a registry. The deploy pipelines uses the `DOCKER_IMAGE` environment variable to create a [Kubernetes deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) using `kubectl`. Then, you'll see how to link them together to automate deploys from `main` branch.
+The test pipeline runs tests and push a Docker image to a registry. The deploy pipelines uses the `DOCKER_IMAGE` environment variable to create a [Kubernetes deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) using `kubectl`. Then, you'll see how to link them together to automate deploys from the `main` branch.
 
 First up, you need to add a step to your existing test pipeline that pushes a
 Docker image. Also check your agents have `kubectl` access to your target
@@ -15,13 +15,13 @@ up.
 
 ## Create the deploy pipeline
 
-This section covers creating a new Buildkite pipeline that loads steps from `.buildkite/pipeline.deploy.yml`. We'll use a [trigger steps](/docs/pipelines/configure/step-types/trigger-step) later on to connect the test and deploy pipelines.
+This section covers creating a new Buildkite pipeline that loads steps from `.buildkite/pipeline.deploy.yml`. We'll use a [trigger step](/docs/pipelines/configure/step-types/trigger-step) later on to connect the test and deploy pipelines.
 
 The first step will be a pipeline upload using our new deploy pipeline YAML
 file. Create a new pipeline. Enter `buildkite-agent pipeline upload
 .buildkite/pipeline.deploy.yml` in the commands to run field.
 
-<%= image "new_pipeline.png", width: 1440/2, height: 820/2, alt: 'Creating a New Pipeline'  %>
+<%= image "new_pipeline.png", width: 1440/2, height: 820/2, alt: 'Creating a new pipeline'  %>
 
 Now create `.buildkite/pipeline.deploy.yml` with a single step. We'll write the
 deploy script in the next step.
@@ -181,13 +181,11 @@ cluster, then check the kubectl access section for setup advice.
 
 ## Deploying with the Helm chart plugin
 
-For complex applications that are already packaged as Helm charts, the [Buildkite deployment Helm chart plugin](https://github.com/buildkite-plugins/deployment-helm-chart-buildkite-plugin) provides a more robust deployment solution. Unlike the kubectl approach, Helm maintains deployment history and enables instant rollbacks when deployments fail or cause issues in production.
-
-The key advantage of using Helm for deployments is **safe rollbacks**. When a deployment introduces bugs or performance issues, you can instantly revert to the previous working version without manual intervention or complex recovery procedures. This is critical for production environments where downtime must be minimized.
+For complex applications that are already packaged as Helm charts, the [Buildkite deployment Helm chart plugin](https://github.com/buildkite-plugins/deployment-helm-chart-buildkite-plugin) provides a robust deployment solution. Unlike the kubectl approach, Helm maintains deployment history and enables safe rollbacks when deployments fail or cause issues in production. The ability to instantly revert to the previous working version without manual intervention or complex recovery procedures is a critical advantage for production environments where downtime must be minimized.
 
 ### Deployment example
 
-Instead of the custom deploy script, you can use the Helm plugin in your `.buildkite/pipeline.deploy.yml`. The plugin will receive the same `DOCKER_IMAGE` environment variable from your trigger step:
+Instead of a custom deploy script, you can use the Helm plugin in your `.buildkite/pipeline.deploy.yml`. The plugin will receive the same `DOCKER_IMAGE` environment variable from your trigger step:
 
 ```yml
 steps:
@@ -232,7 +230,6 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-
 Note that while the example above shows how to integrate the Helm plugin with the existing kubectl workflow using `DOCKER_IMAGE`, the plugin can also be used independently. You can configure it with its own parameters as below:
 
 ```yml
@@ -259,16 +256,16 @@ steps:
            timeout: 600s
      concurrency: 1
      concurrency_group: deploy/production
- ```
+```
 {: codeblock-file=".buildkite/pipeline.deploy.yml"}
 
 ## Next steps
 
-Congratulations! :tada: You've setup a continuous deployment pipeline to
-Kubernetes. Practically speaking there are some things to do next.
+Congratulations! :tada: You've set up a continuous deployment pipeline to
+Kubernetes. Here are some things to do next:
 
 - Try a [block step](/docs/pipelines/configure/step-types/block-step) before the trigger to enforce manual deploys.
-- Use [GitHub's Deployment API](https://buildkite.com/blog/github-deployments) to trigger deployments from external tooling (for example, ChatOps)
+- Use [GitHub's Deployment API](https://buildkite.com/blog/github-deployments) to trigger deployments from external tooling (for example, ChatOps).
 - Expose the application to the internet with [Kubernetes Service](https://kubernetes.io/docs/concepts/services-networking/service/).
 - Replace the `envsubst` implementation with something like [kustomize](https://kustomize.io/)
 
