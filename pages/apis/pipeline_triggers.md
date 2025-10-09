@@ -55,6 +55,8 @@ To set up a pipeline trigger:
 5. After completing these fields, select **Create Trigger** to create the pipeline trigger.
 6. A unique trigger URL will be generated. Save this trigger URL to somewhere secure, as you won't be able to access it again through the Buildkite UI.
 
+<%= image "pipeline-trigger-creation-success.png", class: "invertible", alt: "Successful creation of a pipeline trigger" %>
+
 That's it - You're all set up and ready to invoke first pipeline trigger.
 
 ## Invoke a pipeline trigger
