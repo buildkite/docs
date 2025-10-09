@@ -37,7 +37,7 @@ Jenkins supports a variety of different build parameter types natively (string, 
 | Others (plugins) | Not supported |
 {: class="responsive-table"}
 
-Relatedly, Buildkite input parameter values are stored as build meta-data, not as variables that can be used in the pipeline definition itself. The migration tool will provide guidance about best practices for using input values in your pipeline.
+Also, note that Buildkite input parameter values are stored as [build meta-data](docs/pipelines/configure/build-meta-data), not as variables that can be used in the pipeline definition itself. The migration tool will provide guidance about best practices for using input values in your pipeline.
 
 ## Conditional logic
 
