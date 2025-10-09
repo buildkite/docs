@@ -75,7 +75,7 @@ curl -H "Content-Type: application/json" \
 Voila! You've just created your first build using a pipeline trigger.
 
 > 📘 Example workflows
-> See how pipeline triggers work in practice with [common workflow examples](#).
+> See how pipeline triggers work in practice with common workflow examples.
 
 ### Endpoint
 
