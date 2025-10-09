@@ -78,29 +78,61 @@ You can configure [toolset availability](#available-toolsets) for either the [re
 
 ### Remote MCP server
 
-Toolset availability for the [remote MCP server](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) can be configured by adding the required [toolset names](#available-toolsets) as part of an extension to the remote MCP server's URL (for a single toolset only), or alternatively, and for multiple toolsets, as part of the header of requests sent to the Buildkite platform from the remote MCP server.
+Toolset availability for the [remote MCP server](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) can be configured by adding the required [toolset names](#available-toolsets) as part of an [extension to the remote MCP server's URL](#using-a-url-extension) (for a single toolset only), or alternatively, and for multiple toolsets, as part of the [header of requests](#using-headers) sent to the Buildkite platform from the remote MCP server.
 
 You can also configure [read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server) to the remote MCP server as part of configuring toolsets.
 
-#### Using a URL extension
+<h4 id="using-a-url-extension">Using a URL extension</h4>
 
 When [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools), you can enable a single toolset by appending `/x/{toolset.name}` to the end of the remote MCP server URL (`https://mcp.buildkite.com/mcp`), where `{toolset.name}` is the name of the [toolset](#available-toolsets) you want to enable. To enforce read-only access, append `/readonly` to the end of `/x/{toolset.name}`.
 
-For example, to enable the `builds` toolset for the remote MCP server, configure your AI tool with the following URL:
+**Examples:**
+
+To enable the `builds` toolset for the remote MCP server, configure your AI tool with the following URL:
 
 ```url
 https://mcp.buildkite.com/mcp/x/builds
 ```
 
-To enforce read-only access to this remote MCP server toolset, configure your AI tool with this instead:
+To enforce read-only access to this remote MCP server toolset, configure your AI tool with this URL instead:
 
 ```url
 https://mcp.buildkite.com/mcp/x/builds/readonly
 ```
 
-#### Using headers
+<h4 id="using-headers">Using headers</h4>
 
 When [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools), you can enable one or more toolsets by specifying their [toolset names](#available-toolsets) within the `X-Buildkite-Toolsets` header of requests sent to the Buildkite platform from the remote MCP server. To enforce read-only access, add the `X-Buildkite-Readonly` header with a value of `true`.
+
+**Examples:**
+
+To enable the `builds` toolset for the remote MCP server, configure your AI tool with the standard remote MCP server URL:
+
+```url
+https://mcp.buildkite.com/mcp
+```
+
+along with the following request header:
+
+```url
+X-Buildkite-Toolsets: builds
+```
+
+To enable the `users`, `pipelines`, and `builds` toolsets for the remote MCP server, configure your AI tool with the standard remote MCP server URL, and the following request header:
+
+```url
+X-Buildkite-Toolsets: user,pipelines,builds
+```
+
+To enforce read-only access across all of these toolsets, use the following request headers:
+
+```url
+X-Buildkite-Toolsets: user,pipelines,builds
+X-Buildkite-Readonly: true
+```
+
+> 📘
+> Learn more about how to configure different AI tools with these header configurations in [Configuring AI tools with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools).
 
 ### Local MCP server
 
