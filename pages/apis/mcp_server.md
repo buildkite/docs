@@ -46,11 +46,14 @@ The remote MCP server is not suitable for use in automated workflows, where runn
 
 Buildkite also provides a version of the remote MCP server with read-only access to the Buildkite platform. This version is available for all users to access at the following URL:
 
-```
+```url
 https://mcp.buildkite.com/mcp/readonly
 ```
 
 This remote MCP server version issues a short-lived OAuth access token for your Buildkite user account, along with _read-only_ access permission scopes pre-set by the Buildkite platform. Hence, when using this remote MCP server, only [MCP tools](#available-mcp-tools) whose required [token scope](/docs/apis/managing-api-tokens#token-scopes) begins with `read_` are available, as well as tools with no required scope specified.
+
+> 📘
+> Read-only access can also be configured using the standard [remote MCP server URL](#types-of-mcp-servers-remote-mcp-server), by configuring the MCP server to send `X-Buildkite-Readonly: true` in the header of requests to the Buildkite platform. Learn more about this in [Configuring AI tools with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) and [Remote MCP server configuration for toolsets](/docs/apis/mcp-server/toolsets#configuration-remote-mcp-server).
 
 ### Local MCP server
 

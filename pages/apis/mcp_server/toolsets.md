@@ -1,15 +1,15 @@
 # Toolsets
 
-The [Buildkite MCP server](/docs/apis/mcp-server) organizes its [MCP tools](/docs/apis/mcp-server#available-mcp-tools) into logical groups of _toolsets_, each of which can be enabled or disabled based on your requirements.
+The [Buildkite MCP server](/docs/apis/mcp-server) organizes its [MCP tools](/docs/apis/mcp-server#available-mcp-tools) into logical groups of _toolsets_, each of which can be selectively enabled on the MCP server, based on your requirements.
 
 ## Available toolsets
 
-Each toolset groups related MCP tools that interact with specific areas of the Buildkite platform. You can enable or disable these individual toolsets to control which API functionality is available to your AI tool or agent.
+Each toolset groups related [MCP tools](/docs/apis/mcp-server#available-mcp-tools), which interact with specific areas of the Buildkite platform. You can enable these individual toolsets by [configuring them for your Buildkite MCP server](#configuration). Doing so effectively restricts your AI tool's or agent's access to the Buildkite API, based on each set of MCP tools made available through the MCP server's configured toolsets.
 
 <table>
   <thead>
     <tr>
-      <th style="width:15%">Toolset</th>
+      <th style="width:15%">Toolset (name)</th>
       <th style="width:35%">Description</th>
       <th style="width:50%">Tools</th>
     </tr>
@@ -74,9 +74,39 @@ Each toolset groups related MCP tools that interact with specific areas of the B
 
 ## Configuration
 
-Configure toolsets using environment variables or command-line flags.
+You can configure [toolset availability](#available-toolsets) for either the [remote](#configuration-remote-mcp-server) or [local](#configuration-local-mcp-server) Buildkite MCP servers.
 
-### Using pre-built or source-built binaries
+### Remote MCP server
+
+Toolset availability for the [remote MCP server](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) can be configured by adding the required [toolset names](#available-toolsets) as part of an extension to the remote MCP server's URL (for a single toolset only), or alternatively, and for multiple toolsets, as part of the header of requests sent to the Buildkite platform from the remote MCP server.
+
+You can also configure [read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server) to the remote MCP server as part of configuring toolsets.
+
+#### Using a URL extension
+
+When [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools), you can enable a single toolset by appending `/x/{toolset.name}` to the end of the remote MCP server URL (`https://mcp.buildkite.com/mcp`), where `{toolset.name}` is the name of the [toolset](#available-toolsets) you want to enable. To enforce read-only access, append `/readonly` to the end of `/x/{toolset.name}`.
+
+For example, to enable the `builds` toolset for the remote MCP server, configure your AI tool with the following URL:
+
+```url
+https://mcp.buildkite.com/mcp/x/builds
+```
+
+To enforce read-only access to this remote MCP server toolset, configure your AI tool with this instead:
+
+```url
+https://mcp.buildkite.com/mcp/x/builds/readonly
+```
+
+#### Using headers
+
+When [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools), you can enable one or more toolsets by specifying their [toolset names](#available-toolsets) within the `X-Buildkite-Toolsets` header of requests sent to the Buildkite platform from the remote MCP server. To enforce read-only access, add the `X-Buildkite-Readonly` header with a value of `true`.
+
+### Local MCP server
+
+Toolset availability for the [local MCP server](/docs/apis/mcp-server#types-of-mcp-servers-local-mcp-server) can be configured using environment variables or command-line flags when the local MCP server is started.
+
+#### Using pre-built or source-built binaries
 
 When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the `--enabled-toolsets` flag with a comma-delimited list of toolsets to enable:
 
@@ -84,7 +114,7 @@ When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-
 buildkite-mcp-server stdio --enabled-toolsets="user,pipelines,builds"
 ```
 
-### Using Docker
+#### Using Docker
 
 When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, set the `BUILDKITE_TOOLSETS` environment variable with a comma-delimited list of toolsets to enable:
 
@@ -92,7 +122,7 @@ When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-s
 docker run --rm -e BUILDKITE_API_TOKEN=bkua_xxxxx -e BUILDKITE_TOOLSETS="user,pipelines,builds" buildkite/mcp-server stdio
 ```
 
-## Special values
+### Special values
 
 - **`all`** - Enables all available toolsets (default)
 - **Read-only mode** - Add `--read-only` flag or `BUILDKITE_READ_ONLY=true` to filter out write operations

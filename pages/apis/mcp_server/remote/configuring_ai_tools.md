@@ -17,11 +17,18 @@ You can configure [Amp](https://ampcode.com/) with the remote Buildkite MCP serv
       "args": [
         "mcp-remote",
         "https://mcp.buildkite.com/mcp"
+        "--header",
+        "X-Buildkite-Toolsets: user,pipelines,builds",
+        "--header",
+        "X-Buildkite-Readonly: true"
       ]
     }
   }
 }
 ```
+
+> 📘
+> The last four `--header`-related lines are optional, and are only required if you are enabling [toolsets](/docs/apis/mcp-server/toolsets) or [configuring read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server) to the remote MCP server.
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
 
