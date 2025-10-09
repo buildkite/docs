@@ -27,7 +27,7 @@ See the following agent configuration options for more information:
 
 ## Why use Git mirrors
 
-As described earlier, git mirror is a feature that allows users to create local copies of Git repositories on Buildkite agents. Its primary use is to optimise performance and other factors like network bandwidth with the overall aim of reducing the time it takes to re-clone large repositories.
+As described earlier, git mirror is a feature that allows users to create local copies of Git repositories on Buildkite agents. Its primary use is to optimize performance and other factors like network bandwidth with the overall aim of reducing the time it takes to re-clone large repositories.
 
 The main uses for Git mirrors are:
 
@@ -53,6 +53,11 @@ A mirror repository and a reference clone(checkout) work together where the chec
 Using `git remote update` is the usual way to update mirrors as it updates everything in a mirror, however `git fetch origin <branch>` would be the preferred way as for most CI/CD use cases, only the objects needed for a particular job are needed. This is why, in this [PR](https://github.com/buildkite/agent/pull/1112), `git remote update` was switched to `git fetch origin <branch>`, Another point to note here is that`git remote update` also runs auto maintenance which may cause the checkout corruption as mentioned earlier
 
 ## Possible alternatives to Git mirrors
+
+If for some reason, you are not willing or are not able to use the Git mirrors feature, you might want to look into the following two alternative options:
+
+- Dissociate
+- Git worktree
 
 ### Using Dissociate
 
