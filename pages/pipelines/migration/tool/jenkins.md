@@ -1,8 +1,8 @@
 # Jenkins
 
-The [Buildkite migration tool](/docs/pipelines/migration/tool) helps you convert your Jenkins pipeline jobs into Buildkite pipelines. Both the Scripted and Declarative forms of Jenkins pipelines are supported. Because Jenkins pipelines can be written using the Groovy scripting language, their potential for complexity is much greater than that of other YAML-based CI configuration formats. Therefore, to get the best results in the translation process, we make use of an AI Large Language Model. The LLM first analyzes the Jenkins pipeline to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline.
+The [Buildkite migration tool](/docs/pipelines/migration/tool) helps you convert your Jenkins pipeline jobs into Buildkite pipelines. Both the scripted and declarative forms of Jenkins pipelines are supported. Because Jenkins pipelines can be written using the Groovy scripting language, their potential for complexity is much greater than that of other YAML-based CI configuration formats. Therefore, to get the best results in the translation process, we make use of an AI Large Language Model. The LLM first analyzes the Jenkins pipeline to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline.
 
-As with any of the other CI systems we translate from, there will be Jenkins pipeline features that don't have a direct equivalent in Buildkite. In those cases, the migration tool will include comments in the output with suggestions about possible solutions you could explore. Similarly, the goal of the migration tool is to give you a starting point or framework of a pipeline, so you can see how patterns you're used to in Jenkins would function in Buildkite. As such, the tool will not try to convert your build shell scripts or other complex logic automatically. Instead, it will generate placeholder steps for those items, so that you can quickly see the structure of the pipeline working in Buildkite. You can then flesh out the details of the pipeline functionality at your own pace.
+As with any of the other CI systems we translate from ([GitHub Actions](docs/pipelines/migration/tool/github-actions), [CircleCI](/docs/pipelines/migration/tool/circleci), [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines)), there will be Jenkins pipeline features that don't have a direct equivalent in Buildkite. In those cases, the migration tool will include comments in the output with suggestions about possible solutions you could explore. Similarly, the goal of the migration tool is to give you a starting point or framework of a pipeline, so you can see how patterns you're used to in Jenkins would function in Buildkite. As such, the tool will not try to convert your build's shell scripts or other complex logic automatically. Instead, it will generate placeholder steps for those items, so that you can see the structure of the pipeline working in Buildkite. You can then flesh out the details of an equivalent pipeline functionality at your own convenience and pace.
 
 ## Using the Buildkite migration tool with Jenkins pipelines
 
@@ -14,7 +14,7 @@ To start converting a Jenkins pipeline into Buildkite Pipelines format:
 1. Select **Convert** to reveal the translated pipeline configuration in the **Buildkite Pipeline** panel.
 
 > 📘
-> Remember that not all the features of Jenkins pipelines can be fully converted to the Buildkite Pipelines format. See the following sections to learn more about the compatibility, workarounds, and limitation of converting Jenkins pipelines to Buildkite pipelines.
+> Remember that not all the features of Jenkins pipelines can be fully converted to the Buildkite Pipelines format. See the following sections to learn more about the compatibility, workarounds, and limitations of converting Jenkins pipelines to Buildkite pipelines.
 
 ## Stages
 
@@ -22,11 +22,11 @@ The migration tool will start by examining the `stage {}` blocks in your Jenkins
 
 ## Step concurrency
 
-By default, Jenkins pipeline steps run serially, whereas Buildkite pipeline steps are executed in parallel. For consistency, your translated Jenkins pipeline will have `wait` steps added, to maintain the existing serial execution. You can then remove any of those which might be unnecessary, for example if you have several different test suites which can safely run in parallel.
+By default, Jenkins pipeline steps run serially, whereas Buildkite pipeline steps are executed in parallel. For consistency, your translated Jenkins pipeline will have `wait` steps added, to maintain the existing serial execution. You can then remove any of those which might be unnecessary, for example, if you have several different test suites which can safely run in parallel.
 
 ## Build parameters
 
-Jenkins supports a variety of different build parameter types natively (string, text, boolean, choice, and password), with additional types possible with the use of plugin. Buildkite only supports string and select (choice), so Jenkins parameters will be translated as follows:
+Jenkins supports a variety of different build parameter types natively (`string`, `text`, `boolean`, `choice`, and `password`), with additional types possible with the use of plugin. Buildkite only supports `string` and `select` (`choice`), so Jenkins parameters will be translated as follows:
 
 | Parameter type | Conversion |
 | --- | ---------- |
@@ -41,5 +41,4 @@ Also, note that Buildkite input parameter values are stored as [build meta-data]
 
 ## Conditional logic
 
-Because Jenkins pipelines are written in the Groovy scripting language, they can contain complex conditional logic, loops, etc. which cannot be duplicated in Buildkite's simpler step conditional YAML syntax. Complex logic should be refactored into shell scripts that are executed on agents, so the migration tool will recommend that with comments when required.
-
+Because Jenkins pipelines are written in the Groovy scripting language, they can contain complex conditional logic, loops, etc. which cannot be duplicated in Buildkite's step conditional YAML syntax. Complex logic should be refactored into shell scripts that are executed on agents, so the migration tool will recommend that with comments when required.
