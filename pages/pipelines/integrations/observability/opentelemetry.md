@@ -66,7 +66,7 @@ OTEL_EXPORTER_OTLP_HEADERS="x-honeycomb-team=<your-api-key>"
 
 ##### Multiple headers
 
-Multiple headers can be specified by seperating values with comma:
+Multiple headers can be specified by separating values with commas:
 
 ```bash
 OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <token>,x-custom-header=value"
