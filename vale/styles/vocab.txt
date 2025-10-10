@@ -150,6 +150,7 @@ gmp
 gnupg
 gotestsum
 gpg
+Grafana
 Gradle
 gradle
 Gradle's
@@ -192,12 +193,14 @@ keyserver
 keyservers
 keyless
 kotlin
+kubeconfig
 kubectl
 kustomize
 Kuzco
 launchd
 LFS
 libpq
+Lightstep
 linux
 llamasecret
 LLMs
@@ -326,6 +329,7 @@ Sonoma
 Splitter's
 sre
 sso
+stack_error
 statefully
 stdout
 streamable

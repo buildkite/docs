@@ -106,7 +106,7 @@ Example:
 
 ```bash
 curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
-  -X GET "https://agent.buildkite.com/v3/stacks/my-kubernetes-stack/scheduled_jobs?queue_key=default&limit=10"
+  -X GET "https://agent.buildkite.com/v3/stacks/my-kubernetes-stack/scheduled-jobs?queue_key=default&limit=10"
 ```
 
 ```json
@@ -189,7 +189,7 @@ Example:
 ```bash
 curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
   -H "Content-Type: application/json" \
-  -X PUT "https://agent.buildkite.com/v3/stacks/my-kubernetes-stack/scheduled_jobs/batch_reserve" \
+  -X PUT "https://agent.buildkite.com/v3/stacks/my-kubernetes-stack/scheduled-jobs/batch-reserve" \
   -d '{
     "job_uuids": [
       "01234567-89ab-cdef-0123-456789abcdef",
@@ -283,26 +283,78 @@ curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
 
 Success response: `200 OK`
 
-## Create stack notification
+## Create stack notifications
 
 In situations when a stack may take more than a few seconds to provision infrastructure for a job, or when the stack is waiting for some external conditions to be satisfied, a stack can give short textual notifications to the Buildkite Build page.
 This can help with visibility and debugging.
 A notification `detail` can be a short string.
-A job cannot have more than 50 stack notifications, so a stack should use this API judiciously.
+A job cannot have more than 100 stack notifications, so a stack should use this API judiciously.
+
+This endpoint supports batch creation of notifications for multiple jobs. You can send up to 1000 notifications in a single request.
 
 ### Request payload
 
-| Field    | Type   | Required | Description                                 |
-| -------- | ------ | -------- | ------------------------------------------- |
-| `detail` | string | Yes      | Short notification message (max length 255) |
+| Field           | Type          | Required | Description                                          |
+| --------------- | ------------- | -------- | ---------------------------------------------------- |
+| `notifications` | array[object] | Yes      | Array of notification objects (max 1000 per request) |
+
+Each notification object:
+
+| Field       | Type   | Required | Description                                   |
+| ----------- | ------ | -------- | --------------------------------------------- |
+| `job_uuid`  | string | Yes      | UUID of the job to attach the notification to |
+| `detail`    | string | Yes      | Short notification message (max length 256)   |
+| `timestamp` | string | No       | ISO 8601 timestamp (defaults to current time) |
+
+### Constraints
+
+- Maximum 1000 notifications per request
+- Maximum 100 notifications per job
+- `detail` must not be empty and cannot exceed 256 characters
+- `timestamp` cannot be in the future or before job creation time
+- Notifications cannot be sent for jobs that finished more than 300 seconds ago
 
 ```bash
 curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
   -H "Content-Type: application/json" \
-  -X POST "https://agent.buildkite.com/v3/stacks/my-kubernetes-stack/jobs/$JOB_UUID/stack_notifications" \
+  -X POST "https://agent.buildkite.com/v3/stacks/my-kubernetes-stack/notifications" \
   -d '{
-    "detail": "Pod is starting up"
+    "notifications": [
+      {
+        "job_uuid": "01234567-89ab-cdef-0123-456789abcdef",
+        "detail": "Pod is starting up"
+      },
+      {
+        "job_uuid": "fedcba98-7654-3210-fedc-ba9876543210",
+        "detail": "Waiting for resources",
+        "timestamp": "2023-10-01T12:00:00.000Z"
+      }
+    ]
   }'
 ```
 
+Response example with partial success:
+
+```json
+{
+  "errors": [
+    {
+      "error": "detail is required",
+      "indexes": [2]
+    },
+    {
+      "error": "job stack notification count exceeded",
+      "indexes": [5]
+    }
+  ]
+}
+```
+
 Success response: `200 OK`
+
+The response includes an `errors` array. Each error object contains:
+
+- `error`: Description of the validation failure
+- `indexes`: Array of notification indexes (0-based) that failed with this error
+
+Valid notifications are created even if some fail validation. An empty `errors` array indicates all notifications were created successfully.
