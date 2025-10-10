@@ -42,6 +42,7 @@ Basecamp
 Basscss
 Bayesian
 Bazel
+Bazel's
 bazelisk
 Bitium
 Bitbucket
@@ -266,6 +267,7 @@ plaintext
 plist
 png
 pngs
+pnpm
 pod_watcher
 podWatcher
 Postgres

@@ -9,7 +9,7 @@ Design build environments to be reproducible, secure, and fast. Favor hermetic, 
     * Multi-service or compose-first repositories: docker-compose plugin
 - [Multi-stage Dockerfiles](https://docs.docker.com/build/building/multi-stage/) to keep images small and secure while supporting complex builds.
 - Pin base images and tags. Avoid latest to prevent upstream drift.
-- Align dev, CI, and prod images to improve parity. Build once, run everywhere to reduce environment drift.
+- Align development, CI, and prod images to improve parity. Build once, run everywhere to reduce environment drift.
 - Keep images deterministic:
     * Pin OS packages by version
     * Avoid apt-get upgrade without pinning
@@ -91,7 +91,7 @@ env:
 - Ruby: Commit Gemfile.lock. Use Bundler with deployment flags to ensure locked resolution.
 - Go: Rely on `go.mod` and `checksum db`. For `cgo`, standardize the build image and toolchain.
 - Java/Scala: Pin toolchains via SDKMAN/asdf or containerize. Cache Maven/Gradle directories keyed by lockfiles and JDK version.
-- Rust: Pin rustup toolchain. Cache cargo registry and target directories keyed by Cargo.lock and target triple.
+- Rust: Pin `rustup` toolchain. Cache cargo registry and target directories keyed by Cargo.lock and target triple.
 
 ## Build script hygiene
 
