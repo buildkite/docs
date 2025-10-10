@@ -12,7 +12,7 @@ Key benefits to using Git mirrors:
 - **Reduce disk usage** - store common objects once in the mirror.
 - **Faster builds** - less time spent on git operations.
 - **Local backup** - maintain a complete copy of the repository on your infrastructure.
-- **Handle large repositories** - more efficient for repos with a large number of files and extensive history.
+- **Handle large repositories** - more efficient for repositories with a large number of files and extensive history.
 
 ## How Git mirrors work
 
