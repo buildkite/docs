@@ -203,7 +203,7 @@ Most [AI tool or agent configurations for the local MCP server](/docs/apis/mcp-s
 ```json
 {
   ...
-    "buildkite": {
+    "buildkite-read-only-toolsets": {
       "command": "docker",
       "args": [
         "run", "--pull=always", "-q", "-i", "--rm",
@@ -252,7 +252,7 @@ Most [AI tool or agent configurations for the local MCP server](/docs/apis/mcp-s
 ```json
 {
   ...
-    "buildkite": {
+    "buildkite-read-only-toolsets": {
       "command": "buildkite-mcp-server",
       "args": ["stdio"],
       "env": {
@@ -294,8 +294,8 @@ docker run --rm -e BUILDKITE_API_TOKEN=bkua_xxxxx -e BUILDKITE_TOOLSETS="builds"
 > For example, instead of:
 > `"buildkite": { ... }`
 > Use more descriptive names like:
-> `"buildkite-user-pipelines-read-only": { ... }`
+> `"buildkite-read-only-user-pipelines-toolsets": { ... }`
 > and
-> `"buildkite-builds": { ... }`
+> `"buildkite-builds-toolset": { ... }`
 
 
