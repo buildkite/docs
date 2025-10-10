@@ -32,11 +32,11 @@ See [OpenTelemetry SDK documentation](https://opentelemetry.io/docs/specs/otel/c
 
 #### Authentication
 
-Authentication headers vary by provider. Below are the most commonly used authentication patterns, we recommend consulting the provider's documentation for specific requirements.
+Authentication headers vary by provider. Below are the most commonly used authentication patterns. For specific requirements, consult the provider's documentation.
 
 ##### Bearer token
 
-For Honeycomb, Lightstep, and most other providers:
+For [Honeycomb](https://docs.honeycomb.io/get-started/), [Lightstep](https://docs.lightstep.com/), and most other providers:
 
 ```bash
 OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <your-api-token>"
@@ -44,13 +44,13 @@ OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <your-api-token>"
 
 ##### Basic authentication
 
-Grafana Cloud requires Basic authentication with an instance ID and token, base64-encoded in the format `instance_id:token`:
+[Grafana Cloud](https://grafana.com/docs/grafana-cloud/) requires Basic authentication with an instance ID and token, base64-encoded in the format `instance_id:token`:
 
 ```bash
 OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic <base64(instance_id:token)>"
 ```
 
-To base64 encode the token, run the following command:
+To encode the token in base64, run the following command:
 
 ```bash
 echo -n "your-instance-id:your-token" | base64
@@ -96,7 +96,7 @@ ENV OTEL_EXPORTER_OTLP_PROTOCOL="grpc"
 # the gRPC transport requires a port to be specified in the URL
 ENV OTEL_EXPORTER_OTLP_ENDPOINT="http://otel-collector:4317"
 
-# Authentication can vary by provider - see authentication examples above
+# Authentication can vary by provider - see the authentication examples above
 # Bearer is the most common method of Authentication:
 ENV OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <token>"
 # For Grafana Cloud, use Basic Authentication instead:
@@ -140,7 +140,7 @@ OpenTelemetry traces from the Buildkite notification service follow a hierarchic
           └─ buildkite.job
 ```
 
-> 📘 Build Stages
+> 📘 Build stages
 > Buildkite builds that have finished may be resumed at a later time, eg. by unblocking a `block` step, or manually retrying a failed job. To represent that in the OpenTelemetry format, we add an extra `buildkite.build.stage` span for each period of time that the build is in the `running`, `scheduled`, `canceling` or `failing` state. We also include a `buildkite.build.stage` span attribute to indicate how many times the build has been resumed.
 
 The following attributes are included in OpenTelemetry traces from the Buildkite notification service:
@@ -232,7 +232,7 @@ See [Bearer Token example](https://github.com/buildkite/opentelemetry-notificati
 
 #### Basic auth
 
-First, create a base64 encoded string of the username and password separated by a colon.
+First, create a base64-encoded string of the username and password separated by a colon.
 
 ```bash
 echo -n "${USER}:${PASSWORD}" | base64
@@ -320,4 +320,4 @@ docker run --rm -e DD_API_KEY=abcd -e OTLP_HTTP_BEARER_TOKEN=example -it -v $(pw
 config valid
 ```
 
-There is also an online validation tool available at https://www.otelbin.io/
+You can also use an online validation tool available at https://www.otelbin.io/.
