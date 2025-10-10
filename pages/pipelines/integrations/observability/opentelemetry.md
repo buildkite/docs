@@ -16,19 +16,61 @@ See [Tracing in the Buildkite Agent](/docs/agent/v3/tracing#using-opentelemetry-
 
 To propagate traces from the Buildkite control plane through to the agent running the job, include the following CLI flags to `buildkite-agent start` and include the appropriate environment variables to specify OpenTelemetry collector details.
 
-| Flag                              | Environment Variable                      | Value                                              |
-| --------------------------------- | ----------------------------------------- | -------------------------------------------------- |
-| `--tracing-backend`               | `BUILDKITE_TRACING_BACKEND`               | `opentelemetry`                                    |
-| `--tracing-propagate-traceparent` | `BUILDKITE_TRACING_PROPAGATE_TRACEPARENT` | `true` (default: `false`)                          |
-| `--tracing-service-name`          | `BUILDKITE_TRACING_SERVICE_NAME`          | `buildkite-agent` (default)                        |
-|                                   | `OTEL_EXPORTER_OTLP_ENDPOINT`             | `http://otel-collector:4317`                       |
-|                                   | `OTEL_EXPORTER_OTLP_HEADERS`              | `"Authorization=Bearer <token>,x-my-header=value"` |
-|                                   | `OTEL_EXPORTER_OTLP_PROTOCOL`             | `grpc` (default) or `http/protobuf`                |
-|                                   | `OTEL_RESOURCE_ATTRIBUTES`                | `key1=value1,key2=value2`                          |
+| Flag                              | Environment Variable                      | Value                                   |
+| --------------------------------- | ----------------------------------------- | --------------------------------------- |
+| `--tracing-backend`               | `BUILDKITE_TRACING_BACKEND`               | `opentelemetry`                         |
+| `--tracing-propagate-traceparent` | `BUILDKITE_TRACING_PROPAGATE_TRACEPARENT` | `true` (default: `false`)               |
+| `--tracing-service-name`          | `BUILDKITE_TRACING_SERVICE_NAME`          | `buildkite-agent` (default)             |
+|                                   | `OTEL_EXPORTER_OTLP_ENDPOINT`             | `http://otel-collector:4317`            |
+|                                   | `OTEL_EXPORTER_OTLP_HEADERS`              | See [Authentication](#authentication).  |
+|                                   | `OTEL_EXPORTER_OTLP_PROTOCOL`             | `grpc` (default) or `http/protobuf`     |
+|                                   | `OTEL_RESOURCE_ATTRIBUTES`                | `key1=value1,key2=value2`               |
 
 Note: `http/protobuf` protocol is only supported on Buildkite agent [v3.101.0](https://github.com/buildkite/agent/releases/tag/v3.101.0) or newer.
 
 See [OpenTelemetry SDK documentation](https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/) for more information on available environment variables.
+
+#### Authentication
+
+Authentication headers vary by provider. Below are the most commonly used authentication patterns, we recommend consulting the provider's documentation for specific requirements.
+
+##### Bearer token
+
+For Honeycomb, Lightstep, and most other providers:
+
+```bash
+OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <your-api-token>"
+```
+
+##### Basic authentication
+
+Grafana Cloud requires Basic authentication with an instance ID and token, base64-encoded in the format `instance_id:token`:
+
+```bash
+OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic <base64(instance_id:token)>"
+```
+
+To base64 encode the token, run the following command:
+
+```bash
+echo -n "your-instance-id:your-token" | base64
+```
+
+##### Custom headers
+
+Some providers (such as Honeycomb) also support custom headers:
+
+```bash
+OTEL_EXPORTER_OTLP_HEADERS="x-honeycomb-team=<your-api-key>"
+```
+
+##### Multiple headers
+
+Multiple headers can be specified by seperating values with comma:
+
+```bash
+OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <token>,x-custom-header=value"
+```
 
 ### Propagating traces to Buildkite agents
 
@@ -54,8 +96,11 @@ ENV OTEL_EXPORTER_OTLP_PROTOCOL="grpc"
 # the gRPC transport requires a port to be specified in the URL
 ENV OTEL_EXPORTER_OTLP_ENDPOINT="http://otel-collector:4317"
 
-# authentication of traces is done via tokens in headers
-ENV OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <token>,x-my-header=value"
+# Authentication can vary by provider - see authentication examples above
+# Bearer is the most common method of Authentication:
+ENV OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <token>"
+# For Grafana Cloud, use Basic Authentication instead:
+ENV OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic <base64(instance_id:token)>"
 ```
 
 ## OpenTelemetry tracing notification service
