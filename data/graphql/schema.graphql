@@ -78,6 +78,7 @@ enum APIAccessTokenScopes {
   READ_BUILDS
   READ_BUILD_LOGS
   READ_CLUSTERS
+  READ_EVENTS
   READ_JOB_ENV
   READ_ORGANIZATIONS
   READ_PACKAGES
@@ -976,6 +977,7 @@ enum AuditEventType {
   ORGANIZATION_MEMBER_CREATED
   ORGANIZATION_MEMBER_DELETED
   ORGANIZATION_MEMBER_UPDATED
+  ORGANIZATION_SECURITY_SETTINGS_UPDATED
   ORGANIZATION_TEAMS_DISABLED
   ORGANIZATION_TEAMS_ENABLED
   ORGANIZATION_UPDATED
@@ -987,6 +989,9 @@ enum AuditEventType {
   PIPELINE_TEMPLATE_CREATED
   PIPELINE_TEMPLATE_DELETED
   PIPELINE_TEMPLATE_UPDATED
+  PIPELINE_TRIGGER_CREATED
+  PIPELINE_TRIGGER_DELETED
+  PIPELINE_TRIGGER_UPDATED
   PIPELINE_UPDATED
   PIPELINE_VISIBILITY_CHANGED
   PIPELINE_WEBHOOK_URL_ROTATED
@@ -1141,9 +1146,11 @@ enum AuditSubjectType {
   ORGANIZATION_IMPERSONATION_REQUEST
   ORGANIZATION_INVITATION
   ORGANIZATION_MEMBER
+  ORGANIZATION_SECURITY_SETTING
   PIPELINE
   PIPELINE_SCHEDULE
   PIPELINE_TEMPLATE
+  PIPELINE_TRIGGER
   PORTAL
   PORTAL_SECRET
   PORTAL_TOKEN
@@ -3227,6 +3234,11 @@ enum JobEventActorType {
   DISPATCH
 
   """
+  The actor was an agent stack
+  """
+  STACK
+
+  """
   The actor was the system
   """
   SYSTEM
@@ -3634,6 +3646,42 @@ type JobEventStackError implements JobEvent & Node {
 }
 
 """
+An event created when a stack finishes a job and marks it as success
+"""
+type JobEventStackFinished implements JobEvent & Node {
+  """
+  The actor that caused this event to occur
+  """
+  actor: JobEventActor!
+
+  """
+  Details about why stack finishes this job
+  """
+  detail: String
+  id: ID!
+
+  """
+  The job that this event belongs to
+  """
+  job: JobTypeCommand!
+
+  """
+  The time when the event occurred
+  """
+  timestamp: DateTime!
+
+  """
+  The type of event
+  """
+  type: JobEventType!
+
+  """
+  The public UUID for this job event
+  """
+  uuid: ID!
+}
+
+"""
 An event created when a stack notification is triggered
 """
 type JobEventStackNotification implements JobEvent & Node {
@@ -3836,6 +3884,11 @@ enum JobEventType {
   Stack encountered an error handling this job
   """
   STACK_ERRORED
+
+  """
+  Stack ends this job without raising error
+  """
+  STACK_FINISHED
 
   """
   Stack sent a notification for this job
