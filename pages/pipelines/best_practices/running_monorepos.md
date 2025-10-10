@@ -39,8 +39,8 @@ Alternatively, instead of a monorepo diff, you can use  [`if_changed`](/docs/ag
 
 You can use dynamic pipelines to inject steps into a single pipeline according to what changed. To actually implement this, you can use:
 
-* Buildkite [SDK](/docs/pipelines/configure/dynamic-pipelines/sdk).
 * Both monorepo & dynamic steps in same pipeline
+* Buildkite [SDK](/docs/pipelines/configure/dynamic-pipelines/sdk)
 
 The common approach is uploading the generated YAML as an artifact using `buildkite-agent artifact upload`. This allows you to download and review it later to see exactly what was generated. If you want to preview the pipeline before it's uploaded, you can use `buildkite-agent pipeline upload --dry-run` to output the final YAML without running it.
 
@@ -54,3 +54,7 @@ How it works:
 1. **Dependency Resolution**: builds a dependency graph to determine which projects need building.
 1. **Pipeline Generation**: creates a dynamic pipeline with proper job dependencies.
 1. **Parallel Execution**: independent projects build in parallel while respecting dependencies.
+
+# The SDK approach
+
+With the monorepo strategy, dynamic steps that are injected based on the changed files, in a single pipeline and or using the [SDK](/docs/pipelines/configure/dynamic-pipelines/sdk).

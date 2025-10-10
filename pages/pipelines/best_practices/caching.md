@@ -4,7 +4,7 @@ Caching makes builds faster and cheaper by reusing work across jobs and builds. 
 
 Efficient caching: optimize Dockerfile layering to maximize [cache reuse](https://docs.docker.com/build/cache/).
 
-### What to cache
+## What to cache
 
 - Dependency directories for your language or build tool
 - Docker build layers when applicable
@@ -18,7 +18,7 @@ Do not cache:
 
 Why: The greatest wins come from restoring dependency trees and Docker layers, not test results or end products.
 
-### Choose the right caching mechanism
+## Choose the right caching mechanism
 
 - Hosted agent cache volumes
 
@@ -33,4 +33,17 @@ Why: The greatest wins come from restoring dependency trees and Docker layers, n
 
 Recommendation: Prefer hosted cache volumes for most hosted‑agent pipelines. Layer in key‑based cache where determinism and cross‑build control matter most (for example, lockfile‑keyed dependency caches).
 
-Maybe a note about how Buildkite artifacts could be used to "cache" common data between steps.
+## Tools for caching
+
+- Bazel cache, local NPM cache, and usage of Redis alongside S3 for reducing the number of GitHub API calls and dependency retrieval overhead.
+- Bazel: Buildkite sends Bazel target commands to the build form which distributed compilation is handled, leveraging Bazel's remote execution framework.
+- Caching "hack" (Android + cache plugin + cache volumes).
+- Docker + Buildkit, short-lived cache registries, and GCS for distributing precomputed seed data across globally scaled agents.
+- Enhanced caching strategy: writing custom plugin(s) to cache Docker images, source code, and build artifacts + Kubernetes can be added for improved job allocation.
+- Retain Docker images to avoid 4–5 minute pulls. Try storing the working directory in S3 (custom plugins and scripts), and cache database schemas and GraphQL outputs to speed up builds.
+- Offload compilation from the build client to the build farm based on software checksum and versioning.
+
+## Caching via artifacts
+
+Buildkite artifacts could be used to "cache" common data between steps.
+
