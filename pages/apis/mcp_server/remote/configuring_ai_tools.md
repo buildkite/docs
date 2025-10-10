@@ -49,6 +49,8 @@ To enable [toolsets](/docs/apis/mcp-server/toolsets) or [configure read-only acc
 }
 ```
 
+<%= render_markdown partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
+
 ## Claude Code
 
 You can configure [Claude Code](https://www.anthropic.com/claude-code) with the remote Buildkite MCP server by running the relevant Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
@@ -68,6 +70,8 @@ To enable [toolsets](/docs/apis/mcp-server/toolsets) or [configure read-only acc
 ```bash
 claude mcp add --transport http buildkite-with-read-only-toolsets https://mcp.buildkite.com/mcp --header "X-Buildkite-Toolsets: user,pipelines,builds" --header "X-Buildkite-Readonly: true" 
 ```
+
+<%= render_markdown partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
 
 ## Claude Desktop
 
@@ -96,7 +100,7 @@ If you need more assistance with this process, follow Anthropic's guidelines for
 
 ### Using toolsets and read-only access
 
-To enable [toolsets](/docs/apis/mcp-server/toolsets) or [configure read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server), or both, for the remote MCP server with [Claude Desktop](#claude-desktop), follow this [create custom connector procedure](#claude-desktop) by implementing the [URL extension approach](/docs/apis/mcp-server/toolsets#using-a-url-extension) when enabling the toolset, with the following updates:
+To enable [toolsets](/docs/apis/mcp-server/toolsets) or [configure read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server), or both, for the remote MCP server with [Claude Desktop](#claude-desktop), follow this [create custom connector procedure](#claude-desktop) by implementing the [URL extension approach](/docs/apis/mcp-server/toolsets#configuring-the-remote-mcp-server-using-a-url-extension) when enabling the toolset, with the following updates:
 
 - For the **Name** field, specify a name that better describes the customer connector. For example, **Buildkite - pipelines** for the `pipelines` toolset.
 - For the **Remote MCP server URL** field, specify the enabled toolset for the remote MCP server. For example, `https://mcp.buildkite.com/mcp/x/pipelines`.
@@ -156,6 +160,8 @@ To enable [toolsets](/docs/apis/mcp-server/toolsets) or [configure read-only acc
 }
 ```
 
+<%= render_markdown partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
+
 ## Goose
 
 [Goose](https://block.github.io/goose/) is a local AI tool and agent that can be configured with different [LLM (AI model) providers](https://block.github.io/goose/docs/getting-started/providers).
@@ -204,6 +210,8 @@ extensions:
     available_tools: []
 ```
 
+<%= render_markdown partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
+
 ## Visual Studio Code
 
 You can configure [Visual Studio Code](https://code.visualstudio.com/) with the remote Buildkite MCP server by adding the relevant configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server).
@@ -251,6 +259,8 @@ To enable [toolsets](/docs/apis/mcp-server/toolsets) or [configure read-only acc
 }
 ```
 
+<%= render_markdown partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
+
 ## Windsurf
 
 You can configure [Windsurf](https://windsurf.com/) with the remote Buildkite MCP server by adding the relevant configuration to your [Windsurf's `mcp_config.json` file](https://docs.windsurf.com/windsurf/cascade/mcp#mcp-config-json).
@@ -286,3 +296,5 @@ To enable [toolsets](/docs/apis/mcp-server/toolsets) or [configure read-only acc
   }
 }
 ```
+
+<%= render_markdown partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
