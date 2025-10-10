@@ -1,60 +1,57 @@
 # Git mirrors
 
-Implementing Git mirrors within your own self-hosted build infrastructure allows you to reduce both network bandwidth and disk usage when running multiple agents.
+Git mirrors allow you to create local copies of Git repositories on Buildkite Agents. The feature works by maintaining a single bare git mirror for each repository on a host, shared amongst multiple agents and pipelines. Checkouts then reference this mirror using `git clone --reference`, as do submodules.
 
-Git mirroring is set up by mirroring the repository in a central location (known as the _git mirror directory_), and making each checkout us a `--reference` clone of the mirror.
+## When to use Git mirrors
 
-For Git mirrors, there are two major components to note which are `Git mirror --mirror` and `Git clone --reference`.
+Git mirrors optimize performance and reduce network bandwidth, helping you minimize the time it takes to re-clone large repositories. They're particularly useful in self-hosted build infrastructure where multiple agents are running.
 
-`Git mirror --mirror` is similar to `Git clone --bare` with the main difference being that it also clones all the extra elements you normally would not get with `git clone` or `git clone --bare`. The `--mirror` flag actually provides all the branches associated with that repository which is very important in a real scenario as the agent does not know which branch it needs to build. This is also useful if you need to save time cloning a specific branch as git mirror makes a clone of everything in the remote repository (practically as the name implies, a complete mirror of the remote repository)
+Key benefits to using Git mirrors:
 
-`Git clone --reference` saves network and disk space however it does come with its caveat. When utilizing `git clone`, ideally, Git fetches the repository and copies the necessary objects locally, however, `git clone --reference` only reaches the remote repo for the important files when it needs to use it. This could be an issue if there are changes to the remote repo or if there is a corruption with with the remote repository
+- **Speed up cloning** - share objects across checkouts instead of fetching everything repeatedly.
+- **Reduce disk usage** - store common objects once in the mirror.
+- **Faster builds** - less time spent on git operations.
+- **Local backup** - maintain a complete copy of the repository on your infrastructure.
+- **Handle large repositories** - more efficient for repos with a large number of files and extensive history.
 
-## How do Git mirrors work
+## How Git mirrors work
 
-A `git clone` command which is primarily used to produce a copy of a repository. After running the cloning command, the users can utilize to make changes or updates to the original repository. This is done using the underlying operations hidden in a secret `.git` directory. Users may also have used `git clone --bare` which exposes all the hidden underlying Git operations at the expense of not checking out the main branch for the users in the root of the directory.
+Git mirrors leverage two core Git features:
 
-Git mirrors work by mirroring the repository in a central location and making each checkout use a `--reference` clone of the mirror. In other words, it maintains a single bare git mirror for each repository on a host that is shared amongst multiple agents and pipelines. Checkouts reference the git mirror using `git clone --reference`, as do submodules.
+- `git clone --mirror` creates a complete copy of the remote repository, including all branches and refs. This differs from `git clone --bare` by capturing everything from the remote - crucial when the agent doesn't know which branch it needs to build ahead of time.
 
-You can use Git mirrors by setting the `--git-mirrors-path` flag.
+- `git clone --reference` creates checkouts that borrow objects from the mirror instead of fetching them from the remote. This saves both network bandwidth and disk space. The caveat: checkouts depend on the mirror remaining healthy and available.
 
-See the following agent configuration options for more information:
+## Setting up Git mirrors
+
+Configure git mirroring using the `--git-mirrors-path` flag on your agents. This sets the central location (the _git mirror directory_) where mirrors are stored.
+
+See these agent configuration options for details:
 
 - [git-clone-mirror-flags](/docs/agent/v3/configuration#git-clone-mirror-flags)
 - [git-mirrors-lock-timeout](/docs/agent/v3/configuration#git-mirrors-lock-timeout)
 - [git-mirrors-path](/docs/agent/v3/configuration#git-mirrors-path)
 - [git-mirrors-skip-update](/docs/agent/v3/configuration#git-mirrors-skip-update)
 
-## Why use Git mirrors
-
-As described earlier, git mirror is a feature that allows users to create local copies of Git repositories on Buildkite agents. Its primary use is to optimize performance and other factors like network bandwidth with the overall aim of reducing the time it takes to re-clone large repositories.
-
-The main uses for Git mirrors are:
-
-1. Speed up cloning
-1. Reduce disk usage
-1. Faster build operation
-1. Back up for repositories
-1. Large repository handling
-
 ## Common issues to note with Git mirrors
 
-### Parallelism
+This section covers known common issues for Git mirrors and the way to solve or prevent these issues.
 
-With multiple agents trying to git fetch in the same mirror repo, there is a high chance of conflicts between the agents. This is the reason we have a locking system in the mirror to prevent multiple agents updating the mirror at the same time.
-Due to the fact that a mirror directory can be a network file share, it is advisable to ensure the lock works across multiple machines. This is mostly ensured with file-based locks.
+### Parallelism issues
+
+When multiple agents fetch from the same mirror simultaneously, conflicts can occur. This is the reason there is a locking system in the mirror to prevent multiple agents updating the mirror at the same time. Due to the fact that a mirror directory can be a network file share, it is advisable to ensure the lock works across multiple machines (mostly ensured with file-based locks).
 
 ### Checkout corruption
 
-A mirror repository and a reference clone(checkout) work together where the checkout borrows most of its object from the mirror instead of storing them locally. When `git fetch` runs the Mirror, it automatically triggers maintenance (by default `git fetch` runs `git maintenance run --auto`) that cleans up objects it considers not useful whereas some of those files may actually be needed. In the case that were to happen, this leads to a checkout error. This will then have to be resolved by deleting the checkout directory and re-cloning it. It is relatively easier if git mirrors is enabled.
+A mirror repository and a reference clone(checkout) work together where the checkout borrows most of its objects from the mirror instead of storing them locally. When `git fetch` runs the mirror, it automatically triggers maintenance (by default `git fetch` runs `git maintenance run --auto`) that cleans up objects it considers not useful whereas some of those files may actually be needed. If this happens, you'll see checkout errors and need to delete the checkout directory and re-clone (which is quick with mirrors enabled).
 
 ### Updating mirrors
 
-Using `git remote update` is the usual way to update mirrors as it updates everything in a mirror, however `git fetch origin <branch>` would be the preferred way as for most CI/CD use cases, only the objects needed for a particular job are needed. This is why, in this [PR](https://github.com/buildkite/agent/pull/1112), `git remote update` was switched to `git fetch origin <branch>`, Another point to note here is that`git remote update` also runs auto maintenance which may cause the checkout corruption as mentioned earlier
+Using `git remote update` is the usual way to update mirrors as it updates everything in a mirror, however `git fetch origin <branch>` would be the preferred way for most CI/CD use cases as only the objects necessary for a particular job are needed. This is why, in this [PR](https://github.com/buildkite/agent/pull/1112), `git remote update` was switched to `git fetch origin <branch>`. And remember that `git remote update` also runs auto maintenance which may cause the checkout corruption mentioned above.
 
 ## Possible alternatives to Git mirrors
 
-If for some reason, you are not willing or are not able to use the Git mirrors feature, you might want to look into the following two alternative options:
+If Git mirrors don't fit your use case, consider these alternatives:
 
 - Dissociate
 - Git worktree
@@ -65,8 +62,9 @@ If for some reason, you are not willing or are not able to use the Git mirrors f
 
 ### Git worktree
 
-In a `----bare` or `--mirror` clone, Git doesn't provide a working copy of the files in the repo. But you can still retrieve them, make commits..etc. if you need to. The most convenient way to do that is using a worktree.
-Instead of  `git clone --reference <mirror>`, jobs could be ran in a directory inside the mirror. Example below
+In a `--bare` or `--mirror` clone, Git doesn't provide a working copy of the files in the repo. But you can still retrieve them, make commits, and so on. The most convenient way to do that is by using a worktree.
+
+Instead of  `git clone --reference <mirror>`, jobs could be run in a directory inside the mirror. For example:
 
 ```bash
 cd <mirror>
@@ -78,10 +76,12 @@ cd ..
 git worktree remove --force build-12345
 ```
 
-By using worktree within a single repo, maintenance operations can be ran as many times as possible, because the repo does not secretly depend on objects that might be removed.
-A major downside however to this approach is that the agents need to be managed across different machines sharing the mirror via a network share which requires a lot of additional effort.
+By using worktree within a single repository, maintenance operations can be ran as many times as possible, because the repository does not secretly depend on objects that might be removed.
+
+A major downside to this approach is that managing agents across machines that share the mirror via network requires significant additional effort.
 
 #### Git submodules
 
-Git submodules are a way for one repository to refer to another repository, so that the contents of that second repository can be used from code in the first. If mirrors are enabled, submodules would also be mirrored. Submodule mirrors can also be created and updated just like regular mirrors, this is because submodules are also technically mirrors.
-The caveat to this is that submodule mirrors need special handling in the agent. The agent has to update the submodule configuration in the main repo, using `git submodule update --reference <submodule_mirror>`. It has to do that for each submodule which could be a lot in some cases, which means parsing the submodule config, and then looping over them to update them.
+Git submodules are a way for one repository to refer to another repository, so that the contents of that second repository can be used from the code in the first. If mirrors are enabled, submodules would also be mirrored. Submodule mirrors can also be created and updated just like regular mirrors since submodules are also technically mirrors.
+
+The caveat to this is that submodule mirrors need special handling on the agent. The agent has to update the submodule configuration in the main repository using `git submodule update --reference <submodule_mirror>`. The agent has to do that for _each_ submodule, which means parsing the submodule config, and then looping over the submodules to update them.
