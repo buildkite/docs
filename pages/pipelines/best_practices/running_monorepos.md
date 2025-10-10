@@ -55,6 +55,6 @@ How it works:
 1. **Pipeline Generation**: creates a dynamic pipeline with proper job dependencies.
 1. **Parallel Execution**: independent projects build in parallel while respecting dependencies.
 
-# The SDK approach
+## The SDK approach
 
 With the monorepo strategy, dynamic steps that are injected based on the changed files, in a single pipeline and or using the [SDK](/docs/pipelines/configure/dynamic-pipelines/sdk).

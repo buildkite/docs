@@ -88,6 +88,7 @@ config
 configmap
 Containerfile
 Containerfiles
+corepack
 cpu
 cron
 crontab
@@ -210,6 +211,7 @@ lockfiles
 lockfile‑keyed
 macOS
 macos
+manylinux
 matchfile
 matchers
 Memcache
@@ -304,11 +306,15 @@ runtimes
 rustup
 rvm
 sandboxed
+SBOM
+SBOMs
 seccomp
 sed
 scriptwrapper
+SDK
 SDK's
 sha
+SHAs
 sharding
 Shardy
 shasum
@@ -353,6 +359,8 @@ timeframe
 tmp
 tmux
 tokenization
+toolchain
+toolchains
 toolmantim
 tooltip
 TOTP's

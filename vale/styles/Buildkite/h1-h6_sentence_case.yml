@@ -200,6 +200,7 @@ exceptions:
   - SAML
   - scheduler
   - SCIM
+  - SDK
   - Sequoia
   - Slack
   - Slack Workspace

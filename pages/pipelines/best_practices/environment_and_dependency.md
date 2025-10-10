@@ -6,14 +6,14 @@ Design build environments to be reproducible, secure, and fast. Favor hermetic, 
 
 - Prefer Docker-based steps for isolation and repeatability. Use the Docker and Docker Compose plugins to match your app’s needs.
     * Single container: docker plugin
-    * Multi-service or compose-first repos: docker-compose plugin
+    * Multi-service or compose-first repositories: docker-compose plugin
 - [Multi-stage Dockerfiles](https://docs.docker.com/build/building/multi-stage/) to keep images small and secure while supporting complex builds.
 - Pin base images and tags. Avoid latest to prevent upstream drift.
 - Align dev, CI, and prod images to improve parity. Build once, run everywhere to reduce environment drift.
 - Keep images deterministic:
     * Pin OS packages by version
     * Avoid apt-get upgrade without pinning
-    * Record build arguments and labels for provenance (e.g., vcs ref, pipeline URL)
+    * Record build arguments and labels for provenance (e.g., `vcs ref`, pipeline URL)
 - Manage image pull reliability and cost:
     * Use a private registry or ECR/GCR with regional mirrors
     * Authenticate pulls with OIDC rather than static keys where possible
@@ -22,11 +22,11 @@ Design build environments to be reproducible, secure, and fast. Favor hermetic, 
 ## Handle dependencies reliably
 
 - Lock versions:
-    * Commit lockfiles (npm/yarn/pnpm, pip-tools/poetry/uv, bundler, go.mod, cargo, etc.)
+    * Commit lockfiles (`npm`/`yarn`/`pnpm`, `pip-tools`/`poetry`/`uv`, Bundler, `go.mod`, `cargo`, etc.)
     * Pin plugin versions in pipelines to avoid breaking changes
 - Cache packages appropriately:
     * Language-level caches scoped to the repo and dependency hash
-    * Separate cache keys for prod vs dev dependencies
+    * Separate cache keys for prod vs development dependencies
     * Invalidate caches on lockfile changes
 - Verify integrity:
     * Enable checksums or signatures for package managers
@@ -51,7 +51,7 @@ env:
 ```
 
 - Use step-level env, pipeline env, or hooks to set values.
-- Keep secrets out of pipeline.yml and repos. Use a secrets manager or Buildkite Secrets and inject at runtime with least privilege.
+- Keep secrets out of pipeline.yml and repositories. Use a secrets manager or Buildkite Secrets and inject at runtime with least privilege.
 - Be aware of OS limits for environment size and `argv` preferences; prefer files for very large payloads.
 
 ## Secure secrets and cloud access
@@ -76,7 +76,7 @@ env:
     * Key off the lockfile hash and platform
     * Separate build vs test caches if they diverge
 - Docker layer caching:
-    * Order Dockerfile so immutable layers (OS packages, core deps) come first
+    * Order Dockerfile so immutable layers (OS packages, core `deps`) come first
     * Copy lockfiles before install to maximize cache hits
 - Artifact caching:
     * Store heavyweight build outputs as artifacts between steps instead of re-building
@@ -88,15 +88,15 @@ env:
 
 - Node.js: Commit package-lock.json or yarn.lock. Use corepack or pinned npm/yarn versions. Consider pnpm for monorepos.
 - Python: Prefer pinned virtual environments via uv/pip-tools/poetry. Build wheels in a consistent manylinux image if shipping native code.
-- Ruby: Commit Gemfile.lock. Use bundler with deployment flags to ensure locked resolution.
-- Go: Rely on go.mod and checksum db. For cgo, standardize the build image and toolchain.
+- Ruby: Commit Gemfile.lock. Use Bundler with deployment flags to ensure locked resolution.
+- Go: Rely on `go.mod` and `checksum db`. For `cgo`, standardize the build image and toolchain.
 - Java/Scala: Pin toolchains via SDKMAN/asdf or containerize. Cache Maven/Gradle directories keyed by lockfiles and JDK version.
 - Rust: Pin rustup toolchain. Cache cargo registry and target directories keyed by Cargo.lock and target triple.
 
 ## Build script hygiene
 
 - Use strict Bash flags in scripts run by Buildkite to catch errors early:
-    * set -euo pipefail
+    * set `-euo pipefail`
     * Consider set -x only for debug
 - Don’t assume shell init files; explicitly configure shell behavior and dependencies in your [build scripts](/docs/pipelines/configure/writing-build-scripts)
 - Fail fast with clear exit codes. Surface summaries via annotations for quick feedback.
@@ -105,7 +105,7 @@ env:
 
 - Keep RUN steps idempotent and pinned
 - Avoid copying host-specific files that can change in an uncontrolled manner
-- Use build args only when necessary and pin their values in CI
+- Use build arguments only when necessary and pin their values in CI
 - Label images with source commit, pipeline URL, and build timestamp for traceability
 
 Example compose step:
@@ -133,7 +133,7 @@ Reference the official Docker and Docker Compose plugins when choosing the right
 - Validate required variables at step start and fail with actionable messages
 - Document the minimal env contract for each step
 
-### Governance and compliance touchpoints
+### Governance and compliance touch points
 
 - Sign and verify artifacts as part of the build
 - Generate SBOMs and attach to artifacts
