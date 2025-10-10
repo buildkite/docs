@@ -7,54 +7,63 @@ toc: false
 This guide shows how to build and push a container image to [Buildkite Package Registries](/docs/pipelines/package_registries) using [Kaniko](https://github.com/GoogleContainerTools/kaniko) from a [Buildkite Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic_ci_stack) agent.
 
 > 📘 **Note about Kaniko support**
-> 
+>
 > Google has deprecated support for the Kaniko project and no longer publishes new images to `gcr.io/kaniko-project/`. However, [Chainguard has forked the project](https://github.com/chainguard-dev/kaniko) and continues to provide support and create new releases. See the [Kaniko image availability](#kaniko-image-availability) section below for your options.
 
-## 1. One-time Package Registry setup
+## One-time package registry setup
 
 Create a Package Registry for container images through the Buildkite web interface:
 
-1. Navigate to your Buildkite organization and select **Package Registries** from the global navigation
-2. Click **New registry**
-3. Provide a name (for example, `my-container-registry`) and optional description
-4. Select **OCI Image (Docker)** as the ecosystem type
-5. Assign appropriate team access permissions (select teams that need access to the registry)
-6. Click **Create Registry**
+1. Navigate to your Buildkite organization and select **Package Registries** from the global navigation.
+2. Click **New registry**.
+3. Provide a name (for example, `my-container-registry`) and optional description.
+4. Select **OCI Image (Docker)** as the ecosystem type.
+5. Assign appropriate team access permissions (select teams that need access to the registry).
+6. Click **Create Registry**.
 
 For detailed instructions, see [Manage registries](/docs/pipelines/package_registries/registries/manage).
 
-> 📘 **Note:** You don't need `docker login`. The step requests a short-lived OIDC token and passes it to Kaniko via a Docker config file.
+> 📘 Docker login not required
+>
+> You don't need `docker login`. The step requests a short-lived OIDC token and passes it to Kaniko using a Docker config file.
 
-## 2. Push using Kaniko
+## Push using Kaniko
 
 Commit your changes. The step in `.buildkite/pipeline.yml` will:
 
-- Build the Docker image using [Kaniko](https://github.com/GoogleContainerTools/kaniko) (no Docker daemon required),
-- **Push the image directly to [Buildkite Package Registries](/docs/pipelines/package_registries) using a short-lived OIDC token** retrieved by the Buildkite agent.
+- Build the Docker image using [Kaniko](https://github.com/GoogleContainerTools/kaniko) (no Docker daemon required)
+- Push the image directly to [Buildkite Package Registries](/docs/pipelines/package_registries) using a short-lived OIDC token retrieved by the Buildkite agent
 
+> 📘 SSH repository requirements
+>
 > If your Git repository uses SSH, make sure your S3 secrets bucket for Elastic CI Stack for AWS contains a `private_ssh_key` at the correct prefix (or switch to HTTPS + `git-credentials`).
 
 ## Running Kaniko in Docker
 
-We run Kaniko inside a Docker container on the Elastic CI Stack agent—no Docker-in-Docker or privileged mode and no Docker daemon for the build.
+Kaniko runs inside a Docker container on the Elastic CI Stack for AWS agent—no Docker-in-Docker or privileged mode and no Docker daemon for the build.
 
 ### Kaniko image availability
 
 Google has deprecated support for the Kaniko project and no longer publishes new images to `gcr.io/kaniko-project/`. However, [Chainguard has forked the project](https://github.com/chainguard-dev/kaniko) and continues to provide support and create new releases.
 
-**Option 1: Use Google's final published images (Recommended)**
+#### Option 1: use Google's final published images (recommended)
+
 You can use Google's final published Kaniko images (these are publicly available):
 - `gcr.io/kaniko-project/executor:v1.24.0`
 - `gcr.io/kaniko-project/executor:v1.24.0-debug`
 
-**Option 2: Use Chainguard's maintained images (availability/policy may require auth)**
-Chainguard's images may require authentication depending on policy/version:
+#### Option 2: use Chainguard-maintained images
+
+Chainguard images may require authentication depending on availability, policy, and version:
 - `cgr.dev/chainguard/kaniko:latest`
 - `cgr.dev/chainguard/kaniko:latest-debug`
 
-> 📘 **Note:** See their [image directory](https://images.chainguard.dev/directory/image/kaniko/versions) for versions and access details.
+> 📘 Image directory reference
+>
+> See their [image directory](https://images.chainguard.dev/directory/image/kaniko/versions) for versions and access details.
 
-**Option 3: Build your own images from the Chainguard fork**
+#### Option 3: build your own images from the Chainguard fork
+
 If you need a specific version or custom configuration, you can build and publish Kaniko images to your own container registry:
 
 ```bash
@@ -93,7 +102,7 @@ project-root/
 steps:
   - label: ":whale: Build and Push with Kaniko"
     env:
-      PACKAGE_REGISTRY_NAME: "{your-package-registry-name}"
+      PACKAGE_REGISTRY_NAME: "<your-package-registry-name>"
     commands:
       - bash .buildkite/steps/kaniko.sh
 ```
@@ -193,14 +202,15 @@ DOCKER_CONFIG="$PWD" docker run --rm "${IMG}"
 - **No Docker daemon required for building**: Kaniko runs as a container and doesn't need Docker-in-Docker for building
 - **Direct registry push**: Images are pushed directly to Buildkite Package Registries without intermediate tar files
 - **Secure**: No privileged access required for building images
-- **Registry agnostic**: Works with any container registry (Docker Hub, ECR, GCR, etc.)
+- **Registry agnostic**: Works with any container registry (Docker Hub, ECR, GCR, and so on)
 - **Caching support**: Built-in support for registry-based caching to speed up builds
 - **Simple authentication**: Uses a short-lived OIDC token from `buildkite-agent oidc request-token`
 - **Local testing**: Pull after authenticating with the same OIDC config
 - **Robust error handling**: Proper validation of required environment variables
 - **Smart tagging**: Uses commit SHA and build number for unique image tags
 
-> 📘
+> 📘 Registry compatibility
+>
 > The example on this page uses Buildkite Package Registries, but Kaniko works with any container registry. Adjust the authentication and destination URL accordingly for other registries like Docker Hub, ECR, GCR, or Azure Container Registry.
 
 ### Verifying signed Kaniko images
@@ -238,13 +248,13 @@ If you build your own Kaniko images from the Chainguard fork, you can sign them 
 cosign generate-key-pair
 ```
 
-Then create the secrets using the [Buildkite web interface](https://buildkite.com/docs/pipelines/security/secrets/buildkite-secrets#create-a-secret):
+Then [create the secrets](/docs/pipelines/security/secrets/buildkite-secrets#create-a-secret) using the Buildkite web interface:
 
-1. Select **Agents** in the global navigation to access the **Clusters** page
-2. Select your cluster
-3. Select **Secrets** to access the **Secrets** page, then select **New Secret**
-4. Create a secret with key `kaniko-signing-private-key` and the contents of `cosign.key` as the value
-5. Create another secret with key `kaniko-signing-public-key` and the contents of `cosign.pub` as the value
+1. Select **Agents** in the global navigation to access the **Clusters** page.
+2. Select your cluster.
+3. Select **Secrets** to access the **Secrets** page, then select **New Secret**.
+4. Create a secret with key `kaniko-signing-private-key` and the contents of `cosign.key` as the value.
+5. Create another secret with key `kaniko-signing-public-key` and the contents of `cosign.pub` as the value.
 
 **2. Sign your custom image after building:**
 
@@ -272,7 +282,9 @@ docker run --rm -v "$PWD:/work" -w /work cgr.dev/chainguard/cosign \
 
 For a more modern approach, you can use keyless signing with OIDC (OpenID Connect) instead of managing key pairs. This method uses [sigstore.dev](https://sigstore.dev/) as a third-party service to handle the signing process:
 
-> ⚠️ **Important:** Keyless signing requires authenticating with an OAuth provider (like Google, GitHub, or Microsoft) through sigstore.dev. This means your OAuth identity will be used to create a temporary signing certificate that's stored in the sigstore public transparency log. Consider your organization's security policies before using this approach.
+> 🚧 Important
+>
+> Keyless signing requires authenticating with an OAuth provider (like Google, GitHub, or Microsoft) through sigstore.dev. This means your OAuth identity will be used to create a temporary signing certificate that's stored in the sigstore public transparency log. Consider your organization's security policies before using this approach.
 
 ```bash
 # Keyless signing (requires OIDC authentication with sigstore.dev)
@@ -299,9 +311,13 @@ For interactive debugging, you can run the debug image directly on your EC2 inst
 docker run -it --entrypoint=/busybox/sh gcr.io/kaniko-project/executor:v1.24.0-debug
 ```
 
-> ⚠️ **Prerequisites for interactive debugging:** To run interactive debugging commands on your Elastic CI Stack EC2 instances, you must have configured the `KeyName` CloudFormation stack parameter during stack deployment. This allows you to SSH into the instances as the `ec2-user` to run local Docker commands.
+> 🚧 Prerequisites for interactive debugging
+>
+> To run interactive debugging commands on your Elastic CI Stack for AWS EC2 instances, you must have configured the `KeyName` CloudFormation stack parameter during stack deployment. This allows you to SSH into the instances as the `ec2-user` to run local Docker commands.
 
-> 📘 **Note:** Interactive debugging with `KANIKO_SHELL=1` only works when running Docker commands directly on the EC2 instance, not when set as pipeline environment variables. Pipeline builds run non-interactively and cannot provide shell access.
+> 📘 Interactive debugging limitation
+>
+> Interactive debugging with KANIKO_SHELL=1 only works when running Docker commands directly on the EC2 instance, not when set as pipeline environment variables. Pipeline builds run non-interactively and cannot provide shell access.
 
 To enable debug mode in your pipeline, set the `KANIKO_DEBUG` environment variable:
 
@@ -310,7 +326,7 @@ steps:
   - label: ":whale: Build and Push with Kaniko Debug"
     env:
       KANIKO_DEBUG: "1"  # Use debug image with additional tools
-      PACKAGE_REGISTRY_NAME: "{your-package-registry-name}"
+      PACKAGE_REGISTRY_NAME: "<your-package-registry-name>"
     commands:
       - bash .buildkite/steps/kaniko.sh
 ```
@@ -338,10 +354,10 @@ After the pipeline completes successfully, your Docker image will be available i
 
 ```bash
 # Pull the image from your Package Registry
-docker pull packages.buildkite.com/{your-org-slug}/{your-package-registry-name}/hello-kaniko:your-tag
+docker pull packages.buildkite.com/<your-org-slug>/<your-package-registry-name>/hello-kaniko:<your-tag>
 
 # Run the image
-docker run --rm packages.buildkite.com/{your-org-slug}/{your-package-registry-name}/hello-kaniko:your-tag
+docker run --rm packages.buildkite.com/<your-org-slug>/<your-package-registry-name>/hello-kaniko:<your-tag>
 ```
 
 ### Push to other registries
@@ -350,10 +366,10 @@ If you need to push the image to other registries (Docker Hub, ECR, etc.):
 
 ```bash
 # Tag for your target registry
-docker tag packages.buildkite.com/{your-org-slug}/{your-package-registry-name}/hello-kaniko:your-tag your-registry/hello-kaniko:your-tag
+docker tag packages.buildkite.com/<your-org-slug>/<your-package-registry-name>/hello-kaniko:<your-tag> <your-registry>/hello-kaniko:<your-tag>
 
 # Push to your registry
-docker push your-registry/hello-kaniko:your-tag
+docker push <your-registry>/hello-kaniko:<your-tag>
 ```
 
 ## Troubleshooting

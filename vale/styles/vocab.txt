@@ -302,6 +302,7 @@ shasum
 shellcheck
 shellscripting
 Shipit
+sigstore
 signaltometrics
 SLO
 SLOs
