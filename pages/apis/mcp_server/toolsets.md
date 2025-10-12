@@ -171,6 +171,7 @@ https://mcp.buildkite.com/mcp/x/builds
 
 > 📘
 > Ensure you provide an appropriate name for each MCP server configuration to make it easier to identify which toolsets and level of access each server has to the Buildkite API.
+> For example, instead of `buildkite` as an MCP server configuration name, use more descriptive names, for example: `buildkite-read-only-user-pipelines-toolsets` and `buildkite-builds-toolset`.
 
 ## Configuring the local MCP server
 
@@ -293,7 +294,7 @@ docker run --rm -e BUILDKITE_API_TOKEN=bkua_xxxxx -e BUILDKITE_TOOLSETS="builds"
 > When [configuring your AI tool or agent with these local MCP servers](/docs/apis/mcp-server/local/configuring-ai-tools), ensure you provide an appropriate name for each MCP server configuration to make it easier to identify which toolsets and level of access each server has to the Buildkite API.
 > For example, instead of:
 > `"buildkite": { ... }`
-> Use more descriptive names like:
+> Use more descriptive names, for example:
 > `"buildkite-read-only-user-pipelines-toolsets": { ... }`
 > and
 > `"buildkite-builds-toolset": { ... }`
