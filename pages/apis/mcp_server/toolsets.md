@@ -261,7 +261,7 @@ Most [AI tool or agent configurations for the local MCP server](/docs/apis/mcp-s
         "BUILDKITE_TOOLSETS": "user,pipelines,builds",
         "BUILDKITE_READ_ONLY": "true"
       }
-    }  
+    }
   ...
 }
 ```
@@ -298,5 +298,3 @@ docker run --rm -e BUILDKITE_API_TOKEN=bkua_xxxxx -e BUILDKITE_TOOLSETS="builds"
 > `"buildkite-read-only-user-pipelines-toolsets": { ... }`
 > and
 > `"buildkite-builds-toolset": { ... }`
-
-
