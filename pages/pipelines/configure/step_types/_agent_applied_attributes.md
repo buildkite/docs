@@ -26,7 +26,7 @@ steps:
 
   # Braces {,} let you combine patterns and subpatterns.
   # Note that this syntax is whitespace-sensitive: a space within a
-  # pattern is treated as part of the matching file path.
+  # pattern is treated as part of the file path to be matched.
   - label: "Only run if go.mod or go.sum are changed"
     if_changed: go.{mod,sum}
     # Wrong: go.{mod, sum}
