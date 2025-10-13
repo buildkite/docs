@@ -343,6 +343,8 @@ tmp
 tmux
 tokenization
 toolmantim
+toolset
+toolsets
 tooltip
 TOTP's
 Trivy
