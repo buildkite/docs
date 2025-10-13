@@ -434,6 +434,8 @@
     path: apis/graphql/schemas/object/jobeventretryfailed
   - name: JobEventStackError
     path: apis/graphql/schemas/object/jobeventstackerror
+  - name: JobEventStackFinished
+    path: apis/graphql/schemas/object/jobeventstackfinished
   - name: JobEventStackNotification
     path: apis/graphql/schemas/object/jobeventstacknotification
   - name: JobEventTimedOut
