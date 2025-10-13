@@ -235,13 +235,13 @@ where:
 
 - `--username` always has the value `buildkite`.
 
-Therefore, the full [`command` step](/docs/pipelines/configure/step-types/command-step) would look like:
+As a result, the full [`command` step](/docs/pipelines/configure/step-types/command-step) would look like:
 
 ```bash
 buildkite-agent oidc request-token --audience "https://packages.buildkite.com/{org.slug}/{registry.slug}" --lifetime 300 | docker login packages.buildkite.com/{org.slug}/{registry.slug} --username buildkite --password-stdin
 ```
 
-Assuming a Buildkite organization with slug `my-organization` and a registry slug `my-registry`, this full command would look like:
+For a Buildkite organization with a slug `my-organization` and a registry slug `my-registry`, this full command would look like:
 
 ```bash
 buildkite-agent oidc request-token --audience "https://packages.buildkite.com/my-organization/my-registry" --lifetime 300 | docker login packages.buildkite.com/my-organization/my-registry --username buildkite --password-stdin
@@ -255,7 +255,7 @@ The following example Buildkite pipeline YAML snippet demonstrates how to push D
 steps:
 - key: "docker"
   label: "\:docker\: Build, Login & Push"
-  commands: 
+  commands:
     - echo "Building Docker image"
     - docker build --tag packages.buildkite.com/my-organization/my-registry/my-image:latest .
     - echo "Logging into Buildkite Package Registry using OIDC"
