@@ -148,6 +148,7 @@ gmp
 gnupg
 gotestsum
 gpg
+Grafana
 Gradle
 gradle
 Gradle's
@@ -194,6 +195,7 @@ Kuzco
 launchd
 LFS
 libpq
+Lightstep
 linux
 llamasecret
 LLMs
@@ -342,6 +344,8 @@ tmp
 tmux
 tokenization
 toolmantim
+toolset
+toolsets
 tooltip
 TOTP's
 Trivy

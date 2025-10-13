@@ -60,6 +60,6 @@ If a Buildkite test collector is not available for one of these test runners, yo
 Learn more about:
 
 - Test Engine's APIs through the [REST API documentation](/docs/apis/rest-api), and related endpoints, starting with [test suites](/docs/apis/rest-api/test-engine/suites).
-- The [Buildkite MCP server](/docs/apis/mcp-server) and its Test Engine-specific MCP [tools](/docs/apis/mcp-server#available-mcp-tools-test-engine).
+- The [Buildkite MCP server](/docs/apis/mcp-server) and its Test Engine-specific MCP [tools](/docs/apis/mcp-server#available-mcp-tools-test-engine) and [toolsets](/docs/apis/mcp-server/toolsets#available-toolsets).
 - Test Engine's [webhooks](/docs/apis/webhooks/test-engine).
 - Test Engine [glossary](/docs/test-engine/glossary) of important terms.

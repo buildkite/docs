@@ -12,7 +12,7 @@ To use a user-invoked portal, Buildkite organization administrators must explici
 
 Once a portal is marked as user-invokable, users can request a _token code_ and authorize it to retrieve a _user-specific portal token_ for executing portal operations.
 
-Unlike [admin-level portal tokens](/docs/apis/portals#getting-started), these types of _portal tokens_ are referred to as _user-specific_ ones, since they only grant privileges to what this user has access to within the Buildkite organization.
+Unlike [admin-level portal tokens](/docs/apis/graphql/portals#getting-started), these types of _portal tokens_ are referred to as _user-specific_ ones, since they only grant privileges to what this user has access to within the Buildkite organization.
 
 ### Generating token codes
 
