@@ -10,7 +10,7 @@ scope:
   - heading.h6
 match: $sentence
 exceptions:
-  - '^(\d+\.) [A-Z]\w+' # Allow numbered headings. Example: "1. Install the thing"
+  - '^(\d+\.) [A-Z][\w\s-]+' # Allow numbered headings. Example: "1. Install the thing" or "1. One-time ECR setup" or "3. Push using Kaniko"
   - '^(Agent|Build|Job) ([A-Z]\w+(ed|ing)|Lost)$' # Exceptions for /pages/integrations/amazon_eventbridge.md
   - '^(Step|Method) \d: [A-Z]\w+' # Allow caps after colon. Examples: "Step 3: Do the thing", "Method 2: Deploy keys"
   - 2FA
@@ -24,6 +24,8 @@ exceptions:
   - AWS
   - AWS Elastic Container Registry
   - Amazon
+  - Amazon ECR
+  - Amazon Elastic Continer Registry
   - Amazon EventBridge
   - Amazon Web Services
   - AMI
@@ -50,7 +52,9 @@ exceptions:
   - Bitbucket Server
   - bktec
   - BUILD_AND_READ
+  - Buildah
   - buildevents
+  - BuildKit
   - Buildkite
   - Buildkite Agent
   - Buildkite Agents
@@ -82,11 +86,13 @@ exceptions:
   - CSS
   - Datadog
   - Debian
+  - Declarative
   - deduper
   - Docker
   - Docker Compose
   - Docker Desktop
   - Docker Hub
+  - ECR
   - EC2
   - Elastic
   - Elastic CI Stack
@@ -143,9 +149,11 @@ exceptions:
   - JSON
   - JUnit
   - JWKS
+  - Kaniko
   - KMS
   - Kotlin
   - Kubernetes
+  - Lambda
   - limiter
   - Linear
   - Linux
@@ -193,6 +201,7 @@ exceptions:
   - SAML
   - scheduler
   - SCIM
+  - Scripted
   - Sequoia
   - Slack
   - Slack Workspace

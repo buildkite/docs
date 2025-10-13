@@ -55,6 +55,8 @@
               path: "pipelines/migration/tool/circleci"
             - name: "Bitbucket Pipelines"
               path: "pipelines/migration/tool/bitbucket-pipelines"
+            - name: "Jenkins"
+              path: "pipelines/migration/tool/jenkins"
         - name: From Jenkins
           path: pipelines/migration/from-jenkins
         - name: From Bamboo
@@ -189,6 +191,8 @@
               path: "agent/v3/agent-stack-k8s/sidecars"
             - name: "Kubernetes PodSpec"
               path: "agent/v3/agent-stack-k8s/podspec"
+            - name: "Pod templates"
+              path: "agent/v3/agent-stack-k8s/pod-template"
             - name: "Container resource limits"
               path: "agent/v3/agent-stack-k8s/container-resource-limits"
             - name: "Volume mounts"
@@ -199,6 +203,12 @@
               path: "agent/v3/agent-stack-k8s/securing-the-stack"
             - name: "Prometheus metrics"
               path: "agent/v3/agent-stack-k8s/prometheus-metrics"
+            - name: "Building container images"
+              children:
+                - name: "Buildah"
+                  path: "agent/v3/agent-stack-k8s/buildah-container-builds"
+                - name: "BuildKit"
+                  path: "agent/v3/agent-stack-k8s/buildkit-container-builds"
             - name: "Troubleshooting"
               path: "agent/v3/agent-stack-k8s/troubleshooting"
         - name: "Agent installers"
@@ -474,6 +484,8 @@
       children:
         - name: "Overview"
           path: "pipelines/deployments"
+        - name: "Deploying to AWS Lambda"
+          path: "pipelines/deployments/to-aws-lambda"
         - name: "Deploying to Kubernetes"
           path: "pipelines/deployments/to-kubernetes"
         - name: "Deploying with Argo"
@@ -857,7 +869,17 @@
             - name: "Builds"
               path: "apis/rest-api/builds"
             - name: "Clusters"
-              path: "apis/rest-api/clusters"
+              children:
+                - name: "Overview"
+                  path: "apis/rest-api/clusters"
+                - name: "Queues"
+                  path: "apis/rest-api/clusters/queues"
+                - name: "Agent tokens"
+                  path: "apis/rest-api/clusters/agent-tokens"
+                - name: "Cluster maintainers"
+                  path: "apis/rest-api/clusters/maintainers"
+                - name: "Buildkite secrets"
+                  path: "apis/rest-api/clusters/secrets"
             - name: "Jobs"
               path: "apis/rest-api/jobs"
             - name: "Pipeline templates"
@@ -925,18 +947,18 @@
               path: apis/graphql/cookbooks/organizations
             - name: Teams
               path: apis/graphql/cookbooks/teams
+        - name: "Portals"
+          children:
+            - name: "Overview"
+              path: "apis/graphql/portals"
+            - name: "Limits"
+              path: "apis/graphql/portals/limits"
+            - name: "Ephemeral portal tokens"
+              path: "apis/graphql/portals/ephemeral-portal-tokens"
+            - name: "User-invoked portals"
+              path: "apis/graphql/portals/user-invoked-portals"
         - name: Limits
           path: apis/graphql/graphql-resource-limits
-    - name: "Portals"
-      children:
-        - name: "Overview"
-          path: "apis/portals"
-        - name: "Limits"
-          path: "apis/portals/limits"
-        - name: "Ephemeral portal tokens"
-          path: "apis/portals/ephemeral-portal-tokens"
-        - name: "User-invoked portals"
-          path: "apis/portals/user-invoked-portals"
     - name: "MCP server"
       children:
         - name: "Overview"
@@ -951,6 +973,8 @@
               path: "apis/mcp-server/local/installing"
             - name: "Configuring AI tools"
               path: "apis/mcp-server/local/configuring-ai-tools"
+        - name: "Toolsets"
+          path: "apis/mcp-server/toolsets"
     - name: "Webhooks"
       children:
         - name: "Overview"

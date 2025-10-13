@@ -73,7 +73,7 @@ job missing 'queue' tag, skipping...
 
 To view the agent tags applied to your job(s), the following GraphQL query can be executed (be sure to substitute your Organization's slug and Cluster ID):
 
-```
+```graphql
 query getClusterScheduledJobs {
   organization(slug: "<organization-slug>") {
     jobs(
@@ -100,3 +100,51 @@ query getClusterScheduledJobs {
 ```
 
 This will return the `100` newest created jobs for the `<cluster-id>` Cluster in the `<organization-slug>` Organization that are in a `scheduled` state and waiting for the controller to convert them each to a Kubernetes Job. Each Buildkite job's agent tags will be defined under `agentQueryRules`.
+
+### Controller stops accepting new jobs from a cluster queue
+
+Sometimes the count of jobs in `waiting` state in the Buildkite Pipelines UI may increase, however, no new pods are created. Reviewing the logs may reveal a `max-in-flight reached` error, for example:
+
+```
+DEBUG	limiter	scheduler/limiter.go:77	max-in-flight reached	{"in-flight": 25}
+```
+
+#### Initial troubleshooting steps
+
+1. Enable the debug log and look for errors related to `max-in-flight` reached.
+1. Confirm that no new Kubernetes jobs are created while the UI displays the jobs as `waiting`.
+
+#### Workaround
+
+Execute the `kubectl -n buildkite rollout restart deployment agent-stack-k8s` command to restart the controller pod and clear the `max-in-flight reached` condition as this will allow scheduling to resume.
+
+#### Fix
+
+If you are using any version of the controller older than [v0.2.7](https://github.com/buildkite/agent-stack-k8s/releases/tag/v0.27.0), [upgrade](https://github.com/buildkite/agent-stack-k8s/releases) to the latest version.
+
+### Wrong exit code affects auto job retries
+
+Error code from the Kubernetes pods may not be passed through the agent, preventing the use of [exit-based retries](/docs/pipelines/configure/step-types/command-step#retry-attributes). This is what the error could look like:
+
+```
+The following init containers failed:
+
+ CONTAINER   EXIT CODE  SIGNAL  REASON                  MESSAGE                                                        
+ My-agent        137       0    ContainerStatusUnknown  The container could not be located when the pod was terminated
+```
+
+Such scenario might take place if in the Buildkite Pipelines UI, the exit code was `137`, however the exit code emitted from the container was `1`. As a result, the kickoff of retries will not happen if they were configured to happen for the exit code `1`.
+
+#### Workaround
+
+Add a retry rule for all stack-level failures. An example of such configuration would look like this:
+
+```
+retry:
+  - signal_reason: "stack_error"
+    limit: 3
+  ```
+
+#### Fix
+
+Upgrading to version [v.0.29.0](https://github.com/buildkite/agent-stack-k8s/releases/tag/v0.29.0) is the recommended action in this case as a "stack_error" exit reason was added to the agent, to provide better visibility to stack-level errors.
