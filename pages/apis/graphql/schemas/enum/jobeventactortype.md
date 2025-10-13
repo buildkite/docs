@@ -39,6 +39,6 @@ All the actors that can have created a job event
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>AGENT</code></strong></p><p>The actor was an agent</p></td></tr><tr><td><p><strong><code>DISPATCH</code></strong></p><p>The actor was the dispatcher</p></td></tr><tr><td><p><strong><code>SYSTEM</code></strong></p><p>The actor was the system</p></td></tr><tr><td><p><strong><code>USER</code></strong></p><p>The actor was a user</p></td></tr>
+    <tr><td><p><strong><code>AGENT</code></strong></p><p>The actor was an agent</p></td></tr><tr><td><p><strong><code>DISPATCH</code></strong></p><p>The actor was the dispatcher</p></td></tr><tr><td><p><strong><code>STACK</code></strong></p><p>The actor was an agent stack</p></td></tr><tr><td><p><strong><code>SYSTEM</code></strong></p><p>The actor was the system</p></td></tr><tr><td><p><strong><code>USER</code></strong></p><p>The actor was a user</p></td></tr>
   </tbody>
 </table>
