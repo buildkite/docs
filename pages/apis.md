@@ -51,7 +51,7 @@ Learn more about:
 
 Buildkite's portals provide an alternative to the REST and GraphQL APIs. Portals allow Buildkite organization administrators to define custom GraphQL operations, which can then be accessed through an authenticated URL endpoint by other members of the Buildkite organization.
 
-Learn more about the portals feature in [Portals](/docs/apis/portals).
+Learn more about the portals feature in [Portals](/docs/apis/graphql/portals).
 
 ## MCP server
 
