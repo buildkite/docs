@@ -29,6 +29,8 @@ For example:
 curl -H "Authorization: Bearer $TOKEN" https://graphql.buildkite.com/v1
 ```
 
+Since the [scopes](/docs/apis/managing-api-tokens#token-scopes) of these API access tokens cannot be restricted, [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) can implement [portals](/docs/apis/graphql/portals), which instead provide restricted GraphQL API access to the Buildkite platform.
+
 ## Performing requests with curl
 
 A GraphQL request is a standard HTTPS POST request, with a JSON-encoded body containing a `"query"` key, and optionally a `"variables"` key.
@@ -224,5 +226,6 @@ query IntrospectionQuery {
 Further resources for learning more about GraphQL:
 
 - The [GraphQL API cookbook](/docs/apis/graphql/graphql-cookbook) page full of common queries and mutations.
+- The [Portals](/docs/apis/graphql/portals) page, where you can learn more about how to provide restricted access to Buildkite's GraphQL API.
 - The [**Learn** section](https://graphql.org/learn/) of [the official GraphQL website](https://graphql.org).
 - The [Getting started with GraphQL queries and mutations](https://buildkite.com/blog/getting-started-with-graphql-queries-and-mutations) blog post.
