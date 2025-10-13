@@ -1,6 +1,6 @@
 # Portals
 
-Buildkite's GraphQL API is accessed using an [authenticated API access token](/docs/apis/graphql-api#authentication) whose [token scopes](/docs/apis/managing-api-tokens#token-scopes) cannot be restricted.
+Buildkite's GraphQL API is accessed using an [authenticated API access token](/docs/apis/graphql-api#authentication) whose [scopes](/docs/apis/managing-api-tokens#token-scopes) cannot be restricted.
 
 Therefore, the Buildkite _portals_ feature provides restricted GraphQL API access to the Buildkite platform, by allowing [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) to define and create GraphQL operations, which are stored by Buildkite, and are made accessible through an authenticated URL endpoint.
 
