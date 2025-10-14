@@ -815,7 +815,7 @@
       children:
         - name: "Slack Workspace"
           path: "platform/integrations/slack-workspace"
-    - name: Security
+    - name: "Security"
       path: "platform/security"
     - name: "Service quotas"
       path: "platform/service-quotas"
