@@ -164,4 +164,4 @@ steps:
       fi
 ```
 
-`buildkite:webhook` data will only be available to builds triggered by a webhook, and only for as long as the webhook data remains cached — typically for 7 days.
+`buildkite:webhook` meta-data will only be available to builds triggered by a webhook, and only for as long as the webhook data remains cached — typically for 7 days.
