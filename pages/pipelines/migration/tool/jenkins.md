@@ -1,5 +1,8 @@
 # Jenkins
 
+> 📘
+> The Buildkite migration tool for Jenkins in currently in beta.
+
 The [Buildkite migration tool](/docs/pipelines/migration/tool) helps you convert your Jenkins pipeline jobs into Buildkite pipelines. Both the Scripted and Declarative forms of Jenkins pipelines are supported. Because Jenkins pipelines can be written using the Groovy scripting language, their potential for complexity is much greater than that of other YAML-based CI configuration formats. Therefore, to get the best results in the translation process, we make use of an AI Large Language Model (LLM).
 
 The LLM first analyzes the Jenkins pipeline to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline. Note: The AI model *does not* use any submitted data for its own training, and nothing that you submit is stored after the translation is complete.
