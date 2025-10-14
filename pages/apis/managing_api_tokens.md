@@ -8,10 +8,10 @@ On the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit
 
 When an API access token is created, select the Buildkite organization it grants access to, and its scopes of access. GraphQL API access tokens cannot be restricted by scope.
 
-Token scopes are also available to OAuth access tokens, which are issued by the Buildkite platform for your Buildkite user account, for certain processes. However, while you can select the Buildkite organization that an OAuth token grants access to, the Buildkite platform defines the scopes for these access tokens.
+Token scopes are also available to OAuth access tokens, which are issued by the Buildkite platform on behalf of your Buildkite user account for certain processes. However, when these processes occur, while you can select a Buildkite organization you're a member of, which the OAuth token grants access to, the Buildkite platform defines the scopes for these access tokens.
 
 > 📘 Note for contributors to public and open-source projects
-> You need to be a member of the Buildkite organization to be able to generate and use an API token for it.
+> You need to be a member of the Buildkite organization to generate and use an API access token for it.
 
 Token scopes are very granular, and for API access tokens, you can select some or all of the following scopes:
 

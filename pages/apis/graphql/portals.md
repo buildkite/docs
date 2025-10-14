@@ -2,7 +2,7 @@
 
 Buildkite's GraphQL API is accessed using an [authenticated API access token](/docs/apis/graphql-api#authentication) whose [scopes](/docs/apis/managing-api-tokens#token-scopes) cannot be restricted.
 
-Therefore, the Buildkite _portals_ feature provides restricted GraphQL API access to the Buildkite platform, by allowing [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) to define and create GraphQL operations, which are stored by Buildkite, and are made accessible through an authenticated URL endpoint.
+Therefore, the Buildkite _portals_ feature provides restricted GraphQL API access to the Buildkite platform, by allowing [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) to define and create GraphQL operations, which are stored by Buildkite, and are made accessible through an authenticated URL endpoint. These URL endpoints are similar to creating custom REST API endpoints, whose responses can be restricted by the GraphQL queries they're based on.
 
 Portals work well with machine-to-machine operations, since they're scoped to perform only the operations described within a [GraphQL document](https://spec.graphql.org/October2021/#sec-Language) and are not tied to user-owned access tokens.
 
@@ -115,7 +115,6 @@ curl -H "Authorization: Bearer $TOKEN" \
   -d '{ "pipelineSlug": "organization-slug/pipeline-slug" }' \
   -X POST "https://portal.buildkite.com/organizations/my-organization/portals/portal-slug?operation_name=GetBuilds"
 ```
-
 
 ## Authentication
 

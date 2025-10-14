@@ -55,6 +55,8 @@
               path: "pipelines/migration/tool/circleci"
             - name: "Bitbucket Pipelines"
               path: "pipelines/migration/tool/bitbucket-pipelines"
+            - name: "Jenkins"
+              path: "pipelines/migration/tool/jenkins"
         - name: From Jenkins
           path: pipelines/migration/from-jenkins
         - name: From Bamboo
@@ -88,6 +90,8 @@
           path: "agent/v3/ssh-keys"
         - name: "GitHub SSH keys"
           path: "agent/v3/github-ssh-keys"
+        - name: "Git mirrors"
+          path: "agent/v3/git-mirrors"
         - name: "Hooks"
           path: "agent/v3/hooks"
         - name: "Monitoring and observing"
