@@ -47,17 +47,17 @@ Learn more about:
 - Buildkite's GraphQL API in the [GraphQL API overview](/docs/apis/graphql-api) and [Console and CLI tutorial](/docs/apis/graphql/graphql-tutorial) pages.
 - The differences between Buildkite's REST and GraphQL APIs in [API differences](/docs/apis/api-differences).
 
-## Portals
+### Portals
 
-Buildkite's portals provide an alternative to the REST and GraphQL APIs. Portals allow Buildkite organization administrators to define custom GraphQL operations, which can then be accessed through an authenticated URL endpoint by other members of the Buildkite organization.
+In the absence of configurable [scope](/docs/apis/managing-api-tokens#token-scopes) restrictions on API access tokens for the GraphQL API, the _portals_ feature provides a mechanism to restrict access to the Buildkite platform through the GraphQL API. Portals are GraphQL-based operations, which are stored by Buildkite, and are made accessible through authenticated URL endpoints.
 
-Learn more about the portals feature in [Portals](/docs/apis/portals).
+Learn more about the portals feature in [Portals](/docs/apis/graphql/portals).
 
 ## MCP server
 
 Buildkite provides both remote and local [MCP servers](https://modelcontextprotocol.io/docs/learn/server-concepts), which provide your AI tools with access to Buildkite's REST API features.
 
-Learn more about the Buildkite MCP server from the [MCP server overview](/docs/apis/mcp-server) page.
+Learn more about the Buildkite MCP server from the [MCP server overview](/docs/apis/mcp-server) page, along with its configurable [tools](/docs/apis/mcp-server#available-mcp-tools) and [toolsets](/docs/apis/mcp-server/toolsets).
 
 ## Webhooks
 

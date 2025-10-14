@@ -1,0 +1,3 @@
+This example applies read-only access to all toolsets specified in the `X-Buildkite-Toolsets` header. However, you can be selective over which toolsets have read-only access. Learn more about this in [Selective read-only access to toolsets](/docs/apis/mcp-server/toolsets#configuring-the-remote-mcp-server-selective-read-only-access-to-toolsets).
+
+Alternatively, instead of using headers, you could also [use the URL extension](/docs/apis/mcp-server/toolsets#configuring-the-remote-mcp-server-using-a-url-extension) approach by creating multiple MCP server configurations—one for each toolset. Ensure you provide an appropriate name for each MCP server configuration to make it easier to identify which toolsets and level of access each server has to the Buildkite API.

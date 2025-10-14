@@ -131,6 +131,26 @@
       }
     }
 
+    &--level5 {
+      &::before {
+        left: 62px;
+
+        @media (min-width: $screen-md) {
+          left: 42px;
+        }
+      }
+    }
+
+    &--level6 {
+      &::before {
+        left: 72px;
+
+        @media (min-width: $screen-md) {
+          left: 52px;
+        }
+      }
+    }
+
     &--type {
       &-back {
         &::before {
@@ -200,6 +220,14 @@
 
       @media (min-width: $screen-md) {
         padding-left: 55px;
+      }
+    }
+
+    &--level6 {
+      padding-left: 90px;
+
+      @media (min-width: $screen-md) {
+        padding-left: 66px;
       }
     }
   }
