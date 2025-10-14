@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get "/docs/agent/v3/elastic-ci-aws/elastic-ci-stack-overview",           to: redirect("/docs/agent/v3/aws/elastic-ci-stack")
   get "/docs/agent/v3/elastic-ci-aws/managing-elastic-ci-stack",           to: redirect("/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack")
   get "/docs/agent/v3/elastic-ci-aws/parameters",                          to: redirect("/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters")
+  get "/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/template-parameters", to: redirect("/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters")
   get "/docs/agent/v3/elastic-ci-aws/secrets-bucket",                      to: redirect("/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/secrets-bucket")
   get "/docs/agent/v3/elastic-ci-aws/security",                            to: redirect("/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security")
   get "/docs/agent/v3/elastic-ci-aws/troubleshooting",                     to: redirect("/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/troubleshooting")

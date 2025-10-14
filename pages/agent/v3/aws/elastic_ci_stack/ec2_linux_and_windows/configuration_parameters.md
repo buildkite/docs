@@ -63,7 +63,7 @@ end
 					<code><%= parameter_name %></code>
 					<br><code>(<%= parameter['Type'] %>)</code>
 				</td>
-				<td>
+				<td style="white-space: nowrap;">
 					<% if tf_var && tf_var != "N/A" %>
 						<code><%= tf_var %></code>
 					<% else %>
