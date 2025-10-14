@@ -4,7 +4,7 @@ Pipeline triggers create builds based on events from external systems. Custom we
 To trigger pipelines from source control events, see the [source control integrations](/docs/pipelines/source-control) that Buildkite supports.
 
 ## Webhook triggers
-Webhook triggers are HTTP endpoints that create builds when they receive POST requests. Each trigger has a unique URL that accepts JSON payloads, making them ideal for automated workflows and integrations.
+Webhook triggers are HTTP endpoints that create builds when they receive POST requests. Each trigger has a unique URL that accepts JSON payloads, making them ideal for integrating Buildkite with the other tools you use.
 
 Webhook triggers are scoped to a specific pipeline. Use them to trigger builds from monitoring alerts, deployment systems, or any service that can send outbound webhooks.
 
@@ -64,7 +64,7 @@ To create a new pipeline trigger using the Buildkite interface:
 
     <%= image "pipeline-trigger-create.png", width: 2028/2, height: 880/2, class: "invertible", alt: "Successful creation of a pipeline trigger" %>
 
-That's it - You're all set up and ready to invoke first pipeline trigger.
+That's it - You're ready to invoke your first pipeline trigger.
 
 ## Invoke a pipeline trigger
 
