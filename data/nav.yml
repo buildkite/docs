@@ -202,7 +202,9 @@
             - name: "Building container images"
               children:
                 - name: "BuildKit"
-                  path: "agent/v3/agent-stack-k8s/buildkit-container-builds"
+                  path: "agent/v3/agent-stack-k8s/buildkit-container-builds" 
+                - name: "Docker-in-Docker (DinD)"
+                  path: "agent/v3/agent-stack-k8s/dind-container-builds"
             - name: "Troubleshooting"
               path: "agent/v3/agent-stack-k8s/troubleshooting"
         - name: "Agent installers"
