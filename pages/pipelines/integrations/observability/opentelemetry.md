@@ -16,19 +16,61 @@ See [Tracing in the Buildkite Agent](/docs/agent/v3/tracing#using-opentelemetry-
 
 To propagate traces from the Buildkite control plane through to the agent running the job, include the following CLI flags to `buildkite-agent start` and include the appropriate environment variables to specify OpenTelemetry collector details.
 
-| Flag                              | Environment Variable                      | Value                                              |
-| --------------------------------- | ----------------------------------------- | -------------------------------------------------- |
-| `--tracing-backend`               | `BUILDKITE_TRACING_BACKEND`               | `opentelemetry`                                    |
-| `--tracing-propagate-traceparent` | `BUILDKITE_TRACING_PROPAGATE_TRACEPARENT` | `true` (default: `false`)                          |
-| `--tracing-service-name`          | `BUILDKITE_TRACING_SERVICE_NAME`          | `buildkite-agent` (default)                        |
-|                                   | `OTEL_EXPORTER_OTLP_ENDPOINT`             | `http://otel-collector:4317`                       |
-|                                   | `OTEL_EXPORTER_OTLP_HEADERS`              | `"Authorization=Bearer <token>,x-my-header=value"` |
-|                                   | `OTEL_EXPORTER_OTLP_PROTOCOL`             | `grpc` (default) or `http/protobuf`                |
-|                                   | `OTEL_RESOURCE_ATTRIBUTES`                | `key1=value1,key2=value2`                          |
+| Flag                              | Environment Variable                      | Value                                   |
+| --------------------------------- | ----------------------------------------- | --------------------------------------- |
+| `--tracing-backend`               | `BUILDKITE_TRACING_BACKEND`               | `opentelemetry`                         |
+| `--tracing-propagate-traceparent` | `BUILDKITE_TRACING_PROPAGATE_TRACEPARENT` | `true` (default: `false`)               |
+| `--tracing-service-name`          | `BUILDKITE_TRACING_SERVICE_NAME`          | `buildkite-agent` (default)             |
+|                                   | `OTEL_EXPORTER_OTLP_ENDPOINT`             | `http://otel-collector:4317`            |
+|                                   | `OTEL_EXPORTER_OTLP_HEADERS`              | See [Authentication](#authentication).  |
+|                                   | `OTEL_EXPORTER_OTLP_PROTOCOL`             | `grpc` (default) or `http/protobuf`     |
+|                                   | `OTEL_RESOURCE_ATTRIBUTES`                | `key1=value1,key2=value2`               |
 
 Note: `http/protobuf` protocol is only supported on Buildkite agent [v3.101.0](https://github.com/buildkite/agent/releases/tag/v3.101.0) or newer.
 
 See [OpenTelemetry SDK documentation](https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/) for more information on available environment variables.
+
+#### Authentication
+
+Authentication headers vary by provider. Below are the most commonly used authentication patterns. For specific requirements, consult the provider's documentation.
+
+##### Bearer token
+
+For [Honeycomb](https://docs.honeycomb.io/get-started/), [Lightstep](https://docs.lightstep.com/), and most other providers:
+
+```bash
+OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <your-api-token>"
+```
+
+##### Basic authentication
+
+[Grafana Cloud](https://grafana.com/docs/grafana-cloud/) requires Basic authentication with an instance ID and token, base64-encoded in the format `instance_id:token`:
+
+```bash
+OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic <base64(instance_id:token)>"
+```
+
+To encode the token in base64, run the following command:
+
+```bash
+echo -n "your-instance-id:your-token" | base64
+```
+
+##### Custom headers
+
+Some providers (such as Honeycomb) also support custom headers:
+
+```bash
+OTEL_EXPORTER_OTLP_HEADERS="x-honeycomb-team=<your-api-key>"
+```
+
+##### Multiple headers
+
+Multiple headers can be specified by separating values with commas:
+
+```bash
+OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <token>,x-custom-header=value"
+```
 
 ### Propagating traces to Buildkite agents
 
@@ -54,8 +96,11 @@ ENV OTEL_EXPORTER_OTLP_PROTOCOL="grpc"
 # the gRPC transport requires a port to be specified in the URL
 ENV OTEL_EXPORTER_OTLP_ENDPOINT="http://otel-collector:4317"
 
-# authentication of traces is done via tokens in headers
-ENV OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <token>,x-my-header=value"
+# Authentication can vary by provider - see the authentication examples above
+# Bearer is the most common method of Authentication:
+ENV OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <token>"
+# For Grafana Cloud, use Basic Authentication instead:
+ENV OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic <base64(instance_id:token)>"
 ```
 
 ## OpenTelemetry tracing notification service
@@ -95,7 +140,7 @@ OpenTelemetry traces from the Buildkite notification service follow a hierarchic
           └─ buildkite.job
 ```
 
-> 📘 Build Stages
+> 📘 Build stages
 > Buildkite builds that have finished may be resumed at a later time, eg. by unblocking a `block` step, or manually retrying a failed job. To represent that in the OpenTelemetry format, we add an extra `buildkite.build.stage` span for each period of time that the build is in the `running`, `scheduled`, `canceling` or `failing` state. We also include a `buildkite.build.stage` span attribute to indicate how many times the build has been resumed.
 
 The following attributes are included in OpenTelemetry traces from the Buildkite notification service:
@@ -187,7 +232,7 @@ See [Bearer Token example](https://github.com/buildkite/opentelemetry-notificati
 
 #### Basic auth
 
-First, create a base64 encoded string of the username and password separated by a colon.
+First, create a base64-encoded string of the username and password separated by a colon.
 
 ```bash
 echo -n "${USER}:${PASSWORD}" | base64
@@ -275,4 +320,4 @@ docker run --rm -e DD_API_KEY=abcd -e OTLP_HTTP_BEARER_TOKEN=example -it -v $(pw
 config valid
 ```
 
-There is also an online validation tool available at https://www.otelbin.io/
+You can also use an online validation tool available at https://www.otelbin.io/.

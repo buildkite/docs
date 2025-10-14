@@ -1,6 +1,8 @@
 # Portals
 
-Buildkite _portals_ is an alternative feature to Buildkite's REST and GraphQL APIs. Portals are user-defined GraphQL operations that can be created by Buildkite organization administrators, are stored by Buildkite, and are made accessible through an authenticated URL endpoint.
+Buildkite's GraphQL API is accessed using an [authenticated API access token](/docs/apis/graphql-api#authentication) whose [scopes](/docs/apis/managing-api-tokens#token-scopes) cannot be restricted.
+
+Therefore, the Buildkite _portals_ feature provides restricted GraphQL API access to the Buildkite platform, by allowing [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) to define and create GraphQL operations, which are stored by Buildkite, and are made accessible through an authenticated URL endpoint.
 
 Portals work well with machine-to-machine operations, since they're scoped to perform only the operations described within a [GraphQL document](https://spec.graphql.org/October2021/#sec-Language) and are not tied to user-owned access tokens.
 
