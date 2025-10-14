@@ -2,13 +2,13 @@
 
 The pipelines API endpoint consists of several endpoints that allow you to manage:
 
-- pipelines, along with their [builds](/docs/apis/rest-api/builds)
-- a build's [annotations](/docs/apis/rest-api/annotations), [artifacts](/docs/apis/rest-api/artifacts), and [jobs](/docs/apis/rest-api/jobs)
+- Pipelines, along with their [builds](/docs/apis/rest-api/builds).
+- A build's [annotations](/docs/apis/rest-api/annotations), [artifacts](/docs/apis/rest-api/artifacts), and [jobs](/docs/apis/rest-api/jobs).
 
 This section of the REST API documentation also contains several other endpoints that allow you to manage other aspects of Buildkite functionality associated with your pipelines, such as:
 
-- [clusters](/docs/apis/rest-api/clusters), including the management of [queues](/docs/apis/rest-api/clusters#queues) and [agent tokens](/docs/apis/rest-api/clusters#agent-tokens)
-- [agents](/docs/apis/rest-api/agents) themselves
+- [Clusters](/docs/apis/rest-api/clusters), including the management of [queues](/docs/apis/rest-api/clusters/queues), [agent tokens](/docs/apis/rest-api/clusters/agent-tokens), [cluster maintainers](/docs/apis/rest-api/clusters/maintainers), and [Buildkite secrets](/docs/apis/rest-api/clusters/secrets).
+- [Agents](/docs/apis/rest-api/agents) themselves.
 
 ## List pipelines
 

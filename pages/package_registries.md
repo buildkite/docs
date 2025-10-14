@@ -55,5 +55,5 @@ Learn more about:
 
 - Package Registries' APIs through the:
     * [REST API documentation](/docs/apis/rest-api), and related endpoints, starting with [registries](/docs/apis/rest-api/package-registries/registries).
-    * [GraphQL documentation](/docs/apis/graphql-api) and its [registries](/docs/apis/graphql/cookbooks/registries)-related queries, as well as [portals](/docs/apis/portals).
+    * [GraphQL documentation](/docs/apis/graphql-api) and its [registries](/docs/apis/graphql/cookbooks/registries)-related queries, as well as [portals](/docs/apis/graphql/portals).
 - Package Registries' [webhooks](/docs/apis/webhooks/package-registries).

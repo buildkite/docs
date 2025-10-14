@@ -52,6 +52,7 @@ exceptions:
   - Bitbucket Server
   - bktec
   - BUILD_AND_READ
+  - Buildah
   - buildevents
   - BuildKit
   - Buildkite
@@ -85,6 +86,7 @@ exceptions:
   - CSS
   - Datadog
   - Debian
+  - Declarative
   - deduper
   - Docker
   - Docker Compose
@@ -199,6 +201,7 @@ exceptions:
   - SAML
   - scheduler
   - SCIM
+  - Scripted
   - Sequoia
   - Slack
   - Slack Workspace

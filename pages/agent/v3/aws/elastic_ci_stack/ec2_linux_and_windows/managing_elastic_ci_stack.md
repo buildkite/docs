@@ -162,13 +162,15 @@ To debug an agent:
 
 ## Customizing instances with a bootstrap script
 
-You can customize your stack's instances by using the `BootstrapScriptUrl` stack parameter to run a Bash script on instance boot. To set up a bootstrap script,  set the `BootstrapScriptUrl` parameter to one of the following:
+You can customize your stack's instances by using the `BootstrapScriptUrl` stack parameter to run a script on instance boot. The script executes before the Buildkite Agent starts and runs with elevated privileges, making it useful for installing software, configuring settings, or performing other customizations.
 
-* An S3 bucket containing the script, for example `s3://my_bucket_name/my_bootstrap.sh`
-* A URL such as `https://www.example.com/config/bootstrap.sh`
-* A local file name `file:///usr/local/bin/my_bootstrap.sh` (this is particularly useful if you're customizing the AMI and are able to include a bootstrap script that way).
+The stack parameter accepts a URI that specifies the location and retrieval method for your bootstrap script. Supported URI schemes include:
 
-If the file is private, you also need to create an IAM policy to allow the instances to read the file, for example:
+* S3 object URI (for example, `s3://my-bucket-name/my-bootstrap.sh`) retrieves the script from an S3 bucket using the AWS S3 API. The instance's IAM role must have `s3:GetObject` permission for the specified object.
+* HTTPS URL (for example, `https://www.example.com/config/bootstrap.sh`) downloads the script using `curl`command on Linux or `Invoke-WebRequest` on Windows. The URL must be publicly accessible.
+* Local file path (for example, `file:///usr/local/bin/my-bootstrap.sh`) references a script already present on the instance's filesystem. This is particularly useful when customizing the AMI to include bootstrap scripts.
+
+For private S3 objects, you need to create an IAM policy to allow the instances to read the file. The policy should include:
 
 ```json
 {
@@ -179,7 +181,7 @@ If the file is private, you also need to create an IAM policy to allow the insta
       "Action": [
         "s3:GetObject"
       ],
-      "Resource": ["arn\:aws\:s3:::my_bucket_name/my_bootstrap.sh"]
+      "Resource": ["arn\:aws\:s3:::my-bucket-name/my-bootstrap.sh"]
 
     }
   ]
@@ -187,6 +189,21 @@ If the file is private, you also need to create an IAM policy to allow the insta
 ```
 
 After creating the policy, you must specify the policy's ARN in the `ManagedPolicyARNs` stack parameter.
+
+## Configuring agent environment variables
+
+You can configure environment variables for the Buildkite Agent process by using the `AgentEnvFileUrl` stack parameter. These environment variables apply to the agent process itself and are useful for configuring proxy settings, debugging options, or other agent-specific configuration. These variables are _not_ the same as build environment variables, which should be configured in your pipeline.
+
+The parameter accepts a URI that specifies the location and retrieval method for an environment file. Supported URI schemes include:
+
+* S3 object URI (for example, `s3://my-bucket-name/agent.env`) retrieves the environment file from an S3 bucket using the AWS S3 API. The instance's IAM role must have `s3:GetObject` permission for the specified object.
+* SSM parameter path (for example, `ssm:/buildkite/agent/config`) retrieves environment variables from AWS Systems Manager Parameter Store. The instance's IAM role must have `ssm:GetParameter` permission. All parameters under the specified path are retrieved recursively with decryption enabled for `SecureString` parameters. The last segment of each parameter path becomes the environment variable name in uppercase (for example, `/buildkite/agent/config/http_proxy` becomes `HTTP_PROXY`).
+* HTTPS URL (for example, `https://www.example.com/config/agent.env`) downloads the environment file using `curl` command on Linux or `Invoke-WebRequest` on Windows. The URL must be publicly accessible.
+* Local file path (for example, `file:///etc/buildkite/agent.env`) references an environment file already present on the instance's filesystem. This is useful when customizing the AMI to include environment configuration.
+
+The environment file must contain variables in the format `KEY="value"`, with one variable per line.
+
+For private S3 objects, you must create an IAM policy to allow the instances to read the file. For SSM parameters, the IAM policy should include `ssm:GetParameter` permission for the specified parameter path. After creating the policy, you must specify the policy's ARN in the `ManagedPolicyARNs` stack parameter.
 
 ## Health monitoring
 
@@ -196,4 +213,4 @@ You can assess and monitor health and proper function of the Elastic CI Stack fo
 
 * **CloudWatch Metrics** the Buildkite namespace contains `ScheduledJobsCount`, `RunningJobsCount`, and `WaitingJobsCount` measurements for the Buildkite Queue your Elastic CI Stack for AWS was configured to poll. These numbers are fed to the Auto Scaling group by the scaling Lambda.
 
-* **CloudWatch Logs** log streams for the Buildkite agent and EC2 Instance system console.
+* **CloudWatch Logs** log streams for the Buildkite Agent and EC2 Instance system console.
