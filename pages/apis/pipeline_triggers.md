@@ -15,8 +15,8 @@ Webhook triggers are scoped to a specific pipeline. Use them to trigger builds f
 
 To create a new pipeline trigger using the Buildkite interface:
 
-1. From your Buildkite dashboard, select your pipeline.
-2. Select **Pipeline Settings** > **Triggers**.
+1. From your [Buildkite dashboard](https://buildkite.com/~), select your pipeline.
+2. Select your pipeline's **Settings** > **Triggers**.
 3. Select the **New Trigger** button to create a new pipeline trigger.
 4. Configure your pipeline trigger.
 
@@ -69,7 +69,7 @@ That's it - You're all set up and ready to invoke first pipeline trigger.
 ## Invoke a pipeline trigger
 
 To create a build using a webhook pipeline trigger, simply send a HTTP POST request to the trigger URL.
-Each trigger accepts a JSON payload, which is accessible to all build steps (see [Accessing webhook data](#accessing-webhook-data)).
+Each trigger accepts a JSON payload, which is accessible to all build steps (see [Accessing webhook data](#invoke-a-pipeline-trigger-accessing-webhook-data)).
 
 Here's an example using `curl`:
 
@@ -101,7 +101,7 @@ A successful trigger request returns a `201 Created` response with details about
 }
 ```
 
-##### Error responses:
+##### Error responses
 
 <table class="responsive-table">
   <tbody>
@@ -114,9 +114,31 @@ A successful trigger request returns a `201 Created` response with details about
 ### Accessing webhook data
 
 Webhook JSON payloads sent to a pipeline trigger URL are accessible in all steps of the triggered build.
-You can retrieve the webhook body using the `buildkite:webhook` meta-data key.
+You can retrieve the webhook body using the [`buildkite:webhook`](/docs/pipelines/configure/build-meta-data#special-meta-data-buildkite-webhook) meta-data key.
 
-Example: Accessing a GitHub pull request closed webhook sent to the pipeline trigger URL:
+##### Example:
+
+Sample of Github's pull request closed webhook payload:
+
+```json
+{
+  "action": "closed",
+  "number": 123,
+  "organization": "Buildkite"
+  "pull_request": {
+    "url": "https://www.github.com/buildkite/dummy-repo",
+    "id": 456,
+    "number": 123,
+    "state": "closed",
+    "title": "Integrate into buildkite pipeline triggers",
+    "closed_at": "2025-10-14T02:14:39Z"
+    "merged_at": null
+  }
+}
+
+```
+
+Accessing the webhook posted to the pipeline trigger URL:
 
 ```yaml
 steps:
@@ -129,3 +151,5 @@ steps:
         echo "PR was manually closed"
       fi
 ```
+
+`buildkite:webhook` data will only be available to builds triggered by a webhook, and only for as long as the webhook data remains cached — typically for 7 days.

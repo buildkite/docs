@@ -977,6 +977,9 @@
               path: "apis/mcp-server/local/configuring-ai-tools"
         - name: "Toolsets"
           path: "apis/mcp-server/toolsets"
+    - name: "Pipeline triggers"
+      path: "apis/pipeline-triggers"
+      pill: "preview"
     - name: "Webhooks"
       children:
         - name: "Overview"
