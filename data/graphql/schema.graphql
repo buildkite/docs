@@ -1365,6 +1365,11 @@ type Build implements Node {
   branch: String!
 
   """
+  The reason why the build was cancelled
+  """
+  cancelReason: String
+
+  """
   The time when the build was cancelled
   """
   canceledAt: DateTime
