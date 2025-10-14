@@ -34,7 +34,7 @@ interface = metadata['AWS::CloudFormation::Interface']
 parameter_groups = interface['ParameterGroups']
 
 parameters = AWS_STACK['Parameters']
-cf_tf_mapping = CLOUDFORMATION_TERRAFORM_MAPPING || {}
+cf_tf_mapping = defined?(CLOUDFORMATION_TERRAFORM_MAPPING) ? CLOUDFORMATION_TERRAFORM_MAPPING : {}
 
 def escape_colons(x)
   if x.is_a? String
