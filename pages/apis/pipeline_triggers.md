@@ -118,7 +118,7 @@ You can retrieve the webhook body using the [`buildkite:webhook`](/docs/pipeline
 
 ##### Example:
 
-Sample of Github's pull request closed webhook payload:
+Sample of a Github pull request closed webhook payload:
 
 ```json
 {
