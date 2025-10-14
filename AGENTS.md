@@ -54,15 +54,21 @@ This style guide applies to Buildkite product documentation, API reference pages
 - Use US English (Merriam Webster)
 - Write in plain English, avoid unnecessary jargon
 - Maintain a semi-formal tone - balance between professional and approachable
+- Don't use "delve," "comprehensive," "embark," "leverage," "utilize," "unlock," "harness," or similar buzzwords
 - Use active voice whenever possible
 - Use contractions appropriately (didn't, haven't, etc.)
 - Always use "they" for gender-neutral pronouns, NEVER "he" or "she"
+- Don't use phrases like "it's important to note," "it's worth noting," "keep in mind"
+- Don't start sentences with "Additionally," "Furthermore," "Moreover"
+- Don't use redundant emphasis like "really," "very," or "quite"
+- Don't be overly enthusiastic, don't use unnecessary exclamation marks
 
 **Formatting standards:**
-- Use sentence case for all headings (capitalize only first word and proper nouns)
-- Format Buildkite UI elements in **bold** matching exact Buildkite interface capitalization
+- Use sentence case for ALL headings. Only capitalize the first word and proper nouns. Example: "Setting up your first pipeline" not "Setting Up Your First Pipeline".
+- Format Buildkite UI elements in **bold** matching exact Buildkite interface capitalization. ONLY use bold for Buildkite UI element names (buttons, menu items, field names, tabs, etc.). Nothing else should be bolded. Not for emphasis, not for key terms, not for anything except UI elements.
 - Format key terms and emphasis in _italics_ (use sparingly)
 - Use serial commas when listing items
+- Don't use emojis in lists
 - In paragraphs, write out numbers up to 10, then use digits; in headings - AVOID digits for numbers smaller than 10
 - Use 24-hour time format with timezone (e.g., 17:00 AEST)
 
@@ -573,3 +579,8 @@ steps:
 - Ensure UUIDs/IDs are clearly placeholder values
 - Confirm no internal Buildkite infrastructure details
 - Review any copied content for accidental real data
+
+---
+
+If asked to rewrite a document based on these instructions:
+Use natural writing style. Write like a human technical writer, not like AI. AVOID AI WRITING PATTERNS!
