@@ -39,9 +39,10 @@ steps:
   - label: "Run for any changes within app/ or spec/"
     if_changed: "{app/**,spec/**}"
 
-  # From version 3.109 of the Buildkite Agent, lists of patterns are supported.
-  # If any changed file matches any of the patterns, the step is run. This can be
-  # a more ergonomic alternative to using braces.
+  # From version 3.109 of the Buildkite Agent, lists of patterns
+  # are supported. If any changed file matches any of the patterns,
+  # the step is run. This can be a more ergonomic alternative to
+  # using braces.
   - label: "Run if any Go-related file is changed"
     if_changed:
       - "**.go"
@@ -52,10 +53,12 @@ steps:
       - app/**
       - spec/**
 
-  # From version 3.109 of the Buildkite Agent, `include` and `exclude` are supported
-  # attributes. As for `if_changed`, these attributes may contain single patterns or lists
-  # of patterns. In such cases, `include` is required. `exclude` eliminates changed files
-  # from causing a step to run.
+  # From version 3.109 of the Buildkite Agent, `include` and
+  # `exclude` are supported attributes. As for `if_changed`, these
+  # attributes may contain single patterns or lists of patterns.
+  # `exclude` eliminates changed files from causing a step to run.
+  # If the `exclude` attribute is present, then the `include` attribute,
+  # along with its pattern or list of patterns, is required too.
   - label: "Run for changes in spec/, but not in spec/integration/"
     if_changed:
       include: spec/**
