@@ -76,7 +76,19 @@ Here's an example using `curl`:
 ```bash
 curl -H "Content-Type: application/json" \
   -X POST "https://webhook.buildkite.com/deliver/bktr_************" \
-  -d '{ "event": "mock-event" }'
+  -d '{
+    "incident": {
+      "html_url": "https://acme.pagerduty.com/incidents/PGR0VU2",
+      "id": "PGR0VU2",
+      "self": "https://api.pagerduty.com/incidents/PGR0VU2",
+      "summary": "A little bump in the road",
+      "type": "incident_reference"
+    },
+    "id": "P2LA89X",
+    "message": "A fix for this incident is being developed",
+    "trimmed": false,
+    "type": "incident_status_update"
+  }'
 ```
 
 You've just created your first build using a pipeline trigger.
