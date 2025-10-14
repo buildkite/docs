@@ -1,17 +1,21 @@
 # Pipeline triggers
+Pipeline triggers create builds based on events from external systems. Custom webhooks are the first supported pipeline trigger.
 
-Pipeline triggers are webhook endpoints that start builds on a pipeline. Each trigger has a unique URL that accepts HTTP POST requests with JSON payloads, making them ideal for automated workflows and CI/CD integrations.
+To trigger pipelines from source control events, see the [source control integrations](/docs/pipelines/source-control) that Buildkite supports.
 
-Unlike user API tokens, pipeline triggers are scoped to a specific pipeline. This makes them well-suited for external systems, scheduled jobs, and integrations that need to trigger builds programmatically.
+## Webhook triggers
+Webhook triggers are HTTP endpoints that create builds when they receive POST requests. Each trigger has a unique URL that accepts JSON payloads, making them ideal for automated workflows and integrations.
+
+Webhook triggers are scoped to a specific pipeline. Use them to trigger builds from monitoring alerts, deployment systems, or any service that can send outbound webhooks.
 
 > 📘 This feature is currently available in preview.
-> We're open to feedback on how we can improve this offering for your use cases.
+> The triggers feature is currently in development. To provide feedback, please contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
 
 ## Getting started
 
-To set up a pipeline trigger:
+To create a new pipeline trigger using the Buildkite interface:
 
-1. From your Buildkite dashboard, select a pipeline to configure a trigger for.
+1. From your Buildkite dashboard, select your pipeline.
 2. Select **Pipeline Settings** > **Triggers**.
 3. Select the **New Trigger** button to create a new pipeline trigger.
 4. Configure your pipeline trigger.
@@ -64,8 +68,8 @@ That's it - You're all set up and ready to invoke first pipeline trigger.
 
 ## Invoke a pipeline trigger
 
-To create a build from a pipeline trigger, simply send a HTTP POST request to the trigger URL.
-The endpoint accepts a JSON payload, which is accessible to all steps via your build's meta-data.
+To create a build using a webhook pipeline trigger, simply send a HTTP POST request to the trigger URL.
+Each trigger accepts a JSON payload, which is accessible to all build steps (see [Accessing webhook data](#accessing-webhook-data)).
 
 Here's an example using `curl`:
 
@@ -75,10 +79,7 @@ curl -H "Content-Type: application/json" \
   -d '{ "event": "mock-event" }'
 ```
 
-Voila! You've just created your first build using a pipeline trigger.
-
-> 📘 Example workflows
-> See how pipeline triggers work in practice with common workflow examples.
+You've just created your first build using a pipeline trigger.
 
 ### Endpoint
 
