@@ -1,6 +1,6 @@
 # Quarantine API
 
-Customers on the [Enterprise plan](https://buildkite.com/pricing) can access Buildkite Test Engine's quarantine feature. Contact Buildkite sales at sales@buildkite.com to gain access to this feature and try it out.
+Customers on the [Pro and Enterprise plans](https://buildkite.com/pricing) can access Buildkite Test Engine's quarantine feature.
 
 Before using the API calls on this page, ensure that test state management has been enabled for your suite (through your test suite's **Settings** > **Test state** page), and that the relevant **Lifecycle** states have been selected on this page.
 

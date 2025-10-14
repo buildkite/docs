@@ -257,7 +257,7 @@ buildkite-mcp-server http --api-token=${BUILDKITE_API_TOKEN}
 
 where `${BUILDKITE_API_TOKEN}` is the value of your [configured Buildkite API access token](#configure-an-api-access-token), set with your required scopes.
 
-To run the MCP server with legacy HTTP or server-sent events (SSE), use this command with the `--use-sse` option. For example:
+To run the MCP server with legacy server-sent events (SSE), use this command with the `--use-sse` option. For example:
 
 ```bash
 buildkite-mcp-server http --use-sse --api-token=${BUILDKITE_API_TOKEN}
@@ -276,3 +276,6 @@ docker run --pull=always -q --rm -e BUILDKITE_API_TOKEN -e HTTP_LISTEN_ADDR=":30
 ```
 
 With your self-hosted MCP server up and running, you can now [configure your AI tools](/docs/apis/mcp-server/remote/configuring-ai-tools) as you would for Buildkite's remote MCP server, but substituting its URL (`https://mcp.buildkite.com/mcp`) for the URL of your self-hosted MCP server (for example, `http://127.0.0.1:3000/mcp`). Note that the OAuth authentication flow won't be triggered in this case, as your server will be configured to use your own API access token.
+
+> 📘
+> If you'd like to customize your self-hosted MCP server further, note that the [Buildkite MCP server](https://github.com/buildkite/buildkite-mcp-server) implements the [mcp-go](https://github.com/mark3labs/mcp-go) library. Consult this library's README and associated documentation for more customization details.

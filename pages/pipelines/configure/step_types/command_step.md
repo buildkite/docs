@@ -147,6 +147,13 @@ Optional attributes:
     </td>
   </tr>
   <tr>
+    <td><code>secrets</code></td>
+    <td>
+      Either an array of <a href="/docs/pipelines/security/secrets/buildkite-secrets">Buildkite secrets</a> or a map of environment variables names to Buildkite secrets for this step.<br/>
+      <em>Example:</em> <code>- API_ACCESS_TOKEN</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>if</code></td>
     <td>
       A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.<br/>
@@ -250,7 +257,7 @@ Optional attributes:
 
 ## Container image attributes
 
-If you are using the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) controller to run your [Buildkite Agents](/docs/agent/v3), then you can use the `image` attribute to specify a [container image](/docs/agent/v3/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images) for a command step to run its job in.
+If you are using the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) controller to run your [Buildkite Agents](/docs/agent/v3), then you can use the `image` attribute to specify a [container image](/docs/agent/v3/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images) for a command step to run its job in. If you are using [Buildkite hosted agents](/docs/pipelines/hosted-agents), support for the `image` attribute is experimental and subject to change.
 
 <table>
   <tr>
@@ -411,6 +418,8 @@ Optional attributes:
         <li><code>none</code></li>
         <li><code>cancel</code></li>
         <li><code>agent_stop</code></li>
+        <li><code>agent_refused</code></li>
+        <li><code>process_run_error</code></li>
       </ul>
     </td>
   </tr>

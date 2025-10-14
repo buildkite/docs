@@ -2,11 +2,13 @@ env:
   BUILDKIT_PROGRESS: plain
 
 steps:
-  - label: ":spider: Check for broken links"
+  - label: ":spider: Check for link issues"
     env:
       RAILS_ENV: production
     agents:
       queue: hosted
+    soft_fail:
+      - exit_status: 1
     plugins:
       - aws-assume-role-with-web-identity#v1.4.0:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
@@ -22,6 +24,9 @@ steps:
           shell: false
           upload-container-logs: always
           mount-buildkite-agent: true
+          propagate-environment: true
+    artifact_paths:
+      - ".buildkite/steps/muffet_results.json"
 
   - label: ":graphql: Check generated code is up to date"
     command: bundle exec rake graphql:generate

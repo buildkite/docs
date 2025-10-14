@@ -153,6 +153,7 @@ You can find the latest deployment plugins in the [plugins directory](https://bu
 
 You can deploy applications to services like Kubernetes, Argo CD, Heroku, or ECS from a script in a Buildkite [command step](/docs/pipelines/configure/step-types/command-step), similar to how you'd do so on a command line. Learn more about these processes from the following relevant pages for walk-throughs with examples:
 
+- [Deploying to AWS Lambda](/docs/pipelines/deployments/to-aws-lambda)
 - [Deploying to Kubernetes](/docs/pipelines/deployments/to-kubernetes)
 - [Deploying with Argo CD](/docs/pipelines/deployments/with-argo-cd)
 - [Deploying with Heroku](/docs/pipelines/deployments/with-heroku)

@@ -119,6 +119,9 @@ An object with an ID.
 <a href="/docs/apis/graphql/schemas/object/jobeventgeneric" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventGeneric">
   <code>JobEventGeneric</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/jobeventreprioritized" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventReprioritized">
+  <code>JobEventReprioritized</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/jobeventretried" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventRetried">
   <code>JobEventRetried</code>
 </a>
@@ -127,6 +130,9 @@ An object with an ID.
 </a>
 <a href="/docs/apis/graphql/schemas/object/jobeventstackerror" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventStackError">
   <code>JobEventStackError</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/jobeventstackfinished" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventStackFinished">
+  <code>JobEventStackFinished</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/jobeventstacknotification" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventStackNotification">
   <code>JobEventStackNotification</code>

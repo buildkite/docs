@@ -14,23 +14,44 @@ script.
 
 ### Usage
 
-`buildkite-agent secret get [key] [options...]`
+`buildkite-agent secret get [options...] [key1] [key2] ...`
 
 ### Description
 
-Gets a secret from Buildkite secrets and prints it to stdout. The `key`
-specified in this command is the key&#39;s name defined for the secret in its
-cluster. The key&#39;s name is case insensitive in this command, and the
-key&#39;s value is automatically redacted in the build logs.
+Gets a list of secrets from Buildkite and prints them to stdout. Key names are case
+insensitive in this command, and secret values are automatically redacted in the build logs
+unless the `skip-redaction` flag is used.
+
+If any request for a secret fails, the command will return a non-zero exit code and print
+details of all failed secrets.
+
+By default, when fetching a single key, the secret value will be printed without any
+formatting. When fetching multiple keys, the output will be in JSON format. Output
+format can be controlled explicitly with the `format` flag.
 
 ### Examples
 
-The following examples reference the same Buildkite secret `key`:
+```shell
+# Secret keys are case insensitive
+$ buildkite-agent secret get deploy_key
+"..."
+$ buildkite-agent secret get DEPLOY_KEY
+"..."
+```
 
 ```shell
-$ buildkite-agent secret get deploy_key
-$ buildkite-agent secret get DEPLOY_KEY
+# The return value can also be formatted using env (which can be piped
+# into e.g. `source`, `declare -x`), or json
+$ buildkite-agent secret get --format env deploy_key github_api_token
+DEPLOY_KEY="..."
+GITHUB_API_TOKEN="..."
 ```
+
+```shell
+$ buildkite-agent secret get --format json deploy_key github_api_token
+{"deploy_key": "...", "github_api_token": "..."}
+```
+
 
 ### Options
 
@@ -48,6 +69,7 @@ $ buildkite-agent secret get DEPLOY_KEY
 <tr id="debug-http"><th><code>--debug-http </code> <a class="Docs__attribute__link" href="#debug-http">#</a></th><td><p>Enable HTTP debug mode, which dumps all request and response bodies to the log<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG_HTTP</code></p></td></tr>
 <tr id="trace-http"><th><code>--trace-http </code> <a class="Docs__attribute__link" href="#trace-http">#</a></th><td><p>Enable HTTP trace mode, which logs timings for each HTTP request. Timings are logged at the debug level unless a request fails at the network level in which case they are logged at the error level<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_TRACE_HTTP</code></p></td></tr>
 <tr id="job"><th><code>--job value</code> <a class="Docs__attribute__link" href="#job">#</a></th><td><p>Which job should should the secret be for<br /><strong>Environment variable</strong>: <code>$BUILDKITE_JOB_ID</code></p></td></tr>
+<tr id="format"><th><code>--format value</code> <a class="Docs__attribute__link" href="#format">#</a></th><td><p>The output format, either 'default', 'json', or 'env'. When 'default', a single secret will print just the value, while multiple secrets will print JSON. When 'json' or 'env', secrets will be printed as key-value pairs in the requested format (default: "default")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_SECRET_GET_FORMAT</code></p></td></tr>
 <tr id="skip-redaction"><th><code>--skip-redaction </code> <a class="Docs__attribute__link" href="#skip-redaction">#</a></th><td><p>Skip redacting the retrieved secret from the logs. Then, the command will print the secret to the Job's logs if called directly.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_SECRET_GET_SKIP_SECRET_REDACTION</code></p></td></tr>
 </table>
 

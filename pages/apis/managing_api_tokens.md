@@ -1,17 +1,19 @@
 # Managing API access tokens
 
-Buildkite API access tokens are issued to individuals not organizations. You can create and edit API access tokens in your [personal settings](https://buildkite.com/user/api-access-tokens).
+Buildkite API access tokens are issued to individual Buildkite user accounts, not Buildkite organizations. You can create and edit API access tokens in your [personal settings](https://buildkite.com/user/api-access-tokens).
 
-On the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) page, organization admins can view all tokens that have been created with access to their organization data. As well as auditing user tokens and what access they have, you can also remove a token's access to your organization data if required.
+On the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) page, Buildkite organization administrators can view all tokens that have been created with access to their organization data. As well as auditing user tokens and what access they have, you can also remove a token's access to your organization data if required.
 
 ## Token scopes
 
-When you create a token, select the organizations it grants access to, and for REST APIS the scope of the access. GraphQL tokens cannot be limited by scope.
+When an API access token is created, select the Buildkite organization it grants access to, and its scopes of access. GraphQL API access tokens cannot be restricted by scope.
+
+Token scopes are also available to OAuth access tokens, which are issued by the Buildkite platform on behalf of your Buildkite user account for certain processes. However, when these processes occur, while you can select a Buildkite organization you're a member of, which the OAuth token grants access to, the Buildkite platform defines the scopes for these access tokens.
 
 > 📘 Note for contributors to public and open-source projects
-> You need to be a member of the Buildkite organization to be able to generate and use an API token for it.
+> You need to be a member of the Buildkite organization to generate and use an API access token for it.
 
-REST API scopes are very granular, you can select some or all of the following:
+Token scopes are very granular, and for API access tokens, you can select some or all of the following scopes:
 
 - **Read Agents** (`read_agents`): Permission to list and retrieve details of agents.
 - **Write Agents** (`write_agents`): Permission to stop agents. To register agents, use an [Agent token] instead.
@@ -112,6 +114,12 @@ This section explains risk mitigation strategies which you can implement, and ot
 ### Rotation
 
 Buildkite's API access tokens have no built-in expiration date. The best practices regarding regular credential rotation recommended by [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-lifetimes-and-rotation) suggest rotating the tokens at least once a year. In case of a security compromise or breach, it is strongly recommended that the old tokens are [invalidated](/docs/apis/managing-api-tokens#removing-an-organization-from-a-token) or inactive ones [revoked](#inactive-api-tokens-revocation), and new tokens are issued.
+
+The [API Access Tokens page](https://buildkite.com/user/api-access-tokens) has a _Duplicate_ button that can be used to create a new token with the same permissions as the existing token.
+
+### GitHub secret scanning program
+
+Learn more about this program in [Token security](/docs/platform/security).
 
 ## FAQs
 
