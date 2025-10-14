@@ -57,15 +57,16 @@ end
 		</tr>
 		<% group['Parameters'].each do |parameter_name| %>
 			<% parameter = parameters[parameter_name] %>
-			<% tf_var = cf_tf_mapping[parameter_name] %>
+			<% tf_mapping = cf_tf_mapping[parameter_name] %>
 			<tr id="<%= parameter_name %>">
 				<td>
 					<code><%= parameter_name %></code>
 					<br><code>(<%= parameter['Type'] %>)</code>
 				</td>
 				<td style="white-space: nowrap;">
-					<% if tf_var && tf_var != "N/A" %>
-						<code><%= tf_var %></code>
+					<% if tf_mapping && tf_mapping != "N/A" %>
+						<code><%= tf_mapping['variable'] %></code>
+						<br><code>(<%= tf_mapping['type'] %>)</code>
 					<% else %>
 						<em>N/A</em>
 					<% end %>
