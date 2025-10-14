@@ -86,6 +86,7 @@ exceptions:
   - CSS
   - Datadog
   - Debian
+  - Declarative
   - deduper
   - Docker
   - Docker Compose
@@ -201,6 +202,7 @@ exceptions:
   - scheduler
   - SCIM
   - SDK
+  - Scripted
   - Sequoia
   - Slack
   - Slack Workspace

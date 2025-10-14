@@ -235,16 +235,16 @@ where:
 
 - `--username` always has the value `buildkite`.
 
-Therefore, the full [`command` step](/docs/pipelines/configure/step-types/command-step) would look like:
+As a result, the full [`command` step](/docs/pipelines/configure/step-types/command-step) would look like:
 
 ```bash
 buildkite-agent oidc request-token --audience "https://packages.buildkite.com/{org.slug}/{registry.slug}" --lifetime 300 | docker login packages.buildkite.com/{org.slug}/{registry.slug} --username buildkite --password-stdin
 ```
 
-Assuming a Buildkite organization with slug `my-organization` and a pipeline slug `my-pipeline`, this full command would look like:
+For a Buildkite organization with a slug `my-organization` and a registry slug `my-registry`, this full command would look like:
 
 ```bash
-buildkite-agent oidc request-token --audience "https://packages.buildkite.com/my-organization/my-pipeline" --lifetime 300 | docker login packages.buildkite.com/my-organization/my-pipeline --username buildkite --password-stdin
+buildkite-agent oidc request-token --audience "https://packages.buildkite.com/my-organization/my-registry" --lifetime 300 | docker login packages.buildkite.com/my-organization/my-registry --username buildkite --password-stdin
 ```
 
 ### Example pipeline
@@ -253,19 +253,14 @@ The following example Buildkite pipeline YAML snippet demonstrates how to push D
 
 ```yml
 steps:
-- key: "docker-build" # Build the Docker image
-  label: "\:docker\: Build"
-  command: docker build --tag packages.buildkite.com/my-organization/my-registry/my-image:latest .
-
-- key: "docker-login" # Authenticate the Buildkite Agent to the Buildkite registry using an OIDC token
-  label: "\:docker\: Login"
-  command: buildkite-agent oidc request-token --audience "https://packages.buildkite.com/my-organization/my-pipeline" --lifetime 300 | docker login packages.buildkite.com/my-organization/my-registry --username buildkite --password-stdin
-  depends_on: "docker-build"
-
-- key: "docker-push" # Now authenticated, push the Docker image to the registry
-  label: "\:docker\: Push"
-  command: docker push packages.buildkite.com/my-organization/my-registry/my-image:latest
-  depends_on: "docker-login"
-
+- key: "docker"
+  label: "\:docker\: Build, Login & Push"
+  commands:
+    - echo "Building Docker image"
+    - docker build --tag packages.buildkite.com/my-organization/my-registry/my-image:latest .
+    - echo "Logging into Buildkite Package Registry using OIDC"
+    - buildkite-agent oidc request-token --audience "https://packages.buildkite.com/my-organization/my-registry" --lifetime 300 | docker login packages.buildkite.com/my-organization/my-registry --username buildkite --password-stdin
+    - echo "Pushing Docker image to Buildkite Package Registry"
+    - docker push packages.buildkite.com/my-organization/my-registry/my-image:latest
 ```
 {: codeblock-file="pipeline.yml"}

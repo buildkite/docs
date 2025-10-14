@@ -364,6 +364,8 @@ tokenization
 toolchain
 toolchains
 toolmantim
+toolset
+toolsets
 tooltip
 TOTP's
 Trivy
