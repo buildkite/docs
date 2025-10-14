@@ -55,11 +55,11 @@ steps:
             emptyDir: {}
 ```
 
-### Understanding the configuration
+### Understanding the components
 
-This section covers the key components for running Docker-in-Docker using the sidecar pattern in Kubernetes. 
+This section describes the key components for configuring Docker-in-Docker with the sidecar pattern in Kubernetes. 
 
-#### Sidecar container (Docker daemon)
+#### Configure the sidecar container
 
 - **`image: docker:dind`**: The official Docker-in-Docker image containing the Docker daemon
 - **`command: [dockerd-entrypoint.sh]`**: Starts the Docker daemon in the sidecar
@@ -68,18 +68,18 @@ This section covers the key components for running Docker-in-Docker using the si
 - **`privileged: true`**: Required for the Docker daemon to create containers
 - **`allowPrivilegeEscalation: true`**: Allows the daemon to escalate privileges as needed
 
-#### Main container (Build commands)
+#### Configure the main container for build commands
 
 - **`image: docker:latest`**: Contains the Docker CLI tools (`docker`, `docker-compose`, etc.)
 - **`volumeMounts`**: Shares the `/var/run/` volume with the sidecar to access the Docker socket
 - **`command` and `args`**: Your Docker build commands
 - **`resources`**: CPU and memory limits for the build process
 
-#### Shared resources
+#### Configure shared resources
 
 - **`mirrorVolumeMounts: true`**: Ensures volume mounts are available to both containers. It is critical that the indentation must be at the same level as `sidecars`. 
 - **`gitEnvFrom`**: Provides Git credentials for checking out your repository
-- **`volumes`**: Defines the `docker-sock` emptyDir volume for socket sharing
+- **`volumes`**: Defines the `docker-sock` volume for socket sharing, and set the `emptyDir` to default
 
 ## Security considerations
 
@@ -270,7 +270,7 @@ This section describes common issues with Docker-in-Docker and the ways to resol
           memory: "2Gi"
   ```
 
-### TLS certificate verification errors
+### Resolving TLS certificate verification errors
 
 - Ensure `DOCKER_TLS_CERTDIR` is set to an empty string (`""`) in the sidecar environment
 - If TLS is required, properly configure certificates for both client and daemon
