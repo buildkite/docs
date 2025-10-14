@@ -77,17 +77,17 @@ Here's an example using `curl`:
 curl -H "Content-Type: application/json" \
   -X POST "https://webhook.buildkite.com/deliver/bktr_************" \
   -d '{
+    "id": "P2LA89X",
+    "message": "A fix for this incident is being developed",
+    "trimmed": false,
+    "type": "incident_status_update",
     "incident": {
       "html_url": "https://acme.pagerduty.com/incidents/PGR0VU2",
       "id": "PGR0VU2",
       "self": "https://api.pagerduty.com/incidents/PGR0VU2",
       "summary": "A little bump in the road",
       "type": "incident_reference"
-    },
-    "id": "P2LA89X",
-    "message": "A fix for this incident is being developed",
-    "trimmed": false,
-    "type": "incident_status_update"
+    }
   }'
 ```
 
