@@ -1,8 +1,4 @@
----
-toc: false
----
-
-# Security
+# Token security
 
 ## GitHub secret scanning
 

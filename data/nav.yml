@@ -811,12 +811,14 @@
           path: "platform/sso/custom-saml"
         - name: "Set up with GraphQL"
           path: "platform/sso/sso-setup-with-graphql"
+    - name: "Security"
+      children:
+        - name: "Token security"
+          path: "platform/security/tokens"
     - name: "Integrations"
       children:
         - name: "Slack Workspace"
           path: "platform/integrations/slack-workspace"
-    - name: "Security"
-      path: "platform/security"
     - name: "Service quotas"
       path: "platform/service-quotas"
 - name: "APIs"

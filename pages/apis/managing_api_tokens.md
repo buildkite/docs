@@ -119,7 +119,7 @@ The [API Access Tokens page](https://buildkite.com/user/api-access-tokens) has a
 
 ### GitHub secret scanning program
 
-Learn more about this program in [Token security](/docs/platform/security).
+Learn more about this program in [Token security](/docs/platform/security/tokens).
 
 ## FAQs
 
