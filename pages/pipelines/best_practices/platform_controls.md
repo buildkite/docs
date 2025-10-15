@@ -468,7 +468,6 @@ By implementing these cost controls, platform teams can maintain predictable inf
 - Golden paths: Document and promote recommended workflows to reduce cognitive load.
 - Feedback loops: Encourage engineers to propose improvements or report issues.
 
-
 ## Next steps
 
 The following are the key areas we recommend you to focus on next:

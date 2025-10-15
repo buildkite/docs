@@ -5,7 +5,7 @@ This page covers the best practices for effective management of Buildkite Agents
 ## Right-size your agent fleet
 
 * Monitor queue times: Long wait times often mean you need more capacity. You can use cluster insights to monitor queue wait times.
-* Autoscale intelligently: Use cloud-based autoscaling groups to scale with demand (using Elastic CI Stack for AWS - and soon-to-be-supported GCP - can help you with auto-scaling).
+* Autoscale intelligently: Use cloud-based autoscaling groups to scale with demand (using Elastic CI Stack for AWS, [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) - and soon-to-be-supported GCP - can help you with auto-scaling).
 * Specialized pools: Maintain dedicated pools for CPU-intensive, GPU-enabled, or OS-specific workloads.
 * Graceful scaling: Configure agents to complete jobs before termination to prevent abrupt failures (Elastic CI Stack for AWS already has graceful scaling implemented. Also, if you are building your own AWS stack, you can use [Buildkite's lifecycle daemon](https://github.com/buildkite/lifecycled) for handling graceful termination and scaling).
 

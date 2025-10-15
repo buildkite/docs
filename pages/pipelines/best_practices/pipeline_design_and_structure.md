@@ -4,8 +4,6 @@
 
 * Start with static pipelines and gradually move to dynamic pipelines to generate steps programmatically. They latter scale better than static YAML as repositories and requirements grow.
 * Use `buildkite-agent pipeline upload` to generate steps programmatically based on code changes. This allows conditional inclusion of steps (e.g., integration tests only when backend code changes). (Further work: reword as `buildkite-agent pipeline upload` does not generate steps programmatically.)
-* Separate concerns: Split pipelines into testing, building, and deployment flows. Avoid single, monolithic pipelines.
-* Use pipeline templates: Define reusable YAML templates for common workflows (linting, testing, building images).
 
 ## Use monorepos for change scoping
 
@@ -32,3 +30,4 @@
 
 * Centralized templates: maintain organization-wide pipeline templates and plugins to enforce consistency across teams.
 * Shared libraries: package common scripts or Docker images so individual teams don’t reinvent solutions.
+* Queue tracking: document how different types of queues could be used and when they should be upgraded.
