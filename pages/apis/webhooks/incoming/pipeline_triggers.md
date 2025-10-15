@@ -126,7 +126,7 @@ A successful trigger request returns a `201 Created` response with details about
 ### Accessing webhook data
 
 Webhook JSON payloads sent to a pipeline trigger URL are accessible in all steps of the triggered build.
-You can retrieve the webhook body using the [`buildkite:webhook`](/docs/pipelines/configure/build-meta-data#special-meta-data-buildkite-webhook) meta-data key.
+You can retrieve the webhook payload using the buildkite cli command [`buildite-agent meta-data`](/docs/pipelines/configure/build-meta-data).
 
 ##### Example:
 
@@ -165,3 +165,26 @@ steps:
 ```
 
 `buildkite:webhook` meta-data will only be available to builds triggered by a webhook, and only for as long as the webhook data remains cached — typically for 7 days.
+
+## Limitations
+
+The following limitations apply to pipeline triggers:
+
+- Pipeline triggers don't support webhook verification (such as HMAC signatures).
+- Pipeline trigger URLs can't be rotated. You must delete and create a new trigger to change the URL.
+- Build attributes only support static values and can't be mapped from webhook payload values.
+- Pipeline triggers don't support filtering build creation based on webhook content.
+- Pipeline triggers don't have API support for management operations.
+- There's no UI or API support for listing builds created from a specific pipeline trigger.
+- Webhook headers aren't accessible to pipeline triggers.
+- Pipeline triggers don't support IP whitelisting for incoming requests.
+- Pipeline triggers have a maximum payload size of 5MB.
+- Trigger URL endpoints have a request limit of [TBC].
+- Webhook metadata payload retrieval is rate limited to 10 requests per minute per build.
+- Webhook delivery has a timeout of 10 seconds.
+- Each pipeline is limited to [TBC] triggers.
+
+## Further reading
+- [Accessing build meta-data](/docs/pipelines/configure/build-meta-data#special-meta-data)
+- [`buildkite-agent meta-data` cli command](/docs/agent/v3/cli-meta-data)
+- [Incoming webhook security overview](docs/pipelines/security/incoming-webhooks#what-kind-of-information-on-incoming-webhooks-is-logged-by-buildkite)
