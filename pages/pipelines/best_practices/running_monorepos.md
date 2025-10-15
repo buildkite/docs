@@ -27,14 +27,6 @@ Some considerations:
 - In the static monorepo approach, the triggered pipeline must never be triggered directly.
 - To have commit statuses from the pipelines that are triggered, the pull requests will have to be made against your monorepo.
 
-Potential issues in this approach:
-
-- Path-based triggering
-- Build avoidance configuration (needs explanation)
-
-- Selective testing
-- Monorepo-diff plugin setup
-
 ## Dynamic approach
 
 Dynamic approach to monorepo means having dynamic pipelines that inject specific steps into a single pipeline based on the detected changes. For change detection, you can use [Bazel](/docs/pipelines/tutorials/bazel) and [Gradle](https://gradle.org/).
