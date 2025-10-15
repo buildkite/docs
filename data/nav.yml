@@ -133,6 +133,8 @@
               children:
                 - name: "Setup"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/setup"
+                - name: "Using Terraform"
+                  path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/terraform"
                 - name: "Security"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security"
                 - name: "AWS Secrets Manager"
