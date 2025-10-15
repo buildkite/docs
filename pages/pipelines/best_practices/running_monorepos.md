@@ -31,9 +31,9 @@ Some considerations:
 
 Dynamic approach to monorepo means having dynamic pipelines that inject specific steps into a single pipeline based on the detected changes. For change detection, you can use [Bazel](/docs/pipelines/tutorials/bazel) and [Gradle](https://gradle.org/).
 
-To implement the dynamic approach, you can use:
+When implementing the dynamic approach, you can use:
 
-- Both monorepo and dynamic steps in same pipeline
+- Both monorepo diff plugin and dynamic steps in same pipeline
 - Buildkite [SDK](/docs/pipelines/configure/dynamic-pipelines/sdk)
 
 The common approach is uploading the generated YAML as an artifact using `buildkite-agent artifact upload`. This allows you to download and review it later to see exactly what was generated. If you want to preview the pipeline before it's uploaded, you can use `buildkite-agent pipeline upload --dry-run` to output the final YAML without running it.
@@ -50,6 +50,8 @@ How it works:
 1. Parallel execution - independent projects build in parallel, respecting dependencies.
 
 You can see an example of a dynamic pipelines-based approach in this [Bazel monorepo example](https://github.com/buildkite/bazel-monorepo-example).
+
+This implementation is also valid for the SDK approach.
 
 ## The SDK approach
 
