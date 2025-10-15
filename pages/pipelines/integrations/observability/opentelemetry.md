@@ -6,7 +6,7 @@ keywords: OpenTelemetry, tracing, observability, Datadog, honeycomb, otlp
 
 [OpenTelemetry](https://opentelemetry.io/) is an open standard for instrumenting, processing and collecting observability data.
 
-Buildkite supports sending [OpenTelemetry Traces](https://opentelemetry.io/docs/concepts/signals/traces/) directly from the Buildkite agent, and (in Private Preview) the Buildkite control plane to your OTLP endpoint.
+Buildkite supports sending [OpenTelemetry Traces](https://opentelemetry.io/docs/concepts/signals/traces/) directly from the Buildkite agent, and from the Buildkite control plane, to your OTLP endpoint.
 
 ## OpenTelemetry tracing from Buildkite agent
 
