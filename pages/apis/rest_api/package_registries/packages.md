@@ -38,6 +38,10 @@ The following type of response is returned by Buildkite upon a successful `curl`
   "url": "https://api.buildkite.com/v2/packages/organizations/my_great_org/registries/my-registry/packages/0191e23a-4bc8-7683-bfa4-5f73bc9b7c44",
   "web_url": "https://buildkite.com/organizations/my_great_org/packages/registries/my-registry/packages/0191e23a-4bc8-7683-bfa4-5f73bc9b7c44",
   "name": "banana",
+  "digests": {
+    "sha256": "d3e1515a82ece5ad1f63273aa259d91c88967f65d9ae75f880b5c93926586fdf",
+    "sha512": "5bd1481bfd924b1e272bcc7736c91e8490947cc4aa7d756daacfa1aa3705e7180ca2b7800af3ebd4f7ed4b27bcec2da580545cf351499d195e5d4e00e080c87e"
+  },
   "organization": {
     "id": "0190e784-eeb7-4ce4-9d2d-87f7aba85433",
     "slug": "my_great_org",
@@ -85,7 +89,11 @@ curl -H "Authorization: Bearer $TOKEN" \
       "web_url": "https://buildkite.com/organizations/my_great_org/packages/registries/my-registry/packages/0191e23a-4bc8-7683-bfa4-5f73bc9b7c44",
       "name": "banana",
       "created_at": "2024-08-22T06:24:53Z",
-      "version": "1.0"
+      "version": "1.0",
+      "digests": {
+        "sha256": "d3e1515a82ece5ad1f63273aa259d91c88967f65d9ae75f880b5c93926586fdf",
+        "sha512": "5bd1481bfd924b1e272bcc7736c91e8490947cc4aa7d756daacfa1aa3705e7180ca2b7800af3ebd4f7ed4b27bcec2da580545cf351499d195e5d4e00e080c87e"
+      },
     },
     {
       "id": "019178c2-6b08-7d66-a1db-b79b8ba83151",
@@ -93,7 +101,11 @@ curl -H "Authorization: Bearer $TOKEN" \
       "web_url": "https://buildkite.com/organizations/my_great_org/packages/registries/my-registry/packages/019178c2-6b08-7d66-a1db-b79b8ba83151",
       "name": "grapes",
       "created_at": "2024-08-21T06:24:53Z",
-      "version": "2.8.3"
+      "version": "2.8.3",
+      "digests": {
+        "sha256": "d3e1515a82ece5ad1f63273aa259d91c88967f65d9ae75f880b5c93926586fdf",
+        "sha512": "5bd1481bfd924b1e272bcc7736c91e8490947cc4aa7d756daacfa1aa3705e7180ca2b7800af3ebd4f7ed4b27bcec2da580545cf351499d195e5d4e00e080c87e"
+      },
     }
   ],
   "links": {
@@ -129,6 +141,10 @@ curl -H "Authorization: Bearer $TOKEN" \
   "url": "https://api.buildkite.com/v2/packages/organizations/my_great_org/registries/my-registry/packages/0191e23a-4bc8-7683-bfa4-5f73bc9b7c44",
   "web_url": "https://buildkite.com/organizations/my_great_org/packages/registries/my-registry/packages/0191e23a-4bc8-7683-bfa4-5f73bc9b7c44",
   "name": "banana",
+  "digests": {
+    "sha256": "d3e1515a82ece5ad1f63273aa259d91c88967f65d9ae75f880b5c93926586fdf",
+    "sha512": "5bd1481bfd924b1e272bcc7736c91e8490947cc4aa7d756daacfa1aa3705e7180ca2b7800af3ebd4f7ed4b27bcec2da580545cf351499d195e5d4e00e080c87e"
+  },
   "organization": {
     "id": "0190e784-eeb7-4ce4-9d2d-87f7aba85433",
     "slug": "my_great_org",
@@ -179,6 +195,10 @@ The following type of response is returned by Buildkite upon a successful `curl`
   "url": "https://api.buildkite.com/v2/packages/organizations/my_great_org/registries/my-registry/packages/0191e23a-4bc8-7683-bfa4-5f73bc9b7c44",
   "web_url": "https://buildkite.com/organizations/my_great_org/packages/registries/my-registry/packages/0191e23a-4bc8-7683-bfa4-5f73bc9b7c44",
   "name": "banana",
+  "digests": {
+    "sha256": "d3e1515a82ece5ad1f63273aa259d91c88967f65d9ae75f880b5c93926586fdf",
+    "sha512": "5bd1481bfd924b1e272bcc7736c91e8490947cc4aa7d756daacfa1aa3705e7180ca2b7800af3ebd4f7ed4b27bcec2da580545cf351499d195e5d4e00e080c87e"
+  },
   "organization": {
     "id": "0190e784-eeb7-4ce4-9d2d-87f7aba85433",
     "slug": "my_great_org",
