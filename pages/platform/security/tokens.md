@@ -31,6 +31,8 @@ _Applies to agent access tokens created after: January, 2025_
 
 ### Buildkite agent job tokens
 
+Buildkite agent job tokens, whose acronym forms the prefix for these types of tokens.
+
 - prefix: `bkaj_`
 - example: ` bkaj_eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMTk2NjAxYi01YTc0LTRlOTUtYmNhOC0wNjM0M2EyYjkwNzkiLCJhdWQiOiIwMTk2NjAxYi01NDcwLTQ0YWYtYjRmNi0xMjllNTcyNDU1ZTUiLCJpc3MiOiJidWlsZGtpdGUiLCJleHAiOjE3NDcxMDQ5MzgsImlhdCI6MTc0NzEwMTAzOCwib3JnYW5pemF0aW9uX2lkIjoiNjQ4OTlhNjUtMmFiZS00MTRiLTg2MjUtYTljOWE3MjYzZGRjIn0.p-IZUkRWJOkbTuVrxa4yaWrb7b1h-X2KsxfcCRHoxsb8h4rMjc47Ox1InAdku5fCjfdQ5hFKxXF2JUJc-YoWHQ`
 
@@ -45,7 +47,7 @@ _Applies to unclustered agent tokens created after: April, 2025_
 
 ### Buildkite agent tokens
 
-Buildkite [agent tokens](/docs/agent/v3/tokens) are also known as _Buildkite cluster_ tokens, whose acronym forms the prefix for these types of tokens.
+Buildkite [agent tokens](/docs/agent/v3/tokens) are also known as _Buildkite cluster tokens_, whose acronym forms the prefix for these types of tokens.
 
 - Prefix: `bkct_`
 - Example: `bkct_MTI.nYMxCVxgALbhwoc7pvvMfEURJgXXvzUVrogdmo1NKZqCcUTsmWRUWu9h3tW9j3nRvJ54aXyaKAdf6`
@@ -70,7 +72,7 @@ Buildkite portal tokens cover the following types of tokens:
 - [Ephemeral portal tokens](/docs/apis/graphql/portals/ephemeral-portal-tokens), which requires a [portal secret](#supported-tokens-buildkite-portal-secrets) to be [generated](/docs/apis/graphql/portals/ephemeral-portal-tokens#requesting-an-ephemeral-portal-token).
 - [Portal tokens](/docs/apis/graphql/portals/user-invoked-portals#short-lived-portal-token-generating-a-portal-token) that are [user-invoked and scoped](/docs/apis/graphql/portals/user-invoked-portals).
 
-These types of tokens are also known as _Buildkite portal access_ tokens, whose acronym forms the prefix for these types of tokens.
+These types of tokens are also known as _Buildkite portal access tokens_, whose acronym forms the prefix for these types of tokens.
 
 - Prefix: `bkpat_`
 - Example: `bkpat_MTQ_5f6ccde8c73e26244d73c5a77c91c242c0c818ce`
