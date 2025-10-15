@@ -171,7 +171,7 @@ steps:
 The following limitations apply to pipeline triggers:
 
 - Pipeline triggers don't support webhook verification (such as HMAC signatures).
-- Pipeline trigger URLs can't be rotated. You must delete and create a new trigger to change the URL.
+- Pipeline trigger URLs can't be rotated. You must delete and create a new trigger with the same attributes.
 - Build attributes only support static values and can't be mapped from webhook payload values.
 - Pipeline triggers don't support filtering build creation based on webhook content.
 - Pipeline triggers don't have API support for management operations.
@@ -182,7 +182,7 @@ The following limitations apply to pipeline triggers:
 - Trigger URL endpoints have a request limit of [TBC].
 - Webhook metadata payload retrieval is rate limited to 10 requests per minute per build.
 - Webhook delivery has a timeout of 10 seconds.
-- Each pipeline is limited to [TBC] triggers.
+- Each pipeline is limited to 10 triggers.
 
 ## Further reading
 - [Accessing build meta-data](/docs/pipelines/configure/build-meta-data#special-meta-data)
