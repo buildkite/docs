@@ -1,4 +1,4 @@
-# Deploying with Terraform
+# Terraform deployment for the Elastic CI Stack for AWS
 
 The Elastic CI Stack for AWS can be deployed using Terraform instead of CloudFormation.
 
