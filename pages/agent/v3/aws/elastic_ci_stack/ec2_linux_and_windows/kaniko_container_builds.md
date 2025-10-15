@@ -45,13 +45,13 @@ Kaniko runs inside a Docker container on the Elastic CI Stack for AWS agent—no
 
 Google has deprecated support for the Kaniko project and no longer publishes new images to `gcr.io/kaniko-project/`. However, [Chainguard has forked the project](https://github.com/chainguard-dev/kaniko) and continues to provide support and create new releases.
 
-#### Option 1: Use Google's final published images (recommended)
+#### Option 1: use Google's final published images (recommended)
 
 You can use Google's final published Kaniko images (these are publicly available):
 - `gcr.io/kaniko-project/executor:v1.24.0`
 - `gcr.io/kaniko-project/executor:v1.24.0-debug`
 
-#### Option 2: Use Chainguard-maintained images
+#### Option 2: use Chainguard-maintained images
 
 Chainguard images may require authentication depending on availability, policy, and version:
 - `cgr.dev/chainguard/kaniko:latest`
@@ -60,7 +60,7 @@ Chainguard images may require authentication depending on availability, policy, 
 > 📘 Image directory reference
 > See their [image directory](https://images.chainguard.dev/directory/image/kaniko/versions) for versions and access details.
 
-#### Option 3: Build your own images from the Chainguard fork
+#### Option 3: build your own images from the Chainguard fork
 
 If you need a specific version or custom configuration, you can build and publish Kaniko images to your own container registry:
 

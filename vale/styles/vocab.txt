@@ -373,6 +373,7 @@ upstreams
 url
 urls
 userdata
+userspace
 util
 uuid
 UUIDs
