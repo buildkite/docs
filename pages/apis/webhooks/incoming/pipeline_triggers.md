@@ -126,7 +126,7 @@ A successful trigger request returns a `201 Created` response with details about
 ### Accessing webhook data
 
 Webhook JSON payloads sent to a pipeline trigger URL are accessible in all steps of the triggered build.
-You can retrieve the webhook payload using the buildkite cli command [`buildite-agent meta-data`](/docs/pipelines/configure/build-meta-data).
+You can retrieve the webhook payload using the Buildkite cli command [`buildite-agent meta-data`](/docs/pipelines/configure/build-meta-data).
 
 ##### Example:
 
