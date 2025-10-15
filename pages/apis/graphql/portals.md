@@ -40,11 +40,11 @@ To get started with portals, as a Buildkite organization administrator, access t
 
 1. After completing these required fields and any others for this portal, select **Save Portal** to create the portal.
 
-    A new HTTP endpoint is generated, along with a corresponding _portal token_ (a type of access token known as an _admin-level portal token_), which you'll need to use later for authentication.
+    A new HTTP endpoint is generated, along with a corresponding _portal token_ (a type of access token known as an _long-lived service token_), which you'll need to use later for authentication.
 
 1. Save this portal token to somewhere secure, as you won't be able to access its value again through the Buildkite interface.
 
-    **Note:** This _portal token_ is referred to as an _admin-level_ one, since it grants Buildkite organization administrator-access privileges to this Buildkite organization.
+    **Note:** This long-lived service token grants Buildkite organization administrator-access privileges to this Buildkite organization.
 
 1. Make a request to your new endpoint. You can access it using the following `curl` command, replacing the organization slug with your own.
 
@@ -127,7 +127,7 @@ curl -H "Authorization: Bearer $TOKEN" https://portal.buildkite.com/organization
 ```
 
 >📘
-> If you need to generate a new admin-level portal token (to replace an older or suspected compromised one), you can do this by duplicating and removing the existing portal, which will in turn generate a new admin-level portal token.
+> If you need to generate a new long-lived service token (to replace an older or suspected compromised one), you can do this through the portal's **Security** page, by selecting the **New token** button next to the **Long lived service tokens** section, and then removing the existing or initial long-lived service token (created when the portal was created).
 
 ## Passing arguments
 
