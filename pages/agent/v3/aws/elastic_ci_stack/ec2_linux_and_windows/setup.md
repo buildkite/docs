@@ -1,6 +1,9 @@
 # Linux and Windows setup for the Elastic CI Stack for AWS
 
-This guide leads you through getting started with the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) for Linux and Windows. With the help of the Elastic CI Stack for AWS, you are able to launch a private, autoscaling Buildkite agent cluster in your own AWS account.
+This guide leads you through getting started with the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) for Linux and Windows using CloudFormation. With the help of the Elastic CI Stack for AWS, you are able to launch a private, autoscaling Buildkite agent cluster in your own AWS account.
+
+> 📘 Prefer Terraform?
+> This guide uses CloudFormation. If you prefer Terraform, see the [Terraform](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/terraform) guide.
 
 <!-- vale off -->
 
@@ -368,7 +371,7 @@ steps:
 
 For more information, see [Buildkite Agent job queues](/docs/agent/v3/queues), specifically [Targeting a queue](/docs/agent/v3/queues#targeting-a-queue).
 
-Review the parameters, see [Elastic CI Stack for AWS parameters](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/template-parameters) for more details.
+Review the parameters, see [Elastic CI Stack for AWS parameters](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters) for more details.
 
 Once you're ready, check these three checkboxes:
 
@@ -430,7 +433,7 @@ To gain a better understanding of how Elastic CI Stack for AWS works and how to 
 
 - [Running Buildkite Agent on AWS](/docs/agent/v3/aws)
 - [GitHub repo for Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws)
-- [Template parameters for Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/template-parameters)
+- [Configuration parameters for Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters)
 - [Using AWS Secrets Manager](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/secrets-manager)
 - [VPC design](/docs/agent/v3/aws/architecture/vpc)
 - [CloudFormation service role](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/cloudformation-service-role)
