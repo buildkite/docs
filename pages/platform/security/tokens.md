@@ -63,7 +63,7 @@ Buildkite [registry tokens](/docs/package-registries/registries/manage#configure
 - prefix: `bkpt_`
 - example: `bkpt_eyJfcmFpbHMiOnsiZGF0YSI6WyIwMTk2NjAyOC04OTk4LTQzZDctOTAyNC1mOGU0YjJhZThiZmEiLCI2MDA5MTFmMS1kZmU0LTRmMDctOGQ5OC0wYWZmMGI5ZDAyMTgiXSwiZXhwIjoiMjAyNS0wNS0xNlQwMjozNjozNC4wNzZaIn19--3116a4b837e78265cc7d3a90a12d90c263729880`
 
-### Packages Registries temporary tokens
+### Package Registries temporary tokens
 
 Buildkite Package Registries temporary tokens, which are presented on a registry's pages for either publishing packages to the registry or installing specific packages from them. See the relevant [Package ecosystem](/docs/package-registries/ecosystems) pages to learn more about these types of tokens, which are a type of Buildkite Package (Registries) token, whose acronym forms the prefix for these tokens.
 
