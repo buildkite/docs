@@ -29,7 +29,7 @@ If you are implementing [Buildkite webhooks](#webhooks), all webhooks for [Pipel
 
 The Buildkite REST API aims to give you complete programmatic access and control of Buildkite to extend, integrate and automate anything to suit your particular needs.
 
-1. Generate an [API access token](/docs/apis/managing-api-tokens) with as much [scope](/docs/apis/managing-api-tokens#token-scopes) as you require.
+1. Generate an [API access token](/docs/apis/managing-api-tokens) with as many [scopes](/docs/apis/managing-api-tokens#token-scopes) as you require.
 2. Make requests to https://api.buildkite.com using the token you generated in the `Authorization` header:
 
     ```bash

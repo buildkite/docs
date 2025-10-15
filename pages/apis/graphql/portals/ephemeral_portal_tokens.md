@@ -1,8 +1,8 @@
 # Ephemeral portal tokens
 
-When a Buildkite portal is created, it is assigned a long-lived, [admin-level portal token](/docs/apis/graphql/portals#getting-started). However, in scenarios where security is a priority, it's advisable to utilize _ephemeral portal tokens_. These tokens enhance security, since they are only valid for a short duration.
+When a Buildkite portal is created, it's assigned a [long-lived service token](/docs/apis/graphql/portals#getting-started). However, in scenarios where security is a priority, it's advisable to use _ephemeral portal tokens_ instead. These tokens enhance security, since they are only valid for a short duration.
 
-Since ephemeral portal tokens have the same admin-level permissions as long-lived admin-level portal tokens, ephemeral portal tokens provide a secure alternative to managing portals.
+Since ephemeral portal tokens have the same admin-level permissions as long-lived service tokens, ephemeral portal tokens provide a secure alternative to managing portals.
 
 ## Generating a secret
 
