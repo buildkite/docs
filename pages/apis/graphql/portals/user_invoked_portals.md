@@ -56,8 +56,8 @@ The response contains the generated user-specific portal token and its expiratio
 
 ```json
 {
-  "token": "bkpt_************************",
-  "expires_at": "2025-03-12T12:16:44Z"
+  "token": "bkpat_************************",
+  "expires_at": "2025-10-12T12:16:44Z"
 }
 ```
 

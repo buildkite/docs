@@ -24,8 +24,8 @@ _Applies to API access tokens created after:  March, 2023_
 
 Buildkite agent access tokens, whose acronym forms the prefix for these types of tokens.
 
-- Prefix: `bkaa_`
-- Example: `bkaa_MTA.Miyf6S3a3g9j8pyBGTyLC1frg9k6gDHTJdL9Fy7FXzRhrAVPckkzK6oEmdQVLvzUjt4rvW7cRPJEu`
+- prefix: `bkaa_`
+- example: `bkaa_MTA.Miyf6S3a3g9j8pyBGTyLC1frg9k6gDHTJdL9Fy7FXzRhrAVPckkzK6oEmdQVLvzUjt4rvW7cRPJEu`
 
 _Applies to agent access tokens created after: January, 2025_
 
@@ -38,8 +38,8 @@ _Applies to agent access tokens created after: January, 2025_
 
 Buildkite [unclustered agent tokens](/docs/agent/v3/unclustered-tokens) are also known as _Buildkite agent registration_ tokens, whose acronym forms the prefix for these types of tokens.
 
-- prefix: `bkar_`
-- example: `bkar_MTU.D3Efk6R62Fj7uprMGXsGjLhqugSfAXtAvpSjpMsykTzrHQnCH3rKETjo1NJ4yD9cSuGxsW5t3LJ6C`
+- Prefix: `bkar_`
+- Example: `bkar_MTU.D3Efk6R62Fj7uprMGXsGjLhqugSfAXtAvpSjpMsykTzrHQnCH3rKETjo1NJ4yD9cSuGxsW5t3LJ6C`
 
 _Applies to unclustered agent tokens created after: April, 2025_
 
@@ -47,8 +47,8 @@ _Applies to unclustered agent tokens created after: April, 2025_
 
 Buildkite [agent tokens](/docs/agent/v3/tokens) are also known as _Buildkite cluster_ tokens, whose acronym forms the prefix for these types of tokens.
 
-- prefix: `bkct_`
-- example: `bkct_MTI.nYMxCVxgALbhwoc7pvvMfEURJgXXvzUVrogdmo1NKZqCcUTsmWRUWu9h3tW9j3nRvJ54aXyaKAdf6`
+- Prefix: `bkct_`
+- Example: `bkct_MTI.nYMxCVxgALbhwoc7pvvMfEURJgXXvzUVrogdmo1NKZqCcUTsmWRUWu9h3tW9j3nRvJ54aXyaKAdf6`
 
 _Applies to agent tokens created after: April, 2025_
 
@@ -64,10 +64,20 @@ _Applies to agent tokens created after: April, 2025_
 
 ### Buildkite portal token
 
-- prefix: `bkpat_`
-- example: `bkpat_MTQ_5f6ccde8c73e26244d73c5a77c91c242c0c818ce`
+Buildkite portal tokens cover the following types of tokens:
 
-### Buildkite portal secret
+- _Long-lived service tokens_, generated when a [new portal is created](/docs/apis/graphql/portals#getting-started), as well as through the portal's **Security** page.
+- [Ephemeral portal tokens](/docs/apis/graphql/portals/ephemeral-portal-tokens), which requires a [portal secret](#supported-tokens-buildkite-portal-secrets) to be [generated](/docs/apis/graphql/portals/ephemeral-portal-tokens#requesting-an-ephemeral-portal-token).
+- [Portal tokens](/docs/apis/graphql/portals/user-invoked-portals#short-lived-portal-token-generating-a-portal-token) that are [user-invoked and scoped](/docs/apis/graphql/portals/user-invoked-portals).
 
-- prefix: `bkps_`
-- example: `bkps_Mw_388c52458682d4e2621f28df4b3018f27b130ee6c7a263bbd3f96eb86916`
+These types of tokens are also known as _Buildkite portal access_ tokens, whose acronym forms the prefix for these types of tokens.
+
+- Prefix: `bkpat_`
+- Example: `bkpat_MTQ_5f6ccde8c73e26244d73c5a77c91c242c0c818ce`
+
+### Buildkite portal secrets
+
+Buildkite [portal secrets](/docs/apis/graphql/portals/ephemeral-portal-tokens#generating-a-secret), whose acronym forms the prefix to their values, are used to generate [ephemeral portal tokens](/docs/apis/graphql/portals/ephemeral-portal-tokens#requesting-an-ephemeral-portal-token), which are a type of [portal token](#supported-tokens-buildkite-portal-token).
+
+- Prefix: `bkps_`
+- Example: `bkps_Mw_388c52458682d4e2621f28df4b3018f27b130ee6c7a263bbd3f96eb86916`

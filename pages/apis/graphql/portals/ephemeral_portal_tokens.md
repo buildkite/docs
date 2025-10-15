@@ -42,8 +42,8 @@ The response will contain the ephemeral portal token and its expiration timestam
 
 ```bash
 {
-  "token": "bkpt_************************",
-  "expires_at": "2025-03-12T12:16:44Z"
+  "token": "bkpat_************************",
+  "expires_at": "2025-10-12T12:16:44Z"
 }
 ```
 
