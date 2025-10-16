@@ -371,9 +371,3 @@ docker push your-registry.example.com/hello-kaniko:abc123-1
 
     * Cause: Authentication or registry configuration issues.
     * Solution: Check your Package Registry configuration and OIDC policy.
-
-### Getting help
-
-- Buildkite Support: [support@buildkite.com](mailto:support@buildkite.com)
-- [Buildkite Package Registries](/docs/package_registries)
-- Kaniko: [https://github.com/chainguard-dev/kaniko](https://github.com/chainguard-dev/kaniko)
