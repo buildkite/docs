@@ -1,10 +1,10 @@
 # Toolsets
 
-The [Buildkite MCP server](/docs/apis/mcp-server) organizes its [MCP tools](/docs/apis/mcp-server#available-mcp-tools) into logical groups of _toolsets_, each of which can be selectively enabled on the MCP server, based on your requirements.
+The [Buildkite MCP server](/docs/apis/mcp-server) organizes its [MCP tools](/docs/apis/mcp-server/tools#available-mcp-tools) into logical groups of _toolsets_, each of which can be selectively enabled on the MCP server, based on your requirements.
 
 ## Available toolsets
 
-Each toolset groups related [MCP tools](/docs/apis/mcp-server#available-mcp-tools), which interact with specific areas of the Buildkite platform. You can enable these individual toolsets by configuring them for the [remote](#configuring-the-remote-mcp-server) or [local](#configuring-the-local-mcp-server) Buildkite MCP server. Doing so effectively restricts your AI tool's or agent's access to the Buildkite API, based on each set of MCP tools made available through the MCP server's configured toolsets.
+Each toolset groups related [MCP tools](/docs/apis/mcp-server/tools#available-mcp-tools), which interact with specific areas of the Buildkite platform. You can enable these individual toolsets by configuring them for the [remote](#configuring-the-remote-mcp-server) or [local](#configuring-the-local-mcp-server) Buildkite MCP server. Doing so effectively restricts your AI tool's or agent's access to the Buildkite API, based on each set of MCP tools made available through the MCP server's configured toolsets.
 
 <table>
   <thead>
@@ -18,42 +18,42 @@ Each toolset groups related [MCP tools](/docs/apis/mcp-server#available-mcp-tool
     <% [
       {
         "toolset": "user",
-        "description": "[User, authentication, and Buildkite organization](/docs/apis/mcp-server#available-mcp-tools-user-authentication-and-buildkite-organization)",
+        "description": "[User, authentication, and Buildkite organization](/docs/apis/mcp-server/tools#available-mcp-tools-user-authentication-and-buildkite-organization)",
         "tools": "current_user, user_token_organization, access_token"
       },
       {
         "toolset": "clusters",
-        "description": "[Buildkite clusters](/docs/apis/mcp-server#available-mcp-tools-buildkite-clusters) management",
+        "description": "[Buildkite clusters](/docs/apis/mcp-server/tools#available-mcp-tools-buildkite-clusters) management",
         "tools": "get_cluster, list_clusters, get_cluster_queue, list_cluster_queues"
       },
       {
         "toolset": "pipelines",
-        "description": "[Pipelines](/docs/apis/mcp-server#available-mcp-tools-pipelines) management",
+        "description": "[Pipelines](/docs/apis/mcp-server/tools#available-mcp-tools-pipelines) management",
         "tools": "get_pipeline, list_pipelines, create_pipeline, update_pipeline"
       },
       {
         "toolset": "builds",
-        "description": "[Builds](/docs/apis/mcp-server#available-mcp-tools-builds) operations",
+        "description": "[Builds](/docs/apis/mcp-server/tools#available-mcp-tools-builds) operations",
         "tools": "list_builds, get_build, create_build, wait_for_build, get_jobs, unblock_job"
       },
       {
         "toolset": "logs",
-        "description": "[Logs](/docs/apis/mcp-server#available-mcp-tools-logs) processing",
+        "description": "[Logs](/docs/apis/mcp-server/tools#available-mcp-tools-logs) processing",
         "tools": "search_logs, tail_logs, read_logs, get_logs_info"
       },
       {
         "toolset": "artifacts",
-        "description": "[Artifacts](/docs/apis/mcp-server#available-mcp-tools-artifacts) management",
+        "description": "[Artifacts](/docs/apis/mcp-server/tools#available-mcp-tools-artifacts) management",
         "tools": "list_artifacts, get_artifact"
       },
       {
         "toolset": "annotations",
-        "description": "[Annotations](/docs/apis/mcp-server#available-mcp-tools-annotations) management",
+        "description": "[Annotations](/docs/apis/mcp-server/tools#available-mcp-tools-annotations) management",
         "tools": "list_annotations"
       },
       {
         "toolset": "tests",
-        "description": "[Test Engine](/docs/apis/mcp-server#available-mcp-tools-test-engine)",
+        "description": "[Test Engine](/docs/apis/mcp-server/tools#available-mcp-tools-test-engine)",
         "tools": "list_test_runs, get_test_run, get_failed_executions, get_test"
       }
     ].select { |field| field[:toolset] }.each do |field| %>

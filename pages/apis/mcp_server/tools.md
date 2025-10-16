@@ -1,17 +1,19 @@
 # MCP tools overview
 
+_MCP tools_ form the fundamental components of an _MCP server_, and provide the mechanisms through which AI tools and agents can access a system's APIs, through its MCP server.
+
+Learn more about MCP tools in the [Core Server Features](https://modelcontextprotocol.io/docs/learn/server-concepts#core-server-features) and [Tools](https://modelcontextprotocol.io/docs/learn/server-concepts#tools) sections of the [Understanding MCP servers](https://modelcontextprotocol.io/docs/learn/server-concepts) page in the [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro) docs.
+
+## Available MCP tools
+
 The Buildkite MCP server exposes the following categories of _MCP tools_.
 
 The names of these tools (for example, `list_pipelines`) typically do not need to be used in direct prompts to AI tools or agents. However, each MCP tool name is designed to be understandable, so that it can be used directly in a prompt when you want your AI tool or agent to explicitly use that MCP tool to query the Buildkite platform.
 
-Learn more about MCP tools in the [Core Server Features](https://modelcontextprotocol.io/docs/learn/server-concepts#core-server-features) and [Tools](https://modelcontextprotocol.io/docs/learn/server-concepts#tools) sections of the [Understanding MCP servers](https://modelcontextprotocol.io/docs/learn/server-concepts) page in the [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro) docs.
-
-As part of configuring your AI tool or agent with the [remote or local Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers), you can restrict its access to specific categories of tools using [toolsets](/docs/apis/mcp-server/toolsets).
+As part of configuring your AI tool or agent with the [remote or local Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers), you can restrict its access to specific categories of tools using [toolsets](/docs/apis/mcp-server/tools/toolsets).
 
 > 📘
 > While Buildkite's MCP server makes calls to the Buildkite REST API, note that in some cases, only a subset of the resulting fields are returned in the response to your AI tool or agent. This is done to reduce noise for your AI tool / agent, as well as reduce costs associated with text tokenization of the response (also known as token usage).
-
-## Available MCP tools
 
 ### User, authentication and Buildkite organization
 
