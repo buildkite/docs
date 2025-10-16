@@ -4,7 +4,7 @@ This pages covers the best practices regarding architecting and maintaining a Bu
 
 ## Overall ownership
 
-Set up a platform team that is managing the infrastructure nd the common constructs that can be used as pipelines, for example, private plugins, Docker image building pipeline, an so on. And then allow the individual developer teams build their own pipelines.
+Set up a platform team that is managing the infrastructure and the common constructs that can be used as pipelines, for example, private plugins, Docker image building pipeline, an so on. And then allow the individual developer teams build their own pipelines.
 
 ## Agents, queues, and clusters
 
@@ -14,9 +14,9 @@ Set up a platform team that is managing the infrastructure nd the common constru
 
 The recommended way of configuring your Buildkite Cluster is as follows:
 
-* Use one default queue for uploading initial pipelines.
-* Used Task-specific queues grouped by operational function (Terraform IaC, test runners, application deployment, etc.).
-* Set up a queue of pipeline upload agents that are readily available.
+- Use one default queue for uploading initial pipelines.
+- Used Task-specific queues grouped by operational function (Terraform IaC, test runners, application deployment, etc.).
+- Set up a queue of pipeline upload agents that are readily available.
 
 You can also use [Buildkite hosted agents](/docs/pipelines/hosted-agents) as they are using their own isolated clusters.
 
