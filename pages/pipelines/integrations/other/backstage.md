@@ -59,24 +59,6 @@ buildkite:
 
 Make sure to set the `BUILDKITE_API_TOKEN` environment variable with your Buildkite API access token.
 
-### Register the plugin
-
-Create or update `packages/app/src/plugins.ts` to register the plugin:
-
-```typescript
-// Import plugins that you want to be included in your app
-export { buildkitePlugin } from '@buildkite/backstage-plugin-buildkite';
-```
-
-### Import the plugins file
-
-Import the plugins file in your `packages/app/src/App.tsx`:
-
-```typescript
-// Import plugins
-import './plugins';
-```
-
 ### Add the API factory
 
 Add the API factory in `packages/app/src/apis.ts`:
