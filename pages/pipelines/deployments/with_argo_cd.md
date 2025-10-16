@@ -75,23 +75,12 @@ steps:
 
 ## Deploying with the Argo CD deployment plugin
 
-The approaches described in the previous sections trigger Argo CD operations but don't actively monitor or respond to deployment outcomes. The [Argo CD Deployment Buildkite Plugin](https://github.com/buildkite-plugins/argocd-deployment-buildkite-plugin) provides a fundamentally different approach.
-
-In the traditional fire-and-forget approach, you would trigger either Argo CD's sync command (used in deploy operations) or rollback command (used in rollback operations), and the command would complete immediately. This approach doesn't include health monitoring or failure detection. If issues arise, manual intervention is required.
-
-Right out of the box, the plugin automatically performs the following:
-
-1. Deployment - triggers Argo CD sync operation.
-1. Monitoring - continuously monitors application health via the Argo CD API.
-1. Response - automatically detects failures and can roll back to last known good state.
-1. Report - collects logs, creates annotations, and sends notifications.
-
-### Key advantages of the plugin-based approach
+In the traditional fire-and-forget approach, you would trigger either Argo CD's sync command (used in deploy operations) or rollback command (used in rollback operations), and the command would complete immediately. This approach doesn't include health monitoring or failure detection. If issues arise, manual intervention is required. The [Argo CD Deployment Buildkite Plugin](https://github.com/buildkite-plugins/argocd-deployment-buildkite-plugin) also triggers the Argo CD sync operation but provides a fundamentally different user experience.
 
 The plugin offers several advantages over manual CLI usage:
 
 - Unlike Argo CD's basic rollback, the plugin can automatically detect deployment failures and roll back to the last known good state, or provide interactive rollback decisions with detailed context through the use of [block steps](/docs/pipelines/configure/step-types/block-step).
-- The plugin performs real-time continuous health monitoring during deployment with configurable intervals and timeouts via Argo CD API. Basic CLI commands don't provide this capability.
+- The plugin performs real-time continuous health monitoring during deployment with configurable intervals and timeouts via the Argo CD API. Basic CLI commands don't provide this capability.
 - Deployment observability includes automatic log collection (including pod logs), artifact upload, and detailed [Buildkite annotations](/docs/agent/v3/cli-annotate) that provide deployment visibility.
 - Production-ready safety features: atomic deployments, configurable timeouts, and Slack notifications for deployment events.
 
