@@ -17,8 +17,6 @@ A stack can also be broadly understood as an orchestrator or a scheduler of Buil
 The Stack API powers Buildkite's Agent Kubernetes Stack.
 It's designed to give advanced enterprise users custom control over the scheduling of jobs at larger scales.
 
-> 📘 This API is currently available in preview.
-
 ## Register a stack
 
 Register a new stack or update an existing one.
