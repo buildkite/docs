@@ -18,7 +18,7 @@ Amazon Elastic Continer Registry
 Anthropic's
 Aqua
 architecting
-Argo
+Argo CD
 argumentless
 Artifactory
 Artifactory's
