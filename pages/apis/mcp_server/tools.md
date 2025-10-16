@@ -418,9 +418,9 @@ These MCP tools are used to retrieve details about Test Engine [tests](/docs/tes
 
 To improve performance in accessing log data from the Buildkite platform, the Buildkite MCP server downloads and stores the [logs of jobs](/docs/apis/rest-api/jobs#get-a-jobs-log-output) in [Parquet file format](https://parquet.apache.org/docs/file-format/) to either of the following areas.
 
-- For the [local MCP server](#types-of-mcp-servers-local-mcp-server), on the file system of the machine running the MCP server.
+- For the [local MCP server](/docs/apis/mcp-server#types-of-mcp-servers-local-mcp-server), on the file system of the machine running the MCP server.
 
-- For the [remote MCP server](#types-of-mcp-servers-remote-mcp-server), in a dedicated area of the Buildkite platform.
+- For the [remote MCP server](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server), in a dedicated area of the Buildkite platform.
 
 These Parquet log files are stored and managed by the MCP server and all interactions with these files are managed by the [MCP server's log tools](#available-mcp-tools-logs).
 
