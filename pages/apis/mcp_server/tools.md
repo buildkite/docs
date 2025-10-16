@@ -6,7 +6,7 @@ Learn more about MCP tools in the [Core Server Features](https://modelcontextpro
 
 ## Available MCP tools
 
-The Buildkite MCP server exposes the following categories of _MCP tools_.
+The Buildkite MCP server exposes the following categories of MCP tools.
 
 The names of these tools (for example, `list_pipelines`) typically do not need to be used in direct prompts to AI tools or agents. However, each MCP tool name is designed to be understandable, so that it can be used directly in a prompt when you want your AI tool or agent to explicitly use that MCP tool to query the Buildkite platform.
 
