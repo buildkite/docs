@@ -1026,5 +1026,4 @@
         - name: "Metrics"
           path: "apis/agent-api/metrics"
         - name: "Stacks"
-          pill: preview
           path: "apis/agent-api/stacks"
