@@ -95,10 +95,18 @@ To avoid starting duplicate jobs, we offer some utility APIs below.
 
 Query parameters:
 
-| Parameter   | Type    | Required | Description                                |
-| ----------- | ------- | -------- | ------------------------------------------ |
-| `queue_key` | string  | Yes      | Filter jobs by queue key                   |
-| `limit`     | integer | No       | Maximum number of jobs to return, max 1000 |
+| Parameter   | Type    | Required | Description                                        |
+| ----------- | ------- | -------- | -------------------------------------------------- |
+| `queue_key` | string  | Yes      | Filter jobs by queue key                           |
+| `limit`     | integer | No       | Maximum number of jobs to return, max 1000         |
+| `after`     | string  | No       | Cursor for pagination (from previous `end_cursor`) |
+
+
+The API returns jobs ordered by `scheduled_at` (oldest first). Use the `page_info.end_cursor` value from the response in the `after` parameter to fetch the next page. When `page_info.has_next_page` is `false`, you've reached the end of results.
+
+> 📘 A note on paginating scheduled jobs
+> Job creation is often asynchronous and eventually consistent, and paginating across scheduled jobs _does not_ cover a snapshot of scheduled jobs at the time the pagination started. In cases of high job throughput, new jobs may be added behind the current cursor, and reaching the end of the current cursor (where `has_next_page: false`) does not imply that you've seen every scheduled job.
+> To counteract this, we generally recommend only querying for the first (or first few) pages, and then using the `reserve-jobs` endpoint to reserve them. On further queries, jobs that have been reserved will not show up in the results of the `scheduled-jobs` endpoint.
 
 Example:
 
