@@ -31,3 +31,4 @@
 * Centralized templates: maintain organization-wide pipeline templates and plugins to enforce consistency across teams.
 * Shared libraries: package common scripts or Docker images so individual teams don’t reinvent solutions.
 * Queue tracking: document how different types of queues could be used and when they should be upgraded.
+* Custom plugins: you can turn your regularly reused pieces of code for common use cases into [your own Buildkite plugin](/docs/pipelines/integrations/plugins/writing). Writing your own plugins will help you with standardization.

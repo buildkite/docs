@@ -30,4 +30,4 @@ Further work in this section: mention BK Secrets, suggest using external secret 
 * No manual tweaks: Avoid one-off changes to long-lived agents; enforce everything via code and images.
 * Immutable patterns: Use infrastructure-as-code and versioned images for consistency and reproducibility.
 
-Alternatively: Enforce agent configuration and infrastructure using IaC (Infrastructure as code) where possible.
+Alternatively: Enforce agent configuration and infrastructure using IaC (Infrastructure as code) where possible. For example, see [Buildkite Package Registries with Terraform support](/docs/package-registries/ecosystems/terraform).

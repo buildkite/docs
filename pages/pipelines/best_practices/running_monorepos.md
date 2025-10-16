@@ -10,6 +10,8 @@ There are three preferred approaches to running monorepos with Buildkite Pipelin
 - Dynamic - by using [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines) that inject specific steps into a single pipeline based on the changes in the monorepo. You will need to run bash scripts to inject steps according to the changes.
 - [SDK](/docs/pipelines/configure/dynamic-pipelines/sdk)-based approach - by using the Buildkite SDK to inject steps dynamically in the programming language of your choice.
 
+All the approaches start with detecting changes. For change detection, you can use [Bazel](/docs/pipelines/tutorials/bazel) and [Gradle](https://gradle.org/). These tools also allow you to map which tests to run on the paths that changed.
+
 Let's look into how to implement these approaches in more detail.
 
 ## Static approach
@@ -29,7 +31,7 @@ Some considerations:
 
 ## Dynamic approach
 
-Dynamic approach to monorepo means having dynamic pipelines that inject specific steps into a single pipeline based on the detected changes. For change detection, you can use [Bazel](/docs/pipelines/tutorials/bazel) and [Gradle](https://gradle.org/).
+Dynamic approach to monorepo means having dynamic pipelines that inject specific steps into a single pipeline based on the detected changes.
 
 When implementing the dynamic approach, you can use:
 
