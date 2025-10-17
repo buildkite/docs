@@ -10,7 +10,7 @@ To use a private GitHub repository with Buildkite hosted agents, you need to aut
 
 1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 1. In the **Integrations** section, select **Repository Providers**.
-1. Select the **GitHub (with code access)** option.
+1. Select the **GitHub** option.
 1. Follow the prompts to authorize the services on your GitHub account. You can restrict access to specific repositories during setup.
 
 ## Public repositories

@@ -1,0 +1,88 @@
+<%= render partial: 'pipelines/configure/example_pipelines/repos', locals: {
+  repos: [
+    {
+      emoji: ':bash:',
+      name: 'Bash',
+      link: 'buildkite/bash-example',
+      description: 'A bash example with artifacts, inline images and shell output'
+    },
+    {
+      emoji: ':python:',
+      name: 'Python - pipenv',
+      link: 'buildkite/python-pipenv-example',
+      description: 'An example of testing a Python project w/ pipenv'
+    },
+    {
+      emoji: ':python:',
+      name: 'Python - Docker',
+      link: 'buildkite/python-docker-example',
+      description: 'An example of testing a Python project w/ Docker and pipenv'
+    },
+    {
+      emoji: ':bash:',
+      name: 'Bash - Parallel',
+      link: 'buildkite/bash-parallel-example',
+      description: 'A bash example that runs across multiple agents in parallel'
+    },
+    {
+      emoji: ':ruby:',
+      name: 'Ruby - rbenv',
+      link: 'buildkite/ruby-rbenv-example',
+      description: 'An example of testing a Ruby project w/ rbenv'
+    },
+    {
+      emoji: ':ruby:',
+      name: 'Ruby - Docker',
+      link: 'buildkite/ruby-docker-example',
+      description: 'An example of testing a Ruby project w/ Docker'
+    },
+    {
+      emoji: ':rails:',
+      name: 'Rails - Parallel',
+      link: 'buildkite/rails-parallel-example',
+      description: 'An example of testing a Rails project in parallel w/ Knapsack'
+    },
+    {
+      emoji: ':rails:',
+      name: 'Rails - Parallel w/ Docker',
+      link: 'buildkite/rails-docker-parallel-example',
+      description: 'An example of testing a Rails project in parallel w/ Knapsack & Docker'
+    },
+    {
+      emoji: ':nodejs:',
+      name: 'Node.js',
+      link: 'buildkite/nodejs-example',
+      description: 'An example of testing a Node.js project'
+    },
+    {
+      emoji: ':nodejs:',
+      name: 'Node.js - Docker',
+      link: 'buildkite/nodejs-docker-example',
+      description: 'An example of testing a Node.js project w/ Docker'
+    },
+    {
+      emoji: ':golang:',
+      name: 'Go',
+      link: 'buildkite/golang-example',
+      description: 'An example of testing a Go project'
+    },
+    {
+      emoji: ':golang:',
+      name: 'Go - Docker',
+      link: 'buildkite/golang-docker-example',
+      description: 'An example of testing a Go project w/ Docker'
+    },
+    {
+      emoji: ':powershell:',
+      name: 'PowerShell',
+      link: 'buildkite/powershell-example',
+      description: 'Runs a PowerShell script using Buildkite'
+    },
+    {
+      emoji: ':rust:',
+      name: 'Rust',
+      link: 'buildkite/rust-example',
+      description: 'An example pipeline for running Rust on Buildkite'
+    }
+  ]
+} %>

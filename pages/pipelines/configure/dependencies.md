@@ -83,7 +83,7 @@ steps:
 > 🚧 Explicit dependencies in uploaded steps
 > If a step depends on an upload step, then all steps uploaded by that step become dependencies of the original step. For example, if step B depends on step A, and step A uploads step C, then step B will also depend on step C.
 
-To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character (YAML) or `null` (JSON). This also ensures that the step will run immediately at the start of the build:
+To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character (YAML), `null` (JSON) or `[]` (JSON and YAML). This also ensures that the step will run immediately regardless of implicit dependencies. For example wait or upload steps:
 
 ```yml
 steps:
@@ -91,6 +91,31 @@ steps:
   - wait: ~
   - command: "lint.sh"
     depends_on: ~
+```
+
+```yml
+steps:
+  - command: "tests.sh"
+  - wait: ~
+  - command: "lint.sh"
+    depends_on: []
+```
+
+```json
+{
+    "steps": [
+        {
+            "command": "tests.sh"
+        },
+        {
+            "wait": null
+        },
+        {
+            "command": "lint.sh",
+            "depends_on": []
+        }
+    ]
+}
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -156,6 +181,41 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 This pattern is often used to run steps like code coverage or annotations to the build log that will give insight into what failed.
+
+## How skipped steps affect dependencies
+
+When a step is skipped (due to an `if` condition returning `false`), any steps that depend on that step will still run. Skipped steps are treated as "satisfied" dependencies.
+
+> 🚧 Skipped dependencies are treated as satisfied
+> When a step that another step depends on is skipped due to a conditional, the dependency is treated as satisfied and dependent steps will run. Skipped dependencies are treated as passing, which is different from failed or canceled steps that block dependent steps, unless `allow_dependency_failure` is used.
+
+The following table shows how different step states affect dependencies:
+
+| Step State | Dependency Result | Dependent Steps Behavior |
+|------------|------------------|---------------------------|
+| **Passed** | ✅ Satisfied | Run normally |
+| **Skipped** (due to `if` condition) | ✅ Satisfied | **Run normally** |
+| **Failed** (with `allow_failure: true`) | ✅ Satisfied | Run normally |
+| **Failed** (no `allow_failure`) | ❌ Failed | Don't run |
+| **Blocked** | ⏸️ Blocked | Wait for unblocking |
+| **Canceled/Expired** | ❌ Failed | Don't run |
+
+### Skipped dependency behavior
+
+In this example, when building a branch other than `main`, the "Conditional Step" will be skipped but the "Dependent Step" will still run because the skipped dependency is satisfied.
+
+```yaml
+steps:
+  - label: "Conditional Step"
+    key: "conditional"
+    command: "echo 'This only runs on main'"
+    if: build.branch == "main"
+
+  - label: "Dependent Step"
+    command: "echo 'This always runs'"
+    depends_on: "conditional"
+```
+{: codeblock-file="pipeline.yml"}
 
 ## Allowed failure and soft fail
 

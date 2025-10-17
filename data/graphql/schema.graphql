@@ -78,6 +78,7 @@ enum APIAccessTokenScopes {
   READ_BUILDS
   READ_BUILD_LOGS
   READ_CLUSTERS
+  READ_EVENTS
   READ_JOB_ENV
   READ_ORGANIZATIONS
   READ_PACKAGES
@@ -86,6 +87,7 @@ enum APIAccessTokenScopes {
   READ_PORTALS
   READ_REGISTRIES
   READ_RULES
+  READ_SECRETS_DETAILS
   READ_SUITES
   READ_TEAMS
   READ_TEST_PLAN
@@ -101,6 +103,7 @@ enum APIAccessTokenScopes {
   WRITE_PORTALS
   WRITE_REGISTRIES
   WRITE_RULES
+  WRITE_SECRETS
   WRITE_SUITES
   WRITE_TEAMS
   WRITE_TEST_PLAN
@@ -932,6 +935,9 @@ enum AuditEventType {
   API_ACCESS_TOKEN_UPDATED
   AUTHORIZATION_CREATED
   AUTHORIZATION_DELETED
+  CACHE_REGISTRY_CREATED
+  CACHE_REGISTRY_DELETED
+  CACHE_REGISTRY_UPDATED
   CLUSTER_CREATED
   CLUSTER_DELETED
   CLUSTER_PERMISSION_CREATED
@@ -958,6 +964,7 @@ enum AuditEventType {
   ORGANIZATION_BANNER_CREATED
   ORGANIZATION_BANNER_DELETED
   ORGANIZATION_BANNER_UPDATED
+  ORGANIZATION_BILLING_SETTING_UPDATED
   ORGANIZATION_BUILD_EXPORT_UPDATED
   ORGANIZATION_CREATED
   ORGANIZATION_DELETED
@@ -970,6 +977,7 @@ enum AuditEventType {
   ORGANIZATION_MEMBER_CREATED
   ORGANIZATION_MEMBER_DELETED
   ORGANIZATION_MEMBER_UPDATED
+  ORGANIZATION_SECURITY_SETTINGS_UPDATED
   ORGANIZATION_TEAMS_DISABLED
   ORGANIZATION_TEAMS_ENABLED
   ORGANIZATION_UPDATED
@@ -981,6 +989,9 @@ enum AuditEventType {
   PIPELINE_TEMPLATE_CREATED
   PIPELINE_TEMPLATE_DELETED
   PIPELINE_TEMPLATE_UPDATED
+  PIPELINE_TRIGGER_CREATED
+  PIPELINE_TRIGGER_DELETED
+  PIPELINE_TRIGGER_UPDATED
   PIPELINE_UPDATED
   PIPELINE_VISIBILITY_CHANGED
   PIPELINE_WEBHOOK_URL_ROTATED
@@ -1038,8 +1049,13 @@ enum AuditEventType {
   SUITE_MONITOR_CREATED
   SUITE_MONITOR_DELETED
   SUITE_MONITOR_UPDATED
+  SUITE_SAVED_VIEW_CREATED
+  SUITE_SAVED_VIEW_DELETED
   SUITE_UPDATED
   SUITE_VISIBILITY_CHANGED
+  SUITE_WORKFLOW_CREATED
+  SUITE_WORKFLOW_DELETED
+  SUITE_WORKFLOW_UPDATED
   TEAM_CREATED
   TEAM_DELETED
   TEAM_MEMBER_CREATED
@@ -1106,7 +1122,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | OrganizationRepositoryProviderGitHub | OrganizationRepositoryProviderGitHubEnterpriseServer | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceOpenTelemetryTracing | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | OrganizationRepositoryProviderGitHub | OrganizationRepositoryProviderGitHubEnterpriseServer | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -1115,6 +1131,7 @@ enum AuditSubjectType {
   AGENT_TOKEN
   API_ACCESS_TOKEN
   AUTHORIZATION
+  CACHE_REGISTRY
   CLUSTER
   CLUSTER_PERMISSION
   CLUSTER_QUEUE
@@ -1125,12 +1142,15 @@ enum AuditSubjectType {
   NOTIFICATION_SERVICE
   ORGANIZATION
   ORGANIZATION_BANNER
+  ORGANIZATION_BILLING_SETTING
   ORGANIZATION_IMPERSONATION_REQUEST
   ORGANIZATION_INVITATION
   ORGANIZATION_MEMBER
+  ORGANIZATION_SECURITY_SETTING
   PIPELINE
   PIPELINE_SCHEDULE
   PIPELINE_TEMPLATE
+  PIPELINE_TRIGGER
   PORTAL
   PORTAL_SECRET
   PORTAL_TOKEN
@@ -1146,6 +1166,8 @@ enum AuditSubjectType {
   SUBSCRIPTION
   SUITE
   SUITE_MONITOR
+  SUITE_SAVED_VIEW
+  SUITE_WORKFLOW
   TEAM
   TEAM_MEMBER
   TEAM_PIPELINE
@@ -1341,6 +1363,11 @@ type Build implements Node {
   The branch for the build
   """
   branch: String!
+
+  """
+  The reason why the build was cancelled
+  """
+  cancelReason: String
 
   """
   The time when the build was cancelled
@@ -2207,6 +2234,16 @@ type ClusterQueue implements Node {
   key: String!
 
   """
+  Latest metrics for this cluster queue (only if advanced queue metrics are enabled)
+  """
+  metrics: ClusterQueueMetrics
+
+  """
+  The health status of stacks associated with this queue
+  """
+  stackHealth: String
+
+  """
   The public UUID for this cluster queue
   """
   uuid: ID!
@@ -2282,6 +2319,31 @@ type ClusterQueueDeletePayload {
 type ClusterQueueEdge {
   cursor: String!
   node: ClusterQueue
+}
+
+"""
+Latest metrics for a cluster queue (time bucket, agent/job counts)
+"""
+type ClusterQueueMetrics {
+  """
+  Number of connected agents in the latest bucket
+  """
+  connectedAgentsCount: Int!
+
+  """
+  Number of running jobs in the latest bucket
+  """
+  runningJobsCount: Int!
+
+  """
+  The timestamp (start of the most recent time bucket, in UTC)
+  """
+  timestamp: DateTime!
+
+  """
+  Number of waiting (scheduled) jobs in the latest bucket
+  """
+  waitingJobsCount: Int!
 }
 
 """
@@ -2841,6 +2903,16 @@ enum HostedAgentInstanceShapeName {
   LINUX_ARM64_8X32
 
   """
+  macOS 12 vCPU x 56 GB Memory
+  """
+  MACOS_ARM64_M4_12X56
+
+  """
+  macOS 6 vCPU x 28 GB Memory
+  """
+  MACOS_ARM64_M4_6X28
+
+  """
   macOS 12 vCPU x 28 GB Memory
   """
   MACOS_M2_12X28
@@ -2878,9 +2950,34 @@ Configuration options for the base image of hosted agent instances on macOS plat
 """
 type HostedAgentMacOSSettingsType {
   """
+  The macOS version to use for macOS hosted agent instances for this cluster queue.
+  """
+  macosVersion: HostedAgentMacOSVersion
+
+  """
   The Xcode version to pre-select (via xcode-select) on macOS hosted agent instances for this cluster queue.
   """
   xcodeVersion: String
+}
+
+"""
+Possible macOS versions for the Hosted Agent instance
+"""
+enum HostedAgentMacOSVersion {
+  """
+  macOS Sequoia (15.5)
+  """
+  SEQUOIA
+
+  """
+  macOS Sonoma (14.6.1)
+  """
+  SONOMA
+
+  """
+  macOS Tahoe (26.0)
+  """
+  TAHOE
 }
 
 """
@@ -2968,6 +3065,11 @@ Settings for Mac hosted agents on this queue
 """
 input HostedAgentsMacosPlatformSettingsInput {
   """
+  The macOS version to use for macOS hosted agent instances for this cluster queue
+  """
+  macosVersion: HostedAgentMacOSVersion
+
+  """
   The Xcode version to pre-select (via xcode-select) on macOS hosted agent instances for this cluster queue
   """
   xcodeVersion: String
@@ -3015,11 +3117,6 @@ input HostedAgentsQueueSettingsUpdateInput {
   """
   platformSettings: HostedAgentsPlatformSettingsInput
 }
-
-"""
-An ISO 8601-encoded date
-"""
-scalar ISO8601Date
 
 """
 Represents non-fractional signed whole numeric values.
@@ -3140,6 +3237,11 @@ enum JobEventActorType {
   The actor was the dispatcher
   """
   DISPATCH
+
+  """
+  The actor was an agent stack
+  """
+  STACK
 
   """
   The actor was the system
@@ -3357,6 +3459,47 @@ type JobEventGeneric implements JobEvent & Node {
 }
 
 """
+A job event for when a job's priority has been changed
+"""
+type JobEventReprioritized implements JobEvent & Node {
+  """
+  The actor that caused this event to occur
+  """
+  actor: JobEventActor!
+
+  """
+  The priority value after the change
+  """
+  changedPriorityAfterValue: Int
+
+  """
+  The priority value before the change
+  """
+  changedPriorityBeforeValue: Int
+  id: ID!
+
+  """
+  The job that this event belongs to
+  """
+  job: JobTypeCommand!
+
+  """
+  The time when the event occurred
+  """
+  timestamp: DateTime!
+
+  """
+  The type of event
+  """
+  type: JobEventType!
+
+  """
+  The public UUID for this job event
+  """
+  uuid: ID!
+}
+
+"""
 An event created when the job is retried
 """
 type JobEventRetried implements JobEvent & Node {
@@ -3430,6 +3573,13 @@ The reason why a signal was sent to the job's process, or why the process did no
 """
 enum JobEventSignalReason {
   """
+  The agent was incompatible with the job requirements (e.g., version too old to
+  support required features). Note that in this case, no signal was sent to the
+  process, the job was not run at all.
+  """
+  AGENT_INCOMPATIBLE
+
+  """
   The agent refused the job. Note that in this case, no signal was sent to the process, the job was not run at all.
   """
   AGENT_REFUSED
@@ -3456,6 +3606,120 @@ enum JobEventSignalReason {
   that in this case, no signal was sent to the process, the job was not run at all.
   """
   SIGNATURE_REJECTED
+
+  """
+  The job couldn't be launched by the stack controlling agents. This could be
+  due to a misconfiguration of the job, or due to a lack of resources.
+  """
+  STACK_ERROR
+}
+
+"""
+An event created when a stack error is reported
+"""
+type JobEventStackError implements JobEvent & Node {
+  """
+  The actor that caused this event to occur
+  """
+  actor: JobEventActor!
+
+  """
+  Details about the stack error
+  """
+  errorDetail: String
+  id: ID!
+
+  """
+  The job that this event belongs to
+  """
+  job: JobTypeCommand!
+
+  """
+  The time when the event occurred
+  """
+  timestamp: DateTime!
+
+  """
+  The type of event
+  """
+  type: JobEventType!
+
+  """
+  The public UUID for this job event
+  """
+  uuid: ID!
+}
+
+"""
+An event created when a stack finishes a job and marks it as success
+"""
+type JobEventStackFinished implements JobEvent & Node {
+  """
+  The actor that caused this event to occur
+  """
+  actor: JobEventActor!
+
+  """
+  Details about why stack finishes this job
+  """
+  detail: String
+  id: ID!
+
+  """
+  The job that this event belongs to
+  """
+  job: JobTypeCommand!
+
+  """
+  The time when the event occurred
+  """
+  timestamp: DateTime!
+
+  """
+  The type of event
+  """
+  type: JobEventType!
+
+  """
+  The public UUID for this job event
+  """
+  uuid: ID!
+}
+
+"""
+An event created when a stack notification is triggered
+"""
+type JobEventStackNotification implements JobEvent & Node {
+  """
+  The actor that caused this event to occur
+  """
+  actor: JobEventActor!
+  id: ID!
+
+  """
+  The job that this event belongs to
+  """
+  job: JobTypeCommand!
+
+  """
+  Message from the stack notification
+  """
+  message: String
+
+  """
+  The time when the event occurred
+  """
+  timestamp: DateTime!
+
+  """
+  The type of event
+  """
+  type: JobEventType!
+
+  """
+  The public UUID for this job event
+  """
+  uuid: ID!
 }
 
 """
@@ -3587,6 +3851,26 @@ enum JobEventType {
   NOTIFICATION
 
   """
+  The Job is limited by a platform limit
+  """
+  PLATFORM_LIMITED
+
+  """
+  The Job's priority was changed
+  """
+  REPRIORITIZED
+
+  """
+  The Job was reserved by a stack for later execution
+  """
+  RESERVED
+
+  """
+  The Job was reserved by a stack but the stack took too long to spin up agent
+  """
+  RESERVED_EXPIRED
+
+  """
   The Job was retried either automatically or by a user
   """
   RETRIED
@@ -3600,6 +3884,21 @@ enum JobEventType {
   The Job was scheduled
   """
   SCHEDULED
+
+  """
+  Stack encountered an error handling this job
+  """
+  STACK_ERRORED
+
+  """
+  Stack ends this job without raising error
+  """
+  STACK_FINISHED
+
+  """
+  Stack sent a notification for this job
+  """
+  STACK_NOTIFICATION
 
   """
   The Job was started by an agent
@@ -3647,21 +3946,6 @@ interface JobInterface {
   The UUID for this job
   """
   uuid: String!
-}
-
-"""
-A record of job minutes usage, aggregated by day and pipeline.
-"""
-type JobMinutesUsage implements ResourceUsageInterface {
-  aggregatedOn: ISO8601Date!
-  pipeline: Pipeline
-  pipelineId: ID!
-
-  """
-  The recorded usage in seconds. For billing purposes, seconds are summed for a
-  billing period and rounded down to the nearest minute.
-  """
-  seconds: Int!
 }
 
 """
@@ -3785,6 +4069,21 @@ enum JobStates {
   The job has just been created and doesn't have a state yet
   """
   PENDING
+
+  """
+  The job is blocked by platform-wide concurrency/resource limits
+  """
+  PLATFORM_LIMITED
+
+  """
+  The job is waiting on platform-wide concurrency/resource limits before becoming either `PLATFORM_LIMITED` or `SCHEDULED`
+  """
+  PLATFORM_LIMITING
+
+  """
+  The job is reserved by a stack for later execution
+  """
+  RESERVED
 
   """
   The job is running
@@ -5286,6 +5585,22 @@ interface NotificationService {
 }
 
 """
+Deliver OpenTelemetry Traces to a custom OTLP endpoint
+"""
+type NotificationServiceOpenTelemetryTracing implements NotificationService {
+  """
+  The description of this service
+  """
+  description: String!
+  id: ID!
+
+  """
+  The name of the service provider
+  """
+  name: String!
+}
+
+"""
 Deliver notifications to Slack
 """
 type NotificationServiceSlack implements Node & NotificationService {
@@ -5932,56 +6247,6 @@ type Organization implements Node {
     """
     user: UserSelector
   ): TeamConnection
-
-  """
-  Returns the resource usage data for this organization.
-  """
-  usage(
-    """
-    Returns the elements in the list that come after the specified cursor.
-    """
-    after: String
-
-    """
-    Filter aggregations performed from this date
-    """
-    aggregatedOnFrom: ISO8601Date
-
-    """
-    Filter aggregations performed until this date
-    """
-    aggregatedOnTo: ISO8601Date
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
-    before: String
-
-    """
-    Returns the first _n_ elements from the list.
-    """
-    first: Int
-
-    """
-    Returns the last _n_ elements from the list.
-    """
-    last: Int
-
-    """
-    Filter results by the associated Pipeline ID
-    """
-    pipelineIds: [ID!] = []
-
-    """
-    Filter results by resource type
-    """
-    resource: [ResourceUsageType!] = [JOB_MINUTES, TEST_EXECUTIONS]
-
-    """
-    Filter results by the associated Suite ID
-    """
-    suiteIds: [ID!] = []
-  ): UsageUnionConnection!
 
   """
   The public UUID for this organization
@@ -9098,75 +9363,14 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   buildBranches: Boolean!
 
   """
-  Whether to create builds for commits that are part of a Pull Request.
+  Whether to create builds for merge group check runs.
   """
-  buildPullRequests: Boolean!
+  buildMergeGroupChecksRequested: Boolean!
 
   """
-  Whether to create builds when tags are pushed.
+  Whether to create builds for pull requests when the base branch is changed.
   """
-  buildTags: Boolean!
-
-  """
-  A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
-  """
-  cancelDeletedBranchBuilds: Boolean!
-
-  """
-  The conditions under which this pipeline will trigger a build.
-  """
-  filterCondition: String
-
-  """
-  Whether the filter is enabled
-  """
-  filterEnabled: Boolean
-
-  """
-  Ensure that even if Build Pull Requests is disabled, all commits to the default branch will trigger a build.
-  """
-  ignoreDefaultBranchPullRequests: Boolean!
-
-  """
-  Whether to update the status of commits in Bitbucket or GitHub.
-  """
-  publishCommitStatus: Boolean!
-
-  """
-  Whether to create a separate status for each job in a build, allowing you to
-  see the status of each job directly in GitHub.
-  """
-  publishCommitStatusPerStep: Boolean!
-
-  """
-  The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
-  """
-  pullRequestBranchFilterConfiguration: String
-
-  """
-  Whether to limit the creation of builds to specific branches or patterns.
-  """
-  pullRequestBranchFilterEnabled: Boolean!
-
-  """
-  Whether to skip creating a new build if a build for the commit and branch already exists.
-  """
-  skipBuildsForExistingCommits: Boolean!
-
-  """
-  Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
-  """
-  skipPullRequestBuildsForExistingCommits: Boolean!
-}
-
-"""
-Settings for a GitHub repository.
-"""
-type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
-  """
-  Whether to create builds when branches are pushed.
-  """
-  buildBranches: Boolean!
+  buildPullRequestBaseBranchChanged: Boolean!
 
   """
   Whether to create builds for pull requests from third-party forks.
@@ -9197,6 +9401,11 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
   """
   cancelDeletedBranchBuilds: Boolean!
+
+  """
+  Whether to cancel running builds when a merge group is destroyed.
+  """
+  cancelWhenMergeGroupDestroyed: Boolean!
 
   """
   The conditions under which this pipeline will trigger a build.
@@ -9267,6 +9476,141 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   What type of event to trigger builds on.
   """
   triggerMode: String!
+
+  """
+  Whether to use the merge group base commit for git diff base.
+  """
+  useMergeGroupBaseCommitForGitDiffBase: Boolean!
+}
+
+"""
+Settings for a GitHub repository.
+"""
+type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
+  """
+  Whether to create builds when branches are pushed.
+  """
+  buildBranches: Boolean!
+
+  """
+  Whether to create builds for merge group check runs.
+  """
+  buildMergeGroupChecksRequested: Boolean!
+
+  """
+  Whether to create builds for pull requests when the base branch is changed.
+  """
+  buildPullRequestBaseBranchChanged: Boolean!
+
+  """
+  Whether to create builds for pull requests from third-party forks.
+  """
+  buildPullRequestForks: Boolean!
+
+  """
+  Whether to create builds for pull requests when labels are added or removed.
+  """
+  buildPullRequestLabelsChanged: Boolean!
+
+  """
+  Whether to create builds for pull requests that are ready for review.
+  """
+  buildPullRequestReadyForReview: Boolean!
+
+  """
+  Whether to create builds for commits that are part of a Pull Request.
+  """
+  buildPullRequests: Boolean!
+
+  """
+  Whether to create builds when tags are pushed.
+  """
+  buildTags: Boolean!
+
+  """
+  A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
+  """
+  cancelDeletedBranchBuilds: Boolean!
+
+  """
+  Whether to cancel running builds when a merge group is destroyed.
+  """
+  cancelWhenMergeGroupDestroyed: Boolean!
+
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
+
+  """
+  Ensure that even if Build Pull Requests is disabled, all commits to the default branch will trigger a build.
+  """
+  ignoreDefaultBranchPullRequests: Boolean!
+
+  """
+  Prefix branch names for third-party fork builds to ensure they don't trigger
+  branch conditions. For example, the main branch from some-user will become
+  some-user:main.
+  """
+  prefixPullRequestForkBranchNames: Boolean!
+
+  """
+  The status to use for blocked builds. Pending can be used with required status
+  checks to prevent merging pull requests with blocked builds.
+  """
+  publishBlockedAsPending: Boolean!
+
+  """
+  Whether to update the status of commits in Bitbucket or GitHub.
+  """
+  publishCommitStatus: Boolean!
+
+  """
+  Whether to create a separate status for each job in a build, allowing you to
+  see the status of each job directly in GitHub.
+  """
+  publishCommitStatusPerStep: Boolean!
+
+  """
+  The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
+  """
+  pullRequestBranchFilterConfiguration: String
+
+  """
+  Whether to limit the creation of builds to specific branches or patterns.
+  """
+  pullRequestBranchFilterEnabled: Boolean!
+
+  """
+  Whether to create a separate status for pull request builds, allowing you to
+  require a passing pull request build in your required status checks in GitHub.
+  """
+  separatePullRequestStatuses: Boolean!
+
+  """
+  Whether to skip creating a new build if a build for the commit and branch already exists.
+  """
+  skipBuildsForExistingCommits: Boolean!
+
+  """
+  Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
+  """
+  skipPullRequestBuildsForExistingCommits: Boolean!
+
+  """
+  What type of event to trigger builds on.
+  """
+  triggerMode: String!
+
+  """
+  Whether to use the merge group base commit for git diff base.
+  """
+  useMergeGroupBaseCommitForGitDiffBase: Boolean!
 }
 
 """
@@ -9459,28 +9803,6 @@ type RepositoryProviderUnknownSettings implements RepositoryProviderSettings {
   Whether the filter is enabled
   """
   filterEnabled: Boolean
-}
-
-"""
-An aggregate of resource usage, grouped by day and resource.
-"""
-interface ResourceUsageInterface {
-  aggregatedOn: ISO8601Date!
-}
-
-"""
-All types of billable resources
-"""
-enum ResourceUsageType {
-  """
-  These records represent a pipeline's job minutes usage for a single day
-  """
-  JOB_MINUTES
-
-  """
-  These records represent a suite's test executions usage for a single day
-  """
-  TEST_EXECUTIONS
 }
 
 """
@@ -12124,20 +12446,6 @@ type TeamUpdatePayload {
 }
 
 """
-A record of test executions usage, aggregated by day and test suite.
-"""
-type TestExecutionsUsage implements ResourceUsageInterface {
-  aggregatedOn: ISO8601Date!
-
-  """
-  The recorded usage.
-  """
-  executions: Int!
-  suite: Suite
-  suiteId: ID!
-}
-
-"""
 A person who hasn’t signed up to Buildkite
 """
 type UnregisteredUser {
@@ -12152,46 +12460,6 @@ type UnregisteredUser {
   The name of the user
   """
   name: String
-}
-
-"""
-The possible resource usage types
-"""
-union UsageUnion = JobMinutesUsage | TestExecutionsUsage
-
-"""
-The connection type for UsageUnion.
-"""
-type UsageUnionConnection {
-  """
-  A list of edges.
-  """
-  edges: [UsageUnionEdge]
-
-  """
-  A list of nodes.
-  """
-  nodes: [UsageUnion]
-
-  """
-  Information to aid in pagination.
-  """
-  pageInfo: PageInfo!
-}
-
-"""
-An edge in a connection.
-"""
-type UsageUnionEdge {
-  """
-  A cursor for use in pagination.
-  """
-  cursor: String!
-
-  """
-  The item at the end of the edge.
-  """
-  node: UsageUnion
 }
 
 """

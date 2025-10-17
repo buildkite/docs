@@ -2,13 +2,13 @@
 
 The pipelines API endpoint consists of several endpoints that allow you to manage:
 
-- pipelines, along with their [builds](/docs/apis/rest-api/builds)
-- a build's [annotations](/docs/apis/rest-api/annotations), [artifacts](/docs/apis/rest-api/artifacts), and [jobs](/docs/apis/rest-api/jobs)
+- Pipelines, along with their [builds](/docs/apis/rest-api/builds).
+- A build's [annotations](/docs/apis/rest-api/annotations), [artifacts](/docs/apis/rest-api/artifacts), and [jobs](/docs/apis/rest-api/jobs).
 
 This section of the REST API documentation also contains several other endpoints that allow you to manage other aspects of Buildkite functionality associated with your pipelines, such as:
 
-- [clusters](/docs/apis/rest-api/clusters), including the management of [queues](/docs/apis/rest-api/clusters#queues) and [agent tokens](/docs/apis/rest-api/clusters#agent-tokens)
-- [agents](/docs/apis/rest-api/agents) themselves
+- [Clusters](/docs/apis/rest-api/clusters), including the management of [queues](/docs/apis/rest-api/clusters/queues), [agent tokens](/docs/apis/rest-api/clusters/agent-tokens), [cluster maintainers](/docs/apis/rest-api/clusters/maintainers), and [Buildkite secrets](/docs/apis/rest-api/clusters/secrets).
+- [Agents](/docs/apis/rest-api/agents) themselves.
 
 ## List pipelines
 
@@ -83,6 +83,15 @@ curl -H "Authorization: Bearer $TOKEN" \
   }
 ]
 ```
+
+Optional [query string parameters](/docs/api#query-string-parameters):
+
+<table>
+<tbody>
+  <tr><th><code>name</code></th><td>Filters the results by the pipeline name. Supports partial matches and is case insensitive.<p class="Docs__api-param-eg"><em>Example:</em> <code>?name=agent</code></p></td></tr>
+  <tr><th><code>repository</code></th><td>Filters the results by the repository URL of the source repository. Supports partial matches and is case insensitive.<p class="Docs__api-param-eg"><em>Example:</em> <code>?repository=agent</code></p></td></tr>
+</tbody>
+</table>
 
 > 📘 Webhook URL
 > The response only includes a webhook URL in `provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
@@ -171,7 +180,7 @@ Success response: `200 OK`
 
 ## Create a YAML pipeline
 
-YAML pipelines are the recommended way to [manage your pipelines](/docs/pipelines/tutorials/pipeline-upgrade). To create a YAML pipeline using this endpoint, set the `configuration` key in your json request body to an the YAML you want in your pipeline.
+YAML pipelines are the recommended way to [manage your pipelines](/docs/pipelines/tutorials/pipeline-upgrade). To create a YAML pipeline using this endpoint, set the `configuration` key in your json request body to the YAML you want in your pipeline.
 
 For example, to create a pipeline called `"My Pipeline"` containing the following command step
 
@@ -315,6 +324,13 @@ Optional [request body properties](/docs/api#request-body-properties):
 <table class="responsive-table">
 <tbody>
   <tr>
+    <th><code>allow_rebuilds</code></th>
+    <td>
+      <p>Enables rebuilding of existing builds.</p>
+      <p><em>Example:</em> <code>false</code><br><em>Default:</em> <code>true</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>branch_configuration</code></th>
     <td>
       <p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.</p>
@@ -336,6 +352,13 @@ Optional [request body properties](/docs/api#request-body-properties):
     </td>
   </tr>
   <tr>
+    <th><code>color</code></th>
+    <td>
+      <p>A color hex code to represent this pipeline.</p>
+      <p><em>Example:</em> <code>"#FF5733"</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>default_branch</code></th>
     <td>
       <p>The name of the branch to prefill when new builds are created or triggered in Buildkite. It is also used to filter the builds and metrics shown on the Pipelines page.</p>
@@ -343,10 +366,31 @@ Optional [request body properties](/docs/api#request-body-properties):
     </td>
   </tr>
   <tr>
+    <th><code>default_command_step_timeout</code></th>
+    <td>
+      <p>The default timeout in minutes for all command steps in this pipeline. This can still be overridden in any command step.</p>
+      <p><em>Example:</em> <code>30</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>description</code></th>
     <td>
       <p>The pipeline description.</p>
       <p><em>Example:</em> <code>"\:package\: A testing pipeline"</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>emoji</code></th>
+    <td>
+      <p>An emoji to represent this pipeline.</p>
+      <p><em>Example:</em> <code>"\:rocket\:"</code> (will be rendered as "🚀")</p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>maximum_command_step_timeout</code></th>
+    <td>
+      <p>The maximum timeout in minutes for all command steps in this pipeline. Any command step without a timeout or with a timeout greater than this value will be capped at this limit.</p>
+      <p><em>Example:</em> <code>120</code></p>
     </td>
   </tr>
   <tr>
@@ -833,6 +877,13 @@ Optional [request body properties](/docs/api#request-body-properties):
 <table class="responsive-table">
 <tbody>
   <tr>
+    <th><code>allow_rebuilds</code></th>
+    <td>
+      <p>Enables rebuilding of existing builds.</p>
+      <p><em>Example:</em> <code>false</code><br><em>Default:</em> <code>true</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>branch_configuration</code></th>
     <td>A <a href="/docs/pipelines/configure/workflows/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"main feature/*"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
@@ -843,6 +894,13 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>cancel_running_branch_builds_filter</code></th>
     <td>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
+    <th><code>color</code></th>
+    <td>
+      <p>A color hex code to represent this pipeline.</p>
+      <p><em>Example:</em> <code>"#FF5733"</code></p>
+    </td>
   </tr>
   <tr>
     <th><code>cluster_id</code></th>
@@ -859,12 +917,33 @@ Optional [request body properties](/docs/api#request-body-properties):
     </td>
   </tr>
   <tr>
+    <th><code>default_command_step_timeout</code></th>
+    <td>
+      <p>The default timeout in minutes for all command steps in this pipeline. This can still be overridden in any command step.</p>
+      <p><em>Example:</em> <code>30</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>description</code></th>
     <td>The pipeline description. <p class="Docs__api-param-eg"><em>Example:</em> <code>"\:package\: A testing pipeline"</code></p></td>
   </tr>
     <tr>
     <th><code>env</code></th>
     <td>The pipeline environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td>
+  </tr>
+  <tr>
+    <th><code>emoji</code></th>
+    <td>
+      <p>An emoji to represent this pipeline.</p>
+      <p><em>Example:</em> <code>"\:rocket\:"</code> (will be rendered as "🚀")</p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>maximum_command_step_timeout</code></th>
+    <td>
+      <p>The maximum timeout in minutes for all command steps in this pipeline. Any command step without a timeout or with a timeout greater than this value will be capped at this limit.</p>
+      <p><em>Example:</em> <code>120</code></p>
+    </td>
   </tr>
   <tr>
     <th><code>name</code></th>
@@ -906,6 +985,27 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>
       <p>An array of strings representing <a href="/docs/pipelines/configure/tags">tags</a> to modify on this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
       <p><em>Example:</em><code>["\:terraform\:", "testing"]</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>teams</code></th>
+    <td>
+      <p>An array of team UUIDs to add this pipeline to. Allows you to specify the access level for the pipeline in a team. The available access level options are:
+      <ul>
+        <li><code>read_only</code></li>
+        <li><code>build_and_read</code></li>
+        <li><code>manage_build_and_read</code></li>
+      </ul>
+      You can find your team's UUID either using the <a href="/docs/apis/graphql-api">GraphQL API</a>, or on the Settings page for a team. This property is only available if your organization has enabled Teams. Once your organization enables Teams, only administrators can create pipelines without providing team UUIDs. Replaces deprecated <code>team_uuids</code> parameter.</p>
+      <p><em>Example:</em></p>
+      <%= render_markdown text: %{
+```javascript
+teams: {
+  "14e9501c-69fe-4cda-ae07-daea9ca3afd3": "read_only"
+  "3f195bcd-28f2-4e1a-bcff-09f3543e5abf": "build_and_read"
+  "5b6c4a01-8e4f-49a3-bf88-be0d47ef9c0a": "manage_build_and_read"
+}
+```} %>
     </td>
   </tr>
   <tr>
@@ -1184,7 +1284,7 @@ Properties available for Bitbucket Server:
 
 Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
 
-<table class="responsive-table">
+<table class="responsive-table responsive-table--wrap-th-codeblocks">
 <tbody>
   <tr>
     <th><code>build_branches</code></th>
@@ -1252,10 +1352,16 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
   </tbody>
 </table>
 
-Additional properties available for GitHub:
+Additional properties available for GitHub and GitHub Enterprise:
 
-<table class="responsive-table">
+<table class="responsive-table responsive-table--wrap-th-codeblocks">
   <tbody>
+    <tr>
+      <th><code>build_pull_request_base_branch_changed</code></th>
+      <td>
+        Whether to create builds for pull requests when the base branch is changed.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
     <tr>
       <th><code>build_pull_request_forks</code></th>
       <td>
@@ -1272,6 +1378,25 @@ Additional properties available for GitHub:
       <th><code>build_pull_request_ready_for_review</code></th>
       <td>
         Whether to create builds for pull requests that are ready for review.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>build_merge_group_checks_requested</code></th>
+      <td>
+        Whether to create merge queue builds for merge queue enabled GitHub repository with required status checks.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>cancel_when_merge_group_destroyed</code></th>
+      <td>
+        Whether to cancel any running builds belonging to a removed merge group.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>use_merge_group_base_commit_for_git_diff_base</code></th>
+      <td>
+        When enabled, agents performing a git diff to determine steps to upload based on <a href="/docs/pipelines/configure/step-types/command-step#agent-applied-attributes"><code>if_changed</code></a>
+				comparisons will use the base commit that points to the previous merge group rather than the base branch.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
     </tr>
     <tr>

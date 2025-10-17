@@ -32,7 +32,7 @@ If you're using [YAML steps](/docs/pipelines/tutorials/pipeline-upgrade), you ca
 * `env` - A map of <a href="/docs/pipelines/configure/environment-variables">environment variables</a> to apply to all steps
 
 > 📘 Environment variable precedence
-> Because you can set environment variables in many different places, check [environment variable precedence](/docs/pipelines/configure/environment-variables#environment-variable-precedence) to ensure your environment variables work as expected.
+> Because you can set environment variables in many different places, be sure to check [environment variable precedence](/docs/pipelines/configure/environment-variables#environment-variable-precedence) to ensure your environment variables work as expected.
 
 For example, to set steps `do-something.sh` and `do-something-else.sh` to use the `something` queue and the step `do-another-thing.sh` to use the `another` queue:
 
@@ -117,6 +117,21 @@ When you run a pipeline, a build is created. The following diagram shows you how
 
 <%= render_markdown partial: 'pipelines/configure/build_states' %>
 
+### Build timestamps
+
+Each build has several timestamps that track its lifecycle from creation to completion. The expected chronological order is: `created_at` → `scheduled_at` → `started_at` → `finished_at`.
+
+Timestamp        | Description
+---------------- | -----------
+`created_at`     | When the build record was initially created in the database. This happens when a build is first triggered (via API, webhook, UI, etc.) and the build enters the `creating` state.
+`scheduled_at`   | When the build is scheduled to run. For scheduled builds (triggered from pipeline schedules), this represents the intended execution time.
+`started_at`     | When the build begins executing (transitions from `scheduled` to `started` state). This occurs when the first job starts running, marking the build as active.
+`finished_at`    | When the build reaches a terminal state (`passed`, `failed`, `canceled`, `skipped`, or `not_run`). This is set when all jobs are complete and the build's final state is determined.
+{: class="two-column"}
+
+> 📘 Builds with job retries
+> A build's `started_at` timestamp can be more recent than some of its job's `started_at` timestamps. This occurs when builds move from terminal states back to non-terminal states when failed jobs are retried.
+
 ## Job states
 
 When you run a pipeline, a build is created. Each of the steps in the pipeline ends up as a job in the build, which then get distributed to available agents. Job states have a similar flow to [build states](#build-states) but with a few extra states. The following diagram shows you how jobs progress from start to end.
@@ -144,7 +159,7 @@ Job state             | Description
 `timing_out`          | The job is timing out for taking too long.
 `timed_out`           | The job timed out.
 `skipped`             | The job was skipped.
-`broken`              | The jobs configuration means that it can't be run.
+`broken`              | The job's configuration means that it can't be run.
 `expired`             | The job expired before it was started on an agent.
 {: class="two-column"}
 
@@ -182,14 +197,26 @@ See [Build timeouts](/docs/pipelines/configure/build-timeouts) for information a
 Each job in a build also has a footer that displays exit status information. It may include an exit signal reason, which indicates whether the Buildkite agent stopped or the job was canceled.
 
 >🚧
-> Exit status information available in the <a href="/docs/apis/graphql-api">GraphQL API</a> but not the <a href="/docs/apis/rest-api">REST API</a>.
+> Exit status information is available in the <a href="/docs/apis/graphql-api">GraphQL API</a> but not the <a href="/docs/apis/rest-api">REST API</a>.
 
+### Job timestamps
+
+Each job has several timestamps that track its lifecycle from creation to completion. The expected chronological order is: `created_at` → `scheduled_at` → `runnable_at` → `started_at` → `finished_at`.
+
+Timestamp        | Description
+---------------- | -----------
+`created_at`     | When the job record was first created in the database. This happens when a build's pipeline is processed and jobs are created in the `pending` state.
+`scheduled_at`   | When the job was intended to run. This is set during initial job creation and defaults to the job's `created_at` timestamp.
+`runnable_at`    | When the job became ready for agent assignment and eligible to run. This is set when the job transitions to the `scheduled` state after resolving dependencies (for example, wait steps, manual blocks, concurrency limits, or other dependencies).
+`started_at`     | When an agent confirmed it had started running the job (and the job transitions to the `running` state). This occurs after the job has been `assigned` to an agent, `accepted` by the agent, and the agent sends the first log output indicating that the execution has begun.
+`finished_at`    | When the job reaches a terminal state (`finished`, `canceled`, `timed_out`, `skipped`, or `expired`). Transitioning to this state marks the completion of the job's execution, whether successful or not.
+{: class="two-column"}
 
 ## Example pipeline
 
 Here's a more complete example based on [the Buildkite agent's build pipeline](https://github.com/buildkite/agent/blob/main/.buildkite/pipeline.yml). It contains script commands, wait steps, block steps, and automatic artifact uploading:
 
-```yaml
+```yml
 steps:
   - label: "\:hammer\: Tests"
     command: scripts/tests.sh
@@ -271,11 +298,11 @@ For a list of all command line options, see the [buildkite-agent pipeline upload
 To run [command steps](/docs/pipelines/configure/step-types/command-step) only on specific agents:
 
 1. In the agent configuration file, [tag the agent](/docs/agent/v3/cli-start#setting-tags)
-2. In the pipeline command step, [set the agent property](/docs/agent/v3/cli-start#agent-targeting) in the command step
+1. In the pipeline command step, [set the agent property](/docs/agent/v3/cli-start#agent-targeting) in the command step
 
 For example to run commands only on agents running on macOS:
 
-```yaml
+```yml
 steps:
   - command: "script.sh"
     agents:

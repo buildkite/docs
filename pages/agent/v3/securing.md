@@ -8,6 +8,10 @@ For best practices and recommendations about secret storage in the Agent, see [M
 
 Learn more about other secrets management approaches in Buildkite on the [Secrets overview](/docs/pipelines/security/secrets) page.
 
+## Set the agent token expiration date
+
+For secure and automated agent token lifecycle management, you can use Buildkite's APIs to set the expiration date for agent tokens. Learn more about this feature in [Agent token lifetime](/docs/agent/v3/tokens#agent-token-lifetime). This feature allows for automated token rotation for long-lived tokens. Once set, an agent token's expiration date cannot be changed.
+
 ## Disable automatic ssh-keyscan
 
 By default the agent will automatically accept the Git SSH host using the `ssh-keyscan` command when doing the first checkout on a new agent host. The agent runs a similar command to this:

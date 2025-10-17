@@ -19,6 +19,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "result": "passed",
     "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_slug/runs/64374307-12ab-4b13-a3f3-6a408f644ea2",
     "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_slug/runs/64374307-12ab-4b13-a3f3-6a408f644ea2",
+    "build_id": "89c02425-7712-4ee5-a694-c94b56b4d54c",
     "created_at": "2023-06-25T05:32:53.228Z"
   }
 ]
@@ -48,6 +49,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "result": "passed",
   "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_slug/runs/64374307-12ab-4b13-a3f3-6a408f644ea2",
   "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_slug/runs/64374307-12ab-4b13-a3f3-6a408f644ea2",
+  "build_id": "89c02425-7712-4ee5-a694-c94b56b4d54c",
   "created_at": "2023-06-25T05:32:53.228Z"
 }
 ```

@@ -79,6 +79,9 @@ Kinds of subjects which can have audit events performed on them
 <a href="/docs/apis/graphql/schemas/object/jobtypewait" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobTypeWait">
   <code>JobTypeWait</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/notificationserviceopentelemetrytracing" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT NotificationServiceOpenTelemetryTracing">
+  <code>NotificationServiceOpenTelemetryTracing</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/notificationserviceslack" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT NotificationServiceSlack">
   <code>NotificationServiceSlack</code>
 </a>

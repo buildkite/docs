@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:3.4.2-slim-bookworm@sha256:2864c6bfcf8fec6aecbdbf5bd7adcb8abe9342e28441a77704428decf59930fd
+ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:3.4.5-slim-bookworm@sha256:aa97c41012d81fa89ab5cf61409c3314665d024fd06c3af1ecea27865ffbd9c4
 ARG NODE_IMAGE=public.ecr.aws/docker/library/node:18-bookworm-slim@sha256:d2d8a6420c9fc6b7b403732d3a3c5395d016ebc4996f057aad1aded74202a476
 
 FROM $BASE_IMAGE AS builder
@@ -42,14 +42,14 @@ RUN echo "--- :bundler: Installing ruby gems" \
 
 # ------------------------------------------------------------------
 
-FROM $NODE_IMAGE as node-deps
+FROM $NODE_IMAGE AS node-deps
 
 COPY package.json yarn.lock ./
 RUN echo "--- :yarn: Installing node packages" && yarn
 
 # ------------------------------------------------------------------
 
-FROM public.ecr.aws/docker/library/golang:1.24-bookworm as gobuild
+FROM public.ecr.aws/docker/library/golang:1.24-bookworm AS gobuild
 
 # This was previously installed from gobinaries.com within
 # the deploy-preview step, but gobinaries.com keeps being unavailable :(
@@ -57,7 +57,7 @@ RUN go install github.com/tj/staticgen/cmd/staticgen@v1.1.0
 
 # ------------------------------------------------------------------
 
-FROM builder as assets
+FROM builder AS assets
 
 COPY . /app/
 COPY --from=node-deps /usr/local/bin /usr/local/bin
@@ -75,10 +75,6 @@ RUN if [ "$RAILS_ENV" = "production" ]; then \
 # ------------------------------------------------------------------
 
 FROM $BASE_IMAGE AS runtime
-
-# Install a few misc. deps for CI
-RUN apt-get update && apt-get install -y curl jq
-RUN apt purge --assume-yes linux-libc-dev
 
 WORKDIR /app
 
@@ -100,9 +96,49 @@ COPY --from=node-deps /usr/local/bin /usr/local/bin
 COPY --from=node-deps /node_modules /app/node_modules
 COPY --from=bundle /usr/local/bundle/ /usr/local/bundle/
 COPY --from=assets /app/public/ /app/public/
-COPY --from=gobuild /go/bin/staticgen /usr/local/bin/staticgen
 
 RUN bundle exec rake sitemap:create
 
 EXPOSE 3000
 CMD ["bundle", "exec", "puma", "-C", "./config/puma.rb"]
+
+# ------------------------------------------------------------------
+#
+# We use this image to deploy previews to Netlify.
+#
+# It needs npm packages installed by Yarn in node-deps, as well as jq, curl and
+# staticgen for our orchestration machinery.
+#
+
+FROM runtime AS deploy-preview
+
+# bin/deploy-preview has a couple of dependencies
+RUN apt-get update && \
+    apt-get install -y curl jq && \
+    apt purge --assume-yes linux-libc-dev
+
+COPY --from=gobuild /go/bin/staticgen /usr/local/bin/staticgen
+
+# ------------------------------------------------------------------
+#
+# We use this image to run Muffet, a link checking tool.
+#
+# We use a Ruby wrapper script to process the results in ways that
+# make sense to us.
+#
+
+FROM raviqqe/muffet:2.11.0 AS muffet-scratch
+FROM ${BASE_IMAGE} AS muffet
+
+RUN apt-get update && \
+    apt-get install -y curl jq wget && \
+    apt purge --assume-yes linux-libc-dev
+
+COPY --from=muffet-scratch /muffet /muffet
+
+# ------------------------------------------------------------------
+#
+# Here, we ensure that the `runtime` image is the final result if this
+# Dockerfile is invoked without specifying a target.
+#
+FROM runtime

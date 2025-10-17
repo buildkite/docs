@@ -4,7 +4,13 @@ The Buildkite Agent is supported on Ubuntu versions 18.04 and above using our si
 
 ## Installation
 
-First, add our signed apt repository. The default version of the agent is `stable`, but you can get the beta version by using `unstable` instead of `stable` in the following command, or the agent built from the `main` branch of the repository by using `experimental` instead of `stable`.
+First, add our signed apt repository. Buildkite Agent versions come in three release channels:
+
+- **Stable**: Thoroughly tested, production-ready releases recommended for most users.
+- **Unstable/Beta**: Newer features that are still being tested, may contain bugs that affect stability.
+- **Experimental**: Built directly from the `main` branch, may be incomplete or have unresolved issues.
+
+The default version of the agent is `stable`. You can get the beta version by using `unstable` instead of `stable` or the experimental version by using `experimental` instead of `stable` in the installation commands that follow.
 
 Start by downloading the Buildkite PGP key to a directory that is only writable by `root` (create the directory before running the following command if it doesn't already exist):
 
@@ -42,7 +48,7 @@ sudo systemctl enable buildkite-agent && sudo systemctl start buildkite-agent
 You can view the logs at:
 
 ```shell
-journalctl -f -u buildkite-agent
+sudo journalctl -f -u buildkite-agent
 ```
 
 ## Updating keys installed using apt-key

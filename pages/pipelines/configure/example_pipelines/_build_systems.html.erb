@@ -1,0 +1,34 @@
+<%= render partial: 'pipelines/configure/example_pipelines/repos', locals: {
+  repos: [
+    {
+      emoji: ':bazel:',
+      name: 'Bazel',
+      link: 'buildkite/bazel-example',
+      description: 'Building with Bazel on Buildkite'
+    },
+    {
+      emoji: ':bazel:',
+      name: 'Bazel Python Package',
+      link: 'buildkite/bazel-python-package-example',
+      description: 'Builds, tests, and packages a Python library using Bazel'
+    },
+    {
+      emoji: ':bazel:',
+      name: 'Bazel Monorepo',
+      link: 'buildkite/bazel-monorepo-example',
+      description: 'Builds and tests a Python monorepo using Bazel and dynamic pipelines'
+    },
+    {
+      emoji: ':cmake:',
+      name: 'CMake C++',
+      link: 'buildkite/cmake-cpp-example',
+      description: 'Builds and tests a C++ project using CMake'
+    },
+    {
+      emoji: ':gradle:',
+      name: 'Gradle - Docker',
+      link: 'buildkite/gradle-docker-example',
+      description: 'An example of building a Gradle project'
+    }
+  ]
+} %>

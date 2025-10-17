@@ -52,7 +52,38 @@ Required scope: `read_suites`
 
 Success response: `200 OK`
 
-## Add/remove labels from a test
+## Find a test with scope and name
+
+In some situations, you may not have access to UUID to make a call to Test Engine API.
+You can locate a test record using its scope and name to retrieve the UUID from the response.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/tests/find" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "scope": "User#email",
+    "name": "is correctly formatted"
+  }'
+```
+
+```json
+{
+  "id": "01867216-8478-7fde-a55a-0300f88bb49b",
+  "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_name/tests/01867216-8478-7fde-a55a-0300f88bb49b",
+  "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_name/tests/01867216-8478-7fde-a55a-0300f88bb49b",
+  "scope": "User#email",
+  "name": "is correctly formatted",
+  "location": "./spec/models/user_spec.rb:42",
+  "file_name": "./spec/models/user_spec.rb",
+}
+```
+
+Required scope: `read_suites`
+
+Success response: `200 OK`
+
+## Add or remove labels from a test
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \

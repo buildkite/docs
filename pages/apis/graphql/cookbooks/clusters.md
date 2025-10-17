@@ -2,7 +2,7 @@
 
 A collection of common tasks with clusters using the GraphQL API.
 
-You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the **Docs** panel.
+<%= render_markdown partial: 'apis/graphql/cookbooks/graphql_console_link' %>
 
 ## List clusters
 
@@ -73,6 +73,40 @@ query getClusterTokens {
 
 >🚧 Cluster `token` field deprecation
 > The `token` field of the [ClusterToken](/docs/apis/graphql/schemas/object/clustertoken) object has been deprecated to improve security. Please use the `tokenValue` field from the [ClusterAgentTokenCreatePayload](/docs/apis/graphql/schemas/object/clusteragenttokencreatepayload) object instead after creating a token.
+
+## Create agent token with an expiration date
+
+Create an agent token with an expiration date. The expiration date is displayed in the Buildkite interface and cannot be changed using another Buildkite API call.
+
+```graphql
+mutation createToken {
+  clusterAgentTokenCreate(input: {
+    organizationId: "",
+    description: "A token with an expiration date",
+    clusterId:"",
+    expiresAt: "2026-01-01T00:00:00Z"
+  }) {
+    tokenValue
+  }
+}
+```
+
+## Revoke an agent token
+
+First, get the agent token's ID from your [list of agent tokens](#list-agent-tokens), followed by your [Buildkite organization's ID](/docs/apis/graphql/cookbooks/organizations#get-organization-id).
+Then, use these ID values to revoke the agent token:
+
+```graphql
+mutation revokeClusterAgentToken {
+  clusterAgentTokenRevoke(input: {
+    id: "agent-token-id"
+    organizationId: "organization-id"
+    }) {
+    clientMutationId
+    deletedClusterAgentTokenId
+  }
+}
+```
 
 ## List jobs in a particular cluster queue
 
@@ -202,3 +236,4 @@ mutation AssociatePipelineWithCluster {
   }
 }
 ```
+

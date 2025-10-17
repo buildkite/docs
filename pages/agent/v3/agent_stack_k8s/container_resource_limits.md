@@ -1,6 +1,87 @@
-# Default container resources (requests and limits)
+# Container resources (requests and limits)
 
 Default resources for requests and limits can be allocated to Pods and their containers using the PodSpec patch in the Buildkite [Agent Stack for Kubernetes controller's values YAML configuration file](#using-the-podspec-patch-in-the-controller-values-yaml-configuration-file), which applies across the board, or within a [pipeline's YAML file](#overriding-the-podspec-patch-for-a-single-job), which can override those defined in the values YAML configuration file.
+
+Alternatively, Resource Classes can be configured, allowing workload to decide resources by specifying `resource_class` Agent tags.
+
+## Using resource class
+
+Resource Classes allow you to define reusable resource configurations that can be applied to CI workloads based on agent tags.
+
+> 📘 Minimum version requirement
+> To implement the agent configuration options described on this section, version 0.31.0 or later of the Agent Stack for Kubernetes controller is required.
+
+### Configuration
+
+Resource classes are defined in the controller configuration under the `resource-classes` key:
+
+```yaml
+# values.yaml
+config:
+  resource-classes:
+    class-name:
+      resource:      # Optional: Kubernetes resource requirements
+        requests:
+          cpu: "100m"
+          memory: "128Mi"
+        limits:
+          cpu: "200m"
+          memory: "256Mi"
+      nodeSelector:  # Optional: Kubernetes node selector
+        instance-type: "small"
+        zone: "us-west-2a"
+```
+
++ **resource** (optional): [Kubernetes ResourceRequirements object](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) that will be applied to the command container
+  * **requests**: Resource requests (CPU, memory, etc.)
+  * **limits**: Resource limits (CPU, memory, etc.)
++ **nodeSelector** (optional): Key-value pairs for [Kubernetes node selection](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)
+
+### Usage
+
+To use a resource class in your CI pipeline, specify the `resource_class` agent tag:
+
+```yaml
+# pipeline.yaml
+steps:
+  - label: "Build"
+    command: "make build"
+    agents:
+      resource_class: "medium" # <-- New!
+```
+
+### Example configurations
+
+```yaml
+# values.yaml
+config:
+  resource-classes:
+    xs:
+      resource:
+        requests:
+          cpu: "100m"
+          memory: "128Mi"
+        limits:
+          cpu: "200m"
+          memory: "256Mi"
+    gpu:
+      resource:
+        requests:
+          nvidia.com/gpu: "1"
+          cpu: "1000m"
+          memory: "2Gi"
+        limits:
+          nvidia.com/gpu: "1"
+          cpu: "2000m"
+          memory: "4Gi"
+      nodeSelector:
+        accelerator: "nvidia-tesla-k80"
+    spot:
+      nodeSelector:
+        node-type: "spot"
+        instance-type: "large"
+```
+
 
 ## Using the PodSpec patch in the controller values YAML configuration file
 
@@ -10,7 +91,6 @@ In the Buildkite Agent Stack for Kubernetes controller's values YAML configurati
 # values.yaml
 agentStackSecret: <name-of-predefined-secrets-for-kubernetes>
 config:
-  org: <your-org-slug>
   pod-spec-patch:
     initContainers:
     - name: copy-agent

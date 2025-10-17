@@ -42,3 +42,24 @@ export function bindToggles() {
       })
   );
 }
+
+export function preserveScroll() {
+  const navContainer = document.querySelector(".Page__sidebar");
+  const storageKey = "navScrollTop";
+
+  if (!navContainer) {
+    return;
+  }
+
+  // On page load, restore the scroll position from sessionStorage
+  const savedScrollTop = sessionStorage.getItem(storageKey);
+  if (savedScrollTop) {
+    navContainer.scrollTop = parseInt(savedScrollTop, 10);
+  }
+
+  // Before leaving the page, save the current scroll position.
+  // turbo:before-visit is the Turbo event for this.
+  document.addEventListener("turbo:before-visit", () => {
+    sessionStorage.setItem(storageKey, navContainer.scrollTop);
+  });
+}

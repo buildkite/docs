@@ -3,12 +3,14 @@ services:
   app:
     build:
       context: .
+      target: runtime
       args:
         RAILS_ENV: ${RAILS_ENV:-development}
     depends_on:
       - vite
     environment:
       VITE_RUBY_HOST: vite
+      RAILS_LOG_TO_STDOUT: yes
     ports:
       - "3000:3000"
     volumes:
@@ -19,6 +21,7 @@ services:
   vite:
     build:
       context: .
+      target: runtime
       args:
         RAILS_ENV: ${RAILS_ENV:-development}
     entrypoint: bin/vite dev
@@ -35,7 +38,24 @@ services:
   muffet:
     depends_on:
       - app
-    image: raviqqe/muffet:2.10.9
+    build:
+      context: .
+      target: muffet
     entrypoint:
-      - ash
-      - -c
+      - /work/muffet.rb
+    working_dir: /work
+    volumes:
+      - .buildkite/steps:/work
+    environment:
+      BUILDKITE: ${BUILDKITE:-false}
+
+  deploy-preview:
+    build:
+      context: .
+      target: deploy-preview
+      args:
+        RAILS_ENV: ${RAILS_ENV:-development}
+    volumes:
+      - ".:/app"
+      - /app/node_modules
+      - /app/public/docs

@@ -14,21 +14,21 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 However, this type of REST API call is just recommended for:
 
-- [Alpine (apk)](/docs/package-registries/alpine#publish-a-package) packages
-- [Debian/Ubuntu (deb)](/docs/package-registries/debian#publish-a-package) packages
-- [Files (generic)](/docs/package-registries/files#publish-a-file)
-- [Helm (Standard)](/docs/package-registries/helm#publish-a-chart) charts
-- [Python (PyPI)](/docs/package-registries/python#publish-a-package) packages
-- [Red Hat (RPM)](/docs/package-registries/red-hat#publish-a-package) packages
-- [Terraform](/docs/package-registries/terraform#publish-a-module) modules
+- [Alpine (apk)](/docs/package-registries/ecosystems/alpine#publish-a-package) packages
+- [Debian/Ubuntu (deb)](/docs/package-registries/ecosystems/debian#publish-a-package) packages
+- [Files (generic)](/docs/package-registries/ecosystems/files#publish-a-file)
+- [Helm (Standard)](/docs/package-registries/ecosystems/helm#publish-a-chart) charts
+- [Python (PyPI)](/docs/package-registries/ecosystems/python#publish-a-package) packages
+- [Red Hat (RPM)](/docs/package-registries/ecosystems/red-hat#publish-a-package) packages
+- [Terraform](/docs/package-registries/ecosystems/terraform#publish-a-module) modules
 
 For other supported package ecosystems, it is recommended that you use their native tools to publish to registries in your Buildkite Package Registries organization. These ecosystems' native tools are for:
 
-- [Container (Docker)](/docs/package-registries/container#publish-an-image) images
-- [Helm (OCI)](/docs/package-registries/helm-oci#publish-a-chart) charts
-- Java ([Maven](/docs/package-registries/maven#publish-a-package) or [Gradle](/docs/package-registries/gradle-kotlin#publish-a-package)) packages
-- [JavaScript (npm)](/docs/package-registries/javascript#publish-a-package) packages
-- [Ruby (RubyGems)](/docs/package-registries/ruby#publish-a-package) packages
+- [OCI (Docker)](/docs/package-registries/ecosystems/oci#publish-an-image) images
+- [Helm (OCI)](/docs/package-registries/ecosystems/helm-oci#publish-a-chart) charts
+- Java ([Maven](/docs/package-registries/ecosystems/maven#publish-a-package) or [Gradle](/docs/package-registries/ecosystems/gradle-kotlin#publish-a-package)) packages
+- [JavaScript (npm)](/docs/package-registries/ecosystems/javascript#publish-a-package) packages
+- [Ruby (RubyGems)](/docs/package-registries/ecosystems/ruby#publish-a-package) packages
 
 The following type of response is returned by Buildkite upon a successful `curl` publishing event.
 
@@ -38,6 +38,10 @@ The following type of response is returned by Buildkite upon a successful `curl`
   "url": "https://api.buildkite.com/v2/packages/organizations/my_great_org/registries/my-registry/packages/0191e23a-4bc8-7683-bfa4-5f73bc9b7c44",
   "web_url": "https://buildkite.com/organizations/my_great_org/packages/registries/my-registry/packages/0191e23a-4bc8-7683-bfa4-5f73bc9b7c44",
   "name": "banana",
+  "digests": {
+    "sha256": "d3e1515a82ece5ad1f63273aa259d91c88967f65d9ae75f880b5c93926586fdf",
+    "sha512": "5bd1481bfd924b1e272bcc7736c91e8490947cc4aa7d756daacfa1aa3705e7180ca2b7800af3ebd4f7ed4b27bcec2da580545cf351499d195e5d4e00e080c87e"
+  },
   "organization": {
     "id": "0190e784-eeb7-4ce4-9d2d-87f7aba85433",
     "slug": "my_great_org",
@@ -85,7 +89,11 @@ curl -H "Authorization: Bearer $TOKEN" \
       "web_url": "https://buildkite.com/organizations/my_great_org/packages/registries/my-registry/packages/0191e23a-4bc8-7683-bfa4-5f73bc9b7c44",
       "name": "banana",
       "created_at": "2024-08-22T06:24:53Z",
-      "version": "1.0"
+      "version": "1.0",
+      "digests": {
+        "sha256": "d3e1515a82ece5ad1f63273aa259d91c88967f65d9ae75f880b5c93926586fdf",
+        "sha512": "5bd1481bfd924b1e272bcc7736c91e8490947cc4aa7d756daacfa1aa3705e7180ca2b7800af3ebd4f7ed4b27bcec2da580545cf351499d195e5d4e00e080c87e"
+      },
     },
     {
       "id": "019178c2-6b08-7d66-a1db-b79b8ba83151",
@@ -93,7 +101,11 @@ curl -H "Authorization: Bearer $TOKEN" \
       "web_url": "https://buildkite.com/organizations/my_great_org/packages/registries/my-registry/packages/019178c2-6b08-7d66-a1db-b79b8ba83151",
       "name": "grapes",
       "created_at": "2024-08-21T06:24:53Z",
-      "version": "2.8.3"
+      "version": "2.8.3",
+      "digests": {
+        "sha256": "d3e1515a82ece5ad1f63273aa259d91c88967f65d9ae75f880b5c93926586fdf",
+        "sha512": "5bd1481bfd924b1e272bcc7736c91e8490947cc4aa7d756daacfa1aa3705e7180ca2b7800af3ebd4f7ed4b27bcec2da580545cf351499d195e5d4e00e080c87e"
+      },
     }
   ],
   "links": {
@@ -129,6 +141,10 @@ curl -H "Authorization: Bearer $TOKEN" \
   "url": "https://api.buildkite.com/v2/packages/organizations/my_great_org/registries/my-registry/packages/0191e23a-4bc8-7683-bfa4-5f73bc9b7c44",
   "web_url": "https://buildkite.com/organizations/my_great_org/packages/registries/my-registry/packages/0191e23a-4bc8-7683-bfa4-5f73bc9b7c44",
   "name": "banana",
+  "digests": {
+    "sha256": "d3e1515a82ece5ad1f63273aa259d91c88967f65d9ae75f880b5c93926586fdf",
+    "sha512": "5bd1481bfd924b1e272bcc7736c91e8490947cc4aa7d756daacfa1aa3705e7180ca2b7800af3ebd4f7ed4b27bcec2da580545cf351499d195e5d4e00e080c87e"
+  },
   "organization": {
     "id": "0190e784-eeb7-4ce4-9d2d-87f7aba85433",
     "slug": "my_great_org",
@@ -151,7 +167,7 @@ Success response: `200 OK`
 
 ## Copy a package
 
-For some supported [package ecosystems](/docs/packages/ecosystems), copies a package from a source registry to a destination registry.
+For some supported [package ecosystems](/docs/package-registries/ecosystems), copies a package from a source registry to a destination registry.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -161,13 +177,13 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Currently, this REST API call only supports package types belonging to the following package ecosystems:
 
-- [Alpine (apk)](/docs/packages/alpine)
-- [Debian/Ubuntu (deb)](/docs/packages/debian)
-- [Files (generic)](/docs/packages/files)
-- [JavaScript (npm)](/docs/packages/javascript)
-- [Python (PyPI)](/docs/packages/python)
-- [Red Hat (RPM)](/docs/packages/red-hat)
-- [Ruby (RubyGems)](/docs/packages/ruby)
+- [Alpine (apk)](/docs/package-registries/ecosystems/alpine)
+- [Debian/Ubuntu (deb)](/docs/package-registries/ecosystems/debian)
+- [Files (generic)](/docs/package-registries/ecosystems/files)
+- [JavaScript (npm)](/docs/package-registries/ecosystems/javascript)
+- [Python (PyPI)](/docs/package-registries/ecosystems/python)
+- [Red Hat (RPM)](/docs/package-registries/ecosystems/red-hat)
+- [Ruby (RubyGems)](/docs/package-registries/ecosystems/ruby)
 
 If you wish this feature to be available for package types belonging to other package ecosystems, please contact [support](https://buildkite.com/about/contact/).
 
@@ -179,6 +195,10 @@ The following type of response is returned by Buildkite upon a successful `curl`
   "url": "https://api.buildkite.com/v2/packages/organizations/my_great_org/registries/my-registry/packages/0191e23a-4bc8-7683-bfa4-5f73bc9b7c44",
   "web_url": "https://buildkite.com/organizations/my_great_org/packages/registries/my-registry/packages/0191e23a-4bc8-7683-bfa4-5f73bc9b7c44",
   "name": "banana",
+  "digests": {
+    "sha256": "d3e1515a82ece5ad1f63273aa259d91c88967f65d9ae75f880b5c93926586fdf",
+    "sha512": "5bd1481bfd924b1e272bcc7736c91e8490947cc4aa7d756daacfa1aa3705e7180ca2b7800af3ebd4f7ed4b27bcec2da580545cf351499d195e5d4e00e080c87e"
+  },
   "organization": {
     "id": "0190e784-eeb7-4ce4-9d2d-87f7aba85433",
     "slug": "my_great_org",

@@ -2,7 +2,7 @@
 
 A collection of common tasks with builds using the GraphQL API.
 
-You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the **Docs** panel.
+<%= render_markdown partial: 'apis/graphql/cookbooks/graphql_console_link' %>
 
 ## Get build info by ID
 
@@ -121,6 +121,9 @@ query {
   }
 }
 ```
+
+> 📘 Cursor pagination
+> Replace `<endCursor-value-from-previous-response>` with the actual `endCursor` string returned from your previous query.
 
 ## Get number of builds between two dates
 

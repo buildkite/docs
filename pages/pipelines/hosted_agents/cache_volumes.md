@@ -14,6 +14,10 @@ Cache volumes act as regular disks with the following properties on Linux:
 
 Cache volumes on macOS are a little different, with [sparse bundle disk images](https://en.wikipedia.org/wiki/Sparse_image#Sparse_bundle_disk_images) utilized rather than bind mount volumes. These volumes are managed in the same way as they are for Linux.
 
+> 📘 **Cache volume retention**
+> Cache volumes are retained for up to 14 days maximum from their last use. Note that 14 days is not a guaranteed retention duration and that the cache volumes may be removed before this period ends.
+> Design your workflows to handle cache misses, as cache volumes are designed for temporary data storage.
+
 ## Cache configuration
 
 Cache paths can be [defined in your `pipeline.yml`](/docs/pipelines/configure/defining-steps) file. Defining cache paths for a step will implicitly create a cache volume for the pipeline.
@@ -24,7 +28,7 @@ Custom caches can be created by specifying a name for the cache, which allows yo
 
 When requesting a cache volume, you can specify a size. The cache volume provided will have a minimum available storage equal to the specified size. In the case of a cache hit (most of the time), the actual volume size is: last used volume size + the specified size.
 
-Defining a top-level cache configuration (as opposed to one within a step) sets the default cache volume for all steps in the pipeline. Steps can override the top-level configuration by defining their own cache configuration.
+Defining a top-level cache configuration sets the default cache volume for all steps in the pipeline. Any cache defined within a step will be merged with the top-level definition, with step-level cache size taking precedence when the same cache name is specified at both levels. Paths from both levels will be available when using the same cache name.
 
 ```yaml
 cache:
@@ -69,11 +73,11 @@ steps:
 
 ### Optional attributes
 
-<table data-attributes data-attributes-required>
+<table data-attributes data-attributes-optional>
   <tr>
     <td><code>name</code></td>
     <td>
-      A name for the cache. This allows for multiple cache volumes to be used in a single pipeline.<br>
+      A name for the cache. This allows for multiple cache volumes to be used in a single pipeline. If no <code>name</code> is specified, the value of this attribute defaults to the pipeline slug.<br>
       <em>Example:</em> <code>"node-modules-cache"</code><br>
     </td>
   </tr>

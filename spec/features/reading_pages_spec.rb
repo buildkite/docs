@@ -34,6 +34,29 @@ RSpec.feature "reading pages" do
     end
   end
 
+  describe "markdown format" do
+    it "serves pages as HTML by default" do
+      visit "/docs/platform"
+      expect(page.response_headers["Content-Type"]).to include("text/html")
+      expect(page.html).to include("<html")
+      expect(page).to have_content("The Buildkite Platform")
+    end
+
+    it "serves pages as markdown when .md extension is used" do
+      page.driver.get("/docs/platform.md")
+      expect(page.status_code).to eq(200)
+      expect(page.response_headers["Content-Type"]).to include("text/markdown")
+      expect(page.html).to include("# The Buildkite Platform")
+      expect(page.html).not_to include("<html")
+    end
+
+    it 'returns 404 for non-existent markdown pages' do
+      page.driver.get('/docs/non-existent-page.md')
+      expect(page.status_code).to eq(404)
+      expect(page.html).to include('The documentation page `non_existent_page` does not exist')
+    end
+  end
+
   describe "all pages" do
     example "render" do
       root = Rails.root.join("pages")

@@ -10,9 +10,9 @@ The quickest way to get started with the GraphQL API is to try the [GraphQL cons
 
 <div><a href="https://buildkite.com/user/graphql/console"><%= image "console.png", width: 2470, height: 1530, alt: "Screenshot of the GraphQL Console on Buildkite" %></a></div>
 
-Learn more about using GraphQL queries and mutations with the GraphQL console or command line in the [Console and CLI getting started tutorial](https://buildkite.com/docs/apis/graphql/graphql-tutorial).
+Learn more about using GraphQL queries and mutations with the GraphQL console or command line in the [Using GraphQL from the console or the command line](/docs/apis/graphql/graphql-tutorial) tutorial.
 
->📘 Note for contributors to public and open-source projects
+> 📘 Note for contributors to public and open-source projects
 > You need to be a member of the Buildkite organization to be able to generate and use an API token for it.
 
 ## Endpoint
@@ -21,13 +21,15 @@ The GraphQL API endpoint is `https://graphql.buildkite.com/v1`. All requests mus
 
 ## Authentication
 
-GraphQL requests must be authenticated using an <a href="<%= url_helpers.user_access_tokens_url %>" rel="nofollow">API access token</a> with the GraphQL scope enabled. Pass the token in your GraphQL request using the `Authorization` HTTP header with a value `Bearer <token>`.
+GraphQL requests must be authenticated using an <a href="<%= url_helpers.user_access_tokens_url %>" rel="nofollow">API access token</a> with the **Enable GraphQL API Access** permission selected. Pass the token in your GraphQL request using the `Authorization` HTTP header with a value `Bearer <token>`.
 
 For example:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" https://graphql.buildkite.com/v1
 ```
+
+Since the [scopes](/docs/apis/managing-api-tokens#token-scopes) of these API access tokens cannot be restricted, [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) can implement [portals](/docs/apis/graphql/portals), which instead provide restricted GraphQL API access to the Buildkite platform.
 
 ## Performing requests with curl
 
@@ -57,7 +59,7 @@ curl https://graphql.buildkite.com/v1 \
 }
 ```
 
-For documentation on the full list of fields and types, see the interactive documentation in the [GraphQL explorer](https://graphql.buildkite.com/explorer).
+For documentation on the full list of fields and types, refer to the [**Documentation** tab of the GraphQL console](https://buildkite.com/user/graphql/documentation).
 
 ## GraphQL IDs
 
@@ -112,7 +114,6 @@ query {
 ## Relay compatibility
 
 The Buildkite GraphQL API adheres to the [Relay specification](https://relay.dev/docs/guides/graphql-server-specification/), which defines standards for querying [paginated collections](https://relay.dev/docs/guides/graphql-server-specification/#connections) ("Connections" and "Edges") and for [identifying objects](https://relay.dev/docs/guides/graphql-server-specification/#object-identification) directly from the root of a query (avoiding long nested queries).
-
 
 ## GraphQL schema
 
@@ -224,6 +225,7 @@ query IntrospectionQuery {
 
 Further resources for learning more about GraphQL:
 
-* Our [Getting Started with GraphQL Queries and Mutations](https://buildkite.com/blog/getting-started-with-graphql-queries-and-mutations) tutorial
-* Our [GraphQL API cookbook](/docs/apis/graphql/graphql-cookbook) page full of common queries and mutations
-* The [Learn section](https://graphql.org/learn/) of [the official GraphQL website](https://graphql.org)
+- The [GraphQL API cookbook](/docs/apis/graphql/graphql-cookbook) page full of common queries and mutations.
+- The [Portals](/docs/apis/graphql/portals) page, where you can learn more about how to provide restricted access to Buildkite's GraphQL API.
+- The [**Learn** section](https://graphql.org/learn/) of [the official GraphQL website](https://graphql.org).
+- The [Getting started with GraphQL queries and mutations](https://buildkite.com/blog/getting-started-with-graphql-queries-and-mutations) blog post.

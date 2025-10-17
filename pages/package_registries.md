@@ -26,26 +26,34 @@ If you're familiar with the basics, explore how to use registries for each of Bu
 <!-- vale off -->
 
 <div class="ButtonGroup">
-  <%= button ":alpine: Alpine (apk)", "/docs/package-registries/alpine" %>
-  <%= button ":docker: Container (Docker)", "/docs/package-registries/container" %>
-  <%= button ":debian: Debian/Ubuntu (deb)", "/docs/package-registries/debian" %>
-  <%= button ":package: Files (generic)", "/docs/package-registries/files" %>
-  <%= button ":helm: Helm (OCI)", "/docs/package-registries/helm-oci" %>
-  <%= button ":helm: Helm", "/docs/package-registries/helm" %>
-  <%= button ":hugging_face: Hugging Face (models)", "/docs/package-registries/hugging-face" %>
-  <%= button ":maven: Java (Maven)", "/docs/package-registries/maven" %>
-  <%= button ":gradle: Java (Gradle)", "/docs/package-registries/gradle-kotlin" %>
-  <%= button ":node: JavaScript (npm)", "/docs/package-registries/javascript" %>
-  <%= button ":python: Python (PyPI)", "/docs/package-registries/python" %>
-  <%= button ":redhat: Red Hat (RPM)", "/docs/package-registries/red-hat" %>
-  <%= button ":ruby: Ruby (RubyGems)", "/docs/package-registries/ruby" %>
-  <%= button ":terraform: Terraform (modules)", "/docs/package-registries/terraform" %>
+  <%= button ":alpine: Alpine (apk)", "/docs/package-registries/ecosystems/alpine" %>
+  <%= button ":docker: OCI (Docker)", "/docs/package-registries/ecosystems/oci" %>
+  <%= button ":debian: Debian/Ubuntu (deb)", "/docs/package-registries/ecosystems/debian" %>
+  <%= button ":package: Files (generic)", "/docs/package-registries/ecosystems/files" %>
+  <%= button ":helm: Helm (OCI)", "/docs/package-registries/ecosystems/helm-oci" %>
+  <%= button ":helm: Helm", "/docs/package-registries/ecosystems/helm" %>
+  <%= button ":hugging_face: Hugging Face (models)", "/docs/package-registries/ecosystems/hugging-face" %>
+  <%= button ":maven: Java (Maven)", "/docs/package-registries/ecosystems/maven" %>
+  <%= button ":gradle: Java (Gradle)", "/docs/package-registries/ecosystems/gradle-kotlin" %>
+  <%= button ":node: JavaScript (npm)", "/docs/package-registries/ecosystems/javascript" %>
+  <%= button ":nuget: NuGet", "/docs/package-registries/ecosystems/nuget" %>
+  <%= button ":python: Python (PyPI)", "/docs/package-registries/ecosystems/python" %>
+  <%= button ":redhat: Red Hat (RPM)", "/docs/package-registries/ecosystems/red-hat" %>
+  <%= button ":ruby: Ruby (RubyGems)", "/docs/package-registries/ecosystems/ruby" %>
+  <%= button ":terraform: Terraform (modules)", "/docs/package-registries/ecosystems/terraform" %>
 </div>
 
 <!-- vale on -->
 
-Learn more about how to:
+## Core features
 
-- Work with registries in [Manage registries](/docs/package-registries/manage-registries).
-- Manage access to your registries in [User, team, and registry permissions](/docs/package-registries/security/permissions).
-- Configure your own private storage for Buildkite Package Registries in [Private storage](/docs/package-registries/private-storage).
+<%= tiles "package_registries_features" %>
+
+## API & references
+
+Learn more about:
+
+- Package Registries' APIs through the:
+    * [REST API documentation](/docs/apis/rest-api), and related endpoints, starting with [registries](/docs/apis/rest-api/package-registries/registries).
+    * [GraphQL documentation](/docs/apis/graphql-api) and its [registries](/docs/apis/graphql/cookbooks/registries)-related queries, as well as [portals](/docs/apis/graphql/portals).
+- Package Registries' [webhooks](/docs/apis/webhooks/package-registries).

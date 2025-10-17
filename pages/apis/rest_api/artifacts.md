@@ -33,6 +33,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/artifacts"
 ```
 
+<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id_with_link' %>
+
 ```json
 [
   {
@@ -81,6 +83,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts"
 ```
 
+<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id_with_link' %>
+
 ```json
 [
   {
@@ -111,6 +115,8 @@ Success response: `200 OK`
 curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts/{id}"
 ```
+
+<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id_with_link' %>
 
 ```json
 {
@@ -145,6 +151,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts/{id}/download"
 ```
 
+<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id_with_link' %>
+
 ```json
 {
   "url": "https://buildkiteartifacts.com/artifacts/2196c80a1ff393a88482aebe929f9648/dist/app.tar.gz?AWSAccessKeyId=AKIAIPPJ2IPWN5U3O1OA&Expires=1288526454&Signature=5i4%2B99rUwhpP2SbNsJKhT/nSzsQ"
@@ -159,7 +167,7 @@ Success response: `302 Found`
 
 The artifact record is marked as deleted in the Buildkite database, and the artifact itself is removed from the Buildkite AWS S3 bucket. It will no longer be displayed in the job or build artifact lists, and it will not be returned by the artifact APIs.
 
-If the artifact was uploaded using the agent's custom [AWS S3](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket), [Google Cloud](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket), or [Artifactory](/docs/pipelines/integrations/other/artifactory) storage support, the file will not be automatically deleted from that storage. You must delete the file from your private storage yourself.
+If the artifact was uploaded using the agent's custom [AWS S3](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket), [Google Cloud](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket), or [Artifactory](/docs/pipelines/integrations/artifacts-and-packages/artifactory) storage support, the file will not be automatically deleted from that storage. You must delete the file from your private storage yourself.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \

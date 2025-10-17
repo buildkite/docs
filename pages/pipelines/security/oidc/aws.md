@@ -55,12 +55,15 @@ As part of this process:
                     "sts:AssumeRoleWithWebIdentity"
                 ],
                 "Condition": {
+                    "StringLike": {
+                        "agent.buildkite.com:sub": "organization\:ORGANIZATION_SLUG\:pipeline:PIPELINE_SLUG\:ref\:REF\:commit\:BUILD_COMMIT\:step\:STEP_KEY"
+                    },
                     "StringEquals": {
                         "agent.buildkite.com:aud": "sts.amazonaws.com",
                         "aws:RequestTag/organization_slug": "ORGANIZATION_SLUG",
                         "aws:RequestTag/organization_id": "ORGANIZATION_ID",
                         "aws:RequestTag/pipeline_slug": "PIPELINE_SLUG"
-                    }
+                    },
                     "IpAddress": {
                         "aws:SourceIp": [
                             "AGENT_PUBLIC_IP_ONE",
@@ -80,8 +83,9 @@ As part of this process:
     1. Change `AWS_ACCOUNT_ID` to your actual AWS account ID.
 
 1. Modify the `Condition` section of the code snippet accordingly:
+    1. Ensure the `StringLike` subsection's `agent.buildkite.com:sub` field name has at least one value that matches the format:  `organization:ORGANIZATION_SLUG:pipeline:PIPELINE_SLUG:ref:REF:commit:BUILD_COMMIT:step:STEP_KEY`. You can choose to wildcard sections of this string to make your trust policy more permissive, e.g. `organization:acme-inc:*` will match for any invocation of pipeline in Buildkite organization "acme-inc". Buildkite recommends that the subject claim is used to narrow the trust policy scope to a Buildkite organization, and `aws:RequestTag` style claims to be used to further narrow the trust policy scope e.g. to a pipeline. `aws:RequestTag` style claims allow you to specify immutable UUIDs in your trust policy. Note that [AWS requires the `agent.buildkite.com:sub` claim](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc_secure-by-default.html) to be specified in the trust policies associated with IAM roles using a Buildkite OIDC provider federated principal.
     1. Ensure the `StringEquals` subsection's _audience_ field name has a value that matches the **Audience** you [configured above](#step-1-set-up-an-oidc-provider-in-your-aws-account) (that is, `sts.amazonaws.com`). The _audience_ field name is your provider URL appended by `:aud`—`agent.buildkite.com:aud`.
-    1. Ensure the `StringEquals` subsection's `RequestTag` fields have values match the Buildkite pipeline that will use this role. When formulating such values, the following constituent field's value:
+    1. Ensure the `StringEquals` subsection's `RequestTag` fields have values match the Buildkite pipeline that will use this role. Buildkite strongly recommends using the immutable UUIDs in your trust policy. When formulating such values, the following constituent field's value:
         - `ORGANIZATION_SLUG` can be obtained:
 
             * From the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite.
@@ -109,7 +113,6 @@ As part of this process:
                 curl - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
                   -H "Authorization: Bearer $TOKEN"
                 ```
-
 1. If you have dedicated/static public IP addresses and wish to implement defense in depth against an attacker stealing an OIDC token to access your cloud environment, retain the `Condition` section's `IpAddress` subsection, and modify its values (`AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO`) with a list of your agent's IP addresses or [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) range or block.
 
     Only OIDC token exchange requests (for IAM roles) from Buildkite Agents with these IP addresses will be permitted.

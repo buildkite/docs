@@ -37,7 +37,7 @@
     transition: all 0.2s;
   }
 
-  &:hover {
+  th:hover {
     .Docs__attribute__link {
       opacity: 1;
 
@@ -88,21 +88,20 @@
 }
 
 a.Docs__example-repo {
-  border: 1px solid #ccc;
   color: map-get($color-aliases, "text-base");
   display: flex;
-  padding: 15px;
+  padding: 12px 16px;
   text-decoration: none;
+  border-radius: $rounded;
+  background: $base-0;
+  box-shadow: $box-shadow-depth-100;
+  transition: box-shadow 0.2s ease;
 
   &:hover,
   &:active,
   &:focus {
-    border-color: map-get($color-aliases, "brand");
     color: black;
-
-    .repo {
-      color: map-get($color-aliases, "brand");
-    }
+    box-shadow: $box-shadow-depth-100-hover;
   }
 
   .icon {

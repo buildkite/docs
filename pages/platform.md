@@ -18,4 +18,8 @@ The Buildkite Platform documentation contains docs for _platform_-level features
 
 - [Single sign-on (SSO)](/docs/platform/sso), with guidelines on how to protect access to your Buildkite organization using a supported third-party SSO provider.
 
+- [Security](/docs/platform/security/tokens), contains security-related topics which are relevant to the entire Buildkite platform.
+
+- [Integrations](/docs/platform/integrations/slack-workspace), contains integrations with the Buildkite platform that function across multiple Buildkite products.
+
 - [Service quotas](/docs/platform/service-quotas), lists Buildkite's default service quota values and how you can alter these if required.

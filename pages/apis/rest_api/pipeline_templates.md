@@ -123,7 +123,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "name": ":hammer: Build",
     "description": "Shared build steps configuration",
     "configuration": "steps:\n  - label: \":hammer: Build\"\n    command: \"scripts/build.sh\"",
-    "available": true,
+    "available": true
   }'
 ```
 

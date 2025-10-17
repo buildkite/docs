@@ -104,9 +104,11 @@
   }
 
   code {
-    overflow-wrap: break-word;
+    /* Including this seems to do the opposite of what's intended. */
+    /* overflow-wrap: break-word; */
     display: inline-block;
-    max-width: 30ch;
+    /* Forces internal wrapping of longer code lines, making them look ugly in table cells. */
+    /* max-width: 30ch; */
     vertical-align: top;
   }
 
@@ -133,6 +135,15 @@
 
     @media (min-width: $screen-md) {
       display: none;
+    }
+  }
+
+  &--wrap-th-codeblocks tbody {
+    th code,
+    td:first-child code {
+      @media (min-width: $screen-lg) {
+        white-space: wrap;
+      }
     }
   }
 }

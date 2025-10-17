@@ -1,53 +1,64 @@
 # Managing API access tokens
 
-Buildkite API access tokens are issued to individuals not organizations. You can create and edit API access tokens in your [personal settings](https://buildkite.com/user/api-access-tokens).
+Buildkite API access tokens are issued to individual Buildkite user accounts, not Buildkite organizations. You can create and edit API access tokens in your [personal settings](https://buildkite.com/user/api-access-tokens).
 
-On the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) page, organization admins can view all tokens that have been created with access to their organization data. As well as auditing user tokens and what access they have, you can also remove a token's access to your organization data if required.
+On the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) page, Buildkite organization administrators can view all tokens that have been created with access to their organization data. As well as auditing user tokens and what access they have, you can also remove a token's access to your organization data if required.
 
 ## Token scopes
 
-When you create a token, select the organizations it grants access to, and for REST APIS the scope of the access. GraphQL tokens cannot be limited by scope.
+When an API access token is created, select the Buildkite organization it grants access to, and its scopes of access. GraphQL API access tokens cannot be restricted by scope.
+
+Token scopes are also available to OAuth access tokens, which are issued by the Buildkite platform on behalf of your Buildkite user account for certain processes. However, when these processes occur, while you can select a Buildkite organization you're a member of, which the OAuth token grants access to, the Buildkite platform defines the scopes for these access tokens.
 
 > 📘 Note for contributors to public and open-source projects
-> You need to be a member of the Buildkite organization to be able to generate and use an API token for it.
+> You need to be a member of the Buildkite organization to generate and use an API access token for it.
 
-REST API scopes are very granular, you can select some or all of the following:
+Token scopes are very granular, and for API access tokens, you can select some or all of the following scopes:
 
-* Read Agents `read_agents` - Permission to list and retrieve details of agents
-* Modify Agents `write_agents` - Permission to stop agents. To register agents, use an [Agent token] instead
-* Read Teams `read_teams` - Permission to list teams
-* Read Artifacts `read_artifacts` - Permission to retrieve build artifacts
-* Write Artifacts `write_artifacts` - Permission to delete build artifacts
-* Read Builds `read_builds` - Permission to list and retrieve details of builds
-* Modify Builds `write_builds` - Permission to create new builds
-* Read Job Environment Variables `read_job_env` - Permission to retrieve job environment variables
-* Read Build Logs `read_build_logs` - Permission to retrieve `build` logs
-* Write Build Logs `write_build_logs` - Permission to delete build logs
-* Read Organizations `read_organizations` - Permission to list and retrieve details of organizations
-* Read Pipelines `read_pipelines` - Permission to list and retrieve details of pipelines
-* Write Pipelines `write_pipelines` - Permission to create, update and delete pipelines
-* Read User `read_user` - Permission to retrieve basic details of the user
-* Read Suites `read_suites` - Permission to list and retrieve details of test suites; including runs,
+- **Read Agents** (`read_agents`): Permission to list and retrieve details of agents.
+- **Write Agents** (`write_agents`): Permission to stop agents. To register agents, use an [Agent token] instead.
+- **Read Clusters** (`read_clusters`): Permission to list and retrieve details of clusters.
+- **Write Clusters** (`write_clusters`): Permission to create, update and delete clusters.
+- **Read Teams** (`read_teams`): Permission to list teams.
+- **Write Teams** (`write_teams`): Permission to create, update and delete teams.
+- **Read Artifacts** (`read_artifacts`): Permission to retrieve build artifacts.
+- **Write Artifacts** (`write_artifacts`): Permission to delete build artifacts.
+- **Read Builds** (`read_builds`): Permission to list and retrieve details of builds.
+- **Write Builds** (`write_builds`): Permission to create new builds.
+- **Read Job Environment Variables** (`read_job_env`): Permission to retrieve job environment variables.
+- **Read Build Logs** (`read_build_logs`): Permission to retrieve build logs.
+- **Write Build Logs** (`write_build_logs`): Permission to delete build logs.
+- **Read Organizations** (`read_organizations`): Permission to list and retrieve details of organizations.
+- **Read Pipelines** (`read_pipelines`): Permission to list and retrieve details of pipelines.
+- **Write Pipelines** (`write_pipelines`): Permission to create, update and delete pipelines.
+- **Read Pipeline Templates** (`read_pipeline_templates`): Permission to list and retrieve details of pipeline templates.
+- **Write Pipeline Templates** (`write_pipeline_templates`): Permission to create, update and delete pipeline templates.
+- **Read Rules** (`read_rules`): Permission to list and retrieve details of rules.
+- **Write Rules** (`write_rules`): Permission to create or delete rules.
+- **Read User** (`read_user`): Permission to retrieve basic details of the user.
+- **Read Suites** (`read_suites`): Permission to list and retrieve details of test suites; including runs,
   tests, executions, etc.
-* Write Suites `write_suites` - Permission to create, update and delete test suites
-* Read Test Plan `read_test_plan` - Permission to retrieve test plan information
-* Write Test Plan `write_test_plan` - Permission to create test plan
-* Read Registries `read_registries` - Permission to list and retrieve details of registries
-* Write Registries `write_registries` - Permission to create and update registries
-* Delete Registries `delete_registries` - Permission to delete registries
-* Read Packages `read_packages` - Permission to list and retrieve details of packages
-* Write Packages `write_packages` - Permission to create packages
-* Delete Packages `delete_packages` - Permission to delete packages
+- **Write Suites** (`write_suites`): Permission to create, update and delete test suites.
+- **Read Test Plan** (`read_test_plan`): Permission to retrieve test plan information.
+- **Write Test Plan** (`write_test_plan`): Permission to create test plan.
+- **Read Portals** (`read_portals`): Permission to list and retrieve details of portals.
+- **Write Portals** (`write_portals`): Permission to create, update, and delete portals.
+- **Read Registries** (`read_registries`): Permission to list and retrieve details of registries.
+- **Write Registries** (`write_registries`): Permission to create and update registries.
+- **Delete Registries** (`delete_registries`): Permission to delete registries.
+- **Read Packages** (`read_packages`): Permission to list and retrieve details of packages.
+- **Write Packages** (`write_packages`): Permission to create packages.
+- **Delete Packages** (`delete_packages`): Permission to delete packages.
 
 When creating API access tokens, you can also restrict which network address are allowed to use them, using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
 
 ## Auditing tokens
 
-Viewing the API Access Audit page requires admin privileges. The page can be found in the Audit section of the Organization Settings sidebar.
+Viewing the **API Access Audit** page requires Buildkite organization administrator privileges. The page can be found in the **Audit** section of the Buildkite organization's **Settings** in the global navigation.
 
 All tokens that currently have access to your organization's data will be listed. The table includes the scope of each token, how long ago they were created, and how long since they've been used.
 
-Click through any token to see more detailed information about its scopes and the most recent request.
+From the **API Access Audit** page, navigate through to any token to see more detailed information about its scopes and the most recent request.
 
 <%= image "all-tokens-view.png", width: 1820/2, height: 1344/2, alt: "Screenshot of the API Access Audit page displaying a list of all tokens" %>
 
@@ -57,19 +68,19 @@ The list of tokens can be filtered by username, scopes, IP address, or whether t
 
 ## Removing an organization from a token
 
-If you have old tokens that should no longer be used, or need to prevent a token from performing further actions, administrators can remove the token's access to organization data.
+If you have old API access tokens that should no longer be used, or need to prevent such a token from performing further actions, Buildkite organization administrators can remove the token's access to organization data.
 
-From the API access audit page, find the token whose access you want to remove. You can search for tokens using usernames, token scopes, full IP addresses, admin privileges, or the value of the token itself.
+From the [**API Access Audit** page](#auditing-tokens), find the API token whose access you want to remove. You can search for tokens using usernames, token scopes, full IP addresses, admin privileges, or the value of the token itself.
 
 <%= image "token-view.png", width: 1788/2, height: 2288/2, alt: "Screenshot of the API access token page with the Revoke Access button at the bottom of the screen" %>
 
-Click through the token you'd like to remove, then click the 'Remove Organization from Token' button.
+From the **API Access Audit** page, navigate through to the token you'd like to remove, then select **Remove Organization from Token**.
 
 Removing access from a token sends a notification email to the token's owner, who cannot re-add your organization to the token's scope.
 
 ## Limiting API access by IP address
 
-If you'd like to limit access to your organization by IP address, you can create an allowlist of IP addresses in the [organization's API security settings](https://buildkite.com/organizations/~/security/api).
+If you'd like to limit an API token's access to your organization by IP address, you can create an allowlist of IP addresses in the [organization's API security settings](https://buildkite.com/organizations/~/security/api).
 
 You can also manage the allowlist with the [`organizationApiIpAllowlistUpdate`](/docs/apis/graphql/schemas/mutation/organizationapiipallowlistupdate) mutation in the GraphQL API.
 
@@ -78,15 +89,37 @@ You can also manage the allowlist with the [`organizationApiIpAllowlistUpdate`](
 > 📘 Enterprise feature
 > Revoking inactive API tokens automatically is only available on an [Enterprise](https://buildkite.com/pricing) plan.
 
-To enable the inactive API tokens revocation, navigate to your [organization's security settings](https://buildkite.com/organizations/~/security) and specify the maximum timeframe for inactive tokens to remain valid.
+To enable the inactive API access tokens revocation feature, navigate to your [organization's security settings](https://buildkite.com/organizations/~/security) and specify the maximum timeframe for inactive tokens to remain valid.
 
-Inactive API tokens refer to those that have not been used within the specified duration. When an API token surpasses the configured setting, Buildkite will automatically revoke the token's access to your organization.
+An _inactive API access token_ refers to one that has not been used within the specified duration. When an API token surpasses the configured setting, Buildkite will automatically revoke the token's access to your organization.
 
 Upon token revocation, Buildkite will notify the owner of their change in access.
 
 ## Programmatically managing tokens
 
 The `access-token` REST API endpoint can be used to retrieve or revoke an API access token. See the [REST API access token](/docs/apis/rest-api/access-token) page for further information.
+
+## API token lifecycle
+
+Buildkite's API access tokens have the following lifecycle characteristics:
+
+- API access tokens are issued for users within a Buildkite organization. The tokens are stored in the Buildkite database (linked to the user ID) and by the user for which they're issued.
+
+- The tokens are associated with a specific user and can only be revoked by that user. Buildkite organization administrators can remove a user from an organization, which prevents the user from accessing any organization resources and pipelines, and prevents access using any API access token associated with that user.
+
+## API token security
+
+This section explains risk mitigation strategies which you can implement, and others which are in place, to prevent your Buildkite API access tokens being compromised.
+
+### Rotation
+
+Buildkite's API access tokens have no built-in expiration date. The best practices regarding regular credential rotation recommended by [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-lifetimes-and-rotation) suggest rotating the tokens at least once a year. In case of a security compromise or breach, it is strongly recommended that the old tokens are [invalidated](/docs/apis/managing-api-tokens#removing-an-organization-from-a-token) or inactive ones [revoked](#inactive-api-tokens-revocation), and new tokens are issued.
+
+The [API Access Tokens page](https://buildkite.com/user/api-access-tokens) has a _Duplicate_ button that can be used to create a new token with the same permissions as the existing token.
+
+### GitHub secret scanning program
+
+Learn more about this program in [Token security](/docs/platform/security/tokens).
 
 ## FAQs
 
@@ -107,13 +140,5 @@ If you own the token, you can revoke your token from the [API access token page]
 ### What happens if I remove the access for a token that's currently in use?
 
 The token will lose access to the organization data. Any future API requests will no longer successfully authorize.
-
-## API access token lifecycle and security
-
-API access tokens are issued for users within a Buildkite organization. They are stored both in the Buildkite database (linked to the user ID) and with the user for which they're issued.
-
-Access tokens are associated with a specific user and can only be revoked by that user. Admins of a Buildkite organization can remove a user from an organization, which prevents the user from accessing any organization resources and pipelines, and prevents access using any API access token associated with that user.
-
-Access tokens have no built-in expiration date. The best practices regarding regular credential rotation recommended by [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-lifetimes-and-rotation) suggest rotating the tokens at least once a year. In case of a security compromise or breach, it is strongly recommended that the old tokens are [invalidated](/docs/apis/managing-api-tokens#removing-an-organization-from-a-token), and new tokens are issued.
 
 [Agent token]: /docs/agent/v3/tokens

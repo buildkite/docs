@@ -151,7 +151,12 @@ You can find the latest deployment plugins in the [plugins directory](https://bu
 
 ## External deployment systems
 
-You can deploy applications to services like Kubernetes, Heroku, or ECS from a script in a Buildkite [command step](/docs/pipelines/configure/step-types/command-step), similar to how you'd do it on a command line. See the [Deploying to Heroku](/docs/pipelines/deployments/to-heroku) and [Deploying to Kubernetes](/docs/pipelines/deployments/to-kubernetes) for walk-throughs with detailed examples.
+You can deploy applications to services like Kubernetes, Argo CD, Heroku, or ECS from a script in a Buildkite [command step](/docs/pipelines/configure/step-types/command-step), similar to how you'd do so on a command line. Learn more about these processes from the following relevant pages for walk-throughs with examples:
+
+- [Deploying to AWS Lambda](/docs/pipelines/deployments/to-aws-lambda)
+- [Deploying to Kubernetes](/docs/pipelines/deployments/to-kubernetes)
+- [Deploying with Argo CD](/docs/pipelines/deployments/with-argo-cd)
+- [Deploying with Heroku](/docs/pipelines/deployments/with-heroku)
 
 In more complex environments you can use external deployment/delivery systems such as [Spinnaker](https://www.spinnaker.io), [Shipit](https://github.com/Shopify/shipit-engine), [Samson](https://github.com/zendesk/samson), or [Octopus](https://octopus.com). You can call the deployment system's CLI tool or API from a script in a Buildkite [command step](/docs/pipelines/configure/step-types/command-step), similar to how you'd do it on a command line.
 

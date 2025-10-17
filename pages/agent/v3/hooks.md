@@ -2,14 +2,13 @@
 
 An agent goes through different phases in its lifecycle, including starting up, shutting down, and checking out code. Hooks let you extend or override the behavior of agents at different stages of its lifecycle. You "hook into" the agent at a particular stage.
 
-### What's a hook?
+## What's a hook?
 
 A hook is a script executed or sourced by the Buildkite agent at a specific point in the job lifecycle. You can use hooks to extend or override the built-in behavior of an agent. Hooks are generally shell scripts, which the agent then executes or sources.
 
-> 🛠 Experimental feature
-> Using the `polyglot-hooks` experiment, agents running v3.47.0 or later can run hooks written in any programming language. See the [polyglot hooks](#polyglot-hooks) section for more information.
+Buildkite Agents v3.47.0 or later can run hooks written in any programming language that your development teams use. See the [polyglot hooks](#polyglot-hooks) section for more information.
 
-### Hook scopes
+## Hook scopes
 
 You can define hooks in the following locations:
 
@@ -72,10 +71,7 @@ See the [plugin documentation](/docs/pipelines/integrations/plugins) for how to 
 
 ## Polyglot hooks
 
->🛠 Experimental feature
-> To use Polyglot hooks, set <code>experiment="polyglot-hooks"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.
-
-By default, hooks must be shell scripts. However, with the `polyglot-hooks` experiment on agents running version v3.47.0, hooks are significantly more flexible and can be written in the programming language of your choice.
+Buildkite Agent versions prior to v3.85.0 require hooks to be shell scripts. However, with the Buildkite Agent version v3.85.0 or later, hooks are significantly more flexible and can be written in the programming language of your choice.
 
 In addition to the regular shell script hooks, polyglot hooks enable you to run two more types of hooks:
 
@@ -206,6 +202,18 @@ An example of a Windows `environment.bat` hook:
 ECHO "--- \:house_with_garden\: Setting up the environment"
 SET GITHUB_RELEASE_ACCESS_KEY='xxx'
 ```
+
+## Hooks on Buildkite Agent Stack for Kubernetes
+
+The hook execution flow for jobs created by the Buildkite Agent Stack for Kubernetes controller is operationally different. The reason for this is that hooks are executed from within separate containers for checkout and command phases of the job's lifecycle. This means that any environment variables exported during the execution of hooks with the `checkout` container will _not_ be available to the command container(s).
+
+The main differences arise with the `checkout` container and user-defined `command` containers:
+
+* The `environment` hook is executed multiple times, once within the `checkout` container, and once within each of the user-defined `command` containers.
+* Checkout-related hooks (`pre-checkout`, `checkout`, `post-checkout`) are only executed within the `checkout` container.
+* Command-related hooks (`pre-command`, `command`, `post-command`) are only executed within the `command` container(s).
+
+See the dedicated [Using agent hooks and plugins](/docs/agent/v3/agent-stack-k8s/agent-hooks-and-plugins) page for the detailed information on how agent hooks function when using the Buildkite Agent Stack for Kubernetes controller.
 
 ## Hooks on Buildkite hosted agents
 

@@ -4,15 +4,15 @@ keywords: docs, pipelines, tutorials, migration, bamboo
 
 # Migrate from Bamboo
 
-Migrating continuous integration tools can be challenging, so we've put together a guide to help you transition your Bamboo skills to Buildkite.
+Migrating continuous integration tools can be challenging, so we've put together a guide to help you transition your Bamboo skills to Buildkite Pipelines.
 
 ## Plans to pipelines
 
 <!--alex ignore easy-->
 
-You can easily map most Bamboo workflows to Buildkite. _Projects and Plans_ in Bamboo are called [pipelines](/docs/pipelines) in Buildkite (and **Pipelines** in the Buildkite dashboard). Bamboo deployments also become Buildkite pipelines.
+You can easily map most Bamboo workflows to Buildkite Pipelines. _Projects and Plans_ in Bamboo are called [pipelines](/docs/pipelines) in Buildkite (and **Pipelines** in the Buildkite dashboard). Bamboo deployments also become Buildkite's pipelines.
 
-Buildkite pipelines consist of different types of [_steps_](/docs/pipelines/configure/step-types) for different tasks:
+Buildkite's pipelines consist of different types of [_steps_](/docs/pipelines/configure/step-types) for different tasks:
 
 - **Command step:** Runs one or more shell commands on one or more agents.
 - **Wait step:** Pauses a build until all previous jobs have completed.
@@ -127,7 +127,7 @@ The [Buildkite agent](/docs/agent/v3) replaces your Bamboo _Remote Agents_. You 
 
 In Bamboo, you can target specific agents for your jobs using their _Capabilities_, and in Buildkite, you target them using [meta-data](/docs/agent/v3/cli-meta-data).
 
-Like _Elastic Bamboo_, Buildkite can also manage a fleet of agents for you on AWS using the [Elastic CI Stack for AWS](/docs/agent/v3/elastic-ci-aws/elastic-ci-stack-overview). Buildkite doesn't limit the number of agents you can run at any one time, so by using the AWS Stack, you can auto-scale your build infrastructure, going from 0 to 1000s of agents within moments.
+Like _Elastic Bamboo_, Buildkite can also manage a fleet of agents for you on AWS using the [Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack). Buildkite doesn't limit the number of agents you can run at any one time, so by using the AWS Stack, you can auto-scale your build infrastructure, going from 0 to 1000s of agents within moments.
 
 ## Authentication and permissions
 

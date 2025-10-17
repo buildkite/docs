@@ -1,8 +1,20 @@
 # Organizations
 
-A collection of common tasks with organizations using the GraphQL API.
+A collection of common tasks with Buildkite organizations using the GraphQL API.
 
-You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the **Docs** panel.
+<%= render_markdown partial: 'apis/graphql/cookbooks/graphql_console_link' %>
+
+## Get organization ID
+
+Knowing the ID of a Buildkite organization is a prerequisite for running many other GraphQL queries. Use this query to get the ID of an organization based on the organization's slug.
+
+```graphql
+query getOrganizationID {
+  organization(slug:"organization-slug") {
+    id
+  }
+}
+```
 
 ## List organization members
 
@@ -22,6 +34,20 @@ query getOrgMembers {
           }
         }
       }
+    }
+  }
+}
+```
+
+## Get the number of organization members
+
+Get the total number of members in the organization. Regardless of the value you enter for `members` in the query, the output of the query will provide the actual number of members in the organization.
+
+```graphql
+query getOrgMembersCount {
+  organization(slug: "org-slug") {
+    members(first:1) {
+      count
     }
   }
 }
@@ -142,51 +168,6 @@ mutation EnableEnforced2FA {
       id
       membersRequireTwoFactorAuthentication
       uuid
-    }
-  }
-}
-```
-
-## Query the usage API
-
-Use the usage API to query your organization's usage by pipeline or test suite at daily granularity.
-
-```graphql
-query Usage {
-  organization(slug: "organization-slug") {
-    id
-    name
-    usage(
-      aggregatedOnFrom: "2023-04-01"
-      aggregatedOnTo: "2023-05-01"
-      resource: [JOB_MINUTES, TEST_EXECUTIONS]
-    ) {
-      edges {
-        node {
-          __typename ... on JobMinutesUsage {
-            aggregatedOn
-            seconds
-            pipeline {
-              name
-              id
-            }
-          }
-        }
-        node {
-          __typename ... on TestExecutionsUsage {
-            Time: aggregatedOn
-            executions
-            suite {
-              name
-              id
-            }
-          }
-        }
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-      }
     }
   }
 }
@@ -476,3 +457,4 @@ mutation OrganizationBannerDelete {
   }
 }
 ```
+

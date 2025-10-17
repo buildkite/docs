@@ -98,9 +98,9 @@ id_rsa.pipeline-1  id_rsa.pipeline-1.pub
 Alternatively, you can use a shorter approach to creating multiple SSH keys by adding pipeline-specific environments:
 
 >📘
-> Note that if you are using Elastic CI Stack for AWS, the following approach is redundant as the stack creates a [build secrets bucket](/docs/agent/v3/elastic-ci-aws/secrets-bucket) and allows you to specify an SSH key per pipeline as `/{pipeline-slug}/private_ssh_key`.
+> Note that if you are using Elastic CI Stack for AWS, the following approach is redundant as the stack creates a [build secrets bucket](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/secrets-bucket) and allows you to specify an SSH key per pipeline as `/{pipeline-slug}/private_ssh_key`.
 
-1. Add a pipeline-specific environment (for example, by using [Elastic CI Stack for AWS's build secrets bucket](/docs/agent/v3/elastic-ci-aws/secrets-bucket) or by having an Agent environment hook that switches on the repository URL or the pipeline slug):  
+1. Add a pipeline-specific environment (for example, by using [Elastic CI Stack for AWS's build secrets bucket](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/secrets-bucket) or by having an Agent environment hook that switches on the repository URL or the pipeline slug):  
 
     ```bash
     GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_mypipeline"

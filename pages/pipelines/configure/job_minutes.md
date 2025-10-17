@@ -20,7 +20,5 @@ The [Usage page](https://buildkite.com/organizations/~/usage) is available on ev
 
 The [Job minutes usage page](https://buildkite.com/organizations/~/usage/job_minutes) graphs the total job minute usage over the organization's billing periods. It includes a breakdown of usage by pipeline and a CSV download of usage over the period.
 
-Your organization's usage is also accessible in the [GraphQL API](/docs/apis/graphql/cookbooks/organizations#query-the-usage-api).
-
 > 📘 Calculating job minutes usage
 > We store job usage data in seconds but charge by summing all the usage and rounding down to the nearest minute. Please keep in mind that when displaying usage data per pipeline in the chart and CSV download, there may be minor discrepancies due to the rounding of each individual pipeline's usage.

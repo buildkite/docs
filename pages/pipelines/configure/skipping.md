@@ -28,6 +28,10 @@ To cancel running builds on the same branch:
 
 You can also configure these options using the [REST API](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline).
 
+> 🚧 Using **Cancel Intermediate Builds** and re-running earlier builds
+> If an earlier build has started running again (for example, due to a job being retried) while the newest build is already running, then this earlier build will not be canceled.
+> If, however, an earlier build has started running again _before_ a new build starts running, then the earlier build will be canceled.
+
 ## Manually cancel a job
 
 If your pipeline has multiple command steps, you can manually cancel a step, which causes the build to fail.
@@ -44,6 +48,8 @@ To manually cancel a job:
 ## Ignore a commit
 
 Some code changes, such as editing a Readme, may not require a Buildkite build. If you want Buildkite to ignore a commit, add `[ci skip]`,`[skip ci]`, `[ci-skip]`, or `[skip-ci]` anywhere in the commit message.
+
+If pull request events are enabled for a given pipeline, when a pull request is created, a build will also be triggered unless `[ci skip]`,`[skip ci]`, `[ci-skip]`, or `[skip-ci]` is added to the pull request title.
 
 > 📘
 > When squashing commits in a merge, any commit message that contains `[skip ci]` will be included in the squashed commit message. This means that the merge will not trigger a build.
@@ -70,6 +76,10 @@ For more advanced build filtering and commit skipping, see the [Using conditiona
 
 > 🚧 Skipping commits with Bitbucket Server
 > Not all webhooks from Bitbucket Server contain the commit message. When a commit message is not included in a webhook, the build will run.
+
+## Ignore pull requests
+
+You can skip pull requests by adding `[ci skip]`, `[skip ci]`, `[ci-skip]`, or `[skip-ci]` anywhere in the title of a pull request. Refer to [Running builds on pull requests](/docs/pipelines/source-control/github#running-builds-on-pull-requests) for more information.
 
 ## Ignore branches
 

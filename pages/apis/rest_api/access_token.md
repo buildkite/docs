@@ -17,8 +17,14 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 ```json
 {
+  "uuid": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
   "scopes": ["read_build"],
-  "uuid": "b63254c0-3271-4a98-8270-7cfbd6c2f14e"
+  "description": "Development Token",
+  "created_at": "2025-07-16 06:07:42 UTC",
+  "user": {
+    "email": "algernon.m@buildkite.com",
+    "name": "Algernon Moncrieff"
+  }
 }
 ```
 

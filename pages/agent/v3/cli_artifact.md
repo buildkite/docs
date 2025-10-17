@@ -78,19 +78,9 @@ cd log
 buildkite-agent artifact upload test.log
 ```
 
-Keep in mind while you're writing your path pattern:
+Learn more about Buildkite's glob syntax from the [Glob pattern syntax](/docs/pipelines/configure/glob-pattern-syntax) page.
 
 <!--alex ignore just-->
-
-- patterns must match whole path strings, not just substrings
-- there are two wildcards available that match non-separator characters (on Linux `/` is a separator character, and on Windows `\` is a separator character):
-  + `*` to match a sequence of characters
-  + `?` to match a single character
-- character ranges surrounded by `[]` support the `^` as a negator
-- special characters can be escaped with `\\`
-- multiple paths are separated with `;`
-- surround the pattern with quotes
-
 
 ## Downloading artifacts
 
@@ -201,6 +191,29 @@ export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="s3://name-of-your-s3-bucket/$BUILD
 export BUILDKITE_S3_DEFAULT_REGION="eu-central-1" # default: us-east-1
 ```
 
+### Uploading artifacts to multiple AWS S3 buckets in different regions
+
+To upload artifacts to multiple AWS S3 buckets in different regions within a single pipeline, configure the `BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` and `BUILDKITE_S3_DEFAULT_REGION` environment variables at the step level. Defining these variables per step ensures that each upload uses the correct bucket and region. For example, one step can target a bucket in `us-east-1`, while another targets a bucket in `eu-central-1`:
+
+```bash
+steps:
+  - label: "Upload to us-east-1 bucket"
+    command:
+      - echo "hello world" > test1.txt
+      - buildkite-agent artifact upload test1.txt
+    env:
+      BUILDKITE_S3_DEFAULT_REGION: "us-east-1"
+      BUILDKITE_ARTIFACT_UPLOAD_DESTINATION: "s3://my-bucket-east/"
+
+  - label: "Upload to eu-central-1 bucket"
+    command:
+      - echo "hello world" > test2.txt
+      - buildkite-agent artifact upload test2.txt
+    env:
+      BUILDKITE_S3_DEFAULT_REGION: "eu-central-1"
+      BUILDKITE_ARTIFACT_UPLOAD_DESTINATION: "s3://my-bucket-central/"
+```
+
 ### IAM permissions
 
 Make sure your agent instances have the following IAM policy to
@@ -289,7 +302,7 @@ up, see our [Google Cloud installation guide](/docs/agent/v3/gcloud#uploading-ar
 
 You can configure the `buildkite-agent artifact` command to store artifacts in
 Artifactory. For instructions for how to set this up, see our
-[Artifactory guide](/docs/pipelines/integrations/other/artifactory).
+[Artifactory guide](/docs/pipelines/integrations/artifacts-and-packages/artifactory).
 
 ## Using your private Azure Blob container
 

@@ -20,9 +20,15 @@ Next, ensure you have the `apt-transport-https` package installed for the HTTPS 
 sudo apt-get install -y apt-transport-https dirmngr curl gpg
 ```
 
-Now you can add our signed apt repository. The default version of the agent is `stable`, but you can get the beta version by using `unstable` instead of `stable` in the following command, or the agent built from the `main` branch of the repository by using `experimental` instead of `stable`.
+Now, you can add Buildkite Agent's signed apt repository. Buildkite Agent versions come in three release channels:
 
-Download the Buildkite PGP key to a directory that is only writable by `root` (create the directory before running the following command if it doesn't already exist):
+- **Stable**: Thoroughly tested, production-ready releases recommended for most users.
+- **Unstable/Beta**: Newer features that are still being tested, may contain bugs that affect stability.
+- **Experimental**: Built directly from the `main` branch, may be incomplete or have unresolved issues.
+
+The default version of the agent is `stable`. You can get the beta version by using `unstable` instead of `stable` or the experimental version by using `experimental` instead of `stable` in the installation commands that follow.
+
+To proceed with the installation, download the Buildkite PGP key to a directory that is only writable by `root` (create the directory before running the following command if it doesn't already exist):
 
 ```shell
 curl -fsSL https://keys.openpgp.org/vks/v1/by-fingerprint/32A37959C2FA5C3C99EFBC32A79206696452D198 | sudo gpg --dearmor -o /usr/share/keyrings/buildkite-agent-archive-keyring.gpg

@@ -41,7 +41,10 @@ toc: false
 
 
 <h2 data-algolia-exclude>Possible types</h2>
-<div><a href="/docs/apis/graphql/schemas/object/notificationserviceslack" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT NotificationServiceSlack">
+<div><a href="/docs/apis/graphql/schemas/object/notificationserviceopentelemetrytracing" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT NotificationServiceOpenTelemetryTracing">
+  <code>NotificationServiceOpenTelemetryTracing</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/notificationserviceslack" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT NotificationServiceSlack">
   <code>NotificationServiceSlack</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/notificationservicewebhook" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT NotificationServiceWebhook">

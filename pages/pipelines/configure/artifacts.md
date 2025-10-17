@@ -90,6 +90,9 @@ The agent's `download` command arguments are a file path or [glob pattern](/docs
 The `buildkite-agent artifact download` command supports several options and environment variables.
 For complete usage instructions, read the [`buildkite-agent artifact download`](/docs/agent/v3/cli-artifact#downloading-artifacts) documentation.
 
+> 📘 Pipeline artifact access
+> Pipelines associated with one [cluster](/docs/pipelines/glossary#cluster) cannot access artifacts from pipelines associated with another cluster, unless a [rule](/docs/pipelines/rules) has been created to explicitly allow artifact access between pipelines in different clusters.
+
 ### Example: download one artifact
 
 The agent's `download` command can fetch another job's artifact and save it to a destination path.
