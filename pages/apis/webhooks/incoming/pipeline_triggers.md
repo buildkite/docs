@@ -147,6 +147,7 @@ The following sample JSON payload is obtained from the response to closing a Git
     "state": "closed",
     "title": "Integrate into Buildkite pipeline triggers",
     "closed_at": "2025-10-14T02:14:39Z"
+    "merged": false,
     "merged_at": null
   }
 }
