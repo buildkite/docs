@@ -22,12 +22,12 @@ Example of using hooks from a ConfigMap:
 ```yaml
 config:
   agent-config:
+    hooks-path: /buildkite/hooks
     hooksVolume:
       name: buildkite-hooks
-    hooks-path: /buildkite/hooks
-    configMap:
-      defaultMode: 493
-      name: buildkite-agent-hooks
+      configMap:
+        defaultMode: 493
+        name: buildkite-agent-hooks
 ```
 {: codeblock-file="values.yaml"}
 
