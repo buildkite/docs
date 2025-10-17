@@ -60,11 +60,9 @@ To create a new pipeline trigger using the Buildkite interface:
 
 1. After completing these fields, select **Create Trigger** to create the pipeline trigger.
 
-1. A unique trigger URL will be generated. Save this trigger URL to somewhere secure, as you won't be able to access it again through the Buildkite UI.
-
     <%= image "pipeline-trigger-create.png", width: 2028/2, height: 880/2, class: "invertible", alt: "Successful creation of a pipeline trigger" %>
 
-1. In the **Trigger created successfully!** message, follow the instructions to copy and save your webhook trigger's URL to a secure location, as you won't be able to see its value again. The new webhook trigger appears in the list of existing triggers on the **Triggers** page.
+1. In the **Trigger created successfully!** message, follow the instructions to copy and save your webhook trigger's URL to a secure location, as you won't be able to see its value again through the Buildkite interface. The new webhook trigger appears in the list of existing triggers on the **Triggers** page.
 
 That's it! You've completed creating your pipeline trigger. See the following section on [Endpoint](#create-a-new-pipeline-trigger-endpoint) to learn more about the pipeline trigger and how it works, and you're now ready to [invoke your trigger](#invoke-a-pipeline-trigger).
 
