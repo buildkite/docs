@@ -26,7 +26,7 @@ To create a new pipeline trigger using the Buildkite interface:
       <tbody>
         <tr>
           <th>Description</th>
-          <td>The description for the pipeline trigger, which is its name on the list of triggers on the <strong>Triggers</strong> page.</td>
+          <td>The description for the pipeline trigger, which is its name in the list of existing triggers on the <strong>Triggers</strong> page.</td>
         </tr>
         <tr>
           <th>Build message</th>
@@ -64,7 +64,39 @@ To create a new pipeline trigger using the Buildkite interface:
 
     <%= image "pipeline-trigger-create.png", width: 2028/2, height: 880/2, class: "invertible", alt: "Successful creation of a pipeline trigger" %>
 
-That's it - You're ready to invoke your first pipeline trigger.
+1. In the **Trigger created successfully!** message, follow the instructions to copy and save your webhook trigger's URL to a secure location, as you won't be able to see its value again. The new webhook trigger appears in the list of existing triggers on the **Triggers** page.
+
+That's it! You've completed creating your pipeline trigger. See the following section on [Endpoint](#create-a-new-pipeline-trigger-endpoint) to learn more about the pipeline trigger and how it works, and you're now ready to [invoke your trigger](#invoke-a-pipeline-trigger).
+
+### Endpoint
+
+Each pipeline trigger has a unique endpoint with the following URL structure:
+
+```
+https://webhook.buildkite.com/deliver/bktr_************
+```
+
+All requests sent to this endpoint must be `HTTP POST` requests with `application/json` encoded bodies.
+
+#### Response
+
+A successful trigger request returns a `201 Created` response with details about the created build:
+
+```json
+{
+  "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983"
+}
+```
+
+#### Error responses
+
+<table class="responsive-table">
+  <tbody>
+    <tr><th><code>400 Bad request</code></th><td><code>{ "message": "Invalid pipeline trigger token" }</code></td></tr>
+    <tr><th><code>403 Forbidden</code></th><td><code>{ "message": "Pipeline trigger is disabled" }</code></td></tr>
+    <tr><th><code>404 Not Found</code></th><td><code>{ "message": "Pipeline trigger not found" }</code></td></tr>
+  </tbody>
+</table>
 
 ## Invoke a pipeline trigger
 
@@ -93,35 +125,8 @@ curl -H "Content-Type: application/json" \
 
 You've just created your first build using a pipeline trigger.
 
-### Endpoint
-
-Each pipeline trigger has a unique endpoint with the following URL structure:
-
-```
-https://webhook.buildkite.com/deliver/bktr_************
-```
-
-All requests must be `HTTP POST` requests with `application/json` encoded bodies.
-
-##### Response
-
-A successful trigger request returns a `201 Created` response with details about the created build:
-
-```json
-{
-  "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983"
-}
-```
-
-##### Error responses
-
-<table class="responsive-table">
-  <tbody>
-    <tr><th><code>400 Bad request</code></th><td><code>{ "message": "Invalid pipeline trigger token" }</code></td></tr>
-    <tr><th><code>403 Forbidden</code></th><td><code>{ "message": "Pipeline trigger is disabled" }</code></td></tr>
-    <tr><th><code>404 Not Found</code></th><td><code>{ "message": "Pipeline trigger not found" }</code></td></tr>
-  </tbody>
-</table>
+> 📘
+> Be aware that the presence of a `"message": "Any value"` field in the JSON payload does not override the value of the **Build message** set when [creating the pipeline trigger](#create-a-new-pipeline-trigger).
 
 ### Accessing webhook data
 
