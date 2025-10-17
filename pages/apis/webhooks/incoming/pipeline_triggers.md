@@ -1,6 +1,6 @@
 # Pipeline triggers
 
-_Pipeline triggers_ are a type of incoming webhook that creates new builds of a Buildkite pipeline, based on events from external systems.
+A _pipeline trigger_ is a type of incoming webhook that creates new builds of a Buildkite pipeline, based on events from external systems.
 
 To trigger pipelines from source control events, see the [source control integrations](/docs/pipelines/source-control) that Buildkite supports.
 
@@ -15,34 +15,33 @@ A pipeline trigger is scoped to a specific Buildkite pipeline, and can be used t
 
 To create a new pipeline trigger using the Buildkite interface:
 
-1. From your [Buildkite dashboard](https://buildkite.com/~), select your pipeline.
-2. Select your pipeline's **Settings** > **Triggers**.
-3. Select the **New Trigger** button to create a new pipeline trigger.
-4. Configure your pipeline trigger.
+1. From your [Buildkite dashboard](https://buildkite.com/~), ensure that **Pipelines** is selected in the global navigation, and then select your pipeline.
 
-    At a minimum, the pipeline trigger will require a **Description**, **Branch**, and **Commit** to generate a unique endpoint.
+1. Select your pipeline's **Settings** button > **Triggers**.
+
+1. On the **Triggers** page, select the **New Trigger** button to create a new pipeline trigger.
+
+1. Configure your pipeline trigger, by completing its fields, noting that the **Description**, **Branch**, and **Commit** fields are required to generate a unique endpoint.
     <table class="responsive-table">
       <tbody>
         <tr>
           <th>Description</th>
-          <td>The description for the pipeline trigger.</td>
+          <td>The description for the pipeline trigger, which is its name on the list of triggers on the <strong>Triggers</strong> page.</td>
         </tr>
         <tr>
           <th>Build message</th>
-          <td>An optional message for your build. Defaults to <em>Triggered build</em>.</td>
+          <td>The message for your triggered build, which appears on the <a href="/docs/pipelines/dashboard-walkthrough#pipeline-page">pipeline page</a> as part of its build history. If none is specified, this value defaults to <strong>Triggered build</strong>.</td>
         </tr>
         <tr>
           <th>Commit</th>
           <td>
-            The commit ref the triggered build will run against.<br/>
-            <em>Example:</em> <code>HEAD</code>
+            The commit ref the triggered build will run against. If none is specified, this value defaults to <code>HEAD</code>.
           </td>
         </tr>
         <tr>
           <th>Branch</th>
           <td>
-            The branch the triggered build will run against.<br/>
-            <em>Example:</em> <code>main</code>
+            The branch the triggered build will run against. If none is specified, this value defaults to <code>main</code>.
           </td>
         </tr>
         <tr>
@@ -54,13 +53,14 @@ To create a new pipeline trigger using the Buildkite interface:
         </tr>
         <tr>
           <th>Enabled</th>
-          <td>Whether the pipeline trigger is active.</td>
+          <td>Ensure this checkbox is selected to make the pipeline trigger active.</td>
         </tr>
       </tbody>
     </table>
 
-5. After completing these fields, select **Create Trigger** to create the pipeline trigger.
-6. A unique trigger URL will be generated. Save this trigger URL to somewhere secure, as you won't be able to access it again through the Buildkite UI.
+1. After completing these fields, select **Create Trigger** to create the pipeline trigger.
+
+1. A unique trigger URL will be generated. Save this trigger URL to somewhere secure, as you won't be able to access it again through the Buildkite UI.
 
     <%= image "pipeline-trigger-create.png", width: 2028/2, height: 880/2, class: "invertible", alt: "Successful creation of a pipeline trigger" %>
 
