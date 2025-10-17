@@ -133,6 +133,9 @@ As part of this process:
                     "sts:AssumeRoleWithWebIdentity"
                 ],
                 "Condition": {
+                    "StringLike": {
+                        "agent.buildkite.com:sub": "organization\:example-org\:*"
+                    },
                     "StringEquals": {
                         "agent.buildkite.com:aud": "sts.amazonaws.com",
                         "aws:RequestTag/organization_slug": "example-org",
@@ -150,8 +153,8 @@ As part of this process:
         ]
     }
     ```
+    **Note:** AWS requires matching on the `sub` claim in all trust policies for use with Buildkite OIDC. Our recommendation is to use the sub claim to match broadly your organisation and use `aws:RequestTag` conditions for more granular authorization, as in the example above.
 
-    **Note:** In order to target all refs on a pipeline, a `*` should be used, like `organization:example-org:pipeline:example-pipeline:ref:*`.
 
 1. In the **Custom trust policy** section, copy your modified custom trust policy, paste it into your IAM role, and complete the next few steps up to specifying the **Role name**.
 
