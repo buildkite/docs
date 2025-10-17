@@ -147,6 +147,7 @@ Sample of a Github pull request closed webhook payload:
     "state": "closed",
     "title": "Integrate into buildkite pipeline triggers",
     "closed_at": "2025-10-14T02:14:39Z"
+    "merged": false,
     "merged_at": null
   }
 }
