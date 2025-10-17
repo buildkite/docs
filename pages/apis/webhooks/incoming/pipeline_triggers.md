@@ -2,7 +2,7 @@
 
 A _pipeline trigger_ is a type of incoming webhook that creates new builds of a Buildkite pipeline, based on events from external systems.
 
-To trigger pipelines from source control events, see the [source control integrations](/docs/pipelines/source-control) that Buildkite supports.
+To trigger pipelines from source control events, see [Source control](/docs/pipelines/source-control) for a list of source control systems that Buildkite supports and integrates with.
 
 Pipeline triggers are HTTP endpoints that create builds when they receive POST requests. Each pipeline trigger has a unique URL that accepts JSON payloads, making them ideal for integrating Buildkite with the other tools you use.
 
@@ -98,8 +98,8 @@ A successful trigger request returns a `201 Created` response with details about
 
 ## Invoke a pipeline trigger
 
-To create a build using a webhook pipeline trigger, simply send a HTTP POST request to the trigger URL.
-Each trigger accepts a JSON payload, which is accessible to all build steps (see [Accessing webhook data](#invoke-a-pipeline-trigger-accessing-webhook-data)).
+To create a build using a webhook pipeline trigger, send an HTTP POST request to the trigger URL.
+Each trigger accepts a JSON payload, which is accessible to all build steps (see [Accessing pipeline trigger data](#invoke-a-pipeline-trigger-accessing-pipeline-trigger-data) for details).
 
 Here's an example using `curl`:
 
@@ -124,16 +124,16 @@ curl -H "Content-Type: application/json" \
 You've just created your first build using a pipeline trigger.
 
 > 📘
-> Be aware that the presence of a `"message": "Any value"` field in the JSON payload does not override the value of the **Build message** set when [creating the pipeline trigger](#create-a-new-pipeline-trigger).
+> Be aware that the presence of a `"message": "Any value"` field in the JSON payload does not override the value of the **Build message** set when [creating the pipeline trigger](#create-a-new-pipeline-trigger). All such values in the payload form part of the [pipeline trigger's data](#invoke-a-pipeline-trigger-accessing-pipeline-trigger-data).
 
-### Accessing webhook data
+### Accessing pipeline trigger data
 
-Webhook JSON payloads sent to a pipeline trigger URL are accessible in all steps of the triggered build.
-You can retrieve the webhook payload using the Buildkite cli command [`buildite-agent meta-data`](/docs/pipelines/configure/build-meta-data).
+JSON payloads sent to a pipeline trigger URL are accessible in all steps of the triggered build.
+You can retrieve the webhook payload using the Buildkite Agent CLI command [`buildite-agent meta-data`](/docs/pipelines/configure/build-meta-data).
 
-##### Example:
+#### Example
 
-Sample of a Github pull request closed webhook payload:
+The following sample JSON payload is obtained from the response to closing a GitHub pull request:
 
 ```json
 {
@@ -145,7 +145,7 @@ Sample of a Github pull request closed webhook payload:
     "id": 456,
     "number": 123,
     "state": "closed",
-    "title": "Integrate into buildkite pipeline triggers",
+    "title": "Integrate into Buildkite pipeline triggers",
     "closed_at": "2025-10-14T02:14:39Z"
     "merged_at": null
   }
@@ -153,7 +153,7 @@ Sample of a Github pull request closed webhook payload:
 
 ```
 
-Accessing the webhook posted to the pipeline trigger URL:
+Accessing the JSON payload posted to your pipeline trigger endpoint can be done using the [`buildkite:webhook` meta-data key](/docs/pipelines/configure/build-meta-data#special-meta-data-buildkite-webhook), which is a [special Buildkite meta-data key](/docs/pipelines/configure/build-meta-data#special-meta-data):
 
 ```yaml
 steps:
@@ -167,27 +167,28 @@ steps:
       fi
 ```
 
-`buildkite:webhook` meta-data will only be available to builds triggered by a webhook, and only for as long as the webhook data remains cached — typically for 7 days.
+The `buildkite:webhook` meta-data itself is only available to builds triggered by any incoming webhook, and only for as long as the webhook data remains cached, which is typically for 7 days.
 
 ## Limitations
 
 The following limitations apply to pipeline triggers:
 
-- Pipeline triggers don't support webhook verification (such as HMAC signatures).
-- Pipeline trigger URLs can't be rotated. You must delete and create a new trigger with the same attributes.
-- Build attributes only support static values and can't be mapped from webhook payload values.
+- The authenticity of a pipeline trigger's webhook cannot be verified (for example, using HMAC signatures).
+- A pipeline trigger's URL cannot be rotated. If the trigger's `bkpt_` value has been compromised, you'll need to delete and create a new trigger with the same attributes.
+- Build attributes only support static values and cannot be mapped from webhook payload values.
 - Pipeline triggers don't support filtering build creation based on webhook content.
 - Pipeline triggers don't have API support for management operations.
-- There's no UI or API support for listing builds created from a specific pipeline trigger.
-- Webhook headers aren't accessible to pipeline triggers.
-- Pipeline triggers don't support IP whitelisting for incoming requests.
-- Pipeline triggers have a maximum payload size of 5MB.
+- There is no Buildkite interface or API support for listing builds created from a pipeline trigger.
+- Unlike JSON payloads, HTTP headers are not accessible to pipelines in requests to pipeline triggers.
+- A pipeline trigger's webhook cannot be restricted by IP address.
+- A pipeline trigger's JSON payload is limited to a maximum size of 5MB.
 - Trigger URL endpoints have a request limit of [TBC].
 - Webhook metadata payload retrieval is rate limited to 10 requests per minute per build.
 - Webhook delivery has a timeout of 10 seconds.
 - Each pipeline is limited to 10 triggers.
 
 ## Further reading
+
 - [Accessing build meta-data](/docs/pipelines/configure/build-meta-data#special-meta-data)
 - [`buildkite-agent meta-data` cli command](/docs/agent/v3/cli-meta-data)
 - [Incoming webhook security overview](docs/pipelines/security/incoming-webhooks#what-kind-of-information-on-incoming-webhooks-is-logged-by-buildkite)
