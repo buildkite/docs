@@ -57,6 +57,7 @@
               path: "pipelines/migration/tool/bitbucket-pipelines"
             - name: "Jenkins"
               path: "pipelines/migration/tool/jenkins"
+              pill: "beta"
         - name: From Jenkins
           path: pipelines/migration/from-jenkins
         - name: From Bamboo
@@ -1022,5 +1023,4 @@
         - name: "Metrics"
           path: "apis/agent-api/metrics"
         - name: "Stacks"
-          pill: preview
           path: "apis/agent-api/stacks"
