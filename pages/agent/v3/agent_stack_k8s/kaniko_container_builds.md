@@ -83,7 +83,7 @@ steps:
 
 This section covers pushing an image to Elastic Container Registry. Similarly to the previous section, you will need to set up [ECR credentials](https://github.com/chainguard-dev/kaniko?tab=readme-ov-file#pushing-to-amazon-ecr).
 
-The example below also shows how to expose the secret by exporting them to the Kaniko executor.
+The example below also shows how to expose the secret by exporting it to the Kaniko executor.
 
 ```yaml
 agents:
