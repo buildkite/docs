@@ -172,13 +172,13 @@ The `buildkite:webhook` meta-data itself is only available to builds triggered b
 
 ## Limitations
 
-The following limitations apply to pipeline triggers:
+Be aware that pipeline triggers have the following limitations:
 
 - The authenticity of a pipeline trigger's webhook cannot be verified (for example, using HMAC signatures).
-- A pipeline trigger's URL cannot be rotated. If the trigger's `bkpt_` value has been compromised, you'll need to delete and create a new trigger with the same attributes.
-- Build attributes only support static values and cannot be mapped from webhook payload values.
-- Pipeline triggers don't support filtering build creation based on webhook content.
-- Pipeline triggers don't have API support for management operations.
+- A pipeline trigger's URL cannot be rotated. If the trigger's `bkpt_` value has been compromised, you'll need to delete and re-[create](#create-a-new-pipeline-trigger) a new trigger with the same attributes.
+- The **Commit** and **Branch** build attributes are only supported by their values defined in the pipeline trigger itself, when it was either [created](#create-a-new-pipeline-trigger) or last edited, and these values cannot be mapped from fields of the incoming webhook's JSON payload.
+- A successful POST request to a pipeline trigger will always trigger a build. Pipeline triggers cannot be selectively triggered based on any content from the incoming webhook's JSON payload.
+- Pipeline triggers can only be managed through the Buildkite interface. There is no support for managing pipeline triggers (that is, editing or deleting pipeline triggers) through the Buildkite API.
 - There is no Buildkite interface or API support for listing builds created from a pipeline trigger.
 - Unlike JSON payloads, HTTP headers are not accessible to pipelines in requests to pipeline triggers.
 - A pipeline trigger's webhook cannot be restricted by IP address.
