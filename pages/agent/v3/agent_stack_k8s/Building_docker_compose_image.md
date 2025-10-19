@@ -14,7 +14,7 @@ Build services defined in your docker-compose.yml file:
 steps:
   - label: "Build with Docker Compose"
     plugins:
-      - docker-compose#v5.10.0:
+      - docker-compose#v5.11.0:
           build: app
           config: docker-compose.yml
 ```
