@@ -119,20 +119,7 @@ The [API Access Tokens page](https://buildkite.com/user/api-access-tokens) has a
 
 ### GitHub secret scanning program
 
-Buildkite is a member of the [GitHub secret scanning program](https://docs.github.com/en/code-security/secret-scanning/secret-scanning-partnership-program/secret-scanning-partner-program).
-This service [alerts](https://docs.github.com/en/code-security/secret-scanning/secret-scanning-partnership-program/secret-scanning-partner-program#the-secret-scanning-process) us when a Buildkite personal API access token has been leaked on GitHub in a public repository.
-
-Once Buildkite receives a notification of a publicly leaked token from GitHub, Buildkite will:
-
-- Revoke the token immediately.
-- Email the user who generated the token to let them know it has been revoked.
-- Email the organizations associated with the token to let them know it has been revoked.
-
-You can also:
-
-- Enable GitHub secret scanning for [private repositories](https://docs.github.com/en/code-security/secret-scanning/enabling-secret-scanning-features/enabling-secret-scanning-for-your-repository).
-
-- Generate a new [access token for your Buildkite user account](https://buildkite.com/user/api-access-tokens).
+Learn more about this program in [Token security](/docs/platform/security/tokens).
 
 ## FAQs
 

@@ -259,7 +259,7 @@ steps:
     - echo "Building Docker image"
     - docker build --tag packages.buildkite.com/my-organization/my-registry/my-image:latest .
     - echo "Logging into Buildkite Package Registry using OIDC"
-    - buildkite-agent oidc request-token --audience "https://packages.buildkite.com/my-organization/my-pipeline" --lifetime 300 | docker login packages.buildkite.com/my-organization/my-registry --username buildkite --password-stdin
+    - buildkite-agent oidc request-token --audience "https://packages.buildkite.com/my-organization/my-registry" --lifetime 300 | docker login packages.buildkite.com/my-organization/my-registry --username buildkite --password-stdin
     - echo "Pushing Docker image to Buildkite Package Registry"
     - docker push packages.buildkite.com/my-organization/my-registry/my-image:latest
 ```
