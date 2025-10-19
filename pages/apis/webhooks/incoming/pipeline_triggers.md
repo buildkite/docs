@@ -133,20 +133,20 @@ You can retrieve the webhook payload using the Buildkite Agent CLI command [`bui
 
 #### Example
 
-The following sample JSON payload is obtained from the response to closing a GitHub pull request:
+The following sample JSON payload is obtained from a GitHub webhook event for [closing a GitHub pull request](https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=closed#pull_request):
 
 ```json
 {
   "action": "closed",
   "number": 123,
-  "organization": "Buildkite"
+  "organization": "Buildkite",
   "pull_request": {
     "url": "https://www.github.com/buildkite/dummy-repo",
     "id": 456,
     "number": 123,
     "state": "closed",
     "title": "Integrate into Buildkite pipeline triggers",
-    "closed_at": "2025-10-14T02:14:39Z"
+    "closed_at": "2025-10-14T02:14:39Z",
     "merged": false,
     "merged_at": null
   }
@@ -154,7 +154,7 @@ The following sample JSON payload is obtained from the response to closing a Git
 
 ```
 
-Accessing the JSON payload posted to your pipeline trigger endpoint can be done using the [`buildkite:webhook` meta-data key](/docs/pipelines/configure/build-meta-data#special-meta-data-buildkite-webhook), which is a [special Buildkite meta-data key](/docs/pipelines/configure/build-meta-data#special-meta-data):
+Accessing this JSON payload posted to your pipeline trigger endpoint can be done using the [`buildkite:webhook` meta-data key](/docs/pipelines/configure/build-meta-data#special-meta-data-buildkite-webhook), which is a [special Buildkite meta-data key](/docs/pipelines/configure/build-meta-data#special-meta-data):
 
 ```yaml
 steps:
@@ -174,19 +174,18 @@ The `buildkite:webhook` meta-data itself is only available to builds triggered b
 
 Be aware that pipeline triggers have the following limitations:
 
-- The authenticity of a pipeline trigger's webhook cannot be verified (for example, using HMAC signatures).
+- The authenticity of a webhook's JSON payload cannot be verified (for example, using HMAC signatures) by the pipeline trigger.
 - A pipeline trigger's URL cannot be rotated. If the trigger's `bkpt_` value has been compromised, you'll need to delete and re-[create](#create-a-new-pipeline-trigger) a new trigger with the same attributes.
 - The **Commit** and **Branch** build attributes are only supported by their values defined in the pipeline trigger itself, when it was either [created](#create-a-new-pipeline-trigger) or last edited, and these values cannot be mapped from fields of the incoming webhook's JSON payload.
 - A successful POST request to a pipeline trigger will always trigger a build. Pipeline triggers cannot be selectively triggered based on any content from the incoming webhook's JSON payload.
-- Pipeline triggers can only be managed through the Buildkite interface. There is no support for managing pipeline triggers (that is, editing or deleting pipeline triggers) through the Buildkite API.
+- Pipeline triggers can only be managed through the Buildkite interface. There is no support for managing pipeline triggers (that is, creating, editing or deleting pipeline triggers) through the Buildkite API.
 - There is no Buildkite interface or API support for listing builds created from a pipeline trigger.
 - Unlike JSON payloads, HTTP headers are not accessible to pipelines in requests to pipeline triggers.
 - A pipeline trigger's webhook cannot be restricted by IP address.
 - A pipeline trigger's JSON payload is limited to a maximum size of 5MB.
-- Trigger URL endpoints have a request limit of [TBC].
+- Trigger URL endpoints have a request limit of 300 requests per hour.
 - Webhook metadata payload retrieval is rate limited to 10 requests per minute per build.
-- Webhook delivery has a timeout of 10 seconds.
-- Each pipeline is limited to 10 triggers.
+- Each pipeline is limited to 10 configurable triggers.
 
 ## Further reading
 
