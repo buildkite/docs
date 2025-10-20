@@ -1,6 +1,6 @@
 # Writing plugins
 
-This page shows you how to write your own Buildkite plugin, and how to validate the `plugin.yml` file which describes it against the plugin schema.
+This page shows you how to write and publish your own Buildkite plugins, and how to validate the `plugin.yml` file which describes it against the plugin schema.
 
 A [number of tools](/docs/pipelines/integrations/plugins/writing#plugin-tools) are also available to help you develop your plugin.
 
@@ -333,6 +333,15 @@ Vendored plugins run after non-vendored plugins and don't have access to all the
 ## Plugin tools
 
 The following tools can be helpful when creating and maintaining your own Buildkite plugins:
+
+<a class="Docs__example-repo" href="https://github.com/buildkite-plugins/template-buildkite-plugin">
+  <span class="icon">:jigsaw:</span>
+  <span class="detail">
+    <strong>Template Buildkite Plugin</strong>
+    <span class="description">A plugin template with customizable options you can use to create your own plugin.</span>
+    <span class="repo">https://github.com/buildkite-plugins/template-buildkite-plugin</span>
+  </span>
+</a>
 
 <a class="Docs__example-repo" href="https://github.com/buildkite-plugins/plugin-tester">
   <span class="icon">:hammer:</span>
