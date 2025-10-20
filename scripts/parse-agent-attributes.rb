@@ -27,7 +27,7 @@ help_output.lines.each do |line|
   line_without_prefix = line.gsub(/^  --/, '')
   option_name = line_without_prefix.split(' ').first
   
-  # Skip if option is in the exclude list
+  # Skip if option is in the "exclude" list
   next if exclude_options.include?(option_name)
 
   # Check if option is in the "required" list
