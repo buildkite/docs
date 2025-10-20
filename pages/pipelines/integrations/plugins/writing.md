@@ -6,7 +6,7 @@ A [number of tools](/docs/pipelines/integrations/plugins/writing#plugin-tools) a
 
 ## Tutorial: write a plugin
 
-In this tutorial, we'll create a Buildkite plugin called "File Counter", which counts the number of files in the build directory once the command has finished, and creates a build annotation with the count.
+In this tutorial, you will create a Buildkite plugin called "File Counter", which counts the number of files in the build directory once the command has finished, and creates a build annotation with the count.
 
 ```yml
 steps:
