@@ -39,7 +39,7 @@ help_output.lines.each do |line|
     env_var = match[1].gsub(/, /, "\n      ")
   end
   
-  # Extract default value (text between "default:" and ")", preserve quotes)
+  # Extract the default value (text between "default:" and ")", preserve quotes)
   default_value = ""
   if match = line.match(/\(default:([^)]*)\)/)
     default_value = match[1].strip
