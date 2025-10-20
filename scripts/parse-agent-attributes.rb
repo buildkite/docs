@@ -23,7 +23,7 @@ help_output.lines.each do |line|
   
   original_line = line.dup
   
-  # Extract option name (remove leading spaces and --, get first word)
+  # Extract option name (remove leading spaces and --, get the first word)
   line_without_prefix = line.gsub(/^  --/, '')
   option_name = line_without_prefix.split(' ').first
   
