@@ -187,8 +187,10 @@ Be aware that pipeline triggers have the following limitations:
 - Webhook metadata payload retrieval is rate limited to 10 requests per minute per build.
 - Each pipeline is limited to 10 configurable triggers.
 
-## Further reading
+## Next steps
 
-- [Accessing build meta-data](/docs/pipelines/configure/build-meta-data#special-meta-data)
-- [`buildkite-agent meta-data` cli command](/docs/agent/v3/cli-meta-data)
-- [Incoming webhook security overview](docs/pipelines/security/incoming-webhooks#what-kind-of-information-on-incoming-webhooks-is-logged-by-buildkite)
+Learn more about how pipeline triggers integrate with other aspects of Buildkite Pipelines from the follow topic sections:
+
+- [Special meta-data](/docs/pipelines/configure/build-meta-data#special-meta-data)—covers details on how to retrieve meta-data from a Buildkite pipeline.
+- [`buildkite-agent meta-data` CLI command](/docs/agent/v3/cli-meta-data)—covers details on this actual meta-data retrieval command of the [Buildkite Agent](/docs/agent/v3) and all of its options.
+- [Incoming webhook security overview](/docs/pipelines/security/incoming-webhooks#what-kind-of-information-on-incoming-webhooks-is-logged-by-buildkite)—provides information on the type of data logged by incoming webhooks.
