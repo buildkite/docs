@@ -6,6 +6,8 @@ The [Buildkite MCP server](/docs/apis/mcp-server) organizes its [MCP tools](/doc
 
 Each toolset groups related [MCP tools](/docs/apis/mcp-server/tools#available-mcp-tools), which interact with specific areas of the Buildkite platform. You can enable these individual toolsets by configuring them for the [remote](#configuring-the-remote-mcp-server) or [local](#configuring-the-local-mcp-server) Buildkite MCP server. Doing so effectively restricts your AI tool's or agent's access to the Buildkite API, based on each set of MCP tools made available through the MCP server's configured toolsets.
 
+Also, see [Recommended toolset configurations](#recommended-toolset-configurations) for details on how to configure different combinations of toolsets for different use cases.
+
 <table>
   <thead>
     <tr>
@@ -298,3 +300,36 @@ docker run --rm -e BUILDKITE_API_TOKEN=bkua_xxxxx -e BUILDKITE_TOOLSETS="builds"
 > `"buildkite-read-only-user-pipelines-toolsets": { ... }`
 > and
 > `"buildkite-builds-toolset": { ... }`
+
+## Recommended toolset configurations
+
+Once you've learned how to configure the [remote](#configuring-the-remote-mcp-server) or [local](#configuring-the-local-mcp-server) MCP server for toolsets, you can configure different combinations of [toolsets](#available-toolsets) for different use cases.
+
+### Recommended minimum baseline
+
+As a recommended minimum baseline, always include the `user` toolset as its tools provide essential user and organization information that many AI workflows depend on.
+
+### CI/CD management
+
+For CD/CD management, set the following MCP server toolsets:
+
+- `user`
+- `pipelines`
+- `builds`
+
+### Debugging and analysis
+
+For debugging and analysis of pipeline builds, set the following MCP server toolsets:
+
+- `user`
+- `builds`
+- `logs`
+- `tests`
+- `annotations`
+
+### Full access
+
+For full access to Buildkite's MCP server's toolsets:
+
+- If you are using the [remote MCP server](#configuring-the-remote-mcp-server), don't configure any toolsets, and instead, only configure the remote MCP server URL: `https://mcp.buildkite.com/mcp`.
+- If you are using the [local MCP server](#configuring-the-local-mcp-server), also don't configure any toolsets, or, if you want to be explicit about this in your configuration, set the `BUILDKITE_TOOLSETS` environment variable or the `--enabled-toolsets` flag with a value of `all`.
