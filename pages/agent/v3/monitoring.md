@@ -66,7 +66,7 @@ Additional configuration options:
 Option                              | Description
 ----------------------------------- | -----------
 `--metrics-datadog-host`           | The DogStatsD instance to send metrics to using UDP.<br>_Environment variable:_ `BUILDKITE_METRICS_DATADOG_HOST`<br>_Default:_ `127.0.0.1:8125`
-`--metrics-datadog-distributions`  | Use [Datadog Distributions](https://docs.datadoghq.com/metrics/types/?tab=distribution#metric-types) for timing metrics. This is advisable when running multiple agents. Otherwise, metrics from multiple agents may be rolled up and appear to have the same value.<br>_Environment variable:_ `BUILDKITE_METRICS_DATADOG_DISTRIBUTIONS`<br>_Default:_ `false`
+`--metrics-datadog-distributions`  | Use [Datadog Distributions](https://docs.datadoghq.com/metrics/types/?tab=distribution#metric-types) for timing metrics. This is recommended when running multiple agents to prevent metrics from multiple agents from being rolled up and appearing to have the same value.<br>_Environment variable:_ `BUILDKITE_METRICS_DATADOG_DISTRIBUTIONS`<br>_Default:_ `false`
 {: class="responsive-table"}
 
 Once enabled, the agent will generate the following metrics (duration measured in milliseconds):
