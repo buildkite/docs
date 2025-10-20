@@ -1,10 +1,10 @@
 # Buildkite APIs
 
-The Buildkite APIs documentation contains docs for all API-related features of Buildkite available across Buildkite [Pipelines](/docs/pipelines), [Test Engine](/docs/test-engine), as well as [Package Registries](/docs/package-registries).
+The Buildkite APIs documentation contains docs for all API-related features of Buildkite available across Buildkite [Pipelines](/docs/pipelines), [Test Engine](/docs/test-engine), and [Package Registries](/docs/package-registries).
 
 ## Authentication
 
-The Buildkite REST and GraphQL APIs expect an access token to be provided using the `Authorization` HTTP header:
+The Buildkite [REST](#rest-api) and [GraphQL](#graphql) APIs expect an access token to be provided using the `Authorization` HTTP header:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" https://api.buildkite.com/v2/user
@@ -29,10 +29,10 @@ If you are implementing [Buildkite webhooks](#webhooks), all webhooks for [Pipel
 
 ## REST API
 
-The Buildkite REST API aims to give you complete programmatic access and control of Buildkite to extend, integrate and automate anything to suit your particular needs.
+The Buildkite REST API aims to give you complete programmatic access and control of Buildkite to extend, integrate and automate anything to suit your particular needs. Using the Buildkite REST API is as easy as:
 
-1. Generate an [API access token](/docs/apis/managing-api-tokens) with as many [scopes](/docs/apis/managing-api-tokens#token-scopes) as you require.
-2. Make requests to https://api.buildkite.com using the token you generated in the `Authorization` header:
+1. Ensuring you have generated an [API access token](/docs/apis/managing-api-tokens) with as many [scopes](/docs/apis/managing-api-tokens#token-scopes) as you require.
+2. Making requests to https://api.buildkite.com using the token you generated in the `Authorization` header, for example:
 
     ```bash
     curl -H "Authorization: Bearer $TOKEN" https://api.buildkite.com/v2/user
