@@ -7,7 +7,7 @@ Once you followed the required instructions on [Installing the Buildkite MCP ser
 
 All the Docker instructions on this page implement the `--pull=always` option to ensure that the latest MCP server version is obtained when the container is started. If you are installing the Buildkite MCP server locally as a binary, then you are responsible for manually upgrading it.
 
-For all configuration processes covered on this page, you can alternatively store your [Buildkite API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) in [1Password](https://1password.com/), and configure your local MCP server to access this token from 1Password. Learn more about this process in [Using 1Password](/docs/apis/mcp-server/local/installing#using-1password) and [Accessing the API access token through 1Password](#accessing-the-api-access-token-through-1password).
+For all configuration processes covered on this page, you can alternatively store your [Buildkite API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) in [1Password](https://1password.com/), and configure your local MCP server to access this token from 1Password. Learn more about this process in [Using 1Password](/docs/apis/mcp-server/local/installing#using-1password) and [Accessing the API access token through 1Password](#accessing-the-api-access-token-through-1password), towards the end of this page.
 
 ## Amp
 
