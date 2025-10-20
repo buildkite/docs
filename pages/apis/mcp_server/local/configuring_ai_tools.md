@@ -469,7 +469,7 @@ If you are using a [pre-built](/docs/apis/mcp-server/local/installing#install-an
 ```json
 {
   ...
-    "buildkite-read-only-toolsets": {
+    "buildkite-1password-stored-token": {
       "command": "buildkite-mcp-server",
       "args": ["stdio"],
       "env": {
