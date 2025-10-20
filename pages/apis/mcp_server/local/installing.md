@@ -247,33 +247,33 @@ To build the Buildkite MCP server locally from source, run these commands:
 
 ## Using 1Password
 
-For enhanced security, you can store your [Buildkite API access token](#configure-an-api-access-token) in [1Password](https://1password.com/) and reference this token using the 1Password command-line interface (CLI) instead of exposing it as a plain environment variable.
+For enhanced security, you can store your [Buildkite API access token](#configure-an-api-access-token) in [1Password](https://1password.com/) and reference this token using the [1Password command-line interface (CLI)](https://developer.1password.com/docs/cli) instead of exposing it as a plain environment variable.
 
 ### Before you start
 
-Ensure you have met the following requirements before continuing with this configuration.
+Ensure you have met the following requirements before continuing with any 1Password configuration.
 
-- You have installed the [1Password CLI](https://developer.1password.com/docs/cli/get-started/), and have authenticated into it.
+- You have [installed the 1Password CLI](https://developer.1password.com/docs/cli/get-started/), and have authenticated into it.
 - Your [API access token](#configure-an-api-access-token) has been stored as an item in 1Password.
 
 ### Accessing your API access token from 1Password
 
-Instead of using `BUILDKITE_API_TOKEN`, use `BUILDKITE_API_TOKEN_FROM_1PASSWORD` with a 1Password item reference:
+Instead of using `BUILDKITE_API_TOKEN` environment variable or `--api-token` flag, use `BUILDKITE_API_TOKEN_FROM_1PASSWORD` environment variable or `--api-token-from-1password` flag, respectively with a 1Password item reference.
 
-#### Environment variable
+#### Example environment variable usage
 
 ```bash
 export BUILDKITE_API_TOKEN_FROM_1PASSWORD="op://Private/Buildkite API Token/credential" buildkite-mcp-server stdio
 ```
 
-#### Command line
+#### Example CLI flag usage
 
 ```bash
 buildkite-mcp-server stdio --api-token-from-1password="op://Private/Buildkite API Token/credential"
 ```
 
 > 📘
-> The server will call `op read -n <reference>` to fetch the token. Ensure your 1Password CLI is properly authenticated before starting the server.
+> The local MCP server will call `op read -n <reference>` to fetch the API access token. Ensure your 1Password CLI has been successfully authenticated before starting the server.
 
 ## Self-hosting the MCP server
 

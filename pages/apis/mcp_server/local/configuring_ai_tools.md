@@ -2,10 +2,12 @@
 
 Once you followed the required instructions on [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing) to install the MCP server locally for your AI tool or agent, you can then use the instructions on this page to configure your AI tool or agent to work with this [_local_ Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers-local-mcp-server).
 
-All the Docker instructions on this page implement the `--pull=always` option to ensure that the latest MCP server version is obtained when the container is started. If you are installing the Buildkite MCP server locally as a binary, then you are responsible for manually upgrading it.
-
 > 📘
 > The Buildkite MCP server is available both [locally and remotely](/docs/apis/mcp-server#types-of-mcp-servers). This page is about configuring AI tools with the local MCP server. If you are working directly with an AI tool and would prefer it to use the _remote_ MCP server, proceed with the relevant instructions on its [Configuring AI tools](/docs/apis/mcp-server/remote/configuring-ai-tools) page.
+
+All the Docker instructions on this page implement the `--pull=always` option to ensure that the latest MCP server version is obtained when the container is started. If you are installing the Buildkite MCP server locally as a binary, then you are responsible for manually upgrading it.
+
+For all configuration processes covered on this page, you can alternatively store your [Buildkite API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) in [1Password](https://1password.com/), and configure your local MCP server to access this token from 1Password. Learn more about this process in [Using 1Password](/docs/apis/mcp-server/local/installing#using-1password) and [Accessing the API access token through 1Password](#accessing-the-api-access-token-through-1password).
 
 ## Amp
 
@@ -436,3 +438,44 @@ You can also configure ToolHive to run your local Buildkite MCP server from its 
     * **Environment variables** (_optional_): Specify the threshold for logging tokens. Omitting this field sets its value to 0, which means that no tokens are logged.
 
 <!-- vale on -->
+
+## Accessing the API access token through 1Password
+
+For enhanced security, you can store your [Buildkite API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) in [1Password](https://1password.com/) and reference this token using the [1Password command-line interface (CLI)](https://developer.1password.com/docs/cli) instead of exposing it as a plain environment variable. Learn more about setting up this process in [Using 1Password](/docs/apis/mcp-server/local/installing#using-1password).
+
+If you are using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the local MCP server, configure the `docker run` command's environment variable for 1Password with both an `args` array and `env` object in the local MCP server's JSON configuration file. For example:
+
+```json
+{
+  ...
+    "buildkite-1password-stored-token": {
+      "command": "docker",
+      "args": [
+        "run", "--pull=always", "-q", "-i", "--rm",
+        "-e", "BUILDKITE_API_TOKEN_FROM_1PASSWORD",
+        "buildkite/mcp-server",
+        "stdio"
+      ],
+      "env": {
+        "BUILDKITE_API_TOKEN_FROM_1PASSWORD": "op://Private/Buildkite API Token/credential"
+      }
+    }
+  ...
+}
+```
+
+If you are using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the local MCP server, configure the `buildkite-mcp-server` command's environment variable for 1Password with an `env` object in the local MCP server's JSON configuration file. For example:
+
+```json
+{
+  ...
+    "buildkite-read-only-toolsets": {
+      "command": "buildkite-mcp-server",
+      "args": ["stdio"],
+      "env": {
+        "BUILDKITE_API_TOKEN_FROM_1PASSWORD": "op://Private/Buildkite API Token/credential"
+      }
+    }
+  ...
+}
+```
