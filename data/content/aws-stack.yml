@@ -185,7 +185,7 @@ Parameters:
 
   BuildkiteAgentRelease:
     Description: >
-        Buildkite agent release channel to install.
+        Buildkite Agent release channel to install.
         'stable' = production-ready (recommended), 'beta' = pre-release with latest features, 'edge' = bleeding-edge development builds.
         Use 'stable' unless specific new features are required.
     Type: String
