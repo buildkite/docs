@@ -260,13 +260,13 @@ Ensure you have met the following requirements before continuing with this confi
 
 Instead of using `BUILDKITE_API_TOKEN`, use `BUILDKITE_API_TOKEN_FROM_1PASSWORD` with a 1Password item reference:
 
-#### Environment Variable
+#### Environment variable
 
 ```bash
 export BUILDKITE_API_TOKEN_FROM_1PASSWORD="op://Private/Buildkite API Token/credential" buildkite-mcp-server stdio
 ```
 
-#### Command Line
+#### Command line
 
 ```bash
 buildkite-mcp-server stdio --api-token-from-1password="op://Private/Buildkite API Token/credential"
