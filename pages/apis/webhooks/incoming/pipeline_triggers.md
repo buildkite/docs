@@ -15,7 +15,7 @@ A pipeline trigger is scoped to a specific Buildkite pipeline, and can be used t
 
 To create a new pipeline trigger using the Buildkite interface:
 
-1. From your [Buildkite dashboard](https://buildkite.com/~), ensure that **Pipelines** is selected in the global navigation, and then select your pipeline.
+1. From your [Buildkite dashboard](https://buildkite.com/~/), ensure that **Pipelines** is selected in the global navigation, and then select your pipeline.
 
 1. Select your pipeline's **Settings** button > **Triggers**.
 
