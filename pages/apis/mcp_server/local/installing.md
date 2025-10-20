@@ -256,7 +256,7 @@ Ensure you have met the following requirements before continuing with any 1Passw
 - You have [installed the 1Password CLI](https://developer.1password.com/docs/cli/get-started/), and have authenticated into it.
 - Your [API access token](#configure-an-api-access-token) has been stored as an item in 1Password.
 
-### Accessing your API access token from 1Password
+### Accessing the API access token through 1Password
 
 Instead of using `BUILDKITE_API_TOKEN` environment variable or `--api-token` flag, use `BUILDKITE_API_TOKEN_FROM_1PASSWORD` environment variable or `--api-token-from-1password` flag, respectively with a 1Password item reference.
 
