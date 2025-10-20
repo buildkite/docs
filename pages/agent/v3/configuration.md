@@ -179,4 +179,4 @@ The following template variables are supported when configuring the agent name:
 - `%pid` - the agent process ID
 
 > 📘 Note
-> If you're using `--spawn` to run multiple agents on a single host, we recommend using `%spawn` in your agent name to ensure that each agent running on the host using the same `build-path` has a unique agent name.
+> If you're using `--spawn` to run multiple agents on a single host, it's recommended to use `%spawn` in your agent name to ensure that each agent running on the host using the same `build-path` has a unique agent name.
