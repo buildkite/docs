@@ -55,6 +55,9 @@
               path: "pipelines/migration/tool/circleci"
             - name: "Bitbucket Pipelines"
               path: "pipelines/migration/tool/bitbucket-pipelines"
+            - name: "Jenkins"
+              path: "pipelines/migration/tool/jenkins"
+              pill: "beta"
         - name: From Jenkins
           path: pipelines/migration/from-jenkins
         - name: From Bamboo
@@ -88,6 +91,8 @@
           path: "agent/v3/ssh-keys"
         - name: "GitHub SSH keys"
           path: "agent/v3/github-ssh-keys"
+        - name: "Git mirrors"
+          path: "agent/v3/git-mirrors"
         - name: "Hooks"
           path: "agent/v3/hooks"
         - name: "Monitoring and observing"
@@ -189,6 +194,8 @@
               path: "agent/v3/agent-stack-k8s/sidecars"
             - name: "Kubernetes PodSpec"
               path: "agent/v3/agent-stack-k8s/podspec"
+            - name: "Pod templates"
+              path: "agent/v3/agent-stack-k8s/pod-template"
             - name: "Container resource limits"
               path: "agent/v3/agent-stack-k8s/container-resource-limits"
             - name: "Volume mounts"
@@ -805,6 +812,10 @@
           path: "platform/sso/custom-saml"
         - name: "Set up with GraphQL"
           path: "platform/sso/sso-setup-with-graphql"
+    - name: "Security"
+      children:
+        - name: "Token security"
+          path: "platform/security/tokens"
     - name: "Integrations"
       children:
         - name: "Slack Workspace"
@@ -943,18 +954,18 @@
               path: apis/graphql/cookbooks/organizations
             - name: Teams
               path: apis/graphql/cookbooks/teams
+        - name: "Portals"
+          children:
+            - name: "Overview"
+              path: "apis/graphql/portals"
+            - name: "Limits"
+              path: "apis/graphql/portals/limits"
+            - name: "Ephemeral portal tokens"
+              path: "apis/graphql/portals/ephemeral-portal-tokens"
+            - name: "User-invoked portals"
+              path: "apis/graphql/portals/user-invoked-portals"
         - name: Limits
           path: apis/graphql/graphql-resource-limits
-    - name: "Portals"
-      children:
-        - name: "Overview"
-          path: "apis/portals"
-        - name: "Limits"
-          path: "apis/portals/limits"
-        - name: "Ephemeral portal tokens"
-          path: "apis/portals/ephemeral-portal-tokens"
-        - name: "User-invoked portals"
-          path: "apis/portals/user-invoked-portals"
     - name: "MCP server"
       children:
         - name: "Overview"
@@ -969,6 +980,8 @@
               path: "apis/mcp-server/local/installing"
             - name: "Configuring AI tools"
               path: "apis/mcp-server/local/configuring-ai-tools"
+        - name: "Toolsets"
+          path: "apis/mcp-server/toolsets"
     - name: "Webhooks"
       children:
         - name: "Overview"
@@ -1010,5 +1023,4 @@
         - name: "Metrics"
           path: "apis/agent-api/metrics"
         - name: "Stacks"
-          pill: preview
           path: "apis/agent-api/stacks"

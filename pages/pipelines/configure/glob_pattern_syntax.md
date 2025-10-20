@@ -34,15 +34,15 @@ Characters match themselves only, with the following syntax elements having spec
       },
       {
         "syntax_element": "*",
-        "meaning": "Matches zero or more arbitrary characters, except for the path separator <code>/</code>."
+        "meaning": "Matches zero or more arbitrary characters, except for the path separator <code>/</code>. Note that YAML strings starting with <code>*</code> must typically be quoted."
       },
       {
         "syntax_element": "**",
-        "meaning": "Matches zero or more arbitrary characters, including the path separator <code>/</code>. Since <code>**</code> can be used to mean zero or more path components, <code>/**/</code> also matches <code>/</code>."
+        "meaning": "Matches zero or more arbitrary characters, including the path separator <code>/</code>. Since <code>**</code> can be used to mean zero or more path components, <code>/**/</code> also matches <code>/</code>. Note that YAML strings starting with <code>*</code> must typically be quoted."
       },
       {
         "syntax_element": "{,}",
-        "meaning": "<code>{a,b,cd}</code> matches <code>a</code> or <code>b</code> or <code>cd</code>. A component can be empty, e.g. <code>{,a,b}</code> matches either nothing or <code>a</code> or <code>b</code>. Multiple path segments, <code>*</code>, <code>**</code>, etc are all allowed within <code>{}</code>. To specify a path containing <code>,</code> within <code>{}</code>, escape it (that is, use <code>\\,</code>)."
+        "meaning": "<code>{a,b,cd}</code> matches <code>a</code> or <code>b</code> or <code>cd</code>. A component can be empty, e.g. <code>{,a,b}</code> matches either nothing or <code>a</code> or <code>b</code>. Multiple path segments, <code>*</code>, <code>**</code>, etc are all allowed within <code>{}</code>. To specify a path containing <code>,</code> within <code>{}</code>, escape it (that is, use <code>\\,</code>). Note that patterns within braces remain whitespace-sensitive: <code>{a, b}</code> matches <code>a</code> and <code>&nbsp;b</code> (a space followed by b), not <code>b</code>."
       },
       {
         "syntax_element": "[ ]",
@@ -54,7 +54,7 @@ Characters match themselves only, with the following syntax elements having spec
       },
       {
         "syntax_element": "~",
-        "meaning": "Prior to matching, <code>~</code> is expanded to the current user's home directory."
+        "meaning": "Prior to matching, <code>~</code> is expanded to the current user's home directory. Note that YAML typically interprets a single <code>~</code> as <code>null</code>."
       }
     ].select { |field| field[:syntax_element] }.each do |field| %>
       <tr>

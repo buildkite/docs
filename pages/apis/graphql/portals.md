@@ -1,6 +1,8 @@
 # Portals
 
-Buildkite _portals_ is an alternative feature to Buildkite's REST and GraphQL APIs. Portals are user-defined GraphQL operations that can be created by Buildkite organization administrators, are stored by Buildkite, and are made accessible through an authenticated URL endpoint.
+Buildkite's GraphQL API is accessed using an [authenticated API access token](/docs/apis/graphql-api#authentication) whose [scopes](/docs/apis/managing-api-tokens#token-scopes) cannot be restricted.
+
+Therefore, the Buildkite _portals_ feature provides restricted GraphQL API access to the Buildkite platform, by allowing [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) to define and create GraphQL operations, which are stored by Buildkite, and are made accessible through an authenticated URL endpoint. These URL endpoints are similar to creating custom REST API endpoints, whose responses can be restricted by the GraphQL queries they're based on.
 
 Portals work well with machine-to-machine operations, since they're scoped to perform only the operations described within a [GraphQL document](https://spec.graphql.org/October2021/#sec-Language) and are not tied to user-owned access tokens.
 
@@ -38,11 +40,11 @@ To get started with portals, as a Buildkite organization administrator, access t
 
 1. After completing these required fields and any others for this portal, select **Save Portal** to create the portal.
 
-    A new HTTP endpoint is generated, along with a corresponding _portal token_ (a type of access token known as an _admin-level portal token_), which you'll need to use later for authentication.
+    A new HTTP endpoint is generated, along with a corresponding _portal token_ (a type of access token known as an _long-lived service token_), which you'll need to use later for authentication.
 
 1. Save this portal token to somewhere secure, as you won't be able to access its value again through the Buildkite interface.
 
-    **Note:** This _portal token_ is referred to as an _admin-level_ one, since it grants Buildkite organization administrator-access privileges to this Buildkite organization.
+    **Note:** This long-lived service token grants Buildkite organization administrator-access privileges to this Buildkite organization.
 
 1. Make a request to your new endpoint. You can access it using the following `curl` command, replacing the organization slug with your own.
 
@@ -114,7 +116,6 @@ curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://portal.buildkite.com/organizations/my-organization/portals/portal-slug?operation_name=GetBuilds"
 ```
 
-
 ## Authentication
 
 Similar to the Buildkite REST and GraphQL APIs, portals are authenticated with the associated portal token generated for a given portal.
@@ -126,7 +127,7 @@ curl -H "Authorization: Bearer $TOKEN" https://portal.buildkite.com/organization
 ```
 
 >📘
-> If you need to generate a new admin-level portal token (to replace an older or suspected compromised one), you can do this by duplicating and removing the existing portal, which will in turn generate a new admin-level portal token.
+> If you need to generate a new long-lived service token (to replace an older or suspected compromised one), you can do this through the portal's **Security** page, by selecting the **New token** button next to the **Long lived service tokens** section, and then removing the existing or initial long-lived service token (created when the portal was created).
 
 ## Passing arguments
 
