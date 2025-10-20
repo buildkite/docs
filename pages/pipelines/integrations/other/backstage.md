@@ -8,17 +8,17 @@
 
 The Buildkite plugin for Backstage provides integration capabilities that allow for:
 
-- **Real-time build status monitoring**: view the current status of your builds and build information directly in Backstage.
-- **Comprehensive build log tracking**: access detailed build logs with syntax highlighting without leaving Backstage.
-- **Advanced filtering and search capabilities**: quickly find specific builds using powerful multiple-criteria filters.
-- **Interactive build management**: trigger rebuilds and manage builds from within Backstage or click through to Buildkite.
-- **Customization options**: configure the plugin to match your team's workflow with custom styling and time settings.
+- Real-time build status monitoring - view the current status of your builds and build information directly in Backstage.
+- Comprehensive build log tracking - access detailed build logs with syntax highlighting without leaving Backstage.
+- Advanced filtering and search capabilities - quickly find specific builds using powerful multiple-criteria filters.
+- Interactive build management - trigger rebuilds and manage builds from within Backstage or click through to Buildkite.
+- Customization options - configure the plugin to match your team's workflow with custom styling and time settings.
 
 ## Installation requirements
 
 Before installing the Buildkite Backstage plugin, ensure you have:
 
-- A user who is a [Buildkite organization administrator](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions) and at least one pipeline.
+- At least one existing Buildkite pipeline.
 - An up-to-date Backstage instance.
 - A [Buildkite API access token](/docs/apis/managing-api-tokens) with the following permissions:
   * `read_pipelines`
@@ -58,24 +58,6 @@ buildkite:
 ```
 
 Make sure to set the `BUILDKITE_API_TOKEN` environment variable with your Buildkite API access token.
-
-### Register the plugin
-
-Create or update `packages/app/src/plugins.ts` to register the plugin:
-
-```typescript
-// Import plugins that you want to be included in your app
-export { buildkitePlugin } from '@buildkite/backstage-plugin-buildkite';
-```
-
-### Import the plugins file
-
-Import the plugins file in your `packages/app/src/App.tsx`:
-
-```typescript
-// Import plugins
-import './plugins';
-```
 
 ### Add the API factory
 
