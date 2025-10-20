@@ -12,7 +12,7 @@ Once you have established which Buildkite MCP server to use (remote or local) an
 
 ## Types of MCP servers
 
-Buildkite provides both a [remote](#types-of-mcp-servers-remote-mcp-server) and [local](#types-of-mcp-servers-local-mcp-server) MCP server.
+Buildkite provides both a [remote](#types-of-mcp-servers-remote-mcp-server) and [local](#types-of-mcp-servers-local-mcp-server) MCP server, both of which provide access to its [MCP server tools](/docs/apis/mcp-server/tools#available-mcp-tools).
 
 ### Remote MCP server
 
@@ -50,7 +50,7 @@ Buildkite also provides a version of the remote MCP server with read-only access
 https://mcp.buildkite.com/mcp/readonly
 ```
 
-This remote MCP server version issues a short-lived OAuth access token for your Buildkite user account, along with _read-only_ access permission scopes pre-set by the Buildkite platform. Hence, when using this remote MCP server, only [MCP tools](#available-mcp-tools) whose required [token scope](/docs/apis/managing-api-tokens#token-scopes) begins with `read_` are available, as well as tools with no required scope specified.
+This remote MCP server version issues a short-lived OAuth access token for your Buildkite user account, along with _read-only_ access permission scopes pre-set by the Buildkite platform. Hence, when using this remote MCP server, only [MCP tools](/docs/apis/mcp-server/tools#available-mcp-tools) whose required [token scope](/docs/apis/managing-api-tokens#token-scopes) begins with `read_` are available, as well as tools with no required scope specified.
 
 > 📘
 > Read-only access can also be configured using the standard [remote MCP server URL](#types-of-mcp-servers-remote-mcp-server), by configuring the MCP server to send `X-Buildkite-Readonly: true` in the header of requests to the Buildkite platform. Learn more about this in [Configuring AI tools with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) and [Remote MCP server configuration for toolsets](/docs/apis/mcp-server/tools/toolsets#configuring-the-remote-mcp-server).

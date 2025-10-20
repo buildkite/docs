@@ -329,7 +329,7 @@ For debugging and analysis of pipeline builds, set the following MCP server tool
 
 ### Full access
 
-For full access to Buildkite's MCP server's toolsets:
+For full access to the Buildkite MCP server's toolsets:
 
 - If you are using the [remote MCP server](#configuring-the-remote-mcp-server), don't configure any toolsets, and instead, only configure the remote MCP server URL: `https://mcp.buildkite.com/mcp`.
 - If you are using the [local MCP server](#configuring-the-local-mcp-server), also don't configure any toolsets, or, if you want to be explicit about this in your configuration, set the `BUILDKITE_TOOLSETS` environment variable or the `--enabled-toolsets` flag with a value of `all`.
