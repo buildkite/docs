@@ -30,7 +30,7 @@ help_output.lines.each do |line|
   # Skip if option is in the exclude list
   next if exclude_options.include?(option_name)
 
-  # Check if option is in the required list
+  # Check if option is in the "required" list
   required = required_options.include?(option_name)
   
   # Extract environment variable (text in brackets, preserve $ prefixes, convert commas to newlines)
