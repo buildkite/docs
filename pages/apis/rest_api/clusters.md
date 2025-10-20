@@ -22,6 +22,7 @@ A [Buildkite cluster](/docs/pipelines/clusters) is an isolated set of agents and
   <tr><th><code>description</code></th><td>Description of the cluster</td></tr>
   <tr><th><code>emoji</code></th><td>Emoji for the cluster using the <a href="/docs/pipelines/emojis">emoji syntax</a></td></tr>
   <tr><th><code>color</code></th><td>Color hex code for the cluster</td></tr>
+  <tr><th><code>maintainers</code></th><td>The maintainers of the cluster</td></tr>
   <tr><th><code>url</code></th><td>Canonical API URL of the cluster</td></tr>
   <tr><th><code>web_url</code></th><td>URL of the cluster on Buildkite</td></tr>
   <tr><th><code>queues_url</code></th><td>API URL of the cluster's queues</td></tr>
@@ -50,6 +51,10 @@ curl -H "Authorization: Bearer $TOKEN" \
     "description": "A place for safely running our open source builds",
     "emoji": "\:technologist\:",
     "color": "#FFE0F1",
+    "maintainers": {
+      "users": [],
+      "teams": []
+    },
     "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
     "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
     "default_queue_url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
@@ -87,6 +92,31 @@ curl -H "Authorization: Bearer $TOKEN" \
   "description": "A place for safely running our open source builds",
   "emoji": "\:technologist\:",
   "color": "#FFE0F1",
+  "maintainers": {
+    "users": [
+      {
+        "id": "56c210cb-474c-47a7-b4ef-5761a1cb91c1",
+        "actor": {
+          "id": "da206b36-e5ae-4f4a-aca6-07dd478f3a48",
+          "graphql_id": "VXNlci0tLWU1N2ZiYTBmLWFiMTQtNGNjMC1iYjViLTY5NTc3NGZmYmZiZQ==",
+          "name": "John Smith",
+          "email": "john.smith@example.com",
+          "type": "user"
+        }
+      }
+    ],
+    "teams": [
+      {
+        "id": "77ec8d4c-edb3-430e-baba-488757a418e2",
+        "actor": {
+          "id": "c5e09619-8648-4896-a936-9d0b8b7b3fe9",
+          "graphql_id": "VGVhbS0tLWM1ZTA5NjE5LTg2NDgtNDg5Ni1hOTM2LTlkMGI4YjdiM2ZlOQ==",
+          "name": "Fearless Frontenders",
+          "slug": "fearless-frontenders",
+        }
+      }
+    ]
+  },
   "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "default_queue_url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
@@ -130,6 +160,10 @@ curl -H "Authorization: Bearer $TOKEN" \
   "description": "A place for safely running our open source builds",
   "emoji": "\:technologist\:",
   "color": "#FFE0F1",
+  "maintainers": {
+    "users": [],
+    "teams": []
+  },
   "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "default_queue_url": null,
@@ -192,7 +226,7 @@ Optional [request body properties](/docs/api#request-body-properties):
       An array of one or more hashes of representing users or teams to grant maintainer permissions to for this cluster.<br/>
       <em>Example:</em>
       <code>
-      [{ "user: "282a043f-4d4f-4db5-ac9a-58673ae02caf" }, { "team: "0da645b7-9840-428f-bd80-0b92ee274480" }]
+      [{ "user": "282a043f-4d4f-4db5-ac9a-58673ae02caf" }, { "team": "0da645b7-9840-428f-bd80-0b92ee274480" }]
       </code>
     </td>
   </tr>
@@ -229,6 +263,10 @@ curl -H "Authorization: Bearer $TOKEN" \
   "description": "A place for safely running our open source builds",
   "emoji": "\:technologist\:",
   "color": "#FFE0F1",
+  "maintainers": {
+    "users": [],
+    "teams": []
+  },
   "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "default_queue_url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
