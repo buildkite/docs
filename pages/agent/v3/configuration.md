@@ -174,9 +174,9 @@ These variables cannot be modified through the Buildkite web interface, API or u
 The following template variables are supported when configuring the agent name:
 
 - `%hostname` - the agent machine's hostname
-- `%spawn` - a unique number for each agent started using `--spawn` (added in [v3.27.0](https://github.com/buildkite/agent/releases/tag/v3.27.0))
-- `%random` - some random alphanumeric characters
-- `%pid` - the agent process ID
+- `%spawn` - the spawn index number (1, 2, 3, etc.) when launching multiple agents per host
+- `%random` - six (6) random alphanumeric characters [a-zA-Z0-9]
+- `%pid` - the agent's process ID
 
 > 📘 Note
 > If you're using `--spawn` to run multiple agents on a single host, it's recommended to use `%spawn` in your agent name to ensure that each agent running on the host using the same `build-path` has a unique agent name.
