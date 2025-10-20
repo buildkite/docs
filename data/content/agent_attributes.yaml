@@ -347,7 +347,7 @@ attributes:
     env_var: |
       $BUILDKITE_SOCKETS_PATH
     default_value: |
-      "/Users/petetomasik/.buildkite-agent/sockets"
+      "~/.buildkite-agent/sockets"
     required: false
     desc: |
       Directory where the agent will place sockets

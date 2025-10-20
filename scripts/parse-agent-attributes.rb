@@ -11,6 +11,9 @@ required_options = ["token", "build-path"]
 # List of options to exclude from parsing
 exclude_options = ["config"]
 
+# Get the home directory to replace with generic path
+home_dir = ENV['HOME'] || Dir.home
+
 # Run the help command and get output
 help_output = `buildkite-agent start --help`
 
@@ -40,8 +43,10 @@ help_output.lines.each do |line|
   default_value = ""
   if match = line.match(/\(default:([^)]*)\)/)
     default_value = match[1].strip
+    # Replace home directory path with ~ for generic documentation
+    default_value = default_value.gsub(home_dir, "~")
   end
-  
+
   # Extract description
   # Start with the line and remove option name and value part
   temp = line_without_prefix.gsub(/^[a-zA-Z0-9-]+( value)?[ ]*/, '')
