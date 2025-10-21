@@ -107,36 +107,42 @@ When [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server
 
 #### Examples
 
-To enable the `builds` toolset for the remote MCP server, configure your AI tool with the standard remote MCP server URL:
+To enable the `builds` toolset for the remote MCP server, configure your AI tool with the [standard remote MCP server URL](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server):
 
 ```url
 https://mcp.buildkite.com/mcp
 ```
 
-along with the following request header:
+along with the required toolset value specified in the request header `X-Buildkite-Toolsets`, that is:
 
 ```url
 X-Buildkite-Toolsets: builds
 ```
 
-To enable the `user`, `pipelines`, and `builds` toolsets for the remote MCP server, configure your AI tool with the standard remote MCP server URL, and the following request header:
+To enable the `user`, `pipelines`, and `builds` toolsets for the remote MCP server, configure your AI tool with the [standard remote MCP server URL](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server), along with these toolset values specified in the `X-Buildkite-Toolsets` header:
 
 ```url
 X-Buildkite-Toolsets: user,pipelines,builds
 ```
 
-To enforce read-only access across all of these toolsets, use the following request headers:
+To enforce read-only access across all of these toolsets, use the [read-only remote MCP server](/docs/apis/mcp-server#read-only-remote-mcp-server) URL:
+
+```url
+https://mcp.buildkite.com/mcp/readonly
+```
+
+along with the following request header:
 
 ```url
 X-Buildkite-Toolsets: user,pipelines,builds
-X-Buildkite-Readonly: true
 ```
 
 You can also be [selective with read-only access to toolsets](#configuring-the-remote-mcp-server-selective-read-only-access-to-toolsets).
 
 > 📘
 > Learn more about how to configure different AI tools with these header configurations in [Configuring AI tools with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools).
-> Omitting the `X-Buildkite-Toolsets` and `X-Buildkite-Readonly` headers from these configurations provides unrestricted access to the Buildkite API, restricted only by all applicable [token scopes](/docs/apis/managing-api-tokens#token-scopes) available to your Buildkite user account's access token, and what you can access on the Buildkite platform.
+> Instead of using the [read-only remote MCP server URL](/docs/apis/mcp-server#read-only-remote-mcp-server), you could use the [standard remote MCP server URL](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) (`https://mcp.buildkite.com/mcp`), along with the additional header of `X-Buildkite-Readonly: true`. However, for simplicity, using the read-only remote MCP server URL is preferred.
+> Using the [standard remote MCP server URL](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) and omitting the `X-Buildkite-Toolsets` and `X-Buildkite-Readonly` headers from these configurations provides unrestricted access to the Buildkite API, restricted only by all applicable [token scopes](/docs/apis/managing-api-tokens#token-scopes) available to your Buildkite user account's access token, and what you can access on the Buildkite platform.
 
 ### Selective read-only access to toolsets
 
@@ -144,31 +150,36 @@ If you want to enable multiple [toolsets](#available-toolsets), but be selective
 
 #### Examples
 
-To enable the `user` and `pipelines` toolsets with read-only access, and the `builds` toolset with both read and write access, create two remote MCP server configurations with the standard URL:
+To enable the `builds` toolset with both read and write access, and the `user` and `pipelines` toolsets with read-only access, create two remote MCP server configurations—one with the [standard URL](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server):
 
 ```url
 https://mcp.buildkite.com/mcp
 ```
 
-For the `user` and `pipelines` toolsets with read-only access to the remote MCP server, implement the request header:
+and the other with the [read-only URL](/docs/apis/mcp-server#read-only-remote-mcp-server):
 
 ```url
-X-Buildkite-Toolsets: user,pipelines
-X-Buildkite-Readonly: true
+https://mcp.buildkite.com/mcp/readonly
 ```
 
-And for the `builds` toolset with read and write access to the remote MCP server, implement the request header:
+For the `builds` toolset with read and write access to the remote MCP server, implement the request header for your remote MCP server configuration with the _standard URL_:
 
 ```url
 X-Buildkite-Toolsets: builds
 ```
 
+And for the `user` and `pipelines` toolsets with read-only access to the remote MCP server, implement the request header for your MCP server configuration with the _read-only URL_:
+
+```url
+X-Buildkite-Toolsets: user,pipelines
+```
+
 You could also [use the URL extension](#configuring-the-remote-mcp-server-using-a-url-extension) approach to do this by implementing three separate remote MCP server configurations, each of whose URLs are respectively:
 
 ```url
+https://mcp.buildkite.com/mcp/x/builds
 https://mcp.buildkite.com/mcp/x/user/readonly
 https://mcp.buildkite.com/mcp/x/pipelines/readonly
-https://mcp.buildkite.com/mcp/x/builds
 ```
 
 > 📘
