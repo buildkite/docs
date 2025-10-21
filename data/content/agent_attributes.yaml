@@ -714,6 +714,14 @@ attributes:
     required: false
     desc: |
       This is intended to be used only by the Buildkite k8s stack (github.com/buildkite/agent-stack-k8s); it enables a Unix socket for transporting logs and exit statuses between containers in a pod
+  - name: "kubernetes-log-collection-grace-period"
+    env_var: |
+      $BUILDKITE_KUBERNETES_LOG_COLLECTION_GRACE_PERIOD
+    default_value: |
+      50s
+    required: false
+    desc: |
+      How long to wait for Kubernetes processes to complete before stopping log collection during graceful termination. This should be less than the pod's terminationGracePeriodSeconds to allow time for final log upload
   - name: "trace-context-encoding"
     env_var: |
       $BUILDKITE_TRACE_CONTEXT_ENCODING
