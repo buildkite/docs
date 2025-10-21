@@ -994,6 +994,12 @@
       children:
         - name: "Overview"
           path: "apis/mcp-server"
+        - name: "Tools"
+          children:
+            - name: "Overview"
+              path: "apis/mcp-server/tools"
+            - name: "Toolsets"
+              path: "apis/mcp-server/tools/toolsets"
         - name: "Remote MCP server"
           children:
             - name: "Configuring AI tools"
@@ -1004,8 +1010,6 @@
               path: "apis/mcp-server/local/installing"
             - name: "Configuring AI tools"
               path: "apis/mcp-server/local/configuring-ai-tools"
-        - name: "Toolsets"
-          path: "apis/mcp-server/toolsets"
     - name: "Webhooks"
       children:
         - name: "Overview"

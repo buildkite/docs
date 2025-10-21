@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   get "/docs/apis/graphql/schemas/enum",                                   to: redirect("/docs/apis/graphql-api")
   get "/docs/apis/graphql/schemas/input-object",                           to: redirect("/docs/apis/graphql-api")
   get "/docs/apis/graphql/schemas/union",                                  to: redirect("/docs/apis/graphql-api")
+  get "/docs/apis/mcp-server/toolsets",                                    to: redirect("/docs/apis/mcp-server/tools/toolsets")
   get "/docs/apis/portals",                                                to: redirect("/docs/apis/graphql/portals")
   get "/docs/apis/portals/ephemeral-portal-tokens",                        to: redirect("/docs/apis/graphql/portals/ephemeral-portal-tokens")
   get "/docs/apis/portals/limits",                                         to: redirect("/docs/apis/graphql/portals/limits")
