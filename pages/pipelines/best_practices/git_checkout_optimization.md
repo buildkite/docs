@@ -4,7 +4,7 @@ This section covers optimization of Git workflows.
 
 ## Git mirrors
 
-See more in [Git mirrors](/docs/agent/v3). Change the link to a separate git mirrors page when it's live!
+See more in [Git mirrors](/docs/agent/v3/git-mirrors).
 
 ## Sparse checkout
 
