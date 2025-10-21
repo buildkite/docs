@@ -73,12 +73,10 @@ uv add buildkite-sdk
 The following code example demonstrates how to import the Buildkite SDK into a simple Python script, which then generates a Buildkite Pipelines step for a simple simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step to either JSON or YAML format:
 
 ```python
-from buildkite_sdk import Pipeline, CommandStep
+from buildkite_sdk import Pipeline
 
 pipeline = Pipeline()
-pipeline.add_step(CommandStep(
-    commands="echo 'Hello, world!'"
-))
+pipeline.add_step({"command": "echo 'Hello, world!'"})
 
 # JSON output
 # print(pipeline.to_json())
