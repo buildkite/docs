@@ -39,7 +39,7 @@ When implementing the dynamic approach, you can use:
 
 The common way of implementing the dynamic approach is uploading the generated YAML as an artifact using `buildkite-agent artifact upload`. This allows you to download and review that YAML file later to see exactly what was generated.
 
-> Dry run
+> Dry-run preview
 > If you want to preview the pipeline before it's uploaded, you can use `buildkite-agent pipeline upload --dry-run` to output the final YAML without running it.
 
 Buildkite customers who use [Bazel](/docs/pipelines/tutorials/bazel) and [Gradle](https://gradle.org/) prefer the dynamic approach since these build systems allow targeting certain steps once the diff that needs to be built is identified. These tools also allow you to map which tests to run on the paths that changed.
