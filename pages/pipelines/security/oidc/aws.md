@@ -156,8 +156,8 @@ As part of this process:
         ]
     }
     ```
-    **Note:** AWS requires matching on the `sub` claim in all the trust policies to be used with Buildkite OIDC. Our recommendation is to use the `sub` claim to match broadly your Buildkite organization and to use `aws:RequestTag` conditions for more granular authorization, as in the example above.
 
+    **Note:** AWS requires the `sub` claim to be matched all trust policies used with OIDC in Buildkite Pipelines. Therefore, Buildkite's recommendation is to use the `sub` claim to match your Buildkite organization, and then use `aws:RequestTag` conditions for more granular policy restrictions, as demonstrated in the example above.
 
 1. In the **Custom trust policy** section, copy your modified custom trust policy, paste it into your IAM role, and complete the next few steps up to specifying the **Role name**.
 
