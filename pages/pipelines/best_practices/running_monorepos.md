@@ -6,7 +6,7 @@ Monorepo development strategy means that the code for multiple projects is store
 
 All the approaches start with detecting changes in your monorepo, usually at the folder level. To detect these changes, you can use either [`if_changed`](/docs/agent/v3/cli-pipeline#apply-if-changed) feature on the agent or the [Monorepo diff plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/).
 
->
+> 📘
 > In Buildkite Pipelines, you have the ability to structure your monorepo pipeline as a "single pipeline container of many pipelines" or a "single pipeline container of many steps" which have tradeoffs. Some users prefer the clean separation that "trigger another pipeline" provides, while others prefer the closeness provided by "all my steps conditionally run in the same pipeline depending on path." The Monorepo diff plugin supports either structuring of your pipeline.
 
 There are three preferred approaches to running monorepos with Buildkite Pipelines:
@@ -39,7 +39,7 @@ When implementing the dynamic approach, you can use:
 
 The common way of implementing the dynamic approach is uploading the generated YAML as an artifact using `buildkite-agent artifact upload`. This allows you to download and review that YAML file later to see exactly what was generated.
 
-> Dry-run preview
+> 📘 Dry-run preview
 > If you want to preview the pipeline before it's uploaded, you can use `buildkite-agent pipeline upload --dry-run` to output the final YAML without running it.
 
 Buildkite customers who use [Bazel](/docs/pipelines/tutorials/bazel) and [Gradle](https://gradle.org/) prefer the dynamic approach since these build systems allow targeting certain steps once the diff that needs to be built is identified. These tools also allow you to map which tests to run on the paths that changed.
