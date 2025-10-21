@@ -23,6 +23,15 @@ import re
 import yaml
 from difflib import get_close_matches
 
+# Manual mappings for CloudFormation parameters with non-standard Terraform naming
+# Add entries here when automatic name matching fails!
+
+MANUAL_PARAMETER_MAPPINGS = {
+    'BuildkiteAgentSigningKeySSMParameter': 'pipeline_signing_jwks_parameter_store_path',
+    'BuildkiteAgentSigningKeyID': 'pipeline_signing_jwks_key_id',
+    'BuildkiteAgentVerificationKeySSMParameter': 'pipeline_verification_jwks_parameter_store_path',
+}
+
 def cloudformation_constructor(loader, tag_suffix, node):
     if isinstance(node, yaml.ScalarNode):
         return loader.construct_scalar(node)
@@ -56,7 +65,7 @@ for line in tf_content.split('\n'):
 
 def pascal_to_snake(name):
     result = name
-    
+
     acronym_map = {
         'KMS': '_kms_', 'ARN': '_arn_', 'ARNS': '_arns_', 'ARNs': '_arns_',
         'S3': '_s3_', 'ACL': '_acl_', 'VPC': '_vpc_', 'EC2': '_ec2_',
@@ -65,44 +74,37 @@ def pascal_to_snake(name):
         'SSO': '_sso_', 'SSE': '_sse_', 'IOPS': '_iops_', 'CPU': '_cpu_',
         'IO': '_io_', 'TTL': '_ttl_'
     }
-    
+
     for acronym, replacement in acronym_map.items():
         result = result.replace(acronym, replacement)
-    
+
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', result)
     s2 = re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1)
     snake = s2.lower()
-    
+
     snake = re.sub('_+', '_', snake)
     snake = snake.strip('_')
-    
+
     return snake
 
 def find_best_match(cf_param, terraform_vars):
-    # Manual mappings for parameters with non-standard naming
-    manual_mappings = {
-        'BuildkiteAgentSigningKeySSMParameter': 'pipeline_signing_jwks_parameter_store_path',
-        'BuildkiteAgentSigningKeyID': 'pipeline_signing_jwks_key_id',
-        'BuildkiteAgentVerificationKeySSMParameter': 'pipeline_verification_jwks_parameter_store_path',
-    }
-    
-    if cf_param in manual_mappings:
-        tf_var = manual_mappings[cf_param]
+    if cf_param in MANUAL_PARAMETER_MAPPINGS:
+        tf_var = MANUAL_PARAMETER_MAPPINGS[cf_param]
         if tf_var in terraform_vars.keys():
             return tf_var
-    
+
     expected = pascal_to_snake(cf_param)
     if expected in terraform_vars.keys():
         return expected
-    
+
     matches = get_close_matches(expected, terraform_vars.keys(), n=1, cutoff=0.8)
     if matches:
         return matches[0]
-    
+
     simple = cf_param.lower()
     if simple in terraform_vars.keys():
         return simple
-    
+
     return None
 
 mapping = {}
