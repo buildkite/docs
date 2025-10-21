@@ -258,7 +258,7 @@ Ensure you have met the following requirements before continuing with any 1Passw
 
 ### Accessing the API access token through 1Password
 
-Instead of using `BUILDKITE_API_TOKEN` environment variable or `--api-token` flag, use `BUILDKITE_API_TOKEN_FROM_1PASSWORD` environment variable or `--api-token-from-1password` flag, respectively with a 1Password item reference.
+Instead of using the `BUILDKITE_API_TOKEN` environment variable or `--api-token` flag, use the `BUILDKITE_API_TOKEN_FROM_1PASSWORD` environment variable or `--api-token-from-1password` flag, respectively, with a 1Password item reference.
 
 #### Example environment variable usage
 
