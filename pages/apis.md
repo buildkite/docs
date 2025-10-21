@@ -59,7 +59,7 @@ Learn more about the portals feature in [Portals](/docs/apis/graphql/portals).
 
 Buildkite provides both remote and local [MCP servers](https://modelcontextprotocol.io/docs/learn/server-concepts), which provide your AI tools with access to Buildkite's REST API features.
 
-Learn more about the Buildkite MCP server from the [MCP server overview](/docs/apis/mcp-server) page, along with its configurable [tools](/docs/apis/mcp-server#available-mcp-tools) and [toolsets](/docs/apis/mcp-server/toolsets).
+Learn more about the Buildkite MCP server from the [MCP server overview](/docs/apis/mcp-server) page, along with its configurable [tools](/docs/apis/mcp-server/tools#available-mcp-tools) and [toolsets](/docs/apis/mcp-server/tools/toolsets).
 
 ## Webhooks
 

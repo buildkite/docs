@@ -245,6 +245,36 @@ To build the Buildkite MCP server locally from source, run these commands:
 > 📘
 > If you're interested in contributing to the development of the Buildkite MCP server, see the [Contributing section of the README](https://github.com/buildkite/buildkite-mcp-server/tree/main?tab=readme-ov-file#-contributing) and [Development](https://github.com/buildkite/buildkite-mcp-server/blob/main/DEVELOPMENT.md) guide for more information.
 
+## Using 1Password
+
+For enhanced security, you can store your [Buildkite API access token](#configure-an-api-access-token) in [1Password](https://1password.com/) and reference this token using the [1Password command-line interface (CLI)](https://developer.1password.com/docs/cli) instead of exposing it as a plain environment variable.
+
+### Before you start
+
+Ensure you have met the following requirements before continuing with any 1Password configuration.
+
+- You have [installed the 1Password CLI](https://developer.1password.com/docs/cli/get-started/), and have authenticated into it.
+- Your [API access token](#configure-an-api-access-token) has been stored as an item in 1Password.
+
+### Accessing the API access token through 1Password
+
+Instead of using the `BUILDKITE_API_TOKEN` environment variable or `--api-token` flag, use the `BUILDKITE_API_TOKEN_FROM_1PASSWORD` environment variable or `--api-token-from-1password` flag, respectively, with a 1Password item reference.
+
+#### Example environment variable usage
+
+```bash
+export BUILDKITE_API_TOKEN_FROM_1PASSWORD="op://Private/Buildkite API Token/credential" buildkite-mcp-server stdio
+```
+
+#### Example CLI flag usage
+
+```bash
+buildkite-mcp-server stdio --api-token-from-1password="op://Private/Buildkite API Token/credential"
+```
+
+> 📘
+> The local MCP server will call `op read -n <reference>` to fetch the API access token. Ensure your 1Password CLI has been successfully authenticated before starting the server.
+
 ## Self-hosting the MCP server
 
 You can [install the Buildkite MCP server](#install-and-run-the-server-locally) as your own self-hosted server, which effectively behaves similarly to Buildkite's remote MCP server, but as one that operates in your own environment.
