@@ -339,7 +339,7 @@ The following tools can be helpful when creating and maintaining your own Buildk
   <span class="detail">
     <strong>Template Buildkite Plugin</strong>
     <span class="description">A plugin template with customizable options you can use to create your own plugin.</span>
-    <span class="repo">https://github.com/buildkite-plugins/template-buildkite-plugin</span>
+    <span class="repo">github.com/buildkite-plugins/template-buildkite-plugin</span>
   </span>
 </a>
 
