@@ -8,6 +8,7 @@
 * Track trends: Use [cluster insights](/docs/pipelines/insights/clusters) or external tools to analyze durations and failure patterns.
 * Avoid having log files that are too large. Large log files make it harder to troubleshoot the issues and are harder to manage in the Buildkite Pipelines' UI.
 To avoid overly large log files, try to not use verbose output of apps and tools unless needed. See also [Managing log output](/docs/pipelines/configure/managing-log-output#log-output-limits).
+* Use the [Buildkite MCP server](/docs/apis/mcp-server) to get all of the information outlined above.
 
 ### Set relevant alerts
 
