@@ -25,12 +25,9 @@ Before the agents in your infrastructure pick start picking up jobs, the infrast
 
 ## Clusters and queues
 
-Set your clusters and queues according to our best practices and then provide an internal guide for your engineers in terms of which ones they can use. Only allow the specific number of agents you’d like to be in a queue. Monitor the wait times.
-
-See [Clusters and queues for more details](/docs/pipelines/clusters#clusters-and-queues-best-practices).
-
-Monitor or set a maximum job age for waiting jobs to make sure that wrong queue usage is handled.
-
+- Set your clusters and queues according to our best practices and then provide an internal guide for your engineers in terms of which ones they can use. Only allow the specific number of agents you’d like to be in a queue. Monitor the wait times.
+- Monitor or set a maximum job age for waiting jobs to make sure that wrong queue usage is handled.
+- See [Clusters and queues for more details](/docs/pipelines/clusters#clusters-and-queues-best-practices).
 
 ## Pipeline templates as platform control tool
 
@@ -75,6 +72,8 @@ The teams feature provides three distinct permission levels for different resour
 - **Full Access**: Complete control over pipelines, test suites, and registries.
 - **Build & Read** (pipelines): Ability to trigger builds and view pipeline details.
 - **Read Only**: View-only access for monitoring and reporting purposes.
+
+We recommend basing your permission-granting policies on the least privilege access principles.
 
 ### Automated team management
 
@@ -467,6 +466,11 @@ By implementing these cost controls, platform teams can maintain predictable inf
 - Curated templates: Allow teams to adopt pipelines without deep Buildkite expertise.
 - Golden paths: Document and promote recommended workflows to reduce cognitive load.
 - Feedback loops: Encourage engineers to propose improvements or report issues.
+- Use [annotations](/docs/agent/v3/cli-annotate) to let your developer team know whom in your organization to contact in case of a failure. For example:
+
+```bash
+buildkite-agent annotate "Your build has failed - reach out to johndoe_platform@yourorg.com" --style "error" --context "build-failure"
+```
 
 ## Next steps
 

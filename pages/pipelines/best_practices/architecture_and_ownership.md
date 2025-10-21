@@ -20,6 +20,12 @@ The recommended way of configuring your Buildkite Cluster is as follows:
 
 You can also use [Buildkite hosted agents](/docs/pipelines/hosted-agents) as they are using their own isolated clusters.
 
+### Clusters as security boundaries
+
+- If you have multiple cloud providers with different security stances, create separate clusters for this.
+- If you have different security posture in your development environments, also have a separate cluster for each.
+- If you have an open-source repository that is getting built in Buildkite, put the agents working with this repository on a separate cluster, to enforce the boundary.
+
 ### Keep a mix of static and autoscaling agents
 
 If you want to maximize your pipelines' efficiency, you should keep one or two small instances around to handle the initial pipeline upload in your default queue. This will speed up your initial pipelines and allow the autoscaler to properly scale up as jobs are added to the pipeline. Once the jobs are processed, they should be handed off to dedicated [cluster queues](/docs/pipelines/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues) that are geared towards handling those specific tasks.
@@ -31,6 +37,8 @@ How should you structure your queues? The most common queue attributes are based
 - Type of machine (macOS, Linux, Windows, GPU, etc.)
 
 So an example queue would be called `small_mac_silicon`.
+
+Many Buildkite customers break queues down into `dev`, `test`, `prod`, and the agent sizes - into `small`, `medium`, `large`.
 
 Having individual queues according to these breakdowns allows you to scale a set of similar agents, which Buildkite can then report on.
 
