@@ -69,8 +69,12 @@ BuildkiteAgentScalerVersion:
 BuildkiteAgentSignalGracePeriod:
   variable: buildkite_agent_signal_grace_period
   type: number
-BuildkiteAgentSigningKeyID: N/A
-BuildkiteAgentSigningKeySSMParameter: N/A
+BuildkiteAgentSigningKeyID:
+  variable: pipeline_signing_jwks_key_id
+  type: string
+BuildkiteAgentSigningKeySSMParameter:
+  variable: pipeline_signing_jwks_parameter_store_path
+  type: string
 BuildkiteAgentTags:
   variable: buildkite_agent_tags
   type: string
@@ -89,7 +93,9 @@ BuildkiteAgentTokenParameterStorePath:
 BuildkiteAgentTracingBackend:
   variable: buildkite_agent_tracing_backend
   type: string
-BuildkiteAgentVerificationKeySSMParameter: N/A
+BuildkiteAgentVerificationKeySSMParameter:
+  variable: pipeline_verification_jwks_parameter_store_path
+  type: string
 BuildkitePurgeBuildsOnDiskFull:
   variable: buildkite_purge_builds_on_disk_full
   type: bool
@@ -117,8 +123,12 @@ CpuCredits:
 DisableScaleIn:
   variable: disable_scale_in
   type: bool
-DockerFixedCidrV4: N/A
-DockerFixedCidrV6: N/A
+DockerFixedCidrV4:
+  variable: docker_fixed_cidr_v4
+  type: string
+DockerFixedCidrV6:
+  variable: docker_fixed_cidr_v6
+  type: string
 DockerIPv4AddressPool1:
   variable: docker_ipv4_address_pool_1
   type: string
@@ -155,7 +165,9 @@ EnableDockerUserNamespaceRemap:
 EnableEC2LogRetentionPolicy:
   variable: enable_ec2_log_retention_policy
   type: bool
-EnableECRCredentialHelper: N/A
+EnableECRCredentialHelper:
+  variable: enable_ecr_credential_helper
+  type: bool
 EnableECRPlugin:
   variable: enable_ecr_plugin
   type: bool
@@ -207,7 +219,9 @@ InstanceTypes:
 KeyName:
   variable: key_name
   type: string
-LambdaArchitecture: N/A
+LambdaArchitecture:
+  variable: lambda_architecture
+  type: string
 LogRetentionDays:
   variable: ec2_log_retention_days
   type: number

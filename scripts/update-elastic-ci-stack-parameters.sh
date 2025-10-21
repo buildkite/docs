@@ -79,6 +79,18 @@ def pascal_to_snake(name):
     return snake
 
 def find_best_match(cf_param, terraform_vars):
+    # Manual mappings for parameters with non-standard naming
+    manual_mappings = {
+        'BuildkiteAgentSigningKeySSMParameter': 'pipeline_signing_jwks_parameter_store_path',
+        'BuildkiteAgentSigningKeyID': 'pipeline_signing_jwks_key_id',
+        'BuildkiteAgentVerificationKeySSMParameter': 'pipeline_verification_jwks_parameter_store_path',
+    }
+    
+    if cf_param in manual_mappings:
+        tf_var = manual_mappings[cf_param]
+        if tf_var in terraform_vars.keys():
+            return tf_var
+    
     expected = pascal_to_snake(cf_param)
     if expected in terraform_vars.keys():
         return expected
