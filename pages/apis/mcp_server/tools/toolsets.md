@@ -1,10 +1,12 @@
 # Toolsets
 
-The [Buildkite MCP server](/docs/apis/mcp-server) organizes its [MCP tools](/docs/apis/mcp-server#available-mcp-tools) into logical groups of _toolsets_, each of which can be selectively enabled on the MCP server, based on your requirements.
+The [Buildkite MCP server](/docs/apis/mcp-server) organizes its [MCP tools](/docs/apis/mcp-server/tools#available-mcp-tools) into logical groups of _toolsets_, each of which can be selectively enabled on the MCP server, based on your requirements.
 
 ## Available toolsets
 
-Each toolset groups related [MCP tools](/docs/apis/mcp-server#available-mcp-tools), which interact with specific areas of the Buildkite platform. You can enable these individual toolsets by configuring them for the [remote](#configuring-the-remote-mcp-server) or [local](#configuring-the-local-mcp-server) Buildkite MCP server. Doing so effectively restricts your AI tool's or agent's access to the Buildkite API, based on each set of MCP tools made available through the MCP server's configured toolsets.
+Each toolset groups related [MCP tools](/docs/apis/mcp-server/tools#available-mcp-tools), which interact with specific areas of the Buildkite platform. You can enable these individual toolsets by configuring them for the [remote](#configuring-the-remote-mcp-server) or [local](#configuring-the-local-mcp-server) Buildkite MCP server. Doing so effectively restricts your AI tool's or agent's access to the Buildkite API, based on each set of MCP tools made available through the MCP server's configured toolsets.
+
+Also, see [Recommended toolset configurations](#recommended-toolset-configurations) for details on how to configure different combinations of toolsets for different use cases.
 
 <table>
   <thead>
@@ -18,42 +20,42 @@ Each toolset groups related [MCP tools](/docs/apis/mcp-server#available-mcp-tool
     <% [
       {
         "toolset": "user",
-        "description": "[User, authentication, and Buildkite organization](/docs/apis/mcp-server#available-mcp-tools-user-authentication-and-buildkite-organization)",
+        "description": "[User, authentication, and Buildkite organization](/docs/apis/mcp-server/tools#available-mcp-tools-user-authentication-and-buildkite-organization)",
         "tools": "current_user, user_token_organization, access_token"
       },
       {
         "toolset": "clusters",
-        "description": "[Buildkite clusters](/docs/apis/mcp-server#available-mcp-tools-buildkite-clusters) management",
+        "description": "[Buildkite clusters](/docs/apis/mcp-server/tools#available-mcp-tools-buildkite-clusters) management",
         "tools": "get_cluster, list_clusters, get_cluster_queue, list_cluster_queues"
       },
       {
         "toolset": "pipelines",
-        "description": "[Pipelines](/docs/apis/mcp-server#available-mcp-tools-pipelines) management",
+        "description": "[Pipelines](/docs/apis/mcp-server/tools#available-mcp-tools-pipelines) management",
         "tools": "get_pipeline, list_pipelines, create_pipeline, update_pipeline"
       },
       {
         "toolset": "builds",
-        "description": "[Builds](/docs/apis/mcp-server#available-mcp-tools-builds) operations",
+        "description": "[Builds](/docs/apis/mcp-server/tools#available-mcp-tools-builds) operations",
         "tools": "list_builds, get_build, create_build, wait_for_build, get_jobs, unblock_job"
       },
       {
         "toolset": "logs",
-        "description": "[Logs](/docs/apis/mcp-server#available-mcp-tools-logs) processing",
+        "description": "[Logs](/docs/apis/mcp-server/tools#available-mcp-tools-logs) processing",
         "tools": "search_logs, tail_logs, read_logs, get_logs_info"
       },
       {
         "toolset": "artifacts",
-        "description": "[Artifacts](/docs/apis/mcp-server#available-mcp-tools-artifacts) management",
+        "description": "[Artifacts](/docs/apis/mcp-server/tools#available-mcp-tools-artifacts) management",
         "tools": "list_artifacts, get_artifact"
       },
       {
         "toolset": "annotations",
-        "description": "[Annotations](/docs/apis/mcp-server#available-mcp-tools-annotations) management",
+        "description": "[Annotations](/docs/apis/mcp-server/tools#available-mcp-tools-annotations) management",
         "tools": "list_annotations"
       },
       {
         "toolset": "tests",
-        "description": "[Test Engine](/docs/apis/mcp-server#available-mcp-tools-test-engine)",
+        "description": "[Test Engine](/docs/apis/mcp-server/tools#available-mcp-tools-test-engine)",
         "tools": "list_test_runs, get_test_run, get_failed_executions, get_test"
       }
     ].select { |field| field[:toolset] }.each do |field| %>
@@ -101,40 +103,46 @@ https://mcp.buildkite.com/mcp/x/builds/readonly
 
 ### Using headers
 
-When [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools), you can enable one or more toolsets by specifying their [toolset names](#available-toolsets) as a single-line comma-separated list value for the `X-Buildkite-Toolsets` header of requests sent to the Buildkite platform from the remote MCP server. To enforce read-only access, also add the `X-Buildkite-Readonly` header with a value of `true`.
+When [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools), you can enable one or more toolsets by specifying their [toolset names](#available-toolsets) as a single-line comma-separated list value for the `X-Buildkite-Toolsets` header of requests sent to the Buildkite platform from the remote MCP server. To enforce read-only access, use the [read-only remote MCP server URL](/docs/apis/mcp-server#read-only-remote-mcp-server).
 
 #### Examples
 
-To enable the `builds` toolset for the remote MCP server, configure your AI tool with the standard remote MCP server URL:
+To enable the `builds` toolset for the remote MCP server, configure your AI tool with the [standard remote MCP server URL](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server):
 
 ```url
 https://mcp.buildkite.com/mcp
 ```
 
-along with the following request header:
+along with the required toolset value specified in the request header `X-Buildkite-Toolsets`, that is:
 
 ```url
 X-Buildkite-Toolsets: builds
 ```
 
-To enable the `user`, `pipelines`, and `builds` toolsets for the remote MCP server, configure your AI tool with the standard remote MCP server URL, and the following request header:
+To enable the `user`, `pipelines`, and `builds` toolsets for the remote MCP server, configure your AI tool with this [standard remote MCP server URL](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server), along with these toolset values specified in the `X-Buildkite-Toolsets` header:
 
 ```url
 X-Buildkite-Toolsets: user,pipelines,builds
 ```
 
-To enforce read-only access across all of these toolsets, use the following request headers:
+To enforce read-only access across all of these toolsets, use the [read-only remote MCP server URL](/docs/apis/mcp-server#read-only-remote-mcp-server):
+
+```url
+https://mcp.buildkite.com/mcp/readonly
+```
+
+along with the following request header:
 
 ```url
 X-Buildkite-Toolsets: user,pipelines,builds
-X-Buildkite-Readonly: true
 ```
 
 You can also be [selective with read-only access to toolsets](#configuring-the-remote-mcp-server-selective-read-only-access-to-toolsets).
 
 > 📘
 > Learn more about how to configure different AI tools with these header configurations in [Configuring AI tools with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools).
-> Omitting the `X-Buildkite-Toolsets` and `X-Buildkite-Readonly` headers from these configurations provides unrestricted access to the Buildkite API, restricted only by all applicable [token scopes](/docs/apis/managing-api-tokens#token-scopes) available to your Buildkite user account's access token, and what you can access on the Buildkite platform.
+> Instead of using the [read-only remote MCP server URL](/docs/apis/mcp-server#read-only-remote-mcp-server), you could use the [standard remote MCP server URL](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) (`https://mcp.buildkite.com/mcp`), along with the additional header of `X-Buildkite-Readonly: true`. However, for simplicity, using the read-only remote MCP server URL is preferred.
+> Using the [standard remote MCP server URL](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) and omitting the `X-Buildkite-Toolsets` and `X-Buildkite-Readonly` headers from these configurations provides unrestricted access to the Buildkite API, restricted only by all applicable [token scopes](/docs/apis/managing-api-tokens#token-scopes) available to your Buildkite user account's access token, and what you can access on the Buildkite platform.
 
 ### Selective read-only access to toolsets
 
@@ -142,31 +150,36 @@ If you want to enable multiple [toolsets](#available-toolsets), but be selective
 
 #### Examples
 
-To enable the `user` and `pipelines` toolsets with read-only access, and the `builds` toolset with both read and write access, create two remote MCP server configurations with the standard URL:
+To enable the `builds` toolset with both read and write access, and the `user` and `pipelines` toolsets with read-only access, create two remote MCP server configurations—one with the [standard URL](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server):
 
 ```url
 https://mcp.buildkite.com/mcp
 ```
 
-For the `user` and `pipelines` toolsets with read-only access to the remote MCP server, implement the request header:
+and the other with the [read-only URL](/docs/apis/mcp-server#read-only-remote-mcp-server):
 
 ```url
-X-Buildkite-Toolsets: user,pipelines
-X-Buildkite-Readonly: true
+https://mcp.buildkite.com/mcp/readonly
 ```
 
-And for the `builds` toolset with read and write access to the remote MCP server, implement the request header:
+For the `builds` toolset with read and write access to the remote MCP server, implement the request header for your remote MCP server configuration which uses the _standard URL_:
 
 ```url
 X-Buildkite-Toolsets: builds
 ```
 
+And for the `user` and `pipelines` toolsets with read-only access to the remote MCP server, implement the request header for your MCP server configuration which uses the _read-only URL_:
+
+```url
+X-Buildkite-Toolsets: user,pipelines
+```
+
 You could also [use the URL extension](#configuring-the-remote-mcp-server-using-a-url-extension) approach to do this by implementing three separate remote MCP server configurations, each of whose URLs are respectively:
 
 ```url
+https://mcp.buildkite.com/mcp/x/builds
 https://mcp.buildkite.com/mcp/x/user/readonly
 https://mcp.buildkite.com/mcp/x/pipelines/readonly
-https://mcp.buildkite.com/mcp/x/builds
 ```
 
 > 📘
@@ -298,3 +311,36 @@ docker run --rm -e BUILDKITE_API_TOKEN=bkua_xxxxx -e BUILDKITE_TOOLSETS="builds"
 > `"buildkite-read-only-user-pipelines-toolsets": { ... }`
 > and
 > `"buildkite-builds-toolset": { ... }`
+
+## Recommended toolset configurations
+
+Once you've learned how to configure the [remote](#configuring-the-remote-mcp-server) or [local](#configuring-the-local-mcp-server) MCP server for toolsets, you can configure different combinations of [toolsets](#available-toolsets) for different use cases.
+
+### Recommended minimum baseline
+
+As a recommended minimum baseline, always include the `user` toolset as its tools provide essential user and organization information that many AI workflows depend on.
+
+### CI/CD management
+
+For CD/CD management, set the following MCP server toolsets:
+
+- `user`
+- `pipelines`
+- `builds`
+
+### Debugging and analysis
+
+For debugging and analysis of pipeline builds, set the following MCP server toolsets:
+
+- `user`
+- `builds`
+- `logs`
+- `tests`
+- `annotations`
+
+### Full access
+
+For full access to the Buildkite MCP server's toolsets:
+
+- If you are using the [remote MCP server](#configuring-the-remote-mcp-server), don't configure any toolsets, and instead, only configure the remote MCP server URL: `https://mcp.buildkite.com/mcp`. See [Configuring AI tools with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools).
+- If you are using the [local MCP server](#configuring-the-local-mcp-server), also don't configure any toolsets (see [Configuring AI tools with the local MCP server](/docs/apis/mcp-server/local/configuring-ai-tools)), or, if you want to be explicit about this in your configuration, set the `BUILDKITE_TOOLSETS` environment variable or the `--enabled-toolsets` flag with a value of `all`.
