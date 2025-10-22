@@ -58,7 +58,7 @@ To start using long-running agents:
 - Add telemetry to understand when an agent becomes flaky so you can pause it and take it out.
 - Try to scale down by retiring the oldest agents first.
 
-With ephemeral [Buildkite hosted agents](https://buildkite.com/docs/pipelines/hosted-agents/linux#agent-images-create-an-agent-image), you can automatically include caches of your Git repository and any cached volumes for data that must be shared between services or runs.
+With ephemeral [Buildkite hosted agents](/docs/pipelines/hosted-agents/linux#agent-images-create-an-agent-image), you can automatically include caches of your Git repository and any cached volumes for data that must be shared between services or runs.
 
 ## Utilize agent hooks in your architecture
 

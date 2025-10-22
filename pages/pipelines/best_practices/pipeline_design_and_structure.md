@@ -11,7 +11,7 @@
 * Three common patterns:
     + One orchestrator pipeline that triggers static component pipelines based on diffs.
     + [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) that inject only the steps needed for the change set.
-    + [Buildkite SDK](docs/pipelines/configure/dynamic-pipelines/sdk) where the injected parts can be build in any language you prefer.
+    + [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk) where the injected parts can be build in any language you prefer.
 
 ## Prioritize fast feedback loops
 

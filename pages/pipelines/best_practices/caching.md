@@ -9,7 +9,7 @@ Efficient caching: optimize Dockerfile layering to maximize [cache reuse](https:
 - Dependency directories for your language or build tool
 - Docker build layers when applicable
 - Large files repeatedly downloaded from the internet
-- Git mirrors on hosted agents are handled for you and benefit from caching automatically[[1]](https://buildkite.com/docs/pipelines/hosted-agents/cache-volumes)
+- Git mirrors on hosted agents are handled for you and benefit from [caching automatically](/docs/pipelines/hosted-agents/cache-volumes)
 
 Do not cache:
 
@@ -32,6 +32,23 @@ Why: The greatest wins come from restoring dependency trees and Docker layers, n
     * Example: docker‑ecr‑cache plugin for layer reuse in [ECR/GCR](https://github.com/seek-oss/docker-ecr-cache-buildkite-plugin)
 
 Recommendation: Prefer hosted cache volumes for most hosted‑agent pipelines. Layer in key‑based cache where determinism and cross‑build control matter most (for example, lockfile‑keyed dependency caches).
+
+## Caching strategies that don’t compromise reproducibility
+
+- Git checkout:
+    * Use mirrors or shallow clones on persistent workers to speed up fetches
+    * Validate commit SHAs to avoid checkout surprises
+- Dependency caches:
+    * Key off the lockfile hash and platform
+    * Separate build vs test caches if they diverge
+- Docker layer caching:
+    * Order Dockerfile so immutable layers (OS packages, core `deps`) come first
+    * Copy lockfiles before install to maximize cache hits
+- Artifact caching:
+    * Store heavyweight build outputs as artifacts between steps instead of re-building
+- Beware hidden state:
+    * Clean workspaces where hermetic guarantees matter
+    * Prefer “cache or clean” over “hope” patterns
 
 ## Tools for caching
 

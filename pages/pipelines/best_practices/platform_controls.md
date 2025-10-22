@@ -16,7 +16,7 @@ When the resulting pipeline runs, the end user of Buildkite (a member of the dev
 To sum it up:
 
 - Platform teams manage central control while still giving end users of Buildkite (developer teams) as much or as little flexibility as necessary.
-- One script can generate many different variations of pipelines, and this allows the platform teams to manage shared logic and run organization-wide checks, for example, [security scanning](https://buildkite.com/docs/pipelines/security/enforcing-security-controls#dependencies-and-package-management).
+- One script can generate many different variations of pipelines, and this allows the platform teams to manage shared logic and run organization-wide checks, for example, [security scanning](/docs/pipelines/security/enforcing-security-controls#dependencies-and-package-management).
 - Developer teams only get the permissions and information that is relevant to their builds and pipelines.
 
 ## Buildkite agent controls
@@ -416,6 +416,44 @@ By implementing these cost controls, platform teams can maintain predictable inf
 ```bash
 buildkite-agent annotate "Your build has failed - reach out to johndoe_platform@yourorg.com" --style "error" --context "build-failure"
 ```
+
+## Overall ownership
+
+Set up a platform team that is managing the infrastructure and the common constructs that can be used as pipelines, for example, private plugins, Docker image building pipeline, an so on. And then allow the individual developer teams build their own pipelines.
+
+### Use block steps for approvals
+
+Require human confirmation before production deployment:
+
+```yaml
+steps:
+  - block: ":rocket: Deploy to production?"
+    branches: "main"
+    fields:
+      - select: "Environment"
+        key: "environment"
+        options:
+          - label: "Staging"
+            value: "staging"
+          - label: "Production"
+            value: "production"
+```
+
+### Canary releases in CI/CD
+
+Model partial deployments and staged rollouts directly in pipelines. See more in [Deployments](/docs/pipelines/deployments).
+
+### Pipeline-as-code reviews
+
+Require peer reviews for pipeline changes, just like application code.
+
+### Chaos testing
+
+Periodically inject failure scenarios (e.g., failing agents, flaky dependencies) to validate pipeline resilience.
+
+### Silent failures
+
+Never ignore failing steps without a clear follow-up.
 
 ## Next steps
 
