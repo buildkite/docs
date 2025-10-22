@@ -96,7 +96,7 @@ Platform teams should implement comprehensive telemetry and observability soluti
 
 You can turn Buildkite into a first‑class source of operational truth for your CI fleet by combining in‑product metrics with open telemetry streams, your preferred observability backend, and Buildkite’s real‑time event feeds.
 
-See more in (link to the monitoring section ond observability documentation), shorten the intro.
+See more in (link to the monitoring section and observability documentation), shorten the intro.
 
 ## Centralize observability
 
