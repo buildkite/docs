@@ -24,6 +24,8 @@ You can also use [Buildkite hosted agents](/docs/pipelines/hosted-agents) as the
 
 If you want to maximize your pipelines' efficiency, you should keep one or two small instances around to handle the initial pipeline upload in your default queue. This will speed up your initial pipelines and allow the autoscaler to properly scale up as jobs are added to the pipeline. Once the jobs are processed, they should be handed off to dedicated [cluster queues](/docs/pipelines/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues) that are geared towards handling those specific tasks.
 
+### Recommended queue structure
+
 How should you structure your queues? The most common queue attributes are based on infrastructure set-ups, such as:
 
 - Architecture (x86, arm64, Apple silicon, etc.)
@@ -40,13 +42,13 @@ Learn more about working with queues in [Manage queues](/docs/pipelines/clusters
 
 ## Establish a cached image for your agents
 
-If you are truly operating at a large scale, you need a set of cached agent images. For smaller organizations supporting one application, you may just need one. However, you may also have multiple images depending on your needs. It is recommended to keep only the tooling that you need to execute a specific function on a specific queue image. You can also use Buildkite registry plugin to get these images from the registry.
+If you are truly operating at a large scale, you need a set of cached agent images. For smaller organizations supporting one application, you may just need one. However, you may also have multiple images depending on your needs. It is recommended to keep only the tooling that you need to execute a specific function on a specific queue image. You can also use the [Buildkite registry plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-cache-buildkite-plugin/) to get these images from the registry.
 
 For example, a "security" image could have ClamAV, Trivy, Datadog's GuardDog, Snyk, and other tooling installed. Try to avoid having a single image containing all of your tooling and dependencies - keep them tightly scoped. You may want to build nightly to take advantage of automatically caching dependencies to speed up your builds, including system, framework, and image updates in Buildkite Packages, or publish to an AWS AMI, etc. This eliminates the potential for you to hit rate limits with high-scaling builds.
 
-For hosted agents, we recommend using queue images.
-
 Using cached images helps eliminate the necessity of sharing filesystems between services that could cause contention or a dirty cache.
+
+For hosted agents, we recommend using queue images.
 
 ## Using long running and ephemeral agents
 

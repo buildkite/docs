@@ -64,3 +64,12 @@ Recommendation: Prefer hosted cache volumes for most hosted‑agent pipelines. L
 
 Buildkite artifacts could be used to "cache" common data between steps.
 
+## Futrther work on this page
+
+To do:
+
+Bazel caching
+Artifact caching
+git mirror to be enabled in the agent (can also go in the agent section under something like speed up builds)
+Git lfs caching (many customers use VMs due to LFS)
+hosted agent caching
