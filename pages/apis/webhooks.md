@@ -18,9 +18,11 @@ Buildkite provides webhook support for [Pipelines](/docs/apis/webhooks/pipelines
 
 ## Creating webhooks
 
-Learn more about how to add Buildkite webhooks from the **Add a webhook** procedures [Pipelines](/docs/apis/webhooks/pipelines#add-a-webhook), [Test Engine](/docs/apis/webhooks/test-engine#add-a-webhook), and [Package Registries](/docs/apis/webhooks/package-registries#add-a-webhook).
+Learn more about how to add Buildkite webhooks from the **Add a webhook** procedures [Pipelines](/docs/apis/webhooks/pipelines#add-a-webhook) and [Package Registries](/docs/apis/webhooks/package-registries#add-a-webhook).
 
 Request headers for [Pipelines](/docs/apis/webhooks/pipelines#http-headers) and [Package Registries](/docs/apis/webhooks/package-registries#http-headers) webhooks are also provided to allow the authenticity of these webhook events to be verified.
+
+For Test Engine, see [Test Engine webhooks](/docs/apis/webhooks/test-engine) for details on how its webhooks are created.
 
 ## Event families
 
@@ -39,7 +41,7 @@ Buildkite Pipelines supports the following categories of webhook events, which a
 
 ### Test Engine
 
-Buildkite Test Engine supports webhook events relating to [changes in test states and labels](/docs/apis/webhooks/test-engine).
+Buildkite Test Engine supports webhook events relating to a [monitor on a test suite's workflow triggering an alarm or recover action](/docs/apis/webhooks/test-engine).
 
 ### Package Registries
 

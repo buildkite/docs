@@ -272,7 +272,7 @@ Optional attributes:
     <td><code>multiple</code></td>
     <td>
       A boolean value that defines whether multiple options may be selected.<br/>
-      When multiple options are selected, they are delimited in the meta-data field by a line break (<code>\n</code>).<br/>
+      When multiple options are selected, they are delimited in the meta-data field by a comma (<code>,</code>).<br/>
       <em>Default:</em> <code>false</code>
     </td>
   </tr>
@@ -442,6 +442,17 @@ You can modify a trigger step to dynamically upload itself to a pipeline as foll
 The command step added in the above example will upload the trigger step and add it to the end of our pipeline at runtime.
 
 In the pipeline you're triggering, you will be able to use the meta-data that you have passed through as if it was set during the triggered build.
+
+## Metadata validation handling
+
+When using block steps with form fields, it's important to understand how the `required` and the `default` attributes interact with metadata validation.
+
+Setting `required: false` only affects the UI by making the field appear optional and allowing users to submit the form with an empty value. However, the metadata key will still be created in the build's metadata store. If you also set `default: ""`, the metadata key will exist with an empty string. This is important to remember as some `buildkite-agent` commands (for example, `buildkite-agent meta-data set`) will reject empty or whitespace-only values and fail at runtime.
+
+Recommended approach:
+
+- Set the field `required: true` (no default), or
+- Keep the field optional (`required: false`) but provide a non-empty default.
 
 ## Input validation
 

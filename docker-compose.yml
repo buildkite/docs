@@ -38,11 +38,16 @@ services:
   muffet:
     depends_on:
       - app
-    image: raviqqe/muffet:2.10.9 # version 2.11.0 is a scratch image and doesn't work with current code
+    build:
+      context: .
+      target: muffet
     entrypoint:
-      - /work/muffet.sh
+      - /work/muffet.rb
+    working_dir: /work
     volumes:
       - .buildkite/steps:/work
+    environment:
+      BUILDKITE: ${BUILDKITE:-false}
 
   deploy-preview:
     build:

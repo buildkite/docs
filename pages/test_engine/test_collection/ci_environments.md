@@ -244,9 +244,9 @@ Each environment variable corresponds to a `run_env` key in the payload `https:/
 <table class="responsive-table">
   <thead>
     <tr>
-      <th>Field name</th>
-      <th>Environment variable</th>
-      <th>Description</th>
+      <th style="width:25%">Field name</th>
+      <th style="width:35%">Environment variable</th>
+      <th style="width:40%">Description</th>
     </tr>
   </thead>
   <tbody>

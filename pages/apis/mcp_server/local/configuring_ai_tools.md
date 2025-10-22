@@ -2,10 +2,12 @@
 
 Once you followed the required instructions on [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing) to install the MCP server locally for your AI tool or agent, you can then use the instructions on this page to configure your AI tool or agent to work with this [_local_ Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers-local-mcp-server).
 
-All the Docker instructions on this page implement the `--pull=always` option to ensure that the latest MCP server version is obtained when the container is started. If you are installing the Buildkite MCP server locally as a binary, then you are responsible for manually upgrading it.
-
 > 📘
 > The Buildkite MCP server is available both [locally and remotely](/docs/apis/mcp-server#types-of-mcp-servers). This page is about configuring AI tools with the local MCP server. If you are working directly with an AI tool and would prefer it to use the _remote_ MCP server, proceed with the relevant instructions on its [Configuring AI tools](/docs/apis/mcp-server/remote/configuring-ai-tools) page.
+
+All the Docker instructions on this page implement the `--pull=always` option to ensure that the latest MCP server version is obtained when the container is started. If you are installing the Buildkite MCP server locally as a binary, then you are responsible for manually upgrading it.
+
+For all configuration processes covered on this page, you can alternatively store your [Buildkite API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) in [1Password](https://1password.com/), and configure your local MCP server to access this token from 1Password. Learn more about this process in [Using 1Password](/docs/apis/mcp-server/local/installing#using-1password) and [Accessing the API access token through 1Password](#accessing-the-api-access-token-through-1password), towards the end of this page.
 
 ## Amp
 
@@ -33,6 +35,8 @@ When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-s
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
+
 ### Binary
 
 When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
@@ -53,6 +57,8 @@ When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
+
 ## Claude Code
 
 You can configure your [Claude Code](https://www.anthropic.com/claude-code) AI tool or agent to work with your local Buildkite MCP server, running [in Docker](#claude-code-docker) or [as a binary](#claude-code-binary). To do this, run the relevant Claude Code command, after [installing Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview).
@@ -67,6 +73,8 @@ claude mcp add buildkite -- docker run --pull=always -q --rm -i -e BUILDKITE_API
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
+
 ### Binary
 
 When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, run the following Claude Code command.
@@ -76,6 +84,8 @@ claude mcp add buildkite --env BUILDKITE_API_TOKEN=bkua_xxxxx -- buildkite-mcp-s
 ```
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
+
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
 
 ## Claude Desktop
 
@@ -103,6 +113,8 @@ When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-s
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
+
 ### Binary
 
 When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following configuration to your [Claude Desktop's `claude_desktop_config.json` file](https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop), which you can access from Claude Desktop's **Settings** > **Developer** > **Edit Config** button on the **Local MCP servers** page.
@@ -123,9 +135,11 @@ When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
+
 ## Cursor
 
-You can configure [Cursor](https://cursor.com/) to work with your local Buildkite MCP server, running [in Docker](#cursor-docker) or [as a binary](#cursor-binary). To do this, add the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json), which is usually located in your home directory's `.cursor` sub-directory.
+You can configure [Cursor](https://cursor.com/) to work with your local Buildkite MCP server, running [in Docker](#cursor-docker) or [as a binary](#cursor-binary). To do this, add the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcpjson), which is usually located in your home directory's `.cursor` sub-directory.
 
 To access the `mcp.json` file through the Cursor app to implement this configuration:
 
@@ -135,7 +149,7 @@ To access the `mcp.json` file through the Cursor app to implement this configura
 
 ### Docker
 
-When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Cursor `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
+When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Cursor `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcpjson).
 
 ```json
 {
@@ -155,9 +169,11 @@ When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-s
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
+
 ### Binary
 
-When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Cursor `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcp-json).
+When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Cursor `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcpjson).
 
 ```json
 {
@@ -174,6 +190,8 @@ When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-
 ```
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
+
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
 
 ## Goose
 
@@ -200,6 +218,8 @@ extensions:
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
+
 ### Binary
 
 When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following YAML configuration the `extensions:` section of your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
@@ -220,6 +240,8 @@ extensions:
 ```
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
+
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
 
 ## Visual Studio Code
 
@@ -254,6 +276,8 @@ When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-s
 ```
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
+
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
 
 Alternatively, you can initiate this process through the Visual Studio Code interface. To do this:
 
@@ -293,6 +317,8 @@ When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
+
 ## Windsurf
 
 You can configure [Windsurf](https://windsurf.com/) to work with your local Buildkite MCP server, running [in Docker](#windsurf-docker) or [as a binary](#windsurf-binary). To do this, add the relevant configuration to your [Windsurf's `mcp_config.json` file](https://docs.windsurf.com/windsurf/cascade/mcp#mcp-config-json).
@@ -319,6 +345,8 @@ When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-s
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
+
 ### Binary
 
 When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Windsurf's `mcp_config.json` file](https://docs.windsurf.com/windsurf/cascade/mcp#mcp-config-json).
@@ -338,6 +366,8 @@ When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-
 ```
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
+
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
 
 ## Zed
 
@@ -373,7 +403,7 @@ Alternatively, you can copy and paste the following configuration as a new entry
 
 [ToolHive](https://toolhive.dev/) is a tool that allows you to abstract the API access token handling processes for your local Buildkite MCP server, away from your other AI tool infrastructure and the Buildkite platform.
 
-You can configure ToolHive to run your local Buildkite MCP server from its registry using ToolHive's command line interface (CLI) tool. To do this, ensure you have installed TooHive's [CLI tool](https://toolhive.dev/download.html) and do the following:
+You can configure ToolHive to run your local Buildkite MCP server from its registry using ToolHive's command line interface (CLI) tool. To do this, ensure you have installed TooHive's [CLI tool](https://toolhive.dev/download) and do the following:
 
 1. Use ToolHive's `thv secret set` command to store your [Buildkite API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) as a secret.
 
@@ -389,7 +419,7 @@ You can configure ToolHive to run your local Buildkite MCP server from its regis
     thv run --secret buildkite-api-key,target=BUILDKITE_API_TOKEN buildkite
     ```
 
-You can also configure ToolHive to run your local Buildkite MCP server from its registry using the ToolHive interface. To do this, ensure you have installed TooHive's [Desktop app](https://toolhive.dev/download.html) and do the following:
+You can also configure ToolHive to run your local Buildkite MCP server from its registry using the ToolHive interface. To do this, ensure you have installed TooHive's [Desktop app](https://toolhive.dev/download) and do the following:
 
 1. Access [ToolHive's **Secrets** page](https://docs.stacklok.com/toolhive/guides-ui/secrets-management#manage-secrets).
 
@@ -408,3 +438,44 @@ You can also configure ToolHive to run your local Buildkite MCP server from its 
     * **Environment variables** (_optional_): Specify the threshold for logging tokens. Omitting this field sets its value to 0, which means that no tokens are logged.
 
 <!-- vale on -->
+
+## Accessing the API access token through 1Password
+
+For enhanced security, you can store your [Buildkite API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) in [1Password](https://1password.com/) and reference this token using the [1Password command-line interface (CLI)](https://developer.1password.com/docs/cli) instead of exposing it as a plain environment variable. Learn more about setting up this process in [Using 1Password](/docs/apis/mcp-server/local/installing#using-1password).
+
+If you are using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the local MCP server, configure the `docker run` command's environment variable for 1Password with both an `args` array and `env` object in the local MCP server's JSON configuration file. For example:
+
+```json
+{
+  ...
+    "buildkite-1password-stored-token": {
+      "command": "docker",
+      "args": [
+        "run", "--pull=always", "-q", "-i", "--rm",
+        "-e", "BUILDKITE_API_TOKEN_FROM_1PASSWORD",
+        "buildkite/mcp-server",
+        "stdio"
+      ],
+      "env": {
+        "BUILDKITE_API_TOKEN_FROM_1PASSWORD": "op://Private/Buildkite API Token/credential"
+      }
+    }
+  ...
+}
+```
+
+If you are using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the local MCP server, configure the `buildkite-mcp-server` command's environment variable for 1Password with an `env` object in the local MCP server's JSON configuration file. For example:
+
+```json
+{
+  ...
+    "buildkite-1password-stored-token": {
+      "command": "buildkite-mcp-server",
+      "args": ["stdio"],
+      "env": {
+        "BUILDKITE_API_TOKEN_FROM_1PASSWORD": "op://Private/Buildkite API Token/credential"
+      }
+    }
+  ...
+}
+```
