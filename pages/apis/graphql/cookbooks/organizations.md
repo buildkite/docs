@@ -123,7 +123,7 @@ mutation UpdateSessionDuration {
 
 ## Update inactive API token revocation
 
-On the Enterprise plan, you can control when inactive API tokens are revoked. By default, they are never (`NEVER`) revoked, but you can set your token revocation to either 30, 60, 90, 180, or 365 days.
+On the [Enterprise](https://buildkite.com/pricing/) plan, you can control when inactive API tokens are revoked. By default, they are never (`NEVER`) revoked, but you can set your token revocation to either 30, 60, 90, 180, or 365 days.
 
 ```graphql
 mutation UpdateRevokeInactiveTokenPeriod {
@@ -330,7 +330,7 @@ mutation deleteOrgMember {
 
 ## Get organization audit events
 
-Query your organization's audit events. Audit events are only available to Enterprise customers.
+Query your organization's audit events. Audit events are only available to [Enterprise](https://buildkite.com/pricing/) customers.
 
 ```graphql
 query getOrganizationAuditEvents {
@@ -380,7 +380,7 @@ query getTimeScopedOrganizationAuditEvents {
 
 ## Get organization audit events of a specific user
 
-Query audit events from within an organization of a specific user. Audit events are only available to Enterprise customers.
+Query audit events from within an organization of a specific user. Audit events are only available to [Enterprise](https://buildkite.com/pricing/) customers.
 
 ```graphql
 query getActorRefinedOrganizationAuditEvents {
@@ -424,9 +424,9 @@ query getActorID {
 }
 ```
 
-## Create & delete system banners (enterprise only)
+## Create and delete system banners
 
-Create & delete system banners via the `organizationBannerUpsert` & `organizationBannerDelete` mutations.
+Create and delete system banners using the `organizationBannerUpsert` & `organizationBannerDelete` mutations. These features are only available to [Enterprise](https://buildkite.com/pricing/) customers.
 
 To create a banner call `organizationBannerUpsert` with the organization's GraphQL id and message.
 
