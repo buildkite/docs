@@ -64,7 +64,7 @@ Another user with **Full Access** to this pipeline or a [Buildkite organization 
 
 ## Manage organization security for pipelines
 
-Enterprise customers can configure pipeline action permissions and related security features for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
+Enterprise plan customers can configure pipeline action permissions and related security features for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
 
 These user-level permissions and security features are managed by _Buildkite organization administrators_. To access this feature:
 

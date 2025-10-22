@@ -330,7 +330,7 @@ mutation deleteOrgMember {
 
 ## Get organization audit events
 
-Query your organization's audit events. Audit events are only available to [Enterprise](https://buildkite.com/pricing/) customers.
+Query your Buildkite organization's audit events. Audit events are only available to [Enterprise](https://buildkite.com/pricing/) plan customers.
 
 ```graphql
 query getOrganizationAuditEvents {
@@ -380,7 +380,7 @@ query getTimeScopedOrganizationAuditEvents {
 
 ## Get organization audit events of a specific user
 
-Query audit events from within an organization of a specific user. Audit events are only available to [Enterprise](https://buildkite.com/pricing/) customers.
+Query audit events from within a Buildkite organization of a specific user. Audit events are only available to [Enterprise](https://buildkite.com/pricing/) plan customers.
 
 ```graphql
 query getActorRefinedOrganizationAuditEvents {
@@ -426,7 +426,7 @@ query getActorID {
 
 ## Create and delete system banners
 
-Create and delete system banners using the `organizationBannerUpsert` & `organizationBannerDelete` mutations. These features are only available to [Enterprise](https://buildkite.com/pricing/) customers.
+Create and delete system banners using the `organizationBannerUpsert` and `organizationBannerDelete` mutations. These features are only available to [Enterprise](https://buildkite.com/pricing/) plan customers.
 
 To create a banner call `organizationBannerUpsert` with the organization's GraphQL id and message.
 
