@@ -118,24 +118,24 @@ The following code example demonstrates how to import the Buildkite SDK into a s
 package main
 
 import (
-	"fmt"
-	"github.com/buildkite/buildkite-sdk/sdk/go/sdk/buildkite"
+  "fmt"
+  "github.com/buildkite/buildkite-sdk/sdk/go/sdk/buildkite"
 )
 
 func main() {
-	pipeline := buildkite.Pipeline{}
-	command := "echo 'Hello, world!"
+  pipeline := buildkite.Pipeline{}
+  command := "echo 'Hello, world!"
 
-	pipeline.AddCommandStep(buildkite.CommandStep{
-		Command: &buildkite.CommandUnion{
-			String: &command,
-		},
-	})
+  pipeline.AddCommandStep(buildkite.CommandStep{
+    Command: &buildkite.CommandUnion{
+      String: &command,
+    },
+  })
 
-    // JSON output
-	// fmt.Println(pipeline.ToJSON())
-    // YAML output
-	fmt.Println(pipeline.ToYAML())
+  // JSON output
+  // fmt.Println(pipeline.ToJSON())
+  // YAML output
+  fmt.Println(pipeline.ToYAML())
 }
 ```
 {: codeblock-file="dynamic_pipeline.go"}
