@@ -3,7 +3,7 @@
 This guide is focusing on how platform and infrastructure teams can maintain centralized control while providing development teams with the flexibility they need to run and observe the pipelines in your Buildkite organization.
 
 > 📘
-> If you're looking for in-depth information on security controls, see [Enforcing security controls](/docs/pipelines/security/enforcing-security-controls).
+> If you're looking for in-depth information on security controls, see [Enforcing security controls](/docs/pipelines/best-practices/security-controls).
 
 ## Concept of platform management
 

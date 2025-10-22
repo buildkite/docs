@@ -67,23 +67,6 @@ env:
 - If host-level tooling is required, pin versions and manage via IaC.
 - Use ephemeral agents for untrusted workloads. Persist only what is necessary for caches within the correct trust boundary.
 
-## Caching strategies that don’t compromise reproducibility
-
-- Git checkout:
-    * Use mirrors or shallow clones on persistent workers to speed up fetches
-    * Validate commit SHAs to avoid checkout surprises
-- Dependency caches:
-    * Key off the lockfile hash and platform
-    * Separate build vs test caches if they diverge
-- Docker layer caching:
-    * Order Dockerfile so immutable layers (OS packages, core `deps`) come first
-    * Copy lockfiles before install to maximize cache hits
-- Artifact caching:
-    * Store heavyweight build outputs as artifacts between steps instead of re-building
-- Beware hidden state:
-    * Clean workspaces where hermetic guarantees matter
-    * Prefer “cache or clean” over “hope” patterns
-
 ## Language-specific notes
 
 - Node.js: Commit package-lock.json or yarn.lock. Use corepack or pinned npm/yarn versions. Consider pnpm for monorepos.
