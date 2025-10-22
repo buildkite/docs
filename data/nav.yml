@@ -82,6 +82,8 @@
           path: "pipelines/best-practices/secrets-management"
         - name: "Git checkout optimization"
           path: "pipelines/best-practices/git-checkout-optimization"
+        - name: "Retry policies"
+          path: "pipelines/best-practices/retry-policies"
         - name: "Plugin management"
           path: "pipelines/best-practices/plugin-management"
         - name: "Parallelizing builds"

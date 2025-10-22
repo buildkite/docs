@@ -141,8 +141,6 @@ Implement standardized exit codes across your organization to enable intelligent
 
 ### Exit code standardization
 
-#### Organizational exit code conventions
-
 Establish consistent exit code meanings across all build scripts and tools. For example:
 
 ```bash
