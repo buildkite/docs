@@ -106,6 +106,7 @@ exceptions:
   - FreeBSD
   - G Suite
   - Git
+  - Git Large File Storage
   - GitHub
   - GitHub Actions
   - GitHub App
@@ -159,6 +160,7 @@ exceptions:
   - limiter
   - Linear
   - Linux
+  - LFS
   - M1
   - Mac
   - macOS
