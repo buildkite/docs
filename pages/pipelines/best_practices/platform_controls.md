@@ -356,6 +356,27 @@ It's also recommended to:
 - Track user activity patterns using [GraphQL organization queries](/docs/apis/graphql/cookbooks/organizations) to identify optimization opportunities.
 - Set up alerts when user counts approach license limits to prevent overage charges.
 
+## Enforce access controls
+
+Access controls determine who can view or modify your pipeline configurations. Getting this right means your sensitive pipelines stay in the right hands.
+
+Set up team-based access controls that match how your organization actually works. Give teams the permissions they need—whether that's read-only access for visibility or write permissions for teams managing their own pipelines. Check out [Teams permissions](/docs/platform/team-management/permissions) for details on configuring these settings.
+
+Protect your critical branches. If you're using branch-based workflows (and you probably should be), use branch protections to prevent unauthorized changes to sensitive pipelines. This adds a layer of review before changes go live.
+
+Review permissions regularly. As people join, leave, or change roles, and as projects evolve, permissions that made sense six months ago might not make sense today. Schedule periodic access reviews to keep things tidy.
+
+Integrate SSO or SAML if your organization uses an identity provider. This centralizes authentication, makes onboarding and offboarding smoother, and often helps with compliance requirements. It's also one less set of credentials for people to manage.
+
+Alternative version:
+
+Access controls help ensure that only authorized users and teams can view or modify sensitive pipeline configurations:
+
+- Team-based access - Grant permissions per team based on specific needs, such as read-only or write permissions. See [Teams permissions](/docs/platform/team-management/permissions).
+- Branch protections - Limit edits to sensitive pipelines by protecting critical branches.
+- Permission reviews - Audit permissions regularly to ensure they remain appropriate as teams and projects evolve.
+- Use SSO/SAML - Centralize authentication and improve compliance by integrating with your organization's identity provider.
+
 ## Implement cost allocation
 
 Implement comprehensive cost allocation mechanisms to understand and optimize spending:
