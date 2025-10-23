@@ -21,7 +21,7 @@ You can use plugins for:
 
 ## Private plugin distribution
 
-For sensitive or proprietary functionality, use private Git repositories:
+For sensitive or proprietary functionality, use private Git repositories for plugins you would not want to make public. For example, this is what configuring a plugin that is based in your private repository would look like:
 
 ```yml
 steps:
