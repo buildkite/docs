@@ -1,10 +1,10 @@
 # Running monorepos
 
-A monorepo development strategy means that the code for multiple projects is stored in a single, centralized version-controlled repository. This provides advantages like easier code sharing, unified versioning, and consistent tooling, but also poses challenges such as longer build times and potential conflicts if not managed effectively. This page is a collection of approaches and best practices for effectively managing and running monorepos.
+A monorepo development strategy means that the code for multiple projects is stored in a single, centralized version-controlled repository. This strategy provides advantages like easier code sharing, unified versioning, and consistent tooling, but it also poses challenges such as longer build times and potential conflicts if not managed effectively. This page is a collection of approaches and best practices for effectively managing and running monorepos.
 
 ## Approaches to running monorepos
 
-All the approaches start with detecting changes in your monorepo, usually at the folder level. To detect these changes, you can use either [`if_changed`](/docs/agent/v3/cli-pipeline#apply-if-changed) feature on the agent or the [Monorepo diff plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/).
+All such approaches start with detecting changes in your monorepo, usually at the folder level. To detect these changes, you can use either the [`if_changed`](/docs/agent/v3/cli-pipeline#apply-if-changed) feature on the agent, or the [Monorepo diff plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/).
 
 > 📘
 > In Buildkite Pipelines, you have the ability to structure your monorepo pipeline as a "single pipeline container of many pipelines" or a "single pipeline container of many steps" which have tradeoffs. Some users prefer the clean separation that "trigger another pipeline" provides, while others prefer the closeness provided by "all my steps conditionally run in the same pipeline depending on path." The Monorepo diff plugin supports either structuring of your pipeline.
