@@ -28,11 +28,11 @@ This page covers the best practices regarding logging and observability.
 
 ### Quick checklist for using telemetry
 
-* Enable EventBridge and subscribe your alerting pipeline.
-* Turn on OTEL export to your collector. Start with job spans and queue metrics.
-* If you are a Datadog shop, enable agent APM tracing.
-* Stand up a “CI SLO” dashboard with p95 queue wait and build duration per top pipelines.
-* Document and socialize how developers should use the Pipeline metrics page for day‑to‑day troubleshooting.
+- Enable EventBridge and subscribe your alerting pipeline.
+- Turn on OTEL export to your collector. Start with job spans and queue metrics.
+- If you are a Datadog shop, enable agent APM tracing.
+- Stand up a “CI SLO” dashboard with p95 queue wait and build duration per top pipelines.
+- Document and socialize how developers should use the Pipeline metrics page for day‑to‑day troubleshooting.
 
 ### Core pipeline telemetry recommendations
 
