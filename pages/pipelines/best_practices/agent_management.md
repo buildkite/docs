@@ -81,7 +81,7 @@ Example use cases:
 - Sending telemetry data at the start and end of the job
 - Policy and access control: block unapproved users, limit allowed plugins, restrict queues, or disable command eval on sensitive agents
 - Environment setup: fetch secrets, set environment variables, configure language runtimes, start sidecar services
-- Source control tweaks: custom checkout strategies, git mirrors, git worktrees for faster builds
+- Source control tweaks: custom checkout strategies, Git mirrors, Git worktrees for faster builds
 
 - Auditing and hygiene: log context, enforce required steps, collect and upload artifacts or metadata in post-command
 

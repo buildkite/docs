@@ -414,6 +414,7 @@ webtask
 wget
 Windsurf's
 worktree
+worktrees
 workspace's
 xcbeautify
 Xcode
