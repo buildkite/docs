@@ -110,7 +110,7 @@ if @failed.any?
   report = <<~MARKDOWN
     ## Muffet found broken links
 
-    First, resolve links with statuses other than 429 or 403 (especially, 404).
+    First, resolve links with statuses other than 429 or 403 (especially, 404 and 'id #fragment not found' statuses).
 
   MARKDOWN
 
