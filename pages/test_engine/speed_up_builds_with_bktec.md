@@ -26,6 +26,6 @@ Buildkite recommends muting tests rather than skipping them, as a muted test wil
 
 ## Learn more
 
-bktec and its test splitting feature is available to all Pro and Enterprise customers, and test state is available for all Enterprise customers. If you are on a legacy plan please contact sales@buildkite.com to gain access these feature and try it out.
+bktec and its test splitting feature is available to all [Pro and Enterprise](https://buildkite.com/pricing/) plan customers, and test state is available for all Enterprise plan customers. If you are on a legacy plan please contact sales@buildkite.com to gain access these feature and try it out.
 
 Learn more about how to install and configure bktec in their respective [configuring](/docs/test-engine/bktec/configuring) and [installing](/docs/test-engine/bktec/installing-the-client) pages.

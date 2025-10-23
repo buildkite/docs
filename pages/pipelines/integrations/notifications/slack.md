@@ -34,7 +34,7 @@ Once you have granted access to your chosen channel or user in your Slack worksp
 <%= image "buildkite-slack-connected.png", width: 1458/2, height: 1540/2, alt: "Screenshot of Buildkite Slack Notification Settings, requesting a description, your choice of text or emoji message themes, which pipelines and branches to include, and which build states should trigger a notification" %>
 
 > 🚧
-> There is a default maximum number of 50 Slack notification services that can be added to your Buildkite organization. If you are an Enterprise customer and need more Slack notification services than this limit, please contact support@buildkite.com. Alternatively, you can use a [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service, which only requires you to configure a single service for your Slack workspace.
+> There is a default maximum number of 50 Slack notification services that can be added to your Buildkite organization. If you are an [Enterprise](https://buildkite.com/pricing/) plan customer and need more Slack notification services than this limit, please contact support@buildkite.com. Alternatively, you can use a [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service, which only requires you to configure a single service for your Slack workspace.
 
 Once your Slack notification services have been configured, notifications will automatically be sent at the pipeline level, but not on the outcomes of individual steps.
 
