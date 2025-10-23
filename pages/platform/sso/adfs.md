@@ -7,7 +7,6 @@ ADFS SSO is available to customers on the Buildkite customers on the [Enterprise
 >📘 You can also set up SSO providers manually with GraphQL.
 > See the <a href="/docs/platform/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
 
-
 ## Step 1. Create a Buildkite SSO provider
 
 Click the [Buildkite organization **Settings**](https://buildkite.com/organizations/~/settings)' **Single Sign On** menu item, then choose the ADFS provider from the available options:

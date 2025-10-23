@@ -116,8 +116,7 @@ fi
 
 #### Is there a limit to the number of teams an organization can have?
 
-Yes, Buildkite has a limit of _250 teams per organization_. If you are an enterprise
-customer and require additional teams, please contact support@buildkite.com.
+Yes, Buildkite has a limit of _250 teams per organization_. If you are an [Enterprise](https://buildkite.com/pricing/) plan customer and require additional teams, please contact support@buildkite.com.
 
 #### Will users (and API tokens) still have access to their pipelines?
 
@@ -230,7 +229,7 @@ Removing a compromised user from your organization immediately protects all the 
 In case of a non-responsive or rogue user, or if multiple accounts are compromised, you can send a list of impacted user IDs to [support@buildkite.com](mailto:support@buildkite.com) and ask the Buildkite support to log out the specific user or all the users out of all sessions.
 
 > 📘 Enterprise plan
-> As a part of the Buildkite SLA, customers on the Enterprise plan have an emergency email available for operational and security incidents. Contact your Customer Success Manager for more information.
+> As a part of the Buildkite SLA, customers on the [Enterprise](https://buildkite.com/pricing/) plan have an emergency email available for operational and security incidents. Contact your Customer Success Manager for more information.
 
 If you suspect or have already detected a security breach, and the affected user is cooperative, they can also log out and [reset](https://buildkite.com/forgot-password) their password, which will automatically reset all of their active sessions. Then you can work with the affected user to ensure their account is safe and re-add them to your Buildkite organization.
 
