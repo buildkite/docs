@@ -478,7 +478,7 @@ Use the `verbose` option to see detailed output from Docker Compose operations:
 
 ```yaml
 steps:
-  - label: ":docker: Debug build"
+  - label: "\:docker\: Debug build"
     plugins:
       - docker-compose#v5.11.0:
           build: app
@@ -493,7 +493,7 @@ Disable caching to ensure builds run from scratch, which can reveal caching-rela
 
 ```yaml
 steps:
-  - label: ":docker: Build without cache"
+  - label: "\:docker\: Build without cache"
     plugins:
       - docker-compose#v5.11.0:
           build: app
