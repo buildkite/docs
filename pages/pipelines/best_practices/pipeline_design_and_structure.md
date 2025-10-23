@@ -2,12 +2,11 @@
 
 ## Keep pipelines focused and modular
 
-* Start with static pipelines and gradually move to dynamic pipelines to generate steps programmatically. They latter scale better than static YAML as repositories and requirements grow.
-* Use `buildkite-agent pipeline upload` to generate steps programmatically based on code changes. This allows conditional inclusion of steps (e.g., integration tests only when backend code changes). (Further work: reword as `buildkite-agent pipeline upload` does not generate steps programmatically.)
+Start with [static pipelines](/docs/pipelines/create-your-own) and gradually move to [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) as the latter scale better than static YAML as repositories and requirements grow.
 
 ## Use monorepos for change scoping
 
-* Run only what changed. Use a monorepo diff strategy, agent `if_changed`, or official plugin to selectively build and test affected components.
+* Run only what changed. Use the agent's `if_changed` feature or the official [Monorepo diff plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/) to selectively build and test affected components.
 * Three common patterns:
     + One orchestrator pipeline that triggers static component pipelines based on diffs.
     + [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) that inject only the steps needed for the change set.

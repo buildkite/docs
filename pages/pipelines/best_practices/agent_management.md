@@ -4,6 +4,11 @@ This page covers the best practices for effective management of Buildkite Agents
 
 [Buildkite Agents](/docs/agent/v3) are a core element of Buildkite's ability to deliver massive [parallelization](/docs/pipelines/tutorials/parallel-builds) at scale. The way you configure and set up your agents and [clusters](/docs/pipelines/clusters) can have a huge impact on the security and reliability of your overall systems. The following sub-section cover the suggested approach.
 
+Needs to also cover:
+different infra stacks - when are VMs good (longer running, a lot installed in machine, when you buy big machines & bin pack a lot of agents in that its cheaper, you can do spot instances)
+k8s (pro: ephemeral so less clean up issues, faster spin up time. cons: need to think about caching since there is no shared infrastructure)
+hosted (very fast builds in which everything is handled for you, full ephemeral)
+
 ## Queue by function, cluster by responsibility
 
 The recommended way of configuring your Buildkite Cluster is as follows:
