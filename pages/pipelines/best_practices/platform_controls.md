@@ -204,14 +204,6 @@ Implement strict version management practices to ensure reliability and security
 - Use YAML anchors to centralize plugin configuration and ensure consistency across pipelines.
 - Monitor plugin repositories for security vulnerabilities and updates.
 
-### Plugin access control and security
-
-Platform administrators can control plugin usage through agent configuration:
-
-- Use the [agent's plugin restrictions](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-allow-a-list-of-plugins) to allowlist approved plugins.
-- Set the [`no-plugins`](/docs/agent/v3/configuration#no-plugins) option to disable plugins entirely on sensitive agents.
-- Implement different plugin policies for different agent clusters based on security requirements.
-
 ## Implement cost allocation
 
 Implement comprehensive cost allocation mechanisms to understand and optimize spending:
