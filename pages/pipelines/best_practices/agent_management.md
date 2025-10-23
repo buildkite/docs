@@ -1,8 +1,18 @@
 # Agent management
 
-This page covers the best practices for effective management of Buildkite Agents.
+This page covers the best practices for effective management of [Buildkite Agents](/docs/agent/v3). The way you configure and set up your agents and [clusters](/docs/pipelines/clusters) can have a huge impact on the security and reliability of your overall systems. The following sub-section cover the suggested approach.
 
-[Buildkite Agents](/docs/agent/v3) are a core element of Buildkite's ability to deliver massive [parallelization](/docs/pipelines/tutorials/parallel-builds) at scale. The way you configure and set up your agents and [clusters](/docs/pipelines/clusters) can have a huge impact on the security and reliability of your overall systems. The following sub-section cover the suggested approach.
+## Use different stacks
+
+different infra stacks - when are VMs good (longer running, a lot installed in machine, when you buy big machines & bin pack a lot of agents in that its cheaper, you can do spot instances)
+
+### Agent Stack for Kubernetes
+
+pros: ephemeral so less clean up issues, faster spin up time. cons: need to think about caching since there is no shared infrastructure.
+
+## Hosted agents
+
+hosted (very fast builds in which everything is handled for you, full ephemeral).
 
 ## Queue by function, cluster by responsibility
 
@@ -66,6 +76,15 @@ With ephemeral [Buildkite hosted agents](/docs/pipelines/hosted-agents/linux#age
 
 [Buildkite Agent hooks](/docs/agent/v3/hooks) can be very useful in structuring a pipeline. Instead of requiring all the code to be included in every repository, you can use lifecycle hooks to pull down different repositories, allowing you to create guardrails and reusable, immutable pieces of your pipeline for every job execution. They're a critical tool for compliance-heavy workloads and help to automate any setup or tear-down functions necessary when running jobs.
 
+Example use cases:
+
+- Sending telemetry data at the start and end of the job
+- Policy and access control: block unapproved users, limit allowed plugins, restrict queues, or disable command eval on sensitive agents
+- Environment setup: fetch secrets, set environment variables, configure language runtimes, start sidecar services
+- Source control tweaks: custom checkout strategies, Git mirrors, Git worktrees for faster builds
+
+- Auditing and hygiene: log context, enforce required steps, collect and upload artifacts or metadata in post-command
+
 ## Right-size your agent fleet
 
 - Monitor queue times: Long wait times often mean you need more capacity. You can use cluster insights to monitor queue wait times.
@@ -82,16 +101,15 @@ With ephemeral [Buildkite hosted agents](/docs/pipelines/hosted-agents/linux#age
 
 ### Secure your agents
 
-- Principle of least privilege: Provide only the permissions required for the job.
-- Prefer ephemeral agents: Short-lived agents reduce the attack surface and minimize drift.
-- Secret management: Use environment hooks or secret managers; never hard-code secrets in YAML.
-- Keep base images updated: Regularly patch agents to mitigate security vulnerabilities.
+- Principle of least privilege: provide only the permissions required for the job.
+- Prefer ephemeral agents: short-lived agents reduce the attack surface and minimize drift.
+- Secret management: use environment hooks or secret managers; never hard-code secrets in YAML.
+- Keep base images updated: regularly patch agents to mitigate security vulnerabilities.
 
 Further work in this section: mention BK Secrets, suggest using external secret managers like AWS Secrets Manager or Hashicorp Vault. Potentially also link back to our own plugins, too.
 
-### Enforce IaC
+### Enforce infrastructure-as-code
 
-- No manual tweaks: Avoid one-off changes to long-lived agents; enforce everything via code and images.
-- Immutable patterns: Use infrastructure-as-code and versioned images for consistency and reproducibility.
-
-Alternatively: Enforce agent configuration and infrastructure using IaC (Infrastructure as code) where possible. For example, see [Buildkite Package Registries with Terraform support](/docs/package-registries/ecosystems/terraform).
+- Enforce agent configuration and infrastructure using [infrastructure-as-code (IaC)](https://aws.amazon.com/what-is/iac/) where possible. For example, see [Buildkite Package Registries with Terraform support](/docs/package-registries/ecosystems/terraform).
+- No manual tweaks: avoid one-off changes to long-lived agents; enforce everything via code and images.
+- Immutable patterns: use infrastructure-as-code and versioned images for consistency and reproducibility.
