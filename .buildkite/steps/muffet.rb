@@ -110,7 +110,7 @@ if @failed.any?
   report = <<~MARKDOWN
     ## Muffet found broken links
 
-    First, resolve links with statuses other than 429, 403, or timeouts (especially, 404 and 'id #fragment not found' statuses).
+    Resolve links with 404 and 'id #fragment not found' statuses. Ignore links with time-out statuses (since these are usually temporary), as well as 429 or 403 statuses, which appear in the 'Exempt links' section below.
 
   MARKDOWN
 
