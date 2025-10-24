@@ -16,7 +16,7 @@ Common use cases for implementing Buildkite webhooks include:
 
 Buildkite provides webhook support for [Pipelines](/docs/apis/webhooks/pipelines), [Test Engine](/docs/apis/webhooks/test-engine) and [Package Registries](/docs/apis/webhooks/package-registries).
 
-Buildkite also provides support for _incoming webhooks_ from third-party applications that send HTTP requests and their own JSON payloads to the Buildkite platform. Learn more about this feature in [Pipeline triggers](/docs/apis/webhooks/incoming/pipeline-triggers).
+Buildkite also provides support for _incoming webhooks_ from third-party applications that send HTTP requests and their own JSON payloads to the Buildkite platform. Learn more about this preview feature in [Pipeline triggers](/docs/apis/webhooks/incoming/pipeline-triggers).
 
 ## Creating webhooks
 
