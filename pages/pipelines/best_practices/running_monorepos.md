@@ -9,7 +9,7 @@ All such approaches start with detecting changes in your monorepo, usually at th
 > 📘
 > In Buildkite Pipelines, you have the ability to structure your monorepo pipeline as a "single pipeline container of many pipelines" or a "single pipeline container of many steps" which have tradeoffs. Some users prefer the clean separation that "trigger another pipeline" provides, while others prefer the closeness provided by "all my steps conditionally run in the same pipeline depending on path." The Monorepo diff plugin supports either structuring of your pipeline.
 
-There are three preferred approaches to running monorepos with Buildkite Pipelines:
+There are two preferred approaches to running monorepos with Buildkite Pipelines:
 
 - **Static**: a single diff pipeline triggers different static pipelines in your monorepo based on what parts of the monorepo were changed.
 - **Dynamic**: [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) that inject specific steps into a single pipeline based on the changes in the monorepo. You will need to run bash scripts to inject steps according to the changes. You can also use the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk) to inject steps dynamically in one of its supported programming languages of your choice.
