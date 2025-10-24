@@ -2,6 +2,9 @@
 
 Pipelines webhooks allow you to monitor and respond to events within your Buildkite organization, providing a real time view of activity and allowing you to extend and integrate Buildkite into your systems.
 
+> 📘
+> This page is about configuring _outgoing webhooks_ for Buildkite Pipelines. To learn more about the Buildkite platform's _incoming webhooks_ feature, see [Pipeline triggers](/docs/apis/webhooks/incoming/pipeline-triggers).
+
 ## Add a webhook
 
 To add a webhook for your pipeline event:
