@@ -18,16 +18,16 @@ Now, let's look into implementing these possible approaches to running monorepos
 
 ## Static pipelines approach
 
-The static pipelines approach involves creating a single orchestrating pipeline that triggers other pipelines (predefined for different scenarios) in your monorepo.
+The static pipelines approach involves creating a single orchestrating pipeline that triggers other pipelines (pre-created for different scenarios) in your monorepo.
 
-A typical example of the static approach would be a single main pipeline that contains the [Monorepo diff plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/) and, depending on what files get modified in the repository, this pipeline will trigger other pipelines. For example, see the [Monorepo example](https://buildkite.com/resources/examples/buildkite/monorepo-example/) pipeline.
+A typical example of the static approach would be a single main pipeline that contains the [Monorepo diff plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/) and, depending on what files get modified in the repository, this pipeline will trigger other pipelines. You can check out the [Monorepo example](https://buildkite.com/resources/examples/buildkite/monorepo-example/) pipeline to see a practical implementation.
 
 > 🚧
 > In the static monorepo approach, the triggered pipeline must only be executed by the dedicated triggering pipeline and _never_ triggered directly via the UI, API, or other means. Direct execution bypasses the change detection logic, causing the pipeline to run without awareness of which packages changed or the necessary build context from the triggering pipeline.
 
 ## Dynamic pipelines approach
 
-The dynamic pipelines approach involves writing dynamic pipeline steps in your programming language of choice, which injects specific steps into a single pipeline in your monorepo.
+The dynamic pipelines approach involves writing dynamic pipeline steps in the programming language of your choice, which injects specific steps into a single pipeline in your monorepo.
 
 When implementing the dynamic pipelines approach, you can use either:
 
@@ -43,9 +43,9 @@ Buildkite customers who use [Bazel](/docs/pipelines/tutorials/bazel) and [Gradle
 
 ### Implementation with dynamic pipelines
 
-You can see a hand-on example of a dynamic pipelines-based approach in this [Bazel monorepo example](https://github.com/buildkite/bazel-monorepo-example) that analyzes Git changes to determine which projects need to be built, then constructs a dependency graph to ensure that the projects build in the correct order.
+You can see a hands-on implementation of the dynamic pipelines-based approach in this [Bazel monorepo example](https://github.com/buildkite/bazel-monorepo-example). The example analyzes Git changes to determine which projects need to be built, then constructs a dependency graph to ensure that the projects build in the correct order.
 
-How it works:
+How the example works:
 
 1. Change detection stage - the pipeline analyzes Git diff to identify changed files.
 1. Dependency resolution stage - a dependency graph is built to determine which projects need building.
