@@ -16,23 +16,23 @@ There are three preferred approaches to running monorepos with Buildkite Pipelin
 
 Now, let's look into implementing these three possible approaches to running monorepos in more detail.
 
-## Static approach
+## Static pipelines approach
 
-THe static approach to monorepos means having a single pipeline that triggers other pipelines (pre-created for different scenarios in your monorepo) based on the detected changes.
+The static approach involves creating a single orchestrating pipeline that triggers other pipelines (predefined for different scenarios) in your monorepo.
 
-A typical example of the static approach would be a single main pipeline that contains the [Monorepo diff plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/) and, depending on what files get modified in the repository, this pipeline will trigger other pipelines. See a [Monorepo example](https://buildkite.com/resources/examples/buildkite/monorepo-example/).
+A typical example of the static approach would be a single main pipeline that contains the [Monorepo diff plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/) and, depending on what files get modified in the repository, this pipeline will trigger other pipelines. For example, see the [Monorepo example](https://buildkite.com/resources/examples/buildkite/monorepo-example/) pipeline.
 
 > 🚧
-> In the static monorepo approach, the triggered pipeline must never be triggered directly by any means other than the dedicated triggering pipeline.
+> When using the static approach, the triggered pipeline must never be triggered directly by any means other than by its orchestrating pipeline.
 
-## Dynamic approach
+## Dynamic pipelines approach
 
-The dynamic approach to monorepos means having dynamic pipelines that inject specific steps into a single pipeline based on the detected changes.
+The dynamic approach involves writing dynamic pipeline steps in your programming language of choice, which injects specific steps into a single pipeline in your monorepo.
 
-When implementing the dynamic approach, you can use either:
+When implementing the dynamic pipelines approach, you can use either:
 
-- [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
-- [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk).
+- [Direct scripting](/docs/pipelines/configure/dynamic-pipelines)
+- [The Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk)
 
 The common way of implementing the dynamic approach is uploading the generated YAML as an artifact using `buildkite-agent artifact upload` command. This allows you to download and review that YAML file later to see exactly what was generated.
 
@@ -56,7 +56,7 @@ You can see an example of a dynamic pipelines-based approach in this [Bazel mono
 
 This implementation is also valid for the SDK approach.
 
-## SDK approach
+### Using the Buildkite SDK
 
 In the [SDK](/docs/pipelines/configure/dynamic-pipelines/sdk)-based monorepo strategy, you also need to start with detecting changes in your monorepo and then inject steps dynamically, using Bazel and Gradle or shell. SDK acts as a translation layer to allow you to do this.
 
