@@ -58,7 +58,7 @@ This implementation is also valid if using Buildkite SDK.
 
 ### Using the Buildkite SDK
 
-The [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk) provides an SDK library of methods for a number of supported languages (that is, JavaScript/TypeScript, Python, Go, and Ruby), which you can use to help you dynamically generate Buildkite pipeline steps in YAML or JSON format, to upload back to your Buildkite pipeline. The Buildkite SDK acts as a translation layer, making it easier to generate Buildkite pipeline steps to re-upload to your pipeline, rather than having to manually script these pipeline steps yourself.
+The [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk) provides an SDK library of methods for a number of supported languages (JavaScript/TypeScript, Python, Go, and Ruby), which you can use to help you dynamically generate Buildkite pipeline steps in YAML or JSON format, to upload to your Buildkite pipeline. The Buildkite SDK acts as a translation layer, making it easier to generate Buildkite pipeline steps to re-upload to your pipeline, rather than having to manually script these dynamic pipeline steps yourself.
 
 For example, if you need to detect changes in a Bazel- or Gradle-based monorepo, you could use the Buildkite SDK to dynamically generate the required pipeline steps based on the execution outcomes from your Bazel or Gradle build scripts.
 
