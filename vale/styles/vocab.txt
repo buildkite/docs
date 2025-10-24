@@ -154,6 +154,8 @@ gmp
 gnupg
 gotestsum
 gpg
+GPU
+GPUs
 Grafana
 Gradle
 gradle
@@ -321,6 +323,7 @@ serverless
 scriptwrapper
 SDK
 SDK's
+SDKs
 sha
 SHAs
 sharding
