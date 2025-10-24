@@ -6,13 +6,277 @@ This page covers the best practices for effective management of [Buildkite Agent
 
 different infra stacks - when are VMs good (longer running, a lot installed in machine, when you buy big machines & bin pack a lot of agents in that its cheaper, you can do spot instances)
 
+### Use different stacks
+
+Choose the infrastructure stack that matches your workload shape, cost goals, and operational model. Buildkite Agents run well across VMs, container schedulers, and serverless runners, but the trade-offs differ.
+
+### Virtual machines (VMs)
+
+Best for:
+
+- Long‑running agents that need lots of preinstalled tools and SDKs
+- Heavy caching on disk, large ephemeral storage, or GPU/TPU access
+- Cost efficiency from “bin packing” many agents per large VM
+- Stable capacity with predictable performance
+
+Pros:
+
+- Strong isolation and steady performance for noisy jobs
+- Warm, preprovisioned images reduce job startup time
+- Easy to attach large disks for caches and build artifacts
+- Works well with spot/preemptible instances for savings
+
+Cons:
+
+- Slower to scale from zero compared to containers
+- More golden image management drift to handle
+- Bin packing requires tuning CPU/RAM oversubscription and agent queues
+
+Tips:
+
+- Use bigger instances and run multiple agents per VM to improve $/build
+- Enable spot instances where interruption-tolerant, and configure graceful termination hooks
+- Bake images with toolchains to minimize per‑job setup time
+- Separate queues for heavyweight vs lightweight jobs to avoid head‑of‑line blocking
+
+### Containers on a scheduler (e.g., Kubernetes, ECS, Nomad)
+
+Best for:
+
+- Ephemeral agents per job for strong isolation and reproducibility
+- Rapid, elastic scaling of job throughput
+- Teams who already standardize on container build pipelines
+
+Pros:
+
+- Fast spin-up and fine-grained auto‑scaling
+- Clean environments per build reduce flakiness
+- Native primitives for resource requests/limits and scheduling
+- Easier multi‑tenant isolation via namespaces and policies
+
+Cons:
+
+- Containerizing complex toolchains can be upfront work
+- Disk‑heavy or GPU workloads need extra node and storage setup
+- Cold starts can impact short jobs if images are large
+
+Tips:
+
+- Keep agent images slim, layer heavy toolchains via on‑demand init or shared cache volumes
+- Pin queues to node pools with the right resources (e.g., GPU nodes)
+- Pre‑pull frequently used images and use a local registry cache
+- Use PodDisruptionBudgets and graceful shutdown to avoid mid‑job eviction
+
+### Serverless or on‑demand runners
+
+Best for:
+
+- Spiky, bursty workloads with idle periods
+- Minimal ops overhead and pay‑per‑use economics
+- Strict isolation requirements per build
+
+Pros:
+
+- Near‑zero capacity planning
+- Strong isolation by default
+- Simple operational model
+
+Cons:
+
+- Higher unit cost for always‑on workloads
+- Startup latency can affect short jobs
+- Limited access to privileged features, large local disks, or GPUs
+
+Tips:
+
+- Reserve for sporadic queues or overflow
+- Cache dependencies in remote stores to offset cold starts
+- Split fast vs slow jobs into separate queues to manage latency
+
+### When VMs are a great fit
+
+- Agents run continuously with high utilization
+- You “buy big” machines and pack many agents for lower unit cost
+- Toolchains are bulky, licensed, or tricky to containerize
+- You need large persistent caches or dedicated hardware
+- You can tolerate and manage spot interruptions for further savings
+
+### Choosing the right stack
+
+- Optimize for stability and cost: favor VMs with bin‑packed agents
+- Optimize for elasticity and isolation: favor containers with one ephemeral agent per job
+- Optimize for simplicity and burst handling: use serverless/on‑demand runners
+- Many teams blend stacks: baseline on VMs, burst with containers/serverless, and reserve specialty nodes for GPU or storage‑heavy work
+
+### Operational guardrails
+
+- Use separate queues per workload class and resource profile
+- Define clear SLOs: startup time, throughput, and cost per build
+- Standardize images and hooks to keep environments consistent
+- Track interruption rates and retry costs when using spot capacity
+- Monitor utilization to tune bin packing vs parallelism for best $/build
+
 ### Agent Stack for Kubernetes
 
 pros: ephemeral so less clean up issues, faster spin up time. cons: need to think about caching since there is no shared infrastructure.
 
+Run Buildkite Agents as ephemeral pods for strong isolation and rapid scaling. Each job gets a clean environment, so drift and cleanup are minimal. Plan for image size, cache strategy, and graceful shutdowns to prevent pod churn from hurting throughput.
+
+### Pros
+
+- Ephemeral agents mean fewer cleanup issues and less environment drift between builds
+- Fast spin-up time with autoscaling and pre-pulled images
+- Fine‑grained isolation. One agent per pod reduces cross‑job interference
+- Native scheduling controls with requests/limits, node selectors, and taints/tolerations
+
+### Cons
+
+- Caching is harder without shared local disks
+- Large images and cold pulls can dominate short jobs
+- Disk‑heavy or GPU workloads require specialized node pools and storage classes
+- Pod evictions and node rollouts can interrupt work if not configured carefully
+
+### Deployment patterns
+
+- One agent per pod for isolation
+- Separate queues per workload class, and map queues to node pools via labels
+- Use a small base agent image plus job‑specific tool layers to keep cold starts low
+- Pre‑pull common images on nodes with DaemonSets or image cache warmers
+- Configure graceful termination so in‑flight jobs can finish on SIGTERM
+
+### Caching strategies
+
+- Remote caches for portability
+    - Package and dependency caches in S3, GCS, or Artifactory
+    - Container layer caches in a nearby registry with pull‑through caching
+    - Language‑native caches stored remotely per lockfile or checksum key
+- On‑cluster caches
+    - Read‑only cache images: bake popular deps into a sidecar or a dedicated layer
+    - Ephemeral volumes (emptyDir) for intra‑job reuse only
+    - Node‑scoped caches using hostPath or local PVs to reuse across pods on the same node
+- Keys and invalidation
+    - Use content‑based keys: lockfiles, toolchain versions, and OS image digest
+    - Split hot caches per major runtime to avoid thrash
+    - TTL caches for CI‑only artifacts to limit bloat
+
+### Scheduling and scaling
+
+- Resource sizing
+    - Set requests to typical use and limits to safe peaks to improve bin packing
+    - Reserve IOPS and ephemeral storage for build phases that stream artifacts
+- Node pools
+    - General pool for CPU‑bound jobs
+    - High‑IO or large‑disk pool for build/test with heavy caching
+    - GPU pool for ML workloads, using queue tags and node selectors
+- Autoscaling
+    - Cluster autoscaler for nodes, workload autoscaler for agent replicas
+    - Pre‑scale before known peaks or long queues to avoid cold‑start cascades
+
+### Reliability and interruptions
+
+- PodDisruptionBudgets to keep enough agents available during rollouts
+- PriorityClasses to ensure critical queues schedule first
+- Graceful shutdown
+    - Increase terminationGracePeriodSeconds so agents can finish or checkpoint work
+    - PreStop hook to signal agent to stop accepting new jobs
+- Image pull robustness
+    - Use imagePullPolicy=IfNotPresent with digest pins
+    - Private registry mirrors close to the cluster
+
+### Security and isolation
+
+- Run agents as non‑root where possible
+- Limit privileges and mount only required volumes
+- Use distinct namespaces and network policies per environment or tenant
+- Scan images and pin versions for reproducibility
+
+### Observability
+
+- Emit queue wait, job duration, and success rate per queue and node pool
+- Track cold‑start time components: image pull, pod schedule, init, and checkout
+- Alert on eviction rate, OOMKills, and container restarts
+- Correlate build steps with pod events to spot noisy neighbors
+
+### When Kubernetes is a great fit
+
+- You need elastic throughput with minimal ops overhead
+- Isolation and reproducibility are priorities
+- Workloads are already containerized or moving that way
+- Caching can be shifted to remote stores or node‑local strategies
+
+### Quick checklist
+
+- Keep agent images slim and pre‑pull heavy layers
+- Decide on cache strategy: remote first, node‑local where beneficial
+- Map queues to node pools with clear resource profiles
+- Set PDBs, termination hooks, and autoscaling policies
+- Measure cold start and iterate on the biggest contributors
+
 ## Hosted agents
 
 hosted (very fast builds in which everything is handled for you, full ephemeral).
+
+Buildkite hosted agents provide fully managed, fully ephemeral execution environments optimized for speed and simplicity. Capacity, images, lifecycle, and patching are handled for you, so you focus on pipelines and code, not infrastructure.
+
+### What you get
+
+- Very fast startup and build times with pre‑tuned images
+- Full isolation per job. No cross‑build drift or cleanup required
+- Zero infra to operate. No nodes, autoscalers, or AMIs to maintain
+- Secure defaults with least‑privilege access and patched runtimes
+
+### Pros
+
+- Lowest operational overhead. Start shipping immediately
+- Highly consistent environments reduce flakiness
+- Elastic capacity for bursts without pre‑warming
+- Simple cost model with pay‑for‑what‑you‑use
+
+### Cons and constraints
+
+- Limited customization compared to self‑managed agents or custom node pools
+- Large local caches are not persistent across jobs by default
+- Access to privileged features, custom kernels, or GPUs may be restricted
+- Per‑job startup latency can matter for ultra‑short steps if images are large
+
+### Best for
+
+- Teams that want speed to value with minimal ops
+- Highly parallel test suites and bursty workloads
+- Security‑sensitive pipelines needing strong isolation by default
+- Organizations standardizing on a consistent environment across repos
+
+### Caching and artifacts
+
+- Prefer remote caches for dependencies and build outputs (S3, GCS, Artifactory)
+- Use content‑based cache keys tied to lockfiles and tool versions
+- Leverage registry‑level caching for container layers and keep images slim
+- Store artifacts in remote stores. Avoid assuming local reuse between jobs
+
+### Image and runtime guidance
+
+- Choose the smallest compatible runtime image. Layer heavy toolchains on demand
+- Pin versions for reproducibility. Track image digests in your pipeline
+- Pre‑build language toolchains or test runners into custom images if supported
+
+### Reliability and guardrails
+
+- Split fast and slow queues to control latency and throughput
+- Set retry policies for flaky network pulls and transient failures
+- Emit metrics for queue wait, cold‑start components, and success rate per queue
+
+### When hosted agents are a great fit
+
+- You want the fastest path to reliable CI without managing infrastructure
+- Workloads are well served by standard runtimes and remote caching
+- You need elastic capacity with strong isolation and predictable performance
+
+### Quick checklist
+
+- Use remote dependency and layer caches with stable, content‑based keys
+- Keep images lean. Pre‑build only what you truly need
+- Separate queues by job profile and SLO
+- Track cold‑start time and optimize the biggest contributors
 
 ## Queue by function, cluster by responsibility
 
