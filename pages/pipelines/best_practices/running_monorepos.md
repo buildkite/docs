@@ -34,7 +34,7 @@ When implementing the dynamic pipelines approach, you can use either:
 - [Direct scripting](/docs/pipelines/configure/dynamic-pipelines)
 - [The Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk)
 
-The common way to implement dynamic pipelines is to upload the generated YAML steps file as an artifact using the `buildkite-agent artifact upload` command. This allows you to download and review that YAML file later to see exactly what was generated.
+A useful way to implement dynamic pipelines is to upload the generated YAML steps file as an artifact using the `buildkite-agent artifact upload` command. This allows you to download and review that YAML file later to see exactly what was generated.
 
 > 📘 Dry-run preview
 > If you want to preview the pipeline before it's uploaded, you can use `buildkite-agent pipeline upload --dry-run` command to output the final YAML without running it.
