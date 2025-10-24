@@ -147,41 +147,41 @@ Run Buildkite Agents as ephemeral pods for strong isolation and rapid scaling. E
 ### Caching strategies
 
 - Remote caches for portability
-    - Package and dependency caches in S3, GCS, or Artifactory
-    - Container layer caches in a nearby registry with pull‑through caching
-    - Language‑native caches stored remotely per lockfile or checksum key
+    * Package and dependency caches in S3, GCS, or Artifactory
+    * Container layer caches in a nearby registry with pull‑through caching
+    * Language‑native caches stored remotely per lockfile or checksum key
 - On‑cluster caches
-    - Read‑only cache images: bake popular deps into a sidecar or a dedicated layer
-    - Ephemeral volumes (emptyDir) for intra‑job reuse only
-    - Node‑scoped caches using hostPath or local PVs to reuse across pods on the same node
+    * Read‑only cache images: bake popular dependencies into a sidecar or a dedicated layer
+    * Ephemeral volumes (`emptyDir`) for intra‑job reuse only
+    * Node‑scoped caches using `hostPath` or local persistent volumes to reuse across pods on the same node
 - Keys and invalidation
-    - Use content‑based keys: lockfiles, toolchain versions, and OS image digest
-    - Split hot caches per major runtime to avoid thrash
-    - TTL caches for CI‑only artifacts to limit bloat
+    * Use content‑based keys: lockfiles, toolchain versions, and OS image digest
+    * Split hot caches per major runtime to avoid thrash
+    * TTL caches for CI‑only artifacts to limit bloat
 
 ### Scheduling and scaling
 
 - Resource sizing
-    - Set requests to typical use and limits to safe peaks to improve bin packing
-    - Reserve IOPS and ephemeral storage for build phases that stream artifacts
+    * Set requests to typical use and limits to safe peaks to improve bin packing
+    * Reserve IOPS and ephemeral storage for build phases that stream artifacts
 - Node pools
-    - General pool for CPU‑bound jobs
-    - High‑IO or large‑disk pool for build/test with heavy caching
-    - GPU pool for ML workloads, using queue tags and node selectors
+    * General pool for CPU‑bound jobs
+    * High‑IO or large‑disk pool for build/test with heavy caching
+    * GPU pool for ML workloads, using queue tags and node selectors
 - Autoscaling
-    - Cluster autoscaler for nodes, workload autoscaler for agent replicas
-    - Pre‑scale before known peaks or long queues to avoid cold‑start cascades
+    * Cluster autoscaler for nodes, workload autoscaler for agent replicas
+    * Pre‑scale before known peaks or long queues to avoid cold‑start cascades
 
 ### Reliability and interruptions
 
 - PodDisruptionBudgets to keep enough agents available during rollouts
 - PriorityClasses to ensure critical queues schedule first
 - Graceful shutdown
-    - Increase terminationGracePeriodSeconds so agents can finish or checkpoint work
-    - PreStop hook to signal agent to stop accepting new jobs
+    * Increase terminationGracePeriodSeconds so agents can finish or checkpoint work
+    * PreStop hook to signal agent to stop accepting new jobs
 - Image pull robustness
-    - Use imagePullPolicy=IfNotPresent with digest pins
-    - Private registry mirrors close to the cluster
+    * Use imagePullPolicy=IfNotPresent with digest pins
+    * Private registry mirrors close to the cluster
 
 ### Security and isolation
 
@@ -194,7 +194,7 @@ Run Buildkite Agents as ephemeral pods for strong isolation and rapid scaling. E
 
 - Emit queue wait, job duration, and success rate per queue and node pool
 - Track cold‑start time components: image pull, pod schedule, init, and checkout
-- Alert on eviction rate, OOMKills, and container restarts
+- Alert on eviction rate, `OOMKills`, and container restarts
 - Correlate build steps with pod events to spot noisy neighbors
 
 ### When Kubernetes is a great fit
@@ -209,7 +209,7 @@ Run Buildkite Agents as ephemeral pods for strong isolation and rapid scaling. E
 - Keep agent images slim and pre‑pull heavy layers
 - Decide on cache strategy: remote first, node‑local where beneficial
 - Map queues to node pools with clear resource profiles
-- Set PDBs, termination hooks, and autoscaling policies
+- Set `PodDisruptionBudget`, termination hooks, and autoscaling policies
 - Measure cold start and iterate on the biggest contributors
 
 ## Hosted agents
@@ -244,7 +244,7 @@ Buildkite hosted agents provide fully managed, fully ephemeral execution environ
 - Teams that want speed to value with minimal ops
 - Highly parallel test suites and bursty workloads
 - Security‑sensitive pipelines needing strong isolation by default
-- Organizations standardizing on a consistent environment across repos
+- Organizations standardizing on a consistent environment across repositories
 
 ### Caching and artifacts
 

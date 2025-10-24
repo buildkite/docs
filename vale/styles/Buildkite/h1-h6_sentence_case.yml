@@ -126,6 +126,8 @@ exceptions:
   - Google Kubernetes Engine
   - Google Workspace
   - Governance
+  - GPU
+  - GPUs
   - GraphQL
   - GRC
   - Groovy
@@ -175,6 +177,7 @@ exceptions:
   - Node.js
   - nodeName
   - nodeSelector
+  - Nomad
   - NuGet
   - OIDC
   - Okta
@@ -206,6 +209,7 @@ exceptions:
   - scheduler
   - SCIM
   - SDK
+  - SDKs
   - Scripted
   - Sequoia
   - Slack
@@ -234,6 +238,8 @@ exceptions:
   - UUID
   - visionOS
   - Visual Studio Code
+  - VM
+  - VMs
   - VPC
   - VPN
   - watchOS
