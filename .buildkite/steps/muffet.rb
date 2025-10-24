@@ -112,9 +112,7 @@ if @failed.any?
 
     Resolve links with **404** and **id #fragment not found** statuses.
     
-    Ignore links with **timeout** statuses (since these are usually temporary), as well as **429** or **403** statuses.
-    
-    Configure any links with a **429** or **403** status here, in the `link-checking-rules.yaml` file, to move them to **Non-breaking failures** below.
+    Ignore links with **timeout** statuses (since these are usually temporary), as well as **429** or **403** statuses. Configure any links with a **429** or **403** status here, as exceptions in the `link-checking-rules.yaml` file, which moves them to **Non-breaking failures** section below.
 
   MARKDOWN
 
