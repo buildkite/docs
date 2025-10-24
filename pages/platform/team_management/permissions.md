@@ -1,6 +1,6 @@
 # User and team permissions
 
-Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage permissions using the _teams_ feature. Learn more about this feature in [Manage teams and permissions](#manage-teams-and-permissions).
+Customers on any [Buildkite plan](https://buildkite.com/pricing) can manage permissions using the _teams_ feature. Learn more about this feature in [Manage teams and permissions](#manage-teams-and-permissions).
 
 ## Manage teams and permissions
 
