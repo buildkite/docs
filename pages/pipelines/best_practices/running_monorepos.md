@@ -18,7 +18,7 @@ Now, let's look into implementing these three possible approaches to running mon
 
 ## Static pipelines approach
 
-The static approach involves creating a single orchestrating pipeline that triggers other pipelines (predefined for different scenarios) in your monorepo.
+The static pipelines approach involves creating a single orchestrating pipeline that triggers other pipelines (predefined for different scenarios) in your monorepo.
 
 A typical example of the static approach would be a single main pipeline that contains the [Monorepo diff plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/) and, depending on what files get modified in the repository, this pipeline will trigger other pipelines. For example, see the [Monorepo example](https://buildkite.com/resources/examples/buildkite/monorepo-example/) pipeline.
 
@@ -27,14 +27,14 @@ A typical example of the static approach would be a single main pipeline that co
 
 ## Dynamic pipelines approach
 
-The dynamic approach involves writing dynamic pipeline steps in your programming language of choice, which injects specific steps into a single pipeline in your monorepo.
+The dynamic pipelines approach involves writing dynamic pipeline steps in your programming language of choice, which injects specific steps into a single pipeline in your monorepo.
 
 When implementing the dynamic pipelines approach, you can use either:
 
 - [Direct scripting](/docs/pipelines/configure/dynamic-pipelines)
 - [The Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk)
 
-The common way of implementing the dynamic approach is uploading the generated YAML as an artifact using `buildkite-agent artifact upload` command. This allows you to download and review that YAML file later to see exactly what was generated.
+The common way to implement dynamic pipelines is to upload the generated YAML steps file as an artifact using the `buildkite-agent artifact upload` command. This allows you to download and review that YAML file later to see exactly what was generated.
 
 > 📘 Dry-run preview
 > If you want to preview the pipeline before it's uploaded, you can use `buildkite-agent pipeline upload --dry-run` command to output the final YAML without running it.
@@ -58,8 +58,8 @@ This implementation is also valid for the SDK approach.
 
 ### Using the Buildkite SDK
 
-In the [SDK](/docs/pipelines/configure/dynamic-pipelines/sdk)-based monorepo strategy, you also need to start with detecting changes in your monorepo and then inject steps dynamically, using Bazel and Gradle or shell. SDK acts as a translation layer to allow you to do this.
+The [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk) provides an SDK library of methods for a number of supported languages (that is, JavaScript/TypeScript, Python, Go, and Ruby), which you can use to help you dynamically generate Buildkite pipeline steps in YAML or JSON format, to upload back to your Buildkite pipeline. The Buildkite SDK acts as a translation layer, making it easier to generate Buildkite pipeline steps to re-upload to your pipeline, rather than having to manually script these pipeline steps yourself.
 
 ## Combined approach
 
-In your CI/CD process, you don't need to limit your options to a single one of the described approaches to monorepo. Many customers, especially those with large Buildkite organizations, are known to mix and combine static and dynamic approaches based on their needs using both static and dynamic pipelines.
+In your CI/CD process, you don't need to limit your options to a single one of these described approaches to working with a monorepo. Many customers, especially those with large Buildkite organizations, mix and combine static and dynamic approaches based on their specific requirements.
