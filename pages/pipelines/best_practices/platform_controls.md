@@ -183,26 +183,11 @@ Access controls help ensure that only authorized users and teams can view or mod
 - Permission reviews - Audit permissions regularly to ensure they remain appropriate as teams and projects evolve.
 - Use SSO/SAML - Centralize authentication and improve compliance by integrating with your organization's identity provider.
 
-## Plugin management and standardization
+## Plugin management best practices
 
 Platform teams can leverage Buildkite plugins to standardize tooling, enforce best practices, and reduce configuration duplication across pipelines - for instance, when you are repeatedly reusing some pieces of code. By creating and managing a curated set of plugins, platform teams can provide development teams with approved, secure, and well-maintained tools while maintaining control over the CI/CD environment.
 
-See more in [Plugin management](/docs/pipelines/best-practices/plugin-management/).
-
-### Plugin source management
-
-Platform teams should establish clear governance around plugin sources and usage:
-
-- Buildkite-maintained plugins - use these for standard functionality like Docker, Docker Compose, and common testing frameworks.
-- Approved third-party plugins - maintain an allowlist of vetted community plugins that meet your security and reliability standards.
-- Private organizational plugins - host your custom plugins in private repositories using fully qualified Git URLs for sensitive or proprietary functionality.
-
-Implement strict version management practices to ensure reliability and security:
-
-- Always pin plugins to specific versions or commit SHA values to prevent unexpected changes: `docker#v3.3.0` or `my-plugin#287293c4`.
-- Regularly audit and update plugin versions as part of your maintenance cycle.
-- Use YAML anchors to centralize plugin configuration and ensure consistency across pipelines.
-- Monitor plugin repositories for security vulnerabilities and updates.
+By establishing secure [Plugin management](/docs/pipelines/best-practices/plugin-management/) practices, platform teams can provide development teams with powerful, standardized tools while maintaining security, compliance, and operational consistency across the entire CI/CD ecosystem.
 
 ## Implement cost allocation
 
