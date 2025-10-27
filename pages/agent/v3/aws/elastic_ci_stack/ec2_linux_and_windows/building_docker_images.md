@@ -21,6 +21,21 @@ Create a Package Registry for container images through the Buildkite web interfa
 5. Assign appropriate team access permissions (select teams that need access to the registry)
 6. Click **Create Registry**
 
+7. Configure an OIDC policy to allow your agents to push images. Select **Settings** > **OIDC Policy** and add:
+
+    ```yaml
+    - iss: https://agent.buildkite.com
+      scopes:
+        - read_packages
+        - write_packages
+      claims:
+        organization_slug: <your-org-slug>
+        pipeline_slug: <your-pipeline-slug>
+        build_branch: main
+    ```
+
+    Replace `<your-org-slug>` and `<your-pipeline-slug>` with your organization and pipeline slugs. The `build_branch` claim restricts image pushes to the specified branch. See [OIDC in Buildkite Package Registries](/docs/pipelines/package_registries/security/oidc) for more configuration options.
+
 For detailed instructions, see [Manage registries](/docs/pipelines/package_registries/registries/manage).
 
 > 📘 **Note:** You don't need `docker login`. The step requests a short-lived OIDC token and passes it to Kaniko via a Docker config file.
