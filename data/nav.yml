@@ -55,6 +55,9 @@
               path: "pipelines/migration/tool/circleci"
             - name: "Bitbucket Pipelines"
               path: "pipelines/migration/tool/bitbucket-pipelines"
+            - name: "Jenkins"
+              path: "pipelines/migration/tool/jenkins"
+              pill: "beta"
         - name: From Jenkins
           path: pipelines/migration/from-jenkins
         - name: From Bamboo
@@ -88,6 +91,8 @@
           path: "agent/v3/ssh-keys"
         - name: "GitHub SSH keys"
           path: "agent/v3/github-ssh-keys"
+        - name: "Git mirrors"
+          path: "agent/v3/git-mirrors"
         - name: "Hooks"
           path: "agent/v3/hooks"
         - name: "Monitoring and observing"
@@ -809,6 +814,10 @@
           path: "platform/sso/custom-saml"
         - name: "Set up with GraphQL"
           path: "platform/sso/sso-setup-with-graphql"
+    - name: "Security"
+      children:
+        - name: "Token security"
+          path: "platform/security/tokens"
     - name: "Integrations"
       children:
         - name: "Slack Workspace"
@@ -947,22 +956,28 @@
               path: apis/graphql/cookbooks/organizations
             - name: Teams
               path: apis/graphql/cookbooks/teams
+        - name: "Portals"
+          children:
+            - name: "Overview"
+              path: "apis/graphql/portals"
+            - name: "Limits"
+              path: "apis/graphql/portals/limits"
+            - name: "Ephemeral portal tokens"
+              path: "apis/graphql/portals/ephemeral-portal-tokens"
+            - name: "User-invoked portals"
+              path: "apis/graphql/portals/user-invoked-portals"
         - name: Limits
           path: apis/graphql/graphql-resource-limits
-    - name: "Portals"
-      children:
-        - name: "Overview"
-          path: "apis/portals"
-        - name: "Limits"
-          path: "apis/portals/limits"
-        - name: "Ephemeral portal tokens"
-          path: "apis/portals/ephemeral-portal-tokens"
-        - name: "User-invoked portals"
-          path: "apis/portals/user-invoked-portals"
     - name: "MCP server"
       children:
         - name: "Overview"
           path: "apis/mcp-server"
+        - name: "Tools"
+          children:
+            - name: "Overview"
+              path: "apis/mcp-server/tools"
+            - name: "Toolsets"
+              path: "apis/mcp-server/tools/toolsets"
         - name: "Remote MCP server"
           children:
             - name: "Configuring AI tools"
@@ -1007,6 +1022,11 @@
           children:
             - name: "Overview"
               path: "apis/webhooks/package-registries"
+        - name: "Incoming webhooks"
+          children:
+            - name: "Pipeline triggers"
+              path: "apis/webhooks/incoming/pipeline-triggers"
+              pill: "preview"
     - name: "Agent"
       children:
         - name: "Overview"
@@ -1014,5 +1034,4 @@
         - name: "Metrics"
           path: "apis/agent-api/metrics"
         - name: "Stacks"
-          pill: preview
           path: "apis/agent-api/stacks"

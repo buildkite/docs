@@ -11,7 +11,7 @@ The Buildkite migration tool:
     * [GitHub Actions](/docs/pipelines/migration/tool/github-actions)
     * [CircleCI](/docs/pipelines/migration/tool/circleci)
     * [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines)
-    * Jenkins (currently in Beta)
+    * [Jenkins (currently in beta)](/docs/pipelines/migration/tool/jenkins)
 
 - Can be used as a standalone tool or potentially integrated into your [Buildkite Migration Services](https://buildkite.com/resources/migrations/) process, offering a way to leverage existing CI configurations within the Buildkite ecosystem.
 

@@ -17,7 +17,7 @@ Amazon Elastic Continer Registry
 Anthropic's
 Aqua
 architecting
-Argo
+Argo CD
 argumentless
 Artifactory
 Artifactory's
@@ -148,6 +148,7 @@ gmp
 gnupg
 gotestsum
 gpg
+Grafana
 Gradle
 gradle
 Gradle's
@@ -187,12 +188,14 @@ keyserver
 keyservers
 keyless
 kotlin
+kubeconfig
 kubectl
 kustomize
 Kuzco
 launchd
 LFS
 libpq
+Lightstep
 linux
 llamasecret
 LLMs
@@ -340,6 +343,8 @@ tmp
 tmux
 tokenization
 toolmantim
+toolset
+toolsets
 tooltip
 TOTP's
 Trivy

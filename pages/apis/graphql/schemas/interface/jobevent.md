@@ -68,6 +68,9 @@ toc: false
 <a href="/docs/apis/graphql/schemas/object/jobeventstackerror" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventStackError">
   <code>JobEventStackError</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/jobeventstackfinished" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventStackFinished">
+  <code>JobEventStackFinished</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/jobeventstacknotification" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventStackNotification">
   <code>JobEventStackNotification</code>
 </a>

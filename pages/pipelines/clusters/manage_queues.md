@@ -260,9 +260,6 @@ Specify the appropriate **Instance shape** for the `instanceShape` value in your
 
 You can pause a queue to prevent any jobs of the cluster's pipelines from being dispatched to agents associated with this queue.
 
-> 📘 Enterprise feature
-> Queue pausing is only available to Buildkite customers with [Pro and Enterprise](https://buildkite.com/pricing) plans.
-
 To pause a queue:
 
 1. Select **Agents** in the global navigation to access the **Clusters** page.
