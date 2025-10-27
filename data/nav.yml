@@ -146,8 +146,10 @@
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/template-parameters"
                 - name: "CloudFormation service role"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/cloudformation-service-role"
-                - name: "Building Docker images"
-                  path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/building_docker_images"
+                - name: "Building container images"
+                  children:
+                    - name: "Kaniko"
+                      path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/kaniko-container-builds"
                 - name: "Troubleshooting"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/troubleshooting"
             - name: "EC2 Mac"
