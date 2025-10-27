@@ -39,9 +39,9 @@ steps:
 
 ## Supported Markdown syntax
 
-We use CommonMark with GitHub Flavored Markdown extensions to provide consistent, unambiguous Markdown syntax.
+Buildkite Pipelines uses CommonMark with GitHub Flavored Markdown extensions to provide consistent, unambiguous Markdown syntax.
 
-GitHub kindly provides a [guide to this syntax](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown).
+See GitHub's [Basic writing and formatting syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) guide (to start with) and [GitHub Flavoured Markdown Spec](https://github.github.com/gfm/) for more details on how to implement this Markdown syntax.
 
 Annotations do not support GitHub-style syntax highlighting, task lists, user mentions, or automatic links for references to issues, pull requests or commits.
 

@@ -2,7 +2,7 @@
 
 Test ownership is critical in adopting a healthy testing culture at your organization. Defining one or more teams as test owners allows these teams to become accountable for maintaining tests within your test suite, ensuring it is fast and reliable, and providing confidence when you deploy your code.
 
-Customers on the [Pro and Enterprise plans](https://buildkite.com/pricing) can assign test ownership to [teams](/docs/test-engine/permissions#manage-teams-and-permissions).
+Customers on the [Pro and Enterprise](https://buildkite.com/pricing) plans can assign test ownership to [teams](/docs/test-engine/permissions#manage-teams-and-permissions).
 
 Test ownership is managed via team assignments in a TESTOWNERS file.
 
@@ -104,7 +104,7 @@ You can upload the same TESTOWNERS file to multiple test suites. However, a test
 
 You can view the current test ownership rules for a test suite in your **Test Suite** > **Settings** > **Test ownership** page.
 
-<%= image "test-ownership.png", width: 1500/2, height: 1180/2, alt: "Suite settings page showing test ownership" %>
+<%= image "test-ownership.png", width: 2572/2, height: 1386/2, alt: "Suite settings page showing test ownership" %>
 
 ## Troubleshooting
 

@@ -1,13 +1,14 @@
 # Clusters overview
 
-Clusters is a Buildkite Pipelines feature used to manage and organize agents and queues, which:
+Clusters is a Buildkite Pipelines feature used to manage and organize agents and queues, and provides the following benefits:
 
-- allows teams to self-manage their Buildkite agent pools
-- allows admins to create isolated sets of agents and pipelines within the one Buildkite organization
-- helps make agents and queues more discoverable across your organization
-- provides easily accessible [queue metrics](/docs/pipelines/insights/queue-metrics) and operational [cluster insights](/docs/pipelines/insights/clusters) such as queue wait times (available on Enterprise plans only)
-- allows easier agent management through [queue pausing](/docs/pipelines/clusters/manage-queues#pause-and-resume-a-queue)
-- allows you to easily [create queues for Buildkite hosted agents](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
+- Allows [teams](/docs/platform/team-management/permissions) to self-manage their Buildkite agent pools.
+- Allows [cluster maintainers](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) and [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) to create isolated sets of agents and pipelines within the one Buildkite organization.
+- Helps make agents and queues more discoverable across your Buildkite organization.
+- Provides easily accessible [queue metrics](/docs/pipelines/insights/queue-metrics) and operational [cluster insights](/docs/pipelines/insights/clusters) such as queue wait times (available on [Enterprise](https://buildkite.com/pricing/) plans only).
+- Allows easier agent management through [queue pausing](/docs/pipelines/clusters/manage-queues#pause-and-resume-a-queue).
+- Allows you to easily [create queues for Buildkite hosted agents](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
+- Allows the management of [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets).
 
 Clusters create logical boundaries between different parts of your build infrastructure, enhancing security, discoverability, and manageability.
 

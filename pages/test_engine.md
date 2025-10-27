@@ -13,7 +13,7 @@ Where [Buildkite Pipelines](/docs/pipelines) helps you automate your CI/CD pipel
 - Identifying, fixing, and monitoring test performance.
 - Tracking, improving, and monitoring test reliability.
 
-<%= image "overview.png", width: 975, height: 205, alt: "Screenshot of test suite trend showing five metrics over 28 days" %>
+<%= image "overview.png", width: 2594, height: 624, alt: "Screenshot of test suite trend showing six metrics over the last day" %>
 
 ## Get started
 
@@ -53,13 +53,13 @@ If a Buildkite test collector is not available for one of these test runners, yo
 <%= tiles "test_engine_features" %>
 
 > 📘 Data retention
-> The data uploaded to Test Engine is stored in S3 and deleted after six months.
+> The execution data uploaded to Test Engine is stored in S3 and deleted after 120 days.
 
 ## API & references
 
 Learn more about:
 
 - Test Engine's APIs through the [REST API documentation](/docs/apis/rest-api), and related endpoints, starting with [test suites](/docs/apis/rest-api/test-engine/suites).
-- The [Buildkite MCP server](/docs/apis/mcp-server) and its Test Engine-specific MCP [tools](/docs/apis/mcp-server#available-mcp-tools-test-engine).
+- The [Buildkite MCP server](/docs/apis/mcp-server) and its Test Engine-specific MCP [tools](/docs/apis/mcp-server/tools#available-mcp-tools-test-engine) and [toolsets](/docs/apis/mcp-server/tools/toolsets#available-toolsets).
 - Test Engine's [webhooks](/docs/apis/webhooks/test-engine).
 - Test Engine [glossary](/docs/test-engine/glossary) of important terms.

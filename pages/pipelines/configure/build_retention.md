@@ -18,9 +18,14 @@ The following diagram shows the lifecycle of build data by plan.
   </thead>
   <tbody>
     <tr>
+      <td>Personal plan</td>
+      <td>90 days</td>
+      <td>No</td>
+    </tr>
+    <tr>
       <td>Pro plan</td>
       <td>1 year</td>
-      <td>-</td>
+      <td>No</td>
     </tr>
     <tr>
       <td>Enterprise plan</td>

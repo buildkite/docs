@@ -12,16 +12,53 @@ Buildkite offers a selection of macOS instance types (each based on a different 
 
 ## macOS instance software support
 
-All standard macOS [Sequoia](#macos-sequoia) and [Sonoma](#macos-sonoma) version instances have their own respective Xcode and runtime software versions available by default (listed below). For both of these macOS versions, the [Homebrew packages](#homebrew-packages) and their versions (listed further down) are also available. If you have specific requirements for software that is not listed here, please contact support.
+All standard macOS [Tahoe](#macos-tahoe), [Sequoia](#macos-sequoia) and [Sonoma](#macos-sonoma) version instances have their own respective Xcode and runtime software versions available by default (listed below). Each macOS version also has its own set of [Homebrew packages](#homebrew-packages) with specific versions optimized for that operating system. If you have specific requirements for software that is not listed here, please contact support.
 
 Updated Xcode versions will be available one week after Apple offers them for download. This includes Beta, Release Candidate (RC), and official release versions.
 
-## macOS Sequoia
+## macOS Tahoe
 
-- 15.4.1
+- 26.0
 
 ### Xcode
 
+- 26.0
+- 16.4
+
+### Runtimes
+
+#### iOS
+
+- 26.0
+- 18.6
+- 17.5
+
+#### tvOS
+
+- 26.0
+- 17.5
+- 16.4
+
+#### visionOS
+
+- 26.0
+- 2.5
+- 1.2
+
+#### watchOS
+
+- 26.0
+- 11.5
+- 10.5
+
+## macOS Sequoia
+
+- 15.6.1
+
+### Xcode
+
+- 26.0
+- 16.4
 - 16.3
 - 16.2
 - 16.1
@@ -32,6 +69,9 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 #### iOS
 
+- 26.0
+- 18.6
+- 18.5
 - 18.4 RC
 - 18.2 RC
 - 18.1
@@ -42,6 +82,8 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 #### tvOS
 
+- 26.0
+- 18.5
 - 18.4 RC
 - 18.2 RC
 - 18.1
@@ -51,6 +93,8 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 #### visionOS
 
+- 26.0
+- 2.5
 - 2.4 RC
 - 2.2 RC
 - 2.1
@@ -61,6 +105,8 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 #### watchOS
 
+- 26.0
+- 11.5
 - 11.4 RC
 - 11.2 RC
 - 11.1
@@ -74,7 +120,6 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ### Xcode
 
-- 16.3-RC2
 - 16.3
 - 16.2
 - 16.1
@@ -134,240 +179,73 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ## Homebrew packages
 
-<table>
-  <tr>
-    <th>Package</th>
-    <th>Version</th>
-  </tr>
-  <tr>
-    <td>ant</td>
-    <td>1.10.15_1</td>
-  </tr>
-  <tr>
-    <td>applesimutils</td>
-    <td>0.9.12</td>
-  </tr>
-  <tr>
-    <td>aria2</td>
-    <td>1.37.0</td>
-  </tr>
-  <tr>
-    <td>awscli</td>
-    <td>2.25.49</td>
-  </tr>
-  <tr>
-    <td>azcopy</td>
-    <td>10.29.1</td>
-  </tr>
-  <tr>
-    <td>azure-cli</td>
-    <td>2.75.0</td>
-  </tr>
-  <tr>
-    <td>bazelisk</td>
-    <td>1.26.0</td>
-  </tr>
-  <tr>
-    <td>bicep</td>
-    <td>0.36.177</td>
-  </tr>
-  <tr>
-    <td>carthage</td>
-    <td>0.40.0</td>
-  </tr>
-  <tr>
-    <td>cmake</td>
-    <td>4.0.3</td>
-  </tr>
-  <tr>
-    <td>cocoapods</td>
-    <td>1.16.2_1</td>
-  </tr>
-  <tr>
-    <td>codeql</td>
-    <td>2.21.4</td>
-  </tr>
-  <tr>
-    <td>curl</td>
-    <td>8.14.1</td>
-  </tr>
-  <tr>
-    <td>deno</td>
-    <td>2.4.1</td>
-  </tr>
-  <tr>
-    <td>docker</td>
-    <td>28.3.0</td>
-  </tr>
-  <tr>
-    <td>fastlane</td>
-    <td>2.228.0</td>
-  </tr>
-  <tr>
-    <td>gcc@13</td>
-    <td>13.4.0</td>
-  </tr>
-  <tr>
-    <td>gh</td>
-    <td>2.74.2</td>
-  </tr>
-  <tr>
-    <td>git</td>
-    <td>2.50.1</td>
-  </tr>
-  <tr>
-    <td>git-lfs</td>
-    <td>3.7.0</td>
-  </tr>
-  <tr>
-    <td>gmp</td>
-    <td>6.3.0</td>
-  </tr>
-  <tr>
-    <td>gnu-tar</td>
-    <td>1.35</td>
-  </tr>
-  <tr>
-    <td>gnupg</td>
-    <td>2.4.8</td>
-  </tr>
-  <tr>
-    <td>go</td>
-    <td>1.24.5</td>
-  </tr>
-  <tr>
-    <td>gradle</td>
-    <td>8.14.3</td>
-  </tr>
-  <tr>
-    <td>httpd</td>
-    <td>2.4.63</td>
-  </tr>
-  <tr>
-    <td>jq</td>
-    <td>1.8.1</td>
-  </tr>
-  <tr>
-    <td>kotlin</td>
-    <td>2.2.0</td>
-  </tr>
-  <tr>
-    <td>libpq</td>
-    <td>17.5</td>
-  </tr>
-  <tr>
-    <td>llvm@15</td>
-    <td>15.0.7</td>
-  </tr>
-  <tr>
-    <td>maven</td>
-    <td>3.9.10</td>
-  </tr>
-  <tr>
-    <td>mint</td>
-    <td>0.18.0</td>
-  </tr>
-  <tr>
-    <td>nginx</td>
-    <td>1.29.0</td>
-  </tr>
-  <tr>
-    <td>node</td>
-    <td>24.3.0</td>
-  </tr>
-  <tr>
-    <td>openssl@3</td>
-    <td>3.5.1</td>
-  </tr>
-  <tr>
-    <td>p7zip</td>
-    <td>17.06</td>
-  </tr>
-  <tr>
-    <td>packer</td>
-    <td>1.13.1</td>
-  </tr>
-  <tr>
-    <td>perl</td>
-    <td>5.40.2</td>
-  </tr>
-  <tr>
-    <td>php</td>
-    <td>8.4.10</td>
-  </tr>
-  <tr>
-    <td>pkgconf</td>
-    <td>2.5.1</td>
-  </tr>
-  <tr>
-    <td>postgresql@14</td>
-    <td>14.18</td>
-  </tr>
-  <tr>
-    <td>r</td>
-    <td>4.5.1</td>
-  </tr>
-  <tr>
-    <td>rbenv</td>
-    <td>1.3.2</td>
-  </tr>
-  <tr>
-    <td>rbenv-bundler</td>
-    <td>1.0.1</td>
-  </tr>
-  <tr>
-    <td>ruby</td>
-    <td>3.4.4</td>
-  </tr>
-  <tr>
-    <td>rust</td>
-    <td>1.88.0</td>
-  </tr>
-  <tr>
-    <td>rustup</td>
-    <td>1.28.2</td>
-  </tr>
-  <tr>
-    <td>selenium-server</td>
-    <td>4.34.0</td>
-  </tr>
-  <tr>
-    <td>swiftformat</td>
-    <td>0.56.4</td>
-  </tr>
-  <tr>
-    <td>swiftlint</td>
-    <td>0.59.1</td>
-  </tr>
-  <tr>
-    <td>tmux</td>
-    <td>3.5a</td>
-  </tr>
-  <tr>
-    <td>unxip</td>
-    <td>3.2</td>
-  </tr>
-  <tr>
-    <td>wget</td>
-    <td>1.25.0</td>
-  </tr>
-  <tr>
-    <td>xcbeautify</td>
-    <td>2.29.0</td>
-  </tr>
-  <tr>
-    <td>xcodes</td>
-    <td>1.6.2</td>
-  </tr>
-  <tr>
-    <td>yq</td>
-    <td>4.45.4</td>
-  </tr>
-  <tr>
-    <td>zstd</td>
-    <td>1.5.7</td>
-  </tr>
-</table>
+The versions for each of these packages varies by macOS version. See [Identifying Homebrew package versions](#homebrew-packages-identifying-homebrew-package-versions) for instructions on how to identify each package's version.
+
+- ant
+- applesimutils
+- aria2
+- awscli
+- azcopy
+- azure-cli
+- bazelisk
+- bicep
+- carthage
+- cmake
+- cocoapods
+- curl
+- deno
+- docker
+- fastlane
+- gcc@13
+- gh
+- git
+- git-lfs
+- gmp
+- gnu-tar
+- gnupg
+- go
+- gradle
+- httpd
+- jq
+- kotlin
+- libpq
+- llvm
+- llvm@15
+- maven
+- mint
+- nginx
+- node
+- openssl@3
+- p7zip
+- packer
+- perl
+- php
+- pkgconf
+- postgresql@14
+- python<span>@</span>3.13
+- r
+- rbenv
+- rbenv-bundler
+- ruby
+- rust
+- rustup
+- selenium-server
+- swiftformat
+- swiftlint
+- tmux
+- unxip
+- wget
+- xcbeautify
+- xcodes
+- yq
+- zstd
+
+### Identifying Homebrew package versions
+
+To find the [Homebrew package](#homebrew-packages) version used by your macOS hosted agent:
+
+1. Select **Agents** in the global navigation > your [cluster](/docs/pipelines/clusters/manage-clusters) containing the [macOS Buildkite hosted agent queue](/docs/pipelines/clusters/manage-queues) > your macOS hosted agent.
+1. On your macOS hosted agent's page, select **Base image** and scroll down to **Specifications** > **Homebrew packages** to view these packages, along with their respective versions.
 
 ## Git mirror cache
 

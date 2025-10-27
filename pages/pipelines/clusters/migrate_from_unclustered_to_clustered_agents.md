@@ -31,9 +31,7 @@ Migrating your unclustered agents to a single cluster is the fastest migration s
 
 1. Decommission your [unclustered agents](#agent-migration-process-decommission-your-unclustered-resources).
 
-You can now unlock [cluster insights](/docs/pipelines/insights/clusters) and [queue metrics](/docs/pipelines/insights/queue-metrics).
-
-<!-- , and organization-level secrets management. -->
+You can now unlock [cluster insights](/docs/pipelines/insights/clusters), [queue metrics](/docs/pipelines/insights/queue-metrics), and [secrets management](/docs/pipelines/security/secrets/buildkite-secrets).
 
 See [Agent migration process](#agent-migration-process) for the full migration process and detailed migration steps, bearing in mind that you are only working with a single cluster.
 
@@ -41,11 +39,9 @@ See [Agent migration process](#agent-migration-process) for the full migration p
 
 - **Enhanced security boundaries**: Clusters provide hard security boundaries between different environments. However, you can use [rules](/docs/pipelines/rules) to create exceptions that allow controlled interaction between clusters when needed.
 
-- **Improved observability**: Clusters provide access to [cluster insights](/docs/pipelines/insights/clusters) (for customers on Enterprise plans), providing better metrics and visibility into your build infrastructure such as queue wait times and job pass rates. All plans have access to [queue metrics](/docs/pipelines/insights/queue-metrics).
+- **Improved observability**: Clusters provide access to [cluster insights](/docs/pipelines/insights/clusters) (for customers on [Enterprise](https://buildkite.com/pricing/) plans), providing better metrics and visibility into your build infrastructure such as queue wait times and job pass rates. All plans have access to [queue metrics](/docs/pipelines/insights/queue-metrics).
 
-<!--
-- **Organization-level secrets management**: Clusters provide access to Buildkite organization-level secrets and controlled access to sensitive resources.
--->
+- **Secrets management**: Clusters provide access to [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) and controlled access to sensitive resources.
 
 - **Easier agent management**: Clusters make agents and queues more discoverable across your organization and allow teams to self-manage their agent pools.
 
@@ -61,9 +57,7 @@ Starting your unclustered to clustered migration process with a single cluster o
 
 - **Immediate insights**: Access [cluster insights](/docs/pipelines/insights/clusters) and [queue metrics](/docs/pipelines/insights/queue-metrics) instantly.
 
-<!--
-- **Buildkite organization-level secrets**: Benefit from immediate access to organization-level secrets management.
--->
+- **Buildkite secrets**: Benefit from immediate access to [secrets management](/docs/pipelines/security/secrets/buildkite-secrets).
 
 ## Assessing your current environment
 
@@ -378,7 +372,7 @@ This part of the agent migration process is only applicable for clustered agents
     buildkite-agent start \
         --token "unclustered-agent-token-value" \
         --tags "queue=linux,queue=testing,arch=amd64,env=prod"
-    
+
     # After migration (clustered) - single queue
     buildkite-agent start \
         --token "agent-token-value-for-cluster" \
@@ -425,7 +419,7 @@ Alternatively, consider using [Terraform](https://registry.terraform.io/provider
 
 1. Once [all tests pass](#agent-migration-process-test-and-validate-the-migrated-pipelines), gradually increase traffic to the pipelines that were migrated to clusters.
 
-1. Monitor for any issues during the transition. If you are on an Enterprise plan, monitor [cluster insights](/docs/pipelines/insights/clusters).
+1. Monitor for any issues during the transition. If you are on an [Enterprise](https://buildkite.com/pricing/) plan, monitor [cluster insights](/docs/pipelines/insights/clusters).
 
 1. After a suitable monitoring period (typically 1-2 weeks):
    * Decommission your old unclustered agents.
