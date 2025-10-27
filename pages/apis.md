@@ -1,8 +1,10 @@
 # Buildkite APIs
 
+The Buildkite APIs documentation contains docs for all API-related features of Buildkite available across Buildkite [Pipelines](/docs/pipelines), [Test Engine](/docs/test-engine), and [Package Registries](/docs/package-registries).
+
 ## Authentication
 
-The Buildkite REST and GraphQL APIs expect an access token to be provided using the `Authorization` HTTP header:
+The Buildkite [REST](#rest-api) and [GraphQL](#graphql) APIs expect an access token to be provided using the `Authorization` HTTP header:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" https://api.buildkite.com/v2/user
@@ -27,10 +29,10 @@ If you are implementing [Buildkite webhooks](#webhooks), all webhooks for [Pipel
 
 ## REST API
 
-The Buildkite REST API aims to give you complete programmatic access and control of Buildkite to extend, integrate and automate anything to suit your particular needs.
+The Buildkite REST API aims to give you complete programmatic access and control of Buildkite to extend, integrate and automate anything to suit your particular needs. Using the Buildkite REST API is as easy as:
 
-1. Generate an [API access token](/docs/apis/managing-api-tokens) with as many [scopes](/docs/apis/managing-api-tokens#token-scopes) as you require.
-2. Make requests to https://api.buildkite.com using the token you generated in the `Authorization` header:
+1. Ensuring you have generated an [API access token](/docs/apis/managing-api-tokens) with as many [scopes](/docs/apis/managing-api-tokens#token-scopes) as you require.
+2. Making requests to https://api.buildkite.com using the token you generated in the `Authorization` header, for example:
 
     ```bash
     curl -H "Authorization: Bearer $TOKEN" https://api.buildkite.com/v2/user
@@ -68,5 +70,7 @@ Buildkite's webhooks allow your third-party applications and systems to monitor 
 For Pipelines, webhooks can be [added and configured](/docs/apis/webhooks/pipelines#add-a-webhook) on your Buildkite organization's [**Notification Services** settings](https://buildkite.com/organizations/-/services) page.
 
 For Test Engine and Package Registries, webhooks can be configured through their specific [test suites](/docs/apis/webhooks/test-engine) and [registries](/docs/apis/webhooks/package-registries#add-a-webhook), respectively.
+
+This section also covers documentation on how to configure incoming webhooks for the Buildkite platform, available through [pipeline triggers](/docs/apis/webhooks/incoming/pipeline-triggers).
 
 Learn more about Buildkite's webhooks from the [Webhooks overview](/docs/apis/webhooks) page.
