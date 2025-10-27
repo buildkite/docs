@@ -79,6 +79,7 @@ cocoapods
 codeql
 codesign
 codesigning
+Cognito
 commit_sha
 completion_watcher
 composable
@@ -214,6 +215,8 @@ mrkdwn
 multi-file
 mutex
 namespace
+Namespace
+Namespace's
 namespaced
 namespaces
 navatar

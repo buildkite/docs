@@ -82,6 +82,7 @@ exceptions:
   - CloudWatch
   - CloudWatch Logs
   - CocoaPods
+  - Cognito
   - completion_watcher
   - Comliance
   - CORS
@@ -169,6 +170,7 @@ exceptions:
   - Mobile Delivery Cloud
   - Model Context Protocol
   - monitor
+  - Namespace
   - NET
   - Node.js
   - nodeName
