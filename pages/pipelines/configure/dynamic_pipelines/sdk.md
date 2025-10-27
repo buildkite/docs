@@ -125,19 +125,18 @@ import (
 )
 
 func main() {
-	pipeline := buildkite.Pipeline{}
-	command := "echo 'Hello, world!"
+    pipeline := buildkite.Pipeline{}
 
-	pipeline.AddCommandStep(buildkite.CommandStep{
-		Command: &buildkite.CommandUnion{
-			String: &command,
-		},
-	})
+    pipeline.AddStep(buildkite.CommandStep{
+        Command: &buildkite.CommandStepCommand{
+            String: buildkite.Value("echo 'Hello, world!"),
+        },
+    })
 
     // JSON output
-	// fmt.Println(pipeline.ToJSON())
+    // fmt.Println(pipeline.ToJSON())
     // YAML output
-	fmt.Println(pipeline.ToYAML())
+    fmt.Println(pipeline.ToYAML())
 }
 ```
 {: codeblock-file="dynamic_pipeline.go"}
