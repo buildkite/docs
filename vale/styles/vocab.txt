@@ -55,6 +55,7 @@ BuildKit
 Buildkite
 Buildkite's
 buildscript
+Buildx
 Bundler
 cancelation
 carthage
