@@ -1,24 +1,24 @@
 # Namespace remote builder container builds
 
-[Namespace](https://namespace.so) provides remote Docker builders that execute builds on dedicated infrastructure outside your Kubernetes cluster.
+[Namespace](https://namespace.so) provides [remote Docker builders](https://namespace.so/docs/solutions/docker-builders) that execute builds on dedicated infrastructure outside your Kubernetes cluster.
 
-Unlike Buildah and BuildKit which run builds inside Kubernetes pods, Namespace executes builds on remote compute instances. This eliminates the need for privileged containers, security context configuration, or storage driver setup in your cluster.
+Unlike [Buildah](/docs/agent/v3/agent-stack-k8s/buildah-container-builds) and [BuildKit](/docs/agent/v3/agent-stack-k8s/buildkit-container-builds) which run builds inside Kubernetes pods, Namespace executes builds on remote compute instances. This eliminates the need for privileged containers, security context configuration, or storage driver setup in your cluster.
 
 ## How it works
 
-When using Namespace remote builders with Agent Stack for Kubernetes:
+When using Namespace remote Docker builders with Agent Stack for Kubernetes:
 
-1. The Buildkite agent pod authenticates with Namespace (see [Authentication](#authentication))
-2. The Namespace CLI (`nsc`) configures Docker BuildX to use remote builders
-3. Build commands execute on Namespace's infrastructure, not in your cluster
-4. Built images are pushed to Namespace's container registry (`nscr.io`) or any other registry
+1. The Buildkite agent pod authenticates with Namespace (see [Authentication](#authentication)).
+2. The Namespace CLI (`nsc`) configures Docker BuildX to use remote builders.
+3. Build commands execute on Namespace's infrastructure, not in your cluster.
+4. Built images are pushed to Namespace's container registry (`nscr.io`) or any other registry.
 
 ## Authentication
 
 Namespace supports multiple authentication methods:
 
-- **AWS Cognito federation**: For EKS clusters using IAM Roles for Service Accounts (IRSA). This guide covers this approach.
-- **Buildkite OIDC**: Contact [support@namespace.so](mailto:support@namespace.so) to register `https://agent.buildkite.com` as a trusted issuer.
+- AWS Cognito federation for EKS clusters using IAM Roles for Service Accounts (IRSA). This guide covers this approach.
+- Buildkite OIDC - contact [support@namespace.so](mailto:support@namespace.so) to register `https://agent.buildkite.com` as a trusted issuer.
 
 For more information, see [Namespace federation documentation](https://namespace.so/docs/federation).
 
@@ -141,11 +141,11 @@ steps:
         --aws_region us-east-1 \
         --identity_pool <pool-guid> \
         --tenant_id <workspace-id>
-      
+
       # Configure BuildX
       /root/.ns/bin/nsc docker buildx setup --background --use
       /root/.ns/bin/nsc docker login
-      
+
       # Build multi-platform image
       docker buildx build \
         --builder nsc-remote \
@@ -168,11 +168,11 @@ steps:
       /root/.ns/bin/nsc auth exchange-oidc-token \
         --token "$$OIDC_TOKEN" \
         --tenant_id <workspace-id>
-      
+
       # Configure BuildX and build
       /root/.ns/bin/nsc docker buildx setup --background --use
       /root/.ns/bin/nsc docker login
-      
+
       docker buildx build \
         --builder nsc-remote \
         --platform linux/amd64,linux/arm64 \
