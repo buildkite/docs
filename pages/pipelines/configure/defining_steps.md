@@ -223,7 +223,7 @@ Platform limits are restrictions imposed by Buildkite on usage within your Build
 
 The following platform limits may apply:
 
-- **Job concurrency limits**: Buildkite organizations on the personal plan have an organization-wide concurrency limit of 3 jobs that applies across both [Buildkite hosted agents](/docs/pipelines/hosted-agents) and [self-hosted agents](/docs/pipelines/architecture). When jobs are scheduled beyond this limit, they will be queued using the platform limiting states. To remove or increase this limit for your organization, [upgrade to the Pro plan](https://buildkite.com/organizations/~/billing/plan_changes/new?plan_id=platform_pro_monthly_plan) or [reach out to support](https://buildkite.com/about/contact/) for help.
+- **Job concurrency limits**: Buildkite organizations on the personal plan have an organization-wide concurrency limit of three jobs that applies across both [Buildkite hosted agents](/docs/pipelines/hosted-agents) and [self-hosted agents](/docs/pipelines/architecture). When jobs are scheduled beyond this limit, they will be queued using the platform limiting states. To remove or increase this limit for your organization, [upgrade to the Pro plan](https://buildkite.com/organizations/~/billing/plan_changes/new?plan_id=platform_pro_monthly_plan) or [reach out to support](https://buildkite.com/about/contact/) for help.
 
 ## Example pipeline
 
