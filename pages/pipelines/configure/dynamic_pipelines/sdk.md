@@ -142,7 +142,7 @@ func main() {
     // fmt.Println(json)
 
     // YAML output
-    yaml, err := pipeline.YAML()
+    yaml, err := pipeline.ToYAML()
     if err != nil {
         log.Fatalf("Failed to serialize YAML: %v", err)
     }
