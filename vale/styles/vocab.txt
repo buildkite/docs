@@ -304,6 +304,7 @@ shasum
 shellcheck
 shellscripting
 Shipit
+sigstore
 signaltometrics
 SLO
 SLOs
@@ -372,6 +373,7 @@ upstreams
 url
 urls
 userdata
+userspace
 util
 uuid
 UUIDs
