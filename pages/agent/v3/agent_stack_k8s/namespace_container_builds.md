@@ -8,8 +8,8 @@ Unlike [Buildah](/docs/agent/v3/agent-stack-k8s/buildah-container-builds) and [B
 
 When using Namespace remote Docker builders with Agent Stack for Kubernetes:
 
-1. The Buildkite agent pod authenticates with Namespace (see [Authentication](#authentication)).
-2. The Namespace CLI (`nsc`) configures Docker BuildX to use remote builders.
+1. The Buildkite Agent pod authenticates with Namespace (see [Authentication](/docs/agent/v3/agent-stack-k8s/namespace-container-builds#authentication)).
+2. The Namespace CLI (`nsc`) configures [Docker Buildx](https://docs.docker.com/reference/cli/docker/buildx/) to use remote builders.
 3. Build commands execute on Namespace's infrastructure, not in your cluster.
 4. Built images are pushed to Namespace's container registry (`nscr.io`) or any other registry.
 
@@ -18,24 +18,24 @@ When using Namespace remote Docker builders with Agent Stack for Kubernetes:
 Namespace supports multiple authentication methods:
 
 - AWS Cognito federation for EKS clusters using IAM Roles for Service Accounts (IRSA). This guide covers this approach.
-- Buildkite OIDC - contact [support@namespace.so](mailto:support@namespace.so) to register `https://agent.buildkite.com` as a trusted issuer.
+- [Buildkite OIDC](/docs/pipelines/security/oidc) - contact [support@namespace.so](mailto:support@namespace.so) to register `https://agent.buildkite.com` as a trusted issuer.
 
 For more information, see [Namespace federation documentation](https://namespace.so/docs/federation).
 
 ## Prerequisites
 
-- **Namespace account** with a workspace ([sign up](https://namespace.so))
-- **Custom agent image** with Docker CLI, BuildX, and Namespace CLI
-- **Authentication configured** (AWS Cognito for EKS, or OIDC federation)
+- Namespace account with a workspace (you will need to [sign up](https://namespace.so)).
+- Custom agent image with Docker CLI, Buildx, and Namespace CLI.
+- Properly configures authentication (AWS Cognito for EKS or OIDC federation).
 
 ## AWS Cognito setup (for EKS)
 
 > 📘
-> If using Buildkite OIDC or another authentication method, skip to [Build custom agent image](#build-custom-agent-image).
+> If you are using Buildkite OIDC or another authentication method, skip to [Build custom agent image](/docs/agent/v3/agent-stack-k8s/namespace-container-builds#build-custom-agent-image).
 
 ### Quick setup
 
-1. Create Cognito Identity Pool and establish trust with Namespace:
+1. Create a [Cognito Identity Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html) and establish trust with Namespace:
 
 ```bash
 # Create pool
@@ -52,7 +52,7 @@ nsc auth trust-aws-cognito-identity-pool \
   --tenant_id <workspace-id>
 ```
 
-2. Enable EKS OIDC provider and create IAM role:
+2. Enable EKS OIDC provider and create an IAM role:
 
 ```bash
 # Enable OIDC
@@ -69,20 +69,20 @@ kubectl annotate serviceaccount <your-agent-stack-k8s-service-account> \
   eks.amazonaws.com/role-arn=arn:aws:iam::<account-id>:role/<your-agent-stack-k8s-service-account>
 ```
 
-For detailed IAM policy configuration, see [Namespace AWS federation documentation](https://namespace.so/docs/federation/aws).
+For the detailed IAM policy configuration, see [Namespace AWS federation documentation](https://namespace.so/docs/federation/aws).
 
 ## Build custom agent image
 
 Create a Dockerfile that includes Docker CLI, BuildX, and Namespace CLI:
 
 ```dockerfile
-# Use the official Buildkite agent Alpine K8s image as base
+# Use the official Buildkite Agent Alpine Kubernetes image as base
 FROM buildkite/agent:alpine-k8s
 
 # Switch to root to install packages
 USER root
 
-# Install bash, Docker CLI and buildx from Alpine repositories
+# Install bash, Docker CLI, and Buildx from the Alpine repositories
 RUN apk add --no-cache \
     bash \
     docker-cli \
@@ -142,7 +142,7 @@ steps:
         --identity_pool <pool-guid> \
         --tenant_id <workspace-id>
 
-      # Configure BuildX
+      # Configure buildx
       /root/.ns/bin/nsc docker buildx setup --background --use
       /root/.ns/bin/nsc docker login
 
@@ -169,7 +169,7 @@ steps:
         --token "$$OIDC_TOKEN" \
         --tenant_id <workspace-id>
 
-      # Configure BuildX and build
+      # Configure buildx and build
       /root/.ns/bin/nsc docker buildx setup --background --use
       /root/.ns/bin/nsc docker login
 
@@ -199,11 +199,13 @@ docker buildx build --builder nsc-remote -t <registry>/myapp:latest --push .
 
 ## Troubleshooting
 
+This section covers the possible issues that might arise when using Namespace remote builder container builds and how to fix them.
+
 ### Authentication fails
 
-- **OIDC "nothing matched"**: Contact Namespace support to register your OIDC issuer, or verify AWS Cognito setup.
-- **Pod using node role**: Verify EKS OIDC provider is enabled and service account has IAM role annotation.
-- **Cognito permission denied**: Ensure IAM role policy includes `cognito-identity:GetOpenIdTokenForDeveloperIdentity`.
+- **OIDC "nothing matched" error**: contact the [Namespace support](https://namespace.so/support) to register your OIDC issuer, or verify AWS Cognito setup.
+- **Pod using node role**: verify that the EKS OIDC provider is enabled and the service account has IAM role annotation.
+- **Cognito permission denied**: ensure that the IAM role policy includes `cognito-identity:GetOpenIdTokenForDeveloperIdentity`.
 
 ### Registry authentication fails
 
@@ -216,6 +218,7 @@ Run `nsc docker buildx setup --background --use` before building.
 ### Shell execution errors
 
 Configure agent to use bash in Helm values:
+
 ```yaml
 config:
   agent-config:
