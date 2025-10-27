@@ -415,7 +415,7 @@
           path: "pipelines/clusters/manage-queues"
         - name: "Migrate from unclustered to clustered agents"
           path: "pipelines/clusters/migrate-from-unclustered-to-clustered-agents"
-    - name: "Hosted agents"
+    - name: "Buildkite hosted agents"
       children:
         - name: "Overview"
           path: "pipelines/hosted-agents"
