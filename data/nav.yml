@@ -76,7 +76,7 @@
           path: "pipelines/best-practices/secrets-management"
         - name: "Plugin management"
           path: "pipelines/best-practices/plugin-management"
-        - name: "Security controls"
+        - name: "Enforcing security controls"
           path: "pipelines/best-practices/security-controls"
     - name: "Tutorials"
       children:

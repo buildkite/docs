@@ -14,7 +14,7 @@ There are two preferred approaches to running monorepos with Buildkite Pipelines
 - **Static**: a single diff pipeline triggers different static pipelines in your monorepo based on what parts of the monorepo were changed.
 - **Dynamic**: [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) that inject specific steps into a single pipeline based on the changes in the monorepo. You will need to run bash scripts to inject steps according to the changes. You can also use the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk) to inject steps dynamically in one of its supported programming languages of your choice.
 
-Now, let's look into implementing these possible approaches to running monorepos in more detail.
+Now, let's look into implementing these possible approaches to working with monorepos in more detail.
 
 ## Static pipelines approach
 

@@ -1,4 +1,4 @@
-# Security best practices
+# Enforcing security controls
 
 This guide helps security engineers identify common risks and implement proven prevention and mitigation strategies across key areas of the Buildkite ecosystem. The guide covers secrets management, supply chain security, artifact storage reliability, and platform hardening.
 
