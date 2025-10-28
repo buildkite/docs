@@ -4,12 +4,12 @@ keywords: docs, pipelines, tutorials, docker
 
 # Containerized builds with Docker
 
-Buildkite has built-in support for running your builds in Docker containers. Running your builds with Docker allows each pipeline to define and document its testing environment, greatly simplifying your build servers, and provides build isolation when [parallelizing your build](parallel-builds).
+Buildkite Pipelines has built-in support for running your builds in Docker containers. Running your builds with Docker allows each pipeline to define and document its testing environment, greatly simplifying your build servers, and provides build isolation when [parallelizing your build](parallel-builds).
 
 
 ## Overview
 
-To run your steps using Docker, there are two official [Buildkite plugins](/docs/pipelines/integrations/plugins): the [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), and the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin).
+To run your steps using Docker, there are two official [Buildkite plugins](/docs/pipelines/integrations/plugins): the [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) and the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin).
 
 The [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) supports repositories with `docker-compose.yml` files, projects that use multiple containers or have dependent services, and building docker images inside pipeline steps.
 

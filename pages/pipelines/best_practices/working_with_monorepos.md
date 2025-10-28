@@ -18,7 +18,7 @@ Now, let's look into implementing these possible approaches to working with mono
 
 ## Static approach
 
-The static approach involves creating a single orchestrating pipeline that triggers other pipelines (predefined for different scenarios) in your monorepo.
+The static approach to working with monorepos involves creating a single orchestrating pipeline that triggers other pipelines (predefined for different scenarios) in your monorepo.
 
 A typical example of the static approach would be a single main pipeline that contains the [Monorepo diff plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/) and, depending on what files get modified in the repository, this pipeline will trigger other pipelines. You can check out the [Monorepo example](https://buildkite.com/resources/examples/buildkite/monorepo-example/) pipeline to see a practical implementation.
 
@@ -27,7 +27,7 @@ A typical example of the static approach would be a single main pipeline that co
 
 ## Dynamic approach
 
-The dynamic approach involves having dynamic pipelines that inject specific steps in the programming language of your choice into a single pipeline in your monorepo based on the detected changes.
+The dynamic approach to working with monorepos involves having dynamic pipelines that inject specific steps in the programming language of your choice into a single pipeline in your monorepo based on the detected changes.
 
 When implementing the dynamic pipelines approach, you can use either:
 
