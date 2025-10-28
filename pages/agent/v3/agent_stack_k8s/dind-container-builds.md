@@ -46,13 +46,13 @@ This section describes the key components for configuring Docker-in-Docker with 
 
 #### Configure the main container for build in the command step
 
-- **`image:`**: Specify the image that contains the Docker CLI tools (`docker`, `docker-compose`, etc.) 
+- **`image:`**: Specify the image that contains the Docker CLI tools (`docker`, `docker-compose`, etc.)
 - **`command`**: Your Docker build commands
 
 ## Security considerations
 
-Running Docker-in-Docker requires privileged containers. It is recommended to use Docker-in-Docker in trusted environments. Consider alternatives like [BuildKit](/docs/agent/v3/agent-stack-k8s/buildkit-container-builds) for enhanced security. 
- 
+Running Docker-in-Docker requires privileged containers. It is recommended to use Docker-in-Docker in trusted environments. Consider alternatives like [BuildKit](/docs/agent/v3/agent-stack-k8s/buildkit-container-builds) for enhanced security.
+
 ## Troubleshooting
 
 This section describes common issues with Docker-in-Docker and the ways to resolve them.
@@ -64,6 +64,6 @@ This section describes common issues with Docker-in-Docker and the ways to resol
 
 ### Permission denied while trying to connect to the Docker daemon socket
 
-- Ensure the sidecar has `privileged: true` 
+- Ensure the sidecar has `privileged: true`
 - Verify both containers are using the same volume mount path (`/var/run/`)
 - Check that your cluster's security policies allow privileged containers
