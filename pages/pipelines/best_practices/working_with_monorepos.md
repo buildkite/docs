@@ -7,27 +7,27 @@ A monorepo development strategy means that the code for multiple projects is sto
 All such approaches start with detecting changes in your monorepo, usually at the folder level. To detect these changes, you can use either the [`if_changed` option](/docs/agent/v3/cli-pipeline#apply-if-changed) on the [`pipeline upload` command](/docs/agent/v3/cli-pipeline) of the Buildkite Agent, or the [Monorepo diff plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/).
 
 > 📘
-> In Buildkite Pipelines, you have the ability to structure your monorepo pipeline as a single pipeline that acts as an "orchestrator" of many pipelines, or as a single pipeline "container" of many steps. Both approaches have tradeoffs. Some users prefer the clean separation that triggering pipelines by another pipeline provides, while others prefer all their steps to conditionally run in a single pipeline. The Monorepo diff plugin supports either structuring of your pipeline.
+> In Buildkite Pipelines, you have the ability to structure your monorepo pipeline as a single pipeline that acts as an "orchestrator" of many pipelines, or as a single pipeline that acts as a "container" of many steps. Both approaches have tradeoffs. Some users prefer the clean separation that triggering pipelines by another pipeline provides, while others prefer all their steps to conditionally run in a single pipeline. The Monorepo diff plugin supports either structuring of your pipeline.
 
 There are two preferred approaches to running monorepos with Buildkite Pipelines:
 
 - **Static**: a single diff pipeline triggers different static pipelines in your monorepo based on what parts of the monorepo were changed.
-- **Dynamic**: [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) that inject specific steps into a single pipeline based on the changes in the monorepo. You will need to run bash scripts to inject steps according to the changes. You can also use the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk) to inject steps dynamically in one of its supported programming languages of your choice.
+- **Dynamic**: [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) inject specific steps into a single pipeline based on the changes in the monorepo. You will need to run bash scripts to inject steps according to the changes. You can also use the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk) to inject steps dynamically in one of its supported programming languages.
 
 Now, let's look into implementing these possible approaches to working with monorepos in more detail.
 
-## Static pipelines approach
+## Static approach
 
-The static pipelines approach involves creating a single orchestrating pipeline that triggers other pipelines (predefined for different scenarios) in your monorepo.
+The static approach involves creating a single orchestrating pipeline that triggers other pipelines (predefined for different scenarios) in your monorepo.
 
 A typical example of the static approach would be a single main pipeline that contains the [Monorepo diff plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/) and, depending on what files get modified in the repository, this pipeline will trigger other pipelines. You can check out the [Monorepo example](https://buildkite.com/resources/examples/buildkite/monorepo-example/) pipeline to see a practical implementation.
 
 > 🚧
-> In the static monorepo approach, the triggered pipeline must only be executed by the dedicated triggering pipeline and _never_ triggered directly via the Buildkite interface, API, or other means. Direct execution bypasses the change detection logic, causing the pipeline to run without awareness of which packages changed or the necessary build context from the triggering pipeline. This might lead to a number of unwanted consequences, such as build artifacts being generated with incorrect library versions.
+> In the static monorepo approach, the triggered pipelines must only be triggered by the dedicated triggering pipeline and _never_ directly via the Buildkite interface, API, or other means. Direct execution bypasses the change detection logic, causing the pipeline to run without awareness of the changes in the monorepo, or the necessary build context from the triggering pipeline. This might lead to a number of unwanted consequences, such as build artifacts being generated with incorrect library versions.
 
-## Dynamic pipelines approach
+## Dynamic approach
 
-The dynamic pipelines approach involves writing dynamic pipeline steps in the programming language of your choice, which injects specific steps into a single pipeline in your monorepo.
+The dynamic approach involves having dynamic pipelines that inject specific steps in the programming language of your choice into a single pipeline in your monorepo based on the detected changes.
 
 When implementing the dynamic pipelines approach, you can use either:
 

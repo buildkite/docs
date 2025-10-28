@@ -1,6 +1,6 @@
 # Plugin management and standardization
 
-Buildkite [plugins](https://buildkite.com/docs/pipelines/integrations/plugins) serve as reusable building blocks that help maintain consistency and reduce repetitiveness across pipeline configurations throughout a Buildkite organization.
+Buildkite [plugins](https://buildkite.com/docs/pipelines/integrations/plugins) serve as reusable building blocks that help maintain consistency and reduce repetitiveness across pipeline configurations in a Buildkite organization.
 
 ## Common use cases
 
@@ -18,11 +18,9 @@ You can extract common pipeline functionality into plugins by [writing](/docs/pi
 
 Buildkite supports three types of plugin sources, each suited to different security and distribution requirements:
 
-- Buildkite-maintained plugins are available in the [Buildkite plugins directory](/docs/pipelines/integrations/plugins/directory) and provide standard functionality like Docker, Docker Compose, and common testing frameworks.
-
-- Third-party plugins from the community are also available in the plugins directory. You can [get your own plugin published](/docs/pipelines/integrations/plugins/writing#publish-to-the-buildkite-plugins-directory) there as well. Maintain an allowlist of vetted community plugins that meet your security and reliability standards.
-
-- Private organizational plugins can be hosted in private repositories for sensitive or proprietary functionality. Write a [private plugin](/docs/pipelines/integrations/plugins/using#plugin-sources) when you need to implement organization-specific requirements or standardize complex workflows. Use full Git URLs to reference these plugins:
+- Buildkite-maintained plugins that are available in the [Buildkite plugins directory](/docs/pipelines/integrations/plugins/directory) and provide standard functionality like Docker, Docker Compose, common testing frameworks, and so on.
+- Third-party plugins from the community that are also available in the plugins directory. You can [get your own plugin published](/docs/pipelines/integrations/plugins/writing#publish-to-the-buildkite-plugins-directory) there as well. Maintain an allowlist of vetted community plugins that meet your security and reliability standards.
+- Private organizational plugins can be created and hosted in private repositories for sensitive or proprietary functionality. Write a [private plugin](/docs/pipelines/integrations/plugins/using#plugin-sources) when you need to implement organization-specific requirements or standardize complex workflows. Use full Git URLs to reference these plugins for example:
 
 ```yml
 steps:
@@ -37,16 +35,16 @@ steps:
 
 ## Version management
 
-Implement strict version management practices to ensure reliability and security:
+Implement strict version management practices to ensure plugin reliability and security:
 
-- Always pin plugins to specific versions or commit SHA values to prevent unexpected changes: `docker#v3.3.0` or `my-plugin#287293c4`.
+- Always pin plugins to specific versions or commit SHA values to prevent unexpected changes, for example: `docker#v3.3.0` or `my-plugin#287293c4`.
 - Regularly audit and update plugin versions as part of your maintenance cycle.
-- Use YAML anchors to centralize plugin configuration and ensure consistency across pipelines.
+- Use [YAML anchors](/docs/pipelines/integrations/plugins/using#using-yaml-anchors-with-plugins) to centralize plugin configuration and ensure consistency across pipelines.
 - Monitor plugin repositories for security vulnerabilities and updates.
 
 ## Security and access control
 
-To maintain a secure plugin ecosystem, implement these essential practices:
+To maintain a secure plugin ecosystem, implement these practices:
 
 - Use the [agent's plugin restrictions](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-allow-a-list-of-plugins) to allowlist approved plugins.
 - Set the [`no-plugins`](/docs/agent/v3/configuration#no-plugins) option to disable plugins entirely on sensitive agents.
