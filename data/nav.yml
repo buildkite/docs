@@ -62,12 +62,24 @@
           path: pipelines/migration/from-jenkins
         - name: From Bamboo
           path: pipelines/migration/from-bamboo
+    - name: Best practices
+      children:
+        - name: "Overview"
+          path: "pipelines/best-practices/overview"
+        - name: "Docker-based builds"
+          path: "pipelines/best-practices/docker-containerized-builds"
+        - name: "Parallelizing builds"
+          path: "pipelines/best-practices/parallel-builds"
+        - name: "Working with monorepos"
+          path: "pipelines/best-practices/working-with-monorepos"
+        - name: "Secrets management"
+          path: "pipelines/best-practices/secrets-management"
+        - name: "Plugin management"
+          path: "pipelines/best-practices/plugin-management"
+        - name: "Enforcing security controls"
+          path: "pipelines/best-practices/security-controls"
     - name: "Tutorials"
       children:
-        - name: "Docker-based builds"
-          path: "pipelines/tutorials/docker-containerized-builds"
-        - name: "Parallelizing builds"
-          path: "pipelines/tutorials/parallel-builds"
         - name: "Using Bazel on Buildkite"
           path: "pipelines/tutorials/bazel"
         - name: "Dynamic pipelines and annotations using Bazel"
@@ -451,8 +463,6 @@
       children:
         - name: "Overview"
           path: "pipelines/security"
-        - name: "Enforcing security controls"
-          path: "pipelines/security/enforcing-security-controls"
         - name: "Secrets"
           children:
             - name: "Overview"

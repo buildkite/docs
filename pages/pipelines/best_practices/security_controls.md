@@ -82,7 +82,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 
 **Controls:**
 
-- Create API access tokens with only the minimal [required scopes](/docs/apis/managing-api-tokens#token-scopes). Use [portals](/docs/apis/graphql/portals) to limit GraphQL query scope. Review permissions regularly to match current needs.
+- Create API access tokens with only the minimal [required scopes](/docs/apis/managing-api-tokens#token-scopes). Use [portals](/docs/apis/portals) to limit GraphQL query scope. Review permissions regularly to match current needs.
 - Establish [rotation of access tokens](/docs/apis/managing-api-tokens#api-token-security-rotation) with defined expiration periods. Automate rotation where possible to limit exposure windows.
 - Bind access tokens to [specific IP addresses or network segments](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address). Use network address translation (NAT) with centralized egress routing for enhanced monitoring and rapid compromise detection.
 - Deploy access tokens within dedicated virtual private clouds (VPCs) using [Buildkite’s Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security#network-configuration) for network isolation.
@@ -124,8 +124,7 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 
 - Adopt an [infrastructure-as-code (IaC)](https://aws.amazon.com/what-is/iac/) approach and mandate the exclusive use of the [Buildkite Terraform provider](https://buildkite.com/resources/blog/manage-your-ci-cd-resources-as-code-with-terraform/) for all pipeline configuration management, implementing a mandatory two-reviewer approval process for infrastructure changes.
 
-> 📘 On using Buildkite Terraform provider for better security
-> Organizations without proper governance and peer review protocols may have gaps in their security posture. The suggested approach is to create a service account for Terraform that is not tied to any specific user identity using your identity provider. Use this account's API key to make changes (in the pipelines, tokens, etc.) in Terraform through the Buildkite Terraform provider, while enforcing Buildkite's role-based access control capabilities and [GitOps](https://www.redhat.com/en/topics/devops/what-is-gitops) workflows.
+    **Note:** Organizations without proper governance and peer review protocols may have gaps in their security posture. The suggested approach is to create a service account for Terraform that is not tied to any specific user identity using your identity provider. Use this account's API key to make changes (in the pipelines, tokens, etc.) in Terraform through the Buildkite Terraform provider, while enforcing Buildkite's role-based access control capabilities and [GitOps](https://www.redhat.com/en/topics/devops/what-is-gitops) workflows.
 
 - Restrict pipeline configuration access to [Buildkite organization administrators](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions) only by [making your pipelines **Read Only** to your teams](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions).
 - Set zero-tolerance policies for manual pipeline overrides, with any unauthorized modifications triggering immediate alerts within your [security information and event management (SIEM)](https://en.wikipedia.org/wiki/Security_information_and_event_management) system to ensure rapid incident response and maintain configuration integrity.
@@ -160,3 +159,4 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 ## Further questions
 
 If you didn't find coverage of a security-related question that interests you here, feel free to contact support@buildkite.com.
+
