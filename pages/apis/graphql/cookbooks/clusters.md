@@ -109,7 +109,7 @@ mutation revokeClusterAgentToken {
 
 ## Create a self-hosted queue
 
-Create a new self-hosted queue in a cluster. These queues are created for agents that you host yourself.
+Create a new _self-hosted queue_ in a cluster, which are queues created for agents that you host yourself.
 
 ```graphql
 mutation {
