@@ -1,6 +1,6 @@
 # Working with monorepos
 
-A monorepo development strategy means that the code for multiple projects is stored in a single, centralized version-controlled repository. This strategy provides advantages like easier code sharing, unified versioning, and consistent tooling, but it also poses challenges such as longer build times and potential conflicts if not managed effectively. This page is a collection of approaches and best practices for effectively managing and running monorepos.
+A monorepo development strategy means that the code for multiple projects is stored in a single, centralized version-controlled repository. This strategy provides advantages like easier code sharing, unified versioning, and consistent tooling, but it also poses challenges such as longer build times and potential conflicts if not managed effectively. This page covers approaches and best practices for effectively managing and running monorepos.
 
 ## Approaches to running monorepos
 
@@ -39,7 +39,7 @@ A useful way to implement dynamic pipelines is to upload the generated YAML step
 > 📘 Dry-run preview
 > If you want to preview the pipeline before it's uploaded, you can use `buildkite-agent pipeline upload --dry-run` command to output the final YAML without running it.
 
-Buildkite customers who use [Bazel](/docs/pipelines/tutorials/bazel) and [Gradle](https://gradle.org/) prefer the dynamic approach since these build systems allow targeting certain steps once the diff that needs to be built is identified. These tools also allow you to map which tests to run on the paths that changed.
+Buildkite customers who use [Bazel](/docs/pipelines/tutorials/bazel) and [Gradle](https://gradle.org/) prefer the dynamic approach since these build systems allow you to target certain steps once the diff that needs to be built is identified. These tools also allow you to map which tests to run on the paths that changed.
 
 ### Implementation with dynamic pipelines
 
@@ -62,4 +62,4 @@ For example, if you need to detect changes in a Bazel- or Gradle-based monorepo,
 
 ## Combined approach
 
-In your CI/CD process, you don't need to limit your options to a single one of these described approaches to working with a monorepo. Many customers, especially those with large Buildkite organizations, mix and combine static and dynamic approaches based on their specific requirements.
+In your CI/CD process, you don't need to limit your options to a single one of these described approaches to be working with a monorepo. Many customers, especially those with large Buildkite organizations, mix and combine static and dynamic approaches based on their specific requirements.
