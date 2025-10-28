@@ -82,7 +82,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 
 **Controls:**
 
-- Create API access tokens with only the minimal [required scopes](/docs/apis/managing-api-tokens#token-scopes). Use [portals](/docs/apis/graphql/portals) to limit GraphQL query scope. Review permissions regularly to match current needs.
+- Create API access tokens with only the minimal [required scopes](/docs/apis/managing-api-tokens#token-scopes). Use [portals](/docs/apis/portals) to limit GraphQL query scope. Review permissions regularly to match current needs.
 - Establish [rotation of access tokens](/docs/apis/managing-api-tokens#api-token-security-rotation) with defined expiration periods. Automate rotation where possible to limit exposure windows.
 - Bind access tokens to [specific IP addresses or network segments](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address). Use network address translation (NAT) with centralized egress routing for enhanced monitoring and rapid compromise detection.
 - Deploy access tokens within dedicated virtual private clouds (VPCs) using [Buildkite’s Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security#network-configuration) for network isolation.
@@ -160,3 +160,4 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 ## Further questions
 
 If you didn't find coverage of a security-related question that interests you here, feel free to contact support@buildkite.com.
+
