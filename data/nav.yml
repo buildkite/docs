@@ -1020,6 +1020,11 @@
           children:
             - name: "Overview"
               path: "apis/webhooks/package-registries"
+        - name: "Incoming webhooks"
+          children:
+            - name: "Pipeline triggers"
+              path: "apis/webhooks/incoming/pipeline-triggers"
+              pill: "preview"
     - name: "Agent"
       children:
         - name: "Overview"

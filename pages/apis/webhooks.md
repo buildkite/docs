@@ -16,6 +16,8 @@ Common use cases for implementing Buildkite webhooks include:
 
 Buildkite provides webhook support for [Pipelines](/docs/apis/webhooks/pipelines), [Test Engine](/docs/apis/webhooks/test-engine) and [Package Registries](/docs/apis/webhooks/package-registries).
 
+Buildkite also provides support for _incoming webhooks_ from third-party applications that send HTTP requests and their own JSON payloads to the Buildkite platform. Learn more about this preview feature in [Pipeline triggers](/docs/apis/webhooks/incoming/pipeline-triggers).
+
 ## Creating webhooks
 
 Learn more about how to add Buildkite webhooks from the **Add a webhook** procedures [Pipelines](/docs/apis/webhooks/pipelines#add-a-webhook) and [Package Registries](/docs/apis/webhooks/package-registries#add-a-webhook).
@@ -23,6 +25,8 @@ Learn more about how to add Buildkite webhooks from the **Add a webhook** proced
 Request headers for [Pipelines](/docs/apis/webhooks/pipelines#http-headers) and [Package Registries](/docs/apis/webhooks/package-registries#http-headers) webhooks are also provided to allow the authenticity of these webhook events to be verified.
 
 For Test Engine, see [Test Engine webhooks](/docs/apis/webhooks/test-engine) for details on how its webhooks are created.
+
+Also learn more about how to create pipeline triggers (a type of incoming webhook) from the [Create a new pipeline trigger](/docs/apis/webhooks/incoming/pipeline-triggers#create-a-new-pipeline-trigger) procedure.
 
 ## Event families
 
@@ -38,6 +42,7 @@ Buildkite Pipelines supports the following categories of webhook events, which a
 | [Ping events](/docs/apis/webhooks/pipelines/ping-events) | A webhook's notification configuration has changed. |
 | [Agent-token events](/docs/apis/webhooks/pipelines/agent-token-events) | An agent token's registration has failed. |
 | [Integrations](/docs/apis/webhooks/pipelines/integrations) | Buildkite Pipeline events related to third-party application integrations. |
+| [Pipeline triggers](/docs/apis/webhooks/incoming/pipeline-triggers) | Create configurable incoming webhooks from third-party applications that trigger a Buildkite pipeline build. |
 
 ### Test Engine
 

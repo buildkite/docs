@@ -79,7 +79,7 @@ To create a new pipeline:
     ```
 
 1. Select **Create Pipeline**.
-1. On the next page showing your pipeline name, click **New Build**. In the modal that opens, create a build using the pre-filled details.
+1. On the next page showing your pipeline name, select **New Build**. In the modal that opens, create a build using the pre-filled details.
 
    1. In the **Message** field, enter a short description for the build. For example, **My first build**.
    1. Select **Create Build**.

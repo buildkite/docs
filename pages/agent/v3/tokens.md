@@ -45,7 +45,7 @@ To create an agent token for a cluster using the Buildkite interface:
 
 1. Select **Create Token**.
 
-    Follow the instructions to copy and save your token to a secure location and click **Okay, I'm done!**. The new agent token appears on the cluster's **Agent Tokens** page.
+    Follow the instructions to copy and save your token to a secure location and select **Okay, I'm done!**. The new agent token appears on the cluster's **Agent Tokens** page.
 
 ### Using the REST API
 
