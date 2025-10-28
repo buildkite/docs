@@ -6,8 +6,8 @@
 
 Docker-in-Docker uses a sidecar container pattern where:
 
-1. A Docker daemon (`docker:dind`) runs in a sidecar container with elevated privileges
-2. Your job's main container communicates with this daemon through a shared Docker socket 
+1. A Docker daemon (`docker:dind`) runs in a sidecar container with elevated privileges/
+2. Your job's main container communicates with this daemon through a shared Docker socket.
 
 The Docker daemon in the sidecar handles all container operations, while your build commands run in the main container with access to the full Docker CLI.
 
@@ -16,104 +16,42 @@ The Docker daemon in the sidecar handles all container operations, while your bu
 The following pipeline example demonstrates how to build a container image using Docker-in-Docker with the Buildkite Kubernetes plugin's [`sidecars` feature](https://buildkite.com/docs/agent/v3/agent-stack-k8s/sidecars),and sharing the Docker socket using Volume mounts.
 
 ```yaml
-steps:
-  - label: "Testing the sidecar approach" 
+  - label: "Testing the sidecar approach - using image step attribute"
+    env:
+      DOCKER_HOST: tcp://localhost:2375
+    image: alpine/docker-with-buildx:latest
+    command: docker build ./dind -t myregistry.com/myimage:latest
     plugins:
       - kubernetes:
           sidecars:
           - image: docker:dind
             command: [dockerd-entrypoint.sh]
+            securityContext:
+              privileged: true
             env:
               - name: DOCKER_TLS_CERTDIR
                 value: ""
-            volumeMounts:
-              - mountPath: /var/run/
-                name: docker-sock
-            securityContext:
-              privileged: true 
-          podSpec:
-            containers:
-              - image: alpine/docker-with-buildx:latest
-                volumeMounts:
-                  - mountPath: /var/run/
-                    name: docker-sock
-                command: 
-                  - docker
-                args:
-                  - build
-                  - ./dind
-                  - -t
-                  - myregistry.com/myimage:latest 
-            volumes:
-            - name: docker-sock
-              emptyDir: {}            
 ```
 
 ### Understanding the components
 
-This section describes the key components for configuring Docker-in-Docker with the sidecar pattern in Kubernetes. 
+This section describes the key components for configuring Docker-in-Docker with the sidecar pattern in Kubernetes.
 
 #### Configure the sidecar container
 
 - **`image: docker:dind`**: The official Docker-in-Docker image containing the Docker daemon
 - **`command: [dockerd-entrypoint.sh]`**: Starts the Docker daemon in the sidecar
 - **`DOCKER_TLS_CERTDIR: ""`**: Disables TLS since sidecar containers uses local socket communication
-- **`volumeMounts`**: Mounts `/var/run/` for the Docker socket
-- **`privileged: true`**: Provides elevated permissions on the host. It is required for the Docker daemon to create containers 
+- **`privileged: true`**: Provides elevated permissions on the host. It is required for the Docker daemon to create containers
 
-#### Configure the main container for build commands
+#### Configure the main container for build in the command step
 
-- **`image: docker:latest`**: Contains the Docker CLI tools (`docker`, `docker-compose`, etc.)
-- **`volumeMounts`**: Shares the `/var/run/` volume with the sidecar to access the Docker socket
-- **`command` and `args`**: Your Docker build commands 
-
-#### Configure shared resources
-
-- **`volumes`**: Defines the `docker-sock` volume for socket sharing, and set the `emptyDir` to default
+- **`image:`**: Specify the image that contains the Docker CLI tools (`docker`, `docker-compose`, etc.) 
+- **`command`**: Your Docker build commands
 
 ## Security considerations
 
-Running Docker-in-Docker requires privileged containers. It is recommended to use Docker-in-Docker in trusted environments. Consider alternatives like [BuildKit](/docs/agent/v3/agent-stack-k8s/buildkit-container-builds) for enhanced security.
-
-## Common use cases
-
-### Building and pushing images
-
-```yaml
-steps:
-  - label: ":docker: Build and push to registry"
-    agents:
-      queue: kubernetes
-    plugins:
-      - kubernetes:
-          sidecars:
-            - image: docker:dind
-              command: [dockerd-entrypoint.sh]
-              env:
-                - name: DOCKER_TLS_CERTDIR
-                  value: ""
-              volumeMounts:
-                - mountPath: /var/run/
-                  name: docker-sock
-              securityContext:
-                privileged: true
-          podSpec:
-            containers:
-              - image: docker:latest
-                volumeMounts:
-                  - mountPath: /var/run/
-                    name: docker-sock
-                command:
-                  - sh
-                args:
-                  - -c
-                  - |
-                    docker build -t myregistry.com/myimage:${BUILDKITE_BUILD_NUMBER} .
-                    docker push myregistry.com/myimage:${BUILDKITE_BUILD_NUMBER}
-            volumes:
-              - name: docker-sock
-                emptyDir: {}
-```
+Running Docker-in-Docker requires privileged containers. It is recommended to use Docker-in-Docker in trusted environments. Consider alternatives like [BuildKit](/docs/agent/v3/agent-stack-k8s/buildkit-container-builds) for enhanced security. 
  
 ## Troubleshooting
 
