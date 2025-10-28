@@ -61,6 +61,7 @@ link_checking_exemptions:
       - https://github.com/
       - https://cd.apps.argoproj.io/swagger-ui
       - https://docs.cursor.com/
+      - https://developer.hashicorp.com/terraform/registry/modules/publish
 
   - name: surprising-fragment-failures
     description: Surprisingly, these links fail because of missing anchors, not authentication.
