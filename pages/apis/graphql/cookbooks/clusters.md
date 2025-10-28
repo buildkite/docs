@@ -25,12 +25,12 @@ query getClusters {
 }
 ```
 
-## List cluster queues
+## List queues
 
 Get the first 10 cluster queues for a particular cluster, specifying the clusters' UUID as the `id` argument of the `cluster` query:
 
 ```graphql
-query getClusterQueues {
+query getQueues {
   organization(slug: "organization-slug") {
     cluster(id: "cluster-uuid") {
       queues(first: 10) {
@@ -53,7 +53,7 @@ query getClusterQueues {
 Get the first 10 agent tokens for a particular cluster, specifying the clusters' UUID as the `id` argument of the `cluster` query:
 
 ```graphql
-query getClusterTokens {
+query getAgentTokens {
   organization(slug: "organization-slug") {
     cluster(id: "cluster-uuid") {
       agentTokens(first: 10){
@@ -108,12 +108,135 @@ mutation revokeClusterAgentToken {
 }
 ```
 
-## List jobs in a particular cluster queue
+## Create a self-hosted queue
 
-To get jobs within a cluster queue, use the `clusterQueue` argument of the `jobs` query, passing in the ID of the cluster queue to filter jobs from:
+Create a new self-hosted queue in a cluster. These queues are created for agents that you host yourself.
 
 ```graphql
-query getClusterQueueJobs {
+mutation {
+  clusterQueueCreate(input: {
+    organizationId: "organization-id",
+    clusterId: "cluster-id",
+    key: "default",
+    description: "The default queue for this cluster."
+  }) {
+    clusterQueue {
+      id
+      uuid
+      key
+      description
+      hosted
+      createdBy {
+        id
+        uuid
+        name
+      }
+      cluster {
+        id
+        uuid
+        name
+      }
+    }
+  }
+}
+```
+
+## Create a Buildkite hosted queue
+
+Create a new Buildkite hosted queue in a cluster. These queues are created within Buildkite hosted agents.
+
+```graphql
+mutation {
+  clusterQueueCreate(input: {
+    organizationId: "organization-id",
+    clusterId: "cluster-id",
+    key: "default",
+    description: "The default queue for this cluster.",
+    hostedAgents: {
+      instanceShape: MACOS_ARM64_M4_6X28
+    }
+  }) {
+    clusterQueue {
+      id
+      uuid
+      key
+      description
+      hosted
+      hostedAgents {
+        instanceShape {
+          name
+          size
+          vcpu
+          memory
+        }
+      createdBy {
+        id
+        uuid
+        name
+      }
+      cluster {
+        id
+        uuid
+        name
+      }
+    }
+  }
+}
+```
+
+## Update a queue
+
+Update an existing queue.
+
+```graphql
+mutation {
+  clusterQueueUpdate(input: {
+    organizationId: "organization-id",
+    id: "cluster-id",
+    description: "The default queue for this cluster, but this time with a modified description.",
+  }) {
+    clusterQueue {
+      id
+      uuid
+      key
+      description
+      hosted
+      createdBy {
+        id
+        uuid
+        name
+      }
+      cluster {
+        id
+        uuid
+        name
+      }
+    }
+  }
+}
+```
+
+## Delete a queue
+
+Deletes an existing queue using the queue's ID.
+
+```graphql
+mutation {
+  clusterQueueDelete(input: {
+    organizationId: "organization-id",
+    id: ""
+  }) {
+    deletedClusterQueueId
+  }
+}
+```
+
+## List jobs in a particular queue
+
+To get jobs within a particular queue of a cluster, use the `clusterQueue` argument of the `jobs` query, passing in the ID of the queue to filter jobs from:
+
+```graphql
+query getQueueJobs {
   organization(slug: "organization-slug") {
     jobs(first: 10, clusterQueue: "cluster-queue-id") {
       edges {
@@ -137,10 +260,10 @@ query getClusterQueueJobs {
 }
 ```
 
-To obtain jobs in a particular state within a cluster queue, specify the cluster queues' ID with the `clusterQueue` argument and one or more [JobStates](/docs/apis/graphql/schemas/enum/jobstates) with the `state` argument in the `jobs` query:
+To obtain jobs in specific states within a particular queue of a cluster, specify the queues' ID with the `clusterQueue` argument and one or more [JobStates](/docs/apis/graphql/schemas/enum/jobstates) with the `state` argument in the `jobs` query:
 
 ```graphql
-query getClusterQueueJobsByJobState {
+query getQueueJobsByJobState {
   organization(slug: "organization-slug") {
     jobs(
       first: 10,
@@ -168,13 +291,12 @@ query getClusterQueueJobsByJobState {
 }
 ```
 
-
 ## List agents in a cluster
 
 Get the first 10 agents within a cluster, use the `cluster` argument of the `agents` query, passing in the ID of the cluster:
 
 ```graphql
-query getClusterAgent {
+query getClusterAgents {
    organization(slug:"organization-slug") {
     agents(first: 10, cluster: "cluster-id") {
       edges {
@@ -193,12 +315,12 @@ query getClusterAgent {
 }
 ```
 
-## List agents in a cluster queue
+## List agents in a queue
 
-Get the first 10 agents in a particular cluster queue, specifying the `clusterQueue` argument of the `agents` query, passing in the ID of the cluster queue:
+Get the first 10 agents in a particular queue of a cluster, specifying the `clusterQueue` argument of the `agents` query, passing in the ID of the cluster queue:
 
 ```graphql
-query getClusterQueueAgent {
+query getQueueAgents {
    organization(slug:"organization-slug") {
     agents(first: 10, clusterQueue: "cluster-queue-id") {
       edges {
@@ -236,4 +358,3 @@ mutation AssociatePipelineWithCluster {
   }
 }
 ```
-
