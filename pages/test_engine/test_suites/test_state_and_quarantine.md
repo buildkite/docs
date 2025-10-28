@@ -1,6 +1,6 @@
 # Test state and quarantine
 
-Customers on the [Pro and Enterprise plan](https://buildkite.com/pricing) can access Buildkite Test Engine's **Test state** management feature, which provides [test state](/docs/test-engine/glossary#test-state) flags of **enabled**, **muted** and **skipped**.
+Customers on the [Pro and Enterprise](https://buildkite.com/pricing) plan can access Buildkite Test Engine's **Test state** management feature, which provides [test state](/docs/test-engine/glossary#test-state) flags of **enabled**, **muted** and **skipped**.
 
 [_Quarantine_](/docs/test-engine/glossary#quarantine) refers to the action of moving a test from a trusted state (**enabled**) to one of the untrusted states (**muted** or **skipped**). Tests can be quarantined [automatically](#automatic-quarantine) or [manually](#manual-quarantine).
 

@@ -36,7 +36,7 @@ The builds per week measurement is calculated based on the average number of bui
 
 ## Bookmarking pipelines
 
-You can keep your most used pipelines at the top of the page by hovering over a pipeline, and clicking the bookmark icon on the right.
+You can keep your most used pipelines at the top of the page by hovering over a pipeline, and selecting the bookmark icon on the right.
 
 <%= image "favorite.png", width: 2028/2, height: 880/2, alt: "Screenshot of the pipeline star button" %>
 
@@ -60,7 +60,7 @@ You're able to edit a pipeline's:
 - repository
 - default branch
 
-After you've clicked on a pipeline, the settings button is in the top right corner.
+After you've selected a pipeline, the settings button is in the top right corner.
 
 <%= image "settings.png", width: 2028/2, height: 880/2, alt: "Screenshot of the pipelines settings button" %>
 
@@ -70,7 +70,7 @@ The emoji and color will replace the icon on the dashboard. Descriptions also ha
 
 ## Pipeline page
 
-Clicking through to a pipeline page shows the [build history](#build-history) for that pipeline, your starred branches, and the ten most recently built branches for that pipeline.
+Select a pipeline to view its page, which shows the [build history](#build-history) for that pipeline, your starred branches, and the ten most recently built branches for that pipeline.
 
 <%= image "pipelines-detail.png", width: 2048/2, height: 880/2, alt: "Screenshot of the pipelines settings page" %>
 
@@ -78,13 +78,13 @@ You can filter a pipeline’s builds by branch, build state, or your own builds 
 
 <%= image "filtering-builds.png", width: 2608/2, height: 1244/2, alt: "Screenshot of the builds filter menu" %>
 
-To see the steps for a build, click the Show steps button on the right of any build.
+To see the steps for a build, select the Show steps button on the right of any build.
 
 <%= image "showing-build-steps.png", width: 2408/2, height: 520/2, alt: "Screenshot of toggling build steps" %>
 
 ## Build page
 
-Clicking through to a build page shows the full list of jobs and other steps in that build, the information about who triggered the build, and the controls for rebuilding or canceling the build while it's in progress.
+Select a build to view its page, which shows the full list of jobs and other steps in that build, the information about who triggered the build, and the controls for rebuilding or canceling the build while it's in progress.
 
 To retry all failed jobs for a build, select the dropdown menu next to the **Rebuild** button, and then select **Retry failed jobs**. This option will only appear in the dropdown menu when the build is finished, and there are eligible jobs to retry. Eligible jobs include command jobs in the failures tab, with the exception of those already waiting for automatic retries. If a pipeline build contains trigger steps, failed jobs in any of its triggered pipelines' builds are also included in the retry. Note that this does not apply to builds triggered by steps where the `async` attribute has been set to `true`.
 

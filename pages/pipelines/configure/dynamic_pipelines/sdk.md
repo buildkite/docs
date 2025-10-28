@@ -123,19 +123,29 @@ import (
 )
 
 func main() {
-  pipeline := buildkite.Pipeline{}
-  command := "echo 'Hello, world!"
+    pipeline := buildkite.Pipeline{}
 
-  pipeline.AddCommandStep(buildkite.CommandStep{
-    Command: &buildkite.CommandUnion{
-      String: &command,
-    },
-  })
+    pipeline.AddStep(buildkite.CommandStep{
+        Command: &buildkite.CommandStepCommand{
+            String: buildkite.Value("echo 'Hello, world!"),
+        },
+    })
 
-  // JSON output
-  // fmt.Println(pipeline.ToJSON())
-  // YAML output
-  fmt.Println(pipeline.ToYAML())
+    // JSON output
+    // json, err := pipeline.ToJSON()
+    // if err != nil {
+    //     log.Fatalf("Failed to serialize JSON: %v", err)
+    // }
+
+    // fmt.Println(json)
+
+    // YAML output
+    yaml, err := pipeline.ToYAML()
+    if err != nil {
+        log.Fatalf("Failed to serialize YAML: %v", err)
+    }
+
+    fmt.Println(yaml)
 }
 ```
 {: codeblock-file="dynamic_pipeline.go"}
