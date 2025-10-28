@@ -6,6 +6,8 @@ A collection of common tasks with [Hosted agents](/docs/pipelines/hosted-agents)
 
 ## Create a Buildkite hosted queue
 
+Create a new _Buildkite hosted queue_ in a cluster, which are queues are created for Buildkite hosted agents.
+
 ```graphql
 mutation {
   clusterQueueCreate(

@@ -71,7 +71,7 @@ query getAgentTokens {
 }
 ```
 
->🚧 Cluster `token` field deprecation
+> 🚧 Cluster `token` field deprecation
 > The `token` field of the [ClusterToken](/docs/apis/graphql/schemas/object/clustertoken) object has been deprecated to improve security. Please use the `tokenValue` field from the [ClusterAgentTokenCreatePayload](/docs/apis/graphql/schemas/object/clusteragenttokencreatepayload) object instead after creating a token.
 
 ## Create agent token with an expiration date
@@ -81,9 +81,9 @@ Create an agent token with an expiration date. The expiration date is displayed 
 ```graphql
 mutation createToken {
   clusterAgentTokenCreate(input: {
-    organizationId: "",
+    organizationId: "organization-id",
     description: "A token with an expiration date",
-    clusterId:"",
+    clusterId:"cluster-id",
     expiresAt: "2026-01-01T00:00:00Z"
   }) {
     tokenValue
@@ -93,8 +93,7 @@ mutation createToken {
 
 ## Revoke an agent token
 
-First, get the agent token's ID from your [list of agent tokens](#list-agent-tokens), followed by your [Buildkite organization's ID](/docs/apis/graphql/cookbooks/organizations#get-organization-id).
-Then, use these ID values to revoke the agent token:
+First, get the agent token's ID from your [list of agent tokens](#list-agent-tokens), followed by your [Buildkite organization's ID](/docs/apis/graphql/cookbooks/organizations#get-organization-id). Then, use these ID values to revoke the agent token:
 
 ```graphql
 mutation revokeClusterAgentToken {
@@ -143,46 +142,7 @@ mutation {
 
 ## Create a Buildkite hosted queue
 
-Create a new Buildkite hosted queue in a cluster. These queues are created within Buildkite hosted agents.
-
-```graphql
-mutation {
-  clusterQueueCreate(input: {
-    organizationId: "organization-id",
-    clusterId: "cluster-id",
-    key: "default",
-    description: "The default queue for this cluster.",
-    hostedAgents: {
-      instanceShape: MACOS_ARM64_M4_6X28
-    }
-  }) {
-    clusterQueue {
-      id
-      uuid
-      key
-      description
-      hosted
-      hostedAgents {
-        instanceShape {
-          name
-          size
-          vcpu
-          memory
-        }
-      createdBy {
-        id
-        uuid
-        name
-      }
-      cluster {
-        id
-        uuid
-        name
-      }
-    }
-  }
-}
-```
+Learn more about how to create a Buildkite hosted queue in [Create a Buildkite hosted queue](/docs/apis/graphql/cookbooks/hosted-agents#create-a-buildkite-hosted-queue) of the [Hosted agents](/docs/apis/graphql/cookbooks/hosted-agents) page of this cookbook.
 
 ## Update a queue
 
@@ -216,6 +176,8 @@ mutation {
 }
 ```
 
+Learn more about how to update a Buildkite hosted queue's instance shape in [Change the instance shape of a Buildkite hosted queue's agents](/docs/apis/graphql/cookbooks/hosted-agents#change-the-instance-shape-of-a-buildkite-hosted-queues-agents) of the [Hosted agents](/docs/apis/graphql/cookbooks/hosted-agents) page of this cookbook.
+
 ## Delete a queue
 
 Deletes an existing queue using the queue's ID.
@@ -224,7 +186,7 @@ Deletes an existing queue using the queue's ID.
 mutation {
   clusterQueueDelete(input: {
     organizationId: "organization-id",
-    id: ""
+    id: "queue-id"
   }) {
     deletedClusterQueueId
   }

@@ -114,6 +114,7 @@ mutation {
         email
       }
     }
+    tokenValue
   }
 }
 ```
