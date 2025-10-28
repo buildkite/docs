@@ -22,7 +22,7 @@ To propagate traces from the Buildkite control plane through to the agent runnin
 | `--tracing-propagate-traceparent` | `BUILDKITE_TRACING_PROPAGATE_TRACEPARENT` | `true` (default: `false`)               |
 | `--tracing-service-name`          | `BUILDKITE_TRACING_SERVICE_NAME`          | `buildkite-agent` (default)             |
 |                                   | `OTEL_EXPORTER_OTLP_ENDPOINT`             | `http://otel-collector:4317`            |
-|                                   | `OTEL_EXPORTER_OTLP_HEADERS`              | See [Authentication](#authentication).  |
+|                                   | `OTEL_EXPORTER_OTLP_HEADERS`              | see the _Authentication_  section below |
 |                                   | `OTEL_EXPORTER_OTLP_PROTOCOL`             | `grpc` (default) or `http/protobuf`     |
 |                                   | `OTEL_RESOURCE_ATTRIBUTES`                | `key1=value1,key2=value2`               |
 
