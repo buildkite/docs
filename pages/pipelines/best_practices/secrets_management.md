@@ -8,4 +8,4 @@ Proper secrets management is key to the overall security of your CI/CD infrastru
 - Track how your secrets are being used. [Audit logs](/docs/platform/audit-log) showing which steps consume which secrets help you maintain visibility into your security posture and make compliance reporting much easier when needed (for example, during compliance audits).
 
 > 📘
-> For in-depth information on security best practices for Buildkite Pipelines, see [Enforcing security controls](/docs/pipelines/best-practices/enforcing-security-controls).
+> For in-depth information on security best practices for Buildkite Pipelines, see [Enforcing security controls](/docs/pipelines/best-practices/security-controls).
