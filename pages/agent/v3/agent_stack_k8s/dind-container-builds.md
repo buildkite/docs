@@ -1,19 +1,16 @@
 # Docker-in-Docker (DinD) container builds
 
-[Docker-in-Docker (DinD)](https://hub.docker.com/_/docker) allows you to run a Docker daemon inside a container, enabling standard Docker commands like `docker build` and `docker run` within a [job](docs/pipelines/glossary#job). This approach is useful when you need full Docker CLI compatibility or want to build and test container images using familiar Docker workflows.
+[Docker-in-Docker (DinD)](https://hub.docker.com/_/docker) allows you to run a Docker daemon inside a container, enabling standard Docker commands like `docker build` and `docker run` within a [job](/docs/pipelines/glossary#job). This approach is useful when you need full Docker CLI compatibility or want to build and test container images using familiar Docker workflows.
 
 ## How Docker-in-Docker works
 
-Docker-in-Docker uses a sidecar container pattern where:
+Docker-in-Docker enables container builds by running a Docker daemon inside a sidecar container alongside your main job container. The sidecar container runs the Docker daemon (`docker:dind`) with elevated privileges, while your main container connects to this daemon through a shared Docker socket.
 
-1. A Docker daemon (`docker:dind`) runs in a sidecar container with elevated privileges/
-2. Your job's main container communicates with this daemon through a shared Docker socket.
-
-The Docker daemon in the sidecar handles all container operations, while your build commands run in the main container with access to the full Docker CLI.
+This setup allows your Buildkite jobs to execute standard Docker operations (like `docker build` and `docker push`) from within the main container, while the actual container management is handled by the daemon in the sidecar.
 
 ## Using Docker-in-Docker as a sidecar container
 
-The following pipeline example demonstrates how to build a container image using Docker-in-Docker with the Buildkite Kubernetes plugin's [`sidecars` feature](https://buildkite.com/docs/agent/v3/agent-stack-k8s/sidecars),and sharing the Docker socket using Volume mounts.
+The following pipeline example demonstrates how to build a container image using Docker-in-Docker with the Buildkite Kubernetes plugin's [`sidecars` feature](https://buildkite.com/docs/agent/v3/agent-stack-k8s/sidecars), and sharing the Docker socket using Volume mounts.
 
 ```yaml
   - label: "Testing the sidecar approach - using image step attribute"
@@ -41,8 +38,8 @@ This section describes the key components for configuring Docker-in-Docker with 
 
 - **`image: docker:dind`**: The official Docker-in-Docker image containing the Docker daemon
 - **`command: [dockerd-entrypoint.sh]`**: Starts the Docker daemon in the sidecar
-- **`DOCKER_TLS_CERTDIR: ""`**: Disables TLS since sidecar containers uses local socket communication
-- **`privileged: true`**: Provides elevated permissions on the host. It is required for the Docker daemon to create containers
+- **`DOCKER_TLS_CERTDIR: ""`**: Disables TLS since sidecar containers use local socket communication
+- **`privileged: true`**: Provides elevated permissions on the host. This is required for the Docker daemon to create containers
 
 #### Configure the main container for build in the command step
 
