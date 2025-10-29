@@ -13,7 +13,7 @@ This setup allows your Buildkite jobs to execute standard Docker operations (lik
 The following pipeline example demonstrates how to build a container image using Docker-in-Docker with the Buildkite Kubernetes plugin's [`sidecars` feature](https://buildkite.com/docs/agent/v3/agent-stack-k8s/sidecars), and sharing the Docker socket using Volume mounts.
 
 ```yaml
-  - label: "Testing the sidecar approach - using image step attribute"
+  - label: "Testing the sidecar approach"
     env:
       DOCKER_HOST: tcp://localhost:2375
     image: alpine/docker-with-buildx:latest
