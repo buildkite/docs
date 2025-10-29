@@ -56,11 +56,10 @@ This section describes common issues with Docker-in-Docker and the ways to resol
 
 ### Cannot connect to the Docker daemon
 
-- Verify the `docker-sock` volume is mounted at `/var/run/` in both containers
-- Ensure the Docker-in-Docker container gets started before the main container
+- Ensure that the DOCKER_HOST environment variable is set correctly
+- Check if there is a race condition in connecting to the Docker daemon between the main container and the sidecar container
 
 ### Permission denied while trying to connect to the Docker daemon socket
 
-- Ensure the sidecar has `privileged: true`
-- Verify both containers are using the same volume mount path (`/var/run/`)
+- Ensure the sidecar has `privileged: true` 
 - Check that your cluster's security policies allow privileged containers
