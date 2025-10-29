@@ -137,28 +137,12 @@ Namespace integrates with Buildkite pipeline steps through the Namespace CLI. Pi
 Use this option when your Buildkite agents run on Amazon EKS with IAM Roles for Service Accounts (IRSA). The Buildkite agent pod authenticates via Cognito, then Namespace provisions the remote builders for your pipeline.
 
 ```yaml
-steps:
-  - label: ":docker: Build with Namespace"
-    agents:
-      queue: kubernetes
     command: |
       # Authenticate via AWS Cognito
       /root/.ns/bin/nsc auth exchange-aws-cognito-token \
         --aws_region <your-region> \
         --identity_pool <pool-guid> \
         --tenant_id <workspace-id>
-      
-      # Configure buildx
-      /root/.ns/bin/nsc docker buildx setup --background --use
-      /root/.ns/bin/nsc docker login
-      
-      # Build multi-platform image
-      docker buildx build \
-        --builder nsc-remote \
-        --platform linux/amd64,linux/arm64 \
-        -t nscr.io/<workspace-id>/<your-image-name>:latest \
-        --push \
-        .
 ```
 
 ### Buildkite OIDC authentication
@@ -166,43 +150,86 @@ steps:
 Use this option if Namespace has federated directly with Buildkite’s OIDC provider. This keeps authentication entirely within Buildkite, without needing AWS Cognito.
 
 ```yaml
-steps:
-  - label: ":docker: Build with Namespace"
-    agents:
-      queue: kubernetes
     command: |
       # Authenticate via Buildkite OIDC
       OIDC_TOKEN=$$(buildkite-agent oidc request-token --audience federation.namespaceapis.com)
       /root/.ns/bin/nsc auth exchange-oidc-token \
         --token "$$OIDC_TOKEN" \
         --tenant_id <workspace-id>
-      
-      # Configure buildx and build
+```
+
+## Pushing to external registries
+
+Use Buildkite’s registry plugins to handle authentication so the step from [Complete pipeline example](#complete-pipeline-example) stays focused on the Namespace build. Add the relevant plugin block beneath the step’s `agents` definition.
+
+### Docker Hub (docker-login plugin)
+
+```yaml
+    plugins:
+      - docker-login#v2.1.0:
+          registry: https://index.docker.io/v1/
+          username: "${DOCKER_USERNAME}"
+          password-env: DOCKER_PASSWORD
+```
+
+### Amazon ECR (ecr plugin)
+
+```yaml
+    plugins:
+      - ecr#v3.3.0:
+          login: true
+          account-ids:
+            - <account-id>
+          region: <your-region>
+```
+
+## Complete pipeline example
+
+This example shows a full step with Namespace authentication, Buildx setup, and a registry plugin. Uncomment the authentication option and registry plugin that match your environment.
+
+```yaml
+agents:
+  queue: kubernetes
+
+steps:
+  - label: ":docker: Build with Namespace"
+    plugins:
+      # Uncomment the registry plugin that matches your destination.
+      # Docker Hub:
+      # - docker-login#v2.1.0:
+      #     registry: https://index.docker.io/v1/
+      #     username: "${DOCKER_USERNAME}"
+      #     password-env: DOCKER_PASSWORD
+
+      # Amazon ECR:
+      # - ecr#v3.3.0:
+      #     login: true
+      #     account-ids:
+      #       - <account-id>
+      #     region: <your-region>
+
+    command: |
+      # Option A: Authenticate via AWS Cognito
+      /root/.ns/bin/nsc auth exchange-aws-cognito-token \
+        --aws_region <your-region> \
+        --identity_pool <pool-guid> \
+        --tenant_id <workspace-id>
+
+      # Option B: Authenticate via Buildkite OIDC
+      # OIDC_TOKEN=$$(buildkite-agent oidc request-token --audience federation.namespaceapis.com)
+      # /root/.ns/bin/nsc auth exchange-oidc-token \
+      #   --token "$$OIDC_TOKEN" \
+      #   --tenant_id <workspace-id>
+
+      # Configure Namespace Buildx builder and push multi-platform image
       /root/.ns/bin/nsc docker buildx setup --background --use
       /root/.ns/bin/nsc docker login
-      
       docker buildx build \
         --builder nsc-remote \
         --platform linux/amd64,linux/arm64 \
         -t nscr.io/<workspace-id>/<your-image-name>:latest \
         --push \
         .
-```
-
-## Pushing to external registries
-
-Authenticate with the target registry before building:
-
-```bash
-# Docker Hub
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-
-# Amazon ECR
-aws ecr get-login-password --region <your-region> | \
-  docker login --username AWS --password-stdin <account-id>.dkr.ecr.<your-region>.amazonaws.com
-
-# Then build and push
-docker buildx build --builder nsc-remote -t <registry>/<your-image-name>:latest --push .
 ```
 
 ## Troubleshooting
