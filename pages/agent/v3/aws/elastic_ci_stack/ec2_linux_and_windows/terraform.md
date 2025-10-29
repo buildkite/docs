@@ -3,7 +3,7 @@
 The Elastic CI Stack for AWS can be deployed using Terraform instead of AWS CloudFormation.
 
 > 📘 Prefer AWS CloudFormation?
-> This guide uses Terraform. For AWS CloudFormation instructions, see the [setup guide](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/setup).
+> This guide uses Terraform. For AWS CloudFormation instructions, see the [AWS CloudFormation setup guide](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/setup).
 
 ## Before you start
 
