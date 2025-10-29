@@ -112,7 +112,7 @@ if @failed.any?
 
     Resolve genuine broken links with either a **404** or **id #fragment not found** status first.
     
-    Ignore links with a **timeout** status (since these are usually only temporarily broken), as well as working links that return a **403** or **id #fragment not found** status. Configure these working links with a **403** or **id #fragment not found** status, as exceptions in the relevant section of the `link-checking-rules.yaml` file, which moves them to **Non-breaking failures** section below.
+    Ignore links with a **timeout** status (since these are usually only temporarily broken), as well as working links that return a **403** or **id #fragment not found** status. Configure these **403** or **id #fragment not found** status working links as exceptions in the relevant section of the `link-checking-rules.yaml` file, which moves them to **Non-breaking failures** section below.
 
   MARKDOWN
 
