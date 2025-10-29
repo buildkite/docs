@@ -52,7 +52,7 @@ To link your private Google Cloud Storage (GCS) bucket to Package Registries:
 
 1. In the **Packages** section, select **Private Storage Link** to open its page.
 
-1. Click **Add private storage link** to start the private storage configuration process.
+1. Select **Add private storage link** to start the private storage configuration process.
 
 1. On the **Provide your storage's details** (page) > **Step 1: Select your storage provider**, select **GCS**.
 

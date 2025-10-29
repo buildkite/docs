@@ -45,7 +45,7 @@ To create an agent token for a cluster using the Buildkite interface:
 
 1. Select **Create Token**.
 
-    Follow the instructions to copy and save your token to a secure location and click **Okay, I'm done!**. The new agent token appears on the cluster's **Agent Tokens** page.
+    Follow the instructions to copy and save your token to a secure location and select **Okay, I'm done!**. The new agent token appears on the cluster's **Agent Tokens** page.
 
 ### Using the REST API
 
@@ -82,7 +82,7 @@ The new agent token appears on the cluster's **Agent Tokens** page.
 
 ### Using the GraphQL API
 
-To [create an agent token](/docs/apis/graphql/schemas/mutation/clusteragenttokencreate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+To [create an agent token](/docs/apis/graphql/cookbooks/clusters#create-agent-token-with-an-expiration-date) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
 
 ```graphql
 mutation {
@@ -114,6 +114,7 @@ mutation {
         email
       }
     }
+    tokenValue
   }
 }
 ```
@@ -278,7 +279,7 @@ where:
 
 ### Using the GraphQL API
 
-To [revoke an agent token](/docs/apis/graphql/schemas/mutation/clusteragenttokenrevoke) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+To [revoke an agent token](/docs/apis/graphql/cookbooks/clusters#revoke-an-agent-token) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
 
 ```graphql
 mutation {

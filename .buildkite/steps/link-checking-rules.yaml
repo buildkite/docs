@@ -10,6 +10,14 @@ link_checking_exemptions:
       - https://github.com/my-org/
       - https://claude.ai/download
 
+  - name: ignore-page-changes-in-pr
+    description: |
+      Ignores HTTP 404 errors generated from new pages in PR,
+      as well as pages whose name or path, or both, has changed in this PR.
+    status_pattern: "404"
+    url_patterns:
+      - https://buildkite.com/docs/
+
   - name: login-required
     description: |
       Ignore HTTP 403 Forbidden.
@@ -32,7 +40,6 @@ link_checking_exemptions:
       - https://github.com/marketplace
       - https://codepen.io/
       - https://www.java.com
-
 
   - name: ignore-api-401-unauthorized
     description: Ignore HTTP 401 Unauthorized on Buildkite API

@@ -13,6 +13,7 @@ exceptions:
   - '^(\d+\.) [A-Z][\w\s-]+' # Allow numbered headings. Example: "1. Install the thing" or "1. One-time ECR setup" or "3. Push using Kaniko"
   - '^(Agent|Build|Job) ([A-Z]\w+(ed|ing)|Lost)$' # Exceptions for /pages/integrations/amazon_eventbridge.md
   - '^(Step|Method) \d: [A-Z]\w+' # Allow caps after colon. Examples: "Step 3: Do the thing", "Method 2: Deploy keys"
+  - 1Password
   - 2FA
   - ADFS
   - Advanced Queue Metrics
@@ -25,7 +26,7 @@ exceptions:
   - AWS Elastic Container Registry
   - Amazon
   - Amazon ECR
-  - Amazon Elastic Continer Registry
+  - Amazon Elastic Container Registry
   - Amazon EventBridge
   - Amazon Web Services
   - AMI
@@ -70,6 +71,7 @@ exceptions:
   - CCTray
   - CentOS
   - CI
+  - CI/CD
   - CircleCI
   - Claude Code
   - Claude Desktop
@@ -104,6 +106,7 @@ exceptions:
   - FreeBSD
   - G Suite
   - Git
+  - Git Large File Storage
   - GitHub
   - GitHub Actions
   - GitHub App
@@ -123,6 +126,8 @@ exceptions:
   - Google Kubernetes Engine
   - Google Workspace
   - Governance
+  - GPU
+  - GPUs
   - GraphQL
   - GRC
   - Groovy
@@ -157,6 +162,7 @@ exceptions:
   - limiter
   - Linear
   - Linux
+  - LFS
   - M1
   - Mac
   - macOS
@@ -171,6 +177,7 @@ exceptions:
   - Node.js
   - nodeName
   - nodeSelector
+  - Nomad
   - NuGet
   - OIDC
   - Okta
@@ -201,6 +208,8 @@ exceptions:
   - SAML
   - scheduler
   - SCIM
+  - SDK
+  - SDKs
   - Scripted
   - Sequoia
   - Slack
@@ -229,6 +238,8 @@ exceptions:
   - UUID
   - visionOS
   - Visual Studio Code
+  - VM
+  - VMs
   - VPC
   - VPN
   - watchOS

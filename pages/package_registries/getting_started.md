@@ -106,7 +106,7 @@ To confirm that your Node.js package was successfully published to your Buildkit
 
     The package name (for example, **nodejs.example-package-1.0.1.tgz**) should appear under **Packages**.
 
-1. Click the package name to access its details, and note the following:
+1. Select the package name to access its details, and note the following:
     * **Instructions**: this section of the **Installation** tab provides command line instructions for installing the package you just published.
     * **Details** tab: provides various checksum values for this published package.
     * **About this version**: obtained from the `description` field value of the `package.json` file.

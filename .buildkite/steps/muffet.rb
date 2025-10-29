@@ -110,7 +110,9 @@ if @failed.any?
   report = <<~MARKDOWN
     ## Muffet found broken links
 
-    First, resolve links with statuses other than 429 or 403 (especially, 404).
+    Resolve links with **404** and **id #fragment not found** statuses.
+    
+    Ignore links with **timeout** statuses (since these are usually temporary), as well as **429** or **403** statuses. Configure any links with a **429** or **403** status here, as exceptions in the `link-checking-rules.yaml` file, which moves them to **Non-breaking failures** section below.
 
   MARKDOWN
 

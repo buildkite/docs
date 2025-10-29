@@ -1,7 +1,7 @@
 # Monitoring and observing the Buildkite Agent
 
 By default, the agent is only observable either through Buildkite or
- through log output on the host:
+through log output on the host:
 
 - **Job logs:** Relate to the jobs the agent runs. These are uploaded to
   Buildkite and shown for each step in a build.
@@ -50,6 +50,33 @@ The URL paths available from the health checking service are as follows:
 The following shows the `/status` page for an agent:
 
 <%= image 'status-page.png', size: '600x437', alt: 'Agent internal status page' %>
+
+## Datadog metrics
+
+The Buildkite Agent supports sending metrics to Datadog via DogStatsD for monitoring and observability.
+
+To enable Datadog metrics, start the agent with the `--metrics-datadog` option or set `metrics-datadog=true` in the agent's configuration file.
+
+```shell
+buildkite-agent start --metrics-datadog
+```
+
+Additional configuration options:
+
+Option                              | Description
+----------------------------------- | -----------
+`--metrics-datadog-host`           | The DogStatsD instance to send metrics to using UDP.<br>_Environment variable:_ `BUILDKITE_METRICS_DATADOG_HOST`<br>_Default:_ `127.0.0.1:8125`
+`--metrics-datadog-distributions`  | Use [Datadog Distributions](https://docs.datadoghq.com/metrics/types/?tab=distribution#metric-types) for timing metrics. This is recommended when running multiple agents to prevent metrics from multiple agents from being rolled up and appearing to have the same value.<br>_Environment variable:_ `BUILDKITE_METRICS_DATADOG_DISTRIBUTIONS`<br>_Default:_ `false`
+{: class="responsive-table"}
+
+Once enabled, the agent will generate the following metrics (duration measured in milliseconds):
+
+- `buildkite.jobs.success`
+- `buildkite.jobs.duration.success.avg`
+- `buildkite.jobs.duration.success.max`
+- `buildkite.jobs.duration.success.count`
+- `buildkite.jobs.duration.success.median`
+- `buildkite.jobs.duration.success.95percentile`
 
 ## Tracing
 

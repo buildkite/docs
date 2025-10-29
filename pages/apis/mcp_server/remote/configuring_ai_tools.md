@@ -27,9 +27,9 @@ You can configure [Amp](https://ampcode.com/) with the remote Buildkite MCP serv
 
 You're now ready to use Buildkite's remote MCP server through Amp for this Buildkite organization.
 
-### Using toolsets and read-only access
+### Toolsets and read-only access
 
-To enable [toolsets](/docs/apis/mcp-server/toolsets) or [configure read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server), or both, for the remote MCP server with [Amp](#amp), you can implement the following headers to this configuration, for example:
+To enable [toolsets](/docs/apis/mcp-server/tools/toolsets) or [configure read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server), or both, for the remote MCP server with [Amp](#amp), you can implement the following headers to this configuration, for example:
 
 ```json
 {
@@ -38,11 +38,9 @@ To enable [toolsets](/docs/apis/mcp-server/toolsets) or [configure read-only acc
       "command": "npx",
       "args": [
         "mcp-remote",
-        "https://mcp.buildkite.com/mcp",
+        "https://mcp.buildkite.com/mcp/readonly",
         "--header",
-        "X-Buildkite-Toolsets: user,pipelines,builds",
-        "--header",
-        "X-Buildkite-Readonly: true"
+        "X-Buildkite-Toolsets: user,pipelines,builds"
       ]
     }
   }
@@ -63,12 +61,12 @@ claude mcp add --transport http buildkite https://mcp.buildkite.com/mcp
 
 You're now ready to use Buildkite's remote MCP server through Claude Code for this Buildkite organization.
 
-### Using toolsets and read-only access
+### Toolsets and read-only access
 
-To enable [toolsets](/docs/apis/mcp-server/toolsets) or [configure read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server), or both, for the remote MCP server with [Claude Code](#claude-code), you can add the following header configurations to this command, for example:
+To enable [toolsets](/docs/apis/mcp-server/tools/toolsets) or [configure read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server), or both, for the remote MCP server with [Claude Code](#claude-code), you can add the following header configurations to this command, for example:
 
 ```bash
-claude mcp add --transport http buildkite-read-only-toolsets https://mcp.buildkite.com/mcp --header "X-Buildkite-Toolsets: user,pipelines,builds" --header "X-Buildkite-Readonly: true" 
+claude mcp add --transport http buildkite-read-only-toolsets https://mcp.buildkite.com/mcp/readonly --header "X-Buildkite-Toolsets: user,pipelines,builds"
 ```
 
 <%= render_markdown partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
@@ -98,9 +96,9 @@ You're now ready to use Buildkite's remote MCP server through Claude Desktop for
 
 If you need more assistance with this process, follow Anthropic's guidelines for [Getting Started with Custom Connectors](https://support.anthropic.com/en/articles/11175166-getting-started-with-custom-connectors-using-remote-mcp#h_3d1a65aded).
 
-### Using toolsets and read-only access
+### Toolsets and read-only access
 
-To enable [toolsets](/docs/apis/mcp-server/toolsets) or [configure read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server), or both, for the remote MCP server with [Claude Desktop](#claude-desktop), follow this [create custom connector procedure](#claude-desktop) by implementing the [URL extension approach](/docs/apis/mcp-server/toolsets#configuring-the-remote-mcp-server-using-a-url-extension) when enabling the toolset, with the following updates:
+To enable [toolsets](/docs/apis/mcp-server/tools/toolsets) or [configure read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server), or both, for the remote MCP server with [Claude Desktop](#claude-desktop), follow this [create custom connector procedure](#claude-desktop) by implementing the [URL extension approach](/docs/apis/mcp-server/tools/toolsets#configuring-the-remote-mcp-server-using-a-url-extension) when enabling the toolset, with the following updates:
 
 - For the **Name** field, specify a name that better describes the customer connector. For example, **Buildkite - pipelines toolset** for the `pipelines` toolset.
 - For the **Remote MCP server URL** field, specify the enabled toolset for the remote MCP server. For example, `https://mcp.buildkite.com/mcp/x/pipelines`.
@@ -142,18 +140,17 @@ See https://cursor.com/docs/context/mcp/install-links for details.
 
 You're now ready to use Buildkite's remote MCP server through Cursor for this Buildkite organization.
 
-### Using toolsets and read-only access
+### Toolsets and read-only access
 
-To enable [toolsets](/docs/apis/mcp-server/toolsets) or [configure read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server), or both, for the remote MCP server with [Cursor](#cursor), you can implement the following headers to this configuration, for example:
+To enable [toolsets](/docs/apis/mcp-server/tools/toolsets) or [configure read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server), or both, for the remote MCP server with [Cursor](#cursor), you can implement the following headers to this configuration, for example:
 
 ```json
 {
   "mcpServers": {
     "buildkite-read-only-toolsets": {
-      "url": "https://mcp.buildkite.com/mcp",
+      "url": "https://mcp.buildkite.com/mcp/readonly",
       "headers": {
-        "X-Buildkite-Toolsets": "user,pipelines,builds",
-        "X-Buildkite-Readonly": "true"
+        "X-Buildkite-Toolsets": "user,pipelines,builds"
       }
     }
   }
@@ -188,9 +185,9 @@ extensions:
 
 You're now ready to use Buildkite's remote MCP server through Goose for this Buildkite organization.
 
-### Using toolsets and read-only access
+### Toolsets and read-only access
 
-To enable [toolsets](/docs/apis/mcp-server/toolsets) or [configure read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server), or both, for the remote MCP server with [Goose](#goose), you can implement the following headers to this configuration, for example:
+To enable [toolsets](/docs/apis/mcp-server/tools/toolsets) or [configure read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server), or both, for the remote MCP server with [Goose](#goose), you can implement the following headers to this configuration, for example:
 
 ```yaml
 extensions:
@@ -198,12 +195,11 @@ extensions:
     enabled: true
     type: streamable_http
     name: buildkitereadonlytoolsets
-    uri: https://mcp.buildkite.com/mcp
+    uri: https://mcp.buildkite.com/mcp/readonly
     envs: {}
     env_keys: []
     headers:
       X-Buildkite-Toolsets: user,pipelines,builds
-      X-Buildkite-Readonly: 'true'
     description: ''
     timeout: 300
     bundled: null
@@ -240,19 +236,18 @@ Alternatively, you can initiate this process through the Visual Studio Code inte
 
 You're now ready to use Buildkite's remote MCP server through Visual Studio Code for this Buildkite organization.
 
-### Using toolsets and read-only access
+### Toolsets and read-only access
 
-To enable [toolsets](/docs/apis/mcp-server/toolsets) or [configure read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server), or both, for the remote MCP server with [Visual Studio Code](#visual-studio-code), you can implement the following headers to your `mcp.json` configuration file, for example:
+To enable [toolsets](/docs/apis/mcp-server/tools/toolsets) or [configure read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server), or both, for the remote MCP server with [Visual Studio Code](#visual-studio-code), you can implement the following headers to your `mcp.json` configuration file, for example:
 
 ```json
 {
   "servers": {
     "buildkite-read-only-toolsets": {
-      "url": "https://mcp.buildkite.com/mcp",
+      "url": "https://mcp.buildkite.com/mcp/readonly",
       "type": "http",
       "headers": {
-        "X-Buildkite-Toolsets": "user,pipelines,builds",
-        "X-Buildkite-Readonly": "true"
+        "X-Buildkite-Toolsets": "user,pipelines,builds"
       }
     }
   }
@@ -279,18 +274,17 @@ You can configure [Windsurf](https://windsurf.com/) with the remote Buildkite MC
 
 You're now ready to use Buildkite's remote MCP server through Windsurf for this Buildkite organization.
 
-### Using toolsets and read-only access
+### Toolsets and read-only access
 
-To enable [toolsets](/docs/apis/mcp-server/toolsets) or [configure read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server), or both, for the remote MCP server with [Windsurf](#windsurf), you can implement the following headers to your `mcp_config.json` configuration file, for example:
+To enable [toolsets](/docs/apis/mcp-server/tools/toolsets) or [configure read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server), or both, for the remote MCP server with [Windsurf](#windsurf), you can implement the following headers to your `mcp_config.json` configuration file, for example:
 
 ```json
 {
   "mcpServers": {
     "buildkite-read-only-toolsets": {
-      "url": "https://mcp.buildkite.com/mcp",
+      "url": "https://mcp.buildkite.com/mcp/readonly",
       "headers": {
-        "X-Buildkite-Toolsets": "user,pipelines,builds",
-        "X-Buildkite-Readonly": "true"
+        "X-Buildkite-Toolsets": "user,pipelines,builds"
       }
     }
   }

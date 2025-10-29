@@ -1,10 +1,13 @@
 # Jenkins
 
+> 📘
+> The Buildkite migration tool for Jenkins in currently in beta.
+
 The [Buildkite migration tool](/docs/pipelines/migration/tool) helps you convert your Jenkins pipeline jobs into Buildkite pipelines. Both the Scripted and Declarative forms of Jenkins pipelines are supported. Because Jenkins pipelines can be written using the Groovy scripting language, their potential for complexity is much greater than that of other YAML-based CI configuration formats. Therefore, to get the best results in the translation process, we make use of an AI Large Language Model (LLM).
 
 The LLM first analyzes the Jenkins pipeline to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline. Note: The AI model *does not* use any submitted data for its own training, and nothing that you submit is stored after the translation is complete.
 
-As with any of the other CI systems we translate from ([GitHub Actions](docs/pipelines/migration/tool/github-actions), [CircleCI](/docs/pipelines/migration/tool/circleci), [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines)), there will be Jenkins pipeline features that don't have a direct equivalent in Buildkite Pipelines. In those cases, the migration tool will include comments in the output with suggestions about possible solutions you could explore.
+As with any of the other CI systems we translate from ([GitHub Actions](/docs/pipelines/migration/tool/github-actions), [CircleCI](/docs/pipelines/migration/tool/circleci), [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines)), there will be Jenkins pipeline features that don't have a direct equivalent in Buildkite Pipelines. In those cases, the migration tool will include comments in the output with suggestions about possible solutions you could explore.
 
 The goal of the migration tool is to give you a starting point or framework of a pipeline, so you can see how patterns you're used to in Jenkins would function in Buildkite. As such, the tool will not try to convert your build's shell scripts or other complex logic automatically. Instead, it will generate placeholder steps for those items, so that you can see the structure of the pipeline working in Buildkite. You can then flesh out the details of an equivalent pipeline functionality at your own convenience and pace.
 
@@ -41,4 +44,4 @@ Jenkins supports a variety of different build parameter types natively (`string`
 | Others (plugins) | Not supported |
 {: class="responsive-table"}
 
-Also, note that Buildkite pipeline's input parameter values are stored as [build meta-data](docs/pipelines/configure/build-meta-data), not as variables that can be used in the pipeline definition itself. The migration tool will provide guidance about best practices for using input values in your pipeline.
+Also, note that Buildkite pipeline's input parameter values are stored as [build meta-data](/docs/pipelines/configure/build-meta-data), not as variables that can be used in the pipeline definition itself. The migration tool will provide guidance about best practices for using input values in your pipeline.
