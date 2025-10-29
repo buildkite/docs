@@ -136,6 +136,7 @@ if @failed.any?
 
   report += <<~MARKDOWN
 
+  \n\n
   Configure any consistently working **403** or **id #fragment not found** status links as exceptions in the relevant section of the `link-checking-rules.yaml` file, which moves them to the **Non-breaking failures** section below.
 
   MARKDOWN
