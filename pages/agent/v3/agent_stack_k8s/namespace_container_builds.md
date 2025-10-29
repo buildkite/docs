@@ -10,30 +10,27 @@ When using Namespace remote builders with Agent Stack for Kubernetes:
 
 1. The [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) pod authenticates with Namespace (see [Authentication](/docs/agent/v3/agent-stack-k8s/namespace-container-builds#authentication)).
 2. The Namespace CLI (`nsc`) configures [Docker Buildx](https://docs.docker.com/reference/cli/docker/buildx/) to use remote builders.
-3. Buildkite pipeline steps execute on Namespace's infrastructure, not in your Kubernetes cluster.
+3. Namespace runs the actual build workloads remotely while Buildkite continues to orchestrate the pipeline.
 4. Built images are pushed to Namespace's container registry (`nscr.io`) or any other registry.
-
-Namespace runs the actual build workloads while Buildkite continues to orchestrate the pipeline.
-
-## Authentication
-
-Namespace supports multiple authentication methods:
-
-- AWS Cognito federation for EKS clusters using IAM Roles for Service Accounts (IRSA). This guide covers this approach.
-- [Buildkite OIDC](/docs/pipelines/security/oidc) - contact [support@namespace.so](mailto:support@namespace.so) to register `https://agent.buildkite.com` as a trusted issuer.
-
-For more information, see [Namespace federation documentation](https://namespace.so/docs/federation).
 
 ## Prerequisites
 
 - Namespace account with a workspace (you will need to [sign up](https://namespace.so)).
 - Custom agent image with Docker CLI, Buildx, and Namespace CLI.
-- Properly configured authentication (AWS Cognito for EKS or OIDC federation).
+- Properly configured authentication.
+
+## Authentication
+
+Namespace supports multiple authentication [methods](https://namespace.so/docs/federation).
+
+We recommend [Buildkite OIDC](/docs/pipelines/security/oidc) for most environments but this requires you to contact [support@namespace.so](mailto:support@namespace.so) to register `https://agent.buildkite.com` as a trusted issuer for your Namespace tenant.
+
+Alternatively, you can use [AWS Cognito federation](https://namespace.so/docs/federation/aws) for EKS clusters using [IAM Roles for Service Accounts (IRSA)](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html).
 
 ## AWS Cognito setup (for EKS)
 
 > 📘
-> If you are using Buildkite OIDC or another authentication method, skip to [Build custom agent image](/docs/agent/v3/agent-stack-k8s/namespace-container-builds#build-custom-agent-image).
+> If you are using Buildkite OIDC (recommended), skip to [Build custom agent image](/docs/agent/v3/agent-stack-k8s/namespace-container-builds#build-custom-agent-image).
 
 ### Quick setup
 
@@ -124,7 +121,7 @@ config:
   tags:
   - queue=kubernetes
   pod-spec-patch:
-    serviceAccountName: <your-agent-stack-k8s-service-account>  # For AWS Cognito/IRSA
+    serviceAccountName: <your-agent-stack-k8s-service-account>
     containers: []
 ```
 
@@ -132,22 +129,9 @@ config:
 
 Namespace integrates with Buildkite pipeline steps through the Namespace CLI. Pick the authentication flow that matches your environment, then run the standard Docker Buildx commands against the remote builders.
 
-### AWS Cognito authentication
+### Buildkite OIDC authentication (recommended)
 
-Use this option when your Buildkite agents run on Amazon EKS with IAM Roles for Service Accounts (IRSA). The Buildkite agent pod authenticates via Cognito, then Namespace provisions the remote builders for your pipeline.
-
-```yaml
-    command: |
-      # Authenticate via AWS Cognito
-      /root/.ns/bin/nsc auth exchange-aws-cognito-token \
-        --aws_region <your-region> \
-        --identity_pool <pool-guid> \
-        --tenant_id <workspace-id>
-```
-
-### Buildkite OIDC authentication
-
-Use this option if Namespace has federated directly with Buildkite’s OIDC provider. This keeps authentication entirely within Buildkite, without needing AWS Cognito.
+Use this option when you have contacted [support@namespace.so](mailto:support@namespace.so) to register `https://agent.buildkite.com` as a trusted issuer.
 
 ```yaml
     command: |
@@ -158,11 +142,24 @@ Use this option if Namespace has federated directly with Buildkite’s OIDC prov
         --tenant_id <workspace-id>
 ```
 
+### AWS Cognito authentication
+
+Use this option if you prefer to use AWS Cognito federation for EKS clusters using IAM Roles for Service Accounts (IRSA). The Buildkite agent pod authenticates via Cognito, then Namespace provisions the remote builders for your pipeline.
+
+```yaml
+    command: |
+      # Authenticate via AWS Cognito
+      /root/.ns/bin/nsc auth exchange-aws-cognito-token \
+        --aws_region <your-region> \
+        --identity_pool <pool-guid> \
+        --tenant_id <workspace-id>
+```
+
 ## Pushing to external registries
 
 Use Buildkite’s registry plugins to handle authentication so the step from [Complete pipeline example](#complete-pipeline-example) stays focused on the Namespace build. Add the relevant plugin block beneath the step’s `agents` definition.
 
-### Docker Hub (docker-login plugin)
+### Docker Hub [(docker-login plugin)](https://github.com/buildkite-plugins/docker-login-buildkite-plugin)
 
 ```yaml
     plugins:
@@ -172,7 +169,7 @@ Use Buildkite’s registry plugins to handle authentication so the step from [Co
           password-env: DOCKER_PASSWORD
 ```
 
-### Amazon ECR (ecr plugin)
+### Amazon ECR [(ecr plugin)](https://github.com/buildkite-plugins/ecr-buildkite-plugin)
 
 ```yaml
     plugins:
@@ -209,16 +206,16 @@ steps:
       #     region: <your-region>
 
     command: |
-      # Option A: Authenticate via AWS Cognito
-      /root/.ns/bin/nsc auth exchange-aws-cognito-token \
-        --aws_region <your-region> \
-        --identity_pool <pool-guid> \
+      # Option A: Authenticate via Buildkite OIDC (recommended)
+      OIDC_TOKEN=$$(buildkite-agent oidc request-token --audience federation.namespaceapis.com)
+      /root/.ns/bin/nsc auth exchange-oidc-token \
+        --token "$$OIDC_TOKEN" \
         --tenant_id <workspace-id>
 
-      # Option B: Authenticate via Buildkite OIDC
-      # OIDC_TOKEN=$$(buildkite-agent oidc request-token --audience federation.namespaceapis.com)
-      # /root/.ns/bin/nsc auth exchange-oidc-token \
-      #   --token "$$OIDC_TOKEN" \
+      # Option B: Authenticate via AWS Cognito
+      # /root/.ns/bin/nsc auth exchange-aws-cognito-token \
+      #   --aws_region <your-region> \
+      #   --identity_pool <pool-guid> \
       #   --tenant_id <workspace-id>
 
       # Configure Namespace Buildx builder and push multi-platform image
@@ -226,17 +223,25 @@ steps:
       /root/.ns/bin/nsc docker login
       docker buildx build \
         --builder nsc-remote \
-        --platform linux/amd64,linux/arm64 \
+        --platform linux/amd64,linux/arm64 \        
         -t nscr.io/<workspace-id>/<your-image-name>:latest \
         --push \
         .
+
+      # Alternative: push to another registry (same one that was configured above with plugin)
+      # docker buildx build \
+      #   --builder nsc-remote \
+      #   --platform linux/amd64,linux/arm64 \
+      #   -t <registry>/<image-name>:latest \
+      #   --push \
+      #   .
 ```
 
 ## Troubleshooting
 
 ### Authentication fails
 
-- **OIDC "nothing matched" error**: contact the [Namespace support](https://namespace.so/support) to register your OIDC issuer, or verify AWS Cognito setup.
+- **OIDC "nothing matched" error**: contact the [Namespace support](https://namespace.so/support) to register `https://agent.buildkite.com` as your OIDC issuer, or verify AWS Cognito setup.
 - **Pod using node role**: verify that the EKS OIDC provider is enabled and the service account has IAM role annotation.
 - **Cognito permission denied**: ensure that the IAM role policy includes `cognito-identity:GetOpenIdTokenForDeveloperIdentity`.
 
