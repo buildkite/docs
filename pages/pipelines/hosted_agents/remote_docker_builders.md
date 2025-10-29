@@ -20,3 +20,22 @@ The following steps outlines this remote Docker builder process in detail:
 1. A Buildkite hosted agent encounters a `docker build` command in one of its pipeline jobs, and then the agent runs [`docker buildx`](https://docs.docker.com/reference/cli/docker/buildx/) with cache settings to target the remote BuildKit service.
 1. The remote BuildKit service executes stages in parallel where possible, reusing cache for unchanged layers and rebuilding only new layers that a needed.
 1. The build outputs are delivered based on flags: pushed to a registry, exported to an OCI archive, or loaded back to the agent if requested.
+
+## Benefits of using remote Docker builders
+
+This section provides more details about the benefits provided by remote Docker builders.
+
+### Faster builds
+
+Remote Docker builders run on remote dedicated machines, which have been optimized for BuildKit. Therefore, CPU-bound stages are completed much more rapidly.
+
+The remote layer caches are both shared and persistent. Therefore, incremental builds reliably skip unchanged image layers, which often yields two to 40 times build speed increases.
+
+### Smaller agents with a simple setup
+
+Using remote Docker builders means that you can maintain smaller Buildkite hosted agents with a simpler setup, since Docker images are built through the remote Docker builder.
+
+### Improved cache hit rates and reproducibility
+
+BuildKit's distributed cache handling and consistent environment...
+
