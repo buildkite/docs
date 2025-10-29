@@ -61,5 +61,5 @@ This section describes common issues with Docker-in-Docker and the ways to resol
 
 ### Permission denied while trying to connect to the Docker daemon socket
 
-- Ensure the sidecar has `privileged: true` 
+- Ensure the sidecar has `privileged: true`
 - Check that your cluster's security policies allow privileged containers
