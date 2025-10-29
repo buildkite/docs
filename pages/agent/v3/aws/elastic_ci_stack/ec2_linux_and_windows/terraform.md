@@ -1,15 +1,15 @@
 # Terraform deployment for the Elastic CI Stack for AWS
 
-The Elastic CI Stack for AWS can be deployed using Terraform instead of CloudFormation.
+The Elastic CI Stack for AWS can be deployed using Terraform instead of AWS CloudFormation.
 
-> 📘 Prefer CloudFormation?
-> This guide uses Terraform. For CloudFormation, see the [setup guide](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/setup).
+> 📘 Prefer AWS CloudFormation?
+> This guide uses Terraform. For AWS CloudFormation instructions, see the [setup guide](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/setup).
 
 ## Before you start
 
 Deploying the Elastic CI Stack for AWS with Terraform requires [Terraform](https://www.terraform.io/downloads) version 1.0 or later and a Buildkite [Agent token](/docs/agent/v3/tokens).
 
-For information on getting started with Terraform, see HashiCorp's [Get Started with Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started) tutorial and the [AWS Provider documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs) for configuring AWS credentials.
+For the information on getting started with Terraform, see HashiCorp's [Get Started with Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started) tutorial and the [AWS Provider documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs) for configuring AWS credentials.
 
 The module creates its own VPC by default. To deploy into an existing VPC, set the `vpc_id` and `subnets` variables.
 
@@ -34,7 +34,7 @@ module "buildkite_stack" {
 }
 ```
 
-Then run the following commands to deploy the stack:
+Next, run the following commands to deploy the stack:
 
 ```bash
 terraform init
@@ -50,7 +50,7 @@ For the complete list of variables and their descriptions, see the [module docum
 
 ## Example configurations
 
-The Terraform module repository includes several example configurations in the [examples directory](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws/tree/main/examples):
+The Terraform module repository includes several example configurations. You can check out the following examples in the [examples directory](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws/tree/main/examples):
 
 - [Basic](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws/tree/main/examples/basic)
 - [Spot instances](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws/tree/main/examples/spot-instances)
@@ -78,14 +78,14 @@ terraform plan
 terraform apply
 ```
 
-The Auto Scaling group will replace instances gradually during the update. Existing builds will complete before instances are terminated using the [Agent Scaler](https://github.com/buildkite/buildkite-agent-scaler).
+The Auto Scaling group will replace instances gradually during the update. Existing builds will complete before instances are terminated using the [Buildkite Agent Scaler](https://github.com/buildkite/buildkite-agent-scaler).
 
 ## Related documentation
 
 For more information on configuring and managing the Elastic CI Stack for AWS, see:
 
-- [Using AWS Secrets Manager](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/secrets_manager) to configure secrets
-- [Managing the Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/managing_elastic_ci_stack) for operational tasks
-- [Troubleshooting](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/troubleshooting) for common issues
+- [Using AWS Secrets Manager](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/secrets-manager) to configure secrets
+- [Managing the Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack) for operational tasks
+- [Troubleshooting](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/troubleshooting) for resolving common issues
 - [Terraform module reference](https://registry.terraform.io/modules/buildkite/elastic-ci-stack/aws) on the Terraform Registry
 - [GitHub repository](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws) for the module source code

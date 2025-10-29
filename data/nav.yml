@@ -144,9 +144,9 @@
                   path: "agent/v3/aws/elastic-ci-stack"
             - name: "EC2 Linux and Windows"
               children:
-                - name: "Setup"
+                - name: "Setup with AWS CloudFormation"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/setup"
-                - name: "Using Terraform"
+                - name: "Setup with Terraform"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/terraform"
                 - name: "Security"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security"
