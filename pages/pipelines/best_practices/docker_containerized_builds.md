@@ -63,7 +63,7 @@ This example runs a test suite in the `app` service using the [Docker Compose pl
 - name: "Docker Test %n"
   command: test.sh
   plugins:
-    - docker-compose#v3.0.3:
+    - docker-compose#v5.11.0:
         run: app
 ```
 {: codeblock-file="pipeline.yml"}
@@ -85,7 +85,7 @@ In this example, the `yarn` commands will be run inside a Docker container using
 steps:
   - command: yarn install && yarn run test
     plugins:
-      - docker#v3.2.0:
+      - docker#v5.13.0:
           image: "node:8"
           workdir: /app
 ```

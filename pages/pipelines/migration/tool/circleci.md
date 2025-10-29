@@ -46,7 +46,7 @@ steps:
   - echo '~~~ Install dependencies'
   - npm install
   plugins:
-  - docker#v5.10.0:
+  - docker#v5.13.0:
       image: cimg/node:18.20
   agents:
     executor_type: docker

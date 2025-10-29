@@ -54,7 +54,7 @@ steps:
   - echo '~~~ Install dependencies'
   - npm install
   plugins:
-  - docker#v5.10.0:
+  - docker#v5.13.0:
       image: node:18
   agents:
     runs-on: ubuntu-latest
