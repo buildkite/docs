@@ -4,14 +4,14 @@ toc: false
 
 # Configuration parameters
 
-The Elastic CI Stack for AWS can be configured using parameters in CloudFormation or variables in Terraform. This page provides a complete reference of all available configuration options.
+The Elastic CI Stack for AWS can be configured using parameters in AWS CloudFormation or variables in Terraform. This page provides a complete reference of all available configuration options.
 
 > 📘 Deployment method
-> If you're using CloudFormation, see the [CloudFormation setup guide](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/setup). If you're using Terraform, see the [Terraform deployment guide](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/terraform).
+> If you're using AWS CloudFormation, see the [CloudFormation setup guide](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/setup). If you're using Terraform, see the [Terraform deployment guide](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/terraform).
 
 The following tables list all of the available configuration parameters. For CloudFormation deployments, these are parameters in the [`aws-stack.yml` template](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/templates/aws-stack.yml). For Terraform deployments, these are variables in the [Terraform module](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws).
 
-Note that you must provide a value for the Buildkite agent token (CloudFormation: [`BuildkiteAgentTokenParameterStorePath`](#BuildkiteAgentTokenParameterStorePath) or [`BuildkiteAgentToken`](#BuildkiteAgentToken); Terraform: `agent_token_parameter_store_path` or `agent_token`) to use the stack. All other parameters are optional.
+Note that you must provide a value for the Buildkite Agent token (CloudFormation: [`BuildkiteAgentTokenParameterStorePath`](#BuildkiteAgentTokenParameterStorePath) or [`BuildkiteAgentToken`](#BuildkiteAgentToken); Terraform: `agent_token_parameter_store_path` or `agent_token`) to use the stack. All other parameters are optional.
 
 
 <!--
