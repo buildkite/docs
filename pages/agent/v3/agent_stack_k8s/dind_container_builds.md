@@ -57,7 +57,7 @@ This section describes common issues with Docker-in-Docker and the ways to resol
 ### Cannot connect to the Docker daemon
 
 - Ensure that the DOCKER_HOST environment variable is set correctly
-- Check if there is a race condition in connecting to the Docker daemon between the main container and the sidecar container
+- Check if there is a race condition in connecting to the Docker daemon between the main container and the sidecar container. Delay the main container's startup or add a wait before using any Docker build commands
 
 ### Permission denied while trying to connect to the Docker daemon socket
 
