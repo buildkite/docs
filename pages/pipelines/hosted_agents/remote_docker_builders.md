@@ -11,7 +11,7 @@ When using the remote Docker builders feature, any `docker build` commands withi
 
 Remote Docker builders can maintain their own [cache of image layers](https://docs.docker.com/build/cache/) (in your [container cache volume](/docs/pipelines/hosted-agents/cache-volumes#container-cache)), from which the resulting images are streamed back to the Buildkite hosted agents making the request, which in turn, speeds up your overall pipeline builds, since these agents are free to build the rest of your pipeline and conduct other work. Docker images streamed back from your container cache volume in this manner do not need to be re-built or downloaded to the agent.
 
-When using remote Docker builders, the first few builds of a pipeline might typically require between 2-4 minutes to complete. However, once subsequent builds can receive their Docker images, streamed back from your container cache volume, these subsequent builds are typically completed within 5-10 seconds.
+When using remote Docker builders, the first few builds of a pipeline might typically require between 2-4 minutes to complete. However, once subsequent builds can receive their Docker images, streamed back from your container cache volume, these subsequent builds are typically completed within 5-10 seconds. Also learn more about the [Benefits of using remote Docker builders](#benefits-of-using-remote-docker-builders).
 
 ## Step-by-step remote Docker builder process
 
