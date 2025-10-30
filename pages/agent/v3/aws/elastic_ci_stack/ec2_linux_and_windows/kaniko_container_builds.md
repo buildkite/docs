@@ -6,23 +6,22 @@ toc_include_h3: false
 
 [Kaniko](https://github.com/GoogleContainerTools/kaniko) builds container images from a Dockerfile without requiring a Docker daemon, making it ideal for CI/CD environments that lack or don't need privileged access. This guide shows you how to use Kaniko on [Buildkite Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic_ci_stack) to build and push images directly to [Buildkite Package Registries](/docs/package_registries).
 
-Unlike traditional Docker builds, Kaniko runs as a container itself and executes each command in your Dockerfile in userspace. This approach eliminates the need for Docker-in-Docker or privileged mode while maintaining full compatibility with standard Dockerfiles. You can authenticate using short-lived OIDC tokens, leverage registry-based caching to speed up builds, and push to any OCI-compliant container registry.
+Unlike traditional Docker builds, Kaniko runs as a container and executes each command in your Dockerfile in a userspace. This approach eliminates the need for a Docker-in-Docker or privileged mode while maintaining full compatibility with the standard Dockerfiles. You can authenticate using short-lived OIDC tokens, leverage registry-based caching to speed up builds, and push to any [Open Container Initiative (OCI)](https://opencontainers.org/)-compliant container registry.
 
-> 📘 Note about Kaniko support
-> Google has deprecated support for the Kaniko project and no longer publishes new images to `gcr.io/kaniko-project/`. However, [Chainguard has forked the project](https://github.com/chainguard-dev/kaniko) and continues to provide support and create new releases. See the [Kaniko image availability](#running-kaniko-in-docker-kaniko-image-availability) section below for your options.
+> 📘 On Kaniko support
+> Google has deprecated support for the Kaniko project and no longer publishes new images to `gcr.io/kaniko-project/`. However, [Chainguard has forked the project](https://github.com/chainguard-dev/kaniko) and continues to provide support and create new releases. See the [Kaniko image availability](#running-kaniko-in-docker-kaniko-image-availability) section below for more details.
 
 ## One-time package registry setup
 
-Create a Package Registry for container images through the Buildkite web interface:
+Create a [Package Registry](/docs/package-registries) for container images through the Buildkite web interface:
 
 1. Navigate to your Buildkite organization and select **Package Registries** from the global navigation.
-2. Click **New registry**.
-3. Provide a name (for example, `my-container-registry`) and optional description.
-4. Select **OCI Image (Docker)** as the ecosystem type.
-5. Assign appropriate team access permissions (select teams that need access to the registry).
-6. Click **Create Registry**.
-
-7. Configure an OIDC policy to allow your agents to push images. Select **Settings** > **OIDC Policy** and add:
+1. Click **New registry**.
+1. Provide a name (for example, `my-container-registry`) and an optional description for your registry.
+1. Select **OCI Image (Docker)** as the ecosystem type.
+1. Assign appropriate team access permissions (select teams that need access to the registry).
+1. Click **Create Registry**.
+1. Configure an OIDC policy to allow your agents to push images. Select **Settings** > **OIDC Policy** and add:
 
     ```yaml
     - iss: https://agent.buildkite.com
@@ -34,48 +33,47 @@ Create a Package Registry for container images through the Buildkite web interfa
         pipeline_slug: <your-pipeline-slug>
         build_branch: main
     ```
-
-    Replace `<your-org-slug>` and `<your-pipeline-slug>` with your organization and pipeline slugs. The `build_branch` claim restricts image pushes to the specified branch. See [OIDC in Buildkite Package Registries](/docs/package_registries/security/oidc) for more configuration options.
+1. Replace `<your-org-slug>` and `<your-pipeline-slug>` with your organization and pipeline slugs. The `build_branch` claim restricts image pushes to the specified branch. See [OIDC in Buildkite Package Registries](/docs/package_registries/security/oidc) for more configuration options.
 
 For detailed instructions, see [Manage registries](/docs/package_registries/registries/manage).
 
 > 📘 Registry compatibility
-> While this example uses Buildkite Package Registries, Kaniko works with any OCI-compliant container registry. To use a different registry like Docker Hub, ECR, GCR, or Azure Container Registry, adjust the authentication method and destination URL accordingly.
+> While the example uses Buildkite Package Registries, Kaniko works with any OCI-compliant container registry. To use a different registry like Docker Hub, ECR, GCR, or Azure Container Registry, adjust the authentication method and the destination URL accordingly.
 
 ## Push using Kaniko
 
 Commit your changes. The step in `.buildkite/pipeline.yml` will:
 
 - Build the Docker image using [Kaniko](https://github.com/GoogleContainerTools/kaniko) (no Docker daemon required)
-- Push the image directly to [Buildkite Package Registries](/docs/package_registries) using a short-lived OIDC token retrieved by the Buildkite agent
+- Push the image directly to the [Buildkite Package Registries](/docs/package_registries) using a short-lived OIDC token retrieved by the Buildkite Agent
 
 > 📘 SSH repository requirements
-> If your Git repository uses SSH, make sure your S3 secrets bucket for Elastic CI Stack for AWS contains a `private_ssh_key` at the correct prefix (or switch to HTTPS + `git-credentials`).
+> If your Git repository uses SSH, make sure your [S3 secrets bucket for Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/secrets-bucket) contains a `private_ssh_key` at the correct prefix (or switch to HTTPS + `git-credentials`).
 
 ## Running Kaniko in Docker
 
-Kaniko runs inside a Docker container on the Elastic CI Stack for AWS agent—no Docker-in-Docker or privileged mode and no Docker daemon for the build.
+Kaniko runs inside a Docker container on the Elastic CI Stack for AWS agent so no Docker-in-Docker or privileged mode and no Docker daemon are required for the build.
 
 ### Kaniko image availability
 
 Google has deprecated support for the Kaniko project and no longer publishes new images to `gcr.io/kaniko-project/`. However, [Chainguard has forked the project](https://github.com/chainguard-dev/kaniko) and continues to provide support and create new releases.
 
-#### Option 1: use Google's final published images (recommended)
+#### Option 1: Google's final published images (recommended)
 
-You can use Google's final published Kaniko images (these are publicly available):
+You can use Google's final published Kaniko images (publicly available):
 - `gcr.io/kaniko-project/executor:v1.24.0`
 - `gcr.io/kaniko-project/executor:v1.24.0-debug`
 
-#### Option 2: use Chainguard-maintained images
+#### Option 2: Chainguard-maintained images
 
 Chainguard images may require authentication depending on availability, policy, and version:
 - `cgr.dev/chainguard/kaniko:latest`
 - `cgr.dev/chainguard/kaniko:latest-debug`
 
 > 📘 Image directory reference
-> See their [image directory](https://images.chainguard.dev/directory/image/kaniko/versions) for versions and access details.
+> See [Chaingaurd's image directory](https://images.chainguard.dev/directory/image/kaniko/versions) for the versions and access details.
 
-#### Option 3: build your own images from the Chainguard fork
+#### Option 3: build your own images with the Chainguard fork
 
 If you need a specific version or custom configuration, you can build and publish Kaniko images to your own container registry:
 
@@ -91,13 +89,13 @@ docker build --target kaniko-debug -t your-registry/kaniko:debug --file deploy/D
 docker push your-registry/kaniko:debug
 ```
 
-Then update the image references in your pipeline to use your registry.
+As the next step, update the image references in your pipeline to use your registry.
 
-Kaniko executes your Dockerfile inside a container and pushes the resulting image to a registry. It doesn't depend on a Docker daemon and runs without elevated privileges, making it more secure and suitable for environments where privileged access is not available.
+Note that Kaniko executes your Dockerfile inside a container and pushes the resulting image to a registry. It doesn't depend on a Docker daemon and runs without elevated privileges, making it more secure and suitable for environments where privileged access is not available.
 
 ### Example pipeline
 
-Here's a complete example of using Kaniko to build and push a container image to Buildkite Package Registries:
+Here's a complete example of using Kaniko for building and pushing a container image to Buildkite Package Registries:
 
 ```text
 project-root/
@@ -272,7 +270,7 @@ console.log("Hello from Kaniko on Buildkite Elastic CI Stack for AWS!");
 
 #### Verifying Google's deprecated images
 
-If you're using Google's final published images (`gcr.io/kaniko-project/executor:v1.24.0`), you can verify their signatures:
+If you're using Google's final published images (`gcr.io/kaniko-project/executor:v1.24.0`), you can verify their signatures by running the following:
 
 ```bash
 # Verify the Google Kaniko image signature with cosign (public key)
@@ -290,13 +288,13 @@ docker run --rm -v "$PWD:/work" -w /work cgr.dev/chainguard/cosign \
 echo "Signature verified OK for ${KANIKO_IMG}"
 ```
 
-This verification uses Google's official public key and only applies to their deprecated images.
+This verification uses Google's official public key and only applies to the deprecated images.
 
 #### Signing and verifying custom-built images
 
-If you build your own Kaniko images from the Chainguard fork, you can sign them for enhanced security. This process involves generating a key pair, signing your images, and verifying them before use.
+If you build your own Kaniko images from the Chainguard fork, you can also sign them for enhanced security. This process involves generating a key pair, signing your images, and verifying them before use.
 
-Generate a key pair and store in Buildkite Secrets:
+Generate a key pair and store in Buildkite Secrets by running:
 
 ```bash
 # Generate signing key pair
@@ -333,12 +331,14 @@ Then [create the secrets](/docs/pipelines/security/secrets/buildkite-secrets#cre
       verify -key cosign.pub your-registry/kaniko:latest
     ```
 
-#### Alternative: Keyless signing with OIDC
+#### Keyless signing with OIDC
 
-For a more modern approach, you can use keyless signing with OIDC (OpenID Connect) instead of managing key pairs. This method uses [sigstore.dev](https://sigstore.dev/) as a third-party service to handle the signing process:
+For an alternative, more modern approach to signing, you can use keyless signing with OpenID Connect(OIDC) instead of managing key pairs. This method uses [sigstore.dev](https://sigstore.dev/) as a third-party service for handling the signing process.
 
 > 🚧 Important
-> Keyless signing requires authenticating with an OAuth provider (like Google, GitHub, or Microsoft) through sigstore.dev. This means your OAuth identity will be used to create a temporary signing certificate that's stored in the sigstore public transparency log. Consider your organization's security policies before using this approach.
+> Keyless signing requires authenticating with an OAuth provider (like Google, GitHub, or Microsoft) through [sigstore.dev](https://sigstore.dev/). This means your OAuth identity will be used to create a temporary signing certificate stored in the sigstore's public transparency log. Consider your organization's security policies before using this approach.
+
+To implement keyless signing, run the following:
 
 ```bash
 # Keyless signing (requires OIDC authentication with sigstore.dev)
@@ -359,16 +359,16 @@ This approach ensures your custom-built Kaniko images are authentic and haven't 
 
 When troubleshooting build issues, you can use the [Kaniko debug image](https://github.com/chainguard-dev/kaniko#debug-image) which includes additional debugging tools. The debug image contains utilities like `busybox` and `sh` for interactive debugging.
 
+> 🚧 Prerequisites for interactive debugging
+> To run interactive debugging commands on your Elastic CI Stack for AWS EC2 instances, you must have configured the `KeyName` CloudFormation stack parameter during stack deployment. This allows you to SSH into the instances as the `ec2-user` to run local Docker commands.
+
 For interactive debugging, you can run the debug image directly on your EC2 instance:
 
 ```bash
 docker run -it --entrypoint=/busybox/sh gcr.io/kaniko-project/executor:v1.24.0-debug
 ```
 
-> 🚧 Prerequisites for interactive debugging
-> To run interactive debugging commands on your Elastic CI Stack for AWS EC2 instances, you must have configured the `KeyName` CloudFormation stack parameter during stack deployment. This allows you to SSH into the instances as the `ec2-user` to run local Docker commands.
-
-> 📘 Interactive debugging limitation
+> 📘 Interactive debugging limitations
 > Interactive debugging with `KANIKO_SHELL=1` only works when running Docker commands directly on the EC2 instance, not when set as pipeline environment variables. Pipeline builds run non-interactively and cannot provide shell access.
 
 To enable debug mode in your pipeline, set the `KANIKO_DEBUG` environment variable:
@@ -387,20 +387,13 @@ When `KANIKO_DEBUG=1` is set, the pipeline will use the Kaniko debug image inste
 
 The debug image provides several debugging options:
 
-- Verbose logging: Use `KANIKO_VERBOSITY=debug` for detailed build logs
-- No-push mode: Set `KANIKO_NO_PUSH=1` to build without pushing to registry
-- Interactive shell access: Set `KANIKO_SHELL=1` to get an interactive shell inside the Kaniko container (only works with local Docker commands, not in pipeline environment variables)
-
-The debug image is particularly useful for:
-
-- Investigating build failures
-- Examining the build context and Dockerfile
-- Testing different Kaniko parameters
-- Debugging authentication issues
+- Verbose logging - use `KANIKO_VERBOSITY=debug` for detailed build logs.
+- No-push mode - set `KANIKO_NO_PUSH=1` to build without pushing to registry.
+- Interactive shell access - set `KANIKO_SHELL=1` to get an interactive shell inside the Kaniko container (only works with local Docker commands, not in pipeline environment variables).
 
 ## Using the published images
 
-After the pipeline completes successfully, your Docker image will be available in your Buildkite Package Registry:
+After the pipeline completes successfully, your Docker image will be available in your Buildkite Package Registry.
 
 ### Pull and run the image
 
@@ -424,21 +417,21 @@ docker tag packages.buildkite.com/acme-inc/my-container-registry/hello-kaniko:ab
 docker push your-registry.example.com/hello-kaniko:abc123-1
 ```
 
-## Troubleshooting
+## Troubleshooting common Kaniko issues
 
-### Common issues and solutions
+This section covers some common issues as well as their resolutions and prevention methods for using Kaniko with Buildkite Pipelines.
 
-- "Invalid 'aud' claim" error
+### "Invalid 'aud' claim" error
 
-    * Cause: OIDC policy not configured correctly.
-    * Solution: Check your Package Registry's OIDC configuration in Buildkite (ensure it's configured for correct ecosystem).
+- Cause: OIDC policy is not configured correctly.
+- Solution: Check your Package Registry's OIDC configuration in Buildkite (ensure it's configured for correct ecosystem).
 
-- 401/403 on push
+### 401/403 on push
 
-    * Cause: OIDC audience mismatch.
-    * Solution: Check that the audience exactly matches `https://packages.buildkite.com/${ORG}/${REG}` and your registry's OIDC settings allow that audience.
+- Cause: OIDC audience mismatch.
+- Solution: Check that the audience exactly matches `https://packages.buildkite.com/${ORG}/${REG}` and your registry's OIDC settings allow that audience.
 
-- Image push fails
+### Image push fails
 
-    * Cause: Authentication or registry configuration issues.
-    * Solution: Check your Package Registry configuration and OIDC policy.
+- Cause: Authentication or registry configuration issues.
+- Solution: Check your Package Registry configuration and OIDC policy.
