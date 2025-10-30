@@ -161,7 +161,7 @@ steps:
       - seek-oss/aws-sm#v2.3.3:
           env:
             SONAR_TOKEN: path/to/your/sonar-token
-      - docker#v5.11.0:
+      - docker#v5.13.0:
           image: "sonarsource/sonar-scanner-cli:latest"
           environment:
             - "SONAR_TOKEN"
@@ -209,7 +209,7 @@ steps:
           env:
             SONAR_TOKEN: my-org/sonar-token
     # If using Docker
-    #   - docker#v5.11.0:
+    #   - docker#v5.13.0:
     #       image: "sonarsource/sonar-scanner-cli:latest"
     #       environment:
     #         - "SONAR_TOKEN"

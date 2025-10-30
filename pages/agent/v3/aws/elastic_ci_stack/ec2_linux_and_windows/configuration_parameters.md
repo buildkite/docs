@@ -2,16 +2,16 @@
 toc: false
 ---
 
-# Template parameters in the Elastic CI Stack for AWS
+# Configuration parameters
 
-To create an Auto Scaling group and the launch template for the Elastic CI Stack for AWS deployment, you can either use the default YAML config file, or you can copy it, and substitute that YAML config file with your own configuration file when you create new instances.
+The Elastic CI Stack for AWS can be configured using parameters in AWS CloudFormation or variables in Terraform. This page provides a complete reference of all available configuration options.
 
-The following tables list all the available parameters for the [`aws-stack.yml` template](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/templates/aws-stack.yml) which creates an Auto Scaling group and the launch template for the Elastic CI Stack for AWS deployment.
+> 📘 Deployment method
+> If you're using AWS CloudFormation, see the [AWS CloudFormation setup guide](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/setup). If you're using Terraform, see the [Terraform deployment guide](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/terraform).
 
-You can use these parameters to configure the EC2 instances to suit your needs.
+The following tables list all of the available configuration parameters. For CloudFormation deployments, these are parameters in the [`aws-stack.yml` template](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/templates/aws-stack.yml). For Terraform deployments, these are variables in the [Terraform module](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws).
 
-Note that you must provide a value for one of [`BuildkiteAgentTokenParameterStorePath`](#BuildkiteAgentTokenParameterStorePath)
-or [`BuildkiteAgentToken`](#BuildkiteAgentToken) to be able to use `aws-stack.yml` template, all other parameters are optional.
+Note that you must provide a value for the Buildkite Agent token (CloudFormation: [`BuildkiteAgentTokenParameterStorePath`](#BuildkiteAgentTokenParameterStorePath) or [`BuildkiteAgentToken`](#BuildkiteAgentToken); Terraform: `agent_token_parameter_store_path` or `agent_token`) to use the stack. All other parameters are optional.
 
 
 <!--
@@ -34,6 +34,7 @@ interface = metadata['AWS::CloudFormation::Interface']
 parameter_groups = interface['ParameterGroups']
 
 parameters = AWS_STACK['Parameters']
+cf_tf_mapping = defined?(CLOUDFORMATION_TERRAFORM_MAPPING) ? CLOUDFORMATION_TERRAFORM_MAPPING : {}
 
 def escape_colons(x)
   if x.is_a? String
@@ -50,15 +51,25 @@ end
 <table>
 	<tbody>
 		<tr>
-			<th>Parameter</th>
+			<th>CloudFormation parameter</th>
+			<th>Terraform variable</th>
 			<th>Description</th>
 		</tr>
 		<% group['Parameters'].each do |parameter_name| %>
 			<% parameter = parameters[parameter_name] %>
+			<% tf_mapping = cf_tf_mapping[parameter_name] %>
 			<tr id="<%= parameter_name %>">
 				<td>
 					<code><%= parameter_name %></code>
 					<br><code>(<%= parameter['Type'] %>)</code>
+				</td>
+				<td style="white-space: nowrap;">
+					<% if tf_mapping && tf_mapping != "N/A" %>
+						<code><%= tf_mapping['variable'] %></code>
+						<br><code>(<%= tf_mapping['type'] %>)</code>
+					<% else %>
+						<em>N/A</em>
+					<% end %>
 				</td>
 				<td>
 					<%= parameter['Description'] %>
