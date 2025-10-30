@@ -71,7 +71,7 @@ Chainguard images may require authentication depending on availability, policy, 
 - `cgr.dev/chainguard/kaniko:latest-debug`
 
 > 📘 Image directory reference
-> See [Chaingaurd's image directory](https://images.chainguard.dev/directory/image/kaniko/versions) for the versions and access details.
+> See [Chainguard's image directory](https://images.chainguard.dev/directory/image/kaniko/versions) for the versions and access details.
 
 #### Option 3: build your own images with the Chainguard fork
 
