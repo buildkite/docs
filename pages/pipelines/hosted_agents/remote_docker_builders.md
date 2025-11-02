@@ -11,7 +11,7 @@ When using the remote Docker builders feature, any `docker build` commands withi
 
 The remote builder service also maintains a [cache](https://docs.docker.com/build/cache/) of its built image layers (stored in the builder service's local file system, and in your [container cache volume](/docs/pipelines/hosted-agents/cache-volumes#container-cache)). Images already stored in this local file system usually don't need to be re-built upon a `docker build` call, and any images in your container cache volume can be pulled to jobs requesting them, which in turn, speeds up your overall pipeline builds, since your Buildkite hosted agents running these pipelines are free to build the rest of your pipeline and conduct other work.
 
-When using remote Docker builders, the first few builds of a pipeline typically require more time to complete. However, once the required images have been built, these builds are completed much more rapidly. Learn more about how remote Docker builders improve the speed and performance of your of your pipeline builds in [Benefits of using remote Docker builders](#benefits-of-using-remote-docker-builders).
+When using remote Docker builders, your first few pipeline builds will typically require more time to complete. However, once the required images have been built, any subsequent pipeline builds are completed much more rapidly. Learn more about how remote Docker builders improve the speed and performance of your of your pipeline builds in [Benefits of using remote Docker builders](#benefits-of-using-remote-docker-builders).
 
 ## Step-by-step remote Docker builder process
 
