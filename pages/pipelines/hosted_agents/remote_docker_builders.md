@@ -31,7 +31,7 @@ This section provides more details about the benefits provided by remote Docker 
 
 Remote Docker builders run on remote dedicated machines, which have been optimized for [BuildKit](https://docs.docker.com/build/concepts/overview/#buildkit). Therefore, CPU-bound stages are completed much more rapidly.
 
-Your [container cache volume](/docs/pipelines/hosted-agents/cache-volumes#container-cache) is both shared and persistent. Therefore, incremental builds reliably skip unchanged image layers, which often yields 2-40 times build speed increases.
+Your [container cache volume](/docs/pipelines/hosted-agents/cache-volumes#container-cache) is both shared and persistent, ensuring your Job will start and run as quickly as possible. Incremental builds reliably skip unchanged image layers as they're kept on the dedicated Docker builder instance, often yielding 2-40 times build speed increases.
 
 Using remote Docker builders and your container cache volume also complements Git mirrors.
 
