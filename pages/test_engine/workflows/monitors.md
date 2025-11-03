@@ -62,7 +62,13 @@ Tag filters reduce the set of [execution](/docs/test-engine/glossary#execution) 
 
 <%= image "tag-filters.png", alt: "Screenshot showing tag filters, with the branch filter set to main" %>
 
-Tag filters are optional and you can configure up to four of them per workflow. Tag filter values support matching operators (for example, **is** or **starts with**). If you haven't set up tags for test execution, see [Tags](/docs/test-engine/test-suites/tags) in the [Test suites](/docs/test-engine/test-suites) documentation for details.
+Tag filters are optional and you can configure up to four of them per workflow. Tag filter values support the following matching operators:
+
+- **is**
+- **is not**
+- **starts with**
+
+If you haven't set up tags for test execution, see [Tags](/docs/test-engine/test-suites/tags) in the [Test suites](/docs/test-engine/test-suites) documentation for details.
 
 ### Default branch filter
 
