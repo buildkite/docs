@@ -6,93 +6,152 @@ toc_include_h3: false
 
 The [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) helps you build and run multi-container Docker applications. This guide shows how to build and push container images using the Docker Compose plugin on agents that are auto-scaled by the Buildkite Agent Stack for Kubernetes.
 
-## Basic Docker Compose build
 
-Build services defined in your `docker-compose.yml` file:
+## Special considerations for Kubernetes
+
+When running these plugins within the Buildkite Agent Stack for Kubernetes, consider the following requirements and best practices for successful container builds.
+
+### Docker daemon access
+
+The Docker Compose plugin requires access to a Docker daemon. In Kubernetes, you have two main approaches:
+
+_Mounting the host Docker socket_: Mount `/var/run/docker.sock` from the host into your pod. This is simpler but shares the host's Docker daemon with all pods. Ensure your Kubernetes cluster security policies allow socket mounting.
+
+- Security concerns: Grants containers near-root access to the host; any process with socket access can control the host Docker daemon. Prone to container breakout risks if workloads are untrusted.
+- Best practices: Restrict usage to trusted repositories; run agents on dedicated nodes; scope access with Kubernetes security policies; avoid multi-tenant clusters; prefer read-only mounts where possible.
+- Trade-offs: Simple and fast to set up; best performance and caching; weakest isolation and hardest to lock down.
+
+_Docker-in-Docker (DinD)_: Run a Docker daemon inside your pod using a DinD sidecar container. This provides better isolation but requires `privileged: true` or specific security capabilities. DinD adds complexity and resource overhead but avoids sharing the host daemon.
+
+- Security concerns: Requires `privileged` or elevated capabilities; expanded kernel surface within the pod; misconfiguration can expose an unsecured Docker API.
+- Best practices: Use a sidecar dedicated to the build; disable TLS cert dir (`DOCKER_TLS_CERTDIR=""`) only if network scope is local; restrict network exposure (no host ports); set resource limits; regularly prune storage.
+- Trade-offs: Better isolation than host socket; slightly slower and uses more resources; operationally more complex but safer for mixed-trust workloads.
+
+### Using Docker-in-Docker with PodSpecPatch
+
+For the Buildkite Agent Stack for Kubernetes, use PodSpecPatch to add a DinD sidecar container. This approach provides better isolation and security compared to mounting the host Docker socket.
+
+Add the following configuration to your agent stack:
+
+```yaml
+agent:
+  podSpecPatch: |
+    spec:
+      containers:
+        - name: docker-daemon
+          image: docker:dind
+          securityContext:
+            privileged: true
+          args:
+            - "--host=tcp://127.0.0.1:2375"
+            - "--host=unix:///var/run/docker.sock"
+          env:
+            - name: DOCKER_TLS_CERTDIR
+              value: ""
+          volumeMounts:
+            - name: docker-storage
+              mountPath: /var/lib/docker
+      volumes:
+        - name: docker-storage
+          emptyDir: {}
+```
+
+Then configure your pipeline steps to use the DinD container:
 
 ```yaml
 steps:
-  - label: "Build with Docker Compose"
+  - label: "\:docker\: Build with DinD"
     plugins:
       - docker-compose#v5.11.0:
           build: app
-          config: docker-compose.yml
+          push: app
+    env:
+      DOCKER_HOST: tcp://127.0.0.1:2375
 ```
 
-Sample `docker-compose.yml` file:
+This configuration exposes the Docker daemon on 127.0.0.1:2375 without TLS for use by your build step. For a TLS-enabled TCP listener (commonly 2376), configure dockerd with a TCP host and provide certificates instead of disabling `DOCKER_TLS_CERTDIR`.
+
+### Permission handling with the propagate-uid-gid option
+
+When mounting the Docker socket or using shared volumes, you may encounter permission mismatches between the container user and file ownership. The Docker plugin's `propagate-uid-gid` option runs Docker commands with the same user ID and group ID as the agent, preventing permission errors on mounted volumes.
 
 ```yaml
-services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: your-registry.example.com/your-team/app:bk-${BUILDKITE_BUILD_NUMBER}
+plugins:
+  - docker-compose#v5.11.0:
+      propagate-uid-gid: true
+      build: app
+      push: app
 ```
 
-## Building and pushing with the Docker Compose plugin
+The Docker plugin runs as a command hook and sets up the environment for subsequent Docker operations. The Docker Compose plugin then uses this environment for building and pushing images.
 
-Build and push images in a single step:
+For additional permission control, you can pass build arguments to your Dockerfile to set specific user IDs:
 
 ```yaml
-steps:
-  - label: "\:docker\: Build and push"
-    agents:
-      queue: build
-    plugins:
-      - docker-compose#v5.11.0:
-          build: "app"
-          push:
-            - "app"
+plugins:
+  - docker-compose#v5.11.0:
+      build: app
+      args:
+        - USER_ID=${BUILDKITE_AGENT_UID:-1000}
+        - GROUP_ID=${BUILDKITE_AGENT_GID:-1000}
+      push: app
 ```
 
-If you're using a private repository, add authentication:
+Then in your Dockerfile, use these arguments to create the appropriate user:
 
-```yaml
-steps:
-  - label: "\:docker\: Build and push"
-    agents:
-      queue: build
-    plugins:
-      - docker-login#v3.1.0:
-          registry: your-registry.example.com
-          username: "${REGISTRY_USERNAME}"
-          password-env: "REGISTRY_PASSWORD"
-      - docker-compose#v5.11.0:
-          build: "app"
-          push:
-            - "app"
+```dockerfile
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+RUN groupadd -g ${GROUP_ID} builduser && \
+    useradd -u ${USER_ID} -g ${GROUP_ID} -m builduser
+USER builduser
 ```
+
+Use this approach when you see "permission denied" errors related to file access in build contexts or when writing artifacts to mounted volumes.
+
+### Build context and volume mounts
+
+In Kubernetes, the build context is typically the checked-out repository in the pod's filesystem. By default, the plugin uses the current working directory as the build context. If your `docker-compose.yml` references files outside this directory, configure explicit volume mounts in your Kubernetes pod specification.
+
+For build caching or sharing artifacts across builds, mount persistent volumes or use Kubernetes persistent volume claims. Note that ephemeral pod storage is lost when the pod terminates.
+
+### Registry authentication
+
+Set up proper authentication for pushing to container registries. Use the `docker-login` plugin for standard Docker registries, the `ecr` plugin for AWS ECR, or the `gcp-workload-identity-federation` plugin for Google Artifact Registry. For services you push, ensure `image:` is set in `docker-compose.yml` to specify the full registry path.
+
+### Resource allocation
+
+Building container images can be resource-intensive, especially for large applications or when building multiple services. Configure your Kubernetes agent pod resources accordingly:
+
+- Allocate sufficient memory for the build process and any running services
+- Provide adequate CPU resources to avoid slow builds
+- Ensure sufficient ephemeral storage for Docker layers and build artifacts
+
+Monitor resource usage during builds and adjust pod resource requests and limits as needed.
+
 
 ## Configuration approaches
 
 The Docker Compose plugin supports different workflow patterns for building and pushing container images, each suited to specific use cases in Kubernetes environments.
 
-### Build-only workflow
+### Push to Buildkite Package Registries
 
-Pre-build images in an early pipeline step to avoid redundant builds when distributing work across multiple agents. Built images are stored and can be referenced by subsequent pipeline steps on different agents.
+Push a built image directly to Buildkite Package Registries.
 
 ```yaml
 steps:
-  - label: "\:docker\: Build images"
-    agents:
-      queue: build
+  - label: "\:docker\: Build and push to Buildkite Package Registries"
     plugins:
+      - docker-login#v3.0.0:
+          registry: your-registry.example.com
+          username: "${REGISTRY_USERNAME}"
+          password-env: "REGISTRY_PASSWORD"
       - docker-compose#v5.11.0:
-          build:
-            - app
-            - worker
-          image-repository: your-registry.example.com/your-team
-
-  - wait
-
-  - label: "\:package\: Use built images"
-    agents:
-      queue: deploy
-    command: |
-      # Built images are available on subsequent steps
-      docker images
+          build: app
+          push:
+            - app:packages.buildkite.com/<organization_slug>/<Registry_name>/<package name>/<image_name>:${BUILDKITE_BUILD_NUMBER}
 ```
+
 
 ### Build-and-push workflow
 
@@ -104,38 +163,17 @@ steps:
     agents:
       queue: build
     plugins:
-      - docker-login#v3.1.0:
+      - docker-login#v3.0.0:
           registry: your-registry.example.com
           username: "${REGISTRY_USERNAME}"
           password-env: "REGISTRY_PASSWORD"
       - docker-compose#v5.11.0:
           build: app
-          image-repository: your-registry.example.com/your-team
           push:
             - app:your-registry.example.com/your-team/app:${BUILDKITE_BUILD_NUMBER}
             - app:your-registry.example.com/your-team/app:latest
 ```
 
-### Multi-service builds
-
-Build multiple services from a single `docker-compose.yml` file. This approach works well for microservices architectures where multiple related services are built together.
-
-```yaml
-steps:
-  - label: "\:docker\: Build microservices"
-    agents:
-      queue: build
-    plugins:
-      - docker-compose#v5.11.0:
-          build:
-            - frontend
-            - backend
-            - api
-          push:
-            - frontend
-            - backend
-            - api
-```
 
 ## Customizing the build
 
@@ -166,10 +204,8 @@ steps:
   - label: "\:docker\: Build frontend only"
     plugins:
       - docker-compose#v5.11.0:
-          build:
-            - frontend
-          push:
-            - frontend
+          build: frontend
+          push: frontend
 ```
 
 ### Using BuildKit features with cache optimization
@@ -180,20 +216,19 @@ Enable BuildKit to use advanced build features including build cache optimizatio
 steps:
   - label: "\:docker\: Build with BuildKit cache"
     plugins:
-      - docker-login#v3.1.0:
+      - docker-login#v3.0.0:
           registry: your-registry.example.com
           username: "${REGISTRY_USERNAME}"
           password-env: "REGISTRY_PASSWORD"
       - docker-compose#v5.11.0:
           build: app
-          image-repository: your-registry.example.com/your-team
           cache-from:
-            - app:your-registry.example.com/your-team/app:cache
-          build-kit: true
+            - app:your-registry.example.com/app:cache
+          buildkit: true
           buildkit-inline-cache: true
           push:
-            - app:your-registry.example.com/your-team/app:${BUILDKITE_BUILD_NUMBER}
-            - app:your-registry.example.com/your-team/app:cache
+            - app:your-registry.example.com/app:${BUILDKITE_BUILD_NUMBER}
+            - app:your-registry.example.com/app:cache
 ```
 
 ### Using multiple compose files
@@ -256,99 +291,49 @@ RUN --mount=type=ssh git clone git@github.com:yourorg/private-lib.git
 
 Automatically pass cloud provider credentials to containers for pushing images to cloud-hosted registries.
 
+For Buildkite Package Registries:
+
+```yaml
+steps:
+  - label: "\:docker\: Build and push to Buildkite Package Registries"
+    plugins:
+      - docker-compose#v5.11.0:
+          build: app
+          push:
+            - app:buildkite-agent/app:${BUILDKITE_BUILD_NUMBER}
+```
+
 For AWS Elastic Container Registry (ECR):
 
 ```yaml
 steps:
   - label: "\:docker\: Build and push to ECR"
     plugins:
+      - ecr#v3.0.0:
+          login: true
+          account-ids: "123456789012"
+          region: us-west-2
       - docker-compose#v5.11.0:
           build: app
-          image-repository: 123456789.dkr.ecr.us-west-2.amazonaws.com
-          propagate-aws-auth-tokens: true
           push:
-            - app:123456789.dkr.ecr.us-west-2.amazonaws.com/app:${BUILDKITE_BUILD_NUMBER}
+            - app:123456789012.dkr.ecr.us-west-2.amazonaws.com/app:${BUILDKITE_BUILD_NUMBER}
 ```
 
-For Google Container Registry (GCR):
+For Google Artifact Registry (GAR):
 
 ```yaml
 steps:
-  - label: "\:docker\: Build and push to GCR"
+  - label: "\:docker\: Build and push to GAR"
     plugins:
+      - gcp-workload-identity-federation#v1.0.0:
+          project-id: your-project
+          service-account: your-service-account@your-project.iam.gserviceaccount.com
       - docker-compose#v5.11.0:
           build: app
-          image-repository: gcr.io/your-project
-          propagate-gcp-auth-tokens: true
           push:
-            - app:gcr.io/your-project/app:${BUILDKITE_BUILD_NUMBER}
+            - app:us-central1-docker.pkg.dev/your-project/your-repository/app:${BUILDKITE_BUILD_NUMBER}
 ```
-
-## Special considerations for Kubernetes
-
-When running these plugins within the Buildkite Agent Stack for Kubernetes, consider the following requirements and best practices for successful container builds.
-
-### Docker daemon access
-
-The Docker Compose plugin requires access to a Docker daemon. In Kubernetes, you have two main approaches:
-
-_Mounting the host Docker socket_: Mount `/var/run/docker.sock` from the host into your pod. This is simpler but shares the host's Docker daemon with all pods. Ensure your Kubernetes cluster security policies allow socket mounting.
-
-_Docker-in-Docker (DinD)_: Run a Docker daemon inside your pod using a DinD sidecar container. This provides better isolation but requires `privileged: true` or specific security capabilities. DinD adds complexity and resource overhead but avoids sharing the host daemon.
-
-### Permission handling with the propagate-uid-gid option
-
-When mounting the Docker socket or using shared volumes, you may encounter permission mismatches between the container user and file ownership. The plugin's `propagate-uid-gid` option runs the Docker Compose commands with the same user ID and group ID as the agent, preventing permission errors on mounted volumes.
-
-```yaml
-plugins:
-  - docker#v5.8.0:
-      propagate-uid-gid: true
-  - docker-compose#v5.11.0:
-      build: app
-      push: app
-```
-
-Use this option when you see "permission denied" errors related to file access in build contexts or when writing artifacts to mounted volumes.
-
-### Build context and volume mounts
-
-In Kubernetes, the build context is typically the checked-out repository in the pod's filesystem. By default, the plugin uses the current working directory as the build context. If your `docker-compose.yml` references files outside this directory, use the `mount-checkout` option or configure explicit volume mounts.
-
-For build caching or sharing artifacts across builds, mount persistent volumes or use Kubernetes persistent volume claims. Note that ephemeral pod storage is lost when the pod terminates.
-
-### Registry authentication
-
-Set up proper authentication for pushing to container registries. Use the `docker-login` plugin for standard Docker registries or use `propagate-aws-auth-tokens` or `propagate-gcp-auth-tokens` for cloud-provider registries. For services you push, ensure `image:` is set in `docker-compose.yml` to specify the full registry path.
-
-### Resource allocation
-
-Building container images can be resource-intensive, especially for large applications or when building multiple services. Configure your Kubernetes agent pod resources accordingly:
-
-- Allocate sufficient memory for the build process and any running services
-- Provide adequate CPU resources to avoid slow builds
-- Ensure sufficient ephemeral storage for Docker layers and build artifacts
-
-Monitor resource usage during builds and adjust pod resource requests and limits as needed.
-
 ## Troubleshooting
-
-### Permission issues
-
-Docker commands may fail with "permission denied" errors when trying to access the Docker socket (`/var/run/docker.sock`). This happens when there's a mismatch between the container user's permissions and the socket owner (typically root or the docker group).
-
-If you encounter permission problems with the Docker socket, ensure your Kubernetes pod has the right permissions or consider using `propagate-uid-gid: true` with the Docker plugin:
-
-```yaml
-plugins:
-  - docker#v5.8.0:
-      propagate-uid-gid: true
-  - docker-compose#v5.11.0:
-      build: ["app"]
-      push: ["app"]
-```
-
-You can also use Docker-in-Docker (DinD) instead of mounting the host socket. This runs the Docker daemon inside your pod, avoiding socket permission issues entirely, but this approach adds complexity and resource overhead.
 
 ### Network connectivity
 
@@ -374,7 +359,7 @@ plugins:
       build: app
       cache-from:
         - app:your-registry.example.com/app:cache
-      build-kit: true
+      buildkit: true
       buildkit-inline-cache: true
       push:
         - app:your-registry.example.com/app:${BUILDKITE_BUILD_NUMBER}
@@ -408,28 +393,6 @@ RUN echo "Building version ${BUILD_NUMBER}"
 
 Note that `args` passes variables at build time, while the `environment` option passes variables at runtime (for running containers, not building images).
 
-### Volume mount permission issues
-
-Files created by Docker builds or containers may have incorrect ownership, causing "permission denied" errors when the pipeline tries to access them.
-
-This occurs because Docker typically runs as root inside containers, creating files owned by root, while the Buildkite agent may run as a different user.
-
-Enable `propagate-uid-gid` to match container and host user IDs:
-
-```yaml
-plugins:
-  - docker#v5.8.0:
-      propagate-uid-gid: true
-  - docker-compose#v5.11.0:
-      build: app
-```
-
-Alternatively, explicitly set user ownership in your Dockerfile:
-
-```dockerfile
-RUN chown -R 1000:1000 /app/output
-```
-
 ### Image push failures
 
 Pushing images to registries fails with authentication errors or timeout errors.
@@ -438,7 +401,7 @@ For authentication failures, ensure credentials are properly configured. Use the
 
 ```yaml
 plugins:
-  - docker-login#v3.1.0:
+  - docker-login#v3.0.0:
       registry: your-registry.example.com
       username: "${REGISTRY_USERNAME}"
       password-env: "REGISTRY_PASSWORD"
@@ -447,14 +410,28 @@ plugins:
       push: app
 ```
 
-For cloud-provider registries, use the appropriate credential propagation:
+For cloud-provider registries, use the appropriate authentication plugins:
 
 ```yaml
 plugins:
+  - ecr#v3.0.0:  # For AWS ECR
+      login: true
+      account-ids: "123456789012"
+      region: us-west-2
   - docker-compose#v5.11.0:
       build: app
-      propagate-aws-auth-tokens: true  # For AWS ECR
-      # or propagate-gcp-auth-tokens: true  # For Google GCR
+      push: app
+```
+
+Or for Google Artifact Registry:
+
+```yaml
+plugins:
+  - gcp-workload-identity-federation#v1.0.0:
+      project-id: your-project
+      service-account: your-service-account@your-project.iam.gserviceaccount.com
+  - docker-compose#v5.11.0:
+      build: app
       push: app
 ```
 
@@ -531,3 +508,61 @@ docker images
 ```
 
 This helps identify issues with the compose configuration itself, separate from pipeline or Kubernetes concerns.
+
+
+
+## Basic Docker Compose build
+
+Build services defined in your `docker-compose.yml` file:
+
+```yaml
+steps:
+  - label: "Build with Docker Compose"
+    plugins:
+      - docker-compose#v5.11.0:
+          build: app
+          config: docker-compose.yml
+```
+
+Sample `docker-compose.yml` file:
+
+```yaml
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: your-registry.example.com/your-team/app:bk-${BUILDKITE_BUILD_NUMBER}
+```
+
+## Building and pushing with the Docker Compose plugin
+
+Build and push images in a single step:
+
+```yaml
+steps:
+  - label: "\:docker\: Build and push"
+    agents:
+      queue: build
+    plugins:
+      - docker-compose#v5.11.0:
+          build: app
+          push: app
+```
+
+If you're using a private repository, add authentication:
+
+```yaml
+steps:
+  - label: "\:docker\: Build and push"
+    agents:
+      queue: build
+    plugins:
+      - docker-login#v3.0.0:
+          registry: your-registry.example.com
+          username: "${REGISTRY_USERNAME}"
+          password-env: "REGISTRY_PASSWORD"
+      - docker-compose#v5.11.0:
+          build: app
+          push: app
+```
