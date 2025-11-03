@@ -9,8 +9,8 @@ Refer to the following documentation for more information:
 
 Learn more about how to restrict your Buildkite Agents' access to deployment environments like AWS, from the OIDC in [Buildkite Pipelines](/docs/pipelines/security/oidc) and with [AWS](/docs/pipelines/security/oidc/aws) documentation pages, as well as the [Buildkite Package Registries](/docs/package-registries/security/oidc) documentation page.
 
->📘
-> Note that as of Agent v3.104.0, OIDC tokens are now automatically redacted from build logs by default, with an optional `skip-redaction` flag to disable this behavior when needed. This behaviour is similar to the [buildkite-agent secret get](/docs/agent/v3/cli-secret) for redacting the token.
+> 📘
+> From version 3.104.0 of the Buildkite Agent, OIDC tokens are automatically redacted from build logs by default, with an optional `skip-redaction` flag to disable this behavior when needed. This behavior is similar to the [buildkite-agent secret get](/docs/agent/v3/cli-secret) command for redacting the token.
 
 ## Request OIDC token
 
