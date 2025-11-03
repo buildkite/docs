@@ -373,6 +373,7 @@
               path: "pipelines/configure/dynamic-pipelines"
             - name: "Buildkite SDK"
               path: "pipelines/configure/dynamic-pipelines/sdk"
+              pill: "preview"
         - name: "Writing build scripts"
           path: "pipelines/configure/writing-build-scripts"
         - name: "Using conditionals"
