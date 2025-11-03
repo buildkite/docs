@@ -1,6 +1,6 @@
 # Alarm and recover actions
 
-When conditions from a [monitor](/docs/test-engine/workflows/monitors) in your test suite's [workflow](/docs/test-engine/workflows) triggers an [_alarm_ or _recover_ action event](/docs/test-engine/workflows#how-they-work), there are several automatic actions that Test Engine can perform.
+When conditions from a [monitor](/docs/test-engine/workflows/monitors) in your test suite's [workflow](/docs/test-engine/workflows) triggers an [_alarm_ or _recover_ action event](/docs/test-engine/workflows#how-they-work), there are several automatic actions that Test Engine can perform. Workflows are subject to a rate limit; see [Rate limit](/docs/test-engine/workflows#rate-limit).
 
 ## Add or remove label
 

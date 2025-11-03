@@ -25,3 +25,7 @@ Repeated occurrences of the test meeting the alarm/recover conditions do not ret
 <%= image "alarm-and-recovery-light.png", class: 'light-only', width: 1424 / 2, height: 1280 / 2, alt: "A diagram showing three tests with different transition count events", align: :center %>
 
 <%= image "alarm-and-recovery-dark.png", class: 'dark-only', width: 1424 / 2, height: 1280 / 2, alt: "A diagram showing three tests with different transition count events", align: :center %>
+
+## Rate limit
+
+Each workflow monitor has a rate limit of 5,000 events per minute across alarm and recover events. If a workflow exceeds this limit within a one minute window, no new alarm or recover events will trigger their configured [actions](/docs/test-engine/workflows/actions) for the remainder of that minute. Event processing resumes in the following minute when usage falls below the limit. To avoid hitting the limit, you can refine your workflow using [tag filters](/docs/test-engine/workflows/monitors#tag-filters) or adjust monitor thresholds.
