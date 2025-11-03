@@ -30,7 +30,7 @@ The reliability of your pipeline is a calculation based on passing vs failing bu
 
 ## Builds per week
 
-The builds per week measurement is calculated based on the average number of builds created over the past 4 weeks on the pipeline's default branch. This metric helps you to understand how frequently a pipeline is run.
+The builds per week measurement is calculated based on the average number of builds created over the past 4 weeks on the pipeline's default branch. This metric helps you to understand how frequently a pipeline is run. Note that if the pipeline's default branch setting is left blank (that is, `None` for no default branch), then this metric is calculated on all branches of this repository.
 
 <%= image "frequency.png", width: 2028/2, height: 880/2, alt: "Screenshot of the builds per week metric" %>
 
