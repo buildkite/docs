@@ -19,7 +19,7 @@ The following steps outlines this remote Docker builder process in more detail:
 
 1. A Buildkite hosted agent encounters a `docker build` command in one of its pipeline jobs, and then the agent generates a [Buildx](https://docs.docker.com/build/concepts/overview/#buildx) configuration to target the remote [builder](https://docs.docker.com/build/builders/) service, which uses [BuildKit](https://docs.docker.com/build/concepts/overview/#buildkit). Learn more about Buildx and BuildKit in [Docker Build overview](https://docs.docker.com/build/concepts/overview/).
 
-1. The remote builder service executes stages in parallel where possible, reusing unchanged layers in your container cache volume and rebuilding images from only new layers that are needed.
+1. The remote builder service executes stages in parallel where possible, reusing unchanged image layers in your container cache volume and rebuilding images from only new layers that are needed.
 
 1. The build outputs from `docker build` are delivered based on flags used on its command, for example, loaded back to the agent with no additional flags, or pushed to a registry or exported to an OCI archive with `--push`.
 
@@ -31,9 +31,9 @@ This section provides more details about the benefits provided by remote Docker 
 
 Remote Docker builders run on remote dedicated machines, which have been optimized for [BuildKit](https://docs.docker.com/build/concepts/overview/#buildkit). Therefore, CPU-bound stages are completed much more rapidly.
 
-Your [container cache volume](/docs/pipelines/hosted-agents/cache-volumes#container-cache) is both shared and persistent. Therefore, incremental builds reliably skip unchanged image layers, which often yields 2-40 times build speed increases.
+Your [container cache volume](/docs/pipelines/hosted-agents/cache-volumes#container-cache) is both shared and persistent, ensuring your job will start and run as quickly as possible. Incremental builds also reliably skip unchanged image layers as they're kept on the dedicated remote Docker builder's local file system, often yielding 2-40 times build speed increases.
 
-Using remote Docker builders with the container cache volume alongside Git mirrors can provide drastic reductions in Job runtimes.
+Using remote Docker builders with the container cache volume alongside Git mirrors can provide drastic reductions in job runtimes.
 
 ### Smaller agents with a simple setup
 
