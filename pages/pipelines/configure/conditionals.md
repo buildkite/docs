@@ -110,9 +110,9 @@ steps:
       - label: "Build and push image"
         command: "docker build -t myapp ."
         plugins:
-          - docker#v5.12.0:
+          - docker#v5.13.0:
               image: "docker:latest"
-          - docker-login#v2.1.0:
+          - docker-login#v3.0.0:
               username: myuser
               password-env: DOCKER_PASSWORD
 ```
@@ -133,9 +133,9 @@ steps:
         - label: "Build and push image"
           command: "docker build -t myapp ."
           plugins:
-            - docker#v5.12.0:
+            - docker#v5.13.0:
                 image: "docker:latest"
-            - docker-login#v2.1.0:
+            - docker-login#v3.0.0:
                 username: myuser
                 password-env: DOCKER_PASSWORD
       EOF
