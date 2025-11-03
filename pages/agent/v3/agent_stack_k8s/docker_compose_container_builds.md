@@ -152,14 +152,50 @@ steps:
             - app:packages.buildkite.com/<organization_slug>/<Registry_name>/<package name>/<image_name>:${BUILDKITE_BUILD_NUMBER}
 ```
 
+## Basic Docker Compose build
 
-### Build-and-push workflow
-
-Build and push images in a single step for complete CI/CD workflows. This is the most common pattern for deploying container images to registries.
+Build services defined in your `docker-compose.yml` file:
 
 ```yaml
 steps:
-  - label: "\:docker\: Build and push to registry"
+  - label: "Build with Docker Compose"
+    plugins:
+      - docker-compose#v5.11.0:
+          build: app
+          config: docker-compose.yml
+```
+
+Sample `docker-compose.yml` file:
+
+```yaml
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: your-registry.example.com/your-team/app:bk-${BUILDKITE_BUILD_NUMBER}
+```
+
+## Building and pushing with the Docker Compose plugin
+
+Build and push images in a single step:
+
+```yaml
+steps:
+  - label: "\:docker\: Build and push"
+    agents:
+      queue: build
+    plugins:
+      - docker-compose#v5.11.0:
+          build: app
+          push: app
+```
+
+If you're using a private repository, add authentication:
+
+```yaml
+steps:
+  - label: "\:docker\: Build and push"
     agents:
       queue: build
     plugins:
@@ -169,9 +205,7 @@ steps:
           password-env: "REGISTRY_PASSWORD"
       - docker-compose#v5.11.0:
           build: app
-          push:
-            - app:your-registry.example.com/your-team/app:${BUILDKITE_BUILD_NUMBER}
-            - app:your-registry.example.com/your-team/app:latest
+          push: app
 ```
 
 
@@ -291,17 +325,6 @@ RUN --mount=type=ssh git clone git@github.com:yourorg/private-lib.git
 
 Automatically pass cloud provider credentials to containers for pushing images to cloud-hosted registries.
 
-For Buildkite Package Registries:
-
-```yaml
-steps:
-  - label: "\:docker\: Build and push to Buildkite Package Registries"
-    plugins:
-      - docker-compose#v5.11.0:
-          build: app
-          push:
-            - app:buildkite-agent/app:${BUILDKITE_BUILD_NUMBER}
-```
 
 For AWS Elastic Container Registry (ECR):
 
@@ -511,58 +534,3 @@ This helps identify issues with the compose configuration itself, separate from 
 
 
 
-## Basic Docker Compose build
-
-Build services defined in your `docker-compose.yml` file:
-
-```yaml
-steps:
-  - label: "Build with Docker Compose"
-    plugins:
-      - docker-compose#v5.11.0:
-          build: app
-          config: docker-compose.yml
-```
-
-Sample `docker-compose.yml` file:
-
-```yaml
-services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: your-registry.example.com/your-team/app:bk-${BUILDKITE_BUILD_NUMBER}
-```
-
-## Building and pushing with the Docker Compose plugin
-
-Build and push images in a single step:
-
-```yaml
-steps:
-  - label: "\:docker\: Build and push"
-    agents:
-      queue: build
-    plugins:
-      - docker-compose#v5.11.0:
-          build: app
-          push: app
-```
-
-If you're using a private repository, add authentication:
-
-```yaml
-steps:
-  - label: "\:docker\: Build and push"
-    agents:
-      queue: build
-    plugins:
-      - docker-login#v3.0.0:
-          registry: your-registry.example.com
-          username: "${REGISTRY_USERNAME}"
-          password-env: "REGISTRY_PASSWORD"
-      - docker-compose#v5.11.0:
-          build: app
-          push: app
-```
