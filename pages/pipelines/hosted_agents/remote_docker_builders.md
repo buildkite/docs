@@ -33,7 +33,7 @@ Remote Docker builders run on remote dedicated machines, which have been optimiz
 
 Your [container cache volume](/docs/pipelines/hosted-agents/cache-volumes#container-cache) is both shared and persistent. Therefore, incremental builds reliably skip unchanged image layers, which often yields 2-40 times build speed increases.
 
-Using remote Docker builders and your container cache volume also complements Git mirrors.
+Using remote Docker builders with the container cache volume alongside Git mirrors can provide drastic reductions in Job runtimes.
 
 ### Smaller agents with a simple setup
 
