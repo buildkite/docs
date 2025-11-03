@@ -14,7 +14,7 @@ apk
 APM
 applesimutils
 Amazon ECR
-Amazon Elastic Continer Registry
+Amazon Elastic Container Registry
 Anthropic's
 Aqua
 architecting
@@ -76,6 +76,7 @@ classpath
 cli
 CLI
 Cloudsmith
+Cognito
 Cloudsmith's
 CloudTrail
 CloudWatch
@@ -123,6 +124,7 @@ Docker-in-Docker
 dogstatsd
 dotenv
 DSCs
+ecr
 enqueued
 Entra
 enum
@@ -231,6 +233,7 @@ mrkdwn
 multi-file
 mutex
 namespace
+Namespace's
 namespaced
 namespaces
 navatar
@@ -386,6 +389,7 @@ UserData
 unarchive
 unarchived
 unarchiving
+Uncomment
 unblocker
 unbuildable
 unclustered
