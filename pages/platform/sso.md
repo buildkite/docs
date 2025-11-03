@@ -80,7 +80,7 @@ You can configure the session duration to any timeout between 6 hours and 8,760 
 
 ## SSO session IP address pinning
 
-> 📘 Enterprise feature
+> 📘 Enterprise plan feature
 > Pinning SSO sessions to IP addresses is only available on an [Enterprise](https://buildkite.com/pricing) plan.
 
 Session IP address pinning prompts users to re-authenticate when their IP address changes. This prevents session hijacking by restricting authorized sessions to only originate from the IP address used to create the session. If any attempt is made to access Buildkite from a different IP address, the session is instantly revoked and the user must re-authenticate. Users must be required to use SSO in the [organization's user settings](https://buildkite.com/organizations/~/users) for SSO session IP address pinning to work for them.

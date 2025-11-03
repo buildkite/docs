@@ -58,6 +58,7 @@ BuildKit
 Buildkite
 Buildkite's
 buildscript
+Buildx
 Bundler
 bursty
 cancelation
