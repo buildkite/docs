@@ -1,6 +1,7 @@
 # Buildkite SDK
 
-> 📘 This feature is currently available in preview. If any issues are encountered, please raise them via a [GitHub Issue](https://github.com/buildkite/buildkite-sdk/issues)
+> 📘
+> The Buildkite SDK feature is currently available as a preview. If you encounter any issues while using the Buildkite SDK, please raise them via a [GitHub Issue](https://github.com/buildkite/buildkite-sdk/issues).
 
 The [Buildkite SDK](https://github.com/buildkite/buildkite-sdk) is an open-source multi-language software development kit (SDK) that makes it easy to script the generation of pipeline steps for dynamic pipelines in native languages. The SDK has simple functions to output and serialize these pipeline steps to YAML or JSON format, which you can then upload to your Buildkite pipeline to execute as part of your pipeline build.
 
