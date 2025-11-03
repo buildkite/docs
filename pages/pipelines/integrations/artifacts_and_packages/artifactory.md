@@ -49,7 +49,7 @@ steps:
     command: "go build -v -o myapp-darwin-amd64"
     artifact_paths: "myapp-darwin-amd64"
     plugins:
-      - docker#v3.3.0:
+      - docker#v5.13.0:
           image: "golang:1.11"
 ```
 {: codeblock-file="pipeline.yml"}
@@ -82,7 +82,7 @@ steps:
       - npm install
       - npm test
     plugins:
-      docker#v3.3.0:
+      docker#v5.13.0:
         image: "node:11"
         environment:
           - NPM_CONFIG_REGISTRY
