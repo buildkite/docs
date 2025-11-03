@@ -69,7 +69,7 @@ steps:
       DOCKER_HOST: tcp://127.0.0.1:2375
 ```
 
-This configuration exposes the Docker daemon on 127.0.0.1:2375 without TLS for use by your build step. For a TLS-enabled TCP listener (commonly 2376), configure dockerd with a TCP host and provide certificates instead of disabling `DOCKER_TLS_CERTDIR`.
+This configuration exposes the Docker daemon on 127.0.0.1:2375 without TLS for use by your build step. For a TLS-enabled TCP listener (commonly 2376), configure docker with a TCP host and provide certificates instead of disabling `DOCKER_TLS_CERTDIR`.
 
 ### Permission handling with the propagate-uid-gid option
 
