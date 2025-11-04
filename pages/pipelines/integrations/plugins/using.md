@@ -12,9 +12,9 @@ When multiple plugins are listed in the same step, they will run in the [order o
 steps:
   - command: yarn install && yarn run test
     plugins:
-      - shellcheck#v1.1.2:
+      - shellcheck#v1.4.0:
           files: scripts/*.sh
-      - docker#v3.3.0:
+      - docker#v5.13.0:
           image: node
           workdir: /app
 ```
@@ -27,9 +27,9 @@ Not all plugins require a `command` attribute, for example:
 ```yml
 steps:
   - plugins:
-      - docker-login#v2.0.1:
+      - docker-login#v3.0.0:
           username: xyz
-      - docker-compose#v3.0.3:
+      - docker-compose#v5.11.0:
           build: app
           image-repository: index.docker.io/myorg/myrepo
 ```
@@ -61,7 +61,7 @@ More commonly, plugins accept various configuration options. For example, the [D
 steps:
   - command: yarn install && yarn run test
     plugins:
-      - docker#v3.3.0:
+      - docker#v5.13.0:
           image: node
           workdir: /app
 ```
@@ -73,7 +73,7 @@ steps:
   # Prebuild the app image, upload it to a registry for later steps
   - label: "\:docker\: Build"
     plugins:
-      - docker-compose#v3.0.3:
+      - docker-compose#v5.11.0:
           build: app
           image-repository: index.docker.io/org/repo
 
@@ -84,7 +84,7 @@ steps:
     command: test.sh
     parallelism: 25
     plugins:
-      - docker-compose#v3.0.3:
+      - docker-compose#v5.11.0:
           run: app
 ```
 
@@ -99,7 +99,7 @@ The following example uses a YAML anchor (`docker`) to remove the need to repeat
 ```yml
 common:
   - docker_plugin: &docker
-      docker#v3.3.0:
+      docker#v5.13.0:
         image: something-quiet
 
 steps:
@@ -122,12 +122,12 @@ steps:
   - label: "Read in isolation"
     command: echo "I'm reading..."
     plugins:
-      docker#v3.3.0:
+      docker#v5.13.0:
         image: something-quiet
   - label: "Read something else"
     command: echo "On to a new book"
     plugins:
-      docker#v3.3.0:
+      docker#v5.13.0:
         image: something-quiet
 ```
 
@@ -142,7 +142,7 @@ common:
   - docker-step: &docker-step
       command: "uname -a"
       plugins:
-        docker#v5.11.0:
+        docker#v5.13.0:
           image: alpine
 
 steps:
@@ -159,11 +159,11 @@ This would result in the `steps` section being expanded to:
 steps:
   - command: "uname -a"
     plugins:
-      docker#v5.11.0:
+      docker#v5.13.0:
         image: alpine
   - command: "date"
     plugins:
-      docker#v5.11.0:
+      docker#v5.13.0:
         image: alpine
 
 ```
@@ -183,7 +183,7 @@ steps:
   - command: yarn install && yarn run test
     plugins:
       # Resolves to https://github.com/buildkite-plugins/docker-buildkite-plugin
-      - docker#v3.3.0:
+      - docker#v5.13.0:
           image: node
           workdir: /app
 ```
@@ -195,7 +195,7 @@ steps:
   - command: yarn install && yarn run test
     plugins:
       # Resolves to https://github.com/my-org/docker-buildkite-plugin
-      - my-org/docker#v3.3.0:
+      - my-org/docker#v5.13.0:
           image: node
           workdir: /app
 ```

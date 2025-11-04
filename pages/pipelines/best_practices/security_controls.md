@@ -36,7 +36,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 - Integrate with a container scanning tool to keep track of a [software bill of materials (SBOM)](https://en.wikipedia.org/wiki/Software_supply_chain) for your packages. For example, see the following list of community-maintained [SBOM generation tools](https://github.com/cybeats/sbomgen?tab=readme-ov-file#list-of-sbom-generation-tools).
 - Use Buildkite's official [security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins) (or [write your own plugin](/docs/pipelines/integrations/plugins/writing)) to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment.
 - Run automated dependency and malware scanning on every merge using established tools such as [GuardDog](https://github.com/DataDog/guarddog), [Snyk](https://snyk.io/), [Aqua Trivy](https://www.aquasec.com/products/trivy/) (also available as a [Trivy Buildkite plugin](https://buildkite.com/resources/plugins/equinixmetal-buildkite/trivy-buildkite-plugin/)), or cloud security services across your software supply chain.
-- Use [pipeline templates](/docs/pipelines/governance/templates) (a [Buildkite Enterprise](https://buildkite.com/pricing/)-only feature), [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), and [agent hooks](/docs/agent/v3/hooks) to ensure security scans cannot be bypassed by modifying `pipeline.yml` files. Use [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all the pipelines in a Buildkite organization.
+- Use [pipeline templates](/docs/pipelines/governance/templates) (a Buildkite [Enterprise](https://buildkite.com/pricing/) plan-only feature), [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), and [agent hooks](/docs/agent/v3/hooks) to ensure security scans cannot be bypassed by modifying `pipeline.yml` files. Use [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all the pipelines in a Buildkite organization.
 - Track dependencies using [Buildkite Annotations](/docs/agent/v3/cli-annotate) to document exact package versions in each build. This creates an auditable record enabling targeted remediation when vulnerabilities are discovered.
 - Establish automated response workflows that trigger [notifications](/docs/pipelines/configure/notifications) and remediation processes when [critical CVEs](https://www.cve.org/) are identified.
 
@@ -82,7 +82,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 
 **Controls:**
 
-- Create API access tokens with only the minimal [required scopes](/docs/apis/managing-api-tokens#token-scopes). Use [portals](/docs/apis/graphql/portals) to limit GraphQL query scope. Review permissions regularly to match current needs.
+- Create API access tokens with only the minimal [required scopes](/docs/apis/managing-api-tokens#token-scopes). Use [portals](/docs/apis/portals) to limit GraphQL query scope. Review permissions regularly to match current needs.
 - Establish [rotation of access tokens](/docs/apis/managing-api-tokens#api-token-security-rotation) with defined expiration periods. Automate rotation where possible to limit exposure windows.
 - Bind access tokens to [specific IP addresses or network segments](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address). Use network address translation (NAT) with centralized egress routing for enhanced monitoring and rapid compromise detection.
 - Deploy access tokens within dedicated virtual private clouds (VPCs) using [Buildkite’s Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security#network-configuration) for network isolation.
@@ -124,8 +124,7 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 
 - Adopt an [infrastructure-as-code (IaC)](https://aws.amazon.com/what-is/iac/) approach and mandate the exclusive use of the [Buildkite Terraform provider](https://buildkite.com/resources/blog/manage-your-ci-cd-resources-as-code-with-terraform/) for all pipeline configuration management, implementing a mandatory two-reviewer approval process for infrastructure changes.
 
-> 📘 On using Buildkite Terraform provider for better security
-> Organizations without proper governance and peer review protocols may have gaps in their security posture. The suggested approach is to create a service account for Terraform that is not tied to any specific user identity using your identity provider. Use this account's API key to make changes (in the pipelines, tokens, etc.) in Terraform through the Buildkite Terraform provider, while enforcing Buildkite's role-based access control capabilities and [GitOps](https://www.redhat.com/en/topics/devops/what-is-gitops) workflows.
+    **Note:** Organizations without proper governance and peer review protocols may have gaps in their security posture. The suggested approach is to create a service account for Terraform that is not tied to any specific user identity using your identity provider. Use this account's API key to make changes (in the pipelines, tokens, etc.) in Terraform through the Buildkite Terraform provider, while enforcing Buildkite's role-based access control capabilities and [GitOps](https://www.redhat.com/en/topics/devops/what-is-gitops) workflows.
 
 - Restrict pipeline configuration access to [Buildkite organization administrators](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions) only by [making your pipelines **Read Only** to your teams](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions).
 - Set zero-tolerance policies for manual pipeline overrides, with any unauthorized modifications triggering immediate alerts within your [security information and event management (SIEM)](https://en.wikipedia.org/wiki/Security_information_and_event_management) system to ensure rapid incident response and maintain configuration integrity.
@@ -155,8 +154,9 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 **Controls:**
 
 - Contact support@buildkite.com immediately upon discovering any security incident. [Enterprise Premium Support](https://buildkite.com/pricing/#premium-support) customers can report an incident through their priority support channel. Early notification allows Buildkite to assist with immediate remediation steps.
-- Buildkite's incident response team can [audit access logs](/docs/platform/audit-log) to identify which users and IP addresses accessed builds containing leaked information. For Enterprise plan customers, older logs can be rehydrated for in-depth forensic analysis.
+- Buildkite's incident response team can [audit access logs](/docs/platform/audit-log) to identify which users and IP addresses accessed builds containing leaked information. For [Enterprise](https://buildkite.com/pricing/) plan customers, older logs can be rehydrated for in-depth forensic analysis.
 
 ## Further questions
 
 If you didn't find coverage of a security-related question that interests you here, feel free to contact support@buildkite.com.
+

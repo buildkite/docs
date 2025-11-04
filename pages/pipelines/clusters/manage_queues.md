@@ -81,7 +81,7 @@ where:
 
 ### Using the GraphQL API
 
-To [create a new self-hosted agent queue](/docs/apis/graphql/schemas/mutation/clusterqueuecreate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+To [create a new self-hosted agent queue](/docs/apis/graphql/cookbooks/clusters#create-a-self-hosted-queue) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
 
 ```graphql
 mutation {
@@ -184,7 +184,7 @@ where:
 
 ### Using the GraphQL API
 
-To [create a new Buildkite hosted queue](/docs/apis/graphql/schemas/mutation/clusterqueuecreate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+To [create a new Buildkite hosted queue](/docs/apis/graphql/cookbooks/hosted-agents#create-a-buildkite-hosted-queue) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
 
 ```graphql
 mutation {
@@ -259,9 +259,6 @@ Specify the appropriate **Instance shape** for the `instanceShape` value in your
 ## Pause and resume a queue
 
 You can pause a queue to prevent any jobs of the cluster's pipelines from being dispatched to agents associated with this queue.
-
-> 📘 Enterprise feature
-> Queue pausing is only available to Buildkite customers with [Pro and Enterprise](https://buildkite.com/pricing) plans.
 
 To pause a queue:
 

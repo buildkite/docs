@@ -1,8 +1,8 @@
 # User, team, and registry permissions
 
-Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage registry permissions using the [_teams_ feature](#manage-teams-and-permissions). This feature allows you to apply access permissions and functionality controls for one or more groups of users (that is, _teams_) on each registry throughout your organization.
+The [_teams_ feature](#manage-teams-and-permissions) allows you to apply access permissions and functionality controls for one or more groups of users (that is, _teams_) on each registry throughout your organization.
 
-Enterprise customers can configure registry permissions for all users across their Buildkite organization through the **Security** page. Learn more about this feature in [Manage organization security for registries](#manage-organization-security-for-registries).
+Enterprise plan customers can configure registry permissions for all users across their Buildkite organization through the **Security** page. Learn more about this feature in [Manage organization security for registries](#manage-organization-security-for-registries).
 
 ## Manage teams and permissions
 
@@ -82,7 +82,7 @@ Another user with **Full Access** to this registry or a [Buildkite organization 
 
 ## Manage organization security for registries
 
-Enterprise customers can configure registry action permissions for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
+Enterprise plan customers can configure registry action permissions for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
 
 These user-level permissions and security features are managed by _Buildkite organization administrators_. To access this feature:
 

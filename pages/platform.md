@@ -6,7 +6,7 @@ template: "landing_page"
 
 The Buildkite Scale-Out Delivery Platform is an adaptable, composable, and scalable platform with everything platform teams need to build software delivery systems for their businesses—and rapidly deliver value to users.
 
-The Buildkite Platform documentation contains docs for _platform_-level features of Buildkite available across Buildkite [Pipelines](/docs/pipelines), [Test Engine](/docs/test-engine), as well as [Package Registries](/docs/package-registries). This area of the docs covers the following topics:
+The Buildkite Platform documentation contains docs for _platform_-level features of Buildkite available across Buildkite [Pipelines](/docs/pipelines), [Test Engine](/docs/test-engine), and [Package Registries](/docs/package-registries). This area of the docs covers the following topics:
 
 - [Team management](/docs/platform/team-management), with guidelines on how to manage your users and teams across the Buildkite platform for Pipelines, Test Engine, and Package Registries.
 

@@ -2,7 +2,7 @@
 
 Buildkite can connect to your GitHub Enterprise Server and use the [GitHub Status API](https://docs.github.com/en/rest/commits/statuses) to update the status of commits in pull requests.
 
-GitHub Enterprise Server is available to Buildkite customers on Pro and Enterprise plans.
+GitHub Enterprise Server is available to Buildkite customers on [Pro and Enterprise](https://buildkite.com/pricing) plans.
 
 > 📘 This guide was written using GitHub Enterprise version 2.16.3.
 > Earlier or later versions may have different menus and headings for the OAuth app registration. All of the Buildkite settings will remain the same.

@@ -227,7 +227,7 @@ steps:
   - wait: ~
     continue_on_failure: true
   - plugins:
-      - junit-annotate#v1.2.0:
+      - junit-annotate#v2.7.0:
           artifacts: tmp/junit-*.xml
 ```
 {: codeblock-file="pipeline.yml"}

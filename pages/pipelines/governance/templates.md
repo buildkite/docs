@@ -1,6 +1,6 @@
 # Pipeline templates
 
-> 📘 Enterprise feature
+> 📘 Enterprise plan feature
 > Pipeline templates are only available on an [Enterprise](https://buildkite.com/pricing) plan.
 
 ## Overview
