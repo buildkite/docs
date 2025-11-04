@@ -55,9 +55,20 @@ For example:
 
 ```yaml
 steps:
-  - label: "\:docker\: Build Docker image"
+  - label: "\:docker\: Build Docker image locally"
     command: |
       export DOCKER_BUILDKIT=0
+      docker build -t my-image:latest .
+```
+
+Or:
+
+```yaml
+steps:
+  - label: "\:docker\: Build Docker image locally"
+    env:
+      DOCKER_BUILDKIT: "0"
+    command: |
       docker build -t my-image:latest .
 ```
 
@@ -71,7 +82,7 @@ For example:
 
 ```yaml
 steps:
-  - label: "\:docker\: Build Docker image"
+  - label: "\:docker\: Build Docker image locally"
     command: |
       docker buildx use default
       docker buildx build --load -t my-image:latest .
