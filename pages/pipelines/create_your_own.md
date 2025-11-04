@@ -92,6 +92,9 @@ If you've configured webhooks, your pipeline will trigger when you push updates 
 
 If you have trouble getting your pipeline to work, don't hesitate to reach out to support at support@buildkite.com for help.
 
+> 📘
+> A pipeline's _slug_, which forms part of the pipeline's URL, is [derived from the pipeline's **Name**](#create-a-pipeline-deriving-a-pipeline-slug-from-the-pipelines-name). If a pipeline's **Name** is changed, this also change's the pipeline's slug accordingly. Be aware, however, that any previous previous pipeline slug that a pipeline had (prior to its name being changed), will automatically redirect to the pipeline's current slug.
+
 ### Using private repositories
 
 When you create a new pipeline with a private repository URL, you'll see instructions for configuring your source control's webhooks. Once you've followed those instructions, ensure your [agent's SSH keys](/docs/agent/v3/ssh-keys) are configured so your agent can check out the repository.
