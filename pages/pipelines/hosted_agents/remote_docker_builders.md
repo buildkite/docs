@@ -13,6 +13,9 @@ The remote builder service also maintains a [cache](https://docs.docker.com/buil
 
 When using remote Docker builders, your first few pipeline builds will typically require more time to complete. However, once the required layers and their images have been built, any subsequent pipeline builds are completed much more rapidly. Learn more about how remote Docker builders improve the speed and performance of your of your pipeline builds in [Benefits of using remote Docker builders](#benefits-of-using-remote-docker-builders).
 
+> 📘
+> Remote Docker builders is a default feature of the Enterprise plan that is used automatically whenever `docker build` commands are encountered natively within Buildkite pipelines. However, this feature can be disabled, so that Docker images are built on the Buildkite hosted agents themselves. Learn more about this process in [Buildkite Docker images on the Buildkite hosted agent](#building-docker-images-on-the-buildkite-hosted-agent).
+
 ## Step-by-step remote Docker builder process
 
 The following steps outlines this remote Docker builder process in more detail:
