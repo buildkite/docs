@@ -381,9 +381,9 @@ To add the Buildkite MCP server extension to Zed:
 1. In the **Configure mcp-server-buildkite** dialog, copy your [configured Buildkite API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) and paste this over the `BUILDKITE_API_TOKEN` value.
 1. Select **Configure Server** to save the changes.
 
-    Your configuration should be saved to the [Zed's main `settings.json` file](http://zed.dev/docs/configuring-zed#settings-files), which is usually located within your home directory's `.config/zed/` folder.
+    Your configuration should be saved to the [Zed's main `settings.json` file](http://zed.dev/docs/configuring-zed#user-settings-file), which is usually located within your home directory's `.config/zed/` folder.
 
-Alternatively, you can copy and paste the following configuration as a new entry to [Zed's main `settings.json` file](http://zed.dev/docs/configuring-zed#settings-files), bearing in mind that if you had previously configured an MCP server in Zed, add just the `"mcp-server-buildkite"` object within the existing `"context_servers"` object of this file.
+Alternatively, you can copy and paste the following configuration as a new entry to [Zed's main `settings.json` file](http://zed.dev/docs/configuring-zed#user-settings-file), bearing in mind that if you had previously configured an MCP server in Zed, add just the `"mcp-server-buildkite"` object within the existing `"context_servers"` object of this file.
 
 ```json
 {
