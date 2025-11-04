@@ -85,7 +85,7 @@ Example Docker Compose step:
 
 ```yaml
 steps:
-  - label: ":docker::rocket:"
+  - label: "Docker :rocket:"
     plugins:
       - docker-compose#v5.11.0:
           build: app
