@@ -52,18 +52,10 @@ env:
 - Keep secrets out of `pipeline.yml` and repositories—use a secrets manager or [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets).
 - Be aware of the OS's limits for environment size; opt for using files instead of variables for large payloads.
 
-## Securing of secrets and cloud access
-
-- Minimize exposure of sensitive credentials by using short-lived tokens and OIDC federation for cloud access instead of long-lived keys.
-- Scope secrets to the minimal set of steps and queues that need them.
-- Rotate the secrets regularly, log access, and audit usage paths.
-
-See more in [Secrets management](/docs/pipelines/best-practices/secrets-management) and [Enforcing security controls](/docs/pipelines/best-practices/security-controls).
-
 ## Optimizing agent hosts and queues for environment needs
 
 - Match your agent infrastructure to your environment requirements by creating specialized [queues](/docs/agent/v3/queues) and minimizing host-level dependencies.
-- Create [queues](/docs/agent/v3/queues) that map to specific environments: OS, CPU/RAM, GPU, network access, trust boundary.
+- Create queues that map to specific environments, for example the OS, CPU/RAM, GPU, network access, trust boundary, and so on.
 - Keep system dependencies in containers when possible.
 - If host-level tooling is required, pin versions and manage via [infrastructure-as-code (IaC)](https://aws.amazon.com/what-is/iac/) approach.
 - Use [ephemeral agents](/docs/pipelines/glossary#ephemeral-agent) for untrusted workloads.
@@ -93,9 +85,9 @@ Example Docker Compose step:
 
 ```yaml
 steps:
-  - label: ":docker: Build"
+  - label: ":docker::rocket:"
     plugins:
-      - docker-compose#v5.5.0:
+      - docker-compose#v5.11.0:
           build: app
           image-repository: "registry.local/your-team/app"
           push: true
@@ -118,9 +110,9 @@ Establish clear patterns for managing environment configuration across your pipe
 
 Integrate security and compliance checks directly into your build process to ensure artifacts meet organizational standards before deployment.
 
-- Sign and verify artifacts as part of the build
-- Generate SBOMs and attach to artifacts
-- Gate promotions on policy checks and required reviews
+- Sign and verify artifacts as part of the build.
+- Generate SBOMs and attach to artifacts.
+- Gate promotions on policy checks and required reviews.
 
 See more on governance in [Governance overview](/docs/pipelines/governance).
 
@@ -128,7 +120,7 @@ See more on governance in [Governance overview](/docs/pipelines/governance).
 
 Monitor and measure your build environments to identify optimization opportunities and track performance over time.
 
-- Emit key build-time environment facts as annotations:
+- Emit key build-time environment facts as [annotations](/docs/agent/v3/cli-annotate):
     * Image digest and source
     * Toolchain versions
     * Cache hit ratios
