@@ -1,17 +1,17 @@
 # Namespace remote builder container builds
 
-[Namespace](https://namespace.so) provides [remote Docker builders](https://namespace.so/docs/solutions/docker-builders) that execute builds on dedicated infrastructure outside your Kubernetes cluster.
+[Namespace](https://namespace.so) provides [remote Docker builders](https://namespace.so/docs/solutions/docker-builders) that execute builds on dedicated infrastructure outside of your Kubernetes cluster.
 
-Unlike [Buildah](/docs/agent/v3/agent-stack-k8s/buildah-container-builds) and [BuildKit](/docs/agent/v3/agent-stack-k8s/buildkit-container-builds) which run builds inside Kubernetes pods, Namespace executes builds on remote compute instances. This eliminates the need for privileged containers, security context configuration, or storage driver setup in your cluster.
+Unlike [Buildah](/docs/agent/v3/agent-stack-k8s/buildah-container-builds) or [BuildKit](/docs/agent/v3/agent-stack-k8s/buildkit-container-builds) which run builds inside Kubernetes pods, Namespace executes builds on remote compute instances. This eliminates the need for privileged containers, security context configuration, or storage driver setup in your cluster.
 
 ## How it works
 
-When using Namespace remote Docker builders with Agent Stack for Kubernetes:
+When using Namespace remote Docker builders with the [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s):
 
 1. The [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) pod authenticates with Namespace (see [Authentication](/docs/agent/v3/agent-stack-k8s/namespace-container-builds#authentication)).
-2. The Namespace CLI (`nsc`) configures [Docker Buildx](https://docs.docker.com/reference/cli/docker/buildx/) to use remote builders.
-3. Namespace runs the actual build workloads remotely while Buildkite continues to orchestrate the pipeline.
-4. Built images are pushed to Namespace's container registry (`nscr.io`) or any other registry.
+1. The Namespace CLI (`nsc`) configures [Docker Buildx](https://docs.docker.com/reference/cli/docker/buildx/) to use remote builders.
+1. Namespace runs the actual build workloads remotely while Buildkite continues to orchestrate the pipeline.
+1. Built images are pushed to Namespace's container registry (`nscr.io`) or any other registry.
 
 ## Prerequisites
 
