@@ -6,6 +6,7 @@ allowlist
 AMI's
 AMIs
 Ansible
+anti-pattern
 API
 API's
 APIs
@@ -13,7 +14,7 @@ apk
 APM
 applesimutils
 Amazon ECR
-Amazon Elastic Continer Registry
+Amazon Elastic Container Registry
 Anthropic's
 Aqua
 architecting
@@ -30,6 +31,7 @@ autogenerates
 automations
 autoscale
 autoscaler
+autoscalers
 Autoscaling
 autoscaling
 aws
@@ -41,6 +43,7 @@ Basecamp
 Basscss
 Bayesian
 Bazel
+Bazel's
 bazelisk
 Bitium
 Bitbucket
@@ -57,6 +60,7 @@ Buildkite's
 buildscript
 Buildx
 Bundler
+bursty
 cancelation
 carthage
 CCMenu
@@ -67,10 +71,12 @@ chatbot
 chroot
 chroots
 CI
+ClamAV
 classpath
 cli
 CLI
 Cloudsmith
+Cognito
 Cloudsmith's
 CloudTrail
 CloudWatch
@@ -88,6 +94,7 @@ config
 configmap
 Containerfile
 Containerfiles
+corepack
 cpu
 cron
 crontab
@@ -118,6 +125,7 @@ Docker-in-Docker
 dogstatsd
 dotenv
 DSCs
+ecr
 enqueued
 Entra
 enum
@@ -150,6 +158,8 @@ gmp
 gnupg
 gotestsum
 gpg
+GPU
+GPUs
 Grafana
 Gradle
 gradle
@@ -157,8 +167,11 @@ Gradle's
 graphql_id
 Graviton
 GRC
+GuardDog
 gz
 gzipped
+hard-code
+hard-coding
 Hashicorp
 Homebrew
 heroku
@@ -202,8 +215,12 @@ linux
 llamasecret
 LLMs
 llvm
+lockfile
+lockfiles
+lockfile‑keyed
 macOS
 macos
+manylinux
 matchfile
 matchers
 Memcache
@@ -212,11 +229,11 @@ misconfiguration
 mitigation
 mitigations
 monorepo
+monorepos
 mrkdwn
 multi-file
 mutex
 namespace
-Namespace
 Namespace's
 namespaced
 namespaces
@@ -235,7 +252,9 @@ nssm
 nullable
 NVMe
 OAuth
+offboarding
 oidc
+onboarding
 Okta
 OpenTelemetry
 opentelemetry
@@ -259,6 +278,7 @@ plaintext
 plist
 png
 pngs
+pnpm
 pod_watcher
 podWatcher
 Postgres
@@ -268,6 +288,7 @@ Prometheus
 protobuf
 preemptible
 prefill
+preprovisioned
 proxied
 pty
 pullrequest
@@ -288,6 +309,8 @@ repo
 reprioritize
 reprioritizes
 resizable
+rollout
+rollouts
 retrigger
 routable
 rpmbuild
@@ -297,11 +320,17 @@ runtimes
 rustup
 rvm
 sandboxed
+SBOM
+SBOMs
 seccomp
 sed
+serverless
 scriptwrapper
+SDK
 SDK's
+SDKs
 sha
+SHAs
 sharding
 Shardy
 shasum
@@ -346,6 +375,8 @@ timeframe
 tmp
 tmux
 tokenization
+toolchain
+toolchains
 toolmantim
 toolset
 toolsets
@@ -359,6 +390,7 @@ UserData
 unarchive
 unarchived
 unarchiving
+Uncomment
 unblocker
 unbuildable
 unclustered
@@ -395,6 +427,7 @@ webtask
 wget
 Windsurf's
 worktree
+worktrees
 workspace's
 xcbeautify
 Xcode

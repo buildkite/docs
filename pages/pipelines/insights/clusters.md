@@ -1,6 +1,6 @@
 # Cluster insights
 
-> 📘 Enterprise feature
+> 📘 Enterprise plan feature
 > The cluster insights dashboard is only available on [Enterprise](https://buildkite.com/pricing) plans.
 
 The _cluster insights_ dashboard provides real-time visibility into your build infrastructure's performance, helping you monitor and optimize your CI/CD workflows. This guide explains how to use and interpret the dashboard's metrics to improve your build system's efficiency.

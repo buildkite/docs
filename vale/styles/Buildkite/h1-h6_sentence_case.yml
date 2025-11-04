@@ -97,6 +97,7 @@ exceptions:
   - Docker Hub
   - ECR
   - EC2
+  - EKS
   - Elastic
   - Elastic CI Stack
   - Enterprise Premium Support
@@ -107,6 +108,7 @@ exceptions:
   - FreeBSD
   - G Suite
   - Git
+  - Git Large File Storage
   - GitHub
   - GitHub Actions
   - GitHub App
@@ -126,6 +128,8 @@ exceptions:
   - Google Kubernetes Engine
   - Google Workspace
   - Governance
+  - GPU
+  - GPUs
   - GraphQL
   - GRC
   - Groovy
@@ -160,6 +164,7 @@ exceptions:
   - limiter
   - Linear
   - Linux
+  - LFS
   - M1
   - Mac
   - macOS
@@ -175,6 +180,7 @@ exceptions:
   - Node.js
   - nodeName
   - nodeSelector
+  - Nomad
   - NuGet
   - OIDC
   - Okta
@@ -205,6 +211,8 @@ exceptions:
   - SAML
   - scheduler
   - SCIM
+  - SDK
+  - SDKs
   - Scripted
   - Sequoia
   - Slack
@@ -233,6 +241,8 @@ exceptions:
   - UUID
   - visionOS
   - Visual Studio Code
+  - VM
+  - VMs
   - VPC
   - VPN
   - watchOS
