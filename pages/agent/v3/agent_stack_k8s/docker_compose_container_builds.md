@@ -149,7 +149,7 @@ steps:
       - docker-compose#v5.11.0:
           build: app
           push:
-            - app:packages.buildkite.com/<organization_slug>/<Registry_name>/<package name>/<image_name>:${BUILDKITE_BUILD_NUMBER}
+            - app:packages.buildkite.com/{org.slug}/{registry.slug}/image-name:${BUILDKITE_BUILD_NUMBER}
 ```
 
 ## Basic Docker Compose build
