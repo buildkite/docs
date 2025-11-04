@@ -42,3 +42,50 @@ Using remote Docker builders means that you can maintain smaller Buildkite hoste
 ### Improved cache hit rates and reproducibility
 
 The remote Docker builders are dedicated machines with their own local file system that temporarily stores their image layers for 30 minutes from each build. Therefore, during periods of time when frequent image builds occur, the availability of stored relevant image layers on this file system improves the reuse of these layers, leading to a greater environmental consistency.
+
+## Building Docker images on the Buildkite hosted agent
+
+When using the `docker build` command in your Buildkite pipelines, you can configure this command to build Docker images on the Buildkite hosted agent itself, by either [disabling BuildKit](#building-docker-images-on-the-buildkite-hosted-agent-disable-buildkit) or [using Buildx and its default local builder](#building-docker-images-on-the-buildkite-hosted-agent-using-buildx-and-its-default-local-builder).
+
+### Disable BuildKit
+
+Disabling BuildKit, which can be done by setting the `DOCKER_BUILDKIT` environment variable value to `0` _before_ running the `docker build` command, results in the Docker image being built on the Buildkite hosted agent.
+
+For example:
+
+```yaml
+steps:
+  - label: "\:docker\: Build Docker image locally"
+    command: |
+      export DOCKER_BUILDKIT=0
+      docker build -t my-image:latest .
+```
+
+Or:
+
+```yaml
+steps:
+  - label: "\:docker\: Build Docker image locally"
+    env:
+      DOCKER_BUILDKIT: "0"
+    command: |
+      docker build -t my-image:latest .
+```
+
+The `my-image:latest` image will be built on the Buildkite hosted agent.
+
+### Using Buildx and its default local builder
+
+Using Buildx and its default local builder (with the [`docker buildx use` command](https://docs.docker.com/reference/cli/docker/buildx/use/)) and then the [`docker buildx build` command](https://docs.docker.com/reference/cli/docker/buildx/build/), results in the Docker image being built on the Buildkite hosted agent, using the agent's local Docker builder.
+
+For example:
+
+```yaml
+steps:
+  - label: "\:docker\: Build Docker image locally"
+    command: |
+      docker buildx use default
+      docker buildx build -t my-image:latest .
+```
+
+The `my-image:latest` image will also be built on the Buildkite hosted agent.
