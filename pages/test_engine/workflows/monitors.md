@@ -1,6 +1,6 @@
 # Monitors
 
-A workflow is configured with a _monitor_, which is a specialized type of observer to your [test suite](/docs/test-engine/test-suites). A monitor observes test [executions](/docs/test-engine/glossary#execution), and surfaces information and trends about the test's performance and reliability over time. Workflows are subject to a rate limit; see [Rate limit](/docs/test-engine/workflows#rate-limit).
+A workflow is configured with a _monitor_, which is a specialized type of observer to your [test suite](/docs/test-engine/test-suites). A monitor observes test [executions](/docs/test-engine/glossary#execution), and surfaces information and trends about the test's performance and reliability over time. Workflows are subject to a rate limit. See [Rate limit](/docs/test-engine/workflows#rate-limit) for more information.
 
 Test Engine supports the following types of monitors:
 
