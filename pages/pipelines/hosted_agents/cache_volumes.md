@@ -18,17 +18,17 @@ Volumes on macOS are a little different, with [sparse bundle disk images](https:
 > Volumes are retained for up to 14 days maximum from their last use. Note that 14 days is not a guaranteed retention duration and that the volumes may be removed before this period ends.
 > Design your workflows to handle cache misses, as volumes are designed for temporary data storage.
 
-## Cache configuration
+## Volume configuration
 
-Cache paths can be [defined in your `pipeline.yml`](/docs/pipelines/configure/defining-steps) file. Defining cache paths for a step will implicitly create a cache volume for the pipeline.
+Volume paths can be [defined in your `pipeline.yml`](/docs/pipelines/configure/defining-steps) file using the `cache` key at the root level of your pipeline YAML, or as an [attribute on a step](/docs/pipelines/configure/step-types). Defining paths for this attribute on a step will implicitly create a volume for the pipeline.
 
-When cache paths are defined, the cache volume is mounted under `/cache` in the agent instance. The agent links subdirectories of the cache volume into the paths specified in the configuration. For example, defining `cache: "node_modules"` in your `pipeline.yml` file will link `./node_modules` to `/cache/bkcache/node_modules` in your agent instance.
+When volume paths are defined, the volume is mounted under `/cache` in the agent instance. The agent links sub-directories of the volume into the paths specified in the configuration. For example, defining `cache: "node_modules"` in your `pipeline.yml` file will link `./node_modules` to `/cache/bkcache/node_modules` in your agent instance.
 
-Custom caches can be created by specifying a name for the cache, which allows you to use multiple cache volumes in a single pipeline.
+Custom volumes can be created by specifying a name for the volume, which allows you to use multiple volumes in a single pipeline.
 
-When requesting a cache volume, you can specify a size. The cache volume provided will have a minimum available storage equal to the specified size. In the case of a cache hit (most of the time), the actual volume size is: last used volume size + the specified size.
+When requesting a volume, you can specify a size. The volume provided will have a minimum available storage equal to the specified size. In the case of a volume hit (most of the time), the actual volume size is: last used volume size + the specified size.
 
-Defining a top-level cache configuration sets the default cache volume for all steps in the pipeline. Any cache defined within a step will be merged with the top-level definition, with step-level cache size taking precedence when the same cache name is specified at both levels. Paths from both levels will be available when using the same cache name.
+Defining a top-level volume configuration (using the `cache` key at the root level of your pipeline YAML) sets the default volume for all steps in the pipeline. Any volume defined within a step will be merged with the top-level volume configuration, with step-level volume size taking precedence when the same volume name is specified at both levels. Paths from both levels will be available when using the same volume name.
 
 ```yaml
 cache:
