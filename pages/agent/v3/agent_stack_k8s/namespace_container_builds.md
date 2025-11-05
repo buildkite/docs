@@ -10,7 +10,7 @@ When using Namespace remote Docker builders with the [Buildkite Agent Stack for 
 
 1. The [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) pod authenticates with Namespace (see [Authentication](/docs/agent/v3/agent-stack-k8s/namespace-container-builds#authentication)).
 1. The Namespace CLI (`nsc`) configures [Docker Buildx](https://docs.docker.com/reference/cli/docker/buildx/) to use remote builders.
-1. Namespace runs the actual build workloads remotely while Buildkite continues to orchestrate the pipeline.
+1. Namespace runs the actual build workloads remotely while Buildkite continues orchestrating the pipeline.
 1. Built images are pushed to Namespace's container registry (`nscr.io`) or any other registry.
 
 ## Prerequisites
@@ -23,7 +23,7 @@ When using Namespace remote Docker builders with the [Buildkite Agent Stack for 
 
 Namespace supports multiple authentication [methods](https://namespace.so/docs/federation).
 
-[Buildkite OIDC](/docs/pipelines/security/oidc) is recommended for most environments. This requires contacting [support@namespace.so](mailto:support@namespace.so) to register `https://agent.buildkite.com` as a trusted issuer for your Namespace tenant.
+[Buildkite OIDC](/docs/pipelines/security/oidc) is recommended for most environments. To be able to start using it with Namespace, you will need to contact [support@namespace.so](mailto:support@namespace.so) to register `https://agent.buildkite.com` as a trusted issuer for your Namespace tenant.
 
 Alternatively, you can use [AWS Cognito federation](https://namespace.so/docs/federation/aws) for EKS clusters using [IAM Roles for Service Accounts (IRSA)](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html).
 
@@ -65,7 +65,7 @@ aws iam create-role \
 # Annotate service account
 kubectl annotate serviceaccount <your-agent-stack-k8s-service-account> \
   -n <your-agent-stack-k8s-namespace> \
-  eks.amazonaws.com/role-arn=arn\:aws\:iam\:\:<account-id>:role/<your-agent-stack-k8s-service-account>
+  eks.amazonaws.com/role-arn=arn\:aws\:iam::<account-id>:role/<your-agent-stack-k8s-service-account>
 ```
 
 For the detailed IAM policy configuration, see [Namespace AWS federation documentation](https://namespace.so/docs/federation/aws).
@@ -243,9 +243,9 @@ This section covers the possible issues that might arise when using Namespace re
 
 ### Authentication fails
 
-- **OIDC "nothing matched" error**: Contact [Namespace support](https://namespace.so/support) to register `https://agent.buildkite.com` as the OIDC issuer, or verify AWS Cognito setup.
-- **Pod using node role**: Verify that the EKS OIDC provider is enabled and the service account has IAM role annotation.
-- **Cognito permission denied**: Ensure that the IAM role policy includes `cognito-identity:GetOpenIdTokenForDeveloperIdentity`.
+- OIDC "nothing matched" error: Contact [Namespace support](https://namespace.so/support) to register `https://agent.buildkite.com` as the OIDC issuer, or verify AWS Cognito setup.
+- Pod using node role: Verify that the EKS OIDC provider is enabled and the service account has IAM role annotation.
+- Cognito permission denied: Ensure that the IAM role policy includes `cognito-identity:GetOpenIdTokenForDeveloperIdentity`.
 
 ### Registry authentication fails
 
