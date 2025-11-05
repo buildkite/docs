@@ -15,7 +15,7 @@ When using Namespace remote Docker builders with the [Buildkite Agent Stack for 
 
 ## Prerequisites
 
-- Namespace account with a workspace ([sign up](https://namespace.so) if you don't have one).
+- Namespace account with a workspace ([sign up](https://cloud.namespace.so/signin) if you don't have one).
 - Custom agent image with Docker CLI, Buildx, and Namespace CLI.
 - Properly configured authentication.
 
@@ -159,7 +159,9 @@ Use this option to use AWS Cognito federation for EKS clusters with IAM Roles fo
 
 Use Buildkite's registry plugins to handle authentication so the step from [Complete pipeline example](#complete-pipeline-example) stays focused on the Namespace build. Add the relevant plugin block beneath the step's `agents` definition.
 
-### Docker Hub [(docker-login plugin)](https://github.com/buildkite-plugins/docker-login-buildkite-plugin)
+### Docker Hub
+
+Use the [docker-login Buildkite plugin](https://github.com/buildkite-plugins/docker-login-buildkite-plugin) to authenticate with Docker Hub before pushing images.
 
 ```yaml
     plugins:
@@ -169,7 +171,9 @@ Use Buildkite's registry plugins to handle authentication so the step from [Comp
           password-env: DOCKER_PASSWORD
 ```
 
-### Amazon ECR [(ecr plugin)](https://github.com/buildkite-plugins/ecr-buildkite-plugin)
+### Amazon ECR
+
+Use the [ECR Buildkite plugin](https://github.com/buildkite-plugins/ecr-buildkite-plugin) to authenticate with Amazon ECR before pushing images.
 
 ```yaml
     plugins:
