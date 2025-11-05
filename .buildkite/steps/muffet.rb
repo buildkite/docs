@@ -108,7 +108,7 @@ end
 report = ""
 if @failed.any?
   report = <<~MARKDOWN
-    ## Muffet found broken links
+    ## Muffet found potentially broken links
 
     Resolve genuine broken links with either a **404** or **id #fragment not found** status first.
 
