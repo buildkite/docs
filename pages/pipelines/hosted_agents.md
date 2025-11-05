@@ -43,6 +43,10 @@ When a Buildkite hosted agent machine is running (during a pipeline build) you c
 
 Buildkite's [macOS](/docs/pipelines/hosted-agents/macos) and [Linux](/docs/pipelines/hosted-agents/linux) hosted agents both provide support for _cache volumes_. Learn more about this feature in [Cache volumes](/docs/pipelines/hosted-agents/cache-volumes), noting that the [container cache](/docs/pipelines/hosted-agents/cache-volumes#container-cache) feature component is only supported by Linux hosted agents.
 
+## Remote Docker builders
+
+Customers on the [Enterprise plan](https://buildkite.com/pricing/) have automatic access to the [remote Docker builders](/docs/pipelines/hosted-agents/remote-docker-builders) feature, which are dedicated machines purpose built to build Docker images. This feature substantially speeds up the build times of pipelines that need to build Docker images.
+
 ## Secret management
 
 _Buildkite secrets_ is a Buildkite secrets management feature designed for Buildkite hosted agents, and is available for self-hosted agents too.

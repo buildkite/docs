@@ -13,6 +13,9 @@ The remote builder service also maintains a [cache](https://docs.docker.com/buil
 
 When using remote Docker builders, your first few pipeline builds will typically require more time to complete. However, once the required layers and their images have been built, any subsequent pipeline builds are completed much more rapidly. Learn more about how remote Docker builders improve the speed and performance of your of your pipeline builds in [Benefits of using remote Docker builders](#benefits-of-using-remote-docker-builders).
 
+> 📘 Default feature
+> Remote Docker builders is a _default feature_ of the Enterprise plan, which means that this feature is used automatically whenever native `docker build` commands are encountered within Buildkite pipelines. However, you can disable this feature, so that Docker images are built on the Buildkite hosted agents themselves. Learn more about how to do this in [Building Docker images on the Buildkite hosted agent](#building-docker-images-on-the-buildkite-hosted-agent).
+
 ## Step-by-step remote Docker builder process
 
 The following steps outlines this remote Docker builder process in more detail:
@@ -45,7 +48,7 @@ The remote Docker builders are dedicated machines with their own local file syst
 
 ## Building Docker images on the Buildkite hosted agent
 
-When using the `docker build` command in your Buildkite pipelines, you can configure this command to build Docker images on the Buildkite hosted agent itself, by either [disabling BuildKit](#building-docker-images-on-the-buildkite-hosted-agent-disable-buildkit) or [using Buildx and its default local builder](#building-docker-images-on-the-buildkite-hosted-agent-using-buildx-and-its-default-local-builder).
+Since [remote Docker builders](#remote-docker-builders-overview) is a [default feature](#default-feature), when using the `docker build` command in your Buildkite pipelines, you can configure this command to build Docker images on the Buildkite hosted agent itself, by either [disabling BuildKit](#building-docker-images-on-the-buildkite-hosted-agent-disable-buildkit) or [using Buildx and its default local builder](#building-docker-images-on-the-buildkite-hosted-agent-using-buildx-and-its-default-local-builder).
 
 ### Disable BuildKit
 
