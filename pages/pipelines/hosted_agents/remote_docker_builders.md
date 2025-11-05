@@ -48,7 +48,7 @@ The remote Docker builders are dedicated machines with their own local file syst
 
 ## Building Docker images on the Buildkite hosted agent
 
-Since [remote Docker builders](#remote-docker-builders-overview) is a [default feature](#default-feature), when using the `docker build` command in your Buildkite pipelines, you can configure this command to build Docker images on the Buildkite hosted agent itself, by either [disabling BuildKit](#building-docker-images-on-the-buildkite-hosted-agent-disable-buildkit) or [using Buildx and its default local builder](#building-docker-images-on-the-buildkite-hosted-agent-using-buildx-and-its-default-local-builder).
+Since [remote Docker builders](#remote-docker-builders-overview) is a [default feature](#default-feature), when using the `docker build` command in your Buildkite pipelines, you can configure this command to build Docker images on the Buildkite hosted agent itself, by either [disabling BuildKit](#building-docker-images-on-the-buildkite-hosted-agent-disable-buildkit) or [using Buildx and its default local builder](#building-docker-images-on-the-buildkite-hosted-agent-use-buildx-and-its-default-local-builder).
 
 ### Disable BuildKit
 
@@ -77,9 +77,9 @@ steps:
 
 The `my-image:latest` image will be built on the Buildkite hosted agent.
 
-### Using Buildx and its default local builder
+### Use Buildx and its default local builder
 
-Using Buildx and its default local builder (with the [`docker buildx use` command](https://docs.docker.com/reference/cli/docker/buildx/use/)) and then the [`docker buildx build` command](https://docs.docker.com/reference/cli/docker/buildx/build/), results in the Docker image being built on the Buildkite hosted agent, using the agent's local Docker builder.
+Using Buildx and its default local builder (with the [`docker buildx use` command](https://docs.docker.com/reference/cli/docker/buildx/use/)) and then the [`docker buildx build` command](https://docs.docker.com/reference/cli/docker/buildx/build/), also results in the Docker image being built on the Buildkite hosted agent.
 
 For example:
 
