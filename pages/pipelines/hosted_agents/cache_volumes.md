@@ -1,22 +1,22 @@
 # Cache volumes
 
-_Cache volumes_ are external volumes attached to hosted agent instances. These volumes are attached on a best-effort basis depending on their locality, expiration and current usage, and therefore, should not be relied upon as durable data storage.
+_Cache volumes_ (also known as _volumes_) are external volumes attached to Buildkite hosted agent instances. These volumes are attached on a best-effort basis depending on their locality, expiration and current usage, and therefore, should not be relied upon as durable data storage.
 
-By default, cache volumes:
+By default, volumes:
 
-- Are disabled, although you can enable them by providing a list of paths to cache at the pipeline- or step-level.
+- Are disabled, although you can enable them by providing a list of paths containing files and data to temporarily store in these volumes at the pipeline- or step-level.
 - Are scoped to a pipeline and are shared between all steps in the pipeline.
 
-Cache volumes act as regular disks with the following properties on Linux:
+Volumes act as regular disks with the following properties on Linux:
 
-- The volumes use NVMe storage, delivering high performance.
-- The volumes are formatted as a regular Linux filesystem (e.g. ext4)—therefore, these volumes support any Linux use-cases.
+- They use NVMe storage, delivering high performance.
+- They are formatted as a regular Linux filesystem (for example, ext4)—therefore, these volumes support any Linux use-cases.
 
-Cache volumes on macOS are a little different, with [sparse bundle disk images](https://en.wikipedia.org/wiki/Sparse_image#Sparse_bundle_disk_images) utilized rather than bind mount volumes. These volumes are managed in the same way as they are for Linux.
+Volumes on macOS are a little different, with [sparse bundle disk images](https://en.wikipedia.org/wiki/Sparse_image#Sparse_bundle_disk_images) being utilized, as opposed to the bind mount volumes used by Linux. However, macOS volumes are managed in the same way as they are for Linux volumes.
 
-> 📘 **Cache volume retention**
-> Cache volumes are retained for up to 14 days maximum from their last use. Note that 14 days is not a guaranteed retention duration and that the cache volumes may be removed before this period ends.
-> Design your workflows to handle cache misses, as cache volumes are designed for temporary data storage.
+> 📘 Volume retention
+> Volumes are retained for up to 14 days maximum from their last use. Note that 14 days is not a guaranteed retention duration and that the volumes may be removed before this period ends.
+> Design your workflows to handle cache misses, as volumes are designed for temporary data storage.
 
 ## Cache configuration
 
