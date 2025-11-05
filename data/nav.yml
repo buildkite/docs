@@ -228,7 +228,7 @@
                   path: "agent/v3/agent-stack-k8s/buildkit-container-builds"
                 - name: "Docker-in-Docker (DinD)"
                   path: "agent/v3/agent-stack-k8s/dind-container-builds"
-                - name: "Namespace Remote Builders"
+                - name: "Namespace remote builders"
                   path: "agent/v3/agent-stack-k8s/namespace-container-builds"
             - name: "Troubleshooting"
               path: "agent/v3/agent-stack-k8s/troubleshooting"

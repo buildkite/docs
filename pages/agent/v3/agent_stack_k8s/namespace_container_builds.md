@@ -65,7 +65,7 @@ aws iam create-role \
 # Annotate service account
 kubectl annotate serviceaccount <your-agent-stack-k8s-service-account> \
   -n <your-agent-stack-k8s-namespace> \
-  eks.amazonaws.com/role-arn=arn:aws:iam::<account-id>:role/<your-agent-stack-k8s-service-account>
+  eks.amazonaws.com/role-arn=arn\:aws\:iam\:\:<account-id>:role/<your-agent-stack-k8s-service-account>
 ```
 
 For the detailed IAM policy configuration, see [Namespace AWS federation documentation](https://namespace.so/docs/federation/aws).
