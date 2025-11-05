@@ -1,10 +1,8 @@
 # BuildKit container builds
 
-[BuildKit](https://docs.docker.com/build/buildkit/) is Docker's next-generation build system that provides advanced features including improved performance, better caching, parallel build execution, and efficient layer management. BuildKit is available through Docker BuildX, which comes pre-installed on all Elastic CI Stack for AWS Linux instances.
+[BuildKit](https://docs.docker.com/build/buildkit/) is Docker's next-generation build system that provides improved performance, better caching, parallel build execution, and efficient layer management. The Elastic CI Stack for AWS includes Docker BuildX (BuildKit) pre-installed on recent Linux AMI versions. BuildKit runs as part of the Docker daemon on EC2 instances.
 
-## BuildKit on Elastic CI Stack for AWS
-
-The Elastic CI Stack for AWS includes Docker BuildX (BuildKit) pre-installed on all Linux instances, providing a modern container build experience without additional setup. BuildKit runs as part of the Docker daemon on EC2 instances, offering improved build performance and advanced features compared to the legacy Docker builder.
+> **Note:** Docker BuildX comes pre-installed on recent Elastic CI Stack for AWS AMI versions. If you're using an older AMI and BuildX is not available, you can either update to the latest AMI version or manually install BuildX following the [Docker BuildX installation documentation](https://docs.docker.com/build/install-buildx/).
 
 ## Using BuildKit with Elastic CI Stack for AWS
 
@@ -16,7 +14,7 @@ You can use BuildKit through Docker BuildX with default settings. This approach 
 
 ```yaml
 steps:
-  - label: ":docker: BuildKit container build"
+  - label: "\:docker\: BuildKit container build"
     agents:
       queue: elastic
     command: |
@@ -30,9 +28,11 @@ steps:
 
 BuildKit supports efficient layer caching to speed up subsequent builds. By default, BuildKit caches layers in the Docker daemon's data directory (`/var/lib/docker` or `/mnt/ephemeral/docker` if instance storage is enabled).
 
+For explicit local cache management within a single job or on long-running agents, you can use the local cache type:
+
 ```yaml
 steps:
-  - label: ":docker: BuildKit build with cache"
+  - label: "\:docker\: BuildKit build with cache"
     agents:
       queue: elastic
     command: |
@@ -46,6 +46,8 @@ steps:
 
 The `mode=max` setting exports all build layers to the cache, providing maximum cache reuse for subsequent builds.
 
+> **Note:** Local cache directories like `/tmp/buildkit-cache` do not persist across instance terminations in autoscaling environments. For persistent cache across builds on different instances, use AWS S3 or registry [remote cache backends](#customizing-builds-using-remote-cache-backends) instead.
+
 ### BuildKit with instance storage
 
 When [instance storage is enabled](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/configuration/docker_configuration#using-instance-storage-for-docker-data) through the `EnableInstanceStorage` CloudFormation parameter, Docker stores images and build cache on high-performance NVMe storage at `/mnt/ephemeral/docker`. This significantly improves build performance for I/O-intensive operations.
@@ -54,11 +56,11 @@ No configuration changes are required in your pipeline YAML—BuildKit automatic
 
 ### BuildKit with multi-platform builds
 
-The Elastic CI Stack for AWS supports building container images for multiple architectures through QEMU emulation (using `binfmt_misc`). This allows building ARM64 images on x86 instances and vice versa.
+The Elastic CI Stack for AWS supports building container images for multiple architectures. BuildKit can build images for platforms different from the host architecture (through QEMU emulation), which is pre-configured on all instances. This allows building ARM64 images on x86 instances and vice versa without additional setup.
 
 ```yaml
 steps:
-  - label: ":docker: Multi-platform build"
+  - label: "\:docker\: Multi-platform build"
     agents:
       queue: elastic
     command: |
@@ -69,27 +71,116 @@ steps:
         .
 ```
 
-For production multi-platform builds, consider using separate agents with native architecture support to avoid emulation overhead.
+For production multi-platform builds, consider using separate agents with native architecture support to avoid emulation overhead, which can significantly impact build performance.
+
+## Building and pushing to Buildkite Package Registries
+
+Buildkite Package Registries provide secure OCI-compliant container image storage integrated with your Buildkite organization. The registry URL format is `packages.buildkite.com/{org.slug}/{registry.slug}`.
+
+### Authentication with OIDC
+
+The recommended authentication method for CI/CD pipelines is OIDC tokens. OIDC tokens are short-lived, automatically issued by the Buildkite agent, and more secure than static API tokens.
+
+```yaml
+steps:
+  - label: "\:docker\: Build and push to Package Registries"
+    agents:
+      queue: elastic
+    env:
+      REGISTRY: "packages.buildkite.com/my-org/my-registry"
+    command: |
+      # Authenticate using OIDC
+      buildkite-agent oidc request-token \
+        --audience "https://${REGISTRY}" \
+        --lifetime 300 | docker login ${REGISTRY} \
+        --username buildkite \
+        --password-stdin
+
+      # Build and push
+      docker buildx build \
+        --tag ${REGISTRY}/myapp:${BUILDKITE_BUILD_NUMBER} \
+        --tag ${REGISTRY}/myapp:latest \
+        --push \
+        --progress=plain \
+        .
+```
+
+> **Note:** OIDC authentication requires configuring an OIDC policy in your registry settings. See the [Package Registries OIDC documentation](/docs/package_registries/security/oidc) for setup instructions.
+
+### Multi-platform builds
+
+Build and push images for multiple architectures to Package Registries:
+
+```yaml
+steps:
+  - label: "\:docker\: Multi-platform build and push"
+    agents:
+      queue: elastic
+    env:
+      REGISTRY: "packages.buildkite.com/my-org/my-registry"
+    command: |
+      # Authenticate
+      buildkite-agent oidc request-token \
+        --audience "https://${REGISTRY}" \
+        --lifetime 300 | docker login ${REGISTRY} \
+        --username buildkite \
+        --password-stdin
+
+      # Build for multiple platforms
+      docker buildx build \
+        --platform linux/amd64,linux/arm64 \
+        --tag ${REGISTRY}/myapp:${BUILDKITE_BUILD_NUMBER} \
+        --push \
+        --progress=plain \
+        .
+```
+
+### Using Package Registries as cache backend
+
+Store BuildKit cache layers in Package Registries alongside your images:
+
+```yaml
+steps:
+  - label: "\:docker\: Build with registry cache"
+    agents:
+      queue: elastic
+    env:
+      REGISTRY: "packages.buildkite.com/my-org/my-registry"
+    command: |
+      # Authenticate
+      buildkite-agent oidc request-token \
+        --audience "https://${REGISTRY}" \
+        --lifetime 300 | docker login ${REGISTRY} \
+        --username buildkite \
+        --password-stdin
+
+      # Build with cache
+      docker buildx build \
+        --cache-from type=registry,ref=${REGISTRY}/myapp:cache \
+        --cache-to type=registry,ref=${REGISTRY}/myapp:cache,mode=max \
+        --tag ${REGISTRY}/myapp:${BUILDKITE_BUILD_NUMBER} \
+        --push \
+        --progress=plain \
+        .
+```
 
 ## Building and pushing to Amazon ECR
 
-The Elastic CI Stack for AWS includes the [ECR plugin](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/plugins/ecr) for seamless Amazon ECR authentication. The plugin automatically authenticates with ECR before your build runs, allowing you to push images directly.
+The Elastic CI Stack for AWS includes the [ECR plugin](https://github.com/buildkite-plugins/ecr-buildkite-plugin) for seamless Amazon ECR authentication. The plugin automatically authenticates with ECR before your build runs, allowing you to push images directly.
 
 ### Basic ECR push
 
 ```yaml
 steps:
-  - label: ":docker: Build and push to ECR"
+  - label: "\:docker\: Build and push to ECR"
     agents:
       queue: elastic
-    plugins:
-      - ecr#v2.9.1:
-          login: true
+    env:
+      REGISTRY: "123456789012.dkr.ecr.us-east-1.amazonaws.com/myapp"
     command: |
-      export IMAGE_TAG="$BUILDKITE_BUILD_NUMBER"
       docker buildx build \
-        --tag 123456789012.dkr.ecr.us-east-1.amazonaws.com/myapp:${IMAGE_TAG} \
-        --tag 123456789012.dkr.ecr.us-east-1.amazonaws.com/myapp:latest \
+        --tag ${REGISTRY}:${BUILDKITE_BUILD_NUMBER} \
+        --tag ${REGISTRY}:latest \
         --push \
         --progress=plain \
         .
@@ -101,19 +192,15 @@ Pass build arguments to customize your build based on Buildkite metadata or envi
 
 ```yaml
 steps:
-  - label: ":docker: Build with args and push to ECR"
+  - label: "\:docker\: Build with args and push to ECR"
     agents:
       queue: elastic
-    plugins:
-      - ecr#v2.9.1:
-          login: true
     command: |
-      export IMAGE_TAG="$BUILDKITE_BUILD_NUMBER"
       docker buildx build \
         --build-arg NODE_ENV=production \
-        --build-arg VERSION=${IMAGE_TAG} \
+        --build-arg VERSION=${BUILDKITE_BUILD_NUMBER} \
         --build-arg BUILD_URL=$BUILDKITE_BUILD_URL \
-        --tag 123456789012.dkr.ecr.us-east-1.amazonaws.com/myapp:${IMAGE_TAG} \
+        --tag 123456789012.dkr.ecr.us-east-1.amazonaws.com/myapp:${BUILDKITE_BUILD_NUMBER} \
         --push \
         --progress=plain \
         .
@@ -125,7 +212,7 @@ For pushing to ECR repositories in different AWS accounts, use the ECR plugin's 
 
 ```yaml
 steps:
-  - label: ":docker: Build and push to cross-account ECR"
+  - label: "\:docker\: Build and push to cross-account ECR"
     agents:
       queue: elastic
     plugins:
@@ -134,11 +221,10 @@ steps:
           account-ids: "999888777666"
           region: us-west-2
           assume_role:
-            role_arn: "arn:aws:iam::999888777666:role/BuildkiteECRAccess"
+            role_arn: "arn\:aws\:iam::999888777666:role/BuildkiteECRAccess"
     command: |
-      export IMAGE_TAG="$BUILDKITE_BUILD_NUMBER"
       docker buildx build \
-        --tag 999888777666.dkr.ecr.us-west-2.amazonaws.com/myapp:${IMAGE_TAG} \
+        --tag 999888777666.dkr.ecr.us-west-2.amazonaws.com/myapp:${BUILDKITE_BUILD_NUMBER} \
         --push \
         --progress=plain \
         .
@@ -160,54 +246,13 @@ docker buildx build \
   .
 ```
 
-### Using build secrets
-
-BuildKit supports secure secret injection without leaking secrets into the image layers. Secrets are mounted during the build but never persisted in the final image.
-
-First, update your Dockerfile to use BuildKit secret syntax:
-
-```dockerfile
-# syntax=docker/dockerfile:1
-FROM alpine
-
-RUN --mount=type=secret,id=npmtoken \
-  npm config set //registry.npmjs.org/:_authToken=$(cat /run/secrets/npmtoken)
-```
-
-Then pass the secret during the build:
-
-```yaml
-steps:
-  - label: ":docker: Build with secrets"
-    agents:
-      queue: elastic
-    plugins:
-      - ecr#v2.9.1:
-          login: true
-    command: |
-      # Retrieve secret from environment or secrets manager
-      echo "$NPM_TOKEN" > /tmp/npmtoken
-
-      docker buildx build \
-        --secret id=npmtoken,src=/tmp/npmtoken \
-        --tag 123456789012.dkr.ecr.us-east-1.amazonaws.com/myapp:latest \
-        --push \
-        --progress=plain \
-        .
-
-      # Clean up secret file
-      rm /tmp/npmtoken
-```
-
-For production use, integrate with the [AWS Secrets Manager plugin](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/plugins/secrets) to securely retrieve secrets.
-
 ### Exporting build artifacts
 
 BuildKit can export build outputs beyond container images, such as compiled binaries or build artifacts.
 
 ```yaml
 steps:
-  - label: ":docker: Export build artifacts"
+  - label: "\:docker\: Export build artifacts"
     agents:
       queue: elastic
     command: |
@@ -230,12 +275,10 @@ For distributed teams or frequently terminated EC2 instances, remote cache backe
 
 ```yaml
 steps:
-  - label: ":docker: Build with S3 cache"
+  - label: "\:docker\: Build with S3 cache"
     agents:
       queue: elastic
     command: |
-      export S3_CACHE="s3://my-buildkit-cache-bucket/myapp"
-
       docker buildx build \
         --cache-from type=s3,region=us-east-1,bucket=my-buildkit-cache-bucket,name=myapp \
         --cache-to type=s3,region=us-east-1,bucket=my-buildkit-cache-bucket,name=myapp,mode=max \
@@ -251,18 +294,16 @@ Store build cache layers in a container registry alongside your images.
 
 ```yaml
 steps:
-  - label: ":docker: Build with registry cache"
+  - label: "\:docker\: Build with registry cache"
     agents:
       queue: elastic
     plugins:
       - ecr#v2.9.1:
           login: true
     command: |
-      export CACHE_IMAGE="123456789012.dkr.ecr.us-east-1.amazonaws.com/myapp-cache"
-
       docker buildx build \
-        --cache-from type=registry,ref=${CACHE_IMAGE}:latest \
-        --cache-to type=registry,ref=${CACHE_IMAGE}:latest,mode=max \
+        --cache-from type=registry,ref=123456789012.dkr.ecr.us-east-1.amazonaws.com/myapp-cache:latest \
+        --cache-to type=registry,ref=123456789012.dkr.ecr.us-east-1.amazonaws.com/myapp-cache:latest,mode=max \
         --tag 123456789012.dkr.ecr.us-east-1.amazonaws.com/myapp:latest \
         --push \
         --progress=plain \
@@ -281,7 +322,7 @@ When user namespace remapping is enabled, Docker containers run as user `100000-
 
 ### Secret management
 
-Never include secrets directly in Dockerfiles or build arguments, as they may be persisted in image layers or build history. Instead, use BuildKit's `--secret` flag with secrets retrieved from AWS Secrets Manager or the Buildkite environment.
+Never include secrets directly in Dockerfiles or build arguments, as they may be persisted in image layers or build history. Instead, use BuildKit's `--secret` flag with secrets retrieved from Buildkite Secrets or the Buildkite environment.
 
 The Elastic CI Stack for AWS provides isolated Docker configurations per job through the `DOCKER_CONFIG` environment variable, ensuring Docker credentials are not leaked between jobs.
 
@@ -291,51 +332,41 @@ Each Buildkite job on the Elastic CI Stack for AWS runs with its own isolated Do
 
 After each job completes, the isolated Docker configuration is automatically cleaned up.
 
-### Network security
-
-BuildKit builds can make network requests during the build process. Use [Docker network configuration](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/configuration/docker_configuration#configuring-docker-networking) to control network access:
-
-- Configure custom Docker network pools to avoid IP conflicts
-- Use AWS security groups to restrict outbound network access from EC2 instances
-- Consider using VPC endpoints for AWS service access to avoid internet routing
-
 ### Image scanning
 
 Integrate container image scanning into your pipeline to detect vulnerabilities before deployment.
 
 ```yaml
 steps:
-  - label: ":docker: Build image"
+  - label: "\:docker\: Build image"
     agents:
       queue: elastic
     plugins:
       - ecr#v2.9.1:
           login: true
     command: |
-      export IMAGE_TAG="$BUILDKITE_BUILD_NUMBER"
       docker buildx build \
-        --tag 123456789012.dkr.ecr.us-east-1.amazonaws.com/myapp:${IMAGE_TAG} \
+        --tag 123456789012.dkr.ecr.us-east-1.amazonaws.com/myapp:${BUILDKITE_BUILD_NUMBER} \
         --push \
         --progress=plain \
         .
 
-  - label: ":shield: Scan image"
+  - label: "\:shield\: Scan image"
     agents:
       queue: elastic
     plugins:
       - ecr#v2.9.1:
           login: true
     command: |
-      export IMAGE_TAG="$BUILDKITE_BUILD_NUMBER"
       # Use AWS ECR image scanning
       aws ecr start-image-scan \
         --repository-name myapp \
-        --image-id imageTag=${IMAGE_TAG}
+        --image-id imageTag=${BUILDKITE_BUILD_NUMBER}
 
       # Or use third-party scanners like Trivy
       docker run --rm \
         aquasec/trivy:latest image \
-        123456789012.dkr.ecr.us-east-1.amazonaws.com/myapp:${IMAGE_TAG}
+        123456789012.dkr.ecr.us-east-1.amazonaws.com/myapp:${BUILDKITE_BUILD_NUMBER}
 ```
 
 ## Performance optimization
@@ -375,11 +406,11 @@ This ordering ensures dependency installation layers are cached and reused acros
 
 Configure cache backends appropriate to your build frequency:
 
-- _Local cache_: fastest access, suitable for long-running instances
-- _S3 cache_: persistent across instance terminations, moderate access speed
-- _Registry cache_: persistent and no additional S3 bucket required, but slower than S3
+- _Local cache_: fastest access, suitable for long-running instances or within a single job
+- _S3 cache_: persistent across instance terminations, good for high-frequency builds
+- _Registry cache_: persistent and no additional infrastructure required, leverages existing container registry
 
-For autoscaling environments where instances frequently terminate, use S3 or registry cache backends to maintain cache between builds.
+For autoscaling environments where instances frequently terminate, use S3 or registry cache backends to maintain cache between builds. Registry cache performance depends on your registry location and network configuration—when using ECR in the same region as your instances, performance is comparable to S3.
 
 ### Parallel multi-stage builds
 
@@ -394,7 +425,7 @@ RUN npm ci
 COPY frontend/ ./
 RUN npm run build
 
-FROM golang:1.21 AS backend-builder
+FROM golang:1.23 AS backend-builder
 WORKDIR /app/backend
 COPY backend/go.mod backend/go.sum ./
 RUN go mod download
@@ -416,54 +447,19 @@ This section describes common issues with BuildKit on the Elastic CI Stack for A
 
 ### BuildKit not available
 
-If `docker buildx` commands fail with "buildx command not found", verify the instance is running a recent AMI version with BuildX pre-installed.
-
-Check BuildX installation:
-
-```bash
-docker buildx version
-```
-
-For older AMIs, manually install BuildX following the [Docker BuildX installation documentation](https://docs.docker.com/build/install-buildx/).
-
-### Permission denied errors
-
-Permission errors during builds typically indicate Docker daemon connectivity issues or file permission problems.
-
-Check Docker daemon status:
-
-```bash
-sudo systemctl status docker
-```
-
-Verify the `buildkite-agent` user is in the `docker` group:
-
-```bash
-groups buildkite-agent
-```
-
-For user namespace remapping issues, review the configuration in `/etc/docker/daemon.json` and verify `/etc/subuid` and `/etc/subgid` are correctly configured.
+If `docker buildx` commands fail with "buildx command not found", your instance is running an older AMI version without BuildX pre-installed.
+Update to the latest Elastic CI Stack for AWS AMI version to get BuildX support.
 
 ### Out of disk space
 
-BuildKit builds can consume significant disk space for layers and cache. The Elastic CI Stack for AWS automatically monitors disk usage and prunes Docker resources when space is low.
+BuildKit builds can consume significant disk space for layers and cache. The Elastic CI Stack for AWS automatically monitors disk usage and prunes Docker resources when space is low. When disk space becomes critically low, the stack fails the current job by default.
 
-Check available disk space:
+Additional CloudFormation parameters are available to handle how the Stack instances responds when disk space management issues are encountered:
 
-```bash
-df -h /var/lib/docker
-# or for instance storage
-df -h /mnt/ephemeral/docker
-```
+- **BuildkitePurgeBuildsOnDiskFull**: Set to `true` to automatically purge build directories when disk space is critically low (default: `false`)
+- **BuildkiteTerminateInstanceOnDiskFull**: Set to `true` to terminate the instance when disk space is critically low, allowing autoscaling to provision a fresh instance (default: `false`)
 
-Manually prune Docker resources if needed:
-
-```bash
-docker system prune --all --volumes --force
-docker builder prune --all --force
-```
-
-Consider enabling instance storage or increasing the root volume size through the `RootVolumeSize` CloudFormation parameter.
+To prevent disk space issues, consider enabling instance storage or increasing the root volume size through the `RootVolumeSize` CloudFormation parameter.
 
 ### Build cache not working
 
@@ -485,27 +481,17 @@ aws s3 ls s3://my-buildkit-cache-bucket/
 docker login 123456789012.dkr.ecr.us-east-1.amazonaws.com
 ```
 
-Enable verbose output to debug cache behavior:
-
-```bash
-docker buildx build \
-  --progress=plain \
-  --cache-from type=registry,ref=myapp:cache \
-  --cache-to type=registry,ref=myapp:cache,mode=max \
-  . 2>&1 | tee build.log
-```
-
 ### Multi-platform build failures
 
-Multi-platform builds using QEMU emulation can fail if the `binfmt_misc` handlers are not properly configured.
+Multi-platform builds are supported out-of-the-box on Elastic CI Stack for AWS through pre-configured QEMU emulation. If multi-platform builds fail, common causes include:
 
-Verify QEMU registration:
+**Memory constraints:** Cross-architecture emulation requires additional memory. Ensure your instance type has sufficient memory for emulated builds.
 
-```bash
-docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-```
+**Build script compatibility:** Some build operations may not work correctly under emulation. Test your build scripts with the target architecture.
 
-For production multi-platform builds, use native architecture agents rather than emulation to avoid performance and compatibility issues.
+**Performance timeouts:** Emulated builds are significantly slower than native builds. Consider increasing timeouts or using native architecture agents for production workloads.
+
+To verify the build works for a specific platform without emulation overhead, use separate agent queues with native architecture instances for each target platform.
 
 ### Secret mount failures
 
@@ -524,18 +510,3 @@ RUN --mount=type=secret,id=npmtoken \
 ```
 
 The `# syntax=docker/dockerfile:1` directive at the beginning of the Dockerfile is required for BuildKit features like secrets.
-
-### Debugging builds
-
-Increase BuildKit output verbosity for debugging:
-
-```bash
-docker buildx build \
-  --progress=plain \
-  --no-cache \
-  . 2>&1 | tee build.log
-```
-
-The `--no-cache` flag forces rebuilding all layers, useful for diagnosing cache-related issues.
-
-For even more detailed output, enable Docker daemon debug logging by setting `"debug": true` in `/etc/docker/daemon.json` (requires sudo access and daemon restart).
