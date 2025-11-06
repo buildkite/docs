@@ -91,6 +91,9 @@ aws s3 cp --acl private --sse aws:kms API_TOKEN "s3://${SecretsBucket}/{pipeline
 
 ### Suppressing SSH key warnings
 
+The Elastic CI Stack for AWS provides several configuration options to customize agent behavior.
+
+
 By default, if your repository uses SSH for transport (the repository URL starts with `git@`) and no SSH key is found in the secrets bucket, the agent displays a warning message. You can suppress this warning using one of the following methods.
 
 #### Using a CloudFormation parameter
