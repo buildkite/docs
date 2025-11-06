@@ -84,6 +84,7 @@ exceptions:
   - CloudWatch
   - CloudWatch Logs
   - CocoaPods
+  - Cognito
   - completion_watcher
   - Comliance
   - CORS
@@ -98,6 +99,7 @@ exceptions:
   - Docker Hub
   - ECR
   - EC2
+  - EKS
   - Elastic
   - Elastic CI Stack
   - Enterprise Premium Support
@@ -175,6 +177,7 @@ exceptions:
   - Mobile Delivery Cloud
   - Model Context Protocol
   - monitor
+  - Namespace
   - NET
   - Node.js
   - nodeName
