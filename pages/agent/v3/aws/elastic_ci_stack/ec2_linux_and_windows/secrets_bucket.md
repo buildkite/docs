@@ -83,25 +83,18 @@ To use pipeline-specific secret files, include the pipeline slug in the path. Re
 aws s3 cp --acl private --sse aws:kms API_TOKEN "s3://${SecretsBucket}/{pipeline-slug}/secret-files/API_TOKEN"
 ```
 
-## Configuration options
+## Configuration options for suppressing SSH key warnings
 
-### Suppressing SSH key warnings
+By default, if your repository uses SSH for transport (the repository URL starts with `git@`) and no SSH key is found in the secrets bucket, the agent will display a warning message. You can suppress this warning using one of the following methods. Use these methods when managing SSH keys through alternative methods such as agent hooks or container images.
 
-The Elastic CI Stack for AWS provides several configuration options to customize agent behavior.
-
-
-By default, if your repository uses SSH for transport (the repository URL starts with `git@`) and no SSH key is found in the secrets bucket, the agent displays a warning message. You can suppress this warning using one of the following methods.
-
-#### Using a CloudFormation parameter
+### Using a CloudFormation parameter
 
 Set the `SecretsPluginSkipSSHKeyNotFoundWarning` parameter to `true` when creating or updating your CloudFormation stack. This configures the warning suppression for all agents in the stack.
 
-#### Using an environment variable
+### Using an environment variable
 
 Set the `BUILDKITE_PLUGIN_S3_SECRETS_SKIP_SSH_KEY_NOT_FOUND_WARNING` environment variable to `true` in your pipeline configuration or agent environment hook:
 
 ```bash
 BUILDKITE_PLUGIN_S3_SECRETS_SKIP_SSH_KEY_NOT_FOUND_WARNING=true
 ```
-
-Use these options when managing SSH keys through alternative methods such as agent hooks or container images.
