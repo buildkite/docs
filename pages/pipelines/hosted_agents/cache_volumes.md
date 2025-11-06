@@ -7,7 +7,7 @@ By default, volumes:
 - Are disabled, although you can enable them by providing a list of paths containing files and data to temporarily store in these volumes at the pipeline- or step-level.
 - Are scoped to a pipeline and are shared between all steps in the pipeline.
 
-Volumes act as regular disks with the following properties on Linux:
+Volumes act as regular disks, and have the following properties on Linux:
 
 - They use NVMe storage, delivering high performance.
 - They are formatted as a regular Linux filesystem (for example, ext4)—therefore, these volumes support any Linux use-cases.
@@ -20,7 +20,7 @@ Volumes on macOS are a little different, with [sparse bundle disk images](https:
 
 ## Volume configuration
 
-Volume paths can be [defined in your `pipeline.yml`](/docs/pipelines/configure/defining-steps) file using the `cache` key at the root level of your pipeline YAML, or as an [attribute on a step](/docs/pipelines/configure/step-types). Defining paths for this attribute on a step will implicitly create a volume for the pipeline.
+Volume paths can be [defined in your `pipeline.yml`](/docs/pipelines/configure/defining-steps) file using the `cache` key at the root level of your pipeline YAML, or as an [attribute on a step](/docs/pipelines/configure/step-types). Defining paths for the `cache` key in your pipeline YAML or attribute on a step will implicitly create a volume for the pipeline.
 
 When volume paths are defined, the volume is mounted under `/cache` in the agent instance. The agent links sub-directories of the volume into the paths specified in the configuration. For example, defining `cache: "node_modules"` in your `pipeline.yml` file will link `./node_modules` to `/cache/bkcache/node_modules` in your agent instance.
 
