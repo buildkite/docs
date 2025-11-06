@@ -23,6 +23,10 @@ Create a [Package Registry](/docs/package-registries) for container images throu
 1. Click **Create Registry**.
 1. Configure an OIDC policy to allow your agents to push images. Select **Settings** > **OIDC Policy** and add:
 
+    OIDC policy configuration:
+
+    This policy allows agents to authenticate using OIDC tokens. It specifies the issuer, required scopes for reading and writing packages, and restricts access to a specific organization, pipeline, and branch.
+
     ```yaml
     - iss: https://agent.buildkite.com
       scopes:
@@ -81,6 +85,10 @@ Chainguard builds and publishes images for Kaniko, but requires a subscription t
 
 If you need to use a specific Kaniko version, a custom configuration, or want to host Kaniko images in your own container registry, you can also build your own images by running the following commands:
 
+Building custom Kaniko images:
+
+These commands clone the Chainguard Kaniko fork, build both the standard executor and debug images, and push them to your container registry.
+
 ```bash
 # Build the latest Kaniko image from the Chainguard fork
 git clone https://github.com/chainguard-dev/kaniko.git
@@ -111,6 +119,10 @@ project-root/
 └── app.js
 ```
 
+Pipeline configuration:
+
+This step defines a pipeline that builds and pushes a Docker image using Kaniko. It sets the package registry name as an environment variable and runs the Kaniko build script.
+
 ```yaml
 steps:
   - label: ":whale: Build and Push with Kaniko"
@@ -120,6 +132,10 @@ steps:
       - bash .buildkite/steps/kaniko.sh
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
+
+Kaniko build script:
+
+This script builds and pushes a Docker image using Kaniko. It generates an image tag from the commit hash and build number, requests an OIDC token for authentication, creates a Docker config file with the token, runs Kaniko to build the image, and then pulls and runs the built image to verify it works.
 
 ```bash
 #!/bin/bash
@@ -182,6 +198,10 @@ DOCKER_CONFIG="$PWD" docker run --rm "${IMG}"
 ```
 {: codeblock-file=".buildkite/steps/kaniko.sh"}
 
+Dockerfile:
+
+This Dockerfile creates a Node.js application image. It uses the Node.js 20 Alpine base image, sets the working directory, copies package files and installs dependencies, copies the application code, and sets the command to run the application.
+
 ```dockerfile
 FROM public.ecr.aws/docker/library/node:20-alpine
 WORKDIR /app
@@ -191,6 +211,10 @@ COPY app.js ./
 CMD ["node","app.js"]
 ```
 {: codeblock-file="Dockerfile"}
+
+Package configuration:
+
+This package.json file defines the Node.js project metadata, including the package name, version, and a start script that runs the application.
 
 ```json
 {
@@ -206,6 +230,10 @@ CMD ["node","app.js"]
 }
 ```
 {: codeblock-file="package.json"}
+
+Application code:
+
+This JavaScript file contains a simple application that prints a message to the console when executed.
 
 ```javascript
 // app.js
@@ -252,6 +280,10 @@ To ensure the authenticity and integrity of Kaniko images, you can [verify their
 
 If you're using Google's final published images (`gcr.io/kaniko-project/executor:v1.24.0`), you can verify their signatures by running the following commands:
 
+Verifying Google's Kaniko image signatures:
+
+This script creates Google's public key file and uses Cosign to verify that the Kaniko image signature is authentic and hasn't been tampered with.
+
 ```bash
 # Verify the Google Kaniko image signature with cosign (public key)
 cat > cosign.pub <<'EOF'
@@ -294,6 +326,10 @@ Then [create the secrets](/docs/pipelines/security/secrets/buildkite-secrets#cre
 
 1. Sign your custom image after building:
 
+    Signing custom Kaniko images:
+
+    These commands retrieve the private signing key from Buildkite Secrets and use Cosign to cryptographically sign your custom Kaniko image, then push the signature to the registry.
+
     ```bash
     # Pull the private key from Buildkite Secrets
     buildkite-agent secret get "kaniko-signing-private-key" > cosign.key
@@ -304,6 +340,10 @@ Then [create the secrets](/docs/pipelines/security/secrets/buildkite-secrets#cre
     ```
 
 1. Verify your custom image before use:
+
+    Verifying custom Kaniko images:
+
+    These commands retrieve the public signing key from Buildkite Secrets and use Cosign to verify that your custom Kaniko image's signature is valid and the image hasn't been modified.
 
     ```bash
     # Pull the public key from Buildkite Secrets
@@ -322,6 +362,10 @@ For an alternative, more modern approach to signing, you can use keyless signing
 > Keyless signing requires authenticating with an OAuth provider (like Google, GitHub, or Microsoft) through [sigstore.dev](https://sigstore.dev/). This means your OAuth identity will be used to create a temporary signing certificate stored in the sigstore's public transparency log. Consider your organization's security policies before using this approach.
 
 To implement keyless signing, run the following commands:
+
+Keyless signing with OIDC:
+
+These commands use Cosign to sign and verify images without managing key pairs. The signing process authenticates with sigstore.dev using OIDC, and verification requires specifying the certificate identity and issuer that were used during signing.
 
 ```bash
 # Keyless signing (requires OIDC authentication with sigstore.dev)
@@ -355,6 +399,10 @@ docker run -it --entrypoint=/busybox/sh gcr.io/kaniko-project/executor:v1.24.0-d
 > Interactive debugging only works when running Docker commands directly on the EC2 instance with the `-it` flags, not when it is executed through pipeline environment. Pipeline builds run non-interactively and cannot provide shell access.
 
 To enable debug mode in your pipeline, set the `KANIKO_DEBUG` environment variable:
+
+Debug mode pipeline configuration:
+
+This pipeline step enables Kaniko debug mode by setting the `KANIKO_DEBUG` environment variable. When enabled, the build script uses the Kaniko debug image which includes additional debugging tools.
 
 ```yaml
 steps:
