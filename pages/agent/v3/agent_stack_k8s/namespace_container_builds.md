@@ -11,11 +11,11 @@ When using Namespace remote Docker builders with the [Buildkite Agent Stack for 
 1. The [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) pod authenticates with Namespace (see [Authentication](/docs/agent/v3/agent-stack-k8s/namespace-container-builds#authentication)).
 1. The Namespace CLI (`nsc`) configures [Docker Buildx](https://docs.docker.com/reference/cli/docker/buildx/) to use remote builders.
 1. Namespace runs the actual build workloads remotely while Buildkite continues orchestrating the pipeline.
-1. Built images are pushed to Namespace's container registry (`nscr.io`) or any other registry.
+1. Built images are pushed to Namespace's container registry or any other registry.
 
 ## Prerequisites
 
-- Namespace account with a workspace ([sign up](https://cloud.namespace.so/signin) if you don't have one).
+- Namespace account with a workspace (you can [sign up for it](https://cloud.namespace.so/signin) if you don't have one).
 - Custom agent image with Docker CLI, Buildx, and Namespace CLI.
 - Properly configured authentication.
 
@@ -34,7 +34,7 @@ Alternatively, you can use [AWS Cognito federation](https://namespace.so/docs/fe
 
 ### Setup
 
-1. Create a [Cognito Identity Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html) and establish trust with Namespace:
+First, create a [Cognito Identity Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html) and establish trust with Namespace:
 
 ```bash
 # Create pool
@@ -51,13 +51,13 @@ nsc auth trust-aws-cognito-identity-pool \
   --tenant_id <workspace-id>
 ```
 
-2. Enable the [EKS OIDC provider](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html) and create an IAM role:
+Next, enable the [EKS OIDC provider](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html) and create an IAM role:
 
 ```bash
 # Enable OIDC
 eksctl utils associate-iam-oidc-provider --cluster <your-cluster-name> --approve
 
-# Create role with Cognito permissions (see AWS documentation for policy details)
+# Create role with Cognito permissions (check the official AWS documentation for policy details)
 aws iam create-role \
   --role-name <your-agent-stack-k8s-service-account> \
   --assume-role-policy-document file://trust-policy.json
@@ -72,7 +72,7 @@ For the detailed IAM policy configuration, see [Namespace AWS federation documen
 
 ## Build custom agent image
 
-Create a Dockerfile that includes Docker CLI, BuildX, and Namespace CLI:
+Create a Dockerfile that includes Docker CLI, Buildx, and Namespace CLI:
 
 ```dockerfile
 # Use the official Buildkite Agent Alpine Kubernetes image as base
@@ -144,7 +144,7 @@ Use this option when [support@namespace.so](mailto:support@namespace.so) has bee
 
 ### AWS Cognito authentication
 
-Use this option to use AWS Cognito federation for EKS clusters with IAM Roles for Service Accounts (IRSA). The Buildkite agent pod authenticates using Cognito, then Namespace provisions the remote builders for the pipeline.
+Use this option to use AWS Cognito federation for EKS clusters with IAM Roles for Service Accounts (IRSA). The Buildkite Agent pod authenticates using Cognito, then Namespace provisions the remote builders for the pipeline.
 
 ```yaml
     command: |
@@ -157,11 +157,11 @@ Use this option to use AWS Cognito federation for EKS clusters with IAM Roles fo
 
 ## Pushing to external registries
 
-Use Buildkite's registry plugins to handle authentication so the step from [Complete pipeline example](#complete-pipeline-example) stays focused on the Namespace build. Add the relevant plugin block beneath the step's `agents` definition.
+Use Buildkite's registry plugins to handle authentication so the step from the [Complete pipeline example](#complete-pipeline-example) stays focused on the Namespace build. Add the relevant plugin block beneath the step's `agents` definition.
 
 ### Docker Hub
 
-Use the [docker-login Buildkite plugin](https://github.com/buildkite-plugins/docker-login-buildkite-plugin) to authenticate with Docker Hub before pushing images.
+Use the [Docker Login Buildkite plugin](https://github.com/buildkite-plugins/docker-login-buildkite-plugin) to authenticate with Docker Hub before pushing images.
 
 ```yaml
     plugins:
@@ -186,7 +186,7 @@ Use the [ECR Buildkite plugin](https://github.com/buildkite-plugins/ecr-buildkit
 
 ## Complete pipeline example
 
-This example shows a full step with Namespace authentication, Buildx setup, and a registry plugin. Uncomment the authentication option and registry plugin that match the environment.
+This example shows a complete step with Namespace authentication, Buildx setup, and a registry plugin. Uncomment the authentication option and registry plugin that match the environment.
 
 ```yaml
 agents:
