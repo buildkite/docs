@@ -30,7 +30,7 @@ Alternatively, you can use [AWS Cognito federation](https://namespace.so/docs/fe
 ## AWS Cognito setup (for EKS)
 
 > 📘
-> When using Buildkite OIDC (recommended), skip to [Build custom agent image](/docs/agent/v3/agent-stack-k8s/namespace-container-builds#build-custom-agent-image).
+> When using Buildkite OIDC (recommended), skip to [Building a custom agent image](/docs/agent/v3/agent-stack-k8s/namespace-container-builds#building-a-custom-agent-image).
 
 ### Setup
 
@@ -70,7 +70,7 @@ kubectl annotate serviceaccount <your-agent-stack-k8s-service-account> \
 
 For the detailed IAM policy configuration, see [Namespace AWS federation documentation](https://namespace.so/docs/federation/aws).
 
-## Build custom agent image
+## Building a custom agent image
 
 Create a Dockerfile that includes Docker CLI, Buildx, and Namespace CLI:
 
@@ -78,7 +78,7 @@ Create a Dockerfile that includes Docker CLI, Buildx, and Namespace CLI:
 # Use the official Buildkite Agent Alpine Kubernetes image as base
 FROM buildkite/agent:alpine-k8s
 
-# Switch to root to install packages
+# Switch to root
 USER root
 
 # Install bash, Docker CLI, and Buildx from the Alpine repositories
@@ -186,7 +186,7 @@ Use the [ECR Buildkite plugin](https://github.com/buildkite-plugins/ecr-buildkit
 
 ## Complete pipeline example
 
-This example shows a complete step with Namespace authentication, Buildx setup, and a registry plugin. Uncomment the authentication option and registry plugin that match the environment.
+The following example shows a complete step with Namespace authentication, Buildx setup, and a registry plugin. Uncomment the authentication option and registry plugin that match the environment.
 
 ```yaml
 agents:
