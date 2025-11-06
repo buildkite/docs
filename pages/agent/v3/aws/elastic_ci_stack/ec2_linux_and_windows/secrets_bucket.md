@@ -1,10 +1,8 @@
----
-toc: false
----
-
 # S3 secrets bucket
 
 The Elastic CI Stack for AWS creates an S3 bucket for you (or uses the one you provide as the `SecretsBucket` parameter). This is where the agent fetches your private SSH keys for source control and environment variables that provide other secrets to your builds.
+
+## S3 secret paths
 
 The following S3 objects are downloaded and processed:
 
@@ -54,10 +52,8 @@ aws s3 cp --acl private --sse aws:kms myenv "s3://${SecretsBucket}/env"
 rm myenv
 ```
 
-> 📘 KMS key limitation
-> Currently (as of June 2021), you must use the default KMS key for S3. Follow [issue #235](https://github.com/buildkite/elastic-ci-stack-for-aws/issues/235) for progress on using specific KMS keys.
-
-To store your secrets unencrypted, set the `BUILDKITE_USE_KMS` environment variable to `false` in your agent configuration or environment hook.
+> 📘
+> Currently only the default KMS key for S3 is supported.
 
 ## Individual secret files
 
