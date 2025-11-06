@@ -61,6 +61,10 @@ steps:
       fi
 ```
 
+## Understanding step states vs job states
+
+The `buildkite-agent step get` command returns step `state` and `outcome` values. The REST and GraphQL APIs return [job states](/docs/pipelines/configure/defining-steps#job-states), which are different. See our definitions of [Step](https://buildkite.com/docs/pipelines/glossary#step) and [Job](https://buildkite.com/docs/pipelines/glossary#job).
+
 ## Canceling a step
 
 Use this command to programmatically cancel all jobs for a step. It is possible to issue graceful and forced cancel commands.
