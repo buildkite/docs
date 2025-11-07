@@ -16,15 +16,15 @@ Volumes on macOS are a little different, with [sparse bundle disk images](https:
 
 > 📘 Volume retention
 > Volumes are retained for up to 14 days maximum from their last use. Note that 14 days is not a guaranteed retention duration and that the volumes may be removed before this period ends.
-> Design your workflows to handle cache misses, as volumes are designed for temporary data storage.
+> Design your workflows to handle volume misses, as volumes are designed for temporary data storage.
 
 ## Volume configuration
 
-Volume paths can be [defined in your `pipeline.yml`](/docs/pipelines/configure/defining-steps) file using the `cache` key at the root level of your pipeline YAML, or as an [attribute on a step](/docs/pipelines/configure/step-types). Defining paths for the `cache` key in your pipeline YAML or attribute on a step will implicitly create a volume for the pipeline.
+Volume paths can be [defined in your `pipeline.yml`](/docs/pipelines/configure/defining-steps) file using the `cache` key at either the root level of your pipeline YAML, or as an [attribute on a step](/docs/pipelines/configure/step-types). Defining paths for the `cache` key in your pipeline YAML or attribute on a step will implicitly create a volume for the pipeline.
 
-When volume paths are defined, the volume is mounted under `/cache` in the agent instance. The agent links sub-directories of the volume into the paths specified in the configuration. For example, defining `cache: "node_modules"` in your `pipeline.yml` file will link `./node_modules` to `/cache/bkcache/node_modules` in your agent instance.
+When volume paths are defined, the volume is mounted under `/cache/bkcache` in the agent instance. The agent links sub-directories of the volume into the paths specified in the configuration. For example, defining `cache: "node_modules"` in your `pipeline.yml` file will link `./node_modules` to `/cache/bkcache/node_modules` in your agent instance.
 
-Custom volumes can be created by specifying a name for the volume, which allows you to use multiple volumes in a single pipeline.
+Volumes can be created by specifying a name for the volume, which allows you to use multiple volumes in a single pipeline.
 
 When requesting a volume, you can specify a size. The volume provided will have a minimum available storage equal to the specified size. In the case of a volume hit (most of the time), the actual volume size is: last used volume size + the specified size.
 
@@ -49,7 +49,7 @@ steps:
       paths:
         - "vendor/bundle"
       size: 20g
-      name: "bundle-cache"
+      name: "bundle-volume"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -59,17 +59,17 @@ steps:
   <tr>
     <td><code>paths</code></td>
     <td>
-      A list of paths to cache. Paths are relative to the working directory of the step.<br>
-      Absolute references can be provided in the cache paths configuration relative to the root of the instance.<br>
+      A list of paths to volume. Paths are relative to the working directory of the step.<br>
+      Absolute references can be provided in the <code>cache</code> paths configuration relative to the root of the instance.<br>
       <em>Example:</em><br>
-      <code>- ".cache"</code><br>
-      <code>- "/tmp/cache"</code><br>
+      <code>- ".volume"</code><br>
+      <code>- "/tmp/volume"</code><br>
     </td>
   </tr>
 </table>
 
 > 📘
-> On [macOS hosted agents](/docs/pipelines/hosted-agents/macos), the instance is a full macOS snapshot, including the standard file system structure. Cache paths cannot be specified on reserved paths, such as `/tmp` and `/private`. However, sub-paths such as `/tmp/cache` are acceptable.
+> On [macOS hosted agents](/docs/pipelines/hosted-agents/macos), the instance is a full macOS snapshot, including the standard file system structure. Volume paths cannot be specified on reserved paths, such as `/tmp` and `/private`. However, sub-paths such as `/tmp/volume` are acceptable.
 
 ### Optional attributes
 
@@ -77,15 +77,15 @@ steps:
   <tr>
     <td><code>name</code></td>
     <td>
-      A name for the cache. This allows for multiple cache volumes to be used in a single pipeline. If no <code>name</code> is specified, the value of this attribute defaults to the pipeline slug.<br>
-      <em>Example:</em> <code>"node-modules-cache"</code><br>
+      A name for the volume. This allows for multiple volumes to be used in a single pipeline. If no <code>name</code> is specified, the value of this attribute defaults to the pipeline slug.<br>
+      <em>Example:</em> <code>"node-modules-volume"</code><br>
     </td>
   </tr>
 
   <tr>
     <td><code>size</code></td>
     <td>
-      The size of the cache volume. The default size is 20 gigabytes, which is also the minimum cache size that can be requested.<br/>Units are in gigabytes, specified as <code>Ng</code>, where <code>N</code> is the size in gigabytes, and <code>g</code> indicates gigabytes.<br>
+      The size of the volume. The default size is 20 gigabytes, which is also the minimum volume size that can be requested.<br/>Units are in gigabytes, specified as <code>Ng</code>, where <code>N</code> is the size in gigabytes, and <code>g</code> indicates gigabytes.<br>
       <em>Example:</em> <code>"20g"</code><br>
     </td>
   </tr>
@@ -93,33 +93,33 @@ steps:
 
 ## Lifecycle
 
-At any point in time, multiple versions of a cache volume may be used by different jobs.
+At any point in time, multiple versions of a volume may be used by different jobs.
 
-The first request creates the first version of the cache volume, which is used as the parent of subsequent _forks_ until a new parent version is committed. A _fork_ in this context is a "moment", or a readable/writable "snapshot", version of the cache volume in time.
+The first request creates the first version of the volume, which is used as the parent of subsequent _forks_ until a new parent version is committed. A _fork_ in this context is a "moment", or a readable/writable "snapshot", version of the volume in time.
 
-When requesting a cache volume, a fork of the previous cache volume version is attached to the agent instance. This is the case for all cache volumes, except for the first request, which starts empty, with no cache volumes attached.
+When requesting a volume, a fork of the previous volume version is attached to the agent instance. This is the case for all volumes, except for the first request, which starts empty, with no volumes attached.
 
-Each job gets its own private copy of the cache volume, as it existed at the time of the last cache commit.
+Each job gets its own private copy of the volume, as it existed at the time of the last committed volume version.
 
-Version commits follow a "last write" model: whenever a job terminates successfully (that is, exits with exit code `0`), cache volumes attached to that job have a new parent committed: the final flushed volume of the exiting agent instance.
+Version commits follow a "last write" model—whenever a job terminates successfully (that is, exits with exit code `0`), volumes attached to that job have a new parent committed—the final flushed volume of the exiting agent instance.
 
-Whenever a job fails, the cache volume versions attached to the agent instance are abandoned.
+Whenever a job fails, the volume versions attached to the agent instance are abandoned.
 
-## Git mirror cache
+## Git mirror volume
 
-The Git mirror cache is a specialized type of cache volume designed to accelerate Git operations by caching the Git repository between builds. This is useful for large repositories that are slow to clone.
+The Git mirror volume is a specialized type of volume designed to accelerate Git operations by caching the Git repository between builds. This is useful for large repositories that are slow to clone.
 
-Git mirror caching can be enabled on the cluster's cache volumes settings page. Once enabled, the Git mirror cache will be used for all hosted jobs in that cluster. A separate cache volume will be created for each repository.
+The Git mirror volume feature can be enabled on the cluster's **Cached Storage** > **Settings** page. Once enabled, the Git mirror volume will be used for all Buildkite hosted agent jobs in that cluster. A separate volume will be created for each repository.
 
 <%= image "hosted-agents-git-mirror.png", width: 1760, height: 436, alt: "Hosted agents git mirror setting displayed in the Buildkite UI" %>
 
 ## Container cache
 
-The container cache can be used to cache Docker images between builds.
+The container cache is a type of volume used to cache Docker images between builds.
 
 > 📘
 > This feature is only available to [Linux hosted agents](/docs/pipelines/hosted-agents/linux).
 
-Container caching can be enabled on the cluster's cache volumes settings page. Once enabled, a container cache will be used for all hosted jobs in that cluster. A separate cache volume will be created for each pipeline.
+The container caching feature can be enabled on the cluster's **Cached Storage** > **Settings** page. Once enabled, a container cache will be used for all Buildkite hosted agent jobs in that cluster. A separate volume will be created for each pipeline.
 
 <%= image "hosted-agents-container-caching.png", width: 1760, height: 436, alt: "Hosted agents container cache setting displayed in the Buildkite UI" %>
