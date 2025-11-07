@@ -105,21 +105,21 @@ Version commits follow a "last write" model—whenever a job terminates successf
 
 Whenever a job fails, the volume versions attached to the agent instance are abandoned.
 
-## Git mirror volume
+## Git mirror volumes
 
-The Git mirror volume is a specialized type of volume designed to accelerate Git operations by caching the Git repository between builds. This is useful for large repositories that are slow to clone.
+Git mirror volumes are specialized types of volumes designed to accelerate Git operations by caching the Git repository between builds. This is useful for large repositories that are slow to clone.
 
-The Git mirror volume feature can be enabled on the cluster's **Cached Storage** > **Settings** page. Once enabled, the Git mirror volume will be used for all Buildkite hosted agent jobs in that cluster. A separate volume will be created for each repository.
+The Git mirror volumes feature can be enabled on the cluster's **Cached Storage** > **Settings** page. Once enabled, Git mirror volumes will be used for all Buildkite hosted agent jobs in that cluster. A separate volume is created for each repository.
 
 <%= image "hosted-agents-git-mirror.png", width: 1760, height: 436, alt: "Hosted agents git mirror setting displayed in the Buildkite UI" %>
 
-## Container cache
+## Container cache volumes
 
-The container cache is a type of volume used to cache Docker images between builds.
+Container cache volumes are types of volumes used to cache Docker images between builds.
 
 > 📘
 > This feature is only available to [Linux hosted agents](/docs/pipelines/hosted-agents/linux).
 
-The container caching feature can be enabled on the cluster's **Cached Storage** > **Settings** page. Once enabled, a container cache will be used for all Buildkite hosted agent jobs in that cluster. A separate volume will be created for each pipeline.
+The container caching volumes feature can be enabled on the cluster's **Cached Storage** > **Settings** page. Once enabled, container cache volumes will be used for all Buildkite hosted agent jobs in that cluster. A separate volume is created for each pipeline.
 
 <%= image "hosted-agents-container-caching.png", width: 1760, height: 436, alt: "Hosted agents container cache setting displayed in the Buildkite UI" %>
