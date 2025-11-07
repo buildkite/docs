@@ -2,8 +2,8 @@
 
 _Remote Docker builders_ are dedicated machines available to [Buildkite hosted agents](/docs/pipelines/hosted-agents), which are specifically designed and configured to handle the [building of Docker images](https://docs.docker.com/build/) with the `docker build` command. This feature substantially speeds up the build times of pipelines that need to build Docker images.
 
-> 📘 Enterprise plan feature
-> The remote Docker builders feature is available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan, and becomes automatically available to existing customers who upgrade to this plan, as well as all new Buildkite customers who sign up to the Enterprise plan.
+> 📘 Default Enterprise plan feature
+> Remote Docker builders is a _default feature_ available to all new and existing Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan. This means that for Enterprise plan customers, this feature is used automatically whenever native `docker build` commands are encountered within Buildkite pipelines. However, you can disable this feature, so that Docker images are built on the Buildkite hosted agents themselves. Learn more about how to do this in [Building Docker images on the Buildkite hosted agent](#building-docker-images-on-the-buildkite-hosted-agent).
 
 ## Remote Docker builders overview
 
@@ -12,9 +12,6 @@ When using the remote Docker builders feature, any `docker build` commands withi
 The remote builder service also maintains a [cache](https://docs.docker.com/build/cache/) of its built image layers (stored in the builder service's local file system, and in your [container cache volumes](/docs/pipelines/hosted-agents/cache-volumes#container-cache-volumes)). Images already stored in this local file system usually don't need to be re-built upon a `docker build` call, and any images in your container cache volumes can be pulled to jobs requesting them, which in turn, speeds up your overall pipeline builds, since your Buildkite hosted agents running these pipelines are free to build the rest of your pipeline and conduct other work.
 
 When using remote Docker builders, your first few pipeline builds will typically require more time to complete. However, once the required layers and their images have been built, any subsequent pipeline builds are completed much more rapidly. Learn more about how remote Docker builders improve the speed and performance of your of your pipeline builds in [Benefits of using remote Docker builders](#benefits-of-using-remote-docker-builders).
-
-> 📘 Default feature
-> Remote Docker builders is a _default feature_ of the Enterprise plan, which means that this feature is used automatically whenever native `docker build` commands are encountered within Buildkite pipelines. However, you can disable this feature, so that Docker images are built on the Buildkite hosted agents themselves. Learn more about how to do this in [Building Docker images on the Buildkite hosted agent](#building-docker-images-on-the-buildkite-hosted-agent).
 
 ## Step-by-step remote Docker builder process
 
@@ -44,11 +41,11 @@ Using remote Docker builders means that you can maintain smaller Buildkite hoste
 
 ### Improved cache hit rates and reproducibility
 
-The remote Docker builders are dedicated machines with their own local file system that temporarily stores their image layers for 30 minutes from each build. Therefore, during periods of time when frequent image builds occur, the availability of stored relevant image layers on this file system improves the reuse of these layers, leading to a greater environmental consistency.
+The remote Docker builders are dedicated machines with their own local file system cache that temporarily stores their image layers for 30 minutes from each build. Therefore, during periods of time when frequent image builds occur, the availability of stored relevant image layers on this file system improves the reuse of these layers, leading to a greater environmental consistency.
 
 ## Building Docker images on the Buildkite hosted agent
 
-Since [remote Docker builders](#remote-docker-builders-overview) is a [default feature](#default-feature), when using the `docker build` command in your Buildkite pipelines, you can configure this command to build Docker images on the Buildkite hosted agent itself, by either [disabling BuildKit](#building-docker-images-on-the-buildkite-hosted-agent-disable-buildkit) or [using Buildx and its default local builder](#building-docker-images-on-the-buildkite-hosted-agent-use-buildx-and-its-default-local-builder).
+Since [remote Docker builders](#remote-docker-builders-overview) is a [default Enterprise plan feature](#default-enterprise-plan-feature), when using the `docker build` command in your Buildkite pipelines, you can configure this command to build Docker images on the Buildkite hosted agent itself, by either [disabling BuildKit](#building-docker-images-on-the-buildkite-hosted-agent-disable-buildkit) or [using Buildx and its default local builder](#building-docker-images-on-the-buildkite-hosted-agent-use-buildx-and-its-default-local-builder).
 
 ### Disable BuildKit
 
