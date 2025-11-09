@@ -671,7 +671,7 @@
           path: "test-engine/workflows/monitors"
         - name: "Actions"
           path: "test-engine/workflows/actions"
-      pill: "new"
+      pill: "preview"
     - name: "Test Engine Client (bktec)"
       children:
         - name: "Configuring"
