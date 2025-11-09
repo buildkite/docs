@@ -46,6 +46,9 @@ Learn more about test execution tagging in [Tags](/docs/test-engine/test-suites/
 > 📘
 > A label added to a test through a test execution tag is automatically removed when the tag is removed from the test execution.
 
+> ⚠️ **Branch limitation**
+> Labels are only applied from execution tags when tests run on the default branch or a merge queue branch. Tests running on other branches (such as feature branches) will not have labels automatically applied from their execution tags.
+
 ### Using the REST API
 
 You can label tests using the [REST API](/docs/apis/rest-api) with the [Tests API](/docs/apis/rest-api/test-engine/tests) endpoint. Learn more about this in [Add/remove labels from a test](/docs/apis/rest-api/test-engine/tests#add-or-remove-labels-from-a-test).
