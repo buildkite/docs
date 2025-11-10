@@ -57,7 +57,7 @@ steps:
 
 ### Reusing volumes
 
-If you have defined one or more volumes in one pipeline (such as the one in the [pipeline example above](#volume-configuration)), you can use the [optional `names` attribute](#volume-configuration-optional-attributes) to re-use these volumes in other pipelines. For example, if this pipeline example had already been built at least once, then building the following pipeline example would result in it also being able to use the volume named `bundle-volume`.
+If you have defined one or more volumes in one pipeline (such as the one in the [pipeline example above](#volume-configuration)), you can use the [optional `names` attribute](#volume-configuration-optional-attributes) to help you re-use the same volumes in other pipelines. For example, if the pipeline above had already been built at least once, then building the following pipeline example would result in it also being able to use the volume named `bundle-volume`.
 
 ```yaml
 cache:
