@@ -1,6 +1,6 @@
 # Cache volumes
 
-_Cache volumes_ (also known as _volumes_) are external volumes attached to Buildkite hosted agent instances. These volumes are attached on a best-effort basis depending on their locality, expiration and current usage, and therefore, should not be relied upon as durable data storage.
+_Cache volumes_ (also known as _volumes_) are external volumes attached to Buildkite hosted agent instances, and are scoped to specific [Buildkite clusters](/docs/pipelines/clusters). These volumes are attached on a best-effort basis depending on their locality, expiration and current usage, and therefore, should not be relied upon as durable data storage.
 
 Volumes are useful if your pipeline builds on Buildkite hosted agents have jobs that make use of build dependencies, use Docker images, which can be stored in [container cache volumes](#container-cache-volumes), or Git mirrors, which can be stored in [Git mirror volumes](#git-mirror-volumes). Managing build dependencies, Docker images, and Git mirrors in volumes can greatly speed up the duration of your overall pipeline builds.
 
@@ -68,7 +68,7 @@ steps:
       <em>Example:</em><br/>
       <code>- ".volume"</code><br/>
       <code>- "/tmp/volume"</code><br/>
-      Be aware that if you do not need to include other <a href="#volume-configuration-optional-attributes">optional attributes</a> and you only need to define a single path for your volume, you can omit this attribute, and add your path to the end of the <code>cache</code> attribute.<br/>
+      Be aware that if you do not need to include other <a href="#volume-configuration-optional-attributes">optional attributes</a> and you only need to define a single path for your volume, you can omit this <code>paths</code> attribute, and simply add your path to the end of the <code>cache</code> attribute or key.<br/>
       <em>Example:</em><br/>
       <code>cache: ".volume"</code>
     </td>
@@ -133,7 +133,7 @@ Whenever a job fails, the volume versions attached to the agent instance are aba
 
 Volumes, by their very nature, only provide _non-deterministic_ access to their data. This means that when you issue a command to retrieve data from a volume, for example, a previously built Docker image using a `docker pull` command in a Buildkite pipeline, for a previously built image from the [container cache volume](#container-cache-volumes), this command may instead retrieve the image from a different source, such as the [remote Docker builder's](/docs/pipelines/hosted-agents/remote-docker-builders) [local storage/file system](/docs/pipelines/hosted-agents/remote-docker-builders#benefits-of-using-remote-docker-builders-improved-cache-hit-rates-and-reproducibility), which could be very fast, or Docker Hub, which could be very slow by comparison due to bandwidth limitations.
 
-This phenomenon happens because a volume's data availability depends on two factors:
+This behavior results from a volume's data availability, which depends on the following factors:
 
 - How often the volume is used.
 - How often the data on the volume is changed.
@@ -149,14 +149,22 @@ Container cache volumes are types of volumes used to cache Docker images between
 > 📘
 > This feature is only available to [Linux hosted agents](/docs/pipelines/hosted-agents/linux).
 
-The container caching volumes feature can be enabled on the cluster's **Cached Storage** > **Settings** page. Once enabled, container cache volumes will be used for all Buildkite hosted agent jobs in that cluster. A separate volume is created for each pipeline.
+The container caching volumes feature can be enabled on the cluster's **Cached Storage** > **Settings** page. Once enabled, container cache volumes will be used for all Buildkite hosted agent jobs in that cluster. A separate volume is created for each pipeline, and is done so upon the pipeline being built for the first time.
 
 <%= image "hosted-agents-container-caching.png", width: 1760, height: 436, alt: "Hosted agents container cache setting displayed in the Buildkite UI" %>
+
+A container cache volume's name is based on your pipeline's slug followed by a slash, then "container-cache". For example, **pipeline-slug/container-cache**.
+
+You can view all of your current cluster's volumes through its **Cached Storage** > **Volumes** page.
 
 ## Git mirror volumes
 
 Git mirror volumes are specialized types of volumes designed to accelerate Git operations by caching the Git repository between builds. This is useful for large repositories that are slow to clone.
 
-The Git mirror volumes feature can be enabled on the cluster's **Cached Storage** > **Settings** page. Once enabled, Git mirror volumes will be used for all Buildkite hosted agent jobs in that cluster. A separate volume is created for each repository.
+The Git mirror volumes feature can be enabled on the cluster's **Cached Storage** > **Settings** page. Once enabled, Git mirror volumes will be used for all Buildkite hosted agent jobs in that cluster. A separate volume is created for each repository, and is done so upon the first pipeline (whose source is the repository) being built for the first time.
 
 <%= image "hosted-agents-git-mirror.png", width: 1760, height: 436, alt: "Hosted agents git mirror setting displayed in the Buildkite UI" %>
+
+A Git mirror volume's name is based on your cloud-based Git service's account and repository name, and begins with "buildkite-git-mirror-". For example, **buildkite-git-mirror-my-account-my-repository**.
+
+You can view all of your current cluster's volumes through its **Cached Storage** > **Volumes** page.
