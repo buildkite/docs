@@ -26,11 +26,13 @@ Volume paths can be [defined in your `pipeline.yml`](/docs/pipelines/configure/d
 
 When volume paths are defined, the volume is mounted under `/cache/bkcache` in the agent instance. The agent links sub-directories of the volume into the paths specified in the configuration. For example, defining `cache: "node_modules"` in your `pipeline.yml` file will link `./node_modules` to `/cache/bkcache/node_modules` in your agent instance.
 
-Volumes can be created by specifying a name for the volume, which allows you to use multiple volumes in a single pipeline, or have multiple pipelines share a single volume. Learn more about this in [Reusing volumes](#volume-configuration-reusing-volumes).
+Volumes can be created by specifying a name for the volume, which allows you to use multiple volumes in a single pipeline, or have multiple pipelines share a single volume. Learn more about this in [Reusing volumes across multiple pipelines](#volume-configuration-reusing-volumes-across-multiple-pipelines).
 
 When requesting a volume, you can specify a size. The volume provided will have a minimum available storage equal to the specified size. In the case of a volume hit (most of the time), the actual volume size is: last used volume size + the specified size.
 
 Defining a top-level volume configuration (using the `cache` key at the root level of your pipeline YAML) sets the default volume for all steps in the pipeline. Any volume defined within a step will be merged with the top-level volume configuration, with step-level volume size taking precedence when the same volume name is specified at both levels. Paths from both levels will be available when using the same volume name.
+
+### Example
 
 ```yaml
 cache:
@@ -52,22 +54,6 @@ steps:
         - "vendor/bundle"
       size: 20g
       name: "bundle-volume"
-```
-{: codeblock-file="pipeline.yml"}
-
-### Reusing volumes
-
-If you have defined one or more volumes in one pipeline (such as the one in the [pipeline example above](#volume-configuration)), you can use the [optional `names` attribute](#volume-configuration-optional-attributes) to help you re-use the same volumes in other pipelines. For example, if the pipeline above had already been built at least once, then building the following pipeline example would result in it also being able to use the volume named `bundle-volume`.
-
-```yaml
-cache:
-  paths:
-    - "vendor/bundle"
-  size: 20g
-  name: "bundle-volume"
-
-steps:
-  ...
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -95,7 +81,7 @@ steps:
   <tr>
     <td><code>name</code></td>
     <td>
-      A name for the volume. This allows for multiple volumes to be used in a single pipeline. If no <code>name</code> is specified, the value of this attribute defaults to the pipeline slug.<br>
+      A name for the volume. This allows you to use multiple volumes in a single pipeline. If no <code>name</code> is specified, the value of this attribute defaults to the pipeline slug.<br>
       <em>Example:</em> <code>"node-modules-volume"</code><br>
     </td>
   </tr>
@@ -108,6 +94,22 @@ steps:
     </td>
   </tr>
 </table>
+
+### Reusing volumes across multiple pipelines
+
+If you have defined one or more volumes in one pipeline (such as the one in the [pipeline example above](#volume-configuration-example)), you can use the [optional `names` attribute](#volume-configuration-optional-attributes) to re-use the same volumes in other pipelines. For example, if the [pipeline above](#volume-configuration-example) had already been built at least once, then building the following pipeline example would result in it also being able to use the volume named `bundle-volume`.
+
+```yaml
+cache:
+  paths:
+    - "vendor/bundle"
+  size: 20g
+  name: "bundle-volume"
+
+steps:
+  ...
+```
+{: codeblock-file="pipeline.yml"}
 
 ## Lifecycle
 
@@ -125,7 +127,7 @@ Whenever a job fails, the volume versions attached to the agent instance are aba
 
 ### Non-deterministic nature
 
-Volumes, by their very nature, only provide _non-deterministic_ access to their data. This means that when you issue a command to retrieve data from a volume, for example, a previously built Docker image using a `docker pull` command in a Buildkite pipeline, with the intention that the image is retrieved from a [container cache volume](#container-cache-volumes), this command may instead retrieve the image from a different source, such as the [remote Docker builder's](/docs/pipelines/hosted-agents/remote-docker-builders) [local storage/file system](/docs/pipelines/hosted-agents/remote-docker-builders#benefits-of-using-remote-docker-builders-improved-cache-hit-rates-and-reproducibility), which could be very fast, or Docker Hub, which could be very slow by comparison due to bandwidth limitations.
+Volumes, by their very nature, only provide _non-deterministic_ access to their data. This means that when you issue a command to retrieve data from a volume, for example, a previously built Docker image using a `docker pull` command in a Buildkite pipeline, for a previously built image from the [container cache volume](#container-cache-volumes), this command may instead retrieve the image from a different source, such as the [remote Docker builder's](/docs/pipelines/hosted-agents/remote-docker-builders) [local storage/file system](/docs/pipelines/hosted-agents/remote-docker-builders#benefits-of-using-remote-docker-builders-improved-cache-hit-rates-and-reproducibility), which could be very fast, or Docker Hub, which could be very slow by comparison due to bandwidth limitations.
 
 This phenomenon happens because a volume's data availability depends on two factors:
 
