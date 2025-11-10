@@ -270,7 +270,7 @@ steps:
       - "dist/**/*"
 ```
 
-This example demostrates exporting the contents of the `builder` stage to the local `./dist` directory, which can then be uploaded as artifacts.
+This example demonstrates exporting the contents of the `builder` stage to the local `./dist` directory, which can then be uploaded as artifacts.
 
 ### Using remote cache backends
 
