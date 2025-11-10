@@ -52,7 +52,9 @@ To learn more, see [Hooks](/docs/agent/v3/hooks).
 
 A job is the execution of a command step during a build. Jobs run the commands, scripts, or plugins defined in the step.
 
-To learn more, see [Command step](/docs/pipelines/configure/step-types/command-step).
+A job can be in various states during its lifecycle, such as `pending`, `scheduled`, `running`, `finished`, `failed`, `canceled`, and others. These states represent the execution state of the job as it progresses through the build system.
+
+To learn more, see [Job states](/docs/pipelines/configure/defining-steps#job-states).
 
 ## Pipeline
 
@@ -84,5 +86,14 @@ A step describes a single, self-contained task as part of a pipeline. You define
 - **Input step:** Collects information from a user.
 - **Trigger step:** Creates a build on another pipeline.
 - **Group step:** Displays a group of sub-steps as one parent step.
+
+A step can be in one of the following states:
+
+- `ignored` - The step is ignored due to a conditional evaluation.
+- `waiting_for_dependencies` - The step is waiting for its dependencies to complete.
+- `ready` - The step is ready to run but hasn't started yet.
+- `running` - The step is currently running.
+- `failing` - The step is in the process of failing.
+- `finished` - The step has completed execution.
 
 To learn more, see [Defining steps](/docs/pipelines/configure/defining-steps).

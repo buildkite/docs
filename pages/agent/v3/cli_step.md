@@ -63,7 +63,7 @@ steps:
 
 ## Understanding step states vs job states
 
-The `buildkite-agent step get` command returns _step_ `state` and `outcome` values. The [REST](/docs/apis/rest-api) and [GraphQL](/docs/apis/graphql-api) APIs return [_job_ states](/docs/pipelines/configure/defining-steps#job-states). For more information regarding the difference between these values, see the definitions of [Step](https://buildkite.com/docs/pipelines/glossary#step) and [Job](https://buildkite.com/docs/pipelines/glossary#job).
+The `buildkite-agent step get` command returns _step_ `state` and `outcome` values. The [REST](/docs/apis/rest-api) and [GraphQL](/docs/apis/graphql-api) APIs return [_job_ states](/docs/pipelines/configure/defining-steps#job-states). For more information regarding the difference between these values, see the definitions of [Step](/docs/pipelines/glossary#step) and [Job](/docs/pipelines/glossary#job).
 
 ## Canceling a step
 
