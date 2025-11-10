@@ -2,7 +2,7 @@
 
 _Cache volumes_ (also known as _volumes_) are external volumes attached to Buildkite hosted agent instances. These volumes are attached on a best-effort basis depending on their locality, expiration and current usage, and therefore, should not be relied upon as durable data storage.
 
-Volumes are useful if your pipeline builds on Buildkite hosted agents have jobs that use Docker images, which can be stored in [container cache volumes](#container-cache-volumes), Git mirrors, which can be stored in [Git mirror volumes](#git-mirror-volumes), or build dependencies. Managing Docker images, Git mirrors and build dependencies in volumes can greatly speed up the duration of your overall pipeline builds.
+Volumes are useful if your pipeline builds on Buildkite hosted agents have jobs that make use of build dependencies, use Docker images, which can be stored in [container cache volumes](#container-cache-volumes), or Git mirrors, which can be stored in [Git mirror volumes](#git-mirror-volumes). Managing build dependencies, Docker images, and Git mirrors in volumes can greatly speed up the duration of your overall pipeline builds.
 
 By default, volumes:
 
