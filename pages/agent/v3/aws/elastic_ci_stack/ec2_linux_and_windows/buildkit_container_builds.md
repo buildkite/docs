@@ -1,17 +1,17 @@
 # BuildKit container builds
 
-[BuildKit](https://docs.docker.com/build/buildkit/) is Docker's next-generation build system that provides improved performance, better caching, parallel build execution, and efficient layer management. The Elastic CI Stack for AWS includes Docker BuildX (BuildKit) pre-installed on recent Linux AMI versions. BuildKit runs as part of the Docker daemon on EC2 instances.
+[BuildKit](https://docs.docker.com/build/buildkit/) is Docker's next-generation build system that provides improved performance, better caching, parallel build execution, and efficient layer management. The Elastic CI Stack for AWS includes [Docker Buildx](https://docs.docker.com/build/concepts/overview/#buildx) (BuildKit) pre-installed on recent Linux AMI versions. BuildKit runs as part of the Docker daemon on EC2 instances.
 
 > 📘 Note
-> Docker BuildX comes pre-installed on recent Elastic CI Stack for AWS AMI versions. If you're using an older AMI and BuildX is not available, you can either update to the latest AMI version or manually install BuildX following the [Docker BuildX installation documentation](https://docs.docker.com/build/install-buildx/).
+> Docker Buildx comes pre-installed on recent Elastic CI Stack for AWS AMI versions. If you're using an older AMI and Buildx is not available, you can either update to the latest AMI version or manually install Buildx following the [Docker Buildx installation documentation](https://docs.docker.com/build/install-buildx/).
 
 ## Using BuildKit with Elastic CI Stack for AWS
 
-BuildKit is available through the `docker buildx build` command, which provides the same interface as `docker build` while leveraging BuildKit's advanced features. The Elastic CI Stack for AWS supports multiple build configurations to match your security and performance requirements.
+BuildKit is available through the `docker buildx build` command, which provides the same interface as `docker build`, while leveraging BuildKit's advanced features. The Elastic CI Stack for AWS supports multiple build configurations to match your security and performance requirements.
 
 ### Basic BuildKit build
 
-You can use BuildKit through Docker BuildX with default settings. This approach works immediately without any special configuration.
+You can use BuildKit through Docker Buildx with default settings. This approach works immediately without any special configuration. For example:
 
 ```yaml
 steps:
@@ -47,14 +47,14 @@ steps:
 
 The `mode=max` setting exports all build layers to the cache, providing maximum cache reuse for subsequent builds.
 
-> 📘 Note
-> Local cache directories like `/tmp/buildkit-cache` do not persist across instance terminations in autoscaling environments. For persistent cache across builds on different instances, use AWS S3 or registry [remote cache backends](#customizing-builds-using-remote-cache-backends) instead.
+> 📘
+> Local cache directories like `/tmp/buildkit-cache` do not persist across instance terminations in autoscaling environments. For persistent cache across builds on different instances, use AWS S3 or registry's [remote cache backends](#customizing-builds-using-remote-cache-backends) instead.
 
 ### BuildKit with instance storage
 
-When [instance storage is enabled](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/configuration/docker_configuration#using-instance-storage-for-docker-data) through the `EnableInstanceStorage` CloudFormation parameter, Docker stores images and build cache on high-performance NVMe storage at `/mnt/ephemeral/docker`. This significantly improves build performance for I/O-intensive operations.
+When [instance storage is enabled](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/configuration/docker_configuration#using-instance-storage-for-docker-data) through the `EnableInstanceStorage` parameter in AWS CloudFormation, Docker stores images and build cache in high-performance NVMe storage at `/mnt/ephemeral/docker`. This significantly improves build performance for I/O-intensive operations.
 
-No configuration changes are required in your pipeline YAML. BuildKit automatically uses the configured Docker data directory.
+No configuration changes are required in your pipeline YAML for using BuildKit with the instance's storage. BuildKit automatically uses the configured Docker data directory.
 
 ### BuildKit with multi-platform builds
 
@@ -73,7 +73,7 @@ steps:
         .
 ```
 
-For production multi-platform builds, consider using separate agents with native architecture support to avoid emulation overhead, which can significantly impact build performance.
+For production multi-platform builds, consider using separate agents with native architecture support to avoid emulation overhead as it can significantly impact build performance.
 
 ## Building and pushing to Buildkite Package Registries
 
@@ -81,7 +81,7 @@ Buildkite Package Registries provide secure OCI-compliant container image storag
 
 ### Authentication with OIDC
 
-The recommended authentication method for CI/CD pipelines is OIDC tokens. OIDC tokens are short-lived, automatically issued by the Buildkite agent, and more secure than static API tokens.
+The recommended authentication method for CI/CD pipelines is [Open ID Connect (OIDC) tokens](/docs/pipelines/security/oidc). OIDC tokens are short-lived, automatically issued by the Buildkite Agent, and more secure than static API tokens.
 
 ```yaml
 steps:
@@ -107,7 +107,7 @@ steps:
         .
 ```
 
-> 📘 Note
+> 📘
 > OIDC authentication requires configuring an OIDC policy in your registry settings. See the [Package Registries OIDC documentation](/docs/package_registries/security/oidc) for setup instructions.
 
 ### Multi-platform builds
@@ -140,7 +140,7 @@ steps:
 
 ### Using Package Registries as cache backend
 
-Store BuildKit cache layers in Package Registries alongside your images:
+You can store BuildKit cache layers in Package Registries alongside your images:
 
 ```yaml
 steps:
@@ -169,9 +169,11 @@ steps:
 
 ## Building and pushing to Amazon ECR
 
-The Elastic CI Stack for AWS includes the [ECR plugin](https://github.com/buildkite-plugins/ecr-buildkite-plugin) for seamless Amazon ECR authentication. The plugin automatically authenticates with ECR before your build runs, allowing you to push images directly.
+The Elastic CI Stack for AWS includes the [ECR Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/ecr-buildkite-plugin/) for seamless Amazon ECR authentication. The plugin automatically authenticates with ECR before your build runs, allowing you to push images directly.
 
 ### Basic ECR push
+
+Follow this example to perform a basic ECR push. Replace the placeholder values with your values.
 
 ```yaml
 steps:
@@ -191,7 +193,7 @@ steps:
 
 ### ECR push with build arguments
 
-Pass build arguments to customize your build based on Buildkite metadata or environment variables.
+You can pass build arguments to customize your build based on Buildkite metadata or environment variables.
 
 ```yaml
 steps:
@@ -239,7 +241,7 @@ BuildKit provides extensive customization options through the `docker buildx bui
 
 ### Targeting specific build stages
 
-Multi-stage Dockerfiles can build specific stages using the `--target` flag.
+Multi-stage Dockerfiles can build specific stages using the `--target` flag. For example:
 
 ```bash
 docker buildx build \
@@ -251,7 +253,7 @@ docker buildx build \
 
 ### Exporting build artifacts
 
-BuildKit can export build outputs beyond container images, such as compiled binaries or build artifacts.
+BuildKit can export build outputs beyond container images, such as compiled binaries or [build artifacts](/docs/pipelines/configure/artifacts). For example:
 
 ```yaml
 steps:
@@ -268,7 +270,7 @@ steps:
       - "dist/**/*"
 ```
 
-This exports the contents of the `builder` stage to the local `./dist` directory, which can then be uploaded as Buildkite artifacts.
+This example demostrates exporting the contents of the `builder` stage to the local `./dist` directory, which can then be uploaded as artifacts.
 
 ### Using remote cache backends
 
@@ -319,7 +321,7 @@ BuildKit builds run with the privileges of the Docker daemon on the EC2 instance
 
 ### Docker user namespace remapping
 
-Enable [Docker user namespace remapping](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/configuration/docker_configuration#enabling-docker-user-namespace-remapping) through the `EnableDockerUserNamespaceRemap` CloudFormation parameter. This maps containers to the non-root `buildkite-agent` user, reducing the attack surface if a container is compromised.
+Enable [Docker user namespace remapping](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/configuration/docker_configuration#enabling-docker-user-namespace-remapping) through the `EnableDockerUserNamespaceRemap` parameter in AWS CloudFormation. This maps the containers to the non-root `buildkite-agent` user, reducing the attack surface if a container is compromised.
 
 When user namespace remapping is enabled, Docker containers run as user `100000-165535` (mapped from container UID 0-65535) on the host, preventing container processes from accessing host resources as root.
 
@@ -378,7 +380,7 @@ BuildKit provides several features to improve build performance on the Elastic C
 
 ### Enable instance storage
 
-Configure the `EnableInstanceStorage` CloudFormation parameter to use high-performance NVMe storage for Docker data. This provides significantly faster I/O for image pulls, layer extraction, and build cache operations compared to EBS volumes.
+Configure the `EnableInstanceStorage` parameter in AWS CloudFormation to use high-performance NVMe storage for Docker data. This provides significantly faster I/O for image pulls, layer extraction, and build cache operations compared to EBS volumes.
 
 Instance storage is ephemeral and cleared when instances terminate, making it ideal for temporary build artifacts and cache data.
 
@@ -407,17 +409,17 @@ This ordering ensures dependency installation layers are cached and reused acros
 
 ### Use build cache effectively
 
-Configure cache backends appropriate to your build frequency:
+Configure cache backends appropriate for your build frequency:
 
-- _Local cache_: fastest access, suitable for long-running instances or within a single job
-- _S3 cache_: persistent across instance terminations, good for high-frequency builds
-- _Registry cache_: persistent and no additional infrastructure required, leverages existing container registry
+- _Local cache_: fastest access, suitable for long-running instances or within a single job.
+- _S3 cache_: persistent across instance terminations, good for high-frequency builds.
+- _Registry cache_: persistent and no additional infrastructure required, leverages existing container registry.
 
-For autoscaling environments where instances frequently terminate, use S3 or registry cache backends to maintain cache between builds. Registry cache performance depends on your registry location and network configuration. When using ECR in the same region as your instances, performance is comparable to S3.
+For autoscaling environments where instances terminate frequently, use S3 or registry cache backends to maintain cache between builds. Registry cache performance depends on your registry location and network configuration. When using ECR in the same region as your instances, performance is comparable to S3.
 
 ### Parallel multi-stage builds
 
-BuildKit automatically parallelizes independent build stages. Structure Dockerfiles with multiple independent stages to maximize parallelism:
+BuildKit automatically parallelizes independent build stages. Structure Dockerfiles with multiple independent stages to maximize parallelism, for example:
 
 ```dockerfile
 # syntax=docker/dockerfile:1
@@ -442,7 +444,7 @@ COPY --from=backend-builder /app/backend/server /app/server
 CMD ["/app/server"]
 ```
 
-The `frontend-builder` and `backend-builder` stages run in parallel, reducing total build time.
+The `frontend-builder` and `backend-builder` stages run in parallel, reducing the total build time.
 
 ## Troubleshooting
 
@@ -450,8 +452,8 @@ This section describes common issues with BuildKit on the Elastic CI Stack for A
 
 ### BuildKit not available
 
-If `docker buildx` commands fail with "buildx command not found", your instance is running an older AMI version without BuildX pre-installed.
-Update to the latest Elastic CI Stack for AWS AMI version to get BuildX support.
+If `docker buildx` commands fail with "buildx command not found" message, your instance is running an older AMI version without Buildx pre-installed.
+Update to the latest Elastic CI Stack for AWS AMI version to get the Buildx support.
 
 ### Out of disk space
 
@@ -462,7 +464,7 @@ Additional CloudFormation parameters are available to handle how the Stack insta
 - `BuildkitePurgeBuildsOnDiskFull`: Set to `true` to automatically purge build directories when disk space is critically low (default: `false`)
 - `BuildkiteTerminateInstanceOnDiskFull`: Set to `true` to terminate the instance when disk space is critically low, allowing autoscaling to provision a fresh instance (default: `false`)
 
-To prevent disk space issues, consider enabling instance storage or increasing the root volume size through the `RootVolumeSize` CloudFormation parameter.
+To prevent disk space issues, consider enabling instance storage or increasing the root volume size through the `RootVolumeSize` parameter in AWS CloudFormation.
 
 ### Build cache not working
 
@@ -488,9 +490,9 @@ docker login 123456789012.dkr.ecr.us-east-1.amazonaws.com
 
 Multi-platform builds are supported out-of-the-box on Elastic CI Stack for AWS through pre-configured QEMU emulation. If multi-platform builds fail, common causes include:
 
-- _Memory constraints_: Cross-architecture emulation requires additional memory. Ensure your instance type has sufficient memory for emulated builds.
-- _Build script compatibility_: Some build operations may not work correctly under emulation. Test your build scripts with the target architecture.
-- _Performance timeouts_: Emulated builds are significantly slower than native builds. Consider increasing timeouts or using native architecture agents for production workloads.
+- _Memory constraints_: cross-architecture emulation requires additional memory. Ensure your instance type has sufficient memory for emulated builds.
+- _Build script compatibility_: some build operations may not work correctly under emulation. Test your build scripts with the target architecture.
+- _Performance timeouts_: emulated builds are significantly slower than native builds. Consider increasing timeouts or using native architecture agents for production workloads.
 
 To verify the build works for a specific platform without emulation overhead, use separate agent queues with native architecture instances for each target platform.
 
