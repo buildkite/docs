@@ -4,17 +4,17 @@ This page provides details on how to manage queues within a [cluster](/docs/pipe
 
 ## Setting up queues
 
-A [_queue_](/docs/pipelines/glossary#queue) defines and manages [Buildkite Agents](/docs/agent/v3) within a cluster. When a new Buildkite organization is created, along with the automatically created [default cluster](/docs/pipelines/clusters/manage-clusters#setting-up-clusters) (named **Default cluster**), a default queue (named **default-queue**) within this cluster is also created. Organize clusters as security boundaries and set up queues for workload routing.
+A [_queue_](/docs/pipelines/glossary#queue) defines and manages [Buildkite Agents](/docs/agent/v3) within a cluster. When a new Buildkite organization is created, along with the automatically created [default cluster](/docs/pipelines/clusters/manage-clusters#setting-up-clusters) (named **Default cluster**), a default queue (named **default-queue**) within this cluster is also created.
 
-Since a cluster can be configured with multiple queues, each queue can be used to represent a specific combination of your [build/agent infrastructure](#agent-infrastructure), based on:
+A cluster can be configured with multiple queues. Each queue can be used for workload routing to specific combinations of your [build/agent infrastructure](#agent-infrastructure), based on:
 
 - Architecture (x86-64, arm64, Apple silicon, etc.)
 - Size of agents (small, medium, large, extra large)
 - Type of machine (macOS, Linux, Windows, etc.)
 
-Some example names of queues might be `linux_medium_x86`, `mac_large_silicon`, etc.
+For example, you can set up dedicated queues for `linux_medium_x86`, `mac_large_silicon`, etc.
 
-Having individual queues according to these breakdowns allows you to scale a set of similar agents, which Buildkite can then report on.
+Breaking down your infrastructure into individual queues like this makes it easier to scale groups of similar agents and get meaningful metrics from Buildkite.
 
 ## Agent infrastructure
 
