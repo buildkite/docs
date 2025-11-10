@@ -63,11 +63,14 @@ steps:
   <tr>
     <td><code>paths</code></td>
     <td>
-      A list of paths to volume. Paths are relative to the working directory of the step.<br>
-      Absolute references can be provided in the <code>cache</code> paths configuration relative to the root of the instance.<br>
-      <em>Example:</em><br>
-      <code>- ".volume"</code><br>
-      <code>- "/tmp/volume"</code><br>
+      A list of paths to volume. Paths are relative to the working directory of the step.<br/>
+      Absolute references can be provided in the <code>cache</code> paths configuration relative to the root of the instance.<br/>
+      <em>Example:</em><br/>
+      <code>- ".volume"</code><br/>
+      <code>- "/tmp/volume"</code><br/>
+      Be aware that if you do not need to include other <a href="#volume-configuration-optional-attributes">optional attributes</a> and you only need to define a single path for your volume, you can omit this attribute, and add your path to the end of the <code>cache</code> attribute.<br/>
+      <em>Example:</em><br/>
+      <code>cache: ".volume"</code>
     </td>
   </tr>
 </table>
@@ -82,15 +85,16 @@ steps:
     <td><code>name</code></td>
     <td>
       A name for the volume. This allows you to use multiple volumes in a single pipeline. If no <code>name</code> is specified, the value of this attribute defaults to the pipeline slug.<br>
-      <em>Example:</em> <code>"node-modules-volume"</code><br>
+      <em>Example:</em> <code>"node-modules-volume"</code>
     </td>
   </tr>
 
   <tr>
     <td><code>size</code></td>
     <td>
-      The size of the volume. The default size is 20 gigabytes, which is also the minimum volume size that can be requested.<br/>Units are in gigabytes, specified as <code>Ng</code>, where <code>N</code> is the size in gigabytes, and <code>g</code> indicates gigabytes.<br>
-      <em>Example:</em> <code>"20g"</code><br>
+      The size of the volume. The default size is 20 gigabytes, which is also the minimum volume size that can be requested.<br/>
+      Units are in gigabytes, specified as <code>Ng</code>, where <code>N</code> is the size in gigabytes, and <code>g</code> indicates gigabytes.<br/>
+      <em>Example:</em> <code>"20g"</code>
     </td>
   </tr>
 </table>
