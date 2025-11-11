@@ -1054,3 +1054,9 @@
           path: "apis/agent-api/metrics"
         - name: "Stacks"
           path: "apis/agent-api/stacks"
+    - name: "Model providers"
+      children:
+        - name: "Overview"
+          path: "apis/model-providers"
+        - name: "Anthropic"
+          path: "apis/model-providers/anthropic"
