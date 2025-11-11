@@ -6,7 +6,6 @@ toc_include_h3: false
 
 The [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) helps you build and run multi-container Docker applications. This guide shows how to build and push container images using the Docker Compose plugin on agents that are auto-scaled by the Buildkite Agent Stack for Kubernetes.
 
-
 ## Special considerations for Kubernetes
 
 When running these plugins within the Buildkite Agent Stack for Kubernetes, consider the following requirements and best practices for successful container builds.
@@ -62,52 +61,14 @@ Then configure your pipeline steps to use the DinD container:
 steps:
   - label: "\:docker\: Build with DinD"
     plugins:
-      - docker-compose#v5.11.0:
+      - docker-compose#v5.12.0:
           build: app
           push: app
     env:
       DOCKER_HOST: tcp://127.0.0.1:2375
 ```
 
-This configuration exposes the Docker daemon on 127.0.0.1:2375 without TLS for use by your build step. For a TLS-enabled TCP listener (commonly 2376), configure docker with a TCP host and provide certificates instead of disabling `DOCKER_TLS_CERTDIR`.
-
-### Permission handling with the propagate-uid-gid option
-
-When mounting the Docker socket or using shared volumes, you may encounter permission mismatches between the container user and file ownership. The Docker plugin's `propagate-uid-gid` option runs Docker commands with the same user ID and group ID as the agent, preventing permission errors on mounted volumes.
-
-```yaml
-plugins:
-  - docker-compose#v5.11.0:
-      propagate-uid-gid: true
-      build: app
-      push: app
-```
-
-The Docker plugin runs as a command hook and sets up the environment for subsequent Docker operations. The Docker Compose plugin then uses this environment for building and pushing images.
-
-For additional permission control, you can pass build arguments to your Dockerfile to set specific user IDs:
-
-```yaml
-plugins:
-  - docker-compose#v5.11.0:
-      build: app
-      args:
-        - USER_ID=${BUILDKITE_AGENT_UID:-1000}
-        - GROUP_ID=${BUILDKITE_AGENT_GID:-1000}
-      push: app
-```
-
-Then in your Dockerfile, use these arguments to create the appropriate user:
-
-```dockerfile
-ARG USER_ID=1000
-ARG GROUP_ID=1000
-RUN groupadd -g ${GROUP_ID} builduser && \
-    useradd -u ${USER_ID} -g ${GROUP_ID} -m builduser
-USER builduser
-```
-
-Use this approach when you see "permission denied" errors related to file access in build contexts or when writing artifacts to mounted volumes.
+This configuration exposes the Docker daemon on 127.0.0.1:2375 without TLS for use by your build step. For a TLS-enabled TCP listener (commonly 2376), configure dockerd with a TCP host and provide certificates instead of disabling `DOCKER_TLS_CERTDIR`.
 
 ### Build context and volume mounts
 
@@ -123,11 +84,12 @@ Set up proper authentication for pushing to container registries. Use the `docke
 
 Building container images can be resource-intensive, especially for large applications or when building multiple services. Configure your Kubernetes agent pod resources accordingly:
 
-- Allocate sufficient memory for the build process and any running services
+- Allocate sufficient memory for the build process, Docker daemon, and any running services
 - Provide adequate CPU resources to avoid slow builds
-- Ensure sufficient ephemeral storage for Docker layers and build artifacts
+- Ensure sufficient ephemeral storage for Docker layers, build artifacts, and intermediate files
+- Account for DinD sidecar resource usage if using Docker-in-Docker
 
-Monitor resource usage during builds and adjust pod resource requests and limits as needed.
+If resource requests and limits are not specified, Kubernetes may schedule your pods on nodes with insufficient resources, causing builds to fail with Out of Memory (OOM) errors or be terminated by the cluster. Monitor resource usage during builds using `kubectl top pod` and adjust limits as needed.
 
 
 ## Configuration approaches
@@ -143,10 +105,10 @@ steps:
   - label: "\:docker\: Build and push to Buildkite Package Registries"
     plugins:
       - docker-login#v3.0.0:
-          registry: your-registry.example.com
+          server: packages.buildkite.com/{org.slug}/{registry.slug}
           username: "${REGISTRY_USERNAME}"
           password-env: "REGISTRY_PASSWORD"
-      - docker-compose#v5.11.0:
+      - docker-compose#v5.12.0:
           build: app
           push:
             - app:packages.buildkite.com/{org.slug}/{registry.slug}/image-name:${BUILDKITE_BUILD_NUMBER}
@@ -160,7 +122,7 @@ Build services defined in your `docker-compose.yml` file:
 steps:
   - label: "Build with Docker Compose"
     plugins:
-      - docker-compose#v5.11.0:
+      - docker-compose#v5.12.0:
           build: app
           config: docker-compose.yml
 ```
@@ -186,7 +148,7 @@ steps:
     agents:
       queue: build
     plugins:
-      - docker-compose#v5.11.0:
+      - docker-compose#v5.12.0:
           build: app
           push: app
 ```
@@ -200,10 +162,10 @@ steps:
       queue: build
     plugins:
       - docker-login#v3.0.0:
-          registry: your-registry.example.com
+          server: your-registry.example.com
           username: "${REGISTRY_USERNAME}"
           password-env: "REGISTRY_PASSWORD"
-      - docker-compose#v5.11.0:
+      - docker-compose#v5.12.0:
           build: app
           push: app
 ```
@@ -221,7 +183,7 @@ Pass build arguments to customize image builds at runtime. Build arguments let y
 steps:
   - label: "\:docker\: Build with arguments"
     plugins:
-      - docker-compose#v5.11.0:
+      - docker-compose#v5.12.0:
           build: app
           args:
             - NODE_ENV=production
@@ -237,7 +199,7 @@ When your `docker-compose.yml` defines multiple services, build only the service
 steps:
   - label: "\:docker\: Build frontend only"
     plugins:
-      - docker-compose#v5.11.0:
+      - docker-compose#v5.12.0:
           build: frontend
           push: frontend
 ```
@@ -251,10 +213,10 @@ steps:
   - label: "\:docker\: Build with BuildKit cache"
     plugins:
       - docker-login#v3.0.0:
-          registry: your-registry.example.com
+          server: your-registry.example.com
           username: "${REGISTRY_USERNAME}"
           password-env: "REGISTRY_PASSWORD"
-      - docker-compose#v5.11.0:
+      - docker-compose#v5.12.0:
           build: app
           cache-from:
             - app:your-registry.example.com/app:cache
@@ -273,7 +235,7 @@ Combine multiple compose files to create layered configurations. This pattern wo
 steps:
   - label: "\:docker\: Build with compose file overlay"
     plugins:
-      - docker-compose#v5.11.0:
+      - docker-compose#v5.12.0:
           config:
             - docker-compose.yml
             - docker-compose.production.yml
@@ -289,7 +251,7 @@ Push the same image with multiple tags to support different deployment strategie
 steps:
   - label: "\:docker\: Push with multiple tags"
     plugins:
-      - docker-compose#v5.11.0:
+      - docker-compose#v5.12.0:
           build: app
           push:
             - app:your-registry.example.com/app:${BUILDKITE_BUILD_NUMBER}
@@ -306,7 +268,7 @@ Enable SSH agent forwarding to access private Git repositories or packages durin
 steps:
   - label: "\:docker\: Build with SSH access"
     plugins:
-      - docker-compose#v5.11.0:
+      - docker-compose#v5.12.0:
           build: app
           ssh: true
 ```
@@ -332,11 +294,11 @@ For AWS Elastic Container Registry (ECR):
 steps:
   - label: "\:docker\: Build and push to ECR"
     plugins:
-      - ecr#v3.0.0:
+      - ecr#v2.10.0:
           login: true
           account-ids: "123456789012"
           region: us-west-2
-      - docker-compose#v5.11.0:
+      - docker-compose#v5.12.0:
           build: app
           push:
             - app:123456789012.dkr.ecr.us-west-2.amazonaws.com/app:${BUILDKITE_BUILD_NUMBER}
@@ -348,10 +310,10 @@ For Google Artifact Registry (GAR):
 steps:
   - label: "\:docker\: Build and push to GAR"
     plugins:
-      - gcp-workload-identity-federation#v1.0.0:
+      - gcp-workload-identity-federation#v1.5.0:
           project-id: your-project
           service-account: your-service-account@your-project.iam.gserviceaccount.com
-      - docker-compose#v5.11.0:
+      - docker-compose#v5.12.0:
           build: app
           push:
             - app:us-central1-docker.pkg.dev/your-project/your-repository/app:${BUILDKITE_BUILD_NUMBER}
@@ -378,7 +340,7 @@ To enable build caching with BuildKit:
 
 ```yaml
 plugins:
-  - docker-compose#v5.11.0:
+  - docker-compose#v5.12.0:
       build: app
       cache-from:
         - app:your-registry.example.com/app:cache
@@ -399,7 +361,7 @@ To pass environment variables to the build, use build arguments:
 
 ```yaml
 plugins:
-  - docker-compose#v5.11.0:
+  - docker-compose#v5.12.0:
       build: app
       args:
         - API_URL=${API_URL}
@@ -425,10 +387,10 @@ For authentication failures, ensure credentials are properly configured. Use the
 ```yaml
 plugins:
   - docker-login#v3.0.0:
-      registry: your-registry.example.com
+      server: your-registry.example.com
       username: "${REGISTRY_USERNAME}"
       password-env: "REGISTRY_PASSWORD"
-  - docker-compose#v5.11.0:
+  - docker-compose#v5.12.0:
       build: app
       push: app
 ```
@@ -437,11 +399,11 @@ For cloud-provider registries, use the appropriate authentication plugins:
 
 ```yaml
 plugins:
-  - ecr#v3.0.0:  # For AWS ECR
+  - ecr#v2.10.0:  # For AWS ECR
       login: true
       account-ids: "123456789012"
       region: us-west-2
-  - docker-compose#v5.11.0:
+  - docker-compose#v5.12.0:
       build: app
       push: app
 ```
@@ -450,10 +412,10 @@ Or for Google Artifact Registry:
 
 ```yaml
 plugins:
-  - gcp-workload-identity-federation#v1.0.0:
+  - gcp-workload-identity-federation#v1.5.0:
       project-id: your-project
       service-account: your-service-account@your-project.iam.gserviceaccount.com
-  - docker-compose#v5.11.0:
+  - docker-compose#v5.12.0:
       build: app
       push: app
 ```
@@ -462,7 +424,7 @@ For timeout or network failures, enable push retries:
 
 ```yaml
 plugins:
-  - docker-compose#v5.11.0:
+  - docker-compose#v5.12.0:
       build: app
       push: app
       push-retries: 3
@@ -480,7 +442,7 @@ Use the `verbose` option to see detailed output from Docker Compose operations:
 steps:
   - label: "\:docker\: Debug build"
     plugins:
-      - docker-compose#v5.11.0:
+      - docker-compose#v5.12.0:
           build: app
           verbose: true
 ```
@@ -495,7 +457,7 @@ Disable caching to ensure builds run from scratch, which can reveal caching-rela
 steps:
   - label: "\:docker\: Build without cache"
     plugins:
-      - docker-compose#v5.11.0:
+      - docker-compose#v5.12.0:
           build: app
           no-cache: true
 ```
