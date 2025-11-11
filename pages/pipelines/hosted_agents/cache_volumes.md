@@ -26,7 +26,7 @@ Volume paths can be [defined in your `pipeline.yml`](/docs/pipelines/configure/d
 
 When volume paths are defined, the volume is mounted under `/cache/bkcache` in the agent instance. The agent links sub-directories of the volume into the paths specified in the configuration. For example, defining `cache: "node_modules"` in your `pipeline.yml` file will link `./node_modules` to `/cache/bkcache/node_modules` in your agent instance.
 
-Volumes can be created by specifying a name for the volume, which allows you to use multiple volumes in a single pipeline, or have multiple pipelines share a single volume. Learn more about this in [Reusing volumes across multiple pipelines](#volume-configuration-reusing-volumes-across-multiple-pipelines).
+Volumes can be created by specifying a name for the volume, which allows you to use multiple volumes in a single pipeline, or have multiple pipelines share a single volume. Note that it is not possible to share a volume across multiple pipelines.
 
 When requesting a volume, you can specify a size. The volume provided will have a minimum available storage equal to the specified size. In the case of a volume hit (most of the time), the actual volume size is: last used volume size + the specified size.
 
@@ -98,22 +98,6 @@ steps:
     </td>
   </tr>
 </table>
-
-### Reusing volumes across multiple pipelines
-
-If you have defined one or more volumes in one pipeline (such as the one in the [pipeline example above](#volume-configuration-example)), you can use the [optional `names` attribute](#volume-configuration-optional-attributes) to re-use the same volumes in other pipelines. For example, if the [pipeline above](#volume-configuration-example) had already been built at least once, then building the following pipeline example would result in it also being able to use the volume named `bundle-volume`.
-
-```yaml
-cache:
-  paths:
-    - "vendor/bundle"
-  size: 20g
-  name: "bundle-volume"
-
-steps:
-  ...
-```
-{: codeblock-file="pipeline.yml"}
 
 ## Lifecycle
 
