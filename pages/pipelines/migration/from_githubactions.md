@@ -28,8 +28,8 @@ Compared to GitHub Actions' default checkout behavior, in Buildkite Pipelines:
 env:
   GIT_LFS_SKIP_SMUDGE: "1"
 ```
-- Buldkite Agent checks out the full working repository (and runs the Git fetch twice by default). Shallow clone con be configured using an environment variable (`git lfs env false`) or the [Git Shallow Clone plugin](https://buildkite.com/resources/plugins/peakon/git-shallow-clone-buildkite-plugin/).
-- An agent checkout hookcan be used to set some of the other default options used by GitHub Actions which include `--depth=1`, `--single-branch`, and `--no-recurse-submodules`.
+- Buildkite Agent checks out the full working repository (and runs the Git fetch twice by default). Shallow clone con be configured using an environment variable (`git lfs env false`) or the [Git Shallow Clone plugin](https://buildkite.com/resources/plugins/peakon/git-shallow-clone-buildkite-plugin/).
+- An agent checkout hook can be used to set some of the other default options used by GitHub Actions which include `--depth=1`, `--single-branch`, and `--no-recurse-submodules`.
 - Git mirrors can be used but it's not a default option and doesn't offer a considerable improvement in terms of checkout speed.
 
 ## Translate an example pipeline
