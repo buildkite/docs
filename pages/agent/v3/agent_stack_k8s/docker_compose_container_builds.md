@@ -28,34 +28,44 @@ _Docker-in-Docker (DinD)_: Run a Docker daemon inside your pod using a DinD side
 
 ### Using Docker-in-Docker with PodSpecPatch
 
-For the Buildkite Agent Stack for Kubernetes, use PodSpecPatch to add a DinD sidecar container. This approach provides better isolation and security compared to mounting the host Docker socket.
+For the Buildkite Agent Stack for Kubernetes, use `pod-spec-patch` in the controller's configuration to add a DinD initContainer. This approach provides better isolation and security compared to mounting the host Docker socket. The DinD container starts before your build containers, ensuring the Docker daemon is ready when your build steps execute.
 
-Add the following configuration to your agent stack:
+Configure the DinD initContainer in your agent stack's values YAML file:
 
 ```yaml
-agent:
-  podSpecPatch: |
-    spec:
-      containers:
-        - name: docker-daemon
-          image: docker:dind
-          securityContext:
-            privileged: true
-          args:
-            - "--host=tcp://127.0.0.1:2375"
-            - "--host=unix:///var/run/docker.sock"
-          env:
-            - name: DOCKER_TLS_CERTDIR
-              value: ""
-          volumeMounts:
-            - name: docker-storage
-              mountPath: /var/lib/docker
-      volumes:
-        - name: docker-storage
-          emptyDir: {}
+# values.yaml
+config:
+  pod-spec-patch:
+    initContainers:
+      - name: docker-daemon
+        image: docker:dind
+        securityContext:
+          privileged: true
+        args:
+          - "--host=tcp://127.0.0.1:2375"
+          - "--host=unix:///var/run/docker.sock"
+        env:
+          - name: DOCKER_TLS_CERTDIR
+            value: ""
+        volumeMounts:
+          - name: docker-storage
+            mountPath: /var/lib/docker
+        startupProbe:
+          tcpSocket:
+            port: 2375
+          initialDelaySeconds: 5
+          periodSeconds: 2
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 30
+    volumes:
+      - name: docker-storage
+        emptyDir: {}
 ```
 
-Then configure your pipeline steps to use the DinD container:
+The `startupProbe` ensures the Docker daemon is listening on port 2375 before the build containers start. This prevents build steps from attempting to connect to the Docker daemon before it's ready.
+
+Then configure your pipeline steps to use the DinD container by setting the `DOCKER_HOST` environment variable:
 
 ```yaml
 steps:
@@ -68,7 +78,7 @@ steps:
       DOCKER_HOST: tcp://127.0.0.1:2375
 ```
 
-This configuration exposes the Docker daemon on 127.0.0.1:2375 without TLS for use by your build step. For a TLS-enabled TCP listener (commonly 2376), configure dockerd with a TCP host and provide certificates instead of disabling `DOCKER_TLS_CERTDIR`.
+This configuration exposes the Docker daemon on 127.0.0.1:2375 without TLS for use by your build step. The TCP socket (`tcp://127.0.0.1:2375`) is unencrypted — fine for local communication inside a single pod, but must not be exposed externally. For a TLS-enabled TCP listener (commonly 2376), enable TLS on the TCP listener and provide certificates instead of disabling `DOCKER_TLS_CERTDIR`.
 
 ### Build context and volume mounts
 
@@ -483,10 +493,10 @@ Test your `docker-compose.yml` configuration locally before running in the pipel
 
 ```bash
 # Validate compose file syntax
-docker-compose config
+docker compose config
 
 # Build without the plugin
-docker-compose build
+docker compose build
 
 # Check what images were created
 docker images
