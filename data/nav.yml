@@ -60,6 +60,8 @@
               pill: "beta"
         - name: From Jenkins
           path: pipelines/migration/from-jenkins
+        - name: From GitHub Actions
+          path: pipelines/migration/from-githubactions
         - name: From Bamboo
           path: pipelines/migration/from-bamboo
     - name: Best practices
