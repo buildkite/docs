@@ -4,7 +4,7 @@ The Buildkite Agent's `step` command provides the ability to retrieve and update
 
 ## Updating a step
 
-Use this command in your build scripts to update step attributes. The following attributes can be updated:
+Use this command in your build scripts to update the step attributes. The following attributes can be updated:
 
 * `label`
 * `notify`
