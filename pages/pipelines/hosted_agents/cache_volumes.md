@@ -115,7 +115,7 @@ Whenever a job fails, the volume versions attached to the agent instance are aba
 
 ### Non-deterministic nature
 
-Volumes, by their very nature, only provide _non-deterministic_ access to their data. This means that when you issue a command to retrieve data from a volume, for example, a previously built Docker image using a `docker pull` command in a Buildkite pipeline, for this image in the [container cache volume](#container-cache-volumes), this command may instead retrieve the image from a different source, such as the [remote Docker builder's](/docs/pipelines/hosted-agents/remote-docker-builders) [local storage/file system](/docs/pipelines/hosted-agents/remote-docker-builders#benefits-of-using-remote-docker-builders-improved-cache-hit-rates-and-reproducibility), which could be very fast, or Docker Hub, which could be very slow by comparison due to bandwidth limitations.
+Volumes, by their very nature, only provide _non-deterministic_ access to their data. This means that when you issue a command in a Buildkite pipeline to retrieve data or an image from a volume (for example, a previously built Docker image in the [container cache volume](#container-cache-volumes) with a `docker pull` command), then the command may instead retrieve the data or image from a different source, such as the [remote Docker builder's](/docs/pipelines/hosted-agents/remote-docker-builders) [local storage/file system](/docs/pipelines/hosted-agents/remote-docker-builders#benefits-of-using-remote-docker-builders-improved-cache-hit-rates-and-reproducibility), which could be very fast, or Docker Hub, which could be very slow by comparison due to bandwidth limitations.
 
 This behavior results from a volume's data availability, which depends on the following factors:
 
