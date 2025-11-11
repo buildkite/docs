@@ -80,20 +80,20 @@ To learn more, see [Manage queues](/docs/pipelines/clusters/manage-queues) and [
 
 A step describes a single, self-contained task as part of a pipeline. You define a step in the pipeline configuration using one of the following types:
 
-- **Command step:** Runs one or more shell commands on one or more agents.
-- **Wait step:** Pauses a build until all previous jobs have completed.
-- **Block step:** Pauses a build until unblocked.
-- **Input step:** Collects information from a user.
-- **Trigger step:** Creates a build on another pipeline.
-- **Group step:** Displays a group of sub-steps as one parent step.
+- Command step - runs one or more shell commands on one or more agents.
+- Wait step - pauses a build until all previous jobs have completed.
+- Block step - pauses a build until unblocked.
+- Input step - collects information from a user.
+- Trigger step - creates a build on another pipeline.
+- Group step - displays a group of sub-steps as one parent step.
 
 A step can be in one of the following states:
 
-- `ignored` - The step is ignored due to a conditional evaluation.
-- `waiting_for_dependencies` - The step is waiting for its dependencies to complete.
-- `ready` - The step is ready to run but hasn't started yet.
-- `running` - The step is currently running.
-- `failing` - The step is in the process of failing.
-- `finished` - The step has completed execution.
+- `ignored` - the step is ignored due to a conditional evaluation.
+- `waiting_for_dependencies` - the step is waiting for its dependencies to complete.
+- `ready` - the step is ready to run but hasn't started yet.
+- `running` - the step is currently running.
+- `failing` - the step is in the process of failing.
+- `finished` - the step has completed execution.
 
 To learn more, see [Defining steps](/docs/pipelines/configure/defining-steps).
