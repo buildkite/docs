@@ -106,7 +106,9 @@ Note that you will need to update the image references in your pipeline to use y
 
 Here's a complete example of using Kaniko for building and pushing a container image to Buildkite Package Registries.
 
-Project hierarchy:
+#### Project hierarchy
+
+The example pipeline uses the following project structure to organize the Kaniko build configuration. The `.buildkite` directory contains the pipeline definition and build scripts, while application files remain in the project root.
 
 ```text
 project-root/
@@ -119,13 +121,13 @@ project-root/
 └── app.js
 ```
 
-Pipeline configuration:
+#### Pipeline configuration
 
 This step defines a pipeline that builds and pushes a Docker image using Kaniko. It sets the package registry name as an environment variable and runs the Kaniko build script.
 
 ```yaml
 steps:
-  - label: ":whale: Build and Push with Kaniko"
+  - label: ":whale: Build and push with Kaniko"
     env:
       PACKAGE_REGISTRY_NAME: "my-container-registry"
     commands:
@@ -133,9 +135,9 @@ steps:
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
 
-Kaniko build script:
+#### Kaniko build script
 
-This script builds and pushes a Docker image using Kaniko. It generates an image tag from the commit hash and build number, requests an OIDC token for authentication, creates a Docker config file with the token, runs Kaniko to build the image, and then pulls and runs the built image to verify it works.
+This script builds and pushes a Docker image using Kaniko. It generates an image tag from the commit hash and build number, requests an OIDC token for authentication, creates a Docker config file with the token, runs Kaniko to build the image, and then pulls and runs the built image to verify that it works.
 
 ```bash
 #!/bin/bash
@@ -198,7 +200,7 @@ DOCKER_CONFIG="$PWD" docker run --rm "${IMG}"
 ```
 {: codeblock-file=".buildkite/steps/kaniko.sh"}
 
-Dockerfile:
+#### Dockerfile
 
 This Dockerfile creates a Node.js application image. It uses the Node.js 20 Alpine base image, sets the working directory, copies package files and installs dependencies, copies the application code, and sets the command to run the application.
 
@@ -212,9 +214,9 @@ CMD ["node","app.js"]
 ```
 {: codeblock-file="Dockerfile"}
 
-Package configuration:
+#### Package configuration
 
-This package.json file defines the Node.js project metadata, including the package name, version, and a start script that runs the application.
+This package.json file defines the Node.js project metadata, including with the package name, version, and a start script that runs the application.
 
 ```json
 {
@@ -231,7 +233,7 @@ This package.json file defines the Node.js project metadata, including the packa
 ```
 {: codeblock-file="package.json"}
 
-Application code:
+#### Application code
 
 This JavaScript file contains a simple application that prints a message to the console when executed.
 
@@ -241,7 +243,7 @@ console.log("Hello from Kaniko on Buildkite Elastic CI Stack for AWS!");
 ```
 {: codeblock-file="app.js"}
 
-> 📘 Docker login not required
+> 📘 Docker login is not required
 > You don't need `docker login`. The step requests a short-lived OIDC token and passes it to Kaniko using a Docker config file.
 
 ### Using the published images
