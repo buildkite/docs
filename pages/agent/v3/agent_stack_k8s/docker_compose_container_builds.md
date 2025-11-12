@@ -12,12 +12,12 @@ When running these plugins within the Buildkite Agent Stack for Kubernetes, cons
 
 ### Docker daemon access
 
-The Docker Compose plugin requires access to a Docker daemon. In Kubernetes, you have two main approaches:
+The Docker Compose plugin requires access to a Docker daemon. In Kubernetes, you can choose one of the two main approaches:
 
-_Mounting the host Docker socket_: Mount `/var/run/docker.sock` from the host into your pod. This is simpler but shares the host's Docker daemon with all pods. Ensure your Kubernetes cluster security policies allow socket mounting.
+_Mounting the host Docker socket_: Mount `/var/run/docker.sock` from the host into your pod. This is the simpler approach but this way, the host's Docker daemon is shared with all pods. Ensure your Kubernetes cluster security policies allow socket mounting.
 
-- Security concerns: Grants containers near-root access to the host; any process with socket access can control the host Docker daemon. Prone to container breakout risks if workloads are untrusted.
-- Best practices: Restrict usage to trusted repositories; run agents on dedicated nodes; scope access with Kubernetes security policies; avoid multi-tenant clusters; prefer read-only mounts where possible.
+- Security concerns: This approach grants containers near-root-level access to the host; any process with socket access can control the host Docker daemon. This poses container breakout risks if workloads are untrusted.
+- Best practices: Restrict usage to trusted repositories; run agents on dedicated nodes; scope access according to the Kubernetes security policies; avoid multi-tenant clusters; prefer read-only mounts where possible.
 - Trade-offs: Simple and fast to set up; best performance and caching; weakest isolation and hardest to lock down.
 
 _Docker-in-Docker (DinD)_: Run a Docker daemon inside your pod using a DinD sidecar container. This provides better isolation but requires `privileged: true` or specific security capabilities. DinD adds complexity and resource overhead but avoids sharing the host daemon.
@@ -63,9 +63,9 @@ config:
         emptyDir: {}
 ```
 
-The `startupProbe` ensures the Docker daemon is listening on port 2375 before the build containers start. This prevents build steps from attempting to connect to the Docker daemon before it's ready.
+The `startupProbe` ensures the Docker daemon is listening on port `2375` before the build containers start. This prevents the build steps from attempting to connect to the Docker daemon before it's ready.
 
-Then configure your pipeline steps to use the DinD container by setting the `DOCKER_HOST` environment variable:
+Next, configure your pipeline steps to use the DinD container by setting the `DOCKER_HOST` environment variable:
 
 ```yaml
 steps:
@@ -78,7 +78,7 @@ steps:
       DOCKER_HOST: tcp://127.0.0.1:2375
 ```
 
-This configuration exposes the Docker daemon on 127.0.0.1:2375 without TLS for use by your build step. The TCP socket (`tcp://127.0.0.1:2375`) is unencrypted — fine for local communication inside a single pod, but must not be exposed externally. For a TLS-enabled TCP listener (commonly 2376), enable TLS on the TCP listener and provide certificates instead of disabling `DOCKER_TLS_CERTDIR`.
+This configuration exposes the Docker daemon on 127.0.0.1:2375 without TLS for use by your build step. The TCP socket (`tcp://127.0.0.1:2375`) is unencrypted — which is fine for local communication inside a single pod, but must not be exposed externally. For a TLS-enabled TCP listener (commonly 2376), enable TLS on the TCP listener and provide certificates instead of disabling `DOCKER_TLS_CERTDIR`.
 
 ### Build context and volume mounts
 
