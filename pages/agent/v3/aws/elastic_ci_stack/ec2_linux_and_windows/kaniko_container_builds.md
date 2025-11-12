@@ -21,7 +21,9 @@ Create a [Package Registry](/docs/package-registries) for container images throu
 1. Select **OCI Image (Docker)** as the ecosystem type.
 1. Assign appropriate team access permissions (select teams that need access to the registry).
 1. Click **Create Registry**.
-1. Configure an OIDC policy to allow your agents to push images. Select **Settings** > **OIDC Policy** and add the following configuration. This will allow the agents to authenticate using OIDC tokens. The configuration specifies the issuer, required scopes for reading and writing packages, and restricts access to a specific organization, pipeline, and branch.
+1. Configure an OIDC policy to allow your agents to push images. Select **Settings** > **OIDC Policy** and add:
+
+    This policy allows agents to authenticate using OIDC tokens. It specifies the issuer, required scopes for reading and writing packages, and restricts access to a specific organization, pipeline, and branch.
 
     ```yaml
     - iss: https://agent.buildkite.com
@@ -80,8 +82,6 @@ Chainguard builds and publishes images for Kaniko, but requires a subscription t
 #### Option 3: Build your own images with the Chainguard fork
 
 If you need to use a specific Kaniko version, a custom configuration, or want to host Kaniko images in your own container registry, you can also build your own images by running the following commands:
-
-Building custom Kaniko images:
 
 These commands clone the Chainguard Kaniko fork, build both the standard executor and debug images, and push them to your container registry.
 
@@ -278,8 +278,6 @@ To ensure the authenticity and integrity of Kaniko images, you can [verify their
 
 If you're using Google's final published images (`gcr.io/kaniko-project/executor:v1.24.0`), you can verify their signatures by running the following commands:
 
-Verifying Google's Kaniko image signatures:
-
 This script creates Google's public key file and uses Cosign to verify that the Kaniko image signature is authentic and hasn't been tampered with.
 
 ```bash
@@ -324,8 +322,6 @@ Then [create the secrets](/docs/pipelines/security/secrets/buildkite-secrets#cre
 
 1. Sign your custom image after building:
 
-    Signing custom Kaniko images:
-
     These commands retrieve the private signing key from Buildkite Secrets and use Cosign to cryptographically sign your custom Kaniko image, then push the signature to the registry.
 
     ```bash
@@ -358,8 +354,6 @@ For an alternative, more modern approach to signing, you can use keyless signing
 > Keyless signing requires authenticating with an OAuth provider (like Google, GitHub, or Microsoft) through [sigstore.dev](https://sigstore.dev/). This means your OAuth identity will be used to create a temporary signing certificate stored in the sigstore's public transparency log. Consider your organization's security policies before using this approach.
 
 To implement keyless signing, run the following commands:
-
-Keyless signing with OIDC:
 
 These commands use Cosign to sign and verify images without managing key pairs. The signing process authenticates with sigstore.dev using OIDC, and verification requires specifying the certificate identity and issuer that were used during signing.
 
@@ -395,8 +389,6 @@ docker run -it --entrypoint=/busybox/sh gcr.io/kaniko-project/executor:v1.24.0-d
 > Interactive debugging only works when running Docker commands directly on the EC2 instance with the `-it` flags, not when it is executed through pipeline environment. Pipeline builds run non-interactively and cannot provide shell access.
 
 To enable debug mode in your pipeline, set the `KANIKO_DEBUG` environment variable:
-
-Debug mode pipeline configuration:
 
 This pipeline step enables Kaniko debug mode by setting the `KANIKO_DEBUG` environment variable. When enabled, the build script uses the Kaniko debug image which includes additional debugging tools.
 
