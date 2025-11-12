@@ -18,9 +18,13 @@ Currently, Buildkite supports [Anthropic](/docs/apis/model-providers/anthropic) 
 
 Organization admins can enable model providers in a few steps:
 
+1. Select **Settings** in the global navigation to access the to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+
 1. Navigate to your [Model providers page](https://buildkite.com/organizations/~/model-providers) from **Settings**
-2. Select the model provider to enable for your organization.
-3. Choose your authentication method
+
+1. Select the model provider to enable for your organization.
+
+1. Choose your authentication method
 
 ## Authentication methods
 
