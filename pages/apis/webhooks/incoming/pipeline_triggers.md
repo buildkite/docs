@@ -66,6 +66,35 @@ To create a new pipeline trigger using the Buildkite interface:
 
 That's it! You've completed creating your pipeline trigger. See the following section on [Endpoint](#create-a-new-pipeline-trigger-endpoint) to learn more about the pipeline trigger and how it works, and you're now ready to [invoke your trigger](#invoke-a-pipeline-trigger).
 
+## Supported triggers
+
+Pipeline triggers support three types of triggers:
+
+- Custom webhook - Generic trigger for any service that can send HTTP POST requests.
+- GitHub - GitHub webhook trigger with signature verification support. This is supplementary to Buildkite's [GitHub repository provider](/docs/pipelines/source-control/github) integration.
+- Linear - Linear webhook trigger with signature verification support.
+
+### Webhook verification
+
+Webhook verification is available for GitHub and Linear triggers to validate the authenticity of webhook payloads. Custom webhook triggers don't support signature verification. This prevents unauthorized parties from modifying the webhook payload.
+
+To enable webhook verification:
+
+1. When creating a new pipeline trigger, select either the GitHub trigger or Linear trigger.
+
+1. In the Security section, Select the **Validate webhook deliveries** (for GitHub) or **Verify webhook deliveries** (for Linear) checkbox.
+
+1. Enter the webhook secret that you configured in your GitHub or Linear webhook settings.
+
+1. Select **Create Trigger** to create the pipeline trigger.
+
+Once configured, Buildkite verifies all incoming requests match the signature before accepting them.
+
+For more information on configuring webhook signatures with your provider:
+
+- [GitHub webhook signature verification](https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries)
+- [Linear webhook security](https://linear.app/developers/webhooks#securing-webhooks)
+
 ### Endpoint
 
 Each pipeline trigger has a unique endpoint with the following URL structure:
@@ -174,7 +203,7 @@ The `buildkite:webhook` meta-data itself is only available to builds triggered b
 
 Be aware that pipeline triggers have the following limitations:
 
-- The authenticity of a webhook's JSON payload cannot be verified (for example, using HMAC signatures) by the pipeline trigger.
+- Custom webhook triggers don't support webhook signature verification. For verified webhooks, use GitHub or Linear trigger types.
 - A pipeline trigger's URL cannot be rotated. If the trigger's `bkpt_` value has been compromised, you'll need to delete and re-[create](#create-a-new-pipeline-trigger) a new trigger with the same attributes.
 - The **Commit** and **Branch** build attributes are only supported by their values defined in the pipeline trigger itself, when it was either [created](#create-a-new-pipeline-trigger) or last edited, and these values cannot be mapped from fields of the incoming webhook's JSON payload.
 - A successful POST request to a pipeline trigger will always trigger a build. Pipeline triggers cannot be selectively triggered based on any content from the incoming webhook's JSON payload.
