@@ -3,7 +3,7 @@
 [BuildKit](https://docs.docker.com/build/buildkit/) is Docker's next-generation build system that provides improved performance, better caching, parallel build execution, and efficient layer management. The Elastic CI Stack for AWS includes [Docker Buildx](https://docs.docker.com/build/concepts/overview/#buildx) (BuildKit) pre-installed on recent Linux AMI versions. BuildKit runs as part of the Docker daemon on EC2 instances.
 
 > 📘 Note
-> Docker Buildx comes pre-installed on recent Elastic CI Stack for AWS AMI versions. If you're using an older AMI and Buildx is not available, you can either update to the latest AMI version or manually install Buildx following the [Docker Buildx installation documentation](https://docs.docker.com/build/install-buildx/).
+> Docker Buildx comes pre-installed on recent Elastic CI Stack for AWS AMI versions (starting with `v5.4.0`). If you're using an older AMI version and Buildx is not available, you can either update to the latest AMI version or manually install Buildx following the [Docker Buildx installation documentation](https://docs.docker.com/build/install-buildx/).
 
 ## Using BuildKit with Elastic CI Stack for AWS
 
@@ -58,7 +58,7 @@ No configuration changes are required in your pipeline YAML for using BuildKit w
 
 ### BuildKit with multi-platform builds
 
-The Elastic CI Stack for AWS supports building container images for multiple architectures. BuildKit can build images for platforms different from the host architecture (through QEMU emulation), which is pre-configured on all instances. This allows building ARM64 images on x86 instances and vice versa without additional setup.
+The Elastic CI Stack for AWS supports building container images for multiple architectures. BuildKit can build images for platforms different from the host architecture (through QEMU emulation). As a result, you can build ARM64 images on x86 instances and vice versa without additional setup.
 
 ```yaml
 steps:
@@ -278,6 +278,8 @@ For distributed teams or frequently terminated EC2 instances, remote cache backe
 
 #### S3 cache backend
 
+AWS S3 buckets can be used to store build cache layers between builds to speedup container builds.
+
 ```yaml
 steps:
   - label: "\:docker\: Build with S3 cache"
@@ -295,7 +297,7 @@ Ensure your Elastic CI Stack for AWS IAM role has appropriate S3 permissions for
 
 #### Registry cache backend
 
-Store build cache layers in a container registry alongside your images.
+Build cache layers can also be stored in a container registry alongside your images.
 
 ```yaml
 steps:
@@ -333,7 +335,7 @@ The Elastic CI Stack for AWS provides isolated Docker configurations per job thr
 
 ### Build isolation
 
-Each Buildkite job on the Elastic CI Stack for AWS runs with its own isolated Docker configuration directory (`$DOCKER_CONFIG`). This isolation prevents credentials and configurations from one job accessing another job's resources, even when multiple jobs run on the same instance.
+Each Buildkite job on the Elastic CI Stack for AWS creates its own isolated Docker configuration directory (`$DOCKER_CONFIG`). This isolation prevents credentials and configurations from one job accessing another job's resources, even when multiple jobs run on the same instance.
 
 After each job completes, the isolated Docker configuration is automatically cleaned up.
 
@@ -468,7 +470,7 @@ To prevent disk space issues, consider enabling instance storage or increasing t
 
 ### Build cache not working
 
-If builds don't reuse cache layers as expected, verify cache configuration:
+If builds don't reuse cache layers as expected, start by verifying your local/remote cache configuration.
 
 For local cache, ensure the cache directory persists between builds:
 
