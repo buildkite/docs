@@ -1,10 +1,14 @@
 # buildkite-agent step
 
-The Buildkite agent's `step` command provides the ability to retrieve and update the attributes of steps in your `pipeline.yml` files.
+The Buildkite Agent's `step` command provides the ability to retrieve and update the attributes of steps in your `pipeline.yml` files.
 
 ## Updating a step
 
-Use this command in your build scripts to update the `label` attribute of a step.
+Use this command in your build scripts to update the step attributes. The following attributes can be updated:
+
+* `label`
+* `notify`
+* `priority`
 
 <%= render 'agent/v3/help/step_update' %>
 
@@ -60,6 +64,10 @@ steps:
         buildkite-agent annotate 'this build failed' --style 'error'
       fi
 ```
+
+## Understanding step states vs job states
+
+The `buildkite-agent step get` command returns _step_ `state` and `outcome` values. The [REST](/docs/apis/rest-api) and [GraphQL](/docs/apis/graphql-api) APIs return [_job_ states](/docs/pipelines/configure/defining-steps#job-states). For more information regarding the difference between these values, see the definitions of [step](/docs/pipelines/glossary#step) and [job](/docs/pipelines/glossary#job).
 
 ## Canceling a step
 
