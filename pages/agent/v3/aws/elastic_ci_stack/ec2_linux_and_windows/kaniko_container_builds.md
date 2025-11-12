@@ -21,11 +21,7 @@ Create a [Package Registry](/docs/package-registries) for container images throu
 1. Select **OCI Image (Docker)** as the ecosystem type.
 1. Assign appropriate team access permissions (select teams that need access to the registry).
 1. Click **Create Registry**.
-1. Configure an OIDC policy to allow your agents to push images. Select **Settings** > **OIDC Policy** and add:
-
-    OIDC policy configuration:
-
-    This policy allows agents to authenticate using OIDC tokens. It specifies the issuer, required scopes for reading and writing packages, and restricts access to a specific organization, pipeline, and branch.
+1. Configure an OIDC policy to allow your agents to push images. Select **Settings** > **OIDC Policy** and add the following configuration. This will allow the agents to authenticate using OIDC tokens. The configuration specifies the issuer, required scopes for reading and writing packages, and restricts access to a specific organization, pipeline, and branch.
 
     ```yaml
     - iss: https://agent.buildkite.com
@@ -44,7 +40,7 @@ Note that the `build_branch` claim restricts image pushes to the specified branc
 For more information regarding registries, see [Manage registries](/docs/package_registries/registries/manage).
 
 > 📘 Registry compatibility
-> While the example uses Buildkite Package Registries, Kaniko can work with any OCI-compliant container registry. To use a different registry (Docker Hub, ECR, GCR, Azure Container Registry, and so on), adjust the authentication method and the destination URL accordingly.
+> While the example uses [Buildkite Package Registries](/docs/package-registries), Kaniko can work with any OCI-compliant container registry. To use a different registry (for example, Docker Hub, Amazon ECR, Google Container Registry, Azure Container Registry, and so on), adjust the authentication method and the destination URL accordingly.
 
 ## Push using Kaniko
 
@@ -244,7 +240,7 @@ console.log("Hello from Kaniko on Buildkite Elastic CI Stack for AWS!");
 {: codeblock-file="app.js"}
 
 > 📘 Docker login is not required
-> You don't need `docker login`. The step requests a short-lived OIDC token and passes it to Kaniko using a Docker config file.
+> You don't need `docker login` for this step as it requests a short-lived OIDC token and passes it to Kaniko using a Docker config file.
 
 ### Using the published images
 
@@ -264,7 +260,7 @@ docker run --rm packages.buildkite.com/acme-inc/my-container-registry/hello-kani
 
 #### Push to other registries
 
-If you need to push the image to other registries (Docker Hub, ECR, and so on), use the following commands:
+If you need to push the image to registries other than the Buildkite Package Registries (for example, Docker Hub, AWS ECR, and so on), use the following commands:
 
 ```bash
 # Tag for your target registry
@@ -341,9 +337,7 @@ Then [create the secrets](/docs/pipelines/security/secrets/buildkite-secrets#cre
       sign --key cosign.key your-registry/kaniko:latest
     ```
 
-1. Verify your custom image before use:
-
-    Verifying custom Kaniko images:
+1. Verify your custom Kaniko image before use:
 
     These commands retrieve the public signing key from Buildkite Secrets and use Cosign to verify that your custom Kaniko image's signature is valid and the image hasn't been modified.
 
