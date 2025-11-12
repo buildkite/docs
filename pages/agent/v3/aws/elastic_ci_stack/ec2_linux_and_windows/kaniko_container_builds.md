@@ -21,7 +21,7 @@ Create a [Buildkite Package Registry](/docs/package-registries) for container im
 1. Select **OCI Image (Docker)** as the ecosystem type.
 1. Assign appropriate team access permissions (select teams that need access to the registry).
 1. Click **Create Registry**.
-1. Configure an OIDC policy to allow your agents to push images. To do it, select **Settings** > **OIDC Policy** and add the following policy that allows agents to authenticate using OIDC tokens. It specifies the issuer, required scopes for reading and writing packages, and restricts access to a specific organization, pipeline, and branch. You'll need to replace `<your-org-slug>` and `<your-pipeline-slug>` in the policy with your Buildkite organization and pipeline slugs.
+1. Configure an OIDC policy to allow your agents to push images. To do it, select **Settings** > **OIDC Policy** and add the following policy that allows agents to authenticate using OIDC tokens. You'll need to replace `<your-org-slug>` and `<your-pipeline-slug>` in the policy with your Buildkite organization and pipeline slugs.
 
     ```yaml
     - iss: https://agent.buildkite.com
