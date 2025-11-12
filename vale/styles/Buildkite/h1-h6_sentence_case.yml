@@ -82,6 +82,7 @@ exceptions:
   - CloudWatch
   - CloudWatch Logs
   - CocoaPods
+  - Cognito
   - completion_watcher
   - Comliance
   - CORS
@@ -96,6 +97,7 @@ exceptions:
   - Docker Hub
   - ECR
   - EC2
+  - EKS
   - Elastic
   - Elastic CI Stack
   - Enterprise Premium Support
@@ -118,9 +120,9 @@ exceptions:
   - Google Artifact Registry
   - Google Chrome
   - Google Cloud
-  - Google Cloud Functions
   - Google Cloud Identity
   - Google Cloud Platform
+  - Google Cloud Run
   - Google Cloud Storage
   - Google Compute Engine
   - Google Kubernetes Engine
@@ -173,6 +175,7 @@ exceptions:
   - Mobile Delivery Cloud
   - Model Context Protocol
   - monitor
+  - Namespace
   - NET
   - Node.js
   - nodeName

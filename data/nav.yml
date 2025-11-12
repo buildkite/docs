@@ -232,6 +232,8 @@
                   path: "agent/v3/agent-stack-k8s/docker-compose-container-builds"
                 - name: "Docker-in-Docker (DinD)"
                   path: "agent/v3/agent-stack-k8s/dind-container-builds"
+                - name: "Namespace remote builders"
+                  path: "agent/v3/agent-stack-k8s/namespace-container-builds"
             - name: "Troubleshooting"
               path: "agent/v3/agent-stack-k8s/troubleshooting"
         - name: "Agent installers"
@@ -671,7 +673,7 @@
           path: "test-engine/workflows/monitors"
         - name: "Actions"
           path: "test-engine/workflows/actions"
-      pill: "new"
+      pill: "preview"
     - name: "Test Engine Client (bktec)"
       children:
         - name: "Configuring"

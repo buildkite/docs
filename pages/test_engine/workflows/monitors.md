@@ -1,6 +1,6 @@
 # Monitors
 
-A workflow is configured with a _monitor_, which is a specialized type of observer to your [test suite](/docs/test-engine/test-suites). A monitor observes test [executions](/docs/test-engine/glossary#execution), and surfaces information and trends about the test's performance and reliability over time.
+A workflow is configured with a _monitor_, which is a specialized type of observer to your [test suite](/docs/test-engine/test-suites). A monitor observes test [executions](/docs/test-engine/glossary#execution), and surfaces information and trends about the test's performance and reliability over time. Workflows are subject to a rate limit. See [Rate limit](/docs/test-engine/workflows#rate-limit) for more information.
 
 Test Engine supports the following types of monitors:
 
@@ -62,7 +62,13 @@ Tag filters reduce the set of [execution](/docs/test-engine/glossary#execution) 
 
 <%= image "tag-filters.png", alt: "Screenshot showing tag filters, with the branch filter set to main" %>
 
-Tag filters are optional and you can configure up to four of them per workflow. Tag filter values support matching operators (for example, **is** or **starts with**). If you haven't set up tags for test execution, see [Tags](/docs/test-engine/test-suites/tags) in the [Test suites](/docs/test-engine/test-suites) documentation for details.
+Tag filters are optional and you can configure up to four of them per workflow. Tag filter values support the following matching operators:
+
+- **is**
+- **is not**
+- **starts with**
+
+If you haven't set up tags for test execution, see [Tags](/docs/test-engine/test-suites/tags) in the [Test suites](/docs/test-engine/test-suites) documentation for details.
 
 ### Default branch filter
 
