@@ -70,6 +70,8 @@ exceptions:
   - CCMenu
   - CCTray
   - CentOS
+  - Chainguard
+  - Chainguard's
   - CI
   - CI/CD
   - CircleCI
@@ -120,9 +122,9 @@ exceptions:
   - Google Artifact Registry
   - Google Chrome
   - Google Cloud
-  - Google Cloud Functions
   - Google Cloud Identity
   - Google Cloud Platform
+  - Google Cloud Run
   - Google Cloud Storage
   - Google Compute Engine
   - Google Kubernetes Engine
@@ -186,6 +188,7 @@ exceptions:
   - Okta
   - OneLogin
   - OpenTelemetry
+  - Open Container Initiative
   - OS X
   - Package Registries
   - PagerDuty

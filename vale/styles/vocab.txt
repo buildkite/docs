@@ -67,6 +67,7 @@ CCMenu
 ccnet
 CCTray
 Chainguard
+Chainguard's
 chatbot
 chroot
 chroots
@@ -136,7 +137,6 @@ Eventbridge
 EventBridge
 exfiltrated
 exfiltration
-Explainshell
 fastfile
 fastlane
 fastlane's
@@ -337,6 +337,8 @@ shasum
 shellcheck
 shellscripting
 Shipit
+sigstore
+sigstore's
 signaltometrics
 SLO
 SLOs
