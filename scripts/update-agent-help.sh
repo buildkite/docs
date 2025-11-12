@@ -6,10 +6,17 @@ set -euo pipefail
 # It should be a Git tag or commit hash.
 AGENT_VERSION="0d2e270"
 
+# Locally, things tend to get installed to $(go env GOBIN), but in CI, they get installed to $(go env GOPATH)/bin
+# TIL these can be different!
+INSTALL_PATH="$(go env GOBIN)"
+if [[ -z $INSTALL_PATH ]]; then
+  INSTALL_PATH="$(go env GOPATH)/bin"
+fi
+
 # Note that go install names the binary "agent", when it is normally
 # "buildkite-agent". Rather than renaming, I'm leaving it, so that we avoid
 # accidentally calling an existing buildkite-agent.
-AGENT="$(go env GOPATH)/bin/agent"
+AGENT="${INSTALL_PATH}/agent"
 
 echo "Installing buildkite-agent ${AGENT_VERSION} to ${AGENT}"
 
@@ -17,7 +24,7 @@ go install "github.com/buildkite/agent/v3@${AGENT_VERSION}"
 
 echo "Installing cli2md"
 go install -buildvcs=false ./scripts/cli2md
-CLI2MD="$(go env GOPATH)/bin/cli2md"
+CLI2MD="${INSTALL_PATH}/cli2md"
 
 commands=(
   "annotate"
