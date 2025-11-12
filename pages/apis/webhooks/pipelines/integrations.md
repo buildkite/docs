@@ -13,7 +13,7 @@ There are many ways to integrate webhooks with AWS Lambda. The following reposit
 
 ## Google Cloud Run functions
 
-[Google Cloud Run functions](https://cloud.google.com/functions) is a Google Cloud service for hosted code execution, and also supports exposing functions using URLs. See Google Cloud Run's [When should I deploy a function to Cloud Run?](https://docs.cloud.google.com/run/docs/functions-with-run) documentation for more information about its use cases, as well as their Quickstart guides on how to deploy a web app to Cloud Run (for example, [Node.js](https://docs.cloud.google.com/run/docs/quickstarts/build-and-deploy/deploy-nodejs-service)) to get started, and a Cloud Run function using the Google Cloud [console](https://docs.cloud.google.com/run/docs/quickstarts/functions/deploy-functions-console) or [gcloud](https://docs.cloud.google.com/run/docs/quickstarts/functions/deploy-functions-gcloud).
+[Google Cloud Run functions](https://cloud.google.com/functions) is a Google Cloud service for hosted code execution, and also supports exposing functions using URLs. See Google Cloud Run's [When should I deploy a function to Cloud Run?](https://docs.cloud.google.com/run/docs/functions-with-run) documentation for more information about its use cases, as well as their Quickstart guides on how to deploy a web app to Cloud Run (for example, [Node.js](https://docs.cloud.google.com/run/docs/quickstarts/build-and-deploy/deploy-nodejs-service)) to get started, and a Cloud Run function using the [Google Cloud console](https://docs.cloud.google.com/run/docs/quickstarts/functions/deploy-functions-console) or [gcloud CLI](https://docs.cloud.google.com/run/docs/quickstarts/functions/deploy-functions-gcloud).
 
 ## Zapier
 
