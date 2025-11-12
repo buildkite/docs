@@ -14,7 +14,7 @@ apk
 APM
 applesimutils
 Amazon ECR
-Amazon Elastic Continer Registry
+Amazon Elastic Container Registry
 Anthropic's
 Aqua
 architecting
@@ -68,6 +68,7 @@ CCMenu
 ccnet
 CCTray
 Chainguard
+Chainguard's
 chatbot
 chroot
 chroots
@@ -77,6 +78,7 @@ classpath
 cli
 CLI
 Cloudsmith
+Cognito
 Cloudsmith's
 CloudTrail
 CloudWatch
@@ -86,6 +88,7 @@ cocoapods
 codeql
 codesign
 codesigning
+Cognito
 commit_sha
 completion_watcher
 composable
@@ -124,6 +127,7 @@ Docker-in-Docker
 dogstatsd
 dotenv
 DSCs
+ecr
 enqueued
 Entra
 enum
@@ -134,7 +138,6 @@ Eventbridge
 EventBridge
 exfiltrated
 exfiltration
-Explainshell
 fastfile
 fastlane
 fastlane's
@@ -232,6 +235,7 @@ mrkdwn
 multi-file
 mutex
 namespace
+Namespace's
 namespaced
 namespaces
 navatar
@@ -334,6 +338,8 @@ shasum
 shellcheck
 shellscripting
 Shipit
+sigstore
+sigstore's
 signaltometrics
 SLO
 SLOs
@@ -387,6 +393,7 @@ UserData
 unarchive
 unarchived
 unarchiving
+Uncomment
 unblocker
 unbuildable
 unclustered

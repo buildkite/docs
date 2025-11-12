@@ -19,7 +19,7 @@ Extra large instances are available on request. Please contact support@buildkite
 
 Buildkite provides a Linux agent image pre-configured with common tools and utilities to help you get started quickly. This image also provides tools required for running jobs on hosted agents.
 
-The image is based on Ubuntu 20.04 and includes the following tools:
+The image is based on Ubuntu 22.04 and includes the following tools:
 
 - docker
 - docker-compose
