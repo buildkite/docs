@@ -120,9 +120,9 @@ exceptions:
   - Google Artifact Registry
   - Google Chrome
   - Google Cloud
-  - Google Cloud Functions
   - Google Cloud Identity
   - Google Cloud Platform
+  - Google Cloud Run
   - Google Cloud Storage
   - Google Compute Engine
   - Google Kubernetes Engine
