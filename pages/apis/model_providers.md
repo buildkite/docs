@@ -12,7 +12,7 @@ Once you have connected your Buildkite organization to a model provider, your AI
 
 ## Connect to a model provider
 
-Connecting your Buildkite organization to an AI model through the Buildkite platform can only be done by [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions). Currently, only [Anthropic](/docs/apis/model-providers/anthropic) models only.
+Connecting your Buildkite organization to an AI model through the Buildkite platform can only be done by [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions). Currently, only [Anthropic](/docs/apis/model-providers/anthropic) models are supported.
 
 To connect to a model provider:
 
