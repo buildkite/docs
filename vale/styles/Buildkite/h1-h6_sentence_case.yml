@@ -93,10 +93,12 @@ exceptions:
   - Debian
   - Declarative
   - deduper
+  - DinD
   - Docker
   - Docker Compose
   - Docker Desktop
   - Docker Hub
+  - Docker-in-Docker
   - ECR
   - EC2
   - EKS
