@@ -1,6 +1,6 @@
 # Model providers overview
 
-Model providers give Buildkite agents direct access to large language models (LLMs), enabling AI-powered workflows within your CI/CD environment. It provides secure, integrated access to AI models without requiring separate infrastructure setup.
+The _model providers_ feature provides [Buildkite Agents](/docs/agent/v3) with direct access to large language models (LLMs) through the Buildkite platform, enabling AI-powered workflows within your CI/CD environment. This feature provides secure, integrated access to LLMs, also known as _models_ or _AI models_, without requiring separate infrastructure setup.
 
 Local AI coding tools operate in isolation with limited context and no connection to your actual build environment. Model providers solve this by bringing AI capabilities directly into your pipelines, where they have access to:
 
@@ -8,31 +8,25 @@ Local AI coding tools operate in isolation with limited context and no connectio
 - Organizational security policies and audit trails
 - Real-time build context for informed decision-making
 
-AI agents can now respond to build failures, optimize performance, and improve your pipelines automatically. Every step of your software delivery process can benefit from AI that understands your actual build context.
+Once you have connected your Buildkite organization to a model provider, your AI agents can then respond to build failures from Buildkite pipelines, optimize performance, and improve your pipelines automatically. Every step of your software delivery process can benefit from AI that understands your actual build context.
 
-## Supported providers
+## Connect to a model provider
 
-Currently, Buildkite supports [Anthropic](/docs/apis/model-providers/anthropic) models only.
+Connecting your Buildkite organization to an AI model through the Buildkite platform can only be done by [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions). Currently, only [Anthropic](/docs/apis/model-providers/anthropic) models only.
 
-## Getting started
-
-Organization admins can enable model providers in a few steps:
+To connect to a model provider:
 
 1. Select **Settings** in the global navigation to access the to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
-1. Navigate to your [Model providers page](https://buildkite.com/organizations/~/model-providers) from **Settings**
+1. Select **Integrations > Model Providers** to access your organization's [**Model Providers**](https://buildkite.com/organizations/~/model-providers) page.
 
-1. Select the model provider to enable for your organization.
+1. In **All Providers**, select the model provider to enable for your organization.
 
-1. Choose your authentication method
+1. Choose your **Authentication Method**—[**Buildkite Hosted Token**](#connect-to-a-model-provider-buildkite-hosted-token) or [**Bring Your Own Token (BYO)**](#connect-to-a-model-provider-bring-your-own-token), depending on your security requirements and preferences.
 
-## Authentication methods
+### Buildkite hosted token
 
-Model providers support two authentication approaches to fit different security requirements.
-
-### Buildkite Hosted
-
-With Buildkite Hosted authentication, you can start using Large language models immediately. Buildkite handles the infrastructure and authentication, so there's no need to:
+With the **Buildkite Hosted Token** authentication option, you can start using Large language models immediately. Buildkite handles the infrastructure and authentication, so there's no need to:
 
 - Create accounts with model providers
 - Manage API keys or secrets
@@ -42,7 +36,7 @@ Your pipelines authenticate using existing Buildkite job tokens:
 
 ### Bring your own token
 
-For organizations with existing model provider relationships or specific security requirements, BYO token authentication lets you:
+For organizations with existing model provider relationships or specific security requirements, the **Bring Your Own Token (BYO)** authentication option lets you:
 
 - Use your own API keys with model providers
 - Maintain direct billing relationships

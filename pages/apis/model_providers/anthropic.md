@@ -3,6 +3,7 @@
 Anthropic Model Provider enables organizations to integrate Claude models into CI/CD pipelines. It supports both Buildkite Hosted Tokens as well as Bring-Your-Own (BYO) Tokens, providing flexible access to Anthropic's AI capabilities.
 
 ## Claude Code compatibility
+
 Anthropic provider is fully compatible with Claude Code. You can run Claude Code directly within your Buildkite pipelines, enabling automated code generation, refactoring, and testing in your CI/CD environment.
 
 ## Supported models
@@ -25,25 +26,30 @@ The following Anthropic API endpoints are available through Buildkite Model Prov
 - `GET /v1/models` Retrieve all available Anthropic models.
 - `GET /v1/models/{model_id}` Get information about a specific model's capabilities and limits.
 
-
 ## Authentication methods
 
 Anthropic provider supports two authentication header formats:
 
 ### Authorization header (standard Agent API)
+
 ```bash
 -H "Authorization: Token $BUILDKITE_AGENT_ACCESS_TOKEN"
 ```
 
+<!-- vale off -->
+
 ### x-api-key header (Claude SDK compatible)
+
+<!-- vale on -->
+
 ```bash
 -H "x-api-key: $BUILDKITE_AGENT_ACCESS_TOKEN"
 ```
 
 Both methods use Job token for authentication.
 
-
 ## Rate limits
+
 The following rate limits apply to Anthropic API requests:
 
 ### Request rate limiting
@@ -58,6 +64,7 @@ The following rate limits apply to Anthropic API requests:
 To request a higher rate limit for your Buildkite organization, please contact support@buildkite.com.
 
 ## Response formats
+
 Anthropic provider supports both:
 
 - **Non-streaming responses**: Complete responses returned after processing
