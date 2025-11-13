@@ -1,29 +1,28 @@
-# Kaniko - build container images in Kubernetes
+# Kaniko container builds
 
 [Kaniko](https://github.com/GoogleContainerTools/kaniko/tree/main#kaniko---build-images-in-kubernetes) is a tool for building container images from a Dockerfile, inside a container or Kubernetes cluster. Kaniko doesn't depend on a Docker daemon and executes each command within a Dockerfile completely in user space. This enables building container images in environments that can't easily or securely run a Docker daemon, such as a standard Kubernetes cluster.
 
-You are supposed to run Kaniko as an image: `gcr.io/kaniko-project/executor`. The Kaniko executor image is responsible for building an image from a Dockerfile and pushing it to a registry. Within the executor image,  the filesystem of the base image (the `FROM` image in the Dockerfile) is extracted. Next, the commands in the Dockerfile are executed, taking snapshots of the filesystem in user space after running each commands. After each command, a layer of changed files is appended to the base image (if one exists) and the image metadata is updated.
+Run Kaniko as an image: `gcr.io/kaniko-project/executor`. The Kaniko executor image is responsible for building an image from a Dockerfile and pushing it to a registry. Within the executor image, the filesystem of the base image (the `FROM` image in the Dockerfile) is extracted. Next, the commands in the Dockerfile are executed, taking snapshots of the filesystem in user space after running each command. After each command, a layer of changed files is appended to the base image (if one exists) and the image metadata is updated.
 
 ## Using Kaniko with Agent Stack for Kubernetes
 
-This section explains how to use Kaniko executor to perform the following:
+This section explains how to use the Kaniko executor to perform the following:
 
-1. Build image and push to Buildkite Artifacts
-1. Build image and push to Google Artifact Registry
-1. Build image and push to Elastic Container Registry
+1. Build an image and push to Buildkite Artifacts
+1. Build an image and push to Google Artifact Registry
+1. Build an image and push to Elastic Container Registry
 
 ### Kaniko image availability
 
-Google has deprecated support for the Kaniko project and no longer publishes new images to `gcr.io/kaniko-project/`. However, [Chainguard has forked the project](https://github.com/chainguard-dev/kaniko) and continues to provide support and create new releases. There are several options available for running Kaniko in Docker. Refer to [Kaniko image availability options](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/kaniko_container_builds#running-kaniko-in-docker-kaniko-image-availability)
+Google has deprecated support for the Kaniko project and no longer publishes new images to `gcr.io/kaniko-project/`. However, [Chainguard has forked the project](https://github.com/chainguard-dev/kaniko) and continues to provide support and create new releases. There are several options available for running Kaniko in Docker. Refer to the [Kaniko image availability options](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/kaniko_container_builds#running-kaniko-in-docker-kaniko-image-availability).
 
-
-### Build image and push to Buildkite Artifacts
+### Build an image and push to Buildkite Package Registries
 
 ```yaml
 agents:
   queue: kubernetes
 steps:
-  - label: ":kaniko: Build image and push to artifacts"
+  - label: "\:kaniko\: Build image and push to Buildkite Package Registries"
     plugins:
       - kubernetes:
           podSpecPatch:
@@ -44,20 +43,20 @@ steps:
       - "/workspace/image.tar"
 ```
 
->
-> Note that `debug` tag is used for the `executor` image, as the `latest` tag does not have `shell` in it, and with `agent-stack-k8s`, shell will be needed. To use the `latest` tag, generate a custom image of Kaniko executor with `shell` included.
+> 📘 Using the debug tag
+> The `debug` tag is used for the `executor` image, as the `latest` tag doesn't have a shell in it, and with `agent-stack-k8s`, a shell is needed. To use the `latest` tag, generate a custom image of the Kaniko executor with a shell included.
 
-### Build image and push to Google Artifact Registry
+### Build an image and push to Google Artifact Registry
 
-This section covers using Kaniko executor for building Docker images and pushing them to [Google Artifact Registry](https://cloud.google.com/artifact-registry/docs/overview). In order to push images to Google Artifact Registry, you need to have a Kubernetes secret that will have the token that provides the required permissions. For detailed steps on what permissions are necessary and how to create the secret, refer to the [secret creation documentation](https://github.com/chainguard-dev/kaniko?tab=readme-ov-file#kubernetes-secret).
+This section covers using the Kaniko executor for building container images and pushing them to [Google Artifact Registry](https://cloud.google.com/artifact-registry/docs/overview). To push images to Google Artifact Registry, you need a Kubernetes secret containing the token that provides the required permissions. For detailed steps on what permissions are necessary and how to create the secret, refer to the [secret creation documentation](https://github.com/chainguard-dev/kaniko?tab=readme-ov-file#kubernetes-secret).
 
-Once the secret is created, mount the secret into the container then export the secret as part of env `GOOGLE_APPLICATION_CREDENTIALS` into the executor.
+Once the secret is created, mount the secret into the container, then export the secret as the environment variable `GOOGLE_APPLICATION_CREDENTIALS` into the executor.
 
 ```yaml
 agents:
   queue: kubernetes
 steps:
-  - label: ":kaniko: Build image and push to Google artifact registry"
+  - label: "\:kaniko\: Build image and push to Google Artifact Registry"
     plugins:
       - kubernetes:
           podSpecPatch:
@@ -84,9 +83,9 @@ steps:
                   secretName: kaniko-secret
 ```
 
-### Build image and push to Elastic Container Registry
+### Build an image and push to Elastic Container Registry
 
-This section covers pushing an image to Elastic Container Registry. Similarly to the previous section, you will need to set up [ECR credentials](https://github.com/chainguard-dev/kaniko?tab=readme-ov-file#pushing-to-amazon-ecr).
+This section covers pushing an image to Elastic Container Registry. Similar to the previous section, you will need to set up [ECR credentials](https://github.com/chainguard-dev/kaniko?tab=readme-ov-file#pushing-to-amazon-ecr).
 
 The example below also shows how to expose the secret by exporting it to the Kaniko executor.
 
@@ -94,7 +93,7 @@ The example below also shows how to expose the secret by exporting it to the Kan
 agents:
   queue: kubernetes
 steps:
-  - label: ":kaniko: Build image and push to Google artifact registry"
+  - label: "\:kaniko\: Build image and push to Elastic Container Registry"
     plugins:
       - kubernetes:
           podSpecPatch:
@@ -116,8 +115,8 @@ steps:
                     /kaniko/executor \
                       --dockerfile=/workspace/build/buildkite/src/Dockerfile \
                       --destination=123456789012.dkr.ecr.us-west-2.amazonaws.com/my-repo:latest
-           volumes:
-             - name: aws-creds
-               secret:
-                 secretName: aws-ecr-credentials
+            volumes:
+              - name: aws-creds
+                secret:
+                  secretName: aws-ecr-credentials
 ```
