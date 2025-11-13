@@ -12,19 +12,37 @@ When running this plugin within the Buildkite Agent Stack for Kubernetes, consid
 
 ### Docker daemon access
 
-The Docker Compose plugin requires access to a Docker daemon and you can choose one of the two main approaches for this:
+The Docker Compose plugin requires access to a Docker daemon and you can choose one of two primary approaches:
 
-_Mounting the host Docker socket_: Mount `/var/run/docker.sock` from the host into your pod. This is the simpler approach, but the host's Docker daemon is shared with all pods that mount it.
+#### Mounting the host Docker socket
+
+Mount `/var/run/docker.sock` from the host into your pod. This is the simpler approach, but the host's Docker daemon is shared with all pods that mount it.
 
 - Best practices: Only use this approach with trusted repositories, run your agents on dedicated nodes, and scope access according to your Kubernetes security policies.
 - Trade-offs: Since all pods share the same Docker daemon, there's no resource isolation between them. If one pod's build exhausts or corrupts the daemon, every other pod is impacted. You're also limited to a single daemon configuration across all pods.
 - Security concerns: This approach grants containers near-root-level access to the host, meaning any process with socket access can control the host Docker daemon. This poses container breakout risks if you're running untrusted workloads.
 
-_Docker-in-Docker (DinD)_: Run a Docker daemon inside your pod using a DinD sidecar container. This provides better isolation but requires `privileged: true` or specific security capabilities. DinD can add complexity and resource overhead but it avoids sharing the host daemon.
+#### Docker-in-Docker (DinD)
 
-- Best practices: Use a dedicated sidecar container for each build, only disable TLS cert dir (`DOCKER_TLS_CERTDIR=""`) if the network scope is local to the pod, avoid exposing host ports to restrict network access, and set resource limits to prevent excess consumption.
-- Trade-offs: Running a separate Docker daemon in each pod slows down build performance and increases resource usage. Operations and debugging can also be more complex since you need to configure and maintain multiple daemons. You will also need to handle network configuration for daemon communication within each pod.
-- Security concerns: DinD requires `privileged` mode or elevated capabilities, which increases the kernel attack surface inside your pod. Misconfiguration can also leave the Docker API exposed without proper authentication, creating a security risk.
+Run a Docker daemon inside your pod using a DinD sidecar container. This provides better isolation but requires `privileged: true` or specific security capabilities. DinD can add complexity and resource overhead but it avoids sharing the host daemon.
+
+Best practices:
+
+- Use a dedicated sidecar container for each build
+- Only set `DOCKER_TLS_CERTDIR=""` to disable TLS if the network scope is local to the pod
+- Avoid exposing host ports to restrict network access
+- Set resource limits to prevent excess consumption
+
+Trade-offs:
+
+- Running a separate Docker daemon in each pod slows down build performance and increases resource usage
+- Operations and debugging can be more complex since you need to configure and maintain multiple daemons
+- You will need to handle network configuration for daemon communication within each pod
+
+Security concerns:
+
+- DinD requires `privileged` mode or elevated capabilities, which increases the kernel attack surface inside your pod
+- Misconfiguration can leave the Docker API exposed without proper authentication, creating a security risk
 
 ### Using Docker-in-Docker with PodSpecPatch
 
@@ -78,7 +96,7 @@ steps:
       DOCKER_HOST: tcp://127.0.0.1:2375
 ```
 
-This configuration exposes the Docker daemon on 127.0.0.1:2375 without TLS for use by your build step. The TCP socket (`tcp://127.0.0.1:2375`) is unencrypted — which is fine for local communication inside a single pod, but must not be exposed externally. For a TLS-enabled TCP listener (commonly 2376), enable TLS on the TCP listener and provide certificates instead of disabling `DOCKER_TLS_CERTDIR`.
+This configuration exposes the Docker daemon on 127.0.0.1:2375 without TLS for use by your build step. The TCP socket (`tcp://127.0.0.1:2375`) is unencrypted, which is fine for local communication inside a single pod, but must not be exposed externally. For TLS-enabled communication (commonly port 2376), provide certificates instead of disabling `DOCKER_TLS_CERTDIR`.
 
 ### Build context and volume mounts
 
@@ -88,7 +106,13 @@ For build caching or sharing artifacts across builds, mount persistent volumes o
 
 ### Registry authentication
 
-Set up proper authentication for pushing to container registries. Use the `docker-login` plugin for standard Docker registries, the `ecr` plugin for AWS ECR, or the `gcp-workload-identity-federation` plugin for Google Artifact Registry. For services you push, ensure `image:` is set in `docker-compose.yml` to specify the full registry path.
+Set up proper authentication for pushing to container registries:
+
+- Use the `docker-login` plugin for standard Docker registries
+- Use the `ecr` plugin for AWS ECR
+- Use the `gcp-workload-identity-federation` plugin for Google Artifact Registry
+
+When pushing services, ensure the `image:` field is set in `docker-compose.yml` to specify the full registry path.
 
 ### Resource allocation
 
@@ -99,7 +123,7 @@ Building container images can be resource-intensive, especially for large applic
 - Ensure sufficient ephemeral storage for Docker layers, build artifacts, and intermediate files
 - Account for DinD sidecar resource usage if using Docker-in-Docker
 
-If resource requests and limits are not specified, Kubernetes may schedule your pods on nodes with insufficient resources, causing builds to fail with Out of Memory (OOM) errors or be terminated by the cluster. Monitor resource usage during builds using `kubectl top pod` and adjust limits as needed.
+Without specified resource requests and limits, Kubernetes may schedule your pods on nodes with insufficient resources. This causes builds to fail with Out of Memory (OOM) errors or cluster termination. Monitor resource usage during builds using `kubectl top pod` and adjust limits as needed.
 
 
 ## Configuration approaches with the Docker Compose plugin
@@ -187,7 +211,7 @@ Customize your Docker Compose builds by using the plugin's configuration options
 
 ### Using build arguments
 
-Pass build arguments to customize image builds at runtime. Build arguments let you parameterize Dockerfiles without embedding values directly in the file.
+Pass build arguments to customize image builds at runtime. Build arguments let you parameterize Dockerfiles without directly embedding values in the file.
 
 ```yaml
 steps:
@@ -328,6 +352,7 @@ steps:
           push:
             - app:us-central1-docker.pkg.dev/your-project/your-repository/app:${BUILDKITE_BUILD_NUMBER}
 ```
+
 ## Troubleshooting
 
 ### Network connectivity
@@ -503,6 +528,3 @@ docker images
 ```
 
 This helps identify issues with the compose configuration itself, separate from pipeline or Kubernetes concerns.
-
-
-
