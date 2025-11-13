@@ -26,11 +26,11 @@ To connect to a model provider:
 
 ### Buildkite hosted token
 
-With the **Buildkite Hosted Token** authentication option, you can start using Large language models immediately. Buildkite handles the infrastructure and authentication, so there's no need to:
+With the **Buildkite Hosted Token** authentication option, you can start using AI models immediately. Buildkite handles the infrastructure and authentication, and therefore, there's no need to:
 
-- Create accounts with model providers
-- Manage API keys or secrets
-- Configure additional infrastructure
+- Create accounts with model providers.
+- Manage API keys or secrets.
+- Configure additional infrastructure.
 
 Your pipelines authenticate using existing Buildkite job tokens:
 
@@ -38,10 +38,10 @@ Your pipelines authenticate using existing Buildkite job tokens:
 
 For organizations with existing model provider relationships or specific security requirements, the **Bring Your Own Token (BYO)** authentication option lets you:
 
-- Use your own API keys with model providers
-- Maintain direct billing relationships
-- Control API access and quotas
-- Benefit from Buildkite's usage tracking and integration
+- Use your own API keys with AI model providers.
+- Maintain direct billing relationships.
+- Control API access and quotas.
+- Benefit from Buildkite's usage tracking and integration.
 
 Once configured, integrate AI capabilities into your build workflows using the Buildkite Agent API.
 
@@ -74,7 +74,11 @@ steps:
 
 ## Monitoring usage
 
-Track your organization's AI model usage through the Buildkite dashboard
+To track your Buildkite organization's AI model usage through the Buildkite interface:
 
-1. **Navigate to [Usage page](https://buildkite.com/organizations/~/usage)** from the Settings
-2. Select the [**Hosted Models**](https://buildkite.com/organizations/~/usage?product=hosted_models) tab
+1. Select **Settings** in the global navigation to access the to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+
+1. Select **Usage** to access your Buildkite organization's usage [**Usage > Summary**](https://buildkite.com/organizations/~/usage) page.
+
+1. Select the [**Hosted Models**](https://buildkite.com/organizations/~/usage?product=hosted_models) tab to view your model provider usage.
+
