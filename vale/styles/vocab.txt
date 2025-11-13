@@ -23,6 +23,7 @@ argumentless
 Artifactory
 Artifactory's
 Atlassian
+auditability
 Authy
 auditable
 autogenerate
@@ -76,6 +77,7 @@ ClamAV
 classpath
 cli
 CLI
+CLIs
 Cloudsmith
 Cognito
 Cloudsmith's
@@ -171,6 +173,7 @@ GuardDog
 gz
 gzipped
 hard-code
+hard-coded
 hard-coding
 Hashicorp
 Homebrew
@@ -210,6 +213,7 @@ Kuzco
 launchd
 LFS
 libpq
+Lifecycled
 Lightstep
 linux
 llamasecret
@@ -226,6 +230,7 @@ matchers
 Memcache
 minitest
 misconfiguration
+misconfigured
 mitigation
 mitigations
 monorepo
@@ -288,6 +293,8 @@ Prometheus
 protobuf
 preemptible
 prefill
+prefetch
+preinstall
 preprovisioned
 proxied
 pty
@@ -371,6 +378,7 @@ svg
 swiftformat
 swiftlint
 systemd
+teardown
 templated
 tgz
 timeframe
