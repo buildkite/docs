@@ -6,25 +6,25 @@ toc_include_h3: false
 
 The [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) helps you build and run multi-container Docker applications. This guide shows how to build and push container images using the Docker Compose plugin on agents that are auto-scaled by the Buildkite Agent Stack for Kubernetes.
 
-## Special considerations for Kubernetes
+## Special considerations for Agent Stack with Kubernetes
 
-When running these plugins within the Buildkite Agent Stack for Kubernetes, consider the following requirements and best practices for successful container builds.
+When running this plugin within the Buildkite Agent Stack for Kubernetes, consider the following requirements and best practices for successful container builds.
 
 ### Docker daemon access
 
-The Docker Compose plugin requires access to a Docker daemon. In Kubernetes, you can choose one of the two main approaches:
+The Docker Compose plugin requires access to a Docker daemon and you can choose one of the two main approaches for this:
 
-_Mounting the host Docker socket_: Mount `/var/run/docker.sock` from the host into your pod. This is the simpler approach but this way, the host's Docker daemon is shared with all pods. Ensure your Kubernetes cluster security policies allow socket mounting.
+_Mounting the host Docker socket_: Mount `/var/run/docker.sock` from the host into your pod. This is the simpler approach, but the host's Docker daemon is shared with all pods that mount it. 
 
-- Security concerns: This approach grants containers near-root-level access to the host; any process with socket access can control the host Docker daemon. This poses container breakout risks if workloads are untrusted.
-- Best practices: Restrict usage to trusted repositories; run agents on dedicated nodes; scope access according to the Kubernetes security policies; avoid multi-tenant clusters; prefer read-only mounts where possible.
-- Trade-offs: Simple and fast to set up; best performance and caching; weakest isolation and hardest to lock down.
+- Best practices: Only use this approach with trusted repositories, run your agents on dedicated nodes, and scope access according to your Kubernetes security policies.
+- Trade-offs: Since all pods share the same Docker daemon, there's no resource isolation between them. If one pod's build exhausts or corrupts the daemon, every other pod is impacted. You're also limited to a single daemon configuration across all pods.
+- Security concerns: This approach grants containers near-root-level access to the host, meaning any process with socket access can control the host Docker daemon. This poses container breakout risks if you're running untrusted workloads.
 
-_Docker-in-Docker (DinD)_: Run a Docker daemon inside your pod using a DinD sidecar container. This provides better isolation but requires `privileged: true` or specific security capabilities. DinD adds complexity and resource overhead but avoids sharing the host daemon.
+_Docker-in-Docker (DinD)_: Run a Docker daemon inside your pod using a DinD sidecar container. This provides better isolation but requires `privileged: true` or specific security capabilities. DinD can add complexity and resource overhead but it avoids sharing the host daemon.
 
-- Security concerns: Requires `privileged` or elevated capabilities; expanded kernel surface within the pod; misconfiguration can expose an unsecured Docker API.
-- Best practices: Use a sidecar dedicated to the build; disable TLS cert dir (`DOCKER_TLS_CERTDIR=""`) only if network scope is local; restrict network exposure (no host ports); set resource limits; regularly prune storage.
-- Trade-offs: Better isolation than host socket; slightly slower and uses more resources; operationally more complex but safer for mixed-trust workloads.
+- Best practices: Use a dedicated sidecar container for each build, only disable TLS cert dir (`DOCKER_TLS_CERTDIR=""`) if the network scope is local to the pod, avoid exposing host ports to restrict network access, and set resource limits to prevent excess consumption.
+- Trade-offs: Running a separate Docker daemon in each pod slows down build performance and increases resource usage. Operations and debugging can also be more complex since you need to configure and maintain multiple daemons. You will also need to handle network configuration for daemon communication within each pod.
+- Security concerns: DinD requires `privileged` mode or elevated capabilities, which increases the kernel attack surface inside your pod. Misconfiguration can also leave the Docker API exposed without proper authentication, creating a security risk.
 
 ### Using Docker-in-Docker with PodSpecPatch
 
@@ -102,7 +102,7 @@ Building container images can be resource-intensive, especially for large applic
 If resource requests and limits are not specified, Kubernetes may schedule your pods on nodes with insufficient resources, causing builds to fail with Out of Memory (OOM) errors or be terminated by the cluster. Monitor resource usage during builds using `kubectl top pod` and adjust limits as needed.
 
 
-## Configuration approaches
+## Configuration approaches with the Docker Compose plugin
 
 The Docker Compose plugin supports different workflow patterns for building and pushing container images, each suited to specific use cases in Kubernetes environments.
 
@@ -124,7 +124,7 @@ steps:
             - app:packages.buildkite.com/{org.slug}/{registry.slug}/image-name:${BUILDKITE_BUILD_NUMBER}
 ```
 
-## Basic Docker Compose build
+### Basic Docker Compose build
 
 Build services defined in your `docker-compose.yml` file:
 
@@ -148,7 +148,7 @@ services:
     image: your-registry.example.com/your-team/app:bk-${BUILDKITE_BUILD_NUMBER}
 ```
 
-## Building and pushing with the Docker Compose plugin
+### Building and pushing with the Docker Compose plugin
 
 Build and push images in a single step:
 
