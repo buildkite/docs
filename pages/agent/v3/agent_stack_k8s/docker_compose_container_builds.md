@@ -6,7 +6,7 @@ toc_include_h3: false
 
 The [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) helps you build and run multi-container Docker applications. This guide shows how to build and push container images using the Docker Compose plugin on agents that are auto-scaled by the Buildkite Agent Stack for Kubernetes.
 
-## Special considerations for Agent Stack with Kubernetes
+## Special considerations with Agent Stack for Kubernetes
 
 When running this plugin within the Buildkite Agent Stack for Kubernetes, consider the following requirements and best practices for successful container builds.
 
@@ -14,7 +14,7 @@ When running this plugin within the Buildkite Agent Stack for Kubernetes, consid
 
 The Docker Compose plugin requires access to a Docker daemon and you can choose one of the two main approaches for this:
 
-_Mounting the host Docker socket_: Mount `/var/run/docker.sock` from the host into your pod. This is the simpler approach, but the host's Docker daemon is shared with all pods that mount it. 
+_Mounting the host Docker socket_: Mount `/var/run/docker.sock` from the host into your pod. This is the simpler approach, but the host's Docker daemon is shared with all pods that mount it.
 
 - Best practices: Only use this approach with trusted repositories, run your agents on dedicated nodes, and scope access according to your Kubernetes security policies.
 - Trade-offs: Since all pods share the same Docker daemon, there's no resource isolation between them. If one pod's build exhausts or corrupts the daemon, every other pod is impacted. You're also limited to a single daemon configuration across all pods.
