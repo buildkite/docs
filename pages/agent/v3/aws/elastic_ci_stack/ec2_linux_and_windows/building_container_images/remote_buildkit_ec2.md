@@ -1,16 +1,16 @@
 # Remote BuildKit builders on Elastic CI Stack for AWS
 
-[BuildKit](https://docs.docker.com/reference/buildkit/) supports running container builds on a remote daemon. This guide shows how to provision an Amazon EC2 instance as a dedicated BuildKit builder and connect Elastic CI Stack for AWS agents to it.
+[BuildKit](https://docs.docker.com/reference/buildkit/) supports running container builds on a remote daemon. This guide shows you how to provision an Amazon EC2 instance as a dedicated BuildKit builder and connect Elastic CI Stack for AWS agents to it.
 
 Running builds on a separate instance provides faster CPU, persistent cache storage, and isolation from your pipeline agents. The Buildkite agent coordinates the build while BuildKit executes it on the remote node.
 
 > 📘 Local BuildKit builds
-> If you want to run BuildKit builds directly on your Elastic CI Stack for AWS agents instead of a remote instance, see [BuildKit container builds](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/buildkit_container_builds).
+> If you want to run BuildKit builds directly on your Elastic CI Stack for AWS agents instead of a remote instance, see [BuildKit container builds](../buildkit_container_builds).
 
 ## How it works
 
 1. A dedicated EC2 instance runs the BuildKit daemon (`buildkitd`) and exposes the gRPC listener on TCP port 1234.
-1. Elastic CI Stack for AWS agents install the BuildKit client (`buildctl`) and configure environment variables to target the remote builder.
+1. The BuildKit client (`buildctl`) is installed on Elastic CI Stack for AWS agents, with environment variables configured to target the remote builder.
 1. Pipelines call `buildctl build` to build and push container images.
 
 The remote EC2 instance retains the BuildKit cache, so subsequent builds reuse cached layers. Multiple pipelines can share the same builder if you size the instance appropriately.
@@ -78,9 +78,9 @@ sudo systemctl start buildkitd.service
 sudo systemctl status buildkitd.service
 ```
 
-## Configuring Elastic CI Stack for AWS agents
+## Configure Elastic CI Stack for AWS agents
 
-Install `buildctl` on each Elastic CI Stack for AWS instance so your pipelines can connect to the remote builder. Bake the binary into your custom AMI using the [custom image guide](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/setup#custom-images):
+Install `buildctl` on each Elastic CI Stack for AWS instance so your pipelines can connect to the remote builder. Bake the binary into your custom AMI using the [custom image guide](../setup#custom-images):
 
 ```bash
 export BUILDKIT_VERSION="v0.13.2"
@@ -107,13 +107,13 @@ Replace `<buildkit-private-ip>` with the private IP address of your BuildKit EC2
 
 The following example runs a build using the remote BuildKit instance and pushes to Amazon ECR, using the [`ecr`](https://github.com/buildkite-plugins/ecr-buildkite-plugin) plugin.
 
-For docker, use the [`docker-login`](https://github.com/buildkite-plugins/docker-login-buildkite-plugin) or [`docker-image-push`](https://github.com/buildkite-plugins/docker-image-push-buildkite-plugin) plugins:
+For Docker, use the [`docker-login`](https://github.com/buildkite-plugins/docker-login-buildkite-plugin) or [`docker-image-push`](https://github.com/buildkite-plugins/docker-image-push-buildkite-plugin) plugins:
 
 ```yaml
 steps:
   - label: ":docker: Build with BuildKit"
     plugins:
-      - ecr#v2.10.0: 
+      - ecr#v2.10.0:
           login: true
           account-ids:
             - <account-id>
@@ -161,7 +161,7 @@ This section covers common issues when setting up remote BuildKit builders.
 
 ### Cache not reused
 
-- BuildKit root directory is not on the persistent EBS volume: Ensure the BuildKit root directory (`/var/lib/buildkit`) is on the attached EBS volume and that the daemon service uses the directory using `--root`.
+- BuildKit root directory is not on the persistent EBS volume: Ensure the BuildKit root directory (`/var/lib/buildkit`) is on the attached EBS volume and that the daemon service references this directory with the `--root` flag.
 
 ### Version mismatch
 
