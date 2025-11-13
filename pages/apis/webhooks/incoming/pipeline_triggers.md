@@ -90,6 +90,9 @@ To enable webhook verification:
 
 Once configured, Buildkite verifies all incoming requests match the signature before accepting them.
 
+For Linear, webhook verification uses HMAC-SHA256 verifiying the `Linear-Signature` header.
+For GitHub, webhook verification uses HMAC-SHA256 verifiying the `X-Hub-Signature-256` header.
+
 For more information on configuring webhook signatures with your provider:
 
 - [GitHub webhook signature verification](https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries)
@@ -203,8 +206,8 @@ The `buildkite:webhook` meta-data itself is only available to builds triggered b
 
 Be aware that pipeline triggers have the following limitations:
 
-- Custom webhook triggers don't support webhook signature verification. For verified webhooks, use GitHub or Linear trigger types.
-- A pipeline trigger's URL cannot be rotated. If the trigger's `bkpt_` value has been compromised, you'll need to delete and re-[create](#create-a-new-pipeline-trigger) a new trigger with the same attributes.
+- Custom webhook triggers do not support webhook signature verification.
+- A pipeline trigger's URL cannot be rotated. If the trigger's `bktr_` value has been compromised, you'll need to delete and re-[create](#create-a-new-pipeline-trigger) a new trigger with the same attributes.
 - The **Commit** and **Branch** build attributes are only supported by their values defined in the pipeline trigger itself, when it was either [created](#create-a-new-pipeline-trigger) or last edited, and these values cannot be mapped from fields of the incoming webhook's JSON payload.
 - A successful POST request to a pipeline trigger will always trigger a build. Pipeline triggers cannot be selectively triggered based on any content from the incoming webhook's JSON payload.
 - Pipeline triggers can only be managed through the Buildkite interface. There is no support for managing pipeline triggers (that is, creating, editing or deleting pipeline triggers) through the Buildkite API.
