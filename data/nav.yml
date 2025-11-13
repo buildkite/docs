@@ -76,6 +76,8 @@
           path: "pipelines/best-practices/environment-and-dependency"
         - name: "Secrets management"
           path: "pipelines/best-practices/secrets-management"
+        - name: "Git checkout optimization"
+          path: "pipelines/best-practices/git-checkout-optimization"
         - name: "Plugin management"
           path: "pipelines/best-practices/plugin-management"
         - name: "Enforcing security controls"
