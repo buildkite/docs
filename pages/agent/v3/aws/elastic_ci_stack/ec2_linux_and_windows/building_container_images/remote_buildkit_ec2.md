@@ -5,18 +5,18 @@
 Running builds on a separate instance provides faster CPU, persistent cache storage, and isolation from your pipeline agents. The Buildkite agent coordinates the build while BuildKit executes it on the remote node.
 
 > 📘 Local BuildKit builds
-> If you want to run BuildKit builds directly on your Elastic CI Stack agents instead of a remote instance, see [BuildKit container builds](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/buildkit_container_builds).
+> If you want to run BuildKit builds directly on your Elastic CI Stack for AWS agents instead of a remote instance, see [BuildKit container builds](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/buildkit_container_builds).
 
 ## How it works
 
 1. A dedicated EC2 instance runs the BuildKit daemon (`buildkitd`) and exposes the gRPC listener on TCP port 1234.
-1. Elastic CI Stack agents install the BuildKit client (`buildctl`) and configure environment variables to target the remote builder.
+1. Elastic CI Stack for AWS agents install the BuildKit client (`buildctl`) and configure environment variables to target the remote builder.
 1. Pipelines call `buildctl build` to build and push container images.
 
 The remote EC2 instance retains the BuildKit cache, so subsequent builds reuse cached layers. Multiple pipelines can share the same builder if you size the instance appropriately.
 
 > 📘 TLS configuration
-> This guide configures BuildKit without TLS for simplicity. The BuildKit instance runs in a private VPC with security group rules that restrict access to only your Elastic CI Stack agents. For additional security guidance, see the [BuildKit TLS documentation](https://github.com/moby/buildkit#expose-buildkit-as-a-tcp-service).
+> This guide configures BuildKit without TLS for simplicity. The BuildKit instance runs in a private VPC with security group rules that restrict access to only your Elastic CI Stack for AWS agents. For additional security guidance, see the [BuildKit TLS documentation](https://github.com/moby/buildkit#expose-buildkit-as-a-tcp-service).
 
 ## Prerequisites
 
@@ -30,11 +30,11 @@ Use Terraform, CloudFormation, or another provisioning tool to launch an EC2 ins
 
 - Amazon Linux 2023 (or another supported Linux distribution)
 - Attached EBS volume sized for your layer cache (100 GB or more)
-- Same VPC as your Elastic CI Stack instances
-- Security group allowing inbound TCP connections on the BuildKit port (default `tcp/1234`) from your Elastic CI Stack security group
+- Same VPC as your Elastic CI Stack for AWS instances
+- Security group allowing inbound TCP connections on the BuildKit port (default `tcp/1234`) from your Elastic CI Stack for AWS security group
 
 > 🚧
-> The BuildKit instance and Elastic CI Stack must be in the same VPC. Security group rules that reference other security groups only work within a single VPC.
+> The BuildKit instance and Elastic CI Stack for AWS must be in the same VPC. Security group rules that reference other security groups only work within a single VPC.
 
 Install BuildKit and Docker CLI on the instance:
 
@@ -78,9 +78,9 @@ sudo systemctl start buildkitd.service
 sudo systemctl status buildkitd.service
 ```
 
-## Configuring Elastic CI Stack agents
+## Configuring Elastic CI Stack for AWS agents
 
-Install `buildctl` on each Elastic CI Stack instance so your pipelines can connect to the remote builder. Bake the binary into your custom AMI using the [custom image guide](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/setup#custom-images):
+Install `buildctl` on each Elastic CI Stack for AWS instance so your pipelines can connect to the remote builder. Bake the binary into your custom AMI using the [custom image guide](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/setup#custom-images):
 
 ```bash
 export BUILDKIT_VERSION="v0.13.2"
@@ -89,7 +89,7 @@ sudo tar -C /usr/local -xzvf "buildkit-${BUILDKIT_VERSION}.linux-amd64.tar.gz" b
 sudo chmod 755 /usr/local/bin/buildctl
 ```
 
-Create an environment hook in your Elastic CI Stack secrets bucket to configure the BuildKit connection. Upload a file named `env` to `s3://<your-secrets-bucket>/env` with the following content:
+Create an environment hook in your Elastic CI Stack for AWS secrets bucket to configure the BuildKit connection. Upload a file named `env` to `s3://<your-secrets-bucket>/env` with the following content:
 
 ```bash
 #!/bin/bash
@@ -101,7 +101,7 @@ export BUILDKIT_HOST="tcp://<buildkit-private-ip>:1234"
 echo "BuildKit connection configured"
 ```
 
-Replace `<buildkit-private-ip>` with the private IP address of your BuildKit EC2 instance. The Elastic CI Stack automatically sources scripts from the `env` path in the secrets bucket during agent startup.
+Replace `<buildkit-private-ip>` with the private IP address of your BuildKit EC2 instance. The Elastic CI Stack for AWS automatically sources scripts from the `env` path in the secrets bucket during agent startup.
 
 ## Pipeline example
 
@@ -133,9 +133,9 @@ For multi-platform builds, add the `--opt platform=linux/amd64,linux/arm64` flag
 
 ## Security considerations
 
-- **Network isolation (required):** Configure the BuildKit security group to only allow inbound TCP 1234 from your Elastic CI Stack security group.   
+- **Network isolation (required):** Configure the BuildKit security group to only allow inbound TCP 1234 from your Elastic CI Stack for AWS security group.
 - **VPC placement (required):** Run the BuildKit instance in a private subnet with no public IP address. Use VPC endpoints or NAT gateways for outbound internet access if needed.
-- **Monitoring:** Use Amazon CloudWatch logs and metrics to monitor CPU, memory, and disk usage. Set alarms to detect resource exhaustion or unusual activity.
+- **Monitoring:** Use Amazon CloudWatch Logs and metrics to monitor CPU, memory, and disk usage. Set alarms to detect resource exhaustion or unusual activity.
 - **Access control:** Limit which pipelines can use the remote builder by restricting the `BUILDKIT_HOST` environment variable to specific pipeline configurations.
 
 ## Troubleshooting
@@ -161,7 +161,7 @@ This section covers common issues when setting up remote BuildKit builders.
 
 ### Cache not reused
 
-- BuildKit root directory is not on the persistent EBS volume: Ensure the BuildKit root directory (`/var/lib/buildkit`) is on the attached EBS volume and that the daemon service uses the directory via `--root`.
+- BuildKit root directory is not on the persistent EBS volume: Ensure the BuildKit root directory (`/var/lib/buildkit`) is on the attached EBS volume and that the daemon service uses the directory using `--root`.
 
 ### Version mismatch
 
