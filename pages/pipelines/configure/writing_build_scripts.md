@@ -145,7 +145,7 @@ To check your shell scripts for common errors and mistakes we highly recommend u
 
 <!--alex ignore gals-man -->
 
-For an explanation of a shell script snippet, the [explainshell.com](http://explainshell.com) tool is extremely useful. Explainshell can tell you, in plain English, what a line of shell script does. It also integrates the man pages of common tools such as `ssh` and `git`.
+For an explanation of a shell script snippet, the [explainshell.com](https://explainshell.com) tool is extremely useful. explainshell.com can tell you, in plain English, what a line of shell script does. It also integrates the man pages of common tools such as `ssh` and `git`.
 
 ## Managing log output
 
