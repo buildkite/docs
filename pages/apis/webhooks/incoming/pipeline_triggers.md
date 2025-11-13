@@ -90,8 +90,8 @@ To enable webhook verification:
 
 Once configured, Buildkite verifies all incoming requests match the signature before accepting them.
 
-For Linear, webhook signature verification uses HMAC-SHA256 verifiying the `Linear-Signature` header.
-For GitHub, webhook signature verification uses HMAC-SHA256 verifiying the `X-Hub-Signature-256` header.
+For Linear, webhook signature verification uses HMAC-SHA256 to verify the `Linear-Signature` header.
+For GitHub, webhook signature verification uses HMAC-SHA256 to verify the `X-Hub-Signature-256` header.
 
 For more information on configuring webhook signatures:
 
@@ -110,7 +110,7 @@ All requests sent to this endpoint must be `HTTP POST` requests with `applicatio
 
 #### Response
 
-A successful trigger request returns a `201 Created` response with details about the created build:
+A successful trigger request returns a `201 Created` response with an identifier for the webhook delivery:
 
 ```json
 {
@@ -215,7 +215,7 @@ Be aware that pipeline triggers have the following limitations:
 - Unlike JSON payloads, HTTP headers are not accessible to pipelines in requests to pipeline triggers.
 - A pipeline trigger's webhook cannot be restricted by IP address.
 - A pipeline trigger's JSON payload is limited to a maximum size of 5MB.
-- Trigger URL endpoints have a request limit of 300 requests per hour.
+- Trigger URL endpoints have a request limit of 300 requests per hour. This limit is shared across all pipeline triggers for an organization.
 - Webhook metadata payload retrieval is rate limited to 10 requests per minute per build.
 - Each pipeline is limited to 10 configurable triggers.
 
