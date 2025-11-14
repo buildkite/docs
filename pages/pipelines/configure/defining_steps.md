@@ -138,7 +138,7 @@ Timestamp        | Description
 When you run a pipeline, a build is created. Each of the steps in the pipeline ends up as a job in the build, which then get distributed to available agents. Job states have a similar flow to [build states](#build-states) but with a few extra states. The following diagram shows you how jobs progress from start to end.
 
 > 📘 API state differences
-> The job states table below describes the internal lifecycle states, where `finished` is the terminal state. The [REST API](/docs/apis/rest-api) flattens `finished` into `passed` or `failed` based on the job's exit status, so `jobs[].state` will be `passed` or `failed` rather than `finished`. The [GraphQL API](/docs/apis/graphql-api) uses `finished` for all completed jobs regardless of exit status.
+> The table of job states below describes the internal lifecycle states, where `finished` is the terminal state. The [REST API](/docs/apis/rest-api) flattens `finished` into `passed` or `failed` based on the job's exit status, so `jobs[].state` will be `passed` or `failed` rather than `finished`. The [GraphQL API](/docs/apis/graphql-api) uses `finished` for all completed jobs, regardless of exit status.
 
 <%= image "job-states.png", alt: "Job state diagram" %>
 
