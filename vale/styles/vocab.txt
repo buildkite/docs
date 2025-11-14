@@ -67,6 +67,7 @@ CCMenu
 ccnet
 CCTray
 Chainguard
+Chainguard's
 chatbot
 chroot
 chroots
@@ -336,6 +337,8 @@ shasum
 shellcheck
 shellscripting
 Shipit
+sigstore
+sigstore's
 signaltometrics
 SLO
 SLOs
