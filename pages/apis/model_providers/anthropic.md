@@ -12,7 +12,7 @@ Buildkite supports all current Anthropic Claude models, including Claude Sonnet 
 
 ## Base URL
 
-Once you have [connected your Buildkite organization to your Anthropic model provider](/docs/apis/model-providers#connect-to-a-model-provider), you can access your Anthropic Claude models through the [Claude API](https://docs.claude.com/en/api/overview), by appending these endpoints to the relevant [Buildkite model provider API endpoint](/docs/apis/model-providers#connect-to-a-model-provider-buildkite-model-provider-api-endpoints):
+Once you have [connected your Buildkite organization to your Anthropic model provider](/docs/apis/model-providers#connect-to-a-model-provider), you can access your Anthropic Claude models through the [Claude API](https://docs.claude.com/en/api/overview), by appending these endpoints to the relevant [Buildkite model provider API endpoint](/docs/apis/model-providers#connect-to-a-model-provider-buildkite-model-provider-api-endpoints) as the base URL:
 
 ```url
 https://agent.buildkite.com/v3/ai/anthropic
