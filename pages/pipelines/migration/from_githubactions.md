@@ -34,10 +34,8 @@ env:
 
 - Buildkite Agent checks out the full working repository. Shallow clone can be configured using an environment variable (`git lfs env: false`) or the [Git Shallow Clone plugin](https://buildkite.com/resources/plugins/peakon/git-shallow-clone-buildkite-plugin/).
 - Other Buildkite plugins you can use to override or customize the default checkout behavior are:
-
     * [Sparse Checkout Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/) that performs a sparse checkout so only selected paths are fetched and checked out, reducing time and bandwidth on large repositories.
 	* [Custom Checkout Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/custom-checkout-buildkite-plugin/) that overrides the default agent checkout by setting a custom `refspec` and then doing a `git lfs pull`.
-
 - An agent checkout hook can be used to replicate some of the default checkout options used by GitHub Actions which include `--depth=1`, `--single-branch`, and `--no-recurse-submodules`.
 - Git mirrors can be used but it's not a default option and doesn't offer a considerable improvement in terms of checkout speed.
 
