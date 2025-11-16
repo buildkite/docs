@@ -19,3 +19,66 @@ This section provides examples on how to upload and retrieve container images fr
 
 ### Building and uploading a container image
 
+The following example pipeline demonstrates how build and push a custom Docker image (customized using a `.buildkite/Dockerfile.build` file) to your internal container registry.
+
+```yaml
+# Use the latest custom built image from the internal registry
+# for all steps which don't specify an alternative image
+image: "${BUILDKITE_HOSTED_REGISTRY_URL}/base:latest"
+
+agents:
+  # Must run on a hosted queue
+  queue: "linux-small"
+
+steps:
+  - key: create_custom_base_image
+    label: "\:docker\: Create custom base image"
+    # Optionally only build on main branch
+    # if: build.branch == "main"
+    if_changed:
+      - ".buildkite/Dockerfile.build"
+      - ".buildkite/pipeline.yml"
+    # Use the image specified in the queue settings for this step
+    image: ~
+    # Build and push a new image to the internal registry
+    # Optionally add --no-cache to rebuild from scratch
+    # without using cached layers
+    command: |
+      docker buildx build \
+        --file .buildkite/Dockerfile.build \
+        --build-arg BUILDKITE_BUILD_NUMBER="$$BUILDKITE_BUILD_NUMBER" \
+        --platform linux/amd64 \
+        --tag "${BUILDKITE_HOSTED_REGISTRY_URL}/base:latest" \
+        --progress plain \
+        --push .
+```
+{: codeblock-file=".buildkite/pipeline.yml"}
+
+### Retrieving a container image
+
+The following example pipeline demonstrates how pull a Docker image that you'd [previously customized](#using-your-internal-container-registry-building-and-uploading-a-container-image) to your internal container registry.
+
+```yaml
+# Use the latest custom built image from the internal registry
+# for all steps which don't specify an alternative image
+image: "${BUILDKITE_HOSTED_REGISTRY_URL}/base:latest"
+
+agents:
+  # Must run on a hosted queue
+  queue: "linux-small"
+
+steps:
+  - key: pull_custom_base_image
+    label: "\:docker\: Pull custom base image"
+    # Optionally only build on main branch
+    # if: build.branch == "main"
+    # Use the image specified in the queue settings for this step
+    image: ~
+    # Pull the previously pushed custom container image from the
+    # internal container registry
+    command: |
+      docker pull \
+        --platform linux/amd64 \
+        --tag "${BUILDKITE_HOSTED_REGISTRY_URL}/base:latest" \
+```
+{: codeblock-file=".buildkite/pipeline.yml"}
