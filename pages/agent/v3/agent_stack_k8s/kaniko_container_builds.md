@@ -8,7 +8,7 @@ Run Kaniko as an image: `gcr.io/kaniko-project/executor`. The Kaniko executor im
 
 This section explains how to use the Kaniko executor to perform the following:
 
-1. Build an image and push to Buildkite Artifacts
+1. Build an image and push to Buildkite Package Registries
 1. Build an image and push to Google Artifact Registry
 1. Build an image and push to Elastic Container Registry
 
