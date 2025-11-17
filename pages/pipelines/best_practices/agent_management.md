@@ -21,16 +21,16 @@ Run multiple agents per an instance to maximize cost efficiency and enable heavy
 
 **Pros:**
 
-- Strong isolation with predictable performance.
-- Warm images reduce job startup time.
-- Compatible with spot instances for cost savings.
-- Support for large disk caches and GPU/TPU workloads.
+- Strong isolation with predictable performance
+- Warm images reduce job startup time
+- Compatible with spot instances for cost savings
+- Support for large disk caches and GPU/TPU workloads
 
 **Cons:**
 
-- Additional operational overhead to patch and maintain instances.
-- Cost inefficiency at low utilization if agents are under-used.
-- Slower agent spin-up times compared to other agent architectures.
+- Additional operational overhead to patch and maintain instances
+- Cost inefficiency at low utilization if agents are under-used
+- Slower agent spin-up times compared to other agent architectures
 
 Learn more in [Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack).
 
@@ -40,15 +40,15 @@ You can deploy ephemeral agents per job for maximum isolation and rapid scaling,
 
 **Pros:**
 
-- Fast spin-up with fine-grained autoscaling.
-- Clean environments reduce build flakiness.
-- Native resource limits and multi-tenant isolation.
+- Fast spin-up with fine-grained autoscaling
+- Clean environments reduce build flakiness
+- Native resource limits and multi-tenant isolation
 
 **Cons:**
 
-- Pulling large images can increase job startup latency.
-- Requires cluster expertise and ongoing platform maintenance.
-- Limited access to large persistent disk caches per job.
+- Pulling large images can increase job startup latency
+- Requires cluster expertise and ongoing platform maintenance
+- Limited access to large persistent disk caches per job
 
 Learn more in [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s).
 
@@ -69,7 +69,7 @@ Learn more in [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s).
 
 - Hosted agents run outside your private network boundary, so may not meet strict compliance or data-residency requirements.
 - Less control over hardware configuration and OS versions than in self-managed compute.
-- Higher cost for sustained high throughput compared to self-managed compute.
+- Higher cost for sustained high throughput compared to self-managed compute
 
 ## Capacity strategy
 
@@ -84,7 +84,9 @@ Similarly, in terms of agent fleet scaling, instead of choosing between using st
 
 ## Structuring clusters and queues
 
-You should organize [clusters](/docs/pipelines/clusters) as security boundaries and [queues](/docs/agent/v3/queues) for workload routing. See more on clusters and queues in [Managing clusters](/docs/pipelines/clusters/manage-clusters) and [Managing queues](/docs/pipelines/clusters/manage-queues).
+You should organize [clusters](/docs/pipelines/clusters) as security boundaries and [queues](/docs/agent/v3/queues) for workload routing. Use separate queues and a small subset of agents to trial new architectures (for example, [Buildkite hosted agents](/docs/pipelines/hosted-agents)) before rolling them out broadly across your Buildkite organization.
+
+Learn more about using clusters and queues in [Managing clusters](/docs/pipelines/clusters/manage-clusters) and [Managing queues](/docs/pipelines/clusters/manage-queues).
 
 ## Agent lifecycle
 
