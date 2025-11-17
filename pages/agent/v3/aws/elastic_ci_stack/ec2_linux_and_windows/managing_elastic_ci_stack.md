@@ -145,25 +145,25 @@ To use a custom role, pass a pre-existing role's ARN to the Terraform variable `
 
 ### IAM policy requirements
 
-As a baseline, a custom IAM role needs the same permissions the stack would normally create. At minimum, agents need access to:
+As a baseline, a custom IAM role needs the same permissions the stack would normally create. At minimum, Buildkite Agents need an access to:
 
 * SSM for agent tokens and instance management
 * Auto Scaling for instance lifecycle management
-* CloudWatch for logs and metrics
-* CloudFormation for stack resource information (CloudFormation specific)
+* AWS CloudWatch for logs and metrics
+* AWS CloudFormation for stack resource information (AWS CloudFormation-specific)
 * EC2 for instance metadata
 
 The following additional policies may also apply if using additional features:
 
-* S3 access for S3 Secrets and custom Artifact Buckets
+* Amazon S3 access for AWS S3 secrets and custom artifact buckets
 * KMS for encrypted parameters or pipeline signing
 * ECR for accessing container images
 
 ### IAM policy examples
 
-To get started, we've included the policies that are created via the CloudFormation and Terraform stacks.
+To get started, we've included the policies that are created via the AWS CloudFormation and Terraform stacks.
 
-Some of the resources are generated dynamically when running either of the infrastructure-as-code solutions, so this will need to be updated accordingly.
+Some of the resources are generated dynamically when running either of the infrastructure-as-code solutions, so you will need to update them accordingly.
 
 #### Core agent policy
 
@@ -237,7 +237,7 @@ The below policy set is the minimum requirement for the Elastic CI Stack for AWS
 
 #### S3 secrets bucket
 
-When the S3 Secrets Bucket is enabled, the following statement is required:
+When the [S3 secrets bucket](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/secrets-bucket) is enabled, the following statement is required:
 
 ```json
 {
@@ -310,7 +310,7 @@ When using KMS keys for signed pipelines or encrypted parameters, the following 
 
 #### Trust policy
 
-The trust policy that's created for all Elastic CI Stack for AWS instance roles:
+The following is the trust policy that is created for all the Elastic CI Stack for AWS instance roles:
 
 ```json
 {
@@ -332,7 +332,7 @@ The trust policy that's created for all Elastic CI Stack for AWS instance roles:
 
 #### ECR managed policies
 
-For ECR access, it's easiest to utilise one of the pre-existing roles provided by AWS:
+For ECR access, the most straightforward approach is to utilize one of the pre-existing roles provided by AWS:
 
 * `arn\:aws\:iam:\:aws\:policy/AmazonEC2ContainerRegistryReadOnly`
 * `arn\:aws\:iam:\:aws\:policy/AmazonEC2ContainerRegistryPowerUser`
@@ -340,14 +340,14 @@ For ECR access, it's easiest to utilise one of the pre-existing roles provided b
 
 ### CloudFormation configuration
 
-When creating a stack with CloudFormation, a role can be passed as an ARN like so:
+When creating a stack with AWS CloudFormation, a role can be passed as an ARN, for example:
 
 ```yaml
 Parameters:
   InstanceRoleARN: "arn\:aws\:iam::123456789012:role/MyBuildkiteRole"
 ```
 
-In CloudFormation, IAM roles are limited to a maximum of 10 paths. For example:
+In AWS CloudFormation, IAM roles are limited to a maximum of 10 paths, for example:
 
 ```yaml
 Parameters:
@@ -356,7 +356,7 @@ Parameters:
 
 ### Terraform configuration
 
-When using Terraform, there is no limit on the number of paths that can be used within an ARN. Pass the value of your IAM Role's ARN to `var.instance_role_arn` and get started.
+When using Terraform, there is no limit on the number of paths that can be used within an ARN. You can pass the value of your IAM Role's ARN to `var.instance_role_arn` and get started.
 
 ## CloudWatch metrics
 
