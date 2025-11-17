@@ -14,10 +14,6 @@ You'll also need the following:
 
 - A task you want to perform with the code. For example, run some tests or a script.
 
-- To enable the YAML steps editor in Buildkite. If you haven't already done this:
-    1. Select **Settings** > **YAML Migration** to open the [**Pipeline YAML Migration**](https://buildkite.com/organizations/~/pipeline-migration) page.
-    1. Select **Use YAML Steps for New Pipelines**, then confirm the action in the dialog.
-
 ## Continue running an agent
 
 We recommend you continue treating this tutorial as a chance to play and iterate. That means you can continue using the [agent you've already set up](/docs/pipelines/getting-started#set-up-an-agent).
