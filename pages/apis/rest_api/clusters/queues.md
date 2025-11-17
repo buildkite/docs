@@ -150,7 +150,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr><th><code>description</code></th><td>Description for the queue.<br/>
   <em>Example:</em> <code>"The default queue for this cluster"</code>
   <tr><th><code>retry_agent_affinity</code></th><td> When a job is retried, this setting controls how agents are selected for these retries. This value must be either <code>prefer-warmest</code> (default), which preferences retries on agents that have recently finished jobs, or <code>prefer-different</code>, which preferences retries on different agents, if they're available.<br/>
-  If this property is ommitted, then the value <code>prefer-warmest</code> is used.<br/>
+  If this property is omitted, then the value <code>prefer-warmest</code> is used.<br/>
   <em>Example:</em> <code>"prefer-different"</code></td></tr>
 </tbody>
 </table>
