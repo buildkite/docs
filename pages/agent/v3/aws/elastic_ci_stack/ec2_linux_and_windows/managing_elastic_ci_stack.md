@@ -261,7 +261,7 @@ When the [S3 secrets bucket](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-w
 
 #### S3 artifacts bucket
 
-When the using custom Artifacts Storage in S3, the following statement is required:
+When using the custom Artifacts Storage in S3, the following statement is required:
 
 ```json
 {
