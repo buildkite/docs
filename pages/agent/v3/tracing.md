@@ -37,3 +37,20 @@ To set the OpenTelemetry service name, provide the `--tracing-service-name examp
 If using the OpenTelemetry Tracing Notification Service, you can provide the `--tracing-propagate-traceparent` flag to propagate traces from the Buildkite control plane, and through to your Agent trace spans.
 
 Learn more about configuring the OpenTelemetry integration with Buildkite Pipelines from the [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry) integrations page.
+
+### Sending OpenTelemetry traces to Honeycomb
+
+To send traces to [Honeycomb](https://www.honeycomb.io/), in addition to starting the Buildkite Agent with the `--tracing-backend opentelemetry` option, you also need to add the following environment variables. The API token provided by Honeycomb will need to be replaced in the `OTEL_EXPORTER_OTLP_HEADERS` below.
+
+```bash
+# this is the same as --tracing-backend opentelemetry
+export BUILDKITE_TRACING_BACKEND="opentelemetry"
+# service name is configurable
+export OTEL_SERVICE_NAME="buildkite-agent"
+# the agent only supports GRPC transport
+export OTEL_EXPORTER_OTLP_PROTOCOL="grpc"
+# the GRPC transport requires a port to be specified in the URL
+export OTEL_EXPORTER_OTLP_ENDPOINT="https://api.honeycomb.io:443"
+# authentication of traces is done via the API key in this header
+export OTEL_EXPORTER_OTLP_HEADERS="x-honeycomb-team=xxxxx"
+```
