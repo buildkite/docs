@@ -6,9 +6,11 @@ Therefore, the Buildkite _portals_ feature provides restricted GraphQL API acces
 
 Portals work well with machine-to-machine operations, since they're scoped to perform only the operations described within a [GraphQL document](https://spec.graphql.org/October2021/#sec-Language) and are not tied to user-owned access tokens.
 
-## Getting started
+## Creating a portal
 
-To get started with portals, as a Buildkite organization administrator, access the **Portals** feature to begin creating a portal (for example, to create an example portal that triggers a build on the main branch of a pipeline):
+Portals can only be created by [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions). This section explains how to create a new example portal that triggers a build on the main branch of a pipeline.
+
+To start creating a new portal:
 
 1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
