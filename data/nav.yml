@@ -66,6 +66,8 @@
       children:
         - name: "Overview"
           path: "pipelines/best-practices/overview"
+        - name: "Pipeline design and structure"
+          path: "pipelines/best-practices/pipeline-design-and-structure"
         - name: "Docker-based builds"
           path: "pipelines/best-practices/docker-containerized-builds"
         - name: "Parallelizing builds"
