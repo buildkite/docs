@@ -76,8 +76,6 @@ You can set `BuildkiteTerminateInstanceAfterJob` to `true` to force the instance
 
 It is best to find an alternative to this setting if at all possible. The turn around time for replacing these instances is currently slow (5-10 minutes depending on other stack configuration settings). If you need single use jobs, we suggest looking at our container plugins like `docker`, `docker-compose`, and `ecs`, all which can be found [here](https://buildkite.com/plugins).
 
-
-
 ## Elastic CI Stack for AWS releases
 
 It is recommended to run the latest stable release of the CloudFormation
@@ -192,7 +190,7 @@ The below policy set is the minimum requirement for the Elastic CI Stack for AWS
                 "autoscaling:SetInstanceHealth",
                 "autoscaling:TerminateInstanceInAutoScalingGroup"
             ],
-            "Resource": "arn\:aws:autoscaling:*:*:autoScalingGroup:*:autoScalingGroupName/YOUR_STACK_NAME-AgentAutoScaleGroup-*"
+            "Resource": "arn\:aws\:autoscaling:*:*:autoScalingGroup:*:autoScalingGroupName/YOUR_STACK_NAME-AgentAutoScaleGroup-*"
         },
         {
             "Sid": "Logging",
@@ -231,7 +229,7 @@ The below policy set is the minimum requirement for the Elastic CI Stack for AWS
         {
             "Effect": "Allow",
             "Action": "ssm:GetParameter",
-            "Resource": "arn\:aws:ssm:*:*:parameter/YOUR_AGENT_TOKEN_PARAMETER_PATH"
+            "Resource": "arn\:aws\:ssm:*:*:parameter/YOUR_AGENT_TOKEN_PARAMETER_PATH"
         }
     ]
 }
@@ -253,8 +251,8 @@ When the S3 Secrets Bucket is enabled, the following statement is required:
                 "s3:List*"
             ],
             "Resource": [
-                "arn\:aws:s3:::YOUR_SECRETS_BUCKET",
-                "arn\:aws:s3:::YOUR_SECRETS_BUCKET/*"
+                "arn\:aws\:s3:::YOUR_SECRETS_BUCKET",
+                "arn\:aws\:s3:::YOUR_SECRETS_BUCKET/*"
             ]
         }
     ]
@@ -283,8 +281,8 @@ When the using custom Artifacts Storage in S3, the following statement is requir
                 "s3:PutObjectVersionAcl"
             ],
             "Resource": [
-                "arn\:aws:s3:::YOUR_ARTIFACTS_BUCKET",
-                "arn\:aws:s3:::YOUR_ARTIFACTS_BUCKET/*"
+                "arn\:aws\:s3:::YOUR_ARTIFACTS_BUCKET",
+                "arn\:aws\:s3:::YOUR_ARTIFACTS_BUCKET/*"
             ]
         }
     ]
@@ -304,7 +302,7 @@ When using KMS keys for signed pipelines or encrypted parameters, the following 
             "Action": [
                 "kms:Decrypt"
             ],
-            "Resource": "arn\:aws:kms:*:*:key/YOUR_KMS_KEY_ID"
+            "Resource": "arn\:aws\:kms:*:*:key/YOUR_KMS_KEY_ID"
         }
     ]
 }
@@ -336,9 +334,9 @@ The trust policy that's created for all Elastic CI Stack for AWS instance roles:
 
 For ECR access, it's easiest to utilise one of the pre-existing roles provided by AWS:
 
-* `arn\:aws:iam:\:aws:policy/AmazonEC2ContainerRegistryReadOnly`
-* `arn\:aws:iam:\:aws:policy/AmazonEC2ContainerRegistryPowerUser`
-* `arn\:aws:iam:\:aws:policy/AmazonEC2ContainerRegistryFullAccess`
+* `arn\:aws\:iam:\:aws\:policy/AmazonEC2ContainerRegistryReadOnly`
+* `arn\:aws\:iam:\:aws\:policy/AmazonEC2ContainerRegistryPowerUser`
+* `arn\:aws\:iam:\:aws\:policy/AmazonEC2ContainerRegistryFullAccess`
 
 ### CloudFormation configuration
 
@@ -346,14 +344,14 @@ When creating a stack with CloudFormation, a role can be passed as an ARN like s
 
 ```yaml
 Parameters:
-  InstanceRoleARN: "arn\:aws:iam::123456789012:role/MyBuildkiteRole"
+  InstanceRoleARN: "arn\:aws\:iam::123456789012:role/MyBuildkiteRole"
 ```
 
 In CloudFormation, IAM roles are limited to a maximum of 10 paths. For example:
 
 ```yaml
 Parameters:
-  InstanceRoleARN: "arn\:aws:iam::123456789012:role/a/b/c/d/e/f/g/h/i/j/MyBuildkiteRole"
+  InstanceRoleARN: "arn\:aws\:iam::123456789012:role/a/b/c/d/e/f/g/h/i/j/MyBuildkiteRole"
 ```
 
 ### Terraform configuration
