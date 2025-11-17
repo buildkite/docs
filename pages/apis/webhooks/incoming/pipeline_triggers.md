@@ -66,6 +66,36 @@ To create a new pipeline trigger using the Buildkite interface:
 
 That's it! You've completed creating your pipeline trigger. See the following section on [Endpoint](#create-a-new-pipeline-trigger-endpoint) to learn more about the pipeline trigger and how it works, and you're now ready to [invoke your trigger](#invoke-a-pipeline-trigger).
 
+### Endpoint
+
+Each pipeline trigger has a unique endpoint with the following URL structure:
+
+```
+https://webhook.buildkite.com/deliver/bktr_************
+```
+
+All requests sent to this endpoint must be `HTTP POST` requests with `application/json` encoded bodies.
+
+#### Response
+
+A successful trigger request returns a `201 Created` response with an identifier for the webhook delivery:
+
+```json
+{
+  "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983"
+}
+```
+
+#### Error responses
+
+<table class="responsive-table">
+  <tbody>
+    <tr><th><code>400 Bad request</code></th><td><code>{ "message": "Invalid pipeline trigger token" }</code></td></tr>
+    <tr><th><code>403 Forbidden</code></th><td><code>{ "message": "Pipeline trigger is disabled" }</code></td></tr>
+    <tr><th><code>404 Not Found</code></th><td><code>{ "message": "Pipeline trigger not found" }</code></td></tr>
+  </tbody>
+</table>
+
 ## Supported triggers
 
 Pipeline triggers support three types of triggers:
@@ -97,36 +127,6 @@ For more information on configuring webhook signatures:
 
 - [GitHub webhook signature verification](https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries)
 - [Linear webhook security](https://linear.app/developers/webhooks#securing-webhooks)
-
-### Endpoint
-
-Each pipeline trigger has a unique endpoint with the following URL structure:
-
-```
-https://webhook.buildkite.com/deliver/bktr_************
-```
-
-All requests sent to this endpoint must be `HTTP POST` requests with `application/json` encoded bodies.
-
-#### Response
-
-A successful trigger request returns a `201 Created` response with an identifier for the webhook delivery:
-
-```json
-{
-  "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983"
-}
-```
-
-#### Error responses
-
-<table class="responsive-table">
-  <tbody>
-    <tr><th><code>400 Bad request</code></th><td><code>{ "message": "Invalid pipeline trigger token" }</code></td></tr>
-    <tr><th><code>403 Forbidden</code></th><td><code>{ "message": "Pipeline trigger is disabled" }</code></td></tr>
-    <tr><th><code>404 Not Found</code></th><td><code>{ "message": "Pipeline trigger not found" }</code></td></tr>
-  </tbody>
-</table>
 
 ## Invoke a pipeline trigger
 
