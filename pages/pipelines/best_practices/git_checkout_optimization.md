@@ -38,3 +38,7 @@ While both approaches help optimize your Git workflow, they solve different prob
 
 > 📘
 > In addition to sparse checkout and Git mirrors, for checkout optimization you can also use the [Git Shallow Clone Buildkite Plugin](https://buildkite.com/resources/plugins/peakon/git-shallow-clone-buildkite-plugin/) that sets `--depth` flag for `git-clone` and `git-fetch` commands.
+
+## Understanding checkout defaults across platforms
+
+The default checkout behavior in Buildkite Pipelines prioritizes completeness and flexibility over speed. If you're migrating from another CI/CD platform, you might notice differences in checkout speed or behavior due to these varying defaults. For a detailed comparison of how Buildkite's checkout defaults differ from other platforms using an example of GitHub Actions — including LFS handling, shallow clones, and customization options — see [Understanding the difference in default checkout behaviors](/docs/pipelines/migration/from-githubactions#understanding-the-difference-in-default-checkout-behaviors).

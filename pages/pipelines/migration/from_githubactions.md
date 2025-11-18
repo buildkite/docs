@@ -41,7 +41,7 @@ env:
 
 Understanding these differences helps you optimize your checkout strategy when migrating from GitHub Actions to Buildkite Pipelines, whether that means matching GitHub Actions' faster defaults or taking advantage of Buildkite's flexibility to customize the checkout behavior for your specific needs.
 
-You can learn more about checkout strategies in [Git checkout optimization](/docs/pipelines/best-practices/git-checkout-optimization).
+You can learn more about checkout strategies for Buildkite Pipelines in [Git checkout optimization](/docs/pipelines/best-practices/git-checkout-optimization).
 
 ## Translate an example pipeline
 
