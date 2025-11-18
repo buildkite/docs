@@ -17,9 +17,9 @@ With the help of the Elastic CI Stack for GCP, you are able to launch a private,
 
 The Elastic CI Stack for GCP does not require familiarity with the underlying GCP services to deploy it. However, to run builds, some familiarity with the following GCP services is recommended:
 
-- [Google Compute Engine](https://cloud.google.com/compute) (to select a `machine_type` appropriate for your workload)
+- [Google Compute Engine](https://cloud.google.com/products/compute) (to select a `machine_type` appropriate for your workload)
 - [Google Cloud Storage](https://cloud.google.com/storage) (for storing build artifacts)
-- [Secret Manager](https://cloud.google.com/secret-manager) (for storing the Buildkite agent token securely)
+- [Secret Manager](https://cloud.google.com/security/products/secret-manager) (for storing the Buildkite agent token securely)
 
 Elastic CI Stack for GCP provides defaults and pre-configurations suited for most use cases without the need for additional customization. Still, you'll benefit from familiarity with VPCs, Cloud NAT, and firewall rules for custom instance networking.
 
