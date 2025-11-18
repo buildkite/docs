@@ -173,7 +173,7 @@ buildkite_agent_token_secret = "projects/your-project-id/secrets/buildkite-agent
 
 For more detailed configuration options at the module level, see:
 
-- [Networking Module Variables](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/networking#inputs)
-- [IAM Module Variables](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/iam#inputs)
-- [Compute Module Variables](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/compute#inputs)
-- [Buildkite Agent Metrics Module Variables](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/buildkite-agent-metrics#inputs)
+- [Networking Module Variables](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/networking#variables)
+- [IAM Module Variables](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/iam#variables)
+- [Compute Module Variables](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/compute#variablesinputs)
+- [Buildkite Agent Metrics Module Variables](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/buildkite-agent-metrics#variables)
