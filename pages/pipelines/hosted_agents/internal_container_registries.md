@@ -10,7 +10,7 @@ To use the internal container registry, you'll need to reference the pre-defined
 
 The main advantage of using your internal container registry over [cache volumes](/docs/pipelines/hosted-agents/cache-volumes) is that unlike cache volumes, the internal cache volume's storage is _deterministic_, which means that any commands you use in your pipelines to interact with this registry will interact directly with the relevant data stored in this registry. This is in contrast to the [non-deterministic nature of cache volumes](/docs/pipelines/hosted-agents/cache-volumes#lifecycle-non-deterministic-nature), where commands to retrieve data from your cache volume may instead retrieve it from a different source.
 
-You can use built-in tools to your Buildkite hosted agents, such as [Docker Engine](https://docs.docker.com/engine/), as well as those you can add as an [agent image](/docs/pipelines/hosted-agents/linux#agent-images) through a Dockerfile for Linux hosted agents, such as ..., to interact with your internal container registry.
+You can use built-in tools to your Buildkite hosted agents, such as [Docker Engine](https://docs.docker.com/engine/), as well as those you can add as an [agent image](/docs/pipelines/hosted-agents/linux#agent-images) through a Dockerfile for Linux hosted agents, such as [Crane](https://michaelsauter.github.io/crane/index.html) or [skopeo](https://github.com/containers/skopeo), or to interact with your internal container registry.
 
 ## Using your internal container registry
 
