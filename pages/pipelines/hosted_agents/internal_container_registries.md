@@ -50,6 +50,13 @@ steps:
         --tag "${BUILDKITE_HOSTED_REGISTRY_URL}/base:latest" \
         --progress plain \
         --push .
+
+  - key: use_custom_base_image
+    label: ":package: Use custom base image"
+    parallelism: 3
+    depends_on: create_custom_base_image
+    command: |
+      echo "Using ${BUILDKITE_HOSTED_REGISTRY_URL}/base:latest built from Build #$(cat /build-number-marker)"
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
 
