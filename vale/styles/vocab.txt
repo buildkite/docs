@@ -340,6 +340,7 @@ Shipit
 sigstore
 sigstore's
 signaltometrics
+skopeo
 SLO
 SLOs
 snake_case
