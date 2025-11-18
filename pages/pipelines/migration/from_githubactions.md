@@ -2,9 +2,9 @@
 
 This page is for people who are familiar with or already use GitHub Actions, want to migrate to the Buildkite Pipelines, and have some questions regarding the key differences between these two CI/CD platforms.
 
-## Understand the difference in the default checkout behavior
+## Understanding the difference in default checkout behaviors
 
-The Buildkite checkout process might appear slower - resulting in job and build times appearing slower, too, in a one-to-one migration comparison. This difference stems from how each platform configures Git operations as Buildkite and GitHub Actions use different default checkout strategies.
+The Buildkite checkout process might appear slower (job and build times appearing slower) in a one-to-one migration comparison with GitHub Actions. This difference stems from default checkout strategies and Git configurations used by each platform.
 
 If you look at GitHub Actions' default checkout behavior, it:
 
@@ -14,12 +14,10 @@ If you look at GitHub Actions' default checkout behavior, it:
 
 ```yaml
 - uses: actions/checkout@v4
-	with:
-		lfs: false # default
-		fetch-depth: 1 # default
+  with:
+    lfs: false # default
+    fetch-depth: 1 # default
 ```
-
-- Uses internal mirrors on GitHub’s own infrastructure.
 
 As a result, in GitHub Actions, the checkout process running on all defaults will be faster because it is shallow and LFS-free, unless explicitly requested.
 
@@ -32,14 +30,18 @@ env:
   GIT_LFS_SKIP_SMUDGE: "1"
 ```
 
-- Buildkite Agent checks out the full working repository. Shallow clone can be configured using an environment variable (`git lfs env: false`) or the [Git Shallow Clone plugin](https://buildkite.com/resources/plugins/peakon/git-shallow-clone-buildkite-plugin/).
+- Agent checks out the full working repository. Shallow clone can be configured using an environment variable or the [Git Shallow Clone plugin](https://buildkite.com/resources/plugins/peakon/git-shallow-clone-buildkite-plugin/).
 - Other Buildkite plugins you can use to override or customize the default checkout behavior are:
 
-    * [Sparse Checkout Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/) that performs a sparse checkout so only selected paths are fetched and checked out, reducing time and bandwidth on large repositories.
+    * [Sparse Checkout Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/) that performs a sparse checkout so that only selected paths are fetched and checked out, reducing time and bandwidth on large repositories.
     * [Custom Checkout Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/custom-checkout-buildkite-plugin/) that overrides the default agent checkout by setting a custom `refspec` and then doing a `git lfs pull`.
 
 - An agent checkout hook can be used to replicate some of the default checkout options used by GitHub Actions which include `--depth=1`, `--single-branch`, and `--no-recurse-submodules`.
-- Git mirrors can be used but it's not a default option and doesn't offer a considerable improvement in terms of checkout speed.
+- [Git mirrors](/docs/agent/v3/git-mirrors) can also be used for checkout optimization, but it doesn't offer a considerable improvement in terms of checkout speed.
+
+Understanding these differences helps you optimize your checkout strategy when migrating from GitHub Actions to Buildkite Pipelines, whether that means matching GitHub Actions' faster defaults or taking advantage of Buildkite's flexibility to customize the checkout behavior for your specific needs.
+
+You can learn more about checkout strategies in [Git checkout optimization](/docs/pipelines/best-practices/git-checkout-optimization).
 
 ## Translate an example pipeline
 
