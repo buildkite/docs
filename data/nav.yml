@@ -181,7 +181,22 @@
         - name: "Running on Google Cloud"
           children:
             - name: "Overview"
-              path: "agent/v3/gcloud"
+              path: "agent/v3/gcp"
+            - name: "Architectural considerations"
+              children:
+                - name: "VPC design"
+                  path: "agent/v3/aws/architecture/vpc"
+            - name: "Elastic CI Stack"
+              pill: "preview"
+              children:
+                - name: "Overview"
+                  path: "agent/v3/gcp/elastic-ci-stack"
+                - name: "Terraform"
+                  path: "agent/v3/gcp/terraform"
+                - name: "Configuration"
+                  path: "agent/v3/gcp/configuration-parameters"
+                - name: "Troubleshooting"
+                  path: "agent/v3/gcp/troubleshooting"
         - name: "Running on Kubernetes"
           children:
             - name: "Overview"

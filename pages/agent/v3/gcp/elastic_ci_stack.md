@@ -1,0 +1,86 @@
+# Elastic CI Stack for GCP overview
+
+The Buildkite Elastic CI Stack for GCP gives you a private, autoscaling [Buildkite agent](/docs/agent/v3) cluster running on Google Cloud Platform. Use it to run your builds on your own infrastructure, with complete control over security, networking, and costs.
+
+## Architecture
+
+The stack is organized into four Terraform modules:
+
+- **[Networking](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/networking)** - VPC, subnets, Cloud NAT, and firewall rules
+- **[IAM](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/iam)** - Service accounts and permissions for agents and metrics
+- **[Compute](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/compute)** - Instance groups, autoscaling, and agent configuration
+- **[Buildkite Agent Metrics](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/buildkite-agent-metrics)** - Cloud Function for publishing queue metrics
+
+## Features
+
+The Buildkite Elastic CI Stack for GCP supports:
+
+- All GCP regions
+- Linux operating system (Debian 12)
+- Configurable machine types (including ARM/Graviton instances)
+- Configurable autoscaling based on build queue activity
+- Docker and Docker Compose v2
+- Multi-architecture build support (ARM/x86 cross-platform)
+- Cloud Logging for system and Buildkite agent events
+- Cloud Monitoring metrics from the Buildkite API
+- Support for stable, beta or edge Buildkite Agent releases
+- Multiple stacks in the same GCP project
+- Rolling updates to stack instances to reduce interruption
+- Secret Manager integration for secure token storage
+- Preemptible VM support for cost optimization
+- Automated Docker garbage collection and disk space management
+
+## Get started with the Elastic CI Stack for GCP
+
+Get started with Buildkite Elastic CI Stack for GCP using Terraform:
+
+- [Terraform setup guide](/docs/agent/v3/gcp/elastic-ci-stack/terraform)
+
+## Architecture comparison
+
+The Elastic CI Stack for GCP is inspired by the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) and provides similar functionality using GCP services:
+
+| Feature | AWS Implementation | GCP Implementation |
+|---------|--------------------|--------------------|
+| Compute | EC2 Auto Scaling Groups | Managed Instance Groups |
+| Networking | VPC, NAT Gateway | VPC, Cloud NAT |
+| Secrets | Secrets Manager / Parameter Store | Secret Manager |
+| Logging | CloudWatch Logs | Cloud Logging |
+| Metrics | CloudWatch Metrics | Cloud Monitoring |
+| Autoscaling Metrics | Lambda function | Cloud Function |
+| Image Building | Packer | Packer |
+| Infrastructure | CloudFormation or Terraform | Terraform |
+
+## What's on each machine?
+
+- [Debian 12 (Bookworm)](https://www.debian.org/releases/bookworm/)
+- [The Buildkite Agent](/docs/agent/v3)
+- [Git](https://git-scm.com/)
+- [Docker](https://www.docker.com)
+- [Docker Compose v2](https://docs.docker.com/compose/)
+- [Docker Buildx](https://docs.docker.com/buildx/working-with-buildx/)
+- [gcloud CLI](https://cloud.google.com/sdk/gcloud) - useful for performing any ops-related tasks
+- [jq](https://stedolan.github.io/jq/) - useful for manipulating JSON responses from CLI tools
+
+For more details on what versions are installed, see the [Packer templates](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/packer).
+
+The Buildkite agent runs as user `buildkite-agent`.
+
+## Supported builds
+
+This stack is designed to run your builds in a share-nothing pattern similar to the [12 factor application principles](http://12factor.net):
+
+- Each project should encapsulate its dependencies through Docker and Docker Compose.
+- Build pipeline steps should assume no state on the machine (and instead rely on [build meta-data](/docs/pipelines/build-meta-data), [build artifacts](/docs/pipelines/artifacts) or Cloud Storage).
+- Secrets are configured using environment variables exposed using Secret Manager.
+
+By following these conventions you get a scalable, repeatable, and source-controlled CI environment that any team within your organization can use.
+
+## Related content
+
+To gain a better understanding of how Elastic CI Stack for GCP works and how to use it most effectively and securely, check out the following resources:
+
+- [GitHub repo for Elastic CI Stack for GCP](https://github.com/buildkite/elastic-ci-stack-for-gcp)
+- [Terraform setup guide](/docs/agent/v3/gcp/elastic-ci-stack/terraform)
+- [Configuration parameters for Elastic CI Stack for GCP](/docs/agent/v3/gcp/elastic-ci-stack/configuration-parameters)
+- [Architecture overview](/docs/agent/v3/gcp/architecture/vpc)
