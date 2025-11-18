@@ -41,4 +41,6 @@ While both approaches help optimize your Git workflow, they solve different prob
 
 ## Understanding checkout defaults across platforms
 
-The default checkout behavior in Buildkite Pipelines prioritizes completeness and flexibility over speed. If you're migrating from another CI/CD platform, you might notice differences in checkout speed or behavior due to these varying defaults. For a detailed comparison of how Buildkite's checkout defaults differ from other platforms using an example of GitHub Actions — including LFS handling, shallow clones, and customization options — see [Understanding the difference in default checkout behaviors](/docs/pipelines/migration/from-githubactions#understanding-the-difference-in-default-checkout-behaviors).
+The default checkout behavior in Buildkite Pipelines prioritizes completeness and flexibility over speed. As a result, if you're migrating to Buildkite Pipelines from another CI/CD platform, especially if you're using LFS, you might notice differences in checkout speed or behavior.
+
+For a detailed comparison of how Buildkite's checkout defaults differ from other platforms in a GitHub Actions-based example (including LFS handling, shallow clones, and customization options), see [Understanding the difference in default checkout behaviors](/docs/pipelines/migration/from-githubactions#understanding-the-difference-in-default-checkout-behaviors).
