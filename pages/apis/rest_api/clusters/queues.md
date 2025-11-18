@@ -41,6 +41,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
     "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
     "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "agent_retry_affinity": "prefer-warmest",
     "dispatch_paused": false,
     "dispatch_paused_by": null,
     "dispatch_paused_at": null,
@@ -78,6 +79,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
   "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
   "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+  "agent_retry_affinity": "prefer-warmest",
   "dispatch_paused": false,
   "dispatch_paused_by": null,
   "dispatch_paused_at": null,
@@ -116,6 +118,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
   "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
   "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+  "agent_retry_affinity": "prefer-warmest",
   "dispatch_paused": false,
   "dispatch_paused_by": null,
   "dispatch_paused_at": null,
@@ -137,6 +140,18 @@ Required [request body properties](/docs/api#request-body-properties):
 <table class="responsive-table">
 <tbody>
   <tr><th><code>key</code></th><td>Key for the queue.<br><em>Example:</em> <code>"default"</code>
+</tbody>
+</table>
+
+Optional [request body properties](/docs/api#request-body-properties):
+
+<table class="responsive-table">
+<tbody>
+  <tr><th><code>description</code></th><td>Description for the queue.<br/>
+  <em>Example:</em> <code>"The default queue for this cluster"</code>
+  <tr><th><code>retry_agent_affinity</code></th><td> When a job is retried, this setting controls how agents are selected for these retries. This value must be either <code>prefer-warmest</code> (default), which preferences retries on agents that have recently finished jobs, or <code>prefer-different</code>, which preferences retries on different agents, if they're available.<br/>
+  If this property is omitted, then the value <code>prefer-warmest</code> is used.<br/>
+  <em>Example:</em> <code>"prefer-different"</code></td></tr>
 </tbody>
 </table>
 
@@ -279,6 +294,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 <table class="responsive-table">
 <tbody>
   <tr><th><code>description</code></th><td>Description for the queue.<br><em>Example:</em> <code>"The default queue for this cluster"</code>
+  <tr><th><code>retry_agent_affinity</code></th><td>Controls how agents are selected for retries. Must be one of <code>prefer-warmest</code> or <code>prefer-different</code>.<br><em>Example:</em> <code>"prefer-warmest"</code></td></tr>
   <tr>
     <th><code>hostedAgents</code></th>
     <td>
