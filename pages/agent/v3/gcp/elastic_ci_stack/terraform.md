@@ -288,31 +288,6 @@ The module will create:
 - Cloud Function for autoscaling metrics
 - Health checks and autoscaling based on queue depth
 
-## Running your first build
-
-We've created a sample [bash-parallel-example sample pipeline](https://github.com/buildkite/bash-parallel-example) for you to test with your new autoscaling stack. Click the **Add to Buildkite** button below (or on the [GitHub README](https://github.com/buildkite/bash-parallel-example)):
-
-<a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-parallel-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
-
-Click **Create Pipeline**. Depending on your organization's settings, the next step will vary slightly:
-
-- If your organization uses the web-based steps editor (default), your pipeline is now ready for its first build. You can skip to the next step.
-- If your organization has been upgraded to the [YAML steps editor](/docs/pipelines/tutorials/pipeline-upgrade), you should see a **Choose a Starting Point** wizard. Select **Pipeline Upload** from the list.
-
-Click **New Build** in the top right and choose a build message:
-
-Once your build is created, head back to the Cloud Console to watch the Elastic CI Stack for GCP creating new Compute Engine instances:
-
-1. Navigate to **Compute Engine** > **Instance groups**
-2. Select your instance group, for example `buildkite-mig`
-3. Watch instances being created and transitioning to **Running**
-
-Once the instances are ready, they will appear on your Buildkite Agents page:
-
-And then your build will start running on your new agents:
-
-Congratulations on running your first Elastic CI Stack for GCP build on Buildkite!
-
 ## Advanced configuration
 
 ### Using a custom VM image
