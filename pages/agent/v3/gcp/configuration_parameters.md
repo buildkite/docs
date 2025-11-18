@@ -6,7 +6,7 @@ The following tables list all of the available configuration parameters as Terra
 
 Note that you must provide values for the required parameters (`project_id`, `buildkite_organization_slug`, and `buildkite_agent_token` or `buildkite_agent_token_secret`) to use the stack. All other parameters are optional and have sensible defaults.
 
-## Required Configuration
+## Required configuration
 
 | Variable | Type | Description |
 |----------|------|-------------|
@@ -14,7 +14,7 @@ Note that you must provide values for the required parameters (`project_id`, `bu
 | `buildkite_organization_slug` | `string` | Buildkite organization slug (from your Buildkite URL: `https://buildkite.com/<org-slug>`). Used for metrics namespacing. Must contain only lowercase letters, numbers, and hyphens. |
 | `buildkite_agent_token` | `string` (sensitive) | Buildkite agent registration token from your Buildkite organization. Get this from: Buildkite Dashboard → Agents → Reveal Agent Token. Leave empty if using `buildkite_agent_token_secret`. |
 
-## Stack Configuration
+## Stack configuration
 
 | Variable | Type | Default | Description |
 |----------|------|---------|-------------|
@@ -22,7 +22,7 @@ Note that you must provide values for the required parameters (`project_id`, `bu
 | `region` | `string` | `"us-central1"` | GCP region where resources will be deployed (e.g., 'us-central1', 'europe-west1'). |
 | `zones` | `list(string)` | `null` | List of availability zones within the region for high availability. If not specified, uses all zones in the region. |
 
-## Buildkite Configuration
+## Buildkite configuration
 
 | Variable | Type | Default | Description |
 |----------|------|---------|-------------|
@@ -32,7 +32,7 @@ Note that you must provide values for the required parameters (`project_id`, `bu
 | `buildkite_agent_release` | `string` | `"stable"` | Buildkite agent release channel. **Allowed values**: `stable` (recommended), `beta`, `edge`. |
 | `buildkite_api_endpoint` | `string` | `"https://agent.buildkite.com/v3"` | Buildkite API endpoint URL. Only change if using a custom endpoint. |
 
-## Instance Configuration
+## Instance configuration
 
 | Variable | Type | Default | Description |
 |----------|------|---------|-------------|
@@ -41,7 +41,7 @@ Note that you must provide values for the required parameters (`project_id`, `bu
 | `root_disk_size_gb` | `number` | `50` | Size of the root disk in GB. Increase for larger Docker images or build artifacts. **Range**: 10-65536 GB. |
 | `root_disk_type` | `string` | `"pd-balanced"` | Type of root disk. **Allowed values**: `pd-standard` (cheaper, slower), `pd-balanced` (recommended), `pd-ssd` (fastest). |
 
-## Scaling Configuration
+## Scaling configuration
 
 | Variable | Type | Default | Description |
 |----------|------|---------|-------------|
@@ -51,7 +51,7 @@ Note that you must provide values for the required parameters (`project_id`, `bu
 | `cooldown_period` | `number` | `60` | Cooldown period in seconds between autoscaling actions to prevent flapping. Must be ≥ 30. |
 | `autoscaling_jobs_per_instance` | `number` | `1` | Target number of Buildkite jobs per instance for autoscaling. Lower values = more parallelization, higher cost. Must be ≥ 1. |
 
-## Networking Configuration
+## Networking configuration
 
 | Variable | Type | Default | Description |
 |----------|------|---------|-------------|
@@ -62,7 +62,7 @@ Note that you must provide values for the required parameters (`project_id`, `bu
 | `enable_iap_access` | `bool` | `false` | Enable Identity-Aware Proxy (IAP) for secure SSH without external IPs or VPN. |
 | `enable_secondary_ranges` | `bool` | `false` | Enable secondary IP ranges for future GKE support. |
 
-## IAM Configuration
+## IAM configuration
 
 | Variable | Type | Default | Description |
 |----------|------|---------|-------------|
@@ -73,7 +73,7 @@ Note that you must provide values for the required parameters (`project_id`, `bu
 | `enable_secret_access` | `bool` | `true` | Grant agents access to Secret Manager. Enable if your builds need to access secrets. |
 | `enable_storage_access` | `bool` | `false` | Grant agents access to Cloud Storage. Enable if your builds need to upload/download artifacts. |
 
-## Health Check Configuration
+## Health check configuration
 
 | Variable | Type | Default | Description |
 |----------|------|---------|-------------|
@@ -85,14 +85,14 @@ Note that you must provide values for the required parameters (`project_id`, `bu
 | `health_check_unhealthy_threshold` | `number` | `3` | Number of consecutive failed health checks before marking instance unhealthy. Must be ≥ 1. |
 | `health_check_initial_delay_sec` | `number` | `300` | Time (in seconds) to wait after instance start before beginning health checks. Must be ≥ 0. |
 
-## Update Policy Configuration
+## Update policy configuration
 
 | Variable | Type | Default | Description |
 |----------|------|---------|-------------|
 | `max_surge` | `number` | `3` | Maximum number of instances that can be created above target size during rolling updates. Must be ≥ 0. |
 | `max_unavailable` | `number` | `0` | Maximum number of instances that can be unavailable during rolling updates. Must be ≥ 0. |
 
-## Security Configuration
+## Security configuration
 
 | Variable | Type | Default | Description |
 |----------|------|---------|-------------|
@@ -100,13 +100,13 @@ Note that you must provide values for the required parameters (`project_id`, `bu
 | `enable_vtpm` | `bool` | `true` | Enable virtual Trusted Platform Module for shielded VM instances (recommended). |
 | `enable_integrity_monitoring` | `bool` | `true` | Enable integrity monitoring for shielded VM instances (recommended). |
 
-## Additional Configuration
+## Additional configuration
 
 | Variable | Type | Default | Description |
 |----------|------|---------|-------------|
 | `labels` | `map(string)` | `{}` | Additional labels to apply to all resources for organization and billing. |
 
-## Example Configuration
+## Example configuration
 
 Here's an example `terraform.tfvars` file with commonly used parameters:
 
@@ -150,7 +150,7 @@ labels = {
 }
 ```
 
-## Using Secret Manager for Agent Token
+## Using Secret Manager for Agent token
 
 For production deployments, it's recommended to store the Buildkite agent token in Secret Manager:
 
@@ -169,7 +169,7 @@ echo -n "your-agent-token" | gcloud secrets create buildkite-agent-token \
 buildkite_agent_token_secret = "projects/your-project-id/secrets/buildkite-agent-token/versions/latest"
 ```
 
-## Module-Specific Parameters
+## Module-specific parameters
 
 For more detailed configuration options at the module level, see:
 

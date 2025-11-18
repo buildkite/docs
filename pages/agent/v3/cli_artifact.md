@@ -296,7 +296,7 @@ export BUILDKITE_S3_ACCESS_URL="https://buildkite-artifacts.example.com/"
 
 You can configure the `buildkite-agent artifact` command to store artifacts in
 your private Google Cloud Storage bucket. For instructions for how to set this
-up, see our [Google Cloud installation guide](/docs/agent/v3/gcloud#uploading-artifacts-to-google-cloud-storage).
+up, see our [Google Cloud installation guide](/docs/agent/v3/gcp#uploading-artifacts-to-google-cloud-storage).
 
 ## Using your Artifactory instance
 

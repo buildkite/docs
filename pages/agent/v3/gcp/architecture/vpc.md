@@ -41,7 +41,7 @@ enable_ssh_access = true
 ssh_source_ranges = ["111.222.0.1/24"]  # Your office
 ```
 
-## Private Google Access
+## Private Google access
 
 Both subnets have Private Google Access enabled, allowing instances without external IPs to access:
 

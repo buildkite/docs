@@ -6,7 +6,7 @@ Infrastructure as code isn't always easy to troubleshoot, but here are some ways
 
 Elastic CI Stack for GCP sends logs to Cloud Logging via the Ops Agent. The following log sources are available:
 
-### Application Logs
+### Application logs
 
 - **Buildkite Agent logs** - Log name: `buildkite_agent`
   + Contains agent lifecycle events, job execution, and errors
@@ -21,7 +21,7 @@ Elastic CI Stack for GCP sends logs to Cloud Logging via the Ops Agent. The foll
   + Contains preemptible instance termination handling logs
   + View in Logs Explorer: `log_name="projects/PROJECT_ID/logs/preemption_monitor"`
 
-### System Logs
+### System logs
 
 - **System messages** - Log name: `syslog`
   + General system messages and events
@@ -31,7 +31,7 @@ Elastic CI Stack for GCP sends logs to Cloud Logging via the Ops Agent. The foll
   + SSH and authentication events
   + View in Logs Explorer: `log_name="projects/PROJECT_ID/logs/auth"`
 
-### Cloud Initialization Logs
+### Cloud Initialization logs
 
 - **Cloud-init logs** - Log name: `cloud_init`
   + VM bootstrap process logs
@@ -41,7 +41,7 @@ Elastic CI Stack for GCP sends logs to Cloud Logging via the Ops Agent. The foll
   + Output from startup scripts
   + View in Logs Explorer: `log_name="projects/PROJECT_ID/logs/cloud_init_output"`
 
-### Viewing Logs in Cloud Console
+### Viewing logs in Cloud Console
 
 1. Navigate to **Monitoring** > **Logs Explorer** in the Cloud Console
 2. Use filters to view specific logs:
@@ -68,7 +68,7 @@ resource.type="gce_instance"
 log_name="projects/PROJECT_ID/logs/cloud_init_output"
 ```
 
-### Viewing Logs with gcloud CLI
+### Viewing logs with gcloud CLI
 
 **View recent Buildkite agent logs:**
 
@@ -103,7 +103,7 @@ For more information on logging, see [LOGGING.md](https://github.com/buildkite/e
 
 Sometimes, looking at the logs isn't enough to figure out what's going on in your instances. In these cases, it can be useful to access the shell on the instance directly:
 
-### SSH Access (if enabled)
+### SSH access (if enabled)
 
 If your Elastic CI Stack for GCP has been configured to allow SSH access (`enable_ssh_access = true`):
 
@@ -112,7 +112,7 @@ If your Elastic CI Stack for GCP has been configured to allow SSH access (`enabl
 gcloud compute ssh INSTANCE_NAME --zone ZONE --project PROJECT_ID
 ```
 
-### Identity-Aware Proxy (IAP)
+### Identity-aware proxy (IAP)
 
 If IAP is enabled (`enable_iap_access = true`), you can SSH without external IPs:
 
@@ -129,7 +129,7 @@ Or use the **SSH** button in the Cloud Console:
 1. Navigate to **Compute Engine** > **VM instances**
 2. Click the **SSH** button next to the instance
 
-### Serial Console
+### Serial console
 
 For instances that won't boot or are inaccessible:
 
