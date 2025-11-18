@@ -78,6 +78,7 @@ exceptions:
   - Claude Code
   - Claude Desktop
   - CLI
+  - Cloud Console
   - Cloud Logging
   - Cloud Monitoring
   - Cloud Storage
