@@ -6,6 +6,9 @@ This page is for people who are familiar with or already use GitHub Actions, wan
 
 The Buildkite checkout process might appear slower (job and build times appearing slower) in a one-to-one migration comparison with GitHub Actions. This difference stems from default checkout strategies and Git configurations used by each platform.
 
+> 📘
+> While the following comparison focuses on GitHub Actions, if your current CI/CD platform uses shallow clones, skips LFS by default, or has other optimized checkout defaults, you'll likely notice similar differences when migrating to Buildkite Pipelines.
+
 If you look at GitHub Actions' default checkout behavior, it:
 
 - Uses a shallow clone with `--depth=1` so it only fetches what is necessary for the current commit or PR.
