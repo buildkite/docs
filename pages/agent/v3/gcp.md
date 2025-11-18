@@ -102,7 +102,7 @@ ${BUILDKITE_GCS_ACCESS_HOST}/custom-folder-structure/${ARTIFACT_PATH}
 
 ## Related content
 
-- [Elastic CI Stack for GCP overview](/docs/agent/v3/gcp/elastic-ci-stack)
+- [Elastic CI Stack for GCP overview](/docs/agent/v3/gcp/elastic-ci-stack/elastic-ci-stack)
 - [Terraform setup guide](/docs/agent/v3/gcp/elastic-ci-stack/terraform)
 - [Configuration parameters](/docs/agent/v3/gcp/elastic-ci-stack/configuration-parameters)
 - [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s)
