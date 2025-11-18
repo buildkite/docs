@@ -19,16 +19,16 @@ Note that you must provide values for the required parameters (`project_id`, `bu
 | Variable | Type | Default | Description |
 |----------|------|---------|-------------|
 | `stack_name` | `string` | `"buildkite"` | Name prefix for all resources in this stack. Used to identify and organize resources. Must be a valid GCP resource name: lowercase letters, numbers, and hyphens only. |
-| `region` | `string` | `"us-central1"` | GCP region where resources will be deployed (e.g., 'us-central1', 'europe-west1'). |
+| `region` | `string` | `"us-central1"` | GCP region where resources will be deployed (for example, 'us-central1', 'europe-west1'). |
 | `zones` | `list(string)` | `null` | List of availability zones within the region for high availability. If not specified, uses all zones in the region. |
 
 ## Buildkite configuration
 
 | Variable | Type | Default | Description |
 |----------|------|---------|-------------|
-| `buildkite_agent_token_secret` | `string` | `""` | Alternative to `buildkite_agent_token`: GCP Secret Manager secret name containing the Buildkite agent token (e.g., 'projects/PROJECT_ID/secrets/buildkite-agent-token/versions/latest'). Recommended for production. |
+| `buildkite_agent_token_secret` | `string` | `""` | Alternative to `buildkite_agent_token`: GCP Secret Manager secret name containing the Buildkite agent token (for example, 'projects/PROJECT_ID/secrets/buildkite-agent-token/versions/latest'). Recommended for production. |
 | `buildkite_queue` | `string` | `"default"` | Buildkite queue name that agents will listen to. Agents in this stack will only pick up jobs targeting this queue. |
-| `buildkite_agent_tags` | `string` | `""` | Additional tags for Buildkite agents (comma-separated key=value pairs, e.g., 'docker=true,os=linux'). Use these to target specific agents in pipeline steps. |
+| `buildkite_agent_tags` | `string` | `""` | Additional tags for Buildkite agents (comma-separated key=value pairs, for example, 'docker=true,os=linux'). Use these to target specific agents in pipeline steps. |
 | `buildkite_agent_release` | `string` | `"stable"` | Buildkite agent release channel. **Allowed values**: `stable` (recommended), `beta`, `edge`. |
 | `buildkite_api_endpoint` | `string` | `"https://agent.buildkite.com/v3"` | Buildkite API endpoint URL. Only change if using a custom endpoint. |
 
@@ -36,7 +36,7 @@ Note that you must provide values for the required parameters (`project_id`, `bu
 
 | Variable | Type | Default | Description |
 |----------|------|---------|-------------|
-| `machine_type` | `string` | `"e2-standard-4"` | GCP machine type for agent instances (e.g., 'e2-standard-4', 'n1-standard-2', 'c2-standard-4'). See: [GCP Machine Types](https://cloud.google.com/compute/docs/machine-types). Must be a valid GCP machine type. |
+| `machine_type` | `string` | `"e2-standard-4"` | GCP machine type for agent instances (for example, 'e2-standard-4', 'n1-standard-2', 'c2-standard-4'). See: [GCP Machine Types](https://cloud.google.com/compute/docs/machine-types). Must be a valid GCP machine type. |
 | `image` | `string` | `"debian-cloud/debian-12"` | Source image for boot disk. Use a custom Packer-built image or a public Debian image. |
 | `root_disk_size_gb` | `number` | `50` | Size of the root disk in GB. Increase for larger Docker images or build artifacts. **Range**: 10-65536 GB. |
 | `root_disk_type` | `string` | `"pd-balanced"` | Type of root disk. **Allowed values**: `pd-standard` (cheaper, slower), `pd-balanced` (recommended), `pd-ssd` (fastest). |
@@ -57,7 +57,7 @@ Note that you must provide values for the required parameters (`project_id`, `bu
 |----------|------|---------|-------------|
 | `network_name` | `string` | `"elastic-ci-stack"` | Name of the VPC network to create. The stack will create a new VPC with this name. Must be a valid GCP resource name: lowercase letters, numbers, and hyphens only. |
 | `enable_ssh_access` | `bool` | `true` | Enable SSH access to instances via firewall rule. Set to false for additional security. |
-| `ssh_source_ranges` | `list(string)` | `["0.0.0.0/0"]` | CIDR blocks allowed to SSH to instances. Restrict to your IP for security (e.g., ['203.0.113.0/24']). Only used if `enable_ssh_access` is true. All values must be valid CIDR blocks. |
+| `ssh_source_ranges` | `list(string)` | `["0.0.0.0/0"]` | CIDR blocks allowed to SSH to instances. Restrict to your IP for security (for example, ['203.0.113.0/24']). Only used if `enable_ssh_access` is true. All values must be valid CIDR blocks. |
 | `instance_tag` | `string` | `"elastic-ci-agent"` | Network tag applied to instances for firewall targeting. Generally no need to change. Must be a valid GCP network tag. |
 | `enable_iap_access` | `bool` | `false` | Enable Identity-Aware Proxy (IAP) for secure SSH without external IPs or VPN. |
 | `enable_secondary_ranges` | `bool` | `false` | Enable secondary IP ranges for future GKE support. |

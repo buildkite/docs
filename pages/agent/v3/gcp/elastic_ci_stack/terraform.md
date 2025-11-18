@@ -304,7 +304,7 @@ Click **New Build** in the top right and choose a build message:
 Once your build is created, head back to the Cloud Console to watch the Elastic CI Stack for GCP creating new Compute Engine instances:
 
 1. Navigate to **Compute Engine** > **Instance groups**
-2. Select your instance group (e.g., `buildkite-mig`)
+2. Select your instance group, for example `buildkite-mig`
 3. Watch instances being created and transitioning to **Running**
 
 Once the instances are ready, they will appear on your Buildkite Agents page:

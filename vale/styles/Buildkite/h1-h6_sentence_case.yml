@@ -78,6 +78,9 @@ exceptions:
   - Claude Code
   - Claude Desktop
   - CLI
+  - Cloud Logging
+  - Cloud Monitoring
+  - Cloud Storage
   - CloudFormation
   - Cloudsmith
   - CloudTrail
@@ -109,6 +112,7 @@ exceptions:
   - FAQs
   - FreeBSD
   - G Suite
+  - GCP
   - Git
   - Git Large File Storage
   - GitHub
@@ -217,6 +221,7 @@ exceptions:
   - SDK
   - SDKs
   - Scripted
+  - Secret Manager
   - Sequoia
   - Slack
   - Slack Workspace
@@ -231,6 +236,7 @@ exceptions:
   - SSO
   - Tahoe
   - Tekton
+  - Terraform
   - Test Engine
   - Test Engine Client
   - TESTOWNER
