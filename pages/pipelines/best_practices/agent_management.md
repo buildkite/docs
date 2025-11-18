@@ -101,6 +101,13 @@ Learn more about using clusters and queues in [Managing clusters](/docs/pipeline
 - Use cloud-based autoscaling ([Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws), [Buildkite Agent Scaler](https://github.com/buildkite/buildkite-agent-scaler), [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s)).
 - Maintain dedicated pools for CPU-intensive, GPU-enabled, or OS-specific workloads.
 - Configure [graceful termination](/docs/agent/v3#signal-handling) to allow jobs to complete.
+- To be able to duplicate your fleet of agents in an easy way, favor agent images and configurations that are able to run in more than one environment. For example, you could have a single Docker image that contains the latest Buildkite Agent binary, a selection of development and deployment tools, and a config that reads the information like queues or tags from the environment variables. You could then run such image as Kubernetes agents, ECS agents, or in a Docker setup on a virtual machine.
+
+## Resilience and redundancy
+
+You should strive to have an architecture that allows you to run agents in multiple regions or on a secondary platform to make sure that the critical queues keep running during outages. For example, instead of running all your agents for a critical queue in a single availability zone - spread you agents across other availability zones. This way, if one of the availability zones experiences issues, the agents in other zones will still be able to pick up the jobs for your critical queues.
+
+Opt for building out your agent architecture in such a way that a single host or cluster problem will only affect a limited (preferably small) subset of queues or pipelines, and not your entire agent fleet.
 
 ## Security
 
