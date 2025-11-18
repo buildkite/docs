@@ -60,6 +60,8 @@
               pill: "beta"
         - name: From Jenkins
           path: pipelines/migration/from-jenkins
+        - name: From GitHub Actions
+          path: pipelines/migration/from-githubactions
         - name: From Bamboo
           path: pipelines/migration/from-bamboo
     - name: Best practices
@@ -78,6 +80,8 @@
           path: "pipelines/best-practices/environment-and-dependency"
         - name: "Secrets management"
           path: "pipelines/best-practices/secrets-management"
+        - name: "Git checkout optimization"
+          path: "pipelines/best-practices/git-checkout-optimization"
         - name: "Plugin management"
           path: "pipelines/best-practices/plugin-management"
         - name: "Enforcing security controls"
@@ -1060,3 +1064,10 @@
           path: "apis/agent-api/metrics"
         - name: "Stacks"
           path: "apis/agent-api/stacks"
+    - name: "Model providers"
+      pill: preview
+      children:
+        - name: "Overview"
+          path: "apis/model-providers"
+        - name: "Anthropic"
+          path: "apis/model-providers/anthropic"

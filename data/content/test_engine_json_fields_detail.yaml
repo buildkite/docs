@@ -33,3 +33,8 @@ fields:
   desc: |
      The SQL query (required if parent span has a `section` of `sql`)
   examples:
+- name: content
+  required: false
+  type: string
+  desc: |
+    The annotation content (required if parent span has a `section` of `annotation`)
