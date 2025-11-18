@@ -120,20 +120,26 @@ curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
   "jobs": [
     {
       "id": "01234567-89ab-cdef-0123-456789abcdef",
-      "scheduled_at": "2023-10-01T12:00:00.000Z",
       "priority": 1,
       "agent_query_rules": ["test=a"],
-      "pipeline_slug": "my-pipeline",
-      "pipeline_id": "pipeline-uuid",
-      "build_number": 123,
-      "build_branch": "main",
-      "build_id": "build-uuid",
-      "step_key": "test"
+      "scheduled_at": "2023-10-01T12:00:00.000Z",
+      "pipeline": {
+        "slug": "my-pipeline",
+        "uuid": "pipeline-uuid"
+      },
+      "build": {
+        "number": 123,
+        "branch": "main",
+        "uuid": "build-uuid"
+      },
+      "step": {
+        "key": "test"
+      }
     }
   ],
   "page_info": {
     "has_next_page": false,
-    "end_cursor": null
+    "end_cursor": "base64-encoded-string-or-null"
   },
   "cluster_queue": {
     "id": "queue-id",
@@ -141,6 +147,9 @@ curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
   }
 }
 ```
+
+> 📘 Nested structure
+> The `pipeline`, `build`, and `step` fields are nested objects, not flat fields. All nested objects are always present in the response, even when their values are `null`. The `end_cursor` field in `page_info` can be a base64-encoded string or `null`.
 
 Success response: `200 OK`
 
