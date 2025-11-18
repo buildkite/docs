@@ -505,7 +505,7 @@ Optional attributes:
   <tr>
     <td><code>exit_status</code></td>
     <td>
-      Allow specified non-zero exit statuses not to fail the build. Use <code>"*"</code> to allow all non-zero exit statuses (1-255) or specify individual exit status codes.
+      Allow specified non-zero exit statuses not to fail the build. Use <code>"*"</code> to allow all non-zero exit statuses or specify individual exit status codes.
       <br/>
       <em>Example:</em> <code>"*"</code><br/>
       <em>Example:</em> <code>1</code>
