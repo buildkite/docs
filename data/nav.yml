@@ -462,6 +462,8 @@
           path: "pipelines/hosted-agents/cache-volumes"
         - name: "Remote Docker builders"
           path: "pipelines/hosted-agents/remote-docker-builders"
+        - name: "Internal container registries"
+          path: "pipelines/hosted-agents/internal-container-registries"
         - name: "Mobile Delivery Cloud"
           children:
             - name: "Overview"
