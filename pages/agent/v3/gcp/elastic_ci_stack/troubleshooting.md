@@ -1,6 +1,6 @@
 # Troubleshooting the Elastic CI Stack for GCP
 
-Infrastructure as code isn't always easy to troubleshoot, but here are some ways to debug exactly what's going on inside the [Elastic CI Stack for GCP](https://github.com/buildkite/elastic-ci-stack-for-gcp), and some solutions for specific situations.
+Infrastructure as code isn't always easy to troubleshoot, but here are some ways to debug exactly what's going on inside the [Elastic CI Stack for GCP](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp), and some solutions for specific situations.
 
 ## Using Cloud Logging
 
@@ -97,7 +97,7 @@ gcloud logging read "resource.type=gce_instance AND severity>=ERROR" \
   --project PROJECT_ID
 ```
 
-For more information on logging, see [LOGGING.md](https://github.com/buildkite/elastic-ci-stack-for-gcp/blob/main/LOGGING.md).
+For more information on logging, see [LOGGING.md](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/blob/main/LOGGING.md).
 
 ## Accessing Elastic CI Stack for GCP instances directly
 
@@ -293,7 +293,7 @@ gcloud projects get-iam-policy PROJECT_ID \
 
 If you're still stuck after trying the troubleshooting steps above:
 
-1. **Check the GitHub repository** - [Issues](https://github.com/buildkite/elastic-ci-stack-for-gcp/issues)
+1. **Check the GitHub repository** - [Issues](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/issues)
 2. **Buildkite Support** - Email [support@buildkite.com](mailto:support@buildkite.com) with:
    + Your stack configuration (redact sensitive values)
    + Relevant Cloud Logging logs

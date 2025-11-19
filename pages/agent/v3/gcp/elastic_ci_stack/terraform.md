@@ -1,6 +1,6 @@
 # Terraform setup for the Elastic CI Stack for GCP
 
-This guide leads you through getting started with the [Elastic CI Stack for GCP](https://github.com/buildkite/elastic-ci-stack-for-gcp) using [Terraform](https://www.terraform.io/).
+This guide leads you through getting started with the [Elastic CI Stack for GCP](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp) using [Terraform](https://www.terraform.io/).
 
 With the help of the Elastic CI Stack for GCP, you are able to launch a private, autoscaling [Buildkite Agent cluster](/docs/pipelines/clusters) in your own GCP project.
 
@@ -53,7 +53,7 @@ Buildkite services are billed according to your [plan](https://buildkite.com/pri
 - [gcloud CLI](https://cloud.google.com/sdk/gcloud) - useful for performing any ops-related tasks
 - [jq](https://stedolan.github.io/jq/) - useful for manipulating JSON responses from CLI tools
 
-For more details on what versions are installed, see the corresponding [Packer templates](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/packer).
+For more details on what versions are installed, see the corresponding [Packer templates](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/packer).
 
 The Buildkite agent runs as user `buildkite-agent`.
 
@@ -132,7 +132,7 @@ This builds a Debian 12-based image with:
 - Disk space monitoring and self-protection
 - Centralized logging with Ops Agent
 
-For more details, see [packer/README.md](https://github.com/buildkite/elastic-ci-stack-for-gcp/blob/main/packer/README.md).
+For more details, see [packer/README.md](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/blob/main/packer/README.md).
 
 ## Deploying the stack
 
@@ -184,7 +184,7 @@ provider "google" {
 }
 
 module "buildkite_stack" {
-  source = "github.com/buildkite/elastic-ci-stack-for-gcp"
+  source = "github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp"
 
   # Required
   project_id                  = var.project_id
@@ -296,7 +296,7 @@ If you built a custom Packer image with Docker support:
 
 ```hcl
 module "buildkite_stack" {
-  source = "github.com/buildkite/elastic-ci-stack-for-gcp"
+  source = "github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp"
   
   # ... other configuration ...
   
@@ -311,7 +311,7 @@ Target specific agents in your pipeline steps using tags:
 
 ```hcl
 module "buildkite_stack" {
-  source = "github.com/buildkite/elastic-ci-stack-for-gcp"
+  source = "github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp"
   
   # ... other configuration ...
   
@@ -338,7 +338,7 @@ To create multiple agent pools with different configurations, deploy multiple st
 ```hcl
 # Production stack
 module "buildkite_stack_production" {
-  source = "github.com/buildkite/elastic-ci-stack-for-gcp"
+  source = "github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp"
   
   stack_name      = "buildkite-production"
   buildkite_queue = "production"
@@ -350,7 +350,7 @@ module "buildkite_stack_production" {
 
 # Build stack for larger builds
 module "buildkite_stack_builds" {
-  source = "github.com/buildkite/elastic-ci-stack-for-gcp"
+  source = "github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp"
   
   stack_name      = "buildkite-builds"
   buildkite_queue = "builds"
@@ -367,7 +367,7 @@ If your builds need to upload/download artifacts to Cloud Storage:
 
 ```hcl
 module "buildkite_stack" {
-  source = "github.com/buildkite/elastic-ci-stack-for-gcp"
+  source = "github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp"
   
   # ... other configuration ...
   
@@ -381,7 +381,7 @@ Enable Identity-Aware Proxy for secure SSH access without external IPs:
 
 ```hcl
 module "buildkite_stack" {
-  source = "github.com/buildkite/elastic-ci-stack-for-gcp"
+  source = "github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp"
   
   # ... other configuration ...
   
@@ -404,7 +404,7 @@ Restrict SSH access to specific IP ranges:
 
 ```hcl
 module "buildkite_stack" {
-  source = "github.com/buildkite/elastic-ci-stack-for-gcp"
+  source = "github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp"
   
   # ... other configuration ...
   
@@ -419,7 +419,7 @@ Add labels for cost tracking and organization:
 
 ```hcl
 module "buildkite_stack" {
-  source = "github.com/buildkite/elastic-ci-stack-for-gcp"
+  source = "github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp"
   
   # ... other configuration ...
   
@@ -466,5 +466,5 @@ terraform destroy
 
 To gain a better understanding of how Elastic CI Stack for GCP works and how to use it most effectively and securely, check out the following resources:
 
-- [GitHub repo for Elastic CI Stack for GCP](https://github.com/buildkite/elastic-ci-stack-for-gcp)
+- [GitHub repo for Elastic CI Stack for GCP](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp)
 - [Configuration parameters for Elastic CI Stack for GCP](/docs/agent/v3/gcp/elastic-ci-stack/configuration-parameters)

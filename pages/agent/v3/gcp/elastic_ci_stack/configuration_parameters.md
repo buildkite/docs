@@ -2,7 +2,7 @@
 
 The Elastic CI Stack for GCP can be configured using Terraform variables. This page provides a complete reference of all available configuration options.
 
-The following tables list all of the available configuration parameters as Terraform variables in the [root module](https://github.com/buildkite/elastic-ci-stack-for-gcp).
+The following tables list all of the available configuration parameters as Terraform variables in the [root module](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp).
 
 Note that you must provide values for the required parameters (`project_id`, `buildkite_organization_slug`, and `buildkite_agent_token` or `buildkite_agent_token_secret`) to use the stack. All other parameters are optional and have sensible defaults.
 
@@ -173,7 +173,7 @@ buildkite_agent_token_secret = "projects/your-project-id/secrets/buildkite-agent
 
 For more detailed configuration options at the module level, see:
 
-- [Networking Module Variables](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/networking#variables)
-- [IAM Module Variables](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/iam#variables)
-- [Compute Module Variables](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/compute#variablesinputs)
-- [Buildkite Agent Metrics Module Variables](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/buildkite-agent-metrics#variables)
+- [Networking Module Variables](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/networking#variables)
+- [IAM Module Variables](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/iam#variables)
+- [Compute Module Variables](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/compute#variablesinputs)
+- [Buildkite Agent Metrics Module Variables](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/buildkite-agent-metrics#variables)

@@ -6,10 +6,10 @@ The Buildkite Elastic CI Stack for GCP gives you a private, autoscaling [Buildki
 
 The stack is organized into four Terraform modules:
 
-- **[Networking](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/networking)** - VPC, subnets, Cloud NAT, and firewall rules
-- **[IAM](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/iam)** - Service accounts and permissions for agents and metrics
-- **[Compute](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/compute)** - Instance groups, autoscaling, and agent configuration
-- **[Buildkite Agent Metrics](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/modules/buildkite-agent-metrics)** - Cloud Function for publishing queue metrics
+- **[Networking](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/networking)** - VPC, subnets, Cloud NAT, and firewall rules
+- **[IAM](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/iam)** - Service accounts and permissions for agents and metrics
+- **[Compute](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/compute)** - Instance groups, autoscaling, and agent configuration
+- **[Buildkite Agent Metrics](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/buildkite-agent-metrics)** - Cloud Function for publishing queue metrics
 
 ## Features
 
@@ -62,7 +62,7 @@ The Elastic CI Stack for GCP is inspired by the [Elastic CI Stack for AWS](https
 - [gcloud CLI](https://cloud.google.com/sdk/gcloud) - useful for performing any ops-related tasks
 - [jq](https://stedolan.github.io/jq/) - useful for manipulating JSON responses from CLI tools
 
-For more details on what versions are installed, see the [Packer templates](https://github.com/buildkite/elastic-ci-stack-for-gcp/tree/main/packer).
+For more details on what versions are installed, see the [Packer templates](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/packer).
 
 The Buildkite agent runs as user `buildkite-agent`.
 
@@ -80,7 +80,7 @@ By following these conventions you get a scalable, repeatable, and source-contro
 
 To gain a better understanding of how Elastic CI Stack for GCP works and how to use it most effectively and securely, check out the following resources:
 
-- [GitHub repo for Elastic CI Stack for GCP](https://github.com/buildkite/elastic-ci-stack-for-gcp)
+- [GitHub repo for Elastic CI Stack for GCP](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp)
 - [Terraform setup guide](/docs/agent/v3/gcp/elastic-ci-stack/terraform)
 - [Configuration parameters for Elastic CI Stack for GCP](/docs/agent/v3/gcp/elastic-ci-stack/configuration-parameters)
 - [Architecture overview](/docs/agent/v3/gcp/architecture/vpc)
