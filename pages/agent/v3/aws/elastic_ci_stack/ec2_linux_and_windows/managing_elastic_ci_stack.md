@@ -510,7 +510,7 @@ Parameters:
 
 When using Terraform, there is no limit on the number of paths that can be used within an ARN. You can pass the value of your IAM Role's ARN to `var.instance_role_arn` and get started.
 
-For Lambda functions, you can provide custom role ARNs in `terraform.tfvars`:
+For Lambda functions, you can provide custom role Amazon Resource Names (ARNs) in `terraform.tfvars`:
 
 ```hcl
 instance_role_arn                  = "arn:aws:iam::123456789012:role/MyBuildkiteRole"
