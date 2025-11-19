@@ -68,6 +68,8 @@
       children:
         - name: "Overview"
           path: "pipelines/best-practices/overview"
+        - name: "Agent management"
+          path: "pipelines/best-practices/agent-management"
         - name: "Docker-based builds"
           path: "pipelines/best-practices/docker-containerized-builds"
         - name: "Parallelizing builds"
