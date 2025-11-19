@@ -148,8 +148,8 @@ curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
 }
 ```
 
-> 📘 Nested structure
-> The `pipeline`, `build`, and `step` fields are nested objects, not flat fields. All nested objects are always present in the response, even when their values are `null`. The `end_cursor` field in `page_info` can be a base64-encoded string or `null`.
+> 📘
+> The `pipeline`, `build`, and `step` values are nested objects of key/value pairs. All nested objects are always present in the response, even when their values are `null`. The `end_cursor` field in `page_info` can be a base64-encoded string or `null`.
 
 Success response: `200 OK`
 
