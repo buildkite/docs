@@ -11,7 +11,7 @@ Local AI coding tools operate in isolation with limited context and no connectio
 Once you have connected your Buildkite organization to a model provider, your AI agents can then respond to build failures from Buildkite pipelines, optimize performance, and improve your pipelines automatically. Every step of your software delivery process can benefit from AI that understands your actual build context.
 
 > 📘 Private preview feature
-> Model providers feature is currently in private preview as it is still undergoing development. To request early access or provide feedback, please contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
+> This feature is currently in private preview as it is still undergoing active development. To request early access or provide feedback, please contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
 
 ## Connect to a model provider
 
