@@ -131,7 +131,7 @@ Buildkite pipeline triggers with verification enabled will ensure that all their
 
 - **Linear**: HMAC-SHA256 signatures in the `Linear-Signature` header.
 
-Be aware that this verification feature is not available for generic incoming webhook (that is, the **Webhook** pipeline trigger option).
+Be aware that this verification feature is not available for generic incoming webhooks (that is, the **Webhook** pipeline trigger option).
 
 ## Invoke a pipeline trigger
 
