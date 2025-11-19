@@ -125,7 +125,7 @@ Learn more about to configure these secrets/tokens in the following relevant doc
 
 - [Linear webhook security](https://linear.app/developers/webhooks#securing-webhooks)
 
-Buildkite pipeline triggers with verification enabled will ensure that all incoming webhooks match the signature types in these request headers, before the webhooks their payloads are accepted:
+Buildkite pipeline triggers with verification enabled will ensure that all of its incoming webhooks match the signature types in these request headers, before these webhooks and their payloads are accepted:
 
 - **GitHub**: HMAC-SHA256 signatures in the `X-Hub-Signature-256` header.
 
