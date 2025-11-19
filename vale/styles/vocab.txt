@@ -19,6 +19,7 @@ Anthropic's
 Aqua
 architecting
 Argo CD
+ARNs
 argumentless
 Artifactory
 Artifactory's
