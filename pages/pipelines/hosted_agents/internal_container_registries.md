@@ -14,11 +14,7 @@ You can use built-in tools to your Buildkite hosted agents, such as [Docker Engi
 
 ## Using your internal container registry
 
-This section provides Docker Engine-based examples on how to upload and retrieve container images from your internal container registry.
-
-### Building and uploading a container image
-
-The following example pipeline demonstrates how build and push a custom Docker image (customized using a `.buildkite/Dockerfile.build` file) to your internal container registry.
+The following example pipeline demonstrates how build and push a custom Docker image (customized using a `.buildkite/Dockerfile.build` file) to your internal container registry. Once the built image has been pushed up to this registry, the pipeline then uses this image, [parallelized](/docs/pipelines/best-practices/parallel-builds#parallel-jobs) into three jobs.
 
 ```yaml
 # Use the latest custom built image from the internal registry
@@ -57,34 +53,5 @@ steps:
     depends_on: create_custom_base_image
     command: |
       echo "Using ${BUILDKITE_HOSTED_REGISTRY_URL}/base:latest built from Build #$(cat /build-number-marker)"
-```
-{: codeblock-file=".buildkite/pipeline.yml"}
-
-### Retrieving a container image
-
-The following example pipeline demonstrates how pull a Docker image that you'd [previously customized](#using-your-internal-container-registry-building-and-uploading-a-container-image) to your internal container registry.
-
-```yaml
-# Use the latest custom built image from the internal registry
-# for all steps which don't specify an alternative image
-image: "${BUILDKITE_HOSTED_REGISTRY_URL}/base:latest"
-
-agents:
-  # Must run on a hosted queue
-  queue: "linux-small"
-
-steps:
-  - key: pull_custom_base_image
-    label: "\:docker\: Pull custom base image"
-    # Optionally only build on main branch
-    # if: build.branch == "main"
-    # Use the image specified in the queue settings for this step
-    image: ~
-    # Pull the previously pushed custom container image from the
-    # internal container registry
-    command: |
-      docker pull \
-        --platform linux/amd64 \
-        --tag "${BUILDKITE_HOSTED_REGISTRY_URL}/base:latest" \
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
