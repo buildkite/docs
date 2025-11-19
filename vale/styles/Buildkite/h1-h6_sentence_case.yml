@@ -70,6 +70,8 @@ exceptions:
   - CCMenu
   - CCTray
   - CentOS
+  - Chainguard
+  - Chainguard's
   - CI
   - CI/CD
   - CircleCI
@@ -82,6 +84,7 @@ exceptions:
   - CloudWatch
   - CloudWatch Logs
   - CocoaPods
+  - Cognito
   - completion_watcher
   - Comliance
   - CORS
@@ -95,7 +98,9 @@ exceptions:
   - Docker Desktop
   - Docker Hub
   - ECR
+  - ECS
   - EC2
+  - EKS
   - Elastic
   - Elastic CI Stack
   - Enterprise Premium Support
@@ -106,6 +111,7 @@ exceptions:
   - FreeBSD
   - G Suite
   - Git
+  - Git Large File Storage
   - GitHub
   - GitHub Actions
   - GitHub App
@@ -117,14 +123,16 @@ exceptions:
   - Google Artifact Registry
   - Google Chrome
   - Google Cloud
-  - Google Cloud Functions
   - Google Cloud Identity
   - Google Cloud Platform
+  - Google Cloud Run
   - Google Cloud Storage
   - Google Compute Engine
   - Google Kubernetes Engine
   - Google Workspace
   - Governance
+  - GPU
+  - GPUs
   - GraphQL
   - GRC
   - Groovy
@@ -159,6 +167,7 @@ exceptions:
   - limiter
   - Linear
   - Linux
+  - LFS
   - M1
   - Mac
   - macOS
@@ -169,15 +178,18 @@ exceptions:
   - Mobile Delivery Cloud
   - Model Context Protocol
   - monitor
+  - Namespace
   - NET
   - Node.js
   - nodeName
   - nodeSelector
+  - Nomad
   - NuGet
   - OIDC
   - Okta
   - OneLogin
   - OpenTelemetry
+  - Open Container Initiative
   - OS X
   - Package Registries
   - PagerDuty
@@ -203,6 +215,8 @@ exceptions:
   - SAML
   - scheduler
   - SCIM
+  - SDK
+  - SDKs
   - Scripted
   - Sequoia
   - Slack
@@ -231,6 +245,8 @@ exceptions:
   - UUID
   - visionOS
   - Visual Studio Code
+  - VM
+  - VMs
   - VPC
   - VPN
   - watchOS

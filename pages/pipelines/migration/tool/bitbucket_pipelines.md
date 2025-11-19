@@ -37,7 +37,7 @@ steps:
 - commands:
   - npm install
   plugins:
-  - docker#v5.10.0:
+  - docker#v5.13.0:
       image: node:18
   label: Build
 ```

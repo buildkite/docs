@@ -27,10 +27,6 @@ Learn more about:
 
 - Configuring queues in general, in [Manage queues](/docs/pipelines/clusters/manage-queues).
 
-## Using cache volumes
-
-Buildkite's [macOS](/docs/pipelines/hosted-agents/macos) and [Linux](/docs/pipelines/hosted-agents/linux) hosted agents both provide support for _cache volumes_. Learn more about this feature in [Cache volumes](/docs/pipelines/hosted-agents/cache-volumes), noting that the [container cache](/docs/pipelines/hosted-agents/cache-volumes#container-cache) feature component is only supported by Linux hosted agents.
-
 ## Using GitHub repositories in your hosted agent pipelines
 
 Buildkite hosted agent services support both public and private repositories. Learn more about setting up code access in [Hosted agent code access](/docs/pipelines/hosted-agents/code-access).
@@ -42,6 +38,14 @@ Learn more about migrating existing pipelines to Buildkite hosted agent services
 ## Accessing machines through a terminal
 
 When a Buildkite hosted agent machine is running (during a pipeline build) you can access the machine through a terminal. Learn more about this feature in [Hosted agents terminal access](/docs/pipelines/hosted-agents/terminal-access).
+
+## Using cache volumes
+
+Buildkite's [macOS](/docs/pipelines/hosted-agents/macos) and [Linux](/docs/pipelines/hosted-agents/linux) hosted agents both provide support for _cache volumes_. Learn more about this feature in [Cache volumes](/docs/pipelines/hosted-agents/cache-volumes), noting that the [container cache volumes](/docs/pipelines/hosted-agents/cache-volumes#container-cache-volumes) feature component is only supported by Linux hosted agents.
+
+## Remote Docker builders
+
+Customers on the [Enterprise plan](https://buildkite.com/pricing/) have automatic access to the [remote Docker builders](/docs/pipelines/hosted-agents/remote-docker-builders) feature, which are dedicated machines purpose built to build Docker images. This feature substantially speeds up the build times of pipelines that need to build Docker images.
 
 ## Secret management
 

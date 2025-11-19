@@ -58,7 +58,7 @@ Then add the plugin to pipeline YAML steps that need it:
     steps:
       - command: ./run_build.sh
         plugins:
-          - docker-login#v2.0.1:
+          - docker-login#v3.0.0:
               username: the-user-name
               password-env: DOCKER_HUB_PASSWORD
 ```

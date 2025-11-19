@@ -4,12 +4,12 @@ keywords: docs, pipelines, tutorials, docker
 
 # Containerized builds with Docker
 
-Buildkite has built-in support for running your builds in Docker containers. Running your builds with Docker allows each pipeline to define and document its testing environment, greatly simplifying your build servers, and provides build isolation when [parallelizing your build](parallel-builds).
+Buildkite Pipelines has built-in support for running your builds in Docker containers. Running your builds with Docker allows each pipeline to define and document its testing environment, greatly simplifying your build servers, and provides build isolation when [parallelizing your build](parallel-builds).
 
 
 ## Overview
 
-To run your steps using Docker, there are two official [Buildkite plugins](/docs/pipelines/integrations/plugins): the [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), and the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin).
+To run your steps using Docker, there are two official [Buildkite plugins](/docs/pipelines/integrations/plugins): the [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) and the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin).
 
 The [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) supports repositories with `docker-compose.yml` files, projects that use multiple containers or have dependent services, and building docker images inside pipeline steps.
 
@@ -63,7 +63,7 @@ This example runs a test suite in the `app` service using the [Docker Compose pl
 - name: "Docker Test %n"
   command: test.sh
   plugins:
-    - docker-compose#v3.0.3:
+    - docker-compose#v5.11.0:
         run: app
 ```
 {: codeblock-file="pipeline.yml"}
@@ -85,7 +85,7 @@ In this example, the `yarn` commands will be run inside a Docker container using
 steps:
   - command: yarn install && yarn run test
     plugins:
-      - docker#v3.2.0:
+      - docker#v5.13.0:
           image: "node:8"
           workdir: /app
 ```

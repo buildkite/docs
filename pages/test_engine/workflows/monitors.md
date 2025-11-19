@@ -1,12 +1,13 @@
 # Monitors
 
-A workflow is configured with a _monitor_, which is a specialized type of observer to your [test suite](/docs/test-engine/test-suites). A monitor observes test [executions](/docs/test-engine/glossary#execution), and surfaces information and trends about the test's performance and reliability over time.
+A workflow is configured with a _monitor_, which is a specialized type of observer to your [test suite](/docs/test-engine/test-suites). A monitor observes test [executions](/docs/test-engine/glossary#execution), and surfaces information and trends about the test's performance and reliability over time. Workflows are subject to a rate limit. See [Rate limit](/docs/test-engine/workflows#rate-limit) for more information.
 
 Test Engine supports the following types of monitors:
 
 - [Transition count](#transition-count)
 - [Passed on retry](#passed-on-retry)
 - [Probabilistic flakiness](#probabilistic-flakiness)
+- [New test](#new-test)
 
 You can alter and reduce the amount of test executions that a monitor receives using [tag filters](#tag-filters).
 
@@ -56,13 +57,28 @@ This monitor tracks the [probabilistic flakiness score](https://engineering.fb.c
 
 The probabilistic flakiness monitor is best suited to large and complex test suites, where the volume and noise of test data prevents a simpler flaky test monitor from being successful. As the PFS is a continuous metric, these scores provide a smarter prioritization metric for larger organizations.
 
+## New test (beta)
+
+The new test monitor triggers when a test executes for the first time and becomes a [managed test](/docs/test-engine/glossary#managed-test). A test is considered new only if the combination of its scope and name is unique and has not previously existed. If a test executes for the first time but its scope and name match an existing managed test, the monitor does not trigger.
+
+You can configure the new test monitor to trigger actions that help track and manage the performance and reliability of new tests to prevent flaky tests from being introduced to your test suite.
+
+> 📘
+> The new test monitor is in beta. The _recover_ actions are not yet available.
+
 ## Tag filters
 
 Tag filters reduce the set of [execution](/docs/test-engine/glossary#execution) data that goes into a monitor, so that you can ignore lower relevancy data and produce better insights, or take different [actions](/docs/test-engine/workflows/actions) based on different types of test executions. This means that you can set up custom actions and monitors based on tag values, for example sending different notifications based on different team tag values, or using tags to segment the different types of test (e.g. feature, unit) and monitor on different thresholds.
 
 <%= image "tag-filters.png", alt: "Screenshot showing tag filters, with the branch filter set to main" %>
 
-Tag filters are optional and you can configure up to four of them per workflow. Tag filter values support matching operators (for example, **is** or **starts with**). If you haven't set up tags for test execution, see [Tags](/docs/test-engine/test-suites/tags) in the [Test suites](/docs/test-engine/test-suites) documentation for details.
+Tag filters are optional and you can configure up to four of them per workflow. Tag filter values support the following matching operators:
+
+- **is**
+- **is not**
+- **starts with**
+
+If you haven't set up tags for test execution, see [Tags](/docs/test-engine/test-suites/tags) in the [Test suites](/docs/test-engine/test-suites) documentation for details.
 
 ### Default branch filter
 

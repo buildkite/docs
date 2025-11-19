@@ -24,23 +24,23 @@ _Applies to API access tokens created after:  March, 2023_
 
 ### Agent session tokens
 
-Buildkite agent [session tokens](/docs/agent/v3/tokens#additional-agent-tokens-session-tokens) are also known as _Buildkite agent access_ tokens, whose acronym forms the prefix for these types of tokens.
+Buildkite Agent [session tokens](/docs/agent/v3/tokens#additional-agent-tokens-session-tokens) are also known as _Buildkite Agent access_ tokens, whose acronym forms the prefix for these types of tokens.
 
 - Prefix: `bkaa_`
 - Example: `bkaa_***************************************************************************`
 
-_Applies to agent access tokens created after: January, 2025_
+_Applies to agent session tokens created after: January, 2025_
 
 ### Agent job tokens
 
-Buildkite agent [job tokens](/docs/agent/v3/tokens#additional-agent-tokens-job-tokens) form the acronym for the prefix of their values.
+Buildkite Agent [job tokens](/docs/agent/v3/tokens#additional-agent-tokens-job-tokens) form the acronym for the prefix of their values.
 
 - Prefix: `bkaj_`
 - Example: `bkaj_*********************************************************************************************************************************************************************************************************************************************************************************************************************************************`
 
 ### Unclustered agent tokens
 
-Buildkite [unclustered agent tokens](/docs/agent/v3/unclustered-tokens) are also known as _Buildkite agent registration_ tokens, whose acronym forms the prefix for these types of tokens.
+Buildkite [unclustered agent tokens](/docs/agent/v3/unclustered-tokens) are also known as _Buildkite Agent registration_ tokens, whose acronym forms the prefix for these types of tokens.
 
 - Prefix: `bkar_`
 - Example: `bkar_*************************************************************************`
@@ -74,7 +74,7 @@ Buildkite Package Registries temporary tokens, which are presented on a registry
 
 Buildkite portal tokens cover the following types of tokens:
 
-- _Long-lived service tokens_, generated when a [new portal is created](/docs/apis/graphql/portals#getting-started), as well as [through the portal's **Security** page](/docs/apis/graphql/portals#authentication).
+- _Long-lived service tokens_, generated when a [new portal is created](/docs/apis/graphql/portals#creating-a-portal), as well as [through the portal's **Security** page](/docs/apis/graphql/portals#authentication).
 - [Ephemeral portal tokens](/docs/apis/graphql/portals/ephemeral-portal-tokens), which requires a [portal secret](#supported-buildkite-tokens-portal-secrets) to be [generated](/docs/apis/graphql/portals/ephemeral-portal-tokens#requesting-an-ephemeral-portal-token).
 - [Portal tokens](/docs/apis/graphql/portals/user-invoked-portals#short-lived-portal-token-generating-a-portal-token) that are [user-invoked and scoped](/docs/apis/graphql/portals/user-invoked-portals).
 

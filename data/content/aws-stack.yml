@@ -1,21 +1,21 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v6.41.1"
+Description: "Buildkite stack v6.48.0"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
-# autoscaling Buildkite Agent cluster. Use it to parallelize
+# autoscaling Buildkite agent cluster. Use it to parallelize
 # large test suites across thousands of nodes, run tests and
 # deployments for Linux or Windows based services and apps,
 # or run AWS ops tasks.
 #
-# To gain a better understanding of how Elastic CI Stack works
+# To gain a better understanding of how Elastic CI Stack for AWS works
 # and how to use it most effectively and securely, check out
 # the following resources:
 #
 # * Elastic CI Stack for AWS Overview: https://buildkite.com/docs/agent/v3/elastic_ci_aws
 # * Elastic CI Stack for AWS Tutorial: https://buildkite.com/docs/tutorials/elastic-ci-stack-aws
-# * Running Buildkite Agent on AWS: https://buildkite.com/docs/agent/v3/aws
-# * GitHub Repo for Elastic CI Stack: https://github.com/buildkite/elastic-ci-stack-for-aws
+# * Running Buildkite agent on AWS: https://buildkite.com/docs/agent/v3/aws
+# * GitHub Repo for Elastic CI Stack for AWS: https://github.com/buildkite/elastic-ci-stack-for-aws
 # * Template Parameters for Elastic CI Stack for AWS: https://buildkite.com/docs/agent/v3/elastic-ci-aws/parameters
 # * Using AWS Secrets Manager: https://buildkite.com/docs/agent/v3/aws/secrets-manager
 # * VPC Design: https://buildkite.com/docs/agent/v3/aws/vpc
@@ -42,6 +42,9 @@ Metadata:
         - PipelineSigningKMSKeySpec
         - PipelineSigningKMSAccess
         - PipelineSigningVerificationFailureBehavior
+        - BuildkiteAgentSigningKeySSMParameter
+        - BuildkiteAgentSigningKeyID
+        - BuildkiteAgentVerificationKeySSMParameter
 
       - Label:
           default: Advanced Configuration
@@ -55,6 +58,8 @@ Metadata:
         - BuildkiteAgentCancelGracePeriod
         - BuildkiteAgentSignalGracePeriod
         - BuildkiteTerminateInstanceAfterJob
+        - BuildkiteAgentDisconnectAfterUptime
+        - BuildkiteTerminateInstanceOnDiskFull
         - BuildkitePurgeBuildsOnDiskFull
         - BuildkiteAdditionalSudoPermissions
         - BuildkiteWindowsAdministrator
@@ -64,6 +69,7 @@ Metadata:
         - EC2LogRetentionDays
         - LogRetentionDays
         - BuildkiteAgentEnableGracefulShutdown
+        - LambdaArchitecture
 
       - Label:
           default: Network Configuration
@@ -73,6 +79,7 @@ Metadata:
         - AvailabilityZones
         - SecurityGroupIds
         - AssociatePublicIpAddress
+        - EnableVpcEndpoints
 
       - Label:
           default: Instance Configuration
@@ -81,6 +88,7 @@ Metadata:
         - ImageIdParameter
         - InstanceOperatingSystem
         - InstanceTypes
+        - CpuCredits
         - EnableInstanceStorage
         - MountTmpfsAtTmp
         - AgentsPerInstance
@@ -88,6 +96,7 @@ Metadata:
         - SecretsBucket
         - SecretsBucketRegion
         - SecretsBucketEncryption
+        - SecretsPluginSkipSSHKeyNotFoundWarning
         - ArtifactsBucket
         - ArtifactsBucketRegion
         - ArtifactsS3ACL
@@ -98,7 +107,10 @@ Metadata:
         - RootVolumeName
         - RootVolumeType
         - RootVolumeEncrypted
+        - RootVolumeIops
+        - RootVolumeThroughput
         - ManagedPolicyARNs
+        - InstanceRoleARN
         - InstanceRoleName
         - InstanceRolePermissionsBoundaryARN
         - InstanceRoleTags
@@ -119,16 +131,26 @@ Metadata:
         - MinSize
         - MaxSize
         - InstanceBuffer
+        - DisableScaleIn
+        - InstanceScaleInProtection
         - OnDemandBaseCapacity
         - OnDemandPercentage
         - SpotAllocationStrategy
         - ScaleOutFactor
+        - ScaleOutCooldownPeriod
         - ScaleInIdlePeriod
+        - ScaleInCooldownPeriod
         - ScaleOutForWaitingJobs
         - InstanceCreationTimeout
         - ScalerEventSchedulePeriod
         - ScalerMinPollInterval
         - ScalerEnableExperimentalElasticCIMode
+        - EnableScheduledScaling
+        - ScheduleTimezone
+        - ScaleUpSchedule
+        - ScaleUpMinSize
+        - ScaleDownSchedule
+        - ScaleDownMinSize
 
       - Label:
           default: Cost Allocation Configuration
@@ -144,6 +166,16 @@ Metadata:
         - EnableDockerExperimental
 
       - Label:
+          default: Docker Networking Configuration
+        Parameters:
+        - DockerNetworkingProtocol
+        - DockerIPv4AddressPool1
+        - DockerIPv4AddressPool2
+        - DockerIPv6AddressPool
+        - DockerFixedCidrV4
+        - DockerFixedCidrV6
+
+      - Label:
           default: Docker Registry Configuration
         Parameters:
         - ECRAccessPolicy
@@ -153,15 +185,20 @@ Metadata:
         Parameters:
         - EnableSecretsPlugin
         - EnableECRPlugin
+        - EnableECRCredentialHelper
         - EnableDockerLoginPlugin
 
 Parameters:
   KeyName:
-    Description: Optional - SSH keypair used to access the buildkite instances via ec2-user, setting this will enable SSH ingress
+    Description: Optional - SSH keypair used to access the Buildkite instances via ec2-user, setting this will enable SSH ingress.
     Type: String
     Default: ""
 
   BuildkiteAgentRelease:
+    Description: >
+        Buildkite agent release channel to install.
+        'stable' = production-ready (recommended), 'beta' = pre-release with latest features, 'edge' = bleeding-edge development builds.
+        Use 'stable' unless specific new features are required.
     Type: String
     AllowedValues:
       - stable
@@ -170,35 +207,48 @@ Parameters:
     Default: "stable"
 
   BuildkiteAgentToken:
-    Description: Buildkite agent registration token. Or, preload it into SSM Parameter Store and use BuildkiteAgentTokenParameterStorePath for secure environments.
+    Description: >
+        Buildkite agent registration token.
+        Or, preload it into SSM Parameter Store and use BuildkiteAgentTokenParameterStorePath for secure environments.
     Type: String
     NoEcho: true
     Default: ""
 
   BuildkiteAgentTokenParameterStorePath:
-    Description: Existing SSM Parameter Store path to the Buildkite agent registration token (takes precedence over BuildkiteAgentToken). Expects a leading slash ('/').
+    Description: >
+        Optional - Path to Buildkite agent token stored in AWS Systems Manager Parameter Store.
+        Supports both parameter paths (e.g., '/buildkite/agent-token') and cross-account SSM parameter ARNs
+        (e.g., 'arn:aws:ssm:us-east-1:123456789012:parameter/buildkite/shared-token').
+        If provided, this overrides the BuildkiteAgentToken field.
+        Recommended for better security instead of hardcoding tokens in the template.
+        Use cross-account ARNs to access SSM parameters shared via AWS RAM.
     Type: String
     Default: ""
-    AllowedPattern: "^$|^/[a-zA-Z0-9_.\\-/]+$"
-    ConstraintDescription: "Expects a leading forward slash"
+    AllowedPattern: "^$|^/$|^/[a-zA-Z0-9_.\\-/]+$|^arn:aws:ssm:[a-z0-9-]+:[0-9]{12}:parameter/[a-zA-Z0-9_.\\-/]+$"
+    ConstraintDescription: "Expects a leading forward slash for parameter path or full SSM parameter ARN for cross-account access"
 
   BuildkiteAgentTokenParameterStoreKMSKey:
-    Description: AWS KMS key ID used to encrypt the SSM parameter (if encrypted)
+    Description: Optional - AWS KMS key ID used to encrypt the SSM parameter.
     Type: String
     Default: ""
 
   AgentEndpoint:
-    Description: Override API endpoint the Buildkite Agent connects to.
+    Description: >
+      API endpoint URL for Buildkite agent communication. Most
+      customers shouldn't need to change this unless using a custom endpoint agreed with the Buildkite team.
     Type: String
     Default: "https://agent.buildkite.com/v3"
 
   BuildkiteAgentTags:
-    Description: Additional tags separated by commas to provide to the agent. E.g os=linux,llamas=always
+    Description: >
+      Additional tags to help target specific Buildkite agents in pipeline steps (comma-separated).
+      Example: 'environment=production,docker=enabled,size=large'.
+      Use these tags in pipeline steps with 'agents: { environment: production }'.
     Type: String
     Default: ""
 
   BuildkiteAgentTimestampLines:
-    Description: Set to true to prepend timestamps to every line of output
+    Description: Set to true to prepend timestamps to every line of output.
     Type: String
     AllowedValues:
       - "true"
@@ -206,37 +256,99 @@ Parameters:
     Default: "false"
 
   BuildkiteAgentExperiments:
-    Description: Agent experiments to enable, comma delimited. See https://github.com/buildkite/agent/blob/-/EXPERIMENTS.md.
+    Description: >
+        Optional - Agent experiments to enable, comma delimited.
+        See https://github.com/buildkite/agent/blob/-/EXPERIMENTS.md.
     Type: String
     Default: ""
 
   BuildkiteAgentScalerServerlessARN:
-    Description: ARN of the Serverless Application Repository that hosts the version of buildkite-agent-scaler to run. This needs to be public or shared with your AWS account. See https://aws.amazon.com/serverless/serverlessrepo/.
+    Description: >
+      (Deprecated - no longer used) ARN of the Serverless Application Repository that hosts the buildkite-agent-scaler Lambda function.
+      The ARN is now automatically selected based on the LambdaArchitecture parameter.
+      To use a custom scaler deployment, modify the AgentScalerARN mapping in the template.
     Type: String
-    Default: arn:aws:serverlessrepo:us-east-1:172840064832:applications/buildkite-agent-scaler
+    Default: "arn:aws:serverlessrepo:us-east-1:172840064832:applications/buildkite-agent-scaler"
 
   BuildkiteAgentScalerVersion:
-    Description: "Version of the buildkite-agent-scaler to use."
+    Description: Version of the buildkite-agent-scaler to use.
     Type: String
-    AllowedPattern: '^(?:(?:[2-9]|[1-9]\d+)\.\d+\.\d+|1\.(?:[1-9]\d+\.\d+|9\.(?:[5-9]|[1-9]\d+)))$'
-    ConstraintDescription: "The agent scaler release must be 1.9.5 or newer."
-    Default: "1.9.5"
+    AllowedPattern: '^(?:(?:[2-9]|[1-9]\d+)\.\d+\.\d+|1\.(?:[1-9]\d+\.\d+|9\.(?:[8-9]|[1-9]\d+)))$'
+    ConstraintDescription: "The agent scaler release must be 1.9.8 or newer."
+    Default: "1.9.8"
 
   ScalerEnableExperimentalElasticCIMode:
-    Description: "[EXPERIMENTAL] Enable the Elastic CI Mode with enhanced features like safety checks, agent sorting, dangling instance detection, and graceful termination. Available since BuildkiteAgentScalerVersion 1.9.3"
+    Description: >
+        Experimental - Enable the Elastic CI Mode with enhanced features like graceful termination and dangling instance detection.
+        Available since BuildkiteAgentScalerVersion 1.9.3
     Type: String
     AllowedValues:
         - "true"
         - "false"
     Default: "false"
 
+  DisableScaleIn:
+    Description: Whether the desired count should ever be decreased on the Auto Scaling group. When set to "true" (default), the scaler will not reduce the Auto Scaling group's desired capacity, and instances are expected to self-terminate when idle.
+    Type: String
+    AllowedValues:
+        - "true"
+        - "false"
+    Default: "true"
+
+  InstanceScaleInProtection:
+    Description: Whether new instances launched by the Auto Scaling group should have scale-in protection enabled. When set to "true" (default), instances cannot be terminated by scale-in actions and must self-terminate when idle. Set to "false" to allow CloudFormation and the ASG to terminate instances directly.
+    Type: String
+    AllowedValues:
+        - "true"
+        - "false"
+    Default: "true"
+
+  EnableScheduledScaling:
+    Description: Enable scheduled scaling to automatically adjust MinSize based on time-based schedules
+    Type: String
+    AllowedValues:
+        - "true"
+        - "false"
+    Default: "false"
+
+  ScheduleTimezone:
+    Description: "Timezone for scheduled scaling actions (only used when EnableScheduledScaling is true). See AWS documentation for supported formats: https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-scheduled-scaling.html#scheduled-scaling-timezone (America/New_York, UTC, Europe/London, etc.)"
+    Type: String
+    Default: "UTC"
+
+  ScaleUpSchedule:
+    Description: "Cron expression for when to scale up (only used when EnableScheduledScaling is true). See AWS documentation for format details: https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-scheduled-scaling.html#scheduled-scaling-cron (\"0 8 * * MON-FRI\" for 8 AM weekdays)"
+    Type: String
+    Default: "0 8 * * MON-FRI"
+    AllowedPattern: '^[0-9*,-/]+ [0-9*,-/]+ [0-9*,-/]+ [0-9*,-/]+ [0-9A-Za-z*,-/]+$'
+    ConstraintDescription: "Must be a valid cron expression (5 fields: minute hour day-of-month month day-of-week)"
+
+  ScaleUpMinSize:
+    Description: MinSize to set when the ScaleUpSchedule is triggered (applied at the time specified in ScaleUpSchedule, only used when EnableScheduledScaling is true). Cannot exceed MaxSize.
+    Type: Number
+    Default: 1
+    MinValue: 0
+
+  ScaleDownSchedule:
+    Description: "Cron expression for when to scale down (only used when EnableScheduledScaling is true). See AWS documentation for format details: https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-scheduled-scaling.html#scheduled-scaling-cron (\"0 18 * * MON-FRI\" for 6 PM weekdays)"
+    Type: String
+    Default: "0 18 * * MON-FRI"
+    AllowedPattern: '^[0-9*,-/]+ [0-9*,-/]+ [0-9*,-/]+ [0-9*,-/]+ [0-9A-Za-z*,-/]+$'
+    ConstraintDescription: "Must be a valid cron expression (5 fields: minute hour day-of-month month day-of-week)"
+
+  ScaleDownMinSize:
+    Description: MinSize to set when the ScaleDownSchedule is triggered (applied at the time specified in ScaleDownSchedule, only used when EnableScheduledScaling is true)
+    Type: Number
+    Default: 0
+    MinValue: 0
+
   ScaleOutCooldownPeriod:
-    Description: Cooldown period in seconds before allowing another scale-out event
+    Description: Cooldown period in seconds before allowing another scale-out event. Prevents rapid scaling and reduces costs from frequent instance launches.
     Type: Number
     Default: 300
 
   ScaleInCooldownPeriod:
-    Description: Cooldown period in seconds before allowing another scale-in event
+    Description: Cooldown period in seconds before allowing another scale-in event. Longer periods prevent premature termination when job queues fluctuate.
     Type: Number
     Default: 3600
 
@@ -245,10 +357,10 @@ Parameters:
     Default: "false"
     AllowedValues: ["true", "false"]
     Description: >
-      Enable CloudWatch log retention policy for EC2 instance logs managed by the CloudWatch agent.
-      When enabled, EC2 logs older than EC2LogRetentionDays will be automatically deleted to reduce storage costs.
-      This only affects logs from Buildkite agents, system logs, and other EC2-generated logs - not Lambda or other AWS service logs.
-      WARNING: For existing stacks, this will delete historical EC2 logs older than the retention period. This action cannot be undone.
+      Enable automatic deletion of old EC2 logs to reduce CloudWatch storage costs.
+      Disabled by default to preserve all logs. When enabled, EC2 logs older than EC2LogRetentionDays will be automatically deleted.
+      This only affects EC2 instance logs (agents, system logs), not Lambda logs.
+      WARNING: Enabling this on existing stacks will delete historical logs older than the retention period - this cannot be undone.
 
   EC2LogRetentionDays:
     Type: Number
@@ -264,8 +376,8 @@ Parameters:
 
   BuildkiteAgentEnableGracefulShutdown:
     Description: >
-      Set to true to enable graceful shutdown of agents when the ASG is updated with replacement.
-      This allows ASGs to be removed in a timely manner during an in-place update of th Elastic Stack, and allows remaining agents to finish jobs without interruptions.
+      Set to true to enable graceful shutdown of Buildkite agents when the ASG is updated with replacement.
+      This allows ASGs to be removed in a timely manner during an in-place update of the Elastic CI Stack for AWS, and allows remaining Buildkite agents to finish jobs without interruptions.
     Type: String
     AllowedValues:
       - "true"
@@ -273,13 +385,32 @@ Parameters:
     Default: "false"
 
   BuildkiteAgentTracingBackend:
-    Description: The tracing backend to use for CI tracing. See https://buildkite.com/docs/agent/v3/tracing
+    Description: Optional - The tracing backend to use for CI tracing. See https://buildkite.com/docs/agent/v3/tracing.
     Type: String
     AllowedValues:
       - ""
       - "datadog"
       - "opentelemetry"
     Default: ""
+
+  BuildkiteAgentSigningKeySSMParameter:
+    Description: Existing SSM Parameter Store path to a JSON Web Key Set (JWKS) containing a key to sign jobs with.
+    Type: String
+    Default: ""
+    AllowedPattern: "^$|^/[a-zA-Z0-9_.\\-/]+$"
+    ConstraintDescription: "Expects a leading forward slash"
+
+  BuildkiteAgentSigningKeyID:
+    Description: The ID of the key in the JWKS to use for signing jobs. If not specified, and the JWKS contains only one key, that key will be used.
+    Type: String
+    Default: ""
+
+  BuildkiteAgentVerificationKeySSMParameter:
+    Description: Existing SSM Parameter Store path to a JSON Web Key Set (JWKS) containing keys with which to verify jobs.
+    Type: String
+    Default: ""
+    AllowedPattern: "^$|^/[a-zA-Z0-9_.\\-/]+$"
+    ConstraintDescription: "Expects a leading forward slash"
 
   BuildkiteAgentCancelGracePeriod:
     Description: The number of seconds a canceled or timed out job is given to gracefully terminate and upload its artifacts.
@@ -288,13 +419,15 @@ Parameters:
     MinValue: 1
 
   BuildkiteAgentSignalGracePeriod:
-    Description: The number of seconds given to a subprocess to handle being sent `cancel-signal`. After this period has elapsed, SIGKILL will be sent.
+    Description: >
+        The number of seconds given to a subprocess to handle being sent `cancel-signal`.
+        After this period has elapsed, SIGKILL will be sent.
     Type: Number
     Default: -1
     MinValue: -1
 
   BuildkiteTerminateInstanceAfterJob:
-    Description: Set to "true" to terminate the instance after a job has completed.
+    Description: Set to 'true' to terminate the instance after a job has completed.
     Type: String
     AllowedValues:
       - "true"
@@ -302,7 +435,7 @@ Parameters:
     Default: "false"
 
   BuildkiteTerminateInstanceOnDiskFull:
-    Description: Set to "true" to terminate the instance when disk space is critically low (default is to exit job with code 1).
+    Description: Set to 'true' to terminate the instance when disk space is critically low (default is to exit job with code 1).
     Type: String
     AllowedValues:
       - "true"
@@ -310,7 +443,7 @@ Parameters:
     Default: "false"
 
   BuildkitePurgeBuildsOnDiskFull:
-    Description: Set to "true" to purge build directories as a last resort when disk space is critically low.
+    Description: Set to 'true' to purge build directories as a last resort when disk space is critically low.
     Type: String
     AllowedValues:
       - "true"
@@ -319,7 +452,7 @@ Parameters:
 
   BuildkiteAgentDisconnectAfterUptime:
     Description: >
-      The maximum uptime in seconds before the agent stops accepting new jobs and shuts down
+      The maximum uptime in seconds before the Buildkite agent stops accepting new jobs and shuts down
       after any running jobs complete. Set to 0 to disable uptime-based termination.
       This helps regularly cycle out machines and prevent resource accumulation issues.
     Type: Number
@@ -328,8 +461,8 @@ Parameters:
 
   ExperimentalEnableResourceLimits:
     Description: >
-      (Experimental) If true, enables systemd resource limits for the Buildkite agent.
-      This helps prevent resource exhaustion by limiting CPU, memory, and I/O usage.
+      Experimental - If true, enables systemd resource limits for the Buildkite agent.
+      This helps prevent resource exhaustion by limiting CPU, memory, and I/O usage. Useful for shared instances running multiple agents or resource-intensive builds.
     Type: String
     AllowedValues:
       - "true"
@@ -338,7 +471,7 @@ Parameters:
 
   ResourceLimitsMemoryHigh:
     Description: >
-      (Experimental) Sets the MemoryHigh limit for the Buildkite agent slice.
+      Experimental - Sets the MemoryHigh limit for the Buildkite agent slice.
       The value can be a percentage (e.g., '90%') or an absolute value (e.g., '4G').
     Type: String
     Default: '90%'
@@ -347,7 +480,7 @@ Parameters:
 
   ResourceLimitsMemoryMax:
     Description: >
-      (Experimental) Sets the MemoryMax limit for the Buildkite agent slice.
+      Experimental - Sets the MemoryMax limit for the Buildkite agent slice.
       The value can be a percentage (e.g., '90%') or an absolute value (e.g., '4G').
     Type: String
     Default: '90%'
@@ -356,7 +489,7 @@ Parameters:
 
   ResourceLimitsMemorySwapMax:
     Description: >
-      (Experimental) Sets the MemorySwapMax limit for the Buildkite agent slice.
+      Experimental - Sets the MemorySwapMax limit for the Buildkite agent slice.
       The value can be a percentage (e.g., '90%') or an absolute value (e.g., '4G').
     Type: String
     Default: '90%'
@@ -365,7 +498,7 @@ Parameters:
 
   ResourceLimitsCPUWeight:
     Description: >
-      (Experimental) Sets the CPU weight for the Buildkite agent slice (1-10000, default 100).
+      Experimental - Sets the CPU weight for the Buildkite agent slice (1-10000, default 100).
       Higher values give more CPU time to the agent.
     Type: Number
     Default: 100
@@ -374,8 +507,8 @@ Parameters:
 
   ResourceLimitsCPUQuota:
     Description: >
-      (Experimental) Sets the CPU quota for the Buildkite agent slice.
-      Takes a percentage value, suffixed with "%" .
+      Experimental - Sets the CPU quota for the Buildkite agent slice.
+      Takes a percentage value, suffixed with "%".
     Type: String
     Default: '90%'
     AllowedPattern: '^\d+%$'
@@ -383,7 +516,7 @@ Parameters:
 
   ResourceLimitsIOWeight:
     Description: >
-      (Experimental) Sets the I/O weight for the Buildkite agent slice (1-10000, default 80).
+      Experimental - Sets the I/O weight for the Buildkite agent slice (1-10000, default 80).
       Higher values give more I/O bandwidth to the agent.
     Type: Number
     Default: 80
@@ -391,12 +524,17 @@ Parameters:
     MaxValue: 10000
 
   BuildkiteAdditionalSudoPermissions:
-    Description: Optional - Comma separated list of commands to allow the buildkite-agent user to run using sudo. Note that the commands should be fully qualified paths to executables.
+    Description: >
+        Optional - Comma-separated list of specific commands (full paths) that build jobs can run with sudo privileges.
+        Include only commands essential for builds. Leave blank unless builds require specific system-level operations.
     Type: String
     Default: ""
 
   BuildkiteWindowsAdministrator:
-    Description: Set to "true" to add the local "buildkite-agent" user account to the local Windows Administrator group.
+    Description: >
+        Add buildkite-agent user to Windows Administrators group.
+        This provides full system access for build jobs.
+        Set to 'false' if builds don't require administrator privileges for additional security isolation.
     Type: String
     AllowedValues:
       - "true"
@@ -404,21 +542,23 @@ Parameters:
     Default: "true"
 
   BuildkiteQueue:
-    Description: Queue name that agents will use, targeted in pipeline steps using "queue={value}"
+    Description: Queue name that agents will use, targeted in pipeline steps using 'queue={value}'.
     Type: String
-    Default: default
+    Default: "default"
     MinLength: 1
 
   AgentsPerInstance:
     Description: >
-      Number of Buildkite agents to run on each instance. This determines the initial count of agents launched when an instance starts.
-      If an individual agent is terminated (e.g., due to a job failure or manual shutdown), it will not be automatically restarted, resulting in fewer agents on that instance (N-1). The ScaleInIdlePeriod parameter does not affect this agent count.
+      Number of Buildkite agents to start on each EC2 instance.
+      NOTE: If an agent crashes or is terminated, it won't be automatically restarted, leaving fewer active agents on that instance.
+      The ScaleInIdlePeriod parameter controls when the entire instance terminates (when all agents are idle), not individual agent restarts.
+      Consider enabling ScalerEnableExperimentalElasticCIMode for better agent management, or use fewer agents per instance with more instances for high availability.
     Type: Number
     Default: 1
     MinValue: 1
 
   SecretsBucket:
-    Description: Optional - Name of an existing S3 bucket containing pipeline secrets (Created if left blank)
+    Description: Optional - Name of an existing S3 bucket containing pipeline secrets (Created if left blank).
     Type: String
     Default: ""
 
@@ -428,7 +568,15 @@ Parameters:
     Default: ""
 
   SecretsBucketEncryption:
-    Description: Indicates whether the SecretsBucket should enforce encryption at rest and in transit
+    Description: Indicates whether the SecretsBucket should enforce encryption at rest and in transit.
+    Type: String
+    AllowedValues:
+      - "true"
+      - "false"
+    Default: "false"
+
+  SecretsPluginSkipSSHKeyNotFoundWarning:
+    Description: Optional - Skip warning when SSH key is not found in the secrets bucket.
     Type: String
     AllowedValues:
       - "true"
@@ -436,7 +584,7 @@ Parameters:
     Default: "false"
 
   ArtifactsBucket:
-    Description: Optional - Name of an existing S3 bucket for build artifact storage
+    Description: Optional - Name of an existing S3 bucket for build artifact storage.
     Type: String
     Default: ""
 
@@ -446,7 +594,7 @@ Parameters:
     Default: ""
 
   ArtifactsS3ACL:
-    Description: Optional - ACL to use for S3 artifact uploads
+    Description: Optional - ACL to use for S3 artifact uploads.
     Type: String
     AllowedValues:
       - "private"
@@ -459,23 +607,31 @@ Parameters:
     Default: "private"
 
   BootstrapScriptUrl:
-    Description: Optional - HTTPS or S3 URL for a script to run on each instance during boot
+    Description: >
+      Optional - URI for a script to run on each instance during boot.
+      Supported URI schemes: S3 object URI (s3://bucket/key),
+      HTTPS URL (https://example.com/script.sh), or local file path (file:///path/to/script).
     Type: String
     Default: ""
 
   AgentEnvFileUrl:
-    Description: Optional - HTTPS or S3 URL for a list of environment variables to propagate into the agent's execution environment. Note that these environment variables **will not** be passed into builds running on the agent, only to the agent process itself.
+    Description: >
+        Optional - URI containing environment variables for the Buildkite agent process itself (not for builds).
+        Supported URI schemes: S3 object URI (s3://bucket/key), SSM parameter path (ssm:/path/to/param),
+        HTTPS URL (https://example.com/script.sh), or local file path (file:///path/to/script).
+        These variables configure agent behavior like proxy settings or debugging options.
+        For build environment variables, use pipeline 'env' configuration instead.
     Type: String
     Default: ""
 
   AuthorizedUsersUrl:
-    Description: Optional - HTTPS or S3 URL to periodically download ssh authorized_keys from, setting this will enable SSH ingress. authorized_keys are applied to ec2-user
+    Description: Optional - HTTPS or S3 URL to periodically download SSH authorized_keys from, setting this will enable SSH ingress. authorized_keys are applied to ec2-user.
     Type: String
     Default: ""
 
   VpcId:
     Type: String
-    Description: Optional - Id of an existing VPC to launch instances into. Leave blank to have a new VPC created
+    Description: Optional - Id of an existing VPC to launch instances into. Leave blank to have a new VPC created.
     Default: ""
 
   Subnets:
@@ -485,61 +641,87 @@ Parameters:
 
   AvailabilityZones:
     Type: CommaDelimitedList
-    Description: Optional - Comma separated list of AZs that subnets are created in (if Subnets parameter is not specified)
+    Description: Optional - Comma separated list of AZs that subnets are created in (if Subnets parameter is not specified).
     Default: ""
 
   InstanceTypes:
-    Description: Comma-separated list with 1-25 instance types. The order is a prioritized preference for launching OnDemand instances, and a non-prioritized list of types to consider for Spot Instances (where used).
+    Description: >
+        EC2 instance types to use (comma-separated, up to 25).
+        The first type listed is preferred for OnDemand instances.
+        Additional types improve Spot instance availability but make costs less predictable.
+        Examples: 't3.large' for light workloads, 'm5.xlarge,m5a.xlarge' for CPU-intensive builds, 'c5.2xlarge,c5.4xlarge' for compute-heavy tasks.
     Type: String
-    Default: t3.large
+    Default: "t3.large"
     MinLength: 1
     AllowedPattern: "^[\\w-\\.]+(,[\\w-\\.]*){0,24}$"
     ConstraintDescription: "must contain 1-25 instance types separated by commas. No space before/after the comma."
 
+  CpuCredits:
+    Description: Credit option for CPU usage of burstable instances. Sets the CreditSpecification.CpuCredits property in the LaunchTemplate for T-class instance types (t2, t3, t3a, t4g).
+    Type: String
+    AllowedValues:
+      - standard
+      - unlimited
+    Default: "unlimited"
+
   MaxSize:
-    Description: Maximum number of instances
+    Description: Maximum number of instances. Controls cost ceiling and prevents runaway scaling.
     Type: Number
     Default: 10
     MinValue: 0
 
   MinSize:
-    Description: Minimum number of instances
+    Description: Minimum number of instances. Ensures baseline capacity for immediate job execution.
     Type: Number
     Default: 0
     MinValue: 0
 
   InstanceBuffer:
-    Description: How many free instances to maintain
+    Description: Number of idle instances to keep running. Lower values save costs, higher values reduce wait times for new jobs.
     Type: Number
-    Default: "0"
+    Default: 0
 
   ScalerEventSchedulePeriod:
-    Description: How often the Event Schedule for buildkite-agent-scaler is triggered. Should be an expression with units, e.g. "30 seconds", "1 minute", "5 minutes".
+    Description: >
+      How often the Event Schedule for buildkite-agent-scaler is triggered.
+      Should be an expression with units. Example: '30 seconds', '1 minute', '5 minutes'.
     Type: String
     Default: "1 minute"
 
   ScalerMinPollInterval:
-    Description: Minimum interval at which the auto scaler should poll the AWS API
+    Description: >
+      Minimum time between auto-scaler checks for new build jobs (e.g., '30s', '1m').
     Type: String
     Default: "10s"
 
   OnDemandBaseCapacity:
-    Description: Specify how much On-Demand capacity the Auto Scaling group should have for its base portion before scaling by percentages. The maximum group size will be increased (but not decreased) to this value.
+    Description: >
+      Specify how much On-Demand capacity the Auto Scaling group should have for its base portion before scaling by percentages.
+      The maximum group size will be increased (but not decreased) to this value.
     Type: Number
     Default: 0
     MinValue: 0
 
   OnDemandPercentage:
-    Description: Percentage of total instances that should launch as OnDemand. Default is 100% OnDemand - reduce this to use some Spot Instances when they're available and cheaper than the OnDemand price. A value of 70 means 70% OnDemand and 30% Spot Instances.
+    Description: >
+      Percentage of instances to launch as OnDemand vs Spot instances.
+      OnDemand instances provide guaranteed availability at higher cost.
+      Spot instances offer 60-90% cost savings but may be interrupted by AWS.
+      Use 100% for critical workloads, lower values when jobs can handle unexpected instance interruptions.
     Type: Number
     Default: 100
     MinValue: 0
     MaxValue: 100
 
   SpotAllocationStrategy:
-    Description: The strategy for allocating Spot Instances when launching or replacing instances. If choosing `capacity-optimized-prioritized`, the order you specify in InstanceTypes will be the priority.
+    Description: >
+      Strategy for selecting Spot instance types to minimize interruptions and costs.
+      'capacity-optimized' (recommended) chooses types with the most available capacity.
+      'price-capacity-optimized' balances low prices with availability.
+      'lowest-price' prioritizes cost savings.
+      'capacity-optimized-prioritized' follows InstanceTypes order while optimizing for capacity.
     Type: String
-    Default: capacity-optimized
+    Default: "capacity-optimized"
     AllowedValues:
       - price-capacity-optimized
       - capacity-optimized
@@ -547,7 +729,10 @@ Parameters:
       - capacity-optimized-prioritized
 
   ScaleOutFactor:
-    Description: A decimal factor to apply to scale out changes to speed up or slow down scale-out
+    Description: >
+      Multiplier for scale-out speed.
+      Values higher than 1.0 create instances more aggressively, values lower than 1.0 more conservatively.
+      Use higher values for time-sensitive workloads, lower values to control costs.
     Type: Number
     Default: 1.0
 
@@ -560,46 +745,51 @@ Parameters:
     Default: 600
 
   ScaleOutForWaitingJobs:
+    Description: >
+      Scale up instances for pipeline steps queued behind manual approval or wait steps.
+      When enabled, the scaler will provision instances even when jobs can't start immediately due to pipeline waits.
+      Ensure ScaleInIdlePeriod is long enough to keep instances running during wait periods.
     Type: String
-    Description: Whether to scale-out for steps behind wait steps. Make sure you have a long enough idle period!
     AllowedValues:
       - "true"
       - "false"
     Default: "false"
 
   InstanceCreationTimeout:
-    Description: Timeout period for Autoscaling Group Creation Policy
+    Description: Optional - Timeout period for Auto Scaling Group Creation Policy.
     Type: String
     Default: ""
 
   RootVolumeSize:
-    Description: Size of each instance's root EBS volume (in GB)
+    Description: Size of each instance's root EBS volume (in GB).
     Type: Number
     Default: 250
     MinValue: 10
 
   RootVolumeName:
-    Description: Name of the root block device for your AMI
+    Description: Optional - Name of the root block device for the AMI.
     Type: String
     Default: ""
 
   RootVolumeType:
-    Description: Type of root volume to use. If you are specifying `io1` or `io2`, you will most likely want to specify `RootVolumeIOPS` as well.
+    Description: >
+      Type of root volume to use. If specifying `io1` or `io2`, specify `RootVolumeIOPS` as well for optimal performance.
+      See https://docs.aws.amazon.com/ebs/latest/userguide/provisioned-iops.html for more details.
     Type: String
     Default: "gp3"
 
   RootVolumeThroughput:
-    Description: If the `RootVolumeType` is gp3, the throughput to provision for the root volume
+    Description: If the `RootVolumeType` is gp3, the throughput (MB/s data transfer rate) to provision for the root volume.
     Type: Number
     Default: 125
 
   RootVolumeIops:
-    Description: If the `RootVolumeType` is gp3, io1, or io2, the number of IOPS to provision for the root volume
+    Description: If the `RootVolumeType` is gp3, io1, or io2, the number of IOPS to provision for the root volume.
     Type: Number
     Default: 1000
 
   RootVolumeEncrypted:
-    Description: Indicates whether the EBS volume is encrypted
+    Description: Indicates whether the EBS volume is encrypted.
     Type: String
     AllowedValues:
       - "true"
@@ -608,51 +798,71 @@ Parameters:
 
   SecurityGroupIds:
     Type: String
-    Description: Optional - Comma separated list of security group ids to assign to instances
+    Description: Optional - Comma separated list of security group ids to assign to instances.
     Default: ""
 
   ImageId:
     Type: String
-    Description: Optional - Custom AMI to use for instances (must be based on the stack's AMI)
+    Description: Optional - Custom AMI to use for instances (must be based on the stack's AMI).
     Default: ""
 
   ImageIdParameter:
     Type: String
-    Description: Optional - Custom AMI SSM Parameter to use for instances (must be based on the stack's AMI)
+    Description: Optional - Custom AMI SSM Parameter to use for instances (must be based on the stack's AMI).
     Default: ""
 
   ManagedPolicyARNs:
     Type: CommaDelimitedList
-    Description: Optional - Comma separated list of managed IAM policy ARNs to attach to the instance role
+    Description: Optional - Comma separated list of managed IAM policy ARNs to attach to the instance role.
     Default: ""
 
   IMDSv2Tokens:
     Type: String
-    Description: Whether IMDSv2 tokens must be used for the Instance Metadata Service.
+    Description: >
+      Security setting for EC2 instance metadata access.
+      'Required' enforces secure token-based access (recommended for security), 'Optional' allows both secure and legacy access methods.
+      Use 'Required' unless legacy applications require the older metadata service.
     AllowedValues:
       - optional
       - required
-    Default: optional
+    Default: "optional"
 
   InstanceRoleName:
     Type: String
-    Description: Optional - A name for the IAM Role attached to the Instance Profile
+    Description: Optional - A name for the IAM Role attached to the Instance Profile when creating a new role. Ignored when InstanceRoleARN is provided.
     Default: ""
 
   InstanceRolePermissionsBoundaryARN:
     Type: String
-    Description: The ARN of the policy used to set the permissions boundary for the role.
+    Description: Optional - The ARN of the policy used to set the permissions boundary for the role when creating a new role. Ignored when InstanceRoleARN is provided.
     Default: ""
 
   InstanceRoleTags:
-    Description: "Optional - Comma-separated key=value pairs for instance IAM role tags (up to 5 tags). Example: 'Environment=production,Team=platform,Purpose=ci'. Note: Keys and values cannot contain '=' characters."
+    Description: >
+      Optional - Comma-separated key=value pairs for instance IAM role tags (up to 5 tags).
+      Example: 'Environment=production,Team=platform,Purpose=ci'.
+      Note: Keys and values cannot contain '=' characters.
+      Only applied when creating a new role, ignored when InstanceRoleARN is provided.
     Type: String
     Default: ""
     AllowedPattern: "^$|^[\\w\\s_.:/+\\-@]+=[\\w\\s_.:/+\\-@]*(,[\\w\\s_.:/+\\-@]+=[\\w\\s_.:/+\\-@]*){0,4}$"
 
+  InstanceRoleARN:
+    Type: String
+    Description: >
+      Optional - ARN of an existing IAM role to attach to instances instead of creating a new role.
+      When specified, the stack will not create any IAM roles or policies, and will use this role instead.
+      The role must have all necessary permissions for Buildkite agents to function correctly.
+      This is useful when you want to share a single IAM role across multiple queues/stacks.
+      Supports roles with custom paths up to 10 levels deep.
+      See https://buildkite.com/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#using-custom-iam-roles
+      for required permissions and configuration examples.
+    Default: ""
+    AllowedPattern: "^$|^arn:aws:iam::[0-9]+:role/.*$"
+
   InstanceOperatingSystem:
     Type: String
-    Description: The operating system to run on the instances
+    Description: The operating system to run on the instances.
     AllowedValues:
       - linux
       - windows
@@ -660,7 +870,10 @@ Parameters:
 
   ECRAccessPolicy:
     Type: String
-    Description: ECR access policy to give instances. The `-pullthrough` variants add ECR pull-through cache permissions (including `ecr:CreateRepository`, `ecr:BatchImportUpstreamImage`, `ecr:GetImageCopyStatus`, and upload permissions) to enable transparent upstream registry caching.
+    Description: >
+      Docker image registry permissions for agents.
+      'none' = no access, 'readonly' = pull images only, 'poweruser' = pull/push images, 'full' = complete ECR access.
+      The '-pullthrough' variants (e.g., 'readonly-pullthrough') add permissions to enable automatic caching of public Docker images, reducing pull times and bandwidth costs.
     AllowedValues:
       - none
       - readonly
@@ -672,15 +885,31 @@ Parameters:
 
   AssociatePublicIpAddress:
     Type: String
-    Description: Associate instances with public IP addresses
+    Description: >
+      Give instances public IP addresses for direct internet access.
+      Set to 'false' for a more isolated environment if the VPC has alternative outbound internet access configured.
     AllowedValues:
       - "true"
       - "false"
     Default: "true"
 
+  EnableVpcEndpoints:
+    Type: String
+    Description: >
+      Enable VPC endpoints for AWS services (S3, ECR, SSM, Secrets Manager, KMS).
+      Only available when the stack creates a new VPC (VpcId parameter is empty).
+      Interface endpoints incur hourly charges per availability zone. S3 uses a gateway endpoint which is free.
+      Reduces internet traffic, improves security, and lowers data transfer costs for AWS service communication.
+    AllowedValues:
+      - "true"
+      - "false"
+    Default: "false"
+
   DockerNetworkingProtocol:
     Type: String
-    Description: Which IP version to enable for docker containers and building docker images. Only applies to Linux instances, not Windows.
+    Description: >
+      Which IP version to enable for docker containers and building docker images.
+      Only applies to Linux instances, not Windows.
     AllowedValues:
       - "ipv4"
       - "dualstack"
@@ -690,20 +919,45 @@ Parameters:
     Type: String
     Description: Primary IPv4 CIDR block for Docker default address pools. Must not conflict with host network or VPC CIDR. Only applies to Linux instances, not Windows.
     Default: "172.17.0.0/12"
+    AllowedPattern: "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\/(?:[0-9]|[12][0-9]|3[0-2])$"
+    ConstraintDescription: "Must be a valid IPv4 CIDR block (e.g., 172.17.0.0/12)"
 
   DockerIPv4AddressPool2:
     Type: String
     Description: Secondary IPv4 CIDR block for Docker default address pools. Only applies to Linux instances, not Windows.
     Default: "192.168.0.0/16"
+    AllowedPattern: "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\/(?:[0-9]|[12][0-9]|3[0-2])$"
+    ConstraintDescription: "Must be a valid IPv4 CIDR block (e.g., 192.168.0.0/16)"
 
   DockerIPv6AddressPool:
     Type: String
     Description: IPv6 CIDR block for Docker default address pools in dualstack mode. Only applies to Linux instances, not Windows.
     Default: "2001:db8:2::/104"
+    AllowedPattern: "^(?:(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,7}:|(?:[0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,5}(?::[0-9a-fA-F]{1,4}){1,2}|(?:[0-9a-fA-F]{1,4}:){1,4}(?::[0-9a-fA-F]{1,4}){1,3}|(?:[0-9a-fA-F]{1,4}:){1,3}(?::[0-9a-fA-F]{1,4}){1,4}|(?:[0-9a-fA-F]{1,4}:){1,2}(?::[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:(?::[0-9a-fA-F]{1,4}){1,6}|:(?:(?::[0-9a-fA-F]{1,4}){1,7}|:))\\/(?:[0-9]|[1-9][0-9]|1[01][0-9]|12[0-8])$"
+    ConstraintDescription: "Must be a valid IPv6 CIDR block (e.g., 2001:db8:2::/104)"
+
+  DockerFixedCidrV4:
+    Type: String
+    Description: >
+      Optional IPv4 CIDR block for Docker's fixed-cidr option. Restricts the IP range Docker uses for container networking on the default bridge.
+      Must be a subset of the first pool in DockerIPv4AddressPool1 (Docker allocates docker0 from the first pool).
+      Leave empty to disable. Useful to prevent conflicts with external services like databases. Only applies to Linux instances, not Windows.
+    Default: ""
+    AllowedPattern: "^$|^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\/(?:[0-9]|[12][0-9]|3[0-2])$"
+    ConstraintDescription: "Must be empty or a valid IPv4 CIDR block (e.g., 172.17.1.0/24)"
+
+  DockerFixedCidrV6:
+    Type: String
+    Description: >
+      IPv6 CIDR block for Docker's fixed-cidr-v6 option in dualstack mode. Restricts the IP range Docker uses for IPv6 container networking.
+      Only applies to Linux instances in dualstack mode, not Windows.
+    Default: "2001:db8:1::/64"
+    AllowedPattern: "^(?:(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,7}:|(?:[0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,5}(?::[0-9a-fA-F]{1,4}){1,2}|(?:[0-9a-fA-F]{1,4}:){1,4}(?::[0-9a-fA-F]{1,4}){1,3}|(?:[0-9a-fA-F]{1,4}:){1,3}(?::[0-9a-fA-F]{1,4}){1,4}|(?:[0-9a-fA-F]{1,4}:){1,2}(?::[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:(?::[0-9a-fA-F]{1,4}){1,6}|:(?:(?::[0-9a-fA-F]{1,4}){1,7}|:))\\/(?:[0-9]|[1-9][0-9]|1[01][0-9]|12[0-8])$"
+    ConstraintDescription: "Must be a valid IPv6 CIDR block (e.g., 2001:db8:1::/64)"
 
   EnableSecretsPlugin:
     Type: String
-    Description: Enables s3-secrets plugin for all pipelines
+    Description: Enables S3 Secrets plugin for all pipelines.
     AllowedValues:
       - "true"
       - "false"
@@ -711,15 +965,23 @@ Parameters:
 
   EnableECRPlugin:
     Type: String
-    Description: Enables ecr plugin for all pipelines
+    Description: Enables ECR plugin for all pipelines.
     AllowedValues:
       - "true"
       - "false"
     Default: "true"
 
+  EnableECRCredentialHelper:
+    Type: String
+    Description: Enable Amazon ECR Credential Helper in ECR plugin for Docker authentication.
+    AllowedValues:
+      - "true"
+      - "false"
+    Default: "false"
+
   EnableDockerLoginPlugin:
     Type: String
-    Description: Enables docker-login plugin for all pipelines
+    Description: Enables docker-login plugin for all pipelines.
     AllowedValues:
       - "true"
       - "false"
@@ -727,7 +989,7 @@ Parameters:
 
   EnableDockerUserNamespaceRemap:
     Type: String
-    Description: Enables Docker user namespace remapping so docker runs as buildkite-agent
+    Description: Enables Docker user namespace remapping so docker runs as buildkite-agent.
     AllowedValues:
       - "true"
       - "false"
@@ -735,7 +997,7 @@ Parameters:
 
   EnableDockerExperimental:
     Type: String
-    Description: Enables Docker experimental features
+    Description: Enables Docker experimental features.
     AllowedValues:
       - "true"
       - "false"
@@ -754,7 +1016,10 @@ Parameters:
 
   MountTmpfsAtTmp:
     Type: String
-    Description: Controls the filesystem mounted at /tmp. By default, /tmp is a tmpfs (memory-backed filesystem). Disabling this causes /tmp to be stored in the root filesystem.
+    Description: >
+      Controls the filesystem mounted at /tmp.
+      By default, /tmp is a tmpfs (memory-backed filesystem).
+      Disabling this causes /tmp to be stored in the root filesystem.
     AllowedValues:
       - "true"
       - "false"
@@ -762,7 +1027,7 @@ Parameters:
 
   EnableCostAllocationTags:
     Type: String
-    Description: Enables AWS Cost Allocation tags for all resources in the stack. See https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html
+    Description: Enables AWS Cost Allocation tags for all resources in the stack. See https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html.
     AllowedValues:
       - "true"
       - "false"
@@ -770,17 +1035,17 @@ Parameters:
 
   CostAllocationTagName:
     Type: String
-    Description: The name of the Cost Allocation Tag used for billing purposes
+    Description: The name of the Cost Allocation Tag used for billing purposes.
     Default: "CreatedBy"
 
   CostAllocationTagValue:
     Type: String
-    Description: The value of the Cost Allocation Tag used for billing purposes
+    Description: The value of the Cost Allocation Tag used for billing purposes.
     Default: "buildkite-elastic-ci-stack-for-aws"
 
   BuildkiteAgentEnableGitMirrors:
     Type: String
-    Description: Enables git-mirrors in the agent
+    Description: Enables Git mirrors in the agent.
     AllowedValues:
       - "true"
       - "false"
@@ -788,7 +1053,7 @@ Parameters:
 
   EnableDetailedMonitoring:
     Type: String
-    Description: Enable detailed EC2 monitoring
+    Description: Enable detailed EC2 monitoring.
     AllowedValues:
       - "true"
       - "false"
@@ -796,17 +1061,17 @@ Parameters:
 
   InstanceName:
     Type: String
-    Description: Optional - Customise the EC2 instance Name tag
+    Description: Optional - Customize the EC2 instance Name tag.
     Default: ""
 
   PipelineSigningKMSKeyId:
     Type: String
-    Description: Optional - Identifier or ARN of the KMS key used to sign and verify pipelines (created if both PipelineSigningKMSKeyId and PipelineSigningKMSKeyARN are left blank and PipelineSigningKMSKeySpec is selected)
+    Description: Optional - Identifier or ARN of existing KMS key for pipeline signing. Leave blank to create a new key when PipelineSigningKMSKeySpec is specified.
     Default: ""
 
   PipelineSigningKMSKeySpec:
     Type: String
-    Description: The key spec for the KMS key used to sign and verify pipelines
+    Description: Key specification for pipeline signing KMS key. Set to 'none' to disable pipeline signing, or 'ECC_NIST_P256' to enable with automatic key creation.
     AllowedValues:
       - "ECC_NIST_P256"
       - "none"
@@ -814,7 +1079,7 @@ Parameters:
 
   PipelineSigningKMSAccess:
     Type: String
-    Description: The access level for the KMS key used to sign and verify pipelines
+    Description: Access permissions for pipeline signing. 'sign-and-verify' allows both operations, 'verify' restricts to verification only.
     AllowedValues:
       - "sign-and-verify"
       - "verify"
@@ -822,11 +1087,19 @@ Parameters:
 
   PipelineSigningVerificationFailureBehavior:
     Type: String
-    Description: The behavior when a job is received without a valid verifiable signature (without a signature, with an invalid signature, or with a signature that fails verification)
+    Description: The behavior when a job is received without a valid verifiable signature (without a signature, with an invalid signature, or with a signature that fails verification).
     AllowedValues:
       - "block"
       - "warn"
     Default: "block"
+
+  LambdaArchitecture:
+    Type: String
+    Description: CPU architecture for Lambda functions (x86_64 or arm64). arm64 provides better price-performance but requires compatible dependencies.
+    AllowedValues:
+      - "x86_64"
+      - "arm64"
+    Default: "x86_64"
 
 Rules:
   HasToken:
@@ -885,13 +1158,51 @@ Outputs:
       Name: !Sub '${AWS::StackName}-AutoScalingGroupName'
 
   InstanceRoleName:
-    Value: !Ref IAMRole
+    Value: !If
+      - UseCustomIAMRole
+      - !If
+        - HasCustomRolePath
+        - !If
+          - RolePathIndex11Empty
+          - !If
+            - RolePathIndex10Empty
+            - !If
+              - RolePathIndex9Empty
+              - !If
+                - RolePathIndex8Empty
+                - !If
+                  - RolePathIndex7Empty
+                  - !If
+                    - RolePathIndex6Empty
+                    - !If
+                      - RolePathIndex5Empty
+                      - !If
+                        - RolePathIndex4Empty
+                        - !If
+                          - RolePathIndex3Empty
+                          - !Select [ 2, !Split [ "/", !Ref InstanceRoleARN ] ]
+                          - !Select [ 3, !Split [ "/", !Ref InstanceRoleARN ] ]
+                        - !Select [ 4, !Split [ "/", !Ref InstanceRoleARN ] ]
+                      - !Select [ 5, !Split [ "/", !Ref InstanceRoleARN ] ]
+                    - !Select [ 6, !Split [ "/", !Ref InstanceRoleARN ] ]
+                  - !Select [ 7, !Split [ "/", !Ref InstanceRoleARN ] ]
+                - !Select [ 8, !Split [ "/", !Ref InstanceRoleARN ] ]
+              - !Select [ 9, !Split [ "/", !Ref InstanceRoleARN ] ]
+            - !Select [ 10, !Split [ "/", !Ref InstanceRoleARN ] ]
+          - !Select [ 11, !Split [ "/", !Ref InstanceRoleARN ] ]
+        - !Select [ 1, !Split [ "/", !Ref InstanceRoleARN ] ]
+      - !Ref IAMRole
     Export:
       Name: !Sub '${AWS::StackName}-InstanceRoleName'
 
 Conditions:
     CreateVpcResources:
       !Equals [ !Ref VpcId, "" ]
+
+    EnableVpcEndpoints:
+      !And
+        - !Equals [ !Ref EnableVpcEndpoints, "true" ]
+        - !Condition CreateVpcResources
 
     CreateSecurityGroup:
       !Equals [ !Ref SecurityGroupIds, "" ]
@@ -908,6 +1219,47 @@ Conditions:
 
     SetInstanceRoleName:
       !Not [ !Equals [ !Ref InstanceRoleName, "" ] ]
+
+    UseCustomIAMRole:
+      !Not [ !Equals [ !Ref InstanceRoleARN, "" ] ]
+
+    CreateIAMRole:
+      !Equals [ !Ref InstanceRoleARN, "" ]
+
+    # Support up to 10 levels of custom paths in IAM role ARNs
+    # Pad the ARN with empty segments to ensure we always have at least 12 elements after split
+    RolePathIndex11Empty:
+      !Equals [ !Select [ 11, !Split [ "/", !Sub [ "${ARN}///////////", { ARN: !Ref InstanceRoleARN } ] ] ], "" ]
+
+    RolePathIndex10Empty:
+      !Equals [ !Select [ 10, !Split [ "/", !Sub [ "${ARN}///////////", { ARN: !Ref InstanceRoleARN } ] ] ], "" ]
+
+    RolePathIndex9Empty:
+      !Equals [ !Select [ 9, !Split [ "/", !Sub [ "${ARN}///////////", { ARN: !Ref InstanceRoleARN } ] ] ], "" ]
+
+    RolePathIndex8Empty:
+      !Equals [ !Select [ 8, !Split [ "/", !Sub [ "${ARN}///////////", { ARN: !Ref InstanceRoleARN } ] ] ], "" ]
+
+    RolePathIndex7Empty:
+      !Equals [ !Select [ 7, !Split [ "/", !Sub [ "${ARN}///////////", { ARN: !Ref InstanceRoleARN } ] ] ], "" ]
+
+    RolePathIndex6Empty:
+      !Equals [ !Select [ 6, !Split [ "/", !Sub [ "${ARN}///////////", { ARN: !Ref InstanceRoleARN } ] ] ], "" ]
+
+    RolePathIndex5Empty:
+      !Equals [ !Select [ 5, !Split [ "/", !Sub [ "${ARN}///////////", { ARN: !Ref InstanceRoleARN } ] ] ], "" ]
+
+    RolePathIndex4Empty:
+      !Equals [ !Select [ 4, !Split [ "/", !Sub [ "${ARN}///////////", { ARN: !Ref InstanceRoleARN } ] ] ], "" ]
+
+    RolePathIndex3Empty:
+      !Equals [ !Select [ 3, !Split [ "/", !Sub [ "${ARN}///////////", { ARN: !Ref InstanceRoleARN } ] ] ], "" ]
+
+    RolePathIndex2Empty:
+      !Equals [ !Select [ 2, !Split [ "/", !Sub [ "${ARN}///////////", { ARN: !Ref InstanceRoleARN } ] ] ], "" ]
+
+    HasCustomRolePath:
+      !Not [ !Condition RolePathIndex2Empty ]
 
     SetInstanceRolePermissionsBoundaryARN:
       !Not [ !Equals [ !Ref InstanceRolePermissionsBoundaryARN, "" ] ]
@@ -1037,6 +1389,10 @@ Conditions:
       !Not [ !Equals [ !Ref BuildkiteAgentTokenParameterStoreKMSKey, "" ] ]
     CreateAgentTokenParameter:
       !Equals [ !Ref BuildkiteAgentTokenParameterStorePath, "" ]
+    IsParameterStorePathARN:
+      !And
+        - !Not [ !Equals [ !Ref BuildkiteAgentTokenParameterStorePath, "" ] ]
+        - !Equals [ !Select [ 0, !Split [ ":", !Ref BuildkiteAgentTokenParameterStorePath ] ], "arn" ]
 
     HasVariableSize:
       !Not [ !Equals [ !Ref MaxSize, !Ref MinSize ] ]
@@ -1118,6 +1474,13 @@ Conditions:
         - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "t4g" ]
         - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "x2gd" ]
 
+    UsingBurstableInstances:
+      !Or
+        - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "t2" ]
+        - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "t3" ]
+        - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "t3a" ]
+        - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "t4g" ]
+
     UseStackNameForInstanceName:
       !Equals [ !Ref InstanceName, "" ]
 
@@ -1130,6 +1493,22 @@ Conditions:
         - !Equals [ !Ref RootVolumeType, "io2" ]
         - !Equals [ !Ref RootVolumeType, "gp3" ]
 
+    EnableScheduledScaling:
+      !Equals [ !Ref EnableScheduledScaling, "true" ]
+
+    IsLambdaArchitectureArm64:
+      !Equals [ !Ref LambdaArchitecture, "arm64" ]
+
+    HasVariableSizeAndArm64:
+      !And
+        - !Condition HasVariableSize
+        - !Condition IsLambdaArchitectureArm64
+
+    HasVariableSizeAndX8664:
+      !And
+        - !Condition HasVariableSize
+        - !Not [ !Condition IsLambdaArchitectureArm64 ]
+
 Mappings:
   ECRManagedPolicy:
     none                  : { Policy: '' }
@@ -1139,28 +1518,32 @@ Mappings:
     poweruser-pullthrough : { Policy: 'arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser' }
     full                  : { Policy: 'arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess' }
 
+  AgentScalerARN:
+    x86-64: { ARN: 'arn:aws:serverlessrepo:us-east-1:172840064832:applications/buildkite-agent-scaler' }
+    arm64: { ARN: 'arn:aws:serverlessrepo:us-east-1:172840064832:applications/buildkite-agent-scaler-arm64' }
+
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-06ae055d002ab7bf7, linuxarm64: ami-0b7eb601ed3b4ad0f, windows: ami-08acc20030ab9a817 }
-    us-east-2 : { linuxamd64: ami-09357cbcc9f5ac8ae, linuxarm64: ami-0fe9891bf59f1a725, windows: ami-05ad75baaa3485537 }
-    us-west-1 : { linuxamd64: ami-0e10ed008edf475a7, linuxarm64: ami-0b2e3437d6291ffc7, windows: ami-08d04f0bab0776b14 }
-    us-west-2 : { linuxamd64: ami-0369a16b9e2bbbd35, linuxarm64: ami-02ae6cd37a356ddbd, windows: ami-0259b615e25ecdaae }
-    af-south-1 : { linuxamd64: ami-026c7c5de6df16c55, linuxarm64: ami-0525e79c127b65afb, windows: ami-0a79a8d3d2932675c }
-    ap-east-1 : { linuxamd64: ami-0eedddc69edd89f48, linuxarm64: ami-0ca746aad798f745d, windows: ami-035afa243061f561d }
-    ap-south-1 : { linuxamd64: ami-04fe683912277adb0, linuxarm64: ami-033ed9e96824c805a, windows: ami-06390585c75bd0281 }
-    ap-northeast-2 : { linuxamd64: ami-09c62d8053c71d1ce, linuxarm64: ami-06a7278a0d7a8e642, windows: ami-0b9dc31c64e43ffe1 }
-    ap-northeast-1 : { linuxamd64: ami-0fae2d4e21edfbb35, linuxarm64: ami-0158ae6e546cd47f1, windows: ami-033969c836e0bd4dd }
-    ap-southeast-2 : { linuxamd64: ami-0acd36489cdc75f97, linuxarm64: ami-0859e4cf98f610662, windows: ami-09a28a7fc480da5f1 }
-    ap-southeast-1 : { linuxamd64: ami-06b4785534b1f553f, linuxarm64: ami-09faf371672be4d55, windows: ami-089dd8c8a54a18d00 }
-    ca-central-1 : { linuxamd64: ami-04a27e9d81ba7556f, linuxarm64: ami-0ed8a526017df7620, windows: ami-0bc475dfc2750bf0d }
-    eu-central-1 : { linuxamd64: ami-053a1720f1391af49, linuxarm64: ami-06857b3aad0e8761a, windows: ami-07427a130959455c7 }
-    eu-west-1 : { linuxamd64: ami-04223bed8c6f55e22, linuxarm64: ami-050f8a780db12bb7e, windows: ami-0456ef4ef7e81c273 }
-    eu-west-2 : { linuxamd64: ami-0387a2e54d5b18189, linuxarm64: ami-04f15df7b5c8cd989, windows: ami-069db7d19e1bf7504 }
-    eu-south-1 : { linuxamd64: ami-041e8ec3baf14dd1e, linuxarm64: ami-092dfdf355f52d4fa, windows: ami-02122e0f8a0c20b9a }
-    eu-west-3 : { linuxamd64: ami-0e10304a5ad7c55ef, linuxarm64: ami-029e8abb896b54f13, windows: ami-0adc3448fd5a9c0f4 }
-    eu-north-1 : { linuxamd64: ami-05ed991f94f8f89f4, linuxarm64: ami-012be5aae2d49196f, windows: ami-076697bc857bf9a96 }
-    me-south-1 : { linuxamd64: ami-0cd51d69a4b1301f5, linuxarm64: ami-093f5a6804cec5446, windows: ami-0899339116e8261bb }
-    sa-east-1 : { linuxamd64: ami-06be5f2ee0ddbb67d, linuxarm64: ami-038ba7da0a8d2c719, windows: ami-0396c37d775ddfbb5 }
+    us-east-1 : { linuxamd64: ami-03a7d6a18449712a4, linuxarm64: ami-0708392a02b22374b, windows: ami-0f0cfbb4e6a15296e }
+    us-east-2 : { linuxamd64: ami-058d0ab97439f62d5, linuxarm64: ami-05c916a70e3c67a04, windows: ami-07d6ac474dd792b0f }
+    us-west-1 : { linuxamd64: ami-0dda7c2fd9d88ef5c, linuxarm64: ami-0b7f2ac449410ede9, windows: ami-0a328e9e18253b5f5 }
+    us-west-2 : { linuxamd64: ami-0df8c178e62fa59f2, linuxarm64: ami-0cba3cfd61535539b, windows: ami-0abe28e689cb88fe8 }
+    af-south-1 : { linuxamd64: ami-0267de036409499b8, linuxarm64: ami-0a3dd2e847cca416c, windows: ami-0a720049c9fac34db }
+    ap-east-1 : { linuxamd64: ami-00390999441752024, linuxarm64: ami-0cfdda37062a8354f, windows: ami-0acf697fabaa97401 }
+    ap-south-1 : { linuxamd64: ami-0a616bf944137b167, linuxarm64: ami-01dba652e8abe5881, windows: ami-0fed566251bb6b776 }
+    ap-northeast-2 : { linuxamd64: ami-04ae72251b0899adc, linuxarm64: ami-090cd2e177c1c7d0b, windows: ami-063ee0230387a4d61 }
+    ap-northeast-1 : { linuxamd64: ami-0781b1a34becfa746, linuxarm64: ami-066dccfe9ede91be0, windows: ami-01060a467c0b44966 }
+    ap-southeast-2 : { linuxamd64: ami-006b2bef58458be01, linuxarm64: ami-04044d4e0d563abfb, windows: ami-0a428d40a52004ba0 }
+    ap-southeast-1 : { linuxamd64: ami-0cb475ef99c19bc46, linuxarm64: ami-0675410c55b40c757, windows: ami-07df0c3b5e4308aa4 }
+    ca-central-1 : { linuxamd64: ami-0752ff4ae6f1c3957, linuxarm64: ami-02b60a9b97b6a8050, windows: ami-0bf47c1b54f2170cb }
+    eu-central-1 : { linuxamd64: ami-06716341258144be7, linuxarm64: ami-0f6e66166f173a21f, windows: ami-09e6f918e87146f6b }
+    eu-west-1 : { linuxamd64: ami-0cc8eedd8644345b1, linuxarm64: ami-032e5bd03d879f2f0, windows: ami-06f68b7a91739a1da }
+    eu-west-2 : { linuxamd64: ami-07686b50aa1944964, linuxarm64: ami-03a834eab510eef84, windows: ami-0abbeaef366e6d305 }
+    eu-south-1 : { linuxamd64: ami-0cd03c5a8053b04d6, linuxarm64: ami-0ee840c27f74c483e, windows: ami-019e052a419fcc91e }
+    eu-west-3 : { linuxamd64: ami-0422f6eb33343e788, linuxarm64: ami-036e18fb2c99b565a, windows: ami-0ae4ef68a3a2c9681 }
+    eu-north-1 : { linuxamd64: ami-07e9ceeb3c8f7397f, linuxarm64: ami-0ea8317e652321537, windows: ami-02cfab95197c94b3a }
+    me-south-1 : { linuxamd64: ami-0f3f53f0bd6a1498d, linuxarm64: ami-08327dc6cf83308c6, windows: ami-0a99f70a14e158071 }
+    sa-east-1 : { linuxamd64: ami-0baa06de492d0fbcc, linuxarm64: ami-09f19d61690c9c7b9, windows: ami-08475292fbfdb412e }
 
 Resources:
   Vpc:
@@ -1168,6 +1551,8 @@ Resources:
     Condition: CreateVpcResources
     Properties:
       CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
       InstanceTenancy: default
       Tags:
         - Key: Name
@@ -1269,6 +1654,129 @@ Resources:
       Subnet1RouteCheck: !If [ CreateVpcResources, !Ref Subnet1Routes, !Ref "AWS::NoValue" ]
       RouteDefaultCheck: !If [ CreateVpcResources, !Ref RouteDefault, !Ref "AWS::NoValue" ]
 
+  VpcEndpointsSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Condition: EnableVpcEndpoints
+    Properties:
+      GroupDescription: Security group for VPC endpoints
+      VpcId: !Ref Vpc
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: !GetAtt Vpc.CidrBlock
+      Tags:
+        - Key: Name
+          Value: !Sub '${AWS::StackName}-vpc-endpoints'
+
+  S3GatewayEndpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Condition: EnableVpcEndpoints
+    Properties:
+      VpcEndpointType: Gateway
+      VpcId: !Ref Vpc
+      ServiceName: !Sub 'com.amazonaws.${AWS::Region}.s3'
+      RouteTableIds:
+        - !Ref Routes
+
+  EcrApiEndpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Condition: EnableVpcEndpoints
+    Properties:
+      VpcEndpointType: Interface
+      VpcId: !Ref Vpc
+      ServiceName: !Sub 'com.amazonaws.${AWS::Region}.ecr.api'
+      SubnetIds:
+        - !Ref Subnet0
+        - !Ref Subnet1
+      SecurityGroupIds:
+        - !Ref VpcEndpointsSecurityGroup
+      PrivateDnsEnabled: true
+
+  EcrDkrEndpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Condition: EnableVpcEndpoints
+    Properties:
+      VpcEndpointType: Interface
+      VpcId: !Ref Vpc
+      ServiceName: !Sub 'com.amazonaws.${AWS::Region}.ecr.dkr'
+      SubnetIds:
+        - !Ref Subnet0
+        - !Ref Subnet1
+      SecurityGroupIds:
+        - !Ref VpcEndpointsSecurityGroup
+      PrivateDnsEnabled: true
+
+  SsmEndpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Condition: EnableVpcEndpoints
+    Properties:
+      VpcEndpointType: Interface
+      VpcId: !Ref Vpc
+      ServiceName: !Sub 'com.amazonaws.${AWS::Region}.ssm'
+      SubnetIds:
+        - !Ref Subnet0
+        - !Ref Subnet1
+      SecurityGroupIds:
+        - !Ref VpcEndpointsSecurityGroup
+      PrivateDnsEnabled: true
+
+  SsmMessagesEndpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Condition: EnableVpcEndpoints
+    Properties:
+      VpcEndpointType: Interface
+      VpcId: !Ref Vpc
+      ServiceName: !Sub 'com.amazonaws.${AWS::Region}.ssmmessages'
+      SubnetIds:
+        - !Ref Subnet0
+        - !Ref Subnet1
+      SecurityGroupIds:
+        - !Ref VpcEndpointsSecurityGroup
+      PrivateDnsEnabled: true
+
+  Ec2MessagesEndpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Condition: EnableVpcEndpoints
+    Properties:
+      VpcEndpointType: Interface
+      VpcId: !Ref Vpc
+      ServiceName: !Sub 'com.amazonaws.${AWS::Region}.ec2messages'
+      SubnetIds:
+        - !Ref Subnet0
+        - !Ref Subnet1
+      SecurityGroupIds:
+        - !Ref VpcEndpointsSecurityGroup
+      PrivateDnsEnabled: true
+
+  SecretsManagerEndpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Condition: EnableVpcEndpoints
+    Properties:
+      VpcEndpointType: Interface
+      VpcId: !Ref Vpc
+      ServiceName: !Sub 'com.amazonaws.${AWS::Region}.secretsmanager'
+      SubnetIds:
+        - !Ref Subnet0
+        - !Ref Subnet1
+      SecurityGroupIds:
+        - !Ref VpcEndpointsSecurityGroup
+      PrivateDnsEnabled: true
+
+  KmsEndpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Condition: EnableVpcEndpoints
+    Properties:
+      VpcEndpointType: Interface
+      VpcId: !Ref Vpc
+      ServiceName: !Sub 'com.amazonaws.${AWS::Region}.kms'
+      SubnetIds:
+        - !Ref Subnet0
+        - !Ref Subnet1
+      SecurityGroupIds:
+        - !Ref VpcEndpointsSecurityGroup
+      PrivateDnsEnabled: true
+
   BuildkiteAgentTokenParameter:
     Type: AWS::SSM::Parameter
     Condition: CreateAgentTokenParameter
@@ -1283,7 +1791,7 @@ Resources:
     UpdateReplacePolicy: Retain
     DeletionPolicy: Retain
     Properties:
-      Description: Key used to sign and verify pipelines
+      Description: Key used to sign and verify pipelines.
       KeySpec: !Ref PipelineSigningKMSKeySpec
       KeyUsage: SIGN_VERIFY
       Tags:
@@ -1295,10 +1803,45 @@ Resources:
     Type: AWS::IAM::InstanceProfile
     Properties:
       Path: /
-      Roles: [ !Ref IAMRole ]
+      Roles:
+        - !If
+          - UseCustomIAMRole
+          - !If
+            - HasCustomRolePath
+            - !If
+              - RolePathIndex11Empty
+              - !If
+                - RolePathIndex10Empty
+                - !If
+                  - RolePathIndex9Empty
+                  - !If
+                    - RolePathIndex8Empty
+                    - !If
+                      - RolePathIndex7Empty
+                      - !If
+                        - RolePathIndex6Empty
+                        - !If
+                          - RolePathIndex5Empty
+                          - !If
+                            - RolePathIndex4Empty
+                            - !If
+                              - RolePathIndex3Empty
+                              - !Select [ 2, !Split [ "/", !Ref InstanceRoleARN ] ]
+                              - !Select [ 3, !Split [ "/", !Ref InstanceRoleARN ] ]
+                            - !Select [ 4, !Split [ "/", !Ref InstanceRoleARN ] ]
+                          - !Select [ 5, !Split [ "/", !Ref InstanceRoleARN ] ]
+                        - !Select [ 6, !Split [ "/", !Ref InstanceRoleARN ] ]
+                      - !Select [ 7, !Split [ "/", !Ref InstanceRoleARN ] ]
+                    - !Select [ 8, !Split [ "/", !Ref InstanceRoleARN ] ]
+                  - !Select [ 9, !Split [ "/", !Ref InstanceRoleARN ] ]
+                - !Select [ 10, !Split [ "/", !Ref InstanceRoleARN ] ]
+              - !Select [ 11, !Split [ "/", !Ref InstanceRoleARN ] ]
+            - !Select [ 1, !Split [ "/", !Ref InstanceRoleARN ] ]
+          - !Ref IAMRole
 
   IAMRole:
     Type: AWS::IAM::Role
+    Condition: CreateIAMRole
     Properties:
       RoleName: !If [ SetInstanceRoleName, !Ref InstanceRoleName, !Sub "${AWS::StackName}-Role" ]
       PermissionsBoundary: !If [ SetInstanceRolePermissionsBoundaryARN, !Ref InstanceRolePermissionsBoundaryARN, !Ref "AWS::NoValue" ]
@@ -1380,9 +1923,12 @@ Resources:
               - Effect: Allow
                 Action: ssm:GetParameter
                 Resource:
-                  !Sub
-                    - arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter${ParameterPath}
-                    - ParameterPath: !If [ UseCustomerManagedParameterPath, !Ref BuildkiteAgentTokenParameterStorePath, !Ref BuildkiteAgentTokenParameter ]
+                  !If
+                    - IsParameterStorePathARN
+                    - !Ref BuildkiteAgentTokenParameterStorePath
+                    - !Sub
+                        - arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter${ParameterPath}
+                        - ParameterPath: !If [ UseCustomerManagedParameterPath, !Ref BuildkiteAgentTokenParameterStorePath, !Ref BuildkiteAgentTokenParameter ]
       AssumeRolePolicyDocument:
         Statement:
           - Effect: Allow
@@ -1421,6 +1967,7 @@ Resources:
 
   IAMPolicies:
     Type: AWS::IAM::Policy
+    Condition: CreateIAMRole
     Properties:
       PolicyName: InstancePolicy
       PolicyDocument:
@@ -1671,6 +2218,10 @@ Resources:
                 Encrypted: !Ref RootVolumeEncrypted
                 Throughput: !If [ IsRootVolumeIsGp3, !Ref RootVolumeThroughput, !Ref "AWS::NoValue" ]
                 Iops: !If [ IsRootVolumeIsIo1OrIo2OrGp3, !Ref RootVolumeIops, !Ref "AWS::NoValue" ]
+          CreditSpecification: !If
+            - UsingBurstableInstances
+            - CpuCredits: !Ref CpuCredits
+            - !Ref "AWS::NoValue"
           TagSpecifications:
             - ResourceType: instance
               Tags:
@@ -1711,10 +2262,12 @@ Resources:
                   powershell -file C:\buildkite-agent\bin\bk-configure-docker.ps1 >> C:\buildkite-agent\elastic-stack.log
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v6.41.1"
+                  $Env:BUILDKITE_STACK_VERSION="v6.48.0"
+                  $Env:BUILDKITE_STACK_DEPLOYED_BY="cloudformation"
                   $Env:BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}"
                   $Env:BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}"
                   $Env:BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}"
+                  $Env:BUILDKITE_SECRETS_PLUGIN_SKIP_SSH_KEY_NOT_FOUND_WARNING="${SecretsPluginSkipSSHKeyNotFoundWarning}"
                   $Env:BUILDKITE_ARTIFACTS_BUCKET="${ArtifactsBucket}"
                   $Env:BUILDKITE_S3_DEFAULT_REGION="${LocalArtifactsBucketRegion}"
                   $Env:BUILDKITE_S3_ACL="${ArtifactsS3ACL}"
@@ -1725,22 +2278,28 @@ Resources:
                   $Env:BUILDKITE_AGENT_TIMESTAMP_LINES="${BuildkiteAgentTimestampLines}"
                   $Env:BUILDKITE_AGENT_EXPERIMENTS="${BuildkiteAgentExperiments}"
                   $Env:BUILDKITE_AGENT_TRACING_BACKEND="${BuildkiteAgentTracingBackend}"
+                  $Env:BUILDKITE_AGENT_SIGNING_KEY_PATH="${BuildkiteAgentSigningKeySSMParameter}"
+                  $Env:BUILDKITE_AGENT_SIGNING_KEY_ID="${BuildkiteAgentSigningKeyID}"
+                  $Env:BUILDKITE_AGENT_VERIFICATION_KEY_PATH="${BuildkiteAgentVerificationKeySSMParameter}"
                   $Env:BUILDKITE_AGENT_RELEASE="${BuildkiteAgentRelease}"
                   $Env:BUILDKITE_QUEUE="${BuildkiteQueue}"
                   $Env:BUILDKITE_AGENT_ENABLE_GIT_MIRRORS="${BuildkiteAgentEnableGitMirrors}"
                   $Env:BUILDKITE_ELASTIC_BOOTSTRAP_SCRIPT="${BootstrapScriptUrl}"
                   $Env:BUILDKITE_AGENT_SIGNING_KMS_KEY="${PipelineSigningKMSKey}"
-                  $Env:BUILDKITE_AGENT_SIGNING_FAILURE_BEHAVIOR="${PipelineSigningVerificationFailureBehavior}"
+                  $Env:BUILDKITE_AGENT_JOB_VERIFICATION_NO_SIGNATURE_BEHAVIOR="${PipelineSigningVerificationFailureBehavior}"
                   $Env:BUILDKITE_ENV_FILE_URL="${AgentEnvFileUrl}"
                   $Env:BUILDKITE_AUTHORIZED_USERS_URL="${AuthorizedUsersUrl}"
                   $Env:BUILDKITE_ECR_POLICY="${ECRAccessPolicy}"
                   $Env:BUILDKITE_TERMINATE_INSTANCE_AFTER_JOB="${BuildkiteTerminateInstanceAfterJob}"
                   $Env:BUILDKITE_AGENT_DISCONNECT_AFTER_UPTIME="${BuildkiteAgentDisconnectAfterUptime}"
+                  $Env:BUILDKITE_TERMINATE_INSTANCE_ON_DISK_FULL="${BuildkiteTerminateInstanceOnDiskFull}"
+                  $Env:BUILDKITE_PURGE_BUILDS_ON_DISK_FULL="${BuildkitePurgeBuildsOnDiskFull}"
                   $Env:BUILDKITE_ADDITIONAL_SUDO_PERMISSIONS="${BuildkiteAdditionalSudoPermissions}"
                   $Env:BUILDKITE_WINDOWS_ADMINISTRATOR="${BuildkiteWindowsAdministrator}"
                   $Env:AWS_DEFAULT_REGION="${AWS::Region}"
                   $Env:SECRETS_PLUGIN_ENABLED="${EnableSecretsPlugin}"
                   $Env:ECR_PLUGIN_ENABLED="${EnableECRPlugin}"
+                  $Env:ECR_CREDENTIAL_HELPER_ENABLED="${EnableECRCredentialHelper}"
                   $Env:DOCKER_LOGIN_PLUGIN_ENABLED="${EnableDockerLoginPlugin}"
                   $Env:AWS_REGION="${AWS::Region}"
                   $Env:ENABLE_EC2_LOG_RETENTION_POLICY="${EnableEC2LogRetentionPolicy}"
@@ -1794,16 +2353,20 @@ Resources:
                   DOCKER_IPV4_ADDRESS_POOL_1=${DockerIPv4AddressPool1} \
                   DOCKER_IPV4_ADDRESS_POOL_2=${DockerIPv4AddressPool2} \
                   DOCKER_IPV6_ADDRESS_POOL=${DockerIPv6AddressPool} \
+                  DOCKER_FIXED_CIDR_V4="${DockerFixedCidrV4}" \
+                  DOCKER_FIXED_CIDR_V6="${DockerFixedCidrV6}" \
                   BUILDKITE_ENABLE_INSTANCE_STORAGE="${EnableInstanceStorage}" \
                     /usr/local/bin/bk-configure-docker.sh
                   --==BOUNDARY==
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v6.41.1" \
+                  BUILDKITE_STACK_VERSION="v6.48.0" \
+                  BUILDKITE_STACK_DEPLOYED_BY="cloudformation" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
                   BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}" \
+                  BUILDKITE_SECRETS_PLUGIN_SKIP_SSH_KEY_NOT_FOUND_WARNING="${SecretsPluginSkipSSHKeyNotFoundWarning}" \
                   BUILDKITE_ARTIFACTS_BUCKET="${ArtifactsBucket}" \
                   BUILDKITE_S3_DEFAULT_REGION="${LocalArtifactsBucketRegion}" \
                   BUILDKITE_S3_ACL="${ArtifactsS3ACL}" \
@@ -1814,11 +2377,14 @@ Resources:
                   BUILDKITE_AGENT_TIMESTAMP_LINES="${BuildkiteAgentTimestampLines}" \
                   BUILDKITE_AGENT_EXPERIMENTS="${BuildkiteAgentExperiments}" \
                   BUILDKITE_AGENT_TRACING_BACKEND="${BuildkiteAgentTracingBackend}" \
+                  BUILDKITE_AGENT_SIGNING_KEY_PATH="${BuildkiteAgentSigningKeySSMParameter}" \
+                  BUILDKITE_AGENT_SIGNING_KEY_ID="${BuildkiteAgentSigningKeyID}" \
+                  BUILDKITE_AGENT_VERIFICATION_KEY_PATH="${BuildkiteAgentVerificationKeySSMParameter}" \
                   BUILDKITE_AGENT_RELEASE="${BuildkiteAgentRelease}" \
                   BUILDKITE_AGENT_CANCEL_GRACE_PERIOD="${BuildkiteAgentCancelGracePeriod}" \
                   BUILDKITE_AGENT_SIGNAL_GRACE_PERIOD_SECONDS="${BuildkiteAgentSignalGracePeriod}" \
                   BUILDKITE_AGENT_SIGNING_KMS_KEY="${PipelineSigningKMSKey}" \
-                  BUILDKITE_AGENT_SIGNING_FAILURE_BEHAVIOR="${PipelineSigningVerificationFailureBehavior}" \
+                  BUILDKITE_AGENT_JOB_VERIFICATION_NO_SIGNATURE_BEHAVIOR="${PipelineSigningVerificationFailureBehavior}" \
                   BUILDKITE_QUEUE="${BuildkiteQueue}" \
                   BUILDKITE_AGENT_ENABLE_GIT_MIRRORS="${BuildkiteAgentEnableGitMirrors}" \
                   BUILDKITE_ELASTIC_BOOTSTRAP_SCRIPT="${BootstrapScriptUrl}" \
@@ -1834,6 +2400,7 @@ Resources:
                   AWS_DEFAULT_REGION="${AWS::Region}" \
                   SECRETS_PLUGIN_ENABLED="${EnableSecretsPlugin}" \
                   ECR_PLUGIN_ENABLED="${EnableECRPlugin}" \
+                  ECR_CREDENTIAL_HELPER_ENABLED="${EnableECRCredentialHelper}" \
                   DOCKER_LOGIN_PLUGIN_ENABLED="${EnableDockerLoginPlugin}" \
                   DOCKER_EXPERIMENTAL="${EnableDockerExperimental}" \
                   DOCKER_USERNS_REMAP=${EnableDockerUserNamespaceRemap} \
@@ -1876,7 +2443,6 @@ Resources:
   AgentAutoScaleGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     DependsOn:
-      - IAMPolicies
       - VpcComplete
     Properties:
       VPCZoneIdentifier: !If [ "CreateVpcResources", [ !Ref Subnet0, !Ref Subnet1 ], !Ref Subnets ]
@@ -2003,7 +2569,7 @@ Resources:
       TerminationPolicies:
         - OldestLaunchConfiguration
         - ClosestToNextInstanceHour
-      NewInstancesProtectedFromScaleIn: true
+      NewInstancesProtectedFromScaleIn: !Ref InstanceScaleInProtection
     CreationPolicy:
       ResourceSignal:
         Timeout: !If [ UseDefaultInstanceCreationTimeout, !If [ UseWindowsAgents, PT10M, PT5M ], !Ref InstanceCreationTimeout ]
@@ -2011,6 +2577,26 @@ Resources:
     UpdatePolicy:
       AutoScalingReplacingUpdate:
         WillReplace: true
+
+  ScheduledScaleUpAction:
+    Condition: EnableScheduledScaling
+    Type: AWS::AutoScaling::ScheduledAction
+    Properties:
+      AutoScalingGroupName: !Ref AgentAutoScaleGroup
+      ScheduledActionName: !Sub "${AWS::StackName}-ScaleUp"
+      Recurrence: !Ref ScaleUpSchedule
+      MinSize: !Ref ScaleUpMinSize
+      TimeZone: !Ref ScheduleTimezone
+
+  ScheduledScaleDownAction:
+    Condition: EnableScheduledScaling
+    Type: AWS::AutoScaling::ScheduledAction
+    Properties:
+      AutoScalingGroupName: !Ref AgentAutoScaleGroup
+      ScheduledActionName: !Sub "${AWS::StackName}-ScaleDown"
+      Recurrence: !Ref ScaleDownSchedule
+      MinSize: !Ref ScaleDownMinSize
+      TimeZone: !Ref ScheduleTimezone
 
   AsgProcessSuspenderRole:
     Type: AWS::IAM::Role
@@ -2040,7 +2626,7 @@ Resources:
   AzRebalancingSuspenderFunction:
     Type: AWS::Lambda::Function
     Properties:
-      Description: 'Disables AZ Rebalancing on the agent ASG'
+      Description: Disables AZ Rebalancing on the agent ASG.
       Code:
         ZipFile: |
           import cfnresponse
@@ -2060,6 +2646,8 @@ Resources:
       Handler: index.handler
       Role: !GetAtt AsgProcessSuspenderRole.Arn
       Runtime: 'python3.13'
+      Architectures:
+        - !Ref LambdaArchitecture
 
   AzRebalancingSuspender:
     Type: AWS::CloudFormation::CustomResource
@@ -2132,7 +2720,7 @@ Resources:
     Type: AWS::Lambda::Function
     Condition: EnableBuildkiteAgentGracefulShutdown
     Properties:
-      Description: "Gracefully stops all Buildkite agents in a given Auto Scaling group."
+      Description: Gracefully stops all Buildkite agents in a given Auto Scaling group.
       Code:
         ZipFile: |
           import boto3
@@ -2199,7 +2787,9 @@ Resources:
               logger.info(f"SSM command response: {response}")
       Handler: index.handler
       Role: !GetAtt StopBuildkiteAgentsRole.Arn
-      Runtime: "python3.12"
+      Runtime: "python3.13"
+      Architectures:
+        - !Ref LambdaArchitecture
 
   StopBuildkiteAgents:
     Type: AWS::CloudFormation::CustomResource
@@ -2229,12 +2819,21 @@ Resources:
       ToPort: 22
       CidrIp: 0.0.0.0/0
 
+  # Note: Autoscaling and AutoscalingArm64 resources are identical except for the
+  # ApplicationId mapping key. This duplication is required because SAM Transform
+  # only supports !Ref and !FindInMap in ApplicationId (no nested !If). Both resources
+  # use LambdaArchitecture parameter via conditions to determine which is created.
+  # IMPORTANT: Keep Parameters in sync between both resources!
+
   Autoscaling:
     Type: AWS::Serverless::Application
-    Condition: HasVariableSize
+    Condition: HasVariableSizeAndX8664
     Properties:
       Location:
-        ApplicationId: !Ref BuildkiteAgentScalerServerlessARN
+        ApplicationId: !FindInMap
+          - AgentScalerARN
+          - "x86-64"
+          - ARN
         SemanticVersion: !Ref BuildkiteAgentScalerVersion
       Parameters:
         BuildkiteAgentTokenParameter: !If [ UseCustomerManagedParameterPath, !Ref BuildkiteAgentTokenParameterStorePath, !Ref BuildkiteAgentTokenParameter ]
@@ -2255,3 +2854,35 @@ Resources:
         MinPollInterval: !Ref ScalerMinPollInterval
         LogRetentionDays: !Ref LogRetentionDays
         EnableElasticCIMode: !Ref ScalerEnableExperimentalElasticCIMode
+        DisableScaleIn: !Ref DisableScaleIn
+
+  AutoscalingArm64:
+    Type: AWS::Serverless::Application
+    Condition: HasVariableSizeAndArm64
+    Properties:
+      Location:
+        ApplicationId: !FindInMap
+          - AgentScalerARN
+          - "arm64"
+          - ARN
+        SemanticVersion: !Ref BuildkiteAgentScalerVersion
+      Parameters:
+        BuildkiteAgentTokenParameter: !If [ UseCustomerManagedParameterPath, !Ref BuildkiteAgentTokenParameterStorePath, !Ref BuildkiteAgentTokenParameter ]
+        BuildkiteAgentTokenParameterStoreKMSKey: !If [ UseCustomerManagedKeyForParameterStore, !Ref BuildkiteAgentTokenParameterStoreKMSKey, "" ]
+        RolePermissionsBoundaryARN: !If [ SetInstanceRolePermissionsBoundaryARN, !Ref InstanceRolePermissionsBoundaryARN, "" ]
+        AgentEndpoint: !Ref AgentEndpoint
+        BuildkiteQueue: !Ref BuildkiteQueue
+        AgentsPerInstance: !Ref AgentsPerInstance
+        MinSize: !Ref MinSize
+        MaxSize: !Ref MaxSize
+        InstanceBuffer: !Ref InstanceBuffer
+        AgentAutoScaleGroup: !Ref AgentAutoScaleGroup
+        ScaleOutFactor: !Ref ScaleOutFactor
+        ScaleOutForWaitingJobs: !Ref ScaleOutForWaitingJobs
+        ScaleInCooldownPeriod: !Ref ScaleInCooldownPeriod
+        ScaleOutCooldownPeriod: !Ref ScaleOutCooldownPeriod
+        EventSchedulePeriod: !Ref ScalerEventSchedulePeriod
+        MinPollInterval: !Ref ScalerMinPollInterval
+        LogRetentionDays: !Ref LogRetentionDays
+        EnableElasticCIMode: !Ref ScalerEnableExperimentalElasticCIMode
+        DisableScaleIn: !Ref DisableScaleIn
