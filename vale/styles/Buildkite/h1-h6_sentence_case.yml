@@ -233,6 +233,7 @@ exceptions:
   - SSH
   - SSO
   - Tahoe
+  - TCP
   - Tekton
   - Test Engine
   - Test Engine Client

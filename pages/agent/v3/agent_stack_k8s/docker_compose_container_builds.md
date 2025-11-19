@@ -4,7 +4,7 @@ toc_include_h3: false
 
 # Docker Compose builds
 
-The [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) helps you build and run multi-container Docker applications. This guide shows how to build and push container images using the Docker Compose plugin on agents that are auto-scaled by the Buildkite Agent Stack for Kubernetes.
+The [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) helps you build and run multi-container Docker applications. Build and push container images using the Docker Compose plugin on agents that are auto-scaled by the Buildkite Agent Stack for Kubernetes.
 
 ## Special considerations with Agent Stack for Kubernetes
 
@@ -18,37 +18,31 @@ The Docker Compose plugin requires access to a Docker daemon and you can choose 
 
 Mount `/var/run/docker.sock` from the host into your pod. This is the simpler approach, but the host's Docker daemon is shared with all pods that mount it.
 
-- Best practices: Only use this approach with trusted repositories, run your agents on dedicated nodes, and scope access according to your Kubernetes security policies.
-- Trade-offs: Since all pods share the same Docker daemon, there's no resource isolation between them. If one pod's build exhausts or corrupts the daemon, every other pod is impacted. You're also limited to a single daemon configuration across all pods.
-- Security concerns: This approach grants containers near-root-level access to the host, meaning any process with socket access can control the host Docker daemon. This poses container breakout risks if you're running untrusted workloads.
+Only use this approach with trusted repositories, run your agents on dedicated nodes, and scope access according to your Kubernetes security policies.
+
+Since all pods share the same Docker daemon, there's no resource isolation between them. If one pod's build exhausts or corrupts the daemon, every other pod is impacted. You're also limited to a single daemon configuration across all pods.
+
+This approach grants containers near-root-level access to the host, meaning any process with socket access can control the host Docker daemon. This poses container breakout risks if running untrusted workloads.
 
 #### Docker-in-Docker (DinD)
 
 Run a Docker daemon inside your pod using a DinD sidecar container. This provides better isolation but requires `privileged: true` or specific security capabilities. DinD can add complexity and resource overhead but it avoids sharing the host daemon.
 
-Best practices:
+Use a dedicated sidecar container for each build. Only set `DOCKER_TLS_CERTDIR=""` to disable TLS if the network scope is local to the pod. Avoid exposing host ports to restrict network access. Set resource limits to prevent excess consumption.
 
-- Use a dedicated sidecar container for each build
-- Only set `DOCKER_TLS_CERTDIR=""` to disable TLS if the network scope is local to the pod
-- Avoid exposing host ports to restrict network access
-- Set resource limits to prevent excess consumption
+Running a separate Docker daemon in each pod slows down build performance and increases resource usage. Operations and debugging can be more complex since you need to configure and maintain multiple daemons. You will need to handle network configuration for daemon communication within each pod.
 
-Trade-offs:
+DinD requires `privileged` mode or elevated capabilities, which increases the kernel attack surface inside your pod. Misconfiguration can leave the Docker API exposed without proper authentication, creating a security risk.
 
-- Running a separate Docker daemon in each pod slows down build performance and increases resource usage
-- Operations and debugging can be more complex since you need to configure and maintain multiple daemons
-- You will need to handle network configuration for daemon communication within each pod
+### Using Docker-in-Docker with pod-spec-patch
 
-Security concerns:
+Use `pod-spec-patch` in the controller's configuration to add a DinD sidecar container for the Buildkite Agent Stack for Kubernetes. This approach provides better isolation and security compared to mounting the host Docker socket. The configuration uses Kubernetes native sidecars (available in Kubernetes 1.28+) by setting `restartPolicy: Always` on an initContainer, which starts before your build containers and continues running throughout the pod's lifecycle.
 
-- DinD requires `privileged` mode or elevated capabilities, which increases the kernel attack surface inside your pod
-- Misconfiguration can leave the Docker API exposed without proper authentication, creating a security risk
+You can configure the Docker daemon to be accessible using TCP socket or Unix socket, depending on your needs.
 
-### Using Docker-in-Docker with PodSpecPatch
+#### TCP socket configuration
 
-For the Buildkite Agent Stack for Kubernetes, use `pod-spec-patch` in the controller's configuration to add a DinD initContainer. This approach provides better isolation and security compared to mounting the host Docker socket. The DinD container starts before your build containers, ensuring the Docker daemon is ready when your build steps execute.
-
-Configure the DinD initContainer in your agent stack's values YAML file:
+Configure the DinD sidecar to listen on a TCP socket, which allows the build containers to connect over the network:
 
 ```yaml
 # values.yaml
@@ -57,11 +51,11 @@ config:
     initContainers:
       - name: docker-daemon
         image: docker:dind
+        restartPolicy: Always
         securityContext:
           privileged: true
         args:
           - "--host=tcp://127.0.0.1:2375"
-          - "--host=unix:///var/run/docker.sock"
         env:
           - name: DOCKER_TLS_CERTDIR
             value: ""
@@ -83,20 +77,69 @@ config:
 
 The `startupProbe` ensures the Docker daemon is listening on port `2375` before the build containers start. This prevents the build steps from attempting to connect to the Docker daemon before it's ready.
 
-Next, configure your pipeline steps to use the DinD container by setting the `DOCKER_HOST` environment variable:
+Configure your pipeline steps to connect using TCP by setting the `DOCKER_HOST` environment variable:
 
 ```yaml
 steps:
   - label: "\:docker\: Build with DinD"
     plugins:
-      - docker-compose#v5.12.0:
+      - docker-compose#v5.12.1:
           build: app
           push: app
     env:
       DOCKER_HOST: tcp://127.0.0.1:2375
 ```
 
-This configuration exposes the Docker daemon on 127.0.0.1:2375 without TLS for use by your build step. The TCP socket (`tcp://127.0.0.1:2375`) is unencrypted, which is fine for local communication inside a single pod, but must not be exposed externally. For TLS-enabled communication (commonly port 2376), provide certificates instead of disabling `DOCKER_TLS_CERTDIR`.
+This configuration exposes the Docker daemon on 127.0.0.1:2375 without TLS for use by your build step. The TCP socket (`tcp://127.0.0.1:2375`) is unencrypted, which is acceptable for local communication inside a single pod, but must not be exposed externally. For TLS-enabled communication (commonly port 2376), provide certificates instead of disabling `DOCKER_TLS_CERTDIR`.
+
+#### Unix socket configuration
+
+Alternatively, configure the DinD sidecar to use a Unix socket shared using a volume mount:
+
+```yaml
+# values.yaml
+config:
+  pod-spec-patch:
+    initContainers:
+      - name: docker-daemon
+        image: docker:dind
+        restartPolicy: Always
+        securityContext:
+          privileged: true
+        args:
+          - "--host=unix:///var/run/docker.sock"
+        env:
+          - name: DOCKER_TLS_CERTDIR
+            value: ""
+        volumeMounts:
+          - name: docker-storage
+            mountPath: /var/lib/docker
+          - name: docker-socket
+            mountPath: /var/run
+    volumeMounts:
+      - name: docker-socket
+        mountPath: /var/run
+    volumes:
+      - name: docker-storage
+        emptyDir: {}
+      - name: docker-socket
+        emptyDir: {}
+```
+
+Configure your pipeline steps to connect using the Unix socket. While `/var/run/docker.sock` is the default location and `DOCKER_HOST` is optional, setting it explicitly makes the configuration clearer:
+
+```yaml
+steps:
+  - label: "\:docker\: Build with DinD"
+    plugins:
+      - docker-compose#v5.12.1:
+          build: app
+          push: app
+    env:
+      DOCKER_HOST: unix:///var/run/docker.sock
+```
+
+The Unix socket approach provides better security since the socket is only accessible within the pod and doesn't expose any network ports. However, the TCP socket approach is simpler to configure and debug.
 
 ### Build context and volume mounts
 
@@ -142,7 +185,7 @@ steps:
           server: packages.buildkite.com/{org.slug}/{registry.slug}
           username: "${REGISTRY_USERNAME}"
           password-env: "REGISTRY_PASSWORD"
-      - docker-compose#v5.12.0:
+      - docker-compose#v5.12.1:
           build: app
           push:
             - app:packages.buildkite.com/{org.slug}/{registry.slug}/image-name:${BUILDKITE_BUILD_NUMBER}
@@ -156,7 +199,7 @@ Build services defined in your `docker-compose.yml` file:
 steps:
   - label: "Build with Docker Compose"
     plugins:
-      - docker-compose#v5.12.0:
+      - docker-compose#v5.12.1:
           build: app
           config: docker-compose.yml
 ```
@@ -182,7 +225,7 @@ steps:
     agents:
       queue: build
     plugins:
-      - docker-compose#v5.12.0:
+      - docker-compose#v5.12.1:
           build: app
           push: app
 ```
@@ -199,7 +242,7 @@ steps:
           server: your-registry.example.com
           username: "${REGISTRY_USERNAME}"
           password-env: "REGISTRY_PASSWORD"
-      - docker-compose#v5.12.0:
+      - docker-compose#v5.12.1:
           build: app
           push: app
 ```
@@ -211,13 +254,13 @@ Customize your Docker Compose builds by using the plugin's configuration options
 
 ### Using build arguments
 
-Pass build arguments to customize image builds at runtime. Build arguments let you parameterize Dockerfiles without directly embedding values in the file.
+Pass build arguments to customize image builds at runtime. Build arguments allow you to add parameters to Dockerfiles without directly embedding values in the file.
 
 ```yaml
 steps:
   - label: "\:docker\: Build with arguments"
     plugins:
-      - docker-compose#v5.12.0:
+      - docker-compose#v5.12.1:
           build: app
           args:
             - NODE_ENV=production
@@ -233,14 +276,14 @@ When your `docker-compose.yml` defines multiple services, build only the service
 steps:
   - label: "\:docker\: Build frontend only"
     plugins:
-      - docker-compose#v5.12.0:
+      - docker-compose#v5.12.1:
           build: frontend
           push: frontend
 ```
 
 ### Using BuildKit features with cache optimization
 
-Enable BuildKit to use advanced build features including build cache optimization. BuildKit's inline cache stores cache metadata in the image itself, enabling cache reuse across different build agents.
+BuildKit provides advanced build features including build cache optimization. BuildKit's inline cache stores cache metadata in the image itself, enabling cache reuse across different build agents.
 
 ```yaml
 steps:
@@ -250,7 +293,7 @@ steps:
           server: your-registry.example.com
           username: "${REGISTRY_USERNAME}"
           password-env: "REGISTRY_PASSWORD"
-      - docker-compose#v5.12.0:
+      - docker-compose#v5.12.1:
           build: app
           cache-from:
             - app:your-registry.example.com/app:cache
@@ -269,7 +312,7 @@ Combine multiple compose files to create layered configurations. This pattern wo
 steps:
   - label: "\:docker\: Build with compose file overlay"
     plugins:
-      - docker-compose#v5.12.0:
+      - docker-compose#v5.12.1:
           config:
             - docker-compose.yml
             - docker-compose.production.yml
@@ -285,7 +328,7 @@ Push the same image with multiple tags to support different deployment strategie
 steps:
   - label: "\:docker\: Push with multiple tags"
     plugins:
-      - docker-compose#v5.12.0:
+      - docker-compose#v5.12.1:
           build: app
           push:
             - app:your-registry.example.com/app:${BUILDKITE_BUILD_NUMBER}
@@ -296,13 +339,13 @@ steps:
 
 ### Using SSH agent for private repositories
 
-Enable SSH agent forwarding to access private Git repositories or packages during the build. This is essential when Dockerfiles need to clone private dependencies.
+Enable SSH agent forwarding to access private Git repositories or packages during the build. Use this when Dockerfiles need to clone private dependencies.
 
 ```yaml
 steps:
   - label: "\:docker\: Build with SSH access"
     plugins:
-      - docker-compose#v5.12.0:
+      - docker-compose#v5.12.1:
           build: app
           ssh: true
 ```
@@ -332,7 +375,7 @@ steps:
           login: true
           account-ids: "123456789012"
           region: us-west-2
-      - docker-compose#v5.12.0:
+      - docker-compose#v5.12.1:
           build: app
           push:
             - app:123456789012.dkr.ecr.us-west-2.amazonaws.com/app:${BUILDKITE_BUILD_NUMBER}
@@ -347,7 +390,7 @@ steps:
       - gcp-workload-identity-federation#v1.5.0:
           project-id: your-project
           service-account: your-service-account@your-project.iam.gserviceaccount.com
-      - docker-compose#v5.12.0:
+      - docker-compose#v5.12.1:
           build: app
           push:
             - app:us-central1-docker.pkg.dev/your-project/your-repository/app:${BUILDKITE_BUILD_NUMBER}
@@ -375,7 +418,7 @@ To enable build caching with BuildKit:
 
 ```yaml
 plugins:
-  - docker-compose#v5.12.0:
+  - docker-compose#v5.12.1:
       build: app
       cache-from:
         - app:your-registry.example.com/app:cache
@@ -396,7 +439,7 @@ To pass environment variables to the build, use build arguments:
 
 ```yaml
 plugins:
-  - docker-compose#v5.12.0:
+  - docker-compose#v5.12.1:
       build: app
       args:
         - API_URL=${API_URL}
@@ -425,7 +468,7 @@ plugins:
       server: your-registry.example.com
       username: "${REGISTRY_USERNAME}"
       password-env: "REGISTRY_PASSWORD"
-  - docker-compose#v5.12.0:
+  - docker-compose#v5.12.1:
       build: app
       push: app
 ```
@@ -438,7 +481,7 @@ plugins:
       login: true
       account-ids: "123456789012"
       region: us-west-2
-  - docker-compose#v5.12.0:
+  - docker-compose#v5.12.1:
       build: app
       push: app
 ```
@@ -450,7 +493,7 @@ plugins:
   - gcp-workload-identity-federation#v1.5.0:
       project-id: your-project
       service-account: your-service-account@your-project.iam.gserviceaccount.com
-  - docker-compose#v5.12.0:
+  - docker-compose#v5.12.1:
       build: app
       push: app
 ```
@@ -459,7 +502,7 @@ For timeout or network failures, enable push retries:
 
 ```yaml
 plugins:
-  - docker-compose#v5.12.0:
+  - docker-compose#v5.12.1:
       build: app
       push: app
       push-retries: 3
@@ -477,7 +520,7 @@ Use the `verbose` option to see detailed output from Docker Compose operations:
 steps:
   - label: "\:docker\: Debug build"
     plugins:
-      - docker-compose#v5.12.0:
+      - docker-compose#v5.12.1:
           build: app
           verbose: true
 ```
@@ -492,7 +535,7 @@ Disable caching to ensure builds run from scratch, which can reveal caching-rela
 steps:
   - label: "\:docker\: Build without cache"
     plugins:
-      - docker-compose#v5.12.0:
+      - docker-compose#v5.12.1:
           build: app
           no-cache: true
 ```
