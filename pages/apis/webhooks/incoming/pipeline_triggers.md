@@ -115,7 +115,7 @@ A successful trigger request returns a `201 Created` response with an identifier
 
 ## Webhook verification
 
-When [creating](#create-a-new-pipeline-trigger) or editing your Buildkite pipeline trigger based on either the **GitHub** or **Linear** [incoming webhook types](#supported-incoming-webhooks), you can optionally validate the authenticity of these webhook payloads. This mitigates the risk of unauthorized parties from tampering with webhook payloads from these services.
+When [creating](#create-a-new-pipeline-trigger) or editing your Buildkite pipeline trigger based on either the **GitHub** or **Linear** [incoming webhook types](#supported-incoming-webhooks), you can optionally validate the authenticity of these webhook payloads. This mitigates the risk of unauthorized parties tampering with webhook payloads from these services.
 
 If you want to validate the authenticity of these incoming webhook types, ensure you have configured their respective secret/token, which you'll need for your Buildkite pipeline trigger configuration.
 
