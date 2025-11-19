@@ -31,7 +31,7 @@ npm install @buildkite/buildkite-sdk
 The following code example demonstrates how to import the Buildkite SDK into a simple TypeScript script, which then generates a Buildkite Pipelines step for a simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step to either JSON or YAML format:
 
 ```typescript
-import { Pipeline } from "@buildkite/buildkite-sdk";
+const { Pipeline } = require("@buildkite/buildkite-sdk");
 
 const pipeline = new Pipeline();
 
