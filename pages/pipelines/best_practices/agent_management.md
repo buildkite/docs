@@ -59,7 +59,7 @@ Learn more in [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s).
 **Pros:**
 
 - Fully managed infrastructure with zero operational overhead
-- Built-in caching for [Git mirrors](/docs/agent/v3/git-mirrors) and containers, as well as attachable [Cache volumes](/docs/pipelines/hosted-agents/cache-volumes#container-cache) for temporary data storage
+- Built-in caching for [Git mirrors](/docs/agent/v3/git-mirrors) and containers, as well as attachable [Cache volumes](/docs/pipelines/hosted-agents/cache-volumes#container-cache-volumes) for temporary data storage
 - Isolated clusters that provide strong security boundaries
 - Per-minute billing with automatic scaling for bursty workloads
 - Ideal for highly parallel test suites
