@@ -1,8 +1,8 @@
 # User, team, and pipeline permissions
 
-Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage registry permissions using the [_teams_ feature](#manage-teams-and-permissions). This feature allows you to apply access permissions and functionality controls for one or more groups of users (that is, _teams_) on each pipeline throughout your organization.
+The [_teams_ feature](#manage-teams-and-permissions) allows you to apply access permissions and functionality controls for one or more groups of users (that is, _teams_) on each pipeline throughout your organization.
 
-Enterprise customers can configure pipeline permissions for all users across their Buildkite organization through the **Security** page. Learn more about this feature in [Manage organization security for pipelines](#manage-organization-security-for-pipelines).
+Enterprise plan customers can configure pipeline permissions for all users across their Buildkite organization through the **Security** page. Learn more about this feature in [Manage organization security for pipelines](#manage-organization-security-for-pipelines).
 
 ## Manage teams and permissions
 
@@ -64,7 +64,7 @@ Another user with **Full Access** to this pipeline or a [Buildkite organization 
 
 ## Manage organization security for pipelines
 
-Enterprise customers can configure pipeline action permissions and related security features for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
+Enterprise plan customers can configure pipeline action permissions and related security features for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
 
 These user-level permissions and security features are managed by _Buildkite organization administrators_. To access this feature:
 

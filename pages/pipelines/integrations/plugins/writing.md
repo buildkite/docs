@@ -111,7 +111,7 @@ If your plugin has a Buildkite pipeline, you can add a step to lint it using the
 ```yml
   - label: ":shell: Lint"
     plugins:
-      plugin-linter#v3.0.0:
+      plugin-linter#v3.3.0:
         id: a-gihub-user/file-counter
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}

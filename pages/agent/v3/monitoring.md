@@ -1,7 +1,7 @@
 # Monitoring and observing the Buildkite Agent
 
 By default, the agent is only observable either through Buildkite or
- through log output on the host:
+through log output on the host:
 
 - **Job logs:** Relate to the jobs the agent runs. These are uploaded to
   Buildkite and shown for each step in a build.
@@ -9,7 +9,7 @@ By default, the agent is only observable either through Buildkite or
   uploaded or saved (except where the output from the agent is read or
   redirected by another process, such as [systemd] or [launchd]).
 
-## Health checking and status page
+## Health checking, metrics, and status page
 
 The agent can optionally run an HTTP service that describes the agent's state.
 The service is suitable for both automated health checks and human inspection.
@@ -42,6 +42,9 @@ The URL paths available from the health checking service are as follows:
   and the number of workers is set with the `--spawn` flag. If the previous
   heartbeat for this worker failed, it returns HTTP status 500 and a description
   of the failure. Otherwise, it returns HTTP status 200.
+- **`/metrics`**: (Added in Buildkite Agent version 3.113.0)
+  [Prometheus plain-text metrics](https://prometheus.io/docs/instrumenting/exposition_formats/)
+  describing agent behaviour over time.
 - **`/status`**: A human-friendly page detailing various systems inside the
   agent. To aid debugging, this page does _not_ automatically refresh—it shows
   the status of each internal component of the agent at a particular moment in
@@ -50,6 +53,76 @@ The URL paths available from the health checking service are as follows:
 The following shows the `/status` page for an agent:
 
 <%= image 'status-page.png', size: '600x437', alt: 'Agent internal status page' %>
+
+### Prometheus metrics reference
+
+Prometheus metrics were added to the health-checking service in Buildkite Agent version 3.113.0.
+
+Metric | Type | Description
+--- | --- | ---
+`buildkite_agent_jobs_ended_total` | Counter | Count of jobs that ended in any way for any reason
+`buildkite_agent_jobs_started_total` | Counter | Count of jobs started
+`buildkite_agent_logs_bytes_uploaded_total` | Counter | Count of log bytes uploaded
+`buildkite_agent_logs_bytes_uploads_errored_total` | Counter | Count of log bytes that were not uploaded due to an error
+`buildkite_agent_logs_chunk_uploads_errored_total` | Counter | Count of log chunks that were not uploaded due to an error
+`buildkite_agent_logs_chunks_uploaded_total` | Counter | Count of log chunks uploaded
+`buildkite_agent_logs_upload_duration_seconds_total` | Histogram | Time taken to upload log chunks
+`buildkite_agent_pings_actions_total` | Counter | Count of actions taken following a ping, by `action`
+`buildkite_agent_pings_duration_seconds_total` | Histogram | Time taken to ping (the API call, not including the subsequent action)
+`buildkite_agent_pings_errors_total` | Counter | Count of pings that failed due to an error
+`buildkite_agent_pings_sent_total` | Counter | Count of pings sent
+`buildkite_agent_pings_wait_duration_seconds_total` | Histogram | Time spent waiting prior to each ping (ping interval plus jitter)
+`buildkite_agent_workers_ended_total` | Counter | Count of agent workers (i.e. `--spawn` flag) that have stopped running
+`buildkite_agent_workers_started_total` | Counter | Count of agent workers (i.e. `--spawn` flag) that have started running
+
+A count of currently-running agent workers can be found by subtracting `ended_total` from `started_total`:
+
+```promql
+sum(buildkite_agent_workers_started_total - buildkite_agent_workers_ended_total)
+```
+
+Similarly, a count of currently-running jobs using the same method:
+
+```promql
+sum(buildkite_agent_jobs_started_total - buildkite_agent_jobs_ended_total)
+```
+
+As all counter and histogram metrics are cumulative, information such as job or log throughput can be found using functions such as `rate`:
+
+```promql
+# Throughput of jobs started over 5m interval
+sum(rate(buildkite_agent_jobs_started_total[5m]))
+
+# Throughput of log bytes uploaded over 5m interval
+sum(rate(buildkite_agent_logs_bytes_uploaded_total[5m]))
+```
+
+## Datadog metrics
+
+The Buildkite Agent supports sending metrics to Datadog via DogStatsD for monitoring and observability.
+
+To enable Datadog metrics, start the agent with the `--metrics-datadog` option or set `metrics-datadog=true` in the agent's configuration file.
+
+```shell
+buildkite-agent start --metrics-datadog
+```
+
+Additional configuration options:
+
+Option                              | Description
+----------------------------------- | -----------
+`--metrics-datadog-host`           | The DogStatsD instance to send metrics to using UDP.<br>_Environment variable:_ `BUILDKITE_METRICS_DATADOG_HOST`<br>_Default:_ `127.0.0.1:8125`
+`--metrics-datadog-distributions`  | Use [Datadog Distributions](https://docs.datadoghq.com/metrics/types/?tab=distribution#metric-types) for timing metrics. This is recommended when running multiple agents to prevent metrics from multiple agents from being rolled up and appearing to have the same value.<br>_Environment variable:_ `BUILDKITE_METRICS_DATADOG_DISTRIBUTIONS`<br>_Default:_ `false`
+{: class="responsive-table"}
+
+Once enabled, the agent will generate the following metrics (duration measured in milliseconds):
+
+- `buildkite.jobs.success`
+- `buildkite.jobs.duration.success.avg`
+- `buildkite.jobs.duration.success.max`
+- `buildkite.jobs.duration.success.count`
+- `buildkite.jobs.duration.success.median`
+- `buildkite.jobs.duration.success.95percentile`
 
 ## Tracing
 

@@ -28,8 +28,8 @@ However you add steps to your pipeline, keep in mind that steps may run on diffe
 
 If you're using [YAML steps](/docs/pipelines/tutorials/pipeline-upgrade), you can set defaults which will be applied to every command step in a pipeline unless they are overridden by the step itself. You can set default agent properties and default environment variables:
 
-* `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
-* `env` - A map of <a href="/docs/pipelines/configure/environment-variables">environment variables</a> to apply to all steps
+- `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
+- `env` - A map of <a href="/docs/pipelines/configure/environment-variables">environment variables</a> to apply to all steps
 
 > 📘 Environment variable precedence
 > Because you can set environment variables in many different places, be sure to check [environment variable precedence](/docs/pipelines/configure/environment-variables#environment-variable-precedence) to ensure your environment variables work as expected.
@@ -73,8 +73,9 @@ When you eventually run a build from this pipeline, this step will look for a di
 
 > 📘
 > When using WSL2 or PowerShell Core, you cannot add a `buildkite-agent pipeline upload` command step directly in the YAML steps editor. To work around this, there are two options:
-* Use the YAML steps editor alone
-* Place the `buildkite-agent pipeline upload` command in a script file. In the YAML steps editor, add a command to run that script file. It will upload your pipeline.
+>
+> - Use the YAML steps editor alone
+> - Place the `buildkite-agent pipeline upload` command in a script file. In the YAML steps editor, add a command to run that script file. It will upload your pipeline.
 
 Create your `pipeline.yml` file in a `.buildkite` directory in your repo.
 
@@ -95,12 +96,12 @@ With the above example code in a `pipeline.yml` file, commit and push the file u
 
 For more example steps and detailed configuration options, see the example `pipeline.yml` below, or the step type specific documentation:
 
-* [command steps](/docs/pipelines/configure/step-types/command-step)
-* [wait steps](/docs/pipelines/configure/step-types/wait-step)
-* [block steps](/docs/pipelines/configure/step-types/block-step)
-* [input steps](/docs/pipelines/configure/step-types/input-step)
-* [trigger steps](/docs/pipelines/configure/step-types/trigger-step)
-* [group steps](/docs/pipelines/configure/step-types/group-step)
+- [command steps](/docs/pipelines/configure/step-types/command-step)
+- [wait steps](/docs/pipelines/configure/step-types/wait-step)
+- [block steps](/docs/pipelines/configure/step-types/block-step)
+- [input steps](/docs/pipelines/configure/step-types/input-step)
+- [trigger steps](/docs/pipelines/configure/step-types/trigger-step)
+- [group steps](/docs/pipelines/configure/step-types/group-step)
 
 If your pipeline has more than one step and you have multiple agents available to run them, they will automatically run at the same time. If your steps rely on running in sequence, you can separate them with [wait steps](/docs/pipelines/configure/step-types/wait-step). This will ensure that any steps before the 'wait' are completed before steps after the 'wait' are run.
 
@@ -136,6 +137,9 @@ Timestamp        | Description
 
 When you run a pipeline, a build is created. Each of the steps in the pipeline ends up as a job in the build, which then get distributed to available agents. Job states have a similar flow to [build states](#build-states) but with a few extra states. The following diagram shows you how jobs progress from start to end.
 
+> 📘 API state differences
+> The table of job states below describes the internal lifecycle states, where `finished` is the terminal state. The [REST API](/docs/apis/rest-api) flattens `finished` into `passed` or `failed` based on the job's exit status, so `jobs[].state` will be `passed` or `failed` rather than `finished`. The [GraphQL API](/docs/apis/graphql-api) uses `finished` for all completed jobs, regardless of exit status.
+
 <%= image "job-states.png", alt: "Job state diagram" %>
 
 Job state             | Description
@@ -153,7 +157,9 @@ Job state             | Description
 `assigned`            | The job has been assigned to an agent, and it's waiting for it to accept.
 `accepted`            | The job was accepted by the agent, and now it's waiting to start running.
 `running`             | The job is running.
-`finished`            | The job has finished.
+`finished`            | The job has finished (internal lifecycle state; REST API returns `passed` or `failed` instead).
+`passed`              | The job finished successfully (REST API only; returned instead of `finished` for successful jobs).
+`failed`              | The job finished with a failure (REST API only; returned instead of `finished` for failed jobs).
 `canceling`           | The job is currently canceling.
 `canceled`            | The job was canceled.
 `timing_out`          | The job is timing out for taking too long.
@@ -161,6 +167,8 @@ Job state             | Description
 `skipped`             | The job was skipped.
 `broken`              | The job's configuration means that it can't be run.
 `expired`             | The job expired before it was started on an agent.
+`platform_limiting`   | The job is waiting for limits imposed by Buildkite to be checked before moving to `platform_limited` or `scheduled`.
+`platform_limited`    | The job is waiting for capacity within limits imposed by Buildkite to become available before moving to `scheduled`.
 {: class="two-column"}
 
 As well as the states shown in the diagram, the following progressions can occur:
@@ -173,30 +181,32 @@ can progress to `skipped`  | can progress to `canceling` or `canceled`
 `limiting`                 | `limited`
 `limited`                  | `blocked`
 `accepted`                 | `unblocked`
-`broken`                   |
+`broken`                   | `platform_limiting`
+`platform_limiting`        | `platform_limited`
+`platform_limited`         |
 {: class="two-column"}
 
 Differentiating between `broken`, `skipped` and `canceled` states:
 
-* Jobs become `broken` when their configuration prevents them from running. This might be because their branch configuration doesn't match the build's branch, or because a conditional returned false.
-* This is distinct from `skipped` jobs, which might happen if a newer build is started and [build skipping](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline) is enabled. Broadly, jobs break because of something inside the build, and are skipped by something outside the build.
-* Jobs can be `canceled` intentionally, either using the Buildkite UI or one of the APIs.
+- Jobs become `broken` when their configuration prevents them from running. This might be because their branch configuration doesn't match the build's branch, or because a conditional returned false.
+- This is distinct from `skipped` jobs, which might happen if a newer build is started and [build skipping](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline) is enabled. Broadly, jobs break because of something inside the build, and are skipped by something outside the build.
+- Jobs can be `canceled` intentionally, either using the Buildkite interface or one of the APIs.
 
 Differentiating between `timing_out`, `timed_out`, and `expired` states:
 
-* Jobs become `timing_out`, `timed_out` when a job starts running on an agent but doesn't complete within the timeout period.
-* Jobs become `expired` when they reach the scheduled job expiry timeout before being picked up by an agent.
+- Jobs become `timing_out`, `timed_out` when a job starts running on an agent but doesn't complete within the timeout period.
+- Jobs become `expired` when they reach the scheduled job expiry timeout before being picked up by an agent.
 
 See [Build timeouts](/docs/pipelines/configure/build-timeouts) for information about setting timeout values.
 
->📘
-> The <a href="/docs/apis/rest-api/builds">REST API</a> does not return <code>finished</code>, but returns <code>passed</code> or <code>failed</code> according to the exit status of the job. It also lists <code>limiting</code> and <code>limited</code> as <code>scheduled</code> for legacy compatibility.
+> 📘 REST API state mapping
+> The [REST API](/docs/apis/rest-api) maps the internal `finished` state to `passed` or `failed` based on the job's exit status. When querying job states via the REST API, you'll see `passed` or `failed` instead of `finished`. The REST API also lists `limiting` and `limited` as `scheduled` for legacy compatibility.
 
 <%= render_markdown partial: 'pipelines/configure/job_states' %>
 
 Each job in a build also has a footer that displays exit status information. It may include an exit signal reason, which indicates whether the Buildkite agent stopped or the job was canceled.
 
->🚧
+> 🚧
 > Exit status information is available in the <a href="/docs/apis/graphql-api">GraphQL API</a> but not the <a href="/docs/apis/rest-api">REST API</a>.
 
 ### Job timestamps
@@ -211,6 +221,14 @@ Timestamp        | Description
 `started_at`     | When an agent confirmed it had started running the job (and the job transitions to the `running` state). This occurs after the job has been `assigned` to an agent, `accepted` by the agent, and the agent sends the first log output indicating that the execution has begun.
 `finished_at`    | When the job reaches a terminal state (`finished`, `canceled`, `timed_out`, `skipped`, or `expired`). Transitioning to this state marks the completion of the job's execution, whether successful or not.
 {: class="two-column"}
+
+### Platform limits
+
+Platform limits are restrictions imposed by Buildkite on usage within your Buildkite organization. Jobs will enter the `platform_limiting` and `platform_limited` states when these limits are being evaluated or enforced.
+
+The following platform limits may apply:
+
+- **Job concurrency limits**: A Buildkite organization on the [Personal](https://buildkite.com/pricing/) plan has a total concurrency limit of three jobs that applies across both [Buildkite hosted agents](/docs/pipelines/hosted-agents) and [self-hosted agents](/docs/pipelines/architecture). When jobs are scheduled beyond this limit, they will be queued using the platform limiting states. To remove or increase this limit for your Buildkite organization, at least [upgrade to the Pro plan](https://buildkite.com/organizations/~/billing/plan_changes/new?plan_id=platform_pro_monthly_plan) or reach out to Buildkite support at support@buildkite.com for help.
 
 ## Example pipeline
 
@@ -262,12 +280,12 @@ steps:
 
 Buildkite pipelines are made up of the following step types:
 
-* [Command step](/docs/pipelines/configure/step-types/command-step)
-* [Wait step](/docs/pipelines/configure/step-types/wait-step)
-* [Block step](/docs/pipelines/configure/step-types/block-step)
-* [Input step](/docs/pipelines/configure/step-types/input-step)
-* [Trigger step](/docs/pipelines/configure/step-types/trigger-step)
-* [Group step](/docs/pipelines/configure/step-types/group-step)
+- [Command step](/docs/pipelines/configure/step-types/command-step)
+- [Wait step](/docs/pipelines/configure/step-types/wait-step)
+- [Block step](/docs/pipelines/configure/step-types/block-step)
+- [Input step](/docs/pipelines/configure/step-types/input-step)
+- [Trigger step](/docs/pipelines/configure/step-types/trigger-step)
+- [Group step](/docs/pipelines/configure/step-types/group-step)
 
 ## Customizing the pipeline upload path
 

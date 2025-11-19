@@ -86,7 +86,7 @@ You can also manage the allowlist with the [`organizationApiIpAllowlistUpdate`](
 
 ## Inactive API tokens revocation
 
-> 📘 Enterprise feature
+> 📘 Enterprise plan feature
 > Revoking inactive API tokens automatically is only available on an [Enterprise](https://buildkite.com/pricing) plan.
 
 To enable the inactive API access tokens revocation feature, navigate to your [organization's security settings](https://buildkite.com/organizations/~/security) and specify the maximum timeframe for inactive tokens to remain valid.
