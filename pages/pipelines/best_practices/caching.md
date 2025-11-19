@@ -56,16 +56,13 @@ This keeps downloads small and deterministic, and avoids re-installing dependenc
 
 ## Using cached images
 
-Operating at scale requires cached agent images. Keep only the tooling needed for specific functions—avoid monolithic images.
+Operating at scale requires cached agent images. In those images, keep only the tooling needed for specific functions—avoid monolithic images. For example, a "security" image with ClamAV, Trivy, and Snyk or "frontend" image with Node.js, npm, and testing frameworks.
 
-**Example:** A "security" image with ClamAV, Trivy, and Snyk. A "frontend" image with Node.js, npm, and testing frameworks.
+It's also recommended to:
 
-**Best practices:**
-
-- Build nightly to include system, framework, and image updates
-- Store in [Buildkite Packages](https://buildkite.com/packages) or cloud provider registries
-- Eliminates rate limit issues and filesystem contention
-- For hosted agents, use [queue images](/docs/pipelines/hosted-agents/linux#agent-images)
+- Build images nightly to include system, framework, and image updates.
+- Store the images in [Buildkite Packages](https://buildkite.com/packages) or cloud provider registries.
+- For hosted agents, use [agent images](/docs/pipelines/hosted-agents/linux#agent-images).
 
 ## Bazel caching
 
@@ -137,7 +134,7 @@ You can also pass `--remote_cache` on the command line per build/test invocation
     * Updated only on successful job completion and forked per job for safe concurrency.
 
 > 📘
-> Field reports show ~30% faster test times on hosted agents when combining cache volumes with a remote cache.
+> Field reports show ~30% faster test times on hosted agents when cache volumes are used in combination with a remote cache.
 
 ### Practical tips
 
@@ -147,9 +144,7 @@ You can also pass `--remote_cache` on the command line per build/test invocation
 
 ## Git Large File Storage (LFS) caching
 
-Git LFS stores large files outside your repository to keep clone sizes manageable, but downloading these objects during checkout can slow builds significantly. The strategies below help you minimize LFS download times through selective fetching, Git mirrors, and cache volumes:
-
-### Patterns that work
+Git LFS stores large files outside your repository to keep clone sizes manageable, but downloading these objects during checkout can slow builds significantly. The strategies below help you minimize LFS download times:
 
 - Skip LFS on checkout - set `GIT_LFS_SKIP_SMUDGE=1` during checkout, then run targeted `git lfs fetch` and `git lfs checkout` only for required paths.
 - Mirror and prefetch - use [Git mirrors](/docs/agent/v3/git-mirrors) for base clones, then prefetch LFS objects with `git lfs fetch --recent` in a pre-command hook.
