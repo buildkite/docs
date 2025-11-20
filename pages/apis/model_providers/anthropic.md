@@ -12,7 +12,7 @@ Buildkite supports all current Anthropic Claude models, including Claude Sonnet 
 
 ## Base URL
 
-Once you have [connected your Buildkite organization to your Anthropic model provider](/docs/apis/model-providers#connect-to-a-model-provider), you can access your Anthropic Claude models through the [Claude API](https://docs.claude.com/en/api/overview), by appending these endpoints to the relevant [Buildkite model provider API endpoint](/docs/apis/model-providers#connect-to-a-model-provider-buildkite-model-provider-api-endpoints) as the base URL:
+Once you have [connected your Buildkite organization to your Anthropic model provider](/docs/apis/model-providers#connect-to-a-model-provider), you can access your Anthropic Claude models through the [Claude API](https://platform.claude.com/docs/en/api/overview), by appending these endpoints to the relevant [Buildkite model provider API endpoint](/docs/apis/model-providers#connect-to-a-model-provider-buildkite-model-provider-api-endpoints) as the base URL:
 
 ```url
 https://agent.buildkite.com/v3/ai/anthropic
@@ -20,10 +20,10 @@ https://agent.buildkite.com/v3/ai/anthropic
 
 ### Supported endpoints
 
-The following [Claude API](https://docs.claude.com/en/api/overview) endpoints are available through Buildkite model provider API:
+The following [Claude API](https://platform.claude.com/docs/en/api/overview) endpoints are available through Buildkite model provider API:
 
-- [`POST /v1/messages` endpoint](https://docs.claude.com/en/api/messages): Generates completions and chat responses. Token usage is automatically tracked for billing.
-- [`POST /v1/messages/count_tokens` endpoint](https://docs.claude.com/en/api/messages-count-tokens): Calculates token usage before making requests to optimize costs.
+- [`POST /v1/messages` endpoint](https://platform.claude.com/docs/en/api/messages): Generates completions and chat responses. Token usage is automatically tracked for billing.
+- [`POST /v1/messages/count_tokens` endpoint](https://platform.claude.com/docs/en/api/messages/count_tokens): Calculates token usage before making requests to optimize costs.
 - [`GET /v1/models` endpoint](https://docs.claude.com/en/api/models-list): Retrieves all available Anthropic models.
 - [`GET /v1/models/{model_id}` endpoint](https://docs.claude.com/en/api/models): Gets information about a specific model's capabilities and limits.
 
