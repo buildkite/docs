@@ -22,7 +22,7 @@ Buildkite hosted agents provides a number capabilities that delivers enhanced va
 
 - **Transparent remote Docker builders are provided at no additional cost**: Offloading Docker build commands to [dedicated, pre-configured machines](/docs/pipelines/hosted-agents/remote-docker-builders) equipped with Docker layer caching and additional performance optimizations.
 
-- **Consistently rapid queue times**: Queu times are typically under 5 seconds and almost always under 30 seconds, ensuring that jobs commence without delay.
+- **Consistently rapid queue times**: Queue times are typically under 5 seconds and almost always under 30 seconds, ensuring that jobs commence without delay.
 
 ### Execution model benefits
 
