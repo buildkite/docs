@@ -106,7 +106,7 @@ Builds are only run for tags when a [`push` event is triggered](https://docs.git
 
 Before triggering builds for git tags from the [API](/docs/apis/rest-api/builds#create-a-build) or a [scheduled build](/docs/pipelines/configure/workflows/scheduled-builds), make sure your agent is configured to fetch git tags: `BUILDKITE_GIT_FETCH_FLAGS="-v --prune --tags"`.
 
-> 📘 **Build Tags** and `BUILDKITE_BRANCH`
+> 📘 Build tags and `BUILDKITE_BRANCH`
 > When a build is triggered from a GitHub tag `push` event webhook, both the `BUILDKITE_TAG` and `BUILDKITE_BRANCH` environment variables are set to the name of the git tag being built.
 
 ## Noreply email handling
