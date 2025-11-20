@@ -450,10 +450,10 @@
       children:
         - name: "Overview"
           path: "pipelines/hosted-agents"
-        - name: "Linux hosted agents"
-          path: "pipelines/hosted-agents/linux"
         - name: "macOS hosted agents"
           path: "pipelines/hosted-agents/macos"
+        - name: "Linux hosted agents"
+          path: "pipelines/hosted-agents/linux"
         - name: "Code access"
           path: "pipelines/hosted-agents/code-access"
         - name: "Pipeline migration"

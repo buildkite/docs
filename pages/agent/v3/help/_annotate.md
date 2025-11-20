@@ -18,8 +18,6 @@ Instead of directly changing this file, you must:
 
 -->
 
-test
-
 ### Usage
 
 `buildkite-agent annotate [body] [options...]`

@@ -7,6 +7,18 @@ Linux instances for Buildkite hosted agents are offered with two architectures:
 
 To accommodate different workloads, instances are capable of running up to 8 hours. If you require longer running agents, please contact support at support@buildkite.com.
 
+## Configuring Linux hosted agents
+
+A Buildkite Linux hosted agent is configured as part of a _Buildkite hosted queue_, where the Buildkite hosted agent's machine type is Linux, has a particular [size](#sizes), to efficiently manage jobs with varying requirements, and comes pre-installed with software in the form of [agent images](#agent-images), which can be [customized with other software](#agent-images-create-an-agent-image).
+
+Learn more about:
+
+- Best practices for configuring queues in [How should I structure my queues](/docs/pipelines/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues) of the [Clusters overview](/docs/pipelines/clusters).
+
+- Configuring queues in general, in [Manage queues](/docs/pipelines/clusters/manage-queues).
+
+- How to configure a macOS hosted agent in [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
+
 ## Sizes
 
 Buildkite offers a selection of Linux instance types (each based on a different combination of size and architecture, known as an _instance shape_), allowing you to tailor your hosted agent resources to the demands of your jobs.

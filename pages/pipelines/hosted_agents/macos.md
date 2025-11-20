@@ -4,6 +4,18 @@ macOS instances for Buildkite hosted agents are only offered with [Apple silicon
 
 To accommodate different workloads, instances are capable of running up to 4 hours. If you require longer running agents, please contact support at support@buildkite.com.
 
+## Configuring macOS hosted agents
+
+A Buildkite macOS hosted agent is configured as part of a _Buildkite hosted queue_, where the Buildkite hosted agent's machine type is macOS, has a particular [size](#sizes), to efficiently manage jobs with varying requirements, and comes pre-installed with [software](#macos-instance-software-support).
+
+Learn more about:
+
+- Best practices for configuring queues in [How should I structure my queues](/docs/pipelines/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues) of the [Clusters overview](/docs/pipelines/clusters).
+
+- Configuring queues in general, in [Manage queues](/docs/pipelines/clusters/manage-queues).
+
+- How to configure a macOS hosted agent in [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
+
 ## Sizes
 
 Buildkite offers a selection of macOS instance types (each based on a different size combination of virtual CPU power and memory capacity, known as an _instance shape_), allowing you to tailor your hosted agents' resources to the demands of your jobs.
