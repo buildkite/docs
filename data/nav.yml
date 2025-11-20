@@ -60,12 +60,16 @@
               pill: "beta"
         - name: From Jenkins
           path: pipelines/migration/from-jenkins
+        - name: From GitHub Actions
+          path: pipelines/migration/from-githubactions
         - name: From Bamboo
           path: pipelines/migration/from-bamboo
     - name: Best practices
       children:
         - name: "Overview"
           path: "pipelines/best-practices/overview"
+        - name: "Agent management"
+          path: "pipelines/best-practices/agent-management"
         - name: "Docker-based builds"
           path: "pipelines/best-practices/docker-containerized-builds"
         - name: "Parallelizing builds"
@@ -76,6 +80,8 @@
           path: "pipelines/best-practices/environment-and-dependency"
         - name: "Secrets management"
           path: "pipelines/best-practices/secrets-management"
+        - name: "Git checkout optimization"
+          path: "pipelines/best-practices/git-checkout-optimization"
         - name: "Plugin management"
           path: "pipelines/best-practices/plugin-management"
         - name: "Enforcing security controls"
@@ -473,6 +479,8 @@
           path: "pipelines/hosted-agents/cache-volumes"
         - name: "Remote Docker builders"
           path: "pipelines/hosted-agents/remote-docker-builders"
+        - name: "Internal container registries"
+          path: "pipelines/hosted-agents/internal-container-registries"
         - name: "Mobile Delivery Cloud"
           children:
             - name: "Overview"

@@ -102,6 +102,7 @@ exceptions:
   - Docker Desktop
   - Docker Hub
   - ECR
+  - ECS
   - EC2
   - EKS
   - Elastic
