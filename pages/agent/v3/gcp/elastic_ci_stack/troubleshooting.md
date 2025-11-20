@@ -1,6 +1,6 @@
 # Troubleshooting the Elastic CI Stack for GCP
 
-Infrastructure as code isn't always easy to troubleshoot, but here are some ways to debug exactly what's going on inside the [Elastic CI Stack for GCP](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp), and some solutions for specific situations.
+Infrastructure as code isn't always easy to troubleshoot, but here are some ways to debug what's going on inside the [Elastic CI Stack for GCP](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp), and some solutions for troubleshooting specific situations and issues.
 
 ## Using Cloud Logging
 
@@ -8,52 +8,59 @@ Elastic CI Stack for GCP sends logs to Cloud Logging via the Ops Agent. The foll
 
 ### Application logs
 
-- **Buildkite Agent logs** - Log name: `buildkite_agent`
-  + Contains agent lifecycle events, job execution, and errors
-  + Severity levels: DEBUG, INFO, WARNING, ERROR, CRITICAL
-  + View in Logs Explorer: `log_name="projects/PROJECT_ID/logs/buildkite_agent"`
+- Buildkite Agent logs - log name: `buildkite_agent`
 
-- **Docker Daemon logs** (if Docker is installed) - Log name: `docker`
-  + Contains Docker daemon events and errors
-  + View in Logs Explorer: `log_name="projects/PROJECT_ID/logs/docker"`
+  * Contains agent lifecycle events, job execution, and errors
+  * Severity levels: `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`
+  * View in Logs Explorer: `log_name="projects/PROJECT_ID/logs/buildkite_agent"`
 
-- **Preemption Monitor logs** - Log name: `preemption_monitor`
-  + Contains preemptible instance termination handling logs
-  + View in Logs Explorer: `log_name="projects/PROJECT_ID/logs/preemption_monitor"`
+- Docker Daemon logs (if Docker is installed) - log name: `docker`
+
+  * Contains Docker daemon events and errors
+  * View in Logs Explorer: `log_name="projects/PROJECT_ID/logs/docker"`
+
+- Preemption Monitor logs - log name: `preemption_monitor`
+
+  * Contains preemptible instance termination handling logs
+  * View in Logs Explorer: `log_name="projects/PROJECT_ID/logs/preemption_monitor"`
 
 ### System logs
 
-- **System messages** - Log name: `syslog`
-  + General system messages and events
-  + View in Logs Explorer: `log_name="projects/PROJECT_ID/logs/syslog"`
+- System messages - log name: `syslog`
 
-- **Authentication logs** - Log name: `auth`
-  + SSH and authentication events
-  + View in Logs Explorer: `log_name="projects/PROJECT_ID/logs/auth"`
+  * General system messages and events
+  * View in Logs Explorer: `log_name="projects/PROJECT_ID/logs/syslog"`
+
+- Authentication logs - log name: `auth`
+
+  * SSH and authentication events
+  * View in Logs Explorer: `log_name="projects/PROJECT_ID/logs/auth"`
 
 ### Cloud Initialization logs
 
-- **Cloud-init logs** - Log name: `cloud_init`
-  + VM bootstrap process logs
-  + View in Logs Explorer: `log_name="projects/PROJECT_ID/logs/cloud_init"`
+- Cloud-init logs - log name: `cloud_init`
 
-- **Cloud-init output** - Log name: `cloud_init_output`
-  + Output from startup scripts
-  + View in Logs Explorer: `log_name="projects/PROJECT_ID/logs/cloud_init_output"`
+  * VM bootstrap process logs
+  * View in Logs Explorer: `log_name="projects/PROJECT_ID/logs/cloud_init"`
+
+- Cloud-init output - log name: `cloud_init_output`
+
+  * Output from startup scripts
+  * View in Logs Explorer: `log_name="projects/PROJECT_ID/logs/cloud_init_output"`
 
 ### Viewing logs in Cloud Console
 
 1. Navigate to **Monitoring** > **Logs Explorer** in the Cloud Console
-2. Use filters to view specific logs:
+1. Use filters to view specific logs
 
-**View all logs from a specific instance:**
+View all logs from a specific instance:
 
 ```text
 resource.type="gce_instance"
 resource.labels.instance_id="INSTANCE_ID"
 ```
 
-**View Buildkite agent errors:**
+View Buildkite agent errors:
 
 ```text
 resource.type="gce_instance"
@@ -61,7 +68,7 @@ log_name="projects/PROJECT_ID/logs/buildkite_agent"
 severity >= ERROR
 ```
 
-**View startup script output:**
+View startup script output:
 
 ```text
 resource.type="gce_instance"
@@ -70,7 +77,7 @@ log_name="projects/PROJECT_ID/logs/cloud_init_output"
 
 ### Viewing logs with gcloud CLI
 
-**View recent Buildkite agent logs:**
+View recent Buildkite Agent logs:
 
 ```bash
 gcloud logging read "resource.type=gce_instance AND log_name=projects/PROJECT_ID/logs/buildkite_agent" \
@@ -79,7 +86,7 @@ gcloud logging read "resource.type=gce_instance AND log_name=projects/PROJECT_ID
   --project PROJECT_ID
 ```
 
-**View logs from a specific instance:**
+View logs from a specific instance:
 
 ```bash
 gcloud logging read "resource.labels.instance_id=INSTANCE_ID" \
@@ -88,7 +95,7 @@ gcloud logging read "resource.labels.instance_id=INSTANCE_ID" \
   --project PROJECT_ID
 ```
 
-**View ERROR-level logs only:**
+View ERROR-level logs only:
 
 ```bash
 gcloud logging read "resource.type=gce_instance AND severity>=ERROR" \
@@ -101,7 +108,7 @@ For more information on logging, see [LOGGING.md](https://github.com/buildkite/t
 
 ## Accessing Elastic CI Stack for GCP instances directly
 
-Sometimes, looking at the logs isn't enough to figure out what's going on in your instances. In these cases, it can be useful to access the shell on the instance directly:
+Sometimes, looking at the logs isn't enough to figure out what's going on in your instances. In these cases, it can be useful to access the shell on the instance directly.
 
 ### SSH access (if enabled)
 
@@ -127,7 +134,7 @@ gcloud compute ssh INSTANCE_NAME \
 Or use the **SSH** button in the Cloud Console:
 
 1. Navigate to **Compute Engine** > **VM instances**
-2. Click the **SSH** button next to the instance
+1. Click the **SSH** button next to the instance
 
 ### Serial console
 
@@ -185,7 +192,7 @@ If you have multiple stacks, check that they listen to unique queues determined 
 
 This could also happen if you have agents that are not part of an Elastic CI Stack for GCP [started with a tag](/docs/agent/v3/cli-start#tags) of the form `queue=<name of queue>`. Any agents started like this will compete with a stack for jobs, but the stack will scale out as if this competition did not exist.
 
-## Instances fail to boot Buildkite Agent
+## Instances fail to boot the Buildkite Agent
 
 Check the managed instance group's activity logs and Cloud Logging for the booting instances to determine the issue. Observe where in the startup script the boot is failing. Identify what resource is failing when the instances are attempting to use it, and fix that issue.
 
@@ -248,7 +255,7 @@ echo $?  # 0 = healthy, 1 = low disk space
 
 If the managed instance group isn't scaling based on queue depth:
 
-### Check if autoscaling is enabled:
+Check if autoscaling is enabled:
 
 ```bash
 gcloud compute instance-groups managed describe INSTANCE_GROUP_NAME \
@@ -256,13 +263,13 @@ gcloud compute instance-groups managed describe INSTANCE_GROUP_NAME \
   --project PROJECT_ID
 ```
 
-### Verify the buildkite-agent-metrics function is deployed:
+Verify the buildkite-agent-metrics function is deployed:
 
 ```bash
 gcloud functions list --project PROJECT_ID | grep buildkite-agent-metrics
 ```
 
-### Check metrics are being published:
+Check if the metrics are being published:
 
 ```bash
 gcloud monitoring time-series list \
@@ -272,9 +279,9 @@ gcloud monitoring time-series list \
 
 ## Permission errors
 
-If instances can't access resources:
+If instances can't access resources,
 
-### Check service account permissions:
+Check service account permissions:
 
 ```bash
 gcloud projects get-iam-policy PROJECT_ID \
@@ -282,25 +289,26 @@ gcloud projects get-iam-policy PROJECT_ID \
   --filter="bindings.members:serviceAccount:elastic-ci-agent@*"
 ```
 
-### Common permission issues:
+### Common permission issues
 
 1. **Can't access Secret Manager** - Enable `enable_secret_access = true`
-2. **Can't access Cloud Storage** - Enable `enable_storage_access = true`
-3. **Can't pull Docker images from Artifact Registry** - Grant Artifact Registry Reader role
-4. **Can't write logs** - Verify Logs Writer role is assigned
+1. **Can't access Cloud Storage** - Enable `enable_storage_access = true`
+1. **Can't pull Docker images from Artifact Registry** - Grant Artifact Registry Reader role
+1. **Can't write logs** - Verify Logs Writer role is assigned
 
 ## Getting help
 
 If you're still stuck after trying the troubleshooting steps above:
 
 1. **Check the GitHub repository** - [Issues](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/issues)
-2. **Buildkite Support** - Email [support@buildkite.com](mailto:support@buildkite.com) with:
-   + Your stack configuration (redact sensitive values)
-   + Relevant Cloud Logging logs
-   + Terraform error messages
-   + Instance group status and errors
+1. **Buildkite Support** - Email [support@buildkite.com](mailto:support@buildkite.com) with:
 
-## Related content
+   * Your stack configuration (redact sensitive values)
+   * Relevant Cloud Logging logs
+   * Terraform error messages
+   * Instance group status and errors
+
+## Additional resources
 
 - [Cloud Logging documentation](https://cloud.google.com/logging/docs)
 - [Compute Engine troubleshooting](https://cloud.google.com/compute/docs/troubleshooting)
