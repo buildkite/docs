@@ -50,7 +50,6 @@ steps:
 
   - label: ":go: Check generated agent docs"
     if_changed: pages/agent/v3/help/*.md
-    if: pipeline.repository != "https://github.com/buildkite/docs"
     command: ./scripts/update-agent-help.sh
     agents:
       queue: hosted-m
