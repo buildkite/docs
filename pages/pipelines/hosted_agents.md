@@ -6,7 +6,7 @@ With hosted agents, Buildkite handles infrastructure management tasks, such as p
 
 ## Why use Buildkite hosted agents
 
-Buildkite hosted agents provides numerous benefits over other types of Buildkite Agents.
+Buildkite hosted agents provides numerous benefits over [Buildkite Agents](/docs/agent/v3) in [self-hosted environments](/docs/pipelines/architecture#self-hosted-hybrid-architecture).
 
 ### Cost benefits
 
@@ -52,6 +52,6 @@ Buildkite offers both [macOS](/docs/pipelines/hosted-agents/macos) and [Linux](/
 
 Buildkite hosted agent services support both public and private repositories. Learn more about setting up code access in [Hosted agent code access](/docs/pipelines/hosted-agents/code-access).
 
-If you need to migrate your existing Buildkite pipelines from using Buildkite Agents in a [self-hosted architecture](/docs/pipelines/architecture) to those using Buildkite hosted agents, see [Hosted agent pipeline migration](/docs/pipelines/hosted-agents/pipeline-migration) for details.
+If you need to migrate your existing Buildkite pipelines from using Buildkite Agents in a [self-hosted architecture](/docs/pipelines/architecture#self-hosted-hybrid-architecture) to those using Buildkite hosted agents, see [Hosted agent pipeline migration](/docs/pipelines/hosted-agents/pipeline-migration) for details.
 
 When a Buildkite hosted agent machine is running (during a pipeline build) you can access the machine through a terminal. Learn more about this feature in [Hosted agents terminal access](/docs/pipelines/hosted-agents/terminal-access).
