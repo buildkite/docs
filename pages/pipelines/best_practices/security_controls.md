@@ -99,7 +99,7 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 
 - For [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), implement a [zero trust architecture (ZTA)](https://www.ibm.com/think/topics/zero-trust) with least-privilege egress rules.
 - Monitor network traffic for anomalies or suspicious connection attempts from build agents.
-- Consider taking your infrastructure fully into the cloud with the help of [Buildkite hosted agents](/docs/pipelines/hosted-agents) or by running your agents in [AWS](/docs/agent/v3/aws) or in [Google Cloud](/docs/agent/v3/gcloud).
+- Consider taking your infrastructure fully into the cloud with the help of [Buildkite hosted agents](/docs/pipelines/hosted-agents) or by running your agents in [AWS](/docs/agent/v3/aws) or in [Google Cloud](/docs/agent/v3/gcp).
 - Harden your cloud infrastructure perimeter using [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html) or [VPC endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html) for the AWS services, or [Private Google Access](https://cloud.google.com/vpc/docs/private-google-access) for Google Cloud.
 
 ## Artifact storage and integrity
@@ -159,4 +159,3 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 ## Further questions
 
 If you didn't find coverage of a security-related question that interests you here, feel free to contact support@buildkite.com.
-

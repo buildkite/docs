@@ -4,7 +4,7 @@ toc_include_h3: false
 
 # Buildkite Agents in AWS
 
-The Buildkite Agent can be run on AWS using our Elastic CI Stack for AWS CloudFormation template, or by installing the agent on your self-managed instances. On this page, common installation and setup recommendations for different scenarios of using the Buildkite Agent on AWS are covered.
+The Buildkite Agent can be run on AWS using Buildkite's Elastic CI Stack for AWS CloudFormation template, or by installing the agent on your self-managed instances. On this page, common installation and setup recommendations for different scenarios of using the Buildkite Agent on AWS are covered.
 
 ## Using the Elastic CI Stack for AWS CloudFormation template
 

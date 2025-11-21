@@ -80,6 +80,7 @@ CLI
 CLIs
 Cloudsmith
 Cognito
+Cooldown
 Cloudsmith's
 CloudTrail
 CloudWatch
@@ -242,6 +243,8 @@ namespace
 Namespace's
 namespaced
 namespaces
+namespacing
+Namespacing
 navatar
 negator
 NGINX

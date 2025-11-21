@@ -294,7 +294,7 @@ Rails.application.routes.draw do
   get "/docs/agent/linux",               to: redirect("/docs/agent/v3/linux",                      status: 301)
   get "/docs/agent/docker",              to: redirect("/docs/agent/v3/docker",                     status: 301)
   get "/docs/agent/aws",                 to: redirect("/docs/agent/v3/aws",                        status: 301)
-  get "/docs/agent/gcloud",              to: redirect("/docs/agent/v3/gcloud",                     status: 301)
+  get "/docs/agent/gcloud",              to: redirect("/docs/agent/v3/gcp",                     status: 301)
   get "/docs/agent/configuration",       to: redirect("/docs/agent/v3/configuration",              status: 301)
   get "/docs/agent/ssh-keys",            to: redirect("/docs/agent/v3/ssh-keys",                   status: 301)
   get "/docs/agent/github-ssh-keys",     to: redirect("/docs/agent/v3/github-ssh-keys",            status: 301)

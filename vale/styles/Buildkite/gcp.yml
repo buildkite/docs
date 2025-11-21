@@ -1,0 +1,15 @@
+# GCP-specific product names
+extends: substitution
+message: Consider using '%s' instead of '%s'
+level: warning
+ignorecase: false
+swap:
+  (?i:Elastic CI Stack(?! for GCP)): Elastic CI Stack for GCP
+  (?i:Elastic GCP Stack): Elastic CI Stack for GCP
+  (?i:G Suite): G Suite
+  (?i:Google Cloud Functions): Google Cloud Functions
+  (?i:Google Cloud Storage): Google Cloud Storage
+  (?i:Google Cloud): Google Cloud
+  (?i:Google Compute Engine): Google Compute Engine
+  (?i:Google Container Engine): Google Kubernetes Engine
+  (?i:Google Kubernetes Engine): Google Kubernetes Engine
