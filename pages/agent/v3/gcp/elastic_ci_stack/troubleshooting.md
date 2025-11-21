@@ -253,7 +253,7 @@ echo $?  # 0 = healthy, 1 = low disk space
 
 ## Autoscaling not working
 
-If the managed instance group isn't scaling based on queue depth, you can try the following troubleshooring steps.
+If the managed instance group isn't scaling based on queue depth, you can try the following troubleshooting steps.
 
 ### Check if autoscaling is enabled
 
