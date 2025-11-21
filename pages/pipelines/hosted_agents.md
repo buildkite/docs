@@ -20,6 +20,8 @@ The following cost benefits deliver enhanced value through accelerated build tim
 
 - **Transparent remote Docker builders are provided at no additional cost**: Offloading Docker build commands to [dedicated, pre-configured machines](/docs/pipelines/hosted-agents/remote-docker-builders) equipped with Docker layer caching and additional performance optimizations.
 
+- **An internal container registry is provided**: Speed up your pipeline build times by managing your jobs' container images through your [internal container registry](/docs/pipelines/hosted-agents/internal-container-registries), which provides deterministic storage for Open Container Initiative (OCI) images.
+
 - **Consistently rapid queue times**: Queue times are typically under 5 seconds and almost always under 30 seconds, ensuring that jobs commence without delay.
 
 Buildkite hosted agents' execution model for pipeline jobs, reduces job flakiness through the following mechanisms.
