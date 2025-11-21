@@ -298,7 +298,7 @@ gcloud projects get-iam-policy PROJECT_ID \
 
 ## Getting help
 
-If you're still stuck after trying the troubleshooting steps outined above:
+If you're still stuck after trying the troubleshooting steps suggested above:
 
 1. Check the GitHub repository - [Issues](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/issues).
 1. Email the Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com) with:
