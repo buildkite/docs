@@ -6,11 +6,9 @@ With hosted agents, Buildkite handles infrastructure management tasks, such as p
 
 ## Why use Buildkite hosted agents
 
-Buildkite hosted agents provides numerous benefits over [Buildkite Agents](/docs/agent/v3) in [self-hosted environments](/docs/pipelines/architecture#self-hosted-hybrid-architecture).
+Buildkite hosted agents provides numerous benefits over similar hosted agent and runner features of other CI/CD providers.
 
-### Cost benefits
-
-Buildkite hosted agents provides a number capabilities that delivers enhanced value through accelerated build times, reduced operational overhead, and a lower total cost of ownership (TCO).
+The following cost benefits deliver enhanced value through accelerated build times, reduced operational overhead, and a lower total cost of ownership (TCO).
 
 - **Large does not equate to large**: Preliminary benchmarking demonstrated that Buildkite hosted agents delivers 2.5–3x superior performance compared to similarly-sized CircleCI and EC2 instances, powered by dedicated quality hardware and a proprietary low-latency virtualization layer exclusive to Buildkite.
 
@@ -24,17 +22,13 @@ Buildkite hosted agents provides a number capabilities that delivers enhanced va
 
 - **Consistently rapid queue times**: Queue times are typically under 5 seconds and almost always under 30 seconds, ensuring that jobs commence without delay.
 
-### Execution model benefits
-
-The execution model for Buildkite hosted agents provides a number of capabilities to [reduce flaky jobs](#reduce-flaky-jobs) and [improve security](#improve-security).
-
-<h4 id="reduce-flaky-jobs">Reduce flaky jobs</h4>
+Buildkite hosted agents' execution model for pipeline jobs, reduces job flakiness through the following mechanisms.
 
 - **Clean state guarantee**: Each build starts from a known, clean baseline without accumulated artifacts, cached credentials, or residual data from previous builds that could introduce vulnerabilities or cross-contamination between projects.
 
 - **Dependency consistency**: Fresh container instances ensure that dependencies are pulled cleanly each time, preventing supply chain attacks that might involve compromised cached packages or modified dependencies in long-lived environments.
 
-<h4 id="improve-security">Improve security</h4>
+Buildkite hosted agents' pipeline execution model is also designed with security in mind.
 
 - **Reduced attack surface**: Short-lived containers minimize the window of opportunity for attackers to compromise the build environment, establish persistence, or exploit vulnerabilities that might be discovered over time.
 
@@ -48,7 +42,7 @@ The execution model for Buildkite hosted agents provides a number of capabilitie
 
 ## Getting started with Buildkite hosted agents
 
-Buildkite offers both [macOS](/docs/pipelines/hosted-agents/macos) and [Linux](/docs/pipelines/hosted-agents/linux) hosted agents, whose respective pages explain how to start setting them up.
+Buildkite offers both [Linux](/docs/pipelines/hosted-agents/linux) and [macOS](/docs/pipelines/hosted-agents/macos) hosted agents, whose respective pages explain how to start setting them up.
 
 Buildkite hosted agent services support both public and private repositories. Learn more about setting up code access in [Hosted agent code access](/docs/pipelines/hosted-agents/code-access).
 

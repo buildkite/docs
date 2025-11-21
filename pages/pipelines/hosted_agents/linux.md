@@ -1,14 +1,5 @@
 # Linux hosted agents
 
-Linux instances for Buildkite hosted agents are offered with two architectures:
-
-- AMD64 (x64_86)
-- ARM64 (AArch64)
-
-To accommodate different workloads, instances are capable of running up to 8 hours. If you require longer running agents, please contact support at support@buildkite.com.
-
-## Configuring Linux hosted agents
-
 A Buildkite Linux hosted agent is configured as part of a _Buildkite hosted queue_, where the Buildkite hosted agent's machine type is Linux, has a particular [size](#sizes), to efficiently manage jobs with varying requirements, and comes pre-installed with software in the form of [agent images](#agent-images), which can be [customized with other software](#agent-images-create-an-agent-image).
 
 Learn more about:
@@ -17,15 +8,21 @@ Learn more about:
 
 - Configuring queues in general, in [Manage queues](/docs/pipelines/clusters/manage-queues).
 
-- How to configure a macOS hosted agent in [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
+- How to configure a Linux hosted agent in [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
 
 ## Sizes
 
-Buildkite offers a selection of Linux instance types (each based on a different combination of size and architecture, known as an _instance shape_), allowing you to tailor your hosted agent resources to the demands of your jobs.
+Buildkite offers a selection of Linux instance types (each based on a different combination of size and architecture, known as an _instance shape_), allowing you to tailor your hosted agent resources to the demands of your jobs. The architectures supported include AMD64 (x64_86) and ARM64 (AArch64).
 
 <%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
 
-Extra large instances are available on request. Please contact support@buildkite.com to have them enabled for your account.
+Note the following about Linux hosted agent instances.
+
+- Extra large instances are available on request.
+
+- To accommodate different workloads, instances are capable of running up to 8 hours.
+
+If, however, you need extra large instances, or longer running hosted agents (over 8 hours), please contact Support at support@buildkite.com.
 
 ## Agent images
 
