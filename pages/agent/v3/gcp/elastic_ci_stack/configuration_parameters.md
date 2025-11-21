@@ -154,7 +154,7 @@ labels = {
 
 For production deployments, it's recommended to store the Buildkite Agent token in Secret Manager:
 
-- Step 1: Create a secret in Secret Manager:
+- Step 1. Create a secret in Secret Manager:
 
 ```bash
 echo -n "your-agent-token" | gcloud secrets create buildkite-agent-token \
@@ -162,7 +162,7 @@ echo -n "your-agent-token" | gcloud secrets create buildkite-agent-token \
   --project=your-project-id
 ```
 
-- Step 2: Configure the stack to use the secret:
+- Step 2. Configure the stack to use the secret:
 
 ```hcl
 # In terraform.tfvars

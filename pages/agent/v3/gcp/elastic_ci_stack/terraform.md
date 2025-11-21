@@ -259,31 +259,31 @@ output "agent_service_account_email" {
 
 ### Step 4: Initialize and deploy
 
-Authenticate with GCP:
+- Authenticate with GCP:
 
 ```bash
 gcloud auth application-default login
 ```
 
-Initialize Terraform:
+- Initialize Terraform:
 
 ```bash
 terraform init
 ```
 
-Review the planned changes:
+- Review the planned changes:
 
 ```bash
 terraform plan
 ```
 
-Deploy the stack:
+- Deploy the stack:
 
 ```bash
 terraform apply
 ```
 
-Type `yes` when prompted to confirm the deployment.
+- Type `yes` when prompted to confirm the deployment.
 
 The module will create:
 
@@ -442,14 +442,14 @@ module "buildkite_stack" {
 
 To update your stack configuration:
 
-1. Modify your Terraform configuration files
-2. Review the changes:
+- Modify your Terraform configuration files
+- Review the changes:
 
 ```bash
 terraform plan
 ```
 
-3. Apply the changes:
+- Apply the changes:
 
 ```bash
 terraform apply

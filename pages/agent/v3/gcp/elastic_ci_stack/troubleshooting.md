@@ -151,7 +151,7 @@ gcloud compute instances get-serial-port-output INSTANCE_NAME \
 
 Resource shortage or configuration errors can cause this issue. Check the managed instance group's Activity log for diagnostics.
 
-### Check instance group status
+Check instance group status:
 
 ```bash
 gcloud compute instance-groups managed describe INSTANCE_GROUP_NAME \
@@ -159,7 +159,7 @@ gcloud compute instance-groups managed describe INSTANCE_GROUP_NAME \
   --project PROJECT_ID
 ```
 
-### Check for quota issues
+Check for quota issues:
 
 ```bash
 gcloud compute project-info describe --project PROJECT_ID
@@ -196,7 +196,7 @@ This could also happen if you have agents that are not part of an Elastic CI Sta
 
 Check the managed instance group's activity logs and Cloud Logging for the booting instances to determine the issue. Observe where in the startup script the boot is failing. Identify what resource is failing when the instances are attempting to use it, and fix that issue.
 
-### Check startup script logs
+Check startup script logs:
 
 ```bash
 gcloud logging read "resource.labels.instance_id=INSTANCE_ID AND log_name=projects/PROJECT_ID/logs/cloud_init_output" \
@@ -209,7 +209,7 @@ gcloud logging read "resource.labels.instance_id=INSTANCE_ID AND log_name=projec
 
 Successfully booted instances can fail jobs for numerous reasons. A frequent source of issues is their disk filling up before the hourly cleanup job fixes it or terminates them.
 
-### Check disk space on an instance
+Check disk space on an instance:
 
 ```bash
 # SSH into the instance
@@ -225,7 +225,7 @@ df -i
 sudo docker system df
 ```
 
-### Check Docker cleanup logs
+Check Docker cleanup logs:
 
 ```bash
 # View regular cleanup logs
@@ -255,7 +255,7 @@ echo $?  # 0 = healthy, 1 = low disk space
 
 If the managed instance group isn't scaling based on queue depth, you can try the following troubleshooting steps.
 
-### Check if autoscaling is enabled
+Check if autoscaling is enabled:
 
 ```bash
 gcloud compute instance-groups managed describe INSTANCE_GROUP_NAME \
@@ -263,7 +263,7 @@ gcloud compute instance-groups managed describe INSTANCE_GROUP_NAME \
   --project PROJECT_ID
 ```
 
-### Verify if the buildkite-agent-metrics function is deployed
+Verify if the buildkite-agent-metrics function is deployed:
 
 ```bash
 gcloud functions list --project PROJECT_ID | grep buildkite-agent-metrics

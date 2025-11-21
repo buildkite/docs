@@ -7,8 +7,8 @@ The Buildkite Elastic CI Stack for GCP gives you a private, autoscaling [Buildki
 The stack is organized into four Terraform modules:
 
 - **[Networking](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/networking)** - VPC, subnets, Cloud NAT, and firewall rules
-- **[IAM](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/iam)** - Service accounts and permissions for agents and metrics
-- **[Compute](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/compute)** - Instance groups, autoscaling, and agent configuration
+- **[IAM](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/iam)** - service accounts and permissions for agents and metrics
+- **[Compute](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/compute)** - instance groups, autoscaling, and agent configuration
 - **[Buildkite Agent Metrics](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/buildkite-agent-metrics)** - Cloud Function for publishing queue metrics
 
 ## Features
