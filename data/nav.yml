@@ -466,6 +466,8 @@
           path: "pipelines/hosted-agents/remote-docker-builders"
         - name: "Internal container registries"
           path: "pipelines/hosted-agents/internal-container-registries"
+        - name: "Security"
+          path: "pipelines/hosted-agents/security"
         - name: "Mobile Delivery Cloud"
           children:
             - name: "Overview"
