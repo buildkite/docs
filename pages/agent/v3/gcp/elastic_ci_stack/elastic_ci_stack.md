@@ -68,7 +68,7 @@ The Buildkite Agent runs as user `buildkite-agent`.
 
 ## Supported builds
 
-This stack is designed to run your builds in a share-nothing pattern similar to the [12 factor application principles](http://12factor.net):
+This stack is designed to run your builds in a shared-nothing pattern similar to the [12 factor application principles](http://12factor.net):
 
 - Each project should encapsulate its dependencies through Docker and Docker Compose.
 - Build pipeline steps should assume no state on the machine (and instead rely on the [build meta-data](/docs/pipelines/build-meta-data), [build artifacts](/docs/pipelines/artifacts), or Cloud Storage).

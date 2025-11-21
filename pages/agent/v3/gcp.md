@@ -37,15 +37,15 @@ For other Linux distributions, see:
 
 When running agents on individual Compute Engine instances, consider:
 
-- **Service account permissions**: Create a dedicated service account with minimal required permissions.
-- **Metadata server**: Use the [metadata server](https://cloud.google.com/compute/docs/metadata/overview) for configuration.
-- **Startup scripts**: Configure the agent using [startup scripts](https://cloud.google.com/compute/docs/instances/startup-scripts).
-- **Systemd integration**: Use systemd to manage the agent service (installed by default with package installers).
-- **Logging**: Configure log shipping to [Cloud Logging](https://cloud.google.com/logging).
+- **Service account permissions**: create a dedicated service account with minimal required permissions.
+- **Metadata server**: use the [metadata server](https://cloud.google.com/compute/docs/metadata/overview) for configuration.
+- **Startup scripts**: configure the agent using [startup scripts](https://cloud.google.com/compute/docs/instances/startup-scripts).
+- **Systemd integration**: use systemd to manage the agent service (installed by default with package installers).
+- **Logging**: configure log shipping to [Cloud Logging](https://cloud.google.com/logging).
 
 ## Uploading artifacts to Google Cloud Storage
 
-You can upload the [artifacts](/docs/pipelines/artifacts) created by your builds to your own [Google Cloud Storage](https://cloud.google.com/storage) bucket. Configure the agent to target your bucket by exporting the following environment variables using an [environment agent hook](/docs/agent/v3/hooks) (note that this cannot be set using the web interface of Buildkite Pipelines, API, or during pipeline upload):
+You can upload the [artifacts](/docs/pipelines/artifacts) created by your builds to your own [Google Cloud Storage](https://cloud.google.com/storage) bucket. Configure the agent to target your bucket by exporting the following environment variables using an [environment agent hook](/docs/agent/v3/hooks) (note that this cannot be set via the Buildkite web interface, API, or during pipeline upload):
 
 ```shell
 export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="gs://my-bucket/$BUILDKITE_PIPELINE_ID/$BUILDKITE_BUILD_ID/$BUILDKITE_JOB_ID"
@@ -81,7 +81,7 @@ export BUILDKITE_GCS_ACCESS_HOST="myproxyhost.com"
 
 ### Customizing artifact paths
 
-If your proxy does not follow default GCS artifact path conventions, for example, the the bucket name is not included in the URL, you can override the artifact path.
+If your proxy does not follow default GCS artifact path conventions, for example, the bucket name is not included in the URL, you can override the artifact path.
 
 To override the default path, export the environment variable `BUILDKITE_GCS_PATH_PREFIX`:
 

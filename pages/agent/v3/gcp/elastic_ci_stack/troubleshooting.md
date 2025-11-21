@@ -196,7 +196,7 @@ This could also happen if you have agents that are not part of an Elastic CI Sta
 
 Check the managed instance group's activity logs and Cloud Logging for the booting instances to determine the issue. Observe where in the startup script the boot is failing. Identify what resource is failing when the instances are attempting to use it, and fix that issue.
 
-### Check startup script logs:
+### Check startup script logs
 
 ```bash
 gcloud logging read "resource.labels.instance_id=INSTANCE_ID AND log_name=projects/PROJECT_ID/logs/cloud_init_output" \
@@ -209,7 +209,7 @@ gcloud logging read "resource.labels.instance_id=INSTANCE_ID AND log_name=projec
 
 Successfully booted instances can fail jobs for numerous reasons. A frequent source of issues is their disk filling up before the hourly cleanup job fixes it or terminates them.
 
-### Check disk space on an instance:
+### Check disk space on an instance
 
 ```bash
 # SSH into the instance
@@ -225,7 +225,7 @@ df -i
 sudo docker system df
 ```
 
-### Check Docker cleanup logs:
+### Check Docker cleanup logs
 
 ```bash
 # View regular cleanup logs
@@ -235,7 +235,7 @@ sudo journalctl -u docker-gc.service -n 50
 sudo journalctl -u docker-low-disk-gc.service -n 50
 ```
 
-### Manual cleanup:
+### Perform a manual cleanup
 
 If an instance has a full disk, you can manually trigger cleanup:
 
@@ -253,9 +253,9 @@ echo $?  # 0 = healthy, 1 = low disk space
 
 ## Autoscaling not working
 
-If the managed instance group isn't scaling based on queue depth:
+If the managed instance group isn't scaling based on queue depth, you can try the following troubleshooring steps.
 
-Check if autoscaling is enabled:
+### Check if autoscaling is enabled
 
 ```bash
 gcloud compute instance-groups managed describe INSTANCE_GROUP_NAME \
@@ -263,7 +263,7 @@ gcloud compute instance-groups managed describe INSTANCE_GROUP_NAME \
   --project PROJECT_ID
 ```
 
-Verify the buildkite-agent-metrics function is deployed:
+### Verify if the buildkite-agent-metrics function is deployed
 
 ```bash
 gcloud functions list --project PROJECT_ID | grep buildkite-agent-metrics
@@ -279,9 +279,7 @@ gcloud monitoring time-series list \
 
 ## Permission errors
 
-If instances can't access resources,
-
-Check service account permissions:
+If instances can't access resources, start with checking service account permissions:
 
 ```bash
 gcloud projects get-iam-policy PROJECT_ID \
@@ -293,15 +291,15 @@ gcloud projects get-iam-policy PROJECT_ID \
 
 1. "Can't access Secret Manager" - enable `enable_secret_access = true`.
 1. "Can't access Cloud Storage" - enable `enable_storage_access = true`.
-1. "Can't pull Docker images from Artifact Registry - grant Artifact Registry Reader role.
-1. "Can't write logs" - verify if Logs Writer role is assigned.
+1. "Can't pull Docker images from Artifact Registry" - grant Artifact Registry Reader role.
+1. "Can't write logs" - verify that Logs Writer role is assigned.
 
 ## Getting help
 
 If you're still stuck after trying the troubleshooting steps suggested above:
 
 1. Check the GitHub repository - [Issues](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/issues).
-1. Email the Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com) with:
+1. Email Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com) with:
 
    * Your stack configuration (redact sensitive values)
    * Relevant Cloud Logging logs

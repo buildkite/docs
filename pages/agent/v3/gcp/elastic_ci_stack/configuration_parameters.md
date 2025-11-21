@@ -26,7 +26,7 @@ Note that you must provide values for the required parameters (`project_id`, `bu
 
 | Variable | Type | Default | Description |
 |----------|------|---------|-------------|
-| `buildkite_agent_token_secret` | `string` | `""` | Alternative to `buildkite_agent_token`: GCP Secret Manager secret name containing the Buildkite Agent token (for example, 'projects/PROJECT_ID/secrets/buildkite-agent-token/versions/latest'). Recommended for production. |
+| `buildkite_agent_token_secret` | `string` | `""` | Alternative to `buildkite_agent_token`: GCP Secret Manager secret name containing the Buildkite Agent token (for example, `projects/PROJECT_ID/secrets/buildkite-agent-token/versions/latest`). Recommended for production. |
 | `buildkite_queue` | `string` | `"default"` | A Buildkite queue name that agents will listen to. Agents in this stack will only pick up jobs targeting this queue. |
 | `buildkite_agent_tags` | `string` | `""` | Additional tags for Buildkite Agents (comma-separated key=value pairs, for example, 'docker=true,os=linux'). Use these to target specific agents in pipeline steps. |
 | `buildkite_agent_release` | `string` | `"stable"` | Buildkite agent release channel. Allowed values: `stable` (recommended), `beta`, `edge`. |
@@ -154,7 +154,7 @@ labels = {
 
 For production deployments, it's recommended to store the Buildkite Agent token in Secret Manager:
 
-1. Create a secret in Secret Manager:
+- Step 1: Create a secret in Secret Manager:
 
 ```bash
 echo -n "your-agent-token" | gcloud secrets create buildkite-agent-token \
@@ -162,7 +162,7 @@ echo -n "your-agent-token" | gcloud secrets create buildkite-agent-token \
   --project=your-project-id
 ```
 
-2. Configure the stack to use the secret:
+- Step 2: Configure the stack to use the secret:
 
 ```hcl
 # In terraform.tfvars
@@ -175,5 +175,5 @@ For more detailed configuration options at the module level, see:
 
 - [Networking Module Variables](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/networking#variables)
 - [IAM Module Variables](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/iam#variables)
-- [Compute Module Variables](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/compute#variablesinputs)
+- [Compute Module Variables](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/compute#variables)
 - [Buildkite Agent Metrics Module Variables](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/buildkite-agent-metrics#variables)

@@ -61,7 +61,7 @@ The Buildkite agent runs as user `buildkite-agent`.
 
 ### Supported builds
 
-This stack is designed to run your builds in a share-nothing pattern similar to the [12 factor application principles](http://12factor.net):
+This stack is designed to run your builds in a shared-nothing pattern similar to the [12 factor application principles](http://12factor.net):
 
 - Each project should encapsulate its dependencies through Docker and Docker Compose.
 - Build pipeline steps should assume no state on the machine (and instead rely on the [build meta-data](/docs/pipelines/build-meta-data), [build artifacts](/docs/pipelines/artifacts), or Cloud Storage).
@@ -443,13 +443,13 @@ module "buildkite_stack" {
 To update your stack configuration:
 
 1. Modify your Terraform configuration files
-1. Review the changes:
+2. Review the changes:
 
 ```bash
 terraform plan
 ```
 
-1. Apply the changes:
+3. Apply the changes:
 
 ```bash
 terraform apply

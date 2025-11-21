@@ -21,7 +21,7 @@ Both subnets have Private Google Access enabled, allowing instances to access Go
 The stack creates several firewall rules:
 
 - **Internal communication** - allows all traffic between instances (`10.0.0.0/16`).
-- **SSH access** (optional) - is controlled by `enable_ssh_access` and `ssh_source_ranges`.
+- **SSH access** (optional) - controlled by `enable_ssh_access` and `ssh_source_ranges`.
 - **Health checks** - allows Google health check probes (`35.191.0.0/16`, `130.211.0.0/22`).
 - **Identity-Aware Proxy** (optional) - when `enable_iap_access = true`, it enables secure SSH via IAP (`35.235.240.0/20`).
 
@@ -38,7 +38,7 @@ Alternatively, you can restrict SSH to specific IPs:
 
 ```hcl
 enable_ssh_access = true
-ssh_source_ranges = ["111.222.0.1/24"]  # Your desired IP range, for example, the IP range of your office
+ssh_source_ranges = ["111.222.0.1/24"]  # Your office IP range, for example
 ```
 
 ## Private Google access
@@ -51,4 +51,4 @@ Be aware that both subnets have Private Google Access enabled, allowing instance
 - Cloud Monitoring
 - Artifact Registry
 
-Traffic stays within Google's network, providing better network performance than when using resource external to the VPC, and no egress charges.
+Traffic stays within Google's network, providing better network performance than when using a resource external to the VPC, and no egress charges.
