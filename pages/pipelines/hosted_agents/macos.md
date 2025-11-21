@@ -1,6 +1,6 @@
 # macOS hosted agents
 
-A Buildkite macOS hosted agent is configured as part of a _Buildkite hosted queue_, where the Buildkite hosted agent's machine type is macOS, has a particular [size](#sizes), to efficiently manage jobs with varying requirements, and comes pre-installed with [software](#macos-instance-software-support).
+A Buildkite macOS hosted agent is configured as part of a _Buildkite hosted queue_, where the Buildkite hosted agent's machine type is macOS, has a particular [size](#sizes) to efficiently manage jobs with varying requirements, and comes pre-installed with [software](#macos-instance-software-support).
 
 Learn more about:
 
@@ -22,7 +22,7 @@ Also note the following about macOS hosted agent instances.
 
 - To accommodate different workloads, instances are capable of running up to 4 hours.
 
-If, however, you have specific needs for Intel architecture machines, or longer running hosted agents (over 4 hours), please contact Support at support@buildkite.com.
+If you have specific needs for Intel architecture machines, or longer running hosted agents (over 4 hours), please contact Support at support@buildkite.com.
 
 ## macOS instance software support
 

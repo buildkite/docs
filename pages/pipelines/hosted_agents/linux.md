@@ -1,6 +1,6 @@
 # Linux hosted agents
 
-A Buildkite Linux hosted agent is configured as part of a _Buildkite hosted queue_, where the Buildkite hosted agent's machine type is Linux, has a particular [size](#sizes), to efficiently manage jobs with varying requirements, and comes pre-installed with software in the form of [agent images](#agent-images), which can be [customized with other software](#agent-images-create-an-agent-image).
+A Buildkite Linux hosted agent is configured as part of a _Buildkite hosted queue_, where the Buildkite hosted agent's machine type is Linux, has a particular [size](#sizes) to efficiently manage jobs with varying requirements, and comes pre-installed with software in the form of [agent images](#agent-images), which can be [customized with other software](#agent-images-create-an-agent-image).
 
 Learn more about:
 
@@ -22,7 +22,7 @@ Note the following about Linux hosted agent instances.
 
 - To accommodate different workloads, instances are capable of running up to 8 hours.
 
-If, however, you need extra large instances, or longer running hosted agents (over 8 hours), please contact Support at support@buildkite.com.
+If you need extra large instances, or longer running hosted agents (over 8 hours), please contact Support at support@buildkite.com.
 
 ## Agent images
 
