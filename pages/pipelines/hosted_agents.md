@@ -1,30 +1,32 @@
 # Buildkite hosted agents
 
-Buildkite hosted agents provides a fully-managed platform on which you can run your agents, so that you don't have to manage agents in your own self-hosted environment.
+Buildkite hosted agents provides a fully-managed platform on which you can run your pipeline jobs, so that you don't have to manage Buildkite Agents in your own self-hosted environment.
 
 With hosted agents, Buildkite handles infrastructure management tasks, such as provisioning, scaling, and maintaining the servers that run your agents.
 
 ## Why use Buildkite hosted agents
 
-Buildkite hosted agents provides numerous benefits over similar hosted agent and runner features of other CI/CD providers.
+Buildkite hosted agents provides numerous benefits over similar hosted machine and runner features of other CI/CD providers.
 
 The following cost benefits deliver enhanced value through accelerated build times, reduced operational overhead, and a lower total cost of ownership (TCO).
 
-- **Large does not equate to large**: Preliminary benchmarking demonstrated that Buildkite hosted agents delivers 2.5–3x superior performance compared to similarly-sized CircleCI and EC2 instances, powered by dedicated quality hardware and a proprietary low-latency virtualization layer exclusive to Buildkite.
+- **Superior performance**: Buildkite hosted agents delivers up to 3x faster performance compared to equivalent sized machines/runners from other CI/CD providers and cloud platforms, powered by dedicated quality hardware and a proprietary low-latency virtualization layer exclusive to Buildkite.
 
-- **Per-minute pricing is billed per second**: Charges apply only to the precise duration of command or script execution—excluding startup and shutdown periods, with no minimum charges and no rounding to the nearest minute.
+- **Pricing is calculated per second**: Charges apply only to the precise duration of command or script execution—excluding startup and shutdown periods, with no minimum charges and no rounding to the nearest minute.
 
-- **Caching is included at no additional cost** There are no supplementary charges for storage or cache usage. [Cache volumes](/docs/pipelines/hosted-agents/cache-volumes) operate on high-speed, local NVMe-attached disks, substantially accelerating caching and disk operations. This results in faster job completion, reduced minute consumption, and lower overall costs.
+- **Caching is included at no additional cost**: There are no supplementary charges for storage or cache usage. [Cache volumes](/docs/pipelines/hosted-agents/cache-volumes) operate on high-speed, local NVMe-attached disks, substantially accelerating caching and disk operations. This results in faster job completion, reduced minute consumption, and lower overall costs.
 
-- **Transparent Git mirroring is provided**: This significantly accelerates git clone operations by caching repositories locally on the agent at startup—particularly beneficial for large repositories and monorepos.
+- **Transparent Git mirroring**: This significantly accelerates git clone operations by caching repositories locally on the agent at startup—particularly beneficial for large repositories and monorepos.
 
-- **Transparent remote Docker builders are provided at no additional cost**: Offloading Docker build commands to [dedicated, pre-configured machines](/docs/pipelines/hosted-agents/remote-docker-builders) equipped with Docker layer caching and additional performance optimizations.
+- **Transparent remote Docker builders at no additional cost**: Offloading Docker build commands to [dedicated, pre-configured machines](/docs/pipelines/hosted-agents/remote-docker-builders) equipped with Docker layer caching and additional performance optimizations. This feature is available to [Enterprise](https://buildkite.com/pricing/) plan customers only.
 
-- **An internal container registry is provided**: Speed up your pipeline build times by managing your jobs' container images through your [internal container registry](/docs/pipelines/hosted-agents/internal-container-registries), which provides deterministic storage for Open Container Initiative (OCI) images.
+- **An internal container registry**: Speed up your pipeline build times by managing your jobs' container images through your [internal container registry](/docs/pipelines/hosted-agents/internal-container-registries), which provides deterministic storage for Open Container Initiative (OCI) images.
 
-- **Consistently rapid queue times**: Queue times are typically under 5 seconds and almost always under 30 seconds, ensuring that jobs commence without delay.
+- **Consistently rapid queue times**: Job are dispatched to hosted agents within a matter of seconds, providing consistently low queue times.
 
 Buildkite hosted agents' execution model for pipeline jobs, reduces job flakiness through the following mechanisms.
+
+- Each job runs on an [ephemeral agent](/docs/pipelines/glossary#ephemeral-agent) which begins with a clean environment.
 
 - **Clean state guarantee**: Each build starts from a known, clean baseline without accumulated artifacts, cached credentials, or residual data from previous builds that could introduce vulnerabilities or cross-contamination between projects.
 
