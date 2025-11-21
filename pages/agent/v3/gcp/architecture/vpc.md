@@ -51,4 +51,4 @@ Be aware that both subnets have Private Google Access enabled, allowing instance
 - Cloud Monitoring
 - Artifact Registry
 
-Traffic stays within Google's network, providing better performance and no egress charges.
+Traffic stays within Google's network, providing better network performance than when using resource external to the VPC, and no egress charges.

@@ -6,9 +6,11 @@ Elastic CI Stack for GCP allows you to launch a private, autoscaling [Buildkite 
 
 ## Before you start
 
+Before deploying the Elastic CI Stack for GCP, review the prerequisites, required skills, and billable services to ensure you have the necessary tools, knowledge, and budget planning in place.
+
 ### Prerequisites
 
-- [Terraform](https://www.terraform.io/downloads.html) >= 1.0
+- [Terraform](https://www.terraform.io/downloads.html) version >= 1.0
 - [Buildkite Account](https://buildkite.com/signup)
 - [GCP Account](https://cloud.google.com/) with a project
 - [gcloud CLI](https://cloud.google.com/sdk/docs/install) configured
@@ -29,16 +31,16 @@ For post-deployment diagnostic purposes, deeper familiarity with Compute Engine 
 
 The Elastic CI Stack for GCP template deploys several billable GCP services that do not require upfront payment and operate on a pay-as-you-go principle, with the bill proportional to usage.
 
-| Service name | Purpose | Required |
-|--------------|---------|----------|
-| Compute Engine | Deployment of VM instances | ☑️ |
-| Persistent Disk | Root disk storage of VM instances | ☑️ |
-| Cloud Functions | Publishing queue metrics for autoscaling | ☑️ |
-| Secret Manager | Storing the Buildkite agent token (recommended) | ☑️ |
-| Cloud Logging | Logs for instances and Cloud Function | ☑️ |
-| Cloud Monitoring | Metrics for autoscaling | ☑️ |
-| Cloud NAT | Outbound internet access for instances | ☑️ |
-| Cloud Storage | Build artifacts storage (if enabled) | ❌ |
+| Service name     | Purpose                                         | Required |
+| ---------------- | ----------------------------------------------- | -------- |
+| Compute Engine   | Deployment of VM instances                      | ☑️       |
+| Persistent Disk  | Root disk storage of VM instances               | ☑️       |
+| Cloud Functions  | Publishing queue metrics for autoscaling        | ☑️       |
+| Secret Manager   | Storing the Buildkite agent token (recommended) | ☑️       |
+| Cloud Logging    | Logs for instances and Cloud Function           | ☑️       |
+| Cloud Monitoring | Metrics for autoscaling                         | ☑️       |
+| Cloud NAT        | Outbound internet access for instances          | ☑️       |
+| Cloud Storage    | Build artifacts storage (if enabled)            | ❌       |
 
 Buildkite services are billed according to your [plan](https://buildkite.com/pricing).
 
@@ -137,6 +139,8 @@ For more details, see [packer/README.md](https://github.com/buildkite/terraform-
 
 ## Deploying the stack
 
+This section walks through the deployment process step by step, from obtaining your agent token to initializing and applying your Terraform configuration.
+
 ### Step 1: Get your Buildkite agent token
 
 Go to the [Agents page](https://buildkite.com/organizations/-/agents) in the Buildkite Pipelines web interface and click **Reveal Agent Token**:
@@ -170,7 +174,7 @@ Create a `main.tf` file:
 ```hcl
 terraform {
   required_version = ">= 1.0"
-  
+
   required_providers {
     google = {
       source  = "hashicorp/google"
@@ -453,7 +457,7 @@ Terraform will automatically perform rolling updates to minimize disruption:
 
 - New instances will be created with the updated configuration
 - Old instances will be drained and terminated
-- The process respects `max_surge` and `max_unavailable` settings
+- The process of updating the stack respects `max_surge` and `max_unavailable` settings
 
 ## Destroying the stack
 

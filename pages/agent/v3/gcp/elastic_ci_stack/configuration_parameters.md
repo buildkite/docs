@@ -47,7 +47,7 @@ Note that you must provide values for the required parameters (`project_id`, `bu
 |----------|------|---------|-------------|
 | `min_size` | `number` | `0` | Minimum number of agent instances. Set to 0 to scale to zero when idle (cost-effective) or higher than 0 for always-available capacity. Must be ≥ 0. |
 | `max_size` | `number` | `10` | Maximum number of agent instances. Controls cost ceiling and maximum parallelization. Must be ≥ 1. |
-| `enable_autoscaling` | `bool` | `true` | Enable autoscaling based on Buildkite job queue metrics. Requires buildkite-agent-metrics Cloud Function to be deployed. |
+| `enable_autoscaling` | `bool` | `true` | Enable autoscaling based on Buildkite job queue metrics. Requires `buildkite-agent-metrics` Cloud Function to be deployed. |
 | `cooldown_period` | `number` | `60` | Cooldown period in seconds between autoscaling actions to prevent flapping. Must be ≥ 30. |
 | `autoscaling_jobs_per_instance` | `number` | `1` | Target number of Buildkite jobs per instance for autoscaling. Lower values mean more parallelization and higher cost. Must be ≥ 1. |
 
@@ -80,7 +80,7 @@ Note that you must provide values for the required parameters (`project_id`, `bu
 | `enable_autohealing` | `bool` | `true` | Enable automatic replacement of unhealthy instances. |
 | `health_check_port` | `number` | `22` | Port for health checks (22 for SSH, or custom port if running health endpoint). Range: 1-65535. |
 | `health_check_interval_sec` | `number` | `30` | How often (in seconds) to perform health checks. Must be ≥ 1. |
-| `health_check_timeout_sec` | `number` | `10` | How long (in seconds) to wait for health check response before marking as failed. Must be ≥ 1. |
+| `health_check_timeout_sec` | `number` | `10` | How long (in seconds) to wait for health check response before marking instance start as failed. Must be ≥ 1. |
 | `health_check_healthy_threshold` | `number` | `2` | Number of consecutive successful health checks before marking instance healthy. Must be ≥ 1. |
 | `health_check_unhealthy_threshold` | `number` | `3` | Number of consecutive failed health checks before marking instance unhealthy. Must be ≥ 1. |
 | `health_check_initial_delay_sec` | `number` | `300` | Time (in seconds) to wait after instance start before beginning health checks. Must be ≥ 0. |
