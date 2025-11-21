@@ -26,7 +26,7 @@ The Buildkite Elastic CI Stack for GCP supports:
 - Support for stable, beta, or edge Buildkite Agent releases
 - Multiple stacks in the same GCP project
 - Rolling updates to stack instances to reduce interruption
-- Secrets Manager integration for secure token storage
+- Secret Manager integration for secure token storage
 - Preemptible VM support for cost optimization
 - Automated Docker garbage collection and disk space management
 
@@ -42,7 +42,7 @@ The Elastic CI Stack for GCP is inspired by the [Elastic CI Stack for AWS](https
 |---------|--------------------|--------------------|
 | Compute | EC2 Auto Scaling Groups | Managed Instance Groups |
 | Networking | VPC, NAT Gateway | VPC, Cloud NAT |
-| Secrets | Secrets Manager / Parameter Store | Secrets Manager |
+| Secrets | Secrets Manager / Parameter Store | Secret Manager |
 | Logging | CloudWatch Logs | Cloud Logging |
 | Metrics | CloudWatch Metrics | Cloud Monitoring |
 | Autoscaling Metrics | Lambda function | Cloud Function |

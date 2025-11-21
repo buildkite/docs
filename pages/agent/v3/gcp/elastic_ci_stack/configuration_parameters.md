@@ -152,9 +152,9 @@ labels = {
 
 ## Using Secret Manager for Agent token
 
-For production deployments, it's recommended to store the Buildkite Agent token in Secrets Manager:
+For production deployments, it's recommended to store the Buildkite Agent token in Secret Manager:
 
-1. Create a secret in Secrets Manager:
+1. Create a secret in Secret Manager:
 
 ```bash
 echo -n "your-agent-token" | gcloud secrets create buildkite-agent-token \

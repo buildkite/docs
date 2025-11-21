@@ -99,7 +99,7 @@ ${BUILDKITE_GCS_ACCESS_HOST}/${GCS_BUCKET_NAME}/${ARTIFACT_PATH}
 ${BUILDKITE_GCS_ACCESS_HOST}/custom-folder-structure/${ARTIFACT_PATH}
 ```
 
-## Further reading
+## Suggested reading
 
 To continue exploring the possibilities of using the Buildkite Agent on Google Cloud Platform, you will benefit from visiting the following documentation pages:
 

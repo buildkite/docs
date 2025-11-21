@@ -295,6 +295,8 @@ The module will create:
 
 ## Advanced configuration
 
+This section covers some of the configurations you might want to use for a deeper customization of your stack.
+
 ### Using a custom VM image
 
 If you built a custom Packer image with Docker support:
