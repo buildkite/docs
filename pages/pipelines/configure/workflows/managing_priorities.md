@@ -2,7 +2,7 @@
 
 By default, jobs are dispatched (taken from the queue and assigned to an agent) on a first-in-first-out basis. However, job priority and pipeline upload time can affect that order.
 
-This is not the case for [Buildkite hosted agents](/docs/pipelines/hosted-agents), where jobs are assigned and dispatched at the time they are executed.
+This is not the case for [Buildkite hosted agents](/docs/pipelines/hosted-agents), where jobs are assigned and dispatched at the time they are run.
 
 ## Prioritizing specific jobs
 
