@@ -60,7 +60,7 @@ resource.type="gce_instance"
 resource.labels.instance_id="INSTANCE_ID"
 ```
 
-View Buildkite agent errors:
+View Buildkite Agent errors:
 
 ```text
 resource.type="gce_instance"
@@ -298,8 +298,8 @@ gcloud projects get-iam-policy PROJECT_ID \
 
 If you're still stuck after trying the troubleshooting steps suggested above:
 
-1. Check the GitHub repository - [Issues](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/issues).
-1. Email Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com) with:
+- Check the GitHub repository - [Issues](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/issues).
+- Email Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com) with:
 
    * Your stack configuration (redact sensitive values)
    * Relevant Cloud Logging logs

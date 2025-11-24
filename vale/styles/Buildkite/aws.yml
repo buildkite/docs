@@ -1,7 +1,7 @@
 # AWS-specific product names
 extends: substitution
 message: Consider using '%s' instead of '%s'
-level: warning
+level: error
 ignorecase: false
 swap:
   (?i:Amazon Web Services): Amazon Web Services
