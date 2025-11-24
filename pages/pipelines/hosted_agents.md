@@ -26,13 +26,13 @@ The following cost benefits deliver enhanced value through accelerated build tim
 
 ## How Buildkite hosted agents work
 
-When a pipeline's job is scheduled on a [Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue), this action begins the process to start the job's execution on a new [ephemeral agent](/docs/pipelines/glossary#ephemeral-agent).
+When a pipeline's job is scheduled on a [Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue), this action begins the process of starting the job's execution on a new [ephemeral agent](/docs/pipelines/glossary#ephemeral-agent).
 
 The hosted queue's ephemeral agent begins its lifecycle with the initiation of a virtualized environment.
 
-- For [Linux hosted agents](/docs/pipelines/hosted-agents/linux), this environment includes a base image for containerization, which is the cluster's default or one that you've configured to use in your pipeline, to which custom layers are added, including the Buildkite Agent, and Buildkite-specific configurations.
+- For [Linux hosted agents](/docs/pipelines/hosted-agents/linux), this environment includes a base image for containerization, which is either the Buildkite cluster's [configured agent image](/docs/pipelines/hosted-agents/linux#agent-images), or one that you've configured to use in your pipeline, to which custom layers are added, including the Buildkite Agent, and Buildkite-specific configurations.
 
-- For [macOS hosted agents](/docs/pipelines/hosted-agents/macos), this environment is a virtual machine, based on the macOS operating system and Xcode version configured in your queue settings, running on dedicated Mac hardware.
+- For [macOS hosted agents](/docs/pipelines/hosted-agents/macos), this environment is a virtual machine, based on the macOS and Xcode version configured in your queue settings, running on dedicated Mac hardware.
 
 As part of this initiation process, any configured [cache volumes](/docs/pipelines/hosted-agents/cache-volumes) are attached, and then the entire virtualized environment is started. This process can take a few seconds to complete (appearing as job wait time), and varies depending on the size and recency of the cache volumes and the base image being used.
 
