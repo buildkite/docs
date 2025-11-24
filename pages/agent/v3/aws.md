@@ -14,7 +14,7 @@ You can use the Elastic CI Stack for AWS to test Linux or Windows projects, para
 
 ### Setup with CloudFormation
 
-You can launch the Elastic CI Stack for AWS directly into your AWS account using a CloudFormation template. For setup instructions, see [Setup with CloudFormation](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/setup).
+You can launch the Elastic CI Stack for AWS directly in your AWS account using a CloudFormation template. For setup instructions, see [Setup with CloudFormation](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/setup).
 
 ### Setup with Terraform
 
