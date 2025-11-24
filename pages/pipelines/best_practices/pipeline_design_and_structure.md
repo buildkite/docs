@@ -12,17 +12,17 @@ This guide distills practical patterns for designing Buildkite pipelines that ar
     * Use small, composable scripts called by steps rather than embedding complex logic inline.
 
 > 📘
-> If you are coming from a different CI/CD platform and would like to continue using matrix steps, know that [matrix steps](/docs/pipelines/configure/step-types/command-step#matrix-attributes) matrix steps in Buildkite Pipelines don't work exactly the same way - not all steps in the matrix will always be executed. Instead, we recommend re-formatting your matrix steps as dynamic steps.
+> If you are coming from a different CI/CD platform and would like to continue using matrix steps, know that [matrix steps](/docs/pipelines/configure/step-types/command-step#matrix-attributes) in Buildkite Pipelines don't work exactly the same way - not all steps in the matrix will always be executed. Instead, we recommend re-formatting your matrix steps as dynamic steps.
 
-## Use monorepos for change scoping
+## Optimize monorepo builds using change scoping
 
-Use the agent's `if_changed` feature or the official [Monorepo diff plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/) to selectively build and test affected components. Learn more in [Working with monorepos](/docs/pipelines/best-practices/working-with-monorepos).
+Use the agent's `if_changed` feature or the official [Monorepo diff plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/) to selectively build and test affected components. Learn more in [Working with monorepos](/docs/pipelines/best-practices/working-with-monorepos). Use `skip` condition to programmatically bypass individual steps, or use conditional logic in dynamic pipeline uploads to selectively generate only needed steps.
 
 ## Prioritize fast feedback loops
 
 - Maximize [parallelism](/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-and-parallelism) - split independent jobs and shards. Use parallelism for test sharding and cache warmers.
-- Put quick, failure-prone checks first - for example, schema validations, `codegen`, linting, type checks, and ultra-fast unit smoke tests. Use the [fast fail](/docs/pipelines/configure/step-types/command-step#fast-fail-running-jobs) feature to automatically cancel any remaining jobs as soon as any job in the build fails.
-- Conditional execution - use [branch filters](/docs/pipelines/configure/workflows/branch-configuration#pipeline-level-branch-filtering) and `if` conditions to skip unnecessary work in forks, release branches, draft PRs, and so on.
+- Put quick, failure-prone checks first - for example, schema validations, `codegen`, linting, type checks, and ultra-fast unit smoke tests. Use `depends_on` to run independent fast checks in parallel before slower dependent steps. Use the [fast fail](/docs/pipelines/configure/step-types/command-step#fast-fail-running-jobs) feature to automatically cancel any remaining jobs as soon as any job in the build fails.
+- Conditional execution - use [branch filters](/docs/pipelines/configure/workflows/branch-configuration#pipeline-level-branch-filtering) and `if` conditions to skip unnecessary work in forks, release branches, draft PRs, and so on. Minimize [wait steps](/docs/pipelines/configure/step-types/wait-step) as they serialize execution - only use them when dependencies truly require it. Consider whether `depends_on` can replace `wait` for more granular parallelism.
 - Use [annotations](/docs/agent/v3/cli-annotate) for build summaries that help with debugging - for example, link to logs, JUnit pass/fail overviews, and flake reports.
 - Customize error codes for auto-retries to disable auto-retries on legitimately failed builds.
 - Use [auto-retry](/docs/pipelines/configure/step-types/command-step#retry-attributes-automatic-retry-attributes) strategically to identify _all_ kinds of flakiness - beyond just flaky tests (that can be identified using [Test Engine](/docs/test-engine)).
@@ -42,8 +42,8 @@ retry:
 ### Structure YAML for clarity
 
 - Use short, clear, human-readable labels with consistent prefixes and emoji for quick scanning.
-- Group steps to collect related phases and present a clean top-level pipeline.
-- Leave comments for non-obvious logic and custom exit codes, explain tricky `if` conditions, environment dependencies, or ordering constraints.
+- Group steps to collect related phases and present a clean top-level pipeline. Use descriptive `key` attributes on possible steps to enable clear dependency declarations with `depends_on` and make selective reruns easier.
+- Leave comments for non-obvious logic and custom exit codes, explain tricky if conditions, environment dependencies, or ordering constraints. Design steps to be independently runnable where possible.
 
 Here is an example of a group step with a security group example that also follows best practices in terms of using label and comments:
 
@@ -86,6 +86,7 @@ steps:
 ### Ownership and deployment
 
 - Use [block steps](/docs/pipelines/configure/step-types/block-step) as explicit approvals between stages. Attach change summaries and release notes to the block.
+- Consider splitting large pipelines into smaller, purpose-specific pipelines using [trigger steps](/docs/pipelines/configure/step-types/trigger-step). This enables independent ownership, versioning, and evolution of different deployment stages or environments
 - Define `CODEOWNERS` for pipeline files and generation code. Require reviews for changes to core templates.
 - Version your [pipeline templates](/docs/pipelines/governance/templates) and [custom plugins](/docs/pipelines/integrations/plugins/writing). Roll them out via pinned versions with a changelog.
 - Implement environment isolation - separate credentials and secrets per environment [using environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) or secret managers. Never reuse production credentials in CI. Learn more about [Secrets management](/docs/pipelines/best-practices/secrets-management).
@@ -94,4 +95,5 @@ steps:
 
 - Maintain organization-wide pipeline templates and plugins to enforce consistency across teams.
 - Follow the suggested [queue naming conventions](/docs/pipelines/clusters/manage-queues#setting-up-queues).
+- Define reusable step patterns with YAML anchors for common tasks like building, testing, and deploying.
 - Turn your regularly reused pieces of code for common use cases into [your own custom Buildkite plugin](/docs/pipelines/integrations/plugins/writing).
