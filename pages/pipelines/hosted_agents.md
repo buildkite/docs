@@ -30,28 +30,22 @@ When a pipeline's job is scheduled on a [Buildkite hosted queue](/docs/pipelines
 
 The hosted queue's ephemeral agent begins its lifecycle with the initiation of a virtualized environment.
 
-- For Linux hosted agents, this environment includes a base image for containerization, which is the cluster's default or one that you've configured to use in your pipeline, to which custom layers, such as the Buildkite Agent, and Buildkite-specific configurations, are added.
+- For [Linux hosted agents](/docs/pipelines/hosted-agents/linux), this environment includes a base image for containerization, which is the cluster's default or one that you've configured to use in your pipeline, to which custom layers are added, including the Buildkite Agent, and Buildkite-specific configurations.
 
-- For macOS hosted agents, this environment is a virtual machine, based on a specific version macOS and suite of relevant software, running on dedicated Mac machines.
+- For [macOS hosted agents](/docs/pipelines/hosted-agents/macos), this environment is a virtual machine, based on a specific macOS version and suite of relevant software, running on dedicated Mac machines.
 
-As part of this initiation process, any configured cache volumes are attached, and then the entire virtualized environment is started. This process can take a few seconds to complete, and depends on the base image you're using.
+As part of this initiation process, any configured [cache volumes](/docs/pipelines/hosted-agents/cache-volumes) are attached, and then the entire virtualized environment is started. This process can take a few seconds to complete, and depends on the base image you're using.
 
-The Buildkite Agent in this virtualized environment then acquires the job and proceeds to run the job through to its completion. Once the job is completed, regardless of its exit status, the virtualized environment and all of its associated data, including data it generated during job execution, is removed and destroyed. Any cache volume data, however, is persisted.
+Once started, the Buildkite Agent running in the virtualized environment acquires the job and proceeds to run the job through to its completion. Once the job is complete, regardless of its exit status, the virtualized environment and all of its associated data, including data it generated during job execution, is removed and destroyed. Any cache volume data, however, is persisted.
 
 > 📘 Cluster isolation
-> Every Buildkite hosted agent is configured within a [Buildkite cluster](/docs/pipelines/clusters), which benefits from hypervisor-level isolation, ensuring robust separation between each instance. Each cluster also has Cache volumes, remote Docker builder and internal container registries are isolated per cluster. As well as Buildkite secrets.
+> Every Buildkite hosted queue and its agents are configured within a [Buildkite cluster](/docs/pipelines/clusters), which benefits from hypervisor-level isolation, ensuring robust separation between each instance. Each cluster also has its own [cache volumes](/docs/pipelines/hosted-agents/cache-volumes), [remote Docker builder](/docs/pipelines/hosted-agents/remote-docker-builders) and [internal container registry](/docs/pipelines/hosted-agents/internal-container-registries), as well as [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets), which are not available to any other cluster.
 
-Due to the nature of Buildkite hosted agents' ephemeral environments, these are the benefits you get. (Sum up the following into no more than 1-2 paragraphs.)
+The ephemeral nature of Buildkite hosted agents' virtualized environments also offer the following benefits:
 
-- **Clean state guarantee**: Each build starts from a known, clean baseline without accumulated artifacts, cached credentials, or residual data from previous builds that could introduce vulnerabilities or cross-contamination between projects.
+- Each Buildkite hosted agent begins with a clean state, with no residual data from previous builds that could introduce vulnerabilities or cross-contamination between projects. Job dependencies are also pulled cleanly each time.
 
-- **Dependency consistency**: Fresh container instances ensure that dependencies are pulled cleanly each time, preventing supply chain attacks that might involve compromised cached packages or modified dependencies in long-lived environments.
-
-- **Reduced attack surface**: Short-lived containers minimize the window of opportunity for attackers to compromise the build environment, establish persistence, or exploit vulnerabilities that might be discovered over time.
-
-- **Immutable infrastructure**: Ephemeral containers prevent unauthorized modifications to the build environment since any changes are discarded after each build, making it impossible for malicious actors to install backdoors or persistent malware.
-
-- **Credential isolation**: Temporary containers naturally limit credential exposure, since secrets are only present during the build process and are automatically destroyed afterward, reducing the risk of credential theft or misuse.
+- Short-lived hosted agents mitigate the window of opportunity for attackers to compromise the build environment, and any data generated or used during job execution, such as secrets or credentials, are destroyed after job completion or failure.
 
 ## Getting started with Buildkite hosted agents
 
