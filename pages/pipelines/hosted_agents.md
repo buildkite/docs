@@ -30,7 +30,7 @@ When a pipeline's job is scheduled on a [Buildkite hosted queue](/docs/pipelines
 
 The hosted queue's ephemeral agent begins its lifecycle with the initiation of a virtualized environment.
 
-- For [Linux hosted agents](/docs/pipelines/hosted-agents/linux), this environment includes a base image for containerization, which is either the Buildkite cluster's [configured agent image](/docs/pipelines/hosted-agents/linux#agent-images), or one that you've configured to use in your pipeline, to which custom layers are added, including the Buildkite Agent, and Buildkite-specific configurations.
+- For [Linux hosted agents](/docs/pipelines/hosted-agents/linux), this environment includes a base image for containerization, which is either the hosted queue's [configured agent image](/docs/pipelines/hosted-agents/linux#agent-images), or one that you've configured to use in your pipeline, to which custom layers are added, including the Buildkite Agent, and Buildkite-specific configurations.
 
 - For [macOS hosted agents](/docs/pipelines/hosted-agents/macos), this environment is a virtual machine, based on the macOS and Xcode version configured in your queue settings, running on dedicated Mac hardware.
 
