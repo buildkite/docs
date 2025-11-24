@@ -33,7 +33,7 @@ steps:
     if_changed:
       - ".buildkite/Dockerfile.build"
       - ".buildkite/pipeline.yml"
-    # Use the image specified in the queue settings for this step
+    # Use the agent image specified in the queue settings for this step
     image: ~
     # Build and push a new image to the internal registry
     # Optionally add --no-cache to rebuild from scratch
