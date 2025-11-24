@@ -52,7 +52,7 @@ To use artifacts for caching:
 1. Upload the result as an artifact.
 1. In the later steps/builds, resolve the correct key (same checksum), download, and unpack.
 
-This way, you can keeps downloads small and avoid re-installing dependencies when inputs haven’t changed.
+This way, you keep downloads small and avoid re-installing dependencies when inputs haven't changed.
 
 ## Using cached images
 
