@@ -38,7 +38,6 @@ autoscaling
 aws
 awscli
 azcopy
-backdoors
 Backstage
 Backstage Software Catalog
 Basecamp
