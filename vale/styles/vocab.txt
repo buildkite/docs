@@ -19,10 +19,12 @@ Anthropic's
 Aqua
 architecting
 Argo CD
+ARNs
 argumentless
 Artifactory
 Artifactory's
 Atlassian
+auditability
 Authy
 auditable
 autogenerate
@@ -76,8 +78,10 @@ ClamAV
 classpath
 cli
 CLI
+CLIs
 Cloudsmith
 Cognito
+Cooldown
 Cloudsmith's
 CloudTrail
 CloudWatch
@@ -171,6 +175,7 @@ GuardDog
 gz
 gzipped
 hard-code
+hard-coded
 hard-coding
 Hashicorp
 Homebrew
@@ -210,6 +215,7 @@ Kuzco
 launchd
 LFS
 libpq
+Lifecycled
 Lightstep
 linux
 llamasecret
@@ -226,6 +232,7 @@ matchers
 Memcache
 minitest
 misconfiguration
+misconfigured
 mitigation
 mitigations
 monorepo
@@ -237,6 +244,8 @@ namespace
 Namespace's
 namespaced
 namespaces
+namespacing
+Namespacing
 navatar
 negator
 NGINX
@@ -288,6 +297,8 @@ Prometheus
 protobuf
 preemptible
 prefill
+prefetch
+preinstall
 preprovisioned
 proxied
 pty
@@ -340,6 +351,7 @@ Shipit
 sigstore
 sigstore's
 signaltometrics
+skopeo
 SLO
 SLOs
 snake_case
@@ -371,6 +383,7 @@ svg
 swiftformat
 swiftlint
 systemd
+teardown
 templated
 tgz
 timeframe
