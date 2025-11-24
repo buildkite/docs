@@ -80,7 +80,7 @@ steps:
 
 - `buildah bud`: Builds an image from a Dockerfile
   - `--format docker`: Produces a Docker-compatible image format
-  - `--file Dockerfile`: Specifies the Dockerfile location
+  - `--file Dockerfile`: Specifies the path to the Dockerfile
   - `--tag`: Tags the resulting image
 - `buildah images`: Lists built images (useful for verification)
 - `buildah login`: Authenticates with a container registry
