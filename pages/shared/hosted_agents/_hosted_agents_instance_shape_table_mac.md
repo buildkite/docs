@@ -4,6 +4,7 @@
     <th>Size</th>
     <th>vCPU</th>
     <th>Memory</th>
+    <th>Disk space</th>
   </thead>
   <tbody>
     <tr>
@@ -13,6 +14,7 @@
       <td>Medium</td>
       <td>6</td>
       <td>28 GB</td>
+      <td>100 GB</td>
     </tr>
     <tr>
       <td>
@@ -21,6 +23,7 @@
       <td>Large</td>
       <td>12</td>
       <td>56 GB</td>
+      <td>100 GB</td>
     </tr>
   </tbody>
 </table>
