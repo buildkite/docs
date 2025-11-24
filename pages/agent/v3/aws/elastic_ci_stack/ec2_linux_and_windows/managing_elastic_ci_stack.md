@@ -143,6 +143,8 @@ You can use an existing IAM role instead of letting the stack create one. This i
 
 To use a custom role, pass a pre-existing role's ARN to the Terraform variable `instance_role_arn`, or the CloudFormation Parameter `InstanceRoleARN`.
 
+For the Agent Scaler Lambda, the ASG Process Suspender Lambda, or the Stop Buildkite Agents Lambda, you can also provide custom roles using the Terraform variables `scaler_lambda_role_arn`, `asg_process_suspender_role_arn`, and `stop_buildkite_agents_role_arn`. Custom Lambda roles are currently only supported when using Terraform.
+
 ### IAM policy requirements
 
 As a baseline, a custom IAM role needs the same permissions the stack would normally create. At minimum, Buildkite Agents need an access to:
@@ -308,6 +310,134 @@ When using KMS keys for signed pipelines or encrypted parameters, the following 
 }
 ```
 
+### Lambda roles
+
+When using custom IAM roles for the Agent Scaler Lambda, the ASG Process Suspender Lambda, or the Stop Buildkite Agents Lambda, the following additional permissions are required beyond the core agent policy:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ScalerLambdaAutoScaling",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:DescribeAutoScalingGroups",
+                "autoscaling:DescribeScalingActivities",
+                "autoscaling:SetDesiredCapacity"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "ScalerLambdaSSMToken",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:GetParameter"
+            ],
+            "Resource": "arn:aws:ssm:*:*:parameter/YOUR_AGENT_TOKEN_PARAMETER_PATH"
+        },
+        {
+            "Sid": "AsgProcessSuspender",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:SuspendProcesses"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "StopBuildkiteAgentsDescribeAsg",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:DescribeAutoScalingGroups"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "StopBuildkiteAgentsModifyAsg",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:UpdateAutoScalingGroup"
+            ],
+            "Resource": "arn:aws:autoscaling:*:*:autoScalingGroup:*:autoScalingGroupName/YOUR_STACK_NAME-*"
+        },
+        {
+            "Sid": "StopBuildkiteAgentsSSMDocument",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:SendCommand"
+            ],
+            "Resource": "arn:aws:ssm:*::document/AWS-RunShellScript"
+        },
+        {
+            "Sid": "StopBuildkiteAgentsSSMInstances",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:SendCommand"
+            ],
+            "Resource": "arn:aws:ec2:*:*:instance/*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:ResourceTag/aws:autoscaling:groupName": "YOUR_ASG_NAME"
+                }
+            }
+        },
+        {
+            "Sid": "LambdaLogging",
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/YOUR_STACK_NAME-*"
+        }
+    ]
+}
+```
+
+When using Elastic CI mode for the Scaler Lambda, the following additional permissions are also required:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ElasticCIModeEC2",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "ElasticCIModeSSM",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:SendCommand",
+                "ssm:GetCommandInvocation"
+            ],
+            "Resource": [
+                "arn:aws:ssm:*::document/AWS-RunShellScript",
+                "arn:aws:ec2:*:*:instance/*"
+            ]
+        },
+        {
+            "Sid": "ElasticCIModeTerminate",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:TerminateInstances"
+            ],
+            "Resource": "arn:aws:ec2:*:*:instance/*",
+            "Condition": {
+                "StringEquals": {
+                    "ec2:ResourceTag/aws:autoscaling:groupName": "YOUR_ASG_NAME"
+                }
+            }
+        }
+    ]
+}
+```
+
 #### Trust policy
 
 The following is the trust policy that is created for all the Elastic CI Stack for AWS instance roles:
@@ -322,6 +452,28 @@ The following is the trust policy that is created for all the Elastic CI Stack f
                 "Service": [
                     "autoscaling.amazonaws.com",
                     "ec2.amazonaws.com"
+                ]
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+
+```
+
+When using custom IAM roles for the Agent Scaler Lambda, the ASG Process Suspender Lambda, or the Stop Buildkite Agents Lambda, the trust policy must include `lambda.amazonaws.com` in your Trust Policy:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": [
+                    "autoscaling.amazonaws.com",
+                    "ec2.amazonaws.com",
+                    "lambda.amazonaws.com"
                 ]
             },
             "Action": "sts:AssumeRole"
@@ -357,6 +509,17 @@ Parameters:
 ### Terraform configuration
 
 When using Terraform, there is no limit on the number of paths that can be used within an ARN. You can pass the value of your IAM Role's ARN to `var.instance_role_arn` and get started.
+
+For Lambda functions, you can provide custom role Amazon Resource Names (ARNs) in `terraform.tfvars`:
+
+```hcl
+instance_role_arn                  = "arn:aws:iam::123456789012:role/MyBuildkiteRole"
+scaler_lambda_role_arn             = "arn:aws:iam::123456789012:role/MyBuildkiteRole"
+asg_process_suspender_role_arn     = "arn:aws:iam::123456789012:role/MyBuildkiteRole"
+stop_buildkite_agents_role_arn     = "arn:aws:iam::123456789012:role/MyBuildkiteRole"
+```
+
+You can use the same role for all resources, or provide different roles for each Lambda function and the EC2 instances.
 
 ## CloudWatch metrics
 

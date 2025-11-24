@@ -68,7 +68,7 @@ The secret to fast builds is running as many build agents as you can. The best w
 
 The Buildkite agent should run on any hardware and any cloud compute provider. It is built to be flexible, and can be composed in any way that suits the platform, infrastructure, or workload. The [installation instructions](/docs/agent/v3/installation) demonstrate how to run the Buildkite agent across various platforms.
 
-For example, you could start several [Google Cloud Compute instances](/docs/agent/v3/gcloud#running-the-agent-on-google-compute-engine), then install and start build agents. These instructions can be automated using infrastructure as code tools like [Terraform](https://www.terraform.io), and then [add auto-scaling rules](#auto-scaling-your-build-agents) so you always have enough capacity.
+For example, you could start several [Google Cloud Compute instances](/docs/agent/v3/gcp), then install and start build agents. These instructions can be automated using infrastructure as code tools like [Terraform](https://www.terraform.io), and then [add auto-scaling rules](#auto-scaling-your-build-agents) so you always have enough capacity.
 
 The [Elastic CI Stack for AWS](/docs/quickstart/elastic-ci-stack-aws) provides a pre-built CloudFormation Stack for AWS that runs multiple auto-scaling agents.
 
