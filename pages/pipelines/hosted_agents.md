@@ -32,7 +32,7 @@ The hosted queue's ephemeral agent begins its lifecycle with the initiation of a
 
 - For [Linux hosted agents](/docs/pipelines/hosted-agents/linux), this environment includes a base image for containerization, which is the cluster's default or one that you've configured to use in your pipeline, to which custom layers are added, including the Buildkite Agent, and Buildkite-specific configurations.
 
-- For [macOS hosted agents](/docs/pipelines/hosted-agents/macos), this environment is a virtual machine, based on a specific macOS version and suite of relevant software, running on dedicated Mac machines.
+- For [macOS hosted agents](/docs/pipelines/hosted-agents/macos), this environment is a virtual machine, based on the macOS operating system and Xcode version configured in your queue settings, running on dedicated Mac hardware.
 
 As part of this initiation process, any configured [cache volumes](/docs/pipelines/hosted-agents/cache-volumes) are attached, and then the entire virtualized environment is started. This process can take a few seconds to complete, and depends on the base image you're using.
 
