@@ -34,7 +34,7 @@ The hosted queue's ephemeral agent begins its lifecycle with the initiation of a
 
 - For [macOS hosted agents](/docs/pipelines/hosted-agents/macos), this environment is a virtual machine, based on the macOS operating system and Xcode version configured in your queue settings, running on dedicated Mac hardware.
 
-As part of this initiation process, any configured [cache volumes](/docs/pipelines/hosted-agents/cache-volumes) are attached, and then the entire virtualized environment is started. This process can take a few seconds to complete, appearing as job wait time that varies depending on the size and recency of the cache volumes and the base image being used.
+As part of this initiation process, any configured [cache volumes](/docs/pipelines/hosted-agents/cache-volumes) are attached, and then the entire virtualized environment is started. This process can take a few seconds to complete (appearing as job wait time), and varies depending on the size and recency of the cache volumes and the base image being used.
 
 Once started, the Buildkite Agent running in the virtualized environment acquires the job and proceeds to run the job through to its completion. Once the job is complete, regardless of its exit status, the virtualized environment and all of its associated data, including data it generated during job execution, is removed and destroyed. Any cache volume data, however, is persisted.
 
