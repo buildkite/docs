@@ -24,25 +24,34 @@ The following cost benefits deliver enhanced value through accelerated build tim
 
 - **Consistently rapid queue times**: Job are dispatched to hosted agents within a matter of seconds, providing consistently low queue times.
 
-Buildkite hosted agents' execution model for pipeline jobs, reduces job flakiness through the following mechanisms.
+## How Buildkite hosted agents work
 
-- Each job runs on an [ephemeral agent](/docs/pipelines/glossary#ephemeral-agent) which begins with a clean environment.
+When a pipeline's job is scheduled on a [Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue), this action begins the process to start the job's execution on a new [ephemeral agent](/docs/pipelines/glossary#ephemeral-agent).
+
+The hosted queue's ephemeral agent begins its lifecycle with the initiation of a virtualized environment.
+
+- For Linux hosted agents, this environment includes a base image for containerization, which is the cluster's default or one that you've configured to use in your pipeline, to which custom layers, such as the Buildkite Agent, and Buildkite-specific configurations, are added.
+
+- For macOS hosted agents, this environment is a virtual machine, based on a specific version macOS and suite of relevant software, running on dedicated Mac machines.
+
+As part of this initiation process, any configured cache volumes are attached, and then the entire virtualized environment is started. This process can take a few seconds to complete, and depends on the base image you're using.
+
+The Buildkite Agent in this virtualized environment then acquires the job and proceeds to run the job through to its completion. Once the job is completed, regardless of its exit status, the virtualized environment and all of its associated data, including data it generated during job execution, is removed and destroyed. Any cache volume data, however, is persisted.
+
+> 📘 Cluster isolation
+> Every Buildkite hosted agent is configured within a [Buildkite cluster](/docs/pipelines/clusters), which benefits from hypervisor-level isolation, ensuring robust separation between each instance. Each cluster also has Cache volumes, remote Docker builder and internal container registries are isolated per cluster. As well as Buildkite secrets.
+
+Due to the nature of Buildkite hosted agents' ephemeral environments, these are the benefits you get. (Sum up the following into no more than 1-2 paragraphs.)
 
 - **Clean state guarantee**: Each build starts from a known, clean baseline without accumulated artifacts, cached credentials, or residual data from previous builds that could introduce vulnerabilities or cross-contamination between projects.
 
 - **Dependency consistency**: Fresh container instances ensure that dependencies are pulled cleanly each time, preventing supply chain attacks that might involve compromised cached packages or modified dependencies in long-lived environments.
-
-Buildkite hosted agents' pipeline execution model is also designed with security in mind.
 
 - **Reduced attack surface**: Short-lived containers minimize the window of opportunity for attackers to compromise the build environment, establish persistence, or exploit vulnerabilities that might be discovered over time.
 
 - **Immutable infrastructure**: Ephemeral containers prevent unauthorized modifications to the build environment since any changes are discarded after each build, making it impossible for malicious actors to install backdoors or persistent malware.
 
 - **Credential isolation**: Temporary containers naturally limit credential exposure, since secrets are only present during the build process and are automatically destroyed afterward, reducing the risk of credential theft or misuse.
-
-- **Cluster isolation**: Every Buildkite hosted agent is configured within a [Buildkite cluster](/docs/pipelines/clusters), which benefits from hypervisor-level isolation, ensuring robust separation between each instance.
-
-- **Audit trail clarity**: Ephemeral builds create clearer audit trails, since each build is both isolated and reproducible, making it easier to identify the source of any security issues or compliance violations.
 
 ## Getting started with Buildkite hosted agents
 
