@@ -17,7 +17,7 @@ The Buildkite Elastic CI Stack for GCP supports:
 
 - All GCP regions
 - Linux operating system (Debian 12)
-- Configurable machine types (including ARM/Graviton instances)
+- Configurable machine types (including ARM instances)
 - Configurable autoscaling based on build queue activity
 - Docker and Docker Compose v2
 - Multi-architecture build support (ARM/x86 cross-platform)
