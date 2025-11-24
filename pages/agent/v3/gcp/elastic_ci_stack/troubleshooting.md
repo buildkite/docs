@@ -289,10 +289,10 @@ gcloud projects get-iam-policy PROJECT_ID \
 
 ### Common permission issues
 
-1. "Can't access Secret Manager" - enable `enable_secret_access = true`.
-1. "Can't access Cloud Storage" - enable `enable_storage_access = true`.
-1. "Can't pull Docker images from Artifact Registry" - grant Artifact Registry Reader role.
-1. "Can't write logs" - verify that Logs Writer role is assigned.
+- "Can't access Secret Manager" - enable `enable_secret_access = true`.
+- "Can't access Cloud Storage" - enable `enable_storage_access = true`.
+- "Can't pull Docker images from Artifact Registry" - grant Artifact Registry Reader role.
+- "Can't write logs" - verify that Logs Writer role is assigned.
 
 ## Getting help
 
