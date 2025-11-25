@@ -20,7 +20,7 @@ The following cost benefits deliver enhanced value through accelerated build tim
 
 - **Transparent remote Docker builders at no additional cost**: Offloading Docker build commands to [dedicated, pre-configured machines](/docs/pipelines/hosted-agents/remote-docker-builders) equipped with Docker layer caching and additional performance optimizations. This feature is available to [Enterprise](https://buildkite.com/pricing/) plan customers only.
 
-- **An internal container registry**: Speed up your pipeline build times by managing your jobs' container images through your [internal container registry](/docs/pipelines/hosted-agents/internal-container-registries), which provides deterministic storage for Open Container Initiative (OCI) images.
+- **An internal container registry**: Speed up your pipeline build times by managing your jobs' container images through your [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry), which provides deterministic storage for Open Container Initiative (OCI) images.
 
 - **Consistently rapid queue times**: Job are dispatched to hosted agents within a matter of seconds, providing consistently low queue times.
 
@@ -39,7 +39,7 @@ As part of this initiation process, any configured [cache volumes](/docs/pipelin
 Once started, the Buildkite Agent running in the virtualized environment acquires the job and proceeds to run the job through to its completion. Once the job is complete, regardless of its exit status, the virtualized environment and all of its associated data, including data it generated during job execution, is removed and destroyed. Any cache volume data, however, is persisted.
 
 > 📘 Cluster isolation
-> Every Buildkite hosted queue and its agents are configured within a [Buildkite cluster](/docs/pipelines/clusters), which benefits from hypervisor-level isolation, ensuring robust separation between each instance. Each cluster also has its own [cache volumes](/docs/pipelines/hosted-agents/cache-volumes), [remote Docker builder](/docs/pipelines/hosted-agents/remote-docker-builders) and [internal container registry](/docs/pipelines/hosted-agents/internal-container-registries), as well as [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets), which are not available to any other cluster.
+> Every Buildkite hosted queue and its agents are configured within a [Buildkite cluster](/docs/pipelines/clusters), which benefits from hypervisor-level isolation, ensuring robust separation between each instance. Each cluster also has its own [cache volumes](/docs/pipelines/hosted-agents/cache-volumes), [remote Docker builders](/docs/pipelines/hosted-agents/remote-docker-builders) and [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry), as well as [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets), which are not available to any other cluster.
 
 The ephemeral nature of Buildkite hosted agents' virtualized environments also offer the following benefits:
 
