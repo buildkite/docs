@@ -14,7 +14,7 @@
       <td>Medium</td>
       <td>6</td>
       <td>28 GB</td>
-      <td>100 GB</td>
+      <td>182 GB</td>
     </tr>
     <tr>
       <td>
