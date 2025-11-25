@@ -46,7 +46,7 @@
       <td>AMD64</td>
       <td>16</td>
       <td>64 GB</td>
-      <td>? GB</td>
+      <td>284 GB</td>
     </tr>
     <tr>
       <td>
