@@ -36,7 +36,7 @@
       <td>AMD64</td>
       <td>8</td>
       <td>32 GB</td>
-      <td>160 GB</td>
+      <td>158 GB</td>
     </tr>
     <tr>
       <td>
