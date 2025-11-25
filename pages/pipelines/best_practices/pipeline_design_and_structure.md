@@ -78,7 +78,7 @@ steps:
           - "gitleaks-report.json"
 
   - wait: ~
-    continue_on_failure: true   # allow pipeline to continue even if security checks fail
+    continue_on_failure: true   # allows the pipeline to continue even if security checks fail
 
   - label: ":bar_chart: Aggregate Security Results"
     depends_on:
@@ -93,4 +93,4 @@ steps:
 - Consider splitting large pipelines into smaller, purpose-specific pipelines using [trigger steps](/docs/pipelines/configure/step-types/trigger-step). This enables independent ownership, versioning, and evolution of different deployment stages or environments.
 - Define `CODEOWNERS` for pipeline files and generation code. Require reviews for changes to core templates.
 - Version your [pipeline templates](/docs/pipelines/governance/templates) and [custom plugins](/docs/pipelines/integrations/plugins/writing). Roll them out with a changelog for tracking changes.
-- Implement environment isolation - separate credentials and secrets per environment [using environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) or secret managers. Never reuse production credentials in CI. Learn more about [Secrets management](/docs/pipelines/best-practices/secrets-management).
+- Implement environment isolation - separate credentials and secrets per environment [using environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) or secret managers. Never reuse production credentials in CI. You can learn more about handling of credentials and other secrets in [Secrets management](/docs/pipelines/best-practices/secrets-management).
