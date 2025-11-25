@@ -33,7 +33,7 @@ Use Terraform, CloudFormation, or another provisioning tool to launch an EC2 ins
 - Same VPC as your Elastic CI Stack for AWS instances
 - Security group allowing inbound TCP connections on the BuildKit port (default `tcp/1234`) from your Elastic CI Stack for AWS security group
 
-> 🚧
+> 🚧 VPC requirement
 > The BuildKit instance and Elastic CI Stack for AWS must be in the same VPC. Security group rules that reference other security groups only work within a single VPC.
 
 Install BuildKit and Docker CLI on the instance:
@@ -63,6 +63,7 @@ ExecStart=/usr/local/bin/buildkitd \
   --addr tcp://0.0.0.0:1234 \
   --root /var/lib/buildkit
 Restart=always
+LimitNOFILE=65536
 
 [Install]
 WantedBy=multi-user.target
@@ -103,6 +104,9 @@ echo "BuildKit connection configured"
 
 Replace `<buildkit-private-ip>` with the private IP address of your BuildKit EC2 instance. The Elastic CI Stack for AWS automatically sources scripts from the `env` path in the secrets bucket during agent startup.
 
+> 📘 Pipeline-specific configuration
+> The `env` hook at `s3://<your-secrets-bucket>/env` applies to all pipelines. To configure BuildKit for specific pipelines only, upload the hook to `s3://<your-secrets-bucket>/<pipeline-slug>/env` instead.
+
 ## Pipeline example
 
 The following example runs a build using the remote BuildKit instance and pushes to Amazon ECR, using the [`ecr`](https://github.com/buildkite-plugins/ecr-buildkite-plugin) plugin.
@@ -113,7 +117,7 @@ For Docker, use the [`docker-login`](https://github.com/buildkite-plugins/docker
 steps:
   - label: ":docker: Build with BuildKit"
     plugins:
-      - ecr#v2.10.0:
+      - ecr#v2.11.0:
           login: true
           account-ids:
             - <account-id>
@@ -127,7 +131,7 @@ steps:
         --output type=image,name=<account-id>.dkr.ecr.<region>.amazonaws.com/<image-name>:latest,push=true
 ```
 
-Replace the registry URL and image name with your target repository. The `buildctl` command uses the `BUILDKIT_HOST` environment variable set by the bootstrap hook to connect to the remote daemon.
+Replace the registry URL and image name with your target repository. The `buildctl` command uses the `BUILDKIT_HOST` environment variable set by the environment hook to connect to the remote daemon.
 
 For multi-platform builds, add the `--opt platform=linux/amd64,linux/arm64` flag to the `buildctl build` command.
 
@@ -144,9 +148,14 @@ This section covers common issues when setting up remote BuildKit builders.
 
 ### Connection errors
 
-- Error `connection error: desc = "error reading server preface: read tcp ... connection reset by peer"`: Network connectivity issue or TLS configuration mismatch. Verify the BuildKit instance is running (`sudo systemctl status buildkitd`), confirm security group allows inbound TCP 1234 from the agent security group, test connectivity from an agent (`buildctl debug workers`), and check BuildKit logs (`sudo journalctl -u buildkitd -n 50`).
+Error `connection error: desc = "error reading server preface: read tcp ... connection reset by peer"` indicates a network connectivity issue or TLS configuration mismatch. To troubleshoot:
 
-### Bootstrap hook errors
+- Verify the BuildKit instance is running: `sudo systemctl status buildkitd`
+- Confirm the security group allows inbound TCP 1234 from the agent security group
+- Test connectivity from an agent: `buildctl debug workers`
+- Check BuildKit logs: `sudo journalctl -u buildkitd -n 50`
+
+### Environment hook errors
 
 - Error `mkdir: cannot create directory '/etc/buildkit': Permission denied`: The `env` hook runs as the `buildkite-agent` user and cannot write to `/etc`. Use agent-writable directories like `${HOME}/.buildkit` or configure certificates in the secrets bucket.
 
