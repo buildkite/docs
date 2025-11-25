@@ -66,7 +66,7 @@
       <td>ARM64</td>
       <td>4</td>
       <td>16 GB</td>
-      <td>96 GB</td>
+      <td>95 GB</td>
     </tr>
     <tr>
       <td>
