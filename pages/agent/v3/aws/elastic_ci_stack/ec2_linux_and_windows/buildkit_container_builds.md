@@ -221,7 +221,7 @@ steps:
     agents:
       queue: elastic
     plugins:
-      - ecr#v2.9.1:
+      - ecr#v2.11.0:
           login: true
           account-ids: "999888777666"
           region: us-west-2
@@ -274,26 +274,7 @@ This example demonstrates exporting the contents of the `builder` stage to the l
 
 ### Using remote cache backends
 
-For distributed teams or frequently terminated EC2 instances, remote cache backends provide persistent cache storage across builds.
-
-#### S3 cache backend
-
-AWS S3 buckets can be used to store build cache layers between builds to speedup container builds.
-
-```yaml
-steps:
-  - label: "\:docker\: Build with S3 cache"
-    agents:
-      queue: elastic
-    command: |
-      docker buildx build \
-        --cache-from type=s3,region=us-east-1,bucket=my-buildkit-cache-bucket,name=myapp \
-        --cache-to type=s3,region=us-east-1,bucket=my-buildkit-cache-bucket,name=myapp,mode=max \
-        --progress=plain \
-        .
-```
-
-Ensure your Elastic CI Stack for AWS IAM role has appropriate S3 permissions for the cache bucket.
+Remote cache backends provide persistent cache storage across builds to speedup container builds across agents running in the Elastic CI Stack for AWS.
 
 #### Registry cache backend
 
@@ -305,7 +286,7 @@ steps:
     agents:
       queue: elastic
     plugins:
-      - ecr#v2.9.1:
+      - ecr#v2.11.0:
           login: true
     command: |
       docker buildx build \
@@ -316,6 +297,41 @@ steps:
         --progress=plain \
         .
 ```
+
+#### S3 cache backend
+
+AWS S3 buckets can be used to store build cache layers between builds.
+
+> 📘 Experimental feature
+> The S3 cache backend is an [experimental Docker BuildKit feature](https://docs.docker.com/build/cache/backends/s3/). It requires creating a custom buildx builder with a non-default driver (such as `docker-container`), as the default Docker driver does not support S3 cache.
+
+```yaml
+steps:
+  - label: "\:docker\: Build with S3 cache"
+    agents:
+      queue: elastic
+    command: |
+      # Create builder with docker-container driver if it doesn't exist
+      # This can also be added as a custom `pre-command` hook
+      if ! docker buildx ls | grep -q "^my-custom-builder"; then
+        docker buildx create --name my-custom-builder --driver=docker-container --use --bootstrap
+      else
+        docker buildx use my-custom-builder
+      fi
+
+      # Build with S3 cache
+      docker buildx build \
+        --cache-from type=s3,region=us-east-1,bucket=my-buildkit-cache-bucket,name=myapp \
+        --cache-to type=s3,region=us-east-1,bucket=my-buildkit-cache-bucket,name=myapp,mode=max \
+        --progress=plain \
+        .
+
+      # Clean up builder after build
+      # This can also be added as a custom `post-command` hook
+      docker buildx rm my-custom-builder
+```
+
+Ensure your Elastic CI Stack for AWS IAM role has appropriate S3 permissions for the cache bucket. AWS credentials are automatically available to the builder through the instance's IAM role.
 
 ## Security considerations
 
@@ -349,7 +365,7 @@ steps:
     agents:
       queue: elastic
     plugins:
-      - ecr#v2.9.1:
+      - ecr#v2.11.0:
           login: true
     command: |
       docker buildx build \
@@ -362,7 +378,7 @@ steps:
     agents:
       queue: elastic
     plugins:
-      - ecr#v2.9.1:
+      - ecr#v2.11.0:
           login: true
     command: |
       # Use AWS ECR image scanning
