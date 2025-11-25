@@ -1,10 +1,10 @@
-# Internal container registries
+# Internal container registry
 
-_Internal container registries_ is a feature of [Buildkite hosted agents](/docs/pipelines/hosted-agents), which allows you to house Docker images built by your pipelines.
+The _internal container registry_ is a feature of [Buildkite hosted agents](/docs/pipelines/hosted-agents), which allows you to house Docker images built by your pipelines.
 
-## Internal container registries overview
+## Internal container registry overview
 
-Once a [Buildkite cluster has been set up](/docs/pipelines/clusters/manage-clusters#setting-up-clusters), and its first [hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue) has been created, an internal container registry is created for this cluster, which you can use to manage Open Container Initiative (OCI) images built by your pipelines on Buildkite hosted agents.
+Once a [Buildkite cluster has been set up](/docs/pipelines/clusters/manage-clusters#setting-up-clusters), and its first [hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue) has been created, an internal container registry is created for this cluster, which you can use to manage [Open Container Initiative (OCI)](https://opencontainers.org/) images built by your pipelines on Buildkite hosted agents.
 
 To use the internal container registry, you'll need to reference the pre-defined environment variable `$BUILDKITE_HOSTED_REGISTRY_URL` for the registry in Docker commands you use in your pipelines. The value of this environment variable defines the location for your cluster's internal container registry.
 
@@ -33,7 +33,7 @@ steps:
     if_changed:
       - ".buildkite/Dockerfile.build"
       - ".buildkite/pipeline.yml"
-    # Use the image specified in the queue settings for this step
+    # Use the agent image specified in the queue settings for this step
     image: ~
     # Build and push a new image to the internal registry
     # Optionally add --no-cache to rebuild from scratch

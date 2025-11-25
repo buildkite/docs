@@ -60,7 +60,7 @@ resource.type="gce_instance"
 resource.labels.instance_id="INSTANCE_ID"
 ```
 
-View Buildkite agent errors:
+View Buildkite Agent errors:
 
 ```text
 resource.type="gce_instance"
@@ -289,17 +289,17 @@ gcloud projects get-iam-policy PROJECT_ID \
 
 ### Common permission issues
 
-1. "Can't access Secret Manager" - enable `enable_secret_access = true`.
-1. "Can't access Cloud Storage" - enable `enable_storage_access = true`.
-1. "Can't pull Docker images from Artifact Registry" - grant Artifact Registry Reader role.
-1. "Can't write logs" - verify that Logs Writer role is assigned.
+- "Can't access Secret Manager" - enable `enable_secret_access = true`.
+- "Can't access Cloud Storage" - enable `enable_storage_access = true`.
+- "Can't pull Docker images from Artifact Registry" - grant Artifact Registry Reader role.
+- "Can't write logs" - verify that Logs Writer role is assigned.
 
 ## Getting help
 
 If you're still stuck after trying the troubleshooting steps suggested above:
 
-1. Check the GitHub repository - [Issues](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/issues).
-1. Email Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com) with:
+- Check the GitHub repository - [Issues](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/issues).
+- Email Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com) with:
 
    * Your stack configuration (redact sensitive values)
    * Relevant Cloud Logging logs
