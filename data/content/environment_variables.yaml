@@ -79,6 +79,8 @@ variables:
   - name: BUILDKITE_BRANCH
     desc: |
       The branch being built. Note that for manually triggered builds, this branch is not guaranteed to contain the commit specified by `BUILDKITE_COMMIT`.
+
+      When a build is triggered by a GitHub webhook tag `push` event, this variable will also be set to the name of the tag being built (same value as `BUILDKITE_TAG`).
     modifiable: false
     example: "main"
   - name: BUILDKITE_BUILD_CHECKOUT_PATH
@@ -522,6 +524,8 @@ variables:
   - name: BUILDKITE_TAG
     desc: |
       The name of the tag being built, if this build was triggered from a tag.
+
+      When a build is triggered by a GitHub webhook tag `push` event, `BUILDKITE_BRANCH` will also be set to the name of the tag being built.
     modifiable: false
     example: "v1.2.3"
   - name: BUILDKITE_TIMEOUT
