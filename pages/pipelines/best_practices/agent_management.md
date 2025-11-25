@@ -59,7 +59,7 @@ Learn more in [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s).
 **Pros:**
 
 - Fully managed infrastructure with zero operational overhead
-- Built-in caching for [Git mirrors](/docs/agent/v3/git-mirrors) and containers, as well as attachable [Cache volumes](/docs/pipelines/hosted-agents/cache-volumes#container-cache) for temporary data storage
+- Built-in caching for [Git mirrors](/docs/agent/v3/git-mirrors) and containers, as well as attachable [Cache volumes](/docs/pipelines/hosted-agents/cache-volumes#container-cache-volumes) for temporary data storage
 - Isolated clusters that provide strong security boundaries
 - Per-minute billing with automatic scaling for bursty workloads
 - Ideal for highly parallel test suites
@@ -74,7 +74,7 @@ Learn more in [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s).
 
 There is no need to settle on a single architecture within your Buildkite organization as you utilize different stacks based on the needs and knowledge level in your teams.
 
-For example, a popular approach among Buildkite users is to have a self-managed agent fleet that is based on either [Kubernetes](/docs/agent/v3/agent-stack-k8s) or cloud compute instances ([AWS](/docs/agent/v3/aws) or [Google Cloud Platform](https://buildkite.com/docs/agent/v3/gcloud)), as well as on [Buildkite macOS hosted agents](https://buildkite.com/docs/pipelines/hosted-agents/macos) due to ease of management, clean development environments, and [optimized caching](/docs/pipelines/hosted-agents/cache-volumes) the latter provide. Different teams in those Buildkite organizations can utilize the stacks that are better suited to their needs.
+For example, a popular approach among Buildkite users is to have a self-managed agent fleet that is based on either [Kubernetes](/docs/agent/v3/agent-stack-k8s) or cloud compute instances ([AWS](/docs/agent/v3/aws) or [Google Cloud Platform](https://buildkite.com/docs/agent/v3/gcp)), as well as on [Buildkite macOS hosted agents](https://buildkite.com/docs/pipelines/hosted-agents/macos) due to ease of management, clean development environments, and [optimized caching](/docs/pipelines/hosted-agents/cache-volumes) the latter provide. Different teams in those Buildkite organizations can utilize the stacks that are better suited to their needs.
 
 Similarly, in terms of agent fleet scaling, instead of choosing between using static or autoscaling agents exclusively, you can:
 

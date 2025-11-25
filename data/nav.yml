@@ -187,7 +187,22 @@
         - name: "Running on Google Cloud"
           children:
             - name: "Overview"
-              path: "agent/v3/gcloud"
+              path: "agent/v3/gcp"
+            - name: "Architectural considerations"
+              children:
+                - name: "VPC design"
+                  path: "agent/v3/gcp/architecture/vpc"
+            - name: "Elastic CI Stack"
+              pill: "preview"
+              children:
+                - name: "Overview"
+                  path: "agent/v3/gcp/elastic-ci-stack/elastic-ci-stack"
+                - name: "Terraform"
+                  path: "agent/v3/gcp/elastic-ci-stack/terraform"
+                - name: "Configuration"
+                  path: "agent/v3/gcp/elastic-ci-stack/configuration-parameters"
+                - name: "Troubleshooting"
+                  path: "agent/v3/gcp/elastic-ci-stack/troubleshooting"
         - name: "Running on Kubernetes"
           children:
             - name: "Overview"
@@ -466,8 +481,8 @@
           path: "pipelines/hosted-agents/cache-volumes"
         - name: "Remote Docker builders"
           path: "pipelines/hosted-agents/remote-docker-builders"
-        - name: "Internal container registries"
-          path: "pipelines/hosted-agents/internal-container-registries"
+        - name: "Internal container registry"
+          path: "pipelines/hosted-agents/internal-container-registry"
         - name: "Mobile Delivery Cloud"
           children:
             - name: "Overview"

@@ -1,0 +1,14 @@
+# AWS-specific product names
+extends: substitution
+message: Consider using '%s' instead of '%s'
+level: error
+ignorecase: false
+swap:
+  (?i:Amazon Web Services): Amazon Web Services
+  (?i:AWS Lambda): AWS Lambda
+  (?i:AWS License Manager): AWS License Manager
+  (?i:CloudWatch) logs: CloudWatch Logs
+  (?i:CloudWatch): CloudWatch
+  (?i:Elastic CI Stack(?! for AWS)): Elastic CI Stack for AWS
+  (?i:Elastic Stack CI): Elastic CI Stack for AWS
+  (?i:Elastic Stack): Elastic CI Stack for AWS

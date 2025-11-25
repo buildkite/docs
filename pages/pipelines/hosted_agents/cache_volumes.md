@@ -126,6 +126,9 @@ If a volume is used more frequently by pipelines, and the volume's data (for exa
 
 If, however, the volume is used less frequently and its data is relatively dynamic, then the volume hit rate is likely to be lower, meaning that the data will be sourced from other sources and external repositories.
 
+> 📘
+> If you need _deterministic_ storage for [Open Container Initiative (OCI)](https://opencontainers.org/) images, such as Docker images, you can use your [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry) instead of a cache volume.
+
 ## Container cache volumes
 
 Container cache volumes are types of volumes used to cache Docker images between builds.

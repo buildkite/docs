@@ -7,6 +7,7 @@ Test Engine supports the following types of monitors:
 - [Transition count](#transition-count)
 - [Passed on retry](#passed-on-retry)
 - [Probabilistic flakiness](#probabilistic-flakiness)
+- [New test](#new-test)
 
 You can alter and reduce the amount of test executions that a monitor receives using [tag filters](#tag-filters).
 
@@ -55,6 +56,15 @@ This monitor tracks the [probabilistic flakiness score](https://engineering.fb.c
 > The probabilistic flakiness monitor is only available on [Enterprise](https://buildkite.com/pricing) plans.
 
 The probabilistic flakiness monitor is best suited to large and complex test suites, where the volume and noise of test data prevents a simpler flaky test monitor from being successful. As the PFS is a continuous metric, these scores provide a smarter prioritization metric for larger organizations.
+
+## New test
+
+> 📘
+> The new test monitor is in beta. The _recover_ actions are not yet available.
+
+The new test monitor triggers when a test executes for the first time and becomes a [managed test](/docs/test-engine/glossary#managed-test). A test is considered new only if the combination of its scope and name is unique and has not previously existed. If a test executes for the first time but its scope and name match an existing managed test, the monitor does not trigger.
+
+You can configure the new test monitor to trigger actions that help track and manage the performance and reliability of new tests to prevent flaky tests from being introduced to your test suite.
 
 ## Tag filters
 
