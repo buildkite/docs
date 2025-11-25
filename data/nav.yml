@@ -172,8 +172,6 @@
                   children:
                     - name: "Kaniko"
                       path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/kaniko-container-builds"
-                    - name: "Remote BuildKit on EC2"
-                      path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/remote-buildkit-ec2"
                 - name: "Troubleshooting"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/troubleshooting"
             - name: "EC2 Mac"
