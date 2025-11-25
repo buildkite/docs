@@ -76,8 +76,6 @@ You can set `BuildkiteTerminateInstanceAfterJob` to `true` to force the instance
 
 It is best to find an alternative to this setting if at all possible. The turn around time for replacing these instances is currently slow (5-10 minutes depending on other stack configuration settings). If you need single use jobs, we suggest looking at our container plugins like `docker`, `docker-compose`, and `ecs`, all which can be found [here](https://buildkite.com/plugins).
 
-
-
 ## Elastic CI Stack for AWS releases
 
 It is recommended to run the latest stable release of the CloudFormation
@@ -138,6 +136,390 @@ the function's Triggers and Disable the trigger rule. Next, find the stack's
 `AgentAutoScaleGroup` and set the `DesiredCount` to `0`. Once the remaining
 instances have terminated, deploy the updated stack and undo the manual
 changes to resume instance auto scaling.
+
+## Using custom IAM roles
+
+You can use an existing IAM role instead of letting the stack create one. This is useful for sharing a role across multiple stacks, or managing IAM roles outside of the stack.
+
+To use a custom role, pass a pre-existing role's ARN to the Terraform variable `instance_role_arn`, or the CloudFormation Parameter `InstanceRoleARN`.
+
+For the Agent Scaler Lambda, the ASG Process Suspender Lambda, or the Stop Buildkite Agents Lambda, you can also provide custom roles using the Terraform variables `scaler_lambda_role_arn`, `asg_process_suspender_role_arn`, and `stop_buildkite_agents_role_arn`. Custom Lambda roles are currently only supported when using Terraform.
+
+### IAM policy requirements
+
+As a baseline, a custom IAM role needs the same permissions the stack would normally create. At minimum, Buildkite Agents need an access to:
+
+* SSM for agent tokens and instance management
+* Auto Scaling for instance lifecycle management
+* AWS CloudWatch for logs and metrics
+* AWS CloudFormation for stack resource information (AWS CloudFormation-specific)
+* EC2 for instance metadata
+
+The following additional policies may also apply if using additional features:
+
+* Amazon S3 access for AWS S3 secrets and custom artifact buckets
+* KMS for encrypted parameters or pipeline signing
+* ECR for accessing container images
+
+### IAM policy examples
+
+To get started, we've included the policies that are created via the AWS CloudFormation and Terraform stacks.
+
+Some of the resources are generated dynamically when running either of the infrastructure-as-code solutions, so you will need to update them accordingly.
+
+#### Core agent policy
+
+The below policy set is the minimum requirement for the Elastic CI Stack for AWS:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:DescribeAutoScalingInstances",
+                "cloudwatch:PutMetricData",
+                "cloudformation:DescribeStackResource",
+                "ec2:DescribeTags"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "TerminateInstance",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:SetInstanceHealth",
+                "autoscaling:TerminateInstanceInAutoScalingGroup"
+            ],
+            "Resource": "arn\:aws\:autoscaling:*:*:autoScalingGroup:*:autoScalingGroupName/YOUR_STACK_NAME-AgentAutoScaleGroup-*"
+        },
+        {
+            "Sid": "Logging",
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "logs:DescribeLogGroups",
+                "logs:DescribeLogStreams",
+                "logs:PutRetentionPolicy"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "Ssm",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:DescribeInstanceProperties",
+                "ssm:ListAssociations",
+                "ssm:PutInventory",
+                "ssm:UpdateInstanceInformation",
+                "ssmmessages:CreateControlChannel",
+                "ssmmessages:CreateDataChannel",
+                "ssmmessages:OpenControlChannel",
+                "ssmmessages:OpenDataChannel",
+                "ec2messages:AcknowledgeMessage",
+                "ec2messages:DeleteMessage",
+                "ec2messages:FailMessage",
+                "ec2messages:GetEndpoint",
+                "ec2messages:GetMessages",
+                "ec2messages:SendReply"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "ssm:GetParameter",
+            "Resource": "arn\:aws\:ssm:*:*:parameter/YOUR_AGENT_TOKEN_PARAMETER_PATH"
+        }
+    ]
+}
+```
+
+#### S3 secrets bucket
+
+When the [S3 secrets bucket](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/secrets-bucket) is enabled, the following statement is required:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "SecretsBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:Get*",
+                "s3:List*"
+            ],
+            "Resource": [
+                "arn\:aws\:s3:::YOUR_SECRETS_BUCKET",
+                "arn\:aws\:s3:::YOUR_SECRETS_BUCKET/*"
+            ]
+        }
+    ]
+}
+```
+
+#### S3 artifacts bucket
+
+When using the custom Artifacts Storage in S3, the following statement is required:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ArtifactsBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:GetObjectAcl",
+                "s3:GetObjectVersion",
+                "s3:GetObjectVersionAcl",
+                "s3:ListBucket",
+                "s3:PutObject",
+                "s3:PutObjectAcl",
+                "s3:PutObjectVersionAcl"
+            ],
+            "Resource": [
+                "arn\:aws\:s3:::YOUR_ARTIFACTS_BUCKET",
+                "arn\:aws\:s3:::YOUR_ARTIFACTS_BUCKET/*"
+            ]
+        }
+    ]
+}
+```
+
+#### KMS
+
+When using KMS keys for signed pipelines or encrypted parameters, the following statement is required:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "kms:Decrypt"
+            ],
+            "Resource": "arn\:aws\:kms:*:*:key/YOUR_KMS_KEY_ID"
+        }
+    ]
+}
+```
+
+### Lambda roles
+
+When using custom IAM roles for the Agent Scaler Lambda, the ASG Process Suspender Lambda, or the Stop Buildkite Agents Lambda, the following additional permissions are required beyond the core agent policy:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ScalerLambdaAutoScaling",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:DescribeAutoScalingGroups",
+                "autoscaling:DescribeScalingActivities",
+                "autoscaling:SetDesiredCapacity"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "ScalerLambdaSSMToken",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:GetParameter"
+            ],
+            "Resource": "arn:aws:ssm:*:*:parameter/YOUR_AGENT_TOKEN_PARAMETER_PATH"
+        },
+        {
+            "Sid": "AsgProcessSuspender",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:SuspendProcesses"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "StopBuildkiteAgentsDescribeAsg",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:DescribeAutoScalingGroups"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "StopBuildkiteAgentsModifyAsg",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:UpdateAutoScalingGroup"
+            ],
+            "Resource": "arn:aws:autoscaling:*:*:autoScalingGroup:*:autoScalingGroupName/YOUR_STACK_NAME-*"
+        },
+        {
+            "Sid": "StopBuildkiteAgentsSSMDocument",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:SendCommand"
+            ],
+            "Resource": "arn:aws:ssm:*::document/AWS-RunShellScript"
+        },
+        {
+            "Sid": "StopBuildkiteAgentsSSMInstances",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:SendCommand"
+            ],
+            "Resource": "arn:aws:ec2:*:*:instance/*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:ResourceTag/aws:autoscaling:groupName": "YOUR_ASG_NAME"
+                }
+            }
+        },
+        {
+            "Sid": "LambdaLogging",
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/YOUR_STACK_NAME-*"
+        }
+    ]
+}
+```
+
+When using Elastic CI mode for the Scaler Lambda, the following additional permissions are also required:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ElasticCIModeEC2",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "ElasticCIModeSSM",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:SendCommand",
+                "ssm:GetCommandInvocation"
+            ],
+            "Resource": [
+                "arn:aws:ssm:*::document/AWS-RunShellScript",
+                "arn:aws:ec2:*:*:instance/*"
+            ]
+        },
+        {
+            "Sid": "ElasticCIModeTerminate",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:TerminateInstances"
+            ],
+            "Resource": "arn:aws:ec2:*:*:instance/*",
+            "Condition": {
+                "StringEquals": {
+                    "ec2:ResourceTag/aws:autoscaling:groupName": "YOUR_ASG_NAME"
+                }
+            }
+        }
+    ]
+}
+```
+
+#### Trust policy
+
+The following is the trust policy that is created for all the Elastic CI Stack for AWS instance roles:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": [
+                    "autoscaling.amazonaws.com",
+                    "ec2.amazonaws.com"
+                ]
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+
+```
+
+When using custom IAM roles for the Agent Scaler Lambda, the ASG Process Suspender Lambda, or the Stop Buildkite Agents Lambda, the trust policy must include `lambda.amazonaws.com` in your Trust Policy:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": [
+                    "autoscaling.amazonaws.com",
+                    "ec2.amazonaws.com",
+                    "lambda.amazonaws.com"
+                ]
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+```
+
+#### ECR managed policies
+
+For ECR access, the most straightforward approach is to utilize one of the pre-existing roles provided by AWS:
+
+* `arn\:aws\:iam:\:aws\:policy/AmazonEC2ContainerRegistryReadOnly`
+* `arn\:aws\:iam:\:aws\:policy/AmazonEC2ContainerRegistryPowerUser`
+* `arn\:aws\:iam:\:aws\:policy/AmazonEC2ContainerRegistryFullAccess`
+
+### CloudFormation configuration
+
+When creating a stack with AWS CloudFormation, a role can be passed as an ARN, for example:
+
+```yaml
+Parameters:
+  InstanceRoleARN: "arn\:aws\:iam::123456789012:role/MyBuildkiteRole"
+```
+
+In AWS CloudFormation, IAM roles are limited to a maximum of 10 paths, for example:
+
+```yaml
+Parameters:
+  InstanceRoleARN: "arn\:aws\:iam::123456789012:role/a/b/c/d/e/f/g/h/i/j/MyBuildkiteRole"
+```
+
+### Terraform configuration
+
+When using Terraform, there is no limit on the number of paths that can be used within an ARN. You can pass the value of your IAM Role's ARN to `var.instance_role_arn` and get started.
+
+For Lambda functions, you can provide custom role Amazon Resource Names (ARNs) in `terraform.tfvars`:
+
+```hcl
+instance_role_arn                  = "arn:aws:iam::123456789012:role/MyBuildkiteRole"
+scaler_lambda_role_arn             = "arn:aws:iam::123456789012:role/MyBuildkiteRole"
+asg_process_suspender_role_arn     = "arn:aws:iam::123456789012:role/MyBuildkiteRole"
+stop_buildkite_agents_role_arn     = "arn:aws:iam::123456789012:role/MyBuildkiteRole"
+```
+
+You can use the same role for all resources, or provide different roles for each Lambda function and the EC2 instances.
 
 ## CloudWatch metrics
 

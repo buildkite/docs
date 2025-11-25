@@ -20,7 +20,7 @@ AgentInstallers = [
   { title: "Elastic CI Stack for AWS",
     url: "agent/v3/elastic-ci-aws" },
   { title: "Google Cloud",
-    url: "agent/v3/gcloud" },
+    url: "agent/v3/gcp" },
   { title: "Agent Stack for Kubernetes",
     url: "agent/v3/agent_stack_k8s" }
 ].freeze

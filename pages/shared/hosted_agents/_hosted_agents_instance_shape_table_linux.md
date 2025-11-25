@@ -5,6 +5,7 @@
     <th>Architecture</th>
     <th>vCPU</th>
     <th>Memory</th>
+    <th>Disk space</th>
   </thead>
   <tbody>
     <tr>
@@ -15,6 +16,7 @@
       <td>AMD64</td>
       <td>2</td>
       <td>4 GB</td>
+      <td>47 GB</td>
     </tr>
     <tr>
       <td>
@@ -24,6 +26,7 @@
       <td>AMD64</td>
       <td>4</td>
       <td>16 GB</td>
+      <td>95 GB</td>
     </tr>
     <tr>
       <td>
@@ -33,6 +36,7 @@
       <td>AMD64</td>
       <td>8</td>
       <td>32 GB</td>
+      <td>158 GB</td>
     </tr>
     <tr>
       <td>
@@ -42,6 +46,7 @@
       <td>AMD64</td>
       <td>16</td>
       <td>64 GB</td>
+      <td>284 GB</td>
     </tr>
     <tr>
       <td>
@@ -51,6 +56,7 @@
       <td>ARM64</td
       ><td>2</td>
       <td>4 GB</td>
+      <td>47 GB</td>
     </tr>
     <tr>
       <td>
@@ -60,6 +66,7 @@
       <td>ARM64</td>
       <td>4</td>
       <td>16 GB</td>
+      <td>95 GB</td>
     </tr>
     <tr>
       <td>
@@ -69,6 +76,7 @@
       <td>ARM64</td>
       <td>8</td>
       <td>32 GB</td>
+      <td>158 GB</td>
     </tr>
     <tr>
       <td>
@@ -78,6 +86,7 @@
       <td>ARM64</td>
       <td>16</td>
       <td>64 GB</td>
+      <td>284 GB</td>
     </tr>
   </tbody>
 </table>
