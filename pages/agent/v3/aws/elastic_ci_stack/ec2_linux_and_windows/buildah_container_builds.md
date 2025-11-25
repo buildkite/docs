@@ -79,15 +79,15 @@ steps:
 #### Buildah commands
 
 - `buildah bud`: Builds an image from a Dockerfile
-  - `--format docker`: Produces a Docker-compatible image format
-  - `--file Dockerfile`: Specifies the path to the Dockerfile
-  - `--tag`: Tags the resulting image
+  + `--format docker`: Produces a Docker-compatible image format
+  + `--file Dockerfile`: Specifies the path to the Dockerfile
+  + `--tag`: Tags the resulting image
 - `buildah images`: Lists built images (useful for verification)
 - `buildah login`: Authenticates with a container registry
-  - `--authfile`: Specifies where to store authentication credentials
-  - `--username` and `--password-stdin`: Provide credentials for authentication
+  + `--authfile`: Specifies where to store authentication credentials
+  + `--username` and `--password-stdin`: Provide credentials for authentication
 - `buildah push`: Pushes the image to a registry
-  - `--authfile`: Uses the authentication file created during login
+  + `--authfile`: Uses the authentication file created during login
 
 ## Understanding the components
 
@@ -99,7 +99,7 @@ The official Buildah image that runs in privileged mode is `quay.io/buildah/stab
 
 ### Security contexts
 
-The configuration shown uses privileged mode where the container runs as root with `privileged: true`, bypassing most security controls. 
+The configuration shown uses privileged mode where the container runs as root with `privileged: true`, bypassing most security controls.
 
 ### Storage driver
 
