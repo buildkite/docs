@@ -2243,6 +2243,11 @@ type ClusterQueue implements Node {
   metrics: ClusterQueueMetrics
 
   """
+  Dispatch behavior for retry jobs. Must be one of `prefer-warmest` or `prefer-different`
+  """
+  retryAgentAffinity: String!
+
+  """
   The health status of stacks associated with this queue
   """
   stackHealth: String
@@ -2284,6 +2289,11 @@ input ClusterQueueCreateInput {
   """
   key: String!
   organizationId: ID!
+
+  """
+  Dispatch behavior for retry jobs. Must be one of `prefer-warmest` or `prefer-different`
+  """
+  retryAgentAffinity: String
 }
 
 """
@@ -2459,6 +2469,11 @@ input ClusterQueueUpdateInput {
   hostedAgents: HostedAgentsQueueSettingsUpdateInput
   id: ID!
   organizationId: ID!
+
+  """
+  Retry agent affinity
+  """
+  retryAgentAffinity: String
 }
 
 """
