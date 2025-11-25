@@ -56,7 +56,7 @@
       <td>ARM64</td
       ><td>2</td>
       <td>4 GB</td>
-      <td>48 GB</td>
+      <td>47 GB</td>
     </tr>
     <tr>
       <td>
