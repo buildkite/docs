@@ -86,6 +86,8 @@
           path: "pipelines/best-practices/git-checkout-optimization"
         - name: "Plugin management"
           path: "pipelines/best-practices/plugin-management"
+        - name: "Caching"
+          path: "pipelines/best-practices/caching"
         - name: "Enforcing security controls"
           path: "pipelines/best-practices/security-controls"
     - name: "Tutorials"
