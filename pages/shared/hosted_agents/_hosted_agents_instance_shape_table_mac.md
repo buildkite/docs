@@ -23,7 +23,7 @@
       <td>Large</td>
       <td>12</td>
       <td>56 GB</td>
-      <td>100 GB</td>
+      <td>294 GB</td>
     </tr>
   </tbody>
 </table>
