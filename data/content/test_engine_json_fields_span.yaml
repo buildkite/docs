@@ -29,8 +29,8 @@ fields:
       How long the span took to run. This value is seconds stored as a float.
   examples:
 - name: detail
-  required : false
+  required: false
   desc: |
-      A detail object containing further details on the span. Required when `section` is `http`, or `sql`.
+      A detail object containing further details on the span. Required when `section` is `http`, `sql`, or `annotation`.
       Read [Detail objects](/docs/test-analytics/importing-json#json-test-results-data-reference-detail-objects)
   examples:
