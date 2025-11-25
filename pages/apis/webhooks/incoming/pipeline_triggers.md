@@ -8,8 +8,8 @@ Pipeline triggers are HTTP endpoints that create builds when they receive POST r
 
 A pipeline trigger is scoped to a specific Buildkite pipeline, and can be used to trigger builds from monitoring alerts, deployment systems, or any service that can send outbound webhooks.
 
-> 📘 Private preview feature
-> The pipeline triggers feature is currently in private preview as it is still undergoing development. To request early access or provide feedback, please contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
+> 📘 Public preview feature
+> The pipeline triggers feature is currently in public preview. To provide feedback, please contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
 
 ## Supported incoming webhooks
 
