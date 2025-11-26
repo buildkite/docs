@@ -1,9 +1,9 @@
 # BuildKit container builds
 
-[BuildKit](https://docs.docker.com/build/buildkit/) is Docker's next-generation build system that provides improved performance, better caching, parallel build execution, and efficient layer management. The Elastic CI Stack for AWS includes [Docker Buildx](https://docs.docker.com/build/concepts/overview/#buildx) (BuildKit) pre-installed on recent Linux AMI versions. BuildKit runs as part of the Docker daemon on EC2 instances.
+[BuildKit](https://docs.docker.com/build/buildkit/) is Docker's next-generation build system that provides improved performance, better caching, parallel build execution, and efficient layer management. The Elastic CI Stack for AWS includes [Docker Buildx](https://docs.docker.com/build/concepts/overview/#buildx) ([BuildKit](https://docs.docker.com/build/buildkit/)) pre-installed on recent Linux AMI versions. BuildKit runs as part of the Docker daemon on EC2 instances.
 
-> 📘 Note
-> Docker Buildx comes pre-installed on recent Elastic CI Stack for AWS AMI versions (starting with `v5.4.0`). If you're using an older AMI version and Buildx is not available, you can either update to the latest AMI version or manually install Buildx following the [Docker Buildx installation documentation](https://docs.docker.com/build/install-buildx/).
+> 📘
+> Docker Buildx comes pre-installed on recent Elastic CI Stack for AWS AMI versions (starting with version `5.4.0`). If you're using an older AMI version and Buildx is not available, you can either upgrade to the latest AMI version or manually install Buildx following the [Docker Buildx installation documentation](https://docs.docker.com/build/install-buildx/).
 
 ## Using BuildKit with Elastic CI Stack for AWS
 
@@ -11,7 +11,7 @@ BuildKit is available through the `docker buildx build` command, which provides 
 
 ### Basic BuildKit build
 
-You can use BuildKit through Docker Buildx with default settings. This approach works immediately without any special configuration. For example:
+You can use BuildKit through Docker Buildx with default settings, without any additional configuration. For example:
 
 ```yaml
 steps:
@@ -58,7 +58,7 @@ No configuration changes are required in your pipeline YAML for using BuildKit w
 
 ### BuildKit with multi-platform builds
 
-The Elastic CI Stack for AWS supports building container images for multiple architectures. BuildKit can build images for platforms different from the host architecture (through QEMU emulation). As a result, you can build ARM64 images on x86 instances and vice versa without additional setup.
+The Elastic CI Stack for AWS supports building container images for multiple architectures. BuildKit can build images for platforms different from the host architecture (through QEMU emulation). As a result, you can build ARM64 images on x86 instances and vice versa without additional setup. Here is an example of a multi-platform build configuration:
 
 ```yaml
 steps:
@@ -274,7 +274,7 @@ This example demonstrates exporting the contents of the `builder` stage to the l
 
 ### Using remote cache backends
 
-Remote cache backends provide persistent cache storage across builds to speedup container builds across agents running in the Elastic CI Stack for AWS.
+Remote cache backends provide persistent cache storage across builds to speed up container builds across agents running in the Elastic CI Stack for AWS.
 
 #### Registry cache backend
 
