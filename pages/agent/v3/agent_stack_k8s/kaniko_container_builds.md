@@ -18,29 +18,91 @@ Google has deprecated support for the Kaniko project and no longer publishes new
 
 ### Build an image and push to Buildkite Package Registries
 
+This section covers using the Kaniko executor for building container images and pushing them to [Buildkite Package Registries](/docs/package_registries). To push images to Buildkite Package Registries, you need to first set up the following:
+
+1. One-time package registry setup and OIDC policy
+1. Create an agent hook to get OIDC token and set up Docker config
+1. Mount the agent hook and buildkite-agent binary to the container
+
+#### One-time package registry setup and OIDC policy
+
+Follow the steps in [One-time package registry setup](/docs/aws/elastic-ci-stack/ec2-linux-and-windows/kaniko-container-builds#one-time-package-registry-setup) to set up Buildkite Package Registry and the necessary OIDC policy.
+
+#### Create an agent hook to get OIDC token and set up Docker config
+
+For the Kaniko executor container to be able to push the image it built to Buildkite Package Registry, it needs to get an OIDC token using `buildkite-agent get oidc-token` and set up Docker config. To achieve this, an agent hook is needed and below is the config map for the agent hook
+
+```yaml
+#!/bin/sh
+set -euo pipefail
+
+echo "--- Generating OIDC token for Kaniko inside container"
+
+# Use buildkite-agent binary (mounted in the container at /workspace/buildkite-agent)
+OIDC_TOKEN="$(/workspace/buildkite-agent oidc request-token --audience "https://packages.buildkite.com/{BUILDKITE_ORG_SLUG}/{PACKAGE_REGISTRY_SLUG}" --lifetime 300)"
+
+mkdir -p /kaniko/.docker
+cat >/kaniko/.docker/config.json <<EOF
+{
+  "auths": {
+    "packages.buildkite.com/{BUILDKITE_ORG_SLUG}/{PACKAGE_REGISTRY_SLUG}": { "username": "buildkite", "password": "${OIDC_TOKEN}" }
+  }
+}
+EOF
+
+echo "--- Docker config written to /kaniko/.docker/config.json"
+```
+#### Mount the agent hook and buildkite-agent binary to container
+
+In this section, we will look at how to mount the agent hook created above, along with buildkite-agent binary to be able to push the image to Buildkite package registry. Here is the pipeline config:
+
 ```yaml
 agents:
   queue: kubernetes
+
 steps:
-  - label: "\:kaniko\: Build image and push to Buildkite Package Registries"
+  - label: "Build image via Kaniko (OIDC)"
+    env:
+      PACKAGE_REGISTRY_NAME: "my-container-registry"
     plugins:
       - kubernetes:
           podSpecPatch:
+            volumes:
+              - name: agent-hooks
+                configMap:
+                  name: buildkite-agent-hooks
+                  defaultMode: 493
+
+              - name: kaniko-docker-config
+                emptyDir: {}
+
             containers:
-              - image: gcr.io/kaniko-project/executor:debug
-                name: container-0
+              - name: container-0
+                image: gcr.io/kaniko-project/executor:debug
+                env:
+                - name: BUILDKITE_HOOKS_PATH
+                  value: /buildkite/hooks
+                # Mount hooks from ConfigMap
+                volumeMounts:
+                  - name: agent-hooks
+                    mountPath: /buildkite/hooks
+
+                  - name: kaniko-docker-config
+                    mountPath: /kaniko/.docker
+
+                # Mount workspace so buildkite-agent binary is accessible
                 extraVolumeMounts:
                   - name: workspace
                     mountPath: /workspace
-                command: ["/kaniko/executor"]
+
+                command: ["/busybox/sh"]
                 args:
-                  - "/kaniko/executor"
-                  - "--dockerfile=/workspace/build/buildkite/src/Dockerfile"
-                  - "--no-push"
-                  - "--tarPath"
-                  - "/workspace/image.tar"
-    artifact_paths:
-      - "/workspace/image.tar"
+                  - "-c"
+                  - |
+                    echo "--- Running Kaniko"
+                    /kaniko/executor \
+                       --dockerfile=/workspace/build/buildkite/src/Dockerfile \
+                       --destination=packages.buildkite.com/${BUILDKITE_ORGANIZATION_SLUG}/${PACKAGE_REGISTRY_NAME}/kaniko-test:latest
 ```
 
 > 📘 Using the debug tag
