@@ -1,8 +1,6 @@
-# Getting started with Mobile Delivery Cloud
+# Getting started with iOS
 
-👋 Welcome to Buildkite Mobile Delivery Cloud! You can use Mobile Delivery Cloud to help you run CI/CD pipelines to build your mobile apps, and track and analyze automated tests, as well as house your built mobile app artifacts within appropriate registries, all within a matter of steps.
-
-This getting started page is a tutorial that helps you understand Mobile Delivery Cloud's fundamentals, by guiding you through the process of setting up Buildkite macOS hosted agents to run a Buildkite pipeline that creates a basic iOS app for deployment.
+This getting started with iOS guide is a tutorial that helps you understand how to set up Buildkite macOS hosted agents to run a Buildkite pipeline that creates a basic iOS app for deployment.
 
 ## Before you start
 
