@@ -289,7 +289,7 @@ steps:
 
 ### Using BuildKit features with cache optimization
 
-BuildKit provides advanced build features including build cache optimization. BuildKit's inline cache stores cache metadata in the image itself, enabling cache reuse across different build agents.
+[BuildKit](https://docs.docker.com/build/buildkit/) provides advanced build features including build cache optimization. BuildKit's inline cache stores cache metadata in the image itself, enabling cache reuse across different build agents.
 
 ```yaml
 steps:
@@ -328,7 +328,7 @@ steps:
 
 ### Custom image tagging on push
 
-Push the same image with multiple tags to support different deployment strategies. This is useful for maintaining both immutable version tags and mutable environment tags.
+You can push the same image with multiple tags to support different deployment strategies. This is useful for maintaining both immutable version tags and mutable environment tags.
 
 ```yaml
 steps:
@@ -370,8 +370,7 @@ RUN --mount=type=ssh git clone git@github.com:yourorg/private-lib.git
 
 Automatically pass cloud provider credentials to containers for pushing images to cloud-hosted registries.
 
-
-For AWS Elastic Container Registry (ECR):
+For [AWS Elastic Container Registry (ECR)](https://aws.amazon.com/ecr/):
 
 ```yaml
 steps:
@@ -387,7 +386,7 @@ steps:
             - app:123456789012.dkr.ecr.us-west-2.amazonaws.com/app:${BUILDKITE_BUILD_NUMBER}
 ```
 
-For Google Artifact Registry (GAR):
+For [Google Artifact Registry (GAR)](https://docs.cloud.google.com/artifact-registry/docs):
 
 ```yaml
 steps:
@@ -404,9 +403,11 @@ steps:
 
 ## Troubleshooting
 
+This section can help you to identify and solve the issues that most commonly arise when using Docker Compose container builds with Buildkite Pipelines.
+
 ### Network connectivity
 
-Builds may fail with errors like "could not resolve host," "connection timeout," or "unable to pull image" when trying to pull base images from Docker Hub or push to your private registry. Network policies, firewall rules, or DNS configuration issues can restrict Kubernetes networking.
+Network policies, firewall rules, or DNS configuration issues can restrict Kubernetes networking. As a result, builds may fail with errors like "could not resolve host," "connection timeout," or "unable to pull image" when trying to pull base images from Docker Hub or push to your private registry.
 
 To resolve these issues, verify that your Kubernetes pods have network access to Docker Hub and your registry. Check your cluster's network policies, firewall rules, and DNS configuration.
 
@@ -435,7 +436,7 @@ plugins:
         - app:your-registry.example.com/app:cache
 ```
 
-Ensure the cache image exists in your registry before the first build, or accept that the initial build will be slower. Subsequent builds will use the cached layers.
+Ensure that the cache image exists in your registry before running the first build, or accept that the initial build will be slower. Subsequent builds will use the cached layers.
 
 ### Environment variables not available during build
 
@@ -452,7 +453,7 @@ plugins:
         - BUILD_NUMBER=${BUILDKITE_BUILD_NUMBER}
 ```
 
-Then reference them in your Dockerfile:
+Then reference the passed environment variables in your Dockerfile:
 
 ```dockerfile
 ARG API_URL
@@ -466,7 +467,7 @@ Note that `args` passes variables at build time, while the `environment` option 
 
 Pushing images to registries fails with authentication errors or timeout errors.
 
-For authentication failures, ensure credentials are properly configured. Use the `docker-login` plugin before the `docker-compose` plugin:
+For authentication failures, ensure credentials are properly configured. Use the [`docker-login` plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-login-buildkite-plugin/) before the `docker-compose` plugin:
 
 ```yaml
 plugins:
@@ -492,7 +493,7 @@ plugins:
       push: app
 ```
 
-Or for Google Artifact Registry:
+And for Google Artifact Registry:
 
 ```yaml
 plugins:
@@ -516,7 +517,7 @@ plugins:
 
 ## Debugging builds
 
-When builds fail or behave unexpectedly, enable verbose output and disable caching to diagnose the issue.
+When builds fail or behave unexpectedly, you need to enable verbose output and disable caching to diagnose the issue.
 
 ### Enable verbose output
 
