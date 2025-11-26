@@ -12,7 +12,7 @@ This getting started with iOS guide is a tutorial that helps you understand how 
 
 An agent is a small, reliable, and cross-platform program that runs pipeline builds. The agent polls Buildkite for work, runs jobs, and reports results.
 
-Mobile Delivery Cloud uses [Buildkite hosted agents](/docs/pipelines/hosted-agents/overview) running [macOS](/docs/pipelines/hosted-agents/macos), which are configured through a [_cluster_](/docs/pipelines/glossary#cluster). Clusters provide a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within [_queues_](/docs/pipelines/glossary#queue)) in the same cluster.
+Building iOS apps uses [Buildkite hosted agents](/docs/pipelines/hosted-agents/overview) running [macOS](/docs/pipelines/hosted-agents/macos), which are configured through a [_cluster_](/docs/pipelines/glossary#cluster). Clusters provide a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within [_queues_](/docs/pipelines/glossary#queue)) in the same cluster.
 
 By default, Buildkite organizations have one cluster, named **Default cluster** with a single self-hosted queue, named with the key **default**. A cluster maintainer or Buildkite organization administrator can customize these default names.
 
