@@ -8,9 +8,7 @@ Buildkite Linux hosted agents are:
 
 Learn more about:
 
-- Best practices for configuring queues in [How should I structure my queues](/docs/pipelines/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues) of the [Clusters overview](/docs/pipelines/clusters).
-
-- Configuring queues in general, in [Manage queues](/docs/pipelines/clusters/manage-queues).
+- Best practices for configuring queues in [How should I structure my queues](/docs/pipelines/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues) of the [Clusters overview](/docs/pipelines/clusters), as well as [Manage queues](/docs/pipelines/clusters/manage-queues).
 
 - How to configure a Linux hosted agent in [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
 
