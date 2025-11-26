@@ -26,7 +26,7 @@ This section covers using the Kaniko executor for building container images and 
 
 #### One-time package registry setup and OIDC policy
 
-Follow the steps in [One-time package registry setup](/docs/aws/elastic-ci-stack/ec2-linux-and-windows/kaniko-container-builds#one-time-package-registry-setup) to set up Buildkite Package Registry and the necessary OIDC policy.
+Follow the steps in [One-time package registry setup](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/kaniko-container-builds#one-time-package-registry-setup) to set up Buildkite Package Registry and the necessary OIDC policy.
 
 #### Create an agent hook to get OIDC token and set up Docker config
 
