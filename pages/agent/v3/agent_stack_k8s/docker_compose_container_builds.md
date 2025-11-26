@@ -4,23 +4,29 @@ toc_include_h3: false
 
 # Docker Compose builds
 
-The [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) helps you build and run multi-container Docker applications. Build and push container images using the Docker Compose plugin on agents that are auto-scaled by the Buildkite Agent Stack for Kubernetes.
+The [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) helps you build and run multi-container Docker applications. You can build and push container images using the Docker Compose plugin on agents that are auto-scaled by the Buildkite Agent Stack for Kubernetes.
 
-## Special considerations with Agent Stack for Kubernetes
+## Special considerations regarding Agent Stack for Kubernetes
 
-When running this plugin within the Buildkite Agent Stack for Kubernetes, consider the following requirements and best practices for successful container builds.
+When running the [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) within the Buildkite Agent Stack for Kubernetes, consider the following requirements and best practices for successful container builds.
 
 ### Docker daemon access
 
 The Docker Compose plugin requires access to a Docker daemon and you can choose one of two primary approaches:
 
+- Mounting the host Docker socket
+- Docker-in-Docker (DinD)
+
+Let's look into both approaches in more detail.
+
 #### Mounting the host Docker socket
 
-Mount `/var/run/docker.sock` from the host into your pod. This is the simpler approach, but the host's Docker daemon is shared with all pods that mount it.
+Mount `/var/run/docker.sock` from the host into your pod.
 
-Only use this approach with trusted repositories, run your agents on dedicated nodes, and scope access according to your Kubernetes security policies.
+> 🚧 Warning!
+> This approach is the simpler approach, but you need to remember that the host's Docker daemon will be shared with all pods that mount it. Only use this approach with trusted repositories, run your agents on dedicated nodes, and scope access according to your Kubernetes security policies.
 
-Since all pods share the same Docker daemon, there's no resource isolation between them. If one pod's build exhausts or corrupts the daemon, every other pod is impacted. You're also limited to a single daemon configuration across all pods.
+Since all pods share the same Docker daemon, there's no resource isolation between them. If one pod's build exhausts or corrupts the daemon, all the other pods will be impacted. You're also limited to a single daemon configuration across all pods.
 
 This approach grants containers near-root-level access to the host, meaning any process with socket access can control the host Docker daemon. This poses container breakout risks if running untrusted workloads.
 
