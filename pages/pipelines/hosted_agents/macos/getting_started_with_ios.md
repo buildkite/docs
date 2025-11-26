@@ -15,20 +15,18 @@ To complete this tutorial, you'll need to have done the following:
 Buildkite Pipelines requires [macOS hosted agents](/docs/pipelines/hosted-agents/macos) to build iOS apps, which you can get up and running by following the procedure in this section.
 
 > 📘 Already running an agent
-> If you've already a Buildkite hosted queue, skip to the [next step on creating a pipeline](#create-a-pipeline).
+> If you've already a Buildkite hosted queue for macOS hosted agents, skip to the [next step on creating a pipeline](#create-a-pipeline).
 
 You can create the first [Buildkite hosted agent](/docs/pipelines/hosted-agents/overview) for [macOS](/docs/pipelines/hosted-agents/macos) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
 
 To create your macOS hosted agent:
 
-1. Navigate to the [cluster](/docs/clusters/manage-clusters) you want to run your pipeline in. To do this, select **Agents** in the global navigation to access the **Clusters** page.
-1. Select the cluster (for example, **Default cluster**) to which the hosted agent will be added.
 1. Follow the [Create a Buildkite hosted queue](/docs/clusters/manage-queues#create-a-buildkite-hosted-queue) > [Using the Buildkite interface](/docs/clusters/manage-queues#create-a-buildkite-hosted-queue-using-the-buildkite-interface) instructions to begin creating your hosted agent within its own queue.
 
     As part of this process:
-    * Give this queue an intuitive **key** and **description**, for example, **buildkite-macos-hosted-queue** and **Buildkite macOS hosted queue**, respectively.
+    * Give this queue an intuitive **key** and **description**, for example, **macos** and **Buildkite macOS hosted queue**, respectively.
     * In the **Select your agent infrastructure** section, select **Hosted**.
-    * Select **macOS** as the **Machine type** and **Medium** for the **Capacity**. While small capacity machines are only available on the trial, larger capacity machines allow your pipelines to run faster, since these pipelines typically execute device emulators, which can be computationally intensive, as part of the build process.
+    * Select **macOS** as the **Machine type** and **Medium** for the **Capacity**.
 
 1. Make your pipelines use your new macOS hosted agent by default, by ensuring its queue is the _default queue_. This should be indicated by **(default)** after the queue's key on the cluster's **Queues** page. If this is not the case and another queue is marked **(default)**:
 
