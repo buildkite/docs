@@ -68,6 +68,8 @@
       children:
         - name: "Overview"
           path: "pipelines/best-practices/overview"
+        - name: "Pipeline design and structure"
+          path: "pipelines/best-practices/pipeline-design-and-structure"
         - name: "Agent management"
           path: "pipelines/best-practices/agent-management"
         - name: "Docker-based builds"
@@ -84,6 +86,8 @@
           path: "pipelines/best-practices/git-checkout-optimization"
         - name: "Plugin management"
           path: "pipelines/best-practices/plugin-management"
+        - name: "Caching"
+          path: "pipelines/best-practices/caching"
         - name: "Enforcing security controls"
           path: "pipelines/best-practices/security-controls"
     - name: "Tutorials"
