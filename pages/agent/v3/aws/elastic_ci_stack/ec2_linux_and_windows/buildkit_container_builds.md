@@ -173,7 +173,7 @@ The Elastic CI Stack for AWS includes the [ECR Buildkite plugin](https://buildki
 
 ### Basic ECR push
 
-Follow this example to perform a basic ECR push. Replace the placeholder values with your values.
+This example shows a basic ECR push. Replace the placeholder values with your values.
 
 ```yaml
 steps:
@@ -193,7 +193,7 @@ steps:
 
 ### ECR push with build arguments
 
-You can pass build arguments to customize your build based on Buildkite metadata or environment variables.
+You can pass build arguments to customize your build based on Buildkite [metadata](/docs/agent/v3/cli-meta-data) or [environment variables](/docs/pipelines/configure/environment-variables#buildkite-environment-variables).
 
 ```yaml
 steps:
@@ -213,7 +213,7 @@ steps:
 
 ### Cross-account ECR push
 
-For pushing to ECR repositories in different AWS accounts, use the ECR plugin's role assumption feature.
+For pushing to ECR repositories in different AWS accounts, use the [ECR plugin](https://buildkite.com/resources/plugins/buildkite-plugins/ecr-buildkite-plugin/)'s role assumption feature.
 
 ```yaml
 steps:
@@ -298,12 +298,12 @@ steps:
         .
 ```
 
-#### S3 cache backend
+#### AWS S3 cache backend
 
 AWS S3 buckets can be used to store build cache layers between builds.
 
 > 📘 Experimental feature
-> The S3 cache backend is an [experimental Docker BuildKit feature](https://docs.docker.com/build/cache/backends/s3/). It requires creating a custom buildx builder with a non-default driver (such as `docker-container`), as the default Docker driver does not support S3 cache.
+> The S3 cache backend is an [experimental Docker BuildKit feature](https://docs.docker.com/build/cache/backends/s3/). It requires creating a custom buildx builder with a non-default driver (such as `docker-container`), as the default Docker driver does not support AWS S3 cache.
 
 ```yaml
 steps:
@@ -331,7 +331,7 @@ steps:
       docker buildx rm my-custom-builder
 ```
 
-Ensure your Elastic CI Stack for AWS IAM role has appropriate S3 permissions for the cache bucket. AWS credentials are automatically available to the builder through the instance's IAM role.
+Ensure your Elastic CI Stack for AWS IAM role has appropriate AWS S3 permissions for the cache bucket. AWS credentials are automatically available to the builder through the instance's IAM role.
 
 ## Security considerations
 
@@ -341,11 +341,11 @@ BuildKit builds run with the privileges of the Docker daemon on the EC2 instance
 
 Enable [Docker user namespace remapping](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/configuration/docker_configuration#enabling-docker-user-namespace-remapping) through the `EnableDockerUserNamespaceRemap` parameter in AWS CloudFormation. This maps the containers to the non-root `buildkite-agent` user, reducing the attack surface if a container is compromised.
 
-When user namespace remapping is enabled, Docker containers run as user `100000-165535` (mapped from container UID 0-65535) on the host, preventing container processes from accessing host resources as root.
+When user namespace remapping is enabled, Docker containers run as user `100000-165535` (mapped from container UID `0-65535`) on the host, preventing container processes from accessing host resources as root.
 
 ### Secret management
 
-Never include secrets directly in Dockerfiles or build arguments, as they may be persisted in image layers or build history. Instead, use BuildKit's `--secret` flag with secrets retrieved from Buildkite Secrets or the Buildkite environment.
+Never include secrets directly in Dockerfiles or build arguments, as they may be persisted in image layers or build history. Instead, use BuildKit's `--secret` flag with secrets retrieved from [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) or the Buildkite environment.
 
 The Elastic CI Stack for AWS provides isolated Docker configurations per job through the `DOCKER_CONFIG` environment variable, ensuring Docker credentials are not leaked between jobs.
 
@@ -477,10 +477,10 @@ Update to the latest Elastic CI Stack for AWS AMI version to get the Buildx supp
 
 BuildKit builds can consume significant disk space for layers and cache. The Elastic CI Stack for AWS automatically monitors disk usage and prunes Docker resources when space is low. When disk space becomes critically low, the stack fails the current job by default.
 
-Additional CloudFormation parameters are available to handle how the Stack instance responds when disk space management issues are encountered:
+Additional AWS CloudFormation parameters are available to handle how the Stack instance responds when disk space management issues are encountered:
 
-- `BuildkitePurgeBuildsOnDiskFull`: Set to `true` to automatically purge build directories when disk space is critically low (default: `false`)
-- `BuildkiteTerminateInstanceOnDiskFull`: Set to `true` to terminate the instance when disk space is critically low, allowing autoscaling to provision a fresh instance (default: `false`)
+- `BuildkitePurgeBuildsOnDiskFull` - set to `true` to automatically purge build directories when disk space is critically low (default: `false`).
+- `BuildkiteTerminateInstanceOnDiskFull` - set to `true` to terminate the instance when disk space is critically low, allowing autoscaling to provision a fresh instance (default: `false`).
 
 To prevent disk space issues, consider enabling instance storage or increasing the root volume size through the `RootVolumeSize` parameter in AWS CloudFormation.
 
@@ -494,7 +494,7 @@ For local cache, ensure the cache directory persists between builds:
 ls -la /tmp/buildkit-cache
 ```
 
-For remote cache (S3 or registry), verify authentication and network access:
+For remote cache (AWS S3 or registry), verify authentication and network access:
 
 ```bash
 # Test S3 access
