@@ -4,21 +4,18 @@ This getting started with iOS guide is a tutorial that helps you understand how 
 
 ## Before you start
 
-<%= render_markdown partial: 'pipelines/pipelines_tutorials_prereqs' %>
+To complete this tutorial, you'll need to have done the following:
+
+- Run through the [Getting started with Pipelines](/docs/pipelines/getting-started) tutorial.
 
 - To have made your own copy or fork of the [FlappyKite](https://github.com/buildkite/FlappyKite) repository within your own GitHub account.
 
 ## Set up your hosted agent
 
-An agent is a small, reliable, and cross-platform program that runs pipeline builds. The agent polls Buildkite for work, runs jobs, and reports results.
+Buildkite Pipelines requires [macOS hosted agents](/docs/pipelines/hosted-agents/macos) to build iOS apps, which you can get up and running by following the procedure in this section.
 
-Building iOS apps uses [Buildkite hosted agents](/docs/pipelines/hosted-agents/overview) running [macOS](/docs/pipelines/hosted-agents/macos), which are configured through a [_cluster_](/docs/pipelines/glossary#cluster). Clusters provide a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within [_queues_](/docs/pipelines/glossary#queue)) in the same cluster.
-
-By default, Buildkite organizations have one cluster, named **Default cluster** with a single self-hosted queue, named with the key **default**. A cluster maintainer or Buildkite organization administrator can customize these default names.
-
-You need at least one Buildkite hosted agent queue configured to run a build.
-
-### Create a Buildkite hosted agent for macOS
+> 📘 Already running an agent
+> If you've already a Buildkite hosted queue, skip to the [next step on creating a pipeline](#create-a-pipeline).
 
 You can create the first [Buildkite hosted agent](/docs/pipelines/hosted-agents/overview) for [macOS](/docs/pipelines/hosted-agents/macos) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
 

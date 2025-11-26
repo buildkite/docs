@@ -1,6 +1,10 @@
 # macOS hosted agents
 
-A Buildkite macOS hosted agent is configured as part of a _Buildkite hosted queue_, where the Buildkite hosted agent's machine type is macOS, has a particular [size](#sizes) to efficiently manage jobs with varying requirements, and comes pre-installed with [software](#macos-instance-software-support).
+Buildkite macOS hosted agents:
+
+- Are [Buildkite Agents](/docs/agent/v3) hosted by Buildkite, which run in a macOS environment.
+
+- Are configured as part of a _Buildkite hosted queue_, where the Buildkite hosted agent's machine type is macOS, has a particular [size](#sizes) to efficiently manage jobs with varying requirements, and comes pre-installed with [software](#macos-instance-software-support).
 
 Learn more about:
 
