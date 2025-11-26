@@ -6,16 +6,16 @@ This getting started with iOS guide is a tutorial that helps you understand how 
 
 To complete this tutorial, you'll need to have done the following:
 
-- Run through the [Getting started with Pipelines](/docs/pipelines/getting-started) tutorial.
+- Run through the [Getting started with Pipelines](/docs/pipelines/getting-started) tutorial, to familiarize yourself with the basics of Buildkite Pipelines.
 
-- To have made your own copy or fork of the [FlappyKite](https://github.com/buildkite/FlappyKite) repository within your own GitHub account.
+- Make your own copy or fork of the [FlappyKite](https://github.com/buildkite/FlappyKite) repository within your own GitHub account.
 
 ## Set up your hosted agent
 
-Buildkite Pipelines requires [macOS hosted agents](/docs/pipelines/hosted-agents/macos) to build iOS apps, which you can get up and running by following the procedure in this section.
+You can use [macOS hosted agents](/docs/pipelines/hosted-agents/macos) to build iOS apps, which you can get up and running by following the procedure in this section.
 
 > 📘 Already running an agent
-> If you've already a Buildkite hosted queue for macOS hosted agents, skip to the [next step on creating a pipeline](#create-a-pipeline).
+> If you already have a Buildkite hosted queue for macOS hosted agents, skip to the [next step on creating a pipeline](#create-a-pipeline).
 
 You can create the first [Buildkite hosted agent](/docs/pipelines/hosted-agents/overview) for [macOS](/docs/pipelines/hosted-agents/macos) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
 
@@ -37,8 +37,6 @@ To create your macOS hosted agent:
 Your Buildkite macOS hosted agent, as the new default queue, is now ready to use.
 
 ## Create a pipeline
-
-_Pipelines_ are how Buildkite represents a CI/CD workflow. You define each pipeline with a series of _steps_ to run. When you trigger a pipeline, you create a _build_, and steps are dispatched as _jobs_ to run on agents, such as the [macOS agent you just created](#set-up-your-hosted-agent-create-a-buildkite-hosted-agent-for-macos). Jobs are independent of each other and can run on different macOS agents.
 
 Next, you'll create a new pipeline to build the example [FlappyKite Swift application](https://github.com/buildkite/FlappyKite) (app). This simple example of a mobile app starts with an initial blank screen, and a plus (**+**) button at its top. Each time you tap this button, a new timestamp is generated successively down the screen.
 
