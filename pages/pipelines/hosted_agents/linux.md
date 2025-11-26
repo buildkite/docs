@@ -24,6 +24,10 @@ Note the following about Linux hosted agent instances.
 
 If you need extra large instances, or longer running hosted agents (over 8 hours), please contact Support at support@buildkite.com.
 
+### Concurrency
+
+
+
 ## Agent images
 
 Buildkite provides a Linux agent image pre-configured with common tools and utilities to help you get started quickly. This image also provides tools required for running jobs on hosted agents.

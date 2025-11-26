@@ -18,7 +18,7 @@ The following cost benefits deliver enhanced value through accelerated build tim
 
 - **Transparent Git mirroring**: This significantly accelerates git clone operations by caching repositories locally on the agent at startup—particularly beneficial for large repositories and monorepos.
 
-- **Transparent remote Docker builders at no additional cost**: Offloading Docker build commands to [dedicated, pre-configured machines](/docs/pipelines/hosted-agents/remote-docker-builders) equipped with Docker layer caching and additional performance optimizations. This feature is available to [Enterprise](https://buildkite.com/pricing/) plan customers only.
+- **Transparent remote Docker builders at no additional cost**: Offloading Docker build commands to [dedicated, pre-configured machines](/docs/pipelines/hosted-agents/remote-docker-builders) equipped with Docker layer caching and additional performance optimizations. This feature operates without any additional configuration, and is available to [Enterprise](https://buildkite.com/pricing/) plan customers only.
 
 - **An internal container registry**: Speed up your pipeline build times by managing your jobs' container images through your [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry), which provides deterministic storage for Open Container Initiative (OCI) images.
 
