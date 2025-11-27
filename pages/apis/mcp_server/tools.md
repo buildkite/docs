@@ -12,6 +12,8 @@ The names of these tools (for example, `list_pipelines`) typically do not need t
 
 As part of configuring your AI tool or agent with the [remote or local Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers), you can restrict its access to specific categories of tools using [toolsets](/docs/apis/mcp-server/tools/toolsets).
 
+You can also help guide your AI tool or agent to use the Buildkite MCP server and its tools by [configuring the AI tool's or agent's AGENTS.md file to do so](#the-agents-dot-md-file).
+
 > 📘
 > While Buildkite's MCP server makes calls to the Buildkite REST API, note that in some cases, only a subset of the resulting fields are returned in the response to your AI tool or agent. This is done to reduce noise for your AI tool / agent, as well as reduce costs associated with text tokenization of the response (also known as token usage).
 
@@ -471,3 +473,15 @@ export BKLOG_CACHE_URL="file:///Users/me/bklog-cache"
 # Shared cache across build agents
 export BKLOG_CACHE_URL="s3://ci-logs-cache/buildkite/"
 ```
+
+## The AGENTS.md file
+
+The [`AGENTS.md` file](https://agents.md/) is used to help guide your AI tool or agent to work on a project. Depending on which AI tool or agent you use, this file might use a different name, such as `CLAUDE.md` for Claude Code.
+
+You can configure your `AGENTS.md` file to help guide your AI tool or agent to use the Buildkite MCP server and its tools, by adding a hint like the following to this file, usually within a section about architecture:
+
+```markdown
+- **CI/CD**: `my-buildkite-organization` Buildkite organization, `my-pipeline` pipeline slug for build and test (`.buildkite/pipeline.yml`), `my-pipeline-release` pipeline slug for releases (`.buildkite/pipeline.release.yml`)
+```
+
+You should replace your Buildkite organization, pipeline slugs, and pipeline file names with those applicable to your project.
