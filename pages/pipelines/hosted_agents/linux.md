@@ -1,8 +1,8 @@
 # Linux hosted agents
 
-Buildkite Linux hosted agents are:
+Buildkite's Linux hosted agents are:
 
-- [Buildkite Agents](/docs/agent/v3) hosted by Buildkite, which run in a Linux environment.
+- [Buildkite Agents](/docs/agent/v3) hosted by Buildkite that run in a Linux environment.
 
 - Configured as part of a _Buildkite hosted queue_, where the Buildkite hosted agent's machine type is Linux, has a particular [size](#sizes) to efficiently manage jobs with varying requirements, and comes pre-installed with software in the form of [agent images](#agent-images), which can be [customized with other software](#agent-images-create-an-agent-image).
 
@@ -32,7 +32,9 @@ Linux hosted agents can operate concurrently when building your Buildkite pipeli
 
 <%= render_markdown partial: 'pipelines/hosted_agents/hosted_agents_concurrency_explanation' %>
 
-See the [Buildkite pricing](https://buildkite.com/pricing/) page for details on **Linux Concurrency**.
+The number of Linux hosted agents (of a [Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue)) that can process your pipeline jobs concurrently is calculated by your Buildkite plan's _maximum combined vCPU_ value divided by your [instance shape's](#sizes) _vCPU_ value. See the [Buildkite pricing](https://buildkite.com/pricing/) page for details on the **Linux Concurrency** that applies to your plan.
+
+For example, if your Buildkite plan provides you with a maximum combined vCPU value of up to 48, and you've configured a Buildkite hosted queue with the `LINUX_AMD_4X16` (Medium AMD64) [instance shape](#sizes), whose vCPU value 4, then the number of concurrent hosted agents that can run jobs on this queue is 12 (that is, 48 / 4 = 12).
 
 ## Agent images
 
