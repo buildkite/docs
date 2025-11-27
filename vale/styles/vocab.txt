@@ -61,6 +61,7 @@ Buildkite
 Buildkite's
 buildscript
 Buildx
+buildx
 Bundler
 bursty
 cancelation
@@ -123,6 +124,7 @@ discoverability
 distro
 distutils
 Dockerfile
+Dockerfile's
 Dockerfiles
 Docker's
 Dockerfile

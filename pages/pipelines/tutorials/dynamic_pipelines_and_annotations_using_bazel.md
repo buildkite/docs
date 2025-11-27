@@ -16,9 +16,9 @@ This `pipeline.py` Python program:
 
 To complete this tutorial, you'll need to have done the following:
 
-- Run through the [Getting started with Pipelines](/docs/pipelines/getting-started) tutorial.
+- Run through the [Getting started with Pipelines](/docs/pipelines/getting-started) tutorial, to familiarize yourself with the basics of Buildkite Pipelines.
 
-- Made your own copy or fork of the [bazel-monorepo-example](https://github.com/buildkite/bazel-monorepo-example) repository within your own GitHub account, or Git-based setup.
+- Make your own copy or fork of the [bazel-monorepo-example](https://github.com/buildkite/bazel-monorepo-example) repository within your own GitHub account, or Git-based setup.
 
 ## Set up an agent
 

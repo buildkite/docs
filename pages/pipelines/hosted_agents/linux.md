@@ -1,12 +1,14 @@
 # Linux hosted agents
 
-A Buildkite Linux hosted agent is configured as part of a _Buildkite hosted queue_, where the Buildkite hosted agent's machine type is Linux, has a particular [size](#sizes) to efficiently manage jobs with varying requirements, and comes pre-installed with software in the form of [agent images](#agent-images), which can be [customized with other software](#agent-images-create-an-agent-image).
+Buildkite Linux hosted agents are:
+
+- [Buildkite Agents](/docs/agent/v3) hosted by Buildkite, which run in a Linux environment.
+
+- Configured as part of a _Buildkite hosted queue_, where the Buildkite hosted agent's machine type is Linux, has a particular [size](#sizes) to efficiently manage jobs with varying requirements, and comes pre-installed with software in the form of [agent images](#agent-images), which can be [customized with other software](#agent-images-create-an-agent-image).
 
 Learn more about:
 
-- Best practices for configuring queues in [How should I structure my queues](/docs/pipelines/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues) of the [Clusters overview](/docs/pipelines/clusters).
-
-- Configuring queues in general, in [Manage queues](/docs/pipelines/clusters/manage-queues).
+- Best practices for configuring queues in [How should I structure my queues](/docs/pipelines/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues) of the [Clusters overview](/docs/pipelines/clusters), as well as [Manage queues](/docs/pipelines/clusters/manage-queues).
 
 - How to configure a Linux hosted agent in [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
 
