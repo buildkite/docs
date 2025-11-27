@@ -4,25 +4,23 @@ toc_include_h3: false
 
 # Buildah container builds
 
-Buildah operates without a need for a persistent daemon, unlike Docker. Buildah can build containers from Dockerfiles or Containerfiles (the OCI standard format) or through its native command-line interface. This guide shows you how to use Buildah with the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) to build and push container images.
+Buildah operates without a need for a persistent daemon (unlike Docker). With Buildah, you can build containers from Dockerfiles or Containerfiles (the [Open Container Initiative (OCI)](https://opencontainers.org/) standard format) or through its native command-line interface. This guide shows you how to use Buildah with the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) to build and push container images.
 
-## Key differences from Docker
+## Key difference from Docker
 
-> 📘 Important
-> Buildah does not use the Docker daemon, which means images built with Buildah are managed separately from Docker images. When using the Docker plugin to run Buildah, the images built by Buildah won't be visible to Docker commands running outside the Buildah container.
+Buildah does not use the Docker daemon, which means images built with Buildah are managed separately from Docker images. When using the [Docker Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/) to run Buildah, the images built by Buildah won't be visible to Docker commands running outside the Buildah container. As a result:
 
-This separation means:
 - `docker images` won't show Buildah-built images
 - Images must be pushed to a registry to be shared between Buildah and Docker environments
 - Buildah stores its images in its own storage backend
 
 ## Using Buildah with Elastic CI Stack for AWS
 
-To use Buildah with the Elastic CI Stack, you'll run Buildah inside a container using the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin).
+To use Buildah with the Elastic CI Stack for AWS, you will need to run Buildah inside a container using the [Docker Buildkite plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin).
 
 ### Building and pushing to Buildkite Package Registries
 
-The following example shows how to build a container image and push it to [Buildkite Package Registries](https://buildkite.com/docs/packages) using OIDC authentication:
+The following example shows how to build a container image and push it to [Buildkite Package Registries](https://buildkite.com/docs/packages) using [OIDC authentication](/docs/pipelines/security/oidc):
 
 ```yaml
 env:
@@ -64,59 +62,48 @@ steps:
 
 ### Configuration breakdown
 
+This section explains the components of the configuration necessary for using Buildah with Buildkite Pipelines.
+
 #### Environment variables
 
-- `PACKAGE_REGISTRY_NAME`: The name of your Buildkite Package Registry
-- `BUILDAH_ISOLATION: "chroot"`: Sets the isolation mode for Buildah. The `chroot` mode provides good isolation without requiring additional privileges.
+- `PACKAGE_REGISTRY_NAME`: the name of your Buildkite Package Registry.
+- `BUILDAH_ISOLATION: "chroot"`: sets the isolation mode for Buildah. The `chroot` mode provides good isolation without requiring additional privileges.
 
 #### Docker plugin configuration
 
-- `image: "quay.io/buildah/stable:latest"`: Uses the official Buildah container image
-- `privileged: true`: Grants extended privileges to the container, required for Buildah to create and manage container images
-- `userns: "host"`: Uses the host's user namespace, necessary for Buildah to function correctly in this configuration
-- `mount-buildkite-agent: true`: Mounts the Buildkite agent binary into the container, enabling the use of `buildkite-agent oidc request-token`
+- `image: "quay.io/buildah/stable:latest"`: uses the official Buildah container image.
+- `privileged: true`: grants extended privileges to the container. Is required for Buildah to create and manage container images.
+- `userns: "host"`: uses the host's user namespace and is necessary for Buildah to function correctly in this configuration.
+- `mount-buildkite-agent: true`: mounts the Buildkite agent binary into the container, enabling the use of `buildkite-agent oidc request-token`.
 
 #### Buildah commands
 
-- `buildah bud`: Builds an image from a Dockerfile
-  + `--format docker`: Produces a Docker-compatible image format
-  + `--file Dockerfile`: Specifies the path to the Dockerfile
-  + `--tag`: Tags the resulting image
-- `buildah images`: Lists built images (useful for verification)
-- `buildah login`: Authenticates with a container registry
-  + `--authfile`: Specifies where to store authentication credentials
-  + `--username` and `--password-stdin`: Provide credentials for authentication
-- `buildah push`: Pushes the image to a registry
-  + `--authfile`: Uses the authentication file created during login
+- `buildah bud`: builds an image from a Dockerfile.
+  + `--format docker`: produces a Docker-compatible image format.
+  + `--file Dockerfile`: specifies the path to the Dockerfile.
+  + `--tag`: tags the resulting image.
+- `buildah images`: lists the built images (useful for verification).
+- `buildah login`: authenticates with a container registry.
+  + `--authfile`: specifies where to store authentication credentials.
+  + `--username` and `--password-stdin`: provide credentials for authentication.
+- `buildah push`: pushes the image to a registry.
+  + `--authfile`: uses the authentication file created during login.
 
 ## Understanding the components
 
 This section covers the key components and configuration options for running Buildah with the Elastic CI Stack for AWS.
 
-### Container images
-
-The official Buildah image that runs in privileged mode is `quay.io/buildah/stable:latest`.
-
-### Security contexts
-
-The configuration shown uses privileged mode where the container runs as root with `privileged: true`, bypassing most security controls.
-
-### Storage driver
-
-Buildah uses container storage backends:
-
-- **overlay**: Fast and efficient, used by default. Modern Buildah images support overlay without requiring `/dev/fuse` or additional configuration.
-- **vfs**: Fallback option that works in all environments but slower, especially with bigger images. Can be specified with `--storage-driver vfs` if overlay encounters issues.
-
-### Storage paths
-
-When running in the container as root (privileged), Buildah uses the system location `/var/lib/containers`.
-
-### Build isolation
-
-The recommended isolation mode for Buildah container environments is `BUILDAH_ISOLATION=chroot`. It provides good isolation without requiring additional privileges.
+- Container images: the official Buildah image that runs in privileged mode is `quay.io/buildah/stable:latest`.
+- Security contexts: the configuration shown uses privileged mode where the container runs as root with `privileged: true`, bypassing most security controls.
+- Storage driver: Buildah uses the following container storage backends:
+    + **overlay**: fast and efficient, used by default. Modern Buildah images support overlay without requiring `/dev/fuse` or additional configuration.
+    + **vfs**: fallback option that works in all environments but slower, especially with bigger images. Can be specified with `--storage-driver vfs` if overlay encounters issues.
+- Storage paths: when running in the container as root (privileged), Buildah uses the system location `/var/lib/containers`.
+- Build isolation: the recommended isolation mode for Buildah container environments is `BUILDAH_ISOLATION=chroot`. It provides good isolation without requiring additional privileges.
 
 ## Customizing the build
+
+This section contains instructions for customizing your Buildah builds.
 
 ### Using build arguments
 
@@ -167,25 +154,25 @@ This section describes common issues for Buildah and the ways of solving these i
 
 ### Permission denied errors
 
-- Ensure `privileged: true` is configured in the Docker plugin
-- Verify the `userns: "host"` setting is present
-- Confirm the `BUILDAH_ISOLATION` environment variable is set to `"chroot"`
+- Ensure `privileged: true` is configured in the Docker plugin.
+- Verify the `userns: "host"` setting is present.
+- Confirm the `BUILDAH_ISOLATION` environment variable is set to `"chroot"`.
 
 ### Storage driver errors
 
-- The default overlay driver should work in privileged mode
-- If overlay fails, try `--storage-driver vfs` as a fallback (this is a slower but more compatible approach)
-- Check that the storage volume has sufficient space
+- The default overlay driver should work in privileged mode.
+- If overlay fails, try `--storage-driver vfs` as a fallback (this is a slower but more compatible approach).
+- Check that the storage volume has sufficient space.
 
 ### Registry authentication failures
 
-- Ensure the `mount-buildkite-agent: true` setting is configured so `buildkite-agent oidc request-token` is available
-- Verify that the OIDC token audience matches your Package Registry URL exactly
-- Check that the authentication file is being passed correctly to the `buildah push` command
+- Ensure the `mount-buildkite-agent: true` setting is configured so `buildkite-agent oidc request-token` is available.
+- Verify that the OIDC token audience matches your Package Registry URL exactly.
+- Check that the authentication file is being passed correctly to the `buildah push` command.
 
 ### Image not found after build
 
 Remember that Buildah images are separate from Docker images. If you need to use the image in subsequent steps:
 
-- Push the image to a registry and pull it in later steps
-- Use the same Buildah container for all operations on that image
+- Push the image to a registry and pull it in later steps.
+- Use the same Buildah container for all operations on that image.
