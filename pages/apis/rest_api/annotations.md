@@ -33,6 +33,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "id": "de0d4ab5-6360-467a-a34b-e5ef5db5320d",
     "context": "default",
     "style": "info",
+    "priority" : 3,
     "body_html": "<h1>My Markdown Heading</h1>\n<img src=\"artifact://indy.png\" alt=\"Belongs in a museum\" height=250 />",
     "created_at": "2019-04-09T18:07:15.775Z",
     "updated_at": "2019-08-06T20:58:49.396Z"
@@ -41,6 +42,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "id": "5b3ceff6-78cb-4fe9-88ae-51be5f145977",
     "context": "coverage",
     "style": "info",
+    "priority" : 3,
     "body_html": "Read the <a href=\"artifact://coverage/index.html\">uploaded coverage report</a>",
     "created_at": "2019-04-09T18:07:16.320Z",
     "updated_at": "2019-04-09T18:07:16.320Z"
@@ -118,6 +120,13 @@ Optional [request body properties](/docs/api#request-body-properties):
     <th><code>context</code></th>
     <td>
       A string value by which to identify the annotation on the build. This is useful when appending to an existing annotation. Only one annotation per build may have any given context value.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"coverage"</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>priority</code></th>
+    <td>
+      An integer value by which to order the annotations on the build. This allows influencing the order of annotations. Ranges from 1 to 10, with 10 being the highest priority and 1 being the lowest. If priority is not set, the default priority is 3.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>"coverage"</code></p>
     </td>
   </tr>
