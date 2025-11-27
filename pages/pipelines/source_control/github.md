@@ -134,7 +134,7 @@ You can customize the commit statuses, for example to reuse the same pipeline fo
     ```yaml
     notify:
       - github_commit_status:
-        context: "my-custom-status"
+          context: "my-custom-status"
     ```
 
 1. In **Pipeline** > your specific pipeline > **Settings** > **GitHub**, make sure **Update commit statuses** is not selected. Note that this prevents Buildkite from automatically creating and sending statuses for this pipeline, meaning you will have to handle all commit statuses through the `pipeline.yml`.
