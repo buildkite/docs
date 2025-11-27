@@ -28,9 +28,13 @@ Also note the following about macOS hosted agent instances.
 
 If you have specific needs for Intel architecture machines, or longer running hosted agents (over 4 hours), please contact Support at support@buildkite.com.
 
-### Concurrency
+## Concurrency
 
+macOS hosted agents can operate concurrently when building your Buildkite pipelines.
 
+<%= render_markdown partial: 'pipelines/hosted_agents/hosted_agents_concurrency_explanation' %>
+
+See the [Buildkite pricing](https://buildkite.com/pricing/) page for details on **Mac M4 Concurrency**.
 
 ## macOS instance software support
 

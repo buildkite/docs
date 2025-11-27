@@ -1,0 +1,1 @@
+This concurrency is measured by the number of hosted agent machines that are allocated for your jobs at any given time. A machine is counted from the moment it starts booting to acquire a job, since that's when it starts consuming capacity. As a result, concurrency may not always match the exact number of running jobs, particularly with short-lived workloads.

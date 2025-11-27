@@ -26,9 +26,13 @@ Note the following about Linux hosted agent instances.
 
 If you need extra large instances, or longer running hosted agents (over 8 hours), please contact Support at support@buildkite.com.
 
-### Concurrency
+## Concurrency
 
+Linux hosted agents can operate concurrently when building your Buildkite pipelines.
 
+<%= render_markdown partial: 'pipelines/hosted_agents/hosted_agents_concurrency_explanation' %>
+
+See the [Buildkite pricing](https://buildkite.com/pricing/) page for details on **Linux Concurrency**.
 
 ## Agent images
 
