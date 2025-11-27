@@ -189,7 +189,8 @@ provider "google" {
 }
 
 module "buildkite_stack" {
-  source = "github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp"
+  source  = "buildkite/elastic-ci-stack-for-gcp/buildkite"
+  version = ">= 0.1.0"
 
   # Required
   project_id                  = var.project_id
@@ -303,7 +304,8 @@ If you built a custom Packer image with Docker support:
 
 ```hcl
 module "buildkite_stack" {
-  source = "github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp"
+  source  = "buildkite/elastic-ci-stack-for-gcp/buildkite"
+  version = ">= 0.1.0"
 
   # ... other configuration ...
 
@@ -318,7 +320,8 @@ Target specific agents in your pipeline steps using tags:
 
 ```hcl
 module "buildkite_stack" {
-  source = "github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp"
+  source  = "buildkite/elastic-ci-stack-for-gcp/buildkite"
+  version = ">= 0.1.0"
 
   # ... other configuration ...
 
@@ -345,7 +348,8 @@ To create multiple agent pools with different configurations, deploy multiple st
 ```hcl
 # Production stack
 module "buildkite_stack_production" {
-  source = "github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp"
+  source  = "buildkite/elastic-ci-stack-for-gcp/buildkite"
+  version = ">= 0.1.0"
 
   stack_name      = "buildkite-production"
   buildkite_queue = "production"
@@ -357,7 +361,8 @@ module "buildkite_stack_production" {
 
 # Build stack for larger builds
 module "buildkite_stack_builds" {
-  source = "github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp"
+  source  = "buildkite/elastic-ci-stack-for-gcp/buildkite"
+  version = ">= 0.1.0"
 
   stack_name      = "buildkite-builds"
   buildkite_queue = "builds"
@@ -374,7 +379,8 @@ If your builds need to upload/download artifacts to Cloud Storage:
 
 ```hcl
 module "buildkite_stack" {
-  source = "github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp"
+  source  = "buildkite/elastic-ci-stack-for-gcp/buildkite"
+  version = ">= 0.1.0"
 
   # ... other configuration ...
 
@@ -388,7 +394,8 @@ Enable Identity-Aware Proxy for secure SSH access without external IPs:
 
 ```hcl
 module "buildkite_stack" {
-  source = "github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp"
+  source  = "buildkite/elastic-ci-stack-for-gcp/buildkite"
+  version = ">= 0.1.0"
 
   # ... other configuration ...
 
@@ -411,7 +418,8 @@ Restrict SSH access to specific IP ranges:
 
 ```hcl
 module "buildkite_stack" {
-  source = "github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp"
+  source  = "buildkite/elastic-ci-stack-for-gcp/buildkite"
+  version = ">= 0.1.0"
 
   # ... other configuration ...
 
@@ -426,7 +434,8 @@ Add labels for cost tracking and organization:
 
 ```hcl
 module "buildkite_stack" {
-  source = "github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp"
+  source  = "buildkite/elastic-ci-stack-for-gcp/buildkite"
+  version = ">= 0.1.0"
 
   # ... other configuration ...
 
