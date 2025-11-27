@@ -1,6 +1,6 @@
 # Buildkite hosted agents
 
-Buildkite hosted agents provides a fully-managed platform on which you can run your pipeline jobs, so that you don't have to manage Buildkite Agents in your own self-hosted environment. This platform runs in a private cloud, which is purpose built and optimized for CI/CD workloads.
+Buildkite hosted agents provides a fully-managed platform on which you can run your pipeline jobs, so that you don't have to manage [Buildkite Agents](/docs/agent/v3) in your own self-hosted environment. This platform runs in a private cloud, which is purpose built and optimized for CI/CD workloads.
 
 With hosted agents, Buildkite handles infrastructure management tasks, such as provisioning, scaling, and maintaining the servers that run your agents.
 
