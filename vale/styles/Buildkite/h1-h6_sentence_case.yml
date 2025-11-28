@@ -111,6 +111,7 @@ exceptions:
   - Entity Page
   - Everyone
   - ExUnit
+  - FAQ
   - FAQs
   - FreeBSD
   - G Suite
@@ -209,6 +210,7 @@ exceptions:
   - Prometheus
   - pytest
   - QA
+  - RBAC
   - READ_ONLY
   - Red Hat
   - Red Hat Enterprise Linux

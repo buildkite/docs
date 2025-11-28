@@ -415,6 +415,7 @@ unencrypted
 unpatched
 unpermitted
 unreviewed
+unscoped
 unset
 unsets
 unsetting

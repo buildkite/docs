@@ -117,7 +117,7 @@ infra/
     * Keep roll-forward and rollback playbooks
     * Tag releases and pin module versions for quick reversion
 
-### Example: Minimal Terraform for a Pipeline and Queue
+### Example: minimal Terraform for a pipeline and queue
 
 ```hcl
 terraform {
@@ -172,5 +172,5 @@ resource "buildkite_queue" "tf_queue" {
 ### FAQ
 
 - How do I keep prod safe? Separate prod queues and credentials, require approval gates, and enforce policy checks pre-deploy
-- Do I need dynamic pipelines? Yes for conditional and large-scale pipelines; static YAML can be fine for simple repos, but plan to evolve
+- Do I need dynamic pipelines? Yes for conditional and large-scale pipelines; static YAML can be fine for simple repositories, but plan to evolve
 - What about multi-repo or monorepo? Both work; ensure change-scoped pipelines and consistent shared libraries
