@@ -14,6 +14,8 @@ Learn more about:
 
 - How to use macOS hosted agents to [build iOS apps](/docs/pipelines/hosted-agents/macos/getting-started-with-ios).
 
+- The [security](#security) of macOS hosted agents.
+
 ## Sizes
 
 Buildkite offers a selection of macOS instance types (each based on a different size combination of virtual CPU power and memory capacity, known as an _instance shape_), allowing you to tailor your hosted agents' resources to the demands of your jobs.
@@ -274,6 +276,12 @@ To find the [Homebrew package](#homebrew-packages) version used by your macOS ho
 
 1. Select **Agents** in the global navigation > your [cluster](/docs/pipelines/clusters/manage-clusters) containing the [macOS Buildkite hosted agent queue](/docs/pipelines/clusters/manage-queues) > your macOS hosted agent.
 1. On your macOS hosted agent's page, select **Base image** and scroll down to **Specifications** > **Homebrew packages** to view these packages, along with their respective versions.
+
+## Security
+
+<%= render_markdown partial: 'pipelines/hosted_agents/hosted_agents_security_explanation' %>
+
+- **Physical and operational security**: The Mac fleet operates from multiple [Tier 3+ data centers](https://en.wikipedia.org/wiki/Data_centre_tiers) with restricted physical access controls and regular security monitoring. The platform maintains SOC 2 compliance through regular audits of both hardware and software security controls. While customers cannot currently provide custom base images for macOS hosted agents, customers do have significant control over these virtual machines during job execution—including the ability to install software using Homebrew, use git mirroring for performance, and leverage persistent [cache volumes](/docs/pipelines/hosted-agents/cache-volumes). This balance provides operational flexibility while maintaining the security boundaries necessary for a multi-tenant environment.
 
 ## Git mirror cache
 
