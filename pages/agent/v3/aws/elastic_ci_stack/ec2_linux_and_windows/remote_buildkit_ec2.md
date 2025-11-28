@@ -151,6 +151,7 @@ This section covers common issues when setting up remote BuildKit builders.
 ### Connection errors
 
 **Issue:** `connection error: desc = "error reading server preface: read tcp ... connection reset by peer"` error.
+
 **Solution:** This error indicates a network connectivity issue or TLS configuration mismatch. To troubleshoot:
 
 - Verify the BuildKit instance is running: `sudo systemctl status buildkitd`
@@ -161,11 +162,13 @@ This section covers common issues when setting up remote BuildKit builders.
 ### Environment hook errors
 
 **Issue:** `mkdir: cannot create directory '/etc/buildkit': Permission denied` error.
+
 **Solution:** The `env` hook runs as the `buildkite-agent` user and cannot write to `/etc`. Use agent-writable directories like `${HOME}/.buildkit` or configure certificates in the secrets bucket.
 
 ### Build errors
 
 **Issue:** `exporter "registry" could not be found` error.
+
 **Solution:** The `registry` exporter is not available in this BuildKit version. Use `type=image,push=true` instead of `type=registry` in the `--output` flag:
 
 ```bash
@@ -176,11 +179,13 @@ buildctl build \
 ### Cache not reused
 
 **Issue:** BuildKit root directory is not on the persistent EBS volume.
+
 **Solution:** Ensure the BuildKit root directory (`/var/lib/buildkit`) is on the attached EBS volume and that the daemon service references this directory with the `--root` flag.
 
 ### Version mismatch
 
 **Issue:** Builds fail with protocol or feature errors.
+
 **Solution:** The `buildctl` binary on agents doesn't match the BuildKit daemon version. Confirm both use the same version:
 
 ```bash
