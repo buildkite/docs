@@ -256,7 +256,7 @@ steps:
 
 ## Customizing the build
 
-Customize your Docker Compose builds by using the plugin's configuration options to control build behavior, manage credentials, and optimize performance.
+Customize your Docker Compose builds by using the Docker Compose plugin's configuration options to control build behavior, manage credentials, and optimize performance.
 
 ### Using build arguments
 
@@ -461,13 +461,13 @@ ARG BUILD_NUMBER
 RUN echo "Building version ${BUILD_NUMBER}"
 ```
 
-Note that `args` passes variables at build time, while the `environment` option passes variables at runtime (for running containers, not building images).
+Note that the `args` option in the Docker Compose plugin passes variables at build time, while the `environment` option passes variables at runtime (for running containers, not building images).
 
 ### Image push failures
 
 Pushing images to registries fails with authentication errors or timeout errors.
 
-For authentication failures, ensure credentials are properly configured. Use the [`docker-login` plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-login-buildkite-plugin/) before the `docker-compose` plugin:
+For authentication failures, ensure credentials are properly configured. Use the [`docker-login` plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-login-buildkite-plugin/) before the [`docker-compose` plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/):
 
 ```yaml
 plugins:
@@ -521,7 +521,7 @@ When builds fail or behave unexpectedly, you need to enable verbose output and d
 
 ### Enable verbose output
 
-Use the `verbose` option to see detailed output from Docker Compose operations:
+Use the `verbose` option in the Docker Compose plugin to see detailed output from Docker Compose operations:
 
 ```yaml
 steps:
@@ -570,7 +570,7 @@ Test your `docker-compose.yml` configuration locally before running in the pipel
 # Validate compose file syntax
 docker compose config
 
-# Build without the plugin
+# Build without the Docker Compose plugin
 docker compose build
 
 # Check what images were created
