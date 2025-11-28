@@ -30,7 +30,7 @@ If you have specific needs for Intel architecture machines, or longer running ho
 
 ## Concurrency
 
-macOS hosted agents can operate concurrently when building your Buildkite pipeline jobs.
+macOS hosted agents can operate concurrently when running your Buildkite pipeline jobs.
 
 <%= render_markdown partial: 'pipelines/hosted_agents/hosted_agents_concurrency_explanation' %>
 
