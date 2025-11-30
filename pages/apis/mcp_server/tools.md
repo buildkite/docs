@@ -12,7 +12,7 @@ The names of these tools (for example, `list_pipelines`) typically do not need t
 
 As part of configuring your AI tool or agent with the [remote or local Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers), you can restrict its access to specific categories of tools using [toolsets](/docs/apis/mcp-server/tools/toolsets).
 
-You can also help guide your AI tool or agent to use the Buildkite MCP server and its tools by [configuring the AI tool's or agent's AGENTS.md file to do so](#the-agents-dot-md-file).
+Additionally, Buildkite recommends [configuring your project's `AGENTS.md` file with a hint](#the-agents-dot-md-file) to help guide your AI tool or agent to use the Buildkite MCP server and its tools with your project.
 
 > 📘
 > While Buildkite's MCP server makes calls to the Buildkite REST API, note that in some cases, only a subset of the resulting fields are returned in the response to your AI tool or agent. This is done to reduce noise for your AI tool / agent, as well as reduce costs associated with text tokenization of the response (also known as token usage).
