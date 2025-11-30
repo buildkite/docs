@@ -478,10 +478,12 @@ export BKLOG_CACHE_URL="s3://ci-logs-cache/buildkite/"
 
 The [`AGENTS.md` file](https://agents.md/) is used to help guide your AI tool or agent to work on a project. Depending on which AI tool or agent you use, this file might use a different name, such as `CLAUDE.md` for Claude Code.
 
-You can configure your `AGENTS.md` file to help guide your AI tool or agent to use the Buildkite MCP server and its tools, by adding a hint like the following to this file, usually within a section about architecture:
+Buildkite recommends configuring your project's `AGENTS.md` file by adding a hint like the following to help your AI tool or agent to use the Buildkite MCP server and its tools with your project:
 
 ```markdown
 - **CI/CD**: `my-buildkite-organization` Buildkite organization, `my-pipeline` pipeline slug for build and test (`.buildkite/pipeline.yml`), `my-pipeline-release` pipeline slug for releases (`.buildkite/pipeline.release.yml`)
 ```
 
 You should replace your Buildkite organization, pipeline slugs, and pipeline file names with those applicable to your project.
+
+Add this hint to an appropriate section within your `AGENTS.md` file. For example, for a typical development project, you might add this hint to a series of existing ones in a section about about architecture.
