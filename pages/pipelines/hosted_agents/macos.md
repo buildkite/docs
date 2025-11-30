@@ -14,6 +14,8 @@ Learn more about:
 
 - How to use macOS hosted agents to [build iOS apps](/docs/pipelines/hosted-agents/macos/getting-started-with-ios).
 
+- The [security](#security) of macOS hosted agents.
+
 ## Sizes
 
 Buildkite offers a selection of macOS instance types (each based on a different size combination of virtual CPU power and memory capacity, known as an _instance shape_), allowing you to tailor your hosted agents' resources to the demands of your jobs.
@@ -41,6 +43,8 @@ For example, if your Buildkite plan provides you with a maximum combined vCPU va
 ## macOS instance software support
 
 All standard macOS [Tahoe](#macos-tahoe), [Sequoia](#macos-sequoia) and [Sonoma](#macos-sonoma) version instances have their own respective Xcode and runtime software versions available by default (listed below). Each macOS version also has its own set of [Homebrew packages](#homebrew-packages) with specific versions optimized for that operating system. If you have specific requirements for software that is not listed here, please contact support.
+
+While you currently cannot provide custom base images for macOS hosted agents, you do have significant control over these virtual machines during job execution—including the ability to install software using Homebrew, use git mirroring for performance, and leverage persistent [cache volumes](/docs/pipelines/hosted-agents/cache-volumes).
 
 Updated Xcode versions will be available one week after Apple offers them for download. This includes Beta, Release Candidate (RC), and official release versions.
 
@@ -274,6 +278,12 @@ To find the [Homebrew package](#homebrew-packages) version used by your macOS ho
 
 1. Select **Agents** in the global navigation > your [cluster](/docs/pipelines/clusters/manage-clusters) containing the [macOS Buildkite hosted agent queue](/docs/pipelines/clusters/manage-queues) > your macOS hosted agent.
 1. On your macOS hosted agent's page, select **Base image** and scroll down to **Specifications** > **Homebrew packages** to view these packages, along with their respective versions.
+
+## Security
+
+<%= render_markdown partial: 'pipelines/hosted_agents/hosted_agents_security_explanation' %>
+
+Note that for macOS hosted agents, virtualization is achieved through Apple's Virtualization framework on Apple Silicon, providing lightweight but secure virtual machine isolation. Learn more about [How Buildkite hosted agents work](/docs/pipelines/hosted-agents#how-buildkite-hosted-agents-work).
 
 ## Git mirror cache
 
