@@ -49,7 +49,7 @@ To create the new Buildkite pipeline for this app:
 
 1. [Add a new pipeline](https://buildkite.com/new) in your Buildkite organization, select your GitHub account from the **Any account** dropdown, and specify [your copy or fork of the 'FlappyKite' repository](#before-you-start) for the **Git Repository** value.
 
-1. On the **New Pipeline** page, select the cluster you [created the hosted agent for macOS](#set-up-your-hosted-agent-create-a-buildkite-hosted-agent-for-macos) in.
+1. On the **New Pipeline** page, select the cluster you [created the hosted agent for macOS](#set-up-your-hosted-agent) in.
 
 1. If necessary, provide a **Name** for your new pipeline.
 
