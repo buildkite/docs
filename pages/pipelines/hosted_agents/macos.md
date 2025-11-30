@@ -1,8 +1,8 @@
 # macOS hosted agents
 
-Buildkite macOS hosted agents are:
+Buildkite's macOS hosted agents are:
 
-- [Buildkite Agents](/docs/agent/v3) hosted by Buildkite, which run in a macOS environment.
+- [Buildkite Agents](/docs/agent/v3) hosted by Buildkite that run in a macOS environment.
 
 - Configured as part of a _Buildkite hosted queue_, where the Buildkite hosted agent's machine type is macOS, has a particular [size](#sizes) to efficiently manage jobs with varying requirements, and comes pre-installed with [software](#macos-instance-software-support).
 
@@ -27,6 +27,16 @@ Also note the following about macOS hosted agent instances.
 - To accommodate different workloads, instances are capable of running up to 4 hours.
 
 If you have specific needs for Intel architecture machines, or longer running hosted agents (over 4 hours), please contact Support at support@buildkite.com.
+
+## Concurrency
+
+macOS hosted agents can operate concurrently when running your Buildkite pipeline jobs.
+
+<%= render_markdown partial: 'pipelines/hosted_agents/hosted_agents_concurrency_explanation' %>
+
+The number of macOS hosted agents (of a [Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue)) that can process your pipeline jobs concurrently is calculated by your Buildkite plan's _maximum combined vCPU_ value divided by your [instance shape's](#sizes) _vCPU_ value. See the [Buildkite pricing](https://buildkite.com/pricing/) page for details on the **Mac M4 Concurrency** that applies to your plan.
+
+For example, if your Buildkite plan provides you with a maximum combined vCPU value is up to 24, and you've configured a Buildkite hosted queue with the `MACOS_ARM64_M4_6X28` (Medium) [instance shape](#sizes), whose vCPU value 6, then the number of concurrent hosted agents that can run jobs on this queue is 4 (that is, 24 / 6 = 4).
 
 ## macOS instance software support
 
