@@ -46,14 +46,22 @@ Buildkite services are billed according to your [plan](https://buildkite.com/pri
 
 ### What's on each machine?
 
+When using the default Debian 12 base image, each machine includes:
+
 - [Debian 12 (Bookworm)](https://www.debian.org/releases/bookworm/)
 - [The Buildkite Agent](/docs/agent/v3)
 - [Git](https://git-scm.com/)
-- [Docker](https://www.docker.com) (when using custom Packer image)
-- [Docker Compose v2](https://docs.docker.com/compose/) (when using custom Packer image)
-- [Docker Buildx](https://docs.docker.com/buildx/working-with-buildx/) (when using custom Packer image)
 - [gcloud CLI](https://cloud.google.com/sdk/gcloud) - useful for performing any ops-related tasks
 - [jq](https://stedolan.github.io/jq/) - useful for manipulating JSON responses from CLI tools
+
+> 🚧 Manual VM configuration may be required
+> The default base image is minimal and may require additional manual configuration on the VM instances after deployment. For production use, build a [custom Packer image](#custom-images) that includes Docker, Docker Compose, and any other tools your builds require. Custom images ensure all required tools and configurations are present before instance launch and prevent instances from losing manual changes when agents restart.
+
+When using a custom Packer image, each machine also includes:
+
+- [Docker](https://www.docker.com)
+- [Docker Compose v2](https://docs.docker.com/compose/)
+- [Docker Buildx](https://docs.docker.com/buildx/working-with-buildx/)
 
 For more details on what versions are installed, see the corresponding [Packer templates](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/packer).
 
@@ -71,7 +79,8 @@ By following these conventions, you get a scalable, repeatable, and source-contr
 
 ## Custom images
 
-Custom images help teams ensure that their agents have all required tools and configurations before instance launch. This prevents instances from reverting to the base image state when agents restart, which would lose any manual changes made during run time.
+> 📘 Recommended for production
+> Building a custom image is recommended for production deployments. Custom images ensure that your agents have all required tools and configurations before instance launch, preventing the need for manual VM configuration after deployment. This also prevents instances from reverting to the base image state when agents restart, which would lose any manual changes made during run time.
 
 ### Requirements
 
@@ -140,6 +149,9 @@ For more details, see [packer/README.md](https://github.com/buildkite/terraform-
 ## Deploying the stack
 
 This section walks through the deployment process step by step, from obtaining your agent token to initializing and applying your Terraform configuration.
+
+> 🚧 Post-deployment configuration
+> After deploying the stack with Terraform, you may need to manually configure the VM instances with additional tools or settings required for your builds. The default base image includes only the Buildkite Agent and basic tools. For production deployments, consider building a [custom Packer image](#custom-images) with all required tools pre-installed to avoid manual configuration.
 
 ### Step 1: Get your Buildkite agent token
 

@@ -34,6 +34,9 @@ The Buildkite Elastic CI Stack for GCP supports:
 
 You can get started with the Buildkite Elastic CI Stack for GCP using Terraform. Follow the [Terraform setup guide](/docs/agent/v3/gcp/elastic-ci-stack/terraform).
 
+> 🚧 Manual VM configuration may be required
+> The default base image is minimal and may require additional manual configuration on VM instances after deployment. For production use, build a [custom Packer image](/docs/agent/v3/gcp/elastic-ci-stack/terraform#custom-images) that includes Docker and any other tools your builds require.
+
 ## Architecture comparison
 
 The Elastic CI Stack for GCP is inspired by the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) and provides similar functionality using GCP services:
