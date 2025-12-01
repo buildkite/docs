@@ -21,7 +21,7 @@ If you need to install this tool on a system without an installer listed above, 
 
 ## Using bktec
 
-Once you have downloaded the bktec binary and it is executable in your pipeline, you'll need to configure some additional environment variables for bktec to function. You can then update your pipeline step to call `bktec` instead of calling RSpec to run your tests. Learn more about how to do this in [Update the pipeline step](#using-bktec-update-the-pipeline-step).
+Once you have downloaded the bktec binary and it is executable in your pipeline, you'll need to configure some additional environment variables for bktec to function. You can then update your pipeline step to call `bktec run` instead of calling RSpec to run your tests. Learn more about how to do this in [Update the pipeline step](#using-bktec-update-the-pipeline-step).
 
 ### Configure environment variables
 
@@ -159,7 +159,7 @@ With the environment variables configured, you can now update your pipeline step
 ```
 steps:
   - name: "RSpec"
-    command: bktec
+    command: bktec run
     parallelism: 10
     env:
       BUILDKITE_TEST_ENGINE_API_ACCESS_TOKEN: your-secret-token
