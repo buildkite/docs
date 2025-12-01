@@ -15,7 +15,7 @@ When running the [Docker Compose plugin](https://buildkite.com/resources/plugins
 The Docker Compose plugin requires access to a Docker daemon and you can choose one of two primary approaches:
 
 - Mounting the host Docker socket
-- Docker-in-Docker (DinD)
+- [Docker-in-Docker (DinD)](https://hub.docker.com/_/docker)
 
 Let's look into both approaches in more detail.
 
@@ -36,15 +36,16 @@ This approach grants containers near-root-level access to the host, meaning any 
 
 Run a Docker daemon inside your pod using a DinD sidecar container. DinD can add complexity and resource overhead but it avoids sharing the host daemon.
 
-The isolation in this case is better than in the previous approach but requires setting `privileged: true` or specific security capabilities. This increases the kernel attack surface inside your pod and misconfiguration can leave the Docker API exposed without proper authentication, creating a security risk.
-
 In this approach, you need to use a dedicated sidecar container for each build. Only set `DOCKER_TLS_CERTDIR=""` to disable TLS if the network scope is local to the pod. Avoid exposing host ports to restrict network access. Set resource limits to prevent excess consumption.
 
 Running a separate Docker daemon in each pod slows down build performance and increases resource usage. Operations and debugging can be more complex since you need to configure and maintain multiple daemons. You will need to handle network configuration for daemon communication within each pod.
 
+> 🚧 Warning!
+> The isolation in this approach is better than in the previous approach but still requires setting `privileged: true` or specific security capabilities. This increases the kernel attack surface inside your pod and misconfiguration can leave the Docker API exposed without proper authentication, creating a security risk.
+
 ### Using Docker-in-Docker with pod-spec-patch
 
-To add a DinD sidecar container for the Buildkite Agent Stack for Kubernetes, use `pod-spec-patch` in the controller's configuration. This approach provides better isolation and security compared to mounting the host Docker socket. The configuration uses Kubernetes native sidecars (available in Kubernetes 1.28+) by setting `restartPolicy: Always` on an initContainer, which starts before your build containers and continues running throughout the pod's lifecycle.
+To add a DinD sidecar container for the Buildkite Agent Stack for Kubernetes, use `pod-spec-patch` in the controller's configuration. This approach provides better isolation and security compared to mounting the host Docker socket. The configuration uses Kubernetes native sidecars (available in Kubernetes version 1.28+) by setting `restartPolicy: Always` on an initContainer, which starts before your build containers and continues running throughout the pod's lifecycle.
 
 You can configure the Docker daemon to be accessible using TCP socket or Unix socket, depending on your needs.
 
@@ -153,7 +154,7 @@ The Unix socket approach provides better security since the socket is only acces
 
 In Kubernetes, the build context is typically the checked-out repository in the pod's filesystem. By default, the [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) uses the current working directory as the build context. If your `docker-compose.yml` references files outside this directory, you need to configure explicit volume mounts in your Kubernetes pod specification.
 
-For build caching or sharing artifacts across builds, mount persistent volumes or use Kubernetes persistent volume claims. Note that ephemeral pod storage is lost when the pod terminates. Learn more about [Caching best practices](/docs/pipelines/best-practices/caching).
+For build caching or sharing artifacts across builds, mount persistent volumes or use Kubernetes persistent volume claims. Note that ephemeral pod storage is lost when the pod terminates. To learn more about caching, see [Caching best practices](/docs/pipelines/best-practices/caching).
 
 ### Registry authentication
 
@@ -174,7 +175,7 @@ Building container images can be resource-intensive, especially for large applic
 - Ensure sufficient ephemeral storage for Docker layers, build artifacts, and intermediate files
 - Account for DinD sidecar resource usage if using Docker-in-Docker
 
-Without specified resource requests and limits, Kubernetes may schedule your pods on nodes with insufficient resources. This causes builds to fail with Out of Memory (OOM) errors or cluster termination. Monitor resource usage during builds using `kubectl top pod` and adjust limits as needed.
+If the resource requests and limits are not specified, Kubernetes may schedule your pods on nodes with insufficient resources. This causes builds to fail with Out of Memory (OOM) errors or cluster termination. Monitor resource usage during builds using `kubectl top pod` and adjust limits as needed.
 
 ## Configuration approaches with the Docker Compose plugin
 
@@ -182,7 +183,7 @@ The Docker Compose plugin supports different workflow patterns for building and 
 
 ### Push to Buildkite Package Registries
 
-Push a built image directly to Buildkite Package Registries.
+Push a built image directly to Buildkite Package Registries:
 
 ```yaml
 steps:
@@ -289,7 +290,7 @@ steps:
 
 ### Using BuildKit features with cache optimization
 
-[BuildKit](https://docs.docker.com/build/buildkit/) provides advanced build features including build cache optimization. BuildKit's inline cache stores cache metadata in the image itself, enabling cache reuse across different build agents.
+[BuildKit](https://docs.docker.com/build/buildkit/) provides advanced build features including build cache optimization. BuildKit's inline cache stores cache metadata in the image itself, enabling cache reuse across different build agents. Here is an example configuration for building with BuildKit cache:
 
 ```yaml
 steps:
@@ -312,7 +313,7 @@ steps:
 
 ### Using multiple compose files
 
-Combine multiple compose files to create layered configurations. This pattern works well for separating base configuration from environment-specific overrides.
+Combine multiple compose files to create layered configurations. This pattern works well for separating base configuration from environment-specific overrides:
 
 ```yaml
 steps:
@@ -328,7 +329,7 @@ steps:
 
 ### Custom image tagging on push
 
-You can push the same image with multiple tags to support different deployment strategies. This is useful for maintaining both immutable version tags and mutable environment tags.
+You can push the same image with multiple tags to support different deployment strategies. This is useful for maintaining both immutable version tags and mutable environment tags:
 
 ```yaml
 steps:
@@ -345,7 +346,7 @@ steps:
 
 ### Using SSH agent for private repositories
 
-Enable SSH agent forwarding to access private Git repositories or packages during the build. Use this when Dockerfiles need to clone private dependencies.
+Enable SSH agent forwarding to access private Git repositories or packages during the build. Use this when Dockerfiles need to clone private dependencies:
 
 ```yaml
 steps:
