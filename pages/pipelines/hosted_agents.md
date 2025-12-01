@@ -1,6 +1,6 @@
 # Buildkite hosted agents
 
-Buildkite hosted agents provides a fully-managed platform on which you can run your pipeline jobs, so that you don't have to manage Buildkite Agents in your own self-hosted environment.
+Buildkite hosted agents provides a fully-managed platform on which you can run your pipeline jobs, so that you don't have to manage [Buildkite Agents](/docs/agent/v3) in your own self-hosted environment.
 
 With hosted agents, Buildkite handles infrastructure management tasks, such as provisioning, scaling, and maintaining the servers that run your agents.
 
@@ -10,7 +10,7 @@ Buildkite hosted agents provides numerous benefits over similar hosted machine a
 
 The following cost benefits deliver enhanced value through accelerated build times, reduced operational overhead, and a lower total cost of ownership (TCO).
 
-- **Superior performance**: Buildkite hosted agents delivers up to 3x faster performance compared to equivalent sized machines/runners from other CI/CD providers and cloud platforms, powered by dedicated quality hardware and a proprietary low-latency virtualization layer exclusive to Buildkite.
+- **Superior performance**: Buildkite hosted agents uses the latest generation Mac and AMD Zen-based hardware, which deliver up to 3x faster performance compared to equivalent sized machines/runners from other CI/CD providers and cloud platforms, powered by dedicated quality hardware and a proprietary low-latency virtualization layer exclusive to Buildkite.
 
 - **Pricing is calculated per second**: Charges apply only to the precise duration of command or script execution—excluding startup and shutdown periods, with no minimum charges and no rounding to the nearest minute.
 
@@ -18,11 +18,20 @@ The following cost benefits deliver enhanced value through accelerated build tim
 
 - **Transparent Git mirroring**: This significantly accelerates git clone operations by caching repositories locally on the agent at startup—particularly beneficial for large repositories and monorepos.
 
-- **Transparent remote Docker builders at no additional cost**: Offloading Docker build commands to [dedicated, pre-configured machines](/docs/pipelines/hosted-agents/remote-docker-builders) equipped with Docker layer caching and additional performance optimizations. This feature is available to [Enterprise](https://buildkite.com/pricing/) plan customers only.
+- **Transparent remote Docker builders at no additional cost**: Offloading Docker build commands to [dedicated, pre-configured machines](/docs/pipelines/hosted-agents/remote-docker-builders) equipped with Docker layer caching and additional performance optimizations. This feature operates without any additional configuration, and is available to [Enterprise](https://buildkite.com/pricing/) plan customers only.
 
 - **An internal container registry**: Speed up your pipeline build times by managing your jobs' container images through your [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry), which provides deterministic storage for Open Container Initiative (OCI) images.
 
 - **Consistently rapid queue times**: Job are dispatched to hosted agents within a matter of seconds, providing consistently low queue times.
+
+Buildkite hosted agents also provides the following assurances:
+
+- The platform:
+
+    * Runs in a private cloud, which is purpose built and optimized for CI/CD workloads.
+    * Is exclusively hosted in US East Coast data centers, operated by a trusted infrastructure provider, strategically selected to provide optimal performance, reliability and low-latency connectivity to major cloud regions.
+
+- Buildkite manages and runs hosted agents to ensure consistency under load for all customers.
 
 ## How Buildkite hosted agents work
 
@@ -56,3 +65,9 @@ Buildkite hosted agent services support both public and private repositories. Le
 If you need to migrate your existing Buildkite pipelines from using Buildkite Agents in a [self-hosted architecture](/docs/pipelines/architecture#self-hosted-hybrid-architecture) to those using Buildkite hosted agents, see [Hosted agent pipeline migration](/docs/pipelines/hosted-agents/pipeline-migration) for details.
 
 When a Buildkite hosted agent machine is running (during a pipeline build) you can access the machine through a terminal. Learn more about this feature in [Hosted agents terminal access](/docs/pipelines/hosted-agents/terminal-access).
+
+## Buildkite Agent version updates
+
+As part of the hosted agents service, Buildkite aims to keep [Buildkite Agents](/docs/agent/v3) in your hosted agents up to date and to the latest version.
+
+If you find that your hosted agent queues are not on the latest version of the Buildkite Agent, contact Buildkite support at support@buildkite.com and we'd be happy to get them updated for you.

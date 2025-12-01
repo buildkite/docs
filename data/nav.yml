@@ -174,8 +174,14 @@
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/cloudformation-service-role"
                 - name: "Building container images"
                   children:
+                    - name: "BuildKit"
+                      path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/buildkit-container-builds"
+                    - name: "Remote BuildKit on EC2"
+                      path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/remote-buildkit-ec2"
                     - name: "Kaniko"
                       path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/kaniko-container-builds"
+                    - name: "Buildah"
+                      path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/buildah-container-builds"
                 - name: "Troubleshooting"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/troubleshooting"
             - name: "EC2 Mac"
@@ -474,7 +480,13 @@
         - name: "Linux hosted agents"
           path: "pipelines/hosted-agents/linux"
         - name: "macOS hosted agents"
-          path: "pipelines/hosted-agents/macos"
+          children:
+            - name: "Overview"
+              path: "pipelines/hosted-agents/macos"
+            - name: "Getting started with iOS"
+              path: "pipelines/hosted-agents/macos/getting-started-with-ios"
+            - name: "Troubleshooting fastlane"
+              path: "pipelines/hosted-agents/macos/troubleshooting-fastlane"
         - name: "Code access"
           path: "pipelines/hosted-agents/code-access"
         - name: "Pipeline migration"
@@ -487,14 +499,6 @@
           path: "pipelines/hosted-agents/remote-docker-builders"
         - name: "Internal container registry"
           path: "pipelines/hosted-agents/internal-container-registry"
-        - name: "Mobile Delivery Cloud"
-          children:
-            - name: "Overview"
-              path: "pipelines/hosted-agents/mobile-delivery-cloud"
-            - name: "Getting started"
-              path: "pipelines/hosted-agents/mobile-delivery-cloud/getting-started"
-            - name: "Troubleshooting fastlane"
-              path: "pipelines/hosted-agents/mobile-delivery-cloud/troubleshooting-fastlane"
     - name: "Rules"
       children:
         - name: "Overview"
@@ -1088,7 +1092,6 @@
         - name: "Stacks"
           path: "apis/agent-api/stacks"
     - name: "Model providers"
-      pill: preview
       children:
         - name: "Overview"
           path: "apis/model-providers"

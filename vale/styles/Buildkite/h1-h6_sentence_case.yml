@@ -18,6 +18,7 @@ exceptions:
   - ADFS
   - Advanced Queue Metrics
   - Agent Stack for Kubernetes
+  - AGENTS.md
   - API
   - API Access Token
   - APM
