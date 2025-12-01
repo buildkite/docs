@@ -1,6 +1,6 @@
 # Build timeouts
 
-Build timeouts are limits on the maximum time a job can wait before being picked up by an agent. If a job exceeds the time limit, the job is automatically canceled and the build fails.
+Build timeouts are limits on the maximum time a job can run before being canceled, or how long a job can wait before being picked up by an agent. If a job exceeds the time limit, the job is automatically canceled and the build fails.
 
 You can set timeouts on your builds in two ways:
 
@@ -13,19 +13,15 @@ Organization-level timeouts can be set in your organization's [**Pipeline Settin
 
 ## Command timeouts
 
-You can specify timeouts for jobs as [command steps attributes](/docs/pipelines/configure/step-types/command-step#timeout_in_minutes), but it's possible to avoid setting them manually every time. To prevent jobs from consuming too many job minutes or running forever, specify default and maximum timeouts from your organization's [**Pipeline Settings**](https://buildkite.com/organizations/~/pipeline-settings), or on an individual pipeline's **Settings**.
+There isn't a separate pipeline-level timeout in Buildkite—all timeouts are applied per command step, not to the build as a whole. You can specify timeouts for individual command steps using the [`timeout_in_minutes`](/docs/pipelines/configure/step-types/command-step#timeout_in_minutes) attribute, or set default and maximum timeouts at the organization or pipeline level.
 
-Specific timeouts take precedence over more general ones—a step-level timeout takes precedence over a pipeline timeout, which in turn takes precedence over an organization's default. This behavior is distinct from [scheduled job expiration](#scheduled-job-expiration).
+The **Default Command Step Timeout** applies to any step that doesn't set its own `timeout_in_minutes`. The pipeline default overrides the organization default. If a step has its own timeout set, it keeps it. All other steps use the default timeout.
+
+The **Maximum Command Step Timeout** caps all command step timeouts in the pipeline. It applies when no timeout is set on the step, no default timeout is set in the pipeline settings, or when the timeout set is greater than the maximum timeout.
+
+Timeout precedence: step-level timeout → pipeline default → organization default. This behavior is distinct from [scheduled job expiration](#scheduled-job-expiration).
 
 Timeouts apply to the whole job lifecycle, including hooks and artifact uploads. If a timeout is triggered while a command or hook is running, there's a 10-second grace period by default. You can change the grace period by setting the [`cancel-grace-period`](/docs/agent/v3/configuration#cancel-grace-period) flag.
-
-Maximum timeouts are applied to command steps in the following situations:
-
-- No timeout attribute is set on the step.
-- No default timeout is set in the pipeline settings.
-- When the timeout set is greater than the maximum timeout.
-
-Maximums are always enforced when supplied, and the smallest value will be used.
 
 Note that command step timeouts don't apply to trigger steps and block steps.
 
