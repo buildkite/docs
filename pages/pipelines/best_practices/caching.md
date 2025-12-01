@@ -126,7 +126,7 @@ You can also pass `--remote_cache` on the command line per build/test invocation
 
 > 📘 Non-deterministic behavior
 > Cache volumes on Buildkite hosted agents are [non-deterministic by nature](/docs/pipelines/hosted-agents/cache-volumes#lifecycle-non-deterministic-nature) and allow for dependency caching and Git mirror caching.
-> If you would like deterministic caching as part of your pipeline, we recommend using Docker images. To cache Docker images, use [remote Docker builders](docs/pipelines/hosted-agents/remote-docker-builders) which allow you to have fast Docker builds and the [internal Docker registry](/docs/pipelines/hosted-agents/internal-container-registry).
+> For deterministic caching in your pipeline, use Docker images with [remote Docker builders](docs/pipelines/hosted-agents/remote-docker-builders) which allow you to have fast Docker builds and the [internal Docker registry](/docs/pipelines/hosted-agents/internal-container-registry).
 
 - What to cache:
     * Use cache volumes for “local” tool data that’s expensive to refetch between ephemeral jobs, e.g. Bazel repository cache and custom CLIs.
