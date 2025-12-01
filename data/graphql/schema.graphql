@@ -955,6 +955,9 @@ enum AuditEventType {
   COMPOSITE_REGISTRY_UPSTREAM_ADDED
   COMPOSITE_REGISTRY_UPSTREAM_REMOVED
   JOB_TERMINAL_SESSION_STARTED
+  MODEL_PROVIDER_CREATED
+  MODEL_PROVIDER_DELETED
+  MODEL_PROVIDER_UPDATED
   NOTIFICATION_SERVICE_BROKEN
   NOTIFICATION_SERVICE_CREATED
   NOTIFICATION_SERVICE_DELETED
@@ -1139,6 +1142,7 @@ enum AuditSubjectType {
   CLUSTER_TOKEN
   COMPOSITE_REGISTRY_UPSTREAM
   JOB
+  MODEL_PROVIDER
   NOTIFICATION_SERVICE
   ORGANIZATION
   ORGANIZATION_BANNER
@@ -2239,6 +2243,11 @@ type ClusterQueue implements Node {
   metrics: ClusterQueueMetrics
 
   """
+  Dispatch behavior for retry jobs. Must be one of `prefer-warmest` or `prefer-different`
+  """
+  retryAgentAffinity: String!
+
+  """
   The health status of stacks associated with this queue
   """
   stackHealth: String
@@ -2280,6 +2289,11 @@ input ClusterQueueCreateInput {
   """
   key: String!
   organizationId: ID!
+
+  """
+  Dispatch behavior for retry jobs. Must be one of `prefer-warmest` or `prefer-different`
+  """
+  retryAgentAffinity: String
 }
 
 """
@@ -2455,6 +2469,11 @@ input ClusterQueueUpdateInput {
   hostedAgents: HostedAgentsQueueSettingsUpdateInput
   id: ID!
   organizationId: ID!
+
+  """
+  Retry agent affinity
+  """
+  retryAgentAffinity: String
 }
 
 """

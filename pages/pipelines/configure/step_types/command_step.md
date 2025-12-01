@@ -234,11 +234,12 @@ Optional attributes:
     <td><code>soft_fail</code></td>
     <td>
       Allow specified non-zero exit statuses not to fail the build.
-      Can be either an <code>array</code> of allowed soft failure exit statuses, <code>"*"</code> to allow all non-zero exit statuses not to fail the build, or <code>true</code> to make all exit statuses soft-fail.<br/>
+      Can be either <code>true</code> to make all exit statuses soft-fail or an <code>array</code> of allowed soft failure exit statuses with the <code>exit_status</code> attribute. Use <code>exit_status: "*"</code> to allow all non-zero exit statuses not to fail the build.<br/>
       <em>Example:</em> <code>true</code><br/>
-      <em>Example:</em> <code>"*"</code><br/>
       <em>Example:</em><br/>
       <code>- exit_status: 1</code><br/>
+      <em>Example:</em><br/>
+      <code>- exit_status: "*"</code><br/>
     </td>
   </tr>
   <tr id="timeout_in_minutes">
@@ -257,7 +258,11 @@ Optional attributes:
 
 ## Container image attributes
 
-If you are using the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) controller to run your [Buildkite Agents](/docs/agent/v3), then you can use the `image` attribute to specify a [container image](/docs/agent/v3/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images) for a command step to run its job in. If you are using [Buildkite hosted agents](/docs/pipelines/hosted-agents), support for the `image` attribute is experimental and subject to change.
+The `image` attribute can be used with either the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) controller to run your [Buildkite Agents](/docs/agent/v3), or [Buildkite hosted agents](/docs/pipelines/hosted-agents).
+
+- If you are running your Buildkite Agents using the Agent Stack for Kubernetes, you can use the `image` attribute to specify a [container image](/docs/agent/v3/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images) for a command step to run its job in.
+
+- If you are using Buildkite hosted agents, support for the `image` attribute is experimental and subject to change.
 
 <table>
   <tr>
@@ -504,7 +509,7 @@ Optional attributes:
   <tr>
     <td><code>exit_status</code></td>
     <td>
-      Allow specified non-zero exit statuses not to fail the build.
+      Allow specified non-zero exit statuses not to fail the build. Use <code>"*"</code> to allow all non-zero exit statuses or specify individual exit status codes.
       <br/>
       <em>Example:</em> <code>"*"</code><br/>
       <em>Example:</em> <code>1</code>
@@ -514,10 +519,15 @@ Optional attributes:
 
 ```yml
 steps:
-  - label: "Everyone struggles sometimes"
+  - label: "Specific exit status"
     command: "tests.sh"
     soft_fail:
       - exit_status: 1
+
+  - label: "All non-zero exit statuses"
+    command: "tests.sh"
+    soft_fail:
+      - exit_status: "*"
 ```
 {: codeblock-file="pipeline.yml"}
 

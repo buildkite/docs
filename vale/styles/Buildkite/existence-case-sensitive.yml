@@ -1,42 +1,16 @@
-# This style suggests alternatives where the case on the right side of the swap is strict.
-
-# Use this style to suggest alternatives where the case on the right side is always required.
-# For example, use this style to always require "Amazon Web Services" and never "Amazon web services".
-
-# For most single words, try using the Buildkite.spelling ignore list first.
-
+# General product names and tools (not cloud-specific)
 extends: substitution
 message: Consider using '%s' instead of '%s'
 level: error
 ignorecase: false
-# swap maps tokens in form of bad: good
 swap:
-  # On the left side of the swap, use the case-insensitive modifier group `(?i:)` to capture any case.
-  # Example: `(?i:Spongebob Meme): SpOnGeBoB MeMe`
-  # Or use a regular string to capture a specific, frequent case error
-  # Example: `Bell Hooks: bell hooks`
-  (?<!-)(?i:BitBucket): Bitbucket # (?<!-) ignores bitbucket with a preceding dash, as in `buildkite-bitbucket-aws-terraform`
-  (?i:Amazon Web Services): Amazon Web Services
+  (?<!-)(?i:BitBucket): Bitbucket
   (?i:Artifactory): Artifactory
-  (?i:AWS Lambda): AWS Lambda
-  (?i:AWS License Manager): AWS License Manager
   (?i:Azure Blob Storage): Azure Blob Storage
   (?i:Bitbucket Server): Bitbucket Server
   (?i:CCMenu): CCMenu
   (?i:CCTray): CCTray
-  (?i:CloudWatch) logs: CloudWatch Logs
-  (?i:CloudWatch): CloudWatch
   (?i:Datadog): Datadog
-  (?i:Elastic CI Stack(?! for AWS)): Elastic CI Stack for AWS
-  (?i:Elastic Stack CI): Elastic CI Stack for AWS
-  (?i:Elastic Stack): Elastic CI Stack for AWS
-  (?i:G Suite): G Suite
-  (?i:Google Cloud Functions): Google Cloud Functions
-  (?i:Google Cloud Storage): Google Cloud Storage
-  (?i:Google Cloud): Google Cloud
-  (?i:Google Compute Engine): Google Compute Engine
-  (?i:Google Container Engine): Google Kubernetes Engine # Google renamed Container to Kubernetes in 2017. See https://cloud.google.com/blog/products/gcp/introducing-certified-kubernetes-and-google-kubernetes-engine
-  (?i:Google Kubernetes Engine): Google Kubernetes Engine
   (?i:GraphQL): GraphQL
   (?i:IronWorker): IronWorker
   (?i:iTerm): iTerm
