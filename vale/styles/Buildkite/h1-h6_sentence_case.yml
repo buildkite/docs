@@ -18,6 +18,7 @@ exceptions:
   - ADFS
   - Advanced Queue Metrics
   - Agent Stack for Kubernetes
+  - AGENTS.md
   - API
   - API Access Token
   - APM
@@ -78,6 +79,10 @@ exceptions:
   - Claude Code
   - Claude Desktop
   - CLI
+  - Cloud Console
+  - Cloud Logging
+  - Cloud Monitoring
+  - Cloud Storage
   - CloudFormation
   - Cloudsmith
   - CloudTrail
@@ -93,11 +98,14 @@ exceptions:
   - Debian
   - Declarative
   - deduper
+  - DinD
   - Docker
   - Docker Compose
   - Docker Desktop
   - Docker Hub
+  - Docker-in-Docker
   - ECR
+  - ECS
   - EC2
   - EKS
   - Elastic
@@ -110,6 +118,7 @@ exceptions:
   - FAQs
   - FreeBSD
   - G Suite
+  - GCP
   - Git
   - Git Large File Storage
   - GitHub
@@ -218,6 +227,7 @@ exceptions:
   - SDK
   - SDKs
   - Scripted
+  - Secret Manager
   - Sequoia
   - Slack
   - Slack Workspace
@@ -231,7 +241,9 @@ exceptions:
   - SSH
   - SSO
   - Tahoe
+  - TCP
   - Tekton
+  - Terraform
   - Test Engine
   - Test Engine Client
   - TESTOWNER

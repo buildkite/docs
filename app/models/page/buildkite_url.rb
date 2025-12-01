@@ -4,7 +4,7 @@ class Page::BuildkiteUrl
   end
 
   def signup_path
-    "https://buildkite.com/platform/get-started/"
+    "https://buildkite.com/signup?iaid=pricing-free"
   end
 
   def user_access_tokens_url

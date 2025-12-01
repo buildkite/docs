@@ -87,5 +87,5 @@ For more information on configuring and managing the Elastic CI Stack for AWS, s
 - [Using AWS Secrets Manager](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/secrets-manager) to configure secrets
 - [Managing the Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack) for operational tasks
 - [Troubleshooting](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/troubleshooting) for resolving common issues
-- [Terraform module reference](https://registry.terraform.io/modules/buildkite/elastic-ci-stack/aws) on the Terraform Registry
+- [Terraform module reference](https://registry.terraform.io/modules/buildkite/elastic-ci-stack-for-aws) on the Terraform Registry
 - [GitHub repository](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws) for the module source code

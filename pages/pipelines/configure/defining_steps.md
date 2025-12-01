@@ -137,6 +137,9 @@ Timestamp        | Description
 
 When you run a pipeline, a build is created. Each of the steps in the pipeline ends up as a job in the build, which then get distributed to available agents. Job states have a similar flow to [build states](#build-states) but with a few extra states. The following diagram shows you how jobs progress from start to end.
 
+> 📘 API state differences
+> The table of job states below describes the internal lifecycle states, where `finished` is the terminal state. The [REST API](/docs/apis/rest-api) flattens `finished` into `passed` or `failed` based on the job's exit status, so `jobs[].state` will be `passed` or `failed` rather than `finished`. The [GraphQL API](/docs/apis/graphql-api) uses `finished` for all completed jobs, regardless of exit status.
+
 <%= image "job-states.png", alt: "Job state diagram" %>
 
 Job state             | Description
@@ -154,7 +157,9 @@ Job state             | Description
 `assigned`            | The job has been assigned to an agent, and it's waiting for it to accept.
 `accepted`            | The job was accepted by the agent, and now it's waiting to start running.
 `running`             | The job is running.
-`finished`            | The job has finished.
+`finished`            | The job has finished (internal lifecycle state; REST API returns `passed` or `failed` instead).
+`passed`              | The job finished successfully (REST API only; returned instead of `finished` for successful jobs).
+`failed`              | The job finished with a failure (REST API only; returned instead of `finished` for failed jobs).
 `canceling`           | The job is currently canceling.
 `canceled`            | The job was canceled.
 `timing_out`          | The job is timing out for taking too long.
@@ -194,8 +199,8 @@ Differentiating between `timing_out`, `timed_out`, and `expired` states:
 
 See [Build timeouts](/docs/pipelines/configure/build-timeouts) for information about setting timeout values.
 
-> 📘
-> The <a href="/docs/apis/rest-api/builds">REST API</a> does not return <code>finished</code>, but returns <code>passed</code> or <code>failed</code> according to the exit status of the job. It also lists <code>limiting</code> and <code>limited</code> as <code>scheduled</code> for legacy compatibility.
+> 📘 REST API state mapping
+> The [REST API](/docs/apis/rest-api) maps the internal `finished` state to `passed` or `failed` based on the job's exit status. When querying job states via the REST API, you'll see `passed` or `failed` instead of `finished`. The REST API also lists `limiting` and `limited` as `scheduled` for legacy compatibility.
 
 <%= render_markdown partial: 'pipelines/configure/job_states' %>
 
