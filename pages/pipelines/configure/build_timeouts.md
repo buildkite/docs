@@ -15,9 +15,9 @@ Organization-level timeouts can be set in your organization's [**Pipeline Settin
 
 There isn't a separate pipeline-level timeout in Buildkite—all timeouts are applied per command step, not to the build as a whole. You can specify timeouts for individual command steps using the [`timeout_in_minutes`](/docs/pipelines/configure/step-types/command-step#timeout_in_minutes) attribute, or set default and maximum timeouts at the organization or pipeline level.
 
-The **Default Command Step Timeout** applies to any step that doesn't set its own `timeout_in_minutes`. The pipeline default overrides the organization default. If a step has its own timeout set, it keeps it. All other steps use the default timeout.
+The **Default Command Step Timeout** sets the default timeout in minutes for all command steps in this pipeline. This can still be overridden in any command step.
 
-The **Maximum Command Step Timeout** caps all command step timeouts in the pipeline. It applies when no timeout is set on the step, no default timeout is set in the pipeline settings, or when the timeout set is greater than the maximum timeout.
+The **Maximum Command Step Timeout** sets the maximum timeout in minutes for all command steps in this pipeline. Any command step without a timeout or with a timeout greater than this value will be set to this value.
 
 Timeout precedence: step-level timeout → pipeline default → organization default. This behavior is distinct from [scheduled job expiration](#scheduled-job-expiration).
 
