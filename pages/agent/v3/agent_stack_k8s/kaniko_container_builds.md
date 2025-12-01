@@ -2,7 +2,9 @@
 
 [Kaniko](https://github.com/GoogleContainerTools/kaniko/tree/main#kaniko---build-images-in-kubernetes) is a tool for building container images from a Dockerfile, inside a container or Kubernetes cluster. Kaniko doesn't depend on a Docker daemon and executes each command within a Dockerfile completely in user space. This enables building container images in environments that can't easily or securely run a Docker daemon, such as a standard Kubernetes cluster.
 
-You will need to run Kaniko as an image: `gcr.io/kaniko-project/executor`. The Kaniko executor image is responsible for building an image from a Dockerfile and pushing it to a registry. Within the executor image, the filesystem of the base image (the `FROM` image in the Dockerfile) is extracted. Next, the commands in the Dockerfile are executed, taking snapshots of the filesystem in user space after running each command. After each command, a layer of changed files is appended to the base image (if such image exists) and the metadata of the image is updated.
+You will need to run Kaniko as an image: `gcr.io/kaniko-project/executor`. The Kaniko executor image is responsible for building an image from a Dockerfile and pushing it to a registry. Within the executor image, the filesystem of the base image (the `FROM` image in the Dockerfile) is extracted.
+
+Next, the commands in the Dockerfile are executed, taking snapshots of the filesystem in user space after running each command. After each command, a layer of changed files is appended to the base image (if such image exists) and the metadata of the image is updated.
 
 ## Using Kaniko with Agent Stack for Kubernetes
 
