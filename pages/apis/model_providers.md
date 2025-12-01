@@ -83,4 +83,4 @@ To track your Buildkite organization's AI model usage through the Buildkite inte
 
 1. Select **Usage** to access your Buildkite organization's usage [**Usage > Summary**](https://buildkite.com/organizations/~/usage) page.
 
-1. Select the [**Model Providers**](https://buildkite.com/organizations/~/usage?product=hosted_models) tab to view your model provider usage.
+1. Select the [**Model Providers**](https://buildkite.com/organizations/~/usage?product=model_providers) tab to view your model provider usage.
