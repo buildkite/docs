@@ -216,7 +216,7 @@ Each flag may alternatively be supplied via an environment variable.
       <td><code>--target-time</code></td>
       <td>
         Target duration for each node, e.g. `2m30s`.
-        The test planner will attempt to split the test plan into equal duration buckets of this duration and calculate the optimimum parallelism to achieve this, up to the value supplied to `--max-parallelism`
+        The test planner will attempt to split the test plan into equal duration buckets of this duration and calculate the optimum parallelism to achieve this, up to the value supplied to `--max-parallelism`
         <br>
         <strong>Environment variable:</strong>
         <code>$BUILDKITE_TEST_ENGINE_TARGET_TIME</code>
