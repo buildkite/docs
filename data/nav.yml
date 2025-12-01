@@ -1090,7 +1090,6 @@
         - name: "Stacks"
           path: "apis/agent-api/stacks"
     - name: "Model providers"
-      pill: preview
       children:
         - name: "Overview"
           path: "apis/model-providers"
