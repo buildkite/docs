@@ -176,6 +176,8 @@
                   children:
                     - name: "BuildKit"
                       path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/buildkit-container-builds"
+                    - name: "Remote BuildKit on EC2"
+                      path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/remote-buildkit-ec2"
                     - name: "Kaniko"
                       path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/kaniko-container-builds"
                     - name: "Buildah"
@@ -239,7 +241,7 @@
               path: "agent/v3/agent-stack-k8s/pipeline-validation"
             - name: "Job metadata"
               path: "agent/v3/agent-stack-k8s/job-metadata"
-            - name: Sidecars
+            - name: "Sidecars"
               path: "agent/v3/agent-stack-k8s/sidecars"
             - name: "Kubernetes PodSpec"
               path: "agent/v3/agent-stack-k8s/podspec"
@@ -261,6 +263,8 @@
                   path: "agent/v3/agent-stack-k8s/buildah-container-builds"
                 - name: "BuildKit"
                   path: "agent/v3/agent-stack-k8s/buildkit-container-builds"
+                - name: "Docker Compose"
+                  path: "agent/v3/agent-stack-k8s/docker-compose-container-builds"
                 - name: "Docker-in-Docker (DinD)"
                   path: "agent/v3/agent-stack-k8s/dind-container-builds"
                 - name: "Namespace remote builders"
@@ -1088,7 +1092,6 @@
         - name: "Stacks"
           path: "apis/agent-api/stacks"
     - name: "Model providers"
-      pill: preview
       children:
         - name: "Overview"
           path: "apis/model-providers"

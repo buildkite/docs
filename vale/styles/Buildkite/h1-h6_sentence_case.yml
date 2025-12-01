@@ -18,6 +18,7 @@ exceptions:
   - ADFS
   - Advanced Queue Metrics
   - Agent Stack for Kubernetes
+  - AGENTS.md
   - API
   - API Access Token
   - APM
@@ -97,10 +98,12 @@ exceptions:
   - Debian
   - Declarative
   - deduper
+  - DinD
   - Docker
   - Docker Compose
   - Docker Desktop
   - Docker Hub
+  - Docker-in-Docker
   - ECR
   - ECS
   - EC2
@@ -237,6 +240,7 @@ exceptions:
   - SSH
   - SSO
   - Tahoe
+  - TCP
   - Tekton
   - Terraform
   - Test Engine

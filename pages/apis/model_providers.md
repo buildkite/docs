@@ -10,9 +10,6 @@ Local AI coding tools operate in isolation with limited context and no connectio
 
 Once you have connected your Buildkite organization to a model provider, your AI agents can then respond to build failures from Buildkite pipelines, optimize performance, and improve your pipelines automatically. Every step of your software delivery process can benefit from AI that understands your actual build context.
 
-> 📘 Private preview feature
-> This feature is currently in private preview as it is still undergoing active development. To request early access or provide feedback, please contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
-
 ## Connect to a model provider
 
 Connecting your Buildkite organization to an AI model through the Buildkite platform can only be done by [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions).
@@ -86,4 +83,4 @@ To track your Buildkite organization's AI model usage through the Buildkite inte
 
 1. Select **Usage** to access your Buildkite organization's usage [**Usage > Summary**](https://buildkite.com/organizations/~/usage) page.
 
-1. Select the [**Model Providers** / **Hosted Models**](https://buildkite.com/organizations/~/usage?product=hosted_models) tab to view your model provider usage.
+1. Select the [**Model Providers**](https://buildkite.com/organizations/~/usage?product=model_providers) tab to view your model provider usage.
