@@ -39,7 +39,7 @@ See [Agent migration process](#agent-migration-process) for the full migration p
 
 - **Enhanced security boundaries**: Clusters provide hard security boundaries between different environments. However, you can use [rules](/docs/pipelines/rules) to create exceptions that allow controlled interaction between clusters when needed.
 
-- **Improved observability**: Clusters provide access to [cluster insights](/docs/pipelines/insights/clusters) (for customers on Enterprise plans), providing better metrics and visibility into your build infrastructure such as queue wait times and job pass rates. All plans have access to [queue metrics](/docs/pipelines/insights/queue-metrics).
+- **Improved observability**: Clusters provide access to [cluster insights](/docs/pipelines/insights/clusters) (for customers on [Enterprise](https://buildkite.com/pricing/) plans), providing better metrics and visibility into your build infrastructure such as queue wait times and job pass rates. All plans have access to [queue metrics](/docs/pipelines/insights/queue-metrics).
 
 - **Secrets management**: Clusters provide access to [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) and controlled access to sensitive resources.
 
@@ -419,7 +419,7 @@ Alternatively, consider using [Terraform](https://registry.terraform.io/provider
 
 1. Once [all tests pass](#agent-migration-process-test-and-validate-the-migrated-pipelines), gradually increase traffic to the pipelines that were migrated to clusters.
 
-1. Monitor for any issues during the transition. If you are on an Enterprise plan, monitor [cluster insights](/docs/pipelines/insights/clusters).
+1. Monitor for any issues during the transition. If you are on an [Enterprise](https://buildkite.com/pricing/) plan, monitor [cluster insights](/docs/pipelines/insights/clusters).
 
 1. After a suitable monitoring period (typically 1-2 weeks):
    * Decommission your old unclustered agents.

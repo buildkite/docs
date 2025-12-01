@@ -55,16 +55,33 @@
               path: "pipelines/migration/tool/circleci"
             - name: "Bitbucket Pipelines"
               path: "pipelines/migration/tool/bitbucket-pipelines"
+            - name: "Jenkins"
+              path: "pipelines/migration/tool/jenkins"
+              pill: "beta"
         - name: From Jenkins
           path: pipelines/migration/from-jenkins
         - name: From Bamboo
           path: pipelines/migration/from-bamboo
+    - name: Best practices
+      children:
+        - name: "Overview"
+          path: "pipelines/best-practices/overview"
+        - name: "Docker-based builds"
+          path: "pipelines/best-practices/docker-containerized-builds"
+        - name: "Parallelizing builds"
+          path: "pipelines/best-practices/parallel-builds"
+        - name: "Working with monorepos"
+          path: "pipelines/best-practices/working-with-monorepos"
+        - name: "Environment and dependency management"
+          path: "pipelines/best-practices/environment-and-dependency"
+        - name: "Secrets management"
+          path: "pipelines/best-practices/secrets-management"
+        - name: "Plugin management"
+          path: "pipelines/best-practices/plugin-management"
+        - name: "Enforcing security controls"
+          path: "pipelines/best-practices/security-controls"
     - name: "Tutorials"
       children:
-        - name: "Docker-based builds"
-          path: "pipelines/tutorials/docker-containerized-builds"
-        - name: "Parallelizing builds"
-          path: "pipelines/tutorials/parallel-builds"
         - name: "Using Bazel on Buildkite"
           path: "pipelines/tutorials/bazel"
         - name: "Dynamic pipelines and annotations using Bazel"
@@ -88,6 +105,8 @@
           path: "agent/v3/ssh-keys"
         - name: "GitHub SSH keys"
           path: "agent/v3/github-ssh-keys"
+        - name: "Git mirrors"
+          path: "agent/v3/git-mirrors"
         - name: "Hooks"
           path: "agent/v3/hooks"
         - name: "Monitoring and observing"
@@ -127,8 +146,10 @@
                   path: "agent/v3/aws/elastic-ci-stack"
             - name: "EC2 Linux and Windows"
               children:
-                - name: "Setup"
+                - name: "Setup with AWS CloudFormation"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/setup"
+                - name: "Setup with Terraform"
+                  path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/terraform"
                 - name: "Security"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security"
                 - name: "AWS Secrets Manager"
@@ -137,10 +158,14 @@
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/secrets-bucket"
                 - name: "Managing the Stack"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack"
-                - name: "Template parameters"
-                  path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/template-parameters"
+                - name: "Configuration parameters"
+                  path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters"
                 - name: "CloudFormation service role"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/cloudformation-service-role"
+                - name: "Building container images"
+                  children:
+                    - name: "Kaniko"
+                      path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/kaniko-container-builds"
                 - name: "Troubleshooting"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/troubleshooting"
             - name: "EC2 Mac"
@@ -189,6 +214,8 @@
               path: "agent/v3/agent-stack-k8s/sidecars"
             - name: "Kubernetes PodSpec"
               path: "agent/v3/agent-stack-k8s/podspec"
+            - name: "Pod templates"
+              path: "agent/v3/agent-stack-k8s/pod-template"
             - name: "Container resource limits"
               path: "agent/v3/agent-stack-k8s/container-resource-limits"
             - name: "Volume mounts"
@@ -207,6 +234,12 @@
                   path: "agent/v3/agent-stack-k8s/buildkit-container-builds"
                 - name: "Kaniko"
                   path: "agent/v3/agent-stack-k8s/kaniko-container-builds"
+                - name: "Docker-in-Docker (DinD)"
+                  path: "agent/v3/agent-stack-k8s/dind-container-builds"
+                - name: "Kaniko"
+                  path: "agent/v3/agent-stack-k8s/kaniko-container-builds"
+                - name: "Namespace remote builders"
+                  path: "agent/v3/agent-stack-k8s/namespace-container-builds"
             - name: "Troubleshooting"
               path: "agent/v3/agent-stack-k8s/troubleshooting"
         - name: "Agent installers"
@@ -352,6 +385,7 @@
               path: "pipelines/configure/dynamic-pipelines"
             - name: "Buildkite SDK"
               path: "pipelines/configure/dynamic-pipelines/sdk"
+              pill: "preview"
         - name: "Writing build scripts"
           path: "pipelines/configure/writing-build-scripts"
         - name: "Using conditionals"
@@ -410,7 +444,7 @@
           path: "pipelines/clusters/manage-queues"
         - name: "Migrate from unclustered to clustered agents"
           path: "pipelines/clusters/migrate-from-unclustered-to-clustered-agents"
-    - name: "Hosted agents"
+    - name: "Buildkite hosted agents"
       children:
         - name: "Overview"
           path: "pipelines/hosted-agents"
@@ -418,14 +452,16 @@
           path: "pipelines/hosted-agents/linux"
         - name: "macOS hosted agents"
           path: "pipelines/hosted-agents/macos"
-        - name: "Cache volumes"
-          path: "pipelines/hosted-agents/cache-volumes"
         - name: "Code access"
           path: "pipelines/hosted-agents/code-access"
         - name: "Pipeline migration"
           path: "pipelines/hosted-agents/pipeline-migration"
         - name: "Terminal access"
           path: "pipelines/hosted-agents/terminal-access"
+        - name: "Cache volumes"
+          path: "pipelines/hosted-agents/cache-volumes"
+        - name: "Remote Docker builders"
+          path: "pipelines/hosted-agents/remote-docker-builders"
         - name: "Mobile Delivery Cloud"
           children:
             - name: "Overview"
@@ -444,8 +480,6 @@
       children:
         - name: "Overview"
           path: "pipelines/security"
-        - name: "Enforcing security controls"
-          path: "pipelines/security/enforcing-security-controls"
         - name: "Secrets"
           children:
             - name: "Overview"
@@ -645,7 +679,7 @@
           path: "test-engine/workflows/monitors"
         - name: "Actions"
           path: "test-engine/workflows/actions"
-      pill: "new"
+      pill: "preview"
     - name: "Test Engine Client (bktec)"
       children:
         - name: "Configuring"
@@ -807,6 +841,10 @@
           path: "platform/sso/custom-saml"
         - name: "Set up with GraphQL"
           path: "platform/sso/sso-setup-with-graphql"
+    - name: "Security"
+      children:
+        - name: "Token security"
+          path: "platform/security/tokens"
     - name: "Integrations"
       children:
         - name: "Slack Workspace"
@@ -945,22 +983,28 @@
               path: apis/graphql/cookbooks/organizations
             - name: Teams
               path: apis/graphql/cookbooks/teams
+        - name: "Portals"
+          children:
+            - name: "Overview"
+              path: "apis/graphql/portals"
+            - name: "Limits"
+              path: "apis/graphql/portals/limits"
+            - name: "Ephemeral portal tokens"
+              path: "apis/graphql/portals/ephemeral-portal-tokens"
+            - name: "User-invoked portals"
+              path: "apis/graphql/portals/user-invoked-portals"
         - name: Limits
           path: apis/graphql/graphql-resource-limits
-    - name: "Portals"
-      children:
-        - name: "Overview"
-          path: "apis/portals"
-        - name: "Limits"
-          path: "apis/portals/limits"
-        - name: "Ephemeral portal tokens"
-          path: "apis/portals/ephemeral-portal-tokens"
-        - name: "User-invoked portals"
-          path: "apis/portals/user-invoked-portals"
     - name: "MCP server"
       children:
         - name: "Overview"
           path: "apis/mcp-server"
+        - name: "Tools"
+          children:
+            - name: "Overview"
+              path: "apis/mcp-server/tools"
+            - name: "Toolsets"
+              path: "apis/mcp-server/tools/toolsets"
         - name: "Remote MCP server"
           children:
             - name: "Configuring AI tools"
@@ -1005,6 +1049,11 @@
           children:
             - name: "Overview"
               path: "apis/webhooks/package-registries"
+        - name: "Incoming webhooks"
+          children:
+            - name: "Pipeline triggers"
+              path: "apis/webhooks/incoming/pipeline-triggers"
+              pill: "preview"
     - name: "Agent"
       children:
         - name: "Overview"
@@ -1012,5 +1061,4 @@
         - name: "Metrics"
           path: "apis/agent-api/metrics"
         - name: "Stacks"
-          pill: preview
           path: "apis/agent-api/stacks"

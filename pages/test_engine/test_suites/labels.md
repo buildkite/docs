@@ -45,6 +45,7 @@ Learn more about test execution tagging in [Tags](/docs/test-engine/test-suites/
 
 > 📘
 > A label added to a test through a test execution tag is automatically removed when the tag is removed from the test execution.
+> Labels are only applied from execution tags for tests run on the configured default branch. Tests running on other branches (such as feature branches) will not have labels automatically applied from their execution tags.
 
 ### Using the REST API
 

@@ -53,7 +53,7 @@ steps:
   - label: "\:pipeline\: Upload"
     command: "buildkite-agent pipeline upload"
     plugins:
-      - git-ssh-checkout#v0.3.2:
+      - git-ssh-checkout#v0.4.1:
 ```
 
 This base step content uses the new plugin with the default values to complete the Git checkout.

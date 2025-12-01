@@ -6,6 +6,7 @@ allowlist
 AMI's
 AMIs
 Ansible
+anti-pattern
 API
 API's
 APIs
@@ -13,11 +14,11 @@ apk
 APM
 applesimutils
 Amazon ECR
-Amazon Elastic Continer Registry
+Amazon Elastic Container Registry
 Anthropic's
 Aqua
 architecting
-Argo
+Argo CD
 argumentless
 Artifactory
 Artifactory's
@@ -30,6 +31,7 @@ autogenerates
 automations
 autoscale
 autoscaler
+autoscalers
 Autoscaling
 autoscaling
 aws
@@ -41,6 +43,7 @@ Basecamp
 Basscss
 Bayesian
 Bazel
+Bazel's
 bazelisk
 Bitium
 Bitbucket
@@ -55,21 +58,26 @@ BuildKit
 Buildkite
 Buildkite's
 buildscript
+Buildx
 Bundler
+bursty
 cancelation
 carthage
 CCMenu
 ccnet
 CCTray
 Chainguard
+Chainguard's
 chatbot
 chroot
 chroots
 CI
+ClamAV
 classpath
 cli
 CLI
 Cloudsmith
+Cognito
 Cloudsmith's
 CloudTrail
 CloudWatch
@@ -79,6 +87,7 @@ cocoapods
 codeql
 codesign
 codesigning
+Cognito
 commit_sha
 completion_watcher
 composable
@@ -86,6 +95,7 @@ config
 configmap
 Containerfile
 Containerfiles
+corepack
 cpu
 cron
 crontab
@@ -116,6 +126,7 @@ Docker-in-Docker
 dogstatsd
 dotenv
 DSCs
+ecr
 enqueued
 Entra
 enum
@@ -126,7 +137,6 @@ Eventbridge
 EventBridge
 exfiltrated
 exfiltration
-Explainshell
 fastfile
 fastlane
 fastlane's
@@ -148,14 +158,20 @@ gmp
 gnupg
 gotestsum
 gpg
+GPU
+GPUs
+Grafana
 Gradle
 gradle
 Gradle's
 graphql_id
 Graviton
 GRC
+GuardDog
 gz
 gzipped
+hard-code
+hard-coding
 Hashicorp
 Homebrew
 heroku
@@ -187,18 +203,24 @@ keyserver
 keyservers
 keyless
 kotlin
+kubeconfig
 kubectl
 kustomize
 Kuzco
 launchd
 LFS
 libpq
+Lightstep
 linux
 llamasecret
 LLMs
 llvm
+lockfile
+lockfiles
+lockfile‑keyed
 macOS
 macos
+manylinux
 matchfile
 matchers
 Memcache
@@ -207,10 +229,12 @@ misconfiguration
 mitigation
 mitigations
 monorepo
+monorepos
 mrkdwn
 multi-file
 mutex
 namespace
+Namespace's
 namespaced
 namespaces
 navatar
@@ -228,7 +252,9 @@ nssm
 nullable
 NVMe
 OAuth
+offboarding
 oidc
+onboarding
 Okta
 OpenTelemetry
 opentelemetry
@@ -252,6 +278,7 @@ plaintext
 plist
 png
 pngs
+pnpm
 pod_watcher
 podWatcher
 Postgres
@@ -261,6 +288,7 @@ Prometheus
 protobuf
 preemptible
 prefill
+preprovisioned
 proxied
 pty
 pullrequest
@@ -281,6 +309,8 @@ repo
 reprioritize
 reprioritizes
 resizable
+rollout
+rollouts
 retrigger
 routable
 rpmbuild
@@ -290,17 +320,25 @@ runtimes
 rustup
 rvm
 sandboxed
+SBOM
+SBOMs
 seccomp
 sed
+serverless
 scriptwrapper
+SDK
 SDK's
+SDKs
 sha
+SHAs
 sharding
 Shardy
 shasum
 shellcheck
 shellscripting
 Shipit
+sigstore
+sigstore's
 signaltometrics
 SLO
 SLOs
@@ -315,6 +353,7 @@ Sonoma
 Splitter's
 sre
 sso
+stack_error
 statefully
 stdout
 streamable
@@ -338,7 +377,11 @@ timeframe
 tmp
 tmux
 tokenization
+toolchain
+toolchains
 toolmantim
+toolset
+toolsets
 tooltip
 TOTP's
 Trivy
@@ -349,6 +392,7 @@ UserData
 unarchive
 unarchived
 unarchiving
+Uncomment
 unblocker
 unbuildable
 unclustered
@@ -385,6 +429,7 @@ webtask
 wget
 Windsurf's
 worktree
+worktrees
 workspace's
 xcbeautify
 Xcode
