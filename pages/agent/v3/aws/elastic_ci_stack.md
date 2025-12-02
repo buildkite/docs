@@ -59,5 +59,8 @@ Pipeline Signing | ✅ | ✅
 
 Get started with Buildkite Elastic CI Stack for AWS for:
 
-* [Linux and Windows](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/setup)
-* [Mac](/docs/agent/v3/aws/elastic-ci-stack/ec2-mac/setup)
+* Linux and Windows
+    - [Setup with CloudFormation](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/setup)
+    - [Setup with Terraform](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/terraform)
+* Mac
+    - [Setup with CloudFormation](/docs/agent/v3/aws/elastic-ci-stack/ec2-mac/setup)

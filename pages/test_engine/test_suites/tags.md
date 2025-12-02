@@ -132,6 +132,7 @@ Test Engine has the following tagging requirements:
 - Must not be blank.
 - Must begin with a letter, and may contain letters, numbers, underscores, hyphens and periods.
 - Must be less than 64 bytes of UTF-8 text.
+- Must not be a dot-separated prefix of another key. If a key like `service.instance.id` exists, you cannot create keys for its prefixes such as `service.instance` or `service`.
 
 #### Tag values
 
