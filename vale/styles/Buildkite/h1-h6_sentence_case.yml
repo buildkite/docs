@@ -143,6 +143,7 @@ exceptions:
   - Governance
   - GPU
   - GPUs
+  - Gradle
   - GraphQL
   - GRC
   - Groovy
@@ -161,6 +162,7 @@ exceptions:
   - iOS
   - IronWorker
   - Installation
+  - Java
   - JavaScript
   - Java (Maven/Gradle)
   - Jenkins
@@ -183,6 +185,7 @@ exceptions:
   - Mac
   - macOS
   - Markdown
+  - Maven
   - MCP
   - Microsoft Entra ID
   - minitest
@@ -224,7 +227,9 @@ exceptions:
   - REST
   - Risk
   - RSpec
+  - Ruby
   - Ruby (RubyGems)
+  - RubyGems
   - S3
   - SAML
   - scheduler

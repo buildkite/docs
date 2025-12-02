@@ -48,17 +48,17 @@ curl -H "Authorization: Bearer $TOKEN" \
 Nuances and differences
 
 - any/any support: If a package is truly distribution-agnostic, you can publish it once as deb “any/any” instead of duplicating per distro.
-- APT signing keys: Buildkite Package Registries will sign repository metadata with your Buildkite key, not the legacy packagecloud key. Plan a rollout for updating consumer apt sources and keys.
+- APT signing keys: Buildkite Package Registries will sign repository metadata with your Buildkite key, not the legacy Packagecloud key. Plan a rollout for updating consumer apt sources and keys.
 
 ### Red Hat (RPM)
 
 Export from Packagecloud
 
-- Use packagecloud API to list and download .rpm files per repo.
+- Use Packagecloud API to list and download .rpm files per repo.
 
 Import to Buildkite Package Registries
 
-- Create an RPM registry in BK
+- Create an RPM registry in Buildkite Package Registries
 - Publish via REST API or CLI:
 
 ```bash
