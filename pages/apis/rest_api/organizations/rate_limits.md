@@ -14,7 +14,7 @@ curl -H "Authorization: Bearer {api-token}" \
 ```json
 {
   "scopes": {
-    "organization": {
+    "rest": {
       "limit": 200,
       "current": 5,
       "reset": 60,
@@ -38,11 +38,11 @@ Success response: `200 OK`
 
 ## Response fields
 
-The response contains two scopes: `organization` for [REST API](/docs/apis/rest-api) limits and `graphql` for [GraphQL API](/docs/apis/graphql-api) limits.
+The response contains two scopes: `rest` for [REST API](/docs/apis/rest-api) limits and `graphql` for [GraphQL API](/docs/apis/graphql-api) limits.
 
-### Organization scope (REST API)
+### REST scope
 
-The `organization` scope tracks REST API request limits.
+The `rest` scope tracks REST API request limits.
 
 Field | Type | Description
 ----- | ---- | -----------
