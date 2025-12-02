@@ -201,6 +201,7 @@ exceptions:
   - Open Container Initiative
   - OS X
   - Package Registries
+  - Packagecloud
   - PagerDuty
   - Phabricator
   - Pipelines
