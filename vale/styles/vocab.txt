@@ -7,6 +7,7 @@ AMI's
 AMIs
 Ansible
 anti-pattern
+Anyfile
 API
 API's
 APIs
@@ -107,6 +108,7 @@ crontab
 Crontab
 CVE
 CVEs
+cutover
 daemonless
 Datadog
 Datadog's
@@ -327,6 +329,7 @@ reprioritizes
 resizable
 rollout
 rollouts
+retag
 retrigger
 routable
 rpmbuild
@@ -345,6 +348,7 @@ scriptwrapper
 SDK
 SDK's
 SDKs
+semver
 sha
 SHAs
 sharding

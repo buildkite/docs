@@ -32,6 +32,7 @@ exceptions:
   - Amazon Web Services
   - AMI
   - ANSI
+  - Anyfile
   - API(s)
   - Artifactory
   - Audit Event Logged
@@ -161,6 +162,7 @@ exceptions:
   - IronWorker
   - Installation
   - JavaScript
+  - Java (Maven/Gradle)
   - Jenkins
   - JFrog
   - Jest
@@ -216,11 +218,13 @@ exceptions:
   - QA
   - READ_ONLY
   - Red Hat
+  - Red Hat (RPM)
   - Red Hat Enterprise Linux
   - Registry Configuration
   - REST
   - Risk
   - RSpec
+  - Ruby (RubyGems)
   - S3
   - SAML
   - scheduler

@@ -9,7 +9,7 @@ To migrate your packages from Packagecloud to Buildkite Package Registries, you'
 - Decide whether to preserve existing coordinates exactly (name, version, distro/arch) or to rationalize them during migration.
 - For distro ecosystems (deb, rpm, alpine), plan new repo signing keys and apt/yum repo entries for consumers.
 
-## What to export from packagecloud
+## What to export from Packagecloud
 
 You’ll export the original package files and, where practical, the basic metadata (name, version, distribution/architecture). For each ecosystem below, we outline reliable ways to fetch packages.
 
@@ -28,9 +28,9 @@ Below are proven patterns. For imports, favor Buildkite API for distro and “fi
 
 ### Debian/Ubuntu (deb)
 
-Export from packagecloud
+Export from Packagecloud
 
-- Use packagecloud API to enumerate packages for a repo and download .deb files.
+- Use Packagecloud API to enumerate packages for a repo and download .deb files.
 - Preserve distro codename and architecture labels for later mapping.
 
 Import to Buildkite Package Registries.
@@ -52,7 +52,7 @@ Nuances and differences
 
 ### Red Hat (RPM)
 
-Export from packagecloud
+Export from Packagecloud
 
 - Use packagecloud API to list and download .rpm files per repo.
 
@@ -76,7 +76,7 @@ Nuances and differences
 
 Export
 
-- Enumerate and download .apk files from packagecloud.
+- Enumerate and download .apk files from Packagecloud.
 
 Import
 
@@ -90,7 +90,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Export
 
-- Download original files as-is. Keep filenames stable; BK will validate and extract semver for Anyfile where applicable.
+- Download original files as-is. Keep filenames stable; Buildkite Package Registries will validate and extract semver for Anyfile where applicable.
 
 Import
 
@@ -200,7 +200,7 @@ docker push [packages.buildkite.com/$ORG/$REG/src:1.2.3](http://packages.buildki
 
 ## End-to-end scripted migration (pattern)
 
-1. Enumerate all packages in a packagecloud repo via API and write a manifest (JSON) of filenames and coordinates.
+1. Enumerate all packages in a Packagecloud repo via API and write a manifest (JSON) of filenames and coordinates.
 1. Download files to a staging directory that mirrors ecosystem structure.
 1. For each ecosystem, publish using the recommended method above.
 1. Verify availability using the ecosystem’s discovery endpoints or search.
@@ -236,10 +236,10 @@ done
 
 ### Packagecloud vs Buildkite Package Registries: key differences (deb/rpm and files)
 
-| Area | packagecloud | Buildkite Package Registries | Migration guidance |
+| Area | Packagecloud | Buildkite Package Registries | Migration guidance |
 | --- | --- | --- | --- |
-| Deb/RPM repo signing keys | Repo metadata signed with packagecloud global key for your repo | Repo metadata signed with your BK registry key | Plan a key rotation. Distribute the Buildkite Package Registries public key and update consumer apt/yum repo definitions during cutover. |
-| any/any usage (Deb/RPM) | Common to duplicate binaries per distro/version even if identical | Supports true "any/any" publication when binaries are distro-agnostic | Publish once per version using any/any to reduce duplication. Keep per-distro builds only when binaries or deps differ. |
+| Deb/RPM repo signing keys | Repo metadata signed with Packagecloud global key for your repo | Repo metadata signed with your BK registry key | Plan a key rotation. Distribute the Buildkite Package Registries public key and update consumer apt/yum repo definitions during cutover. |
+| any/any usage (Deb/RPM) | Common to duplicate binaries per distro/version even if identical | Supports true "any/any" publication when binaries are distro-agnostic | Publish once per version using any/any to reduce duplication. Keep per-distro builds only when binaries or dependencies differ. |
 | File validation and naming (generic files) | Heuristic filename handling. Missing versions may be treated as 0.0.0 | Stricter filename parsing and semver validation for generic files (where enabled) | Normalize filenames to include clear name and version before import. Adjust scripts if any uploads fail validation. |
 
 ## Validation checklist
