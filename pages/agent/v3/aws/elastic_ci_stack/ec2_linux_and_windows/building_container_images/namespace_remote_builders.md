@@ -91,10 +91,6 @@ Once configured, the build step exchanges the instance profile credentials for a
         --tenant_id <workspace-id>
 ```
 
-## Using Namespace remote builders
-
-Namespace integrates with Buildkite pipeline steps through the Namespace CLI. Select the authentication flow that matches the environment, then run the standard Docker Buildx commands against the remote builders.
-
 ## Pushing to external registries
 
 Namespace handles authentication to its own registry when you run `/usr/local/bin/nsc docker login`.
@@ -176,5 +172,5 @@ steps:
 
 - Authentication failures: contact Namespace to register the OIDC issuer or verify AWS Cognito permissions for the stack’s IAM role.
 - Builder not found: rerun `nsc docker buildx setup --background --use` before building.
-- Registry authentication fails: run `nsc docker login` or enable the appropriate registry plugin block.
+- Registry authentication fails: run `nsc docker login` before building.
 - Shell execution errors: ensure the stack is using the default `#!/bin/bash -e -c` shell in step commands.
