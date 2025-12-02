@@ -164,6 +164,10 @@
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/cloudformation-service-role"
                 - name: "Troubleshooting"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/troubleshooting"
+                - name: "Building container images"
+                  children:
+                    - name: "Namespace remote builders"
+                      path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/building-container-images/namespace-remote-builders"
             - name: "EC2 Mac"
               children:
                 - name: "Setup"

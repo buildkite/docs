@@ -1,8 +1,8 @@
 # Namespace remote builder container builds
 
-[Namespace](https://namespace.so) provides [remote Docker builders](https://namespace.so/docs/solutions/docker-builders) that execute builds on dedicated infrastructure outside of your Kubernetes cluster.
+[Namespace](https://namespace.so) provides [remote Docker builders](https://namespace.so/docs/solutions/docker-builders) that execute container image builds on dedicated infrastructure outside of your Elastic CI Stack instances.
 
-Unlike [Buildah](/docs/agent/v3/agent-stack-k8s/buildah-container-builds) or [BuildKit](/docs/agent/v3/agent-stack-k8s/buildkit-container-builds) which run builds inside Kubernetes pods, Namespace executes builds on remote compute instances. This eliminates the need for privileged containers, security context configuration, or storage driver setup in your cluster.
+Namespace remote builders offload the CPU and memory-intensive container build workloads to Namespace's infrastructure, freeing your Elastic CI Stack instances to continue running pipeline steps.
 
 ## How it works
 
@@ -16,30 +16,44 @@ When using Namespace remote Docker builders with the [Elastic CI Stack for AWS](
 ## Prerequisites
 
 - Namespace account with a workspace ([sign up](https://cloud.namespace.so/signin) if you do not have one)
-- Elastic CI Stack for AWS agents running Amazon Linux 2023 or Windows Server 2019 with outbound access to `namespaceapis.com`
-- Buildkite Agent v3.63.0 or later (earlier releases do not include `buildkite-agent oidc request-token`)
+- Elastic CI Stack for AWS v6.16.0 or later (includes Buildkite Agent v3.63.0, which added `buildkite-agent oidc request-token`) running Amazon Linux 2023 or Windows Server 2019 with outbound access to `namespaceapis.com`
 - Properly configured authentication
 
-## Install Namespace CLI on a custom AMI
+## Install the Namespace CLI
 
-Elastic CI Stack agents revert any runtime changes when instances recycle, so bake the Namespace CLI into the AMI that your Elastic CI Stack uses. Follow the [custom image guide](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/setup#custom-images) and add these commands to your image build workflow:
+Use a [bootstrap script](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#customizing-instances-with-a-bootstrap-script) to install the Namespace CLI on your Elastic CI Stack instances. Create a bootstrap script with the following content and upload it to an S3 bucket, then set the `BootstrapScriptUrl` stack parameter to the S3 URI.
+
+### Linux
 
 ```bash
-curl -fsSL https://get.namespace.so/cloud/install.sh | sh
+#!/bin/bash
+set -euo pipefail
 
-if [ ! -f /root/.ns/bin/nsc ]; then
-  echo "Namespace CLI install failed" >&2
-  exit 1
-fi
+curl -fsSL https://get.namespace.so/cloud/install.sh | sh
 
 install -m 755 /root/.ns/bin/nsc /usr/local/bin/nsc
 install -m 755 /root/.ns/bin/docker-credential-nsc /usr/local/bin/docker-credential-nsc
-install -m 755 /root/.ns/bin/bazel-credential-nsc /usr/local/bin/bazel-credential-nsc
-chown buildkite-agent:buildkite-agent /usr/local/bin/nsc /usr/local/bin/docker-credential-nsc /usr/local/bin/bazel-credential-nsc
+chown buildkite-agent:buildkite-agent /usr/local/bin/nsc /usr/local/bin/docker-credential-nsc
 ```
 
-> 📘 Windows instances
-> Use PowerShell during image build to download the installer and append `C:\Users\buildkite-agent\.ns\bin` to the PATH. The Namespace CLI provides the same commands on Windows.
+### Windows
+
+```powershell
+$ErrorActionPreference = "Stop"
+
+$installDir = "C:\buildkite-agent\.ns"
+$binDir = "$installDir\bin"
+
+New-Item -ItemType Directory -Force -Path $binDir | Out-Null
+
+Invoke-WebRequest -Uri "https://get.namespace.so/cloud/nsc/latest/windows/amd64/nsc.exe" -OutFile "$binDir\nsc.exe"
+Invoke-WebRequest -Uri "https://get.namespace.so/cloud/nsc/latest/windows/amd64/docker-credential-nsc.exe" -OutFile "$binDir\docker-credential-nsc.exe"
+
+$machinePath = [Environment]::GetEnvironmentVariable("Path", "Machine")
+if ($machinePath -notlike "*$binDir*") {
+    [Environment]::SetEnvironmentVariable("Path", "$machinePath;$binDir", "Machine")
+}
+```
 
 ## Authentication
 
@@ -52,15 +66,7 @@ Alternatively, you can use [AWS Cognito federation](https://namespace.so/docs/fe
 - `cognito-identity:GetOpenIdTokenForDeveloperIdentity`
 - `cognito-identity:GetId`
 
-If pushing to ECR, the instance profile also needs the following permissions:
-
-- `ecr:GetAuthorizationToken`
-- `ecr:BatchCheckLayerAvailability`
-- `ecr:BatchGetImage`
-- `ecr:CompleteLayerUpload`
-- `ecr:InitiateLayerUpload`
-- `ecr:PutImage`
-- `ecr:UploadLayerPart`
+If pushing to ECR, set the `ECRAccessPolicy` stack parameter to `poweruser` or `full` to grant the required permissions.
 
 ### Buildkite OIDC authentication (recommended)
 
@@ -106,7 +112,7 @@ Use this option when [support@namespace.so](mailto:support@namespace.so) has bee
     command: |
       # Authenticate using Buildkite OIDC
       OIDC_TOKEN=$$(buildkite-agent oidc request-token --audience federation.namespaceapis.com)
-      /root/.ns/bin/nsc auth exchange-oidc-token \
+      /usr/local/bin/nsc auth exchange-oidc-token \
         --token "$$OIDC_TOKEN" \
         --tenant_id <workspace-id>
 ```
@@ -118,7 +124,7 @@ Use this option to use AWS Cognito federation for your Elastic CI Stack instance
 ```yaml
     command: |
       # Authenticate using AWS Cognito
-      /root/.ns/bin/nsc auth exchange-aws-cognito-token \
+      /usr/local/bin/nsc auth exchange-aws-cognito-token \
         --aws_region <your-region> \
         --identity_pool <pool-guid> \
         --tenant_id <workspace-id>
@@ -138,7 +144,7 @@ Use the [docker-login Buildkite plugin](https://github.com/buildkite-plugins/doc
 
 ```yaml
     plugins:
-      - docker-login#v2.1.0:
+      - docker-login#v3.0.0:
           registry: https://index.docker.io/v1/
           username: "${DOCKER_USERNAME}"
           password-env: DOCKER_PASSWORD
@@ -146,7 +152,7 @@ Use the [docker-login Buildkite plugin](https://github.com/buildkite-plugins/doc
 
 ### Amazon ECR
 
-Use the [ECR Buildkite plugin](https://github.com/buildkite-plugins/ecr-buildkite-plugin) to authenticate with Amazon ECR before pushing images.
+The [ECR Buildkite plugin](https://github.com/buildkite-plugins/ecr-buildkite-plugin) is enabled by default in the Elastic CI Stack for AWS. If you need to authenticate to a different account or region, add the plugin configuration explicitly:
 
 ```yaml
     plugins:
@@ -157,9 +163,90 @@ Use the [ECR Buildkite plugin](https://github.com/buildkite-plugins/ecr-buildkit
           region: <your-region>
 ```
 
-## Complete pipeline example
+## Complete pipeline examples
 
-Uncomment the authentication flow and registry plugin that match your environment.
+The following examples show complete pipeline configurations for building and pushing container images with Namespace remote builders.
+
+### Using Buildkite OIDC authentication
+
+This example uses Buildkite OIDC authentication to authenticate with Namespace and pushes to the Namespace registry.
+
+```yaml
+agents:
+  queue: default
+
+steps:
+  - label: ":docker: Build with Namespace"
+    command: |
+      OIDC_TOKEN=$$(buildkite-agent oidc request-token --audience federation.namespaceapis.com)
+      /usr/local/bin/nsc auth exchange-oidc-token \
+        --token "$$OIDC_TOKEN" \
+        --tenant_id <workspace-id>
+
+      /usr/local/bin/nsc docker buildx setup --background --use
+      /usr/local/bin/nsc docker login
+      docker buildx build \
+        --builder nsc-remote \
+        --platform linux/amd64,linux/arm64 \
+        -t nscr.io/<workspace>/<image-name>:latest \
+        --push \
+        .
+```
+
+### Using AWS Cognito authentication
+
+This example uses AWS Cognito federation for authentication.
+
+```yaml
+agents:
+  queue: default
+
+steps:
+  - label: ":docker: Build with Namespace"
+    command: |
+      /usr/local/bin/nsc auth exchange-aws-cognito-token \
+        --aws_region <your-region> \
+        --identity_pool <pool-guid> \
+        --tenant_id <workspace-id>
+
+      /usr/local/bin/nsc docker buildx setup --background --use
+      /usr/local/bin/nsc docker login
+      docker buildx build \
+        --builder nsc-remote \
+        --platform linux/amd64,linux/arm64 \
+        -t nscr.io/<workspace>/<image-name>:latest \
+        --push \
+        .
+```
+
+### Pushing to Amazon ECR
+
+This example builds with Namespace and pushes to Amazon ECR. The ECR plugin is enabled by default in the Elastic CI Stack, so no additional plugin configuration is required.
+
+```yaml
+agents:
+  queue: default
+
+steps:
+  - label: ":docker: Build with Namespace"
+    command: |
+      OIDC_TOKEN=$$(buildkite-agent oidc request-token --audience federation.namespaceapis.com)
+      /usr/local/bin/nsc auth exchange-oidc-token \
+        --token "$$OIDC_TOKEN" \
+        --tenant_id <workspace-id>
+
+      /usr/local/bin/nsc docker buildx setup --background --use
+      docker buildx build \
+        --builder nsc-remote \
+        --platform linux/amd64,linux/arm64 \
+        -t <account-id>.dkr.ecr.<your-region>.amazonaws.com/<image-name>:latest \
+        --push \
+        .
+```
+
+### Pushing to Docker Hub
+
+This example builds with Namespace and pushes to Docker Hub.
 
 ```yaml
 agents:
@@ -168,48 +255,22 @@ agents:
 steps:
   - label: ":docker: Build with Namespace"
     plugins:
-      # Uncomment the registry plugin that matches your destination.
-      # - ecr#v3.3.0:
-      #     login: true
-      #     account-ids:
-      #       - <account-id>
-      #     region: <region>
-
-      # - docker-login#v2.1.0:
-      #     registry: https://index.docker.io/v1/
-      #     username: "${DOCKER_HUB_USERNAME}"
-      #     password-env: DOCKER_HUB_PASSWORD
-
+      - docker-login#v3.0.0:
+          username: "${DOCKER_USERNAME}"
+          password-env: DOCKER_PASSWORD
     command: |
-      # Option A: Authenticate using Buildkite OIDC (recommended)
       OIDC_TOKEN=$$(buildkite-agent oidc request-token --audience federation.namespaceapis.com)
       /usr/local/bin/nsc auth exchange-oidc-token \
         --token "$$OIDC_TOKEN" \
         --tenant_id <workspace-id>
 
-      # Option B: Authenticate using AWS Cognito
-      # /usr/local/bin/nsc auth exchange-aws-cognito-token \
-      #   --aws_region <your-region> \
-      #   --identity_pool <pool-guid> \
-      #   --tenant_id <workspace-id>
-
-      # Configure Namespace Buildx builder and push a multi-platform image
       /usr/local/bin/nsc docker buildx setup --background --use
-      /usr/local/bin/nsc docker login
       docker buildx build \
         --builder nsc-remote \
         --platform linux/amd64,linux/arm64 \
-        -t <registry>/<image-name>:latest \
+        -t <dockerhub-username>/<image-name>:latest \
         --push \
         .
-
-      # Alternative registry example (uncomment if pushing elsewhere)
-      # docker buildx build \
-      #   --builder nsc-remote \
-      #   --platform linux/amd64,linux/arm64 \
-      #   -t <registry>/<image-name>:latest \
-      #   --push \
-      #   .
 ```
 
 ## Troubleshooting
