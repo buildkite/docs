@@ -175,15 +175,11 @@ There is a limit on the number of API requests that bktec can make to the server
 
 ## Dynamic parallelism
 
-Usually the `parallelism` value is hard coded in the bktec pipeline step.
-However, starting in version 2.0.0 it is possible to run bktec with a dynamic `parallelism` value based on a target time for the test run.
-A common use case for this is test selection, where feature branch builds only run a subset of tests relevant to the changes being made.
+Usually the `parallelism` value is hard coded in the bktec pipeline step. However, from version 2.0.0, it is possible to run bktec with a dynamic `parallelism` value based on a target time for the test run. A common use case for this is test selection, where feature branch builds only run a subset of tests relevant to the changes being made.
 
-Dynamic parallelism is supported using the `bktec plan` command.
-When used with the `--max-parallelism` and `--target-time` flags, bktec generates a test plan and estimates the `parallelism` required to achieve the specified target build time.
-bktec then [uploads a dynamic pipeline](/docs/agent/v3/cli-pipeline) using the specified pipeline template.
+Dynamic parallelism is supported using the `bktec plan` command. When used with the `--max-parallelism` and `--target-time` flags (see list of [bktec plan flags](#dynamic-parallelism-bktec-plan-flags) for more information), bktec generates a test plan and estimates the `parallelism` required to achieve the specified target build time. bktec then [uploads a dynamic pipeline](/docs/agent/v3/cli-pipeline) using the specified pipeline template.
 
-In the example below, the `test-selection.sh` script is assumed to generate a list of test files, one per line, relevant to the changes in a feature branch.
+In the following example, the `test-selection.sh` script is assumed to generate a list of test files, one per line, relevant to the changes in a feature branch.
 
 ```
 steps:
@@ -198,8 +194,22 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-The following command line flags control the behaviour of the dynamic parallelism test plan.
-Each flag may alternatively be supplied via an environment variable.
+In this example pipeline, bktec uploads a dynamic pipeline using `.buildkite/dynamic-pipeline-template.yml` by invoking `buildkite agent pipeline upload`. Learn more about the [bktec plan additional environment variables](#dynamic-parallelism-bktec-plan-additional-environment-variables) generated during pipeline uploads.
+
+These variables can be used in the template file provided to the `--pipeline-upload` flag, where you can use [environment variable substitution](/docs/agent/v3/cli-pipeline#environment-variable-substitution) to obtain their values.
+
+```
+steps:
+- command: "bktec run --plan-identifier ${BUILDKITE_TEST_ENGINE_PLAN_IDENTIFIER}"
+  name: "bktec run"
+  depends_on: "dynamic-pipeline"
+  parallelism: ${BUILDKITE_TEST_ENGINE_PARALLELISM}
+```
+{: codeblock-file=".buildkite/dynamic-pipeline-template.yml"}
+
+### bktec plan flags
+
+The `bktec plan` command supports the following flags, which controls the behavior of the dynamic parallelism test plan. Each flag's value alternatively can be supplied using an environment variable.
 
 <table class="responsive-table">
   <tbody>
@@ -215,8 +225,8 @@ Each flag may alternatively be supplied via an environment variable.
     <tr>
       <td><code>--target-time</code></td>
       <td>
-        Target duration for each node, e.g. `2m30s`.
-        The test planner will attempt to split the test plan into equal duration buckets of this duration and calculate the optimum parallelism to achieve this, up to the value supplied to `--max-parallelism`
+        Target duration for each node, for example, <code>2m30s</code>.
+        The test planner will attempt to split the test plan into equal duration buckets of this duration and calculate the optimum parallelism to achieve this, up to the value supplied to <code>--max-parallelism</code>
         <br>
         <strong>Environment variable:</strong>
         <code>$BUILDKITE_TEST_ENGINE_TARGET_TIME</code>
@@ -234,9 +244,9 @@ Each flag may alternatively be supplied via an environment variable.
   </tbody>
 </table>
 
-In the example `pipeline.yml` above, bktec uploads a dynamic pipeline using `.buildkite/dynamic-pipeline-template.yml` by invoking `buildkite agent pipeline upload`.
+### bktec plan additional environment variables
 
-2 additional environment variables are set by `bktec plan` when uploading the pipeline.
+The `bktec plan` command generates the following additional environment variables when uploading the pipeline.
 
 <table class="responsive-table">
   <tbody>
@@ -250,14 +260,3 @@ In the example `pipeline.yml` above, bktec uploads a dynamic pipeline using `.bu
     </tr>
   </tbody>
 </table>
-
-These variables can be used in the template file provided to the `--pipeline-upload` flag. Variable substitution in the template is described in the [Buildkite agent pipeline upload documentation](/docs/agent/v3/cli-pipeline#environment-variable-substitution)
-
-```
-steps:
-- command: "bktec run --plan-identifier ${BUILDKITE_TEST_ENGINE_PLAN_IDENTIFIER}"
-  name: "bktec run"
-  depends_on: "dynamic-pipeline"
-  parallelism: ${BUILDKITE_TEST_ENGINE_PARALLELISM}
-```
-{: codeblock-file=".buildkite/dynamic-pipeline-template.yml"}
