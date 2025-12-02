@@ -176,7 +176,7 @@ There is a limit on the number of API requests that bktec can make to the server
 ## Dynamic parallelism
 
 Usually the `parallelism` value is hard coded in the bktec pipeline step.
-However, starting in version 2.0.0 it is possible to run bktec with a dynamic `parallelism` value based on a target time for the build.
+However, starting in version 2.0.0 it is possible to run bktec with a dynamic `parallelism` value based on a target time for the test run.
 A common use case for this is test selection, where feature branch builds only run a subset of tests relevant to the changes being made.
 
 Dynamic parallelism is supported using the `bktec plan` command.
