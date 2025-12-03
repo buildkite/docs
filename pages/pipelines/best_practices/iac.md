@@ -131,7 +131,7 @@ YAML
 Separate prod queues/credentials, require `block` approvals, enforce policy checks, use canary deployments, enable audit logging.
 
 **Q: Do I need dynamic pipelines?**
-Yes for conditional logic, change-based execution, and monorepos. Static YAML works for simple repos but plan to evolve.
+Yes for conditional logic, change-based execution, and monorepos. Static YAML works for simple repositories but plan to evolve.
 
 **Q: Monorepo vs multiple repositories?**
 Monorepo: Single entry pipeline detects changes, builds affected services. Polyrepo: One pipeline per repository, shared Terraform modules for consistency.
