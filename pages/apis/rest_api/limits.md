@@ -23,6 +23,10 @@ RateLimit-Limit: 200
 RateLimit-Reset: 42
 ```
 
+### Using the rate limit API
+
+You can also programmatically query your organization's rate limit status using the dedicated rate limit endpoint. See the [rate limit endpoint documentation](/docs/apis/rest-api/organizations/rate-limits) for details on retrieving comprehensive rate limit information for both REST API and GraphQL API usage.
+
 ## Exceeding the rate limit
 
 Once the rate limit is exceeded, subsequent API requests will return a 429 HTTP status code, and the `RateLimit-Remaining` header will be 0. You should not make any further requests until the `RateLimit-Reset` specifies a new availability window.
