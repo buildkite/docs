@@ -1,6 +1,6 @@
 # Rate limits API
 
-The rate limits API endpoint allows you to query your organization's current rate limit status for both [REST API](/docs/apis/rest-api) and [GraphQL API](/docs/apis/graphql-api) usage.
+The rate limits API endpoint allows you to query your organization's current rate limit status for both [REST API](/docs/apis/rest-api) and [GraphQL API](/docs/apis/graphql-api).
 
 ## Get rate limit status
 
