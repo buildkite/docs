@@ -17,10 +17,6 @@ You can use built-in tools in your Buildkite hosted agents, such as [Docker Engi
 The following example pipeline demonstrates how build and push a custom Docker image (customized using a `.buildkite/Dockerfile.build` file) to your internal container registry. Once the built image has been pushed up to this registry, the pipeline then uses this image as the base image for its next step, [parallelized](/docs/pipelines/best-practices/parallel-builds#parallel-jobs) into three jobs.
 
 ```yaml
-# Use the latest custom built image from the internal registry
-# for all steps which don't specify an alternative image
-image: "${BUILDKITE_HOSTED_REGISTRY_URL}/base:latest"
-
 agents:
   # Must run on a hosted queue
   queue: "linux-small"
@@ -34,7 +30,6 @@ steps:
       - ".buildkite/Dockerfile.build"
       - ".buildkite/pipeline.yml"
     # Use the agent image specified in the queue settings for this step
-    image: ~
     # Build and push a new image to the internal registry
     # Optionally add --no-cache to rebuild from scratch
     # without using cached layers
@@ -49,6 +44,8 @@ steps:
 
   - key: use_custom_base_image
     label: ":package: Use custom base image"
+    # Use the latest custom built image from the internal registry
+    image: "${BUILDKITE_HOSTED_REGISTRY_URL}/base:latest"
     parallelism: 3
     depends_on: create_custom_base_image
     command: |
