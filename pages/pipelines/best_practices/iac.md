@@ -1,176 +1,137 @@
 # Infrastructure as Code (IaC) in Buildkite Pipelines
 
-These best practices help you manage Buildkite organizations, pipelines, agents, and security controls entirely as code. They emphasize Terraform, GitOps, least privilege, and auditable automation.
+These best practices help you manage Buildkite organizations, pipelines, agents, and security controls entirely as code using Terraform, GitOps principles, and least privilege access.
 
-## Principles
+## Core principles
 
-- Treat the UI as read-only for configuration. Use it for visibility and manual approvals, not state.
-- Make code the single source of truth. Store configuration in version control with reviews, tests, and changelogs.
-- Prefer short‑lived credentials and federated identity (OIDC) over long‑lived secrets.
-- Enforce least privilege everywhere: Buildkite org, queues, agents, cloud access, and secret scope.
-- Design for change: dynamic pipelines, modular IaC, and progressive rollout controls.
+- **UI is read-only.** Use the dashboard for observability and approvals, never for configuration changes.
+- **Code is the source of truth.** Store all Buildkite configuration in version control with PR reviews and automated validation.
+- **Prefer OIDC over long-lived secrets.** Use federated identity for agent authentication to cloud providers; rotate API tokens regularly.
+- **Enforce least privilege.** Apply minimal permissions at every layer: org roles, team access, queue rules, agent tokens, cloud IAM, secret scope.
+- **Design for change.** Use dynamic pipelines, modular Terraform, and progressive rollout (canary queues, approval gates).
 
-## Source of truth and workflow
+## GitOps workflow
 
-- GitOps flow
+- Propose changes via pull requests in a dedicated infrastructure repository
+- Validate with automated checks: Terraform plan, YAML schema, policy rules (OPA/Sentinel)
+- Require two approvals for production queues, team permissions, or security settings
+- Merge triggers Terraform apply via Buildkite pipeline with service account identity
+- Split Terraform state by blast radius: `org/`, `clusters/`, `pipelines/`
+- Use remote state with locking (S3+DynamoDB, GCS, Terraform Cloud)
+- Schedule drift detection jobs via GraphQL API to compare state
 
-    * Propose changes via PRs
-    * Automated checks validate schema and policy
-    * Require at least two approvals for sensitive resources
-    * Merge triggers Terraform plan/apply via a service identity
+## Terraform provider
 
-- State management
-    * Use remote state with locking and versioning
-    * Split state by blast radius: organization, clusters/queues, project/pipeline tiers
-- Drift control
-    * Limit who has UI write access; periodically detect and reconcile drift
-    * Export and compare Buildkite resources on a schedule (read-only jobs)
-
-## Terraform with Buildkite
-
-- Use the Buildkite Terraform provider to manage:
-    * Organizations, teams, permissions
-    * Pipelines and settings
-    * Clusters, queues, and agent tokens
-    * Webhooks, secrets providers, and related config
-- Standards
-    * Pin provider versions and module versions
-    * Use environment-specific workspaces or separate stacks
-    * Keep reusable modules for common patterns: standard pipeline defaults, queue definitions, token lifecycles, RBAC mappings
-- Example structure
-
-```
-infra/
-  org/
-    [main.tf](http://main.tf)         # teams, roles, org settings
-  clusters/
-    shared/         # multi-tenant cluster and baseline queues
-    prod/
-    staging/
-  pipelines/
-    services/
-      svc-a/
-      svc-b/
-    libraries/
-      templates/    # shared pipeline modules
-```
-
-## Identities, RBAC, and access
-
-- Identities
-    * Use a non-person service account for Terraform applies
-    * Rotate that account’s API key regularly or move to OIDC once applicable
-- RBAC mapping
-    * Keep team membership and roles in code
-    * Principle of least privilege for maintainers and operators
-- UI access
-    * Prefer read-only access for most engineers; write access limited to platform maintainers
-
-## Secrets and configuration
-
-- Prefer external secret managers (AWS/GCP/Azure) fetched at runtime via hooks or plugins
-- Keep secrets out of repositories and annotations; redact logs where possible
-- Scope secrets by environment and queue; never reuse production credentials in CI contexts
-- Rotate secrets regularly and monitor use
-
-## Agents, clusters, and queues
-
-- Boundaries
-    * Use queues as explicit trust and resource boundaries
-    * Separate by OS, architecture, GPU/CPU/memory class, and sensitivity
-- Lifecycle
-    * Prefer ephemeral agents for hermetic builds
-    * Maintain minimal, cached base images per purpose (e.g., security, builders, mobile)
-    * Keep a small number of always-on agents for fast bootstrap; autoscale the rest
-- Hooks
-    * Use agent hooks for guardrails and standardization (env setup, mount policies, log conventions)
-
-## Pipelines as code
-
-- Default to dynamic pipelines for scalability and conditional logic
-- Keep pipeline logic with the repository; use shared libraries for cross-repo patterns
-- Use small, composable steps with explicit dependencies; avoid monolithic steps
-- Promote with control gates
-    * Use block steps for human approvals
-    * Attach change summaries and release notes
-    * Require artifact, scan, or policy attestations before deploy
-
-## Policy and compliance
-
-- Policy-as-code
-    * Validate pipeline definitions prior to upload
-    * Disallow unsafe patterns (unscoped shell, credential egress, self-modifying pipelines)
-- Attestations and auditability
-    * Generate SBOMs and provenance for release artifacts
-    * Preserve logs, artifacts, and approvals with retention policies
-- Continuous compliance
-    * Scheduled conformance checks for RBAC, queues, and pipeline settings
-
-## Terraform/IaC run safety
-
-- Concurrency controls
-    * Serialize applies per environment or workspace
-    * Use state locking to prevent collisions
-- Approvals
-    * Require review for changes touching security, team membership, or production queues
-- Backouts
-    * Keep roll-forward and rollback playbooks
-    * Tag releases and pin module versions for quick reversion
-
-### Example: minimal Terraform for a pipeline and queue
+Use the [Buildkite Terraform provider](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs) to manage teams, pipelines, clusters, queues, agent tokens, schedules, and templates.
 
 ```hcl
 terraform {
   required_providers {
-    buildkite = {
-      source  = "buildkite/buildkite"
-      version = "~> 1.0"
-    }
+    buildkite = { source = "buildkite/buildkite", version = "~> 1.0" }
   }
 }
 
-provider "buildkite" {
-  api_token = var.buildkite_api_token
+resource "buildkite_cluster" "shared" {
+  name = "shared-ci"
 }
 
-resource "buildkite_team" "platform" {
-  name        = "Platform"
-  privacy     = "secret"
-  description = "CI/CD platform maintainers"
+resource "buildkite_cluster_queue" "terraform" {
+  cluster_id  = buildkite_cluster.shared.id
+  key         = "terraform"
+  description = "IaC workloads with restricted cloud access"
 }
 
 resource "buildkite_pipeline" "svc_a" {
-  name            = "svc-a"
-  repository      = "[git@github.com](mailto:git@github.com):org/svc-a.git"
-  steps           = file("pipelines/svc-a.yml")
-  default_branch  = "main"
-}
+  name       = "svc-a"
+  repository = "git@github.com:org/svc-a.git"
+  steps      = file(".buildkite/pipeline.yml")
 
-resource "buildkite_cluster" "shared" {
-  name        = "shared-cluster"
-  description = "Shared compute for CI"
-}
-
-resource "buildkite_queue" "tf_queue" {
-  cluster_id  = buildkite_[cluster.shared.id](http://cluster.shared.id)
-  key         = "terraform"
-  description = "IaC workloads with restricted credentials"
+  cancel_intermediate_builds = true
+  skip_intermediate_builds   = true
 }
 ```
 
-### Operational excellence
+## RBAC and access
 
-- Observe
-    * Track queue saturation, wait times, retries, and flake rates
-    * Emit machine-parseable logs and summarize key signals via annotations
-- Cost and performance
-    * Right-size steps and parallelism; pre-bake heavy dependencies
-    * Cache safely within trust boundaries; prefer reproducible caches
-- Runbooks
-    * Document escalation paths for agents, queues, secrets, and pipeline failures
+- Use a dedicated service account for Terraform with scoped API token (org management, pipeline write, team management).
+- Store tokens in secrets manager (AWS Secrets Manager, Vault); rotate quarterly.
+- Define teams and membership in Terraform (`buildkite_team`, `buildkite_team_member`).
+- Grant pipeline access per team (`buildkite_team_pipeline`) rather than org-wide.
+- Restrict UI write access to platform team; most engineers get read-only.
 
-### FAQ
+## Secrets management
 
-- How do I keep prod safe? Separate prod queues and credentials, require approval gates, and enforce policy checks pre-deploy
-- Do I need dynamic pipelines? Yes for conditional and large-scale pipelines; static YAML can be fine for simple repositories, but plan to evolve
-- What about multi-repo or monorepo? Both work; ensure change-scoped pipelines and consistent shared libraries
+- Fetch secrets at runtime via agent hooks (`environment`, `pre-command`) from AWS Secrets Manager, GCP Secret Manager, or Vault.
+- Use OIDC plugins: [AWS Assume Role](https://github.com/buildkite-plugins/aws-assume-role-buildkite-plugin), [GCP Workload Identity](https://github.com/buildkite-plugins/gcp-workload-identity-buildkite-plugin).
+- Scope by environment and queue—CI builds never access production credentials.
+- Use different IAM roles per queue; enable audit logging (CloudTrail, GCP Audit Logs).
+- Redact logs for sensitive patterns; automate secret rotation with zero-downtime rollover.
+
+## Agents, clusters, queues
+
+- **Clusters** provide namespace isolation; separate by security zone (CI, prod deploy, compliance)
+- **Queues** define targeting and boundaries; separate by trust level, workload type, architecture, environment:
+    * `default`: General CI, ephemeral agents
+    * `docker`: Containerized builds with DinD
+    * `arm64`: ARM/macOS builds
+    * `production-deploy`: Restricted, long-lived, audit-logged
+- Prefer ephemeral agents (per-job lifecycle) for hermetic builds; autoscale on queue depth
+- Maintain purpose-built base images (`builder`, `security-scanner`, `mobile`); rebuild weekly
+- Use agent hooks for standardization: load credentials, validate requirements, clean up
+
+## Dynamic pipelines
+
+Generate pipeline YAML at runtime based on changed files, repository structure, or external state.
+
+```bash
+#!/bin/bash
+# .buildkite/generate-pipeline.sh
+buildkite-agent pipeline upload <<YAML
+steps:
+$(git diff --name-only HEAD~1 | grep "^services/" | cut -d/ -f2 | sort -u | while read svc; do
+  echo "  - label: 'Build ${svc}'"
+  echo "    command: 'make build SERVICE=${svc}'"
+  echo "    agents: { queue: docker }"
+done)
+YAML
+```
+
+- Keep steps small and single-purpose; use explicit `depends_on`.
+- Parallelize independent tasks; set `timeout_in_minutes`.
+- Use `block` steps for approvals; attach metadata (test results, scan reports).
+- Implement progressive rollout: canary queue → smoke tests → approval → production.
+
+## Policy and compliance
+
+- Validate YAML with `buildkite-agent pipeline upload --dry-run`.
+- Enforce security policies via OPA: disallow shell injection, require approved images, prevent credential egress.
+- Generate SBOMs (Syft, CycloneDX); sign artifacts (Sigstore, GPG).
+- Stream audit logs to SIEM; monitor pipeline mods, token creation, permission changes.
+- Run conformance checks: prod queues require approvals, agent tokens are scoped.
+
+## Operational excellence
+
+- Monitor queue saturation, wait times (p50/p95/p99), retry rates, failure rates.
+- Right-size agents; use spot instances for non-critical workloads.
+- Pre-bake dependencies; cache within trust boundaries (S3/GCS with expiry).
+- Emit structured logs (JSON) with correlation IDs; use Buildkite annotations for summaries.
+- Document runbooks for agent offline, queue saturation, secret rotation failures.
+
+## Terraform safety
+
+- Enable state locking; serialize applies per workspace.
+- Require peer review for production changes; post plans as PR comments.
+- Use `prevent_destroy` on critical resources.
+- Tag state versions; maintain rollback playbooks.
+- Test recovery procedures on a regular schedule that makes sense for your Buildkite organization (for example, quarterly).
+
+## FAQ
+
+**Q: How do I keep prod safe?**
+Separate prod queues/credentials, require `block` approvals, enforce policy checks, use canary deployments, enable audit logging.
+
+**Q: Do I need dynamic pipelines?**
+Yes for conditional logic, change-based execution, and monorepos. Static YAML works for simple repos but plan to evolve.
+
+**Q: Monorepo vs polyrepo?**
+Monorepo: Single entry pipeline detects changes, builds affected services. Polyrepo: One pipeline per repo, shared Terraform modules for consistency.
