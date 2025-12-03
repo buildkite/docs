@@ -1,4 +1,4 @@
-pages/agent/v3/gcp/elastic_ci_stack/elastic_ci_stack.md # Elastic CI Stack for GCP overview
+# Elastic CI Stack for GCP overview
 
 The Buildkite Elastic CI Stack for GCP gives you a private, autoscaling [Buildkite Agent](/docs/agent/v3) cluster running on Google Cloud Platform. You can use it to run your builds on your own infrastructure, with complete control over security, networking, and costs.
 
