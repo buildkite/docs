@@ -4,10 +4,7 @@ The Buildkite Agent can be run on Google Cloud Platform (GCP) using Buildkite's 
 
 ## Using the Elastic CI Stack for GCP Terraform module
 
-The [Elastic CI Stack for GCP](/docs/agent/v3/gcp/elastic-ci-stack/elastic-ci-stack) is a Terraform module for an autoscaling Buildkite Agent cluster. The agent instances include Docker, Cloud Storage, and Cloud Logging integration when using a custom Packer image.
-
-> 🚧 Manual VM configuration may be required
-> The default base image is minimal and may require additional manual configuration on VM instances after deployment. For production use, build a [custom Packer image](/docs/agent/v3/gcp/elastic-ci-stack/terraform#custom-images) that includes Docker and any other tools your builds require.
+The [Elastic CI Stack for GCP](/docs/agent/v3/gcp/elastic-ci-stack/elastic-ci-stack) is a Terraform module for an autoscaling Buildkite Agent cluster. The agent instances include Docker, Cloud Storage, and Cloud Logging integration. You can build a [custom image](/docs/agent/v3/gcp/elastic-ci-stack/terraform#custom-images) if you need additional tools for your pipelines.
 
 You can use an Elastic CI Stack for GCP deployment to test Linux projects, parallelize large test suites, run Docker containers or docker-compose integration tests, or perform any tasks related to GCP ops.
 

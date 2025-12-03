@@ -1,4 +1,4 @@
-# Elastic CI Stack for GCP overview
+pages/agent/v3/gcp/elastic_ci_stack/elastic_ci_stack.md # Elastic CI Stack for GCP overview
 
 The Buildkite Elastic CI Stack for GCP gives you a private, autoscaling [Buildkite Agent](/docs/agent/v3) cluster running on Google Cloud Platform. You can use it to run your builds on your own infrastructure, with complete control over security, networking, and costs.
 
@@ -33,9 +33,6 @@ The Buildkite Elastic CI Stack for GCP supports:
 ## Get started with the Elastic CI Stack for GCP
 
 You can get started with the Buildkite Elastic CI Stack for GCP using Terraform. Follow the [Terraform setup guide](/docs/agent/v3/gcp/elastic-ci-stack/terraform).
-
-> 🚧 Manual VM configuration may be required
-> The default base image is minimal and may require additional manual configuration on VM instances after deployment. For production use, build a [custom Packer image](/docs/agent/v3/gcp/elastic-ci-stack/terraform#custom-images) that includes Docker and any other tools your builds require.
 
 ## Architecture comparison
 
