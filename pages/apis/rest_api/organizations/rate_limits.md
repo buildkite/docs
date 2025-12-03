@@ -1,10 +1,10 @@
-# Rate limits API
+# Organization rate limits API
 
-The rate limits API endpoint allows you to query your organization's current rate limit status for both [REST API](/docs/apis/rest-api) and [GraphQL API](/docs/apis/graphql-api).
+The organization rate limits API endpoint allows you to obtain a Buildkite organization's current [REST API](/docs/apis/rest-api) and [GraphQL API](/docs/apis/graphql-api) rate limit status.
 
-## Get rate limit status
+## Get rate limits
 
-Returns the current rate limit status for an organization, covering both [REST API](/docs/apis/rest-api) and [GraphQL API](/docs/apis/graphql-api) rate limits.
+Returns the current [REST API](/docs/apis/rest-api) and [GraphQL API](/docs/apis/graphql-api) rate limits for a Buildkite organization.
 
 ```bash
 curl -H "Authorization: Bearer {api-token}" \
@@ -38,34 +38,34 @@ Success response: `200 OK`
 
 ## Response fields
 
-The response contains two scopes: `rest` for [REST API](/docs/apis/rest-api) limits and `graphql` for [GraphQL API](/docs/apis/graphql-api) limits.
+The response contains two JSON objects (or scopes)—`rest` for [REST API](#response-fields-rest-api) limits, and `graphql` for [GraphQL API](#response-fields-graphql-api) limits.
 
-### REST scope
+### REST API
 
-The `rest` scope tracks REST API request limits.
-
-Field | Type | Description
------ | ---- | -----------
-`limit` | integer | Maximum requests allowed per window
-`current` | integer | Number of requests made in the current window
-`reset` | integer | Seconds until the rate limit window resets
-`reset_at` | string | ISO 8601 timestamp when the rate limit window resets
-`enforced` | boolean | Whether rate limiting is currently enforced for this organization
-{: class="responsive-table"}
-
-The REST API rate limit window is 60 seconds.
-
-### GraphQL scope
-
-The `graphql` scope tracks GraphQL API [complexity limits](/docs/apis/graphql/graphql-resource-limits#rate-limits-time-based-rate-limit).
+The `rest` scope provides current REST API rate limits for the Buildkite organization.
 
 Field | Type | Description
 ----- | ---- | -----------
-`limit` | integer | Maximum complexity points allowed per window
-`current` | integer | Complexity points used in the current window
-`reset` | integer | Seconds until the rate limit window resets
-`reset_at` | string | ISO 8601 timestamp when the rate limit window resets
-`enforced` | boolean | Whether rate limiting is currently enforced for this organization
+`limit` | integer | Maximum requests allowed in a time window.
+`current` | integer | Number of requests made in the current time window.
+`reset` | integer | Seconds remaining until the current time window resets to zero.
+`reset_at` | string | ISO 8601 timestamp when the current time window resets to zero.
+`enforced` | boolean | Indicates if rate limiting is currently enforced for this Buildkite organization.
 {: class="responsive-table"}
 
-The GraphQL rate limit window is 300 seconds (five minutes).
+The REST API rate limit time window is 60 seconds.
+
+### GraphQL API
+
+The `graphql` scope provides current GraphQL API [complexity points](/docs/apis/graphql/graphql-resource-limits#rate-limits-time-based-rate-limit) for the Buildkite organization.
+
+Field | Type | Description
+----- | ---- | -----------
+`limit` | integer | Maximum complexity points allowed in a time window.
+`current` | integer | Complexity points used in the current time window.
+`reset` | integer | Seconds remaining until the current time window resets to zero.
+`reset_at` | string | ISO 8601 timestamp when the current time window resets to zero.
+`enforced` | boolean | Indicates if rate limiting is currently enforced for this Buildkite organization.
+{: class="responsive-table"}
+
+This GraphQL API rate limit time window is 300 seconds (five minutes).
