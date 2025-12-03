@@ -21,10 +21,9 @@ This page covers the best practices regarding logging and observability.
 
 ## Telemetry operational tips
 
-- Start where the pain is: profile queue wait and checkout time first. These are often the biggest, cheapest wins.
+- When implementing telemetry, start profile queue wait and checkout times as the biggest, cheapest wins.
 - Tag everything: include pipeline, queue, repo path, and commit metadata in spans and events to make drill‑downs trivial.
-- Keep one source of truth: stream Buildkite to your standard observability stack so platform‑level SLOs and alerts live alongside app telemetry.
-- Document the path: publish internal guidance for teams on reading the Pipeline metrics page and where to find org dashboards.
+- Keep one source of truth: stream Buildkite Pipeline's telemetry data to your standard observability stack so platform‑level SLOs and alerts live alongside app telemetry.
 
 ### Quick checklist for using telemetry
 
