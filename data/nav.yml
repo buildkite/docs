@@ -88,6 +88,8 @@
           path: "pipelines/best-practices/plugin-management"
         - name: "Caching"
           path: "pipelines/best-practices/caching"
+        - name: "Monitoring and observability"
+          path: "pipelines/best-practices/monitoring-and-observability"
         - name: "Enforcing security controls"
           path: "pipelines/best-practices/security-controls"
     - name: "Tutorials"
