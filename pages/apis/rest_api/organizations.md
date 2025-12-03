@@ -2,9 +2,9 @@
 
 The organizations API endpoint:
 
-- allows you to list organizations and retrieve information about an organization
+- Allows you to list organizations and retrieve information about a Buildkite organization.
 
-- forms the basis of several more Buildkite REST API endpoints, such as those for [pipelines](/docs/apis/rest-api/pipelines) and [teams](/docs/apis/rest-api/teams).
+- Forms the basis of several more Buildkite REST API endpoints, such as those for [pipelines](/docs/apis/rest-api/pipelines) and [teams](/docs/apis/rest-api/teams).
 
 ## List organizations
 
