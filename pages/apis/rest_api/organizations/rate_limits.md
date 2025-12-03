@@ -17,15 +17,15 @@ curl -H "Authorization: Bearer $TOKEN" \
     "rest": {
       "limit": 200,
       "current": 5,
-      "reset": 60,
+      "reset": 35,
       "reset_at": "2025-12-02T05:30:00Z",
       "enforced": true
     },
     "graphql": {
       "limit": 50000,
       "current": 1000,
-      "reset": 300,
-      "reset_at": "2025-12-02T05:35:00Z",
+      "reset": 263,
+      "reset_at": "2025-12-02T05:34:52Z",
       "enforced": true
     }
   }
