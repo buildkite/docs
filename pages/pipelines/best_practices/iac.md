@@ -105,7 +105,7 @@ YAML
 
 - Validate YAML with `buildkite-agent pipeline upload --dry-run`.
 - Enforce security policies via OPA: disallow shell injection, require approved images, prevent credential egress.
-- Generate SBOMs (Syft, CycloneDX); sign artifacts (Sigstore, GPG).
+- Generate SBOMs and sign artifacts (Sigstore, GPG).
 - Stream audit logs to SIEM; monitor pipeline mods, token creation, permission changes.
 - Run conformance checks: prod queues require approvals, agent tokens are scoped.
 
@@ -133,5 +133,5 @@ Separate prod queues/credentials, require `block` approvals, enforce policy chec
 **Q: Do I need dynamic pipelines?**
 Yes for conditional logic, change-based execution, and monorepos. Static YAML works for simple repos but plan to evolve.
 
-**Q: Monorepo vs polyrepo?**
-Monorepo: Single entry pipeline detects changes, builds affected services. Polyrepo: One pipeline per repo, shared Terraform modules for consistency.
+**Q: Monorepo vs multiple repositories?**
+Monorepo: Single entry pipeline detects changes, builds affected services. Polyrepo: One pipeline per repository, shared Terraform modules for consistency.
