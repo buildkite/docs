@@ -12,7 +12,7 @@ Learn more about:
 
 - How to configure a Linux hosted agent in [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
 
-- The [security](#security) of Linux hosted agents.
+- The [concurrency](#concurrency) and [security](#security) of Linux hosted agents.
 
 ## Sizes
 
