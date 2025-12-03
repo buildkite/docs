@@ -8,7 +8,7 @@ Returns the current rate limit status for an organization, covering both [REST A
 
 ```bash
 curl -H "Authorization: Bearer {api-token}" \
-  https://api.buildkite.com/v2/organizations/{organization.slug}/rate-limit
+  https://api.buildkite.com/v2/organizations/{organization.slug}/rate_limit
 ```
 
 ```json
