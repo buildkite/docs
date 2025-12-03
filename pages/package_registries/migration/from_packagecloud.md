@@ -11,7 +11,7 @@ To migrate your packages from Packagecloud to Buildkite Package Registries, you'
 
 ## What to export from Packagecloud
 
-You’ll export the original package files and, where practical, the basic metadata (name, version, distribution/architecture). For each ecosystem below, we outline reliable ways to fetch packages.
+You’ll export the original package files and, where practical, the basic metadata (name, version, distribution/architecture). Reliable ways to fetch packages For each ecosystem are outlined below.
 
 ### Common export approaches
 
@@ -28,12 +28,12 @@ Below are proven patterns. For imports, favor Buildkite API for distro and “fi
 
 ### Debian/Ubuntu (deb)
 
-Export from Packagecloud
+Export from Packagecloud:
 
 - Use Packagecloud API to enumerate packages for a repo and download .deb files.
 - Preserve distro codename and architecture labels for later mapping.
 
-Import to Buildkite Package Registries.
+Import to Buildkite Package Registries:
 
 - Create a Debian registry in Buildkite Package Registries.
 - Publish using curl or Buildkite CLI:
@@ -45,18 +45,18 @@ curl -H "Authorization: Bearer $TOKEN" \
  -F "file=@./path/to/your_1.2.3_amd64.deb"
 ```
 
-Nuances and differences
+#### Nuances and differences
 
 - any/any support: If a package is truly distribution-agnostic, you can publish it once as deb “any/any” instead of duplicating per distro.
 - APT signing keys: Buildkite Package Registries will sign repository metadata with your Buildkite key, not the legacy Packagecloud key. Plan a rollout for updating consumer apt sources and keys.
 
 ### Red Hat (RPM)
 
-Export from Packagecloud
+Export from Packagecloud:
 
 - Use Packagecloud API to list and download .rpm files per repo.
 
-Import to Buildkite Package Registries
+Import to Buildkite Package Registries:
 
 - Create an RPM registry in Buildkite Package Registries
 - Publish via REST API or CLI:
@@ -67,18 +67,18 @@ curl -H "Authorization: Bearer $TOKEN" \
  -F "file=@./path/to/your-1.2.3-1.x86_64.rpm"
 ```
 
-Nuances and differences
+#### Nuances and differences
 
 - any/any-like patterns: If binaries are distro-agnostic, publish a single RPM where appropriate rather than per minor distro.
 - YUM/DNF metadata is signed by Buildkite; rotate/import the new key on consumers.
 
 ### Alpine (apk)
 
-Export
+Export from Packagecloud:
 
 - Enumerate and download .apk files from Packagecloud.
 
-Import
+Import to Buildkite Package Registries:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -88,11 +88,11 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 ### Files (generic binaries)
 
-Export
+Export from Packagecloud:
 
 - Download original files as-is. Keep filenames stable; Buildkite Package Registries will validate and extract semver for Anyfile where applicable.
 
-Import
+Import to Buildkite Package Registries:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -100,17 +100,15 @@ curl -H "Authorization: Bearer $TOKEN" \
  -F "file=@./artifact-1.2.3+build.json"
 ```
 
-Notes
-
-- Buildkite Package Registries validates filenames for semver where configured; files without version may be treated as 0.0.0 by legacy tools. Consider normalizing names during migration.
+Note that Buildkite Package Registries validates filenames for semver where configured; files without version may be treated as `0.0.0` by legacy tools. Consider normalizing names during migration.
 
 ### Python (PyPI)
 
-Export
+Export from Packagecloud:
 
 - Download sdist/wheel files (*.tar.gz,* .whl) for each release.
 
-Import (use native tool)
+Import to Buildkite Package Registries (use native tool):
 
 ```bash
 # Twine to Buildkite PyPI registry
@@ -122,11 +120,11 @@ python -m twine upload \
 
 ### Java (Maven/Gradle)
 
-Export
+Export from Packagecloud:
 
 - Download all coordinates (groupId/artifactId/version) contents: .jar, pom, checksums, signatures.
 
-Import (use native tool)
+Import to Buildkite Package Registries (use native tool):
 
 - Maven deploy or Gradle publish to BK Maven registry, preserving GAV coordinates.
 
@@ -145,11 +143,11 @@ mvn deploy -DaltDeploymentRepository=bk-maven::default::[https://packages.buildk
 
 ### JavaScript (npm)
 
-Export
+Export from Packagecloud:
 
 - Pull tarballs for each version, or reconstruct from registry metadata.
 
-Import (use native tool)
+Import to Buildkite Package Registries (use native tool):
 
 ```bash
 npm set //[packages.buildkite.com/$ORG/$REG/npm/:_authToken=$TOKEN](http://packages.buildkite.com/$ORG/$REG/npm/:_authToken=$TOKEN)
@@ -158,11 +156,11 @@ npm publish
 
 ### Ruby (RubyGems)
 
-Export
+Export from Packagecloud:
 
 - Download .gem files and associated metadata files if present.
 
-Import (use native tool)
+Import to Buildkite Package Registries (use native tool):
 
 ```bash
 gem push --key buildkite --host [https://packages.buildkite.com/$ORG/$REG/gems/](https://packages.buildkite.com/$ORG/$REG/gems/) pkg-1.2.3.gem
@@ -170,11 +168,11 @@ gem push --key buildkite --host [https://packages.buildkite.com/$ORG/$REG/gems/]
 
 ### NuGet (.NET)
 
-Export
+Export from Packagecloud:
 
 - Download .nupkg and .nuspec where applicable.
 
-Import (use native tool)
+Import to Buildkite Package Registries (use native tool):
 
 ```bash
 # dotnet nuget push
@@ -185,11 +183,11 @@ dotnet nuget push *.nupkg \
 
 ### OCI images and Helm (OCI)
 
-Export
+Export from Packagecloud:
 
 - Pull images/charts and retag locally.
 
-Import (use native tool)
+Import to Buildkite Package Registries (use native tool):
 
 ```bash
 # Docker/OCI
@@ -206,7 +204,7 @@ docker push [packages.buildkite.com/$ORG/$REG/src:1.2.3](http://packages.buildki
 1. Verify availability using the ecosystem’s discovery endpoints or search.
 1. Switch users to Buildkite Package Registries URLs and keys.
 
-Pseudo-shell
+Pseudo-shell:
 
 ```bash
 set -euo pipefail
@@ -268,7 +266,7 @@ BUILDKITE_API_TOKEN=$buildkite_api_token \
    -F "file=@/path/to/file"
 ```
 
-Outcome: a clean export of original artifacts, simplified any/any usage for distro packages, and reproducible imports using native tooling where it matters, or Buildkite Package Registries’s unified API where it shines.
+As a result, you get a clean export of original artifacts, simplified any/any usage for distro packages, and reproducible imports using native tooling where it matters, or Buildkite Package Registries’s unified API where it shines.
 
 ## Next step
 
