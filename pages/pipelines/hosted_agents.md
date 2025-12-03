@@ -65,3 +65,9 @@ Buildkite hosted agent services support both public and private repositories. Le
 If you need to migrate your existing Buildkite pipelines from using Buildkite Agents in a [self-hosted architecture](/docs/pipelines/architecture#self-hosted-hybrid-architecture) to those using Buildkite hosted agents, see [Hosted agent pipeline migration](/docs/pipelines/hosted-agents/pipeline-migration) for details.
 
 When a Buildkite hosted agent machine is running (during a pipeline build) you can access the machine through a terminal. Learn more about this feature in [Hosted agents terminal access](/docs/pipelines/hosted-agents/terminal-access).
+
+## Buildkite Agent version updates
+
+As part of the hosted agents service, Buildkite aims to keep [Buildkite Agents](/docs/agent/v3) in your hosted agents up to date and to the latest version.
+
+If you find that your hosted agent queues are not on the latest version of the Buildkite Agent, contact Buildkite support at support@buildkite.com and we'd be happy to get them updated for you.

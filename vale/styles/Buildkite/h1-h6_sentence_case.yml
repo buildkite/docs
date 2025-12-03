@@ -98,15 +98,18 @@ exceptions:
   - Debian
   - Declarative
   - deduper
+  - DinD
   - Docker
   - Docker Compose
   - Docker Desktop
   - Docker Hub
+  - Docker-in-Docker
   - ECR
   - ECS
   - EC2
   - EKS
   - Elastic
+  - Elastic Container Registry
   - Elastic CI Stack
   - Enterprise Premium Support
   - Entity Page
@@ -238,6 +241,7 @@ exceptions:
   - SSH
   - SSO
   - Tahoe
+  - TCP
   - Tekton
   - Terraform
   - Test Engine

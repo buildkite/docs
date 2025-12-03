@@ -241,7 +241,7 @@
               path: "agent/v3/agent-stack-k8s/pipeline-validation"
             - name: "Job metadata"
               path: "agent/v3/agent-stack-k8s/job-metadata"
-            - name: Sidecars
+            - name: "Sidecars"
               path: "agent/v3/agent-stack-k8s/sidecars"
             - name: "Kubernetes PodSpec"
               path: "agent/v3/agent-stack-k8s/podspec"
@@ -263,8 +263,12 @@
                   path: "agent/v3/agent-stack-k8s/buildah-container-builds"
                 - name: "BuildKit"
                   path: "agent/v3/agent-stack-k8s/buildkit-container-builds"
+                - name: "Docker Compose"
+                  path: "agent/v3/agent-stack-k8s/docker-compose-container-builds"
                 - name: "Docker-in-Docker (DinD)"
                   path: "agent/v3/agent-stack-k8s/dind-container-builds"
+                - name: "Kaniko"
+                  path: "agent/v3/agent-stack-k8s/kaniko-container-builds"
                 - name: "Namespace remote builders"
                   path: "agent/v3/agent-stack-k8s/namespace-container-builds"
             - name: "Troubleshooting"
@@ -1092,7 +1096,6 @@
         - name: "Stacks"
           path: "apis/agent-api/stacks"
     - name: "Model providers"
-      pill: preview
       children:
         - name: "Overview"
           path: "apis/model-providers"
