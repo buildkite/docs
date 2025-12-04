@@ -401,6 +401,7 @@ toolsets
 tooltip
 TOTP's
 Trivy
+trixie
 typosquatted
 udp
 unmanaged
