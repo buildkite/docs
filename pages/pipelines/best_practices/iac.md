@@ -1,6 +1,6 @@
 # Infrastructure as Code (IaC) in Buildkite Pipelines
 
-Manage your Buildkite organizations, pipelines, agents, and security controls entirely as code using Terraform, GitOps principles, and least privilege access.
+This page provides recommendations on managing your Buildkite organizations, pipelines, agents, and security controls entirely as code using Terraform, GitOps principles, and least privilege access.
 
 ## Core principles
 
@@ -12,8 +12,8 @@ Manage your Buildkite organizations, pipelines, agents, and security controls en
 
 ## GitOps workflow
 
-- Propose changes via pull requests in a dedicated infrastructure repository.
-- Validate with automated checks: Terraform plan, YAML schema validation, policy rules (for example, OPA/Sentinel).
+- Propose changes exclusively using pull requests in a dedicated repository.
+- Apply automated checks for validation of your Terraform plan, YAML schema, policy rules (for example, OPA/Sentinel).
 - Require multiple approvals for production queues, team permissions, or security settings. Consider using block steps to manage permission levels across your organization (for example, teams with or without deploy permissions).
 - Trigger Terraform apply via Buildkite pipeline with service account identity on merge.
 - Split Terraform state by blast radius: `org/`, `clusters/`, `pipelines/`.
