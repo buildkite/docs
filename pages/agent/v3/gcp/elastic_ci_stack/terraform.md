@@ -48,7 +48,7 @@ Buildkite services are billed according to your [plan](https://buildkite.com/pri
 
 When using the default base image, each machine includes:
 
-- [Debian 13 (Trixie)](https://www.debian.org/releases/trixie/)
+- [Debian 13 (trixie)](https://www.debian.org/releases/trixie/)
 - [The Buildkite Agent](/docs/agent/v3)
 - [Git](https://git-scm.com/)
 - [Docker](https://www.docker.com) (when using custom Packer image)
