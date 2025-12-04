@@ -6,15 +6,15 @@ Manage your Buildkite organizations, pipelines, agents, and security controls en
 
 - Treat the UI as read-only - use the dashboard for observability and approvals, never for configuration changes.
 - Store all configuration in version control with PR reviews and automated validation.
-- Use OIDC over long-lived secrets. Authenticate agents to cloud providers with federated identity and rotate API tokens regularly.
+- Use [OIDC](/docs/pipelines/security/oidc) over long-lived secrets - authenticate agents to cloud providers with federated identity and rotate API tokens regularly.
 - Apply minimal required permissions at every layer - in the organization roles, team access, queue rules, agent tokens, cloud IAM, secret scope.
-- Design for change and scalability. Use dynamic pipelines, modular Terraform, and use progressive rollouts with canary queues and approval gates.
+- Design for change and scalability. Use [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), modular Terraform, and progressive rollouts with canary queues and approval gates.
 
 ## GitOps workflow
 
 - Propose changes via pull requests in a dedicated infrastructure repository.
 - Validate with automated checks: Terraform plan, YAML schema validation, policy rules (for example, OPA/Sentinel).
-- Require multiple approvals for production queues, team permissions, or security settings. Consider using block steps to manage permission levels across you organization (for example, teams with or without deploy permissions).
+- Require multiple approvals for production queues, team permissions, or security settings. Consider using block steps to manage permission levels across your organization (for example, teams with or without deploy permissions).
 - Trigger Terraform apply via Buildkite pipeline with service account identity on merge.
 - Split Terraform state by blast radius: `org/`, `clusters/`, `pipelines/`.
 - Use remote state with locking (for example, S3 + DynamoDB, GCS, Terraform Cloud).
@@ -53,18 +53,11 @@ resource "buildkite_pipeline" "svc_a" {
 
 ## Role-based access control (RBAC)
 
-- Create a dedicated service account for Terraform with scoped API tokens (for example, tokens scoped to pipeline write premissions or team management).
+- Create a dedicated service account for Terraform with scoped API tokens (for example, tokens scoped to pipeline write permissions or team management).
 - Store tokens in secrets manager (AWS Secrets Manager, Vault) and rotate quarterly or on a different schedule that suits your security posture.
 - Define teams and membership in Terraform (`buildkite_team`, `buildkite_team_member`).
 - Grant pipeline access per team (`buildkite_team_pipeline`), not org-wide.
 - Restrict UI write access to Platform teams while providing most other engineers with read-only access.
-
-## Terraform safety
-
-- Enable state locking and serialize applies per workspace.
-- Require peer review for production changes and post plans as PR comments.
-- Use `prevent_destroy` on critical resources.
-- Tag state versions, maintain rollback playbooks, and test recovery procedures quarterly.
 
 ## Secrets management
 
@@ -79,8 +72,8 @@ resource "buildkite_pipeline" "svc_a" {
 Separate clusters by security zones (CI, prod deploy, compliance) and queues by trust level, workload type, architecture, and environment. For example:
 
 - `default` - general CI with ephemeral agents
-- `docker`- containerized builds with DinD
-- `arm64`- ARM/macOS builds
+- `docker` - containerized builds with DinD
+- `arm64` - ARM/macOS builds
 - `production-deploy` - Restricted, long-lived, audit-logged
 
 Prefer ephemeral agents for hermetic builds and autoscale on queue depth. Maintain purpose-built base images (`builder`, `security-scanner`, `mobile`) and rebuild often (for example, on a weekly basis). Use agent hooks to load credentials, validate requirements, and clean up.
@@ -106,6 +99,13 @@ Keep steps small and single-purpose with explicit `depends_on`. Parallelize inde
 
 Learn more about [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
+## Terraform safety
+
+- Enable state locking and serialize applies per workspace.
+- Require peer review for production changes and post plans as PR comments.
+- Use `prevent_destroy` on critical resources.
+- Tag state versions, maintain rollback playbooks, and test recovery procedures quarterly.
+
 ## Policy and compliance
 
 - Validate YAML with `buildkite-agent pipeline upload --dry-run`.
@@ -119,6 +119,7 @@ Learn more about [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines
 - Right-size agents and use spot instances for non-critical workloads.
 - Pre-bake dependencies and cache within trust boundaries (for example, use S3/GCS with expiry).
 - Emit structured logs (JSON) with correlation IDs and use [Buildkite annotations](/docs/agent/v3/cli-annotate) for summaries.
+- Document runbooks for common failure scenarios.
 
 ## FAQ
 
