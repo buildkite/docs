@@ -4,7 +4,7 @@ The Elastic CI Stack for AWS provisions and manages the infrastructure required 
 
 This diagram illustrates a standard deployment of Elastic CI Stack for AWS.
 
-<%= image "../buildkite-elastic-ci-stack-on-aws-architecture.png", alt: "Elastic CI Stack for AWS Architecture Diagram" %>
+<%= image "buildkite-elastic-ci-stack-on-aws-architecture.png", alt: "Elastic CI Stack for AWS Architecture Diagram" %>
 
 The primary layout of the stack is built around AWS autoscaling components, with an AutoScaling Group (ASG) being the center piece. The ASG manages the lifecycle of EC2 instances, ensuring that the cluster scales out to meet demand, and scales in to save costs.
 
