@@ -15,7 +15,9 @@ To use a private GitHub repository with Buildkite hosted agents, you need to aut
 
 ## GitHub token caching
 
-Buildkite hosted agents also provides a feature for temporarily caching GitHub tokens, where any GitHub token used by a Buildkite hosted agent is cached for up to 50 minutes. This feature allows your hosted agents to use these GitHub tokens (how?) and avoid hitting Buildkite hosted agent rate limits (again how?), since these tokens can be re-used in subsequent builds.
+Buildkite hosted agents provides a feature for temporarily caching access tokens issued by GitHub whenever Buildkite requests one as part of interacting with a private repository. This interaction is established as part of configuring your Buildkite organization as a [GitHub App](https://docs.github.com/en/apps/overview) in your GitHub project or organization.
+
+Buildkite caches these GitHub access tokens for 50 minutes. This feature allows your hosted agents to use these GitHub tokens (how?) and avoid hitting your GitHub rate limit (again how?), since these tokens can be re-used in subsequent builds.
 
 ## Public repositories
 
