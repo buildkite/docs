@@ -57,10 +57,10 @@ Pipeline Signing | ✅ | ✅
 
 The Elastic CI Stack for AWS does not require familiarity with the underlying AWS services to deploy it. However, to run builds, some familiarity with the following services is required:
 
-- [AWS CloudFormation](https://aws.amazon.com/cloudformation/) if using the Cloudformation deployment method
-- [Terraform](https://developer.hashicorp.com/terraform) if using the Terraform deployment method
-- [Amazon EC2](https://aws.amazon.com/ec2/) (to select an EC2 `InstanceTypes` stack parameter appropriate for your workload)
-- [Amazon S3](https://aws.amazon.com/s3/) (to copy your git clone secret for cloning and building private repositories)
+* [AWS CloudFormation](https://aws.amazon.com/cloudformation/) if using the CloudFormation deployment method
+* [Terraform](https://developer.hashicorp.com/terraform) if using the Terraform deployment method
+* [Amazon EC2](https://aws.amazon.com/ec2/) (to select an EC2 `InstanceTypes` stack parameter appropriate for your workload)
+* [Amazon S3](https://aws.amazon.com/s3/) (to copy your git clone secret for cloning and building private repositories)
 
 Elastic CI Stack for AWS provides defaults and pre-configurations suited for most use cases without the need for additional customization. Still, you'll benefit from familiarity with VPCs, availability zones, subnets, and security groups for custom instance networking.
 
@@ -139,9 +139,9 @@ Buildkite services are billed according to your [plan](https://buildkite.com/pri
 
 This stack is designed to run your builds in a share-nothing pattern similar to the [12 factor application principals](http://12factor.net):
 
-- Each project should encapsulate its dependencies through Docker and Docker Compose.
-- Build pipeline steps should assume no state on the machine (and instead rely on [build meta-data](/docs/guides/build-meta-data), [build artifacts](/docs/guides/artifacts) or S3).
-- Secrets are configured using environment variables exposed using the S3 secrets bucket.
+* Each project should encapsulate its dependencies through Docker and Docker Compose.
+* Build pipeline steps should assume no state on the machine (and instead rely on [build meta-data](/docs/guides/build-meta-data), [build artifacts](/docs/guides/artifacts) or S3).
+* Secrets are configured using environment variables exposed using the S3 secrets bucket.
 
 By following these conventions you get a scalable, repeatable, and source-controlled CI environment that any team within your organization can use.
 
@@ -153,8 +153,8 @@ We've created a sample [bash-parallel-example sample pipeline](https://github.co
 
 Click **Create Pipeline**. Depending on your organization's settings, the next step will vary slightly:
 
-- If your organization uses the web-based steps editor (default), your pipeline is now ready for its first build. You can skip to the next step.
-- If your organization has been upgraded to the [YAML steps editor](/docs/pipelines/tutorials/pipeline-upgrade), you should see a **Choose a Starting Point** wizard. Select **Pipeline Upload** from the list:
+* If your organization uses the web-based steps editor (default), your pipeline is now ready for its first build. You can skip to the next step.
+* If your organization has been upgraded to the [YAML steps editor](/docs/pipelines/tutorials/pipeline-upgrade), you should see a **Choose a Starting Point** wizard. Select **Pipeline Upload** from the list:
   <%= image "buildkite-pipeline-upload.png", size: "#{782/2}x#{400/2}", alt: 'Upload Pipeline from Version Control' %>
 
 Click **New Build** in the top right and choose a build message (perhaps a little party `\:partyparrot\:`?):

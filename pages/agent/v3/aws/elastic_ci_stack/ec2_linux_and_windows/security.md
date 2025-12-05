@@ -96,10 +96,10 @@ for more details.
 
 To ensure your Elastic CI Stack for AWS has access to the secret:
 
-- Provide the Key ID (not the alias) used to encrypt the Secrets Manager secret to the `BuildkiteAgentTokenParameterStoreKMSKey` parameter. An IAM policy with `kms:Decrypt` permission for this key is included in the CloudFormation template.
-- Use the CloudFormation stacks' *Resources* tab to find the `AutoscalingLambdaExecutionRole` and `IAMRole` roles, use their Amazon Resource Name (ARN) in the policy below.
-- Secret Manager will capture a role's Unique ID when saving the resource policy; if you re-create the IAM role you must save the resource policy again to grant access.
-- Use the Secret Manager secret's resource policy to grant `secretsmanager:GetSecretValue` permission to both the instance IAM role and the scaling Lambda IAM Role.
+* Provide the Key ID (not the alias) used to encrypt the Secrets Manager secret to the `BuildkiteAgentTokenParameterStoreKMSKey` parameter. An IAM policy with `kms:Decrypt` permission for this key is included in the CloudFormation template.
+* Use the CloudFormation stacks' *Resources* tab to find the `AutoscalingLambdaExecutionRole` and `IAMRole` roles, use their Amazon Resource Name (ARN) in the policy below.
+* Secret Manager will capture a role's Unique ID when saving the resource policy; if you re-create the IAM role you must save the resource policy again to grant access.
+* Use the Secret Manager secret's resource policy to grant `secretsmanager:GetSecretValue` permission to both the instance IAM role and the scaling Lambda IAM Role.
 
 ```json
 {
@@ -127,20 +127,20 @@ reference path to read the secret from the regionally replicated secret.
 
 Some additional points to keep in mind when using multi-region replication:
 
-- Ensure each region's IAM role has `ssm:GetParameter` permission for the region
+* Ensure each region's IAM role has `ssm:GetParameter` permission for the region
 it will be retrieving the secret from.
   + By default, the template will grant permission to only the region it is
     deployed to, limiting the role's utility to the stack's region. This isn't a
     problem but a caveat to be aware of. Don't expect to use the same role in
     multiple regions.
-- Ensure each region's IAM role has `kms:Decrypt` permission for the key used to
+* Ensure each region's IAM role has `kms:Decrypt` permission for the key used to
 encrypt the secret in that region.
   + You can do this with the AWS Secrets Manager key in Secrets
     Manager, and looking up the underlying CMK ID of that key alias in each
     region the stack template is deployed to. Provide that value for the
     `BuildkiteAgentTokenParameterStoreKMSKey` parameter for the stack in that
     region.
-- Apply a resource policy to the primary Secrets Manager secret that grants
+* Apply a resource policy to the primary Secrets Manager secret that grants
 `secretsmanager:GetSecretValue` for each region's IAM role and wait for that to
 be replicated.
 

@@ -12,11 +12,11 @@ The instances with the ASG are managed via a launch template; the launch templat
 
 User data scripts are scripts that run at boot-time on the instance to ensure the instance has environment variables propagated, and any additional tools via bootstrap scripts (which are user provided via input configuration) are correctly installed. Once the user data scripts are completed, the instance will be moved into a healthy state. If they fail, the instance will be marked as unhealthy in the ASG and subsequently terminated.
 
-Now that the core architecture has been laid out, we aim to dive into the specificities of the stack, from top to bottom.
+Now that the core architecture has been laid out, we aim to dive into the specifics of the stack, from top to bottom.
 
 ## Software stack
 
-The EC2 instances provisioned by the stack run a via a pre-configured Amazon Machine Image (AMI) based on Amazon Linux 2023. The image comes with a suite of software to support your builds and manage the instance, these tools are used to manage the instance in a variety of ways and can be broke down into four subsections.
+The EC2 instances provisioned by the stack run using a pre-configured Amazon Machine Image (AMI) based on Amazon Linux 2023. The image comes with a suite of software to support your builds and manage the instance, these tools are used to manage the instance in a variety of ways and can be broke down into four subsections.
 
 ### Core components
 - The Buildkite Agent - That's what we're here for, right?
@@ -43,18 +43,18 @@ The EC2 instances provisioned by the stack run a via a pre-configured Amazon Mac
 ### Bootstrap scripts
 The stack uses EC2 user data to perform final configuration at boot time, this script is constantly evolving, so we recommend taking a look at the [UserData Scripts used in our Terraform Module](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws/tree/main/scripts) to get an idea of this.
 
-For the most part, the User Data script is used to pass input configuration from the deployment method, whether that be Cloudformation or Terraform, directly to the runtime of the instance.
+For the most part, the User Data script is used to pass input configuration from the deployment method, whether that be CloudFormation or Terraform, directly to the runtime of the instance.
 
-When a bootstrap script is defined within input configuration, this is ran after the initial User Data scripts have ran, via the [bk-install-elastic-stack.sh](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/packer/linux/stack/conf/bin/bk-install-elastic-stack.sh) script.
+When a bootstrap script is defined within input configuration, this is ran after the initial User Data scripts have ran, using the [bk-install-elastic-stack.sh](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/packer/linux/stack/conf/bin/bk-install-elastic-stack.sh) script.
 
 ## IAM and security
 
 The stack creates several IAM roles to grant access to resources required for the stack to function as intended. For a detailed breakdown of the specific permissions and JSON policy examples, see [IAM policy examples](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/managing_elastic_ci_stack#iam-policy-examples).
 
-Custom IAM roles can be used, depending on how the stack is deployed. For Terraform, all roles created by the stack can be skipped in favour of a custom role. For Cloudformation, an instance role can be provided to allow a shared role across all clusters created. See [Using custom IAM roles](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/managing_elastic_ci_stack#using-custom-iam-roles) for more information.
+Custom IAM roles can be used, depending on how the stack is deployed. For Terraform, all roles created by the stack can be skipped in favour of a custom role. For CloudFormation, an instance role can be provided to allow a shared role across all clusters created. See [Using custom IAM roles](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/managing_elastic_ci_stack#using-custom-iam-roles) for more information.
 
 ### KMS keys
-The stack optionally creates an AWS KMS key when the `PipelineSigningKMSKey` (Cloudformation) or `pipeline_signing_kms_key` (Terraform) is selected to support [pipeline signing](/docs/agent/v3/signed-pipelines).
+The stack optionally creates an AWS KMS key when the `PipelineSigningKMSKey` (CloudFormation) or `pipeline_signing_kms_key` (Terraform) is selected to support [pipeline signing](/docs/agent/v3/signed-pipelines).
 
 ## Networking
 
@@ -63,7 +63,7 @@ The stack will create its own VPC to handle networking to ensure agents can reac
 ### VPC and subnets
 By default, the stack creates a new Virtual Private Cloud (VPC) with the CIDR block `10.0.0.0/16` and two subnets, one subnet will use `10.0.1.0/24` and the other will use `10.0.2.0/24`.
 
-You can also deploy the stack into an existing VPC by providing your own `VpcId` (Cloudformation) or `vpc_id` (Terraform) and `Subnets` (Cloudformation) or `subnets` (Terraform).
+You can also deploy the stack into an existing VPC by providing your own `VpcId` (CloudFormation) or `vpc_id` (Terraform) and `Subnets` (CloudFormation) or `subnets` (Terraform).
 
 ### Security groups
 A security group is created and used by the agent instances. By default, it allows all outbound traffic (0.0.0.0/0) and limits all inbound traffic, which can be optionally set to allow port 22 for SSH access.
@@ -75,7 +75,7 @@ The stack creates VPC endpoints for AWS Systems Manager (SSM) and S3. This allow
 
 The stack uses a Lambda-based scaling approach rather than standard AWS target tracking policies. This results in quicker scaling based on Buildkite-specific metrics, opposed to resource usage.
 
-### Agent Scaler Lambda
+### Agent scaler lambda
 The `AgentScaler` Lambda function is the main part of the autoscaling logic. It runs on a schedule (which by default is every minute) and adjusts the Auto Scaling group's capacity based on real-time demand from Buildkite.
 
 How it works:
@@ -83,7 +83,7 @@ How it works:
 2. Based on these metrics and your stack configuration (minimum size, maximum size, scale-out factor), it calculates the desired number of instances needed.
 3. If the desired capacity differs from the current capacity, it updates the Auto Scaling group to scale up or down accordingly.
 
-The polling interval can be configured via the `ScaleInIdlePeriod` (Cloudformation) or `scale_in_idle_period` (Terraform) parameter. A shorter interval means faster response to demand, but may result in more frequent scaling operations. We recommend being careful with this setting as it could result in instance thrashing when there's a large number of jobs that complete quickly.
+The polling interval can be configured using the `ScaleInIdlePeriod` (CloudFormation) or `scale_in_idle_period` (Terraform) parameter. A shorter interval means faster response to demand, but may result in more frequent scaling operations. We recommend being careful with this setting as it could result in instance thrashing when there's a large number of jobs that complete quickly.
 
 ### Scheduled scaling
 You can configure scheduled scaling actions to adjust the minimum size of the cluster based on time of day. This is useful for predictable workload patterns, such as scaling up during business hours when builds are most frequent, and scaling down at night or on weekends to reduce costs.
@@ -107,17 +107,17 @@ Lifecycle hooks pause the termination process, giving the Buildkite agent time t
 
 When an instance is scheduled for termination (due to scaling in or spot instance reclamation), the `instance_terminating` hook pauses the termination process on the `autoscaling:EC2_INSTANCE_TERMINATING` transition. This gives the Buildkite agent time to finish its current job and gracefully shut down before the EC2 instance is destroyed.
 
-The `lifecycled` daemon running on the instance polls for this hook. When detected, it stops the Buildkite agent service, waiting for any running jobs to finish, and then signals the Auto Scaling group to proceed with termination. The default timeout for this process is 3600 seconds (1 hour), but this is configurable via the `InstanceTerminationGracePeriod` (Cloudformation) or `instance_termination_grace_period` (Terraform) parameter.
+The `lifecycled` daemon running on the instance polls for this hook. When detected, it stops the Buildkite agent service, waiting for any running jobs to finish, and then signals the Auto Scaling group to proceed with termination. The default timeout for this process is 3600 seconds (1 hour), but this is configurable using the `InstanceTerminationGracePeriod` (CloudFormation) or `instance_termination_grace_period` (Terraform) parameter.
 
 ## Lambda functions
 
 The stack deploys several Lambda functions to manage automation and lifecycle events:
 
-### AgentScaler
+### Agent scaler
 
 The `AgentScaler` Lambda function calculates and applies scaling adjustments to the Auto Scaling group. It's triggered by an EventBridge Schedule that runs every minute (by default), polling the Buildkite API to determine how many instances are needed based on queued jobs and busy agents. This Lambda is used to ensure that instance count scales based on jobs waiting, opposed to instances only scaling when resources hit the scaling threshold.
 
-### AzRebalancingSuspender
+### AZ rebalancing suspender
 
 The `AzRebalancingSuspender` Lambda function disables the `AZRebalance` process on the Auto Scaling group. AWS Auto Scaling normally attempts to balance instances evenly across Availability Zones, which can cause instances to be terminated while running builds. This function prevents that behavior by suspending the rebalancing process, ensuring that instances are only terminated when scaling in or when they become unhealthy. This Lambda is triggered during stack creation or update events.
 
@@ -131,7 +131,7 @@ The stack creates and manages several S3 buckets for different purposes, from st
 
 ### Secrets bucket
 
-The stack creates a dedicated S3 bucket to store encrypted secrets (such as SSH keys and environment variables) used by the agents. Access to this bucket is restricted via IAM policies, ensuring that only authorized instances can retrieve secrets. The `s3secrets-helper` utility running on agent instances fetches and decrypts secrets from this bucket at runtime, making them available to your builds without exposing them in your infrastructure as code.
+The stack creates a dedicated S3 bucket to store encrypted secrets (such as SSH keys and environment variables) used by the agents. Access to this bucket is restricted using IAM policies, ensuring that only authorized instances can retrieve secrets. The `s3secrets-helper` utility running on agent instances fetches and decrypts secrets from this bucket at runtime, making them available to your builds without exposing them in your infrastructure as code.
 
 ### Secrets logging bucket
 
@@ -147,7 +147,7 @@ When using Terraform, the stack does not create a Lambda bucket. Instead, it ret
 
 The stack does not create a bucket for build artifacts by default. You can optionally provide the name of an existing S3 bucket to be used for storing build artifacts. This allows you to use an existing bucket that may already have specific lifecycle policies, versioning, or replication configured according to your organization's requirements.
 
-## Systems Manager (SSM) Parameter Store
+## Systems manager parameter store
 
 The stack uses AWS Systems Manager Parameter Store to securely manage agent tokens. This provides a centralized, encrypted location for sensitive information that instances need at boot time.
 
@@ -165,7 +165,7 @@ The stack creates several log groups to organize different types of logs, all pr
 
 Each EC2 instance creates its own log stream within these log groups, identified by the instance ID. This makes it easy to filter logs for a specific instance when investigating issues. By default, logs are retained indefinitely, but you can configure a retention policy (such as 7, 30, or 90 days) to automatically delete older logs and reduce storage costs. You can search across all logs using CloudWatch Logs Insights to identify patterns or specific error messages.
 
-### CloudWatch Metrics
+### CloudWatch metrics
 
 The `AgentScaler` Lambda publishes custom CloudWatch metrics to the `Buildkite` namespace when enabled. These metrics track the queue's job counts that the scaling Lambda uses to make scaling decisions: `ScheduledJobsCount` (jobs waiting to be assigned to an agent), `RunningJobsCount` (jobs currently executing), and `WaitingJobsCount` (jobs waiting in the queue).
 
