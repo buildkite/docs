@@ -163,11 +163,11 @@ The following S3 objects are downloaded and processed:
 * `/env` or `/environment` - a file that contains environment variables in the format `KEY=VALUE`
 * `/private_ssh_key` - a private SSH key that is added to ssh-agent for your builds
 * `/git-credentials` - a [git-credentials](https://git-scm.com/docs/git-credential-store#_storage_format) file for git over HTTPS
-* `/secret-files/*` - individual secret files that are loaded as environment variables ([Individual secret files](#individual-secret-files))
+* `/secret-files/*` - individual secret files that are loaded as environment variables ([Individual secret files](#s3-secrets-bucket-individual-secret-files))
 * `/{pipeline-slug}/env` or `/{pipeline-slug}/environment` - a file that contains environment variables specific to a pipeline, in the format `KEY=VALUE`
 * `/{pipeline-slug}/private_ssh_key` - a private SSH key that is added to ssh-agent for your builds, specific to the pipeline
 * `/{pipeline-slug}/git-credentials` - a [git-credentials](https://git-scm.com/docs/git-credential-store#_storage_format) file for git over HTTPS, specific to a pipeline
-* `/{pipeline-slug}/secret-files/*` - individual secret files that are loaded as environment variables, specific to a pipeline ([Individual secret files](#individual-secret-files))
+* `/{pipeline-slug}/secret-files/*` - individual secret files that are loaded as environment variables, specific to a pipeline ([Individual secret files](#s3-secrets-bucket-individual-secret-files))
 * When provided, the environment variable `BUILDKITE_PLUGIN_S3_SECRETS_BUCKET_PREFIX` overrides `{pipeline-slug}`
 
 These files are encrypted using [AWS KMS](https://aws.amazon.com/kms/).

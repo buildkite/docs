@@ -23,7 +23,7 @@ terraform {
 }
 
 module "buildkite_stack" {
-  source  = "buildkite/elastic-ci-stack/aws"
+  source  = "buildkite/elastic-ci-stack-for-aws/buildkite"
   version = "~> 0.1.0"
 
   stack_name            = "buildkite"
@@ -87,5 +87,5 @@ For more information on configuring and managing the Elastic CI Stack for AWS, s
 - [Using AWS Secrets Manager](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security#using-aws-secrets-manager-in-the-elastic-ci-stack-for-aws) to configure secrets
 - [Managing the Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack) for operational tasks
 - [Troubleshooting](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/troubleshooting) for resolving common issues
-- [Terraform module reference](https://registry.terraform.io/modules/buildkite/elastic-ci-stack-for-aws) on the Terraform Registry
+- [Terraform module reference](https://registry.terraform.io/modules/buildkite/elastic-ci-stack-for-aws/buildkite/latest) on the Terraform Registry
 - [GitHub repository](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws) for the module source code
