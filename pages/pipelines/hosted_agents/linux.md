@@ -38,6 +38,8 @@ The number of Linux hosted agents (of a [Buildkite hosted queue](/docs/pipelines
 
 For example, if your Buildkite plan provides you with a maximum combined vCPU value of up to 48, and you've configured a Buildkite hosted queue with the `LINUX_AMD64_4X16` (Medium AMD64) [instance shape](#sizes), whose vCPU value is 4, then the number of concurrent hosted agents that can run jobs on this queue is 12 (that is, 48 / 4 = 12).
 
+When concurrency limits are exceeded, additional jobs will be queued until sufficient capacity becomes available.
+
 ## Security
 
 <%= render_markdown partial: 'pipelines/hosted_agents/hosted_agents_security_explanation' %>

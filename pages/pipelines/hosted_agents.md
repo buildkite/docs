@@ -10,7 +10,7 @@ Buildkite hosted agents provides numerous benefits over similar hosted machine a
 
 The following cost benefits deliver enhanced value through accelerated build times, reduced operational overhead, and a lower total cost of ownership (TCO).
 
-- **Superior performance**: Buildkite hosted agents uses the latest generation Mac and AMD Zen-based hardware, which deliver up to 3x faster performance compared to equivalent sized machines/runners from other CI/CD providers and cloud platforms, powered by dedicated quality hardware and a proprietary low-latency virtualization layer exclusive to Buildkite.
+- **Superior performance**: Buildkite hosted agents uses the latest generation Mac and AMD Zen-based hardware, which deliver up to 3x faster performance compared to equivalent sized machines/runners from other CI/CD providers and cloud platforms, powered by dedicated quality hardware and a proprietary low-latency virtualization layer exclusive to Buildkite. The hosted agents also dynamically autoscale to operate concurrently to meet high demand.
 
 - **Pricing is calculated per second**: Charges apply only to the precise duration of command or script execution—excluding startup and shutdown periods, with no minimum charges and no rounding to the nearest minute.
 

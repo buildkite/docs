@@ -40,11 +40,13 @@ The number of macOS hosted agents (of a [Buildkite hosted queue](/docs/pipelines
 
 For example, if your Buildkite plan provides you with a maximum combined vCPU value is up to 24, and you've configured a Buildkite hosted queue with the `MACOS_ARM64_M4_6X28` (Medium) [instance shape](#sizes), whose vCPU value is 6, then the number of concurrent hosted agents that can run jobs on this queue is 4 (that is, 24 / 6 = 4).
 
+When concurrency limits are exceeded, additional jobs will be queued until sufficient capacity becomes available.
+
 ## macOS instance software support
 
-All standard macOS [Tahoe](#macos-tahoe), [Sequoia](#macos-sequoia) and [Sonoma](#macos-sonoma) version instances have their own respective Xcode and runtime software versions available by default (listed below). Each macOS version also has its own set of [Homebrew packages](#homebrew-packages) with specific versions optimized for that operating system. If you have specific requirements for software that is not listed here, please contact support.
+All standard macOS [Tahoe](#macos-tahoe), [Sequoia](#macos-sequoia) and [Sonoma](#macos-sonoma) version instances have their own respective Xcode and runtime software versions available by default (listed below). Each macOS version also has its own set of [Homebrew packages](#homebrew-packages) with specific versions optimized for that operating system. If you have specific requirements for software that is not listed here, please contact Support at support@buildkite.com.
 
-While you currently cannot provide custom base images for macOS hosted agents, you do have significant control over these virtual machines during job execution—including the ability to install software using Homebrew, use git mirroring for performance, and leverage persistent [cache volumes](/docs/pipelines/hosted-agents/cache-volumes).
+While you currently cannot provide custom base images for macOS hosted agents (as is possible using [agent images](/docs/pipelines/hosted-agents/linux#agent-images) for Linux hosted agents), you do have significant control over these virtual machines during job execution—including the ability to install software using Homebrew, use [git mirroring](/docs/pipelines/hosted-agents/cache-volumes#git-mirror-volumes) for performance, and leverage persistent [cache volumes](/docs/pipelines/hosted-agents/cache-volumes).
 
 Updated Xcode versions will be available one week after Apple offers them for download. This includes Beta, Release Candidate (RC), and official release versions.
 
