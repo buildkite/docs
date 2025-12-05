@@ -155,7 +155,7 @@
                 - name: "Overview"
                   path: "agent/v3/aws/elastic-ci-stack"
                 - name: "Architecture"
-                  path: "agent/v3/aws/elastic-ci-stack/architecture"
+                  path: "agent/v3/aws/elastic-ci-stack-architecture"
             - name: "EC2 Linux and Windows"
               children:
                 - name: "Setup with AWS CloudFormation"
