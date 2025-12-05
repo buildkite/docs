@@ -52,7 +52,7 @@ The `mode=max` setting exports all build layers to the cache, providing maximum 
 
 ### BuildKit with instance storage
 
-When [instance storage is enabled](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters#enableinstancestorage) through the `EnableInstanceStorage` parameter in AWS CloudFormation, Docker stores images and build cache in high-performance NVMe storage at `/mnt/ephemeral/docker`. This significantly improves build performance for I/O-intensive operations.
+When [instance storage is enabled](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters) through the `EnableInstanceStorage` parameter in AWS CloudFormation, Docker stores images and build cache in high-performance NVMe storage at `/mnt/ephemeral/docker`. This significantly improves build performance for I/O-intensive operations.
 
 No configuration changes are required in your pipeline YAML for using BuildKit with the instance's storage. BuildKit automatically uses the configured Docker data directory.
 
@@ -339,7 +339,7 @@ BuildKit builds run with the privileges of the Docker daemon on the EC2 instance
 
 ### Docker user namespace remapping
 
-Enable [Docker user namespace remapping](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters#enabledockerusernamespaceremap) through the `EnableDockerUserNamespaceRemap` parameter in AWS CloudFormation. This maps the containers to the non-root `buildkite-agent` user, reducing the attack surface if a container is compromised.
+Enable [Docker user namespace remapping](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters) through the `EnableDockerUserNamespaceRemap` parameter in AWS CloudFormation. This maps the containers to the non-root `buildkite-agent` user, reducing the attack surface if a container is compromised.
 
 When user namespace remapping is enabled, Docker containers run as user `100000-165535` (mapped from container UID `0-65535`) on the host, preventing container processes from accessing host resources as root.
 
