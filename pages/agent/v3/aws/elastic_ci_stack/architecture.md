@@ -117,7 +117,7 @@ The stack deploys several Lambda functions to manage automation and lifecycle ev
 
 The `AgentScaler` Lambda function calculates and applies scaling adjustments to the Auto Scaling group. It's triggered by an EventBridge Schedule that runs every minute (by default), polling the Buildkite API to determine how many instances are needed based on queued jobs and busy agents. This Lambda is used to ensure that instance count scales based on jobs waiting, opposed to instances only scaling when resources hit the scaling threshold.
 
-### AZ rebalancing suspender
+### Availability zone rebalancing suspender
 
 The `AzRebalancingSuspender` Lambda function disables the `AZRebalance` process on the Auto Scaling group. AWS Auto Scaling normally attempts to balance instances evenly across Availability Zones, which can cause instances to be terminated while running builds. This function prevents that behavior by suspending the rebalancing process, ensuring that instances are only terminated when scaling in or when they become unhealthy. This Lambda is triggered during stack creation or update events.
 
