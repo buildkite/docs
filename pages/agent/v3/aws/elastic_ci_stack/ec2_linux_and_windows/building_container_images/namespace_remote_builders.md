@@ -30,13 +30,20 @@ Create the script with the following content and upload it to an S3 bucket, then
 
 ```bash
 #!/bin/bash
-set -euo pipefail
+set -eo pipefail
 
-curl -fsSL https://get.namespace.so/cloud/install.sh | sh
+DOWNLOAD_URL="https://get.namespace.so/packages/nsc/latest?arch=amd64&os=linux"
+TEMP_TAR=$(mktemp)
 
-install -m 755 /root/.ns/bin/nsc /usr/local/bin/nsc
-install -m 755 /root/.ns/bin/docker-credential-nsc /usr/local/bin/docker-credential-nsc
-chown buildkite-agent:buildkite-agent /usr/local/bin/nsc /usr/local/bin/docker-credential-nsc
+if curl --fail --location --silent --show-error \
+    --connect-timeout 30 --max-time 120 \
+    --output "${TEMP_TAR}" "${DOWNLOAD_URL}"; then
+
+    tar -xzf "${TEMP_TAR}" -C /usr/local/bin nsc docker-credential-nsc
+    chmod 755 /usr/local/bin/nsc /usr/local/bin/docker-credential-nsc
+    chown buildkite-agent:buildkite-agent /usr/local/bin/nsc /usr/local/bin/docker-credential-nsc
+    rm -f "${TEMP_TAR}"
+fi
 ```
 
 ## Authentication
@@ -60,7 +67,7 @@ The build step exchanges the OIDC token for a Namespace token and authenticates 
 
 ### AWS Cognito authentication
 
-Alternatively, you can use [AWS Cognito federation](https://namespace.so/docs/federation/aws) for your [instance IAM profile](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html). The instance profiles needs the following to both authenticate to Namespace:
+Alternatively, you can use [AWS Cognito federation](https://namespace.so/docs/federation/aws) for your [instance IAM profile](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html). The instance profile needs the following permissions to authenticate to Namespace:
 
 - `cognito-identity:GetOpenIdTokenForDeveloperIdentity`
 - `cognito-identity:GetId`
@@ -154,7 +161,7 @@ This example authenticates with AWS Cognito and pushes to Docker Hub.
 steps:
   - label: ":docker: Build with Namespace"
     command: |
-     /usr/local/bin/nsc auth exchange-aws-cognito-token \
+      /usr/local/bin/nsc auth exchange-aws-cognito-token \
         --aws_region <your-region> \
         --identity_pool <pool-guid> \
         --tenant_id <workspace-id>
