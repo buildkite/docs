@@ -14,7 +14,7 @@ Learn more about:
 
 - How to use macOS hosted agents to [build iOS apps](/docs/pipelines/hosted-agents/macos/getting-started-with-ios).
 
-- The [security](#security) of macOS hosted agents.
+- The [concurrency](#concurrency) and [security](#security) of macOS hosted agents.
 
 ## Sizes
 
