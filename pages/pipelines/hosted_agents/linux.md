@@ -12,7 +12,7 @@ Learn more about:
 
 - How to configure a Linux hosted agent in [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
 
-- The [security](#security) of Linux hosted agents.
+- The [concurrency](#concurrency) and [security](#security) of Linux hosted agents.
 
 ## Sizes
 
@@ -37,6 +37,8 @@ Linux hosted agents can operate concurrently when running your Buildkite pipelin
 The number of Linux hosted agents (of a [Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue)) that can process your pipeline jobs concurrently is calculated by your Buildkite plan's _maximum combined vCPU_ value divided by your [instance shape's](#sizes) _vCPU_ value. See the [Buildkite pricing](https://buildkite.com/pricing/) page for details on the **Linux Concurrency** that applies to your plan.
 
 For example, if your Buildkite plan provides you with a maximum combined vCPU value of up to 48, and you've configured a Buildkite hosted queue with the `LINUX_AMD64_4X16` (Medium AMD64) [instance shape](#sizes), whose vCPU value is 4, then the number of concurrent hosted agents that can run jobs on this queue is 12 (that is, 48 / 4 = 12).
+
+When concurrency limits are exceeded, additional jobs will be queued until sufficient capacity becomes available.
 
 ## Security
 
