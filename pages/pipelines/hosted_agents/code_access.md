@@ -13,6 +13,14 @@ To use a private GitHub repository with Buildkite hosted agents, you need to aut
 1. Select the **GitHub** option.
 1. Follow the prompts to authorize the services on your GitHub account. You can restrict access to specific repositories during setup.
 
+### GitHub access token caching
+
+Buildkite hosted agents provides a feature for temporarily caching access tokens issued by GitHub whenever Buildkite requests one as part of interacting with a private repository. This interaction is established as part of configuring the Buildkite platform as a [GitHub App](https://docs.github.com/en/apps/overview) in your GitHub project or organization.
+
+Buildkite caches these GitHub access tokens for 50 minutes, where they remain encrypted on the Buildkite platform. This feature allows your hosted agents to use these GitHub access tokens and avoid hitting your GitHub rate limit, since these tokens can be re-used in subsequent builds.
+
+There's no need to configure this access token caching feature, as it's provided by default as part of [Buildkite hosted agents](/docs/pipelines/hosted-agents).
+
 ## Public repositories
 
 Buildkite does not require any special permissions to access public repositories.

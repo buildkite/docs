@@ -1,6 +1,6 @@
 # Troubleshooting fastlane
 
-This guide is for troubleshooting some common [fastlane](https://fastlane.tools/) issues in iOS development, specifically for Buildkite's [Mobile Delivery Cloud](/docs/pipelines/hosted-agents/mobile-delivery-cloud/getting-started).
+This guide is for troubleshooting some common [fastlane](https://fastlane.tools/) issues in iOS development, specifically when [using Buildkite Pipelines to build iOS apps](/docs/pipelines/hosted-agents/macos/getting-started-with-ios).
 
 ## Essential debugging steps
 
@@ -32,7 +32,7 @@ When fastlane fails, start with these troubleshooting steps:
 
 ## Errors and resolutions for fastlane
 
-This section covers some of the fastlane errors you may encounter when using Buildkite's Mobile Delivery Cloud and ways to troubleshoot those errors.
+This section covers some of the fastlane errors you may encounter when using Buildkite Pipelines to build iOS apps, and ways to troubleshoot those errors.
 
 ### CocoaPods sandbox error
 
