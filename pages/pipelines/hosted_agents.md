@@ -12,6 +12,8 @@ The following cost benefits deliver enhanced value through accelerated build tim
 
 - **Superior performance**: Buildkite hosted agents uses the latest generation Mac and AMD Zen-based hardware, which deliver up to 3x faster performance compared to equivalent sized machines/runners from other CI/CD providers and cloud platforms, powered by dedicated quality hardware and a proprietary low-latency virtualization layer exclusive to Buildkite. The hosted agents also dynamically autoscale to operate concurrently to meet high demand.
 
+- **Ephemeral, isolated environments that scale**: Hosted agents are provisioned on demand and destroyed after each job, providing clean, reproducible builds that dynamically scale and operate concurrently to meet high demand.
+
 - **Pricing is calculated per second**: Charges apply only to the precise duration of command or script execution—excluding startup and shutdown periods, with no minimum charges and no rounding to the nearest minute.
 
 - **Caching is included at no additional cost**: There are no supplementary charges for storage or cache usage. [Cache volumes](/docs/pipelines/hosted-agents/cache-volumes) operate on high-speed, local NVMe-attached disks, substantially accelerating caching and disk operations. This results in faster job completion, reduced minute consumption, and lower overall costs.
