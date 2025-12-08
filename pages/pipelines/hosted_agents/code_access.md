@@ -19,7 +19,7 @@ Buildkite hosted agents provides a feature for temporarily caching access tokens
 
 Buildkite caches these GitHub access tokens for 50 minutes, where they remain encrypted on the Buildkite platform. This feature allows your hosted agents to use these GitHub access tokens and avoid hitting your GitHub rate limit, since these tokens can be re-used in subsequent builds.
 
-There is no need to configure this access token caching feature, as it is provided by default as part of [Buildkite hosted agents](/docs/pipelines/hosted-agents).
+There's no need to configure this access token caching feature, as it's provided by default as part of [Buildkite hosted agents](/docs/pipelines/hosted-agents).
 
 ## Public repositories
 
