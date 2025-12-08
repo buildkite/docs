@@ -4,14 +4,13 @@ This page covers the best practices regarding logging and observability in Build
 
 ## Logging best practices
 
-- Favor JSON or other parsable formats for structured logs. Use [log groups](/docs/pipelines/configure/managing-log-output#grouping-log-output) to better represent relevant sections in the logs visually.
+- Favor JSON or other parsable formats for structured logs as such formats can be easily queried when debugging. Use [log groups](/docs/pipelines/configure/managing-log-output#grouping-log-output) to better represent relevant sections in the logs visually.
 - Differentiate between info, warnings, and errors by using appropriate log levels.
-- Store logs, reports, and binaries as artifacts for debugging and compliance.
+- Store logs, reports, and binaries as [artifacts](/docs/pipelines/configure/artifacts) for debugging and compliance.
 - Use [cluster insights](/docs/pipelines/insights/clusters) or external tools to analyze durations and failure patterns to track trends.
 - Avoid creating log files that are too large. Large log files make it harder to troubleshoot issues and are harder to manage in the Buildkite Pipelines' interface.
     * To avoid overly large log files, try not to use verbose output of apps and tools unless needed. See also [Managing log output](/docs/pipelines/configure/managing-log-output#log-output-limits).
     * If you are using Bazel, note that Bazel's log file is extremely verbose. Instead, consider using the [Bazel BEP Failure Analyzer Buildkite Plugin](https://buildkite.com/resources/plugins/buildkite-plugins/bazel-annotate-buildkite-plugin/) to get a simplified view of the error(s).
-- Use the [Buildkite MCP server](/docs/apis/mcp-server) to get all of the information outlined above.
 
 ### Set relevant alerts
 
@@ -27,6 +26,7 @@ This page covers the best practices regarding logging and observability in Build
 
 ### Quick checklist for using telemetry
 
+Choose integrations based on your existing tooling and needs and:
 - Enable [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) notifications and subscribe your alerting pipeline.
 - Turn on [OpenTelemetry (OTEL)](/docs/pipelines/integrations/observability/opentelemetry) export to your collector. Start with job spans and queue metrics.
 - If you are using [Datadog](https://buildkite.com/docs/pipelines/integrations/observability/datadog), enable agent APM tracing.
@@ -40,8 +40,7 @@ Establish standardized metrics collection across all pipelines to enable consist
 - Track build times by pipeline, step, and queue to identify performance bottlenecks with build duration metrics.
 - Monitor agent availability and scaling efficiency across different workload types by tracking queue wait times.
 - Measure success rates by pipeline, branch, and time period to identify reliability trends through failure rate analysis.
-- Track retry success rates by exit code to validate retry policy effectiveness.
-- Monitor compute usage, artifact storage, and network bandwidth consumption for resource utilization.
+- Track retry success rates by exit code to identify transient failures that are worth retrying as opposed to permanent failures that need fixing.
 - Standardize the number of times test flakes are retried and have their custom exit statuses that you can report on with your telemetry provider.
 - Use [OpenTelemetry integration](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service) to gain deep visibility into pipeline execution flows.
 
