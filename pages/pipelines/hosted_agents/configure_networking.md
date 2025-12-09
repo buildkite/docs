@@ -21,3 +21,4 @@ To access your hosted agent IP addresses, you can do so from the Buildkite inter
 > 📘
 > Be aware that these IP address ranges are not strictly static, and they may change from time to time. However, Buildkite will inform you of such events ahead of time, so that you can be prepared to update your network configurations accordingly.
 
+## Firewall
