@@ -46,7 +46,9 @@ Buildkite services are billed according to your [plan](https://buildkite.com/pri
 
 ### What's on each machine?
 
-- [Debian 12 (Bookworm)](https://www.debian.org/releases/bookworm/)
+When using the default base image, each machine includes:
+
+- [Debian 13 (trixie)](https://www.debian.org/releases/trixie/)
 - [The Buildkite Agent](/docs/agent/v3)
 - [Git](https://git-scm.com/)
 - [Docker](https://www.docker.com) (when using custom Packer image)
@@ -54,6 +56,8 @@ Buildkite services are billed according to your [plan](https://buildkite.com/pri
 - [Docker Buildx](https://docs.docker.com/buildx/working-with-buildx/) (when using custom Packer image)
 - [gcloud CLI](https://cloud.google.com/sdk/gcloud) - useful for performing any ops-related tasks
 - [jq](https://stedolan.github.io/jq/) - useful for manipulating JSON responses from CLI tools
+
+You can build a [custom image](/docs/agent/v3/gcp/elastic-ci-stack/terraform#custom-images) if you need additional tools for your pipelines.
 
 For more details on what versions are installed, see the corresponding [Packer templates](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/packer).
 
