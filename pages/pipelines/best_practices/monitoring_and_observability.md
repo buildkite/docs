@@ -27,7 +27,7 @@ Establish standardized metrics collection across all pipelines to enable consist
 - Measure success rates by pipeline, branch, and time period to identify reliability trends through failure rate analysis.
 - Standardize retry counts for flaky tests and assign custom exit statuses that you can report on with your telemetry provider.
 - Track retry success rates by exit code to differentiate between transient failures worth retrying and permanent failures that need fixing.
-- Use [OTEL integration](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service) to gain deep visibility into pipeline execution flows.
+- Use [OTel integration](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service) to gain deep visibility into pipeline execution flows.
 
 ### Using analytics for performance improvement
 
