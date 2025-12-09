@@ -8,6 +8,7 @@ This page provides recommendations on managing your Buildkite organizations, pip
 - Store all configuration in version control with PR reviews and automated validation.
 - Use [OIDC](/docs/pipelines/security/oidc) over long-lived secrets - authenticate agents to cloud providers with federated identity and rotate API tokens regularly.
 - Apply minimal required permissions at every layer - in the organization roles, team access, queue rules, agent tokens, cloud IAM, secret scope.
+- Consider managing roles and team access with an IaC-supporting [SSO provider](/docs/platform/sso#supported-providers)?
 - Design for change and scalability. Use [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), modular Terraform, and progressive rollouts with canary queues and approval gates.
 
 ## GitOps workflow
@@ -15,7 +16,7 @@ This page provides recommendations on managing your Buildkite organizations, pip
 - Propose changes exclusively using pull requests in a dedicated repository.
 - Apply automated checks for validation of your Terraform plan, YAML schema, policy rules (for example, OPA/Sentinel).
 - Require multiple approvals for production queues, team permissions, or security settings. Consider using block steps to manage permission levels across your organization (for example, teams with or without deploy permissions).
-- Trigger Terraform apply via Buildkite pipeline with service account identity on merge.
+- Trigger Terraform apply thorough a Buildkite pipeline with machine user identity on merge.
 - Split Terraform state by blast radius: `org/`, `clusters/`, `pipelines/`.
 - Use remote state with locking (for example, S3 + DynamoDB, GCS, Terraform Cloud).
 - Schedule drift detection jobs via GraphQL API.
@@ -29,6 +30,13 @@ terraform {
   required_providers {
     buildkite = { source = "buildkite/buildkite", version = "~> 1.0" }
   }
+}
+
+provider "buildkite" {
+  organization = "buildkite"
+
+  # Use the `BUILDKITE_API_TOKEN` environment variable so the token is not committed
+  # api_token = ""
 }
 
 resource "buildkite_cluster" "shared" {
@@ -65,7 +73,7 @@ resource "buildkite_pipeline" "svc_a" {
 - Use OIDC plugins: [AWS Assume Role plugin](https://buildkite.com/resources/plugins/cultureamp/aws-assume-role-buildkite-plugin/), [GCP Workload Identity Federation Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/gcp-workload-identity-federation-buildkite-plugin/).
 - Scope secrets by environment and queue. Never give CI builds access to production credentials.
 - Use different IAM roles per queue and enable audit logging (CloudTrail, GCP Audit Logs).
-- Redact sensitive patterns in logs and automate secret rotation with zero-downtime rollover (for example, using the API).
+- Redact sensitive patterns in logs and automate secret rotation with zero-downtime rollover.
 
 ## Agents, clusters, queues
 
@@ -115,7 +123,7 @@ Learn more about [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines
 
 ## Operational excellence
 
-- Monitor queue saturation, wait times (p50/p95/p99), retry rates, and failure rates.
+- Monitor queue saturation, wait times (p50/p95/p99), retry rates, and failure rates. You can use [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry). You can also learn more about [Monitoring and observability best practices](/docs/pipelines/best-practices/monitoring-and-observability).
 - Right-size agents and use spot instances for non-critical workloads.
 - Pre-bake dependencies and cache within trust boundaries (for example, use S3/GCS with expiry).
 - Emit structured logs (JSON) with correlation IDs and use [Buildkite annotations](/docs/agent/v3/cli-annotate) for summaries.
@@ -125,11 +133,11 @@ Learn more about [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines
 
 **Q: How do I keep the production environment safe?**
 
-**A:** Separate production queues and credentials, require [block step-based approvals](/docs/pipelines/configure/step-types/block-step#permissions), enforce policy checks, use canary deployments, and enable audit logging.
+**A:** Define production queues and permissions in Terraform, separate production queues and credentials, require [block step-based approvals](/docs/pipelines/configure/step-types/block-step#permissions), enforce policy checks, use canary deployments, and enable audit logging.
 
-**Q: Do I need dynamic pipelines?**
+**Q: When do I need to use dynamic pipelines?**
 
-**A:** Yes for conditional logic, change-based execution, and monorepos. Static YAML works for simple repositories.
+**A:** Use dynamic pipelines when you need conditional logic, change-based execution, or monorepo fan-out. Static YAML managed via Terraform is often enough for small, simple repositories.
 
 **Q: Monorepo vs multiple repositories?**
 
