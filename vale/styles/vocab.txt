@@ -271,6 +271,7 @@ oidc
 onboarding
 Okta
 OpenTelemetry
+OTel
 opentelemetry
 onboarding
 OTLP
@@ -407,6 +408,7 @@ toolsets
 tooltip
 TOTP's
 Trivy
+trixie
 typosquatted
 udp
 unmanaged

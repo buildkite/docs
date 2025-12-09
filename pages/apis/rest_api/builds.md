@@ -488,7 +488,8 @@ curl -H "Authorization: Bearer $TOKEN" \
     "repository": "git@github.com:my-great-org/my-pipeline",
     "provider": {
       "id": "github",
-      "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
+      "webhook_url": "https://webhook.buildkite.com/deliver/xxx",
+      "settings": {}
     },
     "skip_queued_branch_builds": false,
     "skip_queued_branch_builds_filter": null,
@@ -496,7 +497,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "cancel_running_branch_builds_filter": null,
     "builds_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds",
     "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
-    "created_at": "2013-09-03 13:24:38 UTC",
+    "created_at": "2015-05-09T21:05:59.874Z",
     "scheduled_builds_count": 0,
     "running_builds_count": 0,
     "scheduled_jobs_count": 0,
