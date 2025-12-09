@@ -156,6 +156,7 @@ RateLimit-Reset: 120
 ```
 
 ### View query complexity
+
 The query complexity status is available in the following response headers of each GraphQL call:
 
 | Header | Description |
