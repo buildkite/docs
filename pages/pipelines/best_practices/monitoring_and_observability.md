@@ -12,7 +12,7 @@ This page covers the best practices regarding monitoring, observability, and log
 
 Choose integrations based on your existing tooling and needs:
 
-- Enable [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) for real time alerting when you need to integrate with AWS-native tooling. Start with seting up notifications and subscribe your alerting pipeline.
+- Enable [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) for real time alerting when you need to integrate with AWS-native tooling. Start with setting up notifications and subscribe your alerting pipeline.
 - Turn on [OpenTelemetry (OTEL)](/docs/pipelines/integrations/observability/opentelemetry) export when you need vendor-neutral observability that works with your existing OTEL collector. Start with job spans and queue metrics.
 - If you are using [Datadog](https://buildkite.com/docs/pipelines/integrations/observability/datadog), enable agent APM tracing.
 - If you are using [Backstage](/docs/pipelines/integrations/other/backstage), integrate the [Buildkite Backstage plugin](https://github.com/buildkite/backstage-plugin) to surface pipeline health and build status directly in your developer portal.
