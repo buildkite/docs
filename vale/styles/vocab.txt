@@ -269,6 +269,7 @@ oidc
 onboarding
 Okta
 OpenTelemetry
+OTel
 opentelemetry
 onboarding
 OTLP
