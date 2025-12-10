@@ -1,11 +1,14 @@
 ACLs
 addr
 allow_any_instance_of
-Allowlist
 allowlist
+allowlists
+Amazon ECR
+Amazon Elastic Container Registry
 AMI's
 AMIs
 Ansible
+Anthropic's
 anti-pattern
 API
 API's
@@ -13,9 +16,6 @@ APIs
 apk
 APM
 applesimutils
-Amazon ECR
-Amazon Elastic Container Registry
-Anthropic's
 Aqua
 architecting
 Argo CD
