@@ -72,6 +72,7 @@ You can also deploy the stack into an existing VPC by providing your own `VpcId`
 A security group is created and used by the agent instances. By default, it allows all outbound traffic (0.0.0.0/0) and limits all inbound traffic, which can be optionally set to allow port 22 for SSH access.
 
 ### VPC endpoints
+
 The stack creates VPC endpoints for AWS Systems Manager (SSM) and S3. This allows instances to communicate with these services within the boundary of the VPC, negating the requirement for outbound access.
 
 ## Scaling mechanism
