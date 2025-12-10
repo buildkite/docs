@@ -156,7 +156,7 @@ The stack does not create a bucket for build artifacts by default. You can optio
 
 The stack uses AWS Systems Manager Parameter Store to securely manage agent tokens. This provides a centralized, encrypted location for sensitive information that instances need at boot time.
 
-The Buildkite agent token is stored as a SecureString parameter, which encrypts the token at rest using AWS KMS. When EC2 instances launch, they retrieve this token from Parameter Store and use it to register with Buildkite.
+The Buildkite Agent token is stored as a SecureString parameter, which encrypts the token at rest using AWS KMS. When EC2 instances launch, they retrieve this token from Parameter Store and use it to register with Buildkite.
 
 ## Monitoring
 
