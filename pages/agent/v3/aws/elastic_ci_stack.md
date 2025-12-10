@@ -137,7 +137,7 @@ Buildkite services are billed according to your [plan](https://buildkite.com/pri
 
 ### Supported builds
 
-This stack is designed to run your builds in a share-nothing pattern similar to the [12 factor application principals](http://12factor.net):
+This stack is designed to run your builds in a share-nothing pattern similar to the [Twelve-Factor App methodology](http://12factor.net):
 
 * Each project should encapsulate its dependencies through Docker and Docker Compose.
 * Build pipeline steps should assume no state on the machine (and instead rely on [build meta-data](/docs/guides/build-meta-data), [build artifacts](/docs/guides/artifacts) or S3).
