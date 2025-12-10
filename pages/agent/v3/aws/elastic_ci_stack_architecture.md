@@ -32,9 +32,10 @@ The EC2 instances provisioned by the stack run using a pre-configured Amazon Mac
 - cfn-bootstrap - We use helper scripts (`cfn-init`, `cfn-signal`) within CloudFormation to provision the instance.
 
 ### Helper utilities
-- lifecycled - We use this daemon to listen for Auto Scaling lifecycle hook events on the instance which trigger the graceful shutdown of the Buildkite agent when an instance is scheduled for termination.
-- s3secrets-helper - This is used to fetch and decrypt secrets from the stack's S3 bucket.
-- jq - This is used throughout scripts within the stack to parse JSON responses efficiently.
+
+- lifecycled - this daemon allows listening for Auto Scaling lifecycle hook events on the instance which trigger the graceful shutdown of the Buildkite agent when an instance is scheduled for termination.
+- s3secrets-helper - is used to fetch and decrypt secrets from the stack's S3 bucket.
+- jq - is used throughout scripts within the stack to parse JSON responses efficiently.
 
 ### Buildkite plugins
 - docker-login - This is used to authenticate with Docker Registries such as ECR.
