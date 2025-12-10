@@ -81,7 +81,8 @@ The stack creates VPC endpoints for AWS Systems Manager (SSM) and S3. This allow
 The stack uses a Lambda-based scaling approach rather than standard AWS target tracking policies. This results in quicker scaling based on Buildkite-specific metrics, opposed to resource usage.
 
 ### Agent scaler lambda
-The `AgentScaler` Lambda function is the main part of the autoscaling logic. It runs on a schedule (which by default is every minute) and adjusts the Auto Scaling group's capacity based on real-time demand from Buildkite.
+
+The `AgentScaler` Lambda function is the main part of the autoscaling logic. It runs on a schedule ( every minute on default settings) and adjusts the Auto Scaling group's capacity based on real-time demand from Buildkite.
 
 How it works:
 
