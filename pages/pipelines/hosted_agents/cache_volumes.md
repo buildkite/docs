@@ -182,7 +182,7 @@ You can view all of your current cluster's volumes through its **Cached Storage*
 
 ## Deleting a volume
 
-Deleting a container cache or Git mirror volume may affect the build time for the associated pipelines until the new volume is established.
+Deleting a [container cache](#container-cache-volumes) or [Git mirror](#git-mirror-volumes) volume may affect the build time for the associated pipelines until the new volume is established.
 
 To delete a volume:
 
