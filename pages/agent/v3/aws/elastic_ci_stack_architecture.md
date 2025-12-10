@@ -43,7 +43,8 @@ The EC2 instances provisioned by the stack run using a pre-configured Amazon Mac
 - secrets - We use this plugin to set secrets as environment variables using the aforementioned `s3secrets-helper`.
 
 ### Bootstrap scripts
-The stack uses EC2 user data to perform final configuration at boot time, this script is constantly evolving, so we recommend taking a look at the [UserData Scripts used in our Terraform Module](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws/tree/main/scripts) to get an idea of this.
+
+The stack uses EC2 user data to perform final configuration at boot time. The script for this is constantly evolving, so you will benefit from looking at the [UserData Scripts used in our Terraform Module](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws/tree/main/scripts) to get a better idea of what is happening under the hood.
 
 For the most part, the User Data script is used to pass input configuration from the deployment method, whether that be CloudFormation or Terraform, directly to the runtime of the instance.
 
