@@ -83,9 +83,10 @@ The stack uses a Lambda-based scaling approach rather than standard AWS target t
 The `AgentScaler` Lambda function is the main part of the autoscaling logic. It runs on a schedule (which by default is every minute) and adjusts the Auto Scaling group's capacity based on real-time demand from Buildkite.
 
 How it works:
+
 1. The Lambda polls the Buildkite API to retrieve the number of scheduled jobs waiting to run and the number of busy agents currently running jobs.
-2. Based on these metrics and your stack configuration (minimum size, maximum size, scale-out factor), it calculates the desired number of instances needed.
-3. If the desired capacity differs from the current capacity, it updates the Auto Scaling group to scale up or down accordingly.
+1. Based on these metrics and your stack configuration (minimum size, maximum size, scale-out factor), it calculates the desired number of instances needed.
+1. If the desired capacity differs from the current capacity, it updates the Auto Scaling group to scale up or down accordingly.
 
 The polling interval can be configured using the `ScaleInIdlePeriod` (CloudFormation) or `scale_in_idle_period` (Terraform) parameter. A shorter interval means faster response to demand, but may result in more frequent scaling operations. We recommend being careful with this setting as it could result in instance thrashing when there's a large number of jobs that complete quickly.
 
