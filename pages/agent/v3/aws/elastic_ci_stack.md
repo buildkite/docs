@@ -9,7 +9,7 @@ The Buildkite Elastic CI Stack for AWS gives you a private, autoscaling
 
 ## Architecture
 
-For an overview of the architecture of the Elastic CI Stack for AWS, take a look at our [Architecture documentation](/docs/agent/v3/aws/elastic-ci-stack-architecture).
+For an overview of the architecture of the Elastic CI Stack for AWS, see [Architecture](/docs/agent/v3/aws/elastic-ci-stack-architecture).
 
 ## Features
 
