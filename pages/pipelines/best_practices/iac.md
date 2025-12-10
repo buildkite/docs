@@ -25,6 +25,8 @@ This page provides recommendations on managing your Buildkite organizations, pip
 
 Use the [Buildkite Terraform provider](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs) to manage teams, pipelines, clusters, queues, agent tokens, schedules, and templates. If something is created outside Terraform, treat it as drift and import it into the state.
 
+The following example shows basic provider configuration and creates a cluster, queue, and pipeline:
+
 ```hcl
 terraform {
   required_providers {
