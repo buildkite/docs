@@ -47,7 +47,7 @@ The EC2 instances provisioned by the stack run using a pre-configured Amazon Mac
 
 The stack uses EC2 user data to perform final configuration at boot time. The script for this is constantly evolving, so you will benefit from looking at the [UserData Scripts used in our Terraform Module](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws/tree/main/scripts) to get a better idea of what is happening under the hood.
 
-For the most part, the User Data script is used to pass input configuration from the deployment method, whether that be CloudFormation or Terraform, directly to the runtime of the instance.
+For the most part, the User Data script is used to pass input configuration from the deployment method, whether that be AWS CloudFormation or Terraform, directly to the runtime of the instance.
 
 When a bootstrap script is defined within input configuration, this is ran after the initial User Data scripts have ran, using the [bk-install-elastic-stack.sh](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/packer/linux/stack/conf/bin/bk-install-elastic-stack.sh) script.
 
