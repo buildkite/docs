@@ -22,7 +22,7 @@ The EC2 instances provisioned by the stack run using a pre-configured Amazon Mac
 
 - The Buildkite Agent - the main component.
 - Docker -  pre-installed to ensure that any containerized workflows function as intended, such as the [Docker-Compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) and [Docker](https://github.com/buildkite-plugins/docker-buildkite-plugin) Buildkite plugins.
-- git - The Buildkite Agent actively uses git to checkout codebases ahead of builds.
+- Git - the Buildkite Agent actively uses Git to checkout codebases ahead of builds.
 
 ### AWS integration
 - Amazon SSM Agent -  enables remote management of instances, is used this from the Agent Scaler in order to kill Buildkite Agent processes.
