@@ -87,7 +87,7 @@ You now have a working Elastic CI Stack for AWS ready to run builds! :tada:
 
 ## CloudFormation service role
 
-If you want to explicitly specify the actions CloudFormation can perform on
+If you want to explicitly specify the actions AWS CloudFormation can perform on
 your behalf when deploying the Elastic CI Stack for AWS, you can create your
 stack using an IAM User or Role that has been granted limited permissions, or
 use an [AWS CloudFormation service role](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-servicerole.html).
