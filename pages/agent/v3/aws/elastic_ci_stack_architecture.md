@@ -163,7 +163,7 @@ The Buildkite Agent token is stored as a SecureString parameter, which encrypts 
 
 ## Monitoring
 
-The stack provides monitoring through CloudWatch, capturing logs and optionally publishing metrics to help you understand cluster behavior and troubleshoot issues.
+The stack provides monitoring through AWS CloudWatch, capturing logs and optionally publishing metrics to help you understand cluster behavior and troubleshoot issues.
 
 ### CloudWatch Logs
 
