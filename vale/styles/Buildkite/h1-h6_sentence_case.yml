@@ -200,6 +200,7 @@ exceptions:
   - OneLogin
   - OpenTelemetry
   - Open Container Initiative
+  - Open Policy Agent
   - OS X
   - Package Registries
   - PagerDuty

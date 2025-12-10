@@ -4,19 +4,19 @@ This page provides recommendations on managing your Buildkite organizations, pip
 
 ## Core principles
 
-- Treat the UI as read-only - use the dashboard for observability and approvals, never for configuration changes.
+- Treat the UI as read-only - use the [dashboard](/docs/pipelines/dashboard-walkthrough) for observability and approvals, never for configuration changes.
 - Store all configuration in version control with PR reviews and automated validation.
 - Use [OIDC](/docs/pipelines/security/oidc) over long-lived secrets - authenticate agents to cloud providers with federated identity and rotate API tokens regularly.
 - Apply minimal required permissions at every layer - in the organization roles, team access, queue rules, agent tokens, cloud IAM, secret scope.
-- Consider managing roles and team access with an IaC-supporting [SSO provider](/docs/platform/sso#supported-providers)?
+- Consider managing roles and team access with an IaC-supporting [SSO provider](/docs/platform/sso#supported-providers).
 - Design for change and scalability. Use [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), modular Terraform, and progressive rollouts with canary queues and approval gates.
 
 ## GitOps workflow
 
 - Propose changes exclusively using pull requests in a dedicated repository.
-- Apply automated checks for validation of your Terraform plan, YAML schema, policy rules (for example, OPA/Sentinel).
+- Apply automated checks for validation of your Terraform plan, YAML schema, policy rules (for example, Open Policy Agent (OPA) and/or Sentinel).
 - Require multiple approvals for production queues, team permissions, or security settings. Consider using block steps to manage permission levels across your organization (for example, teams with or without deploy permissions).
-- Trigger Terraform apply thorough a Buildkite pipeline with machine user identity on merge.
+- Trigger Terraform apply through a Buildkite pipeline with machine user identity on merge.
 - Split Terraform state by blast radius: `org/`, `clusters/`, `pipelines/`.
 - Use remote state with locking (for example, S3 + DynamoDB, GCS, Terraform Cloud).
 - Schedule drift detection jobs via GraphQL API.
@@ -77,14 +77,14 @@ resource "buildkite_pipeline" "svc_a" {
 
 ## Agents, clusters, queues
 
-Separate clusters by security zones (CI, prod deploy, compliance) and queues by trust level, workload type, architecture, and environment. For example:
+Separate clusters by security zones (CI, prod deploy, compliance) and queues - by trust level, workload type, architecture, and environment. For example:
 
 - `default` - general CI with ephemeral agents
 - `docker` - containerized builds with DinD
 - `arm64` - ARM/macOS builds
 - `production-deploy` - Restricted, long-lived, audit-logged
 
-Prefer ephemeral agents for hermetic builds and autoscale on queue depth. Maintain purpose-built base images (`builder`, `security-scanner`, `mobile`) and rebuild often (for example, on a weekly basis). Use agent hooks to load credentials, validate requirements, and clean up.
+Prefer ephemeral agents for hermetic builds, and autoscale on queue depth. Maintain purpose-built base images (`builder`, `security-scanner`, `mobile`) and rebuild often (for example, weekly). Use agent hooks to load credentials, validate requirements, and clean up.
 
 ## Dynamic pipelines
 
@@ -129,16 +129,16 @@ Learn more about [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines
 - Emit structured logs (JSON) with correlation IDs and use [Buildkite annotations](/docs/agent/v3/cli-annotate) for summaries.
 - Document runbooks for common failure scenarios.
 
-## FAQ
+## Frequently asked questions (FAQ)
 
-**Q: How do I keep the production environment safe?**
+### How do I keep the production environment safe?
 
-**A:** Define production queues and permissions in Terraform, separate production queues and credentials, require [block step-based approvals](/docs/pipelines/configure/step-types/block-step#permissions), enforce policy checks, use canary deployments, and enable audit logging.
+Define production queues and permissions in Terraform, separate production queues and credentials, require [block step-based approvals](/docs/pipelines/configure/step-types/block-step#permissions), enforce policy checks, use canary deployments, and enable audit logging.
 
-**Q: When do I need to use dynamic pipelines?**
+### When do I need to use dynamic pipelines?
 
-**A:** Use dynamic pipelines when you need conditional logic, change-based execution, or monorepo fan-out. Static YAML managed via Terraform is often enough for small, simple repositories.
+Use dynamic pipelines when you need conditional logic, change-based execution, or monorepo fan-out. Static YAML managed via Terraform is often enough for small, simple repositories.
 
-**Q: Monorepo vs multiple repositories?**
+### When should I choose monorepo vs multiple repositories?
 
-**A:** In the [monorepo approach](/docs/pipelines/best-practices/working-with-monorepos), a single entry pipeline detects changes and builds affected services. In the approach that uses multiple repositories, one pipeline per repository has shared Terraform modules for consistency. Choose according to your operational needs.
+In the [monorepo approach](/docs/pipelines/best-practices/working-with-monorepos), a single entry pipeline detects changes and builds affected services. In the approach that uses multiple repositories, one pipeline per repository has shared Terraform modules for consistency. Choose according to your operational needs.
