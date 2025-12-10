@@ -173,7 +173,7 @@ Select the **buildkite-AgentAutoScaleGroup-xxxxxxxxxxxx** group and then the **I
 
 <%= image "buildkite-demo-instances.png", width: 3266/2, height: 1748/2, alt: "AWS Auto Scaling Group launching" %>
 
-Once the instances are ready they will appear on your Buildkite Agents page:
+Once the instances are ready, they will appear on your Buildkite Agents page:
 
 <%= image "buildkite-connected-agents.png", size: "#{1584/2}x#{1508/2}", alt: 'Buildkite Connected Agents' %>
 
