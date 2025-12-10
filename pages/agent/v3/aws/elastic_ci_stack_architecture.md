@@ -12,7 +12,7 @@ The instances with the ASG are managed via a launch template; the launch templat
 
 User data scripts are scripts that run at boot-time on the instance to ensure the instance has environment variables propagated, and any additional tools via bootstrap scripts (which are user provided via input configuration) are correctly installed. Once the user data scripts are completed, the instance will be moved into a healthy state. If they fail, the instance will be marked as unhealthy in the ASG and subsequently terminated.
 
-Now that the core architecture has been laid out, we aim to dive into the specifics of the stack, from top to bottom.
+Now that the core architecture has been laid out, let's look into the specifics of the stack, from top to bottom.
 
 ## Software stack
 
