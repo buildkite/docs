@@ -19,8 +19,9 @@ Now that the core architecture has been laid out, let's look into the specifics 
 The EC2 instances provisioned by the stack run using a pre-configured Amazon Machine Image (AMI) based on Amazon Linux 2023. The image comes with a suite of software to support your builds and manage the instance, these tools are used to manage the instance in a variety of ways and can be broke down into four subsections.
 
 ### Core components
-- The Buildkite Agent - That's what we're here for, right?
-- Docker - We pre-install Docker to ensure that any containerized workflows function as intended, such as the [Docker-Compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) and [Docker](https://github.com/buildkite-plugins/docker-buildkite-plugin) Buildkite plugins.
+
+- The Buildkite Agent - the main component.
+- Docker -  pre-installed to ensure that any containerized workflows function as intended, such as the [Docker-Compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) and [Docker](https://github.com/buildkite-plugins/docker-buildkite-plugin) Buildkite plugins.
 - git - The Buildkite Agent actively uses git to checkout codebases ahead of builds.
 
 ### AWS integration
