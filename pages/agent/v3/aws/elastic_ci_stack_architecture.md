@@ -110,7 +110,7 @@ Lifecycle hooks pause the termination process, giving the Buildkite Agent time t
 
 ### Instance terminating hook
 
-When an instance is scheduled for termination (due to scaling in or spot instance reclamation), the `instance_terminating` hook pauses the termination process on the `autoscaling:EC2_INSTANCE_TERMINATING` transition. This gives the Buildkite agent time to finish its current job and gracefully shut down before the EC2 instance is destroyed.
+When an instance is scheduled for termination (due to scaling in or spot instance reclamation), the `instance_terminating` hook pauses the termination process on the `autoscaling:EC2_INSTANCE_TERMINATING` transition. This gives the Buildkite Agent time to finish its current job and gracefully shut down before the EC2 instance is destroyed.
 
 The `lifecycled` daemon running on the instance polls for this hook. When detected, it stops the Buildkite agent service, waiting for any running jobs to finish, and then signals the Auto Scaling group to proceed with termination. The default timeout for this process is 3600 seconds (1 hour), but this is configurable using the `InstanceTerminationGracePeriod` (CloudFormation) or `instance_termination_grace_period` (Terraform) parameter.
 
