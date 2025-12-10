@@ -28,7 +28,7 @@ The EC2 instances provisioned by the stack run using a pre-configured Amazon Mac
 - Amazon SSM Agent -  enables remote management of instances, is used this from the Agent Scaler in order to kill Buildkite Agent processes.
 - CloudWatch Agent - for streaming to log groups.
 - AWS CLI - for interacting with AWS Resources during build-time; can be used within a pipeline.
-- EC2 Instance Connect - This can be used to connect to an instance via the AWS Console.
+- EC2 Instance Connect - can be used to connect to an instance via the AWS Console.
 - cfn-bootstrap - helper scripts (`cfn-init`, `cfn-signal`) are used within CloudFormation to provision the instance.
 
 ### Helper utilities
