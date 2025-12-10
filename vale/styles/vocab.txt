@@ -2,6 +2,7 @@ ACLs
 addr
 allow_any_instance_of
 allowlist
+allowlisted
 allowlists
 Amazon ECR
 Amazon Elastic Container Registry
@@ -386,6 +387,7 @@ svg
 swiftformat
 swiftlint
 systemd
+Tailscale
 teardown
 templated
 tgz
