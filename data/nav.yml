@@ -505,6 +505,8 @@
           path: "pipelines/hosted-agents/remote-docker-builders"
         - name: "Internal container registry"
           path: "pipelines/hosted-agents/internal-container-registry"
+        - name: "Network security"
+          path: "pipelines/hosted-agents/network-security"
     - name: "Rules"
       children:
         - name: "Overview"

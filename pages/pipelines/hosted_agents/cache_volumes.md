@@ -136,7 +136,19 @@ Container cache volumes are types of volumes used to cache Docker images between
 > 📘
 > This feature is only available to [Linux hosted agents](/docs/pipelines/hosted-agents/linux).
 
-The container caching volumes feature can be enabled on the cluster's **Cached Storage** > **Settings** page. Once enabled, container cache volumes will be used for all Buildkite hosted agent jobs in that cluster. A separate volume is created for each pipeline, and is done so upon the pipeline being built for the first time.
+### Enabling container cache volumes
+
+To enable container cache volumes feature for Buildkite hosted agents on your cluster:
+
+1. Select **Agents** in the global navigation to access the **Clusters** page.
+
+1. Select the Buildkite cluster in which to enable the container cache volumes feature.
+
+1. Select **Cache Storage**, then select the **Settings** tab.
+
+1. Select **Enable container caching**, then select **Save cache settings** to enable Git mirrors for the selected hosted cluster.
+
+Once enabled, container cache volumes will be used for all Buildkite hosted agent jobs in that cluster. A separate volume is created for each pipeline, and is done so upon the pipeline being built for the first time.
 
 <%= image "hosted-agents-container-caching.png", width: 1760, height: 436, alt: "Hosted agents container cache setting displayed in the Buildkite UI" %>
 
@@ -148,10 +160,38 @@ You can view all of your current cluster's volumes through its **Cached Storage*
 
 Git mirror volumes are specialized types of volumes designed to accelerate Git operations by caching the Git repository between builds. This is useful for large repositories that are slow to clone.
 
-The Git mirror volumes feature can be enabled on the cluster's **Cached Storage** > **Settings** page. Once enabled, Git mirror volumes will be used for all Buildkite hosted agent jobs in that cluster. A separate volume is created for each repository, and is done so upon the first pipeline (whose source is the repository) being built for the first time.
+### Enabling Git mirror volumes
+
+To enable Git mirror volumes feature for Buildkite hosted agents on your cluster:
+
+1. Select **Agents** in the global navigation to access the **Clusters** page.
+
+1. Select the Buildkite cluster in which to enable the Git mirror volumes feature.
+
+1. Select **Cache Storage**, then select the **Settings** tab.
+
+1. Select **Enable Git mirror**, then select **Save cache settings** to enable Git mirrors for the selected hosted cluster.
+
+Once enabled, Git mirror volumes will be used for all Buildkite hosted agent jobs using Git repositories in that cluster. A separate volume is created for each repository, and is done so upon the first pipeline (whose source is the repository) being built for the first time.
 
 <%= image "hosted-agents-git-mirror.png", width: 1760, height: 436, alt: "Hosted agents git mirror setting displayed in the Buildkite UI" %>
 
 A Git mirror volume's name is based on your cloud-based Git service's account and repository name, and begins with "buildkite-git-mirror-". For example, **buildkite-git-mirror-my-account-my-repository**.
 
 You can view all of your current cluster's volumes through its **Cached Storage** > **Volumes** page.
+
+## Deleting a volume
+
+Deleting a [container cache](#container-cache-volumes) or [Git mirror](#git-mirror-volumes) volume may affect the build time for the associated pipelines until the new volume is established.
+
+To delete a volume:
+
+1. Select **Agents** in the global navigation to access the **Clusters** page.
+
+1. Select the Buildkite cluster whose volume is to be deleted.
+
+1. Select **Cache Storage**, then select the **Volumes** tab to view a list of all existing container cache and Git mirror volumes.
+
+1. Select **Delete** for the volume you wish to remove.
+
+1. Confirm the deletion by selecting **Delete Cache Volume**.
