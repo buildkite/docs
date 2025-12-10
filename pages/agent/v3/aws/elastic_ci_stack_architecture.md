@@ -25,7 +25,7 @@ The EC2 instances provisioned by the stack run using a pre-configured Amazon Mac
 - git - The Buildkite Agent actively uses git to checkout codebases ahead of builds.
 
 ### AWS integration
-- Amazon SSM Agent - This enables remote management of instances, we use this from the Agent Scaler in order to kill Buildkite Agent processes.
+- Amazon SSM Agent -  enables remote management of instances, is used this from the Agent Scaler in order to kill Buildkite Agent processes.
 - CloudWatch Agent - We use the CloudWatch Agent to stream to log groups.
 - AWS CLI - This is used to interact with AWS Resources during build-time, and can be used within a pipeline.
 - EC2 Instance Connect - This can be used to connect to an instance via the AWS Console.
