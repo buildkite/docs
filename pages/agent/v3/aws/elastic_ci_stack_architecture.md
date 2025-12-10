@@ -147,7 +147,7 @@ The stack also creates a bucket for storing access logs from the secrets bucket.
 
 ### Lambda bucket
 
-The Lambda bucket handling differs between deployment methods. When using CloudFormation, the stack creates a Lambda bucket to store the Lambda function source code. This is necessary because CloudFormation requires the Lambda code to be stored in an S3 bucket in the same region where you're deploying the stack.
+The Lambda bucket handling differs between deployment methods. When using AWS CloudFormation, the stack creates a Lambda bucket to store the Lambda function source code. This is necessary because AWS CloudFormation requires the Lambda code to be stored in an S3 bucket in the same region where you're deploying the stack.
 
 When using Terraform, the stack does not create a Lambda bucket. Instead, it retrieves the Lambda function source code directly from a public S3 bucket managed by Buildkite.
 
