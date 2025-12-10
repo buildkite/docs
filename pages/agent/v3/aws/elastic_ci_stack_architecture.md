@@ -67,7 +67,7 @@ The stack will create its own VPC to handle networking to ensure agents can reac
 ### VPC and subnets
 By default, the stack creates a new Virtual Private Cloud (VPC) with the CIDR block `10.0.0.0/16` and two subnets, one subnet will use `10.0.1.0/24` and the other will use `10.0.2.0/24`.
 
-You can also deploy the stack into an existing VPC by providing your own `VpcId` (CloudFormation) or `vpc_id` (Terraform) and `Subnets` (CloudFormation) or `subnets` (Terraform).
+You can also deploy the stack into an existing VPC by providing your own `VpcId` (AWS CloudFormation) or `vpc_id` (Terraform) and `Subnets` (AWS CloudFormation) or `subnets` (Terraform).
 
 ### Security groups
 A security group is created and used by the agent instances. By default, it allows all outbound traffic (0.0.0.0/0) and limits all inbound traffic, which can be optionally set to allow port 22 for SSH access.
