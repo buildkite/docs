@@ -143,7 +143,7 @@ This stack is designed to run your builds in a share-nothing pattern similar to 
 * Build pipeline steps should assume no state on the machine (and instead rely on [build meta-data](/docs/guides/build-meta-data), [build artifacts](/docs/guides/artifacts), or S3).
 * Secrets are configured using environment variables exposed using the S3 secrets bucket.
 
-By following these conventions you get a scalable, repeatable, and source-controlled CI environment that any team within your organization can use.
+By following these conventions, you get a scalable, repeatable, and source-controlled CI environment that any team within your organization can use.
 
 ## Running your first build
 
