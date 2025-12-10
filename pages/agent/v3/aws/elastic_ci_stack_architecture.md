@@ -61,7 +61,7 @@ The stack optionally creates an AWS KMS key when the `PipelineSigningKMSKey` (Cl
 
 ## Networking
 
-The stack will create its own VPC to handle networking to ensure agents can reach Buildkite, AWS services and external services such as GitHub.
+The stack will create its own VPC to handle networking to ensure agents can reach Buildkite, AWS services, and external services such as GitHub.
 
 ### VPC and subnets
 By default, the stack creates a new Virtual Private Cloud (VPC) with the CIDR block `10.0.0.0/16` and two subnets, one subnet will use `10.0.1.0/24` and the other will use `10.0.2.0/24`.
