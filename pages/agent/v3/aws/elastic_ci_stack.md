@@ -57,7 +57,7 @@ Pipeline Signing | ✅ | ✅
 
 The Elastic CI Stack for AWS does not require familiarity with the underlying AWS services to deploy it. However, to run builds, some familiarity with the following services is required:
 
-* [AWS CloudFormation](https://aws.amazon.com/cloudformation/) if using the CloudFormation deployment method
+* [AWS CloudFormation](https://aws.amazon.com/cloudformation/) if using the AWS CloudFormation deployment method
 * [Terraform](https://developer.hashicorp.com/terraform) if using the Terraform deployment method
 * [Amazon EC2](https://aws.amazon.com/ec2/) (to select an EC2 `InstanceTypes` stack parameter appropriate for your workload)
 * [Amazon S3](https://aws.amazon.com/s3/) (to copy your git clone secret for cloning and building private repositories)
