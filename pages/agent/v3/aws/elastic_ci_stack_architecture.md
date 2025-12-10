@@ -93,6 +93,7 @@ How it works:
 The polling interval can be configured using the `ScaleInIdlePeriod` (CloudFormation) or `scale_in_idle_period` (Terraform) parameter. A shorter interval means faster response to demand, but may result in more frequent scaling operations. We recommend being careful with this setting as it could result in instance thrashing when there's a large number of jobs that complete quickly.
 
 ### Scheduled scaling
+
 You can configure scheduled scaling actions to adjust the minimum size of the cluster based on time of day. This is useful for predictable workload patterns, such as scaling up during business hours when builds are most frequent, and scaling down at night or on weekends to reduce costs.
 
 Scheduled scaling is implemented using AWS Auto Scaling Scheduled Actions, which allow you to define:
