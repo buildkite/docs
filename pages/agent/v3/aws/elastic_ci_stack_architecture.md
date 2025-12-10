@@ -38,9 +38,10 @@ The EC2 instances provisioned by the stack run using a pre-configured Amazon Mac
 - jq - is used throughout scripts within the stack to parse JSON responses efficiently.
 
 ### Buildkite plugins
-- docker-login - This is used to authenticate with Docker Registries such as ECR.
-- ecr - We use this helper to streamline ECR operations.
-- secrets - We use this plugin to set secrets as environment variables using the aforementioned `s3secrets-helper`.
+
+- docker-login - is used for authentication with Docker Registries such as ECR.
+- ecr - this helper is used for streamlining the ECR operations.
+- secrets - this plugin is used for seting secrets as environment variables using the aforementioned `s3secrets-helper`.
 
 ### Bootstrap scripts
 
