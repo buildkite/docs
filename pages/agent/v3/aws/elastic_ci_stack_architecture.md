@@ -1,6 +1,6 @@
 # Architecture of the Elastic CI Stack for AWS
 
-The Elastic CI Stack for AWS provisions and manages the infrastructure required to run a scalable Buildkite agent cluster. On this page, we aim to explain the internal components, resources, and mechanisms that make up the stack.
+The Elastic CI Stack for AWS provisions and manages the infrastructure required to run a scalable Buildkite Agent cluster. This page aims to explain the internal components, resources, and mechanisms that make up the stack.
 
 This diagram illustrates a standard deployment of Elastic CI Stack for AWS.
 
