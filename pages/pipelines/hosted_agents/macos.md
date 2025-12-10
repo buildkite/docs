@@ -286,34 +286,3 @@ To find the [Homebrew package](#homebrew-packages) version used by your macOS ho
 <%= render_markdown partial: 'pipelines/hosted_agents/hosted_agents_security_explanation' %>
 
 Note that for macOS hosted agents, virtualization is achieved through Apple's Virtualization framework on Apple Silicon, providing lightweight but secure virtual machine isolation. Learn more about [How Buildkite hosted agents work](/docs/pipelines/hosted-agents#how-buildkite-hosted-agents-work).
-
-## Git mirror cache
-
-The Git mirror cache is a specialized type of cache volume designed to accelerate Git operations by caching the Git repository between builds. This is useful for large repositories that are slow to clone.
-
-These volumes are attached on a best-effort basis depending on their locality, expiration and current usage, and therefore, should not be relied upon as durable data storage. By default, a Git mirror cache is created for each repository.
-
-### Enabling Git mirror cache
-
-To enable Git mirror cache for your hosted agents:
-
-1. Select **Agents** in the global navigation to access the **Clusters** page.
-1. Select the cluster in which to enable the Git mirror cache feature.
-1. Select **Cache Storage**, then select the **Settings** tab.
-1. Select **Enable Git mirror**, then select **Save cache settings** to enable Git mirrors for the selected hosted cluster.
-
-Once enabled, the Git mirror cache will be used for all hosted jobs using Git repositories in that cluster. A separate cache volume will be created for each repository.
-
-<%= image "hosted-agents-git-mirror.png", width: 1760, height: 436, alt: "Hosted agents git mirror setting displayed in the Buildkite UI" %>
-
-### Deleting Git mirror cache
-
-Deleting a cache volume may affect the build time for the associated pipelines until the new cache is established.
-
-To delete a git mirror cache:
-
-1. Select **Agents** in the global navigation to access the **Clusters** page.
-1. Select the cluster whose Git mirror cache is to be deleted.
-1. Select **Cache Storage**, then select the **Volumes** tab to view a list of all exiting cache volumes.
-1. Select **Delete** for the Git mirror cache volume you wish to remove.
-1. Confirm the deletion by selecting **Delete Cache Volume**.

@@ -174,6 +174,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/example-pipelines",                                               to: redirect("/docs/pipelines/configure/example-pipelines")
   get "/docs/pipelines/environment-variables",                                           to: redirect("/docs/pipelines/configure/environment-variables")
   get "/docs/pipelines/group-step",                                                      to: redirect("/docs/pipelines/configure/step-types/group-step")
+  get "/docs/pipelines/hosted-agents/configure-networking",                              to: redirect("/docs/pipelines/hosted-agents/network-security")
   get "/docs/pipelines/hosted-agents/internal-container-registries",                     to: redirect("/docs/pipelines/hosted-agents/internal-container-registry")
   get "/docs/pipelines/hosted-agents/overview",                                          to: redirect("/docs/pipelines/hosted-agents")
   get "/docs/pipelines/hosted-agents/mac",                                               to: redirect("/docs/pipelines/hosted-agents/macos")

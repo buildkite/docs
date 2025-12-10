@@ -1,11 +1,15 @@
 ACLs
 addr
 allow_any_instance_of
-Allowlist
 allowlist
+allowlisted
+allowlists
+Amazon ECR
+Amazon Elastic Container Registry
 AMI's
 AMIs
 Ansible
+Anthropic's
 anti-pattern
 API
 API's
@@ -13,9 +17,6 @@ APIs
 apk
 APM
 applesimutils
-Amazon ECR
-Amazon Elastic Container Registry
-Anthropic's
 Aqua
 architecting
 Argo CD
@@ -295,6 +296,8 @@ pngs
 pnpm
 pod_watcher
 podWatcher
+polyrepo
+polyrepos
 Postgres
 PowerShell
 PR's
@@ -333,6 +336,8 @@ routable
 rpmbuild
 RSpec
 ruleset
+runbook
+runbooks
 runtimes
 rustup
 rvm
@@ -389,6 +394,7 @@ svg
 swiftformat
 swiftlint
 systemd
+Tailscale
 teardown
 templated
 tgz
@@ -420,6 +426,7 @@ unencrypted
 unpatched
 unpermitted
 unreviewed
+unscoped
 unset
 unsets
 unsetting

@@ -82,6 +82,8 @@
           path: "pipelines/best-practices/environment-and-dependency"
         - name: "Secrets management"
           path: "pipelines/best-practices/secrets-management"
+        - name: "Infrastructure as code recommendations"
+          path: "pipelines/best-practices/iac"
         - name: "Git checkout optimization"
           path: "pipelines/best-practices/git-checkout-optimization"
         - name: "Plugin management"
@@ -501,6 +503,8 @@
           path: "pipelines/hosted-agents/remote-docker-builders"
         - name: "Internal container registry"
           path: "pipelines/hosted-agents/internal-container-registry"
+        - name: "Network security"
+          path: "pipelines/hosted-agents/network-security"
     - name: "Rules"
       children:
         - name: "Overview"
