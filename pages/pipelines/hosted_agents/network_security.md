@@ -1,4 +1,4 @@
-# Configure networking
+# Network security
 
 Companies with VPN requirements typically use IP allowlists to control network access.
 
@@ -21,7 +21,8 @@ To access your hosted agent IP addresses, you can do so from the Buildkite inter
     The IP address range of each Buildkite hosted queue's hosted agents are listed on separate lines, which you can copy for your own networking configurations.
 
 > 📘
-> Be aware that these IP address ranges are not strictly static, and on rare occasions, these address ranges could change. On such occasions, however, Buildkite will aim to inform you of such events ahead of time, so that you can be prepared to update your network configurations accordingly. If you do require dedicated static IP addresses for your hosted agents' IP addresses, contact Support at support@buildkite.com.
+> Be aware that these IP address ranges are not strictly static, and on rare occasions, these address ranges could change. On such occasions, however, Buildkite will aim to inform you of such events ahead of time, so that you can be prepared to update your network configurations accordingly.
+> If you do require dedicated static IP addresses for your hosted agents' IP addresses, contact Support at support@buildkite.com.
 
 ## Buildkite platform IP addresses
 
