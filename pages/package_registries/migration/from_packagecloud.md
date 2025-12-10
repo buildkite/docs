@@ -31,7 +31,7 @@ set -euo pipefail
 PACKAGECLOUD_TOKEN="${PACKAGECLOUD_TOKEN:-}"
 PACKAGECLOUD_USER="${PACKAGECLOUD_USER:-}"
 PACKAGECLOUD_REPO="${PACKAGECLOUD_REPO:-}"
-OUTPUT_DIR="${OUTPUT_DIR:-./packagecloud-export}"
+OUTPUT_DIR="${OUTPUT_DIR:-./packagecloud-export/${PACKAGECLOUD_REPO}}"
 PER_PAGE=100
 
 if [[ -z "$PACKAGECLOUD_TOKEN" ]]; then
@@ -147,18 +147,21 @@ export PACKAGECLOUD_REPO="your-repository"
 ./export-packagecloud.sh
 ```
 
-The script creates the following directory structure, organizing packages by type:
+The script creates the following directory structure, organizing packages by repository and type:
 
 ```
 packagecloud-export/
-├── manifest.json
-├── deb/
-│   └── example_1.0.0_amd64.deb
-├── rpm/
-│   └── example-1.0.0-1.x86_64.rpm
-└── gem/
-    └── example-1.0.0.gem
+└── my-repo/
+    ├── manifest.json
+    ├── deb/
+    │   └── example_1.0.0_amd64.deb
+    ├── rpm/
+    │   └── example-1.0.0-1.x86_64.rpm
+    └── gem/
+        └── example-1.0.0.gem
 ```
+
+Each package type folder maps to one Buildkite registry. For example, import all packages from `deb/` into a single Buildkite Debian registry.
 
 ## Export packages manually
 
