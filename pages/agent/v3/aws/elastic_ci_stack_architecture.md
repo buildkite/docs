@@ -29,7 +29,7 @@ The EC2 instances provisioned by the stack run using a pre-configured Amazon Mac
 - CloudWatch Agent - for streaming to log groups.
 - AWS CLI - for interacting with AWS Resources during build-time; can be used within a pipeline.
 - EC2 Instance Connect - This can be used to connect to an instance via the AWS Console.
-- cfn-bootstrap - We use helper scripts (`cfn-init`, `cfn-signal`) within CloudFormation to provision the instance.
+- cfn-bootstrap - helper scripts (`cfn-init`, `cfn-signal`) are used within CloudFormation to provision the instance.
 
 ### Helper utilities
 
