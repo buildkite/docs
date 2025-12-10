@@ -106,7 +106,7 @@ This works alongside the demand-based scaling provided by the Agent Scaler Lambd
 
 The stack uses Auto Scaling lifecycle hooks to ensure graceful termination of agents. Without lifecycle hooks, AWS would immediately terminate instances when scaling in or rebalancing, which would interrupt any running builds and potentially cause failures or data loss.
 
-Lifecycle hooks pause the termination process, giving the Buildkite agent time to complete its current job before the instance is destroyed. This is critical for maintaining build reliability and ensuring that your CI/CD pipelines don't experience unexpected interruptions.
+Lifecycle hooks pause the termination process, giving the Buildkite Agent time to complete its current job before the instance is destroyed. This is critical for maintaining build reliability and ensuring that your CI/CD pipelines don't experience unexpected interruptions.
 
 ### Instance terminating hook
 
