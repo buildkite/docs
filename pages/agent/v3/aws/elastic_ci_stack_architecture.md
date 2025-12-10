@@ -94,10 +94,10 @@ The polling interval can be configured using the `ScaleInIdlePeriod` (CloudForma
 You can configure scheduled scaling actions to adjust the minimum size of the cluster based on time of day. This is useful for predictable workload patterns, such as scaling up during business hours when builds are most frequent, and scaling down at night or on weekends to reduce costs.
 
 Scheduled scaling is implemented using AWS Auto Scaling Scheduled Actions, which allow you to define:
+
 - A target minimum size for the Auto Scaling group at specific times
 - Recurring schedules using cron expressions
 - Time zone specifications to ensure schedules match your team's working hours
-
 For example, you might configure a schedule that sets the minimum size to 5 instances at 8:00 AM on weekdays and back to 0 at 6:00 PM. The Agent Scaler Lambda will still handle demand-based scaling above the minimum, but scheduled scaling ensures you have a baseline number of instances ready when you need them.
 
 This works alongside the demand-based scaling provided by the Agent Scaler Lambda. The scheduled actions set the minimum capacity floor, while the Lambda handles real-time scaling based on actual job demand.
