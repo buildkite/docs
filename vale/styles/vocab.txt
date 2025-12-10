@@ -295,6 +295,8 @@ pngs
 pnpm
 pod_watcher
 podWatcher
+polyrepo
+polyrepos
 Postgres
 PowerShell
 PR's
@@ -332,6 +334,8 @@ routable
 rpmbuild
 RSpec
 ruleset
+runbook
+runbooks
 runtimes
 rustup
 rvm
@@ -420,6 +424,7 @@ unencrypted
 unpatched
 unpermitted
 unreviewed
+unscoped
 unset
 unsets
 unsetting
