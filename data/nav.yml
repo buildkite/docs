@@ -178,6 +178,8 @@
                       path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/buildkit-container-builds"
                     - name: "Remote BuildKit on EC2"
                       path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/remote-buildkit-ec2"
+                    - name: "Docker Compose"
+                      path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/docker-compose-container-builds"
                     - name: "Kaniko"
                       path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/kaniko-container-builds"
                     - name: "Buildah"
