@@ -137,7 +137,7 @@ Buildkite services are billed according to your [plan](https://buildkite.com/pri
 
 ### Supported builds
 
-This stack is designed to run your builds in a share-nothing pattern similar to the [Twelve-Factor App methodology](http://12factor.net):
+This stack is designed to run your builds in a shared-nothing pattern similar to the [Twelve-Factor App methodology](http://12factor.net):
 
 * Each project should encapsulate its dependencies through Docker and Docker Compose.
 * Build pipeline steps should assume no state on the machine (and instead rely on [build meta-data](/docs/guides/build-meta-data), [build artifacts](/docs/guides/artifacts), or S3).
@@ -161,7 +161,7 @@ Click **New Build** in the top right and choose a build message (perhaps a littl
 
 <%= image "buildkite-new-build.png", size: "#{1140/2}x#{898/2}", alt: 'Triggering Buildkite Build' %>
 
-Once your build is created, head back to [AWS EC2 Auto Scaling Groups](https://console.aws.amazon.com/ec2/v2/home?#AutoScalingGroups) to watch the Elastic CI Stack for AWS creating new EC2 instances:
+Once your build is created, head back to the [AWS EC2 Auto Scaling Groups](https://console.aws.amazon.com/ec2/v2/home?#AutoScalingGroups) to watch the Elastic CI Stack for AWS creating new EC2 instances:
 
 <%= image "ec2-asg.png", size: "#{400/2}x#{200/2}", alt: 'AWS EC2 Auto Scaling Group Menu' %>
 

@@ -61,7 +61,7 @@ The following AWS IAM permissions are required to build custom AMIs using the pr
 }
 ```
 
-It is also recommended that you have a base knowledge of:
+You'll also benefit from familiarity with:
 
 - [Packer](https://developer.hashicorp.com/packer/docs/intro)
 - [HashiCorp configuration language (HCL)](https://github.com/hashicorp/hcl?tab=readme-ov-file#hcl)
@@ -69,7 +69,7 @@ It is also recommended that you have a base knowledge of:
 
 ## Creating an image
 
-To create a custom AMI, use the provided Packer templates to build new images with your modifications. First, make your desired changes to the Packer templates, then run the [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) in the root directory to begin the build process.
+To create a custom AMI, use the provided Packer templates to build new images with your modifications. First, make your changes to the Packer templates, then run the [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) in the root directory to begin the build process.
 
 This [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) provides several build targets, each running Packer in a Docker container:
 
