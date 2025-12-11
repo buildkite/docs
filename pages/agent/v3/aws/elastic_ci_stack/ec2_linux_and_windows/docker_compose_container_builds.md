@@ -14,22 +14,6 @@ When running the [Docker Compose plugin](https://buildkite.com/resources/plugins
 
 The Elastic CI Stack for AWS provides EC2 instances with Docker pre-installed and running. Each agent has its own Docker daemon, providing complete isolation between builds without the complexity of Docker-in-Docker or socket mounting.
 
-Since each EC2 agent has its own Docker daemon, you get:
-
-- **Complete isolation**: Each build runs on a dedicated agent with its own Docker daemon
-- **Native performance**: Docker runs directly on the host without virtualization overhead
-- **No configuration required**: Docker is ready to use immediately when agents start
-- **Resource efficiency**: Agents scale up and down automatically based on queue demand
-
-### Agent lifecycle and caching
-
-Elastic CI Stack for AWS agents are ephemeral EC2 instances that terminate after builds complete. This impacts caching strategies:
-
-- **Registry-based caching**: Use BuildKit inline cache stored in your container registry to persist build layers across agent lifecycles
-- **Cache warming**: Pre-build cache images to ensure consistent build performance
-- **Layer optimization**: Structure Dockerfiles to maximize cache hits by placing frequently changing layers last
-- **No local cache persistence**: Agent storage is ephemeral and lost when agents terminate
-
 ### Build context and file access
 
 In Elastic CI Stack for AWS, the build context is the checked-out repository on the EC2 agent's filesystem. By default, the [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) uses the current working directory as the build context.
@@ -60,14 +44,7 @@ For AWS ECR, the Elastic CI Stack for AWS agents can use IAM roles for authentic
 
 ### Resource allocation
 
-Building container images can be resource-intensive, especially for large applications or when building multiple services. Configure your Elastic CI Stack for AWS agent instance types accordingly:
-
-- **Instance types**: Choose instance types with sufficient memory and CPU for your builds (e.g., `c5.2xlarge` for CPU-intensive builds, `r5.xlarge` for memory-intensive builds)
-- **Storage**: Ensure sufficient ephemeral storage for Docker layers, build artifacts, and intermediate files
-- **Network bandwidth**: Consider instance types with enhanced networking for faster registry push/pull operations
-- **Auto-scaling**: Configure queue settings to scale agents based on build demand
-
-Without appropriate instance types, builds may fail with Out of Memory (OOM) errors or timeout due to insufficient resources. Monitor agent resource usage in CloudWatch and adjust instance types as needed.
+Building container images can be resource-intensive, especially for large applications or when building multiple services. Configure your Elastic CI Stack for AWS agent instance types and other required resources accordingly. Without appropriate resources, builds may fail with Out of Memory (OOM) errors or timeouts
 
 ## Configuration approaches with the Docker Compose plugin
 
@@ -165,7 +142,7 @@ steps:
     agents:
       queue: default
     plugins:
-      - ecr#v2.10.0:
+      - ecr#v2.11.0:
           login: true
           account-ids: "123456789012"
           region: us-west-2
@@ -201,7 +178,7 @@ steps:
     agents:
       queue: default
     plugins:
-      - ecr#v2.10.0:
+      - ecr#v2.11.0:
           login: true
           account-ids: "123456789012"
           region: us-west-2
@@ -269,7 +246,7 @@ steps:
     agents:
       queue: default
     plugins:
-      - ecr#v2.10.0:
+      - ecr#v2.11.0:
           login: true
           account-ids: "123456789012"
           region: us-west-2
@@ -312,7 +289,7 @@ steps:
     agents:
       queue: default
     plugins:
-      - ecr#v2.10.0:
+      - ecr#v2.11.0:
           login: true
           account-ids: "123456789012"
           region: us-west-2
@@ -391,7 +368,7 @@ To enable build caching with BuildKit:
 
 ```yaml
 plugins:
-  - ecr#v2.10.0:
+  - ecr#v2.11.0:
       login: true
       account-ids: "123456789012"
       region: us-west-2
@@ -456,7 +433,7 @@ For AWS ECR, use the ECR plugin which handles authentication automatically:
 
 ```yaml
 plugins:
-  - ecr#v2.10.0:  # For AWS ECR
+  - ecr#v2.11.0:  # For AWS ECR
       login: true
       account-ids: "123456789012"
       region: us-west-2
@@ -504,7 +481,6 @@ plugins:
 Builds may fail due to agent startup problems or scaling limitations:
 
 - **Agent startup failures**: Check CloudWatch logs for agent initialization errors
-- **Queue backlog**: Monitor queue depth and agent scaling patterns in Buildkite
 - **Instance availability**: Verify sufficient instance capacity in your AWS region and availability zones
 - **IAM permissions**: Ensure the Elastic CI Stack has permissions to launch and manage EC2 instances
 - **VPC configuration**: Verify VPC, subnets, and security groups are correctly configured
@@ -545,27 +521,6 @@ steps:
           no-cache: true
 ```
 
-### Inspect build logs in AWS
-
-For builds running on Elastic CI Stack for AWS, access agent logs to see detailed build output:
-
-```bash
-# Find the agent instance for your build
-aws ec2 describe-instances \
-  --filters "Name=tag:Name,Values=buildkite-agent" \
-  --query 'Reservations[*].Instances[*].[InstanceId,LaunchTime,State.Name]' \
-  --output table
-
-# View CloudWatch logs for the agent (log group name depends on your Elastic CI Stack configuration)
-aws logs tail /aws/ec2/buildkite-agent --follow
-
-# SSH into the agent instance (if configured)
-# Note: User may be 'buildkite', 'ubuntu', or 'ec2-user' depending on your AMI
-ssh -i your-key.pem ec2-user@<agent-ip>
-docker ps -a
-docker logs <container-id>
-```
-
 ### Test docker-compose locally
 
 Test your `docker-compose.yml` configuration locally before running in the pipeline:
@@ -580,8 +535,6 @@ docker compose build
 # Check what images were created
 docker images
 
-# Test with BuildKit (if using)
-DOCKER_BUILDKIT=1 docker compose build
 ```
 
 This helps identify issues with the compose configuration itself, separate from pipeline or Elastic CI Stack concerns.
