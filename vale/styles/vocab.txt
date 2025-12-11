@@ -447,6 +447,7 @@ Vitest
 VMs
 VPC's
 VPCs
+VPNs
 waitlist
 walkthrough
 webhook's
