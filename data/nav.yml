@@ -599,6 +599,8 @@
               path: "pipelines/integrations/notifications/plugins"
         - name: "Observability"
           children:
+            - name: "Overview"
+              path: "pipelines/integrations/observability/overview"
             - name: "Datadog"
               path: "pipelines/integrations/observability/datadog"
             - name: "Honeycomb"
