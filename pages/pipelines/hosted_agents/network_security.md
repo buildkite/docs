@@ -2,11 +2,11 @@
 
 This page provides guidelines on how secure the network in which your Buildkite hosted agents operate, which includes network communications between the Buildkite hosted agents platform, the Buildkite platform itself, and other services external to these platforms.
 
-The primary recommendation is to secure these connections using [OIDC](/docs/pipelines/security/oidc), since OIDC tokens issued by Buildkite hosted agents, using the [`buildkite-agent oidc` command](/docs/agent/v3/cli-oidc), can be used to verify that network communications originate from those agents, which are associated with a specific Buildkite organization, pipeline, or metadata associated with a pipeline's job.
+The primary recommendation is to secure these communications using [OIDC](/docs/pipelines/security/oidc), since OIDC tokens issued by Buildkite hosted agents, using the [`buildkite-agent oidc` command](/docs/agent/v3/cli-oidc), can be used to verify that network communications originate from those agents, which are associated with a specific Buildkite organization, pipeline, or metadata associated with a pipeline's job. Using OIDC tokens to secure these communications means that they can be done so securely over the public internet, without the need for VPNs.
 
-Companies with VPN requirements typically use IP allowlists to control network access.
+Companies with VPN requirements typically use IP allowlists to control network access, where IP allowlists can be used as an alternative to securing these communications instead of using OIDC tokens.
 
-This page provides details on how to obtain relevant IP addresses to configure IP allowlists for your firewall or network, so that it can be used with Buildkite hosted agents, as well as other network security [considerations](#considerations) and [best practices for build infrastructure segmentation](#considerations-build-infrastructure-segmentation-best-practices).
+The remainder of page provides details on how to obtain relevant IP addresses, which you can use to configure IP allowlists for your firewall and VPNs, to secure your Buildkite hosted agents environment, as well as other network security [considerations](#considerations) and [best practices for build infrastructure segmentation](#considerations-build-infrastructure-segmentation-best-practices).
 
 ## Buildkite hosted agent IP address ranges
 
