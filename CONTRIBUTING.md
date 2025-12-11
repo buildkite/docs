@@ -253,7 +253,7 @@ Steps for adding add an image to a documentation page:
 
 1. Save the file into its corresponding `images` folder. This folder is a sub-folder within `images` whose path matches that of the Markdown page's path within `pages`, _which includes_ the file name of Markdown page that this image file is referenced on, as the final sub-folder. Create this sub-folder hierarchy if it doesn't yet exist within `images`.
 
-    For example, if you add an image called `my_image.png` to a page located in the path `/docs/pages/pipelines/insights/queue_metrics.md`, then save the actual image file to the path `/docs/images/pipelines/insights/queue_metrics/my_image.png`.
+    For example, if you add an image called `my_image.png` to a page located in the path `/pages/pipelines/insights/queue_metrics.md`, then save the actual image file to the path `/images/docs/pipelines/insights/queue_metrics/my_image.png`.
 
 1. Compose relevant alt text for the image file using sentence case.
 
