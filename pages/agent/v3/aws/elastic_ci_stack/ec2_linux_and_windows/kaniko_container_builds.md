@@ -49,7 +49,7 @@ Commit your changes. The step in your pipeline configuration will:
 - Push the image directly to the [Buildkite Package Registries](/docs/package_registries) using a short-lived OIDC token retrieved by the Buildkite Agent.
 
 > 📘 SSH repository requirements
-> If your Git repository uses SSH, make sure your [S3 secrets bucket for Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/secrets-bucket) contains a `private_ssh_key` at the correct prefix (or switch to HTTPS + `git-credentials`).
+> If your Git repository uses SSH, make sure your [S3 secrets bucket for Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security#s3-secrets-bucket) contains a `private_ssh_key` at the correct prefix (or switch to HTTPS + `git-credentials`).
 
 ## Running Kaniko in Docker
 

@@ -158,6 +158,8 @@
               children:
                 - name: "Overview"
                   path: "agent/v3/aws/elastic-ci-stack"
+                - name: "Architecture"
+                  path: "agent/v3/aws/elastic-ci-stack-architecture"
             - name: "EC2 Linux and Windows"
               children:
                 - name: "Setup with AWS CloudFormation"
@@ -166,16 +168,12 @@
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/terraform"
                 - name: "Security"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security"
-                - name: "AWS Secrets Manager"
-                  path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/secrets-manager"
-                - name: "Secrets bucket"
-                  path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/secrets-bucket"
                 - name: "Managing the Stack"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack"
                 - name: "Configuration parameters"
                   path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters"
-                - name: "CloudFormation service role"
-                  path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/cloudformation-service-role"
+                - name: "Creating custom AMIs"
+                  path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/creating-custom-amis"
                 - name: "Building container images"
                   children:
                     - name: "BuildKit"
