@@ -1,272 +1,248 @@
 # Export from Packagecloud
 
-To migrate your packages from Packagecloud to Buildkite Package Registries, you'll need to export/download packages from a Packagecloud repository before importing them to your Buildkite registry.
+This guide explains how to bulk export packages from Packagecloud repositories, ready for import into Buildkite Package Registries. Packagecloud doesn't provide a built-in bulk export feature, so this guide uses the Packagecloud REST API to list and download all packages.
 
-## Before you begin
+## Before you start
 
-- Create the target registries in Buildkite Package Registries, one per ecosystem you plan to migrate.
-- Generate a registry write token (or use OIDC from Buildkite Pipelines) and confirm you can publish to a test registry.
-- Decide whether to preserve existing coordinates exactly (name, version, distro/arch) or to rationalize them during migration.
-- For distro ecosystems (deb, rpm, alpine), plan new repo signing keys and apt/yum repo entries for consumers.
+To complete this export, you need:
 
-## What to export from Packagecloud
+- A Packagecloud account with access to the repository you want to export
+- Your Packagecloud API token
+- `curl` installed on your system
+- `jq` installed for JSON processing (install using `brew install jq` on macOS or `apt install jq` on Debian/Ubuntu)
+- Sufficient disk space for your packages
 
-You’ll export the original package files and, where practical, the basic metadata (name, version, distribution/architecture). Reliable ways to fetch packages For each ecosystem are outlined below.
+## Get your Packagecloud API token
 
-### Common export approaches
+1. Log in to [packagecloud.io](https://packagecloud.io).
+1. Navigate to [packagecloud.io/api_token](https://packagecloud.io/api_token).
+1. Copy your API token and store it securely.
 
-- Web UI: Download individual files for low volume.
-- API/CLI scripted download: List and download all files for a repo.
-- Native manager: If you have a canonical list of versions, pull them using the native client and re-publish.
+## Export all packages from a repository
 
-> 📘 Tip
-> Keep original filenames intact during export; many ecosystems embed version and coordinates in filenames.
+The following shell script exports all packages from a Packagecloud repository to a local directory. It handles pagination automatically and preserves the original filenames.
 
-## Ecosystem-specific export and import
-
-Below are proven patterns. For imports, favor Buildkite API for distro and “file” types, and native tools for language ecosystems.
-
-### Debian/Ubuntu (deb)
-
-Export from Packagecloud:
-
-- Use Packagecloud API to enumerate packages for a repo and download .deb files.
-- Preserve distro codename and architecture labels for later mapping.
-
-Import to Buildkite Package Registries:
-
-- Create a Debian registry in Buildkite Package Registries.
-- Publish using curl or Buildkite CLI:
+Create a file named `export-packagecloud.sh` with the following content:
 
 ```bash
-# REST API (token auth)
-curl -H "Authorization: Bearer $TOKEN" \
- -X POST "[https://api.buildkite.com/v2/packages/organizations/$ORG/registries/$REG/packages](https://api.buildkite.com/v2/packages/organizations/$ORG/registries/$REG/packages)" \
- -F "file=@./path/to/your_1.2.3_amd64.deb"
-```
-
-#### Nuances and differences
-
-- any/any support: If a package is truly distribution-agnostic, you can publish it once as deb “any/any” instead of duplicating per distro.
-- APT signing keys: Buildkite Package Registries will sign repository metadata with your Buildkite key, not the legacy Packagecloud key. Plan a rollout for updating consumer apt sources and keys.
-
-### Red Hat (RPM)
-
-Export from Packagecloud:
-
-- Use Packagecloud API to list and download .rpm files per repo.
-
-Import to Buildkite Package Registries:
-
-- Create an RPM registry in Buildkite Package Registries
-- Publish via REST API or CLI:
-
-```bash
-curl -H "Authorization: Bearer $TOKEN" \
- -X POST "[https://api.buildkite.com/v2/packages/organizations/$ORG/registries/$REG/packages](https://api.buildkite.com/v2/packages/organizations/$ORG/registries/$REG/packages)" \
- -F "file=@./path/to/your-1.2.3-1.x86_64.rpm"
-```
-
-#### Nuances and differences
-
-- any/any-like patterns: If binaries are distro-agnostic, publish a single RPM where appropriate rather than per minor distro.
-- YUM/DNF metadata is signed by Buildkite; rotate/import the new key on consumers.
-
-### Alpine (apk)
-
-Export from Packagecloud:
-
-- Enumerate and download .apk files from Packagecloud.
-
-Import to Buildkite Package Registries:
-
-```bash
-curl -H "Authorization: Bearer $TOKEN" \
- -X POST "[https://api.buildkite.com/v2/packages/organizations/$ORG/registries/$REG/packages](https://api.buildkite.com/v2/packages/organizations/$ORG/registries/$REG/packages)" \
- -F "file=@./path/to/pkg-1.2.3-r0.apk"
-```
-
-### Files (generic binaries)
-
-Export from Packagecloud:
-
-- Download original files as-is. Keep filenames stable; Buildkite Package Registries will validate and extract semver for Anyfile where applicable.
-
-Import to Buildkite Package Registries:
-
-```bash
-curl -H "Authorization: Bearer $TOKEN" \
- -X POST "[https://api.buildkite.com/v2/packages/organizations/$ORG/registries/$REG/packages](https://api.buildkite.com/v2/packages/organizations/$ORG/registries/$REG/packages)" \
- -F "file=@./artifact-1.2.3+build.json"
-```
-
-Note that Buildkite Package Registries validates filenames for semver where configured; files without version may be treated as `0.0.0` by legacy tools. Consider normalizing names during migration.
-
-### Python (PyPI)
-
-Export from Packagecloud:
-
-- Download sdist/wheel files (*.tar.gz,* .whl) for each release.
-
-Import to Buildkite Package Registries (use native tool):
-
-```bash
-# Twine to Buildkite PyPI registry
-python -m twine upload \
-  --repository-url [https://packages.buildkite.com/$ORG/$REG/pypi/](https://packages.buildkite.com/$ORG/$REG/pypi/) \
-  -u buildkite -p $TOKEN \
-  dist/*
-```
-
-### Java (Maven/Gradle)
-
-Export from Packagecloud:
-
-- Download all coordinates (groupId/artifactId/version) contents: .jar, pom, checksums, signatures.
-
-Import to Buildkite Package Registries (use native tool):
-
-- Maven deploy or Gradle publish to BK Maven registry, preserving GAV coordinates.
-
-```xml
-<!-- settings.xml server -->
-<server>
-  <id>bk-maven</id>
-  <username>buildkite</username>
-  <password>${env.TOKEN}</password>
-</server>
-```
-
-```bash
-mvn deploy -DaltDeploymentRepository=bk-maven::default::[https://packages.buildkite.com/$ORG/$REG/maven/](https://packages.buildkite.com/$ORG/$REG/maven/)
-```
-
-### JavaScript (npm)
-
-Export from Packagecloud:
-
-- Pull tarballs for each version, or reconstruct from registry metadata.
-
-Import to Buildkite Package Registries (use native tool):
-
-```bash
-npm set //[packages.buildkite.com/$ORG/$REG/npm/:_authToken=$TOKEN](http://packages.buildkite.com/$ORG/$REG/npm/:_authToken=$TOKEN)
-npm publish
-```
-
-### Ruby (RubyGems)
-
-Export from Packagecloud:
-
-- Download .gem files and associated metadata files if present.
-
-Import to Buildkite Package Registries (use native tool):
-
-```bash
-gem push --key buildkite --host [https://packages.buildkite.com/$ORG/$REG/gems/](https://packages.buildkite.com/$ORG/$REG/gems/) pkg-1.2.3.gem
-```
-
-### NuGet (.NET)
-
-Export from Packagecloud:
-
-- Download .nupkg and .nuspec where applicable.
-
-Import to Buildkite Package Registries (use native tool):
-
-```bash
-# dotnet nuget push
-dotnet nuget push *.nupkg \
-  --source [https://packages.buildkite.com/$ORG/$REG/nuget/v3/index.json](https://packages.buildkite.com/$ORG/$REG/nuget/v3/index.json) \
-  --api-key $TOKEN
-```
-
-### OCI images and Helm (OCI)
-
-Export from Packagecloud:
-
-- Pull images/charts and retag locally.
-
-Import to Buildkite Package Registries (use native tool):
-
-```bash
-# Docker/OCI
-docker login [packages.buildkite.com/$ORG/$REG](http://packages.buildkite.com/$ORG/$REG) -u buildkite -p $TOKEN
-docker tag src:1.2.3 [packages.buildkite.com/$ORG/$REG/src:1.2.3](http://packages.buildkite.com/$ORG/$REG/src:1.2.3)
-docker push [packages.buildkite.com/$ORG/$REG/src:1.2.3](http://packages.buildkite.com/$ORG/$REG/src:1.2.3)
-```
-
-## End-to-end scripted migration (pattern)
-
-1. Enumerate all packages in a Packagecloud repo via API and write a manifest (JSON) of filenames and coordinates.
-1. Download files to a staging directory that mirrors ecosystem structure.
-1. For each ecosystem, publish using the recommended method above.
-1. Verify availability using the ecosystem’s discovery endpoints or search.
-1. Switch users to Buildkite Package Registries URLs and keys.
-
-Pseudo-shell:
-
-```bash
+#!/bin/bash
 set -euo pipefail
-SRC_MANIFEST=pc-export.json
-STAGING=./export
 
-# 1. enumerate (ecosystem-specific; produce $SRC_MANIFEST)
-# 2. download
-jq -r '.files[].url' "$SRC_MANIFEST" | while read -r u; do
-  curl -SsL -O --output-dir "$STAGING" "$u"
+PACKAGECLOUD_TOKEN="${PACKAGECLOUD_TOKEN:-}"
+PACKAGECLOUD_USER="${PACKAGECLOUD_USER:-}"
+PACKAGECLOUD_REPO="${PACKAGECLOUD_REPO:-}"
+OUTPUT_DIR="${OUTPUT_DIR:-./packagecloud-export}"
+PER_PAGE=100
+
+if [[ -z "$PACKAGECLOUD_TOKEN" ]]; then
+    echo "Error: PACKAGECLOUD_TOKEN environment variable is required"
+    exit 1
+fi
+
+if [[ -z "$PACKAGECLOUD_USER" ]]; then
+    echo "Error: PACKAGECLOUD_USER environment variable is required"
+    exit 1
+fi
+
+if [[ -z "$PACKAGECLOUD_REPO" ]]; then
+    echo "Error: PACKAGECLOUD_REPO environment variable is required"
+    exit 1
+fi
+
+mkdir -p "$OUTPUT_DIR"
+
+echo "Exporting packages from packagecloud.io/${PACKAGECLOUD_USER}/${PACKAGECLOUD_REPO}"
+echo "Output directory: $OUTPUT_DIR"
+
+fetch_all_packages() {
+    local page=1
+    local all_packages="[]"
+
+    while true; do
+        echo "Fetching page $page..."
+
+        response=$(curl -s -u "${PACKAGECLOUD_TOKEN}:" \
+            "https://packagecloud.io/api/v1/repos/${PACKAGECLOUD_USER}/${PACKAGECLOUD_REPO}/packages.json?per_page=${PER_PAGE}&page=${page}")
+
+        if ! echo "$response" | jq -e 'type == "array"' > /dev/null 2>&1; then
+            echo "Error: Invalid API response on page $page"
+            echo "$response"
+            exit 1
+        fi
+
+        count=$(echo "$response" | jq 'length')
+
+        if [[ "$count" -eq 0 ]]; then
+            break
+        fi
+
+        echo "Found $count packages on page $page"
+        all_packages=$(echo "$all_packages" "$response" | jq -s 'add')
+
+        if [[ "$count" -lt "$PER_PAGE" ]]; then
+            break
+        fi
+
+        page=$((page + 1))
+    done
+
+    echo "$all_packages"
+}
+
+packages=$(fetch_all_packages)
+total=$(echo "$packages" | jq 'length')
+echo "Total packages to download: $total"
+
+echo "$packages" | jq '.' > "${OUTPUT_DIR}/manifest.json"
+echo "Package manifest saved to ${OUTPUT_DIR}/manifest.json"
+
+echo "$packages" | jq -c '.[]' | while read -r package; do
+    filename=$(echo "$package" | jq -r '.filename')
+    package_url=$(echo "$package" | jq -r '.package_url')
+    package_type=$(echo "$package" | jq -r '.type')
+
+    type_dir="${OUTPUT_DIR}/${package_type}/${PACKAGECLOUD_REPO}"
+    mkdir -p "$type_dir"
+
+    output_path="${type_dir}/${filename}"
+
+    if [[ -f "$output_path" ]]; then
+        echo "Skipping (already exists): $filename"
+        continue
+    fi
+
+    echo "Downloading: $filename"
+
+    package_details=$(curl -s -u "${PACKAGECLOUD_TOKEN}:" \
+        "https://packagecloud.io${package_url}")
+
+    download_url=$(echo "$package_details" | jq -r '.download_url // empty')
+
+    if [[ -z "$download_url" ]]; then
+        echo "  Warning: No download URL found for $filename, skipping"
+        continue
+    fi
+
+    if curl -s -L -u "${PACKAGECLOUD_TOKEN}:" -o "$output_path" "$download_url"; then
+        echo "  Saved to: $output_path"
+    else
+        echo "  Error: Failed to download $filename"
+        rm -f "$output_path"
+    fi
 done
 
-# 3. import (example: deb)
-for f in $(find "$STAGING/deb" -name '*.deb'); do
-  curl -H "Authorization: Bearer $TOKEN" \
-   -X POST "[https://api.buildkite.com/v2/packages/organizations/$ORG/registries/$DEB_REG/packages](https://api.buildkite.com/v2/packages/organizations/$ORG/registries/$DEB_REG/packages)" \
-   -F "file=@$f"
-done
+echo "Export complete. Output directory: $OUTPUT_DIR"
 ```
+{: codeblock-file="export-packagecloud.sh"}
 
-## Known differences and caveats
-
-- Index signing keys: APT/YUM metadata is signed by Buildkite Package Registries' keys. Plan a key rotation and update consumer repo setup accordingly.
-- any/any: Buildkite Package Registries supports true “any/any” for deb and rpm. If you duplicated uploads per distro previously, you can simplify to one upload per version.
-- File naming and version validation: Buildkite Package Registries may enforce clearer version parsing for generic files; normalize filenames if needed.
-- Download/install counts: Historical analytics typically aren’t migrated. Preserve them offline if you need a record.
-
-### Packagecloud vs Buildkite Package Registries: key differences (deb/rpm and files)
-
-| Area | Packagecloud | Buildkite Package Registries | Migration guidance |
-| --- | --- | --- | --- |
-| Deb/RPM repo signing keys | Repo metadata signed with Packagecloud global key for your repo | Repo metadata signed with your BK registry key | Plan a key rotation. Distribute the Buildkite Package Registries public key and update consumer apt/yum repo definitions during cutover. |
-| any/any usage (Deb/RPM) | Common to duplicate binaries per distro/version even if identical | Supports true "any/any" publication when binaries are distro-agnostic | Publish once per version using any/any to reduce duplication. Keep per-distro builds only when binaries or dependencies differ. |
-| File validation and naming (generic files) | Heuristic filename handling. Missing versions may be treated as 0.0.0 | Stricter filename parsing and semver validation for generic files (where enabled) | Normalize filenames to include clear name and version before import. Adjust scripts if any uploads fail validation. |
-
-## Validation checklist
-
-- Packages appear in Buildkite Package Registries with correct names and versions.
-- Search/metadata endpoints respond correctly for language registries.
-- apt/yum update succeeds and installs fetch the expected versions.
-- Docker/OCI pulls succeed for expected tags.
-- Consumers have rotated to Buildkite Package Registries repo URLs and keys.
-
-## Appendix: Minimal curl patterns for Buildkite Package Registries
+Make the script executable and run it:
 
 ```bash
-# Generic distro/file upload pattern
-curl -H "Authorization: Bearer $TOKEN" \
- -X POST "[https://api.buildkite.com/v2/packages/organizations/$ORG/registries/$REG/packages](https://api.buildkite.com/v2/packages/organizations/$ORG/registries/$REG/packages)" \
- -F "file=@/path/to/file"
+chmod +x export-packagecloud.sh
+
+export PACKAGECLOUD_TOKEN="your-api-token"
+export PACKAGECLOUD_USER="your-username"
+export PACKAGECLOUD_REPO="your-repository"
+
+./export-packagecloud.sh
 ```
+
+The script creates the following directory structure, organizing packages by ecosystem type and source repository:
+
+```
+packagecloud-export/
+├── manifest.json
+├── deb/
+│   └── my-repo/
+│       └── example_1.0.0_amd64.deb
+├── rpm/
+│   └── my-repo/
+│       └── example-1.0.0-1.x86_64.rpm
+└── gem/
+    └── my-repo/
+        └── example-1.0.0.gem
+```
+
+Each top-level folder (`deb/`, `rpm/`, `gem/`) maps to one Buildkite registry. The repository subdirectory preserves the source Packagecloud repository name, which is useful when exporting multiple repositories. To import all Debian packages into a Buildkite Debian registry:
 
 ```bash
-# OIDC in a Buildkite step to get a short-lived token
-buildkite_api_token=$(buildkite-agent oidc request-token --audience "[https://packages.buildkite.com](https://packages.buildkite.com)" --lifetime 300)
-BUILDKITE_API_TOKEN=$buildkite_api_token \
-  curl -H "Authorization: Bearer $buildkite_api_token" \
-   -X POST "[https://api.buildkite.com/v2/packages/organizations/$ORG/registries/$REG/packages](https://api.buildkite.com/v2/packages/organizations/$ORG/registries/$REG/packages)" \
-   -F "file=@/path/to/file"
+find ./packagecloud-export/deb -name "*.deb" -exec bk package push my-debian-registry {} \;
 ```
 
-As a result, you get a clean export of original artifacts, simplified any/any usage for distro packages, and reproducible imports using native tooling where it matters, or Buildkite Package Registries’s unified API where it shines.
+## Export packages manually
+
+For smaller repositories or more control over the export process, you can use curl commands directly.
+
+### List all packages in a repository
+
+```bash
+curl -s -u "YOUR_API_TOKEN:" \
+    "https://packagecloud.io/api/v1/repos/USERNAME/REPO/packages.json?per_page=100" \
+    | jq '.'
+```
+
+Replace `YOUR_API_TOKEN`, `USERNAME`, and `REPO` with your values. Note the trailing colon after the token, which is required for HTTP basic authentication with an empty password.
+
+### Get package details and download URL
+
+The package list response includes a `package_url` field. Use this to fetch the package details, which contain the `download_url`:
+
+```bash
+curl -s -u "YOUR_API_TOKEN:" \
+    "https://packagecloud.io/api/v1/repos/USERNAME/REPO/package/TYPE/DISTRO/VERSION/FILENAME.json" \
+    | jq '.download_url'
+```
+
+### Download a package
+
+```bash
+curl -L -u "YOUR_API_TOKEN:" \
+    -o "package-filename.deb" \
+    "DOWNLOAD_URL"
+```
+
+## Handling pagination
+
+The Packagecloud API returns a maximum of 100 packages per request. For repositories with more packages, use the `page` query parameter:
+
+```bash
+curl -s -u "YOUR_API_TOKEN:" \
+    "https://packagecloud.io/api/v1/repos/USERNAME/REPO/packages.json?per_page=100&page=2"
+```
+
+The API provides pagination information in response headers:
+
+- `Total`: Total number of packages
+- `Per-Page`: Number of packages per page
+- `Link`: Links to next, previous, and last pages
+
+## Troubleshooting
+
+### Authentication errors
+
+If you receive a 401 Unauthorized response, verify that:
+
+- Your API token is correct
+- The token is passed as the username with an empty password (note the trailing colon in `-u "TOKEN:"`)
+
+### Rate limiting
+
+Packagecloud may rate limit API requests. If you encounter rate limiting:
+
+- Add a delay between downloads by inserting `sleep 1` in the download loop
+- Run the export during off-peak hours
+
+### Missing download URLs
+
+Some package types use different API endpoints. If a package doesn't have a `download_url` in the response, check the [Packagecloud API documentation](https://packagecloud.io/docs/api) for the correct endpoint for that package type.
+
+## Before importing
+
+> 🚧 Distribution-based package types
+> For deb, rpm, and alpine packages, migration works only if your packages are distribution version-agnostic (for example, a package works on all Ubuntu versions such as Focal and Jammy). If your packages target specific distribution versions, contact [Buildkite support](mailto:support@buildkite.com) before proceeding.
+
+> 🚧 Repository signing keys
+> Buildkite Package Registries signs repository metadata with its own keys, not your Packagecloud keys. After migration, update your clients (apt, yum, apk) to use the new signing keys from your Buildkite registry.
 
 ## Next step
 
