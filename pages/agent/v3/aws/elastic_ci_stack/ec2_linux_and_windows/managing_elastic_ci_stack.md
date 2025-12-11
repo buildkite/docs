@@ -334,7 +334,7 @@ When using custom IAM roles for the Agent Scaler Lambda, the ASG Process Suspend
             "Action": [
                 "ssm:GetParameter"
             ],
-            "Resource": "arn:aws:ssm:*:*:parameter/YOUR_AGENT_TOKEN_PARAMETER_PATH"
+            "Resource": "arn\:aws\:ssm:*:*:parameter/YOUR_AGENT_TOKEN_PARAMETER_PATH"
         },
         {
             "Sid": "AsgProcessSuspender",
@@ -358,7 +358,7 @@ When using custom IAM roles for the Agent Scaler Lambda, the ASG Process Suspend
             "Action": [
                 "autoscaling:UpdateAutoScalingGroup"
             ],
-            "Resource": "arn:aws:autoscaling:*:*:autoScalingGroup:*:autoScalingGroupName/YOUR_STACK_NAME-*"
+            "Resource": "arn\:aws\:autoscaling:*:*:autoScalingGroup:*:autoScalingGroupName/YOUR_STACK_NAME-*"
         },
         {
             "Sid": "StopBuildkiteAgentsSSMDocument",
@@ -366,7 +366,7 @@ When using custom IAM roles for the Agent Scaler Lambda, the ASG Process Suspend
             "Action": [
                 "ssm:SendCommand"
             ],
-            "Resource": "arn:aws:ssm:*::document/AWS-RunShellScript"
+            "Resource": "arn\:aws\:ssm:*::document/AWS-RunShellScript"
         },
         {
             "Sid": "StopBuildkiteAgentsSSMInstances",
@@ -374,7 +374,7 @@ When using custom IAM roles for the Agent Scaler Lambda, the ASG Process Suspend
             "Action": [
                 "ssm:SendCommand"
             ],
-            "Resource": "arn:aws:ec2:*:*:instance/*",
+            "Resource": "arn\:aws\:ec2:*:*:instance/*",
             "Condition": {
                 "StringEquals": {
                     "aws:ResourceTag/aws:autoscaling:groupName": "YOUR_ASG_NAME"
@@ -389,7 +389,7 @@ When using custom IAM roles for the Agent Scaler Lambda, the ASG Process Suspend
                 "logs:CreateLogStream",
                 "logs:PutLogEvents"
             ],
-            "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/YOUR_STACK_NAME-*"
+            "Resource": "arn\:aws\:logs:*:*:log-group:/aws/lambda/YOUR_STACK_NAME-*"
         }
     ]
 }
@@ -417,8 +417,8 @@ When using Elastic CI mode for the Scaler Lambda, the following additional permi
                 "ssm:GetCommandInvocation"
             ],
             "Resource": [
-                "arn:aws:ssm:*::document/AWS-RunShellScript",
-                "arn:aws:ec2:*:*:instance/*"
+                "arn\:aws\:ssm:*::document/AWS-RunShellScript",
+                "arn\:aws\:ec2:*:*:instance/*"
             ]
         },
         {
@@ -427,7 +427,7 @@ When using Elastic CI mode for the Scaler Lambda, the following additional permi
             "Action": [
                 "ec2:TerminateInstances"
             ],
-            "Resource": "arn:aws:ec2:*:*:instance/*",
+            "Resource": "arn\:aws\:ec2:*:*:instance/*",
             "Condition": {
                 "StringEquals": {
                     "ec2:ResourceTag/aws:autoscaling:groupName": "YOUR_ASG_NAME"
@@ -513,10 +513,10 @@ When using Terraform, there is no limit on the number of paths that can be used 
 For Lambda functions, you can provide custom role Amazon Resource Names (ARNs) in `terraform.tfvars`:
 
 ```hcl
-instance_role_arn                  = "arn:aws:iam::123456789012:role/MyBuildkiteRole"
-scaler_lambda_role_arn             = "arn:aws:iam::123456789012:role/MyBuildkiteRole"
-asg_process_suspender_role_arn     = "arn:aws:iam::123456789012:role/MyBuildkiteRole"
-stop_buildkite_agents_role_arn     = "arn:aws:iam::123456789012:role/MyBuildkiteRole"
+instance_role_arn                  = "arn\:aws\:iam::123456789012:role/MyBuildkiteRole"
+scaler_lambda_role_arn             = "arn\:aws\:iam::123456789012:role/MyBuildkiteRole"
+asg_process_suspender_role_arn     = "arn\:aws\:iam::123456789012:role/MyBuildkiteRole"
+stop_buildkite_agents_role_arn     = "arn\:aws\:iam::123456789012:role/MyBuildkiteRole"
 ```
 
 You can use the same role for all resources, or provide different roles for each Lambda function and the EC2 instances.
