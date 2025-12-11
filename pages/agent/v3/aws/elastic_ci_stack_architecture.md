@@ -6,17 +6,17 @@ This diagram illustrates a standard deployment of Elastic CI Stack for AWS.
 
 <%= image "buildkite-elastic-ci-stack-on-aws-architecture.png", alt: "Elastic CI Stack for AWS Architecture Diagram" %>
 
-The primary layout of the stack is built around AWS autoscaling components, with an AutoScaling Group (ASG) being the center piece. The ASG manages the lifecycle of EC2 instances, ensuring that the cluster scales out to meet demand, and scales in to save costs.
+The primary layout of the stack is built around AWS autoscaling components, with an Auto Scaling group (ASG) being the center piece. The ASG manages the lifecycle of EC2 instances, ensuring that the cluster scales out to meet demand, and scales in to save costs.
 
 The instances with the ASG are managed via a launch template; the launch template defines the configuration for EC2 instances launched via the ASG, the launch template will define configuration such as the AMI used, the instance type(s) available, security groups and user data scripts.
 
-User data scripts are scripts that run at boot-time on the instance to ensure the instance has environment variables propagated, and any additional tools via bootstrap scripts (which are user provided via input configuration) are correctly installed. Once the user data scripts are completed, the instance will be moved into a healthy state. If they fail, the instance will be marked as unhealthy in the ASG and subsequently terminated.
+User data scripts are scripts that run at boot time on the instance to ensure the instance has environment variables propagated, and any additional tools via bootstrap scripts (which are user provided via input configuration) are correctly installed. Once the user data scripts are completed, the instance will be moved into a healthy state. If they fail, the instance will be marked as unhealthy in the ASG and subsequently terminated.
 
-Now that the core architecture has been laid out, let's look into the specifics of the stack, from top to bottom.
+Now that the core architecture has been laid out, let's look into the specifics of the stack.
 
 ## Software stack
 
-The EC2 instances provisioned by the stack run using a pre-configured Amazon Machine Image (AMI) based on Amazon Linux 2023. The image comes with a suite of software to support your builds and manage the instance, these tools are used to manage the instance in a variety of ways and can be broke down into four subsections.
+The EC2 instances provisioned by the stack run using a pre-configured Amazon Machine Image (AMI) based on Amazon Linux 2023. The image comes with a suite of software to support your builds and manage the instance, these tools are used to manage the instance in a variety of ways and can be broken down into four subsections.
 
 ### Core components
 
@@ -27,7 +27,7 @@ The EC2 instances provisioned by the stack run using a pre-configured Amazon Mac
 ### AWS integration
 - Amazon SSM Agent -  enables remote management of instances, is used this from the Agent Scaler in order to kill Buildkite Agent processes.
 - CloudWatch Agent - for streaming to log groups.
-- AWS CLI - for interacting with AWS Resources during build-time; can be used within a pipeline.
+- AWS CLI - for interacting with AWS Resources during build time; can be used within a pipeline.
 - EC2 Instance Connect - can be used to connect to an instance via the AWS Console.
 - cfn-bootstrap - helper scripts (`cfn-init`, `cfn-signal`) are used within CloudFormation to provision the instance.
 
@@ -47,7 +47,7 @@ The EC2 instances provisioned by the stack run using a pre-configured Amazon Mac
 
 The stack uses EC2 user data to perform final configuration at boot time. The script for this is constantly evolving, so you will benefit from looking at the [UserData Scripts used in our Terraform Module](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws/tree/main/scripts) to get a better idea of what is happening under the hood.
 
-For the most part, the User Data script is used to pass input configuration from the deployment method, whether that be AWS CloudFormation or Terraform, directly to the runtime of the instance.
+For the most part, the User Data script is used to pass input configuration from the deployment method, whether that be AWS CloudFormation or Terraform, directly to the run time of the instance.
 
 When a bootstrap script is defined within input configuration, this is ran after the initial User Data scripts have ran, using the [bk-install-elastic-stack.sh](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/packer/linux/stack/conf/bin/bk-install-elastic-stack.sh) script.
 
@@ -139,7 +139,7 @@ The stack creates and manages several S3 buckets for different purposes, from st
 
 ### Secrets bucket
 
-The stack creates a dedicated S3 bucket to store encrypted secrets (such as SSH keys and environment variables) used by the agents. Access to this bucket is restricted using IAM policies, ensuring that only authorized instances can retrieve secrets. The `s3secrets-helper` utility running on agent instances fetches and decrypts secrets from this bucket at runtime, making them available to your builds without exposing them in your infrastructure as code.
+The stack creates a dedicated S3 bucket to store encrypted secrets (such as SSH keys and environment variables) used by the agents. Access to this bucket is restricted using IAM policies, ensuring that only authorized instances can retrieve secrets. The `s3secrets-helper` utility running on agent instances fetches and decrypts secrets from this bucket at run time, making them available to your builds without exposing them in your infrastructure as code.
 
 ### Secrets logging bucket
 

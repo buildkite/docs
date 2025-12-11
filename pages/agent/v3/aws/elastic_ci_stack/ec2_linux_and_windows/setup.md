@@ -3,9 +3,9 @@
 This guide leads you through getting started with the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) for Linux and Windows using [AWS CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html).
 
 > 📘 Prefer Terraform?
-> This guide uses AWS CloudFormation. For the Terraform setup instructions, see the [Terraform setup guide](/docs/agent/v3/aws/elastic_ci_stack/ec2_linux_and_windows/terraform).
+> This guide uses AWS CloudFormation. For the Terraform setup instructions, see the [Terraform setup guide](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/terraform).
 
-With the help of the Elastic CI Stack for AWS, you are able to launch a private, autoscaling [Buildkite Agent cluster](/docs/pipelines/clusters) in your own AWS account.
+The Elastic CI Stack for AWS lets you launch a private, autoscaling [Buildkite Agent cluster](/docs/pipelines/clusters) in your own AWS account.
 
 <!-- vale off -->
 

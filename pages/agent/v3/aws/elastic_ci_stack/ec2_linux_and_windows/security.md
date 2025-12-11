@@ -53,11 +53,6 @@ You don't need to create keys for the default deployment of Elastic CI Stack for
 
 Remember that such keys are not intended to be public, and you must not grant public access to them.
 
-
-
-## Build secrets
-
-
 ## Sensitive data
 
 The following types of sensitive data are present in Elastic CI Stack for AWS:
