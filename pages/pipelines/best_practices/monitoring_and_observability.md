@@ -20,7 +20,7 @@ Choose integrations based on your existing [observability](/docs/pipelines/integ
 
 ### Core pipeline telemetry recommendations
 
-Establish standardized metrics collection across all pipelines to enable consistent monitoring and analysis:
+Establish standardized metrics collection across all pipelines to enable consistent [monitoring](/docs/agent/v3/monitoring) and analysis:
 
 - Track build times by pipeline, step, and queue to identify performance bottlenecks with build duration metrics.
 - Monitor agent availability and scaling efficiency across different workload types by tracking queue wait times.
