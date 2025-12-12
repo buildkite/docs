@@ -220,6 +220,7 @@ launchd
 LFS
 libpq
 Lifecycled
+lifecycled
 Lightstep
 linux
 llamasecret
@@ -316,6 +317,7 @@ rbenv
 readme
 readmes
 rearchitect
+rebalancing
 refetch
 refspec
 rehydrate

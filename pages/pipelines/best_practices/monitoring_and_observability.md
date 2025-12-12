@@ -10,7 +10,7 @@ This page covers the best practices regarding monitoring, observability, and log
 
 ### Quick checklist for using telemetry
 
-Choose integrations based on your existing tooling and needs:
+Choose integrations based on your existing [observability](/docs/pipelines/integrations/observability/overview) tooling and needs:
 
 - Enable [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) for real-time alerting when you need to integrate with AWS-native tooling. Start with setting up notifications and subscribe your alerting pipeline.
 - Turn on [OpenTelemetry (OTel)](/docs/pipelines/integrations/observability/opentelemetry) export when you need vendor-neutral observability that works with your existing OTel collector. Start with job spans and queue metrics.

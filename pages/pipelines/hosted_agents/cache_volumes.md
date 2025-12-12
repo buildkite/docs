@@ -180,11 +180,11 @@ A Git mirror volume's name is based on your cloud-based Git service's account an
 
 You can view all of your current cluster's volumes through its **Cached Storage** > **Volumes** page.
 
-## Deleting a volume
+## Viewing and deleting volumes
 
-Deleting a [container cache](#container-cache-volumes) or [Git mirror](#git-mirror-volumes) volume may affect the build time for the associated pipelines until the new volume is established.
+Deleting a [container cache](#container-cache-volumes) or [Git mirror](#git-mirror-volumes) volume, or any additional [local builder volume](/docs/pipelines/hosted-agents/remote-docker-builders#additional-volumes) (also listed on the **Cached Storage** > **Volumes** page) may affect the build time for the associated pipelines until the new volume is established.
 
-To delete a volume:
+To view a list of volumes and delete one:
 
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 
