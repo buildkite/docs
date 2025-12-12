@@ -450,8 +450,12 @@ Ensure the Elastic CI Stack agent IAM role has the necessary ECR permissions:
   "Statement": [
     {
       "Effect": "Allow",
+      "Action": ["ecr:GetAuthorizationToken"],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
       "Action": [
-        "ecr:GetAuthorizationToken",
         "ecr:BatchCheckLayerAvailability",
         "ecr:GetDownloadUrlForLayer",
         "ecr:BatchGetImage",
@@ -460,7 +464,7 @@ Ensure the Elastic CI Stack agent IAM role has the necessary ECR permissions:
         "ecr:UploadLayerPart",
         "ecr:CompleteLayerUpload"
       ],
-      "Resource": "*"
+      "Resource": "arn:aws:ecr:region:123456789012:repository/name"
     }
   ]
 }
