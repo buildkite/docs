@@ -138,7 +138,9 @@ Protect sensitive pipelines with appropriate access restrictions:
 
 Create and maintain a curated set of [plugins](/docs/pipelines/best-practices/plugin-management/) to standardize tooling and reduce configuration duplication. Provide development teams with approved, secure, well-maintained tools while controlling the CI/CD environment.
 
-## Deployment controls:**
+Learn more about [Plugin management](/docs/pipelines/best-practices/plugin-management).
+
+## Deployment controls
 
 Use block steps for production approvals:
 
