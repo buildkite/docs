@@ -291,6 +291,7 @@ If you would like your plugin to appear in a certain category in the plugins dir
   + Packages: `package`, `packaging`, `npm`, `pip`
   + AI/LLMs: `ai`, `llm`, `ml`, `machine learning`
   + Project management: `project`, `management`
+  + Incident management: `incident`, `incident-response`, `alert`
 * Integration
   + Integrations: `integration`, `integrations`, `slack`, `discord`, `jira`
   + AWS: `aws`, `amazon`
