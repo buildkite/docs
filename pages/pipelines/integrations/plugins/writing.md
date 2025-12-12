@@ -271,40 +271,40 @@ Once completed, your plugin will appear in the directory:
 
 If you would like your plugin to appear in a certain category in the plugins directory, you need to add the corresponding GitHub label(s). Currently, the following labels will be recognized by the plugins directory:
 
-* Task
-  + Code checkout: `checkout`, `git`, `svn`
-  + Tests: `test`, `testing`, `junit`, `jest`
-  + Cache: `cache`, `caching`
-  + Containers/Docker: `docker`, `container`, `containers`
-  + Running jobs in Kubernetes : `kubernetes`, `k8s`
-  + Secrets: `secret`, `secrets`, `vault`
-  + Authenticate: `auth`, `authenticate`
-  + Writing Buildkite pipelines: `pipeline`, `pipelines`
-  + Deploy: `deploy`, `deployment`, `release`
-  + Running jobs in VMs: `vm`, `virtual machine`
-  + Security & compliance: `security`,`compliance`,`audit`,`scan`,`scanning`,`vulnerability`
-  + Running jobs in Windows: `windows`
-  + Observability: `observability`, `monitoring`, `logging`, `metrics`
-  + Mobile app development: `mobile`, `ios`, `android`, `react-native`
-  + Notify: `notify`, `notification`
-  + Linting & formatting: `lint`, `linting`, `format`, `formatting`, `shellcheck`
-  + Packages: `package`, `packaging`, `npm`, `pip`
-  + AI/LLMs: `ai`, `llm`, `ml`, `machine learning`
-  + Project management: `project`, `management`
-  + Incident management: `incident`, `incident-response`, `alert`
-* Integration
-  + Integrations: `integration`, `integrations`, `slack`, `discord`, `jira`
-  + AWS: `aws`, `amazon`
-  + GCP: `gcp`, `google-cloud`, `google`
-  + Azure: `azure`, `microsoft`
-* Language
-  + Java: `java`, `maven`, `gradle`
-  + Ruby: `ruby`, `rails`
-  + Golang: `go`, `golang`
-  + JavaScript: `javascript`, `typescript`, `node`, `nodejs`
-  + Bazel: `bazel`
-  + Infrastructure as code: `terraform`, `cloudformation`, `cfn`, `infrastructure`
-  + Other languages: `julia`, `python`, `rust`, `c++`, `c#`, `dhall`
+- Task
+  * Code checkout: `checkout`, `git`, `svn`
+  * Tests: `test`, `testing`, `junit`, `jest`
+  * Cache: `cache`, `caching`
+  * Containers/Docker: `docker`, `container`, `containers`
+  * Running jobs in Kubernetes : `kubernetes`, `k8s`
+  * Secrets: `secret`, `secrets`, `vault`
+  * Authenticate: `auth`, `authenticate`
+  * Writing Buildkite pipelines: `pipeline`, `pipelines`
+  * Deploy: `deploy`, `deployment`, `release`
+  * Running jobs in VMs: `vm`, `virtual machine`
+  * Security & compliance: `security`,`compliance`,`audit`,`scan`,`scanning`,`vulnerability`
+  * Running jobs in Windows: `windows`
+  * Observability: `observability`, `monitoring`, `logging`, `metrics`
+  * Mobile app development: `mobile`, `ios`, `android`, `react-native`
+  * Notify: `notify`, `notification`
+  * Linting & formatting: `lint`, `linting`, `format`, `formatting`, `shellcheck`
+  * Packages: `package`, `packaging`, `npm`, `pip`
+  * AI/LLMs: `ai`, `llm`, `ml`, `machine learning`
+  * Project management: `project`, `management`
+  * Incident management: `incident`, `incident-response`, `alert`
+- Integration
+  * Integrations: `integration`, `integrations`, `slack`, `discord`, `jira`
+  * AWS: `aws`, `amazon`
+  * GCP: `gcp`, `google-cloud`, `google`
+  * Azure: `azure`, `microsoft`
+- Language
+  * Java: `java`, `maven`, `gradle`
+  * Ruby: `ruby`, `rails`
+  * Golang: `go`, `golang`
+  * JavaScript: `javascript`, `typescript`, `node`, `nodejs`
+  * Bazel: `bazel`
+  * Infrastructure as code: `terraform`, `cloudformation`, `cfn`, `infrastructure`
+  * Other languages: `julia`, `python`, `rust`, `c++`, `c#`, `dhall`
 
 > 🚧
 > If you've completed the above steps and your plugin doesn't appear in the directory, send an email to <a href="mailto:support@buildkite.com">support@buildkite.com</a> and we'll investigate it for you.
@@ -313,8 +313,8 @@ If you would like your plugin to appear in a certain category in the plugins dir
 
 When writing plugins, there are two patterns you can choose from:
 
-* A single-command plugin: a small, declarative plugin, which exposes a single command for use in your pipeline steps. Most plugins follow this pattern.
-* A library plugin, or super-plugin: this plugin type assembles multiple commands into one plugin. Refer to the [library example Buildkite plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin) for an example of how to set up this type of plugin.
+- A single-command plugin: a small, declarative plugin, which exposes a single command for use in your pipeline steps. Most plugins follow this pattern.
+- A library plugin, or super-plugin: this plugin type assembles multiple commands into one plugin. Refer to the [library example Buildkite plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin) for an example of how to set up this type of plugin.
 
 ## Vendored plugins
 
