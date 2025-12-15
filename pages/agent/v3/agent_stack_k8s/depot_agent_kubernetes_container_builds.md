@@ -25,11 +25,11 @@ Depot provides remote build infrastructure that runs Docker builds on dedicated 
 
 ### Depot project configuration
 
-Depot requires a project ID to route builds to the correct infrastructure. You can configure your Depot project in three ways, with the following precedence order (highest to lowest):
+Depot requires a project ID to route builds to the correct infrastructure. You can configure your Depot project in multiple ways:
 
-1. **Environment variable**: `DEPOT_PROJECT_ID` (highest precedence)
-2. **Command-line flag**: `--project` flag in build commands
-3. **Configuration file**: `depot.json` file in your repository (lowest precedence)
+1. **Environment variable**: `DEPOT_PROJECT_ID`
+2. **Command-line flag**: `--project` flag in `depot` commands
+3. **Configuration file**: `depot.json` file in your repository
 
 #### Environment variable (recommended for Kubernetes)
 
@@ -46,13 +46,13 @@ config:
 
 #### Configuration file (depot.json)
 
-Use `depot init` to create a `depot.json` file in your repository. Before running `depot init`, you must authenticate with Depot:
+Use `depot init` to create a `depot.json` file in your repository. You'll need to authenticate with Depot first to select from your available projects:
 
 ```bash
-# First, authenticate with Depot
+# Authenticate with Depot
 depot login
 
-# Then initialize the project configuration
+# Initialize the project configuration
 depot init
 ```
 
@@ -60,7 +60,7 @@ The `depot init` command creates a `depot.json` file in the current directory wi
 
 ```json
 {
-  "project": "your-project-id"
+  "id": "your-project-id"
 }
 ```
 
@@ -68,24 +68,17 @@ This file is automatically detected by the Depot CLI when present in your reposi
 
 #### Command-line flag
 
-You can also specify the project ID using the `--project` flag in build commands:
+You can also specify the project ID using the `--project` flag when using `depot` commands directly:
 
 ```yaml
 steps:
-  - label: "\:docker\: Build with project flag"
+  - label: "\:docker\: Build with depot command"
     command: |
       curl -L https://depot.dev/install-cli.sh | DEPOT_INSTALL_DIR=/usr/local/bin sh
-      depot configure-docker
-      docker build --project=your-project-id -t my-image .
+      depot build --project=your-project-id -t my-image .
 ```
 
-#### Precedence order
-
-When multiple methods are specified, Depot uses the following precedence (highest to lowest):
-
-1. `DEPOT_PROJECT_ID` environment variable
-2. `--project` command-line flag
-3. `depot.json` configuration file
+Note: When using `depot configure-docker`, the project ID should be specified via `DEPOT_PROJECT_ID` environment variable or `depot.json` file, as this configures standard `docker build` commands to use Depot.
 
 For Kubernetes environments, using the environment variable approach is recommended as it provides the most flexibility and doesn't require repository changes.
 
@@ -172,7 +165,7 @@ config:
 
 Depot builds require access to your build context, which is typically the checked-out repository in the pod's filesystem. Ensure your build context is accessible and includes all necessary files for the build.
 
-For large build contexts, Depot efficiently handles context uploads and can optimize transfers. However, consider using `.depotignore` files to exclude unnecessary files from the build context, similar to `.dockerignore`.
+For large build contexts, Depot efficiently handles context uploads and can optimize transfers. However, consider using `.dockerignore` files to exclude unnecessary files from the build context, which Depot respects when uploading the build context.
 
 ### Resource allocation
 
@@ -182,12 +175,6 @@ Since builds run on Depot's infrastructure, your Kubernetes pods don't need to a
 - Build orchestration
 - Artifact handling
 - Post-build steps
-
-Configure your Kubernetes agent pod resources accordingly:
-
-- **Minimal CPU and memory**: Pods only need resources for agent operations, not builds
-- **Network bandwidth**: Ensure sufficient bandwidth for context uploads and image pulls
-- **Storage**: Minimal ephemeral storage needed since builds run remotely
 
 ## Configuration approaches with Depot
 
@@ -218,7 +205,7 @@ FROM node:18-alpine
 
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 COPY . .
 
 CMD ["node", "server.js"]
@@ -259,7 +246,7 @@ steps:
       REGISTRY_PASSWORD: "${REGISTRY_PASSWORD}"
 ```
 
-### Using Depot with docker buildx
+### Using Depot with Docker Buildx
 
 Depot integrates with `docker buildx` for advanced build features including multi-platform builds:
 
@@ -448,7 +435,7 @@ Builds fail when uploading build context to Depot.
 **Solution**: 
 - Check network connectivity from your Kubernetes pods to Depot
 - Verify firewall rules allow outbound HTTPS traffic to `depot.dev`
-- Use `.depotignore` files to reduce build context size
+- Use `.dockerignore` files to reduce build context size
 - Check Depot service status
 
 ### Docker not configured for Depot
