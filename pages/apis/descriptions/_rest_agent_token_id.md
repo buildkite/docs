@@ -8,6 +8,6 @@
     * By running the [List tokens](/docs/apis/rest-api/clusters/agent-tokens#list-tokens) REST API query and obtain this value from the `id` in the response associated with the description of your token (specified by the `description` value in the response). For example:
 
         ```bash
-        curl -H "Authorization: Bearer $TOKEN" \
+        curl -H "Authorization: Bearer $TOKEN" \\
           - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens"
         ```
