@@ -113,7 +113,7 @@ Configure an OIDC trust relationship between Buildkite and Depot to use ephemera
 
 Set up the OIDC trust relationship in your Depot project settings. The Depot CLI automatically detects Buildkite's OIDC credentials from the Elastic CI Stack agents and uses them for authentication when an OIDC trust relationship is configured.
 
-No additional configuration is needed in your pipeline, simply set `DEPOT_PROJECT_ID`. According to the [Depot Buildkite integration documentation](https://depot.dev/docs/container-builds/integrations/buildkite), the CLI supports OIDC authentication by default in Buildkite when you have a trust relationship configured:
+No additional configuration is needed in your pipeline, simply set `DEPOT_PROJECT_ID`. As mentioned in the [Depot Buildkite integration documentation](https://depot.dev/docs/container-builds/integrations/buildkite), the CLI supports OIDC authentication by default in Buildkite when you have a trust relationship configured:
 
 ```yaml
 steps:
@@ -151,7 +151,7 @@ Ensure your Elastic CI Stack agents have IAM permissions to read the secret. Add
         "secretsmanager:GetSecretValue",
         "secretsmanager:DescribeSecret"
       ],
-      "Resource": "arn:aws:secretsmanager:region:account-id:secret:buildkite/depot-token-*"
+      "Resource": "arn\:aws\:secretsmanager:region:account-id\:secret\:buildkite/depot-token-*"
     }
   ]
 }
@@ -491,7 +491,7 @@ aws secretsmanager describe-secret --secret-id buildkite/depot-token
         "secretsmanager:GetSecretValue",
         "secretsmanager:DescribeSecret"
       ],
-      "Resource": "arn:aws:secretsmanager:region:account-id:secret:buildkite/depot-token-*"
+      "Resource": "arn\:aws\:secretsmanager:region:account-id\:secret\:buildkite/depot-token-*"
     }
   ]
 }
