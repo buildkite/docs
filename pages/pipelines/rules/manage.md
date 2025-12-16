@@ -67,7 +67,7 @@ where:
 
         ```bash
         curl -H "Authorization: Bearer $TOKEN" \
-          - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
+          -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
         ```
 
 - `conditions` (optional) is an array of conditions that must be met for the source pipeline to [trigger](/docs/pipelines/rules#conditions-trigger) or [access artifacts built by](/docs/pipelines/rules#conditions-artifacts) its target pipeline. Some example values could include:
@@ -369,7 +369,7 @@ where:
 
         ```bash
         curl -H "Authorization: Bearer $TOKEN" \
-          - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/rules"
+          -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/rules"
         ```
 
         **Important:** For the rule identified by its `uuid` in the response, ensure the pipeline UUIDs of the source (`source_uuid`) and target (`target_uuid`), as well as the rule type (`type`) match those of this rule to be deleted.
