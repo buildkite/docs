@@ -508,7 +508,6 @@ variables:
       - ui
       - trigger_job
       - schedule
-      - local
   - name: BUILDKITE_SSH_KEYSCAN
     desc: |
       The opposite of the value of the `no-ssh-keyscan` [agent configuration option](/docs/agent/v3/configuration).
