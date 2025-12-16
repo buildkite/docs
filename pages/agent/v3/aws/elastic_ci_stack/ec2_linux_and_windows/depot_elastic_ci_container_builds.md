@@ -26,10 +26,10 @@ Depot provides remote build infrastructure that runs Docker builds on dedicated 
 
 ### Depot project configuration
 
-Depot requires a project ID to route builds to the correct infrastructure. You can configure your Depot project in two ways, with the following precedence order (highest to lowest):
+Depot requires a project ID to route builds to the correct infrastructure. You can configure your Depot project in two ways:
 
-1. **Environment variable**: `DEPOT_PROJECT_ID` (highest precedence)
-2. **Configuration file**: `depot.json` file in your repository (lowest precedence)
+1. **Environment variable**: `DEPOT_PROJECT_ID`
+2. **Configuration file**: `depot.json` file in your repository
 
 #### Environment variable (recommended for AWS)
 
@@ -56,13 +56,13 @@ export DEPOT_PROJECT_ID="your-project-id"
 
 #### Configuration file (depot.json)
 
-Use `depot init` to create a `depot.json` file in your repository. Before running `depot init`, you must authenticate with Depot:
+Use `depot init` to create a `depot.json` file in your repository. You'll need to authenticate with Depot first to select from your available projects:
 
 ```bash
-# First, authenticate with Depot
+# Authenticate with Depot
 depot login
 
-# Then initialize the project configuration
+# Initialize the project configuration (displays interactive list of projects)
 depot init
 ```
 
@@ -70,18 +70,11 @@ The `depot init` command creates a `depot.json` file in the current directory wi
 
 ```json
 {
-  "project": "your-project-id"
+  "id": "your-project-id"
 }
 ```
 
 This file is automatically detected by the Depot CLI when present in your repository root. The `depot.json` file should be committed to your repository.
-
-#### Precedence order
-
-When multiple methods are specified, Depot uses the following precedence (highest to lowest):
-
-1. `DEPOT_PROJECT_ID` environment variable
-2. `depot.json` configuration file
 
 For AWS environments, using the environment variable approach is recommended as it provides the most flexibility and doesn't require repository changes.
 
@@ -185,7 +178,7 @@ steps:
 
 Depot builds require access to your build context, which is typically the checked-out repository on the EC2 agent's filesystem. Ensure your build context is accessible and includes all necessary files for the build.
 
-For large build contexts, Depot efficiently handles context uploads and can optimize transfers. However, consider using `.depotignore` files to exclude unnecessary files from the build context, similar to `.dockerignore`.
+For large build contexts, Depot efficiently handles context uploads and can optimize transfers. However, consider using `.dockerignore` files to exclude unnecessary files from the build context, which Depot respects when uploading the build context.
 
 ### Resource allocation
 
@@ -360,7 +353,7 @@ Builds fail with authentication errors when Depot cannot access your project.
 
 **Problem**: Missing or invalid authentication credentials or project ID.
 
-**Solution**: 
+**Solution**:
 
 For OIDC trust relationships (recommended), ensure the trust relationship is configured in your Depot project settings and that `DEPOT_PROJECT_ID` is set in your pipeline:
 
@@ -419,11 +412,11 @@ Builds fail when uploading build context to Depot.
 
 **Problem**: Network issues or build context too large.
 
-**Solution**: 
+**Solution**:
 - Check network connectivity from your EC2 agents to Depot
 - Verify security group rules allow outbound HTTPS traffic to `depot.dev`
 - Verify VPC routing and internet gateway configuration
-- Use `.depotignore` files to reduce build context size
+- Use `.dockerignore` files to reduce build context size
 - Check Depot service status
 
 ### Docker not configured for Depot
@@ -480,7 +473,7 @@ Builds fail when trying to retrieve `DEPOT_TOKEN` from AWS Secrets Manager.
 
 **Problem**: EC2 agent IAM role lacks permissions or secret doesn't exist.
 
-**Solution**: 
+**Solution**:
 
 1. Verify the secret exists:
 ```bash

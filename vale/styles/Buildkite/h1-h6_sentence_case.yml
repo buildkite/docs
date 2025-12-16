@@ -98,6 +98,7 @@ exceptions:
   - Debian
   - Declarative
   - deduper
+  - Depot
   - DinD
   - Docker
   - Docker Compose
