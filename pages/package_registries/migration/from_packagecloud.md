@@ -1,14 +1,12 @@
 # Export from Packagecloud
 
-This guide explains how to bulk export packages from Packagecloud repositories, ready for import into Buildkite Package Registries.
-
-To migrate your packages from Packagecloud to Buildkite Package Registries, you'll need to export/download packages from a Packagecloud repository before importing them to your Buildkite registry.
+To migrate your packages from Packagecloud to Buildkite Package Registries, you'll need to export and download packages from a Packagecloud repository before importing them to your Buildkite registry.
 
 Packagecloud doesn't provide a built-in bulk export feature, so this guide uses the Packagecloud REST API to list and download all packages.
 
 ## Before you start
 
-To perform the export of packages, you will need:
+To export the packages, you'll need:
 
 - A Packagecloud account with access to the repository you want to export
 - Your Packagecloud API token
@@ -177,7 +175,7 @@ find ./packagecloud-export/deb -name "*.deb" -exec bk package push my-debian-reg
 
 ## Export packages manually
 
-For smaller repositories or if you would like to have more control over the export process, you can use curl commands directly. To do it, follow the instructions in the following sections.
+For smaller repositories or if you would like to have more control over the export process, you can use curl commands directly. Follow the instructions and commands in the sections below.
 
 ### List all packages in a repository
 
@@ -187,7 +185,7 @@ curl -s -u "YOUR_API_TOKEN:" \
     | jq '.'
 ```
 
-Replace `YOUR_API_TOKEN`, `USERNAME`, and `REPO` with your values. Note the trailing colon after the token, which is required for HTTP basic authentication with an empty password.
+Replace `YOUR_API_TOKEN`, `USERNAME`, and `REPO` with your values. Note the trailing colon after the token as it is required for HTTP basic authentication with an empty password.
 
 ### Get package details and download URL
 
@@ -244,15 +242,13 @@ Packagecloud may rate limit API requests. If you encounter rate limiting:
 
 Some package types use different API endpoints. If a package doesn't have a `download_url` in the response, check the [Packagecloud API documentation](https://packagecloud.io/docs/api) for the correct endpoint for that package type.
 
+### Non-version-agnostic packages
+
+For deb, rpm, and alpine packages, migration works only if your packages are distribution version-agnostic (for example, a package works on all Ubuntu versions such as Focal and Jammy). If your packages target specific distribution versions, contact [Buildkite support](mailto:support@buildkite.com) before proceeding.
+
 ## Next step
 
 Once you have downloaded your packages from your Packagecloud repositories, learn how to [import them into your Buildkite registry](/docs/package-registries/migration/import-to-package-registries).
-
-### Important considerations before importing
-
-> 🚧 Distribution-based package types
-> For deb, rpm, and alpine packages, migration works only if your packages are distribution version-agnostic (for example, a package works on all Ubuntu versions such as Focal and Jammy). If your packages target specific distribution versions, contact [Buildkite support](mailto:support@buildkite.com) before proceeding.
-
 
 > 🚧 Repository signing keys
 > Buildkite Package Registries signs repository metadata with its own keys, not your Packagecloud keys. After migration, update your clients (apt, yum, apk) to use the new signing keys from your Buildkite registry.
