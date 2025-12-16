@@ -375,7 +375,7 @@ Builds fail with authentication errors when Depot cannot access your project.
 
 **Problem**: Missing or invalid authentication credentials or project ID.
 
-**Solution**: 
+**Solution**:
 
 For OIDC trust relationships (recommended), ensure the trust relationship is configured in your Depot project settings and that `DEPOT_PROJECT_ID` is set:
 
@@ -432,7 +432,7 @@ Builds fail when uploading build context to Depot.
 
 **Problem**: Network issues or build context too large.
 
-**Solution**: 
+**Solution**:
 - Check network connectivity from your Kubernetes pods to Depot
 - Verify firewall rules allow outbound HTTPS traffic to `depot.dev`
 - Use `.dockerignore` files to reduce build context size
