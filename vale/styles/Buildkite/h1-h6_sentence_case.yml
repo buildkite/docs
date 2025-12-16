@@ -116,6 +116,7 @@ exceptions:
   - Entity Page
   - Everyone
   - ExUnit
+  - FAQ
   - FAQs
   - FreeBSD
   - G Suite
@@ -204,6 +205,7 @@ exceptions:
   - OneLogin
   - OpenTelemetry
   - Open Container Initiative
+  - Open Policy Agent
   - OS X
   - Package Registries
   - Packagecloud
@@ -219,6 +221,7 @@ exceptions:
   - Prometheus
   - pytest
   - QA
+  - RBAC
   - READ_ONLY
   - Red Hat
   - Red Hat (RPM)

@@ -1,6 +1,6 @@
 # Remote BuildKit builders on Elastic CI Stack for AWS
 
-[BuildKit](https://docs.docker.com/reference/buildkit/) supports running container builds on a remote daemon.
+[BuildKit](https://docs.docker.com/build/buildkit/) supports running container builds on a remote daemon.
 
 Running builds on a separate instance provides faster CPU, persistent cache storage, and isolation from your pipeline agents. The Buildkite Agent coordinates the build while BuildKit executes it on the remote node.
 
@@ -83,7 +83,7 @@ sudo systemctl status buildkitd.service
 
 ## Configure Elastic CI Stack for AWS agents
 
-Install `buildctl` on each Elastic CI Stack for AWS instance so your pipelines can connect to the remote builder. Bake the binary into your custom AMI using the [custom image guide](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/setup#custom-images):
+Install `buildctl` on each Elastic CI Stack for AWS instance so your pipelines can connect to the remote builder. Bake the binary into your custom AMI using the [custom image guide](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/creating-custom-amis):
 
 ```bash
 export BUILDKIT_VERSION="v0.13.2"
