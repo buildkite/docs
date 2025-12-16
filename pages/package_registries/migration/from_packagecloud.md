@@ -167,7 +167,7 @@ packagecloud-export/
 
 Each top-level folder (`deb/`, `rpm/`, `gem/`) maps to one Buildkite registry. The repository subdirectory preserves the source Packagecloud repository name, which is useful when exporting multiple repositories.
 
-To import all Debian packages into a Buildkite Debian registry, run:
+For example, to import all Debian packages into a Buildkite Debian registry, run:
 
 ```bash
 find ./packagecloud-export/deb -name "*.deb" -exec bk package push my-debian-registry {} \;
@@ -216,9 +216,9 @@ curl -s -u "YOUR_API_TOKEN:" \
 
 The API provides pagination information in response headers:
 
-- `Total`: Total number of packages
-- `Per-Page`: Number of packages per page
-- `Link`: Links to next, previous, and last pages
+- `Total`: total number of packages
+- `Per-Page`: number of packages per page
+- `Link`: links to next, previous, and last pages
 
 ## Troubleshooting
 
