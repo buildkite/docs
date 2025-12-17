@@ -84,17 +84,25 @@ See more in (Monitoring and observability)[/docs/pipelines/best-practices/monito
 
 ## Slack notifications for platform teams
 
-Timely notifications help platform teams keep builds healthy without manually watching dashboards.
+Timely [notifications](/docs/pipelines/configure/notifications) help platform teams keep builds healthy without manually watching dashboards. In Buildkite Pipelines, you can enable the following notifications types:
+
+- [Basecamp](/docs/pipelines/configure/notifications#basecamp-campfire-message)
+- [Email](/docs/pipelines/configure/notifications#email)
+- [GitHub commit status](/docs/pipelines/configure/notifications#github-commit-status)
+- [GitHub check](/docs/pipelines/configure/notifications#github-check)
+- [PagerDuty](/docs/pipelines/configure/notifications#pagerduty-change-events)
+- [Slack](/docs/pipelines/configure/notifications#slack-channel-and-direct-messages)
+- [Webhooks](/docs/pipelines/configure/notifications#webhooks)
+
+Setting up notification service(s) allows platform teams to:
 
 - Send a success message only when a pipeline that usually fails passes, or when a critical deploy completes.
-- Route failed builds to a dedicated **#ci-alerts** channel so on-call engineers can react quickly.
-- Include queue wait time and agent-utilization metrics in the message body to spot capacity issues early.
+- Route failed builds to a dedicated channel (for example, `#ci-alerts`) so on-call engineers can react quickly.
 - Tag on-call rotations with `@here` or `@platform-oncall` to avoid alert fatigue for the wider team.
 - Use thread replies for follow-up logs or links to build pages, keeping the main channel concise.
 - Configure different channels for routine and critical events.
-- Use conditionals (`if`) to cut down on noisy success messages.
 
-Example notification step:
+Example configuration for setting up Slack notifications:
 
 ```yaml
 steps:
@@ -220,7 +228,7 @@ Never ignore failing steps without a clear follow-up plan. Silent failures erode
 
 ## Build context and visibility with annotations
 
-Use annotations to provide build context and link to relevant documentation or monitoring systems. Annotations help development teams quickly understand build failures, access troubleshooting resources, and find related operational data without leaving the Buildkite interface.
+Use [annotations](/docs/agent/v3/cli-annotate) to provide build context and link to relevant documentation or monitoring systems. Annotations help development teams quickly understand build failures, access troubleshooting resources, and find related operational data without leaving the Buildkite interface.
 
 Platform teams can standardize annotation patterns across pipelines to include:
 

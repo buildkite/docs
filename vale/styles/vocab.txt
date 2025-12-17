@@ -239,6 +239,7 @@ matchers
 Memcache
 minitest
 misconfiguration
+misconfigurations
 misconfigured
 mitigation
 mitigations
