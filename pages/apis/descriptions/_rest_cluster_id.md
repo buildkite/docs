@@ -7,6 +7,6 @@
     * By running the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your target cluster (specified by the `name` value in the response). For example:
 
         ```bash
-        curl -H "Authorization: Bearer $TOKEN" \\
+        curl -H "Authorization: Bearer $TOKEN" \
           -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
         ```

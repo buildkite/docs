@@ -771,6 +771,8 @@
           path: "package-registries/migration/from-jfrog-artifactory"
         - name: "Export from Cloudsmith"
           path: "package-registries/migration/from-cloudsmith"
+        - name: "Export from Packagecloud"
+          path: "package-registries/migration/from-packagecloud"
         - name: "Import exported packages"
           path: "package-registries/migration/import-to-package-registries"
     - name: "Security"
