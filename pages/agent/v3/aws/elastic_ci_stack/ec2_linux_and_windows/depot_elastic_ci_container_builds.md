@@ -199,7 +199,7 @@ Configure your Elastic CI Stack agent instance types accordingly:
 
 Depot supports different workflow patterns for building container images in your Buildkite pipelines, each suited to specific use cases when using the Elastic CI Stack for AWS.
 
-> **Note**: The examples below include `DEPOT_TOKEN` in the environment variables. If you're using OIDC trust relationships (recommended), you can omit `DEPOT_TOKEN` as authentication is handled automatically. Only include `DEPOT_TOKEN` when using static token authentication.
+**Note:** The examples below include `DEPOT_TOKEN` in the environment variables. If you're using OIDC trust relationships (recommended), you can omit `DEPOT_TOKEN` as authentication is handled automatically. Only include `DEPOT_TOKEN` when using static token authentication.
 
 ### Basic Docker build with Depot
 
@@ -524,17 +524,6 @@ steps:
 
 The `--progress=plain` flag shows detailed build output, and you can verify Depot is being used by looking for `[depot]` prefixed lines in the build logs.
 
-### Check Depot build logs
-
-View build logs in the Depot dashboard to see detailed information about build execution, including:
-
-- Build context upload progress
-- Layer build steps
-- Cache hit/miss information
-- Error details
-
-Access your Depot dashboard to view build history and logs for troubleshooting.
-
 ### Verify Depot configuration
 
 Test Depot configuration before running builds:
@@ -571,28 +560,3 @@ docker build -t my-image .
 ```
 
 This helps identify issues with build configuration before running on Elastic CI Stack agents.
-
-### Inspect build logs in AWS
-
-SSH into your EC2 agent to inspect build logs and verify Depot configuration:
-
-```bash
-# Find your agent instance
-aws ec2 describe-instances \
-  --filters "Name=tag:Name,Values=buildkite-agent" \
-  --query 'Reservations[*].Instances[*].[InstanceId,PublicIpAddress,State.Name]' \
-  --output table
-
-# SSH into the agent (user may be 'ec2-user', 'ubuntu', or 'admin' depending on AMI)
-ssh -i your-key.pem ec2-user@<agent-ip>
-
-# Check Depot CLI installation
-which depot
-depot --version
-
-# Verify Docker configuration
-docker info | grep -i depot
-```
-
-This helps diagnose issues with Depot CLI installation or Docker configuration on the agent.
-
