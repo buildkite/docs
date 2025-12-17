@@ -1,6 +1,6 @@
 # Export from Cloudsmith
 
-To migrate your packages from Cloudsmith to Buildkite Package Registries, you'll need to export/download packages from a Cloudsmith repository before importing them to your Buildkite registry.
+To migrate your packages from Cloudsmith to Buildkite Package Registries, you'll need to export and download packages from a Cloudsmith repository before importing them to your Buildkite registry.
 
 ## Download packages using the Cloudsmith interface
 
