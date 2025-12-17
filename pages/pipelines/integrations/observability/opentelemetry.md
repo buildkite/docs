@@ -295,6 +295,10 @@ OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <token>,x-custom-header=value"
 
 Propagating trace spans from the OpenTelemetry Notification service requires Buildkite agent [v3.100](https://github.com/buildkite/agent/releases/tag/v3.100.0) or newer, and the `--tracing-propagate-traceparent` flag or equivalent environment variable.
 
+### Propagating traces from Buildkite agents to commands
+
+Trace contexts are propagated automatically from Agent to all its child processes. See [Tracing in the Buildkite Agent](/docs/agent/v3/tracing#using-opentelemetry-tracing-trace-context-propagation).
+
 ### Buildkite hosted agents
 
 To export OpenTelemetry traces from hosted agents, this currently requires using a custom Agent Image with the following Environment variables set. Custom images can be created in Cluster settings, and is currently supported for Linux only.
