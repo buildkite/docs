@@ -82,6 +82,39 @@ Ensure all pipelines report metrics to your centralized [monitoring](/docs/agent
 
 See more in (Monitoring and observability)[/docs/pipelines/best-practices/monitoring-and-observability].
 
+## Slack notifications for platform teams
+
+Timely notifications help platform teams keep builds healthy without manually watching dashboards.
+
+- Send a success message only when a pipeline that usually fails passes, or when a critical deploy completes.
+- Route failed builds to a dedicated **#ci-alerts** channel so on-call engineers can react quickly.
+- Include queue wait time and agent-utilization metrics in the message body to spot capacity issues early.
+- Tag on-call rotations with `@here` or `@platform-oncall` to avoid alert fatigue for the wider team.
+- Use thread replies for follow-up logs or links to build pages, keeping the main channel concise.
+- Configure different channels for routine and critical events.
+- Use conditionals (`if`) to cut down on noisy success messages.
+
+Example notification step:
+
+```yaml
+steps:
+  - label: ":pipeline: Build and test"
+    command: "scripts/build.sh"
+
+  - block: ":rocket: Deploy?"
+    branches: "main"
+
+  - command: "scripts/deploy.sh"
+    if: "build.branch == 'main' && build.state == 'passed'"
+
+  - notify:
+      slack:
+        channels: "#ci-alerts"
+        message: |
+          :rotating_light: Build {{build.number}} of {{pipeline.name}} failed on {{build.branch}}.
+          <{{build.web_url}}|View build> — queued for {{build.queue_time}}s, ran for {{build.duration}}s.
+```
+
 ## Custom checkout scripts
 
 Platform teams can standardize code checkout processes across all pipelines by implementing custom checkout hooks that gather consistent metadata, enforce security policies, and prepare the build environment according to organizational standards. Custom checkout scripts ensure that every job starts with the same foundation while accommodating different repository and project requirements.
