@@ -4,7 +4,7 @@ A _trigger_ step creates a build on another pipeline.
 
 You can use trigger steps to separate your test and deploy pipelines, or to create build dependencies between pipelines.
 
-A trigger step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/configure/defining-steps) file, by setting the `trigger` attribute to the the [slug of the pipeline you want to trigger](#trigger).
+A trigger step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/configure/defining-steps) file, by setting the `trigger` attribute to the [slug of the pipeline you want to trigger](#trigger).
 
 ```yml
 steps:
@@ -60,7 +60,7 @@ Optional attributes:
   <tr>
     <td><code>label</code></td>
     <td>
-      The label that will be displayed in the pipeline visualisation in Buildkite. Supports emoji.<br/>
+      The label that will be displayed in the pipeline visualization in Buildkite. Supports emoji.<br/>
       <em>Example:</em> <code>"\:rocket\: Deploy"</code><br/>
     </td>
   </tr>
@@ -180,6 +180,10 @@ Optional `build` attributes:
 ```
 {: codeblock-file="pipeline.yml"}
 
+## Agent-applied attributes
+
+<%= render_markdown partial: 'pipelines/configure/step_types/agent_applied_attributes' %>
+
 ## Environment variables
 
 You can use [environment variable substitution](/docs/agent/v3/cli-pipeline#environment-variable-substitution) to set attribute values:
@@ -243,7 +247,7 @@ In the target pipeline, to run the command step only if the build was triggered 
 ```yml
 steps:
     - command: ./scripts/tests.sh
-      if: build.source == 'trigger_job' && build.env('BUILDKITE_TRIGGERED_FROM_BUILD_ID') == 'the_triggering_pipeline'
+      if: build.source == 'trigger_job' && build.env('BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG') == 'the-triggering-pipeline'
 
 ```
 {: codeblock-file="pipeline.yml"}
@@ -258,9 +262,13 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-### Cancel intermediate builds from multiple triggers
+## Canceling intermediate builds and triggers
 
-When multiple pipeline builds (for instance, run from the same commit) trigger the build of another pipeline, you can enable the **Cancel Intermediate Builds** feature to allow only the newest build to run, thereby reducing unnecessary, duplicated pipeline builds.
+When using trigger steps that target pipelines with **Cancel Intermediate Builds** setting enabled, it's important to understand how this feature interacts with triggered builds. If a triggered build is "canceled" due to the **Cancel Intermediate Builds** setting being enabled, such trigger step will be marked as "skipped" in the triggering build.
+
+### Multiple triggered builds for the same pipeline
+
+When multiple pipeline builds (for instance, when multiple builds are running as a result of a single commit) trigger builds in other pipelines, you can enable the **Cancel Intermediate Builds** feature to allow only the newest build to run, thereby reducing unnecessary, duplicated pipeline builds.
 
 For example, assume a scenario with three pipelines—**Pipeline A**, **Pipeline B**, and **Pipeline C**. A commit that runs **Pipeline A** triggers a build on **Pipeline B**. The same commit runs **Pipeline C**, which also triggers a build on **Pipeline B**.
 
@@ -270,4 +278,4 @@ When **Cancel Intermediate Builds**:
 
 * _Is not enabled_, **Pipeline B** will run twice, as it will be triggered by both **Pipeline A** and **Pipeline C** without cancellation.
 
-Regardless of whether or not **Cancel Intermediate Builds** is enabled, if either **Pipeline A** or **Pipeline C** _is manually canceled_ before their triggering steps have occurred, then the **Pipeline B** build triggered by its canceled pipeline will not run, and **Pipeline B** will only run once (triggered by the other, non-canceled pipeline).
+Regardless of whether or not **Cancel Intermediate Builds** is enabled, if either **Pipeline A** or **Pipeline C** is manually canceled before their triggering steps have occurred, then the **Pipeline B** build triggered by its canceled pipeline will not run, and **Pipeline B** will only run once (triggered by the other, non-canceled pipeline).

@@ -10,19 +10,24 @@ scope:
   - heading.h6
 match: $sentence
 exceptions:
-  - '^(\d+\.) [A-Z]\w+' # Allow numbered headings. Example: "1. Install the thing"
+  - '^(\d+\.) [A-Z][\w\s-]+' # Allow numbered headings. Example: "1. Install the thing" or "1. One-time ECR setup" or "3. Push using Kaniko"
   - '^(Agent|Build|Job) ([A-Z]\w+(ed|ing)|Lost)$' # Exceptions for /pages/integrations/amazon_eventbridge.md
   - '^(Step|Method) \d: [A-Z]\w+' # Allow caps after colon. Examples: "Step 3: Do the thing", "Method 2: Deploy keys"
+  - 1Password
   - 2FA
   - ADFS
   - Advanced Queue Metrics
   - Agent Stack for Kubernetes
+  - AGENTS.md
   - API
+  - API Access Token
   - APM
   - Argo CD
   - AWS
   - AWS Elastic Container Registry
   - Amazon
+  - Amazon ECR
+  - Amazon Elastic Container Registry
   - Amazon EventBridge
   - Amazon Web Services
   - AMI
@@ -39,6 +44,8 @@ exceptions:
   - Azure AD
   - Azure Active Directory
   - Azure Blob
+  - Backstage
+  - Backstage Software Catalog
   - Bash
   - Bazel
   - Bamboo
@@ -47,7 +54,9 @@ exceptions:
   - Bitbucket Server
   - bktec
   - BUILD_AND_READ
+  - Buildah
   - buildevents
+  - BuildKit
   - Buildkite
   - Buildkite Agent
   - Buildkite Agents
@@ -62,33 +71,57 @@ exceptions:
   - CCMenu
   - CCTray
   - CentOS
+  - Chainguard
+  - Chainguard's
   - CI
+  - CI/CD
   - CircleCI
+  - Claude Code
+  - Claude Desktop
   - CLI
+  - Cloud Console
+  - Cloud Logging
+  - Cloud Monitoring
+  - Cloud Storage
   - CloudFormation
   - Cloudsmith
   - CloudTrail
   - CloudWatch
   - CloudWatch Logs
   - CocoaPods
+  - Cognito
   - completion_watcher
+  - Comliance
   - CORS
   - CSS
   - Datadog
   - Debian
+  - Declarative
   - deduper
+  - DinD
   - Docker
   - Docker Compose
+  - Docker Desktop
   - Docker Hub
+  - Docker-in-Docker
+  - ECR
+  - ECS
   - EC2
+  - EKS
   - Elastic
+  - Elastic Container Registry
   - Elastic CI Stack
+  - Enterprise Premium Support
+  - Entity Page
   - Everyone
   - ExUnit
+  - FAQ
   - FAQs
   - FreeBSD
   - G Suite
+  - GCP
   - Git
+  - Git Large File Storage
   - GitHub
   - GitHub Actions
   - GitHub App
@@ -100,16 +133,21 @@ exceptions:
   - Google Artifact Registry
   - Google Chrome
   - Google Cloud
-  - Google Cloud Functions
   - Google Cloud Identity
   - Google Cloud Platform
+  - Google Cloud Run
   - Google Cloud Storage
   - Google Compute Engine
   - Google Kubernetes Engine
   - Google Workspace
+  - Governance
+  - GPU
+  - GPUs
   - GraphQL
+  - GRC
   - Groovy
   - Heroku
+  - Homebrew
   - HMAC
   - Honeycomb
   - HTTP
@@ -119,6 +157,7 @@ exceptions:
   - ID
   - IdP # TODO: unabbreviate this in headings
   - IDs
+  - Infrastructure as Code
   - iOS
   - IronWorker
   - Installation
@@ -130,26 +169,38 @@ exceptions:
   - JSON
   - JUnit
   - JWKS
+  - Kaniko
   - KMS
   - Kotlin
   - Kubernetes
+  - Lambda
   - limiter
+  - Linear
   - Linux
+  - LFS
   - M1
   - Mac
   - macOS
   - Markdown
+  - MCP
+  - Microsoft Entra ID
   - minitest
-  - monitor
   - Mobile Delivery Cloud
+  - Model Context Protocol
+  - monitor
+  - Namespace
   - NET
   - Node.js
   - nodeName
   - nodeSelector
+  - Nomad
+  - NuGet
   - OIDC
   - Okta
   - OneLogin
   - OpenTelemetry
+  - Open Container Initiative
+  - Open Policy Agent
   - OS X
   - Package Registries
   - PagerDuty
@@ -161,41 +212,62 @@ exceptions:
   - pod_watcher
   - PodSpec
   - PowerShell
+  - Prometheus
   - pytest
   - QA
+  - RBAC
   - READ_ONLY
   - Red Hat
   - Red Hat Enterprise Linux
   - Registry Configuration
   - REST
+  - Risk
   - RSpec
   - S3
   - SAML
   - scheduler
   - SCIM
+  - SDK
+  - SDKs
+  - Scripted
+  - Secret Manager
   - Sequoia
   - Slack
   - Slack Workspace
   - SLSA
+  - SonarCloud
+  - SonarQube
+  - SonarScanner
   - Sonoma
+  - SLO
+  - SLOs
   - SSH
   - SSO
+  - Tahoe
+  - TCP
   - Tekton
+  - Terraform
   - Test Engine
   - Test Engine Client
   - TESTOWNER
+  - ToolHive
   - tvOS
   - TypeScript
   - Ubuntu
   - URL
   - URL(s)
+  - UserData
   - UUID
   - visionOS
+  - Visual Studio Code
+  - VM
+  - VMs
   - VPC
   - VPN
   - watchOS
   - Windows
   - Windows Subsystem for Linux 2
+  - Workload Identity Federation
   - Xcode
   - XCTest
   - XML

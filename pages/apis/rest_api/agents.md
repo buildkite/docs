@@ -241,4 +241,4 @@ Error responses:
 
 ## Agent tokens
 
-Agent tokens are created through the [clusters REST API endpoint](/docs/apis/rest-api/clusters#agent-tokens).
+Agent tokens are created through the [clusters REST API endpoint](/docs/apis/rest-api/clusters/agent-tokens).

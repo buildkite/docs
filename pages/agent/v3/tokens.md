@@ -45,11 +45,11 @@ To create an agent token for a cluster using the Buildkite interface:
 
 1. Select **Create Token**.
 
-    Follow the instructions to copy and save your token to a secure location and click **Okay, I'm done!**. The new agent token appears on the cluster's **Agent Tokens** page.
+    Follow the instructions to copy and save your token to a secure location and select **Okay, I'm done!**. The new agent token appears on the cluster's **Agent Tokens** page.
 
 ### Using the REST API
 
-To [create an agent token](/docs/apis/rest-api/clusters#agent-tokens-create-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+To [create an agent token](/docs/apis/rest-api/clusters/agent-tokens#create-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -82,7 +82,7 @@ The new agent token appears on the cluster's **Agent Tokens** page.
 
 ### Using the GraphQL API
 
-To [create an agent token](/docs/apis/graphql/schemas/mutation/clusteragenttokencreate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+To [create an agent token](/docs/apis/graphql/cookbooks/clusters#create-agent-token-with-an-expiration-date) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
 
 ```graphql
 mutation {
@@ -114,6 +114,7 @@ mutation {
         email
       }
     }
+    tokenValue
   }
 }
 ```
@@ -159,7 +160,7 @@ To update a cluster's agent token using the Buildkite interface:
 
 ### Using the REST API
 
-To [update an agent token](/docs/apis/rest-api/clusters#agent-tokens-update-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+To [update an agent token](/docs/apis/rest-api/clusters/agent-tokens#update-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -259,7 +260,7 @@ To revoke a cluster's agent token using the Buildkite interface:
 
 ### Using the REST API
 
-To [revoke an agent token](/docs/apis/rest-api/clusters#agent-tokens-revoke-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+To [revoke an agent token](/docs/apis/rest-api/clusters/agent-tokens#revoke-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -278,7 +279,7 @@ where:
 
 ### Using the GraphQL API
 
-To [revoke an agent token](/docs/apis/graphql/schemas/mutation/clusteragenttokenrevoke) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+To [revoke an agent token](/docs/apis/graphql/cookbooks/clusters#revoke-an-agent-token) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
 
 ```graphql
 mutation {
@@ -318,34 +319,55 @@ An expired agent token will prevent agents configured with this token from being
 > 📘 Agent token expiration format
 > The timestamp must be set in ISO8601 format (for example, `2025-01-01T00:00:00Z`). This timestamp value cannot be changed on an existing agent token. An error is returned if an attempt is made to update the expiration date field of an existing agent token.
 
-## Session and job token lifetime
+## Additional agent tokens
 
-During registration, the agent exchanges its agent token for a session token. The session token lasts for the lifetime of the agent and is used to request and start new jobs. When each job is started, the agent gets a job token specific to that job. The job token is exposed to the job as the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN`, and is used by various CLI commands (including the [annotate](/docs/agent/v3/cli-annotate), [artifact](/docs/agent/v3/cli-artifact), [meta-data](/docs/agent/v3/cli-meta-data), and [pipeline](/docs/agent/v3/cli-pipeline) commands).
+In addition to the initial agent token, the Buildkite Agent automatically generates and manages two internal types of tokens during its operation. These tokens are session tokens and job tokens.
 
-Job tokens are valid until the job finishes. To ensure job tokens have a limited lifetime, you can set a default or maximum [command timeout](/docs/pipelines/configure/build-timeouts#command-timeouts).
+### Session tokens
+
+Session tokens are internal tokens that last for the lifetime of the agent connection. They are used by the agent to request and start new jobs, and remain valid until the agent disconnects from Buildkite.
+
+### Job tokens
+
+Job tokens are internal agent access tokens that are generated for each individual job when it starts. They are exposed to the job as the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN` and are used by the Buildkite Agent's local Job API, which provides access to various CLI commands (including [annotate](/docs/agent/v3/cli-annotate), [artifact](/docs/agent/v3/cli-artifact), [meta-data](/docs/agent/v3/cli-meta-data), and [pipeline](/docs/agent/v3/cli-pipeline) commands). Job tokens are scoped to a single job for security reasons, limiting both the duration and the scope of access, and are valid until the job finishes.
+
+You can set a default or maximum [command timeout](/docs/pipelines/configure/build-timeouts#command-timeouts) to further scope the lifetime of job tokens.
+
+### Token exchange process
+
+When an agent starts, it follows the token exchange process:
+
+1. The agent connects to the Buildkite Agent API to register itself using its configured **agent token** (`BUILDKITE_AGENT_TOKEN`).
+1. The Agent API generates and returns a **session token** to the agent.
+1. The agent uses this session token to poll for available jobs and manage its connection to Buildkite.
+1. When the agent accepts a job, Buildkite generates a **job token** specific to that job.
 
 <table>
   <tr>
     <th>Token type</th>
+    <th>Generated by</th>
     <th>Use</th>
     <th>Lifetime</th>
   </tr>
   <tr>
     <td>Agent token</td>
-    <td>Registering new agents.</td>
+    <td>Buildkite organization admin or cluster maintainer</td>
+    <td>Initial agent registration and authentication.</td>
     <td>Forever unless expiration date is set during creation with GraphQL or REST API, or is manually revoked.</td>
   </tr>
   <tr>
-    <td>Session token</td>
-    <td>Agent lifecycle APIs and starting jobs.</td>
+    <td>Session token (internal)</td>
+    <td>Buildkite Agent API during registration</td>
+    <td>Agent lifecycle APIs, polling for jobs, and starting jobs.</td>
     <td>Until the agent disconnects.</td>
   </tr>
   <tr>
-    <td>Job token</td>
-    <td>Job APIs (including <a href="/docs/agent/v3/cli-annotate">annotate</a>,  <a href="/docs/agent/v3/cli-artifact">artifact</a>,  <a href="/docs/agent/v3/cli-meta-data">meta-data</a> and  <a href="/docs/agent/v3/cli-pipeline">pipeline</a> commands).</td>
+    <td>Job token (internal)</td>
+    <td>Buildkite Agent API when job is accepted</td>
+    <td>Local Job API access for CLI commands (including <a href="/docs/agent/v3/cli-annotate">annotate</a>,  <a href="/docs/agent/v3/cli-artifact">artifact</a>,  <a href="/docs/agent/v3/cli-meta-data">meta-data</a>, and  <a href="/docs/agent/v3/cli-pipeline">pipeline</a> commands).</td>
     <td>Until the job finishes.</td>
   </tr>
 </table>
 
->📘 Job tokens not supported in agents prior to v3.39.0
+>📘 Job tokens are not supported in agents prior to v3.39.0
 > Agents prior to v3.39.0 use the session token for the `BUILDKITE_AGENT_ACCESS_TOKEN` environment variable and the job APIs.

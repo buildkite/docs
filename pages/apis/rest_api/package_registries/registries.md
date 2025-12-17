@@ -1,6 +1,6 @@
 # Registries API
 
-The registries API endpoint lets you [create and manage registries](/docs/package-registries/manage-registries) in your organization.
+The registries API endpoint lets you [create and manage registries](/docs/package-registries/registries/manage) in your organization.
 
 ## Create a registry
 
@@ -14,7 +14,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "description": "registry containing ruby gems",
     "team_ids": [
       "team-one-uuid", "team-two-uuid"
-    ]
+    ],
     "oidc_policy": [
       {
         "iss": "https://agent.buildkite.com",
@@ -63,7 +63,7 @@ Optional [request body properties](/docs/api#request-body-properties):
     <tr><th><code>description</code></th><td>Description of the registry.<br><em>Default value:</em> <code>null</code>.</td></tr>
     <tr><th><code>emoji</code></th><td>Emoji for the registry using the <a href="/docs/apis/rest-api/emojis">emoji syntax</a>.<br><em>Example:</em> <code>"\:sunflower\:"</code>.</td></tr>
     <tr><th><code>color</code></th><td>Color hex code for the registry.<br><em>Example:</em> <code>"#f0ccff"</code>.</td></tr>
-    <tr><th><code>oidc_policy</code></th><td>A policy matching a <a href="/docs/packages/security/oidc#define-an-oidc-policy-for-a-registry-basic-oidc-policy-format">basic</a> or <a href="/docs/packages/security/oidc#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example">more complex</a> OIDC policy format. Can be either stringified YAML, or a JSON array of policy statements.<br><em>Default value:</em> <code>null</code>.</td></tr>
+    <tr><th><code>oidc_policy</code></th><td>A policy matching a <a href="/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry-basic-oidc-policy-format">basic</a> or <a href="/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example">more complex</a> OIDC policy format. Can be either stringified YAML, or a JSON array of policy statements.<br><em>Default value:</em> <code>null</code>.</td></tr>
   </tbody>
 </table>
 
@@ -179,7 +179,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tbody>
     <tr><th><code>name</code></th><td>Name of the registry.<br><em>Example:</em> <code>my registry</code>.</td></tr>
     <tr><th><code>description</code></th><td>Description of the registry.<br><em>Example:</em> <code>registry containing ruby gems</code>.</td></tr>
-    <tr><th><code>oidc_policy</code></th><td>A policy matching a <a href="/docs/packages/security/oidc#define-an-oidc-policy-for-a-registry-basic-oidc-policy-format">basic</a> or <a href="/docs/packages/security/oidc#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example">more complex</a> OIDC policy format. Can be either stringified YAML, or a JSON array of policy statements. Be aware that if you are modifying an existing OIDC policy, the entire revised OIDC policy needs to be re-posted in this update request.<br><em>Default value:</em> <code>null</code>.</td></tr>
+    <tr><th><code>oidc_policy</code></th><td>A policy matching a <a href="/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry-basic-oidc-policy-format">basic</a> or <a href="/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example">more complex</a> OIDC policy format. Can be either stringified YAML, or a JSON array of policy statements. Be aware that if you are modifying an existing OIDC policy, the entire revised OIDC policy needs to be re-posted in this update request.<br><em>Default value:</em> <code>null</code>.</td></tr>
   </tbody>
 </table>
 

@@ -17,6 +17,7 @@ class Page::Renderer
     doc = add_automatic_ids_to_headings(doc)
     doc = add_heading_anchor_links(doc)
     doc = fix_curl_highlighting(doc)
+    doc = remove_syntax_error_highlighting(doc)
     doc = add_code_filenames(doc)
     doc = add_callout(doc)
     doc = decorate_external_links(doc)
@@ -118,6 +119,23 @@ class Page::Renderer
       node.replace(node.to_html.gsub(/\{.*?\}/mi) {|uri_template|
         %(<span class="o">) + uri_template + %(</span>)
       })
+    end
+
+    doc
+  end
+
+  def remove_syntax_error_highlighting(doc)
+    # Remove all error highlighting spans from code blocks
+    # Rouge's syntax highlighters often incorrectly mark valid syntax as errors
+    doc.search('.//pre[contains(@class, "highlight")]').each do |pre|
+      code_block = pre.at('code')
+      next unless code_block
+
+      # Replace error spans with plain text (unwrap the content)
+      code_block.inner_html = code_block.inner_html.gsub(
+        /<span class="err">(.+?)<\/span>/,
+        '\1'
+      )
     end
 
     doc

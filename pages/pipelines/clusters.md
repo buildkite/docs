@@ -1,13 +1,14 @@
 # Clusters overview
 
-Clusters is a Buildkite Pipelines feature used to manage and organize agents and queues, which:
+Clusters is a Buildkite Pipelines feature used to manage and organize agents and queues, and provides the following benefits:
 
-- allows teams to self-manage their Buildkite agent pools
-- allows admins to create isolated sets of agents and pipelines within the one Buildkite organization
-- helps make agents and queues more discoverable across your organization
-- provides easily accessible [queue metrics](/docs/pipelines/insights/queue-metrics) and operational [cluster insights](/docs/pipelines/insights/clusters) such as queue wait times (available on Enterprise plans only)
-- allows easier agent management through [queue pausing](/docs/pipelines/clusters/manage-queues#pause-and-resume-a-queue)
-- allows you to easily [create queues for Buildkite hosted agents](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
+- Allows [teams](/docs/platform/team-management/permissions) to self-manage their Buildkite agent pools.
+- Allows [cluster maintainers](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) and [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) to create isolated sets of agents and pipelines within the one Buildkite organization.
+- Helps make agents and queues more discoverable across your Buildkite organization.
+- Provides easily accessible [queue metrics](/docs/pipelines/insights/queue-metrics) and operational [cluster insights](/docs/pipelines/insights/clusters) such as queue wait times (available on [Enterprise](https://buildkite.com/pricing/) plans only).
+- Allows easier agent management through [queue pausing](/docs/pipelines/clusters/manage-queues#pause-and-resume-a-queue).
+- Allows you to easily [create queues for Buildkite hosted agents](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
+- Allows the management of [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets).
 
 Clusters create logical boundaries between different parts of your build infrastructure, enhancing security, discoverability, and manageability.
 
@@ -19,25 +20,27 @@ Clusters encapsulate groups of agents and pipelines, enabling the following:
 
 - Clusters are viewable to your entire Buildkite organization, allowing engineers to better understand the agents and queues available for their pipelines.
 - Individual users or teams can maintain their own clusters. Cluster maintainers can manage queues and agent tokens, and add and remove pipelines.
-- Pipelines can be assigned to a cluster, ensuring their builds run only on the agents connected to this cluster. These pipelines can also trigger builds only on other pipelines in the same cluster.
+- Pipelines must be assigned to a cluster, ensuring their builds run only on the agents connected to this cluster. These pipelines can also trigger builds only on other pipelines in the same cluster.
 
 ## Clusters and queues best practices
 
 ### How should I structure my clusters
 
-The most common patterns seen for cluster configurations are based on stage setup, type of work, type of platform/build, or product:
+In a small to medium organization, a single default cluster will often suffice. There is no need to create extra clusters.
 
-- Stage setup: development, test, and production clusters
-- Type of work: open source vs everything else
-- Type of platform/build: Linux, Android, macOS, Windows, Docker, ML, etc
+When your organization grows, the most common patterns seen for cluster configurations are based on team/department ownership:
+
 - Product lines: companies with multiple products often have a cluster configured for each individual product.
+- Type of work: open source, infrastructure, frontend, backend vs everything else.
 
-You can create as many clusters as your require for your setup.
+You can create as many clusters as you require for your setup. However, keep in mind that different clusters generally do not share pipelines.
 
 Learn more about working with clusters in [Manage clusters](/docs/pipelines/clusters/manage-clusters).
 
 > 📘 Pipeline triggering and artifact access
 > Pipelines associated with one cluster cannot trigger or access artifacts from pipelines associated with another cluster, unless a [rule](/docs/pipelines/rules) has been created to explicitly allow triggering or artifact access between pipelines in different clusters.
+
+Be aware that if you are using the the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) to run your Buildkite Agents in a Kubernetes environment (with Kubernetes clusters), a Kubernetes cluster is unrelated to a Buildkite cluster.
 
 ### How should I structure my queues
 

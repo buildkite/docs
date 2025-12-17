@@ -2,29 +2,13 @@ env:
   BUILDKIT_PROGRESS: plain
 
 steps:
-  - label: ":spider: muffet"
-    # We need to wait until rails has started before running muffet as otherwise it will error out
-    # and the test will appear to have failed without having run. The time to wait is hard to
-    # predict, and furthermore, some paths take longer to be be ready than others. The path in this
-    # loop was chosen after some non-systematic observations. So it does not guarantee that the
-    # server will be ready. But it seems to work well in practice.
-    command: >-
-      while ! wget --spider -Sq http://app:3000/docs/agent/v3/hooks;
-        do echo 💎🛤️🦥 Rails is still starting;
-        sleep 0.5;
-      done &&
-      echo 💎🛤️🚆 Rails has started running &&
-      /muffet http://app:3000/docs \
-        --include="/docs/" \
-        --exclude="https://github.com/buildkite/docs/" \
-        --exclude="buildkite.com/docs" \
-        --max-connections=10 \
-        --buffer-size=8192 \
-        --color=always
+  - label: ":spider: Check for link issues"
     env:
       RAILS_ENV: production
     agents:
       queue: hosted
+    soft_fail:
+      - exit_status: 1
     plugins:
       - aws-assume-role-with-web-identity#v1.4.0:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
@@ -39,8 +23,10 @@ steps:
           run: muffet
           shell: false
           upload-container-logs: always
-          env:
-            - RAILS_ENV
+          mount-buildkite-agent: true
+          propagate-environment: true
+    artifact_paths:
+      - ".buildkite/steps/muffet_results.json"
 
   - label: ":graphql: Check generated code is up to date"
     command: bundle exec rake graphql:generate
@@ -61,6 +47,17 @@ steps:
           dependencies: false
       - .buildkite/plugins/check-for-changes:
           fail_message: "Generated code is out of date. Run `bundle exec rake graphql:generate` and commit the changes."
+
+  - label: ":go: Check generated agent docs"
+    if_changed: pages/agent/v3/help/*.md
+    command: ./scripts/update-agent-help.sh
+    agents:
+      queue: hosted-m
+    plugins:
+      - docker#v5.13.0:
+          image: "golang:1.24"
+      - .buildkite/plugins/check-for-changes:
+          fail_message: "Do not edit agent CLI docs directly - use scripts/update-agent-help.sh"
 
   - group: "Lint all the things"
     key: linting
@@ -200,7 +197,6 @@ steps:
             - RAILS_ENV
 
   - label: ":docker: Build image"
-    depends_on: "linting"
     key: "assets"
     env:
       RAILS_ENV: production

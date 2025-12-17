@@ -1,5 +1,8 @@
 # Buildkite SDK
 
+> 📘
+> The Buildkite SDK feature is currently available as a preview. If you encounter any issues while using the Buildkite SDK, please raise them via a [GitHub Issue](https://github.com/buildkite/buildkite-sdk/issues).
+
 The [Buildkite SDK](https://github.com/buildkite/buildkite-sdk) is an open-source multi-language software development kit (SDK) that makes it easy to script the generation of pipeline steps for dynamic pipelines in native languages. The SDK has simple functions to output and serialize these pipeline steps to YAML or JSON format, which you can then upload to your Buildkite pipeline to execute as part of your pipeline build.
 
 Currently, the Buildkite SDK supports the following languages:
@@ -73,12 +76,10 @@ uv add buildkite-sdk
 The following code example demonstrates how to import the Buildkite SDK into a simple Python script, which then generates a Buildkite Pipelines step for a simple simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step to either JSON or YAML format:
 
 ```python
-from buildkite_sdk import Pipeline, CommandStep
+from buildkite_sdk import Pipeline
 
 pipeline = Pipeline()
-pipeline.add_step(CommandStep(
-    commands="echo 'Hello, world!'"
-))
+pipeline.add_step({"command": "echo 'Hello, world!'"})
 
 # JSON output
 # print(pipeline.to_json())
@@ -120,24 +121,34 @@ The following code example demonstrates how to import the Buildkite SDK into a s
 package main
 
 import (
-	"fmt"
-	"github.com/buildkite/buildkite-sdk/sdk/go/sdk/buildkite"
+  "fmt"
+  "github.com/buildkite/buildkite-sdk/sdk/go/sdk/buildkite"
 )
 
 func main() {
-	pipeline := buildkite.Pipeline{}
-	command := "echo 'Hello, world!"
+    pipeline := buildkite.Pipeline{}
 
-	pipeline.AddCommandStep(buildkite.CommandStep{
-		Command: &buildkite.CommandUnion{
-			String: &command,
-		},
-	})
+    pipeline.AddStep(buildkite.CommandStep{
+        Command: &buildkite.CommandStepCommand{
+            String: buildkite.Value("echo 'Hello, world!"),
+        },
+    })
 
     // JSON output
-	// fmt.Println(pipeline.ToJSON())
+    // json, err := pipeline.ToJSON()
+    // if err != nil {
+    //     log.Fatalf("Failed to serialize JSON: %v", err)
+    // }
+
+    // fmt.Println(json)
+
     // YAML output
-	fmt.Println(pipeline.ToYAML())
+    yaml, err := pipeline.ToYAML()
+    if err != nil {
+        log.Fatalf("Failed to serialize YAML: %v", err)
+    }
+
+    fmt.Println(yaml)
 }
 ```
 {: codeblock-file="dynamic_pipeline.go"}

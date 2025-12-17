@@ -1,0 +1,16 @@
+<%= render partial: 'pipelines/configure/example_pipelines/repos', locals: {
+  repos: [
+    {
+      emoji: ':hook:',
+      name: 'Agent Hooks',
+      link: 'buildkite/agent-hooks-example',
+      description: 'An example pipeline demonstrating how to use agent hooks to control which teams may run pipelines on specific agents'
+    },
+    {
+      emoji: ':hook:',
+      name: 'Repo Hook',
+      link: 'buildkite/repo-hook-example',
+      description: 'Sets environment variables using a repository hook'
+    }
+  ]
+} %>

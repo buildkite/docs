@@ -20,13 +20,12 @@ An annotation is a snippet of Markdown uploaded by your agent during the executi
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of a build's annotations.
 
->📘
-> Note that you need the <a href="/docs/apis/rest-api/builds#build-number-vs-build-id">build number</a> to retrieve annotations, not the build ID.
-
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations"
 ```
+
+<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id_with_link' %>
 
 ```json
 [
@@ -57,9 +56,6 @@ Success response: `200 OK`
 
 Creates an annotation on a build.
 
->📘
-> Note that you need the <a href="/docs/apis/rest-api/builds#build-number-vs-build-id">build number</a> to create annotations, not the build ID.
-
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations" \
@@ -71,6 +67,8 @@ curl -H "Authorization: Bearer $TOKEN" \
     "context": "greeting"
   }'
 ```
+
+<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id_with_link' %>
 
 ```json
 {

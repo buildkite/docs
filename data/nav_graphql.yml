@@ -354,6 +354,8 @@
     path: apis/graphql/schemas/object/clusterqueuedeletepayload
   - name: ClusterQueueEdge
     path: apis/graphql/schemas/object/clusterqueueedge
+  - name: ClusterQueueMetrics
+    path: apis/graphql/schemas/object/clusterqueuemetrics
   - name: ClusterQueuePauseDispatchPayload
     path: apis/graphql/schemas/object/clusterqueuepausedispatchpayload
   - name: ClusterQueueResumeDispatchPayload
@@ -424,14 +426,20 @@
     path: apis/graphql/schemas/object/jobeventfinished
   - name: JobEventGeneric
     path: apis/graphql/schemas/object/jobeventgeneric
+  - name: JobEventReprioritized
+    path: apis/graphql/schemas/object/jobeventreprioritized
   - name: JobEventRetried
     path: apis/graphql/schemas/object/jobeventretried
   - name: JobEventRetryFailed
     path: apis/graphql/schemas/object/jobeventretryfailed
+  - name: JobEventStackError
+    path: apis/graphql/schemas/object/jobeventstackerror
+  - name: JobEventStackFinished
+    path: apis/graphql/schemas/object/jobeventstackfinished
+  - name: JobEventStackNotification
+    path: apis/graphql/schemas/object/jobeventstacknotification
   - name: JobEventTimedOut
     path: apis/graphql/schemas/object/jobeventtimedout
-  - name: JobMinutesUsage
-    path: apis/graphql/schemas/object/jobminutesusage
   - name: JobPriority
     path: apis/graphql/schemas/object/jobpriority
   - name: JobRetryRuleAutomatic
@@ -826,14 +834,8 @@
     path: apis/graphql/schemas/object/teamsuiteupdatepayload
   - name: TeamUpdatePayload
     path: apis/graphql/schemas/object/teamupdatepayload
-  - name: TestExecutionsUsage
-    path: apis/graphql/schemas/object/testexecutionsusage
   - name: UnregisteredUser
     path: apis/graphql/schemas/object/unregistereduser
-  - name: UsageUnionConnection
-    path: apis/graphql/schemas/object/usageunionconnection
-  - name: UsageUnionEdge
-    path: apis/graphql/schemas/object/usageunionedge
   - name: User
     path: apis/graphql/schemas/object/user
   - name: Viewer
@@ -860,8 +862,6 @@
     path: apis/graphql/schemas/scalar/datetime
   - name: ID
     path: apis/graphql/schemas/scalar/id
-  - name: ISO8601Date
-    path: apis/graphql/schemas/scalar/iso8601date
   - name: Int
     path: apis/graphql/schemas/scalar/int
   - name: JSInt
@@ -902,8 +902,6 @@
     path: apis/graphql/schemas/interface/repositoryprovider
   - name: RepositoryProviderSettings
     path: apis/graphql/schemas/interface/repositoryprovidersettings
-  - name: ResourceUsageInterface
-    path: apis/graphql/schemas/interface/resourceusageinterface
   - name: SSOProvider
     path: apis/graphql/schemas/interface/ssoprovider
   - name: Step
@@ -936,6 +934,8 @@
     path: apis/graphql/schemas/enum/hostedagentarchitecture
   - name: HostedAgentInstanceShapeName
     path: apis/graphql/schemas/enum/hostedagentinstanceshapename
+  - name: HostedAgentMacOSVersion
+    path: apis/graphql/schemas/enum/hostedagentmacosversion
   - name: HostedAgentMachineType
     path: apis/graphql/schemas/enum/hostedagentmachinetype
   - name: HostedAgentSize
@@ -980,8 +980,6 @@
     path: apis/graphql/schemas/enum/registryaccesslevels
   - name: RegistryOrders
     path: apis/graphql/schemas/enum/registryorders
-  - name: ResourceUsageType
-    path: apis/graphql/schemas/enum/resourceusagetype
   - name: RevokeInactiveTokenPeriod
     path: apis/graphql/schemas/enum/revokeinactivetokenperiod
   - name: RuleAction
@@ -1248,5 +1246,3 @@
     path: apis/graphql/schemas/union/rulesource
   - name: RuleTarget
     path: apis/graphql/schemas/union/ruletarget
-  - name: UsageUnion
-    path: apis/graphql/schemas/union/usageunion

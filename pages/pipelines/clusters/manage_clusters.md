@@ -8,12 +8,11 @@ Learn more about on how to set up queues within a cluster in [Manage queues](/do
 
 When a new Buildkite organization is created, a single default cluster (initially named **Default cluster**) is also created.
 
-For smaller organizations, working on smaller projects, this default cluster may be sufficient. However, it's usually more convenient for organizations to manage projects in separate clusters, when these projects require different:
+For smaller organizations, working on smaller projects, this default cluster may be sufficient. However, it's usually more convenient for large organizations to manage projects in separate clusters, when these projects require different:
 
-- Staged environments, for example, development, test, staging/pre-production and production
-- Source code visibility, such as open-source versus closed-source code projects
-- Target platforms, such as Linux, Android, macOS, Windows, etc.
-- Multiple projects, for example, different product lines
+- Source code visibility, such as open-source versus closed-source code projects.
+- Expertise and ownership, such as Android developers, macOS developers, Windows developers, Machine Learning expert etc.
+- Multiple projects, for example, different product lines.
 
 Once your clusters are set up, you can set up one or more [queues](/docs/pipelines/clusters/manage-queues) within each cluster.
 
@@ -161,7 +160,7 @@ To restrict an existing agent token's access by IP address (via the token's **Al
 
 ### Using the REST API
 
-To restrict an existing agent token's access by IP address using the REST API, run the following example `curl` command to [update this agent token](/docs/apis/rest-api/clusters#agent-tokens-update-a-token):
+To restrict an existing agent token's access by IP address using the REST API, run the following example `curl` command to [update this agent token](/docs/apis/rest-api/clusters/agent-tokens#update-a-token):
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -242,6 +241,7 @@ A cluster maintainer can:
 - Manage [queues](/docs/pipelines/clusters/manage-queues) within the cluster.
 - Add pipelines to or remove them from the cluster.
 - Stop, pause and resume agents belonging to a queue within the cluster.
+- Manage [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) associated with the cluster.
 
 > 📘
 > Learn more about Buildkite organization administrators and user permissions in Buildkite from [User and team permissions](/docs/platform/team-management/permissions).
@@ -308,7 +308,7 @@ where:
 
         ```bash
         curl -H "Authorization: Bearer $TOKEN" \
-          - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
+          -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
         ```
 
 <%= render_markdown partial: 'apis/descriptions/rest_cluster_id_body' %>

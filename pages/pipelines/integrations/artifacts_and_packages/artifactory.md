@@ -35,7 +35,7 @@ Required environment vars:
   <tr>
     <td><code>BUILDKITE_ARTIFACTORY_PASSWORD</code></td>
     <td>
-      The <a href="https://www.jfrog.com/confluence/display/RTF/Updating+Your+Profile#UpdatingYourProfile-APIKey">API Key</a>, <a href="https://www.jfrog.com/confluence/display/ACC/Access+Tokens#AccessTokens-UsingTokens">Access Token</a>, or password for your Artifactory user<br>
+      The <a href="https://jfrog.com/help/r/jfrog-platform-administration-documentation/api-key">API Key</a>, <a href="https://jfrog.com/help/r/jfrog-platform-administration-documentation/access-tokens">Access Token</a>, or password for your Artifactory user<br>
       <em>Example:</em> <code>AKCp5dKiQ9syTzu9GFhpF3iTzDcFhYAa4...</code><br>
     </td>
   </tr>
@@ -49,7 +49,7 @@ steps:
     command: "go build -v -o myapp-darwin-amd64"
     artifact_paths: "myapp-darwin-amd64"
     plugins:
-      - docker#v3.3.0:
+      - docker#v5.13.0:
           image: "golang:1.11"
 ```
 {: codeblock-file="pipeline.yml"}
@@ -63,15 +63,15 @@ steps:
 
 ## Using Artifactory for package management
 
-To help cache and secure your build dependencies, you can use [Artifactory's package management](https://www.jfrog.com/confluence/display/RTF/Package+Management) features in your Buildkite pipelines. Each package management platform is configured differently.
+To help cache and secure your build dependencies, you can use [Artifactory's package management](https://jfrog.com/help/r/jfrog-artifactory-documentation/package-management) features in your Buildkite pipelines. Each package management platform is configured differently.
 
-For example, to use an [Artifactory NPM registry](https://www.jfrog.com/confluence/display/RTF/npm+Registry?src=sidebar) in your build steps, you can configure the following [Agent environment hook](/docs/agent/v3/hooks) to instruct the [npm command](https://docs.npmjs.com/cli/npm) to use Artifactory instead of npmjs.com:
+For example, to use an [Artifactory NPM repositories](https://jfrog.com/help/r/jfrog-artifactory-documentation/npm-repositories) in your build steps, you can configure the following [Agent environment hook](/docs/agent/v3/hooks) to instruct the [npm command](https://docs.npmjs.com/cli/npm) to use Artifactory instead of npmjs.com:
 
 ```bash
 export NPM_CONFIG_REGISTRY="https://${BUILDKITE_ARTIFACTORY_USER}:${BUILDKITE_ARTIFACTORY_PASSWORD}@my-artifactory-server/artifactory/api/npm/npm-local/"
 ```
 
-You can use this same approach for [Ruby gem repositories](https://www.jfrog.com/confluence/display/RTF/RubyGems+Repositories), [Docker registries](https://www.jfrog.com/confluence/display/RTF/Docker+Registry), and any other Artifactory supported package managers.
+You can use this same approach for [Ruby gem repositories](https://jfrog.com/help/r/jfrog-artifactory-documentation/rubygems-repositories), [Docker repositories](https://jfrog.com/help/r/jfrog-artifactory-documentation/docker-repositories), and any other Artifactory supported package managers.
 
 If you're running build steps in a Docker container, you'll need to ensure the package management configuration is available inside the container. For example, if you're testing Node in a container, you'll need to pass through the above `NPM_CONFIG_REGISTRY` environment variable into the container:
 
@@ -82,7 +82,7 @@ steps:
       - npm install
       - npm test
     plugins:
-      docker#v3.3.0:
+      docker#v5.13.0:
         image: "node:11"
         environment:
           - NPM_CONFIG_REGISTRY

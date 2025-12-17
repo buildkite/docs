@@ -1,8 +1,8 @@
 # User, team, and test suite permissions
 
-Customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans can manage test suite permissions using the [_teams_ feature](#manage-teams-and-permissions). This feature allows you to apply access permissions and functionality controls for one or more groups of users (that is, _teams_) on each test suite throughout your organization.
+The [_teams_ feature](#manage-teams-and-permissions) allows you to apply access permissions and functionality controls for one or more groups of users (that is, _teams_) on each test suite throughout your organization.
 
-Enterprise customers can configure test suite permissions and security features for all users across their Buildkite organization through the **Security** page. Learn more about this feature in [Manage organization security for test suites](#manage-organization-security-for-test-suites).
+Enterprise plan customers can configure test suite permissions and security features for all users across their Buildkite organization through the **Security** page. Learn more about this feature in [Manage organization security for test suites](#manage-organization-security-for-test-suites).
 
 ## Manage teams and permissions
 
@@ -47,15 +47,18 @@ When you create a new test suite in Buildkite:
 
 **Full Access** on a test suite allows you to:
 
-- View test runs.
-- Edit test suite's settings
+- View test data.
+- Edit test suite's settings.
 - Delete the test suite.
 - Provide access to other users, by adding the test suite to other teams that you are a [team maintainer](#manage-teams-and-permissions-team-level-permissions) on.
+- Configure test splitting.
+- Create and edit workflows.
 
 Any user with **Full Access** permission to a test suite can change its permission to **Read Only**, which allows you to view test runs only, but _not_:
 
 - Edit the test suite's settings.
 - Delete the test suite.
+- Create and edit workflows.
 - Provide access to other users.
 
 A user who is a member of at least one team with **Full Access** permission to a test suite can change the permissions on this test suite. However, once this user loses this **Full Access** through their last team with this permission on this test suite, the user then loses the ability to change the test suite's permission in any team they are a member of.
@@ -64,7 +67,7 @@ Another user with **Full Access** to this test suite or a [Buildkite organizatio
 
 ## Manage organization security for test suites
 
-Enterprise customers can configure test suite action permissions for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
+Enterprise plan customers can configure test suite action permissions for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
 
 These user-level permissions and security features are managed by _Buildkite organization administrators_. To access this feature:
 

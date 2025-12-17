@@ -1,8 +1,20 @@
 # Organizations
 
-A collection of common tasks with organizations using the GraphQL API.
+A collection of common tasks with Buildkite organizations using the GraphQL API.
 
-You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the **Docs** panel.
+<%= render_markdown partial: 'apis/graphql/cookbooks/graphql_console_link' %>
+
+## Get organization ID
+
+Knowing the ID of a Buildkite organization is a prerequisite for running many other GraphQL queries. Use this query to get the ID of an organization based on the organization's slug.
+
+```graphql
+query getOrganizationID {
+  organization(slug:"organization-slug") {
+    id
+  }
+}
+```
 
 ## List organization members
 
@@ -22,6 +34,20 @@ query getOrgMembers {
           }
         }
       }
+    }
+  }
+}
+```
+
+## Get the number of organization members
+
+Get the total number of members in the organization. Regardless of the value you enter for `members` in the query, the output of the query will provide the actual number of members in the organization.
+
+```graphql
+query getOrgMembersCount {
+  organization(slug: "org-slug") {
+    members(first:1) {
+      count
     }
   }
 }
@@ -97,7 +123,7 @@ mutation UpdateSessionDuration {
 
 ## Update inactive API token revocation
 
-On the Enterprise plan, you can control when inactive API tokens are revoked. By default, they are never (`NEVER`) revoked, but you can set your token revocation to either 30, 60, 90, 180, or 365 days.
+On the [Enterprise](https://buildkite.com/pricing/) plan, you can control when inactive API tokens are revoked. By default, they are never (`NEVER`) revoked, but you can set your token revocation to either 30, 60, 90, 180, or 365 days.
 
 ```graphql
 mutation UpdateRevokeInactiveTokenPeriod {
@@ -304,7 +330,7 @@ mutation deleteOrgMember {
 
 ## Get organization audit events
 
-Query your organization's audit events. Audit events are only available to Enterprise customers.
+Query your Buildkite organization's audit events. Audit events are only available to [Enterprise](https://buildkite.com/pricing/) plan customers.
 
 ```graphql
 query getOrganizationAuditEvents {
@@ -354,7 +380,7 @@ query getTimeScopedOrganizationAuditEvents {
 
 ## Get organization audit events of a specific user
 
-Query audit events from within an organization of a specific user. Audit events are only available to Enterprise customers.
+Query audit events from within a Buildkite organization of a specific user. Audit events are only available to [Enterprise](https://buildkite.com/pricing/) plan customers.
 
 ```graphql
 query getActorRefinedOrganizationAuditEvents {
@@ -398,9 +424,9 @@ query getActorID {
 }
 ```
 
-## Create & delete system banners (enterprise only)
+## Create and delete system banners
 
-Create & delete system banners via the `organizationBannerUpsert` & `organizationBannerDelete` mutations.
+Create and delete system banners using the `organizationBannerUpsert` and `organizationBannerDelete` mutations. These features are only available to [Enterprise](https://buildkite.com/pricing/) plan customers.
 
 To create a banner call `organizationBannerUpsert` with the organization's GraphQL id and message.
 
@@ -431,3 +457,4 @@ mutation OrganizationBannerDelete {
   }
 }
 ```
+

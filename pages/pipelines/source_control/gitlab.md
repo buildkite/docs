@@ -11,7 +11,7 @@ If you host your repositories on [gitlab.com](https://gitlab.com/) enter your gi
 You can also use repositories from your own self-managed GitLab service but you'll need to connect it to Buildkite first.
 
 >📘
-> The earliest supported version of GitLab is <a href=https://about.gitlab.com/2014/10/22/gitlab-7-4-released/>7.4</a>.
+> The earliest supported version of GitLab is <a href=https://about.gitlab.com/releases/2014/10/22/gitlab-7-4-released/>7.4</a>.
 
 1. Open your Buildkite organization's **Settings** and choose [**Repository Providers**](https://buildkite.com/organizations/-/repository-providers).
 1. Select **GitLab Self-Managed**.
@@ -22,6 +22,9 @@ You can also use repositories from your own self-managed GitLab service but you'
 
 1. Select **Save Settings** before leaving this page.
 1. Create a new pipeline on Buildkite using your GitLab repository's URL (for example, `git@git.mycompany.com:your/repo.git`) and follow the instructions on the pipeline creation page.
+
+> 📘 Verify your GitLab account
+> To ensure that the commit author from GitLab is a verified Buildkite account user, a public email must be specified in the user's GitLab account. This public email must match their Buildkite user account email.
 
 ## Branch configuration and settings
 

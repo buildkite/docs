@@ -4,15 +4,15 @@ keywords: docs, pipelines, tutorials, migration, bamboo
 
 # Migrate from Bamboo
 
-Migrating continuous integration tools can be challenging, so we've put together a guide to help you transition your Bamboo skills to Buildkite.
+Migrating continuous integration tools can be challenging, so we've put together a guide to help you transition your Bamboo skills to Buildkite Pipelines.
 
 ## Plans to pipelines
 
 <!--alex ignore easy-->
 
-You can easily map most Bamboo workflows to Buildkite. _Projects and Plans_ in Bamboo are called [pipelines](/docs/pipelines) in Buildkite (and **Pipelines** in the Buildkite dashboard). Bamboo deployments also become Buildkite pipelines.
+You can easily map most Bamboo workflows to Buildkite Pipelines. _Projects and Plans_ in Bamboo are called [pipelines](/docs/pipelines) in Buildkite (and **Pipelines** in the Buildkite dashboard). Bamboo deployments also become Buildkite's pipelines.
 
-Buildkite pipelines consist of different types of [_steps_](/docs/pipelines/configure/step-types) for different tasks:
+Buildkite's pipelines consist of different types of [_steps_](/docs/pipelines/configure/step-types) for different tasks:
 
 - **Command step:** Runs one or more shell commands on one or more agents.
 - **Wait step:** Pauses a build until all previous jobs have completed.

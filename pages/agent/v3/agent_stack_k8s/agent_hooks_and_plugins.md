@@ -22,12 +22,12 @@ Example of using hooks from a ConfigMap:
 ```yaml
 config:
   agent-config:
+    hooks-path: /buildkite/hooks
     hooksVolume:
       name: buildkite-hooks
-    hooks-path: /buildkite/hooks
-    configMap:
-      defaultMode: 493
-      name: buildkite-agent-hooks
+      configMap:
+        defaultMode: 493
+        name: buildkite-agent-hooks
 ```
 {: codeblock-file="values.yaml"}
 
@@ -53,7 +53,7 @@ kubectl create configmap buildkite-agent-hooks --from-file=/tmp/hooks -n buildki
 
 All the hooks needed are under the `/tmp/hooks` directory and a ConfigMap created with the name `buildkite-agent-hooks` in the `buildkite` namespace of the Kubernetes cluster.
 
-In order for the agent to use these hooks, a volume containing the ConfigMap is defined and then mounted to all containers via `extraVolumeMounts` at `/buildkite/hooks`, using the `kubernetes` plugin:
+In order for the agent to use these hooks, a volume containing the ConfigMap is defined and then mounted to all containers using `extraVolumeMounts` at `/buildkite/hooks`, using the `kubernetes` plugin:
 
 ```yaml
 steps:
@@ -179,7 +179,7 @@ Running global pre-exit hook        # <-- user-defined container
 
 ## Plugins
 
-The `agent-config` block within the controller's configuration file (`values.yaml`) accepts a value for [`plugins-path`](/docs/agent/v3/configuration#plugins-path) via the `pluginsVolume` configuration. If configured, a corresponding volume named `buildkite-plugins` will be automatically mounted on `checkout` and command containers, with the Buildkite Agent configured to use them.
+The `agent-config` block within the controller's configuration file (`values.yaml`) accepts a value for [`plugins-path`](/docs/agent/v3/configuration#plugins-path) using the `pluginsVolume` configuration. If configured, a corresponding volume named `buildkite-plugins` will be automatically mounted on `checkout` and command containers, with the Buildkite Agent configured to use them.
 
 Example of using plugins from a [HostPath](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath)):
 

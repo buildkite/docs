@@ -12,15 +12,15 @@ You can download a complete folder of packages or a specific package version fro
 
 ## Download packages using the JFrog CLI
 
-The [JFrog CLI](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli) provides a command line interface (CLI) that allows more options on [downloading packages from JFrog Artifactory repositories](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/cli-for-jfrog-artifactory/generic-files#downloading-files) than what is typically available through the JFrog Artifactory interface.
+The [JFrog CLI](https://jfrog.com/help/r/jfrog-applications-and-cli-documentation/jfrog-cli) provides a command line interface (CLI) that allows more options on downloading packages from JFrog Artifactory repositories than what is typically available through the JFrog Artifactory interface. Learn more about this from the **Downloading Files** section of the [Generic Files](https://jfrog.com/help/r/jfrog-applications-and-cli-documentation/generic-files) of the JFrog CLI documentation.
 
 ### Setting up the JFrog CLI
 
-1. First, [download and install the JFrog CLI](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/install). You can install the latest version of the JFrog CLI from JFrog's [Install the Latest Version of JFrog CLI](https://jfrog.com/getcli/) page on their website.
+1. First, [download and install the JFrog CLI](https://jfrog.com/help/r/jfrog-applications-and-cli-documentation/download-and-install-the-jfrog-cli). You can install the latest version of the JFrog CLI from JFrog's [Install the Latest Version of JFrog CLI](https://jfrog.com/getcli/) page on their website.
 
-1. Use the `jf c add` command to authenticate your JFrog Artifactory login credentials to access the repository whose package/s need to be downloaded. Learn more about how to do this from the [Authentication page of the JFrog CLI](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/cli-for-jfrog-artifactory/authentication) documentation.
+1. Use the `jf c add` command to authenticate your JFrog Artifactory login credentials to access the repository whose package/s need to be downloaded. Learn more about how to do this from the [Authentication page of the JFrog CLI](https://jfrog.com/help/r/jfrog-applications-and-cli-documentation/authentication) documentation.
 
-1. Use the `jfrog rt dl` command to [download the required packages](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/cli-for-jfrog-artifactory/generic-files#downloading-files) from your JFrog Artifactory repository.
+1. Use the `jfrog rt dl` command to download the required packages from your JFrog Artifactory repository. Learn more about this from the **Downloading Files** section of the [Generic Files](https://jfrog.com/help/r/jfrog-applications-and-cli-documentation/generic-files) of the JFrog CLI documentation.
 
 ### Example JFrog CLI download commands
 

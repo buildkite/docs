@@ -3,6 +3,9 @@ set -xeuo pipefail
 
 export AWS_DEFAULT_REGION=us-east-1
 
+# Remove the pager (so that the output doesn't need to be piped to `less`)
+export AWS_PAGER=""
+
 cluster="buildkite-ecs"
 task_family="docs"
 service_name="docs"

@@ -2,7 +2,11 @@
 
 A collection of common tasks with [Hosted agents](/docs/pipelines/hosted-agents) using the GraphQL API.
 
+<%= render_markdown partial: 'apis/graphql/cookbooks/graphql_console_link' %>
+
 ## Create a Buildkite hosted queue
+
+Create a new _Buildkite hosted queue_ in a cluster, which are queues created for Buildkite hosted agents.
 
 ```graphql
 mutation {

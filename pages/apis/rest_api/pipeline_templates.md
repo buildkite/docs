@@ -1,6 +1,6 @@
 # Pipeline templates API
 
-> 📘 Enterprise feature
+> 📘 Enterprise plan feature
 > [Pipeline templates](/docs/pipelines/governance/templates) are only available on an [Enterprise](https://buildkite.com/pricing) plan.
 
 The pipeline templates API endpoint allows admins to create and manage pipeline templates for an organization.

@@ -1,7 +1,95 @@
 <%= render partial: "meta_content" %>
 
-<article class="Article Article--prose">
-  <%= @page.body %>
+<article class="Article Article--prose" data-has-copy-dropdown="true">
+    <div class="page-copy-dropdown" data-url="<%= docs_page_url(path: params[:path], format: 'md') %>">
+      <button class="page-copy-dropdown__button" type="button" 
+              aria-haspopup="menu" 
+              aria-expanded="false"
+              aria-label="Copy page options">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy-icon lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        <span class="page-copy-dropdown__button-text-full">Copy page</span>
+        <span class="page-copy-dropdown__button-text-short">Copy</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down-icon lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="page-copy-dropdown__menu" role="menu" aria-label="Copy page actions">
+        <button class="page-copy-dropdown__item" data-action="copy-markdown" aria-label="Copy page as markdown">
+          <div class="page-copy-dropdown__item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy-icon lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+          </div>
+          <div class="page-copy-dropdown__item-content">
+            <div class="page-copy-dropdown__item-title">Copy as markdown</div>
+            <div class="page-copy-dropdown__item-subtitle">Copy page as markdown for LLMs</div>
+          </div>
+        </button>
+        
+        <button class="page-copy-dropdown__item" data-action="view-markdown" aria-label="View as markdown">
+          <div class="page-copy-dropdown__item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-code2-icon lucide-file-code-2"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m5 12-3 3 3 3"/><path d="m9 18 3-3-3-3"/></svg>
+          </div>
+          <div class="page-copy-dropdown__item-content">
+            <div class="page-copy-dropdown__item-title">View as markdown</div>
+            <div class="page-copy-dropdown__item-subtitle">Open markdown in new tab</div>
+          </div>
+          <div class="page-copy-dropdown__item-external">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 7h10v10"/>
+              <path d="M7 17L17 7"/>
+            </svg>
+          </div>
+        </button>
+        
+        <div class="page-copy-dropdown__divider"></div>
+        
+        <button class="page-copy-dropdown__item" data-action="open-chatgpt" aria-label="Open in ChatGPT">
+          <div class="page-copy-dropdown__item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-sm absolute left-0 origin-center" width="18" viewBox="0 0 156 154" fill="none"><path d="M59.7325 56.1915V41.6219C59.7325 40.3948 60.1929 39.4741 61.266 38.8613L90.5592 21.9915C94.5469 19.6912 99.3013 18.6181 104.208 18.6181C122.612 18.6181 134.268 32.8813 134.268 48.0637C134.268 49.1369 134.268 50.364 134.114 51.5911L103.748 33.8005C101.908 32.7274 100.067 32.7274 98.2267 33.8005L59.7325 56.1915ZM128.133 112.937V78.1222C128.133 75.9745 127.212 74.441 125.372 73.3678L86.878 50.9768L99.4538 43.7682C100.527 43.1554 101.448 43.1554 102.521 43.7682L131.814 60.6381C140.25 65.5464 145.923 75.9745 145.923 86.0961C145.923 97.7512 139.023 108.487 128.133 112.935V112.937ZM50.6841 82.2638L38.1083 74.9028C37.0351 74.29 36.5748 73.3693 36.5748 72.1422V38.4025C36.5748 21.9929 49.1506 9.5696 66.1744 9.5696C72.6162 9.5696 78.5962 11.7174 83.6585 15.5511L53.4461 33.0352C51.6062 34.1084 50.6855 35.6419 50.6855 37.7897V82.2653L50.6841 82.2638ZM77.7533 97.9066L59.7325 87.785V66.3146L77.7533 56.193L95.7725 66.3146V87.785L77.7533 97.9066ZM89.3321 144.53C82.8903 144.53 76.9103 142.382 71.848 138.549L102.06 121.064C103.9 119.991 104.821 118.458 104.821 116.31V71.8343L117.551 79.1954C118.624 79.8082 119.084 80.7289 119.084 81.956V115.696C119.084 132.105 106.354 144.529 89.3321 144.529V144.53ZM52.9843 110.33L23.6911 93.4601C15.2554 88.5517 9.58181 78.1237 9.58181 68.0021C9.58181 56.193 16.6365 45.611 27.5248 41.163V76.1299C27.5248 78.2776 28.4455 79.8111 30.2854 80.8843L68.6271 103.121L56.0513 110.33C54.9781 110.943 54.0574 110.943 52.9843 110.33ZM51.2983 135.482C33.9681 135.482 21.2384 122.445 21.2384 106.342C21.2384 105.115 21.3923 103.888 21.5448 102.661L51.7572 120.145C53.5971 121.218 55.4385 121.218 57.2784 120.145L95.7725 97.9081V112.478C95.7725 113.705 95.3122 114.625 94.239 115.238L64.9458 132.108C60.9582 134.408 56.2037 135.482 51.2969 135.482H51.2983ZM89.3321 153.731C107.889 153.731 123.378 140.542 126.907 123.058C144.083 118.61 155.126 102.507 155.126 86.0976C155.126 75.3617 150.525 64.9336 142.243 57.4186C143.01 54.1977 143.471 50.9768 143.471 47.7573C143.471 25.8267 125.68 9.41567 105.129 9.41567C100.989 9.41567 97.0011 10.0285 93.0134 11.4095C86.1112 4.66126 76.6024 0.367188 66.1744 0.367188C47.6171 0.367188 32.1282 13.5558 28.5994 31.0399C11.4232 35.4879 0.380859 51.5911 0.380859 68.0006C0.380859 78.7365 4.98133 89.1645 13.2631 96.6795C12.4963 99.9004 12.036 103.121 12.036 106.341C12.036 128.271 29.8265 144.682 50.3777 144.682C54.5178 144.682 58.5055 144.07 62.4931 142.689C69.3938 149.437 78.9026 153.731 89.3321 153.731Z" fill="#000000"></path></svg>
+          </div>
+          <div class="page-copy-dropdown__item-content">
+            <div class="page-copy-dropdown__item-title">Open in ChatGPT</div>
+            <div class="page-copy-dropdown__item-subtitle">Ask ChatGPT about this page</div>
+          </div>
+          <div class="page-copy-dropdown__item-external">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 7h10v10"/>
+              <path d="M7 17L17 7"/>
+            </svg>
+          </div>
+        </button>
+        
+        <button class="page-copy-dropdown__item" data-action="open-claude" aria-label="Open in Claude">
+          <div class="page-copy-dropdown__item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 100 100" class="w-full fill-[#d97757]" fill="#d97757"><path d="m19.6 66.5 19.7-11 .3-1-.3-.5h-1l-3.3-.2-11.2-.3L14 53l-9.5-.5-2.4-.5L0 49l.2-1.5 2-1.3 2.9.2 6.3.5 9.5.6 6.9.4L38 49.1h1.6l.2-.7-.5-.4-.4-.4L29 41l-10.6-7-5.6-4.1-3-2-1.5-2-.6-4.2 2.7-3 3.7.3.9.2 3.7 2.9 8 6.1L37 36l1.5 1.2.6-.4.1-.3-.7-1.1L33 25l-6-10.4-2.7-4.3-.7-2.6c-.3-1-.4-2-.4-3l3-4.2L28 0l4.2.6L33.8 2l2.6 6 4.1 9.3L47 29.9l2 3.8 1 3.4.3 1h.7v-.5l.5-7.2 1-8.7 1-11.2.3-3.2 1.6-3.8 3-2L61 2.6l2 2.9-.3 1.8-1.1 7.7L59 27.1l-1.5 8.2h.9l1-1.1 4.1-5.4 6.9-8.6 3-3.5L77 13l2.3-1.8h4.3l3.1 4.7-1.4 4.9-4.4 5.6-3.7 4.7-5.3 7.1-3.2 5.7.3.4h.7l12-2.6 6.4-1.1 7.6-1.3 3.5 1.6.4 1.6-1.4 3.4-8.2 2-9.6 2-14.3 3.3-.2.1.2.3 6.4.6 2.8.2h6.8l12.6 1 3.3 2 1.9 2.7-.3 2-5.1 2.6-6.8-1.6-16-3.8-5.4-1.3h-.8v.4l4.6 4.5 8.3 7.5L89 80.1l.5 2.4-1.3 2-1.4-.2-9.2-7-3.6-3-8-6.8h-.5v.7l1.8 2.7 9.8 14.7.5 4.5-.7 1.4-2.6 1-2.7-.6-5.8-8-6-9-4.7-8.2-.5.4-2.9 30.2-1.3 1.5-3 1.2-2.5-2-1.4-3 1.4-6.2 1.6-8 1.3-6.4 1.2-7.9.7-2.6v-.2H49L43 72l-9 12.3-7.2 7.6-1.7.7-3-1.5.3-2.8L24 86l10-12.8 6-7.9 4-4.6-.1-.5h-.3L17.2 77.4l-4.7.6-2-2 .2-3 1-1 8-5.5Z"></path></svg>
+          </div>
+          <div class="page-copy-dropdown__item-content">
+            <div class="page-copy-dropdown__item-title">Open in Claude</div>
+            <div class="page-copy-dropdown__item-subtitle">Ask Claude about this page</div>
+          </div>
+          <div class="page-copy-dropdown__item-external">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 7h10v10"/>
+              <path d="M7 17L17 7"/>
+            </svg>
+          </div>
+        </button>
+        
+        <button class="page-copy-dropdown__item" data-action="connect-cursor" aria-label="Connect to Cursor MCP">
+          <div class="page-copy-dropdown__item-icon">
+          <svg viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg" class="shrink-0" style="flex: 0 0 auto; line-height: 1;"><title>Cursor</title><path d="M11.925 24l10.425-6-10.425-6L1.5 18l10.425 6z" fill="url(#cursor-fill-0)"></path><path d="M22.35 18V6L11.925 0v12l10.425 6z" fill="url(#cursor-fill-1)"></path><path d="M11.925 0L1.5 6v12l10.425-6V0z" fill="url(#cursor-fill-2)"></path><path d="M22.35 6L11.925 24V12L22.35 6z" fill="currentColor" opacity="0.6"></path><path d="M22.35 6l-10.425 6L1.5 6h20.85z" fill="currentColor"></path><defs><linearGradient gradientUnits="userSpaceOnUse" id="cursor-fill-0" x1="11.925" x2="11.925" y1="12" y2="24"><stop offset=".16" stop-color="currentColor" stop-opacity=".39"></stop><stop offset=".658" stop-color="currentColor" stop-opacity=".8"></stop></linearGradient><linearGradient gradientUnits="userSpaceOnUse" id="cursor-fill-1" x1="22.35" x2="11.925" y1="6.037" y2="12.15"><stop offset=".182" stop-color="currentColor" stop-opacity=".31"></stop><stop offset=".715" stop-color="currentColor" stop-opacity="0"></stop></linearGradient><linearGradient gradientUnits="userSpaceOnUse" id="cursor-fill-2" x1="11.925" x2="1.5" y1="0" y2="18"><stop stop-color="currentColor" stop-opacity=".6"></stop><stop offset=".667" stop-color="currentColor" stop-opacity=".22"></stop></linearGradient></defs></svg>
+          </div>
+          <div class="page-copy-dropdown__item-content">
+            <div class="page-copy-dropdown__item-title">Connect to Cursor</div>
+            <div class="page-copy-dropdown__item-subtitle">Install MCP Server on Cursor</div>
+          </div>
+          <div class="page-copy-dropdown__item-external">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 7h10v10"/>
+              <path d="M7 17L17 7"/>
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+    <%= @page.body %>
 </article>
 
 <%= content_for :toc do %>

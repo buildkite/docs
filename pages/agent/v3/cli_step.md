@@ -1,10 +1,14 @@
 # buildkite-agent step
 
-The Buildkite agent's `step` command provides the ability to retrieve and update the attributes of steps in your `pipeline.yml` files.
+The Buildkite Agent's `step` command provides the ability to retrieve and update the attributes of steps in your `pipeline.yml` files.
 
 ## Updating a step
 
-Use this command in your build scripts to update the `label` attribute of a step.
+Use this command in your build scripts to update the step attributes. The following attributes can be updated:
+
+* `label`
+* `notify`
+* `priority`
 
 <%= render 'agent/v3/help/step_update' %>
 
@@ -36,7 +40,7 @@ If you're only interested in whether a step passed or failed, perhaps to use con
 
 For example, the following pipeline has one step that fails (`one`), and another that passes (`two`). After the `wait`, the next two steps print the `outcome` attribute of steps `one` and `two`, and the last step [annotates the build](/docs/agent/v3/cli-annotate#creating-an-annotation) if step `one` fails. Note that `step get` needs the `key` of the step to identify it, not the `label`.
 
-The `outcome` is `passed`, `hard_failed` or `soft_failed`. A [soft fail](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes) is a non-zero exit status that does not fail the build.
+The `outcome` is `passed`, `hard_failed`, `soft_failed`, or `errored`. A "hard fail" is a non-zero exit status that fails the build. A ["soft fail"](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes) is a non-zero exit status that does not fail the build. An "errored" step outcome is reserved for infrastructure issues, such as timeouts, cancellations or expired jobs.
 
 ```yaml
 steps:
@@ -60,6 +64,10 @@ steps:
         buildkite-agent annotate 'this build failed' --style 'error'
       fi
 ```
+
+## Understanding step states vs job states
+
+The `buildkite-agent step get` command returns _step_ `state` and `outcome` values. The [REST](/docs/apis/rest-api) and [GraphQL](/docs/apis/graphql-api) APIs return [_job_ states](/docs/pipelines/configure/defining-steps#job-states). For more information regarding the difference between these values, see the definitions of [step](/docs/pipelines/glossary#step) and [job](/docs/pipelines/glossary#job).
 
 ## Canceling a step
 

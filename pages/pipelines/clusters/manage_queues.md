@@ -6,15 +6,15 @@ This page provides details on how to manage queues within a [cluster](/docs/pipe
 
 A [_queue_](/docs/pipelines/glossary#queue) defines and manages [Buildkite Agents](/docs/agent/v3) within a cluster. When a new Buildkite organization is created, along with the automatically created [default cluster](/docs/pipelines/clusters/manage-clusters#setting-up-clusters) (named **Default cluster**), a default queue (named **default-queue**) within this cluster is also created.
 
-A cluster can be configured with multiple queues, each of which can be used to represent a specific combination of your [build/agent infrastructure](#agent-infrastructure), based on:
+A cluster can be configured with multiple queues. Each queue can be used for workload routing to specific combinations of your [build/agent infrastructure](#agent-infrastructure), based on:
 
 - Architecture (x86-64, arm64, Apple silicon, etc.)
 - Size of agents (small, medium, large, extra large)
 - Type of machine (macOS, Linux, Windows, etc.)
 
-Some example queues might be `linux_medium_x86`, `mac_large_silicon`, etc.
+For example, you can set up dedicated queues for `linux_medium_x86`, `mac_large_silicon`, etc.
 
-Having individual queues according to these breakdowns allows you to scale a set of similar agents, which Buildkite can then report on.
+Breaking down your infrastructure into individual queues like this makes it easier to scale groups of similar agents and get meaningful metrics from Buildkite.
 
 ## Agent infrastructure
 
@@ -57,7 +57,7 @@ To create a new self-hosted agent queue using the Buildkite interface:
 
 ### Using the REST API
 
-To [create a new self-hosted agent queue](/docs/apis/rest-api/clusters#queues-create-a-self-hosted-queue) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+To [create a new self-hosted agent queue](/docs/apis/rest-api/clusters/queues#create-a-self-hosted-queue) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```curl
 curl -H "Authorization: Bearer $TOKEN" \
@@ -81,7 +81,7 @@ where:
 
 ### Using the GraphQL API
 
-To [create a new self-hosted agent queue](/docs/apis/graphql/schemas/mutation/clusterqueuecreate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+To [create a new self-hosted agent queue](/docs/apis/graphql/cookbooks/clusters#create-a-self-hosted-queue) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
 
 ```graphql
 mutation {
@@ -149,7 +149,7 @@ To create a new Buildkite hosted queue using the Buildkite interface:
 
 ### Using the REST API
 
-To [create a new Buildkite hosted queue](/docs/apis/rest-api/clusters#queues-create-a-buildkite-hosted-queue) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+To [create a new Buildkite hosted queue](/docs/apis/rest-api/clusters/queues#create-a-buildkite-hosted-queue) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```curl
 curl -H "Authorization: Bearer $TOKEN" \
@@ -184,7 +184,7 @@ where:
 
 ### Using the GraphQL API
 
-To [create a new Buildkite hosted queue](/docs/apis/graphql/schemas/mutation/clusterqueuecreate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+To [create a new Buildkite hosted queue](/docs/apis/graphql/cookbooks/hosted-agents#create-a-buildkite-hosted-queue) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
 
 ```graphql
 mutation {
@@ -259,9 +259,6 @@ Specify the appropriate **Instance shape** for the `instanceShape` value in your
 ## Pause and resume a queue
 
 You can pause a queue to prevent any jobs of the cluster's pipelines from being dispatched to agents associated with this queue.
-
-> 📘 Enterprise feature
-> Queue pausing is only available to Buildkite customers with [Pro and Enterprise](https://buildkite.com/pricing) plans.
 
 To pause a queue:
 

@@ -1,3 +1,7 @@
+.dark-only {
+  display: none;
+}
+
 html.dark {
   background: #020617;
 
@@ -358,7 +362,6 @@ html.dark {
     }
   }
 
-  .pill,
   .Button__icon--16x16,
   .MenuToggleLabel {
     filter: invert(92%) hue-rotate(180deg);
@@ -395,5 +398,78 @@ html.dark {
 
   .Frameheader:hover .Frameheader__address {
     color: $purple1-400;
+  }
+
+  .light-only {
+    display: none;
+  }
+
+  .dark-only {
+    display: block;
+  }
+
+  .responsive-image-container {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2),
+      0 -1px 0 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .page-copy-dropdown {
+    &__button {
+      --icon-color: $navy-400;
+      border-color: #1e293b;
+
+      &:hover {
+        border-color: rgba(map-get($color-aliases, "icon"), 0.6);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      }
+
+      .lucide-copy {
+        color: $navy-100;
+      }
+    }
+
+    &__menu {
+      background: #020617;
+      border-color: $navy-800;
+    }
+
+    &__item {
+      color: $gray-100;
+
+      &:hover {
+        background: #1f023e;
+        color: $navy-200;
+      }
+
+      &--loading {
+        color: $gray-500;
+
+        .page-copy-dropdown__item-icon svg {
+          color: $gray-500;
+        }
+      }
+    }
+
+    &__item-icon svg {
+      color: $gray-500;
+    }
+
+    &__item-subtitle {
+      color: $gray-500;
+    }
+
+    &__divider {
+      background: #140d30;
+    }
+
+    &__item[data-action="open-chatgpt"] svg path {
+      fill: white !important;
+    }
   }
 }

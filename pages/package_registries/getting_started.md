@@ -8,7 +8,7 @@ This getting started page is a tutorial that helps you understand Package Regist
 
 To complete this tutorial, you'll need:
 
-- A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a 30-day free trial account</a>.
+- A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a free personal account</a>.
 
 - [Git](https://git-scm.com/downloads), to clone the Node.js package example.
 
@@ -106,7 +106,7 @@ To confirm that your Node.js package was successfully published to your Buildkit
 
     The package name (for example, **nodejs.example-package-1.0.1.tgz**) should appear under **Packages**.
 
-1. Click the package name to access its details, and note the following:
+1. Select the package name to access its details, and note the following:
     * **Instructions**: this section of the **Installation** tab provides command line instructions for installing the package you just published.
     * **Details** tab: provides various checksum values for this published package.
     * **About this version**: obtained from the `description` field value of the `package.json` file.
@@ -131,4 +131,4 @@ Your JavaScript registry's details page should show your new package with the in
 
 That's it! You've created a new Buildkite registry, configured your Node.js environment and project to publish to your new JavaScript registry, and published a Node.js package to this registry. 🎉
 
-Learn more about how to work with Buildkite Package Registries in [Manage registries](/docs/package-registries/manage-registries), and the difference between [_source_](/docs/package-registries/manage-registries#create-a-source-registry) and [_composite_](/docs/package-registries/manage-registries#composite-registries) registries.
+Learn more about how to work with Buildkite Package Registries in [Manage registries](/docs/package-registries/registries/manage), and the difference between [_source_](/docs/package-registries/registries/manage#create-a-source-registry) and [_composite_](/docs/package-registries/registries/manage#composite-registries) registries.

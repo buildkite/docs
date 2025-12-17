@@ -2,7 +2,7 @@
 
 A command step runs one or more shell commands on one or more agents.
 
-Each command step can run either a shell command like `npm test`, or an executable file or script like `build.sh`.
+Each command step can run either a shell command like `npm test`, or an executable file, or script like `build.sh`.
 
 A command step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/configure/defining-steps) file.
 
@@ -12,7 +12,29 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+To have a set of commands execute sequentially in a single step, use the `command` syntax followed by a `|` symbol:
+
+```yml
+steps:
+  - command: |
+      "tests.sh"
+      "echo 'running tests'"
+```
+{: codeblock-file="pipeline.yml"}
+
+You can also define multiple commands by using the `commands` syntax and starting each new command on a new line:
+
+```yml
+steps:
+  - commands:
+    - "tests.sh"
+    - "echo 'running tests'"
+```
+{: codeblock-file="pipeline.yml"}
+
 When running multiple commands, either defined in a single line (`npm install && tests.sh`) or defined in a list, any failure will prevent subsequent commands from running, and will mark the command step as failed.
+
+The results of running the commands defined in separate command steps are not guaranteed to be available to the subsequent command steps as those steps could be running on a different machine in the [cluster queue](/docs/pipelines/clusters/manage-queues#setting-up-queues).
 
 > 📘 Commands and `PATH`
 > The shell command(s) provided for execution must be resolvable through the directories defined within the `PATH` environment variable. When referencing scripts for execution, preference using a relative path (for example, `./scripts/build.sh`, or `scripts/bin/build-prod`).
@@ -67,7 +89,7 @@ Optional attributes:
   <tr>
     <td><code>artifact_paths</code></td>
     <td>
-      The <a href="/docs/agent/v3/cli-artifact#uploading-artifacts">glob path</a> or paths of <a href="/docs/agent/v3/cli-artifact">artifacts</a> to upload from this step. This can be a single line of paths separated by semicolons, or a list.<br/>
+      The <a href="/docs/pipelines/configure/glob-pattern-syntax">glob path</a> or paths of <a href="/docs/agent/v3/cli-artifact">artifacts</a> to upload from this step. This can be a single line of paths separated by semicolons, or a list.<br/>
       <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code><br/>
       <em>Example:</em><br/>
       <code>- "logs/**/*"</code><br/>
@@ -103,6 +125,14 @@ Optional attributes:
     </td>
   </tr>
   <tr>
+    <td><code>concurrency_method</code></td>
+    <td>
+      This attribute provides control of the scheduling method for jobs in a <a href="/docs/pipelines/configure/workflows/controlling-concurrency">concurrency group</a>. With the <code>"ordered"</code> value set, the jobs run sequentially in the order they were queued, while the <code>"eager"</code> value allows jobs to run as soon as resources become available. If you use this attribute, you must also define the <code>concurrency</code> and <code>concurrency_group</code> attributes.<br/>
+      <em>Default:</em> <code>"ordered"</code><br/>
+      <em>Example:</em> <code>"eager"</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>depends_on</code></td>
     <td>
       A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br/>
@@ -114,6 +144,13 @@ Optional attributes:
     <td>
       A map of <a href="/docs/pipelines/configure/environment-variables">environment variables</a> for this step.<br/>
       <em>Example:</em> <code>RAILS_ENV: "test"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>secrets</code></td>
+    <td>
+      Either an array of <a href="/docs/pipelines/security/secrets/buildkite-secrets">Buildkite secrets</a> or a map of environment variables names to Buildkite secrets for this step.<br/>
+      <em>Example:</em> <code>- API_ACCESS_TOKEN</code>
     </td>
   </tr>
   <tr>
@@ -197,11 +234,12 @@ Optional attributes:
     <td><code>soft_fail</code></td>
     <td>
       Allow specified non-zero exit statuses not to fail the build.
-      Can be either an <code>array</code> of allowed soft failure exit statuses, <code>"*"</code> to allow all non-zero exit statuses not to fail the build, or <code>true</code> to make all exit statuses soft-fail.<br/>
+      Can be either <code>true</code> to make all exit statuses soft-fail or an <code>array</code> of allowed soft failure exit statuses with the <code>exit_status</code> attribute. Use <code>exit_status: "*"</code> to allow all non-zero exit statuses not to fail the build.<br/>
       <em>Example:</em> <code>true</code><br/>
-      <em>Example:</em> <code>"*"</code><br/>
       <em>Example:</em><br/>
       <code>- exit_status: 1</code><br/>
+      <em>Example:</em><br/>
+      <code>- exit_status: "*"</code><br/>
     </td>
   </tr>
   <tr id="timeout_in_minutes">
@@ -213,6 +251,59 @@ Optional attributes:
     </td>
   </tr>
 </table>
+
+## Agent-applied attributes
+
+<%= render_markdown partial: 'pipelines/configure/step_types/agent_applied_attributes' %>
+
+## Container image attributes
+
+The `image` attribute can be used with either the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) controller to run your [Buildkite Agents](/docs/agent/v3), or [Buildkite hosted agents](/docs/pipelines/hosted-agents).
+
+- If you are running your Buildkite Agents using the Agent Stack for Kubernetes, you can use the `image` attribute to specify a [container image](/docs/agent/v3/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images) for a command step to run its job in.
+
+- If you are using Buildkite hosted agents, support for the `image` attribute is experimental and subject to change.
+
+<table>
+  <tr>
+    <td><code>image</code></td>
+    <td>
+      A fully qualified image reference string. The <a href="/docs/agent/v3/agent-stack-k8s">Agent Stack for Kubernetes</a> controller will configure the <a href="/docs/agent/v3/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images">custom image</a> for the <code>command</code> container of this job. The value is available in the <code>BUILDKITE_IMAGE</code> <a href="/docs/pipelines/configure/environment-variables">environment variable</a>.<br/>
+      <em>Example:</em> <code>"alpine:latest"</code>
+    </td>
+  </tr>
+</table>
+
+> 🚧
+> Support for this `image` attribute is currently experimental.
+
+Example pipeline, showing how build and step level `image` attributes interact:
+
+```yml
+image: "ubuntu:22.04" # The default image for the pipeline's build
+
+steps:
+  - name: "\:node\: Frontend tests"
+    command: |
+      cd frontend
+      npm ci
+      npm test
+    image: "node:18" # This step's job uses the node:18 image
+
+  - name: "\:golang\: Backend tests"
+    command: |
+      cd backend
+      go mod download
+      go test ./...
+    image: "golang:1.21" # This step's job uses the golang:1.21 image
+
+  - name: "\:package\: Package application"
+    command: |
+      apt-get update && apt-get install -y zip
+      zip -r app.zip frontend/ backend/
+    # No image specified in this step.
+    # Therefore, this step's job uses the pipeline's default ubuntu:22.04 image
+```
 
 ## Retry attributes
 
@@ -332,6 +423,8 @@ Optional attributes:
         <li><code>none</code></li>
         <li><code>cancel</code></li>
         <li><code>agent_stop</code></li>
+        <li><code>agent_refused</code></li>
+        <li><code>process_run_error</code></li>
       </ul>
     </td>
   </tr>
@@ -416,7 +509,7 @@ Optional attributes:
   <tr>
     <td><code>exit_status</code></td>
     <td>
-      Allow specified non-zero exit statuses not to fail the build.
+      Allow specified non-zero exit statuses not to fail the build. Use <code>"*"</code> to allow all non-zero exit statuses or specify individual exit status codes.
       <br/>
       <em>Example:</em> <code>"*"</code><br/>
       <em>Example:</em> <code>1</code>
@@ -426,10 +519,15 @@ Optional attributes:
 
 ```yml
 steps:
-  - label: "Everyone struggles sometimes"
+  - label: "Specific exit status"
     command: "tests.sh"
     soft_fail:
       - exit_status: 1
+
+  - label: "All non-zero exit statuses"
+    command: "tests.sh"
+    soft_fail:
+      - exit_status: "*"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -481,18 +579,11 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Fail fast
+## Fast-fail running jobs
 
-To automatically cancel any remaining jobs as soon as the first job fails (except jobs that you've marked as `soft_fail`), add the `cancel_on_build_failing: true` attribute to your command steps.
+To automatically cancel any remaining jobs as soon as any job in the build fails (except jobs marked as `soft_fail`), add the `cancel_on_build_failing: true` attribute to your command steps.
 
-Next time a job in your build fails, those jobs will be automatically canceled.
-
-<!--
-
-TODO:
-To set `cancel_on_build_failing: true` for all jobs in a Build:
-
- -->
+When a job fails, the build enters a _failing_ state. Any jobs still running that have `cancel_on_build_failing: true` are automatically canceled. Once all running jobs have been cancelled, the build is marked as _failed_ due to the initial job failure.
 
 ## Example
 
@@ -526,12 +617,14 @@ steps:
     commands:
       - "npm install"
       - "npm run visual-diff"
+    cancel_on_build_failing: true
     retry:
       automatic:
         limit: 3
 
   - label: "Skipped job"
     command: "broken.sh"
+    cancel_on_build_failing: true
     skip: "Currently broken and needs to be fixed"
 
   - wait: ~
@@ -541,6 +634,7 @@ steps:
     branches: "main"
     concurrency: 1
     concurrency_group: "my-app/deploy"
+    concurrency_method: "eager"
     retry:
       manual:
         allowed: false

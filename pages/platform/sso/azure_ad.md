@@ -1,6 +1,6 @@
-# Single sign-on with Azure Active Directory (Azure AD)
+# Single sign-on with Microsoft Entra ID (Azure AD)
 
-You can use [Azure Active Directory](https://azure.microsoft.com/en-us/services/active-directory/#overview) as an SSO provider for your Buildkite organization. To complete this tutorial, you need admin privileges for both Azure and Buildkite.
+You can use [Microsoft Entra ID](https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id#Overview) (formerly known as Azure Active Directory) as an SSO provider for your Buildkite organization. To complete this tutorial, you need admin privileges for both Azure and Buildkite.
 
 > 📘 You can also set up SSO providers manually with GraphQL.
 > See the <a href="/docs/platform/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
@@ -58,7 +58,7 @@ Once you've [performed a test login](#step-4-perform-a-test-login) you can enabl
 
 ## Using SCIM to provision and manage users
 
-Enterprise customers can automatically add and remove user accounts from their Buildkite organization using the SCIM provisioning settings in Azure AD.
+Enterprise plan customers can automatically add and remove user accounts from their Buildkite organization using the SCIM provisioning settings in Azure AD.
 
 ### Supported SCIM features
 
@@ -73,7 +73,7 @@ Enterprise customers can automatically add and remove user accounts from their B
 Adding and removing users accounts in Azure AD is called provisioning. You need an enabled Azure AD SSO Provider for your Buildkite Organization before you can set up SCIM provisioning.
 
 > 📘
-> User deprovisioning is an Enterprise only feature and automatically enabled. If you are using a [custom provider](/docs/platform/sso/custom-saml) as an Enterprise customer, please contact support@buildite.com to have this feature enabled.
+> User deprovisioning is an Enterprise plan-only feature and is automatically enabled. As an Enterprise plan customer, if you are using a [custom provider](/docs/platform/sso/custom-saml), please contact support@buildite.com to have this feature enabled.
 
 After enabling your Azure AD SSO provider in Buildkite, get the **Base URL** and **API Token** from your Azure AD SSO provider settings:
 

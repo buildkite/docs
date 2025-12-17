@@ -78,19 +78,9 @@ cd log
 buildkite-agent artifact upload test.log
 ```
 
-Keep in mind while you're writing your path pattern:
+Learn more about Buildkite's glob syntax from the [Glob pattern syntax](/docs/pipelines/configure/glob-pattern-syntax) page.
 
 <!--alex ignore just-->
-
-- patterns must match whole path strings, not just substrings
-- there are two wildcards available that match non-separator characters (on Linux `/` is a separator character, and on Windows `\` is a separator character):
-  + `*` to match a sequence of characters
-  + `?` to match a single character
-- character ranges surrounded by `[]` support the `^` as a negator
-- special characters can be escaped with `\\`
-- multiple paths are separated with `;`
-- surround the pattern with quotes
-
 
 ## Downloading artifacts
 
@@ -148,7 +138,7 @@ The `buildkite-agent artifact download` command relies on environment variables 
 
 For example, executing the `buildkite-agent artifact download` command on your local machine would return an error about missing environment variables. However, when this command is executed as part of a build, the agent has set the required variables, and the command will be able to run.
 
-If you want to download an artifact from outside a build use our [Artifact Download API](/docs/api/artifacts#download-an-artifact).
+If you want to download an artifact from outside a build, you can use the [Artifact Download API](/docs/api/artifacts#download-an-artifact).
 
 ## Searching artifacts
 
@@ -199,6 +189,29 @@ ensures they are applied to all jobs:
 ```bash
 export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="s3://name-of-your-s3-bucket/$BUILDKITE_PIPELINE_ID/$BUILDKITE_BUILD_ID/$BUILDKITE_JOB_ID"
 export BUILDKITE_S3_DEFAULT_REGION="eu-central-1" # default: us-east-1
+```
+
+### Uploading artifacts to multiple AWS S3 buckets in different regions
+
+To upload artifacts to multiple AWS S3 buckets in different regions within a single pipeline, configure the `BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` and `BUILDKITE_S3_DEFAULT_REGION` environment variables at the step level. Defining these variables per step ensures that each upload uses the correct bucket and region. For example, one step can target a bucket in `us-east-1`, while another targets a bucket in `eu-central-1`:
+
+```bash
+steps:
+  - label: "Upload to us-east-1 bucket"
+    command:
+      - echo "hello world" > test1.txt
+      - buildkite-agent artifact upload test1.txt
+    env:
+      BUILDKITE_S3_DEFAULT_REGION: "us-east-1"
+      BUILDKITE_ARTIFACT_UPLOAD_DESTINATION: "s3://my-bucket-east/"
+
+  - label: "Upload to eu-central-1 bucket"
+    command:
+      - echo "hello world" > test2.txt
+      - buildkite-agent artifact upload test2.txt
+    env:
+      BUILDKITE_S3_DEFAULT_REGION: "eu-central-1"
+      BUILDKITE_ARTIFACT_UPLOAD_DESTINATION: "s3://my-bucket-central/"
 ```
 
 ### IAM permissions
@@ -283,7 +296,7 @@ export BUILDKITE_S3_ACCESS_URL="https://buildkite-artifacts.example.com/"
 
 You can configure the `buildkite-agent artifact` command to store artifacts in
 your private Google Cloud Storage bucket. For instructions for how to set this
-up, see our [Google Cloud installation guide](/docs/agent/v3/gcloud#uploading-artifacts-to-google-cloud-storage).
+up, see the [Google Cloud installation guide](/docs/agent/v3/gcp#uploading-artifacts-to-google-cloud-storage).
 
 ## Using your Artifactory instance
 

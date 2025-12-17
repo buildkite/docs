@@ -39,9 +39,9 @@ steps:
 
 ## Supported Markdown syntax
 
-We use CommonMark with GitHub Flavored Markdown extensions to provide consistent, unambiguous Markdown syntax.
+Buildkite Pipelines uses CommonMark with GitHub Flavored Markdown extensions to provide consistent, unambiguous Markdown syntax.
 
-GitHub kindly provides a [guide to this syntax](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown).
+See GitHub's [Basic writing and formatting syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) guide (to start with) and [GitHub Flavoured Markdown Spec](https://github.github.com/gfm/) for more details on how to implement this Markdown syntax.
 
 Annotations do not support GitHub-style syntax highlighting, task lists, user mentions, or automatic links for references to issues, pull requests or commits.
 
@@ -58,6 +58,8 @@ We accept the following parts of version 8.0 of Basscss within annotations:
 
 * [Align](http://basscss.com/#basscss-align)
 * [Border](http://basscss.com/#basscss-border)
+* [Button](https://basscss.com/v7/docs/btn/)
+* [Background Colors](https://basscss.com/v7/docs/background-colors/)
 * [Colors](https://basscss.com/v7/docs/colors/)
 * [Flexbox](http://basscss.com/#basscss-flexbox)
   - All except `sm-flex`, `md-flex` and `lg-flex`
@@ -107,6 +109,27 @@ p1 pt1 pr1 pb1 pl1 py1 px1
 p2 pt2 pr2 pb2 pl2 py2 px2
 p3 pt3 pr3 pb3 pl3 py3 px3
 p4 pt4 pr4 pb4 pl4 py4 px4
+
+col-1 col-2 col-3 col-4 col-5 col-6
+col-7 col-8 col-9 col-10 col-11 col-12
+
+sm-col-1 sm-col-2 sm-col-3 sm-col-4 sm-col-5 sm-col-6
+sm-col-7 sm-col-8 sm-col-9 sm-col-10 sm-col-11 sm-col-12
+
+md-col-1 md-col-2 md-col-3 md-col-4 md-col-5 md-col-6
+md-col-7 md-col-8 md-col-9 md-col-10 md-col-11 md-col-12
+
+lg-col-1 lg-col-2 lg-col-3 lg-col-4 lg-col-5 lg-col-6
+lg-col-7 lg-col-8 lg-col-9 lg-col-10 lg-col-11 lg-col-12
+
+black gray silver white aqua blue navy teal green olive lime
+yellow orange red fuchsia purple maroon muted
+
+btn btn-sm btn-lg btn-primary
+
+bg-black bg-gray bg-silver bg-white bg-aqua bg-blue
+bg-navy bg-teal bg-green bg-olive bg-lime bg-yellow
+bg-orange bg-red bg-fuchsia bg-purple bg-maroon bg-muted
 ```
 
 ### Colored console output
@@ -204,7 +227,7 @@ steps:
   - wait: ~
     continue_on_failure: true
   - plugins:
-      - junit-annotate#v1.2.0:
+      - junit-annotate#v2.7.0:
           artifacts: tmp/junit-*.xml
 ```
 {: codeblock-file="pipeline.yml"}

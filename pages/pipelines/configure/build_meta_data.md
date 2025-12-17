@@ -52,11 +52,7 @@ https://buildkite.com/my-organization/my-pipeline/builds?meta_data[release-versi
 
 You can use meta-data to identify builds when searching for builds in the REST API.
 
-<!-- vale off -->
-
 For more information, see the [Builds API in the Buildkite REST API documentation](/docs/apis/rest-api/builds).
-
-<!-- vale on -->
 
 ## Using build input parameters
 
@@ -99,6 +95,28 @@ https://buildkite.com/organizations/demo/pipelines/activities/new?meta_data[city
 <%= image "new_build_form.png", alt: "New Build form with input fields pre-populated" %>
 
 Using meta-data to pre-populate fields in this way carries some considerations regarding how the input step behaves. Learn more about this in the [Input step](/docs/pipelines/configure/step_types/input_step.md) page.
+
+## Special meta-data
+
+Meta-data keys starting with `buildkite:` are reserved for special values provided by Buildkite. These may be generated on request.
+
+<!-- vale off -->
+
+### buildkite:webhook
+
+<!-- vale on -->
+
+The special `buildkite:webhook` meta-data key can be used to get the body of the webhook which triggered the current build. For example, you can access the [GitHub](/docs/pipelines/source-control/github) push webhook payload in a command step:
+
+```yaml
+steps:
+  - command: |
+      WEBHOOK="$(buildkite-agent meta-data get buildkite:webhook)"
+      STARGAZERS="$(jq .repository.stargazers_count <<< "$WEBHOOK")"
+      echo "The current repository has $STARGAZERS stargazers 💫"
+```
+
+This value will only be available for builds triggered by a webhook, and only as long as the full webhook body remains cached — typically for 7 days.
 
 ## Further documentation
 

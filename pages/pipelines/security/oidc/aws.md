@@ -93,7 +93,7 @@ As part of this process:
             * By running the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
 
                 ```bash
-                curl - X GET "https://api.buildkite.com/v2/organizations" \
+                curl -X GET "https://api.buildkite.com/v2/organizations" \
                   -H "Authorization: Bearer $TOKEN"
                 ```
 
@@ -110,7 +110,7 @@ As part of this process:
             * By running the [List pipelines](/docs/apis/rest-api/pipelines#list-pipelines) REST API query to obtain this value from `slug` in the response from the specific pipeline. For example:
 
                 ```bash
-                curl - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
+                curl -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
                   -H "Authorization: Bearer $TOKEN"
                 ```
 1. If you have dedicated/static public IP addresses and wish to implement defense in depth against an attacker stealing an OIDC token to access your cloud environment, retain the `Condition` section's `IpAddress` subsection, and modify its values (`AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO`) with a list of your agent's IP addresses or [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) range or block.
@@ -136,6 +136,9 @@ As part of this process:
                     "sts:AssumeRoleWithWebIdentity"
                 ],
                 "Condition": {
+                    "StringLike": {
+                        "agent.buildkite.com:sub": "organization\:example-org\:*"
+                    },
                     "StringEquals": {
                         "agent.buildkite.com:aud": "sts.amazonaws.com",
                         "aws:RequestTag/organization_slug": "example-org",
@@ -153,6 +156,8 @@ As part of this process:
         ]
     }
     ```
+
+    **Note:** AWS requires that the `sub` claim is matched for all trust policies used with OIDC in Buildkite Pipelines. Therefore, it is recommended that you use the `sub` claim to match your Buildkite organization, and then use `aws:RequestTag` conditions for more granular trust policy restrictions, as demonstrated in the example above.
 
 1. In the **Custom trust policy** section, copy your modified custom trust policy, paste it into your IAM role, and complete the next few steps up to specifying the **Role name**.
 

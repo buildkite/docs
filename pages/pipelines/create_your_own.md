@@ -14,10 +14,6 @@ You'll also need the following:
 
 - A task you want to perform with the code. For example, run some tests or a script.
 
-- To enable the YAML steps editor in Buildkite. If you haven't already done this:
-    1. Select **Settings** > **YAML Migration** to open the [**Pipeline YAML Migration**](https://buildkite.com/organizations/~/pipeline-migration) page.
-    1. Select **Use YAML Steps for New Pipelines**, then confirm the action in the dialog.
-
 ## Continue running an agent
 
 We recommend you continue treating this tutorial as a chance to play and iterate. That means you can continue using the [agent you've already set up](/docs/pipelines/getting-started#set-up-an-agent).
@@ -79,7 +75,7 @@ To create a new pipeline:
     ```
 
 1. Select **Create Pipeline**.
-1. On the next page showing your pipeline name, click **New Build**. In the modal that opens, create a build using the pre-filled details.
+1. On the next page showing your pipeline name, select **New Build**. In the modal that opens, create a build using the pre-filled details.
 
    1. In the **Message** field, enter a short description for the build. For example, **My first build**.
    1. Select **Create Build**.
@@ -91,6 +87,9 @@ Run the pipeline whenever you make changes you want to verify. If you want to ad
 If you've configured webhooks, your pipeline will trigger when you push updates to the repository. Otherwise, select **New Build** in the Buildkite dashboard to trigger the pipeline.
 
 If you have trouble getting your pipeline to work, don't hesitate to reach out to support at support@buildkite.com for help.
+
+> 📘 Pipeline slugs and names
+> A pipeline's _slug_, which forms part of the pipeline's URL, is [derived from the pipeline's **Name**](#create-a-pipeline-deriving-a-pipeline-slug-from-the-pipelines-name). If a pipeline's **Name** is changed, this action also changes the pipeline's slug accordingly. Be aware, however, that any previous pipeline slug that a pipeline had (prior to its name being changed), will automatically redirect to the pipeline's current slug.
 
 ### Using private repositories
 

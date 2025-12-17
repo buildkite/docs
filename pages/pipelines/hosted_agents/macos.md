@@ -1,8 +1,20 @@
 # macOS hosted agents
 
-macOS instances for Buildkite hosted agents are only offered with [Apple silicon](https://en.wikipedia.org/wiki/Apple_silicon) architecture. Please contact support if you have specific needs for Intel machines.
+Buildkite's macOS hosted agents are:
 
-To accommodate different workloads, instances are capable of running up to 4 hours. If you require longer running agents, please contact support at support@buildkite.com.
+- [Buildkite Agents](/docs/agent/v3) hosted by Buildkite that run in a macOS environment.
+
+- Configured as part of a _Buildkite hosted queue_, where the Buildkite hosted agent's machine type is macOS, has a particular [size](#sizes) to efficiently manage jobs with varying requirements, and comes pre-installed with [software](#macos-instance-software-support).
+
+Learn more about:
+
+- Best practices for configuring queues in [How should I structure my queues](/docs/pipelines/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues) of the [Clusters overview](/docs/pipelines/clusters), as well as [Manage queues](/docs/pipelines/clusters/manage-queues).
+
+- How to configure a macOS hosted agent in [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
+
+- How to use macOS hosted agents to [build iOS apps](/docs/pipelines/hosted-agents/macos/getting-started-with-ios).
+
+- The [concurrency](#concurrency) and [security](#security) of macOS hosted agents.
 
 ## Sizes
 
@@ -10,18 +22,77 @@ Buildkite offers a selection of macOS instance types (each based on a different 
 
 <%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
 
+Also note the following about macOS hosted agent instances.
+
+- Only [Apple silicon](https://en.wikipedia.org/wiki/Apple_silicon) architectures are supported.
+
+- To accommodate different workloads, instances are capable of running up to 4 hours.
+
+If you have specific needs for Intel architecture machines, or longer running hosted agents (over 4 hours), please contact Support at support@buildkite.com.
+
+## Concurrency
+
+macOS hosted agents can operate concurrently when running your Buildkite pipeline jobs.
+
+<%= render_markdown partial: 'pipelines/hosted_agents/hosted_agents_concurrency_explanation' %>
+
+The number of macOS hosted agents (of a [Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue)) that can process your pipeline jobs concurrently is calculated by your Buildkite plan's _maximum combined vCPU_ value divided by your [instance shape's](#sizes) _vCPU_ value. See the [Buildkite pricing](https://buildkite.com/pricing/) page for details on the **Mac M4 Concurrency** that applies to your plan.
+
+For example, if your Buildkite plan provides you with a maximum combined vCPU value is up to 24, and you've configured a Buildkite hosted queue with the `MACOS_ARM64_M4_6X28` (Medium) [instance shape](#sizes), whose vCPU value is 6, then the number of concurrent hosted agents that can run jobs on this queue is 4 (that is, 24 / 6 = 4).
+
+When concurrency limits are exceeded, additional jobs will be queued until sufficient capacity becomes available.
+
 ## macOS instance software support
 
-All standard macOS [Sequoia](#macos-sequoia) and [Sonoma](#macos-sonoma) version instances have their own respective Xcode and runtime software versions available by default (listed below). For both of these macOS versions, the [Homebrew packages](#homebrew-packages) and their versions (listed further down) are also available. If you have specific requirements for software that is not listed here, please contact support.
+All standard macOS [Tahoe](#macos-tahoe), [Sequoia](#macos-sequoia) and [Sonoma](#macos-sonoma) version instances have their own respective Xcode and runtime software versions available by default (listed below). Each macOS version also has its own set of [Homebrew packages](#homebrew-packages) with specific versions optimized for that operating system. If you have specific requirements for software that is not listed here, please contact Support at support@buildkite.com.
+
+While you currently cannot provide custom base images for macOS hosted agents (as is possible using [agent images](/docs/pipelines/hosted-agents/linux#agent-images) for Linux hosted agents), you do have significant control over these virtual machines during job execution—including the ability to install software using Homebrew, use [git mirroring](/docs/pipelines/hosted-agents/cache-volumes#git-mirror-volumes) for performance, and leverage persistent [cache volumes](/docs/pipelines/hosted-agents/cache-volumes).
 
 Updated Xcode versions will be available one week after Apple offers them for download. This includes Beta, Release Candidate (RC), and official release versions.
 
-## macOS Sequoia
+## macOS Tahoe
 
-- 15.4.1
+- 26.0
 
 ### Xcode
 
+- 26.0
+- 16.4
+
+### Runtimes
+
+#### iOS
+
+- 26.0
+- 18.6
+- 17.5
+
+#### tvOS
+
+- 26.0
+- 17.5
+- 16.4
+
+#### visionOS
+
+- 26.0
+- 2.5
+- 1.2
+
+#### watchOS
+
+- 26.0
+- 11.5
+- 10.5
+
+## macOS Sequoia
+
+- 15.6.1
+
+### Xcode
+
+- 26.0
+- 16.4
 - 16.3
 - 16.2
 - 16.1
@@ -32,6 +103,9 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 #### iOS
 
+- 26.0
+- 18.6
+- 18.5
 - 18.4 RC
 - 18.2 RC
 - 18.1
@@ -42,6 +116,8 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 #### tvOS
 
+- 26.0
+- 18.5
 - 18.4 RC
 - 18.2 RC
 - 18.1
@@ -51,6 +127,8 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 #### visionOS
 
+- 26.0
+- 2.5
 - 2.4 RC
 - 2.2 RC
 - 2.1
@@ -61,6 +139,8 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 #### watchOS
 
+- 26.0
+- 11.5
 - 11.4 RC
 - 11.2 RC
 - 11.1
@@ -74,7 +154,6 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ### Xcode
 
-- 16.3-RC2
 - 16.3
 - 16.2
 - 16.1
@@ -134,260 +213,76 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ## Homebrew packages
 
-<table>
-  <tr>
-    <th>Package</th>
-    <th>Version</th>
-  </tr>
-  <tr>
-    <td>ant</td>
-    <td>1.10.15_1</td>
-  </tr>
-  <tr>
-    <td>applesimutils</td>
-    <td>0.9.10</td>
-  </tr>
-  <tr>
-    <td>aria2</td>
-    <td>1.37.0</td>
-  </tr>
-  <tr>
-    <td>awscli</td>
-    <td>2.25.7</td>
-  </tr>
-  <tr>
-    <td>azcopy</td>
-    <td>10.28.1</td>
-  </tr>
-  <tr>
-    <td>azure-cli</td>
-    <td>2.71.0</td>
-  </tr>
-  <tr>
-    <td>bazelisk</td>
-    <td>1.25.0</td>
-  </tr>
-  <tr>
-    <td>bicep</td>
-    <td>0.34.44</td>
-  </tr>
-  <tr>
-    <td>carthage</td>
-    <td>0.40.0</td>
-  </tr>
-  <tr>
-    <td>cmake</td>
-    <td>4.0.0</td>
-  </tr>
-  <tr>
-    <td>cocoapods</td>
-    <td>1.16.2_1</td>
-  </tr>
-  <tr>
-    <td>curl</td>
-    <td>8.12.1</td>
-  </tr>
-  <tr>
-    <td>deno</td>
-    <td>2.2.6</td>
-  </tr>
-  <tr>
-    <td>docker</td>
-    <td>28.0.4</td>
-  </tr>
-  <tr>
-    <td>fastlane</td>
-    <td>2.227.0</td>
-  </tr>
-  <tr>
-    <td>gcc@13</td>
-    <td>13.3.0</td>
-  </tr>
-  <tr>
-    <td>gh</td>
-    <td>2.69.0</td>
-  </tr>
-  <tr>
-    <td>git</td>
-    <td>2.49.0</td>
-  </tr>
-  <tr>
-    <td>git-lfs</td>
-    <td>3.6.1</td>
-  </tr>
-  <tr>
-    <td>gmp</td>
-    <td>6.3.0</td>
-  </tr>
-  <tr>
-    <td>gnu-tar</td>
-    <td>1.35</td>
-  </tr>
-  <tr>
-    <td>gnupg</td>
-    <td>2.4.7</td>
-  </tr>
-  <tr>
-    <td>go</td>
-    <td>1.24.1</td>
-  </tr>
-  <tr>
-    <td>gradle</td>
-    <td>8.13</td>
-  </tr>
-  <tr>
-    <td>httpd</td>
-    <td>2.4.63</td>
-  </tr>
-  <tr>
-    <td>jq</td>
-    <td>1.7.1</td>
-  </tr>
-  <tr>
-    <td>kotlin</td>
-    <td>2.1.20</td>
-  </tr>
-  <tr>
-    <td>libpq</td>
-    <td>17.4_1</td>
-  </tr>
-  <tr>
-    <td>llvm@15</td>
-    <td>15.0.7</td>
-  </tr>
-  <tr>
-    <td>maven</td>
-    <td>3.9.9</td>
-  </tr>
-  <tr>
-    <td>mint</td>
-    <td>0.17.5_1</td>
-  </tr>
-  <tr>
-    <td>nginx</td>
-    <td>1.27.4</td>
-  </tr>
-  <tr>
-    <td>node</td>
-    <td>23.10.0_1</td>
-  </tr>
-  <tr>
-    <td>openssl@3</td>
-    <td>3.4.1</td>
-  </tr>
-  <tr>
-    <td>p7zip</td>
-    <td>17.06</td>
-  </tr>
-  <tr>
-    <td>packer</td>
-    <td>1.12.0</td>
-  </tr>
-  <tr>
-    <td>perl</td>
-    <td>5.40.1</td>
-  </tr>
-  <tr>
-    <td>php</td>
-    <td>8.4.5_1</td>
-  </tr>
-  <tr>
-    <td>pkgconf</td>
-    <td>2.4.3</td>
-  </tr>
-  <tr>
-    <td>postgresql@14</td>
-    <td>14.17_1</td>
-  </tr>
-  <tr>
-    <td>r</td>
-    <td>4.4.3_1</td>
-  </tr>
-  <tr>
-    <td>rbenv</td>
-    <td>1.3.2</td>
-  </tr>
-  <tr>
-    <td>rbenv-bundler</td>
-    <td>1.0.1</td>
-  </tr>
-  <tr>
-    <td>ruby</td>
-    <td>3.4.2</td>
-  </tr>
-  <tr>
-    <td>rust</td>
-    <td>1.85.1_1</td>
-  </tr>
-  <tr>
-    <td>rustup</td>
-    <td>1.28.1</td>
-  </tr>
-  <tr>
-    <td>selenium-server</td>
-    <td>4.29.0</td>
-  </tr>
-  <tr>
-    <td>swiftformat</td>
-    <td>0.55.5</td>
-  </tr>
-  <tr>
-    <td>tmux</td>
-    <td>3.5a</td>
-  </tr>
-  <tr>
-    <td>unxip</td>
-    <td>3.1</td>
-  </tr>
-  <tr>
-    <td>wget</td>
-    <td>1.25.0</td>
-  </tr>
-  <tr>
-    <td>xcbeautify</td>
-    <td>2.28.0</td>
-  </tr>
-  <tr>
-    <td>xcodes</td>
-    <td>1.6.0</td>
-  </tr>
-  <tr>
-    <td>yq</td>
-    <td>4.45.1</td>
-  </tr>
-  <tr>
-    <td>zstd</td>
-    <td>1.5.7</td>
-  </tr>
-</table>
+The versions for each of these packages varies by macOS version. See [Identifying Homebrew package versions](#homebrew-packages-identifying-homebrew-package-versions) for instructions on how to identify each package's version.
 
-## Git mirror cache
+- ant
+- applesimutils
+- aria2
+- awscli
+- azcopy
+- azure-cli
+- bazelisk
+- bicep
+- carthage
+- cmake
+- cocoapods
+- curl
+- deno
+- docker
+- fastlane
+- gcc@13
+- gh
+- git
+- git-lfs
+- gmp
+- gnu-tar
+- gnupg
+- go
+- gradle
+- httpd
+- jq
+- kotlin
+- libpq
+- llvm
+- llvm@15
+- maven
+- mint
+- nginx
+- node
+- openssl@3
+- p7zip
+- packer
+- perl
+- php
+- pkgconf
+- postgresql@14
+- python<span>@</span>3.13
+- r
+- rbenv
+- rbenv-bundler
+- ruby
+- rust
+- rustup
+- selenium-server
+- swiftformat
+- swiftlint
+- tmux
+- unxip
+- wget
+- xcbeautify
+- xcodes
+- yq
+- zstd
 
-The Git mirror cache is a specialized type of cache volume designed to accelerate Git operations by caching the Git repository between builds. This is useful for large repositories that are slow to clone.
+### Identifying Homebrew package versions
 
-These volumes are attached on a best-effort basis depending on their locality, expiration and current usage, and therefore, should not be relied upon as durable data storage. By default, a Git mirror cache is created for each repository.
+To find the [Homebrew package](#homebrew-packages) version used by your macOS hosted agent:
 
-### Enabling Git mirror cache
+1. Select **Agents** in the global navigation > your [cluster](/docs/pipelines/clusters/manage-clusters) containing the [macOS Buildkite hosted agent queue](/docs/pipelines/clusters/manage-queues) > your macOS hosted agent.
+1. On your macOS hosted agent's page, select **Base image** and scroll down to **Specifications** > **Homebrew packages** to view these packages, along with their respective versions.
 
-To enable Git mirror cache for your hosted agents:
+## Security
 
-1. Select **Agents** in the global navigation to access the **Clusters** page.
-1. Select the cluster in which to enable the Git mirror cache feature.
-1. Select **Cache Storage**, then select the **Settings** tab.
-1. Select **Enable Git mirror**, then select **Save cache settings** to enable Git mirrors for the selected hosted cluster.
+<%= render_markdown partial: 'pipelines/hosted_agents/hosted_agents_security_explanation' %>
 
-Once enabled, the Git mirror cache will be used for all hosted jobs using Git repositories in that cluster. A separate cache volume will be created for each repository.
-
-<%= image "hosted-agents-git-mirror.png", width: 1760, height: 436, alt: "Hosted agents git mirror setting displayed in the Buildkite UI" %>
-
-### Deleting Git mirror cache
-
-Deleting a cache volume may affect the build time for the associated pipelines until the new cache is established.
-
-To delete a git mirror cache:
-
-1. Select **Agents** in the global navigation to access the **Clusters** page.
-1. Select the cluster whose Git mirror cache is to be deleted.
-1. Select **Cache Storage**, then select the **Volumes** tab to view a list of all exiting cache volumes.
-1. Select **Delete** for the Git mirror cache volume you wish to remove.
-1. Confirm the deletion by selecting **Delete Cache Volume**.
+Note that for macOS hosted agents, virtualization is achieved through Apple's Virtualization framework on Apple Silicon, providing lightweight but secure virtual machine isolation. Learn more about [How Buildkite hosted agents work](/docs/pipelines/hosted-agents#how-buildkite-hosted-agents-work).
