@@ -40,7 +40,8 @@ Learn more about configuring the OpenTelemetry integration with Buildkite Pipeli
 
 ### Trace context propagation
 
-Starting from version [v3.100](https://github.com/buildkite/agent/releases/tag/v3.100.0), when the Buildkite Agent executes a command (build script, hook, plugin, etc.), it automatically propagates the current trace context to the child process via environment variables. This enables distributed tracing across job boundaries, your build scripts can continue the trace started by the agent or Buildkite backend.
+Starting from Buildkite Agent version [v3.100](https://github.com/buildkite/agent/releases/tag/v3.100.0), when a Buildkite Agent executes a command (build script, hook, plugin, and so on), the current trace context is automatically propagated to the child process via [environment variables](/docs/pipelines/configure/environment-variables). This enables distributed tracing across job boundaries, and your build scripts can continue the trace started by the agent or the Buildkite Pipelines backend.
+
 The agent serializes the trace context into multiple formats for compatibility with various tracing libraries:
 
 
@@ -52,9 +53,10 @@ The agent serializes the trace context into multiple formats for compatibility w
 | X_AMZN_TRACE_ID | AWS X-Ray |
 
 The environment variable names follow the [OpenTelemetry Environment Variable Carriers specification](https://opentelemetry.io/docs/specs/otel/context/env-carriers/).
-To continue the trace in your build script, configure your tracing library to extract context from environment variables. For example, with the OpenTelemetry SDK, you can read TRACEPARENT and create a child span that links back to the agent's span.
 
-<%= image "context-propagation.png", alt: "Open telemetry context propagation" %>
+To continue the trace in your build script, configure your tracing library to extract context from the environment variables. For example, with the OpenTelemetry SDK, you can read the `TRACEPARENT` variable and create a child span that links back to the agent's span.
+
+<%= image "context-propagation.png", alt: "OpenTelemetry context propagation" %>
 
 ### Sending OpenTelemetry traces to Honeycomb
 
