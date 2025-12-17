@@ -1,6 +1,6 @@
 # Platform controls
 
-This guide covers how platform (infrastructure) teams can maintain centralized control while giving development (engineering) teams the flexibility they need to run and observe pipelines in your Buildkite organization.
+This guide covers how platform (infrastructure) teams can maintain centralized control while giving developer (engineering) teams the flexibility they need to run and observe pipelines in your Buildkite organization.
 
 > 📘
 > If you're looking for in-depth information on security controls, see [Enforcing security controls](/docs/pipelines/best-practices/security-controls).
@@ -9,36 +9,28 @@ This guide covers how platform (infrastructure) teams can maintain centralized c
 
 The key to successful administration of the Buildkite Pipelines platform lies in finding the right balance between centralized control and developer autonomy. Platform teams need to manage shared resources and enforce company-wide standards while avoiding becoming a bottleneck for feature teams.
 
-The distinction between platform and developer teams is that the former gets to specify settings like the size of the infrastructure, machine capacity, maximum rerun attempts, time-outs, etc. in the [YAML pipeline configurations included in the codebase](/docs/pipelines/create-your-own#create-a-pipeline), that stays unchanged (by the developer teams). The platform team also manages the scripts that read these YAML configuration files and generate the correct pipeline(s), and allocates agents (with correct underlying capacity) to run the jobs in those pipelines.
-
-To sum it up:
-
-- Platform teams maintain central control while giving developer teams appropriate flexibility
-- One script generates multiple pipeline variations, enabling centralized logic and organization-wide checks like [security scanning](/docs/pipelines/security/enforcing-security-controls#dependencies-and-package-management)
-- Developer teams only access permissions and information relevant to their builds
+The distinction between platform and developer teams is that platform team specifies the settings like the size of the infrastructure, machine capacity, maximum rerun attempts, time-outs, etc. in the [YAML pipeline configurations included in the codebase](/docs/pipelines/create-your-own#create-a-pipeline), that stays unchanged (by the developer teams). The platform team also manages the scripts that read these YAML configuration files and generate the correct pipeline(s), and allocates agents (with correct underlying capacity) to run the jobs in those pipelines.
 
 ## Agent infrastructure administration
 
-Platform teams with [organization administrator permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) decide agent resource allocation (CPU, RAM, etc.) before agents start picking up jobs. This applies whether you use [hosted agents](/docs/pipelines/hosted-agents), [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), or cloud deployments ([AWS](/docs/agent/v3/aws), [GCP](/docs/agent/v3/gcp), [Kubernetes](/docs/agent/v3/agent-stack-k8s)).
+Platform teams with [organization administrator permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) decide on agent resource allocation (CPU, RAM, etc.) before agents start picking up jobs. This applies whether you use [hosted agents](/docs/pipelines/hosted-agents), [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), or cloud deployments ([AWS](/docs/agent/v3/aws), [GCP](/docs/agent/v3/gcp), [Kubernetes](/docs/agent/v3/agent-stack-k8s)).
 
 ## Pipeline templates as a platform control tool
 
-Controls and templates can be used in the process of running the pipelines. Initially, the platform team has to create and be responsible for the pipeline YAML and the [pipeline templates](/docs/pipelines/governance/templates).
+Platform teams need to create and be responsible for the pipeline YAML and the [pipeline templates](/docs/pipelines/governance/templates).
 
 > 📘 Enterprise feature
 > Pipeline templates are only available on an [Enterprise](https://buildkite.com/pricing) plan.
 
-Pipeline templates provide platform teams with a powerful mechanism to enforce standardization and security across all CI/CD pipelines in your organization. By creating centrally-managed templates that define approved step configurations, security scanning requirements, deployment patterns, and compliance checks, platform teams can ensure that all development teams follow established best practices without needing to manually review every pipeline.
+Pipeline templates provide platform teams with a powerful mechanism to enforce standardization and security across all CI/CD pipelines in your organization. By creating centrally-managed templates that define approved step configurations, security scanning requirements, deployment patterns, and compliance checks, platform teams can ensure that all developer teams follow established best practices without needing to manually review every pipeline.
 
-From an operational perspective, platform teams should leverage pipeline templates to embed infrastructure and security policies directly into the CI/CD workflow. Templates can include mandatory steps for vulnerability scanning, artifact signing, infrastructure-as-code validation, and deployment approvals, ensuring that every build follows your organization's security and compliance requirements.
+The ability to update templates centrally means that policy changes or security improvements can be rolled out instantly across all pipelines using that template, eliminating the need to coordinate updates across multiple developer teams. Additionally, platform teams can create different template variants for different environments or application types (microservices, frontend applications, data pipelines) while maintaining consistent underlying security and infrastructure patterns, providing both flexibility and control over your organization's build and deployment processes.
 
-The ability to update templates centrally means that policy changes or security improvements can be rolled out instantly across all pipelines using that template, eliminating the need to coordinate updates across multiple development teams. Additionally, platform teams can create different template variants for different environments or application types (microservices, frontend applications, data pipelines) while maintaining consistent underlying security and infrastructure patterns, providing both flexibility and control over your organization's build and deployment processes.
-
-## Least privilege access principles
+## Implementing least privilege access
 
 The [teams feature](/docs/platform/team-management/permissions#manage-teams-and-permissions) in Buildkite Pipelines provides platform teams with granular access controls and functionality management across pipelines, test suites, and registries throughout your organization. These controls help standardize operations while providing teams with necessary flexibility to manage their own resources within defined boundaries.
 
-The teams permission allow three distinct permission levels for different resources:
+The teams permissions allow three distinct permission levels for different resources:
 
 - **Full Access**: Complete control over pipelines, test suites, and registries.
 - **Build & Read** (pipelines): Ability to trigger builds and view pipeline details.
@@ -80,7 +72,7 @@ Ensure all pipelines report metrics to your centralized [monitoring](/docs/agent
 - Agent utilization
 - Cost per pipeline/team
 
-See more in (Monitoring and observability)[/docs/pipelines/best-practices/monitoring-and-observability].
+See more in [Monitoring and observability](/docs/pipelines/best-practices/monitoring-and-observability).
 
 ## Slack notifications for platform teams
 
@@ -127,7 +119,7 @@ steps:
 
 Platform teams can standardize code checkout processes across all pipelines by implementing custom checkout hooks that gather consistent metadata, enforce security policies, and prepare the build environment according to organizational standards. Custom checkout scripts ensure that every job starts with the same foundation while accommodating different repository and project requirements.
 
-See more in (Git checkout optimization)[/docs/pipelines/best-practices/git-checkout-optimization].
+See more in [Git checkout optimization](/docs/pipelines/best-practices/git-checkout-optimization).
 
 ## Cost and billing controls
 
@@ -158,11 +150,11 @@ Set up monitoring and alerting systems to prevent unexpected cost overruns:
 - Create cost-aware pipeline design guidelines that help teams optimize their build configurations.
 - Use build duration and queue wait time metrics to identify opportunities for parallelization or resource optimization.
 
-By implementing these cost controls, platform teams can maintain predictable infrastructure spending while ensuring that development teams have the resources they need for efficient CI/CD operations.
+By implementing these cost controls, platform teams can maintain predictable infrastructure spending while ensuring that developer teams have the resources they need for efficient CI/CD operations.
 
 ### User and license management
 
-With the cost of using Buildkite (depending on your tier) is partially based on the number of users, the platform team or (platform administrator) can track the number of users in an organization with the help of the following GraphQL query:
+Since the cost of using Buildkite Pipelines (depending on your tier) is partially based on the number of users, the platform administrators can track the number of users in an organization with the help of the following GraphQL query:
 
 ```graphql
 query getOrgMembersCount {
@@ -185,11 +177,9 @@ It's also recommended to:
 
 ## Plugin management best practices
 
-Platform teams can leverage Buildkite plugins to standardize tooling, enforce best practices, and reduce configuration duplication across pipelines - for instance, when you are repeatedly reusing some pieces of code. By creating and managing a curated set of plugins, platform teams can provide development teams with approved, secure, and well-maintained tools while maintaining control over the CI/CD environment.
+Platform teams can leverage [Buildkite plugins](/docs/pipelines/integrations/plugins) to standardize tooling, enforce best practices, and reduce configuration duplication across pipelines - for instance, when you are repeatedly reusing some pieces of code. By creating and managing a curated set of plugins, platform teams can provide developer teams with approved, secure, and well-maintained tools while maintaining control over the CI/CD environment.
 
-By establishing secure [Plugin management](/docs/pipelines/best-practices/plugin-management/) practices, platform teams can provide development teams with powerful, standardized tools while maintaining security, compliance, and operational consistency across the entire CI/CD ecosystem.
-
-See more in [Plugin management](/docs/pipelines/best-practices/plugin-management).
+By establishing secure [Plugin management](/docs/pipelines/best-practices/plugin-management/) practices, platform teams can provide developer teams with powerful, standardized tools while maintaining security, compliance, and operational consistency across the entire CI/CD ecosystem.
 
 ## Release and deployment processes
 
@@ -228,7 +218,7 @@ Never ignore failing steps without a clear follow-up plan. Silent failures erode
 
 ## Build context and visibility with annotations
 
-Use [annotations](/docs/agent/v3/cli-annotate) to provide build context and link to relevant documentation or monitoring systems. Annotations help development teams quickly understand build failures, access troubleshooting resources, and find related operational data without leaving the Buildkite interface.
+Use [annotations](/docs/agent/v3/cli-annotate) to provide build context and link to relevant documentation or monitoring systems. Annotations help developer teams quickly understand build failures, access troubleshooting resources, and find related operational data without leaving the Buildkite interface.
 
 Platform teams can standardize annotation patterns across pipelines to include:
 
