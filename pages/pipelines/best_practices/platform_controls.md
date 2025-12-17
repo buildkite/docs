@@ -150,14 +150,13 @@ By establishing secure [Plugin management](/docs/pipelines/best-practices/plugin
 
 See more in [Plugin management](/docs/pipelines/best-practices/plugin-management).
 
-## Overall ownership
+## Release and deployment processes
 
-Set up a platform team that is managing the infrastructure and the common constructs that can be used as pipelines, for example, private plugins, Docker image building pipeline, an so on. And then allow the individual developer teams build their own pipelines.
+Platform teams need to balance deployment velocity with safety and compliance requirements. This means implementing controls that prevent unauthorized production changes while avoiding processes that slow down legitimate deployments. The key is building guardrails into your pipelines that enforce approval workflows, enable gradual rollouts, and maintain visibility into deployment activities across your organization.
 
-### Use block steps for approvals
+### Deployment approvals and gates
 
-Require human confirmation before production deployment:
-
+Use block steps to require human confirmation before critical deployments. This gives teams a final checkpoint to verify that the right code is going to the right environment:
 ```yaml
 steps:
   - block: ":rocket: Deploy to production?"
@@ -172,25 +171,32 @@ steps:
             value: "production"
 ```
 
-### Canary releases in CI/CD
+Block steps work particularly well for production deployments, infrastructure changes, or any operation where you want a human in the loop. Learn more in [Block step](/docs/pipelines/configure/step-types/block-step).
 
-Model partial deployments and staged rollouts directly in pipelines. See more in [Deployments](/docs/pipelines/deployments).
+For more sophisticated deployment patterns, implement canary releases and staged rollouts directly in your pipelines. This lets you gradually increase traffic to new versions while monitoring for issues. See [Deployments](/docs/pipelines/deployments) for implementation details, or use the [Buildkite deployment plugins](https://buildkite.com/docs/pipelines/deployments/deployment-plugins) to standardize these patterns across your organization.
 
-### Buildkite deployment plugins
+### Pipeline change management
 
-Use the [Buildkite deployment plugins](https://buildkite.com/docs/pipelines/deployments/deployment-plugins).
+Treat pipeline configurations with the same rigor as application code. Require peer reviews for pipeline changes to catch misconfigurations before they cause incidents. This is especially important for pipelines that deploy to production or manage infrastructure, where a bad configuration can have immediate impact.
 
-### Pipeline-as-code reviews
+### Reliability and resilience practices
 
-Require peer reviews for pipeline changes, just like application code.
+Build resilience testing into your platform operations. Periodically inject failure scenarios—failing agents, flaky dependencies, network issues—to validate that your pipelines handle problems gracefully. This chaos testing approach helps you identify weak points before they cause real incidents.
 
-### Chaos testing
+Never ignore failing steps without a clear follow-up plan. Silent failures erode trust in your CI/CD platform and hide problems that will eventually cause larger issues. Configure your pipelines to surface failures immediately and ensure someone is responsible for addressing them.
 
-Periodically inject failure scenarios (e.g., failing agents, flaky dependencies) to validate pipeline resilience.
+## Build context and visibility with annotations
 
-### Silent failures
+Use annotations to provide build context and link to relevant documentation or monitoring systems. Annotations help development teams quickly understand build failures, access troubleshooting resources, and find related operational data without leaving the Buildkite interface.
 
-Never ignore failing steps without a clear follow-up.
+Platform teams can standardize annotation patterns across pipelines to include:
+
+- Links to internal FAQs or runbooks for common build issues
+- Direct links to monitoring dashboards showing real-time infrastructure health
+- Pointers to relevant documentation for pipeline-specific processes
+- Contact information for on-call teams or subject matter experts
+
+By embedding these contextual links directly in build output, you reduce the time teams spend hunting for information when builds fail or when they need to understand pipeline behavior.
 
 ## Next steps
 
