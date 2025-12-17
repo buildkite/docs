@@ -1,8 +1,6 @@
 # Export from Packagecloud
 
-To migrate your packages from Packagecloud to Buildkite Package Registries, you'll need to export and download packages from a Packagecloud repository before importing them to your Buildkite registry.
-
-Packagecloud doesn't provide a built-in bulk export feature, so this guide uses the Packagecloud REST API to list and download all packages.
+To migrate your packages from Packagecloud to Buildkite Package Registries, you'll need to export and download packages from a Packagecloud repository using the Packagecloud REST API before importing them to your Buildkite registry.
 
 ## Before you start
 
@@ -165,7 +163,7 @@ packagecloud-export/
         └── example-1.0.0.gem
 ```
 
-Each top-level folder (`deb/`, `rpm/`, `gem/`) maps to one Buildkite registry. The repository subdirectory preserves the source Packagecloud repository name, which is useful when exporting multiple repositories.
+Each top-level folder (`deb/`, `rpm/`, `gem/`) maps to one package ecosystem. The repository subdirectory preserves the source Packagecloud repository name, which can be used for re-creating these as registries within Buildkite Package Registries.
 
 For example, to import all Debian packages into a Buildkite Debian registry, run:
 
