@@ -415,6 +415,7 @@ toolset
 toolsets
 tooltip
 TOTP's
+traceparent
 Trivy
 trixie
 typosquatted
@@ -478,6 +479,7 @@ yml
 yq
 yyy
 Zapier
+Zipkin
 zstd
 zzglob
 zzz
