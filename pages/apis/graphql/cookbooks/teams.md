@@ -36,6 +36,11 @@ mutation CreateTeam {
         edges {
           node {
             name
+            membersCanCreatePipelines
+            membersCanCreateSuites
+            membersCanCreateRegistries
+            membersCanDestroyRegistries
+            membersCanDestroyPackages
           }
         }
       }
@@ -220,18 +225,22 @@ query GetTeamMember {
   }
 }
 ```
-## Get teams and members with pipeline creation permissions
+## Get teams and members with permissions
 
-The following query retrieves all teams in an organization and their members, showing which teams have pipeline creation permissions enabled. Use this query to identify which members across your organization can create pipelines.
+The following query retrieves all teams in an organization and their members, showing the permissions enabled for each team. Use this query to identify which members across your organization have specific permissions for pipelines, suites, registries, and packages.
 
 ```graphql
-query CanCreatePipelines {
+query TeamPermissions {
   organization(slug: "organization-slug") {
     teams(first: 100) {
       edges {
         node {
           name
           membersCanCreatePipelines
+          membersCanCreateSuites
+          membersCanCreateRegistries
+          membersCanDestroyRegistries
+          membersCanDestroyPackages
           members(first: 100) {
             edges {
               node {
