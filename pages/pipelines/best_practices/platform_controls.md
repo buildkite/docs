@@ -74,7 +74,7 @@ Ensure all pipelines report metrics to your centralized [monitoring](/docs/agent
 
 See more in [Monitoring and observability](/docs/pipelines/best-practices/monitoring-and-observability).
 
-## Slack notifications for platform teams
+## Setting up notifications for platform teams
 
 Timely [notifications](/docs/pipelines/configure/notifications) help platform teams keep builds healthy without manually watching dashboards. In Buildkite Pipelines, you can enable the following notifications types:
 
