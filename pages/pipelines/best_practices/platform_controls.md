@@ -188,6 +188,7 @@ Platform teams need to balance deployment velocity with safety and compliance re
 ### Deployment approvals and gates
 
 Use block steps to require human confirmation before critical deployments. This gives teams a final checkpoint to verify that the right code is going to the right environment:
+
 ```yaml
 steps:
   - block: ":rocket: Deploy to production?"
