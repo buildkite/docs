@@ -78,7 +78,7 @@ Refer to [Headings in the Writing style guide](writing-style.md#headings) for de
 To create a new paragraph of text, add two line breaks at the end of the last character of the previous paragraph, effectively creating an additional empty line, and continue with the new paragraph.
 
 > [!NOTE]
-> Do not attempt to create single line breaks within a paragraph of text. While this is possible using the `<br/>` HTML element in the Markdown syntax flavor used for the Buildkite Docs, doing this adds little value to the text and [may impact how text is displayed on different devices](https://developers.google.com/style/paragraph-structure).
+> Do not attempt to create single line breaks within a paragraph of text for the HTML output. While this is possible using the `<br/>` HTML element in the Markdown syntax flavor used for the Buildkite Docs, doing this adds little value to the text and [may impact how text is displayed on different devices](https://developers.google.com/style/paragraph-structure).
 
 #### New paragraphs within a list item
 
@@ -98,13 +98,17 @@ Four spaces are required to create a new paragraph within/as part of a list item
    A sad, broken second paragraph, indented three spaces.
 ```
 
-### Spacing after the end of a sentence
+#### Spacing after the end of a sentence
 
-**Question:** Should you use one, two or more spaces after punctuation at the end of a sentence?
+Use only a single space character after the final punctuation at the end of a sentence.
 
-**Answer:** One space.
+See the [How Many Spaces Go After a Period, One or Two?](https://www.grammarly.com/blog/punctuation-capitalization/spaces-after-period/) article for background on this recommendation.
 
-Here is some [historical background](https://www.onlinegrammar.com.au/the-grammar-factor-spacing-after-end-punctuation-capitals/) on why this is even a valid question.
+#### Don't use ventilated prose
+
+New sentences within a paragraph are written immediately after the [single space character that separates it from the previous sentence](#spacing-after-the-end-of-a-sentence), on the same line.
+
+Do not implement ventilated prose, either by writing each new sentence on a new line or by adding arbitrary line breaks in the Markdown source. Assume that the person editing the Buildkite Docs will use word-wrapping in their Markdown editing tool.
 
 ### UI elements
 
