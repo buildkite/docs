@@ -98,17 +98,15 @@ Four spaces are required to create a new paragraph within/as part of a list item
    A sad, broken second paragraph, indented three spaces.
 ```
 
-#### Spacing after the end of a sentence
+#### Use only a single space at the end of a sentence
 
 Use only a single space character after the final punctuation at the end of a sentence.
 
 See the [How Many Spaces Go After a Period, One or Two?](https://www.grammarly.com/blog/punctuation-capitalization/spaces-after-period/) article for background on this recommendation.
 
-#### Don't use ventilated prose
+#### Write entire paragraphs on a single line
 
-New sentences within a paragraph are written immediately after the [single space character that separates it from the previous sentence](#spacing-after-the-end-of-a-sentence), on the same line.
-
-Do not implement ventilated prose, either by writing each new sentence on a new line or by adding arbitrary line breaks in the Markdown source. Assume that the person editing the Buildkite Docs will use word-wrapping in their Markdown editing tool.
+Sentences within a paragraph are all written on a single line, and avoid adding arbitrary line breaks partway through a sentence in the Markdown source. Assume that the person editing the Buildkite Docs will use word-wrapping in their Markdown editing tool.
 
 ### UI elements
 
