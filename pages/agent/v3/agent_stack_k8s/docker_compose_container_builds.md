@@ -261,7 +261,7 @@ Customize your Docker Compose builds by using the Docker Compose plugin's config
 
 ### Using build arguments
 
-Pass build arguments to customize image builds at runtime. Build arguments allow you to add parameters to Dockerfiles without directly embedding values in the file.
+Pass build arguments to customize image builds at build time. Build arguments allow you to add parameters to Dockerfiles without directly embedding values in the file.
 
 ```yaml
 steps:
