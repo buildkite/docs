@@ -13,25 +13,14 @@ You can use [Depot](https://depot.dev/) remote builders to build container image
 
 When using Depot with the Buildkite Elastic CI Stack for AWS, consider the following requirements and best practices for successful container builds.
 
-### Depot remote builders
-
-Depot provides remote build infrastructure that runs Docker builds on dedicated hardware, eliminating the need for Docker daemons on your EC2 agents. This approach offers several advantages:
-
-- **No Docker daemon required**: Builds run on Depot's infrastructure, not on your EC2 agents
-- **Faster builds**: Dedicated build hardware with optimized caching and parallelization
-- **Reduced agent load**: Build workloads are offloaded from your EC2 instances
-- **Better isolation**: Each build runs in isolated Depot environments
-- **Multi-platform support**: Build for multiple architectures without additional configuration
-- **Cost efficiency**: Smaller EC2 instances can be used since they don't need to run Docker builds
-
 ### Depot project configuration
 
 Depot requires a project ID to route builds to the correct infrastructure. You can configure your Depot project in two ways:
 
-1. **Environment variable**: `DEPOT_PROJECT_ID`
-2. **Configuration file**: `depot.json` file in your repository
+1. Environment variable `DEPOT_PROJECT_ID`.
+1. Configuration file `depot.json` in your repository.
 
-#### Environment variable (recommended for AWS)
+#### Environment variable approach (recommended for AWS)
 
 Set `DEPOT_PROJECT_ID` in your Buildkite pipeline environment variables or in your Elastic CI Stack agent environment hooks. This approach is recommended for AWS environments as it's easier to manage via AWS Secrets Manager and doesn't require repository changes:
 
@@ -54,7 +43,7 @@ You can also set `DEPOT_PROJECT_ID` globally in your Elastic CI Stack configurat
 export DEPOT_PROJECT_ID="your-project-id"
 ```
 
-#### Configuration file (depot.json)
+#### Configuration file (depot.json) approach
 
 Use `depot init` to create a `depot.json` file in your repository. You'll need to authenticate with Depot first to select from your available projects:
 
@@ -74,13 +63,13 @@ The `depot init` command creates a `depot.json` file in the current directory wi
 }
 ```
 
-This file is automatically detected by the Depot CLI when present in your repository root. The `depot.json` file should be committed to your repository.
+This file is automatically detected by the [Depot CLI](https://github.com/depot/cli) when present in your repository root. The `depot.json` file should be committed to your repository.
 
 For AWS environments, using the environment variable approach is recommended as it provides the most flexibility and doesn't require repository changes.
 
 ### Depot CLI installation
 
-Depot integrates with Docker via a CLI plugin. The Depot CLI must be installed on your EC2 agents to enable remote builds. You can install it in your agent bootstrap script or as part of your build steps.
+Depot integrates with Docker via a CLI plugin. The [Depot CLI](https://github.com/depot/cli) must be installed on your EC2 agents to enable remote builds. You can install it in your [agent bootstrap script](/docs/agent/v3/cli-bootstrap#running-the-bootstrap-usage) or as part of your build steps.
 
 Install the Depot CLI in your agent bootstrap script:
 
@@ -105,15 +94,15 @@ steps:
 
 ### Authentication
 
-Depot requires authentication to access your projects. Depot supports OIDC trust relationships with Buildkite, which is the recommended authentication method as it provides ephemeral tokens without managing static credentials.
+Depot requires authentication to access your projects. Depot supports [OIDC trust relationships with Buildkite](/docs/pipelines/security/oidc), which is the recommended authentication method as it provides ephemeral tokens without managing static credentials.
 
 #### OIDC trust relationships (recommended)
 
-Configure an OIDC trust relationship between Buildkite and Depot to use ephemeral tokens automatically. This eliminates the need to manage static tokens and improves security.
+Configure an [OIDC trust relationships with Buildkite](/docs/pipelines/security/oidc) and Depot to use ephemeral tokens automatically as explained below. This will eliminate the need to manage static tokens and improves security.
 
 Set up the OIDC trust relationship in your Depot project settings. The Depot CLI automatically detects Buildkite's OIDC credentials from the Elastic CI Stack agents and uses them for authentication when an OIDC trust relationship is configured.
 
-No additional configuration is needed in your pipeline, simply set `DEPOT_PROJECT_ID`. As mentioned in the [Depot Buildkite integration documentation](https://depot.dev/docs/container-builds/integrations/buildkite), the CLI supports OIDC authentication by default in Buildkite when you have a trust relationship configured:
+No additional configuration is needed in your pipeline beyond setting `DEPOT_PROJECT_ID` variable. As mentioned in the [Depot Buildkite integration documentation](https://depot.dev/docs/container-builds/integrations/buildkite), the CLI supports OIDC authentication in Buildkite Pipelines by default when you have a trust relationship configured:
 
 ```yaml
 steps:
@@ -172,7 +161,7 @@ steps:
 ```
 
 > 🚧 Warning!
-> Static tokens persist until rotated. OIDC trust relationships provide ephemeral tokens that automatically expire, reducing the risk of credential exposure. Use OIDC when possible.
+> Static tokens persist until rotated. OIDC trust relationships provide ephemeral tokens that automatically expire, reducing the risk of credential exposure. Use OIDC whenever possible.
 
 ### Build context and file access
 
