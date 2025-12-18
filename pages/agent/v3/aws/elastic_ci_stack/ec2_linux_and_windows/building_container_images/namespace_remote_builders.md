@@ -16,7 +16,7 @@ When using Namespace remote Docker builders with the [Elastic CI Stack for AWS](
 ## Prerequisites
 
 - Namespace account with a workspace ([sign up](https://cloud.namespace.so/signin) if you do not have one)
-- Elastic CI Stack for AWS v6.16.0 or later (includes Buildkite Agent v3.63.0, which added `buildkite-agent oidc request-token`) running Amazon Linux 2023 with outbound access to `namespaceapis.com`
+- Recent release of the Elastic CI Stack for AWS with outbound access to `namespaceapis.com`
 - Properly configured authentication
 
 ## Install the Namespace CLI
