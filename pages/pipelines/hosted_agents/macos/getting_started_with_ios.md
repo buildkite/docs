@@ -78,5 +78,5 @@ That's it! You've successfully configured a Buildkite hosted macOS agent, built 
 
 Learn more about how to deploy apps like FlappyKite to the iOS App Store, which you can integrate into your pipeline builds, from the following resources:
 
-- The [fastlane documentation on iOS App Store deployment](https://docs.fastlane.tools/getting-started/ios/appstore-deployment/), as well as [fastlane's Code Signing Guide Guide](https://docs.fastlane.tools/codesigning/getting-started/).
+- The [fastlane documentation on iOS App Store deployment](https://docs.fastlane.tools/getting-started/ios/appstore-deployment/), as well as [fastlane's Code Signing Guide Guide](https://docs.fastlane.tools/codesigning/getting-started/), and Buildkite's own [fastlane troubleshooting guide](/docs/pipelines/hosted-agents/macos/troubleshooting-fastlane).
 - The [Submit your iOS apps to the App Store](https://developer.apple.com/ios/submit/) page of the Apple Developer site.

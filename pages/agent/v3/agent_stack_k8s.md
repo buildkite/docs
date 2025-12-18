@@ -18,12 +18,6 @@ When a matching job is returned from the Agent REST API, the controller creates 
 > 📘
 > The Agent Stack for Kubernetes controller works with the Agent API in version 0.28.0 and later of the controller. Earlier versions of the controller work with the GraphQL API.
 
-<!-- vale off -->
-
-The entry point rewriting and ordering logic is heavily inspired by the approach used in [Tekton](https://github.com/tektoncd). Learn more about this in the **Entrypoint rewriting and step ordering** section of the [Tekton Developer docs](https://github.com/tektoncd/pipeline/blob/933e4f667c19eaf0a18a19557f434dbabe20d063/docs/developers/README.md) page.
-
-<!-- vale on -->
-
 ## Before you start
 
 - A Kubernetes cluster.
