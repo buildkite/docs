@@ -68,6 +68,8 @@ If you need to migrate your existing Buildkite pipelines from using Buildkite Ag
 
 When a Buildkite hosted agent machine is running (during a pipeline build) you can access the machine through a terminal. Learn more about this feature in [Hosted agents terminal access](/docs/pipelines/hosted-agents/terminal-access).
 
+Last, learn more about how to secure your network when using Buildkite hosted agents in [Network security](/docs/pipelines/hosted-agents/network-security).
+
 ## Buildkite Agent version updates
 
 As part of the hosted agents service, Buildkite aims to keep [Buildkite Agents](/docs/agent/v3) in your hosted agents up to date and to the latest version.

@@ -180,6 +180,7 @@ EnableScheduledScaling:
 EnableSecretsPlugin:
   variable: enable_secrets_plugin
   type: bool
+EnableVpcEndpoints: N/A
 ExperimentalEnableResourceLimits:
   variable: experimental_enable_resource_limits
   type: bool
@@ -204,6 +205,9 @@ InstanceName:
 InstanceOperatingSystem:
   variable: instance_operating_system
   type: string
+InstanceRoleARN:
+  variable: instance_role_arn
+  type: string
 InstanceRoleName:
   variable: instance_role_name
   type: string
@@ -213,6 +217,7 @@ InstanceRolePermissionsBoundaryARN:
 InstanceRoleTags:
   variable: instance_role_tags
   type: string
+InstanceScaleInProtection: N/A
 InstanceTypes:
   variable: instance_types
   type: string
@@ -339,6 +344,9 @@ SecretsBucketEncryption:
 SecretsBucketRegion:
   variable: secrets_bucket_region
   type: string
+SecretsPluginSkipSSHKeyNotFoundWarning:
+  variable: secrets_plugin_skip_ssh_key_not_found_warning
+  type: bool
 SecurityGroupIds:
   variable: security_group_ids
   type: list(string)
