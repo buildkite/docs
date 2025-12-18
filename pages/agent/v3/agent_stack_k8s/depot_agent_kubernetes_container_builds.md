@@ -21,7 +21,7 @@ Depot requires a project ID to route builds to the correct infrastructure. You c
 1. Configuration file `depot.json` in your repository.
 1. Command-line flag `--project` in `depot` commands.
 
-#### Environment variable (recommended for Kubernetes)
+#### Environment variable approach (recommended for Kubernetes)
 
 Set `DEPOT_PROJECT_ID` in your Kubernetes pod specification. This approach is recommended for Kubernetes environments as it's easier to manage via secrets and doesn't require repository changes:
 
@@ -34,7 +34,7 @@ config:
         value: "your-project-id"
 ```
 
-#### Configuration file (depot.json)
+#### Configuration file (depot.json) approach
 
 Use `depot init` to create a `depot.json` file in your repository. You'll need to authenticate with Depot first to select from your available projects:
 
@@ -56,7 +56,7 @@ The `depot init` command creates a `depot.json` file in the current directory wi
 
 This file is automatically detected by the Depot CLI when present in your repository root. The `depot.json` file should be committed to your repository.
 
-#### Command-line flag
+#### Command-line flag approach
 
 You can specify the project ID using the `--project` flag when using `depot` commands directly:
 
