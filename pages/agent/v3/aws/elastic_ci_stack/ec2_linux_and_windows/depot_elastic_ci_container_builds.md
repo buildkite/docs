@@ -310,7 +310,7 @@ steps:
 
 ## Customizing builds with Depot
 
-You can customize your Depot builds in Buildkite pipelines according to your needs by using Depot-specific features and configuration options.
+You can customize your Depot builds in Buildkite pipelines by using Depot-specific features and configuration options.
 
 ### Multi-platform builds
 
@@ -334,7 +334,7 @@ Depot provides native caching that works automatically when you use `depot confi
 
 ## Troubleshooting
 
-This section can help you to identify and solve the issues that might arise when using Depot with Buildkite Pipelines on Elastic CI Stack for AWS.
+This section helps you identify and solve the issues that might arise when using Depot with Buildkite Pipelines on Elastic CI Stack for AWS.
 
 ### Depot authentication failures
 
@@ -460,11 +460,13 @@ Builds fail when trying to retrieve `DEPOT_TOKEN` from AWS Secrets Manager.
 #### EC2 agent IAM role lacks permissions or secret doesn't exist.
 
 1. Verify the secret exists:
+
 ```bash
 aws secretsmanager describe-secret --secret-id buildkite/depot-token
 ```
 
-1. Ensure your Elastic CI Stack agent IAM role has the necessary permissions:
+2. Ensure your Elastic CI Stack agent IAM role has the necessary permissions:
+
 ```json
 {
   "Version": "2012-10-17",
@@ -481,7 +483,8 @@ aws secretsmanager describe-secret --secret-id buildkite/depot-token
 }
 ```
 
-1. Test secret access from an agent:
+3. Test secret access from an agent:
+
 ```bash
 aws secretsmanager get-secret-value --secret-id buildkite/depot-token --query SecretString --output text
 ```
