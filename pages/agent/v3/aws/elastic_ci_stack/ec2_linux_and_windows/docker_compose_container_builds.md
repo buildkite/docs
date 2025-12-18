@@ -4,7 +4,7 @@ toc_include_h3: false
 
 # Docker Compose builds
 
-The [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) helps you build and run multi-container Docker applications. You can build and push container images using the Docker Compose plugin on agents that are auto-scaled by the Buildkite Elastic CI Stack for AWS.
+The [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) helps you build and run multi-container Docker applications. You can build and push container images using the Docker Compose plugin on agents that are auto-scaled by the [Buildkite Elastic CI Stack for AWS](/docs/agent/v3/aws).
 
 ## Special considerations regarding Elastic CI Stack for AWS
 
@@ -21,7 +21,7 @@ In Elastic CI Stack for AWS, the build context is the checked-out repository on 
 If your `docker-compose.yml` references files outside the repository directory, ensure they are:
 
 - Included in your repository
-- Available through Buildkite artifact uploads from previous steps
+- Available through [Buildkite artifact uploads](/docs/agent/v3/cli-artifact#uploading-artifacts) from previous steps
 - Accessible via network mounts or external storage
 
 For build caching or sharing artifacts across builds, use:
@@ -52,7 +52,7 @@ The Docker Compose plugin supports different workflow patterns for building and 
 
 ### Push to Buildkite Package Registries
 
-Push a built image directly to Buildkite Package Registries.
+You can push a built image directly to Buildkite Package Registries by using the following example configuration:
 
 ```yaml
 steps:
@@ -76,7 +76,7 @@ steps:
 
 ### Basic Docker Compose build
 
-Build services defined in your `docker-compose.yml` file:
+Build the services defined in your `docker-compose.yml` file:
 
 ```yaml
 steps:
@@ -89,7 +89,7 @@ steps:
           config: docker-compose.yml
 ```
 
-Sample `docker-compose.yml` file:
+This is what a sample `docker-compose.yml` file would look like:
 
 ```yaml
 services:
@@ -170,7 +170,7 @@ services:
 
 ### Multi-service build with ECR
 
-Build multiple services and push them to ECR with proper tagging:
+You can build multiple services and push them to ECR with proper tagging:
 
 ```yaml
 steps:
