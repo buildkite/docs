@@ -2,11 +2,11 @@
 
 This page provides guidelines on how secure the network in which your Buildkite hosted agents operate, which includes network communications between the Buildkite hosted agents platform, the Buildkite platform itself, and other services external to these platforms.
 
-The primary recommendation is to secure these communications using [OIDC](/docs/pipelines/security/oidc), since OIDC tokens issued by Buildkite hosted agents, using the [`buildkite-agent oidc` command](/docs/agent/v3/cli-oidc), can be used to verify that network communications originate from those agents, which in turn are associated with a specific Buildkite organization, pipeline, or metadata associated with a pipeline's job. Using OIDC tokens to secure these communications means that they can be done securely over the public internet with HTTPS, without the need for VPNs.
+The primary recommendation is to secure these communications with [OIDC](/docs/pipelines/security/oidc), since OIDC tokens issued by Buildkite hosted agents, obtained through the [`buildkite-agent oidc` command](/docs/agent/v3/cli-oidc), can be used to verify that network communications originate from those agents, which in turn are associated with a specific Buildkite organization, pipeline, or metadata associated with a pipeline's job. Using OIDC tokens to secure these communications means that communication can be done securely over the public internet with HTTPS, without the need for VPNs.
 
-Companies with VPN requirements typically use IP allowlists to control network access, where IP allowlists can be used as an alternative to securing these communications instead of using OIDC tokens.
+Companies with VPN requirements typically use IP allowlists to control network access, where IP allowlists can be used as an alternative to securing these communications instead of OIDC tokens.
 
-The remainder of page provides details on how to obtain relevant IP addresses, which you can use to configure IP allowlists for your firewall and VPNs, to secure your Buildkite hosted agents environment, as well as other network security [considerations](#considerations) and [best practices for build infrastructure segmentation](#considerations-build-infrastructure-segmentation-best-practices).
+The rest of this page provides details on how to obtain relevant IP addresses, which you can use to configure IP allowlists for your firewall and VPNs, to secure your Buildkite hosted agents environment, as well as other network security [considerations](#considerations) and [best practices for build infrastructure segmentation](#considerations-build-infrastructure-segmentation-best-practices).
 
 ## Buildkite hosted agent IP address ranges
 
@@ -50,7 +50,7 @@ When using Buildkite hosted agents, be aware of the following network security c
 
 ### Build infrastructure segmentation best practices
 
-Buildkite hosted agents are capable of providing secure build environments that is suitable for building most customers' products, as hosted agents can be more convenient, less expensive to manage, and more secure than [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), especially for customers without dedicated security teams. For organizations building products where a zero-trust build environment and infrastructure is required, the recommendation is to use self-hosted agents to build these products.
+Buildkite hosted agents are capable of providing a secure build environment that is suitable for building most customers' products, as hosted agents can be more convenient, less expensive to manage, and more secure than [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), especially for customers without dedicated security teams. For organizations building products where a zero-trust build environment and infrastructure is required, the recommendation is to use self-hosted agents to build these products.
 
 Therefore, for the sake of convenience, cost and security, your organization may require a blended build environment, where some products are built using Buildkite hosted agents, and other products (where zero-trust build infrastructure segmentation is required) are built using [Buildkite Agents](/docs/agent/v3) configured in your own self-hosted environments. Such a setup allows you to:
 
