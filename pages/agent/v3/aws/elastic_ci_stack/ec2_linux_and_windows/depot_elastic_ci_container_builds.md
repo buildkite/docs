@@ -460,13 +460,11 @@ Builds fail when trying to retrieve `DEPOT_TOKEN` from AWS Secrets Manager.
 #### EC2 agent IAM role lacks permissions or secret doesn't exist.
 
 1. Verify the secret exists:
-
 ```bash
 aws secretsmanager describe-secret --secret-id buildkite/depot-token
 ```
 
 2. Ensure your Elastic CI Stack agent IAM role has the necessary permissions:
-
 ```json
 {
   "Version": "2012-10-17",
@@ -484,7 +482,6 @@ aws secretsmanager describe-secret --secret-id buildkite/depot-token
 ```
 
 3. Test secret access from an agent:
-
 ```bash
 aws secretsmanager get-secret-value --secret-id buildkite/depot-token --query SecretString --output text
 ```
