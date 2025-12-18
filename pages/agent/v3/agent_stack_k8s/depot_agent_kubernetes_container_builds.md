@@ -4,32 +4,22 @@ toc_include_h3: false
 
 # Container builds with Depot
 
-[Depot](https://depot.dev/) provides remote builders that accelerate Docker builds by running them on dedicated build infrastructure. You can use Depot to build container images on agents that are auto-scaled by the Buildkite Agent Stack for Kubernetes, offloading build workloads from your Kubernetes cluster to Depot's optimized build infrastructure.
+[Depot](https://depot.dev/) provides remote builders that accelerate Docker builds by running them on dedicated build infrastructure. You can use Depot to build container images on agents that are auto-scaled by the [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s), offloading build workloads from your Kubernetes cluster to Depot's optimized build infrastructure.
 
 > 🚧 Warning!
-> The Depot installation method uses `curl | sh`, which executes scripts directly. Review the installation script before use in production environments. Consider downloading and verifying the script separately, or installing Depot CLI in your base agent image for better security control.
+> The Depot installation method uses `curl | sh`, which executes scripts directly. Review the installation script before using it in production environments. Consider downloading and verifying the script separately, or installing [Depot CLI](https://github.com/depot/cli) in your base agent image for better security control.
 
 ## Special considerations regarding Agent Stack for Kubernetes
 
 When using Depot with the Buildkite Agent Stack for Kubernetes, consider the following requirements and best practices for successful container builds.
 
-### Depot remote builders
-
-Depot provides remote build infrastructure that runs Docker builds on dedicated hardware, eliminating the need for Docker daemons in your Kubernetes pods. This approach offers several advantages:
-
-- **No Docker daemon required**: Builds run on Depot's infrastructure, not in your Kubernetes cluster
-- **Faster builds**: Dedicated build hardware with optimized caching and parallelization
-- **Reduced cluster load**: Build workloads are offloaded from your Kubernetes nodes
-- **Better isolation**: Each build runs in isolated Depot environments
-- **Multi-platform support**: Build for multiple architectures without additional configuration
-
 ### Depot project configuration
 
-Depot requires a project ID to route builds to the correct infrastructure. You can configure your Depot project in multiple ways:
+Depot requires a project ID to route builds to the correct infrastructure. You can configure your Depot project in a number of different ways by using either:
 
-1. **Environment variable**: `DEPOT_PROJECT_ID`
-2. **Command-line flag**: `--project` flag in `depot` commands
-3. **Configuration file**: `depot.json` file in your repository
+1. Environment variable `DEPOT_PROJECT_ID`.
+1. Configuration file `depot.json` in your repository.
+1. Command-line flag `--project` in `depot` commands.
 
 #### Environment variable (recommended for Kubernetes)
 
@@ -68,7 +58,7 @@ This file is automatically detected by the Depot CLI when present in your reposi
 
 #### Command-line flag
 
-You can also specify the project ID using the `--project` flag when using `depot` commands directly:
+You can specify the project ID using the `--project` flag when using `depot` commands directly:
 
 ```yaml
 steps:
@@ -78,13 +68,13 @@ steps:
       depot build --project=your-project-id -t my-image .
 ```
 
-Note: When using `depot configure-docker`, the project ID should be specified via `DEPOT_PROJECT_ID` environment variable or `depot.json` file, as this configures standard `docker build` commands to use Depot.
+Note that when you are using `depot configure-docker`, the project ID should be specified via `DEPOT_PROJECT_ID` environment variable or `depot.json` file, as this configures standard `docker build` commands to use Depot.
 
 For Kubernetes environments, using the environment variable approach is recommended as it provides the most flexibility and doesn't require repository changes.
 
 ### Depot CLI installation
 
-Depot integrates with Docker via a CLI plugin. The Depot CLI must be installed in your build containers to enable remote builds. You can install it in your base agent image or as part of your build steps.
+Depot integrates with Docker via a CLI plugin. The [Depot CLI](https://github.com/depot/cli) must be installed in your build containers to enable remote builds. You can install it in your base agent image or as part of your build steps.
 
 Install the Depot CLI in your agent image:
 
@@ -96,7 +86,7 @@ FROM buildkite/agent:latest
 RUN curl -L https://depot.dev/install-cli.sh | DEPOT_INSTALL_DIR=/usr/local/bin sh
 ```
 
-Alternatively, install it at runtime in your build steps:
+Alternatively, you can install it at runtime in your build steps:
 
 ```yaml
 steps:
@@ -109,13 +99,13 @@ steps:
 
 ### Authentication
 
-Depot requires authentication to access your projects. Depot supports OIDC trust relationships with Buildkite, which is the recommended authentication method as it provides ephemeral tokens without managing static credentials.
+Depot requires authentication to access your projects. Depot supports [OIDC trust relationships with Buildkite](/docs/pipelines/security/oidc), which is the recommended authentication method as it provides ephemeral tokens without managing static credentials.
 
 #### OIDC trust relationships (recommended)
 
 Configure an OIDC trust relationship between Buildkite and Depot to use ephemeral tokens automatically. This eliminates the need to manage static tokens and improves security.
 
-Set up the OIDC trust relationship in your Depot project settings, then configure your Buildkite pipeline to use it:
+To do it, you need to set up the OIDC trust relationship in your Depot project settings, then configure your Buildkite pipeline to use it:
 
 ```yaml
 # values.yaml
@@ -159,7 +149,7 @@ config:
 ```
 
 > 🚧 Warning!
-> Static tokens persist until rotated. OIDC trust relationships provide ephemeral tokens that automatically expire, reducing the risk of credential exposure. Use OIDC when possible.
+> Static tokens persist until rotated. OIDC trust relationships provide ephemeral tokens that automatically expire, reducing the risk of credential exposure. Use OIDC whenever possible.
 
 ### Build context and file access
 
@@ -178,13 +168,14 @@ Since builds run on Depot's infrastructure, your Kubernetes pods don't need to a
 
 ## Configuration approaches with Depot
 
-Depot supports different workflow patterns for building container images, each suited to specific use cases in Kubernetes environments.
+Depot supports various workflow patterns for building container images, each suited to specific use cases in Kubernetes environments.
 
-> **Note**: The examples below include `DEPOT_TOKEN` in the environment variables. If you're using OIDC trust relationships (recommended), you can omit `DEPOT_TOKEN` as authentication is handled automatically. Only include `DEPOT_TOKEN` when using static token authentication.
+> 📘
+> The examples below include `DEPOT_TOKEN` in the environment variables. If you're using OIDC trust relationships (recommended), you can omit `DEPOT_TOKEN` as authentication is handled automatically. Only include `DEPOT_TOKEN` when using static token authentication.
 
 ### Basic Docker build with Depot
 
-Build images using Depot's remote builders with standard `docker build` commands. Configure Depot before building:
+You can build images using Depot's remote builders with standard `docker build` commands. Configure Depot before building:
 
 ```yaml
 steps:
@@ -198,7 +189,7 @@ steps:
       DEPOT_TOKEN: "${DEPOT_TOKEN}"
 ```
 
-Sample `Dockerfile`:
+A sample Dockerfile would look like this:
 
 ```dockerfile
 FROM node:18-alpine
@@ -248,7 +239,7 @@ steps:
 
 ### Using Depot with Docker Buildx
 
-Depot integrates with `docker buildx` for advanced build features including multi-platform builds:
+Depot integrates with Docker Buildx for advanced build features, including multi-platform builds:
 
 ```yaml
 steps:
@@ -283,7 +274,7 @@ steps:
       DEPOT_TOKEN: "${DEPOT_TOKEN}"
 ```
 
-Alternatively, use Depot's `bake` command for parallel Compose builds:
+Alternatively, you can use Depot's `bake` command for parallel Compose builds:
 
 ```yaml
 steps:
@@ -298,7 +289,7 @@ steps:
 
 ## Customizing builds with Depot
 
-Customize your Depot builds by using Depot-specific features and configuration options.
+You can customize your Depot builds by using Depot-specific features and configuration options.
 
 ### Using build arguments
 
@@ -363,19 +354,17 @@ steps:
       DEPOT_TOKEN: "${DEPOT_TOKEN}"
 ```
 
-Depot provides native caching that works automatically when you use `depot configure-docker`—no additional configuration is required. Depot manages cache layers on its infrastructure, which persist across builds within the same project. The registry cache example above is optional and provides additional cache persistence across different build environments or projects.
+Depot provides native caching that works automatically when you use `depot configure-docker` — so no additional configuration is required. Depot manages cache layers on its infrastructure, which persist across builds within the same project. The registry cache example above is optional and provides additional cache persistence across different build environments or projects.
 
 ## Troubleshooting
 
-This section can help you to identify and solve the issues that most commonly arise when using Depot with Buildkite Pipelines on Kubernetes.
+This section can help you to identify and solve the issues that might arise when using Depot with Buildkite Pipelines on Kubernetes.
 
 ### Depot authentication failures
 
 Builds fail with authentication errors when Depot cannot access your project.
 
-**Problem**: Missing or invalid authentication credentials or project ID.
-
-**Solution**:
+#### Missing or invalid authentication credentials or project ID
 
 For OIDC trust relationships (recommended), ensure the trust relationship is configured in your Depot project settings and that `DEPOT_PROJECT_ID` is set:
 
@@ -409,9 +398,9 @@ Verify authentication by checking your Depot dashboard. For OIDC, ensure the tru
 
 Builds fail with "depot: command not found" errors.
 
-**Problem**: Depot CLI is not installed in the build container.
+#### Depot CLI is not installed in the build container.
 
-**Solution**: Install Depot CLI before using it:
+You need to install Depot CLI before using it:
 
 ```yaml
 steps:
@@ -430,9 +419,10 @@ Alternatively, include Depot CLI installation in your base agent image.
 
 Builds fail when uploading build context to Depot.
 
-**Problem**: Network issues or build context too large.
+#### Network issues or build context too large.
 
-**Solution**:
+To troubleshoot this issue:
+
 - Check network connectivity from your Kubernetes pods to Depot
 - Verify firewall rules allow outbound HTTPS traffic to `depot.dev`
 - Use `.dockerignore` files to reduce build context size
@@ -442,9 +432,9 @@ Builds fail when uploading build context to Depot.
 
 Builds run locally instead of on Depot infrastructure.
 
-**Problem**: Depot Docker plugin not configured.
+#### Depot Docker plugin not configured
 
-**Solution**: Run `depot configure-docker` before building:
+Run `depot configure-docker` before building:
 
 ```yaml
 steps:
@@ -464,9 +454,9 @@ You can confirm builds are using Depot by looking for `[depot]` prefixed log lin
 
 Pushing images to registries fails after Depot builds.
 
-**Problem**: Authentication or network issues when pushing from Depot infrastructure.
+#### Authentication or network issues when pushing from Depot infrastructure.
 
-**Solution**: Ensure registry credentials are properly configured. For private registries, authenticate before pushing:
+Ensure registry credentials are properly configured. For private registries, authenticate before pushing:
 
 ```yaml
 steps:
@@ -555,4 +545,3 @@ docker build -t my-image .
 ```
 
 This helps identify issues with build configuration before running in Kubernetes environments.
-
