@@ -2,7 +2,7 @@
 
 The Buildkite Agent's `env` subcommands provide the ability to inspect environment variables.
 
-From version 3.64.0 of the Buildkite Agent, jobs can inspect and modify their environment variables using the `get`, `set`, and `unset` sub-commands. These provide an alternative to using shell commands to inspect and modify environment variables.
+From version 3.115.2 of the Buildkite Agent, jobs can inspect and modify their environment variables using the `get`, `set`, and `unset` sub-commands. These provide an alternative to using shell commands to inspect and modify environment variables.
 
 ## Printing env
 
