@@ -15,6 +15,8 @@ The Buildkite migration tool:
 
 - Can be used as a standalone tool or potentially integrated into your [Buildkite Migration Services](https://buildkite.com/resources/migrations/) process, offering a way to leverage existing CI configurations within the Buildkite ecosystem.
 
+- Can be run using the [Buildkite CLI](/docs/platform/cli).
+
 ## Interactive web-based version
 
 The fastest way to get started with the Buildkite migration tool is to use its [interactive web version](https://buildkite.com/resources/migrate/), also known as the _Buildkite migration interactive web tool_.

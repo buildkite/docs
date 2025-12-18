@@ -11496,9 +11496,29 @@ type Team implements Node {
   membersCanCreatePipelines: Boolean!
 
   """
+  Whether or not team members can create new registries in this team
+  """
+  membersCanCreateRegistries: Boolean!
+
+  """
+  Whether or not team members can create new test suites in this team
+  """
+  membersCanCreateSuites: Boolean!
+
+  """
   Whether or not team members can delete pipelines in this team
   """
   membersCanDeletePipelines: Boolean! @deprecated(reason: "This property has been removed without replacement")
+
+  """
+  Whether or not team members can delete packages in this team
+  """
+  membersCanDestroyPackages: Boolean!
+
+  """
+  Whether or not team members can delete registries in this team
+  """
+  membersCanDestroyRegistries: Boolean!
 
   """
   The name of the team
@@ -11609,9 +11629,29 @@ input TeamCreateInput {
   membersCanCreatePipelines: Boolean = true
 
   """
+  If members in this team can create registries in it
+  """
+  membersCanCreateRegistries: Boolean = true
+
+  """
+  If members in this team can create test suites in it
+  """
+  membersCanCreateSuites: Boolean = true
+
+  """
   Deprecated: If members in this team can delete pipelines assigned to it
   """
   membersCanDeletePipelines: Boolean = true
+
+  """
+  If members in this team can delete packages in registries assigned to it
+  """
+  membersCanDestroyPackages: Boolean = false
+
+  """
+  If members in this team can delete registries assigned to it
+  """
+  membersCanDestroyRegistries: Boolean = false
   name: String!
   organizationID: ID!
 
@@ -12442,9 +12482,29 @@ input TeamUpdateInput {
   membersCanCreatePipelines: Boolean
 
   """
+  If members in this team can create registries in it
+  """
+  membersCanCreateRegistries: Boolean
+
+  """
+  If members in this team can create test suites in it
+  """
+  membersCanCreateSuites: Boolean
+
+  """
   Deprecated: If members in this team can delete pipelines assigned to it
   """
   membersCanDeletePipelines: Boolean = true
+
+  """
+  If members in this team can delete packages in registries assigned to it
+  """
+  membersCanDestroyPackages: Boolean
+
+  """
+  If members in this team can delete registries assigned to it
+  """
+  membersCanDestroyRegistries: Boolean
   name: String!
 
   """

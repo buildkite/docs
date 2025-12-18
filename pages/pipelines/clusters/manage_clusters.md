@@ -308,7 +308,7 @@ where:
 
         ```bash
         curl -H "Authorization: Bearer $TOKEN" \
-          - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
+          -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
         ```
 
 <%= render_markdown partial: 'apis/descriptions/rest_cluster_id_body' %>

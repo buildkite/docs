@@ -1,21 +1,23 @@
 ACLs
 addr
 allow_any_instance_of
-Allowlist
 allowlist
+allowlisted
+allowlists
+Amazon ECR
+Amazon Elastic Container Registry
 AMI's
 AMIs
 Ansible
+Anthropic's
 anti-pattern
+Anyfile
 API
 API's
 APIs
 apk
 APM
 applesimutils
-Amazon ECR
-Amazon Elastic Container Registry
-Anthropic's
 Aqua
 architecting
 Argo CD
@@ -107,6 +109,7 @@ crontab
 Crontab
 CVE
 CVEs
+cutover
 daemonless
 Datadog
 Datadog's
@@ -219,6 +222,7 @@ launchd
 LFS
 libpq
 Lifecycled
+lifecycled
 Lightstep
 linux
 llamasecret
@@ -269,6 +273,7 @@ oidc
 onboarding
 Okta
 OpenTelemetry
+OTel
 opentelemetry
 onboarding
 OTLP
@@ -276,6 +281,8 @@ otlp
 overprivileged
 Pagerduty
 ptrace
+Packagecloud
+Packagecloud's
 parsable
 parallelization
 pbuilder
@@ -293,6 +300,8 @@ pngs
 pnpm
 pod_watcher
 podWatcher
+polyrepo
+polyrepos
 Postgres
 PowerShell
 PR's
@@ -312,6 +321,7 @@ rbenv
 readme
 readmes
 rearchitect
+rebalancing
 refetch
 refspec
 rehydrate
@@ -325,11 +335,14 @@ reprioritizes
 resizable
 rollout
 rollouts
+retag
 retrigger
 routable
 rpmbuild
 RSpec
 ruleset
+runbook
+runbooks
 runtimes
 rustup
 rvm
@@ -343,6 +356,7 @@ scriptwrapper
 SDK
 SDK's
 SDKs
+semver
 sha
 SHAs
 sharding
@@ -386,6 +400,7 @@ svg
 swiftformat
 swiftlint
 systemd
+Tailscale
 teardown
 templated
 tgz
@@ -400,6 +415,7 @@ toolset
 toolsets
 tooltip
 TOTP's
+traceparent
 Trivy
 trixie
 typosquatted
@@ -417,6 +433,7 @@ unencrypted
 unpatched
 unpermitted
 unreviewed
+unscoped
 unset
 unsets
 unsetting
@@ -439,6 +456,7 @@ Vitest
 VMs
 VPC's
 VPCs
+VPNs
 waitlist
 walkthrough
 webhook's
@@ -461,6 +479,7 @@ yml
 yq
 yyy
 Zapier
+Zipkin
 zstd
 zzglob
 zzz
