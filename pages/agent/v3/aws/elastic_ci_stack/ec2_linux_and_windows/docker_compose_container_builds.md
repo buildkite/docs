@@ -205,7 +205,7 @@ Customize your Docker Compose builds by using the Docker Compose plugin's config
 
 ### Using build arguments
 
-Pass build arguments to customize image builds at build time. Build arguments allow you to add parameters to Dockerfiles without directly embedding values in the file.
+Pass build arguments to customize image builds at build time. You can add parameters to Dockerfiles without directly embedding values in the file by using build arguments:
 
 ```yaml
 steps:
@@ -223,7 +223,7 @@ steps:
 
 ### Building specific services
 
-When your `docker-compose.yml` defines multiple services, build only the services you need rather than building everything.
+When your `docker-compose.yml` defines multiple services, you are able to build only the services you need rather than building everything:
 
 ```yaml
 steps:
@@ -238,7 +238,7 @@ steps:
 
 ### Using BuildKit features with cache optimization
 
-[BuildKit](https://docs.docker.com/build/buildkit/) provides advanced build features including build cache optimization. BuildKit's inline cache stores cache metadata in the image itself, enabling cache reuse across different build agents.
+[BuildKit](https://docs.docker.com/build/buildkit/) provides advanced build features including build cache optimization. BuildKit's inline cache stores cache metadata in the image itself, enabling cache reuse across different build agents. Here is an example configuration:
 
 ```yaml
 steps:
@@ -263,7 +263,7 @@ steps:
 
 ### Using multiple compose files
 
-Combine multiple compose files to create layered configurations. This pattern works well for separating base configuration from environment-specific overrides.
+Combine multiple compose files to create layered configurations. This pattern works well for separating base configuration from environment-specific overrides:
 
 ```yaml
 steps:
@@ -281,7 +281,7 @@ steps:
 
 ### Custom image tagging on push
 
-You can push the same image with multiple tags to support different deployment strategies. This is useful for maintaining both immutable version tags and mutable environment tags.
+You can push the same image with multiple tags to support different deployment strategies. This is useful for maintaining both immutable version tags and mutable environment tags:
 
 ```yaml
 steps:
@@ -308,7 +308,7 @@ steps:
 
 ### Using SSH agent for private repositories
 
-Enable SSH agent forwarding to access private Git repositories or packages during the build. Use this when Dockerfiles need to clone private dependencies.
+If you enable SSH agent forwarding, you will be able to access private Git repositories or packages during the build. Use this when Dockerfiles need to clone private dependencies. Example configuration:
 
 ```yaml
 steps:
@@ -333,7 +333,7 @@ RUN --mount=type=ssh git clone git@github.com:yourorg/private-lib.git
 
 ## Troubleshooting
 
-This section can help you to identify and solve the issues that most commonly arise when using Docker Compose container builds with Buildkite Pipelines on Elastic CI Stack for AWS.
+This section can help you to identify and solve the issues that might arise when using Docker Compose container builds with Buildkite Pipelines on Elastic CI Stack for AWS.
 
 ### Network connectivity
 
@@ -341,7 +341,7 @@ Network policies, security groups, or DNS configuration issues can restrict EC2 
 
 To resolve these issues:
 
-- Verify that your Elastic CI Stack security groups allow outbound HTTPS traffic (port 443) for registry access
+- Verify that your Elastic CI Stack security groups allow outbound HTTPS traffic (port `443`) for registry access
 - Check VPC routing and internet gateway configuration
 - Verify DNS resolution in your VPC
 - Ensure NAT gateway is configured if agents are in private subnets
@@ -416,7 +416,7 @@ Note that the `args` option in the Docker Compose plugin passes variables at bui
 
 Pushing images to registries fails with authentication errors or timeout errors.
 
-For authentication failures, ensure credentials are properly configured. Use the [`docker-login` plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-login-buildkite-plugin/) before the [`docker-compose` plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/):
+For authentication failures, ensure credentials are properly configured. Use the [Docker Login Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-login-buildkite-plugin/) before the [Docker Compose Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/):
 
 ```yaml
 plugins:
@@ -484,14 +484,14 @@ plugins:
 
 Builds may fail due to agent startup problems or scaling limitations:
 
-- **Agent startup failures**: Check CloudWatch logs for agent initialization errors
-- **Instance availability**: Verify sufficient instance capacity in your AWS region and availability zones
-- **IAM permissions**: Ensure the Elastic CI Stack has permissions to launch and manage EC2 instances
-- **VPC configuration**: Verify VPC, subnets, and security groups are correctly configured
+- Agent startup failures - check AWS CloudWatch logs for agent initialization errors.
+- Instance availability issues - verify sufficient instance capacity in your AWS region and availability zones.
+- IAM permissions issues - ensure the Elastic CI Stack has permissions to launch and manage EC2 instances.
+- VPC configuration issues - verify that VPC, subnets, and security groups are correctly configured.
 
 ## Debugging builds
 
-When builds fail or behave unexpectedly, you need to enable verbose output and disable caching to diagnose the issue.
+When builds fail or behave in unexpected manner, you need to enable verbose output and disable caching to diagnose the issue.
 
 ### Enable verbose output
 
@@ -508,7 +508,7 @@ steps:
           verbose: true
 ```
 
-This shows all Docker Compose commands being executed and their full output, helping identify where failures occur.
+The detailed output shows all Docker Compose commands being executed and their full output, helping identify where failures occur.
 
 ### Disable build cache
 
@@ -538,8 +538,6 @@ docker compose build
 
 # Check what images were created
 docker images
-
 ```
 
-This helps identify issues with the compose configuration itself, separate from pipeline or Elastic CI Stack concerns.
-
+Local execution helps identify issues with the compose configuration itself, separate from pipeline or Elastic CI Stack concerns.
