@@ -180,19 +180,19 @@ Since builds run on Depot's infrastructure, your EC2 agents don't need to alloca
 
 Configure your Elastic CI Stack agent instance types accordingly:
 
-- **Smaller instance types**: Agents only need resources for agent operations, not builds
-- **Network bandwidth**: Ensure sufficient bandwidth for context uploads and image pulls
-- **Storage**: Minimal ephemeral storage needed since builds run remotely
+- Smaller instance types - agents only need resources for agent operations, not builds
+- Network bandwidth - ensure sufficient bandwidth for context uploads and image pulls
+- Storage - minimal ephemeral storage needed since builds run remotely
 
 ## Configuration approaches with Depot
 
 Depot supports different workflow patterns for building container images in your Buildkite pipelines, each suited to specific use cases when using the Elastic CI Stack for AWS.
 
-**Note:** The examples below include `DEPOT_TOKEN` in the environment variables. If you're using OIDC trust relationships (recommended), you can omit `DEPOT_TOKEN` as authentication is handled automatically. Only include `DEPOT_TOKEN` when using static token authentication.
+Note that the examples below include `DEPOT_TOKEN` in the environment variables. If you're using OIDC trust relationships (recommended), you can omit `DEPOT_TOKEN` as authentication is handled automatically. Only include `DEPOT_TOKEN` when using static token authentication.
 
 ### Basic Docker build with Depot
 
-Build images in your Buildkite pipeline using Depot's remote builders. According to the [Depot Buildkite integration documentation](https://depot.dev/docs/container-builds/integrations/buildkite), you can use `depot build` directly:
+You can build images in your Buildkite pipelines using Depot's remote builders. According to the [Depot Buildkite integration documentation](https://depot.dev/docs/container-builds/integrations/buildkite), you can use `depot build` directly:
 
 ```yaml
 steps:
@@ -205,7 +205,7 @@ steps:
       DEPOT_TOKEN: "${DEPOT_TOKEN}"
 ```
 
-Alternatively, you can use `depot configure-docker` to configure Docker CLI to use Depot, then use standard `docker build` commands:
+Alternatively, you can use `depot configure-docker` to configure Docker CLI to use Depot. In this case, use standard `docker build` commands:
 
 ```yaml
 steps:
@@ -219,10 +219,9 @@ steps:
       DEPOT_TOKEN: "${DEPOT_TOKEN}"
 ```
 
-
 ### Building and pushing with Depot
 
-Build and push images in your Buildkite pipeline using Depot's remote builders. According to the [Depot Buildkite integration documentation](https://depot.dev/docs/container-builds/integrations/buildkite), you can use `depot build` with the `--push` flag. For private registries, authenticate before building:
+You can build and push images in your Buildkite pipelines using Depot's remote builders. According to the [Depot Buildkite integration documentation](https://depot.dev/docs/container-builds/integrations/buildkite), you can use `depot build` with the `--push` flag. For private registries, you need to authenticate before building:
 
 ```yaml
 steps:
@@ -235,7 +234,7 @@ steps:
       DEPOT_TOKEN: "${DEPOT_TOKEN}"
 ```
 
-If you're using a private repository, authenticate before pushing:
+If you're using a private repository, you need to authenticate before pushing:
 
 ```yaml
 steps:
@@ -255,7 +254,7 @@ steps:
 
 ### Building and pushing to AWS ECR with Depot
 
-For AWS ECR, authenticate using AWS CLI as shown in the [Depot Buildkite integration documentation](https://depot.dev/docs/container-builds/integrations/buildkite):
+For AWS ECR, authenticate using AWS CLI as explained in the [Depot Buildkite integration documentation](https://depot.dev/docs/container-builds/integrations/buildkite):
 
 ```yaml
 steps:
@@ -290,7 +289,7 @@ steps:
       DEPOT_TOKEN: "${DEPOT_TOKEN}"
 ```
 
-The [ECR plugin](https://github.com/buildkite-plugins/ecr-buildkite-plugin) handles authentication automatically using the Elastic CI Stack agent's IAM role, so no manual credentials are needed.
+The [ECR plugin](https://buildkite.com/resources/plugins/buildkite-plugins/ecr-buildkite-plugin/) handles authentication automatically using the Elastic CI Stack agent's IAM role, so no manual credentials are needed.
 
 ### Using Depot with Docker Compose
 
@@ -311,11 +310,11 @@ steps:
 
 ## Customizing builds with Depot
 
-Customize your Depot builds in Buildkite pipelines by using Depot-specific features and configuration options.
+You can customize your Depot builds in Buildkite pipelines according to your needs by using Depot-specific features and configuration options.
 
 ### Multi-platform builds
 
-Build for multiple architectures in your Buildkite pipeline using Depot's multi-platform support. According to the [Depot Buildkite integration documentation](https://depot.dev/docs/container-builds/integrations/buildkite), use the `--platform` flag with `depot build`:
+You can build for multiple architectures in your Buildkite pipeline using Depot's multi-platform support with the help of the `--platform` flag with `depot build`:
 
 ```yaml
 steps:
@@ -327,22 +326,21 @@ steps:
       DEPOT_PROJECT_ID: "${DEPOT_PROJECT_ID}"
       DEPOT_TOKEN: "${DEPOT_TOKEN}"
 ```
+Learn more about this option in the [Depot Buildkite integration documentation](https://depot.dev/docs/container-builds/integrations/buildkite).
 
 ### Using Depot cache
 
-Depot provides native caching that works automatically when you use `depot configure-docker`—no additional configuration is required. Depot manages cache layers on its infrastructure, which persist across builds within the same project.
+Depot provides native caching that works automatically when you use `depot configure-docker` — no additional configuration is required. Depot manages cache layers on its infrastructure, which persist across builds within the same project.
 
 ## Troubleshooting
 
-This section can help you to identify and solve the issues that most commonly arise when using Depot with Buildkite Pipelines on Elastic CI Stack for AWS.
+This section can help you to identify and solve the issues that might arise when using Depot with Buildkite Pipelines on Elastic CI Stack for AWS.
 
 ### Depot authentication failures
 
 Builds fail with authentication errors when Depot cannot access your project.
 
-**Problem**: Missing or invalid authentication credentials or project ID.
-
-**Solution**:
+#### Missing or invalid authentication credentials or project ID
 
 For OIDC trust relationships (recommended), ensure the trust relationship is configured in your Depot project settings and that `DEPOT_PROJECT_ID` is set in your pipeline:
 
@@ -378,9 +376,9 @@ Verify authentication by checking your Depot dashboard. For OIDC, ensure the tru
 
 Builds fail with "depot: command not found" errors.
 
-**Problem**: Depot CLI is not installed on the EC2 agent.
+#### Depot CLI is not installed on the EC2 agent
 
-**Solution**: Install Depot CLI before using it:
+Install Depot CLI before using it:
 
 ```yaml
 steps:
@@ -399,9 +397,8 @@ Alternatively, include Depot CLI installation in your Elastic CI Stack agent boo
 
 Builds fail when uploading build context to Depot.
 
-**Problem**: Network issues or build context too large.
+#### Network issues or build context too large
 
-**Solution**:
 - Check network connectivity from your EC2 agents to Depot
 - Verify security group rules allow outbound HTTPS traffic to `depot.dev`
 - Verify VPC routing and internet gateway configuration
@@ -412,9 +409,9 @@ Builds fail when uploading build context to Depot.
 
 Builds run locally on the EC2 agent instead of on Depot infrastructure.
 
-**Problem**: Depot Docker plugin not configured.
+#### Depot Docker plugin not configured
 
-**Solution**: Run `depot configure-docker` before building:
+Run `depot configure-docker` before building:
 
 ```yaml
 steps:
@@ -434,9 +431,9 @@ You can confirm builds are using Depot by looking for `[depot]` prefixed log lin
 
 Pushing images to registries fails after Depot builds.
 
-**Problem**: Authentication or network issues when pushing from Depot infrastructure.
+#### Authentication or network issues when pushing from Depot infrastructure
 
-**Solution**: Ensure registry credentials are properly configured. For private registries, authenticate before pushing:
+Ensure registry credentials are properly configured. For private registries, authenticate before pushing:
 
 ```yaml
 steps:
@@ -460,16 +457,14 @@ In this example, the build runs on Depot's infrastructure (via `depot configure-
 
 Builds fail when trying to retrieve `DEPOT_TOKEN` from AWS Secrets Manager.
 
-**Problem**: EC2 agent IAM role lacks permissions or secret doesn't exist.
-
-**Solution**:
+#### EC2 agent IAM role lacks permissions or secret doesn't exist.
 
 1. Verify the secret exists:
 ```bash
 aws secretsmanager describe-secret --secret-id buildkite/depot-token
 ```
 
-2. Ensure your Elastic CI Stack agent IAM role has the necessary permissions:
+1. Ensure your Elastic CI Stack agent IAM role has the necessary permissions:
 ```json
 {
   "Version": "2012-10-17",
@@ -486,7 +481,7 @@ aws secretsmanager describe-secret --secret-id buildkite/depot-token
 }
 ```
 
-3. Test secret access from an agent:
+1. Test secret access from an agent:
 ```bash
 aws secretsmanager get-secret-value --secret-id buildkite/depot-token --query SecretString --output text
 ```

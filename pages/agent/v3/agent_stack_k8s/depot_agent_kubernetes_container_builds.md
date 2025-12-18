@@ -366,7 +366,7 @@ Builds fail with authentication errors when Depot cannot access your project.
 
 #### Missing or invalid authentication credentials or project ID
 
-For OIDC trust relationships (recommended), ensure the trust relationship is configured in your Depot project settings and that `DEPOT_PROJECT_ID` is set:
+For OIDC trust relationships (recommended), ensure the trust relationship is configured in your Depot project settings and that `DEPOT_PROJECT_ID` is set in your pipeline:
 
 ```yaml
 config:
