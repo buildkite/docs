@@ -1,5 +1,5 @@
 ---
-toc_include_h3: false
+toc_include_h3: true
 ---
 
 # Container builds with Depot
