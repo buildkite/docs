@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v6.48.0"
+Description: "Buildkite stack v6.52.0"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
 # autoscaling Buildkite agent cluster. Use it to parallelize
@@ -64,7 +64,6 @@ Metadata:
         - BuildkiteAdditionalSudoPermissions
         - BuildkiteWindowsAdministrator
         - BuildkiteAgentScalerServerlessARN
-        - BuildkiteAgentScalerVersion
         - EnableEC2LogRetentionPolicy
         - EC2LogRetentionDays
         - LogRetentionDays
@@ -270,17 +269,9 @@ Parameters:
     Type: String
     Default: "arn:aws:serverlessrepo:us-east-1:172840064832:applications/buildkite-agent-scaler"
 
-  BuildkiteAgentScalerVersion:
-    Description: Version of the buildkite-agent-scaler to use.
-    Type: String
-    AllowedPattern: '^(?:(?:[2-9]|[1-9]\d+)\.\d+\.\d+|1\.(?:[1-9]\d+\.\d+|9\.(?:[8-9]|[1-9]\d+)))$'
-    ConstraintDescription: "The agent scaler release must be 1.9.8 or newer."
-    Default: "1.9.8"
-
   ScalerEnableExperimentalElasticCIMode:
     Description: >
         Experimental - Enable the Elastic CI Mode with enhanced features like graceful termination and dangling instance detection.
-        Available since BuildkiteAgentScalerVersion 1.9.3
     Type: String
     AllowedValues:
         - "true"
@@ -1003,6 +994,38 @@ Parameters:
       - "false"
     Default: "false"
 
+  DockerPruneUntil:
+    Type: String
+    Description: >
+      Retention period for Docker images and build cache during garbage collection.
+      Docker will delete resources older than this threshold, keeping resources created within this timeframe.
+      Accepts duration strings like '30m' (30 minutes), '4h' (4 hours), '1h30m' (1.5 hours), '7d' (7 days).
+      Default 4h means resources older than 4 hours will be pruned.
+    Default: "4h"
+    AllowedPattern: "^(\\d+[smhd])+$"
+    ConstraintDescription: "Must be a duration string like '30m', '4h', '1h30m', or '7d'. Valid units: s (seconds), m (minutes), h (hours), d (days)."
+
+  EnablePreExitDiskCleanup:
+    Type: String
+    Description: >
+      Controls whether disk space check also runs in the pre-exit hook after jobs complete.
+      Disk cleanup always runs in the environment hook when disk space is low.
+      When enabled, the same check also runs in the pre-exit hook to reclaim resources generated during job execution.
+    AllowedValues:
+      - "true"
+      - "false"
+    Default: "false"
+
+  DockerBuilderPruneEnabled:
+    Type: String
+    Description: >
+      Controls whether Docker builder cache is pruned during garbage collection.
+      When enabled, Docker builder cache will run after Docker image pruning.
+    AllowedValues:
+      - "true"
+      - "false"
+    Default: "false"
+
   EnableInstanceStorage:
     Type: String
     Description: >
@@ -1524,26 +1547,26 @@ Mappings:
 
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-03a7d6a18449712a4, linuxarm64: ami-0708392a02b22374b, windows: ami-0f0cfbb4e6a15296e }
-    us-east-2 : { linuxamd64: ami-058d0ab97439f62d5, linuxarm64: ami-05c916a70e3c67a04, windows: ami-07d6ac474dd792b0f }
-    us-west-1 : { linuxamd64: ami-0dda7c2fd9d88ef5c, linuxarm64: ami-0b7f2ac449410ede9, windows: ami-0a328e9e18253b5f5 }
-    us-west-2 : { linuxamd64: ami-0df8c178e62fa59f2, linuxarm64: ami-0cba3cfd61535539b, windows: ami-0abe28e689cb88fe8 }
-    af-south-1 : { linuxamd64: ami-0267de036409499b8, linuxarm64: ami-0a3dd2e847cca416c, windows: ami-0a720049c9fac34db }
-    ap-east-1 : { linuxamd64: ami-00390999441752024, linuxarm64: ami-0cfdda37062a8354f, windows: ami-0acf697fabaa97401 }
-    ap-south-1 : { linuxamd64: ami-0a616bf944137b167, linuxarm64: ami-01dba652e8abe5881, windows: ami-0fed566251bb6b776 }
-    ap-northeast-2 : { linuxamd64: ami-04ae72251b0899adc, linuxarm64: ami-090cd2e177c1c7d0b, windows: ami-063ee0230387a4d61 }
-    ap-northeast-1 : { linuxamd64: ami-0781b1a34becfa746, linuxarm64: ami-066dccfe9ede91be0, windows: ami-01060a467c0b44966 }
-    ap-southeast-2 : { linuxamd64: ami-006b2bef58458be01, linuxarm64: ami-04044d4e0d563abfb, windows: ami-0a428d40a52004ba0 }
-    ap-southeast-1 : { linuxamd64: ami-0cb475ef99c19bc46, linuxarm64: ami-0675410c55b40c757, windows: ami-07df0c3b5e4308aa4 }
-    ca-central-1 : { linuxamd64: ami-0752ff4ae6f1c3957, linuxarm64: ami-02b60a9b97b6a8050, windows: ami-0bf47c1b54f2170cb }
-    eu-central-1 : { linuxamd64: ami-06716341258144be7, linuxarm64: ami-0f6e66166f173a21f, windows: ami-09e6f918e87146f6b }
-    eu-west-1 : { linuxamd64: ami-0cc8eedd8644345b1, linuxarm64: ami-032e5bd03d879f2f0, windows: ami-06f68b7a91739a1da }
-    eu-west-2 : { linuxamd64: ami-07686b50aa1944964, linuxarm64: ami-03a834eab510eef84, windows: ami-0abbeaef366e6d305 }
-    eu-south-1 : { linuxamd64: ami-0cd03c5a8053b04d6, linuxarm64: ami-0ee840c27f74c483e, windows: ami-019e052a419fcc91e }
-    eu-west-3 : { linuxamd64: ami-0422f6eb33343e788, linuxarm64: ami-036e18fb2c99b565a, windows: ami-0ae4ef68a3a2c9681 }
-    eu-north-1 : { linuxamd64: ami-07e9ceeb3c8f7397f, linuxarm64: ami-0ea8317e652321537, windows: ami-02cfab95197c94b3a }
-    me-south-1 : { linuxamd64: ami-0f3f53f0bd6a1498d, linuxarm64: ami-08327dc6cf83308c6, windows: ami-0a99f70a14e158071 }
-    sa-east-1 : { linuxamd64: ami-0baa06de492d0fbcc, linuxarm64: ami-09f19d61690c9c7b9, windows: ami-08475292fbfdb412e }
+    us-east-1 : { linuxamd64: ami-02829c18f25879e38, linuxarm64: ami-0b6dd9eed3c01c3a5, windows: ami-0cfa690d1a2a29639 }
+    us-east-2 : { linuxamd64: ami-09792ce2992643693, linuxarm64: ami-097cb9c2f62bd6f2c, windows: ami-078e9f2a850685a9c }
+    us-west-1 : { linuxamd64: ami-0c4bafe3f9cb935ce, linuxarm64: ami-0a50c0f7b4e12ba33, windows: ami-0416981d320e41274 }
+    us-west-2 : { linuxamd64: ami-06e81a430431c7b39, linuxarm64: ami-0c954113a13e8fb73, windows: ami-07052ec0fa8283241 }
+    af-south-1 : { linuxamd64: ami-05e6208dd507e932e, linuxarm64: ami-0b4366662591eba33, windows: ami-0b9082d0d4045ec5c }
+    ap-east-1 : { linuxamd64: ami-006d538d4afd11319, linuxarm64: ami-0e5ef517dfe110570, windows: ami-01e2dda3c5cb1a565 }
+    ap-south-1 : { linuxamd64: ami-0cea93e76424398ed, linuxarm64: ami-0f0bc82aa32546ab1, windows: ami-0b1837acdd9863c29 }
+    ap-northeast-2 : { linuxamd64: ami-07439fa9c4bb78fea, linuxarm64: ami-04808908dc4c9fc17, windows: ami-0a4c788d09e94df0f }
+    ap-northeast-1 : { linuxamd64: ami-09ecfc9e40aed629f, linuxarm64: ami-076b8a9590a48efb7, windows: ami-0058a3eb0f9b314af }
+    ap-southeast-2 : { linuxamd64: ami-038781a7a58a28ec4, linuxarm64: ami-018224ec2f3a106a2, windows: ami-0ecb6e31ecde9fbcf }
+    ap-southeast-1 : { linuxamd64: ami-0bed33961c6a8c276, linuxarm64: ami-012e81bdfc5d756eb, windows: ami-0fc3ce2c2d0c9fb6e }
+    ca-central-1 : { linuxamd64: ami-00c8420a359dcb269, linuxarm64: ami-015597b074bfe70cc, windows: ami-091612ae59c0de969 }
+    eu-central-1 : { linuxamd64: ami-021f74970930e39be, linuxarm64: ami-047b900b05db0b01b, windows: ami-077ae23a2aeac68fb }
+    eu-west-1 : { linuxamd64: ami-04a3f341ee240e09b, linuxarm64: ami-01f2a6c3fecdddb70, windows: ami-0effa75df9e627144 }
+    eu-west-2 : { linuxamd64: ami-045c2eef569121a9f, linuxarm64: ami-0d210de1da0726103, windows: ami-0aed4147a370360a5 }
+    eu-south-1 : { linuxamd64: ami-0331b20ac79a8b738, linuxarm64: ami-066ff1c21f9d9707e, windows: ami-05a579a471dc758f9 }
+    eu-west-3 : { linuxamd64: ami-09a068cb4313d48d4, linuxarm64: ami-09a938d6155b7637a, windows: ami-0e4c2f92cb79d01e7 }
+    eu-north-1 : { linuxamd64: ami-08398ce97357a61eb, linuxarm64: ami-087d76770dd2b5164, windows: ami-0b6af2658fe44ec4d }
+    me-south-1 : { linuxamd64: ami-0d4ed098c40440c97, linuxarm64: ami-04969c669b4c53021, windows: ami-0354cf04a97807f10 }
+    sa-east-1 : { linuxamd64: ami-0c076df83ae2f56e7, linuxarm64: ami-08e5dc79680fdfafb, windows: ami-075067c0b3ad00fec }
 
 Resources:
   Vpc:
@@ -2262,7 +2285,7 @@ Resources:
                   powershell -file C:\buildkite-agent\bin\bk-configure-docker.ps1 >> C:\buildkite-agent\elastic-stack.log
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v6.48.0"
+                  $Env:BUILDKITE_STACK_VERSION="v6.52.0"
                   $Env:BUILDKITE_STACK_DEPLOYED_BY="cloudformation"
                   $Env:BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}"
                   $Env:BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}"
@@ -2349,6 +2372,9 @@ Resources:
                   #!/bin/bash -v
                   DOCKER_USERNS_REMAP=${EnableDockerUserNamespaceRemap} \
                   DOCKER_EXPERIMENTAL=${EnableDockerExperimental} \
+                  DOCKER_PRUNE_UNTIL=${DockerPruneUntil} \
+                  ENABLE_PRE_EXIT_DISK_CLEANUP=${EnablePreExitDiskCleanup} \
+                  DOCKER_BUILDER_PRUNE_ENABLED=${DockerBuilderPruneEnabled} \
                   DOCKER_NETWORKING_PROTOCOL=${DockerNetworkingProtocol} \
                   DOCKER_IPV4_ADDRESS_POOL_1=${DockerIPv4AddressPool1} \
                   DOCKER_IPV4_ADDRESS_POOL_2=${DockerIPv4AddressPool2} \
@@ -2361,7 +2387,7 @@ Resources:
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v6.48.0" \
+                  BUILDKITE_STACK_VERSION="v6.52.0" \
                   BUILDKITE_STACK_DEPLOYED_BY="cloudformation" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
@@ -2403,6 +2429,9 @@ Resources:
                   ECR_CREDENTIAL_HELPER_ENABLED="${EnableECRCredentialHelper}" \
                   DOCKER_LOGIN_PLUGIN_ENABLED="${EnableDockerLoginPlugin}" \
                   DOCKER_EXPERIMENTAL="${EnableDockerExperimental}" \
+                  DOCKER_PRUNE_UNTIL="${DockerPruneUntil}" \
+                  ENABLE_PRE_EXIT_DISK_CLEANUP="${EnablePreExitDiskCleanup}" \
+                  DOCKER_BUILDER_PRUNE_ENABLED="${DockerBuilderPruneEnabled}" \
                   DOCKER_USERNS_REMAP=${EnableDockerUserNamespaceRemap} \
                   AWS_REGION="${AWS::Region}" \
                   ENABLE_RESOURCE_LIMITS="${ExperimentalEnableResourceLimits}" \
@@ -2570,6 +2599,13 @@ Resources:
         - OldestLaunchConfiguration
         - ClosestToNextInstanceHour
       NewInstancesProtectedFromScaleIn: !Ref InstanceScaleInProtection
+      Tags:
+        - Key: BuildkiteQueue
+          PropagateAtLaunch: false
+          Value: !Ref BuildkiteQueue
+        - Key: AgentsPerInstance
+          PropagateAtLaunch: false
+          Value: !Ref AgentsPerInstance
     CreationPolicy:
       ResourceSignal:
         Timeout: !If [ UseDefaultInstanceCreationTimeout, !If [ UseWindowsAgents, PT10M, PT5M ], !Ref InstanceCreationTimeout ]
@@ -2834,7 +2870,7 @@ Resources:
           - AgentScalerARN
           - "x86-64"
           - ARN
-        SemanticVersion: !Ref BuildkiteAgentScalerVersion
+        SemanticVersion: 1.10.0
       Parameters:
         BuildkiteAgentTokenParameter: !If [ UseCustomerManagedParameterPath, !Ref BuildkiteAgentTokenParameterStorePath, !Ref BuildkiteAgentTokenParameter ]
         BuildkiteAgentTokenParameterStoreKMSKey: !If [ UseCustomerManagedKeyForParameterStore, !Ref BuildkiteAgentTokenParameterStoreKMSKey, "" ]
@@ -2865,7 +2901,7 @@ Resources:
           - AgentScalerARN
           - "arm64"
           - ARN
-        SemanticVersion: !Ref BuildkiteAgentScalerVersion
+        SemanticVersion: 1.10.0
       Parameters:
         BuildkiteAgentTokenParameter: !If [ UseCustomerManagedParameterPath, !Ref BuildkiteAgentTokenParameterStorePath, !Ref BuildkiteAgentTokenParameter ]
         BuildkiteAgentTokenParameterStoreKMSKey: !If [ UseCustomerManagedKeyForParameterStore, !Ref BuildkiteAgentTokenParameterStoreKMSKey, "" ]
