@@ -108,7 +108,11 @@ curl -H "Authorization: Bearer $TOKEN" \
     "privacy": "secret",
     "is_default_team": false,
     "default_member_role": "member",
-    "members_can_create_pipelines": true
+    "members_can_create_pipelines": true,
+    "members_can_create_suites": true,
+    "members_can_create_registries": true,
+    "members_can_destroy_registries": false,
+    "members_can_destroy_packages": false
   }'
 ```
 
@@ -119,7 +123,11 @@ curl -H "Authorization: Bearer $TOKEN" \
   "privacy": "secret",
   "is_default_team": false,
   "default_member_role": "member",
-  "members_can_create_pipelines": true
+  "members_can_create_pipelines": true,
+  "members_can_create_suites": true,
+  "members_can_create_registries": true,
+  "members_can_destroy_registries": false,
+  "members_can_destroy_packages": false
 }
 ```
 
@@ -133,6 +141,10 @@ Required [request body properties](/docs/api#request-body-properties):
     <tr><th><code>is_default_team</code></th><td>Whether new organization members are assigned to this team by default (<code>true</code>, <code>false</code>)</td></tr>
     <tr><th><code>default_member_role</code></th><td>The default role assigned to members of this team (<code>member</code>, <code>maintainer</code>)</td></tr>
     <tr><th><code>members_can_create_pipelines</code></th><td>Whether or not team members can create new pipelines (<code>true</code>, <code>false</code>)</td></tr>
+    <tr><th><code>members_can_create_suites</code></th><td>Whether or not team members can create new test suites (<code>true</code>, <code>false</code>)</td></tr>
+    <tr><th><code>members_can_create_registries</code></th><td>Whether or not team members can create new registries (<code>true</code>, <code>false</code>)</td></tr>
+    <tr><th><code>members_can_destroy_registries</code></th><td>Whether or not team members can destroy registries (<code>true</code>, <code>false</code>)</td></tr>
+    <tr><th><code>members_can_destroy_packages</code></th><td>Whether or not team members can destroy packages (<code>true</code>, <code>false</code>)</td></tr>
   </tbody>
 </table>
 
@@ -150,7 +162,7 @@ Error responses:
 
 ## Update a team
 
-Updates an team.
+Updates a team.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -162,7 +174,11 @@ curl -H "Authorization: Bearer $TOKEN" \
     "privacy": "visible",
     "is_default_team": true,
     "default_member_role": "maintainer",
-    "members_can_create_pipelines": false
+    "members_can_create_pipelines": false,
+    "members_can_create_suites": false,
+    "members_can_create_registries": true,
+    "members_can_destroy_registries": false,
+    "members_can_destroy_packages": false
   }'
 ```
 
@@ -173,7 +189,11 @@ curl -H "Authorization: Bearer $TOKEN" \
   "privacy": "visible",
   "is_default_team": true,
   "default_member_role": "maintainer",
-  "members_can_create_pipelines": false
+  "members_can_create_pipelines": false,
+  "members_can_create_suites": false,
+  "members_can_create_registries": true,
+  "members_can_destroy_registries": false,
+  "members_can_destroy_packages": false
 }
 ```
 
@@ -187,6 +207,10 @@ Required [request body properties](/docs/api#request-body-properties):
     <tr><th><code>is_default_team</code></th><td>Whether new organization members are assigned to this team by default (<code>true</code>, <code>false</code>)</td></tr>
     <tr><th><code>default_member_role</code></th><td>The default role assigned to members of this team (<code>member</code>, <code>maintainer</code>)</td></tr>
     <tr><th><code>members_can_create_pipelines</code></th><td>Whether or not team members can create new pipelines (<code>true</code>, <code>false</code>)</td></tr>
+    <tr><th><code>members_can_create_suites</code></th><td>Whether or not team members can create new test suites (<code>true</code>, <code>false</code>)</td></tr>
+    <tr><th><code>members_can_create_registries</code></th><td>Whether or not team members can create new registries (<code>true</code>, <code>false</code>)</td></tr>
+    <tr><th><code>members_can_destroy_registries</code></th><td>Whether or not team members can destroy registries (<code>true</code>, <code>false</code>)</td></tr>
+    <tr><th><code>members_can_destroy_packages</code></th><td>Whether or not team members can destroy packages (<code>true</code>, <code>false</code>)</td></tr>
   </tbody>
 </table>
 

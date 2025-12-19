@@ -38,6 +38,26 @@ If using the OpenTelemetry Tracing Notification Service, you can provide the `--
 
 Learn more about configuring the OpenTelemetry integration with Buildkite Pipelines from the [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry) integrations page.
 
+### Trace context propagation
+
+Starting from Buildkite Agent version [v3.100](https://github.com/buildkite/agent/releases/tag/v3.100.0), when a Buildkite Agent executes a command (build script, hook, plugin, and so on), the current trace context is automatically propagated to the child process via [environment variables](/docs/pipelines/configure/environment-variables). This enables distributed tracing across job boundaries, and your build scripts can continue the trace started by the agent or the Buildkite Pipelines backend.
+
+The agent serializes the trace context into multiple formats for compatibility with various tracing libraries:
+
+
+| Environment Variable | Format |
+|---------------------|--------|
+| TRACEPARENT, TRACESTATE | W3C Trace Context |
+| UBER_TRACE_ID | Jaeger |
+| X_B3_TRACEID, X_B3_SPANID, X_B3_SAMPLED | Zipkin B3 |
+| X_AMZN_TRACE_ID | AWS X-Ray |
+
+The environment variable names follow the [OpenTelemetry Environment Variable Carriers specification](https://opentelemetry.io/docs/specs/otel/context/env-carriers/).
+
+To continue the trace in your build script, configure your tracing library to extract context from the environment variables. For example, with the OpenTelemetry SDK, you can read the `TRACEPARENT` variable and create a child span that links back to the agent's span.
+
+<%= image "context-propagation.png", alt: "OpenTelemetry context propagation" %>
+
 ### Sending OpenTelemetry traces to Honeycomb
 
 To send traces to [Honeycomb](https://www.honeycomb.io/), in addition to starting the Buildkite Agent with the `--tracing-backend opentelemetry` option, you also need to add the following environment variables. The API token provided by Honeycomb will need to be replaced in the `OTEL_EXPORTER_OTLP_HEADERS` below.

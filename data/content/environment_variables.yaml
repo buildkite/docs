@@ -420,6 +420,11 @@ variables:
       Set to `true` when the pull request is a draft. This variable is only available if a build contains a draft pull request.
     modifiable: false
     example: "true"
+  - name: BUILDKITE_PULL_REQUEST_LABELS
+    desc: |
+      A comma-separated list of labels attached to the pull request, or `""` if not a pull request or no labels are attached.
+    modifiable: false
+    example: "label1,label2"
   - name: BUILDKITE_PULL_REQUEST_REPO
     desc: |
       The repository URL of the pull request or `""` if not a pull request.
@@ -503,7 +508,6 @@ variables:
       - ui
       - trigger_job
       - schedule
-      - local
   - name: BUILDKITE_SSH_KEYSCAN
     desc: |
       The opposite of the value of the `no-ssh-keyscan` [agent configuration option](/docs/agent/v3/configuration).

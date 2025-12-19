@@ -14,7 +14,7 @@ Learn more about:
 
 - How to use macOS hosted agents to [build iOS apps](/docs/pipelines/hosted-agents/macos/getting-started-with-ios).
 
-- The [security](#security) of macOS hosted agents.
+- The [concurrency](#concurrency) and [security](#security) of macOS hosted agents.
 
 ## Sizes
 
@@ -40,11 +40,13 @@ The number of macOS hosted agents (of a [Buildkite hosted queue](/docs/pipelines
 
 For example, if your Buildkite plan provides you with a maximum combined vCPU value is up to 24, and you've configured a Buildkite hosted queue with the `MACOS_ARM64_M4_6X28` (Medium) [instance shape](#sizes), whose vCPU value is 6, then the number of concurrent hosted agents that can run jobs on this queue is 4 (that is, 24 / 6 = 4).
 
+When concurrency limits are exceeded, additional jobs will be queued until sufficient capacity becomes available.
+
 ## macOS instance software support
 
-All standard macOS [Tahoe](#macos-tahoe), [Sequoia](#macos-sequoia) and [Sonoma](#macos-sonoma) version instances have their own respective Xcode and runtime software versions available by default (listed below). Each macOS version also has its own set of [Homebrew packages](#homebrew-packages) with specific versions optimized for that operating system. If you have specific requirements for software that is not listed here, please contact support.
+All standard macOS [Tahoe](#macos-tahoe), [Sequoia](#macos-sequoia) and [Sonoma](#macos-sonoma) version instances have their own respective Xcode and runtime software versions available by default (listed below). Each macOS version also has its own set of [Homebrew packages](#homebrew-packages) with specific versions optimized for that operating system. If you have specific requirements for software that is not listed here, please contact Support at support@buildkite.com.
 
-While you currently cannot provide custom base images for macOS hosted agents, you do have significant control over these virtual machines during job execution—including the ability to install software using Homebrew, use git mirroring for performance, and leverage persistent [cache volumes](/docs/pipelines/hosted-agents/cache-volumes).
+While you currently cannot provide custom base images for macOS hosted agents (as is possible using [agent images](/docs/pipelines/hosted-agents/linux#agent-images) for Linux hosted agents), you do have significant control over these virtual machines during job execution—including the ability to install software using Homebrew, use [git mirroring](/docs/pipelines/hosted-agents/cache-volumes#git-mirror-volumes) for performance, and leverage persistent [cache volumes](/docs/pipelines/hosted-agents/cache-volumes).
 
 Updated Xcode versions will be available one week after Apple offers them for download. This includes Beta, Release Candidate (RC), and official release versions.
 
@@ -284,34 +286,3 @@ To find the [Homebrew package](#homebrew-packages) version used by your macOS ho
 <%= render_markdown partial: 'pipelines/hosted_agents/hosted_agents_security_explanation' %>
 
 Note that for macOS hosted agents, virtualization is achieved through Apple's Virtualization framework on Apple Silicon, providing lightweight but secure virtual machine isolation. Learn more about [How Buildkite hosted agents work](/docs/pipelines/hosted-agents#how-buildkite-hosted-agents-work).
-
-## Git mirror cache
-
-The Git mirror cache is a specialized type of cache volume designed to accelerate Git operations by caching the Git repository between builds. This is useful for large repositories that are slow to clone.
-
-These volumes are attached on a best-effort basis depending on their locality, expiration and current usage, and therefore, should not be relied upon as durable data storage. By default, a Git mirror cache is created for each repository.
-
-### Enabling Git mirror cache
-
-To enable Git mirror cache for your hosted agents:
-
-1. Select **Agents** in the global navigation to access the **Clusters** page.
-1. Select the cluster in which to enable the Git mirror cache feature.
-1. Select **Cache Storage**, then select the **Settings** tab.
-1. Select **Enable Git mirror**, then select **Save cache settings** to enable Git mirrors for the selected hosted cluster.
-
-Once enabled, the Git mirror cache will be used for all hosted jobs using Git repositories in that cluster. A separate cache volume will be created for each repository.
-
-<%= image "hosted-agents-git-mirror.png", width: 1760, height: 436, alt: "Hosted agents git mirror setting displayed in the Buildkite UI" %>
-
-### Deleting Git mirror cache
-
-Deleting a cache volume may affect the build time for the associated pipelines until the new cache is established.
-
-To delete a git mirror cache:
-
-1. Select **Agents** in the global navigation to access the **Clusters** page.
-1. Select the cluster whose Git mirror cache is to be deleted.
-1. Select **Cache Storage**, then select the **Volumes** tab to view a list of all exiting cache volumes.
-1. Select **Delete** for the Git mirror cache volume you wish to remove.
-1. Confirm the deletion by selecting **Delete Cache Volume**.

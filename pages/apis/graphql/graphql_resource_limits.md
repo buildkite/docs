@@ -141,9 +141,11 @@ You can access both time-based limits and query complexity information through t
 
 The rate limit status is available in the following response headers of each GraphQL call:
 
-- `RateLimit-Remaining` — The remaining complexity left within the current time window.  
-- `RateLimit-Limit` — The complexity limit for the time window.  
-- `RateLimit-Reset` — The number of seconds remaining until a new time window is started and the limits are reset.
+| Header | Description |
+|--------|-------------|
+| `RateLimit-Remaining` | The remaining complexity left within the current time window. |
+| `RateLimit-Limit` | The complexity limit for the time window. |
+| `RateLimit-Reset` | The number of seconds remaining until the limits are reset. |
 
 For example:
 
@@ -155,7 +157,14 @@ RateLimit-Reset: 120
 
 ### View query complexity
 
-To include the complexity data in responses, set the `Buildkite-Include-Query-Stats` header to `true` in GraphQL requests. This returns the complexity data in the response like the following:
+The query complexity status is available in the following response headers of each GraphQL call:
+
+| Header | Description |
+|--------|-------------|
+| `RateLimit-Complexity-Requested` | The requested complexity of the query, based on the maximum possible data that the query could return. |
+| `RateLimit-Complexity-Actual` | The actual complexity based on the query response. |
+
+If reading response headers is not possible, you can include the complexity data in the response body by setting the `Buildkite-Include-Query-Stats` request header to `true`. This returns the complexity data in the response like the following:
 
 ```json
 {
