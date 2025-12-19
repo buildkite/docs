@@ -87,7 +87,7 @@ To configure the Buildkite CLI tool with another Buildkite organization:
 
 ## Select a configured organization
 
-If your Buildkite CLI tool has been [configured with multiple Buildkite organizations](#configure-the-buildkite-cli-with-multiple-organizations), you can switch from your current/active organization to another. To do this:
+If your Buildkite CLI tool has been [configured with multiple Buildkite organizations](#configure-the-buildkite-cli-with-multiple-organizations), you can switch from your current/active Buildkite organization to another. To do this:
 
 1. Run the following command:
 
@@ -97,4 +97,6 @@ If your Buildkite CLI tool has been [configured with multiple Buildkite organiza
 
 1. Use the cursor select another configured Buildkite organization and make it the current/active one. All subsequent `bk` commands will operate with the new active organization.
 
-    **Note:** Upon success, the `.bk.yaml` file in your current directory is updated with your current/active Buildkite organization.
+    **Notes:**
+    * If you already know the slug of the other Buildkite organization you're switching to, you can specify this value immediately after the `bk use` command, for example, `bk use my-other-organization`.
+    * Upon success, the `.bk.yaml` file in your current directory is updated with your current/active Buildkite organization.
