@@ -180,7 +180,7 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uri (1.0.3)
+    uri (1.0.4)
     useragent (0.16.11)
     vite_rails (3.0.19)
       railties (>= 5.1, < 9)
