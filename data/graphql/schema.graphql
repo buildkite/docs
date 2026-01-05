@@ -7664,7 +7664,7 @@ type Pipeline implements Node {
   visibility: PipelineVisibility!
 
   """
-  The URL to use in your repository settings for commit webhooks
+  The webhookURL field returns the webhook URL if the user has edit permissions for the pipeline. Otherwise, it returns null.
   """
   webhookURL: String!
 }
