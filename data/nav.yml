@@ -115,12 +115,12 @@
           children:
             - name: "Queues"
               path: "agent/v3/targeting/queues"
-            - name: "Manage queues"
+            - name: "Managing queues"
               children:
                 - name: "Overview"
-                  path: "agent/v3/targeting/queues/manage"
+                  path: "agent/v3/targeting/queues/managing"
                 - name: "Pausing and resuming"
-                  path: "agent/v3/targeting/queues/manage/pausing-and-resuming"
+                  path: "agent/v3/targeting/queues/managing/pausing-and-resuming"
         - name: "Installation"
           path: "agent/v3/installation"
         - name: "Configuration"

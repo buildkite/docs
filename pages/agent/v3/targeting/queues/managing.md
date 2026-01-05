@@ -1,4 +1,4 @@
-# Manage queues
+# Managing queues
 
 This page provides details on how to manage queues within a [cluster](/docs/pipelines/clusters/manage-clusters) of your Buildkite organization.
 
