@@ -59,6 +59,17 @@ steps:
       - .buildkite/plugins/check-for-changes:
           fail_message: "Do not edit agent CLI docs directly - use scripts/update-agent-help.sh"
 
+  - label: ":go: Check generated CLI docs"
+    if_changed: pages/platform/cli/*.md
+    command: ./scripts/update-cli-help
+    agents:
+      queue: hosted-m
+    plugins:
+      - docker#v5.13.0:
+          image: "golang:1.24"
+      - .buildkite/plugins/check-for-changes:
+          fail_message: "Do not edit BK CLI docs directly - use scripts/update-cli-help"
+
   - group: "Lint all the things"
     key: linting
     steps:
