@@ -4,7 +4,7 @@ set -euo pipefail
 
 # This picks the agent version to generate docs for.
 # It should be a Git tag or commit hash.
-AGENT_VERSION="v3.115.0"
+AGENT_VERSION="1e33509a0694a3775b38ad95288c147c3e448967"
 
 # Locally, things tend to get installed to $(go env GOBIN), but in CI, they get installed to $(go env GOPATH)/bin
 # TIL these can be different!

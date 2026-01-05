@@ -11,6 +11,7 @@ AMIs
 Ansible
 Anthropic's
 anti-pattern
+Anyfile
 API
 API's
 APIs
@@ -108,6 +109,7 @@ crontab
 Crontab
 CVE
 CVEs
+cutover
 daemonless
 Datadog
 Datadog's
@@ -279,6 +281,8 @@ otlp
 overprivileged
 Pagerduty
 ptrace
+Packagecloud
+Packagecloud's
 parsable
 parallelization
 pbuilder
@@ -331,6 +335,7 @@ reprioritizes
 resizable
 rollout
 rollouts
+retag
 retrigger
 routable
 rpmbuild
@@ -351,6 +356,7 @@ scriptwrapper
 SDK
 SDK's
 SDKs
+semver
 sha
 SHAs
 sharding
@@ -409,6 +415,7 @@ toolset
 toolsets
 tooltip
 TOTP's
+traceparent
 Trivy
 trixie
 typosquatted
@@ -472,6 +479,7 @@ yml
 yq
 yyy
 Zapier
+Zipkin
 zstd
 zzglob
 zzz

@@ -8,5 +8,5 @@
 
         ```bash
         curl -H "Authorization: Bearer $TOKEN" \
-          - X GET "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
+          -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
         ```

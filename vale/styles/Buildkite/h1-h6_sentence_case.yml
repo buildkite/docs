@@ -32,6 +32,7 @@ exceptions:
   - Amazon Web Services
   - AMI
   - ANSI
+  - Anyfile
   - API(s)
   - Artifactory
   - Audit Event Logged
@@ -98,6 +99,7 @@ exceptions:
   - Debian
   - Declarative
   - deduper
+  - Depot
   - DinD
   - Docker
   - Docker Compose
@@ -143,6 +145,7 @@ exceptions:
   - Governance
   - GPU
   - GPUs
+  - Gradle
   - GraphQL
   - GRC
   - Groovy
@@ -161,7 +164,9 @@ exceptions:
   - iOS
   - IronWorker
   - Installation
+  - Java
   - JavaScript
+  - Java (Maven/Gradle)
   - Jenkins
   - JFrog
   - Jest
@@ -182,6 +187,7 @@ exceptions:
   - Mac
   - macOS
   - Markdown
+  - Maven
   - MCP
   - Microsoft Entra ID
   - minitest
@@ -203,6 +209,7 @@ exceptions:
   - Open Policy Agent
   - OS X
   - Package Registries
+  - Packagecloud
   - PagerDuty
   - Phabricator
   - Pipelines
@@ -218,11 +225,16 @@ exceptions:
   - RBAC
   - READ_ONLY
   - Red Hat
+  - Red Hat (RPM)
   - Red Hat Enterprise Linux
   - Registry Configuration
   - REST
   - Risk
   - RSpec
+  - RPM
+  - Ruby
+  - Ruby (RubyGems)
+  - RubyGems
   - S3
   - SAML
   - scheduler
