@@ -10,7 +10,7 @@ You can install Buildkite Agent on most FreeBSD systems.
 pkg install buildkite-agent
 ```
 
-Configure your [agent token](https://buildkite.com/docs/agent/v3/tokens):
+Configure your [agent token](https://buildkite.com/docs/agent/v3/self-hosted/tokens):
 
 ```shell
 sudo sed -i "s/xxx/INSERT-YOUR-AGENT-TOKEN-HERE/g" /usr/local/etc/buildkite/buildkite-agent.cfg
@@ -33,7 +33,7 @@ $ mkdir -p ~/.ssh && cd ~/.ssh
 $ ssh-keygen -t rsa -b 4096 -C "build@myorg.com"
 ```
 
-See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details.
+See the [Agent SSH keys](/docs/agent/v3/self-hosted/ssh-keys) documentation for more details.
 
 ## File locations
 

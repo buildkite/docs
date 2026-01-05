@@ -1,7 +1,7 @@
 # Buildkite Agent job queues
 
 > 🚧 This page references the out-of-date Buildkite Agent v2.
-> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/queues">see the latest version of this document</a>.
+> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/targeting/queues">see the latest version of this document</a>.
 
 Each pipeline has the ability to separate jobs using queues. This allows you isolate a set of jobs and/or agents, making sure they only run jobs that are intended to be assigned to them.
 

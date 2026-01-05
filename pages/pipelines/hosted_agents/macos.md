@@ -8,9 +8,9 @@ Buildkite's macOS hosted agents are:
 
 Learn more about:
 
-- Best practices for configuring queues in [How should I structure my queues](/docs/pipelines/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues) of the [Clusters overview](/docs/pipelines/clusters), as well as [Manage queues](/docs/pipelines/clusters/manage-queues).
+- Best practices for configuring queues in [How should I structure my queues](/docs/pipelines/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues) of the [Clusters overview](/docs/pipelines/clusters), as well as [Manage queues](/docs/agent/v3/targeting/queues/managing).
 
-- How to configure a macOS hosted agent in [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
+- How to configure a macOS hosted agent in [Create a Buildkite hosted queue](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue).
 
 - How to use macOS hosted agents to [build iOS apps](/docs/pipelines/hosted-agents/macos/getting-started-with-ios).
 
@@ -36,7 +36,7 @@ macOS hosted agents can operate concurrently when running your Buildkite pipelin
 
 <%= render_markdown partial: 'pipelines/hosted_agents/hosted_agents_concurrency_explanation' %>
 
-The number of macOS hosted agents (of a [Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue)) that can process your pipeline jobs concurrently is calculated by your Buildkite plan's _maximum combined vCPU_ value divided by your [instance shape's](#sizes) _vCPU_ value. See the [Buildkite pricing](https://buildkite.com/pricing/) page for details on the **Mac M4 Concurrency** that applies to your plan.
+The number of macOS hosted agents (of a [Buildkite hosted queue](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue)) that can process your pipeline jobs concurrently is calculated by your Buildkite plan's _maximum combined vCPU_ value divided by your [instance shape's](#sizes) _vCPU_ value. See the [Buildkite pricing](https://buildkite.com/pricing/) page for details on the **Mac M4 Concurrency** that applies to your plan.
 
 For example, if your Buildkite plan provides you with a maximum combined vCPU value is up to 24, and you've configured a Buildkite hosted queue with the `MACOS_ARM64_M4_6X28` (Medium) [instance shape](#sizes), whose vCPU value is 6, then the number of concurrent hosted agents that can run jobs on this queue is 4 (that is, 24 / 6 = 4).
 
@@ -278,7 +278,7 @@ The versions for each of these packages varies by macOS version. See [Identifyin
 
 To find the [Homebrew package](#homebrew-packages) version used by your macOS hosted agent:
 
-1. Select **Agents** in the global navigation > your [cluster](/docs/pipelines/clusters/manage-clusters) containing the [macOS Buildkite hosted agent queue](/docs/pipelines/clusters/manage-queues) > your macOS hosted agent.
+1. Select **Agents** in the global navigation > your [cluster](/docs/pipelines/clusters/manage-clusters) containing the [macOS Buildkite hosted agent queue](/docs/agent/v3/targeting/queues/managing) > your macOS hosted agent.
 1. On your macOS hosted agent's page, select **Base image** and scroll down to **Specifications** > **Homebrew packages** to view these packages, along with their respective versions.
 
 ## Security

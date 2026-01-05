@@ -55,7 +55,7 @@ Then install the agent:
 sudo yum -y install buildkite-agent
 ```
 
-Configure your [agent token](/docs/agent/v3/tokens):
+Configure your [agent token](/docs/agent/v3/self-hosted/tokens):
 
 ```shell
 sudo sed -i "s/xxx/INSERT-YOUR-AGENT-TOKEN-HERE/g" /etc/buildkite-agent/buildkite-agent.cfg
@@ -72,7 +72,7 @@ sudo tail -f /var/log/messages
 
 <%= render_markdown partial: 'agent/v3/ssh_key_with_buildkite_agent_user' %>
 
-See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details.
+See the [Agent SSH keys](/docs/agent/v3/self-hosted/ssh-keys) documentation for more details.
 
 ## File locations
 

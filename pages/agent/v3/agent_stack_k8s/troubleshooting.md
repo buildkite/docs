@@ -63,9 +63,9 @@ Below are some common issues that users may experience when using the Buildkite 
 
 ### Jobs are being created, but not processed by controller
 
-The primary requirement to have the Buildkite Agent Stack for Kubernetes controller acquire and process a Buildkite job is a matching `queue` tag. If the controller is configured to process scheduled jobs with tag `"queue=kubernetes"` you will need to ensure that your pipeline YAML is [targeting the same queue](https://buildkite.com/docs/agent/v3/queues#targeting-a-queue) at either the pipeline-level or at each step-level.
+The primary requirement to have the Buildkite Agent Stack for Kubernetes controller acquire and process a Buildkite job is a matching `queue` tag. If the controller is configured to process scheduled jobs with tag `"queue=kubernetes"` you will need to ensure that your pipeline YAML is [targeting the same queue](https://buildkite.com/docs/agent/v3/targeting/queues#targeting-a-queue) at either the pipeline-level or at each step-level.
 
-If a job is created without a queue target, the [default queue](https://buildkite.com/docs/agent/v3/queues#the-default-queue) will be applied. The Buildkite Agent Stack for Kubernetes controller expects all jobs to have a `queue` tag explicitly defined, even for "default" cluster queues. Any job missing a `queue` tag will be skipped by the controller during processing and the controller emit the following log:
+If a job is created without a queue target, the [default queue](https://buildkite.com/docs/agent/v3/targeting/queues#the-default-queue) will be applied. The Buildkite Agent Stack for Kubernetes controller expects all jobs to have a `queue` tag explicitly defined, even for "default" cluster queues. Any job missing a `queue` tag will be skipped by the controller during processing and the controller emit the following log:
 
 ```
 job missing 'queue' tag, skipping...

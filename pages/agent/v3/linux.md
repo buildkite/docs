@@ -5,7 +5,7 @@ You can install Buildkite Agent on most Linux based systems (including macOS).
 
 ## Installation
 
-Run the following script (<a href="https://raw.githubusercontent.com/buildkite/agent/main/install.sh">view the source</a>), which will download and install the correct binary for your system and architecture (you will need your [agent token](/docs/agent/v3/tokens)):
+Run the following script (<a href="https://raw.githubusercontent.com/buildkite/agent/main/install.sh">view the source</a>), which will download and install the correct binary for your system and architecture (you will need your [agent token](/docs/agent/v3/self-hosted/tokens)):
 
 ```shell
 TOKEN="INSERT-YOUR-AGENT-TOKEN-HERE" bash -c "`curl -sL https://raw.githubusercontent.com/buildkite/agent/main/install.sh`"
@@ -28,7 +28,7 @@ $ mkdir -p ~/.ssh && cd ~/.ssh
 $ ssh-keygen -t rsa -b 4096 -C "build@myorg.com"
 ```
 
-See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details.
+See the [Agent SSH keys](/docs/agent/v3/self-hosted/ssh-keys) documentation for more details.
 
 ## File locations
 

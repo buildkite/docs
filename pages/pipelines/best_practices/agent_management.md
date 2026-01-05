@@ -83,9 +83,9 @@ Similarly, in terms of agent fleet scaling, instead of choosing between using st
 
 ## Structuring clusters and queues
 
-You should organize [clusters](/docs/pipelines/clusters) as security boundaries and [queues](/docs/agent/v3/queues) for workload routing. Use separate queues and a small subset of agents to trial new architectures (for example, [Buildkite hosted agents](/docs/pipelines/hosted-agents)) before rolling them out broadly across your Buildkite organization.
+You should organize [clusters](/docs/pipelines/clusters) as security boundaries and [queues](/docs/agent/v3/targeting/queues) for workload routing. Use separate queues and a small subset of agents to trial new architectures (for example, [Buildkite hosted agents](/docs/pipelines/hosted-agents)) before rolling them out broadly across your Buildkite organization.
 
-Learn more about using clusters and queues in [Managing clusters](/docs/pipelines/clusters/manage-clusters) and [Managing queues](/docs/pipelines/clusters/manage-queues).
+Learn more about using clusters and queues in [Managing clusters](/docs/pipelines/clusters/manage-clusters) and [Managing queues](/docs/agent/v3/targeting/queues/managing).
 
 ## Agent lifecycle
 

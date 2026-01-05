@@ -4,7 +4,7 @@ A Buildkite agent running in a [self-hosted architecture](/docs/pipelines/gettin
 
 A user who is a Buildkite organization administrator or a [maintainer of a cluster](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) within the organization can manage agent tokens for that cluster.
 
-If you are managing agents in an unclustered environment, refer to [unclustered tokens](/docs/agent/v3/unclustered-tokens) instead.
+If you are managing agents in an unclustered environment, refer to [unclustered tokens](/docs/agent/v3/self-hosted/unclustered-tokens) instead.
 
 ## The initial agent token
 
@@ -302,7 +302,7 @@ where:
 
 ## Scope of access
 
-An agent token is specific to the cluster it was associated when created (within a Buildkite organization), and can be used to register an agent with any [queue](/docs/agent/v3/queues) defined in that cluster. Agent tokens can not be shared between different clusters within an organization, or between different organizations.
+An agent token is specific to the cluster it was associated when created (within a Buildkite organization), and can be used to register an agent with any [queue](/docs/agent/v3/targeting/queues) defined in that cluster. Agent tokens can not be shared between different clusters within an organization, or between different organizations.
 
 ## Agent token lifetime
 

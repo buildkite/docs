@@ -3,7 +3,7 @@
 > 🚧 This page documents a deprecated Buildkite feature
 > _It is not be possible to create and work with unclustered agents for any new Buildkite organizations created after the official release of clusters on February 26, 2024._ Therefore, unclustered agent tokens are not relevant to these organizations.
 > Previously, agents only connected directly to Buildkite via a token which was created and managed by the processes described on this page. These tokens are now a deprecated feature of Buildkite, and are referred to as _unclustered agent tokens_. Unclustered agent tokens, however, are still available to customers who have not yet migrated their pipelines to a [cluster](/docs/pipelines/clusters).
-> _Agent tokens_ are now associated with clusters, and connect to Buildkite through a specific cluster within an organization. Learn more about how to manage agent tokens for clusters in [Agent tokens](/docs/agent/v3/tokens) and how to [migrate your unclustered agents across to a cluster](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents).
+> _Agent tokens_ are now associated with clusters, and connect to Buildkite through a specific cluster within an organization. Learn more about how to manage agent tokens for clusters in [Agent tokens](/docs/agent/v3/self-hosted/tokens) and how to [migrate your unclustered agents across to a cluster](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents).
 
 Any Buildkite organization created before February 26, 2024 has an **Unclustered** area for managing _unclustered agents_, accessible through **Agents** (from the global navigation) > **Unclustered** of the Buildkite interface, where an _unclustered agent_ refers to any agent that is not associated with a cluster.
 
@@ -108,7 +108,7 @@ Once a token is revoked, no new agents will be able to start with that token. Re
 
 ## Scope of access
 
-Unclustered agent tokens are specific to each Buildkite organization (created before February 26, 2024), and can be used to register an agent with any [unclustered queue](/docs/agent/v3/queues). Unclustered agent tokens can not be shared between organizations.
+Unclustered agent tokens are specific to each Buildkite organization (created before February 26, 2024), and can be used to register an agent with any [unclustered queue](/docs/agent/v3/targeting/queues). Unclustered agent tokens can not be shared between organizations.
 
 ## Additional agent tokens
 

@@ -49,11 +49,11 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 - Leverage [Buildkite's secrets plugins](/docs/pipelines/integrations/secrets/plugins) for secrets management and the [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) feature to ensure that secrets are only available where explicitly required. Note that Buildkite [automatically redacts secrets](/docs/pipelines/security/secrets/buildkite-secrets#redaction) in logs.
 - Integrate external secrets management using dedicated [secrets storage services](/docs/pipelines/security/secrets/managing#using-a-secrets-storage-service) such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [HashiCorp Vault](https://www.vaultproject.io).
 - [Export secrets with environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) for agent-level secrets, rather than injecting them at build runtime. If you absolutely have to inject your secrets at runtime, avoid storing them as static environment variables.
-- Establish environment-specific [cluster](/docs/pipelines/clusters/manage-clusters) and [queue](/docs/pipelines/clusters/manage-queues) segmentation of your builds to restrict access so that builds in a queue can only access the secrets they require to run.
+- Establish environment-specific [cluster](/docs/pipelines/clusters/manage-clusters) and [queue](/docs/agent/v3/targeting/queues/managing) segmentation of your builds to restrict access so that builds in a queue can only access the secrets they require to run.
 - Monitor how secrets are accessed within your CI/CD environment by reviewing the [Audit Log](/docs/platform/audit-log).
 - Use additional secret scanning tools such as [git-secrets](https://github.com/awslabs/git-secrets) to prevent accidental commits of secrets to repositories before they enter the build process.
 - Consider using strict pipeline upload guards, such as the [reject-secrets](/docs/agent/v3/cli-pipeline#reject-secrets) option for `buildkite-agent pipeline upload` commands.
-- Have incident response procedures for secret compromise, including automated revocation and rotation processes. Note that cluster maintainers can [revoke tokens](/docs/agent/v3/tokens#revoke-a-token) using the REST API for rapid containment.
+- Have incident response procedures for secret compromise, including automated revocation and rotation processes. Note that cluster maintainers can [revoke tokens](/docs/agent/v3/self-hosted/tokens#revoke-a-token) using the REST API for rapid containment.
 
 ## Buildkite Agent security
 
@@ -62,7 +62,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 **Controls:**
 
 - Set [granular command authorization controls](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller) for what the `buildkite-agent` user is allowed to run, restricting executable operations to predefined security parameters.
-- Configure automated regular credential rotation, such as setting automatic [expiration dates](/docs/agent/v3/tokens#agent-token-lifetime) on your agent tokens to limit their window of opportunity to be compromised.
+- Configure automated regular credential rotation, such as setting automatic [expiration dates](/docs/agent/v3/self-hosted/tokens#agent-token-lifetime) on your agent tokens to limit their window of opportunity to be compromised.
 - [Upgrade your Buildkite Agents](/docs/agent/v3/installation#upgrade-agents) on a regular basis.
 - Deploy ephemeral build environments using isolated virtual machines or containers. Ensure that your deployment environment is secure by installing minimal operating systems, disabling inbound SSH access, and enforcing strict network egress controls.
 - Isolate pipelines with sensitive builds to run on dedicated agent pools within their own [cluster](/docs/pipelines/clusters). This way, you're ensuring that critical workloads cannot be affected by compromise of less secure environments—for example, open-source repositories with unverified code.
@@ -134,7 +134,7 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 - Mandate comprehensive security scanning (including container vulnerability and static code analysis scanning) and [SBOM](https://en.wikipedia.org/wiki/Software_supply_chain) generation for all builds. For instance, use [pipeline templates](/docs/pipelines/governance/templates) to ensure every pipeline in your Buildkite organization inherits predetermined configurations and maintains consistent baseline protections.
 - Restrict plugin usage to [private](/docs/pipelines/integrations/plugins/using#plugin-sources) or [version-pinned](/docs/pipelines/integrations/plugins/using#pinning-plugin-versions) plugins to prevent supply chain attacks and ensure reproducible builds with known, vetted components.
 - Use only [verified Docker images](https://docs.docker.com/docker-hub/repos/manage/trusted-content/dvp-program/).
-- Scope pipelines to specific [agent queues](/docs/agent/v3/queues#setting-an-agents-queue) to maintain separation between environments and prevent unauthorized access across build processes.
+- Scope pipelines to specific [agent queues](/docs/agent/v3/targeting/queues#setting-an-agents-queue) to maintain separation between environments and prevent unauthorized access across build processes.
 - Use permission models to [target appropriate agents](/docs/pipelines/configure/defining-steps#targeting-specific-agents) for builds, ensuring sensitive workloads run only on designated, secured infrastructure.
 
 ## Monitoring, anomaly detection, logging

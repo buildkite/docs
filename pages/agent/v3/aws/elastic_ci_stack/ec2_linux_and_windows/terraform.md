@@ -7,7 +7,7 @@ The Elastic CI Stack for AWS can be deployed using Terraform instead of AWS Clou
 
 ## Before you start
 
-Deploying the Elastic CI Stack for AWS with Terraform requires [Terraform](https://www.terraform.io/downloads) version 1.0 or later and a Buildkite [Agent token](/docs/agent/v3/tokens).
+Deploying the Elastic CI Stack for AWS with Terraform requires [Terraform](https://www.terraform.io/downloads) version 1.0 or later and a Buildkite [Agent token](/docs/agent/v3/self-hosted/tokens).
 
 For the information on getting started with Terraform, see HashiCorp's [Get Started with Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started) tutorial and the [AWS Provider documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs) for configuring AWS credentials.
 
@@ -44,7 +44,7 @@ terraform apply
 
 ## Configuration
 
-The only required variable is `buildkite_agent_token`. For information on creating and managing agent tokens, see [Agent tokens](/docs/agent/v3/tokens).
+The only required variable is `buildkite_agent_token`. For information on creating and managing agent tokens, see [Agent tokens](/docs/agent/v3/self-hosted/tokens).
 
 For the complete list of variables and their descriptions, see the [module documentation](https://registry.terraform.io/modules/buildkite/elastic-ci-stack/aws) on the Terraform Registry or the [configuration parameters](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters) reference.
 

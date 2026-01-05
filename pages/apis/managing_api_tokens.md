@@ -141,4 +141,4 @@ If you own the token, you can revoke your token from the [API access token page]
 
 The token will lose access to the organization data. Any future API requests will no longer successfully authorize.
 
-[Agent token]: /docs/agent/v3/tokens
+[Agent token]: /docs/agent/v3/self-hosted/tokens

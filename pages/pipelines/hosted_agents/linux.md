@@ -8,9 +8,9 @@ Buildkite's Linux hosted agents are:
 
 Learn more about:
 
-- Best practices for configuring queues in [How should I structure my queues](/docs/pipelines/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues) of the [Clusters overview](/docs/pipelines/clusters), as well as [Manage queues](/docs/pipelines/clusters/manage-queues).
+- Best practices for configuring queues in [How should I structure my queues](/docs/pipelines/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues) of the [Clusters overview](/docs/pipelines/clusters), as well as [Manage queues](/docs/agent/v3/targeting/queues/managing).
 
-- How to configure a Linux hosted agent in [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
+- How to configure a Linux hosted agent in [Create a Buildkite hosted queue](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue).
 
 - The [concurrency](#concurrency) and [security](#security) of Linux hosted agents.
 
@@ -34,7 +34,7 @@ Linux hosted agents can operate concurrently when running your Buildkite pipelin
 
 <%= render_markdown partial: 'pipelines/hosted_agents/hosted_agents_concurrency_explanation' %>
 
-The number of Linux hosted agents (of a [Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue)) that can process your pipeline jobs concurrently is calculated by your Buildkite plan's _maximum combined vCPU_ value divided by your [instance shape's](#sizes) _vCPU_ value. See the [Buildkite pricing](https://buildkite.com/pricing/) page for details on the **Linux Concurrency** that applies to your plan.
+The number of Linux hosted agents (of a [Buildkite hosted queue](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue)) that can process your pipeline jobs concurrently is calculated by your Buildkite plan's _maximum combined vCPU_ value divided by your [instance shape's](#sizes) _vCPU_ value. See the [Buildkite pricing](https://buildkite.com/pricing/) page for details on the **Linux Concurrency** that applies to your plan.
 
 For example, if your Buildkite plan provides you with a maximum combined vCPU value of up to 48, and you've configured a Buildkite hosted queue with the `LINUX_AMD64_4X16` (Medium AMD64) [instance shape](#sizes), whose vCPU value is 4, then the number of concurrent hosted agents that can run jobs on this queue is 12 (that is, 48 / 4 = 12).
 
@@ -83,7 +83,7 @@ You can create an agent image:
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster in which to create the new agent image.
 
-    **Note:** Before continuing, ensure you have created a Buildkite hosted queue (based on Linux architecture) within this cluster. Learn more about how to do this in [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue).
+    **Note:** Before continuing, ensure you have created a Buildkite hosted queue (based on Linux architecture) within this cluster. Learn more about how to do this in [Create a Buildkite hosted queue](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue).
 
 1. Select **Agent Images** to open the **Agent Images** page.
 1. Select **New Image** to open the **New Agent Image** dialog.

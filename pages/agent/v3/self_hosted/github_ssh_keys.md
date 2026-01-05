@@ -13,7 +13,7 @@ The easiest way to do this is by creating a "Buildkite agent" machine user in yo
 
 To set up a GitHub machine user:
 
-* On your agent machine, generate a key as per the [agent SSH keys documentation](/docs/agent/v3/ssh-keys#creating-a-single-ssh-key)
+* On your agent machine, generate a key as per the [agent SSH keys documentation](/docs/agent/v3/self-hosted/ssh-keys#creating-a-single-ssh-key)
 * Sign up to GitHub as a new user (using a valid email address), and add the SSH key to the user's settings
 * Sign back into GitHub as an organization admin, create a new team, then add the new user and any required repositories to the team
 
@@ -24,5 +24,5 @@ An alternative method of providing access to your repositories is to use deploy 
 To setup GitHub deploy keys with the Buildkite Agent, you'll need to do the following for each repository:
 
 * On your agent machine, generate a key as per the
-[agent SSH keys documentation](/docs/agent/v3/ssh-keys#creating-multiple-ssh-keys)
+[agent SSH keys documentation](/docs/agent/v3/self-hosted/ssh-keys#creating-multiple-ssh-keys)
 * In GitHub, copy the key into the repository's "Deploy keys" settings

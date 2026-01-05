@@ -4,7 +4,7 @@ After you've [installed](/docs/agent/v3/agent-stack-k8s/installation), [configur
 
 ## Defining steps
 
-A pipeline step can target the `kubernetes` queue with [agent tags](/docs/agent/v3/queues). For example:
+A pipeline step can target the `kubernetes` queue with [agent tags](/docs/agent/v3/targeting/queues). For example:
 
 ```yaml
 steps:

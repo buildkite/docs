@@ -46,7 +46,7 @@ To create a hosted agent:
 
 1. Navigate to the [cluster](/docs/pipelines/clusters/manage-clusters) you want to run your pipeline in. To do this, select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster (for example, **Default cluster**) to which the hosted agent will be added.
-1. Follow the [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue) > [Using the Buildkite interface](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue-using-the-buildkite-interface) instructions to begin creating your hosted agent within its own queue.
+1. Follow the [Create a Buildkite hosted queue](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue) > [Using the Buildkite interface](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue-using-the-buildkite-interface) instructions to begin creating your hosted agent within its own queue.
 
     As part of this process:
     * In the **Select your agent infrastructure** section, select **Hosted**.
@@ -65,8 +65,8 @@ Your Buildkite hosted agent, as the new default queue, is now ready to use. You 
 Before installing and running a self-hosted agent, ensure you have:
 
 - a [cluster](/docs/pipelines/clusters/manage-clusters) (for example, **Default cluster**) you can connect this agent to,
-- a [queue](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue) (for example, with the key **default**) to which the agent will be associated with, and
-- the value of an [agent token](/docs/agent/v3/tokens) (for example, **Initial agent token**), which you can configure for the agent.
+- a [queue](/docs/agent/v3/targeting/queues/managing#create-a-self-hosted-queue) (for example, with the key **default**) to which the agent will be associated with, and
+- the value of an [agent token](/docs/agent/v3/self-hosted/tokens) (for example, **Initial agent token**), which you can configure for the agent.
 
     Be aware that since [hosted agents](#set-up-an-agent-create-a-buildkite-hosted-agent) are managed by Buildkite, there is no need to create agent tokens for these types of agents.
 

@@ -120,7 +120,7 @@ When Buildkite pipelines are built, each command step inside the pipeline is ran
       {
         "key": "jobs.&lt;id&gt;.runs-on",
         "supported": "Yes",
-        "notes": "This attribute is mapped to the agent targeting [tag](/docs/agent/v3/queues#targeting-a-queue) `runs-on`. Jobs that target custom `tag` names will have a `queue` target of `default`."
+        "notes": "This attribute is mapped to the agent targeting [tag](/docs/agent/v3/targeting/queues#targeting-a-queue) `runs-on`. Jobs that target custom `tag` names will have a `queue` target of `default`."
       },
       {
         "key": "jobs.&lt;id&gt;.steps",

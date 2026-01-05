@@ -14,7 +14,7 @@ To install the agent using Homebrew:
     brew install buildkite/buildkite/buildkite-agent
     ```
 
-1. Add your [agent token](/docs/agent/v3/tokens) to authenticate the agent by replacing `INSERT-YOUR-AGENT-TOKEN-HERE` with your agent token and running:
+1. Add your [agent token](/docs/agent/v3/self-hosted/tokens) to authenticate the agent by replacing `INSERT-YOUR-AGENT-TOKEN-HERE` with your agent token and running:
 
     ```shell
     sed -i '' "s/xxx/INSERT-YOUR-AGENT-TOKEN-HERE/g" "$(brew --prefix)"/etc/buildkite-agent/buildkite-agent.cfg
@@ -36,7 +36,7 @@ $ mkdir -p ~/.ssh && cd ~/.ssh
 $ ssh-keygen -t rsa -b 4096 -C "build@myorg.com"
 ```
 
-See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details.
+See the [Agent SSH keys](/docs/agent/v3/self-hosted/ssh-keys) documentation for more details.
 
 ## File locations
 

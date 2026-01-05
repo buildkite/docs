@@ -3,7 +3,7 @@
 Before proceeding, ensure that you have met the [prerequisites](/docs/agent/v3/agent-stack-k8s#before-you-start) for the Buildkite Agent Stack for Kubernetes controller.
 
 > 🚧
-> Starting with version 0.29.0 of the controller, [unclustered agent tokens](/docs/agent/v3/unclustered-tokens) are no longer supported. The Buildkite Agent Stack for Kubernetes requires a [Buildkite cluster](/docs/pipelines/clusters/manage-clusters) and an [agent token](/docs/agent/v3/tokens#create-a-token) for this cluster in order to process Buildkite jobs.
+> Starting with version 0.29.0 of the controller, [unclustered agent tokens](/docs/agent/v3/self-hosted/unclustered-tokens) are no longer supported. The Buildkite Agent Stack for Kubernetes requires a [Buildkite cluster](/docs/pipelines/clusters/manage-clusters) and an [agent token](/docs/agent/v3/self-hosted/tokens#create-a-token) for this cluster in order to process Buildkite jobs.
 
 The recommended way to install the Buildkite Agent Stack for Kubernetes controller is to deploy a [Helm](https://helm.sh) chart by running the following command with your appropriate configuration values:
 
@@ -39,7 +39,7 @@ Both of these deployment methods:
   * The `buildkite` namespace is created if it does not already exist in the Kubernetes cluster.
 - Use the provided `agentToken` to query the Buildkite Agent API looking for jobs:
   * In your Buildkite organization (associated with the `agentToken`)
-  * Assigned to the [default queue](/docs/agent/v3/queues#the-default-queue) in your Buildkite cluster (associated with the `agentToken`)
+  * Assigned to the [default queue](/docs/agent/v3/targeting/queues#the-default-queue) in your Buildkite cluster (associated with the `agentToken`)
 
 ## Early versions of the controller
 

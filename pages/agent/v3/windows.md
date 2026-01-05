@@ -22,7 +22,7 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercon
 
 1. Download the latest Windows release from <a href="https://github.com/buildkite/agent/releases">Buildkite Agent releases on GitHub</a>
 2. Extract the files to a directory of your choice (we recommend `C:\buildkite-agent`)
-3. Edit `buildkite-agent.cfg` and add your [agent token](/docs/agent/v3/tokens)
+3. Edit `buildkite-agent.cfg` and add your [agent token](/docs/agent/v3/self-hosted/tokens)
 4. Run `buildkite-agent.exe start` from a command prompt
 
 ## SSH key configuration
@@ -33,7 +33,7 @@ Copy or generate SSH keys into your `.ssh` directory. For example, typing the fo
 $ ssh-keygen -t rsa -b 4096 -C "build@myorg.com"
 ```
 
-See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details.
+See the [Agent SSH keys](/docs/agent/v3/self-hosted/ssh-keys) documentation for more details.
 
 ## File locations
 
@@ -48,7 +48,7 @@ The configuration file is located at `C:\buildkite-agent\buildkite-agent.cfg`. S
 
 There are two options to be aware of for this initial setup:
 
-* Set your [agent token](/docs/agent/v3/tokens), if you did not set it as an environment variable during installation.
+* Set your [agent token](/docs/agent/v3/self-hosted/tokens), if you did not set it as an environment variable during installation.
 * You may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or PowerShell Core, you must point Buildkite to the correct shell. For example, to use PowerShell:
 
     ```cfg

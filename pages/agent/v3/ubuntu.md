@@ -33,7 +33,7 @@ And install the Buildkite agent:
 sudo apt-get update && sudo apt-get install -y buildkite-agent
 ```
 
-Configure your [agent token](/docs/agent/v3/tokens):
+Configure your [agent token](/docs/agent/v3/self-hosted/tokens):
 
 ```shell
 sudo sed -i "s/xxx/INSERT-YOUR-AGENT-TOKEN-HERE/g" /etc/buildkite-agent/buildkite-agent.cfg
@@ -65,7 +65,7 @@ deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://
 
 <%= render_markdown partial: 'agent/v3/ssh_key_with_buildkite_agent_user' %>
 
-See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details.
+See the [Agent SSH keys](/docs/agent/v3/self-hosted/ssh-keys) documentation for more details.
 
 ## File locations
 
