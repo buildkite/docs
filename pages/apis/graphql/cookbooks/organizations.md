@@ -53,6 +53,30 @@ query getOrgMembersCount {
 }
 ```
 
+## Find inactive organization members
+
+List members who haven't been active since a specific date.
+
+```graphql
+query getInactiveOrgMembers {
+  organization(slug: "organization-slug") {
+    members(first: 100, inactiveSince: "2025-01-01") {
+      count
+      edges {
+        node {
+          id
+          lastSeenAt
+          user {
+            name
+            email
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ## Search for organization members
 
 Look up organization members using their email address.
