@@ -54,15 +54,14 @@ Namespace supports multiple authentication [methods](https://namespace.so/docs/f
 
 [Buildkite OIDC](/docs/pipelines/security/oidc) is recommended for most environments. To be able to start using it with Namespace, contact [support@namespace.so](mailto:support@namespace.so) to register `https://agent.buildkite.com` as a trusted issuer for your Namespace tenant.
 
-The following build step exchanges the OIDC token for a Namespace token and authenticates to your Namespace workspace:
+The OIDC token then needs to be exchanged for a Namespace token for further authentication to your Namespace workspace:
 
-```yaml
-    command: |
-      # Authenticate using Buildkite OIDC
-      OIDC_TOKEN=$$(buildkite-agent oidc request-token --audience federation.namespaceapis.com)
-      /usr/local/bin/nsc auth exchange-oidc-token \
-        --token "$$OIDC_TOKEN" \
-        --tenant_id <workspace-id>
+```bash
+# Authenticate using Buildkite OIDC
+OIDC_TOKEN=$$(buildkite-agent oidc request-token --audience federation.namespaceapis.com)
+/usr/local/bin/nsc auth exchange-oidc-token \
+  --token "$$OIDC_TOKEN" \
+  --tenant_id <workspace-id>
 ```
 
 ### AWS Cognito authentication
@@ -87,15 +86,14 @@ nsc auth trust-aws-cognito-identity-pool \
   --tenant_id <workspace-id>
 ```
 
-Once configured, the build step exchanges the instance profile credentials for a Cognito token and authenticates to your Namespace workspace:
+Once the configuration is done, the instance profile credentials need to be exchanged for a Cognito token for further authentication to your Namespace workspace:
 
-```yaml
-    command: |
-      # Authenticate using AWS Cognito
-      /usr/local/bin/nsc auth exchange-aws-cognito-token \
-        --aws_region <your-region> \
-        --identity_pool <pool-guid> \
-        --tenant_id <workspace-id>
+```bash
+# Authenticate using AWS Cognito
+/usr/local/bin/nsc auth exchange-aws-cognito-token \
+  --aws_region <your-region> \
+  --identity_pool <pool-guid> \
+  --tenant_id <workspace-id>
 ```
 
 ## Pushing to external registries
