@@ -174,10 +174,14 @@ func isCommandGroup(name string) bool {
 		"build":     true,
 		"cluster":   true,
 		"configure": true,
+		"init":      true,
 		"job":       true,
 		"pipeline":  true,
 		"package":   true,
+		"use":       true,
 		"user":      true,
+		"version":   true,
+		"whoami":    true,
 	}
 	return knownGroups[name]
 }
@@ -530,10 +534,14 @@ func getGroupDescription(name string) string {
 		"build":     "manage pipeline builds",
 		"cluster":   "manage organization clusters",
 		"configure": "configure your Buildkite CLI settings",
+		"init":      "initialize a pipeline file with Buildkite Pipelines",
 		"job":       "manage jobs within builds",
 		"pipeline":  "manage pipelines",
 		"package":   "manage packages",
+		"use":       "choose which Buildkite organization to work with",
 		"user":      "manage users in your organization",
+		"version":   "display which version of the Buildkite CLI you're using",
+		"whoami":    "display information about the current user's Buildkite organization and API token",
 	}
 	if desc, ok := descriptions[name]; ok {
 		return desc
