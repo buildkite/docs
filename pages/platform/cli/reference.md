@@ -4,9 +4,9 @@ toc: false
 
 # Command-line reference overview
 
-The `bk` CLI allows you interact with Buildkite via the command line. The comprehensive command set lets you interact with Buildkite, manage agent configuration, control job execution, and manipulate artifacts. These commands are essential for managing your build infrastructure, automating tasks, and troubleshooting issues.
+The Buildkite CLI (`bk`) allows you to interact with the Buildkite platform through the command line. The comprehensive set of `bk` commands, organized by category, lets you manage Buildkite Agents and their configuration, work with a Buildkite pipeline's builds, control job execution, and manipulate its artifacts. These commands can be essential for managing your build infrastructure, automating tasks, and troubleshooting issues.
 
-The following pages describe how to use the `bk` CLI, organized by command:
+The following pages describe how to use the `bk` command, organized by its command category:
 
 - [`agent`](/docs/platform/cli/reference/agent)
 - [`api`](/docs/platform/cli/reference/api)
