@@ -46,9 +46,10 @@ Leverage programmatic controls to maintain consistency:
 - Implement [SSO integration](/docs/platform/sso) to automatically assign new users to appropriate teams.
 - Configure agent restrictions using the `BUILDKITE_BUILD_CREATOR_TEAMS` environment variable.
 - Set up automatic team membership for new organization members.
+- You can also use [Buildkite Terraform provider](/docs/pipelines/best-practices/iac#terraform-provider) to manage users and teams programmatically. You can learn more in the [Manage your CI/CD resources as Code with Terraform](https://buildkite.com/resources/blog/manage-your-ci-cd-resources-as-code-with-terraform/) blog post.
 
 > 📘 Security incident response
-> Platform teams can quickly respond to security incidents by immediately removing compromised users from the organization, which instantly revokes all their access to organizational resources. For organizations with SSO enabled, coordinate user removal both in Buildkite and your SSO provider to prevent re-authentication.
+> Platform teams can quickly respond to security incidents by immediately removing compromised users from the organization, which instantly revokes all their access to organizational resources. For organizations with SSO enabled, coordinate user removal both in Buildkite and your SSO provider to prevent re-authentication. Enterprise customers using SCIM deprovisioning can automate this by deactivating users directly in their identity provider.
 
 ## Enforcement of access controls
 
@@ -94,26 +95,7 @@ Setting up notification service(s) allows platform teams to:
 - Use thread replies for follow-up logs or links to build pages, keeping the main channel concise.
 - Configure different channels for routine and critical events.
 
-Example configuration for setting up Slack notifications:
-
-```yaml
-steps:
-  - label: ":pipeline: Build and test"
-    command: "scripts/build.sh"
-
-  - block: ":rocket: Deploy?"
-    branches: "main"
-
-  - command: "scripts/deploy.sh"
-    if: "build.branch == 'main' && build.state == 'passed'"
-
-  - notify:
-      slack:
-        channels: "#ci-alerts"
-        message: |
-          :rotating_light: Build {{build.number}} of {{pipeline.name}} failed on {{build.branch}}.
-          <{{build.web_url}}|View build> — queued for {{build.queue_time}}s, ran for {{build.duration}}s.
-```
+See more in [Notifications](/docs/pipelines/configure/notifications#slack-channel-and-direct-messages).
 
 ## Custom checkout scripts
 
@@ -154,7 +136,7 @@ By implementing these cost controls, platform teams can maintain predictable inf
 
 ### User and license management
 
-Since the cost of using Buildkite Pipelines (depending on your tier) is partially based on the number of users, the platform administrators can track the number of users in an organization with the help of the following GraphQL query:
+Since the cost of using Buildkite Pipelines (depending on your tier) is partially based on the number of active users, the platform administrators can track the number of users in an organization with the help of the following GraphQL query:
 
 ```graphql
 query getOrgMembersCount {
