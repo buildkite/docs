@@ -10,7 +10,7 @@ set -euo pipefail
 CLI_VERSION="v3.17.1"
 
 # Output directory for generated docs
-OUTPUT_DIR="$(git rev-parse --show-toplevel)/pages/platform/cli"
+OUTPUT_DIR="$(git rev-parse --show-toplevel)/pages/platform/cli/reference"
 
 # Locally, things tend to get installed to $(go env GOBIN), but in CI, they get installed to $(go env GOPATH)/bin
 INSTALL_PATH="$(go env GOBIN)"

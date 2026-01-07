@@ -56,8 +56,8 @@ func main() {
 	if len(os.Args) < 3 {
 		fmt.Fprintf(os.Stderr, "Usage: %s <cli-binary> <output-dir> [command-group...]\n", os.Args[0])
 		fmt.Fprintf(os.Stderr, "\nExamples:\n")
-		fmt.Fprintf(os.Stderr, "  %s /path/to/bk ./pages/platform/cli\n", os.Args[0])
-		fmt.Fprintf(os.Stderr, "  %s /path/to/bk ./pages/platform/cli build cluster\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "  %s /path/to/bk ./pages/platform/cli/reference\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "  %s /path/to/bk ./pages/platform/cli/reference build cluster\n", os.Args[0])
 		os.Exit(1)
 	}
 
