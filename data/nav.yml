@@ -867,7 +867,6 @@
         - name: "Configuration"
           path: "platform/cli/configuration"
         - name: "Command-line reference"
-          start_expanded: true
           children:
             - name: "Overview"
               path: "platform/cli/reference"

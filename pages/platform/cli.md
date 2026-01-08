@@ -10,7 +10,7 @@ The Buildkite CLI can be installed on all major platforms. Learn more about how 
 
 ## Usage
 
-Once you've installed the Buildkite CLI, you can start using it by typing `bk`, followed by its specific command at your command-line prompt. To learn more about the `bk` command's own comprehensive set of command categories, see the [Command-line reference](/docs/platform/cli/reference).
+Once you've installed the Buildkite CLI, you can start using it by typing `bk`, followed by its specific command at your command-line prompt. To learn more about the `bk` command's own comprehensive set of command categories, enter `bk` at the command prompt to see its list of available commands, as well as consulting the [Command-line reference](/docs/platform/cli/reference) for more detailed information.
 
 ## Configuration
 
