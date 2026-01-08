@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# This script generates documentation for the Buildkite CLI (bk).
+# It auto-discovers command groups and generates markdown files.
+
+# This picks the CLI version to generate docs for.
+# It should be a Git tag or commit hash.
+CLI_VERSION="v3.18.0"
+
+# Output directory for generated docs
+OUTPUT_DIR="$(git rev-parse --show-toplevel)/pages/platform/cli/reference"
+
+# Locally, things tend to get installed to $(go env GOBIN), but in CI, they get installed to $(go env GOPATH)/bin
+INSTALL_PATH="$(go env GOBIN)"
+if [[ -z $INSTALL_PATH ]]; then
+  INSTALL_PATH="$(go env GOPATH)/bin"
+fi
+
+# Note that go install names the binary "cli", when it is normally "bk".
+# Rather than renaming, I'm leaving it, so that we avoid accidentally calling
+# an existing bk.
+BK_CLI="${INSTALL_PATH}/cli"
+
+echo "Installing buildkite/cli ${CLI_VERSION} to ${BK_CLI}"
+go install "github.com/buildkite/cli/v3@${CLI_VERSION}"
+
+echo "Installing bkcli2md"
+go install -buildvcs=false ./scripts/bkcli2md
+BKCLI2MD="${INSTALL_PATH}/bkcli2md"
+
+echo "Output directory: ${OUTPUT_DIR}"
+echo ""
+
+# Run the generator
+# Pass any additional arguments (command groups to filter)
+"${BKCLI2MD}" "${BK_CLI}" "${OUTPUT_DIR}" "$@"
+
+echo ""
+echo "Done! Generated documentation in ${OUTPUT_DIR}"
