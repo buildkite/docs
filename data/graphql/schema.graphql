@@ -7664,9 +7664,10 @@ type Pipeline implements Node {
   visibility: PipelineVisibility!
 
   """
-  The webhookURL field returns the webhook URL if the user has edit permissions for the pipeline. Otherwise, it returns null.
+  The webhookURL field returns the webhook URL if the user has edit permissions
+  for the pipeline. Otherwise, it returns null.
   """
-  webhookURL: String!
+  webhookURL: String
 }
 
 """
