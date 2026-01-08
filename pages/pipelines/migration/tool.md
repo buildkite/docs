@@ -15,7 +15,7 @@ The Buildkite migration tool:
 
 - Can be used as a standalone tool or potentially integrated into your [Buildkite Migration Services](https://buildkite.com/resources/migrations/) process, offering a way to leverage existing CI configurations within the Buildkite ecosystem.
 
-- Can be run using the [Buildkite CLI](/docs/platform/cli).
+- Can be run using the [`bk pipeline migrate` command](/docs/platform/cli/reference/pipeline#migrate-a-pipeline) of the [Buildkite CLI](/docs/platform/cli).
 
 ## Interactive web-based version
 

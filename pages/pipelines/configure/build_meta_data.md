@@ -83,13 +83,13 @@ The **New Build** dialog will include the `block` or `input` step fields, and wi
 Meta-data fields can also be pre-populated using query string parameters.
 
 ```
-https://buildkite.com/organizations/{organization-slug}/pipelines/{pipelines-slug}/new?meta_data[{key}]={value}
+https://buildkite.com/organizations/{organization-slug}/pipelines/{pipelines-slug}/builds/new?meta_data[{key}]={value}
 ```
 
 You can pre-populate the input fields of such pipelines' URLs, which you can bookmark for subsequent use:
 
 ```
-https://buildkite.com/organizations/demo/pipelines/activities/new?meta_data[city]=Melbourne&meta_data[activities]=restaurants,sports
+https://buildkite.com/organizations/demo/pipelines/activities/builds/new?meta_data[city]=Melbourne&meta_data[activities]=restaurants,sports
 ```
 
 <%= image "new_build_form.png", alt: "New Build form with input fields pre-populated" %>

@@ -76,6 +76,30 @@ query getOrgMember {
 }
 ```
 
+## Find inactive organization members
+
+List organization members who haven't been active since a specific date.
+
+```graphql
+query getInactiveOrgMembers {
+  organization(slug: "organization-slug") {
+    members(first: 100, inactiveSince: "2025-01-01") {
+      count
+      edges {
+        node {
+          id
+          lastSeenAt
+          user {
+            name
+            email
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ## Get the most recent SSO sign-in for all users
 
 Use this to get the last sign-in date for users in your organization, if your organization has SSO enabled.
