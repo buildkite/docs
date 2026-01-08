@@ -92,6 +92,8 @@
           path: "pipelines/best-practices/caching"
         - name: "Monitoring and observability"
           path: "pipelines/best-practices/monitoring-and-observability"
+        - name: "Platform controls"
+          path: "pipelines/best-practices/platform-controls"
         - name: "Enforcing security controls"
           path: "pipelines/best-practices/security-controls"
     - name: "Tutorials"
