@@ -41,6 +41,7 @@ bk api [<endpoint>] [flags]
 | `-H`, `--headers=HEADERS,...` | Headers to include in the request |
 | `-X`, `--method=STRING` | HTTP method to use |
 | `--analytics` | Use the Test Analytics endpoint |
+| `--debug` | Enable debug output for REST API calls |
 
 ## Examples
 

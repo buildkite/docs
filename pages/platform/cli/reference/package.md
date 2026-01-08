@@ -46,6 +46,7 @@ bk package push <registry-slug> [<std-in-arg>] [flags]
 | Flag | Description |
 | --- | --- |
 | `-w`, `--web` | Open the pipeline in a web browser. |
+| `--debug` | Enable debug output for REST API calls |
 | `--file-path=STRING` | Path to the package file to push |
 | `--stdin-file-name=STRING` | The filename to use when reading the package from stdin |
 

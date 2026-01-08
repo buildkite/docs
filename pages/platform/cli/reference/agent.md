@@ -48,6 +48,7 @@ bk agent pause <agent-id> [flags]
 
 | Flag | Description |
 | --- | --- |
+| `--debug` | Enable debug output for REST API calls |
 | `--note=STRING` | A descriptive note to record why the agent is paused |
 | `--timeout-in-minutes=5` | Timeout after which the agent is automatically resumed, in minutes |
 
@@ -90,6 +91,7 @@ bk agent list [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output="json"` | Output format. One of: json, yaml, text |
+| `--debug` | Enable debug output for REST API calls |
 | `--hostname=STRING` | Filter agents by their hostname |
 | `--limit=100` | Maximum number of agents to return |
 | `--name=STRING` | Filter agents by their name |
@@ -174,6 +176,12 @@ bk agent resume <agent-id>
 | --- | --- |
 | `<agent-id>` | Agent ID to resume |
 
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `--debug` | Enable debug output for REST API calls |
+
 ### Examples
 
 Resume an agent:
@@ -195,6 +203,7 @@ bk agent stop [<agents> ...] [flags]
 | Flag | Description |
 | --- | --- |
 | `-l`, `--limit=5` | Limit parallel API requests |
+| `--debug` | Enable debug output for REST API calls |
 | `--force` | Force stop the agent. Terminating any jobs in progress |
 
 ### Examples
@@ -243,6 +252,7 @@ bk agent view <agent> [flags]
 | --- | --- |
 | `-o`, `--output="json"` | Output format. One of: json, yaml, text |
 | `-w`, `--web` | Open agent in a browser |
+| `--debug` | Enable debug output for REST API calls |
 
 ### Examples
 

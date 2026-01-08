@@ -48,6 +48,7 @@ bk job cancel <job-id> [flags]
 | Flag | Description |
 | --- | --- |
 | `-w`, `--web` | Open the job in a web browser after it has been cancelled |
+| `--debug` | Enable debug output for REST API calls |
 
 ### Examples
 
@@ -83,6 +84,7 @@ bk job list [flags]
 | --- | --- |
 | `-o`, `--output="json"` | Output format. One of: json, yaml, text |
 | `-p`, `--pipeline=STRING` | Filter by pipeline slug |
+| `--debug` | Enable debug output for REST API calls |
 | `--duration=STRING` | Filter by duration (e.g. >10m, <5m, 20m) - supports >, <, >=, <= operators |
 | `--limit=100` | Maximum number of jobs to return |
 | `--no-limit` | Fetch all jobs (overrides --limit) |
@@ -162,6 +164,12 @@ bk job retry <job-id>
 | --- | --- |
 | `<job-id>` | Job UUID to retry |
 
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `--debug` | Enable debug output for REST API calls |
+
 ### Examples
 
 Retry a job by UUID:
@@ -189,6 +197,7 @@ bk job unblock <job-id> [flags]
 | Flag | Description |
 | --- | --- |
 | `--data=STRING` | JSON formatted data to unblock the job |
+| `--debug` | Enable debug output for REST API calls |
 
 ### Examples
 

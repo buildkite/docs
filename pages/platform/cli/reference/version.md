@@ -1,7 +1,3 @@
----
-toc: false
----
-
 <!--
 
  _____           ______                _______    _ _
@@ -29,4 +25,10 @@ Print the version of the CLI being used
 ```bash
 bk version [flags]
 ```
+
+## Flags
+
+| Flag | Description |
+| --- | --- |
+| `--debug` | Enable debug output for REST API calls |
 

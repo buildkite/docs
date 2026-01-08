@@ -1,7 +1,3 @@
----
-toc: false
----
-
 <!--
 
  _____           ______                _______    _ _
@@ -29,4 +25,10 @@ Initialize a pipeline.yaml file
 ```bash
 bk init [flags]
 ```
+
+## Flags
+
+| Flag | Description |
+| --- | --- |
+| `--debug` | Enable debug output for REST API calls |
 

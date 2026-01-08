@@ -32,6 +32,12 @@ bk use [<organization-slug>] [flags]
 | --- | --- |
 | `[<organization-slug>]` | Organization slug to use |
 
+## Flags
+
+| Flag | Description |
+| --- | --- |
+| `--debug` | Enable debug output for REST API calls |
+
 ## Examples
 
 Use the 'my-cool-org' configuration:

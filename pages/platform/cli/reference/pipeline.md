@@ -52,6 +52,7 @@ bk pipeline copy [<pipeline>] [flags]
 | `-c`, `--cluster=STRING` | Cluster name or ID for the new pipeline (required for cross-org copies if target org uses clusters) |
 | `-o`, `--output="json"` | Output format: json, yaml, text |
 | `-t`, `--target=STRING` | Name for the new pipeline, or org/name to copy to a different organization |
+| `--debug` | Enable debug output for REST API calls |
 | `--dry-run` | Show what would be copied without creating the pipeline |
 
 ### Examples
@@ -120,6 +121,7 @@ bk pipeline create <name> [flags]
 | `-d`, `--description=STRING` | Description of the pipeline |
 | `-o`, `--output="json"` | Outputs the created pipeline. One of: json, yaml, text |
 | `-r`, `--repository=STRING` | Repository URL |
+| `--debug` | Enable debug output for REST API calls |
 | `--dry-run` | Simulate pipeline creation without actually creating it |
 
 ### Examples
@@ -170,6 +172,7 @@ bk pipeline list [flags]
 | `-n`, `--name=STRING` | Filter pipelines by name (supports partial matches, case insensitive) |
 | `-o`, `--output="json"` | Output format. One of: json, yaml, text |
 | `-r`, `--repository=STRING` | Filter pipelines by repository URL (supports partial matches, case insensitive) |
+| `--debug` | Enable debug output for REST API calls |
 
 ### Examples
 
@@ -225,6 +228,7 @@ bk pipeline migrate --file=STRING [flags]
 | `-o`, `--output=STRING` | Custom path to save the migrated pipeline (default: .buildkite/pipeline.<vendor>.yml) |
 | `-v`, `--vendor=STRING` | CI/CD vendor (auto-detected if not specified) |
 | `--ai` | Use AI-powered migration (recommended for Jenkins) |
+| `--debug` | Enable debug output for REST API calls |
 | `--timeout=300` | Timeout in seconds (use 600+ for AI migrations) |
 
 ### Examples
@@ -266,6 +270,7 @@ bk pipeline validate [flags]
 | Flag | Description |
 | --- | --- |
 | `-f`, `--file=FILE,...` | Path to the pipeline YAML file(s) to validate |
+| `--debug` | Enable debug output for REST API calls |
 
 ### Examples
 
@@ -307,6 +312,7 @@ bk pipeline view [<pipeline>] [flags]
 | --- | --- |
 | `-o`, `--output="json"` | Output format. One of: json, yaml, text |
 | `-w`, `--web` | Open the pipeline in a web browser. |
+| `--debug` | Enable debug output for REST API calls |
 
 ### Examples
 

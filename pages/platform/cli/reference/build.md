@@ -54,6 +54,7 @@ bk build create [flags]
 | `-M`, `--metadata=METADATA,...` | Set metadata for the build (KEY=VALUE) |
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-w`, `--web` | Open the build in a web browser after it has been created. |
+| `--debug` | Enable debug output for REST API calls |
 
 ### Examples
 
@@ -95,6 +96,7 @@ bk build cancel <build-number> [flags]
 | --- | --- |
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-w`, `--web` | Open the build in a web browser after it has been cancelled. |
+| `--debug` | Enable debug output for REST API calls |
 
 ### Examples
 
@@ -133,6 +135,7 @@ bk build view [<build-number>] [flags]
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-u`, `--user=STRING` | Filter builds to this user. You can use name or email. |
 | `-w`, `--web` | Open the build in a web browser. |
+| `--debug` | Enable debug output for REST API calls |
 | `--mine` | Filter builds to only my user. |
 
 ### Examples
@@ -202,6 +205,7 @@ bk build list [flags]
 | `--branch=BRANCH,...` | Filter by branch name |
 | `--commit=STRING` | Filter by commit SHA |
 | `--creator=STRING` | Filter by creator (email address or user ID) |
+| `--debug` | Enable debug output for REST API calls |
 | `--duration=STRING` | Filter by duration (e.g. >5m, <10m, 20m) - supports >, <, >=, <= operators |
 | `--limit=50` | Maximum number of builds to return |
 | `--message=STRING` | Filter by message content --meta-data=KEY=VALUE;...    Filter by build meta-data (key=value format, can be specified multiple times) |
@@ -312,6 +316,7 @@ bk build download [<build-number>] [flags]
 | `-m`, `--mine` | Filter builds to only my user. |
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-u`, `--user=STRING` | Filter builds to this user. You can use name or email. |
+| `--debug` | Enable debug output for REST API calls |
 
 ### Examples
 
@@ -368,6 +373,7 @@ bk build rebuild [<build-number>] [flags]
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-u`, `--user=STRING` | Filter builds to this user. You can use name or email. |
 | `-w`, `--web` | Open the build in a web browser after it has been created. |
+| `--debug` | Enable debug output for REST API calls |
 
 ### Examples
 
@@ -427,6 +433,7 @@ bk build watch [<build-number>] [flags]
 | --- | --- |
 | `-b`, `--branch=STRING` | The branch to watch builds for. |
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
+| `--debug` | Enable debug output for REST API calls |
 | `--interval=1` | Polling interval in seconds |
 
 ### Examples

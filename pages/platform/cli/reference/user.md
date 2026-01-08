@@ -34,6 +34,12 @@ Invite users to your organization.
 bk user invite <emails> ...
 ```
 
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `--debug` | Enable debug output for REST API calls |
+
 ### Examples
 
 Invite a single user to your organization:

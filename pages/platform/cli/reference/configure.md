@@ -38,6 +38,7 @@ bk configure add [flags]
 
 | Flag | Description |
 | --- | --- |
+| `--debug` | Enable debug output for REST API calls |
 | `--force` | Force setting a new token |
 | `--org=STRING` | Organization slug |
 | `--token=STRING` | API token |

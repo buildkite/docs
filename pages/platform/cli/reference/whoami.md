@@ -31,6 +31,7 @@ bk whoami [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output="json"` | Output format. One of: json, yaml, text |
+| `--debug` | Enable debug output for REST API calls |
 
 ## Examples
 
