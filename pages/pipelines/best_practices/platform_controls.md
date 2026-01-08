@@ -9,7 +9,9 @@ This guide covers how platform (infrastructure) teams can maintain centralized c
 
 The key to successful administration of the Buildkite Pipelines platform lies in finding the right balance between centralized control and developer autonomy. Platform teams need to manage shared resources and enforce company-wide standards while avoiding becoming a bottleneck for feature teams.
 
-The distinction between platform and developer teams is that platform team specifies the settings like the size of the infrastructure, machine capacity, maximum rerun attempts, time-outs, etc. in the [YAML pipeline configurations included in the codebase](/docs/pipelines/create-your-own#create-a-pipeline), that stays unchanged (by the developer teams). The platform team also manages the scripts that read these YAML configuration files and generate the correct pipeline(s), and allocates agents (with correct underlying capacity) to run the jobs in those pipelines.
+The distinction between platform and developer teams is that platform team specifies the settings like the size of the infrastructure, machine capacity, maximum rerun attempts, time-outs, etc. in the [YAML pipeline configurations included in the codebase](/docs/pipelines/create-your-own#create-a-pipeline), that stays unchanged (by the developer teams).
+
+The platform team also manages the scripts that read these YAML configuration files and generate the correct pipeline(s), and allocates agents (with correct underlying capacity) to run the jobs in those pipelines.
 
 ## Agent infrastructure administration
 
@@ -24,7 +26,9 @@ Platform teams need to create and be responsible for the pipeline YAML and the [
 
 Pipeline templates provide platform teams with a powerful mechanism to enforce standardization and security across all CI/CD pipelines in your organization. By creating centrally-managed templates that define approved step configurations, security scanning requirements, deployment patterns, and compliance checks, platform teams can ensure that all developer teams follow established best practices without needing to manually review every pipeline.
 
-The ability to update templates centrally means that policy changes or security improvements can be rolled out instantly across all pipelines using that template, eliminating the need to coordinate updates across multiple developer teams. Additionally, platform teams can create different template variants for different environments or application types (microservices, frontend applications, data pipelines) while maintaining consistent underlying security and infrastructure patterns, providing both flexibility and control over your organization's build and deployment processes.
+The ability to update templates centrally means that policy changes or security improvements can be rolled out instantly across all pipelines using that template, eliminating the need to coordinate updates across multiple developer teams.
+
+Additionally, platform teams can create different template variants for different environments or application types (microservices, frontend applications, data pipelines) while maintaining consistent underlying security and infrastructure patterns, providing both flexibility and control over your organization's build and deployment processes.
 
 ## Implementing least privilege access
 
@@ -55,7 +59,7 @@ Leverage programmatic controls to maintain consistency:
 
 Access controls determine who can view or modify your pipeline configurations. Getting this right means your sensitive pipelines stay in the right hands.
 
-- Set up team-based access controls that match how your organization actually works. Give teams the permissions they need—whether that's read-only access for visibility or write permissions for teams managing their own pipelines. Check out [Teams permissions](/docs/platform/team-management/permissions) for details on configuring these settings.
+- Set up team-based access controls that match how your organization actually works. Give teams the permissions they need,  whether that's read-only access for visibility or write permissions for teams managing their own pipelines. Check out [Teams permissions](/docs/platform/team-management/permissions) for details on configuring these settings.
 - Protect your critical branches. If you're using branch-based workflows, use branch protections to prevent unauthorized changes to sensitive pipelines. This adds a layer of review before changes go live.
 - Review permissions regularly. As people join, leave, or change roles, and as projects evolve, permissions that made sense six months ago might not make sense today. Schedule periodic access reviews to keep things tidy.
 - Integrate SSO or SAML if your organization uses an identity provider. This centralizes authentication, makes onboarding and offboarding smoother, and often helps with compliance requirements. It's also one less set of credentials for people to manage.
@@ -189,13 +193,9 @@ Block steps work particularly well for production deployments, infrastructure ch
 
 For more sophisticated deployment patterns, implement canary releases and staged rollouts directly in your pipelines. This lets you gradually increase traffic to new versions while monitoring for issues. See [Deployments](/docs/pipelines/deployments) for implementation details, or use the [Buildkite deployment plugins](https://buildkite.com/docs/pipelines/deployments/deployment-plugins) to standardize these patterns across your organization.
 
-### Pipeline change management
-
-Treat pipeline configurations with the same rigor as application code. Require peer reviews for pipeline changes to catch misconfigurations before they cause incidents. This is especially important for pipelines that deploy to production or manage infrastructure, where a bad configuration can have immediate impact.
-
 ### Reliability and resilience practices
 
-Build resilience testing into your platform operations. Periodically inject failure scenarios—failing agents, flaky dependencies, network issues—to validate that your pipelines handle problems gracefully. This chaos testing approach helps you identify weak points before they cause real incidents.
+Build resilience testing into your platform operations. Periodically inject failure scenarios (failing agents, flaky dependencies, network issues, etc.) to validate that your pipelines handle problems gracefully. This chaos testing approach helps you identify weak points before they cause real incidents.
 
 Never ignore failing steps without a clear follow-up plan. Silent failures erode trust in your CI/CD platform and hide problems that will eventually cause larger issues. Configure your pipelines to surface failures immediately and ensure someone is responsible for addressing them.
 
