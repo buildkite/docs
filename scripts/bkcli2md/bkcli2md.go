@@ -164,10 +164,10 @@ func discoverCommandGroups(helpText string) map[string]string {
 	return groups
 }
 
-// isCommandGroup returns true if the command has subcommands (is a group)
+// isCommandGroup returns true if the command should be documented
 func isCommandGroup(name string) bool {
-	// These are known command groups from bk CLI
-	knownGroups := map[string]bool{
+	// These are known commands from bk CLI (both groups and standalone)
+	knownCommands := map[string]bool{
 		"agent":     true,
 		"api":       true,
 		"artifacts": true,
@@ -176,14 +176,14 @@ func isCommandGroup(name string) bool {
 		"configure": true,
 		"init":      true,
 		"job":       true,
-		"pipeline":  true,
 		"package":   true,
+		"pipeline":  true,
 		"use":       true,
 		"user":      true,
 		"version":   true,
 		"whoami":    true,
 	}
-	return knownGroups[name]
+	return knownCommands[name]
 }
 
 // parseCommandGroup parses a command group and all its subcommands
@@ -388,17 +388,21 @@ func parseHelp(helpText, cmdName string) *Command {
 // generateMarkdown generates the markdown documentation for a command group
 func generateMarkdown(cmd *Command) string {
 	var b strings.Builder
-
-	// Header
-	b.WriteString(fileHeader(cmd.Name))
-
-	// Title and intro
-	fmt.Fprintf(&b, "# Buildkite CLI %s command\n\n", cmd.Name)
-	fmt.Fprintf(&b, "The `bk %s` command allows you to %s from the command line.\n\n",
-		cmd.Name, getGroupDescription(cmd.Name))
+	hasH2 := false
 
 	// If no subcommands, document the command itself
 	if len(cmd.Subcommands) == 0 {
+		localFlags := filterLocalFlags(cmd.Flags)
+		hasH2 = len(cmd.Arguments) > 0 || len(localFlags) > 0 || len(cmd.Examples) > 0
+
+		// Header (with toc frontmatter if no h2 headings)
+		b.WriteString(fileHeader(!hasH2))
+
+		// Title and intro
+		fmt.Fprintf(&b, "# Buildkite CLI %s command\n\n", cmd.Name)
+		fmt.Fprintf(&b, "The `bk %s` command allows you to %s from the command line.\n\n",
+			cmd.Name, getGroupDescription(cmd.Name))
+
 		// Description
 		if cmd.Description != "" {
 			desc := cmd.Description
@@ -423,7 +427,6 @@ func generateMarkdown(cmd *Command) string {
 		}
 
 		// Flags
-		localFlags := filterLocalFlags(cmd.Flags)
 		if len(localFlags) > 0 {
 			b.WriteString("## Flags\n\n")
 			b.WriteString("| Flag | Description |\n")
@@ -443,6 +446,14 @@ func generateMarkdown(cmd *Command) string {
 
 		return b.String()
 	}
+
+	// Header (command groups always have h2 headings)
+	b.WriteString(fileHeader(false))
+
+	// Title and intro
+	fmt.Fprintf(&b, "# Buildkite CLI %s command\n\n", cmd.Name)
+	fmt.Fprintf(&b, "The `bk %s` command allows you to %s from the command line.\n\n",
+		cmd.Name, getGroupDescription(cmd.Name))
 
 	// Commands table for parent commands
 	b.WriteString("## Commands\n\n")
@@ -504,8 +515,12 @@ func generateMarkdown(cmd *Command) string {
 	return b.String()
 }
 
-func fileHeader(name string) string {
-	return fmt.Sprintf(`<!--
+func fileHeader(disableToc bool) string {
+	tocFrontmatter := ""
+	if disableToc {
+		tocFrontmatter = "---\ntoc: false\n---\n\n"
+	}
+	return fmt.Sprintf(`%s<!--
 
  _____           ______                _______    _ _
 (____ \         |  ___ \       _      (_______)  | (_)_
@@ -523,7 +538,7 @@ To update this file:
 
 -->
 
-`)
+`, tocFrontmatter)
 }
 
 func getGroupDescription(name string) string {
@@ -536,8 +551,8 @@ func getGroupDescription(name string) string {
 		"configure": "configure your Buildkite CLI settings",
 		"init":      "initialize a pipeline file with Buildkite Pipelines",
 		"job":       "manage jobs within builds",
-		"pipeline":  "manage pipelines",
 		"package":   "manage packages",
+		"pipeline":  "manage pipelines",
 		"use":       "choose which Buildkite organization to work with",
 		"user":      "manage users in your organization",
 		"version":   "display which version of the Buildkite CLI you're using",
