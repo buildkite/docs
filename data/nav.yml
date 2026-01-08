@@ -242,6 +242,8 @@
                           path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/buildah-container-builds"
                         - name: "Depot"
                           path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/depot-elastic-ci-container-builds"
+                        - name: "Namespace remote builders"
+                          path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/namespace-remote-builders"
                     - name: "Troubleshooting"
                       path: "agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/troubleshooting"
                 - name: "EC2 Mac"
