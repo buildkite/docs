@@ -151,6 +151,16 @@
       }
     }
 
+    &--level7 {
+      &::before {
+        left: 82px;
+
+        @media (min-width: $screen-md) {
+          left: 62px;
+        }
+      }
+    }
+
     &--type {
       &-back {
         &::before {
@@ -228,6 +238,14 @@
 
       @media (min-width: $screen-md) {
         padding-left: 66px;
+      }
+    }
+
+    &--level7 {
+      padding-left: 100px;
+
+      @media (min-width: $screen-md) {
+        padding-left: 77px;
       }
     }
   }
